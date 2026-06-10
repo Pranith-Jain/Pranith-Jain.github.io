@@ -30,7 +30,7 @@ export const GP_FEEDS: ReadonlyArray<{ key: string; path: string }> = [
   { key: 'stealer', path: '/api/v1/stealer-forum-intel' },
   { key: 'secretleaks', path: '/api/v1/secret-leaks' },
   { key: 'malpkg', path: '/api/v1/malicious-packages' },
-  { key: 'exploit', path: '/api/v1/exploit-db?q=2026' },
+  { key: 'exploit', path: '/api/v1/exploit-db?latest=1' },
   { key: 'ghsa', path: '/api/v1/github-security?ecosystem=npm' },
   { key: 'kev', path: '/api/v1/cisa-kev?days=30' },
 ];
@@ -417,7 +417,6 @@ function fromReddit(data: {
   }));
 }
 
-
 function fromTelegram(data: {
   items?: Array<{ text: string; channel_name: string; channel_topic: string; permalink: string; datetime: string }>;
 }): PulseEvent[] {
@@ -538,7 +537,7 @@ function fromLiveIocs(data: {
 
 type Sev = PulseEvent['severity'];
 const asSev = (s: string | undefined, fallback: Sev = 'medium'): Sev =>
-  (['critical', 'high', 'medium', 'low'].includes(s ?? '') ? (s as Sev) : fallback);
+  ['critical', 'high', 'medium', 'low'].includes(s ?? '') ? (s as Sev) : fallback;
 
 // ── GitHub secret leaks (secret-leaks) ──────────────────────────────────
 function fromSecretLeaks(data: {
@@ -729,7 +728,6 @@ function fromRansomware(data: {
     };
   });
 }
-
 
 function fromCybercrime(data: {
   items?: Array<{ title: string; source?: string; url?: string; date?: string; published?: string }>;
@@ -991,48 +989,129 @@ async function fetchGdacsAlerts(): Promise<PulseEvent[]> {
 
 /* ─── Feodo Tracker (Botnet C2 Infrastructure) ─────────────────────────── */
 
+// Multi-source live C2 infrastructure. Was Feodo-only (~1 online geo-located
+// host); now also pulls live Cobalt Strike beacons (CriticalPathSecurity) and
+// the C2IntelFeeds 30-day IP:port+framework set so the C2 layer reflects the
+// real C2 surface. Feodo carries a country → globe markers; the IP-only feeds
+// are non-geo → CTI feed panel. Deduped by IP across all sources.
 async function fetchBotnetC2(): Promise<PulseEvent[]> {
+  const IPV4 = /^\d{1,3}(?:\.\d{1,3}){3}$/;
+  const get = (url: string, ms = 8000) =>
+    fetch(url, { signal: AbortSignal.timeout(ms), headers: { 'user-agent': 'pranithjain-dfir/1.0' } });
+  const events: PulseEvent[] = [];
+  const seen = new Set<string>();
+
+  // 1) Feodo Tracker — geo-located → globe markers.
   try {
-    const res = await fetch('https://feodotracker.abuse.ch/downloads/ipblocklist.json', {
-      signal: AbortSignal.timeout(8000),
-    });
-    if (!res.ok) return [];
-    const data = (await res.json()) as Array<{
-      ip_address: string;
-      port: number;
-      status: string;
-      hostname: string | null;
-      as_number: number;
-      as_name: string;
-      country: string;
-      first_seen: string;
-      last_online: string;
-      malware: string;
-    }>;
-    // Only show online C2 servers
-    return data
-      .filter((c) => c.status === 'online')
-      .slice(0, 30)
-      .map((c) => {
+    const res = await get('https://feodotracker.abuse.ch/downloads/ipblocklist.json');
+    if (res.ok) {
+      const data = (await res.json()) as Array<{
+        ip_address: string;
+        port: number;
+        status: string;
+        hostname: string | null;
+        as_name: string;
+        country: string;
+        first_seen: string;
+        last_online: string;
+        malware: string;
+      }>;
+      for (const c of data.filter((c) => c.status === 'online').slice(0, 25)) {
         const coords = COUNTRY_COORDS[c.country];
-        return {
-          id: `c2-${c.ip_address}-${c.port}`,
+        if (!coords || seen.has(c.ip_address)) continue;
+        seen.add(c.ip_address);
+        events.push({
+          id: `c2-feodo-${c.ip_address}-${c.port}`,
           kind: 'c2_tracker' as const,
           title: `${c.malware} C2 — ${c.ip_address}:${c.port}`,
           description: `${c.as_name} · ${c.country} · ${c.hostname || 'No hostname'}`,
-          lat: coords ? coords[0] + (Math.random() - 0.5) * 2 : 0,
-          lng: coords ? coords[1] + (Math.random() - 0.5) * 3 : 0,
+          lat: coords[0] + (Math.random() - 0.5) * 2,
+          lng: coords[1] + (Math.random() - 0.5) * 3,
           timestamp: c.last_online || c.first_seen || new Date().toISOString(),
           severity: 'critical' as const,
           source: 'Feodo Tracker',
           url: `https://feodotracker.abuse.ch/host/${c.ip_address}/`,
           country: c.country,
-        };
-      })
-      .filter((e) => e.lat !== 0 || e.lng !== 0);
+        });
+      }
+    }
   } catch {
-    return [];
+    /* skip source */
   }
+
+  // 2) CriticalPathSecurity — live Cobalt Strike beacon IPs (non-geo → feed).
+  try {
+    const res = await get(
+      'https://raw.githubusercontent.com/CriticalPathSecurity/Public-Intelligence-Feeds/master/cobaltstrike_ips.txt'
+    );
+    if (res.ok) {
+      const ips = [
+        ...new Set(
+          (await res.text())
+            .split('\n')
+            .map((l) => l.trim())
+            .filter((l) => IPV4.test(l))
+        ),
+      ];
+      for (const ip of ips.slice(0, 25)) {
+        if (seen.has(ip)) continue;
+        seen.add(ip);
+        events.push({
+          id: `c2-cs-${ip}`,
+          kind: 'c2_tracker' as const,
+          title: `Cobalt Strike C2 — ${ip}`,
+          description: 'Live Cobalt Strike beacon · CriticalPathSecurity',
+          lat: 0,
+          lng: 0,
+          timestamp: new Date().toISOString(),
+          severity: 'critical' as const,
+          source: 'CriticalPathSecurity',
+          url: `https://www.shodan.io/host/${ip}`,
+        });
+      }
+    }
+  } catch {
+    /* skip source */
+  }
+
+  // 3) C2IntelFeeds (drb-ra) — IP,port,framework over a 30-day window (non-geo → feed).
+  try {
+    const res = await get(
+      'https://raw.githubusercontent.com/drb-ra/C2IntelFeeds/master/feeds/IPPortC2s-30day.csv',
+      10000
+    );
+    if (res.ok) {
+      let added = 0;
+      for (const line of (await res.text()).split('\n').slice(1)) {
+        if (added >= 25) break;
+        const [ip, port, ...rest] = line.split(',');
+        if (!ip || !IPV4.test(ip) || seen.has(ip)) continue;
+        seen.add(ip);
+        const framework =
+          (rest.join(',') || 'C2')
+            .replace(/^Possible\s+/i, '')
+            .replace(/\s*C2 IP\s*$/i, '')
+            .trim() || 'C2';
+        events.push({
+          id: `c2-intel-${ip}-${port || '0'}`,
+          kind: 'c2_tracker' as const,
+          title: `${framework} C2 — ${ip}${port ? `:${port}` : ''}`,
+          description: 'C2IntelFeeds · 30-day',
+          lat: 0,
+          lng: 0,
+          timestamp: new Date().toISOString(),
+          severity: 'high' as const,
+          source: 'C2IntelFeeds',
+          url: `https://www.shodan.io/host/${ip}`,
+        });
+        added++;
+      }
+    }
+  } catch {
+    /* skip source */
+  }
+
+  return events;
 }
 
 /* ─── SANS DShield Top Attackers ───────────────────────────────────────── */
@@ -2019,7 +2098,6 @@ function fromIocCorrelation(data: IocCorrelationResponse): PulseEvent[] {
 
 /* ─── Breach Forums (forum intelligence) ──────────────────────────────────── */
 
-
 /* ─── Handler ───────────────────────────────────────────────────────────── */
 
 export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
@@ -2434,7 +2512,6 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
         /* degraded */
       }
     }
-
 
     // ── CTI category tagging ──────────────────────────────────────────
     const tagCti = <T extends PulseKind>(kind: T): PulseEvent['cti'] => {
