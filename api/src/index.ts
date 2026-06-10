@@ -539,15 +539,15 @@ import {
 import { generateOpenApiSpec } from './lib/openapi';
 import { apiVersion } from './lib/api-version';
 import {
-  exportToStix21,
-  exportToMisp,
-  exportToSigma,
-  exportToYara,
-  exportToSnort,
-  exportToSuricata,
-  exportToCSV,
-  exportToPfSense,
-} from './lib/export-formats';
+  exportStixHandler,
+  exportMispHandler,
+  exportSigmaHandler,
+  exportYaraHandler,
+  exportSnortHandler,
+  exportSuricataHandler,
+  exportCsvHandler,
+  exportPfSenseHandler,
+} from './routes/export';
 
 app.get('/api/v1/health', (c) =>
   c.json({ ok: true, timestamp: new Date().toISOString() }, 200, { 'Cache-Control': 'public, max-age=60' })
@@ -1082,40 +1082,21 @@ app.put('/api/v1/watches/:id', validate('json', watchUpdateSchema), updateWatchH
 app.delete('/api/v1/watches/:id', deleteWatchHandler);
 app.get('/api/v1/watches/log', alertLogHandler);
 /* ─── Export Hub ──────────────────────────────────────────────────── */
-app.post('/api/v1/export/stix', async (c) => {
-  const body = await c.req.json();
-  return c.text(exportToStix21(body), 200, { 'content-type': 'application/json' });
-});
-app.post('/api/v1/export/misp', async (c) => {
-  const body = await c.req.json();
-  return c.text(exportToMisp(body.iocs, body.event_name ?? 'IOC Export'), 200, { 'content-type': 'application/json' });
-});
-app.post('/api/v1/export/sigma', async (c) => {
-  const body = await c.req.json();
-  return c.text(exportToSigma(body.name, body.description, body.iocs));
-});
-app.post('/api/v1/export/yara', async (c) => {
-  const body = await c.req.json();
-  return c.text(exportToYara(body.name, body.description, body.hash_iocs ?? [], body.string_iocs ?? []));
-});
-app.post('/api/v1/export/snort', async (c) => {
-  const body = await c.req.json();
-  return c.text(exportToSnort(body.name, body.ip_iocs ?? []));
-});
-app.post('/api/v1/export/suricata', async (c) => {
-  const body = await c.req.json();
-  return c.text(exportToSuricata(body.name, body.ip_iocs ?? []));
-});
-app.post('/api/v1/export/csv', async (c) => {
-  const body = await c.req.json();
-  return c.text(exportToCSV(body), 200, { 'content-type': 'text/csv' });
-});
-app.post('/api/v1/export/pfsense', async (c) => {
-  const body = await c.req.json();
-  return c.text(exportToPfSense(body));
-});
+// Handlers live in routes/export.ts: each parses the body via safeJsonBody
+// (400 on malformed input, not a 500), validates the minimal shape it needs,
+// and returns a download with the correct Content-Type + Content-Disposition.
+app.post('/api/v1/export/stix', exportStixHandler);
+app.post('/api/v1/export/misp', exportMispHandler);
+app.post('/api/v1/export/sigma', exportSigmaHandler);
+app.post('/api/v1/export/yara', exportYaraHandler);
+app.post('/api/v1/export/snort', exportSnortHandler);
+app.post('/api/v1/export/suricata', exportSuricataHandler);
+app.post('/api/v1/export/csv', exportCsvHandler);
+app.post('/api/v1/export/pfsense', exportPfSenseHandler);
 
-app.notFound((c) => c.json({ error: 'not_found' }, 404));
+// Standardized 404 shape: matches the api-error contract ({ error, message })
+// so clients get a human-readable message, not just a bare error code.
+app.notFound((c) => c.json({ error: 'not_found', message: 'route not found' }, 404));
 
 app.onError(errorHandler);
 
