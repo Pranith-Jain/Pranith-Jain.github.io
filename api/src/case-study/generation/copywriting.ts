@@ -111,6 +111,7 @@ export const COPYWRITING_RULES =
   `- Wordy: "in order to" -> "to", "due to the fact" -> "because".\n` +
   `- Raw URLs in prose. Never paste links into sentences. References go only where the platform format says (a References list, or omitted).\n` +
   `- Filler advice with no specifics ("keep software updated", "train your employees"). If you give a recommendation it must be concrete and tied to the facts.\n` +
+  `- Generic CTAs on carousel/takeaway slides: "save this for later", "share this with your team", "if this helped save it for your next vendor review", "bookmark this", "repost if you agree". The last slide must deliver a specific insight, not a plea for engagement.\n` +
   `- Generic restatement when the data has specifics: "many of them", "several others", "a number of vulnerabilities", or describing indicators as "suspicious network activity / unusual system behavior". If the facts list real CVEs, vendors, IOCs, or numbers, NAME them.\n` +
   `- Reporting only counts ("30 malicious domains") when the actual values are supplied. Show a representative sample of the real indicators, THEN the total.\n` +
   `- Repeating the same recommendation or sentence across sections (e.g. "patch immediately" three times). Every section must advance NEW information.\n\n` +
