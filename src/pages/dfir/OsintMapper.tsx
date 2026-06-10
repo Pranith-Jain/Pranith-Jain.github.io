@@ -12,8 +12,14 @@ import {
   type OsintProject,
   type Pin,
 } from '../../lib/dfir/osint/osint-schema';
-import { loadState, saveProject, serializeProject, parseImport } from '../../lib/dfir/osint/osint-store';
-import { deleteIdentifier, deletePin } from '../../lib/dfir/osint/osint-mutations';
+import { loadState, saveProject, buildExport, parseImport } from '../../lib/dfir/osint/osint-store';
+import {
+  deleteIdentifier,
+  deletePin,
+  updateIdentifier,
+  updatePin,
+  setPosition,
+} from '../../lib/dfir/osint/osint-mutations';
 import { reverseGeocode } from '../../lib/dfir/osint/geocode';
 
 const ICONS_KEY = 'dfir-osint-icons:v1';
@@ -34,6 +40,8 @@ export default function OsintMapper(): JSX.Element {
   const [tab, setTab] = useState<'graph' | 'map'>('graph');
   const [pending, setPending] = useState<{ lat: number; lng: number; address?: string } | null>(null);
   const [addingId, setAddingId] = useState(false);
+  const [editingIdentifier, setEditingIdentifier] = useState<Identifier | null>(null);
+  const [editingPin, setEditingPin] = useState<Pin | null>(null);
   const [selection, setSelection] = useState<Selection>(null);
   const [importError, setImportError] = useState<string | null>(null);
   const saveTimer = useRef<ReturnType<typeof setTimeout>>();
@@ -50,7 +58,13 @@ export default function OsintMapper(): JSX.Element {
     return new Set(project.links.filter((l) => l.identifierId === selection.id).map((l) => l.pinId));
   }, [selection, project.links]);
 
-  function addIdentifier(id: Identifier, iconDataUrl?: string) {
+  // Form submit for identifiers: edit in place when editing, else add new.
+  function submitIdentifier(id: Identifier, iconDataUrl?: string) {
+    if (editingIdentifier) {
+      setProject((p) => updateIdentifier(p, id.id, { type: id.type, fields: id.fields }));
+      setEditingIdentifier(null);
+      return;
+    }
     let withIcon = id;
     if (iconDataUrl) {
       const iconId = crypto.randomUUID();
@@ -67,7 +81,13 @@ export default function OsintMapper(): JSX.Element {
     setAddingId(false);
   }
 
-  function addPin(pin: Pin, linkedIds: string[]) {
+  // Form submit for pins: edit attributes when editing (links untouched), else add.
+  function submitPin(pin: Pin, linkedIds: string[]) {
+    if (editingPin) {
+      setProject((p) => updatePin(p, pin));
+      setEditingPin(null);
+      return;
+    }
     const links: Link[] = linkedIds.map((identifierId) => ({ id: crypto.randomUUID(), identifierId, pinId: pin.id }));
     setProject((p) => ({ ...p, pins: [...p.pins, pin], links: [...p.links, ...links] }));
     setPending(null);
@@ -83,13 +103,27 @@ export default function OsintMapper(): JSX.Element {
     setSelection((s) => (s?.kind === 'pin' && s.id === id ? null : s));
   }
 
+  function openEditIdentifier(id: string) {
+    const found = project.identifiers.find((i) => i.id === id);
+    if (found) setEditingIdentifier(found);
+  }
+
+  function openEditPin(id: string) {
+    const found = project.pins.find((p) => p.id === id);
+    if (found) setEditingPin(found);
+  }
+
+  function moveNode(id: string, pos: { x: number; y: number }) {
+    setProject((p) => setPosition(p, id, pos));
+  }
+
   async function handleMapClick(lat: number, lng: number) {
     const address = (await reverseGeocode(lat, lng)) ?? undefined;
     setPending({ lat, lng, address });
   }
 
   function doExport() {
-    const blob = new Blob([serializeProject(project)], { type: 'application/json' });
+    const blob = new Blob([buildExport(project, icons)], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
@@ -106,7 +140,18 @@ export default function OsintMapper(): JSX.Element {
     void file.text().then((t) => {
       const imported = parseImport(t);
       if (imported) {
-        setProject(imported);
+        // Merge any embedded custom icons into the per-browser library so the
+        // imported case keeps its icons on this machine.
+        if (Object.keys(imported.icons).length) {
+          const nextIcons = { ...icons, ...imported.icons };
+          setIcons(nextIcons);
+          try {
+            localStorage.setItem(ICONS_KEY, JSON.stringify(nextIcons));
+          } catch {
+            // quota / private-mode: keep icons in memory only
+          }
+        }
+        setProject(imported.project);
         setSelection(null);
         setImportError(null);
       } else {
@@ -179,9 +224,12 @@ export default function OsintMapper(): JSX.Element {
           pins={project.pins}
           links={project.links}
           customIcons={icons}
+          positions={project.positions}
           selectedId={selection?.kind === 'identifier' ? selection.id : null}
           onSelect={(id) => setSelection(id ? { kind: 'identifier', id } : null)}
           onDelete={removeIdentifier}
+          onEdit={openEditIdentifier}
+          onMove={moveNode}
         />
       ) : (
         <MapPane
@@ -190,28 +238,40 @@ export default function OsintMapper(): JSX.Element {
           onMapClick={handleMapClick}
           onSelectPin={(id) => setSelection({ kind: 'pin', id })}
           onDeletePin={removePin}
+          onEditPin={openEditPin}
         />
       )}
 
-      {addingId && (
+      {(addingId || editingIdentifier) && (
         <div className={overlayWrap}>
           <div className={overlayCard}>
-            <h2 className="font-medium mb-3">Add identifier</h2>
-            <IdentifierForm onSubmit={addIdentifier} onCancel={() => setAddingId(false)} />
+            <h2 className="font-medium mb-3">{editingIdentifier ? 'Edit identifier' : 'Add identifier'}</h2>
+            <IdentifierForm
+              initial={editingIdentifier ?? undefined}
+              onSubmit={submitIdentifier}
+              onCancel={() => {
+                setAddingId(false);
+                setEditingIdentifier(null);
+              }}
+            />
           </div>
         </div>
       )}
-      {pending && (
+      {(pending || editingPin) && (
         <div className={overlayWrap}>
           <div className={overlayCard}>
-            <h2 className="font-medium mb-3">Add pin</h2>
+            <h2 className="font-medium mb-3">{editingPin ? 'Edit pin' : 'Add pin'}</h2>
             <PinForm
-              lat={pending.lat}
-              lng={pending.lng}
-              address={pending.address}
+              lat={editingPin?.lat ?? pending?.lat ?? 0}
+              lng={editingPin?.lng ?? pending?.lng ?? 0}
+              address={editingPin?.address ?? pending?.address}
               identifiers={project.identifiers}
-              onSubmit={addPin}
-              onCancel={() => setPending(null)}
+              initial={editingPin ?? undefined}
+              onSubmit={submitPin}
+              onCancel={() => {
+                setPending(null);
+                setEditingPin(null);
+              }}
             />
           </div>
         </div>

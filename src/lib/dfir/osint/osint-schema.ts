@@ -35,6 +35,8 @@ export interface OsintProject {
   identifiers: Identifier[];
   pins: Pin[];
   links: Link[];
+  /** Saved graph node positions, keyed by identifier id. Optional/backward-compatible. */
+  positions?: Record<string, { x: number; y: number }>;
   updatedAt: number;
 }
 

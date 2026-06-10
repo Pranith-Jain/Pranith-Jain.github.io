@@ -1,6 +1,6 @@
 // src/components/dfir/osint/IdentifierNode.tsx
 import { Handle, Position } from '@xyflow/react';
-import { X } from 'lucide-react';
+import { X, Pencil } from 'lucide-react';
 import { getIdentifierType } from '../../../lib/dfir/osint/identifier-types';
 
 export interface IdentifierNodeData {
@@ -9,6 +9,7 @@ export interface IdentifierNodeData {
   selected?: boolean;
   customIconUrl?: string;
   onDelete?: () => void;
+  onEdit?: () => void;
 }
 
 export function IdentifierNode({ data }: { data: IdentifierNodeData }): JSX.Element {
@@ -20,6 +21,20 @@ export function IdentifierNode({ data }: { data: IdentifierNodeData }): JSX.Elem
         data.selected ? 'border-brand-500 ring-2 ring-brand-500/30' : 'border-slate-300 dark:border-slate-700'
       }`}
     >
+      {data.selected && data.onEdit && (
+        <button
+          type="button"
+          aria-label="Edit identifier"
+          title="Edit identifier"
+          className="absolute -top-2 -right-7 z-10 w-5 h-5 flex items-center justify-center rounded-full bg-brand-600 text-white shadow hover:bg-brand-700"
+          onClick={(e) => {
+            e.stopPropagation();
+            data.onEdit?.();
+          }}
+        >
+          <Pencil size={11} />
+        </button>
+      )}
       {data.selected && data.onDelete && (
         <button
           type="button"

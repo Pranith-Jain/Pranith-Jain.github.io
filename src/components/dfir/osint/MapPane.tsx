@@ -42,9 +42,17 @@ export interface MapPaneProps {
   onMapClick: (lat: number, lng: number) => void;
   onSelectPin: (pinId: string) => void;
   onDeletePin: (pinId: string) => void;
+  onEditPin: (pinId: string) => void;
 }
 
-export function MapPane({ pins, selectedPinId, onMapClick, onSelectPin, onDeletePin }: MapPaneProps): JSX.Element {
+export function MapPane({
+  pins,
+  selectedPinId,
+  onMapClick,
+  onSelectPin,
+  onDeletePin,
+  onEditPin,
+}: MapPaneProps): JSX.Element {
   const selectedPin = useMemo(() => pins.find((p) => p.id === selectedPinId) ?? null, [pins, selectedPinId]);
   const recenterTarget = useMemo<{ lat: number; lng: number; zoom: number } | null>(() => {
     if (selectedPin) return { lat: selectedPin.lat, lng: selectedPin.lng, zoom: 12 };
@@ -72,13 +80,22 @@ export function MapPane({ pins, selectedPinId, onMapClick, onSelectPin, onDelete
             <Popup>
               <strong>{p.label}</strong>
               {p.address && <div className="text-xs">{p.address}</div>}
-              <button
-                type="button"
-                className="mt-2 text-xs font-medium text-rose-600 hover:text-rose-700 hover:underline"
-                onClick={() => onDeletePin(p.id)}
-              >
-                Delete pin
-              </button>
+              <div className="mt-2 flex gap-3">
+                <button
+                  type="button"
+                  className="text-xs font-medium text-brand-600 hover:text-brand-700 hover:underline"
+                  onClick={() => onEditPin(p.id)}
+                >
+                  Edit
+                </button>
+                <button
+                  type="button"
+                  className="text-xs font-medium text-rose-600 hover:text-rose-700 hover:underline"
+                  onClick={() => onDeletePin(p.id)}
+                >
+                  Delete pin
+                </button>
+              </div>
             </Popup>
           </Marker>
         ))}

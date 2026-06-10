@@ -47,10 +47,38 @@ export function serializeProject(project: OsintProject): string {
   return JSON.stringify(project, null, 2);
 }
 
-export function parseImport(text: string): OsintProject | null {
+/**
+ * Build a portable .osint.json: the project plus the subset of the custom-icon
+ * library actually referenced by its identifiers, so a case opened on another
+ * machine keeps its icons. The `icons` envelope key is ignored by isOsintProject.
+ */
+export function buildExport(project: OsintProject, allIcons: Record<string, string>): string {
+  const icons: Record<string, string> = {};
+  for (const i of project.identifiers) {
+    if (i.customIconId && allIcons[i.customIconId]) icons[i.customIconId] = allIcons[i.customIconId];
+  }
+  return JSON.stringify({ ...project, icons }, null, 2);
+}
+
+/**
+ * Parse an imported file into the project and any embedded custom icons.
+ * Legacy files without an `icons` key return `icons: {}`. The `icons` envelope
+ * key is stripped from the returned project so it isn't persisted back into it.
+ */
+export function parseImport(text: string): { project: OsintProject; icons: Record<string, string> } | null {
   try {
     const parsed = JSON.parse(text);
-    return isOsintProject(parsed) ? parsed : null;
+    if (!isOsintProject(parsed)) return null;
+    const envelope = parsed as OsintProject & { icons?: unknown };
+    const icons: Record<string, string> = {};
+    if (envelope.icons && typeof envelope.icons === 'object') {
+      for (const [k, v] of Object.entries(envelope.icons as Record<string, unknown>)) {
+        if (typeof v === 'string') icons[k] = v;
+      }
+    }
+    const project = { ...envelope };
+    delete (project as { icons?: unknown }).icons;
+    return { project, icons };
   } catch {
     return null;
   }

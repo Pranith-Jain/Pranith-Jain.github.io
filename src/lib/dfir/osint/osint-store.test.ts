@@ -1,6 +1,6 @@
 // src/lib/dfir/osint/osint-store.test.ts
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { loadState, saveProject, parseImport, serializeProject, STORE_KEY } from './osint-store';
+import { loadState, saveProject, parseImport, serializeProject, buildExport, STORE_KEY } from './osint-store';
 import { emptyProject } from './osint-schema';
 
 // The global setup mocks localStorage with non-functional vi.fn() stubs.
@@ -59,12 +59,40 @@ describe('saveProject / loadState', () => {
 });
 
 describe('parseImport', () => {
-  it('parses a valid exported project', () => {
+  it('parses a valid exported project (legacy file with no icons → icons {})', () => {
     const json = serializeProject(emptyProject('Imp'));
-    expect(parseImport(json)?.name).toBe('Imp');
+    const out = parseImport(json);
+    expect(out?.project.name).toBe('Imp');
+    expect(out?.icons).toEqual({});
   });
   it('returns null for malformed or wrong-version JSON', () => {
     expect(parseImport('{"schemaVersion":2}')).toBeNull();
     expect(parseImport('garbage')).toBeNull();
+  });
+  it('round-trips embedded custom icons and strips the envelope key from the project', () => {
+    const p = emptyProject('WithIcon');
+    p.identifiers = [{ id: 'i1', type: 'instagram', fields: { handle: 'a' }, customIconId: 'ic1' }];
+    const json = buildExport(p, { ic1: 'data:image/png;base64,AAAA', unused: 'data:image/png;base64,ZZZZ' });
+    const out = parseImport(json);
+    expect(out?.project.name).toBe('WithIcon');
+    expect(out?.icons).toEqual({ ic1: 'data:image/png;base64,AAAA' }); // only referenced icon
+    expect((out?.project as Record<string, unknown>).icons).toBeUndefined(); // envelope key stripped
+  });
+});
+
+describe('buildExport', () => {
+  it('includes only the icons referenced by the project identifiers', () => {
+    const p = emptyProject('X');
+    p.identifiers = [
+      { id: 'i1', type: 'instagram', fields: {}, customIconId: 'ic1' },
+      { id: 'i2', type: 'phone', fields: {} },
+    ];
+    const json = buildExport(p, { ic1: 'A', ic2: 'B' });
+    const parsed = JSON.parse(json);
+    expect(parsed.icons).toEqual({ ic1: 'A' });
+  });
+  it('emits an empty icons map when no identifier has a custom icon', () => {
+    const json = buildExport(emptyProject('X'), { ic1: 'A' });
+    expect(JSON.parse(json).icons).toEqual({});
   });
 });

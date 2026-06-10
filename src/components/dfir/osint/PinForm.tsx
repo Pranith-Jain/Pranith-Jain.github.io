@@ -8,6 +8,7 @@ export function PinForm({
   lng,
   address,
   identifiers,
+  initial,
   onSubmit,
   onCancel,
 }: {
@@ -15,13 +16,18 @@ export function PinForm({
   lng: number;
   address?: string;
   identifiers: Identifier[];
+  /** When present, the form edits this pin (keeps id/coords); links are untouched. */
+  initial?: Pin;
   onSubmit: (pin: Pin, linkedIds: string[]) => void;
   onCancel: () => void;
 }): JSX.Element {
-  const [label, setLabel] = useState(address ?? '');
-  const [note, setNote] = useState('');
-  const [color, setColor] = useState(PIN_COLORS[0]);
+  const isEdit = !!initial;
+  const [label, setLabel] = useState(initial?.label ?? address ?? '');
+  const [note, setNote] = useState(initial?.note ?? '');
+  const [color, setColor] = useState(initial?.color ?? PIN_COLORS[0]);
   const [linked, setLinked] = useState<string[]>([]);
+  const coordLat = initial?.lat ?? lat;
+  const coordLng = initial?.lng ?? lng;
 
   return (
     <form
@@ -29,13 +35,22 @@ export function PinForm({
       onSubmit={(e) => {
         e.preventDefault();
         onSubmit(
-          { id: crypto.randomUUID(), lat, lng, label: label || 'Pin', address, iconKey: 'default', color, note },
+          {
+            id: initial?.id ?? crypto.randomUUID(),
+            lat: coordLat,
+            lng: coordLng,
+            label: label || 'Pin',
+            address: initial?.address ?? address,
+            iconKey: 'default',
+            color,
+            note,
+          },
           linked
         );
       }}
     >
       <div className="text-xs text-slate-500 dark:text-slate-400 font-mono">
-        {lat.toFixed(5)}, {lng.toFixed(5)}
+        {coordLat.toFixed(5)}, {coordLng.toFixed(5)}
       </div>
       <input
         className="w-full rounded border border-slate-300 dark:border-slate-700 px-2 py-1 bg-white dark:bg-slate-900"
@@ -62,7 +77,7 @@ export function PinForm({
           />
         ))}
       </div>
-      {identifiers.length > 0 && (
+      {!isEdit && identifiers.length > 0 && (
         <fieldset className="text-sm">
           <legend className="text-xs text-slate-500 dark:text-slate-400">Link identifiers</legend>
           {identifiers.map((id) => (
@@ -82,7 +97,7 @@ export function PinForm({
           Cancel
         </button>
         <button type="submit" className="px-3 py-1 text-sm rounded bg-brand-600 text-white">
-          Add pin
+          {isEdit ? 'Save pin' : 'Add pin'}
         </button>
       </div>
     </form>

@@ -4,23 +4,30 @@ import type { Identifier } from '../../../lib/dfir/osint/osint-schema';
 import { CustomIconUpload } from './CustomIconUpload';
 
 export function IdentifierForm({
+  initial,
   onSubmit,
   onCancel,
 }: {
+  /** When present, the form edits this identifier (keeps its id) instead of adding. */
+  initial?: Identifier;
   onSubmit: (id: Identifier, iconDataUrl?: string) => void;
   onCancel: () => void;
 }): JSX.Element {
-  const [type, setType] = useState(IDENTIFIER_TYPES[0].type);
-  const [fields, setFields] = useState<Record<string, string>>({});
+  const [type, setType] = useState(initial?.type ?? IDENTIFIER_TYPES[0].type);
+  const [fields, setFields] = useState<Record<string, string>>(initial?.fields ?? {});
   const [iconUrl, setIconUrl] = useState<string | undefined>();
   const def = getIdentifierType(type);
+  const isEdit = !!initial;
 
   return (
     <form
       className="space-y-3"
       onSubmit={(e) => {
         e.preventDefault();
-        onSubmit({ id: crypto.randomUUID(), type, fields }, iconUrl);
+        onSubmit(
+          { id: initial?.id ?? crypto.randomUUID(), type, fields, customIconId: initial?.customIconId },
+          iconUrl
+        );
       }}
     >
       <select
@@ -48,13 +55,13 @@ export function IdentifierForm({
           />
         </label>
       ))}
-      <CustomIconUpload onIcon={setIconUrl} />
+      {!isEdit && <CustomIconUpload onIcon={setIconUrl} />}
       <div className="flex gap-2 justify-end">
         <button type="button" onClick={onCancel} className="px-3 py-1 text-sm">
           Cancel
         </button>
         <button type="submit" className="px-3 py-1 text-sm rounded bg-brand-600 text-white">
-          Add
+          {isEdit ? 'Save' : 'Add'}
         </button>
       </div>
     </form>
