@@ -177,8 +177,16 @@ export async function snapshotHandler(c: Context<{ Bindings: Env }>): Promise<Re
                 throw new Error('upstream error');
               }),
               safe(async () => {
-                const result = await fetchTelegramFeed();
-                return result;
+                // Prefer the global gp:warm KV telegram (same in every colo) so
+                // a stale-snapshot rebuild heals to real data instantly instead
+                // of paying the ~17s t.me fan-out.
+                if (c.env.KV_CACHE) {
+                  const warm = (await c.env.KV_CACHE.get('gp:warm', 'json').catch(() => null)) as {
+                    telegram?: TelegramFeedResponse;
+                  } | null;
+                  if (warm?.telegram?.channels?.length) return warm.telegram;
+                }
+                return fetchTelegramFeed();
               }),
               safe(() => aggregateFeeds(SCAM_FEED_URLS, 12, 6, { deadlineMs: FEED_DEADLINE_MS })),
               safe(() => aggregateFeeds(THREAT_INTEL_FEED_URLS, 16, 4, { deadlineMs: FEED_DEADLINE_MS })),
