@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { ArrowLeft, Copy, Download, FileCode, FileText, Link as LinkIcon, Loader2, Upload } from 'lucide-react';
 import { BackLink } from '../../components/BackLink';
 import { Badge } from '../../components/Badge';
@@ -66,7 +66,10 @@ export default function StixBuilder(): JSX.Element {
   const params = useParams<{ bundleId?: string }>();
   const deepLinkBundleId = params.bundleId;
 
-  const [mode, setMode] = useState<Mode>('text');
+  // The /dfir/report-ingest catalog entry opens the file-upload mode directly;
+  // the bare /dfir/stix-builder route defaults to the text brief.
+  const location = useLocation();
+  const [mode, setMode] = useState<Mode>(location.pathname.endsWith('/report-ingest') ? 'file' : 'text');
   const [input, setInput] = useState('');
   const [sourceName, setSourceName] = useState('');
   const [tlp, setTlp] = useState<Tlp>('AMBER');

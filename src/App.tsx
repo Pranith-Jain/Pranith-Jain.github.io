@@ -376,6 +376,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/dfir/stix', Component: StixViewer },
   { path: '/dfir/stix-builder', Component: StixBuilder },
   { path: '/dfir/stix-builder/b/:bundleId', Component: StixBuilder },
+  { path: '/dfir/report-ingest', Component: StixBuilder },
   { path: '/threatintel/darkweb', Component: DarkWeb },
   { path: '/threatintel/ransomware-activity', Component: RansomwareActivityPage },
   { path: '/threatintel/ransomware-map', Component: RansomwareGeoMap },
