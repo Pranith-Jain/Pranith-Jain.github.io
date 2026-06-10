@@ -274,7 +274,11 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
           '/api/v1/reddit-feed',
           '/api/v1/x-feed',
           '/api/v1/detections',
-          '/api/v1/global-pulse',
+          // NOTE: /api/v1/global-pulse intentionally NOT warmed here — building it
+          // triggers its own ~80-subrequest fan-out *inside this cron invocation*,
+          // blowing the 50-subrequest cap before the KV-warm block below runs (so
+          // the gp:* feed keys never get written → telegram/x/reddit/cve come back
+          // empty on the page). global-pulse caches itself on the first page visit.
           '/api/v1/crypto-scam-feed',
           '/api/v1/breach-disclosures',
           '/api/v1/live-iocs',
@@ -357,13 +361,22 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
         // The Cache API is per-colo, so global-pulse may miss cached data.
         // KV is globally replicated — write key endpoints' data there.
         if (env.KV_CACHE) {
+          // These KV keys are global-pulse's globally-replicated data source (its
+          // per-colo Cache-API reads were removed). Every feed the page renders must
+          // be here or that layer shows 0. The feed caches were just warmed by the
+          // perSourceTargets pass above, so these apiApp.fetch calls hit warm caches
+          // (cheap) rather than re-fetching upstream.
           const kvTargets = [
             { path: '/api/v1/threat-map', kvKey: 'gp:threat-map' },
             { path: '/api/v1/telegram-feed', kvKey: 'gp:telegram-feed' },
+            { path: '/api/v1/x-feed', kvKey: 'gp:x-feed' },
+            { path: '/api/v1/reddit-feed', kvKey: 'gp:reddit-feed' },
+            { path: '/api/v1/cve-recent', kvKey: 'gp:cve-recent' },
             { path: '/api/v1/ransomware-recent', kvKey: 'gp:ransomware-recent' },
+            { path: '/api/v1/actor-timeline', kvKey: 'gp:actor-timeline' },
+            { path: '/api/v1/ioc-correlation', kvKey: 'gp:ioc-correlation' },
             { path: '/api/v1/deepdarkcti', kvKey: 'gp:deepdarkcti' },
             { path: '/api/v1/stealer-forum-intel', kvKey: 'gp:stealer-forum-intel' },
-            { path: '/api/v1/cve-recent', kvKey: 'gp:cve-recent' },
             { path: '/api/v1/live-iocs', kvKey: 'gp:live-iocs' },
           ];
           for (const t of kvTargets) {

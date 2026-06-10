@@ -7,30 +7,11 @@ import { listBriefings } from '../lib/briefing-builder';
 const GLOBAL_PULSE_CACHE = 'https://global-pulse-cache.internal/v21-cyber-tech-geo';
 const CACHE_TTL = 300;
 
-const CACHE_KEYS = {
-  threatMap: 'https://threat-map-cache.internal/v5-1k',
-  reddit: 'https://reddit-feed-cache.internal/v11-raw',
-  telegram: 'https://telegram-feed-cache.internal/v10-7d-50pc',
-  xFeed: 'https://x-feed-cache.internal/v7-25pc',
-  cryptoScam: 'https://crypto-scam-feed-cache.internal/v1',
-  breach: 'https://breach-cache.internal/v6-hibp-only',
-  liveIocs: 'https://live-iocs-cache.internal/v13-freshness-filter',
-  deepdarkcti: 'https://deepdarkcti-cache.internal/v1',
-  onionWatch: 'https://onion-watch-cache.internal/v2',
-  stealerForum: 'https://stealer-forum-intel-cache.internal/v13-no-debug',
-  phishing: 'https://phishing-urls-cache.internal/v11-500',
-  malware: 'https://malware-samples-cache.internal/v3-500',
-  cveRecent: 'https://cve-recent-cache.internal/v10-750-paged',
-  ransomware: 'https://ransomware-recent-cache.internal/v11-tz-abbrev-fix',
-  detections: 'https://detections-cache.internal/v1',
-  cybercrime: 'https://cyber-crime-cache.internal/v2-500',
-  writeups: 'https://writeups-cache.internal/v11-7d-window',
-  usgs: 'https://usgs-earthquake-cache.internal/v1',
-  xClaims: 'https://x-claims-cache.internal/v2',
-  actorTimeline: 'https://actor-timeline-cache.internal/v3-mti',
-  iocCorrelation: 'https://ioc-correlation-cache.internal/v6-mti-hashes',
-  breachForums: 'https://breach-forums-cache.internal/v1',
-} as const;
+// NOTE: the old per-source Cache-API keys (CACHE_KEYS) + readCache() were removed.
+// Nothing ever wrote those per-colo cache entries, so reading them was ~22 dead
+// subrequests/invocation that pushed the build past the 50-subrequest cap. The
+// page's data is warmed into `gp:*` KV by the cron (worker/scheduled.ts) and read
+// from there + direct fetches below.
 
 /* ─── Types ─────────────────────────────────────────────────────────────── */
 
@@ -88,16 +69,6 @@ interface GlobalPulseResponse {
 }
 
 /* ─── Cache reader ──────────────────────────────────────────────────────── */
-
-async function readCache<T>(cache: Cache, key: string): Promise<T | null> {
-  try {
-    const hit = await cache.match(new Request(key));
-    if (!hit) return null;
-    return (await hit.json()) as T;
-  } catch {
-    return null;
-  }
-}
 
 async function readKvJson<T>(kv: KVNamespace | undefined, key: string): Promise<T | null> {
   try {
@@ -1902,7 +1873,7 @@ function fromIocCorrelation(data: IocCorrelationResponse): PulseEvent[] {
   const events: PulseEvent[] = [];
   const byKind = { ips: 'ip', urls: 'url', domains: 'domain', hashes: 'hash' } as const;
   for (const [key, kind] of Object.entries(byKind)) {
-    const items = (data as any)[key] as Array<{
+    const items = (data as unknown as Record<string, unknown>)[key] as Array<{
       value: string;
       source_count: number;
       sources: string[];
@@ -2020,63 +1991,34 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
 
     const kv = c.env.KV_CACHE;
 
-    // Telegram cache key may have a bump suffix
-    let telegramCacheKey: string = CACHE_KEYS.telegram;
-    try {
-      const bump = kv ? await kv.get('tg:custom-channels:bump').catch(() => null) : null;
-      if (bump) telegramCacheKey = `${CACHE_KEYS.telegram}-${bump}`;
-    } catch {
-      /* use base key */
-    }
-
-    // ── Read per-route caches + KV fallback in parallel ────────────────
-    const [
-      tmData,
-      redditData,
-      tgData,
-      xData,
-      scamData,
-      breachData,
-      liveIocsData,
-      ddcData,
-      onionData,
-      stealerData,
-      phishingData,
-      malwareData,
-      ransomwareData,
-      detectionsData,
-      cybercrimeData,
-      writeupsData,
-      cveData,
-      usgsData,
-      xClaimsData,
-      actorData,
-      iocCorrData,
-      bfData,
-    ] = await Promise.all([
-      readCache(cache, CACHE_KEYS.threatMap),
-      readCache(cache, CACHE_KEYS.reddit),
-      readCache(cache, telegramCacheKey),
-      readCache(cache, CACHE_KEYS.xFeed),
-      readCache(cache, CACHE_KEYS.cryptoScam),
-      readCache(cache, CACHE_KEYS.breach),
-      readCache(cache, CACHE_KEYS.liveIocs),
-      readCache(cache, CACHE_KEYS.deepdarkcti),
-      readCache(cache, CACHE_KEYS.onionWatch),
-      readCache(cache, CACHE_KEYS.stealerForum),
-      readCache(cache, CACHE_KEYS.phishing),
-      readCache(cache, CACHE_KEYS.malware),
-      readCache(cache, CACHE_KEYS.ransomware),
-      readCache(cache, CACHE_KEYS.detections),
-      readCache(cache, CACHE_KEYS.cybercrime),
-      readCache(cache, CACHE_KEYS.writeups),
-      readCache(cache, CACHE_KEYS.cveRecent),
-      readCache(cache, CACHE_KEYS.usgs),
-      readCache(cache, CACHE_KEYS.xClaims),
-      readCache(cache, CACHE_KEYS.actorTimeline),
-      readCache(cache, CACHE_KEYS.iocCorrelation),
-      readCache(cache, CACHE_KEYS.breachForums),
-    ]);
+    // ── Per-source data sources ───────────────────────────────────────
+    // NOTE: the per-source Cache-API entries (CACHE_KEYS.*) are NEVER written —
+    // only the full-response cache (GLOBAL_PULSE_CACHE) and the cron's `gp:*` KV
+    // keys are. Reading them here was 22 dead subrequests every invocation that
+    // pushed the build past the Free-plan 50-subrequest cap, starving the real
+    // KV reads + direct fetches below (so telegram/x/reddit/cve silently came
+    // back empty). Data now flows from cron-warmed KV (below) + direct fetches.
+    const tmData = null as unknown,
+      redditData = null as unknown,
+      tgData = null as unknown,
+      xData = null as unknown,
+      scamData = null as unknown,
+      breachData = null as unknown,
+      liveIocsData = null as unknown,
+      ddcData = null as unknown,
+      onionData = null as unknown,
+      stealerData = null as unknown,
+      phishingData = null as unknown,
+      malwareData = null as unknown,
+      ransomwareData = null as unknown,
+      detectionsData = null as unknown,
+      cybercrimeData = null as unknown,
+      writeupsData = null as unknown,
+      cveData = null as unknown,
+      xClaimsData = null as unknown,
+      actorData = null as unknown,
+      iocCorrData = null as unknown,
+      bfData = null as unknown;
 
     // KV fallback for cache misses
     const [
