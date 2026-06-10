@@ -1,6 +1,7 @@
 import { useState, useCallback } from 'react';
 import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, Loader2, AlertTriangle, CheckCircle, ChevronRight, Target, Zap } from 'lucide-react';
+import { SEVERITY_TONE } from '../../components/severity';
 
 interface AttackChain {
   id: string;
@@ -35,12 +36,6 @@ const TACTIC_COLORS: Record<string, string> = {
   TA0011: 'bg-pink-500',
   TA0010: 'bg-rose-600',
   TA0040: 'bg-red-700',
-};
-
-const PRIORITY_BADGE: Record<string, string> = {
-  high: 'bg-rose-100 text-rose-800 dark:bg-rose-900/30 dark:text-rose-300',
-  medium: 'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300',
-  low: 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400',
 };
 
 export default function AttackChain(): JSX.Element {
@@ -298,7 +293,9 @@ export default function AttackChain(): JSX.Element {
                       <div className="text-sm font-medium">{rec.action}</div>
                       <div className="text-micro font-mono text-slate-400 mt-0.5">{rec.technique}</div>
                     </div>
-                    <span className={`text-micro font-mono px-1.5 py-0.5 rounded ${PRIORITY_BADGE[rec.priority]}`}>
+                    <span
+                      className={`text-micro font-mono px-1.5 py-0.5 rounded border ${SEVERITY_TONE[rec.priority]}`}
+                    >
                       {rec.priority}
                     </span>
                   </div>

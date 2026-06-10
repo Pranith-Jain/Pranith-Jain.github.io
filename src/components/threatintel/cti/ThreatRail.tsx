@@ -1,4 +1,5 @@
 import type { ThreatCard } from './geo';
+import { SEVERITY_TONE, type Severity } from '../../severity';
 
 /* ─── Props ────────────────────────────────────────────────────────────── */
 
@@ -10,16 +11,16 @@ interface ThreatRailProps {
 
 /* ─── Severity badge ───────────────────────────────────────────────────── */
 
-const SEV_BADGE: Record<string, string> = {
-  CRITICAL: 'bg-rose-500/15 text-rose-700 dark:text-rose-300 border-rose-500/30',
-  HIGH: 'bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/20',
-  MEDIUM: 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20',
-  LOW: 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20',
-  NONE: 'bg-slate-500/10 text-slate-500 border-slate-500/20',
-};
+function normalizeSeverity(sev: string): Severity {
+  const s = sev.toLowerCase();
+  if (s === 'critical' || s === 'high' || s === 'medium' || s === 'info') return s;
+  if (s === 'informational') return 'info';
+  // low / none / unknown / unrated → neutral low
+  return 'low';
+}
 
 function sevBadgeClass(sev: string): string {
-  return SEV_BADGE[sev.toUpperCase()] ?? SEV_BADGE.NONE;
+  return SEVERITY_TONE[normalizeSeverity(sev)];
 }
 
 /* ─── Time formatting ──────────────────────────────────────────────────── */

@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import type { Severity as Sev } from '../../components/severity';
+import { SEVERITY_TONE, SEVERITY_BAR, type Severity as Sev } from '../../components/severity';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 import { useSearchParams } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
@@ -53,37 +53,33 @@ import {
  * unit-testable in isolation.
  */
 
+/**
+ * Per-severity icon + text tint. `chip` (pill tone) and `bar` (solid fill)
+ * come from the canonical SEVERITY_TONE / SEVERITY_BAR tables; only the icon
+ * glyph and the standalone text tint live here, aligned to the canonical
+ * ramp (critical=rose, high=orange, medium=amber, low=slate, info=sky).
+ */
 const SEV_STYLE: Record<Sev, { text: string; chip: string; bar: string; Icon: typeof ShieldAlert }> = {
   critical: {
     text: 'text-rose-700 dark:text-rose-300',
-    chip: 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300',
-    bar: 'bg-rose-500',
+    chip: SEVERITY_TONE.critical,
+    bar: SEVERITY_BAR.critical,
     Icon: ShieldX,
   },
   high: {
-    text: 'text-rose-600 dark:text-rose-400',
-    chip: 'border-rose-500/30 bg-rose-500/5 text-rose-600 dark:text-rose-400',
-    bar: 'bg-rose-500',
+    text: 'text-orange-700 dark:text-orange-300',
+    chip: SEVERITY_TONE.high,
+    bar: SEVERITY_BAR.high,
     Icon: ShieldAlert,
   },
   medium: {
-    text: 'text-amber-700 dark:text-amber-400',
-    chip: 'border-amber-500/30 bg-amber-500/10 text-amber-700 dark:text-amber-400',
-    bar: 'bg-amber-500',
+    text: 'text-amber-700 dark:text-amber-300',
+    chip: SEVERITY_TONE.medium,
+    bar: SEVERITY_BAR.medium,
     Icon: AlertTriangle,
   },
-  low: {
-    text: 'text-sky-700 dark:text-sky-400',
-    chip: 'border-sky-500/30 bg-sky-500/10 text-sky-700 dark:text-sky-400',
-    bar: 'bg-sky-500',
-    Icon: Info,
-  },
-  info: {
-    text: 'text-slate-600 dark:text-slate-400',
-    chip: 'border-slate-400/30 bg-slate-400/10 text-slate-600 dark:text-slate-400',
-    bar: 'bg-slate-500',
-    Icon: Info,
-  },
+  low: { text: 'text-slate-600 dark:text-slate-300', chip: SEVERITY_TONE.low, bar: SEVERITY_BAR.low, Icon: Info },
+  info: { text: 'text-sky-700 dark:text-sky-300', chip: SEVERITY_TONE.info, bar: SEVERITY_BAR.info, Icon: Info },
 };
 
 const VERDICT_SEV: Record<BatchVerdict, Sev> = {

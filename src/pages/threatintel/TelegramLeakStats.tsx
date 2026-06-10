@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { BackLink } from '../../components/BackLink';
 import { DataState } from '../../components/DataState';
 import { ArrowLeft, AlertTriangle, BarChart3, Activity, Globe, Send, TrendingUp } from 'lucide-react';
+import { SEVERITY_BAR, type Severity } from '../../components/severity';
 
 interface Stats {
   total_entries: number;
@@ -11,12 +12,12 @@ interface Stats {
   top_domains: Array<{ domain: string; count: number }>;
 }
 
-const SEVERITY_COLORS: Record<string, string> = {
-  critical: 'bg-rose-500',
-  high: 'bg-orange-500',
-  medium: 'bg-amber-500',
-  low: 'bg-slate-400',
-};
+function toSeverity(raw: string): Severity {
+  const s = raw?.toLowerCase();
+  if (s === 'critical' || s === 'high' || s === 'medium' || s === 'info') return s;
+  if (s === 'informational') return 'info';
+  return 'low'; // low + none/unknown/unrated fall through to neutral slate
+}
 
 export default function TelegramLeakStats(): JSX.Element {
   const [stats, setStats] = useState<Stats | null>(null);
@@ -105,7 +106,7 @@ export default function TelegramLeakStats(): JSX.Element {
                         </span>
                         <div className="flex-1 h-4 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
                           <div
-                            className={`h-full rounded-full ${SEVERITY_COLORS[item.severity] ?? 'bg-slate-400'}`}
+                            className={`h-full rounded-full ${SEVERITY_BAR[toSeverity(item.severity)]}`}
                             style={{ width: `${Math.max(pct, 2)}%` }}
                           />
                         </div>

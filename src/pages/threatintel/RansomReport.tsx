@@ -5,6 +5,7 @@ import { BackLink } from '../../components/BackLink';
 import { DataState } from '../../components/DataState';
 import { ClusterTabs, RANSOMWARE_TABS } from '../../components/threatintel/ClusterTabs';
 import { sanitizeUrl } from '../../lib/sanitize-url';
+import { SEVERITY_TONE, type Severity } from '../../components/severity';
 
 /**
  * Ransomware Intel Report — a per-threat-group CTI report assembled from the
@@ -74,12 +75,12 @@ interface GroupListItem {
   victims?: number;
 }
 
-const SEV_PILL: Record<string, string> = {
-  critical: 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300',
-  high: 'border-orange-500/40 bg-orange-500/10 text-orange-700 dark:text-orange-300',
-  medium: 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300',
-  low: 'border-sky-500/40 bg-sky-500/10 text-sky-700 dark:text-sky-300',
-};
+function normSeverity(raw?: string): Severity {
+  const s = (raw ?? '').toLowerCase().trim();
+  if (s === 'critical' || s === 'high' || s === 'medium' || s === 'low' || s === 'info') return s;
+  if (s === 'informational') return 'info';
+  return 'low'; // none / unknown / unrated → neutral
+}
 
 function Section({ title, children }: { title: string; children: React.ReactNode }): JSX.Element {
   return (
@@ -548,7 +549,7 @@ export default function RansomReport(): JSX.Element {
                             </td>
                             <td className="px-3 py-1.5">
                               <span
-                                className={`text-mini font-mono px-2 py-0.5 rounded border ${SEV_PILL[(v.severity ?? '').toLowerCase()] ?? 'border-slate-300 dark:border-slate-700 text-slate-500'}`}
+                                className={`text-mini font-mono px-2 py-0.5 rounded border ${SEVERITY_TONE[normSeverity(v.severity)]}`}
                               >
                                 {v.severity ?? '—'}
                               </span>

@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
+import { SEVERITY_TONE } from '../../components/severity';
 import { ArrowLeft, ScrollText, ClipboardCopy, Check, Crosshair, AlertTriangle, Filter } from 'lucide-react';
 import {
   parseLogs,
@@ -47,13 +48,6 @@ const FORMAT_PILL: Record<LogFormat, string> = {
   syslog: 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300',
   kv: 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300',
   raw: 'border-slate-300 dark:border-slate-700 text-slate-500',
-};
-
-const SEV_PILL: Record<ParsedRecord['severity'], string> = {
-  info: 'border-slate-300 dark:border-slate-700 text-slate-500',
-  low: 'border-sky-500/40 bg-sky-500/10 text-sky-700 dark:text-sky-300',
-  medium: 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300',
-  high: 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300',
 };
 
 export default function LogParser(): JSX.Element {
@@ -201,7 +195,7 @@ export default function LogParser(): JSX.Element {
                   type="button"
                   onClick={() => toggleSeverity(s)}
                   disabled={count === 0}
-                  className={`text-mini font-mono px-2 py-1 rounded border ${active ? SEV_PILL[s] : 'border-slate-200 dark:border-slate-800 text-slate-500'} ${count === 0 ? 'opacity-30' : ''}`}
+                  className={`text-mini font-mono px-2 py-1 rounded border ${active ? SEVERITY_TONE[s] : 'border-slate-200 dark:border-slate-800 text-slate-500'} ${count === 0 ? 'opacity-30' : ''}`}
                 >
                   {s} · {count}
                 </button>
@@ -232,7 +226,7 @@ export default function LogParser(): JSX.Element {
                     {FORMAT_LABEL[r.format]}
                   </span>
                   <span
-                    className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${SEV_PILL[r.severity]}`}
+                    className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${SEVERITY_TONE[r.severity]}`}
                   >
                     {r.severity}
                   </span>
