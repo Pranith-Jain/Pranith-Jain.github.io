@@ -444,7 +444,7 @@ function KevTable({ rows }: { rows: RecentCve[] }): JSX.Element {
     <div className="overflow-x-auto -mx-4 sm:mx-0">
       <table className="w-full text-meta font-mono">
         <thead>
-          <tr className="text-left text-[11px] uppercase tracking-wider text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-800">
+          <tr className="text-left text-mini uppercase tracking-wider text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-800">
             <th className="px-4 sm:px-2 py-2 font-medium">CVE</th>
             <th className="px-2 py-2 font-medium">CVSS</th>
             <th className="px-2 py-2 font-medium">Sev</th>
@@ -471,7 +471,7 @@ function KevTable({ rows }: { rows: RecentCve[] }): JSX.Element {
               </td>
               <td className="px-2 py-1.5">
                 <span
-                  className={`inline-block px-1.5 py-0.5 rounded text-[11px] font-mono border ${SEVERITY_PILL[cveSevToSoc(c.severity)]}`}
+                  className={`inline-block px-1.5 py-0.5 rounded text-mini font-mono border ${SEVERITY_PILL[cveSevToSoc(c.severity)]}`}
                 >
                   {c.severity}
                 </span>

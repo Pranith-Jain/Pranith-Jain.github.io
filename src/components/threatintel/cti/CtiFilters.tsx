@@ -62,7 +62,7 @@ export default function CtiFilters({
               key={m.id}
               type="button"
               onClick={() => onModeChange(m.id)}
-              className={`inline-flex items-center gap-1.5 text-[11px] font-mono px-3 py-1.5 transition-colors ${
+              className={`inline-flex items-center gap-1.5 text-mini font-mono px-3 py-1.5 transition-colors ${
                 on
                   ? 'bg-brand-500/15 text-brand-700 dark:text-brand-300'
                   : 'bg-white dark:bg-slate-900 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'
@@ -84,7 +84,7 @@ export default function CtiFilters({
               key={w.days}
               type="button"
               onClick={() => onWindowChange(w.days)}
-              className={`text-[11px] font-mono px-2.5 py-1.5 transition-colors ${
+              className={`text-mini font-mono px-2.5 py-1.5 transition-colors ${
                 on
                   ? 'bg-brand-500/15 text-brand-700 dark:text-brand-300'
                   : 'bg-white dark:bg-slate-900 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'
@@ -105,7 +105,7 @@ export default function CtiFilters({
               key={l.id}
               type="button"
               onClick={() => onLayerToggle(l.id)}
-              className={`inline-flex items-center gap-1 text-[10px] font-mono px-2 py-1 rounded-lg border transition-colors ${
+              className={`inline-flex items-center gap-1 text-micro font-mono px-2 py-1 rounded-lg border transition-colors ${
                 on
                   ? 'border-brand-500/50 bg-brand-500/10 text-brand-700 dark:text-brand-300'
                   : 'border-slate-300 dark:border-slate-700 text-slate-400'

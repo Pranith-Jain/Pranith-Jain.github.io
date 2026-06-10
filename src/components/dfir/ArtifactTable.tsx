@@ -57,7 +57,7 @@ function formatSize(bytes?: number): string {
 
 function TagBadge({ tag }: { tag: string }): JSX.Element {
   const color = TAG_COLORS[tag] ?? 'text-slate-600 dark:text-slate-400 border-slate-300/50 dark:border-slate-600/40';
-  return <span className={`font-mono text-[10px] px-1.5 py-0.5 rounded border ${color}`}>{tag}</span>;
+  return <span className={`font-mono text-micro px-1.5 py-0.5 rounded border ${color}`}>{tag}</span>;
 }
 
 function ArtifactRow({ artifact }: { artifact: HostArtifact }): JSX.Element {

@@ -92,7 +92,7 @@ export default function HuntingQueryGenerator(): JSX.Element {
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -121,7 +121,7 @@ export default function HuntingQueryGenerator(): JSX.Element {
             <button
               key={ex}
               onClick={() => setThreat(ex)}
-              className="text-[11px] px-2 py-1 rounded border border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-brand-500/30 transition-colors"
+              className="text-mini px-2 py-1 rounded border border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-brand-500/30 transition-colors"
             >
               {ex.slice(0, 45)}…
             </button>
@@ -173,7 +173,7 @@ export default function HuntingQueryGenerator(): JSX.Element {
                     href={`https://attack.mitre.org/techniques/${t.replace('.', '/')}/`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-[10px] font-mono px-2 py-0.5 rounded border border-amber-300/50 dark:border-amber-800/50 bg-amber-50 dark:bg-amber-950/20 text-amber-700 dark:text-amber-300 hover:border-amber-500/60 transition-colors"
+                    className="text-micro font-mono px-2 py-0.5 rounded border border-amber-300/50 dark:border-amber-800/50 bg-amber-50 dark:bg-amber-950/20 text-amber-700 dark:text-amber-300 hover:border-amber-500/60 transition-colors"
                   >
                     {t}
                   </a>
@@ -191,7 +191,7 @@ export default function HuntingQueryGenerator(): JSX.Element {
               <div className="flex items-center justify-between mb-2">
                 <div className="flex items-center gap-2">
                   <span
-                    className={`text-[10px] font-mono px-1.5 py-0.5 rounded ${SIEM_COLORS[q.siem] ?? 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400'}`}
+                    className={`text-micro font-mono px-1.5 py-0.5 rounded ${SIEM_COLORS[q.siem] ?? 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400'}`}
                   >
                     {q.siem}
                   </span>

@@ -93,7 +93,7 @@ export default function IosBackupExplorer(): JSX.Element {
         <p className="text-sm font-mono text-slate-700 dark:text-slate-300">
           {busy ? 'Loading...' : 'Drop Manifest.db here, or click to choose'}
         </p>
-        <p className="text-[11px] font-mono text-slate-500 mt-1">iOS backup SQLite database. 100% client-side.</p>
+        <p className="text-mini font-mono text-slate-500 mt-1">iOS backup SQLite database. 100% client-side.</p>
       </button>
       <input
         id="iosbackup-input"
@@ -109,7 +109,7 @@ export default function IosBackupExplorer(): JSX.Element {
       {files && (
         <div className="mt-6 space-y-4">
           <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3">
-            <div className="text-[10px] font-mono uppercase tracking-wider text-slate-500 mb-2">
+            <div className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-2">
               Top domains · {files.length.toLocaleString()} files total
             </div>
             <div className="flex flex-wrap gap-1.5">
@@ -118,7 +118,7 @@ export default function IosBackupExplorer(): JSX.Element {
                   key={dn}
                   type="button"
                   onClick={() => setQ(dn)}
-                  className="font-mono text-[11px] px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-brand-500/40"
+                  className="font-mono text-mini px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-brand-500/40"
                 >
                   {dn || '(none)'} · {c}
                 </button>
@@ -132,7 +132,7 @@ export default function IosBackupExplorer(): JSX.Element {
             className="w-full rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-3 py-2 font-mono text-sm focus:border-brand-500 focus:outline-none"
           />
           <div className="rounded-lg border border-slate-200 dark:border-slate-800 overflow-auto max-h-[60vh]">
-            <table className="w-full text-[11px] font-mono">
+            <table className="w-full text-mini font-mono">
               <thead className="bg-slate-50 dark:bg-slate-900 sticky top-0">
                 <tr>
                   {['domain', 'relativePath', 'fileID'].map((c) => (
@@ -159,7 +159,7 @@ export default function IosBackupExplorer(): JSX.Element {
               </tbody>
             </table>
           </div>
-          <p className="font-mono text-[11px] text-slate-500">showing {shown.length} (filtered, capped 1000)</p>
+          <p className="font-mono text-mini text-slate-500">showing {shown.length} (filtered, capped 1000)</p>
         </div>
       )}
     </div>

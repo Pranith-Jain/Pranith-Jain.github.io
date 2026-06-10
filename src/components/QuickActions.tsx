@@ -35,7 +35,7 @@ const ACCENT: Record<
     border: 'hover:border-brand-500/50',
     iconBg: 'group-hover:bg-brand-500/10 dark:group-hover:bg-brand-500/15',
     title: 'group-hover:text-brand-600 dark:group-hover:text-brand-400',
-    ring: 'focus:ring-brand-500/40',
+    ring: 'focus-visible:ring-brand-500/40',
     arrow: 'group-hover:text-brand-500 dark:group-hover:text-brand-400',
     shadow: 'hover:shadow-[0_8px_24px_-12px_rgba(44,62,229,0.25)]',
   },
@@ -43,7 +43,7 @@ const ACCENT: Record<
     border: 'hover:border-rose-500/50',
     iconBg: 'group-hover:bg-rose-500/10 dark:group-hover:bg-rose-500/15',
     title: 'group-hover:text-rose-600 dark:group-hover:text-rose-400',
-    ring: 'focus:ring-rose-500/40',
+    ring: 'focus-visible:ring-rose-500/40',
     arrow: 'group-hover:text-rose-500 dark:group-hover:text-rose-400',
     shadow: 'hover:shadow-[0_8px_24px_-12px_rgba(225,29,72,0.25)]',
   },
@@ -92,7 +92,7 @@ export function QuickActions({
             key={a.to}
             to={a.to}
             style={{ animationDelay: `${i * 40}ms` }}
-            className={`qa-tile group relative flex items-start gap-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-3.5 transition-all duration-150 motion-safe:hover:-translate-y-0.5 hover:bg-slate-50 dark:hover:bg-slate-900 focus:outline-none focus:ring-2 ${accent.border} ${accent.shadow} ${accent.ring}`}
+            className={`qa-tile group relative flex items-start gap-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-3.5 transition-all duration-150 motion-safe:hover:-translate-y-0.5 hover:bg-slate-50 dark:hover:bg-slate-900 focus:outline-none focus-visible:ring-2 ${accent.border} ${accent.shadow} ${accent.ring}`}
           >
             <span
               className={`grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-slate-100/80 dark:bg-slate-800/60 ${accent.iconBg} ${accentClass} transition-colors`}
@@ -102,19 +102,19 @@ export function QuickActions({
             <div className="min-w-0 flex-1">
               <div className="flex items-baseline justify-between gap-2">
                 <span
-                  className={`font-display font-semibold text-[14px] text-slate-900 dark:text-slate-100 truncate ${accent.title} transition-colors`}
+                  className={`font-display font-semibold text-sm text-slate-900 dark:text-slate-100 truncate ${accent.title} transition-colors`}
                 >
                   {a.label}
                 </span>
                 {a.badge && (
                   <span
-                    className={`text-[9px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border shrink-0 ${BADGE_CLS[a.badgeTone ?? 'live']}`}
+                    className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border shrink-0 ${BADGE_CLS[a.badgeTone ?? 'live']}`}
                   >
                     {a.badge}
                   </span>
                 )}
               </div>
-              <p className="text-[12px] text-slate-600 dark:text-slate-400 leading-snug mt-0.5 line-clamp-2">
+              <p className="text-meta text-slate-600 dark:text-slate-400 leading-snug mt-0.5 line-clamp-2">
                 {a.description}
               </p>
             </div>

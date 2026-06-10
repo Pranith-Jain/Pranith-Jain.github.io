@@ -154,13 +154,13 @@ export default function ActorUsernames(): JSX.Element {
           </button>
         </div>
         <div className="flex items-center gap-1.5 mt-3">
-          <span className="text-[11px] font-mono text-slate-500 mr-1">match:</span>
+          <span className="text-mini font-mono text-slate-500 mr-1">match:</span>
           {MODES.map((m) => (
             <button
               key={m.id}
               type="button"
               onClick={() => setMode(m.id)}
-              className={`text-[11px] font-mono px-2 py-1 rounded border ${
+              className={`text-mini font-mono px-2 py-1 rounded border ${
                 mode === m.id
                   ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
                   : 'border-slate-300 dark:border-slate-700 text-slate-500'
@@ -173,7 +173,7 @@ export default function ActorUsernames(): JSX.Element {
       </form>
 
       {data && (
-        <p className="text-[11px] font-mono text-slate-500 mb-4">
+        <p className="text-mini font-mono text-slate-500 mb-4">
           {data.total_matches} match{data.total_matches === 1 ? '' : 'es'} for “{data.query}”
           {data.truncated && (
             <span className="text-amber-600 dark:text-amber-400"> · showing top {data.results.length}</span>
@@ -209,7 +209,7 @@ export default function ActorUsernames(): JSX.Element {
                   <span className="font-mono font-semibold text-sm text-slate-900 dark:text-slate-100 break-all">
                     {m.username}
                   </span>
-                  <span className="text-[11px] font-mono text-slate-500 shrink-0">
+                  <span className="text-mini font-mono text-slate-500 shrink-0">
                     {m.forum_count} forum{m.forum_count === 1 ? '' : 's'}
                   </span>
                 </div>
@@ -217,7 +217,7 @@ export default function ActorUsernames(): JSX.Element {
                   {m.forums.map((f) => (
                     <span
                       key={f.forum}
-                      className={`text-[11px] font-mono px-2 py-0.5 rounded border ${
+                      className={`text-mini font-mono px-2 py-0.5 rounded border ${
                         f.dead
                           ? 'border-slate-300 dark:border-slate-700 text-slate-400 line-through'
                           : 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300'

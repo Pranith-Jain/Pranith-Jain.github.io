@@ -146,7 +146,7 @@ export function ToolSearchBar(): JSX.Element {
               inputRef.current?.focus();
             }}
             aria-label="Clear search"
-            className="absolute right-3 top-1/2 -translate-y-1/2 inline-flex items-center gap-1 rounded px-1.5 py-0.5 text-[10px] font-mono text-slate-500 hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-800 dark:hover:text-slate-100"
+            className="absolute right-3 top-1/2 -translate-y-1/2 inline-flex items-center gap-1 rounded px-1.5 py-0.5 text-micro font-mono text-slate-500 hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-800 dark:hover:text-slate-100"
           >
             <X size={11} /> clear
           </button>
@@ -154,14 +154,14 @@ export function ToolSearchBar(): JSX.Element {
       </div>
       <p
         id="dfir-tool-search-help"
-        className="mt-2 text-[11px] font-mono text-slate-500 dark:text-slate-400 flex flex-wrap items-center gap-x-3"
+        className="mt-2 text-mini font-mono text-slate-500 dark:text-slate-400 flex flex-wrap items-center gap-x-3"
       >
         <span>
           Searches {MAIN_TOOL_COUNT} tools by name, path, description, and use-case. ↑↓ to navigate, Enter to open.
         </span>
         <span className="hidden sm:inline">
           Power-user shortcut:{' '}
-          <kbd className="inline-flex items-center rounded border border-slate-200 bg-slate-50 px-1 py-0.5 text-[10px] dark:border-slate-700 dark:bg-slate-800">
+          <kbd className="inline-flex items-center rounded border border-slate-200 bg-slate-50 px-1 py-0.5 text-micro dark:border-slate-700 dark:bg-slate-800">
             ⌘K
           </kbd>{' '}
           opens the same search as an overlay from anywhere on the site.
@@ -205,16 +205,16 @@ export function ToolSearchBar(): JSX.Element {
                       >
                         {h.tool.label}
                       </span>
-                      <span className="text-[10px] font-mono uppercase tracking-[0.18em] text-slate-500">
+                      <span className="text-micro font-mono uppercase tracking-[0.18em] text-slate-500">
                         {GROUP_META[h.group].label.split(' ')[0]}
                       </span>
                       {h.tool.utility && (
-                        <span className="text-[9px] font-mono uppercase tracking-[0.18em] text-slate-400">utility</span>
+                        <span className="text-micro font-mono uppercase tracking-[0.18em] text-slate-400">utility</span>
                       )}
                     </div>
-                    <div className="font-mono text-[11px] text-slate-500 truncate">{h.tool.path}</div>
+                    <div className="font-mono text-mini text-slate-500 truncate">{h.tool.path}</div>
                     {h.tool.desc && (
-                      <div className="text-[12px] text-slate-600 dark:text-slate-400 leading-snug mt-0.5 line-clamp-1">
+                      <div className="text-meta text-slate-600 dark:text-slate-400 leading-snug mt-0.5 line-clamp-1">
                         {h.tool.desc}
                       </div>
                     )}

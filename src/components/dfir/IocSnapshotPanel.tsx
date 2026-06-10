@@ -150,14 +150,14 @@ export function IocSnapshotPanel(): JSX.Element {
           Live IOC feeds
           {watchlist.length > 0 && totalWatched > 0 && (
             <span
-              className="text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded-full border border-violet-500/50 bg-violet-500/15 text-violet-700 dark:text-violet-300"
+              className="text-micro font-mono uppercase tracking-wider px-2 py-0.5 rounded-full border border-violet-500/50 bg-violet-500/15 text-violet-700 dark:text-violet-300"
               title={`${totalWatched} IOCs match your watchlist (${watchlist.join(', ')})`}
             >
               {totalWatched} watchlist hits
             </span>
           )}
         </h2>
-        <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400">
+        <span className="text-mini font-mono text-slate-500 dark:text-slate-400">
           {data
             ? `${totalEntries} fresh indicators across 4 abuse.ch + OpenPhish feeds`
             : err
@@ -195,12 +195,12 @@ export function IocSnapshotPanel(): JSX.Element {
             >
               {summary && (
                 <>
-                  <p className="text-[11px] font-mono text-slate-500 dark:text-slate-400 mb-2">
+                  <p className="text-mini font-mono text-slate-500 dark:text-slate-400 mb-2">
                     <span className="text-slate-900 dark:text-slate-100 font-bold text-base">{summary.count}</span>{' '}
                     fresh · {summary.source_name}
                   </p>
                   {entries.length === 0 ? (
-                    <p className="text-[11px] font-mono text-slate-500">No fresh entries.</p>
+                    <p className="text-mini font-mono text-slate-500">No fresh entries.</p>
                   ) : (
                     <ul className="space-y-1.5 mt-1">
                       {entries.map((e, i) => {
@@ -208,7 +208,7 @@ export function IocSnapshotPanel(): JSX.Element {
                         return (
                           <li
                             key={`${e.type}-${e.value}-${i}`}
-                            className="flex items-baseline gap-2 text-[11px] font-mono py-0.5"
+                            className="flex items-baseline gap-2 text-mini font-mono py-0.5"
                           >
                             <span
                               className={`inline-block w-1.5 h-1.5 rounded-full shrink-0 ${
@@ -218,7 +218,7 @@ export function IocSnapshotPanel(): JSX.Element {
                               title={matched.length > 0 ? `watchlist match: ${matched.join(', ')}` : undefined}
                             />
                             <span
-                              className={`text-[9px] uppercase tracking-wider px-1 rounded border shrink-0 ${typeBadge(e.type)}`}
+                              className={`text-micro uppercase tracking-wider px-1 rounded border shrink-0 ${typeBadge(e.type)}`}
                             >
                               {e.type}
                             </span>

@@ -343,13 +343,13 @@ export default function AgentInvestigator(): JSX.Element {
             <Shield size={16} className="text-emerald-600" />
             <h2 className="text-lg font-display font-bold">Intelligence Report</h2>
             {agentState.modelUsed && (
-              <span className="text-[10px] font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-slate-800 text-slate-500">
+              <span className="text-micro font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-slate-800 text-slate-500">
                 {agentState.modelUsed}
               </span>
             )}
             {agentState.qa && (
               <span
-                className={`text-[10px] font-mono px-2 py-0.5 rounded border ${
+                className={`text-micro font-mono px-2 py-0.5 rounded border ${
                   agentState.qa.qualityScore >= 80
                     ? 'border-emerald-500/40 bg-emerald-500/10 text-emerald-600'
                     : agentState.qa.qualityScore >= 60
@@ -385,12 +385,12 @@ export default function AgentInvestigator(): JSX.Element {
               </summary>
               {agentState.qa.flaggedClaims.length > 0 && (
                 <div className="mt-2">
-                  <div className="text-[10px] font-mono uppercase tracking-wider text-amber-600 mb-1">
+                  <div className="text-micro font-mono uppercase tracking-wider text-amber-600 mb-1">
                     Flagged Claims
                   </div>
                   <ul className="space-y-1">
                     {agentState.qa.flaggedClaims.map((c, i) => (
-                      <li key={i} className="text-[10px] font-mono text-amber-700 dark:text-amber-300">
+                      <li key={i} className="text-micro font-mono text-amber-700 dark:text-amber-300">
                         • {c}
                       </li>
                     ))}
@@ -399,12 +399,12 @@ export default function AgentInvestigator(): JSX.Element {
               )}
               {agentState.qa.missingFacts.length > 0 && (
                 <div className="mt-2">
-                  <div className="text-[10px] font-mono uppercase tracking-wider text-amber-600 mb-1">
+                  <div className="text-micro font-mono uppercase tracking-wider text-amber-600 mb-1">
                     Added from Data
                   </div>
                   <ul className="space-y-1">
                     {agentState.qa.missingFacts.slice(0, 5).map((f, i) => (
-                      <li key={i} className="text-[10px] font-mono text-amber-700 dark:text-amber-300">
+                      <li key={i} className="text-micro font-mono text-amber-700 dark:text-amber-300">
                         + {f}
                       </li>
                     ))}
@@ -466,7 +466,7 @@ export default function AgentInvestigator(): JSX.Element {
                     className={`shrink-0 w-2 h-2 rounded-full ${s.status === 'done' ? 'bg-emerald-500' : s.status === 'error' ? 'bg-rose-500' : 'bg-amber-500 animate-pulse'}`}
                   />
                   <span className="font-mono text-sm truncate flex-1">{s.query}</span>
-                  <span className="text-[10px] font-mono text-slate-500 shrink-0">{s.total_steps} steps</span>
+                  <span className="text-micro font-mono text-slate-500 shrink-0">{s.total_steps} steps</span>
                   <ChevronRight size={14} className="text-slate-400 group-hover:text-brand-500 shrink-0" />
                 </button>
                 <button
@@ -528,7 +528,7 @@ function StepCard({ step }: { step: AgentStep }): JSX.Element {
             {step.toolCalls.map((tc, i) => (
               <span
                 key={`${tc.tool}-${i}`}
-                className="text-[10px] font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400"
+                className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400"
               >
                 <Zap size={8} className="inline mr-0.5" />
                 {tc.tool}
@@ -537,7 +537,7 @@ function StepCard({ step }: { step: AgentStep }): JSX.Element {
           </div>
         </div>
         {step.observation && (
-          <span className="text-[10px] font-mono text-slate-500 max-w-[200px] truncate hidden sm:block">
+          <span className="text-micro font-mono text-slate-500 max-w-[200px] truncate hidden sm:block">
             {step.observation}
           </span>
         )}
@@ -546,7 +546,7 @@ function StepCard({ step }: { step: AgentStep }): JSX.Element {
       {expanded && (
         <div className="px-4 pb-4 border-t border-slate-200 dark:border-slate-800 space-y-3 bg-slate-50/40 dark:bg-slate-950/40">
           <div className="mt-3">
-            <div className="text-[10px] font-mono uppercase tracking-wider text-slate-500 mb-1">Plan</div>
+            <div className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-1">Plan</div>
             <p className="text-xs font-mono text-slate-700 dark:text-slate-300">{step.plan}</p>
           </div>
 
@@ -554,15 +554,15 @@ function StepCard({ step }: { step: AgentStep }): JSX.Element {
             <div key={`${r.tool}-${i}`} className="rounded border border-slate-200 dark:border-slate-800 p-2.5">
               <div className="flex items-center gap-2 mb-1">
                 <span
-                  className={`text-[10px] font-mono font-bold ${r.status === 'ok' ? 'text-emerald-600' : 'text-rose-600'}`}
+                  className={`text-micro font-mono font-bold ${r.status === 'ok' ? 'text-emerald-600' : 'text-rose-600'}`}
                 >
                   {r.status === 'ok' ? 'OK' : 'ERR'} {r.tool}
                 </span>
-                <span className="text-[10px] font-mono text-slate-500">{r.durationMs}ms</span>
+                <span className="text-micro font-mono text-slate-500">{r.durationMs}ms</span>
               </div>
-              {r.error && <p className="text-[10px] font-mono text-rose-600">{r.error}</p>}
+              {r.error && <p className="text-micro font-mono text-rose-600">{r.error}</p>}
               {r.data !== undefined && r.data !== null && (
-                <pre className="text-[10px] font-mono text-slate-600 dark:text-slate-400 overflow-x-auto max-h-48 overflow-y-auto whitespace-pre-wrap break-all">
+                <pre className="text-micro font-mono text-slate-600 dark:text-slate-400 overflow-x-auto max-h-48 overflow-y-auto whitespace-pre-wrap break-all">
                   {JSON.stringify(r.data, null, 2).slice(0, 2000)}
                 </pre>
               )}
@@ -571,7 +571,7 @@ function StepCard({ step }: { step: AgentStep }): JSX.Element {
 
           {step.observation && (
             <div>
-              <div className="text-[10px] font-mono uppercase tracking-wider text-slate-500 mb-1">Observation</div>
+              <div className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-1">Observation</div>
               <p className="text-xs font-mono text-slate-700 dark:text-slate-300">{step.observation}</p>
             </div>
           )}

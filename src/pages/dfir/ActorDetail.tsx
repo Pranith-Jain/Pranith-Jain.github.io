@@ -41,7 +41,7 @@ export default function ActorDetail(): JSX.Element {
       <div className="max-w-3xl mx-auto px-4 sm:px-8 py-12 sm:py-20 text-slate-900 dark:text-slate-100">
         <Link
           to="/threatintel/actors"
-          className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:text-brand-400 mb-8 font-mono"
+          className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
         >
           <ArrowLeft size={14} /> back
         </Link>
@@ -54,7 +54,7 @@ export default function ActorDetail(): JSX.Element {
     <div className="max-w-4xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <Link
         to="/threatintel/actors"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </Link>
@@ -142,7 +142,7 @@ export default function ActorDetail(): JSX.Element {
             <span className="text-xs font-mono text-slate-500">· {linkedCves.length}</span>
           )}
         </h2>
-        <p className="text-[11px] font-mono text-slate-500 mb-3">
+        <p className="text-mini font-mono text-slate-500 mb-3">
           CVEs publicly attributed to {actor.name} via CISA advisories, vendor PSIRT bulletins, and IR write-ups.
           Curated — narrow by design (does not include unattributed KEV entries).
         </p>

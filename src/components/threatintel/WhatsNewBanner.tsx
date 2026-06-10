@@ -197,7 +197,7 @@ export function WhatsNewBanner(): JSX.Element | null {
               markVisited();
               setDismissed(true);
             }}
-            className="inline-flex items-center gap-1 text-[11px] font-mono text-amber-700 dark:text-amber-300 hover:text-amber-900 dark:hover:text-amber-100 px-2 py-1 rounded hover:bg-amber-200/40 dark:hover:bg-amber-500/15"
+            className="inline-flex items-center gap-1 text-mini font-mono text-amber-700 dark:text-amber-300 hover:text-amber-900 dark:hover:text-amber-100 px-2 py-1 rounded hover:bg-amber-200/40 dark:hover:bg-amber-500/15"
             title="Reset the baseline and hide this banner"
           >
             <Check size={11} /> mark all read

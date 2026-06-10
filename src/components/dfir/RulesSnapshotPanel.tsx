@@ -119,14 +119,14 @@ export function RulesSnapshotPanel(): JSX.Element {
           What just shipped
           {watchlist.length > 0 && totalWatched > 0 && (
             <span
-              className="text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded-full border border-violet-500/50 bg-violet-500/15 text-violet-700 dark:text-violet-300"
+              className="text-micro font-mono uppercase tracking-wider px-2 py-0.5 rounded-full border border-violet-500/50 bg-violet-500/15 text-violet-700 dark:text-violet-300"
               title={`${totalWatched} commits match your watchlist (${watchlist.join(', ')})`}
             >
               {totalWatched} watchlist hits
             </span>
           )}
         </h2>
-        <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400">
+        <span className="text-mini font-mono text-slate-500 dark:text-slate-400">
           {data ? `${totalCommits} recent commits across upstream rule repos` : err ? `load error: ${err}` : 'loading…'}
         </span>
       </div>
@@ -149,7 +149,7 @@ export function RulesSnapshotPanel(): JSX.Element {
               error={err ?? undefined}
             >
               {data && commits.length === 0 && (
-                <p className="text-[11px] font-mono text-slate-500">No recent commits in window.</p>
+                <p className="text-mini font-mono text-slate-500">No recent commits in window.</p>
               )}
 
               {commits.length > 0 && (
@@ -157,10 +157,7 @@ export function RulesSnapshotPanel(): JSX.Element {
                   {commits.map((cm, i) => {
                     const matched = watchHits(`${cm.title} ${cm.author} ${cm.source_label}`, watchlist);
                     return (
-                      <li
-                        key={`${cm.source_id}-${i}`}
-                        className="flex items-baseline gap-2 text-[11px] font-mono py-0.5"
-                      >
+                      <li key={`${cm.source_id}-${i}`} className="flex items-baseline gap-2 text-mini font-mono py-0.5">
                         <span
                           className={`inline-block w-1.5 h-1.5 rounded-full shrink-0 ${
                             matched.length > 0 ? 'bg-violet-500' : 'bg-transparent'
@@ -190,7 +187,7 @@ export function RulesSnapshotPanel(): JSX.Element {
                   href={`https://github.com/search?q=${encodeURIComponent(c.title)}+rules&type=repositories`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-auto pt-2 text-[10px] font-mono text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-0.5"
+                  className="mt-auto pt-2 text-micro font-mono text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-0.5"
                 >
                   more {c.title.split(' ')[0].toLowerCase()} repos <ExternalLink size={9} />
                 </a>

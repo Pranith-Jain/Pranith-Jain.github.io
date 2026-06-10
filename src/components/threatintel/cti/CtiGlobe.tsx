@@ -405,7 +405,7 @@ export default function CtiGlobe({
                   style={{ backgroundColor: severityColor(selectedPoint.severity) }}
                 />
                 <span
-                  className="text-[10px] font-mono uppercase px-2 py-0.5 rounded"
+                  className="text-micro font-mono uppercase px-2 py-0.5 rounded"
                   style={{
                     backgroundColor: severityColor(selectedPoint.severity) + '25',
                     color: severityColor(selectedPoint.severity),
@@ -435,7 +435,7 @@ export default function CtiGlobe({
       {/* Controls Help */}
       {ready && (
         <div className="absolute bottom-4 right-4 bg-[#0f1629]/80 backdrop-blur-sm rounded-lg border border-slate-700/50 px-3 py-2 pointer-events-none">
-          <div className="text-[10px] font-mono text-slate-500 space-y-1">
+          <div className="text-micro font-mono text-slate-500 space-y-1">
             <div>🖱️ Drag to rotate</div>
             <div>🔍 Scroll to zoom</div>
             <div>👆 Click point for details</div>
@@ -446,7 +446,7 @@ export default function CtiGlobe({
       {/* Stats */}
       {ready && (
         <div className="absolute bottom-4 left-4 bg-[#0f1629]/80 backdrop-blur-sm rounded-lg border border-slate-700/50 px-3 py-1.5 pointer-events-none">
-          <span className="text-[10px] font-mono text-slate-400">
+          <span className="text-micro font-mono text-slate-400">
             {points.length} points · {arcs.length} arcs
           </span>
         </div>

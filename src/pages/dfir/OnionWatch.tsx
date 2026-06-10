@@ -232,7 +232,7 @@ export default function OnionWatch(): JSX.Element {
           />
         </div>
 
-        <div className="flex flex-wrap items-center gap-3 mt-3 text-[11px] font-mono">
+        <div className="flex flex-wrap items-center gap-3 mt-3 text-mini font-mono">
           <label className="inline-flex items-center gap-1.5 cursor-pointer">
             <input type="checkbox" checked={showOffline} onChange={(e) => setShowOffline(e.target.checked)} />
             <span className="text-slate-600 dark:text-slate-400">show offline groups</span>
@@ -292,7 +292,7 @@ export default function OnionWatch(): JSX.Element {
 
       {data && (
         <>
-          <p className="text-[11px] font-mono text-slate-500 dark:text-slate-400 mb-4">
+          <p className="text-mini font-mono text-slate-500 dark:text-slate-400 mb-4">
             Showing {visibleGroups.length} of {data.groups.length} groups · {visibleMirrorCount} mirror
             {visibleMirrorCount === 1 ? '' : 's'} matched
           </p>
@@ -315,16 +315,16 @@ export default function OnionWatch(): JSX.Element {
                       {g.group}
                     </h2>
                     <div className="flex items-center gap-2">
-                      <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400">
+                      <span className="text-micro font-mono text-slate-500 dark:text-slate-400">
                         {g.mirrors.length} mirror{g.mirrors.length === 1 ? '' : 's'}
                       </span>
                       {g.last_active && (
-                        <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400">
+                        <span className="text-micro font-mono text-slate-500 dark:text-slate-400">
                           last claim {formatRelativeTime(g.last_active)}
                         </span>
                       )}
                       <span
-                        className={`text-[9px] font-mono uppercase tracking-wider px-1 py-0.5 rounded border ${
+                        className={`text-micro font-mono uppercase tracking-wider px-1 py-0.5 rounded border ${
                           g.any_reachable
                             ? 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300'
                             : 'border-slate-300 dark:border-slate-700 text-slate-500'
@@ -339,7 +339,7 @@ export default function OnionWatch(): JSX.Element {
                     {g.mirrors.map((m) => (
                       <li
                         key={m.slug}
-                        className="flex flex-wrap items-baseline gap-2 text-[11px] font-mono px-2 py-1 rounded bg-white/60 dark:bg-slate-900/60"
+                        className="flex flex-wrap items-baseline gap-2 text-mini font-mono px-2 py-1 rounded bg-white/60 dark:bg-slate-900/60"
                       >
                         <span
                           className={`shrink-0 inline-block w-1.5 h-1.5 rounded-full ${
@@ -351,7 +351,7 @@ export default function OnionWatch(): JSX.Element {
                         <button
                           type="button"
                           onClick={() => void copy(m.slug, m.slug)}
-                          className="inline-flex items-center gap-1 text-[10px] text-brand-600 dark:text-brand-400 hover:underline shrink-0"
+                          className="inline-flex items-center gap-1 text-micro text-brand-600 dark:text-brand-400 hover:underline shrink-0"
                           title="Copy full Tor URL"
                         >
                           {copiedKey === m.slug ? <Check size={10} /> : <Copy size={10} />}
@@ -359,7 +359,7 @@ export default function OnionWatch(): JSX.Element {
                         </button>
                         {m.is_chat && (
                           <span
-                            className="text-[9px] uppercase tracking-wider px-1 py-0.5 rounded border border-amber-500/40 text-amber-700 dark:text-amber-300"
+                            className="text-micro uppercase tracking-wider px-1 py-0.5 rounded border border-amber-500/40 text-amber-700 dark:text-amber-300"
                             title="Chat / negotiation endpoint"
                           >
                             chat
@@ -367,7 +367,7 @@ export default function OnionWatch(): JSX.Element {
                         )}
                         {m.is_fs && (
                           <span
-                            className="text-[9px] uppercase tracking-wider px-1 py-0.5 rounded border border-cyan-500/40 text-cyan-700 dark:text-cyan-300"
+                            className="text-micro uppercase tracking-wider px-1 py-0.5 rounded border border-cyan-500/40 text-cyan-700 dark:text-cyan-300"
                             title="File-share endpoint"
                           >
                             fs
@@ -375,7 +375,7 @@ export default function OnionWatch(): JSX.Element {
                         )}
                         {typeof m.version === 'number' && (
                           <span
-                            className="text-[9px] uppercase tracking-wider px-1 py-0.5 rounded border border-slate-300 dark:border-slate-700 text-slate-500"
+                            className="text-micro uppercase tracking-wider px-1 py-0.5 rounded border border-slate-300 dark:border-slate-700 text-slate-500"
                             title="Tor onion-service address version"
                           >
                             v{m.version}
@@ -383,7 +383,7 @@ export default function OnionWatch(): JSX.Element {
                         )}
                         {m.title && (
                           <span
-                            className="text-[10px] text-slate-500 dark:text-slate-400 italic sm:ml-auto truncate max-w-[40vw] sm:max-w-xs hidden sm:inline"
+                            className="text-micro text-slate-500 dark:text-slate-400 italic sm:ml-auto truncate max-w-[40vw] sm:max-w-xs hidden sm:inline"
                             title={m.title}
                           >
                             “{m.title.slice(0, 60)}
@@ -395,7 +395,7 @@ export default function OnionWatch(): JSX.Element {
                   </ul>
 
                   {g.mirrors.length > 1 && (
-                    <div className="mt-2 text-[10px] font-mono text-slate-500 dark:text-slate-400">
+                    <div className="mt-2 text-micro font-mono text-slate-500 dark:text-slate-400">
                       Multiple mirrors are normal — leak sites mirror across .onion v3 addresses to survive takedowns
                       and DDoS. Try the next mirror if one fails.
                     </div>
@@ -406,7 +406,7 @@ export default function OnionWatch(): JSX.Element {
           )}
 
           {data.warnings.length > 0 && (
-            <details className="mt-6 text-[11px] font-mono text-slate-500 dark:text-slate-400">
+            <details className="mt-6 text-mini font-mono text-slate-500 dark:text-slate-400">
               <summary className="cursor-pointer hover:text-slate-700 dark:hover:text-slate-300">
                 {data.warnings.length} warning{data.warnings.length === 1 ? '' : 's'} from upstream
               </summary>
@@ -418,7 +418,7 @@ export default function OnionWatch(): JSX.Element {
             </details>
           )}
 
-          <p className="mt-6 text-[10px] font-mono text-slate-500 dark:text-slate-400">
+          <p className="mt-6 text-micro font-mono text-slate-500 dark:text-slate-400">
             Source:{' '}
             <a
               href={sanitizeUrl(data.source_url) || undefined}
@@ -452,7 +452,7 @@ function Stat({
       <div className="text-2xl font-display font-bold text-slate-900 dark:text-slate-100 tabular-nums">
         {loading ? '…' : (valueText ?? value ?? 0)}
       </div>
-      <div className="text-[10px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">{label}</div>
+      <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">{label}</div>
     </div>
   );
 }

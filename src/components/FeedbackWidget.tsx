@@ -68,7 +68,7 @@ export function FeedbackWidget({ targetType, targetId, sector, compact, onFeedba
 
   if (submitted) {
     return (
-      <span className="inline-flex items-center gap-1.5 text-[11px] text-emerald-600 dark:text-emerald-400">
+      <span className="inline-flex items-center gap-1.5 text-mini text-emerald-600 dark:text-emerald-400">
         <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
           <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
         </svg>
@@ -110,7 +110,7 @@ export function FeedbackWidget({ targetType, targetId, sector, compact, onFeedba
             />
           </svg>
         </button>
-        {error && <span className="text-[10px] text-rose-500 ml-1">{error}</span>}
+        {error && <span className="text-micro text-rose-500 ml-1">{error}</span>}
       </span>
     );
   }
@@ -119,7 +119,7 @@ export function FeedbackWidget({ targetType, targetId, sector, compact, onFeedba
 
   return (
     <div className="flex flex-col gap-2">
-      <span className="text-[11px] font-medium text-slate-500 dark:text-slate-400">Was this intelligence useful?</span>
+      <span className="text-mini font-medium text-slate-500 dark:text-slate-400">Was this intelligence useful?</span>
       <div className="flex flex-wrap gap-1.5">
         {ratings.map((r) => (
           <button
@@ -127,7 +127,7 @@ export function FeedbackWidget({ targetType, targetId, sector, compact, onFeedba
             type="button"
             onClick={() => handleSubmit(r)}
             disabled={saving}
-            className={`px-2.5 py-1 text-[11px] rounded-md border transition-colors disabled:opacity-50 ${
+            className={`px-2.5 py-1 text-mini rounded-md border transition-colors disabled:opacity-50 ${
               selectedRating === r
                 ? 'border-brand-500 bg-brand-500/10 text-brand-700 dark:border-brand-400 dark:bg-brand-400/10 dark:text-brand-300'
                 : 'border-slate-200 bg-white text-slate-600 hover:border-slate-300 hover:bg-slate-50 dark:border-white/10 dark:bg-transparent dark:text-slate-300 dark:hover:border-white/20 dark:hover:bg-white/5'
@@ -143,12 +143,12 @@ export function FeedbackWidget({ targetType, targetId, sector, compact, onFeedba
           value={comment}
           onChange={(e) => setComment(e.target.value)}
           placeholder="Optional comment…"
-          className="flex-1 text-[11px] px-2 py-1 rounded border border-slate-200 bg-white dark:border-white/10 dark:bg-transparent dark:text-slate-300 placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-brand-500"
+          className="flex-1 text-mini px-2 py-1 rounded border border-slate-200 bg-white dark:border-white/10 dark:bg-transparent dark:text-slate-300 placeholder:text-slate-400 focus:outline-none focus-visible:ring-1 focus-visible:ring-brand-500"
           maxLength={500}
         />
-        {saving && <span className="text-[10px] text-slate-400 animate-pulse">Saving…</span>}
+        {saving && <span className="text-micro text-slate-400 animate-pulse">Saving…</span>}
       </div>
-      {error && <p className="text-[10px] text-rose-500">{error}</p>}
+      {error && <p className="text-micro text-rose-500">{error}</p>}
     </div>
   );
 }

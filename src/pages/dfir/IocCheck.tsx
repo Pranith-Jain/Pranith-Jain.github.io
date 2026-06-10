@@ -401,7 +401,7 @@ export default function IocCheck(): JSX.Element {
     <div className="max-w-4xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -458,7 +458,7 @@ export default function IocCheck(): JSX.Element {
             rows={5}
             spellCheck={false}
             placeholder={`Paste up to ${BULK_MAX} IPs / domains / URLs / hashes. Separators: newline / comma / space / pipe.`}
-            className="w-full px-4 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg font-mono text-[13px] text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="w-full px-4 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg font-mono text-tool text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
           />
           <div className="mt-3 flex flex-wrap items-center gap-2">
             <button
@@ -478,7 +478,7 @@ export default function IocCheck(): JSX.Element {
                   type="button"
                   onClick={exportBulkCsv}
                   disabled={bulkRunning}
-                  className="text-[11px] font-mono px-2 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 disabled:opacity-40 inline-flex items-center gap-1"
+                  className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 disabled:opacity-40 inline-flex items-center gap-1"
                 >
                   <FileDown size={11} /> CSV
                 </button>
@@ -486,7 +486,7 @@ export default function IocCheck(): JSX.Element {
                   type="button"
                   onClick={exportBulkJson}
                   disabled={bulkRunning}
-                  className="text-[11px] font-mono px-2 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 disabled:opacity-40 inline-flex items-center gap-1"
+                  className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 disabled:opacity-40 inline-flex items-center gap-1"
                 >
                   <FileDown size={11} /> JSON
                 </button>
@@ -494,7 +494,7 @@ export default function IocCheck(): JSX.Element {
                   <a
                     href={`/api/v1/intel-bundle/${stixBundleId}/export.stix.json`}
                     download={`${stixBundleId}.stix.json`}
-                    className="text-[11px] font-mono px-2 py-1 rounded border border-emerald-500/40 bg-emerald-500/5 text-emerald-700 dark:text-emerald-300 hover:bg-emerald-500/10 inline-flex items-center gap-1"
+                    className="text-mini font-mono px-2 py-1 rounded border border-emerald-500/40 bg-emerald-500/5 text-emerald-700 dark:text-emerald-300 hover:bg-emerald-500/10 inline-flex items-center gap-1"
                   >
                     <FileDown size={11} /> STIX
                   </a>
@@ -503,20 +503,20 @@ export default function IocCheck(): JSX.Element {
                     type="button"
                     onClick={() => void buildStix()}
                     disabled={stixLoading || bulkRunning}
-                    className="text-[11px] font-mono px-2 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 disabled:opacity-40 inline-flex items-center gap-1"
+                    className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 disabled:opacity-40 inline-flex items-center gap-1"
                   >
                     <FileDown size={11} /> {stixLoading ? 'building…' : 'STIX'}
                   </button>
                 )}
                 {stixError && (
-                  <span role="alert" className="text-[11px] font-mono text-rose-700 dark:text-rose-300">
+                  <span role="alert" className="text-mini font-mono text-rose-700 dark:text-rose-300">
                     {stixError}
                   </span>
                 )}
               </>
             )}
             {bulkIndicators.length > 0 && (
-              <span className="text-[11px] font-mono text-slate-500">
+              <span className="text-mini font-mono text-slate-500">
                 detected {bulkIndicators.length} unique indicator{bulkIndicators.length === 1 ? '' : 's'}
                 {bulkInput.split(/[\s,;|]+/).filter(Boolean).length > BULK_MAX && ` (capped at ${BULK_MAX})`}
               </span>
@@ -529,9 +529,7 @@ export default function IocCheck(): JSX.Element {
               <div className="mt-4 flex flex-wrap items-center gap-2 text-sm">
                 {Object.entries(bulkVerdictCounts).map(([v, count]) => (
                   <span key={v} className="inline-flex items-center gap-1.5">
-                    <span className="text-[12px] font-mono text-slate-700 dark:text-slate-300 tabular-nums">
-                      {count}
-                    </span>
+                    <span className="text-meta font-mono text-slate-700 dark:text-slate-300 tabular-nums">{count}</span>
                     <VerdictChip verdict={v as 'clean' | 'suspicious' | 'malicious' | 'unknown'} />
                   </span>
                 ))}
@@ -540,7 +538,7 @@ export default function IocCheck(): JSX.Element {
               {/* Results table */}
               <div className="mt-4 overflow-x-auto rounded-lg border border-slate-200 dark:border-slate-800">
                 <table className="w-full text-sm">
-                  <thead className="text-left text-[10px] font-mono uppercase tracking-wider text-slate-500 bg-slate-50 dark:bg-slate-900/60">
+                  <thead className="text-left text-micro font-mono uppercase tracking-wider text-slate-500 bg-slate-50 dark:bg-slate-900/60">
                     <tr>
                       <th scope="col" className="px-3 py-2">
                         Indicator
@@ -578,30 +576,28 @@ export default function IocCheck(): JSX.Element {
                             className="min-w-0"
                           />
                         </td>
-                        <td className="px-3 py-2 text-[11px] font-mono uppercase text-slate-500">
+                        <td className="px-3 py-2 text-mini font-mono uppercase text-slate-500">
                           {r.type === 'unknown' ? '?' : r.type}
                         </td>
                         <td className="px-3 py-2">
-                          {r.status === 'pending' && (
-                            <span className="text-[11px] font-mono text-slate-500">queued</span>
-                          )}
+                          {r.status === 'pending' && <span className="text-mini font-mono text-slate-500">queued</span>}
                           {r.status === 'running' && (
-                            <span className="inline-flex items-center gap-1 text-[11px] font-mono text-slate-500">
+                            <span className="inline-flex items-center gap-1 text-mini font-mono text-slate-500">
                               <Loader2 size={11} className="animate-spin" /> running
                             </span>
                           )}
                           {r.status === 'error' && (
-                            <span className="text-[11px] font-mono text-rose-600 dark:text-rose-400">error</span>
+                            <span className="text-mini font-mono text-rose-600 dark:text-rose-400">error</span>
                           )}
                           {r.status === 'done' && r.verdict && <VerdictChip verdict={r.verdict} />}
                         </td>
                         <td className="px-3 py-2 text-right font-mono tabular-nums">
                           {r.score !== undefined ? `${r.score}/100` : '—'}
                         </td>
-                        <td className="px-3 py-2 text-[12px] font-mono text-slate-500">
+                        <td className="px-3 py-2 text-meta font-mono text-slate-500">
                           {r.contributing !== undefined && r.total !== undefined ? `${r.contributing}/${r.total}` : '—'}
                         </td>
-                        <td className="px-3 py-2 text-[12px] font-mono text-slate-700 dark:text-slate-300">
+                        <td className="px-3 py-2 text-meta font-mono text-slate-700 dark:text-slate-300">
                           {r.flagged && r.flagged.length > 0 ? r.flagged.join(', ') : '—'}
                           {r.error && <span className="text-rose-500"> ({r.error})</span>}
                         </td>
@@ -780,7 +776,7 @@ export default function IocCheck(): JSX.Element {
               </section>
 
               {explainText && (
-                <section className="mb-8 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 animate-fade-in-up">
+                <section className="mb-8 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 animate-fade-in-up">
                   <div className="flex items-center justify-between mb-2">
                     <h3 className="text-xs font-mono font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
                       AI Verdict Explanation
@@ -804,14 +800,14 @@ export default function IocCheck(): JSX.Element {
               )}
 
               {ruleText && (
-                <section className="mb-8 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 animate-fade-in-up">
+                <section className="mb-8 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 animate-fade-in-up">
                   <div className="flex items-center justify-between p-3 border-b border-slate-200 dark:border-slate-800">
                     <div className="flex items-center gap-2">
                       <FileCode size={14} className="text-brand-600 dark:text-brand-400" />
                       <span className="text-sm font-mono font-semibold text-slate-700 dark:text-slate-300">
                         {ruleName}
                       </span>
-                      <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-500">
+                      <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-500">
                         {ruleFormat.toUpperCase()}
                       </span>
                     </div>

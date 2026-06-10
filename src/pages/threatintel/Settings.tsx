@@ -276,7 +276,7 @@ export default function Settings(): JSX.Element {
           <section key={cat} className="animate-fade-in-up">
             <h2 className="font-display font-semibold text-base mb-3 text-slate-800 dark:text-slate-200">
               {CATEGORY_LABEL[cat]}
-              <span className="ml-2 text-[11px] font-mono text-slate-500">{items.length}</span>
+              <span className="ml-2 text-mini font-mono text-slate-500">{items.length}</span>
             </h2>
             <div className="grid sm:grid-cols-2 gap-2">
               {items.map((i) => {
@@ -293,8 +293,8 @@ export default function Settings(): JSX.Element {
                         <span
                           className={
                             i.status === 'live'
-                              ? 'inline-flex items-center text-[10px] font-mono rounded border border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 px-1.5 py-0.5'
-                              : 'inline-flex items-center text-[10px] font-mono rounded border border-slate-300 dark:border-slate-700 bg-slate-100 dark:bg-slate-800 text-slate-500 px-1.5 py-0.5'
+                              ? 'inline-flex items-center text-micro font-mono rounded border border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 px-1.5 py-0.5'
+                              : 'inline-flex items-center text-micro font-mono rounded border border-slate-300 dark:border-slate-700 bg-slate-100 dark:bg-slate-800 text-slate-500 px-1.5 py-0.5'
                           }
                         >
                           {i.status === 'live' ? 'live' : 'optional'}

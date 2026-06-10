@@ -147,12 +147,12 @@ export function StixObjectTable({ bundle }: { bundle: StixBundle }): JSX.Element
     <div className="mt-4 mb-4 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
       <div className="flex items-center gap-2 mb-3 flex-wrap">
         <span className="text-xs font-mono font-bold text-slate-700 dark:text-slate-300">STIX 2.1 Objects</span>
-        <span className="text-[10px] font-mono text-slate-500">{bundle.objects.length} total</span>
+        <span className="text-micro font-mono text-slate-500">{bundle.objects.length} total</span>
         <div className="flex gap-1.5 flex-wrap">
           {stats.map(({ type, count }) => (
             <span
               key={type}
-              className={`text-[9px] font-mono px-1.5 py-0.5 rounded border ${TYPE_COLORS[type]?.badge ?? 'border-slate-400 text-slate-500'}`}
+              className={`text-micro font-mono px-1.5 py-0.5 rounded border ${TYPE_COLORS[type]?.badge ?? 'border-slate-400 text-slate-500'}`}
             >
               {count} {type.replace(/-/g, ' ')}
             </span>
@@ -161,7 +161,7 @@ export function StixObjectTable({ bundle }: { bundle: StixBundle }): JSX.Element
         <button
           type="button"
           onClick={copyBundle}
-          className="ml-auto text-[10px] font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40 text-slate-500"
+          className="ml-auto text-micro font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40 text-slate-500"
         >
           {copied ? <Check size={10} className="inline" /> : <Copy size={10} className="inline" />} Copy JSON
         </button>
@@ -171,7 +171,7 @@ export function StixObjectTable({ bundle }: { bundle: StixBundle }): JSX.Element
         .filter(([t]) => t !== 'relationship')
         .map(([type, objects]) => (
           <div key={type} className="mb-3">
-            <div className="text-[10px] font-mono font-bold uppercase tracking-wider text-slate-500 mb-1">
+            <div className="text-micro font-mono font-bold uppercase tracking-wider text-slate-500 mb-1">
               {type.replace(/-/g, ' ')} ({objects.length})
             </div>
             <div className="space-y-1">
@@ -183,7 +183,7 @@ export function StixObjectTable({ bundle }: { bundle: StixBundle }): JSX.Element
                     className="w-full px-3 py-2 flex items-center gap-2 hover:bg-slate-50/60 dark:hover:bg-slate-950/40 text-left"
                   >
                     <span
-                      className={`text-[9px] font-mono px-1.5 py-0.5 rounded border ${TYPE_COLORS[type]?.badge ?? 'border-slate-400 text-slate-500'}`}
+                      className={`text-micro font-mono px-1.5 py-0.5 rounded border ${TYPE_COLORS[type]?.badge ?? 'border-slate-400 text-slate-500'}`}
                     >
                       {type}
                     </span>
@@ -192,19 +192,17 @@ export function StixObjectTable({ bundle }: { bundle: StixBundle }): JSX.Element
                   </button>
                   {expanded.has(obj.id) && (
                     <div className="px-3 pb-3 border-t border-slate-200 dark:border-slate-800 space-y-1.5 bg-slate-50/40 dark:bg-slate-950/40">
-                      <div className="text-[10px] font-mono text-slate-500 break-all">ID: {obj.id}</div>
+                      <div className="text-micro font-mono text-slate-500 break-all">ID: {obj.id}</div>
                       {obj.description && (
-                        <div className="text-[10px] font-mono text-slate-700 dark:text-slate-300">
-                          {obj.description}
-                        </div>
+                        <div className="text-micro font-mono text-slate-700 dark:text-slate-300">{obj.description}</div>
                       )}
                       {obj.pattern && (
-                        <div className="text-[10px] font-mono text-amber-700 dark:text-amber-300 bg-amber-500/5 p-1.5 rounded break-all">
+                        <div className="text-micro font-mono text-amber-700 dark:text-amber-300 bg-amber-500/5 p-1.5 rounded break-all">
                           {obj.pattern}
                         </div>
                       )}
                       {obj.external_references && obj.external_references.length > 0 && (
-                        <div className="text-[10px] font-mono space-y-0.5">
+                        <div className="text-micro font-mono space-y-0.5">
                           {obj.external_references.map((ref, i) => (
                             <div key={i}>
                               {ref.url ? (

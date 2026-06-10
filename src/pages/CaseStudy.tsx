@@ -102,7 +102,7 @@ export default function CaseStudy(): JSX.Element {
       </Link>
 
       <header className="mb-8">
-        <div className="text-[11px] font-mono uppercase tracking-[0.18em] text-brand-600 dark:text-brand-400">
+        <div className="text-mini font-mono uppercase tracking-[0.18em] text-brand-600 dark:text-brand-400">
           {study.kicker}
         </div>
         <h1 className="font-display text-3xl sm:text-4xl font-bold tracking-tight mt-2 leading-tight">{study.title}</h1>
@@ -123,7 +123,7 @@ export default function CaseStudy(): JSX.Element {
             anyone skimming gets the punch line before reading. Same
             minimal rhythm as the home hero status block. */}
         <div className="mt-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/60 dark:bg-slate-900/40 px-4 py-3">
-          <div className="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500">Outcome</div>
+          <div className="text-micro font-mono uppercase tracking-[0.2em] text-slate-500">Outcome</div>
           <p className="mt-1 text-sm sm:text-base font-medium text-slate-800 dark:text-slate-200">{study.outcome}</p>
         </div>
         {study.tags.length > 0 && (
@@ -131,7 +131,7 @@ export default function CaseStudy(): JSX.Element {
             {study.tags.map((t) => (
               <span
                 key={t}
-                className="text-[11px] font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-slate-800 text-slate-500"
+                className="text-mini font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-slate-800 text-slate-500"
               >
                 {t}
               </span>

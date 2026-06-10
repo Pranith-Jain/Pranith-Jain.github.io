@@ -64,7 +64,7 @@ export function LatestBriefingCard(): JSX.Element | null {
       <FileText className="h-5 w-5 shrink-0 text-brand-600 dark:text-brand-400" />
       <div className="min-w-0 flex-1">
         <div className="flex items-center gap-2">
-          <span className="rounded bg-brand-100 px-1.5 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-brand-700 dark:bg-brand-900/50 dark:text-brand-300">
+          <span className="rounded bg-brand-100 px-1.5 py-0.5 text-mini font-semibold uppercase tracking-wide text-brand-700 dark:bg-brand-900/50 dark:text-brand-300">
             Latest {kind} Briefing
           </span>
           <span className="truncate text-sm font-medium text-slate-900 dark:text-slate-100">

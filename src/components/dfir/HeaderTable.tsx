@@ -73,7 +73,7 @@ export function HeaderTable({ headers }: HeaderTableProps): JSX.Element {
       {otherEntries.length > 0 && (
         <button
           onClick={() => setExpanded((e) => !e)}
-          className="mt-3 flex items-center gap-1 text-xs font-mono text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:text-brand-400"
+          className="mt-3 flex items-center gap-1 text-xs font-mono text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400"
         >
           {expanded ? <ChevronUp size={12} /> : <ChevronDown size={12} />}
           {expanded ? 'Show less' : `Show ${otherEntries.length} more header${otherEntries.length > 1 ? 's' : ''}`}

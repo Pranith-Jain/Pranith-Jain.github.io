@@ -110,7 +110,7 @@ export default function EvtxParser(): JSX.Element {
         <p className="text-sm font-mono text-slate-700 dark:text-slate-300">
           Drop a .evtx file file here, or click to choose
         </p>
-        <p className="text-[11px] font-mono text-slate-500 mt-1">100% client-side. No upload.</p>
+        <p className="text-mini font-mono text-slate-500 mt-1">100% client-side. No upload.</p>
       </button>
       <input
         id="evtxparser-input"
@@ -149,7 +149,7 @@ export default function EvtxParser(): JSX.Element {
 
       {data && (
         <div className="mt-6 space-y-3">
-          <div className="font-mono text-[12px] text-slate-500">
+          <div className="font-mono text-meta text-slate-500">
             {data.records.length.toLocaleString()} records · {data.chunks} chunks
             {data.records.length >= MAX ? ` (capped at ${MAX})` : ''}
           </div>
@@ -165,16 +165,16 @@ export default function EvtxParser(): JSX.Element {
                 key={r.id}
                 className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3"
               >
-                <div className="font-mono text-[11px] text-slate-500 mb-1">
+                <div className="font-mono text-mini text-slate-500 mb-1">
                   record #{r.id} · {r.time}
                 </div>
-                <div className="font-mono text-[11px] text-slate-700 dark:text-slate-300 break-all">
+                <div className="font-mono text-mini text-slate-700 dark:text-slate-300 break-all">
                   {r.strings.join('  ·  ')}
                 </div>
               </li>
             ))}
           </ul>
-          {shown.length === 0 && <p className="font-mono text-[12px] text-slate-500">No records match the filter.</p>}
+          {shown.length === 0 && <p className="font-mono text-meta text-slate-500">No records match the filter.</p>}
         </div>
       )}
     </div>

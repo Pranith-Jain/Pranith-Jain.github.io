@@ -63,7 +63,8 @@ const threatIntel: SidebarConfig = {
     {
       title: 'Triage',
       items: [
-        { label: 'Dashboard', href: '/threatintel', icon: LayoutDashboard },
+        { label: 'Browse', href: '/threatintel', icon: Compass },
+        { label: 'Dashboard', href: '/threatintel/intel-dashboard', icon: LayoutDashboard },
         { label: 'Pulse', href: '/threatintel/pulse', icon: Activity },
         { label: 'Live IOCs', href: '/threatintel/live-iocs', icon: Target },
         { label: 'Crypto Scams', href: '/threatintel/crypto-scams', icon: Bitcoin },

@@ -283,7 +283,7 @@ export default function IocExtractor(): JSX.Element {
       </div>
 
       {pipedFrom && (
-        <div className="mb-3 rounded border border-cyan-500/30 bg-cyan-500/5 p-2.5 text-[12px] font-mono text-cyan-700 dark:text-cyan-300 inline-flex items-center gap-2">
+        <div className="mb-3 rounded border border-cyan-500/30 bg-cyan-500/5 p-2.5 text-meta font-mono text-cyan-700 dark:text-cyan-300 inline-flex items-center gap-2">
           <Terminal size={12} /> Pre-filled from {pipedFrom} output. Edit freely below or
           <button
             type="button"
@@ -337,7 +337,7 @@ export default function IocExtractor(): JSX.Element {
           <summary className="text-xs font-mono text-cyan-700 dark:text-cyan-300 cursor-pointer inline-flex items-center gap-2">
             <ShieldAlert size={12} /> input was refanged before extraction — click to see normalised text
           </summary>
-          <pre className="mt-2 text-[11px] font-mono text-slate-700 dark:text-slate-300 whitespace-pre-wrap break-all max-h-40 overflow-auto">
+          <pre className="mt-2 text-mini font-mono text-slate-700 dark:text-slate-300 whitespace-pre-wrap break-all max-h-40 overflow-auto">
             {refangedPreview}
           </pre>
         </details>
@@ -351,7 +351,7 @@ export default function IocExtractor(): JSX.Element {
         <div className="mb-4 flex gap-2">
           <Link
             to={`/dfir/ioc-check?indicator=${encodeURIComponent(results[0]?.values[0] ?? '')}`}
-            className="inline-flex items-center gap-1.5 text-[11px] font-mono px-3 py-2 rounded-lg border border-brand-500/40 bg-brand-500/10 text-brand-700 dark:text-brand-300 hover:bg-brand-500/20"
+            className="inline-flex items-center gap-1.5 text-mini font-mono px-3 py-2 rounded-lg border border-brand-500/40 bg-brand-500/10 text-brand-700 dark:text-brand-300 hover:bg-brand-500/20"
           >
             <Crosshair size={11} /> Check first indicator in IOC Checker
           </Link>

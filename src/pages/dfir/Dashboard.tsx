@@ -86,7 +86,7 @@ export default function Dashboard(): JSX.Element {
             key={s.k}
             className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-4 py-3.5"
           >
-            <div className="text-[11px] font-mono uppercase tracking-[0.16em] text-slate-500">{s.k}</div>
+            <div className="text-mini font-mono uppercase tracking-[0.16em] text-slate-500">{s.k}</div>
             <div className="mt-1 font-display font-bold text-xl text-slate-900 dark:text-slate-100 truncate">{s.v}</div>
           </div>
         ))}

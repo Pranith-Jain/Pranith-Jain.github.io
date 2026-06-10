@@ -139,7 +139,7 @@ export default function Signal(): JSX.Element {
         SentinelLabs, Unit 42, Check Point Research, Huntress, Eye Security, Exodus, OpenAnalysis, BushidoToken,
         DoublePulsar. Low-volume sources, longer-form pieces.
       </p>
-      <p className="text-[12px] text-slate-500 dark:text-slate-400 font-mono mb-6">
+      <p className="text-meta text-slate-500 dark:text-slate-400 font-mono mb-6">
         For the full ecosystem cut (including Medium tag feeds and the long tail), see{' '}
         <Link to="/threatintel/writeups" className="text-brand-600 dark:text-brand-400 hover:underline">
           /threatintel/writeups
@@ -188,14 +188,14 @@ export default function Signal(): JSX.Element {
           <button
             type="button"
             onClick={() => setRefreshKey((k) => k + 1)}
-            className="text-[11px] font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 inline-flex items-center gap-1"
+            className="text-mini font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 inline-flex items-center gap-1"
           >
             <RefreshCw size={11} /> refresh
           </button>
         </div>
         {sourceCounts.size > 1 && (
           <div className="flex flex-wrap items-center gap-1.5 mt-3">
-            <span className="text-[11px] font-mono uppercase tracking-[0.18em] text-slate-500 mr-1">sources:</span>
+            <span className="text-mini font-mono uppercase tracking-[0.18em] text-slate-500 mr-1">sources:</span>
             {Array.from(sourceCounts.entries())
               .sort((a, b) => b[1] - a[1])
               .map(([src, count]) => {
@@ -205,7 +205,7 @@ export default function Signal(): JSX.Element {
                     key={src}
                     type="button"
                     onClick={() => toggleSource(src)}
-                    className={`text-[11px] font-mono px-2 py-1 rounded border ${
+                    className={`text-mini font-mono px-2 py-1 rounded border ${
                       active
                         ? 'border-brand-500/60 bg-brand-500/10 text-brand-700 dark:text-brand-300'
                         : 'border-slate-300 dark:border-slate-700 text-slate-500 hover:border-brand-500/40'
@@ -222,7 +222,7 @@ export default function Signal(): JSX.Element {
                   setSourceFilter(new Set());
                   setQuery('');
                 }}
-                className="text-[11px] font-mono text-brand-600 dark:text-brand-400 hover:underline ml-1"
+                className="text-mini font-mono text-brand-600 dark:text-brand-400 hover:underline ml-1"
               >
                 clear
               </button>
@@ -230,7 +230,7 @@ export default function Signal(): JSX.Element {
           </div>
         )}
         {data && (
-          <p className="text-[11px] font-mono text-slate-500 mt-3">
+          <p className="text-mini font-mono text-slate-500 mt-3">
             Showing <span className="text-slate-700 dark:text-slate-300">{filtered.length}</span> of{' '}
             <span className="text-slate-700 dark:text-slate-300">{data.total}</span> · {data.sources.length} sources ·
             snapshot {new Date(data.generated_at).toLocaleString()}
@@ -258,10 +258,10 @@ export default function Signal(): JSX.Element {
             >
               <a href={sanitizeUrl(it.url)} target="_blank" rel="noopener noreferrer" className="group block">
                 <div className="flex items-baseline justify-between gap-3 mb-1.5">
-                  <span className="text-[10px] font-mono uppercase tracking-[0.18em] text-brand-600 dark:text-brand-400">
+                  <span className="text-micro font-mono uppercase tracking-[0.18em] text-brand-600 dark:text-brand-400">
                     {it.source}
                   </span>
-                  <span className="text-[10px] font-mono text-slate-500 shrink-0" title={formatDate(it.published)}>
+                  <span className="text-micro font-mono text-slate-500 shrink-0" title={formatDate(it.published)}>
                     {shortRel(it.published)}
                   </span>
                 </div>
@@ -270,7 +270,7 @@ export default function Signal(): JSX.Element {
                   <ExternalLink size={12} className="inline-block ml-1 opacity-50" aria-hidden="true" />
                 </h2>
                 {it.description && (
-                  <p className="text-[13px] text-slate-600 dark:text-slate-400 leading-relaxed mt-1.5 line-clamp-2">
+                  <p className="text-tool text-slate-600 dark:text-slate-400 leading-relaxed mt-1.5 line-clamp-2">
                     {it.description}
                   </p>
                 )}
@@ -280,7 +280,7 @@ export default function Signal(): JSX.Element {
                   {it.tags!.slice(0, 6).map((t) => (
                     <span
                       key={t}
-                      className="text-[10px] font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-800 text-slate-500"
+                      className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-800 text-slate-500"
                     >
                       {t}
                     </span>

@@ -105,7 +105,7 @@ export default function ApkAnalyzer(): JSX.Element {
         >
           <Upload size={32} className="mx-auto mb-2 text-slate-500" />
           <p className="text-sm font-mono text-slate-700 dark:text-slate-300">Drop an APK here, or click to choose</p>
-          <p className="text-[11px] font-mono text-slate-500 mt-1">100% client-side. Max 100 MB.</p>
+          <p className="text-mini font-mono text-slate-500 mt-1">100% client-side. Max 100 MB.</p>
         </button>
         <input
           ref={fileRef}
@@ -138,7 +138,7 @@ export default function ApkAnalyzer(): JSX.Element {
               <h2 className="font-display font-bold text-lg">{result.fileName}</h2>
               <span className="text-xs font-mono text-slate-500">{fmtBytes(result.size)}</span>
             </div>
-            <dl className="grid sm:grid-cols-[140px_1fr] gap-x-4 gap-y-1 text-[12px] font-mono">
+            <dl className="grid sm:grid-cols-[140px_1fr] gap-x-4 gap-y-1 text-meta font-mono">
               <dt className="text-slate-500">Package</dt>
               <dd className="text-slate-900 dark:text-slate-100 break-all">
                 {result.analysis.packageName || 'unknown'}
@@ -194,7 +194,7 @@ export default function ApkAnalyzer(): JSX.Element {
             <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-3 inline-flex items-center gap-2">
               <Hash size={12} /> File hashes
             </h3>
-            <div className="space-y-1.5 text-[12px] font-mono mb-3">
+            <div className="space-y-1.5 text-meta font-mono mb-3">
               {(
                 [
                   ['SHA-256', result.sha256],
@@ -236,13 +236,13 @@ export default function ApkAnalyzer(): JSX.Element {
                   <div key={i} className="rounded border border-rose-500/20 bg-rose-500/5 p-2.5">
                     <div className="flex items-center gap-2 mb-1">
                       <span
-                        className={`text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${SEV_STYLES[s.severity]}`}
+                        className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${SEV_STYLES[s.severity]}`}
                       >
                         {s.severity}
                       </span>
                       <span className="text-xs font-mono font-semibold text-rose-800 dark:text-rose-200">{s.rule}</span>
                     </div>
-                    <p className="text-[11px] font-mono text-rose-700 dark:text-rose-300">{s.detail}</p>
+                    <p className="text-mini font-mono text-rose-700 dark:text-rose-300">{s.detail}</p>
                   </div>
                 ))}
               </div>
@@ -259,7 +259,7 @@ export default function ApkAnalyzer(): JSX.Element {
                 {result.analysis.permissions.map((p) => (
                   <span
                     key={p.name}
-                    className={`inline-flex items-center gap-1 text-[10px] font-mono px-2 py-0.5 rounded border ${p.dangerous ? 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300' : 'border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400'}`}
+                    className={`inline-flex items-center gap-1 text-micro font-mono px-2 py-0.5 rounded border ${p.dangerous ? 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300' : 'border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400'}`}
                   >
                     {p.dangerous ? (
                       <AlertTriangle size={10} aria-hidden="true" />
@@ -286,7 +286,7 @@ export default function ApkAnalyzer(): JSX.Element {
                     className="rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-2.5"
                   >
                     <div className="font-semibold text-sm text-slate-900 dark:text-slate-100 mb-1">{dex.name}</div>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-3 gap-y-0.5 text-[10px] font-mono text-slate-600 dark:text-slate-400">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-3 gap-y-0.5 text-micro font-mono text-slate-600 dark:text-slate-400">
                       <span>DEX v{dex.version}</span>
                       <span>{fmtBytes(dex.size)}</span>
                       <span>{dex.classCount} classes</span>
@@ -314,12 +314,12 @@ export default function ApkAnalyzer(): JSX.Element {
               </h3>
               {result.analysis.urls.length > 0 && (
                 <div className="mb-2">
-                  <div className="text-[10px] font-mono text-slate-500 mb-1">URLs ({result.analysis.urls.length})</div>
+                  <div className="text-micro font-mono text-slate-500 mb-1">URLs ({result.analysis.urls.length})</div>
                   <div className="flex flex-wrap gap-1">
                     {result.analysis.urls.map((u) => (
                       <span
                         key={u}
-                        className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-sky-500/10 text-sky-700 dark:text-sky-300 border border-sky-500/30 break-all max-w-[300px] truncate"
+                        className="text-micro font-mono px-1.5 py-0.5 rounded bg-sky-500/10 text-sky-700 dark:text-sky-300 border border-sky-500/30 break-all max-w-[300px] truncate"
                       >
                         {u}
                       </span>
@@ -329,12 +329,12 @@ export default function ApkAnalyzer(): JSX.Element {
               )}
               {result.analysis.ips.length > 0 && (
                 <div className="mb-2">
-                  <div className="text-[10px] font-mono text-slate-500 mb-1">IPs ({result.analysis.ips.length})</div>
+                  <div className="text-micro font-mono text-slate-500 mb-1">IPs ({result.analysis.ips.length})</div>
                   <div className="flex flex-wrap gap-1">
                     {result.analysis.ips.map((ip) => (
                       <span
                         key={ip}
-                        className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-700 dark:text-amber-300 border border-amber-500/30"
+                        className="text-micro font-mono px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-700 dark:text-amber-300 border border-amber-500/30"
                       >
                         {ip}
                       </span>
@@ -355,14 +355,14 @@ export default function ApkAnalyzer(): JSX.Element {
               </h3>
               {result.analysis.activities.length > 0 && (
                 <div className="mb-2">
-                  <div className="text-[10px] font-mono text-slate-500 mb-1">
+                  <div className="text-micro font-mono text-slate-500 mb-1">
                     Activities ({result.analysis.activities.length})
                   </div>
                   <div className="flex flex-wrap gap-1">
                     {result.analysis.activities.map((a) => (
                       <span
                         key={a}
-                        className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400"
+                        className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400"
                       >
                         {a.split('.').pop()}
                       </span>
@@ -372,14 +372,14 @@ export default function ApkAnalyzer(): JSX.Element {
               )}
               {result.analysis.services.length > 0 && (
                 <div className="mb-2">
-                  <div className="text-[10px] font-mono text-slate-500 mb-1">
+                  <div className="text-micro font-mono text-slate-500 mb-1">
                     Services ({result.analysis.services.length})
                   </div>
                   <div className="flex flex-wrap gap-1">
                     {result.analysis.services.map((s) => (
                       <span
                         key={s}
-                        className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400"
+                        className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400"
                       >
                         {s.split('.').pop()}
                       </span>
@@ -389,14 +389,14 @@ export default function ApkAnalyzer(): JSX.Element {
               )}
               {result.analysis.receivers.length > 0 && (
                 <div className="mb-2">
-                  <div className="text-[10px] font-mono text-slate-500 mb-1">
+                  <div className="text-micro font-mono text-slate-500 mb-1">
                     Receivers ({result.analysis.receivers.length})
                   </div>
                   <div className="flex flex-wrap gap-1">
                     {result.analysis.receivers.map((r) => (
                       <span
                         key={r}
-                        className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400"
+                        className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400"
                       >
                         {r.split('.').pop()}
                       </span>
@@ -417,7 +417,7 @@ export default function ApkAnalyzer(): JSX.Element {
                 {result.analysis.nativeLibs.map((lib) => (
                   <span
                     key={lib}
-                    className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400"
+                    className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400"
                   >
                     {lib.split('/').pop()}
                   </span>

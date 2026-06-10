@@ -283,7 +283,7 @@ export default function AgentMap(): JSX.Element {
                   </li>
                 ))}
               </ul>
-              <p className="mt-3 text-[11px] font-mono text-slate-500 dark:text-slate-400 leading-relaxed">
+              <p className="mt-3 text-mini font-mono text-slate-500 dark:text-slate-400 leading-relaxed">
                 Classification is heuristic — based on tool name, description, and Claude Code permission shape. Hover a
                 node to see the source detail.
               </p>
@@ -305,11 +305,11 @@ export default function AgentMap(): JSX.Element {
                     <div className="flex flex-wrap items-center gap-2 mb-1">
                       <span className="font-display font-semibold text-slate-900 dark:text-slate-100">{r.title}</span>
                       <span
-                        className={`text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${SEV_STYLES[r.severity]}`}
+                        className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${SEV_STYLES[r.severity]}`}
                       >
                         {r.severity}
                       </span>
-                      <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400">{r.kind}</span>
+                      <span className="text-micro font-mono text-slate-500 dark:text-slate-400">{r.kind}</span>
                     </div>
                     <p className="text-sm font-mono text-slate-700 dark:text-slate-300 mb-2">{r.detail}</p>
                     <div className="flex flex-wrap items-center gap-1.5 mb-2">
@@ -318,7 +318,7 @@ export default function AgentMap(): JSX.Element {
                         return (
                           <span
                             key={id}
-                            className="text-[10px] font-mono px-1.5 py-0.5 rounded border border-brand-500/30 bg-brand-500/10 text-brand-700 dark:text-brand-300"
+                            className="text-micro font-mono px-1.5 py-0.5 rounded border border-brand-500/30 bg-brand-500/10 text-brand-700 dark:text-brand-300"
                           >
                             {t?.label ?? id}
                           </span>
@@ -344,17 +344,17 @@ export default function AgentMap(): JSX.Element {
               </h2>
               <ul className="space-y-1.5">
                 {graph.tools.map((t) => (
-                  <li key={t.id} className="text-[12px] font-mono">
+                  <li key={t.id} className="text-meta font-mono">
                     <div className="flex flex-wrap items-baseline gap-2">
                       <span className="font-semibold text-slate-900 dark:text-slate-100">{t.label}</span>
                       <span className="text-slate-500 dark:text-slate-400">[{t.origin}]</span>
                       {t.capabilities.length === 0 ? (
-                        <span className="text-[10px] text-slate-400 dark:text-slate-600">no capability classified</span>
+                        <span className="text-micro text-slate-400 dark:text-slate-600">no capability classified</span>
                       ) : (
                         t.capabilities.map((c) => (
                           <span
                             key={c}
-                            className="text-[10px] uppercase tracking-wider px-1.5 py-0.5 rounded border"
+                            className="text-micro uppercase tracking-wider px-1.5 py-0.5 rounded border"
                             style={{
                               borderColor: CAPABILITY_COLORS[c] + '60',
                               backgroundColor: CAPABILITY_COLORS[c] + '20',
@@ -366,7 +366,7 @@ export default function AgentMap(): JSX.Element {
                         ))
                       )}
                     </div>
-                    {t.detail && <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">{t.detail}</p>}
+                    {t.detail && <p className="text-mini text-slate-500 dark:text-slate-400 mt-0.5">{t.detail}</p>}
                   </li>
                 ))}
               </ul>

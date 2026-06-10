@@ -72,7 +72,7 @@ export function FilterBar({
               }`}
             >
               {f.label}
-              {f.count !== undefined && <span className="ml-1 text-[10px] opacity-60">{f.count}</span>}
+              {f.count !== undefined && <span className="ml-1 text-micro opacity-60">{f.count}</span>}
             </button>
           ))}
         </div>

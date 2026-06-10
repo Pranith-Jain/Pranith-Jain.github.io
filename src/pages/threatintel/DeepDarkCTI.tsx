@@ -134,14 +134,14 @@ export default function DeepDarkCTI(): JSX.Element {
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder="Search name, notes, actor…"
-                  className="w-full rounded-lg border border-slate-200 bg-white py-2 pl-9 pr-3 font-mono text-[13px] text-slate-900 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none dark:border-slate-800 dark:bg-slate-900 dark:text-slate-100"
+                  className="w-full rounded-lg border border-slate-200 bg-white py-2 pl-9 pr-3 font-mono text-tool text-slate-900 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none dark:border-slate-800 dark:bg-slate-900 dark:text-slate-100"
                   aria-label="Search deepdarkCTI"
                 />
               </div>
               <select
                 value={cat}
                 onChange={(e) => setCat(e.target.value)}
-                className="rounded-lg border border-slate-200 bg-white py-2 px-3 font-mono text-[12px] dark:border-slate-800 dark:bg-slate-900"
+                className="rounded-lg border border-slate-200 bg-white py-2 px-3 font-mono text-meta dark:border-slate-800 dark:bg-slate-900"
                 aria-label="Category filter"
               >
                 <option value="all">All categories ({data.total})</option>
@@ -154,20 +154,20 @@ export default function DeepDarkCTI(): JSX.Element {
               <select
                 value={onionOnly}
                 onChange={(e) => setOnionOnly(e.target.value as typeof onionOnly)}
-                className="rounded-lg border border-slate-200 bg-white py-2 px-3 font-mono text-[12px] dark:border-slate-800 dark:bg-slate-900"
+                className="rounded-lg border border-slate-200 bg-white py-2 px-3 font-mono text-meta dark:border-slate-800 dark:bg-slate-900"
                 aria-label="Network filter"
               >
                 <option value="all">Onion + clearnet</option>
                 <option value="onion">Onion only</option>
                 <option value="clearnet">Clearnet only</option>
               </select>
-              <label className="flex items-center gap-1.5 font-mono text-[12px] text-slate-600 dark:text-slate-400">
+              <label className="flex items-center gap-1.5 font-mono text-meta text-slate-600 dark:text-slate-400">
                 <input type="checkbox" checked={hideDown} onChange={(e) => setHideDown(e.target.checked)} />
                 hide offline/expired
               </label>
             </div>
 
-            <p className="font-mono text-[11px] text-slate-500 mb-3">
+            <p className="font-mono text-mini text-slate-500 mb-3">
               {filtered.length} shown · {data.total} total ·{' '}
               {data.sources.filter((s) => s.stale).length > 0 && (
                 <span className="text-amber-600 dark:text-amber-400">
@@ -203,19 +203,19 @@ export default function DeepDarkCTI(): JSX.Element {
                       <div className="flex items-center gap-1.5 flex-wrap">
                         <span className="font-display font-semibold text-sm truncate">{e.name}</span>
                         <span
-                          className={`shrink-0 rounded border px-1.5 py-0.5 font-mono text-[9px] uppercase ${STATUS_STYLE[e.status]}`}
+                          className={`shrink-0 rounded border px-1.5 py-0.5 font-mono text-micro uppercase ${STATUS_STYLE[e.status]}`}
                         >
                           {e.status}
                         </span>
                         {e.attack_type && (
-                          <span className="shrink-0 rounded border border-brand-500/40 bg-brand-500/10 px-1.5 py-0.5 font-mono text-[9px] text-brand-700 dark:text-brand-300">
+                          <span className="shrink-0 rounded border border-brand-500/40 bg-brand-500/10 px-1.5 py-0.5 font-mono text-micro text-brand-700 dark:text-brand-300">
                             {e.attack_type}
                           </span>
                         )}
                       </div>
-                      {e.actor && <div className="font-mono text-[11px] text-slate-500 mt-0.5">actor: {e.actor}</div>}
+                      {e.actor && <div className="font-mono text-mini text-slate-500 mt-0.5">actor: {e.actor}</div>}
                       {e.onion ? (
-                        <code className="block mt-1 font-mono text-[11px] text-slate-600 dark:text-slate-400 break-all">
+                        <code className="block mt-1 font-mono text-mini text-slate-600 dark:text-slate-400 break-all">
                           {e.url}
                         </code>
                       ) : (
@@ -223,13 +223,13 @@ export default function DeepDarkCTI(): JSX.Element {
                           href={sanitizeUrl(e.url) || undefined}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="mt-1 inline-flex items-center gap-1 font-mono text-[11px] text-brand-600 dark:text-brand-400 hover:underline break-all"
+                          className="mt-1 inline-flex items-center gap-1 font-mono text-mini text-brand-600 dark:text-brand-400 hover:underline break-all"
                         >
                           {e.url}
                           <ExternalLink size={10} className="shrink-0" />
                         </a>
                       )}
-                      {e.notes && <p className="font-mono text-[11px] text-slate-500 mt-1">{e.notes}</p>}
+                      {e.notes && <p className="font-mono text-mini text-slate-500 mt-1">{e.notes}</p>}
                     </div>
                     <button
                       type="button"
@@ -241,17 +241,17 @@ export default function DeepDarkCTI(): JSX.Element {
                     </button>
                   </div>
                   <div className="mt-1.5 flex items-center gap-2">
-                    <span className="font-mono text-[9px] uppercase tracking-wider text-slate-400">{e.category}</span>
+                    <span className="font-mono text-micro uppercase tracking-wider text-slate-400">{e.category}</span>
                     <a
                       href={`https://github.com/fastfire/deepdarkCTI/blob/main/${e.source_file}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="font-mono text-[9px] text-slate-400 hover:text-brand-500"
+                      className="font-mono text-micro text-slate-400 hover:text-brand-500"
                     >
                       {e.source_file}
                     </a>
                     {copied === e.url && (
-                      <span className="font-mono text-[9px] text-emerald-600 dark:text-emerald-400">copied</span>
+                      <span className="font-mono text-micro text-emerald-600 dark:text-emerald-400">copied</span>
                     )}
                   </div>
                 </li>

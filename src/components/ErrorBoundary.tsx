@@ -207,16 +207,16 @@ function ErrorFallback({ error, errorInfo, isExpanded, onReset, onToggleDetails 
           {isExpanded && errorInfo && (
             <div className="animate-fade-in-up overflow-hidden">
               <div className="p-3 rounded-lg bg-slate-900 dark:bg-black/50 text-left">
-                <div className="text-[10px] font-mono text-rose-300 mb-2 uppercase tracking-wider">Stack Trace</div>
-                <pre className="text-[10px] font-mono text-slate-300 overflow-x-auto whitespace-pre-wrap break-all max-h-48">
+                <div className="text-micro font-mono text-rose-300 mb-2 uppercase tracking-wider">Stack Trace</div>
+                <pre className="text-micro font-mono text-slate-300 overflow-x-auto whitespace-pre-wrap break-all max-h-48">
                   {error.stack}
                 </pre>
                 {errorInfo.componentStack && (
                   <>
-                    <div className="text-[10px] font-mono text-rose-300 mt-3 mb-2 uppercase tracking-wider">
+                    <div className="text-micro font-mono text-rose-300 mt-3 mb-2 uppercase tracking-wider">
                       Component Stack
                     </div>
-                    <pre className="text-[10px] font-mono text-slate-300 overflow-x-auto whitespace-pre-wrap break-all max-h-32">
+                    <pre className="text-micro font-mono text-slate-300 overflow-x-auto whitespace-pre-wrap break-all max-h-32">
                       {errorInfo.componentStack}
                     </pre>
                   </>

@@ -49,15 +49,15 @@ function ProfileCard({ profile, platform }: { profile: IdentityProfile; platform
             <span className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100">
               {profile.displayName ?? profile.username}
             </span>
-            <span className="text-[10px] font-mono text-slate-500">@{profile.username}</span>
-            <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-500 flex items-center gap-1">
+            <span className="text-micro font-mono text-slate-500">@{profile.username}</span>
+            <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-500 flex items-center gap-1">
               <CatIcon size={10} /> {CATEGORY_LABELS[platform.category] ?? platform.category}
             </span>
           </div>
-          <div className="text-[11px] font-mono text-slate-600 dark:text-slate-400 mt-1 leading-relaxed line-clamp-2">
+          <div className="text-mini font-mono text-slate-600 dark:text-slate-400 mt-1 leading-relaxed line-clamp-2">
             {profile.bio ?? 'No bio'}
           </div>
-          <div className="flex items-center gap-3 mt-1.5 text-[10px] font-mono text-slate-500 flex-wrap">
+          <div className="flex items-center gap-3 mt-1.5 text-micro font-mono text-slate-500 flex-wrap">
             {profile.followers !== undefined && <span>↑ {profile.followers} followers</span>}
             {profile.following !== undefined && <span>↓ {profile.following} following</span>}
             {profile.publicRepos !== undefined && <span>⊞ {profile.publicRepos} repos</span>}
@@ -68,7 +68,7 @@ function ProfileCard({ profile, platform }: { profile: IdentityProfile; platform
               href={profile.profileUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[10px] font-mono text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+              className="text-micro font-mono text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
             >
               {profile.profileUrl} <ExternalLink size={9} />
             </a>
@@ -201,14 +201,14 @@ export default function IdentityLookup(): JSX.Element {
               <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono flex items-center gap-2">
                 <Globe size={14} /> Profiles for <span className="text-slate-900 dark:text-slate-100">@{query}</span>
               </h2>
-              <span className="text-[11px] font-mono text-slate-500">
+              <span className="text-mini font-mono text-slate-500">
                 {foundCount} found · {PLATFORMS.length - foundCount} not found
               </span>
             </div>
             <div className="flex flex-wrap gap-1.5">
               <button
                 onClick={() => setCategoryFilter('all')}
-                className={`text-[11px] font-mono px-2 py-1 rounded border transition-colors ${
+                className={`text-mini font-mono px-2 py-1 rounded border transition-colors ${
                   categoryFilter === 'all'
                     ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
                     : 'border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-brand-500/40'
@@ -223,7 +223,7 @@ export default function IdentityLookup(): JSX.Element {
                   <button
                     key={cat}
                     onClick={() => setCategoryFilter(cat)}
-                    className={`text-[11px] font-mono px-2 py-1 rounded border transition-colors inline-flex items-center gap-1 ${
+                    className={`text-mini font-mono px-2 py-1 rounded border transition-colors inline-flex items-center gap-1 ${
                       categoryFilter === cat
                         ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
                         : 'border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-brand-500/40'
@@ -252,9 +252,9 @@ export default function IdentityLookup(): JSX.Element {
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2">
                         <span className="font-display font-semibold text-sm text-slate-500">{platform.name}</span>
-                        <span className="text-[10px] font-mono text-slate-400">@{query}</span>
+                        <span className="text-micro font-mono text-slate-400">@{query}</span>
                       </div>
-                      <p className="text-[11px] font-mono text-slate-400 mt-0.5">
+                      <p className="text-mini font-mono text-slate-400 mt-0.5">
                         {profiles.get(platform.id) === undefined ? 'Checking...' : 'Not found'}
                       </p>
                     </div>

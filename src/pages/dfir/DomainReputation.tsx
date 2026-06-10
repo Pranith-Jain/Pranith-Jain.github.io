@@ -251,7 +251,7 @@ export default function DomainReputation(): JSX.Element {
                         <Globe size={14} className="text-brand-600 dark:text-brand-400" aria-hidden="true" /> {ip}
                       </h3>
                       <span
-                        className={`text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded border ${classes}`}
+                        className={`text-micro font-mono uppercase tracking-wider px-2 py-0.5 rounded border ${classes}`}
                       >
                         {label} · {ipScore}/100
                       </span>
@@ -302,7 +302,7 @@ export default function DomainReputation(): JSX.Element {
             <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-3 inline-flex items-center gap-2">
               <BookOpen size={12} aria-hidden="true" /> External reputation lookups
             </h3>
-            <p className="text-[11px] font-mono text-slate-500 mb-3">
+            <p className="text-mini font-mono text-slate-500 mb-3">
               For a second opinion, cross-check against these free tools:
             </p>
             <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
@@ -318,7 +318,7 @@ export default function DomainReputation(): JSX.Element {
                   <div className="font-display font-semibold text-xs text-slate-900 dark:text-slate-100 inline-flex items-center gap-1">
                     {t.name} <ExternalLink size={10} aria-hidden="true" />
                   </div>
-                  <p className="text-[10px] font-mono text-slate-500 mt-0.5">{t.description}</p>
+                  <p className="text-micro font-mono text-slate-500 mt-0.5">{t.description}</p>
                 </a>
               ))}
             </div>

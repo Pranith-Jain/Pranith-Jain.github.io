@@ -312,7 +312,7 @@ export default function EmailReputation(): JSX.Element {
                   <div className="flex flex-wrap items-center gap-2 mb-3">
                     {result.emailRep.verdict && (
                       <span
-                        className={`text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded border ${
+                        className={`text-micro font-mono uppercase tracking-wider px-2 py-0.5 rounded border ${
                           result.emailRep.verdict === 'malicious'
                             ? 'bg-rose-500/15 text-rose-700 dark:text-rose-300 border-rose-500/30'
                             : result.emailRep.verdict === 'suspicious'
@@ -327,12 +327,12 @@ export default function EmailReputation(): JSX.Element {
                       </span>
                     )}
                     {result.emailRep.reputation && (
-                      <span className="text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded border border-slate-300 dark:border-slate-700">
+                      <span className="text-micro font-mono uppercase tracking-wider px-2 py-0.5 rounded border border-slate-300 dark:border-slate-700">
                         rep: {result.emailRep.reputation}
                       </span>
                     )}
                     {result.emailRep.references !== undefined && result.emailRep.references > 0 && (
-                      <span className="text-[10px] font-mono text-slate-500">
+                      <span className="text-micro font-mono text-slate-500">
                         {result.emailRep.references} references
                       </span>
                     )}
@@ -342,14 +342,14 @@ export default function EmailReputation(): JSX.Element {
                       {result.emailRep.tags.map((t) => (
                         <span
                           key={t}
-                          className="text-[10px] font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 text-slate-700 dark:text-slate-300"
+                          className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 text-slate-700 dark:text-slate-300"
                         >
                           {t}
                         </span>
                       ))}
                     </div>
                   )}
-                  <p className="text-[11px] font-mono text-slate-500 dark:text-slate-400">
+                  <p className="text-mini font-mono text-slate-500 dark:text-slate-400">
                     {result.emailRep.details?.first_seen && `first seen ${result.emailRep.details.first_seen} · `}
                     {result.emailRep.details?.last_seen && `last seen ${result.emailRep.details.last_seen} · `}
                     {result.emailRep.details?.deliverable !== undefined &&
@@ -393,10 +393,10 @@ export default function EmailReputation(): JSX.Element {
                 <div className="flex items-baseline justify-between gap-2 mb-3">
                   <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono inline-flex items-center gap-2">
                     <Mail size={12} aria-hidden="true" /> {exchange}{' '}
-                    <span className="text-slate-500 normal-case text-[10px]">({ip})</span>
+                    <span className="text-slate-500 normal-case text-micro">({ip})</span>
                   </h3>
                   <span
-                    className={`text-[10px] font-mono px-2 py-0.5 rounded border ${blScore === 0 ? 'bg-emerald-500/15 text-emerald-700 border-emerald-500/30' : blScore < 2 ? 'bg-amber-500/15 text-amber-700 border-amber-500/30' : 'bg-rose-500/15 text-rose-700 border-rose-500/30'}`}
+                    className={`text-micro font-mono px-2 py-0.5 rounded border ${blScore === 0 ? 'bg-emerald-500/15 text-emerald-700 border-emerald-500/30' : blScore < 2 ? 'bg-amber-500/15 text-amber-700 border-amber-500/30' : 'bg-rose-500/15 text-rose-700 border-rose-500/30'}`}
                   >
                     {cleanCount}/{checks.length} clean
                   </span>
@@ -453,7 +453,7 @@ function Fact({ label, value, good }: { label: string; value: string; good: bool
     <div
       className={`rounded-lg border p-3 ${good ? 'border-emerald-500/30 bg-emerald-500/5' : 'border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900'}`}
     >
-      <div className="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-1">
+      <div className="text-micro font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-1">
         {label}
       </div>
       <div

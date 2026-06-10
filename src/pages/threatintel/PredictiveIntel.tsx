@@ -131,13 +131,13 @@ export default function PredictiveIntel(): JSX.Element {
                   {s.top_threats.map((t, j) => (
                     <span
                       key={j}
-                      className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400"
+                      className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400"
                     >
                       {t.replace(/_/g, ' ')}
                     </span>
                   ))}
                 </div>
-                <p className="text-[11px] text-slate-500 leading-relaxed">{s.rationale}</p>
+                <p className="text-mini text-slate-500 leading-relaxed">{s.rationale}</p>
               </div>
             ))}
           </div>
@@ -158,8 +158,8 @@ export default function PredictiveIntel(): JSX.Element {
                   <div>
                     <h3 className="font-display font-bold text-sm capitalize">{f.threat_type.replace(/_/g, ' ')}</h3>
                     <div className="flex items-center gap-2 mt-1">
-                      <span className="text-[10px] font-mono text-slate-400">{f.timeframe}</span>
-                      <span className={`text-[10px] font-mono px-1.5 py-0.5 rounded ${CONFIDENCE_BADGE[f.confidence]}`}>
+                      <span className="text-micro font-mono text-slate-400">{f.timeframe}</span>
+                      <span className={`text-micro font-mono px-1.5 py-0.5 rounded ${CONFIDENCE_BADGE[f.confidence]}`}>
                         {f.confidence}
                       </span>
                     </div>
@@ -168,7 +168,7 @@ export default function PredictiveIntel(): JSX.Element {
                     <div className="text-2xl font-display font-bold text-brand-600 dark:text-brand-400">
                       {f.probability}%
                     </div>
-                    <div className="text-[10px] font-mono text-slate-400">probability</div>
+                    <div className="text-micro font-mono text-slate-400">probability</div>
                   </div>
                 </div>
                 <div className="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-2 mb-3">
@@ -179,7 +179,7 @@ export default function PredictiveIntel(): JSX.Element {
                 </div>
                 {f.basis && f.basis.length > 0 && (
                   <div className="mb-2">
-                    <div className="text-[10px] font-mono uppercase tracking-wider text-slate-400 mb-1">Basis</div>
+                    <div className="text-micro font-mono uppercase tracking-wider text-slate-400 mb-1">Basis</div>
                     <ul className="space-y-0.5">
                       {f.basis.map((b, j) => (
                         <li key={j} className="text-xs text-slate-600 dark:text-slate-400 flex items-start gap-1.5">
@@ -191,14 +191,14 @@ export default function PredictiveIntel(): JSX.Element {
                 )}
                 {f.indicators_to_watch && f.indicators_to_watch.length > 0 && (
                   <div className="mb-2">
-                    <div className="text-[10px] font-mono uppercase tracking-wider text-slate-400 mb-1">
+                    <div className="text-micro font-mono uppercase tracking-wider text-slate-400 mb-1">
                       Indicators to Watch
                     </div>
                     <div className="flex flex-wrap gap-1">
                       {f.indicators_to_watch.map((ind, j) => (
                         <span
                           key={j}
-                          className="text-[10px] font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-700 text-slate-500"
+                          className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-700 text-slate-500"
                         >
                           {ind}
                         </span>

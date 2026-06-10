@@ -362,7 +362,7 @@ function WhyNowStatRow({ stat }: { stat: WhyNowStat }): JSX.Element {
       <dt className="shrink-0 w-24 sm:w-28 font-display font-bold text-brand-700 dark:text-brand-300 text-sm whitespace-nowrap">
         {display}
       </dt>
-      <dd className="text-[11px] font-mono text-slate-600 dark:text-slate-400 leading-snug">{stat.label}</dd>
+      <dd className="text-mini font-mono text-slate-600 dark:text-slate-400 leading-snug">{stat.label}</dd>
     </div>
   );
 }
@@ -467,7 +467,7 @@ export default function ZeroTrustAiAgents(): JSX.Element {
                   <p className="mt-1 text-meta font-mono text-slate-600 dark:text-slate-400 leading-relaxed">
                     {p.body}
                   </p>
-                  <p className="mt-2 text-[11px] font-mono text-slate-500 dark:text-slate-500 leading-relaxed italic border-t border-slate-200 dark:border-slate-800 pt-2">
+                  <p className="mt-2 text-mini font-mono text-slate-500 dark:text-slate-500 leading-relaxed italic border-t border-slate-200 dark:border-slate-800 pt-2">
                     <Lightbulb size={10} className="inline -mt-0.5 mr-1 text-brand-500" aria-hidden="true" />
                     {p.example}
                   </p>
@@ -527,7 +527,7 @@ export default function ZeroTrustAiAgents(): JSX.Element {
                   value={matrixQuery}
                   onChange={(e) => setMatrixQuery(e.target.value)}
                   placeholder="Filter domains, controls…"
-                  className="w-full pl-7 pr-3 py-1.5 bg-white dark:bg-slate-900 ring-1 ring-slate-200 dark:ring-slate-800 focus:ring-brand-500/40 text-[12px] font-mono text-slate-800 dark:text-slate-200 placeholder:text-slate-500 focus:outline-none"
+                  className="w-full pl-7 pr-3 py-1.5 bg-white dark:bg-slate-900 ring-1 ring-slate-200 dark:ring-slate-800 focus-visible:ring-brand-500/40 text-meta font-mono text-slate-800 dark:text-slate-200 placeholder:text-slate-500 focus:outline-none"
                   aria-label="Filter capability matrix"
                 />
               </div>
@@ -556,7 +556,7 @@ export default function ZeroTrustAiAgents(): JSX.Element {
                       <div className={`text-eyebrow font-mono uppercase tracking-[0.18em] ${cfg.head}`}>
                         {cfg.label}
                       </div>
-                      <div className="text-[11px] font-mono text-slate-500 dark:text-slate-500 mt-0.5 leading-snug">
+                      <div className="text-mini font-mono text-slate-500 dark:text-slate-500 mt-0.5 leading-snug">
                         {cfg.tag}
                       </div>
                     </div>
@@ -587,7 +587,7 @@ export default function ZeroTrustAiAgents(): JSX.Element {
                         aria-controls={`matrix-detail-${i}`}
                         onClick={() => setExpandedDomain(isExpanded ? null : row.domain)}
                         onKeyDown={(e) => onMatrixKeyDown(e, row.domain)}
-                        className="grid w-full text-left cursor-pointer hover:bg-brand-50/50 dark:hover:bg-brand-500/5 focus:bg-brand-50/50 dark:focus:bg-brand-500/5 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-brand-500/30 transition-colors"
+                        className="grid w-full text-left cursor-pointer hover:bg-brand-50/50 dark:hover:bg-brand-500/5 focus:bg-brand-50/50 dark:focus:bg-brand-500/5 focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-brand-500/30 transition-colors"
                         style={{
                           gridTemplateColumns: 'minmax(0,1.2fr) minmax(0,1fr) minmax(0,1fr) minmax(0,1fr)',
                         }}
@@ -733,7 +733,7 @@ export default function ZeroTrustAiAgents(): JSX.Element {
                         </p>
                         <span
                           className={[
-                            'mt-1.5 inline-block text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded ring-1',
+                            'mt-1.5 inline-block text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded ring-1',
                             'bg-slate-100 text-slate-600 ring-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:ring-slate-700',
                           ].join(' ')}
                         >
@@ -798,7 +798,7 @@ export default function ZeroTrustAiAgents(): JSX.Element {
                   aria-checked={isSelected}
                   onClick={() => setSelectedPhase(p.num)}
                   className={[
-                    'relative text-left rounded-md p-2.5 border-t-2 border-brand-500 transition-colors focus:outline-none focus:ring-2 focus:ring-brand-500/40',
+                    'relative text-left rounded-md p-2.5 border-t-2 border-brand-500 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40',
                     isSelected
                       ? 'bg-brand-50 dark:bg-brand-500/10 ring-1 ring-brand-500/50'
                       : 'bg-white dark:bg-slate-900 ring-1 ring-slate-200 dark:ring-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/60',
@@ -822,7 +822,7 @@ export default function ZeroTrustAiAgents(): JSX.Element {
                       {p.title}
                     </h3>
                   </div>
-                  <p className="mt-1 text-[11px] font-mono text-slate-600 dark:text-slate-400 leading-snug">{p.body}</p>
+                  <p className="mt-1 text-mini font-mono text-slate-600 dark:text-slate-400 leading-snug">{p.body}</p>
                 </button>
               );
             })}
@@ -892,7 +892,7 @@ function FilterPill({
       aria-checked={active}
       onClick={onClick}
       className={[
-        'inline-flex items-center text-[10px] font-mono uppercase tracking-[0.12em] px-2 py-1 rounded-sm ring-1 transition-colors focus:outline-none focus:ring-2 focus:ring-brand-500/40',
+        'inline-flex items-center text-micro font-mono uppercase tracking-[0.12em] px-2 py-1 rounded-sm ring-1 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40',
         active
           ? (activeClass ?? 'bg-brand-50 text-brand-700 ring-brand-500/40 dark:bg-brand-500/15 dark:text-brand-300')
           : 'bg-white text-slate-600 ring-slate-200 hover:text-slate-900 hover:ring-slate-300 dark:bg-slate-900 dark:text-slate-400 dark:ring-slate-800 dark:hover:text-slate-200 dark:hover:ring-slate-700',

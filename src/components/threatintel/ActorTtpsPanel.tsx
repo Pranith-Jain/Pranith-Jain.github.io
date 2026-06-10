@@ -87,7 +87,7 @@ export function ActorTtpsPanel({
       <div className="flex items-start justify-between gap-3 mb-3 flex-wrap">
         <div>
           <h3 className="font-display font-semibold text-base">{title}</h3>
-          <p className="text-[11px] font-mono text-slate-500 mt-1">
+          <p className="text-mini font-mono text-slate-500 mt-1">
             {subtitle ??
               `MITRE ATT&CK techniques the ${data.groups_with_ttp_data} mapped active group${data.groups_with_ttp_data === 1 ? '' : 's'} ${data.groups_with_ttp_data === 1 ? 'is' : 'are'} known to use. Sort: number of active groups using each, then post-volume weight.`}
             {unmapped > 0 && (
@@ -100,7 +100,7 @@ export function ActorTtpsPanel({
         </div>
         <a
           href="/threatintel/actor-timeline"
-          className="text-[11px] font-mono text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+          className="text-mini font-mono text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
         >
           Per-actor timeline →
         </a>
@@ -109,7 +109,7 @@ export function ActorTtpsPanel({
         {data.aggregate_techniques.map((t) => {
           const widthPct = Math.max(5, (t.used_by_count / maxCount) * 100);
           return (
-            <li key={t.id} className="text-[12px] font-mono">
+            <li key={t.id} className="text-meta font-mono">
               <div className="grid items-center gap-3" style={{ gridTemplateColumns: '180px 1fr 70px' }}>
                 <a
                   href={`https://attack.mitre.org/techniques/${t.id.replace('.', '/')}/`}
@@ -129,7 +129,7 @@ export function ActorTtpsPanel({
                   {t.used_by_count} grp · {t.weighted_activity}p
                 </span>
               </div>
-              <div className="text-[10px] text-slate-500 ml-[180px] mt-0.5">
+              <div className="text-micro text-slate-500 ml-[180px] mt-0.5">
                 {t.tactic} · used by: {t.used_by_groups.join(', ')}
               </div>
             </li>

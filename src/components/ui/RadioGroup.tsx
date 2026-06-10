@@ -60,7 +60,7 @@ export function RadioGroup({ name: nameProp, value, onChange, options, className
                 {value === opt.value && <span className="h-2 w-2 rounded-full bg-brand-600 dark:bg-brand-400" />}
               </span>
               <span>{opt.label}</span>
-              {opt.description && <span className="text-[10px] text-slate-400">· {opt.description}</span>}
+              {opt.description && <span className="text-micro text-slate-400">· {opt.description}</span>}
             </label>
           );
         })}

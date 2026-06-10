@@ -295,18 +295,18 @@ export default function CyberCrime(): JSX.Element {
                   {it.title} <ExternalLink size={11} className="inline ml-0.5 opacity-60" />
                 </a>
                 <span
-                  className={`text-[9px] font-mono uppercase tracking-wider px-1 py-0.5 rounded border ${CATEGORY_PILL[it.category]}`}
+                  className={`text-micro font-mono uppercase tracking-wider px-1 py-0.5 rounded border ${CATEGORY_PILL[it.category]}`}
                   title={CATEGORY_LABEL[it.category]}
                 >
                   {CATEGORY_LABEL[it.category]}
                 </span>
-                <span className="text-[10px] font-mono text-slate-500" title={formatDate(it.published)}>
+                <span className="text-micro font-mono text-slate-500" title={formatDate(it.published)}>
                   {shortRel(it.published) || formatDate(it.published)}
                 </span>
               </div>
-              <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400 mb-1">{it.source}</div>
+              <div className="text-mini font-mono text-slate-500 dark:text-slate-400 mb-1">{it.source}</div>
               {it.description && (
-                <p className="text-[12px] font-mono text-slate-600 dark:text-slate-400 leading-relaxed line-clamp-3">
+                <p className="text-meta font-mono text-slate-600 dark:text-slate-400 leading-relaxed line-clamp-3">
                   {it.description}
                 </p>
               )}
@@ -332,16 +332,16 @@ export default function CyberCrime(): JSX.Element {
                   e.preventDefault();
                   setDisabledSources(new Set());
                 }}
-                className="text-[10px] font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40"
+                className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40"
               >
                 enable all
               </button>
             )}
           </summary>
-          <p className="mt-2 text-[10px] font-mono text-slate-500">
+          <p className="mt-2 text-micro font-mono text-slate-500">
             Click any source row to toggle it. Preference persists per browser.
           </p>
-          <div className="mt-2 grid sm:grid-cols-2 gap-1.5 text-[11px] font-mono">
+          <div className="mt-2 grid sm:grid-cols-2 gap-1.5 text-mini font-mono">
             {data.sources.map((s) => {
               const enabled = !disabledSources.has(s.label);
               return (

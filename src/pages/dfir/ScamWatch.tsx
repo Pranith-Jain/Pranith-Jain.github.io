@@ -261,7 +261,7 @@ export default function ScamWatch(): JSX.Element {
         </div>
 
         {activeSection !== 'all' && (
-          <p className="text-[11px] font-mono text-slate-500 dark:text-slate-400">
+          <p className="text-mini font-mono text-slate-500 dark:text-slate-400">
             <span className="text-slate-700 dark:text-slate-300">
               {SECTIONS.find((s) => s.id === activeSection)?.label}:
             </span>{' '}
@@ -301,7 +301,7 @@ export default function ScamWatch(): JSX.Element {
         </div>
       )}
 
-      <p className="text-[11px] font-mono text-slate-500 dark:text-slate-400 mb-3">
+      <p className="text-mini font-mono text-slate-500 dark:text-slate-400 mb-3">
         Showing {annotated.length} of {items.length} · {feedsReturned} of {ALL_FEED_IDS.length} feeds returned data
       </p>
 
@@ -321,17 +321,17 @@ export default function ScamWatch(): JSX.Element {
                 {item.title || '(untitled)'} <ExternalLink size={11} />
               </a>
               <span
-                className={`text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${sectionStyle(section)}`}
+                className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${sectionStyle(section)}`}
               >
                 {section}
               </span>
             </div>
-            <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400 mb-1">
+            <div className="text-mini font-mono text-slate-500 dark:text-slate-400 mb-1">
               <span>{item.source || 'feed'}</span>
               {item.pubDate && <> · {formatRelativeTime(item.pubDate)}</>}
             </div>
             {item.description && (
-              <p className="text-[12px] font-mono text-slate-600 dark:text-slate-400 leading-relaxed line-clamp-3">
+              <p className="text-meta font-mono text-slate-600 dark:text-slate-400 leading-relaxed line-clamp-3">
                 {stripHtml(item.description)}
               </p>
             )}
@@ -340,7 +340,7 @@ export default function ScamWatch(): JSX.Element {
       </ul>
 
       {annotated.length > 200 && (
-        <p className="mt-4 text-[11px] font-mono text-slate-500 dark:text-slate-400">
+        <p className="mt-4 text-mini font-mono text-slate-500 dark:text-slate-400">
           Showing 200 most-recent items. Tighten the search or filter to narrow.
         </p>
       )}

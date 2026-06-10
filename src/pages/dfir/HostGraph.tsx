@@ -175,11 +175,11 @@ export default function HostGraphView(): JSX.Element {
             spellCheck={false}
             autoCapitalize="off"
             autoCorrect="off"
-            className="w-full pl-10 pr-24 py-2.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-sm font-mono focus:ring-2 focus:ring-brand-500 focus:border-transparent"
+            className="w-full pl-10 pr-24 py-2.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-sm font-mono focus-visible:ring-2 focus-visible:ring-brand-500 focus:border-transparent"
           />
           {query && (
             <span
-              className={`absolute right-3 top-1/2 -translate-y-1/2 text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded ${KIND_TONE[inputKind]}`}
+              className={`absolute right-3 top-1/2 -translate-y-1/2 text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded ${KIND_TONE[inputKind]}`}
             >
               {KIND_LABEL[inputKind]}
             </span>
@@ -218,7 +218,7 @@ export default function HostGraphView(): JSX.Element {
       {result && result.kind === 'cidr' && <PrefixView data={result.data} input={result.input.cidr} />}
 
       {result && (
-        <p className="mt-6 text-[11px] font-mono text-slate-500 flex items-center gap-2">
+        <p className="mt-6 text-mini font-mono text-slate-500 flex items-center gap-2">
           <Clock size={11} />
           generated {new Date(result.generated_at).toLocaleString()} · sources: {result.data.sources.join(', ') || '—'}
         </p>
@@ -395,7 +395,7 @@ function PrefixView({ data, input }: { data: PrefixData; input: string }): JSX.E
         />
         {data.rdap_links.length > 0 && (
           <div className="mt-3 pt-3 border-t border-slate-200 dark:border-slate-800">
-            <p className="text-[10px] font-mono uppercase tracking-wider text-slate-500 mb-1.5">
+            <p className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-1.5">
               <Database size={10} className="inline mr-1" />
               RDAP links
             </p>

@@ -24,7 +24,7 @@ export function RelatedActors({ hints }: { hints: CtiHints }): JSX.Element | nul
                 {actor.name}
               </span>
               {actor.country && (
-                <span className="text-[10px] font-mono uppercase tracking-wider text-slate-500">
+                <span className="text-micro font-mono uppercase tracking-wider text-slate-500">
                   {actor.country.length <= 3 ? actor.country : actor.country.slice(0, 3)}
                 </span>
               )}
@@ -36,7 +36,7 @@ export function RelatedActors({ hints }: { hints: CtiHints }): JSX.Element | nul
               {matched.slice(0, 3).map((m) => (
                 <span
                   key={m}
-                  className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400"
+                  className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400"
                 >
                   {m}
                 </span>

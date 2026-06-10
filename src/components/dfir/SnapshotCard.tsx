@@ -70,7 +70,7 @@ function NewBadge({ count }: { count: number }): JSX.Element | null {
   if (count <= 0) return null;
   return (
     <span
-      className="text-[9px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded-full border border-amber-500/50 bg-amber-500/15 text-amber-700 dark:text-amber-300 shrink-0"
+      className="text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded-full border border-amber-500/50 bg-amber-500/15 text-amber-700 dark:text-amber-300 shrink-0"
       aria-label={`${count} new since your last visit`}
     >
       {count} new
@@ -86,7 +86,7 @@ function WatchPill({ count, terms }: { count: number; terms?: string[] }): JSX.E
       : `${count} watchlist match${count === 1 ? '' : 'es'}`;
   return (
     <span
-      className="text-[9px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded-full border border-violet-500/50 bg-violet-500/15 text-violet-700 dark:text-violet-300 shrink-0"
+      className="text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded-full border border-violet-500/50 bg-violet-500/15 text-violet-700 dark:text-violet-300 shrink-0"
       aria-label={tooltip}
     >
       {count} watch
@@ -135,10 +135,10 @@ export function SnapshotCard({
           {showNewBadge && <NewBadge count={newCount} />}
           <WatchPill count={watchCount} terms={watchTerms} />
         </h3>
-        {rightAction && <div className="text-[10px] font-mono">{rightAction}</div>}
+        {rightAction && <div className="text-micro font-mono">{rightAction}</div>}
       </div>
 
-      {error && <p className="text-[11px] font-mono text-rose-500">load error: {error}</p>}
+      {error && <p className="text-mini font-mono text-rose-500">load error: {error}</p>}
 
       {loading && !error && <Skeleton />}
 

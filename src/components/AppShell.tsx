@@ -261,7 +261,7 @@ function AppStatusBar({ mode }: { mode: 'dfir' | 'threatintel' }): JSX.Element {
 
   return (
     <footer className="border-t border-slate-200/60 dark:border-white/10 bg-white/80 dark:bg-slate-950/80 backdrop-blur-md sm:backdrop-blur-xl pb-[env(safe-area-inset-bottom)]">
-      <div className="max-w-[1500px] mx-auto px-4 sm:px-6 min-h-[44px] sm:h-9 py-2 sm:py-0 flex items-center justify-between gap-3 text-[11px] font-mono text-slate-500 dark:text-slate-400">
+      <div className="max-w-[1500px] mx-auto px-4 sm:px-6 min-h-[44px] sm:h-9 py-2 sm:py-0 flex items-center justify-between gap-3 text-mini font-mono text-slate-500 dark:text-slate-400">
         <div className="flex items-center gap-3 min-w-0">
           {mode === 'dfir' ? (
             <>

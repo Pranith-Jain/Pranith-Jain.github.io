@@ -79,7 +79,7 @@ export function TopBar({
           <button
             type="button"
             onClick={onOpenMobileNav}
-            className="md:hidden -ml-1 grid h-11 w-11 sm:h-9 sm:w-9 place-items-center rounded-lg border border-slate-200/60 bg-white/70 text-slate-600 transition hover:bg-slate-100 hover:text-slate-900 dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white focus:outline-none focus:ring-2 focus:ring-brand-500"
+            className="md:hidden -ml-1 grid h-11 w-11 sm:h-9 sm:w-9 place-items-center rounded-lg border border-slate-200/60 bg-white/70 text-slate-600 transition hover:bg-slate-100 hover:text-slate-900 dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
             aria-label={mobileNavOpen ? 'Close navigation' : 'Open navigation'}
             aria-expanded={mobileNavOpen ?? false}
             aria-controls="mobile-sidebar-drawer"
@@ -93,7 +93,7 @@ export function TopBar({
         )}
         <Link
           to={sectionHref}
-          className="flex items-center gap-2 sm:gap-2.5 shrink-0 group rounded-md min-h-[44px] sm:min-h-0 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2"
+          className="flex items-center gap-2 sm:gap-2.5 shrink-0 group rounded-md min-h-[44px] sm:min-h-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
           aria-label={`${sectionLabel} home`}
         >
           <span
@@ -102,10 +102,10 @@ export function TopBar({
             <MarkIcon className="h-4 w-4" aria-hidden="true" />
           </span>
           <span className="flex flex-col leading-tight min-w-0">
-            <span className={`font-display font-bold text-[14px] sm:text-[15px] ${accentClass} truncate`}>
+            <span className={`font-display font-bold text-sm sm:text-[15px] ${accentClass} truncate`}>
               {sectionLabel}
             </span>
-            <span className="hidden sm:inline text-[10px] font-mono uppercase tracking-[0.18em] text-slate-400 dark:text-slate-500 truncate">
+            <span className="hidden sm:inline text-micro font-mono uppercase tracking-[0.18em] text-slate-400 dark:text-slate-500 truncate">
               {TAGLINE[mark]}
             </span>
           </span>
@@ -114,18 +114,18 @@ export function TopBar({
         <button
           type="button"
           onClick={openPalette}
-          className="group flex-1 flex items-center gap-2 sm:gap-2.5 min-w-0 rounded-lg border border-slate-200/70 bg-slate-100/60 px-3 py-2 sm:px-3 sm:py-1.5 min-h-[44px] sm:min-h-0 text-left text-sm text-slate-500 transition hover:border-slate-300 hover:bg-white dark:border-white/10 dark:bg-slate-900/50 dark:text-slate-400 dark:hover:border-white/20 dark:hover:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-brand-500"
+          className="group flex-1 flex items-center gap-2 sm:gap-2.5 min-w-0 rounded-lg border border-slate-200/70 bg-slate-100/60 px-3 py-2 sm:px-3 sm:py-1.5 min-h-[44px] sm:min-h-0 text-left text-sm text-slate-500 transition hover:border-slate-300 hover:bg-white dark:border-white/10 dark:bg-slate-900/50 dark:text-slate-400 dark:hover:border-white/20 dark:hover:bg-slate-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
           aria-label="Open search (press Cmd+K or Ctrl+K)"
         >
           <Search
             className="h-4 w-4 flex-shrink-0 text-slate-400 group-hover:text-slate-500 dark:text-slate-500 dark:group-hover:text-slate-400"
             aria-hidden="true"
           />
-          <span className="truncate flex-1 text-[13px] sm:text-sm">
+          <span className="truncate flex-1 text-tool sm:text-sm">
             {SEARCH_PLACEHOLDERS[searchKey] ?? `Search ${sectionLabel}…`}
           </span>
           {isMac !== null && (
-            <kbd className="hidden md:inline-flex items-center gap-0.5 rounded border border-slate-200 bg-white px-1.5 py-0.5 text-[10px] font-mono text-slate-500 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-400">
+            <kbd className="hidden md:inline-flex items-center gap-0.5 rounded border border-slate-200 bg-white px-1.5 py-0.5 text-micro font-mono text-slate-500 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-400">
               {isMac ? '⌘' : 'Ctrl'} K
             </kbd>
           )}
@@ -134,7 +134,7 @@ export function TopBar({
         <button
           type="button"
           onClick={onToggleTheme}
-          className="grid h-11 w-11 sm:h-9 sm:w-9 place-items-center rounded-lg border border-slate-200/60 bg-white/70 text-slate-600 transition hover:bg-slate-100 hover:text-slate-900 dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white focus:outline-none focus:ring-2 focus:ring-brand-500"
+          className="grid h-11 w-11 sm:h-9 sm:w-9 place-items-center rounded-lg border border-slate-200/60 bg-white/70 text-slate-600 transition hover:bg-slate-100 hover:text-slate-900 dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
           aria-label={`Switch to ${isDark ? 'light' : 'dark'} mode`}
           title={`Switch to ${isDark ? 'light' : 'dark'} mode`}
         >

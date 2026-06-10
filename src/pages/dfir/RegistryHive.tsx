@@ -134,7 +134,7 @@ function Node({ k, depth }: { k: RKey; depth: number }): JSX.Element {
       <button
         type="button"
         onClick={() => setOpen(!open)}
-        className="text-left font-mono text-[12px] text-slate-800 dark:text-slate-200 hover:text-brand-600 dark:hover:text-brand-400"
+        className="text-left font-mono text-meta text-slate-800 dark:text-slate-200 hover:text-brand-600 dark:hover:text-brand-400"
       >
         {has ? (open ? '▾ ' : '▸ ') : '· '}
         {k.name}{' '}
@@ -145,7 +145,7 @@ function Node({ k, depth }: { k: RKey; depth: number }): JSX.Element {
       {open && (
         <div>
           {k.values.map((v, i) => (
-            <div key={i} className="ml-4 font-mono text-[11px] text-slate-600 dark:text-slate-400 break-all">
+            <div key={i} className="ml-4 font-mono text-mini text-slate-600 dark:text-slate-400 break-all">
               <span className="text-emerald-600 dark:text-emerald-400">{v.name}</span> [{v.type}] = {v.value}
             </div>
           ))}
@@ -191,7 +191,7 @@ export default function RegistryHive(): JSX.Element {
         <p className="text-sm font-mono text-slate-700 dark:text-slate-300">
           Drop a hive file file here, or click to choose
         </p>
-        <p className="text-[11px] font-mono text-slate-500 mt-1">100% client-side. No upload.</p>
+        <p className="text-mini font-mono text-slate-500 mt-1">100% client-side. No upload.</p>
       </button>
       <input
         id="registryhive-input"

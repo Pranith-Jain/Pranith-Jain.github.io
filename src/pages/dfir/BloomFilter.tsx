@@ -124,7 +124,7 @@ export default function BloomFilter(): JSX.Element {
     <div className="max-w-4xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -205,7 +205,7 @@ export default function BloomFilter(): JSX.Element {
                   <div className="space-y-0.5 text-xs text-slate-500 dark:text-slate-400">
                     <div>{filter.ioc_count?.toLocaleString()} IOCs</div>
                     <div>FPR: {filter.false_positive_rate}</div>
-                    <div className="text-[10px] text-slate-400">
+                    <div className="text-micro text-slate-400">
                       {filter.built_at ? new Date(filter.built_at).toLocaleTimeString() : '—'}
                     </div>
                   </div>

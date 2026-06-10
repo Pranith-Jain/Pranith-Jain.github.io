@@ -243,7 +243,7 @@ export default function Nhi(): JSX.Element {
                   className="w-full flex items-center gap-3 text-left rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:border-brand-500/40 hover:bg-slate-50 dark:hover:bg-slate-800/60 px-4 py-3 transition-colors"
                   aria-expanded={expanded}
                 >
-                  <span className="flex-none w-12 font-mono text-[11px] text-brand-600 dark:text-brand-400 font-bold">
+                  <span className="flex-none w-12 font-mono text-mini text-brand-600 dark:text-brand-400 font-bold">
                     {item.id}
                   </span>
                   <span className="flex-1 min-w-0">
@@ -268,7 +268,7 @@ export default function Nhi(): JSX.Element {
                         {item.summary}
                       </p>
                       <div className="rounded border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3">
-                        <h4 className="text-[10px] font-mono uppercase tracking-[0.2em] text-rose-600 dark:text-rose-400 mb-1">
+                        <h4 className="text-micro font-mono uppercase tracking-[0.2em] text-rose-600 dark:text-rose-400 mb-1">
                           Attack
                         </h4>
                         <p className="text-xs font-mono text-slate-700 dark:text-slate-300 leading-relaxed">
@@ -276,7 +276,7 @@ export default function Nhi(): JSX.Element {
                         </p>
                       </div>
                       <div className="rounded border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3">
-                        <h4 className="text-[10px] font-mono uppercase tracking-[0.2em] text-emerald-600 dark:text-emerald-400 mb-1">
+                        <h4 className="text-micro font-mono uppercase tracking-[0.2em] text-emerald-600 dark:text-emerald-400 mb-1">
                           Mitigation
                         </h4>
                         <p className="text-xs font-mono text-slate-700 dark:text-slate-300 leading-relaxed">
@@ -285,14 +285,14 @@ export default function Nhi(): JSX.Element {
                       </div>
                       {item.attCK && item.attCK.length > 0 && (
                         <div className="flex flex-wrap items-center gap-1.5">
-                          <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
+                          <span className="text-micro font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
                             ATT&amp;CK:
                           </span>
                           {item.attCK.map((id) => (
                             <Link
                               key={id}
                               to={`/threatintel/mitre?id=${encodeURIComponent(id)}`}
-                              className="text-[10px] font-mono px-1.5 py-0.5 rounded border border-brand-500/30 bg-brand-500/10 text-brand-700 dark:text-brand-300 hover:border-brand-500/60"
+                              className="text-micro font-mono px-1.5 py-0.5 rounded border border-brand-500/30 bg-brand-500/10 text-brand-700 dark:text-brand-300 hover:border-brand-500/60"
                             >
                               {id}
                             </Link>
@@ -330,7 +330,7 @@ export default function Nhi(): JSX.Element {
                     }`}
                   >
                     <div className="text-lg font-bold">{aggregate.counts[g]}</div>
-                    <div className="text-[10px] uppercase tracking-wider">{g}</div>
+                    <div className="text-micro uppercase tracking-wider">{g}</div>
                   </div>
                 ))}
               </div>
@@ -392,7 +392,7 @@ export default function Nhi(): JSX.Element {
                         </span>
                       </span>
                       <span
-                        className={`flex-none text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${GRADE_STYLES[risk.grade]}`}
+                        className={`flex-none text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${GRADE_STYLES[risk.grade]}`}
                       >
                         {risk.grade} · {risk.score}
                       </span>
@@ -509,7 +509,7 @@ export default function Nhi(): JSX.Element {
                           <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-2">
                             OWASP NHI Top 10 coverage
                           </h3>
-                          <p className="text-[11px] font-mono text-slate-500 dark:text-slate-400 mb-2">
+                          <p className="text-mini font-mono text-slate-500 dark:text-slate-400 mb-2">
                             Click each row to cycle: unset → covered → partial → gap → n/a → unset.
                           </p>
                           <div className="grid gap-1.5">
@@ -584,7 +584,7 @@ export default function Nhi(): JSX.Element {
 function Field({ label, children }: { label: string; children: React.ReactNode }): JSX.Element {
   return (
     <label className="block">
-      <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-1 block">
+      <span className="text-micro font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-1 block">
         {label}
       </span>
       {children}

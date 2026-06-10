@@ -61,7 +61,7 @@ export default function StealerParser(): JSX.Element {
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -187,7 +187,7 @@ export default function StealerParser(): JSX.Element {
               <div className="max-h-64 overflow-y-auto">
                 <table className="w-full text-sm">
                   <thead>
-                    <tr className="text-left text-[10px] font-mono uppercase tracking-wider text-slate-400 border-b border-slate-200 dark:border-slate-800">
+                    <tr className="text-left text-micro font-mono uppercase tracking-wider text-slate-400 border-b border-slate-200 dark:border-slate-800">
                       <th scope="col" className="pb-2">
                         Domain
                       </th>
@@ -230,7 +230,7 @@ export default function StealerParser(): JSX.Element {
                     key={w.address}
                     className="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 px-3 py-2"
                   >
-                    <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300">
+                    <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300">
                       {w.currency}
                     </span>
                     <code className="text-xs text-slate-700 dark:text-slate-300 flex-1 truncate">{w.address}</code>
@@ -295,7 +295,7 @@ function StatCard({
     <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-4">
       <div className="flex items-center gap-2 mb-1.5">
         {icon && <span className={color ?? 'text-slate-400'}>{icon}</span>}
-        <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400">{label}</span>
+        <span className="text-micro font-mono uppercase tracking-wider text-slate-400">{label}</span>
       </div>
       <div className={`text-2xl font-display font-bold ${color ?? 'text-slate-900 dark:text-white'}`}>
         {value.toLocaleString()}
@@ -307,7 +307,7 @@ function StatCard({
 function InfoField({ label, value }: { label: string; value: string }) {
   return (
     <div>
-      <div className="text-[10px] font-mono uppercase tracking-wider text-slate-400">{label}</div>
+      <div className="text-micro font-mono uppercase tracking-wider text-slate-400">{label}</div>
       <div className="text-sm font-mono text-slate-700 dark:text-slate-300">{value}</div>
     </div>
   );

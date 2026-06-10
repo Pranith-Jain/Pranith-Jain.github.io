@@ -163,7 +163,7 @@ export default function BlocklistsPage(): JSX.Element {
                 {meta.ip_count.toLocaleString()} IPs
               </span>
               {meta.source === 'kv' && (
-                <span className="ml-2 text-[10px] uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
+                <span className="ml-2 text-micro uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
                   cached
                 </span>
               )}
@@ -246,7 +246,7 @@ export default function BlocklistsPage(): JSX.Element {
             <code className="px-1 py-0.5 rounded bg-slate-100 dark:bg-slate-800">/etc/suricata/rules/</code> and add it
             to your suricata.yaml.
           </p>
-          <p className="text-[10px] text-slate-400 mt-2">
+          <p className="text-micro text-slate-400 mt-2">
             API endpoints:{' '}
             <code className="px-1 py-0.5 rounded bg-slate-100 dark:bg-slate-800">/api/v1/blocklists/pfsense</code>,{' '}
             <code className="px-1 py-0.5 rounded bg-slate-100 dark:bg-slate-800">/api/v1/blocklists/iptables</code>,{' '}
@@ -282,7 +282,7 @@ function FormatPreview({ label, url, maxLines }: { label: string; url: string; m
         {show ? '▼' : '▶'} {label}
       </button>
       {show && preview && (
-        <pre className="text-[10px] font-mono text-slate-700 dark:text-slate-300 bg-slate-50 dark:bg-slate-950 rounded p-2 overflow-x-auto border border-slate-200 dark:border-slate-800">
+        <pre className="text-micro font-mono text-slate-700 dark:text-slate-300 bg-slate-50 dark:bg-slate-950 rounded p-2 overflow-x-auto border border-slate-200 dark:border-slate-800">
           {preview}
         </pre>
       )}

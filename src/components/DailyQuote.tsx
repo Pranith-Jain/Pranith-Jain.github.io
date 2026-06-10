@@ -22,7 +22,7 @@ export function DailyQuote() {
         <div className="relative flex items-start gap-4">
           <Quote className="h-5 w-5 shrink-0 text-brand-600/80 dark:text-brand-400/80" aria-hidden="true" />
           <div className="min-w-0 flex-1">
-            <div className="flex items-center gap-2 text-[10px] uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 mb-2">
+            <div className="flex items-center gap-2 text-micro uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 mb-2">
               <span className="inline-flex items-center gap-1.5">
                 <span className="inline-block h-1.5 w-1.5 rounded-full bg-brand-500 dark:bg-brand-400 animate-pulse" />
                 Quote of the day
@@ -35,7 +35,7 @@ export function DailyQuote() {
             <blockquote className="text-[clamp(1.125rem,2vw,1.375rem)] leading-[1.45] text-slate-900 dark:text-slate-100 font-medium tracking-tight max-w-[60ch]">
               “{quote.text}”
             </blockquote>
-            <figcaption className="mt-3 text-[12px] text-slate-700 dark:text-slate-300">
+            <figcaption className="mt-3 text-meta text-slate-700 dark:text-slate-300">
               — <span className="text-slate-900 dark:text-slate-100">{quote.attribution}</span>
             </figcaption>
           </div>

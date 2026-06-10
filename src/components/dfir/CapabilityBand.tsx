@@ -43,7 +43,7 @@ interface CapStat {
 
 const STATS: CapStat[] = [
   {
-    to: '/dfir/tools/dfir',
+    to: '/dfir/tools/core-dfir',
     label: 'Tools',
     value: MAIN_TOOL_COUNT,
     sub: 'in-browser, client-side',
@@ -59,7 +59,7 @@ const STATS: CapStat[] = [
     accent: 'emerald',
   },
   {
-    to: '/dfir/tools/dfir',
+    to: '/dfir/tools/intelligence',
     label: 'Data sources',
     value: 90,
     suffix: '+',
@@ -76,13 +76,13 @@ export function CapabilityBand(): JSX.Element {
   const indicator = (
     <>
       <span className="h-2 w-2 rounded-full bg-brand-500" aria-hidden="true" />
-      <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-slate-600 dark:text-slate-300">
+      <span className="font-mono text-mini uppercase tracking-[0.2em] text-slate-600 dark:text-slate-300">
         Toolkit · 100% client-side
       </span>
     </>
   );
   const note = (
-    <span className="hidden font-mono text-[10px] uppercase tracking-[0.18em] text-slate-400 sm:inline">no upload</span>
+    <span className="hidden font-mono text-micro uppercase tracking-[0.18em] text-slate-400 sm:inline">no upload</span>
   );
 
   return (

@@ -163,7 +163,7 @@ export default function EmailDefense(): JSX.Element {
               />
             </div>
             <p className="text-sm font-mono text-slate-700 dark:text-slate-300 mb-3">{assessment.headline}</p>
-            <p className="text-[11px] font-mono text-slate-500 dark:text-slate-400">
+            <p className="text-mini font-mono text-slate-500 dark:text-slate-400">
               Higher score = easier for an attacker to send mail "from" {data.domain} that lands in someone's inbox. 0
               means well-defended.
             </p>
@@ -268,7 +268,7 @@ export default function EmailDefense(): JSX.Element {
                     <div className="flex flex-wrap items-center gap-2 mb-1">
                       <span className="font-display font-semibold text-slate-900 dark:text-slate-100">{g.title}</span>
                       <span
-                        className={`text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${SEV_STYLES[g.severity]}`}
+                        className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${SEV_STYLES[g.severity]}`}
                       >
                         {g.severity}
                       </span>
@@ -281,12 +281,12 @@ export default function EmailDefense(): JSX.Element {
                     {g.record && (
                       <div className="rounded border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-2.5 mt-2">
                         <div className="flex items-center justify-between gap-2 mb-1">
-                          <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
+                          <span className="text-micro font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
                             Suggested record · {g.record.name} {g.record.type}
                           </span>
                           <CopyChip value={g.record.value} />
                         </div>
-                        <pre className="text-[12px] font-mono text-slate-800 dark:text-slate-200 whitespace-pre-wrap break-all">
+                        <pre className="text-meta font-mono text-slate-800 dark:text-slate-200 whitespace-pre-wrap break-all">
                           {g.record.value}
                         </pre>
                       </div>
@@ -366,7 +366,7 @@ function Fact({ label, value, good }: { label: string; value: string; good: bool
           : 'border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900'
       }`}
     >
-      <div className="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-1">
+      <div className="text-micro font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-1">
         {label}
       </div>
       <div
@@ -384,12 +384,12 @@ function RecordRow({ name, value }: { name: string; value: string }): JSX.Elemen
   return (
     <div className="rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-2.5">
       <div className="flex items-center justify-between gap-2 mb-1">
-        <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
+        <span className="text-micro font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
           {name}
         </span>
         <CopyChip value={value} />
       </div>
-      <pre className="text-[12px] font-mono text-slate-800 dark:text-slate-200 whitespace-pre-wrap break-all">
+      <pre className="text-meta font-mono text-slate-800 dark:text-slate-200 whitespace-pre-wrap break-all">
         {value}
       </pre>
     </div>

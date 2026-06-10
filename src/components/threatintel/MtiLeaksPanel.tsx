@@ -134,9 +134,9 @@ export function MtiLeaksPanel(): JSX.Element {
       <div className="flex flex-wrap items-baseline justify-between gap-3 mb-3">
         <h2 className="font-display font-bold text-xl inline-flex items-center gap-2">
           <Database size={20} className="text-brand-600 dark:text-brand-400" /> Active leak listings
-          <span className="text-[11px] font-mono uppercase tracking-[0.18em] text-slate-500">via MyThreatIntel</span>
+          <span className="text-mini font-mono uppercase tracking-[0.18em] text-slate-500">via MyThreatIntel</span>
         </h2>
-        <span className="text-[11px] font-mono text-slate-500">
+        <span className="text-mini font-mono text-slate-500">
           {loading
             ? 'loading…'
             : data
@@ -144,7 +144,7 @@ export function MtiLeaksPanel(): JSX.Element {
               : ''}
         </span>
       </div>
-      <p className="text-[13px] text-slate-600 dark:text-slate-400 leading-relaxed mb-4 max-w-3xl">
+      <p className="text-tool text-slate-600 dark:text-slate-400 leading-relaxed mb-4 max-w-3xl">
         What's actively being shopped or scraped this week. Different signal from the HIBP corpus below: this catches
         listings before they get canonicalised into "official" breach records, with the data dump size and first-seen
         timestamp. Records here may turn into HIBP entries later, or never (if the dump is fake, retired, or re-claimed
@@ -166,7 +166,7 @@ export function MtiLeaksPanel(): JSX.Element {
         <div
           role="group"
           aria-label="Sort mode"
-          className="inline-flex rounded border border-slate-200 dark:border-slate-800 overflow-hidden text-[11px] font-mono"
+          className="inline-flex rounded border border-slate-200 dark:border-slate-800 overflow-hidden text-mini font-mono"
         >
           {(['date', 'size'] as SortMode[]).map((m) => {
             const active = m === sortBy;
@@ -234,10 +234,10 @@ export function MtiLeaksPanel(): JSX.Element {
                     {it.name ?? '(no name)'}
                   </span>
                   {it.size && it.size !== 'N/D' && (
-                    <span className="font-mono text-[11px] text-brand-600 dark:text-brand-400 shrink-0">{it.size}</span>
+                    <span className="font-mono text-mini text-brand-600 dark:text-brand-400 shrink-0">{it.size}</span>
                   )}
                 </div>
-                <div className="text-[11px] font-mono text-slate-500 flex flex-wrap items-center gap-x-2 gap-y-0.5">
+                <div className="text-mini font-mono text-slate-500 flex flex-wrap items-center gap-x-2 gap-y-0.5">
                   {it.type && it.type !== 'leak' && it.type !== 'N/D' && (
                     <span className="px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-800">
                       {it.type}
@@ -262,7 +262,7 @@ export function MtiLeaksPanel(): JSX.Element {
         </ul>
       )}
       {!loading && !error && filtered.length > 60 && (
-        <p className="mt-3 text-[11px] font-mono text-slate-500">
+        <p className="mt-3 text-mini font-mono text-slate-500">
           Showing first 60 of {filtered.length} matches. Narrow the filter to see deeper.
         </p>
       )}

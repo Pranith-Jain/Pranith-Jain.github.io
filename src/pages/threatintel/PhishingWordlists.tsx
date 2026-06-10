@@ -149,7 +149,7 @@ export default function PhishingWordlists(): JSX.Element {
             </div>
           </section>
 
-          <p className="text-[11px] font-mono text-slate-500 mb-3">
+          <p className="text-mini font-mono text-slate-500 mb-3">
             Showing {Math.min(visible, filtered.length).toLocaleString()} of {filtered.length.toLocaleString()} entries
             {active.truncated && <span className="text-amber-600 dark:text-amber-400"> · list capped server-side</span>}
           </p>
@@ -163,7 +163,7 @@ export default function PhishingWordlists(): JSX.Element {
         emptyLabel={query ? 'No entries match the filter.' : 'List is empty or unreachable.'}
         rows={10}
       >
-        <ul className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 divide-y divide-slate-100 dark:divide-slate-800 font-mono text-[13px]">
+        <ul className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 divide-y divide-slate-100 dark:divide-slate-800 font-mono text-tool">
           {filtered.slice(0, visible).map((line, i) => (
             <li key={`${line}-${i}`} className="px-3 py-1.5 text-slate-700 dark:text-slate-300 break-all">
               {line}
@@ -174,7 +174,7 @@ export default function PhishingWordlists(): JSX.Element {
           <button
             type="button"
             onClick={() => setVisible((v) => v + 200)}
-            className="mt-3 w-full rounded-lg border border-slate-200 dark:border-slate-800 py-2 font-mono text-[12px] text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+            className="mt-3 w-full rounded-lg border border-slate-200 dark:border-slate-800 py-2 font-mono text-meta text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
           >
             Show more ({(filtered.length - visible).toLocaleString()} remaining)
           </button>

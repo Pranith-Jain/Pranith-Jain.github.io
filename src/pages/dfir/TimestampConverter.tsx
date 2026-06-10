@@ -75,7 +75,7 @@ export default function TimestampConverter(): JSX.Element {
         placeholder="e.g. 1747300000 · 133563456000000000 · 2026-05-15T08:00:00Z"
         className="w-full rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-3 py-2.5 font-mono text-sm focus:border-brand-500 focus:outline-none"
       />
-      <div className="mt-2 flex gap-2 text-[11px] font-mono">
+      <div className="mt-2 flex gap-2 text-mini font-mono">
         <button
           type="button"
           onClick={() => setVal(String(Math.floor(now / 1000)))}
@@ -98,13 +98,13 @@ export default function TimestampConverter(): JSX.Element {
             key={i}
             className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3"
           >
-            <div className="text-[10px] font-mono uppercase tracking-wider text-slate-500">{r.label}</div>
+            <div className="text-micro font-mono uppercase tracking-wider text-slate-500">{r.label}</div>
             <div className="font-mono text-sm text-slate-900 dark:text-slate-100">{r.iso}</div>
-            <div className="font-mono text-[11px] text-slate-500">{new Date(r.iso).toUTCString()}</div>
+            <div className="font-mono text-mini text-slate-500">{new Date(r.iso).toUTCString()}</div>
           </li>
         ))}
         {val.trim() && rows.length === 0 && (
-          <li className="font-mono text-[12px] text-slate-500">No valid timestamp interpretation.</li>
+          <li className="font-mono text-meta text-slate-500">No valid timestamp interpretation.</li>
         )}
       </ul>
     </div>

@@ -294,13 +294,13 @@ export default function CvePrioritizer(): JSX.Element {
       {/* Starter bundles + context toggle. Two rows so the controls don't
           wrap into one wall of pills on narrow screens. */}
       <div className="flex flex-wrap items-center gap-2 mb-3">
-        <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-slate-500">starters</span>
+        <span className="text-mini font-mono uppercase tracking-[0.2em] text-slate-500">starters</span>
         {STARTER_BUNDLES.map((b) => (
           <button
             key={b.label}
             type="button"
             onClick={() => setInput(b.ids)}
-            className="text-[12px] font-mono px-2.5 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
+            className="text-meta font-mono px-2.5 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
           >
             {b.label}
           </button>
@@ -312,7 +312,7 @@ export default function CvePrioritizer(): JSX.Element {
               setInput('');
               setRows([]);
             }}
-            className="text-[12px] font-mono px-2.5 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400"
+            className="text-meta font-mono px-2.5 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400"
           >
             clear
           </button>
@@ -320,7 +320,7 @@ export default function CvePrioritizer(): JSX.Element {
       </div>
 
       <div className="flex flex-wrap items-center gap-2 mb-4">
-        <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-slate-500">asset context</span>
+        <span className="text-mini font-mono uppercase tracking-[0.2em] text-slate-500">asset context</span>
         <div className="inline-flex rounded border border-slate-200 dark:border-slate-800 overflow-hidden">
           {(['internet-facing', 'unknown', 'internal-only'] as const).map((c) => (
             <button
@@ -329,8 +329,8 @@ export default function CvePrioritizer(): JSX.Element {
               onClick={() => setContext(c)}
               className={
                 context === c
-                  ? 'text-[11px] font-mono uppercase tracking-wider px-2.5 py-1 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                  : 'text-[11px] font-mono uppercase tracking-wider px-2.5 py-1 text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'
+                  ? 'text-mini font-mono uppercase tracking-wider px-2.5 py-1 bg-brand-500/15 text-brand-700 dark:text-brand-300'
+                  : 'text-mini font-mono uppercase tracking-wider px-2.5 py-1 text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'
               }
               title={
                 c === 'internet-facing'
@@ -357,7 +357,7 @@ export default function CvePrioritizer(): JSX.Element {
         rows={6}
         spellCheck={false}
         aria-label="CVE IDs"
-        className="w-full px-4 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg font-mono text-[13px] text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+        className="w-full px-4 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg font-mono text-tool text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
       />
       <button
         type="button"
@@ -384,20 +384,20 @@ export default function CvePrioritizer(): JSX.Element {
                       onClick={() => setFilterVerdict(filterVerdict === v ? null : v)}
                       className={
                         filterVerdict === v
-                          ? `text-[11px] font-mono uppercase tracking-wider px-2 py-1 rounded border-2 ${SEV_STYLE[VERDICT_SEV[v]].chip}`
-                          : `text-[11px] font-mono uppercase tracking-wider px-2 py-1 rounded border ${SEV_STYLE[VERDICT_SEV[v]].chip} opacity-90 hover:opacity-100`
+                          ? `text-mini font-mono uppercase tracking-wider px-2 py-1 rounded border-2 ${SEV_STYLE[VERDICT_SEV[v]].chip}`
+                          : `text-mini font-mono uppercase tracking-wider px-2 py-1 rounded border ${SEV_STYLE[VERDICT_SEV[v]].chip} opacity-90 hover:opacity-100`
                       }
                     >
                       {counts[v]} {v}
                     </button>
                   ) : null
                 )}
-                <span className="text-[11px] font-mono text-slate-500 ml-2">{sortedRows.length} CVE(s)</span>
+                <span className="text-mini font-mono text-slate-500 ml-2">{sortedRows.length} CVE(s)</span>
                 {filterVerdict && (
                   <button
                     type="button"
                     onClick={() => setFilterVerdict(null)}
-                    className="text-[11px] font-mono text-brand-600 dark:text-brand-400 hover:underline ml-1"
+                    className="text-mini font-mono text-brand-600 dark:text-brand-400 hover:underline ml-1"
                   >
                     clear filter
                   </button>
@@ -407,14 +407,14 @@ export default function CvePrioritizer(): JSX.Element {
                 <button
                   type="button"
                   onClick={exportCsv}
-                  className="text-[11px] font-mono px-2 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1"
+                  className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1"
                 >
                   <FileDown size={11} /> CSV
                 </button>
                 <button
                   type="button"
                   onClick={exportJson}
-                  className="text-[11px] font-mono px-2 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1"
+                  className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1"
                 >
                   <FileDown size={11} /> JSON
                 </button>
@@ -444,14 +444,14 @@ export default function CvePrioritizer(): JSX.Element {
                         <span className="font-mono font-semibold">{r.id}</span>
                         {r.verdict && (
                           <span
-                            className={`text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${st.chip}`}
+                            className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${st.chip}`}
                           >
                             {r.verdict.verdict}
                           </span>
                         )}
                         {r.verdict?.baseVerdict && (
                           <span
-                            className="text-[10px] font-mono text-slate-500"
+                            className="text-micro font-mono text-slate-500"
                             title={`Verdict adjusted for asset context (${context}). Without it: ${r.verdict.baseVerdict}.`}
                           >
                             (was {r.verdict.baseVerdict})
@@ -459,13 +459,13 @@ export default function CvePrioritizer(): JSX.Element {
                         )}
                         {r.score && (
                           <span className="ml-auto inline-flex items-center gap-1.5">
-                            <span className="text-[10px] font-mono uppercase tracking-wider text-slate-500">score</span>
+                            <span className="text-micro font-mono uppercase tracking-wider text-slate-500">score</span>
                             <span className={`text-base font-bold tabular-nums ${st.text}`}>{r.score.score}</span>
-                            <span className="text-[10px] font-mono text-slate-400">/100</span>
+                            <span className="text-micro font-mono text-slate-400">/100</span>
                           </span>
                         )}
-                        {r.loading && <span className="text-[11px] font-mono text-slate-500">enriching…</span>}
-                        {r.error && <span className="text-[11px] font-mono text-rose-500">{r.error}</span>}
+                        {r.loading && <span className="text-mini font-mono text-slate-500">enriching…</span>}
+                        {r.error && <span className="text-mini font-mono text-rose-500">{r.error}</span>}
                       </div>
 
                       {/* Score bar */}
@@ -477,7 +477,7 @@ export default function CvePrioritizer(): JSX.Element {
 
                       {/* Top-line signal row */}
                       {r.data && (
-                        <div className="flex flex-wrap gap-x-4 gap-y-1 mt-2 text-[12px] font-mono text-slate-600 dark:text-slate-400">
+                        <div className="flex flex-wrap gap-x-4 gap-y-1 mt-2 text-meta font-mono text-slate-600 dark:text-slate-400">
                           <span>
                             CVSS{' '}
                             <span className="text-slate-900 dark:text-slate-100">
@@ -485,7 +485,7 @@ export default function CvePrioritizer(): JSX.Element {
                             </span>
                             {vec.version && (
                               <span
-                                className="ml-1 text-[10px] font-mono uppercase tracking-wider px-1 rounded border border-slate-300/60 dark:border-slate-700/60 text-slate-500"
+                                className="ml-1 text-micro font-mono uppercase tracking-wider px-1 rounded border border-slate-300/60 dark:border-slate-700/60 text-slate-500"
                                 title={`CVSS v${vec.version} vector — scoring scales and field set differ from other versions.`}
                               >
                                 v{vec.version}
@@ -493,7 +493,7 @@ export default function CvePrioritizer(): JSX.Element {
                             )}
                             {vec.wormable && (
                               <span
-                                className="ml-1 text-[10px] font-mono uppercase tracking-wider px-1 rounded border border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300"
+                                className="ml-1 text-micro font-mono uppercase tracking-wider px-1 rounded border border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300"
                                 title="Network, low complexity, no auth, no UI — wormable shape."
                               >
                                 wormable
@@ -570,8 +570,8 @@ export default function CvePrioritizer(): JSX.Element {
                       )}
 
                       {r.data?.actors && r.data.actors.length > 0 && (
-                        <p className="text-[12px] font-mono mt-1.5">
-                          <span className="text-slate-500 uppercase tracking-wider text-[11px]">actors</span>{' '}
+                        <p className="text-meta font-mono mt-1.5">
+                          <span className="text-slate-500 uppercase tracking-wider text-mini">actors</span>{' '}
                           {r.data.actors.map((ac) => (
                             <a
                               key={ac}
@@ -597,7 +597,7 @@ export default function CvePrioritizer(): JSX.Element {
                           type="button"
                           onClick={() => toggleExpand(r.id)}
                           aria-expanded={isOpen}
-                          className="mt-2 inline-flex items-center gap-1 text-[11px] font-mono uppercase tracking-[0.18em] text-slate-500 hover:text-brand-600 dark:hover:text-brand-400"
+                          className="mt-2 inline-flex items-center gap-1 text-mini font-mono uppercase tracking-[0.18em] text-slate-500 hover:text-brand-600 dark:hover:text-brand-400"
                         >
                           {isOpen ? <ChevronDown size={11} /> : <ChevronRight size={11} />}
                           {isOpen ? 'collapse' : 'score breakdown, vector, runbook'}
@@ -608,12 +608,12 @@ export default function CvePrioritizer(): JSX.Element {
                         <div className="mt-3 grid gap-3 sm:grid-cols-2">
                           {/* Score factor breakdown */}
                           <div className="rounded border border-slate-200 dark:border-slate-800 p-3">
-                            <div className="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500 mb-2">
+                            <div className="text-micro font-mono uppercase tracking-[0.2em] text-slate-500 mb-2">
                               Score factors
                             </div>
                             <ul className="space-y-1.5">
                               {r.score.factors.map((f) => (
-                                <li key={f.label} className="text-[12px] font-mono">
+                                <li key={f.label} className="text-meta font-mono">
                                   <div className="flex items-baseline justify-between gap-2">
                                     <span className="text-slate-700 dark:text-slate-300">{f.label}</span>
                                     <span
@@ -627,26 +627,24 @@ export default function CvePrioritizer(): JSX.Element {
                                       {f.contribution.toFixed(1)}
                                     </span>
                                   </div>
-                                  <div className="text-[10px] text-slate-500 leading-snug">{f.why}</div>
+                                  <div className="text-micro text-slate-500 leading-snug">{f.why}</div>
                                 </li>
                               ))}
                               {r.score.factors.length === 0 && (
-                                <li className="text-[12px] font-mono text-slate-500">No active factors.</li>
+                                <li className="text-meta font-mono text-slate-500">No active factors.</li>
                               )}
                             </ul>
                           </div>
 
                           {/* CVSS vector breakdown */}
                           <div className="rounded border border-slate-200 dark:border-slate-800 p-3">
-                            <div className="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500 mb-2">
+                            <div className="text-micro font-mono uppercase tracking-[0.2em] text-slate-500 mb-2">
                               CVSS {vec.version ? `v${vec.version}` : ''} vector
                             </div>
                             {!r.data.cvss?.vector ? (
-                              <p className="text-[12px] font-mono text-slate-500">
-                                No vector string in the NVD record.
-                              </p>
+                              <p className="text-meta font-mono text-slate-500">No vector string in the NVD record.</p>
                             ) : (
-                              <dl className="grid grid-cols-2 gap-x-2 gap-y-1 text-[11px] font-mono">
+                              <dl className="grid grid-cols-2 gap-x-2 gap-y-1 text-mini font-mono">
                                 {(
                                   [
                                     ['attack_vector', 'AV'],
@@ -677,20 +675,20 @@ export default function CvePrioritizer(): JSX.Element {
 
                           {/* Runbook + description */}
                           <div className="rounded border border-slate-200 dark:border-slate-800 p-3 sm:col-span-2">
-                            <div className="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500 mb-2">
+                            <div className="text-micro font-mono uppercase tracking-[0.2em] text-slate-500 mb-2">
                               Runbook · {ACTION_RUNBOOKS[r.verdict.verdict].title}
                             </div>
-                            <ol className="list-decimal pl-5 space-y-1 text-[12px] text-slate-700 dark:text-slate-300 leading-relaxed">
+                            <ol className="list-decimal pl-5 space-y-1 text-meta text-slate-700 dark:text-slate-300 leading-relaxed">
                               {ACTION_RUNBOOKS[r.verdict.verdict].steps.map((s) => (
                                 <li key={s}>{s}</li>
                               ))}
                             </ol>
                             {r.data.description && (
                               <details className="mt-3">
-                                <summary className="text-[11px] font-mono text-slate-500 cursor-pointer">
+                                <summary className="text-mini font-mono text-slate-500 cursor-pointer">
                                   NVD description
                                 </summary>
-                                <p className="mt-1 text-[12px] text-slate-600 dark:text-slate-400 leading-relaxed">
+                                <p className="mt-1 text-meta text-slate-600 dark:text-slate-400 leading-relaxed">
                                   {r.data.description}
                                 </p>
                               </details>
@@ -704,7 +702,7 @@ export default function CvePrioritizer(): JSX.Element {
               );
             })}
             {visibleRows.length === 0 && filterVerdict && (
-              <p className="text-[12px] font-mono text-slate-500 text-center py-4">
+              <p className="text-meta font-mono text-slate-500 text-center py-4">
                 No CVEs match filter <span className="text-slate-700 dark:text-slate-300">{filterVerdict}</span>.
               </p>
             )}

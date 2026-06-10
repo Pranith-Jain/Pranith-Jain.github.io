@@ -73,7 +73,7 @@ export function CodeBlock({
     <div className={`group relative ${className}`}>
       {label && (
         <div className="mb-1 flex items-center justify-between">
-          <span className="text-[10px] font-mono uppercase tracking-wider text-slate-500">{label}</span>
+          <span className="text-micro font-mono uppercase tracking-wider text-slate-500">{label}</span>
         </div>
       )}
       <pre

@@ -37,6 +37,17 @@
     color-scheme: light;
   }
 
+  /* Theme-aware secondary-text channel — see the `muted` color in
+     tailwind.config.js. Light = slate-600 (>=4.5:1 on white = WCAG AA);
+     dark = slate-400. Use `text-muted` instead of bare text-slate-400 for
+     captions/labels so light mode never drops to the 2.8:1 failure. */
+  :root {
+    --muted: 71 85 105;
+  }
+  html.dark {
+    --muted: 148 163 184;
+  }
+
   :focus-visible {
     outline: 2px solid theme('colors.brand.400');
     outline-offset: 3px;
@@ -96,6 +107,32 @@
 
   .dark .surface {
     @apply border-slate-800 bg-slate-900;
+  }
+
+  /* ── Depth / morphism surface system ─────────────────────────────────
+     The canonical card recipe. Light mode gets real elevation (shadow-e*)
+     so surfaces lift off the page instead of reading as flat outlined
+     boxes; dark mode leans on borders + translucency. Brand palette only —
+     no new hues. Converge bespoke per-page card classes onto these.
+       surface-card   → default resting card (subtle e1)
+       surface-raised → emphasised / interactive card (e2)
+       surface-glass  → frosted card for hero/overlay contexts
+       chrome-glass    → frosted sticky chrome (header / sidebar / bars)
+       card-hover     → lift-on-hover affordance (pairs with the above) */
+  .surface-card {
+    @apply rounded-xl border border-slate-200 bg-white shadow-e1 transition duration-200 dark:border-slate-800 dark:bg-slate-900/60;
+  }
+  .surface-raised {
+    @apply rounded-xl border border-slate-200 bg-white shadow-e2 transition duration-200 dark:border-slate-800 dark:bg-slate-900/70;
+  }
+  .surface-glass {
+    @apply rounded-xl border border-slate-200/70 bg-white/70 shadow-e1 backdrop-blur-md transition duration-200 dark:border-slate-700/50 dark:bg-slate-900/50;
+  }
+  .chrome-glass {
+    @apply border-slate-200/70 bg-white/80 backdrop-blur-xl dark:border-slate-800/70 dark:bg-slate-950/70;
+  }
+  .card-hover {
+    @apply hover:-translate-y-0.5 hover:shadow-e2 hover:border-slate-300 dark:hover:border-slate-700;
   }
 }
 
@@ -176,6 +213,27 @@
 
 .dark .text-xs.text-slate-400 {
   color: #94a3b8;
+}
+
+/* Same rescue for the named type tokens (text-micro/mini/meta/eyebrow/tool)
+   and text-sm body copy — the old px-keyed selectors missed both, so adopting
+   the design-system tokens used to silently re-break light-mode contrast. */
+.text-micro.text-slate-400,
+.text-mini.text-slate-400,
+.text-meta.text-slate-400,
+.text-eyebrow.text-slate-400,
+.text-tool.text-slate-400,
+.text-sm.text-slate-400 {
+  color: #475569; /* slate-600 */
+}
+
+.dark .text-micro.text-slate-400,
+.dark .text-mini.text-slate-400,
+.dark .text-meta.text-slate-400,
+.dark .text-eyebrow.text-slate-400,
+.dark .text-tool.text-slate-400,
+.dark .text-sm.text-slate-400 {
+  color: #94a3b8; /* slate-400 stays in dark mode */
 }
 
 /* Labels and captions */
@@ -284,6 +342,24 @@
   animation: dfir-fade-in-up 0.4s ease-out both;
 }
 
+/* Fast pop-in for tooltips / popovers / menus — fade + subtle scale, 150ms.
+   Replaces the dead `animate-in fade-in-0 zoom-in-95` (tailwindcss-animate,
+   not installed). Neutralised by the prefers-reduced-motion block above. */
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-pop-in {
+  animation: pop-in 0.15s ease-out both;
+}
+
 /* Custom scrollbar for event feeds */
 .custom-scrollbar::-webkit-scrollbar {
   width: 4px;
@@ -388,7 +464,9 @@
    ───────────────────────────────────────────────────────────────────── */
 @media (max-width: 639px) {
   .text-\[10px\],
-  .text-\[11px\] {
+  .text-\[11px\],
+  .text-micro,
+  .text-mini {
     font-size: 12px;
     line-height: 1.25;
   }

@@ -89,11 +89,11 @@ export function StepList({
               <div className="flex-1 min-w-0">
                 <div className="text-sm font-medium text-slate-900 dark:text-white">{step.title}</div>
                 {step.description && (
-                  <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400">{step.description}</div>
+                  <div className="text-mini font-mono text-slate-500 dark:text-slate-400">{step.description}</div>
                 )}
               </div>
               {step.meta && (
-                <span className={`shrink-0 text-[10px] font-mono rounded px-1.5 py-0.5 ${STATUS_TEXT[status]}`}>
+                <span className={`shrink-0 text-micro font-mono rounded px-1.5 py-0.5 ${STATUS_TEXT[status]}`}>
                   {step.meta}
                 </span>
               )}

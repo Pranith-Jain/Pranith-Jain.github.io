@@ -91,7 +91,7 @@ export default function ToolsCategory(): JSX.Element {
       />
 
       {/* Sibling category nav */}
-      <div className="flex flex-wrap items-center gap-2 mb-8 text-[11px] font-mono">
+      <div className="flex flex-wrap items-center gap-2 mb-8 text-mini font-mono">
         <span className="text-slate-500">categories:</span>
         {VALID.map((v) => (
           <Link
@@ -121,7 +121,7 @@ export default function ToolsCategory(): JSX.Element {
             <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono">
               {s.label}
             </h3>
-            <span className="text-[11px] font-mono text-slate-500">{s.blurb}</span>
+            <span className="text-mini font-mono text-slate-500">{s.blurb}</span>
           </div>
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {s.tools.map((t) => {
@@ -136,11 +136,11 @@ export default function ToolsCategory(): JSX.Element {
                   </div>
                   <p className="text-sm font-mono text-slate-600 dark:text-slate-400 leading-relaxed">{t.desc}</p>
                   {t.useCase && (
-                    <p className="mt-2 text-[12px] font-mono italic text-slate-500 dark:text-slate-400 flex-1">
+                    <p className="mt-2 text-meta font-mono italic text-slate-500 dark:text-slate-400 flex-1">
                       {t.useCase}
                     </p>
                   )}
-                  <span className="mt-4 inline-flex items-center gap-1 text-[12px] font-mono text-brand-600 dark:text-brand-400">
+                  <span className="mt-4 inline-flex items-center gap-1 text-meta font-mono text-brand-600 dark:text-brand-400">
                     Open tool <ArrowRight size={12} />
                   </span>
                 </div>
@@ -195,13 +195,13 @@ export default function ToolsCategory(): JSX.Element {
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="text-sm font-semibold font-display">{ex.platform}</div>
-                  <div className="text-[11px] font-mono text-slate-500 truncate">@{ex.username}</div>
+                  <div className="text-mini font-mono text-slate-500 truncate">@{ex.username}</div>
                 </div>
                 <a
                   href={ex.profileUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-[10px] font-mono text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1 shrink-0"
+                  className="text-micro font-mono text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1 shrink-0"
                 >
                   View <ExternalLink size={9} />
                 </a>

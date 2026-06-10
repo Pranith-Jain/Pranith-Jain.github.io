@@ -133,7 +133,7 @@ export default function ScreenshotIntel(): JSX.Element {
         <p className="text-sm font-mono text-slate-700 dark:text-slate-300">
           {busy ? 'Analyzing...' : 'Drop an image here, or click to choose'}
         </p>
-        <p className="text-[11px] font-mono text-slate-500 mt-1">
+        <p className="text-mini font-mono text-slate-500 mt-1">
           OCR, QR decode, EXIF/GPS extraction. 100% client-side.
         </p>
       </button>
@@ -147,20 +147,20 @@ export default function ScreenshotIntel(): JSX.Element {
           if (f) void analyze(f);
         }}
       />
-      {stage && <p className="mt-3 font-mono text-[12px] text-slate-500">{stage}</p>}
-      {note && <p className="mt-3 font-mono text-[12px] text-amber-600 dark:text-amber-400">{note}</p>}
+      {stage && <p className="mt-3 font-mono text-meta text-slate-500">{stage}</p>}
+      {note && <p className="mt-3 font-mono text-meta text-amber-600 dark:text-amber-400">{note}</p>}
 
       {qr ? (
         <div className="mt-6 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3">
-          <div className="text-[10px] font-mono uppercase tracking-wider text-slate-500 mb-1">QR / barcode payload</div>
-          <code className="font-mono text-[12px] break-all text-slate-900 dark:text-slate-100">{qr}</code>
+          <div className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-1">QR / barcode payload</div>
+          <code className="font-mono text-meta break-all text-slate-900 dark:text-slate-100">{qr}</code>
         </div>
       ) : null}
 
       {ocr !== null && ocr !== '' && (
         <div className="mt-4 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3">
-          <div className="text-[10px] font-mono uppercase tracking-wider text-slate-500 mb-1">OCR text</div>
-          <pre className="font-mono text-[11px] whitespace-pre-wrap break-words text-slate-700 dark:text-slate-300 max-h-[40vh] overflow-auto">
+          <div className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-1">OCR text</div>
+          <pre className="font-mono text-mini whitespace-pre-wrap break-words text-slate-700 dark:text-slate-300 max-h-[40vh] overflow-auto">
             {ocr}
           </pre>
         </div>
@@ -173,14 +173,14 @@ export default function ScreenshotIntel(): JSX.Element {
               key={k}
               className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3"
             >
-              <div className="text-[10px] font-mono uppercase tracking-wider text-slate-500 mb-1">
+              <div className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-1">
                 {k} · {vs.length}
               </div>
               <div className="flex flex-wrap gap-1.5">
                 {vs.map((v) => (
                   <span
                     key={v}
-                    className="font-mono text-[11px] px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-800 break-all"
+                    className="font-mono text-mini px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-800 break-all"
                   >
                     {v}
                   </span>
@@ -193,8 +193,8 @@ export default function ScreenshotIntel(): JSX.Element {
 
       {meta && (
         <div className="mt-4 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3">
-          <div className="text-[10px] font-mono uppercase tracking-wider text-slate-500 mb-2">EXIF / metadata</div>
-          <pre className="font-mono text-[11px] overflow-auto max-h-[40vh] text-slate-700 dark:text-slate-300">
+          <div className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-2">EXIF / metadata</div>
+          <pre className="font-mono text-mini overflow-auto max-h-[40vh] text-slate-700 dark:text-slate-300">
             {JSON.stringify(meta, (_k, v) => (v instanceof Date ? v.toISOString() : v), 2)}
           </pre>
         </div>

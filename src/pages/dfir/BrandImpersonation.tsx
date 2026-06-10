@@ -48,7 +48,7 @@ function variants(domain: string): { typo: string[]; homo: string[]; affix: stri
 function Group({ title, items }: { title: string; items: string[] }) {
   return (
     <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3">
-      <div className="text-[10px] font-mono uppercase tracking-wider text-slate-500 mb-2">
+      <div className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-2">
         {title} · {items.length}
       </div>
       <div className="flex flex-wrap gap-1.5">
@@ -59,7 +59,7 @@ function Group({ title, items }: { title: string; items: string[] }) {
             target="_blank"
             rel="noopener noreferrer"
             title="Check certificate transparency for this variant"
-            className="font-mono text-[11px] px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-brand-500/40"
+            className="font-mono text-mini px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-brand-500/40"
           >
             {d}
           </a>

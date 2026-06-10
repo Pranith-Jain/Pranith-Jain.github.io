@@ -92,7 +92,7 @@ function IocRow({ ioc }: { ioc: CorrelatedIoc }) {
   return (
     <li className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-3 py-2.5 flex items-center gap-3">
       <span
-        className={`text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${KIND_PILL[ioc.kind]} shrink-0`}
+        className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${KIND_PILL[ioc.kind]} shrink-0`}
       >
         {ioc.kind}
       </span>
@@ -100,7 +100,7 @@ function IocRow({ ioc }: { ioc: CorrelatedIoc }) {
         <div className="flex items-center gap-2">
           <IocChip value={ioc.value} size="sm" bare truncate={56} className="min-w-0" />
         </div>
-        <div className="text-[11px] font-mono text-slate-500 flex items-center gap-2 flex-wrap mt-0.5">
+        <div className="text-mini font-mono text-slate-500 flex items-center gap-2 flex-wrap mt-0.5">
           <span
             className={`px-1.5 py-0.5 rounded border ${freshPill.cls}`}
             title={
@@ -131,7 +131,7 @@ function IocRow({ ioc }: { ioc: CorrelatedIoc }) {
       </div>
       <div className="shrink-0 text-right">
         <div className="font-display font-bold text-base text-slate-900 dark:text-slate-100">{ioc.source_count}</div>
-        <div className={`text-[10px] font-mono uppercase tracking-wider ${conf.cls}`}>{conf.label}</div>
+        <div className={`text-micro font-mono uppercase tracking-wider ${conf.cls}`}>{conf.label}</div>
       </div>
     </li>
   );
@@ -257,19 +257,19 @@ export default function IocCorrelation(): JSX.Element {
       {data && (
         <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-4 grid grid-cols-2 sm:grid-cols-4 gap-3">
           <div>
-            <div className="text-[10px] font-mono uppercase tracking-wider text-slate-500">Correlated IPs</div>
+            <div className="text-micro font-mono uppercase tracking-wider text-slate-500">Correlated IPs</div>
             <div className="font-display font-bold text-xl">{data.totals.by_kind.ip}</div>
           </div>
           <div>
-            <div className="text-[10px] font-mono uppercase tracking-wider text-slate-500">Correlated URLs</div>
+            <div className="text-micro font-mono uppercase tracking-wider text-slate-500">Correlated URLs</div>
             <div className="font-display font-bold text-xl">{data.totals.by_kind.url}</div>
           </div>
           <div>
-            <div className="text-[10px] font-mono uppercase tracking-wider text-slate-500">Correlated domains</div>
+            <div className="text-micro font-mono uppercase tracking-wider text-slate-500">Correlated domains</div>
             <div className="font-display font-bold text-xl">{data.totals.by_kind.domain}</div>
           </div>
           <div>
-            <div className="text-[10px] font-mono uppercase tracking-wider text-slate-500">Correlated hashes</div>
+            <div className="text-micro font-mono uppercase tracking-wider text-slate-500">Correlated hashes</div>
             <div className="font-display font-bold text-xl">{data.totals.by_kind.hash}</div>
           </div>
         </section>
@@ -285,7 +285,7 @@ export default function IocCorrelation(): JSX.Element {
             <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400">
               Feed health
             </h3>
-            <span className="text-[11px] font-mono text-slate-500 tabular-nums">
+            <span className="text-mini font-mono text-slate-500 tabular-nums">
               {data.sources.filter((s) => s.ok).length} of {data.sources.length} feeds online ·{' '}
               {data.totals.indicators_scanned.toLocaleString()} indicators scanned
             </span>
@@ -297,7 +297,7 @@ export default function IocCorrelation(): JSX.Element {
               .map((s) => (
                 <li
                   key={s.id}
-                  className={`flex items-center gap-2 text-[11px] font-mono px-2 py-1 rounded border ${
+                  className={`flex items-center gap-2 text-mini font-mono px-2 py-1 rounded border ${
                     s.ok
                       ? 'border-slate-200 dark:border-slate-800 bg-slate-50/60 dark:bg-slate-950'
                       : 'border-rose-400/40 bg-rose-500/5 text-rose-700 dark:text-rose-300'
@@ -374,7 +374,7 @@ export default function IocCorrelation(): JSX.Element {
             </button>
           )}
           {stixError && (
-            <span role="alert" className="text-[11px] font-mono text-rose-700 dark:text-rose-300">
+            <span role="alert" className="text-mini font-mono text-rose-700 dark:text-rose-300">
               {stixError}
             </span>
           )}
@@ -387,7 +387,7 @@ export default function IocCorrelation(): JSX.Element {
           </button>
         </div>
         <div className="flex flex-wrap items-center gap-1.5 mt-3">
-          <span className="text-[11px] font-mono text-slate-500 mr-1">kinds:</span>
+          <span className="text-mini font-mono text-slate-500 mr-1">kinds:</span>
           {(['ip', 'url', 'domain', 'hash'] as const).map((k) => {
             const active = kindFilter.has(k);
             const count = data?.totals.by_kind[k] ?? 0;
@@ -396,7 +396,7 @@ export default function IocCorrelation(): JSX.Element {
                 key={k}
                 type="button"
                 onClick={() => toggleKind(k)}
-                className={`text-[11px] font-mono px-2 py-1 rounded border ${
+                className={`text-mini font-mono px-2 py-1 rounded border ${
                   active ? KIND_PILL[k] : 'border-slate-300 dark:border-slate-700 text-slate-500'
                 }`}
               >
@@ -408,14 +408,14 @@ export default function IocCorrelation(): JSX.Element {
             <button
               type="button"
               onClick={() => setKindFilter(new Set())}
-              className="text-[11px] font-mono text-brand-600 dark:text-brand-400 hover:underline ml-2"
+              className="text-mini font-mono text-brand-600 dark:text-brand-400 hover:underline ml-2"
             >
               clear
             </button>
           )}
         </div>
         <div className="flex flex-wrap items-center gap-1.5 mt-2">
-          <span className="text-[11px] font-mono text-slate-500 mr-1">freshness:</span>
+          <span className="text-mini font-mono text-slate-500 mr-1">freshness:</span>
           {(['fresh', 'recent', 'stale', 'no-timestamp'] as const).map((f) => {
             const active = freshFilter.has(f);
             const pill = FRESHNESS_PILL[f];
@@ -424,7 +424,7 @@ export default function IocCorrelation(): JSX.Element {
                 key={f}
                 type="button"
                 onClick={() => toggleFresh(f)}
-                className={`text-[11px] font-mono px-2 py-1 rounded border ${
+                className={`text-mini font-mono px-2 py-1 rounded border ${
                   active ? pill.cls : 'border-slate-300 dark:border-slate-700 text-slate-500'
                 }`}
               >
@@ -436,14 +436,14 @@ export default function IocCorrelation(): JSX.Element {
             <button
               type="button"
               onClick={() => setFreshFilter(new Set())}
-              className="text-[11px] font-mono text-brand-600 dark:text-brand-400 hover:underline ml-2"
+              className="text-mini font-mono text-brand-600 dark:text-brand-400 hover:underline ml-2"
             >
               clear
             </button>
           )}
         </div>
         {data && (
-          <p className="text-[11px] font-mono text-slate-500 mt-3">
+          <p className="text-mini font-mono text-slate-500 mt-3">
             Scanned{' '}
             <span className="text-slate-700 dark:text-slate-300">
               {data.totals.indicators_scanned.toLocaleString()}
@@ -477,7 +477,7 @@ export default function IocCorrelation(): JSX.Element {
       {data && (
         <section className="mt-6 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-4">
           <h3 className="font-display font-semibold text-sm mb-2">How to read this</h3>
-          <ul className="text-[12px] font-mono text-slate-600 dark:text-slate-400 space-y-1 list-disc list-inside">
+          <ul className="text-meta font-mono text-slate-600 dark:text-slate-400 space-y-1 list-disc list-inside">
             <li>
               <span className="text-rose-700 dark:text-rose-300">very high (5+ sources)</span>: broad consensus, treat
               as confirmed malicious infra.

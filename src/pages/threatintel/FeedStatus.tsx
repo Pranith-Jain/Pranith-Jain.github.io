@@ -162,19 +162,19 @@ export default function FeedStatus(): JSX.Element {
               return (
                 <span
                   key={s}
-                  className={`text-[11px] font-mono px-2 py-0.5 rounded border ${PILL[s].cls}`}
+                  className={`text-mini font-mono px-2 py-0.5 rounded border ${PILL[s].cls}`}
                   title={`${n} ${s}`}
                 >
                   {n} {PILL[s].label.toLowerCase()}
                 </span>
               );
             })}
-            <span className="text-[11px] font-mono text-slate-500">
+            <span className="text-mini font-mono text-slate-500">
               snapshot {ageString(Math.round((Date.now() - Date.parse(data.generated_at)) / 1000))}
             </span>
           </div>
         ) : (
-          <span className="text-[11px] font-mono text-slate-500">—</span>
+          <span className="text-mini font-mono text-slate-500">—</span>
         )}
         <button
           type="button"
@@ -214,7 +214,7 @@ export default function FeedStatus(): JSX.Element {
                     <div className="flex items-center gap-1.5 flex-wrap">
                       {rel && (
                         <span
-                          className={`inline-flex items-center gap-1 text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${rel}`}
+                          className={`inline-flex items-center gap-1 text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${rel}`}
                           title={`NATO Admiralty source reliability: ${r.reliability}`}
                         >
                           rel {r.reliability}
@@ -222,23 +222,23 @@ export default function FeedStatus(): JSX.Element {
                       )}
                       {cred && (
                         <span
-                          className={`inline-flex items-center gap-1 text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${cred.tone}`}
+                          className={`inline-flex items-center gap-1 text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${cred.tone}`}
                           title={`NATO Admiralty information credibility for current data point`}
                         >
                           {cred.label}
                         </span>
                       )}
                       <span
-                        className={`inline-flex items-center gap-1 text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${PILL[r.status].cls}`}
+                        className={`inline-flex items-center gap-1 text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${PILL[r.status].cls}`}
                       >
                         <Icon size={10} /> {PILL[r.status].label}
                       </span>
                     </div>
                   </div>
-                  <p className="text-[12px] font-mono text-slate-600 dark:text-slate-400 leading-relaxed mb-1.5">
+                  <p className="text-meta font-mono text-slate-600 dark:text-slate-400 leading-relaxed mb-1.5">
                     {r.reason}
                   </p>
-                  <div className="flex flex-wrap items-center gap-2 text-[10px] font-mono text-slate-500">
+                  <div className="flex flex-wrap items-center gap-2 text-micro font-mono text-slate-500">
                     <Link to={r.page_path} className="hover:text-brand-600 dark:hover:text-brand-400">
                       {r.page_path}
                     </Link>

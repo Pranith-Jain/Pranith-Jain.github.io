@@ -46,7 +46,7 @@ export const Footer = memo(function Footer({ personalInfo }: FooterProps) {
           <div>
             <Link
               to="/"
-              className="group inline-flex items-center gap-3 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 rounded-lg"
+              className="group inline-flex items-center gap-3 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 rounded-lg"
               aria-label={`${personalInfo.name} - Back to home`}
             >
               <span className="h-9 w-9 rounded-xl shadow-glow flex items-center justify-center overflow-hidden transition group-hover:scale-110">
@@ -66,7 +66,7 @@ export const Footer = memo(function Footer({ personalInfo }: FooterProps) {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="LinkedIn (opens in new tab)"
-                className="inline-flex h-11 w-11 sm:h-9 sm:w-9 items-center justify-center rounded-lg text-slate-500 transition hover:bg-slate-100 hover:text-brand-600 dark:hover:bg-white/10 dark:hover:text-brand-400 focus:outline-none focus:ring-2 focus:ring-brand-500"
+                className="inline-flex h-11 w-11 sm:h-9 sm:w-9 items-center justify-center rounded-lg text-slate-500 transition hover:bg-slate-100 hover:text-brand-600 dark:hover:bg-white/10 dark:hover:text-brand-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
               >
                 <Linkedin className="h-4 w-4" aria-hidden="true" />
               </a>
@@ -75,14 +75,14 @@ export const Footer = memo(function Footer({ personalInfo }: FooterProps) {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="GitHub (opens in new tab)"
-                className="inline-flex h-11 w-11 sm:h-9 sm:w-9 items-center justify-center rounded-lg text-slate-500 transition hover:bg-slate-100 hover:text-brand-600 dark:hover:bg-white/10 dark:hover:text-brand-400 focus:outline-none focus:ring-2 focus:ring-brand-500"
+                className="inline-flex h-11 w-11 sm:h-9 sm:w-9 items-center justify-center rounded-lg text-slate-500 transition hover:bg-slate-100 hover:text-brand-600 dark:hover:bg-white/10 dark:hover:text-brand-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
               >
                 <Github className="h-4 w-4" aria-hidden="true" />
               </a>
               <a
                 href={`mailto:${personalInfo.email}`}
                 aria-label="Email"
-                className="inline-flex h-11 w-11 sm:h-9 sm:w-9 items-center justify-center rounded-lg text-slate-500 transition hover:bg-slate-100 hover:text-brand-600 dark:hover:bg-white/10 dark:hover:text-brand-400 focus:outline-none focus:ring-2 focus:ring-brand-500"
+                className="inline-flex h-11 w-11 sm:h-9 sm:w-9 items-center justify-center rounded-lg text-slate-500 transition hover:bg-slate-100 hover:text-brand-600 dark:hover:bg-white/10 dark:hover:text-brand-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
               >
                 <Mail className="h-4 w-4" aria-hidden="true" />
               </a>
@@ -97,7 +97,7 @@ export const Footer = memo(function Footer({ personalInfo }: FooterProps) {
                 <li key={l.href}>
                   <Link
                     to={l.href}
-                    className="text-sm text-slate-600 hover:text-brand-600 dark:text-slate-400 dark:hover:text-brand-400 transition focus:outline-none focus:ring-2 focus:ring-brand-500 rounded"
+                    className="text-sm text-slate-600 hover:text-brand-600 dark:text-slate-400 dark:hover:text-brand-400 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 rounded"
                   >
                     {l.label}
                   </Link>
@@ -114,7 +114,7 @@ export const Footer = memo(function Footer({ personalInfo }: FooterProps) {
                 <li key={l.href}>
                   <Link
                     to={l.href}
-                    className="text-sm text-slate-600 hover:text-brand-600 dark:text-slate-400 dark:hover:text-brand-400 transition focus:outline-none focus:ring-2 focus:ring-brand-500 rounded"
+                    className="text-sm text-slate-600 hover:text-brand-600 dark:text-slate-400 dark:hover:text-brand-400 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 rounded"
                   >
                     {l.label}
                   </Link>
@@ -125,7 +125,7 @@ export const Footer = memo(function Footer({ personalInfo }: FooterProps) {
         </div>
 
         {/* Bottom strip — copyright, view counter, stack credit */}
-        <div className="mt-8 flex flex-col items-start justify-between gap-3 border-t border-slate-200/60 pt-5 text-[11px] text-slate-500 dark:border-white/10 dark:text-slate-400 sm:flex-row sm:items-center">
+        <div className="mt-8 flex flex-col items-start justify-between gap-3 border-t border-slate-200/60 pt-5 text-mini text-slate-500 dark:border-white/10 dark:text-slate-400 sm:flex-row sm:items-center">
           <span>
             © {currentYear} {personalInfo.name}. All rights reserved.
           </span>

@@ -181,7 +181,7 @@ export default function RedditFirehose(): JSX.Element {
         </div>
         {data && (
           <div className="flex flex-wrap items-center gap-1.5 mt-3">
-            <span className="text-[11px] font-mono text-slate-500 mr-1">subreddits:</span>
+            <span className="text-mini font-mono text-slate-500 mr-1">subreddits:</span>
             {data.subs.map((s) => {
               const active = subFilter.has(s.name);
               return (
@@ -190,7 +190,7 @@ export default function RedditFirehose(): JSX.Element {
                   type="button"
                   onClick={() => toggleSub(s.name)}
                   title={s.ok ? `${s.count} posts` : 'feed unreachable'}
-                  className={`text-[11px] font-mono px-2 py-1 rounded border ${
+                  className={`text-mini font-mono px-2 py-1 rounded border ${
                     active
                       ? TOPIC_PILL[s.topic]
                       : s.ok
@@ -206,7 +206,7 @@ export default function RedditFirehose(): JSX.Element {
               <button
                 type="button"
                 onClick={() => setSubFilter(new Set())}
-                className="text-[11px] font-mono text-brand-600 dark:text-brand-400 hover:underline ml-2"
+                className="text-mini font-mono text-brand-600 dark:text-brand-400 hover:underline ml-2"
               >
                 clear
               </button>
@@ -216,7 +216,7 @@ export default function RedditFirehose(): JSX.Element {
       </section>
 
       {data && (
-        <p className="text-[11px] font-mono text-slate-500 mb-4">
+        <p className="text-mini font-mono text-slate-500 mb-4">
           Showing {filtered.length} of {data.items.length} posts · snapshot{' '}
           <span className="text-slate-700 dark:text-slate-300">{shortRel(data.generated_at)}</span>
           {data.warnings.length > 0 && (
@@ -269,11 +269,11 @@ export default function RedditFirehose(): JSX.Element {
                   <ExternalLink size={11} className="text-slate-400 shrink-0" />
                 </div>
                 {it.text && (
-                  <p className="text-[12px] font-mono text-slate-600 dark:text-slate-400 leading-relaxed line-clamp-2 mb-1.5">
+                  <p className="text-meta font-mono text-slate-600 dark:text-slate-400 leading-relaxed line-clamp-2 mb-1.5">
                     {it.text}
                   </p>
                 )}
-                <div className="text-[11px] font-mono text-slate-500 flex items-center gap-2 flex-wrap">
+                <div className="text-mini font-mono text-slate-500 flex items-center gap-2 flex-wrap">
                   <span className={`px-1.5 py-0.5 rounded border ${TOPIC_PILL[it.sub_topic]}`}>{it.sub_label}</span>
                   <span>by {it.author || '—'}</span>
                   <span className="ml-auto text-slate-400" title={it.pub_date}>
@@ -288,7 +288,7 @@ export default function RedditFirehose(): JSX.Element {
           <button
             type="button"
             onClick={() => setVisible((v) => v + 60)}
-            className="mt-3 w-full rounded-lg border border-slate-200 dark:border-slate-800 py-2 font-mono text-[12px] text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+            className="mt-3 w-full rounded-lg border border-slate-200 dark:border-slate-800 py-2 font-mono text-meta text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
           >
             Show more ({filtered.length - visible} remaining)
           </button>

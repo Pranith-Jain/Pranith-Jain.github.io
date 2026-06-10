@@ -64,7 +64,7 @@ export function Toolkits() {
                 </div>
                 <div className="flex items-baseline gap-1 tabular-nums">
                   <span className="font-display text-2xl font-bold text-brand-600 dark:text-brand-400">{tk.stat}</span>
-                  <span className="text-[11px] font-mono text-slate-400">{tk.statLabel}</span>
+                  <span className="text-mini font-mono text-slate-400">{tk.statLabel}</span>
                 </div>
               </div>
               <h3 className="font-display text-xl font-bold text-slate-900 dark:text-white group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
@@ -83,7 +83,7 @@ export function Toolkits() {
                 {tk.builtWith.map((tech) => (
                   <span
                     key={tech}
-                    className="rounded-md border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/60 px-2 py-0.5 text-[10px] font-mono text-slate-500 dark:text-slate-400"
+                    className="rounded-md border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/60 px-2 py-0.5 text-micro font-mono text-slate-500 dark:text-slate-400"
                   >
                     {tech}
                   </span>

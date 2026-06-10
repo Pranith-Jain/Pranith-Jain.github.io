@@ -327,19 +327,19 @@ function InvestigationsPage(): JSX.Element {
           <div className="flex-1 min-w-0">
             <h1 className="text-2xl sm:text-3xl font-display font-bold mb-2">{inv.title}</h1>
             <div className="flex flex-wrap items-center gap-2">
-              <span className={`text-[11px] font-mono px-2 py-0.5 rounded border ${SEVERITY_COLORS[inv.severity]}`}>
+              <span className={`text-mini font-mono px-2 py-0.5 rounded border ${SEVERITY_COLORS[inv.severity]}`}>
                 {inv.severity}
               </span>
-              <span className={`text-[11px] font-mono px-2 py-0.5 rounded ${STATUS_COLORS[inv.status]}`}>
+              <span className={`text-mini font-mono px-2 py-0.5 rounded ${STATUS_COLORS[inv.status]}`}>
                 {inv.status}
               </span>
-              <span className={`text-[11px] font-mono px-2 py-0.5 rounded border ${TLP_COLORS[inv.tlp]}`}>
+              <span className={`text-mini font-mono px-2 py-0.5 rounded border ${TLP_COLORS[inv.tlp]}`}>
                 TLP:{inv.tlp.toUpperCase()}
               </span>
               {inv.tags.map((t) => (
                 <span
                   key={t}
-                  className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-500"
+                  className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-500"
                 >
                   {t}
                 </span>
@@ -350,14 +350,14 @@ function InvestigationsPage(): JSX.Element {
             <button
               type="button"
               onClick={exportJson}
-              className="text-[11px] font-mono px-2 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 text-slate-500 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1"
+              className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 text-slate-500 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1"
             >
               <FileDown size={11} /> JSON
             </button>
             <button
               type="button"
               onClick={() => deleteInvestigation(inv.id)}
-              className="text-[11px] font-mono px-2 py-1 rounded border border-rose-300 dark:border-rose-800 text-rose-500 hover:bg-rose-500/10 inline-flex items-center gap-1"
+              className="text-mini font-mono px-2 py-1 rounded border border-rose-300 dark:border-rose-800 text-rose-500 hover:bg-rose-500/10 inline-flex items-center gap-1"
             >
               <Trash2 size={11} /> Delete
             </button>
@@ -369,24 +369,24 @@ function InvestigationsPage(): JSX.Element {
         )}
 
         <div className="flex gap-2 mb-6">
-          <span className="text-[11px] font-mono text-slate-500">Severity:</span>
+          <span className="text-mini font-mono text-slate-500">Severity:</span>
           {(['low', 'medium', 'high', 'critical'] as const).map((s) => (
             <button
               key={s}
               type="button"
               onClick={() => updateSeverity(s)}
-              className={`text-[11px] font-mono px-2 py-0.5 rounded border ${inv.severity === s ? SEVERITY_COLORS[s] : 'border-slate-200 dark:border-slate-800 text-slate-500'}`}
+              className={`text-mini font-mono px-2 py-0.5 rounded border ${inv.severity === s ? SEVERITY_COLORS[s] : 'border-slate-200 dark:border-slate-800 text-slate-500'}`}
             >
               {s}
             </button>
           ))}
-          <span className="ml-4 text-[11px] font-mono text-slate-500">Status:</span>
+          <span className="ml-4 text-mini font-mono text-slate-500">Status:</span>
           {(['open', 'in-progress', 'closed'] as const).map((s) => (
             <button
               key={s}
               type="button"
               onClick={() => updateStatus(inv.id, s)}
-              className={`text-[11px] font-mono px-2 py-0.5 rounded ${inv.status === s ? STATUS_COLORS[s] : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}`}
+              className={`text-mini font-mono px-2 py-0.5 rounded ${inv.status === s ? STATUS_COLORS[s] : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}`}
             >
               {s === 'in-progress' ? 'in progress' : s}
             </button>
@@ -403,7 +403,7 @@ function InvestigationsPage(): JSX.Element {
                 <select
                   value={obsType}
                   onChange={(e) => setObsType(e.target.value)}
-                  className="text-[12px] font-mono px-2 py-1.5 rounded border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300"
+                  className="text-meta font-mono px-2 py-1.5 rounded border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300"
                 >
                   <option value="ipv4">IPv4</option>
                   <option value="ipv6">IPv6</option>
@@ -417,7 +417,7 @@ function InvestigationsPage(): JSX.Element {
                   value={obsValue}
                   onChange={(e) => setObsValue(e.target.value)}
                   placeholder="observable value"
-                  className="flex-1 px-3 py-1.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded font-mono text-[12px] text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500"
+                  className="flex-1 px-3 py-1.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded font-mono text-meta text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500"
                   onKeyDown={(e) => {
                     if (e.key === 'Enter') void addObservable();
                   }}
@@ -426,13 +426,13 @@ function InvestigationsPage(): JSX.Element {
                   type="button"
                   onClick={() => void addObservable()}
                   disabled={!obsValue.trim()}
-                  className="px-3 py-1.5 bg-brand-600 dark:bg-brand-500 text-white font-mono text-[11px] rounded disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400"
+                  className="px-3 py-1.5 bg-brand-600 dark:bg-brand-500 text-white font-mono text-mini rounded disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400"
                 >
                   <Plus size={12} />
                 </button>
               </div>
               {inv.observables.length === 0 ? (
-                <p className="text-[12px] font-mono text-slate-500 text-center py-4">No observables added yet</p>
+                <p className="text-meta font-mono text-slate-500 text-center py-4">No observables added yet</p>
               ) : (
                 <div className="space-y-1 max-h-60 overflow-y-auto">
                   {inv.observables.map((o) => (
@@ -441,8 +441,8 @@ function InvestigationsPage(): JSX.Element {
                       className="flex items-center justify-between px-2 py-1.5 rounded hover:bg-slate-50 dark:hover:bg-slate-800/50 group"
                     >
                       <div className="flex items-center gap-2 min-w-0">
-                        <span className="text-[10px] font-mono uppercase text-slate-400 shrink-0 w-10">{o.type}</span>
-                        <span className="text-[12px] font-mono text-slate-800 dark:text-slate-200 break-all">
+                        <span className="text-micro font-mono uppercase text-slate-400 shrink-0 w-10">{o.type}</span>
+                        <span className="text-meta font-mono text-slate-800 dark:text-slate-200 break-all">
                           {o.value}
                         </span>
                       </div>
@@ -469,7 +469,7 @@ function InvestigationsPage(): JSX.Element {
                   value={taskTitle}
                   onChange={(e) => setTaskTitle(e.target.value)}
                   placeholder="new task"
-                  className="flex-1 px-3 py-1.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded font-mono text-[12px] text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500"
+                  className="flex-1 px-3 py-1.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded font-mono text-meta text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500"
                   onKeyDown={(e) => {
                     if (e.key === 'Enter') void addTask();
                   }}
@@ -478,13 +478,13 @@ function InvestigationsPage(): JSX.Element {
                   type="button"
                   onClick={() => void addTask()}
                   disabled={!taskTitle.trim()}
-                  className="px-3 py-1.5 bg-brand-600 dark:bg-brand-500 text-white font-mono text-[11px] rounded disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400"
+                  className="px-3 py-1.5 bg-brand-600 dark:bg-brand-500 text-white font-mono text-mini rounded disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400"
                 >
                   <Plus size={12} />
                 </button>
               </div>
               {inv.tasks.length === 0 ? (
-                <p className="text-[12px] font-mono text-slate-500 text-center py-4">No tasks yet</p>
+                <p className="text-meta font-mono text-slate-500 text-center py-4">No tasks yet</p>
               ) : (
                 <div className="space-y-1">
                   {inv.tasks.map((t) => (
@@ -504,7 +504,7 @@ function InvestigationsPage(): JSX.Element {
                         )}
                       </button>
                       <span
-                        className={`text-[12px] font-mono flex-1 ${t.status === 'completed' ? 'line-through text-slate-400' : 'text-slate-800 dark:text-slate-200'}`}
+                        className={`text-meta font-mono flex-1 ${t.status === 'completed' ? 'line-through text-slate-400' : 'text-slate-800 dark:text-slate-200'}`}
                       >
                         {t.title}
                       </span>
@@ -512,13 +512,13 @@ function InvestigationsPage(): JSX.Element {
                         <button
                           type="button"
                           onClick={() => void updateTask(t.id, 'in-progress')}
-                          className="text-[10px] font-mono text-blue-500 hover:underline"
+                          className="text-micro font-mono text-blue-500 hover:underline"
                         >
                           start
                         </button>
                       )}
                       {t.status === 'in-progress' && (
-                        <span className="text-[10px] font-mono text-blue-500 flex items-center gap-1">
+                        <span className="text-micro font-mono text-blue-500 flex items-center gap-1">
                           <Clock size={10} /> in progress
                         </span>
                       )}
@@ -537,10 +537,8 @@ function InvestigationsPage(): JSX.Element {
               <div className="space-y-3 max-h-[40vh] overflow-y-auto">
                 {[...inv.timeline].reverse().map((ev) => (
                   <div key={ev.id} className="relative pl-4 border-l-2 border-slate-200 dark:border-slate-700">
-                    <p className="text-[12px] font-mono text-slate-700 dark:text-slate-300 leading-snug">
-                      {ev.message}
-                    </p>
-                    <p className="text-[10px] font-mono text-slate-400 mt-0.5">{relativeTime(ev.created_at)}</p>
+                    <p className="text-meta font-mono text-slate-700 dark:text-slate-300 leading-snug">{ev.message}</p>
+                    <p className="text-micro font-mono text-slate-400 mt-0.5">{relativeTime(ev.created_at)}</p>
                   </div>
                 ))}
               </div>
@@ -551,7 +549,7 @@ function InvestigationsPage(): JSX.Element {
                     value={noteText}
                     onChange={(e) => setNoteText(e.target.value)}
                     placeholder="add a note…"
-                    className="flex-1 px-3 py-1.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded font-mono text-[12px] text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500"
+                    className="flex-1 px-3 py-1.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded font-mono text-meta text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500"
                     onKeyDown={(e) => {
                       if (e.key === 'Enter') void addNote();
                     }}
@@ -560,7 +558,7 @@ function InvestigationsPage(): JSX.Element {
                     type="button"
                     onClick={() => void addNote()}
                     disabled={!noteText.trim()}
-                    className="px-3 py-1.5 bg-brand-600 dark:bg-brand-500 text-white font-mono text-[11px] rounded disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400"
+                    className="px-3 py-1.5 bg-brand-600 dark:bg-brand-500 text-white font-mono text-mini rounded disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400"
                   >
                     Add
                   </button>
@@ -570,7 +568,7 @@ function InvestigationsPage(): JSX.Element {
 
             <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
               <h2 className="font-display font-semibold text-sm mb-2">Meta</h2>
-              <div className="text-[11px] font-mono text-slate-500 space-y-1">
+              <div className="text-mini font-mono text-slate-500 space-y-1">
                 <p>Created: {new Date(inv.created_at).toLocaleString()}</p>
                 <p>Updated: {new Date(inv.updated_at).toLocaleString()}</p>
                 <p>TLP: {inv.tlp.toUpperCase()}</p>
@@ -616,13 +614,13 @@ function InvestigationsPage(): JSX.Element {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search investigations…"
-            className="w-full pl-9 pr-3 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg font-mono text-[13px] text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500"
+            className="w-full pl-9 pr-3 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg font-mono text-tool text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500"
           />
         </div>
         <select
           value={filterSeverity}
           onChange={(e) => setFilterSeverity(e.target.value)}
-          className="text-[12px] font-mono px-2 py-2 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300"
+          className="text-meta font-mono px-2 py-2 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300"
         >
           <option value="all">All severity</option>
           <option value="critical">Critical</option>
@@ -633,7 +631,7 @@ function InvestigationsPage(): JSX.Element {
         <select
           value={filterStatus}
           onChange={(e) => setFilterStatus(e.target.value)}
-          className="text-[12px] font-mono px-2 py-2 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300"
+          className="text-meta font-mono px-2 py-2 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300"
         >
           <option value="all">All status</option>
           <option value="open">Open</option>
@@ -655,7 +653,7 @@ function InvestigationsPage(): JSX.Element {
                 value={createForm.title}
                 onChange={(e) => setCreateForm((p) => ({ ...p, title: e.target.value }))}
                 placeholder="Investigation title"
-                className="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded font-mono text-[13px] focus:outline-none focus:border-brand-500"
+                className="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded font-mono text-tool focus:outline-none focus:border-brand-500"
               />
             </div>
             <div className="sm:col-span-2">
@@ -664,13 +662,13 @@ function InvestigationsPage(): JSX.Element {
                 onChange={(e) => setCreateForm((p) => ({ ...p, description: e.target.value }))}
                 placeholder="Description (optional)"
                 rows={2}
-                className="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded font-mono text-[12px] focus:outline-none focus:border-brand-500"
+                className="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded font-mono text-meta focus:outline-none focus:border-brand-500"
               />
             </div>
             <select
               value={createForm.severity}
               onChange={(e) => setCreateForm((p) => ({ ...p, severity: e.target.value as Investigation['severity'] }))}
-              className="text-[12px] font-mono px-2 py-2 rounded border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900"
+              className="text-meta font-mono px-2 py-2 rounded border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900"
             >
               <option value="low">Low</option>
               <option value="medium">Medium</option>
@@ -680,7 +678,7 @@ function InvestigationsPage(): JSX.Element {
             <select
               value={createForm.tlp}
               onChange={(e) => setCreateForm((p) => ({ ...p, tlp: e.target.value as Investigation['tlp'] }))}
-              className="text-[12px] font-mono px-2 py-2 rounded border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900"
+              className="text-meta font-mono px-2 py-2 rounded border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900"
             >
               <option value="white">TLP:WHITE</option>
               <option value="green">TLP:GREEN</option>
@@ -693,7 +691,7 @@ function InvestigationsPage(): JSX.Element {
                 value={createForm.tags}
                 onChange={(e) => setCreateForm((p) => ({ ...p, tags: e.target.value }))}
                 placeholder="Tags (comma separated)"
-                className="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded font-mono text-[12px] focus:outline-none focus:border-brand-500"
+                className="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded font-mono text-meta focus:outline-none focus:border-brand-500"
               />
             </div>
           </div>
@@ -701,14 +699,14 @@ function InvestigationsPage(): JSX.Element {
             <button
               type="submit"
               disabled={!createForm.title.trim()}
-              className="px-4 py-2 bg-brand-600 dark:bg-brand-500 text-white font-mono text-[12px] font-semibold rounded disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400"
+              className="px-4 py-2 bg-brand-600 dark:bg-brand-500 text-white font-mono text-meta font-semibold rounded disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400"
             >
               Create
             </button>
             <button
               type="button"
               onClick={() => setShowCreate(false)}
-              className="px-4 py-2 border border-slate-200 dark:border-slate-800 text-slate-500 font-mono text-[12px] rounded hover:text-slate-700 dark:hover:text-slate-300"
+              className="px-4 py-2 border border-slate-200 dark:border-slate-800 text-slate-500 font-mono text-meta rounded hover:text-slate-700 dark:hover:text-slate-300"
             >
               Cancel
             </button>
@@ -718,7 +716,7 @@ function InvestigationsPage(): JSX.Element {
 
       {error && (
         <div className="rounded-lg border border-rose-200 dark:border-rose-900 bg-rose-50 dark:bg-rose-950/30 p-4 mb-6">
-          <p className="text-[13px] font-mono text-rose-700 dark:text-rose-300">{error}</p>
+          <p className="text-tool font-mono text-rose-700 dark:text-rose-300">{error}</p>
         </div>
       )}
 
@@ -763,30 +761,30 @@ function InvestigationsPage(): JSX.Element {
                   <h3 className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100">{inv.title}</h3>
                   <div className="flex flex-wrap items-center gap-2 mt-1.5">
                     <span
-                      className={`text-[10px] font-mono px-1.5 py-0.5 rounded border ${SEVERITY_COLORS[inv.severity]}`}
+                      className={`text-micro font-mono px-1.5 py-0.5 rounded border ${SEVERITY_COLORS[inv.severity]}`}
                     >
                       {inv.severity}
                     </span>
-                    <span className={`text-[10px] font-mono px-1.5 py-0.5 rounded ${STATUS_COLORS[inv.status]}`}>
+                    <span className={`text-micro font-mono px-1.5 py-0.5 rounded ${STATUS_COLORS[inv.status]}`}>
                       {inv.status}
                     </span>
-                    <span className={`text-[10px] font-mono px-1.5 py-0.5 rounded border ${TLP_COLORS[inv.tlp]}`}>
+                    <span className={`text-micro font-mono px-1.5 py-0.5 rounded border ${TLP_COLORS[inv.tlp]}`}>
                       TLP:{inv.tlp.toUpperCase()}
                     </span>
                     {inv.tags.map((t) => (
                       <span
                         key={t}
-                        className="text-[9px] font-mono px-1 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-500"
+                        className="text-micro font-mono px-1 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-500"
                       >
                         {t}
                       </span>
                     ))}
                   </div>
                   {inv.description && (
-                    <p className="text-[12px] font-mono text-slate-500 mt-1 line-clamp-1">{inv.description}</p>
+                    <p className="text-meta font-mono text-slate-500 mt-1 line-clamp-1">{inv.description}</p>
                   )}
                 </div>
-                <div className="shrink-0 text-right text-[10px] font-mono text-slate-400">
+                <div className="shrink-0 text-right text-micro font-mono text-slate-400">
                   <p>{inv.observables.length} observables</p>
                   <p>{inv.tasks.filter((t) => t.status !== 'completed').length} open tasks</p>
                   <p className="mt-1">{relativeTime(inv.updated_at)}</p>

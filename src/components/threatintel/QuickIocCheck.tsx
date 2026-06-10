@@ -66,7 +66,7 @@ export default function QuickIocCheck() {
       </div>
 
       {streaming && eligible.length > 0 && (
-        <p className="mt-2 text-[10px] font-mono text-slate-500">
+        <p className="mt-2 text-micro font-mono text-slate-500">
           scanning… {results.length}/{eligible.length} sources
         </p>
       )}
@@ -74,21 +74,21 @@ export default function QuickIocCheck() {
       {summary && (
         <div className="mt-3 flex items-center gap-2">
           <VerdictChip verdict={summary.verdict} />
-          <span className="text-[10px] font-mono text-slate-500">{summary.score}/100</span>
-          <span className="text-[10px] font-mono text-slate-500">{summary.confidence}</span>
+          <span className="text-micro font-mono text-slate-500">{summary.score}/100</span>
+          <span className="text-micro font-mono text-slate-500">{summary.confidence}</span>
         </div>
       )}
 
       {results.length > 0 && (
         <details className="mt-2">
-          <summary className="text-[10px] font-mono text-slate-500 cursor-pointer hover:text-slate-700 dark:hover:text-slate-300">
+          <summary className="text-micro font-mono text-slate-500 cursor-pointer hover:text-slate-700 dark:hover:text-slate-300">
             Per-source verdicts ({results.length})
           </summary>
           <div className="mt-2 space-y-1">
             {results.map((r) => (
               <div
                 key={r.source}
-                className="flex items-center justify-between px-2 py-1 rounded bg-slate-50 dark:bg-slate-950 text-[10px]"
+                className="flex items-center justify-between px-2 py-1 rounded bg-slate-50 dark:bg-slate-950 text-micro"
               >
                 <span className="font-mono text-slate-700 dark:text-slate-300 capitalize">
                   {r.source}
@@ -121,12 +121,12 @@ export default function QuickIocCheck() {
         </details>
       )}
 
-      {error && <p className="mt-2 text-[10px] font-mono text-rose-500">{error}</p>}
+      {error && <p className="mt-2 text-micro font-mono text-rose-500">{error}</p>}
 
       {summary && (
         <Link
           to={`/dfir/ioc-check?indicator=${encodeURIComponent(input.trim())}`}
-          className="mt-2 inline-flex items-center gap-1 text-[10px] font-mono text-brand-600 dark:text-brand-400 hover:underline"
+          className="mt-2 inline-flex items-center gap-1 text-micro font-mono text-brand-600 dark:text-brand-400 hover:underline"
         >
           Open in IOC Checker <ArrowRight size={10} aria-hidden="true" />
         </Link>

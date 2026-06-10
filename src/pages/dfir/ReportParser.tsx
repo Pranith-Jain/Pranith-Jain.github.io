@@ -92,7 +92,7 @@ export default function ReportParser(): JSX.Element {
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -164,22 +164,22 @@ export default function ReportParser(): JSX.Element {
             </h2>
             <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{result.summary}</p>
             <div className="mt-3 flex flex-wrap gap-1.5">
-              <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-brand-100 dark:bg-brand-900/30 text-brand-700 dark:text-brand-300">
+              <span className="text-micro font-mono px-2 py-0.5 rounded bg-brand-100 dark:bg-brand-900/30 text-brand-700 dark:text-brand-300">
                 {totalIocs} IOCs
               </span>
-              <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300">
+              <span className="text-micro font-mono px-2 py-0.5 rounded bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300">
                 {result.threat_actors.length} Actors
               </span>
-              <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-rose-100 dark:bg-rose-900/30 text-rose-700 dark:text-rose-300">
+              <span className="text-micro font-mono px-2 py-0.5 rounded bg-rose-100 dark:bg-rose-900/30 text-rose-700 dark:text-rose-300">
                 {result.malware.length} Malware
               </span>
-              <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300">
+              <span className="text-micro font-mono px-2 py-0.5 rounded bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300">
                 {result.mitre_techniques.length} TTPs
               </span>
-              <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300">
+              <span className="text-micro font-mono px-2 py-0.5 rounded bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300">
                 {result.cves.length} CVEs
               </span>
-              <span className={`text-[10px] font-mono px-2 py-0.5 rounded ${CONFIDENCE_BADGE[result.meta.confidence]}`}>
+              <span className={`text-micro font-mono px-2 py-0.5 rounded ${CONFIDENCE_BADGE[result.meta.confidence]}`}>
                 {result.meta.confidence}
               </span>
             </div>
@@ -218,7 +218,7 @@ export default function ReportParser(): JSX.Element {
                     >
                       <span className="text-sm">{actor.name}</span>
                       <span
-                        className={`text-[10px] font-mono px-1.5 py-0.5 rounded ${CONFIDENCE_BADGE[actor.confidence]}`}
+                        className={`text-micro font-mono px-1.5 py-0.5 rounded ${CONFIDENCE_BADGE[actor.confidence]}`}
                       >
                         {actor.confidence}
                       </span>
@@ -237,7 +237,7 @@ export default function ReportParser(): JSX.Element {
                       className="flex items-center justify-between rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 px-3 py-2"
                     >
                       <span className="text-sm">{m.name}</span>
-                      <span className={`text-[10px] font-mono px-1.5 py-0.5 rounded ${CONFIDENCE_BADGE[m.confidence]}`}>
+                      <span className={`text-micro font-mono px-1.5 py-0.5 rounded ${CONFIDENCE_BADGE[m.confidence]}`}>
                         {m.confidence}
                       </span>
                     </div>
@@ -259,7 +259,7 @@ export default function ReportParser(): JSX.Element {
                       href={`https://attack.mitre.org/techniques/${t.id.replace('.', '/')}/`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-[10px] font-mono px-2 py-0.5 rounded border border-amber-300/50 dark:border-amber-800/50 bg-amber-50 dark:bg-amber-950/20 text-amber-700 dark:text-amber-300 hover:border-amber-500/60 transition-colors"
+                      className="text-micro font-mono px-2 py-0.5 rounded border border-amber-300/50 dark:border-amber-800/50 bg-amber-50 dark:bg-amber-950/20 text-amber-700 dark:text-amber-300 hover:border-amber-500/60 transition-colors"
                     >
                       {t.id}
                       {t.name ? `: ${t.name}` : ''}
@@ -278,7 +278,7 @@ export default function ReportParser(): JSX.Element {
                       href={`https://nvd.nist.gov/vuln/detail/${c.id}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-[10px] font-mono px-2 py-0.5 rounded border border-amber-300/50 dark:border-amber-800/50 bg-amber-50 dark:bg-amber-950/20 text-amber-700 dark:text-amber-300 hover:border-amber-500/60 transition-colors"
+                      className="text-micro font-mono px-2 py-0.5 rounded border border-amber-300/50 dark:border-amber-800/50 bg-amber-50 dark:bg-amber-950/20 text-amber-700 dark:text-amber-300 hover:border-amber-500/60 transition-colors"
                     >
                       {c.id}
                     </a>

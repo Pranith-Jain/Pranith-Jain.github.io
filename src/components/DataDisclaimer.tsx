@@ -201,7 +201,7 @@ export function DataDisclaimer() {
         <p className="text-xs font-mono font-semibold text-slate-500 uppercase tracking-wider mb-2 flex items-center gap-1.5">
           <Radio size={12} /> Backend data sources ({SOURCES.length})
         </p>
-        <p className="text-[11px] font-mono text-slate-500 mb-3">
+        <p className="text-mini font-mono text-slate-500 mb-3">
           Reliability graded per NATO Admiralty Code (A=best, F=unassessed). Risk level indicates how much corroboration
           is recommended before acting on data from each source.
         </p>
@@ -209,9 +209,9 @@ export function DataDisclaimer() {
           {SOURCES.map((s) => (
             <div
               key={s.id}
-              className="flex items-start gap-2 text-[11px] font-mono py-1 border-b border-slate-100 dark:border-slate-800 last:border-0"
+              className="flex items-start gap-2 text-mini font-mono py-1 border-b border-slate-100 dark:border-slate-800 last:border-0"
             >
-              <span className={`px-1 py-0.5 rounded text-[9px] font-bold shrink-0 ${GRADE_STYLES[s.grade] ?? ''}`}>
+              <span className={`px-1 py-0.5 rounded text-micro font-bold shrink-0 ${GRADE_STYLES[s.grade] ?? ''}`}>
                 {s.grade}
               </span>
               <div className="flex-1 min-w-0">
@@ -219,7 +219,7 @@ export function DataDisclaimer() {
                 <span className="text-slate-500"> — {s.desc}</span>
                 {s.bias && <span className="text-amber-600 dark:text-amber-400 block truncate">{s.bias}</span>}
               </div>
-              <span className={`shrink-0 text-[9px] uppercase ${RISK_STYLES[s.risk]}`}>{s.risk}</span>
+              <span className={`shrink-0 text-micro uppercase ${RISK_STYLES[s.risk]}`}>{s.risk}</span>
             </div>
           ))}
         </div>
@@ -234,7 +234,7 @@ export function DataDisclaimer() {
           {OS_TOOLS.map((t) => (
             <span
               key={t}
-              className="rounded border border-slate-200 dark:border-slate-700 px-2 py-0.5 text-[10px] font-mono text-slate-600 dark:text-slate-400"
+              className="rounded border border-slate-200 dark:border-slate-700 px-2 py-0.5 text-micro font-mono text-slate-600 dark:text-slate-400"
             >
               {t}
             </span>

@@ -28,7 +28,7 @@ interface BadgeProps {
 }
 
 const SIZE: Record<BadgeSize, string> = {
-  xs: 'px-2 py-0.5 text-[11px]',
+  xs: 'px-2 py-0.5 text-mini',
   sm: 'px-3 py-1 text-xs',
 };
 
@@ -90,7 +90,7 @@ interface SeverityPillProps {
 export function SeverityPill({ severity, label, className = '' }: SeverityPillProps): JSX.Element {
   return (
     <span
-      className={`inline-flex items-center rounded border font-mono uppercase tracking-wider px-1.5 py-0.5 text-[10px] ${SEVERITY_TONE[severity]} ${className}`.trim()}
+      className={`inline-flex items-center rounded border font-mono uppercase tracking-wider px-1.5 py-0.5 text-micro ${SEVERITY_TONE[severity]} ${className}`.trim()}
     >
       {label ?? severity}
     </span>

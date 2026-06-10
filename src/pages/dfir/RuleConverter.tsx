@@ -101,7 +101,7 @@ function CopyBtn({ text }: { text: string }) {
         setDone(true);
         setTimeout(() => setDone(false), 1200);
       }}
-      className="inline-flex items-center gap-1 text-[11px] font-mono text-slate-500 hover:text-brand-600 dark:hover:text-brand-400"
+      className="inline-flex items-center gap-1 text-mini font-mono text-slate-500 hover:text-brand-600 dark:hover:text-brand-400"
     >
       {done ? <Check size={12} /> : <Copy size={12} />} {done ? 'copied' : 'copy'}
     </button>
@@ -172,7 +172,7 @@ export default function RuleConverter(): JSX.Element {
           <strong>any</strong> other: Sigma, Microsoft KQL, Splunk SPL, Elastic Lucene & EQL, YARA, DLP regex, and a
           supply-chain Semgrep scaffold. Everything funnels through one intermediate representation.
         </p>
-        <p className="text-[12px] text-amber-700 dark:text-amber-400 mb-5 max-w-3xl flex items-start gap-1.5">
+        <p className="text-meta text-amber-700 dark:text-amber-400 mb-5 max-w-3xl flex items-start gap-1.5">
           <AlertTriangle size={13} className="mt-0.5 flex-shrink-0" />
           Heuristic, not pySigma. Field-map presets handle the canonical Sysmon → Defender / ECS / CIM rewrites. Parsing
           non-Sigma languages back to the IR recovers only flat <code>field op &quot;value&quot;</code> predicates;
@@ -187,7 +187,7 @@ export default function RuleConverter(): JSX.Element {
           second row picks the field-mapping preset (only meaningful when
           source = Sigma; pass-through for everything else). */}
       <div className="flex flex-wrap items-center gap-3 mb-3">
-        <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-slate-500">convert</span>
+        <span className="text-mini font-mono uppercase tracking-[0.2em] text-slate-500">convert</span>
         <label htmlFor="rc-from" className="sr-only">
           Source format
         </label>
@@ -227,14 +227,14 @@ export default function RuleConverter(): JSX.Element {
           }}
           aria-label="swap source and target formats"
           title="swap source and target"
-          className="inline-flex items-center gap-1 text-[11px] font-mono px-2 py-1.5 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
+          className="inline-flex items-center gap-1 text-mini font-mono px-2 py-1.5 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
         >
           <Shuffle size={11} /> swap
         </button>
       </div>
 
       <div className="flex flex-wrap items-center gap-3 mb-4">
-        <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-slate-500">field-map</span>
+        <span className="text-mini font-mono uppercase tracking-[0.2em] text-slate-500">field-map</span>
         <label htmlFor="rc-fmap" className="sr-only">
           Field-mapping preset
         </label>
@@ -251,7 +251,7 @@ export default function RuleConverter(): JSX.Element {
           ))}
         </select>
         {chosenMap && fieldMapId !== 'passthrough' && (
-          <span className="text-[11px] font-mono text-slate-500" title={chosenMap.description}>
+          <span className="text-mini font-mono text-slate-500" title={chosenMap.description}>
             ~{Object.keys(chosenMap.mappings).length} field rewrites
           </span>
         )}
@@ -262,7 +262,7 @@ export default function RuleConverter(): JSX.Element {
           type="button"
           onClick={() => setShowStarters((v) => !v)}
           aria-expanded={showStarters}
-          className="text-[12px] font-mono px-2.5 py-1 rounded border border-brand-500/50 bg-brand-500/10 text-brand-700 dark:text-brand-300 inline-flex items-center gap-1 hover:bg-brand-500/15"
+          className="text-meta font-mono px-2.5 py-1 rounded border border-brand-500/50 bg-brand-500/10 text-brand-700 dark:text-brand-300 inline-flex items-center gap-1 hover:bg-brand-500/15"
         >
           Starter library
           <ChevronDown
@@ -273,7 +273,7 @@ export default function RuleConverter(): JSX.Element {
         <button
           type="button"
           onClick={loadSample}
-          className="text-[12px] font-mono px-2.5 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
+          className="text-meta font-mono px-2.5 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
         >
           load {FORMAT_LABELS[from]} example
         </button>
@@ -284,8 +284,8 @@ export default function RuleConverter(): JSX.Element {
             aria-pressed={batchMode}
             className={
               batchMode
-                ? 'text-[12px] font-mono px-2.5 py-1 rounded border border-emerald-500/50 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 inline-flex items-center gap-1'
-                : 'text-[12px] font-mono px-2.5 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-emerald-500/40 hover:text-emerald-600 dark:hover:text-emerald-400 inline-flex items-center gap-1'
+                ? 'text-meta font-mono px-2.5 py-1 rounded border border-emerald-500/50 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 inline-flex items-center gap-1'
+                : 'text-meta font-mono px-2.5 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-emerald-500/40 hover:text-emerald-600 dark:hover:text-emerald-400 inline-flex items-center gap-1'
             }
           >
             <Layers size={11} /> Batch {batchMode ? 'on' : 'off'}
@@ -295,7 +295,7 @@ export default function RuleConverter(): JSX.Element {
           <button
             type="button"
             onClick={() => setInput('')}
-            className="text-[12px] font-mono px-2.5 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400"
+            className="text-meta font-mono px-2.5 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400"
           >
             clear
           </button>
@@ -306,14 +306,14 @@ export default function RuleConverter(): JSX.Element {
           into the source editor and switches `from` to sigma. */}
       {showStarters && (
         <section className="rounded-lg border border-brand-500/30 bg-brand-50/30 dark:bg-brand-900/15 p-4 mb-4">
-          <p className="text-[11px] font-mono text-slate-600 dark:text-slate-400 mb-3">
+          <p className="text-mini font-mono text-slate-600 dark:text-slate-400 mb-3">
             Canonical Sigma rules with Sysmon / Windows-Security field names — the converter's most common source.
             Switches the source format to Sigma when loaded.
           </p>
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {Array.from(starterGroups.entries()).map(([group, items]) => (
               <div key={group}>
-                <div className="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500 mb-2">{group}</div>
+                <div className="text-micro font-mono uppercase tracking-[0.2em] text-slate-500 mb-2">{group}</div>
                 <ul className="space-y-1">
                   {items.map((s) => (
                     <li key={s.id}>
@@ -327,10 +327,10 @@ export default function RuleConverter(): JSX.Element {
                         title={s.description}
                         className="w-full text-left px-2 py-1.5 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/50 bg-white dark:bg-slate-900/40"
                       >
-                        <div className="text-[12px] font-medium text-slate-900 dark:text-slate-100 leading-tight">
+                        <div className="text-meta font-medium text-slate-900 dark:text-slate-100 leading-tight">
                           {s.label}
                         </div>
-                        <div className="text-[10px] font-mono text-slate-500 mt-0.5 truncate">{s.description}</div>
+                        <div className="text-micro font-mono text-slate-500 mt-0.5 truncate">{s.description}</div>
                       </button>
                     </li>
                   ))}
@@ -358,7 +358,7 @@ export default function RuleConverter(): JSX.Element {
                 : `Paste a ${FORMAT_LABELS[from]} rule…`
             }
             aria-label="Source rule"
-            className="w-full px-4 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg font-mono text-[13px] text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="w-full px-4 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg font-mono text-tool text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
           />
         </section>
 
@@ -367,7 +367,7 @@ export default function RuleConverter(): JSX.Element {
             <h3 className="font-display font-semibold text-sm">
               {FORMAT_LABELS[to]}
               {batchMode && batchResult && batchResult.length > 0 && (
-                <span className="ml-2 text-[10px] font-mono text-slate-500 uppercase tracking-wider">
+                <span className="ml-2 text-micro font-mono text-slate-500 uppercase tracking-wider">
                   batch · {batchResult.filter((b) => b.ok).length}/{batchResult.length}
                 </span>
               )}
@@ -383,10 +383,10 @@ export default function RuleConverter(): JSX.Element {
             )}
           </div>
           {!input.trim() ? (
-            <p className="text-[12px] font-mono text-slate-500">Paste a rule to convert.</p>
+            <p className="text-meta font-mono text-slate-500">Paste a rule to convert.</p>
           ) : batchMode ? (
             !batchResult || batchResult.length === 0 ? (
-              <p className="text-[12px] font-mono text-slate-500">No documents detected.</p>
+              <p className="text-meta font-mono text-slate-500">No documents detected.</p>
             ) : (
               <ul className="space-y-2 max-h-[28rem] overflow-y-auto">
                 {batchResult.map((b) => (
@@ -395,15 +395,15 @@ export default function RuleConverter(): JSX.Element {
                       <span
                         className={
                           b.ok
-                            ? 'text-[11px] font-mono text-emerald-600 dark:text-emerald-400'
-                            : 'text-[11px] font-mono text-rose-600 dark:text-rose-400'
+                            ? 'text-mini font-mono text-emerald-600 dark:text-emerald-400'
+                            : 'text-mini font-mono text-rose-600 dark:text-rose-400'
                         }
                       >
                         {b.ok ? '✓' : '✗'} {b.title ?? `rule-${b.index}`}
                       </span>
                       {b.ok && b.output && <CopyBtn text={b.output} />}
                     </div>
-                    <pre className="font-mono text-[12px] text-slate-800 dark:text-slate-200 whitespace-pre-wrap break-all">
+                    <pre className="font-mono text-meta text-slate-800 dark:text-slate-200 whitespace-pre-wrap break-all">
                       {b.ok ? b.output : b.error}
                     </pre>
                   </li>
@@ -411,11 +411,11 @@ export default function RuleConverter(): JSX.Element {
               </ul>
             )
           ) : !result ? (
-            <p className="text-[12px] font-mono text-slate-500">Paste a rule to convert.</p>
+            <p className="text-meta font-mono text-slate-500">Paste a rule to convert.</p>
           ) : !result.ok ? (
             <p className="text-sm font-mono text-rose-600 dark:text-rose-400">parse error: {result.error}</p>
           ) : (
-            <pre className="font-mono text-[13px] text-slate-800 dark:text-slate-200 whitespace-pre-wrap break-all">
+            <pre className="font-mono text-tool text-slate-800 dark:text-slate-200 whitespace-pre-wrap break-all">
               {result.output}
             </pre>
           )}
@@ -432,10 +432,10 @@ export default function RuleConverter(): JSX.Element {
         if (warnings.length === 0) return null;
         return (
           <section className="mt-4 rounded-lg border border-amber-500/30 bg-amber-500/10 p-4">
-            <h3 className="text-[11px] font-bold uppercase tracking-[0.2em] text-amber-700 dark:text-amber-300 font-mono mb-2 inline-flex items-center gap-1.5">
+            <h3 className="text-mini font-bold uppercase tracking-[0.2em] text-amber-700 dark:text-amber-300 font-mono mb-2 inline-flex items-center gap-1.5">
               <AlertTriangle size={12} /> conversion notes ({warnings.length})
             </h3>
-            <ul className="space-y-1 text-[12px] font-mono text-amber-700 dark:text-amber-300 list-disc pl-5">
+            <ul className="space-y-1 text-meta font-mono text-amber-700 dark:text-amber-300 list-disc pl-5">
               {warnings.map((w, i) => (
                 <li key={i}>{w}</li>
               ))}
@@ -453,7 +453,7 @@ export default function RuleConverter(): JSX.Element {
             type="button"
             onClick={() => setShowIr((v) => !v)}
             aria-expanded={showIr}
-            className="text-[11px] font-mono uppercase tracking-[0.2em] text-slate-500 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1.5"
+            className="text-mini font-mono uppercase tracking-[0.2em] text-slate-500 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1.5"
           >
             {showIr ? <ChevronDown size={12} /> : <ChevronRight size={12} />}
             Parsed IR (what the parser extracted)
@@ -461,9 +461,9 @@ export default function RuleConverter(): JSX.Element {
           {showIr && (
             <div className="mt-2 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-3">
               {!ir ? null : 'error' in ir ? (
-                <p className="text-[12px] font-mono text-rose-600 dark:text-rose-400">{ir.error}</p>
+                <p className="text-meta font-mono text-rose-600 dark:text-rose-400">{ir.error}</p>
               ) : (
-                <pre className="font-mono text-[11px] text-slate-700 dark:text-slate-300 whitespace-pre-wrap leading-relaxed">
+                <pre className="font-mono text-mini text-slate-700 dark:text-slate-300 whitespace-pre-wrap leading-relaxed">
                   {JSON.stringify(
                     {
                       title: ir.title,
@@ -505,7 +505,7 @@ export default function RuleConverter(): JSX.Element {
             </Link>
           </li>
         </ul>
-        <p className="mt-3 text-[11px] font-mono text-slate-500 leading-relaxed">
+        <p className="mt-3 text-mini font-mono text-slate-500 leading-relaxed">
           {CONVERTER_STARTERS.length} starters · {FIELD_MAPS.length - 1} field-map presets · multi-doc Sigma batch · IR
           inspector for debugging lossy parses.
         </p>

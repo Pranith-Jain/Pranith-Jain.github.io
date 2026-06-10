@@ -110,18 +110,18 @@ export default function ReverseImage(): JSX.Element {
           />
         </div>
         {trimmed && !valid && (
-          <p className="mt-2 text-[12px] font-mono text-amber-600 dark:text-amber-400 inline-flex items-center gap-1.5">
+          <p className="mt-2 text-meta font-mono text-amber-600 dark:text-amber-400 inline-flex items-center gap-1.5">
             <AlertTriangle size={12} /> Not a valid http/https URL
           </p>
         )}
         <div className="flex flex-wrap gap-1.5 mt-3">
-          <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400 self-center mr-1">samples:</span>
+          <span className="text-micro font-mono text-slate-500 dark:text-slate-400 self-center mr-1">samples:</span>
           {SAMPLES.map((s) => (
             <button
               key={s.label}
               type="button"
               onClick={() => setImageUrl(s.url)}
-              className="text-[11px] font-mono px-2 py-0.5 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
+              className="text-mini font-mono px-2 py-0.5 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
             >
               {s.label}
             </button>
@@ -146,10 +146,10 @@ export default function ReverseImage(): JSX.Element {
                 }}
               />
               <div className="flex-1 min-w-0">
-                <code className="block text-[11px] font-mono text-slate-700 dark:text-slate-300 break-all bg-slate-50 dark:bg-slate-950 rounded border border-slate-200 dark:border-slate-800 p-2 mb-2">
+                <code className="block text-mini font-mono text-slate-700 dark:text-slate-300 break-all bg-slate-50 dark:bg-slate-950 rounded border border-slate-200 dark:border-slate-800 p-2 mb-2">
                   {trimmed}
                 </code>
-                <p className="text-[11px] font-mono text-slate-500 dark:text-slate-400">
+                <p className="text-mini font-mono text-slate-500 dark:text-slate-400">
                   If the preview doesn't load, the image host may block hot-linking. The reverse-search engines fetch
                   the image server-side regardless, so the lookups still work.
                 </p>
@@ -166,7 +166,7 @@ export default function ReverseImage(): JSX.Element {
               <button
                 type="button"
                 onClick={() => void copyAll()}
-                className="text-[11px] font-mono px-2 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 inline-flex items-center gap-1"
+                className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 inline-flex items-center gap-1"
               >
                 {copiedAll ? <Check size={11} /> : <Clipboard size={11} />}
                 {copiedAll ? 'copied' : 'copy all URLs'}
@@ -192,9 +192,9 @@ export default function ReverseImage(): JSX.Element {
                       </span>
                       <ExternalLink size={11} className="text-slate-500 shrink-0" />
                     </div>
-                    <p className="text-[11px] font-mono text-slate-600 dark:text-slate-400">{engine.blurb}</p>
+                    <p className="text-mini font-mono text-slate-600 dark:text-slate-400">{engine.blurb}</p>
                     {engine.coverage && (
-                      <p className="text-[10px] font-mono text-slate-500 dark:text-slate-400 mt-1 italic">
+                      <p className="text-micro font-mono text-slate-500 dark:text-slate-400 mt-1 italic">
                         {engine.coverage}
                       </p>
                     )}
@@ -202,7 +202,7 @@ export default function ReverseImage(): JSX.Element {
                 </li>
               ))}
             </ul>
-            <p className="text-[10px] font-mono text-slate-500 dark:text-slate-400 mt-3">
+            <p className="text-micro font-mono text-slate-500 dark:text-slate-400 mt-3">
               <Star size={9} className="inline text-brand-600 dark:text-brand-400" /> = recommended starting set. Run
               all four (Lens / Bing / Yandex / TinEye) — coverage barely overlaps.
             </p>

@@ -412,8 +412,8 @@ export default function AzureRbacAnalyzer(): JSX.Element {
       <div className="animate-fade-in-up">
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2">Azure RBAC Analyzer</h1>
         <p className="text-slate-600 dark:text-slate-400 mb-6 max-w-2xl">
-          Paste <span className="font-mono text-[13px]">az role assignment list -o json</span> or{' '}
-          <span className="font-mono text-[13px]">az role definition list --custom-role-only -o json</span>. Scored for
+          Paste <span className="font-mono text-tool">az role assignment list -o json</span> or{' '}
+          <span className="font-mono text-tool">az role definition list --custom-role-only -o json</span>. Scored for
           privileged roles at root/management-group/subscription scope, service-principal &amp; guest grants, legacy
           co-admins, and custom-role escalation (roleAssignments/write, elevateAccess, VM run-command, listKeys).
           Nothing leaves your browser.
@@ -422,14 +422,14 @@ export default function AzureRbacAnalyzer(): JSX.Element {
           <button
             type="button"
             onClick={() => setInput(SAMPLE_ASSIGN)}
-            className="text-[12px] font-mono px-2.5 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
+            className="text-meta font-mono px-2.5 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
           >
             load assignments example
           </button>
           <button
             type="button"
             onClick={() => setInput(SAMPLE_DEF)}
-            className="text-[12px] font-mono px-2.5 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
+            className="text-meta font-mono px-2.5 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
           >
             load role-definition example
           </button>
@@ -437,7 +437,7 @@ export default function AzureRbacAnalyzer(): JSX.Element {
             <button
               type="button"
               onClick={() => setInput('')}
-              className="text-[12px] font-mono px-2.5 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400"
+              className="text-meta font-mono px-2.5 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400"
             >
               clear
             </button>
@@ -456,7 +456,7 @@ export default function AzureRbacAnalyzer(): JSX.Element {
         rows={12}
         spellCheck={false}
         aria-label="Azure RBAC JSON"
-        className="w-full px-4 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg font-mono text-[13px] text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+        className="w-full px-4 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg font-mono text-tool text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
       />
 
       {analysis?.error && <p className="mt-6 text-sm font-mono text-rose-600 dark:text-rose-400">{analysis.error}</p>}
@@ -477,7 +477,7 @@ export default function AzureRbacAnalyzer(): JSX.Element {
                   .map((s) => (
                     <span
                       key={s}
-                      className={`text-[11px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${SEV_STYLE[s].chip}`}
+                      className={`text-mini font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${SEV_STYLE[s].chip}`}
                     >
                       {counts[s]} {s}
                     </span>
@@ -509,15 +509,15 @@ export default function AzureRbacAnalyzer(): JSX.Element {
                       <st.Icon size={16} className={`mt-0.5 flex-shrink-0 ${st.text}`} />
                       <div className="min-w-0 flex-1">
                         <span
-                          className={`text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${st.chip}`}
+                          className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${st.chip}`}
                         >
                           {f.sev}
                         </span>
                         <h3 className={`font-display font-semibold mt-1.5 ${st.text}`}>{f.title}</h3>
                         <p className="text-sm text-slate-600 dark:text-slate-400 mt-1 leading-relaxed">{f.detail}</p>
-                        <p className="text-[12px] font-mono text-slate-500 mt-2 break-all">{f.where}</p>
-                        <p className="text-[13px] text-slate-700 dark:text-slate-300 mt-2">
-                          <span className="text-slate-500 font-mono text-[11px] uppercase tracking-wider">fix</span>{' '}
+                        <p className="text-meta font-mono text-slate-500 mt-2 break-all">{f.where}</p>
+                        <p className="text-tool text-slate-700 dark:text-slate-300 mt-2">
+                          <span className="text-slate-500 font-mono text-mini uppercase tracking-wider">fix</span>{' '}
                           {f.fix}
                         </p>
                       </div>

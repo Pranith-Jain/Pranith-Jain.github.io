@@ -62,18 +62,18 @@ function Diff({ before, after }: { before: string; after: string }): JSX.Element
     return (
       <div className="grid gap-2">
         <div>
-          <div className="text-[9px] font-mono uppercase tracking-[0.2em] text-rose-600 dark:text-rose-400 mb-0.5">
+          <div className="text-micro font-mono uppercase tracking-[0.2em] text-rose-600 dark:text-rose-400 mb-0.5">
             before
           </div>
-          <pre className="text-[11px] font-mono text-slate-700 dark:text-slate-300 whitespace-pre-wrap break-all bg-rose-500/5 rounded p-2 border border-rose-500/20">
+          <pre className="text-mini font-mono text-slate-700 dark:text-slate-300 whitespace-pre-wrap break-all bg-rose-500/5 rounded p-2 border border-rose-500/20">
             {before}
           </pre>
         </div>
         <div>
-          <div className="text-[9px] font-mono uppercase tracking-[0.2em] text-emerald-600 dark:text-emerald-400 mb-0.5">
+          <div className="text-micro font-mono uppercase tracking-[0.2em] text-emerald-600 dark:text-emerald-400 mb-0.5">
             after
           </div>
-          <pre className="text-[11px] font-mono text-slate-700 dark:text-slate-300 whitespace-pre-wrap break-all bg-emerald-500/5 rounded p-2 border border-emerald-500/20">
+          <pre className="text-mini font-mono text-slate-700 dark:text-slate-300 whitespace-pre-wrap break-all bg-emerald-500/5 rounded p-2 border border-emerald-500/20">
             {after}
           </pre>
         </div>
@@ -82,7 +82,7 @@ function Diff({ before, after }: { before: string; after: string }): JSX.Element
   }
 
   return (
-    <pre className="text-[11px] font-mono text-slate-700 dark:text-slate-300 whitespace-pre-wrap break-all bg-slate-50 dark:bg-slate-950 rounded p-2 border border-slate-200 dark:border-slate-800">
+    <pre className="text-mini font-mono text-slate-700 dark:text-slate-300 whitespace-pre-wrap break-all bg-slate-50 dark:bg-slate-950 rounded p-2 border border-slate-200 dark:border-slate-800">
       {head}
       <span className="bg-rose-500/15 text-rose-700 dark:text-rose-300 line-through px-0.5 rounded">{beforeMid}</span>
       <span className="bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 px-0.5 rounded">{afterMid}</span>
@@ -194,7 +194,7 @@ export default function PowershellDeobf(): JSX.Element {
                 Decoded output
               </h2>
               <div className="flex items-center gap-2">
-                <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400">
+                <span className="text-mini font-mono text-slate-500 dark:text-slate-400">
                   {result.steps.length} transform{result.steps.length === 1 ? '' : 's'} · {result.iterations} iter ·{' '}
                   {result.fixedPoint ? 'fixed point' : 'max iter reached'}
                 </span>
@@ -202,7 +202,7 @@ export default function PowershellDeobf(): JSX.Element {
                   <button
                     type="button"
                     onClick={sendToExtractor}
-                    className="inline-flex items-center gap-1.5 text-[11px] font-mono px-2 py-1 rounded border border-brand-500/40 bg-brand-500/10 text-brand-700 dark:text-brand-300 hover:bg-brand-500/20"
+                    className="inline-flex items-center gap-1.5 text-mini font-mono px-2 py-1 rounded border border-brand-500/40 bg-brand-500/10 text-brand-700 dark:text-brand-300 hover:bg-brand-500/20"
                     title="Send decoded output to IOC Extractor"
                   >
                     <Search size={11} /> extract IOCs →
@@ -230,12 +230,12 @@ export default function PowershellDeobf(): JSX.Element {
                     <div className="flex flex-wrap items-center gap-2 mb-1">
                       <span className="font-display font-semibold text-slate-900 dark:text-slate-100">{r.label}</span>
                       <span
-                        className={`text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${SEV_STYLES[r.severity]}`}
+                        className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${SEV_STYLES[r.severity]}`}
                       >
                         {r.severity}
                       </span>
                     </div>
-                    <p className="text-[12px] font-mono text-slate-700 dark:text-slate-300">{r.description}</p>
+                    <p className="text-meta font-mono text-slate-700 dark:text-slate-300">{r.description}</p>
                   </li>
                 ))}
               </ul>
@@ -265,7 +265,7 @@ export default function PowershellDeobf(): JSX.Element {
                 <ol className="mt-3 space-y-3">
                   {collapsedSteps(result.steps).map((s, i) => (
                     <li key={i} className="rounded border border-slate-200 dark:border-slate-800 p-3">
-                      <div className="text-[10px] font-mono uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 mb-1.5">
+                      <div className="text-micro font-mono uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 mb-1.5">
                         Pass {i + 1}: {s.passName}
                       </div>
                       <Diff before={s.before} after={s.after} />

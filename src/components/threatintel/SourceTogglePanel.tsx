@@ -40,7 +40,7 @@ export function SourceTogglePanel({
   return (
     <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-3 space-y-3 max-h-[420px] overflow-y-auto">
       <div className="flex items-center justify-between gap-2">
-        <p className="text-[11px] font-mono text-slate-500">
+        <p className="text-mini font-mono text-slate-500">
           Toggle individual feeds. Disabling a feed both hides it AND skips the upstream fetch. Persisted in
           localStorage.
         </p>
@@ -48,14 +48,14 @@ export function SourceTogglePanel({
           <button
             type="button"
             onClick={onEnableAll}
-            className="text-[10px] font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40"
+            className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40"
           >
             enable all ({allFeedIds.length})
           </button>
           <button
             type="button"
             onClick={onDisableAll}
-            className="text-[10px] font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-slate-700 hover:border-rose-500/40"
+            className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-slate-700 hover:border-rose-500/40"
           >
             disable all
           </button>
@@ -63,7 +63,7 @@ export function SourceTogglePanel({
       </div>
       {sections.map((sec) => (
         <div key={sec.id}>
-          <h3 className="text-[10px] font-mono uppercase tracking-wider text-slate-500 mb-1.5">
+          <h3 className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-1.5">
             {sec.label}
             <span className="ml-1.5 opacity-60">
               · {sec.feedIds.filter((id) => !disabled.has(id)).length}/{sec.feedIds.length} on
@@ -95,12 +95,12 @@ export function SourceTogglePanel({
                     tabIndex={-1}
                   />
                   <span className="flex-1 min-w-0">
-                    <span className="block font-mono text-[11px] text-slate-700 dark:text-slate-300 truncate">
+                    <span className="block font-mono text-mini text-slate-700 dark:text-slate-300 truncate">
                       {meta?.name ?? fid}
                     </span>
                     {isEnabled && status && (
                       <span
-                        className={`block text-[9px] font-mono truncate ${
+                        className={`block text-micro font-mono truncate ${
                           status.ok ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'
                         }`}
                         title={status.error}

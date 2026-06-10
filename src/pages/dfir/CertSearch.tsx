@@ -165,7 +165,7 @@ export default function CertSearch(): JSX.Element {
                 spellCheck={false}
               />
             </div>
-            <label className="self-center text-[12px] font-mono text-slate-600 dark:text-slate-400 cursor-pointer inline-flex items-center gap-1.5">
+            <label className="self-center text-meta font-mono text-slate-600 dark:text-slate-400 cursor-pointer inline-flex items-center gap-1.5">
               <input type="checkbox" checked={includeSubs} onChange={(e) => setIncludeSubs(e.target.checked)} />
               include subdomains
             </label>
@@ -181,13 +181,13 @@ export default function CertSearch(): JSX.Element {
         </form>
 
         <div className="flex flex-wrap gap-2 mt-3 items-center">
-          <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400 mr-1">samples:</span>
+          <span className="text-micro font-mono text-slate-500 dark:text-slate-400 mr-1">samples:</span>
           {SAMPLES.map((s) => (
             <button
               key={s.domain}
               type="button"
               onClick={() => void lookup(s.domain)}
-              className="text-[11px] font-mono px-3 py-2 sm:px-2 sm:py-0.5 min-h-[44px] sm:min-h-0 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center"
+              className="text-mini font-mono px-3 py-2 sm:px-2 sm:py-0.5 min-h-[44px] sm:min-h-0 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center"
             >
               {s.label}
             </button>
@@ -211,15 +211,15 @@ export default function CertSearch(): JSX.Element {
             <div className="grid sm:grid-cols-3 gap-4">
               <div>
                 <div className="text-2xl font-bold text-slate-900 dark:text-slate-100">{data.total}</div>
-                <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400">total issuances</div>
+                <div className="text-mini font-mono text-slate-500 dark:text-slate-400">total issuances</div>
               </div>
               <div>
                 <div className="text-2xl font-bold text-slate-900 dark:text-slate-100">{data.unique_names.length}</div>
-                <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400">unique DNS names</div>
+                <div className="text-mini font-mono text-slate-500 dark:text-slate-400">unique DNS names</div>
               </div>
               <div>
                 <div className="text-2xl font-bold text-slate-900 dark:text-slate-100">{data.issuers.length}</div>
-                <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400">distinct issuers</div>
+                <div className="text-mini font-mono text-slate-500 dark:text-slate-400">distinct issuers</div>
               </div>
             </div>
             {data.issuers.length > 0 && (
@@ -227,7 +227,7 @@ export default function CertSearch(): JSX.Element {
                 {data.issuers.slice(0, 8).map((i, ii) => (
                   <span
                     key={`${i.name}-${ii}`}
-                    className="text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-brand-500/40 bg-brand-500/10 text-brand-700 dark:text-brand-300"
+                    className="text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-brand-500/40 bg-brand-500/10 text-brand-700 dark:text-brand-300"
                   >
                     {i.name} · {i.count}
                   </span>
@@ -256,10 +256,10 @@ export default function CertSearch(): JSX.Element {
                 value={filter}
                 onChange={(e) => setFilter(e.target.value)}
                 placeholder="filter (e.g. api, dev, staging)"
-                className="w-full pl-7 pr-3 py-1.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded font-mono text-[11px] focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+                className="w-full pl-7 pr-3 py-1.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded font-mono text-mini focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
               />
             </div>
-            <ul className="font-mono text-[12px] text-slate-700 dark:text-slate-300 space-y-1 max-h-80 overflow-auto break-all">
+            <ul className="font-mono text-meta text-slate-700 dark:text-slate-300 space-y-1 max-h-80 overflow-auto break-all">
               {filteredNames.map((n, ni) => (
                 <li
                   key={`${n}-${ni}`}
@@ -268,13 +268,13 @@ export default function CertSearch(): JSX.Element {
                   <span className="flex-1">{n}</span>
                   <Link
                     to={`/dfir/domain?domain=${encodeURIComponent(n.replace(/^\*\./, ''))}`}
-                    className="text-[10px] text-brand-600 dark:text-brand-400 hover:underline shrink-0"
+                    className="text-micro text-brand-600 dark:text-brand-400 hover:underline shrink-0"
                   >
                     inspect
                   </Link>
                   <Link
                     to={`/dfir/takeover?domain=${encodeURIComponent(n.replace(/^\*\./, ''))}`}
-                    className="text-[10px] text-brand-600 dark:text-brand-400 hover:underline shrink-0"
+                    className="text-micro text-brand-600 dark:text-brand-400 hover:underline shrink-0"
                   >
                     takeover
                   </Link>
@@ -299,8 +299,8 @@ export default function CertSearch(): JSX.Element {
                   }`}
                 >
                   <div className="flex flex-wrap items-baseline justify-between gap-2 mb-1">
-                    <span className="text-[11px] font-mono text-brand-700 dark:text-brand-300">{it.issuer}</span>
-                    <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400">
+                    <span className="text-mini font-mono text-brand-700 dark:text-brand-300">{it.issuer}</span>
+                    <span className="text-micro font-mono text-slate-500 dark:text-slate-400">
                       {it.not_before?.slice(0, 10)} → {it.not_after?.slice(0, 10)}
                       {it.revoked && (
                         <span className="ml-2 px-1.5 py-0.5 rounded bg-rose-500/20 text-rose-700 dark:text-rose-300 border border-rose-500/40">
@@ -309,7 +309,7 @@ export default function CertSearch(): JSX.Element {
                       )}
                     </span>
                   </div>
-                  <div className="text-[11px] font-mono text-slate-700 dark:text-slate-300 flex flex-wrap gap-x-3 gap-y-0.5 break-all">
+                  <div className="text-mini font-mono text-slate-700 dark:text-slate-300 flex flex-wrap gap-x-3 gap-y-0.5 break-all">
                     {it.dns_names.map((n, di) => (
                       <span key={`${n}-${di}`}>{n}</span>
                     ))}
@@ -319,7 +319,7 @@ export default function CertSearch(): JSX.Element {
             </ul>
           </section>
 
-          <p className="text-[10px] font-mono text-slate-500 dark:text-slate-400">
+          <p className="text-micro font-mono text-slate-500 dark:text-slate-400">
             Source:{' '}
             <a
               href={sanitizeUrl(data.source_url) || undefined}

@@ -267,18 +267,18 @@ export default function PromptInjection(): JSX.Element {
                         {m.pattern.name}
                       </span>
                       <span
-                        className={`text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${SEVERITY_STYLES[m.pattern.severity]}`}
+                        className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${SEVERITY_STYLES[m.pattern.severity]}`}
                       >
                         {m.pattern.severity}
                       </span>
-                      <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400">
+                      <span className="text-micro font-mono text-slate-500 dark:text-slate-400">
                         {m.pattern.category}
                       </span>
                       {m.pattern.owasp.map((id) => (
                         <span
                           key={id}
                           title={`OWASP ${id} — ${LLM_TOP10[id].title}`}
-                          className="text-[10px] font-mono px-1.5 py-0.5 rounded border border-brand-500/40 bg-brand-500/10 text-brand-700 dark:text-brand-300"
+                          className="text-micro font-mono px-1.5 py-0.5 rounded border border-brand-500/40 bg-brand-500/10 text-brand-700 dark:text-brand-300"
                         >
                           {id}
                         </span>
@@ -286,7 +286,7 @@ export default function PromptInjection(): JSX.Element {
                     </div>
                     <p className="text-sm font-mono text-slate-600 dark:text-slate-400">{m.pattern.description}</p>
                     {m.pattern.reference && (
-                      <p className="mt-1 text-[11px] font-mono text-slate-500 dark:text-slate-400">
+                      <p className="mt-1 text-mini font-mono text-slate-500 dark:text-slate-400">
                         Ref: {m.pattern.reference}
                       </p>
                     )}
@@ -318,7 +318,7 @@ export default function PromptInjection(): JSX.Element {
         </p>
 
         <div className="flex flex-wrap gap-1.5 mb-2">
-          <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 self-center mr-1">
+          <span className="text-micro font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 self-center mr-1">
             Category
           </span>
           <button
@@ -351,7 +351,7 @@ export default function PromptInjection(): JSX.Element {
         </div>
 
         <div className="flex flex-wrap gap-1.5 mb-4">
-          <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 self-center mr-1">
+          <span className="text-micro font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 self-center mr-1">
             OWASP LLM
           </span>
           <button
@@ -393,16 +393,16 @@ export default function PromptInjection(): JSX.Element {
               <div className="flex flex-wrap items-center gap-2 mb-2">
                 <span className="font-display font-semibold text-slate-900 dark:text-slate-100">{p.name}</span>
                 <span
-                  className={`text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${SEVERITY_STYLES[p.severity]}`}
+                  className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${SEVERITY_STYLES[p.severity]}`}
                 >
                   {p.severity}
                 </span>
-                <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400">{p.category}</span>
+                <span className="text-micro font-mono text-slate-500 dark:text-slate-400">{p.category}</span>
                 {p.owasp.map((id) => (
                   <span
                     key={id}
                     title={LLM_TOP10[id].title}
-                    className="text-[10px] font-mono px-1.5 py-0.5 rounded border border-brand-500/30 bg-brand-500/10 text-brand-700 dark:text-brand-300"
+                    className="text-micro font-mono px-1.5 py-0.5 rounded border border-brand-500/30 bg-brand-500/10 text-brand-700 dark:text-brand-300"
                   >
                     {id}
                   </span>
@@ -410,35 +410,35 @@ export default function PromptInjection(): JSX.Element {
               </div>
               {p.systemContext && (
                 <div className="rounded border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-2 mb-2">
-                  <div className="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-1">
+                  <div className="text-micro font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-1">
                     Assumed system context
                   </div>
-                  <p className="text-[12px] font-mono text-slate-700 dark:text-slate-300 leading-relaxed">
+                  <p className="text-meta font-mono text-slate-700 dark:text-slate-300 leading-relaxed">
                     {p.systemContext}
                   </p>
                 </div>
               )}
               <div className="rounded border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-2 mb-2">
                 <div className="flex items-center justify-between gap-2 mb-1">
-                  <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-rose-600 dark:text-rose-400">
+                  <span className="text-micro font-mono uppercase tracking-[0.2em] text-rose-600 dark:text-rose-400">
                     Prompt
                   </span>
                   <CopyChip value={p.prompt} label="copy prompt" />
                 </div>
-                <pre className="text-[12px] font-mono text-slate-800 dark:text-slate-200 whitespace-pre-wrap break-words">
+                <pre className="text-meta font-mono text-slate-800 dark:text-slate-200 whitespace-pre-wrap break-words">
                   {p.prompt}
                 </pre>
               </div>
               <div className="rounded border border-emerald-500/30 bg-emerald-500/5 p-2">
-                <div className="text-[10px] font-mono uppercase tracking-[0.2em] text-emerald-600 dark:text-emerald-400 mb-1">
+                <div className="text-micro font-mono uppercase tracking-[0.2em] text-emerald-600 dark:text-emerald-400 mb-1">
                   Expected behaviour
                 </div>
-                <p className="text-[12px] font-mono text-slate-700 dark:text-slate-300 leading-relaxed">
+                <p className="text-meta font-mono text-slate-700 dark:text-slate-300 leading-relaxed">
                   {p.expectedBehaviour}
                 </p>
               </div>
               {p.source && (
-                <p className="mt-1.5 text-[10px] font-mono text-slate-500 dark:text-slate-400">Source: {p.source}</p>
+                <p className="mt-1.5 text-micro font-mono text-slate-500 dark:text-slate-400">Source: {p.source}</p>
               )}
             </li>
           ))}
@@ -502,22 +502,20 @@ export default function PromptInjection(): JSX.Element {
               <div className="flex flex-wrap items-center gap-1.5 mb-1">
                 <span className="text-xs font-display font-semibold text-slate-900 dark:text-slate-100">{p.name}</span>
                 <span
-                  className={`text-[9px] font-mono uppercase tracking-wider px-1 py-0.5 rounded border ${SEVERITY_STYLES[p.severity]}`}
+                  className={`text-micro font-mono uppercase tracking-wider px-1 py-0.5 rounded border ${SEVERITY_STYLES[p.severity]}`}
                 >
                   {p.severity}
                 </span>
                 {p.owasp.map((id) => (
                   <span
                     key={id}
-                    className="text-[9px] font-mono px-1 py-0.5 rounded border border-brand-500/40 bg-brand-500/10 text-brand-700 dark:text-brand-300"
+                    className="text-micro font-mono px-1 py-0.5 rounded border border-brand-500/40 bg-brand-500/10 text-brand-700 dark:text-brand-300"
                   >
                     {id}
                   </span>
                 ))}
               </div>
-              <p className="text-[11px] font-mono text-slate-500 dark:text-slate-400 leading-relaxed">
-                {p.description}
-              </p>
+              <p className="text-mini font-mono text-slate-500 dark:text-slate-400 leading-relaxed">{p.description}</p>
             </div>
           ))}
         </div>

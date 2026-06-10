@@ -197,7 +197,7 @@ export default function UsernamePivot(): JSX.Element {
               <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono">
                 Results for <span className="text-slate-900 dark:text-slate-100">{submitted}</span>
               </h2>
-              <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400">
+              <span className="text-mini font-mono text-slate-500 dark:text-slate-400">
                 {stats.exists} exists · {stats['not-found']} not found · {stats['rate-limited']} rate-limited ·{' '}
                 {stats.error} error · {stats.manual} manual
               </span>
@@ -205,7 +205,7 @@ export default function UsernamePivot(): JSX.Element {
             <div className="flex flex-wrap gap-1.5">
               <button
                 onClick={() => setCategoryFilter('all')}
-                className={`text-[11px] font-mono px-2 py-1 rounded border transition-colors ${
+                className={`text-mini font-mono px-2 py-1 rounded border transition-colors ${
                   categoryFilter === 'all'
                     ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
                     : 'border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-brand-500/40'
@@ -220,7 +220,7 @@ export default function UsernamePivot(): JSX.Element {
                   <button
                     key={c}
                     onClick={() => setCategoryFilter(c)}
-                    className={`text-[11px] font-mono px-2 py-1 rounded border transition-colors ${
+                    className={`text-mini font-mono px-2 py-1 rounded border transition-colors ${
                       categoryFilter === c
                         ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
                         : 'border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-brand-500/40'
@@ -248,11 +248,11 @@ export default function UsernamePivot(): JSX.Element {
                       <span className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100">
                         {row.service.name}
                       </span>
-                      <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400">
+                      <span className="text-micro font-mono text-slate-500 dark:text-slate-400">
                         {CATEGORY_LABELS[row.service.category]}
                       </span>
                       <span
-                        className={`text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border inline-flex items-center gap-1 ${style.cls}`}
+                        className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border inline-flex items-center gap-1 ${style.cls}`}
                       >
                         {style.icon}
                         {style.label}
@@ -263,7 +263,7 @@ export default function UsernamePivot(): JSX.Element {
                       href={url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-[11px] font-mono text-brand-600 dark:text-brand-400 hover:underline break-all inline-flex items-center gap-1"
+                      className="text-mini font-mono text-brand-600 dark:text-brand-400 hover:underline break-all inline-flex items-center gap-1"
                     >
                       {url} <ExternalLink size={10} />
                     </a>

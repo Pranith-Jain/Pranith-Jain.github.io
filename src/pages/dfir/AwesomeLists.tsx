@@ -109,7 +109,7 @@ export default function AwesomeLists(): JSX.Element {
             <button
               type="button"
               onClick={clearAll}
-              className="text-[11px] font-mono text-brand-600 dark:text-brand-400 hover:underline"
+              className="text-mini font-mono text-brand-600 dark:text-brand-400 hover:underline"
             >
               clear filters
             </button>
@@ -120,7 +120,7 @@ export default function AwesomeLists(): JSX.Element {
       {/* Focus pills */}
       <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6">
         <div className="flex flex-wrap items-center gap-1.5">
-          <span className="text-[11px] font-mono text-slate-500 mr-1">focus:</span>
+          <span className="text-mini font-mono text-slate-500 mr-1">focus:</span>
           {ALL_FOCUS.map((f) => {
             const count = focusCounts.get(f) ?? 0;
             const active = activeFocus.has(f);
@@ -130,7 +130,7 @@ export default function AwesomeLists(): JSX.Element {
                 key={f}
                 type="button"
                 onClick={() => toggleFocus(f)}
-                className={`text-[11px] font-mono px-2 py-1 rounded border ${cls} ${count === 0 ? 'opacity-30' : ''}`}
+                className={`text-mini font-mono px-2 py-1 rounded border ${cls} ${count === 0 ? 'opacity-30' : ''}`}
                 title={FOCUS_BLURB[f]}
                 disabled={count === 0 && !active}
               >
@@ -141,7 +141,7 @@ export default function AwesomeLists(): JSX.Element {
         </div>
       </section>
 
-      <p className="text-[11px] font-mono text-slate-500 dark:text-slate-400 mb-4">
+      <p className="text-mini font-mono text-slate-500 dark:text-slate-400 mb-4">
         Showing {filtered.length} of {LISTS.length}
       </p>
 
@@ -160,7 +160,7 @@ export default function AwesomeLists(): JSX.Element {
               >
                 {r.name} <ExternalLink size={12} className="opacity-60" />
               </a>
-              <span className="text-[10px] font-mono text-slate-500 inline-flex items-center gap-1 shrink-0">
+              <span className="text-micro font-mono text-slate-500 inline-flex items-center gap-1 shrink-0">
                 <Star size={10} /> {r.stars}
               </span>
             </div>
@@ -168,23 +168,23 @@ export default function AwesomeLists(): JSX.Element {
               href={sanitizeUrl(r.url) || undefined}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[11px] font-mono text-slate-500 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1 mb-2"
+              className="text-mini font-mono text-slate-500 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1 mb-2"
             >
               <Github size={10} /> {r.repo}
             </a>
             {r.badge && (
               <div className="mb-1.5">
                 <span
-                  className={`text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border inline-flex items-center gap-1 ${BADGE_PILL[r.badge]}`}
+                  className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border inline-flex items-center gap-1 ${BADGE_PILL[r.badge]}`}
                 >
                   <Star size={9} /> {r.badge}
                 </span>
               </div>
             )}
-            <p className="text-[12px] font-mono text-slate-600 dark:text-slate-400 leading-relaxed mb-2">
+            <p className="text-meta font-mono text-slate-600 dark:text-slate-400 leading-relaxed mb-2">
               {r.description}
             </p>
-            <p className="text-[12px] font-mono italic text-slate-500 dark:text-slate-400 leading-relaxed mb-3">
+            <p className="text-meta font-mono italic text-slate-500 dark:text-slate-400 leading-relaxed mb-3">
               <span className="text-slate-400 dark:text-slate-600 not-italic">why:</span> {r.why}
             </p>
             <div className="flex flex-wrap items-center gap-1.5">
@@ -193,7 +193,7 @@ export default function AwesomeLists(): JSX.Element {
                   key={f}
                   type="button"
                   onClick={() => toggleFocus(f)}
-                  className={`text-[9px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${FOCUS_PILL[f]}`}
+                  className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${FOCUS_PILL[f]}`}
                   title={`Filter by ${FOCUS_LABELS[f]}`}
                 >
                   {FOCUS_LABELS[f]}

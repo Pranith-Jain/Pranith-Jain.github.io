@@ -38,7 +38,7 @@ export function LiveIndicator({
   trailing,
 }: LiveIndicatorProps): JSX.Element {
   const dot = size === 'lg' ? 'h-2.5 w-2.5' : 'h-2 w-2';
-  const text = size === 'lg' ? 'text-xs' : 'text-[11px]';
+  const text = size === 'lg' ? 'text-xs' : 'text-mini';
   return (
     <div role="status" aria-live="polite" className={`inline-flex items-center gap-2 ${className}`}>
       <span className={`relative flex ${dot}`} aria-hidden="true">
@@ -48,9 +48,7 @@ export function LiveIndicator({
       <span className={`font-mono uppercase tracking-[0.2em] ${text} text-slate-600 dark:text-slate-300`}>{label}</span>
       {trailing}
       {note && (
-        <span className="hidden font-mono text-[10px] uppercase tracking-[0.18em] text-slate-400 sm:inline">
-          {note}
-        </span>
+        <span className="hidden font-mono text-micro uppercase tracking-[0.18em] text-slate-400 sm:inline">{note}</span>
       )}
     </div>
   );

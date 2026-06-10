@@ -6,11 +6,11 @@ export function AppFooter({ blurb, aboutTo }: { blurb: string; aboutTo?: string 
   return (
     <footer className="mt-12 pt-8 border-t border-slate-200 dark:border-slate-800">
       <div className="flex flex-wrap items-center justify-between gap-4">
-        <div className="font-mono text-[12px] text-slate-500 max-w-xl inline-flex items-start gap-2">
+        <div className="font-mono text-meta text-slate-500 max-w-xl inline-flex items-start gap-2">
           <ShieldCheck size={14} className="mt-0.5 shrink-0 text-brand-600 dark:text-brand-400" />
           <span>{blurb}</span>
         </div>
-        <div className="flex flex-wrap gap-4 text-[12px] font-mono">
+        <div className="flex flex-wrap gap-4 text-meta font-mono">
           {aboutTo && (
             <Link
               to={aboutTo}
@@ -43,7 +43,7 @@ export function AppFooter({ blurb, aboutTo }: { blurb: string; aboutTo?: string 
           </a>
         </div>
       </div>
-      <div className="font-mono text-[11px] text-slate-400 mt-4">
+      <div className="font-mono text-mini text-slate-400 mt-4">
         © {new Date().getFullYear()} {personalInfo.name}. Privacy-first — runs in your browser, nothing uploaded.
       </div>
     </footer>

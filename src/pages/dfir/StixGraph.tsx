@@ -37,7 +37,7 @@ function StixNodeBox({
       style={{ borderColor: color, minWidth: 140, maxWidth: 200 }}
     >
       <Handle type="target" position={Position.Top} style={{ background: color }} />
-      <div className="text-[10px] uppercase tracking-wider font-bold mb-0.5" style={{ color }}>
+      <div className="text-micro uppercase tracking-wider font-bold mb-0.5" style={{ color }}>
         {data.stixType}
       </div>
       <div className="text-slate-900 dark:text-slate-100 break-words leading-tight">{data.label}</div>

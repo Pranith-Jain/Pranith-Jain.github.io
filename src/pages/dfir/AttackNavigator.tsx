@@ -299,7 +299,7 @@ export default function AttackNavigator(): JSX.Element {
               {matrixSource === 'd3fend' && 'D3FEND Matrix'}
             </h1>
             {!loading && !error && (
-              <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 text-[10px] font-mono uppercase">
+              <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 text-micro font-mono uppercase">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
                 live
               </span>
@@ -415,7 +415,7 @@ export default function AttackNavigator(): JSX.Element {
               }`}
             >
               <span className="font-semibold">{t.label}</span>
-              <span className="text-[9px] uppercase tracking-wider text-slate-400">{t.sub}</span>
+              <span className="text-micro uppercase tracking-wider text-slate-400">{t.sub}</span>
             </button>
           ))}
         </div>
@@ -453,7 +453,7 @@ export default function AttackNavigator(): JSX.Element {
         <div className="flex flex-wrap items-center gap-3 mb-6 text-xs font-mono text-slate-500">
           {matrixSource === 'attack' ? (
             <>
-              <span className="font-semibold uppercase tracking-wider text-[10px] text-slate-400">
+              <span className="font-semibold uppercase tracking-wider text-micro text-slate-400">
                 {MODE_LABELS[colorMode]}:
               </span>
               {getLegendItems(colorMode).map((item) => (
@@ -486,7 +486,7 @@ export default function AttackNavigator(): JSX.Element {
         )}
 
         {/* Mobile hint */}
-        <p className="sm:hidden text-[11px] font-mono text-slate-500 dark:text-slate-400 mb-2 italic">
+        <p className="sm:hidden text-mini font-mono text-slate-500 dark:text-slate-400 mb-2 italic">
           Swipe horizontally to scan tactics &rarr;
         </p>
 
@@ -513,10 +513,10 @@ export default function AttackNavigator(): JSX.Element {
                         className="block hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
                         title={tactic.description ?? tactic.name}
                       >
-                        <div className="text-[10px] font-mono font-bold leading-tight text-slate-900 dark:text-slate-100">
+                        <div className="text-micro font-mono font-bold leading-tight text-slate-900 dark:text-slate-100">
                           {tactic.name}
                         </div>
-                        <div className="text-[9px] font-mono text-slate-400 mt-0.5">{tacticCount} techniques</div>
+                        <div className="text-micro font-mono text-slate-400 mt-0.5">{tacticCount} techniques</div>
                       </a>
                     </div>
 
@@ -559,17 +559,17 @@ export default function AttackNavigator(): JSX.Element {
                             {technique.name}
                           </div>
                           {score && score.pct_actors > 0 && (
-                            <div className="mt-0.5 font-mono text-[9px] opacity-80">
+                            <div className="mt-0.5 font-mono text-micro opacity-80">
                               {score.pct_actors.toFixed(1)}% actors
                             </div>
                           )}
                           {actors.length > 0 && matrixSource === 'attack' && (
-                            <div className="mt-0.5 font-mono text-[9px] opacity-80">
+                            <div className="mt-0.5 font-mono text-micro opacity-80">
                               {actors.length === 1 ? actors[0].name : `${actors.length} actors`}
                             </div>
                           )}
                           {technique.subtechniques && technique.subtechniques.length > 0 && (
-                            <div className="mt-0.5 font-mono text-[9px] opacity-60">
+                            <div className="mt-0.5 font-mono text-micro opacity-60">
                               +{technique.subtechniques.length} sub
                             </div>
                           )}
@@ -612,7 +612,7 @@ export default function AttackNavigator(): JSX.Element {
           >
             <div className="sticky top-0 z-10 flex items-center justify-between gap-4 px-6 py-4 bg-white/95 dark:bg-slate-900/95 border-b border-slate-200 dark:border-slate-800 backdrop-blur">
               <div className="min-w-0">
-                <span className="text-[10px] font-mono uppercase tracking-wider text-brand-600 dark:text-brand-400">
+                <span className="text-micro font-mono uppercase tracking-wider text-brand-600 dark:text-brand-400">
                   {selectedId}
                 </span>
                 <h2
@@ -649,7 +649,7 @@ export default function AttackNavigator(): JSX.Element {
                       <span className="font-mono font-semibold">{selectedScore.count.toLocaleString()}</span>
                     </div>
                     <div className="border-t border-slate-200 dark:border-slate-700 pt-2 mt-2">
-                      <div className="text-[10px] font-mono uppercase text-slate-400 mb-1">ARiES Risk Score</div>
+                      <div className="text-micro font-mono uppercase text-slate-400 mb-1">ARiES Risk Score</div>
                       <div className="flex justify-between">
                         <span className="text-slate-500">Raw mean:</span>
                         <span className="font-mono font-semibold">{selectedScore.raw_mean.toFixed(1)}</span>

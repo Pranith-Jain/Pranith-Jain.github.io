@@ -112,13 +112,13 @@ const SIZE: Record<
   'sm' | 'md',
   { box: string; text: string; icon: string; gap: string; label: string; truncate: number }
 > = {
-  sm: { box: 'px-1.5 py-0.5', text: 'text-[11px]', icon: 'h-3 w-3', gap: 'gap-1', label: 'text-[9px]', truncate: 24 },
+  sm: { box: 'px-1.5 py-0.5', text: 'text-mini', icon: 'h-3 w-3', gap: 'gap-1', label: 'text-micro', truncate: 24 },
   md: {
     box: 'px-2 py-1',
-    text: 'text-[13px]',
+    text: 'text-tool',
     icon: 'h-3.5 w-3.5',
     gap: 'gap-1.5',
-    label: 'text-[10px]',
+    label: 'text-micro',
     truncate: 40,
   },
 };
@@ -310,13 +310,11 @@ function PivotMenu({ ioc, size }: { ioc: DetectedIoc; size: 'sm' | 'md' }): JSX.
           {pivots.map((p, i) => {
             const content = (
               <>
-                <span className="flex items-center gap-1.5 font-mono text-[12px] font-medium text-slate-800 dark:text-slate-200">
+                <span className="flex items-center gap-1.5 font-mono text-meta font-medium text-slate-800 dark:text-slate-200">
                   {p.label}
                   {p.external && <ExternalLink className="h-3 w-3 text-slate-400" aria-hidden="true" />}
                 </span>
-                <span className="mt-0.5 block text-[11px] leading-snug text-slate-500 dark:text-slate-400">
-                  {p.desc}
-                </span>
+                <span className="mt-0.5 block text-mini leading-snug text-slate-500 dark:text-slate-400">{p.desc}</span>
               </>
             );
             const cls =

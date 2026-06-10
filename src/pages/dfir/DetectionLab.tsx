@@ -412,7 +412,7 @@ export default function DetectionLab(): JSX.Element {
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {Array.from(groups.entries()).map(([group, items]) => (
               <div key={group}>
-                <div className="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500 mb-2">{group}</div>
+                <div className="text-micro font-mono uppercase tracking-[0.2em] text-slate-500 mb-2">{group}</div>
                 <ul className="space-y-1">
                   {items.map((s) => (
                     <li key={s.rule.id}>
@@ -423,19 +423,19 @@ export default function DetectionLab(): JSX.Element {
                       >
                         <div className="flex items-center gap-1.5">
                           <span
-                            className={`text-[9px] font-mono uppercase tracking-wider px-1 py-0.5 rounded border ${
+                            className={`text-micro font-mono uppercase tracking-wider px-1 py-0.5 rounded border ${
                               SEV_PILL[s.rule.severity] ?? SEV_PILL.medium
                             }`}
                           >
                             {s.rule.severity}
                           </span>
                           {s.rule.technique && (
-                            <span className="text-[9px] font-mono text-brand-600 dark:text-brand-400">
+                            <span className="text-micro font-mono text-brand-600 dark:text-brand-400">
                               {s.rule.technique}
                             </span>
                           )}
                         </div>
-                        <div className="text-[12px] font-medium mt-0.5 text-slate-900 dark:text-slate-100">
+                        <div className="text-meta font-medium mt-0.5 text-slate-900 dark:text-slate-100">
                           {s.rule.name}
                         </div>
                       </button>
@@ -461,7 +461,7 @@ export default function DetectionLab(): JSX.Element {
             aria-label="Detection rule JSON"
             className="w-full rounded border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 px-3 py-2 font-mono text-xs text-slate-900 dark:text-slate-100 focus:border-brand-500/60 focus:outline-none"
           />
-          <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] font-mono">
+          <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-mini font-mono">
             {parsed.error ? (
               <span className="text-rose-600 dark:text-rose-400 inline-flex items-center gap-1">
                 <AlertTriangle size={11} /> {parsed.error}
@@ -491,18 +491,18 @@ export default function DetectionLab(): JSX.Element {
             )}
           </div>
           {warning && (
-            <p className="mt-1 text-[11px] font-mono text-amber-600 dark:text-amber-400 inline-flex items-center gap-1">
+            <p className="mt-1 text-mini font-mono text-amber-600 dark:text-amber-400 inline-flex items-center gap-1">
               <AlertTriangle size={11} /> {warning}
             </p>
           )}
           {testResults && testResults.length > 0 && (
             <details className="mt-3" open={!testsPassed}>
-              <summary className="text-[11px] font-mono text-slate-500 cursor-pointer">
+              <summary className="text-mini font-mono text-slate-500 cursor-pointer">
                 Test cases ({testResults.length})
               </summary>
               <ul className="mt-2 space-y-1">
                 {testResults.map((t, i) => (
-                  <li key={`${t.name}-${i}`} className="text-[12px] font-mono flex items-center gap-2">
+                  <li key={`${t.name}-${i}`} className="text-meta font-mono flex items-center gap-2">
                     {t.passed ? (
                       <CheckCircle2 size={12} className="text-emerald-500 shrink-0" />
                     ) : (
@@ -524,7 +524,7 @@ export default function DetectionLab(): JSX.Element {
             Saved rules ({saved.length})
           </h2>
           {saved.length === 0 ? (
-            <p className="text-[12px] text-slate-500 dark:text-slate-400 font-mono">
+            <p className="text-meta text-slate-500 dark:text-slate-400 font-mono">
               None yet. Edit a rule and hit Save — stored in this browser only.
             </p>
           ) : (
@@ -540,8 +540,8 @@ export default function DetectionLab(): JSX.Element {
                     className="min-w-0 flex-1 text-left"
                     title="Load into editor"
                   >
-                    <div className="text-[12px] font-mono text-slate-900 dark:text-slate-100 truncate">{s.name}</div>
-                    <div className="text-[10px] font-mono text-slate-500">
+                    <div className="text-meta font-mono text-slate-900 dark:text-slate-100 truncate">{s.name}</div>
+                    <div className="text-micro font-mono text-slate-500">
                       {s.id} · modified {new Date(s.modified).toLocaleString()}
                     </div>
                   </button>
@@ -561,14 +561,14 @@ export default function DetectionLab(): JSX.Element {
           {/* Coverage report — only meaningful with saved rules + live feed. */}
           {coverage && coverage.rules > 0 && coverage.byKind.length > 0 && (
             <div className="mt-4 pt-3 border-t border-slate-200 dark:border-slate-800">
-              <div className="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500 mb-2">
+              <div className="text-micro font-mono uppercase tracking-[0.2em] text-slate-500 mb-2">
                 Coverage across {coverage.rules} saved rule{coverage.rules === 1 ? '' : 's'}
               </div>
               <ul className="space-y-1.5">
                 {coverage.byKind.map((c) => {
                   const pct = c.total === 0 ? 0 : Math.round((c.covered / c.total) * 100);
                   return (
-                    <li key={c.kind} className="text-[11px] font-mono">
+                    <li key={c.kind} className="text-mini font-mono">
                       <div className="flex items-baseline justify-between">
                         <span className="uppercase text-slate-500">{c.kind}</span>
                         <span className="text-slate-700 dark:text-slate-300">
@@ -598,8 +598,8 @@ export default function DetectionLab(): JSX.Element {
                 onClick={() => setEvalMode('live')}
                 className={
                   evalMode === 'live'
-                    ? 'text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                    : 'text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 text-slate-500'
+                    ? 'text-micro font-mono uppercase tracking-wider px-2 py-0.5 bg-brand-500/15 text-brand-700 dark:text-brand-300'
+                    : 'text-micro font-mono uppercase tracking-wider px-2 py-0.5 text-slate-500'
                 }
               >
                 Live feed
@@ -608,15 +608,15 @@ export default function DetectionLab(): JSX.Element {
                 onClick={() => setEvalMode('synthetic')}
                 className={
                   evalMode === 'synthetic'
-                    ? 'text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                    : 'text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 text-slate-500'
+                    ? 'text-micro font-mono uppercase tracking-wider px-2 py-0.5 bg-brand-500/15 text-brand-700 dark:text-brand-300'
+                    : 'text-micro font-mono uppercase tracking-wider px-2 py-0.5 text-slate-500'
                 }
               >
                 Synthetic events
               </button>
             </div>
           </div>
-          <span className="text-[11px] font-mono text-slate-500">
+          <span className="text-mini font-mono text-slate-500">
             {evalMode === 'live'
               ? loading
                 ? 'loading live feed…'
@@ -633,7 +633,7 @@ export default function DetectionLab(): JSX.Element {
 
         {evalMode === 'synthetic' && (
           <div className="mb-3">
-            <p className="text-[11px] font-mono text-slate-500 mb-1.5">
+            <p className="text-mini font-mono text-slate-500 mb-1.5">
               Paste a JSON array of indicators (same shape as the live feed). Useful for testing a rule against a known
               event set before going against the live stream.
             </p>
@@ -649,9 +649,9 @@ export default function DetectionLab(): JSX.Element {
         )}
 
         {!parsed.rule ? (
-          <p className="text-[12px] font-mono text-slate-500">Fix the rule JSON to evaluate.</p>
+          <p className="text-meta font-mono text-slate-500">Fix the rule JSON to evaluate.</p>
         ) : detections.length === 0 ? (
-          <p className="text-[12px] font-mono text-slate-500 inline-flex items-center gap-1.5">
+          <p className="text-meta font-mono text-slate-500 inline-flex items-center gap-1.5">
             <CheckCircle2 size={13} className="text-emerald-500" /> Rule is valid but did not fire on this event set.
           </p>
         ) : (
@@ -663,25 +663,25 @@ export default function DetectionLab(): JSX.Element {
               >
                 <div className="flex items-baseline gap-2 flex-wrap mb-1">
                   <span
-                    className={`text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${SEV_PILL[d.severity] ?? SEV_PILL.medium}`}
+                    className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${SEV_PILL[d.severity] ?? SEV_PILL.medium}`}
                   >
                     {d.severity}
                   </span>
                   <span className="font-display font-semibold">{d.rule_name}</span>
-                  <span className="text-[11px] font-mono text-slate-500">×{d.match_count}</span>
+                  <span className="text-mini font-mono text-slate-500">×{d.match_count}</span>
                   {d.technique && (
                     <a
                       href={`https://attack.mitre.org/techniques/${d.technique.replace('.', '/')}/`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-[10px] font-mono px-1.5 py-0.5 rounded border border-brand-500/40 text-brand-600 dark:text-brand-400 hover:bg-brand-500/10"
+                      className="text-micro font-mono px-1.5 py-0.5 rounded border border-brand-500/40 text-brand-600 dark:text-brand-400 hover:bg-brand-500/10"
                       title={d.tactic ? `ATT&CK ${d.technique} — ${d.tactic}` : `ATT&CK ${d.technique}`}
                     >
                       {d.technique}
                     </a>
                   )}
                   {d.group_key && (
-                    <code className="text-[11px] font-mono text-brand-600 dark:text-brand-400 break-all">
+                    <code className="text-mini font-mono text-brand-600 dark:text-brand-400 break-all">
                       {d.group_key}
                     </code>
                   )}
@@ -690,9 +690,9 @@ export default function DetectionLab(): JSX.Element {
                   {d.indicators.map((it, j) => (
                     <li
                       key={`${it.source}:${it.value}:${j}`}
-                      className="text-[12px] font-mono flex flex-wrap items-baseline gap-2 border-b border-slate-100 dark:border-slate-800/60 pb-1 last:border-0"
+                      className="text-meta font-mono flex flex-wrap items-baseline gap-2 border-b border-slate-100 dark:border-slate-800/60 pb-1 last:border-0"
                     >
-                      <span className="text-[10px] uppercase tracking-wider text-slate-500">{it.kind}</span>
+                      <span className="text-micro uppercase tracking-wider text-slate-500">{it.kind}</span>
                       <IocChip value={it.value} bare size="sm" className="min-w-0" />
                       <span className="text-slate-500">{it.source}</span>
                       {it.context && <span className="text-slate-500 italic">· {it.context}</span>}

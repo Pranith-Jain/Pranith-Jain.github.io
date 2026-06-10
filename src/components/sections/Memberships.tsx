@@ -61,7 +61,7 @@ export function Memberships({ memberships }: MembershipsProps) {
                   {membership.abbreviation}
                 </div>
                 <div
-                  className={`rounded-md px-2 py-0.5 text-[10px] font-mono uppercase tracking-[0.15em] ${colors.bg} ${colors.text} ${colors.darkBg} ${colors.darkText}`}
+                  className={`rounded-md px-2 py-0.5 text-micro font-mono uppercase tracking-[0.15em] ${colors.bg} ${colors.text} ${colors.darkBg} ${colors.darkText}`}
                 >
                   Member
                 </div>

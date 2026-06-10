@@ -188,7 +188,7 @@ function HBar({
       {items.map((it, idx) => {
         const pct = (it.value / ceiling) * 100;
         return (
-          <li key={`${it.label}-${idx}`} className="text-[11px] font-mono">
+          <li key={`${it.label}-${idx}`} className="text-mini font-mono">
             <div className="flex items-baseline justify-between mb-0.5">
               <span className="text-slate-700 dark:text-slate-300 truncate" title={it.label}>
                 {it.label}
@@ -232,7 +232,7 @@ function StackedSeverityBar({ counts, total }: { counts: Record<RecentCve['sever
           );
         })}
       </div>
-      <ul className="grid grid-cols-2 sm:grid-cols-3 gap-x-3 gap-y-1 mt-3 text-[11px] font-mono">
+      <ul className="grid grid-cols-2 sm:grid-cols-3 gap-x-3 gap-y-1 mt-3 text-mini font-mono">
         {order.map((sev) => {
           const n = counts[sev] ?? 0;
           if (n === 0) return null;
@@ -1066,7 +1066,7 @@ export default function Metrics(): JSX.Element {
 
       {/* Headline totals + window toggle + refresh */}
       <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6 flex items-center justify-between gap-3 flex-wrap">
-        <div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-3 text-[13px] sm:text-[12px] font-mono w-full sm:w-auto">
+        <div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-3 text-tool sm:text-meta font-mono w-full sm:w-auto">
           <Stat
             label={`ransomware claims · ${windowDays}d`}
             value={summary.r}
@@ -1093,7 +1093,7 @@ export default function Metrics(): JSX.Element {
           <div
             role="group"
             aria-label="Time window"
-            className="inline-flex rounded border border-slate-200 dark:border-slate-800 overflow-hidden text-[11px] font-mono"
+            className="inline-flex rounded border border-slate-200 dark:border-slate-800 overflow-hidden text-mini font-mono"
           >
             {WINDOW_OPTIONS.map((d) => {
               const active = d === windowDays;
@@ -1154,14 +1154,14 @@ export default function Metrics(): JSX.Element {
             <h2 className="font-display font-bold text-lg text-slate-900 dark:text-slate-100">
               This week's read: ransomware posture
             </h2>
-            <span className="text-[11px] font-mono uppercase tracking-[0.18em] text-slate-500">
+            <span className="text-mini font-mono uppercase tracking-[0.18em] text-slate-500">
               auto-computed · updates on refresh
             </span>
           </div>
           <div className="grid gap-5 lg:grid-cols-[1fr_1.4fr]">
             <div>
               <Sparkbars buckets={ransomwareCadence} color="#e11d48" />
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 mt-3 text-[11px] font-mono">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 mt-3 text-mini font-mono">
                 <div className="rounded border border-slate-200 dark:border-slate-800 px-2 py-1.5">
                   <div className="text-slate-500">last 7d</div>
                   <div className="text-slate-900 dark:text-slate-100 font-semibold text-sm">{headlineRead.last7}</div>
@@ -1188,14 +1188,14 @@ export default function Metrics(): JSX.Element {
               {headlineRead.sentences.map((s, i) => (
                 <p
                   key={i}
-                  className={`text-[14px] leading-relaxed ${
+                  className={`text-sm leading-relaxed ${
                     i === 0 ? 'text-slate-900 dark:text-slate-100 font-medium' : 'text-slate-700 dark:text-slate-300'
                   }`}
                 >
                   {s}
                 </p>
               ))}
-              <p className="text-[11px] font-mono text-slate-500 pt-1">
+              <p className="text-mini font-mono text-slate-500 pt-1">
                 Method: 7-vs-7-day delta with a 10% deadband; concentration is the top operator's share of the last 7
                 days. Sources: ransomlook.io aggregated leak-site index merged with MyThreatIntel CTI events (deduped by
                 victim).{' '}
@@ -1322,7 +1322,7 @@ export default function Metrics(): JSX.Element {
             <span className="ml-2 text-slate-400 group-open:hidden">expand</span>
             <span className="ml-2 text-slate-400 hidden group-open:inline">collapse</span>
           </summary>
-          <p className="mt-2 text-[12px] font-mono text-slate-500 max-w-2xl mb-4">
+          <p className="mt-2 text-meta font-mono text-slate-500 max-w-2xl mb-4">
             All ten are computed live from the same upstream feeds the narrative panels above use. No interpretation
             captions; the chart speaks for itself once you know what you're looking at.
           </p>
@@ -1445,7 +1445,7 @@ export default function Metrics(): JSX.Element {
           use <Link> so router state survives the navigation. */}
       <section className="mt-10 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
         <h3 className="font-display font-semibold text-sm mb-3">Related surfaces</h3>
-        <div className="grid sm:grid-cols-2 gap-2 text-[12px] font-mono">
+        <div className="grid sm:grid-cols-2 gap-2 text-meta font-mono">
           <Link
             to="/threatintel/correlation"
             className="px-3 py-2 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40 text-slate-700 dark:text-slate-300"
@@ -1474,7 +1474,7 @@ export default function Metrics(): JSX.Element {
       </section>
 
       {state.refreshedAt && (
-        <p className="text-[10px] font-mono text-slate-500 mt-6 text-right">
+        <p className="text-micro font-mono text-slate-500 mt-6 text-right">
           recomputed {new Date(state.refreshedAt).toLocaleString()}
         </p>
       )}
@@ -1519,7 +1519,7 @@ function Stat({
         </span>
         {!loading && typeof delta === 'number' && delta !== 0 && (
           <span
-            className={`text-[10px] font-mono tabular-nums ${
+            className={`text-micro font-mono tabular-nums ${
               delta > 0 ? 'text-rose-600 dark:text-rose-400' : 'text-emerald-600 dark:text-emerald-400'
             }`}
             title={`${delta > 0 ? '+' : ''}${delta} since last refresh`}
@@ -1530,7 +1530,7 @@ function Stat({
           </span>
         )}
       </span>
-      <span className="text-[10px] uppercase tracking-wider text-slate-500">{label}</span>
+      <span className="text-micro uppercase tracking-wider text-slate-500">{label}</span>
     </div>
   );
 }
@@ -1562,7 +1562,7 @@ function ChartCard({
           <Icon size={14} className="text-brand-600 dark:text-brand-400" /> {title}
         </h3>
         {href && (
-          <Link to={href} className="text-[11px] font-mono text-brand-600 dark:text-brand-400 hover:underline">
+          <Link to={href} className="text-mini font-mono text-brand-600 dark:text-brand-400 hover:underline">
             details →
           </Link>
         )}
@@ -1570,11 +1570,11 @@ function ChartCard({
       <p className="text-xs italic text-slate-500 mb-3 leading-relaxed">{question}</p>
       <div className="mb-3">{children}</div>
       {interpretation && (
-        <p className="text-[12px] text-slate-700 dark:text-slate-300 leading-relaxed mb-2 border-l-2 border-brand-500/40 pl-3">
+        <p className="text-meta text-slate-700 dark:text-slate-300 leading-relaxed mb-2 border-l-2 border-brand-500/40 pl-3">
           {interpretation}
         </p>
       )}
-      <p className="text-[10px] font-mono text-slate-400">{footer}</p>
+      <p className="text-micro font-mono text-slate-400">{footer}</p>
     </div>
   );
 }

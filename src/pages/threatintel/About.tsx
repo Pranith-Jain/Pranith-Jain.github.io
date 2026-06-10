@@ -64,7 +64,7 @@ export default function ThreatIntelAbout(): JSX.Element {
               <div className="flex items-center gap-2 font-display font-semibold mb-1">
                 <I size={16} className="text-brand-600 dark:text-brand-400" /> {p.t}
               </div>
-              <p className="text-[13px] font-mono text-slate-600 dark:text-slate-400 leading-relaxed">{p.d}</p>
+              <p className="text-tool font-mono text-slate-600 dark:text-slate-400 leading-relaxed">{p.d}</p>
             </div>
           );
         })}

@@ -219,7 +219,9 @@ export default function BlogPost() {
         );
         setRelatedPosts(posts.filter((p) => related.some((r) => r.slug === p.slug)));
       })
-      .catch(() => { /* related posts are non-critical */ });
+      .catch(() => {
+        /* related posts are non-critical */
+      });
     return () => {
       cancelled = true;
     };
@@ -320,7 +322,7 @@ export default function BlogPost() {
                   <Link
                     key={t}
                     to={`/blog/c/${t}`}
-                    className="rounded border border-slate-200 bg-slate-50 px-2.5 py-0.5 text-[11px] font-mono text-slate-600 hover:text-brand-600 hover:border-brand-300 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-400 dark:hover:text-brand-400 dark:hover:border-brand-700 transition-colors"
+                    className="rounded border border-slate-200 bg-slate-50 px-2.5 py-0.5 text-mini font-mono text-slate-600 hover:text-brand-600 hover:border-brand-300 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-400 dark:hover:text-brand-400 dark:hover:border-brand-700 transition-colors"
                   >
                     {t}
                   </Link>
@@ -340,7 +342,7 @@ export default function BlogPost() {
             <header className="mb-8">
               <Link
                 to={`/blog/c/${post.type}`}
-                className="text-[11px] font-mono uppercase tracking-[0.16em] text-brand-600 dark:text-brand-400 hover:underline"
+                className="text-mini font-mono uppercase tracking-[0.16em] text-brand-600 dark:text-brand-400 hover:underline"
               >
                 {post.type}
               </Link>
@@ -462,7 +464,7 @@ export default function BlogPost() {
                 LinkedIn
               </a>
               {hashtags.length > 0 && (
-                <span className="text-[11px] font-mono text-slate-400 dark:text-slate-500">
+                <span className="text-mini font-mono text-slate-400 dark:text-slate-500">
                   {hashtags.map((h) => `#${h}`).join(' ')}
                 </span>
               )}
@@ -470,7 +472,7 @@ export default function BlogPost() {
 
             {post.iocs.length > 0 && (
               <aside className="mt-8 border-t border-slate-200 dark:border-slate-800 pt-6">
-                <h2 className="text-[11px] font-mono uppercase tracking-[0.16em] text-slate-500 mb-2">IOCs</h2>
+                <h2 className="text-mini font-mono uppercase tracking-[0.16em] text-slate-500 mb-2">IOCs</h2>
                 <ul className="text-sm font-mono space-y-1">
                   {post.iocs.map((i, k) => (
                     <li key={`${i.type}-${i.value}-${k}`}>
@@ -587,13 +589,13 @@ export default function BlogPost() {
                           {p.tags.slice(0, 2).map((t) => (
                             <span
                               key={t}
-                              className="rounded border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/60 px-2 py-0.5 text-[10px] font-mono text-slate-500 dark:text-slate-400"
+                              className="rounded border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/60 px-2 py-0.5 text-micro font-mono text-slate-500 dark:text-slate-400"
                             >
                               {t}
                             </span>
                           ))}
                           {p.tags.length > 2 && (
-                            <span className="text-[10px] font-mono text-slate-400 self-center">
+                            <span className="text-micro font-mono text-slate-400 self-center">
                               +{p.tags.length - 2}
                             </span>
                           )}
@@ -604,7 +606,7 @@ export default function BlogPost() {
                         <p className="mt-1.5 text-xs text-slate-600 dark:text-slate-400 leading-relaxed line-clamp-2 flex-1">
                           {p.excerpt}
                         </p>
-                        <div className="mt-3 text-[11px] font-mono text-slate-400">
+                        <div className="mt-3 text-mini font-mono text-slate-400">
                           {formatDate(p.publishedAt)} · {relatedReadTime} min read
                         </div>
                       </Link>

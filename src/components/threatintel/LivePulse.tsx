@@ -173,13 +173,13 @@ export function LivePulse(): JSX.Element {
         <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
         <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
       </span>
-      <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-slate-600 dark:text-slate-300">
+      <span className="font-mono text-mini uppercase tracking-[0.2em] text-slate-600 dark:text-slate-300">
         Live · platform telemetry
       </span>
     </>
   );
   const note = (
-    <span className="hidden font-mono text-[10px] uppercase tracking-[0.18em] text-slate-400 sm:inline">
+    <span className="hidden font-mono text-micro uppercase tracking-[0.18em] text-slate-400 sm:inline">
       edge-cached
     </span>
   );
@@ -311,7 +311,7 @@ export function LivePulse(): JSX.Element {
                   reduce={reduce}
                   className={`${STAT_NUM} text-emerald-600 dark:text-emerald-400`}
                 />
-                <span className="font-mono text-[11px] text-slate-500">matched</span>
+                <span className="font-mono text-mini text-slate-500">matched</span>
               </span>
             ) : (
               DASH

@@ -342,7 +342,7 @@ export default function Briefings(): JSX.Element {
           onClick={() => {
             void navigator.clipboard.writeText(`${window.location.origin}/api/v1/briefings/rss`);
           }}
-          className="text-[11px] font-mono text-brand-600 dark:text-brand-400 hover:underline shrink-0"
+          className="text-mini font-mono text-brand-600 dark:text-brand-400 hover:underline shrink-0"
           title="Copy feed URL"
         >
           copy URL

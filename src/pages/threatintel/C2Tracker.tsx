@@ -117,7 +117,7 @@ export default function C2Tracker(): JSX.Element {
                   <button
                     type="button"
                     onClick={() => setRefreshKey((k) => k + 1)}
-                    className="text-[11px] font-mono px-2 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 inline-flex items-center gap-1"
+                    className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 inline-flex items-center gap-1"
                     aria-label="Refresh C2 tracker"
                   >
                     <RefreshCw size={11} /> refresh
@@ -129,12 +129,12 @@ export default function C2Tracker(): JSX.Element {
                 {data.sources.map((s) => (
                   <span
                     key={s.id}
-                    className={`text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded border ${SOURCE_COLORS[s.id] ?? 'bg-slate-500/15 text-slate-500 border-slate-500/30'}`}
+                    className={`text-micro font-mono uppercase tracking-wider px-2 py-0.5 rounded border ${SOURCE_COLORS[s.id] ?? 'bg-slate-500/15 text-slate-500 border-slate-500/30'}`}
                   >
                     {s.name} · {s.count}
                   </span>
                 ))}
-                <span className="text-[10px] font-mono text-slate-500">Total · {data.count}</span>
+                <span className="text-micro font-mono text-slate-500">Total · {data.count}</span>
               </div>
               {/* Framework filter */}
               <div className="flex flex-wrap gap-2">
@@ -176,7 +176,7 @@ export default function C2Tracker(): JSX.Element {
                         {entry.ip}
                       </code>
                       <span
-                        className={`text-[9px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${FRAMEWORK_COLORS[entry.framework] ?? 'bg-slate-500/15 text-slate-600 dark:text-slate-400 border-slate-500/30'}`}
+                        className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${FRAMEWORK_COLORS[entry.framework] ?? 'bg-slate-500/15 text-slate-600 dark:text-slate-400 border-slate-500/30'}`}
                       >
                         {entry.framework}
                       </span>
@@ -185,34 +185,34 @@ export default function C2Tracker(): JSX.Element {
                       {entry.sources.map((s) => (
                         <span
                           key={s}
-                          className={`text-[9px] font-mono uppercase tracking-wider px-1 py-0.5 rounded border ${SOURCE_COLORS[s] ?? 'bg-slate-500/15 text-slate-500 border-slate-500/30'}`}
+                          className={`text-micro font-mono uppercase tracking-wider px-1 py-0.5 rounded border ${SOURCE_COLORS[s] ?? 'bg-slate-500/15 text-slate-500 border-slate-500/30'}`}
                         >
                           {s}
                         </span>
                       ))}
-                      {entry.port && <span className="text-[9px] font-mono text-slate-500">:{entry.port}</span>}
+                      {entry.port && <span className="text-micro font-mono text-slate-500">:{entry.port}</span>}
                     </div>
                     {entry.context && (
-                      <p className="text-[10px] font-mono text-slate-500 mt-1 truncate" title={entry.context}>
+                      <p className="text-micro font-mono text-slate-500 mt-1 truncate" title={entry.context}>
                         {entry.context}
                       </p>
                     )}
                     <div className="flex gap-1.5 mt-1.5">
                       <Link
                         to={`/dfir/ioc-check?indicator=${entry.ip}`}
-                        className="text-[10px] font-mono text-brand-600 dark:text-brand-400 hover:underline"
+                        className="text-micro font-mono text-brand-600 dark:text-brand-400 hover:underline"
                       >
                         ioc
                       </Link>
                       <Link
                         to={`/dfir/ip-geo?ip=${entry.ip}`}
-                        className="text-[10px] font-mono text-brand-600 dark:text-brand-400 hover:underline"
+                        className="text-micro font-mono text-brand-600 dark:text-brand-400 hover:underline"
                       >
                         geo
                       </Link>
                       <Link
                         to={`/dfir/domain-rep?domain=${entry.ip}`}
-                        className="text-[10px] font-mono text-brand-600 dark:text-brand-400 hover:underline"
+                        className="text-micro font-mono text-brand-600 dark:text-brand-400 hover:underline"
                       >
                         bl
                       </Link>

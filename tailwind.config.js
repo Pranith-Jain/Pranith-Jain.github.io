@@ -18,17 +18,24 @@ export default {
           900: '#1f267c',
           950: '#121649',
         },
-        // Canonical severity scale. The codebase expresses criticality with
-        // ad-hoc rose/amber/emerald (and stray yellow/violet); these named
-        // tokens are the one source of truth for new/aligned UI so a
-        // critical finding never looks like a footer note.
+        // Canonical severity scale — THE single source of truth, byte-aligned
+        // with src/components/severity.ts (SEVERITY_TONE/SEVERITY_BAR) and
+        // src/components/threatintel/soc/tone.ts. The ramp maps to threat
+        // meaning, not a colour gradient: `high` is orange (not a 2nd rose) and
+        // `low` is *intentionally* slate (neutral) — green reads as "safe/done"
+        // which conflicts with "this is still a finding". Render criticality
+        // through <SeverityPill> / SEVERITY_TONE, never ad-hoc rose/amber/emerald.
         severity: {
           critical: '#e11d48', // rose-600
-          high: '#f43f5e', // rose-500
+          high: '#f97316', // orange-500
           medium: '#f59e0b', // amber-500
-          low: '#10b981', // emerald-500
+          low: '#94a3b8', // slate-400 (neutral — NOT green)
           info: '#0ea5e9', // sky-500
         },
+        // `muted` = theme-aware secondary text (slate-600 in light → AA on white,
+        // slate-400 in dark). Backed by the --muted CSS var in index.css. Prefer
+        // `text-muted` over bare text-slate-400 so light mode stays >=4.5:1.
+        muted: 'rgb(var(--muted) / <alpha-value>)',
         // Removed the unused `neon` cyberpunk palette (cyan/pink/purple/green) —
         // 0 references, a generic-AI tell carried in config dead weight.
       },
@@ -46,13 +53,25 @@ export default {
       //   eyebrow  → uppercase section labels (was text-[11px] tracking-[0.18em])
       //   meta     → captions / counts / footnotes (was text-[12px])
       //   tool     → tile + card descriptions (was text-[13px])
+      //   mini     → plain 11px label, NO tracking (was text-[11px] non-uppercase)
+      //   micro    → tightest 10px chrome label (was text-[10px]/[9px])
+      // mini/micro exist so the type codemod can tokenize every ad-hoc
+      // text-[9..13px] with zero visual change; the mobile legibility floor in
+      // index.css then lifts micro/mini to 12px on small screens.
       fontSize: {
         eyebrow: ['0.6875rem', { lineHeight: '1rem', letterSpacing: '0.16em' }],
         meta: ['0.75rem', { lineHeight: '1.1rem' }],
         tool: ['0.8125rem', { lineHeight: '1.25rem' }],
+        mini: ['0.6875rem', { lineHeight: '1rem' }],
+        micro: ['0.625rem', { lineHeight: '0.9rem' }],
       },
       boxShadow: {
         glow: '0 0 0 1px rgba(37, 99, 235, 0.25), 0 18px 60px rgba(37, 99, 235, 0.15)',
+        // Elevation scale — the depth system the flat light theme was missing.
+        // Tuned soft for light surfaces (dark mode leans on borders + glass).
+        e1: '0 1px 2px rgba(15, 23, 42, 0.04), 0 1px 3px rgba(15, 23, 42, 0.06)',
+        e2: '0 2px 4px rgba(15, 23, 42, 0.05), 0 8px 24px rgba(15, 23, 42, 0.08)',
+        e3: '0 12px 32px rgba(15, 23, 42, 0.10), 0 24px 64px rgba(15, 23, 42, 0.12)',
         // Removed unused glow-cyan/pink/purple (0 references; neon-AI tell).
       },
       animation: {

@@ -125,7 +125,7 @@ export default function OpenDirectory(): JSX.Element {
             value={url}
             onChange={(e) => setUrl(e.target.value)}
             placeholder="https://suspicious-server.com/uploads/"
-            className="w-full pl-10 pr-4 py-2.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-sm font-mono focus:ring-2 focus:ring-brand-500 focus:border-transparent"
+            className="w-full pl-10 pr-4 py-2.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-sm font-mono focus-visible:ring-2 focus-visible:ring-brand-500 focus:border-transparent"
           />
         </div>
         <button
@@ -162,7 +162,7 @@ export default function OpenDirectory(): JSX.Element {
               >
                 <div className="flex items-center gap-1.5 mb-1">
                   <Icon size={12} className="text-slate-400" />
-                  <span className="text-[10px] font-mono uppercase text-slate-500">{label}</span>
+                  <span className="text-micro font-mono uppercase text-slate-500">{label}</span>
                 </div>
                 <span className="text-lg font-mono font-bold">{value}</span>
               </div>
@@ -284,7 +284,7 @@ export default function OpenDirectory(): JSX.Element {
                       <td className="px-3 py-2 text-right font-mono text-slate-500">{formatSize(entry.size)}</td>
                       <td className="px-3 py-2">
                         <span
-                          className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-mono uppercase ${RISK_COLORS[entry.risk]}`}
+                          className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-micro font-mono uppercase ${RISK_COLORS[entry.risk]}`}
                         >
                           <span className={`w-1.5 h-1.5 rounded-full ${RISK_DOT[entry.risk]}`} />
                           {entry.risk}

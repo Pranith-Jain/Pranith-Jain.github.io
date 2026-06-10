@@ -68,13 +68,13 @@ export const VerdictChip = memo(function VerdictChip({
         {verdict}
       </span>
       {confidence && (
-        <span className={`text-[10px] font-mono ${CONFIDENCE_STYLES[confidence]}`} title={`Confidence: ${confidence}`}>
+        <span className={`text-micro font-mono ${CONFIDENCE_STYLES[confidence]}`} title={`Confidence: ${confidence}`}>
           {CONFIDENCE_LABELS[confidence]}
         </span>
       )}
       {contributing !== undefined && total !== undefined && total > 0 && (
         <span
-          className="text-[10px] font-mono text-slate-500 dark:text-slate-400"
+          className="text-micro font-mono text-slate-500 dark:text-slate-400"
           title={`${contributing} of ${total} providers contributed`}
         >
           {contributing}/{total}

@@ -342,7 +342,7 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
                 trailing={
                   lastVisit > 0 && totalNew > 0 ? (
                     <span
-                      className="text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded-full border border-amber-500/50 bg-amber-500/15 text-amber-700 dark:text-amber-300"
+                      className="text-micro font-mono uppercase tracking-wider px-2 py-0.5 rounded-full border border-amber-500/50 bg-amber-500/15 text-amber-700 dark:text-amber-300"
                       title={`${totalNew} new items since your last visit`}
                     >
                       {totalNew} new since last visit
@@ -355,7 +355,7 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
             )}
             {!showLiveIndicator && lastVisit > 0 && totalNew > 0 && (
               <span
-                className="text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded-full border border-amber-500/50 bg-amber-500/15 text-amber-700 dark:text-amber-300"
+                className="text-micro font-mono uppercase tracking-wider px-2 py-0.5 rounded-full border border-amber-500/50 bg-amber-500/15 text-amber-700 dark:text-amber-300"
                 title={`${totalNew} new items since your last visit`}
               >
                 {totalNew} new since last visit
@@ -363,14 +363,14 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
             )}
             {watchlist.length > 0 && totalWatched > 0 && (
               <span
-                className="text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded-full border border-violet-500/50 bg-violet-500/15 text-violet-700 dark:text-violet-300"
+                className="text-micro font-mono uppercase tracking-wider px-2 py-0.5 rounded-full border border-violet-500/50 bg-violet-500/15 text-violet-700 dark:text-violet-300"
                 title={`${totalWatched} items match your watchlist (${watchlist.join(', ')})`}
               >
                 {totalWatched} watchlist hits
               </span>
             )}
           </h2>
-          {subtitle && <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400">{subtitle}</span>}
+          {subtitle && <span className="text-mini font-mono text-slate-500 dark:text-slate-400">{subtitle}</span>}
         </div>
       )}
 
@@ -398,12 +398,12 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
         >
           {ransomware && (
             <>
-              <p className="text-[11px] font-mono text-slate-500 dark:text-slate-400 mb-2">
+              <p className="text-mini font-mono text-slate-500 dark:text-slate-400 mb-2">
                 <span className="text-slate-900 dark:text-slate-100 font-bold text-base">{recentVictims.length}</span>{' '}
                 claims in last 24h · {ransomware.count} total tracked
               </p>
               {recentVictims.length === 0 ? (
-                <p className="text-[11px] font-mono text-slate-500">No claims in the last 24 h.</p>
+                <p className="text-mini font-mono text-slate-500">No claims in the last 24 h.</p>
               ) : (
                 <ul className="space-y-1.5 mt-1">
                   {recentVictims.map((v, i) => {
@@ -412,7 +412,7 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
                     return (
                       <li
                         key={`${v.group}-${v.victim}-${i}`}
-                        className="flex items-baseline gap-2 text-[11px] font-mono py-0.5"
+                        className="flex items-baseline gap-2 text-mini font-mono py-0.5"
                       >
                         <span
                           className={`inline-block w-1.5 h-1.5 rounded-full shrink-0 ${
@@ -429,7 +429,7 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
                           aria-hidden={matched.length === 0 && !isNew ? true : undefined}
                           title={matched.length > 0 ? `watchlist match: ${matched.join(', ')}` : undefined}
                         />
-                        <span className="text-[9px] uppercase tracking-wider px-1 rounded border border-rose-500/30 bg-rose-500/10 text-rose-700 dark:text-rose-300 shrink-0">
+                        <span className="text-micro uppercase tracking-wider px-1 rounded border border-rose-500/30 bg-rose-500/10 text-rose-700 dark:text-rose-300 shrink-0">
                           {v.group}
                         </span>
                         <a
@@ -477,19 +477,19 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
         >
           {telegram && (
             <>
-              <p className="text-[11px] font-mono text-slate-500 dark:text-slate-400 mb-2">
+              <p className="text-mini font-mono text-slate-500 dark:text-slate-400 mb-2">
                 <span className="text-slate-900 dark:text-slate-100 font-bold text-base">{telegram.items.length}</span>{' '}
                 posts · {telegram.channels.filter((c) => c.ok).length} channels live
               </p>
               {recentMessages.length === 0 ? (
-                <p className="text-[11px] font-mono text-slate-500">No recent messages.</p>
+                <p className="text-mini font-mono text-slate-500">No recent messages.</p>
               ) : (
                 <ul className="space-y-1.5 mt-1">
                   {recentMessages.map((m) => {
                     const isNew = isNewSince(m.datetime, lastVisit);
                     const matched = watchHits(`${m.channel_name} ${m.text}`, watchlist);
                     return (
-                      <li key={m.permalink} className="text-[11px] font-mono py-0.5">
+                      <li key={m.permalink} className="text-mini font-mono py-0.5">
                         <div className="flex items-baseline gap-2">
                           <span
                             className={`inline-block w-1.5 h-1.5 rounded-full shrink-0 ${
@@ -554,19 +554,19 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
         >
           {scam && (
             <>
-              <p className="text-[11px] font-mono text-slate-500 dark:text-slate-400 mb-2">
+              <p className="text-mini font-mono text-slate-500 dark:text-slate-400 mb-2">
                 <span className="text-slate-900 dark:text-slate-100 font-bold text-base">{scam.total_items}</span>{' '}
                 official alerts · FTC + IC3
               </p>
               {recentScam.length === 0 ? (
-                <p className="text-[11px] font-mono text-slate-500">No recent alerts.</p>
+                <p className="text-mini font-mono text-slate-500">No recent alerts.</p>
               ) : (
                 <ul className="space-y-1.5 mt-1">
                   {recentScam.map((it) => {
                     const isNew = isNewSince(it.pubDate, lastVisit);
                     const matched = watchHits(`${it.title} ${it.source}`, watchlist);
                     return (
-                      <li key={it.guid ?? it.link} className="text-[11px] font-mono py-0.5">
+                      <li key={it.guid ?? it.link} className="text-mini font-mono py-0.5">
                         <div className="flex items-baseline gap-2">
                           <span
                             className={`inline-block w-1.5 h-1.5 rounded-full shrink-0 ${
@@ -625,21 +625,21 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
         >
           {threatIntel && (
             <>
-              <p className="text-[11px] font-mono text-slate-500 dark:text-slate-400 mb-2">
+              <p className="text-mini font-mono text-slate-500 dark:text-slate-400 mb-2">
                 <span className="text-slate-900 dark:text-slate-100 font-bold text-base">
                   {threatIntel.total_items}
                 </span>{' '}
                 posts · BleepingComputer · Krebs · DFIR Report · SecurityWeek
               </p>
               {recentThreatIntel.length === 0 ? (
-                <p className="text-[11px] font-mono text-slate-500">No recent posts.</p>
+                <p className="text-mini font-mono text-slate-500">No recent posts.</p>
               ) : (
                 <ul className="space-y-1.5 mt-1">
                   {recentThreatIntel.map((it) => {
                     const isNew = isNewSince(it.pubDate, lastVisit);
                     const matched = watchHits(`${it.title} ${it.source}`, watchlist);
                     return (
-                      <li key={it.guid ?? it.link} className="text-[11px] font-mono py-0.5">
+                      <li key={it.guid ?? it.link} className="text-mini font-mono py-0.5">
                         <div className="flex items-baseline gap-2">
                           <span
                             className={`inline-block w-1.5 h-1.5 rounded-full shrink-0 ${
@@ -698,19 +698,19 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
         >
           {techAi && (
             <>
-              <p className="text-[11px] font-mono text-slate-500 dark:text-slate-400 mb-2">
+              <p className="text-mini font-mono text-slate-500 dark:text-slate-400 mb-2">
                 <span className="text-slate-900 dark:text-slate-100 font-bold text-base">{techAi.total_items}</span>{' '}
                 posts · TechCrunch · VentureBeat · HN AI · YC blog · cyber funding
               </p>
               {recentTechAi.length === 0 ? (
-                <p className="text-[11px] font-mono text-slate-500">No recent posts.</p>
+                <p className="text-mini font-mono text-slate-500">No recent posts.</p>
               ) : (
                 <ul className="space-y-1.5 mt-1">
                   {recentTechAi.map((it) => {
                     const isNew = isNewSince(it.pubDate, lastVisit);
                     const matched = watchHits(`${it.title} ${it.source}`, watchlist);
                     return (
-                      <li key={it.guid ?? it.link} className="text-[11px] font-mono py-0.5">
+                      <li key={it.guid ?? it.link} className="text-mini font-mono py-0.5">
                         <div className="flex items-baseline gap-2">
                           <span
                             className={`inline-block w-1.5 h-1.5 rounded-full shrink-0 ${
@@ -772,12 +772,12 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
         >
           {briefings && (
             <>
-              <p className="text-[11px] font-mono text-slate-500 dark:text-slate-400 mb-2">
+              <p className="text-mini font-mono text-slate-500 dark:text-slate-400 mb-2">
                 <span className="text-slate-900 dark:text-slate-100 font-bold text-base">{briefings.items.length}</span>{' '}
                 most-recent · daily 00:05 · weekly Mon 00:15 UTC
               </p>
               {briefings.items.length === 0 ? (
-                <p className="text-[11px] font-mono text-slate-500">No briefings yet.</p>
+                <p className="text-mini font-mono text-slate-500">No briefings yet.</p>
               ) : (
                 <ul className="space-y-1.5 mt-1">
                   {briefings.items.slice(0, itemLimit).map((b) => {
@@ -789,9 +789,9 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
                     // Prefer date_range; fall back to slug-derived date.
                     const label = m.date_range ?? m.date ?? b.slug.replace(/^(daily|weekly)-/, '');
                     return (
-                      <li key={b.slug} className="flex items-baseline gap-2 text-[11px] font-mono py-0.5">
+                      <li key={b.slug} className="flex items-baseline gap-2 text-mini font-mono py-0.5">
                         <span
-                          className={`text-[9px] uppercase tracking-wider px-1 rounded border shrink-0 ${
+                          className={`text-micro uppercase tracking-wider px-1 rounded border shrink-0 ${
                             m.type === 'weekly'
                               ? 'border-sky-500/40 bg-sky-500/10 text-sky-700 dark:text-sky-300'
                               : 'border-brand-500/40 bg-brand-500/10 text-brand-700 dark:text-brand-300'
@@ -808,7 +808,7 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
                         </Link>
                         {findings === 0 && iocs === 0 ? (
                           <span
-                            className="shrink-0 text-[9px] uppercase tracking-wider px-1 rounded border border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300"
+                            className="shrink-0 text-micro uppercase tracking-wider px-1 rounded border border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300"
                             title="Upstream feeds were unreachable at build time — this briefing rebuilds automatically every hour."
                           >
                             rebuilding

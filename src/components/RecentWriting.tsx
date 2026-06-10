@@ -136,7 +136,7 @@ export function RecentWriting(): JSX.Element | null {
               >
                 <div className="flex items-center gap-2">
                   <span
-                    className={`inline-flex items-center gap-1 text-[10px] font-mono uppercase tracking-[0.18em] px-2 py-0.5 rounded border ${pillColor}`}
+                    className={`inline-flex items-center gap-1 text-micro font-mono uppercase tracking-[0.18em] px-2 py-0.5 rounded border ${pillColor}`}
                   >
                     <Icon size={10} aria-hidden="true" />
                     {e.kind === 'research' ? 'Research' : 'Case study'}

@@ -115,7 +115,7 @@ export default function WebLogAnalyzer(): JSX.Element {
         onChange={(e) => setText(e.target.value)}
         rows={6}
         placeholder='127.0.0.1 - - [10/May/2026:13:55:36 +0000] "GET /?id=1%27%20OR%201=1 HTTP/1.1" 200 1234 "-" "sqlmap/1.7"'
-        className="w-full rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-3 py-2 font-mono text-[12px] focus:border-brand-500 focus:outline-none"
+        className="w-full rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-3 py-2 font-mono text-meta focus:border-brand-500 focus:outline-none"
       />
       <button
         type="button"
@@ -125,7 +125,7 @@ export default function WebLogAnalyzer(): JSX.Element {
       >
         <Upload size={24} className="mx-auto mb-2 text-slate-500" />
         <p className="text-sm font-mono text-slate-700 dark:text-slate-300">Drop a log file here, or click to choose</p>
-        <p className="text-[11px] font-mono text-slate-500 mt-1">Apache/Nginx access logs. 100% client-side.</p>
+        <p className="text-mini font-mono text-slate-500 mt-1">Apache/Nginx access logs. 100% client-side.</p>
       </button>
       <input
         id="weblog-input"
@@ -146,7 +146,7 @@ export default function WebLogAnalyzer(): JSX.Element {
 
       {res && (
         <div className="mt-6 space-y-3">
-          <div className="flex flex-wrap items-center gap-4 font-mono text-[12px] text-slate-500">
+          <div className="flex flex-wrap items-center gap-4 font-mono text-meta text-slate-500">
             <span>
               {res.total.toLocaleString()} lines · {res.parsed.toLocaleString()} parsed ·{' '}
               <span className="text-rose-600 dark:text-rose-400">{res.rows.length} suspicious</span>
@@ -171,7 +171,7 @@ export default function WebLogAnalyzer(): JSX.Element {
             )}
           </div>
           <div className="rounded-lg border border-slate-200 dark:border-slate-800 overflow-auto max-h-[60vh]">
-            <table className="w-full text-[11px] font-mono">
+            <table className="w-full text-mini font-mono">
               <thead className="bg-slate-50 dark:bg-slate-900 sticky top-0">
                 <tr>
                   {['#', 'IP', 'Method', 'Path', 'Status', 'Findings'].map((h) => (
@@ -208,7 +208,7 @@ export default function WebLogAnalyzer(): JSX.Element {
               </tbody>
             </table>
             {res.rows.length === 0 && (
-              <p className="p-3 font-mono text-[12px] text-slate-500">No suspicious requests matched the heuristics.</p>
+              <p className="p-3 font-mono text-meta text-slate-500">No suspicious requests matched the heuristics.</p>
             )}
           </div>
         </div>

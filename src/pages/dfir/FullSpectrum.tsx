@@ -217,8 +217,7 @@ function ResultCard({
 
   const detail = (() => {
     if (state.loading) return null;
-    if (state.error)
-      return <p className="text-[11px] font-mono text-rose-600 dark:text-rose-400 mt-1">{state.error}</p>;
+    if (state.error) return <p className="text-mini font-mono text-rose-600 dark:text-rose-400 mt-1">{state.error}</p>;
     if (!data) return null;
     switch (tool.key) {
       case 'domain_lookup': {
@@ -230,7 +229,7 @@ function ResultCard({
         const dmarcPolicy = auth?.dmarc?.policy;
         const dmarcPresent = auth?.dmarc?.present === true;
         return (
-          <div className="text-[11px] font-mono text-slate-600 dark:text-slate-400 space-y-0.5 mt-1">
+          <div className="text-mini font-mono text-slate-600 dark:text-slate-400 space-y-0.5 mt-1">
             <span>
               SPF: <span className="text-slate-900 dark:text-slate-100">{spfPresent ? '✅' : '❌'}</span>
             </span>
@@ -248,7 +247,7 @@ function ResultCard({
         const subs = (data.subdomains as unknown[] | undefined) ?? [];
         const total = (data.total_subdomains_seen as number | undefined) ?? subs.length;
         return (
-          <p className="text-[11px] font-mono text-slate-600 dark:text-slate-400 mt-1">
+          <p className="text-mini font-mono text-slate-600 dark:text-slate-400 mt-1">
             {subs.length} of {total} subdomain{total !== 1 ? 's' : ''} discovered
           </p>
         );
@@ -261,9 +260,9 @@ function ResultCard({
           ...headerFindings.map((h) => ({ label: h.label ?? 'finding', severity: h.severity ?? 'info' })),
           ...exposed.map((p) => ({ label: p.path ?? 'exposed path', severity: p.severity ?? 'medium' })),
         ];
-        if (findings.length === 0) return <p className="text-[11px] font-mono text-emerald-600 mt-1">No findings</p>;
+        if (findings.length === 0) return <p className="text-mini font-mono text-emerald-600 mt-1">No findings</p>;
         return (
-          <ul className="text-[11px] font-mono mt-1 space-y-0.5">
+          <ul className="text-mini font-mono mt-1 space-y-0.5">
             {findings.slice(0, 3).map((i, idx) => (
               <li key={idx} className="truncate">
                 <span className={SEVERITY_COLORS[i.severity] ?? 'text-slate-600 dark:text-slate-400'}>●</span> {i.label}
@@ -276,7 +275,7 @@ function ResultCard({
         const vuln = data.vulnerable as boolean | undefined;
         const svc = data.service as string | undefined;
         return (
-          <p className="text-[11px] font-mono mt-1">
+          <p className="text-mini font-mono mt-1">
             {vuln ? (
               <span className="text-rose-600">Vulnerable{svc ? ` (${svc})` : ''}</span>
             ) : (
@@ -290,7 +289,7 @@ function ResultCard({
         const unique = data.unique_names as string[] | undefined;
         const count = total ?? unique?.length ?? 0;
         return (
-          <div className="text-[11px] font-mono text-slate-600 dark:text-slate-400 mt-1">
+          <div className="text-mini font-mono text-slate-600 dark:text-slate-400 mt-1">
             <span>{count} certificates</span>
             {unique && unique.length > 0 && (
               <p className="truncate text-slate-500 dark:text-slate-400">
@@ -305,7 +304,7 @@ function ResultCard({
         const f = data.found as boolean | undefined;
         const bc = data.breach_count as number | undefined;
         return (
-          <p className="text-[11px] font-mono mt-1">
+          <p className="text-mini font-mono mt-1">
             {f && bc ? (
               <span className="text-rose-600">
                 {bc} breach{bc !== 1 ? 'es' : ''} detected
@@ -331,7 +330,7 @@ function ResultCard({
         const results = d?.results ?? [];
         const first = results[0];
         return (
-          <div className="text-[11px] font-mono mt-1 text-slate-600 dark:text-slate-400">
+          <div className="text-mini font-mono mt-1 text-slate-600 dark:text-slate-400">
             {first ? (
               <span>
                 Risk: <span className="text-slate-900 dark:text-slate-100">{first.meta?.risk_score ?? 'N/A'}</span>
@@ -361,7 +360,7 @@ function ResultCard({
       <div className="flex items-center justify-between gap-2">
         <div className="flex items-center gap-2 min-w-0">
           <Icon size={14} className="text-brand-600 dark:text-brand-400 shrink-0" />
-          <h3 className="text-[11px] font-bold uppercase tracking-[0.15em] text-slate-900 dark:text-slate-100 font-mono truncate">
+          <h3 className="text-mini font-bold uppercase tracking-[0.15em] text-slate-900 dark:text-slate-100 font-mono truncate">
             {tool.label}
           </h3>
         </div>
@@ -369,14 +368,14 @@ function ResultCard({
         {!state.loading && !!state.data && !state.error && (
           <Link
             to={`/${tool.key === 'domain_lookup' ? 'dfir/domain' : tool.key === 'web_scan' ? 'dfir/web-scan' : tool.key === 'cert_search' ? 'dfir/cert-search' : tool.key === 'breach' ? 'dfir/breach' : tool.key === 'webamon' ? 'threatintel/webamon' : 'dfir/' + tool.key}?${tool.key === 'webamon' ? 'q' : 'domain'}=${encodeURIComponent(domain)}`}
-            className="text-[10px] text-brand-600 dark:text-brand-400 hover:underline shrink-0 inline-flex items-center gap-0.5"
+            className="text-micro text-brand-600 dark:text-brand-400 hover:underline shrink-0 inline-flex items-center gap-0.5"
           >
             full <ExternalLink size={9} />
           </Link>
         )}
       </div>
       <p
-        className={`text-[13px] font-mono font-semibold ${state.error ? 'text-rose-600' : state.data ? 'text-slate-900 dark:text-slate-100' : 'text-slate-500 dark:text-slate-400'}`}
+        className={`text-tool font-mono font-semibold ${state.error ? 'text-rose-600' : state.data ? 'text-slate-900 dark:text-slate-100' : 'text-slate-500 dark:text-slate-400'}`}
       >
         {summary}
       </p>
@@ -423,7 +422,7 @@ export default function FullSpectrum(): JSX.Element {
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>

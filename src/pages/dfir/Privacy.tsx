@@ -125,7 +125,7 @@ export default function Privacy(): JSX.Element {
     <div className="max-w-3xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -202,7 +202,7 @@ export default function Privacy(): JSX.Element {
               className={`flex flex-col items-center justify-center w-24 h-24 rounded-full ${GRADE_STYLES[opsec.grade].bg} ${GRADE_STYLES[opsec.grade].text}`}
             >
               <span className="text-3xl font-display font-bold leading-none">{opsec.score}</span>
-              <span className="text-[10px] font-mono uppercase tracking-wider mt-1">/ 100</span>
+              <span className="text-micro font-mono uppercase tracking-wider mt-1">/ 100</span>
             </div>
             <div className="min-w-0">
               <h2 className="font-display font-bold text-xl mb-1 flex items-center gap-2">

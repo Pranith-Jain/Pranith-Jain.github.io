@@ -48,7 +48,7 @@ export function Contact({ personalInfo }: ContactProps) {
               href={personalInfo.calendlyUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 rounded-md bg-brand-600 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-400 focus:ring-offset-2 focus:ring-offset-slate-900"
+              className="inline-flex items-center gap-1.5 rounded-md bg-brand-600 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-brand-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
               aria-label="Schedule a 30-minute consultation call"
             >
               <Calendar className="h-4 w-4" aria-hidden="true" />
@@ -56,7 +56,7 @@ export function Contact({ personalInfo }: ContactProps) {
             </a>
             <a
               href={`mailto:${personalInfo.email}`}
-              className="inline-flex items-center gap-1.5 rounded-md border border-white/30 px-5 py-2.5 text-sm font-semibold text-white transition hover:border-white hover:bg-white/5 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-slate-900"
+              className="inline-flex items-center gap-1.5 rounded-md border border-white/30 px-5 py-2.5 text-sm font-semibold text-white transition hover:border-white hover:bg-white/5 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
               aria-label={`Send email to ${personalInfo.email}`}
             >
               <Mail className="h-4 w-4" aria-hidden="true" />
@@ -79,7 +79,7 @@ export function Contact({ personalInfo }: ContactProps) {
                 href={personalInfo.linkedInUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex items-center gap-3 sm:text-sm text-xs font-bold text-slate-500 transition hover:text-white focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-slate-900 rounded-lg px-3 py-3 min-h-[48px]"
+                className="group flex items-center gap-3 sm:text-sm text-xs font-bold text-slate-500 transition hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 rounded-lg px-3 py-3 min-h-[48px]"
                 aria-label="Visit LinkedIn profile (opens in new tab)"
               >
                 <span className="rounded-md bg-white/5 p-2 transition group-hover:bg-white/10">
@@ -93,7 +93,7 @@ export function Contact({ personalInfo }: ContactProps) {
                 href={personalInfo.githubUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex items-center gap-3 sm:text-sm text-xs font-bold text-slate-500 transition hover:text-white focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-slate-900 rounded-lg px-3 py-3 min-h-[48px]"
+                className="group flex items-center gap-3 sm:text-sm text-xs font-bold text-slate-500 transition hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 rounded-lg px-3 py-3 min-h-[48px]"
                 aria-label="Visit GitHub profile (opens in new tab)"
               >
                 <span className="rounded-md bg-white/5 p-2 transition group-hover:bg-white/10">
@@ -107,7 +107,7 @@ export function Contact({ personalInfo }: ContactProps) {
                 href={personalInfo.resumeUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex items-center gap-3 sm:text-sm text-xs font-bold text-slate-500 transition hover:text-white focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-slate-900 rounded-lg px-3 py-3 min-h-[48px]"
+                className="group flex items-center gap-3 sm:text-sm text-xs font-bold text-slate-500 transition hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 rounded-lg px-3 py-3 min-h-[48px]"
                 aria-label="View resume (opens in new tab)"
               >
                 <span className="rounded-md bg-white/5 p-2 transition group-hover:bg-white/10">
@@ -121,7 +121,7 @@ export function Contact({ personalInfo }: ContactProps) {
                 href={personalInfo.featuredUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex items-center gap-3 sm:text-sm text-xs font-bold text-slate-500 transition hover:text-white focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-slate-900 rounded-lg px-3 py-3 min-h-[48px]"
+                className="group flex items-center gap-3 sm:text-sm text-xs font-bold text-slate-500 transition hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 rounded-lg px-3 py-3 min-h-[48px]"
                 aria-label="View Featured Experts profile (opens in new tab)"
               >
                 <span className="rounded-md bg-white/5 p-2 transition group-hover:bg-white/10">

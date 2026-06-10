@@ -42,7 +42,7 @@ export function LiveFreshnessPill({ tone, label, ago, className = '' }: LiveFres
     <span
       role="status"
       aria-live="polite"
-      className={`inline-flex items-center gap-1.5 rounded-full border px-2 py-0.5 text-[10px] font-mono uppercase tracking-wider ${TONE_CLS[tone]} ${className}`}
+      className={`inline-flex items-center gap-1.5 rounded-full border px-2 py-0.5 text-micro font-mono uppercase tracking-wider ${TONE_CLS[tone]} ${className}`}
     >
       {showLiveDot ? (
         <span className="relative flex h-1.5 w-1.5">

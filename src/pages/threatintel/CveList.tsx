@@ -237,7 +237,7 @@ export default function CveList(): JSX.Element {
           </button>
         </div>
         <div className="flex flex-wrap items-center gap-1.5 mt-3">
-          <span className="text-[11px] font-mono text-slate-500 mr-1">severity:</span>
+          <span className="text-mini font-mono text-slate-500 mr-1">severity:</span>
           {(['CRITICAL', 'HIGH', 'MEDIUM', 'LOW', 'NONE', 'UNKNOWN'] as const).map((s) => {
             const active = severityFilter.has(s);
             return (
@@ -245,7 +245,7 @@ export default function CveList(): JSX.Element {
                 key={s}
                 type="button"
                 onClick={() => toggleSeverity(s)}
-                className={`text-[11px] font-mono px-2 py-1 rounded border ${
+                className={`text-mini font-mono px-2 py-1 rounded border ${
                   active ? SEVERITY_PILL[s] : 'border-slate-300 dark:border-slate-700 text-slate-500'
                 }`}
               >
@@ -257,7 +257,7 @@ export default function CveList(): JSX.Element {
             <button
               type="button"
               onClick={() => setSeverityFilter(new Set())}
-              className="text-[11px] font-mono text-brand-600 dark:text-brand-400 hover:underline ml-2"
+              className="text-mini font-mono text-brand-600 dark:text-brand-400 hover:underline ml-2"
             >
               clear
             </button>
@@ -266,7 +266,7 @@ export default function CveList(): JSX.Element {
       </section>
 
       {data && (
-        <p className="text-[11px] font-mono text-slate-500 mb-4">
+        <p className="text-mini font-mono text-slate-500 mb-4">
           Showing page {page}/{totalPages} ({pageItems.length} of {filtered.length} filtered, {data.count} total) ·
           sources: {(data.sources ?? []).map((s) => `${s.id} ${s.ok ? `(${s.count})` : 'OFFLINE'}`).join(' · ')} ·
           snapshot <span className="text-slate-700 dark:text-slate-300">{shortRel(data.generated_at)}</span>
@@ -303,14 +303,14 @@ export default function CveList(): JSX.Element {
                     {c.id}
                     {isNew && (
                       <span
-                        className="text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-emerald-500/60 bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 inline-flex items-center gap-1"
+                        className="text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-emerald-500/60 bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 inline-flex items-center gap-1"
                         title="new since your last visit"
                       >
                         <Sparkles size={9} /> new
                       </span>
                     )}
                   </Link>
-                  <div className="flex items-center gap-2 text-[11px] font-mono flex-wrap">
+                  <div className="flex items-center gap-2 text-mini font-mono flex-wrap">
                     {c.kev && (
                       <span
                         className="uppercase tracking-wider px-1.5 py-0.5 rounded border border-rose-500/60 bg-rose-500/15 text-rose-700 dark:text-rose-300 inline-flex items-center gap-1"
@@ -374,7 +374,7 @@ export default function CveList(): JSX.Element {
                     </span>
                   </div>
                 </div>
-                <p className="text-[12px] font-mono text-slate-600 dark:text-slate-400 leading-relaxed">
+                <p className="text-meta font-mono text-slate-600 dark:text-slate-400 leading-relaxed">
                   {c.description}
                 </p>
                 {c.reference && (
@@ -382,7 +382,7 @@ export default function CveList(): JSX.Element {
                     href={sanitizeUrl(c.reference) || undefined}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-[11px] font-mono text-brand-600 dark:text-brand-400 hover:underline mt-2"
+                    className="inline-flex items-center gap-1 text-mini font-mono text-brand-600 dark:text-brand-400 hover:underline mt-2"
                   >
                     primary reference <ExternalLink size={9} />
                   </a>

@@ -136,7 +136,7 @@ export default function HashCalculator(): JSX.Element {
         placeholder="Type or paste text to hash…"
         className="w-full rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-3 py-2 font-mono text-sm focus:border-brand-500 focus:outline-none"
       />
-      <div className="mt-2 flex flex-wrap gap-2 text-[12px] font-mono">
+      <div className="mt-2 flex flex-wrap gap-2 text-meta font-mono">
         <button
           type="button"
           onClick={() => void run(new TextEncoder().encode(text), 'text')}
@@ -178,16 +178,16 @@ export default function HashCalculator(): JSX.Element {
             className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3"
           >
             <div className="flex items-center justify-between gap-2">
-              <span className="text-[10px] font-mono uppercase tracking-wider text-slate-500">{k}</span>
+              <span className="text-micro font-mono uppercase tracking-wider text-slate-500">{k}</span>
               <button
                 type="button"
                 onClick={() => void navigator.clipboard?.writeText(v)}
-                className="text-[10px] font-mono text-slate-500 hover:text-brand-600"
+                className="text-micro font-mono text-slate-500 hover:text-brand-600"
               >
                 copy
               </button>
             </div>
-            <code className="font-mono text-[12px] break-all text-slate-900 dark:text-slate-100">{v}</code>
+            <code className="font-mono text-meta break-all text-slate-900 dark:text-slate-100">{v}</code>
           </li>
         ))}
       </ul>

@@ -127,7 +127,7 @@ function CredentialsTab(): JSX.Element {
                   key={s.label}
                   className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4"
                 >
-                  <div className="text-[10px] font-mono uppercase tracking-wider text-slate-500 mb-1">{s.label}</div>
+                  <div className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-1">{s.label}</div>
                   <div className="text-2xl font-display font-bold tabular-nums">
                     {s.value != null ? s.value.toLocaleString() : '—'}
                   </div>
@@ -137,7 +137,7 @@ function CredentialsTab(): JSX.Element {
 
             {samples.length > 0 && (
               <div>
-                <div className="text-[10px] font-mono uppercase tracking-wider text-slate-500 mb-2">
+                <div className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-2">
                   sample credentials (masked by upstream)
                 </div>
                 <div className="overflow-x-auto rounded-lg border border-slate-200 dark:border-slate-800">
@@ -148,7 +148,7 @@ function CredentialsTab(): JSX.Element {
                           <th
                             key={h}
                             scope="col"
-                            className="px-3 py-2 font-mono text-[11px] uppercase tracking-wider text-slate-500 whitespace-nowrap"
+                            className="px-3 py-2 font-mono text-mini uppercase tracking-wider text-slate-500 whitespace-nowrap"
                           >
                             {h}
                           </th>
@@ -158,15 +158,15 @@ function CredentialsTab(): JSX.Element {
                     <tbody>
                       {samples.slice(0, 50).map((s, i) => (
                         <tr key={i} className="border-t border-slate-100 dark:border-slate-800/70">
-                          <td className="px-3 py-2 font-mono text-[12px] break-all">{String(s.username ?? '—')}</td>
-                          <td className="px-3 py-2 font-mono text-[12px] text-rose-600 dark:text-rose-400">
+                          <td className="px-3 py-2 font-mono text-meta break-all">{String(s.username ?? '—')}</td>
+                          <td className="px-3 py-2 font-mono text-meta text-rose-600 dark:text-rose-400">
                             {String(s.password ?? '—')}
                           </td>
-                          <td className="px-3 py-2 font-mono text-[11px] text-slate-500 break-all max-w-xs">
+                          <td className="px-3 py-2 font-mono text-mini text-slate-500 break-all max-w-xs">
                             {String(s.url ?? '—')}
                           </td>
-                          <td className="px-3 py-2 font-mono text-[11px] text-slate-500">{String(s.country ?? '—')}</td>
-                          <td className="px-3 py-2 font-mono text-[11px] text-slate-500 whitespace-nowrap">
+                          <td className="px-3 py-2 font-mono text-mini text-slate-500">{String(s.country ?? '—')}</td>
+                          <td className="px-3 py-2 font-mono text-mini text-slate-500 whitespace-nowrap">
                             {String(s.log_date ?? '—')}
                           </td>
                         </tr>
@@ -179,14 +179,14 @@ function CredentialsTab(): JSX.Element {
 
             {topUrls.length > 0 && (
               <div>
-                <div className="text-[10px] font-mono uppercase tracking-wider text-slate-500 mb-2">
+                <div className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-2">
                   most-targeted login URLs
                 </div>
                 <ul className="space-y-1">
                   {topUrls.slice(0, 10).map((u, i) => (
                     <li
                       key={i}
-                      className="flex items-center justify-between gap-3 font-mono text-[12px] rounded border border-slate-200 dark:border-slate-800 px-3 py-1.5"
+                      className="flex items-center justify-between gap-3 font-mono text-meta rounded border border-slate-200 dark:border-slate-800 px-3 py-1.5"
                     >
                       <span className="truncate text-slate-700 dark:text-slate-300">{u.url}</span>
                       <span className="text-slate-400 shrink-0">{u.count}</span>
@@ -341,7 +341,7 @@ function SubdomainsTab(): JSX.Element {
           {data && (
             <>
               <div className="flex items-center justify-between gap-3 mb-3 flex-wrap">
-                <p className="text-[11px] font-mono text-slate-500">
+                <p className="text-mini font-mono text-slate-500">
                   {data.count.toLocaleString()} subdomains for{' '}
                   <span className="text-slate-700 dark:text-slate-300">{data.domain}</span>
                   {data.truncated && (
@@ -354,7 +354,7 @@ function SubdomainsTab(): JSX.Element {
                 <button
                   type="button"
                   onClick={copyAll}
-                  className="inline-flex items-center gap-1.5 text-[11px] font-mono px-2 py-1 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40"
+                  className="inline-flex items-center gap-1.5 text-mini font-mono px-2 py-1 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40"
                 >
                   {copied ? <Check size={11} /> : <Copy size={11} />} {copied ? 'copied' : 'copy'}
                 </button>
@@ -374,7 +374,7 @@ function SubdomainsTab(): JSX.Element {
                 {filtered.slice(0, visible).map((s) => (
                   <li
                     key={s}
-                    className="font-mono text-[12px] rounded border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-2.5 py-1.5 text-slate-700 dark:text-slate-300 truncate"
+                    className="font-mono text-meta rounded border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-2.5 py-1.5 text-slate-700 dark:text-slate-300 truncate"
                   >
                     {s}
                   </li>
@@ -384,7 +384,7 @@ function SubdomainsTab(): JSX.Element {
                 <button
                   type="button"
                   onClick={() => setVisible((v) => v + 200)}
-                  className="mt-3 w-full rounded-lg border border-slate-200 dark:border-slate-800 py-2 font-mono text-[12px] text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
+                  className="mt-3 w-full rounded-lg border border-slate-200 dark:border-slate-800 py-2 font-mono text-meta text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
                 >
                   Show more ({(filtered.length - visible).toLocaleString()} remaining)
                 </button>
@@ -530,7 +530,7 @@ function CvesTab(): JSX.Element {
       </form>
 
       {data && (
-        <p className="text-[11px] font-mono text-slate-500 mb-3">
+        <p className="text-mini font-mono text-slate-500 mb-3">
           {data.total_matches.toLocaleString()} matches of {data.catalog_total.toLocaleString()} templated CVEs
           {data.truncated && <span className="text-amber-600 dark:text-amber-400"> · showing {data.count}</span>}
         </p>
@@ -552,7 +552,7 @@ function CvesTab(): JSX.Element {
                     <th
                       key={h}
                       scope="col"
-                      className="px-3 py-2 font-mono text-[11px] uppercase tracking-wider text-slate-500 whitespace-nowrap"
+                      className="px-3 py-2 font-mono text-mini uppercase tracking-wider text-slate-500 whitespace-nowrap"
                     >
                       {h}
                     </th>
@@ -571,19 +571,19 @@ function CvesTab(): JSX.Element {
                             href={sanitizeUrl(cve.nvd_url) || undefined}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="font-mono text-[12px] text-brand-600 dark:text-brand-400 hover:underline"
+                            className="font-mono text-meta text-brand-600 dark:text-brand-400 hover:underline"
                           >
                             {cve.id}
                           </a>
                         </td>
                         <td className="px-3 py-2 whitespace-nowrap">
                           <span
-                            className={`text-[11px] font-mono px-2 py-0.5 rounded border ${SEV_PILL[cve.severity] ?? SEV_PILL.unknown}`}
+                            className={`text-mini font-mono px-2 py-0.5 rounded border ${SEV_PILL[cve.severity] ?? SEV_PILL.unknown}`}
                           >
                             {cve.severity}
                           </span>
                         </td>
-                        <td className="px-3 py-2 font-mono text-[12px] tabular-nums text-slate-600 dark:text-slate-400">
+                        <td className="px-3 py-2 font-mono text-meta tabular-nums text-slate-600 dark:text-slate-400">
                           {cve.cvss ?? '—'}
                         </td>
                         <td className="px-3 py-2 text-slate-700 dark:text-slate-300 max-w-md">
@@ -594,7 +594,7 @@ function CvesTab(): JSX.Element {
                             href={sanitizeUrl(cve.template_url) || undefined}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1 text-[11px] font-mono text-slate-500 hover:text-brand-600 dark:hover:text-brand-400"
+                            className="inline-flex items-center gap-1 text-mini font-mono text-slate-500 hover:text-brand-600 dark:hover:text-brand-400"
                           >
                             yaml <ExternalLink size={10} />
                           </a>
@@ -603,7 +603,7 @@ function CvesTab(): JSX.Element {
                           <button
                             type="button"
                             onClick={() => void toggleDetail(cve.id)}
-                            className="text-[11px] font-mono text-slate-500 hover:text-brand-600 dark:hover:text-brand-400"
+                            className="text-mini font-mono text-slate-500 hover:text-brand-600 dark:hover:text-brand-400"
                             aria-expanded={open}
                           >
                             {open ? '▾ hide' : '▸ detail'}
@@ -614,15 +614,13 @@ function CvesTab(): JSX.Element {
                         <tr className="border-t border-slate-100 dark:border-slate-800/70 bg-slate-50/40 dark:bg-slate-900/30">
                           <td colSpan={6} className="px-4 py-3">
                             {det === 'loading' || det === undefined ? (
-                              <span className="text-[12px] font-mono text-slate-500 inline-flex items-center gap-1.5">
+                              <span className="text-meta font-mono text-slate-500 inline-flex items-center gap-1.5">
                                 <Loader2 size={12} className="animate-spin" /> loading Shodan CVEDB…
                               </span>
                             ) : det === 'error' ? (
-                              <span className="text-[12px] font-mono text-slate-500">
-                                No CVEDB record for {cve.id}.
-                              </span>
+                              <span className="text-meta font-mono text-slate-500">No CVEDB record for {cve.id}.</span>
                             ) : (
-                              <div className="space-y-2 text-[12px]">
+                              <div className="space-y-2 text-meta">
                                 <div className="flex flex-wrap gap-2">
                                   {det.kev && (
                                     <span className="font-mono px-2 py-0.5 rounded border border-rose-500/50 bg-rose-500/15 text-rose-700 dark:text-rose-300">
@@ -664,7 +662,7 @@ function CvesTab(): JSX.Element {
                                 </div>
                                 {det.ssvc &&
                                   (det.ssvc.exploitation || det.ssvc.automatable || det.ssvc.technical_impact) && (
-                                    <p className="font-mono text-[11px] text-slate-500">
+                                    <p className="font-mono text-mini text-slate-500">
                                       <span className="text-slate-400">CISA SSVC:</span> exploitation=
                                       {det.ssvc.exploitation ?? '—'} · automatable={det.ssvc.automatable ?? '—'} ·
                                       impact={det.ssvc.technical_impact ?? '—'}
@@ -676,15 +674,13 @@ function CvesTab(): JSX.Element {
                                   </p>
                                 )}
                                 {det.cpes.length > 0 && (
-                                  <p className="font-mono text-[11px] text-slate-500">
+                                  <p className="font-mono text-mini text-slate-500">
                                     <span className="text-slate-400">affected:</span>{' '}
                                     {det.cpes.slice(0, 8).join('  ·  ')}
                                     {det.cpes.length > 8 ? ` … (+${det.cpes.length - 8})` : ''}
                                   </p>
                                 )}
-                                <span className="text-[10px] font-mono text-slate-400">
-                                  source: Shodan CVEDB (free)
-                                </span>
+                                <span className="text-micro font-mono text-slate-400">source: Shodan CVEDB (free)</span>
                               </div>
                             )}
                           </td>

@@ -120,7 +120,7 @@ export default function LogParser(): JSX.Element {
                 key={s.label}
                 type="button"
                 onClick={() => setInput(s.value)}
-                className="text-[11px] font-mono px-2 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
+                className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
               >
                 {s.label}
               </button>
@@ -137,7 +137,7 @@ export default function LogParser(): JSX.Element {
           placeholder="Paste log lines here — one per line, or paste a multi-line WinEvent XML blob (will be auto-collapsed per Event)…"
           rows={14}
           aria-label="Log lines input"
-          className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded font-mono text-[11px] text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+          className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded font-mono text-mini text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
           spellCheck={false}
         />
       </section>
@@ -152,19 +152,19 @@ export default function LogParser(): JSX.Element {
             <div className="grid sm:grid-cols-3 gap-4 mb-3">
               <div>
                 <div className="text-2xl font-bold text-slate-900 dark:text-slate-100">{summary.total}</div>
-                <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400">total lines</div>
+                <div className="text-mini font-mono text-slate-500 dark:text-slate-400">total lines</div>
               </div>
               <div>
                 <div className="text-2xl font-bold text-slate-900 dark:text-slate-100">
                   {summary.unique_techniques.length}
                 </div>
-                <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400">unique MITRE techniques</div>
+                <div className="text-mini font-mono text-slate-500 dark:text-slate-400">unique MITRE techniques</div>
               </div>
               <div>
                 <div className="text-2xl font-bold text-slate-900 dark:text-slate-100">
                   {summary.unique_event_ids.length}
                 </div>
-                <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400">unique event IDs</div>
+                <div className="text-mini font-mono text-slate-500 dark:text-slate-400">unique event IDs</div>
               </div>
             </div>
             <div className="flex flex-wrap gap-2">
@@ -173,14 +173,14 @@ export default function LogParser(): JSX.Element {
                 .map((f) => (
                   <span
                     key={f}
-                    className={`text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${FORMAT_PILL[f]}`}
+                    className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${FORMAT_PILL[f]}`}
                   >
                     {FORMAT_LABEL[f]} · {summary.by_format[f]}
                   </span>
                 ))}
               {summary.unique_techniques.length > 0 && (
                 <details className="w-full mt-2">
-                  <summary className="text-[11px] font-mono text-slate-600 dark:text-slate-400 cursor-pointer">
+                  <summary className="text-mini font-mono text-slate-600 dark:text-slate-400 cursor-pointer">
                     Techniques: {summary.unique_techniques.join(', ')}
                   </summary>
                 </details>
@@ -191,7 +191,7 @@ export default function LogParser(): JSX.Element {
           {/* Severity filter */}
           <section className="flex flex-wrap items-center gap-2 mb-4">
             <Filter size={12} className="text-slate-500" />
-            <span className="text-[11px] font-mono text-slate-500">filter:</span>
+            <span className="text-mini font-mono text-slate-500">filter:</span>
             {(['high', 'medium', 'low', 'info'] as const).map((s) => {
               const count = summary.by_severity[s];
               const active = severityFilter.size === 0 || severityFilter.has(s);
@@ -201,7 +201,7 @@ export default function LogParser(): JSX.Element {
                   type="button"
                   onClick={() => toggleSeverity(s)}
                   disabled={count === 0}
-                  className={`text-[11px] font-mono px-2 py-1 rounded border ${active ? SEV_PILL[s] : 'border-slate-200 dark:border-slate-800 text-slate-500'} ${count === 0 ? 'opacity-30' : ''}`}
+                  className={`text-mini font-mono px-2 py-1 rounded border ${active ? SEV_PILL[s] : 'border-slate-200 dark:border-slate-800 text-slate-500'} ${count === 0 ? 'opacity-30' : ''}`}
                 >
                   {s} · {count}
                 </button>
@@ -211,7 +211,7 @@ export default function LogParser(): JSX.Element {
               <button
                 type="button"
                 onClick={() => setSeverityFilter(new Set())}
-                className="text-[11px] font-mono text-brand-600 dark:text-brand-400 hover:underline"
+                className="text-mini font-mono text-brand-600 dark:text-brand-400 hover:underline"
               >
                 clear
               </button>
@@ -227,23 +227,23 @@ export default function LogParser(): JSX.Element {
               >
                 <div className="flex flex-wrap items-baseline gap-2 mb-2">
                   <span
-                    className={`text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${FORMAT_PILL[r.format]}`}
+                    className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${FORMAT_PILL[r.format]}`}
                   >
                     {FORMAT_LABEL[r.format]}
                   </span>
                   <span
-                    className={`text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${SEV_PILL[r.severity]}`}
+                    className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${SEV_PILL[r.severity]}`}
                   >
                     {r.severity}
                   </span>
                   {r.event_id && (
-                    <span className="text-[11px] font-mono text-slate-700 dark:text-slate-300">EID {r.event_id}</span>
+                    <span className="text-mini font-mono text-slate-700 dark:text-slate-300">EID {r.event_id}</span>
                   )}
                   {r.source && (
-                    <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400">{r.source}</span>
+                    <span className="text-mini font-mono text-slate-500 dark:text-slate-400">{r.source}</span>
                   )}
                   {r.timestamp && (
-                    <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400 ml-auto">
+                    <span className="text-mini font-mono text-slate-500 dark:text-slate-400 ml-auto">
                       {r.timestamp}
                     </span>
                   )}
@@ -256,7 +256,7 @@ export default function LogParser(): JSX.Element {
                       <Link
                         key={t}
                         to={`/threatintel/mitre?id=${t}`}
-                        className="text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300 hover:bg-rose-500/20"
+                        className="text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300 hover:bg-rose-500/20"
                       >
                         {t}
                       </Link>
@@ -265,7 +265,7 @@ export default function LogParser(): JSX.Element {
                 )}
 
                 {r.notes.length > 0 && (
-                  <ul className="text-[11px] font-mono text-amber-700 dark:text-amber-300 mb-2 space-y-0.5">
+                  <ul className="text-mini font-mono text-amber-700 dark:text-amber-300 mb-2 space-y-0.5">
                     {r.notes.map((n, j) => (
                       <li key={j} className="inline-flex items-start gap-1">
                         <AlertTriangle size={10} className="mt-0.5 shrink-0" /> {n}
@@ -275,11 +275,11 @@ export default function LogParser(): JSX.Element {
                 )}
 
                 <details>
-                  <summary className="text-[11px] font-mono text-slate-500 dark:text-slate-400 cursor-pointer">
+                  <summary className="text-mini font-mono text-slate-500 dark:text-slate-400 cursor-pointer">
                     {Object.keys(r.fields).length} parsed field{Object.keys(r.fields).length === 1 ? '' : 's'} — show
                     structured JSON
                   </summary>
-                  <pre className="mt-2 text-[11px] font-mono text-slate-700 dark:text-slate-300 whitespace-pre-wrap break-all bg-slate-50 dark:bg-slate-950 rounded p-2 border border-slate-200 dark:border-slate-800 max-h-60 overflow-auto">
+                  <pre className="mt-2 text-mini font-mono text-slate-700 dark:text-slate-300 whitespace-pre-wrap break-all bg-slate-50 dark:bg-slate-950 rounded p-2 border border-slate-200 dark:border-slate-800 max-h-60 overflow-auto">
                     {JSON.stringify(r.fields, null, 2)}
                   </pre>
                 </details>
@@ -302,17 +302,17 @@ export default function LogParser(): JSX.Element {
                       className="rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-3"
                     >
                       <div className="flex items-baseline justify-between gap-2 mb-2">
-                        <h3 className="text-[12px] font-mono text-slate-700 dark:text-slate-300">{q.label}</h3>
+                        <h3 className="text-meta font-mono text-slate-700 dark:text-slate-300">{q.label}</h3>
                         <button
                           type="button"
                           onClick={() => void copy(id, q.query)}
-                          className="text-[11px] font-mono text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+                          className="text-mini font-mono text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
                         >
                           {copied === id ? <Check size={11} /> : <ClipboardCopy size={11} />}
                           {copied === id ? 'copied' : 'copy'}
                         </button>
                       </div>
-                      <pre className="text-[11px] font-mono text-slate-900 dark:text-slate-100 whitespace-pre-wrap break-all">
+                      <pre className="text-mini font-mono text-slate-900 dark:text-slate-100 whitespace-pre-wrap break-all">
                         {q.query}
                       </pre>
                     </li>

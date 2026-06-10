@@ -27,7 +27,7 @@ function renderInline(text: string): JSX.Element {
             <a
               key={i}
               href={`#report-src-${cite[1]}`}
-              className="text-brand-600 dark:text-brand-400 hover:underline align-super text-[10px]"
+              className="text-brand-600 dark:text-brand-400 hover:underline align-super text-micro"
             >
               [{cite[1]}]
             </a>
@@ -102,13 +102,11 @@ export function ReportView({ report, onExportPdf, onExportMd }: Props): JSX.Elem
     <div className="space-y-5">
       {/* Cover */}
       <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden">
-        <div className={`px-4 py-1.5 text-[11px] font-mono font-semibold tracking-wide ${TLP_CLASS[tlp]}`}>
-          TLP:{tlp}
-        </div>
+        <div className={`px-4 py-1.5 text-mini font-mono font-semibold tracking-wide ${TLP_CLASS[tlp]}`}>TLP:{tlp}</div>
         <div className="p-5">
           <h1 className="font-display font-bold text-xl text-slate-900 dark:text-slate-100">{report.cover.title}</h1>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">{report.cover.subtitle}</p>
-          <div className="flex flex-wrap items-center gap-2 mt-3 text-[11px] font-mono text-slate-500 dark:text-slate-400">
+          <div className="flex flex-wrap items-center gap-2 mt-3 text-mini font-mono text-slate-500 dark:text-slate-400">
             <span>generated {report.cover.generated_at}</span>
             {report.cover.subject_badges.map((b) => (
               <span key={b} className="px-1.5 py-0.5 rounded border border-slate-300 dark:border-slate-700">
@@ -156,7 +154,7 @@ export function ReportView({ report, onExportPdf, onExportMd }: Props): JSX.Elem
             {report.key_findings.map((f, i) => (
               <li key={i} className="flex items-start gap-2 text-sm text-slate-700 dark:text-slate-300">
                 <span
-                  className={`shrink-0 mt-0.5 px-1.5 py-0.5 rounded text-[10px] font-mono ${CONF_CLASS[f.confidence] ?? ''}`}
+                  className={`shrink-0 mt-0.5 px-1.5 py-0.5 rounded text-micro font-mono ${CONF_CLASS[f.confidence] ?? ''}`}
                 >
                   {f.confidence}
                 </span>
