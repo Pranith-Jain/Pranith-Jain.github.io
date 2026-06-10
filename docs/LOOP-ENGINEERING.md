@@ -42,6 +42,9 @@ inherits this repo's footguns. See [`loops/README.md`](loops/README.md). Current
 - **D1 Migration Apply & Verify** — new forward migration, verify schema, gated remote apply.
 - **Rebase Before Deploy** — refresh onto fast-moving `origin/main` before shipping.
 
+Plus generic loops that apply to most projects (Ship PR Until Green, De-Sloppify Pass,
+Coverage Until Threshold, PR Self-Review, Spec-First Ship) — see `loops/README.md`.
+
 ## Layer 2 — Runtime loop engine (`api/src/lib/agent/`)
 
 The CTI investigator agent IS a loop, and its control flow is built from the same parts.

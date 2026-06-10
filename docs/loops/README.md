@@ -35,6 +35,19 @@ criteria to force success** — if stuck, the loop says to stop and report block
 | [D1 Migration Apply & Verify](d1-migration-apply-verify.md) | After adding a D1 migration                   | Live schema matches code reads/writes; remote applied only on confirm |
 | [Rebase Before Deploy](rebase-before-deploy.md)             | Right before deploying                        | Branch is on latest `origin/main` + `build:check` green               |
 
-Each template encodes a documented operational lesson for this repo, so the agent
-inherits the footguns (dual-worker deploy, silent provider rot, sandbox-only API tests,
-50-subrequest cron cap, blocked MCP-repo main) instead of rediscovering them.
+Each repo-specific template above encodes a documented operational lesson for this repo,
+so the agent inherits the footguns (dual-worker deploy, silent provider rot, sandbox-only
+API tests, 50-subrequest cron cap, blocked MCP-repo main) instead of rediscovering them.
+
+## Generic loops
+
+Loops that apply to almost any project, lightly adapted to this repo's commands and
+branch/auto-merge workflow.
+
+| Loop                                                    | When to run                                        | Exit when                                        |
+| ------------------------------------------------------- | -------------------------------------------------- | ------------------------------------------------ |
+| [Ship PR Until Green](ship-pr-until-green.md)           | Implementing a change end-to-end                   | All PR CI checks pass                            |
+| [De-Sloppify Pass](de-sloppify-pass.md)                 | After implementation                               | A fresh read finds nothing to clean + lint green |
+| [Coverage Until Threshold](coverage-until-threshold.md) | Raising test coverage                              | Coverage ≥ threshold with meaningful tests       |
+| [PR Self-Review](pr-self-review.md)                     | Before opening a PR                                | A fresh review pass finds nothing actionable     |
+| [Spec-First Ship](spec-first-ship.md)                   | Implementing from a `docs/superpowers/specs/` spec | Every checklist item implemented + tested        |
