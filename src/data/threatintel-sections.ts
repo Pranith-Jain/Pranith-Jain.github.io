@@ -647,6 +647,13 @@ export const SECTIONS: Section[] = [
         icon: KeyRound,
         badge: 'new',
       },
+      {
+        to: '/threatintel/supply-chain',
+        label: 'Supply-chain attack incidents',
+        desc: 'Confirmed software supply-chain compromises (npm/PyPI/container/AI-agents) with status, severity, blast radius, remediation, and GHSA sources — from supplychainattack.org.',
+        icon: AlertOctagon,
+        badge: 'new',
+      },
     ],
   },
   // ── Detection & Rules ───────────────────────────────────────────

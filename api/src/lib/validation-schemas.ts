@@ -897,6 +897,15 @@ export const cisaKevSchema = z.object({
   ransomware_only: z.string().optional(),
 });
 
+// supplychainattack.org incident catalog query filters. MUST mirror the exact
+// c.req.query reads in routes/supply-chain-attacks.ts (validate() schema parity).
+export const supplyChainAttacksSchema = z.object({
+  ecosystem: z.string().max(40).optional(),
+  status: z.string().max(20).optional(),
+  severity: z.string().max(20).optional(),
+  limit: z.string().regex(/^\d+$/).optional(),
+});
+
 export const securityUpdatesSchema = z.object({
   q: z.string().max(200).optional(),
   vendor: z.string().max(100).optional(),

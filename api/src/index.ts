@@ -376,6 +376,7 @@ import {
 import { exploitDbHandler } from './routes/exploit-db';
 import { securityUpdatesHandler } from './routes/security-updates';
 import { cisaKevHandler } from './routes/cisa-kev';
+import { supplyChainAttacksHandler } from './routes/supply-chain-attacks';
 import { passiveDnsLookupHandler } from './routes/passive-dns';
 import { gitHubSecurityHandler } from './routes/github-security';
 import { predictionsHandler } from './routes/predictions';
@@ -536,6 +537,7 @@ import {
   stixBundleTextSchema,
   exploitDbSchema,
   cisaKevSchema,
+  supplyChainAttacksSchema,
   securityUpdatesSchema,
   passiveDnsSchema,
   githubSecuritySchema,
@@ -1081,6 +1083,7 @@ app.get('/api/v1/exposed-host', exposedHostHandler);
 app.get('/api/v1/exploit-db', validate('query', exploitDbSchema), exploitDbHandler);
 app.get('/api/v1/security-updates', validate('query', securityUpdatesSchema), securityUpdatesHandler);
 app.get('/api/v1/cisa-kev', validate('query', cisaKevSchema), cisaKevHandler);
+app.get('/api/v1/supply-chain-attacks', validate('query', supplyChainAttacksSchema), supplyChainAttacksHandler);
 app.get('/api/v1/passive-dns', validate('query', passiveDnsSchema), passiveDnsLookupHandler);
 app.get('/api/v1/github-security', validate('query', githubSecuritySchema), gitHubSecurityHandler);
 app.get('/api/v1/predictions', predictionsHandler);
