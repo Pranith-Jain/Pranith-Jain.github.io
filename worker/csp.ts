@@ -16,7 +16,7 @@
 // scripts, so disallowing them means an injected inline <script> cannot execute
 // even if an output-escaping gap is reintroduced (defence-in-depth for CSP-1).
 const CSP_API =
-  "default-src 'self';script-src 'self' 'wasm-unsafe-eval' https://static.cloudflareinsights.com;style-src 'self' 'unsafe-inline';img-src 'self' data: https:;connect-src 'self' https://api.cloudflare.com https://cloudflare-dns.com https://cloudflareinsights.com https://*.cloudflareinsights.com https://unpkg.com;font-src 'self' data:;frame-ancestors 'none';base-uri 'self';form-action 'self';object-src 'none'";
+  "default-src 'self';script-src 'self' 'wasm-unsafe-eval' https://static.cloudflareinsights.com;style-src 'self' 'unsafe-inline';img-src 'self' data: https:;connect-src 'self' https://api.cloudflare.com https://cloudflare-dns.com https://cloudflareinsights.com https://*.cloudflareinsights.com https://unpkg.com https://nominatim.openstreetmap.org;font-src 'self' data:;frame-ancestors 'none';base-uri 'self';form-action 'self';object-src 'none'";
 
 export function cspHeader(nonce?: string): string {
   if (!nonce) return CSP_API;
@@ -25,7 +25,7 @@ export function cspHeader(nonce?: string): string {
     `script-src 'self' 'nonce-${nonce}' 'wasm-unsafe-eval' https://static.cloudflareinsights.com`,
     "style-src 'self' 'unsafe-inline'",
     "img-src 'self' data: https:",
-    "connect-src 'self' https://api.cloudflare.com https://cloudflare-dns.com https://cloudflareinsights.com https://*.cloudflareinsights.com https://unpkg.com",
+    "connect-src 'self' https://api.cloudflare.com https://cloudflare-dns.com https://cloudflareinsights.com https://*.cloudflareinsights.com https://unpkg.com https://nominatim.openstreetmap.org",
     "font-src 'self' data:",
     "frame-ancestors 'none'",
     "base-uri 'self'",
