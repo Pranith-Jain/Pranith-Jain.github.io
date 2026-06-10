@@ -1,7 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { fetchTransfers, type TracerChain } from '../lib/chain-sources';
-import { resolveSeedLabel, type AddressLabel, type LabelCategory } from '../lib/address-labels';
+import { resolveSeedLabel, loadLabelsForAddresses, type AddressLabel, type LabelCategory } from '../lib/address-labels';
 import { scoreAddress, type RiskScore } from '../lib/risk-score';
 import { loadSanctionedSet, type SanctionsChain } from '../lib/ofac-sanctions';
 import { loadScamSnifferSet } from '../lib/scamsniffer';
@@ -110,7 +110,17 @@ export async function tracerExpandHandler(c: Context<{ Bindings: Env }>): Promis
     chain === 'evm' ? loadScamSnifferSet() : Promise.resolve(new Set<string>()),
   ]);
 
-  let rootOverride: AddressLabel | null = resolveSeedLabel(address, chain);
+  const direction = input.direction ?? 'both';
+  const { transfers, truncated } = await fetchTransfers(chain, address, filter, scamSet);
+
+  // Collect every address we will render, then load all D1 labels in ONE query.
+  const allAddresses = [address, ...transfers.map((t) => t.counterparty)];
+  const dbLabels = await loadLabelsForAddresses(c.env.BRIEFINGS_DB, chain, allAddresses);
+  const dbLabelFor = (addr: string): AddressLabel | null =>
+    dbLabels.get(chain === 'evm' ? addr.toLowerCase() : addr) ?? null;
+
+  // Root label precedence: D1 → seed → (EVM only) Blockscout/ENS.
+  let rootOverride: AddressLabel | null = dbLabelFor(address) ?? resolveSeedLabel(address, chain);
   if (chain === 'evm' && !rootOverride) {
     const ctx = await getAddressContext(address);
     const lbl = ctx.label ?? ctx.ens_name;
@@ -128,9 +138,6 @@ export async function tracerExpandHandler(c: Context<{ Bindings: Env }>): Promis
 
   const root = buildNode(chain, address, true, sanctionedSet, scamSet, rootOverride);
 
-  const direction = input.direction ?? 'both';
-  const { transfers, truncated } = await fetchTransfers(chain, address, filter, scamSet);
-
   const nodes: TracerNode[] = [root];
   const edges: TracerEdge[] = [];
   const seen = new Set<string>([root.id]);
@@ -141,11 +148,12 @@ export async function tracerExpandHandler(c: Context<{ Bindings: Env }>): Promis
     const cpId = nodeId(chain, t.counterparty);
     if (!seen.has(cpId)) {
       seen.add(cpId);
-      nodes.push(buildNode(chain, t.counterparty, false, sanctionedSet, scamSet));
+      // Counterparty label precedence: D1 → seed (buildNode falls back to seed when override is null).
+      nodes.push(buildNode(chain, t.counterparty, false, sanctionedSet, scamSet, dbLabelFor(t.counterparty)));
     }
     const source = t.direction === 'out' ? root.id : cpId;
     const target = t.direction === 'out' ? cpId : root.id;
-    // Edge id is tx-grained (one edge per tx per counterparty); multi-transfer txs to the same counterparty intentionally collapse to one edge in Phase A.
+    // Edge id is tx-grained (one edge per tx per counterparty); multi-transfer txs to the same counterparty intentionally collapse to one edge.
     edges.push({
       id: `${t.tx_hash}:${cpId}`,
       source,
