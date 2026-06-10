@@ -25,13 +25,33 @@ import { validateInternalToken, ALLOWED_INTERNAL_CALLERS } from './internal-toke
 const ALLOWED_ORIGINS = new Set(['https://pranithjain.qzz.io', 'http://localhost:5173', 'http://localhost:8787']);
 
 /**
- * OPEN_PUBLIC_READS auto-expiry. The emergency valve (wrangler secret)
- * disables API key auth for all GET/HEAD requests when set to 'true'.
- * To prevent accidental permanent exposure, we track when the valve was
- * first observed open and auto-close after VALVE_MAX_AGE_MS.
+ * OPEN_PUBLIC_READS emergency valve. When set, GET/HEAD reads bypass the
+ * API-key requirement until a deterministic "open until" instant. The secret
+ * value is parsed by `valveOpenUntilMs`:
+ *   - an ISO-8601 timestamp or epoch-millis → keyless reads allowed only while
+ *     `now < that instant`, enforced identically by every isolate (stateless);
+ *   - the legacy literal `'true'` → open but NON-expiring (logged at error level
+ *     on every pass so it cannot silently become permanent — prefer a timestamp).
+ *
+ * The previous implementation tracked "first observed open" in a module-global
+ * with a 1-hour auto-close. That never reliably closed: Worker module globals are
+ * per-isolate and reset on every new isolate, so each fresh isolate re-opened the
+ * valve and restarted its timer — leaving the valve effectively open forever.
+ *
+ * Returns the epoch-ms the valve is open until (Infinity for legacy 'true'),
+ * or null when the valve is unset/blank/malformed (i.e. closed).
  */
-const VALVE_MAX_AGE_MS = 60 * 60_000; // 1 hour
-let valveOpenedAt: number | null = null;
+export function valveOpenUntilMs(raw: string | undefined | null): number | null {
+  const v = (raw ?? '').trim();
+  if (v === '') return null;
+  if (v.toLowerCase() === 'true') return Number.POSITIVE_INFINITY; // legacy: open, non-expiring
+  if (/^\d{10,}$/.test(v)) {
+    const ms = Number(v);
+    return Number.isFinite(ms) ? ms : null;
+  }
+  const t = Date.parse(v); // ISO-8601
+  return Number.isNaN(t) ? null : t;
+}
 
 /** Request paths that bypass API key auth — used for webhooks called by external services (Telegram, etc.). Handler-level auth (requireAdmin) still applies. */
 const EXEMPT_PATHS = new Set([
@@ -68,16 +88,39 @@ function extractKey(c: Context<{ Bindings: Env }>): string | null {
 }
 
 /**
- * Check if request originates from the same site (frontend).
- * Uses Origin header (preferred) or Referer as fallback.
+ * Check if a request originates from our own front-end (same-origin).
+ *
+ * Signals, most-robust first:
+ *  1. `Sec-Fetch-Site: same-origin`/`same-site` — a Fetch-Metadata header the
+ *     browser sets on EVERY request and that page JS cannot forge (forbidden
+ *     header name). Critically it is present on same-origin GET `fetch()`s, which
+ *     omit `Origin` entirely (per the Fetch standard, `Origin` is only sent
+ *     cross-origin or for non-safe methods) and whose `Referer` can be stripped
+ *     by privacy settings — exactly the case the SOC dashboards' reads hit. Relying
+ *     on Origin/Referer alone meant a stripped Referer → 403 → blank dashboards.
+ *  2. `Origin` — present cross-origin / for non-safe methods; kept for completeness.
+ *  3. `Referer` — best-effort fallback; parse the ORIGIN, never prefix-match (a
+ *     prefix match let `https://pranithjain.qzz.io.evil.com/` satisfy the gate).
+ *
+ * This exemption is convenience, not a hard boundary — any non-browser client can
+ * forge all three headers. Real protection for sensitive routes is the API-key /
+ * admin gate, so honoring Sec-Fetch-Site does not weaken the posture.
  */
 function isSameOrigin(c: Context<{ Bindings: Env }>): boolean {
-  const origin = c.req.header('origin') ?? '';
   const allowed = new Set(ALLOWED_ORIGINS);
   if (c.env?.SITE_URL) allowed.add(c.env.SITE_URL.replace(/\/$/, ''));
+
+  const origin = c.req.header('origin') ?? '';
+  // A present-but-foreign Origin means this is NOT our same-origin SPA — never
+  // let a (curl-forgeable) Sec-Fetch-Site override an explicit cross-origin Origin.
+  const originConflicts = origin !== '' && !allowed.has(origin);
+
+  // `same-origin` only (not `same-site`) — the SPA is a single origin, so its
+  // own reads always report exactly `same-origin`; browsers can't forge it.
+  if (!originConflicts && c.req.header('sec-fetch-site') === 'same-origin') return true;
+
   if (origin && allowed.has(origin)) return true;
-  // Compare the Referer's parsed ORIGIN, not a string prefix. A prefix match
-  // let `https://pranithjain.qzz.io.evil.com/` satisfy the gate.
+
   const referer = c.req.header('referer') ?? '';
   if (referer) {
     try {
@@ -154,51 +197,28 @@ export function authenticate(mode: boolean | 'external-only'): MiddlewareHandler
 
     // External reads (GET/HEAD) are gated behind an API key. Mint one at /admin
     // and send it via `Authorization: Bearer <key>` or `X-API-Key`. The website
-    // itself is exempt via the same-origin check above. Emergency valve:
-    // set the OPEN_PUBLIC_READS secret to 'true' to restore keyless reads
-    // without a redeploy. Auto-closes after VALVE_MAX_AGE_MS to prevent
-    // permanent accidental exposure.
-    if (
-      mode === 'external-only' &&
-      c.env.OPEN_PUBLIC_READS === 'true' &&
-      (c.req.method === 'GET' || c.req.method === 'HEAD')
-    ) {
-      // Track when the valve was first observed open
-      if (valveOpenedAt === null) {
-        valveOpenedAt = Date.now();
-        console.warn(
+    // itself is exempt via the same-origin check above. Break-glass: set the
+    // OPEN_PUBLIC_READS secret to an ISO/epoch-ms expiry (or legacy 'true') to
+    // allow keyless reads without a redeploy — see valveOpenUntilMs.
+    if (mode === 'external-only' && (c.req.method === 'GET' || c.req.method === 'HEAD')) {
+      const openUntil = valveOpenUntilMs(c.env.OPEN_PUBLIC_READS);
+      if (openUntil !== null && Date.now() < openUntil) {
+        const nonExpiring = openUntil === Number.POSITIVE_INFINITY;
+        console[nonExpiring ? 'error' : 'warn'](
           JSON.stringify({
-            level: 'warn',
-            event: 'open_public_reads_valve_opened',
-            message: 'OPEN_PUBLIC_READS is true — API key auth disabled for GET/HEAD. Auto-closes in 1 hour.',
-            auto_close_at: new Date(Date.now() + VALVE_MAX_AGE_MS).toISOString(),
-          })
-        );
-      }
-      // Auto-close after the max age
-      if (Date.now() - valveOpenedAt > VALVE_MAX_AGE_MS) {
-        console.error(
-          JSON.stringify({
-            level: 'error',
-            event: 'open_public_reads_valve_expired',
-            message: 'OPEN_PUBLIC_READS valve auto-closed after 1 hour. Set again via wrangler secret if needed.',
-          })
-        );
-        valveOpenedAt = null;
-        // Fall through to normal auth (reject the request)
-      } else {
-        // Log every request that passes through the valve
-        console.warn(
-          JSON.stringify({
-            level: 'warn',
+            level: nonExpiring ? 'error' : 'warn',
             event: 'open_public_reads_passthrough',
+            message: nonExpiring
+              ? "OPEN_PUBLIC_READS='true' — keyless reads are OPEN and NON-EXPIRING; set an ISO/epoch-ms expiry or unset to close."
+              : 'OPEN_PUBLIC_READS valve open — keyless reads allowed until expiry.',
             path: new URL(c.req.url).pathname,
             method: c.req.method,
-            remaining_ms: VALVE_MAX_AGE_MS - (Date.now() - valveOpenedAt),
+            open_until: nonExpiring ? 'never' : new Date(openUntil).toISOString(),
           })
         );
         return next();
       }
+      // valve unset/expired → fall through to normal key auth below
     }
 
     const required = mode === true || mode === 'external-only';
