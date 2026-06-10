@@ -269,6 +269,44 @@ export const FETCHERS: Record<string, Fetcher> = {
       { text, fields: { kind: 'vulncheck', exploited: true, records: vc.ok.records, reported: vc.ok.reported } },
     ]);
   },
+
+  // Supply-chain incidents (supplychainattack.org) — for ransomware/actor subjects.
+  // One live fetch of the upstream catalog, filtered to incidents matching the subject.
+  'supply-chain-attacks': async (ctx, src) => {
+    if (ctx.subject.type !== 'ransomware' && ctx.subject.type !== 'actor') return base(src, 'empty');
+    const q = needle(ctx);
+    try {
+      const res = await fetch('https://supplychainattack.org/incidents.json', {
+        headers: { 'User-Agent': 'pranithjain-dfir/1.0', accept: 'application/json' },
+        cf: { cacheTtl: 900, cacheEverything: true },
+        signal: ctx.signal,
+      } as RequestInit);
+      if (!res.ok) return base(src, 'error');
+      const data = (await res.json()) as { incidents?: unknown };
+      const items: SourceItem[] = [];
+      for (const inc of arr(data.incidents)) {
+        const iocs = (inc.iocs ?? {}) as Row;
+        const packages = Array.isArray(iocs.packages) ? (iocs.packages as unknown[]) : [];
+        const entities = arr(inc.affectedEntities);
+        const match =
+          has(inc.title, q) ||
+          has(inc.summary, q) ||
+          packages.some((p) => has(p, q)) ||
+          entities.some((e) => has((e as Row).name, q));
+        if (!match) continue;
+        const ecosystems = Array.isArray(inc.ecosystems) ? (inc.ecosystems as string[]).join(', ') : '';
+        items.push({
+          text: `${str(inc.title) ?? 'Supply-chain incident'} (${str(inc.severity) ?? 'n/a'}, ${str(inc.status) ?? 'n/a'})${ecosystems ? ` · ${ecosystems}` : ''}`,
+          url: str(inc.url),
+          fields: { kind: 'supply-chain', ecosystems: inc.ecosystems, attack_vectors: inc.attackVectors, packages, status: inc.status },
+        });
+        if (items.length >= MAX_ITEMS) break;
+      }
+      return base(src, items.length ? 'ok' : 'empty', items);
+    } catch {
+      return base(src, 'error');
+    }
+  },
 };
 
 // Shared CVE fetcher (nvd/epss/kev all resolve from one lookupCve call).

@@ -404,6 +404,26 @@ export function buildToolRegistry(
       params: [],
       execute: () => apiFetch(self, '/api/v1/breach-disclosures', apiKey, undefined, ih),
     },
+    {
+      name: 'get_supply_chain_attacks',
+      description:
+        'Software supply-chain compromise incidents (npm/PyPI/container/AI-agent ecosystems) from supplychainattack.org. Returns title, status, severity, ecosystems, attack vectors, blast radius, remediation, package IOCs, and GHSA sources. Filter by ecosystem/status/severity.',
+      params: [
+        { name: 'ecosystem', type: 'string', description: 'Ecosystem filter, e.g. npm/pypi (optional)', required: false },
+        { name: 'status', type: 'string', description: 'Incident status: active/contained/resolved (optional)', required: false },
+        { name: 'severity', type: 'string', description: 'Severity: critical/high/medium/low (optional)', required: false },
+        { name: 'limit', type: 'number', description: 'Max incidents (optional)', required: false },
+      ],
+      execute: (args) => {
+        const p = new URLSearchParams();
+        if (args.ecosystem) p.set('ecosystem', String(args.ecosystem));
+        if (args.status) p.set('status', String(args.status));
+        if (args.severity) p.set('severity', String(args.severity));
+        if (args.limit) p.set('limit', String(args.limit));
+        const qs = p.toString();
+        return apiFetch(self, `/api/v1/supply-chain-attacks${qs ? `?${qs}` : ''}`, apiKey, undefined, ih);
+      },
+    },
 
     // ══════════════════════════════════════════════════════════════════════
     //  DETECTION RULES & HUNTING

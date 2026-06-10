@@ -17,6 +17,7 @@ export const SOURCE_CATALOG: Record<TemplateId, SourceDescriptor[]> = {
     { id: 'malpedia', name: 'Malpedia', kind: 'live', authority: 'A', cost: 2 },
     { id: 'mitre-group', name: 'MITRE ATT&CK group', kind: 'live', authority: 'A', cost: 2 },
     { id: 'kev-cves', name: 'CISA KEV (group CVEs)', kind: 'live', authority: 'A', cost: 2 },
+    { id: 'supply-chain-attacks', name: 'Supply Chain Incidents', kind: 'live', authority: 'B', cost: 2 },
   ],
   'threat-actor': [
     { id: 'actor-timeline', name: 'Actor Timeline', kind: 'cache', authority: 'C', cost: 0 },
@@ -27,6 +28,7 @@ export const SOURCE_CATALOG: Record<TemplateId, SourceDescriptor[]> = {
     { id: 'mitre-group', name: 'MITRE ATT&CK group', kind: 'live', authority: 'A', cost: 2 },
     { id: 'malpedia', name: 'Malpedia', kind: 'live', authority: 'A', cost: 2 },
     { id: 'wikipedia', name: 'Wikipedia', kind: 'live', authority: 'D', cost: 2 },
+    { id: 'supply-chain-attacks', name: 'Supply Chain Incidents', kind: 'live', authority: 'B', cost: 2 },
   ],
   cve: [
     { id: 'cve-recent', name: 'CVE Recent', kind: 'cache', authority: 'B', cost: 0 },
