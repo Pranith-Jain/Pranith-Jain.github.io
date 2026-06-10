@@ -246,8 +246,16 @@ export async function snapshotHandler(c: Context<{ Bindings: Env }>): Promise<Re
       throw new Error('all ransomware upstreams unreachable');
     }),
     budgeted(async () => {
-      // Read /api/v1/telegram-feed's edge-cache first; only fan out to the
-      // Telegram channels if the per-route cache is cold.
+      // Prefer the GLOBAL gp:warm KV blob: the hourly cron writes it once and
+      // KV is the same in every colo, so this avoids the per-colo cold-cache
+      // problem that made cold colos rebuild (and time out) the telegram feed.
+      if (c.env.KV_CACHE) {
+        const warm = (await c.env.KV_CACHE.get('gp:warm', 'json').catch(() => null)) as {
+          telegram?: TelegramFeedResponse;
+        } | null;
+        if (warm?.telegram?.channels?.length) return warm.telegram;
+      }
+      // Per-colo edge cache next.
       const cached = await cache.match(TELEGRAM_FEED_CACHE_KEY);
       if (cached) return (await cached.json()) as TelegramFeedResponse;
       // Cold per-colo cache: a full rebuild fans out to ~22 t.me previews
