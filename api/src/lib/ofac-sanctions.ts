@@ -116,3 +116,16 @@ export async function checkAddress(address: string, chains: SanctionsChain[]): P
     source_url: 'https://github.com/0xB10C/ofac-sanctioned-digital-currency-addresses',
   };
 }
+
+/**
+ * Load and merge the sanctioned-address sets for the given chains ONCE, so a
+ * caller can do many in-memory `.has()` checks without per-address Cache-API ops
+ * (which count toward the Worker subrequest budget). Values are normalised the
+ * same way as `checkAddress` (lowercased for EVM/bech32, exact otherwise).
+ */
+export async function loadSanctionedSet(chains: SanctionsChain[]): Promise<Set<string>> {
+  const merged = new Set<string>();
+  const sets = await Promise.all(chains.map((c) => loadList(c)));
+  for (const s of sets) for (const a of s) merged.add(a);
+  return merged;
+}

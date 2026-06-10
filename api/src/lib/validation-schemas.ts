@@ -914,3 +914,54 @@ export const githubSecuritySchema = z.object({
   ecosystem: z.string().max(50).optional(),
   package: z.string().max(100).optional(),
 });
+
+// ── Crypto Tracer (Phase A/B) ───────────────────────────────────
+
+export const tracerExpandSchema = z
+  .object({
+    address: z.string().min(1, 'address is required').max(200, 'address too long'),
+    chain: z.enum(['evm', 'btc', 'tron']),
+    direction: z.enum(['in', 'out', 'both']).optional(),
+    from: z.string().datetime().optional(),
+    to: z.string().datetime().optional(),
+    around: z.string().datetime().optional(),
+    toleranceMin: z.number().int().positive().max(10080).optional(),
+    token: z.string().max(20).optional(),
+    minAmount: z.number().nonnegative().optional(),
+    maxTransfers: z.number().int().positive().max(100).optional(),
+  })
+  .refine((d) => !d.around || d.toleranceMin !== undefined, {
+    message: 'toleranceMin is required when around is set',
+    path: ['toleranceMin'],
+  });
+export type TracerExpandInput = z.infer<typeof tracerExpandSchema>;
+
+export const tracerLabelSchema = z.object({
+  address: z.string().min(1, 'address is required').max(200, 'address too long'),
+  chain: z.enum(['evm', 'btc', 'tron']),
+});
+export type TracerLabelInput = z.infer<typeof tracerLabelSchema>;
+
+export const tracerLabelAddSchema = z.object({
+  address: z.string().min(1, 'address is required').max(200, 'address too long'),
+  chain: z.enum(['evm', 'btc', 'tron']),
+  label: z.string().min(1, 'label is required').max(80, 'label too long'),
+  category: z.enum([
+    'exchange',
+    'mixer',
+    'bridge',
+    'defi',
+    'contract',
+    'ransomware',
+    'scammer',
+    'sanctioned',
+    'wallet',
+  ]),
+});
+export type TracerLabelAddInput = z.infer<typeof tracerLabelAddSchema>;
+
+export const tracerCalldataSchema = z.object({
+  chain: z.enum(['evm', 'tron']),
+  hash: z.string().min(1, 'hash is required').max(80, 'hash too long'),
+});
+export type TracerCalldataInput = z.infer<typeof tracerCalldataSchema>;
