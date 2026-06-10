@@ -17,6 +17,7 @@ import {
   FileCode,
   FileText,
   GitBranch,
+  Megaphone,
   GitBranchPlus,
   Globe,
   Globe2,
@@ -760,6 +761,20 @@ export const SECTIONS: Section[] = [
         badge: 'new',
       },
       {
+        to: '/threatintel/volexity',
+        label: 'Volexity APT IOCs',
+        desc: "Volexity's published APT/malware research IOCs + YARA rules (BSD-2), per research write-up — pivot indicators to the IOC checker.",
+        icon: Users,
+        badge: 'new',
+      },
+      {
+        to: '/threatintel/disarm',
+        label: 'DISARM (disinformation TTPs)',
+        desc: 'The DISARM framework for Foreign Information Manipulation & Interference (FIMI) — ATT&CK-shaped disinformation techniques + tactics (STIX 2.1, CC BY-SA).',
+        icon: Megaphone,
+        badge: 'new',
+      },
+      {
         to: '/threatintel/actors',
         label: 'Threat Actors',
         desc: 'APT catalogue. STIX-aware, with TTPs, associated tooling, and MITRE technique mapping per actor.',
@@ -813,6 +828,13 @@ export const SECTIONS: Section[] = [
     label: 'Frameworks',
     blurb: 'MITRE ATT&CK, ATLAS, insider threat matrix, and analytic tradecraft.',
     tools: [
+      {
+        to: '/threatintel/attack-flow-library',
+        label: 'Attack Flow Library',
+        desc: 'CTID Attack Flow corpus — ~40 real incidents as ordered STIX 2.1 attack-flow graphs (Apache-2.0). Browse + render a flow.',
+        icon: GitBranch,
+        badge: 'new',
+      },
       {
         to: '/threatintel/mitre',
         label: 'MITRE ATT&CK',

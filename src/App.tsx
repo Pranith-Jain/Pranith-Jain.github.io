@@ -194,6 +194,9 @@ const K8sCve = lazy(() => import('./pages/threatintel/K8sCve'));
 const MispGalaxyActors = lazy(() => import('./pages/threatintel/MispGalaxyActors'));
 const CloudThreatLandscape = lazy(() => import('./pages/threatintel/CloudThreatLandscape'));
 const Ransomwhere = lazy(() => import('./pages/threatintel/Ransomwhere'));
+const DisarmFramework = lazy(() => import('./pages/threatintel/DisarmFramework'));
+const AttackFlowLibrary = lazy(() => import('./pages/threatintel/AttackFlowLibrary'));
+const VolexityThreatIntel = lazy(() => import('./pages/threatintel/VolexityThreatIntel'));
 const XWatch = lazy(() => import('./pages/threatintel/XWatch'));
 const XLive = lazy(() => import('./pages/threatintel/XLive'));
 const CybersecTelegramPage = lazy(() => import('./pages/threatintel/CybersecTelegram'));
@@ -397,6 +400,9 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel/misp-galaxy-actors', Component: MispGalaxyActors },
   { path: '/threatintel/cloud-threat-landscape', Component: CloudThreatLandscape },
   { path: '/threatintel/ransomwhere', Component: Ransomwhere },
+  { path: '/threatintel/disarm', Component: DisarmFramework },
+  { path: '/threatintel/attack-flow-library', Component: AttackFlowLibrary },
+  { path: '/threatintel/volexity', Component: VolexityThreatIntel },
   { path: '/threatintel/x-watch', Component: XWatch },
   { path: '/threatintel/x-live', Component: XLive },
   { path: '/threatintel/mythreatintel', Component: MyThreatIntelPage },

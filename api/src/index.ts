@@ -396,6 +396,9 @@ import { k8sCveHandler } from './routes/k8s-cve';
 import { mispGalaxyActorsHandler } from './routes/misp-galaxy-actors';
 import { cloudThreatLandscapeHandler } from './routes/cloud-threat-landscape';
 import { ransomwhereHandler } from './routes/ransomwhere';
+import { disarmFrameworkHandler } from './routes/disarm-framework';
+import { attackFlowLibraryHandler } from './routes/attack-flow-library';
+import { volexityThreatIntelHandler } from './routes/volexity-threat-intel';
 import { passiveDnsLookupHandler } from './routes/passive-dns';
 import { gitHubSecurityHandler } from './routes/github-security';
 import { predictionsHandler } from './routes/predictions';
@@ -567,6 +570,9 @@ import {
   mispGalaxyActorsSchema,
   cloudThreatLandscapeSchema,
   ransomwhereSchema,
+  disarmFrameworkSchema,
+  attackFlowLibrarySchema,
+  volexityThreatIntelSchema,
   securityUpdatesSchema,
   passiveDnsSchema,
   githubSecuritySchema,
@@ -1125,6 +1131,9 @@ app.get('/api/v1/k8s-cve', validate('query', k8sCveSchema), k8sCveHandler);
 app.get('/api/v1/misp-galaxy-actors', validate('query', mispGalaxyActorsSchema), mispGalaxyActorsHandler);
 app.get('/api/v1/cloud-threat-landscape', validate('query', cloudThreatLandscapeSchema), cloudThreatLandscapeHandler);
 app.get('/api/v1/ransomwhere', validate('query', ransomwhereSchema), ransomwhereHandler);
+app.get('/api/v1/disarm-framework', validate('query', disarmFrameworkSchema), disarmFrameworkHandler);
+app.get('/api/v1/attack-flow-library', validate('query', attackFlowLibrarySchema), attackFlowLibraryHandler);
+app.get('/api/v1/volexity-threat-intel', validate('query', volexityThreatIntelSchema), volexityThreatIntelHandler);
 app.get('/api/v1/passive-dns', validate('query', passiveDnsSchema), passiveDnsLookupHandler);
 app.get('/api/v1/github-security', validate('query', githubSecuritySchema), gitHubSecurityHandler);
 app.get('/api/v1/predictions', predictionsHandler);

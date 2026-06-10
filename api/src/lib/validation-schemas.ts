@@ -936,6 +936,29 @@ export const cloudThreatLandscapeSchema = z.object({
   limit: z.string().regex(/^\d+$/).optional(),
 });
 
+// DISARM Frameworks (FIMI / disinformation TTPs) STIX query filters (parity).
+export const disarmFrameworkSchema = z.object({
+  type: z.string().max(40).optional(),
+  q: z.string().max(200).optional(),
+  limit: z.string().regex(/^\d+$/).optional(),
+});
+
+// CTID Attack Flow corpus query filters (parity). `flow` is matched against the
+// manifest case-insensitively (never built into a path), hence a free string.
+export const attackFlowLibrarySchema = z.object({
+  flow: z.string().max(160).optional(),
+  q: z.string().max(120).optional(),
+  limit: z.string().regex(/^\d+$/).optional(),
+});
+
+// Volexity threat-intel (GitHub repo) query filters (parity).
+export const volexityThreatIntelSchema = z.object({
+  folder: z.string().max(300).optional(),
+  year: z.string().regex(/^\d{4}$/).optional(),
+  q: z.string().max(200).optional(),
+  limit: z.string().regex(/^\d+$/).optional(),
+});
+
 export const securityUpdatesSchema = z.object({
   q: z.string().max(200).optional(),
   vendor: z.string().max(100).optional(),
