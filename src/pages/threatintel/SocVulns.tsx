@@ -410,13 +410,8 @@ export default function SocVulns(): JSX.Element {
         </SocPanel>
       </div>
 
-      {/* ─── Charts row 2: CVSS dist + KEV list ──────────────────── */}
+      {/* ─── Charts row 2: KEV list (wide, left) + CVSS dist ─────── */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 sm:gap-4">
-        <SocPanel>
-          <SocSection title="CVSS distribution" />
-          <SocBar items={cvssBins} vertical height={160} />
-        </SocPanel>
-
         <SocPanel className="lg:col-span-2">
           <SocSection
             title="KEV-flagged (recent)"
@@ -430,6 +425,11 @@ export default function SocVulns(): JSX.Element {
             }
           />
           <KevTable rows={kevList} />
+        </SocPanel>
+
+        <SocPanel>
+          <SocSection title="CVSS distribution" />
+          <SocBar items={cvssBins} vertical height={180} />
         </SocPanel>
       </div>
     </SocShell>

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { ShieldAlert, Skull, Users, Crosshair, ExternalLink } from 'lucide-react';
+import { ShieldAlert, Skull, Users, Crosshair, Building2, ExternalLink } from 'lucide-react';
 import { fetchJson } from '../../lib/fetch-json';
 import { SocShell, SocKpi, SocSection, SocPanel, type SocStatus } from '../../components/threatintel/soc/SocShell';
 import { SocBar, SocDonut, type BarItem, type DonutSlice } from '../../components/threatintel/soc/SocCharts';
@@ -236,7 +236,7 @@ export default function SocRansomware(): JSX.Element {
       }
     >
       {/* ─── KPI row ──────────────────────────────────────────────── */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 mb-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-6">
         <SocKpi
           label="Registered victims"
           value={formatNumber(totalClaims)}
@@ -265,6 +265,20 @@ export default function SocRansomware(): JSX.Element {
           sub="share of total claims"
           icon={<Crosshair size={16} />}
         />
+        <SocKpi
+          label="Top sector"
+          value={
+            <span className="inline-flex items-baseline gap-2">
+              <span className="truncate">{data?.sectors?.[0]?.sector ?? '—'}</span>
+              {data?.sectors?.[0] && (
+                <span className="text-2xl text-slate-500 dark:text-slate-400">({data.sectors[0].pct}%)</span>
+              )}
+            </span>
+          }
+          severity="medium"
+          sub="most-targeted industry"
+          icon={<Building2 size={16} />}
+        />
       </div>
 
       {/* ─── Charts row 1: actor bar + country donut + sector donut ─── */}
@@ -290,16 +304,8 @@ export default function SocRansomware(): JSX.Element {
             <SocDonut
               slices={countrySlices}
               size={180}
-              centerLabel={
-                <span>
-                  {countrySlices[0]?.label ?? '—'}
-                  <br />
-                  <span className="text-meta font-mono text-slate-500">
-                    {countrySlices[0] ? `${Math.round((countrySlices[0].value / victims.length) * 100)}%` : ''}
-                  </span>
-                </span>
-              }
-              centerSub="top country"
+              centerLabel={formatNumber(countrySlices.reduce((s, x) => s + x.value, 0))}
+              centerSub="by country"
             />
           ) : (
             <p className="text-meta font-mono text-slate-500 italic">No country attribution in this window.</p>
@@ -309,7 +315,12 @@ export default function SocRansomware(): JSX.Element {
         <SocPanel>
           <SocSection title="Distribution by sector" />
           {sectorSlices.length > 0 ? (
-            <SocDonut slices={sectorSlices} size={180} centerSub="by sector" />
+            <SocDonut
+              slices={sectorSlices}
+              size={180}
+              centerLabel={formatNumber(sectorSlices.reduce((s, x) => s + x.value, 0))}
+              centerSub="by sector"
+            />
           ) : (
             <p className="text-meta font-mono text-slate-500 italic">No sector attribution in this window.</p>
           )}
