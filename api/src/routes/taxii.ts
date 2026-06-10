@@ -2,6 +2,7 @@ import type { Context } from 'hono';
 import type { Env } from '../env';
 import { getSiteUrl } from '../lib/site-config';
 import { safeEqual } from '../lib/admin-auth';
+import { stixId } from '../lib/uuidv5';
 import type { D1Database } from '@cloudflare/workers-types';
 
 /**
@@ -227,7 +228,11 @@ export async function taxiiAddObjectsHandler(c: Context<{ Bindings: Env }>): Pro
 
 // ── Helper functions to build STIX objects ─────────────────────────────
 
-async function getIocObjects(db: D1Database, limit: number, addedAfter?: string): Promise<Record<string, unknown>[]> {
+export async function getIocObjects(
+  db: D1Database,
+  limit: number,
+  addedAfter?: string
+): Promise<Record<string, unknown>[]> {
   // Get recent IOCs from lifecycle table
   let query = `
     SELECT indicator, indicator_type, first_seen, last_seen, peak_score, tags
@@ -256,27 +261,29 @@ async function getIocObjects(db: D1Database, limit: number, addedAfter?: string)
       tags: string;
     }>();
 
-  return (rows.results ?? []).map((row) => {
-    const tags: string[] = JSON.parse(row.tags ?? '[]');
+  return await Promise.all(
+    (rows.results ?? []).map(async (row) => {
+      const tags: string[] = JSON.parse(row.tags ?? '[]');
 
-    return {
-      type: 'indicator',
-      spec_version: '2.1',
-      id: `indicator--${crypto.randomUUID()}`,
-      created: row.first_seen,
-      modified: row.last_seen,
-      name: row.indicator,
-      description: `IOC from threat intelligence feeds. Tags: ${tags.join(', ')}`,
-      pattern: buildStixPattern(row.indicator, row.indicator_type),
-      pattern_type: 'stix',
-      valid_from: row.first_seen,
-      labels: tags.slice(0, 5),
-      confidence: row.peak_score >= 70 ? 85 : row.peak_score >= 40 ? 60 : 30,
-    };
-  });
+      return {
+        type: 'indicator',
+        spec_version: '2.1',
+        id: await stixId('indicator', `indicator|${row.indicator_type}|${String(row.indicator).toLowerCase()}`),
+        created: row.first_seen,
+        modified: row.last_seen,
+        name: row.indicator,
+        description: `IOC from threat intelligence feeds. Tags: ${tags.join(', ')}`,
+        pattern: buildStixPattern(row.indicator, row.indicator_type),
+        pattern_type: 'stix',
+        valid_from: row.first_seen,
+        labels: tags.slice(0, 5),
+        confidence: row.peak_score >= 70 ? 85 : row.peak_score >= 40 ? 60 : 30,
+      };
+    })
+  );
 }
 
-async function getActorObjects(db: D1Database, limit: number): Promise<Record<string, unknown>[]> {
+export async function getActorObjects(db: D1Database, limit: number): Promise<Record<string, unknown>[]> {
   // Query graph DB for actor nodes; fall back to hardcoded if empty
   const rows = await db
     .prepare(
@@ -284,25 +291,28 @@ async function getActorObjects(db: D1Database, limit: number): Promise<Record<st
     )
     .bind('actor', limit)
     .all<{ id: string; value: string; properties: string; confidence: number; sources: string; last_seen: string }>();
-  const fromDb = (rows.results ?? []).map((r) => {
-    const props = JSON.parse(r.properties || '{}') as Record<string, unknown>;
-    const sources = JSON.parse(r.sources || '[]') as string[];
-    return {
-      type: 'threat-actor',
-      spec_version: '2.1',
-      id: `threat-actor--${crypto.randomUUID()}`,
-      created: r.last_seen,
-      modified: r.last_seen,
-      name: props.label ?? r.value,
-      aliases: [r.value],
-      description: `Threat actor from ${sources.join(', ') || 'unknown source'}`,
-      threat_actor_types: ['unknown'],
-      sophistication: 'advanced',
-      resource_level: 'unknown',
-      primary_motivation: 'unknown',
-      confidence: r.confidence,
-    };
-  });
+  const fromDb = await Promise.all(
+    (rows.results ?? []).map(async (r) => {
+      const props = JSON.parse(r.properties || '{}') as Record<string, unknown>;
+      const sources = JSON.parse(r.sources || '[]') as string[];
+      const actorName = (props.label ?? r.value) as string;
+      return {
+        type: 'threat-actor',
+        spec_version: '2.1',
+        id: await stixId('threat-actor', `threat-actor|${actorName}`),
+        created: r.last_seen,
+        modified: r.last_seen,
+        name: actorName,
+        aliases: [r.value],
+        description: `Threat actor from ${sources.join(', ') || 'unknown source'}`,
+        threat_actor_types: ['unknown'],
+        sophistication: 'advanced',
+        resource_level: 'unknown',
+        primary_motivation: 'unknown',
+        confidence: r.confidence,
+      };
+    })
+  );
 
   if (fromDb.length > 0) return fromDb;
 
@@ -314,45 +324,50 @@ async function getActorObjects(db: D1Database, limit: number): Promise<Record<st
     { name: 'APT41', aliases: ['Double Dragon', 'Winnti'], country: 'China' },
     { name: 'Sandworm', aliases: ['Voodoo Bear', 'Seashell Blizzard'], country: 'Russia' },
   ];
-  return ACTORS.slice(0, limit).map((actor) => ({
-    type: 'threat-actor',
-    spec_version: '2.1',
-    id: `threat-actor--${crypto.randomUUID()}`,
-    created: new Date().toISOString(),
-    modified: new Date().toISOString(),
-    name: actor.name,
-    aliases: actor.aliases,
-    description: `Threat actor attributed to ${actor.country}`,
-    threat_actor_types: ['nation-state'],
-    sophistication: 'advanced',
-    resource_level: 'government',
-    primary_motivation: 'espionage',
-    country: actor.country,
-  }));
+  return await Promise.all(
+    ACTORS.slice(0, limit).map(async (actor) => ({
+      type: 'threat-actor',
+      spec_version: '2.1',
+      id: await stixId('threat-actor', `threat-actor|${actor.name}`),
+      created: new Date().toISOString(),
+      modified: new Date().toISOString(),
+      name: actor.name,
+      aliases: actor.aliases,
+      description: `Threat actor attributed to ${actor.country}`,
+      threat_actor_types: ['nation-state'],
+      sophistication: 'advanced',
+      resource_level: 'government',
+      primary_motivation: 'espionage',
+      country: actor.country,
+    }))
+  );
 }
 
-async function getMalwareObjects(db: D1Database, limit: number): Promise<Record<string, unknown>[]> {
+export async function getMalwareObjects(db: D1Database, limit: number): Promise<Record<string, unknown>[]> {
   const rows = await db
     .prepare(
       'SELECT id, value, properties, confidence, sources, last_seen FROM graph_nodes WHERE type = ? ORDER BY confidence DESC LIMIT ?'
     )
     .bind('malware', limit)
     .all<{ id: string; value: string; properties: string; confidence: number; sources: string; last_seen: string }>();
-  const fromDb = (rows.results ?? []).map((r) => {
-    const props = JSON.parse(r.properties || '{}') as Record<string, unknown>;
-    return {
-      type: 'malware',
-      spec_version: '2.1',
-      id: `malware--${crypto.randomUUID()}`,
-      created: r.last_seen,
-      modified: r.last_seen,
-      name: props.label ?? r.value,
-      description: `Malware from graph database (confidence: ${r.confidence})`,
-      malware_types: ['unknown'],
-      is_family: true,
-      confidence: r.confidence,
-    };
-  });
+  const fromDb = await Promise.all(
+    (rows.results ?? []).map(async (r) => {
+      const props = JSON.parse(r.properties || '{}') as Record<string, unknown>;
+      const malwareName = (props.label ?? r.value) as string;
+      return {
+        type: 'malware',
+        spec_version: '2.1',
+        id: await stixId('malware', `malware|${malwareName}`),
+        created: r.last_seen,
+        modified: r.last_seen,
+        name: malwareName,
+        description: `Malware from graph database (confidence: ${r.confidence})`,
+        malware_types: ['unknown'],
+        is_family: true,
+        confidence: r.confidence,
+      };
+    })
+  );
 
   if (fromDb.length > 0) return fromDb;
 
@@ -367,37 +382,41 @@ async function getMalwareObjects(db: D1Database, limit: number): Promise<Record<
     { name: 'LockBit', type: 'ransomware', description: 'Ransomware-as-a-service operation' },
     { name: 'TrickBot', type: 'banking-trojan', description: 'Modular banking trojan with C2 capabilities' },
   ];
-  return MALWARE.slice(0, limit).map((m) => ({
-    type: 'malware',
-    spec_version: '2.1',
-    id: `malware--${crypto.randomUUID()}`,
-    created: new Date().toISOString(),
-    modified: new Date().toISOString(),
-    name: m.name,
-    description: m.description,
-    malware_types: [m.type],
-    is_family: true,
-  }));
+  return await Promise.all(
+    MALWARE.slice(0, limit).map(async (m) => ({
+      type: 'malware',
+      spec_version: '2.1',
+      id: await stixId('malware', `malware|${m.name}`),
+      created: new Date().toISOString(),
+      modified: new Date().toISOString(),
+      name: m.name,
+      description: m.description,
+      malware_types: [m.type],
+      is_family: true,
+    }))
+  );
 }
 
-async function getVulnerabilityObjects(db: D1Database, limit: number): Promise<Record<string, unknown>[]> {
+export async function getVulnerabilityObjects(db: D1Database, limit: number): Promise<Record<string, unknown>[]> {
   const rows = await db
     .prepare(
       'SELECT id, value, properties, confidence, sources, last_seen FROM graph_nodes WHERE type = ? ORDER BY last_seen DESC LIMIT ?'
     )
     .bind('cve', limit)
     .all<{ id: string; value: string; properties: string; confidence: number; sources: string; last_seen: string }>();
-  const fromDb = (rows.results ?? []).map((r) => ({
-    type: 'vulnerability',
-    spec_version: '2.1',
-    id: `vulnerability--${r.value}`,
-    created: r.last_seen,
-    modified: r.last_seen,
-    name: r.value.toUpperCase(),
-    description: `CVE from graph database (confidence: ${r.confidence})`,
-    external_references: [{ source_name: 'CVE', external_id: r.value.toUpperCase() }],
-    confidence: r.confidence,
-  }));
+  const fromDb = await Promise.all(
+    (rows.results ?? []).map(async (r) => ({
+      type: 'vulnerability',
+      spec_version: '2.1',
+      id: await stixId('vulnerability', `vulnerability|${r.value}`),
+      created: r.last_seen,
+      modified: r.last_seen,
+      name: r.value.toUpperCase(),
+      description: `CVE from graph database (confidence: ${r.confidence})`,
+      external_references: [{ source_name: 'CVE', external_id: r.value.toUpperCase() }],
+      confidence: r.confidence,
+    }))
+  );
 
   if (fromDb.length > 0) return fromDb;
 
@@ -405,7 +424,7 @@ async function getVulnerabilityObjects(db: D1Database, limit: number): Promise<R
     {
       type: 'vulnerability',
       spec_version: '2.1',
-      id: 'vulnerability--CVE-2024-3094',
+      id: await stixId('vulnerability', `vulnerability|CVE-2024-3094`),
       created: '2024-03-29T00:00:00Z',
       modified: '2024-03-29T00:00:00Z',
       name: 'CVE-2024-3094',
@@ -415,26 +434,28 @@ async function getVulnerabilityObjects(db: D1Database, limit: number): Promise<R
   ].slice(0, limit);
 }
 
-async function getBriefingObjects(db: D1Database, limit: number, env?: Env): Promise<Record<string, unknown>[]> {
+export async function getBriefingObjects(db: D1Database, limit: number, env?: Env): Promise<Record<string, unknown>[]> {
   const rows = await db
     .prepare('SELECT slug, title, type, published_at FROM briefings ORDER BY published_at DESC LIMIT ?')
     .bind(limit)
     .all<{ slug: string; title: string; type: string; published_at: string }>();
-  return (rows.results ?? []).map((row) => {
-    const siteUrl = env ? getSiteUrl(env) : 'https://pranithjain.qzz.io';
-    return {
-      type: 'report',
-      spec_version: '2.1',
-      id: `report--${row.slug}`,
-      created: row.published_at,
-      modified: row.published_at,
-      name: row.title,
-      description: `${row.type} threat intelligence briefing`,
-      report_types: ['threat-report'],
-      published: row.published_at,
-      external_references: [{ source_name: 'briefing', url: `${siteUrl}/threatintel/briefings/${row.slug}` }],
-    } satisfies Record<string, unknown>;
-  });
+  return await Promise.all(
+    (rows.results ?? []).map(async (row) => {
+      const siteUrl = env ? getSiteUrl(env) : 'https://pranithjain.qzz.io';
+      return {
+        type: 'report',
+        spec_version: '2.1',
+        id: await stixId('report', `report|${row.slug}`),
+        created: row.published_at,
+        modified: row.published_at,
+        name: row.title,
+        description: `${row.type} threat intelligence briefing`,
+        report_types: ['threat-report'],
+        published: row.published_at,
+        external_references: [{ source_name: 'briefing', url: `${siteUrl}/threatintel/briefings/${row.slug}` }],
+      } satisfies Record<string, unknown>;
+    })
+  );
 }
 
 function buildStixPattern(value: string, type: string): string {

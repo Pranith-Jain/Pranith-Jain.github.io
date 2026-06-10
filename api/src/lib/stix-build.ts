@@ -27,6 +27,7 @@ import type { ExtractedActor, ExtractedCve, ExtractedEntities, ExtractedIoc, Ext
 import type { IocEnrichment, ProviderScore } from './enrich-bulk';
 import type { CveEnrichment } from './cve-enrich';
 import { EMPTY_LLM_ENTITIES, type LlmEntities } from './extract-llm';
+import { orderByTactic, buildAttackFlowObjects, type FlowTechnique } from './attack-flow';
 
 export type Tlp = 'WHITE' | 'AMBER';
 
@@ -106,6 +107,8 @@ export interface IntelView {
   }[];
   iocsOverflow: { type: IndicatorType; value: string }[];
   attackPatterns: { name: string; mitreId: string }[];
+  /** Ordered Attack-Flow steps (kill-chain or LLM order) mirroring the emitted attack-action chain. */
+  flowSteps?: { techniqueId: string; name: string; tactic?: string }[];
   /** LLM-extracted sectors / industries (canonical-slug form). Populated only on the cron-warm path. */
   sectors: string[];
   /** LLM-extracted affected products. */
@@ -483,6 +486,23 @@ export async function buildStixBundle(
     entities.iocs.map((i, idx) => [`${i.type}|${i.value.toLowerCase()}`, indicatorObjs[idx]!.id])
   );
 
+  // Attack-Flow (ordered attack-step graph). Techniques come only from the LLM.
+  const flowTechniques: FlowTechnique[] = llmEntities.attackPatterns.map((ap, i) => ({
+    id: ap.id,
+    name: ap.name || ap.id,
+    stixApId: attackPatternObjs[i]!.id,
+    tactic: ap.tactic,
+  }));
+  const orderedFlow = llmEntities.flowOrdered ? flowTechniques : orderByTactic(flowTechniques);
+  const flow = await buildAttackFlowObjects(orderedFlow, {
+    flowName: `Attack Flow — ${report.title}`.slice(0, 200),
+    identityId,
+    time: timeFields(t),
+    keyPrefix: `${report.sourceId}|${report.itemRef}`,
+    idFor: stixId,
+    scope: 'incident',
+  });
+
   // Report — references every other object.
   const reportRefId = await stixId('report', `report|${report.sourceId}|${report.itemRef}`);
   const object_refs: string[] = [
@@ -492,6 +512,7 @@ export async function buildStixBundle(
     ...cveObjs.map((o) => o.id),
     ...attackPatternObjs.map((o) => o.id),
     ...indicatorObjs.map((o) => o.id),
+    ...(flow.flowId ? [flow.flowId] : []),
   ];
 
   // Relationships:
@@ -637,6 +658,7 @@ export async function buildStixBundle(
       ...cveObjs,
       ...attackPatternObjs,
       ...indicatorObjs,
+      ...flow.objects,
       ...relationships,
     ],
   };
@@ -691,6 +713,11 @@ export async function buildStixBundle(
     actorCandidates: llmEntities.actorCandidates.map((c) => ({ name: c.name, rationale: c.rationale })),
     malwareCandidates: llmEntities.malwareCandidates.map((c) => ({ name: c.name, rationale: c.rationale })),
     attackPatterns: llmEntities.attackPatterns.map((a) => ({ name: a.name, mitreId: a.id })),
+    flowSteps: orderedFlow.map((s) => ({
+      techniqueId: s.id,
+      name: s.name,
+      ...(s.tactic ? { tactic: s.tactic } : {}),
+    })),
     llmEnrichment: {
       ran: llmEntities.ran,
       partial: llmEntities.partial,

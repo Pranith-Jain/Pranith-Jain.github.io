@@ -31,14 +31,18 @@ import type { ExtractedEntities } from './extract';
 import { ACTOR_ALIASES } from '../data/threat-actor-aliases';
 import { MALWARE_DICT } from '../data/malware-dict';
 import { ATTACK_ID_INDEX } from '../data/attack-id-index';
+import { TACTIC_ORDER } from './attack-flow';
 import { runCompletion as defaultRunCompletion } from '../case-study/generation/ai-client';
 
 export interface LlmEntities {
   sectors: { name: string }[];
   affectedProducts: { vendor: string; product: string }[];
-  attackPatterns: { id: string; name: string }[];
+  attackPatterns: { id: string; name: string; tactic?: string }[];
   actorCandidates: { name: string; rationale: string }[];
   malwareCandidates: { name: string; rationale: string }[];
+  /** True when the LLM listed attackPatterns in kill-chain order (so the Attack-Flow
+   *  builder should preserve their order rather than re-sorting by tactic). */
+  flowOrdered: boolean;
   /** False when skipped (short body / no findings). True when the call was attempted. */
   ran: boolean;
   /** True when the call ran but parse/schema validation degraded the result. */
@@ -60,6 +64,7 @@ export const EMPTY_LLM_ENTITIES: LlmEntities = Object.freeze({
   attackPatterns: [] as LlmEntities['attackPatterns'],
   actorCandidates: [] as LlmEntities['actorCandidates'],
   malwareCandidates: [] as LlmEntities['malwareCandidates'],
+  flowOrdered: false,
   ran: false,
   partial: false,
 }) as LlmEntities;
@@ -181,6 +186,7 @@ export function validateLlmEntities(
     attackPatterns: [] as LlmEntities['attackPatterns'],
     actorCandidates: [] as LlmEntities['actorCandidates'],
     malwareCandidates: [] as LlmEntities['malwareCandidates'],
+    flowOrdered: false,
   };
   const obj = asObject(raw);
   if (!obj) return empty;
@@ -225,7 +231,12 @@ export function validateLlmEntities(
     if (!(id in ATTACK_ID_INDEX)) continue;
     if (seenAttack.has(id)) continue;
     seenAttack.add(id);
-    attackPatterns.push({ id, name: name || id });
+    // Optional tactic (kill-chain phase shortname) — kept only when it's a
+    // recognized MITRE tactic; otherwise omitted so orderByTactic falls back
+    // to the catalog tactic for this technique.
+    const tacticRaw = isString(o.tactic) ? o.tactic.trim().toLowerCase() : '';
+    const tactic = TACTIC_ORDER.includes(tacticRaw) ? tacticRaw : undefined;
+    attackPatterns.push({ id, name: name || id, ...(tactic ? { tactic } : {}) });
     if (attackPatterns.length >= CAPS.attackPatterns) break;
   }
 
@@ -264,7 +275,16 @@ export function validateLlmEntities(
     CAPS.malwareCandidates
   );
 
-  return { sectors, affectedProducts, attackPatterns, actorCandidates, malwareCandidates };
+  return {
+    sectors,
+    affectedProducts,
+    attackPatterns,
+    actorCandidates,
+    malwareCandidates,
+    // The prompt asks the model to list techniques in kill-chain order, so
+    // when any survived validation we trust their order for the Attack-Flow.
+    flowOrdered: attackPatterns.length > 0,
+  };
 }
 
 const SYSTEM_PROMPT = `You are a defensive cyber-threat-intelligence analyst extracting entities from a security briefing. Respond with ONLY a JSON object matching this schema, no prose, no markdown fences:
@@ -272,7 +292,7 @@ const SYSTEM_PROMPT = `You are a defensive cyber-threat-intelligence analyst ext
 {
   "sectors": ["string"],
   "affected_products": [{"vendor": "string", "product": "string"}],
-  "attack_patterns": [{"id": "T#### or T####.###", "name": "string"}],
+  "attack_patterns": [{"id": "T#### or T####.###", "name": "string", "tactic": "kill-chain tactic shortname (optional)"}],
   "actor_candidates": [{"name": "string", "rationale": "string"}],
   "malware_candidates": [{"name": "string", "rationale": "string"}]
 }
@@ -281,7 +301,7 @@ Rules:
 - Use ONLY entities explicitly named in the source text.
 - Sectors are industries / verticals affected by the threat (e.g. "european-government", "healthcare", "manufacturing").
 - Affected products are software/hardware named as vulnerable or targeted.
-- Attack patterns must be MITRE ATT&CK technique IDs (T#### or sub-T####.###).
+- Attack patterns must be MITRE ATT&CK technique IDs (T#### or sub-T####.###). List them in the chronological / kill-chain order they occur in the report; each MAY include a "tactic" field with the MITRE tactic shortname (e.g. "initial-access", "execution", "impact").
 - actor_candidates and malware_candidates are NEW or unfamiliar names worth analyst review. The rationale must be one sentence quoting or paraphrasing the source.
 - Empty arrays are valid. Do not invent.`;
 
