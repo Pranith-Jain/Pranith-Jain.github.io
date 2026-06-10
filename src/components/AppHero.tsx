@@ -32,7 +32,7 @@ export function AppHero({
           {title}
         </h1>
         {/* Prose is sans (readable) — mono is reserved for IOCs/data. */}
-        <p className="text-slate-600 dark:text-slate-300 mt-3 sm:mt-4 max-w-3xl text-[14px] sm:text-base leading-relaxed">
+        <p className="text-slate-600 dark:text-slate-300 mt-3 sm:mt-4 max-w-3xl text-sm sm:text-base leading-relaxed">
           {sub}
         </p>
         {meta && <div className="mt-3 sm:mt-5 font-mono text-meta text-slate-500 leading-relaxed">{meta}</div>}

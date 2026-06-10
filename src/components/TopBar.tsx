@@ -102,7 +102,7 @@ export function TopBar({
             <MarkIcon className="h-4 w-4" aria-hidden="true" />
           </span>
           <span className="flex flex-col leading-tight min-w-0">
-            <span className={`font-display font-bold text-[14px] sm:text-[15px] ${accentClass} truncate`}>
+            <span className={`font-display font-bold text-sm sm:text-[15px] ${accentClass} truncate`}>
               {sectionLabel}
             </span>
             <span className="hidden sm:inline text-micro font-mono uppercase tracking-[0.18em] text-slate-400 dark:text-slate-500 truncate">

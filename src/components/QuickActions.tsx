@@ -102,7 +102,7 @@ export function QuickActions({
             <div className="min-w-0 flex-1">
               <div className="flex items-baseline justify-between gap-2">
                 <span
-                  className={`font-display font-semibold text-[14px] text-slate-900 dark:text-slate-100 truncate ${accent.title} transition-colors`}
+                  className={`font-display font-semibold text-sm text-slate-900 dark:text-slate-100 truncate ${accent.title} transition-colors`}
                 >
                   {a.label}
                 </span>

@@ -392,19 +392,19 @@ export default function Detections(): JSX.Element {
                     <div className="text-mini font-mono uppercase tracking-[0.18em] text-slate-500 mb-1">
                       what fired
                     </div>
-                    <p className="text-[14px] text-slate-900 dark:text-slate-100 leading-relaxed">{n.what}</p>
+                    <p className="text-sm text-slate-900 dark:text-slate-100 leading-relaxed">{n.what}</p>
                   </div>
                   <div>
                     <div className="text-mini font-mono uppercase tracking-[0.18em] text-slate-500 mb-1">
                       why it matters
                     </div>
-                    <p className="text-[14px] text-slate-700 dark:text-slate-300 leading-relaxed">{n.why}</p>
+                    <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">{n.why}</p>
                   </div>
                   <div className="rounded border-l-2 border-brand-500 pl-3 py-1 bg-brand-50/50 dark:bg-brand-900/10">
                     <div className="text-mini font-mono uppercase tracking-[0.18em] text-brand-700 dark:text-brand-300 mb-1">
                       do this
                     </div>
-                    <p className="text-[14px] text-slate-900 dark:text-slate-100 leading-relaxed">{n.action}</p>
+                    <p className="text-sm text-slate-900 dark:text-slate-100 leading-relaxed">{n.action}</p>
                   </div>
                 </div>
                 <div>

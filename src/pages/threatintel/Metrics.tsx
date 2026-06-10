@@ -1188,7 +1188,7 @@ export default function Metrics(): JSX.Element {
               {headlineRead.sentences.map((s, i) => (
                 <p
                   key={i}
-                  className={`text-[14px] leading-relaxed ${
+                  className={`text-sm leading-relaxed ${
                     i === 0 ? 'text-slate-900 dark:text-slate-100 font-medium' : 'text-slate-700 dark:text-slate-300'
                   }`}
                 >

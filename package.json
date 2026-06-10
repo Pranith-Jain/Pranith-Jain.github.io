@@ -16,6 +16,7 @@
     "build:prerender": "node scripts/prerender.mjs",
     "build": "npm run build:client && npm run build:server && npm run build:prerender",
     "check:budgets": "node scripts/check-budgets.mjs",
+    "check:no-px-text": "node scripts/check-no-px-text.mjs",
     "build:check": "npm run build && npm run check:budgets",
     "deploy": "npm run build && wrangler deploy",
     "preview": "vite preview",

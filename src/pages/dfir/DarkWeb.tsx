@@ -1023,7 +1023,7 @@ export function RansomwareActivityPanel(): JSX.Element {
                         (e.currentTarget.parentElement as HTMLElement).style.display = 'none';
                       }}
                     />
-                    <span className="absolute bottom-0.5 right-0.5 text-[8px] font-mono px-1 rounded bg-slate-900/70 text-slate-100 opacity-0 group-hover:opacity-100">
+                    <span className="absolute bottom-0.5 right-0.5 text-micro font-mono px-1 rounded bg-slate-900/70 text-slate-100 opacity-0 group-hover:opacity-100">
                       zoom
                     </span>
                   </button>
