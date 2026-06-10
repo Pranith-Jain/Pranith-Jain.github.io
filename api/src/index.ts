@@ -26,7 +26,7 @@ import { breachDisclosuresHandler } from './routes/breach-disclosures';
 import { ransomwareRecentHandler } from './routes/ransomware-recent';
 import { ransomwareMapHandler } from './routes/ransomware-map';
 import { cryptoTraceHandler } from './routes/crypto-trace';
-import { tracerExpandHandler, tracerLabelHandler, tracerLabelAddHandler } from './routes/tracer';
+import { tracerExpandHandler, tracerLabelHandler, tracerLabelAddHandler, tracerCalldataHandler } from './routes/tracer';
 import { abuseRssHandler } from './routes/abuse-rss';
 import { mtiRansomwareRssHandler } from './routes/mti-ransomware-rss';
 import { ransomwareMergedRssHandler } from './routes/ransomware-merged-rss';
@@ -467,6 +467,7 @@ import {
   tracerExpandSchema,
   tracerLabelSchema,
   tracerLabelAddSchema,
+  tracerCalldataSchema,
   ctCertsSchema,
   iocLifecycleSchema,
   iocTrendingSchema,
@@ -689,6 +690,7 @@ app.get('/api/v1/crypto-trace', validate('query', cryptoTraceSchema), cryptoTrac
 app.post('/api/v1/tracer/expand', validate('json', tracerExpandSchema), tracerExpandHandler);
 app.get('/api/v1/tracer/label', validate('query', tracerLabelSchema), tracerLabelHandler);
 app.post('/api/v1/tracer/labels', validate('json', tracerLabelAddSchema), tracerLabelAddHandler);
+app.get('/api/v1/tracer/calldata', validate('query', tracerCalldataSchema), tracerCalldataHandler);
 app.get('/api/v1/wayback/cdx', validate('query', waybackSchema), waybackCdxHandler);
 app.get('/api/v1/threat-pulse', threatPulseHandler);
 app.get('/api/v1/ip-geo', validate('query', ipGeoSchema), ipGeoHandler);

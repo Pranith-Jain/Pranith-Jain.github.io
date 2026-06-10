@@ -954,3 +954,9 @@ export const tracerLabelAddSchema = z.object({
   ]),
 });
 export type TracerLabelAddInput = z.infer<typeof tracerLabelAddSchema>;
+
+export const tracerCalldataSchema = z.object({
+  chain: z.enum(['evm', 'tron']),
+  hash: z.string().min(1, 'hash is required').max(80, 'hash too long'),
+});
+export type TracerCalldataInput = z.infer<typeof tracerCalldataSchema>;

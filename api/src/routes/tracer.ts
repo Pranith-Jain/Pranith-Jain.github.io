@@ -12,7 +12,14 @@ import { scoreAddress, type RiskScore } from '../lib/risk-score';
 import { loadSanctionedSet, type SanctionsChain } from '../lib/ofac-sanctions';
 import { loadScamSnifferSet } from '../lib/scamsniffer';
 import { getAddressContext } from '../lib/blockscout';
-import type { TracerExpandInput, TracerLabelInput, TracerLabelAddInput } from '../lib/validation-schemas';
+import { analyzeCalldata } from '../lib/calldata-analysis';
+import { fetchEvmTx, fetchTronTx, EVM_RPCS, type FetchedTx } from '../lib/tx-fetch';
+import type {
+  TracerExpandInput,
+  TracerLabelInput,
+  TracerLabelAddInput,
+  TracerCalldataInput,
+} from '../lib/validation-schemas';
 
 export interface TracerNode {
   id: string; // `${chain}:${address}`
@@ -220,4 +227,52 @@ export async function tracerLabelAddHandler(c: Context<{ Bindings: Env }>): Prom
     new Date().toISOString()
   );
   return c.json({ ok: true, address: input.address, chain: input.chain, label: stored }, 201);
+}
+
+export async function tracerCalldataHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
+  const input = (c as Context<{ Bindings: Env }> & { parsed: TracerCalldataInput }).parsed;
+  const { chain, hash } = input;
+
+  const tx: FetchedTx = chain === 'tron' ? await fetchTronTx(hash) : await fetchEvmTx(hash, EVM_RPCS.eth ?? []);
+
+  if (!tx.found) {
+    return c.json(
+      {
+        chain,
+        hash,
+        analysis: {
+          selector: null,
+          known_method: null,
+          input_size: 0,
+          flags: ['tx not found'],
+          embedded_pointers: [],
+          verdict: 'clean',
+        },
+      },
+      200,
+      { 'Cache-Control': 'public, max-age=60' }
+    );
+  }
+
+  const analysis = analyzeCalldata(tx.input);
+
+  // Follow ONE embedded pointer across the other candidate EVM chains (the TRON→BSC dead-drop).
+  let resolved_pointer: { value: string; chain: string; found: boolean; input_excerpt: string } | undefined;
+  const ptr = analysis.embedded_pointers[0]?.value;
+  if (ptr) {
+    for (const cand of ['bsc', 'eth'] as const) {
+      const hit = await fetchEvmTx(ptr, EVM_RPCS[cand] ?? []);
+      if (hit.found) {
+        resolved_pointer = { value: ptr, chain: cand, found: true, input_excerpt: hit.input.slice(0, 200) };
+        break;
+      }
+    }
+    if (!resolved_pointer) resolved_pointer = { value: ptr, chain: 'unknown', found: false, input_excerpt: '' };
+  }
+
+  return c.json(
+    { chain, hash, from: tx.from, to: tx.to, analysis, ...(resolved_pointer ? { resolved_pointer } : {}) },
+    200,
+    { 'Cache-Control': 'public, max-age=60' }
+  );
 }

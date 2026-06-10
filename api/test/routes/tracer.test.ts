@@ -128,3 +128,18 @@ describe('POST /api/v1/tracer/labels (admin, mini-app)', () => {
     expect(body.root.risk.level).toBe('critical');
   });
 });
+
+describe('GET /api/v1/tracer/calldata', () => {
+  it('400s on missing hash', async () => {
+    const r = await SELF.fetch('https://x/api/v1/tracer/calldata?chain=evm');
+    expect(r.status).toBe(400);
+  });
+
+  it('returns an analysis envelope for a lookup (clean when tx not found)', async () => {
+    const r = await SELF.fetch('https://x/api/v1/tracer/calldata?chain=evm&hash=0xdeadbeef');
+    expect(r.status).toBe(200);
+    const body = (await r.json()) as { analysis: { verdict: string; flags: string[] } };
+    expect(typeof body.analysis.verdict).toBe('string');
+    expect(Array.isArray(body.analysis.flags)).toBe(true);
+  });
+});
