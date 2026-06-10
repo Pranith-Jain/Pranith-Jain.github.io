@@ -289,14 +289,14 @@ export default function StixBuilder(): JSX.Element {
       {/* Input area */}
       <div className="space-y-3">
         {mode === 'file' ? (
-          <div className="rounded-lg border border-dashed border-slate-300 bg-slate-50 px-3 py-4 dark:border-slate-700 dark:bg-slate-950">
+          <div className="rounded-lg border border-slate-300 bg-slate-50 px-3 py-4 dark:border-slate-700 dark:bg-slate-950">
             <input
               ref={fileRef}
               type="file"
               accept=".pdf,.docx,.txt,.md,.html,.htm,.png,.jpg,.jpeg,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/plain,text/html,image/png,image/jpeg"
               onChange={(e) => setFile(e.target.files?.[0] ?? null)}
               aria-label="Upload report file"
-              className="block w-full text-sm text-slate-600 file:mr-3 file:rounded-md file:border-0 file:bg-brand-500/15 file:px-3 file:py-1.5 file:text-xs file:font-mono file:uppercase file:tracking-wider file:text-brand-700 hover:file:bg-brand-500/25 dark:text-slate-400 dark:file:text-brand-300"
+              className="block w-full text-sm text-slate-600 dark:text-slate-400"
             />
             <p className="mt-2 text-xs text-slate-500 dark:text-slate-400">
               Upload a threat report — text / HTML parse in-Worker, images via OCR, PDF / DOCX via the optional file2txt
