@@ -32,9 +32,18 @@
  */
 import type { LiveIoc, LiveSource, FeedResult } from '../routes/live-iocs';
 
-/** Queue message: which source the consumer should refresh. */
+/**
+ * Queue message. Two shapes share the one `live-iocs-feeds` queue:
+ *  - `sourceId`: a live-iocs registry source → compose-on-read slice.
+ *  - `gp`: a global-pulse feed → warmed into `gp:warm:<key>`, one feed per
+ *    consumer invocation so each gets its own 50-subrequest budget (the old
+ *    single-invocation parallel warmer blew the Free-plan cap and starved the
+ *    rest of the hourly cron). The producer staggers `delaySeconds` so each gp
+ *    feed lands in its own batch → its own invocation.
+ */
 export interface FeedQueueMessage {
-  sourceId: string;
+  sourceId?: string;
+  gp?: { key: string; path: string };
 }
 
 export const SLICE_KEY_PREFIX = 'live-iocs:slice:';
