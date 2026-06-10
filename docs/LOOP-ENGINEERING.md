@@ -32,6 +32,12 @@ inherits this repo's footguns. See [`loops/README.md`](loops/README.md). Current
 - **API Tests Unsandboxed** — run `test/routes/` locally (CI skips them).
 - **Briefing Cron Safety** — ≤1 build/invocation, <50 subrequests.
 - **MCP Mirror** — mirror `/api/mcp` changes to the standalone repo via PR.
+- **Typecheck Until Clean** — flush latent `tsc` debt that esbuild deploys past.
+- **Route Schema Contract** — keep `validate()` schemas mirroring handler reads.
+- **Upload Route Hardening** — multipart + own cap + real-middleware integration test.
+- **IOC Subrequest Budget** — batched KV fan-out under the 50-subrequest cap.
+- **CSP Nonce Sanity** — verify nonce-based CSP still lets JS run.
+- **Lighthouse Until Budget** — measure-first CWV + bundle budgets, revert regressions.
 
 ## Layer 2 — Runtime loop engine (`api/src/lib/agent/`)
 
