@@ -164,7 +164,6 @@ export default function Predictions(): JSX.Element {
   return (
     <DataPageLayout
       backTo="/threatintel"
-      backLink
       icon={<TrendingUp className="w-7 h-7" />}
       title="Prediction Markets"
       description="Live Manifold prediction-market odds on cyber-threat, tech, and AI outcomes — ranked by liquidity. Community crowd forecasts, not advice. Source: Manifold Markets."

@@ -40,42 +40,32 @@ export const GP_FEEDS: ReadonlyArray<{ key: string; path: string }> = [
 // global-pulse is served from any colo to a global audience, and the read path
 // must see whatever the (single-colo) cron+consumer warmed. KV is global; the
 // Cache API is per-colo, so a Cache-API slice warmed in one colo would be cold
-// for readers in every other colo. The cost is the KV write quota — bounded by
-// GP_WINDOW below (7 feeds/hour = 168 writes/day, well under the 1000/day free
-// tier) — which is the deliberate tradeoff for cross-colo consistency.
+// for readers in every other colo. The cost is the KV write quota — ≤21 feeds/hour
+// ≈ 504 writes/day, under the 1000/day free tier — the deliberate tradeoff for
+// cross-colo consistency.
 export const gpWarmKey = (key: string): string => `gp:warm:${key}`;
 
-// How many feeds to warm per hourly tick, and the inter-message delay. The
-// window rotates so all 21 GP_FEEDS cycle every 3 hours (7×3=21), well inside
-// the 8h slice TTL — no feed ages out between warms. GP_STAGGER_SECONDS spaces
-// the sends out over time; the hard one-feed-per-invocation guarantee comes from
-// the queue's max_batch_size:1 (wrangler.jsonc), so each feed gets its own
-// 50-subrequest budget regardless of delivery timing.
-const GP_WINDOW = 7;
-const GP_STAGGER_SECONDS = 8;
+// ALL feeds are warmed every hourly tick — not a rotating subset — so the page
+// never has a feed dark waiting for its window to come around (a 7-per-hour
+// rotation left ~2/3 of feeds stale for up to 3h). This is only affordable
+// because each feed is its OWN consumer invocation (max_batch_size:1), so
+// warming 21 feeds costs 21 cheap invocations, not one over-budget one. KV cost:
+// ≤21 writes/hour ≈ 504/day, under the 1000/day free tier. GP_STAGGER_SECONDS
+// just spaces the sends so a burst doesn't hammer a throttling upstream (t.me);
+// the budget guarantee comes from max_batch_size:1, not the stagger.
+const GP_STAGGER_SECONDS = 4;
 
 /**
- * Enqueue a rotating window of global-pulse feeds for the queue consumer to
- * warm. Cheap (queue sends only, no fetches) — safe to call from the cron.
+ * Enqueue every global-pulse feed for the queue consumer to warm — one message
+ * per feed, each consumed in its own invocation. Cheap (queue sends only, no
+ * fetches), so it is safe to call from the cron. `hour` is accepted for
+ * call-site symmetry but no longer selects a window (all feeds warm each tick).
  */
-export async function enqueueGpFeeds(queue: Queue<FeedQueueMessage>, hour: number): Promise<void> {
-  const start = (hour * GP_WINDOW) % GP_FEEDS.length;
-  const seen = new Set<string>();
-  const window: Array<{ key: string; path: string }> = [];
-  for (let i = 0; i < GP_WINDOW; i++) {
-    const f = GP_FEEDS[(start + i) % GP_FEEDS.length];
-    if (f && !seen.has(f.key)) {
-      seen.add(f.key);
-      window.push(f);
-    }
-  }
-  // Start at (i+1)*stagger, not i*stagger: the cron also enqueues the ~34
-  // live-iocs sources at t=0, so delaying the first gp feed past that initial
-  // burst keeps a heavy gp feed from sharing a batch with them.
+export async function enqueueGpFeeds(queue: Queue<FeedQueueMessage>, _hour?: number): Promise<void> {
   await queue.sendBatch(
-    window.map((f, i) => ({
+    GP_FEEDS.map((f, i) => ({
       body: { gp: { key: f.key, path: f.path } },
-      delaySeconds: (i + 1) * GP_STAGGER_SECONDS,
+      delaySeconds: i * GP_STAGGER_SECONDS,
     }))
   );
 }
