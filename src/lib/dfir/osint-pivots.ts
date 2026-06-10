@@ -32,7 +32,7 @@ export interface OsintTargets {
 /** ENS-label-only derivation (no email pattern-guessing). Pure. */
 export function deriveOsintTargets(label: string | null, ensName?: string | null): OsintTargets {
   const candidate = (ensName ?? label ?? '').trim();
-  const ens = /\.eth$/i.test(candidate) ? candidate : (ensName ?? null);
+  const ens = /\.eth$/i.test(candidate) ? candidate : null;
   const domains: string[] = [];
   const usernames: string[] = [];
   if (/\.eth$/i.test(candidate)) {
@@ -59,13 +59,13 @@ export function tier2Pivots(t: OsintTargets): PivotLink[] {
   for (const d of t.domains) {
     const e = encodeURIComponent(d);
     out.push({ label: `Breach search: ${d}`, apiPath: `/api/v1/breach/domain?domain=${e}` });
-    out.push({ label: `Infostealer logs: ${d}`, apiPath: `/api/v1/hudsonrock?domain=${e}` });
-    out.push({ label: `LeakIX: ${d}`, apiPath: `/api/v1/leakix?q=${e}` });
+    out.push({ label: `Infostealer logs: ${d}`, apiPath: `/api/v1/breach/hudsonrock/domain?domain=${e}` });
+    out.push({ label: `LeakIX: ${d}`, apiPath: `/api/v1/breach/leakix?q=${e}` });
   }
   for (const u of t.usernames) {
     const e = encodeURIComponent(u);
     out.push({ label: `Threat hunt: ${u}`, apiPath: `/api/v1/threat-hunt?q=${e}` });
-    out.push({ label: `Combolist: ${u}`, apiPath: `/api/v1/proxynova?q=${e}` });
+    out.push({ label: `Combolist: ${u}`, apiPath: `/api/v1/breach/proxynova?q=${e}` });
   }
   return out;
 }

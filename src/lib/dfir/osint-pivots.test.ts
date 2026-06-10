@@ -29,9 +29,23 @@ describe('osint-pivots', () => {
     expect(t.usernames).toHaveLength(0);
   });
 
-  it('tier2Pivots maps a domain target to leak/breach links and is empty with no targets', () => {
+  it('tier2Pivots maps a domain target to the real breach-route paths and is empty with no targets', () => {
     const links = tier2Pivots({ ens: null, domains: ['foo.com'], usernames: [] });
-    expect(links.some((l) => /breach/i.test(l.label))).toBe(true);
+    const paths = links.map((l) => l.apiPath);
+    expect(paths).toContain('/api/v1/breach/domain?domain=foo.com');
+    expect(paths).toContain('/api/v1/breach/hudsonrock/domain?domain=foo.com');
+    expect(paths).toContain('/api/v1/breach/leakix?q=foo.com');
     expect(tier2Pivots({ ens: null, domains: [], usernames: [] })).toHaveLength(0);
+  });
+
+  it('tier2Pivots username pivots use the real breach/threat-hunt paths', () => {
+    const paths = tier2Pivots({ ens: null, domains: [], usernames: ['vitalik'] }).map((l) => l.apiPath);
+    expect(paths).toContain('/api/v1/threat-hunt?q=vitalik');
+    expect(paths).toContain('/api/v1/breach/proxynova?q=vitalik');
+  });
+
+  it('deriveOsintTargets never returns a non-.eth string as ens', () => {
+    expect(deriveOsintTargets(null, '0x742d35Cc6634C0532925a3b844Bc454e4438f44e').ens).toBeNull();
+    expect(deriveOsintTargets(null, 'somelabel').ens).toBeNull();
   });
 });

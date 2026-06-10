@@ -127,8 +127,8 @@ export default function Tracer(): JSX.Element {
     try {
       const res = await fetch(`/api/v1/unified-search?q=${encodeURIComponent(q)}`);
       if (!res.ok) return setUnifiedResult('search unavailable');
-      const data = (await res.json()) as { results?: unknown[]; total?: number };
-      const n = data.total ?? data.results?.length ?? 0;
+      const data = (await res.json()) as { total?: number };
+      const n = data.total ?? 0;
       setUnifiedResult(`${n} result${n === 1 ? '' : 's'} — open in Unified Search`);
     } catch {
       setUnifiedResult('search unavailable');
