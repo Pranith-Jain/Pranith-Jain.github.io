@@ -247,11 +247,34 @@ export async function snapshotHandler(c: Context<{ Bindings: Env }>): Promise<Re
     }),
     budgeted(async () => {
       // Read /api/v1/telegram-feed's edge-cache first; only fan out to the
-      // 11 Telegram channels if the per-route cache is cold. This is the
-      // single biggest win on snapshot rebuild time + KV pressure.
+      // Telegram channels if the per-route cache is cold.
       const cached = await cache.match(TELEGRAM_FEED_CACHE_KEY);
       if (cached) return (await cached.json()) as TelegramFeedResponse;
-      return fetchTelegramFeed();
+      // Cold per-colo cache: a full rebuild fans out to ~22 t.me previews
+      // (~17s) — far over the 8s SOURCE_BUDGET_MS — which is exactly what made
+      // the "Cybersec Telegram firehose" card show "load error: upstream
+      // timeout" on any colo the warm cron hadn't touched. Don't block the
+      // budget on it: warm THIS colo's cache in the background and serve an
+      // empty payload for this build. The next request in this colo (and the
+      // SWR rebuild) read it warm. The standalone /telegram-feed route still
+      // rebuilds synchronously on demand, so the dedicated firehose page is
+      // unaffected.
+      c.executionCtx.waitUntil(
+        (async () => {
+          try {
+            const body = await fetchTelegramFeed();
+            await cache.put(
+              new Request(TELEGRAM_FEED_CACHE_KEY),
+              new Response(JSON.stringify(body), {
+                headers: { 'content-type': 'application/json', 'cache-control': 'public, max-age=1800' },
+              })
+            );
+          } catch {
+            /* best-effort warm */
+          }
+        })()
+      );
+      return { generated_at: new Date().toISOString(), channels: [], items: [], warnings: ['warming'] };
     }),
     budgeted(() => aggregateFeeds(SCAM_FEED_URLS, 12, 6, { deadlineMs: FEED_DEADLINE_MS })),
     budgeted(() => aggregateFeeds(THREAT_INTEL_FEED_URLS, 16, 4, { deadlineMs: FEED_DEADLINE_MS })),
