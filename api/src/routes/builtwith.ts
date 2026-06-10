@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { pinnedFetchFollow, SsrfError } from '../lib/ssrf-guard';
 
 // ==============================
 // BuiltWith Technology Stack Lookup
@@ -28,7 +29,6 @@ import type { Env } from '../env';
  */
 
 const FETCH_TIMEOUT_MS = 10000;
-const CACHE_TTL = 3600;
 // A normal desktop UA — some stacks (Cloudflare, Shopify, WAFs) serve a
 // stripped or blocked response to obvious bot User-Agents.
 const BROWSER_UA =
@@ -358,17 +358,25 @@ export async function builtwithHandler(c: Context<{ Bindings: Env }>): Promise<R
 
   try {
     const targetUrl = `https://${domain}/`;
-    const res = await fetch(targetUrl, {
-      method: 'GET',
-      redirect: 'follow',
-      headers: {
-        'User-Agent': BROWSER_UA,
-        Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-        'Accept-Language': 'en-US,en;q=0.9',
+    // SSRF guard: a user-supplied domain can resolve to (or 302 to) an internal /
+    // metadata / RFC1918 host. pinnedFetchFollow validates every hop against the
+    // private-range blocklist, pins the connection to the validated public IP
+    // (defeats DNS rebinding), and re-checks each redirect — never raw
+    // fetch(..., { redirect: 'follow' }) on an attacker-controlled host. (No `cf`
+    // cache here: pinnedFetch* sets resolveOverride; caching is at the response layer.)
+    const res = await pinnedFetchFollow(
+      targetUrl,
+      {
+        method: 'GET',
+        headers: {
+          'User-Agent': BROWSER_UA,
+          Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+          'Accept-Language': 'en-US,en;q=0.9',
+        },
+        signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
       },
-      cf: { cacheTtl: CACHE_TTL, cacheEverything: true },
-      signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
-    });
+      { maxRedirects: 3 }
+    );
 
     // Read at most ~512KB of HTML — enough for every signature, bounded so a
     // huge page can't blow the Worker memory/time budget.
@@ -416,6 +424,12 @@ export async function builtwithHandler(c: Context<{ Bindings: Env }>): Promise<R
       { 'Cache-Control': 'public, max-age=3600' }
     );
   } catch (err) {
+    // SSRF guard rejected the host (private/reserved/metadata, or a redirect to
+    // one). Fail closed with a generic 400 — don't echo the blocked IP/internal
+    // detail back to the caller (no SSRF oracle).
+    if (err instanceof SsrfError) {
+      return c.json({ error: 'domain resolves to a disallowed host', domain }, 400, { 'Cache-Control': 'no-store' });
+    }
     const message = err instanceof Error ? err.message : 'Unknown error';
     // A fetch failure (DNS, TLS, timeout) means we genuinely couldn't reach the
     // host — surface it rather than pretending we found nothing.
