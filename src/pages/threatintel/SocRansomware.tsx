@@ -492,8 +492,12 @@ function RecentClaims({ rows }: { rows: RansomwareVictim[] }): JSX.Element {
                   {v.group}
                 </Link>
               </td>
-              <td className="px-2 py-1.5 text-slate-500 dark:text-slate-400">{v.sector ?? '—'}</td>
-              <td className="px-2 py-1.5 text-slate-500 dark:text-slate-400">{v.country ?? '—'}</td>
+              <td className="px-2 py-1.5 text-slate-500 dark:text-slate-400">
+                {v.sector ? normalizeSector(v.sector) : '—'}
+              </td>
+              <td className="px-2 py-1.5 text-slate-500 dark:text-slate-400">
+                {v.country ? normalizeCountry(v.country) : '—'}
+              </td>
               <td className="px-2 py-1.5 text-slate-500 dark:text-slate-400 text-right tabular-nums">
                 {v.discovered ? v.discovered.slice(0, 10) : '—'}
               </td>
