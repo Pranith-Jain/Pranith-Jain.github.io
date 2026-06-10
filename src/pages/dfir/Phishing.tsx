@@ -26,6 +26,7 @@ import { recordHistory } from '../../lib/dfir/history';
 import { RelatedActors } from '../../components/dfir/RelatedActors';
 import { RelatedWikiArticles } from '../../components/dfir/RelatedWikiArticles';
 import { structuralFingerprint, submitFingerprint, type FingerprintResult } from '../../lib/dfir/phishing-fingerprint';
+import { SEVERITY_TONE } from '../../components/severity';
 
 export default function Phishing(): JSX.Element {
   const [searchParams] = useSearchParams();
@@ -69,13 +70,6 @@ export default function Phishing(): JSX.Element {
   const [aaLoading, setAaLoading] = useState(false);
   const [aaResult, setAaResult] = useState<AutoAnalysisReport | null>(null);
   const [aaError, setAaError] = useState<string | null>(null);
-
-  const RISK_COLORS: Record<string, string> = {
-    critical: 'text-rose-500 border-rose-300 dark:border-rose-900 bg-rose-50 dark:bg-rose-950/20',
-    high: 'text-orange-500 border-orange-300 dark:border-orange-900 bg-orange-50 dark:bg-orange-950/20',
-    medium: 'text-amber-500 border-amber-300 dark:border-amber-900 bg-amber-50 dark:bg-amber-950/20',
-    low: 'text-emerald-500 border-emerald-300 dark:border-emerald-900 bg-emerald-50 dark:bg-emerald-950/20',
-  };
 
   const runAutoAnalyze = async () => {
     const u = aaUrl.trim();
@@ -387,7 +381,7 @@ export default function Phishing(): JSX.Element {
         {aaResult && (
           <div className="mt-4 space-y-4">
             {/* Risk header */}
-            <div className={`rounded-xl border p-4 ${RISK_COLORS[aaResult.risk_level]}`}>
+            <div className={`rounded-xl border p-4 ${SEVERITY_TONE[aaResult.risk_level]}`}>
               <div className="flex items-center justify-between mb-2">
                 <span className="font-display font-bold flex items-center gap-2 text-sm">
                   <Shield size={14} />

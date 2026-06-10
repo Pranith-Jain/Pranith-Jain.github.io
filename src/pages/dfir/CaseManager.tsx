@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { Shield, Plus, ChevronRight, Clock, Loader2, X } from 'lucide-react';
 import { BackLink } from '../../components/BackLink';
+import { SEVERITY_TONE } from '../../components/severity';
 
 type CaseStatus = 'open' | 'triaging' | 'investigating' | 'containing' | 'eradicating' | 'recovering' | 'closed';
 type CaseSeverity = 'low' | 'medium' | 'high' | 'critical';
@@ -28,13 +29,6 @@ const STATUS_COLORS: Record<CaseStatus, string> = {
   eradicating: 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300',
   recovering: 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300',
   closed: 'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300',
-};
-
-const SEVERITY_COLORS: Record<CaseSeverity, string> = {
-  low: 'bg-sky-100 text-sky-700 dark:bg-sky-900/30 dark:text-sky-300',
-  medium: 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300',
-  high: 'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300',
-  critical: 'bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-300',
 };
 
 export default function CaseManager(): JSX.Element {
@@ -174,7 +168,7 @@ export default function CaseManager(): JSX.Element {
                       {c.status}
                     </span>
                     <span
-                      className={`px-2 py-0.5 rounded text-micro font-semibold uppercase ${SEVERITY_COLORS[c.severity]}`}
+                      className={`px-2 py-0.5 rounded border text-micro font-semibold uppercase ${SEVERITY_TONE[c.severity]}`}
                     >
                       {c.severity}
                     </span>

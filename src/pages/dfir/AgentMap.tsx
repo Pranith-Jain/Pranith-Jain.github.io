@@ -11,6 +11,7 @@ import {
   type ToolNode,
   type RiskPath,
 } from '../../lib/dfir/agent-graph';
+import { SEVERITY_TONE } from '../../components/severity';
 
 const SAMPLE_BASIC = `{
   "mcpServers": {
@@ -61,12 +62,6 @@ const SAMPLE_RISKY = `{
     "allow": ["Bash(*)", "Read(/etc/*)", "WebFetch"]
   }
 }`;
-
-const SEV_STYLES: Record<RiskPath['severity'], string> = {
-  critical: 'bg-rose-500/15 text-rose-700 dark:text-rose-300 border-rose-500/30',
-  high: 'bg-orange-500/15 text-orange-700 dark:text-orange-300 border-orange-500/30',
-  medium: 'bg-amber-500/15 text-amber-700 dark:text-amber-300 border-amber-500/30',
-};
 
 const VIEW_W = 500;
 const VIEW_H = 500;
@@ -305,7 +300,7 @@ export default function AgentMap(): JSX.Element {
                     <div className="flex flex-wrap items-center gap-2 mb-1">
                       <span className="font-display font-semibold text-slate-900 dark:text-slate-100">{r.title}</span>
                       <span
-                        className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${SEV_STYLES[r.severity]}`}
+                        className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${SEVERITY_TONE[r.severity]}`}
                       >
                         {r.severity}
                       </span>

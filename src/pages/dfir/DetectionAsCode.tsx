@@ -1,6 +1,15 @@
 import { useState, useEffect, useCallback } from 'react';
 import { FileCode, Loader2, Copy, Check } from 'lucide-react';
 import { BackLink } from '../../components/BackLink';
+import { SEVERITY_TONE, type Severity } from '../../components/severity';
+
+const toSeverity = (s: string): Severity => {
+  const k = s.toLowerCase();
+  if (k === 'informational') return 'info';
+  if (k === 'none' || k === 'unknown' || k === 'unrated') return 'low';
+  if (k === 'critical' || k === 'high' || k === 'medium' || k === 'low' || k === 'info') return k;
+  return 'low';
+};
 
 interface DetectionRule {
   id: string;
@@ -56,12 +65,6 @@ export default function DetectionAsCode(): JSX.Element {
     setTimeout(() => setCopied(''), 2000);
   };
 
-  const SEV_COLORS: Record<string, string> = {
-    low: 'bg-sky-100 text-sky-700 dark:bg-sky-900/30 dark:text-sky-300',
-    medium: 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300',
-    high: 'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300',
-    critical: 'bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-300',
-  };
   const STATUS_COLORS: Record<string, string> = {
     draft: 'bg-slate-100 text-slate-700 dark:bg-slate-800',
     testing: 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30',
@@ -146,7 +149,7 @@ export default function DetectionAsCode(): JSX.Element {
                       {r.status}
                     </span>
                     <span
-                      className={`px-2 py-0.5 rounded text-micro font-semibold uppercase ${SEV_COLORS[r.severity]}`}
+                      className={`px-2 py-0.5 rounded border text-micro font-semibold uppercase ${SEVERITY_TONE[toSeverity(r.severity)]}`}
                     >
                       {r.severity}
                     </span>

@@ -1,6 +1,15 @@
 import { useState, useEffect, useCallback } from 'react';
 import { Eye, Plus, Loader2, Shield, AlertTriangle, Copy, Check } from 'lucide-react';
 import { BackLink } from '../../components/BackLink';
+import { SEVERITY_TONE, type Severity } from '../../components/severity';
+
+function normalizeSeverity(s: string): Severity {
+  const v = s.toLowerCase();
+  if (v === 'critical' || v === 'high' || v === 'medium' || v === 'low' || v === 'info') return v;
+  if (v === 'informational') return 'info';
+  if (v === 'none' || v === 'unknown' || v === 'unrated') return 'low';
+  return 'low';
+}
 
 interface CanaryToken {
   id: string;
@@ -83,12 +92,6 @@ export default function DeceptionTech(): JSX.Element {
     await navigator.clipboard.writeText(value);
     setCopied(id);
     setTimeout(() => setCopied(''), 2000);
-  };
-
-  const SEV_COLORS: Record<string, string> = {
-    medium: 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300',
-    high: 'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300',
-    critical: 'bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-300',
   };
 
   return (
@@ -206,7 +209,7 @@ export default function DeceptionTech(): JSX.Element {
                 <div className="flex items-center gap-2">
                   <AlertTriangle size={14} className={a.acknowledged ? 'text-slate-400' : 'text-rose-500'} />
                   <span
-                    className={`px-2 py-0.5 rounded text-micro font-semibold uppercase ${SEV_COLORS[a.severity] ?? 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300'}`}
+                    className={`px-2 py-0.5 rounded border text-micro font-semibold uppercase ${SEVERITY_TONE[normalizeSeverity(a.severity)]}`}
                   >
                     {a.severity}
                   </span>

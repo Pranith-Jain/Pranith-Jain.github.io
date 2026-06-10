@@ -24,6 +24,7 @@ import {
 } from 'lucide-react';
 import { FeedbackWidget } from '../../components/FeedbackWidget';
 import { adminAuthHeaders } from '../../lib/admin-token';
+import { SEVERITY_TONE, type Severity } from '../../components/severity';
 
 interface Pir {
   id: string;
@@ -86,12 +87,11 @@ interface RoutingResponse {
   routes: CollectionRoute[];
 }
 
-const PRIORITY_COLORS: Record<string, string> = {
-  critical: 'text-rose-500 border-rose-300 dark:border-rose-900 bg-rose-50 dark:bg-rose-950/20',
-  high: 'text-orange-500 border-orange-300 dark:border-orange-900 bg-orange-50 dark:bg-orange-950/20',
-  medium: 'text-amber-500 border-amber-300 dark:border-amber-900 bg-amber-50 dark:bg-amber-950/20',
-  low: 'text-slate-500 border-slate-300 dark:border-slate-800 bg-slate-50 dark:bg-slate-900',
-};
+function priorityTone(priority: string): string {
+  const key = priority.toLowerCase();
+  const sev: Severity = key === 'critical' || key === 'high' || key === 'medium' ? key : 'low';
+  return SEVERITY_TONE[sev];
+}
 const STATUS_COLORS: Record<string, string> = {
   active: 'text-emerald-600 dark:text-emerald-400',
   paused: 'text-amber-600 dark:text-amber-400',
@@ -874,7 +874,9 @@ export default function PirDashboard(): JSX.Element {
                       }
                       className="w-full flex items-center gap-3 p-4 text-left hover:bg-slate-50 dark:hover:bg-slate-900/20 transition-colors"
                     >
-                      <span className={`text-micro font-mono px-1.5 py-0.5 rounded ${PRIORITY_COLORS[pir.priority]}`}>
+                      <span
+                        className={`text-micro font-mono px-1.5 py-0.5 rounded border ${priorityTone(pir.priority)}`}
+                      >
                         {pir.priority}
                       </span>
                       <span className={`text-micro font-mono ${STATUS_COLORS[pir.status ?? 'active']}`}>

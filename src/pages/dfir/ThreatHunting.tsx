@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { Target, Plus, Loader2, CheckCircle, Clock } from 'lucide-react';
 import { BackLink } from '../../components/BackLink';
+import { SEVERITY_TONE, type Severity } from '../../components/severity';
 
 interface Hunt {
   id: string;
@@ -86,12 +87,6 @@ export default function ThreatHunting(): JSX.Element {
     }
   };
 
-  const PRI_COLORS: Record<string, string> = {
-    low: 'bg-sky-100 text-sky-700 dark:bg-sky-900/30 dark:text-sky-300',
-    medium: 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300',
-    high: 'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300',
-    critical: 'bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-300',
-  };
   const STATUS_ICONS: Record<string, typeof Target> = { draft: Clock, hunting: Loader2, completed: CheckCircle };
 
   return (
@@ -190,7 +185,15 @@ export default function ThreatHunting(): JSX.Element {
                         size={14}
                         className={h.status === 'hunting' ? 'animate-spin text-brand-600' : 'text-slate-400'}
                       />
-                      <span className={`px-2 py-0.5 rounded text-micro font-semibold ${PRI_COLORS[h.priority]}`}>
+                      <span
+                        className={`px-2 py-0.5 rounded border text-micro font-semibold ${
+                          SEVERITY_TONE[
+                            (h.priority?.toLowerCase() as Severity) in SEVERITY_TONE
+                              ? (h.priority.toLowerCase() as Severity)
+                              : 'low'
+                          ]
+                        }`}
+                      >
                         {h.priority}
                       </span>
                       <span className="text-micro font-mono uppercase text-slate-400">{h.status}</span>

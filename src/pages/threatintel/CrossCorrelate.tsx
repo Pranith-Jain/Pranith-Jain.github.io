@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, AlertTriangle, Target, Search, GitBranch } from 'lucide-react';
+import { SEVERITY_TONE, type Severity } from '../../components/severity';
 
 interface Insight {
   type: string;
@@ -21,19 +22,8 @@ interface CorrelateResponse {
   high: number;
 }
 
-const SEVERITY_STYLES: Record<string, string> = {
-  critical: 'border-rose-300 dark:border-rose-900 bg-rose-50 dark:bg-rose-950/20',
-  high: 'border-orange-300 dark:border-orange-900 bg-orange-50 dark:bg-orange-950/20',
-  medium: 'border-amber-300 dark:border-amber-900 bg-amber-50 dark:bg-amber-950/20',
-  informational: 'border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900',
-};
-
-const SEVERITY_BADGE: Record<string, string> = {
-  critical: 'bg-rose-200 dark:bg-rose-900 text-rose-700 dark:text-rose-300',
-  high: 'bg-orange-200 dark:bg-orange-900 text-orange-700 dark:text-orange-300',
-  medium: 'bg-amber-200 dark:bg-amber-900 text-amber-700 dark:text-amber-300',
-  informational: 'bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400',
-};
+// Insight severities map onto the canonical Severity union ('informational' → 'info').
+const toSeverity = (s: Insight['severity']): Severity => (s === 'informational' ? 'info' : s);
 
 export default function CrossCorrelate(): JSX.Element {
   const [data, setData] = useState<CorrelateResponse | null>(null);
@@ -145,10 +135,10 @@ export default function CrossCorrelate(): JSX.Element {
           {/* Insights */}
           <div className="space-y-3">
             {data.insights.map((insight, i) => (
-              <div key={i} className={`rounded-xl border p-4 ${SEVERITY_STYLES[insight.severity]}`}>
+              <div key={i} className={`rounded-xl border p-4 ${SEVERITY_TONE[toSeverity(insight.severity)]}`}>
                 <div className="flex items-start gap-3">
                   <span
-                    className={`text-micro font-mono px-1.5 py-0.5 rounded shrink-0 ${SEVERITY_BADGE[insight.severity]}`}
+                    className={`text-micro font-mono px-1.5 py-0.5 rounded border shrink-0 ${SEVERITY_TONE[toSeverity(insight.severity)]}`}
                   >
                     {insight.severity}
                   </span>

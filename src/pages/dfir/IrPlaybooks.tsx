@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react';
 import { BackLink } from '../../components/BackLink';
+import { SEVERITY_TONE } from '../../components/severity';
 import {
   ArrowLeft,
   BookOpen,
@@ -48,13 +49,6 @@ interface PlaybookResponse {
   playbook: Playbook;
   related_playbooks: Array<{ id: string; title: string; category: string }>;
 }
-
-const SEVERITY_BADGE: Record<string, string> = {
-  critical: 'bg-rose-100 text-rose-800 dark:bg-rose-900/30 dark:text-rose-300',
-  high: 'bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-300',
-  medium: 'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300',
-  low: 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400',
-};
 
 const INCIDENT_TYPES: Array<{ id: string; label: string; icon: LucideIcon }> = [
   { id: 'ransomware', label: 'Ransomware', icon: Lock },
@@ -193,7 +187,7 @@ export default function IrPlaybooks(): JSX.Element {
             <div className="flex items-center justify-between mb-2">
               <h2 className="font-display font-bold text-lg">{result.playbook.title}</h2>
               <span
-                className={`text-micro font-mono px-1.5 py-0.5 rounded ${SEVERITY_BADGE[result.playbook.severity]}`}
+                className={`text-micro font-mono px-1.5 py-0.5 rounded border ${SEVERITY_TONE[result.playbook.severity]}`}
               >
                 {result.playbook.severity}
               </span>

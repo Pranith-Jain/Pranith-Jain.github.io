@@ -4,6 +4,7 @@ import { ArrowLeft, FileDown, Loader2, Search, ShieldAlert } from 'lucide-react'
 import { BackLink } from '../../components/BackLink';
 import { DataState } from '../../components/DataState';
 import { sanitizeUrl } from '../../lib/sanitize-url';
+import { SEVERITY_TONE, type Severity } from '../../components/severity';
 
 /**
  * Ransomware Intel Report — a per-threat-group CTI report assembled from the
@@ -73,12 +74,14 @@ interface GroupListItem {
   victims?: number;
 }
 
-const SEV_PILL: Record<string, string> = {
-  critical: 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300',
-  high: 'border-orange-500/40 bg-orange-500/10 text-orange-700 dark:text-orange-300',
-  medium: 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300',
-  low: 'border-sky-500/40 bg-sky-500/10 text-sky-700 dark:text-sky-300',
-};
+// ransomware.live vuln `severity` strings → canonical Severity union.
+function toSeverity(raw: string | undefined): Severity | null {
+  const s = (raw ?? '').toLowerCase().trim();
+  if (s === 'critical' || s === 'high' || s === 'medium' || s === 'low' || s === 'info') return s;
+  if (s === 'informational') return 'info';
+  if (s === 'none' || s === 'unknown' || s === 'unrated') return 'low';
+  return null;
+}
 
 function Section({ title, children }: { title: string; children: React.ReactNode }): JSX.Element {
   return (
@@ -542,11 +545,16 @@ export default function RansomReport(): JSX.Element {
                               </a>
                             </td>
                             <td className="px-3 py-1.5">
-                              <span
-                                className={`text-mini font-mono px-2 py-0.5 rounded border ${SEV_PILL[(v.severity ?? '').toLowerCase()] ?? 'border-slate-300 dark:border-slate-700 text-slate-500'}`}
-                              >
-                                {v.severity ?? '—'}
-                              </span>
+                              {(() => {
+                                const sev = toSeverity(v.severity);
+                                return (
+                                  <span
+                                    className={`text-mini font-mono px-2 py-0.5 rounded border ${sev ? SEVERITY_TONE[sev] : 'border-slate-300 dark:border-slate-700 text-slate-500'}`}
+                                  >
+                                    {v.severity ?? '—'}
+                                  </span>
+                                );
+                              })()}
                             </td>
                             <td className="px-3 py-1.5 font-mono text-meta tabular-nums text-slate-600 dark:text-slate-400">
                               {v.CVSS ?? '—'}

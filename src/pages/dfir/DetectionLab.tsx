@@ -23,6 +23,7 @@ import {
   type Detection,
 } from '../../lib/dfir/detection-engine';
 import { groupedStarters } from '../../lib/dfir/detection-starters';
+import { SEVERITY_TONE, type Severity } from '../../components/severity';
 
 const STORAGE_KEY = 'dfir-detection-rules:v1';
 
@@ -83,12 +84,11 @@ interface RuleSourceParse {
   error?: string;
 }
 
-const SEV_PILL: Record<string, string> = {
-  critical: 'border-rose-500/50 bg-rose-500/15 text-rose-700 dark:text-rose-300',
-  high: 'border-orange-500/50 bg-orange-500/15 text-orange-700 dark:text-orange-300',
-  medium: 'border-amber-500/50 bg-amber-500/15 text-amber-700 dark:text-amber-300',
-  low: 'border-slate-400/50 bg-slate-400/10 text-slate-600 dark:text-slate-300',
-};
+/** Rule severities are constrained to low|medium|high|critical (see parseRule);
+ *  resolve to the canonical SEVERITY_TONE, falling back to medium. */
+function sevTone(severity: string): string {
+  return SEVERITY_TONE[severity as Severity] ?? SEVERITY_TONE.medium;
+}
 
 function loadSaved(): SavedRule[] {
   try {
@@ -423,9 +423,9 @@ export default function DetectionLab(): JSX.Element {
                       >
                         <div className="flex items-center gap-1.5">
                           <span
-                            className={`text-micro font-mono uppercase tracking-wider px-1 py-0.5 rounded border ${
-                              SEV_PILL[s.rule.severity] ?? SEV_PILL.medium
-                            }`}
+                            className={`text-micro font-mono uppercase tracking-wider px-1 py-0.5 rounded border ${sevTone(
+                              s.rule.severity
+                            )}`}
                           >
                             {s.rule.severity}
                           </span>
@@ -663,7 +663,7 @@ export default function DetectionLab(): JSX.Element {
               >
                 <div className="flex items-baseline gap-2 flex-wrap mb-1">
                   <span
-                    className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${SEV_PILL[d.severity] ?? SEV_PILL.medium}`}
+                    className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${sevTone(d.severity)}`}
                   >
                     {d.severity}
                   </span>

@@ -1,6 +1,7 @@
 import { useState, useCallback, type FormEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { Search, FolderOpen, File, AlertTriangle, Shield, Clock, Server, HardDrive, Info } from 'lucide-react';
+import { SEVERITY_TONE, SEVERITY_BAR } from '../../components/severity';
 
 const API = '/api/v1';
 
@@ -28,23 +29,6 @@ interface ScanResult {
   scannedAt: string;
   error?: string;
 }
-
-const RISK_COLORS: Record<string, string> = {
-  critical: 'bg-rose-100 dark:bg-rose-900/30 text-rose-700 dark:text-rose-300 border-rose-200 dark:border-rose-800/50',
-  high: 'bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 border-orange-200 dark:border-orange-800/50',
-  medium:
-    'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 border-amber-200 dark:border-amber-800/50',
-  low: 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 border-blue-200 dark:border-blue-800/50',
-  info: 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border-slate-200 dark:border-slate-700',
-};
-
-const RISK_DOT: Record<string, string> = {
-  critical: 'bg-rose-500',
-  high: 'bg-orange-500',
-  medium: 'bg-amber-500',
-  low: 'bg-blue-500',
-  info: 'bg-slate-400',
-};
 
 function formatSize(bytes: number | null): string {
   if (bytes === null) return '—';
@@ -284,9 +268,9 @@ export default function OpenDirectory(): JSX.Element {
                       <td className="px-3 py-2 text-right font-mono text-slate-500">{formatSize(entry.size)}</td>
                       <td className="px-3 py-2">
                         <span
-                          className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-micro font-mono uppercase ${RISK_COLORS[entry.risk]}`}
+                          className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded border text-micro font-mono uppercase ${SEVERITY_TONE[entry.risk]}`}
                         >
-                          <span className={`w-1.5 h-1.5 rounded-full ${RISK_DOT[entry.risk]}`} />
+                          <span className={`w-1.5 h-1.5 rounded-full ${SEVERITY_BAR[entry.risk]}`} />
                           {entry.risk}
                         </span>
                       </td>

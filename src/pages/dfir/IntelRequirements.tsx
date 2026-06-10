@@ -1,6 +1,14 @@
 import { useState, useEffect } from 'react';
 import { Target, Loader2, AlertTriangle } from 'lucide-react';
 import { BackLink } from '../../components/BackLink';
+import { SEVERITY_TONE, type Severity } from '../../components/severity';
+
+const toSeverity = (v: string): Severity => {
+  const k = (v || '').toLowerCase();
+  if (k === 'critical' || k === 'high' || k === 'medium' || k === 'low' || k === 'info') return k;
+  if (k === 'informational') return 'info';
+  return 'low';
+};
 
 interface Pir {
   id: string;
@@ -35,13 +43,6 @@ export default function IntelRequirementsPage(): JSX.Element {
       .catch(() => {})
       .finally(() => setLoading(false));
   }, []);
-
-  const PRI_COLORS: Record<string, string> = {
-    low: 'bg-sky-100 text-sky-700 dark:bg-sky-900/30',
-    medium: 'bg-amber-100 text-amber-700 dark:bg-amber-900/30',
-    high: 'bg-orange-100 text-orange-700 dark:bg-orange-900/30',
-    critical: 'bg-rose-100 text-rose-700 dark:bg-rose-900/30',
-  };
 
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8 text-slate-900 dark:text-slate-100">
@@ -91,7 +92,9 @@ export default function IntelRequirementsPage(): JSX.Element {
               className="p-4 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900"
             >
               <div className="flex items-center gap-2 mb-1">
-                <span className={`px-2 py-0.5 rounded text-micro font-semibold ${PRI_COLORS[p.priority]}`}>
+                <span
+                  className={`px-2 py-0.5 rounded border text-micro font-semibold ${SEVERITY_TONE[toSeverity(p.priority)]}`}
+                >
                   {p.priority}
                 </span>
                 <span

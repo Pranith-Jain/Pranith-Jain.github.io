@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { Shield, Loader2, Plus, X, ChevronRight } from 'lucide-react';
 import { BackLink } from '../../components/BackLink';
+import { SEVERITY_TONE, type Severity } from '../../components/severity';
 
 interface Asset {
   id: string;
@@ -84,14 +85,15 @@ export default function ThreatModels(): JSX.Element {
     }
   };
 
-  const RISK_COLORS: Record<string, string> = {
-    critical: 'bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-300',
-    high: 'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300',
-    medium: 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300',
-    low: 'bg-sky-100 text-sky-700 dark:bg-sky-900/30 dark:text-sky-300',
+  const normalizeSeverity = (v: string): Severity => {
+    const k = v.toLowerCase();
+    if (k === 'critical' || k === 'high' || k === 'medium' || k === 'low' || k === 'info') return k;
+    if (k === 'informational') return 'info';
+    if (k === 'none' || k === 'unknown' || k === 'unrated') return 'low';
+    return 'low';
   };
 
-  const getRiskLevel = (score: number) =>
+  const getRiskLevel = (score: number): Severity =>
     score >= 20 ? 'critical' : score >= 15 ? 'high' : score >= 10 ? 'medium' : 'low';
 
   return (
@@ -201,7 +203,7 @@ export default function ThreatModels(): JSX.Element {
                             <span className="font-medium">{a.name}</span>
                             <span className="text-slate-400 ml-2">{a.type}</span>
                             <span
-                              className={`ml-2 px-1 py-0.5 rounded text-micro ${RISK_COLORS[a.criticality] ?? 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300'}`}
+                              className={`ml-2 px-1 py-0.5 rounded border text-micro ${SEVERITY_TONE[normalizeSeverity(a.criticality)]}`}
                             >
                               {a.criticality}
                             </span>
@@ -228,7 +230,7 @@ export default function ThreatModels(): JSX.Element {
                                 <span>{t.description}</span>
                               </div>
                               <span
-                                className={`px-1.5 py-0.5 rounded text-micro font-bold ${RISK_COLORS[getRiskLevel(t.risk_score)]}`}
+                                className={`px-1.5 py-0.5 rounded border text-micro font-bold ${SEVERITY_TONE[getRiskLevel(t.risk_score)]}`}
                               >
                                 {getRiskLevel(t.risk_score)}
                               </span>

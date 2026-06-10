@@ -6,6 +6,7 @@ import { ArrowLeft, BookText, ExternalLink, FileCode, Gauge, Loader2, Copy, Chec
 import { CopyButton } from '../../components/dfir/CopyButton';
 import { prioritise, TIER_LABELS, TIER_STYLES, TIER_BARS } from '../../lib/dfir/cve-priority';
 import { RelatedWikiArticles } from '../../components/dfir/RelatedWikiArticles';
+import { SEVERITY_TONE, type Severity } from '../../components/severity';
 
 const CVE_RE = /^CVE-\d{4}-\d{4,7}$/i;
 
@@ -62,12 +63,8 @@ const ACTOR_LINK_SOURCE_LABEL: Record<string, string> = {
   feed: 'feed mention',
 };
 
-const SEVERITY_STYLES: Record<string, string> = {
-  CRITICAL: 'bg-rose-100 text-rose-800 dark:bg-rose-900/30 dark:text-rose-300 border-rose-300 dark:border-rose-700',
-  HIGH: 'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300 border-amber-300 dark:border-amber-700',
-  MEDIUM: 'bg-cyan-100 text-cyan-800 dark:bg-cyan-900/30 dark:text-cyan-300 border-cyan-300 dark:border-cyan-700',
-  LOW: 'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300 border-slate-300 dark:border-slate-600',
-};
+/** Canonical pill tone for an NVD CVSS severity label (UPPERCASE). */
+const cvssTone = (severity: string): string => SEVERITY_TONE[severity.toLowerCase() as Severity] ?? SEVERITY_TONE.low;
 
 export default function CveLookup(): JSX.Element {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -257,7 +254,7 @@ export default function CveLookup(): JSX.Element {
               )}
               {result.cvss && (
                 <span
-                  className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-bold uppercase tracking-wider border ${SEVERITY_STYLES[result.cvss.severity] ?? SEVERITY_STYLES.LOW}`}
+                  className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-bold uppercase tracking-wider border ${cvssTone(result.cvss.severity)}`}
                 >
                   {result.cvss.severity} {result.cvss.base_score}
                 </span>
@@ -498,7 +495,7 @@ export default function CveLookup(): JSX.Element {
                 </div>
                 <div>
                   <span
-                    className={`inline-block px-3 py-1 rounded-full text-sm font-bold border ${SEVERITY_STYLES[result.cvss.severity] ?? SEVERITY_STYLES.LOW}`}
+                    className={`inline-block px-3 py-1 rounded-full text-sm font-bold border ${cvssTone(result.cvss.severity)}`}
                   >
                     {result.cvss.severity}
                   </span>
