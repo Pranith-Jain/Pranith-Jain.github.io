@@ -679,6 +679,13 @@ export const SECTIONS: Section[] = [
         icon: Coins,
       },
       {
+        path: '/dfir/tracer',
+        useCase: 'Trace fund flows hop-by-hop and map an actor’s on-chain footprint.',
+        label: 'Fund-Flow Tracer',
+        desc: 'EVM + BTC + Tron · interactive graph · labels · risk score · calldata/TxDataHiding inspector · BTC clustering · auto-path to CEX/Mixer',
+        icon: Coins,
+      },
+      {
         path: '/dfir/screenshot-intel',
         useCase: 'OCR a screenshot and pull entities from the text.',
         label: 'Screenshot Intelligence',

@@ -26,6 +26,7 @@ import { breachDisclosuresHandler } from './routes/breach-disclosures';
 import { ransomwareRecentHandler } from './routes/ransomware-recent';
 import { ransomwareMapHandler } from './routes/ransomware-map';
 import { cryptoTraceHandler } from './routes/crypto-trace';
+import { tracerExpandHandler, tracerLabelHandler, tracerLabelAddHandler, tracerCalldataHandler } from './routes/tracer';
 import { abuseRssHandler } from './routes/abuse-rss';
 import { mtiRansomwareRssHandler } from './routes/mti-ransomware-rss';
 import { ransomwareMergedRssHandler } from './routes/ransomware-merged-rss';
@@ -447,6 +448,7 @@ for (const base of ADMIN_GATED_PREFIXES) {
 app.use('/api/v1/graph/ingest', requireAdminMiddleware);
 app.use('/api/v1/threat-intel/novelty/batch', requireAdminMiddleware);
 app.use('/api/v1/report/parse', requireAdminMiddleware);
+app.use('/api/v1/tracer/labels', requireAdminMiddleware);
 app.use('/api/v1/ai-summary', requireAdminMiddleware);
 app.use('/api/v1/yara/*', requireAdminMiddleware);
 app.use('/api/v1/rules/generate', requireAdminMiddleware);
@@ -462,6 +464,10 @@ import {
   waybackSchema,
   googleDorksSchema,
   cryptoTraceSchema,
+  tracerExpandSchema,
+  tracerLabelSchema,
+  tracerLabelAddSchema,
+  tracerCalldataSchema,
   ctCertsSchema,
   iocLifecycleSchema,
   iocTrendingSchema,
@@ -681,6 +687,10 @@ app.get('/api/v1/breach-disclosures', breachDisclosuresHandler);
 app.get('/api/v1/ransomware-recent', ransomwareRecentHandler);
 app.get('/api/v1/ransomware-map', ransomwareMapHandler);
 app.get('/api/v1/crypto-trace', validate('query', cryptoTraceSchema), cryptoTraceHandler);
+app.post('/api/v1/tracer/expand', validate('json', tracerExpandSchema), tracerExpandHandler);
+app.get('/api/v1/tracer/label', validate('query', tracerLabelSchema), tracerLabelHandler);
+app.post('/api/v1/tracer/labels', validate('json', tracerLabelAddSchema), tracerLabelAddHandler);
+app.get('/api/v1/tracer/calldata', validate('query', tracerCalldataSchema), tracerCalldataHandler);
 app.get('/api/v1/wayback/cdx', validate('query', waybackSchema), waybackCdxHandler);
 app.get('/api/v1/threat-pulse', threatPulseHandler);
 app.get('/api/v1/ip-geo', validate('query', ipGeoSchema), ipGeoHandler);
