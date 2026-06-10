@@ -246,12 +246,37 @@ const KEYWORD_REGEX = compileWordlist(
   )
 );
 
+// Token→slug / token→keyword indices, built ONCE at module load. Replaces the
+// per-match dictionary linear scan (findSlugFor / INTEL_KEYWORDS.find) that
+// re-lowercased every alias on every matched token. First insertion wins,
+// matching the prior first-match-in-dict-order semantics.
+const ACTOR_TOKEN_MAP = new Map<string, string>();
+for (const e of ACTOR_ALIASES) {
+  for (const tok of [e.canonical, ...e.aliases]) {
+    const k = tok.toLowerCase();
+    if (!ACTOR_TOKEN_MAP.has(k)) ACTOR_TOKEN_MAP.set(k, e.slug);
+  }
+}
+const MALWARE_TOKEN_MAP = new Map<string, string>();
+for (const e of MALWARE_DICT) {
+  for (const tok of [e.canonical, ...e.aliases]) {
+    const k = tok.toLowerCase();
+    if (!MALWARE_TOKEN_MAP.has(k)) MALWARE_TOKEN_MAP.set(k, e.slug);
+  }
+}
+const KEYWORD_BY_LOWER = new Map<string, (typeof INTEL_KEYWORDS)[number]>();
+for (const kw of INTEL_KEYWORDS) {
+  for (const tok of [kw.canonical, ...kw.aliases]) {
+    const k = tok.toLowerCase();
+    if (!KEYWORD_BY_LOWER.has(k)) KEYWORD_BY_LOWER.set(k, kw);
+  }
+}
+
 export function extractActors(text: string): ExtractedActor[] {
   const seen = new Map<string, ExtractedActor>();
   for (const m of text.match(ACTOR_REGEX) ?? []) {
-    // Re-find which slug this match belongs to. We scan the dict again, but
-    // the match volume per item is small (typically < 10), so this is cheap.
-    const hit = findSlugFor(m, ACTOR_ALIASES);
+    // O(1) token→slug lookup (index built once at module load).
+    const hit = ACTOR_TOKEN_MAP.get(m.toLowerCase());
     if (!hit) continue;
     const actor = ACTOR_BY_SLUG.get(hit);
     if (!actor) continue;
@@ -270,7 +295,7 @@ export function extractActors(text: string): ExtractedActor[] {
 export function extractMalware(text: string): ExtractedMalware[] {
   const seen = new Map<string, ExtractedMalware>();
   for (const m of text.match(MALWARE_REGEX) ?? []) {
-    const hit = findSlugFor(m, MALWARE_DICT);
+    const hit = MALWARE_TOKEN_MAP.get(m.toLowerCase());
     if (!hit) continue;
     const fam = MALWARE_BY_SLUG.get(hit);
     if (!fam) continue;
@@ -289,25 +314,10 @@ export function extractMalware(text: string): ExtractedMalware[] {
 export function extractTags(text: string): string[] {
   const seen = new Set<string>();
   for (const m of text.match(KEYWORD_REGEX) ?? []) {
-    const lower = m.toLowerCase();
-    const k = INTEL_KEYWORDS.find(
-      (kw) => kw.canonical.toLowerCase() === lower || kw.aliases.some((a) => a.toLowerCase() === lower)
-    );
+    const k = KEYWORD_BY_LOWER.get(m.toLowerCase());
     if (k) seen.add(k.canonical);
   }
   return [...seen];
-}
-
-function findSlugFor<T extends { slug: string; canonical: string; aliases: string[] }>(
-  matchText: string,
-  dict: T[]
-): string | undefined {
-  const lower = matchText.toLowerCase();
-  for (const entry of dict) {
-    if (entry.canonical.toLowerCase() === lower) return entry.slug;
-    if (entry.aliases.some((a) => a.toLowerCase() === lower)) return entry.slug;
-  }
-  return undefined;
 }
 
 // ---------- Summary ----------

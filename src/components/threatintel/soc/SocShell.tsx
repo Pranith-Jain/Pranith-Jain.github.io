@@ -70,8 +70,8 @@ export function SocShell({
 
   useEffect(() => {
     if (autoRefreshMs <= 0) return;
-    setNextRefreshIn(autoRefreshMs);
-    const id = window.setInterval(() => {
+    let id: number | undefined;
+    const tick = (): void => {
       setNextRefreshIn((v) => {
         if (v <= 1000) {
           queueMicrotask(() => onRefreshRef.current());
@@ -79,8 +79,28 @@ export function SocShell({
         }
         return v - 1000;
       });
-    }, 1000);
-    return () => window.clearInterval(id);
+    };
+    const start = (): void => {
+      if (id === undefined && !document.hidden) {
+        setNextRefreshIn(autoRefreshMs);
+        id = window.setInterval(tick, 1000);
+      }
+    };
+    const stop = (): void => {
+      if (id !== undefined) {
+        window.clearInterval(id);
+        id = undefined;
+      }
+    };
+    // Pause the countdown + its onRefresh() network fan-out while the tab is
+    // hidden; resume on return. Saves continuous background polling.
+    const onVis = (): void => (document.hidden ? stop() : start());
+    document.addEventListener('visibilitychange', onVis);
+    start();
+    return () => {
+      document.removeEventListener('visibilitychange', onVis);
+      stop();
+    };
   }, [autoRefreshMs]);
 
   // Reset the auto-refresh countdown whenever a refresh starts (manual

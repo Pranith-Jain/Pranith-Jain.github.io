@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import { useDebounce } from '../../hooks/useDebounce';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 import { relativeAgo as shortRel } from '../../lib/relativeTime';
 import { useSearchParams } from 'react-router-dom';
@@ -44,6 +45,9 @@ export default function RedditFirehose(): JSX.Element {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [query, setQuery] = useState(searchParams.get('q') ?? '');
+  // Debounce the filter so typing doesn't re-scan the full feed every keystroke;
+  // the <input> stays bound to `query` for instant feedback.
+  const debouncedQuery = useDebounce(query, 120);
   const [subFilter, setSubFilter] = useState<Set<string>>(new Set(searchParams.get('sub')?.split(',') ?? []));
   const [newOnly, setNewOnly] = useState(false);
   const [refreshKey, setRefreshKey] = useState(0);
@@ -89,19 +93,19 @@ export default function RedditFirehose(): JSX.Element {
 
   const filtered = useMemo(() => {
     if (!data) return [];
-    const q = query.trim().toLowerCase();
+    const q = debouncedQuery.trim().toLowerCase();
     return data.items.filter((it) => {
       if (subFilter.size > 0 && !subFilter.has(it.sub)) return false;
       if (newOnly && !isNewSince(it.pub_date, lastVisit)) return false;
       if (!q) return true;
       return it.title.toLowerCase().includes(q) || it.text.toLowerCase().includes(q) || it.author.includes(q);
     });
-  }, [data, query, subFilter, newOnly, lastVisit]);
+  }, [data, debouncedQuery, subFilter, newOnly, lastVisit]);
 
   // Cap rendered rows; reset when the filter result set changes.
   useEffect(() => {
     setVisible(60);
-  }, [query, subFilter, newOnly, data]);
+  }, [debouncedQuery, subFilter, newOnly, data]);
 
   const newCount = useMemo(() => {
     if (!data || !lastVisit) return 0;

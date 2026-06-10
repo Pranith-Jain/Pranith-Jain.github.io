@@ -294,9 +294,22 @@ async function extractedHash(report: ReportInput, e: ExtractedEntities): Promise
   return hex;
 }
 
+/** Index enrichments by `${type}|${value.toLowerCase()}` once so per-IoC lookups
+ *  are O(1) instead of a linear `.find()` (with its per-element toLowerCase) run
+ *  in up to four separate IoC loops. First match wins, matching the prior
+ *  `.find()` semantics. Key shape mirrors `indicatorIdByKey`. */
+function indexEnrichments(enrichments: IocEnrichment[]): Map<string, IocEnrichment> {
+  const m = new Map<string, IocEnrichment>();
+  for (const e of enrichments) {
+    const key = `${e.type}|${e.value.toLowerCase()}`;
+    if (!m.has(key)) m.set(key, e);
+  }
+  return m;
+}
+
 /** Find an enrichment by (type, value); returns a zeroed default if absent. */
-function enrichmentFor(enrichments: IocEnrichment[], ioc: ExtractedIoc): IocEnrichment {
-  const hit = enrichments.find((e) => e.type === ioc.type && e.value.toLowerCase() === ioc.value.toLowerCase());
+function enrichmentFor(byKey: Map<string, IocEnrichment>, ioc: ExtractedIoc): IocEnrichment {
+  const hit = byKey.get(`${ioc.type}|${ioc.value.toLowerCase()}`);
   if (hit) return hit;
   return {
     type: ioc.type,
@@ -321,6 +334,8 @@ export async function buildStixBundle(
   llmEntities: LlmEntities = EMPTY_LLM_ENTITIES
 ): Promise<BuildResult> {
   const t = nowIso();
+  // Build the (type|value)→enrichment index once; reused by every IoC loop below.
+  const enrichmentByKey = indexEnrichments(bulk.enrichments);
 
   // Identity (the source feed).
   const identityId = await stixId('identity', `identity|${report.sourceId}`);
@@ -449,7 +464,7 @@ export async function buildStixBundle(
   // Indicators (IoCs + bulk enrichments).
   const indicatorObjs: StixCommon[] = await Promise.all(
     entities.iocs.map(async (ioc: ExtractedIoc) => {
-      const enrich = enrichmentFor(bulk.enrichments, ioc);
+      const enrich = enrichmentFor(enrichmentByKey, ioc);
       const id = await stixId('indicator', `indicator|${ioc.type}|${ioc.value.toLowerCase()}`);
       const obj: StixCommon = {
         type: 'indicator',
@@ -560,16 +575,19 @@ export async function buildStixBundle(
     await rel(reportRefId, 'uses', ap.id);
   }
 
-  // indicator → indicates → malware (when the IoC's tags carry a known family)
+  // indicator → indicates → malware (when the IoC's tags carry a known family).
+  // Lowercase each malware canonical ONCE (slug kept raw to preserve the prior
+  // substring-match semantics), then lowercase each tag once per IoC instead of
+  // re-lowercasing on every (ioc × malware × tag) triple.
+  const malwareMatch = entities.malware.map((m) => ({ m, slug: m.slug, canon: m.canonical.toLowerCase() }));
   for (const ioc of entities.iocs) {
-    const enrich = enrichmentFor(bulk.enrichments, ioc);
+    const enrich = enrichmentFor(enrichmentByKey, ioc);
     if (!enrich.tags.length) continue;
     const indicatorId = indicatorIdByKey.get(`${ioc.type}|${ioc.value.toLowerCase()}`);
     if (!indicatorId) continue;
-    for (const m of entities.malware) {
-      const slugMatches = enrich.tags.some(
-        (tag) => tag.toLowerCase().includes(m.slug) || tag.toLowerCase().includes(m.canonical.toLowerCase())
-      );
+    const tagsLower = enrich.tags.map((tag) => tag.toLowerCase());
+    for (const { m, slug, canon } of malwareMatch) {
+      const slugMatches = tagsLower.some((tg) => tg.includes(slug) || tg.includes(canon));
       if (!slugMatches) continue;
       const malwareId = malwareIdBySlug.get(m.slug);
       if (malwareId) await rel(indicatorId, 'indicates', malwareId);
@@ -600,7 +618,7 @@ export async function buildStixBundle(
   // Only when the indicator is malicious/suspicious and CVEs are present.
   if (entities.cves.length > 0) {
     for (const ioc of entities.iocs) {
-      const enrich = enrichmentFor(bulk.enrichments, ioc);
+      const enrich = enrichmentFor(enrichmentByKey, ioc);
       if (enrich.verdict !== 'malicious' && enrich.verdict !== 'suspicious') continue;
       const indicatorId = indicatorIdByKey.get(`${ioc.type}|${ioc.value.toLowerCase()}`);
       if (!indicatorId) continue;
@@ -695,7 +713,7 @@ export async function buildStixBundle(
       };
     }),
     iocs: entities.iocs.map((ioc) => {
-      const e = enrichmentFor(bulk.enrichments, ioc);
+      const e = enrichmentFor(enrichmentByKey, ioc);
       return {
         type: ioc.type,
         value: ioc.value,
