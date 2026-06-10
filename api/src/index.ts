@@ -36,6 +36,12 @@ import {
   tracerGraphGetHandler,
   tracerGraphDeleteHandler,
 } from './routes/tracer';
+import {
+  cryptoWatchAddHandler,
+  cryptoWatchListHandler,
+  cryptoWatchRemoveHandler,
+  cryptoAlertsHandler,
+} from './routes/crypto-monitor';
 import { abuseRssHandler } from './routes/abuse-rss';
 import { mtiRansomwareRssHandler } from './routes/mti-ransomware-rss';
 import { ransomwareMergedRssHandler } from './routes/ransomware-merged-rss';
@@ -460,6 +466,8 @@ app.use('/api/v1/threat-intel/novelty/batch', requireAdminMiddleware);
 app.use('/api/v1/report/parse', requireAdminMiddleware);
 app.use('/api/v1/tracer/labels', requireAdminMiddleware);
 app.use('/api/v1/tracer/graphs', requireAdminMiddleware);
+app.use('/api/v1/crypto-monitor', requireAdminMiddleware);
+app.use('/api/v1/crypto-monitor/*', requireAdminMiddleware);
 app.use('/api/v1/tracer/graphs/*', requireAdminMiddleware);
 app.use('/api/v1/ai-summary', requireAdminMiddleware);
 app.use('/api/v1/yara/*', requireAdminMiddleware);
@@ -481,6 +489,7 @@ import {
   tracerLabelAddSchema,
   tracerCalldataSchema,
   tracerGraphSaveSchema,
+  cryptoWatchAddSchema,
   ctCertsSchema,
   iocLifecycleSchema,
   iocTrendingSchema,
@@ -709,6 +718,10 @@ app.post('/api/v1/tracer/graphs', validate('json', tracerGraphSaveSchema), trace
 app.get('/api/v1/tracer/graphs', tracerGraphListHandler);
 app.get('/api/v1/tracer/graphs/:id', tracerGraphGetHandler);
 app.delete('/api/v1/tracer/graphs/:id', tracerGraphDeleteHandler);
+app.post('/api/v1/crypto-monitor/watch', validate('json', cryptoWatchAddSchema), cryptoWatchAddHandler);
+app.get('/api/v1/crypto-monitor/watches', cryptoWatchListHandler);
+app.delete('/api/v1/crypto-monitor/watch/:address/:chain', cryptoWatchRemoveHandler);
+app.get('/api/v1/crypto-monitor/alerts', cryptoAlertsHandler);
 app.get('/api/v1/wayback/cdx', validate('query', waybackSchema), waybackCdxHandler);
 app.get('/api/v1/threat-pulse', threatPulseHandler);
 app.get('/api/v1/ip-geo', validate('query', ipGeoSchema), ipGeoHandler);

@@ -987,3 +987,14 @@ export const tracerGraphSaveSchema = z.object({
   investigation_id: z.string().max(64).optional(),
 });
 export type TracerGraphSaveInput = z.infer<typeof tracerGraphSaveSchema>;
+
+// ── Crypto monitor (Phase E) ────────────────────────────────────
+export const cryptoWatchAddSchema = z.object({
+  address: z.string().min(1).max(200),
+  chain: z.enum(['evm', 'btc', 'tron']),
+  alert_types: z.array(z.enum(['new_transfer', 'suspicious_counterparty', 'large_transfer'])).min(1),
+  min_amount: z.number().nonnegative().optional(),
+  webhook_url: z.string().url().max(2048).optional(),
+  label: z.string().max(120).optional(),
+});
+export type CryptoWatchAddInput = z.infer<typeof cryptoWatchAddSchema>;
