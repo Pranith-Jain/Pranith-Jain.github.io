@@ -7,7 +7,7 @@ export interface DataPageLayoutProps {
   backLabel?: string;
   icon: ReactNode;
   title: string;
-  description?: string;
+  description?: ReactNode;
   headerExtra?: ReactNode;
   loading?: boolean;
   error?: string | null;

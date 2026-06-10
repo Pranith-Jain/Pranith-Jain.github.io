@@ -50,7 +50,11 @@ const CRYPTO_WALLETS = {
 };
 
 const IP_PATTERN = /\b(?:(?:25[0-5]|2[0-4]\d|1?\d?\d)\.){3}(?:25[0-5]|2[0-4]\d|1?\d?\d)\b/g;
-const DOMAIN_PATTERN = /\b(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}\b/g;
+// Linear, bounded-label matcher (RFC-1035 label shape). Avoids the catastrophic
+// backtracking of `(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}` — that nested unbounded
+// quantifier is a ReDoS DoS over the untrusted body (run via .match() on the
+// whole input). Each label here is capped at 63 chars and anchored alphanumeric.
+const DOMAIN_PATTERN = /\b(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,24}\b/gi;
 const EMAIL_PATTERN = /\b[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}\b/g;
 
 interface StealerParseResult {

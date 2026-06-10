@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, Search, Loader2, Globe, Shield, AlertTriangle, ExternalLink } from 'lucide-react';
+import { Search, Loader2, Globe, Shield, AlertTriangle, ExternalLink } from 'lucide-react';
+import { DataPageLayout } from '../../components/DataPageLayout';
 
 // ─── API Response Types ──────────────────────────────────────────────────────
 
@@ -80,70 +80,56 @@ export default function DomainMonitor(): JSX.Element {
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
-      >
-        <ArrowLeft size={14} /> back
-      </BackLink>
-
-      <div className="animate-fade-in-up">
-        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
-          <Shield size={28} className="text-brand-600 dark:text-brand-400" /> Domain Monitor
-        </h1>
-        <p className="text-slate-600 dark:text-slate-400 mb-8 max-w-2xl">
-          Detect typosquat domains, homoglyph attacks, and phishing variants targeting your brand. Generates
-          permutations and checks which are actively registered.
-        </p>
-      </div>
-
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          run();
-        }}
-        className="mb-6"
-      >
-        <div className="flex gap-2">
-          <div className="flex-1 relative">
-            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" aria-hidden="true" />
-            <input
-              type="text"
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              placeholder="example.com"
-              className="w-full pl-9 pr-3 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
-              aria-label="Domain to monitor"
-            />
+    <DataPageLayout
+      backTo="/threatintel"
+      icon={<Shield size={28} />}
+      title="Domain Monitor"
+      description="Detect typosquat domains, homoglyph attacks, and phishing variants targeting your brand. Generates permutations and checks which are actively registered."
+      headerExtra={
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            run();
+          }}
+        >
+          <div className="flex gap-2">
+            <div className="flex-1 relative">
+              <Search
+                size={14}
+                className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+                aria-hidden="true"
+              />
+              <input
+                type="text"
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                placeholder="example.com"
+                className="w-full pl-9 pr-3 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+                aria-label="Domain to monitor"
+              />
+            </div>
+            <button
+              type="submit"
+              disabled={loading || !clean}
+              className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-lg disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400"
+            >
+              {loading ? (
+                <Loader2 size={16} className="animate-spin inline mr-1" />
+              ) : (
+                <Search size={16} className="inline mr-1" />
+              )}{' '}
+              Scan
+            </button>
           </div>
-          <button
-            type="submit"
-            disabled={loading || !clean}
-            className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-lg disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400"
-          >
-            {loading ? (
-              <Loader2 size={16} className="animate-spin inline mr-1" />
-            ) : (
-              <Search size={16} className="inline mr-1" />
-            )}{' '}
-            Scan
-          </button>
-        </div>
-      </form>
-
-      {loading && (
-        <div className="flex items-center gap-2 text-xs font-mono text-slate-500 animate-pulse mb-4">
-          <Loader2 size={12} className="animate-spin" />
-          Generating typosquat variants and checking DNS...
-        </div>
-      )}
-      {error && (
-        <p role="alert" className="text-xs font-mono text-rose-600 dark:text-rose-400 mb-4">
-          {error}
-        </p>
-      )}
-
+        </form>
+      }
+      loading={loading}
+      error={error}
+      onRetry={run}
+      empty={!loading && !error && !results}
+      emptyMessage="Enter a domain above to scan for typosquat variants."
+      emptyIcon={<Globe size={28} className="mx-auto text-slate-400" />}
+    >
       {results && (
         <div className="space-y-6">
           {/* Summary Stats */}
@@ -317,6 +303,6 @@ export default function DomainMonitor(): JSX.Element {
           </div>
         </div>
       )}
-    </div>
+    </DataPageLayout>
   );
 }

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
-import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, FileText, Search, Users } from 'lucide-react';
+import { FileText, Search, Users } from 'lucide-react';
 import { IocChip } from '../../components/dfir/IocChip';
+import { DataPageLayout } from '../../components/DataPageLayout';
 
 interface TrailFile {
   name: string;
@@ -74,19 +74,15 @@ export default function MaltrailTrails(): JSX.Element {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
-      >
-        <ArrowLeft size={14} /> back
-      </BackLink>
-
-      <div className="mb-8">
-        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
-          <Users size={28} className="text-brand-600 dark:text-brand-400" /> Maltrail APT Trails
-        </h1>
-        <p className="text-sm font-mono text-slate-600 dark:text-slate-400 mt-1 max-w-3xl">
+    <DataPageLayout
+      backTo="/threatintel"
+      icon={<Users size={28} />}
+      title="Maltrail APT Trails"
+      maxWidthClass="max-w-6xl"
+      loading={loading}
+      error={error}
+      headerExtra={
+        <p className="text-sm font-mono text-slate-600 dark:text-slate-400 max-w-3xl">
           Curated APT IOC trail files from{' '}
           <a
             href="https://github.com/stamparm/maltrail"
@@ -99,8 +95,8 @@ export default function MaltrailTrails(): JSX.Element {
           — per-actor indicator lists maintained by Miroslav Stampar. Each file contains known IPs, domains, and hashes
           associated with a specific APT group.
         </p>
-      </div>
-
+      }
+    >
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Sidebar — trail file list */}
         <div className="lg:col-span-1">
@@ -109,16 +105,6 @@ export default function MaltrailTrails(): JSX.Element {
               <FileText size={15} className="text-brand-600 dark:text-brand-400" />
               Trail files ({files?.length ?? '…'})
             </h2>
-            {loading && (
-              <p role="status" aria-live="polite" className="text-xs font-mono text-slate-500 animate-pulse">
-                loading…
-              </p>
-            )}
-            {error && (
-              <p role="alert" className="text-xs font-mono text-rose-500">
-                err: {error}
-              </p>
-            )}
             {files && (
               <div className="space-y-1 max-h-[70vh] overflow-y-auto">
                 {files.map((f) => (
@@ -218,6 +204,6 @@ export default function MaltrailTrails(): JSX.Element {
           )}
         </div>
       </div>
-    </div>
+    </DataPageLayout>
   );
 }

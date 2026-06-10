@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 import { useSearchParams } from 'react-router-dom';
-import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, ExternalLink, Search, Users, Bug } from 'lucide-react';
+import { DataPageLayout } from '../../components/DataPageLayout';
+import { ExternalLink, Search, Users, Bug } from 'lucide-react';
 
 interface MalpediaResult {
   ok: boolean;
@@ -53,34 +53,21 @@ export default function MalpediaPage(): JSX.Element {
     }
   };
 
-  return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
-      >
-        <ArrowLeft size={14} /> back
-      </BackLink>
-
-      <div className="mb-8">
-        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
-          <Bug size={28} className="text-brand-600 dark:text-brand-400" /> Malpedia
-        </h1>
-        <p className="text-sm font-mono text-slate-600 dark:text-slate-400 mt-1 max-w-3xl">
-          Malware family attribution lookup powered by{' '}
-          <a
-            href="https://malpedia.caad.fkie.fraunhofer.de/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-brand-600 dark:text-brand-400 hover:underline"
-          >
-            Fraunhofer FKIE Malpedia
-          </a>{' '}
-          — search actors and malware families for descriptions, associated malware, and references.
-        </p>
-      </div>
-
-      <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 mb-6">
+  const headerExtra = (
+    <div>
+      <p className="text-sm font-mono text-slate-600 dark:text-slate-400 mb-5 max-w-3xl">
+        Malware family attribution lookup powered by{' '}
+        <a
+          href="https://malpedia.caad.fkie.fraunhofer.de/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-brand-600 dark:text-brand-400 hover:underline"
+        >
+          Fraunhofer FKIE Malpedia
+        </a>{' '}
+        — search actors and malware families for descriptions, associated malware, and references.
+      </p>
+      <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
         <div className="flex gap-3 mb-4">
           {(['search', 'actor', 'family'] as const).map((m) => (
             <button
@@ -124,13 +111,19 @@ export default function MalpediaPage(): JSX.Element {
           </button>
         </div>
       </div>
+    </div>
+  );
 
-      {error && (
-        <div className="rounded-lg border border-amber-500/40 bg-amber-500/10 p-4 font-mono text-sm text-amber-700 dark:text-amber-300 mb-6">
-          {error}
-        </div>
-      )}
-
+  return (
+    <DataPageLayout
+      backTo="/threatintel"
+      icon={<Bug size={28} />}
+      title="Malpedia"
+      headerExtra={headerExtra}
+      loading={loading}
+      error={error}
+      onRetry={() => void search()}
+    >
       {/* Search results */}
       {result && mode === 'search' && (
         <div className="space-y-6">
@@ -256,6 +249,6 @@ export default function MalpediaPage(): JSX.Element {
           )}
         </div>
       )}
-    </div>
+    </DataPageLayout>
   );
 }

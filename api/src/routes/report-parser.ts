@@ -30,7 +30,10 @@ const FETCH_TIMEOUT = 15_000;
 
 // Regex patterns for IOC extraction (fallback if AI fails)
 const IPV4_RE = /\b(?:(?:25[0-5]|2[0-4]\d|1?\d?\d)\.){3}(?:25[0-5]|2[0-4]\d|1?\d?\d)\b/g;
-const DOMAIN_RE = /\b(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}\b/g;
+// Linear, bounded-label matcher (RFC-1035 label shape). Avoids the catastrophic
+// backtracking of `(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}` — a ReDoS DoS when run via
+// .match() over the untrusted report body. Each label capped at 63 chars.
+const DOMAIN_RE = /\b(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,24}\b/gi;
 const URL_RE = /https?:\/\/[^\s<>"{}|\\^`[\]]+/gi;
 const MD5_RE = /\b[a-fA-F0-9]{32}\b/g;
 const SHA1_RE = /\b[a-fA-F0-9]{40}\b/g;

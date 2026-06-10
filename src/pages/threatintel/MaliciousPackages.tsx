@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, Package, ExternalLink, RefreshCw, Search, ShieldAlert } from 'lucide-react';
+import { Package, ExternalLink, Search } from 'lucide-react';
+import { DataPageLayout } from '../../components/DataPageLayout';
 
 interface PackageEntry {
   name: string;
@@ -99,35 +99,8 @@ export default function MaliciousPackages(): JSX.Element {
     }
   };
 
-  return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
-      >
-        <ArrowLeft size={14} /> back
-      </BackLink>
-
-      <div className="mb-6 animate-fade-in-up">
-        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
-          <Package size={28} className="text-brand-600 dark:text-brand-400" /> Malicious-package directory
-        </h1>
-        <p className="text-sm font-mono text-slate-600 dark:text-slate-400 mt-1 max-w-3xl">
-          Cross-ecosystem malware/typosquat/dependency-confusion IOCs sourced from{' '}
-          <a
-            href="https://github.com/ossf/malicious-packages"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-brand-600 dark:text-brand-400 hover:underline"
-          >
-            ossf/malicious-packages
-          </a>{' '}
-          — the OpenSSF curated mirror of OSV-format reports across npm, PyPI, RubyGems, Maven, Go, and Rust. Each name
-          links to its registry detail page; click the OSSF link for the full OSV record (versions + indicators) and
-          timeline.
-        </p>
-      </div>
-
+  const headerExtra = (
+    <div>
       <div className="flex flex-wrap items-center gap-2 mb-4">
         <div className="flex flex-wrap gap-1.5">
           {ECOSYSTEMS.map((e) => (
@@ -150,7 +123,7 @@ export default function MaliciousPackages(): JSX.Element {
         </div>
       </div>
 
-      <div className="flex items-center gap-2 mb-4">
+      <div className="flex items-center gap-2">
         <div className="relative flex-1">
           <Search size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
           <input
@@ -168,25 +141,38 @@ export default function MaliciousPackages(): JSX.Element {
           </p>
         )}
       </div>
+    </div>
+  );
 
-      {error && (
-        <div className="rounded border border-rose-300 dark:border-rose-700 bg-rose-50 dark:bg-rose-950 p-3 text-xs font-mono text-rose-700 dark:text-rose-300 mb-4 inline-flex items-start gap-2">
-          <ShieldAlert size={14} className="shrink-0 mt-0.5" /> {error}
-        </div>
-      )}
+  const description = (
+    <>
+      Cross-ecosystem malware/typosquat/dependency-confusion IOCs sourced from{' '}
+      <a
+        href="https://github.com/ossf/malicious-packages"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-brand-600 dark:text-brand-400 hover:underline"
+      >
+        ossf/malicious-packages
+      </a>{' '}
+      — the OpenSSF curated mirror of OSV-format reports across npm, PyPI, RubyGems, Maven, Go, and Rust. Each name
+      links to its registry detail page; click the OSSF link for the full OSV record (versions + indicators) and
+      timeline.
+    </>
+  );
 
-      {loading && (
-        <p className="text-xs font-mono text-slate-500 inline-flex items-center gap-1">
-          <RefreshCw size={11} className="animate-spin" /> loading {ecosystem} listing…
-        </p>
-      )}
-
-      {!loading && filtered.length === 0 && !error && data && (
-        <p className="text-xs font-mono text-slate-500">
-          {query ? 'No packages match the filter.' : 'Listing is empty.'}
-        </p>
-      )}
-
+  return (
+    <DataPageLayout
+      backTo="/threatintel"
+      icon={<Package size={28} />}
+      title="Malicious-package directory"
+      description={description as unknown as string}
+      headerExtra={headerExtra}
+      loading={loading}
+      error={error}
+      empty={!loading && !error && !!data && filtered.length === 0}
+      emptyMessage={query ? 'No packages match the filter.' : 'Listing is empty.'}
+    >
       {filtered.length > 0 && (
         <ul className="grid sm:grid-cols-2 lg:grid-cols-3 gap-1.5 mt-2">
           {filtered.slice(0, 600).map((p) => (
@@ -243,6 +229,6 @@ export default function MaliciousPackages(): JSX.Element {
           source: {data.source_url} · refreshed {new Date(data.generated_at).toLocaleString()}
         </p>
       )}
-    </div>
+    </DataPageLayout>
   );
 }

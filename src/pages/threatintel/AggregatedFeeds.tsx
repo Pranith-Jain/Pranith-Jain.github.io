@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
-import { Shield, Server, Search, Bug, Globe, Database, ExternalLink, AlertTriangle, ArrowLeft } from 'lucide-react';
-import { BackLink } from '../../components/BackLink';
+import { useState, useEffect, useCallback } from 'react';
+import { Shield, Server, Search, Bug, Globe, Database, ExternalLink } from 'lucide-react';
+import { DataPageLayout } from '../../components/DataPageLayout';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 
 interface AggregatedFeed {
@@ -75,7 +75,9 @@ export default function AggregatedFeeds() {
   const [search, setSearch] = useState('');
   const [categoryFilter, setCategoryFilter] = useState<string>('all');
 
-  useEffect(() => {
+  const load = useCallback(() => {
+    setLoading(true);
+    setError(null);
     fetch('/api/v1/aggregated-feeds')
       .then((r) => (r.ok ? r.json() : Promise.reject(`HTTP ${r.status}`)))
       .then((d: AggregatedFeedsResponse) => {
@@ -88,6 +90,10 @@ export default function AggregatedFeeds() {
       });
   }, []);
 
+  useEffect(() => {
+    load();
+  }, [load]);
+
   const filteredFeeds = data?.feeds.filter((f) => {
     if (categoryFilter !== 'all' && f.category !== categoryFilter) return false;
     if (search) {
@@ -97,64 +103,47 @@ export default function AggregatedFeeds() {
     return true;
   });
 
-  if (loading) {
-    return (
-      <div className="min-h-[60vh] flex items-center justify-center">
-        <div className="animate-pulse text-slate-500 dark:text-slate-400">Loading feeds...</div>
+  const headerExtra = (
+    <div className="flex flex-wrap gap-3">
+      <div className="relative flex-1 min-w-[200px]">
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 dark:text-slate-500" />
+        <input
+          type="text"
+          placeholder="Search feeds..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className="w-full pl-10 pr-4 py-2 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg text-slate-900 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-brand-500"
+        />
       </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="min-h-[60vh] flex items-center justify-center gap-3 text-red-600 dark:text-red-400">
-        <AlertTriangle className="w-6 h-6" />
-        <span>Failed to load: {error}</span>
-      </div>
-    );
-  }
+      <select
+        value={categoryFilter}
+        onChange={(e) => setCategoryFilter(e.target.value)}
+        className="px-4 py-2 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg text-slate-900 dark:text-slate-200 focus:outline-none focus:border-brand-500"
+      >
+        <option value="all">All Categories</option>
+        {Object.entries(CATEGORY_META).map(([key, meta]) => (
+          <option key={key} value={key}>
+            {meta.label} ({data?.categories[key] ?? 0})
+          </option>
+        ))}
+      </select>
+    </div>
+  );
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
-      >
-        <ArrowLeft size={14} /> back
-      </BackLink>
-      <div className="mb-8">
-        <h1 className="text-3xl font-display font-bold mb-2">Aggregated Intelligence Feeds</h1>
-        <p className="text-slate-600 dark:text-slate-400">
-          Live feed data from CriticalPathSecurity Public-Intelligence-Feeds — {data?.feeds_ok ?? 0} of{' '}
-          {data?.total_feeds ?? 0} feeds available
-        </p>
-      </div>
-
-      <div className="flex flex-wrap gap-3 mb-6">
-        <div className="relative flex-1 min-w-[200px]">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 dark:text-slate-500" />
-          <input
-            type="text"
-            placeholder="Search feeds..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg text-slate-900 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-brand-500"
-          />
-        </div>
-        <select
-          value={categoryFilter}
-          onChange={(e) => setCategoryFilter(e.target.value)}
-          className="px-4 py-2 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg text-slate-900 dark:text-slate-200 focus:outline-none focus:border-brand-500"
-        >
-          <option value="all">All Categories</option>
-          {Object.entries(CATEGORY_META).map(([key, meta]) => (
-            <option key={key} value={key}>
-              {meta.label} ({data?.categories[key] ?? 0})
-            </option>
-          ))}
-        </select>
-      </div>
-
+    <DataPageLayout
+      backTo="/threatintel"
+      icon={<Database className="w-7 h-7" />}
+      title="Aggregated Intelligence Feeds"
+      description={`Live feed data from CriticalPathSecurity Public-Intelligence-Feeds — ${data?.feeds_ok ?? 0} of ${data?.total_feeds ?? 0} feeds available`}
+      headerExtra={data ? headerExtra : undefined}
+      loading={loading}
+      error={error ? `Failed to load: ${error}` : null}
+      onRetry={load}
+      empty={!loading && !error && (filteredFeeds?.length ?? 0) === 0}
+      emptyMessage="No feeds match the current filters."
+      maxWidthClass="max-w-6xl"
+    >
       <div className="grid gap-4">
         {filteredFeeds?.map((feed) => {
           const meta = CATEGORY_META[feed.category] ?? CATEGORY_META.collected;
@@ -231,6 +220,6 @@ export default function AggregatedFeeds() {
           );
         })}
       </div>
-    </div>
+    </DataPageLayout>
   );
 }
