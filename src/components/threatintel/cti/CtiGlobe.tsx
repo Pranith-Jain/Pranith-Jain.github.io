@@ -13,6 +13,7 @@ import { useEffect, useRef, useState, useMemo, type JSX } from 'react';
 import Globe from 'globe.gl';
 import type { CtiArc, CtiPoint } from './geo';
 import { severityColor } from './geo';
+import { useReduceMotion } from '../../../hooks/useMediaQuery';
 
 function escHtml(s: string): string {
   return s
@@ -52,6 +53,7 @@ export default function CtiGlobe({
   autoRotate = false,
 }: CtiGlobeProps): JSX.Element {
   const containerRef = useRef<HTMLDivElement>(null);
+  const reduceMotion = useReduceMotion();
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const globeRef = useRef<any>(null);
   const rotAngleRef = useRef(0);
@@ -312,7 +314,7 @@ export default function CtiGlobe({
 
   // Auto-rotation (resume after 10s of inactivity)
   useEffect(() => {
-    if (!autoRotate || !globeRef.current) return;
+    if (!autoRotate || reduceMotion || !globeRef.current) return;
 
     const rotate = () => {
       const now = Date.now();
@@ -328,7 +330,7 @@ export default function CtiGlobe({
     rafRef.current = requestAnimationFrame(rotate);
 
     return () => cancelAnimationFrame(rafRef.current);
-  }, [autoRotate]);
+  }, [autoRotate, reduceMotion]);
 
   // Error state
   if (error) {
@@ -361,7 +363,12 @@ export default function CtiGlobe({
   return (
     <div className="relative w-full h-full bg-[#0a0f1a] overflow-hidden">
       {/* Globe container */}
-      <div ref={containerRef} className="w-full h-full" />
+      <div
+        ref={containerRef}
+        className="w-full h-full"
+        role="img"
+        aria-label={`Interactive 3D globe showing ${points.length} threat-intel origin points by severity`}
+      />
 
       {/* Loading state */}
       {!ready && (
@@ -422,9 +429,10 @@ export default function CtiGlobe({
             </div>
             <button
               onClick={() => setSelectedPoint(null)}
+              aria-label="Close details"
               className="text-slate-500 hover:text-slate-300 transition-colors"
             >
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="w-4 h-4" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>

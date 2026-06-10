@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type FormEvent } from 'react';
+import { useEffect, useRef, useState, type FormEvent, type CSSProperties } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
 import {
@@ -464,14 +464,27 @@ function PasswordTab(): JSX.Element {
         <div className="flex gap-2">
           <div className="flex-1 relative">
             <input
-              type={showPassword ? 'text' : 'password'}
+              // Deliberately NOT type="password". A masked password field on a
+              // public page is what Google Safe Browsing classifies as a
+              // deceptive "user login" — that got /dfir/breach flagged
+              // ("Possible Phishing Detected on User Login"). This is a one-way
+              // hash lookup, not a login: keep the masked UX via CSS
+              // text-security and tell password managers to ignore the field so
+              // browsers stop treating it as credential entry.
+              type="text"
+              inputMode="text"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              placeholder="Enter password to check..."
+              placeholder="Type or paste a password to check"
               autoComplete="off"
               autoCorrect="off"
               autoCapitalize="off"
               spellCheck={false}
+              data-1p-ignore
+              data-lpignore="true"
+              data-form-type="other"
+              aria-label="Password to check against breach datasets"
+              style={{ WebkitTextSecurity: showPassword ? 'none' : 'disc' } as CSSProperties}
               className="w-full px-4 py-3 pr-12 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
             />
             <button

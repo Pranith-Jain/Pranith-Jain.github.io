@@ -154,6 +154,7 @@ const dfir: SidebarConfig = {
         { label: 'A3M Matrix', href: '/dfir/attack-navigator?matrix=a3m', icon: Sparkles },
         { label: 'D3FEND Matrix', href: '/dfir/attack-navigator?matrix=d3fend', icon: ShieldCheck },
         { label: 'Diamond', href: '/dfir/diamond', icon: Target },
+        { label: 'OSINT Mapper', href: '/dfir/osint-mapper', icon: Map },
       ],
     },
   ],

@@ -31,7 +31,7 @@ const CANONICAL_ORIGIN = 'https://pranithjain.qzz.io';
 const OG_CACHE_VERSION = 'v3';
 export const OG_CACHE_TTL_SECONDS = 86400;
 
-const OG_OVERRIDES: Record<string, OgOverride> = {
+export const OG_OVERRIDES: Record<string, OgOverride> = {
   '/about': {
     title: 'About · Pranith Jain',
     description:
@@ -55,6 +55,18 @@ const OG_OVERRIDES: Record<string, OgOverride> = {
     title: 'Blog · Pranith Jain',
     description:
       'Writing on threat intelligence, detection engineering, DFIR, and cloud security — field notes, deep dives, and analysis.',
+  },
+  // The two highest-value organic-search surfaces previously fell through to
+  // index.html's 97-char home <title>; give them their own short cards.
+  '/dfir': {
+    title: 'DFIR & Security Toolkit · Pranith Jain',
+    description:
+      '60+ free, browser-side DFIR and security tools: IOC checker, CVE prioritizer, email-auth auditor, decoders, and a detection-rule converter. No signup.',
+  },
+  '/copilot': {
+    title: 'CTI Copilot · Pranith Jain',
+    description:
+      'An agentic CTI assistant that investigates indicators, actors, and CVEs across the platform feeds and returns a sourced, structured briefing.',
   },
   '/threatintel': {
     title: 'Threat Intel Platform · pranithjain.qzz.io',
@@ -143,27 +155,39 @@ function escapeAttr(s: string): string {
  */
 function rewriteHtml(html: string, override: OgOverride | null, fullUrl: string, nonce?: string): string {
   const u = escapeAttr(fullUrl);
+  // NOTE: attribute gaps use `\s+`, not a literal space. index.html is
+  // prettier-formatted, which wraps long meta tags across multiple lines (the
+  // <meta name="description"> tag spans 3 lines). A single-space pattern
+  // silently fails to match a wrapped tag — that was the bug that served the
+  // 317-char home description (and the home twitter card) on every route.
+  // Twitter tags are declared with property= in index.html (not name=).
   let out = html
-    .replace(/<link rel="canonical" href="[^"]*"/i, `<link rel="canonical" href="${u}"`)
-    .replace(/<meta property="og:url" content="[^"]*"/i, `<meta property="og:url" content="${u}"`)
-    .replace(/<meta name="twitter:url" content="[^"]*"/i, `<meta name="twitter:url" content="${u}"`);
+    .replace(/<link\s+rel="canonical"\s+href="[^"]*"/i, `<link rel="canonical" href="${u}"`)
+    .replace(/<meta\s+property="og:url"\s+content="[^"]*"/i, `<meta property="og:url" content="${u}"`)
+    .replace(/<meta\s+property="twitter:url"\s+content="[^"]*"/i, `<meta property="twitter:url" content="${u}"`);
   if (override) {
     const t = escapeAttr(override.title);
     const d = escapeAttr(override.description);
     out = out
       .replace(/<title>[^<]*<\/title>/i, `<title>${t}</title>`)
-      .replace(/<meta name="description" content="[^"]*"/i, `<meta name="description" content="${d}"`)
-      .replace(/<meta property="og:title" content="[^"]*"/i, `<meta property="og:title" content="${t}"`)
-      .replace(/<meta property="og:description" content="[^"]*"/i, `<meta property="og:description" content="${d}"`)
-      .replace(/<meta name="twitter:title" content="[^"]*"/i, `<meta name="twitter:title" content="${t}"`)
-      .replace(/<meta name="twitter:description" content="[^"]*"/i, `<meta name="twitter:description" content="${d}"`);
+      .replace(/<meta\s+name="description"\s+content="[^"]*"/i, `<meta name="description" content="${d}"`)
+      .replace(/<meta\s+property="og:title"\s+content="[^"]*"/i, `<meta property="og:title" content="${t}"`)
+      .replace(/<meta\s+property="og:description"\s+content="[^"]*"/i, `<meta property="og:description" content="${d}"`)
+      .replace(/<meta\s+property="twitter:title"\s+content="[^"]*"/i, `<meta property="twitter:title" content="${t}"`)
+      .replace(
+        /<meta\s+property="twitter:description"\s+content="[^"]*"/i,
+        `<meta property="twitter:description" content="${d}"`
+      );
 
     if (override.image) {
       const imgUrl = `${CANONICAL_ORIGIN}${override.image}`;
       const imgAttr = escapeAttr(imgUrl);
       out = out
-        .replace(/<meta property="og:image" content="[^"]*"/i, `<meta property="og:image" content="${imgAttr}"`)
-        .replace(/<meta name="twitter:image" content="[^"]*"/i, `<meta name="twitter:image" content="${imgAttr}"`);
+        .replace(/<meta\s+property="og:image"\s+content="[^"]*"/i, `<meta property="og:image" content="${imgAttr}"`)
+        .replace(
+          /<meta\s+property="twitter:image"\s+content="[^"]*"/i,
+          `<meta property="twitter:image" content="${imgAttr}"`
+        );
     }
   }
   if (nonce) {
@@ -198,6 +222,127 @@ export async function resolveOg(url: URL, env: Env): Promise<OgOverride | null> 
     return OG_OVERRIDES['/blog'] ?? null;
   }
   return findOgOverride(url.pathname);
+}
+
+/* ── Blog structured data ─────────────────────────────────────────────────
+ * Blog content lives in CASE_STUDIES KV and the index/posts render
+ * client-side, so non-JS crawlers (and rich-results) see no BlogPosting/Blog
+ * schema. The worker has KV access, so it injects JSON-LD at the edge. */
+
+/** Minimal shape of a blog record in CASE_STUDIES KV — only the fields used for
+ *  structured data (mirrors api/src/case-study/types Post / PostIndexEntry). */
+interface BlogRecord {
+  slug: string;
+  title: string;
+  excerpt?: string;
+  publishedAt?: string;
+  updatedAt?: string;
+  tags?: string[];
+  body?: string;
+}
+
+const BLOG_AUTHOR = {
+  '@type': 'Person',
+  name: 'Pranith Jain',
+  url: CANONICAL_ORIGIN,
+  // sameAs disambiguates the author entity across platforms — matches the
+  // client-side BlogPosting JSON-LD in src/pages/BlogPost.tsx.
+  sameAs: ['https://www.linkedin.com/in/pranithjain', 'https://x.com/Npj8448'],
+};
+
+/** Serialize as a JSON-LD <script>. `type="application/ld+json"` is DATA, not
+ *  executable script, so CSP script-src does not apply and no nonce is needed.
+ *  `<` is escaped so an author-supplied title can't close the block. */
+function ldScript(obj: unknown): string {
+  return `<script type="application/ld+json">${JSON.stringify(obj).replace(/</g, '\\u003c')}</script>`;
+}
+
+function plainText(s: string, max: number): string {
+  return s
+    .replace(/<[^>]+>/g, '')
+    .replace(/[#*`>_[\]]/g, '')
+    .trim()
+    .slice(0, max);
+}
+
+function blogPostingLd(post: BlogRecord): string {
+  const url = `${CANONICAL_ORIGIN}/blog/${post.slug}`;
+  return ldScript({
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: post.title,
+    description: plainText(post.excerpt || post.body || '', 200),
+    datePublished: post.publishedAt,
+    dateModified: post.updatedAt || post.publishedAt,
+    url,
+    mainEntityOfPage: url,
+    author: BLOG_AUTHOR,
+    publisher: { '@type': 'Person', name: 'Pranith Jain' },
+    ...(post.tags && post.tags.length > 0 ? { keywords: post.tags.join(', ') } : {}),
+  });
+}
+
+function blogIndexLd(posts: BlogRecord[]): string {
+  return ldScript({
+    '@context': 'https://schema.org',
+    '@type': 'Blog',
+    name: 'Pranith Jain — Blog',
+    url: `${CANONICAL_ORIGIN}/blog`,
+    blogPost: posts.slice(0, 50).map((p) => ({
+      '@type': 'BlogPosting',
+      headline: p.title,
+      description: plainText(p.excerpt || '', 160),
+      datePublished: p.publishedAt,
+      url: `${CANONICAL_ORIGIN}/blog/${p.slug}`,
+      author: { '@type': 'Person', name: 'Pranith Jain' },
+    })),
+  });
+}
+
+/**
+ * Build the blog JSON-LD <script> for blog routes, read once from KV at the
+ * edge. Returns '' for non-blog routes or when data is unavailable —
+ * structured data is best-effort and never blocks the page. The result is
+ * cached alongside the OG-rewritten HTML (pathname@etag), so it follows the
+ * same ~1-day staleness window as the per-route OG metadata.
+ */
+export async function resolveBlogJsonLd(url: URL, env: Env): Promise<string> {
+  if (!env.CASE_STUDIES) return '';
+  try {
+    const m = /^\/blog\/([a-z0-9-]{1,200})$/.exec(url.pathname);
+    if (m && m[1] !== 'index') {
+      const post = (await env.CASE_STUDIES.get(`posts:${m[1]}`, 'json')) as BlogRecord | null;
+      return post?.title ? blogPostingLd(post) : '';
+    }
+    if (url.pathname === '/blog') {
+      const index = ((await env.CASE_STUDIES.get('posts:index', 'json')) as BlogRecord[] | null) ?? [];
+      return index.length > 0 ? blogIndexLd(index) : '';
+    }
+  } catch {
+    /* never let a KV hiccup blank the page */
+  }
+  return '';
+}
+
+/**
+ * Routes that must be served `noindex`: the credential-input DFIR tools (a
+ * public masked-password field reads as a deceptive "user login" to Google
+ * Safe Browsing) plus the admin login. These are kept CRAWLABLE (noindex, not
+ * robots Disallow) on purpose — Google must be able to re-crawl a flagged page
+ * to confirm it is clean and lift a Safe Browsing warning; Disallow would block
+ * that re-review. /admin is additionally Disallow-ed in robots.txt (it is
+ * genuinely private and never needs a Safe Browsing re-review).
+ */
+const NOINDEX_PREFIXES = [
+  '/dfir/breach',
+  '/dfir/pgp-tool',
+  '/dfir/phishing',
+  '/threatintel/telegram-leaks/channels',
+  '/threatintel/misp-browser',
+  '/admin',
+];
+function shouldNoindex(pathname: string): boolean {
+  return NOINDEX_PREFIXES.some((p) => pathname === p || pathname.startsWith(`${p}/`));
 }
 
 /**
@@ -245,7 +390,15 @@ export async function injectOgMeta(
     });
   }
   const ogOverride = await resolveOg(url, env);
-  const ogRewritten = rewriteHtml(html, ogOverride, `${CANONICAL_ORIGIN}${url.pathname}${url.search}`);
+  const blogLd = await resolveBlogJsonLd(url, env);
+  let ogRewritten = rewriteHtml(html, ogOverride, `${CANONICAL_ORIGIN}${url.pathname}${url.search}`);
+  if (blogLd) ogRewritten = ogRewritten.replace(/<\/head>/i, `${blogLd}</head>`);
+  if (shouldNoindex(url.pathname)) {
+    ogRewritten = ogRewritten.replace(
+      /<meta\s+name="robots"\s+content="[^"]*"/i,
+      '<meta name="robots" content="noindex, follow"'
+    );
+  }
   const final = nonce ? injectScriptNonce(ogRewritten, nonce) : ogRewritten;
 
   const result = new Response(final, {
