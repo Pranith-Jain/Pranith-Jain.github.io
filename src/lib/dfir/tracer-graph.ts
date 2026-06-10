@@ -153,3 +153,31 @@ export function findPathToCategory(graph: TracerGraph, targets: string[]): strin
   }
   return null;
 }
+
+export interface SerializedGraph {
+  seedId: string;
+  nodes: TracerNode[];
+  edges: TracerEdge[];
+}
+
+/** Flatten the Map-based graph for persistence/export. Pure. */
+export function serializeGraph(graph: TracerGraph): SerializedGraph {
+  return { seedId: graph.seedId, nodes: [...graph.nodes.values()], edges: [...graph.edges.values()] };
+}
+
+/** Rebuild a TracerGraph from a serialized blob. Tolerant of malformed input → empty graph. */
+export function deserializeGraph(data: unknown): TracerGraph {
+  const nodes = new Map<string, TracerNode>();
+  const edges = new Map<string, TracerEdge>();
+  const d = (data && typeof data === 'object' ? data : {}) as Partial<SerializedGraph>;
+  const seedId = typeof d.seedId === 'string' ? d.seedId : '';
+  if (Array.isArray(d.nodes)) {
+    for (const n of d.nodes)
+      if (n && typeof (n as TracerNode).id === 'string') nodes.set((n as TracerNode).id, n as TracerNode);
+  }
+  if (Array.isArray(d.edges)) {
+    for (const e of d.edges)
+      if (e && typeof (e as TracerEdge).id === 'string') edges.set((e as TracerEdge).id, e as TracerEdge);
+  }
+  return { seedId, nodes, edges };
+}

@@ -167,3 +167,56 @@ describe('findPathToCategory', () => {
     expect(findPathToCategory(g, ['exchange'])).toEqual(['evm:seed', 'evm:cex']);
   });
 });
+
+import { serializeGraph, deserializeGraph } from './tracer-graph';
+
+describe('serialize/deserialize round-trip', () => {
+  function sampleGraph() {
+    const g = emptyGraph('evm:0xroot');
+    g.nodes.set('evm:0xroot', {
+      id: 'evm:0xroot',
+      address: '0xroot',
+      chain: 'evm',
+      label: 'Binance 14',
+      category: 'exchange',
+      risk: { level: 'low', score: 0, signals: [] },
+      is_root: true,
+      explorer_url: 'https://x',
+    });
+    g.nodes.set('evm:0xa', {
+      id: 'evm:0xa',
+      address: '0xa',
+      chain: 'evm',
+      label: null,
+      category: 'unknown',
+      risk: { level: 'critical', score: 100, signals: ['OFAC-sanctioned address'] },
+      is_root: false,
+      explorer_url: 'https://x',
+    });
+    g.edges.set('tx1:evm:0xa', {
+      id: 'tx1:evm:0xa',
+      source: 'evm:0xroot',
+      target: 'evm:0xa',
+      direction: 'out',
+      amount: '1 ETH',
+      token: 'ETH',
+      tx_hash: 'tx1',
+      timestamp: null,
+      confidence: 'confirmed',
+    });
+    return g;
+  }
+  it('round-trips nodes, edges, seedId and confirmed state', () => {
+    const restored = deserializeGraph(JSON.parse(JSON.stringify(serializeGraph(sampleGraph()))));
+    expect(restored.seedId).toBe('evm:0xroot');
+    expect(restored.nodes.size).toBe(2);
+    expect(restored.edges.size).toBe(1);
+    expect(restored.edges.get('tx1:evm:0xa')!.confidence).toBe('confirmed');
+    expect(restored.nodes.get('evm:0xa')!.risk.level).toBe('critical');
+  });
+  it('deserialize tolerates malformed input → empty graph', () => {
+    expect(deserializeGraph(null).nodes.size).toBe(0);
+    expect(deserializeGraph({ nodes: 'nope' }).edges.size).toBe(0);
+    expect(deserializeGraph(42).seedId).toBe('');
+  });
+});
