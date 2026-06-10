@@ -425,7 +425,7 @@ export const investigationUpdateSchema = investigationCreateSchema.partial().ext
 });
 
 export const investigationObservableSchema = z.object({
-  type: z.enum(['ip', 'domain', 'hash', 'url', 'email']),
+  type: z.enum(['ip', 'domain', 'hash', 'url', 'email', 'crypto-address', 'tx-hash']),
   value: z.string().min(1).max(2048),
   notes: z.string().max(2000).optional(),
 });
@@ -965,3 +965,16 @@ export const tracerCalldataSchema = z.object({
   hash: z.string().min(1, 'hash is required').max(80, 'hash too long'),
 });
 export type TracerCalldataInput = z.infer<typeof tracerCalldataSchema>;
+
+// ── Crypto Tracer — saved graphs (Phase C) ──────────────────────
+export const tracerGraphSaveSchema = z.object({
+  title: z.string().min(1, 'title is required').max(120, 'title too long'),
+  seed_address: z.string().min(1).max(200),
+  chain: z.enum(['evm', 'btc', 'tron']),
+  graph_json: z
+    .string()
+    .min(1)
+    .max(512 * 1024, 'graph too large — prune it first'),
+  investigation_id: z.string().max(64).optional(),
+});
+export type TracerGraphSaveInput = z.infer<typeof tracerGraphSaveSchema>;

@@ -143,3 +143,73 @@ describe('GET /api/v1/tracer/calldata', () => {
     expect(Array.isArray(body.analysis.flags)).toBe(true);
   });
 });
+
+import {
+  tracerGraphSaveHandler,
+  tracerGraphListHandler,
+  tracerGraphGetHandler,
+  tracerGraphDeleteHandler,
+} from '../../src/routes/tracer';
+import { tracerGraphSaveSchema, investigationObservableSchema } from '../../src/lib/validation-schemas';
+
+function graphsApp() {
+  const a = new Hono<any>();
+  a.use('/api/v1/tracer/graphs', requireAdminMiddleware);
+  a.use('/api/v1/tracer/graphs/*', requireAdminMiddleware);
+  a.post('/api/v1/tracer/graphs', validate('json', tracerGraphSaveSchema), tracerGraphSaveHandler);
+  a.get('/api/v1/tracer/graphs', tracerGraphListHandler);
+  a.get('/api/v1/tracer/graphs/:id', tracerGraphGetHandler);
+  a.delete('/api/v1/tracer/graphs/:id', tracerGraphDeleteHandler);
+  return a;
+}
+const graphsBearer = { 'content-type': 'application/json', Authorization: 'Bearer sekret' };
+
+describe('tracer graphs CRUD (admin, mini-app)', () => {
+  it('401 without admin token', async () => {
+    const r = await graphsApp().request('/api/v1/tracer/graphs', { method: 'GET' }, adminEnv());
+    expect(r.status).toBe(401);
+  });
+
+  it('save -> list -> get -> delete round-trip', async () => {
+    const save = await graphsApp().request(
+      '/api/v1/tracer/graphs',
+      {
+        method: 'POST',
+        headers: graphsBearer,
+        body: JSON.stringify({
+          title: 'Heist trace',
+          seed_address: '0xabc',
+          chain: 'evm',
+          graph_json: '{"seedId":"evm:0xabc","nodes":[],"edges":[]}',
+        }),
+      },
+      adminEnv()
+    );
+    expect(save.status).toBe(201);
+    const { id } = (await save.json()) as { id: string };
+
+    const list = await graphsApp().request('/api/v1/tracer/graphs', { headers: graphsBearer }, adminEnv());
+    const { graphs } = (await list.json()) as { graphs: { id: string; title: string }[] };
+    expect(graphs.some((g) => g.id === id && g.title === 'Heist trace')).toBe(true);
+
+    const get = await graphsApp().request(`/api/v1/tracer/graphs/${id}`, { headers: graphsBearer }, adminEnv());
+    const row = (await get.json()) as { graph_json: string };
+    expect(row.graph_json).toContain('evm:0xabc');
+
+    const del = await graphsApp().request(
+      `/api/v1/tracer/graphs/${id}`,
+      { method: 'DELETE', headers: graphsBearer },
+      adminEnv()
+    );
+    expect(del.status).toBe(200);
+    const after = await graphsApp().request(`/api/v1/tracer/graphs/${id}`, { headers: graphsBearer }, adminEnv());
+    expect(after.status).toBe(404);
+  });
+});
+
+describe('investigationObservableSchema crypto widening', () => {
+  it('accepts crypto-address and tx-hash', () => {
+    expect(investigationObservableSchema.safeParse({ type: 'crypto-address', value: '0xabc' }).success).toBe(true);
+    expect(investigationObservableSchema.safeParse({ type: 'tx-hash', value: '0xdeadbeef' }).success).toBe(true);
+  });
+});
