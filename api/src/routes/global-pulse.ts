@@ -1998,97 +1998,35 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
     // pushed the build past the Free-plan 50-subrequest cap, starving the real
     // KV reads + direct fetches below (so telegram/x/reddit/cve silently came
     // back empty). Data now flows from cron-warmed KV (below) + direct fetches.
-    const tmData = null as unknown,
-      redditData = null as unknown,
-      tgData = null as unknown,
-      xData = null as unknown,
-      scamData = null as unknown,
-      breachData = null as unknown,
-      liveIocsData = null as unknown,
-      ddcData = null as unknown,
-      onionData = null as unknown,
-      stealerData = null as unknown,
-      phishingData = null as unknown,
-      malwareData = null as unknown,
-      ransomwareData = null as unknown,
-      detectionsData = null as unknown,
-      cybercrimeData = null as unknown,
-      writeupsData = null as unknown,
-      cveData = null as unknown,
-      xClaimsData = null as unknown,
-      actorData = null as unknown,
-      iocCorrData = null as unknown,
-      bfData = null as unknown;
-
-    // KV fallback for cache misses
-    const [
-      tmKv,
-      tgKv,
-      ransomKv,
-      ddcKv,
-      stealerKv,
-      cveKv,
-      iocKv,
-      redditKv,
-      xKv,
-      scamKv,
-      breachKv,
-      phishingKv,
-      malwareKv,
-      detectionsKv,
-      cybercrimeKv,
-      writeupsKv,
-      onionKv,
-      xClaimsKv,
-      actorKv,
-      iocCorrKv,
-      bfKv,
-    ] = await Promise.all([
-      tmData ? null : readKvJson(kv, 'gp:threat-map'),
-      tgData ? null : readKvJson(kv, 'gp:telegram-feed'),
-      ransomwareData ? null : readKvJson(kv, 'gp:ransomware-recent'),
-      ddcData ? null : readKvJson(kv, 'gp:deepdarkcti'),
-      stealerData ? null : readKvJson(kv, 'gp:stealer-forum-intel'),
-      cveData ? null : readKvJson(kv, 'gp:cve-recent'),
-      liveIocsData ? null : readKvJson(kv, 'gp:live-iocs'),
-      redditData ? null : readKvJson(kv, 'gp:reddit-feed'),
-      xData ? null : readKvJson(kv, 'gp:x-feed'),
-      scamData ? null : readKvJson(kv, 'gp:crypto-scam-feed'),
-      breachData ? null : readKvJson(kv, 'gp:breach-disclosures'),
-      phishingData ? null : readKvJson(kv, 'gp:phishing-urls'),
-      malwareData ? null : readKvJson(kv, 'gp:malware-samples'),
-      detectionsData ? null : readKvJson(kv, 'gp:detections'),
-      cybercrimeData ? null : readKvJson(kv, 'gp:cyber-crime'),
-      writeupsData ? null : readKvJson(kv, 'gp:writeups'),
-      onionData ? null : readKvJson(kv, 'gp:onion-watch'),
-      xClaimsData ? null : readKvJson(kv, 'gp:x-claims'),
-      actorData ? null : readKvJson(kv, 'gp:actor-timeline'),
-      iocCorrData ? null : readKvJson(kv, 'gp:ioc-correlation'),
-      bfData ? null : readKvJson(kv, 'gp:breach-forums'),
-    ]);
-
-    // Merge cache + KV
-    const finalTm = tmData ?? tmKv;
-    const finalTg = tgData ?? tgKv;
-    const finalRansom = ransomwareData ?? ransomKv;
-    const finalDdc = ddcData ?? ddcKv;
-    const finalStealer = stealerData ?? stealerKv;
-    const finalCve = cveData ?? cveKv;
-    const finalIoc = liveIocsData ?? iocKv;
-    const finalReddit = redditData ?? redditKv;
-    const finalX = xData ?? xKv;
-    const finalScam = scamData ?? scamKv;
-    const finalBreach = breachData ?? breachKv;
-    const finalPhishing = phishingData ?? phishingKv;
-    const finalMalware = malwareData ?? malwareKv;
-    const finalDetections = detectionsData ?? detectionsKv;
-    const finalCybercrime = cybercrimeData ?? cybercrimeKv;
-    const finalWriteups = writeupsData ?? writeupsKv;
-    const finalOnion = onionData ?? onionKv;
-    const finalXClaims = xClaimsData ?? xClaimsKv;
-    const finalActor = actorData ?? actorKv;
-    const finalIocCorr = iocCorrData ?? iocCorrKv;
-    const finalBf = bfData ?? bfKv;
+    // ── Single batched warm-cache read (gp:warm) ──────────────────────
+    // ONE KV read here + ONE write at the end of the build replace the ~21
+    // individual KV reads + ~21 writes that — together with the dead per-source
+    // Cache-API reads — blew the Free-plan 50-subrequest cap and silently starved
+    // telegram/x/reddit/cve/actor. With the budget freed, the direct-fetch
+    // fallbacks below resolve every source. The blob is the raw per-source data
+    // written by this same handler's prior build (self-warming).
+    const warm = ((kv ? await readKvJson(kv, 'gp:warm') : null) ?? {}) as Record<string, unknown>;
+    const finalTm = warm.tm ?? null;
+    const finalTg = warm.telegram ?? null;
+    const finalRansom = warm.ransom ?? null;
+    const finalDdc = warm.ddc ?? null;
+    const finalStealer = warm.stealer ?? null;
+    const finalCve = warm.cve ?? null;
+    const finalIoc = warm.ioc ?? null;
+    const finalReddit = warm.reddit ?? null;
+    const finalX = warm.x ?? null;
+    const finalScam = warm.scam ?? null;
+    const finalBreach = warm.breach ?? null;
+    const finalPhishing = warm.phishing ?? null;
+    const finalMalware = warm.malware ?? null;
+    const finalDetections = warm.detections ?? null;
+    const finalCybercrime = warm.cybercrime ?? null;
+    const finalWriteups = warm.writeups ?? null;
+    const finalOnion = warm.onion ?? null;
+    const finalXClaims = warm.xclaims ?? null;
+    const finalActor = warm.actor ?? null;
+    const finalIocCorr = warm.iocc ?? null;
+    const finalBf = warm.bf ?? null;
 
     // ── Direct endpoint fallback for still-missing layers ─────────────
     // Fetch ALL missing endpoints directly (Workers allow up to 50 subrequests).
@@ -2569,39 +2507,36 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
     });
     c.executionCtx.waitUntil(cache.put(cacheReq, response.clone()));
 
-    // Write source data to KV in background (globally replicated fallback)
-    // This ensures other colos can read data even if their local cache is cold.
+    // Write the RESOLVED per-source data back as ONE batched `gp:warm` blob
+    // (globally-replicated, read at the top of the next build). One write instead
+    // of ~21 — the previous per-key writes also wrote the dead null cache reads, so
+    // KV never actually warmed. Storing the merged (fetched) data here is what lets
+    // the next build serve telegram/x/reddit/cve/actor from a single cheap KV read.
     if (kv) {
-      const kvWrites: Array<Promise<void>> = [];
-      const kvMap: Array<[string, unknown]> = [
-        ['gp:threat-map', tmData],
-        ['gp:telegram-feed', tgData],
-        ['gp:x-feed', xData],
-        ['gp:reddit-feed', redditData],
-        ['gp:cve-recent', cveData],
-        ['gp:ransomware-recent', ransomwareData],
-        ['gp:breach-disclosures', breachData],
-        ['gp:deepdarkcti', ddcData],
-        ['gp:live-iocs', liveIocsData],
-        ['gp:crypto-scam-feed', scamData],
-        ['gp:phishing-urls', phishingData],
-        ['gp:malware-samples', malwareData],
-        ['gp:detections', detectionsData],
-        ['gp:cyber-crime', cybercrimeData],
-        ['gp:writeups', writeupsData],
-        ['gp:onion-watch', onionData],
-        ['gp:stealer-forum-intel', stealerData],
-        ['gp:x-claims', xClaimsData],
-        ['gp:actor-timeline', actorData],
-        ['gp:ioc-correlation', iocCorrData],
-        ['gp:breach-forums', bfData],
-      ];
-      for (const [key, val] of kvMap) {
-        if (val) {
-          kvWrites.push(kv.put(key, JSON.stringify(val), { expirationTtl: 3600 }).catch(() => {}));
-        }
-      }
-      c.executionCtx.waitUntil(Promise.all(kvWrites));
+      const warmBlob = {
+        tm: mergedTm,
+        reddit: mergedReddit,
+        x: mergedX,
+        cve: mergedCve,
+        ransom: mergedRansom,
+        breach: mergedBreach,
+        ioc: mergedIoc,
+        phishing: mergedPhishing,
+        malware: mergedMalware,
+        scam: mergedScam,
+        xclaims: mergedXClaims,
+        actor: mergedActor,
+        iocc: mergedIocCorr,
+        bf: mergedBf,
+        telegram: finalTg,
+        ddc: finalDdc,
+        onion: finalOnion,
+        stealer: finalStealer,
+        detections: finalDetections,
+        cybercrime: finalCybercrime,
+        writeups: finalWriteups,
+      };
+      c.executionCtx.waitUntil(kv.put('gp:warm', JSON.stringify(warmBlob), { expirationTtl: 3600 }).catch(() => {}));
     }
 
     return response;
