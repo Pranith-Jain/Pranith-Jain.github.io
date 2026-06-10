@@ -71,7 +71,10 @@ const FEED_DEADLINE_MS = 6_500;
 // the recurring "load error: upstream error" on the Ransomware card.
 // v18: 2026-05-26 — Per-source 6s timeout on ransomware fan-out so
 // the other 5 cards never wait for a slow cold build.
-export const SNAPSHOT_CACHE_KEY = 'https://snapshot-cache.internal/v20-remove-6s-timeout';
+// v21: telegram now read from the per-feed `gp:warm:telegram` slice (was the
+// dead legacy `gp:warm` blob → 0 posts). Bump invalidates the stale-empty
+// snapshot so the first post-deploy request rebuilds with the warmed telegram.
+export const SNAPSHOT_CACHE_KEY = 'https://snapshot-cache.internal/v21-tg-warm-slice';
 
 /** Curated feed URLs — kept in sync with the constants the panel used to use. */
 const SCAM_FEED_URLS = ['https://consumer.ftc.gov/blog/rss', 'https://www.ic3.gov/CSA/RSS'];
@@ -156,6 +159,25 @@ function budgeted<T>(fn: () => Promise<T>, ms: number = SOURCE_BUDGET_MS): Promi
   });
 }
 
+/**
+ * Read the hourly-warmed Telegram feed from its per-feed KV slice
+ * `gp:warm:telegram` — written by the queue consumer (worker/queue-consumer.ts
+ * via gpWarmKey('telegram')) and identical in every colo. Returns null when the
+ * slice is missing/empty so callers fall back to a live rebuild.
+ *
+ * MUST stay in sync with the warmer's key. Warming migrated from a single
+ * `gp:warm` blob to per-feed `gp:warm:<key>` slices; this snapshot read was left
+ * on the dead legacy `gp:warm` blob (expecting a nested `.telegram`), so it
+ * silently returned nothing — the "Cybersec Telegram firehose · 0 posts · 0
+ * channels live" bug, even though the slice held ~487 items.
+ */
+export async function readWarmTelegram(kv: KVNamespace | undefined): Promise<TelegramFeedResponse | null> {
+  if (!kv) return null;
+  const warm = (await kv.get('gp:warm:telegram', 'json').catch(() => null)) as TelegramFeedResponse | null;
+  if (warm?.items?.length || warm?.channels?.length) return warm;
+  return null;
+}
+
 export async function snapshotHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const cache = (caches as unknown as { default: Cache }).default;
   const cacheKey = new Request(SNAPSHOT_CACHE_KEY);
@@ -177,15 +199,11 @@ export async function snapshotHandler(c: Context<{ Bindings: Env }>): Promise<Re
                 throw new Error('upstream error');
               }),
               safe(async () => {
-                // Prefer the global gp:warm KV telegram (same in every colo) so
-                // a stale-snapshot rebuild heals to real data instantly instead
-                // of paying the ~17s t.me fan-out.
-                if (c.env.KV_CACHE) {
-                  const warm = (await c.env.KV_CACHE.get('gp:warm', 'json').catch(() => null)) as {
-                    telegram?: TelegramFeedResponse;
-                  } | null;
-                  if (warm?.telegram?.items?.length || warm?.telegram?.channels?.length) return warm.telegram;
-                }
+                // Prefer the hourly-warmed gp:warm:telegram slice (same in every
+                // colo) so a stale-snapshot rebuild heals to real data instantly
+                // instead of paying the ~17s t.me fan-out.
+                const warm = await readWarmTelegram(c.env.KV_CACHE);
+                if (warm) return warm;
                 return fetchTelegramFeed();
               }),
               safe(() => aggregateFeeds(SCAM_FEED_URLS, 12, 6, { deadlineMs: FEED_DEADLINE_MS })),
@@ -254,15 +272,11 @@ export async function snapshotHandler(c: Context<{ Bindings: Env }>): Promise<Re
       throw new Error('all ransomware upstreams unreachable');
     }),
     budgeted(async () => {
-      // Prefer the GLOBAL gp:warm KV blob: the hourly cron writes it once and
-      // KV is the same in every colo, so this avoids the per-colo cold-cache
-      // problem that made cold colos rebuild (and time out) the telegram feed.
-      if (c.env.KV_CACHE) {
-        const warm = (await c.env.KV_CACHE.get('gp:warm', 'json').catch(() => null)) as {
-          telegram?: TelegramFeedResponse;
-        } | null;
-        if (warm?.telegram?.items?.length || warm?.telegram?.channels?.length) return warm.telegram;
-      }
+      // Prefer the hourly-warmed gp:warm:telegram slice: the queue consumer
+      // writes it once/hour and KV is the same in every colo, avoiding the
+      // per-colo cold-cache rebuild (and the t.me fan-out timeout).
+      const warm = await readWarmTelegram(c.env.KV_CACHE);
+      if (warm) return warm;
       // Per-colo edge cache next.
       const cached = await cache.match(TELEGRAM_FEED_CACHE_KEY);
       if (cached) return (await cached.json()) as TelegramFeedResponse;
