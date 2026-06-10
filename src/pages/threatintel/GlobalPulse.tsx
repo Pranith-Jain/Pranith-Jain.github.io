@@ -24,7 +24,6 @@ import {
   X,
   Clock,
   Crosshair,
-  TrendingUp,
 } from 'lucide-react';
 import type { ReactNode } from 'react';
 import { DataPageLayout } from '../../components/DataPageLayout';
@@ -56,18 +55,20 @@ type PulseKind =
   | 'c2_tracker'
   | 'cisa_advisory'
   | 'blocklist'
-  | 'darkweb'
   | 'infostealer'
   | 'phishing'
   | 'malware'
   | 'ransomware'
-  | 'detection'
   | 'cybercrime'
   | 'research'
   | 'cve'
   | 'actor_sighting'
   | 'ioc_correlation'
-  | 'prediction_market';
+  | 'secret_leak'
+  | 'malicious_package'
+  | 'exploit'
+  | 'github_advisory'
+  | 'kev';
 
 interface PulseEvent {
   id: string;
@@ -176,12 +177,44 @@ const LAYER_DEFS: Record<PulseKind, LayerDef> = {
     bgColor: 'bg-cyan-500/10 border-cyan-500/20',
     group: 'intel',
   },
-  prediction_market: {
-    label: 'Prediction Markets',
-    shortLabel: 'PM',
-    icon: <TrendingUp size={14} />,
+  secret_leak: {
+    label: 'GitHub Leaks',
+    shortLabel: 'LEAK',
+    icon: <ShieldAlert size={14} />,
     color: 'text-fuchsia-400',
     bgColor: 'bg-fuchsia-500/10 border-fuchsia-500/20',
+    group: 'intel',
+  },
+  malicious_package: {
+    label: 'Malicious Packages',
+    shortLabel: 'PKG',
+    icon: <Box size={14} />,
+    color: 'text-orange-400',
+    bgColor: 'bg-orange-500/10 border-orange-500/20',
+    group: 'intel',
+  },
+  exploit: {
+    label: 'Public Exploits',
+    shortLabel: 'XPLOIT',
+    icon: <Zap size={14} />,
+    color: 'text-yellow-400',
+    bgColor: 'bg-yellow-500/10 border-yellow-500/20',
+    group: 'intel',
+  },
+  github_advisory: {
+    label: 'GitHub Advisories',
+    shortLabel: 'GHSA',
+    icon: <Shield size={14} />,
+    color: 'text-sky-400',
+    bgColor: 'bg-sky-500/10 border-sky-500/20',
+    group: 'intel',
+  },
+  kev: {
+    label: 'CISA KEV',
+    shortLabel: 'KEV',
+    icon: <Flame size={14} />,
+    color: 'text-red-500',
+    bgColor: 'bg-red-600/10 border-red-600/20',
     group: 'intel',
   },
   ransomware: {
@@ -190,14 +223,6 @@ const LAYER_DEFS: Record<PulseKind, LayerDef> = {
     icon: <Skull size={14} />,
     color: 'text-rose-500',
     bgColor: 'bg-rose-600/10 border-rose-600/20',
-    group: 'intel',
-  },
-  darkweb: {
-    label: 'Dark Web',
-    shortLabel: 'DARK',
-    icon: <ShieldAlert size={14} />,
-    color: 'text-purple-500',
-    bgColor: 'bg-purple-600/10 border-purple-600/20',
     group: 'intel',
   },
   infostealer: {
@@ -222,14 +247,6 @@ const LAYER_DEFS: Record<PulseKind, LayerDef> = {
     icon: <Bug size={14} />,
     color: 'text-red-400',
     bgColor: 'bg-red-500/10 border-red-500/20',
-    group: 'intel',
-  },
-  detection: {
-    label: 'Detections',
-    shortLabel: 'DETECT',
-    icon: <Shield size={14} />,
-    color: 'text-emerald-400',
-    bgColor: 'bg-emerald-500/10 border-emerald-500/20',
     group: 'intel',
   },
   cybercrime: {
@@ -397,8 +414,6 @@ export default function GlobalPulse(): JSX.Element {
       'cyber_attack',
       'c2_tracker',
       'cisa_advisory',
-      'detection',
-      'darkweb',
       'infostealer',
       'phishing',
       'malware',
@@ -408,7 +423,11 @@ export default function GlobalPulse(): JSX.Element {
       'scam',
       'actor_sighting',
       'ioc_correlation',
-      'prediction_market',
+      'secret_leak',
+      'malicious_package',
+      'exploit',
+      'github_advisory',
+      'kev',
     ])
   );
   const [autoRefresh, setAutoRefresh] = useState(true);
@@ -1116,8 +1135,6 @@ export default function GlobalPulse(): JSX.Element {
                         'cyber_attack',
                         'c2_tracker',
                         'cisa_advisory',
-                        'detection',
-                        'darkweb',
                         'infostealer',
                         'phishing',
                         'malware',
@@ -1127,6 +1144,11 @@ export default function GlobalPulse(): JSX.Element {
                         'scam',
                         'actor_sighting',
                         'ioc_correlation',
+                        'secret_leak',
+                        'malicious_package',
+                        'exploit',
+                        'github_advisory',
+                        'kev',
                       ])
                     );
                     setSeverityFilter(new Set(['critical', 'high', 'medium', 'low']));

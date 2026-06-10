@@ -27,11 +27,12 @@ export const GP_FEEDS: ReadonlyArray<{ key: string; path: string }> = [
   { key: 'tm', path: '/api/v1/threat-map' },
   { key: 'ioc', path: '/api/v1/live-iocs' },
   { key: 'xclaims', path: '/api/v1/x-claims' },
-  { key: 'bf', path: '/api/v1/breach-forums' },
-  { key: 'ddc', path: '/api/v1/deepdarkcti' },
-  { key: 'onion', path: '/api/v1/onion-watch' },
   { key: 'stealer', path: '/api/v1/stealer-forum-intel' },
-  { key: 'detections', path: '/api/v1/detections' },
+  { key: 'secretleaks', path: '/api/v1/secret-leaks' },
+  { key: 'malpkg', path: '/api/v1/malicious-packages' },
+  { key: 'exploit', path: '/api/v1/exploit-db?q=2026' },
+  { key: 'ghsa', path: '/api/v1/github-security?ecosystem=npm' },
+  { key: 'kev', path: '/api/v1/cisa-kev?days=30' },
 ];
 
 // Per-feed warm-slice KV key for a global-pulse feed.
@@ -100,18 +101,20 @@ type PulseKind =
   | 'c2_tracker'
   | 'cisa_advisory'
   | 'blocklist'
-  | 'darkweb'
   | 'infostealer'
   | 'phishing'
   | 'malware'
   | 'ransomware'
-  | 'detection'
   | 'cybercrime'
   | 'research'
   | 'cve'
   | 'actor_sighting'
   | 'ioc_correlation'
-  | 'prediction_market';
+  | 'secret_leak'
+  | 'malicious_package'
+  | 'exploit'
+  | 'github_advisory'
+  | 'kev';
 
 interface PulseEvent {
   id: string;
@@ -414,39 +417,6 @@ function fromReddit(data: {
   }));
 }
 
-function fromPredictions(data: {
-  buckets?: {
-    cyber?: Array<{ question: string; slug: string; url: string; probability: number; volume: number }>;
-    ai?: Array<{ question: string; slug: string; url: string; probability: number; volume: number }>;
-    tech?: Array<{ question: string; slug: string; url: string; probability: number; volume: number }>;
-  };
-}): PulseEvent[] {
-  const now = new Date().toISOString();
-  const groups: Array<['cyber' | 'ai' | 'tech', NonNullable<typeof data.buckets>['cyber']]> = [
-    ['cyber', data.buckets?.cyber],
-    ['ai', data.buckets?.ai],
-    ['tech', data.buckets?.tech],
-  ];
-  const events: PulseEvent[] = [];
-  for (const [bucket, markets] of groups) {
-    for (const m of (markets ?? []).slice(0, 12)) {
-      const pct = Math.round((m.probability ?? 0) * 100);
-      events.push({
-        id: `pm-${m.slug.slice(0, 28)}`,
-        kind: 'prediction_market' as const,
-        title: m.question,
-        description: `${bucket} · ${pct}% likely`,
-        lat: 0,
-        lng: 0,
-        timestamp: now,
-        severity: pct >= 70 ? ('high' as const) : pct >= 40 ? ('medium' as const) : ('low' as const),
-        source: 'Manifold',
-        url: m.url,
-      });
-    }
-  }
-  return events;
-}
 
 function fromTelegram(data: {
   items?: Array<{ text: string; channel_name: string; channel_topic: string; permalink: string; datetime: string }>;
@@ -566,41 +536,112 @@ function fromLiveIocs(data: {
   }));
 }
 
-function fromDeepdarkcti(data: {
-  entries?: Array<{ name?: string; title?: string; category: string; url?: string; date?: string }>;
-}): PulseEvent[] {
-  return (data.entries ?? [])
-    .filter((e) => /dark|market|leak|forum|ransom/i.test(e.category))
-    .slice(0, 30)
-    .map((e, i) => {
-      const title = e.name || e.title || 'Unknown';
-      return {
-        id: `ddc-${i}-${title.slice(-15)}`,
-        kind: 'darkweb' as const,
-        title: title.slice(0, 120),
-        description: e.category,
-        lat: 0,
-        lng: 0,
-        timestamp: e.date || new Date().toISOString(),
-        severity: 'high' as const,
-        source: 'DeepDarkCTI',
-        url: e.url,
-      };
-    });
-}
+type Sev = PulseEvent['severity'];
+const asSev = (s: string | undefined, fallback: Sev = 'medium'): Sev =>
+  (['critical', 'high', 'medium', 'low'].includes(s ?? '') ? (s as Sev) : fallback);
 
-function fromOnionWatch(data: { items?: Array<{ title: string; url?: string; discovered?: string }> }): PulseEvent[] {
-  return (data.items ?? []).slice(0, 20).map((i, idx) => ({
-    id: `onion-${idx}-${i.title.slice(-15)}`,
-    kind: 'darkweb' as const,
-    title: i.title.slice(0, 120),
-    description: 'Onion service',
+// ── GitHub secret leaks (secret-leaks) ──────────────────────────────────
+function fromSecretLeaks(data: {
+  leaks?: Array<{ repo?: string; provider?: string; severity?: string; timestamp?: string; url?: string }>;
+}): PulseEvent[] {
+  return (data.leaks ?? []).slice(0, 25).map((l, i) => ({
+    id: `secret-${i}-${(l.repo ?? '').slice(-18)}`,
+    kind: 'secret_leak' as const,
+    title: l.repo || 'leaked secret',
+    description: `${l.provider ?? 'secret'} key leaked in public repo`,
     lat: 0,
     lng: 0,
-    timestamp: i.discovered || new Date().toISOString(),
-    severity: 'medium' as const,
-    source: 'Onion Watch',
-    url: i.url,
+    timestamp: l.timestamp || new Date().toISOString(),
+    severity: asSev(l.severity, 'high'),
+    source: 'GitHub Leaks',
+    url: l.url,
+  }));
+}
+
+// ── Malicious packages (malicious-packages) ─────────────────────────────
+function fromMaliciousPackages(data: {
+  packages?: Array<{ name?: string; ecosystem?: string; ossf_url?: string }>;
+}): PulseEvent[] {
+  return (data.packages ?? []).slice(0, 25).map((p, i) => ({
+    id: `malpkg-${i}-${(p.name ?? '').slice(-18)}`,
+    kind: 'malicious_package' as const,
+    title: p.name || 'malicious package',
+    description: `${p.ecosystem ?? 'package'} malware (OpenSSF)`,
+    lat: 0,
+    lng: 0,
+    timestamp: new Date().toISOString(),
+    severity: 'high' as const,
+    source: 'OpenSSF',
+    url: p.ossf_url,
+  }));
+}
+
+// ── Public exploits (exploit-db) ────────────────────────────────────────
+function fromExploitDb(data: {
+  results?: Array<{ description?: string; type?: string; platform?: string; date?: string; url?: string }>;
+}): PulseEvent[] {
+  return (data.results ?? []).slice(0, 20).map((e, i) => ({
+    id: `exploit-${i}-${(e.description ?? '').slice(0, 18)}`,
+    kind: 'exploit' as const,
+    title: (e.description || 'exploit').slice(0, 120),
+    description: `${e.type ?? 'exploit'} · ${e.platform ?? 'multi'}`,
+    lat: 0,
+    lng: 0,
+    timestamp: e.date || new Date().toISOString(),
+    severity: 'high' as const,
+    source: 'Exploit-DB',
+    url: e.url,
+  }));
+}
+
+// ── GitHub security advisories (github-security) ────────────────────────
+function fromGithubAdvisories(data: {
+  advisories?: Array<{
+    ghsa_id?: string;
+    summary?: string;
+    severity?: string;
+    published_at?: string;
+    vulnerabilities?: Array<{ package?: { ecosystem?: string; name?: string } }>;
+  }>;
+}): PulseEvent[] {
+  return (data.advisories ?? []).slice(0, 20).map((a, i) => {
+    const pkg = a.vulnerabilities?.[0]?.package;
+    return {
+      id: `ghsa-${i}-${(a.ghsa_id ?? '').slice(-18)}`,
+      kind: 'github_advisory' as const,
+      title: (a.summary || a.ghsa_id || 'advisory').slice(0, 120),
+      description: pkg ? `${pkg.ecosystem ?? ''}: ${pkg.name ?? ''}`.trim() : 'GitHub advisory',
+      lat: 0,
+      lng: 0,
+      timestamp: a.published_at || new Date().toISOString(),
+      severity: asSev(a.severity),
+      source: 'GitHub GHSA',
+      url: a.ghsa_id ? `https://github.com/advisories/${a.ghsa_id}` : undefined,
+    };
+  });
+}
+
+// ── CISA Known Exploited Vulnerabilities (cisa-kev) ─────────────────────
+function fromCisaKev(data: {
+  vulnerabilities?: Array<{
+    cve_id?: string;
+    product?: string;
+    vulnerability_name?: string;
+    date_added?: string;
+    known_ransomware_campaign_use?: string;
+  }>;
+}): PulseEvent[] {
+  return (data.vulnerabilities ?? []).slice(0, 25).map((v, i) => ({
+    id: `kev-${i}-${v.cve_id ?? ''}`,
+    kind: 'kev' as const,
+    title: `${v.cve_id ?? ''} ${v.product ?? ''}`.trim() || 'KEV',
+    description: v.vulnerability_name || 'Known exploited vulnerability',
+    lat: 0,
+    lng: 0,
+    timestamp: v.date_added || new Date().toISOString(),
+    severity: v.known_ransomware_campaign_use === 'Known' ? ('critical' as const) : ('high' as const),
+    source: 'CISA KEV',
+    url: v.cve_id ? `https://nvd.nist.gov/vuln/detail/${v.cve_id}` : undefined,
   }));
 }
 
@@ -689,29 +730,6 @@ function fromRansomware(data: {
   });
 }
 
-function fromDetections(data: {
-  detections?: Array<{
-    rule_name: string;
-    severity?: string;
-    description?: string;
-    match_count?: number;
-    first_observed?: string;
-  }>;
-}): PulseEvent[] {
-  return (data.detections ?? []).slice(0, 20).map((i, idx) => ({
-    id: `detect-${idx}-${i.rule_name.slice(-15)}`,
-    kind: 'detection' as const,
-    title: i.rule_name.slice(0, 120),
-    description: `${i.description || 'Detection rule'} · ${i.match_count ?? 0} matches`,
-    lat: 0,
-    lng: 0,
-    timestamp: i.first_observed || new Date().toISOString(),
-    severity: (['critical', 'high', 'medium', 'low'].includes(i.severity ?? '')
-      ? i.severity
-      : 'medium') as PulseEvent['severity'],
-    source: 'Detections',
-  }));
-}
 
 function fromCybercrime(data: {
   items?: Array<{ title: string; source?: string; url?: string; date?: string; published?: string }>;
@@ -2001,36 +2019,6 @@ function fromIocCorrelation(data: IocCorrelationResponse): PulseEvent[] {
 
 /* ─── Breach Forums (forum intelligence) ──────────────────────────────────── */
 
-interface BreachForumsResponse {
-  generated_at: string;
-  rows: Array<{
-    name: string;
-    origin: 'directory' | 'curated';
-    category: string;
-    url: string;
-    onion: boolean;
-    status: string;
-    note?: string;
-  }>;
-}
-
-function fromBreachForums(data: BreachForumsResponse): PulseEvent[] {
-  return (data.rows ?? [])
-    .filter((f) => f.status === 'active' || f.status === 'volatile')
-    .slice(0, 15)
-    .map((f, idx) => ({
-      id: `bf-${idx}-${f.name.replace(/\s+/g, '-').toLowerCase()}`,
-      kind: 'darkweb',
-      title: f.name,
-      description: `${f.category} · ${f.status} · ${f.onion ? 'tor' : 'clearnet'}`,
-      lat: 0,
-      lng: 0,
-      timestamp: data.generated_at,
-      severity: f.status === 'active' ? 'high' : 'medium',
-      source: 'Breach Forums',
-      url: f.url,
-    }));
-}
 
 /* ─── Handler ───────────────────────────────────────────────────────────── */
 
@@ -2074,7 +2062,6 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
     const finalTm = warm.tm ?? null;
     const finalTg = warm.telegram ?? null;
     const finalRansom = warm.ransom ?? null;
-    const finalDdc = warm.ddc ?? null;
     const finalStealer = warm.stealer ?? null;
     const finalCve = warm.cve ?? null;
     const finalIoc = warm.ioc ?? null;
@@ -2084,15 +2071,11 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
     const finalBreach = warm.breach ?? null;
     const finalPhishing = warm.phishing ?? null;
     const finalMalware = warm.malware ?? null;
-    const finalDetections = warm.detections ?? null;
     const finalCybercrime = warm.cybercrime ?? null;
     const finalWriteups = warm.writeups ?? null;
-    const finalOnion = warm.onion ?? null;
     const finalXClaims = warm.xclaims ?? null;
     const finalActor = warm.actor ?? null;
     const finalIocCorr = warm.iocc ?? null;
-    const finalBf = warm.bf ?? null;
-    const finalPredictions = warm.predictions ?? null;
 
     // ── Direct endpoint fallback for still-missing layers ─────────────
     // Fetch ALL missing endpoints directly (Workers allow up to 50 subrequests).
@@ -2122,8 +2105,6 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
     if (!finalXClaims) missing.push(['/api/v1/x-claims', 'xclaims']);
     if (!finalActor) missing.push(['/api/v1/actor-timeline', 'actor']);
     if (!finalIocCorr) missing.push(['/api/v1/ioc-correlation', 'iocc']);
-    if (!finalBf) missing.push(['/api/v1/breach-forums', 'bf']);
-    if (!finalPredictions) missing.push(['/api/v1/predictions', 'predictions']);
 
     // Fetch all missing in parallel (Workers subrequest limit is 50)
     const directResults = await Promise.all(missing.map(([path]) => fetchDirect(path)));
@@ -2152,8 +2133,6 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
     const mergedXClaims = finalXClaims ?? (direct.xclaims as typeof finalXClaims);
     const mergedActor = finalActor ?? (direct.actor as typeof finalActor);
     const mergedIocCorr = finalIocCorr ?? (direct.iocc as typeof finalIocCorr);
-    const mergedBf = finalBf ?? (direct.bf as typeof finalBf);
-    const mergedPredictions = finalPredictions ?? (direct.predictions as typeof finalPredictions);
 
     // ── Convert → events ───────────────────────────────────────────────
     const safe = <T>(fn: () => T): T => {
@@ -2186,20 +2165,26 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
     const telegramEvents = safe(() => (finalTg ? fromTelegram(finalTg) : []));
     const xEvents = safe(() => (mergedX ? fromXFeed(mergedX) : []));
     const scamEvents = safe(() => (mergedScam ? fromScam(mergedScam) : []));
-    const predictionEvents = safe(() =>
-      mergedPredictions ? fromPredictions(mergedPredictions as Parameters<typeof fromPredictions>[0]) : []
-    );
     const breachEvents = safe(() => (mergedBreach ? fromBreaches(mergedBreach) : []));
     const liveIocEvents = safe(() => (mergedIoc ? fromLiveIocs(mergedIoc) : []));
-    const darkwebEvents = safe(() => [
-      ...(finalDdc ? fromDeepdarkcti(finalDdc) : []),
-      ...(finalOnion ? fromOnionWatch(finalOnion) : []),
-    ]);
     const infostealerEvents = safe(() => (finalStealer ? fromStealerForum(finalStealer) : []));
     const phishingEvents = safe(() => (mergedPhishing ? fromPhishing(mergedPhishing) : []));
     const malwareEvents = safe(() => (mergedMalware ? fromMalware(mergedMalware) : []));
     const ransomwareEvents = safe(() => (mergedRansom ? fromRansomware(mergedRansom) : []));
-    const detectionEvents = safe(() => (finalDetections ? fromDetections(finalDetections) : []));
+    // ── New CTI feed layers (warm-only; populated by the gp:warm cron) ──
+    const secretLeakEvents = safe(() =>
+      warm.secretleaks ? fromSecretLeaks(warm.secretleaks as Parameters<typeof fromSecretLeaks>[0]) : []
+    );
+    const malpkgEvents = safe(() =>
+      warm.malpkg ? fromMaliciousPackages(warm.malpkg as Parameters<typeof fromMaliciousPackages>[0]) : []
+    );
+    const exploitEvents = safe(() =>
+      warm.exploit ? fromExploitDb(warm.exploit as Parameters<typeof fromExploitDb>[0]) : []
+    );
+    const ghsaEvents = safe(() =>
+      warm.ghsa ? fromGithubAdvisories(warm.ghsa as Parameters<typeof fromGithubAdvisories>[0]) : []
+    );
+    const kevEvents = safe(() => (warm.kev ? fromCisaKev(warm.kev as Parameters<typeof fromCisaKev>[0]) : []));
     const cybercrimeEvents = safe(() => (finalCybercrime ? fromCybercrime(finalCybercrime) : []));
     const researchEvents = safe(() => (finalWriteups ? fromWriteups(finalWriteups) : []));
     const cveEvents = safe(() => (mergedCve ? fromCveRecent(mergedCve) : []));
@@ -2208,7 +2193,6 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
     const iocCorrEvents = safe(() =>
       mergedIocCorr ? fromIocCorrelation(mergedIocCorr as IocCorrelationResponse) : []
     );
-    const bfEvents = safe(() => (mergedBf ? fromBreachForums(mergedBf as BreachForumsResponse) : []));
 
     // Fetch earthquakes directly from USGS (cache was never populated)
     const earthquakes = await fetchEarthquakes();
@@ -2465,15 +2449,18 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
         case 'c2_tracker':
         case 'blocklist':
           return 'ioc';
-        case 'detection':
         case 'malware':
         case 'phishing':
-        case 'darkweb':
         case 'infostealer':
         case 'breach':
         case 'cybercrime':
         case 'scam':
         case 'actor_sighting':
+        case 'secret_leak':
+        case 'malicious_package':
+        case 'exploit':
+        case 'github_advisory':
+        case 'kev':
           return 'threat';
         case 'ioc_correlation':
           return 'ioc';
@@ -2503,12 +2490,10 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
       ...tagAll(finalIocEvents),
       ...tagAll(finalLiveIocEvents),
       ...tagAll(finalRansomwareEvents),
-      ...tagAll(darkwebEvents),
       ...tagAll(finalInfostealerEvents),
       ...tagAll(finalPhishingEvents),
       ...tagAll(finalMalwareEvents),
       ...tagAll(finalCveEvents),
-      ...tagAll(detectionEvents),
       ...tagAll(finalCybercrimeEvents),
       ...tagAll(breachEvents),
       ...tagAll(finalResearchEvents),
@@ -2520,8 +2505,11 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
       ...tagAll(xClaimsEvents),
       ...tagAll(actorEvents),
       ...tagAll(iocCorrEvents),
-      ...tagAll(bfEvents),
-      ...tagAll(predictionEvents),
+      ...tagAll(secretLeakEvents),
+      ...tagAll(malpkgEvents),
+      ...tagAll(exploitEvents),
+      ...tagAll(ghsaEvents),
+      ...tagAll(kevEvents),
     ].sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
 
     const result: GlobalPulseResponse = {
@@ -2551,18 +2539,20 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
         scam: finalScamEvents.length,
         breach: breachEvents.length,
         briefing: briefingEvents.length,
-        darkweb: darkwebEvents.length,
         infostealer: finalInfostealerEvents.length,
         phishing: finalPhishingEvents.length,
         malware: finalMalwareEvents.length + urlhausMalware.length,
         ransomware: finalRansomwareEvents.length,
-        detection: detectionEvents.length,
         cybercrime: finalCybercrimeEvents.length,
         research: finalResearchEvents.length,
         cve: finalCveEvents.length,
         actor_sighting: actorEvents.length,
         ioc_correlation: iocCorrEvents.length,
-        prediction_market: predictionEvents.length,
+        secret_leak: secretLeakEvents.length,
+        malicious_package: malpkgEvents.length,
+        exploit: exploitEvents.length,
+        github_advisory: ghsaEvents.length,
+        kev: kevEvents.length,
       },
     };
 
