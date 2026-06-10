@@ -2417,25 +2417,6 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
     const tagAll = <T extends { kind: PulseKind }>(arr: T[]): (T & { cti: PulseEvent['cti'] })[] =>
       arr.map((e) => ({ ...e, cti: tagCti(e.kind) }));
 
-    // TEMP DIAGNOSTIC (remove after debugging telegram/x/reddit=0): captures what
-    // each self-fetch actually returned vs what the transform produced, since the
-    // safe() wrappers swallow per-source failures silently.
-    const arrLen = (v: unknown, k: string): number | null =>
-      v && typeof v === 'object' && Array.isArray((v as Record<string, unknown>)[k])
-        ? ((v as Record<string, unknown[]>)[k] ?? []).length
-        : null;
-    console.log(
-      JSON.stringify({
-        job: 'gp-debug',
-        warm: Object.keys(warm),
-        direct: Object.keys(direct),
-        reddit: { items: arrLen(mergedReddit, 'items'), ev: redditEvents.length, final: finalRedditEvents.length },
-        x: { items: arrLen(mergedX, 'items'), ev: xEvents.length },
-        tg: { items: arrLen(finalTg, 'items'), ev: telegramEvents.length, final: finalTelegramEvents.length },
-        cve: { cves: arrLen(mergedCve, 'cves'), ev: cveEvents.length, final: finalCveEvents.length },
-      })
-    );
-
     // ── Merge + sort ───────────────────────────────────────────────────
     const allEvents = [
       ...tagAll(earthquakes),
@@ -2528,37 +2509,11 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
     });
     c.executionCtx.waitUntil(cache.put(cacheReq, response.clone()));
 
-    // Write the RESOLVED per-source data back as ONE batched `gp:warm` blob
-    // (globally-replicated, read at the top of the next build). One write instead
-    // of ~21 — the previous per-key writes also wrote the dead null cache reads, so
-    // KV never actually warmed. Storing the merged (fetched) data here is what lets
-    // the next build serve telegram/x/reddit/cve/actor from a single cheap KV read.
-    if (kv) {
-      const warmBlob = {
-        tm: mergedTm,
-        reddit: mergedReddit,
-        x: mergedX,
-        cve: mergedCve,
-        ransom: mergedRansom,
-        breach: mergedBreach,
-        ioc: mergedIoc,
-        phishing: mergedPhishing,
-        malware: mergedMalware,
-        scam: mergedScam,
-        xclaims: mergedXClaims,
-        actor: mergedActor,
-        iocc: mergedIocCorr,
-        bf: mergedBf,
-        telegram: finalTg,
-        ddc: finalDdc,
-        onion: finalOnion,
-        stealer: finalStealer,
-        detections: finalDetections,
-        cybercrime: finalCybercrime,
-        writeups: finalWriteups,
-      };
-      c.executionCtx.waitUntil(kv.put('gp:warm', JSON.stringify(warmBlob), { expirationTtl: 3600 }).catch(() => {}));
-    }
+    // NOTE: global-pulse does NOT write `gp:warm`. A Worker can't fetch its own
+    // public endpoints (loopback fails), so this handler's per-source data is
+    // mostly null — writing it would poison the blob. The cron
+    // (worker/scheduled.ts) is the sole writer of `gp:warm`, populated via
+    // in-process apiApp.fetch. This handler is a pure reader of that blob.
 
     return response;
   } catch (e) {

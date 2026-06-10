@@ -361,43 +361,50 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
         // The Cache API is per-colo, so global-pulse may miss cached data.
         // KV is globally replicated — write key endpoints' data there.
         if (env.KV_CACHE) {
-          // These KV keys are global-pulse's globally-replicated data source (its
-          // per-colo Cache-API reads were removed). Every feed the page renders must
-          // be here or that layer shows 0. The feed caches were just warmed by the
-          // perSourceTargets pass above, so these apiApp.fetch calls hit warm caches
-          // (cheap) rather than re-fetching upstream.
-          const kvTargets = [
-            { path: '/api/v1/threat-map', kvKey: 'gp:threat-map' },
-            { path: '/api/v1/telegram-feed', kvKey: 'gp:telegram-feed' },
-            { path: '/api/v1/x-feed', kvKey: 'gp:x-feed' },
-            { path: '/api/v1/reddit-feed', kvKey: 'gp:reddit-feed' },
-            { path: '/api/v1/cve-recent', kvKey: 'gp:cve-recent' },
-            { path: '/api/v1/ransomware-recent', kvKey: 'gp:ransomware-recent' },
-            { path: '/api/v1/actor-timeline', kvKey: 'gp:actor-timeline' },
-            { path: '/api/v1/ioc-correlation', kvKey: 'gp:ioc-correlation' },
-            { path: '/api/v1/deepdarkcti', kvKey: 'gp:deepdarkcti' },
-            { path: '/api/v1/stealer-forum-intel', kvKey: 'gp:stealer-forum-intel' },
-            { path: '/api/v1/live-iocs', kvKey: 'gp:live-iocs' },
+          // global-pulse reads ONE batched `gp:warm` blob — and the CRON is the only
+          // thing that can populate it. A Worker fetching its OWN public hostname
+          // loops back and fails (verified: global-pulse's direct self-fetches all
+          // return null), so the page can't fetch its own feeds. The cron warms via
+          // IN-PROCESS apiApp.fetch (not a network self-fetch), which works. Every
+          // feed the page renders must be a key here or that layer shows 0. Priority
+          // feeds (the social/CVE/actor layers) go first so a subrequest shortfall
+          // truncates the tail, not the headline data. Feeds were warmed by the
+          // perSourceTargets pass above, so these hit warm caches.
+          const warmSources: Array<[string, string]> = [
+            ['reddit', '/api/v1/reddit-feed'],
+            ['x', '/api/v1/x-feed'],
+            ['telegram', '/api/v1/telegram-feed'],
+            ['cve', '/api/v1/cve-recent?days=7'],
+            ['actor', '/api/v1/actor-timeline'],
+            ['iocc', '/api/v1/ioc-correlation'],
+            ['ransom', '/api/v1/ransomware-recent?days=7'],
+            ['tm', '/api/v1/threat-map'],
+            ['ioc', '/api/v1/live-iocs'],
+            ['phishing', '/api/v1/phishing-urls'],
+            ['malware', '/api/v1/malware-samples'],
+            ['scam', '/api/v1/crypto-scam-feed'],
+            ['breach', '/api/v1/breach-disclosures'],
+            ['xclaims', '/api/v1/x-claims'],
+            ['bf', '/api/v1/breach-forums'],
+            ['ddc', '/api/v1/deepdarkcti'],
+            ['onion', '/api/v1/onion-watch'],
+            ['stealer', '/api/v1/stealer-forum-intel'],
+            ['detections', '/api/v1/detections'],
+            ['cybercrime', '/api/v1/cyber-crime'],
+            ['writeups', '/api/v1/writeups'],
           ];
-          for (const t of kvTargets) {
+          const warmBlob: Record<string, unknown> = {};
+          for (const [key, path] of warmSources) {
             try {
-              const req = new Request(baseUrl + t.path);
+              const req = new Request(baseUrl + path);
               const res = await apiApp.fetch(req, env as never, ctx);
-              const body = await res.text();
-              await env.KV_CACHE.put(t.kvKey, body, { expirationTtl: 3600 });
-            } catch (e) {
-              console.error(
-                JSON.stringify({
-                  job: 'cache-warm',
-                  sub: 'kv-write',
-                  path: t.path,
-                  status: 'failed',
-                  error: e instanceof Error ? e.message : String(e),
-                })
-              );
+              if (res.ok) warmBlob[key] = await res.json();
+            } catch {
+              /* skip — leave this source absent from the blob */
             }
           }
-          console.log(JSON.stringify({ job: 'cache-warm', sub: 'kv-global-pulse', status: 'written' }));
+          await env.KV_CACHE.put('gp:warm', JSON.stringify(warmBlob), { expirationTtl: 3600 }).catch(() => {});
+          console.log(JSON.stringify({ job: 'cache-warm', sub: 'gp:warm', keys: Object.keys(warmBlob).length }));
         }
 
         // === Watch engine ===
