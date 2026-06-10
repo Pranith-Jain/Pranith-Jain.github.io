@@ -270,11 +270,6 @@ const ObservableDb = lazy(() => import('./pages/threatintel/ObservableDb'));
 const MalwareVault = lazy(() => import('./pages/threatintel/MalwareVault'));
 const SecretLeaks = lazy(() => import('./pages/threatintel/SecretLeaks'));
 const ExportHub = lazy(() => import('./pages/dfir/ExportHub'));
-const DetectionAsCode = lazy(() => import('./pages/dfir/DetectionAsCode'));
-const DeceptionTech = lazy(() => import('./pages/dfir/DeceptionTech'));
-const StructuredAnalysis = lazy(() => import('./pages/dfir/StructuredAnalysis'));
-const ThreatModels = lazy(() => import('./pages/dfir/ThreatModels'));
-const ConfidenceScoring = lazy(() => import('./pages/dfir/ConfidenceScoring'));
 
 /**
  * /dfir/file?h=<hash> is the legacy entry point for the standalone hash
@@ -553,11 +548,6 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/dfir/blocklists', Component: Blocklists },
   // ── 24 Gap Features ──────────────────────────────────────────────
   { path: '/dfir/export-hub', Component: ExportHub },
-  { path: '/dfir/detection-as-code', Component: DetectionAsCode },
-  { path: '/dfir/deception', Component: DeceptionTech },
-  { path: '/dfir/structured-analysis', Component: StructuredAnalysis },
-  { path: '/dfir/threat-models', Component: ThreatModels },
-  { path: '/dfir/confidence-scoring', Component: ConfidenceScoring },
   { path: '/admin', Component: AdminApp },
 ];
 
