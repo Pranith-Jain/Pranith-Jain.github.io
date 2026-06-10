@@ -215,6 +215,8 @@ const ALLOWED_HOSTS = new Set([
   'www.grahamcluley.com',
   // Lyrie Research — autonomous CTI platform with JSON Feed v1.1
   'lyrie.ai',
+  // supplychainattack.org — supply-chain incident catalog RSS (change-detection)
+  'supplychainattack.org',
 ]);
 
 interface AggregatedItem {

@@ -75,6 +75,16 @@ export const rssFeeds: RSSFeed[] = [
     language: 'en',
   },
   {
+    id: 'supplychain-attacks',
+    name: 'Supply Chain Attack Tracker',
+    url: 'https://supplychainattack.org/feed.xml',
+    description:
+      'New software supply-chain compromise incidents (npm/PyPI/container/AI-agents). Change-detection signal; full structured data on the Supply-chain incidents page.',
+    category: 'threat-intel',
+    source: 'supplychainattack.org',
+    language: 'en',
+  },
+  {
     id: 'eset',
     name: 'ESET WeLiveSecurity',
     url: 'https://www.welivesecurity.com/en/rss/feed/',
@@ -1165,6 +1175,9 @@ export const rssFeeds: RSSFeed[] = [
  * landing page's threat-intel surface.
  */
 const EXCLUDE_FROM_LANDING = new Set<string>([
+  // Structured-source feeds whose full data lives on a dedicated page; the RSS
+  // is only a change-detection signal, so keep it out of the landing card.
+  'supplychain-attacks',
   // Scam Watch sources (live at /threatintel/scam-watch)
   'ftc-consumer',
   'ic3-psas',
