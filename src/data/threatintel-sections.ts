@@ -68,6 +68,13 @@ export const SECTIONS: Section[] = [
     blurb: 'Leak-site claims, negotiation economics, re-victimisation, onion reachability.',
     tools: [
       {
+        to: '/threatintel/ransomwhere',
+        label: 'Ransomware crypto wallets',
+        desc: 'Crowdsourced directory of crypto wallets attributed to ransomware families — on-chain balances + tx counts. Source: Ransomwhere (MIT).',
+        icon: KeyRound,
+        badge: 'new',
+      },
+      {
         to: '/threatintel/ransomware-activity',
         label: 'Live ransomware activity',
         desc: 'Recent ransomware leak-site claims aggregated from Ransomlook · per-victim screenshots when available',
@@ -614,6 +621,13 @@ export const SECTIONS: Section[] = [
     blurb: 'Fresh indicators, cross-source correlation, C2 infra, and certificate monitoring.',
     tools: [
       {
+        to: '/threatintel/cloud-threat-landscape',
+        label: 'Wiz Cloud Threat Landscape',
+        desc: 'Cloud / SaaS / identity threat campaigns, intrusion sets, and actors curated by Wiz Research (STIX 2.1).',
+        icon: Cloud,
+        badge: 'new',
+      },
+      {
         to: '/threatintel/live-iocs',
         label: 'Live IOC stream',
         desc: 'Chronological firehose with per-IOC reporter handles + timestamps. Sources: TweetFeed, SANS ISC, C2IntelFeeds, URLhaus, ThreatFox, MalwareBazaar.',
@@ -662,6 +676,13 @@ export const SECTIONS: Section[] = [
     label: 'Detection & Rules',
     blurb: 'Detection rules, CVE updates, domain monitoring, malware samples, and YARA.',
     tools: [
+      {
+        to: '/threatintel/k8s-cve',
+        label: 'Kubernetes CVE Feed',
+        desc: 'The official Kubernetes CVE feed (kubernetes.io, CC-BY-4.0) — core-Kubernetes vulnerabilities with status + CVE-id pivots.',
+        icon: Bug,
+        badge: 'new',
+      },
       {
         to: '/threatintel/rules',
         label: 'Detection Rules',
@@ -731,6 +752,13 @@ export const SECTIONS: Section[] = [
     label: 'Threat Actors',
     blurb: 'APT catalogues, actor knowledge base, timelines, DNA profiling, and malware family attribution.',
     tools: [
+      {
+        to: '/threatintel/misp-galaxy-actors',
+        label: 'Actor Alias Directory',
+        desc: 'Searchable threat-actor alias index from the MISP Galaxy threat-actor cluster (CC0/BSD-2) — synonyms, country, references.',
+        icon: Users,
+        badge: 'new',
+      },
       {
         to: '/threatintel/actors',
         label: 'Threat Actors',

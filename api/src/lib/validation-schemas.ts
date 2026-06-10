@@ -906,6 +906,36 @@ export const supplyChainAttacksSchema = z.object({
   limit: z.string().regex(/^\d+$/).optional(),
 });
 
+// Ransomwhere ransom-payment tracker query filters. MUST mirror the exact
+// c.req.query reads in routes/ransomwhere.ts (validate() schema parity).
+export const ransomwhereSchema = z.object({
+  family: z.string().max(200).optional(),
+  blockchain: z.string().max(40).optional(),
+  limit: z.string().regex(/^\d+$/).optional(),
+});
+
+// Kubernetes Official CVE Feed query filters (validate() schema parity).
+export const k8sCveSchema = z.object({
+  q: z.string().max(200).optional(),
+  status: z.string().max(40).optional(),
+  cve: cveIdPattern.optional(),
+  limit: z.string().regex(/^\d+$/).optional(),
+});
+
+// MISP Galaxy threat-actor cluster query filters (validate() schema parity).
+export const mispGalaxyActorsSchema = z.object({
+  q: z.string().max(200).optional(),
+  country: z.string().max(40).optional(),
+  limit: z.string().regex(/^\d+$/).optional(),
+});
+
+// Wiz Cloud Threat Landscape STIX query filters (validate() schema parity).
+export const cloudThreatLandscapeSchema = z.object({
+  type: z.string().max(40).optional(),
+  label: z.string().max(80).optional(),
+  limit: z.string().regex(/^\d+$/).optional(),
+});
+
 export const securityUpdatesSchema = z.object({
   q: z.string().max(200).optional(),
   vendor: z.string().max(100).optional(),

@@ -392,6 +392,10 @@ import { exploitDbHandler } from './routes/exploit-db';
 import { securityUpdatesHandler } from './routes/security-updates';
 import { cisaKevHandler } from './routes/cisa-kev';
 import { supplyChainAttacksHandler } from './routes/supply-chain-attacks';
+import { k8sCveHandler } from './routes/k8s-cve';
+import { mispGalaxyActorsHandler } from './routes/misp-galaxy-actors';
+import { cloudThreatLandscapeHandler } from './routes/cloud-threat-landscape';
+import { ransomwhereHandler } from './routes/ransomwhere';
 import { passiveDnsLookupHandler } from './routes/passive-dns';
 import { gitHubSecurityHandler } from './routes/github-security';
 import { predictionsHandler } from './routes/predictions';
@@ -559,6 +563,10 @@ import {
   exploitDbSchema,
   cisaKevSchema,
   supplyChainAttacksSchema,
+  k8sCveSchema,
+  mispGalaxyActorsSchema,
+  cloudThreatLandscapeSchema,
+  ransomwhereSchema,
   securityUpdatesSchema,
   passiveDnsSchema,
   githubSecuritySchema,
@@ -1113,6 +1121,10 @@ app.get('/api/v1/exploit-db', validate('query', exploitDbSchema), exploitDbHandl
 app.get('/api/v1/security-updates', validate('query', securityUpdatesSchema), securityUpdatesHandler);
 app.get('/api/v1/cisa-kev', validate('query', cisaKevSchema), cisaKevHandler);
 app.get('/api/v1/supply-chain-attacks', validate('query', supplyChainAttacksSchema), supplyChainAttacksHandler);
+app.get('/api/v1/k8s-cve', validate('query', k8sCveSchema), k8sCveHandler);
+app.get('/api/v1/misp-galaxy-actors', validate('query', mispGalaxyActorsSchema), mispGalaxyActorsHandler);
+app.get('/api/v1/cloud-threat-landscape', validate('query', cloudThreatLandscapeSchema), cloudThreatLandscapeHandler);
+app.get('/api/v1/ransomwhere', validate('query', ransomwhereSchema), ransomwhereHandler);
 app.get('/api/v1/passive-dns', validate('query', passiveDnsSchema), passiveDnsLookupHandler);
 app.get('/api/v1/github-security', validate('query', githubSecuritySchema), gitHubSecurityHandler);
 app.get('/api/v1/predictions', predictionsHandler);
