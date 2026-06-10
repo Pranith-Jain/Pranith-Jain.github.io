@@ -21,6 +21,7 @@ export interface IdentifierGraphProps {
   selectedId: string | null;
   customIcons: Record<string, string>; // customIconId -> dataUrl
   onSelect: (identifierId: string | null) => void;
+  onDelete: (identifierId: string) => void;
 }
 
 export function IdentifierGraph({
@@ -30,6 +31,7 @@ export function IdentifierGraph({
   selectedId,
   customIcons,
   onSelect,
+  onDelete,
 }: IdentifierGraphProps): JSX.Element {
   const nodes = useMemo<Node[]>(
     () =>
@@ -42,9 +44,10 @@ export function IdentifierGraph({
           primary: primaryValue(id),
           selected: id.id === selectedId,
           customIconUrl: id.customIconId ? customIcons[id.customIconId] : undefined,
+          onDelete: () => onDelete(id.id),
         },
       })),
-    [identifiers, selectedId, customIcons]
+    [identifiers, selectedId, customIcons, onDelete]
   );
 
   // Edges connect identifiers that share a pin (co-location), labelled with the pin name.
