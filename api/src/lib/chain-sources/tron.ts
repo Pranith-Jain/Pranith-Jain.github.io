@@ -48,7 +48,7 @@ export async function fetchTronTransfers(address: string, filter: TransferFilter
   const timer = setTimeout(() => ctrl.abort(), FETCH_TIMEOUT);
   try {
     const limit = filter.maxTransfers ?? 50;
-    const url = `https://api.trongrid.io/v1/accounts/${address}/transactions/trc20?limit=${Math.min(limit, 200)}`;
+    const url = `https://api.trongrid.io/v1/accounts/${encodeURIComponent(address)}/transactions/trc20?limit=${Math.min(limit, 200)}`;
     const res = await fetch(url, { signal: ctrl.signal, headers: { Accept: 'application/json' } });
     if (!res.ok) return { transfers: [], truncated: false };
     const body = (await res.json().catch(() => null)) as { data?: Trc20Row[] } | null;

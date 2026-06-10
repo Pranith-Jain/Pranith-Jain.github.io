@@ -41,6 +41,35 @@ describe('crypto-monitor (admin, mini-app)', () => {
     );
     expect(r.status).toBe(400);
   });
+  it('400 when large_transfer is selected without min_amount', async () => {
+    const r = await app().request(
+      '/api/v1/crypto-monitor/watch',
+      {
+        method: 'POST',
+        headers: bearer,
+        body: JSON.stringify({ address: '0xabc', chain: 'evm', alert_types: ['large_transfer'] }),
+      },
+      env()
+    );
+    expect(r.status).toBe(400);
+  });
+  it('400 on a private/loopback webhook host (SSRF guard)', async () => {
+    const r = await app().request(
+      '/api/v1/crypto-monitor/watch',
+      {
+        method: 'POST',
+        headers: bearer,
+        body: JSON.stringify({
+          address: '0xabc',
+          chain: 'evm',
+          alert_types: ['new_transfer'],
+          webhook_url: 'http://127.0.0.1/x',
+        }),
+      },
+      env()
+    );
+    expect(r.status).toBe(400);
+  });
   it('add -> list -> alerts -> delete round-trip', async () => {
     const add = await app().request(
       '/api/v1/crypto-monitor/watch',

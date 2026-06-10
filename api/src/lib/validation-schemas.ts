@@ -989,12 +989,17 @@ export const tracerGraphSaveSchema = z.object({
 export type TracerGraphSaveInput = z.infer<typeof tracerGraphSaveSchema>;
 
 // ── Crypto monitor (Phase E) ────────────────────────────────────
-export const cryptoWatchAddSchema = z.object({
-  address: z.string().min(1).max(200),
-  chain: z.enum(['evm', 'btc', 'tron']),
-  alert_types: z.array(z.enum(['new_transfer', 'suspicious_counterparty', 'large_transfer'])).min(1),
-  min_amount: z.number().nonnegative().optional(),
-  webhook_url: z.string().url().max(2048).optional(),
-  label: z.string().max(120).optional(),
-});
+export const cryptoWatchAddSchema = z
+  .object({
+    address: z.string().min(1).max(200),
+    chain: z.enum(['evm', 'btc', 'tron']),
+    alert_types: z.array(z.enum(['new_transfer', 'suspicious_counterparty', 'large_transfer'])).min(1),
+    min_amount: z.number().nonnegative().optional(),
+    webhook_url: z.string().url().max(2048).optional(),
+    label: z.string().max(120).optional(),
+  })
+  .refine((d) => !d.alert_types.includes('large_transfer') || (d.min_amount != null && d.min_amount > 0), {
+    message: "min_amount (> 0) is required when alert_types includes 'large_transfer'",
+    path: ['min_amount'],
+  });
 export type CryptoWatchAddInput = z.infer<typeof cryptoWatchAddSchema>;

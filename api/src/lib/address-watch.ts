@@ -54,8 +54,9 @@ import type { D1Database } from '@cloudflare/workers-types';
 import { fetchTransfers } from './chain-sources';
 import { loadSanctionedSet } from './ofac-sanctions';
 import { loadScamSnifferSet } from './scamsniffer';
+import { pinnedFetch } from './ssrf-guard';
 
-const SWEEP_BATCH = 15;
+const SWEEP_BATCH = 10;
 
 const DDL = `CREATE TABLE IF NOT EXISTS address_watch (
   address TEXT NOT NULL, chain TEXT NOT NULL, alert_types TEXT NOT NULL,
@@ -184,7 +185,7 @@ export async function checkAddressWatches(now: string, db: D1Database): Promise<
       }
       if (alerts.length && w.webhook_url) {
         try {
-          await fetch(w.webhook_url, {
+          await pinnedFetch(w.webhook_url, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -192,6 +193,7 @@ export async function checkAddressWatches(now: string, db: D1Database): Promise<
               chain: w.chain,
               alerts: alerts.map((a) => ({ alert_type: a.alert_type, transfer: a.transfer })),
             }),
+            signal: AbortSignal.timeout(5000),
           });
           await db
             .prepare(`UPDATE address_alerts SET webhook_sent = 1 WHERE address = ? AND chain = ? AND webhook_sent = 0`)
@@ -206,10 +208,14 @@ export async function checkAddressWatches(now: string, db: D1Database): Promise<
         .bind(now, newest, w.address, w.chain)
         .run();
     } catch {
-      await db
-        .prepare(`UPDATE address_watch SET last_checked = ? WHERE address = ? AND chain = ?`)
-        .bind(now, w.address, w.chain)
-        .run();
+      try {
+        await db
+          .prepare(`UPDATE address_watch SET last_checked = ? WHERE address = ? AND chain = ?`)
+          .bind(now, w.address, w.chain)
+          .run();
+      } catch {
+        /* leave last_checked stale; ORDER BY last_checked ASC NULLS FIRST re-selects next tick */
+      }
     }
   }
   return alertCount;

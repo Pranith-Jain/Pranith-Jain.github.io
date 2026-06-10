@@ -2,11 +2,25 @@ import type { Context } from 'hono';
 import type { Env } from '../env';
 import { addWatch, listWatches, removeWatch, listAlerts } from '../lib/address-watch';
 import type { CryptoWatchAddInput } from '../lib/validation-schemas';
+import { assertPublicHost } from '../lib/ssrf-guard';
 
 export async function cryptoWatchAddHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const input = (c as Context<{ Bindings: Env }> & { parsed: CryptoWatchAddInput }).parsed;
   const db = c.env.BRIEFINGS_DB;
   if (!db) return c.json({ error: 'watch store unavailable' }, 503);
+  if (input.webhook_url) {
+    let url: URL;
+    try {
+      url = new URL(input.webhook_url);
+    } catch {
+      return c.json({ error: 'invalid webhook URL' }, 400);
+    }
+    if (url.protocol !== 'http:' && url.protocol !== 'https:') {
+      return c.json({ error: 'webhook must be http(s)' }, 400);
+    }
+    const host = await assertPublicHost(url.hostname);
+    if (!host.ok) return c.json({ error: 'webhook host not allowed' }, 400);
+  }
   await addWatch(db, {
     address: input.address,
     chain: input.chain,

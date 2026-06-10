@@ -64,7 +64,9 @@ export async function fetchBtcTxsRaw(address: string): Promise<EsploraTx[]> {
   const ctrl = new AbortController();
   const timer = setTimeout(() => ctrl.abort(), FETCH_TIMEOUT);
   try {
-    const res = await fetch(`https://blockstream.info/api/address/${address}/txs`, { signal: ctrl.signal });
+    const res = await fetch(`https://blockstream.info/api/address/${encodeURIComponent(address)}/txs`, {
+      signal: ctrl.signal,
+    });
     if (!res.ok) return [];
     const txs = (await res.json().catch(() => [])) as EsploraTx[];
     return Array.isArray(txs) ? txs : [];
