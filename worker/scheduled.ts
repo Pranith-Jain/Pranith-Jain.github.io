@@ -266,32 +266,35 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
         // existing blob. 8h TTL so a feed survives until its next turn. Runs before
         // the heavier perSourceTargets pass so it always gets budget.
         if (env.KV_CACHE) {
+          // Headline layers warmed EVERY tick (don't depend on the rotating tail
+          // accumulating, which proved flaky): the social/CVE/actor feeds AND the
+          // ransom/cybercrime/research layers. Only the genuinely-minor feeds rotate.
           const ALWAYS: Array<[string, string]> = [
             ['reddit', '/api/v1/reddit-feed'],
             ['x', '/api/v1/x-feed'],
             ['telegram', '/api/v1/telegram-feed'],
             ['actor', '/api/v1/actor-timeline'],
             ['iocc', '/api/v1/ioc-correlation'],
-          ];
-          const ROTATE: Array<[string, string]> = [
             ['cve', '/api/v1/cve-recent?days=7'],
             ['ransom', '/api/v1/ransomware-recent?days=7'],
-            ['phishing', '/api/v1/phishing-urls'],
+            ['cybercrime', '/api/v1/cyber-crime'],
+            ['writeups', '/api/v1/writeups'],
             ['malware', '/api/v1/malware-samples'],
+            ['phishing', '/api/v1/phishing-urls'],
             ['scam', '/api/v1/crypto-scam-feed'],
+            ['breach', '/api/v1/breach-disclosures'],
+          ];
+          const ROTATE: Array<[string, string]> = [
             ['tm', '/api/v1/threat-map'],
             ['ioc', '/api/v1/live-iocs'],
-            ['breach', '/api/v1/breach-disclosures'],
             ['xclaims', '/api/v1/x-claims'],
             ['bf', '/api/v1/breach-forums'],
             ['ddc', '/api/v1/deepdarkcti'],
             ['onion', '/api/v1/onion-watch'],
             ['stealer', '/api/v1/stealer-forum-intel'],
             ['detections', '/api/v1/detections'],
-            ['cybercrime', '/api/v1/cyber-crime'],
-            ['writeups', '/api/v1/writeups'],
           ];
-          const PER_TICK = 4;
+          const PER_TICK = 2;
           const slot = (new Date().getUTCHours() * PER_TICK) % ROTATE.length;
           const thisTick: Array<[string, string]> = [
             ...ALWAYS,
