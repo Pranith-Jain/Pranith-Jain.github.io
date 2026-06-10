@@ -169,6 +169,7 @@ const ReverseImage = lazy(() => import('./pages/dfir/ReverseImage'));
 const EmlExtractor = lazy(() => import('./pages/dfir/EmlExtractor'));
 const ScamWatch = lazy(() => import('./pages/dfir/ScamWatch'));
 const CryptoTrace = lazy(() => import('./pages/dfir/CryptoTrace'));
+const Tracer = lazy(() => import('./pages/dfir/Tracer'));
 const TechAiNews = lazy(() => import('./pages/dfir/TechAiNews'));
 const ThreatFeeds = lazy(() => import('./pages/dfir/ThreatFeeds'));
 const OnionWatch = lazy(() => import('./pages/dfir/OnionWatch'));
@@ -512,6 +513,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel/copilot', Component: CopilotPage },
   { path: '/threatintel/scam-watch', Component: ScamWatch },
   { path: '/dfir/crypto-trace', Component: CryptoTrace },
+  { path: '/dfir/tracer', Component: Tracer },
   { path: '/threatintel/tech-ai-news', Component: TechAiNews },
   { path: '/threatintel/threat-feeds', Component: ThreatFeeds },
   { path: '/threatintel/onion-watch', Component: OnionWatch },
