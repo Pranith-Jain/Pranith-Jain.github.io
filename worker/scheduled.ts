@@ -31,6 +31,7 @@ import { detectPirAlerts } from '../api/src/routes/pir';
 import { runGraphIngest } from '../api/src/routes/graph-ingest';
 import { autoRunFeedJobs } from '../api/src/routes/feed-scheduler';
 import { enqueueAllFeeds } from '../api/src/routes/live-iocs';
+import { enqueueGpFeeds } from '../api/src/routes/global-pulse';
 import type { D1Database } from '@cloudflare/workers-types';
 import { acquireCronLease, releaseCronLease } from './durable-objects/cron-lock';
 
@@ -99,65 +100,17 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
   // Hourly cache-warm cron — also run the publisher + Telegram archive +
   // intel-bundle warmer.
   if (csCron === '0 * * * *') {
-    // ── gp:warm FIRST (full budget) ──────────────────────────────────────
-    // global-pulse can't fetch its own endpoints (Worker self-fetch loops back and
-    // fails), so the cron is the SOLE writer of its `gp:warm` blob, via in-process
-    // apiApp.fetch. This MUST run before the ctx.waitUntil background tasks below —
-    // they start immediately and share the same 50-subrequest budget, so placed any
-    // later the warmer silently writes nothing (the empty-page failure). Parallel,
-    // so wall-time is the slowest single feed (~cve) rather than the sum.
-    if (env.KV_CACHE) {
-      const gpBase = (env as unknown as { SITE_URL?: string }).SITE_URL ?? 'https://pranithjain.qzz.io';
-      const GP_ALWAYS: Array<[string, string]> = [
-        ['reddit', '/api/v1/reddit-feed'],
-        ['x', '/api/v1/x-feed'],
-        ['telegram', '/api/v1/telegram-feed'],
-        ['actor', '/api/v1/actor-timeline'],
-        ['iocc', '/api/v1/ioc-correlation'],
-        ['cve', '/api/v1/cve-recent?days=7'],
-        ['ransom', '/api/v1/ransomware-recent?days=7'],
-        ['cybercrime', '/api/v1/cyber-crime'],
-        ['writeups', '/api/v1/writeups'],
-        ['malware', '/api/v1/malware-samples'],
-        ['phishing', '/api/v1/phishing-urls'],
-        ['scam', '/api/v1/crypto-scam-feed'],
-        ['breach', '/api/v1/breach-disclosures'],
-      ];
-      const GP_ROTATE: Array<[string, string]> = [
-        ['tm', '/api/v1/threat-map'],
-        ['ioc', '/api/v1/live-iocs'],
-        ['xclaims', '/api/v1/x-claims'],
-        ['bf', '/api/v1/breach-forums'],
-        ['ddc', '/api/v1/deepdarkcti'],
-        ['onion', '/api/v1/onion-watch'],
-        ['stealer', '/api/v1/stealer-forum-intel'],
-        ['detections', '/api/v1/detections'],
-      ];
-      const gpSlot = (new Date().getUTCHours() * 2) % GP_ROTATE.length;
-      const gpTick: Array<[string, string]> = [
-        ...GP_ALWAYS,
-        GP_ROTATE[gpSlot] as [string, string],
-        GP_ROTATE[(gpSlot + 1) % GP_ROTATE.length] as [string, string],
-      ];
-      try {
-        const existing = ((await env.KV_CACHE.get('gp:warm', 'json').catch(() => null)) ?? {}) as Record<
-          string,
-          unknown
-        >;
-        const warmBlob: Record<string, unknown> = { ...existing };
-        await Promise.allSettled(
-          gpTick.map(async ([key, path]) => {
-            const res = await apiApp.fetch(new Request(gpBase + path), env as never, ctx);
-            if (res.ok) warmBlob[key] = await res.json();
-          })
-        );
-        await env.KV_CACHE.put('gp:warm', JSON.stringify(warmBlob), { expirationTtl: 28800 });
-        console.log(
-          JSON.stringify({ job: 'gp-warm', keys: Object.keys(warmBlob).length, tick: gpTick.map((t) => t[0]) })
-        );
-      } catch (e) {
-        console.error(JSON.stringify({ job: 'gp-warm', error: e instanceof Error ? e.message : String(e) }));
-      }
+    // ── gp:warm via queue (one feed per consumer invocation) ─────────────
+    // The old inline warmer fanned out to ~15 feeds in THIS single cron
+    // invocation, which blew the Free-plan 50-subrequest cap ("Too many
+    // subrequests by single Worker invocation") and starved the rest of the
+    // hourly cron (telegram-archive, the briefing LLM, the usgs cache). Warming
+    // is now ENQUEUED: the queue consumer fetches one feed per message in its
+    // OWN invocation (its own 50-subrequest budget) and writes `gp:warm:<key>`.
+    // Enqueue is cheap (queue sends only), so it no longer competes for budget.
+    // delaySeconds stagger (see enqueueGpFeeds) keeps each feed in its own batch.
+    if (env.FEEDS_QUEUE) {
+      ctx.waitUntil(enqueueGpFeeds(env.FEEDS_QUEUE, csNow.getUTCHours()).catch(logCronFail('gp-warm-enqueue')));
     }
 
     ctx.waitUntil(runPublisherNow(env as unknown as CaseStudyEnv, csNow).catch(logCronFail('publisher')));
@@ -318,8 +271,9 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
         const start = Date.now();
         const baseUrl = (env as unknown as { SITE_URL?: string }).SITE_URL ?? 'https://pranithjain.qzz.io';
 
-        // (gp:warm is warmed at the TOP of the `0 * * * *` block — before the
-        // background waitUntil tasks — so it gets full subrequest budget.)
+        // (gp:warm feeds are warmed off this invocation entirely — enqueued at
+        // the top of the `0 * * * *` block, fetched one-per-message by the queue
+        // consumer — so they no longer compete for this cron's subrequest budget.)
 
         const perSourceTargets = [
           '/api/v1/threat-map',
@@ -422,8 +376,8 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
           console.log(JSON.stringify({ job: 'cache-warm', duration_ms: Date.now() - start, summary }));
         }
 
-        // (gp:warm is warmed at the TOP of this block, before perSourceTargets, so
-        // it always gets subrequest budget — see the split-tick warmer above.)
+        // (gp:warm feeds are warmed via the queue, off this invocation — see the
+        // enqueueGpFeeds call at the top of this block.)
 
         // === Watch engine ===
         try {

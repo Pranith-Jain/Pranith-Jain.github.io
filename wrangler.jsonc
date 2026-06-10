@@ -93,7 +93,14 @@
 		"consumers": [
 			{
 				"queue": "live-iocs-feeds",
-				"max_batch_size": 10,
+				// max_batch_size 1: ONE message per consumer invocation. This is what
+				// GUARANTEES each feed (live-iocs source OR a gp:warm feed) gets its
+				// own 50-subrequest budget — without it, a heavy gp feed (e.g. `ioc`
+				// → the live-iocs ~34-source fan-out) co-batched with another heavy
+				// feed under BATCH_CONCURRENCY would re-trip "Too many subrequests"
+				// inside the consumer. Sources are individually cheap, so batch_size 1
+				// just means more (free-tier-cheap) invocations.
+				"max_batch_size": 1,
 				"max_batch_timeout": 5,
 				"max_retries": 3,
 				"max_concurrency": 3,

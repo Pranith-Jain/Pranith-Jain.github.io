@@ -1,6 +1,84 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { listBriefings } from '../lib/briefing-builder';
+import type { FeedQueueMessage } from '../lib/live-iocs-slices';
+
+/* ─── Global-pulse feed registry + queue warmer ─────────────────────────── */
+// Each feed is warmed into `gp:warm:<key>` by the queue consumer — ONE feed per
+// consumer invocation, so each gets its own 50-subrequest budget. The previous
+// design fanned out to all ~15 feeds in a single cron invocation, which blew the
+// Free-plan 50-subrequest cap ("Too many subrequests") and silently starved the
+// rest of the hourly cron (telegram-archive, the briefing LLM, etc.). The read
+// path stitches the per-feed keys back together (see the `warm` build below).
+export const GP_FEEDS: ReadonlyArray<{ key: string; path: string }> = [
+  { key: 'reddit', path: '/api/v1/reddit-feed' },
+  { key: 'x', path: '/api/v1/x-feed' },
+  { key: 'telegram', path: '/api/v1/telegram-feed' },
+  { key: 'actor', path: '/api/v1/actor-timeline' },
+  { key: 'iocc', path: '/api/v1/ioc-correlation' },
+  { key: 'cve', path: '/api/v1/cve-recent?days=7' },
+  { key: 'ransom', path: '/api/v1/ransomware-recent?days=7' },
+  { key: 'cybercrime', path: '/api/v1/cyber-crime' },
+  { key: 'writeups', path: '/api/v1/writeups' },
+  { key: 'malware', path: '/api/v1/malware-samples' },
+  { key: 'phishing', path: '/api/v1/phishing-urls' },
+  { key: 'scam', path: '/api/v1/crypto-scam-feed' },
+  { key: 'breach', path: '/api/v1/breach-disclosures' },
+  { key: 'tm', path: '/api/v1/threat-map' },
+  { key: 'ioc', path: '/api/v1/live-iocs' },
+  { key: 'xclaims', path: '/api/v1/x-claims' },
+  { key: 'bf', path: '/api/v1/breach-forums' },
+  { key: 'ddc', path: '/api/v1/deepdarkcti' },
+  { key: 'onion', path: '/api/v1/onion-watch' },
+  { key: 'stealer', path: '/api/v1/stealer-forum-intel' },
+  { key: 'detections', path: '/api/v1/detections' },
+];
+
+// Per-feed warm-slice KV key for a global-pulse feed.
+//
+// Why KV, not the Cache API (which live-iocs slices use, see live-iocs-slices.ts):
+// global-pulse is served from any colo to a global audience, and the read path
+// must see whatever the (single-colo) cron+consumer warmed. KV is global; the
+// Cache API is per-colo, so a Cache-API slice warmed in one colo would be cold
+// for readers in every other colo. The cost is the KV write quota — bounded by
+// GP_WINDOW below (7 feeds/hour = 168 writes/day, well under the 1000/day free
+// tier) — which is the deliberate tradeoff for cross-colo consistency.
+export const gpWarmKey = (key: string): string => `gp:warm:${key}`;
+
+// How many feeds to warm per hourly tick, and the inter-message delay. The
+// window rotates so all 21 GP_FEEDS cycle every 3 hours (7×3=21), well inside
+// the 8h slice TTL — no feed ages out between warms. GP_STAGGER_SECONDS spaces
+// the sends out over time; the hard one-feed-per-invocation guarantee comes from
+// the queue's max_batch_size:1 (wrangler.jsonc), so each feed gets its own
+// 50-subrequest budget regardless of delivery timing.
+const GP_WINDOW = 7;
+const GP_STAGGER_SECONDS = 8;
+
+/**
+ * Enqueue a rotating window of global-pulse feeds for the queue consumer to
+ * warm. Cheap (queue sends only, no fetches) — safe to call from the cron.
+ */
+export async function enqueueGpFeeds(queue: Queue<FeedQueueMessage>, hour: number): Promise<void> {
+  const start = (hour * GP_WINDOW) % GP_FEEDS.length;
+  const seen = new Set<string>();
+  const window: Array<{ key: string; path: string }> = [];
+  for (let i = 0; i < GP_WINDOW; i++) {
+    const f = GP_FEEDS[(start + i) % GP_FEEDS.length];
+    if (f && !seen.has(f.key)) {
+      seen.add(f.key);
+      window.push(f);
+    }
+  }
+  // Start at (i+1)*stagger, not i*stagger: the cron also enqueues the ~34
+  // live-iocs sources at t=0, so delaying the first gp feed past that initial
+  // burst keeps a heavy gp feed from sharing a batch with them.
+  await queue.sendBatch(
+    window.map((f, i) => ({
+      body: { gp: { key: f.key, path: f.path } },
+      delaySeconds: (i + 1) * GP_STAGGER_SECONDS,
+    }))
+  );
+}
 
 /* ─── Cache keys (all warmed by hourly cron) ────────────────────────────── */
 
@@ -1954,7 +2032,20 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
     // telegram/x/reddit/cve/actor. With the budget freed, the direct-fetch
     // fallbacks below resolve every source. The blob is the raw per-source data
     // written by this same handler's prior build (self-warming).
-    const warm = ((kv ? await readKvJson(kv, 'gp:warm') : null) ?? {}) as Record<string, unknown>;
+    // Per-feed warm slices (`gp:warm:<key>`), written by the queue consumer one
+    // feed per invocation. Read all keys in parallel — ≤21 KV reads on the read
+    // path's own 50-subrequest budget (and the whole response is edge-cached, so
+    // actual KV reads stay low). Falls back to the legacy single `gp:warm` blob
+    // for any key not yet migrated to a per-feed slice.
+    const warm: Record<string, unknown> = {};
+    if (kv) {
+      const legacy = (await readKvJson(kv, 'gp:warm')) as Record<string, unknown> | null;
+      if (legacy) Object.assign(warm, legacy);
+      const sliceVals = await Promise.all(GP_FEEDS.map((f) => readKvJson(kv, gpWarmKey(f.key))));
+      GP_FEEDS.forEach((f, i) => {
+        if (sliceVals[i] != null) warm[f.key] = sliceVals[i];
+      });
+    }
     const finalTm = warm.tm ?? null;
     const finalTg = warm.telegram ?? null;
     const finalRansom = warm.ransom ?? null;
@@ -2451,11 +2542,12 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
     });
     c.executionCtx.waitUntil(cache.put(cacheReq, response.clone()));
 
-    // NOTE: global-pulse does NOT write `gp:warm`. A Worker can't fetch its own
-    // public endpoints (loopback fails), so this handler's per-source data is
-    // mostly null — writing it would poison the blob. The cron
-    // (worker/scheduled.ts) is the sole writer of `gp:warm`, populated via
-    // in-process apiApp.fetch. This handler is a pure reader of that blob.
+    // NOTE: global-pulse does NOT write the warm keys. A Worker can't fetch its
+    // own public endpoints (loopback fails), so this handler's direct-fetch
+    // fallback is mostly null — writing it would poison the data. The queue
+    // consumer (worker/queue-consumer.ts) is the sole writer of `gp:warm:<key>`,
+    // populated one feed per invocation via in-process apiApp.fetch and enqueued
+    // by the hourly cron. This handler is a pure reader of those per-feed keys.
 
     return response;
   } catch (e) {

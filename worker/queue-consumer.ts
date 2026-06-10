@@ -12,9 +12,15 @@
  */
 import type { Env } from './env';
 import type { Env as ApiEnv } from '../api/src/env';
+import apiApp from '../api/src/index';
 import { runFeedSourceById, type FeedDeps } from '../api/src/routes/live-iocs';
 import { writeSlice, type FeedQueueMessage } from '../api/src/lib/live-iocs-slices';
+import { gpWarmKey } from '../api/src/routes/global-pulse';
 import { concurrentMap } from '../api/src/lib/concurrent-map';
+
+// `gp:warm:<key>` slice TTL — 8h, matching the prior single-blob warmer. Outlives
+// the hourly rotation so a feed whose refresh fails keeps its last-good value.
+const GP_WARM_TTL_SECONDS = 8 * 60 * 60;
 
 // Within-batch fan-out bound. The relevant runtime limit is ~6 simultaneously
 // OPEN outbound connections (not a total-subrequest cap). Several sources fan
@@ -50,6 +56,29 @@ export async function handleQueue(
       // -acked messages). Keep failures scoped to their own message.
       let sourceId = '';
       try {
+        // ── global-pulse feed warm (gp:warm:<key>) ───────────────────────
+        // One feed per message → its own consumer invocation → its own
+        // 50-subrequest budget. apiApp.fetch is IN-PROCESS (no network
+        // self-fetch, which would loop back and fail). Each message writes its
+        // OWN KV key, so there is no read-modify-write race across messages.
+        const gp = msg.body?.gp;
+        if (gp && typeof gp.key === 'string' && typeof gp.path === 'string') {
+          const res = await apiApp.fetch(
+            new Request(`https://gp-warm.internal${gp.path}`),
+            env as unknown as ApiEnv as never,
+            ctx
+          );
+          if (res.ok) {
+            const body = await res.text();
+            await kv.put(gpWarmKey(gp.key), body, { expirationTtl: GP_WARM_TTL_SECONDS });
+            console.log(JSON.stringify({ job: 'gp-warm-slice', key: gp.key, ok: true, bytes: body.length }));
+          } else {
+            console.warn(JSON.stringify({ job: 'gp-warm-slice', key: gp.key, status: res.status }));
+          }
+          msg.ack();
+          return;
+        }
+
         // Runtime-guard the body (a cross-version producer could send a
         // malformed shape) — the generic already types it, so no cast needed.
         sourceId = msg.body && typeof msg.body.sourceId === 'string' ? msg.body.sourceId : '';
