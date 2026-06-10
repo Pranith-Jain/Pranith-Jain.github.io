@@ -62,3 +62,69 @@ describe('GET /api/v1/tracer/label', () => {
     expect(body.risk.level).toBe('critical');
   });
 });
+
+import { Hono } from 'hono';
+import { env as testEnv } from 'cloudflare:test';
+import { requireAdminMiddleware } from '../../src/lib/admin-auth';
+import { validate } from '../../src/lib/validate';
+import { tracerLabelAddSchema, tracerExpandSchema } from '../../src/lib/validation-schemas';
+import { tracerLabelAddHandler, tracerExpandHandler } from '../../src/routes/tracer';
+
+// Mini-app mirroring api/src/index.ts wiring (admin gate on /tracer/labels; expand is public).
+function adminApp() {
+  const a = new Hono<any>();
+  a.use('/api/v1/tracer/labels', requireAdminMiddleware);
+  a.post('/api/v1/tracer/labels', validate('json', tracerLabelAddSchema), tracerLabelAddHandler);
+  a.post('/api/v1/tracer/expand', validate('json', tracerExpandSchema), tracerExpandHandler);
+  return a;
+}
+const adminEnv = (): any => ({ ...testEnv, ADMIN_TOKEN: 'sekret' });
+
+describe('POST /api/v1/tracer/labels (admin, mini-app)', () => {
+  it('401 without an admin token', async () => {
+    const r = await adminApp().request(
+      '/api/v1/tracer/labels',
+      {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({
+          address: '0xabc0000000000000000000000000000000000001',
+          chain: 'evm',
+          label: 'X',
+          category: 'exchange',
+        }),
+      },
+      adminEnv()
+    );
+    expect(r.status).toBe(401);
+  });
+
+  it('inserts a label with admin token and expand reflects it', async () => {
+    const addr = '0xabc0000000000000000000000000000000000002';
+    const add = await adminApp().request(
+      '/api/v1/tracer/labels',
+      {
+        method: 'POST',
+        headers: { 'content-type': 'application/json', Authorization: 'Bearer sekret' },
+        body: JSON.stringify({ address: addr, chain: 'evm', label: 'My Tagged Mixer', category: 'mixer' }),
+      },
+      adminEnv()
+    );
+    expect(add.status).toBe(201);
+
+    const exp = await adminApp().request(
+      '/api/v1/tracer/expand',
+      {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ address: addr, chain: 'evm' }),
+      },
+      adminEnv()
+    );
+    expect(exp.status).toBe(200);
+    const body = (await exp.json()) as { root: { label: string | null; category: string; risk: { level: string } } };
+    expect(body.root.label).toBe('My Tagged Mixer');
+    expect(body.root.category).toBe('mixer');
+    expect(body.root.risk.level).toBe('critical');
+  });
+});

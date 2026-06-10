@@ -936,3 +936,21 @@ export const tracerLabelSchema = z.object({
   chain: z.enum(['evm', 'btc', 'tron']),
 });
 export type TracerLabelInput = z.infer<typeof tracerLabelSchema>;
+
+export const tracerLabelAddSchema = z.object({
+  address: z.string().min(1, 'address is required').max(200, 'address too long'),
+  chain: z.enum(['evm', 'btc', 'tron']),
+  label: z.string().min(1, 'label is required').max(80, 'label too long'),
+  category: z.enum([
+    'exchange',
+    'mixer',
+    'bridge',
+    'defi',
+    'contract',
+    'ransomware',
+    'scammer',
+    'sanctioned',
+    'wallet',
+  ]),
+});
+export type TracerLabelAddInput = z.infer<typeof tracerLabelAddSchema>;

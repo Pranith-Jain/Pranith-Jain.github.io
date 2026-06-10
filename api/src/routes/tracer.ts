@@ -1,12 +1,18 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { fetchTransfers, type TracerChain } from '../lib/chain-sources';
-import { resolveSeedLabel, loadLabelsForAddresses, type AddressLabel, type LabelCategory } from '../lib/address-labels';
+import {
+  resolveSeedLabel,
+  loadLabelsForAddresses,
+  insertUserLabel,
+  type AddressLabel,
+  type LabelCategory,
+} from '../lib/address-labels';
 import { scoreAddress, type RiskScore } from '../lib/risk-score';
 import { loadSanctionedSet, type SanctionsChain } from '../lib/ofac-sanctions';
 import { loadScamSnifferSet } from '../lib/scamsniffer';
 import { getAddressContext } from '../lib/blockscout';
-import type { TracerExpandInput, TracerLabelInput } from '../lib/validation-schemas';
+import type { TracerExpandInput, TracerLabelInput, TracerLabelAddInput } from '../lib/validation-schemas';
 
 export interface TracerNode {
   id: string; // `${chain}:${address}`
@@ -199,4 +205,19 @@ export async function tracerLabelHandler(c: Context<{ Bindings: Env }>): Promise
     200,
     { 'Cache-Control': 'public, max-age=60' }
   );
+}
+
+export async function tracerLabelAddHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
+  const input = (c as Context<{ Bindings: Env }> & { parsed: TracerLabelAddInput }).parsed;
+  const db = c.env.BRIEFINGS_DB;
+  if (!db) return c.json({ error: 'label store unavailable' }, 503);
+  const stored = await insertUserLabel(
+    db,
+    input.chain,
+    input.address,
+    input.label,
+    input.category,
+    new Date().toISOString()
+  );
+  return c.json({ ok: true, address: input.address, chain: input.chain, label: stored }, 201);
 }
