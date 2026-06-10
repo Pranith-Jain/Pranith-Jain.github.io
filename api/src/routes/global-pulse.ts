@@ -2146,8 +2146,10 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
     let finalCveEvents = cveEvents;
     if (finalCveEvents.length === 0) {
       try {
+        // cve-recent aggregates NVD + cvefeed and can take ~12s cold — the
+        // generic 10s fetchDirect above times out, so give this retry 20s.
         const cveRes = await fetch('https://pranithjain.qzz.io/api/v1/cve-recent?days=7', {
-          signal: AbortSignal.timeout(10000),
+          signal: AbortSignal.timeout(20000),
         });
         if (cveRes.ok) {
           const cveData = (await cveRes.json()) as Parameters<typeof fromCveRecent>[0];
@@ -2414,6 +2416,25 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
     };
     const tagAll = <T extends { kind: PulseKind }>(arr: T[]): (T & { cti: PulseEvent['cti'] })[] =>
       arr.map((e) => ({ ...e, cti: tagCti(e.kind) }));
+
+    // TEMP DIAGNOSTIC (remove after debugging telegram/x/reddit=0): captures what
+    // each self-fetch actually returned vs what the transform produced, since the
+    // safe() wrappers swallow per-source failures silently.
+    const arrLen = (v: unknown, k: string): number | null =>
+      v && typeof v === 'object' && Array.isArray((v as Record<string, unknown>)[k])
+        ? ((v as Record<string, unknown[]>)[k] ?? []).length
+        : null;
+    console.log(
+      JSON.stringify({
+        job: 'gp-debug',
+        warm: Object.keys(warm),
+        direct: Object.keys(direct),
+        reddit: { items: arrLen(mergedReddit, 'items'), ev: redditEvents.length, final: finalRedditEvents.length },
+        x: { items: arrLen(mergedX, 'items'), ev: xEvents.length },
+        tg: { items: arrLen(finalTg, 'items'), ev: telegramEvents.length, final: finalTelegramEvents.length },
+        cve: { cves: arrLen(mergedCve, 'cves'), ev: cveEvents.length, final: finalCveEvents.length },
+      })
+    );
 
     // ── Merge + sort ───────────────────────────────────────────────────
     const allEvents = [
