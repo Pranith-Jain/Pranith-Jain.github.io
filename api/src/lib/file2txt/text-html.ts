@@ -1,0 +1,41 @@
+import { MAX_TEXT_LENGTH, type ExtractResult } from './types';
+
+const DECODE: Record<string, string> = {
+  '&amp;': '&',
+  '&lt;': '<',
+  '&gt;': '>',
+  '&quot;': '"',
+  '&#39;': "'",
+  '&apos;': "'",
+  '&nbsp;': ' ',
+};
+
+function htmlToText(html: string): string {
+  return html
+    .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, ' ')
+    .replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, ' ')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/&[a-z#0-9]+;/gi, (m) => DECODE[m.toLowerCase()] ?? m)
+    .replace(/[ \t]+/g, ' ')
+    .replace(/\n{3,}/g, '\n\n')
+    .trim();
+}
+
+function cap(text: string): { text: string; truncated: boolean } {
+  if (text.length <= MAX_TEXT_LENGTH) return { text, truncated: false };
+  return { text: text.slice(0, MAX_TEXT_LENGTH), truncated: true };
+}
+
+/** In-Worker extraction for the CPU-cheap formats.
+ *  NOTE: this is text *extraction*, NOT HTML sanitization. The output is plain
+ *  text that flows into JSON (`view`) rendered via React JSX (auto-escaped).
+ *  Never feed this output into a `dangerouslySetInnerHTML`/`v-html`/`marked`
+ *  sink without DOMPurify — residual markup can survive malformed input. */
+export function extractTextOrHtml(bytes: Uint8Array, kind: 'text' | 'html'): ExtractResult {
+  // Non-fatal decoding is the default; workers-types' TextDecoder ctor options
+  // don't accept `fatal`, so omit the options bag.
+  const raw = new TextDecoder('utf-8').decode(bytes);
+  const text = kind === 'html' ? htmlToText(raw) : raw.trim();
+  const { text: capped, truncated } = cap(text);
+  return { text: capped, meta: { kind, method: 'inline', truncated } };
+}
