@@ -24,6 +24,15 @@ import {
 } from 'lucide-react';
 import { FeedbackWidget } from '../../components/FeedbackWidget';
 import { adminAuthHeaders } from '../../lib/admin-token';
+import { SEVERITY_TONE, type Severity } from '../../components/severity';
+
+/** Normalize a priority/severity string to the canonical Severity union. */
+function toSeverity(v: string | undefined | null): Severity {
+  const k = (v ?? '').toLowerCase();
+  if (k === 'critical' || k === 'high' || k === 'medium' || k === 'info') return k;
+  if (k === 'informational') return 'info';
+  return 'low'; // low / none / unknown / unrated → neutral
+}
 
 interface Pir {
   id: string;
@@ -86,12 +95,6 @@ interface RoutingResponse {
   routes: CollectionRoute[];
 }
 
-const PRIORITY_COLORS: Record<string, string> = {
-  critical: 'text-rose-500 border-rose-300 dark:border-rose-900 bg-rose-50 dark:bg-rose-950/20',
-  high: 'text-orange-500 border-orange-300 dark:border-orange-900 bg-orange-50 dark:bg-orange-950/20',
-  medium: 'text-amber-500 border-amber-300 dark:border-amber-900 bg-amber-50 dark:bg-amber-950/20',
-  low: 'text-slate-500 border-slate-300 dark:border-slate-800 bg-slate-50 dark:bg-slate-900',
-};
 const STATUS_COLORS: Record<string, string> = {
   active: 'text-emerald-600 dark:text-emerald-400',
   paused: 'text-amber-600 dark:text-amber-400',
@@ -624,11 +627,7 @@ export default function PirDashboard(): JSX.Element {
             {unacknowledged.map((a) => (
               <div key={a.id} className="flex items-start gap-2 text-mini text-slate-700 dark:text-slate-300">
                 <span
-                  className={`font-mono shrink-0 px-1 py-0.5 rounded text-micro ${
-                    a.severity === 'critical'
-                      ? 'bg-rose-200 dark:bg-rose-900 text-rose-700 dark:text-rose-300'
-                      : 'bg-amber-200 dark:bg-amber-900 text-amber-700 dark:text-amber-300'
-                  }`}
+                  className={`font-mono shrink-0 px-1 py-0.5 rounded text-micro border ${SEVERITY_TONE[toSeverity(a.severity)]}`}
                 >
                   {a.severity}
                 </span>
@@ -718,7 +717,7 @@ export default function PirDashboard(): JSX.Element {
                         {r.driving_priorities.map((p) => (
                           <span
                             key={p}
-                            className={`text-micro font-mono px-1 py-0.5 rounded ${p === 'critical' ? 'bg-rose-100 text-rose-700 dark:bg-rose-500/15 dark:text-rose-300' : p === 'high' ? 'bg-orange-100 text-orange-700 dark:bg-orange-500/15 dark:text-orange-300' : 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300'}`}
+                            className={`text-micro font-mono px-1 py-0.5 rounded border ${SEVERITY_TONE[toSeverity(p)]}`}
                           >
                             {p}
                           </span>
@@ -874,7 +873,9 @@ export default function PirDashboard(): JSX.Element {
                       }
                       className="w-full flex items-center gap-3 p-4 text-left hover:bg-slate-50 dark:hover:bg-slate-900/20 transition-colors"
                     >
-                      <span className={`text-micro font-mono px-1.5 py-0.5 rounded ${PRIORITY_COLORS[pir.priority]}`}>
+                      <span
+                        className={`text-micro font-mono px-1.5 py-0.5 rounded border ${SEVERITY_TONE[toSeverity(pir.priority)]}`}
+                      >
                         {pir.priority}
                       </span>
                       <span className={`text-micro font-mono ${STATUS_COLORS[pir.status ?? 'active']}`}>

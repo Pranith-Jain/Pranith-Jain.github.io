@@ -6,6 +6,7 @@ import { deobfuscate, findRisks, type Step } from '../../lib/dfir/powershell-deo
 import { hasIocCandidates } from '../../lib/dfir/ioc-detect';
 import { CopyChip } from '../../components/dfir/CopyButton';
 import { RelatedWikiArticles } from '../../components/dfir/RelatedWikiArticles';
+import { SEVERITY_TONE } from '../../components/severity';
 
 const SAMPLES: { label: string; value: string }[] = [
   {
@@ -31,14 +32,6 @@ const SAMPLES: { label: string; value: string }[] = [
     value: "'IzExZWyJzZGVf%X8bWFtbn0='.Replace('z','').Replace('y','').Replace('X','').Replace('%','')",
   },
 ];
-
-const SEV_STYLES: Record<string, string> = {
-  critical: 'bg-rose-500/15 text-rose-700 dark:text-rose-300 border-rose-500/30',
-  high: 'bg-orange-500/15 text-orange-700 dark:text-orange-300 border-orange-500/30',
-  medium: 'bg-amber-500/15 text-amber-700 dark:text-amber-300 border-amber-500/30',
-  // Canonical: low is slate (neutral), not sky — a low finding is still a finding.
-  low: 'border-slate-400/50 bg-slate-400/10 text-slate-600 dark:text-slate-300',
-};
 
 function Diff({ before, after }: { before: string; after: string }): JSX.Element {
   // Find a common prefix/suffix so we can highlight the change region.
@@ -230,7 +223,7 @@ export default function PowershellDeobf(): JSX.Element {
                     <div className="flex flex-wrap items-center gap-2 mb-1">
                       <span className="font-display font-semibold text-slate-900 dark:text-slate-100">{r.label}</span>
                       <span
-                        className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${SEV_STYLES[r.severity]}`}
+                        className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${SEVERITY_TONE[r.severity]}`}
                       >
                         {r.severity}
                       </span>

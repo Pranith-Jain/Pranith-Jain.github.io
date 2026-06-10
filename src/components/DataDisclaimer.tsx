@@ -1,4 +1,8 @@
 import { Radio, AlertTriangle, Github } from 'lucide-react';
+import { SEVERITY_TONE, type Severity } from './severity';
+
+// Source `risk` strings use a "moderate" tier; map to the canonical Severity union.
+const normalizeRisk = (r: string): Severity => (r === 'moderate' ? 'medium' : (r as Severity));
 
 const SOURCES = [
   {
@@ -174,13 +178,6 @@ const GRADE_STYLES: Record<string, string> = {
   F: 'bg-slate-100 dark:bg-slate-800 text-slate-500',
 };
 
-const RISK_STYLES: Record<string, string> = {
-  low: 'text-emerald-600 dark:text-emerald-400',
-  moderate: 'text-amber-600 dark:text-amber-400',
-  high: 'text-orange-600 dark:text-orange-400',
-  critical: 'text-rose-600 dark:text-rose-400',
-};
-
 export function DataDisclaimer() {
   return (
     <div className="space-y-6">
@@ -219,7 +216,11 @@ export function DataDisclaimer() {
                 <span className="text-slate-500"> — {s.desc}</span>
                 {s.bias && <span className="text-amber-600 dark:text-amber-400 block truncate">{s.bias}</span>}
               </div>
-              <span className={`shrink-0 text-micro uppercase ${RISK_STYLES[s.risk]}`}>{s.risk}</span>
+              <span
+                className={`shrink-0 rounded border px-1 py-0.5 text-micro uppercase ${SEVERITY_TONE[normalizeRisk(s.risk)]}`}
+              >
+                {s.risk}
+              </span>
             </div>
           ))}
         </div>

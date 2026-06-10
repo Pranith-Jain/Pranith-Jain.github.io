@@ -18,8 +18,15 @@ import {
   ChevronUp,
 } from 'lucide-react';
 import { CopyButton } from '../../components/dfir/CopyButton';
+import { SEVERITY_TONE, type Severity } from '../../components/severity';
 
 const API = '/api/v1';
+
+function cvssSeverity(cvss: number): Severity {
+  if (cvss >= 9) return 'critical';
+  if (cvss >= 7) return 'high';
+  return 'medium';
+}
 
 interface Protocol {
   port: number;
@@ -83,14 +90,6 @@ const TAG_COLORS: Record<string, string> = {
   'brute-force': 'bg-rose-100 dark:bg-rose-900/30 text-rose-700 dark:text-rose-300',
   'critical-vuln': 'bg-rose-100 dark:bg-rose-900/30 text-rose-700 dark:text-rose-300',
   'risky-ports': 'bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300',
-};
-
-const RISK_COLORS: Record<string, string> = {
-  critical: 'bg-rose-100 dark:bg-rose-900/30 text-rose-700 dark:text-rose-300',
-  high: 'bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300',
-  medium: 'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300',
-  low: 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300',
-  info: 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400',
 };
 
 function formatSize(bytes: number): string {
@@ -343,13 +342,7 @@ export default function ExposedHostView(): JSX.Element {
                           </Link>
                           {v.cvss !== undefined && (
                             <span
-                              className={`text-xs font-mono px-1.5 py-0.5 rounded ${
-                                v.cvss >= 9
-                                  ? 'bg-rose-100 dark:bg-rose-900/30 text-rose-700 dark:text-rose-300'
-                                  : v.cvss >= 7
-                                    ? 'bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300'
-                                    : 'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300'
-                              }`}
+                              className={`text-xs font-mono px-1.5 py-0.5 rounded border ${SEVERITY_TONE[cvssSeverity(v.cvss)]}`}
                             >
                               CVSS {v.cvss}
                             </span>
@@ -437,7 +430,9 @@ export default function ExposedHostView(): JSX.Element {
                   <div className="flex items-center gap-2">
                     <File size={14} className="text-brand-600" />
                     <span className="font-mono text-sm font-medium">{previewArtifact.name}</span>
-                    <span className={`px-1.5 py-0.5 rounded text-micro font-mono ${RISK_COLORS[previewArtifact.risk]}`}>
+                    <span
+                      className={`px-1.5 py-0.5 rounded border text-micro font-mono ${SEVERITY_TONE[previewArtifact.risk]}`}
+                    >
                       {previewArtifact.risk}
                     </span>
                   </div>

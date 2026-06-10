@@ -29,7 +29,7 @@ import type { ReactNode } from 'react';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { CountUp } from '../../components/ui/CountUp';
 import { Sparkline } from '../../components/threatintel/Sparkline';
-import { Badge } from '../../components/ui/Badge';
+import { SeverityPill } from '../../components/Badge';
 import type { CtiArc, CtiPoint } from '../../components/threatintel/cti/geo';
 import { synthesizeArcs, deriveKpis } from '../../components/threatintel/cti/geo';
 
@@ -1438,9 +1438,7 @@ export default function GlobalPulse(): JSX.Element {
                       {LAYER_DEFS[selectedEvent.kind]?.icon}
                     </span>
                     <h3 className="text-base font-bold text-slate-900 dark:text-white">{selectedEvent.title}</h3>
-                    <Badge size="sm" variant={SEVERITY_CONFIG[selectedEvent.severity]?.badge ?? 'default'}>
-                      {selectedEvent.severity}
-                    </Badge>
+                    <SeverityPill severity={selectedEvent.severity} />
                   </div>
                   <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
                     {selectedEvent.description}
