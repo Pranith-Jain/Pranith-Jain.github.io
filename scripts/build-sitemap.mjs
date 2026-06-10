@@ -76,6 +76,32 @@ function readPublishedResearchSlugs() {
   return slugs;
 }
 
+/**
+ * Blog posts live in CASE_STUDIES KV (not a local data file), so the static
+ * build can't read them. Best-effort fetch the published list from the LIVE
+ * deployed API; on ANY failure the build still succeeds (just without
+ * /blog/<slug> entries this run). The worker-injected BlogPosting JSON-LD and
+ * per-post OG card still cover the SEO basics when this is skipped.
+ */
+async function fetchBlogPosts() {
+  const url = `${BASE_URL}/api/v1/blog/posts`;
+  try {
+    const ctrl = new AbortController();
+    const timer = setTimeout(() => ctrl.abort(), 8000);
+    const res = await fetch(url, { signal: ctrl.signal, headers: { 'user-agent': 'build-sitemap' } });
+    clearTimeout(timer);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    const posts = Array.isArray(data?.posts) ? data.posts : [];
+    return posts
+      .filter((p) => p && typeof p.slug === 'string' && /^[a-z0-9-]+$/.test(p.slug) && p.slug !== 'index')
+      .map((p) => ({ slug: p.slug, lastmod: (p.publishedAt || '').slice(0, 10) || undefined }));
+  } catch (err) {
+    console.warn(`build-sitemap: skipping /blog/<slug> entries (live API unreachable: ${err.message})`);
+    return [];
+  }
+}
+
 function classifyRoute(path) {
   // Returns { changefreq, priority, group } for a given prerender path.
   // The group is used to emit the right "<!-- group -->" comment in the
@@ -108,7 +134,7 @@ function entryFor(path, opts = {}) {
   ].join('\n');
 }
 
-function buildSitemap() {
+function buildSitemap(blogPosts = []) {
   const prerenderRoutes = readPrerenderRoutes();
   const caseStudySlugs = readPublishedCaseStudySlugs();
   const researchSlugs = readPublishedResearchSlugs();
@@ -152,6 +178,14 @@ function buildSitemap() {
     }
   }
 
+  // Blog posts (fetched from the live KV-backed API; best-effort)
+  if (blogPosts.length) {
+    lines.push(`  <!-- Blog posts (${blogPosts.length}) -->`);
+    for (const { slug, lastmod } of blogPosts) {
+      lines.push(entryFor(`/blog/${slug}`, { changefreq: 'monthly', priority: '0.6', lastmod }));
+    }
+  }
+
   lines.push('</urlset>');
   return {
     xml: lines.join('\n') + '\n',
@@ -159,17 +193,19 @@ function buildSitemap() {
       prerender: prerenderRoutes.length,
       caseStudies: caseStudySlugs.length,
       research: researchSlugs.length,
-      total: prerenderRoutes.length + caseStudySlugs.length + researchSlugs.length,
+      blog: blogPosts.length,
+      total: prerenderRoutes.length + caseStudySlugs.length + researchSlugs.length + blogPosts.length,
     },
   };
 }
 
 async function main() {
-  const { xml, counts } = buildSitemap();
+  const blogPosts = await fetchBlogPosts();
+  const { xml, counts } = buildSitemap(blogPosts);
   const outPath = resolve(ROOT, 'public/sitemap.xml');
   await writeFile(outPath, xml, 'utf-8');
   console.log(
-    `sitemap: wrote ${outPath} (${counts.total} urls — ${counts.prerender} prerender + ${counts.caseStudies} case studies + ${counts.research} research)`
+    `sitemap: wrote ${outPath} (${counts.total} urls — ${counts.prerender} prerender + ${counts.caseStudies} case studies + ${counts.research} research + ${counts.blog} blog)`
   );
 }
 

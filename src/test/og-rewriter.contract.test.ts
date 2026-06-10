@@ -14,14 +14,31 @@ import { injectOgMeta, OG_OVERRIDES } from '../../worker/og-rewriter';
 //   3. /, /dfir, /copilot had no override -> 97-char home <title> verbatim.
 const indexHtml = readFileSync(resolve(process.cwd(), 'index.html'), 'utf8');
 
-/** Serve a path through the worker's OG rewriter (no nonce -> no caches/env access). */
-async function serve(path: string): Promise<string> {
+/** Serve a path through the worker's OG rewriter (no nonce -> no caches access). */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+async function serve(path: string, env: any = {}): Promise<string> {
   const res = new Response(indexHtml, { headers: { 'content-type': 'text/html;charset=UTF-8' } });
   const url = new URL(`https://pranithjain.qzz.io${path}`);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const out = await injectOgMeta(res, url, {} as any, { waitUntil() {} } as any);
+  const out = await injectOgMeta(res, url, env, { waitUntil() {} } as any);
   return out.text();
 }
+
+/** Minimal CASE_STUDIES KV stub: get(key) -> the canned record (or null). */
+function blogEnv(data: Record<string, unknown>) {
+  return { CASE_STUDIES: { get: async (k: string) => data[k] ?? null } };
+}
+const POST = {
+  slug: 'unit-post',
+  title: 'Unit Test Post',
+  excerpt: 'A short excerpt for the post.',
+  publishedAt: '2026-01-01T00:00:00.000Z',
+  tags: ['cve', 'ransomware'],
+};
+const INDEX = [
+  POST,
+  { slug: 'second-post', title: 'Second Post', excerpt: 'Another one.', publishedAt: '2026-01-02T00:00:00.000Z', tags: [] },
+];
 
 const ENTITIES: Record<string, string> = { '&amp;': '&', '&lt;': '<', '&gt;': '>', '&quot;': '"', '&#39;': "'" };
 const decode = (s: string): string => s.replace(/&(amp|lt|gt|quot|#39);/g, (m) => ENTITIES[m] ?? m);
@@ -89,5 +106,33 @@ describe('og-rewriter per-route metadata (contract vs real index.html)', () => {
     for (const [route, ov] of Object.entries(OG_OVERRIDES)) {
       expect(ov.title.length, `${route} title is ${ov.title.length} chars`).toBeLessThanOrEqual(60);
     }
+  });
+});
+
+describe('blog structured data (worker-injected JSON-LD)', () => {
+  it('injects BlogPosting JSON-LD into /blog/<slug> from KV', async () => {
+    const html = await serve('/blog/unit-post', blogEnv({ 'posts:unit-post': POST }));
+    expect(html).toContain('application/ld+json');
+    expect(html).toContain('"@type":"BlogPosting"');
+    expect(html).toContain('"headline":"Unit Test Post"');
+    expect(html).toContain('https://pranithjain.qzz.io/blog/unit-post');
+  });
+
+  it('injects Blog JSON-LD with the post list into /blog from KV', async () => {
+    const html = await serve('/blog', blogEnv({ 'posts:index': INDEX }));
+    expect(html).toContain('"@type":"Blog"');
+    expect(html).toContain('Unit Test Post');
+    expect(html).toContain('Second Post');
+  });
+
+  it('does not inject blog JSON-LD on non-blog routes', async () => {
+    const html = await serve('/about', blogEnv({}));
+    expect(html).not.toContain('"@type":"BlogPosting"');
+    expect(html).not.toContain('"@type":"Blog"');
+  });
+
+  it('is resilient when KV has no data (no crash, no script)', async () => {
+    expect(await serve('/blog', blogEnv({}))).not.toContain('"@type":"Blog"');
+    expect(await serve('/blog/missing', blogEnv({}))).not.toContain('"@type":"BlogPosting"');
   });
 });

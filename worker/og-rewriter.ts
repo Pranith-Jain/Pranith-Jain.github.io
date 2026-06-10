@@ -224,6 +224,106 @@ export async function resolveOg(url: URL, env: Env): Promise<OgOverride | null> 
   return findOgOverride(url.pathname);
 }
 
+/* ── Blog structured data ─────────────────────────────────────────────────
+ * Blog content lives in CASE_STUDIES KV and the index/posts render
+ * client-side, so non-JS crawlers (and rich-results) see no BlogPosting/Blog
+ * schema. The worker has KV access, so it injects JSON-LD at the edge. */
+
+/** Minimal shape of a blog record in CASE_STUDIES KV — only the fields used for
+ *  structured data (mirrors api/src/case-study/types Post / PostIndexEntry). */
+interface BlogRecord {
+  slug: string;
+  title: string;
+  excerpt?: string;
+  publishedAt?: string;
+  updatedAt?: string;
+  tags?: string[];
+  body?: string;
+}
+
+const BLOG_AUTHOR = {
+  '@type': 'Person',
+  name: 'Pranith Jain',
+  url: CANONICAL_ORIGIN,
+  // sameAs disambiguates the author entity across platforms — matches the
+  // client-side BlogPosting JSON-LD in src/pages/BlogPost.tsx.
+  sameAs: ['https://www.linkedin.com/in/pranithjain', 'https://x.com/Npj8448'],
+};
+
+/** Serialize as a JSON-LD <script>. `type="application/ld+json"` is DATA, not
+ *  executable script, so CSP script-src does not apply and no nonce is needed.
+ *  `<` is escaped so an author-supplied title can't close the block. */
+function ldScript(obj: unknown): string {
+  return `<script type="application/ld+json">${JSON.stringify(obj).replace(/</g, '\\u003c')}</script>`;
+}
+
+function plainText(s: string, max: number): string {
+  return s
+    .replace(/<[^>]+>/g, '')
+    .replace(/[#*`>_[\]]/g, '')
+    .trim()
+    .slice(0, max);
+}
+
+function blogPostingLd(post: BlogRecord): string {
+  const url = `${CANONICAL_ORIGIN}/blog/${post.slug}`;
+  return ldScript({
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: post.title,
+    description: plainText(post.excerpt || post.body || '', 200),
+    datePublished: post.publishedAt,
+    dateModified: post.updatedAt || post.publishedAt,
+    url,
+    mainEntityOfPage: url,
+    author: BLOG_AUTHOR,
+    publisher: { '@type': 'Person', name: 'Pranith Jain' },
+    ...(post.tags && post.tags.length > 0 ? { keywords: post.tags.join(', ') } : {}),
+  });
+}
+
+function blogIndexLd(posts: BlogRecord[]): string {
+  return ldScript({
+    '@context': 'https://schema.org',
+    '@type': 'Blog',
+    name: 'Pranith Jain — Blog',
+    url: `${CANONICAL_ORIGIN}/blog`,
+    blogPost: posts.slice(0, 50).map((p) => ({
+      '@type': 'BlogPosting',
+      headline: p.title,
+      description: plainText(p.excerpt || '', 160),
+      datePublished: p.publishedAt,
+      url: `${CANONICAL_ORIGIN}/blog/${p.slug}`,
+      author: { '@type': 'Person', name: 'Pranith Jain' },
+    })),
+  });
+}
+
+/**
+ * Build the blog JSON-LD <script> for blog routes, read once from KV at the
+ * edge. Returns '' for non-blog routes or when data is unavailable —
+ * structured data is best-effort and never blocks the page. The result is
+ * cached alongside the OG-rewritten HTML (pathname@etag), so it follows the
+ * same ~1-day staleness window as the per-route OG metadata.
+ */
+export async function resolveBlogJsonLd(url: URL, env: Env): Promise<string> {
+  if (!env.CASE_STUDIES) return '';
+  try {
+    const m = /^\/blog\/([a-z0-9-]{1,200})$/.exec(url.pathname);
+    if (m && m[1] !== 'index') {
+      const post = (await env.CASE_STUDIES.get(`posts:${m[1]}`, 'json')) as BlogRecord | null;
+      return post?.title ? blogPostingLd(post) : '';
+    }
+    if (url.pathname === '/blog') {
+      const index = ((await env.CASE_STUDIES.get('posts:index', 'json')) as BlogRecord[] | null) ?? [];
+      return index.length > 0 ? blogIndexLd(index) : '';
+    }
+  } catch {
+    /* never let a KV hiccup blank the page */
+  }
+  return '';
+}
+
 /**
  * Mutate the static index.html so the OG / Twitter / canonical metadata
  * reflects the actual route. Only kicks in for HTML responses (asset router
@@ -269,7 +369,9 @@ export async function injectOgMeta(
     });
   }
   const ogOverride = await resolveOg(url, env);
-  const ogRewritten = rewriteHtml(html, ogOverride, `${CANONICAL_ORIGIN}${url.pathname}${url.search}`);
+  const blogLd = await resolveBlogJsonLd(url, env);
+  let ogRewritten = rewriteHtml(html, ogOverride, `${CANONICAL_ORIGIN}${url.pathname}${url.search}`);
+  if (blogLd) ogRewritten = ogRewritten.replace(/<\/head>/i, `${blogLd}</head>`);
   const final = nonce ? injectScriptNonce(ogRewritten, nonce) : ogRewritten;
 
   const result = new Response(final, {
