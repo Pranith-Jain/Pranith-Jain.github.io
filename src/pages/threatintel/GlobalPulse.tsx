@@ -413,7 +413,12 @@ export default function GlobalPulse(): JSX.Element {
   );
   const [autoRefresh, setAutoRefresh] = useState(true);
   const [selectedEvent, setSelectedEvent] = useState<PulseEvent | null>(null);
-  const [mapMode, setMapMode] = useState<'2d' | '3d'>('3d');
+  // Default to the 2D map (PulseMap, ~2.3KB gz) rather than the 3D globe
+  // (CtiGlobe → globe.gl/three.js, ~506KB gz). The globe is one toggle/keypress
+  // ('1') away and lazy-loads on demand, so this saves ~500KB gz on every Global
+  // Pulse initial load without removing the feature. Flip back to '3d' to restore
+  // the globe as the default hero (at that bundle cost).
+  const [mapMode, setMapMode] = useState<'2d' | '3d'>('2d');
   const [focus, setFocus] = useState<{ lat: number; lng: number } | null>(null);
   const [lastUpdated, setLastUpdated] = useState<string | null>(null);
   const [showFilters, setShowFilters] = useState(false);
