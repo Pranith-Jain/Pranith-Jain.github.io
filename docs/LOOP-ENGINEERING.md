@@ -38,6 +38,9 @@ inherits this repo's footguns. See [`loops/README.md`](loops/README.md). Current
 - **IOC Subrequest Budget** — batched KV fan-out under the 50-subrequest cap.
 - **CSP Nonce Sanity** — verify nonce-based CSP still lets JS run.
 - **Lighthouse Until Budget** — measure-first CWV + bundle budgets, revert regressions.
+- **Security Review The Diff** — review the branch diff for this app's exposure classes.
+- **D1 Migration Apply & Verify** — new forward migration, verify schema, gated remote apply.
+- **Rebase Before Deploy** — refresh onto fast-moving `origin/main` before shipping.
 
 ## Layer 2 — Runtime loop engine (`api/src/lib/agent/`)
 

@@ -17,20 +17,23 @@ criteria to force success** — if stuck, the loop says to stop and report block
 
 ## Templates
 
-| Loop                                                  | When to run                                   | Exit when                                                             |
-| ----------------------------------------------------- | --------------------------------------------- | --------------------------------------------------------------------- |
-| [Deploy From Root](deploy-from-root.md)               | Any frontend / prod change                    | Deploy succeeded from repo root + `smoke --slow` green                |
-| [Provider Verify Live](provider-verify-live.md)       | After editing `api/src/providers/`            | No adapter returns status-ok-but-empty against live upstream          |
-| [Build Until Green](build-until-green.md)             | Before shipping                               | Build + budgets + both `tsc` passes clean                             |
-| [API Tests Unsandboxed](api-tests-unsandboxed.md)     | After editing `api/src/routes/`               | `api/` vitest (incl. `test/routes/`) exits 0 locally                  |
-| [Briefing Cron Safety](briefing-cron-safety.md)       | After touching briefing crons                 | ≤1 build/invocation + <50 subrequests                                 |
-| [MCP Mirror](mcp-mirror.md)                           | After editing `worker/mcp-server.ts`          | PR open on standalone `dfir-mcp-server` with mirrored diff            |
-| [Typecheck Until Clean](typecheck-until-clean.md)     | Before shipping / clearing type debt          | All three `tsc` projects report 0 errors                              |
-| [Route Schema Contract](route-schema-contract.md)     | After editing an `api/src/routes/` handler    | `validate()` schema mirrors handler reads; contract test green        |
-| [Upload Route Hardening](upload-route-hardening.md)   | After adding/changing a file-upload route     | Multipart + own cap; integration test mounts real middleware, exits 0 |
-| [IOC Subrequest Budget](ioc-subrequest-budget.md)     | After changing the IOC fan-out                | <50 subrequests + one `primeBatch` / one `flushBatch`                 |
-| [CSP Nonce Sanity](csp-nonce-sanity.md)               | After touching `worker/csp.ts` / `index.html` | Page hydrates, zero CSP console violations                            |
-| [Lighthouse Until Budget](lighthouse-until-budget.md) | Perf work on the frontend                     | Bundle budgets pass + CWV within target, no metric regressed          |
+| Loop                                                        | When to run                                   | Exit when                                                             |
+| ----------------------------------------------------------- | --------------------------------------------- | --------------------------------------------------------------------- |
+| [Deploy From Root](deploy-from-root.md)                     | Any frontend / prod change                    | Deploy succeeded from repo root + `smoke --slow` green                |
+| [Provider Verify Live](provider-verify-live.md)             | After editing `api/src/providers/`            | No adapter returns status-ok-but-empty against live upstream          |
+| [Build Until Green](build-until-green.md)                   | Before shipping                               | Build + budgets + both `tsc` passes clean                             |
+| [API Tests Unsandboxed](api-tests-unsandboxed.md)           | After editing `api/src/routes/`               | `api/` vitest (incl. `test/routes/`) exits 0 locally                  |
+| [Briefing Cron Safety](briefing-cron-safety.md)             | After touching briefing crons                 | ≤1 build/invocation + <50 subrequests                                 |
+| [MCP Mirror](mcp-mirror.md)                                 | After editing `worker/mcp-server.ts`          | PR open on standalone `dfir-mcp-server` with mirrored diff            |
+| [Typecheck Until Clean](typecheck-until-clean.md)           | Before shipping / clearing type debt          | All three `tsc` projects report 0 errors                              |
+| [Route Schema Contract](route-schema-contract.md)           | After editing an `api/src/routes/` handler    | `validate()` schema mirrors handler reads; contract test green        |
+| [Upload Route Hardening](upload-route-hardening.md)         | After adding/changing a file-upload route     | Multipart + own cap; integration test mounts real middleware, exits 0 |
+| [IOC Subrequest Budget](ioc-subrequest-budget.md)           | After changing the IOC fan-out                | <50 subrequests + one `primeBatch` / one `flushBatch`                 |
+| [CSP Nonce Sanity](csp-nonce-sanity.md)                     | After touching `worker/csp.ts` / `index.html` | Page hydrates, zero CSP console violations                            |
+| [Lighthouse Until Budget](lighthouse-until-budget.md)       | Perf work on the frontend                     | Bundle budgets pass + CWV within target, no metric regressed          |
+| [Security Review The Diff](security-review-the-diff.md)     | Before merging a branch                       | Fresh security review surfaces zero new findings                      |
+| [D1 Migration Apply & Verify](d1-migration-apply-verify.md) | After adding a D1 migration                   | Live schema matches code reads/writes; remote applied only on confirm |
+| [Rebase Before Deploy](rebase-before-deploy.md)             | Right before deploying                        | Branch is on latest `origin/main` + `build:check` green               |
 
 Each template encodes a documented operational lesson for this repo, so the agent
 inherits the footguns (dual-worker deploy, silent provider rot, sandbox-only API tests,
