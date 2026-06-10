@@ -3,6 +3,7 @@ import type { Env as ApiEnv } from '../../api/src/env';
 import type { AgentState, AgentStep, AgentToolResult, AgentToolCall } from '../../api/src/lib/agent/types';
 import { buildToolRegistry } from '../../api/src/lib/agent/tools';
 import { planNextStep } from '../../api/src/lib/agent/planner';
+import { evaluateCtiExit, filterCtiToolCalls } from '../../api/src/lib/agent/cti-loop';
 import { observeStep } from '../../api/src/lib/agent/observer';
 import { synthesizeReport } from '../../api/src/lib/agent/synthesizer';
 import { verifyReport } from '../../api/src/lib/agent/qa-verifier';
@@ -141,14 +142,31 @@ export class InvestigatorAgentDO {
 
     const stepNum = state.currentStep + 1;
     const stepStart = new Date().toISOString();
+    const view = { stepNum, maxSteps: state.maxSteps, steps: state.steps };
+
+    // ── DECIDE (pre-plan) ─────────────────────────────────────────────
+    // The loop engine owns the exit decision: enough-results, near-limit, or
+    // max-iterations. If any fires we synthesize without spending a planner call.
+    const exit = evaluateCtiExit(view);
+    if (exit) {
+      return await this.doSynthesize(state, ai, groqKey, stepNum, stepStart, exit.reason);
+    }
 
     // ── PLAN ─────────────────────────────────────────────────────────
     const plan = await planNextStep(ai, state.query, state.queryType, state.steps, stepNum, state.maxSteps, tools, {
       groqKey,
     });
 
-    if (plan.shouldSynthesize || stepNum >= state.maxSteps) {
-      // Enough data — synthesize the final report
+    if (plan.shouldSynthesize) {
+      // Planner judged it has enough data — synthesize the final report.
+      return await this.doSynthesize(state, ai, groqKey, stepNum, stepStart, plan.reasoning);
+    }
+
+    // Guardrails: drop unknown / duplicate / banned tools and cap the batch.
+    const validToolNames = new Set(tools.map((t) => t.name));
+    const toolCalls = filterCtiToolCalls(plan.toolCalls, view, validToolNames);
+    if (toolCalls.length === 0) {
+      // Nothing actionable survived the guardrails — synthesize rather than spin.
       return await this.doSynthesize(state, ai, groqKey, stepNum, stepStart, plan.reasoning);
     }
 
@@ -156,13 +174,13 @@ export class InvestigatorAgentDO {
     const step: AgentStep = {
       stepNumber: stepNum,
       plan: plan.reasoning,
-      toolCalls: plan.toolCalls,
+      toolCalls,
       results: [],
       status: 'running',
       startedAt: stepStart,
     };
 
-    const results = await this.executeTools(plan.toolCalls, tools);
+    const results = await this.executeTools(toolCalls, tools);
     step.results = results;
     step.completedAt = new Date().toISOString();
 

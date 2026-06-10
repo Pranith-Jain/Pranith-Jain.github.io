@@ -28,31 +28,10 @@ export async function planNextStep(
   tools: AgentTool[],
   opts: { groqKey?: string }
 ): Promise<PlannerOutput> {
-  const totalResults = steps.reduce((n, s) => n + s.results.filter((r) => r.status === 'ok').length, 0);
-
-  // Force synthesis conditions
-  if (currentStep >= maxSteps && totalResults > 0) {
-    return {
-      reasoning: `Step ${currentStep}/${maxSteps} — synthesizing report.`,
-      toolCalls: [],
-      shouldSynthesize: true,
-    };
-  }
-  if (currentStep >= maxSteps - 1 && totalResults >= 3) {
-    return {
-      reasoning: `${totalResults} successful results — synthesizing to preserve context.`,
-      toolCalls: [],
-      shouldSynthesize: true,
-    };
-  }
-  if (totalResults >= 6) {
-    return {
-      reasoning: `${totalResults} results collected — enough for a comprehensive report.`,
-      toolCalls: [],
-      shouldSynthesize: true,
-    };
-  }
-
+  // The pre-plan exit decision (enough-results / near-limit / max-iterations)
+  // is now owned by the loop engine and evaluated in the DO *before* this
+  // function is called (see cti-loop.ts + InvestigatorAgentDO.advanceOneStep).
+  // Reaching here means the loop chose to keep investigating, so we always plan.
   const toolDescriptions = describeTools(tools);
   const system = buildCtiPlannerPrompt(toolDescriptions, maxSteps, queryType);
   const user = buildCtiUserPrompt(query, queryType, steps, currentStep, maxSteps);
@@ -62,7 +41,7 @@ export async function planNextStep(
   for (let attempt = 0; attempt <= MAX_PARSE_RETRIES; attempt++) {
     const { text } = await runCompletion(ai, input, { groqKey: opts.groqKey });
     try {
-      return parsePlannerOutput(text, tools, steps);
+      return parsePlannerOutput(text);
     } catch (err) {
       lastErr = err;
       if (attempt < MAX_PARSE_RETRIES) {
@@ -101,10 +80,39 @@ Step 3: Synthesize. Do NOT call enrich_actor (it's for actors, not CVEs). Do NOT
 }
 
 ${
+  queryType === 'cve' || queryType === 'exploit-db'
+    ? `Step 1: lookup_cve (get CVSS, EPSS, KEV, affected products, references, CWE)
+ Step 2: For exploit-db queries — lookup_exploit_db for PoC/exploit references; for cve queries — unified_search for exploitation intel OR generate_yara_rule for detection
+ Step 3: If exploit-db query returns CVEs — check_ioc on discovered IOCs. If CVE query has KEV data — lookup_cisa_kev for additional context
+ Step 4: Synthesize. Do NOT call enrich_actor (it's for actors, not CVEs). Do NOT call lookup_mitre without a real technique ID from the CVE data.`
+    : ''
+}
+
+${
+  queryType === 'bug-bounty'
+    ? `Step 1: unified_search for bounty platform intel, researcher disclosures
+Step 2: check_ioc on discovered IOCs + enrich_actor for discovered actors
+Step 3: generate_yara_rule + generate_hunting_queries
+Step 4: Synthesize`
+    : ''
+}
+
+${
+  queryType === 'security-updates'
+    ? `Step 1: unified_search for vendor security advisories
+Step 2: check_ioc on discovered IOCs + lookup_cve for referenced CVEs
+Step 3: generate_yara_rule + generate_hunting_queries
+Step 4: Synthesize`
+    : ''
+}
+
+${
   queryType === 'ip' || queryType === 'domain' || queryType === 'hash'
-    ? `Step 1: check_ioc (30+ provider verdicts)
+    ? `Step 1: check_ioc (32+ provider verdicts inc. StopForumSpam, DShield)
 Step 2: get_relationships + get_ioc_lifecycle (map connections, assess activity)
-Step 3: If domain — lookup_domain + pivot_domain. If IP — lookup_ip_geo + lookup_asn. If hash — sample_scan + malware_family_detail
+Step 3: If domain — lookup_domain + pivot_domain + lookup_builtwith + lookup_certificate_transparency + wayback_advanced (infrastructure, tech stack, certs, historical data)
+If IP — lookup_ip_geo + lookup_asn + urlscan_ip_search (find URLs hosted on IP)
+If hash — sample_scan + malware_family_detail
 Step 4: generate_yara_rule for detection. Synthesize`
     : ''
 }
@@ -209,7 +217,7 @@ ${historyBlock ? `<collected_data>\n${historyBlock}\n</collected_data>` : '<coll
 What is the most valuable next tool call? If I have enough data for a comprehensive report, set shouldSynthesize=true.`;
 }
 
-function parsePlannerOutput(raw: string, tools: AgentTool[], steps: AgentStep[]): PlannerOutput {
+function parsePlannerOutput(raw: string): PlannerOutput {
   let cleaned = raw.trim();
   if (cleaned.startsWith('```')) {
     cleaned = cleaned.replace(/^```(?:json)?\n?/, '').replace(/\n?```$/, '');
@@ -227,23 +235,12 @@ function parsePlannerOutput(raw: string, tools: AgentTool[], steps: AgentStep[])
 
   if (typeof parsed !== 'object' || parsed === null) throw new Error('Not an object');
 
-  // Deduplicate
-  const called = new Set<string>();
-  for (const s of steps) {
-    for (const r of s.results) {
-      called.add(`${r.tool}:${JSON.stringify(r.args)}`);
-    }
-  }
-
-  const toolNames = new Set(tools.map((t) => t.name));
+  // Normalize raw JSON into typed tool calls. Filtering (unknown tools, dedup
+  // against prior steps, banned dump tools, per-step cap) is owned by the loop
+  // engine's guardrails in InvestigatorAgentDO — here we only validate the shape
+  // and fill defaults so downstream consumers get well-formed AgentToolCalls.
   const toolCalls = (parsed.toolCalls ?? [])
-    .filter((tc) => tc.tool && toolNames.has(tc.tool))
-    .filter((tc) => {
-      const key = `${tc.tool}:${JSON.stringify(tc.args ?? {})}`;
-      if (called.has(key)) return false;
-      called.add(key);
-      return true;
-    })
+    .filter((tc) => typeof tc.tool === 'string' && tc.tool.length > 0)
     .map((tc) => ({ tool: tc.tool, args: tc.args ?? {}, reasoning: tc.reasoning ?? '' }));
 
   if (parsed.shouldSynthesize === true) {
