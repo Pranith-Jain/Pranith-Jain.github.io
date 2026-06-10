@@ -110,3 +110,46 @@ export function toGraphResponse(graph: TracerGraph): GraphResponse {
     truncated: false,
   };
 }
+
+/**
+ * BFS from the seed over edges (undirected) to the nearest node whose category
+ * is in `targets`. Returns the ordered node-id path (seed → … → target) or null.
+ * Pure; operates only on the already-loaded graph.
+ */
+export function findPathToCategory(graph: TracerGraph, targets: string[]): string[] | null {
+  const targetSet = new Set(targets);
+  const adj = new Map<string, string[]>();
+  const link = (a: string, b: string) => {
+    const list = adj.get(a) ?? [];
+    list.push(b);
+    adj.set(a, list);
+  };
+  for (const e of graph.edges.values()) {
+    link(e.source, e.target);
+    link(e.target, e.source);
+  }
+  const start = graph.seedId;
+  if (!graph.nodes.has(start)) return null;
+  const queue: string[] = [start];
+  const prev = new Map<string, string | null>([[start, null]]);
+  while (queue.length) {
+    const cur = queue.shift() as string;
+    const node = graph.nodes.get(cur);
+    if (node && cur !== start && targetSet.has(node.category)) {
+      const path: string[] = [];
+      let p: string | null = cur;
+      while (p !== null) {
+        path.unshift(p);
+        p = prev.get(p) ?? null;
+      }
+      return path;
+    }
+    for (const nb of adj.get(cur) ?? []) {
+      if (!prev.has(nb)) {
+        prev.set(nb, cur);
+        queue.push(nb);
+      }
+    }
+  }
+  return null;
+}

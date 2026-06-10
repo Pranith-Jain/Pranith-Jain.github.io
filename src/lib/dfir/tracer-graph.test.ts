@@ -96,3 +96,74 @@ describe('tracer-graph', () => {
     expect(g.edges.get('tx1:evm:0xa')!.confidence).toBe('confirmed');
   });
 });
+
+import { findPathToCategory } from './tracer-graph';
+
+describe('findPathToCategory', () => {
+  function graphWith(nodes: { id: string; category: string }[], edges: [string, string][]) {
+    const g = emptyGraph(nodes[0].id);
+    for (const n of nodes) {
+      g.nodes.set(n.id, {
+        id: n.id,
+        address: n.id.split(':')[1] ?? n.id,
+        chain: 'evm',
+        label: null,
+        category: n.category,
+        risk: { level: 'low', score: 0, signals: [] },
+        is_root: n.id === nodes[0].id,
+        explorer_url: '',
+      });
+    }
+    edges.forEach(([s, t], i) => {
+      g.edges.set(`e${i}`, {
+        id: `e${i}`,
+        source: s,
+        target: t,
+        direction: 'out',
+        amount: '',
+        token: '',
+        tx_hash: `tx${i}`,
+        timestamp: null,
+        confidence: 'candidate',
+      });
+    });
+    return g;
+  }
+
+  it('finds the shortest path from seed to the nearest exchange/mixer', () => {
+    const g = graphWith(
+      [
+        { id: 'evm:seed', category: 'wallet' },
+        { id: 'evm:a', category: 'wallet' },
+        { id: 'evm:cex', category: 'exchange' },
+      ],
+      [
+        ['evm:seed', 'evm:a'],
+        ['evm:a', 'evm:cex'],
+      ]
+    );
+    expect(findPathToCategory(g, ['exchange', 'mixer'])).toEqual(['evm:seed', 'evm:a', 'evm:cex']);
+  });
+
+  it('returns null when no target category is reachable', () => {
+    const g = graphWith(
+      [
+        { id: 'evm:seed', category: 'wallet' },
+        { id: 'evm:a', category: 'wallet' },
+      ],
+      [['evm:seed', 'evm:a']]
+    );
+    expect(findPathToCategory(g, ['exchange', 'mixer'])).toBeNull();
+  });
+
+  it('treats edges as undirected for reachability', () => {
+    const g = graphWith(
+      [
+        { id: 'evm:seed', category: 'wallet' },
+        { id: 'evm:cex', category: 'exchange' },
+      ],
+      [['evm:cex', 'evm:seed']]
+    );
+    expect(findPathToCategory(g, ['exchange'])).toEqual(['evm:seed', 'evm:cex']);
+  });
+});
