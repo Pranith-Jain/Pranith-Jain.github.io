@@ -31,7 +31,7 @@ const CANONICAL_ORIGIN = 'https://pranithjain.qzz.io';
 const OG_CACHE_VERSION = 'v3';
 export const OG_CACHE_TTL_SECONDS = 86400;
 
-const OG_OVERRIDES: Record<string, OgOverride> = {
+export const OG_OVERRIDES: Record<string, OgOverride> = {
   '/about': {
     title: 'About · Pranith Jain',
     description:
@@ -55,6 +55,18 @@ const OG_OVERRIDES: Record<string, OgOverride> = {
     title: 'Blog · Pranith Jain',
     description:
       'Writing on threat intelligence, detection engineering, DFIR, and cloud security — field notes, deep dives, and analysis.',
+  },
+  // The two highest-value organic-search surfaces previously fell through to
+  // index.html's 97-char home <title>; give them their own short cards.
+  '/dfir': {
+    title: 'DFIR & Security Toolkit · Pranith Jain',
+    description:
+      '60+ free, browser-side DFIR and security tools: IOC checker, CVE prioritizer, email-auth auditor, decoders, and a detection-rule converter. No signup.',
+  },
+  '/copilot': {
+    title: 'CTI Copilot · Pranith Jain',
+    description:
+      'An agentic CTI assistant that investigates indicators, actors, and CVEs across the platform feeds and returns a sourced, structured briefing.',
   },
   '/threatintel': {
     title: 'Threat Intel Platform · pranithjain.qzz.io',
@@ -143,27 +155,39 @@ function escapeAttr(s: string): string {
  */
 function rewriteHtml(html: string, override: OgOverride | null, fullUrl: string, nonce?: string): string {
   const u = escapeAttr(fullUrl);
+  // NOTE: attribute gaps use `\s+`, not a literal space. index.html is
+  // prettier-formatted, which wraps long meta tags across multiple lines (the
+  // <meta name="description"> tag spans 3 lines). A single-space pattern
+  // silently fails to match a wrapped tag — that was the bug that served the
+  // 317-char home description (and the home twitter card) on every route.
+  // Twitter tags are declared with property= in index.html (not name=).
   let out = html
-    .replace(/<link rel="canonical" href="[^"]*"/i, `<link rel="canonical" href="${u}"`)
-    .replace(/<meta property="og:url" content="[^"]*"/i, `<meta property="og:url" content="${u}"`)
-    .replace(/<meta name="twitter:url" content="[^"]*"/i, `<meta name="twitter:url" content="${u}"`);
+    .replace(/<link\s+rel="canonical"\s+href="[^"]*"/i, `<link rel="canonical" href="${u}"`)
+    .replace(/<meta\s+property="og:url"\s+content="[^"]*"/i, `<meta property="og:url" content="${u}"`)
+    .replace(/<meta\s+property="twitter:url"\s+content="[^"]*"/i, `<meta property="twitter:url" content="${u}"`);
   if (override) {
     const t = escapeAttr(override.title);
     const d = escapeAttr(override.description);
     out = out
       .replace(/<title>[^<]*<\/title>/i, `<title>${t}</title>`)
-      .replace(/<meta name="description" content="[^"]*"/i, `<meta name="description" content="${d}"`)
-      .replace(/<meta property="og:title" content="[^"]*"/i, `<meta property="og:title" content="${t}"`)
-      .replace(/<meta property="og:description" content="[^"]*"/i, `<meta property="og:description" content="${d}"`)
-      .replace(/<meta name="twitter:title" content="[^"]*"/i, `<meta name="twitter:title" content="${t}"`)
-      .replace(/<meta name="twitter:description" content="[^"]*"/i, `<meta name="twitter:description" content="${d}"`);
+      .replace(/<meta\s+name="description"\s+content="[^"]*"/i, `<meta name="description" content="${d}"`)
+      .replace(/<meta\s+property="og:title"\s+content="[^"]*"/i, `<meta property="og:title" content="${t}"`)
+      .replace(/<meta\s+property="og:description"\s+content="[^"]*"/i, `<meta property="og:description" content="${d}"`)
+      .replace(/<meta\s+property="twitter:title"\s+content="[^"]*"/i, `<meta property="twitter:title" content="${t}"`)
+      .replace(
+        /<meta\s+property="twitter:description"\s+content="[^"]*"/i,
+        `<meta property="twitter:description" content="${d}"`
+      );
 
     if (override.image) {
       const imgUrl = `${CANONICAL_ORIGIN}${override.image}`;
       const imgAttr = escapeAttr(imgUrl);
       out = out
-        .replace(/<meta property="og:image" content="[^"]*"/i, `<meta property="og:image" content="${imgAttr}"`)
-        .replace(/<meta name="twitter:image" content="[^"]*"/i, `<meta name="twitter:image" content="${imgAttr}"`);
+        .replace(/<meta\s+property="og:image"\s+content="[^"]*"/i, `<meta property="og:image" content="${imgAttr}"`)
+        .replace(
+          /<meta\s+property="twitter:image"\s+content="[^"]*"/i,
+          `<meta property="twitter:image" content="${imgAttr}"`
+        );
     }
   }
   if (nonce) {
