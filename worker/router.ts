@@ -266,15 +266,7 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/dfir/threat-hunt', '/__prerendered/dfir__threat-hunt'],
 
   // ── Phase 5: New gap features ─────────────────────────────────
-  ['/dfir/cases', '/__prerendered/dfir__cases'],
-  ['/dfir/playbooks', '/__prerendered/dfir__playbooks'],
-  ['/dfir/threat-hunting', '/__prerendered/dfir__threat-hunting'],
   ['/dfir/export-hub', '/__prerendered/dfir__export-hub'],
-  ['/dfir/detection-as-code', '/__prerendered/dfir__detection-as-code'],
-  ['/dfir/deception', '/__prerendered/dfir__deception'],
-  ['/dfir/structured-analysis', '/__prerendered/dfir__structured-analysis'],
-  ['/dfir/threat-models', '/__prerendered/dfir__threat-models'],
-  ['/dfir/confidence-scoring', '/__prerendered/dfir__confidence-scoring'],
 
   // ── ThreatIntel: real pages, not redirects (28) ──────────────
   ['/threatintel/ach', '/__prerendered/threatintel__ach'],
