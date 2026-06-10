@@ -53,4 +53,16 @@ describe('applyFilter', () => {
     const r = applyFilter(list, { from: '2026-06-10T00:00:00.000Z' });
     expect(r.transfers.map((t) => t.tx_hash)).toEqual(['a']);
   });
+
+  it('caps at default of 50 when no filter is given', () => {
+    const list = Array.from({ length: 51 }, (_, i) => tx({ tx_hash: String(i) }));
+    const r = applyFilter(list);
+    expect(r.transfers).toHaveLength(50);
+    expect(r.truncated).toBe(true);
+  });
+
+  it('ignores a malformed from date and keeps the transfer', () => {
+    const r = applyFilter([tx({ tx_hash: 'a' })], { from: 'not-a-date' });
+    expect(r.transfers).toHaveLength(1);
+  });
 });

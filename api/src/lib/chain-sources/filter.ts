@@ -4,12 +4,18 @@ const DEFAULT_MAX = 50;
 
 /**
  * Apply time-window / token / min-amount filtering, then cap. A transfer with a
- * null timestamp is kept (we can't prove it's outside the window). `truncated`
- * is true when more transfers matched than the cap allowed.
+ * null OR unparseable timestamp is kept when a window is set (we can't prove it's
+ * outside the window). `truncated` is true when more transfers matched than the
+ * cap allowed.
  */
 export function applyFilter(transfers: Transfer[], filter: TransferFilter = {}): FetchResult {
-  const fromMs = filter.from ? Date.parse(filter.from) : undefined;
-  const toMs = filter.to ? Date.parse(filter.to) : undefined;
+  const parseBound = (s?: string): number | undefined => {
+    if (!s) return undefined;
+    const ms = Date.parse(s);
+    return Number.isNaN(ms) ? undefined : ms;
+  };
+  const fromMs = parseBound(filter.from);
+  const toMs = parseBound(filter.to);
   const tokenLc = filter.token?.toLowerCase();
 
   const matched = transfers.filter((t) => {
@@ -27,6 +33,6 @@ export function applyFilter(transfers: Transfer[], filter: TransferFilter = {}):
     return true;
   });
 
-  const cap = filter.maxTransfers ?? DEFAULT_MAX;
+  const cap = Math.max(0, filter.maxTransfers ?? DEFAULT_MAX);
   return { transfers: matched.slice(0, cap), truncated: matched.length > cap };
 }
