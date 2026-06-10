@@ -21,6 +21,7 @@ import { fetchTelegramFeed } from '../api/src/routes/telegram-feed';
 import { refreshVictimReleaksCache } from '../api/src/routes/victim-releaks';
 import { warmIntelBundles } from '../api/src/lib/intel-bundle-warm';
 import { checkWatches } from '../api/src/lib/watch-engine';
+import { checkAddressWatches } from '../api/src/lib/address-watch';
 import { buildStatusSnapshot, upsertStatusSnapshot } from '../api/src/lib/breach-forum-status';
 import { getCuratedForums } from '../api/src/routes/breach-forums';
 import { buildDeepDarkCti } from '../api/src/routes/deepdarkcti';
@@ -394,6 +395,9 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
         } catch (e) {
           console.error(JSON.stringify({ job: 'watch-engine', error: e instanceof Error ? e.message : String(e) }));
         }
+
+        // === Crypto address monitor (Phase E) ===
+        if (db) ctx.waitUntil(checkAddressWatches(new Date().toISOString(), db).catch(logCronFail('crypto-monitor')));
 
         // === Breach-forum status snapshot ===
         // Hourly: re-snapshot the deepdarkCTI forum directory + the curated

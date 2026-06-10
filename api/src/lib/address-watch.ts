@@ -51,7 +51,6 @@ export function evaluateAlerts(
 
 // ── D1 layer + sweep engine ──────────────────────────────────────
 import type { D1Database } from '@cloudflare/workers-types';
-import type { Env } from '../env';
 import { fetchTransfers } from './chain-sources';
 import { loadSanctionedSet } from './ofac-sanctions';
 import { loadScamSnifferSet } from './scamsniffer';
@@ -154,7 +153,7 @@ export async function listAlerts(db: D1Database, address: string, chain: string,
 }
 
 /** The hourly sweep: oldest-first, one cheap call per watch, diff + alert. Never throws out of the loop. */
-export async function checkAddressWatches(_env: Env, now: string, db: D1Database): Promise<number> {
+export async function checkAddressWatches(now: string, db: D1Database): Promise<number> {
   await ensureAddressWatchTables(db);
   const res = await db
     .prepare(`SELECT * FROM address_watch ORDER BY last_checked ASC NULLS FIRST LIMIT ?`)
