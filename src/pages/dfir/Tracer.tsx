@@ -16,6 +16,7 @@ import {
   type CoInputCluster,
   serializeGraph,
   deserializeGraph,
+  sanitizeHttpUrl,
 } from '../../lib/dfir/tracer-graph';
 import { toJSON, toCSV } from '../../lib/dfir/tracer-export';
 
@@ -462,14 +463,16 @@ export default function Tracer(): JSX.Element {
                 >
                   <Check className="h-3 w-3" /> Confirm hops
                 </button>
-                <a
-                  className="flex items-center justify-center gap-1 rounded border border-gray-600 p-2 text-xs hover:bg-gray-800"
-                  href={selected.explorer_url}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <ExternalLink className="h-3 w-3" /> Open explorer
-                </a>
+                {sanitizeHttpUrl(selected.explorer_url) ? (
+                  <a
+                    className="flex items-center justify-center gap-1 rounded border border-gray-600 p-2 text-xs hover:bg-gray-800"
+                    href={sanitizeHttpUrl(selected.explorer_url)}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <ExternalLink className="h-3 w-3" /> Open explorer
+                  </a>
+                ) : null}
                 <button
                   className="rounded border border-gray-600 p-2 text-xs hover:bg-gray-800"
                   onClick={() => void pinToInvestigation(selected.address, 'crypto-address')}

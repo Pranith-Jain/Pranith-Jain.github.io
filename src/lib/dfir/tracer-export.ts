@@ -5,7 +5,11 @@ export function toJSON(graph: TracerGraph): string {
 }
 
 function csvCell(v: string): string {
-  return /[",\n]/.test(v) ? `"${v.replace(/"/g, '""')}"` : v;
+  // Neutralize spreadsheet formula injection: a cell beginning with =,+,-,@,tab
+  // or CR can be executed as a formula by Excel/Sheets. Prefix with a single
+  // quote so it is treated as text. Apply before CSV quoting.
+  const safe = /^[=+\-@\t\r]/.test(v) ? `'${v}` : v;
+  return /[",\n]/.test(safe) ? `"${safe.replace(/"/g, '""')}"` : safe;
 }
 
 /** One row per edge — a flow table for spreadsheets / legal hand-off. */

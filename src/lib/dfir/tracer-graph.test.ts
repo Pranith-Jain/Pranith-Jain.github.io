@@ -219,4 +219,54 @@ describe('serialize/deserialize round-trip', () => {
     expect(deserializeGraph({ nodes: 'nope' }).edges.size).toBe(0);
     expect(deserializeGraph(42).seedId).toBe('');
   });
+
+  it('deserialize strips non-http(s) explorer_url (blocks javascript: URIs in saved graphs)', () => {
+    const blob = {
+      seedId: 'evm:0xroot',
+      nodes: [
+        {
+          id: 'evm:0xevil',
+          address: '0xevil',
+          chain: 'evm',
+          label: null,
+          category: 'unknown',
+          risk: { level: 'low', score: 0, signals: [] },
+          is_root: false,
+          explorer_url: 'javascript:alert(document.cookie)',
+        },
+        {
+          id: 'evm:0xok',
+          address: '0xok',
+          chain: 'evm',
+          label: null,
+          category: 'unknown',
+          risk: { level: 'low', score: 0, signals: [] },
+          is_root: false,
+          explorer_url: 'https://etherscan.io/address/0xok',
+        },
+      ],
+      edges: [],
+    };
+    const g = deserializeGraph(blob);
+    expect(g.nodes.get('evm:0xevil')!.explorer_url).toBe('');
+    expect(g.nodes.get('evm:0xok')!.explorer_url).toBe('https://etherscan.io/address/0xok');
+  });
+});
+
+import { sanitizeHttpUrl } from './tracer-graph';
+
+describe('sanitizeHttpUrl', () => {
+  it('passes http(s) URLs through', () => {
+    expect(sanitizeHttpUrl('https://etherscan.io/x')).toBe('https://etherscan.io/x');
+    expect(sanitizeHttpUrl('HTTP://example.com')).toBe('HTTP://example.com');
+  });
+  it('blocks dangerous and non-string schemes → empty string', () => {
+    expect(sanitizeHttpUrl('javascript:alert(1)')).toBe('');
+    expect(sanitizeHttpUrl('  javascript:alert(1)')).toBe('');
+    expect(sanitizeHttpUrl('data:text/html,<script>1</script>')).toBe('');
+    expect(sanitizeHttpUrl('vbscript:msgbox(1)')).toBe('');
+    expect(sanitizeHttpUrl('')).toBe('');
+    expect(sanitizeHttpUrl(null)).toBe('');
+    expect(sanitizeHttpUrl(42)).toBe('');
+  });
 });
