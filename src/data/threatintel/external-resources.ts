@@ -335,6 +335,17 @@ export const RESOURCES: ExternalResource[] = [
       'Curated directory of OSINT tools with community collections, featured tool listings, and new-tool discovery feed.',
   },
   {
+    id: 'intelligenceonchain-osint',
+    name: 'Intelligence on Chain',
+    url: 'https://osint.intelligenceonchain.com/',
+    kind: 'directory',
+    featured: true,
+    description:
+      'Curated, filterable directory of blockchain/crypto OSINT tools — wallet tracing, transaction analysis, identity and infrastructure recon. Field-tested entries organized by cost, skill level, OPSEC sensitivity, and input type (address, hash, email, username).',
+    why: 'On-chain OSINT companion to the crypto-trace / fund-flow tooling here.',
+    tags: ['osint', 'threat-intel'],
+  },
+  {
     id: 'databreach-com',
     name: 'DataBreach.com',
     url: 'https://databreach.com/',
