@@ -681,8 +681,12 @@ export const SECTIONS: Section[] = [
       {
         path: '/dfir/tracer',
         useCase: 'Trace fund flows hop-by-hop and map an actor’s on-chain footprint.',
+        workflow:
+          'Seed an address → click nodes to expand counterparties → confirm hops → inspect tx calldata / find the cash-out path → save, export, or pin to an investigation → watch the address for new movement.',
+        cantDo:
+          'Not Chainalysis — entity labels are a curated seed + on-the-fly Blockscout/ENS, not an 800M-label index; save / label / watch are admin-gated; native-only value moves (no token-transfer) are not monitored.',
         label: 'Fund-Flow Tracer',
-        desc: 'EVM + BTC + Tron · interactive graph · labels · risk score · calldata/TxDataHiding inspector · BTC clustering · auto-path to CEX/Mixer',
+        desc: 'EVM + BTC + Tron fund-flow graph · entity labels + risk score · calldata/TxDataHiding inspector · BTC common-input clustering · auto-path to CEX/Mixer · save/export (JSON/CSV/PNG) + investigation pinning · OSINT identity pivot · address monitoring & alerts',
         icon: Coins,
       },
       {
