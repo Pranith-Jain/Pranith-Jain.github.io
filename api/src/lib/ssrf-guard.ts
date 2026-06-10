@@ -29,7 +29,7 @@ import { resolveRecord } from './dns';
 //     so it has to be listed explicitly. Required for defence-in-depth on any
 //     substrate where the worker might be reachable from Azure-allocated egress.
 export const PRIVATE_IPV4 =
-  /^(?:0\.|10\.|100\.(?:6[4-9]|[7-9]\d|1[01]\d|12[0-7])\.|127\.|168\.63\.129\.|169\.254\.|172\.(?:1[6-9]|2\d|3[01])\.|192\.0\.0\.|192\.0\.2\.|192\.88\.99\.|192\.168\.|198\.1[89]\.|198\.51\.100\.|203\.0\.113\.|22[4-9]\.|23\d\.|24\d\.|25[0-5]\.)/;
+  /^(?:0\.|10\.|100\.(?:6[4-9]|[7-9]\d|1[01]\d|12[0-7])\.|127\.|168\.63\.129\.16(?![0-9])|169\.254\.|172\.(?:1[6-9]|2\d|3[01])\.|192\.0\.0\.|192\.0\.2\.|192\.88\.99\.|192\.168\.|198\.1[89]\.|198\.51\.100\.|203\.0\.113\.|22[4-9]\.|23\d\.|24\d\.|25[0-5]\.)/;
 
 export function isPrivateIpv6(addr: string): boolean {
   const a = addr.toLowerCase().trim();

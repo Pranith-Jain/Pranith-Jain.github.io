@@ -1683,10 +1683,14 @@ export async function buildBriefing(
   // on KEV-quiet days while still keeping the bar high — we don't surface
   // every newly-published CVE, only the ones that matter.
   const kevWindow = kev.filter((k) => withinRange(k.dateAdded, startMs, endMs));
+  // KEV enrichment is best-effort: a transient NVD failure here must NOT throw
+  // the whole build (that persists NO row — the daily-2026-06-09 failure mode).
+  // KEV findings already carry CVE id + dateAdded; the NVD lookup only adds
+  // CVSS/description, so on failure we degrade to KEV-only enrichment.
   const nvdMap = await fetchNvdByIds(
     kevWindow.map((k) => k.cveID),
     opts.nvdApiKey
-  );
+  ).catch(() => new Map<string, NvdCve>());
   const kevFindings = kevWindow.map((k) => findingFromKev(k, nvdMap.get(k.cveID)));
   const kevIds = new Set(kevFindings.map((f) => f.id));
   const nvdFindings = nvdRecent

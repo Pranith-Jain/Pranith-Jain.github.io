@@ -622,103 +622,6 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
           logCronFail('infra-scan')(e);
         }
 
-        // === Briefing self-heal — only if the 00:30 primary build failed ===
-        // Runs a cheap D1 read to check whether the daily (and, on Mondays,
-        // the weekly) is empty or degraded.  If healthy the heal is a no-op.
-        // If the 00:30/00:45 build failed (KEV down, NVD lag, timeout…)
-        // this kicks in as a fallback — same build, same sources, just
-        // running an hour or two later when the feeds have recovered.
-        // The 50-subrequest budget is tight after the cache-warm fan-out;
-        // `briefingNeedsHeal` is a D1 read (free), and the 8 source
-        // fetches only fire when the row is actually empty/degraded.
-        {
-          const db2 = env.BRIEFINGS_DB as D1Database | undefined;
-          if (db2 && new Date().getUTCHours() !== 0) {
-            const yesterday = new Date(Date.now() - 86400_000);
-            const slug = `daily-${yesterday.toISOString().slice(0, 10)}`;
-            try {
-              const row = await db2
-                .prepare('SELECT stats_json, body FROM briefings WHERE slug = ?')
-                .bind(slug)
-                .first<{ stats_json?: string; body?: string }>();
-              const needsHeal = briefingNeedsHeal(row, { now: Date.now(), cooldownMs: 30 * 60_000 });
-              const extraHeal =
-                !needsHeal && row
-                  ? await dailyNeedsCveReenrich(row, { now: Date.now(), cooldownMs: 3 * 60 * 60_000 })
-                  : false;
-              if (needsHeal || extraHeal) {
-                try {
-                  const briefing = await buildBriefing('daily', undefined, {
-                    nvdApiKey: env.NVD_API_KEY,
-                    env: env as unknown as ApiEnv,
-                  });
-                  await writeBriefing(db2, briefing);
-                  console.log(
-                    JSON.stringify({
-                      job: 'hourly-heal',
-                      type: 'daily',
-                      slug: briefing.slug,
-                      findings: briefing.stats.findings,
-                      iocs: briefing.stats.iocs,
-                    })
-                  );
-                } catch (e) {
-                  logCronFail('hourly-heal(daily)')(e);
-                }
-              }
-            } catch (e) {
-              logCronFail('hourly-heal-check(daily)')(e);
-            }
-          }
-          // Weekly heal — only on Mondays after 00:45 UTC (the primary
-          // weekly cron) has had a chance to run.
-          if (db2 && csNow.getUTCDay() === 1 && csNow.getUTCHours() > 0) {
-            const ws = expectedWeeklySlug();
-            try {
-              const row = await db2
-                .prepare('SELECT stats_json, body FROM briefings WHERE slug = ?')
-                .bind(ws)
-                .first<{ stats_json?: string; body?: string }>();
-              const needsHeal = briefingNeedsHeal(row, { now: Date.now(), cooldownMs: 30 * 60_000 });
-              const extraHeal =
-                !needsHeal && row
-                  ? await (async () => {
-                      let range: { range_start?: string; range_end?: string } = {};
-                      try {
-                        range = row?.body ? JSON.parse(row.body) : {};
-                      } catch {
-                        return false;
-                      }
-                      if (!range.range_start || !range.range_end) return false;
-                      return weeklyUndercountsDailies(db2, ws, range.range_start, range.range_end);
-                    })()
-                  : false;
-              if (needsHeal || extraHeal) {
-                try {
-                  const briefing = await buildBriefing('weekly', undefined, {
-                    nvdApiKey: env.NVD_API_KEY,
-                    env: env as unknown as ApiEnv,
-                  });
-                  await writeBriefing(db2, briefing);
-                  console.log(
-                    JSON.stringify({
-                      job: 'hourly-heal',
-                      type: 'weekly',
-                      slug: briefing.slug,
-                      findings: briefing.stats.findings,
-                      iocs: briefing.stats.iocs,
-                    })
-                  );
-                } catch (e) {
-                  logCronFail('hourly-heal(weekly)')(e);
-                }
-              }
-            } catch (e) {
-              logCronFail('hourly-heal-check(weekly)')(e);
-            }
-          }
-        }
-
         // === 30-day data retention sweep (daily at 6am UTC) ===
         // Runs once daily instead of hourly — the sweep is a no-op most
         // runs (no rows past 30d yet) but guarantees the data-minimization
@@ -748,6 +651,22 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
         .finally(releaseLease)
     );
     ctx.waitUntil(Promise.resolve().then(() => logCronDone({ path: 'hourly' })));
+    return;
+  }
+
+  // === Briefing self-heal — dedicated hourly invocation ===
+  // Runs ALONE (no telegram scrape, no warm fan-out) so the briefing build
+  // gets a fresh Free-plan 50-subrequest budget. Rebuilds AT MOST ONE briefing
+  // per fire (see runBriefingHealOnce) — sharing "0 * * * *" with the warm
+  // fan-out is what blew the budget and shipped empty/missing briefings
+  // (daily-2026-06-04/05, daily-2026-06-09).
+  if (cron === '20 * * * *') {
+    ctx.waitUntil(
+      runBriefingHealOnce(env)
+        .catch(logCronFail('briefing-heal'))
+        .finally(() => logCronDone({ path: 'briefing-heal' }))
+        .finally(releaseLease)
+    );
     return;
   }
 
@@ -866,4 +785,105 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
       .catch(logCronFail('briefing-dedicated'))
       .finally(releaseLease)
   );
+}
+
+/**
+ * Briefing self-heal — rebuilds AT MOST ONE briefing per call, in priority
+ * order: a broken/stale/missing daily-yesterday, then the weekly. Called from
+ * the dedicated "20 * * * *" cron.
+ *
+ * One build per invocation is the whole point: a single briefing build fits
+ * comfortably under the Free-plan 50-subrequest cap (the 00:30 dedicated cron
+ * proves it), but folding this heal back into "0 * * * *" — on top of telegram
+ * scraping and the warm fan-out — blew the budget, so every KEV/NVD/abuse.ch
+ * fetch threw "Too many subrequests" and the heal wrote 0-finding / 0-IOC
+ * briefings, or (when an un-wrapped await like fetchNvdByIds threw) no row at
+ * all (daily-2026-06-09). A backlog of stale rows drains over the next few
+ * hourly ticks instead of all at once.
+ *
+ * `healOne` returns true once it ATTEMPTS a build (even if that build throws),
+ * so the caller stops after one — a failed build still spent the invocation's
+ * budget, and retrying a second build in the same fire would likely fail too.
+ */
+async function runBriefingHealOnce(env: Env): Promise<void> {
+  const db = env.BRIEFINGS_DB as D1Database | undefined;
+  if (!db) return;
+
+  const healOne = async (
+    type: 'daily' | 'weekly',
+    slug: string,
+    opts?: {
+      minAgeMs?: number;
+      extraHealCheck?: (row: { stats_json?: string; body?: string } | null) => Promise<boolean>;
+    }
+  ): Promise<boolean> => {
+    // Read stats AND body in one query: stats decide richness, body carries the
+    // `degraded` flag + `generated_at` the cooldown needs. A degraded briefing
+    // keeps its abuse.ch IOCs, so a richness-only check saw iocs>0 and skipped
+    // it forever; `briefingNeedsHeal` keeps degraded rows eligible, subject to
+    // the cooldown. A MISSING row returns null → briefingNeedsHeal(null)=true,
+    // so the heal rebuilds it from scratch.
+    const row = await db
+      .prepare('SELECT stats_json, body FROM briefings WHERE slug = ?')
+      .bind(slug)
+      .first<{ stats_json?: string; body?: string }>();
+    const needsHeal = briefingNeedsHeal(row, { now: Date.now(), cooldownMs: opts?.minAgeMs });
+    const extraHeal = !needsHeal && opts?.extraHealCheck ? await opts.extraHealCheck(row) : false;
+    if (!needsHeal && !extraHeal) return false;
+    try {
+      const briefing = await buildBriefing(type, undefined, {
+        nvdApiKey: env.NVD_API_KEY,
+        env: env as unknown as ApiEnv,
+      });
+      const result = await writeBriefing(db, briefing);
+      console.log(
+        JSON.stringify({
+          job: `briefing-heal(${type})`,
+          status: result.written ? 'wrote' : `skipped(${result.reason})`,
+          slug: briefing.slug,
+          findings: briefing.stats.findings,
+          iocs: briefing.stats.iocs,
+        })
+      );
+    } catch (err) {
+      console.error(
+        JSON.stringify({
+          job: `briefing-heal(${type})`,
+          status: 'build_failed',
+          error: err instanceof Error ? err.message : String(err),
+        })
+      );
+    }
+    return true; // attempted a build — this invocation's one slot is spent
+  };
+
+  // 1) daily-yesterday — skip at UTC hour 0 (the 00:30 dedicated cron owns it).
+  //    NVD/cvefeed lag 12-24h, so re-enrich while live feeds still cover it;
+  //    3h cooldown keeps a genuinely CVE-quiet day from rebuilding hourly.
+  if (new Date().getUTCHours() !== 0) {
+    const yesterday = new Date(Date.now() - 86400_000);
+    const healed = await healOne('daily', `daily-${yesterday.toISOString().slice(0, 10)}`, {
+      minAgeMs: 30 * 60_000,
+      extraHealCheck: async (row) => dailyNeedsCveReenrich(row, { now: Date.now(), cooldownMs: 3 * 60 * 60_000 }),
+    });
+    if (healed) return;
+  }
+
+  // 2) weekly — the cron only fires Mondays, so without an hourly retry a
+  //    degraded weekly stays stuck for 7 days. The extra check catches a weekly
+  //    that `isBriefingRich` wrongly passes because its recent-only feeds no
+  //    longer cover the window even though its dailies are rich (the W22 bug).
+  await healOne('weekly', expectedWeeklySlug(), {
+    minAgeMs: 30 * 60_000,
+    extraHealCheck: async (row) => {
+      let range: { range_start?: string; range_end?: string } = {};
+      try {
+        range = row?.body ? JSON.parse(row.body) : {};
+      } catch {
+        return false;
+      }
+      if (!range.range_start || !range.range_end) return false;
+      return weeklyUndercountsDailies(db, expectedWeeklySlug(), range.range_start, range.range_end);
+    },
+  });
 }
