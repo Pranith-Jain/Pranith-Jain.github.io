@@ -95,11 +95,18 @@ export default function SocRansomware(): JSX.Element {
     const groups = data?.groups ?? [];
     const top = groups[0];
     const topShare = data?.count && top ? Math.round((top.count / data.count) * 100) : 0;
+    // Top *named* sector — skip the "Unknown"/"Other" buckets so the headline
+    // reflects an actual targeted industry rather than the unclassified pile.
+    const topSec = (data?.sectors ?? [])
+      .filter((s) => s.count > 0 && s.sector && s.sector !== 'Unknown' && s.sector !== 'Other')
+      .sort((a, b) => b.count - a.count)[0];
     return {
       total: data?.count ?? 0,
       groups: groups.length,
       topName: top?.group ?? '—',
       topPct: top ? `${topShare}%` : '—',
+      topSector: topSec?.sector ?? '—',
+      topSectorPct: topSec ? `${topSec.pct}%` : null,
     };
   }, [data]);
 
@@ -269,9 +276,9 @@ export default function SocRansomware(): JSX.Element {
           label="Top sector"
           value={
             <span className="inline-flex items-baseline gap-2">
-              <span className="truncate">{data?.sectors?.[0]?.sector ?? '—'}</span>
-              {data?.sectors?.[0] && (
-                <span className="text-2xl text-slate-500 dark:text-slate-400">({data.sectors[0].pct}%)</span>
+              <span className="truncate">{kpis.topSector}</span>
+              {kpis.topSectorPct && (
+                <span className="text-2xl text-slate-500 dark:text-slate-400">({kpis.topSectorPct})</span>
               )}
             </span>
           }

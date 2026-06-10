@@ -427,10 +427,30 @@ export default function SocVulns(): JSX.Element {
           <KevTable rows={kevList} />
         </SocPanel>
 
-        <SocPanel>
-          <SocSection title="CVSS distribution" />
-          <SocBar items={cvssBins} vertical height={180} />
-        </SocPanel>
+        <div className="space-y-3 sm:space-y-4">
+          <SocPanel>
+            <SocSection title="CVSS distribution" />
+            <SocBar items={cvssBins} vertical height={180} />
+          </SocPanel>
+
+          <SocPanel>
+            <SocSection title="Quick stats" />
+            <dl className="space-y-2 text-meta font-mono">
+              <div className="flex items-baseline justify-between gap-2">
+                <dt className="text-slate-500 dark:text-slate-400">top vendor</dt>
+                <dd className="text-slate-700 dark:text-slate-300 truncate">{topVendors[0]?.label ?? '—'}</dd>
+              </div>
+              <div className="flex items-baseline justify-between gap-2">
+                <dt className="text-slate-500 dark:text-slate-400">critical + high</dt>
+                <dd className="text-slate-700 dark:text-slate-300">{formatNumber(counts.CRITICAL + counts.HIGH)}</dd>
+              </div>
+              <div className="flex items-baseline justify-between gap-2">
+                <dt className="text-slate-500 dark:text-slate-400">KEV · all-time</dt>
+                <dd className="text-slate-700 dark:text-slate-300">{formatNumber(kevTotal)}</dd>
+              </div>
+            </dl>
+          </SocPanel>
+        </div>
       </div>
     </SocShell>
   );
