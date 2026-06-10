@@ -50,7 +50,7 @@
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
-  <!-- DFIR tools (122) -->
+  <!-- DFIR tools (114) -->
   <url>
     <loc>https://pranithjain.qzz.io/dfir/ai-rule-generator</loc>
     <lastmod>2026-06-10</lastmod>
@@ -730,60 +730,12 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://pranithjain.qzz.io/dfir/cases</loc>
-    <lastmod>2026-06-10</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://pranithjain.qzz.io/dfir/playbooks</loc>
-    <lastmod>2026-06-10</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://pranithjain.qzz.io/dfir/threat-hunting</loc>
-    <lastmod>2026-06-10</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://pranithjain.qzz.io/dfir/export-hub</loc>
     <lastmod>2026-06-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
-  <url>
-    <loc>https://pranithjain.qzz.io/dfir/detection-as-code</loc>
-    <lastmod>2026-06-10</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://pranithjain.qzz.io/dfir/deception</loc>
-    <lastmod>2026-06-10</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://pranithjain.qzz.io/dfir/structured-analysis</loc>
-    <lastmod>2026-06-10</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://pranithjain.qzz.io/dfir/threat-models</loc>
-    <lastmod>2026-06-10</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://pranithjain.qzz.io/dfir/confidence-scoring</loc>
-    <lastmod>2026-06-10</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <!-- Threat Intel — pages (100) -->
+  <!-- Threat Intel — pages (101) -->
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/mitre</loc>
     <lastmod>2026-06-10</lastmod>
@@ -1224,6 +1176,12 @@
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/aggregated-feeds</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://pranithjain.qzz.io/threatintel/predictions</loc>
     <lastmod>2026-06-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>

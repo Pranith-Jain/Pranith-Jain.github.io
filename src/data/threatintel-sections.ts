@@ -241,6 +241,13 @@ export const SECTIONS: Section[] = [
         badge: 'live',
       },
       {
+        to: '/threatintel/predictions',
+        label: 'Prediction Markets',
+        desc: 'Live Polymarket odds on cyber-threat, tech, and AI outcomes — ranked by trading volume + liquidity. Real-money crowd forecasts via the Polymarket Gamma API.',
+        icon: TrendingUp,
+        badge: 'new',
+      },
+      {
         to: '/threatintel/x-watch',
         label: 'X firehose',
         desc: 'Live chronological tweets from 70 cybersec accounts across researchers, vendor labs, CTI feeds, OSINT, IR/DFIR, and security press.',

@@ -283,6 +283,7 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
             ['phishing', '/api/v1/phishing-urls'],
             ['scam', '/api/v1/crypto-scam-feed'],
             ['breach', '/api/v1/breach-disclosures'],
+            ['predictions', '/api/v1/predictions'],
           ];
           const ROTATE: Array<[string, string]> = [
             ['tm', '/api/v1/threat-map'],

@@ -302,6 +302,7 @@ const ROUTES = [
   '/threatintel/ach',
   '/threatintel/actor-usernames',
   '/threatintel/aggregated-feeds',
+  '/threatintel/predictions',
   '/threatintel/analyze',
   '/threatintel/atlas',
   '/threatintel/collection-slo',

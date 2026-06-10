@@ -24,7 +24,7 @@ import {
   X,
   Clock,
   Crosshair,
-  Scan,
+  TrendingUp,
 } from 'lucide-react';
 import type { ReactNode } from 'react';
 import { DataPageLayout } from '../../components/DataPageLayout';
@@ -67,7 +67,7 @@ type PulseKind =
   | 'cve'
   | 'actor_sighting'
   | 'ioc_correlation'
-  | 'webamon_scan';
+  | 'prediction_market';
 
 interface PulseEvent {
   id: string;
@@ -176,10 +176,10 @@ const LAYER_DEFS: Record<PulseKind, LayerDef> = {
     bgColor: 'bg-cyan-500/10 border-cyan-500/20',
     group: 'intel',
   },
-  webamon_scan: {
-    label: 'Webamon Scans',
-    shortLabel: 'WEB',
-    icon: <Scan size={14} />,
+  prediction_market: {
+    label: 'Prediction Markets',
+    shortLabel: 'PM',
+    icon: <TrendingUp size={14} />,
     color: 'text-fuchsia-400',
     bgColor: 'bg-fuchsia-500/10 border-fuchsia-500/20',
     group: 'intel',
@@ -408,7 +408,7 @@ export default function GlobalPulse(): JSX.Element {
       'scam',
       'actor_sighting',
       'ioc_correlation',
-      'webamon_scan',
+      'prediction_market',
     ])
   );
   const [autoRefresh, setAutoRefresh] = useState(true);

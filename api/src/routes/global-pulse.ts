@@ -43,7 +43,7 @@ type PulseKind =
   | 'cve'
   | 'actor_sighting'
   | 'ioc_correlation'
-  | 'webamon_scan';
+  | 'prediction_market';
 
 interface PulseEvent {
   id: string;
@@ -344,6 +344,40 @@ function fromReddit(data: {
     source: `r/${i.sub}`,
     url: i.link,
   }));
+}
+
+function fromPredictions(data: {
+  buckets?: {
+    cyber?: Array<{ question: string; slug: string; url: string; probability: number; volume: number }>;
+    ai?: Array<{ question: string; slug: string; url: string; probability: number; volume: number }>;
+    tech?: Array<{ question: string; slug: string; url: string; probability: number; volume: number }>;
+  };
+}): PulseEvent[] {
+  const now = new Date().toISOString();
+  const groups: Array<['cyber' | 'ai' | 'tech', NonNullable<typeof data.buckets>['cyber']]> = [
+    ['cyber', data.buckets?.cyber],
+    ['ai', data.buckets?.ai],
+    ['tech', data.buckets?.tech],
+  ];
+  const events: PulseEvent[] = [];
+  for (const [bucket, markets] of groups) {
+    for (const m of (markets ?? []).slice(0, 12)) {
+      const pct = Math.round((m.probability ?? 0) * 100);
+      events.push({
+        id: `pm-${m.slug.slice(0, 28)}`,
+        kind: 'prediction_market' as const,
+        title: m.question,
+        description: `${bucket} · ${pct}% · $${Math.round((m.volume ?? 0) / 1000)}K vol`,
+        lat: 0,
+        lng: 0,
+        timestamp: now,
+        severity: pct >= 70 ? ('high' as const) : pct >= 40 ? ('medium' as const) : ('low' as const),
+        source: 'Polymarket',
+        url: m.url,
+      });
+    }
+  }
+  return events;
 }
 
 function fromTelegram(data: {
@@ -1930,69 +1964,6 @@ function fromBreachForums(data: BreachForumsResponse): PulseEvent[] {
     }));
 }
 
-/* ─── Webamon ──────────────────────────────────────────────────────────── */
-
-const WEBAMON_SEARCH = 'https://search.webamon.com/search';
-
-interface WebamonHit {
-  'domain.name'?: string;
-  dom?: string;
-  sub_domain?: string;
-  page_title?: string;
-  date?: string;
-  resolved_url?: string;
-  tag?: string;
-  meta?: { risk_score?: number; report_id?: string; script_count?: number };
-}
-
-interface WebamonResponse {
-  total_hits: number;
-  results: WebamonHit[];
-}
-
-async function fromWebamon(): Promise<PulseEvent[]> {
-  try {
-    // webamon's scans don't carry a populated `risk_score` field, so the old
-    // `risk_score:>4` filter matched 0 hits. Query recent scans instead and use the
-    // tag/title that ARE present. (search=* returns the live scan stream.)
-    const url = `${WEBAMON_SEARCH}?search=${encodeURIComponent('*')}&results=domain.name,dom,sub_domain,page_title,resolved_url,tag,meta.risk_score&size=15`;
-    const res = await fetch(url, {
-      signal: AbortSignal.timeout(10000),
-      headers: { accept: 'application/json', 'user-agent': 'pranithjain-dfir/1.0' },
-    });
-    if (!res.ok) return [];
-    const data = (await res.json()) as WebamonResponse;
-    if (!data.total_hits || !data.results?.length) return [];
-
-    // search=* highlights matches with <mark> tags — strip them. Domain lives in
-    // domain.name OR dom OR sub_domain depending on the scan.
-    const strip = (s?: string): string => (s ?? '').replace(/<\/?mark>/g, '').trim();
-    return data.results
-      .map((r, i) => {
-        const domain = strip(r['domain.name'] ?? r.dom ?? r.sub_domain);
-        const risk = r.meta?.risk_score ?? 0;
-        return {
-          id: `webamon-${r.meta?.report_id ?? (domain || i)}`,
-          kind: 'webamon_scan' as const,
-          title: domain || 'unknown',
-          description: strip(r.page_title) || (r.tag ? `Scan · ${r.tag}` : 'Web scan'),
-          lat: 0,
-          lng: 0,
-          magnitude: risk,
-          timestamp: r.date || new Date().toISOString(),
-          severity: (risk >= 7 ? 'high' : risk >= 4 ? 'medium' : 'low') as 'high' | 'medium' | 'low',
-          source: 'Webamon Scan',
-          url: r.resolved_url,
-          country: undefined,
-        };
-      })
-      .filter((e) => e.title && e.title !== 'unknown' && e.title !== '*')
-      .slice(0, 15);
-  } catch {
-    return [];
-  }
-}
-
 /* ─── Handler ───────────────────────────────────────────────────────────── */
 
 export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
@@ -2040,6 +2011,7 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
     const finalActor = warm.actor ?? null;
     const finalIocCorr = warm.iocc ?? null;
     const finalBf = warm.bf ?? null;
+    const finalPredictions = warm.predictions ?? null;
 
     // ── Direct endpoint fallback for still-missing layers ─────────────
     // Fetch ALL missing endpoints directly (Workers allow up to 50 subrequests).
@@ -2070,6 +2042,7 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
     if (!finalActor) missing.push(['/api/v1/actor-timeline', 'actor']);
     if (!finalIocCorr) missing.push(['/api/v1/ioc-correlation', 'iocc']);
     if (!finalBf) missing.push(['/api/v1/breach-forums', 'bf']);
+    if (!finalPredictions) missing.push(['/api/v1/predictions', 'predictions']);
 
     // Fetch all missing in parallel (Workers subrequest limit is 50)
     const directResults = await Promise.all(missing.map(([path]) => fetchDirect(path)));
@@ -2099,6 +2072,7 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
     const mergedActor = finalActor ?? (direct.actor as typeof finalActor);
     const mergedIocCorr = finalIocCorr ?? (direct.iocc as typeof finalIocCorr);
     const mergedBf = finalBf ?? (direct.bf as typeof finalBf);
+    const mergedPredictions = finalPredictions ?? (direct.predictions as typeof finalPredictions);
 
     // ── Convert → events ───────────────────────────────────────────────
     const safe = <T>(fn: () => T): T => {
@@ -2131,6 +2105,9 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
     const telegramEvents = safe(() => (finalTg ? fromTelegram(finalTg) : []));
     const xEvents = safe(() => (mergedX ? fromXFeed(mergedX) : []));
     const scamEvents = safe(() => (mergedScam ? fromScam(mergedScam) : []));
+    const predictionEvents = safe(() =>
+      mergedPredictions ? fromPredictions(mergedPredictions as Parameters<typeof fromPredictions>[0]) : []
+    );
     const breachEvents = safe(() => (mergedBreach ? fromBreaches(mergedBreach) : []));
     const liveIocEvents = safe(() => (mergedIoc ? fromLiveIocs(mergedIoc) : []));
     const darkwebEvents = safe(() => [
@@ -2393,8 +2370,6 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
       }
     }
 
-    // ── Webamon high-risk domain scans ─────────────────────────────────
-    const webamonEvents = await fromWebamon();
 
     // ── CTI category tagging ──────────────────────────────────────────
     const tagCti = <T extends PulseKind>(kind: T): PulseEvent['cti'] => {
@@ -2421,8 +2396,6 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
           return 'threat';
         case 'ioc_correlation':
           return 'ioc';
-        case 'webamon_scan':
-          return 'threat';
         default:
           return 'other';
       }
@@ -2467,7 +2440,7 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
       ...tagAll(actorEvents),
       ...tagAll(iocCorrEvents),
       ...tagAll(bfEvents),
-      ...tagAll(webamonEvents),
+      ...tagAll(predictionEvents),
     ].sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
 
     const result: GlobalPulseResponse = {
@@ -2508,7 +2481,7 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
         cve: finalCveEvents.length,
         actor_sighting: actorEvents.length,
         ioc_correlation: iocCorrEvents.length,
-        webamon_scan: webamonEvents.length,
+        prediction_market: predictionEvents.length,
       },
     };
 
