@@ -15,6 +15,7 @@ import type { Ai } from '@cloudflare/workers-types';
 import { runCompletion, type CompletionInput } from '../../case-study/generation/ai-client';
 import type { AgentStep, AgentTool, PlannerOutput } from './types';
 import { describeTools } from './tools';
+import { neutralizeUntrusted, UNTRUSTED_DATA_SYSTEM_NOTE } from '../prompt-fence';
 
 const MAX_PARSE_RETRIES = 2;
 
@@ -168,6 +169,8 @@ Step 3: Synthesize`
 - If a tool returned 0 results, do NOT call it again with the same query.
 </critical_rules>
 
+<security>${UNTRUSTED_DATA_SYSTEM_NOTE}</security>
+
 <output_format>
 Respond with ONLY valid JSON:
 {
@@ -192,16 +195,18 @@ function buildCtiUserPrompt(
       const results = s.results
         .map((r) => {
           const status = r.status === 'ok' ? 'OK' : `ERR`;
-          const data = r.data ? JSON.stringify(r.data).slice(0, 500) : '(no data)';
+          // Tool data is untrusted — neutralize so it cannot forge the
+          // </collected_data> delimiter or inject planner instructions.
+          const data = r.data ? neutralizeUntrusted(JSON.stringify(r.data).slice(0, 500)) : '(no data)';
           return `  ${r.tool}: ${status} — ${data}`;
         })
         .join('\n');
-      return `Step ${s.stepNumber} (${s.plan.slice(0, 80)}):\n${results}`;
+      return `Step ${s.stepNumber} (${neutralizeUntrusted(s.plan.slice(0, 80))}):\n${results}`;
     })
     .join('\n\n');
 
   return `<investigation>
-Query: ${query}
+Query: ${neutralizeUntrusted(query)}
 Type: ${queryType}
 Step: ${currentStep + 1} of ${maxSteps}
 </investigation>

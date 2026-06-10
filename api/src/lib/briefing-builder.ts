@@ -21,6 +21,7 @@ import { computeDailyWindow, computeLiveDailyWindow } from './briefing-window';
 import { fetchCveFeedHighSeverity, type CveFeedEntry } from '../routes/cve-recent';
 import { runCompletion } from '../case-study/generation/ai-client';
 import { findUngroundedCves, detectSlop } from './ai-output-validator';
+import { fenceUntrusted, neutralizeUntrusted, UNTRUSTED_DATA_SYSTEM_NOTE } from './prompt-fence';
 
 const NVD_UA = 'Mozilla/5.0 (compatible; pranithjain-dfir/1.0; +https://pranithjain.qzz.io)';
 const NVD_API = 'https://services.nvd.nist.gov/rest/json/cves/2.0';
@@ -1222,12 +1223,14 @@ async function buildLlmExecutiveSummary(args: Parameters<typeof buildExecutiveSu
   const kevCount = findings.filter((f) => f.source === 'CISA KEV').length;
 
   // Build a concise context for the LLM.
+  // f.vendor and f.title are feed-derived (NVD/CIRCL/MyThreatIntel/cvefeed) and
+  // attacker-influenceable; neutralize them before they enter the prompt.
   const topFindings = findings.slice(0, 15).map((f) => {
     const parts = [f.id];
     if (f.cvss) parts.push(`CVSS ${f.cvss}`);
     parts.push(f.severity);
-    if (f.vendor) parts.push(f.vendor);
-    parts.push(f.title.slice(0, 120));
+    if (f.vendor) parts.push(neutralizeUntrusted(f.vendor));
+    parts.push(neutralizeUntrusted(f.title.slice(0, 120)));
     return parts.join(' | ');
   });
 
@@ -1244,13 +1247,13 @@ async function buildLlmExecutiveSummary(args: Parameters<typeof buildExecutiveSu
       ? `Ransomware activity: ${ransomwareTotal} in-window victim claims across ` +
         (ransomwareGroups
           ?.slice(0, 5)
-          .map((g) => `${g.group} (${g.count})`)
+          .map((g) => `${neutralizeUntrusted(g.group)} (${g.count})`)
           .join(', ') ?? 'multiple groups') +
         (ransomwareSectors && ransomwareSectors.length > 0
           ? `. Top sectors: ${ransomwareSectors
               .filter((s) => s.sector !== 'Unknown')
               .slice(0, 3)
-              .map((s) => `${s.sector} ${s.pct}%`)
+              .map((s) => `${neutralizeUntrusted(s.sector)} ${s.pct}%`)
               .join(', ')}.`
           : '.')
       : 'No in-window ransomware victim claims.';
@@ -1263,7 +1266,7 @@ async function buildLlmExecutiveSummary(args: Parameters<typeof buildExecutiveSu
     `${ransomwareSummary}`,
     ``,
     `Top findings:`,
-    ...topFindings.map((f) => `- ${f}`),
+    fenceUntrusted(topFindings.map((f) => `- ${f}`).join('\n'), 'FINDINGS'),
     ``,
     `Requirements: Be specific — cite CVE IDs and vendor names. If there is ransomware activity, name the most active groups and the top targeted sectors. Professional CTI tone. No speculation.`,
   ].join('\n');
@@ -1274,7 +1277,8 @@ async function buildLlmExecutiveSummary(args: Parameters<typeof buildExecutiveSu
         env.AI,
         {
           system:
-            'You are a senior CTI analyst writing executive summaries for threat intelligence briefings. Be concise, specific, and actionable. Reference actual CVE IDs and vendor names from the data. 2-3 sentences maximum.',
+            'You are a senior CTI analyst writing executive summaries for threat intelligence briefings. Be concise, specific, and actionable. Reference actual CVE IDs and vendor names from the data. 2-3 sentences maximum.\n\n' +
+            UNTRUSTED_DATA_SYSTEM_NOTE,
           user: userPrompt,
           maxTokens: 400,
           temperature: 0.3,

@@ -242,7 +242,7 @@ describe('extractLlm — happy path with DI stub', () => {
     expect(runCompletion).toHaveBeenCalledTimes(1);
   });
 
-  it('passes title + body in the user prompt to runCompletion', async () => {
+  it('passes title + body in the user prompt to runCompletion, fenced as untrusted', async () => {
     let captured: { system: string; user: string } | null = null;
     const runCompletion = vi.fn(async (_ai: unknown, input: { system: string; user: string }) => {
       captured = input;
@@ -252,11 +252,15 @@ describe('extractLlm — happy path with DI stub', () => {
       runCompletion: runCompletion as never,
       findingsCount: 1,
     });
-    expect(captured!.user.startsWith('Brief title')).toBe(true);
+    // Report text is now wrapped in an untrusted-data fence (prompt-injection
+    // defense); the title/body still appear inside it.
+    expect(captured!.user).toMatch(/^\[BEGIN UNTRUSTED REPORT\]\nBrief title/);
+    expect(captured!.user).toContain('[END UNTRUSTED REPORT]');
     expect(captured!.user).toContain('Microsoft Exchange');
-    // System prompt mentions the strict JSON schema.
+    // System prompt mentions the strict JSON schema and the untrusted-data contract.
     expect(captured!.system).toContain('JSON');
     expect(captured!.system).toContain('sectors');
+    expect(captured!.system).toContain('UNTRUSTED');
   });
 });
 

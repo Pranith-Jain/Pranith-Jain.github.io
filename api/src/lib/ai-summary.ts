@@ -16,6 +16,7 @@
 import type { Env } from '../env';
 import { runCompletion } from '../case-study/generation/ai-client';
 import { findUngroundedCves, extractCves, detectSlop } from './ai-output-validator';
+import { fenceUntrusted, neutralizeUntrusted, UNTRUSTED_DATA_SYSTEM_NOTE } from './prompt-fence';
 
 export interface SummaryInput {
   /** Page surface name (e.g. "CTI Writeups", "Cybercrime", "Signal"). */
@@ -53,24 +54,31 @@ Rules:
 - Use professional CTI language suitable for a SOC or threat-intel team.
 - If the items are thin or low-signal, say so honestly rather than padding.
 - Do not use markdown headers (#). Use bold (**) for emphasis only.
-- Output plain text, no markdown fences.`;
+- Output plain text, no markdown fences.
+
+${UNTRUSTED_DATA_SYSTEM_NOTE}`;
 
 const MAX_BODY_CHARS = 12000;
 const CALL_TIMEOUT_MS = 12000;
 
 function buildUserPrompt(input: SummaryInput): string {
   const items = input.items.slice(0, input.maxItems ?? 30);
+  // Feed item title/body/source are attacker-authorable (feed authors). Fence
+  // them as untrusted data so an embedded "ignore previous instructions" in a
+  // feed title cannot steer the summary. Surface/date are app metadata.
+  const itemLines: string[] = [];
+  for (const item of items) {
+    const src = item.source ? ` [${neutralizeUntrusted(item.source)}]` : '';
+    const body = neutralizeUntrusted(item.body.replace(/\s+/g, ' ').trim().slice(0, 300));
+    itemLines.push(`- ${neutralizeUntrusted(item.title)}${src}: ${body}`);
+  }
   const lines: string[] = [
     `Surface: ${input.surface}`,
     `Date: ${input.date}`,
     `Items (${items.length} of ${input.items.length}):`,
     '',
+    fenceUntrusted(itemLines.join('\n'), 'FEED_ITEMS'),
   ];
-  for (const item of items) {
-    const src = item.source ? ` [${item.source}]` : '';
-    const body = item.body.replace(/\s+/g, ' ').trim().slice(0, 300);
-    lines.push(`- ${item.title}${src}: ${body}`);
-  }
   const joined = lines.join('\n');
   return joined.length > MAX_BODY_CHARS ? joined.slice(0, MAX_BODY_CHARS) + '\n…[truncated]' : joined;
 }

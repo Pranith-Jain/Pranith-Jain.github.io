@@ -3,6 +3,7 @@ import type { Env } from '../env';
 import { pinnedFetchFollow, SsrfError } from '../lib/ssrf-guard';
 import { reportParserJsonSchema, rawLogTextSchema } from '../lib/validation-schemas';
 import { validationError } from '../lib/api-error';
+import { fenceUntrusted, UNTRUSTED_DATA_SYSTEM_NOTE } from '../lib/prompt-fence';
 
 /**
  * Threat Report Parser — extracts IOCs, actors, TTPs, and CVEs from
@@ -269,7 +270,7 @@ async function extractWithAI(
     const prompt = `Analyze this threat intelligence report and extract structured data. Return ONLY valid JSON.
 
 Report text:
-${text.slice(0, 50000)}
+${fenceUntrusted(text.slice(0, 50000), 'REPORT')}
 
 Extract and return in this exact JSON format:
 {
@@ -293,7 +294,8 @@ Rules:
         {
           role: 'system',
           content:
-            'You are a threat intelligence analyst. Extract structured data from reports. Return only valid JSON, no explanations.',
+            'You are a threat intelligence analyst. Extract structured data from reports. Return only valid JSON, no explanations.\n\n' +
+            UNTRUSTED_DATA_SYSTEM_NOTE,
         },
         { role: 'user', content: prompt },
       ],

@@ -33,6 +33,7 @@ import { MALWARE_DICT } from '../data/malware-dict';
 import { ATTACK_ID_INDEX } from '../data/attack-id-index';
 import { TACTIC_ORDER } from './attack-flow';
 import { runCompletion as defaultRunCompletion } from '../case-study/generation/ai-client';
+import { fenceUntrusted, UNTRUSTED_DATA_SYSTEM_NOTE } from './prompt-fence';
 
 export interface LlmEntities {
   sectors: { name: string }[];
@@ -310,7 +311,9 @@ Rules:
 - Affected products are software/hardware named as vulnerable or targeted.
 - Attack patterns must be MITRE ATT&CK technique IDs (T#### or sub-T####.###). List them in the chronological / kill-chain order they occur in the report; each MAY include a "tactic" field with the MITRE tactic shortname (e.g. "initial-access", "execution", "impact").
 - actor_candidates and malware_candidates are NEW or unfamiliar names worth analyst review. The rationale must be one sentence quoting or paraphrasing the source.
-- Empty arrays are valid. Do not invent.`;
+- Empty arrays are valid. Do not invent.
+
+${UNTRUSTED_DATA_SYSTEM_NOTE}`;
 
 const MAX_BODY_CHARS = 8000;
 /** Per-call wall-clock cap (per spec). `runCompletion` has an internal Groq
@@ -334,7 +337,10 @@ export async function extractLlm(
     return { ...EMPTY_LLM_ENTITIES };
   }
   const run = options.runCompletion ?? defaultRunCompletion;
-  const userPrompt = `${title}\n\n${clampBody(body)}`;
+  // Report title+body is untrusted (uploaded PDF/DOCX/OCR text, fetched pages).
+  // Fence it so an embedded injection cannot override the extraction schema.
+  // Grounding (validateLlmEntities) still runs against the RAW title/body.
+  const userPrompt = fenceUntrusted(`${title}\n\n${clampBody(body)}`, 'REPORT');
 
   let text: string;
   let modelUsed: string | undefined;

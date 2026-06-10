@@ -6,6 +6,7 @@
 import type { Ai } from '@cloudflare/workers-types';
 import { runCompletion, type CompletionInput } from '../../case-study/generation/ai-client';
 import type { AgentStep } from './types';
+import { neutralizeUntrusted, UNTRUSTED_DATA_SYSTEM_NOTE } from '../prompt-fence';
 
 export interface QaResult {
   /** The verified/corrected report (may differ from original) */
@@ -55,7 +56,9 @@ function buildDataSummary(steps: AgentStep[]): string {
       const json = JSON.stringify(r.data);
       // Truncate large results but keep enough for fact-checking
       const truncated = json.length > 1500 ? json.slice(0, 1500) + '...' : json;
-      lines.push(`[${r.tool}] ${truncated}`);
+      // Tool data is untrusted — neutralize so it cannot forge the
+      // </collected_data> delimiter or inject QA instructions.
+      lines.push(`[${r.tool}] ${neutralizeUntrusted(truncated)}`);
     }
   }
   return lines.join('\n\n');
@@ -104,12 +107,14 @@ Respond with ONLY valid JSON:
   "quality_score": 85,
   "quality_notes": "Brief assessment of overall report quality"
 }
-</output_format>`;
+</output_format>
+
+<security>${UNTRUSTED_DATA_SYSTEM_NOTE}</security>`;
 }
 
 function buildQaUserPrompt(query: string, report: string, dataSummary: string): string {
   return `<report_to_verify>
-Query: ${query}
+Query: ${neutralizeUntrusted(query)}
 ${report}
 </report_to_verify>
 

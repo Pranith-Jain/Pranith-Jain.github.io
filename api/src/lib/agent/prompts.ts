@@ -2,6 +2,7 @@
  * CTI Analyst Agent — Prompts for the intelligence cycle.
  */
 import type { AgentStep } from './types';
+import { neutralizeUntrusted, neutralizeAttr, UNTRUSTED_DATA_SYSTEM_NOTE } from '../prompt-fence';
 
 export function buildObserverPrompt(): string {
   return `<role>CTI analyst observer. After each tool call, extract actionable intelligence.</role>
@@ -16,7 +17,7 @@ export function buildSynthesizerPrompt(query: string, queryType: string): string
 
   return `<role>You are a senior CTI analyst producing an intelligence report for a SOC team.</role>
 
-<task>Write an intelligence report about "${query}" based ONLY on the investigation data below.
+<task>Write an intelligence report about "${neutralizeUntrusted(query)}" based ONLY on the investigation data below.
 
 ## FORMAT RULES
 
@@ -94,7 +95,9 @@ Generate inside a \`\`\`stix JSON code block with proper STIX 2.1 objects:
 - BANNED: "Not available from investigation data" — just OMIT the section instead.
 - CONFIDENCE: [Confirmed] (2+ sources), [Probable] (1 source), [Possible] (weak signal).
 - Maximum 2000 words. Dense, no filler.
-</ground_rules>`;
+</ground_rules>
+
+<security>${UNTRUSTED_DATA_SYSTEM_NOTE}</security>`;
 }
 
 export function buildSynthesizerUserPrompt(query: string, queryType: string, steps: AgentStep[]): string {
@@ -102,11 +105,13 @@ export function buildSynthesizerUserPrompt(query: string, queryType: string, ste
     .map((s) => {
       const toolBlocks = s.results
         .map((r) => {
-          const data = r.status === 'ok' ? JSON.stringify(r.data, null, 2).slice(0, 1500) : `ERROR: ${r.error}`;
-          return `<tool name="${r.tool}" status="${r.status}">\n${data}\n</tool>`;
+          // Tool data (incl. fetched pages, provider JSON) is untrusted — neutralize
+          // so it cannot forge a </tool>/<step> delimiter and break out of its block.
+          const raw = r.status === 'ok' ? JSON.stringify(r.data, null, 2).slice(0, 1500) : `ERROR: ${r.error}`;
+          return `<tool name="${r.tool}" status="${r.status}">\n${neutralizeUntrusted(raw)}\n</tool>`;
         })
         .join('\n');
-      return `<step number="${s.stepNumber}" plan="${s.plan}" observation="${s.observation ?? ''}">\n${toolBlocks}\n</step>`;
+      return `<step number="${s.stepNumber}" plan="${neutralizeAttr(s.plan)}" observation="${neutralizeAttr(s.observation ?? '')}">\n${toolBlocks}\n</step>`;
     })
     .join('\n\n');
 
@@ -129,7 +134,7 @@ export function buildSynthesizerUserPrompt(query: string, queryType: string, ste
   ];
 
   return `<investigation>
-Query: ${query}
+Query: ${neutralizeUntrusted(query)}
 Type: ${queryType}
 Steps: ${steps.length}
 Results: ${okTools.length} ok, ${errTools.length} failed
