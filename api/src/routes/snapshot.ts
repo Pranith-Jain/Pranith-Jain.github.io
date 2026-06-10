@@ -184,7 +184,7 @@ export async function snapshotHandler(c: Context<{ Bindings: Env }>): Promise<Re
                   const warm = (await c.env.KV_CACHE.get('gp:warm', 'json').catch(() => null)) as {
                     telegram?: TelegramFeedResponse;
                   } | null;
-                  if (warm?.telegram?.channels?.length) return warm.telegram;
+                  if (warm?.telegram?.items?.length || warm?.telegram?.channels?.length) return warm.telegram;
                 }
                 return fetchTelegramFeed();
               }),
@@ -261,7 +261,7 @@ export async function snapshotHandler(c: Context<{ Bindings: Env }>): Promise<Re
         const warm = (await c.env.KV_CACHE.get('gp:warm', 'json').catch(() => null)) as {
           telegram?: TelegramFeedResponse;
         } | null;
-        if (warm?.telegram?.channels?.length) return warm.telegram;
+        if (warm?.telegram?.items?.length || warm?.telegram?.channels?.length) return warm.telegram;
       }
       // Per-colo edge cache next.
       const cached = await cache.match(TELEGRAM_FEED_CACHE_KEY);
