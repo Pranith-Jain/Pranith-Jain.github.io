@@ -128,7 +128,7 @@ export default function Campaigns(): JSX.Element {
         <div className="rounded-2xl border border-dashed border-slate-300 dark:border-slate-700 bg-slate-50/60 dark:bg-slate-950/40 p-8 text-center">
           <Sparkles size={28} className="mx-auto text-slate-400 mb-2" />
           <p className="text-sm font-mono text-slate-500">No saved campaigns yet.</p>
-          <p className="text-[11px] font-mono text-slate-400 mt-2">
+          <p className="text-mini font-mono text-slate-400 mt-2">
             Generate one with the AI Campaign Generator and click{' '}
             <span className="text-brand-600 dark:text-brand-400">Save</span>.
           </p>
@@ -151,7 +151,7 @@ export default function Campaigns(): JSX.Element {
                 </Link>
                 <div className="flex items-center gap-2 shrink-0">
                   <span
-                    className={`text-[10px] font-mono px-1.5 py-0.5 rounded border ${CONFIDENCE_COLOR[it.confidence]}`}
+                    className={`text-micro font-mono px-1.5 py-0.5 rounded border ${CONFIDENCE_COLOR[it.confidence]}`}
                   >
                     {it.confidence}
                   </span>
@@ -165,7 +165,7 @@ export default function Campaigns(): JSX.Element {
                   </button>
                 </div>
               </div>
-              <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] font-mono text-slate-500">
+              <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-mini font-mono text-slate-500">
                 {it.actor && (
                   <span>
                     actor: <span className="text-slate-700 dark:text-slate-300">{it.actor}</span>

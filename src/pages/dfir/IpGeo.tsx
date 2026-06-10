@@ -202,13 +202,13 @@ export default function IpGeo(): JSX.Element {
         </form>
 
         <div className="flex flex-wrap gap-1.5 mt-3">
-          <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400 self-center mr-1">samples:</span>
+          <span className="text-micro font-mono text-slate-500 dark:text-slate-400 self-center mr-1">samples:</span>
           {SAMPLES.map((s) => (
             <button
               key={s.ip}
               type="button"
               onClick={() => void lookup(s.ip)}
-              className="text-[11px] font-mono px-2 py-0.5 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
+              className="text-mini font-mono px-2 py-0.5 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
             >
               {s.label}
             </button>
@@ -229,7 +229,7 @@ export default function IpGeo(): JSX.Element {
               <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono">
                 Address
               </h2>
-              <span className="text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-brand-500/30 bg-brand-500/10 text-brand-700 dark:text-brand-300">
+              <span className="text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-brand-500/30 bg-brand-500/10 text-brand-700 dark:text-brand-300">
                 {data.detected_kind}
               </span>
             </div>
@@ -237,7 +237,7 @@ export default function IpGeo(): JSX.Element {
               {data.ip}
             </code>
             {data.geo.ok && data.geo.reverse_dns && (
-              <p className="text-[12px] font-mono text-slate-600 dark:text-slate-400 mt-2">
+              <p className="text-meta font-mono text-slate-600 dark:text-slate-400 mt-2">
                 reverse: <span className="text-slate-900 dark:text-slate-100">{data.geo.reverse_dns}</span>
               </p>
             )}
@@ -261,7 +261,7 @@ export default function IpGeo(): JSX.Element {
               </h2>
               {data.reputation.ok && data.reputation.verdict && (
                 <span
-                  className={`text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${verdictPill(data.reputation.verdict)}`}
+                  className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${verdictPill(data.reputation.verdict)}`}
                 >
                   {data.reputation.verdict}
                 </span>
@@ -270,27 +270,27 @@ export default function IpGeo(): JSX.Element {
             {data.reputation.ok ? (
               <div className="grid sm:grid-cols-3 gap-3 mt-2">
                 <div>
-                  <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400">AbuseIPDB confidence</div>
+                  <div className="text-mini font-mono text-slate-500 dark:text-slate-400">AbuseIPDB confidence</div>
                   <div className="text-2xl font-bold text-slate-900 dark:text-slate-100">
                     {data.reputation.confidence ?? 0}
                     <span className="text-sm font-normal text-slate-500"> / 100</span>
                   </div>
                 </div>
                 <div>
-                  <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400">Total reports (90d)</div>
+                  <div className="text-mini font-mono text-slate-500 dark:text-slate-400">Total reports (90d)</div>
                   <div className="text-2xl font-bold text-slate-900 dark:text-slate-100">
                     {data.reputation.total_reports ?? 0}
                   </div>
                 </div>
                 <div>
-                  <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400">Usage type</div>
+                  <div className="text-mini font-mono text-slate-500 dark:text-slate-400">Usage type</div>
                   <div className="text-base font-mono text-slate-900 dark:text-slate-100">
                     {data.reputation.usage_type ?? '—'}
                   </div>
                 </div>
               </div>
             ) : (
-              <p className="text-[12px] font-mono text-slate-500 dark:text-slate-400 inline-flex items-center gap-2">
+              <p className="text-meta font-mono text-slate-500 dark:text-slate-400 inline-flex items-center gap-2">
                 <CheckCircle2 size={12} /> {data.reputation.error}
               </p>
             )}
@@ -298,7 +298,7 @@ export default function IpGeo(): JSX.Element {
               href={sanitizeUrl(data.reputation.source_url) || undefined}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[11px] font-mono text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1 mt-3"
+              className="text-mini font-mono text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1 mt-3"
             >
               full report on {data.reputation.source} <ExternalLink size={10} />
             </a>
@@ -384,17 +384,17 @@ export default function IpGeo(): JSX.Element {
 
                 <div className="flex flex-wrap gap-1.5 mt-4">
                   {data.geo.is_hosting && (
-                    <span className="text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-violet-500/40 bg-violet-500/10 text-violet-700 dark:text-violet-300">
+                    <span className="text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-violet-500/40 bg-violet-500/10 text-violet-700 dark:text-violet-300">
                       hosting
                     </span>
                   )}
                   {data.geo.is_proxy && (
-                    <span className="text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300">
+                    <span className="text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300">
                       proxy / VPN
                     </span>
                   )}
                   {data.geo.is_mobile && (
-                    <span className="text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-cyan-500/40 bg-cyan-500/10 text-cyan-700 dark:text-cyan-300">
+                    <span className="text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-cyan-500/40 bg-cyan-500/10 text-cyan-700 dark:text-cyan-300">
                       mobile network
                     </span>
                   )}
@@ -405,7 +405,7 @@ export default function IpGeo(): JSX.Element {
                 <AlertTriangle size={12} /> {data.geo.error}
               </p>
             )}
-            <p className="text-[10px] font-mono text-slate-500 dark:text-slate-400 mt-3">
+            <p className="text-micro font-mono text-slate-500 dark:text-slate-400 mt-3">
               Geo data via{' '}
               <a
                 href={sanitizeUrl(data.geo.source_url) || undefined}

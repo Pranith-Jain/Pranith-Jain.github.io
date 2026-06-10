@@ -133,7 +133,7 @@ export default function ThreatIntelHome(): JSX.Element {
           used to carry moves to the thin caption below. */}
       <div>
         <LivePulse />
-        <p className="mt-2 px-1 font-mono text-[11px] text-slate-400">
+        <p className="mt-2 px-1 font-mono text-mini text-slate-400">
           {totalTiles} intel surfaces · {SECTIONS.length} sections · build {__BUILD_DATE__}
         </p>
       </div>
@@ -164,7 +164,7 @@ export default function ThreatIntelHome(): JSX.Element {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search every intel surface, catalog, feed…"
-            className="w-full rounded-lg border border-slate-200 bg-white py-2.5 pl-9 pr-20 font-mono text-[13px] text-slate-900 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none focus:ring-2 focus:ring-brand-500/20 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-100 dark:placeholder:text-slate-500"
+            className="w-full rounded-lg border border-slate-200 bg-white py-2.5 pl-9 pr-20 font-mono text-tool text-slate-900 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/20 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-100 dark:placeholder:text-slate-500"
             aria-label="Search intel surfaces"
           />
           {query ? (
@@ -174,25 +174,25 @@ export default function ThreatIntelHome(): JSX.Element {
                 setQuery('');
                 inputRef.current?.focus();
               }}
-              className="absolute right-2 top-1/2 inline-flex -translate-y-1/2 items-center gap-1 rounded px-1.5 py-0.5 text-[10px] font-mono text-slate-500 hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-800 dark:hover:text-slate-100"
+              className="absolute right-2 top-1/2 inline-flex -translate-y-1/2 items-center gap-1 rounded px-1.5 py-0.5 text-micro font-mono text-slate-500 hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-800 dark:hover:text-slate-100"
               aria-label="Clear search"
             >
               <X size={11} /> clear
             </button>
           ) : (
-            <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 hidden items-center gap-1 font-mono text-[10px] text-slate-400 sm:inline-flex">
-              <kbd className="rounded border border-slate-200 bg-slate-50 px-1 py-0.5 text-[9px] dark:border-slate-700 dark:bg-slate-800">
+            <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 hidden items-center gap-1 font-mono text-micro text-slate-400 sm:inline-flex">
+              <kbd className="rounded border border-slate-200 bg-slate-50 px-1 py-0.5 text-micro dark:border-slate-700 dark:bg-slate-800">
                 /
               </kbd>
               <span>or</span>
-              <kbd className="rounded border border-slate-200 bg-slate-50 px-1 py-0.5 text-[9px] dark:border-slate-700 dark:bg-slate-800">
+              <kbd className="rounded border border-slate-200 bg-slate-50 px-1 py-0.5 text-micro dark:border-slate-700 dark:bg-slate-800">
                 ⌘K
               </kbd>
             </span>
           )}
         </div>
         {isSearching && (
-          <div className="mt-2 font-mono text-[11px] text-slate-500">
+          <div className="mt-2 font-mono text-mini text-slate-500">
             {searchResults.length} {searchResults.length === 1 ? 'match' : 'matches'} for &ldquo;{query.trim()}&rdquo;
             {searchResults.length === 0 && ' · try fewer or different keywords'}
           </div>
@@ -222,7 +222,7 @@ export default function ThreatIntelHome(): JSX.Element {
                 <>
                   <div className="mb-2 flex items-start justify-between gap-2">
                     <Icon size={18} className="mt-0.5 shrink-0 text-brand-600 dark:text-brand-400" aria-hidden="true" />
-                    <span className="mt-0.5 inline-flex items-center rounded border border-slate-300 bg-slate-50 px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-wider text-slate-500 dark:border-slate-700 dark:bg-slate-800/50">
+                    <span className="mt-0.5 inline-flex items-center rounded border border-slate-300 bg-slate-50 px-1.5 py-0.5 font-mono text-micro uppercase tracking-wider text-slate-500 dark:border-slate-700 dark:bg-slate-800/50">
                       {section.label}
                     </span>
                   </div>
@@ -233,7 +233,7 @@ export default function ThreatIntelHome(): JSX.Element {
                     </h3>
                     {t.badge && (
                       <span
-                        className={`shrink-0 rounded border px-1.5 py-0.5 font-mono text-[10px] uppercase tracking-wider ${
+                        className={`shrink-0 rounded border px-1.5 py-0.5 font-mono text-micro uppercase tracking-wider ${
                           t.badge === 'live'
                             ? 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300'
                             : 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300'
@@ -243,7 +243,7 @@ export default function ThreatIntelHome(): JSX.Element {
                       </span>
                     )}
                   </div>
-                  <p className="text-[13px] leading-relaxed text-slate-600 dark:text-slate-400">{t.desc}</p>
+                  <p className="text-tool leading-relaxed text-slate-600 dark:text-slate-400">{t.desc}</p>
                 </>
               );
               if (t.external) {
@@ -265,14 +265,14 @@ export default function ThreatIntelHome(): JSX.Element {
             })}
           </ul>
           {searchResults.length === 0 && (
-            <div className="rounded-lg border border-dashed border-slate-300 p-8 text-center text-[13px] text-slate-500 dark:border-slate-700">
+            <div className="rounded-lg border border-dashed border-slate-300 p-8 text-center text-tool text-slate-500 dark:border-slate-700">
               No matches. Searching across {allTools.length} intel surfaces, catalogs, and feeds.
             </div>
           )}
         </section>
       ) : activeSection ? (
         <section className="animate-fade-in-up mb-12">
-          <div className="flex flex-wrap items-center gap-2 mb-6 text-[11px] font-mono">
+          <div className="flex flex-wrap items-center gap-2 mb-6 text-mini font-mono">
             <span className="text-slate-500">categories:</span>
             {SECTIONS.map((s) => (
               <Link
@@ -296,7 +296,7 @@ export default function ThreatIntelHome(): JSX.Element {
               {activeSection.blurb} · {activeSection.tools.length}{' '}
               {activeSection.tools.length === 1 ? 'source' : 'sources'}
             </p>
-            <p className="text-[11px] font-mono text-slate-400 mt-2">
+            <p className="text-mini font-mono text-slate-400 mt-2">
               Reference only. Feeds refreshed at the edge each visit; verify indicators in your own environment.
             </p>
           </div>
@@ -325,7 +325,7 @@ export default function ThreatIntelHome(): JSX.Element {
                     </h3>
                     {t.badge && (
                       <span
-                        className={`text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border shrink-0 ${
+                        className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border shrink-0 ${
                           t.badge === 'live'
                             ? 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300'
                             : 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300'
@@ -335,7 +335,7 @@ export default function ThreatIntelHome(): JSX.Element {
                       </span>
                     )}
                   </div>
-                  <p className="text-[12px] font-mono text-slate-600 dark:text-slate-400 leading-relaxed">{t.desc}</p>
+                  <p className="text-meta font-mono text-slate-600 dark:text-slate-400 leading-relaxed">{t.desc}</p>
                 </>
               );
               return t.external ? (
@@ -378,8 +378,8 @@ export default function ThreatIntelHome(): JSX.Element {
                     aria-hidden="true"
                   />
                 </div>
-                <p className="text-[12px] font-mono text-slate-600 dark:text-slate-400 leading-relaxed">{s.blurb}</p>
-                <p className="mt-2 text-[11px] font-mono text-slate-400">
+                <p className="text-meta font-mono text-slate-600 dark:text-slate-400 leading-relaxed">{s.blurb}</p>
+                <p className="mt-2 text-mini font-mono text-slate-400">
                   {s.tools.length} {s.tools.length === 1 ? 'source' : 'sources'}
                 </p>
               </Link>

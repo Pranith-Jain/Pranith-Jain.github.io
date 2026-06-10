@@ -179,7 +179,7 @@ function SocSkeleton(): JSX.Element {
         {[1, 2, 3].map((i) => (
           <div
             key={i}
-            className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 sm:p-5"
+            className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 sm:p-5"
           >
             <div className={`${shimmer} h-3 w-16 mb-3`} />
             <div className={`${shimmer} h-7 w-24 mb-2`} />
@@ -192,7 +192,7 @@ function SocSkeleton(): JSX.Element {
         {[1, 2, 3].map((i) => (
           <div
             key={i}
-            className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 sm:p-5"
+            className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 sm:p-5"
           >
             <div className={`${shimmer} h-3 w-24 mb-6`} />
             <div className={`${shimmer} h-32 w-full`} />
@@ -204,7 +204,7 @@ function SocSkeleton(): JSX.Element {
         {[1, 2, 3].map((i) => (
           <div
             key={i}
-            className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 sm:p-5"
+            className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 sm:p-5"
           >
             <div className={`${shimmer} h-3 w-20 mb-6`} />
             <div className={`${shimmer} h-24 w-full`} />
@@ -233,7 +233,7 @@ function BackLink(): JSX.Element {
 function SocStatusBadge({ status }: { status: SocStatus }): JSX.Element {
   return (
     <span
-      className={`inline-flex items-center gap-1.5 ml-1 px-2 py-0.5 rounded-full text-[11px] font-mono uppercase tracking-wider border ${SEVERITY_PILL[status.severity]}`}
+      className={`inline-flex items-center gap-1.5 ml-1 px-2 py-0.5 rounded-full text-mini font-mono uppercase tracking-wider border ${SEVERITY_PILL[status.severity]}`}
     >
       <span className={`relative flex h-1.5 w-1.5`}>
         <span className={`absolute inset-0 rounded-full ${SEVERITY_DOT[status.severity]} opacity-75 animate-ping`} />
@@ -296,9 +296,9 @@ export function SocKpi({
         ? 'text-emerald-600 dark:text-emerald-400'
         : 'text-slate-500 dark:text-slate-400';
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 sm:p-5">
+    <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 sm:p-5">
       <div className="flex items-center justify-between mb-2">
-        <span className="text-[11px] font-mono uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">
+        <span className="text-mini font-mono uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">
           {label}
         </span>
         {icon && <span className="text-slate-400 dark:text-slate-500">{icon}</span>}
@@ -321,7 +321,7 @@ export function SocKpi({
 export function SocPanel({ className = '', children }: { className?: string; children: ReactNode }): JSX.Element {
   return (
     <div
-      className={`rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 sm:p-5 ${className}`}
+      className={`rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 sm:p-5 ${className}`}
     >
       {children}
     </div>

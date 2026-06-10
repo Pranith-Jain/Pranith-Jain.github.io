@@ -122,7 +122,7 @@ export default function IrPlaybooks(): JSX.Element {
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -193,7 +193,7 @@ export default function IrPlaybooks(): JSX.Element {
             <div className="flex items-center justify-between mb-2">
               <h2 className="font-display font-bold text-lg">{result.playbook.title}</h2>
               <span
-                className={`text-[10px] font-mono px-1.5 py-0.5 rounded ${SEVERITY_BADGE[result.playbook.severity]}`}
+                className={`text-micro font-mono px-1.5 py-0.5 rounded ${SEVERITY_BADGE[result.playbook.severity]}`}
               >
                 {result.playbook.severity}
               </span>
@@ -232,10 +232,10 @@ export default function IrPlaybooks(): JSX.Element {
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="text-sm font-medium">{step.title}</div>
-                      <div className="text-[10px] font-mono text-slate-400">{step.estimated_time}</div>
+                      <div className="text-micro font-mono text-slate-400">{step.estimated_time}</div>
                     </div>
                     {step.critical && (
-                      <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-rose-100 dark:bg-rose-900/30 text-rose-700 dark:text-rose-300">
+                      <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-rose-100 dark:bg-rose-900/30 text-rose-700 dark:text-rose-300">
                         critical
                       </span>
                     )}
@@ -250,14 +250,14 @@ export default function IrPlaybooks(): JSX.Element {
                       <p className="text-sm text-slate-600 dark:text-slate-400 mt-3 mb-3">{step.description}</p>
                       {step.tools.length > 0 && (
                         <div>
-                          <div className="text-[10px] font-mono uppercase tracking-wider text-slate-400 mb-1.5">
+                          <div className="text-micro font-mono uppercase tracking-wider text-slate-400 mb-1.5">
                             Recommended Tools
                           </div>
                           <div className="flex flex-wrap gap-1.5">
                             {step.tools.map((tool, j) => (
                               <span
                                 key={j}
-                                className="text-[10px] font-mono px-2 py-0.5 rounded bg-brand-100 dark:bg-brand-900/30 text-brand-700 dark:text-brand-300"
+                                className="text-micro font-mono px-2 py-0.5 rounded bg-brand-100 dark:bg-brand-900/30 text-brand-700 dark:text-brand-300"
                               >
                                 {tool}
                               </span>
@@ -303,7 +303,7 @@ export default function IrPlaybooks(): JSX.Element {
                   >
                     <div>
                       <div className="text-sm font-medium">{rp.title}</div>
-                      <div className="text-[10px] font-mono text-slate-400">{rp.category}</div>
+                      <div className="text-micro font-mono text-slate-400">{rp.category}</div>
                     </div>
                     <ChevronRight size={14} className="text-slate-400" />
                   </button>

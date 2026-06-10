@@ -127,7 +127,7 @@ export default function DataClassification(): JSX.Element {
           <div key={t} className={`rounded border px-3 py-2 ${TIER_STYLES[t]}`}>
             <div className="text-xs font-mono uppercase tracking-wider opacity-80">{TIER_LABELS[t]}</div>
             <div className="text-2xl font-display font-bold">{dist[t]}</div>
-            <div className="text-[10px] font-mono opacity-70">
+            <div className="text-micro font-mono opacity-70">
               {total === 0 ? '—' : `${Math.round((dist[t] / total) * 100)}%`}
             </div>
           </div>
@@ -181,7 +181,7 @@ export default function DataClassification(): JSX.Element {
               >
                 <div className="flex flex-wrap items-baseline gap-2 mb-2">
                   <span
-                    className={`text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${TIER_STYLES[t]}`}
+                    className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${TIER_STYLES[t]}`}
                   >
                     {TIER_LABELS[t]}
                   </span>
@@ -329,7 +329,7 @@ export default function DataClassification(): JSX.Element {
                       </span>
                     </span>
                     <span
-                      className={`flex-none text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${TIER_STYLES[d.tier]}`}
+                      className={`flex-none text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${TIER_STYLES[d.tier]}`}
                     >
                       {TIER_LABELS[d.tier]}
                     </span>
@@ -460,7 +460,7 @@ export default function DataClassification(): JSX.Element {
               <tr>
                 <th
                   scope="col"
-                  className="px-3 py-2 text-[10px] uppercase tracking-wider text-slate-500 dark:text-slate-400"
+                  className="px-3 py-2 text-micro uppercase tracking-wider text-slate-500 dark:text-slate-400"
                 >
                   Handling rule
                 </th>
@@ -468,7 +468,7 @@ export default function DataClassification(): JSX.Element {
                   <th
                     key={t}
                     scope="col"
-                    className={`px-3 py-2 text-[10px] uppercase tracking-wider border-l border-slate-200 dark:border-slate-800 ${TIER_STYLES[t]}`}
+                    className={`px-3 py-2 text-micro uppercase tracking-wider border-l border-slate-200 dark:border-slate-800 ${TIER_STYLES[t]}`}
                   >
                     {TIER_LABELS[t]}
                   </th>
@@ -580,7 +580,7 @@ function TabBtn({
 function Field({ label, children }: { label: string; children: React.ReactNode }): JSX.Element {
   return (
     <label className="block">
-      <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-1 block">
+      <span className="text-micro font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-1 block">
         {label}
       </span>
       {children}

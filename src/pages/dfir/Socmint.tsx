@@ -214,20 +214,20 @@ export default function Socmint(): JSX.Element {
             />
           </div>
           {kind && (
-            <span className="self-center text-[11px] font-mono uppercase tracking-wider text-brand-600 dark:text-brand-400">
+            <span className="self-center text-mini font-mono uppercase tracking-wider text-brand-600 dark:text-brand-400">
               detected: {KIND_LABEL[kind]}
             </span>
           )}
         </div>
 
         <div className="flex flex-wrap gap-1.5 mt-3">
-          <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400 self-center mr-1">samples:</span>
+          <span className="text-micro font-mono text-slate-500 dark:text-slate-400 self-center mr-1">samples:</span>
           {SAMPLES.map((s) => (
             <button
               key={s.label}
               type="button"
               onClick={() => setInput(s.value)}
-              className="text-[11px] font-mono px-2 py-0.5 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
+              className="text-mini font-mono px-2 py-0.5 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
             >
               {s.label}
             </button>
@@ -236,7 +236,7 @@ export default function Socmint(): JSX.Element {
       </section>
 
       {value && kind === 'email' && (
-        <div className="mb-4 rounded border border-amber-500/30 bg-amber-500/5 p-3 text-[12px] font-mono text-amber-700 dark:text-amber-300">
+        <div className="mb-4 rounded border border-amber-500/30 bg-amber-500/5 p-3 text-meta font-mono text-amber-700 dark:text-amber-300">
           <strong>Email → LinkedIn is heuristic.</strong> There is no free, deterministic, TOS-compliant way to map an
           email to a LinkedIn profile. The pivots below derive a probable name from the email local-part (e.g.{' '}
           <code>jane.doe@acme.com</code> → "Jane Doe" + company "acme") and generate Google site-search dorks + probable
@@ -247,7 +247,7 @@ export default function Socmint(): JSX.Element {
 
       {value && categoriesAvailable.length > 0 && (
         <section className="flex flex-wrap items-center gap-2 mb-4">
-          <span className="text-[11px] font-mono text-slate-500 mr-1">filter:</span>
+          <span className="text-mini font-mono text-slate-500 mr-1">filter:</span>
           {categoriesAvailable.map((c) => {
             const meta = CATEGORY_META[c];
             const Icon = meta.icon;
@@ -258,7 +258,7 @@ export default function Socmint(): JSX.Element {
                 key={c}
                 type="button"
                 onClick={() => toggleCategory(c)}
-                className={`text-[11px] font-mono px-2 py-1 rounded border inline-flex items-center gap-1 ${
+                className={`text-mini font-mono px-2 py-1 rounded border inline-flex items-center gap-1 ${
                   active ? meta.pillCls : 'border-slate-200 dark:border-slate-800 text-slate-500'
                 }`}
                 title={meta.blurb}
@@ -268,7 +268,7 @@ export default function Socmint(): JSX.Element {
               </button>
             );
           })}
-          <label className="text-[11px] font-mono text-slate-500 dark:text-slate-400 cursor-pointer inline-flex items-center gap-1.5 ml-auto">
+          <label className="text-mini font-mono text-slate-500 dark:text-slate-400 cursor-pointer inline-flex items-center gap-1.5 ml-auto">
             <input type="checkbox" checked={includePaid} onChange={(e) => setIncludePaid(e.target.checked)} />
             include paid services
           </label>
@@ -276,7 +276,7 @@ export default function Socmint(): JSX.Element {
             <button
               type="button"
               onClick={() => void copyAll()}
-              className="text-[11px] font-mono px-2 py-1 rounded border border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-brand-500/40 inline-flex items-center gap-1"
+              className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-brand-500/40 inline-flex items-center gap-1"
             >
               {copied === 'all' ? <Check size={11} /> : <Clipboard size={11} />}
               {copied === 'all' ? 'copied URLs' : 'copy all URLs'}
@@ -307,7 +307,7 @@ export default function Socmint(): JSX.Element {
                 >
                   <Icon size={10} /> {meta.label}
                 </span>
-                <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400">{meta.blurb}</span>
+                <span className="text-mini font-mono text-slate-500 dark:text-slate-400">{meta.blurb}</span>
               </div>
               <ul className="grid sm:grid-cols-2 gap-2">
                 {list.map((p) => {
@@ -342,7 +342,7 @@ export default function Socmint(): JSX.Element {
       </div>
 
       {value && (
-        <p className="text-[10px] font-mono text-slate-500 dark:text-slate-400 mt-8">
+        <p className="text-micro font-mono text-slate-500 dark:text-slate-400 mt-8">
           {matchingPivots.length} pivot{matchingPivots.length === 1 ? '' : 's'} for {KIND_LABEL[kind!]}. Input shape
           detected as <code>{kind}</code>. Pivots are URL templates; nothing about your input is sent anywhere except
           the destination service when you click a link.
@@ -357,7 +357,7 @@ function PivotInner({ pivot, url, internal }: { pivot: PivotLink; url: string; i
     <>
       <div className="flex items-baseline justify-between gap-2 mb-0.5">
         <span className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100">{pivot.label}</span>
-        <span className="inline-flex items-center gap-1 text-[10px] font-mono text-slate-500">
+        <span className="inline-flex items-center gap-1 text-micro font-mono text-slate-500">
           {pivot.paid && (
             <span className="px-1 py-0.5 rounded border border-amber-500/40 text-amber-700 dark:text-amber-300">
               <Lock size={9} className="inline" /> paid
@@ -371,8 +371,8 @@ function PivotInner({ pivot, url, internal }: { pivot: PivotLink; url: string; i
           {internal ? <Globe2 size={10} /> : <ExternalLink size={10} />}
         </span>
       </div>
-      <span className="block text-[11px] font-mono text-slate-500 dark:text-slate-400">{pivot.blurb}</span>
-      <span className="block text-[10px] font-mono text-slate-400 dark:text-slate-600 truncate mt-1">{url}</span>
+      <span className="block text-mini font-mono text-slate-500 dark:text-slate-400">{pivot.blurb}</span>
+      <span className="block text-micro font-mono text-slate-400 dark:text-slate-600 truncate mt-1">{url}</span>
     </>
   );
 }

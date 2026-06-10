@@ -210,7 +210,7 @@ export default function PlistProtobuf(): JSX.Element {
         parsers — no upload, fully client-side.
       </p>
 
-      <div className="flex flex-wrap gap-2 mb-3 text-[12px] font-mono">
+      <div className="flex flex-wrap gap-2 mb-3 text-meta font-mono">
         <label className="px-3 py-1.5 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40 cursor-pointer">
           Drop a file…
           <input
@@ -244,11 +244,11 @@ export default function PlistProtobuf(): JSX.Element {
         onChange={(e) => setPaste(e.target.value)}
         rows={3}
         placeholder="Paste hex or base64 of a plist / protobuf blob…"
-        className="w-full rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-3 py-2 font-mono text-[12px] focus:border-brand-500 focus:outline-none"
+        className="w-full rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-3 py-2 font-mono text-meta focus:border-brand-500 focus:outline-none"
       />
 
       {out && (
-        <pre className="mt-4 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 p-3 overflow-auto font-mono text-[11px] text-slate-800 dark:text-slate-200 max-h-[60vh]">
+        <pre className="mt-4 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 p-3 overflow-auto font-mono text-mini text-slate-800 dark:text-slate-200 max-h-[60vh]">
           {out}
         </pre>
       )}

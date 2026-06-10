@@ -37,7 +37,7 @@ export default function Research(): JSX.Element {
           aggregated feed (verifiable at the linked detail pages) or to named third-party reporting. No anonymous
           claims.
         </p>
-        <p className="text-[12px] font-mono text-slate-500 mb-8">
+        <p className="text-meta font-mono text-slate-500 mb-8">
           For aggregated third-party research, see{' '}
           <Link to="/threatintel/signal" className="text-brand-600 dark:text-brand-400 hover:underline">
             /threatintel/signal
@@ -74,7 +74,7 @@ export default function Research(): JSX.Element {
               className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5 transition hover:border-brand-500/40"
             >
               <Link to={`/threatintel/research/${p.slug}`} className="group block">
-                <div className="text-[10px] font-mono uppercase tracking-[0.18em] text-brand-600 dark:text-brand-400 mb-1.5">
+                <div className="text-micro font-mono uppercase tracking-[0.18em] text-brand-600 dark:text-brand-400 mb-1.5">
                   {p.kicker}
                 </div>
                 <h2 className="font-display text-xl font-bold text-slate-900 dark:text-white group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors leading-snug">
@@ -82,7 +82,7 @@ export default function Research(): JSX.Element {
                   <ExternalLink size={14} className="inline-block ml-2 opacity-50" aria-hidden="true" />
                 </h2>
                 <p className="text-[14px] text-slate-600 dark:text-slate-400 leading-relaxed mt-2">{p.excerpt}</p>
-                <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mt-3 text-[11px] font-mono text-slate-500">
+                <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mt-3 text-mini font-mono text-slate-500">
                   <time dateTime={p.publishedAt}>
                     {new Date(p.publishedAt).toLocaleDateString('en-US', {
                       year: 'numeric',
@@ -100,7 +100,7 @@ export default function Research(): JSX.Element {
                     {p.tags.slice(0, 6).map((t) => (
                       <span
                         key={t}
-                        className="text-[10px] font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-800 text-slate-500"
+                        className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-800 text-slate-500"
                       >
                         {t}
                       </span>

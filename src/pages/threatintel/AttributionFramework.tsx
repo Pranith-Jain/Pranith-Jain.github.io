@@ -54,7 +54,7 @@ export default function AttributionFramework(): JSX.Element {
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -108,7 +108,7 @@ export default function AttributionFramework(): JSX.Element {
             <div className="flex items-center justify-between mb-3">
               <div>
                 <h2 className="font-display font-bold text-lg">{assessment.actor}</h2>
-                <span className={`text-[10px] font-mono px-1.5 py-0.5 rounded ${LEVEL_BADGE[assessment.level] ?? ''}`}>
+                <span className={`text-micro font-mono px-1.5 py-0.5 rounded ${LEVEL_BADGE[assessment.level] ?? ''}`}>
                   {assessment.level}
                 </span>
               </div>
@@ -116,7 +116,7 @@ export default function AttributionFramework(): JSX.Element {
                 <div className="text-3xl font-display font-bold text-brand-600 dark:text-brand-400">
                   {assessment.confidence}%
                 </div>
-                <div className="text-[10px] font-mono text-slate-400">confidence</div>
+                <div className="text-micro font-mono text-slate-400">confidence</div>
               </div>
             </div>
             <div className="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-2">
@@ -145,12 +145,12 @@ export default function AttributionFramework(): JSX.Element {
                     key={i}
                     className="flex items-start gap-3 py-2 border-b border-slate-100 dark:border-slate-800/50 last:border-0"
                   >
-                    <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-brand-100 dark:bg-brand-900/30 text-brand-700 dark:text-brand-300 shrink-0">
+                    <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-brand-100 dark:bg-brand-900/30 text-brand-700 dark:text-brand-300 shrink-0">
                       {e.type}
                     </span>
                     <div className="flex-1 min-w-0">
                       <div className="text-xs text-slate-700 dark:text-slate-300">{e.description}</div>
-                      <div className="text-[10px] font-mono text-slate-400 mt-0.5">
+                      <div className="text-micro font-mono text-slate-400 mt-0.5">
                         Weight: {e.weight} · Source: {e.source}
                       </div>
                     </div>

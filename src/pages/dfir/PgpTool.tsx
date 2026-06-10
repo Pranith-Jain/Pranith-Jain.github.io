@@ -115,7 +115,7 @@ export default function PgpTool() {
       </BackLink>
       <div className="flex items-baseline gap-2 mb-2">
         <h1 className="font-display font-bold text-2xl text-slate-900 dark:text-slate-100">PGP Tool</h1>
-        <span className="text-[11px] font-mono uppercase tracking-[0.18em] text-slate-500">
+        <span className="text-mini font-mono uppercase tracking-[0.18em] text-slate-500">
           Encrypt · Decrypt · Sign · Verify
         </span>
       </div>
@@ -277,7 +277,7 @@ export default function PgpTool() {
           </label>
           <button
             onClick={() => navigator.clipboard.writeText(output)}
-            className="mt-1 text-[11px] font-mono text-brand-600 dark:text-brand-400 hover:underline"
+            className="mt-1 text-mini font-mono text-brand-600 dark:text-brand-400 hover:underline"
           >
             Copy to clipboard
           </button>

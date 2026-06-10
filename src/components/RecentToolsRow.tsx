@@ -102,7 +102,7 @@ export function RecentToolsRow({
     >
       <div className="flex items-center justify-between mb-2">
         <div
-          className={`inline-flex items-center gap-1.5 text-[11px] font-mono uppercase tracking-[0.18em] ${accentClass}`}
+          className={`inline-flex items-center gap-1.5 text-mini font-mono uppercase tracking-[0.18em] ${accentClass}`}
         >
           <Clock className="h-3 w-3" aria-hidden="true" />
           Recently used
@@ -110,7 +110,7 @@ export function RecentToolsRow({
         <button
           type="button"
           onClick={clear}
-          className="text-[11px] font-mono uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition-colors"
+          className="text-mini font-mono uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition-colors"
         >
           Clear
         </button>

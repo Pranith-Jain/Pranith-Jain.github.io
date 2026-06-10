@@ -19,7 +19,7 @@ function CertCard({ title, issuer, year, featured, type }: CertCardProps) {
         featured ? 'border-l-[3px] border-l-brand-500' : ''
       }`}
     >
-      <div className="text-[10px] font-mono uppercase tracking-[0.18em] text-brand-600 dark:text-brand-400 mb-1.5">
+      <div className="text-micro font-mono uppercase tracking-[0.18em] text-brand-600 dark:text-brand-400 mb-1.5">
         {type}
       </div>
       <div className="text-base font-semibold text-slate-900 dark:text-white leading-snug">{title}</div>
@@ -54,7 +54,7 @@ function CertCategory({ id, title, certs }: CertCategoryProps) {
     <div id={id} className="scroll-mt-28">
       <div className="flex items-baseline justify-between mb-4">
         <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">{title}</h3>
-        <span className="text-[11px] font-mono text-slate-500">{certs.length}</span>
+        <span className="text-mini font-mono text-slate-500">{certs.length}</span>
       </div>
       <div className="animate-fade-in-up grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {visible.map((cert, index) => (

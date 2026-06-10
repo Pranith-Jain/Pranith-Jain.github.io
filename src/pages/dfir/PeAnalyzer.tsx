@@ -190,7 +190,7 @@ export default function PeAnalyzer(): JSX.Element {
         <p className="text-sm font-mono text-slate-700 dark:text-slate-300">
           Drop a PE file file here, or click to choose
         </p>
-        <p className="text-[11px] font-mono text-slate-500 mt-1">100% client-side. No upload.</p>
+        <p className="text-mini font-mono text-slate-500 mt-1">100% client-side. No upload.</p>
       </button>
       <input
         id="peanalyzer-input"
@@ -241,17 +241,17 @@ export default function PeAnalyzer(): JSX.Element {
                 key={k}
                 className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3"
               >
-                <div className="text-[10px] font-mono uppercase tracking-wider text-slate-500">{k}</div>
-                <div className="font-mono text-[12px] break-all">{v}</div>
+                <div className="text-micro font-mono uppercase tracking-wider text-slate-500">{k}</div>
+                <div className="font-mono text-meta break-all">{v}</div>
               </div>
             ))}
           </div>
-          <div className="font-mono text-[11px] text-slate-600 dark:text-slate-400">
+          <div className="font-mono text-mini text-slate-600 dark:text-slate-400">
             mitigations: {pe.flags.join(' · ') || 'none detected'}
           </div>
 
           <div className="rounded-lg border border-slate-200 dark:border-slate-800 overflow-auto">
-            <table className="w-full text-[11px] font-mono">
+            <table className="w-full text-mini font-mono">
               <thead className="bg-slate-50 dark:bg-slate-900">
                 <tr>
                   {['Section', 'VirtualSize', 'RawSize', 'Entropy', 'Flags'].map((h) => (
@@ -289,14 +289,14 @@ export default function PeAnalyzer(): JSX.Element {
               key={im.dll}
               className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3"
             >
-              <div className="font-mono text-[12px] text-slate-900 dark:text-slate-100 mb-1">
+              <div className="font-mono text-meta text-slate-900 dark:text-slate-100 mb-1">
                 {im.dll} <span className="text-slate-500">· {im.fns.length} imports</span>
               </div>
               <div className="flex flex-wrap gap-1">
                 {im.fns.slice(0, 200).map((fn, i) => (
                   <span
                     key={i}
-                    className={`font-mono text-[10px] px-1 py-0.5 rounded border ${SUSPECT.test(fn) ? 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300' : 'border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400'}`}
+                    className={`font-mono text-micro px-1 py-0.5 rounded border ${SUSPECT.test(fn) ? 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300' : 'border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400'}`}
                   >
                     {fn}
                   </span>

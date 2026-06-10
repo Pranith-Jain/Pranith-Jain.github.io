@@ -166,7 +166,7 @@ export default function UnifiedSearch(): JSX.Element {
 
       {data && total > 0 && (
         <div className="space-y-4">
-          <p className="text-[12px] font-mono text-slate-500">
+          <p className="text-meta font-mono text-slate-500">
             {total} result{total === 1 ? '' : 's'} for &ldquo;{data.q}&rdquo;
           </p>
           {data.sections.map((section) => {
@@ -182,7 +182,7 @@ export default function UnifiedSearch(): JSX.Element {
                 >
                   <Icon size={14} />
                   <span className="font-display font-semibold text-sm">{section.label}</span>
-                  <span className="text-[11px] font-mono opacity-70">· {section.total}</span>
+                  <span className="text-mini font-mono opacity-70">· {section.total}</span>
                 </div>
                 <ul className="divide-y divide-slate-100 dark:divide-slate-800/50">
                   {(section.items ?? []).slice(0, 30).map((item, i) => (
@@ -199,7 +199,7 @@ export default function UnifiedSearch(): JSX.Element {
                               {item.label}
                             </span>
                             {item.description && (
-                              <span className="text-[11px] font-mono text-slate-500 mt-0.5 block truncate">
+                              <span className="text-mini font-mono text-slate-500 mt-0.5 block truncate">
                                 {item.description}
                               </span>
                             )}
@@ -212,13 +212,13 @@ export default function UnifiedSearch(): JSX.Element {
                             {item.label}
                           </span>
                           {item.description && (
-                            <span className="text-[11px] font-mono text-slate-500 mt-0.5 block truncate">
+                            <span className="text-mini font-mono text-slate-500 mt-0.5 block truncate">
                               {item.description}
                             </span>
                           )}
                         </div>
                       )}
-                      <span className="text-[10px] font-mono text-slate-400 mt-1 block">
+                      <span className="text-micro font-mono text-slate-400 mt-1 block">
                         {item.source}
                         {item.subkind ? ` · ${item.subkind}` : ''}
                       </span>
@@ -226,7 +226,7 @@ export default function UnifiedSearch(): JSX.Element {
                   ))}
                 </ul>
                 {(section.items ?? []).length > 30 && (
-                  <div className="px-4 py-2 text-[11px] font-mono text-slate-500 border-t border-slate-100 dark:border-slate-800/50">
+                  <div className="px-4 py-2 text-mini font-mono text-slate-500 border-t border-slate-100 dark:border-slate-800/50">
                     + {(section.items ?? []).length - 30} more
                   </div>
                 )}

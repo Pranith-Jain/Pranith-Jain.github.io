@@ -228,7 +228,7 @@ export default function UrlPreview(): JSX.Element {
               try {
                 const host = new URL(result.final_url).hostname;
                 return (
-                  <div className="flex flex-wrap gap-2 mt-3 text-[10px] font-mono">
+                  <div className="flex flex-wrap gap-2 mt-3 text-micro font-mono">
                     <Link
                       to={`/dfir/ioc-check?indicator=${encodeURIComponent(result.final_url)}`}
                       className="px-1.5 py-0.5 rounded border border-rose-500/30 bg-rose-500/5 text-rose-700 dark:text-rose-300 hover:bg-rose-500/10"
@@ -466,7 +466,7 @@ export default function UrlPreview(): JSX.Element {
                       (e.currentTarget as HTMLImageElement).style.display = 'none';
                     }}
                   />
-                  <p className="mt-1 text-[11px] font-mono text-slate-400">
+                  <p className="mt-1 text-mini font-mono text-slate-400">
                     Note: image loaded from the queried site, so referer may be visible to that server.
                   </p>
                 </div>

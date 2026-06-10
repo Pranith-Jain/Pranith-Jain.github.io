@@ -46,7 +46,7 @@ export default function ThreatRail({ threats, onCardClick, selectedId }: ThreatR
 
   return (
     <div className="space-y-2">
-      <h3 className="text-[10px] font-mono uppercase tracking-[0.15em] text-slate-500 dark:text-slate-400 mb-3">
+      <h3 className="text-micro font-mono uppercase tracking-[0.15em] text-slate-500 dark:text-slate-400 mb-3">
         Top 10 Critical Threats
       </h3>
       {threats.map((t, i) => (
@@ -61,29 +61,29 @@ export default function ThreatRail({ threats, onCardClick, selectedId }: ThreatR
           }`}
         >
           <div className="flex items-start gap-2">
-            <span className="text-[10px] font-mono text-slate-400 w-4 shrink-0 pt-0.5">{i + 1}</span>
+            <span className="text-micro font-mono text-slate-400 w-4 shrink-0 pt-0.5">{i + 1}</span>
             <div className="min-w-0 flex-1">
               <div className="flex items-center gap-1.5 flex-wrap">
                 <span className="text-xs font-mono font-medium text-slate-800 dark:text-slate-200 truncate">
                   {t.title}
                 </span>
                 <span
-                  className={`inline-flex items-center px-1.5 py-0.5 text-[9px] font-mono font-medium rounded border ${sevBadgeClass(t.severity)}`}
+                  className={`inline-flex items-center px-1.5 py-0.5 text-micro font-mono font-medium rounded border ${sevBadgeClass(t.severity)}`}
                 >
                   {t.severity}
                 </span>
                 {t.kev && (
-                  <span className="inline-flex items-center px-1.5 py-0.5 text-[9px] font-mono font-medium rounded border bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/20">
+                  <span className="inline-flex items-center px-1.5 py-0.5 text-micro font-mono font-medium rounded border bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/20">
                     KEV
                   </span>
                 )}
               </div>
               <div className="flex items-center gap-2 mt-1">
                 {t.score != null && (
-                  <span className="text-[10px] font-mono text-slate-500">CVSS {t.score.toFixed(1)}</span>
+                  <span className="text-micro font-mono text-slate-500">CVSS {t.score.toFixed(1)}</span>
                 )}
-                <span className="text-[10px] font-mono text-slate-400">{t.source}</span>
-                <span className="text-[10px] font-mono text-slate-400">{timeAgo(t.published)}</span>
+                <span className="text-micro font-mono text-slate-400">{t.source}</span>
+                <span className="text-micro font-mono text-slate-400">{timeAgo(t.published)}</span>
               </div>
             </div>
           </div>

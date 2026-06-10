@@ -38,12 +38,12 @@ function RelNodeBox({
       style={{ borderColor: color, minWidth: 130, maxWidth: 200 }}
     >
       <Handle type="target" position={Position.Top} style={{ background: color }} />
-      <div className="text-[10px] uppercase tracking-wider font-bold mb-0.5" style={{ color }}>
+      <div className="text-micro uppercase tracking-wider font-bold mb-0.5" style={{ color }}>
         {data.nodeType}
       </div>
       <div className="text-slate-900 dark:text-slate-100 break-words leading-tight">{data.label}</div>
       {data.subtitle && (
-        <div className="text-[10px] text-slate-500 dark:text-slate-400 mt-0.5 truncate">{data.subtitle}</div>
+        <div className="text-micro text-slate-500 dark:text-slate-400 mt-0.5 truncate">{data.subtitle}</div>
       )}
       <Handle type="source" position={Position.Bottom} style={{ background: color }} />
     </div>
@@ -222,7 +222,7 @@ export default function RelationshipGraphCanvas({
         style={{ height: 80 }}
       />
       {simRunning && (
-        <div className="absolute top-2 left-2 text-[10px] font-mono text-slate-500 bg-white/80 dark:bg-slate-950/80 px-2 py-1 rounded border border-slate-200 dark:border-slate-800">
+        <div className="absolute top-2 left-2 text-micro font-mono text-slate-500 bg-white/80 dark:bg-slate-950/80 px-2 py-1 rounded border border-slate-200 dark:border-slate-800">
           force layout · settling…
         </div>
       )}

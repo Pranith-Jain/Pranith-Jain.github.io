@@ -2,8 +2,10 @@
  * Color tokens for the SOC dashboards. All chart fills, severity tokens,
  * and per-domain palettes live here — pages never define their own colors.
  *
- * Severity tokens mirror `tailwind.config.js` so a critical finding reads
- * the same on any page (rose → amber → emerald → slate).
+ * Severity tokens mirror `tailwind.config.js` and src/components/severity.ts
+ * so a critical finding reads the same on any page (rose → orange → amber →
+ * slate). `low` is *intentionally* slate (neutral), NOT green — green is
+ * reserved for `ok` (a healthy/passing status), a distinct concept.
  */
 
 export type SocSeverity = 'critical' | 'high' | 'medium' | 'low' | 'ok' | 'info';
@@ -14,7 +16,7 @@ export const SEVERITY_TEXT: Record<SocSeverity, string> = {
   critical: 'text-rose-700 dark:text-rose-300',
   high: 'text-orange-600 dark:text-orange-300',
   medium: 'text-amber-600 dark:text-amber-300',
-  low: 'text-emerald-600 dark:text-emerald-300',
+  low: 'text-slate-600 dark:text-slate-300',
   ok: 'text-emerald-600 dark:text-emerald-300',
   info: 'text-sky-600 dark:text-sky-300',
 };
@@ -23,7 +25,7 @@ export const SEVERITY_PILL: Record<SocSeverity, string> = {
   critical: 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300',
   high: 'border-orange-500/40 bg-orange-500/10 text-orange-700 dark:text-orange-300',
   medium: 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300',
-  low: 'border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300',
+  low: 'border-slate-400/40 bg-slate-400/10 text-slate-600 dark:text-slate-300',
   ok: 'border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300',
   info: 'border-sky-500/40 bg-sky-500/10 text-sky-700 dark:text-sky-300',
 };
@@ -32,7 +34,7 @@ export const SEVERITY_DOT: Record<SocSeverity, string> = {
   critical: 'bg-rose-500',
   high: 'bg-orange-500',
   medium: 'bg-amber-500',
-  low: 'bg-emerald-500',
+  low: 'bg-slate-400',
   ok: 'bg-emerald-500',
   info: 'bg-sky-500',
 };
@@ -44,7 +46,7 @@ export const CHART_SEV: Record<string, string> = {
   CRITICAL: '#e11d48',
   HIGH: '#f97316',
   MEDIUM: '#f59e0b',
-  LOW: '#10b981',
+  LOW: '#94a3b8',
   NONE: '#64748b',
   UNKNOWN: '#475569',
 };

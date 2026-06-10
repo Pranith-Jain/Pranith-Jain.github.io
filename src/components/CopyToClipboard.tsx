@@ -54,7 +54,7 @@ export function CopyToClipboard({ text, label, className = '', successMessage = 
         bg-white/10 text-slate-300
         hover:bg-white/20 hover:text-white
         transition-all duration-200
-        focus:outline-none focus:ring-2 focus:ring-white/50
+        focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50
         ${className}
       `}
       aria-label={`Copy ${label || text} to clipboard`}

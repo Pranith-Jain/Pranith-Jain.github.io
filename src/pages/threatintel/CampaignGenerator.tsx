@@ -301,7 +301,7 @@ export default function CampaignGenerator(): JSX.Element {
       <div className="mb-8 animate-fade-in-up">
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
           <Sparkles size={28} className="text-brand-600 dark:text-brand-400" /> Campaign Generator
-          <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-brand-500/10 text-brand-600 dark:text-brand-400 border border-brand-500/30">
+          <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-brand-500/10 text-brand-600 dark:text-brand-400 border border-brand-500/30">
             AI
           </span>
         </h1>
@@ -318,13 +318,13 @@ export default function CampaignGenerator(): JSX.Element {
             <Target size={14} className="text-brand-600 dark:text-brand-400" /> Analyst brief
           </h2>
           <div className="flex items-center gap-2 flex-wrap">
-            <span className="text-[10px] font-mono uppercase tracking-wider text-slate-500">samples:</span>
+            <span className="text-micro font-mono uppercase tracking-wider text-slate-500">samples:</span>
             {SAMPLES.map((s) => (
               <button
                 key={s.label}
                 type="button"
                 onClick={() => loadSample(s)}
-                className="text-[11px] font-mono rounded border border-slate-300 dark:border-slate-700 px-2 py-0.5 text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 hover:border-brand-500/40"
+                className="text-mini font-mono rounded border border-slate-300 dark:border-slate-700 px-2 py-0.5 text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 hover:border-brand-500/40"
               >
                 {s.label}
               </button>
@@ -394,7 +394,7 @@ export default function CampaignGenerator(): JSX.Element {
               rows={5}
               className="w-full rounded border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 px-3 py-2 text-sm font-mono focus:border-brand-500 focus:outline-none"
             />
-            <div className="text-[10px] font-mono text-slate-400 mt-1">{iocList.length} parsed · max 30</div>
+            <div className="text-micro font-mono text-slate-400 mt-1">{iocList.length} parsed · max 30</div>
           </div>
           <div>
             <label
@@ -415,7 +415,7 @@ export default function CampaignGenerator(): JSX.Element {
         </div>
 
         <div className="flex items-center justify-between gap-3 mt-4 flex-wrap">
-          <div className="text-[10px] font-mono text-slate-400">
+          <div className="text-micro font-mono text-slate-400">
             {totalLen}/8000 chars {tooLong && <span className="text-rose-500 font-bold">— too long</span>}
           </div>
           <button
@@ -449,7 +449,7 @@ export default function CampaignGenerator(): JSX.Element {
           <div className="flex items-start justify-between gap-3 mb-4 flex-wrap">
             <div>
               <h2 className="text-2xl font-display font-bold mb-1">{result.campaign.campaign_name}</h2>
-              <div className="flex items-center gap-2 flex-wrap text-[10px] font-mono">
+              <div className="flex items-center gap-2 flex-wrap text-micro font-mono">
                 <span className={`px-1.5 py-0.5 rounded border ${CONFIDENCE_COLOR[result.campaign.confidence]}`}>
                   confidence: {result.campaign.confidence}
                 </span>
@@ -461,7 +461,7 @@ export default function CampaignGenerator(): JSX.Element {
               <button
                 type="button"
                 onClick={() => void copyMarkdown()}
-                className="inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-slate-700 px-2.5 py-1 text-[11px] font-mono text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 hover:border-brand-500/40"
+                className="inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-slate-700 px-2.5 py-1 text-mini font-mono text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 hover:border-brand-500/40"
               >
                 {copied ? (
                   <>
@@ -476,7 +476,7 @@ export default function CampaignGenerator(): JSX.Element {
               {savedId ? (
                 <Link
                   to={`/threatintel/campaigns/${savedId}`}
-                  className="inline-flex items-center gap-1.5 rounded border border-emerald-300 dark:border-emerald-700 bg-emerald-50 dark:bg-emerald-950 px-2.5 py-1 text-[11px] font-mono text-emerald-700 dark:text-emerald-300 hover:bg-emerald-100 dark:hover:bg-emerald-900"
+                  className="inline-flex items-center gap-1.5 rounded border border-emerald-300 dark:border-emerald-700 bg-emerald-50 dark:bg-emerald-950 px-2.5 py-1 text-mini font-mono text-emerald-700 dark:text-emerald-300 hover:bg-emerald-100 dark:hover:bg-emerald-900"
                 >
                   <Check size={11} /> saved · open
                 </Link>
@@ -485,7 +485,7 @@ export default function CampaignGenerator(): JSX.Element {
                   type="button"
                   onClick={() => void saveCampaign()}
                   disabled={saving}
-                  className="inline-flex items-center gap-1.5 rounded bg-brand-600 px-2.5 py-1 text-[11px] font-mono font-semibold text-white hover:bg-brand-500 disabled:opacity-40"
+                  className="inline-flex items-center gap-1.5 rounded bg-brand-600 px-2.5 py-1 text-mini font-mono font-semibold text-white hover:bg-brand-500 disabled:opacity-40"
                 >
                   {saving ? <Loader2 size={11} className="animate-spin" /> : <Save size={11} />}
                   {saving ? 'saving' : 'save campaign'}
@@ -493,7 +493,7 @@ export default function CampaignGenerator(): JSX.Element {
               )}
               <Link
                 to="/threatintel/campaigns"
-                className="inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-slate-700 px-2.5 py-1 text-[11px] font-mono text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 hover:border-brand-500/40"
+                className="inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-slate-700 px-2.5 py-1 text-mini font-mono text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 hover:border-brand-500/40"
                 title="Browse saved campaigns"
               >
                 <FolderOpen size={11} /> browse
@@ -523,7 +523,7 @@ export default function CampaignGenerator(): JSX.Element {
                     key={k.phase}
                     className="rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-3"
                   >
-                    <div className="text-[10px] font-mono uppercase tracking-wider text-brand-600 dark:text-brand-400 mb-0.5">
+                    <div className="text-micro font-mono uppercase tracking-wider text-brand-600 dark:text-brand-400 mb-0.5">
                       {PHASE_LABELS[k.phase] ?? k.phase}
                     </div>
                     <div className="text-sm text-slate-700 dark:text-slate-300">{k.description}</div>
@@ -551,7 +551,7 @@ export default function CampaignGenerator(): JSX.Element {
                       {m.id} <ExternalLink size={9} />
                     </a>{' '}
                     <span className="font-semibold text-slate-800 dark:text-slate-200">— {m.name}</span>
-                    <div className="text-[11px] font-mono text-slate-500 mt-0.5">{m.rationale}</div>
+                    <div className="text-mini font-mono text-slate-500 mt-0.5">{m.rationale}</div>
                   </li>
                 ))}
               </ul>
@@ -601,7 +601,7 @@ export default function CampaignGenerator(): JSX.Element {
                       <span className="flex-1 text-slate-700 dark:text-slate-300">{ioc}</span>
                       <Link
                         to={`/dfir/ioc-check?indicator=${encodeURIComponent(fragment)}`}
-                        className="text-[10px] font-mono text-brand-600 dark:text-brand-400 hover:underline shrink-0"
+                        className="text-micro font-mono text-brand-600 dark:text-brand-400 hover:underline shrink-0"
                       >
                         pivot →
                       </Link>

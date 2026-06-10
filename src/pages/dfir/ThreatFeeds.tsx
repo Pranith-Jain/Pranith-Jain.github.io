@@ -298,7 +298,7 @@ export default function ThreatFeeds(): JSX.Element {
         {showSourcePanel && (
           <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-3 space-y-3 max-h-[420px] overflow-y-auto">
             <div className="flex items-center justify-between gap-2">
-              <p className="text-[11px] font-mono text-slate-500">
+              <p className="text-mini font-mono text-slate-500">
                 Toggle individual feeds. Disabling a feed both hides it AND skips the upstream fetch. Persisted in
                 localStorage.
               </p>
@@ -306,14 +306,14 @@ export default function ThreatFeeds(): JSX.Element {
                 <button
                   type="button"
                   onClick={() => setDisabled(new Set())}
-                  className="text-[10px] font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40"
+                  className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40"
                 >
                   enable all
                 </button>
                 <button
                   type="button"
                   onClick={() => setDisabled(new Set(ALL_FEED_IDS))}
-                  className="text-[10px] font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-slate-700 hover:border-rose-500/40"
+                  className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-slate-700 hover:border-rose-500/40"
                 >
                   disable all
                 </button>
@@ -321,7 +321,7 @@ export default function ThreatFeeds(): JSX.Element {
             </div>
             {SECTIONS.map((sec) => (
               <div key={sec.id}>
-                <h3 className="text-[10px] font-mono uppercase tracking-wider text-slate-500 mb-1.5">
+                <h3 className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-1.5">
                   {sec.label}
                   <span className="ml-1.5 opacity-60">
                     · {sec.feedIds.filter((id) => !disabled.has(id)).length}/{sec.feedIds.length} on
@@ -360,12 +360,12 @@ export default function ThreatFeeds(): JSX.Element {
                           tabIndex={-1}
                         />
                         <span className="flex-1 min-w-0">
-                          <span className="block font-mono text-[11px] text-slate-700 dark:text-slate-300 truncate">
+                          <span className="block font-mono text-mini text-slate-700 dark:text-slate-300 truncate">
                             {meta?.name ?? fid}
                           </span>
                           {isEnabled && status && (
                             <span
-                              className={`block text-[9px] font-mono truncate ${
+                              className={`block text-micro font-mono truncate ${
                                 status.ok
                                   ? 'text-emerald-600 dark:text-emerald-400'
                                   : 'text-rose-600 dark:text-rose-400'
@@ -394,7 +394,7 @@ export default function ThreatFeeds(): JSX.Element {
         )}
 
         {activeSection !== 'all' && (
-          <p className="text-[11px] font-mono text-slate-500 dark:text-slate-400">
+          <p className="text-mini font-mono text-slate-500 dark:text-slate-400">
             <span className="text-slate-700 dark:text-slate-300">
               {SECTIONS.find((s) => s.id === activeSection)?.label}:
             </span>{' '}
@@ -409,7 +409,7 @@ export default function ThreatFeeds(): JSX.Element {
         </p>
       )}
 
-      <p className="text-[11px] font-mono text-slate-500 dark:text-slate-400 mb-3">
+      <p className="text-mini font-mono text-slate-500 dark:text-slate-400 mb-3">
         Showing {annotated.length} of {items.length} · {feedsReturned} of {enabledFeedIds.length} enabled feeds returned
         data
         {failedCount > 0 && (
@@ -442,17 +442,17 @@ export default function ThreatFeeds(): JSX.Element {
                 {item.title || '(untitled)'} <ExternalLink size={11} />
               </a>
               <span
-                className={`text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${SECTION_STYLES[section] ?? 'border-slate-300 dark:border-slate-700 text-slate-500'}`}
+                className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${SECTION_STYLES[section] ?? 'border-slate-300 dark:border-slate-700 text-slate-500'}`}
               >
                 {section}
               </span>
             </div>
-            <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400 mb-1">
+            <div className="text-mini font-mono text-slate-500 dark:text-slate-400 mb-1">
               <span>{item.source || 'feed'}</span>
               {item.pubDate && <> · {formatRelativeTime(item.pubDate)}</>}
             </div>
             {item.description && (
-              <p className="text-[12px] font-mono text-slate-600 dark:text-slate-400 leading-relaxed line-clamp-3">
+              <p className="text-meta font-mono text-slate-600 dark:text-slate-400 leading-relaxed line-clamp-3">
                 {stripHtml(item.description)}
               </p>
             )}

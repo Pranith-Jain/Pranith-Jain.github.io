@@ -94,12 +94,12 @@ export function XLivePanel({
         </h3>
         <Link
           to="/threatintel/x-live"
-          className="text-[11px] font-mono text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-0.5"
+          className="text-mini font-mono text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-0.5"
         >
           all <ExternalLink size={9} />
         </Link>
       </div>
-      <p className="text-[10px] font-mono text-slate-500 mb-3">
+      <p className="text-micro font-mono text-slate-500 mb-3">
         TweetFeed × fxtwitter — last {sinceHours}h of researcher-posted IOC tweets · click-through to x.com
       </p>
       {loading && (
@@ -129,34 +129,34 @@ export function XLivePanel({
                 )}
                 <div className="min-w-0 flex-1">
                   <div className="flex items-baseline gap-1.5 mb-0.5 flex-wrap">
-                    <span className="font-display font-semibold text-[12px] text-slate-900 dark:text-slate-100 truncate">
+                    <span className="font-display font-semibold text-meta text-slate-900 dark:text-slate-100 truncate">
                       {t.author.name}
                     </span>
-                    <span className="text-[10px] font-mono text-slate-500">@{t.author.screen_name}</span>
+                    <span className="text-micro font-mono text-slate-500">@{t.author.screen_name}</span>
                     <a
                       href={sanitizeUrl(t.url)}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="ml-auto text-[10px] font-mono text-slate-500 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-0.5"
+                      className="ml-auto text-micro font-mono text-slate-500 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-0.5"
                       title={t.created_at}
                     >
                       {formatTimeAgo(t.created_at_ms || t.created_at)} <ExternalLink size={9} />
                     </a>
                   </div>
-                  <p className="text-[12px] text-slate-800 dark:text-slate-200 whitespace-pre-wrap break-words line-clamp-4">
+                  <p className="text-meta text-slate-800 dark:text-slate-200 whitespace-pre-wrap break-words line-clamp-4">
                     {t.text}
                   </p>
                   {t.tweetfeed_tags.length > 0 && (
                     <div className="mt-1 flex flex-wrap gap-1">
                       {t.tweetfeed_tags.slice(0, 4).map((tag) => (
-                        <span key={tag} className="text-[9px] font-mono text-brand-600 dark:text-brand-400">
+                        <span key={tag} className="text-micro font-mono text-brand-600 dark:text-brand-400">
                           {tag}
                         </span>
                       ))}
                     </div>
                   )}
                   {(t.likes > 0 || t.retweets > 0 || t.replies > 0) && (
-                    <div className="mt-1 flex items-center gap-2 text-[9px] font-mono text-slate-500">
+                    <div className="mt-1 flex items-center gap-2 text-micro font-mono text-slate-500">
                       {t.replies > 0 && (
                         <span className="inline-flex items-center gap-0.5">
                           <MessageSquare size={9} /> {compactNumber(t.replies)}

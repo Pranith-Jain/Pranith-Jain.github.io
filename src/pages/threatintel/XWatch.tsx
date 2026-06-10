@@ -417,7 +417,7 @@ export default function XWatch(): JSX.Element {
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
           <Twitter size={28} className="text-brand-600 dark:text-brand-400" /> X firehose
           {authStatus?.configured && (
-            <span className="text-[10px] font-mono px-1.5 py-0.5 rounded border bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/30">
+            <span className="text-micro font-mono px-1.5 py-0.5 rounded border bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/30">
               live
             </span>
           )}
@@ -462,7 +462,7 @@ export default function XWatch(): JSX.Element {
           if (visible.length === 0 && inactive.length === 0) return null;
           return (
             <div key={sec.id}>
-              <h3 className="text-[10px] font-mono uppercase tracking-wider text-slate-500 mb-1.5">
+              <h3 className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-1.5">
                 {sec.label}
                 <span className="opacity-60 ml-1.5">
                   · {sec.handles.length - inactive.length}/{sec.handles.length} active
@@ -495,7 +495,7 @@ export default function XWatch(): JSX.Element {
                     >
                       @{h}
                       {count !== undefined && count > 0 && (
-                        <span className="text-[9px] text-emerald-600 dark:text-emerald-400">·{count}</span>
+                        <span className="text-micro text-emerald-600 dark:text-emerald-400">·{count}</span>
                       )}
                     </button>
                   );
@@ -504,7 +504,7 @@ export default function XWatch(): JSX.Element {
                   <button
                     type="button"
                     onClick={() => setShowInactive(true)}
-                    className="text-[10px] font-mono px-1.5 py-1 rounded border border-dashed border-slate-300 dark:border-slate-700 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"
+                    className="text-micro font-mono px-1.5 py-1 rounded border border-dashed border-slate-300 dark:border-slate-700 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"
                     title={`Hidden — no posts in last ${sinceDays}d: ${inactive.map((h) => '@' + h).join(', ')}`}
                   >
                     +{inactive.length} inactive
@@ -518,14 +518,14 @@ export default function XWatch(): JSX.Element {
           <button
             type="button"
             onClick={() => setShowInactive(false)}
-            className="text-[10px] font-mono px-2 py-0.5 rounded border border-dashed border-slate-300 dark:border-slate-700 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"
+            className="text-micro font-mono px-2 py-0.5 rounded border border-dashed border-slate-300 dark:border-slate-700 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"
           >
             hide inactive again
           </button>
         )}
         {customHandles.length > 0 && (
           <div>
-            <h3 className="text-[10px] font-mono uppercase tracking-wider text-slate-500 mb-1.5">Your watchlist</h3>
+            <h3 className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-1.5">Your watchlist</h3>
             <div className="flex flex-wrap gap-1.5">
               {customHandles.map((h) => (
                 <span
@@ -572,12 +572,12 @@ export default function XWatch(): JSX.Element {
           >
             <Plus size={11} /> add
           </button>
-          <label className="inline-flex items-center gap-1 text-[11px] font-mono text-slate-600 dark:text-slate-400">
+          <label className="inline-flex items-center gap-1 text-mini font-mono text-slate-600 dark:text-slate-400">
             window:
             <select
               value={sinceDays}
               onChange={(e) => setSinceDays(Number(e.target.value))}
-              className="border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-1.5 py-0.5 text-[11px] font-mono rounded focus:outline-none focus:border-brand-500"
+              className="border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-1.5 py-0.5 text-mini font-mono rounded focus:outline-none focus:border-brand-500"
             >
               {[1, 3, 7, 14, 30].map((d) => (
                 <option key={d} value={d}>
@@ -586,7 +586,7 @@ export default function XWatch(): JSX.Element {
               ))}
             </select>
           </label>
-          <label className="inline-flex items-center gap-1 text-[11px] font-mono text-slate-600 dark:text-slate-400 cursor-pointer">
+          <label className="inline-flex items-center gap-1 text-mini font-mono text-slate-600 dark:text-slate-400 cursor-pointer">
             <input
               type="checkbox"
               checked={includeReplies}
@@ -595,7 +595,7 @@ export default function XWatch(): JSX.Element {
             />
             replies
           </label>
-          <label className="inline-flex items-center gap-1 text-[11px] font-mono text-slate-600 dark:text-slate-400 cursor-pointer">
+          <label className="inline-flex items-center gap-1 text-mini font-mono text-slate-600 dark:text-slate-400 cursor-pointer">
             <input
               type="checkbox"
               checked={includePinned}
@@ -624,8 +624,8 @@ export default function XWatch(): JSX.Element {
                 <span className="text-sm font-mono text-slate-500">· {data.display_name}</span>
               )}
             </h2>
-            {data?.bio && <p className="text-[12px] font-mono text-slate-500 mt-0.5 max-w-2xl">{data.bio}</p>}
-            <div className="flex items-center gap-2 text-[10px] font-mono mt-1 flex-wrap">
+            {data?.bio && <p className="text-meta font-mono text-slate-500 mt-0.5 max-w-2xl">{data.bio}</p>}
+            <div className="flex items-center gap-2 text-micro font-mono mt-1 flex-wrap">
               {data?.followers_count !== undefined && (
                 <span className="text-slate-500">{compactNumber(data.followers_count)} followers</span>
               )}
@@ -730,24 +730,24 @@ export default function XWatch(): JSX.Element {
                       <span className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100">
                         {t.author.name}
                       </span>
-                      <span className="text-[11px] font-mono text-slate-500">@{t.author.screen_name}</span>
+                      <span className="text-mini font-mono text-slate-500">@{t.author.screen_name}</span>
                       {t.is_pinned && (
-                        <span className="text-[9px] font-mono px-1 py-0.5 rounded border border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300">
+                        <span className="text-micro font-mono px-1 py-0.5 rounded border border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300">
                           pinned
                         </span>
                       )}
                       {t.is_retweet && (
-                        <span className="text-[9px] font-mono px-1 py-0.5 rounded border border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300">
+                        <span className="text-micro font-mono px-1 py-0.5 rounded border border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300">
                           retweet
                         </span>
                       )}
                       {t.is_quote && (
-                        <span className="text-[9px] font-mono px-1 py-0.5 rounded border border-sky-500/40 bg-sky-500/10 text-sky-700 dark:text-sky-300">
+                        <span className="text-micro font-mono px-1 py-0.5 rounded border border-sky-500/40 bg-sky-500/10 text-sky-700 dark:text-sky-300">
                           quote
                         </span>
                       )}
                       {t.is_reply && (
-                        <span className="text-[9px] font-mono px-1 py-0.5 rounded border border-slate-300 dark:border-slate-700 text-slate-500">
+                        <span className="text-micro font-mono px-1 py-0.5 rounded border border-slate-300 dark:border-slate-700 text-slate-500">
                           reply
                         </span>
                       )}
@@ -755,7 +755,7 @@ export default function XWatch(): JSX.Element {
                         href={sanitizeUrl(t.url) || undefined}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="ml-auto text-[10px] font-mono text-slate-500 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-0.5"
+                        className="ml-auto text-micro font-mono text-slate-500 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-0.5"
                         title={t.created_at}
                       >
                         {formatTimeAgo(t.created_at_ms || t.created_at)} <ExternalLink size={9} />
@@ -779,7 +779,7 @@ export default function XWatch(): JSX.Element {
                         ))}
                       </div>
                     )}
-                    <div className="mt-2 flex items-center gap-3 text-[10px] font-mono text-slate-500">
+                    <div className="mt-2 flex items-center gap-3 text-micro font-mono text-slate-500">
                       {t.reply_count !== undefined && (
                         <span className="inline-flex items-center gap-0.5">
                           <MessageSquare size={10} /> {compactNumber(t.reply_count) || '0'}
@@ -809,7 +809,7 @@ export default function XWatch(): JSX.Element {
         )}
 
         {data && (
-          <p className="mt-4 text-[10px] font-mono text-slate-400 text-center">
+          <p className="mt-4 text-micro font-mono text-slate-400 text-center">
             refreshed {formatTimeAgo(data.generated_at)}
           </p>
         )}

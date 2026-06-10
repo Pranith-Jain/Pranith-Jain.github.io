@@ -87,7 +87,7 @@ export default function Domain(): JSX.Element {
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -183,7 +183,7 @@ export default function Domain(): JSX.Element {
               </button>
               {webamonExpanded.current &&
                 webamon.results.map((hit, i) => (
-                  <div key={hit.meta?.report_id ?? i} className="mt-4 grid grid-cols-2 gap-4 text-[13px]">
+                  <div key={hit.meta?.report_id ?? i} className="mt-4 grid grid-cols-2 gap-4 text-tool">
                     <div>
                       <h4 className="font-semibold text-slate-700 dark:text-slate-300 mb-2 flex items-center gap-1.5">
                         <Shield size={13} /> Scan Summary
@@ -247,7 +247,7 @@ export default function Domain(): JSX.Element {
                               <a
                                 key={key}
                                 href={`/threatintel/webamon?q=${encodeURIComponent(`fingerprint.${key}:${val}`)}`}
-                                className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-mono bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-brand-100 dark:hover:bg-brand-900/30 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+                                className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-mini font-mono bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-brand-100 dark:hover:bg-brand-900/30 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
                                 title={`Search by ${key} fingerprint`}
                               >
                                 <Fingerprint size={10} />
@@ -263,7 +263,7 @@ export default function Domain(): JSX.Element {
               <div className="mt-3 pt-3 border-t border-slate-100 dark:border-slate-800">
                 <a
                   href={`/threatintel/webamon?q=${encodeURIComponent(`domain.name:${result.domain}`)}`}
-                  className="text-[12px] text-brand-600 dark:text-brand-400 hover:underline font-mono inline-flex items-center gap-1"
+                  className="text-meta text-brand-600 dark:text-brand-400 hover:underline font-mono inline-flex items-center gap-1"
                 >
                   <Search size={11} /> Full Webamon search <ExternalLink size={10} />
                 </a>

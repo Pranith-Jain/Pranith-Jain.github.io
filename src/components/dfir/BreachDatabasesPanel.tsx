@@ -143,7 +143,7 @@ export function BreachDatabasesPanel({ initialQuery }: { initialQuery?: string }
                 <ExternalLink size={11} className="opacity-60" aria-hidden="true" />
               </span>
               <span
-                className={`ml-auto text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${TIER_STYLE[db.tier]}`}
+                className={`ml-auto text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${TIER_STYLE[db.tier]}`}
               >
                 {TIER_LABEL[db.tier]}
               </span>

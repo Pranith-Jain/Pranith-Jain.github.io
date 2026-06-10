@@ -128,7 +128,7 @@ export default function CtMonitor(): JSX.Element {
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -208,7 +208,7 @@ export default function CtMonitor(): JSX.Element {
                       <Trash2 size={12} />
                     </button>
                   </div>
-                  <div className="text-[10px] font-mono text-slate-400 mt-0.5">
+                  <div className="text-micro font-mono text-slate-400 mt-0.5">
                     {w.cert_count} certs · {w.last_checked ? new Date(w.last_checked).toLocaleDateString() : 'Never'}
                   </div>
                 </div>
@@ -287,10 +287,10 @@ function CertCard({ cert, highlight }: { cert: CertInfo; highlight?: boolean }) 
       <div className="flex items-start justify-between">
         <div className="flex-1 min-w-0">
           <div className="font-mono text-sm truncate">{cert.common_name}</div>
-          <div className="text-[10px] text-slate-500 mt-0.5 truncate">Issuer: {cert.issuer?.slice(0, 50)}…</div>
+          <div className="text-micro text-slate-500 mt-0.5 truncate">Issuer: {cert.issuer?.slice(0, 50)}…</div>
         </div>
         {cert.alert && (
-          <span className={`text-[10px] font-mono px-1.5 py-0.5 rounded ${ALERT_BADGE[cert.alert.type] ?? ''}`}>
+          <span className={`text-micro font-mono px-1.5 py-0.5 rounded ${ALERT_BADGE[cert.alert.type] ?? ''}`}>
             {cert.alert.type}
           </span>
         )}
@@ -299,12 +299,12 @@ function CertCard({ cert, highlight }: { cert: CertInfo; highlight?: boolean }) 
       {expanded && (
         <div className="mt-3 pt-3 border-t border-slate-200 dark:border-slate-800 text-xs space-y-2">
           <div>
-            <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400">Names</span>
+            <span className="text-micro font-mono uppercase tracking-wider text-slate-400">Names</span>
             <div className="mt-1 flex flex-wrap gap-1">
               {cert.names.map((n, i) => (
                 <span
                   key={i}
-                  className="text-[10px] font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-700 text-slate-500"
+                  className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-700 text-slate-500"
                 >
                   {n}
                 </span>
@@ -313,17 +313,17 @@ function CertCard({ cert, highlight }: { cert: CertInfo; highlight?: boolean }) 
           </div>
           <div className="grid grid-cols-2 gap-2">
             <div>
-              <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400">Valid From</span>
+              <span className="text-micro font-mono uppercase tracking-wider text-slate-400">Valid From</span>
               <div>{new Date(cert.not_before).toLocaleDateString()}</div>
             </div>
             <div>
-              <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400">Valid Until</span>
+              <span className="text-micro font-mono uppercase tracking-wider text-slate-400">Valid Until</span>
               <div>{new Date(cert.not_after).toLocaleDateString()}</div>
             </div>
           </div>
           <div className="flex items-center gap-2">
-            <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400">Serial</span>
-            <code className="text-[10px] font-mono text-slate-600 dark:text-slate-300 truncate">{cert.serial}</code>
+            <span className="text-micro font-mono uppercase tracking-wider text-slate-400">Serial</span>
+            <code className="text-micro font-mono text-slate-600 dark:text-slate-300 truncate">{cert.serial}</code>
             <CopyButton value={cert.serial} />
           </div>
         </div>

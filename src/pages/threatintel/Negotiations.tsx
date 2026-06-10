@@ -147,7 +147,7 @@ export default function Negotiations(): JSX.Element {
   };
 
   const Th = ({ k, label, cls = '' }: { k: SortKey; label: string; cls?: string }) => (
-    <th scope="col" className={`px-2 py-2 text-left font-mono text-[10px] uppercase tracking-wider ${cls}`}>
+    <th scope="col" className={`px-2 py-2 text-left font-mono text-micro uppercase tracking-wider ${cls}`}>
       <button
         type="button"
         onClick={() => setSort(k)}
@@ -186,7 +186,7 @@ export default function Negotiations(): JSX.Element {
       </div>
 
       <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6 flex items-center justify-between gap-3 flex-wrap">
-        <div className="flex flex-wrap gap-4 text-[12px] font-mono">
+        <div className="flex flex-wrap gap-4 text-meta font-mono">
           <span>
             <span className="text-slate-500">negotiations</span>{' '}
             <span className="font-display font-semibold tabular-nums">{data?.totals.chats ?? 0}</span>
@@ -211,7 +211,7 @@ export default function Negotiations(): JSX.Element {
             <select
               value={groupFilter}
               onChange={(e) => setGroupFilter(e.target.value)}
-              className="text-[11px] font-mono px-2 py-1.5 rounded border border-slate-200 dark:border-slate-800 bg-transparent"
+              className="text-mini font-mono px-2 py-1.5 rounded border border-slate-200 dark:border-slate-800 bg-transparent"
               aria-label="Filter by group"
             >
               <option value="all">all groups</option>
@@ -225,7 +225,7 @@ export default function Negotiations(): JSX.Element {
           <select
             value={paidFilter}
             onChange={(e) => setPaidFilter(e.target.value as 'all' | 'paid' | 'unpaid')}
-            className="text-[11px] font-mono px-2 py-1.5 rounded border border-slate-200 dark:border-slate-800 bg-transparent"
+            className="text-mini font-mono px-2 py-1.5 rounded border border-slate-200 dark:border-slate-800 bg-transparent"
             aria-label="Filter by settlement"
           >
             <option value="all">paid + unpaid</option>
@@ -253,13 +253,13 @@ export default function Negotiations(): JSX.Element {
                 {g.group} · MyThreatIntel
               </span>
               {g.recent_victims ? (
-                <span className="font-mono text-[11px] text-slate-600 dark:text-slate-400">
+                <span className="font-mono text-mini text-slate-600 dark:text-slate-400">
                   {g.recent_victims} recent victim claim{g.recent_victims === 1 ? '' : 's'}
                 </span>
               ) : null}
             </div>
             {g.description ? (
-              <p className="text-[13px] leading-relaxed text-slate-700 dark:text-slate-300">{g.description}</p>
+              <p className="text-tool leading-relaxed text-slate-700 dark:text-slate-300">{g.description}</p>
             ) : null}
           </section>
         );
@@ -274,7 +274,7 @@ export default function Negotiations(): JSX.Element {
         rows={10}
       >
         <div className="overflow-x-auto rounded-lg border border-slate-200 dark:border-slate-800">
-          <table className="w-full min-w-[720px] text-[12px]">
+          <table className="w-full min-w-[720px] text-meta">
             <thead className="bg-slate-50 dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800">
               <tr>
                 <th scope="col" className="w-8" />
@@ -285,7 +285,7 @@ export default function Negotiations(): JSX.Element {
                 <Th k="discount_pct" label="disc %" cls="text-right" />
                 <th
                   scope="col"
-                  className="px-2 py-2 text-left font-mono text-[10px] uppercase tracking-wider text-slate-500"
+                  className="px-2 py-2 text-left font-mono text-micro uppercase tracking-wider text-slate-500"
                 >
                   settled
                 </th>
@@ -327,11 +327,11 @@ export default function Negotiations(): JSX.Element {
                       </td>
                       <td className="px-2 py-2 font-mono">
                         {n.paid ? (
-                          <span className="px-1.5 py-0.5 rounded border border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 text-[10px]">
+                          <span className="px-1.5 py-0.5 rounded border border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 text-micro">
                             paid
                           </span>
                         ) : (
-                          <span className="text-slate-400 text-[11px]">no</span>
+                          <span className="text-slate-400 text-mini">no</span>
                         )}
                       </td>
                       <td className="px-2 py-2 text-right font-mono text-slate-500 tabular-nums">{n.message_count}</td>
@@ -339,11 +339,9 @@ export default function Negotiations(): JSX.Element {
                     {open && (
                       <tr className="bg-slate-50 dark:bg-slate-950">
                         <td colSpan={8} className="px-4 py-3">
-                          {t === 'loading' && (
-                            <p className="font-mono text-[12px] text-slate-500">loading transcript…</p>
-                          )}
+                          {t === 'loading' && <p className="font-mono text-meta text-slate-500">loading transcript…</p>}
                           {t === 'error' && (
-                            <p className="font-mono text-[12px] text-amber-600 dark:text-amber-400">
+                            <p className="font-mono text-meta text-amber-600 dark:text-amber-400">
                               Transcript not available in Casualtek/Ransomchats for {n.group}/{n.chat_id}.
                             </p>
                           )}
@@ -361,14 +359,14 @@ export default function Negotiations(): JSX.Element {
                                     }`}
                                   >
                                     <div className="flex items-center justify-between gap-3 mb-1">
-                                      <span className="font-mono text-[10px] uppercase tracking-wider text-slate-500">
+                                      <span className="font-mono text-micro uppercase tracking-wider text-slate-500">
                                         {m.party ?? '?'}
                                       </span>
                                       {m.timestamp && (
-                                        <span className="font-mono text-[10px] text-slate-400">{m.timestamp}</span>
+                                        <span className="font-mono text-micro text-slate-400">{m.timestamp}</span>
                                       )}
                                     </div>
-                                    <p className="font-mono text-[12px] whitespace-pre-wrap break-words leading-relaxed">
+                                    <p className="font-mono text-meta whitespace-pre-wrap break-words leading-relaxed">
                                       {m.content ?? ''}
                                     </p>
                                   </li>
@@ -377,7 +375,7 @@ export default function Negotiations(): JSX.Element {
                             </ul>
                           )}
                           {Array.isArray(t) && t.length === 0 && (
-                            <p className="font-mono text-[12px] text-slate-500">Transcript is empty.</p>
+                            <p className="font-mono text-meta text-slate-500">Transcript is empty.</p>
                           )}
                         </td>
                       </tr>

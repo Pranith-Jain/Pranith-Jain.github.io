@@ -127,7 +127,7 @@ export default function ThreatGraph(): JSX.Element {
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -260,7 +260,7 @@ export default function ThreatGraph(): JSX.Element {
                 <div>
                   <h2 className="text-lg font-display font-bold font-mono">{searchResult.node.value}</h2>
                   <span
-                    className={`text-[10px] font-mono px-1.5 py-0.5 rounded ${TYPE_BADGE[searchResult.node.type] ?? ''}`}
+                    className={`text-micro font-mono px-1.5 py-0.5 rounded ${TYPE_BADGE[searchResult.node.type] ?? ''}`}
                   >
                     {searchResult.node.type}
                   </span>
@@ -278,7 +278,7 @@ export default function ThreatGraph(): JSX.Element {
                         key={n.id}
                         className="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 px-3 py-2"
                       >
-                        <span className={`text-[10px] font-mono px-1.5 py-0.5 rounded ${TYPE_BADGE[n.type] ?? ''}`}>
+                        <span className={`text-micro font-mono px-1.5 py-0.5 rounded ${TYPE_BADGE[n.type] ?? ''}`}>
                           {n.type}
                         </span>
                         <span className="text-xs font-mono truncate">{n.value}</span>
@@ -314,7 +314,7 @@ export default function ThreatGraph(): JSX.Element {
                     <Shield size={14} className="text-brand-600 dark:text-brand-400" />
                     <span className="font-display font-bold text-sm">Community {c.id}</span>
                   </div>
-                  <span className={`text-[10px] font-mono px-1.5 py-0.5 rounded ${TYPE_BADGE[c.centroid_type] ?? ''}`}>
+                  <span className={`text-micro font-mono px-1.5 py-0.5 rounded ${TYPE_BADGE[c.centroid_type] ?? ''}`}>
                     {c.centroid_type}
                   </span>
                 </div>
@@ -323,7 +323,7 @@ export default function ThreatGraph(): JSX.Element {
                     {c.labels.map((l, i) => (
                       <span
                         key={i}
-                        className="text-[10px] font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-700 text-slate-500"
+                        className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-700 text-slate-500"
                       >
                         {l}
                       </span>
@@ -336,7 +336,7 @@ export default function ThreatGraph(): JSX.Element {
                       key={n.id}
                       className="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 px-3 py-2"
                     >
-                      <span className={`text-[10px] font-mono px-1.5 py-0.5 rounded ${TYPE_BADGE[n.type] ?? ''}`}>
+                      <span className={`text-micro font-mono px-1.5 py-0.5 rounded ${TYPE_BADGE[n.type] ?? ''}`}>
                         {n.type}
                       </span>
                       <span className="text-xs font-mono truncate">{n.value}</span>
@@ -362,7 +362,7 @@ function StatCard({ label, value, icon }: { label: string; value: string | numbe
     <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-4">
       <div className="flex items-center gap-2 mb-1.5">
         {icon && <span className="text-brand-600 dark:text-brand-400">{icon}</span>}
-        <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400">{label}</span>
+        <span className="text-micro font-mono uppercase tracking-wider text-slate-400">{label}</span>
       </div>
       <div className="text-2xl font-display font-bold">
         {typeof value === 'number' ? value.toLocaleString() : value}

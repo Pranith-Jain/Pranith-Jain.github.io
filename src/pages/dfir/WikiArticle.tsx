@@ -73,7 +73,7 @@ export default function WikiArticle(): JSX.Element {
       <div className="max-w-3xl mx-auto px-4 sm:px-8 py-12 sm:py-20 text-slate-900 dark:text-slate-100">
         <Link
           to="/threatintel/wiki"
-          className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:text-brand-400 mb-8 font-mono"
+          className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
         >
           <ArrowLeft size={14} /> back
         </Link>
@@ -86,7 +86,7 @@ export default function WikiArticle(): JSX.Element {
     <div className="max-w-3xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <Link
         to="/threatintel/wiki"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </Link>
@@ -117,9 +117,7 @@ export default function WikiArticle(): JSX.Element {
                   <span className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100">
                     {t.term}
                   </span>
-                  <span className="block text-[11px] font-mono text-slate-500 dark:text-slate-400 mt-0.5">
-                    {t.blurb}
-                  </span>
+                  <span className="block text-mini font-mono text-slate-500 dark:text-slate-400 mt-0.5">{t.blurb}</span>
                 </Link>
               </li>
             ))}

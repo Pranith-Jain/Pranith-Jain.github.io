@@ -360,7 +360,7 @@ export default function MitreMatrix(): JSX.Element {
         </div>
 
         {coverageMode && (
-          <p className="text-[11px] font-mono text-emerald-700 dark:text-emerald-300 mb-4">
+          <p className="text-mini font-mono text-emerald-700 dark:text-emerald-300 mb-4">
             Click a tile to cycle: <span className="text-slate-500">none →</span>{' '}
             <span className="text-emerald-600">covered →</span> <span className="text-amber-600">partial →</span>{' '}
             <span className="text-rose-600">uncovered →</span> <span className="text-slate-500">none</span>. Saved to
@@ -373,7 +373,7 @@ export default function MitreMatrix(): JSX.Element {
         )}
 
         {/* Matrix — horizontally scrollable; explicit hint so touch users know to swipe */}
-        <p className="sm:hidden text-[11px] font-mono text-slate-500 dark:text-slate-400 mb-2 italic">
+        <p className="sm:hidden text-mini font-mono text-slate-500 dark:text-slate-400 mb-2 italic">
           Swipe horizontally to scan tactics →
         </p>
         <div className="overflow-x-auto pb-4 -mx-4 sm:mx-0 px-4 sm:px-0">
@@ -389,7 +389,7 @@ export default function MitreMatrix(): JSX.Element {
                     className="block"
                     title={tactic.description}
                   >
-                    <div className="text-[10px] font-mono text-brand-600 dark:text-brand-400 font-bold uppercase tracking-wider">
+                    <div className="text-micro font-mono text-brand-600 dark:text-brand-400 font-bold uppercase tracking-wider">
                       {tactic.id}
                     </div>
                     <div className="text-sm font-display font-semibold text-slate-900 dark:text-slate-100 flex items-center gap-1 hover:text-brand-600 dark:hover:text-brand-400 transition-colors">
@@ -437,19 +437,19 @@ export default function MitreMatrix(): JSX.Element {
                             aria-label={`coverage: ${COVERAGE_LABEL[cov]}`}
                           />
                         )}
-                        <div className="text-[10px] font-mono text-slate-500 dark:text-slate-400">{technique.id}</div>
-                        <div className="text-[13px] sm:text-xs font-medium text-slate-800 dark:text-slate-200 leading-snug line-clamp-2 mt-0.5">
+                        <div className="text-micro font-mono text-slate-500 dark:text-slate-400">{technique.id}</div>
+                        <div className="text-tool sm:text-xs font-medium text-slate-800 dark:text-slate-200 leading-snug line-clamp-2 mt-0.5">
                           {technique.name}
                         </div>
                         {isUsed && (
-                          <div className="mt-1 text-[10px] font-mono text-brand-700 dark:text-brand-300 font-semibold">
+                          <div className="mt-1 text-micro font-mono text-brand-700 dark:text-brand-300 font-semibold">
                             {actors.length === 1 && actors[0]
                               ? `Used by ${actors[0].name}`
                               : `Used by ${actors.length} actors`}
                           </div>
                         )}
                         {technique.subtechniques && technique.subtechniques.length > 0 && (
-                          <div className="mt-1 text-[10px] font-mono text-slate-400 dark:text-slate-400">
+                          <div className="mt-1 text-micro font-mono text-slate-400 dark:text-slate-400">
                             +{technique.subtechniques.length} sub-techniques
                           </div>
                         )}
@@ -493,7 +493,7 @@ export default function MitreMatrix(): JSX.Element {
           >
             <div className="sticky top-0 z-10 flex items-center justify-between gap-4 px-6 py-4 bg-white/95 dark:bg-slate-900/95 border-b border-slate-200 dark:border-slate-800 backdrop-blur">
               <div className="min-w-0">
-                <span className="text-[10px] font-mono uppercase tracking-wider text-brand-600 dark:text-brand-400">
+                <span className="text-micro font-mono uppercase tracking-wider text-brand-600 dark:text-brand-400">
                   {selectedId}
                 </span>
                 <h2

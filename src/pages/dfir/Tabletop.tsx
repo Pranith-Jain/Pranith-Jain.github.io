@@ -134,7 +134,7 @@ export default function Tabletop(): JSX.Element {
       <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6">
         <div className="grid gap-3 md:grid-cols-3">
           <label className="block">
-            <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-1 block">
+            <span className="text-micro font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-1 block">
               Threat actor
             </span>
             <select
@@ -160,7 +160,7 @@ export default function Tabletop(): JSX.Element {
           </label>
 
           <label className="block">
-            <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-1 block">
+            <span className="text-micro font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-1 block">
               Scenario archetype
             </span>
             <select
@@ -177,7 +177,7 @@ export default function Tabletop(): JSX.Element {
           </label>
 
           <label className="block">
-            <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-1 block">
+            <span className="text-micro font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-1 block">
               Industry / target sector
             </span>
             <input
@@ -209,9 +209,9 @@ export default function Tabletop(): JSX.Element {
       <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6">
         <div className="flex flex-wrap items-baseline justify-between gap-3 mb-2">
           <h2 className="font-display font-bold text-xl text-slate-900 dark:text-slate-100">{archetype.name}</h2>
-          <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400">{archetype.timingCue}</span>
+          <span className="text-mini font-mono text-slate-500 dark:text-slate-400">{archetype.timingCue}</span>
         </div>
-        <div className="grid gap-1.5 sm:grid-cols-3 text-[11px] font-mono mb-3">
+        <div className="grid gap-1.5 sm:grid-cols-3 text-mini font-mono mb-3">
           <span>
             <span className="text-slate-500 dark:text-slate-400">Actor: </span>
             <Link
@@ -251,14 +251,14 @@ export default function Tabletop(): JSX.Element {
             <p className="text-sm font-mono text-slate-700 dark:text-slate-300 leading-relaxed mb-3">
               {renderTemplate(inj.body, vars)}
             </p>
-            <h4 className="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-2">
+            <h4 className="text-micro font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-2">
               Discussion prompts
             </h4>
             <ul className="space-y-1.5">
               {inj.prompts.map((p, j) => (
                 <li key={j} className="text-sm font-mono">
                   <span
-                    className={`inline-block text-[10px] uppercase tracking-wider px-1.5 py-0.5 rounded border mr-2 ${ROLE_COLORS[p.role]}`}
+                    className={`inline-block text-micro uppercase tracking-wider px-1.5 py-0.5 rounded border mr-2 ${ROLE_COLORS[p.role]}`}
                   >
                     {ROLE_LABELS[p.role]}
                   </span>

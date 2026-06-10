@@ -99,7 +99,7 @@ export default function SqliteExplorer(): JSX.Element {
         <p className="text-sm font-mono text-slate-700 dark:text-slate-300">
           {busy ? 'Loading...' : 'Drop a SQLite file here, or click to choose'}
         </p>
-        <p className="text-[11px] font-mono text-slate-500 mt-1">
+        <p className="text-mini font-mono text-slate-500 mt-1">
           Browser history, app artifacts. 100% client-side via sql.js WASM.
         </p>
       </button>
@@ -117,7 +117,7 @@ export default function SqliteExplorer(): JSX.Element {
       {db && (
         <div className="mt-6 grid gap-4 md:grid-cols-[220px_1fr]">
           <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3 max-h-[60vh] overflow-auto">
-            <div className="text-[10px] font-mono uppercase tracking-wider text-slate-500 mb-2">
+            <div className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-2">
               Tables ({db.tables.length})
             </div>
             <ul className="space-y-0.5">
@@ -126,7 +126,7 @@ export default function SqliteExplorer(): JSX.Element {
                   <button
                     type="button"
                     onClick={() => showTable(t.name)}
-                    className={`w-full text-left font-mono text-[12px] px-1.5 py-1 rounded ${active === t.name ? 'bg-brand-500/10 text-brand-700 dark:text-brand-300' : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'}`}
+                    className={`w-full text-left font-mono text-meta px-1.5 py-1 rounded ${active === t.name ? 'bg-brand-500/10 text-brand-700 dark:text-brand-300' : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'}`}
                   >
                     {t.name} <span className="text-slate-500">· {t.count}</span>
                   </button>
@@ -140,19 +140,19 @@ export default function SqliteExplorer(): JSX.Element {
                 value={sqlText}
                 onChange={(e) => setSqlText(e.target.value)}
                 placeholder='SELECT * FROM "moz_places" LIMIT 50'
-                className="flex-1 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-3 py-2 font-mono text-[12px] focus:border-brand-500 focus:outline-none"
+                className="flex-1 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-3 py-2 font-mono text-meta focus:border-brand-500 focus:outline-none"
               />
               <button
                 type="button"
                 onClick={runSql}
-                className="px-3 py-2 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40 font-mono text-[12px]"
+                className="px-3 py-2 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40 font-mono text-meta"
               >
                 Run
               </button>
             </div>
             {result && (
               <div className="rounded-lg border border-slate-200 dark:border-slate-800 overflow-auto max-h-[60vh]">
-                <table className="w-full text-[11px] font-mono">
+                <table className="w-full text-mini font-mono">
                   <thead className="bg-slate-50 dark:bg-slate-900 sticky top-0">
                     <tr>
                       {result.cols.map((c) => (
@@ -178,7 +178,7 @@ export default function SqliteExplorer(): JSX.Element {
                     ))}
                   </tbody>
                 </table>
-                {result.rows.length === 0 && <p className="p-3 font-mono text-[12px] text-slate-500">0 rows.</p>}
+                {result.rows.length === 0 && <p className="p-3 font-mono text-meta text-slate-500">0 rows.</p>}
               </div>
             )}
           </div>

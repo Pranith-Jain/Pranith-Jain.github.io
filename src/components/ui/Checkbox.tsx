@@ -24,7 +24,7 @@ export function Checkbox({ label, checked, onChange, disabled = false, descripti
         aria-describedby={description ? descriptionId : undefined}
         className={[
           'mt-0.5 h-4 w-4 shrink-0 rounded border-slate-300 text-brand-600 transition-colors',
-          'focus:ring-2 focus:ring-brand-500 focus:ring-offset-2',
+          'focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2',
           'disabled:opacity-50 disabled:cursor-not-allowed',
           'dark:border-slate-600 dark:bg-slate-800 dark:checked:bg-brand-500 dark:focus:ring-offset-slate-900',
         ].join(' ')}

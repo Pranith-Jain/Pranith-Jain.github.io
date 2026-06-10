@@ -47,7 +47,7 @@ export function Featured({ featuredArticles }: FeaturedProps) {
                 {article.category === 'Security Specialist' ? 'F' : 'D'}
               </div>
               <div
-                className={`rounded-md px-2 py-0.5 text-[10px] font-mono uppercase tracking-[0.15em] ${
+                className={`rounded-md px-2 py-0.5 text-micro font-mono uppercase tracking-[0.15em] ${
                   article.category === 'Security Specialist'
                     ? 'bg-blue-50 text-blue-600 dark:bg-blue-950 dark:text-blue-400'
                     : 'bg-emerald-50 text-emerald-600 dark:bg-emerald-950 dark:text-emerald-400'

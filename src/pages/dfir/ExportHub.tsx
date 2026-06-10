@@ -124,7 +124,7 @@ export default function ExportHub(): JSX.Element {
                   <div className="flex items-center gap-2 mb-1">
                     <Icon size={14} /> <span className="font-medium">{f.label}</span>
                   </div>
-                  <p className="text-[10px] text-slate-500">{f.desc}</p>
+                  <p className="text-micro text-slate-500">{f.desc}</p>
                 </button>
               );
             })}

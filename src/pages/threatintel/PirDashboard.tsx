@@ -428,10 +428,10 @@ export default function PirDashboard(): JSX.Element {
           onSubmit={handleCreate}
           className="mb-8 p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 space-y-3"
         >
-          {editingId && <p className="text-[11px] font-mono text-brand-600">Editing {editingId}</p>}
+          {editingId && <p className="text-mini font-mono text-brand-600">Editing {editingId}</p>}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
-              <label htmlFor="pir-title" className="text-[11px] font-mono text-slate-500 mb-1 block">
+              <label htmlFor="pir-title" className="text-mini font-mono text-slate-500 mb-1 block">
                 Title *
               </label>
               <input
@@ -439,11 +439,11 @@ export default function PirDashboard(): JSX.Element {
                 required
                 value={formTitle}
                 onChange={(e) => setFormTitle(e.target.value)}
-                className="w-full text-xs px-2.5 py-1.5 rounded border border-slate-200 dark:border-slate-800 bg-transparent focus:outline-none focus:ring-1 focus:ring-brand-500"
+                className="w-full text-xs px-2.5 py-1.5 rounded border border-slate-200 dark:border-slate-800 bg-transparent focus:outline-none focus-visible:ring-1 focus-visible:ring-brand-500"
               />
             </div>
             <div>
-              <label htmlFor="pir-consumer" className="text-[11px] font-mono text-slate-500 mb-1 block">
+              <label htmlFor="pir-consumer" className="text-mini font-mono text-slate-500 mb-1 block">
                 Consumer *
               </label>
               <input
@@ -451,11 +451,11 @@ export default function PirDashboard(): JSX.Element {
                 required
                 value={formConsumer}
                 onChange={(e) => setFormConsumer(e.target.value)}
-                className="w-full text-xs px-2.5 py-1.5 rounded border border-slate-200 dark:border-slate-800 bg-transparent focus:outline-none focus:ring-1 focus:ring-brand-500"
+                className="w-full text-xs px-2.5 py-1.5 rounded border border-slate-200 dark:border-slate-800 bg-transparent focus:outline-none focus-visible:ring-1 focus-visible:ring-brand-500"
               />
             </div>
             <div className="sm:col-span-2">
-              <label htmlFor="pir-decision" className="text-[11px] font-mono text-slate-500 mb-1 block">
+              <label htmlFor="pir-decision" className="text-mini font-mono text-slate-500 mb-1 block">
                 Decision *
               </label>
               <input
@@ -463,11 +463,11 @@ export default function PirDashboard(): JSX.Element {
                 required
                 value={formDecision}
                 onChange={(e) => setFormDecision(e.target.value)}
-                className="w-full text-xs px-2.5 py-1.5 rounded border border-slate-200 dark:border-slate-800 bg-transparent focus:outline-none focus:ring-1 focus:ring-brand-500"
+                className="w-full text-xs px-2.5 py-1.5 rounded border border-slate-200 dark:border-slate-800 bg-transparent focus:outline-none focus-visible:ring-1 focus-visible:ring-brand-500"
               />
             </div>
             <div className="sm:col-span-2">
-              <label htmlFor="pir-desc" className="text-[11px] font-mono text-slate-500 mb-1 block">
+              <label htmlFor="pir-desc" className="text-mini font-mono text-slate-500 mb-1 block">
                 Description
               </label>
               <textarea
@@ -475,18 +475,18 @@ export default function PirDashboard(): JSX.Element {
                 value={formDesc}
                 onChange={(e) => setFormDesc(e.target.value)}
                 rows={2}
-                className="w-full text-xs px-2.5 py-1.5 rounded border border-slate-200 dark:border-slate-800 bg-transparent focus:outline-none focus:ring-1 focus:ring-brand-500"
+                className="w-full text-xs px-2.5 py-1.5 rounded border border-slate-200 dark:border-slate-800 bg-transparent focus:outline-none focus-visible:ring-1 focus-visible:ring-brand-500"
               />
             </div>
             <div>
-              <label htmlFor="pir-priority" className="text-[11px] font-mono text-slate-500 mb-1 block">
+              <label htmlFor="pir-priority" className="text-mini font-mono text-slate-500 mb-1 block">
                 Priority
               </label>
               <select
                 id="pir-priority"
                 value={formPriority}
                 onChange={(e) => setFormPriority(e.target.value)}
-                className="w-full text-xs px-2.5 py-1.5 rounded border border-slate-200 dark:border-slate-800 bg-transparent focus:outline-none focus:ring-1 focus:ring-brand-500"
+                className="w-full text-xs px-2.5 py-1.5 rounded border border-slate-200 dark:border-slate-800 bg-transparent focus:outline-none focus-visible:ring-1 focus-visible:ring-brand-500"
               >
                 {PRIORITIES.map((p) => (
                   <option key={p} value={p}>
@@ -496,14 +496,14 @@ export default function PirDashboard(): JSX.Element {
               </select>
             </div>
             <div>
-              <label htmlFor="pir-status" className="text-[11px] font-mono text-slate-500 mb-1 block">
+              <label htmlFor="pir-status" className="text-mini font-mono text-slate-500 mb-1 block">
                 Status
               </label>
               <select
                 id="pir-status"
                 value={formStatus}
                 onChange={(e) => setFormStatus(e.target.value)}
-                className="w-full text-xs px-2.5 py-1.5 rounded border border-slate-200 dark:border-slate-800 bg-transparent focus:outline-none focus:ring-1 focus:ring-brand-500"
+                className="w-full text-xs px-2.5 py-1.5 rounded border border-slate-200 dark:border-slate-800 bg-transparent focus:outline-none focus-visible:ring-1 focus-visible:ring-brand-500"
               >
                 {STATUSES.map((s) => (
                   <option key={s} value={s}>
@@ -513,14 +513,14 @@ export default function PirDashboard(): JSX.Element {
               </select>
             </div>
             <div>
-              <label htmlFor="pir-category" className="text-[11px] font-mono text-slate-500 mb-1 block">
+              <label htmlFor="pir-category" className="text-mini font-mono text-slate-500 mb-1 block">
                 Category
               </label>
               <select
                 id="pir-category"
                 value={formCategory}
                 onChange={(e) => setFormCategory(e.target.value)}
-                className="w-full text-xs px-2.5 py-1.5 rounded border border-slate-200 dark:border-slate-800 bg-transparent focus:outline-none focus:ring-1 focus:ring-brand-500"
+                className="w-full text-xs px-2.5 py-1.5 rounded border border-slate-200 dark:border-slate-800 bg-transparent focus:outline-none focus-visible:ring-1 focus-visible:ring-brand-500"
               >
                 {CATEGORIES.map((c) => (
                   <option key={c} value={c}>
@@ -530,7 +530,7 @@ export default function PirDashboard(): JSX.Element {
               </select>
             </div>
             <div>
-              <label htmlFor="pir-cadence" className="text-[11px] font-mono text-slate-500 mb-1 block">
+              <label htmlFor="pir-cadence" className="text-mini font-mono text-slate-500 mb-1 block">
                 Collection cadence (hours)
               </label>
               <input
@@ -540,11 +540,11 @@ export default function PirDashboard(): JSX.Element {
                 step={0.5}
                 value={formCadence}
                 onChange={(e) => setFormCadence(e.target.value)}
-                className="w-full text-xs px-2.5 py-1.5 rounded border border-slate-200 dark:border-slate-800 bg-transparent focus:outline-none focus:ring-1 focus:ring-brand-500"
+                className="w-full text-xs px-2.5 py-1.5 rounded border border-slate-200 dark:border-slate-800 bg-transparent focus:outline-none focus-visible:ring-1 focus-visible:ring-brand-500"
               />
             </div>
             <div className="sm:col-span-2">
-              <label htmlFor="pir-kiqs" className="text-[11px] font-mono text-slate-500 mb-1 block">
+              <label htmlFor="pir-kiqs" className="text-mini font-mono text-slate-500 mb-1 block">
                 KIQ (one per line)
               </label>
               <textarea
@@ -552,22 +552,22 @@ export default function PirDashboard(): JSX.Element {
                 value={formKiqs}
                 onChange={(e) => setFormKiqs(e.target.value)}
                 rows={3}
-                className="w-full text-xs px-2.5 py-1.5 rounded border border-slate-200 dark:border-slate-800 bg-transparent focus:outline-none focus:ring-1 focus:ring-brand-500"
+                className="w-full text-xs px-2.5 py-1.5 rounded border border-slate-200 dark:border-slate-800 bg-transparent focus:outline-none focus-visible:ring-1 focus-visible:ring-brand-500"
               />
             </div>
             <div>
-              <label htmlFor="pir-sources" className="text-[11px] font-mono text-slate-500 mb-1 block">
+              <label htmlFor="pir-sources" className="text-mini font-mono text-slate-500 mb-1 block">
                 Relevant sources (comma-sep)
               </label>
               <input
                 id="pir-sources"
                 value={formSources}
                 onChange={(e) => setFormSources(e.target.value)}
-                className="w-full text-xs px-2.5 py-1.5 rounded border border-slate-200 dark:border-slate-800 bg-transparent focus:outline-none focus:ring-1 focus:ring-brand-500"
+                className="w-full text-xs px-2.5 py-1.5 rounded border border-slate-200 dark:border-slate-800 bg-transparent focus:outline-none focus-visible:ring-1 focus-visible:ring-brand-500"
               />
             </div>
             <div>
-              <label htmlFor="pir-threshold" className="text-[11px] font-mono text-slate-500 mb-1 block">
+              <label htmlFor="pir-threshold" className="text-mini font-mono text-slate-500 mb-1 block">
                 Min source ratio %
               </label>
               <input
@@ -577,7 +577,7 @@ export default function PirDashboard(): JSX.Element {
                 max={100}
                 value={formThreshold}
                 onChange={(e) => setFormThreshold(e.target.value)}
-                className="w-full text-xs px-2.5 py-1.5 rounded border border-slate-200 dark:border-slate-800 bg-transparent focus:outline-none focus:ring-1 focus:ring-brand-500"
+                className="w-full text-xs px-2.5 py-1.5 rounded border border-slate-200 dark:border-slate-800 bg-transparent focus:outline-none focus-visible:ring-1 focus-visible:ring-brand-500"
               />
             </div>
           </div>
@@ -614,7 +614,7 @@ export default function PirDashboard(): JSX.Element {
               type="button"
               onClick={() => void handleAcknowledgeAll()}
               disabled={ackAllLoading}
-              className="inline-flex items-center gap-1 text-[10px] font-mono px-2 py-1 rounded border border-rose-300 dark:border-rose-700 hover:bg-rose-100 dark:hover:bg-rose-900/30 transition-colors disabled:opacity-50"
+              className="inline-flex items-center gap-1 text-micro font-mono px-2 py-1 rounded border border-rose-300 dark:border-rose-700 hover:bg-rose-100 dark:hover:bg-rose-900/30 transition-colors disabled:opacity-50"
             >
               {ackAllLoading ? <Loader2 size={10} className="animate-spin" /> : <CheckSquare size={10} />}
               Acknowledge all
@@ -622,9 +622,9 @@ export default function PirDashboard(): JSX.Element {
           </div>
           <div className="space-y-2">
             {unacknowledged.map((a) => (
-              <div key={a.id} className="flex items-start gap-2 text-[11px] text-slate-700 dark:text-slate-300">
+              <div key={a.id} className="flex items-start gap-2 text-mini text-slate-700 dark:text-slate-300">
                 <span
-                  className={`font-mono shrink-0 px-1 py-0.5 rounded text-[10px] ${
+                  className={`font-mono shrink-0 px-1 py-0.5 rounded text-micro ${
                     a.severity === 'critical'
                       ? 'bg-rose-200 dark:bg-rose-900 text-rose-700 dark:text-rose-300'
                       : 'bg-amber-200 dark:bg-amber-900 text-amber-700 dark:text-amber-300'
@@ -638,7 +638,7 @@ export default function PirDashboard(): JSX.Element {
                   type="button"
                   onClick={() => handleAcknowledge(a.id)}
                   disabled={acknowledging.has(a.id)}
-                  className="shrink-0 inline-flex items-center gap-1 text-[10px] font-mono px-2 py-1 rounded border border-slate-300 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors disabled:opacity-50"
+                  className="shrink-0 inline-flex items-center gap-1 text-micro font-mono px-2 py-1 rounded border border-slate-300 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors disabled:opacity-50"
                 >
                   {acknowledging.has(a.id) ? <Loader2 size={10} className="animate-spin" /> : <CheckCircle size={10} />}
                   Acknowledge
@@ -672,12 +672,12 @@ export default function PirDashboard(): JSX.Element {
               {/* Gantt chart */}
               {ganttRows.length > 0 && (
                 <div className="p-4 border-b border-slate-100 dark:border-slate-800">
-                  <div className="flex items-center gap-2 text-[10px] font-mono text-slate-500 mb-3">
+                  <div className="flex items-center gap-2 text-micro font-mono text-slate-500 mb-3">
                     <Clock size={12} /> Collection cadence timeline
                   </div>
                   <div className="space-y-1.5">
                     {ganttRows.slice(0, 15).map((r) => (
-                      <div key={r.source_id} className="flex items-center gap-2 text-[10px]">
+                      <div key={r.source_id} className="flex items-center gap-2 text-micro">
                         <span className="w-28 shrink-0 font-mono text-slate-600 dark:text-slate-400 truncate">
                           {r.source_id}
                         </span>
@@ -709,7 +709,7 @@ export default function PirDashboard(): JSX.Element {
                     <div key={r.source_id} className="flex items-center gap-3 px-4 py-2.5 text-xs">
                       <span className="font-mono text-slate-700 dark:text-slate-300 w-36 shrink-0">{r.source_id}</span>
                       <span
-                        className={`font-mono px-1.5 py-0.5 rounded text-[10px] ${r.effective_cadence_hours <= 1 ? 'bg-rose-100 dark:bg-rose-900/30 text-rose-700 dark:text-rose-300' : r.effective_cadence_hours <= 3 ? 'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400'}`}
+                        className={`font-mono px-1.5 py-0.5 rounded text-micro ${r.effective_cadence_hours <= 1 ? 'bg-rose-100 dark:bg-rose-900/30 text-rose-700 dark:text-rose-300' : r.effective_cadence_hours <= 3 ? 'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400'}`}
                       >
                         {c}
                       </span>
@@ -718,7 +718,7 @@ export default function PirDashboard(): JSX.Element {
                         {r.driving_priorities.map((p) => (
                           <span
                             key={p}
-                            className={`text-[10px] font-mono px-1 py-0.5 rounded ${p === 'critical' ? 'bg-rose-100 text-rose-700' : p === 'high' ? 'bg-orange-100 text-orange-700' : 'bg-slate-100 text-slate-600'}`}
+                            className={`text-micro font-mono px-1 py-0.5 rounded ${p === 'critical' ? 'bg-rose-100 text-rose-700' : p === 'high' ? 'bg-orange-100 text-orange-700' : 'bg-slate-100 text-slate-600'}`}
                           >
                             {p}
                           </span>
@@ -738,7 +738,7 @@ export default function PirDashboard(): JSX.Element {
 
       {/* ── Filter bar ──────────────────────────────────────────────────── */}
       <div className="mb-6 p-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40">
-        <div className="flex items-center gap-2 text-[10px] font-mono text-slate-500 mb-2">
+        <div className="flex items-center gap-2 text-micro font-mono text-slate-500 mb-2">
           <Filter size={12} /> Filters
         </div>
         <div className="flex flex-wrap gap-2">
@@ -752,7 +752,7 @@ export default function PirDashboard(): JSX.Element {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search PIRs by title, source, KIQ…"
-              className="w-full text-[11px] font-mono px-7 py-1.5 rounded border border-slate-200 dark:border-slate-800 bg-transparent focus:outline-none focus:ring-1 focus:ring-brand-500 placeholder:text-slate-400"
+              className="w-full text-mini font-mono px-7 py-1.5 rounded border border-slate-200 dark:border-slate-800 bg-transparent focus:outline-none focus-visible:ring-1 focus-visible:ring-brand-500 placeholder:text-slate-400"
             />
             {searchQuery && (
               <button
@@ -767,7 +767,7 @@ export default function PirDashboard(): JSX.Element {
           <select
             value={filterPriority}
             onChange={(e) => setFilterPriority(e.target.value)}
-            className="text-[11px] font-mono px-2 py-1.5 rounded border border-slate-200 dark:border-slate-800 bg-transparent focus:outline-none focus:ring-1 focus:ring-brand-500"
+            className="text-mini font-mono px-2 py-1.5 rounded border border-slate-200 dark:border-slate-800 bg-transparent focus:outline-none focus-visible:ring-1 focus-visible:ring-brand-500"
           >
             <option value="all">All priorities</option>
             {PRIORITIES.map((p) => (
@@ -779,7 +779,7 @@ export default function PirDashboard(): JSX.Element {
           <select
             value={filterStatus}
             onChange={(e) => setFilterStatus(e.target.value)}
-            className="text-[11px] font-mono px-2 py-1.5 rounded border border-slate-200 dark:border-slate-800 bg-transparent focus:outline-none focus:ring-1 focus:ring-brand-500"
+            className="text-mini font-mono px-2 py-1.5 rounded border border-slate-200 dark:border-slate-800 bg-transparent focus:outline-none focus-visible:ring-1 focus-visible:ring-brand-500"
           >
             <option value="all">All statuses</option>
             {STATUSES.map((s) => (
@@ -791,7 +791,7 @@ export default function PirDashboard(): JSX.Element {
           <select
             value={filterCategory}
             onChange={(e) => setFilterCategory(e.target.value)}
-            className="text-[11px] font-mono px-2 py-1.5 rounded border border-slate-200 dark:border-slate-800 bg-transparent focus:outline-none focus:ring-1 focus:ring-brand-500"
+            className="text-mini font-mono px-2 py-1.5 rounded border border-slate-200 dark:border-slate-800 bg-transparent focus:outline-none focus-visible:ring-1 focus-visible:ring-brand-500"
           >
             <option value="all">All categories</option>
             {CATEGORIES.map((c) => (
@@ -809,14 +809,14 @@ export default function PirDashboard(): JSX.Element {
                 setFilterCategory('all');
                 setSearchQuery('');
               }}
-              className="text-[11px] font-mono px-2 py-1.5 rounded border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+              className="text-mini font-mono px-2 py-1.5 rounded border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
             >
               Clear
             </button>
           )}
         </div>
         {data && (
-          <p className="text-[10px] font-mono text-slate-400 mt-1.5">
+          <p className="text-micro font-mono text-slate-400 mt-1.5">
             Showing {filteredPirs.length} of {data.pirs.length} PIRs
           </p>
         )}
@@ -826,23 +826,23 @@ export default function PirDashboard(): JSX.Element {
         {data && (
           <>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
-              <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
-                <p className="text-[11px] font-mono text-slate-500 mb-1">Active PIRs</p>
+              <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
+                <p className="text-mini font-mono text-slate-500 mb-1">Active PIRs</p>
                 <p className="text-2xl font-bold font-display">{data.active_count}</p>
               </div>
-              <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
-                <p className="text-[11px] font-mono text-slate-500 mb-1">Fresh Sources</p>
+              <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
+                <p className="text-mini font-mono text-slate-500 mb-1">Fresh Sources</p>
                 <p className="text-2xl font-bold font-display text-emerald-500">{data.fresh_sources.length}</p>
               </div>
-              <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
-                <p className="text-[11px] font-mono text-slate-500 mb-1">Scores</p>
+              <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
+                <p className="text-mini font-mono text-slate-500 mb-1">Scores</p>
                 <p className="text-2xl font-bold font-display flex items-center gap-2">
                   {data.scores.filter((s) => s.composite_coverage >= 70).length}
                   <Shield size={16} className="text-emerald-500" />
                 </p>
               </div>
-              <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
-                <p className="text-[11px] font-mono text-slate-500 mb-1">Avg Coverage</p>
+              <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
+                <p className="text-mini font-mono text-slate-500 mb-1">Avg Coverage</p>
                 <p className="text-2xl font-bold font-display">
                   {data.scores.length > 0
                     ? Math.round(data.scores.reduce((a, s) => a + s.composite_coverage, 0) / data.scores.length)
@@ -874,20 +874,20 @@ export default function PirDashboard(): JSX.Element {
                       }
                       className="w-full flex items-center gap-3 p-4 text-left hover:bg-slate-50 dark:hover:bg-slate-900/20 transition-colors"
                     >
-                      <span className={`text-[10px] font-mono px-1.5 py-0.5 rounded ${PRIORITY_COLORS[pir.priority]}`}>
+                      <span className={`text-micro font-mono px-1.5 py-0.5 rounded ${PRIORITY_COLORS[pir.priority]}`}>
                         {pir.priority}
                       </span>
-                      <span className={`text-[10px] font-mono ${STATUS_COLORS[pir.status ?? 'active']}`}>
+                      <span className={`text-micro font-mono ${STATUS_COLORS[pir.status ?? 'active']}`}>
                         {pir.status ?? 'active'}
                       </span>
                       {answeredCount > 0 && (
-                        <span className="text-[10px] font-mono text-emerald-500 shrink-0">
+                        <span className="text-micro font-mono text-emerald-500 shrink-0">
                           {answeredCount}/{pir.kiqs.length} KIQ
                         </span>
                       )}
                       <div className="flex-1 min-w-0">
                         <div className="text-sm font-medium">{pir.title}</div>
-                        <div className="text-[11px] text-slate-500 mt-0.5">{pir.consumer}</div>
+                        <div className="text-mini text-slate-500 mt-0.5">{pir.consumer}</div>
                       </div>
                       {score && (
                         <div className="flex items-center gap-2 shrink-0">
@@ -914,14 +914,14 @@ export default function PirDashboard(): JSX.Element {
                           <button
                             type="button"
                             onClick={() => startEdit(pir)}
-                            className="inline-flex items-center gap-1 text-[10px] font-mono px-2 py-1 rounded border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                            className="inline-flex items-center gap-1 text-micro font-mono px-2 py-1 rounded border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
                           >
                             <Pencil size={10} /> Edit
                           </button>
                           <button
                             type="button"
                             onClick={() => handleDelete(pir.id)}
-                            className="inline-flex items-center gap-1 text-[10px] font-mono px-2 py-1 rounded border border-rose-200 dark:border-rose-900 text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950 transition-colors"
+                            className="inline-flex items-center gap-1 text-micro font-mono px-2 py-1 rounded border border-rose-200 dark:border-rose-900 text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950 transition-colors"
                           >
                             <Trash2 size={10} /> Delete
                           </button>
@@ -931,13 +931,13 @@ export default function PirDashboard(): JSX.Element {
                         </p>
                         <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-3">
                           <div>
-                            <p className="text-[10px] font-mono uppercase tracking-wider text-slate-400 mb-1">
+                            <p className="text-micro font-mono uppercase tracking-wider text-slate-400 mb-1">
                               Decision
                             </p>
                             <p className="text-xs text-slate-600 dark:text-slate-400">{pir.decision}</p>
                           </div>
                           <div>
-                            <p className="text-[10px] font-mono uppercase tracking-wider text-slate-400 mb-1 flex items-center gap-1">
+                            <p className="text-micro font-mono uppercase tracking-wider text-slate-400 mb-1 flex items-center gap-1">
                               <ListChecks size={10} /> KIQ ({answeredCount}/{pir.kiqs.length} answered)
                             </p>
                             <ul className="space-y-2">
@@ -969,7 +969,7 @@ export default function PirDashboard(): JSX.Element {
                                           value={evidence}
                                           onChange={(e) => setKiqEvidence(pir.id, j, e.target.value)}
                                           placeholder="Add evidence / source reference…"
-                                          className="w-full text-[10px] font-mono px-2 py-1 rounded border border-slate-200 dark:border-slate-800 bg-transparent focus:outline-none focus:ring-1 focus:ring-brand-500 placeholder:text-slate-400"
+                                          className="w-full text-micro font-mono px-2 py-1 rounded border border-slate-200 dark:border-slate-800 bg-transparent focus:outline-none focus-visible:ring-1 focus-visible:ring-brand-500 placeholder:text-slate-400"
                                         />
                                       </div>
                                     )}
@@ -983,7 +983,7 @@ export default function PirDashboard(): JSX.Element {
                           <div className="mt-3">
                             <div className="flex gap-4 mb-2">
                               <div>
-                                <p className="text-[10px] font-mono text-slate-400 mb-0.5">Freshness</p>
+                                <p className="text-micro font-mono text-slate-400 mb-0.5">Freshness</p>
                                 <div className="flex items-center gap-1.5">
                                   <div className="w-12 bg-slate-200 dark:bg-slate-800 rounded-full h-1.5">
                                     <div
@@ -991,11 +991,11 @@ export default function PirDashboard(): JSX.Element {
                                       style={{ width: `${score.freshness_score}%` }}
                                     />
                                   </div>
-                                  <span className="text-[10px] font-mono text-slate-500">{score.freshness_score}%</span>
+                                  <span className="text-micro font-mono text-slate-500">{score.freshness_score}%</span>
                                 </div>
                               </div>
                               <div>
-                                <p className="text-[10px] font-mono text-slate-400 mb-0.5">Confidence</p>
+                                <p className="text-micro font-mono text-slate-400 mb-0.5">Confidence</p>
                                 <div className="flex items-center gap-1.5">
                                   <div className="w-12 bg-slate-200 dark:bg-slate-800 rounded-full h-1.5">
                                     <div
@@ -1003,13 +1003,13 @@ export default function PirDashboard(): JSX.Element {
                                       style={{ width: `${score.confidence?.score ?? 0}%` }}
                                     />
                                   </div>
-                                  <span className="text-[10px] font-mono text-slate-500">
+                                  <span className="text-micro font-mono text-slate-500">
                                     {score.confidence?.score ?? 0}%
                                   </span>
                                 </div>
                               </div>
                               <div>
-                                <p className="text-[10px] font-mono text-slate-400 mb-0.5">Composite</p>
+                                <p className="text-micro font-mono text-slate-400 mb-0.5">Composite</p>
                                 <div className="flex items-center gap-1.5">
                                   <div className="w-12 bg-slate-200 dark:bg-slate-800 rounded-full h-1.5">
                                     <div
@@ -1017,23 +1017,23 @@ export default function PirDashboard(): JSX.Element {
                                       style={{ width: `${score.composite_coverage}%` }}
                                     />
                                   </div>
-                                  <span className="text-[10px] font-mono text-slate-500">
+                                  <span className="text-micro font-mono text-slate-500">
                                     {score.composite_coverage}%
                                   </span>
                                 </div>
                               </div>
                             </div>
                             <div className="flex flex-wrap gap-2">
-                              <span className="text-[10px] font-mono px-2 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">
+                              <span className="text-micro font-mono px-2 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">
                                 Sources: {score.sources_contributing_today}/{score.total_relevant_sources}
                               </span>
                               {pir.min_source_ratio && (
-                                <span className="text-[10px] font-mono px-2 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">
+                                <span className="text-micro font-mono px-2 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">
                                   Alert threshold: {pir.min_source_ratio}%
                                 </span>
                               )}
                               {pir.collection_cadence_hours && (
-                                <span className="text-[10px] font-mono px-2 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">
+                                <span className="text-micro font-mono px-2 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">
                                   Cadence: every {pir.collection_cadence_hours}h
                                 </span>
                               )}
@@ -1049,7 +1049,7 @@ export default function PirDashboard(): JSX.Element {
                                 .map((r) => (
                                   <span
                                     key={r.source_id}
-                                    className="text-[10px] font-mono px-2 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400"
+                                    className="text-micro font-mono px-2 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400"
                                   >
                                     {r.source_id}: {r.effective_cadence_hours}h cadence
                                   </span>
@@ -1066,7 +1066,7 @@ export default function PirDashboard(): JSX.Element {
                 );
               })}
               {filteredPirs.length === 0 && (
-                <div className="rounded-lg border border-dashed border-slate-300 dark:border-slate-700 p-8 text-center text-[13px] text-slate-500 font-mono">
+                <div className="rounded-lg border border-dashed border-slate-300 dark:border-slate-700 p-8 text-center text-tool text-slate-500 font-mono">
                   No PIRs match the current filters. Try adjusting your search or filter criteria.
                 </div>
               )}

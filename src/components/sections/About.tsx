@@ -74,7 +74,7 @@ export function About({ stats }: AboutProps) {
             {stat.source && (
               <Link
                 to={stat.source}
-                className="mt-1 inline-flex items-center gap-1 text-[10px] font-mono text-brand-600 dark:text-brand-400 hover:underline"
+                className="mt-1 inline-flex items-center gap-1 text-micro font-mono text-brand-600 dark:text-brand-400 hover:underline"
               >
                 {stat.sourceLabel || 'verify'} →
               </Link>

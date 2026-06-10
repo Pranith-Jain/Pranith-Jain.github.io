@@ -230,7 +230,7 @@ export default function BreachForums(): JSX.Element {
           notable breach/leak forums. This is <strong>intelligence about</strong> these venues — names, status, public
           OSINT coverage, and historical status deltas.
         </p>
-        <div className="rounded-lg border border-amber-500/40 bg-amber-500/10 p-3 font-mono text-[11px] text-amber-700 dark:text-amber-300 max-w-3xl mb-6">
+        <div className="rounded-lg border border-amber-500/40 bg-amber-500/10 p-3 font-mono text-mini text-amber-700 dark:text-amber-300 max-w-3xl mb-6">
           No forum content, credentials, or breach data is fetched, parsed, or linked here. Curated entries link to
           public OSINT coverage (DarkWebInformer search), not to the forums themselves.
         </div>
@@ -238,7 +238,7 @@ export default function BreachForums(): JSX.Element {
 
       <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6 flex items-center justify-between gap-3 flex-wrap">
         {data && (
-          <p className="text-[11px] font-mono text-slate-500">
+          <p className="text-mini font-mono text-slate-500">
             {data.rows.length} entries · {data.totals.directory} from deepdarkCTI · {data.totals.curated} curated
           </p>
         )}
@@ -275,7 +275,7 @@ export default function BreachForums(): JSX.Element {
           {groups.map(([category, rows]) => (
             <div key={category}>
               <h2 className="font-display font-semibold text-sm mb-2">
-                {category} <span className="font-mono text-[11px] text-slate-500">· {rows.length}</span>
+                {category} <span className="font-mono text-mini text-slate-500">· {rows.length}</span>
               </h2>
               <ul className="grid gap-2 md:grid-cols-2">
                 {rows.map((r, i) => (
@@ -289,30 +289,30 @@ export default function BreachForums(): JSX.Element {
                       </span>
                       <span className="flex items-center gap-1 shrink-0">
                         {r.onion && (
-                          <span className="rounded border border-slate-400/40 bg-slate-400/10 px-1 py-0.5 font-mono text-[9px] uppercase text-slate-500">
+                          <span className="rounded border border-slate-400/40 bg-slate-400/10 px-1 py-0.5 font-mono text-micro uppercase text-slate-500">
                             onion
                           </span>
                         )}
                         <span
-                          className={`rounded border px-1.5 py-0.5 font-mono text-[9px] uppercase ${statusClass(r.status)}`}
+                          className={`rounded border px-1.5 py-0.5 font-mono text-micro uppercase ${statusClass(r.status)}`}
                         >
                           {r.status ?? 'unknown'}
                         </span>
                       </span>
                     </div>
-                    {r.note && <p className="font-mono text-[11px] text-slate-500 mt-1 leading-relaxed">{r.note}</p>}
+                    {r.note && <p className="font-mono text-mini text-slate-500 mt-1 leading-relaxed">{r.note}</p>}
                     <div className="flex items-center gap-2 mt-1.5">
                       {r.origin === 'curated' ? (
                         <a
                           href={sanitizeUrl(r.url) || undefined}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="font-mono text-[11px] text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+                          className="font-mono text-mini text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
                         >
                           OSINT coverage <ExternalLink size={9} />
                         </a>
                       ) : (
-                        <code className="font-mono text-[11px] text-slate-600 dark:text-slate-400 break-all">
+                        <code className="font-mono text-mini text-slate-600 dark:text-slate-400 break-all">
                           {r.url}
                         </code>
                       )}
@@ -360,23 +360,23 @@ export default function BreachForums(): JSX.Element {
                   <span className="font-display font-semibold text-sm truncate" title={d.name}>
                     {d.name}
                   </span>
-                  <span className="font-mono text-[10px] text-slate-500 shrink-0">{d.category}</span>
+                  <span className="font-mono text-micro text-slate-500 shrink-0">{d.category}</span>
                   <span className="flex items-center gap-1.5 ml-auto">
                     <span
-                      className={`rounded border px-1.5 py-0.5 font-mono text-[9px] uppercase ${statusClass(d.from_status)}`}
+                      className={`rounded border px-1.5 py-0.5 font-mono text-micro uppercase ${statusClass(d.from_status)}`}
                       title="previous status"
                     >
                       {d.from_status}
                     </span>
-                    <span className="font-mono text-[10px] text-slate-500">→</span>
+                    <span className="font-mono text-micro text-slate-500">→</span>
                     <span
-                      className={`rounded border px-1.5 py-0.5 font-mono text-[9px] uppercase ${statusClass(d.to_status)}`}
+                      className={`rounded border px-1.5 py-0.5 font-mono text-micro uppercase ${statusClass(d.to_status)}`}
                       title="new status"
                     >
                       {d.to_status}
                     </span>
                     <span
-                      className={`rounded border px-1.5 py-0.5 font-mono text-[9px] uppercase ${
+                      className={`rounded border px-1.5 py-0.5 font-mono text-micro uppercase ${
                         d.change === 'new'
                           ? 'border-sky-500/40 bg-sky-500/10 text-sky-700 dark:text-sky-300'
                           : d.change === 'removed'
@@ -389,7 +389,7 @@ export default function BreachForums(): JSX.Element {
                       {d.change}
                     </span>
                   </span>
-                  <span className="font-mono text-[10px] text-slate-500 w-full">{formatTimestamp(d.observed_at)}</span>
+                  <span className="font-mono text-micro text-slate-500 w-full">{formatTimestamp(d.observed_at)}</span>
                 </li>
               ))}
             </ul>
@@ -408,7 +408,7 @@ export default function BreachForums(): JSX.Element {
           no leak dumps — just the press.
         </p>
         {coverageData && (
-          <p className="text-[11px] font-mono text-slate-500 mb-2">
+          <p className="text-mini font-mono text-slate-500 mb-2">
             {coverageData.items.length} headlines · {coverageData.sources.filter((s) => s.ok).length}/
             {coverageData.sources.length} sources OK
           </p>
@@ -437,14 +437,14 @@ export default function BreachForums(): JSX.Element {
                     >
                       {it.title} <ExternalLink size={10} />
                     </a>
-                    <span className="font-mono text-[10px] text-slate-500 ml-auto" title={it.source_id}>
+                    <span className="font-mono text-micro text-slate-500 ml-auto" title={it.source_id}>
                       {it.source_name || shortSourceId(it.source_id)}
                     </span>
                   </div>
                   {it.snippet && (
-                    <p className="text-[12px] text-slate-600 dark:text-slate-400 mt-1 leading-relaxed">{it.snippet}</p>
+                    <p className="text-meta text-slate-600 dark:text-slate-400 mt-1 leading-relaxed">{it.snippet}</p>
                   )}
-                  <p className="font-mono text-[10px] text-slate-500 mt-1">{formatTimestamp(it.pubDate)}</p>
+                  <p className="font-mono text-micro text-slate-500 mt-1">{formatTimestamp(it.pubDate)}</p>
                 </li>
               ))}
             </ul>
@@ -462,7 +462,7 @@ export default function BreachForums(): JSX.Element {
           Sinisterly, Exploit, etc.). Useful for spotting law-enforcement seizures and successor-site chatter.
         </p>
         {mentionsData && (
-          <p className="text-[11px] font-mono text-slate-500 mb-2">
+          <p className="text-mini font-mono text-slate-500 mb-2">
             {mentionsData.items.length} mentions · {mentionsData.sources.filter((s) => s.ok).length}/
             {mentionsData.sources.length} sources OK
           </p>
@@ -491,10 +491,10 @@ export default function BreachForums(): JSX.Element {
                     >
                       {it.title} <ExternalLink size={10} />
                     </a>
-                    <span className="font-mono text-[10px] text-slate-500 ml-auto">{it.source_name}</span>
+                    <span className="font-mono text-micro text-slate-500 ml-auto">{it.source_name}</span>
                   </div>
                   {it.snippet && (
-                    <p className="text-[12px] text-slate-600 dark:text-slate-400 mt-1 leading-relaxed">{it.snippet}</p>
+                    <p className="text-meta text-slate-600 dark:text-slate-400 mt-1 leading-relaxed">{it.snippet}</p>
                   )}
                 </li>
               ))}

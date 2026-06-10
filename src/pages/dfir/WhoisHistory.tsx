@@ -220,7 +220,7 @@ export default function WhoisHistory(): JSX.Element {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="example.com"
-            className="w-full pl-10 pr-4 py-2.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-sm font-mono focus:ring-2 focus:ring-brand-500 focus:border-transparent"
+            className="w-full pl-10 pr-4 py-2.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-sm font-mono focus-visible:ring-2 focus-visible:ring-brand-500 focus:border-transparent"
           />
         </div>
         <button
@@ -255,7 +255,7 @@ export default function WhoisHistory(): JSX.Element {
               >
                 <div className="flex items-center gap-2 mb-1">
                   <Icon size={14} className="text-slate-400" />
-                  <span className="text-[11px] font-mono uppercase text-slate-500">{label}</span>
+                  <span className="text-mini font-mono uppercase text-slate-500">{label}</span>
                 </div>
                 <span className="text-2xl font-mono font-bold">{value}</span>
               </div>
@@ -316,7 +316,7 @@ export default function WhoisHistory(): JSX.Element {
               >
                 {tab}{' '}
                 {tab === 'changes' && history.changes.length > 0 && (
-                  <span className="ml-1 px-1.5 py-0.5 rounded-full text-[10px] bg-rose-100 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400">
+                  <span className="ml-1 px-1.5 py-0.5 rounded-full text-micro bg-rose-100 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400">
                     {history.changes.length}
                   </span>
                 )}
@@ -461,7 +461,7 @@ export default function WhoisHistory(): JSX.Element {
                               <ExternalLink size={12} />
                             </a>
                           </div>
-                          <div className="mt-1 flex flex-wrap gap-2 text-[11px]">
+                          <div className="mt-1 flex flex-wrap gap-2 text-mini">
                             <span className="px-1.5 py-0.5 rounded bg-brand-50 dark:bg-brand-950/20 text-brand-700 dark:text-brand-300">
                               {d.match_reason.replace(/_/g, ' ')}
                             </span>

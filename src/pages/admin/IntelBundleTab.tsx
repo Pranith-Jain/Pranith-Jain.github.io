@@ -143,7 +143,7 @@ function Result({ data }: { data: InspectShape }) {
             {data.source.name} · {data.generatedAt && new Date(data.generatedAt).toLocaleString()}
           </p>
         </div>
-        <span className={`text-[11px] font-mono px-2 py-0.5 rounded border ${llmBadge.tone}`}>{llmBadge.label}</span>
+        <span className={`text-mini font-mono px-2 py-0.5 rounded border ${llmBadge.tone}`}>{llmBadge.label}</span>
       </header>
 
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
@@ -154,7 +154,7 @@ function Result({ data }: { data: InspectShape }) {
           { label: 'CVEs', value: data.counts.cves },
         ].map((c) => (
           <div key={c.label} className="rounded bg-slate-900 border border-slate-800 px-3 py-2">
-            <div className="text-slate-500 text-[10px] uppercase tracking-wider">{c.label}</div>
+            <div className="text-slate-500 text-micro uppercase tracking-wider">{c.label}</div>
             <div className="text-lg font-mono">{c.value}</div>
           </div>
         ))}
@@ -166,10 +166,7 @@ function Result({ data }: { data: InspectShape }) {
         ) : (
           <div className="flex flex-wrap gap-1.5">
             {data.sectors.map((s) => (
-              <span
-                key={s}
-                className="text-[11px] font-mono px-1.5 py-0.5 rounded border border-slate-700 bg-slate-900"
-              >
+              <span key={s} className="text-mini font-mono px-1.5 py-0.5 rounded border border-slate-700 bg-slate-900">
                 {s}
               </span>
             ))}
@@ -202,7 +199,7 @@ function Result({ data }: { data: InspectShape }) {
                 href={`https://attack.mitre.org/techniques/${a.mitreId.replace('.', '/')}/`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-[11px] font-mono px-1.5 py-0.5 rounded border border-slate-700 bg-slate-900 hover:bg-slate-800"
+                className="text-mini font-mono px-1.5 py-0.5 rounded border border-slate-700 bg-slate-900 hover:bg-slate-800"
               >
                 {a.name} · {a.mitreId}
               </a>
@@ -241,7 +238,7 @@ function Result({ data }: { data: InspectShape }) {
         )}
       </Block>
 
-      <footer className="flex flex-wrap items-center gap-3 text-[11px] font-mono text-slate-500 pt-3 border-t border-slate-800">
+      <footer className="flex flex-wrap items-center gap-3 text-mini font-mono text-slate-500 pt-3 border-t border-slate-800">
         <span>bundle: {data.bundleId.slice(0, 24)}…</span>
         <span>hash: {data.extractedHash.slice(0, 12)}…</span>
         <Link
@@ -268,7 +265,7 @@ function Result({ data }: { data: InspectShape }) {
 function Block({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <section>
-      <h4 className="text-[11px] uppercase tracking-wider text-slate-500 mb-2">{title}</h4>
+      <h4 className="text-mini uppercase tracking-wider text-slate-500 mb-2">{title}</h4>
       {children}
     </section>
   );

@@ -35,7 +35,7 @@ const Card = memo(function Card({ tool }: { tool: Tool }): JSX.Element {
         </span>
       </div>
       {/* Prose, not mono — mono is for IOC/data, not tile descriptions. */}
-      <p className="text-[13px] text-slate-600 dark:text-slate-400 leading-relaxed">{desc}</p>
+      <p className="text-tool text-slate-600 dark:text-slate-400 leading-relaxed">{desc}</p>
     </>
   );
   if (external) {
@@ -59,7 +59,7 @@ const SectionBlock = memo(function SectionBlock({ section }: { section: Section 
         <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono">
           {section.label}
         </h3>
-        <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400">
+        <span className="text-mini font-mono text-slate-500 dark:text-slate-400">
           {section.blurb} · {section.tools.length} tool{section.tools.length === 1 ? '' : 's'}
         </span>
       </div>
@@ -146,7 +146,7 @@ export function ToolGrid({ group }: { group?: ToolGroup } = {}): JSX.Element {
         </div>
       </div>
 
-      <p className="text-[13px] text-slate-500 dark:text-slate-400 leading-relaxed">
+      <p className="text-tool text-slate-500 dark:text-slate-400 leading-relaxed">
         {q ? (
           <>
             {matchCount} match{matchCount === 1 ? '' : 'es'} for{' '}
@@ -181,7 +181,7 @@ export function ToolGrid({ group }: { group?: ToolGroup } = {}): JSX.Element {
                 <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono">
                   External resources
                 </h3>
-                <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400">
+                <span className="text-mini font-mono text-slate-500 dark:text-slate-400">
                   Curated tools and catalogs hosted elsewhere · {filteredExternal.length}
                   {q ? ` of ${EXTERNAL.length}` : ''} link{filteredExternal.length === 1 ? '' : 's'}
                 </span>

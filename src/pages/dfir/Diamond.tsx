@@ -645,20 +645,20 @@ function Diamond(): JSX.Element {
                 <div className="space-y-3 text-sm font-mono text-slate-700 dark:text-slate-300">
                   <p>{v.description}</p>
                   <div>
-                    <h3 className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-1">
+                    <h3 className="text-micro font-bold uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-1">
                       Pivot points
                     </h3>
-                    <ul className="space-y-1 text-[12px] list-disc pl-4">
+                    <ul className="space-y-1 text-meta list-disc pl-4">
                       {v.pivots.map((p) => (
                         <li key={p}>{p}</li>
                       ))}
                     </ul>
                   </div>
                   <div>
-                    <h3 className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-1">
+                    <h3 className="text-micro font-bold uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-1">
                       Tools
                     </h3>
-                    <p className="text-[12px]">{v.tools.join(' · ')}</p>
+                    <p className="text-meta">{v.tools.join(' · ')}</p>
                   </div>
                 </div>
               );
@@ -685,7 +685,7 @@ function Diamond(): JSX.Element {
             Auto-fill from indicator
           </h2>
         </div>
-        <p className="text-[11px] font-mono text-slate-600 dark:text-slate-400 mb-2">
+        <p className="text-mini font-mono text-slate-600 dark:text-slate-400 mb-2">
           Paste any IP / IPv6 / domain / URL / hash / CVE / ransomware-actor-name — we pull context from IOC checker,
           ip-geo, cross-source correlation, KEV+actor mapping, MalwareBazaar, actor-timeline (MITRE Group), and
           ransomware-victim cross-match, then populate empty corners. Won&apos;t overwrite anything you&apos;ve already
@@ -715,9 +715,7 @@ function Diamond(): JSX.Element {
             {autoFilling ? 'filling…' : 'Auto-fill'}
           </button>
         </form>
-        {autoFillNote && (
-          <p className="text-[11px] font-mono text-slate-700 dark:text-slate-300 mt-2">{autoFillNote}</p>
-        )}
+        {autoFillNote && <p className="text-mini font-mono text-slate-700 dark:text-slate-300 mt-2">{autoFillNote}</p>}
       </section>
 
       <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6">
@@ -815,7 +813,7 @@ function Diamond(): JSX.Element {
                     placeholder={a.description}
                   />
                 </label>
-                <ul className="mt-1.5 text-[11px] font-mono text-slate-500 dark:text-slate-400 space-y-0.5 list-disc pl-4">
+                <ul className="mt-1.5 text-mini font-mono text-slate-500 dark:text-slate-400 space-y-0.5 list-disc pl-4">
                   {a.questions.map((q) => (
                     <li key={q}>{q}</li>
                   ))}

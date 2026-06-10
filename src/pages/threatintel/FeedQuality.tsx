@@ -294,9 +294,9 @@ function SummaryStrip({ data }: { data: TifceResponse }): JSX.Element {
 function Stat({ label, value, sub }: { label: string; value: number | string; sub?: string }): JSX.Element {
   return (
     <div>
-      <div className="text-[10px] font-mono uppercase tracking-wider text-slate-500">{label}</div>
+      <div className="text-micro font-mono uppercase tracking-wider text-slate-500">{label}</div>
       <div className="font-display font-bold text-xl tabular-nums">{value}</div>
-      {sub && <div className="text-[10px] font-mono text-slate-500 mt-0.5">{sub}</div>}
+      {sub && <div className="text-micro font-mono text-slate-500 mt-0.5">{sub}</div>}
     </div>
   );
 }
@@ -360,7 +360,7 @@ function FilterBar({
         </button>
       </div>
       <div className="flex flex-wrap items-center gap-1.5 mt-3">
-        <span className="text-[11px] font-mono text-slate-500 mr-1">grade:</span>
+        <span className="text-mini font-mono text-slate-500 mr-1">grade:</span>
         {(['A', 'B', 'C', 'D', 'F'] as const).map((g) => {
           const active = gradeFilter.has(g);
           return (
@@ -368,7 +368,7 @@ function FilterBar({
               key={g}
               type="button"
               onClick={() => toggleGrade(g)}
-              className={`text-[11px] font-mono px-2 py-1 rounded border ${active ? GRADE_COLOR[g] : 'border-slate-200 dark:border-slate-800 text-slate-500'}`}
+              className={`text-mini font-mono px-2 py-1 rounded border ${active ? GRADE_COLOR[g] : 'border-slate-200 dark:border-slate-800 text-slate-500'}`}
               title={`${active ? 'remove' : 'add'} grade ${g}`}
             >
               {g}
@@ -377,7 +377,7 @@ function FilterBar({
         })}
       </div>
       {showMeta && (
-        <dl className="mt-3 pt-3 border-t border-slate-200 dark:border-slate-800 grid grid-cols-2 sm:grid-cols-4 gap-2 text-[11px] font-mono">
+        <dl className="mt-3 pt-3 border-t border-slate-200 dark:border-slate-800 grid grid-cols-2 sm:grid-cols-4 gap-2 text-mini font-mono">
           <Meta label="TP indicator set" value={meta.tp_indicators_loaded.toLocaleString()} />
           <Meta label="Platform-reported set" value={meta.platform_indicators_loaded.toLocaleString()} />
           <Meta label="Detection firings (24h)" value={meta.detection_indicators_loaded.toLocaleString()} />
@@ -395,7 +395,7 @@ function FilterBar({
 function Meta({ label, value }: { label: string; value: string }): JSX.Element {
   return (
     <div>
-      <dt className="text-slate-500 uppercase tracking-wider text-[9px]">{label}</dt>
+      <dt className="text-slate-500 uppercase tracking-wider text-micro">{label}</dt>
       <dd className="text-slate-900 dark:text-slate-100">{value}</dd>
     </div>
   );
@@ -427,7 +427,7 @@ function FeedRow({
         <div className="min-w-0 flex-1">
           <div className="flex items-baseline gap-2 flex-wrap">
             <span className="font-mono font-bold text-sm truncate">{feed.feedId}</span>
-            <span className="text-[10px] font-mono text-slate-500 tabular-nums">
+            <span className="text-micro font-mono text-slate-500 tabular-nums">
               {feed.contributions.toLocaleString()} IOC{feed.contributions === 1 ? '' : 's'}
             </span>
           </div>
@@ -435,7 +435,7 @@ function FeedRow({
         </div>
         <div className="shrink-0 text-right hidden sm:block">
           <div className="font-display font-bold text-lg tabular-nums">{feed.composite.toFixed(1)}</div>
-          <div className="text-[10px] font-mono text-slate-500 uppercase tracking-wider">composite</div>
+          <div className="text-micro font-mono text-slate-500 uppercase tracking-wider">composite</div>
         </div>
         {expanded ? (
           <ChevronDown size={16} className="shrink-0 text-slate-400" />
@@ -451,13 +451,13 @@ function FeedRow({
             return (
               <div key={k}>
                 <div className="flex items-center gap-2 mb-1">
-                  <span className="text-[11px] font-mono uppercase tracking-wider font-bold text-slate-700 dark:text-slate-300">
+                  <span className="text-mini font-mono uppercase tracking-wider font-bold text-slate-700 dark:text-slate-300">
                     {meta.label}
                   </span>
-                  <span className="text-[10px] font-mono text-slate-500" title={meta.tip}>
+                  <span className="text-micro font-mono text-slate-500" title={meta.tip}>
                     <Info size={10} className="inline" /> {p.label}
                   </span>
-                  <span className="ml-auto text-[11px] font-mono tabular-nums font-bold">{p.score.toFixed(1)}</span>
+                  <span className="ml-auto text-mini font-mono tabular-nums font-bold">{p.score.toFixed(1)}</span>
                 </div>
                 <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed mb-1">{p.rationale}</p>
                 <PillarDetails details={p.details} />
@@ -483,7 +483,7 @@ function PillarBars({ feed }: { feed: FeedTifceScore }): JSX.Element {
                 style={{ width: `${s}%` }}
               />
             </div>
-            <span className="text-[10px] font-mono tabular-nums text-slate-500 w-7 text-right">{s.toFixed(0)}</span>
+            <span className="text-micro font-mono tabular-nums text-slate-500 w-7 text-right">{s.toFixed(0)}</span>
           </div>
         );
       })}
@@ -495,10 +495,10 @@ function PillarDetails({ details }: { details: Record<string, number | string> }
   const entries = Object.entries(details);
   if (entries.length === 0) return <></>;
   return (
-    <dl className="grid grid-cols-2 sm:grid-cols-4 gap-x-3 gap-y-1 text-[10px] font-mono">
+    <dl className="grid grid-cols-2 sm:grid-cols-4 gap-x-3 gap-y-1 text-micro font-mono">
       {entries.map(([k, v]) => (
         <div key={k} className="flex items-baseline gap-1.5">
-          <dt className="text-slate-500 uppercase tracking-wider text-[9px]">{k}</dt>
+          <dt className="text-slate-500 uppercase tracking-wider text-micro">{k}</dt>
           <dd className="text-slate-700 dark:text-slate-300 tabular-nums">
             {typeof v === 'number' ? v.toLocaleString() : v}
           </dd>

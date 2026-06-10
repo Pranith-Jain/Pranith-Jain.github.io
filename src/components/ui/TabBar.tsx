@@ -48,7 +48,7 @@ export function TabBar({ tabs, active, onChange, className }: TabBarProps): JSX.
           }`}
         >
           {tab.label}
-          {tab.count !== undefined && <span className="ml-1.5 text-[10px] opacity-60">{tab.count}</span>}
+          {tab.count !== undefined && <span className="ml-1.5 text-micro opacity-60">{tab.count}</span>}
         </button>
       ))}
     </div>

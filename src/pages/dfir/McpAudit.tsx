@@ -190,7 +190,7 @@ export default function McpAudit(): JSX.Element {
               <span className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono inline-flex items-center gap-2">
                 Verdict
                 {mode && (
-                  <span className="inline-flex items-center gap-1 normal-case tracking-normal text-[10px] font-mono px-1.5 py-0.5 rounded border border-brand-500/30 bg-brand-500/10 text-brand-700 dark:text-brand-300">
+                  <span className="inline-flex items-center gap-1 normal-case tracking-normal text-micro font-mono px-1.5 py-0.5 rounded border border-brand-500/30 bg-brand-500/10 text-brand-700 dark:text-brand-300">
                     {mode === 'claude-code' ? (
                       <>
                         <Terminal size={11} aria-hidden="true" /> Claude Code settings
@@ -218,7 +218,7 @@ export default function McpAudit(): JSX.Element {
                   }`}
                 >
                   <div className="text-lg font-bold">{counts[s]}</div>
-                  <div className="text-[10px] uppercase tracking-wider">{s}</div>
+                  <div className="text-micro uppercase tracking-wider">{s}</div>
                 </div>
               ))}
             </div>
@@ -243,11 +243,11 @@ export default function McpAudit(): JSX.Element {
                     <div className="flex flex-wrap items-center gap-2 mb-1">
                       <span className="font-display font-semibold text-slate-900 dark:text-slate-100">{f.title}</span>
                       <span
-                        className={`text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${SEV_STYLES[f.severity]}`}
+                        className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${SEV_STYLES[f.severity]}`}
                       >
                         {f.severity}
                       </span>
-                      <code className="text-[11px] font-mono text-slate-500 dark:text-slate-400">{f.scope}</code>
+                      <code className="text-mini font-mono text-slate-500 dark:text-slate-400">{f.scope}</code>
                     </div>
                     <p className="text-sm font-mono text-slate-600 dark:text-slate-400 mb-1.5">{f.detail}</p>
                     <p className="text-xs font-mono text-emerald-700 dark:text-emerald-400">→ {f.remediation}</p>

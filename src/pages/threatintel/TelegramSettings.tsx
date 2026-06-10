@@ -94,7 +94,7 @@ export default function TelegramSettings(): JSX.Element {
 
       <form
         onSubmit={addChannel}
-        className="mb-8 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5"
+        className="mb-8 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-5"
       >
         <h2 className="font-display font-semibold text-sm mb-3">Add a channel</h2>
         <div className="flex flex-wrap gap-3">
@@ -102,13 +102,13 @@ export default function TelegramSettings(): JSX.Element {
             value={handle}
             onChange={(e) => setHandle(e.target.value)}
             placeholder="handle (e.g. IntCyberDigest)"
-            className="flex-1 min-w-[180px] px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-sm font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500/40"
+            className="flex-1 min-w-[180px] px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-sm font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40"
           />
           <input
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder="display name (optional)"
-            className="flex-1 min-w-[140px] px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-sm font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500/40"
+            className="flex-1 min-w-[140px] px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-sm font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40"
           />
           <button
             type="submit"
@@ -120,7 +120,7 @@ export default function TelegramSettings(): JSX.Element {
           </button>
         </div>
         {addError && <p className="mt-2 text-xs font-mono text-rose-600 dark:text-rose-400">{addError}</p>}
-        <p className="mt-2 text-[10px] font-mono text-slate-400">
+        <p className="mt-2 text-micro font-mono text-slate-400">
           Channel is checked on the next feed refresh (cached up to 30 min).
         </p>
       </form>
@@ -164,7 +164,7 @@ export default function TelegramSettings(): JSX.Element {
               <div className="min-w-0">
                 <span className="font-display font-semibold text-sm">{ch.name}</span>
                 <code className="ml-2 text-xs font-mono text-slate-500">@{ch.handle}</code>
-                <p className="text-[10px] font-mono text-slate-400 mt-0.5">
+                <p className="text-micro font-mono text-slate-400 mt-0.5">
                   added {new Date(ch.added_at).toLocaleDateString()}
                 </p>
               </div>

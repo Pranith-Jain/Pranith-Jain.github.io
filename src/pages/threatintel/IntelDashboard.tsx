@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
 import { DataState } from '../../components/DataState';
 import { MaturityPanel } from '../../components/threatintel/MaturityPanel';
@@ -20,28 +21,56 @@ interface DashboardData {
 const SOURCES = [
   {
     key: 'ransomware',
+    href: '/threatintel/ransomware-activity',
     label: 'Ransomware',
     icon: AlertTriangle,
     desc: 'Victim claims, leak-site activity, extortion tracking',
   },
-  { key: 'cve', label: 'CVE & Vulns', icon: Bug, desc: 'NVD, CISA KEV, MyThreatIntel, cvefeed.io' },
-  { key: 'phishing', label: 'Phishing URLs', icon: Target, desc: 'OpenPhish + PhishTank — 80+ targeted brands' },
-  { key: 'malware', label: 'Malware Samples', icon: Radio, desc: 'MalwareBazaar — hashes, signatures, tags' },
+  {
+    key: 'cve',
+    href: '/threatintel/cve-list',
+    label: 'CVE & Vulns',
+    icon: Bug,
+    desc: 'NVD, CISA KEV, MyThreatIntel, cvefeed.io',
+  },
+  {
+    key: 'phishing',
+    href: '/dfir/phishing',
+    label: 'Phishing URLs',
+    icon: Target,
+    desc: 'OpenPhish + PhishTank — 80+ targeted brands',
+  },
+  {
+    key: 'malware',
+    href: '/threatintel/malware-vault',
+    label: 'Malware Samples',
+    icon: Radio,
+    desc: 'MalwareBazaar — hashes, signatures, tags',
+  },
   {
     key: 'telegram',
+    href: '/threatintel/cybersec',
     label: 'Telegram Intel',
     icon: Globe2,
     desc: '22 channels + custom — IOC drops, leak announcements',
   },
   {
     key: 'telegram_leaks',
+    href: '/threatintel/telegram-leaks',
     label: 'Leak Monitor',
     icon: Shield,
     desc: 'Credential leaks, file drops, auto-scanned channels',
   },
-  { key: 'breach', label: 'Breach Database', icon: Activity, desc: '7 breach sources — email + domain search' },
+  {
+    key: 'breach',
+    href: '/threatintel/breach',
+    label: 'Breach Database',
+    icon: Activity,
+    desc: '7 breach sources — email + domain search',
+  },
   {
     key: 'ioc',
+    href: '/threatintel/correlation',
     label: 'IOC Correlation',
     icon: TrendingUp,
     desc: '21 sources cross-referenced — high-signal indicators',
@@ -108,30 +137,30 @@ export default function IntelDashboard(): JSX.Element {
           <div className="space-y-8">
             {/* KPI row */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-              <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
-                <p className="text-[11px] font-mono text-slate-500 dark:text-slate-400 mb-1">Leaks indexed</p>
+              <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
+                <p className="text-mini font-mono text-slate-500 dark:text-slate-400 mb-1">Leaks indexed</p>
                 <p className="text-2xl font-bold font-display">{data.telegram_monitor.total_leaks}</p>
-                <p className="text-[11px] text-slate-400 mt-0.5">{data.telegram_monitor.leaks_24h} in 24h</p>
+                <p className="text-mini text-slate-400 mt-0.5">{data.telegram_monitor.leaks_24h} in 24h</p>
               </div>
-              <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
-                <p className="text-[11px] font-mono text-slate-500 dark:text-slate-400 mb-1">Watched channels</p>
+              <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
+                <p className="text-mini font-mono text-slate-500 dark:text-slate-400 mb-1">Watched channels</p>
                 <p className="text-2xl font-bold font-display">{data.telegram_monitor.watched_channels}</p>
-                <p className="text-[11px] text-slate-400 mt-0.5">
+                <p className="text-mini text-slate-400 mt-0.5">
                   {data.telegram_monitor.unreviewed_channels} unreviewed
                 </p>
               </div>
-              <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
-                <p className="text-[11px] font-mono text-slate-500 dark:text-slate-400 mb-1">New leaks (7d)</p>
+              <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
+                <p className="text-mini font-mono text-slate-500 dark:text-slate-400 mb-1">New leaks (7d)</p>
                 <p className="text-2xl font-bold font-display">{data.leaks_7d}</p>
               </div>
-              <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
-                <p className="text-[11px] font-mono text-slate-500 dark:text-slate-400 mb-1">Feed health</p>
+              <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
+                <p className="text-mini font-mono text-slate-500 dark:text-slate-400 mb-1">Feed health</p>
                 <p
                   className={`text-2xl font-bold font-display ${data.feed_health === 'ok' ? 'text-emerald-500' : data.feed_health === 'degraded' ? 'text-amber-500' : 'text-rose-500'}`}
                 >
                   {data.feed_health}
                 </p>
-                <p className="text-[11px] text-slate-400 mt-0.5">{data.feed_count} sources</p>
+                <p className="text-mini text-slate-400 mt-0.5">{data.feed_count} sources</p>
               </div>
             </div>
 
@@ -152,28 +181,24 @@ export default function IntelDashboard(): JSX.Element {
                 {SOURCES.map((s) => {
                   const Icon = s.icon;
                   return (
-                    <a
-                      key={s.key}
-                      href={`/threatintel${s.key === 'telegram_leaks' ? '/telegram-leaks' : s.key === 'telegram' ? '' : s.key === 'breach' ? '/breach' : ''}`}
-                      className="block rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 hover:border-brand-500/40 transition-colors group"
-                    >
+                    <Link key={s.key} to={s.href} className="surface-card card-hover block p-4 group">
                       <div className="flex items-start gap-3">
                         <Icon size={18} className="text-brand-600 dark:text-brand-400 shrink-0 mt-0.5" />
                         <div>
                           <h3 className="font-display font-semibold text-sm group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
                             {s.label}
                           </h3>
-                          <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5 leading-relaxed">{s.desc}</p>
+                          <p className="text-meta text-muted mt-0.5 leading-relaxed">{s.desc}</p>
                         </div>
                       </div>
-                    </a>
+                    </Link>
                   );
                 })}
               </div>
             </section>
 
             {/* Quick links */}
-            <section className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+            <section className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-5">
               <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-3">
                 Quick Actions
               </h2>
@@ -183,9 +208,9 @@ export default function IntelDashboard(): JSX.Element {
                   { label: 'Leak Stats', href: '/threatintel/telegram-leaks/stats' },
                   { label: 'Discovered Channels', href: '/threatintel/telegram-leaks/channels' },
                   { label: 'Breach Search', href: '/threatintel/breach' },
-                  { label: 'IOC Correlation', href: '/threatintel/ioc-correlation' },
+                  { label: 'IOC Correlation', href: '/threatintel/correlation' },
                   { label: 'Threat Map', href: '/threatintel/threat-map' },
-                  { label: 'Feed Status', href: '/threatintel/feed-status' },
+                  { label: 'Feed Status', href: '/threatintel/status' },
                   { label: 'Live IOCs', href: '/threatintel/live-iocs' },
                   { label: 'Ransomware', href: '/threatintel/ransomware-activity' },
                   { label: 'CVE List', href: '/threatintel/cve-list' },
@@ -200,13 +225,13 @@ export default function IntelDashboard(): JSX.Element {
                   { label: 'Assessments', href: '/threatintel/assessments' },
                   { label: 'Entity Resolution', href: '/threatintel/relationship-graph' },
                 ].map((link) => (
-                  <a
+                  <Link
                     key={link.href}
-                    href={link.href}
-                    className="text-[11px] font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+                    to={link.href}
+                    className="text-mini font-mono px-2.5 py-1.5 rounded-md border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
                   >
                     {link.label}
-                  </a>
+                  </Link>
                 ))}
               </div>
             </section>

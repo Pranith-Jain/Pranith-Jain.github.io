@@ -25,7 +25,7 @@ export function AppHero({
         className="pointer-events-none absolute -top-24 -right-16 h-56 w-56 rounded-full bg-brand-500/10 blur-3xl dark:bg-brand-400/10"
       />
       <div className="relative">
-        <div className="text-[11px] font-mono uppercase tracking-[0.18em] text-brand-600 dark:text-brand-400 mb-2 sm:mb-3 inline-flex items-center gap-2">
+        <div className="text-mini font-mono uppercase tracking-[0.18em] text-brand-600 dark:text-brand-400 mb-2 sm:mb-3 inline-flex items-center gap-2">
           <Lock size={12} aria-hidden="true" /> {kicker}
         </div>
         <h1 className="font-display font-bold text-2xl sm:text-4xl lg:text-[2.75rem] leading-[1.1] tracking-tight">
@@ -35,7 +35,7 @@ export function AppHero({
         <p className="text-slate-600 dark:text-slate-300 mt-3 sm:mt-4 max-w-3xl text-[14px] sm:text-base leading-relaxed">
           {sub}
         </p>
-        {meta && <div className="mt-3 sm:mt-5 font-mono text-[12px] text-slate-500 leading-relaxed">{meta}</div>}
+        {meta && <div className="mt-3 sm:mt-5 font-mono text-meta text-slate-500 leading-relaxed">{meta}</div>}
       </div>
     </section>
   );

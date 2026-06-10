@@ -154,7 +154,7 @@ function typeFromQuery(q: string): 'ip' | 'domain' | null {
 function Stat({ label, value }: { label: string; value: string }) {
   return (
     <div>
-      <div className="font-mono text-[10px] uppercase tracking-wider text-slate-400 dark:text-slate-500">{label}</div>
+      <div className="font-mono text-micro uppercase tracking-wider text-slate-400 dark:text-slate-500">{label}</div>
       <div className="font-mono text-sm text-slate-900 dark:text-slate-100 mt-0.5 break-all">{value}</div>
     </div>
   );
@@ -200,7 +200,7 @@ function HostIntelPanel({ data }: { data: HostIntel }) {
 
       {data.open_ports.length > 0 && (
         <div className="mt-4">
-          <div className="font-mono text-[10px] uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-1.5">
+          <div className="font-mono text-micro uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-1.5">
             Ports
           </div>
           <div className="flex flex-wrap gap-1.5">
@@ -221,7 +221,7 @@ function HostIntelPanel({ data }: { data: HostIntel }) {
           {data.risk_tags.map((t) => (
             <span
               key={t}
-              className="font-mono text-[10px] px-1.5 py-0.5 rounded border text-rose-600 dark:text-rose-400 border-rose-300/50 dark:border-rose-500/30"
+              className="font-mono text-micro px-1.5 py-0.5 rounded border text-rose-600 dark:text-rose-400 border-rose-300/50 dark:border-rose-500/30"
             >
               {t}
             </span>
@@ -292,7 +292,7 @@ function WhoisPanel({ data }: { data: HistoryResult }) {
             >
               <div className="flex items-center gap-2 mb-1">
                 <Icon size={14} className="text-slate-400" />
-                <span className="text-[11px] font-mono uppercase text-slate-500">{label}</span>
+                <span className="text-mini font-mono uppercase text-slate-500">{label}</span>
               </div>
               <span className="text-2xl font-mono font-bold">{value}</span>
             </div>
@@ -439,7 +439,7 @@ function WhoisPanel({ data }: { data: HistoryResult }) {
                       <ExternalLink size={12} />
                     </a>
                   </div>
-                  <div className="mt-1 flex flex-wrap gap-2 text-[11px]">
+                  <div className="mt-1 flex flex-wrap gap-2 text-mini">
                     <span className="px-1.5 py-0.5 rounded bg-brand-50 dark:bg-brand-950/20 text-brand-700 dark:text-brand-300">
                       {d.match_reason.replace(/_/g, ' ')}
                     </span>
@@ -458,7 +458,7 @@ function WhoisPanel({ data }: { data: HistoryResult }) {
         <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
           <h3 className="font-display font-bold text-lg mb-3">
             Detected Changes
-            <span className="ml-2 px-1.5 py-0.5 rounded-full text-[10px] bg-rose-100 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400 align-middle">
+            <span className="ml-2 px-1.5 py-0.5 rounded-full text-micro bg-rose-100 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400 align-middle">
               {data.changes.length}
             </span>
           </h3>

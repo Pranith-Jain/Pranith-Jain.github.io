@@ -118,7 +118,7 @@ export default function AtlasMatrix(): JSX.Element {
       <div className="max-w-7xl mx-auto">
         <BackLink
           to="/threatintel"
-          className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:text-brand-400 mb-8 font-mono"
+          className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
         >
           <ArrowLeft size={14} /> back
         </BackLink>
@@ -183,10 +183,10 @@ export default function AtlasMatrix(): JSX.Element {
                     className="block"
                     title={tactic.description}
                   >
-                    <div className="text-[10px] font-mono text-brand-600 dark:text-brand-400 font-bold uppercase tracking-wider">
+                    <div className="text-micro font-mono text-brand-600 dark:text-brand-400 font-bold uppercase tracking-wider">
                       {tactic.id}
                     </div>
-                    <div className="text-sm font-mono font-semibold text-slate-900 dark:text-slate-100 flex items-center gap-1 hover:text-brand-600 dark:text-brand-400 transition-colors mt-0.5">
+                    <div className="text-sm font-mono font-semibold text-slate-900 dark:text-slate-100 flex items-center gap-1 hover:text-brand-600 dark:hover:text-brand-400 transition-colors mt-0.5">
                       {tactic.name}
                       <ExternalLink size={10} className="opacity-50 flex-shrink-0" />
                     </div>
@@ -214,12 +214,12 @@ export default function AtlasMatrix(): JSX.Element {
                         ].join(' ')}
                         title={technique.description ?? technique.name}
                       >
-                        <div className="text-[10px] font-mono text-slate-600 dark:text-slate-400">{technique.id}</div>
+                        <div className="text-micro font-mono text-slate-600 dark:text-slate-400">{technique.id}</div>
                         <div className="text-xs font-medium text-slate-900 dark:text-slate-100 leading-tight line-clamp-2 mt-0.5">
                           {technique.name}
                         </div>
                         {technique.subtechniques && technique.subtechniques.length > 0 && (
-                          <div className="mt-1 text-[10px] font-mono text-slate-500 dark:text-slate-400">
+                          <div className="mt-1 text-micro font-mono text-slate-500 dark:text-slate-400">
                             +{technique.subtechniques.length} sub-techniques
                           </div>
                         )}
@@ -252,7 +252,7 @@ export default function AtlasMatrix(): JSX.Element {
           >
             <div className="sticky top-0 z-10 flex items-center justify-between gap-4 px-6 py-4 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
               <div className="min-w-0">
-                <span className="text-[10px] font-mono uppercase tracking-wider text-brand-600 dark:text-brand-400">
+                <span className="text-micro font-mono uppercase tracking-wider text-brand-600 dark:text-brand-400">
                   {selectedId}
                 </span>
                 <h2
@@ -322,7 +322,7 @@ export default function AtlasMatrix(): JSX.Element {
                     href={sanitizeUrl(detail.technique.url) || undefined}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/60 text-slate-900 dark:text-slate-100 hover:border-brand-500 hover:text-brand-600 dark:text-brand-400 transition-colors"
+                    className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/60 text-slate-900 dark:text-slate-100 hover:border-brand-500 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
                   >
                     Open on atlas.mitre.org <ExternalLink size={12} />
                   </a>

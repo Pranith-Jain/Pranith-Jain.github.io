@@ -26,7 +26,7 @@ function PhaseHeader({
         <span className="block font-display font-semibold text-slate-900 dark:text-slate-100">{phase.name}</span>
         <span className="block text-xs font-mono text-slate-600 dark:text-slate-400 truncate">{phase.short}</span>
       </span>
-      <span className="flex-none text-[10px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
+      <span className="flex-none text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
         {phase.techniques.length} techniques
       </span>
       {expanded ? (
@@ -46,13 +46,13 @@ function PhaseBody({ phase }: { phase: KillChainPhase }): JSX.Element {
 
         <div className="grid gap-3 md:grid-cols-2">
           <div className="rounded border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3">
-            <h4 className="text-[10px] font-mono uppercase tracking-[0.2em] text-rose-600 dark:text-rose-400 mb-1">
+            <h4 className="text-micro font-mono uppercase tracking-[0.2em] text-rose-600 dark:text-rose-400 mb-1">
               Attacker goal
             </h4>
             <p className="text-xs font-mono text-slate-700 dark:text-slate-300 leading-relaxed">{phase.attackerGoal}</p>
           </div>
           <div className="rounded border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3">
-            <h4 className="text-[10px] font-mono uppercase tracking-[0.2em] text-emerald-600 dark:text-emerald-400 mb-1">
+            <h4 className="text-micro font-mono uppercase tracking-[0.2em] text-emerald-600 dark:text-emerald-400 mb-1">
               Defender goal
             </h4>
             <p className="text-xs font-mono text-slate-700 dark:text-slate-300 leading-relaxed">{phase.defenderGoal}</p>
@@ -60,7 +60,7 @@ function PhaseBody({ phase }: { phase: KillChainPhase }): JSX.Element {
         </div>
 
         <div>
-          <h4 className="text-[10px] font-mono uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 mb-2">
+          <h4 className="text-micro font-mono uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 mb-2">
             Techniques
           </h4>
           <div className="grid gap-2 sm:grid-cols-2">
@@ -76,14 +76,14 @@ function PhaseBody({ phase }: { phase: KillChainPhase }): JSX.Element {
                   {t.attack && (
                     <Link
                       to={`/threatintel/mitre?id=${encodeURIComponent(t.attack)}`}
-                      className="text-[10px] font-mono px-1.5 py-0.5 rounded border border-brand-500/30 bg-brand-500/10 text-brand-700 dark:text-brand-300 hover:border-brand-500/60"
+                      className="text-micro font-mono px-1.5 py-0.5 rounded border border-brand-500/30 bg-brand-500/10 text-brand-700 dark:text-brand-300 hover:border-brand-500/60"
                       title={`Open ${t.attack} in MITRE ATT&CK`}
                     >
                       {t.attack}
                     </Link>
                   )}
                 </div>
-                <p className="text-[11px] font-mono text-slate-600 dark:text-slate-400 leading-relaxed">{t.example}</p>
+                <p className="text-mini font-mono text-slate-600 dark:text-slate-400 leading-relaxed">{t.example}</p>
               </div>
             ))}
           </div>
@@ -91,20 +91,20 @@ function PhaseBody({ phase }: { phase: KillChainPhase }): JSX.Element {
 
         <div className="grid gap-3 md:grid-cols-2">
           <div className="rounded border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3">
-            <h4 className="text-[10px] font-mono uppercase tracking-[0.2em] text-sky-600 dark:text-sky-400 mb-2">
+            <h4 className="text-micro font-mono uppercase tracking-[0.2em] text-sky-600 dark:text-sky-400 mb-2">
               Detection
             </h4>
-            <ul className="space-y-1 text-[11px] font-mono text-slate-700 dark:text-slate-300 leading-relaxed list-disc pl-4">
+            <ul className="space-y-1 text-mini font-mono text-slate-700 dark:text-slate-300 leading-relaxed list-disc pl-4">
               {phase.detection.map((d) => (
                 <li key={d}>{d}</li>
               ))}
             </ul>
           </div>
           <div className="rounded border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3">
-            <h4 className="text-[10px] font-mono uppercase tracking-[0.2em] text-emerald-600 dark:text-emerald-400 mb-2">
+            <h4 className="text-micro font-mono uppercase tracking-[0.2em] text-emerald-600 dark:text-emerald-400 mb-2">
               Controls
             </h4>
-            <ul className="space-y-1 text-[11px] font-mono text-slate-700 dark:text-slate-300 leading-relaxed list-disc pl-4">
+            <ul className="space-y-1 text-mini font-mono text-slate-700 dark:text-slate-300 leading-relaxed list-disc pl-4">
               {phase.controls.map((c) => (
                 <li key={c}>{c}</li>
               ))}

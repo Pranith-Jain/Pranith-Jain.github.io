@@ -225,7 +225,7 @@ export default function PcapTriage(): JSX.Element {
         <p className="text-sm font-mono text-slate-700 dark:text-slate-300">
           Drop a capture file file here, or click to choose
         </p>
-        <p className="text-[11px] font-mono text-slate-500 mt-1">100% client-side. No upload.</p>
+        <p className="text-mini font-mono text-slate-500 mt-1">100% client-side. No upload.</p>
       </button>
       <input
         id="pcaptriage-input"
@@ -267,12 +267,12 @@ export default function PcapTriage(): JSX.Element {
                 key={k}
                 className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3"
               >
-                <div className="text-[10px] font-mono uppercase tracking-wider text-slate-500">{k}</div>
+                <div className="text-micro font-mono uppercase tracking-wider text-slate-500">{k}</div>
                 <div className="font-mono text-sm">{v}</div>
               </div>
             ))}
           </div>
-          <div className="font-mono text-[11px] text-slate-500">span: {s.span}</div>
+          <div className="font-mono text-mini text-slate-500">span: {s.span}</div>
 
           <Block title="Protocols" rows={Object.entries(s.proto).sort((a, b) => b[1] - a[1])} />
           <Block title="Top talkers (IP · packets)" rows={s.talkers} />
@@ -289,8 +289,8 @@ function Block({ title, rows }: { title: string; rows: Array<[string, number]> }
   if (rows.length === 0) return null;
   return (
     <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3">
-      <div className="text-[10px] font-mono uppercase tracking-wider text-slate-500 mb-2">{title}</div>
-      <ul className="font-mono text-[12px] space-y-0.5">
+      <div className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-2">{title}</div>
+      <ul className="font-mono text-meta space-y-0.5">
         {rows.map(([k, v]) => (
           <li key={k} className="flex justify-between gap-4">
             <span className="truncate text-slate-700 dark:text-slate-300">{k}</span>
@@ -305,12 +305,12 @@ function Block({ title, rows }: { title: string; rows: Array<[string, number]> }
 function List({ title, items }: { title: string; items: string[] }) {
   return (
     <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3">
-      <div className="text-[10px] font-mono uppercase tracking-wider text-slate-500 mb-2">{title}</div>
+      <div className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-2">{title}</div>
       <div className="flex flex-wrap gap-1.5">
         {items.map((i) => (
           <span
             key={i}
-            className="font-mono text-[11px] px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 break-all"
+            className="font-mono text-mini px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 break-all"
           >
             {i}
           </span>

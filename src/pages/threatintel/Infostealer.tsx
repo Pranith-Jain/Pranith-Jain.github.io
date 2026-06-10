@@ -166,7 +166,7 @@ interface SfiResponse {
 
 function RawJson({ value }: { value: unknown }) {
   return (
-    <pre className="rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 p-3 overflow-auto font-mono text-[11px] text-slate-700 dark:text-slate-300 max-h-[55vh]">
+    <pre className="rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 p-3 overflow-auto font-mono text-mini text-slate-700 dark:text-slate-300 max-h-[55vh]">
       {JSON.stringify(value, null, 2)}
     </pre>
   );
@@ -401,7 +401,7 @@ export default function Infostealer(): JSX.Element {
               key={t.id}
               type="button"
               onClick={() => setTab(t.id)}
-              className={`inline-flex items-center gap-1.5 px-3 py-2 font-mono text-[12px] border-b-2 -mb-px ${
+              className={`inline-flex items-center gap-1.5 px-3 py-2 font-mono text-meta border-b-2 -mb-px ${
                 tab === t.id
                   ? 'border-brand-500 text-brand-700 dark:text-brand-300'
                   : 'border-transparent text-slate-500 hover:text-slate-800 dark:hover:text-slate-200'
@@ -414,7 +414,7 @@ export default function Infostealer(): JSX.Element {
         })}
       </div>
 
-      <p className="font-mono text-[11px] text-slate-500 mb-4">{TABS.find((t) => t.id === tab)?.blurb ?? ''}</p>
+      <p className="font-mono text-mini text-slate-500 mb-4">{TABS.find((t) => t.id === tab)?.blurb ?? ''}</p>
 
       {loading && (
         <p role="status" aria-live="polite" className="font-mono text-sm text-slate-500">
@@ -439,7 +439,7 @@ export default function Infostealer(): JSX.Element {
                   return (
                     <li
                       key={`raw-${i}`}
-                      className="rounded-lg border border-slate-200 dark:border-slate-800 p-3 font-mono text-[12px]"
+                      className="rounded-lg border border-slate-200 dark:border-slate-800 p-3 font-mono text-meta"
                     >
                       {String(row)}
                     </li>
@@ -454,11 +454,9 @@ export default function Infostealer(): JSX.Element {
                   >
                     <div className="font-display font-semibold text-sm truncate">{title}</div>
                     {sub && (
-                      <p className="font-mono text-[11px] text-slate-600 dark:text-slate-400 mt-1 line-clamp-2">
-                        {sub}
-                      </p>
+                      <p className="font-mono text-mini text-slate-600 dark:text-slate-400 mt-1 line-clamp-2">{sub}</p>
                     )}
-                    {date && <p className="font-mono text-[10px] text-slate-400 mt-1">{date}</p>}
+                    {date && <p className="font-mono text-micro text-slate-400 mt-1">{date}</p>}
                   </li>
                 );
               })}
@@ -493,14 +491,12 @@ export default function Infostealer(): JSX.Element {
                   <Copy size={11} />
                 </button>
               </div>
-              {m.description && (
-                <p className="font-mono text-[11px] text-slate-500 mt-1 line-clamp-2">{m.description}</p>
-              )}
-              {m.published && <p className="font-mono text-[10px] text-slate-400 mt-1">{m.published}</p>}
+              {m.description && <p className="font-mono text-mini text-slate-500 mt-1 line-clamp-2">{m.description}</p>}
+              {m.published && <p className="font-mono text-micro text-slate-400 mt-1">{m.published}</p>}
             </li>
           ))}
           {markets && markets.length === 0 && (
-            <li className="font-mono text-[12px] text-slate-500">No log-market threads in the current feed window.</li>
+            <li className="font-mono text-meta text-slate-500">No log-market threads in the current feed window.</li>
           )}
         </ul>
       )}
@@ -515,7 +511,7 @@ export default function Infostealer(): JSX.Element {
               <div className="flex items-center justify-between gap-2">
                 <span className="font-display font-semibold text-sm truncate">{c.name}</span>
                 <span
-                  className={`shrink-0 rounded border px-1.5 py-0.5 font-mono text-[9px] uppercase ${
+                  className={`shrink-0 rounded border px-1.5 py-0.5 font-mono text-micro uppercase ${
                     c.status === 'online' || c.status === 'valid'
                       ? 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300'
                       : 'border-slate-400/40 bg-slate-400/10 text-slate-500'
@@ -525,7 +521,7 @@ export default function Infostealer(): JSX.Element {
                 </span>
               </div>
               <div className="flex items-center gap-2 mt-1">
-                <code className="font-mono text-[11px] text-slate-600 dark:text-slate-400 break-all">{c.url}</code>
+                <code className="font-mono text-mini text-slate-600 dark:text-slate-400 break-all">{c.url}</code>
                 <button
                   type="button"
                   onClick={() => copy(c.url)}
@@ -535,11 +531,11 @@ export default function Infostealer(): JSX.Element {
                   <Copy size={11} />
                 </button>
               </div>
-              {c.notes && <p className="font-mono text-[11px] text-slate-500 mt-1 line-clamp-2">{c.notes}</p>}
+              {c.notes && <p className="font-mono text-mini text-slate-500 mt-1 line-clamp-2">{c.notes}</p>}
             </li>
           ))}
           {tg && tg.length === 0 && (
-            <li className="font-mono text-[12px] text-slate-500">
+            <li className="font-mono text-meta text-slate-500">
               deepdarkCTI infostealer-Telegram category unavailable.
             </li>
           )}
@@ -554,17 +550,17 @@ export default function Infostealer(): JSX.Element {
               className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3"
             >
               <div className="flex items-center justify-between gap-2">
-                <span className="rounded border border-rose-500/40 bg-rose-500/10 px-1.5 py-0.5 font-mono text-[10px] uppercase text-rose-700 dark:text-rose-300">
+                <span className="rounded border border-rose-500/40 bg-rose-500/10 px-1.5 py-0.5 font-mono text-micro uppercase text-rose-700 dark:text-rose-300">
                   {s.family}
                 </span>
-                {s.file_type && <span className="font-mono text-[10px] text-slate-400">{s.file_type}</span>}
+                {s.file_type && <span className="font-mono text-micro text-slate-400">{s.file_type}</span>}
               </div>
               <div className="flex items-center gap-2 mt-1">
                 <a
                   href={sanitizeUrl(s.url)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-mono text-[11px] text-brand-600 dark:text-brand-400 hover:underline break-all"
+                  className="font-mono text-mini text-brand-600 dark:text-brand-400 hover:underline break-all"
                 >
                   {s.sha256.slice(0, 32)}…
                 </a>
@@ -577,13 +573,13 @@ export default function Infostealer(): JSX.Element {
                   <Copy size={11} />
                 </button>
               </div>
-              <p className="font-mono text-[10px] text-slate-400 mt-1">
+              <p className="font-mono text-micro text-slate-400 mt-1">
                 {s.reporter ? `by ${s.reporter}` : ''} {s.first_seen ?? ''}
               </p>
             </li>
           ))}
           {samples && samples.length === 0 && (
-            <li className="font-mono text-[12px] text-slate-500">
+            <li className="font-mono text-meta text-slate-500">
               No known-family stealer samples in the current MalwareBazaar window.
             </li>
           )}
@@ -598,15 +594,15 @@ export default function Infostealer(): JSX.Element {
               className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3"
             >
               <div className="flex items-center justify-between gap-2">
-                <span className="rounded border border-rose-500/40 bg-rose-500/10 px-1.5 py-0.5 font-mono text-[10px] uppercase text-rose-700 dark:text-rose-300">
+                <span className="rounded border border-rose-500/40 bg-rose-500/10 px-1.5 py-0.5 font-mono text-micro uppercase text-rose-700 dark:text-rose-300">
                   {x.family}
                 </span>
-                <span className="font-mono text-[10px] text-slate-400">
+                <span className="font-mono text-micro text-slate-400">
                   {x.kind} · {x.source}
                 </span>
               </div>
               <div className="flex items-center gap-2 mt-1">
-                <code className="font-mono text-[11px] text-slate-600 dark:text-slate-400 break-all">{x.value}</code>
+                <code className="font-mono text-mini text-slate-600 dark:text-slate-400 break-all">{x.value}</code>
                 <button
                   type="button"
                   onClick={() => copy(x.value)}
@@ -616,11 +612,11 @@ export default function Infostealer(): JSX.Element {
                   <Copy size={11} />
                 </button>
               </div>
-              {x.observed_at && <p className="font-mono text-[10px] text-slate-400 mt-1">{x.observed_at}</p>}
+              {x.observed_at && <p className="font-mono text-micro text-slate-400 mt-1">{x.observed_at}</p>}
             </li>
           ))}
           {c2 && c2.length === 0 && (
-            <li className="font-mono text-[12px] text-slate-500">
+            <li className="font-mono text-meta text-slate-500">
               No infostealer-attributed indicators in the current live-IOC window.
             </li>
           )}
@@ -643,14 +639,14 @@ export default function Infostealer(): JSX.Element {
                     {fam.name}
                   </Link>
                   {fam.aliases.length > 0 && (
-                    <span className="ml-2 text-[11px] font-mono text-slate-500">aka {fam.aliases.join(', ')}</span>
+                    <span className="ml-2 text-mini font-mono text-slate-500">aka {fam.aliases.join(', ')}</span>
                   )}
                 </div>
                 <div className="flex items-center gap-2 shrink-0">
-                  <span className="text-[10px] font-mono text-slate-400 border border-slate-200 dark:border-slate-700 rounded px-1.5 py-0.5">
+                  <span className="text-micro font-mono text-slate-400 border border-slate-200 dark:border-slate-700 rounded px-1.5 py-0.5">
                     {fam.firstSeen}
                   </span>
-                  <span className="text-[10px] font-mono text-slate-400">{fam.platforms.join('/')}</span>
+                  <span className="text-micro font-mono text-slate-400">{fam.platforms.join('/')}</span>
                 </div>
               </summary>
               <div className="px-4 pb-4 border-t border-slate-200 dark:border-slate-800 pt-3 space-y-3">
@@ -660,7 +656,7 @@ export default function Infostealer(): JSX.Element {
                   {fam.capabilities.map((c) => (
                     <span
                       key={c}
-                      className="text-[10px] font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-slate-600 dark:text-slate-400"
+                      className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-slate-600 dark:text-slate-400"
                     >
                       {c}
                     </span>
@@ -669,12 +665,12 @@ export default function Infostealer(): JSX.Element {
 
                 {fam.actors.length > 0 && (
                   <div className="flex items-center gap-2 flex-wrap">
-                    <span className="text-[10px] font-mono uppercase tracking-wider text-slate-500">Actors:</span>
+                    <span className="text-micro font-mono uppercase tracking-wider text-slate-500">Actors:</span>
                     {fam.actors.map((a) => (
                       <Link
                         key={a}
                         to={`/threatintel/actors/${a.toLowerCase().replace(/\s+/g, '-')}`}
-                        className="text-[11px] font-mono px-1.5 py-0.5 rounded border border-rose-500/30 bg-rose-500/5 text-rose-700 dark:text-rose-300 hover:bg-rose-500/10"
+                        className="text-mini font-mono px-1.5 py-0.5 rounded border border-rose-500/30 bg-rose-500/5 text-rose-700 dark:text-rose-300 hover:bg-rose-500/10"
                       >
                         {a}
                       </Link>
@@ -682,7 +678,7 @@ export default function Infostealer(): JSX.Element {
                   </div>
                 )}
 
-                <div className="flex flex-wrap items-center gap-3 text-[11px] font-mono">
+                <div className="flex flex-wrap items-center gap-3 text-mini font-mono">
                   {fam.malpediaUrl && (
                     <a
                       href={fam.malpediaUrl}
@@ -707,21 +703,21 @@ export default function Infostealer(): JSX.Element {
 
       {!loading && tab === 'combo' && (
         <div className="space-y-5">
-          <div className="rounded-lg border border-amber-500/40 bg-amber-500/10 p-3 font-mono text-[11px] text-amber-700 dark:text-amber-300">
+          <div className="rounded-lg border border-amber-500/40 bg-amber-500/10 p-3 font-mono text-mini text-amber-700 dark:text-amber-300">
             Defensive intelligence only. This tab tracks <strong>where</strong> combolist / stealer-log activity lives
             and <strong>that</strong> it is being discussed — directory metadata and public permalinks. It never
             fetches, parses, or displays stolen credentials or breach contents.
           </div>
 
           {!sfi && (
-            <p className="font-mono text-[12px] text-slate-500">
+            <p className="font-mono text-meta text-slate-500">
               Forum-intel cache is cold — visit again shortly once it warms.
             </p>
           )}
 
           {sfi && (
             <>
-              <p className="font-mono text-[11px] text-slate-500">
+              <p className="font-mono text-mini text-slate-500">
                 {sfi.totals.tracked_sources} tracked sources across {sfi.totals.categories} categories · telegram
                 chatter hits: {sfi.chatter.telegram.matches} · reddit: {sfi.chatter.reddit.matches}
               </p>
@@ -729,7 +725,7 @@ export default function Infostealer(): JSX.Element {
               {sfi.forums.map((g) => (
                 <div key={g.category}>
                   <h3 className="font-display font-semibold text-sm mb-2">
-                    {g.category} <span className="font-mono text-[11px] text-slate-500">· {g.count}</span>
+                    {g.category} <span className="font-mono text-mini text-slate-500">· {g.count}</span>
                   </h3>
                   <ul className="grid gap-2 md:grid-cols-2">
                     {g.entries.slice(0, 60).map((e, i) => (
@@ -743,12 +739,12 @@ export default function Infostealer(): JSX.Element {
                           </span>
                           <span className="flex items-center gap-1 shrink-0">
                             {e.onion && (
-                              <span className="rounded border border-slate-400/40 bg-slate-400/10 px-1 py-0.5 font-mono text-[9px] uppercase text-slate-500">
+                              <span className="rounded border border-slate-400/40 bg-slate-400/10 px-1 py-0.5 font-mono text-micro uppercase text-slate-500">
                                 onion
                               </span>
                             )}
                             <span
-                              className={`rounded border px-1.5 py-0.5 font-mono text-[9px] uppercase ${
+                              className={`rounded border px-1.5 py-0.5 font-mono text-micro uppercase ${
                                 e.status === 'online' || e.status === 'valid'
                                   ? 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300'
                                   : 'border-slate-400/40 bg-slate-400/10 text-slate-500'
@@ -759,7 +755,7 @@ export default function Infostealer(): JSX.Element {
                           </span>
                         </div>
                         <div className="flex items-center gap-2 mt-1">
-                          <code className="font-mono text-[11px] text-slate-600 dark:text-slate-400 break-all">
+                          <code className="font-mono text-mini text-slate-600 dark:text-slate-400 break-all">
                             {e.url}
                           </code>
                           <button
@@ -784,19 +780,19 @@ export default function Infostealer(): JSX.Element {
                   <div key={src}>
                     <h3 className="font-display font-semibold text-sm mb-2 capitalize">
                       {src} combo/stealer chatter{' '}
-                      <span className="font-mono text-[11px] text-slate-500">· {block.matches} matches</span>
+                      <span className="font-mono text-mini text-slate-500">· {block.matches} matches</span>
                     </h3>
                     <ul className="space-y-1.5">
                       {block.samples.map((s, i) => (
                         <li
                           key={`${src}-${i}`}
-                          className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-2.5 font-mono text-[11px] flex items-center gap-2 flex-wrap"
+                          className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-2.5 font-mono text-mini flex items-center gap-2 flex-wrap"
                         >
-                          <span className="rounded border border-rose-500/40 bg-rose-500/10 px-1.5 py-0.5 text-[9px] uppercase text-rose-700 dark:text-rose-300">
+                          <span className="rounded border border-rose-500/40 bg-rose-500/10 px-1.5 py-0.5 text-micro uppercase text-rose-700 dark:text-rose-300">
                             {s.keyword}
                           </span>
                           <span className="text-slate-600 dark:text-slate-400 truncate">{s.source}</span>
-                          {s.when && <span className="text-slate-400 text-[10px]">{s.when.slice(0, 10)}</span>}
+                          {s.when && <span className="text-slate-400 text-micro">{s.when.slice(0, 10)}</span>}
                           {s.link && (
                             <a
                               href={sanitizeUrl(s.link)}
@@ -836,7 +832,7 @@ export default function Infostealer(): JSX.Element {
                     key={src}
                     type="button"
                     onClick={() => setArticleSource(src)}
-                    className={`text-[11px] font-mono px-2 py-1 rounded border ${
+                    className={`text-mini font-mono px-2 py-1 rounded border ${
                       articleSource === src
                         ? 'bg-brand-500/15 border-brand-500/40 text-brand-700 dark:text-brand-300'
                         : 'border-slate-200 dark:border-slate-700 text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'
@@ -850,7 +846,7 @@ export default function Infostealer(): JSX.Element {
                 const filtered =
                   articleSource === 'all' ? articles : articles.filter((a) => a.source === articleSource);
                 if (filtered.length === 0) {
-                  return <p className="font-mono text-[12px] text-slate-500">No articles in this category.</p>;
+                  return <p className="font-mono text-meta text-slate-500">No articles in this category.</p>;
                 }
                 return (
                   <ul className="grid gap-3 md:grid-cols-2">
@@ -868,11 +864,11 @@ export default function Infostealer(): JSX.Element {
                           {a.title}
                         </a>
                         {a.description && (
-                          <p className="font-mono text-[11px] text-slate-600 dark:text-slate-400 line-clamp-2 mb-1">
+                          <p className="font-mono text-mini text-slate-600 dark:text-slate-400 line-clamp-2 mb-1">
                             {a.description}
                           </p>
                         )}
-                        <div className="flex items-center gap-2 text-[10px] font-mono text-slate-400">
+                        <div className="flex items-center gap-2 text-micro font-mono text-slate-400">
                           <ExternalLink size={10} />
                           <span
                             className={`rounded border px-1 py-0.5 ${

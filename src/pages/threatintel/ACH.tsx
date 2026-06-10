@@ -117,7 +117,7 @@ export default function ACH(): JSX.Element {
           onChange={(e) => setTopic(e.target.value)}
           onKeyDown={(e) => e.key === 'Enter' && void analyze()}
           placeholder="e.g. Qilin ransomware, Scattered Spider, CVE-2024-1709 campaign attribution…"
-          className="flex-1 text-sm px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 focus:outline-none focus:ring-2 focus:ring-brand-500/40 placeholder:text-slate-400"
+          className="flex-1 text-sm px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40 placeholder:text-slate-400"
           disabled={loading}
         />
         <button
@@ -147,9 +147,9 @@ export default function ACH(): JSX.Element {
       {result && (
         <div className="space-y-6 animate-fade-in-up">
           {/* Question + meta */}
-          <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+          <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-5">
             <h2 className="text-lg font-bold mb-1">{result.question}</h2>
-            <div className="flex flex-wrap gap-3 text-[11px] font-mono text-slate-400">
+            <div className="flex flex-wrap gap-3 text-mini font-mono text-slate-400">
               <span>topic: {result.topic}</span>
               <span>model: {result.model_used}</span>
               <span>{new Date(result.generated_at).toLocaleString()}</span>
@@ -186,7 +186,7 @@ export default function ACH(): JSX.Element {
                       <div className="font-semibold text-sm flex items-center gap-2">
                         H{i + 1}: {h.label}
                         <span
-                          className={`text-[10px] font-mono px-1.5 py-0.5 rounded-full border text-slate-500 border-slate-300 dark:border-slate-700`}
+                          className={`text-micro font-mono px-1.5 py-0.5 rounded-full border text-slate-500 border-slate-300 dark:border-slate-700`}
                         >
                           diagnostic: {h.diagnostic_value}
                         </span>
@@ -199,7 +199,7 @@ export default function ACH(): JSX.Element {
                       >
                         {h.confidence}%
                       </div>
-                      <div className="text-[10px] font-mono text-slate-400">confidence</div>
+                      <div className="text-micro font-mono text-slate-400">confidence</div>
                     </div>
                     {isOpen ? (
                       <ChevronDown size={16} className="text-slate-400" />
@@ -225,7 +225,7 @@ export default function ACH(): JSX.Element {
                                 return n;
                               })
                             }
-                            className="flex items-center gap-1.5 text-[11px] font-semibold text-emerald-600 dark:text-emerald-400 mb-2"
+                            className="flex items-center gap-1.5 text-mini font-semibold text-emerald-600 dark:text-emerald-400 mb-2"
                           >
                             <CheckCircle2 size={12} /> Evidence FOR ({h.evidence_for.length})
                             {showFor ? <ChevronDown size={12} /> : <ChevronRight size={12} />}
@@ -236,11 +236,11 @@ export default function ACH(): JSX.Element {
                                 key={`${ev.claim}-${ev.source}`}
                                 className="mb-2 p-2 rounded bg-white/50 dark:bg-slate-900/30 border border-slate-200 dark:border-slate-800"
                               >
-                                <p className="text-[11px] text-slate-700 dark:text-slate-300">{ev.claim}</p>
+                                <p className="text-mini text-slate-700 dark:text-slate-300">{ev.claim}</p>
                                 <div className="flex items-center gap-2 mt-1">
-                                  <span className="text-[9px] font-mono text-slate-400">source: {ev.source}</span>
+                                  <span className="text-micro font-mono text-slate-400">source: {ev.source}</span>
                                   <span
-                                    className={`text-[9px] font-mono px-1 py-0.5 rounded ${RELEVANCE_COLORS[ev.relevance]}`}
+                                    className={`text-micro font-mono px-1 py-0.5 rounded ${RELEVANCE_COLORS[ev.relevance]}`}
                                   >
                                     {ev.relevance}
                                   </span>
@@ -248,12 +248,12 @@ export default function ACH(): JSX.Element {
                               </div>
                             ))}
                           {!showFor && h.evidence_for.length > 0 && (
-                            <p className="text-[10px] text-slate-400 italic">
+                            <p className="text-micro text-slate-400 italic">
                               Click to expand {h.evidence_for.length} evidence items
                             </p>
                           )}
                           {h.evidence_for.length === 0 && (
-                            <p className="text-[10px] text-slate-400 italic">No supporting evidence identified</p>
+                            <p className="text-micro text-slate-400 italic">No supporting evidence identified</p>
                           )}
                         </div>
 
@@ -268,7 +268,7 @@ export default function ACH(): JSX.Element {
                                 return n;
                               })
                             }
-                            className="flex items-center gap-1.5 text-[11px] font-semibold text-rose-600 dark:text-rose-400 mb-2"
+                            className="flex items-center gap-1.5 text-mini font-semibold text-rose-600 dark:text-rose-400 mb-2"
                           >
                             <XCircle size={12} /> Evidence AGAINST ({h.evidence_against.length})
                             {showAgainst ? <ChevronDown size={12} /> : <ChevronRight size={12} />}
@@ -279,11 +279,11 @@ export default function ACH(): JSX.Element {
                                 key={`${ev.claim}-${ev.source}`}
                                 className="mb-2 p-2 rounded bg-white/50 dark:bg-slate-900/30 border border-slate-200 dark:border-slate-800"
                               >
-                                <p className="text-[11px] text-slate-700 dark:text-slate-300">{ev.claim}</p>
+                                <p className="text-mini text-slate-700 dark:text-slate-300">{ev.claim}</p>
                                 <div className="flex items-center gap-2 mt-1">
-                                  <span className="text-[9px] font-mono text-slate-400">source: {ev.source}</span>
+                                  <span className="text-micro font-mono text-slate-400">source: {ev.source}</span>
                                   <span
-                                    className={`text-[9px] font-mono px-1 py-0.5 rounded ${RELEVANCE_COLORS[ev.relevance]}`}
+                                    className={`text-micro font-mono px-1 py-0.5 rounded ${RELEVANCE_COLORS[ev.relevance]}`}
                                   >
                                     {ev.relevance}
                                   </span>
@@ -291,22 +291,22 @@ export default function ACH(): JSX.Element {
                               </div>
                             ))}
                           {!showAgainst && h.evidence_against.length > 0 && (
-                            <p className="text-[10px] text-slate-400 italic">
+                            <p className="text-micro text-slate-400 italic">
                               Click to expand {h.evidence_against.length} evidence items
                             </p>
                           )}
                           {h.evidence_against.length === 0 && (
-                            <p className="text-[10px] text-slate-400 italic">No contradictory evidence identified</p>
+                            <p className="text-micro text-slate-400 italic">No contradictory evidence identified</p>
                           )}
                         </div>
                       </div>
 
                       {/* What would change */}
                       <div className="mt-4 p-3 rounded-lg bg-white/50 dark:bg-slate-900/30 border border-slate-200 dark:border-slate-800">
-                        <div className="flex items-center gap-1.5 text-[11px] font-semibold text-amber-600 dark:text-amber-400 mb-1">
+                        <div className="flex items-center gap-1.5 text-mini font-semibold text-amber-600 dark:text-amber-400 mb-1">
                           <Lightbulb size={12} /> What would change this assessment
                         </div>
-                        <p className="text-[11px] text-slate-600 dark:text-slate-400">{h.what_would_change}</p>
+                        <p className="text-mini text-slate-600 dark:text-slate-400">{h.what_would_change}</p>
                       </div>
                     </div>
                   )}
@@ -317,7 +317,7 @@ export default function ACH(): JSX.Element {
 
           {/* Key Assumptions */}
           {result.key_assumptions.length > 0 && (
-            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-5">
               <h3 className="text-xs font-bold uppercase tracking-[0.15em] text-slate-500 font-mono mb-3 flex items-center gap-2">
                 <AlertTriangle size={12} /> Key Assumptions
               </h3>
@@ -334,7 +334,7 @@ export default function ACH(): JSX.Element {
 
           {/* Recommended Collection */}
           {result.recommended_collection.length > 0 && (
-            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-5">
               <h3 className="text-xs font-bold uppercase tracking-[0.15em] text-slate-500 font-mono mb-3 flex items-center gap-2">
                 <Search size={12} /> Recommended Collection
               </h3>

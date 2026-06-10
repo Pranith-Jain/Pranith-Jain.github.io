@@ -203,14 +203,14 @@ export default function DomainMonitor(): JSX.Element {
                       <Globe size={14} className="text-rose-500" />
                       <span className="font-mono text-sm">{v.domain}</span>
                       <span
-                        className={`text-[10px] font-mono px-2 py-0.5 rounded ${TYPE_LABELS[v.type]?.color ?? 'bg-slate-100 text-slate-800'}`}
+                        className={`text-micro font-mono px-2 py-0.5 rounded ${TYPE_LABELS[v.type]?.color ?? 'bg-slate-100 text-slate-800'}`}
                       >
                         {TYPE_LABELS[v.type]?.label ?? v.type}
                       </span>
                     </div>
                     <div className="flex items-center gap-2">
                       {v.ips && v.ips.length > 0 && (
-                        <span className="text-[10px] font-mono text-slate-500">{v.ips[0]}</span>
+                        <span className="text-micro font-mono text-slate-500">{v.ips[0]}</span>
                       )}
                       <Link
                         to={`/dfir/domain-rep?domain=${encodeURIComponent(v.domain)}`}
@@ -282,7 +282,7 @@ export default function DomainMonitor(): JSX.Element {
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
               {Object.entries(TYPE_LABELS).map(([key, { label, color }]) => (
                 <div key={key} className="flex items-center gap-2">
-                  <span className={`text-[10px] font-mono px-2 py-0.5 rounded ${color}`}>{label}</span>
+                  <span className={`text-micro font-mono px-2 py-0.5 rounded ${color}`}>{label}</span>
                   <span className="text-xs text-slate-500">
                     {key === 'typo' && 'Character errors'}
                     {key === 'homoglyph' && 'Lookalike chars'}

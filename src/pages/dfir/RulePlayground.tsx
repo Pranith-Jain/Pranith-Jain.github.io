@@ -220,7 +220,7 @@ export default function RulePlayground(): JSX.Element {
                 Parsed rule
               </h2>
               <span
-                className={`text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${
+                className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${
                   result.parsed.kind === 'unknown'
                     ? 'border-rose-500/30 bg-rose-500/10 text-rose-700 dark:text-rose-300'
                     : 'border-brand-500/30 bg-brand-500/10 text-brand-700 dark:text-brand-300'
@@ -234,10 +234,10 @@ export default function RulePlayground(): JSX.Element {
             </p>
             {result.parsed.condition && (
               <div className="rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-2.5 mb-3">
-                <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 block mb-1">
+                <span className="text-micro font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 block mb-1">
                   Condition (informational)
                 </span>
-                <pre className="text-[12px] font-mono text-slate-800 dark:text-slate-200 whitespace-pre-wrap">
+                <pre className="text-meta font-mono text-slate-800 dark:text-slate-200 whitespace-pre-wrap">
                   {result.parsed.condition}
                 </pre>
               </div>
@@ -245,21 +245,21 @@ export default function RulePlayground(): JSX.Element {
             {result.parsed.meta.length > 0 && (
               <div className="grid gap-1.5 sm:grid-cols-2 mb-3">
                 {result.parsed.meta.map((m) => (
-                  <div key={m.k} className="text-[11px] font-mono text-slate-600 dark:text-slate-400">
+                  <div key={m.k} className="text-mini font-mono text-slate-600 dark:text-slate-400">
                     <span className="text-slate-400 dark:text-slate-400">{m.k}:</span> {m.v}
                   </div>
                 ))}
               </div>
             )}
             <div>
-              <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 block mb-1">
+              <span className="text-micro font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 block mb-1">
                 Strings / keywords ({result.parsed.needles.length})
               </span>
               <div className="flex flex-wrap gap-1.5">
                 {result.parsed.needles.map((n, i) => (
                   <span
                     key={`${n.name}-${i}`}
-                    className={`text-[10px] font-mono px-1.5 py-0.5 rounded border ${KIND_STYLES[n.kind]}`}
+                    className={`text-micro font-mono px-1.5 py-0.5 rounded border ${KIND_STYLES[n.kind]}`}
                     title={n.pattern.source}
                   >
                     {n.name}
@@ -269,10 +269,10 @@ export default function RulePlayground(): JSX.Element {
             </div>
             {result.parsed.warnings.length > 0 && (
               <div className="mt-3 rounded border border-amber-500/30 bg-amber-500/10 p-2.5">
-                <p className="text-[11px] font-mono text-amber-700 dark:text-amber-300 inline-flex items-center gap-1">
+                <p className="text-mini font-mono text-amber-700 dark:text-amber-300 inline-flex items-center gap-1">
                   <AlertTriangle size={11} /> Parser warnings:
                 </p>
-                <ul className="mt-1 space-y-0.5 text-[11px] font-mono text-amber-700 dark:text-amber-300 list-disc pl-5">
+                <ul className="mt-1 space-y-0.5 text-mini font-mono text-amber-700 dark:text-amber-300 list-disc pl-5">
                   {result.parsed.warnings.map((w, i) => (
                     <li key={i}>{w}</li>
                   ))}
@@ -313,10 +313,10 @@ export default function RulePlayground(): JSX.Element {
                 {result.matches.map((m, i) => (
                   <li
                     key={`${m.name}-${i}`}
-                    className="text-[12px] font-mono flex flex-wrap items-baseline gap-2 border-b border-slate-200 dark:border-slate-800 pb-1.5 last:border-0"
+                    className="text-meta font-mono flex flex-wrap items-baseline gap-2 border-b border-slate-200 dark:border-slate-800 pb-1.5 last:border-0"
                   >
                     <span
-                      className={`text-[10px] uppercase tracking-wider px-1.5 py-0.5 rounded border ${KIND_STYLES[m.kind]}`}
+                      className={`text-micro uppercase tracking-wider px-1.5 py-0.5 rounded border ${KIND_STYLES[m.kind]}`}
                     >
                       {m.name}
                     </span>

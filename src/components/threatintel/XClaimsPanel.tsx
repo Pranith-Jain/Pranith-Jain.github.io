@@ -96,7 +96,7 @@ export function XClaimsPanel() {
           <h2 className="font-display font-bold text-base flex items-center gap-2">
             <ShieldAlert size={16} className="text-rose-500" /> Extracted claims
           </h2>
-          <p className="text-[11px] font-mono text-slate-500 mt-0.5">
+          <p className="text-mini font-mono text-slate-500 mt-0.5">
             Ransomware victim + breach claims parsed from FalconFeeds / @DailyDarkWeb posts. Heuristic — verify before
             use.
           </p>
@@ -120,10 +120,10 @@ export function XClaimsPanel() {
                 <li key={`${r.group}-${r.victim}-${i}`} className="py-2 flex items-start justify-between gap-3">
                   <div className="min-w-0">
                     <span className="text-sm font-medium break-words">{r.victim}</span>
-                    <span className="ml-2 text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-rose-500/40 bg-rose-500/10 text-rose-600 dark:text-rose-300">
+                    <span className="ml-2 text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-rose-500/40 bg-rose-500/10 text-rose-600 dark:text-rose-300">
                       {r.group}
                     </span>
-                    <span className="block text-[11px] font-mono text-slate-500 mt-0.5">
+                    <span className="block text-mini font-mono text-slate-500 mt-0.5">
                       {r.country && (
                         <span className="inline-flex items-center gap-1 mr-2">
                           <Globe size={10} /> {r.country}
@@ -148,7 +148,7 @@ export function XClaimsPanel() {
                 <li key={`${b.source_url}-${i}`} className="py-2 flex items-start justify-between gap-3">
                   <div className="min-w-0">
                     <span className="text-sm font-medium break-words">{b.victim ?? 'Unattributed breach claim'}</span>
-                    <span className="block text-[11px] font-mono text-slate-500 mt-0.5">
+                    <span className="block text-mini font-mono text-slate-500 mt-0.5">
                       {b.country && (
                         <span className="inline-flex items-center gap-1 mr-2">
                           <Globe size={10} /> {b.country}
@@ -157,7 +157,7 @@ export function XClaimsPanel() {
                       <span className="mr-2">@{b.handle}</span>
                       {timeAgo(b.discovered)}
                     </span>
-                    <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-1 line-clamp-2 break-words">
+                    <p className="text-mini text-slate-500 dark:text-slate-400 mt-1 line-clamp-2 break-words">
                       {b.text}
                     </p>
                   </div>

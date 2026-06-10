@@ -140,7 +140,7 @@ export default function RansomPayments(): JSX.Element {
               key={s.label}
               className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4"
             >
-              <div className="text-[10px] font-mono uppercase tracking-wider text-slate-500 mb-1">{s.label}</div>
+              <div className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-1">{s.label}</div>
               <div className="text-xl font-display font-bold tabular-nums">{s.value}</div>
             </div>
           ))}
@@ -181,7 +181,7 @@ export default function RansomPayments(): JSX.Element {
                   className="w-full flex items-center justify-between gap-3 px-3 py-2.5 text-left"
                 >
                   <span className="font-display font-semibold text-sm truncate">{f.family}</span>
-                  <span className="flex items-center gap-4 shrink-0 font-mono text-[12px]">
+                  <span className="flex items-center gap-4 shrink-0 font-mono text-meta">
                     <span className="text-rose-600 dark:text-rose-400 tabular-nums">{usd(f.total_usd)}</span>
                     <span className="text-slate-400 tabular-nums">{f.address_count} addr</span>
                     <span className="text-slate-400">{open ? '▾' : '▸'}</span>
@@ -190,13 +190,13 @@ export default function RansomPayments(): JSX.Element {
                 {open && (
                   <div className="border-t border-slate-100 dark:border-slate-800 px-3 py-2">
                     {detail === 'loading' || detail === undefined ? (
-                      <span className="text-[12px] font-mono text-slate-500">loading addresses…</span>
+                      <span className="text-meta font-mono text-slate-500">loading addresses…</span>
                     ) : detail.addresses.length === 0 ? (
-                      <span className="text-[12px] font-mono text-slate-500">No addresses.</span>
+                      <span className="text-meta font-mono text-slate-500">No addresses.</span>
                     ) : (
                       <ul className="space-y-1">
                         {detail.addresses.slice(0, 50).map((a) => (
-                          <li key={a.address} className="flex items-center justify-between gap-3 font-mono text-[11px]">
+                          <li key={a.address} className="flex items-center justify-between gap-3 font-mono text-mini">
                             <span className="truncate text-slate-700 dark:text-slate-300">{a.address}</span>
                             <span className="flex items-center gap-3 shrink-0 text-slate-400">
                               <span className="text-rose-600 dark:text-rose-400 tabular-nums">

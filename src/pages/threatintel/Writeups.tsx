@@ -189,7 +189,7 @@ export default function Writeups(): JSX.Element {
       <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
         <BookText size={28} className="text-brand-600 dark:text-brand-400" /> Writeups feed
       </h1>
-      <p className="text-[12px] font-mono text-slate-500 dark:text-slate-400 mb-4 max-w-3xl">
+      <p className="text-meta font-mono text-slate-500 dark:text-slate-400 mb-4 max-w-3xl">
         The broad ecosystem cut: vendor blogs, news outlets, Medium tag feeds, the long tail. For the curated
         analyst-must-read set, see{' '}
         <Link to="/threatintel/signal" className="text-brand-600 dark:text-brand-400 hover:underline">
@@ -221,7 +221,7 @@ export default function Writeups(): JSX.Element {
         </div>
         {data && (
           <div className="flex flex-wrap items-center gap-1.5 mt-3">
-            <span className="text-[11px] font-mono text-slate-500 mr-1">platform:</span>
+            <span className="text-mini font-mono text-slate-500 mr-1">platform:</span>
             {(['rss', 'medium', 'devto', 'hashnode', 'manual'] as const).map((k) => {
               const count = kindCounts[k];
               if (count === 0) return null;
@@ -231,7 +231,7 @@ export default function Writeups(): JSX.Element {
                   key={k}
                   type="button"
                   onClick={() => toggleKind(k)}
-                  className={`text-[11px] font-mono px-2 py-1 rounded border ${
+                  className={`text-mini font-mono px-2 py-1 rounded border ${
                     active ? KIND_PILL[k] : 'border-slate-300 dark:border-slate-700 text-slate-500'
                   }`}
                 >
@@ -243,7 +243,7 @@ export default function Writeups(): JSX.Element {
         )}
         {data && sourceCounts.size > 1 && (
           <div className="flex flex-wrap items-center gap-1.5 mt-2">
-            <span className="text-[11px] font-mono text-slate-500 mr-1">source:</span>
+            <span className="text-mini font-mono text-slate-500 mr-1">source:</span>
             {Array.from(sourceCounts.entries())
               .sort((a, b) => b[1] - a[1])
               .map(([src, count]) => {
@@ -253,7 +253,7 @@ export default function Writeups(): JSX.Element {
                     key={src}
                     type="button"
                     onClick={() => toggleSource(src)}
-                    className={`text-[11px] font-mono px-2 py-1 rounded border ${
+                    className={`text-mini font-mono px-2 py-1 rounded border ${
                       active
                         ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
                         : 'border-slate-300 dark:border-slate-700 text-slate-500'
@@ -270,7 +270,7 @@ export default function Writeups(): JSX.Element {
                   setSourceFilter(new Set());
                   setKindFilter(new Set());
                 }}
-                className="text-[11px] font-mono text-brand-600 dark:text-brand-400 hover:underline ml-2"
+                className="text-mini font-mono text-brand-600 dark:text-brand-400 hover:underline ml-2"
               >
                 clear
               </button>
@@ -278,7 +278,7 @@ export default function Writeups(): JSX.Element {
           </div>
         )}
         {data && (
-          <p className="text-[11px] font-mono text-slate-500 mt-3">
+          <p className="text-mini font-mono text-slate-500 mt-3">
             Showing <span className="text-slate-700 dark:text-slate-300">{filtered.length}</span> of{' '}
             <span className="text-slate-700 dark:text-slate-300">{data.total}</span> writeups across{' '}
             <span className="text-slate-700 dark:text-slate-300">
@@ -340,11 +340,11 @@ export default function Writeups(): JSX.Element {
                   <ExternalLink size={12} className="text-slate-400 shrink-0 mt-1" />
                 </div>
                 {it.description && (
-                  <p className="text-[13px] text-slate-600 dark:text-slate-400 leading-relaxed mb-2 line-clamp-3">
+                  <p className="text-tool text-slate-600 dark:text-slate-400 leading-relaxed mb-2 line-clamp-3">
                     {it.description}
                   </p>
                 )}
-                <div className="flex items-center gap-2 text-[11px] font-mono text-slate-500 flex-wrap">
+                <div className="flex items-center gap-2 text-mini font-mono text-slate-500 flex-wrap">
                   <span className={`px-1.5 py-0.5 rounded border ${KIND_PILL[it.kind]}`}>{it.source}</span>
                   {it.published && (
                     <span title={formatDate(it.published)}>{shortRel(it.published) || formatDate(it.published)}</span>

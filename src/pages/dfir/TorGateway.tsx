@@ -35,7 +35,7 @@ export default function TorGateway() {
       </BackLink>
       <div className="flex items-baseline gap-2 mb-2">
         <h1 className="font-display font-bold text-2xl text-slate-900 dark:text-slate-100">Tor Gateway</h1>
-        <span className="text-[11px] font-mono uppercase tracking-[0.18em] text-slate-500">
+        <span className="text-mini font-mono uppercase tracking-[0.18em] text-slate-500">
           .onion → Clearnet Gateway Links
         </span>
       </div>
@@ -78,14 +78,14 @@ export default function TorGateway() {
                   className="flex items-center justify-between px-4 py-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:border-brand-400 dark:hover:border-brand-600 transition-colors group"
                 >
                   <span className="text-xs font-mono text-slate-700 dark:text-slate-300">{gw.label}</span>
-                  <span className="text-[11px] font-mono text-brand-600 dark:text-brand-400 group-hover:underline truncate ml-2 max-w-[200px]">
+                  <span className="text-mini font-mono text-brand-600 dark:text-brand-400 group-hover:underline truncate ml-2 max-w-[200px]">
                     {href}
                   </span>
                 </a>
               );
             })}
           </div>
-          <p className="text-[11px] font-mono text-slate-400 italic">
+          <p className="text-mini font-mono text-slate-400 italic">
             ⚠ Gateways are operated by third parties. Do not trust them with sensitive data. Always verify you are
             accessing the correct .onion address.
           </p>

@@ -223,7 +223,7 @@ export default function WebScan(): JSX.Element {
           </div>
         </form>
         <div className="flex flex-wrap gap-1.5 mt-3">
-          <span className="text-[10px] font-mono text-slate-500 self-center mr-1">samples:</span>
+          <span className="text-micro font-mono text-slate-500 self-center mr-1">samples:</span>
           {SAMPLES.map((s) => (
             <button
               key={s.url}
@@ -232,7 +232,7 @@ export default function WebScan(): JSX.Element {
                 setUrl(s.url);
                 void run(s.url);
               }}
-              className="text-[11px] font-mono px-2 py-0.5 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
+              className="text-mini font-mono px-2 py-0.5 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
             >
               {s.label}
             </button>
@@ -254,7 +254,7 @@ export default function WebScan(): JSX.Element {
               <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono inline-flex items-center gap-2">
                 <Globe size={12} /> Summary
               </h2>
-              <span className="text-[11px] font-mono text-slate-500">HTTP {data.status}</span>
+              <span className="text-mini font-mono text-slate-500">HTTP {data.status}</span>
             </div>
             <code className="block font-mono text-sm text-slate-900 dark:text-slate-100 break-all bg-slate-50 dark:bg-slate-950 rounded border border-slate-200 dark:border-slate-800 p-2 mb-3">
               {data.url}
@@ -263,13 +263,13 @@ export default function WebScan(): JSX.Element {
               {(['critical', 'high', 'medium', 'low', 'info', 'good'] as const).map((s) => (
                 <span
                   key={s}
-                  className={`text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${SEV_PILL[s]}`}
+                  className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${SEV_PILL[s]}`}
                 >
                   {s}: {counts[s]}
                 </span>
               ))}
             </div>
-            <div className="flex flex-wrap gap-2 mt-3 text-[11px] font-mono">
+            <div className="flex flex-wrap gap-2 mt-3 text-mini font-mono">
               <Link
                 to={`/dfir/domain?domain=${encodeURIComponent(safeHost(data.url))}`}
                 className="px-2 py-0.5 rounded border border-cyan-500/30 bg-cyan-500/5 text-cyan-700 dark:text-cyan-300 hover:bg-cyan-500/10"
@@ -320,14 +320,14 @@ export default function WebScan(): JSX.Element {
                       {f.title}
                     </h3>
                     <span
-                      className={`text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border shrink-0 ${SEV_PILL[f.severity]}`}
+                      className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border shrink-0 ${SEV_PILL[f.severity]}`}
                     >
                       {f.severity}
                     </span>
                   </div>
-                  {f.detail && <p className="text-[12px] font-mono text-slate-600 dark:text-slate-400">{f.detail}</p>}
+                  {f.detail && <p className="text-meta font-mono text-slate-600 dark:text-slate-400">{f.detail}</p>}
                   {f.value && (
-                    <code className="block text-[11px] font-mono text-slate-500 dark:text-slate-400 mt-1 break-all bg-white dark:bg-slate-900 px-2 py-1 rounded">
+                    <code className="block text-mini font-mono text-slate-500 dark:text-slate-400 mt-1 break-all bg-white dark:bg-slate-900 px-2 py-1 rounded">
                       {f.value}
                     </code>
                   )}
@@ -353,20 +353,20 @@ export default function WebScan(): JSX.Element {
                         href={sanitizeUrl(`${data.url.replace(/\/$/, '')}${p.path}`)}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="font-mono text-[12px] text-rose-700 dark:text-rose-300 hover:underline inline-flex items-center gap-1"
+                        className="font-mono text-meta text-rose-700 dark:text-rose-300 hover:underline inline-flex items-center gap-1"
                       >
                         {p.path} <ExternalLink size={10} />
                       </a>
                       <div className="flex items-center gap-2">
-                        <span className="text-[10px] font-mono text-slate-500">HTTP {p.status}</span>
+                        <span className="text-micro font-mono text-slate-500">HTTP {p.status}</span>
                         <span
-                          className={`text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${SEV_PILL[p.severity]}`}
+                          className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${SEV_PILL[p.severity]}`}
                         >
                           {p.severity}
                         </span>
                       </div>
                     </div>
-                    <p className="text-[11px] font-mono text-slate-600 dark:text-slate-400 mt-0.5">
+                    <p className="text-mini font-mono text-slate-600 dark:text-slate-400 mt-0.5">
                       {p.description}
                       {p.redirectsTo && <span className="ml-2 text-slate-500">→ {p.redirectsTo}</span>}
                     </p>
@@ -382,7 +382,7 @@ export default function WebScan(): JSX.Element {
               <summary className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono cursor-pointer inline-flex items-center gap-2">
                 <Info size={12} /> All probe results ({data.exposed_paths.length})
               </summary>
-              <ul className="mt-3 space-y-1 font-mono text-[11px]">
+              <ul className="mt-3 space-y-1 font-mono text-mini">
                 {data.exposed_paths.map((p) => (
                   <li
                     key={p.path}
@@ -404,7 +404,7 @@ export default function WebScan(): JSX.Element {
               <summary className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono cursor-pointer inline-flex items-center gap-2">
                 <FileText size={12} /> Raw response headers ({Object.keys(data.raw_headers).length})
               </summary>
-              <dl className="grid sm:grid-cols-[180px_1fr] gap-x-4 gap-y-1 text-[11px] font-mono mt-3 max-h-96 overflow-auto">
+              <dl className="grid sm:grid-cols-[180px_1fr] gap-x-4 gap-y-1 text-mini font-mono mt-3 max-h-96 overflow-auto">
                 {Object.entries(data.raw_headers).map(([k, v]) => (
                   <div key={k} className="contents">
                     <dt className="text-slate-500 dark:text-slate-400 break-words">{k}</dt>

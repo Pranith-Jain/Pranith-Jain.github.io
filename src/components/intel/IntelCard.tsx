@@ -76,9 +76,9 @@ function IocBadge({ ioc }: { ioc: IntelViewIoc }): JSX.Element {
         </Badge>
       )}
       {ioc.listedIn.length > 0 && (
-        <span className="text-[10px] text-slate-500 dark:text-slate-400">listed in {ioc.listedIn.length}</span>
+        <span className="text-micro text-slate-500 dark:text-slate-400">listed in {ioc.listedIn.length}</span>
       )}
-      <span className="ml-auto text-[10px] uppercase tracking-wider text-slate-400 dark:text-slate-400">
+      <span className="ml-auto text-micro uppercase tracking-wider text-slate-400 dark:text-slate-400">
         {VERDICT_LABEL[ioc.verdict]}
       </span>
     </div>
@@ -197,7 +197,7 @@ function CardChrome({ view, partial }: CardChromeProps): JSX.Element {
             {view.sectors.map((s) => (
               <span
                 key={s}
-                className="rounded border border-slate-200 bg-slate-50 px-1.5 py-0.5 font-mono text-[11px] text-slate-700 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-300"
+                className="rounded border border-slate-200 bg-slate-50 px-1.5 py-0.5 font-mono text-mini text-slate-700 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-300"
               >
                 {s}
               </span>
@@ -222,7 +222,7 @@ function CardChrome({ view, partial }: CardChromeProps): JSX.Element {
             {view.threatActors.map((a) => (
               <Badge key={a.name} tone="critical" size="sm">
                 {a.name}
-                {a.mitreId && <span className="ml-1 font-mono text-[10px] opacity-70">{a.mitreId}</span>}
+                {a.mitreId && <span className="ml-1 font-mono text-micro opacity-70">{a.mitreId}</span>}
               </Badge>
             ))}
           </div>
@@ -235,7 +235,7 @@ function CardChrome({ view, partial }: CardChromeProps): JSX.Element {
             {view.malware.map((m) => (
               <Badge key={m.name} tone="warning" size="sm">
                 {m.name}
-                {m.mitreId && <span className="ml-1 font-mono text-[10px] opacity-70">{m.mitreId}</span>}
+                {m.mitreId && <span className="ml-1 font-mono text-micro opacity-70">{m.mitreId}</span>}
               </Badge>
             ))}
           </div>
@@ -268,7 +268,7 @@ function CardChrome({ view, partial }: CardChromeProps): JSX.Element {
             {view.attackPatterns.map((a) => (
               <span
                 key={a.mitreId}
-                className="rounded border border-slate-200 bg-slate-50 px-1.5 py-0.5 font-mono text-[11px] text-slate-700 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-300"
+                className="rounded border border-slate-200 bg-slate-50 px-1.5 py-0.5 font-mono text-mini text-slate-700 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-300"
               >
                 {a.name} · {a.mitreId}
               </span>
@@ -299,7 +299,7 @@ function CardChrome({ view, partial }: CardChromeProps): JSX.Element {
               if (!list || list.length === 0) return null;
               return (
                 <div key={t}>
-                  <p className="mb-1 text-[10px] font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                  <p className="mb-1 text-micro font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
                     {t}
                   </p>
                   <div className="space-y-1">
@@ -322,7 +322,7 @@ function CardChrome({ view, partial }: CardChromeProps): JSX.Element {
           <div className="mt-3 space-y-3">
             {view.actorCandidates && view.actorCandidates.length > 0 && (
               <div>
-                <h5 className="mb-1 text-[10px] uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                <h5 className="mb-1 text-micro uppercase tracking-wider text-slate-500 dark:text-slate-400">
                   Candidate actors
                 </h5>
                 <ul className="space-y-1">
@@ -337,7 +337,7 @@ function CardChrome({ view, partial }: CardChromeProps): JSX.Element {
             )}
             {view.malwareCandidates && view.malwareCandidates.length > 0 && (
               <div>
-                <h5 className="mb-1 text-[10px] uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                <h5 className="mb-1 text-micro uppercase tracking-wider text-slate-500 dark:text-slate-400">
                   Candidate malware
                 </h5>
                 <ul className="space-y-1">
@@ -381,7 +381,7 @@ function CardChrome({ view, partial }: CardChromeProps): JSX.Element {
           >
             Hide details
           </button>
-          <span className="ml-auto font-mono text-[10px] text-slate-400 dark:text-slate-400">
+          <span className="ml-auto font-mono text-micro text-slate-400 dark:text-slate-400">
             {view.bundleId.slice(0, 18)}…
           </span>
         </footer>
@@ -392,7 +392,7 @@ function CardChrome({ view, partial }: CardChromeProps): JSX.Element {
 
 function CountPill({ label, n }: { label: string; n: number }): JSX.Element {
   return (
-    <span className="inline-flex items-center gap-1 rounded border border-slate-200 bg-slate-50 px-2 py-0.5 text-[11px] font-mono text-slate-600 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-300">
+    <span className="inline-flex items-center gap-1 rounded border border-slate-200 bg-slate-50 px-2 py-0.5 text-mini font-mono text-slate-600 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-300">
       <span className="font-semibold text-slate-900 dark:text-slate-100">{n}</span>
       <span>
         {label}

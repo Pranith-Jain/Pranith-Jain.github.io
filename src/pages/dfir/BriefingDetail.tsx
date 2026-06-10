@@ -164,7 +164,7 @@ function StatPill({ label, value, accent }: { label: string; value: number | str
       <span className={`text-2xl font-display font-bold ${accent ?? 'text-slate-900 dark:text-slate-100'}`}>
         {value}
       </span>
-      <span className="text-[10px] font-mono uppercase tracking-wider text-slate-500">{label}</span>
+      <span className="text-micro font-mono uppercase tracking-wider text-slate-500">{label}</span>
     </div>
   );
 }
@@ -187,14 +187,14 @@ function FindingCard({ finding }: { finding: BriefingFinding }) {
   const sev = SEVERITY_STYLES[finding.severity];
   return (
     <article
-      className={`rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 ring-1 ${sev.ring}`}
+      className={`rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-5 ring-1 ${sev.ring}`}
     >
       <div className="flex items-start justify-between gap-3 mb-2">
         <h4 className="font-display font-bold text-base text-slate-900 dark:text-slate-100 leading-snug">
           {finding.title}
         </h4>
         <span
-          className={`text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded border ${sev.chip} shrink-0`}
+          className={`text-micro font-mono uppercase tracking-wider px-2 py-0.5 rounded border ${sev.chip} shrink-0`}
         >
           {sev.label}
           {finding.cvss !== undefined && ` · ${finding.cvss.toFixed(1)}`}
@@ -214,7 +214,7 @@ function FindingCard({ finding }: { finding: BriefingFinding }) {
                 href={`https://nvd.nist.gov/vuln/detail/${cve}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-[10px] font-mono px-1.5 py-0.5 rounded border border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300 hover:underline"
+                className="text-micro font-mono px-1.5 py-0.5 rounded border border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300 hover:underline"
                 title={`Look up ${cve} on NVD`}
               >
                 {cve}
@@ -223,7 +223,7 @@ function FindingCard({ finding }: { finding: BriefingFinding }) {
             {finding.tags.actors.map((a) => (
               <span
                 key={`actor-${a.slug}`}
-                className="text-[10px] font-mono px-1.5 py-0.5 rounded border border-violet-500/40 bg-violet-500/10 text-violet-700 dark:text-violet-300"
+                className="text-micro font-mono px-1.5 py-0.5 rounded border border-violet-500/40 bg-violet-500/10 text-violet-700 dark:text-violet-300"
                 title={a.mitre_id ? `MITRE ${a.mitre_id}` : 'actor name detected'}
               >
                 actor:{a.slug}
@@ -233,7 +233,7 @@ function FindingCard({ finding }: { finding: BriefingFinding }) {
             {finding.tags.sectors.map((s) => (
               <span
                 key={`sector-${s}`}
-                className="text-[10px] font-mono px-1.5 py-0.5 rounded border border-sky-500/40 bg-sky-500/10 text-sky-700 dark:text-sky-300"
+                className="text-micro font-mono px-1.5 py-0.5 rounded border border-sky-500/40 bg-sky-500/10 text-sky-700 dark:text-sky-300"
                 title="heuristic sector classification"
               >
                 sector:{s}
@@ -241,7 +241,7 @@ function FindingCard({ finding }: { finding: BriefingFinding }) {
             ))}
           </div>
         )}
-      <div className="flex flex-wrap items-center gap-2 text-[11px] font-mono text-slate-500">
+      <div className="flex flex-wrap items-center gap-2 text-mini font-mono text-slate-500">
         <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-800">
           {finding.source}
         </span>
@@ -307,7 +307,7 @@ function pivotsFor(kind: IocKind, value: string): Array<{ to: string; label: str
 function IocTable({ title, kind, entries }: { title: string; kind: IocKind; entries: IocEntry[] }) {
   if (entries.length === 0) return null;
   return (
-    <section className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+    <section className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-5">
       <h3 className="font-display font-bold text-sm uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-3">
         {title} <span className="text-slate-500 font-normal">({entries.length})</span>
       </h3>
@@ -333,7 +333,7 @@ function IocTable({ title, kind, entries }: { title: string; kind: IocKind; entr
                     <Link
                       key={p.label}
                       to={p.to}
-                      className="text-[9px] uppercase tracking-wider px-1 py-0 rounded text-slate-500 hover:text-brand-600 dark:hover:text-brand-400"
+                      className="text-micro uppercase tracking-wider px-1 py-0 rounded text-slate-500 hover:text-brand-600 dark:hover:text-brand-400"
                     >
                       → {p.label}
                     </Link>
@@ -431,14 +431,14 @@ function LandscapeReportView({ briefing }: { briefing: LandscapeReport }): JSX.E
               {section.findings.map((f) => (
                 <article
                   key={f.id}
-                  className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5"
+                  className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-5"
                 >
                   <div className="flex items-start justify-between gap-3 mb-2">
                     <h4 className="font-display font-bold text-base text-slate-900 dark:text-slate-100 leading-snug">
                       {f.title}
                     </h4>
                     {f.count !== undefined && (
-                      <span className="text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded border bg-slate-100 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 shrink-0">
+                      <span className="text-micro font-mono uppercase tracking-wider px-2 py-0.5 rounded border bg-slate-100 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 shrink-0">
                         ×{f.count}
                       </span>
                     )}
@@ -448,7 +448,7 @@ function LandscapeReportView({ briefing }: { briefing: LandscapeReport }): JSX.E
                       {f.description}
                     </p>
                   )}
-                  <div className="flex flex-wrap items-center gap-2 text-[11px] font-mono text-slate-500">
+                  <div className="flex flex-wrap items-center gap-2 text-mini font-mono text-slate-500">
                     <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-800">
                       {f.source}
                     </span>
@@ -579,7 +579,7 @@ export default function BriefingDetail(): JSX.Element {
         <button
           type="button"
           onClick={() => setRefreshKey((k) => k + 1)}
-          className="mt-4 inline-flex items-center gap-1 text-[12px] font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40"
+          className="mt-4 inline-flex items-center gap-1 text-meta font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40"
         >
           retry
         </button>
@@ -592,7 +592,7 @@ export default function BriefingDetail(): JSX.Element {
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <Link
         to="/threatintel/briefings"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:text-brand-400 mb-8 font-mono transition-colors"
+        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono transition-colors"
       >
         <ArrowLeft size={14} /> all briefings
       </Link>

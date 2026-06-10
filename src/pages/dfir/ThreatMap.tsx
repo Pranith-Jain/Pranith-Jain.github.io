@@ -613,7 +613,7 @@ export default function ThreatMap(): JSX.Element {
 
               {selectedIps.length > 0 && (
                 <>
-                  <p className="text-[11px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
+                  <p className="text-mini font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
                     IPs from {selectedAgg?.country ?? selected.name} ({selectedIps.length} shown
                     {selectedAgg && selectedIps.length < selectedAgg.count ? ` of ${selectedAgg.count}` : ''})
                   </p>
@@ -625,9 +625,7 @@ export default function ThreatMap(): JSX.Element {
                           className="block rounded border border-amber-400/30 hover:border-brand-500/40 bg-white dark:bg-slate-900 px-3 py-2 transition-colors"
                         >
                           <div className="font-mono text-sm text-slate-900 dark:text-slate-100 break-all">{ip}</div>
-                          <div className="text-[11px] font-mono text-slate-500 mt-0.5">
-                            sources: {sources.join(', ')}
-                          </div>
+                          <div className="text-mini font-mono text-slate-500 mt-0.5">sources: {sources.join(', ')}</div>
                         </Link>
                       </li>
                     ))}
@@ -818,7 +816,7 @@ function SourcesBreakdown({ sourceCounts, iocTypes, totalIps }: SourcesBreakdown
         <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400">
           Sources contributing to this snapshot
         </h3>
-        <span className="text-[11px] font-mono text-slate-500 tabular-nums">
+        <span className="text-mini font-mono text-slate-500 tabular-nums">
           {rows.length} feeds · {totalAcrossSources.toLocaleString()} indicators
         </span>
       </div>
@@ -845,13 +843,13 @@ function SourcesBreakdown({ sourceCounts, iocTypes, totalIps }: SourcesBreakdown
                 </span>
               )}
               <span
-                className={`text-[9px] font-mono uppercase tracking-wider px-1 py-0.5 rounded border shrink-0 ${KIND_COLOUR_FOR_TAG(r.kind)}`}
+                className={`text-micro font-mono uppercase tracking-wider px-1 py-0.5 rounded border shrink-0 ${KIND_COLOUR_FOR_TAG(r.kind)}`}
                 title={KIND_LABEL[r.kind]}
               >
                 {KIND_LABEL[r.kind]}
               </span>
             </div>
-            <div className="flex items-baseline justify-between gap-2 text-[12px] font-mono">
+            <div className="flex items-baseline justify-between gap-2 text-meta font-mono">
               <span className="text-slate-600 dark:text-slate-400 truncate" title={r.meta.desc}>
                 {r.meta.desc || '—'}
               </span>
@@ -892,7 +890,7 @@ function IocTypeBreakdown({ ipsCount, buckets }: { ipsCount: number; buckets: Io
         <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400">
           IOC type breakdown
         </h3>
-        <span className="text-[11px] font-mono text-slate-500 tabular-nums">
+        <span className="text-mini font-mono text-slate-500 tabular-nums">
           {total.toLocaleString()} total · share of current snapshot
         </span>
       </div>
@@ -930,7 +928,7 @@ function IocTypeBreakdown({ ipsCount, buckets }: { ipsCount: number; buckets: Io
               <span className={`inline-block w-2.5 h-2.5 rounded shrink-0 ${KIND_COLOUR[r.kind]}`} aria-hidden="true" />
               <span className="text-slate-800 dark:text-slate-200 font-semibold">{KIND_LABEL[r.kind]}</span>
               <span className="text-slate-500 ml-auto tabular-nums">{r.count.toLocaleString()}</span>
-              <span className="text-slate-400 dark:text-slate-600 text-[10px] tabular-nums">{pct.toFixed(0)}%</span>
+              <span className="text-slate-400 dark:text-slate-600 text-micro tabular-nums">{pct.toFixed(0)}%</span>
             </Link>
           );
         })}

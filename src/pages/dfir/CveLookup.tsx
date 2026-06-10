@@ -182,7 +182,7 @@ export default function CveLookup(): JSX.Element {
     <div className="max-w-4xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -335,7 +335,7 @@ export default function CveLookup(): JSX.Element {
                       )}
                       <div className="bg-slate-300 dark:bg-slate-700" style={{ flex: 1 }} />
                     </div>
-                    <div className="flex flex-wrap gap-3 mt-1.5 text-[10px] font-mono text-slate-500 dark:text-slate-400">
+                    <div className="flex flex-wrap gap-3 mt-1.5 text-micro font-mono text-slate-500 dark:text-slate-400">
                       <span className="inline-flex items-center gap-1">
                         <span className="inline-block w-2 h-2 bg-amber-500 rounded-sm" /> CVSS · {p.contributions.cvss}
                       </span>
@@ -379,7 +379,7 @@ export default function CveLookup(): JSX.Element {
                   <CopyButton
                     value={`${result.cve_id} — ${TIER_LABELS[p.tier]} (${p.score}/100, ${p.sla}).\n${p.rationale.map((r) => '- ' + r.replace(/\*\*/g, '')).join('\n')}`}
                   />
-                  <span className="ml-2 self-center text-[11px] font-mono text-slate-500 dark:text-slate-400">
+                  <span className="ml-2 self-center text-mini font-mono text-slate-500 dark:text-slate-400">
                     Copy ticket-ready rationale
                   </span>
                 </div>
@@ -427,7 +427,7 @@ export default function CveLookup(): JSX.Element {
           </section>
 
           {explainText && (
-            <section className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 animate-fade-in-up">
+            <section className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 animate-fade-in-up">
               <div className="flex items-center justify-between mb-2">
                 <h3 className="text-xs font-mono font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
                   AI Analysis
@@ -451,12 +451,12 @@ export default function CveLookup(): JSX.Element {
           )}
 
           {ruleText && (
-            <section className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 animate-fade-in-up">
+            <section className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 animate-fade-in-up">
               <div className="flex items-center justify-between p-3 border-b border-slate-200 dark:border-slate-800">
                 <div className="flex items-center gap-2">
                   <FileCode size={14} className="text-brand-600 dark:text-brand-400" />
                   <span className="text-sm font-mono font-semibold text-slate-700 dark:text-slate-300">{ruleName}</span>
-                  <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-500">
+                  <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-500">
                     {ruleFormat.toUpperCase()}
                   </span>
                 </div>
@@ -590,7 +590,7 @@ export default function CveLookup(): JSX.Element {
               <h3 className="font-display font-semibold text-lg mb-3 text-violet-900 dark:text-violet-300">
                 Threat-actor attribution
               </h3>
-              <p className="text-[11px] font-mono text-violet-800/70 dark:text-violet-300/70 mb-3 leading-relaxed">
+              <p className="text-mini font-mono text-violet-800/70 dark:text-violet-300/70 mb-3 leading-relaxed">
                 Multi-signal CVE → actor evidence chain. Curated mapping (confidence 100) is anchored to public CISA /
                 vendor PSIRT attribution; heuristic signals (NVD description, CISA KEV text, OTX pulse) add independent
                 corroboration with their own confidence weight. Sources are listed so analysts can pressure-test
@@ -623,14 +623,14 @@ export default function CveLookup(): JSX.Element {
                           </Link>
                           <div className="flex items-center gap-1.5">
                             <span
-                              className={`text-[10px] font-mono px-1.5 py-0.5 rounded border ${tierColor}`}
+                              className={`text-micro font-mono px-1.5 py-0.5 rounded border ${tierColor}`}
                               title={`confidence score ${conf}/100`}
                             >
                               {tier} · {conf}
                             </span>
                           </div>
                         </div>
-                        <div className="flex flex-wrap items-center gap-1.5 text-[10px] font-mono">
+                        <div className="flex flex-wrap items-center gap-1.5 text-micro font-mono">
                           <span className="text-slate-500">evidence:</span>
                           {link.sources.map((s) => (
                             <span
@@ -647,10 +647,10 @@ export default function CveLookup(): JSX.Element {
                   })}
               </ul>
               <details className="mt-3">
-                <summary className="cursor-pointer text-[10px] font-mono text-violet-700/70 dark:text-violet-300/60 hover:text-violet-900 dark:hover:text-violet-200">
+                <summary className="cursor-pointer text-micro font-mono text-violet-700/70 dark:text-violet-300/60 hover:text-violet-900 dark:hover:text-violet-200">
                   Confidence scale
                 </summary>
-                <ul className="mt-2 text-[10px] font-mono text-violet-800/70 dark:text-violet-300/70 leading-relaxed space-y-0.5 list-disc list-inside">
+                <ul className="mt-2 text-micro font-mono text-violet-800/70 dark:text-violet-300/70 leading-relaxed space-y-0.5 list-disc list-inside">
                   <li>
                     <b>100 — curated:</b> human-vetted attribution from CISA advisory, vendor PSIRT, or IR report.
                   </li>
@@ -740,7 +740,7 @@ export default function CveLookup(): JSX.Element {
                       <button
                         type="button"
                         onClick={() => setRefTagFilter(new Set())}
-                        className="text-[11px] font-mono text-brand-600 dark:text-brand-400 hover:underline"
+                        className="text-mini font-mono text-brand-600 dark:text-brand-400 hover:underline"
                       >
                         clear filter
                       </button>
@@ -748,7 +748,7 @@ export default function CveLookup(): JSX.Element {
                   </div>
                   {tagList.length > 0 && (
                     <div className="flex flex-wrap gap-1.5 mb-3">
-                      <span className="text-[11px] font-mono text-slate-500 mr-1 self-center">filter by tag:</span>
+                      <span className="text-mini font-mono text-slate-500 mr-1 self-center">filter by tag:</span>
                       {tagList.map((t) => {
                         const active = refTagFilter.has(t);
                         return (
@@ -756,7 +756,7 @@ export default function CveLookup(): JSX.Element {
                             key={t}
                             type="button"
                             onClick={() => toggleTag(t)}
-                            className={`text-[10px] font-mono px-2 py-0.5 rounded border ${
+                            className={`text-micro font-mono px-2 py-0.5 rounded border ${
                               active
                                 ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
                                 : 'border-slate-300 dark:border-slate-700 text-slate-500'

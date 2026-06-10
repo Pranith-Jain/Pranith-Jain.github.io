@@ -55,7 +55,7 @@ export default function ImageFingerprint(): JSX.Element {
 
   const Slot = ({ n, set, r }: { n: number; set: (v: { a: string; d: string }) => void; r: typeof r1 }) => (
     <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3">
-      <label className="block text-[12px] font-mono mb-2 cursor-pointer text-brand-600 dark:text-brand-400">
+      <label className="block text-meta font-mono mb-2 cursor-pointer text-brand-600 dark:text-brand-400">
         Image {n} — choose…
         <input
           type="file"
@@ -68,7 +68,7 @@ export default function ImageFingerprint(): JSX.Element {
         />
       </label>
       {r && (
-        <div className="font-mono text-[11px] text-slate-600 dark:text-slate-400 space-y-0.5 break-all">
+        <div className="font-mono text-mini text-slate-600 dark:text-slate-400 space-y-0.5 break-all">
           <div>aHash: {r.a}</div>
           <div>dHash: {r.d}</div>
         </div>
@@ -110,7 +110,7 @@ export default function ImageFingerprint(): JSX.Element {
               ~{cmp.sim}% similar
             </span>
           </div>
-          <p className="font-mono text-[11px] text-slate-500 mt-1">
+          <p className="font-mono text-mini text-slate-500 mt-1">
             ≤ 10 distance ⇒ likely the same image (resized/recompressed). High distance ⇒ unrelated.
           </p>
         </div>

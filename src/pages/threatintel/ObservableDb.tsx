@@ -269,12 +269,12 @@ export default function ObservableDb(): JSX.Element {
               value={addIndicator}
               onChange={(e) => setAddIndicator(e.target.value)}
               placeholder="Indicator value (IP, domain, hash…)"
-              className="flex-1 min-w-[200px] px-3 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded font-mono text-[13px] focus:outline-none focus:border-brand-500"
+              className="flex-1 min-w-[200px] px-3 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded font-mono text-tool focus:outline-none focus:border-brand-500"
             />
             <select
               value={addType}
               onChange={(e) => setAddType(e.target.value)}
-              className="px-3 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded font-mono text-[12px]"
+              className="px-3 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded font-mono text-meta"
             >
               <option value="ip">IP</option>
               <option value="domain">Domain</option>
@@ -287,19 +287,19 @@ export default function ObservableDb(): JSX.Element {
               value={addTags}
               onChange={(e) => setAddTags(e.target.value)}
               placeholder="Tags (comma)"
-              className="w-48 px-3 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded font-mono text-[12px] focus:outline-none focus:border-brand-500"
+              className="w-48 px-3 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded font-mono text-meta focus:outline-none focus:border-brand-500"
             />
             <button
               type="submit"
               disabled={!addIndicator.trim()}
-              className="px-4 py-2 bg-brand-600 dark:bg-brand-500 text-white font-mono text-[12px] font-semibold rounded disabled:opacity-30"
+              className="px-4 py-2 bg-brand-600 dark:bg-brand-500 text-white font-mono text-meta font-semibold rounded disabled:opacity-30"
             >
               Save
             </button>
             <button
               type="button"
               onClick={() => setShowAddForm(false)}
-              className="px-4 py-2 border border-slate-200 dark:border-slate-800 text-slate-500 font-mono text-[12px] rounded"
+              className="px-4 py-2 border border-slate-200 dark:border-slate-800 text-slate-500 font-mono text-meta rounded"
             >
               Cancel
             </button>
@@ -315,13 +315,13 @@ export default function ObservableDb(): JSX.Element {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search indicators or tags…"
-            className="w-full pl-9 pr-3 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg font-mono text-[13px] focus:outline-none focus:border-brand-500"
+            className="w-full pl-9 pr-3 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg font-mono text-tool focus:outline-none focus:border-brand-500"
           />
         </div>
         <select
           value={typeFilter}
           onChange={(e) => setTypeFilter(e.target.value)}
-          className="px-3 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded font-mono text-[12px]"
+          className="px-3 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded font-mono text-meta"
         >
           <option value="">All types</option>
           <option value="ip">IP</option>
@@ -330,7 +330,7 @@ export default function ObservableDb(): JSX.Element {
           <option value="hash">Hash</option>
           <option value="email">Email</option>
         </select>
-        <div className="flex items-center gap-2 text-[12px] font-mono text-slate-500">
+        <div className="flex items-center gap-2 text-meta font-mono text-slate-500">
           <Filter size={12} />
           <span>Min score:</span>
           <input
@@ -343,12 +343,12 @@ export default function ObservableDb(): JSX.Element {
           />
           <span className="w-6 text-right">{minScore}</span>
         </div>
-        <span className="text-[11px] font-mono text-slate-400">{total} observables</span>
+        <span className="text-mini font-mono text-slate-400">{total} observables</span>
       </div>
 
       {error && (
         <div className="rounded-lg border border-rose-200 dark:border-rose-900 bg-rose-50 dark:bg-rose-950/30 p-4 mb-6">
-          <p className="text-[13px] font-mono text-rose-700 dark:text-rose-300">{error}</p>
+          <p className="text-tool font-mono text-rose-700 dark:text-rose-300">{error}</p>
         </div>
       )}
 
@@ -388,19 +388,19 @@ export default function ObservableDb(): JSX.Element {
                   }`}
                 >
                   <div className="flex items-start gap-3">
-                    <span className="shrink-0 w-7 h-5 flex items-center justify-center rounded bg-slate-100 dark:bg-slate-800 text-[9px] font-mono font-bold text-slate-500">
+                    <span className="shrink-0 w-7 h-5 flex items-center justify-center rounded bg-slate-100 dark:bg-slate-800 text-micro font-mono font-bold text-slate-500">
                       {typeIcon(entry.type)}
                     </span>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2">
-                        <span className="font-mono text-[13px] font-semibold truncate">{entry.indicator}</span>
+                        <span className="font-mono text-tool font-semibold truncate">{entry.indicator}</span>
                         <span
-                          className={`px-1 py-0.5 rounded text-[9px] font-mono font-semibold ${TLP_COLORS[entry.tlp] ?? TLP_COLORS.amber}`}
+                          className={`px-1 py-0.5 rounded text-micro font-mono font-semibold ${TLP_COLORS[entry.tlp] ?? TLP_COLORS.amber}`}
                         >
                           {entry.tlp.toUpperCase()}
                         </span>
                       </div>
-                      <div className="flex items-center gap-3 mt-1 text-[10px] font-mono text-slate-400">
+                      <div className="flex items-center gap-3 mt-1 text-micro font-mono text-slate-400">
                         <span className={scoreColor(entry.composite_score)}>{entry.composite_score}%</span>
                         <span>{entry.provider_count} sources</span>
                         <span>Updated {timeAgo(entry.updated_at)} ago</span>
@@ -416,7 +416,7 @@ export default function ObservableDb(): JSX.Element {
                           {entry.tags.map((t) => (
                             <span
                               key={t}
-                              className="px-1 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-[9px] font-mono text-slate-500"
+                              className="px-1 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-micro font-mono text-slate-500"
                             >
                               {t}
                             </span>
@@ -455,47 +455,47 @@ export default function ObservableDb(): JSX.Element {
                 </button>
               </div>
 
-              <div className="space-y-4 text-[12px] font-mono">
+              <div className="space-y-4 text-meta font-mono">
                 <div>
-                  <span className="text-slate-400 text-[10px]">Indicator</span>
-                  <p className="text-[13px] font-semibold break-all">{selected.indicator}</p>
+                  <span className="text-slate-400 text-micro">Indicator</span>
+                  <p className="text-tool font-semibold break-all">{selected.indicator}</p>
                 </div>
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <span className="text-slate-400 text-[10px]">Type</span>
+                    <span className="text-slate-400 text-micro">Type</span>
                     <p className="font-semibold capitalize">{selected.type}</p>
                   </div>
                   <div>
-                    <span className="text-slate-400 text-[10px]">TLP</span>
+                    <span className="text-slate-400 text-micro">TLP</span>
                     <p>
                       <span
-                        className={`px-1 py-0.5 rounded text-[10px] font-semibold ${TLP_COLORS[selected.tlp] ?? TLP_COLORS.amber}`}
+                        className={`px-1 py-0.5 rounded text-micro font-semibold ${TLP_COLORS[selected.tlp] ?? TLP_COLORS.amber}`}
                       >
                         {selected.tlp.toUpperCase()}
                       </span>
                     </p>
                   </div>
                   <div>
-                    <span className="text-slate-400 text-[10px]">Score</span>
+                    <span className="text-slate-400 text-micro">Score</span>
                     <p className={`font-bold ${scoreColor(selected.composite_score)}`}>{selected.composite_score}%</p>
                   </div>
                   <div>
-                    <span className="text-slate-400 text-[10px]">Sources</span>
+                    <span className="text-slate-400 text-micro">Sources</span>
                     <p>{selected.provider_count}</p>
                   </div>
                   <div>
-                    <span className="text-slate-400 text-[10px]">Created</span>
+                    <span className="text-slate-400 text-micro">Created</span>
                     <p>{new Date(selected.created_at).toLocaleDateString()}</p>
                   </div>
                   <div>
-                    <span className="text-slate-400 text-[10px]">Updated</span>
+                    <span className="text-slate-400 text-micro">Updated</span>
                     <p>{timeAgo(selected.updated_at)} ago</p>
                   </div>
                 </div>
 
                 <div>
                   <div className="flex items-center justify-between mb-1">
-                    <span className="text-slate-400 text-[10px]">Tags</span>
+                    <span className="text-slate-400 text-micro">Tags</span>
                     <button
                       type="button"
                       onClick={() => {
@@ -509,7 +509,7 @@ export default function ObservableDb(): JSX.Element {
                               .filter(Boolean),
                           ]);
                       }}
-                      className="text-brand-600 dark:text-brand-400 text-[10px] hover:underline"
+                      className="text-brand-600 dark:text-brand-400 text-micro hover:underline"
                     >
                       + Add
                     </button>
@@ -518,7 +518,7 @@ export default function ObservableDb(): JSX.Element {
                     {selected.tags.map((t) => (
                       <span
                         key={t}
-                        className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-[10px]"
+                        className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-micro"
                       >
                         {t}
                         <button
@@ -535,19 +535,19 @@ export default function ObservableDb(): JSX.Element {
                         </button>
                       </span>
                     ))}
-                    {selected.tags.length === 0 && <span className="text-slate-400 text-[10px] italic">No tags</span>}
+                    {selected.tags.length === 0 && <span className="text-slate-400 text-micro italic">No tags</span>}
                   </div>
                 </div>
 
                 {selected.verdicts.length > 0 && (
                   <div>
-                    <span className="text-slate-400 text-[10px]">Provider Verdicts</span>
+                    <span className="text-slate-400 text-micro">Provider Verdicts</span>
                     <div className="mt-1 space-y-1 max-h-40 overflow-y-auto">
                       {selected.verdicts.slice(0, 20).map((v) => (
-                        <div key={v.provider} className="flex items-center gap-2 text-[11px]">
+                        <div key={v.provider} className="flex items-center gap-2 text-mini">
                           {verdictIcon(v.verdict)}
                           <span className="font-semibold">{v.provider}</span>
-                          <span className="text-slate-400 text-[10px] capitalize">{v.verdict}</span>
+                          <span className="text-slate-400 text-micro capitalize">{v.verdict}</span>
                           <span className={scoreColor(v.score)}>{v.score}</span>
                         </div>
                       ))}
@@ -557,7 +557,7 @@ export default function ObservableDb(): JSX.Element {
 
                 <div>
                   <div className="flex items-center justify-between mb-1">
-                    <span className="text-slate-400 text-[10px]">Notes ({selected.notes.length})</span>
+                    <span className="text-slate-400 text-micro">Notes ({selected.notes.length})</span>
                   </div>
                   <form onSubmit={(e) => void addNote(e)} className="flex gap-2 mb-2">
                     <input
@@ -565,19 +565,19 @@ export default function ObservableDb(): JSX.Element {
                       value={noteText}
                       onChange={(e) => setNoteText(e.target.value)}
                       placeholder="Add note…"
-                      className="flex-1 px-2 py-1.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded text-[11px] font-mono focus:outline-none focus:border-brand-500"
+                      className="flex-1 px-2 py-1.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded text-mini font-mono focus:outline-none focus:border-brand-500"
                     />
                     <input
                       type="text"
                       value={noteAuthor}
                       onChange={(e) => setNoteAuthor(e.target.value)}
                       placeholder="Author"
-                      className="w-20 px-2 py-1.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded text-[10px] font-mono focus:outline-none focus:border-brand-500"
+                      className="w-20 px-2 py-1.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded text-micro font-mono focus:outline-none focus:border-brand-500"
                     />
                     <button
                       type="submit"
                       disabled={!noteText.trim()}
-                      className="px-2 py-1.5 bg-brand-600 dark:bg-brand-500 text-white rounded text-[10px] font-mono disabled:opacity-30"
+                      className="px-2 py-1.5 bg-brand-600 dark:bg-brand-500 text-white rounded text-micro font-mono disabled:opacity-30"
                     >
                       <Plus size={12} />
                     </button>
@@ -590,8 +590,8 @@ export default function ObservableDb(): JSX.Element {
                         <div key={n.id} className="flex items-start gap-2 bg-slate-50 dark:bg-slate-800/50 rounded p-2">
                           <FileText size={10} className="text-slate-400 mt-0.5 shrink-0" />
                           <div className="flex-1 min-w-0">
-                            <p className="text-[11px]">{n.text}</p>
-                            <p className="text-[9px] text-slate-400 mt-0.5">
+                            <p className="text-mini">{n.text}</p>
+                            <p className="text-micro text-slate-400 mt-0.5">
                               {n.author} · {timeAgo(n.created_at)} ago
                             </p>
                           </div>
@@ -604,7 +604,7 @@ export default function ObservableDb(): JSX.Element {
                           </button>
                         </div>
                       ))}
-                    {selected.notes.length === 0 && <span className="text-slate-400 text-[10px] italic">No notes</span>}
+                    {selected.notes.length === 0 && <span className="text-slate-400 text-micro italic">No notes</span>}
                   </div>
                 </div>
               </div>

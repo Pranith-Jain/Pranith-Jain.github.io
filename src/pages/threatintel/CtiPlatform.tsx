@@ -254,7 +254,7 @@ export default function CtiPlatform(): JSX.Element {
           const groupLayers = Object.entries(LAYER_DEFS).filter(([, def]) => def.group === group);
           return (
             <div key={group} className="flex flex-wrap items-center gap-1.5">
-              <span className="text-[9px] font-mono uppercase tracking-wider text-slate-400 w-12">{group}</span>
+              <span className="text-micro font-mono uppercase tracking-wider text-slate-400 w-12">{group}</span>
               {groupLayers.map(([kind, def]) => {
                 const on = activeLayers.has(kind);
                 const count = layerCounts[kind] ?? 0;
@@ -263,7 +263,7 @@ export default function CtiPlatform(): JSX.Element {
                     key={kind}
                     type="button"
                     onClick={() => toggleLayer(kind)}
-                    className={`inline-flex items-center gap-1 px-2 py-1 text-[10px] font-mono rounded-md border transition-all ${
+                    className={`inline-flex items-center gap-1 px-2 py-1 text-micro font-mono rounded-md border transition-all ${
                       on
                         ? 'border-brand-500/50 bg-brand-500/10 text-brand-700 dark:text-brand-300'
                         : 'border-slate-200 dark:border-slate-800 text-slate-400 dark:text-slate-600 opacity-60'
@@ -323,7 +323,7 @@ export default function CtiPlatform(): JSX.Element {
               <div className="bg-slate-900/80 backdrop-blur-sm rounded-xl px-6 py-4 text-center border border-slate-700/50">
                 <Globe size={32} className="text-slate-500 mx-auto mb-2" />
                 <p className="text-sm text-slate-400 font-medium">No geolocated events</p>
-                <p className="text-[11px] text-slate-500 mt-1">
+                <p className="text-mini text-slate-500 mt-1">
                   Enable IOC Activity or Earthquake layers to see points on the globe
                 </p>
               </div>
@@ -348,10 +348,10 @@ export default function CtiPlatform(): JSX.Element {
                 <span
                   className={`w-2 h-2 rounded-full ${sev === 'critical' ? 'bg-rose-500' : sev === 'high' ? 'bg-orange-500' : sev === 'medium' ? 'bg-amber-500' : 'bg-emerald-500'}`}
                 />
-                <span className="text-[9px] font-mono text-slate-500 capitalize">{sev}</span>
+                <span className="text-micro font-mono text-slate-500 capitalize">{sev}</span>
               </div>
             ))}
-            <span className="text-[9px] font-mono text-slate-400 ml-auto">
+            <span className="text-micro font-mono text-slate-400 ml-auto">
               {points.length} pts · {arcs.length} arcs
             </span>
           </div>
@@ -360,11 +360,11 @@ export default function CtiPlatform(): JSX.Element {
         {/* Event feed */}
         <SocPanel className="max-h-[400px] sm:max-h-[600px] overflow-y-auto custom-scrollbar">
           <div className="sticky top-0 bg-white dark:bg-slate-950 pb-2 z-10 flex items-center justify-between">
-            <h3 className="text-[10px] font-mono uppercase tracking-[0.15em] text-slate-500 dark:text-slate-400">
+            <h3 className="text-micro font-mono uppercase tracking-[0.15em] text-slate-500 dark:text-slate-400">
               Live Feed ({filteredEvents.length})
             </h3>
             {filteredEvents.length > 0 && (
-              <span className="text-[10px] font-mono text-slate-400">
+              <span className="text-micro font-mono text-slate-400">
                 {filteredEvents.filter((e) => e.severity === 'critical').length} critical
               </span>
             )}
@@ -374,7 +374,7 @@ export default function CtiPlatform(): JSX.Element {
               <div className="flex flex-col items-center justify-center py-12 text-center">
                 <Radio size={24} className="text-slate-300 dark:text-slate-600 mb-3" />
                 <p className="text-xs text-slate-400 font-medium">No events match active layers</p>
-                <p className="text-[11px] text-slate-500 mt-1">Enable some layers above to see live data</p>
+                <p className="text-mini text-slate-500 mt-1">Enable some layers above to see live data</p>
               </div>
             ) : (
               filteredEvents.slice(0, 80).map((ev) => {
@@ -416,14 +416,14 @@ export default function CtiPlatform(): JSX.Element {
                       </div>
                       <span className={`mt-0.5 shrink-0 ${def.color}`}>{def.icon}</span>
                       <div className="min-w-0 flex-1">
-                        <span className="text-[11px] font-medium text-slate-800 dark:text-slate-200 truncate block">
+                        <span className="text-mini font-medium text-slate-800 dark:text-slate-200 truncate block">
                           {ev.title}
                         </span>
-                        <p className="text-[10px] text-slate-500 dark:text-slate-400 truncate">{ev.description}</p>
+                        <p className="text-micro text-slate-500 dark:text-slate-400 truncate">{ev.description}</p>
                         <div className="flex items-center gap-2 mt-0.5">
-                          <span className="text-[9px] font-mono text-slate-400">{ev.source}</span>
-                          <span className="text-[9px] font-mono text-slate-400 capitalize">{ev.severity}</span>
-                          {hasGeo && <span className="text-[9px] font-mono text-brand-500">geo</span>}
+                          <span className="text-micro font-mono text-slate-400">{ev.source}</span>
+                          <span className="text-micro font-mono text-slate-400 capitalize">{ev.severity}</span>
+                          {hasGeo && <span className="text-micro font-mono text-brand-500">geo</span>}
                         </div>
                       </div>
                     </div>
@@ -443,11 +443,11 @@ export default function CtiPlatform(): JSX.Element {
               <h3 className="text-sm font-bold text-slate-900 dark:text-white">{selectedEvent.title}</h3>
               <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">{selectedEvent.description}</p>
             </div>
-            <span className="text-[10px] font-mono px-2 py-0.5 rounded border bg-brand-500/10 text-brand-700 dark:text-brand-300 border-brand-500/30">
+            <span className="text-micro font-mono px-2 py-0.5 rounded border bg-brand-500/10 text-brand-700 dark:text-brand-300 border-brand-500/30">
               {selectedEvent.severity}
             </span>
           </div>
-          <div className="mt-2 flex flex-wrap gap-3 text-[10px] font-mono text-slate-500">
+          <div className="mt-2 flex flex-wrap gap-3 text-micro font-mono text-slate-500">
             <span>Source: {selectedEvent.source}</span>
             <span>Kind: {LAYER_DEFS[selectedEvent.kind]?.label ?? selectedEvent.kind}</span>
             {selectedEvent.url && (

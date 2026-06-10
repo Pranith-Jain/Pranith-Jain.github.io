@@ -110,7 +110,7 @@ export function AttackHeatmap({
       <div className="flex items-start justify-between gap-3 mb-3 flex-wrap">
         <div>
           <h3 className="font-display font-semibold text-base">{title}</h3>
-          <p className="text-[11px] font-mono text-slate-500 mt-1">
+          <p className="text-mini font-mono text-slate-500 mt-1">
             {subtitle ??
               `MITRE ATT&CK techniques mapped to ${data.groups_with_ttp_data} active group${data.groups_with_ttp_data === 1 ? '' : 's'}. Columns = tactics (kill-chain order). Cell shade = prevalence.`}
           </p>
@@ -124,7 +124,7 @@ export function AttackHeatmap({
             return (
               <div key={tactic} className="flex flex-col" style={{ minWidth: 120, maxWidth: 150 }}>
                 <div
-                  className="text-[10px] font-mono font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider mb-2 px-1.5 truncate"
+                  className="text-micro font-mono font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider mb-2 px-1.5 truncate"
                   title={tacticLabel(tactic)}
                 >
                   {tacticLabel(tactic)}
@@ -137,12 +137,12 @@ export function AttackHeatmap({
                     return (
                       <div
                         key={`${tactic}-${t.id}`}
-                        className="rounded px-1.5 py-1 text-[11px] font-mono cursor-default truncate border"
+                        className="rounded px-1.5 py-1 text-mini font-mono cursor-default truncate border"
                         style={{ backgroundColor: bg, borderColor: borderColor }}
                         title={`${t.id} · ${t.name}\n${t.used_by_count} group${t.used_by_count === 1 ? '' : 's'} · ${tacticLabel(t.tactic)}${t.used_by_groups.length > 0 ? `\nused by: ${t.used_by_groups.join(', ')}` : ''}`}
                       >
                         <span className="text-slate-800 dark:text-slate-200 font-medium">{t.id}</span>
-                        <span className="text-slate-500 dark:text-slate-400 ml-1 text-[10px]">{t.used_by_count}</span>
+                        <span className="text-slate-500 dark:text-slate-400 ml-1 text-micro">{t.used_by_count}</span>
                       </div>
                     );
                   })}
@@ -153,7 +153,7 @@ export function AttackHeatmap({
         </div>
       </div>
 
-      <p className="text-[10px] font-mono text-slate-400 mt-3">
+      <p className="text-micro font-mono text-slate-400 mt-3">
         {data.aggregate_techniques.length} techniques across {tacticKeys.length} tactics · top {MAX_PER_TACTIC} per
         tactic
       </p>

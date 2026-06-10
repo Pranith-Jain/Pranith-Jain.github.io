@@ -98,7 +98,7 @@ export default function CollectionSlo(): JSX.Element {
                   {data.rows
                     .filter((s) => s.status === 'down')
                     .map((s) => (
-                      <p key={s.id} className="text-[11px] text-slate-700 dark:text-slate-300">
+                      <p key={s.id} className="text-mini text-slate-700 dark:text-slate-300">
                         <span className="font-mono">{s.label}</span> — {s.reason}
                       </p>
                     ))}
@@ -160,7 +160,7 @@ export default function CollectionSlo(): JSX.Element {
                     onClick={k.onClick}
                     className={`rounded-xl border p-4 text-left transition-colors ${k.selected ? 'border-brand-500/50 bg-brand-500/5' : 'border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:border-brand-500/30'}`}
                   >
-                    <div className="flex items-center gap-1.5 text-[11px] font-mono text-slate-500 mb-1">
+                    <div className="flex items-center gap-1.5 text-mini font-mono text-slate-500 mb-1">
                       <Icon size={12} className={k.color} /> {k.label}
                     </div>
                     <p className={`text-2xl font-bold font-display ${k.color}`}>{k.value}</p>
@@ -170,11 +170,11 @@ export default function CollectionSlo(): JSX.Element {
             </div>
 
             {/* Source table */}
-            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden">
+            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 overflow-hidden">
               <div className="overflow-x-auto">
                 <table className="w-full text-sm">
                   <thead>
-                    <tr className="border-b border-slate-200 dark:border-slate-800 text-[11px] font-mono text-slate-500 uppercase tracking-wider">
+                    <tr className="border-b border-slate-200 dark:border-slate-800 text-mini font-mono text-slate-500 uppercase tracking-wider">
                       <th scope="col" className="text-left px-4 py-3 font-medium">
                         Source
                       </th>
@@ -200,29 +200,29 @@ export default function CollectionSlo(): JSX.Element {
                       <tr key={s.id} className="hover:bg-slate-50 dark:hover:bg-slate-900/30 transition-colors">
                         <td className="px-4 py-3">
                           <div className="text-sm font-medium">{s.label}</div>
-                          <div className="text-[11px] font-mono text-slate-400">{s.id}</div>
+                          <div className="text-mini font-mono text-slate-400">{s.id}</div>
                         </td>
                         <td className="px-4 py-3">
                           <span
-                            className={`text-[10px] font-mono px-1.5 py-0.5 rounded ${RELIABILITY_BADGE[s.reliability ?? ''] ?? ''}`}
+                            className={`text-micro font-mono px-1.5 py-0.5 rounded ${RELIABILITY_BADGE[s.reliability ?? ''] ?? ''}`}
                           >
                             {s.reliability ?? '—'}
                           </span>
                         </td>
-                        <td className="px-4 py-3 text-[11px] font-mono text-slate-500">{s.category ?? '—'}</td>
+                        <td className="px-4 py-3 text-mini font-mono text-slate-500">{s.category ?? '—'}</td>
                         <td className="px-4 py-3">
                           <span
-                            className={`text-[10px] font-mono px-2 py-0.5 rounded border ${STATUS_STYLES[s.status] ?? ''}`}
+                            className={`text-micro font-mono px-2 py-0.5 rounded border ${STATUS_STYLES[s.status] ?? ''}`}
                           >
                             {statusToDisplay(s.status)}
                           </span>
                         </td>
-                        <td className="px-4 py-3 text-right text-[11px] font-mono text-slate-500">
+                        <td className="px-4 py-3 text-right text-mini font-mono text-slate-500">
                           {s.upstream_age_s !== undefined ? `${Math.round(s.upstream_age_s / 3600)}h` : '—'}
                         </td>
                         <td className="px-4 py-3 text-right">
                           <span
-                            className={`text-[11px] font-mono ${s.metrics?.sources_ok !== undefined ? 'text-emerald-500' : 'text-slate-400'}`}
+                            className={`text-mini font-mono ${s.metrics?.sources_ok !== undefined ? 'text-emerald-500' : 'text-slate-400'}`}
                           >
                             {s.metrics?.sources_ok ?? '—'}
                           </span>

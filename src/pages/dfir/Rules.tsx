@@ -211,7 +211,7 @@ export default function Rules(): JSX.Element {
                       <p className="text-xs font-mono text-slate-500 mt-0.5 break-all">{s.repo}</p>
                     </div>
                     <span
-                      className={`text-[10px] font-mono px-2 py-0.5 rounded border whitespace-nowrap ${TYPE_COLOURS[s.type] ?? 'border-slate-300'}`}
+                      className={`text-micro font-mono px-2 py-0.5 rounded border whitespace-nowrap ${TYPE_COLOURS[s.type] ?? 'border-slate-300'}`}
                     >
                       {s.type}
                     </span>

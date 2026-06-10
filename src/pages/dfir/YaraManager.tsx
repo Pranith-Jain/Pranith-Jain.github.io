@@ -122,7 +122,7 @@ export default function YaraManager(): JSX.Element {
     <div className="max-w-5xl mx-auto px-4 sm:px-6 py-6">
       <BackLink
         to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:text-brand-400 mb-6 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-6 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -146,7 +146,7 @@ export default function YaraManager(): JSX.Element {
             <button
               type="button"
               onClick={exportAll}
-              className="inline-flex items-center gap-1.5 border border-slate-200 dark:border-slate-800 px-3 py-1.5 font-mono text-xs text-slate-600 dark:text-slate-400 transition-colors duration-enter hover:border-brand-500 hover:text-brand-600 dark:text-brand-400"
+              className="inline-flex items-center gap-1.5 border border-slate-200 dark:border-slate-800 px-3 py-1.5 font-mono text-xs text-slate-600 dark:text-slate-400 transition-colors duration-enter hover:border-brand-500 hover:text-brand-600 dark:hover:text-brand-400"
             >
               <FileDown className="h-3 w-3" /> export all
             </button>
@@ -181,7 +181,7 @@ export default function YaraManager(): JSX.Element {
               <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-2 flex-wrap">
                   <span className="font-mono text-sm font-medium text-slate-900 dark:text-slate-100">{rule.name}</span>
-                  <span className="font-mono text-[9px] tracking-[0.1em] text-brand-600 dark:text-brand-400 uppercase border border-brand-500/20 bg-brand-50 dark:bg-brand-950/30 px-1">
+                  <span className="font-mono text-micro tracking-[0.1em] text-brand-600 dark:text-brand-400 uppercase border border-brand-500/20 bg-brand-50 dark:bg-brand-950/30 px-1">
                     {rule.category}
                   </span>
                 </div>
@@ -193,7 +193,7 @@ export default function YaraManager(): JSX.Element {
                 <button
                   type="button"
                   onClick={() => setEditingId(editingId === rule.id ? null : rule.id)}
-                  className="p-1.5 text-slate-500 dark:text-slate-400 hover:text-brand-600 dark:text-brand-400 transition-colors"
+                  className="p-1.5 text-slate-500 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
                   aria-label="Edit"
                 >
                   {editingId === rule.id ? <X className="h-3.5 w-3.5" /> : <Edit2 className="h-3.5 w-3.5" />}
@@ -258,10 +258,10 @@ export default function YaraManager(): JSX.Element {
             )}
 
             <details className="group">
-              <summary className="px-4 py-2 font-mono text-[10px] text-slate-500 dark:text-slate-400 cursor-pointer hover:text-slate-900 dark:text-slate-100 transition-colors select-none">
+              <summary className="px-4 py-2 font-mono text-micro text-slate-500 dark:text-slate-400 cursor-pointer hover:text-slate-900 dark:text-slate-100 transition-colors select-none">
                 rule source ({rule.rule.split('\n').length} lines)
               </summary>
-              <pre className="px-4 pb-3 pt-1 overflow-x-auto text-[11px] font-mono text-slate-600 dark:text-slate-400 leading-relaxed whitespace-pre">
+              <pre className="px-4 pb-3 pt-1 overflow-x-auto text-mini font-mono text-slate-600 dark:text-slate-400 leading-relaxed whitespace-pre">
                 {rule.rule}
               </pre>
             </details>
@@ -391,7 +391,7 @@ function RansomwareIntelPanels(): JSX.Element {
         <h2 className="font-mono text-sm font-semibold text-slate-800 dark:text-slate-200">
           ransomware.live · attack → detection
         </h2>
-        <p className="font-mono text-[11px] text-slate-500 mt-0.5">
+        <p className="font-mono text-mini text-slate-500 mt-0.5">
           Recent ransomware cyber-attacks + that group's published YARA. Read-only context; your local rules below are
           separate.
         </p>
@@ -401,15 +401,15 @@ function RansomwareIntelPanels(): JSX.Element {
         <div className="p-4">
           <h3 className="font-mono text-xs uppercase tracking-wider text-slate-500 mb-2">Recent cyber-attacks</h3>
           {attackErr && (
-            <p className="font-mono text-[11px] text-amber-600 dark:text-amber-400">
+            <p className="font-mono text-mini text-amber-600 dark:text-amber-400">
               {attackErr === 'not_configured' ? 'ransomware.live PRO key not configured.' : `unavailable: ${attackErr}`}
             </p>
           )}
-          {!attackErr && !attacks && <p className="font-mono text-[11px] text-slate-500">loading…</p>}
+          {!attackErr && !attacks && <p className="font-mono text-mini text-slate-500">loading…</p>}
           {attacks && attacks.length > 0 && (
             <ul className="space-y-1.5 max-h-[420px] overflow-y-auto">
               {attacks.map((a, i) => (
-                <li key={i} className="font-mono text-[11px] flex items-baseline gap-2 flex-wrap">
+                <li key={i} className="font-mono text-mini flex items-baseline gap-2 flex-wrap">
                   <button
                     type="button"
                     onClick={() => setGroup(a.group)}
@@ -425,7 +425,7 @@ function RansomwareIntelPanels(): JSX.Element {
                   <span className="text-slate-600 dark:text-slate-400 truncate flex-1 min-w-0" title={a.victim}>
                     {a.victim}
                   </span>
-                  {a.date && <span className="text-slate-400 text-[10px]">{a.date.slice(0, 10)}</span>}
+                  {a.date && <span className="text-slate-400 text-micro">{a.date.slice(0, 10)}</span>}
                   {a.url && (
                     <a
                       href={sanitizeUrl(a.url) || undefined}
@@ -441,7 +441,7 @@ function RansomwareIntelPanels(): JSX.Element {
             </ul>
           )}
           {attacks && attacks.length === 0 && !attackErr && (
-            <p className="font-mono text-[11px] text-slate-500">No recent attacks in the feed window.</p>
+            <p className="font-mono text-mini text-slate-500">No recent attacks in the feed window.</p>
           )}
         </div>
 
@@ -453,7 +453,7 @@ function RansomwareIntelPanels(): JSX.Element {
               <select
                 value={group}
                 onChange={(e) => setGroup(e.target.value)}
-                className="font-mono text-[11px] px-2 py-1 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800"
+                className="font-mono text-mini px-2 py-1 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800"
                 aria-label="Select ransomware group"
               >
                 <option value="">select group…</option>
@@ -475,15 +475,15 @@ function RansomwareIntelPanels(): JSX.Element {
               )}
             </div>
           </div>
-          {!group && <p className="font-mono text-[11px] text-slate-500">Pick a group (or click one on the left).</p>}
-          {group && yaraLoading && <p className="font-mono text-[11px] text-slate-500">loading {group} YARA…</p>}
+          {!group && <p className="font-mono text-mini text-slate-500">Pick a group (or click one on the left).</p>}
+          {group && yaraLoading && <p className="font-mono text-mini text-slate-500">loading {group} YARA…</p>}
           {yaraErr && (
-            <p className="font-mono text-[11px] text-amber-600 dark:text-amber-400">
+            <p className="font-mono text-mini text-amber-600 dark:text-amber-400">
               {yaraErr === 'not_configured' ? 'ransomware.live PRO key not configured.' : `unavailable: ${yaraErr}`}
             </p>
           )}
           {yara && !yaraLoading && (
-            <pre className="bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 p-3 overflow-auto font-mono text-[11px] text-slate-700 dark:text-slate-300 max-h-[420px]">
+            <pre className="bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 p-3 overflow-auto font-mono text-mini text-slate-700 dark:text-slate-300 max-h-[420px]">
               {yara}
             </pre>
           )}

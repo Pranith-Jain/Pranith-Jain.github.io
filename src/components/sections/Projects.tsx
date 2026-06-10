@@ -144,7 +144,7 @@ export function Projects({ projects }: ProjectsProps) {
                 to={`/projects/${cs.slug}`}
                 className="group rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5 transition hover:border-brand-500/40"
               >
-                <div className="text-[10px] font-mono uppercase tracking-[0.18em] text-brand-600 dark:text-brand-400 mb-1.5">
+                <div className="text-micro font-mono uppercase tracking-[0.18em] text-brand-600 dark:text-brand-400 mb-1.5">
                   {cs.kicker}
                 </div>
                 <h3 className="font-display font-semibold text-lg text-slate-900 dark:text-white leading-snug group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">

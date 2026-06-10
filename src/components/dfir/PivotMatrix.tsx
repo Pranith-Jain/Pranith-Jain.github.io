@@ -121,7 +121,7 @@ export function PivotMatrix({ type, value, verdict }: { type: string; value: str
                 {p.label}
                 {p.external && <ExternalLink size={11} className="text-slate-400" />}
               </div>
-              <p className="text-[11px] font-mono text-slate-500 mt-0.5">{p.desc}</p>
+              <p className="text-mini font-mono text-slate-500 mt-0.5">{p.desc}</p>
             </div>
           </a>
         ))}

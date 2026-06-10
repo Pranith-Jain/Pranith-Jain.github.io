@@ -90,7 +90,7 @@ export default function CrossCorrelate(): JSX.Element {
           onChange={(e) => setSector(e.target.value)}
           onKeyDown={(e) => e.key === 'Enter' && load(sector)}
           placeholder="Filter by sector (e.g. finance, healthcare, energy)…"
-          className="flex-1 text-sm px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 focus:outline-none focus:ring-2 focus:ring-brand-500/40"
+          className="flex-1 text-sm px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40"
         />
         <button
           type="button"
@@ -128,16 +128,16 @@ export default function CrossCorrelate(): JSX.Element {
         <>
           {/* KPI row */}
           <div className="grid grid-cols-3 gap-3 mb-6">
-            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
-              <p className="text-[11px] font-mono text-slate-500 mb-1">Insights</p>
+            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
+              <p className="text-mini font-mono text-slate-500 mb-1">Insights</p>
               <p className="text-2xl font-bold font-display">{data.total}</p>
             </div>
             <div className="rounded-xl border border-rose-200 dark:border-rose-900 bg-rose-50 dark:bg-rose-950/20 p-4">
-              <p className="text-[11px] font-mono text-rose-600 dark:text-rose-400 mb-1">Critical</p>
+              <p className="text-mini font-mono text-rose-600 dark:text-rose-400 mb-1">Critical</p>
               <p className="text-2xl font-bold font-display text-rose-600 dark:text-rose-400">{data.critical}</p>
             </div>
             <div className="rounded-xl border border-orange-200 dark:border-orange-900 bg-orange-50 dark:bg-orange-950/20 p-4">
-              <p className="text-[11px] font-mono text-orange-600 dark:text-orange-400 mb-1">High</p>
+              <p className="text-mini font-mono text-orange-600 dark:text-orange-400 mb-1">High</p>
               <p className="text-2xl font-bold font-display text-orange-600 dark:text-orange-400">{data.high}</p>
             </div>
           </div>
@@ -148,7 +148,7 @@ export default function CrossCorrelate(): JSX.Element {
               <div key={i} className={`rounded-xl border p-4 ${SEVERITY_STYLES[insight.severity]}`}>
                 <div className="flex items-start gap-3">
                   <span
-                    className={`text-[10px] font-mono px-1.5 py-0.5 rounded shrink-0 ${SEVERITY_BADGE[insight.severity]}`}
+                    className={`text-micro font-mono px-1.5 py-0.5 rounded shrink-0 ${SEVERITY_BADGE[insight.severity]}`}
                   >
                     {insight.severity}
                   </span>
@@ -162,7 +162,7 @@ export default function CrossCorrelate(): JSX.Element {
                         {insight.entities.map((e, j) => (
                           <span
                             key={j}
-                            className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400"
+                            className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400"
                           >
                             {e}
                           </span>
@@ -173,14 +173,14 @@ export default function CrossCorrelate(): JSX.Element {
                     {/* Implication + recommendation */}
                     <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-3">
                       <div className="p-2.5 rounded-lg bg-white/60 dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800">
-                        <p className="text-[10px] font-mono uppercase tracking-wider text-rose-500 mb-1">Implication</p>
-                        <p className="text-[11px] text-slate-600 dark:text-slate-400">{insight.implication}</p>
+                        <p className="text-micro font-mono uppercase tracking-wider text-rose-500 mb-1">Implication</p>
+                        <p className="text-mini text-slate-600 dark:text-slate-400">{insight.implication}</p>
                       </div>
                       <div className="p-2.5 rounded-lg bg-white/60 dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800">
-                        <p className="text-[10px] font-mono uppercase tracking-wider text-emerald-500 mb-1">
+                        <p className="text-micro font-mono uppercase tracking-wider text-emerald-500 mb-1">
                           Recommendation
                         </p>
-                        <p className="text-[11px] text-slate-600 dark:text-slate-400">{insight.recommendation}</p>
+                        <p className="text-mini text-slate-600 dark:text-slate-400">{insight.recommendation}</p>
                       </div>
                     </div>
                   </div>

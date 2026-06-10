@@ -162,7 +162,7 @@ export default function MaliciousPackages(): JSX.Element {
           />
         </div>
         {data && (
-          <p className="text-[11px] font-mono text-slate-500 whitespace-nowrap">
+          <p className="text-mini font-mono text-slate-500 whitespace-nowrap">
             <span className="font-bold text-slate-700 dark:text-slate-300">{filtered.length}</span>
             {data.total !== filtered.length && <> of {data.total.toLocaleString()}</>}
           </p>
@@ -195,12 +195,12 @@ export default function MaliciousPackages(): JSX.Element {
               className="rounded border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-2 hover:border-brand-500/40 transition-colors"
             >
               <code
-                className="block font-mono text-[13px] text-slate-900 dark:text-slate-100 break-all truncate"
+                className="block font-mono text-tool text-slate-900 dark:text-slate-100 break-all truncate"
                 title={p.name}
               >
                 {p.name}
               </code>
-              <div className="mt-1 flex items-center gap-2 text-[10px] font-mono">
+              <div className="mt-1 flex items-center gap-2 text-micro font-mono">
                 <a
                   href={registryLink(p)}
                   target="_blank"
@@ -233,13 +233,13 @@ export default function MaliciousPackages(): JSX.Element {
       )}
 
       {filtered.length > 600 && (
-        <p className="mt-3 text-[11px] font-mono text-slate-500 text-center">
+        <p className="mt-3 text-mini font-mono text-slate-500 text-center">
           Showing first 600 — refine the filter to narrow.
         </p>
       )}
 
       {data && (
-        <p className="mt-6 text-[10px] font-mono text-slate-400 text-center">
+        <p className="mt-6 text-micro font-mono text-slate-400 text-center">
           source: {data.source_url} · refreshed {new Date(data.generated_at).toLocaleString()}
         </p>
       )}

@@ -99,7 +99,7 @@ function riskColor(score: number | undefined): string {
 function FingerprintBadge({ value }: { value: string | undefined }) {
   if (!value || value === '4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945') return null;
   return (
-    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-mono bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">
+    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-mini font-mono bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">
       <Fingerprint size={10} />
       {value.substring(0, 12)}…
     </span>
@@ -125,11 +125,11 @@ function ResultRow({ result }: { result: WebamonResult }) {
         <div className="flex-shrink-0 text-slate-400">
           {expanded ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
         </div>
-        <div className="flex-1 min-w-0 grid grid-cols-12 gap-3 items-center text-[13px]">
+        <div className="flex-1 min-w-0 grid grid-cols-12 gap-3 items-center text-tool">
           <div className="col-span-3 font-mono text-brand-600 dark:text-brand-400 truncate" title={domain}>
             {domain}
           </div>
-          <div className="col-span-2 text-slate-700 dark:text-slate-300 truncate text-[12px]" title={result.page_title}>
+          <div className="col-span-2 text-slate-700 dark:text-slate-300 truncate text-meta" title={result.page_title}>
             {result.page_title ?? '—'}
           </div>
           <div className="col-span-1 font-mono font-semibold text-center">
@@ -139,7 +139,7 @@ function ResultRow({ result }: { result: WebamonResult }) {
               <span className="text-slate-400">—</span>
             )}
           </div>
-          <div className="col-span-2 text-slate-600 dark:text-slate-400 text-[12px] truncate">
+          <div className="col-span-2 text-slate-600 dark:text-slate-400 text-meta truncate">
             {result.tag ? (
               <span className="inline-flex items-center gap-1">
                 <Tag size={10} />
@@ -156,7 +156,7 @@ function ResultRow({ result }: { result: WebamonResult }) {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={(e) => e.stopPropagation()}
-                className="inline-flex items-center gap-1 text-[11px] text-slate-400 hover:text-brand-600 dark:hover:text-brand-400"
+                className="inline-flex items-center gap-1 text-mini text-slate-400 hover:text-brand-600 dark:hover:text-brand-400"
               >
                 <ExternalLink size={10} /> visit
               </a>
@@ -166,7 +166,7 @@ function ResultRow({ result }: { result: WebamonResult }) {
       </button>
       {expanded && (
         <div className="px-4 pb-4 pt-1 border-t border-slate-100 dark:border-slate-800">
-          <div className="grid grid-cols-2 gap-4 text-[13px] mt-3">
+          <div className="grid grid-cols-2 gap-4 text-tool mt-3">
             <div>
               <h4 className="font-semibold text-slate-700 dark:text-slate-300 mb-2 flex items-center gap-1.5">
                 <Shield size={13} /> Meta
@@ -175,7 +175,7 @@ function ResultRow({ result }: { result: WebamonResult }) {
                 {result.meta?.report_id && (
                   <div className="flex justify-between">
                     <span className="text-slate-500">Report ID</span>
-                    <span className="font-mono text-[11px] text-slate-700 dark:text-slate-300 truncate ml-2">
+                    <span className="font-mono text-mini text-slate-700 dark:text-slate-300 truncate ml-2">
                       {result.meta.report_id}
                     </span>
                   </div>
@@ -183,7 +183,7 @@ function ResultRow({ result }: { result: WebamonResult }) {
                 {result.meta?.submission_url && (
                   <div className="flex justify-between">
                     <span className="text-slate-500">Submission</span>
-                    <span className="font-mono text-[11px] text-slate-700 dark:text-slate-300 truncate ml-2">
+                    <span className="font-mono text-mini text-slate-700 dark:text-slate-300 truncate ml-2">
                       {result.meta.submission_url}
                     </span>
                   </div>
@@ -191,7 +191,7 @@ function ResultRow({ result }: { result: WebamonResult }) {
                 {result.meta?.submission_utc && (
                   <div className="flex justify-between">
                     <span className="text-slate-500">Submitted</span>
-                    <span className="font-mono text-[11px] text-slate-700 dark:text-slate-300 ml-2">
+                    <span className="font-mono text-mini text-slate-700 dark:text-slate-300 ml-2">
                       {result.meta.submission_utc}
                     </span>
                   </div>
@@ -199,7 +199,7 @@ function ResultRow({ result }: { result: WebamonResult }) {
                 {result.meta?.script_count !== undefined && (
                   <div className="flex justify-between">
                     <span className="text-slate-500">Scripts</span>
-                    <span className="font-mono text-[11px] text-slate-700 dark:text-slate-300 ml-2">
+                    <span className="font-mono text-mini text-slate-700 dark:text-slate-300 ml-2">
                       {result.meta.script_count}
                     </span>
                   </div>
@@ -207,7 +207,7 @@ function ResultRow({ result }: { result: WebamonResult }) {
                 {result.meta?.domain_count !== undefined && (
                   <div className="flex justify-between">
                     <span className="text-slate-500">Domains</span>
-                    <span className="font-mono text-[11px] text-slate-700 dark:text-slate-300 ml-2">
+                    <span className="font-mono text-mini text-slate-700 dark:text-slate-300 ml-2">
                       {result.meta.domain_count}
                     </span>
                   </div>
@@ -215,7 +215,7 @@ function ResultRow({ result }: { result: WebamonResult }) {
                 {result.meta?.request_count !== undefined && (
                   <div className="flex justify-between">
                     <span className="text-slate-500">Requests</span>
-                    <span className="font-mono text-[11px] text-slate-700 dark:text-slate-300 ml-2">
+                    <span className="font-mono text-mini text-slate-700 dark:text-slate-300 ml-2">
                       {result.meta.request_count}
                     </span>
                   </div>
@@ -235,11 +235,11 @@ function ResultRow({ result }: { result: WebamonResult }) {
                   ))}
                 </div>
               ) : (
-                <p className="text-slate-400 text-[12px]">No unique fingerprints</p>
+                <p className="text-slate-400 text-meta">No unique fingerprints</p>
               )}
             </div>
           </div>
-          <div className="mt-3 pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center gap-3 text-[11px] text-slate-400 font-mono">
+          <div className="mt-3 pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center gap-3 text-mini text-slate-400 font-mono">
             <span>Index: {result._index}</span>
             {result.sub_domain && <span>Subdomain: {result.sub_domain}</span>}
             {result.matched_fields && result.matched_fields.length > 0 && (
@@ -300,11 +300,11 @@ function JsonBlock({ data, label }: { data: Record<string, unknown>; label: stri
         ) : (
           <ChevronRight size={14} className="text-slate-400" />
         )}
-        <span className="font-mono text-[13px] font-semibold text-slate-700 dark:text-slate-300">{label}</span>
-        <span className="text-[11px] text-slate-400 font-mono">{Object.keys(data).length} fields</span>
+        <span className="font-mono text-tool font-semibold text-slate-700 dark:text-slate-300">{label}</span>
+        <span className="text-mini text-slate-400 font-mono">{Object.keys(data).length} fields</span>
       </button>
       {open && (
-        <pre className="text-[11px] font-mono text-slate-600 dark:text-slate-400 bg-slate-50 dark:bg-slate-800/50 p-4 overflow-x-auto max-h-96">
+        <pre className="text-mini font-mono text-slate-600 dark:text-slate-400 bg-slate-50 dark:bg-slate-800/50 p-4 overflow-x-auto max-h-96">
           {JSON.stringify(data, null, 2)}
         </pre>
       )}
@@ -400,7 +400,7 @@ function SearchTab() {
                 setQuery(ex);
                 doSearch(ex, 0);
               }}
-              className="px-2.5 py-1 rounded-md text-[11px] font-mono bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:bg-brand-100 dark:hover:bg-brand-900/30 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+              className="px-2.5 py-1 rounded-md text-mini font-mono bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:bg-brand-100 dark:hover:bg-brand-900/30 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
             >
               {ex}
             </button>
@@ -434,7 +434,7 @@ function SearchTab() {
               </span>
             )}
           </div>
-          <div className="hidden sm:grid grid-cols-12 gap-3 px-7 py-2 text-[11px] font-semibold text-slate-400 uppercase tracking-wider font-mono">
+          <div className="hidden sm:grid grid-cols-12 gap-3 px-7 py-2 text-mini font-semibold text-slate-400 uppercase tracking-wider font-mono">
             <div className="col-span-3">Domain</div>
             <div className="col-span-2">Page Title</div>
             <div className="col-span-1 text-center">Risk</div>
@@ -603,7 +603,7 @@ function SandboxTab() {
               {result.report_id && (
                 <div>
                   <span className="text-slate-500">Report ID</span>
-                  <p className="text-brand-600 dark:text-brand-400 text-[12px] break-all">{result.report_id}</p>
+                  <p className="text-brand-600 dark:text-brand-400 text-meta break-all">{result.report_id}</p>
                 </div>
               )}
               {result.message && (
@@ -628,7 +628,7 @@ function SandboxTab() {
               <h2 className="font-display font-bold text-lg mb-4 flex items-center gap-2">
                 <FileImage size={18} className="text-brand-600 dark:text-brand-400" /> Scan Report
               </h2>
-              <pre className="text-[11px] font-mono text-slate-700 dark:text-slate-300 bg-slate-50 dark:bg-slate-800/50 rounded-lg p-4 overflow-x-auto max-h-96">
+              <pre className="text-mini font-mono text-slate-700 dark:text-slate-300 bg-slate-50 dark:bg-slate-800/50 rounded-lg p-4 overflow-x-auto max-h-96">
                 {JSON.stringify(reportData, null, 2)}
               </pre>
             </section>
@@ -737,7 +737,7 @@ function InfraTab() {
                   key={m.key}
                   type="button"
                   onClick={() => setMode(m.key)}
-                  className={`px-3 py-2.5 text-[12px] font-mono flex items-center gap-1.5 transition-colors ${
+                  className={`px-3 py-2.5 text-meta font-mono flex items-center gap-1.5 transition-colors ${
                     active
                       ? 'bg-brand-600 dark:bg-brand-500 text-white'
                       : 'text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'
@@ -824,8 +824,6 @@ function InfraTab() {
 export default function Webamon(): JSX.Element {
   const [tab, setTab] = useState<Tab>('search');
 
-  const TabIcon = TABS.find((t) => t.key === tab)!.icon;
-
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
@@ -864,7 +862,7 @@ export default function Webamon(): JSX.Element {
               key={t.key}
               type="button"
               onClick={() => setTab(t.key)}
-              className={`flex items-center gap-2 px-4 py-3 text-[13px] font-mono font-semibold border-b-2 transition-colors ${
+              className={`flex items-center gap-2 px-4 py-3 text-tool font-mono font-semibold border-b-2 transition-colors ${
                 active
                   ? 'border-brand-600 dark:border-brand-400 text-brand-600 dark:text-brand-400'
                   : 'border-transparent text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'

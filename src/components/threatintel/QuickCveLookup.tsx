@@ -90,27 +90,27 @@ export default function QuickCveLookup() {
         </button>
       </div>
 
-      {loading && <p className="mt-2 text-[10px] font-mono text-slate-500">Querying NVD…</p>}
+      {loading && <p className="mt-2 text-micro font-mono text-slate-500">Querying NVD…</p>}
 
-      {error && <p className="mt-2 text-[10px] font-mono text-rose-500">error: {error}</p>}
+      {error && <p className="mt-2 text-micro font-mono text-rose-500">error: {error}</p>}
 
       {result && (
         <div className="mt-3 space-y-2">
           <div className="flex items-center flex-wrap gap-1.5">
             <span className="font-mono text-sm font-bold">{result.cve_id}</span>
             {result.kev.in_kev && (
-              <span className="text-[9px] px-1.5 py-0.5 rounded font-bold uppercase tracking-wider bg-rose-100 text-rose-800 dark:bg-rose-900/40 dark:text-rose-300 border border-rose-300 dark:border-rose-700">
+              <span className="text-micro px-1.5 py-0.5 rounded font-bold uppercase tracking-wider bg-rose-100 text-rose-800 dark:bg-rose-900/40 dark:text-rose-300 border border-rose-300 dark:border-rose-700">
                 CISA KEV
               </span>
             )}
             {result.kev.known_ransomware && (
-              <span className="text-[9px] px-1.5 py-0.5 rounded font-bold uppercase tracking-wider bg-amber-100 text-amber-900 dark:bg-amber-900/40 dark:text-amber-300 border border-amber-400 dark:border-amber-700">
+              <span className="text-micro px-1.5 py-0.5 rounded font-bold uppercase tracking-wider bg-amber-100 text-amber-900 dark:bg-amber-900/40 dark:text-amber-300 border border-amber-400 dark:border-amber-700">
                 Ransomware
               </span>
             )}
             {result.cvss && (
               <span
-                className={`text-[9px] px-1.5 py-0.5 rounded font-bold uppercase tracking-wider border ${SEVERITY_STYLES[result.cvss.severity] ?? SEVERITY_STYLES.LOW}`}
+                className={`text-micro px-1.5 py-0.5 rounded font-bold uppercase tracking-wider border ${SEVERITY_STYLES[result.cvss.severity] ?? SEVERITY_STYLES.LOW}`}
               >
                 {result.cvss.severity} {result.cvss.base_score}
               </span>
@@ -118,11 +118,11 @@ export default function QuickCveLookup() {
           </div>
 
           {result.description && (
-            <p className="text-[11px] text-slate-600 dark:text-slate-400 line-clamp-2">{result.description}</p>
+            <p className="text-mini text-slate-600 dark:text-slate-400 line-clamp-2">{result.description}</p>
           )}
 
           {(result.cvss || result.epss) && (
-            <div className="flex gap-3 text-[10px] font-mono text-slate-500">
+            <div className="flex gap-3 text-micro font-mono text-slate-500">
               {result.cvss && (
                 <span>
                   CVSS: <strong className="text-slate-800 dark:text-slate-200">{result.cvss.base_score}</strong>
@@ -141,7 +141,7 @@ export default function QuickCveLookup() {
 
           <a
             href={`/dfir/cve-lookup?cve=${result.cve_id}`}
-            className="inline-flex items-center gap-1 text-[10px] font-mono text-brand-600 dark:text-brand-400 hover:underline"
+            className="inline-flex items-center gap-1 text-micro font-mono text-brand-600 dark:text-brand-400 hover:underline"
           >
             Open in CVE Lookup <ExternalLink size={10} />
           </a>

@@ -159,7 +159,7 @@ export default function ExposedHostView(): JSX.Element {
             value={ip}
             onChange={(e) => setIp(e.target.value)}
             placeholder="8.8.8.8"
-            className="w-full pl-10 pr-4 py-2.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-sm font-mono focus:ring-2 focus:ring-brand-500 focus:border-transparent"
+            className="w-full pl-10 pr-4 py-2.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-sm font-mono focus-visible:ring-2 focus-visible:ring-brand-500 focus:border-transparent"
           />
         </div>
         <button
@@ -234,7 +234,7 @@ export default function ExposedHostView(): JSX.Element {
                 {result.tags.map((tag) => (
                   <span
                     key={tag}
-                    className={`px-2 py-0.5 rounded text-[10px] font-mono ${TAG_COLORS[tag] ?? 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400'}`}
+                    className={`px-2 py-0.5 rounded text-micro font-mono ${TAG_COLORS[tag] ?? 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400'}`}
                   >
                     {tag}
                   </span>
@@ -257,7 +257,7 @@ export default function ExposedHostView(): JSX.Element {
               >
                 <div className="flex items-center gap-1.5 mb-1">
                   <Icon size={12} className="text-slate-400" />
-                  <span className="text-[10px] font-mono uppercase text-slate-500">{label}</span>
+                  <span className="text-micro font-mono uppercase text-slate-500">{label}</span>
                 </div>
                 <span className="text-2xl font-mono font-bold">{value}</span>
               </div>
@@ -437,9 +437,7 @@ export default function ExposedHostView(): JSX.Element {
                   <div className="flex items-center gap-2">
                     <File size={14} className="text-brand-600" />
                     <span className="font-mono text-sm font-medium">{previewArtifact.name}</span>
-                    <span
-                      className={`px-1.5 py-0.5 rounded text-[10px] font-mono ${RISK_COLORS[previewArtifact.risk]}`}
-                    >
+                    <span className={`px-1.5 py-0.5 rounded text-micro font-mono ${RISK_COLORS[previewArtifact.risk]}`}>
                       {previewArtifact.risk}
                     </span>
                   </div>

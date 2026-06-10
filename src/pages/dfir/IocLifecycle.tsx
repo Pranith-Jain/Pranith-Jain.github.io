@@ -136,7 +136,7 @@ export default function IocLifecycle(): JSX.Element {
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -218,7 +218,7 @@ export default function IocLifecycle(): JSX.Element {
                     <th
                       key={h}
                       scope="col"
-                      className="px-4 py-3 text-[10px] font-mono uppercase tracking-wider text-slate-400"
+                      className="px-4 py-3 text-micro font-mono uppercase tracking-wider text-slate-400"
                     >
                       {h}
                     </th>
@@ -244,12 +244,12 @@ export default function IocLifecycle(): JSX.Element {
                         />
                       </td>
                       <td className="px-4 py-2.5">
-                        <span className="text-[10px] font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-700 text-slate-500">
+                        <span className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-700 text-slate-500">
                           {ioc.indicator_type}
                         </span>
                       </td>
                       <td className="px-4 py-2.5">
-                        <span className={`text-[10px] font-mono px-1.5 py-0.5 rounded ${STATUS_BADGE[ioc.status]}`}>
+                        <span className={`text-micro font-mono px-1.5 py-0.5 rounded ${STATUS_BADGE[ioc.status]}`}>
                           {ioc.status}
                         </span>
                       </td>
@@ -284,41 +284,41 @@ export default function IocLifecycle(): JSX.Element {
               </p>
             </div>
             <div className="flex items-center gap-2">
-              <span className={`text-[10px] font-mono px-1.5 py-0.5 rounded ${STATUS_BADGE[lifecycle.status]}`}>
+              <span className={`text-micro font-mono px-1.5 py-0.5 rounded ${STATUS_BADGE[lifecycle.status]}`}>
                 {lifecycle.status}
               </span>
             </div>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
             <div>
-              <div className="text-[10px] font-mono uppercase tracking-wider text-slate-400">First Seen</div>
+              <div className="text-micro font-mono uppercase tracking-wider text-slate-400">First Seen</div>
               <div className="text-sm">{new Date(lifecycle.first_seen).toLocaleString()}</div>
             </div>
             <div>
-              <div className="text-[10px] font-mono uppercase tracking-wider text-slate-400">Last Seen</div>
+              <div className="text-micro font-mono uppercase tracking-wider text-slate-400">Last Seen</div>
               <div className="text-sm">{new Date(lifecycle.last_seen).toLocaleString()}</div>
             </div>
             <div>
-              <div className="text-[10px] font-mono uppercase tracking-wider text-slate-400">Peak</div>
+              <div className="text-micro font-mono uppercase tracking-wider text-slate-400">Peak</div>
               <div className="text-sm font-mono">{lifecycle.peak_score}</div>
               <ScoreBar score={lifecycle.peak_score} />
             </div>
             <div>
-              <div className="text-[10px] font-mono uppercase tracking-wider text-slate-400">Current</div>
+              <div className="text-micro font-mono uppercase tracking-wider text-slate-400">Current</div>
               <div className="text-sm font-mono">{lifecycle.current_score}</div>
               <ScoreBar score={lifecycle.current_score} />
             </div>
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <div className="text-[10px] font-mono uppercase tracking-wider text-slate-400 mb-1.5">
+              <div className="text-micro font-mono uppercase tracking-wider text-slate-400 mb-1.5">
                 Sources ({lifecycle.sources_seen.length})
               </div>
               <div className="flex flex-wrap gap-1">
                 {lifecycle.sources_seen.map((s) => (
                   <span
                     key={s}
-                    className="text-[10px] font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-700 text-slate-500"
+                    className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-700 text-slate-500"
                   >
                     {s}
                   </span>
@@ -326,12 +326,12 @@ export default function IocLifecycle(): JSX.Element {
               </div>
             </div>
             <div>
-              <div className="text-[10px] font-mono uppercase tracking-wider text-slate-400 mb-1.5">Tags</div>
+              <div className="text-micro font-mono uppercase tracking-wider text-slate-400 mb-1.5">Tags</div>
               <div className="flex flex-wrap gap-1">
                 {lifecycle.tags.map((t) => (
                   <span
                     key={t}
-                    className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-brand-100 dark:bg-brand-900/30 text-brand-700 dark:text-brand-300"
+                    className="text-micro font-mono px-1.5 py-0.5 rounded bg-brand-100 dark:bg-brand-900/30 text-brand-700 dark:text-brand-300"
                   >
                     {t}
                   </span>
@@ -360,7 +360,7 @@ function StatCard({
     <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-4">
       <div className="flex items-center gap-2 mb-1.5">
         {icon && <span className={color ?? 'text-slate-400'}>{icon}</span>}
-        <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400">{label}</span>
+        <span className="text-micro font-mono uppercase tracking-wider text-slate-400">{label}</span>
       </div>
       <div className={`text-2xl font-display font-bold ${color ?? 'text-slate-900 dark:text-white'}`}>
         {(value ?? 0).toLocaleString()}

@@ -84,7 +84,7 @@ export default function BreachDisclosures(): JSX.Element {
           <button
             type="button"
             onClick={() => setRefreshKey((k) => k + 1)}
-            className="text-[11px] font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 inline-flex items-center gap-1 mt-1"
+            className="text-mini font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 inline-flex items-center gap-1 mt-1"
             aria-label="Refresh breach disclosures"
           >
             <RefreshCw size={11} /> refresh
@@ -182,7 +182,7 @@ export default function BreachDisclosures(): JSX.Element {
                         </span>
                         <ExternalLink size={11} className="text-slate-400 shrink-0" aria-hidden="true" />
                       </div>
-                      <div className="text-[11px] font-mono text-slate-500 flex items-center gap-2 flex-wrap">
+                      <div className="text-mini font-mono text-slate-500 flex items-center gap-2 flex-wrap">
                         {item.source && <span className="text-brand-600 dark:text-brand-400">{item.source}</span>}
                         {item.pubDate && <span className="text-slate-400">{formatRelativeTime(item.pubDate)}</span>}
                       </div>

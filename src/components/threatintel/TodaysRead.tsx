@@ -156,7 +156,7 @@ export function TodaysRead(): JSX.Element {
         <div className="flex items-baseline gap-3">
           <h2
             id="todays-read"
-            className="text-[11px] font-mono uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400"
+            className="text-mini font-mono uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400"
           >
             Today's read
           </h2>
@@ -171,17 +171,17 @@ export function TodaysRead(): JSX.Element {
           >
             <div className="flex items-center gap-2 mb-2">
               <BookOpen size={14} className="text-brand-600 dark:text-brand-400" aria-hidden="true" />
-              <span className="text-[10px] font-mono uppercase tracking-[0.18em] text-brand-600 dark:text-brand-400">
+              <span className="text-micro font-mono uppercase tracking-[0.18em] text-brand-600 dark:text-brand-400">
                 Latest research
               </span>
             </div>
             <p className="text-sm font-medium text-slate-900 dark:text-slate-100 leading-snug mb-1.5 line-clamp-3">
               {latestResearch.title}
             </p>
-            <p className="text-[12px] text-slate-600 dark:text-slate-400 leading-relaxed line-clamp-2">
+            <p className="text-meta text-slate-600 dark:text-slate-400 leading-relaxed line-clamp-2">
               {latestResearch.excerpt}
             </p>
-            <div className="mt-auto pt-2.5 inline-flex items-center gap-1 text-[11px] font-mono text-brand-600 dark:text-brand-400 group-hover:underline">
+            <div className="mt-auto pt-2.5 inline-flex items-center gap-1 text-mini font-mono text-brand-600 dark:text-brand-400 group-hover:underline">
               read · {latestResearch.readingTime} <ArrowRight size={11} />
             </div>
           </Link>
@@ -194,7 +194,7 @@ export function TodaysRead(): JSX.Element {
         >
           <div className="flex items-center gap-2 mb-2">
             <ShieldAlert size={14} className="text-amber-600 dark:text-amber-400" aria-hidden="true" />
-            <span className="text-[10px] font-mono uppercase tracking-[0.18em] text-amber-700 dark:text-amber-400">
+            <span className="text-micro font-mono uppercase tracking-[0.18em] text-amber-700 dark:text-amber-400">
               Top firing detection
             </span>
           </div>
@@ -203,7 +203,7 @@ export function TodaysRead(): JSX.Element {
               <p className="text-sm font-medium text-slate-900 dark:text-slate-100 leading-snug mb-1.5">
                 {det.rule_name}
               </p>
-              <p className="text-[12px] text-slate-600 dark:text-slate-400 leading-relaxed">
+              <p className="text-meta text-slate-600 dark:text-slate-400 leading-relaxed">
                 {det.match_count.toLocaleString()} indicators matched · {det.severity} severity
               </p>
             </>
@@ -214,7 +214,7 @@ export function TodaysRead(): JSX.Element {
               Loading the rule pack's current state…
             </p>
           )}
-          <div className="mt-auto pt-2.5 inline-flex items-center gap-1 text-[11px] font-mono text-amber-700 dark:text-amber-400 group-hover:underline">
+          <div className="mt-auto pt-2.5 inline-flex items-center gap-1 text-mini font-mono text-amber-700 dark:text-amber-400 group-hover:underline">
             see what fired <ArrowRight size={11} />
           </div>
         </Link>
@@ -226,7 +226,7 @@ export function TodaysRead(): JSX.Element {
         >
           <div className="flex items-center gap-2 mb-2">
             <Flame size={14} className="text-rose-600 dark:text-rose-400" aria-hidden="true" />
-            <span className="text-[10px] font-mono uppercase tracking-[0.18em] text-rose-700 dark:text-rose-400">
+            <span className="text-micro font-mono uppercase tracking-[0.18em] text-rose-700 dark:text-rose-400">
               Ransomware · last 7d
             </span>
           </div>
@@ -240,10 +240,10 @@ export function TodaysRead(): JSX.Element {
                 {ransom.primary}
                 <span className="text-sm font-mono text-slate-500 ml-2">claims</span>
               </p>
-              <p className="text-[12px] text-slate-600 dark:text-slate-400 leading-relaxed">{ransom.secondary}</p>
+              <p className="text-meta text-slate-600 dark:text-slate-400 leading-relaxed">{ransom.secondary}</p>
             </>
           )}
-          <div className="mt-auto pt-2.5 inline-flex items-center gap-1 text-[11px] font-mono text-rose-700 dark:text-rose-400 group-hover:underline">
+          <div className="mt-auto pt-2.5 inline-flex items-center gap-1 text-mini font-mono text-rose-700 dark:text-rose-400 group-hover:underline">
             full weekly read <ArrowRight size={11} />
           </div>
         </Link>

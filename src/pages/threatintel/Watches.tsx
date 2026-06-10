@@ -202,7 +202,7 @@ export default function Watches(): JSX.Element {
                 onChange={(e) => setSearch(e.target.value)}
                 aria-label="Filter watches"
                 placeholder="Filter..."
-                className="w-full pl-7 pr-2 py-1.5 text-[11px] font-mono bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded focus:outline-none focus:border-brand-500"
+                className="w-full pl-7 pr-2 py-1.5 text-mini font-mono bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded focus:outline-none focus:border-brand-500"
               />
             </div>
           </div>
@@ -232,7 +232,7 @@ export default function Watches(): JSX.Element {
                   {editingId === watch.id ? (
                     <div className="space-y-3">
                       <div>
-                        <label htmlFor="watch-edit-label" className="block text-[11px] font-mono text-slate-500 mb-1">
+                        <label htmlFor="watch-edit-label" className="block text-mini font-mono text-slate-500 mb-1">
                           Label
                         </label>
                         <input
@@ -244,7 +244,7 @@ export default function Watches(): JSX.Element {
                         />
                       </div>
                       <div>
-                        <label htmlFor="watch-edit-value" className="block text-[11px] font-mono text-slate-500 mb-1">
+                        <label htmlFor="watch-edit-value" className="block text-mini font-mono text-slate-500 mb-1">
                           Value
                         </label>
                         <input
@@ -256,7 +256,7 @@ export default function Watches(): JSX.Element {
                         />
                       </div>
                       <div>
-                        <label htmlFor="watch-edit-webhook" className="block text-[11px] font-mono text-slate-500 mb-1">
+                        <label htmlFor="watch-edit-webhook" className="block text-mini font-mono text-slate-500 mb-1">
                           Webhook URL
                         </label>
                         <input
@@ -286,20 +286,18 @@ export default function Watches(): JSX.Element {
                     <div className="flex items-start justify-between gap-4">
                       <div className="min-w-0 flex-1">
                         <div className="flex items-center gap-2 mb-1">
-                          <span className={`text-[10px] font-mono uppercase tracking-wider ${TYPE_COLORS[watch.type]}`}>
+                          <span className={`text-micro font-mono uppercase tracking-wider ${TYPE_COLORS[watch.type]}`}>
                             {TYPE_LABELS[watch.type]}
                           </span>
                           {watch.last_triggered && (
-                            <span className="text-[10px] text-emerald-600 dark:text-emerald-400 flex items-center gap-1">
+                            <span className="text-micro text-emerald-600 dark:text-emerald-400 flex items-center gap-1">
                               <Bell size={10} /> triggered
                             </span>
                           )}
                         </div>
                         <p className="font-medium text-sm truncate">{watch.label}</p>
-                        <p className="text-[11px] font-mono text-slate-500 dark:text-slate-400 truncate">
-                          {watch.value}
-                        </p>
-                        <div className="flex items-center gap-3 mt-2 text-[11px] text-slate-400">
+                        <p className="text-mini font-mono text-slate-500 dark:text-slate-400 truncate">{watch.value}</p>
+                        <div className="flex items-center gap-3 mt-2 text-mini text-slate-400">
                           <a
                             href={watch.webhook}
                             target="_blank"
@@ -356,7 +354,7 @@ export default function Watches(): JSX.Element {
               <h3 className="font-display font-semibold text-sm mb-4">Create Watch</h3>
               <div className="space-y-3">
                 <div>
-                  <label htmlFor="watch-create-label" className="block text-[11px] font-mono text-slate-500 mb-1">
+                  <label htmlFor="watch-create-label" className="block text-mini font-mono text-slate-500 mb-1">
                     Label
                   </label>
                   <input
@@ -369,7 +367,7 @@ export default function Watches(): JSX.Element {
                   />
                 </div>
                 <div>
-                  <label htmlFor="watch-create-type" className="block text-[11px] font-mono text-slate-500 mb-1">
+                  <label htmlFor="watch-create-type" className="block text-mini font-mono text-slate-500 mb-1">
                     Type
                   </label>
                   <select
@@ -385,7 +383,7 @@ export default function Watches(): JSX.Element {
                   </select>
                 </div>
                 <div>
-                  <label htmlFor="watch-create-value" className="block text-[11px] font-mono text-slate-500 mb-1">
+                  <label htmlFor="watch-create-value" className="block text-mini font-mono text-slate-500 mb-1">
                     {form.type === 'ransomware-group'
                       ? 'Group name (partial)'
                       : form.type === 'cve-keyword'
@@ -412,7 +410,7 @@ export default function Watches(): JSX.Element {
                   />
                 </div>
                 <div>
-                  <label htmlFor="watch-create-webhook" className="block text-[11px] font-mono text-slate-500 mb-1">
+                  <label htmlFor="watch-create-webhook" className="block text-mini font-mono text-slate-500 mb-1">
                     Webhook URL
                   </label>
                   <input
@@ -450,7 +448,7 @@ export default function Watches(): JSX.Element {
             </h3>
             <div className="space-y-2 max-h-96 overflow-y-auto pr-1">
               {alerts.length === 0 ? (
-                <p className="text-[11px] font-mono text-slate-400 italic">No alerts yet.</p>
+                <p className="text-mini font-mono text-slate-400 italic">No alerts yet.</p>
               ) : (
                 alerts.map((alert, i) => (
                   <div
@@ -458,16 +456,14 @@ export default function Watches(): JSX.Element {
                     className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-3 py-2.5"
                   >
                     <div className="flex items-center gap-2 mb-0.5">
-                      <span className={`text-[10px] font-mono uppercase tracking-wider ${TYPE_COLORS[alert.type]}`}>
+                      <span className={`text-micro font-mono uppercase tracking-wider ${TYPE_COLORS[alert.type]}`}>
                         {TYPE_LABELS[alert.type]}
                       </span>
-                      <span className="text-[10px] text-slate-400">{new Date(alert.matched_at).toLocaleString()}</span>
+                      <span className="text-micro text-slate-400">{new Date(alert.matched_at).toLocaleString()}</span>
                     </div>
                     <p className="text-sm font-medium truncate">{alert.label}</p>
-                    <p className="text-[11px] font-mono text-emerald-600 dark:text-emerald-400 truncate">
-                      {alert.match}
-                    </p>
-                    {alert.detail && <p className="text-[10px] text-slate-400 truncate mt-0.5">{alert.detail}</p>}
+                    <p className="text-mini font-mono text-emerald-600 dark:text-emerald-400 truncate">{alert.match}</p>
+                    {alert.detail && <p className="text-micro text-slate-400 truncate mt-0.5">{alert.detail}</p>}
                   </div>
                 ))
               )}

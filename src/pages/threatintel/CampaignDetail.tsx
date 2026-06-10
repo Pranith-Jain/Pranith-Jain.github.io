@@ -206,7 +206,7 @@ export default function CampaignDetail(): JSX.Element {
                 <Sparkles size={22} className="text-brand-600 dark:text-brand-400" />
                 {data.campaign.campaign_name}
               </h1>
-              <div className="flex items-center gap-2 flex-wrap text-[10px] font-mono">
+              <div className="flex items-center gap-2 flex-wrap text-micro font-mono">
                 <span className={`px-1.5 py-0.5 rounded border ${CONFIDENCE_COLOR[data.campaign.confidence]}`}>
                   confidence: {data.campaign.confidence}
                 </span>
@@ -218,7 +218,7 @@ export default function CampaignDetail(): JSX.Element {
               <button
                 type="button"
                 onClick={() => void copyMarkdown()}
-                className="inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-slate-700 px-2.5 py-1 text-[11px] font-mono text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 hover:border-brand-500/40"
+                className="inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-slate-700 px-2.5 py-1 text-mini font-mono text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 hover:border-brand-500/40"
               >
                 {copied ? (
                   <>
@@ -233,7 +233,7 @@ export default function CampaignDetail(): JSX.Element {
               <button
                 type="button"
                 onClick={() => void handleDelete()}
-                className="inline-flex items-center gap-1.5 rounded border border-rose-300 dark:border-rose-700 px-2.5 py-1 text-[11px] font-mono text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950"
+                className="inline-flex items-center gap-1.5 rounded border border-rose-300 dark:border-rose-700 px-2.5 py-1 text-mini font-mono text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950"
               >
                 <Trash2 size={11} /> delete
               </button>
@@ -241,7 +241,7 @@ export default function CampaignDetail(): JSX.Element {
           </div>
 
           {(data.input.actor || data.input.sector) && (
-            <div className="flex flex-wrap gap-2 mb-4 text-[11px] font-mono">
+            <div className="flex flex-wrap gap-2 mb-4 text-mini font-mono">
               {data.input.actor && (
                 <span className="rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 px-2 py-0.5 text-slate-700 dark:text-slate-300">
                   actor: {data.input.actor}
@@ -277,7 +277,7 @@ export default function CampaignDetail(): JSX.Element {
                     key={`${k.phase}-${i}`}
                     className="rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-3"
                   >
-                    <div className="text-[10px] font-mono uppercase tracking-wider text-brand-600 dark:text-brand-400 mb-0.5">
+                    <div className="text-micro font-mono uppercase tracking-wider text-brand-600 dark:text-brand-400 mb-0.5">
                       {PHASE_LABELS[k.phase] ?? k.phase}
                     </div>
                     <div className="text-sm text-slate-700 dark:text-slate-300">{k.description}</div>
@@ -305,7 +305,7 @@ export default function CampaignDetail(): JSX.Element {
                       {m.id} <ExternalLink size={9} />
                     </a>{' '}
                     <span className="font-semibold text-slate-800 dark:text-slate-200">— {m.name}</span>
-                    <div className="text-[11px] font-mono text-slate-500 mt-0.5">{m.rationale}</div>
+                    <div className="text-mini font-mono text-slate-500 mt-0.5">{m.rationale}</div>
                   </li>
                 ))}
               </ul>
@@ -328,7 +328,7 @@ export default function CampaignDetail(): JSX.Element {
                     </span>
                     <Link
                       to={`/dfir/ioc-check?indicator=${encodeURIComponent(ioc)}`}
-                      className="text-[10px] text-brand-600 dark:text-brand-400 hover:underline shrink-0"
+                      className="text-micro text-brand-600 dark:text-brand-400 hover:underline shrink-0"
                     >
                       pivot →
                     </Link>

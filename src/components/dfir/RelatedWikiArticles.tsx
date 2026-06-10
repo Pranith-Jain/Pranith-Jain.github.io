@@ -42,7 +42,7 @@ export function RelatedWikiArticles({ path, limit = 5, className = '' }: Props):
               <div className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 mb-0.5">
                 {a.title}
               </div>
-              <div className="text-[10px] font-mono text-slate-500 dark:text-slate-400">
+              <div className="text-micro font-mono text-slate-500 dark:text-slate-400">
                 mentions: {a.matchedTerms.slice(0, 3).join(', ')}
                 {a.matchedTerms.length > 3 && ` +${a.matchedTerms.length - 3}`}
               </div>
@@ -51,7 +51,7 @@ export function RelatedWikiArticles({ path, limit = 5, className = '' }: Props):
         ))}
       </ul>
       {articles.length > limit && (
-        <p className="text-[10px] font-mono text-slate-500 dark:text-slate-400 mt-2">
+        <p className="text-micro font-mono text-slate-500 dark:text-slate-400 mt-2">
           {articles.length - limit} more articles also backlink to this tool —{' '}
           <Link to="/threatintel/wiki" className="text-cyan-700 dark:text-cyan-300 hover:underline">
             browse the full wiki

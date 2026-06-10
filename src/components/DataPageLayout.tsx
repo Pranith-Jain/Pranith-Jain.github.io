@@ -39,7 +39,7 @@ export function DataPageLayout({
     <div className={`max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100 ${className ?? ''}`}>
       <Link
         to={backTo}
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono transition-colors"
       >
         <ArrowLeft size={14} /> {backLabel}
       </Link>
@@ -53,7 +53,10 @@ export function DataPageLayout({
       </div>
 
       {error && (
-        <div className="rounded-xl border border-rose-300/70 dark:border-rose-800/60 bg-rose-50/60 dark:bg-rose-950/30 p-4 mb-6 flex items-center justify-between gap-3">
+        <div
+          role="alert"
+          className="rounded-xl border border-rose-300/70 dark:border-rose-800/60 bg-rose-50/60 dark:bg-rose-950/30 p-4 mb-6 flex items-center justify-between gap-3"
+        >
           <div className="flex items-center gap-3">
             <AlertTriangle size={16} className="text-rose-600 dark:text-rose-400 flex-shrink-0" />
             <p className="text-sm text-rose-700 dark:text-rose-300">{error}</p>
@@ -71,11 +74,15 @@ export function DataPageLayout({
       )}
 
       {loading ? (
-        <div className="flex items-center justify-center py-16">
-          <Loader2 size={24} className="animate-spin text-slate-400" />
+        <div className="flex items-center justify-center py-16" role="status" aria-live="polite">
+          <Loader2 size={24} className="animate-spin text-slate-400" aria-hidden="true" />
+          <span className="sr-only">Loading…</span>
         </div>
       ) : empty ? (
-        <div className="rounded-xl border border-dashed border-slate-300 dark:border-slate-700 p-10 text-center">
+        <div
+          className="rounded-xl border border-dashed border-slate-300 dark:border-slate-700 p-10 text-center"
+          role="status"
+        >
           {emptyIcon && <div className="mb-3">{emptyIcon}</div>}
           <p className="text-sm text-slate-500 dark:text-slate-400">{emptyMessage}</p>
         </div>

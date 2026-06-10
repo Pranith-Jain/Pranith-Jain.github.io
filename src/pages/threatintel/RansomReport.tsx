@@ -466,11 +466,11 @@ export default function RansomReport(): JSX.Element {
             <div id="ransom-report">
               {/* Report header */}
               <div className="mb-6 pb-4 border-b border-slate-200 dark:border-slate-800">
-                <div className="text-[10px] font-mono uppercase tracking-wider text-slate-500 mb-1">
+                <div className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-1">
                   Ransomware Threat Intelligence Report
                 </div>
                 <h2 className="text-2xl font-display font-bold capitalize">{profile.group ?? selected}</h2>
-                <div className="flex flex-wrap gap-x-5 gap-y-1 mt-2 text-[12px] font-mono text-slate-500">
+                <div className="flex flex-wrap gap-x-5 gap-y-1 mt-2 text-meta font-mono text-slate-500">
                   {profile.firstseen && <span>first seen: {profile.firstseen.slice(0, 10)}</span>}
                   {profile.lastseen && <span>last seen: {profile.lastseen.slice(0, 10)}</span>}
                   {typeof profile.victims === 'number' && <span>victims: {profile.victims.toLocaleString()}</span>}
@@ -491,14 +491,14 @@ export default function RansomReport(): JSX.Element {
                   <div className="space-y-3">
                     {ttps.map((t) => (
                       <div key={t.tactic_id ?? t.tactic_name}>
-                        <div className="text-[12px] font-mono font-semibold text-slate-800 dark:text-slate-200">
+                        <div className="text-meta font-mono font-semibold text-slate-800 dark:text-slate-200">
                           {t.tactic_id} · {t.tactic_name}
                         </div>
                         <ul className="mt-1 space-y-0.5">
                           {(t.techniques ?? []).map((tech, i) => (
                             <li
                               key={`${tech.technique_id}-${i}`}
-                              className="text-[12px] text-slate-600 dark:text-slate-400"
+                              className="text-meta text-slate-600 dark:text-slate-400"
                             >
                               <span className="font-mono text-slate-700 dark:text-slate-300">{tech.technique_id}</span>{' '}
                               {tech.technique_name}
@@ -521,7 +521,7 @@ export default function RansomReport(): JSX.Element {
                           {['CVE', 'Severity', 'CVSS', 'Vendor', 'Product'].map((h) => (
                             <th
                               key={h}
-                              className="px-3 py-1.5 font-mono text-[11px] uppercase tracking-wider text-slate-500 whitespace-nowrap"
+                              className="px-3 py-1.5 font-mono text-mini uppercase tracking-wider text-slate-500 whitespace-nowrap"
                             >
                               {h}
                             </th>
@@ -536,25 +536,25 @@ export default function RansomReport(): JSX.Element {
                                 href={sanitizeUrl(`https://nvd.nist.gov/vuln/detail/${v.CVE}`) || undefined}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="font-mono text-[12px] text-brand-600 dark:text-brand-400 hover:underline"
+                                className="font-mono text-meta text-brand-600 dark:text-brand-400 hover:underline"
                               >
                                 {v.CVE}
                               </a>
                             </td>
                             <td className="px-3 py-1.5">
                               <span
-                                className={`text-[11px] font-mono px-2 py-0.5 rounded border ${SEV_PILL[(v.severity ?? '').toLowerCase()] ?? 'border-slate-300 dark:border-slate-700 text-slate-500'}`}
+                                className={`text-mini font-mono px-2 py-0.5 rounded border ${SEV_PILL[(v.severity ?? '').toLowerCase()] ?? 'border-slate-300 dark:border-slate-700 text-slate-500'}`}
                               >
                                 {v.severity ?? '—'}
                               </span>
                             </td>
-                            <td className="px-3 py-1.5 font-mono text-[12px] tabular-nums text-slate-600 dark:text-slate-400">
+                            <td className="px-3 py-1.5 font-mono text-meta tabular-nums text-slate-600 dark:text-slate-400">
                               {v.CVSS ?? '—'}
                             </td>
-                            <td className="px-3 py-1.5 text-[12px] text-slate-600 dark:text-slate-400">
+                            <td className="px-3 py-1.5 text-meta text-slate-600 dark:text-slate-400">
                               {v.Vendor ?? '—'}
                             </td>
-                            <td className="px-3 py-1.5 text-[12px] text-slate-600 dark:text-slate-400">
+                            <td className="px-3 py-1.5 text-meta text-slate-600 dark:text-slate-400">
                               {v.Product ?? '—'}
                             </td>
                           </tr>
@@ -570,10 +570,10 @@ export default function RansomReport(): JSX.Element {
                   <div className="space-y-2">
                     {toolCats.map(([cat, tools]) => (
                       <div key={cat}>
-                        <span className="text-[11px] font-mono font-semibold text-slate-700 dark:text-slate-300">
+                        <span className="text-mini font-mono font-semibold text-slate-700 dark:text-slate-300">
                           {cat}:{' '}
                         </span>
-                        <span className="text-[12px] text-slate-600 dark:text-slate-400">{tools.join(', ')}</span>
+                        <span className="text-meta text-slate-600 dark:text-slate-400">{tools.join(', ')}</span>
                       </div>
                     ))}
                   </div>
@@ -582,7 +582,7 @@ export default function RansomReport(): JSX.Element {
 
               {locations.length > 0 && (
                 <Section title={`Leak-site infrastructure / IOCs (${locations.length})`}>
-                  <ul className="space-y-1 font-mono text-[11px]">
+                  <ul className="space-y-1 font-mono text-mini">
                     {locations.map((l, i) => (
                       <li key={`${l.fqdn}-${i}`} className="break-all text-slate-600 dark:text-slate-400">
                         <span className="text-slate-400">[{l.type ?? 'site'}]</span> {l.fqdn ?? l.slug}
@@ -595,7 +595,7 @@ export default function RansomReport(): JSX.Element {
 
               {victims.length > 0 && (
                 <Section title={`Recent victims (${victims.length})`}>
-                  <p className="text-[10px] font-mono text-slate-400 mb-2">
+                  <p className="text-micro font-mono text-slate-400 mb-2">
                     From the latest 100 disclosures on ransomware.live.
                   </p>
                   <div className="overflow-x-auto rounded border border-slate-200 dark:border-slate-800">
@@ -605,7 +605,7 @@ export default function RansomReport(): JSX.Element {
                           {['Victim', 'Country', 'Sector', 'Disclosed'].map((h) => (
                             <th
                               key={h}
-                              className="px-3 py-1.5 font-mono text-[11px] uppercase tracking-wider text-slate-500 whitespace-nowrap"
+                              className="px-3 py-1.5 font-mono text-mini uppercase tracking-wider text-slate-500 whitespace-nowrap"
                             >
                               {h}
                             </th>
@@ -615,16 +615,16 @@ export default function RansomReport(): JSX.Element {
                       <tbody>
                         {victims.map((v, i) => (
                           <tr key={`${v.victim}-${i}`} className="border-t border-slate-100 dark:border-slate-800/70">
-                            <td className="px-3 py-1.5 text-[12px] text-slate-700 dark:text-slate-300 break-all">
+                            <td className="px-3 py-1.5 text-meta text-slate-700 dark:text-slate-300 break-all">
                               {v.victim ?? '—'}
                             </td>
-                            <td className="px-3 py-1.5 text-[12px] text-slate-600 dark:text-slate-400">
+                            <td className="px-3 py-1.5 text-meta text-slate-600 dark:text-slate-400">
                               {v.country ?? '—'}
                             </td>
-                            <td className="px-3 py-1.5 text-[12px] text-slate-600 dark:text-slate-400">
+                            <td className="px-3 py-1.5 text-meta text-slate-600 dark:text-slate-400">
                               {v.activity ?? '—'}
                             </td>
-                            <td className="px-3 py-1.5 font-mono text-[11px] text-slate-500 whitespace-nowrap">
+                            <td className="px-3 py-1.5 font-mono text-mini text-slate-500 whitespace-nowrap">
                               {(v.discovered ?? v.attackdate ?? '').slice(0, 10) || '—'}
                             </td>
                           </tr>
@@ -636,19 +636,19 @@ export default function RansomReport(): JSX.Element {
               )}
 
               <Section title="YARA detection">
-                <p className="text-[12px] text-slate-600 dark:text-slate-400">
+                <p className="text-meta text-slate-600 dark:text-slate-400">
                   {yaraCount && yaraCount > 0
                     ? `${yaraCount} YARA rule${yaraCount === 1 ? '' : 's'} published for this group on ransomware.live.`
                     : 'No YARA rules published for this group on ransomware.live.'}
                 </p>
                 {yaraText && (
-                  <pre className="mt-2 max-h-72 overflow-auto rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-3 text-[11px] font-mono whitespace-pre-wrap">
+                  <pre className="mt-2 max-h-72 overflow-auto rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-3 text-mini font-mono whitespace-pre-wrap">
                     {yaraText.slice(0, 20000)}
                   </pre>
                 )}
               </Section>
 
-              <p className="mt-6 pt-3 border-t border-slate-200 dark:border-slate-800 text-[10px] font-mono text-slate-400">
+              <p className="mt-6 pt-3 border-t border-slate-200 dark:border-slate-800 text-micro font-mono text-slate-400">
                 Source: ransomware.live · generated by pranithjain.qzz.io threat-intel platform
               </p>
             </div>

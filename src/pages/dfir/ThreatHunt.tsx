@@ -108,7 +108,7 @@ export default function ThreatHunt(): JSX.Element {
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && void doHunt()}
             placeholder="IP, domain, email, or hash..."
-            className="flex-1 px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-brand-500/40"
+            className="flex-1 px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-sm font-mono focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40"
           />
           <button
             onClick={() => void doHunt()}
@@ -144,15 +144,15 @@ export default function ThreatHunt(): JSX.Element {
             </div>
             <div className="flex flex-wrap gap-4">
               <div>
-                <p className="text-[11px] font-mono opacity-70 mb-0.5">Verdict</p>
+                <p className="text-mini font-mono opacity-70 mb-0.5">Verdict</p>
                 <p className="text-xl font-bold font-display capitalize">{c.verdict}</p>
               </div>
               <div>
-                <p className="text-[11px] font-mono opacity-70 mb-0.5">Score</p>
+                <p className="text-mini font-mono opacity-70 mb-0.5">Score</p>
                 <p className="text-xl font-bold font-display">{c.score}/100</p>
               </div>
               <div>
-                <p className="text-[11px] font-mono opacity-70 mb-0.5">Confidence</p>
+                <p className="text-mini font-mono opacity-70 mb-0.5">Confidence</p>
                 <p className={`text-xl font-bold font-display capitalize ${CONFIDENCE_COLORS[c.confidence]}`}>
                   {c.confidence}
                 </p>
@@ -182,7 +182,7 @@ export default function ThreatHunt(): JSX.Element {
                   >
                     <div className="flex items-center gap-2">
                       <span
-                        className={`text-[10px] font-mono px-1.5 py-0.5 rounded ${h.verdict === 'malicious' ? 'bg-rose-500/15 text-rose-600' : 'bg-amber-500/15 text-amber-600'}`}
+                        className={`text-micro font-mono px-1.5 py-0.5 rounded ${h.verdict === 'malicious' ? 'bg-rose-500/15 text-rose-600' : 'bg-amber-500/15 text-amber-600'}`}
                       >
                         {h.verdict}
                       </span>
@@ -203,7 +203,7 @@ export default function ThreatHunt(): JSX.Element {
               <div className="space-y-2 max-h-48 overflow-y-auto">
                 {result.telegram_leaks.hits.map((h) => (
                   <div key={`${h.channel}-${h.date}`} className="px-3 py-2 rounded-lg bg-slate-50 dark:bg-slate-800/50">
-                    <p className="text-[11px] font-mono text-brand-600 dark:text-brand-400">{h.channel}</p>
+                    <p className="text-mini font-mono text-brand-600 dark:text-brand-400">{h.channel}</p>
                     <p className="text-xs font-mono text-slate-600 dark:text-slate-400 mt-0.5 line-clamp-2">
                       {h.message}
                     </p>
@@ -222,7 +222,7 @@ export default function ThreatHunt(): JSX.Element {
                 {result.breach_data.hits.map((b) => (
                   <div key={b.name} className="px-3 py-2 rounded-lg bg-slate-50 dark:bg-slate-800/50">
                     <p className="text-xs font-mono font-medium">{b.name}</p>
-                    {b.description && <p className="text-[11px] font-mono text-slate-500 mt-0.5">{b.description}</p>}
+                    {b.description && <p className="text-mini font-mono text-slate-500 mt-0.5">{b.description}</p>}
                   </div>
                 ))}
               </div>
@@ -253,7 +253,7 @@ export default function ThreatHunt(): JSX.Element {
                     {result.cert_logs.recent.map((s) => (
                       <span
                         key={s}
-                        className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800"
+                        className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800"
                       >
                         {s}
                       </span>
@@ -304,7 +304,7 @@ function Section({
   children: React.ReactNode;
 }): JSX.Element {
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
+    <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
       <h2 className="font-display font-semibold text-sm flex items-center gap-2 mb-3">
         {icon} {title} {count > 0 && <span className="text-xs font-mono text-slate-500">({count})</span>}
       </h2>

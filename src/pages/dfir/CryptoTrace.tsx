@@ -122,7 +122,7 @@ function DirectionPill({ d }: { d?: RecentTx['direction'] }): JSX.Element | null
   const Icon = d === 'in' ? ArrowDown : d === 'out' ? ArrowUp : ArrowLeftRight;
   return (
     <span
-      className={`inline-flex items-center gap-1 text-[9px] font-mono uppercase tracking-wider px-1 py-0.5 rounded border ${cls}`}
+      className={`inline-flex items-center gap-1 text-micro font-mono uppercase tracking-wider px-1 py-0.5 rounded border ${cls}`}
     >
       <Icon size={9} /> {d}
     </span>
@@ -279,12 +279,12 @@ export default function CryptoTrace(): JSX.Element {
                 Address inspected
               </h2>
               <div className="flex flex-wrap items-center gap-1.5">
-                <span className="text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-brand-500/30 bg-brand-500/10 text-brand-700 dark:text-brand-300">
+                <span className="text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-brand-500/30 bg-brand-500/10 text-brand-700 dark:text-brand-300">
                   {data.detected_kind}
                 </span>
                 {data.context?.found && (
                   <span
-                    className={`text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${
+                    className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${
                       data.context.is_contract
                         ? 'border-violet-500/30 bg-violet-500/10 text-violet-700 dark:text-violet-300'
                         : 'border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400'
@@ -294,7 +294,7 @@ export default function CryptoTrace(): JSX.Element {
                   </span>
                 )}
                 {data.context?.is_scam && (
-                  <span className="text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300">
+                  <span className="text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300">
                     blockscout: scam
                   </span>
                 )}
@@ -316,7 +316,7 @@ export default function CryptoTrace(): JSX.Element {
               {data.address}
             </code>
             {data.context?.found && (
-              <p className="text-[10px] font-mono text-slate-500 dark:text-slate-400 mt-2">
+              <p className="text-micro font-mono text-slate-500 dark:text-slate-400 mt-2">
                 Enrichment via{' '}
                 <a
                   href={sanitizeUrl(data.context.source_url) || undefined}
@@ -350,7 +350,7 @@ export default function CryptoTrace(): JSX.Element {
                   href={sanitizeUrl(data.sanctions.source_url) || undefined}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-[11px] font-mono text-rose-700 dark:text-rose-300 hover:underline inline-flex items-center gap-1"
+                  className="text-mini font-mono text-rose-700 dark:text-rose-300 hover:underline inline-flex items-center gap-1"
                 >
                   source: {data.sanctions.source} <ExternalLink size={10} />
                 </a>
@@ -397,7 +397,7 @@ export default function CryptoTrace(): JSX.Element {
                   href={sanitizeUrl(data.scam.source_url) || undefined}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-[11px] font-mono text-amber-700 dark:text-amber-300 hover:underline inline-flex items-center gap-1"
+                  className="text-mini font-mono text-amber-700 dark:text-amber-300 hover:underline inline-flex items-center gap-1"
                 >
                   source: {data.scam.source} <ExternalLink size={10} />
                 </a>
@@ -446,19 +446,19 @@ export default function CryptoTrace(): JSX.Element {
                     <span className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100">
                       {r.label}
                     </span>
-                    <span className="text-[10px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                    <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
                       {r.symbol}
                     </span>
                   </div>
                   {r.error ? (
-                    <p className="text-[12px] font-mono text-amber-700 dark:text-amber-300">{r.error}</p>
+                    <p className="text-meta font-mono text-amber-700 dark:text-amber-300">{r.error}</p>
                   ) : (
                     <>
                       <div className="text-base font-mono font-bold text-slate-900 dark:text-slate-100 break-words">
                         {r.balance}
                       </div>
                       {typeof r.tx_count === 'number' && (
-                        <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400">
+                        <div className="text-mini font-mono text-slate-500 dark:text-slate-400">
                           {r.tx_count} tx{r.tx_count === 1 ? '' : 's'}
                         </div>
                       )}
@@ -466,7 +466,7 @@ export default function CryptoTrace(): JSX.Element {
                         href={r.explorer_url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="mt-1 inline-flex items-center gap-1 text-[11px] font-mono text-brand-600 dark:text-brand-400 hover:underline"
+                        className="mt-1 inline-flex items-center gap-1 text-mini font-mono text-brand-600 dark:text-brand-400 hover:underline"
                       >
                         explorer <ExternalLink size={10} />
                       </a>
@@ -484,7 +484,7 @@ export default function CryptoTrace(): JSX.Element {
                   Recent ERC-20 transfers (Ethereum)
                 </h2>
                 {data.recent_token_transfers.some((t) => t.counterparty_flagged) && (
-                  <span className="text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300 inline-flex items-center gap-1">
+                  <span className="text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300 inline-flex items-center gap-1">
                     <AlertTriangle size={10} /> drainer interaction
                   </span>
                 )}
@@ -493,7 +493,7 @@ export default function CryptoTrace(): JSX.Element {
                 {data.recent_token_transfers.map((t, i) => (
                   <li
                     key={`${t.tx_hash}-${i}`}
-                    className={`text-[12px] font-mono flex flex-wrap items-baseline gap-2 border rounded p-2 ${
+                    className={`text-meta font-mono flex flex-wrap items-baseline gap-2 border rounded p-2 ${
                       t.counterparty_flagged
                         ? 'border-rose-500/40 bg-rose-500/5'
                         : 'border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950'
@@ -514,12 +514,12 @@ export default function CryptoTrace(): JSX.Element {
                       {t.counterparty_label ?? shortHash(t.counterparty, 6)}
                     </span>
                     {t.counterparty_flagged && (
-                      <span className="text-[10px] uppercase tracking-wider px-1 py-0.5 rounded bg-rose-500/20 text-rose-700 dark:text-rose-300 border border-rose-500/40">
+                      <span className="text-micro uppercase tracking-wider px-1 py-0.5 rounded bg-rose-500/20 text-rose-700 dark:text-rose-300 border border-rose-500/40">
                         scamsniffer
                       </span>
                     )}
                     {t.method && (
-                      <span className="text-[10px] uppercase tracking-wider text-violet-600 dark:text-violet-400">
+                      <span className="text-micro uppercase tracking-wider text-violet-600 dark:text-violet-400">
                         {t.method}
                       </span>
                     )}
@@ -535,7 +535,7 @@ export default function CryptoTrace(): JSX.Element {
                   </li>
                 ))}
               </ul>
-              <p className="text-[10px] font-mono text-slate-500 dark:text-slate-400 mt-2">
+              <p className="text-micro font-mono text-slate-500 dark:text-slate-400 mt-2">
                 Source:{' '}
                 <a
                   href={`https://eth.blockscout.com/address/${data.address}`}
@@ -560,14 +560,14 @@ export default function CryptoTrace(): JSX.Element {
                 .filter((r) => r.recent_txs.length > 0)
                 .map((r) => (
                   <div key={r.chain} className="mb-3 last:mb-0">
-                    <h3 className="text-[11px] font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-1.5">
+                    <h3 className="text-mini font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-1.5">
                       {r.label}
                     </h3>
                     <ul className="space-y-1">
                       {r.recent_txs.map((tx) => (
                         <li
                           key={tx.hash}
-                          className="text-[12px] font-mono flex flex-wrap items-baseline gap-2 border-b border-slate-200 dark:border-slate-800 pb-1.5 last:border-0"
+                          className="text-meta font-mono flex flex-wrap items-baseline gap-2 border-b border-slate-200 dark:border-slate-800 pb-1.5 last:border-0"
                         >
                           <DirectionPill d={tx.direction} />
                           {tx.amount && (
@@ -587,7 +587,7 @@ export default function CryptoTrace(): JSX.Element {
                     </ul>
                   </div>
                 ))}
-              <p className="text-[11px] font-mono text-slate-500 dark:text-slate-400 mt-2">
+              <p className="text-mini font-mono text-slate-500 dark:text-slate-400 mt-2">
                 EVM chains aren't shown above — public JSON-RPC nodes don't expose tx history cheaply. Click any
                 explorer link below for the full picture.
               </p>
@@ -599,7 +599,7 @@ export default function CryptoTrace(): JSX.Element {
               <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-3">
                 Pivot links
               </h2>
-              <p className="text-[11px] font-mono text-slate-500 dark:text-slate-400 mb-3">
+              <p className="text-mini font-mono text-slate-500 dark:text-slate-400 mb-3">
                 One-click handoff to every major explorer, NFT marketplace, DeFi dashboard, and scam-flag service for
                 this address.
               </p>
@@ -615,7 +615,7 @@ export default function CryptoTrace(): JSX.Element {
                     </h3>
                     {grouped.map((g) => (
                       <div key={g.cat} className="mb-2 last:mb-0">
-                        <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mr-2">
+                        <span className="text-micro font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mr-2">
                           {CATEGORY_LABELS[g.cat]}
                         </span>
                         <span className="inline-flex flex-wrap gap-1.5 align-middle">
@@ -625,7 +625,7 @@ export default function CryptoTrace(): JSX.Element {
                               href={buildLink(l.url, data.address)}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="text-[11px] font-mono px-2 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1"
+                              className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1"
                             >
                               {l.label} <ExternalLink size={10} />
                             </a>

@@ -9,8 +9,8 @@ export interface KbdProps {
 }
 
 const SIZE: Record<KbdSize, string> = {
-  sm: 'text-[9px] px-1 py-0.5',
-  md: 'text-[11px] px-1.5 py-0.5',
+  sm: 'text-micro px-1 py-0.5',
+  md: 'text-mini px-1.5 py-0.5',
 };
 
 export function Kbd({ children, size = 'sm', className = '' }: KbdProps) {

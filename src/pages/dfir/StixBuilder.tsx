@@ -204,7 +204,7 @@ export default function StixBuilder(): JSX.Element {
 
       {deepLinkBundleId && (
         <div className="mb-6 rounded-xl border border-slate-200 bg-slate-50 p-3 text-xs text-slate-600 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-400">
-          Viewing persisted bundle <code className="font-mono text-[11px]">{deepLinkBundleId}</code>. Build a new one
+          Viewing persisted bundle <code className="font-mono text-mini">{deepLinkBundleId}</code>. Build a new one
           below to replace, or close this tab to keep this view linkable.
         </div>
       )}
@@ -349,7 +349,7 @@ function Output({ result, viewTab, setViewTab, onCopy, onDownload, copyStatus }:
       <div className="rounded-xl border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-900">
         <header className="flex flex-wrap items-baseline gap-2 mb-3">
           <h2 className="font-display text-base font-semibold">STIX 2.1 bundle</h2>
-          <code className="font-mono text-[11px] text-slate-500">{result.bundle.id}</code>
+          <code className="font-mono text-mini text-slate-500">{result.bundle.id}</code>
           <div className="ml-auto flex items-center gap-2">
             <button
               type="button"
@@ -387,7 +387,7 @@ function Output({ result, viewTab, setViewTab, onCopy, onDownload, copyStatus }:
               key={t}
               type="button"
               onClick={() => setViewTab(t)}
-              className={`rounded px-2 py-0.5 text-[11px] font-mono uppercase tracking-wider ${
+              className={`rounded px-2 py-0.5 text-mini font-mono uppercase tracking-wider ${
                 viewTab === t
                   ? 'bg-brand-500/15 text-brand-700 dark:text-brand-300'
                   : 'text-slate-500 hover:text-slate-800 dark:hover:text-slate-200'
@@ -397,7 +397,7 @@ function Output({ result, viewTab, setViewTab, onCopy, onDownload, copyStatus }:
             </button>
           ))}
         </div>
-        <pre className="max-h-[480px] overflow-auto rounded-lg bg-slate-50 p-3 font-mono text-[11px] leading-relaxed text-slate-800 dark:bg-slate-950 dark:text-slate-200">
+        <pre className="max-h-[480px] overflow-auto rounded-lg bg-slate-50 p-3 font-mono text-mini leading-relaxed text-slate-800 dark:bg-slate-950 dark:text-slate-200">
           {viewTab === 'pretty' ? pretty : raw}
         </pre>
       </div>
@@ -465,7 +465,7 @@ function BuilderIntelCard({ view, bundle }: { view: IntelView; bundle: IntelBund
             {view.threatActors.map((a) => (
               <Badge key={a.name} tone="critical" size="sm">
                 {a.name}
-                {a.mitreId && <span className="ml-1 font-mono text-[10px] opacity-70">{a.mitreId}</span>}
+                {a.mitreId && <span className="ml-1 font-mono text-micro opacity-70">{a.mitreId}</span>}
               </Badge>
             ))}
           </div>
@@ -478,7 +478,7 @@ function BuilderIntelCard({ view, bundle }: { view: IntelView; bundle: IntelBund
             {view.malware.map((m) => (
               <Badge key={m.name} tone="warning" size="sm">
                 {m.name}
-                {m.mitreId && <span className="ml-1 font-mono text-[10px] opacity-70">{m.mitreId}</span>}
+                {m.mitreId && <span className="ml-1 font-mono text-micro opacity-70">{m.mitreId}</span>}
               </Badge>
             ))}
           </div>
@@ -507,7 +507,7 @@ function BuilderIntelCard({ view, bundle }: { view: IntelView; bundle: IntelBund
                 key={`${ioc.type}|${ioc.value}`}
                 className="flex items-center gap-2 rounded border border-slate-200 bg-slate-50 px-2 py-1 text-xs dark:border-slate-700 dark:bg-slate-950"
               >
-                <span className="font-mono text-[10px] uppercase text-slate-500">{ioc.type}</span>
+                <span className="font-mono text-micro uppercase text-slate-500">{ioc.type}</span>
                 <IocChip value={ioc.value} bare size="sm" className="min-w-0" />
                 {ioc.riskScore > 0 && (
                   <Badge
@@ -520,7 +520,7 @@ function BuilderIntelCard({ view, bundle }: { view: IntelView; bundle: IntelBund
                   </Badge>
                 )}
                 {ioc.listedIn.length > 0 && (
-                  <span className="text-[10px] text-slate-500">listed in {ioc.listedIn.length}</span>
+                  <span className="text-micro text-slate-500">listed in {ioc.listedIn.length}</span>
                 )}
               </div>
             ))}
@@ -529,7 +529,7 @@ function BuilderIntelCard({ view, bundle }: { view: IntelView; bundle: IntelBund
       )}
 
       <footer className="mt-4 flex items-center justify-between border-t border-slate-200 pt-3 text-xs dark:border-slate-800">
-        <span className="font-mono text-[10px] text-slate-400">
+        <span className="font-mono text-micro text-slate-400">
           {bundle.objects.length} STIX objects · extracted_hash {view.extractedHash.slice(0, 8)}…
         </span>
       </footer>

@@ -179,12 +179,12 @@ export default function Blog() {
           alternative below. */}
       {!inCategoryMode && presentTypes.length > 1 && (
         <nav aria-label="Browse by category" className="mb-6 flex flex-wrap items-center gap-1.5">
-          <span className="text-[11px] font-mono uppercase tracking-[0.18em] text-slate-400 mr-1">browse:</span>
+          <span className="text-mini font-mono uppercase tracking-[0.18em] text-slate-400 mr-1">browse:</span>
           {presentTypes.map((t) => (
             <Link
               key={t}
               to={`/blog/c/${t}`}
-              className="text-[12px] font-mono px-2.5 py-1.5 rounded border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+              className="text-meta font-mono px-2.5 py-1.5 rounded border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
             >
               {metaFor(t)
                 .label.toLowerCase()
@@ -214,7 +214,7 @@ export default function Blog() {
           </div>
           {!inCategoryMode && presentTypes.length > 1 && (
             <div className="flex flex-wrap items-center gap-1.5 mt-3">
-              <span className="text-[11px] font-mono text-slate-500 mr-1">type:</span>
+              <span className="text-mini font-mono text-slate-500 mr-1">type:</span>
               {presentTypes.map((t) => {
                 const active = typeFilter === t;
                 return (
@@ -222,7 +222,7 @@ export default function Blog() {
                     key={t}
                     type="button"
                     onClick={() => setTypeFilter(active ? null : t)}
-                    className={`text-[11px] font-mono px-2 py-1 rounded border ${
+                    className={`text-mini font-mono px-2 py-1 rounded border ${
                       active
                         ? 'border-brand-500/60 bg-brand-500/10 text-brand-700 dark:text-brand-300'
                         : 'border-slate-300 dark:border-slate-700 text-slate-500 hover:border-brand-500/40'
@@ -239,14 +239,14 @@ export default function Blog() {
                     setTypeFilter(null);
                     setQuery('');
                   }}
-                  className="text-[11px] font-mono text-brand-600 dark:text-brand-400 hover:underline ml-2"
+                  className="text-mini font-mono text-brand-600 dark:text-brand-400 hover:underline ml-2"
                 >
                   clear
                 </button>
               )}
             </div>
           )}
-          <p className="text-[11px] font-mono text-slate-500 mt-3">
+          <p className="text-mini font-mono text-slate-500 mt-3">
             Showing <span className="text-slate-700 dark:text-slate-300">{filtered.length}</span> of{' '}
             <span className="text-slate-700 dark:text-slate-300">{posts.length}</span> case studies.
           </p>
@@ -265,7 +265,7 @@ export default function Blog() {
           {filtered.map((p) => (
             <article key={p.slug}>
               <Link to={`/blog/${p.slug}`} className="group block">
-                <span className="text-[11px] font-mono uppercase tracking-[0.16em] text-brand-600 dark:text-brand-400">
+                <span className="text-mini font-mono uppercase tracking-[0.16em] text-brand-600 dark:text-brand-400">
                   {p.type}
                 </span>
                 <h2 className="font-display text-xl font-semibold mt-1 text-slate-900 dark:text-slate-100 transition-colors group-hover:text-brand-600 dark:group-hover:text-brand-400">
@@ -287,7 +287,7 @@ export default function Blog() {
                       key={t}
                       type="button"
                       onClick={() => setQuery(t)}
-                      className="rounded border border-slate-200 bg-slate-50 px-2 py-0.5 text-[11px] font-mono text-slate-600 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-400 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+                      className="rounded border border-slate-200 bg-slate-50 px-2 py-0.5 text-mini font-mono text-slate-600 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-400 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
                       title={`Filter by tag: ${t}`}
                     >
                       {t}

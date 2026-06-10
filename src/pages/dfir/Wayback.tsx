@@ -278,11 +278,11 @@ export default function Wayback(): JSX.Element {
             <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono">
               Timeline summary
             </h2>
-            <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400 inline-flex items-center gap-1.5">
+            <span className="text-mini font-mono text-slate-500 dark:text-slate-400 inline-flex items-center gap-1.5">
               <CheckCircle2 size={12} className="text-emerald-500" /> {snapshots?.length ?? 0} unique snapshots
             </span>
           </div>
-          <div className="grid gap-2 sm:grid-cols-3 mb-3 text-[12px] font-mono">
+          <div className="grid gap-2 sm:grid-cols-3 mb-3 text-meta font-mono">
             <Stat
               label="First seen"
               value={fmtTs(stats.first.timestamp)}
@@ -299,7 +299,7 @@ export default function Wayback(): JSX.Element {
             {Object.entries(stats.statusCounts).map(([bucket, n]) => (
               <span
                 key={bucket}
-                className={`text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${statusClass(bucket[0])}`}
+                className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${statusClass(bucket[0])}`}
               >
                 {bucket} · {n}
               </span>
@@ -314,8 +314,8 @@ export default function Wayback(): JSX.Element {
             Snapshots (sorted by {sortKey} {sortDir})
           </h2>
           <div className="overflow-x-auto">
-            <table className="w-full text-[12px] font-mono">
-              <thead className="text-left text-[10px] uppercase tracking-wider text-slate-500 dark:text-slate-400">
+            <table className="w-full text-meta font-mono">
+              <thead className="text-left text-micro uppercase tracking-wider text-slate-500 dark:text-slate-400">
                 <tr>
                   {(['timestamp', 'status', 'mime', 'length'] as const).map((k) => (
                     <th
@@ -342,7 +342,7 @@ export default function Wayback(): JSX.Element {
                     </td>
                     <td className="py-1.5 pr-3">
                       <span
-                        className={`text-[10px] uppercase tracking-wider px-1.5 py-0.5 rounded border ${statusClass(s.status || '0')}`}
+                        className={`text-micro uppercase tracking-wider px-1.5 py-0.5 rounded border ${statusClass(s.status || '0')}`}
                       >
                         {s.status || '—'}
                       </span>
@@ -361,7 +361,7 @@ export default function Wayback(): JSX.Element {
                         </a>
                         <Link
                           to={`/dfir/url-preview?url=${encodeURIComponent(snapshotUrl(s.timestamp, s.original))}`}
-                          className="text-[10px] text-amber-700 dark:text-amber-300 hover:underline"
+                          className="text-micro text-amber-700 dark:text-amber-300 hover:underline"
                           title="Server-side preview of this archived snapshot (SSRF-guarded)"
                         >
                           preview
@@ -373,7 +373,7 @@ export default function Wayback(): JSX.Element {
               </tbody>
             </table>
             {displaySnapshots.length > 100 && (
-              <p className="mt-3 text-[11px] font-mono text-slate-500 dark:text-slate-400">
+              <p className="mt-3 text-mini font-mono text-slate-500 dark:text-slate-400">
                 Showing the 100 most recent of {displaySnapshots.length}. Re-run with a more specific URL or use{' '}
                 <a
                   href={`https://web.archive.org/web/*/${url}`}
@@ -422,7 +422,7 @@ export default function Wayback(): JSX.Element {
 function Stat({ label, value, url }: { label: string; value: string; url?: string }): JSX.Element {
   return (
     <div className="rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-2.5">
-      <div className="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-1">
+      <div className="text-micro font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-1">
         {label}
       </div>
       {url ? (

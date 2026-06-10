@@ -39,7 +39,7 @@ export function BlacklistBadge({ bl, compact, showName = true }: Props): JSX.Ele
   return (
     <span
       title={title}
-      className={`inline-flex items-center gap-1 text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded border ${tone}`}
+      className={`inline-flex items-center gap-1 text-micro font-mono uppercase tracking-wider px-2 py-0.5 rounded border ${tone}`}
     >
       <Icon size={size} aria-hidden="true" />
       {showName ? `${bl.name}: ${label}` : label}

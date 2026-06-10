@@ -116,7 +116,7 @@ export default function ResearchPost(): JSX.Element {
       </Link>
 
       <header className="mb-10 pb-6 border-b border-slate-200 dark:border-slate-800">
-        <div className="text-[11px] font-mono uppercase tracking-[0.18em] text-brand-600 dark:text-brand-400">
+        <div className="text-mini font-mono uppercase tracking-[0.18em] text-brand-600 dark:text-brand-400">
           {post.kicker}
         </div>
         {/* text-balance: lets the browser pick a more natural line-break
@@ -143,7 +143,7 @@ export default function ResearchPost(): JSX.Element {
             {post.tags.map((t) => (
               <span
                 key={t}
-                className="text-[11px] font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-slate-800 text-slate-500"
+                className="text-mini font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-slate-800 text-slate-500"
               >
                 {t}
               </span>
@@ -191,7 +191,7 @@ export default function ResearchPost(): JSX.Element {
               '[&_li]:leading-relaxed ' +
               '[&_strong]:text-slate-900 [&_strong]:dark:text-white [&_strong]:font-semibold ' +
               '[&_code]:font-mono [&_code]:text-[0.9em] [&_code]:bg-slate-100 [&_code]:dark:bg-slate-800 [&_code]:px-1 [&_code]:py-0.5 [&_code]:rounded ' +
-              '[&_pre]:bg-slate-900 [&_pre]:dark:bg-slate-950 [&_pre]:text-slate-100 [&_pre]:p-4 [&_pre]:rounded-lg [&_pre]:overflow-x-auto [&_pre]:my-5 [&_pre]:text-[12px] [&_pre]:font-mono [&_pre]:leading-relaxed [&_pre_code]:bg-transparent [&_pre_code]:text-inherit [&_pre_code]:px-0 [&_pre_code]:whitespace-pre ' +
+              '[&_pre]:bg-slate-900 [&_pre]:dark:bg-slate-950 [&_pre]:text-slate-100 [&_pre]:p-4 [&_pre]:rounded-lg [&_pre]:overflow-x-auto [&_pre]:my-5 [&_pre]:text-meta [&_pre]:font-mono [&_pre]:leading-relaxed [&_pre_code]:bg-transparent [&_pre_code]:text-inherit [&_pre_code]:px-0 [&_pre_code]:whitespace-pre ' +
               '[&_blockquote]:border-l-2 [&_blockquote]:border-brand-500/40 [&_blockquote]:pl-4 [&_blockquote]:my-4 [&_blockquote]:italic [&_blockquote]:text-slate-600 [&_blockquote]:dark:text-slate-400 ' +
               '[&_hr]:my-8 [&_hr]:border-slate-200 [&_hr]:dark:border-slate-800 ' +
               '[&_em]:italic'
@@ -233,7 +233,7 @@ export default function ResearchPost(): JSX.Element {
           this gives them an index link plus pointers to other research
           pieces so they don't have to scroll back to the top to navigate. */}
       <nav aria-labelledby="post-end-nav" className="mt-16 pt-8 border-t border-slate-200 dark:border-slate-800">
-        <h2 id="post-end-nav" className="text-[11px] font-mono uppercase tracking-[0.18em] text-slate-500 mb-4">
+        <h2 id="post-end-nav" className="text-mini font-mono uppercase tracking-[0.18em] text-slate-500 mb-4">
           Continue
         </h2>
         <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
@@ -253,7 +253,7 @@ export default function ResearchPost(): JSX.Element {
 
         {others.length > 0 && (
           <div>
-            <div className="text-[11px] font-mono uppercase tracking-[0.18em] text-slate-500 mb-3">Other research</div>
+            <div className="text-mini font-mono uppercase tracking-[0.18em] text-slate-500 mb-3">Other research</div>
             <ul className="grid gap-2 sm:grid-cols-2">
               {others.slice(0, 4).map((r) => (
                 <li key={r.slug}>
@@ -267,7 +267,7 @@ export default function ResearchPost(): JSX.Element {
                       aria-hidden="true"
                     />
                     <div className="min-w-0 flex-1">
-                      <div className="text-[10px] font-mono uppercase tracking-[0.18em] text-slate-500 mb-0.5">
+                      <div className="text-micro font-mono uppercase tracking-[0.18em] text-slate-500 mb-0.5">
                         {r.kicker}
                       </div>
                       <div className="text-sm font-medium text-slate-900 dark:text-slate-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors leading-snug">

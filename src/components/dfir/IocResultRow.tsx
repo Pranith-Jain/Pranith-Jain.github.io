@@ -78,14 +78,14 @@ export function IocResultRow({ r }: { r: ProviderResultWire }): JSX.Element {
           {findings.slice(0, 3).map((f, i) => (
             <li
               key={`${f.type}-${i}`}
-              className="flex items-center gap-2 text-[11px] font-mono text-rose-700 dark:text-rose-300"
+              className="flex items-center gap-2 text-mini font-mono text-rose-700 dark:text-rose-300"
             >
               <span className="px-1.5 py-0.5 rounded bg-rose-500/15 border border-rose-500/30">{f.type}</span>
               <span className="break-all">{f.redacted}</span>
             </li>
           ))}
           {findings.length > 3 && (
-            <li className="text-[11px] font-mono text-rose-700 dark:text-rose-400">
+            <li className="text-mini font-mono text-rose-700 dark:text-rose-400">
               +{findings.length - 3} more (see raw evidence)
             </li>
           )}

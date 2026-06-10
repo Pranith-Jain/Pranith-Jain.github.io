@@ -92,7 +92,7 @@ export default function Assessments(): JSX.Element {
             key={s}
             type="button"
             onClick={() => setStatusFilter(s === 'all' ? null : s)}
-            className={`text-[11px] font-mono px-3 py-1.5 rounded-lg border transition-colors ${
+            className={`text-mini font-mono px-3 py-1.5 rounded-lg border transition-colors ${
               statusFilter === s || (s === 'all' && !statusFilter)
                 ? 'border-brand-500 bg-brand-500/10 text-brand-700 dark:border-brand-400 dark:bg-brand-400/10 dark:text-brand-300'
                 : 'border-slate-200 dark:border-slate-800 text-slate-500 hover:border-slate-300 dark:hover:border-slate-700'
@@ -121,12 +121,12 @@ export default function Assessments(): JSX.Element {
               className="block rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-4 hover:border-brand-500/40 transition-colors"
             >
               <div className="flex items-center gap-3">
-                <span className={`text-[10px] font-mono px-1.5 py-0.5 rounded border ${STATUS_STYLES[a.status] ?? ''}`}>
+                <span className={`text-micro font-mono px-1.5 py-0.5 rounded border ${STATUS_STYLES[a.status] ?? ''}`}>
                   {a.status}
                 </span>
                 <div className="flex-1 min-w-0">
                   <div className="text-sm font-medium">{a.title}</div>
-                  <div className="text-[11px] text-slate-500 mt-0.5">
+                  <div className="text-mini text-slate-500 mt-0.5">
                     {a.type} · {a.topic.slice(0, 80)}
                     {a.sector && ` · sector: ${a.sector}`}
                   </div>
@@ -137,7 +137,7 @@ export default function Assessments(): JSX.Element {
                   >
                     {a.confidence_score}/100
                   </div>
-                  <div className="text-[10px] text-slate-400">{new Date(a.created_at).toLocaleDateString()}</div>
+                  <div className="text-micro text-slate-400">{new Date(a.created_at).toLocaleDateString()}</div>
                 </div>
                 <ChevronRight size={14} className="text-slate-300" />
               </div>

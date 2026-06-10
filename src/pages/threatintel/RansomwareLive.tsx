@@ -75,7 +75,7 @@ function StatsView({ data }: { data: unknown }) {
           key={k}
           className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4"
         >
-          <div className="text-[10px] font-mono uppercase tracking-wider text-slate-500">{k.replace(/_/g, ' ')}</div>
+          <div className="text-micro font-mono uppercase tracking-wider text-slate-500">{k.replace(/_/g, ' ')}</div>
           <div className="font-display font-bold text-xl text-slate-900 dark:text-slate-100">{String(v)}</div>
         </div>
       ))}
@@ -107,7 +107,7 @@ function ListView({ data }: { data: unknown }) {
           return (
             <li
               key={i}
-              className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3 font-mono text-[12px]"
+              className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3 font-mono text-meta"
             >
               {String(row)}
             </li>
@@ -127,13 +127,13 @@ function ListView({ data }: { data: unknown }) {
                 {title}
               </span>
               {count && (
-                <span className="shrink-0 rounded border border-brand-500/40 bg-brand-500/10 px-1.5 py-0.5 font-mono text-[10px] text-brand-700 dark:text-brand-300">
+                <span className="shrink-0 rounded border border-brand-500/40 bg-brand-500/10 px-1.5 py-0.5 font-mono text-micro text-brand-700 dark:text-brand-300">
                   {count}
                 </span>
               )}
             </div>
-            {sub && <p className="font-mono text-[11px] text-slate-600 dark:text-slate-400 mt-1 line-clamp-2">{sub}</p>}
-            {date && <p className="font-mono text-[10px] text-slate-400 mt-1">{date}</p>}
+            {sub && <p className="font-mono text-mini text-slate-600 dark:text-slate-400 mt-1 line-clamp-2">{sub}</p>}
+            {date && <p className="font-mono text-micro text-slate-400 mt-1">{date}</p>}
           </li>
         );
       })}
@@ -143,7 +143,7 @@ function ListView({ data }: { data: unknown }) {
 
 function RawJson({ value }: { value: unknown }) {
   return (
-    <pre className="rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 p-3 overflow-auto font-mono text-[11px] text-slate-700 dark:text-slate-300 max-h-[60vh]">
+    <pre className="rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 p-3 overflow-auto font-mono text-mini text-slate-700 dark:text-slate-300 max-h-[60vh]">
       {JSON.stringify(value, null, 2)}
     </pre>
   );
@@ -249,7 +249,7 @@ export default function RansomwareLive(): JSX.Element {
               key={t.id}
               type="button"
               onClick={() => setTab(t.id)}
-              className={`inline-flex items-center gap-1.5 px-3 py-2 font-mono text-[12px] border-b-2 -mb-px ${
+              className={`inline-flex items-center gap-1.5 px-3 py-2 font-mono text-meta border-b-2 -mb-px ${
                 tab === t.id
                   ? 'border-brand-500 text-brand-700 dark:text-brand-300'
                   : 'border-transparent text-slate-500 hover:text-slate-800 dark:hover:text-slate-200'
@@ -263,12 +263,12 @@ export default function RansomwareLive(): JSX.Element {
       </div>
 
       <div className="flex items-center justify-between gap-3 mb-4">
-        <p className="font-mono text-[11px] text-slate-500">{active.blurb}</p>
+        <p className="font-mono text-mini text-slate-500">{active.blurb}</p>
         <button
           type="button"
           onClick={refreshActive}
           disabled={loading}
-          className="text-[11px] font-mono px-2 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 inline-flex items-center gap-1 disabled:opacity-50"
+          className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 inline-flex items-center gap-1 disabled:opacity-50"
           aria-label={`Refresh ${active.label}`}
         >
           <RefreshCw size={11} className={loading ? 'animate-spin' : ''} /> refresh
@@ -298,7 +298,7 @@ export default function RansomwareLive(): JSX.Element {
       {env && !error && (
         <>
           {tab === 'stats' ? <StatsView data={env.data} /> : <ListView data={env.data} />}
-          <p className="font-mono text-[10px] text-slate-400 mt-3">
+          <p className="font-mono text-micro text-slate-400 mt-3">
             fetched{' '}
             {(() => {
               const d = new Date(env.fetched_at);

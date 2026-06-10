@@ -122,13 +122,13 @@ export default function AbuseRep(): JSX.Element {
                 { label: 'ASN', value: data.asn != null ? `AS${data.asn}` : '—' },
               ].map((s) => (
                 <div key={s.label}>
-                  <div className="text-[10px] font-mono uppercase tracking-wider text-slate-500 mb-0.5">{s.label}</div>
-                  <div className="font-mono text-[13px] text-slate-800 dark:text-slate-200 break-all">{s.value}</div>
+                  <div className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-0.5">{s.label}</div>
+                  <div className="font-mono text-tool text-slate-800 dark:text-slate-200 break-all">{s.value}</div>
                 </div>
               ))}
             </div>
             {data.tor_exit && (
-              <div className="text-[12px] font-mono px-3 py-2 rounded border border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300">
+              <div className="text-meta font-mono px-3 py-2 rounded border border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300">
                 ⚠ Known Tor exit node.
               </div>
             )}

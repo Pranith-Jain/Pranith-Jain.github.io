@@ -368,7 +368,7 @@ export default function SecurityGroupAnalyzer(): JSX.Element {
       <div className="animate-fade-in-up">
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2">Security Group / NSG Analyzer</h1>
         <p className="text-slate-600 dark:text-slate-400 mb-6 max-w-2xl">
-          Paste AWS <span className="font-mono text-[13px]">aws ec2 describe-security-groups</span> JSON or an Azure NSG
+          Paste AWS <span className="font-mono text-tool">aws ec2 describe-security-groups</span> JSON or an Azure NSG
           (securityRules / ARM shape). Inbound rules open to the internet (0.0.0.0/0, ::/0, “*”, “Internet”) are flagged
           and ranked by the service behind the port. Nothing leaves your browser.
         </p>
@@ -376,14 +376,14 @@ export default function SecurityGroupAnalyzer(): JSX.Element {
           <button
             type="button"
             onClick={() => setInput(SAMPLE_AWS)}
-            className="text-[12px] font-mono px-2.5 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
+            className="text-meta font-mono px-2.5 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
           >
             load AWS example
           </button>
           <button
             type="button"
             onClick={() => setInput(SAMPLE_AZURE)}
-            className="text-[12px] font-mono px-2.5 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
+            className="text-meta font-mono px-2.5 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
           >
             load Azure NSG example
           </button>
@@ -391,7 +391,7 @@ export default function SecurityGroupAnalyzer(): JSX.Element {
             <button
               type="button"
               onClick={() => setInput('')}
-              className="text-[12px] font-mono px-2.5 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400"
+              className="text-meta font-mono px-2.5 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400"
             >
               clear
             </button>
@@ -410,7 +410,7 @@ export default function SecurityGroupAnalyzer(): JSX.Element {
         rows={12}
         spellCheck={false}
         aria-label="Security group / NSG JSON"
-        className="w-full px-4 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg font-mono text-[13px] text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+        className="w-full px-4 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg font-mono text-tool text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
       />
 
       {analysis?.error && <p className="mt-6 text-sm font-mono text-rose-600 dark:text-rose-400">{analysis.error}</p>}
@@ -435,7 +435,7 @@ export default function SecurityGroupAnalyzer(): JSX.Element {
                   .map((s) => (
                     <span
                       key={s}
-                      className={`text-[11px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${SEV_STYLE[s].chip}`}
+                      className={`text-mini font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${SEV_STYLE[s].chip}`}
                     >
                       {counts[s]} {s}
                     </span>
@@ -467,16 +467,16 @@ export default function SecurityGroupAnalyzer(): JSX.Element {
                       <div className="min-w-0 flex-1">
                         <div className="flex flex-wrap items-center gap-2">
                           <span
-                            className={`text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${st.chip}`}
+                            className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${st.chip}`}
                           >
                             {f.sev}
                           </span>
-                          <span className="text-[11px] font-mono text-slate-500">{f.where}</span>
+                          <span className="text-mini font-mono text-slate-500">{f.where}</span>
                         </div>
                         <h3 className={`font-display font-semibold mt-1.5 ${st.text}`}>{f.title}</h3>
                         <p className="text-sm text-slate-600 dark:text-slate-400 mt-1 leading-relaxed">{f.detail}</p>
-                        <p className="text-[13px] text-slate-700 dark:text-slate-300 mt-2">
-                          <span className="text-slate-500 font-mono text-[11px] uppercase tracking-wider">fix</span>{' '}
+                        <p className="text-tool text-slate-700 dark:text-slate-300 mt-2">
+                          <span className="text-slate-500 font-mono text-mini uppercase tracking-wider">fix</span>{' '}
                           {f.fix}
                         </p>
                       </div>

@@ -556,7 +556,7 @@ export function CommandPalette(): JSX.Element | null {
           <button
             type="button"
             onClick={() => setKindFilter(null)}
-            className={`text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded border ${
+            className={`text-micro font-mono uppercase tracking-wider px-2 py-0.5 rounded border ${
               kindFilter === null
                 ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
                 : 'border-slate-300 dark:border-slate-700 text-slate-500 hover:border-brand-500/40'
@@ -573,7 +573,7 @@ export function CommandPalette(): JSX.Element | null {
                 key={k}
                 type="button"
                 onClick={() => setKindFilter(active ? null : k)}
-                className={`text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded border ${
+                className={`text-micro font-mono uppercase tracking-wider px-2 py-0.5 rounded border ${
                   active
                     ? KIND_PILL[k]
                     : 'border-slate-300 dark:border-slate-700 text-slate-500 hover:border-brand-500/40'
@@ -610,7 +610,7 @@ export function CommandPalette(): JSX.Element | null {
                     <Icon size={16} className={active ? 'text-brand-600 dark:text-brand-400' : 'text-slate-500'} />
                   ) : (
                     <span
-                      className={`w-4 text-center text-[9px] font-mono uppercase tracking-wider ${
+                      className={`w-4 text-center text-micro font-mono uppercase tracking-wider ${
                         active ? 'text-brand-600 dark:text-brand-400' : 'text-slate-400'
                       }`}
                       aria-hidden="true"
@@ -632,22 +632,22 @@ export function CommandPalette(): JSX.Element | null {
                     <div className="flex items-baseline gap-2">
                       <span className="font-display font-semibold text-sm truncate">{m.label}</span>
                       <span
-                        className={`text-[9px] font-mono uppercase tracking-wider px-1 rounded border ${KIND_PILL[m.kind]} shrink-0`}
+                        className={`text-micro font-mono uppercase tracking-wider px-1 rounded border ${KIND_PILL[m.kind]} shrink-0`}
                       >
                         {KIND_LABEL[m.kind]}
                       </span>
                       {m.matchedBy === 'recent' && (
-                        <span className="text-[9px] uppercase tracking-wider px-1 rounded border border-cyan-500/30 bg-cyan-500/5 text-cyan-700 dark:text-cyan-300">
+                        <span className="text-micro uppercase tracking-wider px-1 rounded border border-cyan-500/30 bg-cyan-500/5 text-cyan-700 dark:text-cyan-300">
                           recent
                         </span>
                       )}
                       {m.matchedBy === 'pivot' && (
-                        <span className="text-[9px] uppercase tracking-wider px-1 rounded border border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300">
+                        <span className="text-micro uppercase tracking-wider px-1 rounded border border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300">
                           pivot
                         </span>
                       )}
                     </div>
-                    <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400 truncate">
+                    <div className="text-mini font-mono text-slate-500 dark:text-slate-400 truncate">
                       {m.sectionLabel} · {m.desc}
                     </div>
                   </div>
@@ -658,7 +658,7 @@ export function CommandPalette(): JSX.Element | null {
           })}
         </ul>
 
-        <div className="border-t border-slate-200 dark:border-slate-800 px-4 py-2 text-[10px] font-mono text-slate-500 dark:text-slate-400 flex items-center gap-3">
+        <div className="border-t border-slate-200 dark:border-slate-800 px-4 py-2 text-micro font-mono text-slate-500 dark:text-slate-400 flex items-center gap-3">
           <Command size={10} aria-hidden="true" />
           <span>↑↓ navigate</span>
           <span>↵ open</span>

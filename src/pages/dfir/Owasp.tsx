@@ -246,13 +246,13 @@ export default function Owasp(): JSX.Element {
               {isExpanded && (
                 <div className="px-4 pb-4 pt-0 grid sm:grid-cols-2 gap-3 text-sm">
                   <div className="rounded border border-slate-200 dark:border-slate-800 p-3 bg-white dark:bg-slate-900">
-                    <div className="text-[10px] font-mono uppercase tracking-wider text-rose-600 dark:text-rose-400 mb-1">
+                    <div className="text-micro font-mono uppercase tracking-wider text-rose-600 dark:text-rose-400 mb-1">
                       Attack
                     </div>
                     <p className="text-slate-700 dark:text-slate-300 leading-relaxed">{it.example}</p>
                   </div>
                   <div className="rounded border border-slate-200 dark:border-slate-800 p-3 bg-white dark:bg-slate-900">
-                    <div className="text-[10px] font-mono uppercase tracking-wider text-emerald-600 dark:text-emerald-400 mb-1">
+                    <div className="text-micro font-mono uppercase tracking-wider text-emerald-600 dark:text-emerald-400 mb-1">
                       Mitigation
                     </div>
                     <p className="text-slate-700 dark:text-slate-300 leading-relaxed">{it.mitigation}</p>

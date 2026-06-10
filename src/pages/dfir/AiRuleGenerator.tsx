@@ -232,7 +232,7 @@ export default function AiRuleGenerator(): JSX.Element {
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -258,7 +258,7 @@ export default function AiRuleGenerator(): JSX.Element {
               if (items.length === 0) return null;
               return (
                 <div key={cat} className="mb-3">
-                  <div className="text-[10px] font-mono uppercase tracking-[0.18em] text-slate-400 mb-2">
+                  <div className="text-micro font-mono uppercase tracking-[0.18em] text-slate-400 mb-2">
                     {catLabel[cat]}
                   </div>
                   <div className="flex flex-wrap gap-1.5">
@@ -298,7 +298,7 @@ export default function AiRuleGenerator(): JSX.Element {
                 <button
                   key={i}
                   onClick={() => setDescription(ex)}
-                  className="text-[11px] px-2 py-1 rounded border border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-brand-500/40 transition-colors"
+                  className="text-mini px-2 py-1 rounded border border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-brand-500/40 transition-colors"
                 >
                   {ex.slice(0, 45)}…
                 </button>
@@ -433,19 +433,17 @@ export default function AiRuleGenerator(): JSX.Element {
                 <h2 className="font-display font-bold text-sm mb-3">Metadata</h2>
                 <div className="grid grid-cols-2 gap-3 text-sm">
                   <div>
-                    <div className="text-[10px] font-mono uppercase tracking-wider text-slate-400 mb-0.5">
-                      Rule Name
-                    </div>
+                    <div className="text-micro font-mono uppercase tracking-wider text-slate-400 mb-0.5">Rule Name</div>
                     <div className="font-mono">{result.rule_name}</div>
                   </div>
                   <div>
-                    <div className="text-[10px] font-mono uppercase tracking-wider text-slate-400 mb-0.5">
+                    <div className="text-micro font-mono uppercase tracking-wider text-slate-400 mb-0.5">
                       Complexity
                     </div>
                     <div className="capitalize">{result.meta.complexity}</div>
                   </div>
                   <div>
-                    <div className="text-[10px] font-mono uppercase tracking-wider text-slate-400 mb-0.5">
+                    <div className="text-micro font-mono uppercase tracking-wider text-slate-400 mb-0.5">
                       Syntax Confidence
                     </div>
                     <span
@@ -455,7 +453,7 @@ export default function AiRuleGenerator(): JSX.Element {
                     </span>
                   </div>
                   <div>
-                    <div className="text-[10px] font-mono uppercase tracking-wider text-slate-400 mb-0.5">
+                    <div className="text-micro font-mono uppercase tracking-wider text-slate-400 mb-0.5">
                       Detection Confidence
                     </div>
                     <span

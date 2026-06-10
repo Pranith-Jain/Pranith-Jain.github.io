@@ -24,7 +24,7 @@ export function AdmiraltyBadge({ admiralty, compact }: { admiralty: AdmiraltyGra
   return (
     <span
       className={`inline-flex items-center gap-1 font-mono rounded border px-1.5 py-0.5 ${colors} ${
-        compact ? 'text-[10px]' : 'text-[11px]'
+        compact ? 'text-micro' : 'text-mini'
       }`}
       title={`NATO Admiralty Code: ${admiralty.reliability}${admiralty.credibility} — Reliability ${admiralty.reliability}, Credibility ${admiralty.credibility}`}
     >

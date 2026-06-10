@@ -182,7 +182,7 @@ export default function Analyze(): JSX.Element {
   const SortHeader = ({ label, sort }: { label: string; sort: SortKey }) => (
     <th
       scope="col"
-      className="px-3 py-2 text-left text-[10px] font-mono uppercase tracking-wider text-slate-500 cursor-pointer select-none hover:text-slate-700 dark:hover:text-slate-300"
+      className="px-3 py-2 text-left text-micro font-mono uppercase tracking-wider text-slate-500 cursor-pointer select-none hover:text-slate-700 dark:hover:text-slate-300"
       onClick={() => toggleSort(sort)}
     >
       <span className="inline-flex items-center gap-1">
@@ -332,7 +332,7 @@ export default function Analyze(): JSX.Element {
                   key={f.key}
                   type="button"
                   onClick={() => setFilterVerdict(f.key)}
-                  className={`text-[11px] font-mono px-2.5 py-1 rounded border transition-colors ${
+                  className={`text-mini font-mono px-2.5 py-1 rounded border transition-colors ${
                     filterVerdict === f.key
                       ? 'bg-brand-500/15 border-brand-500/40 text-brand-700 dark:text-brand-300'
                       : 'border-slate-200 dark:border-slate-800 text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'
@@ -355,14 +355,14 @@ export default function Analyze(): JSX.Element {
               <button
                 type="button"
                 onClick={exportCsv}
-                className="text-[11px] font-mono px-2 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1"
+                className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1"
               >
                 <FileDown size={11} /> CSV
               </button>
               <button
                 type="button"
                 onClick={exportJson}
-                className="text-[11px] font-mono px-2 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1"
+                className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1"
               >
                 <FileDown size={11} /> JSON
               </button>
@@ -381,13 +381,13 @@ export default function Analyze(): JSX.Element {
                     <SortHeader label="Score" sort="score" />
                     <th
                       scope="col"
-                      className="px-3 py-2 text-left text-[10px] font-mono uppercase tracking-wider text-slate-500"
+                      className="px-3 py-2 text-left text-micro font-mono uppercase tracking-wider text-slate-500"
                     >
                       Evidence
                     </th>
                     <th
                       scope="col"
-                      className="px-3 py-2 text-left text-[10px] font-mono uppercase tracking-wider text-slate-500"
+                      className="px-3 py-2 text-left text-micro font-mono uppercase tracking-wider text-slate-500"
                     >
                       Tags
                     </th>
@@ -414,7 +414,7 @@ export default function Analyze(): JSX.Element {
                         </td>
                         <td className="px-3 py-2.5 font-display font-semibold capitalize text-slate-900 dark:text-slate-100">
                           {r.source}
-                          {r.cached && <span className="ml-2 text-[10px] text-brand-500">cached</span>}
+                          {r.cached && <span className="ml-2 text-micro text-brand-500">cached</span>}
                         </td>
                         <td className="px-3 py-2.5">
                           {r.status === 'ok' && <CheckCircle2 size={14} className="text-emerald-500" />}
@@ -432,11 +432,11 @@ export default function Analyze(): JSX.Element {
                                 style={{ width: `${r.score}%` }}
                               />
                             </div>
-                            <span className="text-[11px] font-mono text-slate-500 tabular-nums w-6">{r.score}</span>
+                            <span className="text-mini font-mono text-slate-500 tabular-nums w-6">{r.score}</span>
                           </div>
                         </td>
                         <td className="px-3 py-2.5">
-                          <span className="text-[12px] font-mono text-slate-600 dark:text-slate-400 line-clamp-1">
+                          <span className="text-meta font-mono text-slate-600 dark:text-slate-400 line-clamp-1">
                             {r.status === 'error'
                               ? (r.error ?? r.error_code ?? 'error')
                               : r.status === 'unsupported'
@@ -454,7 +454,7 @@ export default function Analyze(): JSX.Element {
                           <div className="flex flex-wrap gap-1 max-w-[200px]">
                             {r.status === 'error' && r.error_code && (
                               <span
-                                className={`text-[10px] font-mono px-1 py-0.5 rounded border ${
+                                className={`text-micro font-mono px-1 py-0.5 rounded border ${
                                   r.error_code === 'rate_limited'
                                     ? 'bg-amber-500/15 text-amber-700 dark:text-amber-300 border-amber-500/30'
                                     : r.error_code === 'upstream_5xx' ||
@@ -474,13 +474,13 @@ export default function Analyze(): JSX.Element {
                             {r.tags.slice(0, 3).map((t) => (
                               <span
                                 key={t}
-                                className="text-[10px] font-mono px-1 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-500 border border-slate-200 dark:border-slate-700 truncate max-w-[100px]"
+                                className="text-micro font-mono px-1 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-500 border border-slate-200 dark:border-slate-700 truncate max-w-[100px]"
                               >
                                 {t}
                               </span>
                             ))}
                             {r.tags.length > 3 && (
-                              <span className="text-[10px] font-mono text-slate-400">+{r.tags.length - 3}</span>
+                              <span className="text-micro font-mono text-slate-400">+{r.tags.length - 3}</span>
                             )}
                           </div>
                         </td>
@@ -511,7 +511,7 @@ export default function Analyze(): JSX.Element {
                             {secretFindings.map((f, i) => (
                               <li
                                 key={`${f.type as string}-${i}`}
-                                className="flex items-center gap-2 text-[12px] font-mono"
+                                className="flex items-center gap-2 text-meta font-mono"
                               >
                                 <span className="px-1.5 py-0.5 rounded bg-rose-500/15 text-rose-700 dark:text-rose-300 border border-rose-500/30">
                                   {f.type as string}
@@ -523,11 +523,11 @@ export default function Analyze(): JSX.Element {
                             ))}
                           </ul>
                         )}
-                        <pre className="text-[12px] font-mono text-slate-700 dark:text-slate-300 leading-relaxed whitespace-pre-wrap break-all max-h-60 overflow-y-auto">
+                        <pre className="text-meta font-mono text-slate-700 dark:text-slate-300 leading-relaxed whitespace-pre-wrap break-all max-h-60 overflow-y-auto">
                           {JSON.stringify(r.raw_summary, null, 2)}
                         </pre>
                         {r.fetched_at && (
-                          <p className="mt-2 text-[10px] font-mono text-slate-400">
+                          <p className="mt-2 text-micro font-mono text-slate-400">
                             fetched: {new Date(r.fetched_at).toISOString()}
                           </p>
                         )}

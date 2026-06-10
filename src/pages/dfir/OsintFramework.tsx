@@ -94,7 +94,7 @@ export default function OsintFramework(): JSX.Element {
         </div>
 
         <div className="flex flex-wrap gap-1.5">
-          <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 self-center mr-1">
+          <span className="text-micro font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 self-center mr-1">
             Pricing
           </span>
           <button
@@ -127,7 +127,7 @@ export default function OsintFramework(): JSX.Element {
         </div>
 
         <div className="flex flex-wrap gap-1.5">
-          <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 self-center mr-1">
+          <span className="text-micro font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 self-center mr-1">
             Category
           </span>
           <button
@@ -179,15 +179,15 @@ export default function OsintFramework(): JSX.Element {
                 {e.name} <ExternalLink size={11} />
               </a>
               <span
-                className={`text-[9px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${PRICING_STYLES[e.pricing]}`}
+                className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${PRICING_STYLES[e.pricing]}`}
               >
                 {PRICING_LABELS[e.pricing]}
               </span>
             </header>
-            <p className="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-1">
+            <p className="text-micro font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-1">
               {CATEGORY_LABELS[e.category]}
             </p>
-            <p className="text-[12px] font-mono text-slate-600 dark:text-slate-400 leading-relaxed">{e.description}</p>
+            <p className="text-meta font-mono text-slate-600 dark:text-slate-400 leading-relaxed">{e.description}</p>
           </article>
         ))}
         {filtered.length === 0 && (

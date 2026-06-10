@@ -187,7 +187,7 @@ export function SocBar({
         );
       })}
       {axis && (
-        <li className="flex justify-between text-[11px] text-slate-400 dark:text-slate-500 font-mono pt-1">
+        <li className="flex justify-between text-mini text-slate-400 dark:text-slate-500 font-mono pt-1">
           <span>0</span>
           <span>{fmt(Math.round(ceiling / 2))}</span>
           <span>{fmt(ceiling)}</span>
@@ -301,7 +301,7 @@ export function SocDonut({
                 </div>
               )}
               {centerSub && (
-                <div className="text-[11px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mt-0.5">
+                <div className="text-mini font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mt-0.5">
                   {centerSub}
                 </div>
               )}

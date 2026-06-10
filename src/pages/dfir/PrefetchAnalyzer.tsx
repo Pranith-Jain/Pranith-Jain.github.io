@@ -217,7 +217,7 @@ export default function PrefetchAnalyzer(): JSX.Element {
         <p className="text-sm font-mono text-slate-700 dark:text-slate-300">
           Drop a .pf file file here, or click to choose
         </p>
-        <p className="text-[11px] font-mono text-slate-500 mt-1">100% client-side. No upload.</p>
+        <p className="text-mini font-mono text-slate-500 mt-1">100% client-side. No upload.</p>
       </button>
       <input
         id="prefetchanalyzer-input"
@@ -256,7 +256,7 @@ export default function PrefetchAnalyzer(): JSX.Element {
 
       {pf && (
         <div className="mt-6 space-y-4">
-          {pf.note && <p className="font-mono text-[11px] text-emerald-600 dark:text-emerald-400">{pf.note}</p>}
+          {pf.note && <p className="font-mono text-mini text-emerald-600 dark:text-emerald-400">{pf.note}</p>}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             {[
               ['Executable', pf.exe],
@@ -268,19 +268,17 @@ export default function PrefetchAnalyzer(): JSX.Element {
                 key={k}
                 className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3"
               >
-                <div className="text-[10px] font-mono uppercase tracking-wider text-slate-500">{k}</div>
-                <div className="font-mono text-[12px] break-all">{v}</div>
+                <div className="text-micro font-mono uppercase tracking-wider text-slate-500">{k}</div>
+                <div className="font-mono text-meta break-all">{v}</div>
               </div>
             ))}
           </div>
           {pf.lastRuns.length > 0 && (
             <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3">
-              <div className="text-[10px] font-mono uppercase tracking-wider text-slate-500 mb-1">
+              <div className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-1">
                 Last run times ({pf.lastRuns.length})
               </div>
-              <div className="font-mono text-[11px] text-slate-700 dark:text-slate-300">
-                {pf.lastRuns.join('  ·  ')}
-              </div>
+              <div className="font-mono text-mini text-slate-700 dark:text-slate-300">{pf.lastRuns.join('  ·  ')}</div>
             </div>
           )}
           <div>
@@ -292,11 +290,11 @@ export default function PrefetchAnalyzer(): JSX.Element {
             />
             <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3 overflow-auto max-h-[55vh]">
               {shown.slice(0, 3000).map((f, i) => (
-                <div key={i} className="font-mono text-[11px] text-slate-600 dark:text-slate-400 break-all">
+                <div key={i} className="font-mono text-mini text-slate-600 dark:text-slate-400 break-all">
                   {f}
                 </div>
               ))}
-              {shown.length === 0 && <p className="font-mono text-[12px] text-slate-500">No matching file paths.</p>}
+              {shown.length === 0 && <p className="font-mono text-meta text-slate-500">No matching file paths.</p>}
             </div>
           </div>
         </div>

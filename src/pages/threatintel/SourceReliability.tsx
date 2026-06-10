@@ -62,7 +62,7 @@ export default function SourceReliability(): JSX.Element {
         {(['A', 'B', 'C', 'D', 'E', 'F'] as const).map((r) => (
           <div
             key={r}
-            className={`flex items-center gap-2 text-[11px] font-mono px-2 py-1 rounded ${RELIABILITY_COLORS[r]}`}
+            className={`flex items-center gap-2 text-mini font-mono px-2 py-1 rounded ${RELIABILITY_COLORS[r]}`}
           >
             <span className="font-bold w-4">{r}</span>
             <span>{RELIABILITY_DESC[r]}</span>
@@ -80,7 +80,7 @@ export default function SourceReliability(): JSX.Element {
             >
               <div className="flex items-start gap-3">
                 <span
-                  className={`text-[11px] font-mono px-1.5 py-0.5 rounded font-bold border ${RELIABILITY_COLORS[s.reliability] ?? ''}`}
+                  className={`text-mini font-mono px-1.5 py-0.5 rounded font-bold border ${RELIABILITY_COLORS[s.reliability] ?? ''}`}
                 >
                   {s.reliability}
                 </span>
@@ -88,16 +88,14 @@ export default function SourceReliability(): JSX.Element {
                   <div className="flex items-center gap-2">
                     <Icon size={14} className="text-slate-400 shrink-0" />
                     <span className="text-sm font-medium">{s.name}</span>
-                    <span className="text-[10px] font-mono text-slate-400">({s.id})</span>
+                    <span className="text-micro font-mono text-slate-400">({s.id})</span>
                   </div>
                   <p className="text-xs text-slate-600 dark:text-slate-400 mt-0.5">{s.description}</p>
                   {s.known_bias && (
-                    <p className="text-[10px] font-mono text-amber-600 dark:text-amber-400 mt-1">
-                      Bias: {s.known_bias}
-                    </p>
+                    <p className="text-micro font-mono text-amber-600 dark:text-amber-400 mt-1">Bias: {s.known_bias}</p>
                   )}
                 </div>
-                <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-500 capitalize shrink-0">
+                <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-500 capitalize shrink-0">
                   {s.category.replace('_', ' ')}
                 </span>
               </div>

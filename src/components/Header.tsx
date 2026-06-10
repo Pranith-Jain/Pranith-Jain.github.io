@@ -165,7 +165,7 @@ export const Header = memo(function Header({ isDark, onToggleTheme, navLinks }: 
           {/* Logo */}
           <Link
             to="/"
-            className="group inline-flex items-center gap-3 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 rounded-lg"
+            className="group inline-flex items-center gap-3 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 rounded-lg"
             aria-label="Pranith Jain Portfolio - Back to home"
           >
             <span className="h-9 w-9 rounded-xl shadow-glow flex items-center justify-center overflow-hidden">
@@ -231,7 +231,7 @@ export const Header = memo(function Header({ isDark, onToggleTheme, navLinks }: 
                             }, 0);
                           }
                         }}
-                        className={`flex items-center gap-1 rounded-full px-3 py-2 text-sm font-medium transition focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 ${
+                        className={`flex items-center gap-1 rounded-full px-3 py-2 text-sm font-medium transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 ${
                           isActive(link.href)
                             ? 'text-brand-600 dark:text-brand-400 bg-brand-500/10'
                             : 'text-slate-700 hover:bg-slate-900/5 hover:text-slate-900 dark:text-slate-200 dark:hover:bg-white/10 dark:hover:text-white'
@@ -280,7 +280,7 @@ export const Header = memo(function Header({ isDark, onToggleTheme, navLinks }: 
                       aria-current={isActive(link.href) ? 'page' : undefined}
                       onMouseEnter={() => preloadRoute(link.href)}
                       onFocus={() => preloadRoute(link.href)}
-                      className={`rounded-full px-3 py-2 text-sm font-medium transition focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 ${
+                      className={`rounded-full px-3 py-2 text-sm font-medium transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 ${
                         isActive(link.href)
                           ? 'text-brand-600 dark:text-brand-400 bg-brand-500/10'
                           : 'text-slate-700 hover:bg-slate-900/5 hover:text-slate-900 dark:text-slate-200 dark:hover:bg-white/10 dark:hover:text-white'
@@ -305,7 +305,7 @@ export const Header = memo(function Header({ isDark, onToggleTheme, navLinks }: 
                 <Link
                   key={link.href}
                   to={link.href}
-                  className="hidden md:inline-flex items-center gap-1.5 rounded-full bg-brand-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-brand-500 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2"
+                  className="hidden md:inline-flex items-center gap-1.5 rounded-full bg-brand-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-brand-500 hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
                 >
                   {link.label}
                   <span aria-hidden="true">→</span>
@@ -324,12 +324,12 @@ export const Header = memo(function Header({ isDark, onToggleTheme, navLinks }: 
                   });
                   window.dispatchEvent(ev);
                 }}
-                className="hidden md:inline-flex items-center gap-1 text-[11px] font-mono px-2 py-1 rounded border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-slate-100 hover:border-brand-500/40 hover:bg-slate-50 dark:hover:bg-slate-900"
+                className="hidden md:inline-flex items-center gap-1 text-mini font-mono px-2 py-1 rounded border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-slate-100 hover:border-brand-500/40 hover:bg-slate-50 dark:hover:bg-slate-900"
                 aria-label="Search across tools, wiki, actors, CVEs, and Telegram channels"
                 title="Command palette"
               >
                 <Command size={11} />
-                <kbd className="px-1 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-[9px] font-mono text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-slate-700">
+                <kbd className="px-1 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-micro font-mono text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-slate-700">
                   {isMac ? '⌘' : 'Ctrl'}K
                 </kbd>
               </button>
@@ -341,7 +341,7 @@ export const Header = memo(function Header({ isDark, onToggleTheme, navLinks }: 
               ref={mobileMenuButtonRef}
               type="button"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="grid h-11 w-11 sm:h-10 sm:w-10 place-items-center rounded-full border border-slate-200/60 bg-white/70 text-slate-700 shadow-sm transition hover:shadow-md dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-200 md:hidden focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2"
+              className="grid h-11 w-11 sm:h-10 sm:w-10 place-items-center rounded-full border border-slate-200/60 bg-white/70 text-slate-700 shadow-sm transition hover:shadow-md dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-200 md:hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
               aria-label={isMobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
               aria-expanded={isMobileMenuOpen}
               aria-controls="mobile-menu"
@@ -395,7 +395,7 @@ export const Header = memo(function Header({ isDark, onToggleTheme, navLinks }: 
                         to={child.href}
                         aria-current={isActive(child.href) ? 'page' : undefined}
                         onClick={closeMobileMenu}
-                        className={`block rounded-lg px-4 py-3.5 sm:py-3 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 ${
+                        className={`block rounded-lg px-4 py-3.5 sm:py-3 text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 ${
                           isActive(child.href)
                             ? 'text-brand-600 dark:text-brand-400 bg-brand-500/10'
                             : 'text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-white/10'
@@ -413,7 +413,7 @@ export const Header = memo(function Header({ isDark, onToggleTheme, navLinks }: 
                   to={link.href}
                   aria-current={!link.cta && isActive(link.href) ? 'page' : undefined}
                   onClick={closeMobileMenu}
-                  className={`rounded-lg px-4 py-3.5 sm:py-3 text-sm font-medium block focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 ${
+                  className={`rounded-lg px-4 py-3.5 sm:py-3 text-sm font-medium block focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 ${
                     link.cta
                       ? 'bg-brand-600 text-white hover:bg-brand-500 mt-2'
                       : isActive(link.href)

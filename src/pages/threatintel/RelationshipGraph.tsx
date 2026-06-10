@@ -326,7 +326,7 @@ export default function RelationshipGraphPage(): JSX.Element {
               path
             </button>
             {expandedCount > 0 && (
-              <span className="text-[11px] font-mono text-slate-500">
+              <span className="text-mini font-mono text-slate-500">
                 +{expandedCount} expansion{expandedCount > 1 ? 's' : ''}
               </span>
             )}
@@ -336,7 +336,7 @@ export default function RelationshipGraphPage(): JSX.Element {
 
       {/* Example queries */}
       <div className="flex flex-wrap gap-2 mb-6">
-        <span className="text-[11px] font-mono text-slate-500 self-center">Try:</span>
+        <span className="text-mini font-mono text-slate-500 self-center">Try:</span>
         {EXAMPLE_QUERIES.map((eq) => (
           <button
             key={eq}
@@ -345,7 +345,7 @@ export default function RelationshipGraphPage(): JSX.Element {
               setQuery(eq);
               void fetchGraph(eq);
             }}
-            className="text-[11px] font-mono px-2 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-brand-100 dark:hover:bg-brand-900/30 hover:text-brand-700 dark:hover:text-brand-300 transition-colors"
+            className="text-mini font-mono px-2 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-brand-100 dark:hover:bg-brand-900/30 hover:text-brand-700 dark:hover:text-brand-300 transition-colors"
           >
             {eq}
           </button>
@@ -426,7 +426,7 @@ export default function RelationshipGraphPage(): JSX.Element {
               </div>
               {trendingCves.length > 0 && (
                 <div className="mt-2">
-                  <div className="text-[11px] font-mono uppercase tracking-wider text-slate-400 mb-2 flex items-center justify-center gap-1.5">
+                  <div className="text-mini font-mono uppercase tracking-wider text-slate-400 mb-2 flex items-center justify-center gap-1.5">
                     <TrendingUp size={12} /> trending CVEs
                   </div>
                   <div className="flex flex-wrap justify-center gap-1.5 max-w-lg">
@@ -438,7 +438,7 @@ export default function RelationshipGraphPage(): JSX.Element {
                           setQuery(cve.id);
                           void fetchGraph(cve.id);
                         }}
-                        className="text-[11px] font-mono px-2 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-brand-100 dark:hover:bg-brand-900/30 hover:text-brand-700 dark:hover:text-brand-300 transition-colors"
+                        className="text-mini font-mono px-2 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-brand-100 dark:hover:bg-brand-900/30 hover:text-brand-700 dark:hover:text-brand-300 transition-colors"
                       >
                         {cve.id}
                       </button>
@@ -458,7 +458,7 @@ export default function RelationshipGraphPage(): JSX.Element {
                 <div className="text-xs font-mono uppercase tracking-wider text-slate-500">Selected</div>
               </div>
               <div
-                className="text-[10px] uppercase tracking-wider font-bold mb-1"
+                className="text-micro uppercase tracking-wider font-bold mb-1"
                 style={{ color: NODE_COLORS[selectedNode.type] ?? '#94a3b8' }}
               >
                 {selectedNode.type}
@@ -470,7 +470,7 @@ export default function RelationshipGraphPage(): JSX.Element {
                 <div className="text-xs font-mono text-slate-500 mb-3">{selectedNode.subtitle}</div>
               )}
               {selectedNode.data && Object.keys(selectedNode.data).length > 0 && (
-                <pre className="font-mono text-[11px] text-slate-700 dark:text-slate-300 overflow-x-auto whitespace-pre-wrap break-all max-h-80 bg-slate-50 dark:bg-slate-950 rounded p-2 border border-slate-200 dark:border-slate-800">
+                <pre className="font-mono text-mini text-slate-700 dark:text-slate-300 overflow-x-auto whitespace-pre-wrap break-all max-h-80 bg-slate-50 dark:bg-slate-950 rounded p-2 border border-slate-200 dark:border-slate-800">
                   {JSON.stringify(selectedNode.data, null, 2)}
                 </pre>
               )}
@@ -489,7 +489,7 @@ export default function RelationshipGraphPage(): JSX.Element {
             <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 text-center text-xs font-mono text-slate-500 space-y-2">
               <Bug size={16} className="mx-auto text-slate-400" />
               <div>Click any node to inspect.</div>
-              <div className="text-[10px] text-slate-400">
+              <div className="text-micro text-slate-400">
                 Double-click a node or click "Expand" in its detail panel to load its neighbors.
               </div>
             </div>
@@ -503,7 +503,7 @@ export default function RelationshipGraphPage(): JSX.Element {
                 {(Object.entries(NODE_COLORS) as [GraphNodeData['type'], string][]).map(([type, color]) => (
                   <div
                     key={type}
-                    className="flex items-center gap-2 text-[11px] font-mono text-slate-600 dark:text-slate-400"
+                    className="flex items-center gap-2 text-mini font-mono text-slate-600 dark:text-slate-400"
                   >
                     <span
                       className="inline-block w-2.5 h-2.5 rounded-full flex-shrink-0"
@@ -517,7 +517,7 @@ export default function RelationshipGraphPage(): JSX.Element {
           )}
 
           {graphData && (
-            <div className="text-[10px] font-mono text-slate-500 text-center space-y-0.5">
+            <div className="text-micro font-mono text-slate-500 text-center space-y-0.5">
               <div>
                 {totalNodes} nodes · {totalEdges} edges · depth {graphData.depth}
               </div>

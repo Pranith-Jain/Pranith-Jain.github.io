@@ -259,7 +259,7 @@ export default function LiveIocs(): JSX.Element {
           </button>
         </div>
         <div className="flex flex-wrap items-center gap-1.5 mt-3">
-          <span className="text-[11px] font-mono text-slate-500 mr-1">kinds:</span>
+          <span className="text-mini font-mono text-slate-500 mr-1">kinds:</span>
           {(['ip', 'url', 'domain', 'hash'] as const).map((k) => {
             const active = kindFilter.has(k);
             return (
@@ -267,7 +267,7 @@ export default function LiveIocs(): JSX.Element {
                 key={k}
                 type="button"
                 onClick={() => toggleKind(k)}
-                className={`text-[11px] font-mono px-2 py-1 rounded border ${
+                className={`text-mini font-mono px-2 py-1 rounded border ${
                   active ? KIND_PILL[k] : 'border-slate-300 dark:border-slate-700 text-slate-500'
                 }`}
               >
@@ -278,7 +278,7 @@ export default function LiveIocs(): JSX.Element {
         </div>
         {data && (
           <div className="flex flex-wrap items-center gap-1.5 mt-2">
-            <span className="text-[11px] font-mono text-slate-500 mr-1">sources:</span>
+            <span className="text-mini font-mono text-slate-500 mr-1">sources:</span>
             {data.sources.map((s) => {
               const active = sourceFilter.has(s.id);
               const pillCls = SOURCE_PILL[s.id] ?? 'border-slate-300 dark:border-slate-700 text-slate-500';
@@ -296,7 +296,7 @@ export default function LiveIocs(): JSX.Element {
                   type="button"
                   onClick={() => toggleSource(s.id)}
                   disabled={!s.ok}
-                  className={`text-[11px] font-mono px-2 py-1 rounded border inline-flex items-center gap-1.5 ${
+                  className={`text-mini font-mono px-2 py-1 rounded border inline-flex items-center gap-1.5 ${
                     active
                       ? pillCls
                       : s.ok
@@ -319,7 +319,7 @@ export default function LiveIocs(): JSX.Element {
                   setSourceFilter(new Set());
                   setKindFilter(new Set());
                 }}
-                className="text-[11px] font-mono text-brand-600 dark:text-brand-400 hover:underline ml-2"
+                className="text-mini font-mono text-brand-600 dark:text-brand-400 hover:underline ml-2"
               >
                 clear
               </button>
@@ -328,7 +328,7 @@ export default function LiveIocs(): JSX.Element {
         )}
         {data && (
           <>
-            <div className="flex flex-wrap items-center gap-3 mt-2 text-[10px] font-mono text-slate-500">
+            <div className="flex flex-wrap items-center gap-3 mt-2 text-micro font-mono text-slate-500">
               <span>freshness:</span>
               {(['fresh', 'recent', 'stale', 'no-timestamp'] as const).map((f) => (
                 <span key={f} className="inline-flex items-center gap-1">
@@ -337,7 +337,7 @@ export default function LiveIocs(): JSX.Element {
                 </span>
               ))}
             </div>
-            <p className="text-[11px] font-mono text-slate-500 mt-3">
+            <p className="text-mini font-mono text-slate-500 mt-3">
               Showing page{' '}
               <span className="text-slate-700 dark:text-slate-300">
                 {page}/{totalPages}
@@ -371,7 +371,7 @@ export default function LiveIocs(): JSX.Element {
                 className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-3 py-2.5 flex items-center gap-3"
               >
                 <span
-                  className={`text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${KIND_PILL[it.kind]} shrink-0`}
+                  className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${KIND_PILL[it.kind]} shrink-0`}
                 >
                   {it.kind}
                 </span>
@@ -391,7 +391,7 @@ export default function LiveIocs(): JSX.Element {
                       </a>
                     )}
                   </div>
-                  <div className="text-[11px] font-mono text-slate-500 flex items-center gap-2 flex-wrap mt-0.5">
+                  <div className="text-mini font-mono text-slate-500 flex items-center gap-2 flex-wrap mt-0.5">
                     <span className={`px-1.5 py-0.5 rounded border ${sourcePill}`}>{it.source}</span>
                     <AdmiraltyBadge admiralty={gradeForLiveIoc(it.source, it.kind)} compact />
                     {it.reporter && <span className="text-slate-600 dark:text-slate-400">{it.reporter}</span>}
@@ -403,7 +403,7 @@ export default function LiveIocs(): JSX.Element {
                   </div>
                 </div>
                 <div
-                  className="shrink-0 text-right text-[11px] font-mono text-slate-500"
+                  className="shrink-0 text-right text-mini font-mono text-slate-500"
                   title={it.observed_at ?? 'no timestamp'}
                 >
                   {shortRel(it.observed_at)}

@@ -412,7 +412,7 @@ function SocialSection({
           <button
             onClick={onRegen}
             disabled={regenBusy}
-            className="text-[10px] uppercase tracking-wider text-slate-500 hover:text-slate-300 disabled:opacity-50"
+            className="text-micro uppercase tracking-wider text-slate-500 hover:text-slate-300 disabled:opacity-50"
             title="Regenerate"
           >
             {regenBusy ? '…' : 'Regenerate'}
@@ -447,7 +447,7 @@ function SocialSection({
       {parts.carousel && (
         <div className="mt-2">
           <div className="flex items-center justify-between mb-1">
-            <span className="text-[10px] uppercase tracking-wider text-slate-500">Carousel outline</span>
+            <span className="text-micro uppercase tracking-wider text-slate-500">Carousel outline</span>
             <button
               onClick={() => copy('carousel', parts.carousel!)}
               className="px-2 py-0.5 border border-slate-700 rounded text-xs hover:bg-slate-800"
@@ -528,8 +528,8 @@ function SchedulePanel({ slug }: { slug: string }) {
   return (
     <div className="mb-6 rounded border border-slate-800 bg-slate-900/40 p-3">
       <div className="flex items-center justify-between mb-2">
-        <h4 className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">Posting queue</h4>
-        {msg && <span className="text-[10px] text-slate-500">{msg}</span>}
+        <h4 className="text-mini font-semibold uppercase tracking-wider text-slate-400">Posting queue</h4>
+        {msg && <span className="text-micro text-slate-500">{msg}</span>}
       </div>
       <div className="space-y-3">
         {rows.map((platform) => {
@@ -541,7 +541,7 @@ function SchedulePanel({ slug }: { slug: string }) {
             <div key={platform} className="flex flex-wrap items-center gap-2 text-xs">
               <span className="w-16 uppercase text-slate-400">{platform}</span>
               <span
-                className={`px-1.5 py-0.5 rounded text-[10px] ${
+                className={`px-1.5 py-0.5 rounded text-micro ${
                   status === 'posted'
                     ? 'bg-emerald-900/40 text-emerald-300 border border-emerald-700/50'
                     : 'bg-amber-900/30 text-amber-300 border border-amber-700/40'
@@ -551,7 +551,7 @@ function SchedulePanel({ slug }: { slug: string }) {
                 {entry?.postedAt ? ` ${new Date(entry.postedAt).toLocaleDateString()}` : ''}
               </span>
               {overdue && (
-                <span className="px-1.5 py-0.5 rounded text-[10px] bg-red-900/40 text-red-300 border border-red-700/50">
+                <span className="px-1.5 py-0.5 rounded text-micro bg-red-900/40 text-red-300 border border-red-700/50">
                   overdue
                 </span>
               )}
@@ -570,7 +570,7 @@ function SchedulePanel({ slug }: { slug: string }) {
               >
                 {status === 'posted' ? 'Mark pending' : 'Mark posted'}
               </button>
-              <span className="text-[10px] text-slate-500">{bestTimeHint(platform)}</span>
+              <span className="text-micro text-slate-500">{bestTimeHint(platform)}</span>
             </div>
           );
         })}

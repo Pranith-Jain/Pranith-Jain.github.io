@@ -110,7 +110,7 @@ export default function Encoder(): JSX.Element {
                 key={s.label}
                 type="button"
                 onClick={() => setInput(s.value)}
-                className="text-[11px] font-mono px-2 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
+                className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
               >
                 {s.label}
               </button>
@@ -119,7 +119,7 @@ export default function Encoder(): JSX.Element {
               <button
                 type="button"
                 onClick={reset}
-                className="text-[11px] font-mono px-2 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400 inline-flex items-center gap-1"
+                className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400 inline-flex items-center gap-1"
               >
                 <RotateCw size={11} /> reset
               </button>
@@ -145,7 +145,7 @@ export default function Encoder(): JSX.Element {
           <button
             type="button"
             onClick={addStep}
-            className="text-[11px] font-mono px-2 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 inline-flex items-center gap-1"
+            className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 inline-flex items-center gap-1"
           >
             <Plus size={11} /> add pass
           </button>
@@ -192,7 +192,7 @@ export default function Encoder(): JSX.Element {
               <button
                 type="button"
                 onClick={sendToDecoder}
-                className="inline-flex items-center gap-1.5 text-[11px] font-mono px-2 py-1 rounded border border-brand-500/40 bg-brand-500/10 text-brand-700 dark:text-brand-300 hover:bg-brand-500/20"
+                className="inline-flex items-center gap-1.5 text-mini font-mono px-2 py-1 rounded border border-brand-500/40 bg-brand-500/10 text-brand-700 dark:text-brand-300 hover:bg-brand-500/20"
                 title="Round-trip: decode this back via /dfir/decode"
               >
                 <ArrowRight size={11} /> round-trip in Decoder
@@ -219,7 +219,7 @@ export default function Encoder(): JSX.Element {
                 className="rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-3"
               >
                 <div className="flex items-baseline justify-between gap-2 mb-2">
-                  <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400">
+                  <span className="text-mini font-mono text-slate-500 dark:text-slate-400">
                     pass {i + 1} ·{' '}
                     <span className="text-slate-700 dark:text-slate-300">
                       {ENCODINGS.find((e) => e.id === step.encoding)?.label}
@@ -227,7 +227,7 @@ export default function Encoder(): JSX.Element {
                   </span>
                   <CopyChip value={step.after} />
                 </div>
-                <pre className="text-[11px] font-mono text-slate-700 dark:text-slate-300 whitespace-pre-wrap break-all max-h-32 overflow-auto">
+                <pre className="text-mini font-mono text-slate-700 dark:text-slate-300 whitespace-pre-wrap break-all max-h-32 overflow-auto">
                   {step.after}
                 </pre>
               </li>

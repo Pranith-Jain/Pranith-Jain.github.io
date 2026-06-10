@@ -190,7 +190,7 @@ export default function ThreatPulse(): JSX.Element {
           <button
             type="button"
             onClick={() => setRefreshKey((k) => k + 1)}
-            className="text-[11px] font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 inline-flex items-center gap-1 mt-1"
+            className="text-mini font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 inline-flex items-center gap-1 mt-1"
             aria-label="Refresh threat pulse"
           >
             <RefreshCw size={11} /> refresh
@@ -226,7 +226,7 @@ export default function ThreatPulse(): JSX.Element {
               >
                 <Icon size={18} className="shrink-0 text-brand-600 dark:text-brand-400" />
                 <div className="min-w-0">
-                  <div className="text-[10px] font-mono uppercase tracking-wider text-slate-500">{KIND_LABEL[k]}s</div>
+                  <div className="text-micro font-mono uppercase tracking-wider text-slate-500">{KIND_LABEL[k]}s</div>
                   <div className="text-xl font-display font-bold tabular-nums">{n.toLocaleString()}</div>
                 </div>
               </button>
@@ -274,7 +274,7 @@ export default function ThreatPulse(): JSX.Element {
         <div className="flex items-center gap-2 ml-auto">
           <label
             htmlFor="pulse-min-sources"
-            className="text-[10px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400"
+            className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400"
           >
             Min. sources
           </label>
@@ -311,7 +311,7 @@ export default function ThreatPulse(): JSX.Element {
                 <button
                   type="button"
                   onClick={() => setMinSources(recovery.threshold)}
-                  className="inline-flex items-center gap-1.5 border border-brand-500 bg-brand-500/10 px-3 py-1.5 font-mono text-[11px] uppercase tracking-wider text-brand-700 dark:text-brand-400 transition-colors hover:bg-brand-500 hover:text-white rounded"
+                  className="inline-flex items-center gap-1.5 border border-brand-500 bg-brand-500/10 px-3 py-1.5 font-mono text-mini uppercase tracking-wider text-brand-700 dark:text-brand-400 transition-colors hover:bg-brand-500 hover:text-white rounded"
                 >
                   Show {recovery.count} at ≥{recovery.threshold} source{recovery.threshold > 1 ? 's' : ''}
                 </button>
@@ -320,7 +320,7 @@ export default function ThreatPulse(): JSX.Element {
                 <button
                   type="button"
                   onClick={() => setKindFilter(null)}
-                  className="inline-flex items-center gap-1.5 border border-slate-200 dark:border-slate-800 px-3 py-1.5 font-mono text-[11px] uppercase tracking-wider text-slate-600 dark:text-slate-400 transition-colors hover:border-slate-400 hover:text-slate-900 dark:hover:text-slate-100 rounded"
+                  className="inline-flex items-center gap-1.5 border border-slate-200 dark:border-slate-800 px-3 py-1.5 font-mono text-mini uppercase tracking-wider text-slate-600 dark:text-slate-400 transition-colors hover:border-slate-400 hover:text-slate-900 dark:hover:text-slate-100 rounded"
                 >
                   Clear {KIND_LABEL[kindFilter as keyof typeof KIND_LABEL]} filter
                 </button>
@@ -375,7 +375,7 @@ export default function ThreatPulse(): JSX.Element {
                             );
                           })()}
                           <span
-                            className={`text-[9px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${KIND_COLOR[entity.kind]}`}
+                            className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${KIND_COLOR[entity.kind]}`}
                           >
                             {KIND_LABEL[entity.kind]}
                           </span>
@@ -385,7 +385,7 @@ export default function ThreatPulse(): JSX.Element {
                             without needing more screen space than a pill. */}
                           {isCrossPlatform ? (
                             <span
-                              className="inline-flex items-center gap-1 text-[9px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300"
+                              className="inline-flex items-center gap-1 text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300"
                               title={`${platformCount} distinct platform types — cross-platform corroboration, stronger signal than same-platform mentions`}
                             >
                               <Layers size={9} aria-hidden="true" />
@@ -393,7 +393,7 @@ export default function ThreatPulse(): JSX.Element {
                             </span>
                           ) : entity.source_count > 1 ? (
                             <span
-                              className="inline-flex items-center gap-1 text-[9px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-slate-300 dark:border-slate-700 text-slate-500"
+                              className="inline-flex items-center gap-1 text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-slate-300 dark:border-slate-700 text-slate-500"
                               title="All mentions on a single platform — same-platform corroboration, weaker signal than cross-platform"
                             >
                               same-platform
@@ -405,7 +405,7 @@ export default function ThreatPulse(): JSX.Element {
                           {entity.sources.map((s) => (
                             <span
                               key={s}
-                              className="text-[9px] font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/60 text-slate-600 dark:text-slate-400"
+                              className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/60 text-slate-600 dark:text-slate-400"
                             >
                               {surfaceLabel(s)}
                             </span>
@@ -423,7 +423,7 @@ export default function ThreatPulse(): JSX.Element {
                       }`}
                     >
                       <span className="text-lg font-bold">{entity.source_count}</span>
-                      <p className="text-[9px] uppercase tracking-wider font-mono">sources</p>
+                      <p className="text-micro uppercase tracking-wider font-mono">sources</p>
                     </div>
                   </div>
                 </div>
@@ -434,7 +434,7 @@ export default function ThreatPulse(): JSX.Element {
       </DataState>
 
       {data && (
-        <p className="mt-6 text-[11px] font-mono text-slate-500 dark:text-slate-400 text-center">
+        <p className="mt-6 text-mini font-mono text-slate-500 dark:text-slate-400 text-center">
           Generated {data.generated_at.slice(0, 16).replace('T', ' ')} UTC · {data.entities.length} total entities
         </p>
       )}

@@ -146,21 +146,21 @@ export default function InfostealerDetail(): JSX.Element {
         <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
           <div className="flex items-center gap-2 mb-2">
             <Calendar size={14} className="text-slate-500" />
-            <span className="text-[10px] font-mono uppercase tracking-wider text-slate-500">First seen</span>
+            <span className="text-micro font-mono uppercase tracking-wider text-slate-500">First seen</span>
           </div>
           <p className="font-mono text-sm font-semibold">{family.firstSeen}</p>
         </div>
         <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
           <div className="flex items-center gap-2 mb-2">
             <Globe size={14} className="text-slate-500" />
-            <span className="text-[10px] font-mono uppercase tracking-wider text-slate-500">Platforms</span>
+            <span className="text-micro font-mono uppercase tracking-wider text-slate-500">Platforms</span>
           </div>
           <p className="font-mono text-sm font-semibold">{family.platforms.join(', ')}</p>
         </div>
         <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
           <div className="flex items-center gap-2 mb-2">
             <Layers size={14} className="text-slate-500" />
-            <span className="text-[10px] font-mono uppercase tracking-wider text-slate-500">Capabilities</span>
+            <span className="text-micro font-mono uppercase tracking-wider text-slate-500">Capabilities</span>
           </div>
           <p className="font-mono text-sm font-semibold">{family.capabilities.length}</p>
         </div>
@@ -176,7 +176,7 @@ export default function InfostealerDetail(): JSX.Element {
           {family.capabilities.map((c) => (
             <span
               key={c}
-              className="text-[11px] font-mono px-2 py-1 rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-slate-600 dark:text-slate-400"
+              className="text-mini font-mono px-2 py-1 rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-slate-600 dark:text-slate-400"
             >
               {c}
             </span>
@@ -192,7 +192,7 @@ export default function InfostealerDetail(): JSX.Element {
               <Link
                 key={a}
                 to={`/threatintel/actors/${a.toLowerCase().replace(/\s+/g, '-')}`}
-                className="text-[12px] font-mono px-2 py-1 rounded border border-rose-500/30 bg-rose-500/5 text-rose-700 dark:text-rose-300 hover:bg-rose-500/10"
+                className="text-meta font-mono px-2 py-1 rounded border border-rose-500/30 bg-rose-500/5 text-rose-700 dark:text-rose-300 hover:bg-rose-500/10"
               >
                 {a}
               </Link>
@@ -209,13 +209,13 @@ export default function InfostealerDetail(): JSX.Element {
               href={family.malpediaUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-[12px] font-mono px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-800 hover:border-brand-500/40 text-brand-600 dark:text-brand-400"
+              className="inline-flex items-center gap-1.5 text-meta font-mono px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-800 hover:border-brand-500/40 text-brand-600 dark:text-brand-400"
             >
               <ExternalLink size={12} /> Malpedia
             </a>
           )}
           {family.threatfoxTag && (
-            <span className="inline-flex items-center gap-1.5 text-[12px] font-mono px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-800 text-slate-500">
+            <span className="inline-flex items-center gap-1.5 text-meta font-mono px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-800 text-slate-500">
               <Shield size={12} /> ThreatFox:{' '}
               <code className="text-slate-700 dark:text-slate-300">{family.threatfoxTag}</code>
             </span>
@@ -228,9 +228,9 @@ export default function InfostealerDetail(): JSX.Element {
           <Bug size={16} className="text-brand-600 dark:text-brand-400" /> Live MalwareBazaar samples
         </h2>
         {loading ? (
-          <p className="font-mono text-[12px] text-slate-500 animate-pulse">loading samples…</p>
+          <p className="font-mono text-meta text-slate-500 animate-pulse">loading samples…</p>
         ) : samples.length === 0 ? (
-          <p className="font-mono text-[12px] text-slate-500">No live samples in the current 24h window.</p>
+          <p className="font-mono text-meta text-slate-500">No live samples in the current 24h window.</p>
         ) : (
           <ul className="grid gap-2 md:grid-cols-2">
             {samples.map((s, i) => (
@@ -239,17 +239,17 @@ export default function InfostealerDetail(): JSX.Element {
                 className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3"
               >
                 <div className="flex items-center justify-between gap-2 mb-1">
-                  <span className="rounded border border-rose-500/40 bg-rose-500/10 px-1.5 py-0.5 font-mono text-[10px] uppercase text-rose-700 dark:text-rose-300">
+                  <span className="rounded border border-rose-500/40 bg-rose-500/10 px-1.5 py-0.5 font-mono text-micro uppercase text-rose-700 dark:text-rose-300">
                     {s.family}
                   </span>
-                  {s.file_type && <span className="font-mono text-[10px] text-slate-400">{s.file_type}</span>}
+                  {s.file_type && <span className="font-mono text-micro text-slate-400">{s.file_type}</span>}
                 </div>
                 <div className="flex items-center gap-2">
                   <a
                     href={sanitizeUrl(s.url)}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="font-mono text-[11px] text-brand-600 dark:text-brand-400 hover:underline break-all flex-1 min-w-0"
+                    className="font-mono text-mini text-brand-600 dark:text-brand-400 hover:underline break-all flex-1 min-w-0"
                   >
                     <code>{s.sha256.slice(0, 32)}…</code>
                   </a>
@@ -262,7 +262,7 @@ export default function InfostealerDetail(): JSX.Element {
                     <Copy size={11} />
                   </button>
                 </div>
-                <p className="font-mono text-[10px] text-slate-400 mt-1">
+                <p className="font-mono text-micro text-slate-400 mt-1">
                   {s.reporter ? `by ${s.reporter}` : ''} {s.first_seen ?? ''}
                 </p>
               </li>
@@ -276,9 +276,9 @@ export default function InfostealerDetail(): JSX.Element {
           <Radio size={16} className="text-brand-600 dark:text-brand-400" /> Live C2 / IOCs
         </h2>
         {loading ? (
-          <p className="font-mono text-[12px] text-slate-500 animate-pulse">loading IOCs…</p>
+          <p className="font-mono text-meta text-slate-500 animate-pulse">loading IOCs…</p>
         ) : c2.length === 0 ? (
-          <p className="font-mono text-[12px] text-slate-500">No live IOCs attributed in the current window.</p>
+          <p className="font-mono text-meta text-slate-500">No live IOCs attributed in the current window.</p>
         ) : (
           <ul className="grid gap-2 md:grid-cols-2">
             {c2.map((x, i) => (
@@ -287,15 +287,15 @@ export default function InfostealerDetail(): JSX.Element {
                 className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3"
               >
                 <div className="flex items-center justify-between gap-2">
-                  <span className="rounded border border-rose-500/40 bg-rose-500/10 px-1.5 py-0.5 font-mono text-[10px] uppercase text-rose-700 dark:text-rose-300">
+                  <span className="rounded border border-rose-500/40 bg-rose-500/10 px-1.5 py-0.5 font-mono text-micro uppercase text-rose-700 dark:text-rose-300">
                     {x.family}
                   </span>
-                  <span className="font-mono text-[10px] text-slate-400">
+                  <span className="font-mono text-micro text-slate-400">
                     {x.kind} · {x.source}
                   </span>
                 </div>
                 <div className="flex items-center gap-2 mt-1">
-                  <code className="font-mono text-[11px] text-slate-600 dark:text-slate-400 break-all flex-1 min-w-0">
+                  <code className="font-mono text-mini text-slate-600 dark:text-slate-400 break-all flex-1 min-w-0">
                     {x.value}
                   </code>
                   <button
@@ -307,7 +307,7 @@ export default function InfostealerDetail(): JSX.Element {
                     <Copy size={11} />
                   </button>
                 </div>
-                {x.observed_at && <p className="font-mono text-[10px] text-slate-400 mt-1">{x.observed_at}</p>}
+                {x.observed_at && <p className="font-mono text-micro text-slate-400 mt-1">{x.observed_at}</p>}
               </li>
             ))}
           </ul>

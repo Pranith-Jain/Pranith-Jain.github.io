@@ -202,7 +202,7 @@ export function LiveSignalStrip(): JSX.Element {
         <h2 id="live-signal-heading" className="text-eyebrow font-mono uppercase text-slate-500 dark:text-slate-400">
           Live from the platform · updated on load
         </h2>
-        <Link to="/threatintel" className="text-[11px] font-mono text-brand-600 dark:text-brand-400 hover:underline">
+        <Link to="/threatintel" className="text-mini font-mono text-brand-600 dark:text-brand-400 hover:underline">
           /threatintel →
         </Link>
       </div>
@@ -251,7 +251,7 @@ export function LiveSignalStrip(): JSX.Element {
                   {t.primary}
                 </span>
               </div>
-              <p className="text-[12px] text-slate-600 dark:text-slate-400 leading-relaxed mt-1.5 line-clamp-2">
+              <p className="text-meta text-slate-600 dark:text-slate-400 leading-relaxed mt-1.5 line-clamp-2">
                 {t.context}
               </p>
             </Link>

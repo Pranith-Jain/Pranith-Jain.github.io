@@ -142,11 +142,11 @@ export default function ThreatModels(): JSX.Element {
                 <div className="flex items-center justify-between">
                   <div>
                     <div className="flex items-center gap-2 mb-1">
-                      <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-slate-100 dark:bg-slate-800 text-slate-500">
+                      <span className="px-2 py-0.5 rounded text-micro font-mono bg-slate-100 dark:bg-slate-800 text-slate-500">
                         {m.method}
                       </span>
                       <span
-                        className={`px-2 py-0.5 rounded text-[10px] ${m.status === 'approved' ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30' : 'bg-slate-100 text-slate-500 dark:bg-slate-800'}`}
+                        className={`px-2 py-0.5 rounded text-micro ${m.status === 'approved' ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30' : 'bg-slate-100 text-slate-500 dark:bg-slate-800'}`}
                       >
                         {m.status}
                       </span>
@@ -201,7 +201,7 @@ export default function ThreatModels(): JSX.Element {
                             <span className="font-medium">{a.name}</span>
                             <span className="text-slate-400 ml-2">{a.type}</span>
                             <span
-                              className={`ml-2 px-1 py-0.5 rounded text-[10px] ${RISK_COLORS[a.criticality] ?? 'bg-slate-100 text-slate-500'}`}
+                              className={`ml-2 px-1 py-0.5 rounded text-micro ${RISK_COLORS[a.criticality] ?? 'bg-slate-100 text-slate-500'}`}
                             >
                               {a.criticality}
                             </span>
@@ -222,13 +222,13 @@ export default function ThreatModels(): JSX.Element {
                           <div key={t.id} className="p-2 rounded bg-slate-50 dark:bg-slate-950 text-xs">
                             <div className="flex items-center justify-between">
                               <div>
-                                <span className="px-1.5 py-0.5 rounded bg-slate-200 dark:bg-slate-800 text-[10px] mr-2">
+                                <span className="px-1.5 py-0.5 rounded bg-slate-200 dark:bg-slate-800 text-micro mr-2">
                                   {t.category}
                                 </span>
                                 <span>{t.description}</span>
                               </div>
                               <span
-                                className={`px-1.5 py-0.5 rounded text-[10px] font-bold ${RISK_COLORS[getRiskLevel(t.risk_score)]}`}
+                                className={`px-1.5 py-0.5 rounded text-micro font-bold ${RISK_COLORS[getRiskLevel(t.risk_score)]}`}
                               >
                                 {getRiskLevel(t.risk_score)}
                               </span>

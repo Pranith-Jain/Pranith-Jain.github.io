@@ -80,7 +80,7 @@ export default function Lolbins(): JSX.Element {
         </div>
 
         <div className="flex flex-wrap gap-1.5">
-          <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 self-center mr-1">
+          <span className="text-micro font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 self-center mr-1">
             Platform
           </span>
           <button
@@ -112,7 +112,7 @@ export default function Lolbins(): JSX.Element {
         </div>
 
         <div className="flex flex-wrap gap-1.5">
-          <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 self-center mr-1">
+          <span className="text-micro font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 self-center mr-1">
             Category
           </span>
           <button
@@ -158,26 +158,26 @@ export default function Lolbins(): JSX.Element {
             <header className="flex flex-wrap items-center gap-2 mb-2">
               <code className="font-display font-bold text-slate-900 dark:text-slate-100 text-base">{b.binary}</code>
               <span
-                className={`text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${SOURCE_STYLES[b.source]}`}
+                className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${SOURCE_STYLES[b.source]}`}
               >
                 {b.source}
               </span>
               {b.platforms.map((p) => (
                 <span
                   key={p}
-                  className="text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400"
+                  className="text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400"
                 >
                   {p}
                 </span>
               ))}
-              <span className="text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-rose-500/30 bg-rose-500/10 text-rose-700 dark:text-rose-300">
+              <span className="text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-rose-500/30 bg-rose-500/10 text-rose-700 dark:text-rose-300">
                 {b.category}
               </span>
               {b.attack.map((a) => (
                 <Link
                   key={a}
                   to={`/threatintel/mitre?id=${encodeURIComponent(a)}`}
-                  className="text-[10px] font-mono px-1.5 py-0.5 rounded border border-brand-500/30 bg-brand-500/10 text-brand-700 dark:text-brand-300 hover:border-brand-500/60"
+                  className="text-micro font-mono px-1.5 py-0.5 rounded border border-brand-500/30 bg-brand-500/10 text-brand-700 dark:text-brand-300 hover:border-brand-500/60"
                   title={`Open ${a} in MITRE ATT&CK`}
                 >
                   {a}
@@ -187,7 +187,7 @@ export default function Lolbins(): JSX.Element {
                 href={sanitizeUrl(b.url) || undefined}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="ml-auto text-[10px] font-mono text-slate-500 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-0.5"
+                className="ml-auto text-micro font-mono text-slate-500 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-0.5"
               >
                 source <ExternalLink size={10} />
               </a>
@@ -197,30 +197,28 @@ export default function Lolbins(): JSX.Element {
 
             <div className="rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-2.5 mb-2">
               <div className="flex items-center justify-between gap-2 mb-1">
-                <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-rose-600 dark:text-rose-400">
+                <span className="text-micro font-mono uppercase tracking-[0.2em] text-rose-600 dark:text-rose-400">
                   Abuse
                 </span>
                 <CopyChip value={b.example} />
               </div>
-              <pre className="text-[12px] font-mono text-slate-800 dark:text-slate-200 whitespace-pre-wrap break-all">
+              <pre className="text-meta font-mono text-slate-800 dark:text-slate-200 whitespace-pre-wrap break-all">
                 {b.example}
               </pre>
             </div>
 
             <div className="grid gap-2 md:grid-cols-2">
               <div className="rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-2.5">
-                <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 block mb-1">
+                <span className="text-micro font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 block mb-1">
                   Legitimate use
                 </span>
-                <p className="text-[12px] font-mono text-slate-700 dark:text-slate-300 leading-relaxed">{b.legit}</p>
+                <p className="text-meta font-mono text-slate-700 dark:text-slate-300 leading-relaxed">{b.legit}</p>
               </div>
               <div className="rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-2.5">
-                <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-emerald-600 dark:text-emerald-400 block mb-1">
+                <span className="text-micro font-mono uppercase tracking-[0.2em] text-emerald-600 dark:text-emerald-400 block mb-1">
                   Detection
                 </span>
-                <p className="text-[12px] font-mono text-slate-700 dark:text-slate-300 leading-relaxed">
-                  {b.detection}
-                </p>
+                <p className="text-meta font-mono text-slate-700 dark:text-slate-300 leading-relaxed">{b.detection}</p>
               </div>
             </div>
           </article>

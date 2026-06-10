@@ -200,7 +200,7 @@ export default function DFIRPage(): JSX.Element {
           thin caption below. */}
       <div>
         <CapabilityBand />
-        <p className="mt-2 px-1 font-mono text-[11px] text-slate-400">
+        <p className="mt-2 px-1 font-mono text-mini text-slate-400">
           {MAIN_TOOL_COUNT} tools · client-side · build {__BUILD_DATE__}
         </p>
       </div>
@@ -251,16 +251,16 @@ export default function DFIRPage(): JSX.Element {
                 className="group block h-full rounded-xl border border-brand-500/20 bg-brand-50/30 dark:bg-brand-900/10 p-4 hover:border-brand-500/60 transition"
               >
                 <div className="flex items-baseline gap-2 mb-2">
-                  <span className="font-mono text-[11px] text-brand-600 dark:text-brand-400">{`0${i + 1}`}</span>
-                  <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-slate-500">
+                  <span className="font-mono text-mini text-brand-600 dark:text-brand-400">{`0${i + 1}`}</span>
+                  <span className="font-mono text-mini uppercase tracking-[0.18em] text-slate-500">
                     {p.path.replace('/dfir/', '')}
                   </span>
                 </div>
                 <p className="text-sm font-medium text-slate-900 dark:text-slate-100 mb-1.5 leading-snug">
                   {p.trigger}
                 </p>
-                <p className="text-[12px] text-slate-600 dark:text-slate-400 leading-relaxed">{p.action}</p>
-                <div className="mt-2.5 inline-flex items-center gap-1 text-[11px] font-mono text-brand-600 dark:text-brand-400 group-hover:underline">
+                <p className="text-meta text-slate-600 dark:text-slate-400 leading-relaxed">{p.action}</p>
+                <div className="mt-2.5 inline-flex items-center gap-1 text-mini font-mono text-brand-600 dark:text-brand-400 group-hover:underline">
                   open <ArrowRight size={11} aria-hidden="true" />
                 </div>
               </Link>
@@ -297,7 +297,7 @@ export default function DFIRPage(): JSX.Element {
                     aria-hidden="true"
                   />
                 </div>
-                <p className="text-[13px] text-slate-600 dark:text-slate-400 leading-relaxed">{GROUP_META[g].blurb}</p>
+                <p className="text-tool text-slate-600 dark:text-slate-400 leading-relaxed">{GROUP_META[g].blurb}</p>
               </Link>
             )
           )}
@@ -312,7 +312,7 @@ export default function DFIRPage(): JSX.Element {
         <details>
           <summary className="cursor-pointer rounded font-display text-xl font-bold text-slate-900 hover:text-brand-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 dark:text-slate-100 dark:hover:text-brand-400">
             Used in real cases{' '}
-            <span className="font-mono text-[11px] font-normal text-slate-500">({TOOL_CASES.length})</span>
+            <span className="font-mono text-mini font-normal text-slate-500">({TOOL_CASES.length})</span>
           </summary>
           <ul className="mt-5 space-y-3">
             {TOOL_CASES.map((tc) => (
@@ -327,7 +327,7 @@ export default function DFIRPage(): JSX.Element {
                   >
                     {tc.caseTitle}
                   </Link>
-                  <span className="text-[11px] font-mono text-slate-500">{tc.caseSlug}</span>
+                  <span className="text-mini font-mono text-slate-500">{tc.caseSlug}</span>
                 </div>
                 <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-2">{tc.contribution}</p>
                 <div className="flex flex-wrap gap-1.5">
@@ -335,7 +335,7 @@ export default function DFIRPage(): JSX.Element {
                     <Link
                       key={t.path}
                       to={t.path}
-                      className="text-[11px] font-mono px-2 py-1 rounded border border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-brand-500/60 hover:text-brand-600 dark:hover:text-brand-400"
+                      className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-brand-500/60 hover:text-brand-600 dark:hover:text-brand-400"
                     >
                       {t.label}
                     </Link>
@@ -358,7 +358,7 @@ export default function DFIRPage(): JSX.Element {
             <summary className="cursor-pointer rounded text-xs font-bold uppercase tracking-[0.2em] text-slate-500 hover:text-brand-600 dark:hover:text-brand-400 font-mono focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500">
               Utilities &amp; converters ({UTILITY_TOOLS.length}). Encoders, hashes, timestamps
             </summary>
-            <p className="mt-3 text-[12px] font-mono text-slate-500 max-w-2xl">
+            <p className="mt-3 text-meta font-mono text-slate-500 max-w-2xl">
               These are duplicative of well-known online tools (CyberChef, epochconverter, etc.) — kept here for offline
               / client-side analysis when you can't send data outside your environment. Not where the toolkit's depth
               is.
@@ -374,10 +374,10 @@ export default function DFIRPage(): JSX.Element {
                     >
                       <Icon className="h-3.5 w-3.5 mt-0.5 text-slate-500 group-hover:text-brand-500 transition-colors shrink-0" />
                       <div className="min-w-0">
-                        <div className="text-[13px] font-medium text-slate-900 dark:text-slate-100 truncate">
+                        <div className="text-tool font-medium text-slate-900 dark:text-slate-100 truncate">
                           {t.label}
                         </div>
-                        <div className="text-[11px] font-mono text-slate-500 truncate">{t.desc}</div>
+                        <div className="text-mini font-mono text-slate-500 truncate">{t.desc}</div>
                       </div>
                     </Link>
                   </li>
@@ -396,7 +396,7 @@ export default function DFIRPage(): JSX.Element {
           <div className="space-y-5 mt-4">
             {PROVIDER_GROUPS.map((group) => (
               <div key={group.label}>
-                <div className="text-[11px] font-mono uppercase tracking-wider text-slate-500 mb-2">{group.label}</div>
+                <div className="text-mini font-mono uppercase tracking-wider text-slate-500 mb-2">{group.label}</div>
                 <div className="flex flex-wrap gap-2">
                   {group.items.map((p) => (
                     <span

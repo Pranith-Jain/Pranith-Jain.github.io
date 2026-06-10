@@ -95,7 +95,7 @@ export default function SandboxIntegration(): JSX.Element {
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -176,7 +176,7 @@ export default function SandboxIntegration(): JSX.Element {
               {result.consensus.sources_agreeing} of {result.results.length} sources agree · Confidence:{' '}
               {result.consensus.confidence}%
             </div>
-            <div className="text-[10px] font-mono text-slate-400 mt-1 truncate">Hash: {result.hash}</div>
+            <div className="text-micro font-mono text-slate-400 mt-1 truncate">Hash: {result.hash}</div>
           </div>
 
           {/* Per-Source Results */}
@@ -193,7 +193,7 @@ export default function SandboxIntegration(): JSX.Element {
                     <span className="font-display font-bold text-sm">{r.source}</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <span className={`text-[10px] font-mono px-1.5 py-0.5 rounded ${STATUS_BADGE[r.status]}`}>
+                    <span className={`text-micro font-mono px-1.5 py-0.5 rounded ${STATUS_BADGE[r.status]}`}>
                       {r.status}
                     </span>
                     {r.score !== undefined && <span className="text-xs font-mono text-slate-500">{r.score}%</span>}
@@ -215,7 +215,7 @@ export default function SandboxIntegration(): JSX.Element {
                     {r.families.map((f, j) => (
                       <span
                         key={j}
-                        className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-rose-100 dark:bg-rose-900/30 text-rose-700 dark:text-rose-300"
+                        className="text-micro font-mono px-1.5 py-0.5 rounded bg-rose-100 dark:bg-rose-900/30 text-rose-700 dark:text-rose-300"
                       >
                         {f}
                       </span>
@@ -227,7 +227,7 @@ export default function SandboxIntegration(): JSX.Element {
                     {r.tags.map((t, j) => (
                       <span
                         key={j}
-                        className="text-[10px] font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-700 text-slate-500"
+                        className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-700 text-slate-500"
                       >
                         {t}
                       </span>
@@ -239,7 +239,7 @@ export default function SandboxIntegration(): JSX.Element {
                     {r.behaviors.map((b, j) => (
                       <div key={j} className="flex items-center gap-2 text-xs">
                         <span
-                          className={`text-[10px] font-mono px-1.5 py-0.5 rounded ${b.severity === 'high' ? 'bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-300' : b.severity === 'medium' ? 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300' : 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400'}`}
+                          className={`text-micro font-mono px-1.5 py-0.5 rounded ${b.severity === 'high' ? 'bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-300' : b.severity === 'medium' ? 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300' : 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400'}`}
                         >
                           {b.severity}
                         </span>

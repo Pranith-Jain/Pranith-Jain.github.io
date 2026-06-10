@@ -106,7 +106,7 @@ export function AiSummaryCard({ surface, items, dayKey, className }: AiSummaryCa
             AI Summary — {surface}
           </span>
           {data && (
-            <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400 ml-1">
+            <span className="text-micro font-mono text-slate-500 dark:text-slate-400 ml-1">
               {data.itemCount} items · {data.modelUsed.split(':').pop()}
             </span>
           )}
@@ -119,12 +119,12 @@ export function AiSummaryCard({ surface, items, dayKey, className }: AiSummaryCa
                 e.stopPropagation();
                 fetchSummary();
               }}
-              className="text-[11px] font-mono text-brand-600 dark:text-brand-400 hover:underline"
+              className="text-mini font-mono text-brand-600 dark:text-brand-400 hover:underline"
             >
               Generate
             </button>
           )}
-          <span className="text-[10px] text-slate-400">{expanded ? '▲' : '▼'}</span>
+          <span className="text-micro text-slate-400">{expanded ? '▲' : '▼'}</span>
         </div>
       </button>
 

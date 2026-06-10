@@ -131,7 +131,7 @@ export default function EmlExtractor(): JSX.Element {
             Input
           </h2>
           <div className="flex flex-wrap gap-1.5">
-            <label className="text-[11px] font-mono px-2 py-1 rounded border border-brand-500/40 bg-brand-500/10 text-brand-700 dark:text-brand-300 hover:bg-brand-500/20 cursor-pointer">
+            <label className="text-mini font-mono px-2 py-1 rounded border border-brand-500/40 bg-brand-500/10 text-brand-700 dark:text-brand-300 hover:bg-brand-500/20 cursor-pointer">
               upload .eml
               <input
                 type="file"
@@ -151,7 +151,7 @@ export default function EmlExtractor(): JSX.Element {
                 setInput(SAMPLE_EML);
                 void run(SAMPLE_EML);
               }}
-              className="text-[11px] font-mono px-2 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
+              className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
             >
               load sample
             </button>
@@ -163,7 +163,7 @@ export default function EmlExtractor(): JSX.Element {
                   setParsed(null);
                   setError(null);
                 }}
-                className="text-[11px] font-mono px-2 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400"
+                className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400"
               >
                 clear
               </button>
@@ -175,7 +175,7 @@ export default function EmlExtractor(): JSX.Element {
           onChange={(e) => setInput(e.target.value)}
           placeholder="Paste the raw .eml content here, or use the upload button. Headers + multipart body are parsed; attachments are decoded + hashed locally."
           rows={12}
-          className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded font-mono text-[11px] text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+          className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded font-mono text-mini text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
           spellCheck={false}
         />
         <div className="flex items-center justify-end gap-2 mt-3">
@@ -213,7 +213,7 @@ export default function EmlExtractor(): JSX.Element {
             <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-3">
               Header summary
             </h2>
-            <dl className="grid sm:grid-cols-[140px_1fr] gap-x-4 gap-y-1 text-[12px] font-mono">
+            <dl className="grid sm:grid-cols-[140px_1fr] gap-x-4 gap-y-1 text-meta font-mono">
               <dt className="text-slate-500 dark:text-slate-400">Subject</dt>
               <dd className="text-slate-900 dark:text-slate-100 break-words">{parsed.subject ?? '—'}</dd>
               <dt className="text-slate-500 dark:text-slate-400">From</dt>
@@ -253,7 +253,7 @@ export default function EmlExtractor(): JSX.Element {
               <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-amber-700 dark:text-amber-300 font-mono mb-2">
                 Warnings
               </h3>
-              <ul className="text-[12px] font-mono text-amber-800 dark:text-amber-200 space-y-1">
+              <ul className="text-meta font-mono text-amber-800 dark:text-amber-200 space-y-1">
                 {parsed.warnings.map((w, i) => (
                   <li key={i}>• {w}</li>
                 ))}
@@ -267,7 +267,7 @@ export default function EmlExtractor(): JSX.Element {
               <summary className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono cursor-pointer inline-flex items-center gap-2">
                 <FileText size={12} /> All headers ({parsed.headers.length}) — click to expand
               </summary>
-              <dl className="grid sm:grid-cols-[180px_1fr] gap-x-4 gap-y-1 text-[11px] font-mono mt-3 max-h-96 overflow-auto">
+              <dl className="grid sm:grid-cols-[180px_1fr] gap-x-4 gap-y-1 text-mini font-mono mt-3 max-h-96 overflow-auto">
                 {parsed.headers.map((h, i) => (
                   <div key={`${h.name}-${i}`} className="contents">
                     <dt className="text-slate-500 dark:text-slate-400 break-words">{h.name}</dt>
@@ -302,21 +302,21 @@ function Attachment({ att }: { att: EmlAttachment }): JSX.Element {
           {att.filename}
         </span>
         <div className="flex flex-wrap items-center gap-1.5">
-          <span className={`text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${dispoCls}`}>
+          <span className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${dispoCls}`}>
             {att.disposition}
           </span>
-          <span className="text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-violet-500/30 bg-violet-500/10 text-violet-700 dark:text-violet-300">
+          <span className="text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-violet-500/30 bg-violet-500/10 text-violet-700 dark:text-violet-300">
             {att.contentType}
           </span>
-          <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400">{fmtBytes(att.size)}</span>
+          <span className="text-micro font-mono text-slate-500 dark:text-slate-400">{fmtBytes(att.size)}</span>
           {att.truncated && (
-            <span className="text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300">
+            <span className="text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300">
               truncated @ 5MB
             </span>
           )}
         </div>
       </div>
-      <ul className="space-y-1 text-[11px] font-mono">
+      <ul className="space-y-1 text-mini font-mono">
         <HashRow label="SHA-256" value={att.sha256} />
         <HashRow label="SHA-1" value={att.sha1} />
         <HashRow label="MD5" value={att.md5} />
@@ -333,7 +333,7 @@ function HashRow({ label, value }: { label: string; value: string }): JSX.Elemen
       <CopyChip value={value} label="copy" />
       <Link
         to={`/dfir/ioc-check?indicator=${value}`}
-        className="text-[10px] font-mono inline-flex items-center gap-1 px-1.5 py-0.5 rounded border border-rose-500/30 bg-rose-500/5 text-rose-700 dark:text-rose-300 hover:bg-rose-500/10"
+        className="text-micro font-mono inline-flex items-center gap-1 px-1.5 py-0.5 rounded border border-rose-500/30 bg-rose-500/5 text-rose-700 dark:text-rose-300 hover:bg-rose-500/10"
         title="Multi-engine hash reputation lookup"
       >
         <ShieldAlert size={9} /> file lookup

@@ -230,14 +230,14 @@ export default function PulseMap({ markers, onMarkerClick }: PulseMapProps): JSX
           <div className="bg-slate-900/95 backdrop-blur-sm rounded-lg border border-slate-700/50 px-3 py-2 shadow-xl max-w-xs">
             <div className="flex items-center gap-2 mb-1">
               <span className="w-2 h-2 rounded-full" style={{ backgroundColor: KIND_COLORS[hoveredMarker.kind] }} />
-              <span className="text-[10px] font-mono uppercase text-slate-400">{KIND_LABELS[hoveredMarker.kind]}</span>
+              <span className="text-micro font-mono uppercase text-slate-400">{KIND_LABELS[hoveredMarker.kind]}</span>
             </div>
             {hoveredMarker.title && (
               <p className="text-xs font-medium text-slate-200 line-clamp-2">{hoveredMarker.title}</p>
             )}
             <div className="flex items-center gap-2 mt-1">
               <span
-                className="text-[10px] font-mono capitalize"
+                className="text-micro font-mono capitalize"
                 style={{
                   color:
                     hoveredMarker.severity === 'critical'
@@ -250,7 +250,7 @@ export default function PulseMap({ markers, onMarkerClick }: PulseMapProps): JSX
                 {hoveredMarker.severity}
               </span>
               {hoveredMarker.source && (
-                <span className="text-[10px] font-mono text-slate-500">{hoveredMarker.source}</span>
+                <span className="text-micro font-mono text-slate-500">{hoveredMarker.source}</span>
               )}
             </div>
           </div>
@@ -265,7 +265,7 @@ export default function PulseMap({ markers, onMarkerClick }: PulseMapProps): JSX
               <div className="flex items-center gap-2 mb-2">
                 <span className="w-3 h-3 rounded-full" style={{ backgroundColor: KIND_COLORS[selectedMarker.kind] }} />
                 <span
-                  className="text-[10px] font-mono uppercase px-2 py-0.5 rounded"
+                  className="text-micro font-mono uppercase px-2 py-0.5 rounded"
                   style={{
                     backgroundColor: KIND_COLORS[selectedMarker.kind] + '20',
                     color: KIND_COLORS[selectedMarker.kind],
@@ -282,7 +282,7 @@ export default function PulseMap({ markers, onMarkerClick }: PulseMapProps): JSX
               )}
               <div className="flex items-center gap-3 mt-2">
                 <span
-                  className="text-[10px] font-mono capitalize"
+                  className="text-micro font-mono capitalize"
                   style={{
                     color:
                       selectedMarker.severity === 'critical'
@@ -295,9 +295,9 @@ export default function PulseMap({ markers, onMarkerClick }: PulseMapProps): JSX
                   {selectedMarker.severity}
                 </span>
                 {selectedMarker.source && (
-                  <span className="text-[10px] font-mono text-slate-500">{selectedMarker.source}</span>
+                  <span className="text-micro font-mono text-slate-500">{selectedMarker.source}</span>
                 )}
-                <span className="text-[10px] font-mono text-slate-500">
+                <span className="text-micro font-mono text-slate-500">
                   {selectedMarker.lat.toFixed(2)}, {selectedMarker.lng.toFixed(2)}
                 </span>
               </div>
@@ -316,7 +316,7 @@ export default function PulseMap({ markers, onMarkerClick }: PulseMapProps): JSX
 
       {/* Marker count overlay */}
       <div className="absolute bottom-2 left-2 bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm rounded-md px-2 py-1 border border-slate-200 dark:border-slate-700">
-        <span className="text-[10px] font-mono text-slate-600 dark:text-slate-400">
+        <span className="text-micro font-mono text-slate-600 dark:text-slate-400">
           {markers.length} points · Click for details
         </span>
       </div>

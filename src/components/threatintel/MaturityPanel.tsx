@@ -86,7 +86,7 @@ function MaturityScorecard({ report }: { report: MaturityReport }): JSX.Element 
           <h3 className="text-sm font-bold font-display flex items-center gap-2">
             <Gauge size={14} className="text-brand-600 dark:text-brand-400" /> CTI Maturity
           </h3>
-          <p className="text-[11px] font-mono text-slate-500 mt-0.5">
+          <p className="text-mini font-mono text-slate-500 mt-0.5">
             {report.framework} · {report.domains.length} domains
           </p>
         </div>
@@ -95,7 +95,7 @@ function MaturityScorecard({ report }: { report: MaturityReport }): JSX.Element 
             {report.overall.toFixed(1)}
             <span className="text-sm text-slate-400">/5</span>
           </p>
-          <p className={`text-[10px] font-mono uppercase tracking-wider ${BAND_TONE[report.band]}`}>
+          <p className={`text-micro font-mono uppercase tracking-wider ${BAND_TONE[report.band]}`}>
             {BAND_LABEL[report.band]}
           </p>
         </div>
@@ -115,12 +115,12 @@ function MaturityScorecard({ report }: { report: MaturityReport }): JSX.Element 
               </span>
             </div>
             <MaturityBar score={d.score} max={d.max_score} />
-            <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-1.5 leading-snug">{d.rationale}</p>
+            <p className="text-mini text-slate-500 dark:text-slate-400 mt-1.5 leading-snug">{d.rationale}</p>
             <div className="mt-2 flex flex-wrap gap-1.5">
               {d.signals.map((s, i) => (
                 <span
                   key={i}
-                  className={`text-[10px] font-mono px-1.5 py-0.5 rounded border ${
+                  className={`text-micro font-mono px-1.5 py-0.5 rounded border ${
                     s.present
                       ? 'border-emerald-300 dark:border-emerald-700/40 text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-900/20'
                       : 'border-slate-200 dark:border-slate-700 text-slate-400 bg-slate-50 dark:bg-slate-800/40 line-through'
@@ -156,7 +156,7 @@ function ReliabilityHistogram({ data }: { data: FeedStatusResponse }): JSX.Eleme
         <h3 className="text-sm font-bold font-display flex items-center gap-2">
           <BarChart3 size={14} className="text-brand-600 dark:text-brand-400" /> Source Reliability
         </h3>
-        <span className="text-[10px] font-mono text-slate-500">{total} sources graded</span>
+        <span className="text-micro font-mono text-slate-500">{total} sources graded</span>
       </div>
       <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3 space-y-2">
         {grades.map((g) => {
@@ -173,14 +173,14 @@ function ReliabilityHistogram({ data }: { data: FeedStatusResponse }): JSX.Eleme
                   title={`${RELIABILITY_LABEL[g] ?? g}: ${n}`}
                 />
               </div>
-              <span className="w-10 text-right text-[11px] font-mono text-slate-500 shrink-0">
+              <span className="w-10 text-right text-mini font-mono text-slate-500 shrink-0">
                 {n} <span className="text-slate-400">({pct.toFixed(0)}%)</span>
               </span>
             </div>
           );
         })}
       </div>
-      <p className="text-[10px] font-mono text-slate-500 mt-2 leading-relaxed">
+      <p className="text-micro font-mono text-slate-500 mt-2 leading-relaxed">
         Admiralty source-reliability distribution. Lower grade = lower confidence in source.
       </p>
     </div>

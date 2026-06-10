@@ -250,7 +250,7 @@ function BreachCards({ breaches }: { breaches: BreachEntry[] }): JSX.Element {
             </div>
             <div className="flex flex-col items-end gap-1 shrink-0">
               <span
-                className={`text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${SOURCE_COLORS[b.source ?? ''] || 'border-slate-300 dark:border-slate-700 text-slate-500'}`}
+                className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${SOURCE_COLORS[b.source ?? ''] || 'border-slate-300 dark:border-slate-700 text-slate-500'}`}
               >
                 {SOURCE_LABELS[b.source ?? ''] ?? b.source ?? 'unknown'}
               </span>
@@ -302,16 +302,16 @@ function VerificationCard({ verification }: { verification: EmailVerification })
           <div className="flex items-center gap-2 flex-wrap">
             <h3 className="font-display font-semibold text-base">Email deliverability</h3>
             <span
-              className={`inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider border ${v.classes}`}
+              className={`inline-flex items-center px-2 py-0.5 rounded text-micro font-bold uppercase tracking-wider border ${v.classes}`}
             >
               {v.label}
             </span>
-            <span className="text-[10px] font-mono text-slate-500">verified by {sourceCount}/2 free sources</span>
+            <span className="text-micro font-mono text-slate-500">verified by {sourceCount}/2 free sources</span>
             <a
               href="https://github.com/sslboard/throwaway"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-[10px] font-mono text-slate-500 hover:text-slate-700 dark:hover:text-slate-300"
+              className="inline-flex items-center gap-1 text-micro font-mono text-slate-500 hover:text-slate-700 dark:hover:text-slate-300"
             >
               throwaway <ExternalLink size={9} />
             </a>
@@ -319,7 +319,7 @@ function VerificationCard({ verification }: { verification: EmailVerification })
               href="https://github.com/umuterturk/email-verifier"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-[10px] font-mono text-slate-500 hover:text-slate-700 dark:hover:text-slate-300"
+              className="inline-flex items-center gap-1 text-micro font-mono text-slate-500 hover:text-slate-700 dark:hover:text-slate-300"
             >
               rapid-verifier <ExternalLink size={9} />
             </a>
@@ -342,7 +342,7 @@ function VerificationCard({ verification }: { verification: EmailVerification })
             <span className="text-xs font-mono text-slate-500 shrink-0">score {verification.score}/100</span>
           </div>
 
-          <div className="mt-3 grid grid-cols-2 sm:grid-cols-4 gap-x-4 gap-y-1.5 text-[11px] font-mono">
+          <div className="mt-3 grid grid-cols-2 sm:grid-cols-4 gap-x-4 gap-y-1.5 text-mini font-mono">
             <Signal label="syntax" value={verification.syntaxValid} />
             <Signal label="valid TLD" value={verification.validTld} />
             <Signal label="domain" value={verification.domainExists} />
@@ -641,7 +641,7 @@ function EmailTab({ initialQuery = '' }: { initialQuery?: string }): JSX.Element
           <AlertTriangle size={18} className="text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
           <div className="text-sm text-amber-900 dark:text-amber-200">
             <p className="font-semibold mb-1">Your email is forwarded to third-party breach databases</p>
-            <p className="text-[13px]">
+            <p className="text-tool">
               Queries are sent to{' '}
               <a href="https://xposedornot.com" target="_blank" rel="noopener noreferrer" className="underline">
                 XposedOrNot
@@ -743,7 +743,7 @@ function EmailTab({ initialQuery = '' }: { initialQuery?: string }): JSX.Element
                   return (
                     <span
                       key={s}
-                      className={`text-[11px] font-mono px-2 py-1 rounded border ${SOURCE_COLORS[s] ?? 'border-slate-300 dark:border-slate-700 text-slate-500'}`}
+                      className={`text-mini font-mono px-2 py-1 rounded border ${SOURCE_COLORS[s] ?? 'border-slate-300 dark:border-slate-700 text-slate-500'}`}
                     >
                       {SOURCE_LABELS[s] ?? s}: {count} hit{count !== 1 ? 's' : ''}
                     </span>
@@ -880,7 +880,7 @@ function DomainTab({ initialQuery = '' }: { initialQuery?: string }): JSX.Elemen
           <AlertTriangle size={18} className="text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
           <div className="text-sm text-amber-900 dark:text-amber-200">
             <p className="font-semibold mb-1">Domain forwarded to breach databases — results are noisy</p>
-            <p className="text-[13px]">
+            <p className="text-tool">
               The domain is sent to{' '}
               <a href="https://xposedornot.com" target="_blank" rel="noopener noreferrer" className="underline">
                 XposedOrNot
@@ -982,7 +982,7 @@ function DomainTab({ initialQuery = '' }: { initialQuery?: string }): JSX.Elemen
                   return (
                     <span
                       key={s}
-                      className={`text-[11px] font-mono px-2 py-1 rounded border ${SOURCE_COLORS[s] ?? 'border-slate-300 dark:border-slate-700 text-slate-500'}`}
+                      className={`text-mini font-mono px-2 py-1 rounded border ${SOURCE_COLORS[s] ?? 'border-slate-300 dark:border-slate-700 text-slate-500'}`}
                     >
                       {SOURCE_LABELS[s] ?? s}: {count} hit{count !== 1 ? 's' : ''}
                     </span>
@@ -1076,7 +1076,7 @@ export default function BreachPage(): JSX.Element {
     <div className="max-w-4xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>

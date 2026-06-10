@@ -264,7 +264,7 @@ export function HeroLiveSparkline(): JSX.Element {
           );
         })}
       </svg>
-      <div className="mt-1.5 flex items-baseline justify-between gap-2 text-[11px] font-mono uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">
+      <div className="mt-1.5 flex items-baseline justify-between gap-2 text-mini font-mono uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">
         <span className="truncate">
           {isLive ? (
             <>

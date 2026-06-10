@@ -95,7 +95,7 @@ export default function DorkBuilder(): JSX.Element {
         ))}
       </div>
 
-      <div className="mt-3 flex flex-wrap gap-2 text-[11px] font-mono">
+      <div className="mt-3 flex flex-wrap gap-2 text-mini font-mono">
         <span className="self-center text-slate-500">presets:</span>
         {PRESETS.map((p) => (
           <button
@@ -112,7 +112,7 @@ export default function DorkBuilder(): JSX.Element {
       <div className="mt-6 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3">
         <code className="font-mono text-sm break-all text-slate-900 dark:text-slate-100">{query || '—'}</code>
       </div>
-      <div className="mt-3 flex flex-wrap gap-2 text-[12px] font-mono">
+      <div className="mt-3 flex flex-wrap gap-2 text-meta font-mono">
         {engines.map(([name, url]) => (
           <a
             key={name}

@@ -381,13 +381,13 @@ export default function Copilot(): JSX.Element {
               <div className="flex items-center gap-3 flex-wrap">
                 <h2 className="text-lg font-bold">{result.query}</h2>
                 {badge && (
-                  <span className={`px-2 py-0.5 rounded text-[11px] font-semibold uppercase ${badge.color}`}>
+                  <span className={`px-2 py-0.5 rounded text-mini font-semibold uppercase ${badge.color}`}>
                     {badge.label}
                   </span>
                 )}
               </div>
             </div>
-            <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-[11px] font-mono text-slate-400">
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-mini font-mono text-slate-400">
               <span>model: {result.model_used}</span>
               {result._meta && (
                 <span>
@@ -396,7 +396,7 @@ export default function Copilot(): JSX.Element {
               )}
               {result.confidence && (
                 <span
-                  className={`px-1.5 py-0.5 rounded text-[10px] ${
+                  className={`px-1.5 py-0.5 rounded text-micro ${
                     result.confidence.score >= 70
                       ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300'
                       : result.confidence.score >= 40
@@ -418,9 +418,9 @@ export default function Copilot(): JSX.Element {
                   {result.sources.map((s, i) => (
                     <span
                       key={s.name}
-                      className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-slate-50 dark:bg-slate-800 text-[10px] font-mono text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-slate-700"
+                      className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-slate-50 dark:bg-slate-800 text-micro font-mono text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-slate-700"
                     >
-                      <span className="text-[9px] text-slate-400 font-bold">{i + 1}.</span>
+                      <span className="text-micro text-slate-400 font-bold">{i + 1}.</span>
                       {s.name}
                       <span className="text-slate-400">({s.items})</span>
                     </span>
@@ -441,7 +441,7 @@ export default function Copilot(): JSX.Element {
               <FileText size={15} className="text-brand-600 dark:text-brand-400" />
               <span className="text-sm font-semibold text-slate-700 dark:text-slate-300">Investigation Report</span>
               {result._meta && (
-                <span className="ml-auto text-[11px] text-slate-400 font-mono">
+                <span className="ml-auto text-mini text-slate-400 font-mono">
                   {result._meta.total_items} data points across {result._meta.total_sources} sources
                 </span>
               )}
@@ -471,7 +471,7 @@ export default function Copilot(): JSX.Element {
                   <summary className="text-xs font-medium cursor-pointer">
                     {s.name} ({s.items} items)
                   </summary>
-                  <pre className="mt-2 p-2 rounded bg-slate-100 dark:bg-slate-900 text-[10px] font-mono overflow-x-auto max-h-48 overflow-y-auto">
+                  <pre className="mt-2 p-2 rounded bg-slate-100 dark:bg-slate-900 text-micro font-mono overflow-x-auto max-h-48 overflow-y-auto">
                     {JSON.stringify(s.data, null, 2)}
                   </pre>
                 </details>

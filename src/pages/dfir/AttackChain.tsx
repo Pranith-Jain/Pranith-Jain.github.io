@@ -97,7 +97,7 @@ export default function AttackChain(): JSX.Element {
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -215,7 +215,7 @@ export default function AttackChain(): JSX.Element {
                         {t.tactic.name}
                       </span>
                       {t.coverage > 0 && (
-                        <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300">
+                        <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300">
                           {t.techniques.length} techniques
                         </span>
                       )}
@@ -225,7 +225,7 @@ export default function AttackChain(): JSX.Element {
                         {t.techniques.map((tech) => (
                           <span
                             key={tech.id}
-                            className="text-[10px] font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-700 text-slate-500"
+                            className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-700 text-slate-500"
                           >
                             {tech.id}: {tech.name}
                           </span>
@@ -256,7 +256,7 @@ export default function AttackChain(): JSX.Element {
                   {result.predicted_next.techniques.map((t) => (
                     <span
                       key={t}
-                      className="text-[10px] font-mono px-1.5 py-0.5 rounded border border-amber-300/50 dark:border-amber-800/50 text-amber-700 dark:text-amber-300"
+                      className="text-micro font-mono px-1.5 py-0.5 rounded border border-amber-300/50 dark:border-amber-800/50 text-amber-700 dark:text-amber-300"
                     >
                       {t}
                     </span>
@@ -296,9 +296,9 @@ export default function AttackChain(): JSX.Element {
                   >
                     <div>
                       <div className="text-sm font-medium">{rec.action}</div>
-                      <div className="text-[10px] font-mono text-slate-400 mt-0.5">{rec.technique}</div>
+                      <div className="text-micro font-mono text-slate-400 mt-0.5">{rec.technique}</div>
                     </div>
-                    <span className={`text-[10px] font-mono px-1.5 py-0.5 rounded ${PRIORITY_BADGE[rec.priority]}`}>
+                    <span className={`text-micro font-mono px-1.5 py-0.5 rounded ${PRIORITY_BADGE[rec.priority]}`}>
                       {rec.priority}
                     </span>
                   </div>

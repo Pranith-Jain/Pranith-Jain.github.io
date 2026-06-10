@@ -36,7 +36,7 @@ export function AppBreadcrumb({ items, home, className = '' }: AppBreadcrumbProp
 
   return (
     <nav aria-label="Breadcrumb" className={className}>
-      <ol className="flex flex-wrap items-center gap-1.5 text-[11px] font-mono text-slate-500 dark:text-slate-400">
+      <ol className="flex flex-wrap items-center gap-1.5 text-mini font-mono text-slate-500 dark:text-slate-400">
         {trail.map((item, i) => {
           const isLast = i === trail.length - 1;
           const Icon = item.icon;

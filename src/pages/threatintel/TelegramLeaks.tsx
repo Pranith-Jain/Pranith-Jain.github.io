@@ -123,7 +123,7 @@ export default function TelegramLeaks(): JSX.Element {
           <button
             type="button"
             onClick={() => setRefreshKey((k) => k + 1)}
-            className="text-[11px] font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 inline-flex items-center gap-1 mt-1"
+            className="text-mini font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 inline-flex items-center gap-1 mt-1"
             aria-label="Refresh"
           >
             <RefreshCw size={11} /> refresh
@@ -150,7 +150,7 @@ export default function TelegramLeaks(): JSX.Element {
           />
           <button
             type="submit"
-            className="text-[11px] font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 inline-flex items-center gap-1"
+            className="text-mini font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 inline-flex items-center gap-1"
           >
             <Search size={11} /> search
           </button>
@@ -214,15 +214,15 @@ export default function TelegramLeaks(): JSX.Element {
                         {entry.channel_handle}
                       </span>
                       <span
-                        className={`text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${SEVERITY_COLORS[entry.severity] ?? SEVERITY_COLORS.low}`}
+                        className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${SEVERITY_COLORS[entry.severity] ?? SEVERITY_COLORS.low}`}
                       >
                         {entry.severity}
                       </span>
-                      <span className="text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-slate-300 dark:border-slate-700 text-slate-500 dark:text-slate-400">
+                      <span className="text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-slate-300 dark:border-slate-700 text-slate-500 dark:text-slate-400">
                         {entry.leak_type}
                       </span>
                     </div>
-                    <span className="text-[10px] font-mono text-slate-400 dark:text-slate-500 shrink-0">
+                    <span className="text-micro font-mono text-slate-400 dark:text-slate-500 shrink-0">
                       {new Date(entry.discovered_at).toLocaleString()}
                     </span>
                   </div>
@@ -231,7 +231,7 @@ export default function TelegramLeaks(): JSX.Element {
                     {entry.message_text}
                   </p>
 
-                  <div className="flex flex-wrap items-center gap-3 text-[10px] font-mono text-slate-500 dark:text-slate-400">
+                  <div className="flex flex-wrap items-center gap-3 text-micro font-mono text-slate-500 dark:text-slate-400">
                     {entry.credential_count > 0 && (
                       <span className="inline-flex items-center gap-1">
                         <AlertTriangle size={10} /> {entry.credential_count} credentials
@@ -272,18 +272,18 @@ export default function TelegramLeaks(): JSX.Element {
             type="button"
             disabled={offset === 0}
             onClick={() => setOffset((prev) => Math.max(0, prev - pageSize))}
-            className="text-[11px] font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 disabled:opacity-30 disabled:cursor-not-allowed"
+            className="text-mini font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 disabled:opacity-30 disabled:cursor-not-allowed"
           >
             ← previous
           </button>
-          <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400">
+          <span className="text-mini font-mono text-slate-500 dark:text-slate-400">
             {offset + 1}–{offset + entries.length}
           </span>
           <button
             type="button"
             disabled={entries.length < pageSize}
             onClick={() => setOffset((prev) => prev + pageSize)}
-            className="text-[11px] font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 disabled:opacity-30 disabled:cursor-not-allowed"
+            className="text-mini font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 disabled:opacity-30 disabled:cursor-not-allowed"
           >
             next →
           </button>

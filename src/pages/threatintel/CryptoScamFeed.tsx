@@ -140,7 +140,7 @@ export default function CryptoScamFeed(): JSX.Element {
                   title={`${count} domains · click to filter`}
                 >
                   <span
-                    className={`w-16 text-right text-[12px] font-mono shrink-0 ${active ? 'text-brand-600 dark:text-brand-400 font-semibold' : 'text-slate-500'}`}
+                    className={`w-16 text-right text-meta font-mono shrink-0 ${active ? 'text-brand-600 dark:text-brand-400 font-semibold' : 'text-slate-500'}`}
                   >
                     .{tld}
                   </span>
@@ -150,7 +150,7 @@ export default function CryptoScamFeed(): JSX.Element {
                       style={{ width: `${Math.max(4, (count / maxTld) * 100)}%` }}
                     />
                   </span>
-                  <span className="w-12 text-[12px] font-mono text-slate-500 shrink-0">{count}</span>
+                  <span className="w-12 text-meta font-mono text-slate-500 shrink-0">{count}</span>
                 </button>
               );
             })}
@@ -192,7 +192,7 @@ export default function CryptoScamFeed(): JSX.Element {
           <button
             type="button"
             onClick={() => setTldFilter(null)}
-            className="text-[11px] font-mono text-brand-600 dark:text-brand-400 hover:underline mt-2"
+            className="text-mini font-mono text-brand-600 dark:text-brand-400 hover:underline mt-2"
           >
             clear .{tldFilter} filter
           </button>
@@ -200,7 +200,7 @@ export default function CryptoScamFeed(): JSX.Element {
       </section>
 
       {data && (
-        <p className="text-[11px] font-mono text-slate-500 mb-4">
+        <p className="text-mini font-mono text-slate-500 mb-4">
           Showing {filtered.length} of {data.total} domains
         </p>
       )}
@@ -219,10 +219,10 @@ export default function CryptoScamFeed(): JSX.Element {
           {filtered.slice(0, visible).map((it) => (
             <li
               key={it.domain}
-              className="rounded border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-3 py-2 font-mono text-[13px] flex items-center justify-between gap-2"
+              className="rounded border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-3 py-2 font-mono text-tool flex items-center justify-between gap-2"
             >
               <span className="truncate text-slate-800 dark:text-slate-200">{it.domain}</span>
-              <span className="text-[11px] text-slate-400 shrink-0">.{it.tld}</span>
+              <span className="text-mini text-slate-400 shrink-0">.{it.tld}</span>
             </li>
           ))}
         </ul>
@@ -230,7 +230,7 @@ export default function CryptoScamFeed(): JSX.Element {
           <button
             type="button"
             onClick={() => setVisible((v) => v + 100)}
-            className="mt-3 w-full rounded-lg border border-slate-200 dark:border-slate-800 py-2 font-mono text-[12px] text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+            className="mt-3 w-full rounded-lg border border-slate-200 dark:border-slate-800 py-2 font-mono text-meta text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
           >
             Show more ({filtered.length - visible} remaining)
           </button>

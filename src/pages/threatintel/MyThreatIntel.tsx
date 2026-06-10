@@ -140,9 +140,7 @@ function DistBar({ rows, distKey }: { rows: MtiRow[]; distKey: string | null }):
 
   return (
     <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6">
-      <div className="text-[10px] font-mono uppercase tracking-wider text-slate-500 mb-3">
-        distribution by {distKey}
-      </div>
+      <div className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-3">distribution by {distKey}</div>
       <div className="space-y-2">
         {buckets.map(([label, n]) => (
           <div key={label} className="flex items-center gap-3">
@@ -305,7 +303,7 @@ function DnsScanPanel(): JSX.Element {
             aria-label="Keyword variants"
           />
         </div>
-        <p className="text-[11px] font-mono text-slate-500">
+        <p className="text-mini font-mono text-slate-500">
           Live dnstwist scan — typically 30–120s depending on domain and TLD breadth.
         </p>
       </form>
@@ -323,7 +321,7 @@ function DnsScanPanel(): JSX.Element {
           {data && (
             <>
               <div className="flex items-center justify-between gap-3 mb-3 flex-wrap">
-                <p className="text-[11px] font-mono text-slate-500">
+                <p className="text-mini font-mono text-slate-500">
                   {data.count.toLocaleString()} permutations for{' '}
                   <span className="text-slate-700 dark:text-slate-300">{data.domain}</span> · showing{' '}
                   {rows.length.toLocaleString()}
@@ -331,7 +329,7 @@ function DnsScanPanel(): JSX.Element {
                 <button
                   type="button"
                   onClick={() => setOnlyRegistered((v) => !v)}
-                  className={`text-[11px] font-mono px-2 py-1 rounded border ${
+                  className={`text-mini font-mono px-2 py-1 rounded border ${
                     onlyRegistered
                       ? 'border-rose-500/60 bg-rose-500/15 text-rose-700 dark:text-rose-300'
                       : 'border-slate-300 dark:border-slate-700 text-slate-500'
@@ -348,7 +346,7 @@ function DnsScanPanel(): JSX.Element {
                         <th
                           key={h}
                           scope="col"
-                          className="px-3 py-2 font-mono text-[11px] uppercase tracking-wider text-slate-500 whitespace-nowrap"
+                          className="px-3 py-2 font-mono text-mini uppercase tracking-wider text-slate-500 whitespace-nowrap"
                         >
                           {h}
                         </th>
@@ -363,28 +361,28 @@ function DnsScanPanel(): JSX.Element {
                           key={`${r.domain}-${i}`}
                           className="border-t border-slate-100 dark:border-slate-800/70 align-top hover:bg-slate-50/60 dark:hover:bg-slate-900/40"
                         >
-                          <td className="px-3 py-2 font-mono text-[11px] text-slate-500 whitespace-nowrap">
+                          <td className="px-3 py-2 font-mono text-mini text-slate-500 whitespace-nowrap">
                             {r.fuzzer || '—'}
                           </td>
-                          <td className="px-3 py-2 font-mono text-[12px] text-slate-800 dark:text-slate-200 break-all">
+                          <td className="px-3 py-2 font-mono text-meta text-slate-800 dark:text-slate-200 break-all">
                             {r.domain || '—'}
                           </td>
-                          <td className="px-3 py-2 font-mono text-[11px] text-slate-600 dark:text-slate-400 break-all">
+                          <td className="px-3 py-2 font-mono text-mini text-slate-600 dark:text-slate-400 break-all">
                             {recArr(r.dns_a)}
                           </td>
-                          <td className="px-3 py-2 font-mono text-[11px] text-slate-600 dark:text-slate-400 break-all">
+                          <td className="px-3 py-2 font-mono text-mini text-slate-600 dark:text-slate-400 break-all">
                             {recArr(r.dns_mx)}
                           </td>
-                          <td className="px-3 py-2 font-mono text-[11px] text-slate-600 dark:text-slate-400 break-all">
+                          <td className="px-3 py-2 font-mono text-mini text-slate-600 dark:text-slate-400 break-all">
                             {recArr(r.dns_ns)}
                           </td>
                           <td className="px-3 py-2 whitespace-nowrap">
                             {registered ? (
-                              <span className="text-[11px] font-mono px-2 py-0.5 rounded border border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300">
+                              <span className="text-mini font-mono px-2 py-0.5 rounded border border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300">
                                 resolves
                               </span>
                             ) : (
-                              <span className="text-[11px] font-mono text-slate-400">—</span>
+                              <span className="text-mini font-mono text-slate-400">—</span>
                             )}
                           </td>
                         </tr>
@@ -587,7 +585,7 @@ export default function MyThreatIntel(): JSX.Element {
                       <th
                         key={col.key}
                         scope="col"
-                        className="px-3 py-2 font-mono text-[11px] uppercase tracking-wider text-slate-500 whitespace-nowrap"
+                        className="px-3 py-2 font-mono text-mini uppercase tracking-wider text-slate-500 whitespace-nowrap"
                       >
                         {col.label}
                       </th>
@@ -611,7 +609,7 @@ export default function MyThreatIntel(): JSX.Element {
                             key={col.key}
                             className={`px-3 py-2 ${
                               isHash
-                                ? 'font-mono text-[11px] text-violet-700 dark:text-violet-300'
+                                ? 'font-mono text-mini text-violet-700 dark:text-violet-300'
                                 : 'text-slate-700 dark:text-slate-300'
                             } ${isLong ? 'max-w-md' : 'whitespace-nowrap'}`}
                           >

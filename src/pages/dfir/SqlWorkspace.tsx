@@ -323,13 +323,13 @@ export default function SqlWorkspace(): JSX.Element {
                     {expandedTable === t && tableSchemas[t] && (
                       <div className="ml-4 mt-0.5 space-y-0.5">
                         {tableSchemas[t].map((col) => (
-                          <div key={col} className="text-[10px] font-mono text-slate-400">
+                          <div key={col} className="text-micro font-mono text-slate-400">
                             {col}
                           </div>
                         ))}
                         <button
                           onClick={() => setSql(`SELECT * FROM ${t} LIMIT 50`)}
-                          className="text-[10px] text-brand-600 dark:text-brand-400 hover:underline mt-1"
+                          className="text-micro text-brand-600 dark:text-brand-400 hover:underline mt-1"
                         >
                           → query
                         </button>
@@ -353,7 +353,7 @@ export default function SqlWorkspace(): JSX.Element {
                     setSql(ex.sql);
                     void executeQuery(ex.sql);
                   }}
-                  className="block w-full text-left text-[11px] text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 py-0.5 truncate"
+                  className="block w-full text-left text-mini text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 py-0.5 truncate"
                 >
                   {ex.label}
                 </button>
@@ -374,7 +374,7 @@ export default function SqlWorkspace(): JSX.Element {
                       setSql(h.sql);
                       void executeQuery(h.sql);
                     }}
-                    className="block w-full text-left text-[10px] font-mono text-slate-500 hover:text-brand-600 truncate"
+                    className="block w-full text-left text-micro font-mono text-slate-500 hover:text-brand-600 truncate"
                   >
                     {h.time} · {h.rows} rows
                   </button>
@@ -394,7 +394,7 @@ export default function SqlWorkspace(): JSX.Element {
                 value={sql}
                 onChange={(e) => setSql(e.target.value)}
                 rows={4}
-                className="w-full p-3 pr-24 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-sm font-mono resize-y focus:ring-2 focus:ring-brand-500 focus:border-transparent"
+                className="w-full p-3 pr-24 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-sm font-mono resize-y focus-visible:ring-2 focus-visible:ring-brand-500 focus:border-transparent"
                 placeholder="SELECT * FROM threat_actors LIMIT 10"
                 spellCheck={false}
               />

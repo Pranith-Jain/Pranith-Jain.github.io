@@ -225,7 +225,7 @@ export default function GoogleDorks(): JSX.Element {
       </form>
 
       <div className="mb-6">
-        <p className="text-[11px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
+        <p className="text-mini font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
           Quick-start presets
         </p>
         <div className="flex flex-wrap gap-1.5">
@@ -238,7 +238,7 @@ export default function GoogleDorks(): JSX.Element {
                 void runSearch(p.query, num);
               }}
               title={p.hint}
-              className="text-[11px] font-mono px-2 py-1 rounded border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
+              className="text-mini font-mono px-2 py-1 rounded border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
             >
               {p.label}
             </button>
@@ -280,7 +280,7 @@ export default function GoogleDorks(): JSX.Element {
                       <ExternalLink size={12} className="opacity-60 shrink-0" />
                     </a>
                     {r.displayedLink && (
-                      <p className="text-[11px] font-mono text-emerald-700 dark:text-emerald-400 mt-0.5 break-all">
+                      <p className="text-mini font-mono text-emerald-700 dark:text-emerald-400 mt-0.5 break-all">
                         {r.displayedLink}
                       </p>
                     )}
@@ -302,7 +302,7 @@ export default function GoogleDorks(): JSX.Element {
                   </button>
                 </div>
                 {copied === r.link && (
-                  <span className="ml-auto inline-block mt-1 text-[10px] font-mono text-emerald-600 dark:text-emerald-400">
+                  <span className="ml-auto inline-block mt-1 text-micro font-mono text-emerald-600 dark:text-emerald-400">
                     copied
                   </span>
                 )}

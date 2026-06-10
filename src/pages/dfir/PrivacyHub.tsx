@@ -188,7 +188,7 @@ export default function PrivacyHub(): JSX.Element {
           >
             <div className="flex items-baseline justify-between gap-2 mb-1">
               <span
-                className={`text-[11px] font-mono uppercase tracking-[0.2em] px-1.5 py-0.5 rounded border ${REGIME_STYLES[regime.id]}`}
+                className={`text-mini font-mono uppercase tracking-[0.2em] px-1.5 py-0.5 rounded border ${REGIME_STYLES[regime.id]}`}
               >
                 {regime.short}
               </span>
@@ -202,7 +202,7 @@ export default function PrivacyHub(): JSX.Element {
                 style={{ width: `${Math.max(2, c.score)}%` }}
               />
             </div>
-            <div className="text-[10px] font-mono text-slate-500 dark:text-slate-400">
+            <div className="text-micro font-mono text-slate-500 dark:text-slate-400">
               {c.covered}/{c.total} items
             </div>
           </button>
@@ -229,13 +229,13 @@ export default function PrivacyHub(): JSX.Element {
       <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6">
         <div className="flex flex-wrap items-baseline gap-2 mb-2">
           <span
-            className={`text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${REGIME_STYLES[active.id]}`}
+            className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${REGIME_STYLES[active.id]}`}
           >
             {active.short}
           </span>
           <h2 className="font-display font-bold text-xl text-slate-900 dark:text-slate-100">{active.longTitle}</h2>
         </div>
-        <div className="grid gap-2 sm:grid-cols-2 mb-3 text-[12px] font-mono text-slate-600 dark:text-slate-400">
+        <div className="grid gap-2 sm:grid-cols-2 mb-3 text-meta font-mono text-slate-600 dark:text-slate-400">
           <div>
             <span className="text-slate-500 dark:text-slate-400">Jurisdiction: </span>
             <span className="text-slate-700 dark:text-slate-300">{active.jurisdiction}</span>
@@ -246,7 +246,7 @@ export default function PrivacyHub(): JSX.Element {
           </div>
         </div>
         <p className="text-sm font-mono text-slate-700 dark:text-slate-300 leading-relaxed mb-2">{active.scope}</p>
-        <p className="text-[12px] font-mono text-slate-600 dark:text-slate-400">{active.appliesTo}</p>
+        <p className="text-meta font-mono text-slate-600 dark:text-slate-400">{active.appliesTo}</p>
       </section>
 
       {/* Breach notification */}
@@ -257,11 +257,11 @@ export default function PrivacyHub(): JSX.Element {
         <p className="text-sm font-mono text-slate-700 dark:text-slate-300 leading-relaxed mb-2">
           {active.breachNotification.detail}
         </p>
-        <p className="text-[11px] font-mono text-slate-600 dark:text-slate-400 mb-1">
+        <p className="text-mini font-mono text-slate-600 dark:text-slate-400 mb-1">
           <strong className="text-slate-700 dark:text-slate-300">Trigger:</strong> {active.breachNotification.trigger}
         </p>
         {active.breachNotification.toIndividuals && (
-          <p className="text-[11px] font-mono text-slate-600 dark:text-slate-400">
+          <p className="text-mini font-mono text-slate-600 dark:text-slate-400">
             <strong className="text-slate-700 dark:text-slate-300">Individuals:</strong>{' '}
             {active.breachNotification.toIndividuals}
           </p>
@@ -312,7 +312,7 @@ export default function PrivacyHub(): JSX.Element {
             {active.crossRef.map((id) => (
               <span
                 key={id}
-                className="text-[11px] font-mono px-2 py-1 rounded border border-brand-500/30 bg-brand-500/10 text-brand-700 dark:text-brand-300"
+                className="text-mini font-mono px-2 py-1 rounded border border-brand-500/30 bg-brand-500/10 text-brand-700 dark:text-brand-300"
               >
                 {id}
               </span>
@@ -360,16 +360,16 @@ function ArticleRow({
       <div className="flex flex-wrap items-center gap-2 mb-1">
         <button
           onClick={() => cycle(article.id)}
-          className={`text-[10px] font-mono px-1.5 py-0.5 rounded border ${STATUS_STYLES[s].cls}`}
+          className={`text-micro font-mono px-1.5 py-0.5 rounded border ${STATUS_STYLES[s].cls}`}
         >
           {STATUS_STYLES[s].label}
         </button>
         <span className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100">{article.title}</span>
         {article.citation && (
-          <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400">{article.citation}</span>
+          <span className="text-micro font-mono text-slate-500 dark:text-slate-400">{article.citation}</span>
         )}
       </div>
-      <p className="text-[12px] font-mono text-slate-600 dark:text-slate-400 leading-relaxed">{article.body}</p>
+      <p className="text-meta font-mono text-slate-600 dark:text-slate-400 leading-relaxed">{article.body}</p>
     </li>
   );
 }

@@ -287,7 +287,7 @@ export default function StixViewer(): JSX.Element {
                 value={stixId}
                 onChange={(e) => setStixId(e.target.value)}
                 placeholder="T1566.001 · S0001 · G0016 — or attack-pattern--<uuid>"
-                className="flex-1 min-w-0 px-2 py-1.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded font-mono text-[11px] focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+                className="flex-1 min-w-0 px-2 py-1.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded font-mono text-mini focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
                 spellCheck={false}
               />
               <button
@@ -298,14 +298,14 @@ export default function StixViewer(): JSX.Element {
                 {fetching ? <Loader2 size={11} className="animate-spin" /> : 'fetch'}
               </button>
             </form>
-            <p className="text-[10px] font-mono text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">
+            <p className="text-micro font-mono text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">
               Enter a MITRE ATT&amp;CK id (T1566.001, S0001, G0016, M1049, TA0001, DS0009, C0001) or a raw STIX id
               (&lt;type&gt;--&lt;uuid&gt;). Public MITRE ATT&amp;CK TAXII 2.1 — Enterprise / ICS / Mobile, cached 7d.
               Other STIX feeds need auth — paste a bundle below for those.
             </p>
-            {fetchError && <p className="mt-2 text-[11px] font-mono text-rose-600 dark:text-rose-400">{fetchError}</p>}
+            {fetchError && <p className="mt-2 text-mini font-mono text-rose-600 dark:text-rose-400">{fetchError}</p>}
             {fetchedFrom && !fetchError && (
-              <p className="mt-2 text-[11px] font-mono text-emerald-700 dark:text-emerald-300 inline-flex items-center gap-1">
+              <p className="mt-2 text-mini font-mono text-emerald-700 dark:text-emerald-300 inline-flex items-center gap-1">
                 ✓ {fetchedFrom.collection}
                 {fetchedFrom.attackId && (
                   <a
@@ -405,7 +405,7 @@ export default function StixViewer(): JSX.Element {
                 </button>
               </div>
               <div
-                className="text-[10px] uppercase tracking-wider font-bold mb-1"
+                className="text-micro uppercase tracking-wider font-bold mb-1"
                 style={{ color: STIX_TYPE_COLOR[selected.type as StixObjectType] ?? '#94a3b8' }}
               >
                 {selected.type}
@@ -413,7 +413,7 @@ export default function StixViewer(): JSX.Element {
               <div className="font-display font-semibold text-slate-900 dark:text-slate-100 mb-2 break-words">
                 {selected.name ?? selected.value ?? selected.id}
               </div>
-              <pre className="font-mono text-[11px] text-slate-700 dark:text-slate-300 overflow-x-auto whitespace-pre-wrap break-all max-h-96">
+              <pre className="font-mono text-mini text-slate-700 dark:text-slate-300 overflow-x-auto whitespace-pre-wrap break-all max-h-96">
                 {JSON.stringify(selected, null, 2)}
               </pre>
             </section>

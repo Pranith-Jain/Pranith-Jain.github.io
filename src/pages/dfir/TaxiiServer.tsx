@@ -82,7 +82,7 @@ export default function TaxiiServer(): JSX.Element {
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -104,12 +104,12 @@ export default function TaxiiServer(): JSX.Element {
         </h2>
         <div className="space-y-2">
           <div className="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 px-3 py-2">
-            <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 shrink-0">Discovery</span>
+            <span className="text-micro font-mono uppercase tracking-wider text-slate-400 shrink-0">Discovery</span>
             <code className="text-xs text-brand-600 dark:text-brand-400 flex-1 truncate font-mono">{baseUrl}</code>
             <CopyButton value={baseUrl} />
           </div>
           <div className="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 px-3 py-2">
-            <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 shrink-0">Content-Type</span>
+            <span className="text-micro font-mono uppercase tracking-wider text-slate-400 shrink-0">Content-Type</span>
             <code className="text-xs text-slate-600 dark:text-slate-400 font-mono">
               application/vnd.oasis.taxii+json; version=2.1
             </code>
@@ -153,12 +153,12 @@ export default function TaxiiServer(): JSX.Element {
                   </div>
                   <div className="flex gap-1.5 mt-1.5">
                     {col.can_read && (
-                      <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300">
+                      <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300">
                         read
                       </span>
                     )}
                     {col.can_write && (
-                      <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-brand-100 dark:bg-brand-900/30 text-brand-700 dark:text-brand-300">
+                      <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-brand-100 dark:bg-brand-900/30 text-brand-700 dark:text-brand-300">
                         write
                       </span>
                     )}
@@ -232,7 +232,7 @@ function ObjectCard({ obj }: { obj: TaxiiObject }) {
     >
       <div className="flex items-center gap-2">
         <span
-          className={`text-[10px] font-mono px-1.5 py-0.5 rounded ${TYPE_BADGE[obj.type] ?? 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400'}`}
+          className={`text-micro font-mono px-1.5 py-0.5 rounded ${TYPE_BADGE[obj.type] ?? 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400'}`}
         >
           {obj.type}
         </span>
@@ -257,7 +257,7 @@ function ObjectCard({ obj }: { obj: TaxiiObject }) {
               <span className="text-slate-500">Modified:</span> {new Date(obj.modified).toLocaleString()}
             </div>
           )}
-          <pre className="bg-slate-100 dark:bg-slate-900 rounded p-2 overflow-x-auto text-[10px] text-slate-600 dark:text-slate-400 font-mono mt-2">
+          <pre className="bg-slate-100 dark:bg-slate-900 rounded p-2 overflow-x-auto text-micro text-slate-600 dark:text-slate-400 font-mono mt-2">
             {JSON.stringify(obj, null, 2)}
           </pre>
         </div>

@@ -29,10 +29,10 @@ export function ToolDocs({ path }: { path: string }): JSX.Element | null {
             aria-label={`About ${t.label}`}
             className="mb-6 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-4"
           >
-            <div className="grid gap-3 sm:grid-cols-3 text-[13px]">
+            <div className="grid gap-3 sm:grid-cols-3 text-tool">
               {t.useCase && (
                 <div>
-                  <div className="flex items-center gap-1.5 mb-1.5 text-[10px] font-mono uppercase tracking-[0.18em] text-emerald-700 dark:text-emerald-400">
+                  <div className="flex items-center gap-1.5 mb-1.5 text-micro font-mono uppercase tracking-[0.18em] text-emerald-700 dark:text-emerald-400">
                     <CheckCircle2 size={11} aria-hidden="true" /> What it's for
                   </div>
                   <p className="text-slate-700 dark:text-slate-300 leading-snug">{t.useCase}</p>
@@ -40,7 +40,7 @@ export function ToolDocs({ path }: { path: string }): JSX.Element | null {
               )}
               {t.cantDo && (
                 <div>
-                  <div className="flex items-center gap-1.5 mb-1.5 text-[10px] font-mono uppercase tracking-[0.18em] text-amber-700 dark:text-amber-400">
+                  <div className="flex items-center gap-1.5 mb-1.5 text-micro font-mono uppercase tracking-[0.18em] text-amber-700 dark:text-amber-400">
                     <AlertCircle size={11} aria-hidden="true" /> What it isn't
                   </div>
                   <p className="text-slate-700 dark:text-slate-300 leading-snug">{t.cantDo}</p>
@@ -48,7 +48,7 @@ export function ToolDocs({ path }: { path: string }): JSX.Element | null {
               )}
               {t.workflow && (
                 <div>
-                  <div className="flex items-center gap-1.5 mb-1.5 text-[10px] font-mono uppercase tracking-[0.18em] text-brand-600 dark:text-brand-400">
+                  <div className="flex items-center gap-1.5 mb-1.5 text-micro font-mono uppercase tracking-[0.18em] text-brand-600 dark:text-brand-400">
                     <ArrowRightCircle size={11} aria-hidden="true" /> Typical workflow
                   </div>
                   <p className="text-slate-700 dark:text-slate-300 leading-snug">{t.workflow}</p>

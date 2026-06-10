@@ -58,7 +58,7 @@ function HBar({ items, color }: { items: { label: string; value: number }[]; col
   return (
     <ul className="space-y-1.5">
       {items.map((it) => (
-        <li key={it.label} className="text-[11px] font-mono">
+        <li key={it.label} className="text-mini font-mono">
           <div className="flex items-baseline justify-between mb-0.5">
             <span className="text-slate-700 dark:text-slate-300 truncate" title={it.label}>
               {it.label}
@@ -198,7 +198,7 @@ export default function VictimReleaks(): JSX.Element {
 
       {data && (
         <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-4 flex items-center justify-between gap-3 flex-wrap">
-          <div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-4 text-[12px] font-mono">
+          <div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-4 text-meta font-mono">
             <span>
               <span className="text-slate-500">groups scanned</span>{' '}
               <span className="font-display font-bold tabular-nums">{data.groups_scanned}</span>
@@ -250,7 +250,7 @@ export default function VictimReleaks(): JSX.Element {
                   {data.by_optype.map((o) => {
                     const max = Math.max(...data.by_optype.map((x) => x.count), 1);
                     return (
-                      <li key={o.optype} className="text-[11px] font-mono">
+                      <li key={o.optype} className="text-mini font-mono">
                         <div className="flex items-baseline justify-between mb-0.5">
                           <span className="text-slate-700 dark:text-slate-300">{o.optype}</span>
                           <span className="text-slate-500 tabular-nums">{o.count}</span>
@@ -275,7 +275,7 @@ export default function VictimReleaks(): JSX.Element {
                 ) : (
                   <ul className="space-y-1">
                     {data.group_pairs.map((p) => (
-                      <li key={`${p.a}|${p.b}`} className="text-[12px] font-mono flex items-baseline gap-2 flex-wrap">
+                      <li key={`${p.a}|${p.b}`} className="text-meta font-mono flex items-baseline gap-2 flex-wrap">
                         <span className="px-1.5 py-0.5 rounded border border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300">
                           {p.a}
                         </span>
@@ -306,7 +306,7 @@ export default function VictimReleaks(): JSX.Element {
                   {showRows ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
                   Individual re-leak records ({data.releaks.length})
                 </span>
-                <span className="text-[11px] text-slate-500">verification detail — expand if needed</span>
+                <span className="text-mini text-slate-500">verification detail — expand if needed</span>
               </button>
 
               {showRows && (
@@ -323,7 +323,7 @@ export default function VictimReleaks(): JSX.Element {
                     />
                   </div>
                   {filtered.length === 0 ? (
-                    <p className="font-mono text-[12px] text-slate-500">No re-leaks match the current filter.</p>
+                    <p className="font-mono text-meta text-slate-500">No re-leaks match the current filter.</p>
                   ) : (
                     <ul className="space-y-3">
                       {filtered.slice(0, visible).map((r) => (
@@ -340,7 +340,7 @@ export default function VictimReleaks(): JSX.Element {
                                 {r.raw_names[0] ?? r.key}
                               </div>
                               {r.raw_names.length > 1 && (
-                                <div className="text-[11px] font-mono text-slate-500 mt-0.5">
+                                <div className="text-mini font-mono text-slate-500 mt-0.5">
                                   also seen as: {r.raw_names.slice(1).join(' · ')}
                                 </div>
                               )}
@@ -353,7 +353,7 @@ export default function VictimReleaks(): JSX.Element {
                             {r.claims.map((c, i) => (
                               <li
                                 key={`${c.group}:${c.raw_victim}:${i}`}
-                                className="text-[12px] font-mono flex items-baseline gap-2 flex-wrap"
+                                className="text-meta font-mono flex items-baseline gap-2 flex-wrap"
                               >
                                 <span className="px-1.5 py-0.5 rounded border border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300">
                                   {c.group}
@@ -364,7 +364,7 @@ export default function VictimReleaks(): JSX.Element {
                                 >
                                   “{c.raw_victim}”
                                 </span>
-                                <span className="text-slate-500 text-[11px]" title={c.discovered}>
+                                <span className="text-slate-500 text-mini" title={c.discovered}>
                                   {shortRel(c.discovered)}
                                 </span>
                                 {c.source_url && (
@@ -388,7 +388,7 @@ export default function VictimReleaks(): JSX.Element {
                     <button
                       type="button"
                       onClick={() => setVisible((v) => v + 60)}
-                      className="mt-3 w-full rounded-lg border border-slate-200 dark:border-slate-800 py-2 font-mono text-[12px] text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                      className="mt-3 w-full rounded-lg border border-slate-200 dark:border-slate-800 py-2 font-mono text-meta text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
                     >
                       Show more ({filtered.length - visible} remaining)
                     </button>
@@ -403,7 +403,7 @@ export default function VictimReleaks(): JSX.Element {
       {data && (
         <section className="mt-6 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-4">
           <h3 className="font-display font-semibold text-sm mb-2">Method & caveats</h3>
-          <ul className="text-[12px] font-mono text-slate-600 dark:text-slate-400 space-y-1 list-disc list-inside">
+          <ul className="text-meta font-mono text-slate-600 dark:text-slate-400 space-y-1 list-disc list-inside">
             <li>
               Match key = normalized victim name (lowercased, legal suffixes + TLD stripped, masking dropped). Lossy by
               design — verify rows against raw strings.
@@ -427,7 +427,7 @@ function Panel({ title, sub, children }: { title: string; sub: string; children:
   return (
     <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
       <h3 className="font-display font-semibold text-sm">{title}</h3>
-      <p className="text-[11px] font-mono text-slate-500 mb-3">{sub}</p>
+      <p className="text-mini font-mono text-slate-500 mb-3">{sub}</p>
       {children}
     </div>
   );

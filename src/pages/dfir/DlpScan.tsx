@@ -210,12 +210,12 @@ export default function DlpScan(): JSX.Element {
                   }`}
                 >
                   <div className="text-lg font-bold">{stats.bySeverity[s]}</div>
-                  <div className="text-[10px] uppercase tracking-wider">{s}</div>
+                  <div className="text-micro uppercase tracking-wider">{s}</div>
                 </div>
               ))}
             </div>
             {stats.total > 0 && (
-              <div className="grid grid-cols-2 gap-1.5 sm:grid-cols-3 mt-3 text-[11px] font-mono text-slate-600 dark:text-slate-400">
+              <div className="grid grid-cols-2 gap-1.5 sm:grid-cols-3 mt-3 text-mini font-mono text-slate-600 dark:text-slate-400">
                 {(Object.keys(CATEGORY_LABELS) as Category[])
                   .filter((c) => stats.byCategory[c] > 0)
                   .map((c) => (
@@ -257,27 +257,27 @@ export default function DlpScan(): JSX.Element {
                           {f.pattern.name}
                         </span>
                         <span
-                          className={`text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${SEV_STYLES[f.pattern.severity]}`}
+                          className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${SEV_STYLES[f.pattern.severity]}`}
                         >
                           {f.pattern.severity}
                         </span>
                         <span
-                          className={`text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${CONF_STYLES[f.confidence]}`}
+                          className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${CONF_STYLES[f.confidence]}`}
                           title="Match confidence"
                         >
                           {f.confidence}
                         </span>
-                        <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400">
+                        <span className="text-micro font-mono text-slate-500 dark:text-slate-400">
                           {CATEGORY_LABELS[f.pattern.category]}
                         </span>
-                        <span className="text-[10px] font-mono text-slate-400 dark:text-slate-600 ml-auto">
+                        <span className="text-micro font-mono text-slate-400 dark:text-slate-600 ml-auto">
                           @ {f.index}
                         </span>
                       </div>
-                      <p className="text-[12px] font-mono text-slate-700 dark:text-slate-300 mb-1">
+                      <p className="text-meta font-mono text-slate-700 dark:text-slate-300 mb-1">
                         {f.pattern.description}
                       </p>
-                      <code className="text-[12px] font-mono text-slate-800 dark:text-slate-200 break-all bg-white dark:bg-slate-900 rounded border border-slate-200 dark:border-slate-800 p-1 inline-block">
+                      <code className="text-meta font-mono text-slate-800 dark:text-slate-200 break-all bg-white dark:bg-slate-900 rounded border border-slate-200 dark:border-slate-800 p-1 inline-block">
                         {f.text.length > 80 ? f.text.slice(0, 77) + '…' : f.text}
                       </code>
                     </li>
@@ -292,7 +292,7 @@ export default function DlpScan(): JSX.Element {
                   </h2>
                   <CopyChip value={redacted} label="copy redacted" />
                 </div>
-                <p className="text-[11px] font-mono text-slate-500 dark:text-slate-400 mb-2">
+                <p className="text-mini font-mono text-slate-500 dark:text-slate-400 mb-2">
                   Every finding replaced with <code>[REDACTED:&lt;pattern-id&gt;]</code>. Safe to share in a ticket or
                   on Slack.
                 </p>
@@ -325,22 +325,20 @@ export default function DlpScan(): JSX.Element {
               <div className="flex items-center gap-1.5 mb-1 flex-wrap">
                 <span className="text-xs font-display font-semibold text-slate-900 dark:text-slate-100">{p.name}</span>
                 <span
-                  className={`text-[9px] font-mono uppercase tracking-wider px-1 py-0.5 rounded border ${SEV_STYLES[p.severity]}`}
+                  className={`text-micro font-mono uppercase tracking-wider px-1 py-0.5 rounded border ${SEV_STYLES[p.severity]}`}
                 >
                   {p.severity}
                 </span>
-                <span className="text-[9px] font-mono text-slate-500 dark:text-slate-400">
+                <span className="text-micro font-mono text-slate-500 dark:text-slate-400">
                   {CATEGORY_LABELS[p.category]}
                 </span>
                 {p.validate && (
-                  <span className="text-[9px] font-mono px-1 py-0.5 rounded border border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300">
+                  <span className="text-micro font-mono px-1 py-0.5 rounded border border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300">
                     validated
                   </span>
                 )}
               </div>
-              <p className="text-[11px] font-mono text-slate-500 dark:text-slate-400 leading-relaxed">
-                {p.description}
-              </p>
+              <p className="text-mini font-mono text-slate-500 dark:text-slate-400 leading-relaxed">{p.description}</p>
             </div>
           ))}
         </div>

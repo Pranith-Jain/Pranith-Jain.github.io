@@ -112,7 +112,7 @@ export default function DiamondModelSection({ actor }: Props): JSX.Element {
           <div className="space-y-2">
             {VERTICES.map((v) => (
               <div key={v.id}>
-                <span className="text-[10px] font-mono font-semibold text-brand-600 dark:text-brand-400 uppercase tracking-wider">
+                <span className="text-micro font-mono font-semibold text-brand-600 dark:text-brand-400 uppercase tracking-wider">
                   {v.label}
                 </span>
                 <p className="text-sm font-mono text-slate-700 dark:text-slate-300 leading-relaxed break-words">
@@ -126,19 +126,17 @@ export default function DiamondModelSection({ actor }: Props): JSX.Element {
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-center">
             <div>
-              <p className="text-[10px] font-mono font-semibold uppercase tracking-wider text-slate-500">Motivation</p>
+              <p className="text-micro font-mono font-semibold uppercase tracking-wider text-slate-500">Motivation</p>
               <p className="text-xs font-mono text-slate-900 dark:text-slate-100 mt-0.5">{actor.motivation}</p>
             </div>
             <div>
-              <p className="text-[10px] font-mono font-semibold uppercase tracking-wider text-slate-500">
-                Active Since
-              </p>
+              <p className="text-micro font-mono font-semibold uppercase tracking-wider text-slate-500">Active Since</p>
               <p className="text-xs font-mono text-slate-900 dark:text-slate-100 mt-0.5">
                 {actor.active_since || '\u2014'}
               </p>
             </div>
             <div>
-              <p className="text-[10px] font-mono font-semibold uppercase tracking-wider text-slate-500">
+              <p className="text-micro font-mono font-semibold uppercase tracking-wider text-slate-500">
                 Sophistication
               </p>
               <p className="text-xs font-mono capitalize text-slate-900 dark:text-slate-100 mt-0.5">

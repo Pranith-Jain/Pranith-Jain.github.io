@@ -109,7 +109,7 @@ export default function TelegramDiscoveredChannels(): JSX.Element {
             <button
               type="button"
               onClick={() => setShowToken((s) => !s)}
-              className={`text-[11px] font-mono px-2.5 py-1.5 rounded border inline-flex items-center gap-1 ${
+              className={`text-mini font-mono px-2.5 py-1.5 rounded border inline-flex items-center gap-1 ${
                 authed
                   ? 'border-green-600/40 text-green-700 dark:text-green-400'
                   : 'border-amber-500/40 text-amber-600 dark:text-amber-400'
@@ -121,7 +121,7 @@ export default function TelegramDiscoveredChannels(): JSX.Element {
             <button
               type="button"
               onClick={() => setRefreshKey((k) => k + 1)}
-              className="text-[11px] font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 inline-flex items-center gap-1"
+              className="text-mini font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 inline-flex items-center gap-1"
               aria-label="Refresh"
             >
               <RefreshCw size={11} /> refresh
@@ -137,7 +137,7 @@ export default function TelegramDiscoveredChannels(): JSX.Element {
 
       {showToken && (
         <div className="animate-fade-in-up mb-6 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3.5">
-          <label htmlFor="vt-admin-token" className="block text-[10px] uppercase tracking-wider text-slate-500 mb-1.5">
+          <label htmlFor="vt-admin-token" className="block text-micro uppercase tracking-wider text-slate-500 mb-1.5">
             Admin token — stored locally, sent only with approve/reject requests
           </label>
           <div className="flex items-center gap-2">
@@ -157,7 +157,7 @@ export default function TelegramDiscoveredChannels(): JSX.Element {
               type="button"
               onClick={saveToken}
               disabled={!token.trim()}
-              className="text-[11px] font-mono px-3 py-1.5 rounded border border-brand-500/40 text-brand-600 dark:text-brand-400 hover:bg-brand-500/10 disabled:opacity-40"
+              className="text-mini font-mono px-3 py-1.5 rounded border border-brand-500/40 text-brand-600 dark:text-brand-400 hover:bg-brand-500/10 disabled:opacity-40"
             >
               save
             </button>
@@ -207,21 +207,21 @@ export default function TelegramDiscoveredChannels(): JSX.Element {
                       {ch.handle}
                     </span>
                     {ch.reviewed === 1 && ch.added_to_watch === 0 ? (
-                      <span className="text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-slate-400/40 bg-slate-400/10 text-slate-500 dark:text-slate-400">
+                      <span className="text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-slate-400/40 bg-slate-400/10 text-slate-500 dark:text-slate-400">
                         rejected
                       </span>
                     ) : ch.reviewed === 1 ? (
-                      <span className="text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-green-500/40 bg-green-500/10 text-green-600 dark:text-green-400">
+                      <span className="text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-green-500/40 bg-green-500/10 text-green-600 dark:text-green-400">
                         reviewed
                       </span>
                     ) : null}
                     {ch.added_to_watch === 1 && (
-                      <span className="text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-brand-500/40 bg-brand-500/10 text-brand-600 dark:text-brand-400">
+                      <span className="text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-brand-500/40 bg-brand-500/10 text-brand-600 dark:text-brand-400">
                         watched
                       </span>
                     )}
                   </div>
-                  <div className="flex items-center gap-3 text-[10px] font-mono text-slate-500 dark:text-slate-400">
+                  <div className="flex items-center gap-3 text-micro font-mono text-slate-500 dark:text-slate-400">
                     <span>discovered {new Date(ch.discovered_at).toLocaleString()}</span>
                     {ch.source_message && sanitizeUrl(ch.source_message) && (
                       <a
@@ -242,7 +242,7 @@ export default function TelegramDiscoveredChannels(): JSX.Element {
                       type="button"
                       onClick={() => mutate(ch.handle, 'approve')}
                       disabled={busy !== null}
-                      className="text-[11px] font-mono px-3 py-1.5 rounded border border-green-600/40 text-green-700 dark:text-green-400 hover:bg-green-500/10 disabled:opacity-40 inline-flex items-center gap-1.5"
+                      className="text-mini font-mono px-3 py-1.5 rounded border border-green-600/40 text-green-700 dark:text-green-400 hover:bg-green-500/10 disabled:opacity-40 inline-flex items-center gap-1.5"
                     >
                       <Check size={12} /> {busy === `approve:${ch.handle}` ? 'approving…' : 'approve'}
                     </button>
@@ -250,7 +250,7 @@ export default function TelegramDiscoveredChannels(): JSX.Element {
                       type="button"
                       onClick={() => mutate(ch.handle, 'reject')}
                       disabled={busy !== null}
-                      className="text-[11px] font-mono px-3 py-1.5 rounded border border-rose-600/40 text-rose-700 dark:text-rose-400 hover:bg-rose-500/10 disabled:opacity-40 inline-flex items-center gap-1.5"
+                      className="text-mini font-mono px-3 py-1.5 rounded border border-rose-600/40 text-rose-700 dark:text-rose-400 hover:bg-rose-500/10 disabled:opacity-40 inline-flex items-center gap-1.5"
                     >
                       <X size={12} /> {busy === `reject:${ch.handle}` ? 'rejecting…' : 'reject'}
                     </button>
