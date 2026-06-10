@@ -226,7 +226,15 @@ export async function telegramLeakBotWebhookHandler(c: Context<{ Bindings: Env }
     return c.json({ error: 'forbidden' }, 403);
   }
 
-  const update = (await c.req.json()) as TelegramUpdate;
+  // Parse defensively: a malformed body must not surface as a 500 (which
+  // would make Telegram retry the bad update indefinitely). This runs after
+  // the secret-token gate, so only Telegram-authenticated callers reach it.
+  let update: TelegramUpdate;
+  try {
+    update = (await c.req.json()) as TelegramUpdate;
+  } catch {
+    return c.json({ error: 'invalid JSON' }, 400);
+  }
 
   // Handle chat join immediately (fast path).
   if (update.my_chat_member) {
