@@ -91,7 +91,10 @@ export function DataPageLayout({
           <span className="sr-only">Loading…</span>
         </div>
       ) : empty ? (
-        <div className="rounded-xl border border-dashed border-slate-300 dark:border-slate-700 p-10 text-center" role="status">
+        <div
+          className="rounded-xl border border-dashed border-slate-300 dark:border-slate-700 p-10 text-center"
+          role="status"
+        >
           {emptyIcon && <div className="mb-3">{emptyIcon}</div>}
           <p className="text-sm text-slate-500 dark:text-slate-400">{emptyMessage}</p>
         </div>
