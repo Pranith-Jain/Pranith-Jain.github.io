@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useState } from 'react';
-import { Coins, Loader2, AlertTriangle, ExternalLink, Check, ArrowLeft } from 'lucide-react';
+import { Coins, Loader2, AlertTriangle, ExternalLink, Check, ArrowLeft, Crosshair } from 'lucide-react';
 import { BackLink } from '../../components/BackLink';
 import RelationshipGraphCanvas from '../../pages/threatintel/RelationshipGraphCanvas';
 import type { GraphNodeData } from '../../pages/threatintel/relationship-graph-shared';
@@ -8,10 +8,12 @@ import {
   mergeExpand,
   toGraphResponse,
   confirmEdge,
+  findPathToCategory,
   type TracerGraph,
   type TracerNode,
   type TracerChain,
   type ExpandResponse,
+  type CoInputCluster,
 } from '../../lib/dfir/tracer-graph';
 
 const CHAINS: { id: TracerChain; label: string }[] = [
@@ -19,6 +21,19 @@ const CHAINS: { id: TracerChain; label: string }[] = [
   { id: 'btc', label: 'Bitcoin' },
   { id: 'tron', label: 'Tron' },
 ];
+
+interface CalldataResult {
+  hash: string;
+  analysis: {
+    selector: string | null;
+    known_method: string | null;
+    input_size: number;
+    flags: string[];
+    embedded_pointers: { value: string; offset: number }[];
+    verdict: string;
+  };
+  resolved_pointer?: { value: string; chain: string; found: boolean; input_excerpt: string };
+}
 
 export default function Tracer(): JSX.Element {
   const [seed, setSeed] = useState('');
@@ -33,6 +48,10 @@ export default function Tracer(): JSX.Element {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [warning, setWarning] = useState<string | null>(null);
+  const [cluster, setCluster] = useState<CoInputCluster[] | null>(null);
+  const [highlightPath, setHighlightPath] = useState<string[] | undefined>(undefined);
+  const [calldata, setCalldata] = useState<CalldataResult | null>(null);
+  const [calldataLoading, setCalldataLoading] = useState(false);
 
   const expand = useCallback(
     async (address: string, forChain: TracerChain, base: TracerGraph | null) => {
@@ -57,6 +76,7 @@ export default function Tracer(): JSX.Element {
         }
         const data = (await res.json()) as ExpandResponse;
         setWarning(data.warning ?? null);
+        setCluster(data.cluster ?? null);
         setGraph((prev) => mergeExpand(prev ?? base ?? emptyGraph(data.root.id), data));
       } catch {
         setError('Network error');
@@ -73,8 +93,22 @@ export default function Tracer(): JSX.Element {
     const fresh = emptyGraph(`${chain}:${a}`);
     setGraph(fresh);
     setSelected(null);
+    setHighlightPath(undefined);
+    setCalldata(null);
     void expand(a, chain, fresh);
   }, [seed, chain, expand]);
+
+  const inspectCalldata = useCallback(async (txHash: string, forChain: TracerChain) => {
+    if (forChain === 'btc') return; // calldata is EVM/Tron only
+    setCalldataLoading(true);
+    setCalldata(null);
+    try {
+      const res = await fetch(`/api/v1/tracer/calldata?chain=${forChain}&hash=${encodeURIComponent(txHash)}`);
+      if (res.ok) setCalldata((await res.json()) as CalldataResult);
+    } finally {
+      setCalldataLoading(false);
+    }
+  }, []);
 
   const graphData = useMemo(() => (graph ? toGraphResponse(graph) : null), [graph]);
 
@@ -105,6 +139,21 @@ export default function Tracer(): JSX.Element {
       setGraph(g);
     },
     [graph]
+  );
+
+  const findCashOut = useCallback(() => {
+    if (!graph) return;
+    const path = findPathToCategory(graph, ['exchange', 'mixer']);
+    setHighlightPath(path ?? undefined);
+    if (!path) setError('No cash-out (CEX/Mixer) path in the loaded graph — expand further.');
+  }, [graph]);
+
+  const incidentEdges = useMemo(
+    () =>
+      graph && selected
+        ? [...graph.edges.values()].filter((e) => e.source === selected.id || e.target === selected.id).slice(0, 6)
+        : [],
+    [graph, selected]
   );
 
   return (
@@ -195,6 +244,13 @@ export default function Tracer(): JSX.Element {
           >
             {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : null} Trace
           </button>
+          <button
+            className="flex w-full items-center justify-center gap-2 rounded border border-amber-600 p-2 text-xs text-amber-300 hover:bg-amber-950 disabled:opacity-40"
+            disabled={!graph}
+            onClick={findCashOut}
+          >
+            <Crosshair className="h-3 w-3" /> Find cash-out (CEX/Mixer)
+          </button>
           {error ? (
             <p className="flex items-center gap-1 text-xs text-red-400">
               <AlertTriangle className="h-3 w-3" /> {error}
@@ -211,6 +267,7 @@ export default function Tracer(): JSX.Element {
               onNodeClick={onNodeClick}
               onExpandNode={onExpandNode}
               layoutMode="force"
+              highlightedPath={highlightPath}
             />
           ) : (
             <div className="flex h-[560px] items-center justify-center text-gray-500">Seed an address to begin.</div>
@@ -259,6 +316,86 @@ export default function Tracer(): JSX.Element {
                   <ExternalLink className="h-3 w-3" /> Open explorer
                 </a>
               </div>
+
+              {/* Transactions → calldata inspector */}
+              {incidentEdges.length ? (
+                <div className="border-t border-gray-700 pt-2">
+                  <span className="text-gray-400">Transactions</span>
+                  <ul className="mt-1 space-y-1">
+                    {incidentEdges.map((e) => (
+                      <li key={e.id} className="flex items-center justify-between gap-2">
+                        <span className="truncate font-mono text-[10px] text-gray-400">{e.tx_hash.slice(0, 14)}…</span>
+                        <button
+                          className="rounded border border-gray-600 px-1 text-[10px] hover:bg-gray-800 disabled:opacity-40"
+                          disabled={selected.chain === 'btc' || calldataLoading}
+                          onClick={() => void inspectCalldata(e.tx_hash, selected.chain)}
+                        >
+                          Inspect calldata
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ) : null}
+              {calldataLoading ? <p className="text-xs text-gray-500">Analyzing calldata…</p> : null}
+              {calldata ? (
+                <div className="rounded border border-gray-700 p-2 text-xs">
+                  <div>
+                    Verdict:{' '}
+                    <span
+                      className={
+                        calldata.analysis.verdict === 'data-hiding'
+                          ? 'font-semibold text-red-400'
+                          : calldata.analysis.verdict === 'suspicious'
+                            ? 'font-semibold text-amber-400'
+                            : 'text-emerald-400'
+                      }
+                    >
+                      {calldata.analysis.verdict}
+                    </span>
+                  </div>
+                  <div className="text-gray-400">
+                    {calldata.analysis.known_method ?? calldata.analysis.selector ?? 'no selector'} ·{' '}
+                    {calldata.analysis.input_size}B
+                  </div>
+                  {calldata.analysis.flags.length ? (
+                    <ul className="list-inside list-disc text-gray-400">
+                      {calldata.analysis.flags.map((f) => (
+                        <li key={f}>{f}</li>
+                      ))}
+                    </ul>
+                  ) : null}
+                  {calldata.resolved_pointer ? (
+                    <div className="mt-1 border-t border-gray-700 pt-1">
+                      Cross-chain pointer →{' '}
+                      {calldata.resolved_pointer.found ? `${calldata.resolved_pointer.chain} (resolved)` : 'unresolved'}
+                      <div className="break-all font-mono text-[10px] text-gray-500">
+                        {calldata.resolved_pointer.value}
+                      </div>
+                    </div>
+                  ) : null}
+                </div>
+              ) : null}
+
+              {/* BTC common-input cluster */}
+              {cluster && cluster.length ? (
+                <div className="border-t border-gray-700 pt-2">
+                  <span className="text-gray-400">Likely same-owner (common-input)</span>
+                  <ul className="mt-1 space-y-1">
+                    {cluster.slice(0, 8).map((c) => (
+                      <li key={c.address} className="flex items-center justify-between gap-2">
+                        <span className="truncate font-mono text-[10px]">{c.address}</span>
+                        <button
+                          className="rounded border border-gray-600 px-1 text-[10px] hover:bg-gray-800"
+                          onClick={() => setSeed(c.address)}
+                        >
+                          seed
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ) : null}
             </>
           ) : (
             <p className="text-gray-500">Click a node to inspect it.</p>
