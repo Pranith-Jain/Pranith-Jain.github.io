@@ -14,7 +14,10 @@ import {
   type TracerChain,
   type ExpandResponse,
   type CoInputCluster,
+  serializeGraph,
+  deserializeGraph,
 } from '../../lib/dfir/tracer-graph';
+import { toJSON, toCSV } from '../../lib/dfir/tracer-export';
 
 const CHAINS: { id: TracerChain; label: string }[] = [
   { id: 'evm', label: 'EVM (ETH)' },
@@ -52,6 +55,9 @@ export default function Tracer(): JSX.Element {
   const [highlightPath, setHighlightPath] = useState<string[] | undefined>(undefined);
   const [calldata, setCalldata] = useState<CalldataResult | null>(null);
   const [calldataLoading, setCalldataLoading] = useState(false);
+  const [savedList, setSavedList] = useState<
+    { id: string; title: string; seed_address: string; chain: string }[] | null
+  >(null);
 
   const expand = useCallback(
     async (address: string, forChain: TracerChain, base: TracerGraph | null) => {
@@ -140,6 +146,99 @@ export default function Tracer(): JSX.Element {
     },
     [graph]
   );
+
+  const download = useCallback((filename: string, content: string, mime: string) => {
+    const blob = new Blob([content], { type: mime });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    a.click();
+    URL.revokeObjectURL(url);
+  }, []);
+
+  const saveTrace = useCallback(async () => {
+    if (!graph) return;
+    const title = window.prompt('Save trace as:', `${chain}:${seed.slice(0, 10)}`);
+    if (!title) return;
+    const res = await fetch('/api/v1/tracer/graphs', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        title,
+        seed_address: graph.nodes.get(graph.seedId)?.address ?? seed,
+        chain,
+        graph_json: JSON.stringify(serializeGraph(graph)),
+      }),
+    });
+    if (res.status === 401 || res.status === 403) setError('Saving requires an admin session.');
+    else if (!res.ok) setError(`Save failed (${res.status})`);
+    else setError(null);
+  }, [graph, chain, seed]);
+
+  const loadList = useCallback(async () => {
+    const res = await fetch('/api/v1/tracer/graphs');
+    if (res.status === 401 || res.status === 403) return setError('Saved traces require an admin session.');
+    if (res.ok) setSavedList(((await res.json()) as { graphs: typeof savedList }).graphs);
+  }, [savedList]);
+
+  const loadTrace = useCallback(async (id: string) => {
+    const res = await fetch(`/api/v1/tracer/graphs/${id}`);
+    if (!res.ok) return setError('Could not load that trace.');
+    const row = (await res.json()) as { graph_json: string; seed_address: string; chain: TracerChain };
+    try {
+      setGraph(deserializeGraph(JSON.parse(row.graph_json)));
+      setSeed(row.seed_address);
+      setChain(row.chain);
+      setSelected(null);
+    } catch {
+      setError('Saved trace is corrupted.');
+    }
+  }, []);
+
+  const exportTrace = useCallback(
+    async (fmt: 'json' | 'csv' | 'png') => {
+      if (!graph) return;
+      const base = `tracer-${chain}-${(graph.nodes.get(graph.seedId)?.address ?? 'trace').slice(0, 10)}`;
+      if (fmt === 'json') return download(`${base}.json`, toJSON(graph), 'application/json');
+      if (fmt === 'csv') return download(`${base}.csv`, toCSV(graph), 'text/csv');
+      try {
+        const { toPng } = await import('html-to-image');
+        const vp = document.querySelector('.react-flow__viewport') as HTMLElement | null;
+        const flow = document.querySelector('.react-flow') as HTMLElement | null;
+        const target = vp ?? flow;
+        if (!target) return setError('Canvas not ready for export.');
+        const dataUrl = await toPng(target, { backgroundColor: '#0b0f1a', pixelRatio: 2 });
+        const a = document.createElement('a');
+        a.href = dataUrl;
+        a.download = `${base}.png`;
+        a.click();
+      } catch {
+        setError('PNG export failed — JSON/CSV still work.');
+      }
+    },
+    [graph, chain, download]
+  );
+
+  const pinToInvestigation = useCallback(async (value: string, type: 'crypto-address' | 'tx-hash') => {
+    const listRes = await fetch('/api/v1/investigations');
+    if (listRes.status === 401 || listRes.status === 403) return setError('Pinning requires an admin session.');
+    if (!listRes.ok) return setError('Could not load investigations.');
+    const { investigations } = (await listRes.json()) as { investigations: { id: string; title: string }[] };
+    if (!investigations?.length) return setError('No investigations exist yet — create one in the workspace first.');
+    const choice = window.prompt(
+      `Pin to which investigation?\n${investigations.map((i, n) => `${n + 1}. ${i.title}`).join('\n')}`,
+      '1'
+    );
+    const inv = investigations[choice ? Number(choice) - 1 : -1];
+    if (!inv) return;
+    const res = await fetch(`/api/v1/investigations/${inv.id}/observables`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ value, type }),
+    });
+    setError(res.ok ? null : `Pin failed (${res.status})`);
+  }, []);
 
   const findCashOut = useCallback(() => {
     if (!graph) return;
@@ -251,6 +350,62 @@ export default function Tracer(): JSX.Element {
           >
             <Crosshair className="h-3 w-3" /> Find cash-out (CEX/Mixer)
           </button>
+          <div className="grid grid-cols-2 gap-2">
+            <button
+              className="rounded border border-gray-600 p-2 text-xs hover:bg-gray-800 disabled:opacity-40"
+              disabled={!graph}
+              onClick={saveTrace}
+            >
+              Save trace
+            </button>
+            <button className="rounded border border-gray-600 p-2 text-xs hover:bg-gray-800" onClick={loadList}>
+              Load…
+            </button>
+          </div>
+          <div className="grid grid-cols-3 gap-2">
+            <button
+              className="rounded border border-gray-600 p-1 text-[10px] hover:bg-gray-800 disabled:opacity-40"
+              disabled={!graph}
+              onClick={() => void exportTrace('json')}
+            >
+              JSON
+            </button>
+            <button
+              className="rounded border border-gray-600 p-1 text-[10px] hover:bg-gray-800 disabled:opacity-40"
+              disabled={!graph}
+              onClick={() => void exportTrace('csv')}
+            >
+              CSV
+            </button>
+            <button
+              className="rounded border border-gray-600 p-1 text-[10px] hover:bg-gray-800 disabled:opacity-40"
+              disabled={!graph}
+              onClick={() => void exportTrace('png')}
+            >
+              PNG
+            </button>
+          </div>
+          {savedList ? (
+            <div className="rounded border border-gray-700 p-2 text-xs">
+              <span className="text-gray-400">Saved traces</span>
+              {savedList.length ? (
+                <ul className="mt-1 space-y-1">
+                  {savedList.map((sv) => (
+                    <li key={sv.id}>
+                      <button
+                        className="w-full truncate text-left hover:text-blue-400"
+                        onClick={() => void loadTrace(sv.id)}
+                      >
+                        {sv.title} <span className="text-gray-500">({sv.chain})</span>
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="text-gray-500">none yet</p>
+              )}
+            </div>
+          ) : null}
           {error ? (
             <p className="flex items-center gap-1 text-xs text-red-400">
               <AlertTriangle className="h-3 w-3" /> {error}
@@ -315,6 +470,12 @@ export default function Tracer(): JSX.Element {
                 >
                   <ExternalLink className="h-3 w-3" /> Open explorer
                 </a>
+                <button
+                  className="rounded border border-gray-600 p-2 text-xs hover:bg-gray-800"
+                  onClick={() => void pinToInvestigation(selected.address, 'crypto-address')}
+                >
+                  Pin to investigation
+                </button>
               </div>
 
               {/* Transactions → calldata inspector */}
@@ -331,6 +492,12 @@ export default function Tracer(): JSX.Element {
                           onClick={() => void inspectCalldata(e.tx_hash, selected.chain)}
                         >
                           Inspect calldata
+                        </button>
+                        <button
+                          className="rounded border border-gray-600 px-1 text-[10px] hover:bg-gray-800"
+                          onClick={() => void pinToInvestigation(e.tx_hash, 'tx-hash')}
+                        >
+                          pin
                         </button>
                       </li>
                     ))}
