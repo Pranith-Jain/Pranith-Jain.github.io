@@ -269,9 +269,6 @@ const FeedScheduler = lazy(() => import('./pages/threatintel/FeedScheduler'));
 const ObservableDb = lazy(() => import('./pages/threatintel/ObservableDb'));
 const MalwareVault = lazy(() => import('./pages/threatintel/MalwareVault'));
 const SecretLeaks = lazy(() => import('./pages/threatintel/SecretLeaks'));
-const CaseManager = lazy(() => import('./pages/dfir/CaseManager'));
-const Playbooks = lazy(() => import('./pages/dfir/Playbooks'));
-const ThreatHunting = lazy(() => import('./pages/dfir/ThreatHunting'));
 const ExportHub = lazy(() => import('./pages/dfir/ExportHub'));
 const DetectionAsCode = lazy(() => import('./pages/dfir/DetectionAsCode'));
 const DeceptionTech = lazy(() => import('./pages/dfir/DeceptionTech'));
@@ -555,10 +552,6 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/dfir/tor-gateway', Component: TorGateway },
   { path: '/dfir/blocklists', Component: Blocklists },
   // ── 24 Gap Features ──────────────────────────────────────────────
-  { path: '/dfir/cases', Component: CaseManager },
-  { path: '/dfir/cases/:id', Component: CaseManager },
-  { path: '/dfir/playbooks', Component: Playbooks },
-  { path: '/dfir/threat-hunting', Component: ThreatHunting },
   { path: '/dfir/export-hub', Component: ExportHub },
   { path: '/dfir/detection-as-code', Component: DetectionAsCode },
   { path: '/dfir/deception', Component: DeceptionTech },
