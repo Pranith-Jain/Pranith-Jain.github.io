@@ -5,6 +5,7 @@ import type { IocEnrichment } from '../../src/lib/enrich-bulk';
 import type { CveEnrichment } from '../../src/lib/cve-enrich';
 import type { LlmEntities } from '../../src/lib/extract-llm';
 import { EMPTY_LLM_ENTITIES } from '../../src/lib/extract-llm';
+import { ATTACK_FLOW_EXT_ID } from '../../src/lib/attack-flow';
 
 const APT28_BRIEF_BODY = `Microsoft Threat Intelligence Center (MSTIC) has observed APT28 (Fancy Bear/STRONTIUM) conducting spear-phishing campaigns targeting European government entities throughout Q4 2024. The campaigns leverage spoofed diplomatic communications and exploit CVE-2023-36884 to deliver a new variant of the CremShell malware. Second-wave attacks utilized compromised legitimate accounts, with escalation in December involving direct exploitation attempts against government networks.
 
@@ -381,6 +382,7 @@ describe('buildStixBundle — LlmEntities support', () => {
       attackPatterns: [],
       actorCandidates: [{ name: 'LightSpy', rationale: 'novel name in source' }],
       malwareCandidates: [],
+      flowOrdered: false,
       ran: true,
       partial: false,
       modelUsed: 'groq:llama-3.3-70b-versatile',
@@ -414,5 +416,117 @@ describe('buildStixBundle — LlmEntities support', () => {
     const malwareNames = bundle.objects.filter((o) => o.type === 'malware').map((o) => (o as { name?: string }).name);
     expect(actorNames).not.toContain('LightSpy');
     expect(malwareNames).not.toContain('PhantomLoader');
+  });
+});
+
+describe('Attack-Flow', () => {
+  type Action = { id: string; technique_id?: string; effect_refs?: string[] };
+
+  /** Walk the linear attack-action chain from the attack-flow's start_ref and
+   *  return the technique_id order it implies. */
+  function chainTechniqueOrder(bundle: { objects: { type: string; id: string }[] }): string[] {
+    const flow = bundle.objects.find((o) => o.type === 'attack-flow') as { start_refs?: string[] } | undefined;
+    const actions = bundle.objects.filter((o) => o.type === 'attack-action') as Action[];
+    const byId = new Map(actions.map((a) => [a.id, a]));
+    const order: string[] = [];
+    let cur: Action | undefined = byId.get(flow?.start_refs?.[0] ?? '');
+    const guard = new Set<string>();
+    while (cur && !guard.has(cur.id)) {
+      guard.add(cur.id);
+      if (cur.technique_id) order.push(cur.technique_id);
+      cur = cur.effect_refs?.[0] ? byId.get(cur.effect_refs[0]) : undefined;
+    }
+    return order;
+  }
+
+  it('builds one flow + extension-definition + ordered actions; flowOrdered:false re-sorts by kill-chain', async () => {
+    // Out of kill-chain order in the array: impact first, then initial-access.
+    const llm: LlmEntities = {
+      ...EMPTY_LLM_ENTITIES,
+      ran: true,
+      flowOrdered: false,
+      attackPatterns: [
+        { id: 'T1486', name: 'Data Encrypted for Impact', tactic: 'impact' },
+        { id: 'T1566', name: 'Phishing', tactic: 'initial-access' },
+      ],
+    };
+    const entities = extract(TITLE, APT28_BRIEF_BODY);
+    const { bundle } = await buildStixBundle(report, entities, emptyBulk, new Map(), llm);
+
+    const flows = bundle.objects.filter((o) => o.type === 'attack-flow');
+    const extDefs = bundle.objects.filter((o) => o.type === 'extension-definition');
+    const actions = bundle.objects.filter((o) => o.type === 'attack-action');
+    expect(flows).toHaveLength(1);
+    expect(extDefs).toHaveLength(1);
+    expect(extDefs[0]!.id).toBe(ATTACK_FLOW_EXT_ID);
+    expect(actions).toHaveLength(2);
+
+    // Re-sorted into kill-chain order: initial-access → impact.
+    expect(chainTechniqueOrder(bundle)).toEqual(['T1566', 'T1486']);
+
+    // report → refers-to → attack-flow relationship exists.
+    const reportObj = bundle.objects.find((o) => o.type === 'report') as { id: string };
+    const flowObj = flows[0] as { id: string };
+    const rel = bundle.objects.find(
+      (o) =>
+        o.type === 'relationship' &&
+        (o as { source_ref?: string }).source_ref === reportObj.id &&
+        (o as { target_ref?: string }).target_ref === flowObj.id &&
+        (o as { relationship_type?: string }).relationship_type === 'refers-to'
+    );
+    expect(rel).toBeDefined();
+  });
+
+  it('flowOrdered:true preserves the LLM array order (no re-sort)', async () => {
+    const llm: LlmEntities = {
+      ...EMPTY_LLM_ENTITIES,
+      ran: true,
+      flowOrdered: true,
+      attackPatterns: [
+        { id: 'T1486', name: 'Data Encrypted for Impact', tactic: 'impact' },
+        { id: 'T1566', name: 'Phishing', tactic: 'initial-access' },
+      ],
+    };
+    const entities = extract(TITLE, APT28_BRIEF_BODY);
+    const { bundle, view } = await buildStixBundle(report, entities, emptyBulk, new Map(), llm);
+    // Order preserved exactly as given despite being out of kill-chain order.
+    expect(chainTechniqueOrder(bundle)).toEqual(['T1486', 'T1566']);
+    expect(view.flowSteps?.map((s) => s.techniqueId)).toEqual(['T1486', 'T1566']);
+  });
+
+  it('is deterministic — building the same input twice yields deep-equal bundles', async () => {
+    const llm: LlmEntities = {
+      ...EMPTY_LLM_ENTITIES,
+      ran: true,
+      flowOrdered: false,
+      attackPatterns: [
+        { id: 'T1486', name: 'Data Encrypted for Impact', tactic: 'impact' },
+        { id: 'T1566', name: 'Phishing', tactic: 'initial-access' },
+      ],
+    };
+    const entities = extract(TITLE, APT28_BRIEF_BODY);
+    const a = await buildStixBundle(report, entities, emptyBulk, new Map(), llm);
+    const b = await buildStixBundle(report, entities, emptyBulk, new Map(), llm);
+    // created/modified/valid_from/published are wall-clock and intentionally
+    // non-deterministic; strip every timestamp-derived field so the assertion
+    // targets the structural identity (ids, refs, ordering) that the builder —
+    // and buildAttackFlowObjects in particular — must keep stable across runs.
+    const norm = (bundle: { objects: Record<string, unknown>[] }) => ({
+      ...bundle,
+      objects: bundle.objects.map((o) => {
+        const { created: _c, modified: _m, valid_from: _v, published: _p, ...rest } = o;
+        return rest;
+      }),
+    });
+    expect(norm(a.bundle)).toEqual(norm(b.bundle));
+  });
+
+  it('emits no attack-flow / attack-action / extension-definition objects when there are 0 attackPatterns', async () => {
+    const entities = extract(TITLE, APT28_BRIEF_BODY);
+    const { bundle, view } = await buildStixBundle(report, entities, emptyBulk, new Map(), EMPTY_LLM_ENTITIES);
+    expect(bundle.objects.filter((o) => o.type === 'attack-flow')).toHaveLength(0);
+    expect(bundle.objects.filter((o) => o.type === 'attack-action')).toHaveLength(0);
+    expect(bundle.objects.filter((o) => o.type === 'extension-definition')).toHaveLength(0);
+    expect(view.flowSteps).toEqual([]);
   });
 });
