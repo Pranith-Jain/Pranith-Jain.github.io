@@ -275,6 +275,7 @@ export default function Copilot(): JSX.Element {
           <input
             ref={inputRef}
             type="text"
+            aria-label="Investigation query"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && submit(query)}
@@ -288,6 +289,7 @@ export default function Copilot(): JSX.Element {
           />
           <button
             onClick={() => submit(query)}
+            aria-label={loading || progress ? 'Submitting query' : 'Submit query'}
             disabled={loading || !!progress || !query.trim()}
             className="absolute right-1 top-1/2 -translate-y-1/2 p-1.5 rounded bg-brand-600 dark:bg-brand-500 hover:bg-brand-700 dark:hover:bg-brand-400 disabled:opacity-30 disabled:cursor-not-allowed text-white transition-colors"
           >
@@ -298,7 +300,11 @@ export default function Copilot(): JSX.Element {
 
       {/* Report build progress */}
       {progress && !report && (
-        <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-5 mb-6">
+        <section
+          role="status"
+          aria-live="polite"
+          className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-5 mb-6"
+        >
           <div className="flex items-center justify-between text-xs font-mono text-slate-500 dark:text-slate-400 mb-2">
             <span className="inline-flex items-center gap-2">
               <Loader2 size={13} className="animate-spin text-brand-500" /> {progress.phase}

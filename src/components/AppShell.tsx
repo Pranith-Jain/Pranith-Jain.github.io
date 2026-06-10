@@ -8,6 +8,7 @@ import { SectionErrorBoundary } from './ErrorBoundary';
 import { useDataFetch } from '../hooks/useDataFetch';
 import { useScrollProgress } from '../hooks/useScrollProgress';
 import { BackToTop } from './ui/BackToTop';
+import { SkipToContent } from './SkipToContent';
 import { recordVisit } from '../lib/recentTools';
 
 const SECTION_META: Record<'dfir' | 'threatintel', { label: string; href: string; accent: string }> = {
@@ -206,6 +207,7 @@ export function AppShell({ mode, isDark, onToggleTheme, children }: AppShellProp
 
   return (
     <div className="min-h-screen flex flex-col text-slate-900 dark:text-slate-50">
+      <SkipToContent />
       <TopBar
         sectionLabel={section.label}
         sectionHref={section.href}

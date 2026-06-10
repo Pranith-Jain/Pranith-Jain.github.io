@@ -79,7 +79,7 @@ export function Contact({ personalInfo }: ContactProps) {
                 href={personalInfo.linkedInUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex items-center gap-3 sm:text-sm text-xs font-bold text-slate-500 transition hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 rounded-lg px-3 py-3 min-h-[48px]"
+                className="group flex items-center gap-3 sm:text-sm text-xs font-bold text-slate-300 transition hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 rounded-lg px-3 py-3 min-h-[48px]"
                 aria-label="Visit LinkedIn profile (opens in new tab)"
               >
                 <span className="rounded-md bg-white/5 p-2 transition group-hover:bg-white/10">
@@ -93,7 +93,7 @@ export function Contact({ personalInfo }: ContactProps) {
                 href={personalInfo.githubUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex items-center gap-3 sm:text-sm text-xs font-bold text-slate-500 transition hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 rounded-lg px-3 py-3 min-h-[48px]"
+                className="group flex items-center gap-3 sm:text-sm text-xs font-bold text-slate-300 transition hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 rounded-lg px-3 py-3 min-h-[48px]"
                 aria-label="Visit GitHub profile (opens in new tab)"
               >
                 <span className="rounded-md bg-white/5 p-2 transition group-hover:bg-white/10">
@@ -107,7 +107,7 @@ export function Contact({ personalInfo }: ContactProps) {
                 href={personalInfo.resumeUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex items-center gap-3 sm:text-sm text-xs font-bold text-slate-500 transition hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 rounded-lg px-3 py-3 min-h-[48px]"
+                className="group flex items-center gap-3 sm:text-sm text-xs font-bold text-slate-300 transition hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 rounded-lg px-3 py-3 min-h-[48px]"
                 aria-label="View resume (opens in new tab)"
               >
                 <span className="rounded-md bg-white/5 p-2 transition group-hover:bg-white/10">
@@ -121,7 +121,7 @@ export function Contact({ personalInfo }: ContactProps) {
                 href={personalInfo.featuredUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex items-center gap-3 sm:text-sm text-xs font-bold text-slate-500 transition hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 rounded-lg px-3 py-3 min-h-[48px]"
+                className="group flex items-center gap-3 sm:text-sm text-xs font-bold text-slate-300 transition hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 rounded-lg px-3 py-3 min-h-[48px]"
                 aria-label="View Featured Experts profile (opens in new tab)"
               >
                 <span className="rounded-md bg-white/5 p-2 transition group-hover:bg-white/10">
