@@ -188,6 +188,7 @@ const CampaignGenerator = lazy(() => import('./pages/threatintel/CampaignGenerat
 const Campaigns = lazy(() => import('./pages/threatintel/Campaigns'));
 const CampaignDetail = lazy(() => import('./pages/threatintel/CampaignDetail'));
 const MaliciousPackages = lazy(() => import('./pages/threatintel/MaliciousPackages'));
+const SupplyChainAttacks = lazy(() => import('./pages/threatintel/SupplyChainAttacks'));
 const XWatch = lazy(() => import('./pages/threatintel/XWatch'));
 const XLive = lazy(() => import('./pages/threatintel/XLive'));
 const CybersecTelegramPage = lazy(() => import('./pages/threatintel/CybersecTelegram'));
@@ -386,6 +387,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel/campaigns', Component: Campaigns },
   { path: '/threatintel/campaigns/:id', Component: CampaignDetail },
   { path: '/threatintel/malicious-packages', Component: MaliciousPackages },
+  { path: '/threatintel/supply-chain', Component: SupplyChainAttacks },
   { path: '/threatintel/x-watch', Component: XWatch },
   { path: '/threatintel/x-live', Component: XLive },
   { path: '/threatintel/mythreatintel', Component: MyThreatIntelPage },
