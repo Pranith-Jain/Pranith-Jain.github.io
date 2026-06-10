@@ -3,6 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import { ArrowLeft, FileDown, Loader2, Search, ShieldAlert } from 'lucide-react';
 import { BackLink } from '../../components/BackLink';
 import { DataState } from '../../components/DataState';
+import { ClusterTabs, RANSOMWARE_TABS } from '../../components/threatintel/ClusterTabs';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 
 /**
@@ -402,6 +403,10 @@ export default function RansomReport(): JSX.Element {
           <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-6">
             {groups.length || 347} tracked groups.
           </p>
+        </div>
+
+        <div className="mb-6">
+          <ClusterTabs tabs={RANSOMWARE_TABS} ariaLabel="Ransomware intel" />
         </div>
 
         <form onSubmit={submit} className="flex flex-col sm:flex-row gap-3 mb-6">

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { ArrowLeft, Sparkles, Loader2, AlertTriangle, ExternalLink, Copy, Check, Trash2 } from 'lucide-react';
+import { Sparkles, AlertTriangle, ExternalLink, Copy, Check, Trash2 } from 'lucide-react';
+import { DataPageLayout } from '../../components/DataPageLayout';
 
 interface KillChainStep {
   phase: string;
@@ -175,71 +176,55 @@ export default function CampaignDetail(): JSX.Element {
     : [];
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <Link
-        to="/threatintel/campaigns"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
-      >
-        <ArrowLeft size={14} /> back to campaigns
-      </Link>
-
-      {loading && (
-        <div className="text-sm font-mono text-slate-500 inline-flex items-center gap-2">
-          <Loader2 size={14} className="animate-spin" /> Loading campaign…
-        </div>
-      )}
-
-      {error && (
-        <div
-          role="alert"
-          className="rounded border border-rose-300 dark:border-rose-700 bg-rose-50 dark:bg-rose-950 p-3 text-xs font-mono text-rose-700 dark:text-rose-300 inline-flex items-start gap-2"
-        >
-          <AlertTriangle size={14} className="shrink-0 mt-0.5" aria-hidden="true" /> {error}
-        </div>
-      )}
-
-      {data && (
-        <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 animate-fade-in-up">
-          <div className="flex items-start justify-between gap-3 mb-4 flex-wrap">
-            <div>
-              <h1 className="text-3xl font-display font-bold mb-1 flex items-center gap-2">
-                <Sparkles size={22} className="text-brand-600 dark:text-brand-400" />
-                {data.campaign.campaign_name}
-              </h1>
-              <div className="flex items-center gap-2 flex-wrap text-[10px] font-mono">
-                <span className={`px-1.5 py-0.5 rounded border ${CONFIDENCE_COLOR[data.campaign.confidence]}`}>
-                  confidence: {data.campaign.confidence}
-                </span>
-                <span className="text-slate-500">model: {data.model_used}</span>
-                <span className="text-slate-500">saved: {new Date(data.saved_at).toLocaleString()}</span>
-              </div>
-            </div>
-            <div className="flex items-center gap-2 shrink-0">
-              <button
-                type="button"
-                onClick={() => void copyMarkdown()}
-                className="inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-slate-700 px-2.5 py-1 text-[11px] font-mono text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 hover:border-brand-500/40"
-              >
-                {copied ? (
-                  <>
-                    <Check size={11} /> copied
-                  </>
-                ) : (
-                  <>
-                    <Copy size={11} /> copy as markdown
-                  </>
-                )}
-              </button>
-              <button
-                type="button"
-                onClick={() => void handleDelete()}
-                className="inline-flex items-center gap-1.5 rounded border border-rose-300 dark:border-rose-700 px-2.5 py-1 text-[11px] font-mono text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950"
-              >
-                <Trash2 size={11} /> delete
-              </button>
-            </div>
+    <DataPageLayout
+      backTo="/threatintel/campaigns"
+      backLabel="back to campaigns"
+      icon={<Sparkles size={28} />}
+      title={data ? data.campaign.campaign_name : 'Campaign'}
+      description={
+        data && (
+          <span className="flex items-center gap-2 flex-wrap text-[10px] font-mono not-italic">
+            <span className={`px-1.5 py-0.5 rounded border ${CONFIDENCE_COLOR[data.campaign.confidence]}`}>
+              confidence: {data.campaign.confidence}
+            </span>
+            <span className="text-slate-500">model: {data.model_used}</span>
+            <span className="text-slate-500">saved: {new Date(data.saved_at).toLocaleString()}</span>
+          </span>
+        )
+      }
+      headerExtra={
+        data && (
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={() => void copyMarkdown()}
+              className="inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-slate-700 px-2.5 py-1 text-[11px] font-mono text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 hover:border-brand-500/40"
+            >
+              {copied ? (
+                <>
+                  <Check size={11} /> copied
+                </>
+              ) : (
+                <>
+                  <Copy size={11} /> copy as markdown
+                </>
+              )}
+            </button>
+            <button
+              type="button"
+              onClick={() => void handleDelete()}
+              className="inline-flex items-center gap-1.5 rounded border border-rose-300 dark:border-rose-700 px-2.5 py-1 text-[11px] font-mono text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950"
+            >
+              <Trash2 size={11} /> delete
+            </button>
           </div>
-
+        )
+      }
+      loading={loading}
+      error={error}
+    >
+      {data && (
+        <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
           {(data.input.actor || data.input.sector) && (
             <div className="flex flex-wrap gap-2 mb-4 text-[11px] font-mono">
               {data.input.actor && (
@@ -397,6 +382,6 @@ export default function CampaignDetail(): JSX.Element {
           )}
         </section>
       )}
-    </div>
+    </DataPageLayout>
   );
 }

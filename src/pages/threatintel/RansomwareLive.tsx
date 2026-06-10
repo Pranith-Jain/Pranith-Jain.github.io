@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { BackLink } from '../../components/BackLink';
-import { Activity, AlertTriangle, ArrowLeft, FileCode, MessageSquare, RefreshCw, ShieldAlert } from 'lucide-react';
+import { Activity, AlertTriangle, FileCode, MessageSquare, RefreshCw, ShieldAlert } from 'lucide-react';
+import { DataPageLayout } from '../../components/DataPageLayout';
+import { ClusterTabs, RANSOMWARE_TABS } from '../../components/threatintel/ClusterTabs';
 
 /**
  * ransomware.live PRO surface — consumes the server-side authenticated proxy
@@ -216,18 +217,13 @@ export default function RansomwareLive(): JSX.Element {
   const env = cache[active.resource];
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
-      >
-        <ArrowLeft size={14} /> back
-      </BackLink>
-      <div className="mb-6">
-        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
-          <ShieldAlert size={28} className="text-brand-600 dark:text-brand-400" /> ransomware.live PRO
-        </h1>
-        <p className="text-sm font-mono text-slate-600 dark:text-slate-400 mt-1">
+    <DataPageLayout
+      backTo="/threatintel"
+      icon={<ShieldAlert size={28} />}
+      title="ransomware.live PRO"
+      maxWidthClass="max-w-6xl"
+      description={
+        <span className="text-sm font-mono">
           Server-proxied, key-injected, edge-cached view of the{' '}
           <a
             href="https://www.ransomware.live"
@@ -238,64 +234,52 @@ export default function RansomwareLive(): JSX.Element {
             ransomware.live
           </a>{' '}
           PRO API. Cyberattacks carry HudsonRock infostealer enrichment inline.
-        </p>
-      </div>
+        </span>
+      }
+      headerExtra={
+        <div className="space-y-4">
+          <ClusterTabs tabs={RANSOMWARE_TABS} ariaLabel="Ransomware intel" />
 
-      <div className="flex flex-wrap gap-2 mb-4 border-b border-slate-200 dark:border-slate-800">
-        {TABS.map((t) => {
-          const Icon = t.icon;
-          return (
+          <div className="flex flex-wrap gap-2 border-b border-slate-200 dark:border-slate-800">
+            {TABS.map((t) => {
+              const Icon = t.icon;
+              return (
+                <button
+                  key={t.id}
+                  type="button"
+                  onClick={() => setTab(t.id)}
+                  className={`inline-flex items-center gap-1.5 px-3 py-2 font-mono text-[12px] border-b-2 -mb-px ${
+                    tab === t.id
+                      ? 'border-brand-500 text-brand-700 dark:text-brand-300'
+                      : 'border-transparent text-slate-500 hover:text-slate-800 dark:hover:text-slate-200'
+                  }`}
+                >
+                  <Icon size={13} />
+                  {t.label}
+                </button>
+              );
+            })}
+          </div>
+
+          <div className="flex items-center justify-between gap-3">
+            <p className="font-mono text-[11px] text-slate-500">{active.blurb}</p>
             <button
-              key={t.id}
               type="button"
-              onClick={() => setTab(t.id)}
-              className={`inline-flex items-center gap-1.5 px-3 py-2 font-mono text-[12px] border-b-2 -mb-px ${
-                tab === t.id
-                  ? 'border-brand-500 text-brand-700 dark:text-brand-300'
-                  : 'border-transparent text-slate-500 hover:text-slate-800 dark:hover:text-slate-200'
-              }`}
+              onClick={refreshActive}
+              disabled={loading}
+              className="text-[11px] font-mono px-2 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 inline-flex items-center gap-1 disabled:opacity-50"
+              aria-label={`Refresh ${active.label}`}
             >
-              <Icon size={13} />
-              {t.label}
+              <RefreshCw size={11} className={loading ? 'animate-spin' : ''} /> refresh
             </button>
-          );
-        })}
-      </div>
-
-      <div className="flex items-center justify-between gap-3 mb-4">
-        <p className="font-mono text-[11px] text-slate-500">{active.blurb}</p>
-        <button
-          type="button"
-          onClick={refreshActive}
-          disabled={loading}
-          className="text-[11px] font-mono px-2 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 inline-flex items-center gap-1 disabled:opacity-50"
-          aria-label={`Refresh ${active.label}`}
-        >
-          <RefreshCw size={11} className={loading ? 'animate-spin' : ''} /> refresh
-        </button>
-      </div>
-
-      {loading && (
-        <p role="status" aria-live="polite" className="font-mono text-sm text-slate-500">
-          loading {active.label}…
-        </p>
-      )}
-      {error && (
-        <div
-          role="alert"
-          className="rounded-lg border border-rose-500/40 bg-rose-500/10 p-4 font-mono text-sm text-rose-700 dark:text-rose-300 flex items-start justify-between gap-3"
-        >
-          <span>{error}</span>
-          <button
-            type="button"
-            onClick={refreshActive}
-            className="shrink-0 text-xs font-mono px-3 py-1 rounded border border-rose-400/60 hover:bg-rose-500/10"
-          >
-            retry
-          </button>
+          </div>
         </div>
-      )}
-      {env && !error && (
+      }
+      loading={loading}
+      error={error}
+      onRetry={refreshActive}
+    >
+      {env && (
         <>
           {tab === 'stats' ? <StatsView data={env.data} /> : <ListView data={env.data} />}
           <p className="font-mono text-[10px] text-slate-400 mt-3">
@@ -307,6 +291,6 @@ export default function RansomwareLive(): JSX.Element {
           </p>
         </>
       )}
-    </div>
+    </DataPageLayout>
   );
 }

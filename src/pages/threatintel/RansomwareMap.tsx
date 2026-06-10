@@ -1,6 +1,7 @@
 import { Suspense, lazy, useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
+import { ClusterTabs, RANSOMWARE_TABS } from '../../components/threatintel/ClusterTabs';
 import { ArrowLeft, Globe, Loader2, Pause, Play, RefreshCw, X, Skull } from 'lucide-react';
 
 const ThreatMapChart = lazy(() => import('../dfir/ThreatMapChart'));
@@ -313,10 +314,13 @@ export default function RansomwareMap(): JSX.Element {
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
           <Skull size={28} className="text-rose-500" /> Ransomware Victim Map
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 mb-8 max-w-3xl">
+        <p className="text-slate-600 dark:text-slate-400 mb-4 max-w-3xl">
           Geographic distribution of ransomware victims aggregated from multiple trackers — Ransomlook, MyThreatIntel,
           ransomfeed.it, ransomwatch, ransomware.live, and Andrea Fortuna. Shaded by victim count per country.
         </p>
+        <div className="mb-8">
+          <ClusterTabs tabs={RANSOMWARE_TABS} ariaLabel="Ransomware intel" />
+        </div>
       </div>
 
       {loading && !data && (

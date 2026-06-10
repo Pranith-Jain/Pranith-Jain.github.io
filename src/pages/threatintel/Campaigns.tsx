@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, Sparkles, RefreshCw, ExternalLink, Trash2, Wand2 } from 'lucide-react';
+import { Sparkles, RefreshCw, ExternalLink, Trash2, Wand2 } from 'lucide-react';
 import { adminAuthHeaders } from '../../lib/admin-token';
+import { DataPageLayout } from '../../components/DataPageLayout';
 
 interface IndexEntry {
   id: string;
@@ -75,66 +75,48 @@ export default function Campaigns(): JSX.Element {
     }
   };
 
-  return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
-      >
-        <ArrowLeft size={14} /> back
-      </BackLink>
+  const isEmpty = !loading && items.length === 0 && !error;
 
-      <div className="mb-8 animate-fade-in-up">
-        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
-          <Sparkles size={28} className="text-brand-600 dark:text-brand-400" /> Campaigns
-        </h1>
-        <p className="text-sm font-mono text-slate-600 dark:text-slate-400 mt-1 max-w-3xl">
+  return (
+    <DataPageLayout
+      backTo="/threatintel"
+      icon={<Sparkles size={28} />}
+      title="Campaigns"
+      description={
+        <span className="text-sm font-mono">
           Saved campaign hypotheses from the{' '}
           <Link to="/threatintel/campaign-generator" className="text-brand-600 dark:text-brand-400 hover:underline">
             AI Campaign Generator
           </Link>
           . Each entry is a structured brief with kill-chain mapping, MITRE techniques, hunting hypotheses, and IOC
           pivots — committed to KV so the analyst can return to it without re-running the prompt.
-        </p>
-      </div>
-
-      <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
-        <Link
-          to="/threatintel/campaign-generator"
-          className="inline-flex items-center gap-1.5 rounded bg-brand-600 px-3 py-1.5 text-xs font-mono font-semibold text-white hover:bg-brand-500"
-        >
-          <Wand2 size={12} /> Generate new campaign
-        </Link>
-        <button
-          type="button"
-          onClick={() => void load()}
-          disabled={loading}
-          className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 inline-flex items-center gap-1.5 disabled:opacity-50"
-        >
-          <RefreshCw size={11} className={loading ? 'animate-spin' : ''} /> refresh
-        </button>
-      </div>
-
-      {error && (
-        <div
-          role="alert"
-          className="rounded border border-rose-300 dark:border-rose-700 bg-rose-50 dark:bg-rose-950 p-3 text-xs font-mono text-rose-700 dark:text-rose-300 mb-4"
-        >
-          {error}
+        </span>
+      }
+      headerExtra={
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <Link
+            to="/threatintel/campaign-generator"
+            className="inline-flex items-center gap-1.5 rounded bg-brand-600 px-3 py-1.5 text-xs font-mono font-semibold text-white hover:bg-brand-500"
+          >
+            <Wand2 size={12} /> Generate new campaign
+          </Link>
+          <button
+            type="button"
+            onClick={() => void load()}
+            disabled={loading}
+            className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 inline-flex items-center gap-1.5 disabled:opacity-50"
+          >
+            <RefreshCw size={11} className={loading ? 'animate-spin' : ''} /> refresh
+          </button>
         </div>
-      )}
-
-      {!loading && items.length === 0 && !error && (
-        <div className="rounded-2xl border border-dashed border-slate-300 dark:border-slate-700 bg-slate-50/60 dark:bg-slate-950/40 p-8 text-center">
-          <Sparkles size={28} className="mx-auto text-slate-400 mb-2" />
-          <p className="text-sm font-mono text-slate-500">No saved campaigns yet.</p>
-          <p className="text-[11px] font-mono text-slate-400 mt-2">
-            Generate one with the AI Campaign Generator and click{' '}
-            <span className="text-brand-600 dark:text-brand-400">Save</span>.
-          </p>
-        </div>
-      )}
-
+      }
+      loading={loading}
+      error={error}
+      onRetry={() => void load()}
+      empty={isEmpty}
+      emptyMessage="No saved campaigns yet. Generate one with the AI Campaign Generator and click Save."
+      emptyIcon={<Sparkles size={28} className="mx-auto text-slate-400" />}
+    >
       {items.length > 0 && (
         <ul className="space-y-2">
           {items.map((it) => (
@@ -188,6 +170,6 @@ export default function Campaigns(): JSX.Element {
           ))}
         </ul>
       )}
-    </div>
+    </DataPageLayout>
   );
 }

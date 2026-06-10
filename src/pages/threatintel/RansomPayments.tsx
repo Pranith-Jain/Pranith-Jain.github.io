@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
-import { ArrowLeft, Bitcoin, Search } from 'lucide-react';
-import { BackLink } from '../../components/BackLink';
-import { DataState } from '../../components/DataState';
+import { Bitcoin, Search } from 'lucide-react';
+import { DataPageLayout } from '../../components/DataPageLayout';
+import { ClusterTabs, RANSOMWARE_TABS } from '../../components/threatintel/ClusterTabs';
 import { relativeAgo as shortRel } from '../../lib/relativeTime';
 
 /**
@@ -96,19 +96,12 @@ export default function RansomPayments(): JSX.Element {
   };
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
-      >
-        <ArrowLeft size={14} /> back
-      </BackLink>
-
-      <div className="animate-fade-in-up">
-        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
-          <Bitcoin size={28} className="text-brand-600 dark:text-brand-400" /> Ransom payment tracker
-        </h1>
-        <p className="text-slate-600 dark:text-slate-400 mb-2 max-w-3xl leading-relaxed">
+    <DataPageLayout
+      backTo="/threatintel"
+      icon={<Bitcoin size={28} />}
+      title="Ransom payment tracker"
+      description={
+        <>
           On-chain ransomware payments — actual paid ransoms observed on the blockchain, attributed to families. Sourced
           from{' '}
           <a
@@ -120,14 +113,18 @@ export default function RansomPayments(): JSX.Element {
             Ransomwhere
           </a>{' '}
           (crowdsourced, free).
-        </p>
-        {data && (
-          <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-6">
-            snapshot <span className="text-slate-700 dark:text-slate-300">{shortRel(data.generated_at)}</span>
-          </p>
-        )}
-      </div>
-
+          {data && (
+            <span className="block mt-2 text-xs text-slate-500 dark:text-slate-400 font-mono">
+              snapshot <span className="text-slate-700 dark:text-slate-300">{shortRel(data.generated_at)}</span>
+            </span>
+          )}
+        </>
+      }
+      headerExtra={<ClusterTabs tabs={RANSOMWARE_TABS} ariaLabel="Ransomware intel" />}
+      loading={loading}
+      error={error}
+      onRetry={() => window.location.reload()}
+    >
       {data && (
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
           {[
@@ -159,13 +156,11 @@ export default function RansomPayments(): JSX.Element {
         />
       </div>
 
-      <DataState
-        loading={loading}
-        error={error}
-        empty={!!data && families.length === 0}
-        emptyLabel="No families match."
-        rows={10}
-      >
+      {data && families.length === 0 ? (
+        <div className="rounded-lg border border-dashed border-slate-300 dark:border-slate-700 p-10 text-center">
+          <p className="text-sm text-slate-500 dark:text-slate-400">No families match.</p>
+        </div>
+      ) : (
         <ul className="space-y-1.5">
           {families.map((f) => {
             const open = openFamily === f.family;
@@ -214,7 +209,7 @@ export default function RansomPayments(): JSX.Element {
             );
           })}
         </ul>
-      </DataState>
-    </div>
+      )}
+    </DataPageLayout>
   );
 }
