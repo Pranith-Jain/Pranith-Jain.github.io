@@ -194,6 +194,7 @@ import { radarDomainHandler } from './routes/cloudflare-radar';
 import { certspotterSearchHandler } from './routes/certspotter';
 import { triageSearchHandler } from './routes/triage';
 import { reportParserHandler } from './routes/report-parser';
+import { reportIngestHandler } from './routes/report-ingest';
 import { domainRepHandler, domainMonitorHandler } from './routes/domain-advanced';
 import {
   domainHistoryHandler,
@@ -912,6 +913,7 @@ app.get('/api/v1/triage/search', triageSearchHandler);
 
 // ── Report Parser ─────────────────────────────────────────────────
 app.post('/api/v1/report/parse', reportParserHandler);
+app.post('/api/v1/report/ingest', reportIngestHandler);
 
 // ── IOC Lifecycle ─────────────────────────────────────────────────
 app.get('/api/v1/ioc-lifecycle', validate('query', iocLifecycleSchema), iocLifecycleHandler);
