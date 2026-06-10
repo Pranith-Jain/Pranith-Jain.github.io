@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, Dna, Search, Loader2, Users, ChevronRight, ChevronDown } from 'lucide-react';
+import { DataPageLayout } from '../../components/DataPageLayout';
+import { Dna, Search, Loader2, Users, ChevronRight, ChevronDown } from 'lucide-react';
 
 interface ActorDNA {
   actor_id: string;
@@ -132,22 +132,13 @@ export default function ActorDNA(): JSX.Element {
   };
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
-      >
-        <ArrowLeft size={14} /> back
-      </BackLink>
-
-      <div className="flex items-center gap-3 mb-6">
-        <Dna className="w-8 h-8 text-brand-600 dark:text-brand-400" />
-        <div>
-          <h1 className="text-2xl font-display font-bold">Threat Actor Behavioral DNA</h1>
-          <p className="text-slate-400 text-sm">Fingerprint actors by behavior, not just tools</p>
-        </div>
-      </div>
-
+    <DataPageLayout
+      backTo="/threatintel"
+      icon={<Dna className="w-8 h-8" />}
+      title="Threat Actor Behavioral DNA"
+      description="Fingerprint actors by behavior, not just tools"
+      maxWidthClass="max-w-5xl"
+    >
       {/* Mode Toggle */}
       {error && (
         <p role="alert" className="text-sm font-mono text-rose-600 dark:text-rose-400 mb-4">
@@ -445,7 +436,7 @@ export default function ActorDNA(): JSX.Element {
           )}
         </div>
       </div>
-    </div>
+    </DataPageLayout>
   );
 }
 

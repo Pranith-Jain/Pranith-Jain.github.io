@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import { sanitizeUrl } from '../../lib/sanitize-url';
-import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, ExternalLink, Loader2, Newspaper, RefreshCw, ShieldAlert } from 'lucide-react';
+import { ExternalLink, Loader2, Newspaper, RefreshCw, ShieldAlert } from 'lucide-react';
 import { BreachDisclosuresPanel } from '../dfir/DarkWeb';
 import { BreachDatabasesPanel } from '../../components/dfir/BreachDatabasesPanel';
 import { MtiLeaksPanel } from '../../components/threatintel/MtiLeaksPanel';
 import { fetchAggregatedFeed, formatRelativeTime, type AggregatedFeedItem } from '../../services/rssService';
 import { LiveFreshnessPill } from '../../components/LiveFreshnessPill';
+import { DataPageLayout } from '../../components/DataPageLayout';
 
 /**
  * Feed IDs — strictly breach-focused. Krebs / BleepingComputer cover
@@ -67,55 +67,53 @@ export default function BreachDisclosures(): JSX.Element {
   }, [refreshKey]);
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
-      >
-        <ArrowLeft size={14} /> back
-      </BackLink>
-
-      <div className="animate-fade-in-up">
-        <div className="flex flex-wrap items-start justify-between gap-3 mb-2">
-          <h1 className="text-3xl sm:text-4xl font-display font-bold flex items-center gap-3">
-            <ShieldAlert size={28} className="text-brand-600 dark:text-brand-400" /> Live breach disclosures
-            <LiveFreshnessPill tone="live" className="ml-1" />
-          </h1>
+    <DataPageLayout
+      backTo="/threatintel"
+      maxWidthClass="max-w-5xl"
+      icon={<ShieldAlert size={28} />}
+      title="Live breach disclosures"
+      description={
+        <>
+          <span className="block">
+            Two complementary surfaces. Up top, active leak listings from{' '}
+            <a
+              href="https://mythreatintel.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-brand-600 dark:text-brand-400 hover:underline"
+            >
+              MyThreatIntel
+            </a>{' '}
+            (rawer firehose, what's currently being shopped or scraped). Below, the canonical{' '}
+            <a
+              href="https://haveibeenpwned.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-brand-600 dark:text-brand-400 hover:underline"
+            >
+              Have I Been Pwned
+            </a>{' '}
+            corpus with verification flags, sensitivity markers, and exposed data classes.
+          </span>
+          <span className="block text-xs text-slate-500 dark:text-slate-400 font-mono mt-2">
+            MyThreatIntel leaks (active) + HIBP public corpus (canonical) + breach-news feeds (timely commentary).
+          </span>
+        </>
+      }
+      headerExtra={
+        <div className="flex items-center gap-3">
+          <LiveFreshnessPill tone="live" />
           <button
             type="button"
             onClick={() => setRefreshKey((k) => k + 1)}
-            className="text-[11px] font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 inline-flex items-center gap-1 mt-1"
+            className="text-[11px] font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 inline-flex items-center gap-1"
             aria-label="Refresh breach disclosures"
           >
             <RefreshCw size={11} /> refresh
           </button>
         </div>
-        <p className="text-slate-600 dark:text-slate-400 mb-2 max-w-3xl leading-relaxed">
-          Two complementary surfaces. Up top, active leak listings from{' '}
-          <a
-            href="https://mythreatintel.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-brand-600 dark:text-brand-400 hover:underline"
-          >
-            MyThreatIntel
-          </a>{' '}
-          (rawer firehose, what's currently being shopped or scraped). Below, the canonical{' '}
-          <a
-            href="https://haveibeenpwned.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-brand-600 dark:text-brand-400 hover:underline"
-          >
-            Have I Been Pwned
-          </a>{' '}
-          corpus with verification flags, sensitivity markers, and exposed data classes.
-        </p>
-        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-8">
-          MyThreatIntel leaks (active) + HIBP public corpus (canonical) + breach-news feeds (timely commentary).
-        </p>
-      </div>
-
+      }
+    >
       {/* MTI leaks panel — the active firehose. Sits above HIBP because
           this is the timeliness-first signal; HIBP carries the depth and
           the data-class breakdown but lags weeks behind a fresh dump. */}
@@ -195,6 +193,6 @@ export default function BreachDisclosures(): JSX.Element {
       </section>
 
       <BreachDatabasesPanel />
-    </div>
+    </DataPageLayout>
   );
 }

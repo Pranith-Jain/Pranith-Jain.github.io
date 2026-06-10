@@ -1,6 +1,6 @@
 import { useState, useRef, useCallback, useEffect, type FormEvent } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { BackLink } from '../../components/BackLink';
+import { DataPageLayout } from '../../components/DataPageLayout';
 import {
   Search,
   ShieldAlert,
@@ -193,22 +193,18 @@ export default function Analyze(): JSX.Element {
   );
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
-      >
-        <Search size={14} /> back
-      </BackLink>
-
-      <div className="animate-fade-in-up mb-8">
-        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2">Analysis Orchestration</h1>
-        <p className="text-slate-600 dark:text-slate-400 max-w-2xl text-sm font-mono">
+    <DataPageLayout
+      backTo="/threatintel"
+      maxWidthClass="max-w-6xl"
+      icon={<Search size={28} />}
+      title="Analysis Orchestration"
+      description={
+        <span className="text-sm font-mono">
           Multi-source observable enrichment — fans out to 45 threat intel providers in parallel and aggregates results
           into a structured verdict table. Inspired by IntelOwl's parallel analyzer pattern.
-        </p>
-      </div>
-
+        </span>
+      }
+    >
       <form onSubmit={onSubmit} className="mb-8">
         <label htmlFor="analyze-input" className="sr-only">
           Observable
@@ -574,6 +570,6 @@ export default function Analyze(): JSX.Element {
           </p>
         </div>
       )}
-    </div>
+    </DataPageLayout>
   );
 }

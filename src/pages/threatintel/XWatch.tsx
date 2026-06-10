@@ -1,10 +1,9 @@
 import { useEffect, useMemo, useState } from 'react';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 import { Link } from 'react-router-dom';
-import { BackLink } from '../../components/BackLink';
+import { DataPageLayout } from '../../components/DataPageLayout';
 import { XClaimsPanel } from '../../components/threatintel/XClaimsPanel';
 import {
-  ArrowLeft,
   RefreshCw,
   ExternalLink,
   AlertTriangle,
@@ -405,30 +404,19 @@ export default function XWatch(): JSX.Element {
   }, [data, filter]);
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
-      >
-        <ArrowLeft size={14} /> back
-      </BackLink>
-
-      <div className="mb-6 animate-fade-in-up">
-        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
-          <Twitter size={28} className="text-brand-600 dark:text-brand-400" /> X firehose
-          {authStatus?.configured && (
-            <span className="text-[10px] font-mono px-1.5 py-0.5 rounded border bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/30">
-              live
-            </span>
-          )}
-        </h1>
-        <p className="text-sm font-mono text-slate-600 dark:text-slate-400 mt-1 max-w-3xl leading-relaxed">
-          Live chronological tweets from cybersec accounts. Filter by handle, time window, replies, and pinned. Inactive
-          handles (no posts within the selected window) are hidden by default — click &quot;+N inactive&quot; in each
-          section to surface them.
-        </p>
-      </div>
-
+    <DataPageLayout
+      backTo="/threatintel"
+      icon={<Twitter size={28} />}
+      title="X firehose"
+      description='Live chronological tweets from cybersec accounts. Filter by handle, time window, replies, and pinned. Inactive handles (no posts within the selected window) are hidden by default — click "+N inactive" in each section to surface them.'
+      headerExtra={
+        authStatus?.configured ? (
+          <span className="text-[10px] font-mono px-1.5 py-0.5 rounded border bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/30">
+            live
+          </span>
+        ) : undefined
+      }
+    >
       {authStatus?.configured && <XClaimsPanel />}
 
       {authStatus && !authStatus.configured && (
@@ -814,6 +802,6 @@ export default function XWatch(): JSX.Element {
           </p>
         )}
       </div>
-    </div>
+    </DataPageLayout>
   );
 }
