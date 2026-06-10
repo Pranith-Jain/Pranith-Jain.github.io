@@ -120,6 +120,11 @@ export interface Env {
   CF_API_TOKEN?: string;
   /** Triage (tria.ge) API key. Set via `wrangler secret put TRIAGE_API_KEY`. */
   TRIAGE_API_KEY?: string;
+  /** Optional self-hosted file2txt bridge for CPU-heavy PDF/DOCX extraction.
+   *  Unset → /api/v1/report/ingest returns 503 for PDF/DOCX (the free-plan
+   *  10ms CPU cap blocks in-Worker parsing); text/HTML/image still work. */
+  FILE2TXT_BRIDGE_URL?: string;
+  FILE2TXT_BRIDGE_TOKEN?: string;
   /** CrowdSec CTI API key (free registration at crowdsec.net). Optional —
    *  the /api/v1/ioc/check CrowdSec provider degrades to 'unsupported'
    *  when unset. Free tier: 1000 lookups/month. */
