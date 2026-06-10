@@ -413,12 +413,11 @@ export default function GlobalPulse(): JSX.Element {
   );
   const [autoRefresh, setAutoRefresh] = useState(true);
   const [selectedEvent, setSelectedEvent] = useState<PulseEvent | null>(null);
-  // Default to the 2D map (PulseMap, ~2.3KB gz) rather than the 3D globe
-  // (CtiGlobe → globe.gl/three.js, ~506KB gz). The globe is one toggle/keypress
-  // ('1') away and lazy-loads on demand, so this saves ~500KB gz on every Global
-  // Pulse initial load without removing the feature. Flip back to '3d' to restore
-  // the globe as the default hero (at that bundle cost).
-  const [mapMode, setMapMode] = useState<'2d' | '3d'>('2d');
+  // Default to the 3D globe — it's the showpiece and the "wow" of this page (the
+  // recruiter-facing first impression). It's lazy-loaded (globe.gl/three.js,
+  // ~506KB gz, route-split to THIS page only) and renders behind a skeleton while
+  // the chunk streams in. Switch to '2d' (PulseMap, ~2.3KB) via the toggle / '2'.
+  const [mapMode, setMapMode] = useState<'2d' | '3d'>('3d');
   const [focus, setFocus] = useState<{ lat: number; lng: number } | null>(null);
   const [lastUpdated, setLastUpdated] = useState<string | null>(null);
   const [showFilters, setShowFilters] = useState(false);
@@ -437,6 +436,13 @@ export default function GlobalPulse(): JSX.Element {
       if (loadIdRef.current === myId) {
         setData(json);
         setLastUpdated(new Date().toISOString());
+        // Cache the last-good response so the next visit paints instantly
+        // instead of waiting on the (cold ~10-20s) build behind a spinner.
+        try {
+          localStorage.setItem('gp:last', JSON.stringify(json));
+        } catch {
+          /* quota / private mode — non-fatal */
+        }
       }
     } catch (e) {
       if (loadIdRef.current === myId) setError((e as Error).message);
@@ -583,6 +589,17 @@ export default function GlobalPulse(): JSX.Element {
     URL.revokeObjectURL(url);
   }, [filteredEvents]);
 
+  // Last-good: paint the previous response instantly on mount (client-only, so
+  // SSR markup still matches and there's no hydration mismatch), then load()
+  // refreshes in the background. Turns a 10-20s cold-spinner into an instant page.
+  useEffect(() => {
+    try {
+      const cached = localStorage.getItem('gp:last');
+      if (cached) setData((d) => d ?? (JSON.parse(cached) as GlobalPulseResponse));
+    } catch {
+      /* ignore */
+    }
+  }, []);
   useEffect(() => {
     load();
   }, [load]);
@@ -687,7 +704,7 @@ export default function GlobalPulse(): JSX.Element {
       backTo="/threatintel"
       icon={<Globe size={28} />}
       title="Global Pulse"
-      description="Real-time CTI intelligence — ransomware, CVEs, IOCs, and threat activity"
+      description="A live map of worldwide cyber-threat activity — aggregating 20+ real-time intelligence feeds (ransomware, breaches, CVEs, dark-web chatter) and refreshing every minute."
       loading={loading && !data}
       error={error}
       onRetry={load}
@@ -788,10 +805,15 @@ export default function GlobalPulse(): JSX.Element {
                 <Clock size={12} className="text-slate-400" /> Last Update
               </div>
               <div className="text-xl font-display font-bold text-slate-900 dark:text-white tabular-nums leading-none">
-                {lastUpdated ? formatTime(lastUpdated) : '—'}
+                {lastUpdated ? formatTime(lastUpdated) : data ? formatTime(data.generated_at) : '—'}
               </div>
               <div className="mt-2">
-                {autoRefresh ? (
+                {loading && data ? (
+                  <span className="inline-flex items-center gap-1.5" aria-label="Syncing latest data">
+                    <RefreshCw size={11} className="animate-spin text-brand-500" />
+                    <span className="text-eyebrow text-brand-600 dark:text-brand-400">SYNCING</span>
+                  </span>
+                ) : autoRefresh ? (
                   <span className="inline-flex items-center gap-1.5" aria-label="Live — auto-refreshing">
                     <span className="relative flex h-2 w-2">
                       <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
