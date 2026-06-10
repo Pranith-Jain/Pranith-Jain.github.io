@@ -28,7 +28,9 @@ function cap(text: string): { text: string; truncated: boolean } {
 
 /** In-Worker extraction for the CPU-cheap formats. */
 export function extractTextOrHtml(bytes: Uint8Array, kind: 'text' | 'html'): ExtractResult {
-  const raw = new TextDecoder('utf-8', { fatal: false }).decode(bytes);
+  // Non-fatal decoding is the default; workers-types' TextDecoder ctor options
+  // don't accept `fatal`, so omit the options bag.
+  const raw = new TextDecoder('utf-8').decode(bytes);
   const text = kind === 'html' ? htmlToText(raw) : raw.trim();
   const { text: capped, truncated } = cap(text);
   return { text: capped, meta: { kind, method: 'inline', truncated } };

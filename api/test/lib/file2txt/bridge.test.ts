@@ -23,7 +23,7 @@ describe('extractViaBridge', () => {
 
     expect(r.text).toBe('extracted from pdf');
     expect(r.meta).toEqual({ kind: 'pdf', method: 'bridge', truncated: false });
-    const [url, init] = fetchMock.mock.calls[0];
+    const [url, init] = fetchMock.mock.calls[0]!;
     expect(url).toBe('https://bridge.example/extract');
     expect((init.headers as Record<string, string>).Authorization).toBe('Bearer tok');
   });
