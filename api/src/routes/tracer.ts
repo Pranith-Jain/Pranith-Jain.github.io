@@ -136,6 +136,7 @@ export async function tracerExpandHandler(c: Context<{ Bindings: Env }>): Promis
   const seen = new Set<string>([root.id]);
 
   for (const t of transfers) {
+    // 'self' transfers are kept under any direction filter — they render as a self-loop on the root (counterparty === root address).
     if (direction !== 'both' && t.direction !== direction && t.direction !== 'self') continue;
     const cpId = nodeId(chain, t.counterparty);
     if (!seen.has(cpId)) {
@@ -144,6 +145,7 @@ export async function tracerExpandHandler(c: Context<{ Bindings: Env }>): Promis
     }
     const source = t.direction === 'out' ? root.id : cpId;
     const target = t.direction === 'out' ? cpId : root.id;
+    // Edge id is tx-grained (one edge per tx per counterparty); multi-transfer txs to the same counterparty intentionally collapse to one edge in Phase A.
     edges.push({
       id: `${t.tx_hash}:${cpId}`,
       source,
