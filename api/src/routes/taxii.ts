@@ -439,23 +439,45 @@ export async function getBriefingObjects(db: D1Database, limit: number, env?: En
     .prepare('SELECT slug, title, type, published_at FROM briefings ORDER BY published_at DESC LIMIT ?')
     .bind(limit)
     .all<{ slug: string; title: string; type: string; published_at: string }>();
-  return await Promise.all(
-    (rows.results ?? []).map(async (row) => {
-      const siteUrl = env ? getSiteUrl(env) : 'https://pranithjain.qzz.io';
+  const results = rows.results ?? [];
+  if (results.length === 0) return [];
+
+  const siteUrl = env ? getSiteUrl(env) : 'https://pranithjain.qzz.io';
+  // STIX 2.1 requires `report.object_refs`, and STIX lists MUST be non-empty.
+  // These briefing reports are thin metadata (no per-object extraction here), so
+  // we emit a stable producer `identity` and have every report reference it —
+  // a valid, non-empty object_refs + created_by_ref. (An empty array would be
+  // spec-invalid.)
+  const producerId = await stixId('identity', 'identity|pranithjain-cti');
+  const producer: Record<string, unknown> = {
+    type: 'identity',
+    spec_version: '2.1',
+    id: producerId,
+    created: '2024-01-01T00:00:00.000Z',
+    modified: '2024-01-01T00:00:00.000Z',
+    name: 'pranithjain CTI',
+    identity_class: 'organization',
+  };
+
+  const reports = await Promise.all(
+    results.map(async (row) => {
       return {
         type: 'report',
         spec_version: '2.1',
         id: await stixId('report', `report|${row.slug}`),
         created: row.published_at,
         modified: row.published_at,
+        created_by_ref: producerId,
         name: row.title,
         description: `${row.type} threat intelligence briefing`,
         report_types: ['threat-report'],
         published: row.published_at,
+        object_refs: [producerId],
         external_references: [{ source_name: 'briefing', url: `${siteUrl}/threatintel/briefings/${row.slug}` }],
       } satisfies Record<string, unknown>;
     })
   );
+  return [producer, ...reports];
 }
 
 function buildStixPattern(value: string, type: string): string {
