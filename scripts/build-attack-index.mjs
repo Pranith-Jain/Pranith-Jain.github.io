@@ -36,7 +36,16 @@ async function main() {
       if (!ref) continue;
       // First domain that defines an id wins (enterprise is the canonical one).
       if (!index[ref.external_id]) {
-        index[ref.external_id] = { id: o.id, col };
+        const entry = { id: o.id, col };
+        // Capture the technique's tactic (kill-chain phase) for Attack-Flow
+        // ordering. Only attack-pattern objects carry kill_chain_phases.
+        if (o.type === 'attack-pattern' && Array.isArray(o.kill_chain_phases)) {
+          const ph = o.kill_chain_phases.find(
+            (p) => p.kill_chain_name === 'mitre-attack' && typeof p.phase_name === 'string'
+          );
+          if (ph) entry.tac = ph.phase_name;
+        }
+        index[ref.external_id] = entry;
         total++;
       }
     }
@@ -49,8 +58,9 @@ async function main() {
  * Generated: ${new Date().toISOString()} · ${total} ATT&CK ids.
  *
  * col: 'e' Enterprise · 'i' ICS · 'm' Mobile (TAXII collection selector).
+ * tac: technique's MITRE ATT&CK tactic (kill-chain phase_name), techniques only.
  */
-export interface AttackRef { id: string; col: 'e' | 'i' | 'm' }
+export interface AttackRef { id: string; col: 'e' | 'i' | 'm'; tac?: string }
 export const ATTACK_ID_INDEX: Record<string, AttackRef> = `;
   writeFileSync(OUT, header + JSON.stringify(index) + ';\n');
   process.stdout.write(`Wrote ${total} ids → api/src/data/attack-id-index.ts (${(JSON.stringify(index).length / 1024).toFixed(0)} KB)\n`);
