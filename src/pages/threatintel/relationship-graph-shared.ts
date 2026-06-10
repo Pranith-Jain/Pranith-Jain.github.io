@@ -18,7 +18,11 @@ export type GraphNodeType =
   | 'victim'
   | 'c2_framework'
   | 'product'
-  | 'reference';
+  | 'reference'
+  | 'crypto_low'
+  | 'crypto_medium'
+  | 'crypto_high'
+  | 'crypto_critical';
 
 export interface GraphNodeData {
   id: string;
@@ -34,6 +38,7 @@ export interface GraphEdgeData {
   source: string;
   target: string;
   label: string;
+  data?: Record<string, unknown>;
 }
 
 export interface GraphResponse {
@@ -69,4 +74,8 @@ export const NODE_COLORS: Record<GraphNodeType, string> = {
   c2_framework: '#84cc16',
   product: '#6366f1',
   reference: '#94a3b8',
+  crypto_low: '#22c55e',
+  crypto_medium: '#eab308',
+  crypto_high: '#f97316',
+  crypto_critical: '#dc2626',
 };
