@@ -7,6 +7,7 @@ import { extractViaBridge } from './bridge';
 
 export * from './types';
 export { BridgeUnavailable } from './bridge';
+export { ImageTooLarge } from './image-ocr';
 
 /** Thrown when the uploaded file is outside the allow-list. Handler → 415. */
 export class UnsupportedFile extends Error {

@@ -2,7 +2,7 @@ import type { Context } from 'hono';
 import type { Env } from '../env';
 import type { ReportInput } from '../lib/stix-build';
 import { buildBundleFromReport, BundleBuildError } from './intel-bundle';
-import { extractText, sha256Hex, UnsupportedFile, BridgeUnavailable } from '../lib/file2txt';
+import { extractText, sha256Hex, UnsupportedFile, BridgeUnavailable, ImageTooLarge } from '../lib/file2txt';
 
 const MAX_FILE_BYTES = 10 * 1024 * 1024; // 10 MB own cap (multipart is exempt from the 256KB middleware)
 const VALID_TLP = new Set(['WHITE', 'AMBER']);
@@ -40,12 +40,23 @@ export async function reportIngestHandler(c: Context<{ Bindings: Env }>): Promis
     extracted = await extractText(bytes, file.type, file.name, c.env);
   } catch (err) {
     if (err instanceof UnsupportedFile) return c.json({ error: 'unsupported_file_type' }, 415);
+    if (err instanceof ImageTooLarge) {
+      return c.json(
+        {
+          error: 'image_too_large',
+          detail: 'image exceeds in-Worker OCR cap; configure FILE2TXT_BRIDGE_URL for larger images',
+        },
+        413
+      );
+    }
     if (err instanceof BridgeUnavailable) {
       return c.json(
         { error: 'bridge_not_configured', detail: 'PDF/DOCX ingestion requires FILE2TXT_BRIDGE_URL to be set' },
         503
       );
     }
+    // AI-vision / bridge failures land here — log for prod observability.
+    console.error('report/ingest extraction failed', err);
     return c.json({ error: 'extraction_failed', detail: 'bridge or OCR error' }, 502);
   }
 

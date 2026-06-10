@@ -16,6 +16,19 @@ export function bridgeConfigured(env: Env): boolean {
   return typeof env.FILE2TXT_BRIDGE_URL === 'string' && env.FILE2TXT_BRIDGE_URL.length > 0;
 }
 
+/** Strip control characters (code points < 0x20 and 0x7f) and cap length, so a
+ *  hostile upload filename can't poison the bridge's logs or header handling.
+ *  workerd already rejects CR/LF in header values; this is explicit defense. */
+function sanitizeFilename(filename: string): string {
+  let out = '';
+  for (const ch of filename) {
+    const code = ch.charCodeAt(0);
+    if (code >= 0x20 && code !== 0x7f) out += ch;
+    if (out.length >= 255) break;
+  }
+  return out;
+}
+
 /** POST the raw file to the self-hosted file2txt bridge and return its text. */
 export async function extractViaBridge(
   bytes: Uint8Array,
@@ -28,7 +41,7 @@ export async function extractViaBridge(
 
   const headers: Record<string, string> = {
     'Content-Type': contentType || 'application/octet-stream',
-    'X-Filename': filename,
+    'X-Filename': sanitizeFilename(filename || ''),
   };
   if (env.FILE2TXT_BRIDGE_TOKEN) headers.Authorization = `Bearer ${env.FILE2TXT_BRIDGE_TOKEN}`;
 

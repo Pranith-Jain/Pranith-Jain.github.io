@@ -26,7 +26,11 @@ function cap(text: string): { text: string; truncated: boolean } {
   return { text: text.slice(0, MAX_TEXT_LENGTH), truncated: true };
 }
 
-/** In-Worker extraction for the CPU-cheap formats. */
+/** In-Worker extraction for the CPU-cheap formats.
+ *  NOTE: this is text *extraction*, NOT HTML sanitization. The output is plain
+ *  text that flows into JSON (`view`) rendered via React JSX (auto-escaped).
+ *  Never feed this output into a `dangerouslySetInnerHTML`/`v-html`/`marked`
+ *  sink without DOMPurify — residual markup can survive malformed input. */
 export function extractTextOrHtml(bytes: Uint8Array, kind: 'text' | 'html'): ExtractResult {
   // Non-fatal decoding is the default; workers-types' TextDecoder ctor options
   // don't accept `fatal`, so omit the options bag.
