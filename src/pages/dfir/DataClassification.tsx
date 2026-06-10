@@ -177,7 +177,7 @@ export default function DataClassification(): JSX.Element {
             return (
               <div
                 key={t}
-                className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4"
+                className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4"
               >
                 <div className="flex flex-wrap items-baseline gap-2 mb-2">
                   <span
@@ -313,7 +313,7 @@ export default function DataClassification(): JSX.Element {
               return (
                 <div
                   key={d.id}
-                  className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900"
+                  className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1"
                 >
                   <button
                     onClick={() => setExpanded(isOpen ? null : d.id)}
@@ -454,7 +454,7 @@ export default function DataClassification(): JSX.Element {
 
       {/* ── Matrix ── */}
       {tab === 'matrix' && (
-        <div className="overflow-x-auto rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
+        <div className="overflow-x-auto rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1">
           <table className="w-full text-xs font-mono">
             <thead className="bg-slate-50 dark:bg-slate-950 text-left">
               <tr>
@@ -516,7 +516,7 @@ export default function DataClassification(): JSX.Element {
         </div>
       )}
 
-      <section className="mt-8 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
+      <section className="mt-8 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
         <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-3">
           References
         </h2>

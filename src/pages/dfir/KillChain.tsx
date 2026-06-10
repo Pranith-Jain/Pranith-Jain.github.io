@@ -16,7 +16,7 @@ function PhaseHeader({
   return (
     <button
       onClick={onToggle}
-      className="w-full flex items-center gap-3 text-left rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:border-brand-500/40 hover:bg-slate-50 dark:hover:bg-slate-800/60 px-4 py-3 transition-colors"
+      className="w-full flex items-center gap-3 text-left rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 hover:border-brand-500/40 hover:bg-slate-50 dark:hover:bg-slate-800/60 px-4 py-3 transition-colors"
       aria-expanded={expanded}
     >
       <span className="flex-none w-9 h-9 rounded-full bg-brand-500/10 text-brand-600 dark:text-brand-400 font-display font-bold flex items-center justify-center">
@@ -177,7 +177,7 @@ export default function KillChain(): JSX.Element {
         ))}
       </div>
 
-      <div className="mt-8 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
+      <div className="mt-8 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
         <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-3">
           References
         </h2>

@@ -151,7 +151,7 @@ export default function ActorOtxSweep({ actors, limit = 10 }: Props) {
   }, [actors, limit, running]);
 
   return (
-    <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
+    <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
       <div className="flex items-center justify-between gap-3 flex-wrap">
         <div>
           <h3 className="text-sm font-semibold inline-flex items-center gap-2">

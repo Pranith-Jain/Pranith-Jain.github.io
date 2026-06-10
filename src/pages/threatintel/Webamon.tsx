@@ -105,7 +105,7 @@ function riskColor(score: number | undefined): string {
 function FingerprintBadge({ value }: { value: string | undefined }) {
   if (!value || value === '4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945') return null;
   return (
-    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-mono bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">
+    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-mini font-mono bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">
       <Fingerprint size={10} />
       {value.substring(0, 12)}…
     </span>
@@ -131,11 +131,11 @@ function ResultRow({ result }: { result: WebamonResult }) {
         <div className="flex-shrink-0 text-slate-400">
           {expanded ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
         </div>
-        <div className="flex-1 min-w-0 grid grid-cols-12 gap-3 items-center text-[13px]">
+        <div className="flex-1 min-w-0 grid grid-cols-12 gap-3 items-center text-tool">
           <div className="col-span-3 font-mono text-brand-600 dark:text-brand-400 truncate" title={domain}>
             {domain}
           </div>
-          <div className="col-span-2 text-slate-700 dark:text-slate-300 truncate text-[12px]" title={result.page_title}>
+          <div className="col-span-2 text-slate-700 dark:text-slate-300 truncate text-meta" title={result.page_title}>
             {result.page_title ?? '—'}
           </div>
           <div className="col-span-1 font-mono font-semibold text-center">
@@ -145,7 +145,7 @@ function ResultRow({ result }: { result: WebamonResult }) {
               <span className="text-slate-400">—</span>
             )}
           </div>
-          <div className="col-span-2 text-slate-600 dark:text-slate-400 text-[12px] truncate">
+          <div className="col-span-2 text-slate-600 dark:text-slate-400 text-meta truncate">
             {result.tag ? (
               <span className="inline-flex items-center gap-1">
                 <Tag size={10} />
@@ -162,7 +162,7 @@ function ResultRow({ result }: { result: WebamonResult }) {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={(e) => e.stopPropagation()}
-                className="inline-flex items-center gap-1 text-[11px] text-slate-400 hover:text-brand-600 dark:hover:text-brand-400"
+                className="inline-flex items-center gap-1 text-mini text-slate-400 hover:text-brand-600 dark:hover:text-brand-400"
               >
                 <ExternalLink size={10} /> visit
               </a>
@@ -172,7 +172,7 @@ function ResultRow({ result }: { result: WebamonResult }) {
       </button>
       {expanded && (
         <div className="px-4 pb-4 pt-1 border-t border-slate-100 dark:border-slate-800">
-          <div className="grid grid-cols-2 gap-4 text-[13px] mt-3">
+          <div className="grid grid-cols-2 gap-4 text-tool mt-3">
             <div>
               <h4 className="font-semibold text-slate-700 dark:text-slate-300 mb-2 flex items-center gap-1.5">
                 <Shield size={13} /> Meta
@@ -181,7 +181,7 @@ function ResultRow({ result }: { result: WebamonResult }) {
                 {result.meta?.report_id && (
                   <div className="flex justify-between">
                     <span className="text-slate-500">Report ID</span>
-                    <span className="font-mono text-[11px] text-slate-700 dark:text-slate-300 truncate ml-2">
+                    <span className="font-mono text-mini text-slate-700 dark:text-slate-300 truncate ml-2">
                       {result.meta.report_id}
                     </span>
                   </div>
@@ -189,7 +189,7 @@ function ResultRow({ result }: { result: WebamonResult }) {
                 {result.meta?.submission_url && (
                   <div className="flex justify-between">
                     <span className="text-slate-500">Submission</span>
-                    <span className="font-mono text-[11px] text-slate-700 dark:text-slate-300 truncate ml-2">
+                    <span className="font-mono text-mini text-slate-700 dark:text-slate-300 truncate ml-2">
                       {result.meta.submission_url}
                     </span>
                   </div>
@@ -197,7 +197,7 @@ function ResultRow({ result }: { result: WebamonResult }) {
                 {result.meta?.submission_utc && (
                   <div className="flex justify-between">
                     <span className="text-slate-500">Submitted</span>
-                    <span className="font-mono text-[11px] text-slate-700 dark:text-slate-300 ml-2">
+                    <span className="font-mono text-mini text-slate-700 dark:text-slate-300 ml-2">
                       {result.meta.submission_utc}
                     </span>
                   </div>
@@ -205,7 +205,7 @@ function ResultRow({ result }: { result: WebamonResult }) {
                 {result.meta?.script_count !== undefined && (
                   <div className="flex justify-between">
                     <span className="text-slate-500">Scripts</span>
-                    <span className="font-mono text-[11px] text-slate-700 dark:text-slate-300 ml-2">
+                    <span className="font-mono text-mini text-slate-700 dark:text-slate-300 ml-2">
                       {result.meta.script_count}
                     </span>
                   </div>
@@ -213,7 +213,7 @@ function ResultRow({ result }: { result: WebamonResult }) {
                 {result.meta?.domain_count !== undefined && (
                   <div className="flex justify-between">
                     <span className="text-slate-500">Domains</span>
-                    <span className="font-mono text-[11px] text-slate-700 dark:text-slate-300 ml-2">
+                    <span className="font-mono text-mini text-slate-700 dark:text-slate-300 ml-2">
                       {result.meta.domain_count}
                     </span>
                   </div>
@@ -221,7 +221,7 @@ function ResultRow({ result }: { result: WebamonResult }) {
                 {result.meta?.request_count !== undefined && (
                   <div className="flex justify-between">
                     <span className="text-slate-500">Requests</span>
-                    <span className="font-mono text-[11px] text-slate-700 dark:text-slate-300 ml-2">
+                    <span className="font-mono text-mini text-slate-700 dark:text-slate-300 ml-2">
                       {result.meta.request_count}
                     </span>
                   </div>
@@ -241,11 +241,11 @@ function ResultRow({ result }: { result: WebamonResult }) {
                   ))}
                 </div>
               ) : (
-                <p className="text-slate-400 text-[12px]">No unique fingerprints</p>
+                <p className="text-slate-400 text-meta">No unique fingerprints</p>
               )}
             </div>
           </div>
-          <div className="mt-3 pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center gap-3 text-[11px] text-slate-400 font-mono">
+          <div className="mt-3 pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center gap-3 text-mini text-slate-400 font-mono">
             <span>Index: {result._index}</span>
             {result.sub_domain && <span>Subdomain: {result.sub_domain}</span>}
             {result.matched_fields && result.matched_fields.length > 0 && (
@@ -424,7 +424,7 @@ interface EntityResult {
 function JsonBlock({ data, label }: { data: Record<string, unknown>; label: string }) {
   const [open, setOpen] = useState(false);
   return (
-    <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden">
+    <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 overflow-hidden">
       <button
         onClick={() => setOpen(!open)}
         className="w-full flex items-center gap-2 px-4 py-3 text-left hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors"
@@ -434,11 +434,11 @@ function JsonBlock({ data, label }: { data: Record<string, unknown>; label: stri
         ) : (
           <ChevronRight size={14} className="text-slate-400" />
         )}
-        <span className="font-mono text-[13px] font-semibold text-slate-700 dark:text-slate-300">{label}</span>
-        <span className="text-[11px] text-slate-400 font-mono">{Object.keys(data).length} fields</span>
+        <span className="font-mono text-tool font-semibold text-slate-700 dark:text-slate-300">{label}</span>
+        <span className="text-mini text-slate-400 font-mono">{Object.keys(data).length} fields</span>
       </button>
       {open && (
-        <pre className="text-[11px] font-mono text-slate-600 dark:text-slate-400 bg-slate-50 dark:bg-slate-800/50 p-4 overflow-x-auto max-h-96">
+        <pre className="text-mini font-mono text-slate-600 dark:text-slate-400 bg-slate-50 dark:bg-slate-800/50 p-4 overflow-x-auto max-h-96">
           {JSON.stringify(data, null, 2)}
         </pre>
       )}
@@ -534,7 +534,7 @@ function SearchTab() {
                 setQuery(ex);
                 doSearch(ex, 0);
               }}
-              className="px-2.5 py-1 rounded-md text-[11px] font-mono bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:bg-brand-100 dark:hover:bg-brand-900/30 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+              className="px-2.5 py-1 rounded-md text-mini font-mono bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:bg-brand-100 dark:hover:bg-brand-900/30 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
             >
               {ex}
             </button>
@@ -568,7 +568,7 @@ function SearchTab() {
               </span>
             )}
           </div>
-          <div className="hidden sm:grid grid-cols-12 gap-3 px-7 py-2 text-[11px] font-semibold text-slate-400 uppercase tracking-wider font-mono">
+          <div className="hidden sm:grid grid-cols-12 gap-3 px-7 py-2 text-mini font-semibold text-slate-400 uppercase tracking-wider font-mono">
             <div className="col-span-3">Domain</div>
             <div className="col-span-2">Page Title</div>
             <div className="col-span-1 text-center">Risk</div>
@@ -737,7 +737,7 @@ function SandboxTab() {
               {result.report_id && (
                 <div>
                   <span className="text-slate-500">Report ID</span>
-                  <p className="text-brand-600 dark:text-brand-400 text-[12px] break-all">{result.report_id}</p>
+                  <p className="text-brand-600 dark:text-brand-400 text-meta break-all">{result.report_id}</p>
                 </div>
               )}
               {result.message && (
@@ -796,7 +796,7 @@ function SandboxTab() {
                           {r.certificate.map((c, i) => (
                             <div
                               key={i}
-                              className="rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 p-3 text-[11px] font-mono space-y-1"
+                              className="rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 p-3 text-mini font-mono space-y-1"
                             >
                               <div className="font-semibold text-slate-700 dark:text-slate-300">
                                 {c.domain_name ?? r['domain.name'] ?? '—'}
@@ -830,7 +830,7 @@ function SandboxTab() {
                           {r.server.map((s, i) => (
                             <div
                               key={i}
-                              className="rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 p-3 text-[11px] font-mono space-y-1"
+                              className="rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 p-3 text-mini font-mono space-y-1"
                             >
                               {s.ip && <div className="font-semibold text-slate-700 dark:text-slate-300">{s.ip}</div>}
                               {s.asn && <div className="text-slate-500 dark:text-slate-400">ASN: {s.asn}</div>}
@@ -858,7 +858,7 @@ function SandboxTab() {
                           <Cookie size={14} /> Cookies ({r.cookie.length})
                         </h3>
                         <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 overflow-hidden">
-                          <table className="w-full text-[10px] font-mono">
+                          <table className="w-full text-micro font-mono">
                             <thead>
                               <tr className="text-left text-slate-400 border-b border-slate-200 dark:border-slate-800">
                                 <th className="py-1 pr-2">Name</th>
@@ -900,12 +900,12 @@ function SandboxTab() {
                           {r.technology.map((t, i) => (
                             <span
                               key={i}
-                              className="inline-flex items-center gap-1 px-2 py-1 rounded bg-slate-100 dark:bg-slate-800 text-[11px] font-mono text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700"
+                              className="inline-flex items-center gap-1 px-2 py-1 rounded bg-slate-100 dark:bg-slate-800 text-mini font-mono text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700"
                             >
                               <Tag size={10} />
                               {t.name}
                               {t.version && <span className="text-slate-400">v{t.version}</span>}
-                              {t.category && <span className="text-slate-400 text-[9px]">({t.category})</span>}
+                              {t.category && <span className="text-slate-400 text-micro">({t.category})</span>}
                             </span>
                           ))}
                         </div>
@@ -919,7 +919,7 @@ function SandboxTab() {
                           <HardDrive size={14} /> Resources ({r.resource.length})
                         </h3>
                         <div className="rounded-lg border border-slate-200 dark:border-slate-800 overflow-hidden">
-                          <table className="w-full text-[10px] font-mono">
+                          <table className="w-full text-micro font-mono">
                             <thead>
                               <tr className="text-left text-slate-400 border-b border-slate-200 dark:border-slate-800">
                                 <th className="py-1 pr-3">SHA256</th>
@@ -957,7 +957,7 @@ function SandboxTab() {
                         </h3>
                         <div className="space-y-1 max-h-48 overflow-y-auto">
                           {r.page_links.map((l, i) => (
-                            <div key={i} className="text-[11px] font-mono text-slate-600 dark:text-slate-400 break-all">
+                            <div key={i} className="text-mini font-mono text-slate-600 dark:text-slate-400 break-all">
                               {l}
                             </div>
                           ))}
@@ -973,7 +973,7 @@ function SandboxTab() {
                         </h3>
                         <div className="space-y-1 max-h-48 overflow-y-auto">
                           {r.page_scripts.map((s, i) => (
-                            <div key={i} className="text-[11px] font-mono text-slate-600 dark:text-slate-400 break-all">
+                            <div key={i} className="text-mini font-mono text-slate-600 dark:text-slate-400 break-all">
                               {s}
                             </div>
                           ))}
@@ -987,7 +987,7 @@ function SandboxTab() {
                         <h3 className="font-display font-semibold text-sm mb-2 flex items-center gap-1.5 text-slate-700 dark:text-slate-300">
                           <Monitor size={14} /> Monitoring
                         </h3>
-                        <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 p-3 text-[11px] font-mono space-y-1">
+                        <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 p-3 text-mini font-mono space-y-1">
                           {r.monitor.map((m, i) => (
                             <div key={i} className="flex items-center gap-2 text-slate-600 dark:text-slate-400">
                               <span className="truncate">{m.url ?? '—'}</span>
@@ -1014,12 +1014,12 @@ function SandboxTab() {
                             </div>
                           )}
                           {r.dom.description && (
-                            <div className="px-3 py-2 text-[11px] text-slate-600 dark:text-slate-400 border-b border-slate-100 dark:border-slate-800">
+                            <div className="px-3 py-2 text-mini text-slate-600 dark:text-slate-400 border-b border-slate-100 dark:border-slate-800">
                               Description: {r.dom.description}
                             </div>
                           )}
                           {r.dom.keywords && (
-                            <div className="px-3 py-2 text-[11px] text-slate-600 dark:text-slate-400 border-b border-slate-100 dark:border-slate-800">
+                            <div className="px-3 py-2 text-mini text-slate-600 dark:text-slate-400 border-b border-slate-100 dark:border-slate-800">
                               Keywords: {r.dom.keywords}
                             </div>
                           )}
@@ -1036,7 +1036,7 @@ function SandboxTab() {
                           <h3 className="font-display font-semibold text-sm mb-2 flex items-center gap-1.5 text-slate-700 dark:text-slate-300">
                             <Fingerprint size={14} /> Fingerprint Data
                           </h3>
-                          <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 p-3 text-[10px] font-mono overflow-x-auto">
+                          <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 p-3 text-micro font-mono overflow-x-auto">
                             <pre>{JSON.stringify(r.fingerprint, null, 2)}</pre>
                           </div>
                         </section>
@@ -1155,7 +1155,7 @@ function InfraTab() {
     <div>
       <form onSubmit={doLookup} className="mb-6">
         <div className="flex gap-2 max-w-3xl">
-          <div className="flex rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden">
+          <div className="flex rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 overflow-hidden">
             {MODES.map((m) => {
               const Icon = m.icon;
               const active = mode === m.key;
@@ -1164,7 +1164,7 @@ function InfraTab() {
                   key={m.key}
                   type="button"
                   onClick={() => setMode(m.key)}
-                  className={`px-3 py-2.5 text-[12px] font-mono flex items-center gap-1.5 transition-colors ${
+                  className={`px-3 py-2.5 text-meta font-mono flex items-center gap-1.5 transition-colors ${
                     active
                       ? 'bg-brand-600 dark:bg-brand-500 text-white'
                       : 'text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'
@@ -1186,7 +1186,7 @@ function InfraTab() {
           <button
             type="submit"
             disabled={loading || !query.trim()}
-            className="px-5 py-2.5 rounded-lg bg-brand-600 dark:bg-brand-500 text-white text-[13px] font-mono font-semibold hover:bg-brand-700 dark:hover:bg-brand-400 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center gap-2"
+            className="px-5 py-2.5 rounded-lg bg-brand-600 dark:bg-brand-500 text-white text-tool font-mono font-semibold hover:bg-brand-700 dark:hover:bg-brand-400 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center gap-2"
           >
             <Search size={14} /> Lookup
           </button>
@@ -1273,7 +1273,7 @@ export default function Webamon(): JSX.Element {
               key={t.key}
               type="button"
               onClick={() => setTab(t.key)}
-              className={`flex items-center gap-2 px-4 py-3 text-[13px] font-mono font-semibold border-b-2 transition-colors ${
+              className={`flex items-center gap-2 px-4 py-3 text-tool font-mono font-semibold border-b-2 transition-colors ${
                 active
                   ? 'border-brand-600 dark:border-brand-400 text-brand-600 dark:text-brand-400'
                   : 'border-transparent text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'

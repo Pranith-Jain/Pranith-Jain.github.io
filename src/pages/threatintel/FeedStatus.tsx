@@ -144,7 +144,7 @@ export default function FeedStatus(): JSX.Element {
         </p>
       </div>
 
-      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6 flex items-center justify-between gap-3 flex-wrap">
+      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6 flex items-center justify-between gap-3 flex-wrap">
         {data ? (
           <div className="flex items-center gap-3 flex-wrap">
             <span
@@ -202,7 +202,7 @@ export default function FeedStatus(): JSX.Element {
               return (
                 <li
                   key={r.id}
-                  className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3"
+                  className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-3"
                 >
                   <div className="flex items-baseline justify-between gap-2 mb-1 flex-wrap">
                     <Link

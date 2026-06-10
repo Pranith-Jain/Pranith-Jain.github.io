@@ -174,7 +174,7 @@ const KIND_PILL: Record<DetIndicator['kind'], string> = {
 function DetectionCard({ d }: { d: Detection }): JSX.Element {
   const [open, setOpen] = useState(false);
   return (
-    <li className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
+    <li className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1">
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
@@ -469,7 +469,7 @@ export default function Detections(): JSX.Element {
           );
         })()}
 
-      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-4">
+      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-4">
         <div className="flex items-center gap-3">
           <div className="relative flex-1">
             <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />

@@ -14,7 +14,7 @@ export function ActorCard({ actor }: { actor: ThreatActor }): JSX.Element {
   return (
     <Link
       to={`/threatintel/actors/${actor.slug}`}
-      className="block rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 hover:border-brand-500/40 transition-colors"
+      className="block rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-5 hover:border-brand-500/40 transition-colors"
     >
       <div className="flex items-start justify-between mb-2">
         <div>

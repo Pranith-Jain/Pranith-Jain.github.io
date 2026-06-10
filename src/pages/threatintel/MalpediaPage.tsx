@@ -67,7 +67,7 @@ export default function MalpediaPage(): JSX.Element {
         </a>{' '}
         — search actors and malware families for descriptions, associated malware, and references.
       </p>
-      <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+      <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-5">
         <div className="flex gap-3 mb-4">
           {(['search', 'actor', 'family'] as const).map((m) => (
             <button
@@ -138,11 +138,11 @@ export default function MalpediaPage(): JSX.Element {
                   return (
                     <div
                       key={String(a.actor_name ?? a.name ?? '')}
-                      className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3"
+                      className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-3"
                     >
                       <div className="font-display font-semibold text-sm">{String(a.actor_name ?? a.name ?? '?')}</div>
                       {desc && (
-                        <p className="text-[11px] font-mono text-slate-500 mt-1 line-clamp-2">{desc.slice(0, 200)}</p>
+                        <p className="text-mini font-mono text-slate-500 mt-1 line-clamp-2">{desc.slice(0, 200)}</p>
                       )}
                     </div>
                   );
@@ -161,16 +161,16 @@ export default function MalpediaPage(): JSX.Element {
                   return (
                     <div
                       key={String(f.family_name ?? f.common_name ?? '')}
-                      className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3"
+                      className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-3"
                     >
                       <div className="font-display font-semibold text-sm">
                         {String(f.family_name ?? f.common_name ?? '?')}
                       </div>
                       {String(f.common_name) && String(f.common_name) !== String(f.family_name) && (
-                        <p className="text-[11px] font-mono text-slate-500">aka {String(f.common_name)}</p>
+                        <p className="text-mini font-mono text-slate-500">aka {String(f.common_name)}</p>
                       )}
                       {desc && (
-                        <p className="text-[11px] font-mono text-slate-500 mt-1 line-clamp-2">{desc.slice(0, 200)}</p>
+                        <p className="text-mini font-mono text-slate-500 mt-1 line-clamp-2">{desc.slice(0, 200)}</p>
                       )}
                     </div>
                   );
@@ -186,7 +186,7 @@ export default function MalpediaPage(): JSX.Element {
 
       {/* Actor / Family detail */}
       {result && mode !== 'search' && result.data && (
-        <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+        <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-5">
           <div className="flex items-center gap-3 mb-4">
             {mode === 'actor' ? (
               <Users size={20} className="text-brand-600" />
@@ -212,14 +212,12 @@ export default function MalpediaPage(): JSX.Element {
 
           {Array.isArray(result.data.associated_actors) && result.data.associated_actors.length > 0 && (
             <div className="mb-3">
-              <h3 className="text-[11px] font-mono uppercase tracking-wider text-slate-500 mb-1.5">
-                Associated actors
-              </h3>
+              <h3 className="text-mini font-mono uppercase tracking-wider text-slate-500 mb-1.5">Associated actors</h3>
               <div className="flex flex-wrap gap-1.5">
                 {(result.data.associated_actors as string[]).map((a: string) => (
                   <span
                     key={a}
-                    className="text-[11px] font-mono px-1.5 py-0.5 rounded border border-rose-500/30 bg-rose-500/5 text-rose-700 dark:text-rose-300"
+                    className="text-mini font-mono px-1.5 py-0.5 rounded border border-rose-500/30 bg-rose-500/5 text-rose-700 dark:text-rose-300"
                   >
                     {a}
                   </span>
@@ -230,7 +228,7 @@ export default function MalpediaPage(): JSX.Element {
 
           {Array.isArray(result.data.references) && result.data.references.length > 0 && (
             <div className="mt-4">
-              <h3 className="text-[11px] font-mono uppercase tracking-wider text-slate-500 mb-1.5">References</h3>
+              <h3 className="text-mini font-mono uppercase tracking-wider text-slate-500 mb-1.5">References</h3>
               <ul className="space-y-1">
                 {(result.data.references as string[]).slice(0, 20).map((ref: string) => (
                   <li key={ref}>
@@ -238,7 +236,7 @@ export default function MalpediaPage(): JSX.Element {
                       href={sanitizeUrl(ref) || undefined}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-[12px] font-mono text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1 break-all"
+                      className="text-meta font-mono text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1 break-all"
                     >
                       {ref} <ExternalLink size={10} />
                     </a>

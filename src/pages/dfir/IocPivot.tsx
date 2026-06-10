@@ -240,7 +240,7 @@ export default function IocPivot(): JSX.Element {
 
       {active && (
         <>
-          <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3 mb-4">
+          <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-3 mb-4">
             <svg viewBox={`0 0 ${W} ${W}`} className="w-full h-auto" role="img" aria-label="IOC pivot graph">
               {/* edges: centre → sources */}
               {sources.map((s, i) => {
@@ -354,7 +354,7 @@ export default function IocPivot(): JSX.Element {
           </div>
 
           {pivots.length > 0 && (
-            <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
+            <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
               <div className="flex items-center justify-between mb-2 gap-2 flex-wrap">
                 <h3 className="text-mini font-mono uppercase tracking-wider text-slate-500">
                   Pivot indicators ({pivots.length})

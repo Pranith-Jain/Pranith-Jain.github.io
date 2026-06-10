@@ -140,7 +140,7 @@ export default function BloomFilter(): JSX.Element {
       </div>
 
       {/* How it works */}
-      <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5 mb-6">
+      <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5 mb-6">
         <h2 className="font-display font-bold text-sm mb-3">How It Works</h2>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div className="flex items-start gap-2.5">
@@ -170,7 +170,7 @@ export default function BloomFilter(): JSX.Element {
       </div>
 
       {/* Filter Status */}
-      <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5 mb-6">
+      <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5 mb-6">
         <div className="flex items-center justify-between mb-4">
           <h2 className="font-display font-bold text-sm flex items-center gap-2">
             <Database size={14} className="text-brand-600 dark:text-brand-400" /> Filter Status
@@ -219,7 +219,7 @@ export default function BloomFilter(): JSX.Element {
       </div>
 
       {/* Lookup */}
-      <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5">
+      <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5">
         <h2 className="font-display font-bold text-sm mb-4 flex items-center gap-2">
           <Search size={14} className="text-brand-600 dark:text-brand-400" /> Quick Lookup
         </h2>

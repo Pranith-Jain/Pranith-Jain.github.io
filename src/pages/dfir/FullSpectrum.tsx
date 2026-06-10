@@ -470,7 +470,7 @@ export default function FullSpectrum(): JSX.Element {
       </form>
 
       {hasResults && (
-        <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6">
+        <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
           <div className="flex items-baseline justify-between gap-2">
             <h2 className="font-display font-bold text-xl truncate">{state.domain}</h2>
             <div className="flex items-center gap-2 shrink-0">

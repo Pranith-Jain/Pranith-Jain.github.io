@@ -183,7 +183,7 @@ export default function ThreatGraph(): JSX.Element {
         </div>
       )}
       {searchType === 'lookup' && (
-        <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5 mb-6">
+        <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5 mb-6">
           <div className="flex gap-2">
             <input
               type="text"
@@ -225,7 +225,7 @@ export default function ThreatGraph(): JSX.Element {
             />
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5">
+            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5">
               <h3 className="font-display font-bold text-sm mb-3">Node Types</h3>
               <div className="space-y-2">
                 {stats.node_types.map((nt) => (
@@ -238,7 +238,7 @@ export default function ThreatGraph(): JSX.Element {
                 ))}
               </div>
             </div>
-            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5">
+            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5">
               <h3 className="font-display font-bold text-sm mb-3">Relationships</h3>
               <div className="space-y-2">
                 {stats.relationship_types.map((rt) => (
@@ -255,7 +255,7 @@ export default function ThreatGraph(): JSX.Element {
       {searchType === 'lookup' && searchResult && (
         <div className="space-y-5 animate-fade-in-up">
           {searchResult.found && searchResult.node ? (
-            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5">
+            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5">
               <div className="flex items-center justify-between mb-4">
                 <div>
                   <h2 className="text-lg font-display font-bold font-mono">{searchResult.node.value}</h2>
@@ -307,7 +307,7 @@ export default function ThreatGraph(): JSX.Element {
             communities.map((c) => (
               <div
                 key={c.id}
-                className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5"
+                className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5"
               >
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center gap-2">
@@ -359,7 +359,7 @@ export default function ThreatGraph(): JSX.Element {
 
 function StatCard({ label, value, icon }: { label: string; value: string | number; icon?: React.ReactNode }) {
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-4">
+    <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-4">
       <div className="flex items-center gap-2 mb-1.5">
         {icon && <span className="text-brand-600 dark:text-brand-400">{icon}</span>}
         <span className="text-micro font-mono uppercase tracking-wider text-slate-400">{label}</span>

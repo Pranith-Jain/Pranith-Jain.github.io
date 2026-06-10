@@ -92,7 +92,7 @@ export function QuickActions({
             key={a.to}
             to={a.to}
             style={{ animationDelay: `${i * 40}ms` }}
-            className={`qa-tile group relative flex items-start gap-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-3.5 transition-all duration-150 motion-safe:hover:-translate-y-0.5 hover:bg-slate-50 dark:hover:bg-slate-900 focus:outline-none focus-visible:ring-2 ${accent.border} ${accent.shadow} ${accent.ring}`}
+            className={`qa-tile group relative flex items-start gap-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-3.5 transition-all duration-150 motion-safe:hover:-translate-y-0.5 hover:bg-slate-50 dark:hover:bg-slate-900 focus:outline-none focus-visible:ring-2 ${accent.border} ${accent.shadow} ${accent.ring}`}
           >
             <span
               className={`grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-slate-100/80 dark:bg-slate-800/60 ${accent.iconBg} ${accentClass} transition-colors`}

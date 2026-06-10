@@ -66,7 +66,7 @@ export default function QuickCveLookup() {
   };
 
   return (
-    <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
+    <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
       <h4 className="font-semibold text-sm mb-3 flex items-center gap-2">
         <BookText size={14} className="text-brand-600 dark:text-brand-400" />
         CVE Lookup

@@ -362,7 +362,7 @@ export default function RuleConverter(): JSX.Element {
           />
         </section>
 
-        <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 min-h-[12rem]">
+        <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 min-h-[12rem]">
           <div className="flex items-center justify-between mb-2">
             <h3 className="font-display font-semibold text-sm">
               {FORMAT_LABELS[to]}
@@ -484,7 +484,7 @@ export default function RuleConverter(): JSX.Element {
         </section>
       )}
 
-      <section className="mt-6 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
+      <section className="mt-6 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
         <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-3">
           See also
         </h2>

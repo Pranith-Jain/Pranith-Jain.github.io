@@ -102,7 +102,7 @@ export default function DarkWebOsintTools(): JSX.Element {
       }
       headerExtra={
         <div className="space-y-6">
-          <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
+          <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
             <div className="relative">
               <Search
                 size={16}
@@ -120,9 +120,9 @@ export default function DarkWebOsintTools(): JSX.Element {
             </div>
           </section>
 
-          <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
+          <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
             <div className="flex flex-wrap items-center gap-1.5">
-              <span className="text-[11px] font-mono text-slate-500 mr-1">categories:</span>
+              <span className="text-mini font-mono text-slate-500 mr-1">categories:</span>
               {ALL_CATS.map((c) => {
                 const count = catCounts.get(c) ?? 0;
                 const active = activeCats.has(c);
@@ -132,7 +132,7 @@ export default function DarkWebOsintTools(): JSX.Element {
                     key={c}
                     type="button"
                     onClick={() => toggleCat(c)}
-                    className={`text-[11px] font-mono px-2 py-1 rounded border ${cls} ${count === 0 ? 'opacity-30' : ''}`}
+                    className={`text-mini font-mono px-2 py-1 rounded border ${cls} ${count === 0 ? 'opacity-30' : ''}`}
                     title={CATEGORY_BLURB[c]}
                     disabled={count === 0 && !active}
                   >
@@ -144,7 +144,7 @@ export default function DarkWebOsintTools(): JSX.Element {
                 <button
                   type="button"
                   onClick={clearAll}
-                  className="sm:ml-auto text-[11px] font-mono text-brand-600 dark:text-brand-400 hover:underline"
+                  className="sm:ml-auto text-mini font-mono text-brand-600 dark:text-brand-400 hover:underline"
                 >
                   clear filters
                 </button>
@@ -154,7 +154,7 @@ export default function DarkWebOsintTools(): JSX.Element {
         </div>
       }
     >
-      <p className="text-[11px] font-mono text-slate-500 dark:text-slate-400 mb-4">
+      <p className="text-mini font-mono text-slate-500 dark:text-slate-400 mb-4">
         Showing {filtered.length} of {TOOLS.length}
       </p>
 
@@ -162,7 +162,7 @@ export default function DarkWebOsintTools(): JSX.Element {
         {filtered.map((t) => (
           <li
             key={t.id}
-            className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4"
+            className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4"
           >
             <div className="flex items-baseline justify-between gap-2 mb-1.5">
               <a
@@ -174,26 +174,26 @@ export default function DarkWebOsintTools(): JSX.Element {
                 {t.name} <ExternalLink size={12} className="opacity-60" />
               </a>
               <span
-                className={`text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border shrink-0 ${CATEGORY_PILL[t.category]}`}
+                className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border shrink-0 ${CATEGORY_PILL[t.category]}`}
               >
                 {CATEGORY_LABELS[t.category]}
               </span>
             </div>
             {t.badge && (
               <div className="mb-1.5">
-                <span className="text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded bg-brand-500/10 text-brand-700 dark:text-brand-300 border border-brand-500/30 inline-flex items-center gap-1">
+                <span className="text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded bg-brand-500/10 text-brand-700 dark:text-brand-300 border border-brand-500/30 inline-flex items-center gap-1">
                   <Star size={9} /> {t.badge}
                 </span>
               </div>
             )}
-            <p className="text-[12px] font-mono text-slate-600 dark:text-slate-400 leading-relaxed mb-2">
+            <p className="text-meta font-mono text-slate-600 dark:text-slate-400 leading-relaxed mb-2">
               {t.description}
             </p>
             <div className="flex flex-wrap items-center gap-1.5">
               <button
                 type="button"
                 onClick={() => toggleCat(t.category)}
-                className={`text-[9px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${CATEGORY_PILL[t.category]}`}
+                className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${CATEGORY_PILL[t.category]}`}
                 title={`Filter by ${CATEGORY_LABELS[t.category]}`}
               >
                 {CATEGORY_LABELS[t.category]}
@@ -203,7 +203,7 @@ export default function DarkWebOsintTools(): JSX.Element {
                   href={sanitizeUrl(t.source_url) || undefined}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="sm:ml-auto inline-flex items-center gap-1 text-[10px] font-mono text-slate-500 hover:text-brand-600 dark:hover:text-brand-400"
+                  className="sm:ml-auto inline-flex items-center gap-1 text-micro font-mono text-slate-500 hover:text-brand-600 dark:hover:text-brand-400"
                   title="Source repository"
                 >
                   <Github size={10} /> source

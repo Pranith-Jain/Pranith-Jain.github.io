@@ -197,7 +197,7 @@ export default function VictimReleaks(): JSX.Element {
       </div>
 
       {data && (
-        <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-4 flex items-center justify-between gap-3 flex-wrap">
+        <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-4 flex items-center justify-between gap-3 flex-wrap">
           <div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-4 text-meta font-mono">
             <span>
               <span className="text-slate-500">groups scanned</span>{' '}
@@ -295,7 +295,7 @@ export default function VictimReleaks(): JSX.Element {
             </div>
 
             {/* Individual rows — demoted: collapsed, behind a toggle, no longer the headline */}
-            <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
+            <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1">
               <button
                 type="button"
                 onClick={() => setShowRows((s) => !s)}
@@ -425,7 +425,7 @@ export default function VictimReleaks(): JSX.Element {
 
 function Panel({ title, sub, children }: { title: string; sub: string; children: React.ReactNode }): JSX.Element {
   return (
-    <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
+    <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
       <h3 className="font-display font-semibold text-sm">{title}</h3>
       <p className="text-mini font-mono text-slate-500 mb-3">{sub}</p>
       {children}

@@ -267,7 +267,7 @@ export default function EmailReputation(): JSX.Element {
 
       {result && (
         <div className="space-y-4">
-          <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
+          <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
             <div className="flex items-baseline justify-between mb-3">
               <h2 className="font-display font-bold text-xl">{result.domain}</h2>
               <span
@@ -302,7 +302,7 @@ export default function EmailReputation(): JSX.Element {
           </div>
 
           {result.emailRep && (
-            <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
+            <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
               <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-3 inline-flex items-center gap-2">
                 <Mail size={12} aria-hidden="true" /> Address reputation (emailrep.io){' '}
                 <span className="font-normal text-slate-500 normal-case">· {result.emailRep.email}</span>
@@ -367,7 +367,7 @@ export default function EmailReputation(): JSX.Element {
           )}
 
           {result.domainBl.length > 0 && (
-            <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
+            <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
               <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-3 inline-flex items-center gap-2">
                 <Globe size={12} aria-hidden="true" /> Domain blacklist status ({result.domainBl.length} sources)
               </h3>
@@ -388,7 +388,7 @@ export default function EmailReputation(): JSX.Element {
             return (
               <section
                 key={ip}
-                className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4"
+                className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4"
               >
                 <div className="flex items-baseline justify-between gap-2 mb-3">
                   <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono inline-flex items-center gap-2">

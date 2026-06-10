@@ -278,7 +278,7 @@ export default function InsiderThreatMatrix(): JSX.Element {
             </div>
           </div>
           {search && (
-            <p className="text-[11px] font-mono text-slate-500 mt-4">
+            <p className="text-mini font-mono text-slate-500 mt-4">
               {results} technique{results === 1 ? '' : 's'} match &quot;{search}&quot;
             </p>
           )}
@@ -291,7 +291,7 @@ export default function InsiderThreatMatrix(): JSX.Element {
           return (
             <div
               key={cat.id}
-              className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden"
+              className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 overflow-hidden"
             >
               <button
                 onClick={() => toggle(cat.id)}
@@ -300,7 +300,7 @@ export default function InsiderThreatMatrix(): JSX.Element {
                 <div className="flex items-center gap-3">
                   <span className={`text-xs font-mono font-bold px-2 py-1 rounded ${cat.color}`}>{cat.id}</span>
                   <span className="font-display font-bold text-base">{cat.name}</span>
-                  <span className="text-[11px] font-mono text-slate-400">{cat.techniques.length}</span>
+                  <span className="text-mini font-mono text-slate-400">{cat.techniques.length}</span>
                 </div>
                 {open ? (
                   <ChevronDown size={16} className="text-slate-400" />
@@ -321,7 +321,7 @@ export default function InsiderThreatMatrix(): JSX.Element {
                         className="inline-flex items-center gap-1.5 text-xs font-mono px-2.5 py-1.5 rounded-full border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
                         title={`View on Insider Threat Matrix — ${t.name}`}
                       >
-                        <span className="text-[10px] text-slate-400">{t.id}</span>
+                        <span className="text-micro text-slate-400">{t.id}</span>
                         {t.name}
                         <ExternalLink size={10} className="text-slate-400" />
                       </a>
@@ -334,7 +334,7 @@ export default function InsiderThreatMatrix(): JSX.Element {
         })}
       </div>
 
-      <p className="mt-8 text-[11px] font-mono text-slate-500 text-center">
+      <p className="mt-8 text-mini font-mono text-slate-500 text-center">
         Data sourced from{' '}
         <a
           href="https://insiderthreatmatrix.org"

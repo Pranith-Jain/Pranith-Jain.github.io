@@ -125,7 +125,7 @@ function CredentialsTab(): JSX.Element {
               ].map((s) => (
                 <div
                   key={s.label}
-                  className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4"
+                  className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4"
                 >
                   <div className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-1">{s.label}</div>
                   <div className="text-2xl font-display font-bold tabular-nums">

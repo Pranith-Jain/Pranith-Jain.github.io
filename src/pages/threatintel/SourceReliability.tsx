@@ -76,7 +76,7 @@ export default function SourceReliability(): JSX.Element {
           return (
             <div
               key={s.id}
-              className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-4"
+              className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-4"
             >
               <div className="flex items-start gap-3">
                 <span

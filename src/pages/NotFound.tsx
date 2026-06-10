@@ -116,7 +116,7 @@ export default function NotFound(): JSX.Element {
   }, []);
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-6 py-10 sm:py-16 text-slate-900 dark:text-slate-100">
+    <div className="max-w-5xl mx-auto text-slate-900 dark:text-slate-100">
       <div className="animate-fade-in-up text-center">
         <div className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 mb-3">
           {moved ? '301 · Moved' : '404 · Not Found'}

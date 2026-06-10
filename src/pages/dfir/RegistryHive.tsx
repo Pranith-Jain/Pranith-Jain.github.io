@@ -229,7 +229,7 @@ export default function RegistryHive(): JSX.Element {
       {err && <p className="mt-4 font-mono text-sm text-rose-600 dark:text-rose-400">{err}</p>}
 
       {root && (
-        <div className="mt-6 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3 overflow-auto max-h-[70vh]">
+        <div className="mt-6 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-3 overflow-auto max-h-[70vh]">
           <Node k={root} depth={0} />
         </div>
       )}

@@ -397,7 +397,7 @@ function LandscapeReportView({ briefing }: { briefing: LandscapeReport }): JSX.E
   return (
     <>
       {/* Landscape KPI bar */}
-      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-8">
+      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-8">
         <div className="flex flex-wrap items-center justify-around gap-6">
           <StatPill label="victims" value={stats.ransomware_victims} accent="text-rose-600 dark:text-rose-400" />
           <StatPill label="actors" value={stats.top_groups} accent="text-violet-600 dark:text-violet-400" />
@@ -667,7 +667,7 @@ export default function BriefingDetail(): JSX.Element {
 
       {/* Stats bar — daily/weekly only; landscape has its own stats in LandscapeReportView. */}
       {briefing.type !== 'landscape' && (
-        <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-8">
+        <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-8">
           <div className="flex flex-wrap items-center justify-around gap-6">
             <StatPill label="findings" value={stats.findings} />
             <StatPill label="sections" value={stats.sections} />

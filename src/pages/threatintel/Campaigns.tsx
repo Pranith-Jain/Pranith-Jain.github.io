@@ -133,7 +133,7 @@ export default function Campaigns(): JSX.Element {
                 </Link>
                 <div className="flex items-center gap-2 shrink-0">
                   <span
-                    className={`text-[10px] font-mono px-1.5 py-0.5 rounded border ${CONFIDENCE_COLOR[it.confidence]}`}
+                    className={`text-micro font-mono px-1.5 py-0.5 rounded border ${CONFIDENCE_COLOR[it.confidence]}`}
                   >
                     {it.confidence}
                   </span>
@@ -147,7 +147,7 @@ export default function Campaigns(): JSX.Element {
                   </button>
                 </div>
               </div>
-              <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] font-mono text-slate-500">
+              <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-mini font-mono text-slate-500">
                 {it.actor && (
                   <span>
                     actor: <span className="text-slate-700 dark:text-slate-300">{it.actor}</span>

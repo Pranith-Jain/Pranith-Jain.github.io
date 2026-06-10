@@ -67,7 +67,7 @@ export default function CrossCampaignCorrelation(): JSX.Element {
         {correlations.map((c, i) => (
           <div
             key={i}
-            className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5"
+            className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5"
           >
             <div className="flex items-center justify-between mb-3">
               <div className="flex items-center gap-2">
@@ -76,9 +76,9 @@ export default function CrossCampaignCorrelation(): JSX.Element {
                 <span className="text-sm font-mono font-medium">{c.campaign_b}</span>
               </div>
               <div className="flex items-center gap-2">
-                <span className="text-[10px] font-mono text-slate-400">{c.confidence}%</span>
+                <span className="text-micro font-mono text-slate-400">{c.confidence}%</span>
                 <span
-                  className={`text-[10px] font-mono px-1.5 py-0.5 rounded ${CONFIDENCE_BADGE[c.confidence >= 70 ? 'high' : c.confidence >= 40 ? 'medium' : 'low']}`}
+                  className={`text-micro font-mono px-1.5 py-0.5 rounded ${CONFIDENCE_BADGE[c.confidence >= 70 ? 'high' : c.confidence >= 40 ? 'medium' : 'low']}`}
                 >
                   {c.relationship}
                 </span>
@@ -86,34 +86,34 @@ export default function CrossCampaignCorrelation(): JSX.Element {
             </div>
             {c.shared_indicators.length > 0 && (
               <div className="mb-2">
-                <div className="text-[10px] font-mono uppercase tracking-wider text-slate-400 mb-1">
+                <div className="text-micro font-mono uppercase tracking-wider text-slate-400 mb-1">
                   Shared Indicators
                 </div>
                 <div className="flex flex-wrap gap-1">
                   {c.shared_indicators.slice(0, 5).map((ind, j) => (
                     <span
                       key={j}
-                      className="text-[10px] font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-700 text-slate-500"
+                      className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-700 text-slate-500"
                     >
                       {ind}
                     </span>
                   ))}
                   {c.shared_indicators.length > 5 && (
-                    <span className="text-[10px] text-slate-400">+{c.shared_indicators.length - 5}</span>
+                    <span className="text-micro text-slate-400">+{c.shared_indicators.length - 5}</span>
                   )}
                 </div>
               </div>
             )}
             {c.shared_techniques.length > 0 && (
               <div>
-                <div className="text-[10px] font-mono uppercase tracking-wider text-slate-400 mb-1">
+                <div className="text-micro font-mono uppercase tracking-wider text-slate-400 mb-1">
                   Shared Techniques
                 </div>
                 <div className="flex flex-wrap gap-1">
                   {c.shared_techniques.map((t, j) => (
                     <span
                       key={j}
-                      className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300"
+                      className="text-micro font-mono px-1.5 py-0.5 rounded bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300"
                     >
                       {t}
                     </span>

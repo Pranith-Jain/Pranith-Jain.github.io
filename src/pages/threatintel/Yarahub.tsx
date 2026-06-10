@@ -147,7 +147,7 @@ export default function Yarahub(): JSX.Element {
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Search by rule name, family, or author (e.g. MALWARE_Win_Neshta, emotet, trickbot)"
-                className="w-full px-4 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg font-mono text-[13px] text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+                className="w-full px-4 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg font-mono text-tool text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
               />
             </div>
             <button
@@ -165,14 +165,14 @@ export default function Yarahub(): JSX.Element {
       onRetry={() => void fetchRules()}
     >
       {loading && !error && (
-        <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-8 text-center">
+        <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-8 text-center">
           <Loader2 size={20} className="animate-spin mx-auto text-slate-400 mb-2" />
           <p className="text-xs font-mono text-slate-500">Fetching YARA rules from YARAhub…</p>
         </div>
       )}
 
       {!loading && !error && filtered.length === 0 && (
-        <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-12 text-center">
+        <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-12 text-center">
           <Search size={32} className="mx-auto text-slate-300 dark:text-slate-700 mb-3" />
           <p className="text-sm font-mono text-slate-500">{search ? 'No matching rules' : 'No YARA rules loaded'}</p>
           <p className="text-xs font-mono text-slate-400 mt-1">
@@ -184,7 +184,7 @@ export default function Yarahub(): JSX.Element {
       {filtered.length > 0 && (
         <>
           {search && (
-            <p className="text-[11px] font-mono text-slate-500 mb-2">
+            <p className="text-mini font-mono text-slate-500 mb-2">
               {filtered.length} of {rules.length} rule{rules.length === 1 ? '' : 's'} match &quot;{search}&quot;
               {filtered.length < rules.length && (
                 <button
@@ -201,7 +201,7 @@ export default function Yarahub(): JSX.Element {
             {filtered.map((rule) => (
               <div
                 key={rule.yarahub_uuid ?? rule.rule_name}
-                className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:border-brand-500/40 transition-colors"
+                className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 hover:border-brand-500/40 transition-colors"
               >
                 <div className="flex items-start justify-between p-4">
                   <div className="flex-1 min-w-0">
@@ -212,10 +212,10 @@ export default function Yarahub(): JSX.Element {
                     >
                       {rule.rule_name}
                     </button>
-                    <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mt-1 text-[12px] font-mono text-slate-500">
+                    <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mt-1 text-meta font-mono text-slate-500">
                       {rule.author && <span>by {rule.author}</span>}
                       {rule.malware && (
-                        <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20 text-[10px]">
+                        <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20 text-micro">
                           {rule.malware}
                         </span>
                       )}
@@ -228,7 +228,7 @@ export default function Yarahub(): JSX.Element {
                       {rule.last_matched && <span>last: {new Date(rule.last_matched).toLocaleDateString()}</span>}
                     </div>
                     {rule.description && (
-                      <p className="mt-1 text-[12px] font-mono text-slate-600 dark:text-slate-400 line-clamp-2">
+                      <p className="mt-1 text-meta font-mono text-slate-600 dark:text-slate-400 line-clamp-2">
                         {rule.description}
                       </p>
                     )}
@@ -236,7 +236,7 @@ export default function Yarahub(): JSX.Element {
                   <button
                     type="button"
                     onClick={() => void viewRule(rule.yarahub_uuid ?? rule.rule_name, rule.rule_name)}
-                    className="shrink-0 ml-3 text-[11px] font-mono px-2.5 py-1 rounded border border-slate-200 dark:border-slate-700 hover:border-brand-500/40 text-slate-500 hover:text-brand-600 dark:hover:text-brand-400"
+                    className="shrink-0 ml-3 text-mini font-mono px-2.5 py-1 rounded border border-slate-200 dark:border-slate-700 hover:border-brand-500/40 text-slate-500 hover:text-brand-600 dark:hover:text-brand-400"
                   >
                     View rule
                   </button>
@@ -248,14 +248,14 @@ export default function Yarahub(): JSX.Element {
       )}
 
       {contentLoading && (
-        <div className="mt-6 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-8 text-center">
+        <div className="mt-6 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-8 text-center">
           <Loader2 size={20} className="animate-spin mx-auto text-slate-400 mb-2" />
           <p className="text-xs font-mono text-slate-500">Downloading rule content…</p>
         </div>
       )}
 
       {ruleContent && !contentLoading && (
-        <div className="mt-6 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden">
+        <div className="mt-6 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 overflow-hidden">
           <div className="flex items-center justify-between px-4 py-3 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/60">
             <h3 className="font-display font-semibold text-sm truncate">{contentName}</h3>
             <div className="flex items-center gap-2">
@@ -263,7 +263,7 @@ export default function Yarahub(): JSX.Element {
                 href={`https://yaraify.abuse.ch/yarahub/#${contentName}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-[11px] font-mono text-slate-500 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1"
+                className="text-mini font-mono text-slate-500 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1"
               >
                 <ExternalLink size={11} /> YARAhub
               </a>
@@ -278,7 +278,7 @@ export default function Yarahub(): JSX.Element {
                   a.click();
                   URL.revokeObjectURL(url);
                 }}
-                className="text-[11px] font-mono text-slate-500 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1"
+                className="text-mini font-mono text-slate-500 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1"
               >
                 <FileDown size={11} /> Download
               </button>
@@ -294,7 +294,7 @@ export default function Yarahub(): JSX.Element {
               </button>
             </div>
           </div>
-          <pre className="p-4 overflow-auto max-h-[70vh] text-[12px] font-mono text-slate-800 dark:text-slate-200 leading-relaxed whitespace-pre-wrap break-all">
+          <pre className="p-4 overflow-auto max-h-[70vh] text-meta font-mono text-slate-800 dark:text-slate-200 leading-relaxed whitespace-pre-wrap break-all">
             {ruleContent}
           </pre>
         </div>
@@ -302,12 +302,12 @@ export default function Yarahub(): JSX.Element {
 
       {contentError && (
         <div className="mt-4 rounded-lg border border-amber-200 dark:border-amber-900 bg-amber-50 dark:bg-amber-950/30 p-3">
-          <p className="text-[12px] font-mono text-amber-700 dark:text-amber-300">{contentError}</p>
+          <p className="text-meta font-mono text-amber-700 dark:text-amber-300">{contentError}</p>
         </div>
       )}
 
       {!loading && filtered.length > 0 && (
-        <p className="mt-4 text-[11px] font-mono text-slate-500 text-center">
+        <p className="mt-4 text-mini font-mono text-slate-500 text-center">
           {rules.length} rule{rules.length === 1 ? '' : 's'} loaded from YARAhub (abuse.ch){' '}
           <a
             href="https://yaraify.abuse.ch/yarahub/"

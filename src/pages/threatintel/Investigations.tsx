@@ -395,7 +395,7 @@ function InvestigationsPage(): JSX.Element {
 
         <div className="grid lg:grid-cols-3 gap-6">
           <div className="lg:col-span-2 space-y-6">
-            <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
+            <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
               <h2 className="font-display font-semibold text-sm mb-3 flex items-center gap-2">
                 <ShieldAlert size={14} /> Observables ({inv.observables.length})
               </h2>
@@ -459,7 +459,7 @@ function InvestigationsPage(): JSX.Element {
               )}
             </section>
 
-            <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
+            <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
               <h2 className="font-display font-semibold text-sm mb-3 flex items-center gap-2">
                 <ListTodo size={14} /> Tasks ({inv.tasks.filter((t) => t.status !== 'completed').length} open)
               </h2>
@@ -530,7 +530,7 @@ function InvestigationsPage(): JSX.Element {
           </div>
 
           <div className="space-y-4">
-            <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
+            <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
               <h2 className="font-display font-semibold text-sm mb-3 flex items-center gap-2">
                 <Clock size={14} /> Timeline
               </h2>
@@ -566,7 +566,7 @@ function InvestigationsPage(): JSX.Element {
               </div>
             </section>
 
-            <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
+            <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
               <h2 className="font-display font-semibold text-sm mb-2">Meta</h2>
               <div className="text-mini font-mono text-slate-500 space-y-1">
                 <p>Created: {new Date(inv.created_at).toLocaleString()}</p>
@@ -620,7 +620,7 @@ function InvestigationsPage(): JSX.Element {
         <select
           value={filterSeverity}
           onChange={(e) => setFilterSeverity(e.target.value)}
-          className="text-meta font-mono px-2 py-2 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300"
+          className="text-meta font-mono px-2 py-2 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 text-slate-700 dark:text-slate-300"
         >
           <option value="all">All severity</option>
           <option value="critical">Critical</option>
@@ -631,7 +631,7 @@ function InvestigationsPage(): JSX.Element {
         <select
           value={filterStatus}
           onChange={(e) => setFilterStatus(e.target.value)}
-          className="text-meta font-mono px-2 py-2 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300"
+          className="text-meta font-mono px-2 py-2 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 text-slate-700 dark:text-slate-300"
         >
           <option value="all">All status</option>
           <option value="open">Open</option>
@@ -643,7 +643,7 @@ function InvestigationsPage(): JSX.Element {
       {showCreate && (
         <form
           onSubmit={(e) => void createInvestigation(e)}
-          className="mb-6 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4"
+          className="mb-6 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4"
         >
           <h2 className="font-display font-semibold text-sm mb-3">New Investigation</h2>
           <div className="grid sm:grid-cols-2 gap-3 mb-3">
@@ -721,14 +721,14 @@ function InvestigationsPage(): JSX.Element {
       )}
 
       {loading && (
-        <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-12 text-center">
+        <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-12 text-center">
           <Loader2 size={20} className="animate-spin mx-auto text-slate-400 mb-2" />
           <p className="text-xs font-mono text-slate-500">Loading investigations…</p>
         </div>
       )}
 
       {!loading && filtered.length === 0 && !error && (
-        <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-12 text-center">
+        <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-12 text-center">
           <AlertTriangle size={32} className="mx-auto text-slate-300 dark:text-slate-700 mb-3" />
           <p className="text-sm font-mono text-slate-500">
             {search || filterSeverity !== 'all' || filterStatus !== 'all'
@@ -753,7 +753,7 @@ function InvestigationsPage(): JSX.Element {
               onKeyDown={(e) => {
                 if (e.key === 'Enter' || e.key === ' ') setActiveInv(inv);
               }}
-              className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:border-brand-500/40 transition-colors p-4 cursor-pointer"
+              className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 hover:border-brand-500/40 transition-colors p-4 cursor-pointer"
               onClick={() => setActiveInv(inv)}
             >
               <div className="flex items-start justify-between gap-4">
