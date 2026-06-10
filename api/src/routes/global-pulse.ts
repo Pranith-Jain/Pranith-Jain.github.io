@@ -1936,6 +1936,8 @@ const WEBAMON_SEARCH = 'https://search.webamon.com/search';
 
 interface WebamonHit {
   'domain.name'?: string;
+  dom?: string;
+  sub_domain?: string;
   page_title?: string;
   date?: string;
   resolved_url?: string;
@@ -1950,9 +1952,10 @@ interface WebamonResponse {
 
 async function fromWebamon(): Promise<PulseEvent[]> {
   try {
-    // risk_score:>4 was returning empty (webamon's high-risk set runs dry); >1
-    // keeps it populated with genuinely-flagged scans while still filtering noise.
-    const url = `${WEBAMON_SEARCH}?search=${encodeURIComponent('risk_score:>1')}&results=domain.name,page_title,meta.risk_score,resolved_url,tag&size=15`;
+    // webamon's scans don't carry a populated `risk_score` field, so the old
+    // `risk_score:>4` filter matched 0 hits. Query recent scans instead and use the
+    // tag/title that ARE present. (search=* returns the live scan stream.)
+    const url = `${WEBAMON_SEARCH}?search=${encodeURIComponent('*')}&results=domain.name,dom,sub_domain,page_title,resolved_url,tag,meta.risk_score&size=15`;
     const res = await fetch(url, {
       signal: AbortSignal.timeout(10000),
       headers: { accept: 'application/json', 'user-agent': 'pranithjain-dfir/1.0' },
@@ -1961,22 +1964,30 @@ async function fromWebamon(): Promise<PulseEvent[]> {
     const data = (await res.json()) as WebamonResponse;
     if (!data.total_hits || !data.results?.length) return [];
 
-    return data.results.slice(0, 15).map((r, i) => ({
-      id: `webamon-${r.meta?.report_id ?? i}`,
-      kind: 'webamon_scan' as const,
-      title: r['domain.name'] ?? 'unknown',
-      description: r.page_title
-        ? `${r.page_title} · risk ${r.meta?.risk_score ?? '?'}`
-        : `Risk score: ${r.meta?.risk_score ?? '?'}${r.tag ? ` · ${r.tag}` : ''}`,
-      lat: 0,
-      lng: 0,
-      magnitude: r.meta?.risk_score ?? 0,
-      timestamp: r.date || new Date().toISOString(),
-      severity: (r.meta?.risk_score ?? 0) >= 7 ? 'high' : (r.meta?.risk_score ?? 0) >= 5 ? 'medium' : 'low',
-      source: 'Webamon Scan',
-      url: r.resolved_url,
-      country: undefined,
-    }));
+    // search=* highlights matches with <mark> tags — strip them. Domain lives in
+    // domain.name OR dom OR sub_domain depending on the scan.
+    const strip = (s?: string): string => (s ?? '').replace(/<\/?mark>/g, '').trim();
+    return data.results
+      .map((r, i) => {
+        const domain = strip(r['domain.name'] ?? r.dom ?? r.sub_domain);
+        const risk = r.meta?.risk_score ?? 0;
+        return {
+          id: `webamon-${r.meta?.report_id ?? (domain || i)}`,
+          kind: 'webamon_scan' as const,
+          title: domain || 'unknown',
+          description: strip(r.page_title) || (r.tag ? `Scan · ${r.tag}` : 'Web scan'),
+          lat: 0,
+          lng: 0,
+          magnitude: risk,
+          timestamp: r.date || new Date().toISOString(),
+          severity: (risk >= 7 ? 'high' : risk >= 4 ? 'medium' : 'low') as 'high' | 'medium' | 'low',
+          source: 'Webamon Scan',
+          url: r.resolved_url,
+          country: undefined,
+        };
+      })
+      .filter((e) => e.title && e.title !== 'unknown' && e.title !== '*')
+      .slice(0, 15);
   } catch {
     return [];
   }
