@@ -3,21 +3,9 @@ import { Link } from 'react-router-dom';
 import { Radar, Activity, ShieldAlert, Zap, Database, ExternalLink } from 'lucide-react';
 import { fetchJson } from '../../lib/fetch-json';
 import { SocShell, SocKpi, SocSection, SocPanel, type SocStatus } from '../../components/threatintel/soc/SocShell';
-import {
-  SocBar,
-  SocDonut,
-  SocSparkline,
-  type BarItem,
-  type DonutSlice,
-} from '../../components/threatintel/soc/SocCharts';
+import { SocBar, SocDonut, type BarItem, type DonutSlice } from '../../components/threatintel/soc/SocCharts';
 import { downloadCsv, dayKey, formatNumber } from '../../components/threatintel/soc/utils';
-import {
-  CHART_RANK,
-  CHART_DAILY,
-  CHART_IOC_KIND,
-  CHART_CRIT,
-  CYBER_ACCENT,
-} from '../../components/threatintel/soc/tone';
+import { CHART_RANK, CHART_DAILY, CHART_IOC_KIND, CHART_CRIT } from '../../components/threatintel/soc/tone';
 import { sourceWeight } from '../../lib/dfir/source-meta';
 
 /* ─── Data shape (matches /api/v1/live-iocs) ───────────────────────── */
@@ -275,7 +263,6 @@ export default function SocIocs(): JSX.Element {
   return (
     <SocShell
       title="Indicators of compromise"
-      accent="ioc"
       icon={<Radar size={28} />}
       status={status}
       generatedAt={data?.generated_at ?? null}
@@ -309,19 +296,13 @@ export default function SocIocs(): JSX.Element {
           icon={<Database size={16} />}
           delta={totalDelta?.text}
           deltaDirection={totalDelta?.direction}
-          accent={CYBER_ACCENT.ioc}
-          spark={
-            dailyCounts.length > 1 ? (
-              <SocSparkline points={dailyCounts} height={36} showAxis={false} color={CYBER_ACCENT.ioc} />
-            ) : undefined
-          }
         />
         <SocKpi
           label="Critical"
           value={
             <span className="inline-flex items-baseline gap-2">
               {buckets.critical}
-              <span className="text-2xl text-slate-400">
+              <span className="text-2xl text-slate-500 dark:text-slate-400">
                 ({totalInWindow ? Math.round((buckets.critical / totalInWindow) * 1000) / 10 : 0}%)
               </span>
             </span>
@@ -329,14 +310,13 @@ export default function SocIocs(): JSX.Element {
           severity="critical"
           sub="score ≥ 70 · block & investigate"
           icon={<ShieldAlert size={16} />}
-          accent={CYBER_ACCENT.ioc}
         />
         <SocKpi
           label="Sensitive"
           value={
             <span className="inline-flex items-baseline gap-2">
               {buckets.sensitive}
-              <span className="text-2xl text-slate-400">
+              <span className="text-2xl text-slate-500 dark:text-slate-400">
                 ({totalInWindow ? Math.round((buckets.sensitive / totalInWindow) * 1000) / 10 : 0}%)
               </span>
             </span>
@@ -344,7 +324,6 @@ export default function SocIocs(): JSX.Element {
           severity="medium"
           sub="score 40-69 · enrich & review"
           icon={<Zap size={16} />}
-          accent={CYBER_ACCENT.ioc}
         />
         <SocKpi
           label="Active sources"
@@ -352,7 +331,6 @@ export default function SocIocs(): JSX.Element {
           severity="ok"
           sub="upstream feeds reporting"
           icon={<Activity size={16} />}
-          accent={CYBER_ACCENT.ioc}
         />
       </div>
 
@@ -398,13 +376,7 @@ export default function SocIocs(): JSX.Element {
         <SocPanel>
           <SocSection title="Distribution by type" />
           {typeSlices.length > 0 ? (
-            <SocDonut
-              slices={typeSlices}
-              size={180}
-              groupThreshold={0}
-              centerLabel={formatNumber(totalInWindow)}
-              centerSub="in window"
-            />
+            <SocDonut slices={typeSlices} size={180} centerLabel={formatNumber(totalInWindow)} centerSub="in window" />
           ) : (
             <p className="text-meta font-mono text-slate-500 italic">No IOCs in window.</p>
           )}
@@ -431,7 +403,6 @@ export default function SocIocs(): JSX.Element {
             <SocDonut
               slices={critSlices}
               size={180}
-              groupThreshold={0}
               centerLabel={
                 <span>
                   {buckets.critical}
