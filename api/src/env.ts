@@ -147,4 +147,11 @@ export interface Env {
    *  heuristic that fingerprints the target's live HTTP headers + HTML body.
    *  There is no free BuiltWith JSON API, so the heuristic is the default. */
   BUILTWITH_API_KEY?: string;
+  /** Base URL of the self-hosted file2txt bridge (e.g. `https://file2txt.example`).
+   *  When set, PDF/docx extraction is offloaded to this service instead of
+   *  attempting in-Worker parsing (which is blocked by the 10ms CPU cap). */
+  FILE2TXT_BRIDGE_URL?: string;
+  /** Optional bearer token sent as `Authorization: Bearer <token>` to the
+   *  file2txt bridge. Set via `wrangler secret put FILE2TXT_BRIDGE_TOKEN`. */
+  FILE2TXT_BRIDGE_TOKEN?: string;
 }
