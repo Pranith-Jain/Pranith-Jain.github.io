@@ -103,6 +103,7 @@ const Lolbins = lazy(() => import('./pages/dfir/Lolbins'));
 const RulePlayground = lazy(() => import('./pages/dfir/RulePlayground'));
 const YaraManager = lazy(() => import('./pages/dfir/YaraManager'));
 const ReportParser = lazy(() => import('./pages/dfir/ReportParser'));
+const ReportIngest = lazy(() => import('./pages/dfir/ReportIngest'));
 const IocLifecycle = lazy(() => import('./pages/dfir/IocLifecycle'));
 const CtMonitor = lazy(() => import('./pages/dfir/CtMonitor'));
 const StealerParser = lazy(() => import('./pages/dfir/StealerParser'));
@@ -444,6 +445,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/dfir/rule-playground', Component: RulePlayground },
   { path: '/dfir/yara', Component: YaraManager },
   { path: '/dfir/report-parser', Component: ReportParser },
+  { path: '/dfir/report-ingest', Component: ReportIngest },
   { path: '/dfir/ioc-lifecycle', Component: IocLifecycle },
   { path: '/dfir/ct-monitor', Component: CtMonitor },
   { path: '/dfir/stealer-parser', Component: StealerParser },

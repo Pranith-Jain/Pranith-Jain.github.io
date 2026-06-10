@@ -130,6 +130,7 @@ const dfir: SidebarConfig = {
     {
       title: 'Investigate',
       items: [
+        { label: 'Report Ingest', href: '/dfir/report-ingest', icon: FileSearch },
         { label: 'Asset Intel', href: '/dfir/asset-intel', icon: Database },
         { label: 'CVE Prioritizer', href: '/dfir/cve-prioritizer', icon: ShieldAlert },
         { label: 'CVE Lookup', href: '/dfir/cve', icon: Bug },
