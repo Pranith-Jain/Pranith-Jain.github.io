@@ -1,6 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { fetchTransfers, type TracerChain } from '../lib/chain-sources';
+import { clusterCommonInputs, fetchBtcTxsRaw, type CoInputCluster } from '../lib/chain-sources/btc';
 import {
   resolveSeedLabel,
   loadLabelsForAddresses,
@@ -50,6 +51,7 @@ export interface ExpandResponse {
   edges: TracerEdge[];
   truncated: boolean;
   warning?: string;
+  cluster?: CoInputCluster[];
   generated_at: string;
 }
 
@@ -180,6 +182,14 @@ export async function tracerExpandHandler(c: Context<{ Bindings: Env }>): Promis
     });
   }
 
+  // BTC common-input clustering (one extra fetch; still well within budget).
+  let cluster: CoInputCluster[] | undefined;
+  if (chain === 'btc') {
+    const btcTxs = await fetchBtcTxsRaw(address);
+    const c2 = clusterCommonInputs(btcTxs, address);
+    if (c2.length) cluster = c2;
+  }
+
   const body: ExpandResponse = {
     root,
     nodes,
@@ -188,6 +198,7 @@ export async function tracerExpandHandler(c: Context<{ Bindings: Env }>): Promis
     ...(truncated
       ? { warning: `Showing first ${filter.maxTransfers} transfers — narrow the time window or raise minAmount.` }
       : {}),
+    ...(cluster ? { cluster } : {}),
     generated_at: new Date().toISOString(),
   };
   return c.json(body, 200, { 'Cache-Control': 'public, max-age=60' });

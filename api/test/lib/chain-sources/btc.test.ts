@@ -42,3 +42,44 @@ describe('extractBtcTransfers', () => {
     expect(out.find((t) => t.tx_hash === 't1')!.timestamp).toBe('2024-06-10T12:00:00.000Z');
   });
 });
+
+import { clusterCommonInputs } from '../../../src/lib/chain-sources/btc';
+
+describe('clusterCommonInputs', () => {
+  const ADDR = 'bc1qself';
+  const txs = [
+    {
+      txid: 'a',
+      status: { confirmed: true },
+      vin: [
+        { prevout: { scriptpubkey_address: ADDR, value: 1 } },
+        { prevout: { scriptpubkey_address: 'bc1qco1', value: 1 } },
+      ],
+      vout: [],
+    },
+    {
+      txid: 'b',
+      status: { confirmed: true },
+      vin: [
+        { prevout: { scriptpubkey_address: ADDR, value: 1 } },
+        { prevout: { scriptpubkey_address: 'bc1qco1', value: 1 } },
+        { prevout: { scriptpubkey_address: 'bc1qco2', value: 1 } },
+      ],
+      vout: [],
+    },
+    {
+      txid: 'c',
+      status: { confirmed: true },
+      vin: [{ prevout: { scriptpubkey_address: 'bc1qother', value: 1 } }],
+      vout: [],
+    },
+  ];
+  it('aggregates co-input addresses by shared tx count, excluding self', () => {
+    const out = clusterCommonInputs(txs as never, ADDR);
+    expect(out.find((c) => c.address === 'bc1qco1')!.shared_tx_count).toBe(2);
+    expect(out.find((c) => c.address === 'bc1qco2')!.shared_tx_count).toBe(1);
+    expect(out.find((c) => c.address === ADDR)).toBeUndefined();
+    expect(out.find((c) => c.address === 'bc1qother')).toBeUndefined();
+    expect(out[0]?.address).toBe('bc1qco1');
+  });
+});

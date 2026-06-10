@@ -59,17 +59,49 @@ export function extractBtcTransfers(address: string, txs: EsploraTx[]): Transfer
   return out;
 }
 
-export async function fetchBtcTransfers(address: string, filter: TransferFilter): Promise<FetchResult> {
+/** Fetch the address's raw Esplora txs once. Never throws. */
+export async function fetchBtcTxsRaw(address: string): Promise<EsploraTx[]> {
   const ctrl = new AbortController();
   const timer = setTimeout(() => ctrl.abort(), FETCH_TIMEOUT);
   try {
     const res = await fetch(`https://blockstream.info/api/address/${address}/txs`, { signal: ctrl.signal });
-    if (!res.ok) return { transfers: [], truncated: false };
+    if (!res.ok) return [];
     const txs = (await res.json().catch(() => [])) as EsploraTx[];
-    return applyFilter(extractBtcTransfers(address, Array.isArray(txs) ? txs : []), filter);
+    return Array.isArray(txs) ? txs : [];
   } catch {
-    return { transfers: [], truncated: false };
+    return [];
   } finally {
     clearTimeout(timer);
   }
+}
+
+export async function fetchBtcTransfers(address: string, filter: TransferFilter): Promise<FetchResult> {
+  const txs = await fetchBtcTxsRaw(address);
+  return applyFilter(extractBtcTransfers(address, txs), filter);
+}
+
+export interface CoInputCluster {
+  address: string;
+  shared_tx_count: number;
+}
+
+/**
+ * Common-input-ownership heuristic: addresses co-spent as inputs alongside
+ * `address` in the same tx are inferred same-owner. Aggregated by co-input
+ * address, sorted desc, capped at 20. Pure (no network).
+ */
+export function clusterCommonInputs(txs: EsploraTx[], address: string): CoInputCluster[] {
+  const counts = new Map<string, number>();
+  for (const tx of txs) {
+    const inputs = tx.vin.map((v) => v.prevout?.scriptpubkey_address).filter((a): a is string => Boolean(a));
+    if (!inputs.includes(address)) continue;
+    for (const a of new Set(inputs)) {
+      if (a === address) continue;
+      counts.set(a, (counts.get(a) ?? 0) + 1);
+    }
+  }
+  return [...counts.entries()]
+    .map(([addr, shared_tx_count]) => ({ address: addr, shared_tx_count }))
+    .sort((x, y) => y.shared_tx_count - x.shared_tx_count)
+    .slice(0, 20);
 }

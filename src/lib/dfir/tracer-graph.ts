@@ -31,12 +31,18 @@ export interface TracerEdge {
   confidence: 'candidate' | 'confirmed';
 }
 
+export interface CoInputCluster {
+  address: string;
+  shared_tx_count: number;
+}
+
 export interface ExpandResponse {
   root: TracerNode;
   nodes: TracerNode[];
   edges: TracerEdge[];
   truncated: boolean;
   warning?: string;
+  cluster?: CoInputCluster[];
   generated_at: string;
 }
 
