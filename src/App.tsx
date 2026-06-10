@@ -259,6 +259,7 @@ const AssessmentDetail = lazy(() => import('./pages/threatintel/AssessmentDetail
 const EntityResolution = lazy(() => import('./pages/threatintel/EntityResolution'));
 const Webamon = lazy(() => import('./pages/threatintel/Webamon'));
 const AggregatedFeeds = lazy(() => import('./pages/threatintel/AggregatedFeeds'));
+const Predictions = lazy(() => import('./pages/threatintel/Predictions'));
 const MalwareIocs = lazy(() => import('./pages/threatintel/MalwareIocs'));
 const FeedCatalog = lazy(() => import('./pages/threatintel/FeedCatalog'));
 const Analyze = lazy(() => import('./pages/threatintel/Analyze'));
@@ -518,6 +519,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel/external-resources', Component: ExternalResources },
   { path: '/threatintel/darkweb-tools', Component: DarkWebOsintTools },
   { path: '/threatintel/aggregated-feeds', Component: AggregatedFeeds },
+  { path: '/threatintel/predictions', Component: Predictions },
   { path: '/threatintel/malware-iocs', Component: MalwareIocs },
   { path: '/threatintel/feed-catalog', Component: FeedCatalog },
   { path: '/threatintel/analyze', Component: Analyze },

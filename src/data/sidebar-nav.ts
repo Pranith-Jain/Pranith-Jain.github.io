@@ -70,6 +70,7 @@ const threatIntel: SidebarConfig = {
         { label: 'Crypto Scams', href: '/threatintel/crypto-scams', icon: Bitcoin },
         { label: 'Cert Stream', href: '/threatintel/certstream', icon: Radio },
         { label: 'Breach Feed', href: '/threatintel/breach', icon: AlertOctagon },
+        { label: 'Predictions', href: '/threatintel/predictions', icon: TrendingUp },
       ],
     },
     {

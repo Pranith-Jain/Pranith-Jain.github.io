@@ -110,7 +110,8 @@ type PulseKind =
   | 'research'
   | 'cve'
   | 'actor_sighting'
-  | 'ioc_correlation';
+  | 'ioc_correlation'
+  | 'prediction_market';
 
 interface PulseEvent {
   id: string;
@@ -411,6 +412,40 @@ function fromReddit(data: {
     source: `r/${i.sub}`,
     url: i.link,
   }));
+}
+
+function fromPredictions(data: {
+  buckets?: {
+    cyber?: Array<{ question: string; slug: string; url: string; probability: number; volume: number }>;
+    ai?: Array<{ question: string; slug: string; url: string; probability: number; volume: number }>;
+    tech?: Array<{ question: string; slug: string; url: string; probability: number; volume: number }>;
+  };
+}): PulseEvent[] {
+  const now = new Date().toISOString();
+  const groups: Array<['cyber' | 'ai' | 'tech', NonNullable<typeof data.buckets>['cyber']]> = [
+    ['cyber', data.buckets?.cyber],
+    ['ai', data.buckets?.ai],
+    ['tech', data.buckets?.tech],
+  ];
+  const events: PulseEvent[] = [];
+  for (const [bucket, markets] of groups) {
+    for (const m of (markets ?? []).slice(0, 12)) {
+      const pct = Math.round((m.probability ?? 0) * 100);
+      events.push({
+        id: `pm-${m.slug.slice(0, 28)}`,
+        kind: 'prediction_market' as const,
+        title: m.question,
+        description: `${bucket} · ${pct}% likely`,
+        lat: 0,
+        lng: 0,
+        timestamp: now,
+        severity: pct >= 70 ? ('high' as const) : pct >= 40 ? ('medium' as const) : ('low' as const),
+        source: 'Manifold',
+        url: m.url,
+      });
+    }
+  }
+  return events;
 }
 
 function fromTelegram(data: {
@@ -2057,6 +2092,7 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
     const finalActor = warm.actor ?? null;
     const finalIocCorr = warm.iocc ?? null;
     const finalBf = warm.bf ?? null;
+    const finalPredictions = warm.predictions ?? null;
 
     // ── Direct endpoint fallback for still-missing layers ─────────────
     // Fetch ALL missing endpoints directly (Workers allow up to 50 subrequests).
@@ -2087,6 +2123,7 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
     if (!finalActor) missing.push(['/api/v1/actor-timeline', 'actor']);
     if (!finalIocCorr) missing.push(['/api/v1/ioc-correlation', 'iocc']);
     if (!finalBf) missing.push(['/api/v1/breach-forums', 'bf']);
+    if (!finalPredictions) missing.push(['/api/v1/predictions', 'predictions']);
 
     // Fetch all missing in parallel (Workers subrequest limit is 50)
     const directResults = await Promise.all(missing.map(([path]) => fetchDirect(path)));
@@ -2116,6 +2153,7 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
     const mergedActor = finalActor ?? (direct.actor as typeof finalActor);
     const mergedIocCorr = finalIocCorr ?? (direct.iocc as typeof finalIocCorr);
     const mergedBf = finalBf ?? (direct.bf as typeof finalBf);
+    const mergedPredictions = finalPredictions ?? (direct.predictions as typeof finalPredictions);
 
     // ── Convert → events ───────────────────────────────────────────────
     const safe = <T>(fn: () => T): T => {
@@ -2148,6 +2186,9 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
     const telegramEvents = safe(() => (finalTg ? fromTelegram(finalTg) : []));
     const xEvents = safe(() => (mergedX ? fromXFeed(mergedX) : []));
     const scamEvents = safe(() => (mergedScam ? fromScam(mergedScam) : []));
+    const predictionEvents = safe(() =>
+      mergedPredictions ? fromPredictions(mergedPredictions as Parameters<typeof fromPredictions>[0]) : []
+    );
     const breachEvents = safe(() => (mergedBreach ? fromBreaches(mergedBreach) : []));
     const liveIocEvents = safe(() => (mergedIoc ? fromLiveIocs(mergedIoc) : []));
     const darkwebEvents = safe(() => [
@@ -2410,6 +2451,7 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
       }
     }
 
+
     // ── CTI category tagging ──────────────────────────────────────────
     const tagCti = <T extends PulseKind>(kind: T): PulseEvent['cti'] => {
       switch (kind) {
@@ -2479,6 +2521,7 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
       ...tagAll(actorEvents),
       ...tagAll(iocCorrEvents),
       ...tagAll(bfEvents),
+      ...tagAll(predictionEvents),
     ].sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
 
     const result: GlobalPulseResponse = {
@@ -2519,6 +2562,7 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
         cve: finalCveEvents.length,
         actor_sighting: actorEvents.length,
         ioc_correlation: iocCorrEvents.length,
+        prediction_market: predictionEvents.length,
       },
     };
 

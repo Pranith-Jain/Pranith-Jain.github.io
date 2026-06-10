@@ -241,6 +241,13 @@ export const SECTIONS: Section[] = [
         badge: 'live',
       },
       {
+        to: '/threatintel/predictions',
+        label: 'Prediction Markets',
+        desc: 'Live Manifold prediction-market odds on cyber-threat, tech, and AI outcomes — ranked by liquidity. Community crowd forecasts via the public Manifold API.',
+        icon: TrendingUp,
+        badge: 'new',
+      },
+      {
         to: '/threatintel/x-watch',
         label: 'X firehose',
         desc: 'Live chronological tweets from 70 cybersec accounts across researchers, vendor labs, CTI feeds, OSINT, IR/DFIR, and security press.',
