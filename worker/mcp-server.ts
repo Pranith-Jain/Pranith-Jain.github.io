@@ -311,6 +311,32 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
       }
     );
 
+    // ── Supply Chain Attacks ─────────────────────────────────────────────
+    this.server.tool(
+      'get_supply_chain_attacks',
+      'Software supply-chain compromise incidents (npm/PyPI/container/AI-agent ecosystems) from supplychainattack.org — title, status, severity, ecosystems, attack vectors, blast radius, remediation, package IOCs, and GHSA sources. Filter by ecosystem/status/severity.',
+      {
+        ecosystem: z.string().optional().describe('Ecosystem filter, e.g. npm/pypi'),
+        status: z.string().optional().describe('Incident status: active/contained/resolved'),
+        severity: z.string().optional().describe('Severity: critical/high/medium/low'),
+        limit: z.number().optional().describe('Max incidents'),
+      },
+      async ({ ecosystem, status, severity, limit }) => {
+        const p = new URLSearchParams();
+        if (ecosystem) p.set('ecosystem', ecosystem);
+        if (status) p.set('status', status);
+        if (severity) p.set('severity', severity);
+        if (limit) p.set('limit', String(limit));
+        const qs = p.toString();
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          `/api/v1/supply-chain-attacks${qs ? `?${qs}` : ''}`,
+          this.apiKey
+        );
+        return { content: [{ type: 'text', text: JSON.stringify(data, null, 2) }] };
+      }
+    );
+
     // ── Phishing Analyze ─────────────────────────────────────────────────
     this.server.tool(
       'analyze_phishing_email',

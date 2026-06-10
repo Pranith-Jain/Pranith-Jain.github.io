@@ -68,6 +68,7 @@ type PulseKind =
   | 'malicious_package'
   | 'exploit'
   | 'github_advisory'
+  | 'supply_chain_attacks'
   | 'kev';
 
 interface PulseEvent {
@@ -263,6 +264,14 @@ const LAYER_DEFS: Record<PulseKind, LayerDef> = {
     icon: <Crosshair size={14} />,
     color: 'text-rose-500',
     bgColor: 'bg-rose-600/10 border-rose-600/20',
+    group: 'intel',
+  },
+  supply_chain_attacks: {
+    label: 'Supply Chain',
+    shortLabel: 'CHAIN',
+    icon: <Box size={14} />,
+    color: 'text-cyan-500',
+    bgColor: 'bg-cyan-600/10 border-cyan-600/20',
     group: 'intel',
   },
   cisa_advisory: {

@@ -114,6 +114,7 @@ type PulseKind =
   | 'malicious_package'
   | 'exploit'
   | 'github_advisory'
+  | 'supply_chain_attacks'
   | 'kev';
 
 interface PulseEvent {
@@ -994,6 +995,56 @@ async function fetchGdacsAlerts(): Promise<PulseEvent[]> {
 // the C2IntelFeeds 30-day IP:port+framework set so the C2 layer reflects the
 // real C2 surface. Feodo carries a country → globe markers; the IP-only feeds
 // are non-geo → CTI feed panel. Deduped by IP across all sources.
+async function fetchSupplyChain(): Promise<PulseEvent[]> {
+  // supplychainattack.org incident catalog (npm/PyPI/container/AI-agents). Non-geo
+  // (lat/lng 0) — surfaces in the feed/ticker, not the globe. One direct fetch.
+  try {
+    const res = await fetch('https://supplychainattack.org/incidents.json', {
+      signal: AbortSignal.timeout(8000),
+      headers: { 'user-agent': 'pranithjain-dfir/1.0', accept: 'application/json' },
+    });
+    if (!res.ok) return [];
+    const data = (await res.json()) as {
+      incidents?: Array<{
+        id?: string;
+        title?: string;
+        summary?: string;
+        status?: string;
+        severity?: string;
+        ecosystems?: string[];
+        disclosedDate?: string;
+        url?: string;
+        iocs?: { packages?: string[] };
+      }>;
+    };
+    const SEV = new Set(['critical', 'high', 'medium', 'low']);
+    return (data.incidents ?? []).slice(0, 30).map((i, idx) => {
+      const sevRaw = typeof i.severity === 'string' ? i.severity.toLowerCase() : '';
+      const severity = (SEV.has(sevRaw) ? sevRaw : 'high') as PulseEvent['severity'];
+      const eco = Array.isArray(i.ecosystems) ? i.ecosystems.join(', ') : '';
+      const pkgs = i.iocs?.packages?.length ?? 0;
+      const desc =
+        `${eco}${eco && pkgs ? ' · ' : ''}${pkgs ? `${pkgs} package${pkgs === 1 ? '' : 's'}` : ''}${i.status ? ` · ${i.status}` : ''}`.trim() ||
+        (typeof i.summary === 'string' ? i.summary.slice(0, 200) : '');
+      return {
+        id: `sca-${i.id ?? idx}`,
+        kind: 'supply_chain_attacks' as const,
+        title: (i.title ?? 'Supply-chain incident').slice(0, 140),
+        description: desc,
+        lat: 0,
+        lng: 0,
+        timestamp: i.disclosedDate || new Date().toISOString(),
+        severity,
+        source: 'supplychainattack.org',
+        url: typeof i.url === 'string' && /^https?:\/\//.test(i.url) ? i.url : undefined,
+        cti: 'other' as const,
+      };
+    });
+  } catch {
+    return [];
+  }
+}
+
 async function fetchBotnetC2(): Promise<PulseEvent[]> {
   const IPV4 = /^\d{1,3}(?:\.\d{1,3}){3}$/;
   const get = (url: string, ms = 8000) =>
@@ -2363,6 +2414,7 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
       flights,
       gdacsAlerts,
       botnetC2,
+      supplyChain,
       dshieldAttackers,
       compromisedIPs,
       blocklistAttackers,
@@ -2373,6 +2425,7 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
       fetchFlights(),
       fetchGdacsAlerts(),
       fetchBotnetC2(),
+      fetchSupplyChain(),
       fetchDShieldAttackers(),
       fetchCompromisedIPs(),
       fetchBlocklistAttackers(),
@@ -2555,6 +2608,7 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
       ...tagAll(gdacsAlerts),
       ...tagAll(flights),
       ...tagAll(botnetC2),
+      ...tagAll(supplyChain),
       ...tagAll(dshieldAttackers),
       ...tagAll(compromisedIPs),
       ...tagAll(blocklistAttackers),
@@ -2607,6 +2661,7 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
           geopoliticalEvents.filter((e) => e.kind === 'war_room').length,
         aircraft: flights.length,
         c2_tracker: botnetC2.length,
+        supply_chain_attacks: supplyChain.length,
         cisa_advisory: cisaKev.length,
         blocklist: blocklistAttackers.length + compromisedIPs.length,
         cyber_attack: finalLiveIocEvents.length + dshieldAttackers.length,
