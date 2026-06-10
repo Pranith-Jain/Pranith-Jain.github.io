@@ -1,7 +1,6 @@
 import { useState } from 'react';
-import { BackLink } from '../../components/BackLink';
+import { DataPageLayout } from '../../components/DataPageLayout';
 import {
-  ArrowLeft,
   Brain,
   ChevronDown,
   ChevronRight,
@@ -90,59 +89,54 @@ export default function ACH(): JSX.Element {
   }
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
-      >
-        <ArrowLeft size={14} /> back
-      </BackLink>
-
-      <div className="animate-fade-in-up mb-8">
-        <h1 className="text-3xl sm:text-4xl font-display font-bold flex items-center gap-3">
-          <Brain size={28} className="text-brand-600 dark:text-brand-400" /> Analysis of Competing Hypotheses
-        </h1>
-        <p className="text-slate-600 dark:text-slate-400 mt-2 max-w-3xl">
+    <DataPageLayout
+      backTo="/threatintel"
+      icon={<Brain size={28} />}
+      title="Analysis of Competing Hypotheses"
+      description={
+        <>
           ACH is a structured analytic technique that forces explicit consideration of multiple explanations for the
           same evidence. Enter a topic — the system retrieves relevant intelligence and generates competing hypotheses
           with evidence for/against each.
-        </p>
-      </div>
-
-      {/* Input */}
-      <div className="mb-8 flex gap-3">
-        <input
-          type="text"
-          value={topic}
-          onChange={(e) => setTopic(e.target.value)}
-          onKeyDown={(e) => e.key === 'Enter' && void analyze()}
-          placeholder="e.g. Qilin ransomware, Scattered Spider, CVE-2024-1709 campaign attribution…"
-          className="flex-1 text-sm px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 focus:outline-none focus:ring-2 focus:ring-brand-500/40 placeholder:text-slate-400"
-          disabled={loading}
-        />
-        <button
-          type="button"
-          onClick={() => void analyze()}
-          disabled={loading || !topic.trim()}
-          className="inline-flex items-center gap-2 text-sm font-mono px-5 py-2.5 rounded-xl bg-brand-600 text-white hover:bg-brand-700 disabled:opacity-50 transition-colors"
-        >
-          {loading ? (
-            <svg className="h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
-              <path d="M21 12a9 9 0 11-6.219-8.56" strokeLinecap="round" />
-            </svg>
-          ) : (
-            <Search size={14} />
-          )}
-          {loading ? 'Analyzing…' : 'Analyze'}
-        </button>
-      </div>
-
-      {error && (
-        <div className="mb-6 p-4 rounded-xl border border-rose-200 dark:border-rose-900 bg-rose-50 dark:bg-rose-950/20 text-sm text-rose-700 dark:text-rose-300 flex items-center gap-2">
-          <AlertTriangle size={14} /> {error}
+        </>
+      }
+      maxWidthClass="max-w-6xl"
+      error={error}
+      headerExtra={
+        <div className="flex gap-3">
+          <input
+            type="text"
+            value={topic}
+            onChange={(e) => setTopic(e.target.value)}
+            onKeyDown={(e) => e.key === 'Enter' && void analyze()}
+            placeholder="e.g. Qilin ransomware, Scattered Spider, CVE-2024-1709 campaign attribution…"
+            className="flex-1 text-sm px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 focus:outline-none focus:ring-2 focus:ring-brand-500/40 placeholder:text-slate-400"
+            disabled={loading}
+          />
+          <button
+            type="button"
+            onClick={() => void analyze()}
+            disabled={loading || !topic.trim()}
+            className="inline-flex items-center gap-2 text-sm font-mono px-5 py-2.5 rounded-xl bg-brand-600 text-white hover:bg-brand-700 disabled:opacity-50 transition-colors"
+          >
+            {loading ? (
+              <svg
+                className="h-4 w-4 animate-spin"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
+                <path d="M21 12a9 9 0 11-6.219-8.56" strokeLinecap="round" />
+              </svg>
+            ) : (
+              <Search size={14} />
+            )}
+            {loading ? 'Analyzing…' : 'Analyze'}
+          </button>
         </div>
-      )}
-
+      }
+    >
       {/* Results */}
       {result && (
         <div className="space-y-6 animate-fade-in-up">
@@ -350,6 +344,6 @@ export default function ACH(): JSX.Element {
           )}
         </div>
       )}
-    </div>
+    </DataPageLayout>
   );
 }

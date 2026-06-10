@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
-import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, ChevronDown, ChevronRight, Search, ExternalLink, UserCheck } from 'lucide-react';
+import { DataPageLayout } from '../../components/DataPageLayout';
+import { ChevronDown, ChevronRight, Search, ExternalLink, UserCheck } from 'lucide-react';
 
 interface Technique {
   id: string;
@@ -243,20 +243,13 @@ export default function InsiderThreatMatrix(): JSX.Element {
   const results = filtered.reduce((s, c) => s + c.techniques.length, 0);
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
-      >
-        <ArrowLeft size={14} /> back
-      </BackLink>
-
-      <div className="animate-fade-in-up mb-8">
-        <div className="flex items-center gap-3 mb-2">
-          <UserCheck size={28} className="text-brand-600 dark:text-brand-400" />
-          <h1 className="text-3xl sm:text-4xl font-display font-bold">Insider Threat Matrix</h1>
-        </div>
-        <p className="text-slate-600 dark:text-slate-400 max-w-3xl text-sm font-mono">
+    <DataPageLayout
+      backTo="/threatintel"
+      icon={<UserCheck size={28} />}
+      title="Insider Threat Matrix"
+      maxWidthClass="max-w-6xl"
+      description={
+        <span className="max-w-3xl text-sm font-mono block">
           Open framework for computer-enabled insider threat investigations by{' '}
           <a
             href="https://insiderthreatmatrix.org"
@@ -267,29 +260,31 @@ export default function InsiderThreatMatrix(): JSX.Element {
             Forscie Limited
           </a>
           . {TECHNIQUE_COUNT} techniques across 5 categories — Motive, Means, Preparation, Infringement, Anti-Forensics.
-        </p>
-      </div>
-
-      <div className="flex flex-wrap items-center gap-3 mb-6">
-        <div className="relative flex-1 min-w-[200px]">
-          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
-          <input
-            type="search"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            placeholder="Search techniques by name or ID..."
-            className="w-full pl-9 pr-4 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded font-mono text-sm focus:outline-none focus:border-brand-500"
-            aria-label="Search insider threat techniques"
-          />
-        </div>
-      </div>
-
-      {search && (
-        <p className="text-[11px] font-mono text-slate-500 mb-4">
-          {results} technique{results === 1 ? '' : 's'} match &quot;{search}&quot;
-        </p>
-      )}
-
+        </span>
+      }
+      headerExtra={
+        <>
+          <div className="flex flex-wrap items-center gap-3">
+            <div className="relative flex-1 min-w-[200px]">
+              <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+              <input
+                type="search"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                placeholder="Search techniques by name or ID..."
+                className="w-full pl-9 pr-4 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded font-mono text-sm focus:outline-none focus:border-brand-500"
+                aria-label="Search insider threat techniques"
+              />
+            </div>
+          </div>
+          {search && (
+            <p className="text-[11px] font-mono text-slate-500 mt-4">
+              {results} technique{results === 1 ? '' : 's'} match &quot;{search}&quot;
+            </p>
+          )}
+        </>
+      }
+    >
       <div className="grid gap-6">
         {filtered.map((cat) => {
           const open = expanded.has(cat.id);
@@ -359,6 +354,6 @@ export default function InsiderThreatMatrix(): JSX.Element {
           GitHub
         </a>
       </p>
-    </div>
+    </DataPageLayout>
   );
 }

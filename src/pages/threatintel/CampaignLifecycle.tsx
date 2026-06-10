@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react';
-import { BackLink } from '../../components/BackLink';
+import { DataPageLayout } from '../../components/DataPageLayout';
 import { api } from '../../lib/api-client';
-import { ArrowLeft, Target, Loader2, AlertTriangle, ChevronRight, ChevronDown, Zap } from 'lucide-react';
+import { Target, Loader2, ChevronRight, ChevronDown, Zap } from 'lucide-react';
 
 interface Phase {
   name: string;
@@ -55,53 +55,43 @@ export default function CampaignLifecycle(): JSX.Element {
     }
   }, [campaignName, indicators]);
 
-  return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:text-brand-400 mb-8 font-mono"
+  const headerExtra = (
+    <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5">
+      <input
+        type="text"
+        value={campaignName}
+        onChange={(e) => setCampaignName(e.target.value)}
+        placeholder="Campaign name…"
+        className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-lg px-4 py-2.5 text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 mb-3"
+      />
+      <textarea
+        value={indicators}
+        onChange={(e) => setIndicators(e.target.value)}
+        placeholder="Related IOCs (optional, one per line)…"
+        className="w-full h-20 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-lg p-3 text-sm font-mono text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 resize-y"
+      />
+      <button
+        onClick={handleAnalyze}
+        disabled={loading || !campaignName.trim()}
+        className="mt-3 w-full px-5 py-2.5 bg-brand-600 hover:bg-brand-500 disabled:bg-slate-300 dark:disabled:bg-slate-700 disabled:cursor-not-allowed rounded-lg text-sm font-semibold text-white transition-colors flex items-center justify-center gap-2"
       >
-        <ArrowLeft size={14} /> back
-      </BackLink>
-      <div className="animate-fade-in-up mb-10">
-        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
-          <Target size={28} className="text-brand-600 dark:text-brand-400" /> Campaign Lifecycle
-        </h1>
-        <p className="text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed">
-          Track campaigns from preparation to monetization.
-        </p>
-      </div>
-      <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5 mb-6">
-        <input
-          type="text"
-          value={campaignName}
-          onChange={(e) => setCampaignName(e.target.value)}
-          placeholder="Campaign name…"
-          className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-lg px-4 py-2.5 text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 mb-3"
-        />
-        <textarea
-          value={indicators}
-          onChange={(e) => setIndicators(e.target.value)}
-          placeholder="Related IOCs (optional, one per line)…"
-          className="w-full h-20 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-lg p-3 text-sm font-mono text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 resize-y"
-        />
-        <button
-          onClick={handleAnalyze}
-          disabled={loading || !campaignName.trim()}
-          className="mt-3 w-full px-5 py-2.5 bg-brand-600 hover:bg-brand-500 disabled:bg-slate-300 dark:disabled:bg-slate-700 disabled:cursor-not-allowed rounded-lg text-sm font-semibold text-white transition-colors flex items-center justify-center gap-2"
-        >
-          {loading ? <Loader2 size={14} className="animate-spin" /> : <Target size={14} />}
-          {loading ? 'Analyzing…' : 'Analyze Campaign'}
-        </button>
-      </div>
-      {error && (
-        <div className="rounded-xl border border-rose-300/70 dark:border-rose-800/60 bg-rose-50/60 dark:bg-rose-950/30 p-4 mb-6 flex items-center gap-3">
-          <AlertTriangle size={16} className="text-rose-600 dark:text-rose-400 flex-shrink-0" />
-          <p className="text-sm text-rose-700 dark:text-rose-300">{error}</p>
-        </div>
-      )}
+        {loading ? <Loader2 size={14} className="animate-spin" /> : <Target size={14} />}
+        {loading ? 'Analyzing…' : 'Analyze Campaign'}
+      </button>
+    </div>
+  );
+
+  return (
+    <DataPageLayout
+      backTo="/threatintel"
+      icon={<Target size={28} />}
+      title="Campaign Lifecycle"
+      description="Track campaigns from preparation to monetization."
+      headerExtra={headerExtra}
+      error={error}
+    >
       {lifecycle && (
-        <div className="space-y-5 animate-fade-in-up">
+        <div className="space-y-5">
           <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5">
             <div className="flex items-center justify-between mb-2">
               <h2 className="font-display font-bold text-lg">{lifecycle.name}</h2>
@@ -192,6 +182,6 @@ export default function CampaignLifecycle(): JSX.Element {
           </div>
         </div>
       )}
-    </div>
+    </DataPageLayout>
   );
 }

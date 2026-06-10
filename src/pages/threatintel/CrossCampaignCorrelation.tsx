@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react';
-import { BackLink } from '../../components/BackLink';
+import { DataPageLayout } from '../../components/DataPageLayout';
 import { api } from '../../lib/api-client';
-import { ArrowLeft, GitBranch, Loader2, Network, Link2 } from 'lucide-react';
+import { GitBranch, Loader2, Network, Link2 } from 'lucide-react';
 
 interface Correlation {
   campaign_a: string;
@@ -41,35 +41,29 @@ export default function CrossCampaignCorrelation(): JSX.Element {
   }, []);
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:text-brand-400 mb-8 font-mono"
-      >
-        <ArrowLeft size={14} /> back
-      </BackLink>
-      <div className="animate-fade-in-up mb-10">
-        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
-          <GitBranch size={28} className="text-brand-600 dark:text-brand-400" /> Cross-Campaign Correlation
-        </h1>
-        <p className="text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed">
-          Find connections between campaigns: shared infrastructure, tooling, and TTPs.
-        </p>
-      </div>
-      <button
-        onClick={fetchCorrelations}
-        disabled={loading}
-        className="mb-6 px-5 py-2.5 bg-brand-600 hover:bg-brand-500 disabled:bg-slate-300 dark:disabled:bg-slate-700 rounded-lg text-sm font-semibold text-white transition-colors flex items-center gap-2"
-      >
-        {loading ? <Loader2 size={14} className="animate-spin" /> : <Network size={14} />}
-        {loading ? 'Analyzing…' : 'Run Correlation'}
-      </button>
-      {error && (
-        <div className="rounded-xl border border-rose-300/70 dark:border-rose-800/60 bg-rose-50/60 dark:bg-rose-950/30 p-4 mb-6 text-sm text-rose-700 dark:text-rose-300">
-          {error}
-        </div>
-      )}
-      <div className="space-y-4 animate-fade-in-up">
+    <DataPageLayout
+      backTo="/threatintel"
+      icon={<GitBranch size={28} />}
+      title="Cross-Campaign Correlation"
+      description="Find connections between campaigns: shared infrastructure, tooling, and TTPs."
+      headerExtra={
+        <button
+          onClick={fetchCorrelations}
+          disabled={loading}
+          className="px-5 py-2.5 bg-brand-600 hover:bg-brand-500 disabled:bg-slate-300 dark:disabled:bg-slate-700 rounded-lg text-sm font-semibold text-white transition-colors flex items-center gap-2"
+        >
+          {loading ? <Loader2 size={14} className="animate-spin" /> : <Network size={14} />}
+          {loading ? 'Analyzing…' : 'Run Correlation'}
+        </button>
+      }
+      loading={loading}
+      error={error}
+      onRetry={fetchCorrelations}
+      empty={!loading && !error && correlations.length === 0}
+      emptyMessage="Run the correlation to find connections between campaigns."
+      emptyIcon={<Network size={28} className="mx-auto text-slate-400" />}
+    >
+      <div className="space-y-4">
         {correlations.map((c, i) => (
           <div
             key={i}
@@ -130,6 +124,6 @@ export default function CrossCampaignCorrelation(): JSX.Element {
           </div>
         ))}
       </div>
-    </div>
+    </DataPageLayout>
   );
 }

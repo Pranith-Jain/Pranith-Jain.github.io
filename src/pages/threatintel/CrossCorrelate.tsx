@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, AlertTriangle, Target, Search, GitBranch } from 'lucide-react';
+import { DataPageLayout } from '../../components/DataPageLayout';
+import { Target, Search, GitBranch } from 'lucide-react';
 
 interface Insight {
   type: string;
@@ -65,66 +65,36 @@ export default function CrossCorrelate(): JSX.Element {
   }, []);
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
-      >
-        <ArrowLeft size={14} /> back
-      </BackLink>
-      <div className="animate-fade-in-up mb-8">
-        <h1 className="text-3xl sm:text-4xl font-display font-bold flex items-center gap-3">
-          <GitBranch size={28} className="text-brand-600 dark:text-brand-400" /> Cross-Correlation Intelligence
-        </h1>
-        <p className="text-slate-600 dark:text-slate-400 mt-2 max-w-3xl">
-          Connects CVEs, actors, sectors, collection health, and detection rules to surface actionable intelligence gaps
-          the individual views miss.
-        </p>
-      </div>
-
-      {/* Sector filter */}
-      <div className="mb-6 flex gap-3">
-        <input
-          type="text"
-          value={sector}
-          onChange={(e) => setSector(e.target.value)}
-          onKeyDown={(e) => e.key === 'Enter' && load(sector)}
-          placeholder="Filter by sector (e.g. finance, healthcare, energy)…"
-          className="flex-1 text-sm px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 focus:outline-none focus:ring-2 focus:ring-brand-500/40"
-        />
-        <button
-          type="button"
-          onClick={() => load(sector)}
-          className="inline-flex items-center gap-2 text-sm px-4 py-2 rounded-xl bg-brand-600 text-white hover:bg-brand-700 transition-colors"
-        >
-          <Search size={14} /> Correlate
-        </button>
-      </div>
-
-      {loading && (
-        <div className="flex items-center justify-center py-16">
-          <div className="flex flex-col items-center gap-3">
-            <svg
-              className="h-8 w-8 animate-spin text-brand-500"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth={2}
-            >
-              <path d="M21 12a9 9 0 11-6.219-8.56" strokeLinecap="round" />
-            </svg>
-            <p className="text-xs font-mono text-slate-400">Correlating intelligence sources…</p>
-          </div>
+    <DataPageLayout
+      backTo="/threatintel"
+      icon={<GitBranch size={28} />}
+      title="Cross-Correlation Intelligence"
+      description="Connects CVEs, actors, sectors, collection health, and detection rules to surface actionable intelligence gaps the individual views miss."
+      maxWidthClass="max-w-6xl"
+      loading={loading}
+      error={error}
+      onRetry={() => load(sector)}
+      headerExtra={
+        <div className="flex gap-3">
+          <input
+            type="text"
+            value={sector}
+            onChange={(e) => setSector(e.target.value)}
+            onKeyDown={(e) => e.key === 'Enter' && load(sector)}
+            placeholder="Filter by sector (e.g. finance, healthcare, energy)…"
+            className="flex-1 text-sm px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 focus:outline-none focus:ring-2 focus:ring-brand-500/40"
+          />
+          <button
+            type="button"
+            onClick={() => load(sector)}
+            className="inline-flex items-center gap-2 text-sm px-4 py-2 rounded-xl bg-brand-600 text-white hover:bg-brand-700 transition-colors"
+          >
+            <Search size={14} /> Correlate
+          </button>
         </div>
-      )}
-
-      {error && (
-        <div className="mb-6 p-4 rounded-xl border border-rose-200 dark:border-rose-900 bg-rose-50 dark:bg-rose-950/20 text-sm text-rose-700 dark:text-rose-300 flex items-center gap-2">
-          <AlertTriangle size={14} /> {error}
-        </div>
-      )}
-
-      {data && !loading && (
+      }
+    >
+      {data && (
         <>
           {/* KPI row */}
           <div className="grid grid-cols-3 gap-3 mb-6">
@@ -199,6 +169,6 @@ export default function CrossCorrelate(): JSX.Element {
           )}
         </>
       )}
-    </div>
+    </DataPageLayout>
   );
 }

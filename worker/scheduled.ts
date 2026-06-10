@@ -45,12 +45,19 @@ import type { Env } from './env';
  * Cron-triggered work. Dispatched on cron string:
  * - "0 * * * *"  → hourly: telegram scan, cache-warm, graph-ingest,
  *                  feed-scheduler, infra-scan, retention, PIR alerts,
- *                  breach-forum snapshot, RAG re-index + BRIEFING HEAL
- *                  (conditional — only fires if the 00:30/00:45 primary
- *                  build left the row empty or degraded)
+ *                  breach-forum snapshot, RAG re-index. NO briefing build
+ *                  here — see the dedicated "20 * * * *" heal cron below.
  * - "5 0 * * *"  → daily case-study discovery + planner (chained; one
  *                  lease, planner runs after discovery finishes so it
  *                  sees the just-updated candidate queue)
+ * - "20 * * * *" → briefing self-heal, ONE build per invocation. Its OWN
+ *                  invocation so the build gets a fresh Free-plan
+ *                  50-subrequest budget — when it shared "0 * * * *",
+ *                  telegram scraping + the warm fan-out spent the budget
+ *                  first and the build's KEV/NVD/abuse.ch fetches threw
+ *                  "Too many subrequests", shipping empty briefings
+ *                  (daily-2026-06-04/05, and daily-2026-06-09 after the
+ *                  heal was wrongly folded back into "0 * * * *").
  * - "30 0 * * *" → daily briefing for the prior calendar day
  * - "45 0 * * 1" → weekly briefing for the prior ISO week (Mon → Sun)
  * - "0 * * * *"  → warm /api/v1/snapshot + /api/v1/ioc-snapshot once
@@ -245,15 +252,17 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
           );
         }
 
-        // Briefing self-heal runs at the END of this hourly invocation —
-        // but only kicks in if the daily (or, on Mondays, the weekly) is
-        // empty or degraded.  A cheap D1 read checks `briefingNeedsHeal`;
-        // if healthy the heal is a no-op. If the 00:30 primary build
-        // failed (KEV down, NVD lag, timeout…) this rebuilds the row an
-        // hour or two later when the feeds have recovered.
+        // Briefing self-heal runs in its OWN cron ("20 * * * *",
+        // runBriefingHealOnce) — NOT here. It used to do briefing builds
+        // in this same invocation, after telegram scraping + the warm fan-out
+        // had already spent most of the Free-plan 50-subrequest budget, so the
+        // build's KEV/NVD/abuse.ch fetches threw "Too many subrequests" and it
+        // shipped empty (or no) briefings. Isolating it gives the build a clean
+        // budget.
 
-        // Cache-warm fan-out. The heal is conditional (only fires when
-        // the briefing is empty/degraded), so this always runs.
+        // Cache-warm fan-out. Briefing builds no longer share this invocation
+        // (they live in the "20 * * * *" heal cron), so this always runs — it
+        // no longer needs to be skipped to spare the briefing build's budget.
         const start = Date.now();
         const baseUrl = (env as unknown as { SITE_URL?: string }).SITE_URL ?? 'https://pranithjain.qzz.io';
         const perSourceTargets = [
