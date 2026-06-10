@@ -27,6 +27,7 @@ export interface Link {
 }
 
 export interface OsintProject {
+  id: string;
   schemaVersion: 1;
   name: string;
   identifiers: Identifier[];
@@ -36,7 +37,7 @@ export interface OsintProject {
 }
 
 export function emptyProject(name: string): OsintProject {
-  return { schemaVersion: 1, name, identifiers: [], pins: [], links: [], updatedAt: 0 };
+  return { id: crypto.randomUUID(), schemaVersion: 1, name, identifiers: [], pins: [], links: [], updatedAt: 0 };
 }
 
 function isPin(v: unknown): v is Pin {
@@ -55,7 +56,9 @@ function isPin(v: unknown): v is Pin {
 function isIdentifier(v: unknown): v is Identifier {
   if (typeof v !== 'object' || v === null) return false;
   const i = v as Record<string, unknown>;
-  return typeof i.id === 'string' && typeof i.type === 'string' && typeof i.fields === 'object' && i.fields !== null;
+  if (typeof i.id !== 'string' || typeof i.type !== 'string') return false;
+  if (typeof i.fields !== 'object' || i.fields === null || Array.isArray(i.fields)) return false;
+  return Object.values(i.fields as Record<string, unknown>).every((val) => typeof val === 'string');
 }
 
 function isLink(v: unknown): v is Link {
@@ -68,6 +71,7 @@ export function isOsintProject(v: unknown): v is OsintProject {
   if (typeof v !== 'object' || v === null) return false;
   const p = v as Record<string, unknown>;
   return (
+    typeof p.id === 'string' &&
     p.schemaVersion === 1 &&
     typeof p.name === 'string' &&
     Array.isArray(p.identifiers) &&

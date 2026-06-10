@@ -12,6 +12,16 @@ describe('emptyProject', () => {
     expect(p.links).toEqual([]);
     expect(isOsintProject(p)).toBe(true);
   });
+  it('generates a non-empty string id', () => {
+    const p = emptyProject('x');
+    expect(typeof p.id).toBe('string');
+    expect(p.id.length).toBeGreaterThan(0);
+  });
+  it('generates unique ids for each call', () => {
+    const a = emptyProject('x');
+    const b = emptyProject('x');
+    expect(a.id).not.toBe(b.id);
+  });
 });
 
 describe('isOsintProject', () => {
@@ -29,6 +39,15 @@ describe('isOsintProject', () => {
   it('rejects a pin with non-numeric coords', () => {
     const p = emptyProject('x');
     (p.pins as unknown[]).push({ id: '1', lat: 'a', lng: 0, label: 'l', iconKey: 'k', color: '#fff' });
+    expect(isOsintProject(p)).toBe(false);
+  });
+  it('rejects an object missing id', () => {
+    const { id: _id, ...noId } = emptyProject('x');
+    expect(isOsintProject(noId)).toBe(false);
+  });
+  it('rejects an identifier with non-string field values', () => {
+    const p = emptyProject('x');
+    (p.identifiers as unknown[]).push({ id: 'i1', type: 'other', fields: { handle: 123 } });
     expect(isOsintProject(p)).toBe(false);
   });
 });

@@ -24,6 +24,19 @@ describe('searchPlace', () => {
     );
     expect(await searchPlace('x')).toEqual([]);
   });
+  it('returns [] for blank/whitespace query without calling fetch', async () => {
+    const mockFetch = vi.fn();
+    vi.stubGlobal('fetch', mockFetch);
+    expect(await searchPlace('  ')).toEqual([]);
+    expect(mockFetch).not.toHaveBeenCalled();
+  });
+  it('returns [] when Nominatim responds with a non-array body', async () => {
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(async () => new Response(JSON.stringify({ error: 'bad query' })))
+    );
+    expect(await searchPlace('zzz')).toEqual([]);
+  });
 });
 
 describe('reverseGeocode', () => {

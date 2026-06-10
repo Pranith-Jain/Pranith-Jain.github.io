@@ -14,6 +14,7 @@ export async function searchPlace(query: string): Promise<PlaceResult[]> {
     const res = await fetch(url, { headers: { Accept: 'application/json' } });
     if (!res.ok) return [];
     const rows = (await res.json()) as Array<{ display_name: string; lat: string; lon: string }>;
+    if (!Array.isArray(rows)) return [];
     return rows.map((r) => ({ label: r.display_name, lat: parseFloat(r.lat), lng: parseFloat(r.lon) }));
   } catch {
     return [];

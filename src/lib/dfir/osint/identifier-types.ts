@@ -36,12 +36,12 @@ export interface IdentifierTypeDef {
   category: IdentifierCategory;
   label: string;
   icon: LucideIcon;
-  fields: FieldDef[];
+  fields: readonly FieldDef[];
 }
 
 export const IDENTIFIER_CATEGORIES: IdentifierCategory[] = ['social', 'contact', 'personal', 'vehicle', 'other'];
 
-const handle: FieldDef[] = [
+const handle: readonly FieldDef[] = [
   { key: 'handle', label: 'Handle / username', placeholder: '@example' },
   { key: 'url', label: 'Profile URL', placeholder: 'https://…' },
   { key: 'notes', label: 'Notes' },
@@ -204,8 +204,10 @@ export const IDENTIFIER_TYPES: IdentifierTypeDef[] = [
   },
 ];
 
-const BY_TYPE = new Map(IDENTIFIER_TYPES.map((t) => [t.type, t]));
-const FALLBACK = BY_TYPE.get('other')!;
+const BY_TYPE = new Map(IDENTIFIER_TYPES.map((t): [string, IdentifierTypeDef] => [t.type, t]));
+const _fallback = BY_TYPE.get('other');
+if (!_fallback) throw new Error('identifier-types: "other" entry is required');
+const FALLBACK: IdentifierTypeDef = _fallback;
 
 export function getIdentifierType(type: string): IdentifierTypeDef {
   return BY_TYPE.get(type) ?? FALLBACK;

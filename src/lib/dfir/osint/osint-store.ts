@@ -34,7 +34,7 @@ export function saveProject(project: OsintProject, now: number): void {
   const { recents } = loadState();
   const next = [
     { name: stamped.name, updatedAt: now, project: stamped },
-    ...recents.filter((r) => r.name !== stamped.name),
+    ...recents.filter((r) => r.project.id !== stamped.id),
   ].slice(0, MAX_RECENTS);
   try {
     localStorage.setItem(STORE_KEY, JSON.stringify({ current: stamped, recents: next }));

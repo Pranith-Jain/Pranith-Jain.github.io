@@ -45,6 +45,15 @@ describe('saveProject / loadState', () => {
     expect(recents).toHaveLength(5);
     expect(recents[0].name).toBe('C7');
   });
+
+  it('keeps two same-name projects with different ids as separate recents', () => {
+    // emptyProject always generates a new uuid, so two 'Untitled case' calls have different ids
+    saveProject(emptyProject('Untitled case'), 1);
+    saveProject(emptyProject('Untitled case'), 2);
+    const { recents } = loadState();
+    expect(recents).toHaveLength(2);
+    expect(recents[0].project.id).not.toBe(recents[1].project.id);
+  });
 });
 
 describe('parseImport', () => {
