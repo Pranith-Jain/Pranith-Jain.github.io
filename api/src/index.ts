@@ -271,6 +271,7 @@ import {
   alertLogHandler,
 } from './routes/watches';
 import { rateLimit } from './lib/ratelimit';
+import { apiKeyRateLimit } from './lib/api-key-ratelimit';
 import { requestLogger } from './lib/request-logger';
 import { csrfGuard } from './lib/csrf-guard';
 import { errorHandler } from './lib/error-handler';
@@ -405,6 +406,12 @@ app.use('/api/v1/*', authenticate('external-only'));
 app.use('/api/v1/*', looseValidation());
 app.use('/api/v1/*', requestLogger);
 app.use('/api/v1/*', rateLimit);
+// Per-API-key daily/per-minute quota (readonly 1k/day, admin 10k/day), enforced
+// in D1 after the cheap per-IP limiter. No-ops for keyless same-origin frontend
+// traffic and the internal-agent token (it carries no api-key header), so only
+// explicit key holders are metered — closes the "rotate IPs for unlimited
+// paid-upstream fan-out" gap the per-IP limiter alone left open.
+app.use('/api/v1/*', apiKeyRateLimit);
 app.use('/api/v1/*', apiVersion);
 app.use('/api/taxii2/*', rateLimit);
 

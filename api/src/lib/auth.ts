@@ -104,6 +104,17 @@ async function lookupKey(db: D1Database, hashed: string): Promise<AuthUser | nul
 }
 
 /**
+ * Validate a raw API key against D1 (canonical hash + revocation check).
+ * Returns the key metadata if valid, else null. Exported for non-Hono callers
+ * (e.g. the MCP session gateway in worker/index.ts) that must authenticate a key
+ * before delegating, rather than only checking that a key string is present.
+ */
+export async function validateRawKey(db: D1Database, rawKey: string): Promise<AuthUser | null> {
+  if (!rawKey) return null;
+  return lookupKey(db, await hashKey(rawKey));
+}
+
+/**
  * Authentication middleware.
  *
  * @param mode 'optional' | 'required' | 'external-only'

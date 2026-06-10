@@ -9,6 +9,7 @@ import { fetchPrerenderedOrShell } from './router';
 import { handleScheduled } from './scheduled';
 import { handleQueue } from './queue-consumer';
 import { logStartupValidation } from './bindings';
+import { validateRawKey } from '../api/src/lib/auth';
 import type { Env } from './env';
 
 export { LiveFeedDO, DfirMcpServer, CronLockDO, ReportBuilderDO, InvestigatorAgentDO };
@@ -73,18 +74,19 @@ export default {
     // it carries the same security headers (CSP/HSTS/nosniff/…) as every other
     // surface instead of bypassing withSecurityHeaders.
     if (url.pathname.startsWith('/api/mcp')) {
-      // Require an API key to open an MCP session. Tools already key-gate their
-      // downstream /api/v1 calls, but this blocks anonymous session init /
-      // list_tools and closes the exposure if OPEN_PUBLIC_READS is ever set.
-      // CORS preflight (OPTIONS) carries no credentials and must pass. The key
-      // is validated downstream per tool call; here we only require its presence
-      // (no currently-working client is keyless — keyless tools 401 already).
+      // Require a VALID API key to open an MCP session. Tools already key-gate
+      // their downstream /api/v1 calls, but a presence-only check let a junk key
+      // enumerate the tool list and spin up a DfirMcpServer Durable Object per
+      // session (resource-exhaustion / enumeration). Validate against D1 here so
+      // an unauthenticated caller can't open a session at all. CORS preflight
+      // (OPTIONS) carries no credentials and must pass.
       if (request.method !== 'OPTIONS') {
         const authz = request.headers.get('authorization') ?? '';
-        const hasKey = /^Bearer\s+\S/i.test(authz) || !!request.headers.get('x-api-key');
-        if (!hasKey) {
+        const rawKey = /^Bearer\s+(\S+)/i.exec(authz)?.[1] ?? request.headers.get('x-api-key') ?? '';
+        const valid = env.BRIEFINGS_DB ? await validateRawKey(env.BRIEFINGS_DB, rawKey) : null;
+        if (!valid) {
           return withSecurityHeaders(
-            new Response(JSON.stringify({ error: 'api key required for MCP' }), {
+            new Response(JSON.stringify({ error: 'valid api key required for MCP' }), {
               status: 401,
               headers: { 'content-type': 'application/json', 'www-authenticate': 'Bearer' },
             })
