@@ -485,6 +485,83 @@ async function fromUrlFetch(url: string): Promise<{ title: string; body: string;
   return { title, body, url };
 }
 
+/** Distinguishes enrichment vs assembly failure for the 502 mapping. */
+export class BundleBuildError extends Error {
+  constructor(public code: 'enrichment_failed' | 'build_failed') {
+    super(code);
+    this.name = 'BundleBuildError';
+  }
+}
+
+/**
+ * Shared STIX assembly core: given a ReportInput (and optional pre-detected
+ * IoCs from list-mode), run extraction → enrichment fan-out → buildStixBundle,
+ * persist to D1 (non-fatal), and return the BuildResult. Throws BundleBuildError
+ * on enrichment/assembly failure so callers can map to 502.
+ */
+export async function buildBundleFromReport(
+  c: Context<{ Bindings: Env }>,
+  report: ReportInput,
+  extraIocs: { type: IndicatorType; value: string }[] = []
+): Promise<BuildResult> {
+  const entities = extract(report.title, report.body);
+  if (extraIocs.length) {
+    const seen = new Set(entities.iocs.map((i) => `${i.type}|${i.value.toLowerCase()}`));
+    for (const i of extraIocs) {
+      const k = `${i.type}|${i.value.toLowerCase()}`;
+      if (!seen.has(k)) {
+        entities.iocs.push(i);
+        seen.add(k);
+      }
+    }
+  }
+
+  let bulk: Awaited<ReturnType<typeof enrichBulk>> = {
+    enrichments: [],
+    partial: false,
+    overflow: [],
+    freshSubrequests: 0,
+    droppedSubrequests: 0,
+  };
+  let cveEnrichments = new Map<string, CveEnrichment>();
+  let llmEntities: LlmEntities = { ...EMPTY_LLM_ENTITIES };
+  try {
+    [bulk, cveEnrichments, llmEntities] = await Promise.all([
+      enrichBulk(
+        entities.iocs.map((i) => ({ type: i.type, value: i.value })),
+        c.env
+      ),
+      enrichCves(entities.cves),
+      extractLlm(report.title, report.body, entities, c.env).catch(() => ({
+        ...EMPTY_LLM_ENTITIES,
+        ran: false,
+        partial: false,
+      })),
+    ]);
+  } catch (err) {
+    console.error('STIX build enrichment phase failed:', err);
+    throw new BundleBuildError('enrichment_failed');
+  }
+
+  let built: BuildResult;
+  try {
+    built = await buildStixBundle(report, entities, bulk, cveEnrichments, llmEntities);
+  } catch (err) {
+    console.error('STIX build bundle assembly failed:', err);
+    throw new BundleBuildError('build_failed');
+  }
+
+  const db = c.env.BRIEFINGS_DB;
+  if (db) {
+    c.executionCtx.waitUntil(
+      writeBundle(db, built, report, bulk).catch(() => {
+        /* persistence failure is non-fatal */
+      })
+    );
+  }
+  return built;
+}
+
 export async function intelBundleBuildHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const parsedResult = await safeJsonBody<unknown>(c, { maxBytes: 60 * 1024, maxDepth: 6 });
   if ('error' in parsedResult) return parsedResult.error;
@@ -545,66 +622,15 @@ export async function intelBundleBuildHandler(c: Context<{ Bindings: Env }>): Pr
     tlp: body.tlp ?? 'AMBER',
   };
 
-  // For IoC-mode we may have extracted IoCs that the body-extractor misses
-  // (bare lines lack the regex-friendly surrounding punctuation). Merge them
-  // into the entity set before bundle assembly.
-  const entities = extract(report.title, report.body);
-  if (preIocs.length) {
-    const seen = new Set(entities.iocs.map((i) => `${i.type}|${i.value.toLowerCase()}`));
-    for (const i of preIocs) {
-      const k = `${i.type}|${i.value.toLowerCase()}`;
-      if (!seen.has(k)) {
-        entities.iocs.push(i);
-        seen.add(k);
-      }
-    }
-  }
-  // Fan-out: bulk IoC + CVE + LLM extraction all run in parallel and all
-  // degrade to empty on failure. The LLM step matches what the cron warmer
-  // does so STIX builder ad-hoc inputs get the same sector / candidate
-  // signal as briefings persisted by the warmer.
-  let bulk: Awaited<ReturnType<typeof enrichBulk>> = {
-    enrichments: [],
-    partial: false,
-    overflow: [],
-    freshSubrequests: 0,
-    droppedSubrequests: 0,
-  };
-  let cveEnrichments = new Map<string, CveEnrichment>();
-  let llmEntities: LlmEntities = { ...EMPTY_LLM_ENTITIES };
-  try {
-    [bulk, cveEnrichments, llmEntities] = await Promise.all([
-      enrichBulk(
-        entities.iocs.map((i) => ({ type: i.type, value: i.value })),
-        c.env
-      ),
-      enrichCves(entities.cves),
-      extractLlm(report.title, report.body, entities, c.env).catch(() => ({
-        ...EMPTY_LLM_ENTITIES,
-        ran: false,
-        partial: false,
-      })),
-    ]);
-  } catch (err) {
-    console.error('STIX build enrichment phase failed:', err);
-    return jsonResponse(c, { error: 'enrichment_failed' }, 502);
-  }
-
+  // Delegate extraction → enrichment fan-out → STIX assembly → D1 persist to the
+  // shared core (also used by POST /api/v1/report/ingest). IoC-mode pre-detected
+  // indicators are merged in there.
   let built: BuildResult;
   try {
-    built = await buildStixBundle(report, entities, bulk, cveEnrichments, llmEntities);
+    built = await buildBundleFromReport(c, report, preIocs);
   } catch (err) {
-    console.error('STIX build bundle assembly failed:', err);
+    if (err instanceof BundleBuildError) return jsonResponse(c, { error: err.code }, 502);
     return jsonResponse(c, { error: 'build_failed' }, 502);
-  }
-
-  const db = c.env.BRIEFINGS_DB;
-  if (db) {
-    c.executionCtx.waitUntil(
-      writeBundle(db, built, report, bulk).catch(() => {
-        /* persistence failure is non-fatal */
-      })
-    );
   }
 
   return jsonResponse(c, { bundle: built.bundle, view: built.view, cache: 'computed' }, 200);
