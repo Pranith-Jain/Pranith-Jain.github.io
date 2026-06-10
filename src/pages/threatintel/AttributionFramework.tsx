@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react';
-import { BackLink } from '../../components/BackLink';
+import { DataPageLayout } from '../../components/DataPageLayout';
 import { api } from '../../lib/api-client';
-import { ArrowLeft, Scale, Loader2, AlertTriangle, ChevronDown, ChevronRight } from 'lucide-react';
+import { Scale, Loader2, AlertTriangle, ChevronDown, ChevronRight } from 'lucide-react';
 
 interface AttributionAssessment {
   actor: string;
@@ -51,21 +51,12 @@ export default function AttributionFramework(): JSX.Element {
   }, [indicators, context]);
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:text-brand-400 mb-8 font-mono"
-      >
-        <ArrowLeft size={14} /> back
-      </BackLink>
-      <div className="animate-fade-in-up mb-10">
-        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
-          <Scale size={28} className="text-brand-600 dark:text-brand-400" /> Attribution Framework
-        </h1>
-        <p className="text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed">
-          Multi-signal attribution with confidence scoring.
-        </p>
-      </div>
+    <DataPageLayout
+      backTo="/threatintel"
+      icon={<Scale size={28} />}
+      title="Attribution Framework"
+      description="Multi-signal attribution with confidence scoring."
+    >
       <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5 mb-6">
         <h2 className="font-display font-bold text-sm mb-3">Indicators & Evidence</h2>
         <textarea
@@ -181,6 +172,6 @@ export default function AttributionFramework(): JSX.Element {
           )}
         </div>
       )}
-    </div>
+    </DataPageLayout>
   );
 }

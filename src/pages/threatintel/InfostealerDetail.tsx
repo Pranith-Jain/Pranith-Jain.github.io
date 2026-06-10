@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { ArrowLeft, Bug, Copy, ExternalLink, Radio, Globe, Calendar, Shield, Layers } from 'lucide-react';
+import { Bug, Copy, ExternalLink, Radio, Globe, Calendar, Shield, Layers } from 'lucide-react';
 import { INFOSTEALER_FAMILIES } from '../../data/threatintel/infostealer-families';
 import { sanitizeUrl } from '../../lib/sanitize-url';
+import { DataPageLayout } from '../../components/DataPageLayout';
 
 interface SampleItem {
   family: string;
@@ -129,39 +130,26 @@ export default function InfostealerDetail(): JSX.Element {
 
   if (!family) {
     return (
-      <div className="max-w-4xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-        <Link
-          to="/threatintel/infostealer"
-          className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
-        >
-          <ArrowLeft size={14} /> back to Infostealer
-        </Link>
+      <DataPageLayout backTo="/threatintel" icon={<Bug size={24} />} title="Infostealer" maxWidthClass="max-w-4xl">
         <div className="rounded-lg border border-amber-500/40 bg-amber-500/10 p-4 font-mono text-sm text-amber-700 dark:text-amber-300">
           Unknown infostealer family: <code>{slug}</code>
         </div>
-      </div>
+      </DataPageLayout>
     );
   }
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <Link
-        to="/threatintel/infostealer"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
-      >
-        <ArrowLeft size={14} /> back to Infostealer
-      </Link>
-
-      <div className="mb-8 animate-fade-in-up">
-        <div className="flex items-center gap-3 mb-2">
-          <Bug size={24} className="text-brand-600 dark:text-brand-400" />
-          <h1 className="text-3xl font-display font-bold">{family.name}</h1>
-        </div>
-        {family.aliases.length > 0 && (
-          <p className="font-mono text-sm text-slate-500">aka {family.aliases.join(', ')}</p>
-        )}
-      </div>
-
+    <DataPageLayout
+      backTo="/threatintel"
+      icon={<Bug size={24} />}
+      title={family.name}
+      description={
+        family.aliases.length > 0 ? (
+          <span className="font-mono text-sm text-slate-500">aka {family.aliases.join(', ')}</span>
+        ) : undefined
+      }
+      maxWidthClass="max-w-5xl"
+    >
       <div className="grid gap-6 md:grid-cols-3 mb-8 animate-fade-in-up">
         <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
           <div className="flex items-center gap-2 mb-2">
@@ -341,6 +329,6 @@ export default function InfostealerDetail(): JSX.Element {
           </ul>
         )}
       </section>
-    </div>
+    </DataPageLayout>
   );
 }

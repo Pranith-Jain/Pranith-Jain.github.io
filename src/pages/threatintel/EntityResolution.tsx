@@ -1,7 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
-import { BackLink } from '../../components/BackLink';
+import { DataPageLayout } from '../../components/DataPageLayout';
 import {
-  ArrowLeft,
   Search,
   Loader2,
   ExternalLink,
@@ -222,25 +221,13 @@ export default function EntityResolution(): JSX.Element {
   };
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
-      >
-        <ArrowLeft size={14} /> back
-      </BackLink>
-
-      <div className="mb-8">
-        <div className="flex items-center gap-3 mb-2">
-          <Search size={22} className="text-brand-600 dark:text-brand-400" />
-          <h1 className="font-display font-bold text-2xl">Entity Resolution</h1>
-        </div>
-        <p className="text-[13px] font-mono text-slate-500 dark:text-slate-400">
-          Resolve threat actor names, ransomware groups, CVEs, IPs, domains, and hashes against curated intelligence.
-          Powered by a 500+ entry alias index and CVE-to-actor mapping.
-        </p>
-      </div>
-
+    <DataPageLayout
+      backTo="/threatintel"
+      icon={<Search size={22} />}
+      title="Entity Resolution"
+      description="Resolve threat actor names, ransomware groups, CVEs, IPs, domains, and hashes against curated intelligence. Powered by a 500+ entry alias index and CVE-to-actor mapping."
+      maxWidthClass="max-w-4xl"
+    >
       {/* Mode toggle */}
       <div className="flex gap-1 mb-6 p-0.5 rounded-lg bg-slate-100 dark:bg-slate-800 w-fit">
         <button
@@ -541,6 +528,6 @@ export default function EntityResolution(): JSX.Element {
           )}
         </>
       )}
-    </div>
+    </DataPageLayout>
   );
 }

@@ -1,8 +1,7 @@
 import { useMemo, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { BackLink } from '../../components/BackLink';
+import { DataPageLayout } from '../../components/DataPageLayout';
 import {
-  ArrowLeft,
   Sparkles,
   Loader2,
   AlertTriangle,
@@ -290,28 +289,24 @@ export default function CampaignGenerator(): JSX.Element {
     : [];
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
-      >
-        <ArrowLeft size={14} /> back
-      </BackLink>
-
-      <div className="mb-8 animate-fade-in-up">
-        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
-          <Sparkles size={28} className="text-brand-600 dark:text-brand-400" /> Campaign Generator
-          <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-brand-500/10 text-brand-600 dark:text-brand-400 border border-brand-500/30">
-            AI
-          </span>
-        </h1>
-        <p className="text-sm font-mono text-slate-600 dark:text-slate-400 mt-1 max-w-3xl">
+    <DataPageLayout
+      backTo="/threatintel"
+      icon={<Sparkles size={28} />}
+      title="Campaign Generator"
+      headerExtra={
+        <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-brand-500/10 text-brand-600 dark:text-brand-400 border border-brand-500/30">
+          AI
+        </span>
+      }
+      description={
+        <span className="font-mono">
           Turn an analyst brief — actor, sector, observed TTPs, IOCs — into a structured campaign hypothesis with
           kill-chain mapping, MITRE techniques, hunting hypotheses, and detection ideas. The model is constrained to
           your inputs and explicitly flags confidence + caveats. Not an attribution engine — a draft to pressure-test.
-        </p>
-      </div>
-
+        </span>
+      }
+      maxWidthClass="max-w-5xl"
+    >
       <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 mb-6">
         <div className="flex items-center justify-between mb-4 gap-2 flex-wrap">
           <h2 className="text-sm font-display font-semibold inline-flex items-center gap-2">
@@ -626,6 +621,6 @@ export default function CampaignGenerator(): JSX.Element {
           )}
         </section>
       )}
-    </div>
+    </DataPageLayout>
   );
 }

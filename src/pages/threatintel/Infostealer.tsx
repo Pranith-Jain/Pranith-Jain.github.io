@@ -1,18 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { BackLink } from '../../components/BackLink';
-import {
-  ArrowLeft,
-  BookText,
-  Bug,
-  Copy,
-  ExternalLink,
-  KeyRound,
-  Network,
-  Radio,
-  Send,
-  ShoppingCart,
-} from 'lucide-react';
+import { DataPageLayout } from '../../components/DataPageLayout';
+import { BookText, Bug, Copy, ExternalLink, KeyRound, Network, Radio, Send, ShoppingCart } from 'lucide-react';
 import { INFOSTEALER_FAMILIES } from '../../data/threatintel/infostealer-families';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 
@@ -375,24 +364,18 @@ export default function Infostealer(): JSX.Element {
   const copy = (t: string) => void navigator.clipboard?.writeText(t);
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
-      >
-        <ArrowLeft size={14} /> back
-      </BackLink>
-
-      <div className="mb-6">
-        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
-          <KeyRound size={28} className="text-brand-600 dark:text-brand-400" /> Infostealer Live Tracker
-        </h1>
-        <p className="text-sm font-mono text-slate-600 dark:text-slate-400 mt-1">
+    <DataPageLayout
+      backTo="/threatintel"
+      icon={<KeyRound size={28} />}
+      title="Infostealer Live Tracker"
+      description={
+        <span className="text-sm font-mono">
           Live infostealer signal: HudsonRock victim exposure, log-market threads, stealer-log Telegram channels,
           MalwareBazaar samples, live IOCs, combo-forum intel, family encyclopedia, and Hudson Rock research articles.
-        </p>
-      </div>
-
+        </span>
+      }
+      maxWidthClass="max-w-6xl"
+    >
       <div className="flex flex-wrap gap-2 mb-4 border-b border-slate-200 dark:border-slate-800">
         {TABS.map((t) => {
           const Icon = t.icon;
@@ -909,6 +892,6 @@ export default function Infostealer(): JSX.Element {
           )}
         </>
       )}
-    </div>
+    </DataPageLayout>
   );
 }

@@ -1,7 +1,6 @@
 import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { BackLink } from '../../components/BackLink';
+import { DataPageLayout } from '../../components/DataPageLayout';
 import {
-  ArrowLeft,
   Search,
   Loader2,
   AlertTriangle,
@@ -222,22 +221,13 @@ export default function RelationshipGraphPage(): JSX.Element {
   );
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
-      >
-        <ArrowLeft size={14} /> back
-      </BackLink>
-
-      <div className="animate-fade-in-up">
-        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2">Relationship Graph</h1>
-        <p className="text-slate-600 dark:text-slate-400 mb-8 max-w-3xl">
-          Explore connections between CVEs, threat actors, ransomware groups, MITRE techniques, and more. Search any
-          entity to see its relationships across all intelligence sources.
-        </p>
-      </div>
-
+    <DataPageLayout
+      backTo="/threatintel"
+      icon={<Network />}
+      title="Relationship Graph"
+      description="Explore connections between CVEs, threat actors, ransomware groups, MITRE techniques, and more. Search any entity to see its relationships across all intelligence sources."
+      maxWidthClass="max-w-7xl"
+    >
       {/* Toolbar */}
       <div className="flex flex-wrap gap-2 mb-4 items-center">
         {/* Search */}
@@ -530,6 +520,6 @@ export default function RelationshipGraphPage(): JSX.Element {
           )}
         </aside>
       </div>
-    </div>
+    </DataPageLayout>
   );
 }
