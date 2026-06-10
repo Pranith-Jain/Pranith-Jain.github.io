@@ -366,7 +366,7 @@ export default function ThreatIntelHome(): JSX.Element {
               <Link
                 key={s.id}
                 to={`/threatintel/c/${s.id}`}
-                className="group rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 hover:border-brand-500/40 transition-colors"
+                className="group surface-card p-5 transition hover:-translate-y-0.5 hover:border-brand-500/50 hover:shadow-e2"
               >
                 <div className="flex items-center justify-between mb-1.5">
                   <span className="font-display font-semibold text-slate-900 dark:text-slate-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">

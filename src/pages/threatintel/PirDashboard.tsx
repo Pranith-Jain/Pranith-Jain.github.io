@@ -718,7 +718,7 @@ export default function PirDashboard(): JSX.Element {
                         {r.driving_priorities.map((p) => (
                           <span
                             key={p}
-                            className={`text-micro font-mono px-1 py-0.5 rounded ${p === 'critical' ? 'bg-rose-100 text-rose-700' : p === 'high' ? 'bg-orange-100 text-orange-700' : 'bg-slate-100 text-slate-600'}`}
+                            className={`text-micro font-mono px-1 py-0.5 rounded ${p === 'critical' ? 'bg-rose-100 text-rose-700 dark:bg-rose-500/15 dark:text-rose-300' : p === 'high' ? 'bg-orange-100 text-orange-700 dark:bg-orange-500/15 dark:text-orange-300' : 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300'}`}
                           >
                             {p}
                           </span>

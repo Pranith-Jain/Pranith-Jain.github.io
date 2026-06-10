@@ -206,7 +206,7 @@ export default function DeceptionTech(): JSX.Element {
                 <div className="flex items-center gap-2">
                   <AlertTriangle size={14} className={a.acknowledged ? 'text-slate-400' : 'text-rose-500'} />
                   <span
-                    className={`px-2 py-0.5 rounded text-micro font-semibold uppercase ${SEV_COLORS[a.severity] ?? 'bg-slate-100 text-slate-500'}`}
+                    className={`px-2 py-0.5 rounded text-micro font-semibold uppercase ${SEV_COLORS[a.severity] ?? 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300'}`}
                   >
                     {a.severity}
                   </span>

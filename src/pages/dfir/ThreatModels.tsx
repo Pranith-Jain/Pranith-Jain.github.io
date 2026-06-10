@@ -201,7 +201,7 @@ export default function ThreatModels(): JSX.Element {
                             <span className="font-medium">{a.name}</span>
                             <span className="text-slate-400 ml-2">{a.type}</span>
                             <span
-                              className={`ml-2 px-1 py-0.5 rounded text-micro ${RISK_COLORS[a.criticality] ?? 'bg-slate-100 text-slate-500'}`}
+                              className={`ml-2 px-1 py-0.5 rounded text-micro ${RISK_COLORS[a.criticality] ?? 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300'}`}
                             >
                               {a.criticality}
                             </span>
