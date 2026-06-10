@@ -911,3 +911,23 @@ export const githubSecuritySchema = z.object({
   ecosystem: z.string().max(50).optional(),
   package: z.string().max(100).optional(),
 });
+
+export const tracerExpandSchema = z.object({
+  address: z.string().min(1, 'address is required').max(200, 'address too long'),
+  chain: z.enum(['evm', 'btc', 'tron']),
+  direction: z.enum(['in', 'out', 'both']).optional(),
+  from: z.string().datetime().optional(),
+  to: z.string().datetime().optional(),
+  around: z.string().datetime().optional(),
+  toleranceMin: z.number().int().positive().max(10080).optional(),
+  token: z.string().max(20).optional(),
+  minAmount: z.number().nonnegative().optional(),
+  maxTransfers: z.number().int().positive().max(100).optional(),
+});
+export type TracerExpandInput = z.infer<typeof tracerExpandSchema>;
+
+export const tracerLabelSchema = z.object({
+  address: z.string().min(1, 'address is required').max(200, 'address too long'),
+  chain: z.enum(['evm', 'btc', 'tron']),
+});
+export type TracerLabelInput = z.infer<typeof tracerLabelSchema>;
