@@ -220,6 +220,9 @@ export async function agentDeleteHandler(c: Context<{ Bindings: Env }>): Promise
 function detectQueryType(query: string): string {
   const q = query.toLowerCase();
   if (/\bcve-\d{4}-\d{4,}/i.test(query)) return 'cve';
+  if (/\bexploit.?db\b/i.test(q) || /\bexploit\b/i.test(q)) return 'exploit-db';
+  if (/\bbug.?bounty\b/i.test(q) || /\bbounty\b/i.test(q)) return 'bug-bounty';
+  if (/\bsecurity.?update\b/i.test(q) || /\bvendor.?advisor/i.test(q)) return 'security-updates';
   if (/\b(?:\d{1,3}\.){3}\d{1,3}\b/.test(query)) return 'ip';
   if (/\b[a-fA-F0-9]{32,64}\b/.test(query)) return 'hash';
   if (/^https?:\/\//i.test(query.trim())) return 'url';

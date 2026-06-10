@@ -31,6 +31,7 @@ export default function InfostealerDetail(): JSX.Element {
   const [samples, setSamples] = useState<SampleItem[]>([]);
   const [c2, setC2] = useState<C2Item[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     if (!family) return;
@@ -38,11 +39,30 @@ export default function InfostealerDetail(): JSX.Element {
     const ctrl = new AbortController();
     const opts = { signal: ctrl.signal };
 
+    setLoading(true);
+    setError(null);
+
     Promise.allSettled([
-      fetch('/api/v1/malware-samples', opts).then((r) => (r.ok ? r.json() : null)),
-      fetch('/api/v1/live-iocs', opts).then((r) => (r.ok ? r.json() : null)),
+      fetch('/api/v1/malware-samples', opts).then((r) => {
+        if (!r.ok) throw new Error(`malware-samples upstream ${r.status}`);
+        return r.json();
+      }),
+      fetch('/api/v1/live-iocs', opts).then((r) => {
+        if (!r.ok) throw new Error(`live-iocs upstream ${r.status}`);
+        return r.json();
+      }),
     ]).then(([mbRes, liRes]) => {
       if (!alive) return;
+
+      // Both upstreams failed (network error or non-2xx) — surface a real
+      // error instead of rendering the misleading "no live data" empty state.
+      if (mbRes.status === 'rejected' && liRes.status === 'rejected') {
+        const reason = mbRes.reason instanceof Error ? mbRes.reason : null;
+        if (reason?.name === 'AbortError') return;
+        setError('Live malware-sample and IOC feeds are both unreachable right now.');
+        setLoading(false);
+        return;
+      }
 
       const names = new Set(
         [family.threatfoxTag, family.name, ...family.aliases]
@@ -229,6 +249,10 @@ export default function InfostealerDetail(): JSX.Element {
         </h2>
         {loading ? (
           <p className="font-mono text-[12px] text-slate-500 animate-pulse">loading samples…</p>
+        ) : error ? (
+          <p className="rounded-lg border border-rose-300/70 bg-rose-50/60 px-3 py-2 font-mono text-[12px] text-rose-700 dark:border-rose-800/60 dark:bg-rose-950/30 dark:text-rose-300">
+            {error}
+          </p>
         ) : samples.length === 0 ? (
           <p className="font-mono text-[12px] text-slate-500">No live samples in the current 24h window.</p>
         ) : (
@@ -277,6 +301,10 @@ export default function InfostealerDetail(): JSX.Element {
         </h2>
         {loading ? (
           <p className="font-mono text-[12px] text-slate-500 animate-pulse">loading IOCs…</p>
+        ) : error ? (
+          <p className="rounded-lg border border-rose-300/70 bg-rose-50/60 px-3 py-2 font-mono text-[12px] text-rose-700 dark:border-rose-800/60 dark:bg-rose-950/30 dark:text-rose-300">
+            {error}
+          </p>
         ) : c2.length === 0 ? (
           <p className="font-mono text-[12px] text-slate-500">No live IOCs attributed in the current window.</p>
         ) : (

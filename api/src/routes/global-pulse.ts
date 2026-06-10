@@ -633,7 +633,7 @@ function fromDetections(data: {
     lat: 0,
     lng: 0,
     timestamp: i.first_observed || new Date().toISOString(),
-    severity: (['critical', 'high', 'medium', 'low'].includes(i.severity)
+    severity: (['critical', 'high', 'medium', 'low'].includes(i.severity ?? '')
       ? i.severity
       : 'medium') as PulseEvent['severity'],
     source: 'Detections',
@@ -1073,7 +1073,7 @@ async function fetchCisaKev(): Promise<PulseEvent[]> {
       }>;
     };
     // Get recently added KEVs (last 30 days)
-    const thirtyDaysAgo = new Date(Date.now() - 30 * 86400000).toISOString().split('T')[0];
+    const thirtyDaysAgo = new Date(Date.now() - 30 * 86400000).toISOString().split('T')[0] ?? '';
     return (data.vulnerabilities ?? [])
       .filter((v) => v.dateAdded >= thirtyDaysAgo)
       .slice(0, 20)
@@ -2184,7 +2184,9 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
     // Apply direct results to fill in all gaps
     const direct: Record<string, unknown> = {};
     for (let i = 0; i < missing.length; i++) {
-      const [, key] = missing[i];
+      const entry = missing[i];
+      if (!entry) continue;
+      const [, key] = entry;
       const data = directResults[i];
       if (data) direct[key] = data;
     }

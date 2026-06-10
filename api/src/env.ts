@@ -142,4 +142,9 @@ export interface Env {
    *  `wrangler.jsonc#vars.SITE_URL` — used for CORS, RSS links, and
    *  canonical URLs. Falls back to the hardcoded default. */
   SITE_URL?: string;
+  /** BuiltWith Domain API key (paid). Optional — when unset, the
+   *  /api/v1/builtwith tech-stack lookup falls back to a free, self-contained
+   *  heuristic that fingerprints the target's live HTTP headers + HTML body.
+   *  There is no free BuiltWith JSON API, so the heuristic is the default. */
+  BUILTWITH_API_KEY?: string;
 }

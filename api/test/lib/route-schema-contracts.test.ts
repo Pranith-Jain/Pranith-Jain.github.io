@@ -159,6 +159,43 @@ const CASES: Case[] = [
     valid: { name: 'x', url: 'https://e.com', kind: 'samples' },
     invalid: { name: 'x', url: 'https://e.com', kind: 'blog' },
   },
+  // New threat-intel routes (mounted with validate('query', ...)).
+  {
+    name: 'exploitDbSchema (query)',
+    schema: S.exploitDbSchema,
+    valid: { q: 'log4j' },
+    invalid: {}, // refine: needs q or cve
+  },
+  {
+    name: 'cisaKevSchema (query)',
+    schema: S.cisaKevSchema,
+    valid: { cve: 'CVE-2021-44228' },
+    invalid: { cve: 'not-a-cve' },
+  },
+  {
+    name: 'securityUpdatesSchema (query)',
+    schema: S.securityUpdatesSchema,
+    valid: { vendor: 'cisco' },
+    invalid: { vendor: 123 },
+  },
+  {
+    name: 'passiveDnsSchema (query)',
+    schema: S.passiveDnsSchema,
+    valid: { q: 'example.com' },
+    invalid: {}, // q required
+  },
+  {
+    name: 'githubSecuritySchema (query)',
+    schema: S.githubSecuritySchema,
+    valid: { cve: 'CVE-2021-44228' },
+    invalid: { cve: 'not-a-cve' },
+  },
+  {
+    name: 'waybackAdvancedSchema (query)',
+    schema: S.waybackAdvancedSchema,
+    valid: { domain: 'example.com' },
+    invalid: {}, // domain required
+  },
 ];
 
 describe('route validate() schemas match their handlers', () => {

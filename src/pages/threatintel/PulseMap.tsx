@@ -15,41 +15,12 @@ import { ComposableMap, Geographies, Geography, Marker } from 'react-simple-maps
 
 const TOPO_URL = '/world-110m.json';
 
-type EventKind =
-  | 'earthquake'
-  | 'ioc_activity'
-  | 'geopolitical'
-  | 'tech_news'
-  | 'reddit'
-  | 'telegram'
-  | 'x_feed'
-  | 'scam'
-  | 'breach'
-  | 'briefing'
-  | 'cyber_attack'
-  | 'aircraft'
-  | 'war_room'
-  | 'c2_tracker'
-  | 'cisa_advisory'
-  | 'blocklist'
-  | 'darkweb'
-  | 'infostealer'
-  | 'phishing'
-  | 'malware'
-  | 'ransomware'
-  | 'detection'
-  | 'cybercrime'
-  | 'research'
-  | 'cve'
-  | 'actor_sighting'
-  | 'ioc_correlation';
-
 interface MarkerData {
   id: string;
   lat: number;
   lng: number;
   severity: 'critical' | 'high' | 'medium' | 'low';
-  kind: EventKind;
+  kind: string;
   title?: string;
   description?: string;
   source?: string;
@@ -67,7 +38,7 @@ const SEVERITY_RADIUS: Record<string, number> = {
   low: 3,
 };
 
-const KIND_COLORS: Record<EventKind, string> = {
+const KIND_COLORS: Record<string, string> = {
   earthquake: '#f97316',
   ioc_activity: '#e11d48',
   geopolitical: '#a855f7',
@@ -97,7 +68,7 @@ const KIND_COLORS: Record<EventKind, string> = {
   ioc_correlation: '#06b6d4',
 };
 
-const KIND_LABELS: Record<EventKind, string> = {
+const KIND_LABELS: Record<string, string> = {
   earthquake: 'Earthquake',
   ioc_activity: 'IOC Activity',
   geopolitical: 'Geopolitical',

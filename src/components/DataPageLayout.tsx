@@ -17,6 +17,8 @@ export interface DataPageLayoutProps {
   emptyIcon?: ReactNode;
   children?: ReactNode;
   className?: string;
+  /** Container width cap. Defaults to max-w-5xl; pass e.g. max-w-7xl for wide/command-center pages. */
+  maxWidthClass?: string;
 }
 
 export function DataPageLayout({
@@ -34,9 +36,12 @@ export function DataPageLayout({
   emptyIcon,
   children,
   className,
+  maxWidthClass = 'max-w-5xl',
 }: DataPageLayoutProps): JSX.Element {
   return (
-    <div className={`max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100 ${className ?? ''}`}>
+    <div
+      className={`${maxWidthClass} mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100 ${className ?? ''}`}
+    >
       <Link
         to={backTo}
         className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:text-brand-400 mb-8 font-mono"

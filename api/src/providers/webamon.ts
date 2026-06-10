@@ -57,6 +57,10 @@ export const webamon: ProviderAdapter = async (indicator, _env, signal) => {
     }
 
     const hit = data.results[0];
+    if (!hit) {
+      return base('ok', { score: 0, verdict: 'clean', tags: [], raw_summary: {} });
+    }
+
     const riskScore = hit.meta?.risk_score ?? 0;
     const mappedScore = Math.min(Math.round(riskScore * 10), 100);
 

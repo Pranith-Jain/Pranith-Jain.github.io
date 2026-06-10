@@ -6,6 +6,7 @@ import { SocShell, SocKpi, SocSection, SocPanel, type SocStatus } from '../../co
 import { SocBar, SocDonut, type BarItem, type DonutSlice } from '../../components/threatintel/soc/SocCharts';
 import { downloadCsv, dayKey, formatNumber } from '../../components/threatintel/soc/utils';
 import { CHART_RANK, CHART_DAILY, CHART_IOC_KIND, CHART_CRIT } from '../../components/threatintel/soc/tone';
+import { sourceWeight } from '../../lib/dfir/source-meta';
 
 /* ─── Data shape (matches /api/v1/live-iocs) ───────────────────────── */
 
@@ -52,30 +53,8 @@ interface LiveIocsResponse {
  */
 function iocCriticality(ioc: LiveIoc): number {
   let s = 0;
-  // Source weight (0-60)
-  const SRC: Record<string, number> = {
-    'c2-intel': 60,
-    'c2-intel-domains': 60,
-    sslbl: 55,
-    threatfox: 50,
-    urlhaus: 45,
-    malwarebazaar: 40,
-    'sans-isc': 35,
-    'otx-reputation': 30,
-    tweetfeed: 25,
-    'binary-defense': 22,
-    'emerging-threats': 20,
-    botvrij: 18,
-    ipsum: 18,
-    'blocklist-de': 15,
-    cinsarmy: 12,
-    openphish: 28,
-    'phishing-army': 20,
-    phishtank: 25,
-    'af-defacements': 10,
-    mythreatintel: 30,
-  };
-  s += SRC[ioc.source] ?? 20;
+  // Source weight (0-60) — canonical weights live in lib/dfir/source-meta.
+  s += sourceWeight(ioc.source);
   // Kind weight (0-25)
   s += { ip: 25, url: 22, domain: 18, hash: 12 }[ioc.kind] ?? 10;
   // Context richness (0-15)

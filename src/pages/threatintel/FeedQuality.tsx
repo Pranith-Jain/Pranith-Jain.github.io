@@ -218,8 +218,10 @@ export default function FeedQuality(): JSX.Element {
       <DataState
         loading={loading}
         error={error}
-        empty={!data || data.feeds.length === 0}
+        empty={!error && (!data || data.feeds.length === 0)}
         emptyLabel="No TIFCE build available yet — the live-IOC stream hasn't reported enough feeds to score."
+        onRetry={() => void refetch()}
+        rows={8}
       >
         {data && (
           <>

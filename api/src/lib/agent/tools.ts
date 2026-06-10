@@ -81,7 +81,7 @@ export function buildToolRegistry(
     {
       name: 'check_ioc',
       description:
-        'Multi-provider IOC reputation check (30+ providers). Returns composite score, admiralty grade, per-provider verdicts with detection ratios, geolocation, ASN, abuse reports.',
+        'Multi-provider IOC reputation check (32+ providers: VirusTotal, AbuseIPDB, Shodan, AlienVault, GreyNoise, CrowdSec, StopForumSpam, DShield, TweetFeed, Spamhaus, ThreatFox, URLhaus, IPsum, and more). Returns composite score, admiralty grade, per-provider verdicts with detection ratios, geolocation, ASN, abuse reports.',
       params: [{ name: 'indicator', type: 'string', description: 'IP, domain, URL, or file hash', required: true }],
       execute: (args) =>
         apiFetchSse(self, `/api/v1/ioc/check?indicator=${encodeURIComponent(String(args.indicator))}`, apiKey, ih),
@@ -218,6 +218,58 @@ export function buildToolRegistry(
       params: [{ name: 'ip', type: 'string', description: 'IPv4 or IPv6', required: true }],
       execute: (args) =>
         apiFetch(self, `/api/v1/ip-geo?ip=${encodeURIComponent(String(args.ip))}`, apiKey, undefined, ih),
+    },
+    {
+      name: 'lookup_builtwith',
+      description:
+        'Technology stack discovery — what technologies a domain uses (web servers, frameworks, analytics, hosting).',
+      params: [{ name: 'domain', type: 'string', description: 'Domain name', required: true }],
+      execute: (args) =>
+        apiFetch(self, `/api/v1/builtwith?domain=${encodeURIComponent(String(args.domain))}`, apiKey, undefined, ih),
+    },
+    {
+      name: 'lookup_certificate_transparency',
+      description: 'Certificate Transparency log analysis — all SSL certificates issued for a domain or IP address.',
+      params: [{ name: 'target', type: 'string', description: 'Domain or IP address', required: true }],
+      execute: (args) =>
+        apiFetch(self, `/api/v1/ct-log?target=${encodeURIComponent(String(args.target))}`, apiKey, undefined, ih),
+    },
+    {
+      name: 'lookup_wayback_advanced',
+      description:
+        'Enhanced Wayback Machine archive search — historical snapshots with context, DNS records, and content analysis.',
+      params: [
+        { name: 'domain', type: 'string', description: 'Domain name', required: true },
+        {
+          name: 'date_range',
+          type: 'string',
+          description: 'Date range (e.g., 2020-01-01..2024-12-31)',
+          required: false,
+        },
+        {
+          name: 'filter',
+          type: 'enum',
+          description: 'Filter by content type',
+          required: false,
+          enum: ['html', 'js', 'css', 'all'],
+        },
+      ],
+      execute: (args) => {
+        const p = new URLSearchParams({ domain: String(args.domain) });
+        if (args.date_range) p.set('date_range', String(args.date_range));
+        if (args.filter) p.set('filter', String(args.filter));
+        return apiFetch(self, `/api/v1/wayback/advanced?${p}`, apiKey, undefined, ih);
+      },
+    },
+    {
+      name: 'urlscan_ip_search',
+      description:
+        'Search urlscan.io for all scans involving an IP address. Returns URLs, domains, screenshot, and threat classifications associated with the IP.',
+      params: [{ name: 'ip', type: 'string', description: 'IPv4 address', required: true }],
+      execute: (args) => {
+        const enc = encodeURIComponent(String(args.ip));
+        return apiFetch(self, `/api/v1/urlscan-ip?ip=${enc}`, apiKey, undefined, ih);
+      },
     },
     {
       name: 'lookup_asn',
@@ -759,6 +811,137 @@ export function buildToolRegistry(
       description: 'Threat forecasting — predicted emerging threats based on historical patterns.',
       params: [],
       execute: () => apiFetch(self, '/api/v1/threat-intel/predictive/forecasts', apiKey, undefined, ih),
+    },
+
+    {
+      name: 'webamon_search',
+      description:
+        'Search Webamon domain index — Lucene queries across 750M+ scanned domains. Use for domain risk assessment, infrastructure discovery, geo netblock lookups, or finding related malicious infrastructure. Supports queries like risk_score:>5, domain.name:example.com, fingerprint.tech:*wordpress, tag:nrd_*',
+      params: [
+        { name: 'query', type: 'string', description: 'Lucene search query', required: true },
+        { name: 'size', type: 'number', description: 'Results per page (max 100)', required: false },
+      ],
+      execute: (args) => {
+        const p = new URLSearchParams({ search: String(args.query) });
+        if (args.size) p.set('size', String(args.size));
+        p.set(
+          'results',
+          'domain.name,page_title,meta.risk_score,fingerprint.tech,fingerprint.asn,resolved_url,tag,sub_domain'
+        );
+        return apiFetch(self, `/api/v1/webamon/search?${p}`, apiKey, undefined, ih);
+      },
+    },
+    {
+      name: 'webamon_scan',
+      description:
+        'Submit a URL or domain to Webamon sandbox for live analysis — headers, certs, technologies, scripts, cookies, resources.',
+      params: [{ name: 'url', type: 'string', description: 'URL or domain to scan', required: true }],
+      execute: (args) =>
+        apiFetch(
+          self,
+          '/api/v1/webamon/scan',
+          apiKey,
+          {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({ submission_url: String(args.url) }),
+          },
+          ih
+        ),
+    },
+    {
+      name: 'webamon_report',
+      description:
+        'Get a published Webamon scan report by ID — certificates, servers, cookies, technologies, resources, scripts.',
+      params: [{ name: 'report_id', type: 'string', description: 'Webamon report ID', required: true }],
+      execute: (args) =>
+        apiFetch(self, `/api/v1/webamon/report/${encodeURIComponent(String(args.report_id))}`, apiKey, undefined, ih),
+    },
+    {
+      name: 'webamon_domain',
+      description: 'Lookup full domain infrastructure from Webamon — DNS, CT logs, ASN, risk score, tech stack.',
+      params: [{ name: 'domain', type: 'string', description: 'Domain name', required: true }],
+      execute: (args) =>
+        apiFetch(self, `/api/v1/webamon/domain/${encodeURIComponent(String(args.domain))}`, apiKey, undefined, ih),
+    },
+    {
+      name: 'webamon_server',
+      description: 'Lookup server intelligence from Webamon — IP, ASN, country, open ports, running services.',
+      params: [{ name: 'ip', type: 'string', description: 'IP address', required: true }],
+      execute: (args) =>
+        apiFetch(self, `/api/v1/webamon/server/${encodeURIComponent(String(args.ip))}`, apiKey, undefined, ih),
+    },
+    {
+      name: 'webamon_resource',
+      description: 'Lookup file/resource intelligence from Webamon by SHA256 hash — MIME type, size, observed URLs.',
+      params: [{ name: 'sha256', type: 'string', description: 'SHA256 hash', required: true }],
+      execute: (args) =>
+        apiFetch(self, `/api/v1/webamon/resource/${encodeURIComponent(String(args.sha256))}`, apiKey, undefined, ih),
+    },
+
+    // ══════════════════════════════════════════════════════════════════════
+    //  EXPLOIT-DB & SECURITY UPDATES (NEW)
+    // ══════════════════════════════════════════════════════════════════════
+    {
+      name: 'lookup_exploit_db',
+      description:
+        'Search Exploit-DB and related sources for exploits by CVE ID or keyword. Returns exploit references, platforms, and descriptions.',
+      params: [{ name: 'q', type: 'string', description: 'CVE ID or search keyword', required: true }],
+      execute: (args) =>
+        apiFetch(self, `/api/v1/exploit-db?q=${encodeURIComponent(String(args.q))}`, apiKey, undefined, ih),
+    },
+    {
+      name: 'lookup_cisa_kev',
+      description:
+        'CISA Known Exploited Vulnerabilities lookup. Filter by CVE, vendor, product, or days. Returns vulnerability details, due dates, and ransomware use flags.',
+      params: [
+        { name: 'q', type: 'string', description: 'CVE ID, vendor, or product keyword', required: false },
+        { name: 'cve', type: 'string', description: 'Specific CVE ID', required: false },
+        { name: 'vendor', type: 'string', description: 'Vendor name filter', required: false },
+        { name: 'product', type: 'string', description: 'Product name filter', required: false },
+        { name: 'days', type: 'number', description: 'Look back N days', required: false },
+        {
+          name: 'ransomware_only',
+          type: 'boolean',
+          description: 'Only vulnerabilities tied to ransomware',
+          required: false,
+        },
+      ],
+      execute: (args) => {
+        const p = new URLSearchParams();
+        if (args.q) p.set('q', String(args.q));
+        if (args.cve) p.set('cve', String(args.cve));
+        if (args.vendor) p.set('vendor', String(args.vendor));
+        if (args.product) p.set('product', String(args.product));
+        if (args.days) p.set('days', String(args.days));
+        if (args.ransomware_only) p.set('ransomware_only', 'true');
+        return apiFetch(self, `/api/v1/cisa-kev?${p}`, apiKey, undefined, ih);
+      },
+    },
+    {
+      name: 'lookup_security_updates',
+      description:
+        'Search vendor security advisories and CISA KEV for updates. Query by vendor, product, or keyword. Returns recent security patches and vulnerabilities.',
+      params: [
+        { name: 'q', type: 'string', description: 'Search keyword', required: false },
+        { name: 'vendor', type: 'string', description: 'Vendor name', required: false },
+        { name: 'product', type: 'string', description: 'Product name', required: false },
+      ],
+      execute: (args) => {
+        const p = new URLSearchParams();
+        if (args.q) p.set('q', String(args.q));
+        if (args.vendor) p.set('vendor', String(args.vendor));
+        if (args.product) p.set('product', String(args.product));
+        return apiFetch(self, `/api/v1/security-updates?${p}`, apiKey, undefined, ih);
+      },
+    },
+    {
+      name: 'passive_dns_lookup',
+      description:
+        'Passive DNS history lookup — subdomains, historical IPs, first/last seen timestamps. Uses crt.sh and optional SecurityTrails for historical DNS data.',
+      params: [{ name: 'q', type: 'string', description: 'Domain or IP address', required: true }],
+      execute: (args) =>
+        apiFetch(self, `/api/v1/passive-dns?q=${encodeURIComponent(String(args.q))}`, apiKey, undefined, ih),
     },
 
     // ══════════════════════════════════════════════════════════════════════

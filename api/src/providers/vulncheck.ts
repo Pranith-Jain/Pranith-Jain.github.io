@@ -1,5 +1,14 @@
-import type { ProviderAdapter, ProviderResult, Verdict } from './types';
+import type { ProviderAdapter, ProviderErrorCode, ProviderResult, Verdict } from './types';
+import type { VcErrorInfo } from '../lib/vulncheck';
 import { vulncheckIp } from '../lib/vulncheck';
+
+/**
+ * Map the VulnCheck lib's error codes onto the shared {@link ProviderErrorCode}
+ * union. `upstream_5xx`/`upstream_4xx` are valid codes already; `network_error`
+ * is the lib's name for what the shared union calls `network`.
+ */
+const toProviderErrorCode = (code: VcErrorInfo['code']): ProviderErrorCode =>
+  code === 'network_error' ? 'network' : code;
 
 const supports = new Set(['ipv4']);
 
@@ -32,10 +41,12 @@ export const vulncheck: ProviderAdapter = async (indicator, env, signal) => {
     if ('err' in intel) {
       const code = intel.err.code;
       const status = intel.err.status;
+      const errorCode = toProviderErrorCode(code);
       return base('error', {
         error: `vulncheck ${code}${status ? ` (${status})` : ''}`,
-        error_code: code,
-        error_tags: [code],
+        error_code: errorCode,
+        error_status: status,
+        error_tags: status ? [errorCode, String(status)] : [errorCode],
       });
     }
     const data = intel.ok;

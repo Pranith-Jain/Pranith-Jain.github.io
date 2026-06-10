@@ -36,6 +36,10 @@ const WEIGHTS: Record<IndicatorType, Partial<Record<ProviderId, number>>> = {
     kaspersky: 3,
     // VulnCheck IP Intel: C2 / initial-access / honeypot attribution. High weight.
     vulncheck: 4,
+    // StopForumSpam: crowdsourced spam database. Confidence-based scoring.
+    stopforumspam: 2,
+    // SANS ISC / DShield: distributed honeypot sensor network. High weight.
+    dshield: 3,
   },
   // IPv6 shares the provider pool with IPv4 (same data sources, same
   // quality). Mirror the IPv4 weights exactly; per-provider special-cases
@@ -62,6 +66,8 @@ const WEIGHTS: Record<IndicatorType, Partial<Record<ProviderId, number>>> = {
     crowdsec: 3,
     ipinfo: 1,
     kaspersky: 3,
+    stopforumspam: 2,
+    dshield: 3,
   },
   domain: {
     virustotal: 2,
@@ -106,7 +112,7 @@ const WEIGHTS: Record<IndicatorType, Partial<Record<ProviderId, number>>> = {
   // EmailRep is the only provider with first-class email signal — it pulls
   // from breach data, blocklists, and reputation feeds. Weight it as the
   // anchor for the email composite (matches abuseipdb's role for ipv4).
-  email: { otx: 1, virustotal: 1, emailrep: 4 },
+  email: { otx: 1, virustotal: 1, emailrep: 4, stopforumspam: 2 },
   unknown: {},
 };
 

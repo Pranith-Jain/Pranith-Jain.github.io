@@ -18,8 +18,6 @@ import {
   Flame,
   Map,
   Box,
-  Wifi,
-  WifiOff,
   ExternalLink,
   Layers,
   Filter,
@@ -30,6 +28,8 @@ import {
 } from 'lucide-react';
 import type { ReactNode } from 'react';
 import { DataPageLayout } from '../../components/DataPageLayout';
+import { CountUp } from '../../components/ui/CountUp';
+import { Sparkline } from '../../components/threatintel/Sparkline';
 import { Badge } from '../../components/ui/Badge';
 import type { CtiArc, CtiPoint } from '../../components/threatintel/cti/geo';
 import { synthesizeArcs, deriveKpis } from '../../components/threatintel/cti/geo';
@@ -664,6 +664,19 @@ export default function GlobalPulse(): JSX.Element {
     return { bySeverity, topSources, geoCount: geoPoints.length };
   }, [data, filteredEvents, geoPoints]);
 
+  // One sample per refresh — drives the KPI deltas + sparklines so the page
+  // reads as a live pulse, not a static scoreboard.
+  const [trend, setTrend] = useState<{ total: number; critical: number }[]>([]);
+  useEffect(() => {
+    if (!data) return;
+    setTrend((t) => [...t.slice(-23), { total: data.total_events, critical: kpis.critical }]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [lastUpdated]);
+  const lastTrend = trend[trend.length - 1];
+  const prevTrend = trend[trend.length - 2];
+  const totalDelta = lastTrend && prevTrend ? lastTrend.total - prevTrend.total : 0;
+  const criticalDelta = lastTrend && prevTrend ? lastTrend.critical - prevTrend.critical : 0;
+
   return (
     <DataPageLayout
       backTo="/threatintel"
@@ -673,61 +686,119 @@ export default function GlobalPulse(): JSX.Element {
       loading={loading && !data}
       error={error}
       onRetry={load}
+      maxWidthClass="max-w-7xl"
     >
       {data && (
         <div className="space-y-4">
           {/* ─── Top Stats Bar ─── */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+            {/* Total events */}
             <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-4">
-              <div className="flex items-center gap-2 mb-2">
-                <Activity size={14} className="text-slate-400" />
-                <span className="text-[10px] font-mono uppercase text-slate-500">Total Events</span>
+              <div className="flex items-center justify-between gap-2 mb-2">
+                <span className="flex items-center gap-1.5 text-eyebrow uppercase text-slate-500">
+                  <Activity size={12} className="text-slate-400" /> Total Events
+                </span>
+                {totalDelta !== 0 && (
+                  <span
+                    className={`inline-flex items-center text-[10px] font-mono px-1.5 py-0.5 rounded-full ${
+                      totalDelta > 0
+                        ? 'text-emerald-600 dark:text-emerald-400 bg-emerald-500/10'
+                        : 'text-slate-500 bg-slate-500/10'
+                    }`}
+                  >
+                    {totalDelta > 0 ? '+' : ''}
+                    {totalDelta}
+                  </span>
+                )}
               </div>
-              <div className="text-2xl font-bold font-mono text-slate-900 dark:text-white">{data.total_events}</div>
-              <div className="text-[10px] font-mono text-slate-500 mt-1">{geoPoints.length} geo-located</div>
+              <div className="flex items-end justify-between gap-2">
+                <CountUp
+                  to={data.total_events}
+                  className="text-3xl font-display font-bold text-slate-900 dark:text-white tabular-nums leading-none"
+                />
+                {trend.length > 1 && (
+                  <Sparkline values={trend.map((t) => t.total)} className="text-brand-400/70 mb-0.5" />
+                )}
+              </div>
+              <div className="text-[10px] font-mono text-slate-500 mt-1.5">{geoPoints.length} geo-located</div>
             </div>
 
-            <div className="rounded-xl border border-rose-500/20 bg-rose-500/5 p-4">
-              <div className="flex items-center gap-2 mb-2">
-                <AlertTriangle size={14} className="text-rose-400" />
-                <span className="text-[10px] font-mono uppercase text-rose-500/70">Critical</span>
+            {/* Critical — the hero metric */}
+            <div className="rounded-xl border border-severity-critical/30 bg-severity-critical/5 p-4 ring-1 ring-severity-critical/10 shadow-sm shadow-severity-critical/10">
+              <div className="flex items-center justify-between gap-2 mb-2">
+                <span className="flex items-center gap-1.5 text-eyebrow uppercase text-severity-critical">
+                  <AlertTriangle size={12} /> Critical
+                </span>
+                {criticalDelta !== 0 && (
+                  <span
+                    className={`inline-flex items-center text-[10px] font-mono px-1.5 py-0.5 rounded-full ${
+                      criticalDelta > 0
+                        ? 'text-severity-critical bg-severity-critical/15'
+                        : 'text-emerald-600 dark:text-emerald-400 bg-emerald-500/10'
+                    }`}
+                  >
+                    {criticalDelta > 0 ? '+' : ''}
+                    {criticalDelta}
+                  </span>
+                )}
               </div>
-              <div className="text-2xl font-bold font-mono text-rose-400">{kpis.critical}</div>
-              <div className="text-[10px] font-mono text-rose-500/60 mt-1">
+              <CountUp
+                to={kpis.critical}
+                className="block text-3xl font-display font-bold text-severity-critical tabular-nums leading-none"
+              />
+              {(() => {
+                const bs = stats?.bySeverity ?? { critical: 0, high: 0, medium: 0, low: 0 };
+                const tot = bs.critical + bs.high + bs.medium + bs.low || 1;
+                return (
+                  <div className="mt-2 flex h-1 gap-px overflow-hidden rounded-full bg-slate-200/50 dark:bg-slate-800">
+                    <div className="bg-severity-critical" style={{ width: `${(bs.critical / tot) * 100}%` }} />
+                    <div className="bg-severity-high" style={{ width: `${(bs.high / tot) * 100}%` }} />
+                    <div className="bg-severity-medium" style={{ width: `${(bs.medium / tot) * 100}%` }} />
+                    <div className="bg-severity-low" style={{ width: `${(bs.low / tot) * 100}%` }} />
+                  </div>
+                );
+              })()}
+              <div className="text-[10px] font-mono text-severity-critical/70 mt-1.5">
                 {stats?.bySeverity.high ?? 0} high severity
               </div>
             </div>
 
+            {/* Active layers */}
             <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-4">
-              <div className="flex items-center gap-2 mb-2">
-                <Layers size={14} className="text-slate-400" />
-                <span className="text-[10px] font-mono uppercase text-slate-500">Active Layers</span>
+              <div className="flex items-center gap-1.5 text-eyebrow uppercase text-slate-500 mb-2">
+                <Layers size={12} className="text-slate-400" /> Active Layers
               </div>
-              <div className="text-2xl font-bold font-mono text-slate-900 dark:text-white">{activeLayers.size}</div>
-              <div className="text-[10px] font-mono text-slate-500 mt-1">
+              <CountUp
+                to={activeLayers.size}
+                className="block text-3xl font-display font-bold text-slate-900 dark:text-white tabular-nums leading-none"
+              />
+              <div className="text-[10px] font-mono text-slate-500 mt-1.5">
                 {ALL_KINDS.length - activeLayers.size} hidden
               </div>
             </div>
 
+            {/* Live status */}
             <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-4">
-              <div className="flex items-center gap-2 mb-2">
-                <Clock size={14} className="text-slate-400" />
-                <span className="text-[10px] font-mono uppercase text-slate-500">Last Update</span>
+              <div className="flex items-center gap-1.5 text-eyebrow uppercase text-slate-500 mb-2">
+                <Clock size={12} className="text-slate-400" /> Last Update
               </div>
-              <div className="text-lg font-bold font-mono text-slate-900 dark:text-white">
+              <div className="text-xl font-display font-bold text-slate-900 dark:text-white tabular-nums leading-none">
                 {lastUpdated ? formatTime(lastUpdated) : '—'}
               </div>
-              <div className="flex items-center gap-1.5 mt-1">
+              <div className="mt-2">
                 {autoRefresh ? (
-                  <>
-                    <Wifi size={10} className="text-emerald-400" />
-                    <span className="text-[10px] font-mono text-emerald-500">Live</span>
-                  </>
+                  <span className="inline-flex items-center gap-1.5" aria-label="Live — auto-refreshing">
+                    <span className="relative flex h-2 w-2">
+                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
+                      <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
+                    </span>
+                    <span className="text-eyebrow text-emerald-600 dark:text-emerald-400">LIVE</span>
+                  </span>
                 ) : (
-                  <>
-                    <WifiOff size={10} className="text-slate-400" />
-                    <span className="text-[10px] font-mono text-slate-500">Paused</span>
-                  </>
+                  <span className="inline-flex items-center gap-1.5" aria-label="Paused">
+                    <span className="h-2 w-2 rounded-full bg-slate-400" />
+                    <span className="text-eyebrow text-slate-500">PAUSED</span>
+                  </span>
                 )}
               </div>
             </div>
@@ -841,13 +912,22 @@ export default function GlobalPulse(): JSX.Element {
               <button
                 type="button"
                 onClick={() => setAutoRefresh((p) => !p)}
+                aria-pressed={autoRefresh}
+                title={autoRefresh ? 'Streaming — click to pause' : 'Paused — click to resume'}
                 className={`inline-flex items-center gap-1.5 px-3 py-2 text-xs font-mono rounded-lg border transition-colors ${
                   autoRefresh
                     ? 'border-emerald-500/60 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300'
                     : 'border-slate-200 dark:border-slate-800 text-slate-500'
                 }`}
               >
-                <RefreshCw size={12} className={autoRefresh ? 'animate-spin' : ''} />
+                {autoRefresh ? (
+                  <span className="relative flex h-2 w-2">
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-70" />
+                    <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
+                  </span>
+                ) : (
+                  <span className="h-2 w-2 rounded-full bg-slate-400" />
+                )}
                 {autoRefresh ? 'Live' : 'Paused'}
               </button>
               <button
@@ -1099,7 +1179,16 @@ export default function GlobalPulse(): JSX.Element {
                 <Suspense
                   fallback={
                     <div className="flex items-center justify-center h-full">
-                      <span className="text-sm text-slate-400">Loading map…</span>
+                      <div className="flex flex-col items-center gap-4">
+                        <div className="relative">
+                          <div className="w-16 h-16 rounded-full border-2 border-brand-500/20" />
+                          <div className="absolute inset-0 w-16 h-16 rounded-full border-2 border-transparent border-t-brand-500 animate-spin" />
+                        </div>
+                        <div className="text-center">
+                          <p className="text-sm font-medium text-slate-300">Loading Map</p>
+                          <p className="text-xs text-slate-500 mt-1">Initializing 2D renderer…</p>
+                        </div>
+                      </div>
                     </div>
                   }
                 >
@@ -1203,7 +1292,10 @@ export default function GlobalPulse(): JSX.Element {
               </div>
 
               {/* Feed List */}
-              <div className="flex-1 overflow-y-auto custom-scrollbar">
+              <div className="flex-1 overflow-y-auto custom-scrollbar" aria-label="CTI live event feed">
+                <span className="sr-only" role="status" aria-live="polite">
+                  {filteredEvents.length} events in feed, {kpis.critical} critical
+                </span>
                 {filteredEvents.length === 0 ? (
                   <div className="flex flex-col items-center justify-center py-16 text-center px-4">
                     <Filter size={32} className="text-slate-300 dark:text-slate-600 mb-4" />

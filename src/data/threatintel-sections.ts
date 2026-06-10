@@ -33,7 +33,6 @@ import {
   Scale,
   Search,
   Send,
-  Server,
   Shield,
   ShieldAlert,
   Sparkles,

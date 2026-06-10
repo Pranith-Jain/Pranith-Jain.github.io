@@ -32,6 +32,9 @@ import { ransomwareMergedRssHandler } from './routes/ransomware-merged-rss';
 import { mtiHandler, mtiDnsHandler } from './routes/mti';
 import { mispProxyHandler } from './routes/misp';
 import { waybackCdxHandler } from './routes/wayback';
+import { builtwithHandler } from './routes/builtwith';
+import { ctLogHandler } from './routes/ct-log';
+import { waybackAdvancedHandler } from './routes/wayback-advanced';
 import { threatPulseHandler } from './routes/threat-pulse';
 import { ipGeoHandler } from './routes/ip-geo';
 import { stixFetchHandler } from './routes/stix-fetch';
@@ -352,6 +355,7 @@ import {
 } from './routes/projectdiscovery-intel';
 import { ransomwhereHandler } from './routes/ransomwhere';
 import { stopForumSpamHandler } from './routes/stopforumspam';
+import { urlscanIpHandler } from './routes/urlscan-ip';
 import { hackMyIpBreachHandler } from './routes/hackmyip';
 import {
   telegramLeakSearchHandler,
@@ -367,6 +371,11 @@ import {
   telegramLeakBotRegisterHandler,
   telegramLeakBotWebhookStatusHandler,
 } from './routes/telegram-leak-bot';
+import { exploitDbHandler } from './routes/exploit-db';
+import { securityUpdatesHandler } from './routes/security-updates';
+import { cisaKevHandler } from './routes/cisa-kev';
+import { passiveDnsLookupHandler } from './routes/passive-dns';
+import { gitHubSecurityHandler } from './routes/github-security';
 
 const app = new Hono<{ Bindings: Env }>();
 
@@ -511,6 +520,12 @@ import {
   adminApiKeyCreateSchema,
   phishingEmailTextSchema,
   stixBundleTextSchema,
+  exploitDbSchema,
+  cisaKevSchema,
+  securityUpdatesSchema,
+  passiveDnsSchema,
+  githubSecuritySchema,
+  waybackAdvancedSchema,
 } from './lib/validation-schemas';
 
 // ── Health Checks ──────────────────────────────────────────────────
@@ -634,6 +649,7 @@ app.get('/api/v1/pd/cves', pdCvesHandler);
 app.get('/api/v1/pd/cve-detail', pdCveDetailHandler);
 app.get('/api/v1/ransomwhere', ransomwhereHandler);
 app.get('/api/v1/abuse-rep', stopForumSpamHandler);
+app.get('/api/v1/urlscan-ip', urlscanIpHandler);
 app.get('/api/v1/breach/hackmyip', hackMyIpBreachHandler);
 app.get('/api/v1/identity/lookup', identityProxyHandler);
 app.get('/api/v1/url-preview', urlPreviewHandler);
@@ -667,6 +683,9 @@ app.get('/api/v1/web-scan', webScanHandler);
 app.get('/api/v1/exposure/scan', exposureScanHandler);
 app.get('/api/v1/host', hostIntelHandler);
 app.get('/api/v1/onion-watch', onionWatchHandler);
+app.get('/api/v1/builtwith', builtwithHandler);
+app.get('/api/v1/ct-log', ctLogHandler);
+app.get('/api/v1/wayback/advanced', validate('query', waybackAdvancedSchema), waybackAdvancedHandler);
 app.get('/api/v1/telegram-feed', telegramFeedHandler);
 app.get('/api/v1/telegram-custom-channels', telegramCustomChannelsGetHandler);
 app.post(
@@ -1041,6 +1060,11 @@ app.post('/api/v1/open-dir/scan', validate('json', openDirScanSchema), openDirec
 
 // ── Exposed Host Intelligence ────────────────────────────────────
 app.get('/api/v1/exposed-host', exposedHostHandler);
+app.get('/api/v1/exploit-db', validate('query', exploitDbSchema), exploitDbHandler);
+app.get('/api/v1/security-updates', validate('query', securityUpdatesSchema), securityUpdatesHandler);
+app.get('/api/v1/cisa-kev', validate('query', cisaKevSchema), cisaKevHandler);
+app.get('/api/v1/passive-dns', validate('query', passiveDnsSchema), passiveDnsLookupHandler);
+app.get('/api/v1/github-security', validate('query', githubSecuritySchema), gitHubSecurityHandler);
 
 app.get('/api/v1/dashboard', dashboardHandler);
 app.get('/api/v1/dashboard/watchlist', getWatchlistHandler);

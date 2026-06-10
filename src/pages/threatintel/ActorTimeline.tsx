@@ -150,7 +150,7 @@ export default function ActorTimeline(): JSX.Element {
       <DataState
         loading={loading}
         error={error}
-        empty={!!data && data.groups.length === 0}
+        empty={!error && (!data || data.groups.length === 0)}
         emptyLabel="Ransomlook returned no data this snapshot. Try refresh."
         onRetry={refetch}
         rows={8}

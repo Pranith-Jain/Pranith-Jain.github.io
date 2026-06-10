@@ -2,6 +2,12 @@ import { describe, it, expect } from 'vitest';
 import { scoreIoc, scoreToGrade, calculateLifecycle, type IocObservation } from '../../src/lib/ioc-scoring';
 
 describe('IOC Scoring Engine', () => {
+  // A recent timestamp so time-decay (computed against the real `now`) stays ~1.0.
+  // Tests that assert an absolute confidence/contribution threshold must use this
+  // rather than a hardcoded calendar date, or they silently start failing once
+  // wall-clock advances far enough past that date to decay the score below the bound.
+  const RECENT = new Date(Date.now() - 60 * 60 * 1000).toISOString();
+
   describe('scoreIoc', () => {
     it('returns zero score for empty observations', () => {
       const result = scoreIoc([]);
@@ -26,11 +32,11 @@ describe('IOC Scoring Engine', () => {
     });
 
     it('increases score with multiple sources', () => {
-      const single: IocObservation[] = [{ source: 'virustotal', observedAt: '2026-05-31T10:00:00Z', sourceScore: 80 }];
+      const single: IocObservation[] = [{ source: 'virustotal', observedAt: RECENT, sourceScore: 80 }];
       const multi: IocObservation[] = [
-        { source: 'virustotal', observedAt: '2026-05-31T10:00:00Z', sourceScore: 80 },
-        { source: 'abuseipdb', observedAt: '2026-05-31T10:00:00Z', sourceScore: 70 },
-        { source: 'shodan', observedAt: '2026-05-31T10:00:00Z', sourceScore: 60 },
+        { source: 'virustotal', observedAt: RECENT, sourceScore: 80 },
+        { source: 'abuseipdb', observedAt: RECENT, sourceScore: 70 },
+        { source: 'shodan', observedAt: RECENT, sourceScore: 60 },
       ];
 
       const singleResult = scoreIoc(single);
@@ -57,7 +63,7 @@ describe('IOC Scoring Engine', () => {
     it('deduplicates by source (keeps most recent)', () => {
       const observations: IocObservation[] = [
         { source: 'virustotal', observedAt: '2026-05-01T10:00:00Z', sourceScore: 50 },
-        { source: 'virustotal', observedAt: '2026-05-31T10:00:00Z', sourceScore: 90 },
+        { source: 'virustotal', observedAt: RECENT, sourceScore: 90 },
       ];
       const result = scoreIoc(observations);
       expect(result.sourceCount).toBe(1);

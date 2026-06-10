@@ -72,37 +72,31 @@ Phase 5 — SYNTHESIS (Final step): Compile everything into an analyst-grade rep
 FOR ${queryType.toUpperCase()} QUERIES:
 
 ${
-  queryType === 'cve'
-    ? `Step 1: lookup_cve (get CVSS, EPSS, KEV, affected products, references, CWE)
-Step 2: unified_search for exploitation intel OR generate_yara_rule for detection
-Step 3: Synthesize. Do NOT call enrich_actor (it's for actors, not CVEs). Do NOT call lookup_mitre without a real technique ID from the CVE data.`
-    : ''
-}
-
-${
   queryType === 'cve' || queryType === 'exploit-db'
     ? `Step 1: lookup_cve (get CVSS, EPSS, KEV, affected products, references, CWE)
- Step 2: For exploit-db queries — lookup_exploit_db for PoC/exploit references; for cve queries — unified_search for exploitation intel OR generate_yara_rule for detection
- Step 3: If exploit-db query returns CVEs — check_ioc on discovered IOCs. If CVE query has KEV data — lookup_cisa_kev for additional context
- Step 4: Synthesize. Do NOT call enrich_actor (it's for actors, not CVEs). Do NOT call lookup_mitre without a real technique ID from the CVE data.`
+Step 2: For exploit-db queries — lookup_exploit_db for PoC/exploit references; for cve queries — unified_search for exploitation intel OR generate_yara_rule for detection
+Step 3: If exploit-db query returns CVEs — check_ioc on discovered IOCs. If a CVE has KEV data — lookup_cisa_kev for ransomware/exploitation context
+Step 4: Synthesize. Do NOT call enrich_actor (it's for actors, not CVEs). Do NOT call lookup_mitre without a real technique ID from the CVE data.`
     : ''
 }
 
 ${
   queryType === 'bug-bounty'
     ? `Step 1: unified_search for bounty platform intel, researcher disclosures
-Step 2: check_ioc on discovered IOCs + enrich_actor for discovered actors
-Step 3: generate_yara_rule + generate_hunting_queries
-Step 4: Synthesize`
+Step 2: lookup_exploit_db for public PoCs/exploits + check_ioc on discovered IOCs
+Step 3: lookup_cisa_kev for KEV/ransomware status + enrich_actor for discovered actors
+Step 4: generate_yara_rule + generate_hunting_queries
+Step 5: Synthesize`
     : ''
 }
 
 ${
   queryType === 'security-updates'
-    ? `Step 1: unified_search for vendor security advisories
-Step 2: check_ioc on discovered IOCs + lookup_cve for referenced CVEs
-Step 3: generate_yara_rule + generate_hunting_queries
-Step 4: Synthesize`
+    ? `Step 1: lookup_security_updates for vendor advisories + unified_search for context
+Step 2: lookup_cve for referenced CVEs + lookup_cisa_kev for KEV/ransomware status
+Step 3: check_ioc on discovered IOCs
+Step 4: generate_yara_rule + generate_hunting_queries
+Step 5: Synthesize`
     : ''
 }
 
@@ -110,7 +104,7 @@ ${
   queryType === 'ip' || queryType === 'domain' || queryType === 'hash'
     ? `Step 1: check_ioc (32+ provider verdicts inc. StopForumSpam, DShield)
 Step 2: get_relationships + get_ioc_lifecycle (map connections, assess activity)
-Step 3: If domain — lookup_domain + pivot_domain + lookup_builtwith + lookup_certificate_transparency + wayback_advanced (infrastructure, tech stack, certs, historical data)
+Step 3: If domain — lookup_domain + pivot_domain + lookup_builtwith + lookup_certificate_transparency + lookup_wayback_advanced (infrastructure, tech stack, certs, historical data)
 If IP — lookup_ip_geo + lookup_asn + urlscan_ip_search (find URLs hosted on IP)
 If hash — sample_scan + malware_family_detail
 Step 4: generate_yara_rule for detection. Synthesize`

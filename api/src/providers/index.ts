@@ -47,6 +47,8 @@ import { vulncheck } from './vulncheck';
 import { maltiverse } from './maltiverse';
 import { secrets } from './secrets';
 import { webamon } from './webamon';
+import { stopforumspam } from './stopforumspam';
+import { dshield } from './dshield';
 
 export { PROVIDER_SUPPORT, PROVIDER_TIMEOUT_MS };
 
@@ -98,6 +100,8 @@ export const ADAPTERS: Record<ProviderId, ProviderAdapter> = {
   maltiverse,
   secrets,
   webamon,
+  stopforumspam,
+  dshield,
 };
 
 export const BULK_ADAPTERS: Partial<Record<ProviderId, ProviderAdapter>> = {
@@ -124,6 +128,8 @@ export const BULK_ADAPTERS: Partial<Record<ProviderId, ProviderAdapter>> = {
   emailrep,
   pulsedive,
   kaspersky,
+  stopforumspam,
+  dshield,
 };
 
 export const PROVIDER_LABELS: Record<string, string> = {
@@ -174,6 +180,8 @@ export const PROVIDER_LABELS: Record<string, string> = {
   criminalip: 'CriminalIP',
   digitalside: 'DigitalSide',
   webamon: 'Webamon Intel',
+  stopforumspam: 'StopForumSpam',
+  dshield: 'SANS ISC / DShield',
 };
 
 export function buildProviderEnv(env: {

@@ -163,6 +163,16 @@ export const waybackSchema = z.object({
   url: urlPattern,
 });
 
+// wayback-advanced.ts reads `domain` (required) + date_range/filter/include_suspicious
+// (optional, self-validated). It never reads `url`, so reusing waybackSchema 400'd
+// every valid request — this mirrors the handler's actual query reads.
+export const waybackAdvancedSchema = z.object({
+  domain: z.string().min(1).max(253),
+  date_range: z.string().max(40).optional(),
+  filter: z.string().max(50).optional(),
+  include_suspicious: z.string().max(10).optional(),
+});
+
 // ── Google Dorks ─────────────────────────────────────────────────
 
 // The handler (google-dorks.ts) reads `q` (required, self-validated) and `num`
@@ -862,4 +872,42 @@ export const reportBuildSchema = z.object({
   subject: z.string().min(1, 'subject is required').max(200, 'subject too long'),
   template: z.enum(['ransomware-group', 'threat-actor', 'cve', 'ioc']).optional(),
   tlp: z.enum(['CLEAR', 'GREEN', 'AMBER', 'RED']).optional().default('AMBER'),
+});
+
+// ── New Security Routes ─────────────────────────────────────────────
+// exploit-db.ts reads q (keyword), cve (exact CVE id), and type (exploit type:
+// remote/dos/webapps/local/shellcode). At least one of q/cve must be present.
+export const exploitDbSchema = z
+  .object({
+    q: z.string().min(1).max(200).optional(),
+    cve: cveIdPattern.optional(),
+    type: z.enum(['remote', 'dos', 'webapps', 'local', 'shellcode']).optional(),
+  })
+  .refine((v) => Boolean(v.q || v.cve), { message: 'q or cve is required' });
+
+export const cisaKevSchema = z.object({
+  q: z.string().max(200).optional(),
+  cve: cveIdPattern.optional(),
+  vendor: z.string().max(100).optional(),
+  product: z.string().max(100).optional(),
+  days: z.string().regex(/^\d+$/).optional(),
+  ransomware_only: z.string().optional(),
+});
+
+export const securityUpdatesSchema = z.object({
+  q: z.string().max(200).optional(),
+  vendor: z.string().max(100).optional(),
+  product: z.string().max(100).optional(),
+});
+
+export const passiveDnsSchema = z.object({
+  q: z.string().min(1, 'query required').max(253),
+});
+
+export const githubSecuritySchema = z.object({
+  q: z.string().max(200).optional(),
+  cve: cveIdPattern.optional(),
+  ghsa: z.string().max(20).optional(),
+  ecosystem: z.string().max(50).optional(),
+  package: z.string().max(100).optional(),
 });

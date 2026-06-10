@@ -47,7 +47,9 @@ export type ProviderId =
   | 'vulncheck'
   | 'maltiverse'
   | 'secrets'
-  | 'webamon';
+  | 'webamon'
+  | 'stopforumspam'
+  | 'dshield';
 
 export type Verdict = 'clean' | 'suspicious' | 'malicious' | 'unknown';
 
@@ -175,4 +177,6 @@ export const PROVIDER_SUPPORT: Record<ProviderId, IndicatorType[]> = {
   maltiverse: ['ipv4', 'ipv6', 'domain', 'url', 'hash'],
   secrets: ['url'],
   webamon: ['domain'],
+  stopforumspam: ['ipv4', 'email'],
+  dshield: ['ipv4'],
 };

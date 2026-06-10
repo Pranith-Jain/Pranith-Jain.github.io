@@ -17,6 +17,12 @@ import {
   CheckCircle,
   Server,
   FileCode,
+  Cookie,
+  Link,
+  Code,
+  Eye,
+  Monitor,
+  HardDrive,
 } from 'lucide-react';
 
 /* ─── Shared types ───────────────────────────────────────────────────── */
@@ -269,14 +275,142 @@ interface ScanResult {
   error?: string;
 }
 
-interface ReportData {
-  id?: string;
-  status?: string;
-  submission_url?: string;
-  risk_score?: number;
-  screenshot?: string;
-  [key: string]: unknown;
+interface CertificateEntry {
+  domain_name?: string;
+  cipher?: string;
+  protocol?: string;
+  issuer?: string;
+  valid_from_utc?: string;
+  valid_to_utc?: string;
+  sub_domain?: string;
+  tld?: string;
+  signedCertificateTimestampList?: unknown[];
 }
+
+interface ServerEntry {
+  ip?: string;
+  asn?: string;
+  country?: string;
+  ports?: number[];
+  protocols?: string[];
+}
+
+interface CookieEntry {
+  name?: string;
+  value?: string;
+  domain?: string;
+  path?: string;
+  secure?: boolean;
+  httpOnly?: boolean;
+}
+
+interface TechnologyEntry {
+  name?: string;
+  version?: string;
+  category?: string;
+  confidence?: number;
+}
+
+interface ResourceEntry {
+  sha256?: string;
+  md5?: string;
+  sha1?: string;
+  size?: number;
+  mime?: string;
+  url?: string;
+}
+
+interface MonitorEntry {
+  url?: string;
+  status?: string;
+  last_checked?: string;
+}
+
+interface DomEntry {
+  title?: string;
+  description?: string;
+  keywords?: string;
+  html?: string;
+}
+
+interface FingerprintData {
+  tech?: string;
+  scan_fingerprint?: string;
+  dom?: string;
+  domains?: string;
+  links?: string;
+  scripts?: string;
+  ssl?: string;
+  asn?: string;
+  cookies?: string;
+}
+
+interface MetaData {
+  submission_url?: string;
+  script_count?: number;
+  risk_score?: number;
+  report_id?: string;
+  domain_count?: number;
+  submission?: string;
+  submission_utc?: string;
+  request_count?: number;
+  completion_utc?: string;
+}
+
+interface ReportResult {
+  _index?: string;
+  'domain.name'?: string;
+  domain_name?: string;
+  page_title?: string;
+  resolved_url?: string;
+  sub_domain?: string;
+  tag?: string;
+  meta?: MetaData;
+  certificate?: CertificateEntry[];
+  server?: ServerEntry[];
+  cookie?: CookieEntry[];
+  technology?: TechnologyEntry[];
+  resource?: ResourceEntry[];
+  page_links?: string[];
+  page_scripts?: string[];
+  fingerprint?: FingerprintData;
+  monitor?: MonitorEntry[];
+  dom?: DomEntry;
+  scan_status?: string;
+  scan_time?: string;
+  submission_url?: string;
+  submission_utc?: string;
+  completion_utc?: string;
+  errors?: string[];
+  feed?: string;
+  engine_id?: string;
+  resolved_domain?: string;
+  resolved_sub_domain?: string;
+  resolved_tld?: string;
+  save_resources?: unknown[];
+  source?: string;
+  tld?: string;
+  date?: string;
+  matched_fields?: string[];
+}
+
+interface WebamonReportResponse {
+  search_string: string;
+  total_hits: number;
+  results: ReportResult[];
+  pagination: {
+    from: number;
+    size: number;
+    returned: number;
+    has_more: boolean;
+    current_page: number;
+    total_pages: number;
+    next_from: number | null;
+    prev_from: number | null;
+  };
+}
+
+type ReportData = WebamonReportResponse;
 
 /* ─── Infrastructure tab types ───────────────────────────────────────── */
 
@@ -623,16 +757,309 @@ function SandboxTab() {
             </section>
           )}
 
-          {reportData && (
-            <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
-              <h2 className="font-display font-bold text-lg mb-4 flex items-center gap-2">
-                <FileImage size={18} className="text-brand-600 dark:text-brand-400" /> Scan Report
-              </h2>
-              <pre className="text-[11px] font-mono text-slate-700 dark:text-slate-300 bg-slate-50 dark:bg-slate-800/50 rounded-lg p-4 overflow-x-auto max-h-96">
-                {JSON.stringify(reportData, null, 2)}
-              </pre>
-            </section>
-          )}
+          {reportData &&
+            reportData.results &&
+            reportData.results.length > 0 &&
+            (() => {
+              const r = reportData.results[0];
+              return (
+                <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 space-y-6">
+                  <h2 className="font-display font-bold text-lg mb-4 flex items-center gap-2">
+                    <FileImage size={18} className="text-brand-600 dark:text-brand-400" /> Scan Report
+                  </h2>
+
+                  {r.scan_status && (
+                    <div className="text-xs font-mono text-slate-500 dark:text-slate-400 flex items-center gap-3">
+                      <span>Status: {r.scan_status}</span>
+                      {r.scan_time && <span>Time: {r.scan_time}</span>}
+                      {r.submission_utc && <span>Submitted: {r.submission_utc}</span>}
+                      {r.completion_utc && <span>Completed: {r.completion_utc}</span>}
+                    </div>
+                  )}
+
+                  {r.errors && r.errors.length > 0 && (
+                    <div className="rounded-lg border border-red-200 dark:border-red-900 bg-red-50 dark:bg-red-900/20 px-4 py-3 text-sm text-red-700 dark:text-red-400 font-mono">
+                      {r.errors.map((e, i) => (
+                        <div key={i}>⚠ {e}</div>
+                      ))}
+                    </div>
+                  )}
+
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+                    {/* Certificates */}
+                    {r.certificate && r.certificate.length > 0 && (
+                      <section>
+                        <h3 className="font-display font-semibold text-sm mb-2 flex items-center gap-1.5 text-slate-700 dark:text-slate-300">
+                          <Shield size={14} /> Certificates ({r.certificate.length})
+                        </h3>
+                        <div className="space-y-2 max-h-60 overflow-y-auto">
+                          {r.certificate.map((c, i) => (
+                            <div
+                              key={i}
+                              className="rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 p-3 text-[11px] font-mono space-y-1"
+                            >
+                              <div className="font-semibold text-slate-700 dark:text-slate-300">
+                                {c.domain_name ?? r['domain.name'] ?? '—'}
+                                {c.sub_domain ? ` (${c.sub_domain})` : ''}
+                              </div>
+                              {c.issuer && <div className="text-slate-500 dark:text-slate-400">Issuer: {c.issuer}</div>}
+                              {c.protocol && (
+                                <div className="text-slate-500 dark:text-slate-400">
+                                  Protocol: {c.protocol} {c.cipher ? `· ${c.cipher}` : ''}
+                                </div>
+                              )}
+                              {c.valid_from_utc && (
+                                <div className="text-slate-500 dark:text-slate-400">
+                                  Valid: {c.valid_from_utc} → {c.valid_to_utc ?? '?'}
+                                </div>
+                              )}
+                              {c.tld && <div className="text-slate-500 dark:text-slate-400">TLD: {c.tld}</div>}
+                            </div>
+                          ))}
+                        </div>
+                      </section>
+                    )}
+
+                    {/* Servers */}
+                    {r.server && r.server.length > 0 && (
+                      <section>
+                        <h3 className="font-display font-semibold text-sm mb-2 flex items-center gap-1.5 text-slate-700 dark:text-slate-300">
+                          <Server size={14} /> Servers ({r.server.length})
+                        </h3>
+                        <div className="space-y-2 max-h-60 overflow-y-auto">
+                          {r.server.map((s, i) => (
+                            <div
+                              key={i}
+                              className="rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 p-3 text-[11px] font-mono space-y-1"
+                            >
+                              {s.ip && <div className="font-semibold text-slate-700 dark:text-slate-300">{s.ip}</div>}
+                              {s.asn && <div className="text-slate-500 dark:text-slate-400">ASN: {s.asn}</div>}
+                              {s.country && (
+                                <div className="text-slate-500 dark:text-slate-400">Country: {s.country}</div>
+                              )}
+                              {s.ports && s.ports.length > 0 && (
+                                <div className="text-slate-500 dark:text-slate-400">Ports: {s.ports.join(', ')}</div>
+                              )}
+                              {s.protocols && s.protocols.length > 0 && (
+                                <div className="text-slate-500 dark:text-slate-400">
+                                  Protocols: {s.protocols.join(', ')}
+                                </div>
+                              )}
+                            </div>
+                          ))}
+                        </div>
+                      </section>
+                    )}
+
+                    {/* Cookies */}
+                    {r.cookie && r.cookie.length > 0 && (
+                      <section>
+                        <h3 className="font-display font-semibold text-sm mb-2 flex items-center gap-1.5 text-slate-700 dark:text-slate-300">
+                          <Cookie size={14} /> Cookies ({r.cookie.length})
+                        </h3>
+                        <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 overflow-hidden">
+                          <table className="w-full text-[10px] font-mono">
+                            <thead>
+                              <tr className="text-left text-slate-400 border-b border-slate-200 dark:border-slate-800">
+                                <th className="py-1 pr-2">Name</th>
+                                <th className="py-1 pr-2">Domain</th>
+                                <th className="py-1 pr-2">Secure</th>
+                                <th className="py-1 pr-2">HttpOnly</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {r.cookie.map((c, i) => (
+                                <tr key={i} className="border-b border-slate-100 dark:border-slate-800/50">
+                                  <td className="py-1 pr-2 text-slate-700 dark:text-slate-300 break-all">
+                                    {c.name ?? '—'}
+                                  </td>
+                                  <td className="py-1 pr-2 text-slate-600 dark:text-slate-400 break-all">
+                                    {c.domain ?? '—'}
+                                  </td>
+                                  <td className="py-1 pr-2 text-slate-600 dark:text-slate-400">
+                                    {c.secure ? 'yes' : 'no'}
+                                  </td>
+                                  <td className="py-1 pr-2 text-slate-600 dark:text-slate-400">
+                                    {c.httpOnly ? 'yes' : 'no'}
+                                  </td>
+                                </tr>
+                              ))}
+                            </tbody>
+                          </table>
+                        </div>
+                      </section>
+                    )}
+
+                    {/* Technology */}
+                    {r.technology && r.technology.length > 0 && (
+                      <section>
+                        <h3 className="font-display font-semibold text-sm mb-2 flex items-center gap-1.5 text-slate-700 dark:text-slate-300">
+                          <Code size={14} /> Technologies ({r.technology.length})
+                        </h3>
+                        <div className="flex flex-wrap gap-1.5">
+                          {r.technology.map((t, i) => (
+                            <span
+                              key={i}
+                              className="inline-flex items-center gap-1 px-2 py-1 rounded bg-slate-100 dark:bg-slate-800 text-[11px] font-mono text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700"
+                            >
+                              <Tag size={10} />
+                              {t.name}
+                              {t.version && <span className="text-slate-400">v{t.version}</span>}
+                              {t.category && <span className="text-slate-400 text-[9px]">({t.category})</span>}
+                            </span>
+                          ))}
+                        </div>
+                      </section>
+                    )}
+
+                    {/* Resources */}
+                    {r.resource && r.resource.length > 0 && (
+                      <section className="lg:col-span-2">
+                        <h3 className="font-display font-semibold text-sm mb-2 flex items-center gap-1.5 text-slate-700 dark:text-slate-300">
+                          <HardDrive size={14} /> Resources ({r.resource.length})
+                        </h3>
+                        <div className="rounded-lg border border-slate-200 dark:border-slate-800 overflow-hidden">
+                          <table className="w-full text-[10px] font-mono">
+                            <thead>
+                              <tr className="text-left text-slate-400 border-b border-slate-200 dark:border-slate-800">
+                                <th className="py-1 pr-3">SHA256</th>
+                                <th className="py-1 pr-3">MIME</th>
+                                <th className="py-1 pr-3">Size</th>
+                                <th className="py-1 pr-3">URL</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {r.resource.map((res, i) => (
+                                <tr key={i} className="border-b border-slate-100 dark:border-slate-800/50">
+                                  <td className="py-1 pr-3 text-slate-700 dark:text-slate-300 break-all">
+                                    {res.sha256 ? res.sha256.slice(0, 16) + '…' : '—'}
+                                  </td>
+                                  <td className="py-1 pr-3 text-slate-600 dark:text-slate-400">{res.mime ?? '—'}</td>
+                                  <td className="py-1 pr-3 text-slate-600 dark:text-slate-400">
+                                    {res.size ? `${(res.size / 1024).toFixed(1)}KB` : '—'}
+                                  </td>
+                                  <td className="py-1 pr-3 text-slate-600 dark:text-slate-400 break-all max-w-[200px] truncate">
+                                    {res.url ?? '—'}
+                                  </td>
+                                </tr>
+                              ))}
+                            </tbody>
+                          </table>
+                        </div>
+                      </section>
+                    )}
+
+                    {/* Page Links */}
+                    {r.page_links && r.page_links.length > 0 && (
+                      <section>
+                        <h3 className="font-display font-semibold text-sm mb-2 flex items-center gap-1.5 text-slate-700 dark:text-slate-300">
+                          <Link size={14} /> Links ({r.page_links.length})
+                        </h3>
+                        <div className="space-y-1 max-h-48 overflow-y-auto">
+                          {r.page_links.map((l, i) => (
+                            <div key={i} className="text-[11px] font-mono text-slate-600 dark:text-slate-400 break-all">
+                              {l}
+                            </div>
+                          ))}
+                        </div>
+                      </section>
+                    )}
+
+                    {/* Page Scripts */}
+                    {r.page_scripts && r.page_scripts.length > 0 && (
+                      <section>
+                        <h3 className="font-display font-semibold text-sm mb-2 flex items-center gap-1.5 text-slate-700 dark:text-slate-300">
+                          <FileCode size={14} /> Scripts ({r.page_scripts.length})
+                        </h3>
+                        <div className="space-y-1 max-h-48 overflow-y-auto">
+                          {r.page_scripts.map((s, i) => (
+                            <div key={i} className="text-[11px] font-mono text-slate-600 dark:text-slate-400 break-all">
+                              {s}
+                            </div>
+                          ))}
+                        </div>
+                      </section>
+                    )}
+
+                    {/* Monitor */}
+                    {r.monitor && r.monitor.length > 0 && (
+                      <section className="lg:col-span-2">
+                        <h3 className="font-display font-semibold text-sm mb-2 flex items-center gap-1.5 text-slate-700 dark:text-slate-300">
+                          <Monitor size={14} /> Monitoring
+                        </h3>
+                        <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 p-3 text-[11px] font-mono space-y-1">
+                          {r.monitor.map((m, i) => (
+                            <div key={i} className="flex items-center gap-2 text-slate-600 dark:text-slate-400">
+                              <span className="truncate">{m.url ?? '—'}</span>
+                              {m.status && (
+                                <span className="px-1.5 py-0.5 rounded bg-slate-200 dark:bg-slate-800">{m.status}</span>
+                              )}
+                              {m.last_checked && <span className="text-slate-400">{m.last_checked}</span>}
+                            </div>
+                          ))}
+                        </div>
+                      </section>
+                    )}
+
+                    {/* DOM */}
+                    {r.dom && (
+                      <section className="lg:col-span-2">
+                        <h3 className="font-display font-semibold text-sm mb-2 flex items-center gap-1.5 text-slate-700 dark:text-slate-300">
+                          <Eye size={14} /> DOM
+                        </h3>
+                        <div className="rounded-lg border border-slate-200 dark:border-slate-800 overflow-hidden">
+                          {r.dom.title && (
+                            <div className="px-3 py-2 text-xs font-semibold text-slate-700 dark:text-slate-300 border-b border-slate-100 dark:border-slate-800">
+                              Title: {r.dom.title}
+                            </div>
+                          )}
+                          {r.dom.description && (
+                            <div className="px-3 py-2 text-[11px] text-slate-600 dark:text-slate-400 border-b border-slate-100 dark:border-slate-800">
+                              Description: {r.dom.description}
+                            </div>
+                          )}
+                          {r.dom.keywords && (
+                            <div className="px-3 py-2 text-[11px] text-slate-600 dark:text-slate-400 border-b border-slate-100 dark:border-slate-800">
+                              Keywords: {r.dom.keywords}
+                            </div>
+                          )}
+                        </div>
+                      </section>
+                    )}
+
+                    {/* Fingerprint */}
+                    {r.fingerprint &&
+                      Object.values(r.fingerprint).some(
+                        (v) => v && v !== '4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945'
+                      ) && (
+                        <section className="lg:col-span-2">
+                          <h3 className="font-display font-semibold text-sm mb-2 flex items-center gap-1.5 text-slate-700 dark:text-slate-300">
+                            <Fingerprint size={14} /> Fingerprint Data
+                          </h3>
+                          <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 p-3 text-[10px] font-mono overflow-x-auto">
+                            <pre>{JSON.stringify(r.fingerprint, null, 2)}</pre>
+                          </div>
+                        </section>
+                      )}
+                  </div>
+
+                  {!reportData.results[0]?.certificate &&
+                    !reportData.results[0]?.server &&
+                    !reportData.results[0]?.cookie &&
+                    !reportData.results[0]?.technology &&
+                    !reportData.results[0]?.resource &&
+                    !reportData.results[0]?.page_links &&
+                    !reportData.results[0]?.page_scripts &&
+                    !reportData.results[0]?.fingerprint &&
+                    !reportData.results[0]?.monitor &&
+                    !reportData.results[0]?.dom && (
+                      <div className="rounded-lg border border-amber-200 dark:border-amber-800 bg-amber-50 dark:bg-amber-950/30 px-4 py-3 text-sm text-amber-700 dark:text-amber-400 font-mono">
+                        No structured data available in this scan report.
+                      </div>
+                    )}
+                </section>
+              );
+            })()}
 
           {reportId && !screenshotUrl && !screenshotLoading && (
             <button
@@ -753,66 +1180,51 @@ function InfraTab() {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder={activeMode.placeholder}
-            aria-label={activeMode.label}
-            className="flex-1 px-4 py-2.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg font-mono text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            aria-label={`Webamon ${activeMode.label} lookup`}
+            className="flex-1 px-4 py-2.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 font-mono"
           />
           <button
             type="submit"
-            disabled={!query.trim() || loading}
-            className="px-4 py-2.5 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-lg disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400"
+            disabled={loading || !query.trim()}
+            className="px-5 py-2.5 rounded-lg bg-brand-600 dark:bg-brand-500 text-white text-[13px] font-mono font-semibold hover:bg-brand-700 dark:hover:bg-brand-400 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center gap-2"
           >
-            {loading ? <Loader2 size={14} className="animate-spin" /> : <Search size={14} />}
+            <Search size={14} /> Lookup
           </button>
         </div>
       </form>
 
-      {error && (
-        <div className="rounded-lg border border-red-200 dark:border-red-900 bg-red-50 dark:bg-red-900/20 px-4 py-3 mb-6 text-sm text-red-700 dark:text-red-400 font-mono flex items-center gap-2">
-          <AlertTriangle size={14} /> {error}
-        </div>
-      )}
-
       {loading && (
         <div className="flex items-center gap-3 py-8 text-slate-500">
           <div className="animate-spin w-4 h-4 border-2 border-brand-500 border-t-transparent rounded-full" />
-          <span className="font-mono text-sm">Querying Webamon infrastructure…</span>
+          <span className="font-mono text-sm">Resolving {activeMode.label.toLowerCase()} infrastructure…</span>
         </div>
       )}
 
-      {data && (
-        <div className="space-y-3">
-          {data.domain && (
-            <div>
-              <h2 className="font-display font-bold text-lg mb-3 flex items-center gap-2">
-                <Globe size={18} className="text-brand-600 dark:text-brand-400" /> Domain Record
-              </h2>
-              <JsonBlock data={data.domain} label="domain" />
-            </div>
-          )}
-          {data.server && (
-            <div>
-              <h2 className="font-display font-bold text-lg mb-3 flex items-center gap-2">
-                <Server size={18} className="text-brand-600 dark:text-brand-400" /> Server Record
-              </h2>
-              <JsonBlock data={data.server} label="server" />
-            </div>
-          )}
-          {data.resource && (
-            <div>
-              <h2 className="font-display font-bold text-lg mb-3 flex items-center gap-2">
-                <FileCode size={18} className="text-brand-600 dark:text-brand-400" /> Resource Record
-              </h2>
-              <JsonBlock data={data.resource} label="resource" />
-            </div>
-          )}
+      {error && (
+        <div className="rounded-lg border border-red-200 dark:border-red-900 bg-red-50 dark:bg-red-900/20 px-4 py-3 text-sm text-red-700 dark:text-red-400 font-mono">
+          {error}
         </div>
       )}
 
       {!loading && !error && !data && (
-        <div className="text-center py-16 text-slate-400">
-          <Search size={48} className="mx-auto mb-4 opacity-30" />
-          <p className="text-lg font-medium mb-1">Explore Webamon's Infrastructure Graph</p>
-          <p className="text-sm max-w-md mx-auto">Look up a domain, server IP, or resource SHA256.</p>
+        <div className="text-center py-16 text-slate-400 dark:text-slate-500">
+          <Globe size={32} className="mx-auto mb-3 opacity-40" />
+          <p className="font-mono text-sm">
+            Look up infrastructure for a {activeMode.label.toLowerCase()} — resolved hosts, certificates, and related
+            entities.
+          </p>
+        </div>
+      )}
+
+      {data && (
+        <div className="space-y-3 max-w-3xl">
+          {data[mode] ? (
+            <JsonBlock data={data[mode] as Record<string, unknown>} label={`${activeMode.label}: ${query}`} />
+          ) : (
+            <div className="rounded-lg border border-slate-200 dark:border-slate-800 px-4 py-3 text-sm text-slate-500 font-mono">
+              No infrastructure data returned.
+            </div>
+          )}
         </div>
       )}
     </div>
@@ -823,9 +1235,6 @@ function InfraTab() {
 
 export default function Webamon(): JSX.Element {
   const [tab, setTab] = useState<Tab>('search');
-
-  const TabIcon = TABS.find((t) => t.key === tab)!.icon;
-
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
