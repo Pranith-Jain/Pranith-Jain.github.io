@@ -9,7 +9,6 @@ function ctx(form: FormData, env: Record<string, unknown> = {}) {
     env: { AI: { run: vi.fn() }, ...env },
     executionCtx: { waitUntil: () => {} },
     json: (body: unknown, s = 200) => new Response(JSON.stringify(body), { status: s }),
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } as any;
 }
 

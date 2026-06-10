@@ -14,7 +14,6 @@ import { reportIngestHandler } from '../../src/routes/report-ingest';
 const ADMIN = 'sekret';
 
 function app() {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const a = new Hono<any>();
   a.use('/api/v1/*', looseValidation());
   a.use('/api/v1/report', requireAdminMiddleware);
@@ -23,7 +22,6 @@ function app() {
   return a;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const env = (): any => ({ ADMIN_TOKEN: ADMIN, AI: { run: vi.fn() } });
 
 function send(bytes: Uint8Array, type: string, name: string, auth = true) {
