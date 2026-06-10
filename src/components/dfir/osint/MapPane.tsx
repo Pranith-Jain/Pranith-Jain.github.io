@@ -8,13 +8,18 @@ import type { Pin } from '../../../lib/dfir/osint/osint-schema';
 const SAFE_HEX = /^#[0-9a-fA-F]{3,8}$/;
 const FALLBACK_COLOR = '#2c3ee5';
 
-function pinIcon(color: string): L.DivIcon {
+function pinIcon(color: string, selected = false): L.DivIcon {
+  // Highlight selection with a ring, not by swapping the colour — the previous
+  // approach forced the selected pin to #2c3ee5, which is invisible when the
+  // pin's own colour is already the default #2c3ee5.
   const safe = SAFE_HEX.test(color) ? color : FALLBACK_COLOR;
+  const size = selected ? 20 : 14;
+  const shadow = selected ? 'box-shadow:0 0 0 3px #fff,0 0 0 5px #2c3ee5;' : 'box-shadow:0 0 0 1px rgba(0,0,0,.3);';
   return L.divIcon({
     className: 'osint-pin',
-    html: `<span style="display:block;width:14px;height:14px;border-radius:50%;background:${safe};border:2px solid #fff;box-shadow:0 0 0 1px rgba(0,0,0,.3)"></span>`,
-    iconSize: [14, 14],
-    iconAnchor: [7, 7],
+    html: `<span style="display:block;width:${size}px;height:${size}px;border-radius:50%;background:${safe};border:2px solid #fff;${shadow}"></span>`,
+    iconSize: [size, size],
+    iconAnchor: [size / 2, size / 2],
   });
 }
 
@@ -60,7 +65,7 @@ export function MapPane({ pins, selectedPinId, onMapClick, onSelectPin }: MapPan
           <Marker
             key={p.id}
             position={[p.lat, p.lng]}
-            icon={pinIcon(p.id === selectedPinId ? FALLBACK_COLOR : p.color)}
+            icon={pinIcon(p.color, p.id === selectedPinId)}
             eventHandlers={{ click: () => onSelectPin(p.id) }}
           >
             <Popup>
