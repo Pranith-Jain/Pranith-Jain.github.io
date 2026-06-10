@@ -89,7 +89,7 @@ export default function StealerParser(): JSX.Element {
       </div>
 
       {/* Input */}
-      <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5 mb-6">
+      <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5 mb-6">
         <textarea
           value={input}
           onChange={(e) => setInput(e.target.value)}
@@ -160,7 +160,7 @@ export default function StealerParser(): JSX.Element {
 
           {/* System Info */}
           {Object.keys(result.system_info).length > 0 && (
-            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5">
+            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5">
               <h3 className="font-display font-bold text-sm mb-3 flex items-center gap-2">
                 <Monitor size={14} className="text-brand-600 dark:text-brand-400" /> System Information
               </h3>
@@ -177,7 +177,7 @@ export default function StealerParser(): JSX.Element {
 
           {/* Credentials */}
           {result.credentials.length > 0 && (
-            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5">
+            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5">
               <div className="flex items-center justify-between mb-3">
                 <h3 className="font-display font-bold text-sm text-rose-600 dark:text-rose-400">
                   Stolen Credentials ({result.credentials.length})
@@ -222,7 +222,7 @@ export default function StealerParser(): JSX.Element {
 
           {/* Crypto Wallets */}
           {result.crypto_wallets.length > 0 && (
-            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5">
+            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5">
               <h3 className="font-display font-bold text-sm mb-3">Crypto Wallets ({result.crypto_wallets.length})</h3>
               <div className="space-y-1.5">
                 {result.crypto_wallets.map((w) => (
@@ -243,7 +243,7 @@ export default function StealerParser(): JSX.Element {
 
           {/* Emails */}
           {result.emails.length > 0 && (
-            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5">
+            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5">
               <h3 className="font-display font-bold text-sm mb-3">Emails ({result.emails.length})</h3>
               <div className="max-h-32 overflow-y-auto flex flex-wrap gap-1">
                 {result.emails.map((e) => (
@@ -260,7 +260,7 @@ export default function StealerParser(): JSX.Element {
 
           {/* Installed Software */}
           {result.installed_software.length > 0 && (
-            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5">
+            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5">
               <h3 className="font-display font-bold text-sm mb-3">Installed Software</h3>
               <div className="flex flex-wrap gap-1.5">
                 {result.installed_software.map((s) => (
@@ -292,7 +292,7 @@ function StatCard({
   color?: string;
 }) {
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-4">
+    <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-4">
       <div className="flex items-center gap-2 mb-1.5">
         {icon && <span className={color ?? 'text-slate-400'}>{icon}</span>}
         <span className="text-micro font-mono uppercase tracking-wider text-slate-400">{label}</span>

@@ -283,7 +283,7 @@ export default function CyberCrime(): JSX.Element {
           {filtered.map((it, i) => (
             <li
               key={`${it.url}-${i}`}
-              className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 hover:border-brand-500/40 transition-colors"
+              className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 hover:border-brand-500/40 transition-colors"
             >
               <div className="flex flex-wrap items-baseline gap-2 mb-2">
                 <a

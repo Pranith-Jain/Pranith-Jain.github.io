@@ -23,6 +23,7 @@ import {
   type Detection,
 } from '../../lib/dfir/detection-engine';
 import { groupedStarters } from '../../lib/dfir/detection-starters';
+import { SEVERITY_TONE } from '../../components/severity';
 
 const STORAGE_KEY = 'dfir-detection-rules:v1';
 
@@ -82,13 +83,6 @@ interface RuleSourceParse {
   tests?: RuleTest[];
   error?: string;
 }
-
-const SEV_PILL: Record<string, string> = {
-  critical: 'border-rose-500/50 bg-rose-500/15 text-rose-700 dark:text-rose-300',
-  high: 'border-orange-500/50 bg-orange-500/15 text-orange-700 dark:text-orange-300',
-  medium: 'border-amber-500/50 bg-amber-500/15 text-amber-700 dark:text-amber-300',
-  low: 'border-slate-400/50 bg-slate-400/10 text-slate-600 dark:text-slate-300',
-};
 
 function loadSaved(): SavedRule[] {
   try {
@@ -423,9 +417,7 @@ export default function DetectionLab(): JSX.Element {
                       >
                         <div className="flex items-center gap-1.5">
                           <span
-                            className={`text-micro font-mono uppercase tracking-wider px-1 py-0.5 rounded border ${
-                              SEV_PILL[s.rule.severity] ?? SEV_PILL.medium
-                            }`}
+                            className={`text-micro font-mono uppercase tracking-wider px-1 py-0.5 rounded border ${SEVERITY_TONE[s.rule.severity]}`}
                           >
                             {s.rule.severity}
                           </span>
@@ -449,7 +441,7 @@ export default function DetectionLab(): JSX.Element {
       )}
 
       <div className="grid gap-3 lg:grid-cols-2 mb-6">
-        <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
+        <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
           <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-2">
             Rule (JSON)
           </h2>
@@ -519,7 +511,7 @@ export default function DetectionLab(): JSX.Element {
           )}
         </section>
 
-        <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
+        <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
           <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-2">
             Saved rules ({saved.length})
           </h2>
@@ -587,7 +579,7 @@ export default function DetectionLab(): JSX.Element {
         </section>
       </div>
 
-      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6">
+      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
         <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
           <div className="flex items-center gap-2">
             <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono">
@@ -663,7 +655,7 @@ export default function DetectionLab(): JSX.Element {
               >
                 <div className="flex items-baseline gap-2 flex-wrap mb-1">
                   <span
-                    className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${SEV_PILL[d.severity] ?? SEV_PILL.medium}`}
+                    className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${SEVERITY_TONE[d.severity]}`}
                   >
                     {d.severity}
                   </span>
@@ -705,7 +697,7 @@ export default function DetectionLab(): JSX.Element {
         )}
       </section>
 
-      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
+      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
         <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-3">
           References
         </h2>

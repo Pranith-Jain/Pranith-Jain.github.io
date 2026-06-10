@@ -269,7 +269,7 @@ export default function Copilot(): JSX.Element {
       </div>
 
       {/* Search input */}
-      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6">
+      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
         <div className="relative">
           <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
           <input
@@ -298,7 +298,7 @@ export default function Copilot(): JSX.Element {
 
       {/* Report build progress */}
       {progress && !report && (
-        <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 mb-6">
+        <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-5 mb-6">
           <div className="flex items-center justify-between text-xs font-mono text-slate-500 dark:text-slate-400 mb-2">
             <span className="inline-flex items-center gap-2">
               <Loader2 size={13} className="animate-spin text-brand-500" /> {progress.phase}
@@ -376,7 +376,7 @@ export default function Copilot(): JSX.Element {
       {result && !loading && (
         <div className="space-y-6">
           {/* Header */}
-          <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+          <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-5">
             <div className="flex items-start justify-between gap-4 mb-3">
               <div className="flex items-center gap-3 flex-wrap">
                 <h2 className="text-lg font-bold">{result.query}</h2>

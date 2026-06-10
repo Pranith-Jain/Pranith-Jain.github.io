@@ -96,7 +96,7 @@ export default function EmailDefense(): JSX.Element {
 
       <ToolDocs path="/dfir/email-defense" />
 
-      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6">
+      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -135,7 +135,7 @@ export default function EmailDefense(): JSX.Element {
       {assessment && data && (
         <>
           {/* Score */}
-          <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6">
+          <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
             <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
               <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono">
                 Spoofability score for {data.domain}
@@ -226,7 +226,7 @@ export default function EmailDefense(): JSX.Element {
             data.email_auth.dmarc.record ||
             data.email_auth.bimi.present ||
             data.email_auth.tls_rpt.present) && (
-            <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6">
+            <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
               <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-3">
                 Records observed
               </h2>
@@ -255,7 +255,7 @@ export default function EmailDefense(): JSX.Element {
 
           {/* Gaps */}
           {assessment.gaps.length > 0 && (
-            <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6">
+            <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
               <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-3">
                 Gaps & BEC scenarios ({assessment.gaps.length})
               </h2>
@@ -313,7 +313,7 @@ export default function EmailDefense(): JSX.Element {
         </>
       )}
 
-      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
+      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
         <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-3">
           References
         </h2>

@@ -1,6 +1,7 @@
 import { useState, useMemo, useEffect } from 'react';
 import { BackLink } from '../../components/BackLink';
 import { DataState } from '../../components/DataState';
+import { SEVERITY_TONE, SEVERITY_BAR } from '../../components/severity';
 import {
   AlertTriangle,
   ArrowLeft,
@@ -52,27 +53,30 @@ interface SecretLeaksResponse {
   };
 }
 
-const SEV_STYLES: Record<Severity, { text: string; chip: string; Icon: typeof ShieldAlert }> = {
-  critical: {
-    text: 'text-rose-700 dark:text-rose-300',
-    chip: 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300',
-    Icon: ShieldX,
-  },
-  high: {
-    text: 'text-orange-600 dark:text-orange-400',
-    chip: 'border-orange-500/30 bg-orange-500/5 text-orange-600 dark:text-orange-400',
-    Icon: ShieldAlert,
-  },
-  medium: {
-    text: 'text-amber-700 dark:text-amber-400',
-    chip: 'border-amber-500/30 bg-amber-500/10 text-amber-700 dark:text-amber-400',
-    Icon: AlertTriangle,
-  },
-  low: {
-    text: 'text-sky-700 dark:text-sky-400',
-    chip: 'border-sky-500/30 bg-sky-500/10 text-sky-700 dark:text-sky-400',
-    Icon: ShieldCheck,
-  },
+// Severity → icon mapping (colour lives in the canonical SEVERITY_TONE table).
+const SEV_ICON: Record<Severity, typeof ShieldAlert> = {
+  critical: ShieldX,
+  high: ShieldAlert,
+  medium: AlertTriangle,
+  low: ShieldCheck,
+};
+
+// Exposure score (0–100) → canonical severity tier, so the score colour rides
+// the same rose → orange → amber → slate ramp as every other severity surface.
+function scoreSeverity(score: number): Severity {
+  if (score >= 80) return 'critical';
+  if (score >= 60) return 'high';
+  if (score >= 40) return 'medium';
+  return 'low';
+}
+
+// Canonical text colour per severity tier (mirrors the SEVERITY_BAR ramp; low
+// is intentionally slate/neutral, never green).
+const SEVERITY_TEXT: Record<Severity, string> = {
+  critical: 'text-rose-600 dark:text-rose-400',
+  high: 'text-orange-600 dark:text-orange-400',
+  medium: 'text-amber-600 dark:text-amber-400',
+  low: 'text-slate-500 dark:text-slate-400',
 };
 
 export default function SecretLeaks(): JSX.Element {
@@ -427,8 +431,7 @@ export default function SecretLeaks(): JSX.Element {
               ) : (
                 <div className="space-y-3">
                   {paged.map((leak) => {
-                    const sev = SEV_STYLES[leak.severity];
-                    const SevIcon = sev.Icon;
+                    const SevIcon = SEV_ICON[leak.severity];
                     return (
                       <div
                         key={leak.id}
@@ -438,7 +441,7 @@ export default function SecretLeaks(): JSX.Element {
                           <div className="min-w-0 flex-1">
                             <div className="flex items-center gap-2 mb-1">
                               <span
-                                className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-micro font-mono font-semibold border ${sev.chip}`}
+                                className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-micro font-mono font-semibold border ${SEVERITY_TONE[leak.severity]}`}
                               >
                                 <SevIcon size={10} />
                                 {leak.severity}
@@ -476,17 +479,7 @@ export default function SecretLeaks(): JSX.Element {
                           </div>
                           <div className="text-right flex-shrink-0">
                             <div
-                              className="text-2xl font-mono font-bold"
-                              style={{
-                                color:
-                                  leak.exposureScore >= 80
-                                    ? '#F44336'
-                                    : leak.exposureScore >= 60
-                                      ? '#FF9800'
-                                      : leak.exposureScore >= 40
-                                        ? '#FFC107'
-                                        : '#66BB6A',
-                              }}
+                              className={`text-2xl font-mono font-bold ${SEVERITY_TEXT[scoreSeverity(leak.exposureScore)]}`}
                             >
                               {leak.exposureScore}
                             </div>
@@ -592,27 +585,27 @@ export default function SecretLeaks(): JSX.Element {
                     style={{
                       width: `${((data?.severity_mix.critical ?? 0) / Math.max(1, stats.totalSecrets)) * 100}%`,
                     }}
-                    className="bg-rose-500"
+                    className={SEVERITY_BAR.critical}
                   />
                   <span
                     style={{ width: `${((data?.severity_mix.high ?? 0) / Math.max(1, stats.totalSecrets)) * 100}%` }}
-                    className="bg-orange-500"
+                    className={SEVERITY_BAR.high}
                   />
                   <span
                     style={{ width: `${((data?.severity_mix.medium ?? 0) / Math.max(1, stats.totalSecrets)) * 100}%` }}
-                    className="bg-amber-500"
+                    className={SEVERITY_BAR.medium}
                   />
                   <span
                     style={{ width: `${((data?.severity_mix.low ?? 0) / Math.max(1, stats.totalSecrets)) * 100}%` }}
-                    className="bg-sky-500"
+                    className={SEVERITY_BAR.low}
                   />
                 </div>
                 <div className="flex flex-wrap gap-4 text-xs font-mono">
                   {[
-                    { label: 'Critical', count: data?.severity_mix.critical ?? 0, color: 'bg-rose-500' },
-                    { label: 'High', count: data?.severity_mix.high ?? 0, color: 'bg-orange-500' },
-                    { label: 'Medium', count: data?.severity_mix.medium ?? 0, color: 'bg-amber-500' },
-                    { label: 'Low', count: data?.severity_mix.low ?? 0, color: 'bg-sky-500' },
+                    { label: 'Critical', count: data?.severity_mix.critical ?? 0, color: SEVERITY_BAR.critical },
+                    { label: 'High', count: data?.severity_mix.high ?? 0, color: SEVERITY_BAR.high },
+                    { label: 'Medium', count: data?.severity_mix.medium ?? 0, color: SEVERITY_BAR.medium },
+                    { label: 'Low', count: data?.severity_mix.low ?? 0, color: SEVERITY_BAR.low },
                   ].map((s) => (
                     <div key={s.label} className="flex items-center gap-1.5">
                       <span className={`w-2 h-2 rounded-full ${s.color}`} />

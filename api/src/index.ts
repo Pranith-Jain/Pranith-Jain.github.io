@@ -354,7 +354,6 @@ import {
   pdCvesHandler,
   pdCveDetailHandler,
 } from './routes/projectdiscovery-intel';
-import { ransomwhereHandler } from './routes/ransomwhere';
 import { stopForumSpamHandler } from './routes/stopforumspam';
 import { urlscanIpHandler } from './routes/urlscan-ip';
 import { hackMyIpBreachHandler } from './routes/hackmyip';
@@ -655,7 +654,6 @@ app.get('/api/v1/pd/leaks', pdLeaksHandler);
 app.get('/api/v1/pd/subdomains', pdSubdomainsHandler);
 app.get('/api/v1/pd/cves', pdCvesHandler);
 app.get('/api/v1/pd/cve-detail', pdCveDetailHandler);
-app.get('/api/v1/ransomwhere', ransomwhereHandler);
 app.get('/api/v1/abuse-rep', stopForumSpamHandler);
 app.get('/api/v1/urlscan-ip', urlscanIpHandler);
 app.get('/api/v1/breach/hackmyip', hackMyIpBreachHandler);

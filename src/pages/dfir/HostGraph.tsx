@@ -237,7 +237,7 @@ function Section({
   children: React.ReactNode;
 }): JSX.Element {
   return (
-    <section className="mb-6 p-4 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
+    <section className="mb-6 p-4 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1">
       <h2 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">
         <Icon size={14} />
         {title}

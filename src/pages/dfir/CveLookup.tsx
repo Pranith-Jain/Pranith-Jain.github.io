@@ -6,6 +6,7 @@ import { ArrowLeft, BookText, ExternalLink, FileCode, Gauge, Loader2, Copy, Chec
 import { CopyButton } from '../../components/dfir/CopyButton';
 import { prioritise, TIER_LABELS, TIER_STYLES, TIER_BARS } from '../../lib/dfir/cve-priority';
 import { RelatedWikiArticles } from '../../components/dfir/RelatedWikiArticles';
+import { SEVERITY_TONE, type Severity } from '../../components/severity';
 
 const CVE_RE = /^CVE-\d{4}-\d{4,7}$/i;
 
@@ -62,12 +63,20 @@ const ACTOR_LINK_SOURCE_LABEL: Record<string, string> = {
   feed: 'feed mention',
 };
 
-const SEVERITY_STYLES: Record<string, string> = {
-  CRITICAL: 'bg-rose-100 text-rose-800 dark:bg-rose-900/30 dark:text-rose-300 border-rose-300 dark:border-rose-700',
-  HIGH: 'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300 border-amber-300 dark:border-amber-700',
-  MEDIUM: 'bg-cyan-100 text-cyan-800 dark:bg-cyan-900/30 dark:text-cyan-300 border-cyan-300 dark:border-cyan-700',
-  LOW: 'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300 border-slate-300 dark:border-slate-600',
-};
+// NVD/CVSS severity strings are uppercase ('CRITICAL'|'HIGH'|'MEDIUM'|'LOW');
+// map them onto the canonical Severity union for SEVERITY_TONE lookup.
+function toSeverity(s?: string): Severity {
+  switch (s?.toUpperCase()) {
+    case 'CRITICAL':
+      return 'critical';
+    case 'HIGH':
+      return 'high';
+    case 'MEDIUM':
+      return 'medium';
+    default:
+      return 'low';
+  }
+}
 
 export default function CveLookup(): JSX.Element {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -257,7 +266,7 @@ export default function CveLookup(): JSX.Element {
               )}
               {result.cvss && (
                 <span
-                  className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-bold uppercase tracking-wider border ${SEVERITY_STYLES[result.cvss.severity] ?? SEVERITY_STYLES.LOW}`}
+                  className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-bold uppercase tracking-wider border ${SEVERITY_TONE[toSeverity(result.cvss.severity)]}`}
                 >
                   {result.cvss.severity} {result.cvss.base_score}
                 </span>
@@ -393,7 +402,7 @@ export default function CveLookup(): JSX.Element {
               type="button"
               onClick={explainCve}
               disabled={explainLoading}
-              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 text-sm font-medium text-slate-700 dark:text-slate-300 hover:border-brand-500/40 transition-colors disabled:opacity-50"
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 text-sm font-medium text-slate-700 dark:text-slate-300 hover:border-brand-500/40 transition-colors disabled:opacity-50"
             >
               {explainLoading ? <Loader2 size={14} className="animate-spin" /> : <ChevronDown size={14} />}
               AI explain
@@ -418,7 +427,7 @@ export default function CveLookup(): JSX.Element {
                 type="button"
                 onClick={generateRule}
                 disabled={ruleLoading}
-                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 text-sm font-medium text-slate-700 dark:text-slate-300 hover:border-brand-500/40 transition-colors disabled:opacity-50"
+                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 text-sm font-medium text-slate-700 dark:text-slate-300 hover:border-brand-500/40 transition-colors disabled:opacity-50"
               >
                 {ruleLoading ? <Loader2 size={14} className="animate-spin" /> : <FileCode size={14} />}
                 Generate rule
@@ -498,7 +507,7 @@ export default function CveLookup(): JSX.Element {
                 </div>
                 <div>
                   <span
-                    className={`inline-block px-3 py-1 rounded-full text-sm font-bold border ${SEVERITY_STYLES[result.cvss.severity] ?? SEVERITY_STYLES.LOW}`}
+                    className={`inline-block px-3 py-1 rounded-full text-sm font-bold border ${SEVERITY_TONE[toSeverity(result.cvss.severity)]}`}
                   >
                     {result.cvss.severity}
                   </span>
@@ -602,10 +611,13 @@ export default function CveLookup(): JSX.Element {
                   .map((link) => {
                     const conf = link.confidence;
                     const tier = conf >= 90 ? 'high' : conf >= 60 ? 'medium' : 'low';
+                    // Attribution CONFIDENCE is a trust scale, NOT severity — high
+                    // confidence reads as good (emerald), not a warning. Do not route
+                    // this through SEVERITY_TONE (where high = orange).
                     const tierColor =
-                      tier === 'high'
+                      conf >= 90
                         ? 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300'
-                        : tier === 'medium'
+                        : conf >= 60
                           ? 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300'
                           : 'border-slate-400/40 bg-slate-400/10 text-slate-600 dark:text-slate-400';
                     return (

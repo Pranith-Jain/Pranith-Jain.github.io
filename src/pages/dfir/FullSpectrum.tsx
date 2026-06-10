@@ -1,6 +1,7 @@
 import { useReducer, useState, type FormEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
+import { SEVERITY_BAR, type Severity } from '../../components/severity';
 import {
   ArrowLeft,
   Search,
@@ -96,13 +97,22 @@ function fetchTool(url: string): Promise<unknown> {
   });
 }
 
-const SEVERITY_COLORS: Record<string, string> = {
-  critical: 'text-rose-600 dark:text-rose-400',
-  high: 'text-orange-600 dark:text-orange-400',
-  medium: 'text-amber-600 dark:text-amber-400',
-  low: 'text-sky-600 dark:text-sky-400',
-  info: 'text-slate-500 dark:text-slate-400',
-};
+function normalizeSeverity(raw: string | undefined): Severity {
+  switch ((raw ?? '').toLowerCase()) {
+    case 'critical':
+      return 'critical';
+    case 'high':
+      return 'high';
+    case 'medium':
+      return 'medium';
+    case 'info':
+    case 'informational':
+      return 'info';
+    case 'low':
+    default:
+      return 'low';
+  }
+}
 
 const TOOL_CONFIG: Array<{ key: ToolKey; label: string; icon: typeof Shield; buildUrl: (d: string) => string }> = [
   {
@@ -264,8 +274,12 @@ function ResultCard({
         return (
           <ul className="text-mini font-mono mt-1 space-y-0.5">
             {findings.slice(0, 3).map((i, idx) => (
-              <li key={idx} className="truncate">
-                <span className={SEVERITY_COLORS[i.severity] ?? 'text-slate-600 dark:text-slate-400'}>●</span> {i.label}
+              <li key={idx} className="flex items-center gap-1.5 truncate">
+                <span
+                  className={`inline-block w-2 h-2 rounded-full shrink-0 ${SEVERITY_BAR[normalizeSeverity(i.severity)]}`}
+                  aria-hidden="true"
+                />
+                <span className="truncate">{i.label}</span>
               </li>
             ))}
           </ul>
@@ -470,7 +484,7 @@ export default function FullSpectrum(): JSX.Element {
       </form>
 
       {hasResults && (
-        <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6">
+        <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
           <div className="flex items-baseline justify-between gap-2">
             <h2 className="font-display font-bold text-xl truncate">{state.domain}</h2>
             <div className="flex items-center gap-2 shrink-0">

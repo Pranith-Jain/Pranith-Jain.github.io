@@ -29,7 +29,7 @@ const USERNAME_RE = /^[A-Za-z0-9_.-]{1,40}$/;
 function ProfileCard({ profile, platform }: { profile: IdentityProfile; platform: PlatformDef }) {
   const CatIcon = CAT_ICONS[platform.category] ?? Globe;
   return (
-    <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-3 hover:border-slate-300 dark:hover:border-slate-700 transition-colors">
+    <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-3 hover:border-slate-300 dark:hover:border-slate-700 transition-colors">
       <div className="flex items-start gap-3">
         <div className="shrink-0">
           {profile.avatarUrl ? (
@@ -161,7 +161,7 @@ export default function IdentityLookup(): JSX.Element {
         </p>
       </div>
 
-      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6">
+      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -196,7 +196,7 @@ export default function IdentityLookup(): JSX.Element {
       {/* Results */}
       {profiles.size > 0 && (
         <>
-          <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6">
+          <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
             <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
               <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono flex items-center gap-2">
                 <Globe size={14} /> Profiles for <span className="text-slate-900 dark:text-slate-100">@{query}</span>
@@ -236,7 +236,7 @@ export default function IdentityLookup(): JSX.Element {
             </div>
           </section>
 
-          <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6">
+          <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
             <div className="grid gap-2">
               {filtered.map(({ platform, profile }) =>
                 profile ? (
@@ -266,7 +266,7 @@ export default function IdentityLookup(): JSX.Element {
         </>
       )}
 
-      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
+      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
         <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-2">
           Notes
         </h2>

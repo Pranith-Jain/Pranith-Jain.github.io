@@ -156,7 +156,7 @@ export default function Blog() {
   if (isUnknownType) return <Navigate to="/blog" replace />;
 
   return (
-    <div className="max-w-3xl mx-auto px-6 py-10 text-slate-900 dark:text-slate-100">
+    <div className="max-w-3xl mx-auto text-slate-900 dark:text-slate-100">
       {inCategoryMode && (
         <Link
           to="/blog"
@@ -200,7 +200,7 @@ export default function Blog() {
           in category mode since the URL already expresses the type, but the
           search input stays so the user can narrow within the category. */}
       {posts.length > 0 && (
-        <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3 mb-6">
+        <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-3 mb-6">
           <div className="relative">
             <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
             <input

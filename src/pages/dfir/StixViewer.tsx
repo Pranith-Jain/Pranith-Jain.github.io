@@ -267,7 +267,7 @@ export default function StixViewer(): JSX.Element {
       <div className="grid lg:grid-cols-[400px_1fr] gap-6">
         {/* Left: input + filter + selected detail */}
         <aside className="space-y-4">
-          <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3">
+          <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-3">
             <div className="flex items-center gap-2 mb-2">
               <Globe2 size={12} className="text-brand-600 dark:text-brand-400" />
               <label htmlFor="stix-id" className="text-xs font-mono uppercase tracking-wider text-slate-500">
@@ -356,7 +356,7 @@ export default function StixViewer(): JSX.Element {
           </section>
 
           {bundle && (
-            <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
+            <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
               <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-slate-500 mb-3">
                 <Filter size={12} /> Types ({types.length})
               </div>
@@ -392,7 +392,7 @@ export default function StixViewer(): JSX.Element {
           )}
 
           {selected && (
-            <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
+            <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
               <div className="flex items-center justify-between mb-3">
                 <div className="text-xs font-mono uppercase tracking-wider text-slate-500">Selected object</div>
                 <button

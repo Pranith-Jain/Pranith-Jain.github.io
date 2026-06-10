@@ -99,7 +99,7 @@ export default function AbuseRep(): JSX.Element {
 
       <DataState loading={loading} error={error} empty={false} rows={4}>
         {data && (
-          <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 space-y-4">
+          <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-5 space-y-4">
             <div className="flex items-center justify-between gap-3 flex-wrap">
               <span className="font-mono text-sm break-all">{data.value}</span>
               <span

@@ -107,7 +107,7 @@ export default function PredictiveIntel(): JSX.Element {
             {sectorRisks.map((s, i) => (
               <div
                 key={i}
-                className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5"
+                className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5"
               >
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center gap-2">
@@ -152,7 +152,7 @@ export default function PredictiveIntel(): JSX.Element {
             {forecasts.map((f, i) => (
               <div
                 key={i}
-                className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5"
+                className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5"
               >
                 <div className="flex items-start justify-between mb-3">
                   <div>

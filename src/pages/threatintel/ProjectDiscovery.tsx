@@ -14,6 +14,7 @@ import {
 } from 'lucide-react';
 import { BackLink } from '../../components/BackLink';
 import { DataState } from '../../components/DataState';
+import { SEVERITY_TONE, type Severity } from '../../components/severity';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 
 /**
@@ -26,14 +27,13 @@ import { sanitizeUrl } from '../../lib/sanitize-url';
 
 type Tab = 'credentials' | 'subdomains' | 'cves';
 
-const SEV_PILL: Record<string, string> = {
-  critical: 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300',
-  high: 'border-orange-500/40 bg-orange-500/10 text-orange-700 dark:text-orange-300',
-  medium: 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300',
-  low: 'border-sky-500/40 bg-sky-500/10 text-sky-700 dark:text-sky-300',
-  info: 'border-slate-300 dark:border-slate-700 text-slate-500',
-  unknown: 'border-slate-300 dark:border-slate-700 text-slate-500',
-};
+/** Map an upstream severity string onto the canonical Severity union. */
+function toSeverity(raw: string): Severity {
+  const s = raw.trim().toLowerCase();
+  if (s === 'critical' || s === 'high' || s === 'medium' || s === 'low' || s === 'info') return s;
+  if (s === 'informational') return 'info';
+  return 'low'; // none / unknown / unrated / empty
+}
 
 // ─── Credentials ───────────────────────────────────────────────────────────
 
@@ -125,7 +125,7 @@ function CredentialsTab(): JSX.Element {
               ].map((s) => (
                 <div
                   key={s.label}
-                  className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4"
+                  className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4"
                 >
                   <div className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-1">{s.label}</div>
                   <div className="text-2xl font-display font-bold tabular-nums">
@@ -578,7 +578,7 @@ function CvesTab(): JSX.Element {
                         </td>
                         <td className="px-3 py-2 whitespace-nowrap">
                           <span
-                            className={`text-mini font-mono px-2 py-0.5 rounded border ${SEV_PILL[cve.severity] ?? SEV_PILL.unknown}`}
+                            className={`text-mini font-mono px-2 py-0.5 rounded border ${SEVERITY_TONE[toSeverity(cve.severity)]}`}
                           >
                             {cve.severity}
                           </span>

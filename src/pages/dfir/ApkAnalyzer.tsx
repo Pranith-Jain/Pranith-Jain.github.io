@@ -19,20 +19,13 @@ import {
 } from 'lucide-react';
 import { CopyChip } from '../../components/dfir/CopyButton';
 import { analyzeApk, type ApkAnalysis } from '../../lib/dfir/apk-analysis';
+import { SEVERITY_TONE } from '../../components/severity';
 
 function fmtBytes(n: number): string {
   if (n < 1024) return `${n} B`;
   if (n < 1024 * 1024) return `${(n / 1024).toFixed(1)} KB`;
   return `${(n / 1024 / 1024).toFixed(2)} MB`;
 }
-
-const SEV_STYLES: Record<string, string> = {
-  critical: 'bg-rose-500/15 text-rose-700 dark:text-rose-300 border-rose-500/30',
-  high: 'bg-orange-500/15 text-orange-700 dark:text-orange-300 border-orange-500/30',
-  medium: 'bg-amber-500/15 text-amber-700 dark:text-amber-300 border-amber-500/30',
-  // Canonical: low is slate (neutral), not sky — a low finding is still a finding.
-  low: 'border-slate-400/50 bg-slate-400/10 text-slate-600 dark:text-slate-300',
-};
 
 export default function ApkAnalyzer(): JSX.Element {
   const [loading, setLoading] = useState(false);
@@ -90,7 +83,7 @@ export default function ApkAnalyzer(): JSX.Element {
         </p>
       </div>
 
-      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6">
+      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
         <button
           type="button"
           onDrop={(e) => {
@@ -133,7 +126,7 @@ export default function ApkAnalyzer(): JSX.Element {
       {result && (
         <div className="space-y-6">
           {/* Summary */}
-          <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
+          <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
             <div className="flex flex-wrap items-baseline justify-between gap-2 mb-3">
               <h2 className="font-display font-bold text-lg">{result.fileName}</h2>
               <span className="text-xs font-mono text-slate-500">{fmtBytes(result.size)}</span>
@@ -190,7 +183,7 @@ export default function ApkAnalyzer(): JSX.Element {
           </section>
 
           {/* Hashes */}
-          <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
+          <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
             <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-3 inline-flex items-center gap-2">
               <Hash size={12} /> File hashes
             </h3>
@@ -236,7 +229,7 @@ export default function ApkAnalyzer(): JSX.Element {
                   <div key={i} className="rounded border border-rose-500/20 bg-rose-500/5 p-2.5">
                     <div className="flex items-center gap-2 mb-1">
                       <span
-                        className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${SEV_STYLES[s.severity]}`}
+                        className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${SEVERITY_TONE[s.severity]}`}
                       >
                         {s.severity}
                       </span>
@@ -251,7 +244,7 @@ export default function ApkAnalyzer(): JSX.Element {
 
           {/* Permissions */}
           {result.analysis.permissions.length > 0 && (
-            <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
+            <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
               <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-3 inline-flex items-center gap-2">
                 <ShieldAlert size={12} /> Permissions ({result.analysis.permissions.length})
               </h3>
@@ -275,7 +268,7 @@ export default function ApkAnalyzer(): JSX.Element {
 
           {/* DEX Files */}
           {result.analysis.dexFiles.length > 0 && (
-            <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
+            <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
               <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-3 inline-flex items-center gap-2">
                 <Cpu size={12} /> DEX Analysis ({result.analysis.dexFiles.length} files)
               </h3>
@@ -308,7 +301,7 @@ export default function ApkAnalyzer(): JSX.Element {
             result.analysis.ips.length > 0 ||
             result.analysis.domains.length > 0 ||
             result.analysis.apiKeys.length > 0) && (
-            <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
+            <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
               <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-3 inline-flex items-center gap-2">
                 <Globe size={12} /> Extracted IOCs
               </h3>
@@ -349,7 +342,7 @@ export default function ApkAnalyzer(): JSX.Element {
           {(result.analysis.activities.length > 0 ||
             result.analysis.services.length > 0 ||
             result.analysis.receivers.length > 0) && (
-            <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
+            <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
               <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-3 inline-flex items-center gap-2">
                 <Layers size={12} /> Components
               </h3>
@@ -409,7 +402,7 @@ export default function ApkAnalyzer(): JSX.Element {
 
           {/* Native libs */}
           {result.analysis.nativeLibs.length > 0 && (
-            <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
+            <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
               <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-3 inline-flex items-center gap-2">
                 <Database size={12} /> Native Libraries ({result.analysis.nativeLibs.length})
               </h3>

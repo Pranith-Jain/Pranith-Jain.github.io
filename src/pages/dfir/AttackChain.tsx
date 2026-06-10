@@ -1,6 +1,7 @@
 import { useState, useCallback } from 'react';
 import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, Loader2, AlertTriangle, CheckCircle, ChevronRight, Target, Zap } from 'lucide-react';
+import { SEVERITY_TONE } from '../../components/severity';
 
 interface AttackChain {
   id: string;
@@ -35,12 +36,6 @@ const TACTIC_COLORS: Record<string, string> = {
   TA0011: 'bg-pink-500',
   TA0010: 'bg-rose-600',
   TA0040: 'bg-red-700',
-};
-
-const PRIORITY_BADGE: Record<string, string> = {
-  high: 'bg-rose-100 text-rose-800 dark:bg-rose-900/30 dark:text-rose-300',
-  medium: 'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300',
-  low: 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400',
 };
 
 export default function AttackChain(): JSX.Element {
@@ -112,7 +107,7 @@ export default function AttackChain(): JSX.Element {
       </div>
 
       {/* Input */}
-      <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5 mb-6">
+      <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5 mb-6">
         <h2 className="font-display font-bold text-sm mb-3">Indicators of Compromise</h2>
         <textarea
           value={input}
@@ -168,7 +163,7 @@ export default function AttackChain(): JSX.Element {
       {result && (
         <div className="space-y-5 animate-fade-in-up">
           {/* Kill Chain Progress */}
-          <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5">
+          <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5">
             <div className="flex items-center justify-between mb-3">
               <h2 className="font-display font-bold text-sm">Kill Chain Progress</h2>
               <span className="text-2xl font-display font-bold text-brand-600 dark:text-brand-400">
@@ -195,7 +190,7 @@ export default function AttackChain(): JSX.Element {
           </div>
 
           {/* ATT&CK Kill Chain */}
-          <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5">
+          <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5">
             <h2 className="font-display font-bold text-sm mb-4">MITRE ATT&CK Kill Chain</h2>
             <div className="space-y-1.5">
               {result.tactics.map((t, i) => (
@@ -284,7 +279,7 @@ export default function AttackChain(): JSX.Element {
 
           {/* Recommendations */}
           {result.recommendations.length > 0 && (
-            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5">
+            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5">
               <h2 className="font-display font-bold text-sm mb-3 flex items-center gap-2">
                 <CheckCircle size={14} className="text-emerald-600 dark:text-emerald-400" /> Detection Recommendations
               </h2>
@@ -298,7 +293,9 @@ export default function AttackChain(): JSX.Element {
                       <div className="text-sm font-medium">{rec.action}</div>
                       <div className="text-micro font-mono text-slate-400 mt-0.5">{rec.technique}</div>
                     </div>
-                    <span className={`text-micro font-mono px-1.5 py-0.5 rounded ${PRIORITY_BADGE[rec.priority]}`}>
+                    <span
+                      className={`text-micro font-mono px-1.5 py-0.5 rounded border ${SEVERITY_TONE[rec.priority]}`}
+                    >
                       {rec.priority}
                     </span>
                   </div>

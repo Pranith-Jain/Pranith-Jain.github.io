@@ -180,12 +180,12 @@ export default function ActorDNA(): JSX.Element {
               value={ttpsInput}
               onChange={(e) => setTtpsInput(e.target.value)}
               placeholder="Enter TTPs (comma-separated): spearphishing, powershell, cobalt_strike"
-              className="flex-1 bg-white dark:bg-slate-900/40 border border-slate-600 rounded-lg px-4 py-2.5 text-sm text-slate-900 dark:text-slate-100 placeholder-slate-500 focus:outline-none focus:border-purple-500"
+              className="flex-1 bg-white dark:bg-slate-900/40 border border-slate-300 dark:border-slate-700 rounded-lg px-4 py-2.5 text-sm text-slate-900 dark:text-slate-100 placeholder-slate-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus:border-brand-500"
             />
             <button
               onClick={() => void matchTTPs()}
               disabled={loading}
-              className="px-6 py-2.5 bg-brand-600 hover:bg-brand-500 disabled:bg-slate-600 rounded-lg text-sm font-medium transition-colors flex items-center gap-2"
+              className="px-6 py-2.5 bg-brand-600 hover:bg-brand-500 disabled:opacity-40 disabled:cursor-not-allowed rounded-lg text-sm font-medium text-white transition-colors flex items-center gap-2"
             >
               {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Search className="w-4 h-4" />}
               Match
@@ -229,8 +229,8 @@ export default function ActorDNA(): JSX.Element {
                 onClick={() => fetchActorDNA(actor.actor_id)}
                 className={`w-full text-left p-3 rounded-lg transition-colors ${
                   selectedActor?.actor_id === actor.actor_id
-                    ? 'bg-brand-600/20 border border-purple-500/30'
-                    : 'bg-slate-50 dark:bg-slate-950 hover:bg-slate-700/50 border border-transparent'
+                    ? 'bg-brand-500/10 border border-brand-500/40'
+                    : 'bg-slate-50 dark:bg-slate-950 hover:bg-slate-100 dark:hover:bg-slate-800 border border-transparent'
                 }`}
               >
                 <div className="font-medium text-sm">{actor.actor_name}</div>
@@ -320,7 +320,7 @@ export default function ActorDNA(): JSX.Element {
                         {selectedActor.victimology.preferred_sectors.map((s) => (
                           <span
                             key={s}
-                            className="text-sm px-3 py-1 bg-red-500/10 text-red-700 dark:text-red-400 rounded-full"
+                            className="text-sm px-3 py-1 bg-rose-500/10 text-rose-700 dark:text-rose-300 rounded-full"
                           >
                             {s}
                           </span>
@@ -333,7 +333,7 @@ export default function ActorDNA(): JSX.Element {
                         {selectedActor.victimology.preferred_regions.map((r) => (
                           <span
                             key={r}
-                            className="text-sm px-3 py-1 bg-blue-500/10 text-blue-700 dark:text-blue-400 rounded-full"
+                            className="text-sm px-3 py-1 bg-sky-500/10 text-sky-700 dark:text-sky-300 rounded-full"
                           >
                             {r}
                           </span>
@@ -441,21 +441,26 @@ export default function ActorDNA(): JSX.Element {
 }
 
 function DNACard({ title, items, color }: { title: string; items: string[]; color: string }) {
+  // DNA category cards are differentiated by their TITLE, not colour. The prior
+  // 10-colour rainbow was arbitrary, off-palette, and a generic-AI tell —
+  // collapsed to one neutral on-brand surface. `color` is kept for call-site
+  // compatibility but no longer themes.
+  const surface = 'border-slate-200 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-900/40';
   const colorMap: Record<string, string> = {
-    red: 'border-red-500/30 bg-red-500/5',
-    orange: 'border-orange-500/30 bg-orange-500/5',
-    yellow: 'border-yellow-500/30 bg-yellow-500/5',
-    green: 'border-green-500/30 bg-green-500/5',
-    blue: 'border-blue-500/30 bg-blue-500/5',
-    purple: 'border-purple-500/30 bg-brand-500/5',
-    cyan: 'border-cyan-500/30 bg-cyan-500/5',
-    pink: 'border-pink-500/30 bg-pink-500/5',
-    indigo: 'border-indigo-500/30 bg-indigo-500/5',
-    teal: 'border-teal-500/30 bg-teal-500/5',
+    red: surface,
+    orange: surface,
+    yellow: surface,
+    green: surface,
+    blue: surface,
+    purple: surface,
+    cyan: surface,
+    pink: surface,
+    indigo: surface,
+    teal: surface,
   };
 
   return (
-    <div className={`rounded-lg border p-3 ${colorMap[color] ?? colorMap.blue}`}>
+    <div className={`rounded-lg border p-3 ${colorMap[color] ?? surface}`}>
       <div className="text-xs font-medium text-slate-400 mb-2">{title}</div>
       <div className="flex flex-wrap gap-1">
         {items.map((item) => (

@@ -132,7 +132,7 @@ export default function ActorUsernames(): JSX.Element {
 
       <form
         onSubmit={submit}
-        className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6"
+        className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6"
       >
         <div className="flex items-center gap-3">
           <div className="relative flex-1">
@@ -203,7 +203,7 @@ export default function ActorUsernames(): JSX.Element {
             {data?.results.map((m) => (
               <li
                 key={m.username}
-                className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3"
+                className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-3"
               >
                 <div className="flex items-baseline justify-between gap-2 mb-2 flex-wrap">
                   <span className="font-mono font-semibold text-sm text-slate-900 dark:text-slate-100 break-all">

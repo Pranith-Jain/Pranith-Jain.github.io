@@ -227,7 +227,7 @@ export default function Watches(): JSX.Element {
               .map((watch) => (
                 <div
                   key={watch.id}
-                  className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-4 py-3"
+                  className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 px-4 py-3"
                 >
                   {editingId === watch.id ? (
                     <div className="space-y-3">
@@ -350,7 +350,7 @@ export default function Watches(): JSX.Element {
         {/* Right panel — create form + alert log */}
         <div className="lg:col-span-2 space-y-6">
           {showForm && (
-            <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
+            <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
               <h3 className="font-display font-semibold text-sm mb-4">Create Watch</h3>
               <div className="space-y-3">
                 <div>
@@ -453,7 +453,7 @@ export default function Watches(): JSX.Element {
                 alerts.map((alert, i) => (
                   <div
                     key={i}
-                    className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-3 py-2.5"
+                    className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 px-3 py-2.5"
                   >
                     <div className="flex items-center gap-2 mb-0.5">
                       <span className={`text-micro font-mono uppercase tracking-wider ${TYPE_COLORS[alert.type]}`}>

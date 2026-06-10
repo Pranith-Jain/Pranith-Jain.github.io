@@ -365,7 +365,7 @@ export default function IocExtractor(): JSX.Element {
           return (
             <section
               key={bucket}
-              className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5"
+              className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-5"
             >
               <div className="flex items-center justify-between mb-3">
                 <h3 className="font-display font-semibold text-slate-900 dark:text-slate-100">

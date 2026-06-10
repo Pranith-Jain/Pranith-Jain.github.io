@@ -16,6 +16,7 @@ import {
   Loader2,
 } from 'lucide-react';
 import { DataState } from '../../components/DataState';
+import { SEVERITY_TONE } from '../../components/severity';
 
 /**
  * Hand-authored interpretation per rule. The detections list shows what
@@ -157,13 +158,6 @@ interface DetectionsResponse {
 
 const SEV_ORDER: Severity[] = ['critical', 'high', 'medium', 'low'];
 
-const SEV_PILL: Record<Severity, string> = {
-  critical: 'border-rose-500/50 bg-rose-500/15 text-rose-700 dark:text-rose-300',
-  high: 'border-orange-500/50 bg-orange-500/15 text-orange-700 dark:text-orange-300',
-  medium: 'border-amber-500/50 bg-amber-500/15 text-amber-700 dark:text-amber-300',
-  low: 'border-slate-400/50 bg-slate-400/10 text-slate-600 dark:text-slate-300',
-};
-
 const KIND_PILL: Record<DetIndicator['kind'], string> = {
   ip: 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300',
   url: 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300',
@@ -174,7 +168,7 @@ const KIND_PILL: Record<DetIndicator['kind'], string> = {
 function DetectionCard({ d }: { d: Detection }): JSX.Element {
   const [open, setOpen] = useState(false);
   return (
-    <li className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
+    <li className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1">
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
@@ -182,7 +176,7 @@ function DetectionCard({ d }: { d: Detection }): JSX.Element {
         aria-expanded={open}
       >
         <span
-          className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border shrink-0 mt-0.5 ${SEV_PILL[d.severity]}`}
+          className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border shrink-0 mt-0.5 ${SEVERITY_TONE[d.severity]}`}
         >
           {d.severity}
         </span>
@@ -378,7 +372,7 @@ export default function Detections(): JSX.Element {
                   Today's lead: {hero.rule_name}
                 </h2>
                 <span
-                  className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${SEV_PILL[hero.severity]}`}
+                  className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${SEVERITY_TONE[hero.severity]}`}
                 >
                   {hero.severity}
                 </span>
@@ -449,7 +443,7 @@ export default function Detections(): JSX.Element {
                         >
                           <div className="flex items-baseline gap-2 mb-1 flex-wrap">
                             <span
-                              className={`text-micro font-mono uppercase tracking-wider px-1 py-0.5 rounded border ${SEV_PILL[d.severity]}`}
+                              className={`text-micro font-mono uppercase tracking-wider px-1 py-0.5 rounded border ${SEVERITY_TONE[d.severity]}`}
                             >
                               {d.severity}
                             </span>
@@ -469,7 +463,7 @@ export default function Detections(): JSX.Element {
           );
         })()}
 
-      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-4">
+      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-4">
         <div className="flex items-center gap-3">
           <div className="relative flex-1">
             <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
@@ -525,7 +519,7 @@ export default function Detections(): JSX.Element {
                 type="button"
                 onClick={() => toggleSev(s)}
                 className={`text-mini font-mono px-2 py-1 rounded border ${
-                  active ? SEV_PILL[s] : 'border-slate-300 dark:border-slate-700 text-slate-500'
+                  active ? SEVERITY_TONE[s] : 'border-slate-300 dark:border-slate-700 text-slate-500'
                 }`}
               >
                 {s} <span className="opacity-70">· {n}</span>

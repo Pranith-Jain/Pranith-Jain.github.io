@@ -236,7 +236,7 @@ export default function BreachForums(): JSX.Element {
         </div>
       </div>
 
-      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6 flex items-center justify-between gap-3 flex-wrap">
+      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6 flex items-center justify-between gap-3 flex-wrap">
         {data && (
           <p className="text-mini font-mono text-slate-500">
             {data.rows.length} entries · {data.totals.directory} from deepdarkCTI · {data.totals.curated} curated
@@ -281,7 +281,7 @@ export default function BreachForums(): JSX.Element {
                 {rows.map((r, i) => (
                   <li
                     key={`${r.name}-${i}`}
-                    className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3"
+                    className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-3"
                   >
                     <div className="flex items-center justify-between gap-2">
                       <span className="font-display font-semibold text-sm truncate" title={r.name}>
@@ -355,7 +355,7 @@ export default function BreachForums(): JSX.Element {
               {statusData.deltas.map((d, i) => (
                 <li
                   key={`${d.name}-${d.observed_at}-${i}`}
-                  className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3 flex items-center gap-3 flex-wrap"
+                  className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-3 flex items-center gap-3 flex-wrap"
                 >
                   <span className="font-display font-semibold text-sm truncate" title={d.name}>
                     {d.name}
@@ -426,7 +426,7 @@ export default function BreachForums(): JSX.Element {
               {coverageData.items.map((it, i) => (
                 <li
                   key={`${it.link}-${i}`}
-                  className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3"
+                  className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-3"
                 >
                   <div className="flex items-baseline gap-2 flex-wrap">
                     <a
@@ -480,7 +480,7 @@ export default function BreachForums(): JSX.Element {
               {mentionsData.items.map((it, i) => (
                 <li
                   key={`${it.link}-${i}`}
-                  className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3"
+                  className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-3"
                 >
                   <div className="flex items-baseline gap-2 flex-wrap">
                     <a

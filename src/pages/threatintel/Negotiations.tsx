@@ -185,7 +185,7 @@ export default function Negotiations(): JSX.Element {
         </p>
       </div>
 
-      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6 flex items-center justify-between gap-3 flex-wrap">
+      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6 flex items-center justify-between gap-3 flex-wrap">
         <div className="flex flex-wrap gap-4 text-meta font-mono">
           <span>
             <span className="text-slate-500">negotiations</span>{' '}

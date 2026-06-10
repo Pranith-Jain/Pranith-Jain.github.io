@@ -141,7 +141,7 @@ export default function CertSearch(): JSX.Element {
       </div>
 
       {/* Lookup form */}
-      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6">
+      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -204,7 +204,7 @@ export default function CertSearch(): JSX.Element {
       {data && (
         <>
           {/* Summary */}
-          <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6">
+          <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
             <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-3">
               Summary
             </h2>
@@ -237,7 +237,7 @@ export default function CertSearch(): JSX.Element {
           </section>
 
           {/* Unique DNS names */}
-          <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6">
+          <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
             <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
               <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono inline-flex items-center gap-2">
                 <Globe2 size={12} /> Unique DNS names
@@ -284,7 +284,7 @@ export default function CertSearch(): JSX.Element {
           </section>
 
           {/* Recent issuances */}
-          <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6">
+          <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
             <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-3 inline-flex items-center gap-2">
               <ScrollText size={12} /> Recent issuances ({data.recent.length})
             </h2>

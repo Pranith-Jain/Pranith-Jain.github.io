@@ -125,7 +125,7 @@ export default function UrlReputation(): JSX.Element {
       )}
 
       {summary && (
-        <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-4">
+        <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-4">
           <div className="flex items-baseline justify-between mb-2">
             <h2 ref={summaryRef} tabIndex={-1} className="font-display font-bold text-lg focus:outline-none">
               Composite verdict
@@ -147,7 +147,7 @@ export default function UrlReputation(): JSX.Element {
       )}
 
       {results.length > 0 && (
-        <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
+        <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
           <div className="flex items-baseline justify-between mb-3">
             <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono">
               Per-source results

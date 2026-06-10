@@ -127,7 +127,7 @@ export default function ToolsCategory(): JSX.Element {
             {s.tools.map((t) => {
               const Icon = t.icon;
               const card = (
-                <div className="group h-full flex flex-col rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 hover:border-brand-500/40 transition-colors">
+                <div className="group h-full flex flex-col rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-5 hover:border-brand-500/40 transition-colors">
                   <div className="flex items-center gap-2 mb-2">
                     <Icon size={18} className="text-brand-600 dark:text-brand-400" />
                     <span className="font-display font-semibold group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
@@ -188,7 +188,7 @@ export default function ToolsCategory(): JSX.Element {
             ].map((ex) => (
               <div
                 key={ex.platform}
-                className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-3 flex items-center gap-3"
+                className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 shadow-e1 p-3 flex items-center gap-3"
               >
                 <div className="w-8 h-8 rounded-full bg-brand-500/10 flex items-center justify-center text-xs font-mono text-brand-600 dark:text-brand-400">
                   ✓
@@ -237,7 +237,7 @@ export default function ToolsCategory(): JSX.Element {
           {AUDIENCE.map((a) => (
             <div
               key={a.who}
-              className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5"
+              className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-5"
             >
               <div className="font-display font-semibold mb-1">{a.who}</div>
               <p className="text-sm font-mono text-slate-600 dark:text-slate-400 leading-relaxed">{a.what}</p>

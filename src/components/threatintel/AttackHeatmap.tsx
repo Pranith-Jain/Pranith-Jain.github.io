@@ -74,7 +74,7 @@ export function AttackHeatmap({
   if (loading) {
     return (
       <section
-        className={`${mbClass} rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 inline-flex items-center gap-2 font-mono text-sm text-slate-500`}
+        className={`${mbClass} rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-5 inline-flex items-center gap-2 font-mono text-sm text-slate-500`}
       >
         <Loader2 size={14} className="animate-spin" /> loading ATT&CK technique heatmap…
       </section>
@@ -105,7 +105,7 @@ export function AttackHeatmap({
 
   return (
     <section
-      className={`${mbClass} rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5`}
+      className={`${mbClass} rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-5`}
     >
       <div className="flex items-start justify-between gap-3 mb-3 flex-wrap">
         <div>

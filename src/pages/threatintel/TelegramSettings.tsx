@@ -159,7 +159,7 @@ export default function TelegramSettings(): JSX.Element {
           {channels.map((ch) => (
             <li
               key={ch.handle}
-              className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3 flex items-center justify-between gap-3"
+              className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-3 flex items-center justify-between gap-3"
             >
               <div className="min-w-0">
                 <span className="font-display font-semibold text-sm">{ch.name}</span>

@@ -133,15 +133,15 @@ export default function XLive(): JSX.Element {
   const headerExtra = (
     <>
       <section className="flex flex-wrap items-center gap-2">
-        <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30">
+        <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30">
           live · free
         </span>
-        <label className="inline-flex items-center gap-1 text-[11px] font-mono text-slate-600 dark:text-slate-400">
+        <label className="inline-flex items-center gap-1 text-mini font-mono text-slate-600 dark:text-slate-400">
           window:
           <select
             value={sinceHours}
             onChange={(e) => setSinceHours(Number(e.target.value))}
-            className="border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-1.5 py-0.5 text-[11px] font-mono rounded focus:outline-none focus:border-brand-500"
+            className="border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-1.5 py-0.5 text-mini font-mono rounded focus:outline-none focus:border-brand-500"
           >
             {[6, 12, 24, 48, 72, 168].map((h) => (
               <option key={h} value={h}>
@@ -175,7 +175,7 @@ export default function XLive(): JSX.Element {
           <button
             type="button"
             onClick={() => setActiveHandle(null)}
-            className={`text-[11px] font-mono px-2 py-0.5 rounded border transition-colors ${
+            className={`text-mini font-mono px-2 py-0.5 rounded border transition-colors ${
               activeHandle === null
                 ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
                 : 'border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-brand-500/40'
@@ -188,7 +188,7 @@ export default function XLive(): JSX.Element {
               key={handle}
               type="button"
               onClick={() => setActiveHandle(handle === activeHandle ? null : handle)}
-              className={`text-[11px] font-mono px-2 py-0.5 rounded border transition-colors ${
+              className={`text-mini font-mono px-2 py-0.5 rounded border transition-colors ${
                 activeHandle === handle
                   ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
                   : 'border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-brand-500/40'
@@ -232,7 +232,7 @@ export default function XLive(): JSX.Element {
             <em>recent</em> X content — X gates anonymous timeline access, but per-tweet embed previews stay open
             because Discord/Slack/Telegram link cards depend on them.
           </span>
-          <span className="block text-[11px] font-mono text-slate-500 mt-2">
+          <span className="block text-mini font-mono text-slate-500 mt-2">
             <strong>Coverage caveat:</strong> only tweets that TweetFeed surfaces (researcher-posted IOCs). Prose-only
             researcher takes won&apos;t appear here. For non-IOC chatter use{' '}
             <Link to="/threatintel/x" className="text-brand-600 dark:text-brand-400 hover:underline">
@@ -267,7 +267,7 @@ export default function XLive(): JSX.Element {
           {filtered.map((t) => (
             <li
               key={t.id}
-              className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3"
+              className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-3"
             >
               <div className="flex items-start gap-3">
                 {t.author.avatar_url && (
@@ -286,7 +286,7 @@ export default function XLive(): JSX.Element {
                     <button
                       type="button"
                       onClick={() => setActiveHandle(t.author.screen_name.toLowerCase())}
-                      className="text-[11px] font-mono text-slate-500 hover:text-brand-600 dark:hover:text-brand-400"
+                      className="text-mini font-mono text-slate-500 hover:text-brand-600 dark:hover:text-brand-400"
                       title="filter to this handle"
                     >
                       @{t.author.screen_name}
@@ -294,7 +294,7 @@ export default function XLive(): JSX.Element {
                     {t.ioc_types.map((iocType) => (
                       <span
                         key={iocType}
-                        className={`text-[9px] font-mono px-1 py-0.5 rounded border ${
+                        className={`text-micro font-mono px-1 py-0.5 rounded border ${
                           IOC_TYPE_COLOR[iocType] ?? 'border-slate-300 dark:border-slate-700 text-slate-500'
                         }`}
                       >
@@ -305,7 +305,7 @@ export default function XLive(): JSX.Element {
                       href={sanitizeUrl(t.url) || undefined}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="ml-auto text-[10px] font-mono text-slate-500 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-0.5"
+                      className="ml-auto text-micro font-mono text-slate-500 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-0.5"
                       title={t.created_at}
                     >
                       {formatTimeAgo(t.created_at_ms || t.created_at)} <ExternalLink size={9} />
@@ -319,7 +319,7 @@ export default function XLive(): JSX.Element {
                           key={tag}
                           type="button"
                           onClick={() => setSearch(tag)}
-                          className="text-[10px] font-mono text-brand-600 dark:text-brand-400 hover:underline"
+                          className="text-micro font-mono text-brand-600 dark:text-brand-400 hover:underline"
                         >
                           {tag}
                         </button>
@@ -341,7 +341,7 @@ export default function XLive(): JSX.Element {
                       ))}
                     </div>
                   )}
-                  <div className="mt-2 flex items-center gap-3 text-[10px] font-mono text-slate-500">
+                  <div className="mt-2 flex items-center gap-3 text-micro font-mono text-slate-500">
                     <span className="inline-flex items-center gap-0.5">
                       <MessageSquare size={10} /> {compactNumber(t.replies) || '0'}
                     </span>
@@ -365,7 +365,7 @@ export default function XLive(): JSX.Element {
       )}
 
       {data && (
-        <p className="mt-6 text-[10px] font-mono text-slate-400 text-center">
+        <p className="mt-6 text-micro font-mono text-slate-400 text-center">
           {data.stale && <span className="text-amber-500 dark:text-amber-400">stale · </span>}
           source: TweetFeed ({data.total_status_ids_seen} status IDs seen) × fxtwitter ({data.enriched_count} enriched
           {data.enrichment_failures != null && data.enrichment_failures > 0

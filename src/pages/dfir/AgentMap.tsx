@@ -11,6 +11,18 @@ import {
   type ToolNode,
   type RiskPath,
 } from '../../lib/dfir/agent-graph';
+import { SEVERITY_TONE } from '../../components/severity';
+
+// SVG <line> stroke needs a CSS colour value (not a Tailwind class), so it can't
+// reuse SEVERITY_BAR's `bg-*` classes. These hexes are byte-aligned with the
+// canonical `severity.*` tokens in tailwind.config.js / src/components/severity.ts
+// (critical=rose-600, high=orange-500, medium=amber-500). RiskPath['severity'] is
+// only critical|high|medium, so only those keys are needed.
+const SEVERITY_STROKE: Record<RiskPath['severity'], string> = {
+  critical: '#e11d48',
+  high: '#f97316',
+  medium: '#f59e0b',
+};
 
 const SAMPLE_BASIC = `{
   "mcpServers": {
@@ -61,12 +73,6 @@ const SAMPLE_RISKY = `{
     "allow": ["Bash(*)", "Read(/etc/*)", "WebFetch"]
   }
 }`;
-
-const SEV_STYLES: Record<RiskPath['severity'], string> = {
-  critical: 'bg-rose-500/15 text-rose-700 dark:text-rose-300 border-rose-500/30',
-  high: 'bg-orange-500/15 text-orange-700 dark:text-orange-300 border-orange-500/30',
-  medium: 'bg-amber-500/15 text-amber-700 dark:text-amber-300 border-amber-500/30',
-};
 
 const VIEW_W = 500;
 const VIEW_H = 500;
@@ -176,7 +182,7 @@ export default function AgentMap(): JSX.Element {
         </p>
       </div>
 
-      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6">
+      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
         <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
           <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono">
             Config JSON
@@ -221,7 +227,7 @@ export default function AgentMap(): JSX.Element {
         <>
           <section className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-4 mb-6">
             {/* Graph */}
-            <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
+            <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
               <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-2">
                 Capability graph ({graph.tools.length} tool{graph.tools.length === 1 ? '' : 's'})
               </h2>
@@ -241,8 +247,7 @@ export default function AgentMap(): JSX.Element {
                     const a = posById[e.from];
                     const b = posById[e.to];
                     if (!a || !b) return null;
-                    const colour =
-                      e.severity === 'critical' ? '#f43f5e' : e.severity === 'high' ? '#f97316' : '#f59e0b';
+                    const colour = SEVERITY_STROKE[e.severity];
                     return (
                       <line
                         key={i}
@@ -267,7 +272,7 @@ export default function AgentMap(): JSX.Element {
             </div>
 
             {/* Capability legend */}
-            <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
+            <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
               <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-2">
                 Capabilities
               </h2>
@@ -292,7 +297,7 @@ export default function AgentMap(): JSX.Element {
 
           {/* Risk paths */}
           {graph.risks.length > 0 ? (
-            <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6">
+            <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
               <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-rose-600 dark:text-rose-400 font-mono mb-3 inline-flex items-center gap-1.5">
                 <AlertTriangle size={12} /> Risk paths ({graph.risks.length})
               </h2>
@@ -305,7 +310,7 @@ export default function AgentMap(): JSX.Element {
                     <div className="flex flex-wrap items-center gap-2 mb-1">
                       <span className="font-display font-semibold text-slate-900 dark:text-slate-100">{r.title}</span>
                       <span
-                        className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${SEV_STYLES[r.severity]}`}
+                        className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${SEVERITY_TONE[r.severity]}`}
                       >
                         {r.severity}
                       </span>
@@ -338,7 +343,7 @@ export default function AgentMap(): JSX.Element {
 
           {/* Tool list */}
           {graph.tools.length > 0 && (
-            <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6">
+            <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
               <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-3">
                 Tools
               </h2>
@@ -375,7 +380,7 @@ export default function AgentMap(): JSX.Element {
         </>
       )}
 
-      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
+      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
         <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-3">
           References
         </h2>

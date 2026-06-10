@@ -239,7 +239,7 @@ export default function PeAnalyzer(): JSX.Element {
             ].map(([k, v]) => (
               <div
                 key={k}
-                className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3"
+                className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-3"
               >
                 <div className="text-micro font-mono uppercase tracking-wider text-slate-500">{k}</div>
                 <div className="font-mono text-meta break-all">{v}</div>
@@ -287,7 +287,7 @@ export default function PeAnalyzer(): JSX.Element {
           {pe.imports.map((im) => (
             <div
               key={im.dll}
-              className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3"
+              className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-3"
             >
               <div className="font-mono text-meta text-slate-900 dark:text-slate-100 mb-1">
                 {im.dll} <span className="text-slate-500">· {im.fns.length} imports</span>

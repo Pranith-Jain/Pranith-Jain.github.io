@@ -5,7 +5,7 @@ export function WikiCard({ article }: { article: WikiArticleMeta }): JSX.Element
   return (
     <Link
       to={`/threatintel/wiki/${article.slug}`}
-      className="block rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 hover:border-brand-500/40 transition-colors"
+      className="block rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-5 hover:border-brand-500/40 transition-colors"
     >
       <span className="block text-xs font-mono uppercase tracking-wider text-brand-600 dark:text-brand-400 mb-1">
         {article.category}

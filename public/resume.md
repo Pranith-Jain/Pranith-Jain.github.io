@@ -1,52 +1,66 @@
 # PRANITH JAIN
 
-**Threat Intelligence Analyst | OSINT Investigations | Threat Hunting**
+**Security Analyst | Threat Intelligence | DFIR & Security Automation**
 
-hello@pranithjain.qzz.io | +91 8310386578 | [linkedin.com/in/pranithjain](https://www.linkedin.com/in/pranithjain) | [github.com/Pranith-Jain](https://github.com/Pranith-Jain) | [pranithjain.qzz.io](https://pranithjain.qzz.io)
+hello@pranithjain.qzz.io | +91 83103 86578 | [linkedin.com/in/pranithjain](https://www.linkedin.com/in/pranithjain) | [pranithjain.qzz.io](https://pranithjain.qzz.io)
 
-> Maintainable source for the downloadable resume. public/resume.docx is regenerated from this file via `node scripts/build-resume-docx.mjs` (single-column, standard headings, no tables or graphics, ATS-clean). Keep both in sync.
+> Maintainable source for the downloadable resume. The served `public/resume.docx` is the hand-authored, ATS-clean version; keep this file in sync with it. `node scripts/build-resume-docx.mjs` can regenerate a single-column docx from this markdown as a fallback.
 
 ---
 
-## PROFESSIONAL SUMMARY
+## SUMMARY
 
-Threat intelligence analyst with over two years tracking threat actors and running OSINT investigations across 150+ companies. Triaged 250+ phishing, BEC, and malware incidents with IOC pivoting and MITRE ATT&CK mapping, traced 30+ domain-impersonation campaigns via certificate-transparency and dark-web monitoring, and built a public CTI platform running on 90+ open-source feeds.
+Security analyst with 3 years of experience in email threat response, DFIR, and SOC operations. Defended 1,300+ domains and 2,700+ inboxes across 150+ startups at Qubit Capital. Streamlines operations through automation: n8n pipelines, MCP threat intelligence workflows, and real-time infrastructure dashboards. M3AAWG member targeting CTI, threat intelligence, and security automation roles.
 
 ## EXPERIENCE
 
 **Security Analyst | Qubit Capital (Sujata Outsourcing)**
 Remote | Jul 2024 - Present
 
-- Triaged 250+ phishing, BEC, and malware incidents across 150+ portfolio companies, pivoting on indicators of compromise (sender IPs, domains, hashes) and mapping techniques to MITRE ATT&CK.
-- Took down 30+ lookalike-domain and brand-impersonation campaigns via certificate-transparency monitoring and infrastructure pivoting, cutting the phishing attack surface by about 40%.
-- Built and run a threat-intelligence platform that tracks day-to-day activity from active ransomware groups (LockBit, ALPHV/BlackCat, Play, Akira), CVE/KEV exposure, and new campaigns, feeding weekly briefings that guide portfolio remediation.
-- Cut mean response time from 4 hours to under 75 minutes with automated phishing-triage and enrichment pipelines built in n8n.
-- Refined detection rules to cut false positives 25% and per-incident analysis time 35%, and brought SPF/DKIM/DMARC alignment to 98%+ across 1,300+ domains, reducing spoofing-based phishing by roughly 60%.
+- Enforced SPF, DKIM, and DMARC across 1,300+ domains for 150+ startups, reaching 98%+ authentication alignment and cutting spoofing incidents by 60% in six months. Blocked impersonation attempts at the perimeter before reaching any inbox.
+- Engineered a real-time infrastructure monitoring dashboard using Claude Code, delivering live visibility across the full domain and inbox portfolio and eliminating a manual daily check process that consumed two hours each morning.
+- Led investigation of 250+ phishing, BEC, and malware incidents through header forensics, sandbox analysis, and IOC identification. Reduced false positives by 25%, cut per-incident analysis time by 35%, and held the threat remediation rate above 90%.
+- Automated phishing triage, IOC enrichment, and email blocking pipelines in n8n, cutting average incident response time from 4 hours to under 75 minutes and removing the manual steps from high-volume alert queues.
+- Dismantled 30+ lookalike and impersonation campaigns via domain abuse monitoring and OSINT attacker tracing, reducing the phishing surface by 40%.
 
 **Tech Associate | UnifyCX (GlowTouch Technologies PVT Ltd)**
-Mysore, India | Sep 2023 - Jul 2024
+Mysuru, India | Sep 2023 - Jul 2024
 
-- Investigated and cleaned up 60+ compromised web assets (malware removal, WAF tuning, XSS fixes) with a 98% first-pass closure, and fixed SPF/DKIM/DMARC and IP-blacklist issues for 200+ enterprise domains, lifting inbox placement from 60% to 95%.
+- Restored 95% inbox placement across 200+ enterprise domains by resolving IP blacklisting events and hardening SMTP authentication controls, reducing delivery failures by 40%.
+- Automated SSL/TLS certificate lifecycle management for 300+ domains, eliminating renewal-related outages and maintaining 99.9% uptime across the client environment.
+- Resolved 100+ DNS, email routing, and SSL/TLS issues weekly, building the infrastructure depth that now underpins the email security work at Qubit Capital.
 
-## KEY PROJECTS
+## PROJECTS
 
-- **Threat Intelligence Platform** (pranithjain.qzz.io/threatintel): Live CTI platform, 20+ surfaces correlating indicators from 90+ open-source feeds: ransomware tracking, CVE/KEV intelligence, threat-actor profiles, social-media aggregation, and auto-generated briefings. Exports STIX 2.1, runs on Cloudflare, no API keys.
-- **DFIR Toolkit** (pranithjain.qzz.io/dfir · github.com/Pranith-Jain): 65+ interactive security tools on Cloudflare Workers: streaming IOC checker (24 providers), malware scanner, phishing analyzer, reputation checks against 19 DNSBLs, CVE lookup with EPSS/KEV, and a STIX 2.1 visualizer. Includes an MCP server with 23 analytics tools across 2,700+ inboxes.
+- **Threat Intelligence Platform** | Cloudflare Workers, TypeScript, STIX 2.1 | 2026 - Present: Built a live CTI platform (pranithjain.qzz.io/threatintel) correlating indicators from 90+ open-source feeds: ransomware tracking, CVE/KEV intelligence, threat-actor profiles, and auto-generated briefings. AI copilot powered by Llama 4. Exports STIX 2.1, runs on Cloudflare. Distributed as a CLI tool and MCP server.
+- **DFIR Toolkit** | TypeScript, Cloudflare Workers | Feb 2026 - Present: Deployed 65+ interactive security tools on Cloudflare Workers (pranithjain.qzz.io/dfir): IOC checker (24 providers), malware scanner, phishing analyzer, 19-DNSBL reputation checks, CVE/EPSS lookup, and STIX 2.1 visualizer. Available via CLI and MCP interfaces.
+- **Email Infrastructure Automation Platform** | Claude Code, MCP, Playwright | Jan 2026 - Present: Automated end-to-end domain onboarding across 1,300+ domains, cutting per-domain setup time from several hours to under 10 minutes. Designed a Smartlead MCP server with 23 custom analytics tools consolidating warm-up monitoring, deliverability tracking, and campaign health across 2,700+ inboxes.
 
-## TECHNICAL SKILLS
+## SKILLS
 
-- **Threat Intelligence:** Cyber threat intelligence (CTI), OSINT, IOC enrichment & correlation, threat-actor tracking, MITRE ATT&CK, threat hunting, dark-web monitoring, CVE/KEV prioritization, STIX 2.1 / TAXII
-- **Tools & Platforms:** VirusTotal, Shodan, Censys, GreyNoise, urlscan.io, AlienVault OTX, MISP, OpenCTI, ThreatFox, MalwareBazaar, AbuseIPDB, Have I Been Pwned, Sigma, YARA
+- **Threat Intelligence & DFIR:** CTI, OSINT, IOC enrichment & correlation, MITRE ATT&CK, threat hunting, STIX 2.1/TAXII, digital forensics, Maltego, VirusTotal, Shodan, Sigma, YARA
 - **Incident Response & Forensics:** Phishing & BEC analysis, email header analysis, sandbox detonation, malware triage, indicator pivoting, email forensics
 - **Email Security:** SPF, DKIM, DMARC, BIMI, MTA-STS, TLS-RPT, Proofpoint, Google Workspace
-- **Security Engineering & Automation:** n8n, MCP, Python, TypeScript, Cloudflare Workers, Hono, React, detection engineering, SOC automation
-- **Identity & Cloud Security:** Non-Human Identity (NHI) governance, machine-identity & secrets lifecycle, IAM, Zero Trust, access reviews, SSO/MFA, GCP, AWS, Azure
+- **Security Engineering & Automation:** n8n, MCP, Python, TypeScript, Cloudflare Workers, Hono, React, detection development, SOC automation
+- **AI Agents & Models:** Claude Code, n8n agent pipelines, LLM integration (Claude, Llama 4, DeepSeek V3), MCP server development, agent workflow design
+- **Identity & Cloud Security:** IAM, Zero Trust, SSO/MFA, NHI governance, GCP, AWS, Azure
 
 ## CERTIFICATIONS
 
-- Cyber Threat Intelligence 101, arcX (2025) · SOCMINT, CyberSudo (2026) · Multi-Cloud Blue Team Analyst (MCBTA), CyberWarFare Labs (2025) · Google Cloud Cybersecurity, Google (2025)
-- Certified Cyber Criminologist (2025) & AI Security Expert (2026), Virtual Cyber Labs · Proofpoint AI Agent (2026) & AI Email Security (2025) · DSPM Fundamentals, Securiti AI (2025) · DLP Survival Guide, Antisyphon Training (2026)
+- Proofpoint Certified AI Agent Security Specialist | Proofpoint | 2026
+- Certified AI Security Expert (CASE) | Virtual Cyber Labs | 2026
+- Certified Multi-Cloud Blue Team Analyst (MCBTA) | CyberWarFare Labs | 2025
+- Proofpoint AI Email Security Specialist | Proofpoint | 2025
+- Certified Cyber Criminologist | Virtual Cyber Labs | 2025
+- Google Cloud Cybersecurity Certificate | Google | 2025
+
+## PROFESSIONAL MEMBERSHIPS
+
+- M3AAWG (Messaging, Malware and Mobile Anti-Abuse Working Group)
+- UK OSINT Community
+- Valinor Intelligence - Member
+- API Security University - Trial Ambassador
 
 ## EDUCATION
 
-**Bachelor of Engineering, Computer Science** | Visvesvaraya Technological University (VTU) | 2019 - Jul 2023
+**Bachelor of Engineering, Computer Science** | Visvesvaraya Technological University, Bengaluru | 2023

@@ -187,7 +187,7 @@ export default function DomainReputation(): JSX.Element {
       {results && !results.error && (
         <div className="space-y-6">
           {/* Score Summary */}
-          <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
+          <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
             <div className="flex flex-wrap items-baseline justify-between gap-3 mb-3">
               <h2 className="font-display font-bold text-xl">{results.target}</h2>
               {(() => {
@@ -222,7 +222,7 @@ export default function DomainReputation(): JSX.Element {
 
           {/* Domain Blacklists */}
           {results.domain && results.domain.length > 0 && (
-            <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
+            <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
               <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-3">
                 Domain blacklists ({results.domain.length})
               </h3>
@@ -244,7 +244,7 @@ export default function DomainReputation(): JSX.Element {
                 return (
                   <section
                     key={ip}
-                    className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4"
+                    className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4"
                   >
                     <div className="flex items-baseline justify-between gap-2 mb-3">
                       <h3 className="font-display font-semibold text-base inline-flex items-center gap-2">
@@ -298,7 +298,7 @@ export default function DomainReputation(): JSX.Element {
           </div>
 
           {/* External Tools */}
-          <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
+          <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
             <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-3 inline-flex items-center gap-2">
               <BookOpen size={12} aria-hidden="true" /> External reputation lookups
             </h3>

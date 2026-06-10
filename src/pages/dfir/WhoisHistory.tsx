@@ -251,7 +251,7 @@ export default function WhoisHistory(): JSX.Element {
             ].map(({ label, value, icon: Icon }) => (
               <div
                 key={label}
-                className="p-3 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900"
+                className="p-3 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1"
               >
                 <div className="flex items-center gap-2 mb-1">
                   <Icon size={14} className="text-slate-400" />
@@ -263,7 +263,7 @@ export default function WhoisHistory(): JSX.Element {
           </div>
 
           {history.current && (
-            <div className="mb-6 p-4 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
+            <div className="mb-6 p-4 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1">
               <h3 className="text-sm font-semibold mb-3 flex items-center gap-2">
                 <Globe size={14} className="text-brand-600" /> Current Registration
               </h3>
@@ -445,7 +445,7 @@ export default function WhoisHistory(): JSX.Element {
                       return (
                         <div
                           key={`${d.domain}-${d.match_reason}`}
-                          className="p-3 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900"
+                          className="p-3 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1"
                         >
                           <div className="flex items-center justify-between">
                             <div className="flex items-center gap-2">

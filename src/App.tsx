@@ -200,7 +200,6 @@ const CryptoScamFeedPage = lazy(() => import('./pages/threatintel/CryptoScamFeed
 const ActorUsernamesPage = lazy(() => import('./pages/threatintel/ActorUsernames'));
 const PhishingWordlistsPage = lazy(() => import('./pages/threatintel/PhishingWordlists'));
 const ProjectDiscoveryPage = lazy(() => import('./pages/threatintel/ProjectDiscovery'));
-const RansomPaymentsPage = lazy(() => import('./pages/threatintel/RansomPayments'));
 const RansomReportPage = lazy(() => import('./pages/threatintel/RansomReport'));
 const AbuseRepPage = lazy(() => import('./pages/dfir/AbuseRep'));
 const XFirehosePage = lazy(() => import('./pages/threatintel/XFirehose'));
@@ -402,7 +401,6 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel/actor-usernames', Component: ActorUsernamesPage },
   { path: '/threatintel/phishing-wordlists', Component: PhishingWordlistsPage },
   { path: '/threatintel/projectdiscovery', Component: ProjectDiscoveryPage },
-  { path: '/threatintel/ransom-payments', Component: RansomPaymentsPage },
   { path: '/threatintel/ransom-report', Component: RansomReportPage },
   { path: '/threatintel/x', Component: XFirehosePage },
   { path: '/threatintel/status', Component: FeedStatusPage },

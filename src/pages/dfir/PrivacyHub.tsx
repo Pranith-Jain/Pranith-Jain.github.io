@@ -226,7 +226,7 @@ export default function PrivacyHub(): JSX.Element {
       </div>
 
       {/* Active regime */}
-      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6">
+      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
         <div className="flex flex-wrap items-baseline gap-2 mb-2">
           <span
             className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${REGIME_STYLES[active.id]}`}
@@ -270,7 +270,7 @@ export default function PrivacyHub(): JSX.Element {
 
       {/* Rights */}
       {active.rights.length > 0 && (
-        <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6">
+        <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
           <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-3">
             Data subject / individual rights ({active.rights.length})
           </h3>
@@ -283,7 +283,7 @@ export default function PrivacyHub(): JSX.Element {
       )}
 
       {/* Obligations */}
-      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6">
+      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
         <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-3">
           Controller / fiduciary obligations ({active.obligations.length})
         </h3>
@@ -295,7 +295,7 @@ export default function PrivacyHub(): JSX.Element {
       </section>
 
       {/* Enforcement */}
-      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6">
+      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
         <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-2">
           Enforcement &amp; penalties
         </h3>
@@ -304,7 +304,7 @@ export default function PrivacyHub(): JSX.Element {
 
       {/* Cross-references */}
       {active.crossRef.length > 0 && (
-        <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6">
+        <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
           <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-2">
             Cross-references in /dfir/grc
           </h3>
@@ -321,7 +321,7 @@ export default function PrivacyHub(): JSX.Element {
         </section>
       )}
 
-      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
+      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
         <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-2">
           Authoritative sources
         </h3>

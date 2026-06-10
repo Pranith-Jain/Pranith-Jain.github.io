@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { BookText, ExternalLink, Loader2 } from 'lucide-react';
+import { SEVERITY_TONE, type Severity } from '../severity';
 
 const CVE_RE = /^CVE-\d{4}-\d{4,7}$/i;
 
@@ -32,11 +33,9 @@ interface CveLookupResult {
   kev: KevData;
 }
 
-const SEVERITY_STYLES: Record<string, string> = {
-  CRITICAL: 'bg-rose-100 text-rose-800 dark:bg-rose-900/30 dark:text-rose-300 border-rose-300 dark:border-rose-700',
-  HIGH: 'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300 border-amber-300 dark:border-amber-700',
-  MEDIUM: 'bg-cyan-100 text-cyan-800 dark:bg-cyan-900/30 dark:text-cyan-300 border-cyan-300 dark:border-cyan-700',
-  LOW: 'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300 border-slate-300 dark:border-slate-600',
+const toSeverity = (s: string): Severity => {
+  const k = s.toLowerCase();
+  return k === 'critical' || k === 'high' || k === 'medium' || k === 'low' ? k : 'low';
 };
 
 export default function QuickCveLookup() {
@@ -66,7 +65,7 @@ export default function QuickCveLookup() {
   };
 
   return (
-    <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
+    <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
       <h4 className="font-semibold text-sm mb-3 flex items-center gap-2">
         <BookText size={14} className="text-brand-600 dark:text-brand-400" />
         CVE Lookup
@@ -110,7 +109,7 @@ export default function QuickCveLookup() {
             )}
             {result.cvss && (
               <span
-                className={`text-micro px-1.5 py-0.5 rounded font-bold uppercase tracking-wider border ${SEVERITY_STYLES[result.cvss.severity] ?? SEVERITY_STYLES.LOW}`}
+                className={`text-micro px-1.5 py-0.5 rounded font-bold uppercase tracking-wider border ${SEVERITY_TONE[toSeverity(result.cvss.severity)]}`}
               >
                 {result.cvss.severity} {result.cvss.base_score}
               </span>

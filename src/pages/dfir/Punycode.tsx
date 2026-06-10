@@ -224,7 +224,7 @@ export default function Punycode(): JSX.Element {
 
       {input.trim() && (
         <div className="space-y-6">
-          <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+          <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-5">
             <h3 className="font-display font-semibold mb-3">Forms</h3>
             <dl className="grid grid-cols-[140px_1fr] gap-x-4 gap-y-2 text-sm font-mono">
               <dt className="text-slate-500">As entered</dt>
@@ -236,7 +236,7 @@ export default function Punycode(): JSX.Element {
             </dl>
           </section>
 
-          <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 space-y-2">
+          <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-5 space-y-2">
             {result.hasMixedScript && (
               <Flag
                 tone="warn"
@@ -259,7 +259,7 @@ export default function Punycode(): JSX.Element {
           </section>
 
           {result.charInfo.length > 0 && (
-            <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+            <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-5">
               <h3 className="font-display font-semibold mb-3">Per-character breakdown</h3>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 font-mono text-xs">
                 {result.charInfo.map((c, i) => (

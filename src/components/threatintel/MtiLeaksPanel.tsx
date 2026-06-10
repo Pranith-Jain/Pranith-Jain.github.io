@@ -197,7 +197,7 @@ export function MtiLeaksPanel(): JSX.Element {
       </div>
 
       {loading && (
-        <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3 inline-flex items-center gap-2 font-mono text-sm text-slate-500">
+        <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-3 inline-flex items-center gap-2 font-mono text-sm text-slate-500">
           <Loader2 size={14} className="animate-spin" /> loading MyThreatIntel leaks feed…
         </div>
       )}

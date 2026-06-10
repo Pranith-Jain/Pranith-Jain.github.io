@@ -99,6 +99,68 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
   // Hourly cache-warm cron — also run the publisher + Telegram archive +
   // intel-bundle warmer.
   if (csCron === '0 * * * *') {
+    // ── gp:warm FIRST (full budget) ──────────────────────────────────────
+    // global-pulse can't fetch its own endpoints (Worker self-fetch loops back and
+    // fails), so the cron is the SOLE writer of its `gp:warm` blob, via in-process
+    // apiApp.fetch. This MUST run before the ctx.waitUntil background tasks below —
+    // they start immediately and share the same 50-subrequest budget, so placed any
+    // later the warmer silently writes nothing (the empty-page failure). Parallel,
+    // so wall-time is the slowest single feed (~cve) rather than the sum.
+    if (env.KV_CACHE) {
+      const gpBase = (env as unknown as { SITE_URL?: string }).SITE_URL ?? 'https://pranithjain.qzz.io';
+      const GP_ALWAYS: Array<[string, string]> = [
+        ['reddit', '/api/v1/reddit-feed'],
+        ['x', '/api/v1/x-feed'],
+        ['telegram', '/api/v1/telegram-feed'],
+        ['actor', '/api/v1/actor-timeline'],
+        ['iocc', '/api/v1/ioc-correlation'],
+        ['cve', '/api/v1/cve-recent?days=7'],
+        ['ransom', '/api/v1/ransomware-recent?days=7'],
+        ['cybercrime', '/api/v1/cyber-crime'],
+        ['writeups', '/api/v1/writeups'],
+        ['malware', '/api/v1/malware-samples'],
+        ['phishing', '/api/v1/phishing-urls'],
+        ['scam', '/api/v1/crypto-scam-feed'],
+        ['breach', '/api/v1/breach-disclosures'],
+        ['predictions', '/api/v1/predictions'],
+      ];
+      const GP_ROTATE: Array<[string, string]> = [
+        ['tm', '/api/v1/threat-map'],
+        ['ioc', '/api/v1/live-iocs'],
+        ['xclaims', '/api/v1/x-claims'],
+        ['bf', '/api/v1/breach-forums'],
+        ['ddc', '/api/v1/deepdarkcti'],
+        ['onion', '/api/v1/onion-watch'],
+        ['stealer', '/api/v1/stealer-forum-intel'],
+        ['detections', '/api/v1/detections'],
+      ];
+      const gpSlot = (new Date().getUTCHours() * 2) % GP_ROTATE.length;
+      const gpTick: Array<[string, string]> = [
+        ...GP_ALWAYS,
+        GP_ROTATE[gpSlot] as [string, string],
+        GP_ROTATE[(gpSlot + 1) % GP_ROTATE.length] as [string, string],
+      ];
+      try {
+        const existing = ((await env.KV_CACHE.get('gp:warm', 'json').catch(() => null)) ?? {}) as Record<
+          string,
+          unknown
+        >;
+        const warmBlob: Record<string, unknown> = { ...existing };
+        await Promise.allSettled(
+          gpTick.map(async ([key, path]) => {
+            const res = await apiApp.fetch(new Request(gpBase + path), env as never, ctx);
+            if (res.ok) warmBlob[key] = await res.json();
+          })
+        );
+        await env.KV_CACHE.put('gp:warm', JSON.stringify(warmBlob), { expirationTtl: 28800 });
+        console.log(
+          JSON.stringify({ job: 'gp-warm', keys: Object.keys(warmBlob).length, tick: gpTick.map((t) => t[0]) })
+        );
+      } catch (e) {
+        console.error(JSON.stringify({ job: 'gp-warm', error: e instanceof Error ? e.message : String(e) }));
+      }
+    }
+
     ctx.waitUntil(runPublisherNow(env as unknown as CaseStudyEnv, csNow).catch(logCronFail('publisher')));
     ctx.waitUntil(runTelegramArchive(env as unknown as ApiEnv).catch(logCronFail('telegram-archive')));
     // Live-IOC slice warmer — enqueue a per-source refresh so the live-iocs
@@ -257,73 +319,8 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
         const start = Date.now();
         const baseUrl = (env as unknown as { SITE_URL?: string }).SITE_URL ?? 'https://pranithjain.qzz.io';
 
-        // ── global-pulse `gp:warm` blob — split-tick warmer (runs FIRST) ──────
-        // global-pulse can't fetch its own endpoints (a Worker fetching its own
-        // public hostname loops back and fails), so the CRON is the sole writer of
-        // gp:warm, via in-process apiApp.fetch. All 21 feeds can't be fetched in one
-        // invocation under the 50-subrequest cap, so warm the fast headline feeds
-        // EVERY tick + a rotating slice of the heavier tail, MERGING into the
-        // existing blob. 8h TTL so a feed survives until its next turn. Runs before
-        // the heavier perSourceTargets pass so it always gets budget.
-        if (env.KV_CACHE) {
-          // Headline layers warmed EVERY tick (don't depend on the rotating tail
-          // accumulating, which proved flaky): the social/CVE/actor feeds AND the
-          // ransom/cybercrime/research layers. Only the genuinely-minor feeds rotate.
-          const ALWAYS: Array<[string, string]> = [
-            ['reddit', '/api/v1/reddit-feed'],
-            ['x', '/api/v1/x-feed'],
-            ['telegram', '/api/v1/telegram-feed'],
-            ['actor', '/api/v1/actor-timeline'],
-            ['iocc', '/api/v1/ioc-correlation'],
-            ['cve', '/api/v1/cve-recent?days=7'],
-            ['ransom', '/api/v1/ransomware-recent?days=7'],
-            ['cybercrime', '/api/v1/cyber-crime'],
-            ['writeups', '/api/v1/writeups'],
-            ['malware', '/api/v1/malware-samples'],
-            ['phishing', '/api/v1/phishing-urls'],
-            ['scam', '/api/v1/crypto-scam-feed'],
-            ['breach', '/api/v1/breach-disclosures'],
-            ['predictions', '/api/v1/predictions'],
-          ];
-          const ROTATE: Array<[string, string]> = [
-            ['tm', '/api/v1/threat-map'],
-            ['ioc', '/api/v1/live-iocs'],
-            ['xclaims', '/api/v1/x-claims'],
-            ['bf', '/api/v1/breach-forums'],
-            ['ddc', '/api/v1/deepdarkcti'],
-            ['onion', '/api/v1/onion-watch'],
-            ['stealer', '/api/v1/stealer-forum-intel'],
-            ['detections', '/api/v1/detections'],
-          ];
-          const PER_TICK = 2;
-          const slot = (new Date().getUTCHours() * PER_TICK) % ROTATE.length;
-          const thisTick: Array<[string, string]> = [
-            ...ALWAYS,
-            ...Array.from({ length: PER_TICK }, (_, i) => ROTATE[(slot + i) % ROTATE.length] as [string, string]),
-          ];
-          const existing = ((await env.KV_CACHE.get('gp:warm', 'json').catch(() => null)) ?? {}) as Record<
-            string,
-            unknown
-          >;
-          const warmBlob: Record<string, unknown> = { ...existing };
-          for (const [key, path] of thisTick) {
-            try {
-              const res = await apiApp.fetch(new Request(baseUrl + path), env as never, ctx);
-              if (res.ok) warmBlob[key] = await res.json();
-            } catch {
-              /* keep the prior value for this source */
-            }
-          }
-          await env.KV_CACHE.put('gp:warm', JSON.stringify(warmBlob), { expirationTtl: 28800 }).catch(() => {});
-          console.log(
-            JSON.stringify({
-              job: 'cache-warm',
-              sub: 'gp:warm',
-              keys: Object.keys(warmBlob).length,
-              tick: thisTick.map((t) => t[0]),
-            })
-          );
-        }
+        // (gp:warm is warmed at the TOP of the `0 * * * *` block — before the
+        // background waitUntil tasks — so it gets full subrequest budget.)
 
         const perSourceTargets = [
           '/api/v1/threat-map',

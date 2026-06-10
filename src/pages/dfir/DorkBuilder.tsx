@@ -90,7 +90,7 @@ export default function DorkBuilder(): JSX.Element {
             value={f[k]}
             onChange={set(k)}
             placeholder={ph}
-            className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-3 py-2 font-mono text-sm focus:border-brand-500 focus:outline-none"
+            className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 px-3 py-2 font-mono text-sm focus:border-brand-500 focus:outline-none"
           />
         ))}
       </div>
@@ -109,7 +109,7 @@ export default function DorkBuilder(): JSX.Element {
         ))}
       </div>
 
-      <div className="mt-6 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3">
+      <div className="mt-6 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-3">
         <code className="font-mono text-sm break-all text-slate-900 dark:text-slate-100">{query || '—'}</code>
       </div>
       <div className="mt-3 flex flex-wrap gap-2 text-meta font-mono">

@@ -108,7 +108,7 @@ export default function HuntingQueryGenerator(): JSX.Element {
       </div>
 
       {/* Input */}
-      <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5 mb-6">
+      <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5 mb-6">
         <h2 className="font-display font-bold text-sm mb-3">Threat Description</h2>
         <textarea
           value={threat}
@@ -162,7 +162,7 @@ export default function HuntingQueryGenerator(): JSX.Element {
         <div className="space-y-5 animate-fade-in-up">
           {/* MITRE Techniques */}
           {result.mitre_techniques.length > 0 && (
-            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5">
+            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5">
               <h2 className="font-display font-bold text-sm mb-3 flex items-center gap-2">
                 <Shield size={14} className="text-brand-600 dark:text-brand-400" /> MITRE ATT&CK
               </h2>
@@ -186,7 +186,7 @@ export default function HuntingQueryGenerator(): JSX.Element {
           {result.queries.map((q) => (
             <div
               key={`${q.siem}-${q.description}`}
-              className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5"
+              className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5"
             >
               <div className="flex items-center justify-between mb-2">
                 <div className="flex items-center gap-2">

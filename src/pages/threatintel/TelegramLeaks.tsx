@@ -3,6 +3,7 @@ import { BackLink } from '../../components/BackLink';
 import { DataState } from '../../components/DataState';
 import { ArrowLeft, Search, RefreshCw, AlertTriangle, FileText, ExternalLink } from 'lucide-react';
 import { sanitizeUrl } from '../../lib/sanitize-url';
+import { SEVERITY_TONE } from '../../components/severity';
 
 interface LeakEntry {
   id: number;
@@ -16,13 +17,6 @@ interface LeakEntry {
   file_name: string | null;
   discovered_at: string;
 }
-
-const SEVERITY_COLORS: Record<string, string> = {
-  critical: 'text-rose-600 dark:text-rose-400 border-rose-500/40 bg-rose-500/10',
-  high: 'text-orange-600 dark:text-orange-400 border-orange-500/40 bg-orange-500/10',
-  medium: 'text-amber-600 dark:text-amber-400 border-amber-500/40 bg-amber-500/10',
-  low: 'text-slate-500 dark:text-slate-400 border-slate-500/30 bg-slate-500/10',
-};
 
 const LEAK_TYPE_ICONS: Record<string, typeof FileText> = {
   credential: AlertTriangle,
@@ -205,7 +199,7 @@ export default function TelegramLeaks(): JSX.Element {
               return (
                 <div
                   key={entry.id}
-                  className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 hover:border-slate-300 dark:hover:border-slate-700 transition-colors"
+                  className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 hover:border-slate-300 dark:hover:border-slate-700 transition-colors"
                 >
                   <div className="flex items-start justify-between gap-4 mb-2">
                     <div className="flex items-center gap-2 min-w-0">
@@ -214,7 +208,7 @@ export default function TelegramLeaks(): JSX.Element {
                         {entry.channel_handle}
                       </span>
                       <span
-                        className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${SEVERITY_COLORS[entry.severity] ?? SEVERITY_COLORS.low}`}
+                        className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${SEVERITY_TONE[entry.severity] ?? SEVERITY_TONE.low}`}
                       >
                         {entry.severity}
                       </span>

@@ -243,7 +243,7 @@ export default function BlogPost() {
   );
 
   return (
-    <article ref={articleRef} className="mx-auto max-w-5xl px-6 py-10 text-slate-900 dark:text-slate-100">
+    <article ref={articleRef} className="mx-auto max-w-5xl text-slate-900 dark:text-slate-100">
       <Link
         to="/blog"
         className="inline-flex items-center gap-1 text-xs font-mono uppercase tracking-[0.16em] text-slate-500 hover:text-brand-600 dark:hover:text-brand-400 mb-6"
@@ -362,7 +362,7 @@ export default function BlogPost() {
             </header>
 
             {tocItems.length > 0 && (
-              <div className="lg:hidden mb-6 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40">
+              <div className="lg:hidden mb-6 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1">
                 <button
                   type="button"
                   onClick={() => setTocOpen((v) => !v)}
