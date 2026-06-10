@@ -138,7 +138,14 @@ describe('blog structured data (worker-injected JSON-LD)', () => {
 });
 
 describe('credential/login surfaces served noindex (Safe Browsing mitigation)', () => {
-  for (const p of ['/dfir/breach', '/dfir/pgp-tool', '/dfir/phishing', '/admin']) {
+  for (const p of [
+    '/dfir/breach',
+    '/dfir/pgp-tool',
+    '/dfir/phishing',
+    '/threatintel/telegram-leaks/channels',
+    '/threatintel/misp-browser',
+    '/admin',
+  ]) {
     it(`serves ${p} with a noindex robots meta`, async () => {
       expect(await serve(p)).toMatch(/<meta\s+name="robots"\s+content="noindex/i);
     });

@@ -333,7 +333,14 @@ export async function resolveBlogJsonLd(url: URL, env: Env): Promise<string> {
  * that re-review. /admin is additionally Disallow-ed in robots.txt (it is
  * genuinely private and never needs a Safe Browsing re-review).
  */
-const NOINDEX_PREFIXES = ['/dfir/breach', '/dfir/pgp-tool', '/dfir/phishing', '/admin'];
+const NOINDEX_PREFIXES = [
+  '/dfir/breach',
+  '/dfir/pgp-tool',
+  '/dfir/phishing',
+  '/threatintel/telegram-leaks/channels',
+  '/threatintel/misp-browser',
+  '/admin',
+];
 function shouldNoindex(pathname: string): boolean {
   return NOINDEX_PREFIXES.some((p) => pathname === p || pathname.startsWith(`${p}/`));
 }
