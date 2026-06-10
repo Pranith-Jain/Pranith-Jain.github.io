@@ -321,7 +321,6 @@ const ROUTES = [
   '/threatintel/phishing-wordlists',
   '/threatintel/pir-dashboard',
   '/threatintel/projectdiscovery',
-  '/threatintel/ransom-payments',
   '/threatintel/ransom-report',
   '/threatintel/relationship-graph',
   '/threatintel/source-reliability',

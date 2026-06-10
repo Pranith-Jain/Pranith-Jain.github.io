@@ -291,7 +291,6 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/threatintel/phishing-wordlists', '/__prerendered/threatintel__phishing-wordlists'],
   ['/threatintel/pir-dashboard', '/__prerendered/threatintel__pir-dashboard'],
   ['/threatintel/projectdiscovery', '/__prerendered/threatintel__projectdiscovery'],
-  ['/threatintel/ransom-payments', '/__prerendered/threatintel__ransom-payments'],
   ['/threatintel/ransom-report', '/__prerendered/threatintel__ransom-report'],
   ['/threatintel/relationship-graph', '/__prerendered/threatintel__relationship-graph'],
   ['/threatintel/source-reliability', '/__prerendered/threatintel__source-reliability'],
