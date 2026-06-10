@@ -445,12 +445,12 @@ function fromPredictions(data: {
         id: `pm-${m.slug.slice(0, 28)}`,
         kind: 'prediction_market' as const,
         title: m.question,
-        description: `${bucket} · ${pct}% · $${Math.round((m.volume ?? 0) / 1000)}K vol`,
+        description: `${bucket} · ${pct}% likely`,
         lat: 0,
         lng: 0,
         timestamp: now,
         severity: pct >= 70 ? ('high' as const) : pct >= 40 ? ('medium' as const) : ('low' as const),
-        source: 'Polymarket',
+        source: 'Manifold',
         url: m.url,
       });
     }

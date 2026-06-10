@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
-import { useLocation } from 'react-router-dom';
-import { Loader2, AlertTriangle, RefreshCw } from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
+import { Loader2, AlertTriangle, RefreshCw, ArrowLeft } from 'lucide-react';
 import { backCategoryFor } from '../lib/back-link';
 import { AppBreadcrumb } from './AppBreadcrumb';
 
@@ -29,6 +29,8 @@ export interface DataPageLayoutProps {
   className?: string;
   /** Container width cap. Defaults to max-w-5xl; pass e.g. max-w-7xl for wide/command-center pages. */
   maxWidthClass?: string;
+  /** Render a simple "← back" link instead of the breadcrumb trail. */
+  backLink?: boolean;
 }
 
 export function DataPageLayout({
@@ -47,6 +49,7 @@ export function DataPageLayout({
   children,
   className,
   maxWidthClass = 'max-w-5xl',
+  backLink = false,
 }: DataPageLayoutProps): JSX.Element {
   // Smart back target: return to the category-filtered hub the user likely came
   // from (e.g. /threatintel/c/knowledge) when one is mapped for this route, else
@@ -58,7 +61,16 @@ export function DataPageLayout({
     <div
       className={`${maxWidthClass} mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100 ${className ?? ''}`}
     >
-      <AppBreadcrumb className="mb-8" home={sectionCrumb(backTarget, backLabel)} items={[{ label: title }]} />
+      {backLink ? (
+        <Link
+          to={backTarget}
+          className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono transition-colors"
+        >
+          <ArrowLeft size={14} /> {backLabel}
+        </Link>
+      ) : (
+        <AppBreadcrumb className="mb-8" home={sectionCrumb(backTarget, backLabel)} items={[{ label: title }]} />
+      )}
 
       <div className="animate-fade-in-up mb-10">
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">

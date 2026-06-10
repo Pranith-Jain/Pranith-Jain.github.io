@@ -243,7 +243,7 @@ export const SECTIONS: Section[] = [
       {
         to: '/threatintel/predictions',
         label: 'Prediction Markets',
-        desc: 'Live Polymarket odds on cyber-threat, tech, and AI outcomes — ranked by trading volume + liquidity. Real-money crowd forecasts via the Polymarket Gamma API.',
+        desc: 'Live Manifold prediction-market odds on cyber-threat, tech, and AI outcomes — ranked by liquidity. Community crowd forecasts via the public Manifold API.',
         icon: TrendingUp,
         badge: 'new',
       },

@@ -2,81 +2,58 @@ import { describe, it, expect } from 'vitest';
 import { Hono } from 'hono';
 import type { Env } from '../../src/env';
 import { predictionsHandler } from '../../src/routes/predictions';
-import { bucketize, classifyMarket, normalizeMarket } from '../../src/lib/polymarket';
+import { eligible, normalizeMarket, type RawMarket } from '../../src/lib/manifold';
 
-// A market both tag-tagged and keyword-matchable, with JSON-string outcomes
-// like the real Gamma API returns.
-function raw(over: Record<string, unknown> = {}) {
+function raw(over: Partial<RawMarket> = {}): RawMarket {
   return {
     id: 'm1',
-    question: 'Will OpenAI release GPT-6 before 2027?',
-    slug: 'openai-gpt6-2027',
-    outcomes: '["Yes", "No"]',
-    outcomePrices: '["0.62", "0.38"]',
-    volumeNum: 1_000_000,
-    liquidityNum: 200_000,
-    endDate: '2026-12-31T00:00:00Z',
-    active: true,
-    closed: false,
+    question: 'Will an AI pass a hard cybersecurity exam by 2027?',
+    slug: 'ai-cyber-exam-2027',
+    url: 'https://manifold.markets/x/ai-cyber-exam-2027',
+    probability: 0.41,
+    volume: 5000,
+    totalLiquidity: 1200,
+    closeTime: 1893456000000,
+    outcomeType: 'BINARY',
+    isResolved: false,
     ...over,
   };
 }
 
-describe('polymarket classification', () => {
-  it('classifies AI markets via keyword', () => {
-    expect(classifyMarket(raw())).toBe('ai');
+describe('manifold eligibility', () => {
+  it('accepts open binary markets with real liquidity', () => {
+    expect(eligible(raw())).toBe(true);
   });
-
-  it('classifies cyber markets via keyword, with precedence over tech', () => {
-    // mentions both a cyber term and a tech brand → cyber wins
-    expect(classifyMarket(raw({ question: 'Will Microsoft suffer a major data breach in 2026?' }))).toBe('cyber');
+  it('rejects resolved markets', () => {
+    expect(eligible(raw({ isResolved: true }))).toBe(false);
   });
-
-  it('classifies tech markets', () => {
-    expect(classifyMarket(raw({ question: 'Will Apple ship a foldable iPhone in 2026?' }))).toBe('tech');
+  it('rejects non-binary markets (no clean probability)', () => {
+    expect(eligible(raw({ outcomeType: 'MULTIPLE_CHOICE' }))).toBe(false);
   });
-
-  it('classifies via native tag label when the question has no keyword', () => {
-    expect(classifyMarket(raw({ question: 'Will the thing happen?', tags: [{ label: 'AI' }] }))).toBe('ai');
-  });
-
-  it('returns null for unrelated markets', () => {
-    expect(classifyMarket(raw({ question: 'Will the Lakers win the 2026 NBA finals?' }))).toBeNull();
-  });
-
-  it('does not match "ai" as a substring (word boundary)', () => {
-    expect(classifyMarket(raw({ question: 'Will the chair be repaired by Friday?' }))).toBeNull();
+  it('rejects illiquid markets', () => {
+    expect(eligible(raw({ totalLiquidity: 5 }))).toBe(false);
   });
 });
 
-describe('polymarket normalize', () => {
-  it('parses JSON-string outcomes and computes top probability', () => {
-    const m = normalizeMarket(raw(), 'ai');
+describe('manifold normalize', () => {
+  it('maps a binary market into the envelope shape with Yes/No outcomes', () => {
+    const m = normalizeMarket(raw(), 'cyber');
     expect(m).not.toBeNull();
+    expect(m!.bucket).toBe('cyber');
+    expect(m!.url).toBe('https://manifold.markets/x/ai-cyber-exam-2027');
+    expect(m!.probability).toBeCloseTo(0.41);
     expect(m!.outcomes).toEqual([
-      { name: 'Yes', price: 0.62 },
-      { name: 'No', price: 0.38 },
+      { name: 'Yes', price: 0.41 },
+      { name: 'No', price: expect.closeTo(0.59) },
     ]);
-    expect(m!.probability).toBeCloseTo(0.62);
-    expect(m!.url).toBe('https://polymarket.com/market/openai-gpt6-2027');
-    expect(m!.volume).toBe(1_000_000);
+    expect(m!.liquidity).toBe(1200);
+    expect(typeof m!.end_date).toBe('string');
   });
-
-  it('drops markets missing a question or slug', () => {
-    expect(normalizeMarket(raw({ slug: '' }), 'ai')).toBeNull();
+  it('drops markets with no question', () => {
+    expect(normalizeMarket(raw({ question: '' }), 'ai')).toBeNull();
   });
-});
-
-describe('bucketize', () => {
-  it('ranks by volume+liquidity and excludes closed/archived', () => {
-    const markets = [
-      raw({ id: 'lo', slug: 'lo', question: 'Will GPT-6 ship?', volumeNum: 10 }),
-      raw({ id: 'hi', slug: 'hi', question: 'Will Claude 5 ship?', volumeNum: 9_000_000 }),
-      raw({ id: 'closed', slug: 'closed', question: 'Old AI market', closed: true, volumeNum: 99_000_000 }),
-    ];
-    const buckets = bucketize(markets);
-    expect(buckets.ai.map((m) => m.slug)).toEqual(['hi', 'lo']); // ranked, closed excluded
-    expect(buckets.cyber).toHaveLength(0);
+  it('clamps probability to 0..1', () => {
+    expect(normalizeMarket(raw({ probability: 1.5 }), 'tech')!.probability).toBe(1);
   });
 });
 
@@ -87,9 +64,7 @@ function app() {
 }
 
 describe('GET /api/v1/predictions', () => {
-  it('returns a 200 envelope and is fail-soft when upstream is unreachable', async () => {
-    // No KV binding + sandboxed network → fetchPredictions resolves to empty
-    // buckets; the route must still 200 with a well-formed envelope (never 500).
+  it('returns a 200 Manifold envelope and is fail-soft when upstream is unreachable', async () => {
     const r = await app().request('/api/v1/predictions', {}, {} as Env);
     expect(r.status).toBe(200);
     const body = (await r.json()) as {
@@ -97,10 +72,10 @@ describe('GET /api/v1/predictions', () => {
       source: string;
       buckets: { cyber: unknown[]; tech: unknown[]; ai: unknown[] };
     };
-    expect(body.source).toBe('Polymarket');
+    expect(body.source).toBe('Manifold');
     expect(typeof body.total).toBe('number');
     expect(body.buckets).toHaveProperty('cyber');
     expect(body.buckets).toHaveProperty('tech');
     expect(body.buckets).toHaveProperty('ai');
-  }, 20_000); // upstream is unreachable in the test sandbox; allow the fail-soft fetch to abort
+  }, 20_000);
 });
