@@ -256,6 +256,71 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
         // the briefing is empty/degraded), so this always runs.
         const start = Date.now();
         const baseUrl = (env as unknown as { SITE_URL?: string }).SITE_URL ?? 'https://pranithjain.qzz.io';
+
+        // ── global-pulse `gp:warm` blob — split-tick warmer (runs FIRST) ──────
+        // global-pulse can't fetch its own endpoints (a Worker fetching its own
+        // public hostname loops back and fails), so the CRON is the sole writer of
+        // gp:warm, via in-process apiApp.fetch. All 21 feeds can't be fetched in one
+        // invocation under the 50-subrequest cap, so warm the fast headline feeds
+        // EVERY tick + a rotating slice of the heavier tail, MERGING into the
+        // existing blob. 8h TTL so a feed survives until its next turn. Runs before
+        // the heavier perSourceTargets pass so it always gets budget.
+        if (env.KV_CACHE) {
+          const ALWAYS: Array<[string, string]> = [
+            ['reddit', '/api/v1/reddit-feed'],
+            ['x', '/api/v1/x-feed'],
+            ['telegram', '/api/v1/telegram-feed'],
+            ['actor', '/api/v1/actor-timeline'],
+            ['iocc', '/api/v1/ioc-correlation'],
+          ];
+          const ROTATE: Array<[string, string]> = [
+            ['cve', '/api/v1/cve-recent?days=7'],
+            ['ransom', '/api/v1/ransomware-recent?days=7'],
+            ['phishing', '/api/v1/phishing-urls'],
+            ['malware', '/api/v1/malware-samples'],
+            ['scam', '/api/v1/crypto-scam-feed'],
+            ['tm', '/api/v1/threat-map'],
+            ['ioc', '/api/v1/live-iocs'],
+            ['breach', '/api/v1/breach-disclosures'],
+            ['xclaims', '/api/v1/x-claims'],
+            ['bf', '/api/v1/breach-forums'],
+            ['ddc', '/api/v1/deepdarkcti'],
+            ['onion', '/api/v1/onion-watch'],
+            ['stealer', '/api/v1/stealer-forum-intel'],
+            ['detections', '/api/v1/detections'],
+            ['cybercrime', '/api/v1/cyber-crime'],
+            ['writeups', '/api/v1/writeups'],
+          ];
+          const PER_TICK = 4;
+          const slot = (new Date().getUTCHours() * PER_TICK) % ROTATE.length;
+          const thisTick: Array<[string, string]> = [
+            ...ALWAYS,
+            ...Array.from({ length: PER_TICK }, (_, i) => ROTATE[(slot + i) % ROTATE.length] as [string, string]),
+          ];
+          const existing = ((await env.KV_CACHE.get('gp:warm', 'json').catch(() => null)) ?? {}) as Record<
+            string,
+            unknown
+          >;
+          const warmBlob: Record<string, unknown> = { ...existing };
+          for (const [key, path] of thisTick) {
+            try {
+              const res = await apiApp.fetch(new Request(baseUrl + path), env as never, ctx);
+              if (res.ok) warmBlob[key] = await res.json();
+            } catch {
+              /* keep the prior value for this source */
+            }
+          }
+          await env.KV_CACHE.put('gp:warm', JSON.stringify(warmBlob), { expirationTtl: 28800 }).catch(() => {});
+          console.log(
+            JSON.stringify({
+              job: 'cache-warm',
+              sub: 'gp:warm',
+              keys: Object.keys(warmBlob).length,
+              tick: thisTick.map((t) => t[0]),
+            })
+          );
+        }
+
         const perSourceTargets = [
           '/api/v1/threat-map',
           '/api/v1/rules',
@@ -357,55 +422,8 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
           console.log(JSON.stringify({ job: 'cache-warm', duration_ms: Date.now() - start, summary }));
         }
 
-        // === Write warmed data to KV for global-pulse fallback ===
-        // The Cache API is per-colo, so global-pulse may miss cached data.
-        // KV is globally replicated — write key endpoints' data there.
-        if (env.KV_CACHE) {
-          // global-pulse reads ONE batched `gp:warm` blob — and the CRON is the only
-          // thing that can populate it. A Worker fetching its OWN public hostname
-          // loops back and fails (verified: global-pulse's direct self-fetches all
-          // return null), so the page can't fetch its own feeds. The cron warms via
-          // IN-PROCESS apiApp.fetch (not a network self-fetch), which works. Every
-          // feed the page renders must be a key here or that layer shows 0. Priority
-          // feeds (the social/CVE/actor layers) go first so a subrequest shortfall
-          // truncates the tail, not the headline data. Feeds were warmed by the
-          // perSourceTargets pass above, so these hit warm caches.
-          const warmSources: Array<[string, string]> = [
-            ['reddit', '/api/v1/reddit-feed'],
-            ['x', '/api/v1/x-feed'],
-            ['telegram', '/api/v1/telegram-feed'],
-            ['cve', '/api/v1/cve-recent?days=7'],
-            ['actor', '/api/v1/actor-timeline'],
-            ['iocc', '/api/v1/ioc-correlation'],
-            ['ransom', '/api/v1/ransomware-recent?days=7'],
-            ['tm', '/api/v1/threat-map'],
-            ['ioc', '/api/v1/live-iocs'],
-            ['phishing', '/api/v1/phishing-urls'],
-            ['malware', '/api/v1/malware-samples'],
-            ['scam', '/api/v1/crypto-scam-feed'],
-            ['breach', '/api/v1/breach-disclosures'],
-            ['xclaims', '/api/v1/x-claims'],
-            ['bf', '/api/v1/breach-forums'],
-            ['ddc', '/api/v1/deepdarkcti'],
-            ['onion', '/api/v1/onion-watch'],
-            ['stealer', '/api/v1/stealer-forum-intel'],
-            ['detections', '/api/v1/detections'],
-            ['cybercrime', '/api/v1/cyber-crime'],
-            ['writeups', '/api/v1/writeups'],
-          ];
-          const warmBlob: Record<string, unknown> = {};
-          for (const [key, path] of warmSources) {
-            try {
-              const req = new Request(baseUrl + path);
-              const res = await apiApp.fetch(req, env as never, ctx);
-              if (res.ok) warmBlob[key] = await res.json();
-            } catch {
-              /* skip — leave this source absent from the blob */
-            }
-          }
-          await env.KV_CACHE.put('gp:warm', JSON.stringify(warmBlob), { expirationTtl: 3600 }).catch(() => {});
-          console.log(JSON.stringify({ job: 'cache-warm', sub: 'gp:warm', keys: Object.keys(warmBlob).length }));
-        }
+        // (gp:warm is warmed at the TOP of this block, before perSourceTargets, so
+        // it always gets subrequest budget — see the split-tick warmer above.)
 
         // === Watch engine ===
         try {
