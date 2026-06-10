@@ -46,7 +46,9 @@ Plus generic loops that apply to most projects (Ship PR Until Green, De-Sloppify
 Coverage Until Threshold, PR Self-Review, Spec-First Ship), and CTI/DFIR development
 loops tied to this repo's surfaces (Debug Systematically, Add Agent Tool, Add Provider,
 Add CTI Endpoint, Audit Provider Coverage, Audit Security Posture, Detection Rule
-Quality, Optimize Hot Path, Report Quality QA) — see `loops/README.md`.
+Quality, Optimize Hot Path, Report Quality QA, Prompt Injection Resist, Incident
+Rollback, Feed Onboarding, STIX Roundtrip, A11y Until Clean, Dependency Bump) — see
+`loops/README.md`.
 
 ## Layer 2 — Runtime loop engine (`api/src/lib/agent/`)
 

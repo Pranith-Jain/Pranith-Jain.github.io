@@ -44,13 +44,15 @@ API tests, 50-subrequest cron cap, blocked MCP-repo main) instead of rediscoveri
 Loops that apply to almost any project, lightly adapted to this repo's commands and
 branch/auto-merge workflow.
 
-| Loop                                                    | When to run                                        | Exit when                                        |
-| ------------------------------------------------------- | -------------------------------------------------- | ------------------------------------------------ |
-| [Ship PR Until Green](ship-pr-until-green.md)           | Implementing a change end-to-end                   | All PR CI checks pass                            |
-| [De-Sloppify Pass](de-sloppify-pass.md)                 | After implementation                               | A fresh read finds nothing to clean + lint green |
-| [Coverage Until Threshold](coverage-until-threshold.md) | Raising test coverage                              | Coverage ≥ threshold with meaningful tests       |
-| [PR Self-Review](pr-self-review.md)                     | Before opening a PR                                | A fresh review pass finds nothing actionable     |
-| [Spec-First Ship](spec-first-ship.md)                   | Implementing from a `docs/superpowers/specs/` spec | Every checklist item implemented + tested        |
+| Loop                                                    | When to run                                        | Exit when                                           |
+| ------------------------------------------------------- | -------------------------------------------------- | --------------------------------------------------- |
+| [Ship PR Until Green](ship-pr-until-green.md)           | Implementing a change end-to-end                   | All PR CI checks pass                               |
+| [De-Sloppify Pass](de-sloppify-pass.md)                 | After implementation                               | A fresh read finds nothing to clean + lint green    |
+| [Coverage Until Threshold](coverage-until-threshold.md) | Raising test coverage                              | Coverage ≥ threshold with meaningful tests          |
+| [PR Self-Review](pr-self-review.md)                     | Before opening a PR                                | A fresh review pass finds nothing actionable        |
+| [Spec-First Ship](spec-first-ship.md)                   | Implementing from a `docs/superpowers/specs/` spec | Every checklist item implemented + tested           |
+| [A11y Until Clean](a11y-until-clean.md)                 | After editing `src/components/` or `src/pages/`    | jsx-a11y passes + a real a11y review finds nothing  |
+| [Dependency Bump](dependency-bump.md)                   | Updating dependencies                              | Deps current; typecheck/build/tests/audit all green |
 
 ## CTI / DFIR development loops
 
@@ -58,14 +60,18 @@ Loops for building the AI-powered CTI platform + DFIR toolkit — tied to this r
 actual surfaces (the investigator agent, provider adapters, `/api/v1` routes, detection
 content, report QA).
 
-| Loop                                                  | Task                  | Exit when                                                 |
-| ----------------------------------------------------- | --------------------- | --------------------------------------------------------- |
-| [Debug Systematically](debug-systematically.md)       | Debugging             | Reproduction passes + root cause addressed (not masked)   |
-| [Add Agent Tool](add-agent-tool.md)                   | New tool              | Planner selects + uses the new investigator tool in a run |
-| [Add Provider](add-provider.md)                       | New integration       | New adapter returns real data via `check_ioc`, in budget  |
-| [Add CTI Endpoint](add-cti-endpoint.md)               | New feature           | New `/api/v1` route registered, schema-contracted, tested |
-| [Audit Provider Coverage](audit-provider-coverage.md) | Auditing              | Honest live/empty coverage map across every IOC type      |
-| [Audit Security Posture](audit-security-posture.md)   | Auditing              | Every exposure class checked; findings fixed or accepted  |
-| [Detection Rule Quality](detection-rule-quality.md)   | Detection engineering | Rule validates, matches TPs, zero benign matches          |
-| [Optimize Hot Path](optimize-hot-path.md)             | Optimisation          | Target latency met, <50 subrequests, correctness intact   |
-| [Report Quality QA](report-quality-qa.md)             | Quality               | QA score ≥ threshold, no unsupported claims               |
+| Loop                                                  | Task                    | Exit when                                                 |
+| ----------------------------------------------------- | ----------------------- | --------------------------------------------------------- |
+| [Debug Systematically](debug-systematically.md)       | Debugging               | Reproduction passes + root cause addressed (not masked)   |
+| [Add Agent Tool](add-agent-tool.md)                   | New tool                | Planner selects + uses the new investigator tool in a run |
+| [Add Provider](add-provider.md)                       | New integration         | New adapter returns real data via `check_ioc`, in budget  |
+| [Add CTI Endpoint](add-cti-endpoint.md)               | New feature             | New `/api/v1` route registered, schema-contracted, tested |
+| [Audit Provider Coverage](audit-provider-coverage.md) | Auditing                | Honest live/empty coverage map across every IOC type      |
+| [Audit Security Posture](audit-security-posture.md)   | Auditing                | Every exposure class checked; findings fixed or accepted  |
+| [Detection Rule Quality](detection-rule-quality.md)   | Detection engineering   | Rule validates, matches TPs, zero benign matches          |
+| [Optimize Hot Path](optimize-hot-path.md)             | Optimisation            | Target latency met, <50 subrequests, correctness intact   |
+| [Report Quality QA](report-quality-qa.md)             | Quality                 | QA score ≥ threshold, no unsupported claims               |
+| [Prompt Injection Resist](prompt-injection-resist.md) | LLM safety              | Adversarial intel can't hijack the agent or poison output |
+| [Incident Rollback](incident-rollback.md)             | Ops / incident response | Prod healthy again + emergency valves reset               |
+| [Feed Onboarding](feed-onboarding.md)                 | New content feed        | Feed parses real items into the aggregate, in budget      |
+| [STIX Roundtrip](stix-roundtrip.md)                   | DFIR interop            | Export re-imports losslessly; external bundles parse      |
