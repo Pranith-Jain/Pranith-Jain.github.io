@@ -98,3 +98,44 @@ export const CHART_CRIT: Record<string, string> = {
   sensitive: '#f59e0b',
   informational: '#0ea5e9',
 };
+
+/* ─── Cyberpunk theme tokens ──────────────────────────────────────── */
+
+/** Per-dashboard neon accent (hue identity for each SOC page). */
+export const CYBER_ACCENT = {
+  ioc: '#a855f7', // violet/magenta
+  vulns: '#22d3ee', // cyan
+  ransomware: '#f43f5e', // red
+} as const;
+
+export type CyberAccentKey = keyof typeof CYBER_ACCENT;
+
+/** Near-black canvas + grid line colors for the cyberpunk shell. */
+export const CYBER_CANVAS = '#05070d';
+export const CYBER_GRID = 'rgba(148, 163, 184, 0.06)';
+
+/** Severity → glow hex used for the oversized KPI numerals (text-shadow). */
+export const CYBER_GLOW: Record<SocSeverity, string> = {
+  critical: '#f43f5e',
+  high: '#fb923c',
+  medium: '#fbbf24',
+  low: '#94a3b8',
+  ok: '#34d399',
+  info: '#22d3ee',
+};
+
+/** Map a SOC severity to a DEFCON-style status banner. Driven by REAL severity
+ *  (never hardcoded) so the bold flavor text always reflects the data. */
+export function defconFor(severity: SocSeverity, label: string): { defcon: string; label: string } {
+  const defcon =
+    severity === 'critical'
+      ? 'DEFCON 1'
+      : severity === 'high'
+        ? 'DEFCON 2'
+        : severity === 'medium'
+          ? 'DEFCON 3'
+          : severity === 'info'
+            ? 'DEFCON 4'
+            : 'DEFCON 5';
+  return { defcon, label: label.toUpperCase() };
+}

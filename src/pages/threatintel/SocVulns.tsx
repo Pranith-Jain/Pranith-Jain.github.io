@@ -3,9 +3,22 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Bug, AlertTriangle, Flame, ShieldCheck, ExternalLink } from 'lucide-react';
 import { fetchJson } from '../../lib/fetch-json';
 import { SocShell, SocKpi, SocSection, SocPanel, type SocStatus } from '../../components/threatintel/soc/SocShell';
-import { SocBar, SocDonut, type BarItem, type DonutSlice } from '../../components/threatintel/soc/SocCharts';
+import {
+  SocBar,
+  SocDonut,
+  SocSparkline,
+  type BarItem,
+  type DonutSlice,
+} from '../../components/threatintel/soc/SocCharts';
 import { downloadCsv, dayKey, formatNumber } from '../../components/threatintel/soc/utils';
-import { CHART_RANK, CHART_SEV, SEVERITY_PILL, type SocSeverity } from '../../components/threatintel/soc/tone';
+import {
+  CHART_RANK,
+  CHART_SEV,
+  SEVERITY_PILL,
+  CYBER_ACCENT,
+  type SocSeverity,
+} from '../../components/threatintel/soc/tone';
+import { normalizeVendor } from '../../components/threatintel/soc/categories';
 
 /* ─── Data shape (matches /api/v1/cve-recent) ──────────────────────── */
 
@@ -120,6 +133,7 @@ export default function SocVulns(): JSX.Element {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [prevKev, setPrevKev] = useState<number | null>(null);
+  const [prevTotal, setPrevTotal] = useState<number | null>(null);
   const dataRef = useRef<CveRecentResponse | null>(null);
 
   const load = useCallback(async (signal?: AbortSignal) => {
@@ -142,6 +156,7 @@ export default function SocVulns(): JSX.Element {
   useEffect(() => {
     if (data && dataRef.current && dataRef.current !== data) {
       setPrevKev(dataRef.current.kev_count);
+      setPrevTotal(dataRef.current.count);
     }
     dataRef.current = data;
   }, [data]);
@@ -188,6 +203,17 @@ export default function SocVulns(): JSX.Element {
     };
   }, [prevKev, kevTotal]);
 
+  // Delta on the all-time discovered-CVE corpus (data.count) between refreshes.
+  const totalDelta = useMemo(() => {
+    if (prevTotal == null || !data) return null;
+    const diff = data.count - prevTotal;
+    if (diff === 0) return { text: '· stable', direction: 'flat' as const };
+    return {
+      text: `${diff > 0 ? '+' : ''}${formatNumber(diff)} new`,
+      direction: diff > 0 ? ('up' as const) : ('down' as const),
+    };
+  }, [prevTotal, data]);
+
   /* ─── Status: severity-driven, derived from data ─────────────── */
   const status = useMemo<SocStatus>(() => {
     if (!data) return { label: 'Loading', severity: 'medium' };
@@ -223,7 +249,8 @@ export default function SocVulns(): JSX.Element {
     if (inWindow.length === 0) return [];
     const counts = new Map<string, number>();
     for (const c of inWindow) {
-      const v = extractVendorFromDescription(c.description);
+      const v = normalizeVendor(extractVendorFromDescription(c.description));
+      if (v === 'Unknown') continue; // don't rank the unclassified pile as a vendor
       counts.set(v, (counts.get(v) ?? 0) + 1);
     }
     const arr = Array.from(counts.entries())
@@ -270,12 +297,12 @@ export default function SocVulns(): JSX.Element {
         c.severity,
         c.score ?? '',
         c.kev ? 'yes' : 'no',
-        extractVendorFromDescription(c.description),
+        normalizeVendor(extractVendorFromDescription(c.description)),
         (c.description ?? '').replace(/\s+/g, ' ').slice(0, 240),
       ]);
     }
     downloadCsv(`soc-vulns-${windowDays}d-${new Date().toISOString().slice(0, 10)}.csv`, rows);
-  }, [inWindow, windowDays]);
+  }, [data, inWindow, windowDays]);
 
   const navigate = useNavigate();
   const onItemClick = useCallback(
@@ -288,6 +315,7 @@ export default function SocVulns(): JSX.Element {
   return (
     <SocShell
       title="Vulnerability monitoring"
+      accent="vulns"
       icon={<Bug size={28} />}
       status={status}
       generatedAt={data?.generated_at ?? null}
@@ -327,30 +355,40 @@ export default function SocVulns(): JSX.Element {
           severity="info"
           sub={`published in last ${windowDays} days`}
           icon={<Bug size={16} />}
+          accent={CYBER_ACCENT.vulns}
+          delta={totalDelta?.text}
+          deltaDirection={totalDelta?.direction}
+          spark={
+            dailyCounts.length > 1 ? (
+              <SocSparkline points={dailyCounts} height={36} showAxis={false} color={CYBER_ACCENT.vulns} />
+            ) : undefined
+          }
         />
         <SocKpi
           label="Critical vectors"
           value={
             <span className="inline-flex items-baseline gap-2">
               {counts.CRITICAL}
-              <span className="text-2xl text-slate-500 dark:text-slate-400">({criticalPct}%)</span>
+              <span className="text-2xl text-slate-400">({criticalPct}%)</span>
             </span>
           }
           severity="critical"
           sub="CVSS ≥ 9.0"
           icon={<Flame size={16} />}
+          accent={CYBER_ACCENT.vulns}
         />
         <SocKpi
           label="High severity"
           value={
             <span className="inline-flex items-baseline gap-2">
               {counts.HIGH}
-              <span className="text-2xl text-slate-500 dark:text-slate-400">({highPct}%)</span>
+              <span className="text-2xl text-slate-400">({highPct}%)</span>
             </span>
           }
           severity="high"
           sub="CVSS 7.0 – 8.9"
           icon={<AlertTriangle size={16} />}
+          accent={CYBER_ACCENT.vulns}
         />
         <SocKpi
           label="CISA KEV"
@@ -360,6 +398,7 @@ export default function SocVulns(): JSX.Element {
           icon={<ShieldCheck size={16} />}
           delta={kevDelta?.text}
           deltaDirection={kevDelta?.direction}
+          accent={CYBER_ACCENT.vulns}
         />
       </div>
 
@@ -497,7 +536,7 @@ function KevTable({ rows }: { rows: RecentCve[] }): JSX.Element {
                 </span>
               </td>
               <td className="px-2 py-1.5 text-slate-700 dark:text-slate-300 truncate max-w-[200px]">
-                {extractVendorFromDescription(c.description)}
+                {normalizeVendor(extractVendorFromDescription(c.description))}
               </td>
               <td className="px-2 py-1.5 text-slate-500 dark:text-slate-400 text-right tabular-nums">
                 {c.kev_added ? c.kev_added.slice(0, 10) : '—'}
