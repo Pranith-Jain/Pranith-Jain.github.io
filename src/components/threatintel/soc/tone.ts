@@ -78,6 +78,7 @@ export const CHART_SECTOR: Record<string, string> = {
   Retail: '#0ea5e9',
   Energy: '#0ea5e9',
   'Professional Services': '#f59e0b',
+  Construction: '#0ea5e9',
   Transportation: '#0ea5e9',
   Media: '#94a3b8',
   Unknown: '#64748b',

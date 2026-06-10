@@ -133,7 +133,8 @@ export default function SocVulns(): JSX.Element {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [prevKev, setPrevKev] = useState<number | null>(null);
-  const [prevTotal, setPrevTotal] = useState<number | null>(null);
+  /** Previous full response, so the windowed delta compares like-for-like. */
+  const [prevData, setPrevData] = useState<CveRecentResponse | null>(null);
   const dataRef = useRef<CveRecentResponse | null>(null);
 
   const load = useCallback(async (signal?: AbortSignal) => {
@@ -156,7 +157,7 @@ export default function SocVulns(): JSX.Element {
   useEffect(() => {
     if (data && dataRef.current && dataRef.current !== data) {
       setPrevKev(dataRef.current.kev_count);
-      setPrevTotal(dataRef.current.count);
+      setPrevData(dataRef.current);
     }
     dataRef.current = data;
   }, [data]);
@@ -203,16 +204,19 @@ export default function SocVulns(): JSX.Element {
     };
   }, [prevKev, kevTotal]);
 
-  // Delta on the all-time discovered-CVE corpus (data.count) between refreshes.
+  // Delta on the *windowed* Discovered-CVEs count between refreshes — compares the
+  // previous response filtered to the same window, so the chip matches the headline.
   const totalDelta = useMemo(() => {
-    if (prevTotal == null || !data) return null;
-    const diff = data.count - prevTotal;
+    if (!data || !prevData) return null;
+    const cutoff = Date.now() - windowDays * 86400_000;
+    const prevWindowed = prevData.cves.filter((c) => Date.parse(c.published) >= cutoff).length;
+    const diff = total - prevWindowed;
     if (diff === 0) return { text: '· stable', direction: 'flat' as const };
     return {
       text: `${diff > 0 ? '+' : ''}${formatNumber(diff)} new`,
       direction: diff > 0 ? ('up' as const) : ('down' as const),
     };
-  }, [prevTotal, data]);
+  }, [prevData, data, total, windowDays]);
 
   /* ─── Status: severity-driven, derived from data ─────────────── */
   const status = useMemo<SocStatus>(() => {
@@ -425,6 +429,7 @@ export default function SocVulns(): JSX.Element {
               slices={sevSlices}
               size={180}
               thickness={26}
+              groupThreshold={0}
               centerLabel={formatNumber(total)}
               centerSub="cves in window"
             />

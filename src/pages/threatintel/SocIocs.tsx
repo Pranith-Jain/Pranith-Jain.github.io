@@ -398,7 +398,13 @@ export default function SocIocs(): JSX.Element {
         <SocPanel>
           <SocSection title="Distribution by type" />
           {typeSlices.length > 0 ? (
-            <SocDonut slices={typeSlices} size={180} centerLabel={formatNumber(totalInWindow)} centerSub="in window" />
+            <SocDonut
+              slices={typeSlices}
+              size={180}
+              groupThreshold={0}
+              centerLabel={formatNumber(totalInWindow)}
+              centerSub="in window"
+            />
           ) : (
             <p className="text-meta font-mono text-slate-500 italic">No IOCs in window.</p>
           )}
@@ -425,6 +431,7 @@ export default function SocIocs(): JSX.Element {
             <SocDonut
               slices={critSlices}
               size={180}
+              groupThreshold={0}
               centerLabel={
                 <span>
                   {buckets.critical}

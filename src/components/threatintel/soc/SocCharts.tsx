@@ -223,6 +223,10 @@ interface SocDonutProps {
   /** Render slices as a vertical legend instead of an inline label box. */
   legend?: boolean;
   emptyText?: string;
+  /** Fraction below which slices fold into "Other". Default 0.02 (2%). Pass 0
+   *  to disable grouping for small fixed taxonomies (severity, IOC kind) where
+   *  every category is meaningful and "Other" would hide real data. */
+  groupThreshold?: number;
 }
 
 export function SocDonut({
@@ -233,9 +237,10 @@ export function SocDonut({
   centerSub,
   legend = false,
   emptyText = 'No data in window.',
+  groupThreshold = 0.02,
 }: SocDonutProps): JSX.Element {
-  // Fold sub-2% slivers into a single "Other" so the ring stays readable.
-  const slices = groupSmallSlices(rawSlices, 0.02);
+  // Fold sub-threshold slivers into a single "Other" so the ring stays readable.
+  const slices = groupSmallSlices(rawSlices, groupThreshold);
   const [hover, setHover] = useState<string | null>(null);
   const total = slices.reduce((s, x) => s + x.value, 0);
 
