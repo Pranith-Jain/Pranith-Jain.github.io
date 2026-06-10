@@ -129,6 +129,21 @@ The following endpoints were removed as they duplicate existing functionality:
 
 ---
 
+## File Ingestion → STIX (SP2)
+
+| Endpoint                     | Description                                                     |
+| ---------------------------- | --------------------------------------------------------------- |
+| `POST /api/v1/report/ingest` | Upload PDF/DOCX/image/text/HTML → STIX 2.1 bundle (admin-gated) |
+
+`multipart/form-data` only (field `file`; optional `tlp`, `sourceName`). Routes by
+type: **text/HTML** parse in-Worker; **images** OCR via Workers AI vision;
+**PDF/DOCX** require the optional `FILE2TXT_BRIDGE_URL` self-hosted bridge (the
+free-plan 10 ms CPU cap blocks in-Worker parsing) — returns `503` with a setup hint
+when the bridge is unset. Returns the same `{ bundle, view }` as
+`intel-bundle/build`. Admin-gated (under `ADMIN_GATED_PREFIXES`).
+
+---
+
 ## Testing
 
 Run the test suite:

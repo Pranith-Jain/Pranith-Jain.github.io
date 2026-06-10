@@ -99,6 +99,14 @@ echo "your_key" | npx wrangler secret put CROWDSEC_API_KEY
 - ⚠️ Telegram notifications disabled
 - ⚠️ Telegram archive posting disabled
 
+### Without `FILE2TXT_BRIDGE_URL` / `FILE2TXT_BRIDGE_TOKEN` (optional)
+
+- ⚠️ `POST /api/v1/report/ingest` cannot accept **PDF/DOCX** uploads (returns `503`
+  with a setup hint) — the free-plan 10 ms CPU cap blocks in-Worker parsing, so
+  these are offloaded to an optional self-hosted `file2txt` bridge (e.g. dogesec's
+  `file2txt` behind a Cloudflare Tunnel). Text/HTML and image (Workers AI vision
+  OCR) uploads still work without it.
+
 ## Free Tier Usage Estimates
 
 | Feature                | Service     | Free Limit             | Est. Usage       |

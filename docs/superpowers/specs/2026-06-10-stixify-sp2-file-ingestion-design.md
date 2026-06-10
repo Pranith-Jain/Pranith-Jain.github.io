@@ -109,10 +109,14 @@ bridge.
 POST /api/v1/report/ingest        (multipart/form-data)
   fields:
     file        (required)  the uploaded document
-    tlp         (optional)  'WHITE' | 'AMBER'  (default WHITE)
+    tlp         (optional)  'WHITE' | 'AMBER'  (default AMBER)
     sourceName  (optional)  display name; defaults to the filename
-  auth: same key-gate as POST /api/v1/intel-bundle/build
-  response: 200 { bundle, view, cache }   (identical shape to intel-bundle/build)
+  auth: ADMIN-GATED. `/api/v1/report` is in ADMIN_GATED_PREFIXES (index.ts), so
+        ingest requires the admin token like /api/v1/report/parse — NOT the
+        key-only posture of intel-bundle/build. This is intentional: ingest is a
+        costly AI/enrichment endpoint, the class ADMIN_GATED_PREFIXES exists to
+        protect. (Implementation correction: the original draft assumed key-only.)
+  response: 200 { bundle, view, cache, ingest }   (extends intel-bundle/build shape)
 ```
 
 `multipart/form-data` is exempt from the global 256 KB `looseValidation` body cap,
