@@ -20,10 +20,11 @@ const BUDGETS = {
   'vendor-react-*.js': { uncompressed: 80_000, gzip: 28_000 },
   'vendor-icons-*.js': { uncompressed: 130_000, gzip: 38_000 },
   'index-*.js': { uncompressed: 280_000, gzip: 92_000 },
-  // Raw bumped 168→172KB for the STIX Builder file-upload + Attack-Flow UI
-  // (new Tailwind utilities, ~0.6KB raw). gzip held at 26KB — transfer/perf
-  // impact is nil; the raw guard just tracks utility-class growth.
-  'index-*.css': { uncompressed: 172_000, gzip: 26_000 },
+  // Raw bumped 168→172KB for the STIX Builder file-upload + Attack-Flow UI.
+  // gzip 26→28KB: accumulated frontend growth (OSINT Mapper, Tracer, supply-chain
+  // + new utilities) reached the 26KB gzip line. 2KB headroom; transfer/perf
+  // impact is negligible — the guard just tracks utility-class growth.
+  'index-*.css': { uncompressed: 172_000, gzip: 28_000 },
   // gzip 58→60KB: the OSINT Mapper's IdentifierGraph (@xyflow/react) added ~0.1KB
   // gzip to this shared vendor chunk, just past 58KB. 2KB headroom for the new
   // graph feature; transfer impact is negligible.
