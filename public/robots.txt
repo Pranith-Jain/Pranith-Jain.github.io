@@ -8,7 +8,7 @@ Allow: /
 Sitemap: https://pranithjain.qzz.io/sitemap.xml
 
 # Disallow any potential admin or private areas (not applicable for this static site)
-Disallow: /admin/
+Disallow: /admin
 Disallow: /private/
 Disallow: /api/
 
@@ -24,6 +24,6 @@ User-agent: ClaudeBot
 User-agent: Claude-Web
 User-agent: Applebot-Extended
 Allow: /
-Disallow: /admin/
+Disallow: /admin
 Disallow: /private/
 Disallow: /api/

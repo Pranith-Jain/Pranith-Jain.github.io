@@ -325,6 +325,20 @@ export async function resolveBlogJsonLd(url: URL, env: Env): Promise<string> {
 }
 
 /**
+ * Routes that must be served `noindex`: the credential-input DFIR tools (a
+ * public masked-password field reads as a deceptive "user login" to Google
+ * Safe Browsing) plus the admin login. These are kept CRAWLABLE (noindex, not
+ * robots Disallow) on purpose — Google must be able to re-crawl a flagged page
+ * to confirm it is clean and lift a Safe Browsing warning; Disallow would block
+ * that re-review. /admin is additionally Disallow-ed in robots.txt (it is
+ * genuinely private and never needs a Safe Browsing re-review).
+ */
+const NOINDEX_PREFIXES = ['/dfir/breach', '/dfir/pgp-tool', '/dfir/phishing', '/admin'];
+function shouldNoindex(pathname: string): boolean {
+  return NOINDEX_PREFIXES.some((p) => pathname === p || pathname.startsWith(`${p}/`));
+}
+
+/**
  * Mutate the static index.html so the OG / Twitter / canonical metadata
  * reflects the actual route. Only kicks in for HTML responses (asset router
  * returns text/html for SPA fallback paths). Anything else passes through.
@@ -372,6 +386,12 @@ export async function injectOgMeta(
   const blogLd = await resolveBlogJsonLd(url, env);
   let ogRewritten = rewriteHtml(html, ogOverride, `${CANONICAL_ORIGIN}${url.pathname}${url.search}`);
   if (blogLd) ogRewritten = ogRewritten.replace(/<\/head>/i, `${blogLd}</head>`);
+  if (shouldNoindex(url.pathname)) {
+    ogRewritten = ogRewritten.replace(
+      /<meta\s+name="robots"\s+content="[^"]*"/i,
+      '<meta name="robots" content="noindex, follow"'
+    );
+  }
   const final = nonce ? injectScriptNonce(ogRewritten, nonce) : ogRewritten;
 
   const result = new Response(final, {

@@ -136,3 +136,14 @@ describe('blog structured data (worker-injected JSON-LD)', () => {
     expect(await serve('/blog/missing', blogEnv({}))).not.toContain('"@type":"BlogPosting"');
   });
 });
+
+describe('credential/login surfaces served noindex (Safe Browsing mitigation)', () => {
+  for (const p of ['/dfir/breach', '/dfir/pgp-tool', '/dfir/phishing', '/admin']) {
+    it(`serves ${p} with a noindex robots meta`, async () => {
+      expect(await serve(p)).toMatch(/<meta\s+name="robots"\s+content="noindex/i);
+    });
+  }
+  it('leaves ordinary routes index,follow', async () => {
+    expect(await serve('/about')).toMatch(/<meta\s+name="robots"\s+content="index, follow"/i);
+  });
+});
