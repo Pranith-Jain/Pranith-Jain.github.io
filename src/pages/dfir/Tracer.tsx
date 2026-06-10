@@ -17,6 +17,7 @@ import {
   serializeGraph,
   deserializeGraph,
 } from '../../lib/dfir/tracer-graph';
+import { buildDorkQueries, deriveOsintTargets, tier2Pivots } from '../../lib/dfir/osint-pivots';
 import { toJSON, toCSV } from '../../lib/dfir/tracer-export';
 
 const CHAINS: { id: TracerChain; label: string }[] = [
@@ -55,6 +56,9 @@ export default function Tracer(): JSX.Element {
   const [highlightPath, setHighlightPath] = useState<string[] | undefined>(undefined);
   const [calldata, setCalldata] = useState<CalldataResult | null>(null);
   const [calldataLoading, setCalldataLoading] = useState(false);
+  const [unifiedResult, setUnifiedResult] = useState<string | null>(null);
+  const [ensName, setEnsName] = useState<string | null>(null);
+  const [alerts, setAlerts] = useState<{ alert_type: string; detail: string; detected_at: string }[] | null>(null);
   const [savedList, setSavedList] = useState<
     { id: string; title: string; seed_address: string; chain: string }[] | null
   >(null);
@@ -118,11 +122,62 @@ export default function Tracer(): JSX.Element {
 
   const graphData = useMemo(() => (graph ? toGraphResponse(graph) : null), [graph]);
 
+  const runUnifiedSearch = useCallback(async (q: string) => {
+    setUnifiedResult('searching…');
+    try {
+      const res = await fetch(`/api/v1/unified-search?q=${encodeURIComponent(q)}`);
+      if (!res.ok) return setUnifiedResult('search unavailable');
+      const data = (await res.json()) as { results?: unknown[]; total?: number };
+      const n = data.total ?? data.results?.length ?? 0;
+      setUnifiedResult(`${n} result${n === 1 ? '' : 's'} — open in Unified Search`);
+    } catch {
+      setUnifiedResult('search unavailable');
+    }
+  }, []);
+
+  const resolveEns = useCallback(async (address: string) => {
+    try {
+      const res = await fetch(`/api/v1/crypto-trace?address=${encodeURIComponent(address)}`);
+      if (!res.ok) return;
+      const data = (await res.json()) as { context?: { ens_name?: string | null } };
+      if (data.context?.ens_name) setEnsName(data.context.ens_name);
+    } catch {
+      /* ignore — Tier-1 unaffected */
+    }
+  }, []);
+
+  const watchAddress = useCallback(async () => {
+    if (!selected) return;
+    const res = await fetch('/api/v1/crypto-monitor/watch', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        address: selected.address,
+        chain: selected.chain,
+        alert_types: ['new_transfer', 'suspicious_counterparty'],
+      }),
+    });
+    if (res.status === 401 || res.status === 403) setError('Watching requires an admin session.');
+    else setError(res.ok ? null : `Watch failed (${res.status})`);
+  }, [selected]);
+
+  const loadAlerts = useCallback(async () => {
+    if (!selected) return;
+    const res = await fetch(
+      `/api/v1/crypto-monitor/alerts?address=${encodeURIComponent(selected.address)}&chain=${selected.chain}`
+    );
+    if (res.status === 401 || res.status === 403) return setError('Alerts require an admin session.');
+    if (res.ok) setAlerts(((await res.json()) as { alerts: typeof alerts }).alerts);
+  }, [selected]);
+
   const onNodeClick = useCallback(
     (node: GraphNodeData | null) => {
       if (!node || !graph) return setSelected(null);
       const tn = graph.nodes.get(node.id) ?? null;
       setSelected(tn);
+      setUnifiedResult(null);
+      setEnsName(null);
+      setAlerts(null);
     },
     [graph]
   );
@@ -563,6 +618,93 @@ export default function Tracer(): JSX.Element {
                   </ul>
                 </div>
               ) : null}
+
+              {/* OSINT pivots (Phase D) */}
+              <div className="border-t border-gray-700 pt-2">
+                <span className="text-gray-400">OSINT pivots</span>
+                <div className="mt-1 flex flex-wrap gap-1">
+                  {buildDorkQueries(selected.address).map((d) => (
+                    <a
+                      key={d.label}
+                      href={d.webUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="rounded border border-gray-600 px-1 text-[10px] hover:bg-gray-800"
+                    >
+                      {d.label}
+                    </a>
+                  ))}
+                </div>
+                <button
+                  className="mt-1 w-full rounded border border-gray-600 p-1 text-[10px] hover:bg-gray-800"
+                  onClick={() => void runUnifiedSearch(selected.address)}
+                >
+                  Run unified search
+                </button>
+                {unifiedResult ? <p className="mt-1 text-[10px] text-gray-400">{unifiedResult}</p> : null}
+                {selected.chain === 'evm' && !selected.label && !ensName ? (
+                  <button
+                    className="mt-1 w-full rounded border border-gray-600 p-1 text-[10px] hover:bg-gray-800"
+                    onClick={() => void resolveEns(selected.address)}
+                  >
+                    Resolve ENS
+                  </button>
+                ) : null}
+                {(() => {
+                  const targets = deriveOsintTargets(selected.label, ensName);
+                  const links = tier2Pivots(targets);
+                  return links.length ? (
+                    <div className="mt-1">
+                      <span className="text-gray-500">
+                        Identity pivots ({targets.ens ?? targets.domains[0] ?? targets.usernames[0]})
+                      </span>
+                      <ul className="mt-1 space-y-1">
+                        {links.map((l) => (
+                          <li key={l.label}>
+                            <a
+                              className="text-[10px] text-blue-400 hover:underline"
+                              href={l.apiPath}
+                              target="_blank"
+                              rel="noreferrer"
+                            >
+                              {l.label}
+                            </a>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ) : null;
+                })()}
+              </div>
+
+              {/* Monitoring (Phase E) */}
+              <div className="border-t border-gray-700 pt-2">
+                <div className="grid grid-cols-2 gap-2">
+                  <button
+                    className="rounded border border-gray-600 p-2 text-xs hover:bg-gray-800"
+                    onClick={watchAddress}
+                  >
+                    Watch address
+                  </button>
+                  <button className="rounded border border-gray-600 p-2 text-xs hover:bg-gray-800" onClick={loadAlerts}>
+                    Load alerts
+                  </button>
+                </div>
+                {alerts ? (
+                  alerts.length ? (
+                    <ul className="mt-1 space-y-1 text-[10px]">
+                      {alerts.slice(0, 8).map((al, i) => (
+                        <li key={i} className="text-gray-400">
+                          <span className="font-semibold text-amber-400">{al.alert_type}</span> ·{' '}
+                          {al.detected_at.slice(0, 16)}
+                        </li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <p className="mt-1 text-[10px] text-gray-500">no alerts yet</p>
+                  )
+                ) : null}
+              </div>
             </>
           ) : (
             <p className="text-gray-500">Click a node to inspect it.</p>
