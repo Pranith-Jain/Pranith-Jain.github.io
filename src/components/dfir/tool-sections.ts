@@ -57,6 +57,7 @@ import {
   BookOpen,
   FolderOpen,
   Download,
+  Map as MapIcon,
   type LucideIcon,
 } from 'lucide-react';
 import type { FeatureFlag } from '../../lib/features';
@@ -625,6 +626,13 @@ export const SECTIONS: Section[] = [
         label: 'SOCMINT Pivots',
         desc: 'Email/domain/handle/name → categorised OSINT lookup links · breach + B2B (ZoomInfo, Apollo, Hunter, RocketReach) + social + dev + paste dorks',
         icon: Users,
+      },
+      {
+        path: '/dfir/osint-mapper',
+        useCase: 'Map identifiers and locations for an investigation.',
+        label: 'OSINT Mapper',
+        desc: 'Node graph of identifiers (social/phone/plate/person/vehicle) + Leaflet street map · click-to-pin w/ Nominatim geocoding · cross-link identifiers↔locations · local-only · .osint.json import/export',
+        icon: MapIcon,
       },
     ],
   },

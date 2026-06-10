@@ -141,6 +141,7 @@ const IdentityLookup = lazy(() => import('./pages/dfir/IdentityLookup'));
 
 const Socmint = lazy(() => import('./pages/dfir/Socmint'));
 const OsintFramework = lazy(() => import('./pages/dfir/OsintFramework'));
+const OsintMapper = lazy(() => import('./pages/dfir/OsintMapper'));
 const SecopsCatalog = lazy(() => import('./pages/dfir/SecopsCatalog'));
 const ToolsCategory = lazy(() => import('./pages/dfir/ToolsCategory'));
 const ToolsAbout = lazy(() => import('./pages/dfir/ToolsAbout'));
@@ -441,6 +442,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/dfir/mcp-audit', Component: McpAudit },
   { path: '/dfir/kill-chain', Component: KillChain },
   { path: '/dfir/diamond', Component: Diamond },
+  { path: '/dfir/osint-mapper', Component: OsintMapper },
   { path: '/dfir/lolbins', Component: Lolbins },
   { path: '/dfir/rule-playground', Component: RulePlayground },
   { path: '/dfir/yara', Component: YaraManager },

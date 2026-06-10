@@ -93,6 +93,9 @@ module.exports = {
         // Loaded only via React.lazy in RelationshipGraph.tsx (its @xyflow/react
         // import is legitimate — the whole module is a dynamic-import target).
         'src/pages/threatintel/RelationshipGraphCanvas.tsx',
+        // OSINT mapper graph components — part of the lazy OsintMapper chunk.
+        'src/components/dfir/osint/IdentifierNode.tsx',
+        'src/components/dfir/osint/IdentifierGraph.tsx',
       ],
       rules: {
         '@typescript-eslint/no-restricted-imports': 'off',
