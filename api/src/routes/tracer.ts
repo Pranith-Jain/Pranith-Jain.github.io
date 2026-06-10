@@ -15,11 +15,19 @@ import { loadScamSnifferSet } from '../lib/scamsniffer';
 import { getAddressContext } from '../lib/blockscout';
 import { analyzeCalldata } from '../lib/calldata-analysis';
 import { fetchEvmTx, fetchTronTx, EVM_RPCS, type FetchedTx } from '../lib/tx-fetch';
+import {
+  saveTracerGraph,
+  listTracerGraphs,
+  getTracerGraph,
+  deleteTracerGraph,
+  type TracerGraphRow,
+} from '../lib/tracer-graphs';
 import type {
   TracerExpandInput,
   TracerLabelInput,
   TracerLabelAddInput,
   TracerCalldataInput,
+  TracerGraphSaveInput,
 } from '../lib/validation-schemas';
 
 export interface TracerNode {
@@ -286,4 +294,44 @@ export async function tracerCalldataHandler(c: Context<{ Bindings: Env }>): Prom
     200,
     { 'Cache-Control': 'public, max-age=60' }
   );
+}
+
+export async function tracerGraphSaveHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
+  const input = (c as Context<{ Bindings: Env }> & { parsed: TracerGraphSaveInput }).parsed;
+  const db = c.env.BRIEFINGS_DB;
+  if (!db) return c.json({ error: 'graph store unavailable' }, 503);
+  const now = new Date().toISOString();
+  const row: TracerGraphRow = {
+    id: crypto.randomUUID(),
+    investigation_id: input.investigation_id ?? null,
+    title: input.title,
+    seed_address: input.seed_address,
+    chain: input.chain,
+    graph_json: input.graph_json,
+    created_at: now,
+    updated_at: now,
+  };
+  await saveTracerGraph(db, row);
+  return c.json({ id: row.id, title: row.title }, 201);
+}
+
+export async function tracerGraphListHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
+  const db = c.env.BRIEFINGS_DB;
+  if (!db) return c.json({ error: 'graph store unavailable' }, 503);
+  return c.json({ graphs: await listTracerGraphs(db) }, 200);
+}
+
+export async function tracerGraphGetHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
+  const db = c.env.BRIEFINGS_DB;
+  if (!db) return c.json({ error: 'graph store unavailable' }, 503);
+  const row = await getTracerGraph(db, c.req.param('id') ?? '');
+  if (!row) return c.json({ error: 'not found' }, 404);
+  return c.json(row, 200);
+}
+
+export async function tracerGraphDeleteHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
+  const db = c.env.BRIEFINGS_DB;
+  if (!db) return c.json({ error: 'graph store unavailable' }, 503);
+  await deleteTracerGraph(db, c.req.param('id') ?? '');
+  return c.json({ ok: true }, 200);
 }

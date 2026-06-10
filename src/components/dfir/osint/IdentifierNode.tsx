@@ -1,5 +1,6 @@
 // src/components/dfir/osint/IdentifierNode.tsx
 import { Handle, Position } from '@xyflow/react';
+import { X } from 'lucide-react';
 import { getIdentifierType } from '../../../lib/dfir/osint/identifier-types';
 
 export interface IdentifierNodeData {
@@ -7,6 +8,7 @@ export interface IdentifierNodeData {
   primary: string; // primary field value to show as title
   selected?: boolean;
   customIconUrl?: string;
+  onDelete?: () => void;
 }
 
 export function IdentifierNode({ data }: { data: IdentifierNodeData }): JSX.Element {
@@ -14,10 +16,24 @@ export function IdentifierNode({ data }: { data: IdentifierNodeData }): JSX.Elem
   const Icon = def.icon;
   return (
     <div
-      className={`rounded-lg border px-3 py-2 bg-white dark:bg-slate-900 shadow-sm min-w-[140px] ${
+      className={`relative rounded-lg border px-3 py-2 bg-white dark:bg-slate-900 shadow-sm min-w-[140px] ${
         data.selected ? 'border-brand-500 ring-2 ring-brand-500/30' : 'border-slate-300 dark:border-slate-700'
       }`}
     >
+      {data.selected && data.onDelete && (
+        <button
+          type="button"
+          aria-label="Delete identifier"
+          title="Delete identifier"
+          className="absolute -top-2 -right-2 z-10 w-5 h-5 flex items-center justify-center rounded-full bg-rose-600 text-white shadow hover:bg-rose-700"
+          onClick={(e) => {
+            e.stopPropagation();
+            data.onDelete?.();
+          }}
+        >
+          <X size={12} />
+        </button>
+      )}
       <Handle type="target" position={Position.Top} className="!bg-slate-400" />
       <div className="flex items-center gap-2">
         {data.customIconUrl ? (

@@ -13,6 +13,7 @@ import {
   type Pin,
 } from '../../lib/dfir/osint/osint-schema';
 import { loadState, saveProject, serializeProject, parseImport } from '../../lib/dfir/osint/osint-store';
+import { deleteIdentifier, deletePin } from '../../lib/dfir/osint/osint-mutations';
 import { reverseGeocode } from '../../lib/dfir/osint/geocode';
 
 const ICONS_KEY = 'dfir-osint-icons:v1';
@@ -70,6 +71,16 @@ export default function OsintMapper(): JSX.Element {
     const links: Link[] = linkedIds.map((identifierId) => ({ id: crypto.randomUUID(), identifierId, pinId: pin.id }));
     setProject((p) => ({ ...p, pins: [...p.pins, pin], links: [...p.links, ...links] }));
     setPending(null);
+  }
+
+  function removeIdentifier(id: string) {
+    setProject((p) => deleteIdentifier(p, id));
+    setSelection((s) => (s?.kind === 'identifier' && s.id === id ? null : s));
+  }
+
+  function removePin(id: string) {
+    setProject((p) => deletePin(p, id));
+    setSelection((s) => (s?.kind === 'pin' && s.id === id ? null : s));
   }
 
   async function handleMapClick(lat: number, lng: number) {
@@ -170,6 +181,7 @@ export default function OsintMapper(): JSX.Element {
           customIcons={icons}
           selectedId={selection?.kind === 'identifier' ? selection.id : null}
           onSelect={(id) => setSelection(id ? { kind: 'identifier', id } : null)}
+          onDelete={removeIdentifier}
         />
       ) : (
         <MapPane
@@ -177,6 +189,7 @@ export default function OsintMapper(): JSX.Element {
           selectedPinId={selection?.kind === 'pin' ? selection.id : linkedPinIds.size ? [...linkedPinIds][0] : null}
           onMapClick={handleMapClick}
           onSelectPin={(id) => setSelection({ kind: 'pin', id })}
+          onDeletePin={removePin}
         />
       )}
 

@@ -26,7 +26,16 @@ import { breachDisclosuresHandler } from './routes/breach-disclosures';
 import { ransomwareRecentHandler } from './routes/ransomware-recent';
 import { ransomwareMapHandler } from './routes/ransomware-map';
 import { cryptoTraceHandler } from './routes/crypto-trace';
-import { tracerExpandHandler, tracerLabelHandler, tracerLabelAddHandler, tracerCalldataHandler } from './routes/tracer';
+import {
+  tracerExpandHandler,
+  tracerLabelHandler,
+  tracerLabelAddHandler,
+  tracerCalldataHandler,
+  tracerGraphSaveHandler,
+  tracerGraphListHandler,
+  tracerGraphGetHandler,
+  tracerGraphDeleteHandler,
+} from './routes/tracer';
 import { abuseRssHandler } from './routes/abuse-rss';
 import { mtiRansomwareRssHandler } from './routes/mti-ransomware-rss';
 import { ransomwareMergedRssHandler } from './routes/ransomware-merged-rss';
@@ -450,6 +459,8 @@ app.use('/api/v1/graph/ingest', requireAdminMiddleware);
 app.use('/api/v1/threat-intel/novelty/batch', requireAdminMiddleware);
 app.use('/api/v1/report/parse', requireAdminMiddleware);
 app.use('/api/v1/tracer/labels', requireAdminMiddleware);
+app.use('/api/v1/tracer/graphs', requireAdminMiddleware);
+app.use('/api/v1/tracer/graphs/*', requireAdminMiddleware);
 app.use('/api/v1/ai-summary', requireAdminMiddleware);
 app.use('/api/v1/yara/*', requireAdminMiddleware);
 app.use('/api/v1/rules/generate', requireAdminMiddleware);
@@ -469,6 +480,7 @@ import {
   tracerLabelSchema,
   tracerLabelAddSchema,
   tracerCalldataSchema,
+  tracerGraphSaveSchema,
   ctCertsSchema,
   iocLifecycleSchema,
   iocTrendingSchema,
@@ -693,6 +705,10 @@ app.post('/api/v1/tracer/expand', validate('json', tracerExpandSchema), tracerEx
 app.get('/api/v1/tracer/label', validate('query', tracerLabelSchema), tracerLabelHandler);
 app.post('/api/v1/tracer/labels', validate('json', tracerLabelAddSchema), tracerLabelAddHandler);
 app.get('/api/v1/tracer/calldata', validate('query', tracerCalldataSchema), tracerCalldataHandler);
+app.post('/api/v1/tracer/graphs', validate('json', tracerGraphSaveSchema), tracerGraphSaveHandler);
+app.get('/api/v1/tracer/graphs', tracerGraphListHandler);
+app.get('/api/v1/tracer/graphs/:id', tracerGraphGetHandler);
+app.delete('/api/v1/tracer/graphs/:id', tracerGraphDeleteHandler);
 app.get('/api/v1/wayback/cdx', validate('query', waybackSchema), waybackCdxHandler);
 app.get('/api/v1/threat-pulse', threatPulseHandler);
 app.get('/api/v1/ip-geo', validate('query', ipGeoSchema), ipGeoHandler);

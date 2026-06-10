@@ -7,7 +7,7 @@ import { badRequest, notFound, serviceUnavailable } from '../lib/api-error';
 interface Observable {
   id: string;
   value: string;
-  type: 'ipv4' | 'ipv6' | 'domain' | 'url' | 'hash' | 'email';
+  type: 'ipv4' | 'ipv6' | 'domain' | 'url' | 'hash' | 'email' | 'crypto-address' | 'tx-hash';
   description?: string;
   tags: string[];
   created_at: string;
