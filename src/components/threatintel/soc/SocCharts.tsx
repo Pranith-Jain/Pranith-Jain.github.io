@@ -1,5 +1,5 @@
 import { useState, type ReactNode } from 'react';
-import { CHART_RANK } from './tone';
+import { CHART_RANK, glowBox } from './tone';
 import { groupSmallSlices } from './slices';
 import { formatNumber } from './utils';
 
@@ -180,7 +180,7 @@ export function SocBar({
                   width: `${Math.max(1.5, pct)}%`,
                   backgroundColor: color,
                   opacity: isHover ? 0.85 : 1,
-                  boxShadow: `0 0 6px ${color}66`,
+                  boxShadow: glowBox(color),
                 }}
                 aria-label={`${it.label}: ${fmt(it.value)}`}
               />

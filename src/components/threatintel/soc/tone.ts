@@ -114,6 +114,15 @@ export type CyberAccentKey = keyof typeof CYBER_ACCENT;
 export const CYBER_CANVAS = '#05070d';
 export const CYBER_GRID = 'rgba(148, 163, 184, 0.06)';
 
+/** Cheap GPU-composited text glow for neon numerals/labels. */
+export function glowText(hex: string, radius = 12, alpha = '99'): string {
+  return `0 0 ${radius}px ${hex}${alpha}`;
+}
+/** Box-shadow glow for filled bars/chips. */
+export function glowBox(hex: string, radius = 6, alpha = '66'): string {
+  return `0 0 ${radius}px ${hex}${alpha}`;
+}
+
 /** Severity → glow hex used for the oversized KPI numerals (text-shadow). */
 export const CYBER_GLOW: Record<SocSeverity, string> = {
   critical: '#f43f5e',

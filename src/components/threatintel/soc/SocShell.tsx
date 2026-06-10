@@ -6,6 +6,7 @@ import {
   CYBER_GRID,
   CYBER_GLOW,
   CYBER_ACCENT,
+  glowText,
   defconFor,
   type SocSeverity,
   type CyberAccentKey,
@@ -104,7 +105,7 @@ export function SocShell({
   const accentHex = CYBER_ACCENT[accent];
   return (
     <div
-      className="min-h-screen text-slate-100 relative"
+      className="dark min-h-screen text-slate-100 relative"
       style={{
         backgroundColor: CYBER_CANVAS,
         backgroundImage: `linear-gradient(${CYBER_GRID} 1px, transparent 1px), linear-gradient(90deg, ${CYBER_GRID} 1px, transparent 1px)`,
@@ -256,7 +257,12 @@ function SocDefconBanner({ status }: { status: SocStatus }): JSX.Element {
   return (
     <span
       className="inline-flex items-center gap-2 px-3 py-1 rounded-sm text-mini font-mono uppercase tracking-[0.2em] border"
-      style={{ color: glow, borderColor: `${glow}66`, backgroundColor: `${glow}14`, textShadow: `0 0 8px ${glow}88` }}
+      style={{
+        color: glow,
+        borderColor: `${glow}66`,
+        backgroundColor: `${glow}14`,
+        textShadow: glowText(glow, 8, '88'),
+      }}
     >
       <span className="relative flex h-1.5 w-1.5">
         <span className="absolute inset-0 rounded-full opacity-75 animate-ping" style={{ backgroundColor: glow }} />
@@ -337,7 +343,7 @@ export function SocKpi({
       </div>
       <div
         className="font-mono font-extrabold leading-none tabular-nums text-3xl sm:text-4xl"
-        style={{ color: glow, textShadow: `0 0 12px ${glow}99` }}
+        style={{ color: glow, textShadow: glowText(glow) }}
       >
         {value}
       </div>
