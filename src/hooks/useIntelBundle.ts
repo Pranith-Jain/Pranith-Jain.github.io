@@ -61,6 +61,9 @@ export interface IntelView {
   iocs: IntelViewIoc[];
   iocsOverflow: { type: IocType; value: string }[];
   attackPatterns: { name: string; mitreId: string }[];
+  /** Ordered MITRE Attack-Flow steps (kill-chain or LLM order) mirroring the
+   *  emitted attack-action chain. Optional for back-compat with pre-flow bundles. */
+  flowSteps?: { techniqueId: string; name: string; tactic?: string }[];
   /** LLM-extracted sectors. Optional for back-compat with pre-LLM bundles. */
   sectors?: string[];
   /** LLM-extracted affected products. Optional for back-compat. */

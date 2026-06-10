@@ -1,26 +1,29 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { ArrowLeft, Copy, Download, FileCode, FileText, Link as LinkIcon, Loader2 } from 'lucide-react';
+import { ArrowLeft, Copy, Download, FileCode, FileText, Link as LinkIcon, Loader2, Upload } from 'lucide-react';
 import { BackLink } from '../../components/BackLink';
 import { Badge } from '../../components/Badge';
 import { IocChip } from '../../components/dfir/IocChip';
 import { IntelCard } from '../../components/intel/IntelCard';
+import { adminAuthHeaders } from '../../lib/admin-token';
 import type { IntelBundleResponse, IntelView } from '../../hooks/useIntelBundle';
 
 /**
  * /dfir/stix-builder — the manual entry point for the intel-bundle pipeline.
  *
- * Three input modes feed the same POST /api/v1/intel-bundle/build endpoint:
- *  1. text — free-form threat-report blurb
- *  2. iocs — newline-separated IoC list (optional `value | context` per line)
- *  3. url  — fetch a public URL (host-allowlisted, SSRF-guarded server-side)
+ * Four input modes:
+ *  1. text — free-form threat-report blurb       → POST /api/v1/intel-bundle/build
+ *  2. iocs — newline-separated IoC list           → POST /api/v1/intel-bundle/build
+ *  3. url  — fetch a public URL (SSRF-guarded)     → POST /api/v1/intel-bundle/build
+ *  4. file — upload PDF/DOCX/image/text/HTML       → POST /api/v1/report/ingest
+ *            (multipart; admin-gated; PDF/DOCX need the file2txt bridge)
  *
- * Output: an APT28-style enriched <IntelCard> + the strict STIX 2.1 bundle
- * (downloadable / copyable). Deep-link path `/dfir/stix-builder/b/<id>`
- * re-renders a previously persisted bundle.
+ * Output: an APT28-style enriched <IntelCard> (incl. MITRE Attack-Flow steps)
+ * + the strict STIX 2.1 bundle (downloadable / copyable). Deep-link path
+ * `/dfir/stix-builder/b/<id>` re-renders a previously persisted bundle.
  */
 
-type Mode = 'text' | 'iocs' | 'url';
+type Mode = 'text' | 'iocs' | 'url' | 'file';
 type Tlp = 'WHITE' | 'AMBER';
 
 const MODES: Array<{ id: Mode; label: string; icon: typeof FileText; placeholder: string }> = [
@@ -44,6 +47,12 @@ const MODES: Array<{ id: Mode; label: string; icon: typeof FileText; placeholder
     icon: LinkIcon,
     placeholder: 'https://example.test/threat-report-page',
   },
+  {
+    id: 'file',
+    label: 'Upload file',
+    icon: Upload,
+    placeholder: '',
+  },
 ];
 
 interface BuildState {
@@ -64,6 +73,9 @@ export default function StixBuilder(): JSX.Element {
   const [build, setBuild] = useState<BuildState>({ status: 'idle' });
   const [viewTab, setViewTab] = useState<'pretty' | 'raw'>('pretty');
   const [copyStatus, setCopyStatus] = useState<'idle' | 'copied' | 'failed'>('idle');
+  // File-mode (POST /api/v1/report/ingest) state.
+  const [file, setFile] = useState<File | null>(null);
+  const fileRef = useRef<HTMLInputElement>(null);
 
   // Deep-link mode — fetch a previously persisted bundle by ID and drop
   // straight into the rendered view. Powered by GET /api/v1/intel-bundle/
@@ -133,6 +145,50 @@ export default function StixBuilder(): JSX.Element {
       if (!res.ok) {
         const text = await res.text().catch(() => res.statusText);
         throw new Error(`build failed (${res.status}): ${text.slice(0, 200)}`);
+      }
+      const ct = res.headers.get('content-type') ?? '';
+      if (!ct.includes('json')) throw new Error('Server returned non-JSON response');
+      const result = (await res.json()) as IntelBundleResponse;
+      if (buildCtrlRef.current === ctrl) setBuild({ status: 'ready', result });
+    } catch (err) {
+      if ((err as { name?: string }).name === 'AbortError') return;
+      if (buildCtrlRef.current === ctrl) {
+        setBuild({ status: 'error', error: err instanceof Error ? err.message : String(err) });
+      }
+    }
+  }
+
+  // File mode → multipart upload to the admin-gated POST /api/v1/report/ingest.
+  // The browser sets the multipart content-type (with boundary) automatically;
+  // we must NOT set it manually. Admin token rides via adminAuthHeaders().
+  async function runIngest(): Promise<void> {
+    if (!file) return;
+    buildCtrlRef.current?.abort();
+    const ctrl = new AbortController();
+    buildCtrlRef.current = ctrl;
+    setBuild({ status: 'building' });
+    try {
+      const fd = new FormData();
+      fd.append('file', file);
+      if (sourceName.trim()) fd.append('sourceName', sourceName.trim());
+      fd.append('tlp', tlp);
+      const res = await fetch('/api/v1/report/ingest', {
+        method: 'POST',
+        headers: adminAuthHeaders(),
+        body: fd,
+        signal: ctrl.signal,
+      });
+      if (res.status === 401 || res.status === 403) {
+        throw new Error('Admin access required — file ingestion is admin-gated. Sign in at /admin, then retry.');
+      }
+      if (res.status === 503) {
+        throw new Error(
+          'PDF/DOCX ingestion needs the optional file2txt bridge (FILE2TXT_BRIDGE_URL). Try a text/HTML or image file, or configure the bridge.'
+        );
+      }
+      if (!res.ok) {
+        const text = await res.text().catch(() => res.statusText);
+        throw new Error(`ingest failed (${res.status}): ${text.slice(0, 200)}`);
       }
       const ct = res.headers.get('content-type') ?? '';
       if (!ct.includes('json')) throw new Error('Server returned non-JSON response');
@@ -232,7 +288,23 @@ export default function StixBuilder(): JSX.Element {
 
       {/* Input area */}
       <div className="space-y-3">
-        {mode !== 'url' ? (
+        {mode === 'file' ? (
+          <div className="rounded-lg border border-dashed border-slate-300 bg-slate-50 px-3 py-4 dark:border-slate-700 dark:bg-slate-950">
+            <input
+              ref={fileRef}
+              type="file"
+              accept=".pdf,.docx,.txt,.md,.html,.htm,.png,.jpg,.jpeg,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/plain,text/html,image/png,image/jpeg"
+              onChange={(e) => setFile(e.target.files?.[0] ?? null)}
+              aria-label="Upload report file"
+              className="block w-full text-sm text-slate-600 file:mr-3 file:rounded-md file:border-0 file:bg-brand-500/15 file:px-3 file:py-1.5 file:text-xs file:font-mono file:uppercase file:tracking-wider file:text-brand-700 hover:file:bg-brand-500/25 dark:text-slate-400 dark:file:text-brand-300"
+            />
+            <p className="mt-2 text-xs text-slate-500 dark:text-slate-400">
+              Upload a threat report — text / HTML parse in-Worker, images via OCR, PDF / DOCX via the optional file2txt
+              bridge. Max 10&nbsp;MB. <span className="font-semibold">Admin-gated</span> (sign in at{' '}
+              <code className="font-mono text-mini">/admin</code>).
+            </p>
+          </div>
+        ) : mode !== 'url' ? (
           <textarea
             value={input}
             onChange={(e) => setInput(e.target.value)}
@@ -280,14 +352,16 @@ export default function StixBuilder(): JSX.Element {
           </div>
           <button
             type="button"
-            onClick={() => void runBuild()}
-            disabled={build.status === 'building' || !input.trim()}
+            onClick={() => void (mode === 'file' ? runIngest() : runBuild())}
+            disabled={build.status === 'building' || (mode === 'file' ? !file : !input.trim())}
             className="inline-flex items-center gap-2 rounded-md border border-brand-500/40 bg-brand-500/15 px-3 py-1.5 text-xs font-mono uppercase tracking-wider text-brand-700 transition-colors hover:bg-brand-500/25 disabled:opacity-50 disabled:cursor-not-allowed dark:text-brand-300"
           >
             {build.status === 'building' ? (
               <>
-                <Loader2 size={12} className="animate-spin" /> Building…
+                <Loader2 size={12} className="animate-spin" /> {mode === 'file' ? 'Ingesting…' : 'Building…'}
               </>
+            ) : mode === 'file' ? (
+              'Ingest → STIX bundle'
             ) : (
               'Build STIX bundle'
             )}
@@ -496,6 +570,28 @@ function BuilderIntelCard({ view, bundle }: { view: IntelView; bundle: IntelBund
               </a>
             ))}
           </div>
+        </Section>
+      )}
+
+      {view.flowSteps && view.flowSteps.length > 0 && (
+        <Section title="Attack Flow">
+          <ol className="space-y-1">
+            {view.flowSteps.map((step, i) => (
+              <li
+                key={`${step.techniqueId}-${i}`}
+                className="flex items-center gap-2 rounded border border-slate-200 bg-slate-50 px-2 py-1 text-xs dark:border-slate-700 dark:bg-slate-950"
+              >
+                <span className="font-mono text-micro text-slate-400">{i + 1}.</span>
+                <span className="font-medium text-slate-700 dark:text-slate-200">{step.name}</span>
+                <span className="font-mono text-micro text-slate-500">{step.techniqueId}</span>
+                {step.tactic && (
+                  <Badge tone="neutral" size="xs">
+                    {step.tactic}
+                  </Badge>
+                )}
+              </li>
+            ))}
+          </ol>
         </Section>
       )}
 
