@@ -265,7 +265,7 @@ export default function ActorKb(): JSX.Element {
             />
           </div>
           {selected && (
-            <section className="mb-8 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+            <section className="mb-8 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-5">
               <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
                 <h2 className="text-2xl font-display font-bold">{selected.name}</h2>
                 <a

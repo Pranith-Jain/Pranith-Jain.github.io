@@ -192,7 +192,7 @@ export default function WebScan(): JSX.Element {
       </div>
 
       {/* Input */}
-      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6">
+      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -249,7 +249,7 @@ export default function WebScan(): JSX.Element {
       {data && counts && (
         <>
           {/* Summary */}
-          <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6">
+          <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
             <div className="flex items-baseline justify-between gap-2 mb-3">
               <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono inline-flex items-center gap-2">
                 <Globe size={12} /> Summary
@@ -298,7 +298,7 @@ export default function WebScan(): JSX.Element {
           </section>
 
           {/* HTTP findings */}
-          <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6">
+          <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
             <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-3 inline-flex items-center gap-2">
               <ShieldAlert size={12} /> HTTP / cookie findings ({findings.length})
             </h2>
@@ -377,7 +377,7 @@ export default function WebScan(): JSX.Element {
           )}
 
           {/* Other probes — collapsed */}
-          <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6">
+          <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
             <details>
               <summary className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono cursor-pointer inline-flex items-center gap-2">
                 <Info size={12} /> All probe results ({data.exposed_paths.length})
@@ -399,7 +399,7 @@ export default function WebScan(): JSX.Element {
           </section>
 
           {/* Raw headers */}
-          <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6">
+          <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
             <details>
               <summary className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono cursor-pointer inline-flex items-center gap-2">
                 <FileText size={12} /> Raw response headers ({Object.keys(data.raw_headers).length})

@@ -241,12 +241,12 @@ export default function ExternalResources(): JSX.Element {
       )}
 
       {/* Research discovery + featured toggle */}
-      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6">
+      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
         <div className="flex flex-wrap items-center gap-2">
           <button
             type="button"
             onClick={activateResearch}
-            className={`text-[11px] font-mono px-3 py-1.5 rounded border transition-colors ${
+            className={`text-mini font-mono px-3 py-1.5 rounded border transition-colors ${
               !featuredOnly && RESEARCH_KINDS.every((k) => activeKinds.has(k))
                 ? 'border-violet-500/50 bg-violet-500/10 text-violet-700 dark:text-violet-300'
                 : 'border-slate-300 dark:border-slate-700 text-slate-500 hover:border-violet-500/40'
@@ -258,7 +258,7 @@ export default function ExternalResources(): JSX.Element {
           <button
             type="button"
             onClick={activateMalware}
-            className={`text-[11px] font-mono px-3 py-1.5 rounded border transition-colors ${
+            className={`text-mini font-mono px-3 py-1.5 rounded border transition-colors ${
               activeTags.has('malware')
                 ? 'border-rose-500/50 bg-rose-500/10 text-rose-700 dark:text-rose-300'
                 : 'border-slate-300 dark:border-slate-700 text-slate-500 hover:border-rose-500/40'
@@ -270,7 +270,7 @@ export default function ExternalResources(): JSX.Element {
           <button
             type="button"
             onClick={activateThreatIntel}
-            className={`text-[11px] font-mono px-3 py-1.5 rounded border transition-colors ${
+            className={`text-mini font-mono px-3 py-1.5 rounded border transition-colors ${
               activeTags.has('threat-intel')
                 ? 'border-orange-500/50 bg-orange-500/10 text-orange-700 dark:text-orange-300'
                 : 'border-slate-300 dark:border-slate-700 text-slate-500 hover:border-orange-500/40'
@@ -282,7 +282,7 @@ export default function ExternalResources(): JSX.Element {
           <button
             type="button"
             onClick={() => setFeaturedOnly((v) => !v)}
-            className={`text-[11px] font-mono px-3 py-1.5 rounded border transition-colors ${
+            className={`text-mini font-mono px-3 py-1.5 rounded border transition-colors ${
               featuredOnly
                 ? 'border-amber-500/50 bg-amber-500/10 text-amber-700 dark:text-amber-300'
                 : 'border-slate-300 dark:border-slate-700 text-slate-500 hover:border-amber-500/40'
@@ -299,7 +299,7 @@ export default function ExternalResources(): JSX.Element {
               setActiveTags(new Set());
               setFeaturedOnly(false);
             }}
-            className="text-[11px] font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-slate-700 text-slate-500 hover:border-brand-500/40 transition-colors"
+            className="text-mini font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-slate-700 text-slate-500 hover:border-brand-500/40 transition-colors"
             aria-label="Clear all filters"
           >
             Show all
@@ -308,7 +308,7 @@ export default function ExternalResources(): JSX.Element {
       </section>
 
       {/* Search */}
-      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6">
+      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
         <div className="relative">
           <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" aria-hidden="true" />
           <input
@@ -323,9 +323,9 @@ export default function ExternalResources(): JSX.Element {
       </section>
 
       {/* Kind pills */}
-      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6">
+      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
         <div className="flex flex-wrap items-center gap-1.5">
-          <span className="text-[11px] font-mono text-slate-500 mr-1">kind:</span>
+          <span className="text-mini font-mono text-slate-500 mr-1">kind:</span>
           {ALL_KINDS.map((k) => {
             const count = kindCounts.get(k) ?? 0;
             const active = activeKinds.has(k);
@@ -336,7 +336,7 @@ export default function ExternalResources(): JSX.Element {
                 key={k}
                 type="button"
                 onClick={() => toggleKind(k)}
-                className={`text-[11px] font-mono px-2 py-1 rounded border ${cls} ${count === 0 ? 'opacity-30' : ''}`}
+                className={`text-mini font-mono px-2 py-1 rounded border ${cls} ${count === 0 ? 'opacity-30' : ''}`}
                 title={isDisabled ? `${KIND_LABELS[k]} — no entries match the current search` : KIND_BLURB[k]}
                 disabled={isDisabled}
                 aria-pressed={active}
@@ -350,9 +350,9 @@ export default function ExternalResources(): JSX.Element {
       </section>
 
       {/* Tag pills */}
-      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6">
+      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
         <div className="flex flex-wrap items-center gap-1.5">
-          <span className="text-[11px] font-mono text-slate-500 mr-1">tag:</span>
+          <span className="text-mini font-mono text-slate-500 mr-1">tag:</span>
           {ALL_TAGS.map((t) => {
             const count = tagCounts.get(t) ?? 0;
             const active = activeTags.has(t);
@@ -363,7 +363,7 @@ export default function ExternalResources(): JSX.Element {
                 key={t}
                 type="button"
                 onClick={() => toggleTag(t)}
-                className={`text-[11px] font-mono px-2 py-1 rounded border ${cls} ${count === 0 ? 'opacity-30' : ''}`}
+                className={`text-mini font-mono px-2 py-1 rounded border ${cls} ${count === 0 ? 'opacity-30' : ''}`}
                 disabled={isDisabled}
                 aria-pressed={active}
                 aria-label={`Filter by ${TAG_LABELS[t]} (${count} ${count === 1 ? 'entry' : 'entries'})`}
@@ -375,7 +375,7 @@ export default function ExternalResources(): JSX.Element {
         </div>
       </section>
 
-      <p className="text-[11px] font-mono text-slate-500 dark:text-slate-400 mb-4">
+      <p className="text-mini font-mono text-slate-500 dark:text-slate-400 mb-4">
         Showing {filtered.length} of {merged.length}
         {featuredOnly && ' (featured quality resources)'}
       </p>
@@ -383,7 +383,7 @@ export default function ExternalResources(): JSX.Element {
       {dynamicError && (
         <div
           role="status"
-          className="mb-4 rounded-lg border border-amber-500/40 bg-amber-50 dark:bg-amber-950/30 px-3 py-2 font-mono text-[11px] text-amber-700 dark:text-amber-300"
+          className="mb-4 rounded-lg border border-amber-500/40 bg-amber-50 dark:bg-amber-950/30 px-3 py-2 font-mono text-mini text-amber-700 dark:text-amber-300"
         >
           Community-contributed entries couldn't be loaded ({dynamicError}). Showing curated list only.{' '}
           <button
@@ -400,7 +400,7 @@ export default function ExternalResources(): JSX.Element {
         {filtered.map((r) => (
           <li
             key={r.id}
-            className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4"
+            className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4"
           >
             <div className="flex items-baseline justify-between gap-2 mb-1">
               <a
@@ -414,7 +414,7 @@ export default function ExternalResources(): JSX.Element {
               <div className="flex items-center gap-1 shrink-0">
                 {'featured' in r && (
                   <span
-                    className="text-[9px] font-mono uppercase tracking-wider px-1 py-0.5 rounded bg-amber-500/10 text-amber-700 dark:text-amber-300 border border-amber-500/30"
+                    className="text-micro font-mono uppercase tracking-wider px-1 py-0.5 rounded bg-amber-500/10 text-amber-700 dark:text-amber-300 border border-amber-500/30"
                     title="Featured quality resource"
                   >
                     featured
@@ -422,7 +422,7 @@ export default function ExternalResources(): JSX.Element {
                 )}
                 {r.dynamic && (
                   <span
-                    className="text-[9px] font-mono uppercase tracking-wider px-1 py-0.5 rounded bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border border-emerald-500/30"
+                    className="text-micro font-mono uppercase tracking-wider px-1 py-0.5 rounded bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border border-emerald-500/30"
                     title="Added via runtime editor"
                   >
                     live
@@ -431,7 +431,7 @@ export default function ExternalResources(): JSX.Element {
                 <button
                   type="button"
                   onClick={() => toggleKind(r.kind)}
-                  className={`text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${KIND_PILL[r.kind]}`}
+                  className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${KIND_PILL[r.kind]}`}
                   title={`Filter by ${KIND_LABELS[r.kind]}`}
                   aria-pressed={activeKinds.has(r.kind)}
                   aria-label={`${KIND_LABELS[r.kind]} — toggle filter`}
@@ -452,7 +452,7 @@ export default function ExternalResources(): JSX.Element {
                 )}
               </div>
             </div>
-            <p className="text-[12px] font-mono text-slate-600 dark:text-slate-400 leading-relaxed mb-2 break-words">
+            <p className="text-meta font-mono text-slate-600 dark:text-slate-400 leading-relaxed mb-2 break-words">
               {r.description}
             </p>
             {(r.tags ?? []).length > 0 && (
@@ -462,7 +462,7 @@ export default function ExternalResources(): JSX.Element {
                     key={t}
                     type="button"
                     onClick={() => toggleTag(t)}
-                    className={`text-[9px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${TAG_PILL[t]}`}
+                    className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${TAG_PILL[t]}`}
                     title={`Filter by ${TAG_LABELS[t]}`}
                   >
                     {TAG_LABELS[t]}
@@ -471,7 +471,7 @@ export default function ExternalResources(): JSX.Element {
               </div>
             )}
             {r.why && (
-              <p className="text-[12px] font-mono italic text-slate-500 dark:text-slate-400 leading-relaxed">
+              <p className="text-meta font-mono italic text-slate-500 dark:text-slate-400 leading-relaxed">
                 <span className="text-slate-400 dark:text-slate-600 not-italic">why:</span> {r.why}
               </p>
             )}
@@ -495,7 +495,7 @@ export default function ExternalResources(): JSX.Element {
           <button
             type="button"
             onClick={signOut}
-            className="inline-flex items-center gap-1.5 text-[11px] font-mono text-slate-500 hover:text-rose-600 dark:hover:text-rose-400"
+            className="inline-flex items-center gap-1.5 text-mini font-mono text-slate-500 hover:text-rose-600 dark:hover:text-rose-400"
             title="Forget admin token"
           >
             <LogOut size={11} /> sign out
@@ -504,7 +504,7 @@ export default function ExternalResources(): JSX.Element {
           <button
             type="button"
             onClick={signIn}
-            className="inline-flex items-center gap-1.5 text-[11px] font-mono text-slate-400 dark:text-slate-600 hover:text-brand-600 dark:hover:text-brand-400"
+            className="inline-flex items-center gap-1.5 text-mini font-mono text-slate-400 dark:text-slate-600 hover:text-brand-600 dark:hover:text-brand-400"
             title="Paste your admin token to enable runtime editing"
           >
             <KeyRound size={11} /> editor sign in
@@ -602,7 +602,7 @@ function AddResourceCard({
       <form onSubmit={submit} className="space-y-3">
         <div className="grid sm:grid-cols-[1fr_140px] gap-3">
           <label className="block">
-            <span className="text-[11px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
+            <span className="text-mini font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
               URL <span className="text-rose-600">*</span>
             </span>
             <input
@@ -615,7 +615,7 @@ function AddResourceCard({
             />
           </label>
           <label className="block">
-            <span className="text-[11px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
+            <span className="text-mini font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
               Kind <span className="text-rose-600">*</span>
             </span>
             <select
@@ -632,7 +632,7 @@ function AddResourceCard({
           </label>
         </div>
         <label className="block">
-          <span className="text-[11px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
+          <span className="text-mini font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
             Name <span className="text-rose-600">*</span>
           </span>
           <input
@@ -645,7 +645,7 @@ function AddResourceCard({
           />
         </label>
         <label className="block">
-          <span className="text-[11px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
+          <span className="text-mini font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
             Why (optional)
           </span>
           <input

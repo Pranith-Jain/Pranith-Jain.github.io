@@ -373,7 +373,7 @@ export default function CvePrioritizer(): JSX.Element {
         <div className="mt-8 space-y-4">
           {/* Summary strip — verdict counts + export buttons. Click a
               count to filter the list below to that verdict. */}
-          <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
+          <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
             <div className="flex flex-wrap items-center justify-between gap-3">
               <div className="flex flex-wrap items-center gap-1.5">
                 {(['ACT NOW', 'SCHEDULE', 'MONITOR', 'DEFER'] as BatchVerdict[]).map((v) =>
@@ -431,7 +431,7 @@ export default function CvePrioritizer(): JSX.Element {
               return (
                 <article
                   key={r.id}
-                  className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4"
+                  className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4"
                 >
                   <header className="flex items-start gap-2.5">
                     {r.loading ? (

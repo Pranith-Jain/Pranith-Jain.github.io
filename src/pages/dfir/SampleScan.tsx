@@ -72,7 +72,7 @@ type DoneEvent = {
 
 type Phase = 'idle' | 'hashing' | 'streaming' | 'done' | 'error';
 
-const CARD = 'rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4';
+const CARD = 'rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4';
 const H2 =
   'text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono inline-flex items-center gap-2';
 

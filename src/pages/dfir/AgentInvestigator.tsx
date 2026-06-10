@@ -248,7 +248,7 @@ export default function AgentInvestigator(): JSX.Element {
       </div>
 
       {/* Query input */}
-      <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6">
+      <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
         <div className="flex gap-3">
           <div className="relative flex-1">
             <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
@@ -338,7 +338,7 @@ export default function AgentInvestigator(): JSX.Element {
 
       {/* Report + Download */}
       {agentState?.report && (
-        <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 mb-6 animate-fade-in-up">
+        <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-6 mb-6 animate-fade-in-up">
           <div className="flex items-center gap-2 mb-4 flex-wrap">
             <Shield size={16} className="text-emerald-600" />
             <h2 className="text-lg font-display font-bold">Intelligence Report</h2>
@@ -442,7 +442,7 @@ export default function AgentInvestigator(): JSX.Element {
 
       {/* Sessions list */}
       {sessions && sessions.sessions.length > 0 && !agentState && (
-        <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
+        <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
           <h2 className="text-sm font-mono font-bold uppercase tracking-wider text-slate-500 mb-3 flex items-center gap-2">
             <Clock size={14} /> Recent Investigations
           </h2>
@@ -502,7 +502,7 @@ function StepCard({ step }: { step: AgentStep }): JSX.Element {
   const phaseColor = phaseColors[phase] ?? phaseColors.collection;
 
   return (
-    <article className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden">
+    <article className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 overflow-hidden">
       <button
         type="button"
         onClick={() => setExpanded(!expanded)}

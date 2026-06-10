@@ -157,13 +157,13 @@ export default function EvtxParser(): JSX.Element {
             value={q}
             onChange={(e) => setQ(e.target.value)}
             placeholder="filter strings — e.g. 4624, powershell, lateral host…"
-            className="w-full rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-3 py-2 font-mono text-sm focus:border-brand-500 focus:outline-none"
+            className="w-full rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 px-3 py-2 font-mono text-sm focus:border-brand-500 focus:outline-none"
           />
           <ul className="space-y-2">
             {shown.map((r) => (
               <li
                 key={r.id}
-                className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3"
+                className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-3"
               >
                 <div className="font-mono text-mini text-slate-500 mb-1">
                   record #{r.id} · {r.time}

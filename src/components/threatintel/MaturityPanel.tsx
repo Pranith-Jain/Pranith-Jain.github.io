@@ -104,7 +104,7 @@ function MaturityScorecard({ report }: { report: MaturityReport }): JSX.Element 
         {report.domains.map((d) => (
           <div
             key={d.id}
-            className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3"
+            className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-3"
           >
             <div className="flex items-center justify-between mb-1.5">
               <span className="text-xs font-mono font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-300">
@@ -158,7 +158,7 @@ function ReliabilityHistogram({ data }: { data: FeedStatusResponse }): JSX.Eleme
         </h3>
         <span className="text-micro font-mono text-slate-500">{total} sources graded</span>
       </div>
-      <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3 space-y-2">
+      <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-3 space-y-2">
         {grades.map((g) => {
           const n = dist[g] ?? 0;
           const pct = total > 0 ? (n / total) * 100 : 0;

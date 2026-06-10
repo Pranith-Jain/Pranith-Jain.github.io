@@ -153,7 +153,7 @@ export default function Lolbins(): JSX.Element {
         {filtered.map((b) => (
           <article
             key={b.id}
-            className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4"
+            className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4"
           >
             <header className="flex flex-wrap items-center gap-2 mb-2">
               <code className="font-display font-bold text-slate-900 dark:text-slate-100 text-base">{b.binary}</code>
@@ -231,7 +231,7 @@ export default function Lolbins(): JSX.Element {
         )}
       </div>
 
-      <section className="mt-8 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
+      <section className="mt-8 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
         <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-3">
           Upstream catalogues
         </h2>

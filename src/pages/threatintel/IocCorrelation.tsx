@@ -90,7 +90,7 @@ function IocRow({ ioc }: { ioc: CorrelatedIoc }) {
   const fresh = freshness(ioc.last_seen);
   const freshPill = FRESHNESS_PILL[fresh];
   return (
-    <li className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-3 py-2.5 flex items-center gap-3">
+    <li className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 px-3 py-2.5 flex items-center gap-3">
       <span
         className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${KIND_PILL[ioc.kind]} shrink-0`}
       >
@@ -255,7 +255,7 @@ export default function IocCorrelation(): JSX.Element {
       </div>
 
       {data && (
-        <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-4 grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-4 grid grid-cols-2 sm:grid-cols-4 gap-3">
           <div>
             <div className="text-micro font-mono uppercase tracking-wider text-slate-500">Correlated IPs</div>
             <div className="font-display font-bold text-xl">{data.totals.by_kind.ip}</div>
@@ -280,7 +280,7 @@ export default function IocCorrelation(): JSX.Element {
           corpus was degraded. Now: explicit per-feed dot + count + the
           aggregate "N of M online". */}
       {data && (
-        <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-4">
+        <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-4">
           <div className="flex items-baseline justify-between gap-3 mb-3 flex-wrap">
             <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400">
               Feed health
@@ -318,7 +318,7 @@ export default function IocCorrelation(): JSX.Element {
         </section>
       )}
 
-      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-4">
+      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-4">
         <div className="flex items-center gap-3">
           <div className="relative flex-1">
             <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />

@@ -91,7 +91,7 @@ const ENTITY_TYPE_CONFIG: Record<string, { label: string; icon: typeof Shield; c
 function EntityBadge({ type, size = 'sm' }: { type: EntityType; size?: 'sm' | 'md' }) {
   const cfg = ENTITY_TYPE_CONFIG[type] ?? ENTITY_TYPE_CONFIG.unknown;
   const Icon = cfg.icon;
-  const s = size === 'sm' ? 'text-[10px] px-1.5 py-0.5' : 'text-xs px-2 py-1';
+  const s = size === 'sm' ? 'text-micro px-1.5 py-0.5' : 'text-xs px-2 py-1';
   return (
     <span className={`inline-flex items-center gap-1 rounded font-mono font-medium ${s} ${cfg.color}`}>
       <Icon size={size === 'sm' ? 10 : 12} />
@@ -104,7 +104,7 @@ function ConfidenceBar({ score }: { score: number }) {
   const pct = Math.round(score * 100);
   const color = pct >= 80 ? 'bg-emerald-500' : pct >= 50 ? 'bg-amber-500' : 'bg-red-500';
   return (
-    <div className="flex items-center gap-2 text-[11px] font-mono text-slate-500">
+    <div className="flex items-center gap-2 text-mini font-mono text-slate-500">
       <div className="h-1.5 w-16 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden">
         <div className={`h-full rounded-full ${color}`} style={{ width: `${pct}%` }} />
       </div>
@@ -268,12 +268,12 @@ export default function EntityResolution(): JSX.Element {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="e.g. LockBit, CVE-2024-1709, 8.8.8.8, Scattered Spider, 185.234.72.0"
-                className="w-full rounded-lg border border-slate-200 bg-white py-2.5 pl-9 pr-20 font-mono text-[13px] text-slate-900 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none focus:ring-2 focus:ring-brand-500/20 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-100 dark:placeholder:text-slate-500"
+                className="w-full rounded-lg border border-slate-200 bg-white py-2.5 pl-9 pr-20 font-mono text-tool text-slate-900 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/20 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-100 dark:placeholder:text-slate-500"
               />
               <button
                 type="submit"
                 disabled={loading || !query.trim()}
-                className="absolute right-1.5 top-1/2 -translate-y-1/2 rounded-md px-3 py-1 text-[11px] font-mono font-medium bg-brand-600 text-white hover:bg-brand-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                className="absolute right-1.5 top-1/2 -translate-y-1/2 rounded-md px-3 py-1 text-mini font-mono font-medium bg-brand-600 text-white hover:bg-brand-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
               >
                 {loading ? <Loader2 size={14} className="animate-spin" /> : 'Resolve'}
               </button>
@@ -289,33 +289,33 @@ export default function EntityResolution(): JSX.Element {
           {entity && (
             <div className="space-y-4 animate-fade-in-up">
               {/* Entity header */}
-              <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+              <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-5">
                 <div className="flex items-start justify-between mb-3">
                   <div>
                     <div className="flex items-center gap-2 mb-2">
                       <EntityBadge type={entity.type} size="md" />
-                      <span className="text-[10px] font-mono text-slate-400">
+                      <span className="text-micro font-mono text-slate-400">
                         source: {entity.source.replace(/_/g, ' ')}
                       </span>
                     </div>
                     <h2 className="font-display font-bold text-xl text-slate-900 dark:text-slate-100">
                       {entity.label}
                     </h2>
-                    <p className="font-mono text-[12px] text-slate-400 mt-0.5">{entity.id}</p>
+                    <p className="font-mono text-meta text-slate-400 mt-0.5">{entity.id}</p>
                   </div>
                   <ConfidenceBar score={entity.confidence} />
                 </div>
 
                 {entity.aliases.length > 0 && (
                   <div className="mt-3">
-                    <span className="text-[11px] font-mono font-medium text-slate-500 uppercase tracking-wider">
+                    <span className="text-mini font-mono font-medium text-slate-500 uppercase tracking-wider">
                       Aliases
                     </span>
                     <div className="flex flex-wrap gap-1.5 mt-1">
                       {entity.aliases.map((a) => (
                         <span
                           key={a}
-                          className="rounded border border-slate-200 dark:border-slate-700 px-2 py-0.5 text-[11px] font-mono text-slate-600 dark:text-slate-400"
+                          className="rounded border border-slate-200 dark:border-slate-700 px-2 py-0.5 text-mini font-mono text-slate-600 dark:text-slate-400"
                         >
                           {a}
                         </span>
@@ -326,14 +326,14 @@ export default function EntityResolution(): JSX.Element {
 
                 {entity.context && Object.keys(entity.context).length > 0 && (
                   <div className="mt-3">
-                    <span className="text-[11px] font-mono font-medium text-slate-500 uppercase tracking-wider">
+                    <span className="text-mini font-mono font-medium text-slate-500 uppercase tracking-wider">
                       Context
                     </span>
                     <div className="flex flex-wrap gap-1.5 mt-1">
                       {Object.entries(entity.context).map(([k, v]) => (
                         <span
                           key={k}
-                          className="rounded border border-slate-200 dark:border-slate-700 px-2 py-0.5 text-[11px] font-mono text-slate-600 dark:text-slate-400"
+                          className="rounded border border-slate-200 dark:border-slate-700 px-2 py-0.5 text-mini font-mono text-slate-600 dark:text-slate-400"
                         >
                           {k}={Array.isArray(v) ? v.join(', ') : String(v)}
                         </span>
@@ -346,7 +346,7 @@ export default function EntityResolution(): JSX.Element {
                   <button
                     type="button"
                     onClick={() => setShowFull(!showFull)}
-                    className="inline-flex items-center gap-1 text-[11px] font-mono text-brand-600 dark:text-brand-400 hover:underline"
+                    className="inline-flex items-center gap-1 text-mini font-mono text-brand-600 dark:text-brand-400 hover:underline"
                   >
                     {showFull ? <ChevronDown size={12} /> : <ChevronRight size={12} />}
                     {showFull ? 'Hide full profile' : 'Show full profile'}
@@ -356,7 +356,7 @@ export default function EntityResolution(): JSX.Element {
                 {/* PIR relevance */}
                 {relevantPirs.length > 0 && (
                   <div className="mt-3 pt-3 border-t border-slate-100 dark:border-slate-800">
-                    <p className="text-[10px] font-mono font-semibold text-slate-500 uppercase tracking-wider mb-2">
+                    <p className="text-micro font-mono font-semibold text-slate-500 uppercase tracking-wider mb-2">
                       Relevant PIRs ({relevantPirs.length})
                     </p>
                     <div className="space-y-1.5">
@@ -364,10 +364,10 @@ export default function EntityResolution(): JSX.Element {
                         <a
                           key={pir.id}
                           href={`/threatintel/pir-dashboard`}
-                          className="flex items-center gap-2 text-[11px] font-mono text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+                          className="flex items-center gap-2 text-mini font-mono text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
                         >
                           <span
-                            className={`px-1 py-0.5 rounded text-[9px] uppercase ${
+                            className={`px-1 py-0.5 rounded text-micro uppercase ${
                               pir.priority === 'critical'
                                 ? 'bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-300'
                                 : pir.priority === 'high'
@@ -378,7 +378,7 @@ export default function EntityResolution(): JSX.Element {
                             {pir.priority}
                           </span>
                           <span className="flex-1 truncate">{pir.title}</span>
-                          <span className="text-[9px] text-slate-400">{pir.matched_in.join(', ')}</span>
+                          <span className="text-micro text-slate-400">{pir.matched_in.join(', ')}</span>
                         </a>
                       ))}
                     </div>
@@ -391,13 +391,13 @@ export default function EntityResolution(): JSX.Element {
                 <>
                   {/* Cross-references */}
                   {profile.cross_references.length > 0 && (
-                    <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+                    <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-5">
                       <h3 className="text-xs font-mono font-semibold text-slate-500 uppercase tracking-wider mb-3">
                         Cross-references
                       </h3>
                       <div className="grid gap-2">
                         {profile.cross_references.map((ref) => (
-                          <div key={ref.source_id} className="flex items-center gap-2 text-[12px] font-mono">
+                          <div key={ref.source_id} className="flex items-center gap-2 text-meta font-mono">
                             <ExternalLink size={12} className="text-slate-400 shrink-0" />
                             <span className="text-slate-600 dark:text-slate-400">{ref.source_name}:</span>
                             <span className="text-slate-900 dark:text-slate-100">{ref.label}</span>
@@ -409,7 +409,7 @@ export default function EntityResolution(): JSX.Element {
 
                   {/* CVEs */}
                   {profile.cves && profile.cves.length > 0 && (
-                    <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+                    <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-5">
                       <h3 className="text-xs font-mono font-semibold text-slate-500 uppercase tracking-wider mb-3">
                         Linked CVEs ({profile.cves.length})
                       </h3>
@@ -417,7 +417,7 @@ export default function EntityResolution(): JSX.Element {
                         {profile.cves.map((cve) => (
                           <span
                             key={cve}
-                            className="rounded border border-amber-200 dark:border-amber-900 bg-amber-50 dark:bg-amber-950 px-2 py-0.5 text-[11px] font-mono text-amber-700 dark:text-amber-300"
+                            className="rounded border border-amber-200 dark:border-amber-900 bg-amber-50 dark:bg-amber-950 px-2 py-0.5 text-mini font-mono text-amber-700 dark:text-amber-300"
                           >
                             {cve}
                           </span>
@@ -428,15 +428,15 @@ export default function EntityResolution(): JSX.Element {
 
                   {/* Links */}
                   {profile.links.length > 0 && (
-                    <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+                    <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-5">
                       <h3 className="text-xs font-mono font-semibold text-slate-500 uppercase tracking-wider mb-3">
                         Relationships ({profile.links.length})
                       </h3>
                       <div className="grid gap-2">
                         {profile.links.map((link, i) => (
-                          <div key={i} className="flex items-center gap-2 text-[12px] font-mono">
+                          <div key={i} className="flex items-center gap-2 text-meta font-mono">
                             <EntityBadge type={link.source_type} />
-                            <span className="text-slate-500 text-[11px]">{link.relationship.replace(/_/g, ' ')}</span>
+                            <span className="text-slate-500 text-mini">{link.relationship.replace(/_/g, ' ')}</span>
                             <EntityBadge type={link.target_type} />
                             <span className="text-slate-900 dark:text-slate-100">{link.target_id}</span>
                             <ConfidenceBar score={link.confidence} />
@@ -465,14 +465,14 @@ export default function EntityResolution(): JSX.Element {
               onChange={(e) => setText(e.target.value)}
               rows={6}
               placeholder="Paste a threat report, blog post, or any text containing CVE IDs, threat actor names, ransomware group references, IPs, domains, or hashes..."
-              className="w-full rounded-lg border border-slate-200 bg-white p-3 font-mono text-[13px] text-slate-900 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none focus:ring-2 focus:ring-brand-500/20 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-100 dark:placeholder:text-slate-500"
+              className="w-full rounded-lg border border-slate-200 bg-white p-3 font-mono text-tool text-slate-900 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/20 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-100 dark:placeholder:text-slate-500"
             />
             <div className="flex justify-end mt-2">
               <button
                 type="button"
                 onClick={() => void extract()}
                 disabled={loading || !text.trim()}
-                className="inline-flex items-center gap-1.5 rounded-md px-4 py-1.5 text-[11px] font-mono font-medium bg-brand-600 text-white hover:bg-brand-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                className="inline-flex items-center gap-1.5 rounded-md px-4 py-1.5 text-mini font-mono font-medium bg-brand-600 text-white hover:bg-brand-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
               >
                 {loading ? <Loader2 size={14} className="animate-spin" /> : <FileText size={14} />}
                 {loading ? 'Extracting...' : 'Extract entities'}
@@ -498,7 +498,7 @@ export default function EntityResolution(): JSX.Element {
                   return (
                     <div
                       key={e.id}
-                      className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3 flex items-center justify-between"
+                      className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-3 flex items-center justify-between"
                     >
                       <div className="flex items-center gap-3">
                         <Icon size={16} className="text-slate-400 shrink-0" />
@@ -509,7 +509,7 @@ export default function EntityResolution(): JSX.Element {
                               {e.label}
                             </span>
                           </div>
-                          <span className="font-mono text-[11px] text-slate-400">{e.id}</span>
+                          <span className="font-mono text-mini text-slate-400">{e.id}</span>
                         </div>
                       </div>
                       <ConfidenceBar score={e.confidence} />
@@ -521,7 +521,7 @@ export default function EntityResolution(): JSX.Element {
           )}
 
           {!loading && text && extracted.length === 0 && !error && (
-            <div className="rounded-lg border border-dashed border-slate-300 dark:border-slate-700 p-8 text-center text-[13px] text-slate-500 font-mono">
+            <div className="rounded-lg border border-dashed border-slate-300 dark:border-slate-700 p-8 text-center text-tool text-slate-500 font-mono">
               No entities found in the provided text. Try pasting something with CVE IDs, actor names, IPs, domains, or
               hashes.
             </div>

@@ -125,9 +125,9 @@ export default function ActorTimeline(): JSX.Element {
         </p>
       </div>
 
-      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6 flex items-center justify-between gap-3 flex-wrap">
+      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6 flex items-center justify-between gap-3 flex-wrap">
         {data && (
-          <p className="text-[11px] font-mono text-slate-500">
+          <p className="text-mini font-mono text-slate-500">
             {data.groups.length} active groups · snapshot{' '}
             <span className="text-slate-700 dark:text-slate-300">{shortRel(data.generated_at)}</span>
             {data.warnings.length > 0 && (
@@ -140,7 +140,7 @@ export default function ActorTimeline(): JSX.Element {
         <button
           type="button"
           onClick={() => refetch()}
-          className="text-[11px] font-mono px-2 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 inline-flex items-center gap-1 disabled:opacity-50"
+          className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 inline-flex items-center gap-1 disabled:opacity-50"
           aria-label="refresh"
         >
           <RefreshCw size={11} className={loading ? 'animate-spin' : ''} /> refresh
@@ -163,7 +163,7 @@ export default function ActorTimeline(): JSX.Element {
               <div className="min-w-[640px]">
                 {/* Day axis legend */}
                 <div
-                  className="font-mono text-[10px] text-slate-500 mb-1 grid"
+                  className="font-mono text-micro text-slate-500 mb-1 grid"
                   style={{ gridTemplateColumns: `200px repeat(${data.days.length}, minmax(0,1fr))` }}
                 >
                   <div></div>
@@ -183,7 +183,7 @@ export default function ActorTimeline(): JSX.Element {
                     return (
                       <li
                         key={g.slug}
-                        className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3"
+                        className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-3"
                       >
                         <div
                           className="grid items-center gap-1"
@@ -199,7 +199,7 @@ export default function ActorTimeline(): JSX.Element {
                               </div>
                               <AccelerationBadge buckets={g.buckets} />
                             </div>
-                            <div className="text-[10px] font-mono text-slate-500 mt-0.5">
+                            <div className="text-micro font-mono text-slate-500 mt-0.5">
                               {g.posts_in_window} in {data.window_days}d ·{' '}
                               {g.partial ? 'recent-feed only' : `${g.all_time_count} all-time`}
                             </div>
@@ -214,7 +214,7 @@ export default function ActorTimeline(): JSX.Element {
                         </div>
 
                         {/* Per-group footer: MITRE link, raas tag, refs */}
-                        <div className="mt-2 ml-[200px] pl-0 flex items-center gap-2 flex-wrap text-[11px] font-mono text-slate-500">
+                        <div className="mt-2 ml-[200px] pl-0 flex items-center gap-2 flex-wrap text-mini font-mono text-slate-500">
                           {g.mitre ? (
                             <a
                               href={sanitizeUrl(g.mitre.url)}
@@ -256,7 +256,7 @@ export default function ActorTimeline(): JSX.Element {
                             >
                               mirrors:
                               <MirrorDots reachable={g.mirrors_reachable} total={g.mirrors_total} />
-                              <span className="tabular-nums text-[10px]">
+                              <span className="tabular-nums text-micro">
                                 {g.mirrors_reachable}/{g.mirrors_total}
                               </span>
                             </span>
@@ -284,7 +284,7 @@ export default function ActorTimeline(): JSX.Element {
                         </div>
 
                         {g.description && (
-                          <p className="mt-2 ml-[200px] text-[11px] font-mono text-slate-600 dark:text-slate-400 leading-relaxed">
+                          <p className="mt-2 ml-[200px] text-mini font-mono text-slate-600 dark:text-slate-400 leading-relaxed">
                             {g.description}
                             {g.description.length >= 400 ? '…' : ''}
                           </p>
@@ -302,7 +302,7 @@ export default function ActorTimeline(): JSX.Element {
 
             <section className="mt-6 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-4">
               <h3 className="font-display font-semibold text-sm mb-2">How to read this</h3>
-              <ul className="text-[12px] font-mono text-slate-600 dark:text-slate-400 space-y-1 list-disc list-inside">
+              <ul className="text-meta font-mono text-slate-600 dark:text-slate-400 space-y-1 list-disc list-inside">
                 <li>
                   Cell shading is relative to <em>each row's</em> peak, so a slow week for one group can still highlight
                   its peak day.
@@ -350,7 +350,7 @@ function AccelerationBadge({ buckets }: { buckets: ActorBucket[] }): JSX.Element
   const arrow = delta > 0 ? '▲' : delta < 0 ? '▼' : '·';
   return (
     <span
-      className={`inline-flex items-center gap-0.5 text-[9px] font-mono uppercase tracking-wider px-1 py-0.5 rounded border ${cls}`}
+      className={`inline-flex items-center gap-0.5 text-micro font-mono uppercase tracking-wider px-1 py-0.5 rounded border ${cls}`}
       title={`7-day acceleration: ${last7} posts this week vs ${prior7} the prior week`}
     >
       <span aria-hidden="true">{arrow}</span>

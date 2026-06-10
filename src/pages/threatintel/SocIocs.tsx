@@ -471,9 +471,9 @@ function TopCriticalList({ rows }: { rows: { ioc: LiveIoc; score: number }[] }):
             <span className="text-slate-700 dark:text-slate-300 truncate" title={r.ioc.value}>
               {r.ioc.value}
             </span>
-            <span className="ml-auto text-slate-500 text-[11px] uppercase tracking-wider shrink-0">{r.ioc.kind}</span>
+            <span className="ml-auto text-slate-500 text-mini uppercase tracking-wider shrink-0">{r.ioc.kind}</span>
           </div>
-          <div className="text-[11px] text-slate-500 dark:text-slate-400 truncate" title={r.ioc.context ?? ''}>
+          <div className="text-mini text-slate-500 dark:text-slate-400 truncate" title={r.ioc.context ?? ''}>
             {r.ioc.source}
             {r.ioc.context ? ` · ${r.ioc.context.slice(0, 60)}` : ''}
           </div>

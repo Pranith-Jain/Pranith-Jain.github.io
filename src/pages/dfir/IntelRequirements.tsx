@@ -88,7 +88,7 @@ export default function IntelRequirementsPage(): JSX.Element {
           {pirs.map((p) => (
             <div
               key={p.id}
-              className="p-4 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900"
+              className="p-4 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1"
             >
               <div className="flex items-center gap-2 mb-1">
                 <span className={`px-2 py-0.5 rounded text-micro font-semibold ${PRI_COLORS[p.priority]}`}>

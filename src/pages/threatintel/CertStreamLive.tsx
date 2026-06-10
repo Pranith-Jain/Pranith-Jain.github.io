@@ -162,7 +162,7 @@ export default function CertStreamLive(): JSX.Element {
   const headerExtra = (
     <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
       <div className="mb-3">
-        <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30">
+        <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30">
           live
         </span>
       </div>
@@ -203,13 +203,13 @@ export default function CertStreamLive(): JSX.Element {
       </div>
 
       <div className="mt-3 flex flex-wrap items-center gap-2">
-        <span className="text-[10px] font-mono uppercase tracking-wider text-slate-500">samples:</span>
+        <span className="text-micro font-mono uppercase tracking-wider text-slate-500">samples:</span>
         {SAMPLES.map((s) => (
           <button
             key={s.label}
             type="button"
             onClick={() => setKeyword(s.keyword)}
-            className="text-[11px] font-mono rounded border border-slate-300 dark:border-slate-700 px-2 py-0.5 text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 hover:border-brand-500/40"
+            className="text-mini font-mono rounded border border-slate-300 dark:border-slate-700 px-2 py-0.5 text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 hover:border-brand-500/40"
           >
             {s.label}
           </button>
@@ -271,7 +271,7 @@ export default function CertStreamLive(): JSX.Element {
                 </>
               )}
             </div>
-            <label className="inline-flex items-center gap-1.5 text-[11px] font-mono text-slate-500 select-none cursor-pointer">
+            <label className="inline-flex items-center gap-1.5 text-mini font-mono text-slate-500 select-none cursor-pointer">
               <input
                 type="checkbox"
                 checked={showOnlySuspicious}
@@ -308,7 +308,7 @@ export default function CertStreamLive(): JSX.Element {
                           {sus && (
                             <span
                               title={`suspicion score ${score}`}
-                              className="inline-flex items-center gap-0.5 text-[10px] font-mono font-bold uppercase tracking-wider px-1.5 py-0.5 rounded bg-rose-500/15 text-rose-700 dark:text-rose-300 border border-rose-500/30"
+                              className="inline-flex items-center gap-0.5 text-micro font-mono font-bold uppercase tracking-wider px-1.5 py-0.5 rounded bg-rose-500/15 text-rose-700 dark:text-rose-300 border border-rose-500/30"
                             >
                               <ShieldAlert size={9} /> sus·{score}
                             </span>
@@ -318,7 +318,7 @@ export default function CertStreamLive(): JSX.Element {
                           </code>
                         </div>
                         {it.dns_names.length > 1 && (
-                          <div className="text-[10px] font-mono text-slate-500 truncate">
+                          <div className="text-micro font-mono text-slate-500 truncate">
                             + {it.dns_names.length - 1} SAN{it.dns_names.length - 1 !== 1 ? 's' : ''}:{' '}
                             {it.dns_names.slice(1, 4).join(', ')}
                             {it.dns_names.length > 4 ? '…' : ''}
@@ -335,7 +335,7 @@ export default function CertStreamLive(): JSX.Element {
                         <ExternalLink size={12} />
                       </a>
                     </div>
-                    <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[10px] font-mono text-slate-500 mt-1">
+                    <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-micro font-mono text-slate-500 mt-1">
                       <span>issuer: {it.issuer}</span>
                       {it.entry_timestamp && <span>logged {formatTimeAgo(it.entry_timestamp)}</span>}
                       <Link
@@ -362,7 +362,7 @@ export default function CertStreamLive(): JSX.Element {
             Enter a keyword and press <span className="text-brand-600 dark:text-brand-400">Start stream</span> to begin
             polling.
           </p>
-          <p className="text-[11px] font-mono text-slate-400 mt-2">
+          <p className="text-mini font-mono text-slate-400 mt-2">
             Tip: brand-name fuzzy patterns (e.g. <code>%g1thub%</code>) surface lookalike issuances within minutes of
             certificate creation.
           </p>

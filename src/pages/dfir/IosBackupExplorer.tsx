@@ -108,7 +108,7 @@ export default function IosBackupExplorer(): JSX.Element {
 
       {files && (
         <div className="mt-6 space-y-4">
-          <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3">
+          <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-3">
             <div className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-2">
               Top domains · {files.length.toLocaleString()} files total
             </div>
@@ -129,7 +129,7 @@ export default function IosBackupExplorer(): JSX.Element {
             value={q}
             onChange={(e) => setQ(e.target.value)}
             placeholder="filter by domain / path — e.g. CameraRollDomain, sms.db, WhatsApp…"
-            className="w-full rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-3 py-2 font-mono text-sm focus:border-brand-500 focus:outline-none"
+            className="w-full rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 px-3 py-2 font-mono text-sm focus:border-brand-500 focus:outline-none"
           />
           <div className="rounded-lg border border-slate-200 dark:border-slate-800 overflow-auto max-h-[60vh]">
             <table className="w-full text-mini font-mono">

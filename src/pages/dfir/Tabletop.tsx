@@ -131,7 +131,7 @@ export default function Tabletop(): JSX.Element {
       </div>
 
       {/* Controls */}
-      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6">
+      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
         <div className="grid gap-3 md:grid-cols-3">
           <label className="block">
             <span className="text-micro font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-1 block">
@@ -206,7 +206,7 @@ export default function Tabletop(): JSX.Element {
       </section>
 
       {/* Scenario header */}
-      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6">
+      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
         <div className="flex flex-wrap items-baseline justify-between gap-3 mb-2">
           <h2 className="font-display font-bold text-xl text-slate-900 dark:text-slate-100">{archetype.name}</h2>
           <span className="text-mini font-mono text-slate-500 dark:text-slate-400">{archetype.timingCue}</span>
@@ -240,7 +240,7 @@ export default function Tabletop(): JSX.Element {
         {archetype.injects.map((inj, i) => (
           <div
             key={i}
-            className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4"
+            className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4"
           >
             <div className="flex flex-wrap items-baseline gap-3 mb-1.5">
               <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400">
@@ -270,7 +270,7 @@ export default function Tabletop(): JSX.Element {
         ))}
       </section>
 
-      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
+      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
         <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-3">
           Facilitator notes
         </h2>

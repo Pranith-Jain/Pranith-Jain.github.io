@@ -303,7 +303,7 @@ export default function SqlWorkspace(): JSX.Element {
       <div className="grid grid-cols-1 lg:grid-cols-[240px_1fr] gap-4">
         {/* Sidebar: Tables & History */}
         <div className="space-y-4">
-          <div className="p-3 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
+          <div className="p-3 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1">
             <h3 className="text-xs font-mono uppercase tracking-wider text-slate-500 mb-2 flex items-center gap-1.5">
               <Database size={12} /> Tables
             </h3>
@@ -341,7 +341,7 @@ export default function SqlWorkspace(): JSX.Element {
             )}
           </div>
 
-          <div className="p-3 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
+          <div className="p-3 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1">
             <h3 className="text-xs font-mono uppercase tracking-wider text-slate-500 mb-2 flex items-center gap-1.5">
               <Terminal size={12} /> Examples
             </h3>
@@ -362,7 +362,7 @@ export default function SqlWorkspace(): JSX.Element {
           </div>
 
           {queryHistory.length > 0 && (
-            <div className="p-3 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
+            <div className="p-3 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1">
               <h3 className="text-xs font-mono uppercase tracking-wider text-slate-500 mb-2 flex items-center gap-1.5">
                 <Clock size={12} /> History
               </h3>
@@ -432,7 +432,7 @@ export default function SqlWorkspace(): JSX.Element {
 
           {/* Results */}
           {result && (
-            <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden">
+            <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 overflow-hidden">
               <div className="flex items-center justify-between px-3 py-2 border-b border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/40">
                 <div className="flex items-center gap-3 text-xs font-mono text-slate-500">
                   <span>

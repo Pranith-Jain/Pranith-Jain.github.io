@@ -56,7 +56,7 @@ export default function CampaignLifecycle(): JSX.Element {
   }, [campaignName, indicators]);
 
   const headerExtra = (
-    <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5">
+    <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5">
       <input
         type="text"
         value={campaignName}
@@ -92,10 +92,10 @@ export default function CampaignLifecycle(): JSX.Element {
     >
       {lifecycle && (
         <div className="space-y-5">
-          <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5">
+          <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5">
             <div className="flex items-center justify-between mb-2">
               <h2 className="font-display font-bold text-lg">{lifecycle.name}</h2>
-              <span className="text-[10px] font-mono text-slate-400">Confidence: {lifecycle.confidence}%</span>
+              <span className="text-micro font-mono text-slate-400">Confidence: {lifecycle.confidence}%</span>
             </div>
             <div className="text-sm text-slate-600 dark:text-slate-400">Actor: {lifecycle.actor}</div>
             <div className="flex items-center gap-2 mt-2 text-xs">
@@ -112,7 +112,7 @@ export default function CampaignLifecycle(): JSX.Element {
               return (
                 <div
                   key={phase.name}
-                  className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 overflow-hidden"
+                  className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 overflow-hidden"
                 >
                   <button
                     onClick={() => setExpandedPhase(isOpen ? null : phase.name)}
@@ -126,10 +126,10 @@ export default function CampaignLifecycle(): JSX.Element {
                     <div className="flex-1 min-w-0">
                       <div className="text-sm font-medium">{phase.name}</div>
                       {phase.start_date && (
-                        <div className="text-[10px] font-mono text-slate-400">{phase.start_date}</div>
+                        <div className="text-micro font-mono text-slate-400">{phase.start_date}</div>
                       )}
                     </div>
-                    <span className={`text-[10px] font-mono px-1.5 py-0.5 rounded ${PHASE_STATUS[phase.status]}`}>
+                    <span className={`text-micro font-mono px-1.5 py-0.5 rounded ${PHASE_STATUS[phase.status]}`}>
                       {phase.status}
                     </span>
                     {isOpen ? (
@@ -142,14 +142,14 @@ export default function CampaignLifecycle(): JSX.Element {
                     <div className="px-4 pb-4 pt-0 border-t border-slate-100 dark:border-slate-800">
                       {phase.indicators.length > 0 && (
                         <div className="mt-3 mb-2">
-                          <div className="text-[10px] font-mono uppercase tracking-wider text-slate-400 mb-1">
+                          <div className="text-micro font-mono uppercase tracking-wider text-slate-400 mb-1">
                             Indicators
                           </div>
                           <div className="flex flex-wrap gap-1">
                             {phase.indicators.map((ind, j) => (
                               <span
                                 key={j}
-                                className="text-[10px] font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-700 text-slate-500"
+                                className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-700 text-slate-500"
                               >
                                 {ind}
                               </span>
@@ -159,14 +159,14 @@ export default function CampaignLifecycle(): JSX.Element {
                       )}
                       {phase.techniques.length > 0 && (
                         <div>
-                          <div className="text-[10px] font-mono uppercase tracking-wider text-slate-400 mb-1">
+                          <div className="text-micro font-mono uppercase tracking-wider text-slate-400 mb-1">
                             Techniques
                           </div>
                           <div className="flex flex-wrap gap-1">
                             {phase.techniques.map((t, j) => (
                               <span
                                 key={j}
-                                className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300"
+                                className="text-micro font-mono px-1.5 py-0.5 rounded bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300"
                               >
                                 {t}
                               </span>

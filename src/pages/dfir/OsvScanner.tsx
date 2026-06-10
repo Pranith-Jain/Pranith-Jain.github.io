@@ -222,7 +222,7 @@ export default function OsvScanner(): JSX.Element {
 
       {rows && meta && (
         <div className="mt-8 space-y-6">
-          <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+          <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-5">
             <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm">
               <span>
                 <span className="text-slate-500">Parsed:</span> <span className="font-mono">{meta.kind}</span>
@@ -251,7 +251,7 @@ export default function OsvScanner(): JSX.Element {
           {vulnerable.map((r) => (
             <section
               key={`${r.ecosystem}:${r.package}@${r.version}`}
-              className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4"
+              className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4"
             >
               <div className="flex items-center gap-2 flex-wrap">
                 <ShieldAlert size={15} className="text-rose-600 dark:text-rose-400 flex-shrink-0" />

@@ -107,7 +107,7 @@ export default function ReportParser(): JSX.Element {
       </div>
 
       {/* Input */}
-      <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5 mb-6">
+      <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5 mb-6">
         <div className="flex gap-1.5 mb-4">
           <button
             onClick={() => setMode('text')}
@@ -158,7 +158,7 @@ export default function ReportParser(): JSX.Element {
       {result && (
         <div className="space-y-5 animate-fade-in-up">
           {/* Summary */}
-          <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5">
+          <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5">
             <h2 className="font-display font-bold text-sm mb-2 flex items-center gap-2">
               <Shield size={14} className="text-brand-600 dark:text-brand-400" /> Executive Summary
             </h2>
@@ -208,7 +208,7 @@ export default function ReportParser(): JSX.Element {
           {/* Actors & Malware */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {result.threat_actors.length > 0 && (
-              <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5">
+              <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5">
                 <h3 className="font-display font-bold text-sm mb-3">Threat Actors</h3>
                 <div className="space-y-1.5">
                   {result.threat_actors.map((actor) => (
@@ -228,7 +228,7 @@ export default function ReportParser(): JSX.Element {
               </div>
             )}
             {result.malware.length > 0 && (
-              <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5">
+              <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5">
                 <h3 className="font-display font-bold text-sm mb-3">Malware Families</h3>
                 <div className="space-y-1.5">
                   {result.malware.map((m) => (
@@ -250,7 +250,7 @@ export default function ReportParser(): JSX.Element {
           {/* MITRE & CVEs */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {result.mitre_techniques.length > 0 && (
-              <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5">
+              <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5">
                 <h3 className="font-display font-bold text-sm mb-3">MITRE ATT&CK</h3>
                 <div className="flex flex-wrap gap-1.5">
                   {result.mitre_techniques.map((t) => (
@@ -269,7 +269,7 @@ export default function ReportParser(): JSX.Element {
               </div>
             )}
             {result.cves.length > 0 && (
-              <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5">
+              <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5">
                 <h3 className="font-display font-bold text-sm mb-3">CVEs</h3>
                 <div className="flex flex-wrap gap-1.5">
                   {result.cves.map((c) => (
@@ -295,7 +295,7 @@ export default function ReportParser(): JSX.Element {
 
 function IocSection({ title, icon, items }: { title: string; icon: React.ReactNode; items: string[] }) {
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5">
+    <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5">
       <div className="flex items-center justify-between mb-3">
         <h3 className="font-display font-bold text-sm flex items-center gap-2">
           <span className="text-brand-600 dark:text-brand-400">{icon}</span> {title}{' '}

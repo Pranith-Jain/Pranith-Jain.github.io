@@ -21,7 +21,7 @@ export function ClusterTabs({ tabs, ariaLabel = 'Section' }: { tabs: ClusterTab[
           to={t.to}
           end
           className={({ isActive }) =>
-            `border-b-2 px-3 py-2 font-mono text-[13px] font-semibold transition-colors ${
+            `border-b-2 px-3 py-2 font-mono text-tool font-semibold transition-colors ${
               isActive
                 ? 'border-brand-600 text-brand-600 dark:border-brand-400 dark:text-brand-400'
                 : 'border-transparent text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'

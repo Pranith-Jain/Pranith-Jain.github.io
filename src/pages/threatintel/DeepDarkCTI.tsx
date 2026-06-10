@@ -196,7 +196,7 @@ export default function DeepDarkCTI(): JSX.Element {
               {filtered.map((e, idx) => (
                 <li
                   key={`${e.source_file}:${e.url}:${idx}`}
-                  className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3"
+                  className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-3"
                 >
                   <div className="flex items-start justify-between gap-2">
                     <div className="min-w-0">

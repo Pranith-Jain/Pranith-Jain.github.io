@@ -125,7 +125,7 @@ export default function PhishingWordlists(): JSX.Element {
         <>
           <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-4">{active.blurb}</p>
 
-          <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-4">
+          <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-4">
             <div className="flex items-center gap-3">
               <div className="relative flex-1">
                 <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
@@ -163,7 +163,7 @@ export default function PhishingWordlists(): JSX.Element {
         emptyLabel={query ? 'No entries match the filter.' : 'List is empty or unreachable.'}
         rows={10}
       >
-        <ul className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 divide-y divide-slate-100 dark:divide-slate-800 font-mono text-tool">
+        <ul className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 divide-y divide-slate-100 dark:divide-slate-800 font-mono text-tool">
           {filtered.slice(0, visible).map((line, i) => (
             <li key={`${line}-${i}`} className="px-3 py-1.5 text-slate-700 dark:text-slate-300 break-all">
               {line}

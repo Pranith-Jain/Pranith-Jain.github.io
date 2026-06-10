@@ -214,7 +214,7 @@ export default function ThreatIntelHome(): JSX.Element {
             {searchResults.map(({ tool: t, section }) => {
               const Icon = t.icon;
               const cardClass =
-                'group relative block h-full overflow-hidden rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 ' +
+                'group relative block h-full overflow-hidden rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 ' +
                 'transition-[transform,border-color,box-shadow] duration-200 hover:-translate-y-0.5 hover:border-brand-500/50 ' +
                 'hover:shadow-[0_10px_30px_-12px_rgba(44,62,229,0.35)] focus-visible:outline-none focus-visible:-translate-y-0.5 ' +
                 'focus-visible:border-brand-500 focus-visible:ring-2 focus-visible:ring-brand-500/40';
@@ -304,7 +304,7 @@ export default function ThreatIntelHome(): JSX.Element {
             {activeSection.tools.map((t) => {
               const Icon = t.icon;
               const cardClass =
-                'group relative block h-full overflow-hidden rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 ' +
+                'group relative block h-full overflow-hidden rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 ' +
                 'transition-[transform,border-color,box-shadow] duration-200 hover:-translate-y-0.5 hover:border-brand-500/50 ' +
                 'hover:shadow-[0_10px_30px_-12px_rgba(44,62,229,0.35)] focus-visible:outline-none focus-visible:-translate-y-0.5 ' +
                 'focus-visible:border-brand-500 focus-visible:ring-2 focus-visible:ring-brand-500/40';

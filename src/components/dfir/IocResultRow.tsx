@@ -49,7 +49,7 @@ export function IocResultRow({ r }: { r: ProviderResultWire }): JSX.Element {
   const findingCount = typeof r.raw_summary.finding_count === 'number' ? r.raw_summary.finding_count : findings.length;
 
   return (
-    <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
+    <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
       <div className="flex items-center justify-between mb-2">
         <span className="font-display font-semibold text-slate-900 dark:text-slate-100 capitalize">{r.source}</span>
         <VerdictChip verdict={r.verdict} />

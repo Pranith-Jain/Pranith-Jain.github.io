@@ -135,7 +135,7 @@ export function SocShell({
             onClick={onRefresh}
             disabled={loading}
             aria-label="Refresh dashboard data"
-            className="inline-flex items-center gap-1.5 text-meta font-mono px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:border-brand-500/40 disabled:opacity-50 transition-colors"
+            className="inline-flex items-center gap-1.5 text-meta font-mono px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 hover:border-brand-500/40 disabled:opacity-50 transition-colors"
           >
             {loading ? <Loader2 size={12} className="animate-spin" /> : <RefreshCw size={12} />}
             refresh
@@ -148,7 +148,7 @@ export function SocShell({
             type="button"
             onClick={onExport}
             aria-label="Export data as CSV"
-            className="inline-flex items-center gap-1.5 text-meta font-mono px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:border-brand-500/40 transition-colors"
+            className="inline-flex items-center gap-1.5 text-meta font-mono px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 hover:border-brand-500/40 transition-colors"
           >
             <Download size={12} /> export csv
           </button>

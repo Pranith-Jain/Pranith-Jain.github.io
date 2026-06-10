@@ -467,7 +467,7 @@ export default function RansomwareMap(): JSX.Element {
                           <span className="text-slate-800 dark:text-slate-200">{c.country}</span>
                         </span>
                         <span className="flex items-center gap-2 shrink-0">
-                          <span className="text-[11px] text-slate-400 tabular-nums">
+                          <span className="text-mini text-slate-400 tabular-nums">
                             {c.groups.length} group{c.groups.length !== 1 ? 's' : ''}
                           </span>
                           <span className="text-rose-600 dark:text-rose-400 font-bold">{c.victim_count}</span>
@@ -515,7 +515,7 @@ export default function RansomwareMap(): JSX.Element {
 
               <div className="grid sm:grid-cols-2 gap-4">
                 <div>
-                  <p className="text-[11px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
+                  <p className="text-mini font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
                     Ransomware groups targeting {selectedAgg.country}
                   </p>
                   <div className="flex flex-wrap gap-1.5">
@@ -530,7 +530,7 @@ export default function RansomwareMap(): JSX.Element {
                   </div>
                 </div>
                 <div>
-                  <p className="text-[11px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
+                  <p className="text-mini font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
                     Recent victims in {selectedAgg.country}
                   </p>
                   <ul className="space-y-1">

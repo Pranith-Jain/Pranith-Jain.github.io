@@ -124,7 +124,7 @@ export default function SandboxIntegration(): JSX.Element {
 
       {/* Input */}
       <div
-        className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5 mb-6"
+        className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5 mb-6"
         onDrop={handleDrop}
         onDragOver={(e) => e.preventDefault()}
       >
@@ -185,7 +185,7 @@ export default function SandboxIntegration(): JSX.Element {
             return (
               <div
                 key={i}
-                className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5"
+                className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5"
               >
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center gap-2">

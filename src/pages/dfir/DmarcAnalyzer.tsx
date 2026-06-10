@@ -403,7 +403,7 @@ export default function DmarcAnalyzer(): JSX.Element {
 
       {report && (
         <div className="animate-fade-in-up space-y-6">
-          <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+          <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-6">
             <div className="flex flex-wrap items-center justify-between gap-4 mb-4">
               <h2 className="text-lg font-display font-bold">{report.domain}</h2>
               <button
@@ -473,7 +473,7 @@ export default function DmarcAnalyzer(): JSX.Element {
             </div>
           )}
 
-          <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden">
+          <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full text-sm font-mono">
                 <thead>

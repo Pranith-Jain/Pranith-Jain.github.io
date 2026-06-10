@@ -265,7 +265,7 @@ export default function PcapTriage(): JSX.Element {
             ].map(([k, v]) => (
               <div
                 key={k}
-                className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3"
+                className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-3"
               >
                 <div className="text-micro font-mono uppercase tracking-wider text-slate-500">{k}</div>
                 <div className="font-mono text-sm">{v}</div>
@@ -288,7 +288,7 @@ export default function PcapTriage(): JSX.Element {
 function Block({ title, rows }: { title: string; rows: Array<[string, number]> }) {
   if (rows.length === 0) return null;
   return (
-    <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3">
+    <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-3">
       <div className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-2">{title}</div>
       <ul className="font-mono text-meta space-y-0.5">
         {rows.map(([k, v]) => (
@@ -304,7 +304,7 @@ function Block({ title, rows }: { title: string; rows: Array<[string, number]> }
 
 function List({ title, items }: { title: string; items: string[] }) {
   return (
-    <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3">
+    <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-3">
       <div className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-2">{title}</div>
       <div className="flex flex-wrap gap-1.5">
         {items.map((i) => (

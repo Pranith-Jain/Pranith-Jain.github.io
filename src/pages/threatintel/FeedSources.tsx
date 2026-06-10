@@ -91,9 +91,9 @@ export default function FeedSources(): JSX.Element {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search feeds by name, source, or description…"
-            className="flex-1 min-w-[200px] px-3 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg font-mono text-[13px] text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="flex-1 min-w-[200px] px-3 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg font-mono text-tool text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
           />
-          <label className="inline-flex items-center gap-1.5 text-[11px] font-mono text-slate-500 cursor-pointer select-none">
+          <label className="inline-flex items-center gap-1.5 text-mini font-mono text-slate-500 cursor-pointer select-none">
             <input
               type="checkbox"
               checked={showDisabled}
@@ -114,7 +114,7 @@ export default function FeedSources(): JSX.Element {
               <h2 className="font-display font-semibold text-sm mb-3 inline-flex items-center gap-1.5">
                 <Icon size={14} className={meta.className} />
                 {meta.label}
-                <span className="font-mono text-[11px] text-slate-500">· {feeds.length}</span>
+                <span className="font-mono text-mini text-slate-500">· {feeds.length}</span>
               </h2>
               <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
                 {feeds.map((f) => {
@@ -135,7 +135,7 @@ export default function FeedSources(): JSX.Element {
                         <button
                           type="button"
                           onClick={() => toggle(f.id)}
-                          className={`shrink-0 rounded border px-1.5 py-0.5 font-mono text-[9px] uppercase transition-colors ${
+                          className={`shrink-0 rounded border px-1.5 py-0.5 font-mono text-micro uppercase transition-colors ${
                             enabled
                               ? 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300'
                               : 'border-slate-400/40 bg-slate-400/10 text-slate-500'
@@ -144,8 +144,8 @@ export default function FeedSources(): JSX.Element {
                           {enabled ? 'enabled' : 'disabled'}
                         </button>
                       </div>
-                      <p className="font-mono text-[10px] text-slate-500 line-clamp-2 mb-1">{f.description}</p>
-                      <div className="flex items-center gap-2 font-mono text-[10px] text-slate-400">
+                      <p className="font-mono text-micro text-slate-500 line-clamp-2 mb-1">{f.description}</p>
+                      <div className="flex items-center gap-2 font-mono text-micro text-slate-400">
                         {f.source && <span className="truncate">{f.source}</span>}
                         {f.language && <span className="uppercase">{f.language}</span>}
                         <span className="ml-auto">
@@ -171,10 +171,10 @@ export default function FeedSources(): JSX.Element {
       </div>
 
       <details className="mt-10">
-        <summary className="cursor-pointer text-[11px] font-mono text-slate-400 hover:text-slate-600 dark:hover:text-slate-300">
+        <summary className="cursor-pointer text-mini font-mono text-slate-400 hover:text-slate-600 dark:hover:text-slate-300">
           How feed management works
         </summary>
-        <div className="mt-3 text-[11px] font-mono text-slate-500 leading-relaxed space-y-1 max-w-2xl">
+        <div className="mt-3 text-mini font-mono text-slate-500 leading-relaxed space-y-1 max-w-2xl">
           <p>
             Disabling a feed hides it from the aggregated feed view. The server-side fetch still runs — this toggle
             controls display only, stored in your browser localStorage.

@@ -146,7 +146,7 @@ export default function IocEnrichment(): JSX.Element {
       }
       maxWidthClass="max-w-6xl"
       headerExtra={
-        <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 sm:p-6">
+        <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 sm:p-6">
           <div className="flex flex-col sm:flex-row gap-3">
             <div className="relative flex-1">
               <div className="relative">
@@ -160,7 +160,7 @@ export default function IocEnrichment(): JSX.Element {
                   onChange={(e) => setQuery(e.target.value)}
                   onKeyDown={handleKeyDown}
                   placeholder={source.hint}
-                  className="w-full rounded-lg border border-slate-200 bg-white py-2.5 pl-9 pr-4 font-mono text-[13px] text-slate-900 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none focus:ring-2 focus:ring-brand-500/20 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-100 dark:placeholder:text-slate-500"
+                  className="w-full rounded-lg border border-slate-200 bg-white py-2.5 pl-9 pr-4 font-mono text-tool text-slate-900 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/20 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-100 dark:placeholder:text-slate-500"
                   aria-label="Search query"
                 />
               </div>
@@ -173,7 +173,7 @@ export default function IocEnrichment(): JSX.Element {
                 aria-haspopup="listbox"
                 aria-expanded={showDropdown}
                 aria-label={`Data source: ${source.label}`}
-                className="flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2.5 font-mono text-[13px] text-slate-900 hover:border-brand-500/40 focus:outline-none focus:ring-2 focus:ring-brand-500/20 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-100 min-w-[180px] justify-between"
+                className="flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2.5 font-mono text-tool text-slate-900 hover:border-brand-500/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/20 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-100 min-w-[180px] justify-between"
               >
                 <span>{source.label}</span>
                 <ChevronDown size={14} className="text-slate-400" />
@@ -194,7 +194,7 @@ export default function IocEnrichment(): JSX.Element {
                         setSource(s);
                         setShowDropdown(false);
                       }}
-                      className={`w-full text-left px-3 py-2.5 text-[13px] font-mono transition-colors hover:bg-slate-100 dark:hover:bg-slate-800 ${
+                      className={`w-full text-left px-3 py-2.5 text-tool font-mono transition-colors hover:bg-slate-100 dark:hover:bg-slate-800 ${
                         source.id === s.id
                           ? 'text-brand-700 dark:text-brand-300 bg-brand-500/5'
                           : 'text-slate-700 dark:text-slate-300'
@@ -211,7 +211,7 @@ export default function IocEnrichment(): JSX.Element {
               type="button"
               onClick={handleSearch}
               disabled={loading || !query.trim()}
-              className="inline-flex items-center gap-2 rounded-lg bg-brand-600 px-4 py-2.5 font-mono text-[13px] font-semibold text-white hover:bg-brand-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors focus:outline-none focus:ring-2 focus:ring-brand-500/40"
+              className="inline-flex items-center gap-2 rounded-lg bg-brand-600 px-4 py-2.5 font-mono text-tool font-semibold text-white hover:bg-brand-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40"
             >
               {loading ? <Loader2 size={14} className="animate-spin" /> : <Search size={14} />}
               {loading ? 'Searching…' : 'Search'}
@@ -223,7 +223,7 @@ export default function IocEnrichment(): JSX.Element {
               href={source.docsUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 mt-3 text-[11px] font-mono text-slate-500 hover:text-brand-600 dark:hover:text-brand-400"
+              className="inline-flex items-center gap-1 mt-3 text-mini font-mono text-slate-500 hover:text-brand-600 dark:hover:text-brand-400"
             >
               <ExternalLink size={11} /> {source.label} docs
             </a>
@@ -236,7 +236,7 @@ export default function IocEnrichment(): JSX.Element {
       emptyMessage={`No results from ${source.label} for this query.`}
     >
       {!!data && !isEmptyResult && (
-        <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden">
+        <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 overflow-hidden">
           <button
             type="button"
             onClick={() => setExpanded(!expanded)}
@@ -246,12 +246,12 @@ export default function IocEnrichment(): JSX.Element {
               {expanded ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
               Response from {source.label}
             </span>
-            <span className="text-[11px] font-mono text-slate-500">
+            <span className="text-mini font-mono text-slate-500">
               {JSON.stringify(data).length.toLocaleString()} bytes
             </span>
           </button>
           {expanded && (
-            <pre className="p-4 pt-0 overflow-auto max-h-[70vh] text-[12px] font-mono text-slate-800 dark:text-slate-200 leading-relaxed whitespace-pre-wrap break-all">
+            <pre className="p-4 pt-0 overflow-auto max-h-[70vh] text-meta font-mono text-slate-800 dark:text-slate-200 leading-relaxed whitespace-pre-wrap break-all">
               {JSON.stringify(data, null, 2)}
             </pre>
           )}

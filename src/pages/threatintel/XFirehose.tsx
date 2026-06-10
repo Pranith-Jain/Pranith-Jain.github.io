@@ -127,7 +127,7 @@ export default function XFirehose(): JSX.Element {
 
   const headerExtra = (
     <>
-      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
+      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
         <div className="flex items-center gap-3">
           <div className="relative flex-1">
             <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
@@ -164,7 +164,7 @@ export default function XFirehose(): JSX.Element {
         </div>
         {data && (
           <div className="flex flex-wrap items-center gap-1.5 mt-3">
-            <span className="text-[11px] font-mono text-slate-500 mr-1">handles:</span>
+            <span className="text-mini font-mono text-slate-500 mr-1">handles:</span>
             {data.handles.map((h) => {
               const active = handleFilter.has(h.handle);
               const platformGlyph = h.platform === 'bluesky' ? '🦋' : '🐘';
@@ -178,7 +178,7 @@ export default function XFirehose(): JSX.Element {
                       ? `${h.count} posts · ${h.platform} · ${h.name}`
                       : `${h.platform} fetch failed. See warning count.`
                   }
-                  className={`text-[11px] font-mono px-2 py-1 rounded border ${
+                  className={`text-mini font-mono px-2 py-1 rounded border ${
                     active
                       ? TOPIC_PILL[h.topic]
                       : h.ok
@@ -195,7 +195,7 @@ export default function XFirehose(): JSX.Element {
               <button
                 type="button"
                 onClick={() => setHandleFilter(new Set())}
-                className="text-[11px] font-mono text-brand-600 dark:text-brand-400 hover:underline ml-2"
+                className="text-mini font-mono text-brand-600 dark:text-brand-400 hover:underline ml-2"
               >
                 clear
               </button>
@@ -205,7 +205,7 @@ export default function XFirehose(): JSX.Element {
       </section>
 
       {data && (
-        <p className="text-[11px] font-mono text-slate-500 mt-3">
+        <p className="text-mini font-mono text-slate-500 mt-3">
           Showing {filtered.length} of {data.items.length} posts · snapshot{' '}
           <span className="text-slate-700 dark:text-slate-300">{shortRel(data.generated_at)}</span>
           {data.warnings.length > 0 && (
@@ -243,7 +243,7 @@ export default function XFirehose(): JSX.Element {
         {filtered.slice(0, visible).map((it, i) => (
           <li
             key={`${it.link}-${i}`}
-            className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3"
+            className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-3"
           >
             <a
               href={sanitizeUrl(it.link) || undefined}
@@ -252,21 +252,21 @@ export default function XFirehose(): JSX.Element {
               className="group block"
             >
               <div className="flex items-baseline justify-between gap-2 mb-1 flex-wrap">
-                <span className="font-mono text-[12px] text-brand-600 dark:text-brand-400 inline-flex items-center gap-1">
+                <span className="font-mono text-meta text-brand-600 dark:text-brand-400 inline-flex items-center gap-1">
                   <span aria-hidden="true">{it.platform === 'bluesky' ? '🦋' : '🐘'}</span>
                   {it.handle_name}{' '}
                   <span
-                    className={`px-1.5 py-0.5 rounded border text-[9px] uppercase tracking-wider ${TOPIC_PILL[it.handle_topic]}`}
+                    className={`px-1.5 py-0.5 rounded border text-micro uppercase tracking-wider ${TOPIC_PILL[it.handle_topic]}`}
                   >
                     {it.handle_topic}
                   </span>
                 </span>
                 <ExternalLink size={11} className="text-slate-400 shrink-0" />
               </div>
-              <p className="text-[13px] text-slate-900 dark:text-slate-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 leading-relaxed mb-1.5 whitespace-pre-line">
+              <p className="text-tool text-slate-900 dark:text-slate-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 leading-relaxed mb-1.5 whitespace-pre-line">
                 {it.text}
               </p>
-              <div className="text-[10px] font-mono text-slate-500 flex items-center gap-2 flex-wrap">
+              <div className="text-micro font-mono text-slate-500 flex items-center gap-2 flex-wrap">
                 <AtSign size={9} className="text-slate-400" />
                 <span>{it.handle}</span>
                 <span className="ml-auto text-slate-400" title={it.pub_date}>
@@ -282,7 +282,7 @@ export default function XFirehose(): JSX.Element {
         <button
           type="button"
           onClick={() => setVisible((v) => v + 60)}
-          className="mt-3 w-full rounded-lg border border-slate-200 dark:border-slate-800 py-2 font-mono text-[12px] text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+          className="mt-3 w-full rounded-lg border border-slate-200 dark:border-slate-800 py-2 font-mono text-meta text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
         >
           Show more ({filtered.length - visible} remaining)
         </button>
@@ -310,7 +310,7 @@ export default function XFirehose(): JSX.Element {
                         href={url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className={`inline-flex items-center gap-1 text-[11px] font-mono px-2 py-1 rounded border ${TOPIC_PILL[h.topic]} hover:opacity-90`}
+                        className={`inline-flex items-center gap-1 text-mini font-mono px-2 py-1 rounded border ${TOPIC_PILL[h.topic]} hover:opacity-90`}
                       >
                         {h.platform === 'bluesky' ? '🦋' : '🐘'} {h.name} <ExternalLink size={10} />
                       </a>
