@@ -76,6 +76,6 @@ export const NODE_COLORS: Record<GraphNodeType, string> = {
   reference: '#94a3b8',
   crypto_low: '#22c55e',
   crypto_medium: '#eab308',
-  crypto_high: '#f97316',
+  crypto_high: '#fb923c',
   crypto_critical: '#dc2626',
 };
