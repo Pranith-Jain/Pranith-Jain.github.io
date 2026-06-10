@@ -85,6 +85,26 @@ export const rssFeeds: RSSFeed[] = [
     language: 'en',
   },
   {
+    id: 'cisa-ics-advisories',
+    name: 'CISA ICS Advisories',
+    url: 'https://www.cisa.gov/cybersecurity-advisories/ics-advisories.xml',
+    description:
+      'Industrial Control Systems / OT security advisories from CISA (affected products, mitigations, exploitability).',
+    category: 'ics-cert',
+    source: 'cisa.gov',
+    language: 'en',
+  },
+  {
+    id: 'wiz-cloud-threats',
+    name: 'Wiz Cloud Threat Landscape',
+    url: 'https://www.wiz.io/feed/cloud-threats-landscape/rss.xml',
+    description:
+      'Cloud / SaaS / identity threat incidents tracked by Wiz Research. Change-detection signal; full structured data on the Cloud incidents page.',
+    category: 'threat-intel',
+    source: 'wiz.io',
+    language: 'en',
+  },
+  {
     id: 'eset',
     name: 'ESET WeLiveSecurity',
     url: 'https://www.welivesecurity.com/en/rss/feed/',
@@ -1178,6 +1198,8 @@ const EXCLUDE_FROM_LANDING = new Set<string>([
   // Structured-source feeds whose full data lives on a dedicated page; the RSS
   // is only a change-detection signal, so keep it out of the landing card.
   'supplychain-attacks',
+  // Wiz RSS is a change-detection signal; full cloud incidents live on the Cloud-incidents page.
+  'wiz-cloud-threats',
   // Scam Watch sources (live at /threatintel/scam-watch)
   'ftc-consumer',
   'ic3-psas',

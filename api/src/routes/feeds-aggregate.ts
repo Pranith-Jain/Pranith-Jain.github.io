@@ -217,6 +217,9 @@ const ALLOWED_HOSTS = new Set([
   'lyrie.ai',
   // supplychainattack.org — supply-chain incident catalog RSS (change-detection)
   'supplychainattack.org',
+  // Wiz Research cloud-threat-landscape RSS (cloud/SaaS/identity incidents)
+  'www.wiz.io',
+  'wiz.io',
 ]);
 
 interface AggregatedItem {
