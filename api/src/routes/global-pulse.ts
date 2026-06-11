@@ -73,7 +73,7 @@ export async function enqueueGpFeeds(queue: Queue<FeedQueueMessage>, _hour?: num
 
 /* ─── Cache keys (all warmed by hourly cron) ────────────────────────────── */
 
-const GLOBAL_PULSE_CACHE = 'https://global-pulse-cache.internal/v21-cyber-tech-geo';
+const GLOBAL_PULSE_CACHE = 'https://global-pulse-cache.internal/v22-cyber-tech-geo';
 const CACHE_TTL = 300;
 
 // NOTE: the old per-source Cache-API keys (CACHE_KEYS) + readCache() were removed.
@@ -374,48 +374,61 @@ function iocFromThreatMap(data: {
 }): PulseEvent[] {
   return (data.countries ?? [])
     .filter((c) => c.count > 0)
-    .map((c) => {
-      const baseCoords = COUNTRY_COORDS[c.countryCode];
-      // Add small jitter so stacked points spread out slightly
-      const jitterLat = (Math.random() - 0.5) * 3;
-      const jitterLng = (Math.random() - 0.5) * 5;
-      return {
-        id: `ioc-${c.countryCode}`,
-        kind: 'ioc_activity' as const,
-        title: `${c.country} — ${c.count} malicious IPs`,
-        description: `Threat activity from ${Object.keys(c.sources).length} feed sources`,
-        lat: (baseCoords?.[0] ?? 0) + jitterLat,
-        lng: (baseCoords?.[1] ?? 0) + jitterLng,
-        timestamp: new Date().toISOString(),
-        severity:
-          c.count > 1000
-            ? ('critical' as const)
-            : c.count > 500
-              ? ('high' as const)
-              : c.count > 100
-                ? ('medium' as const)
-                : ('low' as const),
-        source: 'threat-map',
-        country: c.country,
-      };
+    .flatMap((c) => {
+      try {
+        const baseCoords = COUNTRY_COORDS[c.countryCode];
+        const jitterLat = (Math.random() - 0.5) * 3;
+        const jitterLng = (Math.random() - 0.5) * 5;
+        return [
+          {
+            id: `ioc-${c.countryCode}`,
+            kind: 'ioc_activity' as const,
+            title: `${c.country ?? 'Unknown'} — ${c.count ?? 0} malicious IPs`,
+            description: `Threat activity from ${Object.keys(c.sources ?? {}).length} feed sources`,
+            lat: (baseCoords?.[0] ?? 0) + jitterLat,
+            lng: (baseCoords?.[1] ?? 0) + jitterLng,
+            timestamp: new Date().toISOString(),
+            severity:
+              (c.count ?? 0) > 1000
+                ? ('critical' as const)
+                : (c.count ?? 0) > 500
+                  ? ('high' as const)
+                  : (c.count ?? 0) > 100
+                    ? ('medium' as const)
+                    : ('low' as const),
+            source: 'threat-map',
+            country: c.country,
+          },
+        ];
+      } catch {
+        return [];
+      }
     });
 }
 
 function fromReddit(data: {
   items?: Array<{ title: string; sub: string; sub_topic: string; link: string; pub_date: string }>;
 }): PulseEvent[] {
-  return (data.items ?? []).slice(0, 40).map((i) => ({
-    id: `reddit-${i.link.slice(-20)}`,
-    kind: 'reddit' as const,
-    title: i.title,
-    description: `r/${i.sub} · ${i.sub_topic}`,
-    lat: 0,
-    lng: 0,
-    timestamp: i.pub_date || new Date().toISOString(),
-    severity: 'low' as const,
-    source: `r/${i.sub}`,
-    url: i.link,
-  }));
+  return (data.items ?? []).slice(0, 40).flatMap((i) => {
+    try {
+      return [
+        {
+          id: `reddit-${(i.link ?? '').slice(-20) || 'x'}`,
+          kind: 'reddit' as const,
+          title: i.title ?? '',
+          description: `r/${i.sub ?? '?'} · ${i.sub_topic ?? ''}`,
+          lat: 0,
+          lng: 0,
+          timestamp: i.pub_date || new Date().toISOString(),
+          severity: 'low' as const,
+          source: `r/${i.sub ?? '?'}`,
+          url: i.link,
+        },
+      ];
+    } catch {
+      return [];
+    }
+  });
 }
 
 function fromTelegram(data: {
@@ -522,18 +535,26 @@ function fromBriefings(items: Array<{ slug: string; metadata: Record<string, unk
 function fromLiveIocs(data: {
   items?: Array<{ value: string; kind: string; source: string; observed_at?: string }>;
 }): PulseEvent[] {
-  return (data.items ?? []).slice(0, 50).map((i, idx) => ({
-    id: `liveioc-${idx}-${i.value.slice(-15)}`,
-    kind: 'cyber_attack' as const,
-    title: `${i.kind.toUpperCase()}: ${i.value.slice(0, 80)}`,
-    description: `Live IOC from ${i.source}`,
-    lat: 0,
-    lng: 0,
-    timestamp: i.observed_at || new Date().toISOString(),
-    severity: 'high' as const,
-    source: i.source,
-    url: '/threatintel/live-iocs',
-  }));
+  return (data.items ?? []).slice(0, 50).flatMap((i, idx) => {
+    try {
+      return [
+        {
+          id: `liveioc-${idx}-${(i.value ?? '').slice(-15) || 'x'}`,
+          kind: 'cyber_attack' as const,
+          title: `${(i.kind ?? '').toUpperCase()}: ${(i.value ?? '').slice(0, 80)}`,
+          description: `Live IOC from ${i.source ?? 'unknown'}`,
+          lat: 0,
+          lng: 0,
+          timestamp: i.observed_at || new Date().toISOString(),
+          severity: 'high' as const,
+          source: i.source ?? 'unknown',
+          url: '/threatintel/live-iocs',
+        },
+      ];
+    } catch {
+      return [];
+    }
+  });
 }
 
 type Sev = PulseEvent['severity'];
@@ -2207,11 +2228,15 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
     const finalIocCorr = warm.iocc ?? null;
 
     // ── Direct endpoint fallback for still-missing layers ─────────────
-    // Fetch ALL missing endpoints directly (Workers allow up to 50 subrequests).
-    // This is critical for the globe to have data when cache is cold.
+    // Fetch ALL missing endpoints via SELF binding (in-process, no loopback).
+    // Workers cannot fetch their own public URL (Cloudflare blocks loopback),
+    // so the old `fetch('https://pranithjain.qzz.io/...')` approach always
+    // returned null for every feed when KV was cold — making every page visit
+    // a fresh invocation with no data. SELF.fetch() avoids the loopback.
+    const self = c.env.SELF;
     const fetchDirect = async (path: string): Promise<unknown | null> => {
       try {
-        const res = await fetch(`https://pranithjain.qzz.io${path}`, { signal: AbortSignal.timeout(10000) });
+        const res = await self.fetch(new Request(`https://self${path}`, { signal: AbortSignal.timeout(10000) }));
         if (!res.ok) return null;
         return await res.json();
       } catch {
@@ -2279,9 +2304,11 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
     let finalIocEvents = iocEvents;
     if (finalIocEvents.length === 0) {
       try {
-        const tmRes = await fetch('https://pranithjain.qzz.io/api/v1/threat-map', {
-          signal: AbortSignal.timeout(10000),
-        });
+        const tmRes = await self.fetch(
+          new Request('https://self/api/v1/threat-map', {
+            signal: AbortSignal.timeout(10000),
+          })
+        );
         if (tmRes.ok) {
           const tmData = (await tmRes.json()) as Parameters<typeof iocFromThreatMap>[0];
           finalIocEvents = safe(() => iocFromThreatMap(tmData));
@@ -2332,9 +2359,11 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
       try {
         // cve-recent aggregates NVD + cvefeed and can take ~12s cold — the
         // generic 10s fetchDirect above times out, so give this retry 20s.
-        const cveRes = await fetch('https://pranithjain.qzz.io/api/v1/cve-recent?days=7', {
-          signal: AbortSignal.timeout(20000),
-        });
+        const cveRes = await self.fetch(
+          new Request('https://self/api/v1/cve-recent?days=7', {
+            signal: AbortSignal.timeout(20000),
+          })
+        );
         if (cveRes.ok) {
           const cveData = (await cveRes.json()) as Parameters<typeof fromCveRecent>[0];
           finalCveEvents = safe(() => fromCveRecent(cveData));
@@ -2348,9 +2377,11 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
     let finalRansomwareEvents = ransomwareEvents;
     if (finalRansomwareEvents.length === 0) {
       try {
-        const ransomRes = await fetch('https://pranithjain.qzz.io/api/v1/ransomware-recent?days=7', {
-          signal: AbortSignal.timeout(10000),
-        });
+        const ransomRes = await self.fetch(
+          new Request('https://self/api/v1/ransomware-recent?days=7', {
+            signal: AbortSignal.timeout(10000),
+          })
+        );
         if (ransomRes.ok) {
           const ransomData = (await ransomRes.json()) as Parameters<typeof fromRansomware>[0];
           finalRansomwareEvents = safe(() => fromRansomware(ransomData));
@@ -2364,9 +2395,11 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
     let finalLiveIocEvents = liveIocEvents;
     if (finalLiveIocEvents.length === 0) {
       try {
-        const iocRes = await fetch('https://pranithjain.qzz.io/api/v1/live-iocs', {
-          signal: AbortSignal.timeout(10000),
-        });
+        const iocRes = await self.fetch(
+          new Request('https://self/api/v1/live-iocs', {
+            signal: AbortSignal.timeout(10000),
+          })
+        );
         if (iocRes.ok) {
           const iocData = (await iocRes.json()) as Parameters<typeof fromLiveIocs>[0];
           finalLiveIocEvents = safe(() => fromLiveIocs(iocData));
@@ -2380,9 +2413,11 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
     let finalPhishingEvents = phishingEvents;
     if (finalPhishingEvents.length === 0) {
       try {
-        const phishRes = await fetch('https://pranithjain.qzz.io/api/v1/phishing-urls', {
-          signal: AbortSignal.timeout(10000),
-        });
+        const phishRes = await self.fetch(
+          new Request('https://self/api/v1/phishing-urls', {
+            signal: AbortSignal.timeout(10000),
+          })
+        );
         if (phishRes.ok) {
           const phishData = (await phishRes.json()) as Parameters<typeof fromPhishing>[0];
           finalPhishingEvents = safe(() => fromPhishing(phishData));
@@ -2396,12 +2431,32 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
     let finalMalwareEvents = malwareEvents;
     if (finalMalwareEvents.length === 0) {
       try {
-        const malRes = await fetch('https://pranithjain.qzz.io/api/v1/malware-samples', {
-          signal: AbortSignal.timeout(10000),
-        });
+        const malRes = await self.fetch(
+          new Request('https://self/api/v1/malware-samples', {
+            signal: AbortSignal.timeout(10000),
+          })
+        );
         if (malRes.ok) {
           const malData = (await malRes.json()) as Parameters<typeof fromMalware>[0];
           finalMalwareEvents = safe(() => fromMalware(malData));
+        }
+      } catch {
+        /* degraded */
+      }
+    }
+
+    // Fetch Reddit directly if cache is empty
+    let finalRedditEvents = redditEvents;
+    if (finalRedditEvents.length === 0) {
+      try {
+        const res = await self.fetch(
+          new Request('https://self/api/v1/reddit-feed', {
+            signal: AbortSignal.timeout(10000),
+          })
+        );
+        if (res.ok) {
+          const data = (await res.json()) as Parameters<typeof fromReddit>[0];
+          finalRedditEvents = safe(() => fromReddit(data));
         }
       } catch {
         /* degraded */
@@ -2456,33 +2511,19 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
     }
 
     // Direct fetches for remaining cache-dependent sources
-    let finalRedditEvents = redditEvents;
     let finalTelegramEvents = telegramEvents;
     let finalInfostealerEvents = infostealerEvents;
     let finalCybercrimeEvents = cybercrimeEvents;
     let finalResearchEvents = researchEvents;
 
-    // Fetch Reddit directly if empty
-    if (finalRedditEvents.length === 0) {
-      try {
-        const res = await fetch('https://pranithjain.qzz.io/api/v1/reddit-feed', {
-          signal: AbortSignal.timeout(10000),
-        });
-        if (res.ok) {
-          const data = (await res.json()) as Parameters<typeof fromReddit>[0];
-          finalRedditEvents = safe(() => fromReddit(data));
-        }
-      } catch {
-        /* degraded */
-      }
-    }
-
     // Fetch X/Telegram directly if empty
     if (finalTelegramEvents.length === 0) {
       try {
-        const res = await fetch('https://pranithjain.qzz.io/api/v1/telegram-feed', {
-          signal: AbortSignal.timeout(10000),
-        });
+        const res = await self.fetch(
+          new Request('https://self/api/v1/telegram-feed', {
+            signal: AbortSignal.timeout(10000),
+          })
+        );
         if (res.ok) {
           const data = (await res.json()) as Parameters<typeof fromTelegram>[0];
           finalTelegramEvents = safe(() => fromTelegram(data));
@@ -2496,9 +2537,11 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
     let finalScamEvents = scamEvents;
     if (finalScamEvents.length === 0) {
       try {
-        const res = await fetch('https://pranithjain.qzz.io/api/v1/crypto-scam-feed', {
-          signal: AbortSignal.timeout(10000),
-        });
+        const res = await self.fetch(
+          new Request('https://self/api/v1/crypto-scam-feed', {
+            signal: AbortSignal.timeout(10000),
+          })
+        );
         if (res.ok) {
           const data = (await res.json()) as Parameters<typeof fromScam>[0];
           finalScamEvents = safe(() => fromScam(data));
@@ -2511,9 +2554,11 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
     // Fetch phishing directly if empty
     if (finalPhishingEvents.length === 0) {
       try {
-        const res = await fetch('https://pranithjain.qzz.io/api/v1/phishing-urls', {
-          signal: AbortSignal.timeout(10000),
-        });
+        const res = await self.fetch(
+          new Request('https://self/api/v1/phishing-urls', {
+            signal: AbortSignal.timeout(10000),
+          })
+        );
         if (res.ok) {
           const data = (await res.json()) as Parameters<typeof fromPhishing>[0];
           finalPhishingEvents = safe(() => fromPhishing(data));
@@ -2526,9 +2571,11 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
     // Fetch infostealer directly if empty
     if (finalInfostealerEvents.length === 0) {
       try {
-        const res = await fetch('https://pranithjain.qzz.io/api/v1/stealer-forum-intel', {
-          signal: AbortSignal.timeout(10000),
-        });
+        const res = await self.fetch(
+          new Request('https://self/api/v1/stealer-forum-intel', {
+            signal: AbortSignal.timeout(10000),
+          })
+        );
         if (res.ok) {
           const data = (await res.json()) as Parameters<typeof fromStealerForum>[0];
           finalInfostealerEvents = safe(() => fromStealerForum(data));
@@ -2541,9 +2588,11 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
     // Fetch cybercrime directly if empty
     if (finalCybercrimeEvents.length === 0) {
       try {
-        const res = await fetch('https://pranithjain.qzz.io/api/v1/cyber-crime', {
-          signal: AbortSignal.timeout(10000),
-        });
+        const res = await self.fetch(
+          new Request('https://self/api/v1/cyber-crime', {
+            signal: AbortSignal.timeout(10000),
+          })
+        );
         if (res.ok) {
           const data = (await res.json()) as Parameters<typeof fromCybercrime>[0];
           finalCybercrimeEvents = safe(() => fromCybercrime(data));
@@ -2556,7 +2605,9 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
     // Fetch research/writeups directly if empty
     if (finalResearchEvents.length === 0) {
       try {
-        const res = await fetch('https://pranithjain.qzz.io/api/v1/writeups', { signal: AbortSignal.timeout(10000) });
+        const res = await self.fetch(
+          new Request('https://self/api/v1/writeups', { signal: AbortSignal.timeout(10000) })
+        );
         if (res.ok) {
           const data = (await res.json()) as Parameters<typeof fromWriteups>[0];
           finalResearchEvents = safe(() => fromWriteups(data));

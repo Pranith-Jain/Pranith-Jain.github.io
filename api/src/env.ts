@@ -1,7 +1,9 @@
-import type { D1Database, Queue } from '@cloudflare/workers-types';
+import type { D1Database, Fetcher, Queue } from '@cloudflare/workers-types';
 import type { FeedQueueMessage } from './lib/live-iocs-slices';
 
 export interface Env {
+  /** Service binding to self (in-process loopback-safe fetch). */
+  SELF: Fetcher;
   KV_CACHE?: KVNamespace;
   /** Producer binding for the live-IOC per-source feed fan-out (PR2/PR3). */
   FEEDS_QUEUE?: Queue<FeedQueueMessage>;
