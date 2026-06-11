@@ -154,6 +154,17 @@ export function findPathToCategory(graph: TracerGraph, targets: string[]): strin
   return null;
 }
 
+/**
+ * Return `url` only when it uses an http(s) scheme; otherwise ''. Blocks
+ * `javascript:`, `data:`, `vbscript:`, etc. from reaching an anchor href when a
+ * persisted graph is loaded back and a node's explorer_url is rendered as a link.
+ */
+export function sanitizeHttpUrl(url: unknown): string {
+  if (typeof url !== 'string') return '';
+  const trimmed = url.trim();
+  return /^https?:\/\//i.test(trimmed) ? trimmed : '';
+}
+
 export interface SerializedGraph {
   seedId: string;
   nodes: TracerNode[];
@@ -173,7 +184,12 @@ export function deserializeGraph(data: unknown): TracerGraph {
   const seedId = typeof d.seedId === 'string' ? d.seedId : '';
   if (Array.isArray(d.nodes)) {
     for (const n of d.nodes)
-      if (n && typeof (n as TracerNode).id === 'string') nodes.set((n as TracerNode).id, n as TracerNode);
+      if (n && typeof (n as TracerNode).id === 'string') {
+        const node = n as TracerNode;
+        // Neutralize any non-http(s) explorer_url persisted in the blob before it
+        // can reach an anchor href on load (defense-in-depth against javascript: URIs).
+        nodes.set(node.id, { ...node, explorer_url: sanitizeHttpUrl(node.explorer_url) });
+      }
   }
   if (Array.isArray(d.edges)) {
     for (const e of d.edges)
