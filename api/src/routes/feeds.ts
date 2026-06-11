@@ -151,6 +151,20 @@ const ALLOWED_HOSTS = new Set([
   'the-decoder.com',
   'importai.substack.com',
   'blog.fox-it.com',
+  // AI lab blogs (2026-06) — kept in sync with feeds-aggregate.ts
+  'www.anthropic.com',
+  'anthropic.com',
+  'deepmind.google',
+  'news.mit.edu',
+  // Finance & banking (2026-06) — kept in sync with feeds-aggregate.ts
+  'www.finextra.com',
+  'finextra.com',
+  'www.bankinfosecurity.com',
+  'bankinfosecurity.com',
+  'www.paymentsdive.com',
+  'paymentsdive.com',
+  'www.bankingdive.com',
+  'bankingdive.com',
   // Same-origin synthesised feeds (e.g. MyThreatIntel ransomware → RSS)
   'pranithjain.qzz.io',
   // Sync with feeds-aggregate.ts ALLOWED_HOSTS (2026-05-24 additions)

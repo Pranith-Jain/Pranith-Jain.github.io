@@ -1085,6 +1085,25 @@ export const rssFeeds: RSSFeed[] = [
     language: 'en-US',
   },
 
+  {
+    id: 'payments-dive',
+    name: 'Payments Dive',
+    url: 'https://www.paymentsdive.com/feeds/news/',
+    description: 'Payments industry news — fintech, digital payments, payment security, fraud prevention, regulatory',
+    category: 'news',
+    source: 'paymentsdive.com',
+    language: 'en-US',
+  },
+  {
+    id: 'banking-dive',
+    name: 'Banking Dive',
+    url: 'https://www.bankingdive.com/feeds/news/',
+    description: 'Banking industry news — digital banking, compliance, cybersecurity, fintech partnerships',
+    category: 'news',
+    source: 'bankingdive.com',
+    language: 'en-US',
+  },
+
   // ============================================================================
   // General tech — broader signal beyond pure security / AI / finance
   // ============================================================================

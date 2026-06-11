@@ -70,15 +70,9 @@ const SECTIONS: Section[] = [
     label: 'Finance & Banking',
     blurb:
       'Banking-sector cyber attacks, fintech breaches, payment system security, financial-industry risk intelligence.',
-    feedIds: [
-      'finextra',
-      'bankinfosecurity',
-      'gnews-banking-cyber',
-      'gnews-fintech-breach',
-      'gnews-payment-security',
-      'gnews-insurance-cyber',
-      'gnews-investment-cyber',
-    ],
+    // Note: gnews-* feeds removed — Google News rate-limits Worker IPs
+    // with 503 on all queries (same as the AI section, q.v. lines 33-36).
+    feedIds: ['finextra', 'bankinfosecurity', 'payments-dive', 'banking-dive'],
   },
 ];
 

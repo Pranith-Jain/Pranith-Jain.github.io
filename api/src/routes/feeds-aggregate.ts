@@ -190,6 +190,20 @@ const ALLOWED_HOSTS = new Set([
   'the-decoder.com',
   'importai.substack.com',
   'blog.fox-it.com',
+  // AI lab blogs (2026-06)
+  'www.anthropic.com',
+  'anthropic.com',
+  'deepmind.google',
+  'news.mit.edu',
+  // Finance & banking (2026-06)
+  'www.finextra.com',
+  'finextra.com',
+  'www.bankinfosecurity.com',
+  'bankinfosecurity.com',
+  'www.paymentsdive.com',
+  'paymentsdive.com',
+  'www.bankingdive.com',
+  'bankingdive.com',
   // Allowlist gap fix (2026-05-24): both feeds were silently dropped by
   // the host check, surfacing as "16 of 54 missing" on /threatintel/threat-feeds.
   'www.akamai.com',
