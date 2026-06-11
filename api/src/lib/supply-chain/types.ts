@@ -37,6 +37,7 @@ export interface SCSoftwareResult extends SCBase {
   total: number;
   malicious_count: number;
   findings: SCFinding[];
+  detail?: Record<string, unknown>; // source-specific extras (e.g. deps.dev scorecard/licenses/dependency_count)
 }
 
 /** ── CRYPTO ── reuses the in-app LabelCategory so it feeds risk-score.ts directly. */
