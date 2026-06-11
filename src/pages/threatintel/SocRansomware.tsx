@@ -3,9 +3,16 @@ import { Link, useNavigate } from 'react-router-dom';
 import { ShieldAlert, Skull, Users, Crosshair, Building2, ExternalLink } from 'lucide-react';
 import { fetchJson } from '../../lib/fetch-json';
 import { SocShell, SocKpi, SocSection, SocPanel, type SocStatus } from '../../components/threatintel/soc/SocShell';
-import { SocBar, SocDonut, type BarItem, type DonutSlice } from '../../components/threatintel/soc/SocCharts';
+import {
+  SocBar,
+  SocDonut,
+  SocSparkline,
+  type BarItem,
+  type DonutSlice,
+} from '../../components/threatintel/soc/SocCharts';
 import { downloadCsv, dayKey, formatNumber } from '../../components/threatintel/soc/utils';
-import { CHART_RANK, CHART_DAILY, CHART_SECTOR } from '../../components/threatintel/soc/tone';
+import { CHART_RANK, CHART_DAILY, CHART_SECTOR, CYBER_ACCENT } from '../../components/threatintel/soc/tone';
+import { normalizeSector, normalizeCountry } from '../../components/threatintel/soc/categories';
 
 /* ─── Data shape (matches /api/v1/ransomware-recent) ────────────────── */
 
@@ -95,18 +102,11 @@ export default function SocRansomware(): JSX.Element {
     const groups = data?.groups ?? [];
     const top = groups[0];
     const topShare = data?.count && top ? Math.round((top.count / data.count) * 100) : 0;
-    // Top *named* sector — skip the "Unknown"/"Other" buckets so the headline
-    // reflects an actual targeted industry rather than the unclassified pile.
-    const topSec = (data?.sectors ?? [])
-      .filter((s) => s.count > 0 && s.sector && s.sector !== 'Unknown' && s.sector !== 'Other')
-      .sort((a, b) => b.count - a.count)[0];
     return {
       total: data?.count ?? 0,
       groups: groups.length,
       topName: top?.group ?? '—',
       topPct: top ? `${topShare}%` : '—',
-      topSector: topSec?.sector ?? '—',
-      topSectorPct: topSec ? `${topSec.pct}%` : null,
     };
   }, [data]);
 
@@ -143,18 +143,40 @@ export default function SocRansomware(): JSX.Element {
   }, [data]);
 
   const sectorSlices: DonutSlice[] = useMemo(() => {
-    const sectors = data?.sectors ?? [];
-    return sectors
-      .filter((s) => s.count > 0)
-      .map((s) => ({ label: s.sector, value: s.count, color: colorForSector(s.sector) }));
+    // Normalize raw upstream sector strings to canonical English, then re-sum so
+    // two raw spellings that map to the same sector merge into one slice.
+    const agg = new Map<string, number>();
+    for (const s of data?.sectors ?? []) {
+      if (s.count <= 0) continue;
+      const name = normalizeSector(s.sector);
+      agg.set(name, (agg.get(name) ?? 0) + s.count);
+    }
+    return Array.from(agg.entries())
+      .sort((a, b) => b[1] - a[1])
+      .map(([label, value]) => ({ label, value, color: colorForSector(label) }));
   }, [data]);
+
+  // Top *named* sector + its share — computed from the MERGED sectorSlices (not
+  // the stale API `pct`) so the KPI headline and the donut never disagree.
+  const topSectorKpi = useMemo(() => {
+    const totalSec = sectorSlices.reduce((s, x) => s + x.value, 0);
+    const topSec = sectorSlices.find((s) => s.label !== 'Unknown' && s.label !== 'Other');
+    return {
+      topSector: topSec?.label ?? '—',
+      topSectorPct: topSec && totalSec ? `${Math.round((topSec.value / totalSec) * 100)}%` : null,
+    };
+  }, [sectorSlices]);
 
   const countrySlices: DonutSlice[] = useMemo(() => {
     if (victims.length === 0) return [];
     const counts = new Map<string, number>();
+    let unknown = 0;
     for (const v of victims) {
-      const c = v.country?.trim();
-      if (!c) continue;
+      const c = normalizeCountry(v.country);
+      if (c === 'Unknown') {
+        unknown += 1; // no/garbage country attribution
+        continue;
+      }
       counts.set(c, (counts.get(c) ?? 0) + 1);
     }
     const arr = Array.from(counts.entries())
@@ -168,7 +190,6 @@ export default function SocRansomware(): JSX.Element {
       color: CHART_RANK[Math.min(i, CHART_RANK.length - 1)],
     }));
     if (rest > 0) slices.push({ label: 'Other', value: rest, color: '#94a3b8' });
-    const unknown = victims.length - arr.reduce((s, x) => s + x.value, 0);
     if (unknown > 0) slices.push({ label: 'Unknown', value: unknown, color: '#64748b' });
     return slices;
   }, [victims]);
@@ -192,7 +213,14 @@ export default function SocRansomware(): JSX.Element {
     if (!data) return;
     const rows: (string | number)[][] = [['victim', 'group', 'discovered', 'sector', 'country', 'source_url']];
     for (const v of victims) {
-      rows.push([v.victim, v.group, v.discovered, v.sector ?? '', v.country ?? '', v.source_url]);
+      rows.push([
+        v.victim,
+        v.group,
+        v.discovered,
+        normalizeSector(v.sector),
+        normalizeCountry(v.country),
+        v.source_url,
+      ]);
     }
     downloadCsv(`soc-ransomware-${windowDays}d-${new Date().toISOString().slice(0, 10)}.csv`, rows);
   }, [data, victims, windowDays]);
@@ -212,6 +240,7 @@ export default function SocRansomware(): JSX.Element {
   return (
     <SocShell
       title="Ransomware intelligence"
+      accent="ransomware"
       icon={<ShieldAlert size={28} />}
       status={status}
       generatedAt={data?.generated_at ?? null}
@@ -252,6 +281,12 @@ export default function SocRansomware(): JSX.Element {
           icon={<Skull size={16} />}
           delta={delta?.text}
           deltaDirection={delta?.direction}
+          accent={CYBER_ACCENT.ransomware}
+          spark={
+            timeline.length > 1 ? (
+              <SocSparkline points={timeline} height={36} showAxis={false} color={CYBER_ACCENT.ransomware} />
+            ) : undefined
+          }
         />
         <SocKpi
           label="Threat groups"
@@ -259,32 +294,35 @@ export default function SocRansomware(): JSX.Element {
           severity="medium"
           sub="distinct actors in window"
           icon={<Users size={16} />}
+          accent={CYBER_ACCENT.ransomware}
         />
         <SocKpi
           label="Main actor"
           value={
             <span className="inline-flex items-baseline gap-2">
               <span className="truncate">{kpis.topName}</span>
-              <span className="text-2xl text-slate-500 dark:text-slate-400">({kpis.topPct})</span>
+              <span className="text-2xl text-slate-400">({kpis.topPct})</span>
             </span>
           }
           severity="high"
           sub="share of total claims"
           icon={<Crosshair size={16} />}
+          accent={CYBER_ACCENT.ransomware}
         />
         <SocKpi
           label="Top sector"
           value={
             <span className="inline-flex items-baseline gap-2">
-              <span className="truncate">{kpis.topSector}</span>
-              {kpis.topSectorPct && (
-                <span className="text-2xl text-slate-500 dark:text-slate-400">({kpis.topSectorPct})</span>
+              <span className="truncate">{topSectorKpi.topSector}</span>
+              {topSectorKpi.topSectorPct && (
+                <span className="text-2xl text-slate-400">({topSectorKpi.topSectorPct})</span>
               )}
             </span>
           }
           severity="medium"
           sub="most-targeted industry"
           icon={<Building2 size={16} />}
+          accent={CYBER_ACCENT.ransomware}
         />
       </div>
 
@@ -363,12 +401,15 @@ export default function SocRansomware(): JSX.Element {
               right={<span className="text-meta font-mono text-slate-500">by share %</span>}
             />
             <SocBar
-              items={(data?.sectors ?? []).slice(0, 8).map((s) => ({
-                label: s.sector,
-                value: s.count,
-                hint: `${s.pct}%`,
-                color: colorForSector(s.sector),
-              }))}
+              items={(() => {
+                const totalSec = sectorSlices.reduce((s, x) => s + x.value, 0);
+                return sectorSlices.slice(0, 8).map((s) => ({
+                  label: s.label,
+                  value: s.value,
+                  hint: totalSec ? `${Math.round((s.value / totalSec) * 100)}%` : undefined,
+                  color: s.color,
+                }));
+              })()}
             />
           </SocPanel>
 
@@ -451,8 +492,12 @@ function RecentClaims({ rows }: { rows: RansomwareVictim[] }): JSX.Element {
                   {v.group}
                 </Link>
               </td>
-              <td className="px-2 py-1.5 text-slate-500 dark:text-slate-400">{v.sector ?? '—'}</td>
-              <td className="px-2 py-1.5 text-slate-500 dark:text-slate-400">{v.country ?? '—'}</td>
+              <td className="px-2 py-1.5 text-slate-500 dark:text-slate-400">
+                {v.sector ? normalizeSector(v.sector) : '—'}
+              </td>
+              <td className="px-2 py-1.5 text-slate-500 dark:text-slate-400">
+                {v.country ? normalizeCountry(v.country) : '—'}
+              </td>
               <td className="px-2 py-1.5 text-slate-500 dark:text-slate-400 text-right tabular-nums">
                 {v.discovered ? v.discovered.slice(0, 10) : '—'}
               </td>

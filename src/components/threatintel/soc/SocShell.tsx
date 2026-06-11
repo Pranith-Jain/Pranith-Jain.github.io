@@ -1,7 +1,16 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, RefreshCw, Download, Loader2, Clock } from 'lucide-react';
-import { SEVERITY_DOT, SEVERITY_PILL, SEVERITY_TEXT, type SocSeverity } from './tone';
+import {
+  CYBER_CANVAS,
+  CYBER_GRID,
+  CYBER_GLOW,
+  CYBER_ACCENT,
+  glowText,
+  defconFor,
+  type SocSeverity,
+  type CyberAccentKey,
+} from './tone';
 import { timeAgo } from './utils';
 
 export type { SocSeverity } from './tone';
@@ -45,6 +54,8 @@ interface SocShellProps {
   meta?: ReactNode;
   /** Short description for under the h1 (matches the IntelDashboard pattern). */
   description?: ReactNode;
+  /** Per-dashboard neon accent key. Drives glow + bracket hues. */
+  accent: CyberAccentKey;
 }
 
 export function SocShell({
@@ -63,6 +74,7 @@ export function SocShell({
   children,
   meta,
   description,
+  accent,
 }: SocShellProps): JSX.Element {
   const [nextRefreshIn, setNextRefreshIn] = useState<number>(autoRefreshMs);
   const onRefreshRef = useRef(onRefresh);
@@ -110,26 +122,44 @@ export function SocShell({
     if (loading) setNextRefreshIn(autoRefreshMs);
   }, [loading, autoRefreshMs]);
 
+  const accentHex = CYBER_ACCENT[accent];
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100">
-      <div className="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8 py-12 text-slate-900 dark:text-slate-100">
+    <div
+      className="dark min-h-screen text-slate-100 relative"
+      style={{
+        backgroundColor: CYBER_CANVAS,
+        backgroundImage: `linear-gradient(${CYBER_GRID} 1px, transparent 1px), linear-gradient(90deg, ${CYBER_GRID} 1px, transparent 1px)`,
+        backgroundSize: '40px 40px',
+      }}
+    >
+      {/* vignette — cheap radial overlay, no blur filter */}
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{ background: 'radial-gradient(ellipse at 50% 0%, rgba(5,7,13,0) 40%, rgba(5,7,13,0.85) 100%)' }}
+      />
+      <div className="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8 py-12 relative">
         <BackLink />
 
         <div className="animate-fade-in-up mb-8">
-          <h1 className="text-3xl sm:text-4xl font-display font-bold flex items-center gap-3">
-            <span className="text-brand-600 dark:text-brand-400 [&_svg]:shrink-0">{icon}</span>
+          <h1 className="text-3xl sm:text-4xl font-display font-bold flex items-center gap-3 text-white uppercase tracking-wide">
+            <span
+              style={{ color: accentHex, filter: `drop-shadow(0 0 6px ${accentHex})` }}
+              className="[&_svg]:shrink-0"
+            >
+              {icon}
+            </span>
             {title}
-            <SocStatusBadge status={status} />
           </h1>
-          {description && (
-            <p className="text-slate-600 dark:text-slate-400 mt-2 max-w-3xl leading-relaxed">{description}</p>
-          )}
-          {meta && <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mt-2">{meta}</p>}
+          <div className="mt-3">
+            <SocDefconBanner status={status} />
+          </div>
+          {description && <p className="text-slate-400 mt-3 max-w-3xl leading-relaxed">{description}</p>}
+          {meta && <p className="text-xs text-slate-500 font-mono mt-2">{meta}</p>}
         </div>
 
         {/* Controls */}
         <div className="mb-8 flex flex-wrap items-center gap-2">
-          <div className="inline-flex rounded-lg border border-slate-200 dark:border-slate-800 overflow-hidden">
+          <div className="inline-flex rounded-sm border border-slate-700/60 overflow-hidden">
             {windows.map((w) => {
               const on = w.days === windowDays;
               return (
@@ -138,11 +168,10 @@ export function SocShell({
                   type="button"
                   onClick={() => onWindowChange(w.days)}
                   aria-label={`${w.days} day window`}
-                  className={`text-meta font-mono px-3 py-1.5 transition-colors ${
-                    on
-                      ? 'bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                      : 'bg-white dark:bg-slate-900 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'
-                  }`}
+                  className="text-meta font-mono px-3 py-1.5 transition-colors bg-slate-900/60 text-slate-400 hover:bg-slate-800"
+                  style={
+                    on ? { color: accentHex, borderColor: accentHex, backgroundColor: `${accentHex}1f` } : undefined
+                  }
                 >
                   {w.label}
                 </button>
@@ -155,12 +184,12 @@ export function SocShell({
             onClick={onRefresh}
             disabled={loading}
             aria-label="Refresh dashboard data"
-            className="inline-flex items-center gap-1.5 text-meta font-mono px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 hover:border-brand-500/40 disabled:opacity-50 transition-colors"
+            className="inline-flex items-center gap-1.5 text-meta font-mono px-3 py-1.5 rounded-sm border border-slate-700/60 bg-slate-900/60 text-slate-300 hover:border-slate-500 disabled:opacity-50 transition-colors"
           >
             {loading ? <Loader2 size={12} className="animate-spin" /> : <RefreshCw size={12} />}
             refresh
             {autoRefreshMs > 0 && !loading && (
-              <span className="text-slate-400 dark:text-slate-500">· {Math.ceil(nextRefreshIn / 1000)}s</span>
+              <span className="text-slate-500">· {Math.ceil(nextRefreshIn / 1000)}s</span>
             )}
           </button>
 
@@ -168,18 +197,18 @@ export function SocShell({
             type="button"
             onClick={onExport}
             aria-label="Export data as CSV"
-            className="inline-flex items-center gap-1.5 text-meta font-mono px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 hover:border-brand-500/40 transition-colors"
+            className="inline-flex items-center gap-1.5 text-meta font-mono px-3 py-1.5 rounded-sm border border-slate-700/60 bg-slate-900/60 text-slate-300 hover:border-slate-500 transition-colors"
           >
             <Download size={12} /> export csv
           </button>
 
           {generatedAt && (
-            <span className="hidden sm:inline-flex items-center gap-1.5 text-meta font-mono text-slate-500 dark:text-slate-400 ml-1">
+            <span className="hidden sm:inline-flex items-center gap-1.5 text-meta font-mono text-slate-500 ml-1">
               <Clock size={12} /> updated {timeAgo(generatedAt)}
             </span>
           )}
 
-          {error && <span className="text-meta font-mono text-rose-600 dark:text-rose-400 ml-2">{error}</span>}
+          {error && <span className="text-meta font-mono text-rose-400 ml-2">{error}</span>}
         </div>
 
         {loading ? <SocSkeleton /> : children}
@@ -191,16 +220,14 @@ export function SocShell({
 /* ─── Loading skeleton (shimmer placeholders for the full grid) ──── */
 
 function SocSkeleton(): JSX.Element {
-  const shimmer = 'animate-pulse rounded bg-slate-200 dark:bg-slate-800';
+  const shimmer = 'animate-pulse rounded bg-slate-800';
+  const card = 'rounded-sm border border-slate-700/50 bg-slate-950/40 p-4 sm:p-5';
   return (
     <div className="space-y-6" aria-label="Loading dashboard">
       {/* KPI skeleton row */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
         {[1, 2, 3].map((i) => (
-          <div
-            key={i}
-            className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 sm:p-5"
-          >
+          <div key={i} className={card}>
             <div className={`${shimmer} h-3 w-16 mb-3`} />
             <div className={`${shimmer} h-7 w-24 mb-2`} />
             <div className={`${shimmer} h-3 w-32`} />
@@ -210,10 +237,7 @@ function SocSkeleton(): JSX.Element {
       {/* Chart skeleton row */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 sm:gap-4">
         {[1, 2, 3].map((i) => (
-          <div
-            key={i}
-            className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 sm:p-5"
-          >
+          <div key={i} className={card}>
             <div className={`${shimmer} h-3 w-24 mb-6`} />
             <div className={`${shimmer} h-32 w-full`} />
           </div>
@@ -222,10 +246,7 @@ function SocSkeleton(): JSX.Element {
       {/* Second chart skeleton row */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 sm:gap-4">
         {[1, 2, 3].map((i) => (
-          <div
-            key={i}
-            className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 sm:p-5"
-          >
+          <div key={i} className={card}>
             <div className={`${shimmer} h-3 w-20 mb-6`} />
             <div className={`${shimmer} h-24 w-full`} />
           </div>
@@ -248,18 +269,26 @@ function BackLink(): JSX.Element {
   );
 }
 
-/* ─── Status badge (small, severity-colored, sits next to the h1) ──── */
+/* ─── DEFCON banner (severity-driven status line under the h1) ──────── */
 
-function SocStatusBadge({ status }: { status: SocStatus }): JSX.Element {
+function SocDefconBanner({ status }: { status: SocStatus }): JSX.Element {
+  const { defcon, label } = defconFor(status.severity, status.label);
+  const glow = CYBER_GLOW[status.severity];
   return (
     <span
-      className={`inline-flex items-center gap-1.5 ml-1 px-2 py-0.5 rounded-full text-mini font-mono uppercase tracking-wider border ${SEVERITY_PILL[status.severity]}`}
+      className="inline-flex items-center gap-2 px-3 py-1 rounded-sm text-mini font-mono uppercase tracking-[0.2em] border"
+      style={{
+        color: glow,
+        borderColor: `${glow}66`,
+        backgroundColor: `${glow}14`,
+        textShadow: glowText(glow, 8, '88'),
+      }}
     >
-      <span className={`relative flex h-1.5 w-1.5`}>
-        <span className={`absolute inset-0 rounded-full ${SEVERITY_DOT[status.severity]} opacity-75 animate-ping`} />
-        <span className={`relative inline-flex rounded-full h-1.5 w-1.5 ${SEVERITY_DOT[status.severity]}`} />
+      <span className="relative flex h-1.5 w-1.5">
+        <span className="absolute inset-0 rounded-full opacity-75 animate-ping" style={{ backgroundColor: glow }} />
+        <span className="relative inline-flex rounded-full h-1.5 w-1.5" style={{ backgroundColor: glow }} />
       </span>
-      {status.label}
+      {defcon} · {label}
     </span>
   );
 }
@@ -278,9 +307,7 @@ export function SocSection({
   return (
     <section className="mb-4">
       <div className="flex items-center justify-between gap-3 mb-3">
-        <h2 className="text-sm font-bold uppercase tracking-[0.15em] text-brand-600 dark:text-brand-400 font-mono">
-          {title}
-        </h2>
+        <h2 className="text-sm font-bold uppercase tracking-[0.15em] text-slate-300 font-mono">{title}</h2>
         {right}
       </div>
       {children}
@@ -298,6 +325,8 @@ export function SocKpi({
   delta,
   deltaDirection = 'up',
   icon,
+  accent,
+  spark,
 }: {
   label: string;
   value: ReactNode;
@@ -308,27 +337,38 @@ export function SocKpi({
   /** '+' / '−' / '~' — 'up' rose, 'down' emerald, 'flat' slate. */
   deltaDirection?: 'up' | 'down' | 'flat';
   icon?: ReactNode;
+  /** Per-dashboard neon accent hex — drives the corner-bracket hue. */
+  accent?: string;
+  /** Optional sparkline / mini-chart rendered under the numeral. */
+  spark?: ReactNode;
 }): JSX.Element {
   const deltaCls =
-    deltaDirection === 'up'
-      ? 'text-rose-600 dark:text-rose-400'
-      : deltaDirection === 'down'
-        ? 'text-emerald-600 dark:text-emerald-400'
-        : 'text-slate-500 dark:text-slate-400';
+    deltaDirection === 'up' ? 'text-rose-400' : deltaDirection === 'down' ? 'text-emerald-400' : 'text-slate-400';
+  const glow = CYBER_GLOW[severity];
+  const bracket = accent ?? glow;
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 sm:p-5">
+    <div className="relative rounded-sm border border-slate-700/50 bg-slate-950/40 p-4 sm:p-5 overflow-hidden">
+      {/* corner brackets */}
+      <span
+        className="pointer-events-none absolute top-1 left-1 h-3 w-3 border-t-2 border-l-2"
+        style={{ borderColor: bracket }}
+      />
+      <span
+        className="pointer-events-none absolute bottom-1 right-1 h-3 w-3 border-b-2 border-r-2"
+        style={{ borderColor: bracket }}
+      />
       <div className="flex items-center justify-between mb-2">
-        <span className="text-mini font-mono uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">
-          {label}
-        </span>
-        {icon && <span className="text-slate-400 dark:text-slate-500">{icon}</span>}
+        <span className="text-mini font-mono uppercase tracking-[0.18em] text-slate-400">{label}</span>
+        {icon && <span className="text-slate-500">{icon}</span>}
       </div>
       <div
-        className={`font-mono font-extrabold leading-none tabular-nums text-3xl sm:text-4xl ${SEVERITY_TEXT[severity]}`}
+        className="font-mono font-extrabold leading-none tabular-nums text-3xl sm:text-4xl"
+        style={{ color: glow, textShadow: glowText(glow) }}
       >
         {value}
       </div>
-      <div className="mt-2 flex items-center justify-between gap-2 text-meta font-mono text-slate-500 dark:text-slate-400">
+      {spark && <div className="mt-2">{spark}</div>}
+      <div className="mt-2 flex items-center justify-between gap-2 text-meta font-mono text-slate-400">
         <span className="truncate">{sub}</span>
         {delta && <span className={deltaCls}>{delta}</span>}
       </div>
@@ -340,10 +380,6 @@ export function SocKpi({
 
 export function SocPanel({ className = '', children }: { className?: string; children: ReactNode }): JSX.Element {
   return (
-    <div
-      className={`rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 sm:p-5 ${className}`}
-    >
-      {children}
-    </div>
+    <div className={`rounded-sm border border-slate-700/50 bg-slate-950/40 p-4 sm:p-5 ${className}`}>{children}</div>
   );
 }

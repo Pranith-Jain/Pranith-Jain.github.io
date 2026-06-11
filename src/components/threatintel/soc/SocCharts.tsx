@@ -1,5 +1,6 @@
 import { useState, type ReactNode } from 'react';
-import { CHART_RANK } from './tone';
+import { CHART_RANK, glowBox } from './tone';
+import { groupSmallSlices } from './slices';
 import { formatNumber } from './utils';
 
 /* ─── Horizontal bar chart with hover tooltip + click-through ──────── */
@@ -73,7 +74,7 @@ export function SocBar({
                   x2={w - 8}
                   y2={y}
                   stroke="currentColor"
-                  className="text-slate-200 dark:text-slate-800"
+                  className="text-slate-800"
                   strokeDasharray="2 3"
                 />
                 <text
@@ -81,7 +82,7 @@ export function SocBar({
                   y={y + 3}
                   textAnchor="end"
                   fontSize="10"
-                  className="fill-slate-400"
+                  className="fill-slate-500"
                   fontFamily="ui-monospace,monospace"
                 >
                   {fmt(Math.round(ceiling * t))}
@@ -111,6 +112,7 @@ export function SocBar({
                   fill={fill}
                   opacity={isHover ? 0.85 : 1}
                   rx={1}
+                  style={{ filter: isHover ? `drop-shadow(0 0 4px ${fill})` : 'none' }}
                 />
                 {isHover && h > 14 && (
                   <text
@@ -118,8 +120,7 @@ export function SocBar({
                     y={y - 3}
                     textAnchor="middle"
                     fontSize="10"
-                    fill="currentColor"
-                    className="fill-slate-700 dark:fill-slate-200"
+                    className="fill-slate-200"
                     fontFamily="ui-monospace,monospace"
                   >
                     {fmt(it.value)}
@@ -157,19 +158,19 @@ export function SocBar({
                 onClick={() => onItemClick?.(it, i)}
                 onMouseEnter={() => setHover(i)}
                 onMouseLeave={() => setHover(null)}
-                className={`text-left truncate text-slate-700 dark:text-slate-300 ${onItemClick ? 'hover:text-brand-600 dark:hover:text-brand-400 cursor-pointer' : 'cursor-default'}`}
+                className={`text-left truncate text-slate-300 ${onItemClick ? 'hover:text-white cursor-pointer' : 'cursor-default'}`}
                 title={it.label}
               >
                 {it.label}
               </button>
-              <span className="text-slate-500 tabular-nums shrink-0 flex items-center gap-1.5">
+              <span className="text-slate-400 tabular-nums shrink-0 flex items-center gap-1.5">
                 {fmt(it.value)}
-                {it.hint && <span className="text-slate-400">{it.hint}</span>}
+                {it.hint && <span className="text-slate-500">{it.hint}</span>}
                 {it.meta}
               </span>
             </div>
             <div
-              className="h-1.5 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden"
+              className="h-1.5 rounded-full bg-slate-800 overflow-hidden"
               onMouseEnter={() => setHover(i)}
               onMouseLeave={() => setHover(null)}
             >
@@ -178,7 +179,8 @@ export function SocBar({
                 style={{
                   width: `${Math.max(1.5, pct)}%`,
                   backgroundColor: color,
-                  opacity: isHover ? 0.8 : 1,
+                  opacity: isHover ? 0.85 : 1,
+                  boxShadow: glowBox(color),
                 }}
                 aria-label={`${it.label}: ${fmt(it.value)}`}
               />
@@ -187,7 +189,7 @@ export function SocBar({
         );
       })}
       {axis && (
-        <li className="flex justify-between text-mini text-slate-400 dark:text-slate-500 font-mono pt-1">
+        <li className="flex justify-between text-mini text-slate-500 font-mono pt-1">
           <span>0</span>
           <span>{fmt(Math.round(ceiling / 2))}</span>
           <span>{fmt(ceiling)}</span>
@@ -221,17 +223,24 @@ interface SocDonutProps {
   /** Render slices as a vertical legend instead of an inline label box. */
   legend?: boolean;
   emptyText?: string;
+  /** Fraction below which slices fold into "Other". Default 0.02 (2%). Pass 0
+   *  to disable grouping for small fixed taxonomies (severity, IOC kind) where
+   *  every category is meaningful and "Other" would hide real data. */
+  groupThreshold?: number;
 }
 
 export function SocDonut({
-  slices,
+  slices: rawSlices,
   size = 200,
   thickness = 28,
   centerLabel,
   centerSub,
   legend = false,
   emptyText = 'No data in window.',
+  groupThreshold = 0.02,
 }: SocDonutProps): JSX.Element {
+  // Fold sub-threshold slivers into a single "Other" so the ring stays readable.
+  const slices = groupSmallSlices(rawSlices, groupThreshold);
   const [hover, setHover] = useState<string | null>(null);
   const total = slices.reduce((s, x) => s + x.value, 0);
 
@@ -244,6 +253,8 @@ export function SocDonut({
   const circumference = 2 * Math.PI * r;
   let cumulative = 0;
 
+  // Layout: stack on narrow, side-by-side when a `legend` layout is requested.
+  // Either way the legend list is ALWAYS rendered — value + % — for readability.
   return (
     <div className={legend ? 'grid sm:grid-cols-[auto_1fr] gap-4 items-center' : ''}>
       <div className="relative inline-block">
@@ -261,7 +272,7 @@ export function SocDonut({
             r={r}
             fill="none"
             stroke="currentColor"
-            className="text-slate-200 dark:text-slate-800"
+            className="text-slate-800"
             strokeWidth={thickness}
           />
           {slices.map((s, i) => {
@@ -283,7 +294,12 @@ export function SocDonut({
                 transform={`rotate(-90 ${c} ${c})`}
                 onMouseEnter={() => setHover(s.label)}
                 onMouseLeave={() => setHover(null)}
-                style={{ transition: 'opacity 120ms ease', cursor: 'pointer', opacity: hover === s.label ? 0.8 : 1 }}
+                style={{
+                  transition: 'opacity 120ms ease',
+                  cursor: 'pointer',
+                  opacity: hover === s.label ? 1 : hover ? 0.4 : 1,
+                  filter: hover === s.label ? `drop-shadow(0 0 4px ${s.color})` : 'none',
+                }}
               >
                 <title>
                   {s.label}: {s.value.toLocaleString('en-US')} ({((s.value / total) * 100).toFixed(1)}%)
@@ -296,59 +312,37 @@ export function SocDonut({
           <div className="absolute inset-0 grid place-items-center text-center pointer-events-none">
             <div>
               {centerLabel && (
-                <div className="font-mono font-bold text-xl text-slate-900 dark:text-slate-100 tabular-nums">
-                  {centerLabel}
-                </div>
+                <div className="font-mono font-bold text-xl text-slate-100 tabular-nums">{centerLabel}</div>
               )}
               {centerSub && (
-                <div className="text-mini font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mt-0.5">
-                  {centerSub}
-                </div>
+                <div className="text-mini font-mono uppercase tracking-wider text-slate-400 mt-0.5">{centerSub}</div>
               )}
             </div>
           </div>
         )}
       </div>
 
-      {legend ? (
-        <ul className="space-y-1.5 text-meta font-mono">
-          {slices
-            .slice()
-            .sort((a, b) => b.value - a.value)
-            .map((s) => (
-              <li
-                key={s.label}
-                className={`flex items-center gap-2 rounded px-1 -mx-1 transition-colors ${
-                  hover === s.label ? 'bg-slate-100 dark:bg-slate-800/60' : ''
-                }`}
-                onMouseEnter={() => setHover(s.label)}
-                onMouseLeave={() => setHover(null)}
-              >
-                <span className="inline-block h-2.5 w-2.5 rounded-sm shrink-0" style={{ backgroundColor: s.color }} />
-                <span className="truncate text-slate-700 dark:text-slate-300">{s.label}</span>
-                <span className="ml-auto text-slate-500 tabular-nums">
-                  {s.value.toLocaleString('en-US')}{' '}
-                  <span className="text-slate-400">({((s.value / total) * 100).toFixed(1)}%)</span>
-                </span>
-              </li>
-            ))}
-        </ul>
-      ) : (
-        <ul className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-x-3 gap-y-1 text-meta font-mono">
-          {slices.map((s) => (
-            <li
-              key={s.label}
-              className="flex items-center gap-2"
-              onMouseEnter={() => setHover(s.label)}
-              onMouseLeave={() => setHover(null)}
-            >
-              <span className="inline-block h-2 w-2 rounded-sm shrink-0" style={{ backgroundColor: s.color }} />
-              <span className="truncate text-slate-700 dark:text-slate-300">{s.label}</span>
-              <span className="ml-auto text-slate-500 tabular-nums">{((s.value / total) * 100).toFixed(1)}%</span>
-            </li>
-          ))}
-        </ul>
-      )}
+      <ul className={`text-meta font-mono ${legend ? 'space-y-1.5' : 'mt-3 space-y-1'}`}>
+        {slices.map((s) => (
+          <li
+            key={s.label}
+            className={`flex items-center gap-2 rounded px-1 -mx-1 transition-colors ${
+              hover === s.label ? 'bg-slate-800/60' : ''
+            }`}
+            onMouseEnter={() => setHover(s.label)}
+            onMouseLeave={() => setHover(null)}
+          >
+            <span className="inline-block h-2.5 w-2.5 rounded-sm shrink-0" style={{ backgroundColor: s.color }} />
+            <span className="truncate text-slate-300" title={s.label}>
+              {s.label}
+            </span>
+            <span className="ml-auto text-slate-400 tabular-nums shrink-0">
+              {s.value.toLocaleString('en-US')}{' '}
+              <span className="text-slate-500">({((s.value / total) * 100).toFixed(1)}%)</span>
+            </span>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
@@ -418,7 +412,7 @@ export function SocSparkline({
                 x2={w - 8}
                 y2={y}
                 stroke="currentColor"
-                className="text-slate-200 dark:text-slate-800"
+                className="text-slate-800"
                 strokeDasharray="2 3"
               />
               <text
@@ -426,7 +420,7 @@ export function SocSparkline({
                 y={y + 3}
                 textAnchor="end"
                 fontSize="10"
-                className="fill-slate-400"
+                className="fill-slate-500"
                 fontFamily="ui-monospace,monospace"
               >
                 {Math.round(max * t)}

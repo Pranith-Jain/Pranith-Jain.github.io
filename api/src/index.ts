@@ -973,6 +973,10 @@ app.get('/api/v1/copilot/investigate', copilotInvestigateHandler);
 app.post('/api/v1/report/build', validate('json', reportBuildSchema), buildReportHandler);
 app.get('/api/v1/report/:id', getReportHandler);
 app.get('/api/v1/report/:id/stream', streamReportHandler);
+// File ingestion (SP2): upload PDF/DOCX/image/HTML/text → STIX bundle. Admin-gated
+// via the /api/v1/report ADMIN_GATED_PREFIXES entry (untrusted uploads trigger
+// Workers AI vision OCR + a provider fan-out, so it must not be anonymous).
+app.post('/api/v1/report/ingest', reportIngestHandler);
 app.post('/api/v1/automation/run', validate('json', automationRunSchema), automationRunHandler);
 app.get('/api/v1/maltiverse/search', maltiverseSearchHandler);
 app.get('/api/v1/inquest/search', inquestSearchHandler);

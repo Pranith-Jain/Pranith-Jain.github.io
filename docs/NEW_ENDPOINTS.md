@@ -156,3 +156,37 @@ npm test
 Test files:
 
 - `test/routes/domain-advanced.test.ts` - Domain rep/monitor tests (6 tests)
+
+---
+
+## Report Ingestion (SP2)
+
+### POST `/api/v1/report/ingest` (multipart/form-data)
+
+Upload a threat report (PDF / DOCX / image / HTML / text) → extract its text →
+run it through the existing `buildStixBundle` pipeline → return the same
+`{ bundle, view }` as `intel-bundle/build`.
+
+**Auth:** admin-gated (covered by the `/api/v1/report` `ADMIN_GATED_PREFIXES`
+entry) — untrusted uploads trigger Workers AI vision OCR + a provider fan-out, so
+the route must not be anonymous. The frontend page sends `adminAuthHeaders()`.
+
+**Fields:** `file` (required), `tlp` (`WHITE`|`AMBER`, default `AMBER`),
+`sourceName` (optional; defaults to the filename).
+
+**Extraction routing (free-plan 10 ms CPU cap aware):**
+
+- `text` / `html` → in-Worker strip (CPU-cheap).
+- `image` (PNG/JPG) → Workers AI vision OCR (I/O-bound; consumes neuron budget).
+- `pdf` / `docx` → optional self-hosted `file2txt` bridge. If
+  `FILE2TXT_BRIDGE_URL` is unset, these return **503** with a setup hint (the
+  bridge is dormant-by-default and never breaks the deploy). In-Worker PDF/DOCX
+  parsing is infeasible on the free 10 ms CPU cap.
+
+**Errors:** 400 (missing/invalid multipart) · 413 (>10 MB own cap, multipart is
+exempt from the global 256 KB `looseValidation` cap) · 415 (unsupported type) ·
+422 (no usable text) · 502 (enrichment/build failed) · 503 (PDF/DOCX, bridge
+unset).
+
+**Frontend:** `/dfir/report-ingest` (`src/pages/dfir/ReportIngest.tsx`) — drag-drop
+→ renders the `IntelView` summary + STIX bundle, with `.stix.json` export.
