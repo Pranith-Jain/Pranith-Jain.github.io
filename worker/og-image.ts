@@ -1,16 +1,13 @@
 /**
- * Dynamic OG image generator for blog posts and briefings.
+ * Dynamic OG card generator for blog posts and briefings.
  *
- * Generates SVG-based social preview images at the edge in <5ms.
- * SVG is natively supported as og:image by Twitter, Facebook, LinkedIn,
- * Slack, Discord, and Telegram. No rasterisation needed — the SVG IS
- * the image.
+ * Produces the SVG for a 1200×630 social preview card. NOTE: X (Twitter) and
+ * LinkedIn do NOT render an `og:image` that points at SVG — `og-raster.ts`
+ * rasterises this to PNG before it is served (`og-route.ts`) or uploaded as
+ * post media. Keep the markup strict/well-formed: resvg's XML parser is far
+ * less forgiving than a browser's.
  *
- * Route: /api/v1/og-image/:type/:slug
- *   - type: 'blog' | 'briefing'
- *   - slug: the post/briefing slug
- *
- * Returns: image/svg+xml with Cache-Control for 24h.
+ * Consumed by: og-route.ts (HTTP card) and og-data.ts (data → OgImageData).
  */
 
 const WIDTH = 1200;
@@ -50,12 +47,47 @@ function wrapTitle(title: string, maxCharsPerLine: number): string[] {
   return lines.slice(0, 3); // Max 3 lines
 }
 
-interface OgImageData {
+/**
+ * Briefing "data viz" stats rendered as a chip row on the card. All optional —
+ * a stat is only drawn when its value is a positive number, so a sparse
+ * briefing simply shows fewer chips. `critical` is highlighted in rose.
+ */
+export interface OgStats {
+  findings?: number;
+  cves?: number;
+  critical?: number;
+  high?: number;
+}
+
+export interface OgImageData {
   title: string;
   subtitle: string;
   type: 'blog' | 'briefing' | 'research' | 'default';
   date?: string;
   tags?: string[];
+  /** Briefing-only stats strip. When present (and type==='briefing'), the
+   *  stats row replaces the generic tag row in the same vertical slot. */
+  stats?: OgStats;
+}
+
+/** Render the briefing stats strip (numbers + labels) into the y≈470 band that
+ *  otherwise holds the tag chips. Returns '' when there are no positive stats. */
+function renderStats(stats: OgStats, accentSecondary: string): string {
+  const cells: Array<{ value: number; label: string; color: string }> = [];
+  if (stats.findings && stats.findings > 0)
+    cells.push({ value: stats.findings, label: 'FINDINGS', color: accentSecondary });
+  if (stats.cves && stats.cves > 0) cells.push({ value: stats.cves, label: 'CVEs', color: accentSecondary });
+  if (stats.critical && stats.critical > 0) cells.push({ value: stats.critical, label: 'CRITICAL', color: '#fb7185' });
+  if (stats.high && stats.high > 0) cells.push({ value: stats.high, label: 'HIGH', color: '#fbbf24' });
+  if (cells.length === 0) return '';
+  return cells
+    .slice(0, 4)
+    .map((cell, i) => {
+      const x = 80 + i * 180;
+      return `<text x="${x}" y="492" fill="${cell.color}" font-family="'Hanken Grotesk', 'Inter', sans-serif" font-size="40" font-weight="800">${cell.value}</text>
+      <text x="${x + 2}" y="514" fill="#64748b" font-family="'SF Mono', monospace" font-size="13" font-weight="600" letter-spacing="2">${esc(cell.label)}</text>`;
+    })
+    .join('\n      ');
 }
 
 /**
@@ -95,6 +127,11 @@ export function generateOgSvg(data: OgImageData): string {
   const titleTspans = titleLines
     .map((line, i) => `<tspan x="80" dy="${i === 0 ? 0 : 68}">${esc(line)}</tspan>`)
     .join('\n          ');
+
+  // Briefing stats strip occupies the same vertical slot as the tag chips.
+  // When present it takes precedence (the "data viz" the card opts into);
+  // blogs and statless briefings fall back to the tag chips.
+  const statsRow = type === 'briefing' && data.stats ? renderStats(data.stats, accent.secondary) : '';
 
   // Tags
   const tagElements = (tags ?? [])
@@ -137,10 +174,10 @@ export function generateOgSvg(data: OgImageData): string {
   <rect x="80" y="140" rx="4" ry="4" width="${typeLabel[type]?.length ? typeLabel[type].length * 13.5 + 24 : 120}" height="36" fill="${accent.badge}"/>
   <text x="92" y="165" fill="white" font-family="'SF Mono', 'Fira Code', 'Cascadia Code', monospace" font-size="16" font-weight="700" letter-spacing="2">${esc(typeLabel[type] ?? 'PRANITH JAIN')}</text>
 
-  <!-- Title -->
-  <text fill="white" font-family="'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif" font-size="56" font-weight="800" line-height="1.15">
-    <tspan x="80" y="${titleY}">${esc(titleLines[0] ?? '')}</tspan>
-          ${titleTspans.replace(`<tspan x="80" dy="0">`, '')}
+  <!-- Title: one text element, one tspan per wrapped line; the first tspan
+       dy=0 anchors at titleY, the rest step down by 68px. -->
+  <text x="80" y="${titleY}" fill="white" font-family="'Hanken Grotesk', 'Inter', system-ui, sans-serif" font-size="56" font-weight="800">
+    ${titleTspans}
   </text>
 
   <!-- Subtitle / excerpt -->
@@ -148,8 +185,8 @@ export function generateOgSvg(data: OgImageData): string {
     <tspan x="80" y="${titleY + titleLines.length * 68 + 30}">${esc(truncate(subtitle, 90))}</tspan>
   </text>
 
-  <!-- Tags -->
-  ${tagElements}
+  <!-- Tags / briefing stats -->
+  ${statsRow || tagElements}
 
   <!-- Bottom bar -->
   <rect x="0" y="580" width="${WIDTH}" height="50" fill="#0f172a" opacity="0.6"/>

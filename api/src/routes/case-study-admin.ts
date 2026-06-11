@@ -43,6 +43,25 @@ import {
 import { putDraft } from '../case-study/storage/drafts';
 
 /**
+ * Fetch the dynamic OG card PNG for a post via the SELF service binding, so it
+ * can be uploaded as post media. The card route lives at the worker level
+ * (`/api/v1/og-image/...`) and is anonymous, so no key is needed. Returns
+ * undefined on any miss — the poster then posts text-only (no hard failure).
+ */
+async function fetchOgCardPng(env: Env, type: 'blog' | 'briefing', slug: string): Promise<Uint8Array | undefined> {
+  try {
+    const fetcher = env.SELF ?? { fetch: globalThis.fetch };
+    const origin = getSiteUrl(env).replace(/\/$/, '');
+    const res = await fetcher.fetch(new Request(`${origin}/api/v1/og-image/${type}/${slug}.png`));
+    if (!res.ok) return undefined;
+    const bytes = new Uint8Array(await res.arrayBuffer());
+    return bytes.length > 0 ? bytes : undefined;
+  } catch {
+    return undefined;
+  }
+}
+
+/**
  * Slug validator shared with blog-public.ts — same regex, same reasoning.
  * Admin routes also use it to refuse path-segments like `../foo` or `index`
  * before constructing a KV key like `social:${slug}`. The admin gate runs
@@ -665,12 +684,17 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
     const social = await c.env.CASE_STUDIES.get<string>(csKvKeys.socialTwitter(slug));
     if (!social) return c.json({ error: 'no_twitter_content', hint: 'generate social content first' }, 400);
 
-    const result = await postToTwitter(social, {
-      apiKey: c.env.X_API_KEY ?? '',
-      apiKeySecret: c.env.X_API_KEY_SECRET ?? '',
-      accessToken: c.env.X_ACCESS_TOKEN ?? '',
-      accessTokenSecret: c.env.X_ACCESS_TOKEN_SECRET ?? '',
-    });
+    const image = await fetchOgCardPng(c.env, 'blog', slug);
+    const result = await postToTwitter(
+      social,
+      {
+        apiKey: c.env.X_API_KEY ?? '',
+        apiKeySecret: c.env.X_API_KEY_SECRET ?? '',
+        accessToken: c.env.X_ACCESS_TOKEN ?? '',
+        accessTokenSecret: c.env.X_ACCESS_TOKEN_SECRET ?? '',
+      },
+      image
+    );
 
     if (!result.ok) return c.json(result, 400);
 
@@ -686,19 +710,21 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
       return c.json({ ok: false, platform: 'linkedin', error: 'linkedin_token_missing' }, 503);
     }
 
+    const image = await fetchOgCardPng(c.env, 'blog', slug);
+
     const social = await c.env.CASE_STUDIES.get<string>(csKvKeys.socialLinkedin(slug));
     if (!social) {
       // Fall back to combined social key
       const combined = await c.env.CASE_STUDIES.get<SocialContent>(csKvKeys.social(slug), 'json');
       if (!combined?.linkedin)
         return c.json({ error: 'no_linkedin_content', hint: 'generate social content first' }, 400);
-      const result = await postToLinkedin(combined.linkedin, c.env.LINKEDIN_ACCESS_TOKEN);
+      const result = await postToLinkedin(combined.linkedin, c.env.LINKEDIN_ACCESS_TOKEN, image);
       if (!result.ok) return c.json(result, 400);
       await markSocialPosted(c.env.CASE_STUDIES, slug, 'linkedin');
       return c.json(result);
     }
 
-    const result = await postToLinkedin(social, c.env.LINKEDIN_ACCESS_TOKEN);
+    const result = await postToLinkedin(social, c.env.LINKEDIN_ACCESS_TOKEN, image);
     if (!result.ok) return c.json(result, 400);
 
     await markSocialPosted(c.env.CASE_STUDIES, slug, 'linkedin');

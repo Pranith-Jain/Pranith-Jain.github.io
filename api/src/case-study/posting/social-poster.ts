@@ -33,11 +33,39 @@ export interface PostResult {
 }
 
 /**
+ * Upload a PNG to Twitter's v1.1 media endpoint and return its media_id.
+ * Multipart form upload — only the OAuth params are signed (the binary body
+ * is not part of the OAuth 1.0a signature base for multipart/form-data).
+ * Returns undefined on any failure so the caller can post without media.
+ */
+async function uploadTwitterMedia(image: Uint8Array, creds: TwitterCredentials): Promise<string | undefined> {
+  const url = 'https://upload.twitter.com/1.1/media/upload.json';
+  try {
+    const form = new FormData();
+    form.append('media', new Blob([image], { type: 'image/png' }));
+    form.append('media_category', 'tweet_image');
+    const authHeader = await buildOAuth1Header('POST', url, creds);
+    const res = await fetch(url, { method: 'POST', headers: { Authorization: authHeader }, body: form });
+    if (!res.ok) {
+      console.error('twitter media upload failed:', res.status, await res.text());
+      return undefined;
+    }
+    const data = (await res.json()) as { media_id_string?: string };
+    return data.media_id_string;
+  } catch (err) {
+    console.error('twitter media upload error:', err instanceof Error ? err.message : String(err));
+    return undefined;
+  }
+}
+
+/**
  * Post a thread to X/Twitter API v2 using OAuth 1.0a user context.
  * Each post segment becomes a separate tweet linked via reply.
  * The "FIRST REPLY:" link is posted as the first reply tweet.
+ * When `image` is provided it is uploaded once and attached to the FIRST tweet
+ * (the card the unfurl shows); upload failure degrades to a text-only thread.
  */
-export async function postToTwitter(text: string, creds: TwitterCredentials): Promise<PostResult> {
+export async function postToTwitter(text: string, creds: TwitterCredentials, image?: Uint8Array): Promise<PostResult> {
   if (!creds.apiKey || !creds.apiKeySecret || !creds.accessToken || !creds.accessTokenSecret) {
     return { ok: false, platform: 'twitter', error: 'twitter_credentials_missing' };
   }
@@ -46,7 +74,10 @@ export async function postToTwitter(text: string, creds: TwitterCredentials): Pr
   const posts = parseTwitterPosts(parts.body);
   const linkText = parts.link?.value ?? '';
 
+  const mediaId = image && image.length > 0 ? await uploadTwitterMedia(image, creds) : undefined;
+
   let prevTweetId: string | undefined;
+  let isFirst = true;
 
   try {
     for (const post of posts) {
@@ -54,6 +85,10 @@ export async function postToTwitter(text: string, creds: TwitterCredentials): Pr
       if (prevTweetId) {
         body.reply = { in_reply_to_tweet_id: prevTweetId };
       }
+      if (isFirst && mediaId) {
+        body.media = { media_ids: [mediaId] };
+      }
+      isFirst = false;
 
       const authHeader = await buildOAuth1Header('POST', 'https://api.twitter.com/2/tweets', creds);
       const res = await fetch('https://api.twitter.com/2/tweets', {
@@ -104,10 +139,68 @@ export async function postToTwitter(text: string, creds: TwitterCredentials): Pr
 }
 
 /**
+ * Upload a PNG to LinkedIn via the v2 Assets API and return its asset URN.
+ * Two steps: registerUpload (reserve an asset + signed upload URL), then PUT
+ * the binary to that URL. Returns undefined on any failure so the caller can
+ * post text-only. `ownerUrn` is the author the asset belongs to.
+ */
+async function uploadLinkedinImage(
+  image: Uint8Array,
+  accessToken: string,
+  ownerUrn: string
+): Promise<string | undefined> {
+  try {
+    const regRes = await fetch('https://api.linkedin.com/v2/assets?action=registerUpload', {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        'Content-Type': 'application/json',
+        'X-Restli-Protocol-Version': '2.0.0',
+      },
+      body: JSON.stringify({
+        registerUploadRequest: {
+          recipes: ['urn:li:digitalmediaRecipe:feedshare-image'],
+          owner: ownerUrn,
+          serviceRelationships: [{ relationshipType: 'OWNER', identifier: 'urn:li:userGeneratedContent' }],
+        },
+      }),
+    });
+    if (!regRes.ok) {
+      console.error('linkedin registerUpload failed:', regRes.status, await regRes.text());
+      return undefined;
+    }
+    const reg = (await regRes.json()) as {
+      value?: { asset?: string; uploadMechanism?: Record<string, { uploadUrl?: string }> };
+    };
+    const asset = reg.value?.asset;
+    const uploadUrl =
+      reg.value?.uploadMechanism?.['com.linkedin.digitalmedia.uploading.MediaUploadHttpRequest']?.uploadUrl;
+    if (!asset || !uploadUrl) return undefined;
+
+    // Binary upload is a PUT (curl --upload-file) with the bearer token.
+    const putRes = await fetch(uploadUrl, {
+      method: 'PUT',
+      headers: { Authorization: `Bearer ${accessToken}`, 'Content-Type': 'image/png' },
+      body: image,
+    });
+    if (!putRes.ok) {
+      console.error('linkedin image PUT failed:', putRes.status, await putRes.text());
+      return undefined;
+    }
+    return asset;
+  } catch (err) {
+    console.error('linkedin image upload error:', err instanceof Error ? err.message : String(err));
+    return undefined;
+  }
+}
+
+/**
  * Post to LinkedIn API v2 using OAuth 2.0 Bearer token.
  * Gets the user profile to construct author URN, then posts.
+ * When `image` is provided it is uploaded and attached as the share's media
+ * (shareMediaCategory IMAGE); upload failure degrades to a text-only share.
  */
-export async function postToLinkedin(text: string, accessToken: string): Promise<PostResult> {
+export async function postToLinkedin(text: string, accessToken: string, image?: Uint8Array): Promise<PostResult> {
   if (!accessToken) {
     return { ok: false, platform: 'linkedin', error: 'linkedin_token_missing' };
   }
@@ -131,14 +224,21 @@ export async function postToLinkedin(text: string, accessToken: string): Promise
     const profile = (await profileRes.json()) as { sub?: string };
     const authorUrn = `urn:li:person:${profile.sub}`;
 
+    const mediaAsset = image && image.length > 0 ? await uploadLinkedinImage(image, accessToken, authorUrn) : undefined;
+
+    const shareContent: Record<string, unknown> = {
+      shareCommentary: { text: bodyText },
+      shareMediaCategory: mediaAsset ? 'IMAGE' : 'NONE',
+    };
+    if (mediaAsset) {
+      shareContent.media = [{ status: 'READY', media: mediaAsset, title: { text: 'Threat Briefing' } }];
+    }
+
     const postBody = {
       author: authorUrn,
       lifecycleState: 'PUBLISHED',
       specificContent: {
-        'com.linkedin.ugc.ShareContent': {
-          shareCommentary: { text: bodyText },
-          shareMediaCategory: 'NONE',
-        },
+        'com.linkedin.ugc.ShareContent': shareContent,
       },
       visibility: {
         'com.linkedin.ugc.MemberNetworkVisibility': 'PUBLIC',

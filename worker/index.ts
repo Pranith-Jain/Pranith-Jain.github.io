@@ -6,6 +6,7 @@ import { InvestigatorAgentDO } from './durable-objects/investigator-agent';
 import { DfirMcpServer } from './mcp-server';
 import { generateNonce, withSecurityHeaders } from './csp';
 import { fetchPrerenderedOrShell } from './router';
+import { handleOgImage } from './og-route';
 import { handleScheduled } from './scheduled';
 import { handleQueue } from './queue-consumer';
 import { logStartupValidation } from './bindings';
@@ -95,6 +96,18 @@ export default {
       }
       const mcpRes = await DfirMcpServer.serve('/api/mcp', { binding: 'DFIR_MCP' }).fetch(request, env, ctx);
       return withSecurityHeaders(mcpRes);
+    }
+
+    // Dynamic OG card PNGs. Handled here, BEFORE the api-app forward, so the
+    // anonymous crawler fetch bypasses the /api/v1/* key-gate. Never throws —
+    // falls back to a static card on any data/render miss.
+    if (url.pathname.startsWith('/api/v1/og-image/')) {
+      const ogRes = await handleOgImage(request, env, url, ctx);
+      const h = new Headers(ogRes.headers);
+      h.set('x-request-id', requestId);
+      return withSecurityHeaders(
+        new Response(ogRes.body, { status: ogRes.status, statusText: ogRes.statusText, headers: h })
+      );
     }
 
     // Forward to the api app for the explicit /api/* prefix AND for the

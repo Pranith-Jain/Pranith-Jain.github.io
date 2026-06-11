@@ -1,4 +1,5 @@
 import { injectScriptNonce } from './csp';
+import { createD1BriefingRepository } from '../api/src/infrastructure/persistence/d1-briefing-repository';
 import type { Env } from './env';
 
 /**
@@ -205,6 +206,7 @@ function rewriteHtml(html: string, override: OgOverride | null, fullUrl: string,
 export async function resolveOg(url: URL, env: Env): Promise<OgOverride | null> {
   const m = /^\/blog\/([a-z0-9-]{1,200})$/.exec(url.pathname);
   if (m && env.CASE_STUDIES) {
+    const image = `/api/v1/og-image/blog/${m[1]}.png`;
     try {
       const post = (await env.CASE_STUDIES.get(`posts:${m[1]}`, 'json')) as {
         title?: string;
@@ -214,13 +216,38 @@ export async function resolveOg(url: URL, env: Env): Promise<OgOverride | null> 
         return {
           title: `${post.title} · Pranith Jain`,
           description: post.excerpt?.slice(0, 280) || OG_OVERRIDES['/blog']!.description,
+          image,
         };
       }
     } catch {
-      /* fall through to the generic blog card */
+      /* fall through to the generic blog card (still with the dynamic image) */
     }
-    return OG_OVERRIDES['/blog'] ?? null;
+    return { ...(OG_OVERRIDES['/blog'] ?? { title: '', description: '' }), image };
   }
+
+  // Briefing detail pages get a per-briefing card: dynamic PNG image always,
+  // plus the briefing's own title/summary when it can be read from D1. A D1
+  // miss still yields the dynamic image over the generic threat-intel card.
+  const b = /^\/threatintel\/briefings\/([a-z0-9-]{1,200})$/.exec(url.pathname);
+  if (b) {
+    const image = `/api/v1/og-image/briefing/${b[1]}.png`;
+    if (env.BRIEFINGS_DB) {
+      try {
+        const briefing = await createD1BriefingRepository(env.BRIEFINGS_DB).get(b[1]!);
+        if (briefing) {
+          return {
+            title: `${briefing.title} · pranithjain.qzz.io`,
+            description: (briefing.summary || '').slice(0, 280) || OG_OVERRIDES['/threatintel']!.description,
+            image,
+          };
+        }
+      } catch {
+        /* fall through to the generic threat-intel card (still with the image) */
+      }
+    }
+    return { ...(OG_OVERRIDES['/threatintel'] ?? { title: '', description: '' }), image };
+  }
+
   return findOgOverride(url.pathname);
 }
 
