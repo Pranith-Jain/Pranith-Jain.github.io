@@ -1,6 +1,7 @@
 import type { Context } from 'hono';
 import { lookupCve } from '../lib/cve-lookup';
 import { ACTOR_ALIASES } from '../data/threat-actor-aliases';
+import { rankSections } from '../lib/search/rank';
 
 // ── Cache keys (imported where available, hardcoded for internal-only keys) ──
 import { LIVE_IOCS_CACHE_KEY, type LiveIocsResponse } from './live-iocs';
@@ -19,15 +20,17 @@ const MALPEDIA_CACHE_KEY = 'https://malpedia-cache.internal/v2';
 
 // ── Response types ───────────────────────────────────────────────────────────
 
-interface SearchItem {
+export interface SearchItem {
   label: string;
   description?: string;
   url?: string;
   source: string;
   subkind?: string;
+  /** Relevance score (0–100) assigned by rankSections; absent on cold paths. */
+  score?: number;
 }
 
-interface SearchSection {
+export interface SearchSection {
   label: string;
   kind: string;
   total: number;
@@ -659,13 +662,16 @@ export async function unifiedSearchHandler(ctx: Context<{ Bindings: import('../e
     total += r.value.total;
   }
 
-  sections.sort((a, b) => b.total - a.total);
+  // Relevance ranking: items within each section by match score, sections by
+  // their best item (ties fall back to count → preserves the old order when
+  // scores are equal). Replaces the previous count-only sort.
+  const ranked = rankSections(needle, sections);
 
   const response: UnifiedSearchResponse = {
     q: qParam,
     generated_at: new Date().toISOString(),
     total,
-    sections,
+    sections: ranked,
   };
 
   return ctx.json(response, 200, {
