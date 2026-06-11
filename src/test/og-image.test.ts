@@ -1,7 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { generateOgSvg } from '../../worker/og-image';
-import { computeBriefingStats } from '../../worker/og-data';
-import { matchOgImagePath } from '../../worker/og-route';
+import { matchOgImagePath } from '../../worker/og-path';
 import { resolveOg } from '../../worker/og-rewriter';
 
 /**
@@ -54,31 +53,6 @@ describe('generateOgSvg', () => {
     const svg = generateOgSvg({ title: 'A & B <script>', subtitle: '', type: 'blog' });
     expect(svg).toContain('A &amp; B &lt;script&gt;');
     expect(svg).not.toContain('<script>');
-  });
-});
-
-describe('computeBriefingStats', () => {
-  it('counts findings and de-dupes CVEs across findings + tags', () => {
-    const stats = computeBriefingStats(
-      [
-        {
-          title: 'Sec',
-          findings: [
-            { title: 'CVE-2026-1111 in vendor X', description: 'also CVE-2026-2222', severity: 'critical' },
-            { title: 'Repeat CVE-2026-1111', description: '', severity: 'high', tags: ['CVE-2026-3333'] },
-          ],
-        },
-      ],
-      ['CVE-2026-1111', 'actor:lockbit']
-    );
-    expect(stats.findings).toBe(2);
-    expect(stats.cves).toBe(3); // 1111, 2222, 3333 — duplicate 1111 counted once
-    expect(stats.critical).toBe(1);
-    expect(stats.high).toBe(1);
-  });
-
-  it('is all-zero for an empty briefing', () => {
-    expect(computeBriefingStats([])).toEqual({ findings: 0, cves: 0, critical: 0, high: 0 });
   });
 });
 

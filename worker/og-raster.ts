@@ -7,12 +7,16 @@
  * the link-unfurl card actually shows, and so the same bytes can be uploaded
  * as post media.
  *
- * Bundle budget: the resvg wasm (~2.4 MB) and the brand fonts are served as
- * STATIC ASSETS (`/og/*` via the ASSETS binding) and fetched at runtime, NOT
- * imported into the Worker script. That keeps them off the Worker bundle-size
- * budget; they are loaded once per isolate and memoised below.
+ * Wasm loading: resvg's wasm is imported as a build-time module (`index_bg.wasm`).
+ * On Cloudflare Workers that is the ONLY allowed path — runtime
+ * `WebAssembly.instantiate()` from fetched bytes is blocked ("Wasm code
+ * generation disallowed by embedder"), so the earlier ASSETS-fetch approach
+ * failed in prod (but passed dry-run + Node, which both allow it). The wasm
+ * therefore counts toward the Worker bundle. The brand fonts are NOT wasm, so
+ * they stay as static assets fetched at runtime and memoised per isolate.
  */
 import { Resvg, initWasm } from '@resvg/resvg-wasm';
+import resvgWasm from '@resvg/resvg-wasm/index_bg.wasm';
 import type { Env } from './env';
 
 /** Internal origin for ASSETS lookups — only the pathname is significant. */
@@ -28,13 +32,13 @@ async function assetBytes(env: Env, path: string): Promise<Uint8Array> {
 }
 
 /**
- * Initialise the resvg wasm exactly once per isolate. `initWasm` throws if
- * called twice, so the in-flight promise is memoised; on failure the slot is
- * cleared so a transient ASSETS hiccup can be retried on the next request.
+ * Initialise resvg from the pre-compiled wasm Module exactly once per isolate.
+ * `initWasm` throws if called twice, so the in-flight promise is memoised; on
+ * failure the slot is cleared so a transient error can be retried.
  */
-function ensureWasm(env: Env): Promise<void> {
+function ensureWasm(): Promise<void> {
   if (!wasmReady) {
-    wasmReady = initWasm(env.ASSETS.fetch(new Request(`${ASSET_ORIGIN}/og/resvg.wasm`))).catch((err) => {
+    wasmReady = initWasm(resvgWasm).catch((err) => {
       wasmReady = null;
       throw err;
     });
@@ -55,7 +59,7 @@ async function ensureFonts(env: Env): Promise<Uint8Array[]> {
  * it via `defaultFontFamily`, so the card never renders blank glyphs.
  */
 export async function svgToPng(env: Env, svg: string): Promise<Uint8Array> {
-  await ensureWasm(env);
+  await ensureWasm();
   const fonts = await ensureFonts(env);
   const resvg = new Resvg(svg, {
     fitTo: { mode: 'width', value: 1200 },

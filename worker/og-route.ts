@@ -10,10 +10,10 @@
  */
 import type { Env } from './env';
 import { generateOgSvg } from './og-image';
-import { loadOgData, type OgImageType } from './og-data';
+import { loadOgData } from './og-data';
+import { matchOgImagePath, type OgImageType } from './og-path';
 import { svgToPng } from './og-raster';
 
-const OG_ROUTE_RE = /^\/api\/v1\/og-image\/(briefing|blog)\/([a-z0-9][a-z0-9-]{0,199})\.png$/i;
 const ASSET_ORIGIN = 'https://og-assets.internal';
 
 /** Static fallback card per type (already in /public, 1200×630 PNG). */
@@ -21,14 +21,6 @@ const FALLBACK: Record<OgImageType, string> = {
   briefing: '/og-threatintel.png',
   blog: '/og-image.png',
 };
-
-/** Parse `/api/v1/og-image/:type/:slug.png` into its parts, or null if the
- *  path is not a valid OG-image request. Exported for unit testing. */
-export function matchOgImagePath(pathname: string): { type: OgImageType; slug: string } | null {
-  const m = OG_ROUTE_RE.exec(pathname);
-  if (!m) return null;
-  return { type: m[1]!.toLowerCase() as OgImageType, slug: m[2]!.toLowerCase() };
-}
 
 function pngResponse(bytes: BodyInit, longLived: boolean): Response {
   return new Response(bytes, {

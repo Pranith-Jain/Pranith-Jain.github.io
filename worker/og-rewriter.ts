@@ -1,5 +1,5 @@
 import { injectScriptNonce } from './csp';
-import { createD1BriefingRepository } from '../api/src/infrastructure/persistence/d1-briefing-repository';
+import { readBriefing } from '../api/src/lib/briefing-builder';
 import type { Env } from './env';
 
 /**
@@ -233,11 +233,11 @@ export async function resolveOg(url: URL, env: Env): Promise<OgOverride | null> 
     const image = `/api/v1/og-image/briefing/${b[1]}.png`;
     if (env.BRIEFINGS_DB) {
       try {
-        const briefing = await createD1BriefingRepository(env.BRIEFINGS_DB).get(b[1]!);
+        const briefing = await readBriefing(env.BRIEFINGS_DB, b[1]!);
         if (briefing) {
           return {
             title: `${briefing.title} · pranithjain.qzz.io`,
-            description: (briefing.summary || '').slice(0, 280) || OG_OVERRIDES['/threatintel']!.description,
+            description: (briefing.executive_summary || '').slice(0, 280) || OG_OVERRIDES['/threatintel']!.description,
             image,
           };
         }

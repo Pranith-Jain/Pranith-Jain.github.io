@@ -1,49 +1,18 @@
 /**
  * Load the data an OG card needs for a given (type, slug), from the same
- * stores the pages themselves read: briefings from D1 (`BRIEFINGS_DB`), blog
+ * stores the pages themselves read: briefings via `readBriefing` (the rich
+ * JSON `body` blob in D1 — `executive_summary` + pre-computed `stats`), blog
  * posts from `CASE_STUDIES` KV. Returns null when the entity is missing so the
  * route can fall back to a static card.
+ *
+ * NOTE: use `readBriefing`, NOT the D1 briefings *repository* — the repo reads
+ * the sparse `summary`/`sections` columns (empty for built briefings); the real
+ * content lives in the `body` blob.
  */
 import type { Env } from './env';
-import type { OgImageData, OgStats } from './og-image';
-import type { BriefingFinding, BriefingSection } from '../api/src/core/entities/briefing';
-import { createD1BriefingRepository } from '../api/src/infrastructure/persistence/d1-briefing-repository';
-
-export type OgImageType = 'briefing' | 'blog';
-
-const CVE_RE = /CVE-\d{4}-\d{3,7}/gi;
-
-/** Derive the briefing "data viz" stats from its sections + tags. Counts are
- *  computed, not stored, so they always reflect the briefing's actual content:
- *  total findings, distinct CVE IDs (across finding text + briefing tags), and
- *  critical/high severity tallies. */
-export function computeBriefingStats(sections: BriefingSection[], tags?: string[]): OgStats {
-  let findings = 0;
-  let critical = 0;
-  let high = 0;
-  const cves = new Set<string>();
-
-  const harvestCves = (text?: string): void => {
-    if (!text) return;
-    const matches = text.match(CVE_RE);
-    if (matches) for (const id of matches) cves.add(id.toUpperCase());
-  };
-
-  for (const section of sections ?? []) {
-    for (const finding of section.findings ?? ([] as BriefingFinding[])) {
-      findings++;
-      const sev = (finding.severity ?? '').toLowerCase();
-      if (sev === 'critical') critical++;
-      else if (sev === 'high') high++;
-      harvestCves(finding.title);
-      harvestCves(finding.description);
-      for (const tag of finding.tags ?? []) harvestCves(tag);
-    }
-  }
-  for (const tag of tags ?? []) harvestCves(tag);
-
-  return { findings, cves: cves.size, critical, high };
-}
+import type { OgImageData } from './og-image';
+import type { OgImageType } from './og-path';
+import { readBriefing } from '../api/src/lib/briefing-builder';
 
 /** Minimal blog record shape in CASE_STUDIES KV (mirrors og-rewriter's read). */
 interface BlogOgRecord {
@@ -56,15 +25,21 @@ interface BlogOgRecord {
 export async function loadOgData(env: Env, type: OgImageType, slug: string): Promise<OgImageData | null> {
   if (type === 'briefing') {
     if (!env.BRIEFINGS_DB) return null;
-    const briefing = await createD1BriefingRepository(env.BRIEFINGS_DB).get(slug);
-    if (!briefing) return null;
+    const b = await readBriefing(env.BRIEFINGS_DB, slug);
+    if (!b) return null;
     return {
-      title: briefing.title,
-      subtitle: briefing.summary ?? '',
+      title: b.title,
+      subtitle: b.executive_summary ?? '',
       type: 'briefing',
-      date: briefing.date,
-      tags: briefing.tags,
-      stats: computeBriefingStats(briefing.sections, briefing.tags),
+      date: b.date,
+      // stats are pre-computed on the briefing body — surface findings/CVEs and
+      // the critical/high tallies as the card's data-viz strip.
+      stats: {
+        findings: b.stats?.findings,
+        cves: b.stats?.cves,
+        critical: b.stats?.critical,
+        high: b.stats?.high,
+      },
     };
   }
 
