@@ -49,14 +49,14 @@ export function Toolkits() {
         </p>
       </div>
 
-      <div className="grid gap-4 sm:gap-6 grid-cols-1 md:grid-cols-2">
+      <div className="stagger grid gap-4 sm:gap-6 grid-cols-1 md:grid-cols-2">
         {toolkits.map((tk) => {
           const Icon = tk.icon;
           return (
             <Link
               key={tk.id}
               to={tk.href}
-              className="group flex flex-col rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-6 transition hover:border-brand-500/40 h-full"
+              className="group card-hover flex flex-col rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-6 transition h-full"
             >
               <div className="flex items-start justify-between mb-4">
                 <div className="grid h-11 w-11 place-items-center rounded-xl bg-brand-50 text-brand-600 dark:bg-brand-900/30 dark:text-brand-300">

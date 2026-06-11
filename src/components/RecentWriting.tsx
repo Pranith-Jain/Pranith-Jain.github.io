@@ -116,7 +116,7 @@ export function RecentWriting(): JSX.Element | null {
         </div>
       </div>
 
-      <ul className="grid gap-3 sm:gap-4 grid-cols-1 md:grid-cols-2">
+      <ul className="stagger grid gap-3 sm:gap-4 grid-cols-1 md:grid-cols-2">
         {entries.map((e) => {
           const Icon = e.kind === 'research' ? BookOpen : FileText;
           const pillColor =
@@ -132,7 +132,7 @@ export function RecentWriting(): JSX.Element | null {
             <li key={e.href}>
               <Link
                 to={e.href}
-                className="group flex h-full flex-col gap-3 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5 transition hover:border-brand-500/40"
+                className="group card-hover flex h-full flex-col gap-3 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5 transition"
               >
                 <div className="flex items-center gap-2">
                   <span

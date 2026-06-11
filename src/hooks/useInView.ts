@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, type RefObject } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 
 interface UseInViewOptions {
   threshold?: number;
@@ -8,16 +8,16 @@ interface UseInViewOptions {
 
 export function useInView<T extends HTMLElement = HTMLDivElement>(
   options: UseInViewOptions = {}
-): [RefObject<T | null>, boolean] {
+): [React.RefCallback<T>, boolean] {
   const { threshold = 0.1, rootMargin = '0px 0px -50px 0px', triggerOnce = true } = options;
   const [isInView, setIsInView] = useState(false);
-  const ref = useRef<T>(null);
+  const elRef = useRef<T | null>(null);
   const observerRef = useRef<IntersectionObserver | null>(null);
   const triggerOnceRef = useRef(triggerOnce);
   triggerOnceRef.current = triggerOnce;
 
   useEffect(() => {
-    const el = ref.current;
+    const el = elRef.current;
     if (!el) return;
 
     if (observerRef.current) observerRef.current.disconnect();
@@ -41,6 +41,10 @@ export function useInView<T extends HTMLElement = HTMLDivElement>(
       observer.disconnect();
     };
   }, [threshold, rootMargin]);
+
+  const ref = useCallback((node: T | null) => {
+    elRef.current = node;
+  }, []);
 
   return [ref, isInView];
 }
