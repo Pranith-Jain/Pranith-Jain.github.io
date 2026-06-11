@@ -1185,6 +1185,179 @@ export const rssFeeds: RSSFeed[] = [
     source: 'ransomlook.io + ransomware.live',
     language: 'en',
   },
+  // ============================================================================
+  // FEEDSPOT HIGH-QUALITY FEEDS 2026-06 — curated from rss.feedspot.com/hacker_rss_feeds/
+  // ============================================================================
+  {
+    id: 'gbhackers',
+    name: 'GBHackers on Security',
+    url: 'https://gbhackers.com/feed/',
+    description:
+      'Daily cybersecurity news, SOC resources, Kali Linux tutorials, and technology updates from the GBHackers team',
+    category: 'threat-intel',
+    source: 'gbhackers.com',
+    language: 'en',
+  },
+  {
+    id: 'samcurry',
+    name: 'Sam Curry',
+    url: 'https://samcurry.net/feed/',
+    description:
+      'Elite bug bounty hunter and security researcher — web application vulnerability deep-dives, SSRF, XSS, OAuth misconfigurations',
+    category: 'threat-intel',
+    source: 'samcurry.net',
+    language: 'en',
+  },
+  {
+    id: 'tisiphone',
+    name: 'Tisiphone (Lesley Carhart)',
+    url: 'https://tisiphone.net/feed/',
+    description:
+      'DFIR, threat intelligence, incident response, digital forensics, and OSINT from Lesley Carhart, full-spectrum cyber-warrior',
+    category: 'threat-intel',
+    source: 'tisiphone.net',
+    language: 'en',
+  },
+  {
+    id: 'thehackerblog',
+    name: 'The Hacker Blog (Matthew Bryant)',
+    url: 'https://thehackerblog.com/feed.xml',
+    description:
+      'Web security research and unintended-use hacking from the author of XSS Hunter — SSRF, blind XSS, DNS rebinding',
+    category: 'threat-intel',
+    source: 'thehackerblog.com',
+    language: 'en',
+  },
+  {
+    id: 'detectify',
+    name: 'Detectify Blog',
+    url: 'https://blog.detectify.com/feed/',
+    description:
+      'Web security vulnerability research, bug bounty write-ups, and security culture insights from the Detectify team',
+    category: 'threat-intel',
+    source: 'blog.detectify.com',
+    language: 'en',
+  },
+  {
+    id: 'pentestlab',
+    name: 'Penetration Testing Lab',
+    url: 'https://pentestlab.blog/feed/',
+    description:
+      'Offensive security techniques and methodologies — exploitation, privilege escalation, persistence, and lateral movement',
+    category: 'threat-intel',
+    source: 'pentestlab.blog',
+    language: 'en',
+  },
+  {
+    id: 'hackers-arise',
+    name: 'Hackers Arise',
+    url: 'https://www.hackers-arise.com/blog-feed.xml',
+    description:
+      'Cybersecurity tutorials covering ethical hacking, digital forensics, Linux, and penetration testing for aspiring professionals',
+    category: 'threat-intel',
+    source: 'hackers-arise.com',
+    language: 'en',
+  },
+  {
+    id: 'embracethered',
+    name: 'Embrace The Red',
+    url: 'https://embracethered.com/blog/index.xml',
+    description:
+      'AI/LLM security research, red-team exploit analysis, prompt injection vulnerabilities, and defensive insights',
+    category: 'threat-intel',
+    source: 'embracethered.com',
+    language: 'en',
+  },
+  {
+    id: 'kitploit',
+    name: 'KitPloit',
+    url: 'https://www.kitploit.com/feeds/posts/default',
+    description:
+      'Leading source of security tools, hacking tools, exploits, malware samples, and penetration testing utilities',
+    category: 'threat-intel',
+    source: 'kitploit.com',
+    language: 'en',
+  },
+  {
+    id: 'knowbe4',
+    name: 'KnowBe4 Security Awareness',
+    url: 'https://blog.knowbe4.com/rss.xml',
+    description:
+      'Security awareness training blog — social engineering, ransomware, phishing attacks, and cybercrime trends',
+    category: 'threat-intel',
+    source: 'blog.knowbe4.com',
+    language: 'en',
+  },
+  {
+    id: 'hakin9',
+    name: 'Hakin9',
+    url: 'https://hakin9.org/feed/',
+    description:
+      'Monthly hacking and cybersecurity magazine — tutorials, case studies, and online courses for security professionals',
+    category: 'threat-intel',
+    source: 'hakin9.org',
+    language: 'en',
+  },
+  {
+    id: 'cqure-academy',
+    name: 'CQURE Academy',
+    url: 'https://cqureacademy.com/blog/feed/',
+    description:
+      'Windows internals, identity theft protection, penetration testing, malware, forensics, and incident response',
+    category: 'threat-intel',
+    source: 'cqureacademy.com',
+    language: 'en',
+  },
+  {
+    id: 'orange-cyberdefense',
+    name: 'Orange Cyberdefense — Ethical Hacking',
+    url: 'https://www.orangecyberdefense.com/global/blog/ethical-hacking/feed',
+    description:
+      'European cyber defense perspective — ethical hacking techniques, vulnerability research, and penetration testing insights',
+    category: 'threat-intel',
+    source: 'orangecyberdefense.com',
+    language: 'en',
+  },
+  {
+    id: 'hackingarticles',
+    name: 'Hacking Articles (Raj Chandel)',
+    url: 'https://www.hackingarticles.in/feed/',
+    description:
+      'Comprehensive penetration testing tutorials — system exploitation, vulnerability research, tools, and CTF walkthroughs',
+    category: 'threat-intel',
+    source: 'hackingarticles.in',
+    language: 'en',
+  },
+  {
+    id: 'massive-alliance',
+    name: 'Massive Alliance',
+    url: 'https://www.massivealliance.com/blog/feed/',
+    description:
+      'Cyber intelligence and brand protection — executive threat monitoring, dark-web reputation, and industry whitepapers',
+    category: 'threat-intel',
+    source: 'massivealliance.com',
+    language: 'en',
+  },
+  {
+    id: 'hackerfactor',
+    name: 'Hacker Factor (Dr. Neal Krawetz)',
+    url: 'http://www.hackerfactor.com/blog/index.php?/feeds/index.rss2',
+    description:
+      'Computer forensics research and analysis from Dr. Neal Krawetz — photo forensics, OSINT, and security investigation',
+    category: 'threat-intel',
+    source: 'hackerfactor.com',
+    language: 'en',
+  },
+  {
+    id: 'darknet',
+    name: 'Darknet',
+    url: 'https://www.darknet.org.uk/feed/',
+    description:
+      'Hacking news, tools, and tutorials — password cracking, cryptography, network security, and pen-testing',
+    category: 'news',
+    source: 'darknet.org.uk',
+    language: 'en',
+  },
 ];
 
 /**
@@ -1304,6 +1477,10 @@ export const landingThreatVendor = [
   'rapid7-blog',
   'jpcert',
   'ahnlab-asec',
+  'detectify',
+  'knowbe4',
+  'orange-cyberdefense',
+  'cqure-academy',
 ];
 
 export const landingThreatInvestigation = [
@@ -1319,6 +1496,17 @@ export const landingThreatInvestigation = [
   'bushidotoken',
   'ransomware-merged',
   'infostealers-com',
+  'gbhackers',
+  'samcurry',
+  'tisiphone',
+  'thehackerblog',
+  'pentestlab',
+  'embracethered',
+  'kitploit',
+  'hakin9',
+  'massive-alliance',
+  'hackerfactor',
+  'darknet',
 ];
 
 // Reddit blocks Cloudflare Worker egress IPs at the network level (see

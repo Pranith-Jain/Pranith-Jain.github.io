@@ -321,10 +321,7 @@ export function parseChannelHtml(html: string): ParsedMessage[] {
     const permalink = /<a class="tgme_widget_message_date"[^>]*href="([^"]+)"/.exec(block)?.[1];
     const datetime = /datetime="([^"]+)"/.exec(block)?.[1];
     const views = /tgme_widget_message_views"[^>]*>([^<]+)/.exec(block)?.[1]?.trim();
-    const textBlock =
-      /<div class="tgme_widget_message_text js-message_text"[^>]*>([\s\S]*?)<\/div>(?=\s*<div|\s*<\/div>\s*<div class="tgme_widget_message_footer)/.exec(
-        block
-      )?.[1];
+    const textBlock = /<div[^>]*class="[^"]*tgme_widget_message_text[^"]*"[^>]*>([\s\S]*?)<\/div>/i.exec(block)?.[1];
     if (!permalink || !datetime) continue;
     let text = textBlock ? stripHtml(textBlock) : '';
     if (text.length > MAX_TEXT_LEN) text = text.slice(0, MAX_TEXT_LEN - 1) + '…';
@@ -471,16 +468,10 @@ export async function fetchTelegramFeed(kv?: KVNamespace): Promise<TelegramFeedR
       }
       const messages = parseChannelHtml(html);
       const quality = scoreChannel(messages);
-      channelStatus.push({
-        handle: ch.handle,
-        name: ch.name,
-        topic: ch.topic,
-        ok: true,
-        count: messages.length,
-        quality,
-      });
+      let textCount = 0;
       for (const m of messages) {
         if (!m.text) continue;
+        textCount += 1;
         allItems.push({
           channel_handle: ch.handle,
           channel_name: ch.name,
@@ -492,6 +483,14 @@ export async function fetchTelegramFeed(kv?: KVNamespace): Promise<TelegramFeedR
           views: m.views,
         });
       }
+      channelStatus.push({
+        handle: ch.handle,
+        name: ch.name,
+        topic: ch.topic,
+        ok: true,
+        count: textCount,
+        quality,
+      });
     }
   }
   await Promise.all(Array.from({ length: CONCURRENCY }, worker));

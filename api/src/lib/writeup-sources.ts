@@ -65,8 +65,15 @@ export const WRITEUP_SOURCES: WriteupSourceSpec[] = [
   { kind: 'rss', url: 'https://www.crowdstrike.com/blog/feed/', label: 'CrowdStrike' },
   { kind: 'rss', url: 'https://unit42.paloaltonetworks.com/feed/', label: 'Unit 42 (Palo Alto)', tier: 'signal' },
   { kind: 'rss', url: 'https://research.checkpoint.com/feed/', label: 'Check Point Research', tier: 'signal' },
-  // Google TI (Mandiant) dropped 2026-05-11. cloud.google.com/blog/topics/threat-intelligence/rss
-  // returns HTML rather than an RSS feed when called server-side. Re-add when a working URL surfaces.
+  // Google TI (Mandiant) — restored 2026-06 with a working Feedburner URL
+  // (cloud.google.com/…/rss returns HTML server-side, but the Feedburner mirror
+  // delivers the same content as proper XML).
+  {
+    kind: 'rss',
+    url: 'https://feeds.feedburner.com/threatintelligence/pvexyqv7v0v',
+    label: 'Google Threat Intelligence',
+    tier: 'signal',
+  },
   { kind: 'rss', url: 'https://www.welivesecurity.com/feed/', label: 'WeLiveSecurity (ESET)' },
   { kind: 'rss', url: 'https://www.huntress.com/blog/rss.xml', label: 'Huntress', tier: 'signal' },
   { kind: 'rss', url: 'https://research.eye.security/feed', label: 'Eye Security', tier: 'signal' },
@@ -132,6 +139,14 @@ export const WRITEUP_SOURCES: WriteupSourceSpec[] = [
   // vulnerability disclosures, and operational security research.
   { kind: 'rss', url: 'https://blog.fox-it.com/feed/', label: 'Fox-IT (NCC Group)' },
 
+  // Talos Intelligence blog — restored 2026-06-11 with the working main RSS
+  // feed (the /feeds/posts/default path was blocked by bot detection).
+  { kind: 'rss', url: 'https://blog.talosintelligence.com/rss/', label: 'Talos Intelligence', tier: 'signal' },
+
+  // SC World (formerly SC Magazine) — restored 2026-06-11 with the main feed
+  // (the ransomware subfeed was blocked by bot detection).
+  { kind: 'rss', url: 'https://www.scworld.com/rss', label: 'SC World', tier: 'signal' },
+
   // cvefeed.io newsroom — curated CTI-news aggregator pulling from
   // cybersecuritynews.com, thecyberexpress.com, securityonline.info, etc.
   // Same-day cadence, structured RSS. The /severity/high.xml feed from the
@@ -185,6 +200,9 @@ export const WRITEUP_SOURCES: WriteupSourceSpec[] = [
   //   Future feed already in the vendor section.
   // infosecurity-magazine.com/rss/news/: 250-item feed; would dominate the
   //   round-robin distribution. Re-add only if per-source cap is lowered.
-  // blog.talosintelligence.com/feeds/posts/default: 403 to bot UAs.
-  // scworld.com/topic/ransomware/feed: 403 to bot UAs.
+  //
+  // Recovered 2026-06-11 (no longer skipped):
+  //   - Talos blog: https://blog.talosintelligence.com/rss/ ✓
+  //   - SC World:   https://www.scworld.com/rss ✓
+  //   - Google TI:  https://feeds.feedburner.com/threatintelligence/pvexyqv7v0v ✓
 ];
