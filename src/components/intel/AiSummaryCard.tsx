@@ -25,6 +25,14 @@ export interface AiSummaryCardProps {
   dayKey?: string;
   /** Extra CSS classes on the outer wrapper. */
   className?: string;
+  /** API endpoint to POST to. Default: the admin-gated feed summary. */
+  endpoint?: string;
+  /** Require an admin token to render + fetch. Default true (feed surfaces). */
+  requireAdmin?: boolean;
+  /** Auto-fetch on mount. Default true; set false for opt-in (button-triggered). */
+  autoFetch?: boolean;
+  /** Extra fields merged into the POST body (e.g. `{ q }` for the omnibox). */
+  extraBody?: Record<string, unknown>;
 }
 
 interface SummaryResponse {
@@ -33,7 +41,16 @@ interface SummaryResponse {
   itemCount: number;
 }
 
-export function AiSummaryCard({ surface, items, dayKey, className }: AiSummaryCardProps): JSX.Element | null {
+export function AiSummaryCard({
+  surface,
+  items,
+  dayKey,
+  className,
+  endpoint = '/api/v1/ai-summary',
+  requireAdmin = true,
+  autoFetch = true,
+  extraBody,
+}: AiSummaryCardProps): JSX.Element | null {
   const [data, setData] = useState<SummaryResponse | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -41,19 +58,20 @@ export function AiSummaryCard({ surface, items, dayKey, className }: AiSummaryCa
 
   const date = dayKey ?? new Date().toISOString().slice(0, 10);
 
-  // AI summary is an operator-only feature: the endpoint is admin-gated, so a
-  // public visitor (no admin token) would only ever get a 401. Gate the UI on
-  // the same token so the card stays silent instead of surfacing that 401.
-  const isAdmin = readAdminToken() !== null;
+  // The default endpoint (/api/v1/ai-summary) is admin-gated, so a public
+  // visitor would only ever get a 401 — gate the UI on the token so the card
+  // stays silent. The omnibox passes requireAdmin={false} to use its PUBLIC
+  // same-origin endpoint, where the card renders for everyone.
+  const allowed = requireAdmin ? readAdminToken() !== null : true;
 
   const fetchSummary = useCallback(async () => {
     if (items.length === 0) return;
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch('/api/v1/ai-summary', {
+      const res = await fetch(endpoint, {
         method: 'POST',
-        headers: { ...adminAuthHeaders(), 'content-type': 'application/json' },
+        headers: { ...(requireAdmin ? adminAuthHeaders() : {}), 'content-type': 'application/json' },
         body: JSON.stringify({
           surface,
           date,
@@ -62,6 +80,7 @@ export function AiSummaryCard({ surface, items, dayKey, className }: AiSummaryCa
             body: it.body ?? '',
             source: it.source,
           })),
+          ...extraBody,
         }),
       });
       if (!res.ok) {
@@ -78,17 +97,18 @@ export function AiSummaryCard({ surface, items, dayKey, className }: AiSummaryCa
     } finally {
       setLoading(false);
     }
-  }, [surface, date, items]);
+  }, [surface, date, items, endpoint, requireAdmin, extraBody]);
 
-  // Auto-fetch on mount when items are available (admins only).
+  // Auto-fetch on mount when enabled + allowed + items are present. Opt-in
+  // surfaces (autoFetch=false, e.g. the omnibox) fetch only on the button.
   useEffect(() => {
-    if (isAdmin && items.length > 0 && !data && !loading && !error) {
+    if (autoFetch && allowed && items.length > 0 && !data && !loading && !error) {
       fetchSummary();
     }
-  }, [isAdmin, items.length, data, loading, error, fetchSummary]);
+  }, [autoFetch, allowed, items.length, data, loading, error, fetchSummary]);
 
-  // Don't render for non-admins (would only 401) or when there are no items.
-  if (!isAdmin || items.length === 0) return null;
+  // Don't render when not allowed (admin-gated + no token) or with no items.
+  if (!allowed || items.length === 0) return null;
 
   return (
     <div

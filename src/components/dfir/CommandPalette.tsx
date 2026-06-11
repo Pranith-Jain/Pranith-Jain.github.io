@@ -453,11 +453,26 @@ export function CommandPalette(): JSX.Element | null {
   );
   const matches = useMemo(() => {
     const base = searchEntries(query, recent, fullIndex, kindFilter);
-    // Pivots only when no kind-filter is active (otherwise they'd be silently
-    // hidden by the filter, which is confusing).
+    // Pivots + the live-search launcher only when no kind-filter is active
+    // (otherwise they'd be silently hidden by the filter, which is confusing).
     if (kindFilter && kindFilter !== 'tool') return base;
+    const q = query.trim();
+    // Always-present launcher into the upgraded Unified Search omnibox (tools +
+    // live threat data). Lives at the very top so Enter on any query opens it.
+    const launcher: MatchedEntry[] = q
+      ? [
+          {
+            kind: 'tool',
+            label: `Search live intel for "${q}"`,
+            desc: 'Unified omnibox — tools + live threat data (ransomware, IOCs, CVEs, actors, breaches)',
+            path: `/threatintel/unified-search?q=${encodeURIComponent(q)}`,
+            sectionLabel: 'Live search',
+            matchedBy: 'pivot',
+          },
+        ]
+      : [];
     const pivots = buildPivots(query);
-    return [...pivots, ...base];
+    return [...launcher, ...pivots, ...base];
   }, [query, recent, fullIndex, kindFilter]);
 
   const select = useCallback(

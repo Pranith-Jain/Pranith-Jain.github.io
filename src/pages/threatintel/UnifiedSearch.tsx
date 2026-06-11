@@ -1,7 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { Link, useSearchParams } from 'react-router-dom';
 import { sanitizeUrl } from '../../lib/sanitize-url';
-import { useSearchParams } from 'react-router-dom';
 import { DataPageLayout } from '../../components/DataPageLayout';
+import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
+import { SECTIONS, flattenTools, matchesQuery } from '../../data/threatintel-sections';
+import { detectIoc, getIocPivots, IOC_TYPE_LABEL } from '../../lib/dfir/ioc-detect';
 import {
   Search,
   ExternalLink,
@@ -13,6 +16,9 @@ import {
   FileText,
   Database,
   Fingerprint,
+  Wrench,
+  ArrowUpRight,
+  Zap,
 } from 'lucide-react';
 
 interface SearchItem {
@@ -21,6 +27,7 @@ interface SearchItem {
   url?: string;
   source: string;
   subkind?: string;
+  score?: number;
 }
 
 interface SearchSection {
@@ -63,6 +70,9 @@ const SECTION_COLORS: Record<string, string> = {
   breaches: 'text-blue-600 dark:text-blue-400 border-blue-500/30 bg-blue-500/10',
 };
 
+const DEBOUNCE_MS = 350;
+const MAX_TOOL_MATCHES = 6;
+
 export default function UnifiedSearch(): JSX.Element {
   const [params, setParams] = useSearchParams();
   const initialQ = params.get('q') ?? '';
@@ -70,53 +80,105 @@ export default function UnifiedSearch(): JSX.Element {
   const [data, setData] = useState<UnifiedSearchResponse | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const abortRef = useRef<AbortController | null>(null);
+  const lastSearchedRef = useRef<string>('');
 
-  const doSearch = async (q: string) => {
-    setQuery(q);
-    setParams(
-      (p) => {
-        const n = new URLSearchParams(p);
-        if (q.trim()) n.set('q', q.trim());
-        else n.delete('q');
-        return n;
-      },
-      { replace: true }
-    );
-    if (!q.trim()) return;
-    setLoading(true);
-    setError(null);
-    setData(null);
-    try {
-      const r = await fetch(`/api/v1/unified-search?q=${encodeURIComponent(q.trim())}`);
-      if (!r.ok) throw new Error(`${r.status}`);
-      const d = (await r.json()) as UnifiedSearchResponse;
-      setData(d);
-    } catch (e) {
-      setError(e instanceof Error ? e.message : 'search failed');
-    } finally {
-      setLoading(false);
-    }
-  };
+  // Instant, client-side TOOL matches over the catalog — no network, no backend
+  // coupling. This is the "omnibox searches tools too" half.
+  const allTools = useMemo(() => flattenTools(SECTIONS), []);
+  const toolMatches = useMemo(
+    () => (query.trim() ? allTools.filter((t) => matchesQuery(t, query.trim())).slice(0, MAX_TOOL_MATCHES) : []),
+    [allTools, query]
+  );
 
+  // Instant entity detection → typed quick-action pivots. Reuses the SAME
+  // detector + pivot builder as the ⌘K palette and the /dfir landing, so the
+  // deep-links stay in sync everywhere.
+  const detected = useMemo(() => detectIoc(query.trim()), [query]);
+  const pivots = useMemo(() => (detected ? getIocPivots(detected) : []), [detected]);
+
+  const runSearch = useCallback(
+    async (raw: string) => {
+      const q = raw.trim();
+      setParams(
+        (p) => {
+          const n = new URLSearchParams(p);
+          if (q) n.set('q', q);
+          else n.delete('q');
+          return n;
+        },
+        { replace: true }
+      );
+      if (!q) {
+        setData(null);
+        setError(null);
+        lastSearchedRef.current = '';
+        return;
+      }
+      if (q === lastSearchedRef.current) return; // already showing this query
+      lastSearchedRef.current = q;
+      abortRef.current?.abort();
+      const ac = new AbortController();
+      abortRef.current = ac;
+      setLoading(true);
+      setError(null);
+      try {
+        const r = await fetch(`/api/v1/unified-search?q=${encodeURIComponent(q)}`, { signal: ac.signal });
+        if (!r.ok) throw new Error(`${r.status}`);
+        const d = (await r.json()) as UnifiedSearchResponse;
+        if (!ac.signal.aborted) setData(d);
+      } catch (e) {
+        if ((e as Error).name === 'AbortError') return; // superseded — swallow
+        setError(e instanceof Error ? e.message : 'search failed');
+      } finally {
+        if (!ac.signal.aborted) setLoading(false);
+      }
+    },
+    [setParams]
+  );
+
+  // Debounced live search as the user types (also covers the initial ?q= load).
   useEffect(() => {
-    if (initialQ.trim()) void doSearch(initialQ);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [initialQ]);
+    const q = query.trim();
+    if (!q) {
+      setData(null);
+      lastSearchedRef.current = '';
+      return;
+    }
+    const t = setTimeout(() => void runSearch(q), DEBOUNCE_MS);
+    return () => clearTimeout(t);
+  }, [query, runSearch]);
+
+  // Top results, flattened, for the opt-in AI summary.
+  const summaryItems = useMemo(() => {
+    if (!data) return [];
+    const out: Array<{ title: string; body?: string; source?: string }> = [];
+    for (const s of data.sections) {
+      for (const it of s.items.slice(0, 6)) {
+        out.push({ title: it.label, body: it.description, source: `${s.label} · ${it.source}` });
+        if (out.length >= 30) return out;
+      }
+    }
+    return out;
+  }, [data]);
 
   const total = data?.total ?? 0;
+  const hasQuery = query.trim().length > 0;
+  const nothingAnywhere =
+    hasQuery && !loading && !error && total === 0 && toolMatches.length === 0 && pivots.length === 0;
 
   return (
     <DataPageLayout
       backTo="/threatintel"
       icon={<Search size={28} />}
       title="Unified Search"
-      description="Cross-source search across ransomware victims, C2 IPs, live IOCs, detections, actor timelines, CVEs, writeups, cybercrime forums, and breach disclosures — all from one endpoint."
+      description="One omnibox across the platform — tools, ransomware victims, C2 IPs, live IOCs, detections, actor timelines, CVEs, writeups, cybercrime forums, and breaches. Type an IP, hash, CVE, actor, or keyword; ranked by relevance with one-click pivots and an optional AI summary."
       maxWidthClass="max-w-5xl"
     >
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          void doSearch(query);
+          void runSearch(query);
         }}
         className="relative mb-6 max-w-2xl"
       >
@@ -126,10 +188,77 @@ export default function UnifiedSearch(): JSX.Element {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search threat intelligence — e.g. LockBit, 185.234.72.0, CVE-2026-1234, RedLine…"
-          aria-label="Search across all intelligence sources"
+          aria-label="Search across all intelligence sources and tools"
           className="w-full pl-11 pr-4 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 font-mono"
         />
       </form>
+
+      {/* Entity quick-actions — instant, from the detected indicator type. */}
+      {detected && pivots.length > 0 && (
+        <div className="mb-4 rounded-lg border border-brand-200/60 dark:border-brand-800/40 bg-brand-50/40 dark:bg-brand-950/10 p-3">
+          <div className="mb-2 flex items-center gap-2">
+            <Zap size={14} className="text-brand-600 dark:text-brand-400" />
+            <span className="text-mini font-mono text-slate-600 dark:text-slate-400">
+              Detected {IOC_TYPE_LABEL[detected.type]} — quick actions
+            </span>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {pivots.map((p) =>
+              p.external ? (
+                <a
+                  key={p.path}
+                  href={sanitizeUrl(p.path) || undefined}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 rounded-md border border-brand-500/30 bg-white px-2.5 py-1.5 text-mini font-mono text-brand-700 hover:border-brand-500/60 hover:bg-brand-50 dark:bg-slate-900 dark:text-brand-300 dark:hover:bg-brand-950/30"
+                  title={p.desc}
+                >
+                  {p.label}
+                  <ExternalLink size={11} className="opacity-70" />
+                </a>
+              ) : (
+                <Link
+                  key={p.path}
+                  to={p.path}
+                  className="inline-flex items-center gap-1.5 rounded-md border border-brand-500/30 bg-white px-2.5 py-1.5 text-mini font-mono text-brand-700 hover:border-brand-500/60 hover:bg-brand-50 dark:bg-slate-900 dark:text-brand-300 dark:hover:bg-brand-950/30"
+                  title={p.desc}
+                >
+                  {p.label}
+                  <ArrowUpRight size={11} className="opacity-70" />
+                </Link>
+              )
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* Tools — instant client-side catalog matches. */}
+      {toolMatches.length > 0 && (
+        <section className="mb-4 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 overflow-hidden">
+          <div className="flex items-center gap-2 px-4 py-2.5 border-b border-slate-200 dark:border-slate-800 text-brand-600 dark:text-brand-400">
+            <Wrench size={14} />
+            <span className="font-display font-semibold text-sm">Tools</span>
+            <span className="text-mini font-mono opacity-70">· {toolMatches.length}</span>
+          </div>
+          <ul className="divide-y divide-slate-100 dark:divide-slate-800/50">
+            {toolMatches.map(({ tool, section }) => (
+              <li key={tool.to} className="px-4 py-2.5 hover:bg-slate-50 dark:hover:bg-slate-950/50">
+                <Link to={tool.to} className="flex items-start justify-between gap-2 group">
+                  <div className="min-w-0">
+                    <span className="text-sm font-medium text-slate-900 dark:text-slate-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 block truncate">
+                      {tool.label}
+                    </span>
+                    <span className="text-mini font-mono text-slate-500 mt-0.5 block truncate">{tool.desc}</span>
+                  </div>
+                  <span className="shrink-0 mt-0.5 inline-flex items-center rounded border border-slate-300 bg-slate-50 px-1.5 py-0.5 font-mono text-micro uppercase tracking-wider text-slate-500 dark:border-slate-700 dark:bg-slate-800/50">
+                    {section.label}
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
 
       {loading && (
         <p role="status" className="font-mono text-sm text-slate-500 py-8">
@@ -143,19 +272,29 @@ export default function UnifiedSearch(): JSX.Element {
         </p>
       )}
 
-      {data && total === 0 && (
+      {nothingAnywhere && (
         <div className="py-12 text-center">
           <Search size={32} className="mx-auto text-slate-300 dark:text-slate-600 mb-3" />
           <p className="font-mono text-sm text-slate-500">
-            No results for &ldquo;{data.q}&rdquo; across any intelligence source.
+            No results for &ldquo;{query.trim()}&rdquo; across any tool or intelligence source.
           </p>
         </div>
       )}
 
       {data && total > 0 && (
         <div className="space-y-4">
+          {/* Opt-in AI summary — public same-origin endpoint, button-triggered. */}
+          <AiSummaryCard
+            surface="Unified Search"
+            items={summaryItems}
+            endpoint="/api/v1/unified-search/summarize"
+            requireAdmin={false}
+            autoFetch={false}
+            extraBody={{ q: data.q }}
+          />
+
           <p className="text-meta font-mono text-slate-500">
-            {total} result{total === 1 ? '' : 's'} for &ldquo;{data.q}&rdquo;
+            {total} live result{total === 1 ? '' : 's'} for &ldquo;{data.q}&rdquo;
           </p>
           {data.sections.map((section) => {
             const Icon = SECTION_ICONS[section.kind] ?? Search;
