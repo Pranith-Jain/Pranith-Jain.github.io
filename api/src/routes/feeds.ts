@@ -234,6 +234,11 @@ const ALLOWED_HOSTS = new Set([
   // www-prefixed variants used by some feeds
   'www.hackingarticles.in',
   'www.darknet.org.uk',
+  // 2026-06: direct-fetch host for The Hacker News (was FeedBurner)
+  'thehackernews.com',
+  'www.thehackernews.com',
+  // 2026-06: Kevin Beaumont's Substack (was doublepulsar.com)
+  'doublepulsar.substack.com',
 ]);
 
 export async function feedProxyHandler(c: Context<{ Bindings: Env }>) {

@@ -280,6 +280,11 @@ const ALLOWED_HOSTS = new Set([
   'hackerfactor.com',
   'www.hackingarticles.in',
   'www.darknet.org.uk',
+  // 2026-06: direct-fetch host for The Hacker News (was FeedBurner)
+  'thehackernews.com',
+  'www.thehackernews.com',
+  // 2026-06: Kevin Beaumont's Substack (was doublepulsar.com)
+  'doublepulsar.substack.com',
 ]);
 
 interface AggregatedItem {

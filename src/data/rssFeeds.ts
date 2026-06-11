@@ -359,10 +359,13 @@ export const rssFeeds: RSSFeed[] = [
   {
     id: 'doublepulsar',
     name: 'DoublePulsar (Kevin Beaumont)',
-    url: 'https://doublepulsar.com/feed',
+    // Kevin Beaumont moved from Medium to Substack. doublepulsar.com/feed
+    // redirects to doublepulsar.substack.com/feed, which wasn't allowlisted
+    // — the aggregator returned redirect_not_allowlisted.
+    url: 'https://doublepulsar.substack.com/feed',
     description: 'Kevin Beaumont on ransomware, zero-days, and active exploitation campaigns',
     category: 'threat-intel',
-    source: 'doublepulsar.com',
+    source: 'doublepulsar.substack.com',
     language: 'en',
   },
   {
@@ -417,7 +420,8 @@ export const rssFeeds: RSSFeed[] = [
   {
     id: 'hackernews',
     name: 'The Hacker News',
-    url: 'https://feeds.feedburner.com/TheHackersNews',
+    // FeedBurner deprecated by Google — switched to direct RSS.
+    url: 'https://thehackernews.com/rss.xml',
     description: 'Latest cybersecurity news, exploits, and vulnerabilities',
     category: 'news',
     source: 'The Hacker News',
@@ -453,7 +457,8 @@ export const rssFeeds: RSSFeed[] = [
   {
     id: 'wired-security',
     name: 'Wired Security',
-    url: 'https://www.wired.com/feed/category/security/latest/rss',
+    // Wired restructured their feed paths — removed /latest/ from the path.
+    url: 'https://www.wired.com/feed/category/security/rss',
     description: 'Security news and features from Wired',
     category: 'news',
     source: 'Wired',
@@ -957,7 +962,10 @@ export const rssFeeds: RSSFeed[] = [
   {
     id: 'anthropic-blog',
     name: 'Anthropic Blog',
-    url: 'https://www.anthropic.com/feed.xml',
+    // Note: www.anthropic.com/feed.xml returns 403 — Anthropic has
+    // discontinued their public RSS feed. Using a community-maintained feed
+    // scraped via Playwright + GitHub Actions, updated hourly.
+    url: 'https://raw.githubusercontent.com/taobojlen/anthropic-rss-feed/main/anthropic_news_rss.xml',
     description: 'Anthropic official blog — Claude releases, safety research, alignment, policy positions',
     category: 'tech',
     source: 'anthropic.com',
@@ -1504,7 +1512,9 @@ export const rssFeeds: RSSFeed[] = [
   {
     id: 'hackerfactor',
     name: 'Hacker Factor (Dr. Neal Krawetz)',
-    url: 'http://www.hackerfactor.com/blog/index.php?/feeds/index.rss2',
+    // Changed http→https 2026-06; the site supports HTTPS but the old URL
+    // was hardcoded as http (the only plain-HTTP feed in this collection).
+    url: 'https://www.hackerfactor.com/blog/index.php?/feeds/index.rss2',
     description:
       'Computer forensics research and analysis from Dr. Neal Krawetz — photo forensics, OSINT, and security investigation',
     category: 'threat-intel',
@@ -1627,8 +1637,9 @@ export const landingThreatGovernment = [
   'cisa-alerts',
   'cisa-medical-advisories',
   'ncsc-uk',
-  'ccb-news',
-  'ccb-advisories',
+  // ccb-* removed 2026-06: ccb.belgium.be is Cloudflare-fronted and
+  // intermittently returns 403 to the Worker's datacenter egress IP
+  // (documented in feeds-aggregate.ts cacheTtlByStatus comment).
 ];
 // gnews-* removed 2026-05-24: Google News rate-limits Worker IPs (503).
 // India coverage now relies on the global feeds — Krebs, BleepingComputer,
@@ -1694,7 +1705,10 @@ export const landingThreatInvestigation = [
 // Emptied so this page stops surfacing perpetually-failing feeds.
 export const landingThreatReddit: string[] = [];
 
-export const landingThreatVulns = ['exploitdb'];
+// exploitdb removed 2026-06: www.exploit-db.com is Cloudflare-fronted and
+// returns 403 to Worker egress IPs (same root cause as cvedetails.com, which
+// was removed 2026-05 for the same reason — see comment at line 560).
+export const landingThreatVulns: string[] = [];
 
 export const landingThreatNews = [
   'krebsonsecurity',
