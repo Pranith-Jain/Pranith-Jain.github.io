@@ -386,7 +386,7 @@ export default function Nhi(): JSX.Element {
                         </span>
                       </span>
                       <span
-                        className={`flex-none text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${GRADE_STYLES[risk.grade]}`}
+                        className={`flex-none text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${gradeTone(risk.grade)}`}
                       >
                         {risk.grade} · {risk.score}
                       </span>

@@ -1,6 +1,5 @@
 import { useState, useCallback } from 'react';
 import { BackLink } from '../../components/BackLink';
-import { SEVERITY_TONE } from '../../components/severity';
 import {
   ArrowLeft,
   BookOpen,
