@@ -6,6 +6,10 @@ export interface AgenticTrendsDeps {
   now: Date;
   getDedup: (stableKey: string) => Promise<DedupRecord | null>;
   groqKey?: string;
+  /** Optional real trending data to ground the LLM response (recent CVEs,
+   *  ransomware victims, breach headlines, etc.). When absent the LLM
+   *  hallucinates from training data, producing similar output every day. */
+  trendingContext?: string;
 }
 
 interface TrendCandidate {
@@ -21,18 +25,24 @@ interface TrendCandidate {
 const GROQ_URL = 'https://api.groq.com/openai/v1/chat/completions';
 const GROQ_MODEL = 'meta-llama/llama-4-scout-17b-16e-instruct';
 
+const CATEGORY_POOLS = [
+  ['ransomware', 'supply-chain', 'mobile'],
+  ['cloud-security', 'identity-attacks', 'cryptocurrency'],
+  ['ics-scada', 'ai-security', 'data-breach'],
+  ['state-sponsored', 'phishing-campaign', 'vulnerability-exploitation'],
+  ['iot-security', 'malware-evolution', 'cyber-policy'],
+  ['critical-infrastructure', 'attack-innovation', 'dark-web'],
+  ['threat-intelligence', 'incident-response', 'zero-day'],
+];
+
 const SYSTEM_PROMPT = `You are a cybersecurity threat-intel analyst scanning for trending stories.
 
 Today's date: {DATE}
+Focus categories for today: {CATEGORIES}
 
-Your task: Identify 5 genuinely trending cybersecurity stories RIGHT NOW that would make high-quality blog content. Look for:
+Your task: Identify 5 genuinely trending cybersecurity stories RIGHT NOW that would make high-quality blog content. Focus on the specific categories above but also consider any major breaking news in other areas.
 
-1. **Active exploitation** — CVEs with proof-of-concept, active campaigns, real victims
-2. **Emerging threat-actor activity** — new groups, shifted TTPs, notable campaigns
-3. **Ransomware evolution** — new encryptors, extortion tactics, notable victims
-4. **Novel attack techniques** — research papers, tooling, methodology shifts
-5. **Policy/regulation shifts** — new disclosure rules, sanctions, cyber norms
-6. **AI/ML security** — novel attacks on AI systems, AI-driven threats
+{TRENDING_CONTEXT}
 
 CRITERIA for a "trending" story:
 - It has real, specific details (not vague "cyber threats are rising")
@@ -104,7 +114,7 @@ async function callGroq(key: string, prompt: string, userMsg: string): Promise<s
         { role: 'user', content: userMsg },
       ],
       max_completion_tokens: 4000,
-      temperature: 0.3,
+      temperature: 0.9,
     }),
     signal: AbortSignal.timeout(30_000),
   });
@@ -119,7 +129,7 @@ async function callGroq(key: string, prompt: string, userMsg: string): Promise<s
 }
 
 export async function discoverAgenticTrends(deps: AgenticTrendsDeps): Promise<Candidate[]> {
-  const { groqKey, now, getDedup } = deps;
+  const { groqKey, now, getDedup, trendingContext } = deps;
 
   if (!groqKey) {
     console.warn('discoverAgenticTrends: GROQ_API_KEY not set, skipping');
@@ -127,7 +137,19 @@ export async function discoverAgenticTrends(deps: AgenticTrendsDeps): Promise<Ca
   }
 
   try {
-    const prompt = SYSTEM_PROMPT.replace('{DATE}', now.toISOString().slice(0, 10));
+    // Rotate focus categories daily so the LLM doesn't produce the same
+    // type categories every run. 7 pools x 3 categories = 21 unique focus
+    // areas cycling weekly. The remaining slots are open to breaking news.
+    const dayOfYear = Math.floor((now.getTime() - Date.UTC(now.getUTCFullYear(), 0, 0)) / 86400000);
+    const poolIndex = dayOfYear % CATEGORY_POOLS.length;
+    const todaysCategories = CATEGORY_POOLS[poolIndex]!.join(', ');
+    const trendingSnippet = trendingContext
+      ? `\nRecent data from platform feeds:\n${trendingContext.slice(0, 2000)}`
+      : '';
+
+    const prompt = SYSTEM_PROMPT.replace('{DATE}', now.toISOString().slice(0, 10))
+      .replace('{CATEGORIES}', todaysCategories)
+      .replace('{TRENDING_CONTEXT}', trendingSnippet);
     const userMsg = `What are the top trending cybersecurity stories as of ${now.toISOString().slice(0, 10)}? Focus on stories with real, specific details that a detection engineer or threat intel analyst would need to know about today.`;
 
     const text = await callGroq(groqKey, prompt, userMsg);

@@ -104,6 +104,50 @@ export async function runDiscoveryNow(env: CaseStudyEnv, now: Date) {
   const rand = mulberry32(dateSeed(now));
   const selectPerTopic = (cands: Parameters<typeof weightedSampleByScore>[0], k: number) =>
     weightedSampleByScore(cands, k, rand);
+
+  // Fetch real trending context from the platform to ground the agentic-trends
+  // LLM prompt. Without this, the LLM hallucinates from training data and
+  // produces similar output every day. Gracefully degrades to empty string
+  // when the fetch fails or SELF binding is unavailable.
+  const trendingContext = await (async (): Promise<string> => {
+    try {
+      const fetcher = env.SELF ?? { fetch: globalThis.fetch };
+      const endpoints = ['/api/v1/cisa-kev', '/api/v1/ransomware-recent?limit=5', '/api/v1/global-pulse'];
+      const results = await Promise.allSettled(
+        endpoints.map((path) =>
+          fetcher.fetch(new Request(`https://pranithjain.qzz.io${path}`)).then((r) => (r.ok ? r.json() : null))
+        )
+      );
+      const parts: string[] = [];
+      const kevData = results[0]?.status === 'fulfilled' ? results[0].value : null;
+      if (kevData && typeof kevData === 'object' && 'vulnerabilities' in (kevData as Record<string, unknown>)) {
+        const vulns = (kevData as Record<string, unknown>).vulnerabilities;
+        if (Array.isArray(vulns) && vulns.length > 0) {
+          parts.push('Recent CISA KEV additions: ' + JSON.stringify(vulns.slice(0, 5)));
+        }
+      }
+      const ransomData = results[1]?.status === 'fulfilled' ? results[1].value : null;
+      if (ransomData && typeof ransomData === 'object' && 'victims' in (ransomData as Record<string, unknown>)) {
+        const victims = (ransomData as Record<string, unknown>).victims;
+        if (Array.isArray(victims) && victims.length > 0) {
+          parts.push('Recent ransomware victims: ' + JSON.stringify(victims.slice(0, 5)));
+        }
+      }
+      const pulseData = results[2]?.status === 'fulfilled' ? results[2].value : null;
+      if (pulseData && typeof pulseData === 'object') {
+        const pd = pulseData as Record<string, unknown>;
+        const summary: string[] = [];
+        if (typeof pd.totalEvents === 'number') summary.push(`total events: ${pd.totalEvents}`);
+        if (typeof pd.ransomwareCount === 'number') summary.push(`ransomware: ${pd.ransomwareCount}`);
+        if (typeof pd.iocCount === 'number') summary.push(`IOCs: ${pd.iocCount}`);
+        if (summary.length > 0) parts.push('Global threat pulse: ' + summary.join(', '));
+      }
+      return parts.join('\n');
+    } catch {
+      return '';
+    }
+  })();
+
   const allRunners: Record<string, () => Promise<Candidate[]>> = {
     vulncheck: () =>
       discoverVulnCheckKev({ fetch: globalThis.fetch, now, getDedup: memGet, token: env.VULNCHECK_API_TOKEN ?? '' }),
@@ -121,8 +165,10 @@ export async function runDiscoveryNow(env: CaseStudyEnv, now: Date) {
         // Uses SELF service binding to bypass the public API-key gate.
         fetchReleaks: async () => {
           try {
-            const url = `https://pranithjain.qzz.io/api/v1/victim-releaks`;
-            const r = await globalThis.fetch(new Request(url));
+            const url = `/api/v1/victim-releaks`;
+            const r = env.SELF
+              ? await env.SELF.fetch(new Request(`https://pranithjain.qzz.io${url}`))
+              : await globalThis.fetch(new Request(`https://pranithjain.qzz.io${url}`));
             if (!r.ok) return [];
             const data = (await r.json()) as { releaks?: ReleakRow[] };
             return data.releaks ?? [];
@@ -153,7 +199,7 @@ export async function runDiscoveryNow(env: CaseStudyEnv, now: Date) {
         apiFetch: async (path) => {
           try {
             const url = `https://pranithjain.qzz.io${path}`;
-            const r = await globalThis.fetch(new Request(url));
+            const r = env.SELF ? await env.SELF.fetch(new Request(url)) : await globalThis.fetch(new Request(url));
             if (!r.ok) return null;
             return r.json();
           } catch {
@@ -167,11 +213,14 @@ export async function runDiscoveryNow(env: CaseStudyEnv, now: Date) {
     // beyond the configured RSS/API sources. Produces high-quality candidates
     // with hooks, angles, and trending signals. Falls back gracefully when
     // the LLM call fails (returns empty array).
+    // trendingContext feeds real platform data into the prompt so the LLM
+    // has actual current events to work with instead of hallucinating.
     trends: () =>
       discoverAgenticTrends({
         now,
         getDedup: memGet,
         groqKey: env.GROQ_API_KEY,
+        trendingContext,
       }),
   };
   // Discovery diversity model (2026-06-08 — agentic discovery):
