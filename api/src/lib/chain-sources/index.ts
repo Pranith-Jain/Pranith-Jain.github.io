@@ -5,16 +5,20 @@ import type { TracerChain, TransferFilter, FetchResult } from './types';
 
 export type { TracerChain, Transfer, TransferFilter, FetchResult } from './types';
 
-/** One address, one chain, one hop. The caller pre-loads `flaggedSet` (EVM only). */
+/**
+ * One address, one chain, one hop. The caller pre-loads `flaggedSet` (EVM only).
+ * `etherscanKey`, when present, upgrades the EVM native-ETH source to Etherscan.
+ */
 export function fetchTransfers(
   chain: TracerChain,
   address: string,
   filter: TransferFilter,
-  flaggedSet?: Set<string>
+  flaggedSet?: Set<string>,
+  etherscanKey?: string
 ): Promise<FetchResult> {
   switch (chain) {
     case 'evm':
-      return fetchEvmTransfers(address, filter, flaggedSet);
+      return fetchEvmTransfers(address, filter, flaggedSet, etherscanKey);
     case 'btc':
       return fetchBtcTransfers(address, filter);
     case 'tron':

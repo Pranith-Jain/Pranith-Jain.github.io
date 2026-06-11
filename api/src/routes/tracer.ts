@@ -147,7 +147,7 @@ export async function tracerExpandHandler(c: Context<{ Bindings: Env }>): Promis
   ]);
 
   const direction = input.direction ?? 'both';
-  const { transfers, truncated } = await fetchTransfers(chain, address, filter, scamSet);
+  const { transfers, truncated } = await fetchTransfers(chain, address, filter, scamSet, c.env.ETHERSCAN_API_KEY);
 
   // Collect every address we will render, then load all D1 labels in ONE query.
   const allAddresses = [address, ...transfers.map((t) => t.counterparty)];

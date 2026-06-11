@@ -66,6 +66,10 @@ export interface Env {
   /** ransomware.live PRO API key (set via `wrangler secret put`). Optional —
    *  the /api/v1/rl/* proxy degrades to 503 when unset. */
   RANSOMWARELIVE_API_KEY?: string;
+  /** Etherscan V2 API key (set via `wrangler secret put ETHERSCAN_API_KEY`).
+   *  Optional — upgrades the tracer's EVM native-ETH source to Etherscan; when
+   *  unset, native ETH transfers come from Blockscout's keyless endpoint. */
+  ETHERSCAN_API_KEY?: string;
   /** Groq free-tier API key (set via `wrangler secret put GROQ_API_KEY`).
    *  Optional — case-study generation uses Groq as the quality primary when
    *  set, and falls back to Workers AI when unset/unavailable. */

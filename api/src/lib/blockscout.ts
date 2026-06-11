@@ -7,7 +7,12 @@
  *
  * Free, no API key. Public Blockscout instance — graceful degradation if
  * upstream is unreachable (returns null fields, never throws).
+ *
+ * Also exposes a keyless native-ETH transfer source (getBlockscoutNativeTransfers)
+ * used as the fallback when no ETHERSCAN_API_KEY is configured.
  */
+
+import type { Transfer } from './chain-sources/types';
 
 const FETCH_TIMEOUT = 10_000;
 const CTX_CACHE_TTL = 300; // 5 min
@@ -102,7 +107,7 @@ function pickLabel(d: BSAddressLite): string | null {
   return null;
 }
 
-function fmtAmount(rawDec: string, decimals: number, precision = 4): string {
+export function fmtAmount(rawDec: string, decimals: number, precision = 4): string {
   const s = rawDec.replace(/^0+/, '') || '0';
   const padded = s.length <= decimals ? s.padStart(decimals + 1, '0') : s;
   const intPart = padded.slice(0, padded.length - decimals);
@@ -218,4 +223,62 @@ export async function getRecentTransfers(address: string, flaggedSet: Set<string
     });
   }
   return out;
+}
+
+/**
+ * Pure: normalise Blockscout's `/addresses/{addr}/transactions` response (native
+ * ETH txs) into the tracer's `Transfer` shape. Accepts either the raw items
+ * array or the `{ items }` envelope. Drops zero-value txs (no ETH moved) and
+ * contract creations (null `to`). The keyless counterpart to Etherscan's txlist.
+ */
+export function parseBlockscoutNativeTxs(data: unknown, address: string): Transfer[] {
+  const items = Array.isArray(data)
+    ? data
+    : data && typeof data === 'object' && Array.isArray((data as { items?: unknown }).items)
+      ? (data as { items: unknown[] }).items
+      : null;
+  if (!items) return [];
+
+  const lower = address.toLowerCase();
+  const out: Transfer[] = [];
+  for (const raw of items) {
+    if (!raw || typeof raw !== 'object') continue;
+    const it = raw as Record<string, unknown>;
+    const hash = typeof it.hash === 'string' ? it.hash : '';
+    const fromHash = (it.from as { hash?: string } | null)?.hash ?? '';
+    const toHash = (it.to as { hash?: string } | null)?.hash ?? '';
+    const valueWei = typeof it.value === 'string' ? it.value : '';
+    if (!hash || !fromHash || !toHash) continue;
+    if (!valueWei || /^0*$/.test(valueWei)) continue;
+
+    const isOut = fromHash.toLowerCase() === lower;
+    const isIn = toHash.toLowerCase() === lower;
+    const direction: 'in' | 'out' | 'self' = isOut && isIn ? 'self' : isOut ? 'out' : 'in';
+    const counterparty = direction === 'in' ? fromHash : toHash;
+    const amount = `${fmtAmount(valueWei, 18)} ETH`;
+    out.push({
+      counterparty,
+      direction,
+      amount,
+      amount_num: parseFloat(amount) || 0,
+      token: 'ETH',
+      tx_hash: hash,
+      timestamp: typeof it.timestamp === 'string' ? it.timestamp : null,
+      chain: 'evm',
+      explorer_url: `https://etherscan.io/tx/${hash}`,
+    });
+  }
+  return out;
+}
+
+/**
+ * Keyless native-ETH transfer fetch (Blockscout). Returns [] on any failure so
+ * the EVM fetcher still has its ERC-20 transfers. One subrequest.
+ */
+export async function getBlockscoutNativeTransfers(address: string): Promise<Transfer[]> {
+  if (!RE_EVM.test(address)) return [];
+  const res = await fetchWithTimeout(`${BS_BASE}/addresses/${address}/transactions`);
+  if (!res || !res.ok) return [];
+  const body = await res.json().catch(() => null);
+  return parseBlockscoutNativeTxs(body, address);
 }
