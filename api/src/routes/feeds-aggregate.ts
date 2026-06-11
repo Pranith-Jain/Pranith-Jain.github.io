@@ -59,6 +59,7 @@ const ALLOWED_HOSTS = new Set([
   // self-contained and avoids a circular dep.
   'www.cisa.gov',
   'cisa.gov',
+  'nvd.nist.gov',
   'us-cert.cisa.gov',
   'isc.sans.edu',
   'cert.europa.eu',
@@ -70,6 +71,10 @@ const ALLOWED_HOSTS = new Set([
   'bleepingcomputer.com',
   'www.securityweek.com',
   'securityweek.com',
+  'www.darkreading.com',
+  'darkreading.com',
+  'www.zdnet.com',
+  'www.vice.com',
   'www.theregister.com',
   'www.schneier.com',
   'www.wired.com',
@@ -96,6 +101,8 @@ const ALLOWED_HOSTS = new Set([
   'sentinelone.com',
   'flashpoint.io',
   'www.flashpoint.io',
+  'feeds.fireeye.com',
+  'www.microsoft.com',
   'msrc-blog.microsoft.com',
   'googleprojectzero.blogspot.com',
   'cloud.google.com',
@@ -255,6 +262,9 @@ const ALLOWED_HOSTS = new Set([
   'www.massivealliance.com',
   'hackerfactor.com',
   'www.hackerfactor.com',
+  'hackerfactor.com',
+  'www.hackingarticles.in',
+  'www.darknet.org.uk',
 ]);
 
 interface AggregatedItem {

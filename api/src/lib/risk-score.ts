@@ -6,6 +6,10 @@ export interface RiskInput {
   sanctioned: boolean;
   scamFlagged: boolean;
   labelCategory: LabelCategory | null;
+  /** Address is a known ransomware payment wallet (Ransomwhere crowdsourced tracker). */
+  ransomFlagged?: boolean;
+  /** Attributed ransomware family when known, surfaced in the risk signal. */
+  ransomFamily?: string | null;
 }
 
 export interface RiskScore {
@@ -33,6 +37,12 @@ export function scoreAddress(input: RiskInput): RiskScore {
   if (input.labelCategory === 'mixer' || input.labelCategory === 'sanctioned') {
     score = Math.max(score, 95);
     signals.push(`Labeled as ${input.labelCategory}`);
+  }
+  if (input.ransomFlagged) {
+    score = Math.max(score, 85);
+    signals.push(
+      `Known ransomware payment wallet${input.ransomFamily ? ` (${input.ransomFamily})` : ''} (Ransomwhere)`
+    );
   }
   if (input.scamFlagged) {
     score = Math.max(score, 80);

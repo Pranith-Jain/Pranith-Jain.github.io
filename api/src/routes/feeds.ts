@@ -18,6 +18,7 @@ const ALLOWED_HOSTS = new Set([
   'feeds.feedburner.com',
   // News and journalism
   'threatpost.com',
+  'www.threatpost.com',
   'krebsonsecurity.com',
   'thehackernews.com',
   'www.bleepingcomputer.com',
@@ -119,8 +120,6 @@ const ALLOWED_HOSTS = new Set([
   'www.venturebeat.com',
   'www.theverge.com',
   'theverge.com',
-  'feeds.arstechnica.com',
-  'arstechnica.com',
   'www.technologyreview.com',
   'technologyreview.com',
   'openai.com',
@@ -218,6 +217,9 @@ const ALLOWED_HOSTS = new Set([
   'www.massivealliance.com',
   'hackerfactor.com',
   'www.hackerfactor.com',
+  // www-prefixed variants used by some feeds
+  'www.hackingarticles.in',
+  'www.darknet.org.uk',
 ]);
 
 export async function feedProxyHandler(c: Context<{ Bindings: Env }>) {
