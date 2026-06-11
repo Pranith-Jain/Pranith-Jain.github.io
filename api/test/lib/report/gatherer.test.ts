@@ -201,3 +201,84 @@ describe('actor-kb fetcher (zero-fetch)', () => {
     expect(matchedActors.size).toBeLessThanOrEqual(10);
   });
 });
+
+import type { PlannedSource } from '../../../src/lib/report/types';
+
+const wikiSrc: PlannedSource = {
+  id: 'wikipedia',
+  name: 'Wikipedia',
+  kind: 'live',
+  authority: 'D',
+  cost: 2,
+  phase: 0,
+};
+
+const actorCtx = (type: GatherContext['subject']['type'] = 'actor', canonical = 'LockBit'): GatherContext => ({
+  env: {} as never,
+  subject: { raw: canonical, type, canonical, identifiers: {}, suggestedTemplate: 'threat-actor' },
+  signal: AbortSignal.timeout(5000),
+});
+
+describe('wikipedia fetcher', () => {
+  beforeEach(() => vi.restoreAllMocks());
+
+  it('maps a REST-v1 summary to one ok item', async () => {
+    const fetchMock = vi.fn().mockResolvedValue(
+      new Response(
+        JSON.stringify({
+          title: 'LockBit',
+          extract: 'LockBit is a ransomware group.',
+          content_urls: { desktop: { page: 'https://en.wikipedia.org/wiki/LockBit' } },
+        }),
+        { status: 200 }
+      )
+    );
+    vi.stubGlobal('fetch', fetchMock);
+    const r = await FETCHERS['wikipedia']!(actorCtx(), wikiSrc);
+    expect(r.status).toBe('ok');
+    expect(r.total).toBe(1);
+    expect(r.items[0]!.text).toContain('LockBit is a ransomware group.');
+    expect(r.items[0]!.url).toBe('https://en.wikipedia.org/wiki/LockBit');
+    // summary hit → no fallback search call
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+    expect(String(fetchMock.mock.calls[0]![0])).toContain('/page/summary/');
+  });
+
+  it('falls back to w/api.php search and HTML-strips snippets when summary 404s', async () => {
+    const fetchMock = vi
+      .fn()
+      .mockResolvedValueOnce(new Response('{}', { status: 404 }))
+      .mockResolvedValueOnce(
+        new Response(
+          JSON.stringify({
+            query: { search: [{ title: 'Conti (ransomware)', snippet: 'A <span>Russian</span> group' }] },
+          }),
+          { status: 200 }
+        )
+      );
+    vi.stubGlobal('fetch', fetchMock);
+    const r = await FETCHERS['wikipedia']!(actorCtx('generic', 'Conti'), wikiSrc);
+    expect(r.status).toBe('ok');
+    expect(r.items[0]!.text).toContain('A Russian group'); // tags stripped
+    expect(r.items[0]!.text).not.toContain('<span>');
+    expect(fetchMock).toHaveBeenCalledTimes(2);
+    expect(String(fetchMock.mock.calls[1]![0])).toContain('/w/api.php');
+  });
+
+  it('guards out ip/domain/hash/cve subjects with zero fetches', async () => {
+    const fetchMock = vi.fn();
+    vi.stubGlobal('fetch', fetchMock);
+    for (const t of ['ip', 'domain', 'hash', 'cve'] as const) {
+      const r = await FETCHERS['wikipedia']!(actorCtx(t, '1.2.3.4'), wikiSrc);
+      expect(r.status).toBe('empty');
+    }
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
+
+  it('degrades to empty (never error) when both summary and search fail', async () => {
+    const fetchMock = vi.fn().mockRejectedValue(new Error('network down'));
+    vi.stubGlobal('fetch', fetchMock);
+    const r = await FETCHERS['wikipedia']!(actorCtx(), wikiSrc);
+    expect(r.status).toBe('empty');
+  });
+});

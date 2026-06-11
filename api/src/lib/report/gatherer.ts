@@ -411,6 +411,62 @@ export const FETCHERS: Record<string, Fetcher> = {
       return base(src, 'error');
     }
   },
+
+  // Wikipedia summary/search for known threat actors (threat-actor template).
+  // REST-v1 summary first, then w/api.php search fallback. Guards out ip/domain/
+  // hash/cve. WMF is deprecating REST-v1 (§11) — degrade to 'empty', never 'error'.
+  wikipedia: async (ctx, src) => {
+    const t = ctx.subject.type;
+    if (t === 'ip' || t === 'domain' || t === 'hash' || t === 'cve') return base(src, 'empty');
+    const q = ctx.subject.canonical;
+    const UA = { 'User-Agent': 'pranithjain-copilot/1.0' };
+    // 1) direct REST-v1 page summary
+    try {
+      const title = q.replace(/\s+/g, '_');
+      const res = await fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(title)}`, {
+        headers: UA,
+        signal: ctx.signal,
+      });
+      if (res.ok) {
+        const data = (await res.json()) as {
+          extract?: string;
+          title?: string;
+          content_urls?: { desktop?: { page?: string } };
+        };
+        if (data.extract) {
+          return base(src, 'ok', [
+            {
+              text: `${data.title ?? q}: ${data.extract}`.trim(),
+              url: data.content_urls?.desktop?.page ?? `https://en.wikipedia.org/wiki/${encodeURIComponent(q)}`,
+              fields: { kind: 'wikipedia', title: data.title ?? q },
+            },
+          ]);
+        }
+      }
+    } catch {
+      /* summary miss → search fallback below */
+    }
+    // 2) w/api.php search fallback (durable path as REST-v1 is deprecated)
+    try {
+      const url = `https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(
+        q + ' cyber'
+      )}&format=json&srlimit=3&origin=*`;
+      const res = await fetch(url, { headers: UA, signal: ctx.signal });
+      if (res.ok) {
+        const data = (await res.json()) as { query?: { search?: Array<{ title: string; snippet: string }> } };
+        const hits = (data.query?.search ?? []).slice(0, 3);
+        const items: SourceItem[] = hits.map((h) => ({
+          text: `${h.title}: ${h.snippet.replace(/<[^>]+>/g, '')}`.trim(),
+          url: `https://en.wikipedia.org/wiki/${encodeURIComponent(h.title.replace(/\s+/g, '_'))}`,
+          fields: { kind: 'wikipedia', title: h.title },
+        }));
+        return base(src, items.length ? 'ok' : 'empty', items);
+      }
+    } catch {
+      /* search failed → empty (never error) */
+    }
+    return base(src, 'empty');
+  },
 };
 
 // Shared CVE fetcher (nvd/epss/kev all resolve from one lookupCve call).
