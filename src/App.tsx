@@ -281,6 +281,7 @@ const FeedScheduler = lazy(() => import('./pages/threatintel/FeedScheduler'));
 const ObservableDb = lazy(() => import('./pages/threatintel/ObservableDb'));
 const MalwareVault = lazy(() => import('./pages/threatintel/MalwareVault'));
 const SecretLeaks = lazy(() => import('./pages/threatintel/SecretLeaks'));
+const LlmThreatAtlas = lazy(() => import('./pages/threatintel/LlmThreatAtlas'));
 const ExportHub = lazy(() => import('./pages/dfir/ExportHub'));
 
 /**
@@ -559,6 +560,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel', Component: ThreatIntelHome },
   { path: '/threatintel/misp-browser', Component: MispBrowser },
   { path: '/threatintel/search', Component: UnifiedSearch },
+  { path: '/threatintel/llm-threat-atlas', Component: LlmThreatAtlas },
   { path: '/threatintel/ioc-enrichment', Component: IocEnrichment },
   { path: '/threatintel/relationship-graph', Component: RelationshipGraph },
   { path: '/threatintel/ach', Component: ACH },

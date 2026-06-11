@@ -298,6 +298,7 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/threatintel/telegram-leaks/channels', '/__prerendered/threatintel__telegram-leaks__channels'],
   ['/threatintel/telegram-leaks/stats', '/__prerendered/threatintel__telegram-leaks__stats'],
   ['/threatintel/yara', '/__prerendered/threatintel__yara'],
+  ['/threatintel/llm-threat-atlas', '/__prerendered/threatintel__llm-threat-atlas'],
 ]);
 
 /**

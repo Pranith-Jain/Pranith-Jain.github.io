@@ -7,6 +7,7 @@ import {
   BookOpen,
   BookText,
   Bot,
+  BrainCircuit,
   Briefcase,
   Bug,
   Cloud,
@@ -853,6 +854,13 @@ export const SECTIONS: Section[] = [
         label: 'MITRE ATLAS (AI/ML)',
         desc: 'Adversarial-ML taxonomy — tactics, techniques, and real-world case studies of attacks on AI and ML systems.',
         icon: Grid3x3,
+      },
+      {
+        to: '/threatintel/llm-threat-atlas',
+        label: 'LLM Threat Coverage Atlas',
+        desc: '480 curated LLM/agentic-AI attack vectors across 15 domains (prompt injection, RAG, tools, MCP, quorum, identity, supply chain, output handling, DoS, extraction, multi-agent, multimodal, human factors, ops, plugins). OWASP/MITRE mappings, scores, test guidance, framework cross-walk.',
+        icon: BrainCircuit,
+        badge: 'new',
       },
       {
         to: '/threatintel/insider-threat-matrix',
