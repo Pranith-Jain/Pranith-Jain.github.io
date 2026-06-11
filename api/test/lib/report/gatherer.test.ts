@@ -47,3 +47,96 @@ describe('gatherPhase', () => {
     expect(result).toBeUndefined(); // registry has no such entry
   });
 });
+
+describe('malpedia fetcher', () => {
+  beforeEach(() => vi.restoreAllMocks());
+
+  const planned = {
+    id: 'malpedia',
+    name: 'Malpedia',
+    kind: 'live' as const,
+    authority: 'A' as const,
+    cost: 2,
+    phase: 1,
+  };
+
+  const actorCtx = (type: 'actor' | 'ransomware' | 'generic' | 'ip' = 'actor', canonical = 'APT28'): GatherContext => ({
+    env: {} as never,
+    subject: { raw: canonical, type, canonical, identifiers: {}, suggestedTemplate: 'threat-actor' },
+    signal: AbortSignal.timeout(5000),
+  });
+
+  // Route-aware fake fetch; counts calls so we can assert zero-network for skipped subjects.
+  function routedFetch(map: Record<string, { body: unknown; status?: number }>) {
+    const calls: string[] = [];
+    const fn = (async (url: string) => {
+      calls.push(String(url));
+      const hit = Object.entries(map).find(([frag]) => String(url).includes(frag));
+      if (!hit) return new Response('{}', { status: 404 });
+      const [, { body, status }] = hit;
+      return new Response(JSON.stringify(body), { status: status ?? 200 });
+    }) as unknown as typeof fetch;
+    return { fn, calls };
+  }
+
+  it('maps an actor hit (description + aliases + families), skipping empty-description items', async () => {
+    const { fn } = routedFetch({
+      '/api/get/actor/apt28': {
+        body: {
+          value: 'APT28',
+          description: 'Russian state-sponsored group also known as Fancy Bear.',
+          meta: { synonyms: ['Fancy Bear', 'Sofacy'] },
+          families: ['win.xagent', 'win.sofacy'],
+        },
+      },
+    });
+    vi.stubGlobal('fetch', fn);
+    const r = await FETCHERS['malpedia']!(actorCtx('actor', 'APT28'), planned);
+    expect(r.status).toBe('ok');
+    expect(r.items.some((i) => i.text.includes('Fancy Bear'))).toBe(true);
+    expect(r.items.every((i) => i.text.trim().length > 0)).toBe(true);
+    expect(r.items.some((i) => i.fields?.kind === 'description')).toBe(true);
+  });
+
+  it('falls back to the family endpoint when the actor 404s', async () => {
+    const { fn, calls } = routedFetch({
+      '/api/get/actor/lockbit': { body: {}, status: 404 },
+      '/api/get/family/lockbit': {
+        body: {
+          family_name: 'win.lockbit',
+          common_name: 'LockBit',
+          description: 'LockBit ransomware-as-a-service.',
+          associated_actors: ['Bitwise Spider'],
+          alt_names: ['ABCD'],
+        },
+      },
+    });
+    vi.stubGlobal('fetch', fn);
+    const r = await FETCHERS['malpedia']!(actorCtx('ransomware', 'LockBit'), planned);
+    expect(r.status).toBe('ok');
+    expect(calls.some((u) => u.includes('/api/get/actor/lockbit'))).toBe(true);
+    expect(calls.some((u) => u.includes('/api/get/family/lockbit'))).toBe(true);
+    expect(r.items.some((i) => i.text.includes('LockBit ransomware-as-a-service'))).toBe(true);
+  });
+
+  it('returns empty when both endpoints have no usable (non-empty-description) content', async () => {
+    const { fn } = routedFetch({
+      '/api/get/actor/win.lockbit': { body: {}, status: 404 },
+      '/api/get/family/win.lockbit': {
+        body: { family_name: 'win.lockbit', common_name: 'LockBit', description: '' },
+      },
+    });
+    vi.stubGlobal('fetch', fn);
+    const r = await FETCHERS['malpedia']!(actorCtx('generic', 'win.lockbit'), planned);
+    expect(r.status).toBe('empty');
+    expect(r.total).toBe(0);
+  });
+
+  it('skips non-matching subject types with zero fetches', async () => {
+    const { fn, calls } = routedFetch({});
+    vi.stubGlobal('fetch', fn);
+    const r = await FETCHERS['malpedia']!(actorCtx('ip', '8.8.8.8'), planned);
+    expect(r.status).toBe('empty');
+    expect(calls.length).toBe(0);
+  });
+});

@@ -247,6 +247,79 @@ export const FETCHERS: Record<string, Fetcher> = {
     );
   },
 
+  // Malpedia actor/family background (ransomware-group + threat-actor templates).
+  // Descriptor lives in SOURCE_CATALOG; key MUST stay 'malpedia' (a typo re-stubs it).
+  // Hash-only providers/malpedia.ts is intentionally NOT reused here.
+  malpedia: async (ctx, src) => {
+    const t = ctx.subject.type;
+    if (t !== 'actor' && t !== 'ransomware' && t !== 'generic') return base(src, 'empty');
+    const slug = ctx.subject.canonical
+      .trim()
+      .toLowerCase()
+      .replace(/[^a-z0-9.-]/g, '-');
+    if (!slug) return base(src, 'empty');
+    const BASE = 'https://malpedia.caad.fkie.fraunhofer.de';
+    const pull = async (kind: 'actor' | 'family'): Promise<Record<string, unknown> | null> => {
+      try {
+        const res = await fetch(`${BASE}/api/get/${kind}/${encodeURIComponent(slug)}`, {
+          headers: { Accept: 'application/json', 'User-Agent': 'pranithjain-copilot/1.0' },
+          signal: ctx.signal,
+        });
+        if (!res.ok) return null;
+        const j = await res.json();
+        return j && typeof j === 'object' ? (j as Record<string, unknown>) : null;
+      } catch {
+        return null;
+      }
+    };
+
+    const actor = await pull('actor');
+    const fam = actor ? null : await pull('family');
+    const data = actor ?? fam;
+    if (!data) return base(src, 'empty');
+
+    const url = `${BASE}/${actor ? 'actor' : 'details/family'}/${encodeURIComponent(slug)}`;
+    const items: SourceItem[] = [];
+
+    // description (skip empty — win.lockbit returns description:'')
+    const desc = str(data.description);
+    if (desc && desc.trim()) items.push({ text: desc.trim(), url, fields: { kind: 'description' } });
+
+    // attribution / associated actors (family) — citable entity links
+    const attribution = arr(data.associated_actors)
+      .map((a) => str(a))
+      .filter((a): a is string => !!a);
+    if (attribution.length)
+      items.push({
+        text: `Attribution: ${attribution.join(', ')}`,
+        url,
+        fields: { kind: 'attribution', actors: attribution },
+      });
+
+    // associated malware families (actor side)
+    const families = arr(data.families)
+      .map((f) => str(f))
+      .filter((f): f is string => !!f);
+    if (families.length)
+      items.push({ text: `Families: ${families.join(', ')}`, url, fields: { kind: 'families', families } });
+
+    // aliases: actor -> meta.synonyms; family -> alt_names (common_name excluded:
+    // an empty-description family carrying only common_name is NOT usable content)
+    const meta = (data.meta ?? {}) as Record<string, unknown>;
+    const aliases = [...arr(meta.synonyms).map((a) => str(a)), ...arr(data.alt_names).map((a) => str(a))].filter(
+      (a): a is string => !!a
+    );
+    const uniqAliases = [...new Set(aliases)];
+    if (uniqAliases.length)
+      items.push({
+        text: `Aliases: ${uniqAliases.join(', ')}`,
+        url,
+        fields: { kind: 'aliases', aliases: uniqAliases },
+      });
+
+    return base(src, items.length ? 'ok' : 'empty', items);
+  },
+
   // Providers (ioc template)
   virustotal: providerFetcher(virustotal),
   abuseipdb: providerFetcher(abuseipdb),
@@ -298,7 +371,13 @@ export const FETCHERS: Record<string, Fetcher> = {
         items.push({
           text: `${str(inc.title) ?? 'Supply-chain incident'} (${str(inc.severity) ?? 'n/a'}, ${str(inc.status) ?? 'n/a'})${ecosystems ? ` · ${ecosystems}` : ''}`,
           url: str(inc.url),
-          fields: { kind: 'supply-chain', ecosystems: inc.ecosystems, attack_vectors: inc.attackVectors, packages, status: inc.status },
+          fields: {
+            kind: 'supply-chain',
+            ecosystems: inc.ecosystems,
+            attack_vectors: inc.attackVectors,
+            packages,
+            status: inc.status,
+          },
         });
         if (items.length >= MAX_ITEMS) break;
       }
