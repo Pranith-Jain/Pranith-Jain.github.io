@@ -316,6 +316,23 @@ export const aiSummarySchema = z.object({
     .max(50, 'too many items (max 50)'),
 });
 
+// Public (same-origin) opt-in AI summary for the unified-search omnibox. Keyed
+// by the query `q` (not surface+date) so each search caches independently. Same
+// item shape as aiSummarySchema; the handler maps q → SummaryInput surface/date.
+export const unifiedSearchSummarizeSchema = z.object({
+  q: searchQueryPattern,
+  items: z
+    .array(
+      z.object({
+        title: z.string().min(1).max(500),
+        body: z.string().max(10_000),
+        source: z.string().max(200).optional(),
+      })
+    )
+    .min(1, 'items array required')
+    .max(50, 'too many items (max 50)'),
+});
+
 export const copilotInvestigateSchema = z.object({
   query: z.string().min(1, 'query required').max(500, 'query too long'),
 });
@@ -954,7 +971,10 @@ export const attackFlowLibrarySchema = z.object({
 // Volexity threat-intel (GitHub repo) query filters (parity).
 export const volexityThreatIntelSchema = z.object({
   folder: z.string().max(300).optional(),
-  year: z.string().regex(/^\d{4}$/).optional(),
+  year: z
+    .string()
+    .regex(/^\d{4}$/)
+    .optional(),
   q: z.string().max(200).optional(),
   limit: z.string().regex(/^\d+$/).optional(),
 });
