@@ -130,7 +130,7 @@ export function SocBar({
                   y={innerH + 14}
                   textAnchor="middle"
                   fontSize="10"
-                  className="fill-slate-500"
+                  className="fill-slate-400 dark:fill-slate-500"
                   fontFamily="ui-monospace,monospace"
                 >
                   {truncate(it.label, Math.max(5, Math.floor(slotW / 7)))}
@@ -461,7 +461,7 @@ export function SocSparkline({
                 y={height - 6}
                 textAnchor="middle"
                 fontSize="10"
-                className="fill-slate-500"
+                className="fill-slate-400 dark:fill-slate-500"
                 fontFamily="ui-monospace,monospace"
               >
                 {truncate(p.label, 8)}
