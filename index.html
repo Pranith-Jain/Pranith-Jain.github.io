@@ -26,13 +26,6 @@
          browser console warnings). X-XSS-Protection is deprecated everywhere
          and intentionally omitted; CSP covers the same surface better. -->
     
-    <!-- Critical above-fold styles so the page is legible before the full CSS bundle loads.
-         The full stylesheet is loaded asynchronously via preload + onload (see vite async-css plugin). -->
-    <style>
-      body { background-color: #f8fafc; color: #0f172a; }
-      .dark body, .dark { background-color: #020617; color: #f8fafc; }
-    </style>
-
     <!-- CSP is NOT served via <meta> — the worker (withSecurityHeaders) sets it per-response with a
          fresh nonce so script-src switches from 'unsafe-inline' to nonce-based enforcement. Keeping
          a <meta> tag here would create a second, less-restrictive policy that scanners flag. -->

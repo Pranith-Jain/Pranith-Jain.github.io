@@ -121,23 +121,6 @@ export default defineConfig(({ mode }) => ({
   },
   plugins: [
     react(),
-    {
-      name: 'async-css',
-      enforce: 'post',
-      transformIndexHtml: {
-        order: 'post',
-        handler(html: string) {
-          return html.replace(
-            /<link rel="stylesheet" crossorigin href="(\/assets\/index-[^"]+\.css)">/g,
-            (_, href: string) =>
-              [
-                `<link rel="preload" href="${href}" as="style" onload="this.onload=null;this.rel='stylesheet'">`,
-                `<noscript><link rel="stylesheet" crossorigin href="${href}"></noscript>`,
-              ].join('\n    ')
-          );
-        },
-      },
-    },
     mode === 'analyze' &&
       visualizer({
         open: true,
