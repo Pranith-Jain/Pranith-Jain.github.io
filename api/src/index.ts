@@ -471,6 +471,7 @@ for (const base of ADMIN_GATED_PREFIXES) {
 }
 // Single-path / costly-AI gates. `/api/v1/rules/*` and `/api/v1/yara/*` match
 // the generate/validate sub-paths but NOT the public `/api/v1/rules` feed.
+app.use('/api/v1/tracer/labels', requireAdminMiddleware);
 app.use('/api/v1/graph/ingest', requireAdminMiddleware);
 app.use('/api/v1/threat-intel/novelty/batch', requireAdminMiddleware);
 app.use('/api/v1/report/parse', requireAdminMiddleware);
