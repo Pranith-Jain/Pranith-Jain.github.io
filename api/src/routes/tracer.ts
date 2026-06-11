@@ -12,6 +12,7 @@ import {
 import { scoreAddress, type RiskScore } from '../lib/risk-score';
 import { loadSanctionedSet, type SanctionsChain } from '../lib/ofac-sanctions';
 import { loadScamSnifferSet } from '../lib/scamsniffer';
+import { loadRansomwhereMap, checkRansomwhere, type RansomMap } from '../lib/ransomwhere-set';
 import { getAddressContext } from '../lib/blockscout';
 import { analyzeCalldata } from '../lib/calldata-analysis';
 import { fetchEvmTx, fetchTronTx, EVM_RPCS, type FetchedTx } from '../lib/tx-fetch';
@@ -89,18 +90,28 @@ function buildNode(
   isRoot: boolean,
   sanctionedSet: Set<string>,
   scamSet: Set<string>,
+  ransomMap: RansomMap,
   override?: AddressLabel | null
 ): TracerNode {
   const label = override ?? resolveSeedLabel(address, chain);
   const sanctioned = sanctionedSet.has(normForSet(chain, address));
   const scamFlagged = chain === 'evm' && scamSet.has(address.toLowerCase());
-  const risk = scoreAddress({ sanctioned, scamFlagged, labelCategory: label?.category ?? null });
+  const ransom = checkRansomwhere(ransomMap, chain, address);
+  const risk = scoreAddress({
+    sanctioned,
+    scamFlagged,
+    ransomFlagged: ransom.flagged,
+    ransomFamily: ransom.family,
+    labelCategory: label?.category ?? null,
+  });
+  // A ransom hit attributes the node when nothing higher-trust already labels it.
+  const ransomLabeled = ransom.flagged && !label;
   return {
     id: nodeId(chain, address),
     address,
     chain,
-    label: label?.label ?? null,
-    category: label?.category ?? 'unknown',
+    label: ransomLabeled ? (ransom.family ?? 'Ransomware payment wallet') : (label?.label ?? null),
+    category: ransomLabeled ? 'ransomware' : (label?.category ?? 'unknown'),
     risk,
     is_root: isRoot,
     explorer_url: EXPLORER[chain](address),
@@ -128,9 +139,11 @@ export async function tracerExpandHandler(c: Context<{ Bindings: Env }>): Promis
     maxTransfers: input.maxTransfers ?? 50,
   };
 
-  const [sanctionedSet, scamSet] = await Promise.all([
+  const [sanctionedSet, scamSet, ransomMap] = await Promise.all([
     loadSanctionedSet(OFAC_CHAINS[chain]),
     chain === 'evm' ? loadScamSnifferSet() : Promise.resolve(new Set<string>()),
+    // Ransomwhere only covers BTC + EVM — skip the fetch on tron.
+    chain === 'evm' || chain === 'btc' ? loadRansomwhereMap() : Promise.resolve(new Map<string, string>()),
   ]);
 
   const direction = input.direction ?? 'both';
@@ -159,7 +172,7 @@ export async function tracerExpandHandler(c: Context<{ Bindings: Env }>): Promis
     }
   }
 
-  const root = buildNode(chain, address, true, sanctionedSet, scamSet, rootOverride);
+  const root = buildNode(chain, address, true, sanctionedSet, scamSet, ransomMap, rootOverride);
 
   const nodes: TracerNode[] = [root];
   const edges: TracerEdge[] = [];
@@ -172,7 +185,9 @@ export async function tracerExpandHandler(c: Context<{ Bindings: Env }>): Promis
     if (!seen.has(cpId)) {
       seen.add(cpId);
       // Counterparty label precedence: D1 → seed (buildNode falls back to seed when override is null).
-      nodes.push(buildNode(chain, t.counterparty, false, sanctionedSet, scamSet, dbLabelFor(t.counterparty)));
+      nodes.push(
+        buildNode(chain, t.counterparty, false, sanctionedSet, scamSet, ransomMap, dbLabelFor(t.counterparty))
+      );
     }
     const source = t.direction === 'out' ? root.id : cpId;
     const target = t.direction === 'out' ? cpId : root.id;
@@ -215,11 +230,12 @@ export async function tracerExpandHandler(c: Context<{ Bindings: Env }>): Promis
 export async function tracerLabelHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const input = (c as Context<{ Bindings: Env }> & { parsed: TracerLabelInput }).parsed;
   const { address, chain } = input;
-  const [sanctionedSet, scamSet] = await Promise.all([
+  const [sanctionedSet, scamSet, ransomMap] = await Promise.all([
     loadSanctionedSet(OFAC_CHAINS[chain]),
     chain === 'evm' ? loadScamSnifferSet() : Promise.resolve(new Set<string>()),
+    chain === 'evm' || chain === 'btc' ? loadRansomwhereMap() : Promise.resolve(new Map<string, string>()),
   ]);
-  const node = buildNode(chain, address, true, sanctionedSet, scamSet);
+  const node = buildNode(chain, address, true, sanctionedSet, scamSet, ransomMap);
   return c.json(
     {
       address,
