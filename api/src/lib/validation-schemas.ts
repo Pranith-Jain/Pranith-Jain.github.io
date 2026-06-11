@@ -1002,7 +1002,7 @@ export const githubSecuritySchema = z.object({
 export const tracerExpandSchema = z
   .object({
     address: z.string().min(1, 'address is required').max(200, 'address too long'),
-    chain: z.enum(['evm', 'btc', 'tron']),
+    chain: z.enum(['evm', 'btc', 'tron', 'solana']),
     direction: z.enum(['in', 'out', 'both']).optional(),
     from: z.string().datetime().optional(),
     to: z.string().datetime().optional(),
@@ -1020,13 +1020,13 @@ export type TracerExpandInput = z.infer<typeof tracerExpandSchema>;
 
 export const tracerLabelSchema = z.object({
   address: z.string().min(1, 'address is required').max(200, 'address too long'),
-  chain: z.enum(['evm', 'btc', 'tron']),
+  chain: z.enum(['evm', 'btc', 'tron', 'solana']),
 });
 export type TracerLabelInput = z.infer<typeof tracerLabelSchema>;
 
 export const tracerLabelAddSchema = z.object({
   address: z.string().min(1, 'address is required').max(200, 'address too long'),
-  chain: z.enum(['evm', 'btc', 'tron']),
+  chain: z.enum(['evm', 'btc', 'tron', 'solana']),
   label: z.string().min(1, 'label is required').max(80, 'label too long'),
   category: z.enum([
     'exchange',
@@ -1052,7 +1052,7 @@ export type TracerCalldataInput = z.infer<typeof tracerCalldataSchema>;
 export const tracerGraphSaveSchema = z.object({
   title: z.string().min(1, 'title is required').max(120, 'title too long'),
   seed_address: z.string().min(1).max(200),
-  chain: z.enum(['evm', 'btc', 'tron']),
+  chain: z.enum(['evm', 'btc', 'tron', 'solana']),
   graph_json: z
     .string()
     .min(1)
@@ -1065,7 +1065,7 @@ export type TracerGraphSaveInput = z.infer<typeof tracerGraphSaveSchema>;
 export const cryptoWatchAddSchema = z
   .object({
     address: z.string().min(1).max(200),
-    chain: z.enum(['evm', 'btc', 'tron']),
+    chain: z.enum(['evm', 'btc', 'tron', 'solana']),
     alert_types: z.array(z.enum(['new_transfer', 'suspicious_counterparty', 'large_transfer'])).min(1),
     min_amount: z.number().nonnegative().optional(),
     webhook_url: z.string().url().max(2048).optional(),
