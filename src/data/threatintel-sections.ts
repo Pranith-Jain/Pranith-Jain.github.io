@@ -424,9 +424,9 @@ export const SECTIONS: Section[] = [
       },
       {
         to: '/threatintel/copilot-chat',
-        label: 'Multi-Turn CTI Copilot',
-        desc: 'Conversational multi-turn copilot with session history. Chat through an investigation — ask follow-ups, drill into sources, get inline citations.',
-        icon: MessageSquare,
+        label: 'AI Chat (Agent-Powered)',
+        desc: 'Agent-driven multi-turn investigation. Chat about CVEs, actors, IPs, domains — the agent plans steps, calls 30+ intel tools, and produces structured reports.',
+        icon: Bot,
         badge: 'new',
       },
       {

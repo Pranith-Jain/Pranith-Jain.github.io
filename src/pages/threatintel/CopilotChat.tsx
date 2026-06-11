@@ -1,26 +1,48 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, Send, Sparkles, Loader2, MessageSquare, Trash2, Clock, AlertTriangle } from 'lucide-react';
+import {
+  ArrowLeft,
+  Send,
+  Loader2,
+  Trash2,
+  Clock,
+  AlertTriangle,
+  Bot,
+  ChevronRight,
+  Terminal,
+  CheckCircle2,
+  XCircle,
+} from 'lucide-react';
 import { sanitizeAiHtml } from '../../lib/sanitize-html';
 
+interface AgentToolResult {
+  tool: string;
+  args: Record<string, unknown>;
+  status: 'ok' | 'error';
+  data?: unknown;
+  error?: string;
+  durationMs: number;
+}
+
+interface AgentStep {
+  stepNumber: number;
+  plan: string;
+  toolCalls: Array<{ tool: string; args: Record<string, unknown>; reasoning: string }>;
+  results: AgentToolResult[];
+  status: 'pending' | 'running' | 'done' | 'error';
+  startedAt?: string;
+  completedAt?: string;
+  observation?: string;
+  nextAction?: 'continue' | 'synthesize';
+}
+
 interface ChatMessage {
-  role: 'user' | 'assistant';
+  role: 'user' | 'assistant' | 'system';
   content: string;
   query_type?: string;
   model_used?: string;
-  sources?: Array<{ name: string; items: number }>;
   processed_at?: string;
-}
-
-interface ChatResponse {
-  sessionId: string;
-  reply: string;
-  query_type: string;
-  sources: Array<{ name: string; items: number }>;
-  model_used: string;
-  processed_at: string;
-  history_length: number;
 }
 
 const TYPE_BADGES: Record<string, { label: string; color: string }> = {
@@ -79,16 +101,19 @@ export default function CopilotChat(): JSX.Element {
   const [query, setQuery] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [agentSteps, setAgentSteps] = useState<AgentStep[]>([]);
+  const [currentStepNum, setCurrentStepNum] = useState(0);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const eventSourceRef = useRef<EventSource | null>(null);
   const [narrativeHtmls, setNarrativeHtmls] = useState<Map<number, string>>(new Map());
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages]);
+  }, [messages, agentSteps]);
 
   useEffect(() => {
-    inputRef.current?.focus();
+    if (!loading) inputRef.current?.focus();
   }, [loading]);
 
   useEffect(() => {
@@ -96,7 +121,7 @@ export default function CopilotChat(): JSX.Element {
     fetch(`/api/v1/copilot/chat/${encodeURIComponent(sessionId)}`)
       .then((r) => (r.ok ? r.json() : null))
       .then((data) => {
-        if (data?.messages) setMessages(data.messages);
+        if (data?.messages) setMessages(data.messages.filter((m: ChatMessage) => m.role !== 'system'));
       })
       .catch(() => {});
   }, [sessionId]);
@@ -116,51 +141,103 @@ export default function CopilotChat(): JSX.Element {
     }
   }, [messages, narrativeHtmls]);
 
-  const sendMessage = async (q: string) => {
-    if (!q.trim() || loading) return;
-    setLoading(true);
-    setError(null);
-    const userMsg: ChatMessage = { role: 'user', content: q.trim() };
-    setMessages((prev) => [...prev, userMsg]);
+  const sendMessage = useCallback(
+    async (q: string) => {
+      if (!q.trim() || loading) return;
+      setLoading(true);
+      setError(null);
+      setAgentSteps([]);
+      setCurrentStepNum(0);
+      setNarrativeHtmls(new Map());
+      eventSourceRef.current?.close();
 
-    try {
-      const res = await fetch('/api/v1/copilot/chat', {
-        method: 'POST',
-        headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ sessionId, query: q.trim() }),
-      });
-      if (!res.ok) {
-        const err = await res.json().catch(() => ({ error: `HTTP ${res.status}` }));
-        throw new Error((err as { error?: string }).error ?? 'Chat failed');
-      }
-      const data = (await res.json()) as ChatResponse;
-      setSessionId(data.sessionId);
-      const assistantMsg: ChatMessage = {
-        role: 'assistant',
-        content: data.reply,
-        query_type: data.query_type,
-        model_used: data.model_used,
-        sources: data.sources,
-        processed_at: data.processed_at,
-      };
-      setMessages((prev) => [...prev, assistantMsg]);
-    } catch (e) {
-      setError(e instanceof Error ? e.message : String(e));
-    } finally {
-      setLoading(false);
+      const userMsg: ChatMessage = { role: 'user', content: q.trim() };
+      setMessages((prev) => [...prev, userMsg]);
       setQuery('');
-    }
-  };
 
-  const newSession = () => {
+      try {
+        const res = await fetch('/api/v1/copilot/chat', {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({ sessionId, query: q.trim() }),
+        });
+        if (!res.ok) {
+          const err = await res.json().catch(() => ({ error: `HTTP ${res.status}` }));
+          throw new Error((err as { error?: string }).error ?? 'Chat failed');
+        }
+        const data = (await res.json()) as { sessionId: string; agentId: string };
+        setSessionId(data.sessionId);
+
+        const es = new EventSource(`/api/v1/copilot/chat/${encodeURIComponent(data.sessionId)}/stream`);
+        eventSourceRef.current = es;
+
+        es.onmessage = (ev) => {
+          try {
+            const msg = JSON.parse(ev.data) as
+              | { type: 'step'; step: AgentStep }
+              | { type: 'done'; report: string | null; error: string | null; modelUsed: string | null }
+              | { type: 'error'; report?: null; error: string; modelUsed?: null }
+              | { type: 'heartbeat' };
+
+            if (msg.type === 'heartbeat') return;
+
+            if (msg.type === 'step') {
+              setAgentSteps((prev) => {
+                const steps = [...prev];
+                const idx = steps.findIndex((s) => s.stepNumber === msg.step.stepNumber);
+                if (idx >= 0) steps[idx] = msg.step;
+                else steps.push(msg.step);
+                return steps;
+              });
+              setCurrentStepNum(msg.step.stepNumber);
+            } else if (msg.type === 'done') {
+              es.close();
+              if (msg.report) {
+                const assistantMsg: ChatMessage = {
+                  role: 'assistant',
+                  content: msg.report,
+                  model_used: msg.modelUsed ?? undefined,
+                  processed_at: new Date().toISOString(),
+                };
+                setMessages((prev) => [...prev, assistantMsg]);
+              }
+              setLoading(false);
+            } else if (msg.type === 'error') {
+              es.close();
+              setError(msg.error);
+              setLoading(false);
+            }
+          } catch {
+            /* ignore parse errors */
+          }
+        };
+
+        es.onerror = () => {
+          es.close();
+          setError('Connection lost');
+          setLoading(false);
+        };
+      } catch (e) {
+        setError(e instanceof Error ? e.message : String(e));
+        setLoading(false);
+      }
+    },
+    [sessionId, loading]
+  );
+
+  const newSession = useCallback(() => {
+    eventSourceRef.current?.close();
     setSessionId(null);
     setMessages([]);
     setError(null);
     setNarrativeHtmls(new Map());
+    setAgentSteps([]);
+    setCurrentStepNum(0);
     setQuery('');
-  };
+  }, []);
 
-  const badge = messages.length >= 2 ? TYPE_BADGES[messages[messages.length - 1]?.query_type ?? ''] : null;
+  const lastAssistantMsg = [...messages].reverse().find((m) => m.role === 'assistant');
+  const badge = lastAssistantMsg?.query_type ? TYPE_BADGES[lastAssistantMsg.query_type] : null;
 
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
@@ -183,11 +260,12 @@ export default function CopilotChat(): JSX.Element {
 
       <div className="animate-fade-in-up mb-6">
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
-          <MessageSquare className="text-brand-600 dark:text-brand-400" size={28} />
+          <Bot className="text-brand-600 dark:text-brand-400" size={28} />
           CTI Chat
         </h1>
         <p className="text-slate-600 dark:text-slate-400 max-w-3xl leading-relaxed">
-          Multi-turn conversation with context. Ask about any CVE, threat actor, ransomware group, IP, domain, or hash.
+          Autonomous multi-turn investigation. Ask about any CVE, threat actor, ransomware group, IP, domain, or hash —
+          the agent plans, gathers intelligence, and produces a structured report.
         </p>
       </div>
 
@@ -195,7 +273,7 @@ export default function CopilotChat(): JSX.Element {
         <div className="flex-1 overflow-y-auto p-4 space-y-4 max-h-[600px]">
           {messages.length === 0 && !loading && (
             <div className="flex flex-col items-center justify-center h-64 text-slate-400 dark:text-slate-600">
-              <Sparkles size={32} className="mb-3 opacity-50" />
+              <Bot size={32} className="mb-3 opacity-50" />
               <p className="text-sm font-mono">Ask anything about threat intelligence</p>
               <div className="flex flex-wrap gap-2 mt-4">
                 {['CVE-2024-1709', 'LockBit', 'Scattered Spider', '8.8.8.8'].map((ex) => (
@@ -224,7 +302,7 @@ export default function CopilotChat(): JSX.Element {
                   <p className="text-sm">{msg.content}</p>
                 ) : (
                   <div>
-                    {msg.query_type && badge && (
+                    {badge && (
                       <span className={`inline-block text-[10px] font-mono px-1.5 py-0.5 rounded mb-2 ${badge.color}`}>
                         {badge.label}
                       </span>
@@ -233,21 +311,6 @@ export default function CopilotChat(): JSX.Element {
                       className="prose prose-sm dark:prose-invert max-w-none"
                       dangerouslySetInnerHTML={{ __html: narrativeHtmls.get(i) ?? '' }}
                     />
-                    {msg.sources && msg.sources.length > 0 && (
-                      <details className="mt-2 text-xs text-slate-500 dark:text-slate-400">
-                        <summary className="cursor-pointer hover:text-slate-700 dark:hover:text-slate-300">
-                          {msg.sources.length} source{msg.sources.length !== 1 ? 's' : ''}
-                        </summary>
-                        <div className="mt-1 space-y-0.5">
-                          {msg.sources.map((s, j) => (
-                            <div key={j} className="flex justify-between">
-                              <span>{s.name}</span>
-                              <span className="text-slate-400">{s.items} items</span>
-                            </div>
-                          ))}
-                        </div>
-                      </details>
-                    )}
                     {msg.model_used && (
                       <p className="mt-1 text-[10px] text-slate-400 dark:text-slate-500 font-mono">
                         {msg.model_used} · {msg.processed_at ? new Date(msg.processed_at).toLocaleTimeString() : ''}
@@ -261,11 +324,62 @@ export default function CopilotChat(): JSX.Element {
 
           {loading && (
             <div className="flex justify-start">
-              <div className="max-w-[85%] rounded-lg px-4 py-3 bg-slate-100 dark:bg-slate-800">
+              <div className="max-w-[90%] rounded-lg px-4 py-3 bg-slate-100 dark:bg-slate-800 space-y-3">
                 <div className="flex items-center gap-2 text-sm text-slate-500">
                   <Loader2 size={14} className="animate-spin" />
-                  Gathering intelligence...
+                  <Bot size={14} className="text-brand-600 dark:text-brand-400" />
+                  Agent investigating...
                 </div>
+                {agentSteps.map((step) => (
+                  <div
+                    key={step.stepNumber}
+                    className="border border-slate-200 dark:border-slate-700 rounded-lg overflow-hidden text-xs"
+                  >
+                    <div className="flex items-center justify-between px-3 py-2 bg-slate-50 dark:bg-slate-800/50">
+                      <span className="font-mono text-slate-600 dark:text-slate-400 flex items-center gap-1.5">
+                        {step.status === 'done' ? (
+                          <CheckCircle2 size={12} className="text-green-500" />
+                        ) : step.status === 'error' ? (
+                          <XCircle size={12} className="text-red-500" />
+                        ) : (
+                          <Loader2 size={12} className="animate-spin text-brand-600" />
+                        )}
+                        Step {step.stepNumber}
+                      </span>
+                      <span className="text-slate-400">
+                        {step.toolCalls.length} tool{step.toolCalls.length !== 1 ? 's' : ''}
+                      </span>
+                    </div>
+                    <details className="px-3 py-2">
+                      <summary className="cursor-pointer text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 flex items-center gap-1">
+                        <Terminal size={10} />
+                        Plan &amp; results
+                      </summary>
+                      <div className="mt-2 space-y-2">
+                        <p className="text-slate-600 dark:text-slate-400">{step.plan}</p>
+                        {step.results.map((r, j) => (
+                          <div key={j} className="flex items-start gap-1.5 text-slate-500">
+                            <ChevronRight size={10} className="mt-0.5 shrink-0" />
+                            <span>
+                              <code className="text-brand-600 dark:text-brand-400">{r.tool}</code>
+                              {r.status === 'ok' ? (
+                                <span className="text-green-500 ml-1">OK</span>
+                              ) : (
+                                <span className="text-red-500 ml-1">error</span>
+                              )}
+                              <span className="text-slate-400 ml-1">({r.durationMs}ms)</span>
+                            </span>
+                          </div>
+                        ))}
+                        {step.observation && (
+                          <p className="text-slate-500 italic border-t border-slate-200 dark:border-slate-700 pt-1.5 mt-1.5">
+                            {step.observation}
+                          </p>
+                        )}
+                      </div>
+                    </details>
+                  </div>
+                ))}
               </div>
             </div>
           )}
@@ -303,9 +417,14 @@ export default function CopilotChat(): JSX.Element {
               {loading ? <Loader2 size={14} className="animate-spin" /> : <Send size={14} />}
             </button>
           </div>
-          {sessionId && (
+          {sessionId && !loading && (
             <p className="mt-1.5 text-[10px] text-slate-400 dark:text-slate-500 font-mono flex items-center gap-1">
               <Clock size={10} /> Session active · {messages.length} message{messages.length !== 1 ? 's' : ''}
+            </p>
+          )}
+          {loading && currentStepNum > 0 && (
+            <p className="mt-1.5 text-[10px] text-slate-400 dark:text-slate-500 font-mono">
+              Step {currentStepNum} of 6
             </p>
           )}
         </div>
