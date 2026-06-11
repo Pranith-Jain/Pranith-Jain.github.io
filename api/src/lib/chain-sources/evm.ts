@@ -1,4 +1,5 @@
-import { getRecentTransfers } from '../blockscout';
+import { getRecentTransfers, getBlockscoutNativeTransfers } from '../blockscout';
+import { fetchEtherscanNativeTransfers } from '../etherscan';
 import { applyFilter } from './filter';
 import type { Transfer, TransferFilter, FetchResult } from './types';
 
@@ -9,13 +10,26 @@ function leadingNum(amount: string): number {
   return Number.isFinite(n) ? n : 0;
 }
 
+/**
+ * Native ETH transfers: Etherscan when a key is configured (richer, canonical),
+ * else Blockscout's keyless native endpoint. Either way the EVM graph gains the
+ * native ETH movement that the ERC-20-only path misses.
+ */
+function fetchNativeEthTransfers(address: string, etherscanKey?: string): Promise<Transfer[]> {
+  return etherscanKey ? fetchEtherscanNativeTransfers(address, etherscanKey) : getBlockscoutNativeTransfers(address);
+}
+
 export async function fetchEvmTransfers(
   address: string,
   filter: TransferFilter,
-  flaggedSet: Set<string> = new Set()
+  flaggedSet: Set<string> = new Set(),
+  etherscanKey?: string
 ): Promise<FetchResult> {
-  const raw = await getRecentTransfers(address, flaggedSet);
-  const transfers: Transfer[] = raw
+  const [raw, native] = await Promise.all([
+    getRecentTransfers(address, flaggedSet),
+    fetchNativeEthTransfers(address, etherscanKey),
+  ]);
+  const erc20: Transfer[] = raw
     .filter((t) => t.tx_hash && t.counterparty)
     .map((t) => ({
       counterparty: t.counterparty,
@@ -28,5 +42,7 @@ export async function fetchEvmTransfers(
       chain: 'evm' as const,
       explorer_url: t.explorer_url,
     }));
-  return applyFilter(transfers, filter);
+  // Merge ERC-20 + native ETH; the tracer's edge id (tx_hash:counterparty)
+  // naturally collapses any native+token pair that shares a tx and counterparty.
+  return applyFilter([...erc20, ...native], filter);
 }
