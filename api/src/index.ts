@@ -203,6 +203,8 @@ import {
   getVaultTagsHandler,
 } from './routes/malware-vault';
 import { copilotInvestigateHandler } from './routes/copilot';
+import { copilotChatHandler, copilotChatHistoryHandler } from './routes/copilot-chat';
+import { observeHandler } from './routes/observe';
 import { buildReportHandler, getReportHandler, streamReportHandler } from './routes/report';
 import { automationRunHandler } from './routes/automation';
 import { dashboardHandler, getWatchlistHandler, updateWatchlistHandler } from './routes/dashboard';
@@ -971,6 +973,8 @@ app.post('/api/v1/rag/index-all', async (c) => {
 app.post('/api/v1/ai-summary', validate('json', aiSummarySchema), aiSummaryHandler);
 app.post('/api/v1/copilot/investigate', validate('json', copilotInvestigateSchema), copilotInvestigateHandler);
 app.get('/api/v1/copilot/investigate', copilotInvestigateHandler);
+app.post('/api/v1/copilot/chat', copilotChatHandler);
+app.get('/api/v1/copilot/chat/:sessionId', copilotChatHistoryHandler);
 app.post('/api/v1/report/build', validate('json', reportBuildSchema), buildReportHandler);
 app.get('/api/v1/report/:id', getReportHandler);
 app.get('/api/v1/report/:id/stream', streamReportHandler);
@@ -1068,6 +1072,9 @@ app.post(
   validate('json', threatIntelEntityProfileSchema),
   entityProfileHandler
 );
+
+// ── Observe 360 ──────────────────────────────────────────────────
+app.get('/api/v1/threat-intel/observe', observeHandler);
 
 // ── Campaign Lifecycle ──────────────────────────────────────────
 app.post('/api/v1/threat-intel/campaign/analyze', validate('json', campaignAnalyzeSchema), campaignAnalyzeHandler);

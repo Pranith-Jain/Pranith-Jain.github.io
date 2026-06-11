@@ -248,6 +248,8 @@ const EmailReputation = lazy(() => import('./pages/dfir/EmailReputation'));
 const DomainMonitor = lazy(() => import('./pages/threatintel/DomainMonitor'));
 const WatchesPage = lazy(() => import('./pages/threatintel/Watches'));
 const CopilotPage = lazy(() => import('./pages/threatintel/Copilot'));
+const CopilotChatPage = lazy(() => import('./pages/threatintel/CopilotChat'));
+const ObservePage = lazy(() => import('./pages/threatintel/Observe'));
 // (removed LiveFeedsPage and MyDashboardPage)
 const MaltrailTrails = lazy(() => import('./pages/threatintel/MaltrailTrails'));
 const MalpediaPage = lazy(() => import('./pages/threatintel/MalpediaPage'));
@@ -533,6 +535,8 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel/domain-monitor', Component: DomainMonitor },
   { path: '/threatintel/watches', Component: WatchesPage },
   { path: '/threatintel/copilot', Component: CopilotPage },
+  { path: '/threatintel/copilot-chat', Component: CopilotChatPage },
+  { path: '/threatintel/observe', Component: ObservePage },
   { path: '/threatintel/scam-watch', Component: ScamWatch },
   { path: '/dfir/crypto-trace', Component: CryptoTrace },
   { path: '/dfir/tracer', Component: Tracer },

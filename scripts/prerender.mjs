@@ -263,6 +263,8 @@ const ROUTES = [
   '/threatintel/search',
   '/threatintel/ioc-enrichment',
   '/threatintel/copilot',
+  '/threatintel/copilot-chat',
+  '/threatintel/observe',
   '/threatintel/watches',
   // Live-feed surfaces that were already prerendered
   '/threatintel/threat-feeds',

@@ -27,13 +27,13 @@ import { queryCorpus, formatRetrievedContext } from '../lib/rag-embedder';
 import { computeConfidence, type ConfidenceScore } from '../lib/confidence';
 import { validateAiOutput } from '../lib/ai-output-validator';
 
-interface Source {
+export interface Source {
   name: string;
   items: number;
   data: unknown;
 }
 
-interface CopilotResponse {
+export interface CopilotResponse {
   query: string;
   query_type: string;
   narrative: string;
@@ -48,9 +48,9 @@ interface CopilotResponse {
 import { detectType } from '../lib/report/subject-resolver';
 import type { SubjectType } from '../lib/report/types';
 
-type QueryType = SubjectType;
+export type QueryType = SubjectType;
 
-async function readCache<T>(key: string): Promise<T | null> {
+export async function readCache<T>(key: string): Promise<T | null> {
   try {
     const cache = caches.default;
     const cached = await cache.match(new Request(key));
@@ -62,11 +62,11 @@ async function readCache<T>(key: string): Promise<T | null> {
 }
 
 // Internal cache keys not exported from their modules
-const C2_CACHE_KEY = 'https://c2-cache.internal/v8';
+export const C2_CACHE_KEY = 'https://c2-cache.internal/v8';
 const MALPEDIA_CACHE_KEY = 'https://malpedia-cache.internal/v2';
-const BREACH_CACHE_KEY = 'https://breach-cache.internal/v6-hibp-only';
+export const BREACH_CACHE_KEY = 'https://breach-cache.internal/v6-hibp-only';
 
-const matchText = (query: string, text: string | undefined): boolean =>
+export const matchText = (query: string, text: string | undefined): boolean =>
   text?.toLowerCase().includes(query.toLowerCase()) ?? false;
 
 const matchCve = (query: string, id: string | undefined) => (id ?? '').toUpperCase() === query.trim().toUpperCase();
@@ -113,7 +113,7 @@ function buildSourceAdder(_query: string) {
   };
 }
 
-async function gatherSources(query: string, type: QueryType) {
+export async function gatherSources(query: string, type: QueryType) {
   const add = buildSourceAdder(query);
   const q = query.trim();
   const ql = q.toLowerCase();
@@ -424,7 +424,7 @@ const ENRICHMENT_PROVIDERS: Record<string, ProviderEntry[]> = {
   ],
 };
 
-async function gatherLiveEnrichment(query: string, queryType: QueryType, env: Env): Promise<Source[]> {
+export async function gatherLiveEnrichment(query: string, queryType: QueryType, env: Env): Promise<Source[]> {
   const pEnv = buildProviderEnv(env);
 
   // For IP/domain/hash — run provider adapters
@@ -667,7 +667,7 @@ async function gatherLiveEnrichment(query: string, queryType: QueryType, env: En
   return [];
 }
 
-function buildSystemPrompt(query: string, queryType: QueryType, confidence?: ConfidenceScore): string {
+export function buildSystemPrompt(query: string, queryType: QueryType, confidence?: ConfidenceScore): string {
   const isActor = queryType === 'actor' || queryType === 'ransomware';
 
   const confidenceBlock = confidence
@@ -838,7 +838,7 @@ const SCHEMA_NOTES: Record<string, string> = {
     'Contains: title, extract (plain-text summary), url. EXTRACT: use the summary for historical background and general context in Detailed Analysis. Prefer structured data over Wikipedia for specific claims.',
 };
 
-function buildUserPrompt(query: string, queryType: QueryType, sources: Source[], ragContext?: string): string {
+export function buildUserPrompt(query: string, queryType: QueryType, sources: Source[], ragContext?: string): string {
   const intro = `<investigation>
 Query: ${query}
 Type: ${queryType}
@@ -865,7 +865,7 @@ Type: ${queryType}
   return intro + ragBlock + body + citationNote;
 }
 
-async function callWorkersAi(env: Env, system: string, user: string): Promise<string> {
+export async function callWorkersAi(env: Env, system: string, user: string): Promise<string> {
   const model = '@cf/meta/llama-3.3-70b-instruct-fp8-fast';
   const res = (await env.AI.run(
     model as Parameters<typeof env.AI.run>[0],
@@ -881,7 +881,7 @@ async function callWorkersAi(env: Env, system: string, user: string): Promise<st
   return res.response ?? 'No response from model.';
 }
 
-async function callGroq(env: Env, system: string, user: string): Promise<string> {
+export async function callGroq(env: Env, system: string, user: string): Promise<string> {
   const key = env.GROQ_API_KEY;
   if (!key) throw new Error('GROQ_API_KEY not set');
   const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
