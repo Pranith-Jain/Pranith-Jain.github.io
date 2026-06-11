@@ -195,6 +195,92 @@ export function buildToolRegistry(
       execute: (args) =>
         apiFetch(self, `/api/v1/triage/search?q=${encodeURIComponent(String(args.q))}`, apiKey, undefined, ih),
     },
+    // ══════════════════════════════════════════════════════════════════════
+    //  SUPPLY CHAIN / SBOM
+    // ══════════════════════════════════════════════════════════════════════
+    {
+      name: 'scan_package',
+      description:
+        'deps.dev deep intel for ONE open-source package: resolved latest version, OpenSSF Scorecard, license, resolved dependency-graph size, and known advisory IDs (incl. MAL- malicious-package). Use for a single package; use scan_dependencies for a lockfile/batch of packages.',
+      params: [
+        {
+          name: 'system',
+          type: 'enum',
+          description: 'Package ecosystem',
+          required: true,
+          enum: ['npm', 'go', 'maven', 'pypi', 'cargo', 'nuget', 'rubygems'],
+        },
+        { name: 'name', type: 'string', description: 'Package name', required: true },
+        {
+          name: 'version',
+          type: 'string',
+          description: 'Optional pinned version (defaults to latest)',
+          required: false,
+        },
+      ],
+      execute: (args) =>
+        apiFetch(
+          self,
+          `/api/v1/supply-chain/package?system=${encodeURIComponent(String(args.system))}` +
+            `&name=${encodeURIComponent(String(args.name))}` +
+            (args.version ? `&version=${encodeURIComponent(String(args.version))}` : ''),
+          apiKey,
+          undefined,
+          ih
+        ),
+    },
+    {
+      name: 'scan_dependencies',
+      description:
+        'Scan a dependency list for known vulnerabilities + malicious-package (MAL-) advisories via OSV.dev. ' +
+        'Input is one or more "eco:name@ver" specs separated by newlines and/or commas (version optional), ' +
+        'e.g. "npm:left-pad@1.3.0\\nPyPI:requests, npm:lodash". Returns OSV vuln IDs (CVE/GHSA/MAL-) per package, ' +
+        'with summaries/severity/fixed version for up to 35 distinct advisories.',
+      params: [
+        {
+          name: 'packages',
+          type: 'string',
+          description:
+            'Newline/comma-separated "eco:name@ver" specs (version optional), e.g. "npm:left-pad@1.3.0, PyPI:requests"',
+          required: true,
+        },
+      ],
+      execute: (args) => {
+        // Parse "eco:name@ver" lines/commas → {packages:[{name,ecosystem,version?}]}
+        // mirroring osvScanSchema EXACTLY (else validate('json') 400s the valid request).
+        const packages = String(args.packages ?? '')
+          .split(/[\n,]+/)
+          .map((s) => s.trim())
+          .filter(Boolean)
+          .map((spec) => {
+            const colon = spec.indexOf(':');
+            if (colon < 1) return null; // need "eco:..."
+            const ecosystem = spec.slice(0, colon).trim();
+            const rest = spec.slice(colon + 1).trim();
+            const at = rest.lastIndexOf('@');
+            const name = (at > 0 ? rest.slice(0, at) : rest).trim();
+            const version = at > 0 ? rest.slice(at + 1).trim() : '';
+            if (!ecosystem || !name) return null;
+            return version ? { name, ecosystem, version } : { name, ecosystem };
+          })
+          .filter((p): p is { name: string; ecosystem: string; version?: string } => p !== null)
+          .slice(0, 250); // mirror osvScanSchema .max(250)
+        if (packages.length === 0) {
+          return Promise.reject(new Error('scan_dependencies: no valid "eco:name@ver" specs parsed from input'));
+        }
+        return apiFetch(
+          self,
+          '/api/v1/osv/scan',
+          apiKey,
+          {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({ packages }),
+          },
+          ih
+        );
+      },
+    },
 
     // ══════════════════════════════════════════════════════════════════════
     //  DOMAIN & HOST INTELLIGENCE
@@ -409,9 +495,24 @@ export function buildToolRegistry(
       description:
         'Software supply-chain compromise incidents (npm/PyPI/container/AI-agent ecosystems) from supplychainattack.org. Returns title, status, severity, ecosystems, attack vectors, blast radius, remediation, package IOCs, and GHSA sources. Filter by ecosystem/status/severity.',
       params: [
-        { name: 'ecosystem', type: 'string', description: 'Ecosystem filter, e.g. npm/pypi (optional)', required: false },
-        { name: 'status', type: 'string', description: 'Incident status: active/contained/resolved (optional)', required: false },
-        { name: 'severity', type: 'string', description: 'Severity: critical/high/medium/low (optional)', required: false },
+        {
+          name: 'ecosystem',
+          type: 'string',
+          description: 'Ecosystem filter, e.g. npm/pypi (optional)',
+          required: false,
+        },
+        {
+          name: 'status',
+          type: 'string',
+          description: 'Incident status: active/contained/resolved (optional)',
+          required: false,
+        },
+        {
+          name: 'severity',
+          type: 'string',
+          description: 'Severity: critical/high/medium/low (optional)',
+          required: false,
+        },
         { name: 'limit', type: 'number', description: 'Max incidents (optional)', required: false },
       ],
       execute: (args) => {

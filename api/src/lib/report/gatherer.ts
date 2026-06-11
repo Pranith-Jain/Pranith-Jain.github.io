@@ -11,6 +11,7 @@ import { NEGOTIATIONS_CACHE_KEY } from '../../routes/negotiations';
 import { CVE_RECENT_CACHE_KEY } from '../../routes/cve-recent';
 import { IOC_CORRELATION_CACHE_KEY } from '../../routes/ioc-correlation';
 import { lookupCve } from '../cve-lookup';
+import { enrichCves } from '../cve-enrich';
 import { queryCorpus } from '../rag-embedder';
 import { fetchRlUpstream } from '../../routes/ransomwarelive';
 import { virustotal } from '../../providers/virustotal';
@@ -229,6 +230,79 @@ export const FETCHERS: Record<string, Fetcher> = {
     }
   },
 
+  // CISA KEV exploitation status for a ransomware group's exploited CVEs.
+  // Self-fetches /group/<slug> via fetchRlUpstream (KEV has no per-group key);
+  // this DELIBERATELY double-fetches the same path as 'ransomwarelive-profile'
+  // in the same phase (bypassing the route cache) — budget-acceptable (§7.6).
+  // Then ONE batched enrichCves call (1 cached KEV catalog + 1 EPSS batch,
+  // ≤100 CVEs) — NEVER loop lookupCve per CVE (6 fetches each → budget blowout).
+  'kev-cves': async (ctx, src) => {
+    if (ctx.subject.type !== 'ransomware') return base(src, 'empty');
+    if (!ctx.env.RANSOMWARELIVE_API_KEY) {
+      // Silent-empty honesty (§7.6/P1 #4): a missing key looks identical to
+      // "group has no CVEs" — emit telemetry so it is not silently swallowed.
+      console.warn('kev-cves: RANSOMWARELIVE_API_KEY absent — group CVE list unavailable, degrading to empty');
+      return base(src, 'empty');
+    }
+    try {
+      // RL slugs are fragile ("LockBit" may need lockbit3): try the resolved
+      // group identifier, its aliases, then the canonical, lowercased.
+      const candidates = [
+        ctx.subject.identifiers.group,
+        ...(ctx.subject.identifiers.aliases ?? []),
+        ctx.subject.canonical,
+      ]
+        .filter((s): s is string => typeof s === 'string' && s.length > 0)
+        .map((s) => s.toLowerCase());
+      let cves: string[] = [];
+      for (const slug of [...new Set(candidates)]) {
+        const rl = (await fetchRlUpstream(ctx.env, `/group/${encodeURIComponent(slug)}`)) as {
+          vulnerabilities?: { CVE?: string }[];
+        } | null;
+        const list = (rl?.vulnerabilities ?? [])
+          .map((v) => v.CVE)
+          .filter((c): c is string => typeof c === 'string' && c.length > 0);
+        if (list.length) {
+          cves = list;
+          break;
+        }
+      }
+      if (cves.length === 0) return base(src, 'empty');
+      const enriched = await enrichCves(
+        cves.map((id) => ({ id })),
+        { signal: ctx.signal }
+      );
+      const group = ctx.subject.canonical;
+      const items: SourceItem[] = [];
+      for (const cve of cves) {
+        const e = enriched.get(cve.toUpperCase());
+        if (!e) continue;
+        const kev = e.kevListed
+          ? `CISA KEV: LISTED${e.kevDateAdded ? ` (added ${e.kevDateAdded}` : ''}${e.kevDueDate ? `, due ${e.kevDueDate})` : e.kevDateAdded ? ')' : ''}`
+          : 'CISA KEV: not listed';
+        const epss =
+          typeof e.epssScore === 'number'
+            ? ` · EPSS ${e.epssScore}${typeof e.epssPercentile === 'number' ? ` (${Math.round(e.epssPercentile * 100)}th pct)` : ''}`
+            : '';
+        items.push({
+          text: `${group} exploits ${e.cveId} — ${kev}${epss}`,
+          fields: {
+            kind: 'kev-cve',
+            cve: e.cveId,
+            kev: e.kevListed,
+            kevDateAdded: e.kevDateAdded,
+            kevDueDate: e.kevDueDate,
+            epss: e.epssScore,
+            epssPercentile: e.epssPercentile,
+          },
+        });
+      }
+      return base(src, items.length ? 'ok' : 'empty', items);
+    } catch {
+      return base(src, 'error');
+    }
+  },
+
   // MITRE techniques for a known group
   'mitre-group': async (ctx, src) => {
     const { ACTOR_ALIASES } = await import('../../data/threat-actor-aliases');
@@ -245,6 +319,104 @@ export const FETCHERS: Record<string, Fetcher> = {
       techs.length ? 'ok' : 'empty',
       techs.map((t) => ({ text: `${t.id} ${t.name} (${t.tactic})`, fields: { kind: 'mitre', ...t } }))
     );
+  },
+
+  // Threat Actor KB (curated ACTOR_ALIASES index) — pure, zero-fetch corroboration
+  // of mitre-group. Mirrors the live copilot.ts:516 predicate + slice(0,10).
+  'actor-kb': async (ctx, src) => {
+    const { ACTOR_ALIASES } = await import('../../data/threat-actor-aliases');
+    const q = needle(ctx);
+    const matches = ACTOR_ALIASES.filter(
+      (a) => a.canonical.toLowerCase().includes(q) || a.aliases.some((al) => al.toLowerCase().includes(q))
+    ).slice(0, 10);
+    if (matches.length === 0) return base(src, 'empty');
+    const items: SourceItem[] = [];
+    for (const a of matches) {
+      items.push({
+        text: `${a.canonical} (aliases: ${a.aliases.length ? a.aliases.join(', ') : 'none'})`,
+        fields: { kind: 'actor-kb', canonical: a.canonical, slug: a.slug, aliases: a.aliases },
+      });
+      if (a.mitreId)
+        items.push({
+          text: `${a.canonical} → MITRE ATT&CK group ${a.mitreId}`,
+          url: `https://attack.mitre.org/groups/${a.mitreId}/`,
+          fields: { kind: 'actor-kb-mitre', canonical: a.canonical, mitreId: a.mitreId },
+        });
+    }
+    return base(src, 'ok', items);
+  },
+
+  // Malpedia actor/family background (ransomware-group + threat-actor templates).
+  // Descriptor lives in SOURCE_CATALOG; key MUST stay 'malpedia' (a typo re-stubs it).
+  // Hash-only providers/malpedia.ts is intentionally NOT reused here.
+  malpedia: async (ctx, src) => {
+    const t = ctx.subject.type;
+    if (t !== 'actor' && t !== 'ransomware' && t !== 'generic') return base(src, 'empty');
+    const slug = ctx.subject.canonical
+      .trim()
+      .toLowerCase()
+      .replace(/[^a-z0-9.-]/g, '-');
+    if (!slug) return base(src, 'empty');
+    const BASE = 'https://malpedia.caad.fkie.fraunhofer.de';
+    const pull = async (kind: 'actor' | 'family'): Promise<Record<string, unknown> | null> => {
+      try {
+        const res = await fetch(`${BASE}/api/get/${kind}/${encodeURIComponent(slug)}`, {
+          headers: { Accept: 'application/json', 'User-Agent': 'pranithjain-copilot/1.0' },
+          signal: ctx.signal,
+        });
+        if (!res.ok) return null;
+        const j = await res.json();
+        return j && typeof j === 'object' ? (j as Record<string, unknown>) : null;
+      } catch {
+        return null;
+      }
+    };
+
+    const actor = await pull('actor');
+    const fam = actor ? null : await pull('family');
+    const data = actor ?? fam;
+    if (!data) return base(src, 'empty');
+
+    const url = `${BASE}/${actor ? 'actor' : 'details/family'}/${encodeURIComponent(slug)}`;
+    const items: SourceItem[] = [];
+
+    // description (skip empty — win.lockbit returns description:'')
+    const desc = str(data.description);
+    if (desc && desc.trim()) items.push({ text: desc.trim(), url, fields: { kind: 'description' } });
+
+    // attribution / associated actors (family) — citable entity links
+    const attribution = arr(data.associated_actors)
+      .map((a) => str(a))
+      .filter((a): a is string => !!a);
+    if (attribution.length)
+      items.push({
+        text: `Attribution: ${attribution.join(', ')}`,
+        url,
+        fields: { kind: 'attribution', actors: attribution },
+      });
+
+    // associated malware families (actor side)
+    const families = arr(data.families)
+      .map((f) => str(f))
+      .filter((f): f is string => !!f);
+    if (families.length)
+      items.push({ text: `Families: ${families.join(', ')}`, url, fields: { kind: 'families', families } });
+
+    // aliases: actor -> meta.synonyms; family -> alt_names (common_name excluded:
+    // an empty-description family carrying only common_name is NOT usable content)
+    const meta = (data.meta ?? {}) as Record<string, unknown>;
+    const aliases = [...arr(meta.synonyms).map((a) => str(a)), ...arr(data.alt_names).map((a) => str(a))].filter(
+      (a): a is string => !!a
+    );
+    const uniqAliases = [...new Set(aliases)];
+    if (uniqAliases.length)
+      items.push({
+        text: `Aliases: ${uniqAliases.join(', ')}`,
+        url,
+        fields: { kind: 'aliases', aliases: uniqAliases },
+      });
+
+    return base(src, items.length ? 'ok' : 'empty', items);
   },
 
   // Providers (ioc template)
@@ -298,7 +470,13 @@ export const FETCHERS: Record<string, Fetcher> = {
         items.push({
           text: `${str(inc.title) ?? 'Supply-chain incident'} (${str(inc.severity) ?? 'n/a'}, ${str(inc.status) ?? 'n/a'})${ecosystems ? ` · ${ecosystems}` : ''}`,
           url: str(inc.url),
-          fields: { kind: 'supply-chain', ecosystems: inc.ecosystems, attack_vectors: inc.attackVectors, packages, status: inc.status },
+          fields: {
+            kind: 'supply-chain',
+            ecosystems: inc.ecosystems,
+            attack_vectors: inc.attackVectors,
+            packages,
+            status: inc.status,
+          },
         });
         if (items.length >= MAX_ITEMS) break;
       }
@@ -306,6 +484,110 @@ export const FETCHERS: Record<string, Fetcher> = {
     } catch {
       return base(src, 'error');
     }
+  },
+
+  // Wikipedia summary/search for known threat actors (threat-actor template).
+  // REST-v1 summary first, then w/api.php search fallback. Guards out ip/domain/
+  // hash/cve. WMF is deprecating REST-v1 (§11) — degrade to 'empty', never 'error'.
+  wikipedia: async (ctx, src) => {
+    const t = ctx.subject.type;
+    if (t === 'ip' || t === 'domain' || t === 'hash' || t === 'cve') return base(src, 'empty');
+    const q = ctx.subject.canonical;
+    const UA = { 'User-Agent': 'pranithjain-copilot/1.0' };
+    // 1) direct REST-v1 page summary
+    try {
+      const title = q.replace(/\s+/g, '_');
+      const res = await fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(title)}`, {
+        headers: UA,
+        signal: ctx.signal,
+      });
+      if (res.ok) {
+        const data = (await res.json()) as {
+          extract?: string;
+          title?: string;
+          content_urls?: { desktop?: { page?: string } };
+        };
+        if (data.extract) {
+          return base(src, 'ok', [
+            {
+              text: `${data.title ?? q}: ${data.extract}`.trim(),
+              url: data.content_urls?.desktop?.page ?? `https://en.wikipedia.org/wiki/${encodeURIComponent(q)}`,
+              fields: { kind: 'wikipedia', title: data.title ?? q },
+            },
+          ]);
+        }
+      }
+    } catch {
+      /* summary miss → search fallback below */
+    }
+    // 2) w/api.php search fallback (durable path as REST-v1 is deprecated)
+    try {
+      const url = `https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(
+        q + ' cyber'
+      )}&format=json&srlimit=3&origin=*`;
+      const res = await fetch(url, { headers: UA, signal: ctx.signal });
+      if (res.ok) {
+        const data = (await res.json()) as { query?: { search?: Array<{ title: string; snippet: string }> } };
+        const hits = (data.query?.search ?? []).slice(0, 3);
+        const items: SourceItem[] = hits.map((h) => ({
+          text: `${h.title}: ${h.snippet.replace(/<[^>]+>/g, '')}`.trim(),
+          url: `https://en.wikipedia.org/wiki/${encodeURIComponent(h.title.replace(/\s+/g, '_'))}`,
+          fields: { kind: 'wikipedia', title: h.title },
+        }));
+        return base(src, items.length ? 'ok' : 'empty', items);
+      }
+    } catch {
+      /* search failed → empty (never error) */
+    }
+    return base(src, 'empty');
+  },
+
+  // Shodan CVEDB exploitation context (cve template). Field traps (§7.5, copilot.ts:477):
+  // ranking_epss = percentile, epss = score, ransomware_campaign is a STRING, cvss_v3 preferred.
+  'shodan-cvedb': async (ctx, src) => {
+    if (ctx.subject.type !== 'cve') return base(src, 'empty');
+    const cve = ctx.subject.canonical.trim().toUpperCase();
+    const res = await fetch(`https://cvedb.shodan.io/cve/${cve}`, {
+      headers: { accept: 'application/json', 'user-agent': 'pranithjain-dfir/1.0' },
+      signal: ctx.signal,
+    });
+    if (res.status === 404) return base(src, 'empty');
+    if (!res.ok) return base(src, 'error');
+    const d = (await res.json()) as {
+      summary?: string;
+      cvss?: number;
+      cvss_v3?: number;
+      epss?: number;
+      ranking_epss?: number;
+      kev?: boolean;
+      ransomware_campaign?: string;
+      propose_action?: string;
+    };
+    const items: SourceItem[] = [];
+    const cvss = typeof d.cvss_v3 === 'number' ? d.cvss_v3 : d.cvss; // cvss_v3 preferred
+    if (typeof cvss === 'number')
+      items.push({ text: `Shodan CVEDB: CVSS ${cvss}.`, fields: { kind: 'shodan-cvedb', cve, cvss } });
+    if (typeof d.epss === 'number')
+      items.push({
+        text: `Shodan CVEDB: EPSS ${d.epss}${typeof d.ranking_epss === 'number' ? ` (${Math.floor(d.ranking_epss * 100)}th percentile)` : ''}.`,
+        fields: { kind: 'shodan-cvedb', cve, epss: d.epss, epss_percentile: d.ranking_epss ?? null },
+      });
+    items.push({
+      text: d.kev === true ? `Shodan CVEDB: CISA KEV: LISTED.` : `Shodan CVEDB: CISA KEV: not listed.`,
+      fields: { kind: 'shodan-cvedb', cve, kev: d.kev === true },
+    });
+    if (d.ransomware_campaign)
+      items.push({
+        text: `Shodan CVEDB: ransomware campaign: ${d.ransomware_campaign}.`,
+        fields: { kind: 'shodan-cvedb', cve, ransomware_campaign: d.ransomware_campaign },
+      });
+    if (d.propose_action)
+      items.push({
+        text: `Shodan CVEDB: proposed action: ${d.propose_action}`,
+        fields: { kind: 'shodan-cvedb', cve },
+      });
+    if (d.summary) items.push({ text: `Shodan CVEDB: ${d.summary}`, fields: { kind: 'shodan-cvedb', cve } });
+    return base(src, items.length ? 'ok' : 'empty', items);
   },
 };
 

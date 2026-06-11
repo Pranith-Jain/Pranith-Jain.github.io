@@ -286,6 +286,17 @@ export const osvScanSchema = z.object({
     .max(250, 'too many packages (max 250)'),
 });
 
+// ── deps.dev single-package deep intel ─────────────────────────────
+// Mirrors depsDevPackageHandler's c.req.query reads EXACTLY: system, name, version?.
+// `system` enum = deps.dev v3 supported systems; unsupported ecosystems degrade in the lib.
+export const depsDevPackageSchema = z.object({
+  system: z.enum(['npm', 'go', 'maven', 'pypi', 'cargo', 'nuget', 'rubygems'], {
+    message: 'system must be one of npm|go|maven|pypi|cargo|nuget|rubygems',
+  }),
+  name: z.string().min(1, 'name is required').max(214, 'name too long'),
+  version: z.string().max(100, 'version too long').optional(),
+});
+
 // ── Telegram Leak Monitor (admin) ───────────────────────────────
 
 export const telegramChannelActionSchema = z.object({

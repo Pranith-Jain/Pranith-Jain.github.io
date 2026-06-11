@@ -2,126 +2,59 @@
  * OSV.dev proxy for the client-side dependency scanner.
  *
  * The browser can't call api.osv.dev directly (no CORS), so this forwards
- * a parsed package list to OSV's batch endpoint, then resolves vuln
- * details. Server-side, fixed upstream host (no SSRF surface), bounded
- * input, short-cached. POST { packages: [{ name, ecosystem, version }] }.
+ * a parsed package list to the shared OSV client (lib/supply-chain/osv.ts),
+ * then re-shapes its normalized envelope into the frozen wire contract the
+ * client scanner + scan_dependencies agent tool depend on. Server-side, fixed
+ * upstream host (no SSRF surface), bounded input, short-cached in the response.
+ * POST { packages: [{ name, ecosystem, version }] }.
  */
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { safeJsonBody } from '../lib/safe-body';
+import { queryOsvBatch, type OsvPkgQuery } from '../lib/supply-chain/osv';
 
-interface PkgQuery {
-  name: string;
-  ecosystem: string;
-  version?: string;
-}
 const MAX_PKGS = 250;
-const OSV_BATCH = 'https://api.osv.dev/v1/querybatch';
-const OSV_VULN = 'https://api.osv.dev/v1/vulns/';
 
 export async function osvScanHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   // 250 packages × ~120 bytes each ≈ 30 KB. 128 KB is comfortable headroom
-  // for verbose package names / version strings, well under the worker
-  // memory ceiling. Depth 5 covers `{packages:[{...}]}` (3) plus headroom.
-  const parsed = await safeJsonBody<{ packages?: PkgQuery[] }>(c, { maxBytes: 128 * 1024, maxDepth: 5 });
+  // for verbose package names / version strings; depth 5 covers {packages:[{...}]}.
+  const parsed = await safeJsonBody<{ packages?: OsvPkgQuery[] }>(c, { maxBytes: 128 * 1024, maxDepth: 5 });
   if ('error' in parsed) return parsed.error;
   const body = parsed.value;
   const pkgs = Array.isArray(body.packages) ? body.packages.slice(0, MAX_PKGS) : [];
   if (pkgs.length === 0) return c.json({ error: 'no_packages' }, 400);
 
-  // OSV batch: queries[] index-aligned with the response.
-  const queries = pkgs.map((p) => ({
-    package: { name: p.name, ecosystem: p.ecosystem },
-    ...(p.version ? { version: p.version } : {}),
-  }));
-
-  let batch: { results?: Array<{ vulns?: Array<{ id: string }> }> };
-  try {
-    const r = await fetch(OSV_BATCH, {
-      method: 'POST',
-      headers: { 'content-type': 'application/json', 'user-agent': 'pranithjain-dfir/1.0' },
-      body: JSON.stringify({ queries }),
-      signal: AbortSignal.timeout(20_000),
-    });
-    if (!r.ok) return c.json({ error: 'osv_upstream', status: r.status }, 502);
-    batch = (await r.json()) as typeof batch;
-  } catch {
+  const batch = await queryOsvBatch(pkgs, { signal: AbortSignal.timeout(25_000) });
+  // Upstream-unreachable: the shared client returns every package with status 'error'.
+  if (pkgs.length > 0 && batch.results.every((r) => r.status === 'error')) {
     return c.json({ error: 'osv_unreachable' }, 502);
   }
 
-  // Collect the unique vuln ids, resolve details once each (cap the fan-out).
-  const idToPkgs = new Map<string, number[]>();
-  (batch.results ?? []).forEach((res, i) => {
-    for (const v of res.vulns ?? []) {
-      const arr = idToPkgs.get(v.id) ?? [];
-      arr.push(i);
-      idToPkgs.set(v.id, arr);
-    }
-  });
-  // Cap detail lookups: each is a subrequest and a Worker invocation has a
-  // hard 50-subrequest budget (querybatch already used 1). 400 would blow
-  // it and silently truncate. 35 distinct advisories is plenty for a
-  // realistic lockfile and leaves headroom under the cap; ids beyond it still
-  // appear (id only, no summary) and `detailed_capped` flags it for the client.
-  const allIds = [...idToPkgs.keys()];
-  const ids = allIds.slice(0, 35);
-  const detailedCapped = allIds.length > ids.length;
-
-  const details = new Map<string, { summary?: string; severity?: string; aliases?: string[]; fixed?: string }>();
-  const pool = async () => {
-    let i = 0;
-    const worker = async () => {
-      while (i < ids.length) {
-        const id = ids[i++]!;
-        try {
-          const dr = await fetch(OSV_VULN + encodeURIComponent(id), {
-            headers: { 'user-agent': 'pranithjain-dfir/1.0' },
-            signal: AbortSignal.timeout(8000),
-          });
-          if (!dr.ok) continue;
-          const d = (await dr.json()) as Record<string, unknown>;
-          const sev = Array.isArray(d.severity)
-            ? (d.severity as { type?: string; score?: string }[]).find((s) => /CVSS/i.test(String(s.type)))?.score
-            : undefined;
-          // First "fixed" event across affected ranges.
-          let fixed: string | undefined;
-          for (const aff of (d.affected as Record<string, unknown>[]) ?? []) {
-            for (const rng of (aff.ranges as Record<string, unknown>[]) ?? []) {
-              for (const ev of (rng.events as Record<string, string>[]) ?? []) if (ev.fixed && !fixed) fixed = ev.fixed; // first non-empty fixed wins
-            }
-          }
-          details.set(id, {
-            summary: String(d.summary ?? d.details ?? '').slice(0, 240),
-            severity: sev,
-            aliases: Array.isArray(d.aliases) ? (d.aliases as string[]) : [],
-            fixed,
-          });
-        } catch {
-          /* skip a single failed detail lookup */
-        }
-      }
-    };
-    await Promise.all(Array.from({ length: Math.min(6, ids.length) }, worker));
-  };
-  await pool();
-
-  const results = pkgs.map((p, i) => {
-    const vulnIds = (batch.results?.[i]?.vulns ?? []).map((v) => v.id);
-    return {
-      package: p.name,
-      version: p.version ?? '',
-      ecosystem: p.ecosystem,
-      vulns: vulnIds.map((id) => ({ id, ...(details.get(id) ?? {}) })),
-    };
-  });
+  // Re-shape the normalized envelope back to the FROZEN wire contract (legacy
+  // keys: vuln.severity carries the CVSS score string; no malicious/cvss keys).
+  const results = batch.results.map((r) => ({
+    package: r.package,
+    version: r.version ?? '',
+    ecosystem: r.ecosystem,
+    vulns: r.findings.map((f) => ({
+      id: f.id,
+      ...(f.summary ? { summary: f.summary } : {}),
+      ...(f.cvss ? { severity: f.cvss } : {}),
+      aliases: f.aliases,
+      ...(f.fixed ? { fixed: f.fixed } : {}),
+    })),
+  }));
 
   return c.json(
-    { generated_at: new Date().toISOString(), total_packages: pkgs.length, detailed_capped: detailedCapped, results },
+    {
+      generated_at: batch.fetched_at,
+      total_packages: pkgs.length,
+      detailed_capped: batch.detailed_capped,
+      results,
+    },
     200,
     {
-      // private (not public): the request body lists a project's dependency
-      // graph, which reveals technology stack — let the user's browser cache
-      // for 5 minutes but keep intermediaries out of it.
+      // private: the request body lists a dependency graph (reveals tech stack).
       'cache-control': 'private, max-age=300',
     }
   );

@@ -9,6 +9,7 @@ import { fileAnalyzeHandler } from './routes/file';
 import { feedProxyHandler } from './routes/feeds';
 import { ctiParseHandler } from './routes/cti';
 import { osvScanHandler } from './routes/osv';
+import { depsDevPackageHandler } from './routes/supply-chain';
 import { privacyInspectHandler } from './routes/privacy';
 import { iocFeedSummaryHandler } from './routes/ioc-feeds';
 import { cveSearchHandler } from './routes/cve';
@@ -509,6 +510,7 @@ import {
   hashAnalyzeSchema,
   bloomCheckSchema,
   osvScanSchema,
+  depsDevPackageSchema,
   telegramChannelActionSchema,
   telegramBotRegisterSchema,
   aiSummarySchema,
@@ -727,6 +729,7 @@ app.get('/api/v1/breach-disclosures', breachDisclosuresHandler);
 app.get('/api/v1/ransomware-recent', ransomwareRecentHandler);
 app.get('/api/v1/ransomware-map', ransomwareMapHandler);
 app.get('/api/v1/crypto-trace', validate('query', cryptoTraceSchema), cryptoTraceHandler);
+app.get('/api/v1/supply-chain/package', validate('query', depsDevPackageSchema), depsDevPackageHandler);
 app.post('/api/v1/tracer/expand', validate('json', tracerExpandSchema), tracerExpandHandler);
 app.get('/api/v1/tracer/label', validate('query', tracerLabelSchema), tracerLabelHandler);
 app.post('/api/v1/tracer/labels', validate('json', tracerLabelAddSchema), tracerLabelAddHandler);
