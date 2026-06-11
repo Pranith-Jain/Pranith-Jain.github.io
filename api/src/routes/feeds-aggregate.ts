@@ -339,6 +339,18 @@ function pickAttr(body: string, tag: string, attr: string): string {
 
 /** Parse RSS or Atom feed body into items. Tolerant; never throws. */
 function parseFeedBody(body: string, sourceUrl: string, host: string, perSource: number): AggregatedItem[] {
+  // Detect JSON Feed (v1.0/v1.1) — starts with {, has "version" and "items".
+  if (body.trimStart().startsWith('{')) {
+    try {
+      const parsed = JSON.parse(body);
+      if (parsed && typeof parsed === 'object' && 'version' in parsed && Array.isArray(parsed.items)) {
+        return parseJsonFeedItems(parsed.items, sourceUrl, host, perSource);
+      }
+    } catch {
+      // Not valid JSON — fall through to XML parsing
+    }
+  }
+
   const items: AggregatedItem[] = [];
   // RSS <item> + Atom <entry>; both are matched with the same regex.
   const itemRe = /<(item|entry)\b[^>]*>([\s\S]*?)<\/\1>/gi;
@@ -366,6 +378,42 @@ function parseFeedBody(body: string, sourceUrl: string, host: string, perSource:
     if (items.length >= perSource) break;
   }
   return items;
+}
+
+/** Parse JSON Feed v1.0/v1.1 items array. */
+function parseJsonFeedItems(
+  items: unknown[],
+  sourceUrl: string,
+  host: string,
+  perSource: number,
+): AggregatedItem[] {
+  const out: AggregatedItem[] = [];
+  for (const item of items) {
+    if (!item || typeof item !== 'object') continue;
+    const record = item as Record<string, unknown>;
+    const title = typeof record.title === 'string' ? record.title.trim() : '(untitled)';
+    const link = typeof record.url === 'string' ? record.url : typeof record.id === 'string' ? record.id : '';
+    if (!title || !link) continue;
+    const description =
+      typeof record.content_text === 'string'
+        ? record.content_text.slice(0, 500)
+        : typeof record.summary === 'string'
+          ? record.summary.slice(0, 500)
+          : typeof record.content_html === 'string'
+            ? record.content_html.replace(/<[^>]*>/g, '').slice(0, 500)
+            : undefined;
+    const dateRaw =
+      typeof record.date_published === 'string'
+        ? record.date_published
+        : typeof record.date_modified === 'string'
+          ? record.date_modified
+          : undefined;
+    const pubDate = dateRaw ? (safeIso(dateRaw) ?? dateRaw) : '';
+    const guid = typeof record.id === 'string' ? record.id : link;
+    out.push({ source: host, source_url: sourceUrl, title: title.slice(0, 300), link, description, pubDate, guid });
+    if (out.length >= perSource) break;
+  }
+  return out;
 }
 
 interface FetchOneResult {

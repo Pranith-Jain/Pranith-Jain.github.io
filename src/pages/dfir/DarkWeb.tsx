@@ -38,6 +38,7 @@ const DARKWEB_FEEDS: { id: string; label: string }[] = [
   { id: 'socradar-blog', label: 'SOCRadar' },
   { id: 'bushidotoken', label: 'BushidoToken' },
   { id: 'mti-ransomware', label: 'MyThreatIntel (ransomware)' },
+  { id: 'ransomware-merged', label: 'Ransomware claims (merged)' },
 ];
 
 const ALL_FEED_IDS = DARKWEB_FEEDS.map((f) => f.id);

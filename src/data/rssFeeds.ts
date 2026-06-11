@@ -1322,10 +1322,23 @@ export const rssFeeds: RSSFeed[] = [
     language: 'en',
   },
   {
+    // Synthesised RSS — MyThreatIntel ransomware victims (telegram) in RSS
+    // form, built in-process by buildMtiRansomwareRss. The aggregator
+    // intercepts any URL with pathname /api/v1/feeds/mti-ransomware before
+    // the host check, so the host value here is cosmetic.
+    id: 'mti-ransomware',
+    name: 'MyThreatIntel (ransomware)',
+    url: 'https://internal.pranithjain.com/api/v1/feeds/mti-ransomware',
+    description:
+      'MyThreatIntel Telegram-based ransomware victim tracking, republished as an RSS feed from the synthesised same-origin endpoint',
+    category: 'threat-intel',
+    source: 'MyThreatIntel (Telegram)',
+    language: 'en',
+  },
+  {
     // Synthesised RSS — re-publishes the merged ransomware victim claims from
     // all trackers (Ransomlook, ransomware.live, ransomfeed.it, ransomwatch,
-    // andreafortuna) sorted newest-first. Replaces the previous MyThreatIntel
-    // feed which returned empty responses. Same-origin → aggregator-eligible.
+    // andreafortuna) sorted newest-first. Same-origin → aggregator-eligible.
     id: 'ransomware-merged',
     name: 'Ransomware claims (merged)',
     url: 'https://pranithjain.qzz.io/api/v1/feeds/ransomware-merged',
