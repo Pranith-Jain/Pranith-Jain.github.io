@@ -55,16 +55,17 @@ that has entity-pivots + reach has no live data. This design closes that gap.
 ┌───────────────▼───────────────┐   ┌────────────────▼─────────────────────┐
 │ A. unified-search.ts (upgrade)│   │ B. unified-search-summarize (new)    │
 │   • scoreMatch() ranking      │   │   • fenceUntrusted(items)            │
-│   • entity{type,value} block  │   │   • runCompletion (Groq+fence)       │
+│   • +score on items (additive)│   │   • runCompletion (Groq+fence)       │
 │   • same 15 sources preserved │   │   • validateAiOutput · cache 1h      │
 └───────────────────────────────┘   └──────────────────────────────────────┘
 ```
 
-### A. Backend — `/api/v1/unified-search` ranking + entity (`api/src/routes/unified-search.ts`)
+### A. Backend — `/api/v1/unified-search` ranking (`api/src/routes/unified-search.ts`)
 
-Two additive changes; the 15 source searchers, same-origin auth, `unifiedSearchSchema`
+One additive change (ranking); the 15 source searchers, same-origin auth, `unifiedSearchSchema`
 (`api/src/lib/validation-schemas.ts:237`), `index.ts:932` registration, and the 120 s
-`Cache-Control` all stay.
+`Cache-Control` all stay. **Entity detection is NOT a backend concern** — see A2 below for why it
+lives entirely on the frontend, so the API response change is purely an additive `score` field.
 
 **A1. Item-level relevance ranking.** Add a pure `scoreMatch(needle, fields)` helper (its own
 unit-tested module, e.g. `api/src/lib/search/rank.ts`):
@@ -91,32 +92,21 @@ broken by `total`, preserving today's behavior when scores tie). Add an optional
 freetext actor name surfaces the actor KB before a blog post. `SearchItem` gains an optional
 `score?: number`; the frontend response stays backward-compatible (extra field, no removals).
 
-**A2. Entity block.** Classify the query once on the backend. The existing detector
-`detectIoc(raw)` (`src/lib/dfir/ioc-detect.ts:48` → `DetectedIoc | null`, `IocType` union at
-line 28) lives under `src/` and **cannot be imported by the worker** (`api/` and `src/` are
-separate build roots). So add a small pure `classifyEntity(q)` in `api/src/lib/search/entity.ts`
-that mirrors the same regexes (ip / domain / hash / cve / url / email / btc+eth → `crypto-address`),
-unit-tested independently; the frontend keeps using its own `detectIoc` for the optimistic header
-and reconciles to the server `entity` when the response lands. The handler returns a new top-level
-field:
-
-```ts
-interface UnifiedSearchResponse {
-  q: string;
-  generated_at: string;
-  total: number;
-  sections: SearchSection[];
-  entity?: { type: 'ip' | 'domain' | 'hash' | 'cve' | 'actor' | 'crypto-address' | 'email' | 'url'; value: string };
-}
-```
-
-Backend returns only `{ type, value }` — the **deep-link routes are built on the frontend**
-(routes are a UI concern; keeps the API decoupled from React Router paths). Actor detection for
-freetext (non-IOC) reuses the `ACTOR_ALIASES` match already in `searchActorKb`.
+**A2. Entity detection is frontend-only (no backend change).** The frontend **already owns** a
+maintained detector + deep-link builder: `detectIoc(raw)` → `DetectedIoc | null`
+(`src/lib/dfir/ioc-detect.ts:48`, `IocType` union at line 28) and `getIocPivots(ioc): Pivot[]`
+(`src/lib/dfir/ioc-detect.ts:100`), which returns the exact `{ label, desc, path }` deep-links per
+IOC type (CVE→`/dfir/cve?id=`, IP/domain/hash→`/dfir/ioc-check?indicator=` + `/threatintel/correlation?q=`,
+BTC→`/dfir/crypto-trace?address=`, email→`/dfir/breach-check?email=`, …). The omnibox page calls
+these locally and renders the pivots **instantly with zero round-trip**. The worker cannot import
+`src/` (separate build roots) and there is no reason to duplicate this — so the backend gains **no**
+entity field. **Actor** queries are freetext (`detectIoc` returns null); their affordance comes for
+free from the existing "Threat Actor KB" / "Actor Timeline" result sections, whose items already
+deep-link to `/threatintel/actors/<slug>`.
 
 Budget note: the live IOC fan-out (AbuseIPDB / blocklist.de / URLhaus / MalwareBazaar) still only
-fires for ip/domain/hash and stays well under the 50-subrequest cap. No new per-request fetches
-are added by ranking or entity classification (both are pure CPU).
+fires for ip/domain/hash and stays well under the 50-subrequest cap. Ranking is pure CPU — zero new
+per-request fetches.
 
 ### B. AI summary — new opt-in endpoint (reuses existing engine)
 
@@ -159,18 +149,16 @@ production-tested lib.
 
 Restructured results, same `DataPageLayout` + `?q=` URL state + same-origin fetch:
 
-1. **Entity quick-actions header** — when `data.entity` is present, render a row of typed action
-   buttons built from this map (routes confirmed against `App.tsx`):
-
-   | entity.type              | primary action(s) → route                                                                                                                 |
-   | ------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------- |
-   | ip / domain / hash / url | **Enrich** `/threatintel/ioc-enrichment?q=` · **Analyze** `/threatintel/analyze?indicator=` · **Correlate** `/threatintel/correlation?q=` |
-   | cve                      | **CVE detail** `/dfir/cve?id=` · **CVE list** `/threatintel/cve-list?q=`                                                                  |
-   | actor                    | **Actor KB** `/threatintel/actor-kb?q=` · **Timeline** `/threatintel/actor-timeline`                                                      |
-   | crypto-address           | **Trace** `/dfir/crypto-trace?address=`                                                                                                   |
-
-   All values are `encodeURIComponent`-encoded; external/data links keep the existing
-   `sanitizeUrl()` guard.
+1. **Entity quick-actions header** — call the **existing** `detectIoc(query)` and, when it returns a
+   `DetectedIoc`, render `getIocPivots(ioc)` as a row of action buttons (each `Pivot` is already a
+   `{ label, desc, path, external? }` with a correct deep-link — CVE→`/dfir/cve?id=`,
+   IP/domain/hash→`/dfir/ioc-check?indicator=` + `/threatintel/correlation?q=`,
+   BTC→`/dfir/crypto-trace?address=`, email→`/dfir/breach-check?email=`, …). Internal `path`s render
+   as `<Link>`; `external` ones as `<a rel="noopener">` through `sanitizeUrl()`. **No new mapping
+   table is authored** — the omnibox reuses the pivots the palette + `/dfir` landing already use, so
+   they stay in sync. Freetext **actor** queries return `null` from `detectIoc` and get their
+   affordance from the actor result sections instead (their items already link to
+   `/threatintel/actors/<slug>`).
 
 2. **TOOLS section** (client-side, instant, zero backend coupling) — `import { SECTIONS, flattenTools, matchesQuery }`,
    render up to ~6 matching tiles, deep-linking to `tool.to`, rendered **above** live-data sections
@@ -211,7 +199,7 @@ keystroke
   ├─ (instant) client filter SECTIONS → TOOLS tiles
   ├─ (instant) detectIoc(q) locally for an optimistic entity header
   └─ (debounced) GET /api/v1/unified-search?q=
-        → ranked sections + entity{type,value}     ── 120s edge cache
+        → relevance-ranked sections (+score)        ── 120s edge cache
   click ✨ Summarize
   └─ POST /api/v1/unified-search/summarize {items}
         → fenceUntrusted → runCompletion(Groq) → validateAiOutput → {summary}  ── 1h cache
@@ -221,7 +209,7 @@ keystroke
 ## Error handling & edge cases
 
 - **Cold source cache** → that section returns `total:0` and is dropped (today's behavior, kept).
-- **No entity** (`detectIoc` returns null, no actor alias) → omit the `entity` field; no quick-action row.
+- **No entity** (`detectIoc` returns null) → no quick-action row; actor sections still carry their own links.
 - **Empty query** → existing 400-free empty response; tools/live sections both empty.
 - **No `GROQ_API_KEY` + Workers-AI failure** → summarize returns 503; button shows "AI summary
   unavailable", deterministic results unaffected.
@@ -241,7 +229,7 @@ keystroke
 
 ## Performance / budget
 
-- Ranking + entity classification are **pure CPU** — zero added subrequests.
+- Ranking is **pure CPU**; entity detection is client-side — zero added subrequests.
 - Live IOC fan-out unchanged and within the **50-subrequest** cap.
 - 120 s response cache on search; **1 h** cache on summaries; debounce + abort on the client.
 - One LLM call per uncached summarize click only.
@@ -249,13 +237,12 @@ keystroke
 ## Testing
 
 - **Lib unit (CI, no network):** `scoreMatch` ordering (exact > prefix > word-boundary > substring >
-  desc) and the entity classifier (ip/domain/hash/cve/actor/crypto-address/null) — pure, injected
-  inputs. Mirror `api/test/lib/address-labels.test.ts` style.
+  desc) and `rankSections` (items sorted within a section, sections by top item, count tiebreak) —
+  pure, injected inputs. Mirror `api/test/lib/address-labels.test.ts` style.
 - **Route (local, sandbox-disabled — CI skips `test/routes/`):** unified-search still 200s and now
-  returns `entity` + ranked order for a seeded cache; summarize mini-app returns a summary with a fake
-  Groq fetch and a 503 when the key is absent. Mirror `api/test/routes/crypto-monitor.test.ts` +
-  the existing `ai-summary` test, flipping `OPEN_PUBLIC_READS` in the test env.
-- **Frontend:** existing page test (if any) extended for the TOOLS section + entity header render.
+  returns ranked order for a seeded cache; the summarize mini-app returns a summary with a fake Groq
+  fetch and a 503 when the key is absent. Mirror `api/test/routes/crypto-monitor.test.ts` + the
+  existing `ai-summary` test, flipping `OPEN_PUBLIC_READS` in the test env.
 - **Verification (mandatory, esbuild-deploys-past-tsc):** all three —
   `tsc -p tsconfig.json && tsc -p api/tsconfig.json && tsc -p api/tsconfig.worker.json` — plus the
   lib tests in CI and route tests locally.
