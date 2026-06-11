@@ -7,6 +7,7 @@ import { ArrowLeft, ExternalLink, RefreshCw, Plus, X, Eye, Bell, Search, Filter,
 import { useLastVisit, isNewSince, useFocusTrap } from '../../hooks';
 import { fetchAggregatedFeed, formatRelativeTime, type AggregatedFeedItem } from '../../services/rssService';
 import { rssFeeds } from '../../data/rssFeeds';
+import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
 
 // Use the same shape as before so we minimise downstream churn.
 type FeedItem = AggregatedFeedItem & { source: string; pubDate: string };
@@ -914,6 +915,16 @@ export function RansomwareActivityPanel(): JSX.Element {
 
   const visible = filteredVictims.slice(0, expanded ? filteredVictims.length : 12);
 
+  const summaryItems = useMemo(
+    () =>
+      filteredVictims.slice(0, 50).map((v) => ({
+        title: `${v.group} / ${v.victim}`,
+        body: v.description ?? '',
+        source: v.origin,
+      })),
+    [filteredVictims]
+  );
+
   return (
     <section className="mb-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
       <div className="flex flex-wrap items-baseline justify-between gap-3 mb-3">
@@ -924,6 +935,16 @@ export function RansomwareActivityPanel(): JSX.Element {
           {loading ? 'loading…' : data ? `${data.count} leak-site posts · multi-source merge` : ''}
         </span>
       </div>
+
+      <AiSummaryCard
+        surface="Ransomware Activity"
+        items={summaryItems}
+        endpoint="/api/v1/unified-search/summarize"
+        requireAdmin={false}
+        autoFetch={false}
+        extraBody={{ q: 'Ransomware activity summary' }}
+        className="mb-3"
+      />
 
       <div className="mb-3">
         <input

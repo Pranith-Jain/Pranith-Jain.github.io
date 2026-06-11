@@ -8,6 +8,7 @@ import { useLastVisit, isNewSince } from '../../hooks';
 import { useDataFetch } from '../../hooks/useDataFetch';
 import { DataState } from '../../components/DataState';
 import { SEVERITY_TONE } from '../../components/severity';
+import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
 
 interface RecentCve {
   id: string;
@@ -141,6 +142,15 @@ export default function CveList(): JSX.Element {
 
   const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
   const pageItems = useMemo(() => filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE), [filtered, page]);
+  const summaryItems = useMemo(
+    () =>
+      filtered.slice(0, 50).map((c) => ({
+        title: c.id,
+        body: c.description,
+        source: c.origin,
+      })),
+    [filtered]
+  );
 
   const toggleSeverity = (s: RecentCve['severity']) => {
     setSeverityFilter((prev) => {
@@ -188,6 +198,16 @@ export default function CveList(): JSX.Element {
           <span className="text-slate-700 dark:text-slate-300">CISA KEV catalogue</span>.
         </p>
       </div>
+
+      <AiSummaryCard
+        surface="Live CVE Updates"
+        items={summaryItems}
+        endpoint="/api/v1/unified-search/summarize"
+        requireAdmin={false}
+        autoFetch={false}
+        extraBody={{ q: 'Recent CVE activity summary' }}
+        className="mb-6"
+      />
 
       <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
         <div className="flex items-center gap-3">
