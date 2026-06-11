@@ -282,3 +282,86 @@ describe('wikipedia fetcher', () => {
     expect(r.status).toBe('empty');
   });
 });
+
+describe('shodan-cvedb fetcher', () => {
+  beforeEach(() => vi.restoreAllMocks());
+
+  const cveCtx = (): GatherContext => ({
+    env: {} as never,
+    subject: {
+      raw: 'CVE-2024-1709',
+      type: 'cve',
+      canonical: 'CVE-2024-1709',
+      identifiers: { cve: 'CVE-2024-1709' },
+      suggestedTemplate: 'cve',
+    },
+    signal: AbortSignal.timeout(5000),
+  });
+  const planned = {
+    id: 'shodan-cvedb',
+    name: 'Shodan CVEDB',
+    kind: 'live' as const,
+    authority: 'B' as const,
+    cost: 2,
+    phase: 0,
+  };
+
+  it('maps CVEDB fields (ranking_epss=percentile, epss=score, ransomware_campaign string, cvss_v3 preferred) and prefixes items', async () => {
+    const body = {
+      summary: 'ScreenConnect auth bypass',
+      cvss: 9.1,
+      cvss_v3: 10.0,
+      epss: 0.94567,
+      ranking_epss: 0.99812,
+      kev: true,
+      ransomware_campaign: 'Known',
+      propose_action: 'Patch ScreenConnect immediately.',
+    };
+    const fetchMock = vi.fn().mockResolvedValue(new Response(JSON.stringify(body), { status: 200 }));
+    vi.stubGlobal('fetch', fetchMock);
+
+    const r = await FETCHERS['shodan-cvedb']!(cveCtx(), planned);
+    expect(r.status).toBe('ok');
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+    expect(fetchMock.mock.calls[0]![0]).toBe('https://cvedb.shodan.io/cve/CVE-2024-1709');
+    // every emitted item carries the source prefix
+    expect(r.items.every((i) => i.text.startsWith('Shodan CVEDB:'))).toBe(true);
+    const joined = r.items.map((i) => i.text).join('\n');
+    expect(joined).toContain('CVSS 10'); // cvss_v3 preferred over cvss
+    expect(joined).toContain('EPSS 0.94567'); // epss is the score
+    expect(joined).toContain('99th percentile'); // ranking_epss is the percentile
+    expect(joined).toContain('CISA KEV: LISTED');
+    expect(joined).toContain('ransomware campaign: Known'); // ransomware_campaign is a STRING
+    // structured fields preserved for citation
+    const epssItem = r.items.find((i) => (i.fields as Record<string, unknown>).epss !== undefined);
+    expect((epssItem!.fields as Record<string, unknown>).kind).toBe('shodan-cvedb');
+  });
+
+  it('returns empty on 404, one fetch, never throws', async () => {
+    const fetchMock = vi.fn().mockResolvedValue(new Response('not found', { status: 404 }));
+    vi.stubGlobal('fetch', fetchMock);
+    const r = await FETCHERS['shodan-cvedb']!(cveCtx(), planned);
+    expect(r.status).toBe('empty');
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+  });
+
+  it('returns error on non-ok (non-404)', async () => {
+    const fetchMock = vi.fn().mockResolvedValue(new Response('boom', { status: 503 }));
+    vi.stubGlobal('fetch', fetchMock);
+    const r = await FETCHERS['shodan-cvedb']!(cveCtx(), planned);
+    expect(r.status).toBe('error');
+  });
+
+  it('self-skips a non-cve subject to empty with zero fetches', async () => {
+    const fetchMock = vi.fn();
+    vi.stubGlobal('fetch', fetchMock);
+    const ipCtx: GatherContext = {
+      env: {} as never,
+      subject: { raw: '1.2.3.4', type: 'ip', canonical: '1.2.3.4', identifiers: {}, suggestedTemplate: 'ioc' },
+      signal: AbortSignal.timeout(5000),
+    };
+    const r = await FETCHERS['shodan-cvedb']!(ipCtx, planned);
+    expect(r.status).toBe('empty');
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
+});

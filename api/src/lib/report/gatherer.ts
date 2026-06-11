@@ -467,6 +467,54 @@ export const FETCHERS: Record<string, Fetcher> = {
     }
     return base(src, 'empty');
   },
+
+  // Shodan CVEDB exploitation context (cve template). Field traps (§7.5, copilot.ts:477):
+  // ranking_epss = percentile, epss = score, ransomware_campaign is a STRING, cvss_v3 preferred.
+  'shodan-cvedb': async (ctx, src) => {
+    if (ctx.subject.type !== 'cve') return base(src, 'empty');
+    const cve = ctx.subject.canonical.trim().toUpperCase();
+    const res = await fetch(`https://cvedb.shodan.io/cve/${cve}`, {
+      headers: { accept: 'application/json', 'user-agent': 'pranithjain-dfir/1.0' },
+      signal: ctx.signal,
+    });
+    if (res.status === 404) return base(src, 'empty');
+    if (!res.ok) return base(src, 'error');
+    const d = (await res.json()) as {
+      summary?: string;
+      cvss?: number;
+      cvss_v3?: number;
+      epss?: number;
+      ranking_epss?: number;
+      kev?: boolean;
+      ransomware_campaign?: string;
+      propose_action?: string;
+    };
+    const items: SourceItem[] = [];
+    const cvss = typeof d.cvss_v3 === 'number' ? d.cvss_v3 : d.cvss; // cvss_v3 preferred
+    if (typeof cvss === 'number')
+      items.push({ text: `Shodan CVEDB: CVSS ${cvss}.`, fields: { kind: 'shodan-cvedb', cve, cvss } });
+    if (typeof d.epss === 'number')
+      items.push({
+        text: `Shodan CVEDB: EPSS ${d.epss}${typeof d.ranking_epss === 'number' ? ` (${Math.floor(d.ranking_epss * 100)}th percentile)` : ''}.`,
+        fields: { kind: 'shodan-cvedb', cve, epss: d.epss, epss_percentile: d.ranking_epss ?? null },
+      });
+    items.push({
+      text: d.kev === true ? `Shodan CVEDB: CISA KEV: LISTED.` : `Shodan CVEDB: CISA KEV: not listed.`,
+      fields: { kind: 'shodan-cvedb', cve, kev: d.kev === true },
+    });
+    if (d.ransomware_campaign)
+      items.push({
+        text: `Shodan CVEDB: ransomware campaign: ${d.ransomware_campaign}.`,
+        fields: { kind: 'shodan-cvedb', cve, ransomware_campaign: d.ransomware_campaign },
+      });
+    if (d.propose_action)
+      items.push({
+        text: `Shodan CVEDB: proposed action: ${d.propose_action}`,
+        fields: { kind: 'shodan-cvedb', cve },
+      });
+    if (d.summary) items.push({ text: `Shodan CVEDB: ${d.summary}`, fields: { kind: 'shodan-cvedb', cve } });
+    return base(src, items.length ? 'ok' : 'empty', items);
+  },
 };
 
 // Shared CVE fetcher (nvd/epss/kev all resolve from one lookupCve call).
