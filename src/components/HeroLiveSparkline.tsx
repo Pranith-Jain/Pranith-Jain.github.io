@@ -134,7 +134,10 @@ export function HeroLiveSparkline(): JSX.Element {
     if (manual) setRefreshing(true);
     try {
       const url = manual ? `/api/v1/ransomware-recent?cb=${Date.now()}` : '/api/v1/ransomware-recent';
-      const r = await fetch(url);
+      const ctrl = new AbortController();
+      const timer = setTimeout(() => ctrl.abort(), 4000);
+      const r = await fetch(url, { signal: ctrl.signal });
+      clearTimeout(timer);
       if (!r.ok) throw new Error(`upstream ${r.status}`);
       const j = (await r.json()) as { victims?: RansomwareVictim[] };
       if (cancelledRef.current) return;

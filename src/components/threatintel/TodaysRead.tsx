@@ -121,6 +121,7 @@ export function TodaysRead(): JSX.Element {
 
   useEffect(() => {
     const ctrl = new AbortController();
+    const fallbackTimeout = setTimeout(() => ctrl.abort(), 5000);
     let cancelled = false;
     void (async () => {
       const [dRes, rRes] = await Promise.allSettled([
@@ -131,6 +132,7 @@ export function TodaysRead(): JSX.Element {
           r.ok ? r.json() : Promise.reject(`ransom ${r.status}`)
         ),
       ]);
+      clearTimeout(fallbackTimeout);
       if (cancelled) return;
       if (dRes.status === 'fulfilled') {
         const top = pickTopDetection((dRes.value as DetectionsResponse).detections ?? []);

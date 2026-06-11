@@ -86,6 +86,7 @@ export function LiveSignalStrip(): JSX.Element {
     };
 
     const run = async () => {
+      const fallbackTimeout = setTimeout(() => ctrl.abort(), 5000);
       const opts = { signal: ctrl.signal } as const;
       const [rRes, dRes, iRes] = await Promise.allSettled([
         fetch('/api/v1/ransomware-recent', opts).then((r) =>
@@ -96,6 +97,7 @@ export function LiveSignalStrip(): JSX.Element {
           r.ok ? r.json() : Promise.reject(`correlation ${r.status}`)
         ),
       ]);
+      clearTimeout(fallbackTimeout);
       if (cancelled) return;
 
       // Tile 1: ransomware claims in the last 24h + the dominant operator
