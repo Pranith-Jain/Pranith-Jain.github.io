@@ -329,7 +329,7 @@ export const Header = memo(function Header({ isDark, onToggleTheme, navLinks }: 
                 title="Command palette"
               >
                 <Command size={11} />
-                <kbd className="px-1 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-micro font-mono text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-slate-700">
+                <kbd className="px-1 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-micro font-mono text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
                   {isMac ? '⌘' : 'Ctrl'}K
                 </kbd>
               </button>

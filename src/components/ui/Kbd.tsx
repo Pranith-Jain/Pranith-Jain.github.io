@@ -16,7 +16,7 @@ const SIZE: Record<KbdSize, string> = {
 export function Kbd({ children, size = 'sm', className = '' }: KbdProps) {
   return (
     <kbd
-      className={`inline-flex items-center rounded border border-slate-200 bg-slate-50 font-mono dark:border-slate-700 dark:bg-slate-800 ${SIZE[size]} ${className}`}
+      className={`inline-flex items-center rounded border border-slate-200 bg-slate-50 font-mono text-slate-600 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300 ${SIZE[size]} ${className}`}
     >
       {children}
     </kbd>

@@ -125,7 +125,7 @@ export function TopBar({
             {SEARCH_PLACEHOLDERS[searchKey] ?? `Search ${sectionLabel}…`}
           </span>
           {isMac !== null && (
-            <kbd className="hidden md:inline-flex items-center gap-0.5 rounded border border-slate-200 bg-white px-1.5 py-0.5 text-micro font-mono text-slate-500 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-400">
+            <kbd className="hidden md:inline-flex items-center gap-0.5 rounded border border-slate-200 bg-white px-1.5 py-0.5 text-micro font-mono text-slate-600 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300">
               {isMac ? '⌘' : 'Ctrl'} K
             </kbd>
           )}

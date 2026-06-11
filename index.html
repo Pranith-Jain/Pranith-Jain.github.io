@@ -80,8 +80,13 @@
          the visitor's IP to Google and no cross-origin preconnect/round-trip is
          needed; font-display: swap (in fonts.css) covers FOIT. Type system:
          Bricolage Grotesque (display), Hanken Grotesk (body), JetBrains Mono
-         (IOC / terminal data). -->
-    <link rel="stylesheet" href="/fonts/fonts.css" />
+         (IOC / terminal data).
+         Loaded asynchronously via media="print" → onload swaps to "all" so the
+         font CSS doesn't block the initial render. The swap is safe because
+         font-display: swap already shows system fonts until the custom fonts
+         load, so there is no flash-of-unstyled-text regression. -->
+    <link rel="stylesheet" href="/fonts/fonts.css" media="print" onload="this.media='all'" />
+    <noscript><link rel="stylesheet" href="/fonts/fonts.css" /></noscript>
 
     <!-- Theme detection script - runs before page render to prevent flash -->
     <script>
