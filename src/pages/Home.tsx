@@ -1,12 +1,12 @@
 import { lazy, Suspense } from 'react';
-import { Hero, Featured, Memberships, Contact, Toolkits } from '../components/sections';
+import { Hero, Contact, Toolkits } from '../components/sections';
 import { LiveSignalStrip } from '../components/LiveSignalStrip';
 import { FeedHealthBadge } from '../components/FeedHealthBadge';
 import { LatestBriefingCard } from '../components/threatintel/LatestBriefingCard';
 import { GlobalPulseCard } from '../components/threatintel/GlobalPulseCard';
 import { ErrorBoundary } from '../components/ErrorBoundary';
 import { RecentWritingSkeleton } from '../components/RecentWriting';
-import { personalInfo, featuredArticles, memberships } from '../data/content';
+import { personalInfo } from '../data/content';
 
 // Below the fold, and it statically pulls in the full case-study + research
 // datasets — lazy-load it so those leave the eager landing chunk.
@@ -34,8 +34,6 @@ export default function Home() {
           <RecentWriting />
         </Suspense>
       </ErrorBoundary>
-      <Featured featuredArticles={featuredArticles} />
-      <Memberships memberships={memberships} />
       <Contact personalInfo={personalInfo} />
     </>
   );

@@ -1,5 +1,6 @@
 import { About } from '../components/sections/About';
-import { stats } from '../data/content';
+import { Featured, Memberships } from '../components/sections';
+import { stats, featuredArticles, memberships } from '../data/content';
 
 interface Chapter {
   period: string;
@@ -82,6 +83,9 @@ export default function AboutPage() {
           ))}
         </div>
       </section>
+
+      <Featured featuredArticles={featuredArticles} />
+      <Memberships memberships={memberships} />
     </>
   );
 }
