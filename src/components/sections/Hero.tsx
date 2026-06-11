@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom';
+import { ArrowRight } from 'lucide-react';
 import type { PersonalInfo } from '../../core/entities';
 import { HeroLiveSparkline } from '../HeroLiveSparkline';
+import { PjMark } from '../PjMark';
 
 interface HeroProps {
   personalInfo: PersonalInfo;
@@ -9,69 +11,74 @@ interface HeroProps {
 export function Hero({ personalInfo }: HeroProps) {
   return (
     <section className="relative pt-4 lg:pt-6">
-      <div className="animate-fade-in-up max-w-3xl">
-        <div className="mb-5 flex items-center gap-2.5 text-eyebrow font-mono uppercase text-brand-600 dark:text-brand-400">
-          <span className="relative flex h-2 w-2">
-            <span className="animate-ping motion-reduce:animate-none absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-500"></span>
-          </span>
-          Certified Cyber Criminologist
+      <div className="grid lg:grid-cols-[1fr_auto] gap-10 lg:gap-16 items-start animate-fade-in-up">
+        {/* Left: tagline, live data, CTAs */}
+        <div className="min-w-0 max-w-3xl">
+          <div className="mb-5 flex items-center gap-2.5 text-eyebrow font-mono uppercase text-brand-600 dark:text-brand-400">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping motion-reduce:animate-none absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-500"></span>
+            </span>
+            Certified Cyber Criminologist
+          </div>
+
+          <h1 className="font-display text-[1.75rem] font-extrabold leading-[1.1] tracking-[-0.015em] sm:text-5xl lg:text-[3.4rem] text-slate-900 dark:text-white">
+            Building at the intersection of AI, threat intelligence,{' '}
+            <span className="text-brand-600 dark:text-brand-400">and edge-native security tooling.</span>
+          </h1>
+
+          <HeroLiveSparkline />
+
+          <div className="mt-4 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm font-mono text-slate-500 dark:text-slate-400">
+            <span>60+ tools</span>
+            <span className="text-slate-300 dark:text-slate-700">·</span>
+            <span>18 feeds</span>
+            <span className="text-slate-300 dark:text-slate-700">·</span>
+            <span>no login</span>
+            <span className="text-slate-300 dark:text-slate-700">·</span>
+            <span>edge-hosted on Cloudflare</span>
+          </div>
+
+          <div className="mt-7 flex flex-wrap gap-2.5">
+            <Link
+              to="/dfir/ioc-check"
+              className="inline-flex items-center justify-center rounded-md bg-brand-600 px-5 py-3.5 sm:py-3 text-base font-semibold text-white transition hover:bg-brand-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
+            >
+              Try IOC Check
+            </Link>
+            <Link
+              to="/threatintel"
+              className="inline-flex items-center justify-center rounded-md border border-slate-300 dark:border-slate-700 px-5 py-3.5 sm:py-3 text-base font-semibold text-slate-700 dark:text-slate-200 transition hover:border-brand-500/60 hover:text-brand-600 dark:hover:text-brand-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
+            >
+              Threat Intel Platform
+            </Link>
+          </div>
         </div>
 
-        <h1 className="font-display text-[1.75rem] font-extrabold leading-[1.1] tracking-[-0.015em] sm:text-5xl lg:text-[3.4rem] text-slate-900 dark:text-white">
-          Building at the intersection of AI, threat intelligence,{' '}
-          <span className="text-brand-600 dark:text-brand-400">and edge-native security tooling.</span>
-        </h1>
-
-        <HeroLiveSparkline />
-
-        <div className="mt-4 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm font-mono text-slate-500 dark:text-slate-400">
-          <span>60+ tools</span>
-          <span className="text-slate-300 dark:text-slate-700">·</span>
-          <span>18 feeds</span>
-          <span className="text-slate-300 dark:text-slate-700">·</span>
-          <span>no login</span>
-          <span className="text-slate-300 dark:text-slate-700">·</span>
-          <span>edge-hosted on Cloudflare</span>
-        </div>
-
-        <p className="mt-6 max-w-2xl text-xl leading-relaxed text-slate-700 dark:text-slate-300">
-          I&apos;m{' '}
-          <span className="font-bold text-slate-900 dark:text-white underline decoration-brand-500/30 underline-offset-4">
-            {personalInfo.name}
-          </span>
-          . Security analyst by day — phishing, BEC, and malware response across 150+ brands. The rest of the time I
-          build CTI and DFIR tooling on the side: a{' '}
-          <Link
-            to="/dfir"
-            className="font-semibold text-brand-700 dark:text-brand-400 underline-offset-4 hover:underline"
-          >
-            DFIR toolkit
-          </Link>{' '}
-          and a{' '}
-          <Link
-            to="/threatintel"
-            className="font-semibold text-brand-700 dark:text-brand-400 underline-offset-4 hover:underline"
-          >
-            threat-intel aggregator
-          </Link>{' '}
-          on Cloudflare Workers, free to use, no login. Currently digging into AI security, NHI governance, and
-          detection engineering.
-        </p>
-
-        <div className="mt-7 flex flex-wrap gap-2.5">
-          <Link
-            to="/dfir/ioc-check"
-            className="inline-flex items-center justify-center rounded-md bg-brand-600 px-5 py-3.5 sm:py-3 text-base font-semibold text-white transition hover:bg-brand-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
-          >
-            Try IOC Check
-          </Link>
-          <Link
-            to="/threatintel"
-            className="inline-flex items-center justify-center rounded-md border border-slate-300 dark:border-slate-700 px-5 py-3.5 sm:py-3 text-base font-semibold text-slate-700 dark:text-slate-200 transition hover:border-brand-500/60 hover:text-brand-600 dark:hover:text-brand-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
-          >
-            Threat Intel Platform
-          </Link>
+        {/* Right: personal card */}
+        <div className="shrink-0 lg:sticky lg:top-24">
+          <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-6 sm:p-8 flex flex-col items-center sm:items-start text-center sm:text-left">
+            <PjMark className="h-16 w-16 sm:h-20 sm:w-20 mb-4" />
+            <h2 className="font-display text-xl font-bold text-slate-900 dark:text-white">{personalInfo.name}</h2>
+            <p className="mt-0.5 text-sm text-slate-500 dark:text-slate-400 font-medium">{personalInfo.shortTitle}</p>
+            <p className="mt-3 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+              {personalInfo.description}
+            </p>
+            <div className="mt-4 flex flex-wrap gap-3">
+              <Link
+                to="/about"
+                className="inline-flex items-center gap-1 text-sm font-semibold text-brand-600 dark:text-brand-400 hover:underline"
+              >
+                More about me <ArrowRight size={14} aria-hidden="true" />
+              </Link>
+              <Link
+                to="/skills"
+                className="inline-flex items-center gap-1 text-sm font-semibold text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300"
+              >
+                Skills & certifications <ArrowRight size={14} aria-hidden="true" />
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
     </section>

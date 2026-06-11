@@ -1,5 +1,5 @@
 import { lazy, Suspense } from 'react';
-import { Hero, AboutPreview, Contact, Toolkits } from '../components/sections';
+import { Hero, Contact, Toolkits } from '../components/sections';
 import { LiveSignalStrip } from '../components/LiveSignalStrip';
 import { FeedHealthBadge } from '../components/FeedHealthBadge';
 import { LatestBriefingCard } from '../components/threatintel/LatestBriefingCard';
@@ -29,7 +29,6 @@ export default function Home() {
   return (
     <>
       <Hero personalInfo={personalInfo} />
-      <AboutPreview personalInfo={personalInfo} />
       <RevealSection>
         <Toolkits />
       </RevealSection>
