@@ -140,3 +140,64 @@ describe('malpedia fetcher', () => {
     expect(calls.length).toBe(0);
   });
 });
+
+const actorKbCtx = (canonical: string): GatherContext => ({
+  env: {} as never,
+  subject: {
+    raw: canonical,
+    type: 'actor',
+    canonical,
+    identifiers: {},
+    suggestedTemplate: 'threat-actor',
+  },
+  signal: AbortSignal.timeout(5000),
+});
+
+const actorKbSrc = {
+  id: 'actor-kb',
+  name: 'Threat Actor KB',
+  kind: 'live' as const,
+  authority: 'B' as const,
+  cost: 1,
+  phase: 0,
+};
+
+describe('actor-kb fetcher (zero-fetch)', () => {
+  beforeEach(() => vi.restoreAllMocks());
+
+  it('emits alias + MITRE items for a known actor (canonical match) and never fetches', async () => {
+    const noFetch = vi.fn(() => {
+      throw new Error('actor-kb must not perform any network fetch');
+    });
+    vi.stubGlobal('fetch', noFetch);
+    const r = await FETCHERS['actor-kb']!(actorKbCtx('LockBit'), actorKbSrc);
+    expect(r.status).toBe('ok');
+    expect(r.id).toBe('actor-kb');
+    expect(noFetch).not.toHaveBeenCalled();
+    const texts = r.items.map((i) => i.text);
+    // alias item carries the alias list; mitre item carries the G-id
+    expect(texts.some((t) => t.includes('LockBit') && /alias/i.test(t))).toBe(true);
+    expect(texts.some((t) => t.includes('G0125'))).toBe(true);
+    // structured fields are present for the writer to cite
+    expect(r.items.every((i) => i.fields && typeof i.fields.kind === 'string')).toBe(true);
+  });
+
+  it('matches on an alias (Fancy Bear -> APT28)', async () => {
+    const r = await FETCHERS['actor-kb']!(actorKbCtx('Fancy Bear'), actorKbSrc);
+    expect(r.status).toBe('ok');
+    expect(r.items.some((i) => i.text.includes('APT28'))).toBe(true);
+  });
+
+  it('returns empty (never error) for an unknown subject', async () => {
+    const r = await FETCHERS['actor-kb']!(actorKbCtx('definitely-not-a-real-actor-xyz'), actorKbSrc);
+    expect(r.status).toBe('empty');
+    expect(r.total).toBe(0);
+  });
+
+  it('caps the emitted actors at 10 (slice(0,10)) for a broad match', async () => {
+    // 'apt' substring matches many canonical names; ensure the cap holds.
+    const r = await FETCHERS['actor-kb']!(actorKbCtx('apt'), actorKbSrc);
+    const matchedActors = new Set(r.items.map((i) => i.fields?.canonical).filter(Boolean));
+    expect(matchedActors.size).toBeLessThanOrEqual(10);
+  });
+});

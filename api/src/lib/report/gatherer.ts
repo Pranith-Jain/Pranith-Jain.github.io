@@ -247,6 +247,31 @@ export const FETCHERS: Record<string, Fetcher> = {
     );
   },
 
+  // Threat Actor KB (curated ACTOR_ALIASES index) — pure, zero-fetch corroboration
+  // of mitre-group. Mirrors the live copilot.ts:516 predicate + slice(0,10).
+  'actor-kb': async (ctx, src) => {
+    const { ACTOR_ALIASES } = await import('../../data/threat-actor-aliases');
+    const q = needle(ctx);
+    const matches = ACTOR_ALIASES.filter(
+      (a) => a.canonical.toLowerCase().includes(q) || a.aliases.some((al) => al.toLowerCase().includes(q))
+    ).slice(0, 10);
+    if (matches.length === 0) return base(src, 'empty');
+    const items: SourceItem[] = [];
+    for (const a of matches) {
+      items.push({
+        text: `${a.canonical} (aliases: ${a.aliases.length ? a.aliases.join(', ') : 'none'})`,
+        fields: { kind: 'actor-kb', canonical: a.canonical, slug: a.slug, aliases: a.aliases },
+      });
+      if (a.mitreId)
+        items.push({
+          text: `${a.canonical} → MITRE ATT&CK group ${a.mitreId}`,
+          url: `https://attack.mitre.org/groups/${a.mitreId}/`,
+          fields: { kind: 'actor-kb-mitre', canonical: a.canonical, mitreId: a.mitreId },
+        });
+    }
+    return base(src, 'ok', items);
+  },
+
   // Malpedia actor/family background (ransomware-group + threat-actor templates).
   // Descriptor lives in SOURCE_CATALOG; key MUST stay 'malpedia' (a typo re-stubs it).
   // Hash-only providers/malpedia.ts is intentionally NOT reused here.
