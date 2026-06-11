@@ -37,6 +37,50 @@ function generateId(): string {
   return `chat_${Date.now()}_${Math.random().toString(36).slice(2, 10)}`;
 }
 
+const CVE_ANYWHERE = /CVE-\d{4}-\d{4,}/i;
+const IP_ANYWHERE = /\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b/;
+
+const FOLLOW_UP_PATTERNS =
+  /^(what|how|when|where|why|who|can|could|would|tell|explain|elaborate|tell me|can you|more|also|and|so)\b/i;
+const PRONOUN_REF_PATTERNS = /\b(this|that|it|these|those|them|the previous|the above|the earlier)\b/i;
+
+function extractEntity(query: string): string | null {
+  const cve = CVE_ANYWHERE.exec(query);
+  if (cve) return cve[0]!.toUpperCase();
+  const ip = IP_ANYWHERE.exec(query);
+  if (ip) return ip[0]!;
+  return null;
+}
+
+function isFollowUpQuery(query: string): boolean {
+  const cleaned = query.replace(/[^\w\s]/g, '').trim();
+  if (cleaned.length < 10 && FOLLOW_UP_PATTERNS.test(cleaned)) return true;
+  if (PRONOUN_REF_PATTERNS.test(query)) return true;
+  return false;
+}
+
+const VAGUE_TYPES = new Set(['general', 'generic']);
+
+function getLastSubstantiveQuery(messages: ChatMessage[]): string | null {
+  for (let i = messages.length - 1; i >= 0; i--) {
+    const m = messages[i]!;
+    if (m.role === 'user' && m.query_type && !VAGUE_TYPES.has(m.query_type)) {
+      return m.content;
+    }
+  }
+  return null;
+}
+
+function getLastSubstantiveQueryType(messages: ChatMessage[]): string | null {
+  for (let i = messages.length - 1; i >= 0; i--) {
+    const m = messages[i]!;
+    if (m.role === 'user' && m.query_type && !VAGUE_TYPES.has(m.query_type)) {
+      return m.query_type;
+    }
+  }
+  return null;
+}
+
 async function ensureTable(db: D1Database): Promise<void> {
   await db
     .prepare(
@@ -142,16 +186,36 @@ export async function copilotChatHandler(c: Context<{ Bindings: Env }>): Promise
     }
 
     const queryType = detectType(query) as QueryType;
+    const isFollowUp = isFollowUpQuery(query);
+
+    let effectiveQuery = query.trim();
+    let effectiveType = queryType;
+
+    if (isFollowUp || (effectiveType as string) === 'general' || (effectiveType as string) === 'generic') {
+      const extracted = extractEntity(query);
+      if (extracted) {
+        effectiveQuery = extracted;
+        effectiveType = detectType(extracted) as QueryType;
+      } else if (session.messages.length > 0) {
+        const prevQuery = getLastSubstantiveQuery(session.messages);
+        const prevType = getLastSubstantiveQueryType(session.messages);
+        if (prevQuery && prevType) {
+          effectiveQuery = prevQuery;
+          effectiveType = prevType as QueryType;
+        }
+      }
+    }
+
     const [sources, liveSources] = await Promise.all([
-      gatherSources(query.trim(), queryType),
-      gatherLiveEnrichment(query.trim(), queryType, c.env),
+      gatherSources(effectiveQuery, effectiveType),
+      gatherLiveEnrichment(effectiveQuery, effectiveType, c.env),
     ]);
     const allSources = [...sources, ...liveSources];
 
     let ragContext: string | undefined;
     try {
-      if (query.trim().length >= 5 && c.env.VECTORIZE) {
-        const results = await queryCorpus(c.env, query.trim(), 8, undefined);
+      if (effectiveQuery.length >= 5 && c.env.VECTORIZE) {
+        const results = await queryCorpus(c.env, effectiveQuery, 8, undefined);
         if (results.length > 0) ragContext = formatRetrievedContext(results);
       }
     } catch {
