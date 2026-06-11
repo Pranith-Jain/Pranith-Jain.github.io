@@ -1,6 +1,7 @@
 import { fetchEvmTransfers } from './evm';
 import { fetchBtcTransfers } from './btc';
 import { fetchTronTransfers } from './tron';
+import { fetchSolanaTransfers } from './solana';
 import type { TracerChain, TransferFilter, FetchResult } from './types';
 
 export type { TracerChain, Transfer, TransferFilter, FetchResult } from './types';
@@ -23,5 +24,7 @@ export function fetchTransfers(
       return fetchBtcTransfers(address, filter);
     case 'tron':
       return fetchTronTransfers(address, filter);
+    case 'solana':
+      return fetchSolanaTransfers(address, filter);
   }
 }

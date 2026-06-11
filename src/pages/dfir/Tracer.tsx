@@ -24,6 +24,7 @@ const CHAINS: { id: TracerChain; label: string }[] = [
   { id: 'evm', label: 'EVM (ETH)' },
   { id: 'btc', label: 'Bitcoin' },
   { id: 'tron', label: 'Tron' },
+  { id: 'solana', label: 'Solana' },
 ];
 
 interface CalldataResult {
@@ -109,7 +110,7 @@ export default function Tracer(): JSX.Element {
   }, [seed, chain, expand]);
 
   const inspectCalldata = useCallback(async (txHash: string, forChain: TracerChain) => {
-    if (forChain === 'btc') return; // calldata is EVM/Tron only
+    if (forChain === 'btc' || forChain === 'solana') return; // calldata is EVM/Tron only
     setCalldataLoading(true);
     setCalldata(null);
     try {
@@ -543,7 +544,7 @@ export default function Tracer(): JSX.Element {
                         <span className="truncate font-mono text-[10px] text-gray-400">{e.tx_hash.slice(0, 14)}…</span>
                         <button
                           className="rounded border border-gray-600 px-1 text-[10px] hover:bg-gray-800 disabled:opacity-40"
-                          disabled={selected.chain === 'btc' || calldataLoading}
+                          disabled={selected.chain === 'btc' || selected.chain === 'solana' || calldataLoading}
                           onClick={() => void inspectCalldata(e.tx_hash, selected.chain)}
                         >
                           Inspect calldata

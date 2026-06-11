@@ -1,5 +1,5 @@
 /** Chains whose counterparties can be expanded within the subrequest budget. */
-export type TracerChain = 'evm' | 'btc' | 'tron';
+export type TracerChain = 'evm' | 'btc' | 'tron' | 'solana';
 
 /** One value transfer, normalised across chains, relative to the queried address. */
 export interface Transfer {

@@ -67,12 +67,16 @@ const EXPLORER: Record<TracerChain, (a: string) => string> = {
   evm: (a) => `https://etherscan.io/address/${a}`,
   btc: (a) => `https://mempool.space/address/${a}`,
   tron: (a) => `https://tronscan.org/#/address/${a}`,
+  solana: (a) => `https://solscan.io/account/${a}`,
 };
 
 const OFAC_CHAINS: Record<TracerChain, SanctionsChain[]> = {
   evm: ['ETH', 'USDT', 'USDC', 'BSC', 'ARB'],
   btc: ['XBT'],
   tron: ['TRX', 'USDT'],
+  // The OFAC list keys on EVM/BTC/Tron address formats, not Solana base58 — no
+  // usable Solana coverage, so Solana nodes score on D1 labels only.
+  solana: [],
 };
 
 function nodeId(chain: TracerChain, address: string): string {

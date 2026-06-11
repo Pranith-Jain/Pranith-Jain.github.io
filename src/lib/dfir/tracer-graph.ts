@@ -5,7 +5,7 @@ import type {
   GraphEdgeData,
 } from '../../pages/threatintel/relationship-graph-shared';
 
-export type TracerChain = 'evm' | 'btc' | 'tron';
+export type TracerChain = 'evm' | 'btc' | 'tron' | 'solana';
 export type RiskLevel = 'low' | 'medium' | 'high' | 'critical';
 
 export interface TracerNode {
