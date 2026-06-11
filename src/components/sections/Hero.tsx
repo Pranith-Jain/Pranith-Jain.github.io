@@ -19,8 +19,8 @@ export function Hero({ personalInfo }: HeroProps) {
         </div>
 
         <h1 className="font-display text-[1.75rem] font-extrabold leading-[1.1] tracking-[-0.015em] sm:text-5xl lg:text-[3.4rem] text-slate-900 dark:text-white">
-          Investigating attacks at human scale.{' '}
-          <span className="text-brand-600 dark:text-brand-400">Building defenders at AI scale.</span>
+          Building at the intersection of AI, threat intelligence,{' '}
+          <span className="text-brand-600 dark:text-brand-400">and edge-native security tooling.</span>
         </h1>
 
         <HeroLiveSparkline />

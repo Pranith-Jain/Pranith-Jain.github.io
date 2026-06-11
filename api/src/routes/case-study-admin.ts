@@ -12,13 +12,20 @@ import {
   markSocialPosted,
   isSocialPlatform,
 } from '../case-study/storage/social-schedule';
+import { postToTwitter, postToLinkedin } from '../case-study/posting/social-poster';
 import { approve, unapprove, listApproved, getApproved } from '../case-study/storage/approved';
 import { getSchedule, setSchedule, markSlotStatus, removeSlot } from '../case-study/storage/schedule';
 import { putPost, listPostIndex, removePost } from '../case-study/storage/posts';
 import { listDraftIndex, getDraft, approveDraft, rejectDraft } from '../case-study/storage/drafts';
 import { renderMarkdown } from '../case-study/rendering/markdown';
 import { listFailures, deleteFailure, clearFailures } from '../case-study/storage/failed';
-import { runDiscoveryNow, runPlannerNow, runPublisherNow, type CaseStudyEnv } from '../case-study/run';
+import {
+  runDiscoveryNow,
+  runPlannerNow,
+  runPublisherNow,
+  generateSocialForPost,
+  type CaseStudyEnv,
+} from '../case-study/run';
 import { runTelegramArchive } from './telegram-archive';
 import { renderRss } from '../case-study/rendering/rss';
 import { getSiteUrl } from '../lib/site-config';
@@ -268,6 +275,10 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
       await unapprove(c.env.CASE_STUDIES, candidate.key);
       await touchDedup(c.env.CASE_STUDIES, candidate.key, now, post.slug);
 
+      generateSocialForPost(post.slug, c.env as unknown as CaseStudyEnv, now).catch((err) =>
+        console.error('auto-social failed:', err)
+      );
+
       return c.json({ ok: true, slug: post.slug, title: post.title });
     } catch (err) {
       console.error('schedule-publish-now failed:', err);
@@ -376,6 +387,11 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
     // as the auto-publish flow does.
     const rss = renderRss(await listPostIndex(c.env.CASE_STUDIES), { siteUrl: getSiteUrl(c.env) });
     await c.env.CASE_STUDIES.put(csKvKeys.metaRss, rss);
+
+    generateSocialForPost(promoted.slug, c.env as unknown as CaseStudyEnv, now).catch((err) =>
+      console.error('auto-social failed:', err)
+    );
+
     return c.json({ ok: true, slug: promoted.slug, approvedAt: promoted.approvedAt });
   });
 
@@ -489,6 +505,10 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
     const rss = renderRss(postIndex, { siteUrl: getSiteUrl(c.env) });
     await c.env.CASE_STUDIES.put(csKvKeys.metaRss, rss);
 
+    generateSocialForPost(slug, c.env as unknown as CaseStudyEnv, new Date()).catch((err) =>
+      console.error('auto-social failed:', err)
+    );
+
     return c.json({ ok: true, slug });
   });
 
@@ -512,6 +532,10 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
 
       await unapprove(c.env.CASE_STUDIES, candidate.key);
       await touchDedup(env.CASE_STUDIES, candidate.key, now, post.slug);
+
+      generateSocialForPost(post.slug, c.env as unknown as CaseStudyEnv, now).catch((err) =>
+        console.error('auto-social failed:', err)
+      );
 
       return c.json({ ok: true, slug: post.slug, title: post.title });
     } catch (err) {
@@ -632,6 +656,54 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
       console.error('linkedin generation failed:', err);
       return c.json({ error: 'linkedin_generation_failed' }, 500);
     }
+  });
+
+  // ─── Post to social platforms ──────────────────────────────────────
+  admin.post('/social/:slug/post-twitter', async (c) => {
+    const slug = c.req.param('slug');
+    if (!validSlug(slug)) return c.json({ error: 'invalid slug' }, 400);
+
+    const social = await c.env.CASE_STUDIES.get<string>(csKvKeys.socialTwitter(slug));
+    if (!social) return c.json({ error: 'no_twitter_content', hint: 'generate social content first' }, 400);
+
+    const result = await postToTwitter(social, {
+      apiKey: c.env.X_API_KEY ?? '',
+      apiKeySecret: c.env.X_API_KEY_SECRET ?? '',
+      accessToken: c.env.X_ACCESS_TOKEN ?? '',
+      accessTokenSecret: c.env.X_ACCESS_TOKEN_SECRET ?? '',
+    });
+
+    if (!result.ok) return c.json(result, 400);
+
+    await markSocialPosted(c.env.CASE_STUDIES, slug, 'twitter');
+    return c.json(result);
+  });
+
+  admin.post('/social/:slug/post-linkedin', async (c) => {
+    const slug = c.req.param('slug');
+    if (!validSlug(slug)) return c.json({ error: 'invalid slug' }, 400);
+
+    if (!c.env.LINKEDIN_ACCESS_TOKEN) {
+      return c.json({ ok: false, platform: 'linkedin', error: 'linkedin_token_missing' }, 503);
+    }
+
+    const social = await c.env.CASE_STUDIES.get<string>(csKvKeys.socialLinkedin(slug));
+    if (!social) {
+      // Fall back to combined social key
+      const combined = await c.env.CASE_STUDIES.get<SocialContent>(csKvKeys.social(slug), 'json');
+      if (!combined?.linkedin)
+        return c.json({ error: 'no_linkedin_content', hint: 'generate social content first' }, 400);
+      const result = await postToLinkedin(combined.linkedin, c.env.LINKEDIN_ACCESS_TOKEN);
+      if (!result.ok) return c.json(result, 400);
+      await markSocialPosted(c.env.CASE_STUDIES, slug, 'linkedin');
+      return c.json(result);
+    }
+
+    const result = await postToLinkedin(social, c.env.LINKEDIN_ACCESS_TOKEN);
+    if (!result.ok) return c.json(result, 400);
+
+    await markSocialPosted(c.env.CASE_STUDIES, slug, 'linkedin');
+    return c.json(result);
   });
 
   // ─── Generate content from a candidate (blog/LinkedIn/Twitter) ──────

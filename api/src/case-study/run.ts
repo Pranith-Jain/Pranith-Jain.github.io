@@ -35,6 +35,7 @@ import { putDraft } from './storage/drafts';
 import { recordFailure } from './storage/failed';
 import { renderRss } from './rendering/rss';
 import { generatePost } from './generation';
+import { generateSocialContent } from './generation/social';
 import { kv as csKvKeys } from './kv-keys';
 import { ACTOR_RSS_FEEDS, ADVISORY_RSS_FEEDS } from './config';
 import { getSiteUrl } from '../lib/site-config';
@@ -370,7 +371,29 @@ export function runPlannerNow(env: CaseStudyEnv, now: Date) {
   });
 }
 
-export function runPublisherNow(env: CaseStudyEnv, now: Date) {
+/**
+ * Fire-and-forget social copy generation for a published post.
+ * Reads the post from KV, generates Twitter + LinkedIn content,
+ * and stores it in KV. Safe to call on any publish path.
+ */
+export async function generateSocialForPost(slug: string, env: CaseStudyEnv, now: Date): Promise<void> {
+  try {
+    const post = await env.CASE_STUDIES.get<import('./types').Post>(csKvKeys.post(slug), 'json');
+    if (!post) {
+      console.warn(JSON.stringify({ job: 'auto-social', slug, status: 'post_not_found' }));
+      return;
+    }
+    const social = await generateSocialContent(post, env.AI as never, now, env.GROQ_API_KEY);
+    await env.CASE_STUDIES.put(csKvKeys.social(slug), JSON.stringify(social));
+    console.log(JSON.stringify({ job: 'auto-social', slug, status: 'generated' }));
+  } catch (err) {
+    console.error(
+      JSON.stringify({ job: 'auto-social', slug, error: err instanceof Error ? err.message : String(err) })
+    );
+  }
+}
+
+export async function runPublisherNow(env: CaseStudyEnv, now: Date) {
   if (!env.CASE_STUDIES) {
     console.warn(JSON.stringify({ job: 'publisher', status: 'skipped_no_kv' }));
     return Promise.resolve({ published: null as unknown });
@@ -382,7 +405,7 @@ export function runPublisherNow(env: CaseStudyEnv, now: Date) {
     env.VT_API_KEY || env.ABUSEIPDB_API_KEY || env.ABUSECH_AUTH_KEY
       ? { VT_API_KEY: env.VT_API_KEY, ABUSEIPDB_API_KEY: env.ABUSEIPDB_API_KEY, ABUSECH_AUTH_KEY: env.ABUSECH_AUTH_KEY }
       : undefined;
-  return runPublisher({
+  const result = await runPublisher({
     pickDueSlot: (n) => pickDueSlot(env.CASE_STUDIES, n),
     markSlotStatus: (cid, status, extras) => markSlotStatus(env.CASE_STUDIES, cid, status, extras),
     getApproved: (k) => getApproved(env.CASE_STUDIES, k),
@@ -392,9 +415,6 @@ export function runPublisherNow(env: CaseStudyEnv, now: Date) {
     putPost: (p) => putPost(env.CASE_STUDIES, p),
     putDraft: (p) => putDraft(env.CASE_STUDIES, p),
     refreshRss: async (index) => {
-      // RSS only needs index-level fields. Reuse the index putPost just wrote
-      // (passed in) so we don't re-read posts:index from KV on every publish;
-      // fall back to a fresh read when no index is supplied.
       const list = index ?? (await listPostIndex(env.CASE_STUDIES));
       const rss = renderRss(list, { siteUrl: getSiteUrl(env) });
       await env.CASE_STUDIES.put(csKvKeys.metaRss, rss);
@@ -404,4 +424,13 @@ export function runPublisherNow(env: CaseStudyEnv, now: Date) {
     now,
     requireApproval,
   });
+
+  // Fire-and-forget auto-generation of social copy when a post was published
+  if (result.published === 1 && result.slug) {
+    generateSocialForPost(result.slug, env as unknown as CaseStudyEnv, now).catch((err) =>
+      console.error('auto-social generation failed:', err)
+    );
+  }
+
+  return result;
 }

@@ -92,6 +92,29 @@ export interface Env {
   /** Override for the public web bearer that ships in every x.com bundle.
    *  Rarely needed — only if Twitter rotates the default. */
   X_BEARER?: string;
+  /** X (Twitter) API OAuth 2.0 Bearer token for posting tweets via API v2.
+   *  Set via `wrangler secret put X_API_BEARER_TOKEN`. Optional — the
+   *  automated posting routes return 503 when unset. */
+  X_API_BEARER_TOKEN?: string;
+  /** X (Twitter) API OAuth 1.0a credentials for user-authenticated posting.
+   *  Required alongside X_API_BEARER_TOKEN to post as a user. Set via
+   *  `wrangler secret put X_API_KEY`, `X_API_KEY_SECRET`,
+   *  `X_ACCESS_TOKEN`, `X_ACCESS_TOKEN_SECRET`. All optional — posting
+   *  routes return 503 when incomplete. */
+  X_API_KEY?: string;
+  X_API_KEY_SECRET?: string;
+  X_ACCESS_TOKEN?: string;
+  X_ACCESS_TOKEN_SECRET?: string;
+  /** LinkedIn API access token for posting (OAuth 2.0, `w_member_social`
+   *  scope). Set via `wrangler secret put LINKEDIN_ACCESS_TOKEN`. Optional
+   *  — the automated posting routes return 503 when unset. */
+  LINKEDIN_ACCESS_TOKEN?: string;
+  /** LinkedIn API client credentials for refreshing the access token.
+   *  Set via `wrangler secret put LINKEDIN_CLIENT_ID` and
+   *  `LINKEDIN_CLIENT_SECRET`. Optional — without them, the token
+   *  cannot be auto-refreshed when it expires. */
+  LINKEDIN_CLIENT_ID?: string;
+  LINKEDIN_CLIENT_SECRET?: string;
   /** MyThreatIntel REST API bearer token (set via
    *  `wrangler secret put MYTHREATINTEL_API_TOKEN`). Optional — the
    *  /api/v1/mti proxy degrades to 503 when unset, and the in-process
@@ -158,11 +181,4 @@ export interface Env {
    *  heuristic that fingerprints the target's live HTTP headers + HTML body.
    *  There is no free BuiltWith JSON API, so the heuristic is the default. */
   BUILTWITH_API_KEY?: string;
-  /** Base URL of the self-hosted file2txt bridge (e.g. `https://file2txt.example`).
-   *  When set, PDF/docx extraction is offloaded to this service instead of
-   *  attempting in-Worker parsing (which is blocked by the 10ms CPU cap). */
-  FILE2TXT_BRIDGE_URL?: string;
-  /** Optional bearer token sent as `Authorization: Bearer <token>` to the
-   *  file2txt bridge. Set via `wrangler secret put FILE2TXT_BRIDGE_TOKEN`. */
-  FILE2TXT_BRIDGE_TOKEN?: string;
 }

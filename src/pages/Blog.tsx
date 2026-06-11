@@ -85,6 +85,7 @@ export default function Blog() {
   const [reloadKey, setReloadKey] = useState(0);
   const [query, setQuery] = useState('');
   const [typeFilter, setTypeFilter] = useState<string | null>(routeType ?? null);
+  const [tagFilter, setTagFilter] = useState<string | null>(null);
 
   useEffect(() => {
     let cancelled = false;
@@ -130,10 +131,21 @@ export default function Blog() {
     return types;
   }, [typeCounts]);
 
+  const allTags = useMemo(() => {
+    const m = new Map<string, number>();
+    for (const p of posts) {
+      for (const t of p.tags) {
+        m.set(t, (m.get(t) ?? 0) + 1);
+      }
+    }
+    return m;
+  }, [posts]);
+
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
     return posts.filter((p) => {
       if (typeFilter && p.type !== typeFilter) return false;
+      if (tagFilter && !p.tags.includes(tagFilter)) return false;
       if (!q) return true;
       return (
         p.title.toLowerCase().includes(q) ||
@@ -141,9 +153,9 @@ export default function Blog() {
         p.tags.some((t) => t.toLowerCase().includes(q))
       );
     });
-  }, [posts, query, typeFilter]);
+  }, [posts, query, typeFilter, tagFilter]);
 
-  const hasFilter = Boolean(query.trim() || (typeFilter && !routeType));
+  const hasFilter = Boolean(query.trim() || (typeFilter && !routeType) || tagFilter);
   const inCategoryMode = Boolean(routeType);
   const categoryMeta = inCategoryMode ? metaFor(routeType!) : null;
 
@@ -237,6 +249,7 @@ export default function Blog() {
                   type="button"
                   onClick={() => {
                     setTypeFilter(null);
+                    setTagFilter(null);
                     setQuery('');
                   }}
                   className="text-mini font-mono text-brand-600 dark:text-brand-400 hover:underline ml-2"
@@ -244,6 +257,35 @@ export default function Blog() {
                   clear
                 </button>
               )}
+            </div>
+          )}
+          {!inCategoryMode && allTags.size > 0 && (
+            <div className="flex flex-wrap items-center gap-1.5 mt-2 pt-2 border-t border-slate-100 dark:border-slate-800">
+              <span className="text-mini font-mono text-slate-500 mr-1">tags:</span>
+              {[
+                'all',
+                ...Array.from(allTags.entries())
+                  .sort((a, b) => b[1] - a[1])
+                  .map(([t]) => t),
+              ].map((t) => {
+                const isAll = t === 'all';
+                const active = isAll ? !tagFilter : tagFilter === t;
+                return (
+                  <button
+                    key={t}
+                    type="button"
+                    onClick={() => setTagFilter(isAll ? null : t)}
+                    className={`text-mini font-mono px-2 py-1 rounded border ${
+                      active
+                        ? 'border-brand-500/60 bg-brand-500/10 text-brand-700 dark:text-brand-300'
+                        : 'border-slate-300 dark:border-slate-700 text-slate-500 hover:border-brand-500/40'
+                    }`}
+                  >
+                    {isAll ? 'all' : t}
+                    {!isAll && <span className="opacity-70"> · {allTags.get(t) ?? 0}</span>}
+                  </button>
+                );
+              })}
             </div>
           )}
           <p className="text-mini font-mono text-slate-500 mt-3">
@@ -286,8 +328,12 @@ export default function Blog() {
                     <button
                       key={t}
                       type="button"
-                      onClick={() => setQuery(t)}
-                      className="rounded border border-slate-200 bg-slate-50 px-2 py-0.5 text-mini font-mono text-slate-600 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-400 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+                      onClick={() => setTagFilter(tagFilter === t ? null : t)}
+                      className={`rounded border px-2 py-0.5 text-mini font-mono transition-colors ${
+                        tagFilter === t
+                          ? 'border-brand-500/60 bg-brand-500/10 text-brand-700 dark:text-brand-300'
+                          : 'border-slate-200 bg-slate-50 text-slate-600 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-400 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400'
+                      }`}
                       title={`Filter by tag: ${t}`}
                     >
                       {t}
@@ -299,6 +345,44 @@ export default function Blog() {
           ))}
         </div>
       </DataState>
+
+      <section className="mt-16 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+        <h2 className="font-display font-bold text-lg text-slate-900 dark:text-slate-100 mb-1">Stay updated</h2>
+        <p className="text-sm text-slate-600 dark:text-slate-400 mb-4">
+          New case studies land when I finish an investigation worth writing up. Subscribe via{' '}
+          <a
+            href="/blog/rss.xml"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-brand-600 dark:text-brand-400 hover:underline font-semibold"
+          >
+            RSS
+          </a>{' '}
+          to get notified.
+        </p>
+        <a
+          href="/blog/rss.xml"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded-lg border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 hover:bg-brand-500/5 transition-colors"
+        >
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M4 11a9 9 0 0 1 9 9" />
+            <path d="M4 4a16 16 0 0 1 16 16" />
+            <circle cx="5" cy="19" r="1" />
+          </svg>
+          Subscribe via RSS
+        </a>
+      </section>
     </div>
   );
 }

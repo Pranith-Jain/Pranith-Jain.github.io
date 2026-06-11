@@ -4,7 +4,7 @@ export const personalInfo = {
   title: 'Security Analyst: Threat Intel & Security Automation',
   // Short form, used in tight UI like the profile card to avoid overflow.
   shortTitle: 'Security Analyst · Threat Intel · Security Automation',
-  headline: '"Investigating attacks at human scale. Building defenders at AI scale."',
+  headline: '"Building at the intersection of AI, threat intelligence, and edge-native security tooling."',
   // Plain-text bio. Used as-is by StructuredData (SEO schema). The Hero
   // renders a JSX version with inline links on "DFIR toolkit" and
   // "threat-intel platform" — see Hero.tsx. Keep both copies in sync:

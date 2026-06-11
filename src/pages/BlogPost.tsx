@@ -293,6 +293,25 @@ export default function BlogPost() {
                 }).replace(/</g, '\\u003c'),
               }}
             />
+            <script
+              type="application/ld+json"
+              dangerouslySetInnerHTML={{
+                __html: JSON.stringify({
+                  '@context': 'https://schema.org',
+                  '@type': 'BreadcrumbList',
+                  itemListElement: [
+                    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://pranithjain.qzz.io' },
+                    { '@type': 'ListItem', position: 2, name: 'Case Studies', item: 'https://pranithjain.qzz.io/blog' },
+                    {
+                      '@type': 'ListItem',
+                      position: 3,
+                      name: post.title,
+                      item: `https://pranithjain.qzz.io/blog/${post.slug}`,
+                    },
+                  ],
+                }).replace(/</g, '\\u003c'),
+              }}
+            />
             {(() => {
               // FAQPage structured data, derived from the post's `## FAQ`
               // section. Emits only when ≥2 Q&A pairs parse — the highest-

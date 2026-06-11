@@ -335,6 +335,11 @@ export default function PublishedTab() {
   );
 }
 
+type PostState = {
+  posting: boolean;
+  result: { ok: boolean; postUrl?: string; error?: string } | null;
+};
+
 function SocialContentPanel({
   data,
   onClose,
@@ -350,6 +355,34 @@ function SocialContentPanel({
   regenTwitterBusy: boolean;
   regenLinkedinBusy: boolean;
 }) {
+  const [postState, setPostState] = useState<{ twitter: PostState; linkedin: PostState }>({
+    twitter: { posting: false, result: null },
+    linkedin: { posting: false, result: null },
+  });
+  const [schedRefresh, setSchedRefresh] = useState(0);
+
+  async function postToPlatform(slug: string, platform: 'twitter' | 'linkedin') {
+    setPostState((prev) => ({
+      ...prev,
+      [platform]: { posting: true, result: null },
+    }));
+    try {
+      const r = await postJson<{ ok: boolean; postUrl?: string; error?: string }>(
+        `/social/${encodeURIComponent(slug)}/post-${platform}`
+      );
+      setPostState((prev) => ({
+        ...prev,
+        [platform]: { posting: false, result: r },
+      }));
+      setSchedRefresh((n) => n + 1);
+    } catch (e) {
+      setPostState((prev) => ({
+        ...prev,
+        [platform]: { posting: false, result: { ok: false, error: e instanceof Error ? e.message : String(e) } },
+      }));
+    }
+  }
+
   return (
     <div className="mt-6 rounded border border-slate-700 p-4">
       <div className="flex items-center justify-between mb-4">
@@ -360,19 +393,27 @@ function SocialContentPanel({
       </div>
       <p className="text-xs text-slate-500 mb-4">Generated {new Date(data.generatedAt).toLocaleString()}</p>
 
-      <SchedulePanel slug={data.slug} />
+      <SchedulePanel slug={data.slug} refreshTrigger={schedRefresh} />
 
       <SocialSection
         heading="Twitter Thread"
         text={data.twitter}
         onRegen={onRegenTwitter}
         regenBusy={regenTwitterBusy}
+        onPost={() => postToPlatform(data.slug, 'twitter')}
+        postingBusy={postState.twitter.posting}
+        postResult={postState.twitter.result}
+        postLabel="Post to X"
       />
       <SocialSection
         heading="LinkedIn Post"
         text={data.linkedin}
         onRegen={onRegenLinkedin}
         regenBusy={regenLinkedinBusy}
+        onPost={() => postToPlatform(data.slug, 'linkedin')}
+        postingBusy={postState.linkedin.posting}
+        postResult={postState.linkedin.result}
+        postLabel="Post to LinkedIn"
         tight
       />
     </div>
@@ -388,6 +429,10 @@ function SocialSection({
   onRegen,
   regenBusy,
   tight,
+  onPost,
+  postingBusy,
+  postResult,
+  postLabel,
 }: {
   heading: string;
   text: string;
@@ -396,6 +441,10 @@ function SocialSection({
   /** Tighter line-height for paragraph-shaped copy (LinkedIn). Twitter
    *  threads are line-shaped and keep the looser height. */
   tight?: boolean;
+  onPost?: () => void;
+  postingBusy?: boolean;
+  postResult?: { ok: boolean; postUrl?: string; error?: string } | null;
+  postLabel?: string;
 }) {
   const parts = splitSocial(text);
   const [copied, setCopied] = useState<string | null>(null);
@@ -409,6 +458,16 @@ function SocialSection({
       <div className="flex items-center justify-between mb-2">
         <h4 className="text-xs font-semibold uppercase tracking-wider text-blue-400">{heading}</h4>
         <div className="flex items-center gap-2">
+          {onPost && (
+            <button
+              onClick={onPost}
+              disabled={postingBusy}
+              className="px-2 py-1 border border-emerald-700 rounded text-xs hover:bg-emerald-900/30 disabled:opacity-50"
+              title={postLabel}
+            >
+              {postingBusy ? '…' : (postLabel ?? 'Post')}
+            </button>
+          )}
           <button
             onClick={onRegen}
             disabled={regenBusy}
@@ -460,13 +519,21 @@ function SocialSection({
           </pre>
         </div>
       )}
+
+      {postResult && (
+        <div className={`mt-2 text-xs ${postResult.ok ? 'text-emerald-400' : 'text-red-400'}`}>
+          {postResult.ok
+            ? `Posted! ${postResult.postUrl ? `(${postResult.postUrl})` : ''}`
+            : `Post failed: ${postResult.error ?? 'unknown error'}`}
+        </div>
+      )}
     </div>
   );
 }
 
 /** Manual-posting queue for one post: per-platform status, a planned time,
  *  and a best-time hint. Posting itself stays manual (copy → paste). */
-function SchedulePanel({ slug }: { slug: string }) {
+function SchedulePanel({ slug, refreshTrigger = 0 }: { slug: string; refreshTrigger?: number }) {
   const [sched, setSched] = useState<SocialScheduleData | null>(null);
   const [busy, setBusy] = useState<SocialPlatform | null>(null);
   const [msg, setMsg] = useState<string | null>(null);
@@ -482,7 +549,7 @@ function SchedulePanel({ slug }: { slug: string }) {
 
   useEffect(() => {
     void loadSched();
-  }, [loadSched]);
+  }, [loadSched, refreshTrigger]);
 
   async function saveTime(platform: SocialPlatform, localValue: string) {
     setBusy(platform);
