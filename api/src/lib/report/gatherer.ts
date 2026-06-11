@@ -11,6 +11,7 @@ import { NEGOTIATIONS_CACHE_KEY } from '../../routes/negotiations';
 import { CVE_RECENT_CACHE_KEY } from '../../routes/cve-recent';
 import { IOC_CORRELATION_CACHE_KEY } from '../../routes/ioc-correlation';
 import { lookupCve } from '../cve-lookup';
+import { enrichCves } from '../cve-enrich';
 import { queryCorpus } from '../rag-embedder';
 import { fetchRlUpstream } from '../../routes/ransomwarelive';
 import { virustotal } from '../../providers/virustotal';
@@ -223,6 +224,79 @@ export const FETCHERS: Record<string, Fetcher> = {
         if (v.CVE) items.push({ text: `Exploits ${v.CVE}`, fields: { kind: 'cve', cve: v.CVE } });
       for (const [tool, refs] of Object.entries(rl.tools ?? {}))
         items.push({ text: `Tool: ${tool}`, fields: { kind: 'tool', tool, refs } });
+      return base(src, items.length ? 'ok' : 'empty', items);
+    } catch {
+      return base(src, 'error');
+    }
+  },
+
+  // CISA KEV exploitation status for a ransomware group's exploited CVEs.
+  // Self-fetches /group/<slug> via fetchRlUpstream (KEV has no per-group key);
+  // this DELIBERATELY double-fetches the same path as 'ransomwarelive-profile'
+  // in the same phase (bypassing the route cache) — budget-acceptable (§7.6).
+  // Then ONE batched enrichCves call (1 cached KEV catalog + 1 EPSS batch,
+  // ≤100 CVEs) — NEVER loop lookupCve per CVE (6 fetches each → budget blowout).
+  'kev-cves': async (ctx, src) => {
+    if (ctx.subject.type !== 'ransomware') return base(src, 'empty');
+    if (!ctx.env.RANSOMWARELIVE_API_KEY) {
+      // Silent-empty honesty (§7.6/P1 #4): a missing key looks identical to
+      // "group has no CVEs" — emit telemetry so it is not silently swallowed.
+      console.warn('kev-cves: RANSOMWARELIVE_API_KEY absent — group CVE list unavailable, degrading to empty');
+      return base(src, 'empty');
+    }
+    try {
+      // RL slugs are fragile ("LockBit" may need lockbit3): try the resolved
+      // group identifier, its aliases, then the canonical, lowercased.
+      const candidates = [
+        ctx.subject.identifiers.group,
+        ...(ctx.subject.identifiers.aliases ?? []),
+        ctx.subject.canonical,
+      ]
+        .filter((s): s is string => typeof s === 'string' && s.length > 0)
+        .map((s) => s.toLowerCase());
+      let cves: string[] = [];
+      for (const slug of [...new Set(candidates)]) {
+        const rl = (await fetchRlUpstream(ctx.env, `/group/${encodeURIComponent(slug)}`)) as {
+          vulnerabilities?: { CVE?: string }[];
+        } | null;
+        const list = (rl?.vulnerabilities ?? [])
+          .map((v) => v.CVE)
+          .filter((c): c is string => typeof c === 'string' && c.length > 0);
+        if (list.length) {
+          cves = list;
+          break;
+        }
+      }
+      if (cves.length === 0) return base(src, 'empty');
+      const enriched = await enrichCves(
+        cves.map((id) => ({ id })),
+        { signal: ctx.signal }
+      );
+      const group = ctx.subject.canonical;
+      const items: SourceItem[] = [];
+      for (const cve of cves) {
+        const e = enriched.get(cve.toUpperCase());
+        if (!e) continue;
+        const kev = e.kevListed
+          ? `CISA KEV: LISTED${e.kevDateAdded ? ` (added ${e.kevDateAdded}` : ''}${e.kevDueDate ? `, due ${e.kevDueDate})` : e.kevDateAdded ? ')' : ''}`
+          : 'CISA KEV: not listed';
+        const epss =
+          typeof e.epssScore === 'number'
+            ? ` · EPSS ${e.epssScore}${typeof e.epssPercentile === 'number' ? ` (${Math.round(e.epssPercentile * 100)}th pct)` : ''}`
+            : '';
+        items.push({
+          text: `${group} exploits ${e.cveId} — ${kev}${epss}`,
+          fields: {
+            kind: 'kev-cve',
+            cve: e.cveId,
+            kev: e.kevListed,
+            kevDateAdded: e.kevDateAdded,
+            kevDueDate: e.kevDueDate,
+            epss: e.epssScore,
+            epssPercentile: e.epssPercentile,
+          },
+        });
+      }
       return base(src, items.length ? 'ok' : 'empty', items);
     } catch {
       return base(src, 'error');

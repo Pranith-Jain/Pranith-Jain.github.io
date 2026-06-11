@@ -365,3 +365,82 @@ describe('shodan-cvedb fetcher', () => {
     expect(fetchMock).not.toHaveBeenCalled();
   });
 });
+
+const KEV_SRC: PlannedSource = {
+  id: 'kev-cves',
+  name: 'CISA KEV (group CVEs)',
+  kind: 'live',
+  authority: 'A',
+  cost: 2,
+  phase: 1,
+};
+
+// A ransomware-group ctx with a key set + an injectable subject.
+const ransomCtx = (overrides: Partial<GatherContext['subject']> = {}): GatherContext => ({
+  env: { RANSOMWARELIVE_API_KEY: 'test-key' } as never,
+  subject: {
+    raw: 'LockBit',
+    type: 'ransomware',
+    canonical: 'lockbit',
+    identifiers: { group: 'lockbit' },
+    suggestedTemplate: 'ransomware-group',
+    ...overrides,
+  },
+  signal: AbortSignal.timeout(5000),
+});
+
+describe('kev-cves fetcher', () => {
+  beforeEach(() => vi.restoreAllMocks());
+
+  it('returns empty with ZERO fetches for a non-ransomware subject', async () => {
+    const fetchSpy = vi.fn();
+    vi.stubGlobal('fetch', fetchSpy);
+    const ctxCve = ransomCtx({ type: 'cve', canonical: 'CVE-2024-0001' });
+    const r = await FETCHERS['kev-cves']!(ctxCve, KEV_SRC);
+    expect(r.status).toBe('empty');
+    expect(r.total).toBe(0);
+    expect(fetchSpy).not.toHaveBeenCalled();
+  });
+
+  it('emits a KEV+EPSS line per group CVE (batched enrichCves, never per-CVE loop)', async () => {
+    // First fetch = ransomware.live /group/<slug>; second = KEV catalog; third = EPSS batch.
+    const rlBody = { vulnerabilities: [{ CVE: 'CVE-2023-4966' }] };
+    const kevBody = {
+      vulnerabilities: [{ cveID: 'CVE-2023-4966', dateAdded: '2023-10-18', dueDate: '2023-11-08' }],
+    };
+    const epssBody = { data: [{ cve: 'CVE-2023-4966', epss: '0.94567', percentile: '0.999' }] };
+    const fetchSpy = vi.fn(async (input: RequestInfo | URL) => {
+      const url = String(input);
+      if (url.includes('/group/')) return new Response(JSON.stringify(rlBody), { status: 200 });
+      if (url.includes('known_exploited')) return new Response(JSON.stringify(kevBody), { status: 200 });
+      if (url.includes('api.first.org')) return new Response(JSON.stringify(epssBody), { status: 200 });
+      return new Response('{}', { status: 404 });
+    });
+    vi.stubGlobal('fetch', fetchSpy);
+    // No real Cache-API in the test runtime: force enrichCves' cache off-path to miss safely.
+    vi.stubGlobal('caches', { default: { match: vi.fn().mockResolvedValue(undefined), put: vi.fn() } });
+
+    const r = await FETCHERS['kev-cves']!(ransomCtx(), KEV_SRC);
+    expect(r.status).toBe('ok');
+    expect(r.items.length).toBe(1);
+    expect(r.items[0]!.text).toContain('lockbit exploits CVE-2023-4966');
+    expect(r.items[0]!.text).toContain('CISA KEV: LISTED');
+    expect(r.items[0]!.text).toContain('added 2023-10-18');
+    expect(r.items[0]!.text).toContain('EPSS');
+    // exactly one /group fetch + KEV + EPSS = 3; NOT one lookupCve (6 each) per CVE.
+    const groupCalls = fetchSpy.mock.calls.filter((c) => String(c[0]).includes('/group/'));
+    expect(groupCalls.length).toBe(1);
+    expect(r.items[0]!.fields).toMatchObject({ kind: 'kev-cve', cve: 'CVE-2023-4966', kev: true });
+  });
+
+  it('warns + returns empty when RANSOMWARELIVE_API_KEY is absent (silent-empty honesty)', async () => {
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    const fetchSpy = vi.fn();
+    vi.stubGlobal('fetch', fetchSpy);
+    const ctxNoKey: GatherContext = { ...ransomCtx(), env: {} as never };
+    const r = await FETCHERS['kev-cves']!(ctxNoKey, KEV_SRC);
+    expect(r.status).toBe('empty');
+    expect(warn).toHaveBeenCalled();
+    expect(String(warn.mock.calls[0]?.[0])).toContain('kev-cves');
+  });
+});
