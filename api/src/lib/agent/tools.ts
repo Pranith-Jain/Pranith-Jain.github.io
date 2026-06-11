@@ -195,6 +195,57 @@ export function buildToolRegistry(
       execute: (args) =>
         apiFetch(self, `/api/v1/triage/search?q=${encodeURIComponent(String(args.q))}`, apiKey, undefined, ih),
     },
+    {
+      name: 'scan_dependencies',
+      description:
+        'Scan a dependency list for known vulnerabilities + malicious-package (MAL-) advisories via OSV.dev. ' +
+        'Input is one or more "eco:name@ver" specs separated by newlines and/or commas (version optional), ' +
+        'e.g. "npm:left-pad@1.3.0\\nPyPI:requests, npm:lodash". Returns OSV vuln IDs (CVE/GHSA/MAL-) per package, ' +
+        'with summaries/severity/fixed version for up to 35 distinct advisories.',
+      params: [
+        {
+          name: 'packages',
+          type: 'string',
+          description: 'Newline/comma-separated "eco:name@ver" specs (version optional), e.g. "npm:left-pad@1.3.0, PyPI:requests"',
+          required: true,
+        },
+      ],
+      execute: (args) => {
+        // Parse "eco:name@ver" lines/commas → {packages:[{name,ecosystem,version?}]}
+        // mirroring osvScanSchema EXACTLY (else validate('json') 400s the valid request).
+        const packages = String(args.packages ?? '')
+          .split(/[\n,]+/)
+          .map((s) => s.trim())
+          .filter(Boolean)
+          .map((spec) => {
+            const colon = spec.indexOf(':');
+            if (colon < 1) return null; // need "eco:..."
+            const ecosystem = spec.slice(0, colon).trim();
+            const rest = spec.slice(colon + 1).trim();
+            const at = rest.lastIndexOf('@');
+            const name = (at > 0 ? rest.slice(0, at) : rest).trim();
+            const version = at > 0 ? rest.slice(at + 1).trim() : '';
+            if (!ecosystem || !name) return null;
+            return version ? { name, ecosystem, version } : { name, ecosystem };
+          })
+          .filter((p): p is { name: string; ecosystem: string; version?: string } => p !== null)
+          .slice(0, 250); // mirror osvScanSchema .max(250)
+        if (packages.length === 0) {
+          return Promise.reject(new Error('scan_dependencies: no valid "eco:name@ver" specs parsed from input'));
+        }
+        return apiFetch(
+          self,
+          '/api/v1/osv/scan',
+          apiKey,
+          {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({ packages }),
+          },
+          ih
+        );
+      },
+    },
 
     // ══════════════════════════════════════════════════════════════════════
     //  DOMAIN & HOST INTELLIGENCE
