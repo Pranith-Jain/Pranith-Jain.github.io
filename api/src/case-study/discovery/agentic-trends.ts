@@ -10,6 +10,9 @@ export interface AgenticTrendsDeps {
    *  ransomware victims, breach headlines, etc.). When absent the LLM
    *  hallucinates from training data, producing similar output every day. */
   trendingContext?: string;
+  /** List of dedup keys surfaced in the last 14 days. The LLM is instructed
+   *  to actively avoid these topics, ensuring genuinely fresh suggestions. */
+  alreadyCoveredTopics?: string[];
 }
 
 interface TrendCandidate {
@@ -26,29 +29,56 @@ const GROQ_URL = 'https://api.groq.com/openai/v1/chat/completions';
 const GROQ_MODEL = 'meta-llama/llama-4-scout-17b-16e-instruct';
 
 const CATEGORY_POOLS = [
-  ['ransomware', 'supply-chain', 'mobile'],
-  ['cloud-security', 'identity-attacks', 'cryptocurrency'],
-  ['ics-scada', 'ai-security', 'data-breach'],
-  ['state-sponsored', 'phishing-campaign', 'vulnerability-exploitation'],
-  ['iot-security', 'malware-evolution', 'cyber-policy'],
-  ['critical-infrastructure', 'attack-innovation', 'dark-web'],
-  ['threat-intelligence', 'incident-response', 'zero-day'],
+  ['ransomware-evolution', 'supply-chain-attacks', 'mobile-threats'],
+  ['cloud-security', 'identity-theft', 'cryptocurrency-crime'],
+  ['ics-scada-ot', 'ai-ml-security', 'data-breach'],
+  ['state-sponsored-apt', 'phishing-campaigns', 'vulnerability-exploitation'],
+  ['iot-security', 'malware-evolution', 'cyber-policy-regulation'],
+  ['critical-infrastructure', 'attack-technique-innovation', 'dark-web-forums'],
+  ['threat-intel-tradecraft', 'incident-response', 'zero-day-exploits'],
+  ['c2-infrastructure', 'info-stealer-malware', 'ransomware-extortion'],
+  ['social-engineering', 'network-perimeter', 'supply-chain-pipeline'],
+  ['bug-bounty-disclosure', 'api-security', 'container-kubernetes'],
+];
+
+const DIVERSITY_SEEDS = [
+  'Focus on stories from non-English sources or regions outside the US/Europe.',
+  'Find stories involving lesser-known threat groups or niche malware families.',
+  'Look for positive developments: new defenses, takedowns, indictments, patches.',
+  'Highlight stories with measurable impact: numbers affected, financial loss, downtime.',
+  'Find stories about novel TTPs or attacker tradecraft shifts (not just new vulns).',
+  'Look for stories involving critical infrastructure or government targets.',
+  'Focus on supply chain and third-party risk stories.',
+  'Find stories about emerging attack surfaces: AI agents, edge computing, SaaS.',
+  'Look for stories about cyber insurance, disclosure norms, or regulatory action.',
+  'Find stories with actionable IOCs or detection rules practitioners can use today.',
 ];
 
 const SYSTEM_PROMPT = `You are a cybersecurity threat-intel analyst scanning for trending stories.
 
 Today's date: {DATE}
+Diversity challenge: {DIVERSITY_SEED}
 Focus categories for today: {CATEGORIES}
 
-Your task: Identify 5 genuinely trending cybersecurity stories RIGHT NOW that would make high-quality blog content. Focus on the specific categories above but also consider any major breaking news in other areas.
+Your task: Create 3 cybersecurity story ideas that would make high-quality blog content. Each must be DIFFERENT from any of these recently-covered topics: {ALREADY_COVERED}
+
+If ALL categories or angles look like they'd overlap with covered topics, pivot HARD to a different angle, region, or threat type. Repetition is the single worst failure mode.
 
 {TRENDING_CONTEXT}
 
-CRITERIA for a "trending" story:
-- It has real, specific details (not vague "cyber threats are rising")
-- It affects multiple organizations or individuals
-- It represents a notable change from the norm
-- A practitioner would benefit from knowing about it TODAY
+CRITICAL UNIQUENESS RULES:
+- Every story MUST be distinct from the recently-covered list above
+- If you cannot find a truly unique angle, skip that slot rather than repeating
+- The same CVE ID, group name, or malware family must NOT appear in your output if it was recently covered
+- Geographical and sector diversity matters: don't always pick US healthcare or European tech
+- Each story must target a different primary audience (SOC, DFIR, CISO, dev, researcher)
+
+CRITERIA for each story:
+- Specific, real details (not vague "cyber threats are rising")
+- Affects multiple organizations or individuals
+- Practitioner would benefit TODAY
+- If a recent CVE, include its CVE ID
+- If a ransomware group, name the group and victim
 
 For each story, output a JSON object with these fields:
 {
@@ -66,7 +96,7 @@ For each story, output a JSON object with these fields:
   "trendingSignal": 0.85
 }
 
-Return ONLY a valid JSON array. No markdown, no commentary.`;
+Return ONLY a valid JSON array of exactly 3 items. No markdown, no commentary.`;
 
 function parseTrendResponse(text: string): TrendCandidate[] {
   const cleaned = text
@@ -129,7 +159,7 @@ async function callGroq(key: string, prompt: string, userMsg: string): Promise<s
 }
 
 export async function discoverAgenticTrends(deps: AgenticTrendsDeps): Promise<Candidate[]> {
-  const { groqKey, now, getDedup, trendingContext } = deps;
+  const { groqKey, now, getDedup, trendingContext, alreadyCoveredTopics } = deps;
 
   if (!groqKey) {
     console.warn('discoverAgenticTrends: GROQ_API_KEY not set, skipping');
@@ -137,20 +167,32 @@ export async function discoverAgenticTrends(deps: AgenticTrendsDeps): Promise<Ca
   }
 
   try {
-    // Rotate focus categories daily so the LLM doesn't produce the same
-    // type categories every run. 7 pools x 3 categories = 21 unique focus
-    // areas cycling weekly. The remaining slots are open to breaking news.
+    // Multi-axis diversity to ensure genuinely different content every run:
+    // 1. Category pool rotation (10 pools, cycles every 10 days)
+    // 2. Diversity seed rotation (10 seeds, changes daily angle)
+    // 3. Already-covered list from dedup (LLM actively avoids these)
+    // 4. Real trending context from platform feeds
+    // 5. High temperature (0.9) for LLM output variance
     const dayOfYear = Math.floor((now.getTime() - Date.UTC(now.getUTCFullYear(), 0, 0)) / 86400000);
     const poolIndex = dayOfYear % CATEGORY_POOLS.length;
+    const seedIndex = dayOfYear % DIVERSITY_SEEDS.length;
     const todaysCategories = CATEGORY_POOLS[poolIndex]!.join(', ');
+    const todaysSeed = DIVERSITY_SEEDS[seedIndex]!;
+    // Format recently-covered topics as a compact list for the LLM prompt.
+    // Limit to ~2000 chars to avoid blowing the token budget.
+    const coveredList = alreadyCoveredTopics?.length
+      ? alreadyCoveredTopics.slice(0, 80).join(', ').slice(0, 2000)
+      : 'none yet today';
     const trendingSnippet = trendingContext
       ? `\nRecent data from platform feeds:\n${trendingContext.slice(0, 2000)}`
       : '';
 
     const prompt = SYSTEM_PROMPT.replace('{DATE}', now.toISOString().slice(0, 10))
+      .replace('{DIVERSITY_SEED}', todaysSeed)
       .replace('{CATEGORIES}', todaysCategories)
+      .replace('{ALREADY_COVERED}', coveredList)
       .replace('{TRENDING_CONTEXT}', trendingSnippet);
-    const userMsg = `What are the top trending cybersecurity stories as of ${now.toISOString().slice(0, 10)}? Focus on stories with real, specific details that a detection engineer or threat intel analyst would need to know about today.`;
+    const userMsg = `Generate 3 unique cybersecurity story ideas for ${now.toISOString().slice(0, 10)} that are COMPLETELY different from these recently-covered topics: ${coveredList.slice(0, 500)}. Each must target a different audience and angle.`;
 
     const text = await callGroq(groqKey, prompt, userMsg);
     console.log(JSON.stringify({ runner: 'agentic-trends', rawLength: text.length, preview: text.slice(0, 200) }));

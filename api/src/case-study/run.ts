@@ -22,6 +22,7 @@ import { discoverAdvisories } from './discovery/advisories';
 import { discoverVulnCheckKev } from './discovery/vulncheck';
 import { discoverEuvd } from './discovery/euvd';
 import { discoverAgenticTrends } from './discovery/agentic-trends';
+import { discoverPhishuntHunts } from './discovery/phishunt';
 import { activeRunnerNames } from './discovery/rotation';
 import { runPlanner } from './publishing/planner';
 import { runPublisher } from './publishing/publisher';
@@ -94,10 +95,20 @@ export async function runDiscoveryNow(env: CaseStudyEnv, now: Date) {
   //     same candidates from appearing in every daily run. Without this,
   //     high-severity items (CVE 0.99, ransomware groups) keep dominating
   //     because noveltyScore only soft-deweights them.
+  //   - alreadyCoveredTopics: dedup keys surfaced in the last 14 days, fed
+  //     into the agentic-trends prompt so the LLM actively avoids them.
   const REPUBLISH_BLOCK_MS = 30 * 24 * 3600 * 1000;
   const SURFACED_BLOCK_MS = 14 * 24 * 3600 * 1000;
   const isSuppressed = (key: string): boolean =>
     isKeySuppressed(dedupMap[key] ?? null, now, REPUBLISH_BLOCK_MS, SURFACED_BLOCK_MS);
+  // Build a list of recently-covered topic keys so the agentic-trends LLM
+  // can avoid repeating them. Extract keys surfaced in the last 14 days.
+  const alreadyCoveredTopics: string[] = [];
+  const coveredCutoff = now.getTime() - SURFACED_BLOCK_MS;
+  for (const [key, rec] of Object.entries(dedupMap)) {
+    const t = Date.parse(rec.lastSeenAt);
+    if (!Number.isNaN(t) && t >= coveredCutoff) alreadyCoveredTopics.push(key);
+  }
   // One rand stream per run, seeded by the UTC date: stable within a day,
   // different the next. Weighted by score so high-value items stay likely
   // (and the single top item is guaranteed) without freezing the queue.
@@ -112,7 +123,15 @@ export async function runDiscoveryNow(env: CaseStudyEnv, now: Date) {
   const trendingContext = await (async (): Promise<string> => {
     try {
       const fetcher = env.SELF ?? { fetch: globalThis.fetch };
-      const endpoints = ['/api/v1/cisa-kev', '/api/v1/ransomware-recent?limit=5', '/api/v1/global-pulse'];
+      const endpoints = [
+        '/api/v1/cisa-kev',
+        '/api/v1/ransomware-recent?limit=7',
+        '/api/v1/global-pulse',
+        '/api/v1/breach-disclosures?limit=5',
+        '/api/v1/writeups?limit=5',
+        '/api/v1/x-claims?limit=5',
+        '/api/v1/reddit-feed?limit=5',
+      ];
       const results = await Promise.allSettled(
         endpoints.map((path) =>
           fetcher.fetch(new Request(`https://pranithjain.qzz.io${path}`)).then((r) => (r.ok ? r.json() : null))
@@ -123,24 +142,66 @@ export async function runDiscoveryNow(env: CaseStudyEnv, now: Date) {
       if (kevData && typeof kevData === 'object' && 'vulnerabilities' in (kevData as Record<string, unknown>)) {
         const vulns = (kevData as Record<string, unknown>).vulnerabilities;
         if (Array.isArray(vulns) && vulns.length > 0) {
-          parts.push('Recent CISA KEV additions: ' + JSON.stringify(vulns.slice(0, 5)));
+          parts.push(
+            'KEV: ' + JSON.stringify(vulns.slice(0, 5).map((v: Record<string, unknown>) => v.cveId ?? v.id ?? v))
+          );
         }
       }
       const ransomData = results[1]?.status === 'fulfilled' ? results[1].value : null;
       if (ransomData && typeof ransomData === 'object' && 'victims' in (ransomData as Record<string, unknown>)) {
         const victims = (ransomData as Record<string, unknown>).victims;
         if (Array.isArray(victims) && victims.length > 0) {
-          parts.push('Recent ransomware victims: ' + JSON.stringify(victims.slice(0, 5)));
+          const top = victims.slice(0, 5).map((v: Record<string, unknown>) => `${v.group ?? '?'}:${v.victim ?? '?'}`);
+          parts.push('Ransom: ' + top.join('; '));
         }
       }
       const pulseData = results[2]?.status === 'fulfilled' ? results[2].value : null;
       if (pulseData && typeof pulseData === 'object') {
         const pd = pulseData as Record<string, unknown>;
-        const summary: string[] = [];
-        if (typeof pd.totalEvents === 'number') summary.push(`total events: ${pd.totalEvents}`);
-        if (typeof pd.ransomwareCount === 'number') summary.push(`ransomware: ${pd.ransomwareCount}`);
-        if (typeof pd.iocCount === 'number') summary.push(`IOCs: ${pd.iocCount}`);
-        if (summary.length > 0) parts.push('Global threat pulse: ' + summary.join(', '));
+        const s: string[] = [];
+        if (typeof pd.totalEvents === 'number') s.push(`ev:${pd.totalEvents}`);
+        if (typeof pd.ransomwareCount === 'number') s.push(`ransom:${pd.ransomwareCount}`);
+        if (typeof pd.iocCount === 'number') s.push(`iocs:${pd.iocCount}`);
+        if (s.length > 0) parts.push('Pulse: ' + s.join(' '));
+      }
+      const breachData = results[3]?.status === 'fulfilled' ? results[3].value : null;
+      if (breachData && typeof breachData === 'object') {
+        const items = (breachData as Record<string, unknown>).items ?? (breachData as Record<string, unknown>).breaches;
+        if (Array.isArray(items) && items.length > 0) {
+          parts.push('Breaches: ' + JSON.stringify(items.slice(0, 3)));
+        }
+      }
+      const writeupData = results[4]?.status === 'fulfilled' ? results[4].value : null;
+      if (writeupData && typeof writeupData === 'object') {
+        const items =
+          (writeupData as Record<string, unknown>).items ?? (writeupData as Record<string, unknown>).writeups;
+        if (Array.isArray(items) && items.length > 0) {
+          const titles = (items as Array<Record<string, unknown>>)
+            .slice(0, 3)
+            .map((w) => w.title ?? w)
+            .filter(Boolean);
+          if (titles.length > 0) parts.push('Writeups: ' + titles.join(' | '));
+        }
+      }
+      const xData = results[5]?.status === 'fulfilled' ? results[5].value : null;
+      if (xData && typeof xData === 'object') {
+        const items = (xData as Record<string, unknown>).items ?? (xData as Record<string, unknown>).claims;
+        if (Array.isArray(items) && items.length > 0) {
+          parts.push('X: ' + JSON.stringify(items.slice(0, 3)));
+        }
+      }
+      const redditData = results[6]?.status === 'fulfilled' ? results[6].value : null;
+      if (redditData && typeof redditData === 'object') {
+        const items = (redditData as Record<string, unknown>).items ?? (redditData as Record<string, unknown>).posts;
+        if (Array.isArray(items) && items.length > 0 && (items[0] as Record<string, unknown>)?.title) {
+          parts.push(
+            'Reddit: ' +
+              (items as Array<Record<string, unknown>>)
+                .slice(0, 3)
+                .map((p) => p.title)
+                .join(' | ')
+          );
+        }
       }
       return parts.join('\n');
     } catch {
@@ -215,27 +276,63 @@ export async function runDiscoveryNow(env: CaseStudyEnv, now: Date) {
     // the LLM call fails (returns empty array).
     // trendingContext feeds real platform data into the prompt so the LLM
     // has actual current events to work with instead of hallucinating.
+    // alreadyCoveredTopics tells the LLM what topics were recently surfaced
+    // so it actively avoids repeating them.
+    // Phishunt: free, no-auth phishing feed with enriched data (IP, ASN, TLS,
+    // detection sources). Surfaces brand impersonation campaigns and critical
+    // phishing sites flagged by multiple detection engines.
+    phish: () =>
+      discoverPhishuntHunts({
+        fetchPhishunt: async () => {
+          try {
+            const r = await fetch('https://phishunt.io/api/v1/domains?limit=100');
+            if (!r.ok) return [];
+            const data = (await r.json()) as { results?: Array<Record<string, unknown>> };
+            return (data.results ?? []).map((item) => ({
+              url: String(item.url ?? ''),
+              domain: String(item.domain ?? ''),
+              company: String(item.company ?? 'unknown'),
+              date: String(item.date ?? item.first_seen ?? new Date().toISOString()),
+              first_seen: String(item.first_seen ?? item.date ?? new Date().toISOString()),
+              ip: String(item.ip ?? ''),
+              country: String(item.country ?? ''),
+              asn: String(item.asn ?? ''),
+              org: String(item.org ?? ''),
+              cert: String(item.cert ?? ''),
+              malicious_google: Boolean(item.malicious_google),
+              malicious_openphish: Boolean(item.malicious_openphish),
+              malicious_phishtank: Boolean(item.malicious_phishtank),
+              malicious_tweetfeed: Boolean(item.malicious_tweetfeed),
+              malicious_urlscan: Boolean(item.malicious_urlscan),
+            }));
+          } catch {
+            return [];
+          }
+        },
+        now,
+        getDedup: memGet,
+      }),
     trends: () =>
       discoverAgenticTrends({
         now,
         getDedup: memGet,
         groqKey: env.GROQ_API_KEY,
         trendingContext,
+        alreadyCoveredTopics,
       }),
   };
-  // Discovery diversity model (2026-06-08 — agentic discovery):
-  //   - 5 high-value "always-on" topics: `cve`, `actor`, `ransom`,
-  //     `platform`, `trends` (agentic LLM-powered trending content).
-  //     The new `trends` runner finds quality/trending content beyond
-  //     the configured RSS/API sources using the LLM.
-  //   - The remaining 10 optional topics partition into 4 day-buckets
-  //     (rotation.ts), so each day surfaces 2-3 of them.
-  //   - Total active per day: 5 always + 2-3 rotating = 7-8 topics.
-  //     perTopic=1 yields 7-8 high-quality candidates per discovery.
-  //     Quality over quantity: each candidate is enriched with hooks,
-  //     angles, and content specs (adopting social-content approach).
-  const ALWAYS_ON = new Set(['cve', 'actor', 'ransom', 'platform', 'trends']);
-  // 6 rotation groups: with ~8 optional runners, each runs once every 6 days
+  // Discovery diversity model (2026-06-11 — upgraded diversity):
+  //   - 6 high-value "always-on" topics: `cve`, `actor`, `ransom`,
+  //     `platform`, `phish`, `trends` (agentic LLM-powered trending).
+  //   - The remaining ~10 optional topics partition into 6 day-buckets
+  //     (rotation.ts), so each day surfaces ~2 of them.
+  //   - Total per day: 6 always + 2 rotating = ~8 topics.
+  //   - perTopic=3: weighted-random sampling has room to pick different
+  //     candidates from runners that produce more than 3 items.
+  //   - trends=3: fewer LLM candidates, higher quality bar enforced by
+  //     dedup-avoidance list fed into the prompt.
+  const ALWAYS_ON = new Set(['cve', 'actor', 'ransom', 'platform', 'phish', 'trends']);
+  // 6 rotation groups: with ~10 optional runners, each runs once every 6 days
   // This ensures variety while keeping daily subrequest count manageable
   const active = new Set(activeRunnerNames(Object.keys(allRunners), ALWAYS_ON, now, 6));
   const runners = Object.fromEntries(Object.entries(allRunners).filter(([name]) => active.has(name)));
@@ -247,16 +344,16 @@ export async function runDiscoveryNow(env: CaseStudyEnv, now: Date) {
     putCandidate: (c) => putCandidate(env.CASE_STUDIES, c),
     commitDedup: (keys, n) => touchDedupMany(env.CASE_STUDIES, keys, n),
     now,
-    // Diversity controls (2026-06-08 — target 7-10 candidates/run):
-    //   - perTopic=2: each feed-based topic contributes up to 2. When
-    //     most return 0 fresh (30d dedup wall), the survivors still
-    //     yield 7-10 combined with the agentic runner.
-    //   - limit=12: upper bound — comfortable for 7-10 target.
-    //   - trends=5: all 5 LLM suggestions pass through; they're the
-    //     primary fresh source when RSS/API feeds are fully suppressed.
-    perTopic: 2,
+    // Diversity controls (2026-06-11):
+    //   - perTopic=3: each topic contributes up to 3. Weighted-random
+    //     sampling (not strict top-N) selects from candidates to ensure
+    //     the same high-scorers don't dominate every day.
+    //   - limit=12: upper bound — comfortable for ~8 active topics × 3.
+    //   - trends=3: fewer LLM candidates; quality enforced via dedup-
+    //     avoidance, category rotation, and real trending data injection.
+    perTopic: 3,
     limit: 12,
-    perTopicOverride: { trends: 5 },
+    perTopicOverride: { trends: 3 },
   });
 }
 
