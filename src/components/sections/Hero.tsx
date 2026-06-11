@@ -39,7 +39,11 @@ export function Hero({ personalInfo }: HeroProps) {
             <span>edge-hosted on Cloudflare</span>
           </div>
 
-          <div className="mt-7 flex flex-wrap gap-2.5">
+          <p className="mt-7 max-w-2xl text-base leading-relaxed text-slate-700 dark:text-slate-300">
+            {personalInfo.description}
+          </p>
+
+          <div className="mt-5 flex flex-wrap gap-2.5">
             <Link
               to="/dfir/ioc-check"
               className="inline-flex items-center justify-center rounded-md bg-brand-600 px-5 py-3.5 sm:py-3 text-base font-semibold text-white transition hover:bg-brand-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
@@ -61,23 +65,12 @@ export function Hero({ personalInfo }: HeroProps) {
             <PjMark className="h-16 w-16 sm:h-20 sm:w-20 mb-4" />
             <h2 className="font-display text-xl font-bold text-slate-900 dark:text-white">{personalInfo.name}</h2>
             <p className="mt-0.5 text-sm text-slate-500 dark:text-slate-400 font-medium">{personalInfo.shortTitle}</p>
-            <p className="mt-3 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-              {personalInfo.description}
-            </p>
-            <div className="mt-4 flex flex-wrap gap-3">
-              <Link
-                to="/about"
-                className="inline-flex items-center gap-1 text-sm font-semibold text-brand-600 dark:text-brand-400 hover:underline"
-              >
-                More about me <ArrowRight size={14} aria-hidden="true" />
-              </Link>
-              <Link
-                to="/skills"
-                className="inline-flex items-center gap-1 text-sm font-semibold text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300"
-              >
-                Skills & certifications <ArrowRight size={14} aria-hidden="true" />
-              </Link>
-            </div>
+            <Link
+              to="/about"
+              className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-brand-600 dark:text-brand-400 hover:underline"
+            >
+              More about me <ArrowRight size={14} aria-hidden="true" />
+            </Link>
           </div>
         </div>
       </div>
