@@ -39,10 +39,12 @@ const SECTIONS: Section[] = [
       'verge-ai',
       'openai-news',
       'google-ai',
+      'anthropic-blog',
       'huggingface-blog',
       'the-decoder',
       'import-ai',
       'deepmind-blog',
+      'mit-ai-news',
     ],
   },
   {
@@ -63,6 +65,21 @@ const SECTIONS: Section[] = [
     blurb: 'Y Combinator essays and announcements, plus the Hacker News front page.',
     feedIds: ['yc-blog', 'hn-frontpage'],
   },
+  {
+    id: 'finance',
+    label: 'Finance & Banking',
+    blurb:
+      'Banking-sector cyber attacks, fintech breaches, payment system security, financial-industry risk intelligence.',
+    feedIds: [
+      'finextra',
+      'bankinfosecurity',
+      'gnews-banking-cyber',
+      'gnews-fintech-breach',
+      'gnews-payment-security',
+      'gnews-insurance-cyber',
+      'gnews-investment-cyber',
+    ],
+  },
 ];
 
 const ALL_FEED_IDS = SECTIONS.flatMap((s) => s.feedIds);
@@ -71,6 +88,7 @@ const SECTION_STYLES: Record<string, string> = {
   ai: 'border-violet-500/30 bg-violet-500/10 text-violet-700 dark:text-violet-300',
   funding: 'border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300',
   general: 'border-sky-500/30 bg-sky-500/10 text-sky-700 dark:text-sky-300',
+  finance: 'border-amber-500/30 bg-amber-500/10 text-amber-700 dark:text-amber-300',
 };
 
 const DISABLED_STORAGE_KEY = 'tech-ai-news:disabled';
