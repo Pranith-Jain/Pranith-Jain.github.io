@@ -68,6 +68,7 @@ import { cveThreatMapHandler } from './routes/cve-threat-map';
 import { phishingUrlsHandler } from './routes/phishing-urls';
 import { cryptoScamFeedHandler } from './routes/crypto-scam-feed';
 import { actorUsernamesHandler, actorUsernamesStatsHandler } from './routes/actor-usernames';
+import { scrapedintelUsernamesHandler } from './routes/scrapedintel-usernames';
 import { phishingWordlistsHandler } from './routes/phishing-wordlists';
 import { malwareSamplesHandler } from './routes/malware-samples';
 import { redditFeedHandler } from './routes/reddit-feed';
@@ -800,6 +801,9 @@ app.get('/api/v1/phishing-urls', phishingUrlsHandler);
 app.get('/api/v1/crypto-scam-feed', cryptoScamFeedHandler);
 app.get('/api/v1/actor-usernames', actorUsernamesHandler);
 app.get('/api/v1/actor-usernames/stats', actorUsernamesStatsHandler);
+// Live forum-handle search via threatactorusernames.com (ScrapedIntel). Cache +
+// global egress budget + last-good live in the lookup layer; manual 2–80 char gate.
+app.get('/api/v1/scrapedintel-usernames', scrapedintelUsernamesHandler);
 app.get('/api/v1/phishing-wordlists', phishingWordlistsHandler);
 app.get('/api/v1/malware-samples', malwareSamplesHandler);
 app.get('/api/v1/reddit-feed', redditFeedHandler);

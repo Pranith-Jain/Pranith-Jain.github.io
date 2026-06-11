@@ -11,6 +11,7 @@ import { CVE_RECENT_CACHE_KEY, type CveRecentResponse } from './cve-recent';
 import { WRITEUPS_CACHE_KEY, type WriteupsResponse } from './writeups';
 import { CYBERCRIME_CACHE_KEY, type CybercrimeResponse } from './cybercrime';
 import { MALWARE_SAMPLES_CACHE_KEY, type MalwareSamplesResponse } from './malware-samples';
+import { isHandleShaped, lookupHandle } from '../lib/scrapedintel';
 
 const C2_CACHE_KEY = 'https://c2-cache.internal/v8';
 const ACTOR_TIMELINE_CACHE_KEY = 'https://actor-timeline-cache.internal/v3-mti';
@@ -624,6 +625,39 @@ async function searchActorKb(needle: string): Promise<SearchSection> {
   return { label: 'Threat Actor KB', kind: 'actors', total: items.length, items };
 }
 
+// Live ScrapedIntel forum-handle lookup (threatactorusernames.com). Only fires for
+// handle-shaped freetext — IOCs/CVEs have their own searchers — and is cache-first:
+// it only spends an upstream call when the egress budget can be coordinated via KV.
+// All rate-limit / cold / error states collapse to an empty section (dropped).
+async function searchScrapedIntelHandles(needle: string, env: import('../env').Env): Promise<SearchSection> {
+  const label = 'Forum Handles (ScrapedIntel)';
+  const empty: SearchSection = { label, kind: 'actors', total: 0, items: [] };
+  const qn = needle.trim();
+  if (!isHandleShaped(qn)) return empty;
+  if (IOC_RE_IP.test(qn) || IOC_RE_DOMAIN.test(qn) || IOC_RE_HASH.test(qn) || /^cve-\d{4}-\d{4,7}$/i.test(qn)) {
+    return empty;
+  }
+  try {
+    // Tighter timeout than the dedicated route so a hung upstream can't hold the
+    // 12s fan-out open; lookupHandle is cache-only unless KV is bound to budget egress.
+    const out = await lookupHandle(qn, env, { timeoutMs: 4000 });
+    const items: SearchItem[] = out.data.results
+      .slice(0, 15)
+      .map((m) =>
+        buildItem(
+          m.username,
+          `${m.forum_count} forum${m.forum_count === 1 ? '' : 's'}: ${m.forums.map((f) => f.forum).join(', ')}`,
+          `/threatintel/scrapedintel-usernames?q=${encodeURIComponent(m.username)}`,
+          'scrapedintel',
+          'handle'
+        )
+      );
+    return { label, kind: 'actors', total: items.length, items };
+  } catch {
+    return empty;
+  }
+}
+
 export async function unifiedSearchHandler(ctx: Context<{ Bindings: import('../env').Env }>): Promise<Response> {
   const qParam = ctx.req.query('q')?.trim();
   if (!qParam) {
@@ -652,6 +686,7 @@ export async function unifiedSearchHandler(ctx: Context<{ Bindings: import('../e
     searchCveLookup(needle),
     searchIocCheck(needle, ctx.env),
     searchActorKb(needle),
+    searchScrapedIntelHandles(needle, ctx.env),
   ]);
 
   const sections: SearchSection[] = [];

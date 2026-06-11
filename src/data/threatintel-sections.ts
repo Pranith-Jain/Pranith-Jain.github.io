@@ -820,6 +820,13 @@ export const SECTIONS: Section[] = [
         icon: UserCheck,
         badge: 'new',
       },
+      {
+        to: '/threatintel/scrapedintel-usernames',
+        label: 'Forum Handles (ScrapedIntel)',
+        desc: 'Live search of 2M+ threat-actor handles indexed across cybercrime forums & open sources (threatactorusernames.com / ScrapedIntel). Shows which forums a handle appears on. Rate-limited, edge-cached.',
+        icon: UserCheck,
+        badge: 'new',
+      },
     ],
   },
   // ── Frameworks ──────────────────────────────────────────────────
