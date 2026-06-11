@@ -13,6 +13,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { generateAiSummary, type SummaryInput } from '../lib/ai-summary';
+import { neutralizeUntrusted } from '../lib/prompt-fence';
 
 const CACHE_TTL = 3600; // 1 hour — mirrors /api/v1/ai-summary.
 
@@ -54,8 +55,11 @@ export async function unifiedSearchSummarizeHandler(c: Context<{ Bindings: Env }
   }
 
   // Surface carries the query so the LLM has the search context; date is today.
+  // `q` is USER-CONTROLLED and the surface is interpolated UNFENCED into the LLM
+  // prompt (ai-summary.ts builds `Surface: ${surface}` outside the fence), so it
+  // must be neutralized here or a crafted query becomes a prompt-injection vector.
   const input: SummaryInput = {
-    surface: `Unified Search: ${q}`,
+    surface: `Unified Search: ${neutralizeUntrusted(q)}`,
     date: new Date().toISOString().slice(0, 10),
     items,
   };

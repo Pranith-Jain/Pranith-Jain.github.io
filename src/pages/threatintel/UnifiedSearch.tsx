@@ -55,6 +55,7 @@ const SECTION_ICONS: Record<string, typeof Search> = {
   cybercrime: Database,
   correlation: Fingerprint,
   breaches: Database,
+  malware: Bug,
 };
 
 const SECTION_COLORS: Record<string, string> = {
@@ -68,6 +69,7 @@ const SECTION_COLORS: Record<string, string> = {
   cybercrime: 'text-pink-600 dark:text-pink-400 border-pink-500/30 bg-pink-500/10',
   correlation: 'text-teal-600 dark:text-teal-400 border-teal-500/30 bg-teal-500/10',
   breaches: 'text-blue-600 dark:text-blue-400 border-blue-500/30 bg-blue-500/10',
+  malware: 'text-emerald-600 dark:text-emerald-400 border-emerald-500/30 bg-emerald-500/10',
 };
 
 const DEBOUNCE_MS = 350;
@@ -97,47 +99,56 @@ export default function UnifiedSearch(): JSX.Element {
   const detected = useMemo(() => detectIoc(query.trim()), [query]);
   const pivots = useMemo(() => (detected ? getIocPivots(detected) : []), [detected]);
 
-  const runSearch = useCallback(
-    async (raw: string) => {
-      const q = raw.trim();
-      setParams(
-        (p) => {
-          const n = new URLSearchParams(p);
-          if (q) n.set('q', q);
-          else n.delete('q');
-          return n;
-        },
-        { replace: true }
-      );
-      if (!q) {
-        setData(null);
-        setError(null);
-        lastSearchedRef.current = '';
-        return;
-      }
-      if (q === lastSearchedRef.current) return; // already showing this query
-      lastSearchedRef.current = q;
-      abortRef.current?.abort();
-      const ac = new AbortController();
-      abortRef.current = ac;
-      setLoading(true);
+  // Pure fetch — no URL writes here, so this stays referentially STABLE (deps []).
+  // Keeping it out of the debounce effect's dep chain is what prevents react-router's
+  // unstable setParams identity from re-firing the search on every render.
+  const runSearch = useCallback(async (raw: string) => {
+    const q = raw.trim();
+    if (!q) {
+      setData(null);
       setError(null);
-      try {
-        const r = await fetch(`/api/v1/unified-search?q=${encodeURIComponent(q)}`, { signal: ac.signal });
-        if (!r.ok) throw new Error(`${r.status}`);
-        const d = (await r.json()) as UnifiedSearchResponse;
-        if (!ac.signal.aborted) setData(d);
-      } catch (e) {
-        if ((e as Error).name === 'AbortError') return; // superseded — swallow
-        setError(e instanceof Error ? e.message : 'search failed');
-      } finally {
-        if (!ac.signal.aborted) setLoading(false);
-      }
-    },
-    [setParams]
-  );
+      lastSearchedRef.current = '';
+      return;
+    }
+    if (q === lastSearchedRef.current) return; // already showing/loading this query
+    lastSearchedRef.current = q;
+    abortRef.current?.abort();
+    const ac = new AbortController();
+    abortRef.current = ac;
+    setLoading(true);
+    setError(null);
+    try {
+      const r = await fetch(`/api/v1/unified-search?q=${encodeURIComponent(q)}`, { signal: ac.signal });
+      if (!r.ok) throw new Error(`${r.status}`);
+      const d = (await r.json()) as UnifiedSearchResponse;
+      if (!ac.signal.aborted) setData(d);
+    } catch (e) {
+      if ((e as Error).name === 'AbortError') return; // superseded / unmounted — swallow
+      setError(e instanceof Error ? e.message : 'search failed');
+    } finally {
+      if (!ac.signal.aborted) setLoading(false);
+    }
+  }, []);
+
+  // Reflect the committed query in the ?q= URL param. GUARDED so it only navigates
+  // when actually out of sync — otherwise the unstable setParams would churn
+  // re-renders + history entries on every search cycle.
+  useEffect(() => {
+    const q = query.trim();
+    if ((params.get('q') ?? '').trim() === q) return;
+    setParams(
+      (p) => {
+        const n = new URLSearchParams(p);
+        if (q) n.set('q', q);
+        else n.delete('q');
+        return n;
+      },
+      { replace: true }
+    );
+  }, [query, params, setParams]);
 
   // Debounced live search as the user types (also covers the initial ?q= load).
+  // Depends on `query` only (runSearch is stable), so URL syncs never re-fire it.
   useEffect(() => {
     const q = query.trim();
     if (!q) {
@@ -148,6 +159,9 @@ export default function UnifiedSearch(): JSX.Element {
     const t = setTimeout(() => void runSearch(q), DEBOUNCE_MS);
     return () => clearTimeout(t);
   }, [query, runSearch]);
+
+  // Abort any in-flight search when the page unmounts.
+  useEffect(() => () => abortRef.current?.abort(), []);
 
   // Top results, flattened, for the opt-in AI summary.
   const summaryItems = useMemo(() => {

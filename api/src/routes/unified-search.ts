@@ -26,7 +26,8 @@ export interface SearchItem {
   url?: string;
   source: string;
   subkind?: string;
-  /** Relevance score (0–100) assigned by rankSections; absent on cold paths. */
+  /** Relevance score (0–100). Always set by rankSections in non-empty responses;
+   *  optional only so the source searchers can build items without it. */
   score?: number;
 }
 
