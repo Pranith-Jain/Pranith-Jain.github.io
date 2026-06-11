@@ -1424,6 +1424,20 @@ export function TelegramFeedPanel(): JSX.Element {
         </div>
       )}
 
+      {data && data.warnings && data.warnings.length > 0 && (
+        <div className="mb-3 flex flex-wrap gap-1.5">
+          {data.warnings.map((w, i) => (
+            <span
+              key={i}
+              className="text-micro font-mono px-1.5 py-0.5 rounded border border-amber-300 dark:border-amber-700 bg-amber-50 dark:bg-amber-950/30 text-amber-700 dark:text-amber-300"
+              title={w}
+            >
+              {w.replace('could not fetch t.me/s/', '⚠ ')}
+            </span>
+          ))}
+        </div>
+      )}
+
       {visible.length > 0 && (
         <ul className="space-y-2">
           {visible.map(({ it, matches }) => {
