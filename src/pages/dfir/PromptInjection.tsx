@@ -11,7 +11,7 @@ import {
   type LlmTop10Id,
 } from '../../lib/dfir/prompt-injection-patterns';
 import { RED_TEAM_PROMPTS, RED_TEAM_CATEGORIES, type RedTeamCategory } from '../../data/redteam-prompts';
-import { SEVERITY_TONE as SEVERITY_STYLES } from '../../components/severity';
+import { SEVERITY_TONE as SEVERITY_STYLES, SEVERITY_BAR } from '../../components/severity';
 
 const SAMPLES: { label: string; text: string }[] = [
   {
@@ -36,13 +36,15 @@ const SAMPLES: { label: string; text: string }[] = [
   },
 ];
 
-const GRADE_STYLES: Record<string, string> = {
-  safe: 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-300',
-  low: 'bg-sky-500/15 text-sky-700 dark:text-sky-300',
-  medium: 'bg-amber-500/15 text-amber-700 dark:text-amber-300',
-  high: 'bg-orange-500/15 text-orange-700 dark:text-orange-300',
-  critical: 'bg-rose-500/15 text-rose-700 dark:text-rose-300',
-};
+// Verdict grade: `safe` is a clean/no-findings state (positive → emerald);
+// the four risk tiers map onto the canonical severity ramp.
+type Grade = 'safe' | 'low' | 'medium' | 'high' | 'critical';
+
+const SAFE_TONE = 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-300';
+const SAFE_BAR = 'bg-emerald-500';
+
+const gradeTone = (g: Grade): string => (g === 'safe' ? SAFE_TONE : SEVERITY_STYLES[g]);
+const gradeBar = (g: Grade): string => (g === 'safe' ? SAFE_BAR : SEVERITY_BAR[g]);
 
 function highlight(input: string, matches: InjectionMatch[]): JSX.Element[] {
   if (matches.length === 0) {
@@ -205,25 +207,12 @@ export default function PromptInjection(): JSX.Element {
               <span className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono">
                 Verdict
               </span>
-              <span className={`text-xs font-mono uppercase tracking-wider px-2.5 py-1 rounded ${GRADE_STYLES[grade]}`}>
+              <span className={`text-xs font-mono uppercase tracking-wider px-2.5 py-1 rounded ${gradeTone(grade)}`}>
                 {grade} · score {score}
               </span>
             </div>
             <div className="h-2 rounded bg-slate-200 dark:bg-slate-800 overflow-hidden mb-3">
-              <div
-                className={`h-full transition-all ${
-                  grade === 'safe'
-                    ? 'bg-emerald-500'
-                    : grade === 'low'
-                      ? 'bg-sky-500'
-                      : grade === 'medium'
-                        ? 'bg-amber-500'
-                        : grade === 'high'
-                          ? 'bg-orange-500'
-                          : 'bg-rose-500'
-                }`}
-                style={{ width: `${Math.max(2, score)}%` }}
-              />
+              <div className={`h-full transition-all ${gradeBar(grade)}`} style={{ width: `${Math.max(2, score)}%` }} />
             </div>
             <p className="text-sm font-mono text-slate-600 dark:text-slate-400">
               {matches.length === 0 ? (

@@ -4,16 +4,12 @@ import { BackLink } from '../../components/BackLink';
 import { ToolDocs } from '../../components/dfir/ToolDocs';
 import { ArrowLeft, Mail, Search, Loader2, CheckCircle2, AlertTriangle, ExternalLink } from 'lucide-react';
 import { CopyChip } from '../../components/dfir/CopyButton';
-import { assess, type DomainApiResponse } from '../../lib/dfir/bec-score';
-import { SEVERITY_TONE as SEV_STYLES } from '../../components/severity';
+import { assess, type DomainApiResponse, type BecAssessment } from '../../lib/dfir/bec-score';
+import { SEVERITY_TONE as SEV_STYLES, SEVERITY_BAR, type Severity } from '../../components/severity';
 
-const GRADE_BARS: Record<string, string> = {
-  safe: 'bg-emerald-500',
-  low: 'bg-sky-500',
-  medium: 'bg-amber-500',
-  high: 'bg-orange-500',
-  critical: 'bg-rose-500',
-};
+// `safe` grade maps to the `info` severity tone (sky); the other grades are
+// already canonical severity keys.
+const gradeSeverity = (grade: BecAssessment['grade']): Severity => (grade === 'safe' ? 'info' : grade);
 
 export default function EmailDefense(): JSX.Element {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -158,7 +154,7 @@ export default function EmailDefense(): JSX.Element {
             </div>
             <div className="h-2 rounded bg-slate-200 dark:bg-slate-800 overflow-hidden mb-3">
               <div
-                className={`h-full transition-all ${GRADE_BARS[assessment.grade]}`}
+                className={`h-full transition-all ${SEVERITY_BAR[gradeSeverity(assessment.grade)]}`}
                 style={{ width: `${Math.max(2, assessment.spoofScore)}%` }}
               />
             </div>

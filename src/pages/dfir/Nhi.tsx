@@ -22,6 +22,16 @@ import {
   type NhiTopId,
   type NhiType,
 } from '../../data/nhi';
+import { SEVERITY_TONE, SEVERITY_BAR } from '../../components/severity';
+
+/** Risk grade from entryRisk(). `safe` keeps its own all-clear green; the
+ *  four risk tiers map onto the canonical severity ramp. */
+type RiskGrade = ReturnType<typeof entryRisk>['grade'];
+
+const SAFE_TONE = 'border-emerald-500/30 bg-emerald-500/15 text-emerald-700 dark:text-emerald-300';
+
+const gradeTone = (g: RiskGrade): string => (g === 'safe' ? SAFE_TONE : SEVERITY_TONE[g]);
+const gradeBar = (g: RiskGrade): string => (g === 'safe' ? 'bg-emerald-500' : SEVERITY_BAR[g]);
 
 const STORAGE_KEY = 'dfir.nhi.inventory.v1';
 
@@ -54,22 +64,6 @@ const STATUS_STYLES: Record<CoverageStatus, { label: string; cls: string }> = {
     label: 'n/a',
     cls: 'border-slate-300 dark:border-slate-700 text-slate-400',
   },
-};
-
-const GRADE_STYLES: Record<string, string> = {
-  safe: 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border-emerald-500/30',
-  low: 'bg-sky-500/15 text-sky-700 dark:text-sky-300 border-sky-500/30',
-  medium: 'bg-amber-500/15 text-amber-700 dark:text-amber-300 border-amber-500/30',
-  high: 'bg-orange-500/15 text-orange-700 dark:text-orange-300 border-orange-500/30',
-  critical: 'bg-rose-500/15 text-rose-700 dark:text-rose-300 border-rose-500/30',
-};
-
-const GRADE_BARS: Record<string, string> = {
-  safe: 'bg-emerald-500',
-  low: 'bg-sky-500',
-  medium: 'bg-amber-500',
-  high: 'bg-orange-500',
-  critical: 'bg-rose-500',
 };
 
 function loadInventory(): NhiEntry[] {
@@ -316,7 +310,7 @@ export default function Nhi(): JSX.Element {
                   Inventory risk distribution
                 </h2>
                 <span
-                  className={`text-xs font-mono uppercase tracking-wider px-2.5 py-1 rounded border ${GRADE_STYLES[aggregate.worst]}`}
+                  className={`text-xs font-mono uppercase tracking-wider px-2.5 py-1 rounded border ${gradeTone(aggregate.worst)}`}
                 >
                   worst: {aggregate.worst}
                 </span>
@@ -325,7 +319,7 @@ export default function Nhi(): JSX.Element {
                 {(['critical', 'high', 'medium', 'low', 'safe'] as const).map((g) => (
                   <div
                     key={g}
-                    className={`rounded border px-2 py-1.5 text-center font-mono ${GRADE_STYLES[g]} ${
+                    className={`rounded border px-2 py-1.5 text-center font-mono ${gradeTone(g)} ${
                       aggregate.counts[g] === 0 ? 'opacity-40' : ''
                     }`}
                   >
@@ -407,7 +401,7 @@ export default function Nhi(): JSX.Element {
                     <div className="px-4 pb-3">
                       <div className="h-1 rounded bg-slate-200 dark:bg-slate-800 overflow-hidden">
                         <div
-                          className={`h-full transition-all ${GRADE_BARS[risk.grade]}`}
+                          className={`h-full transition-all ${gradeBar(risk.grade)}`}
                           style={{ width: `${Math.max(2, risk.score)}%` }}
                         />
                       </div>
