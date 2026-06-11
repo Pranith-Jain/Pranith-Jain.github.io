@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
+import { PjMark } from '../../components/PjMark';
 import { useInView } from '../../hooks/useInView';
 import type { PersonalInfo } from '../../core/entities';
 
@@ -9,10 +10,6 @@ interface AboutPreviewProps {
 
 export function AboutPreview({ personalInfo }: AboutPreviewProps) {
   const [ref, inView] = useInView({ threshold: 0.1 });
-  const initials = personalInfo.name
-    .split(' ')
-    .map((n) => n[0])
-    .join('');
 
   return (
     <section ref={ref} id="about-preview" className="mt-20 scroll-mt-24" aria-labelledby="about-preview-heading">
@@ -22,10 +19,6 @@ export function AboutPreview({ personalInfo }: AboutPreviewProps) {
         }`}
       >
         <div className="flex flex-col sm:flex-row sm:items-start gap-5">
-          <div className="grid h-16 w-16 shrink-0 place-items-center rounded-full bg-brand-50 dark:bg-brand-900/30 border-2 border-brand-200 dark:border-brand-800">
-            <span className="font-display text-xl font-bold text-brand-600 dark:text-brand-400">{initials}</span>
-          </div>
-
           <div className="flex-1 min-w-0">
             <h3
               id="about-preview-heading"
@@ -54,6 +47,10 @@ export function AboutPreview({ personalInfo }: AboutPreviewProps) {
                 Skills & certifications <ArrowRight size={14} aria-hidden="true" />
               </Link>
             </div>
+          </div>
+
+          <div className="shrink-0 self-start sm:self-center">
+            <PjMark className="h-16 w-16 sm:h-20 sm:w-20" />
           </div>
         </div>
       </div>
