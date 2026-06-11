@@ -423,6 +423,13 @@ export const SECTIONS: Section[] = [
         badge: 'new',
       },
       {
+        to: '/threatintel/copilot-chat',
+        label: 'Multi-Turn CTI Copilot',
+        desc: 'Conversational multi-turn copilot with session history. Chat through an investigation — ask follow-ups, drill into sources, get inline citations.',
+        icon: MessageSquare,
+        badge: 'new',
+      },
+      {
         to: '/dfir/agent',
         label: 'Autonomous Investigator Agent',
         desc: 'Multi-step autonomous agent. Describe what to investigate — the agent plans, calls 30+ intel tools, analyzes results, and produces a structured report.',
@@ -463,6 +470,13 @@ export const SECTIONS: Section[] = [
         label: 'Observable Database',
         desc: 'Yeti-inspired persistent IOC storage. Searchable by indicator/type/score/tag with enrichment history.',
         icon: Database,
+        badge: 'new',
+      },
+      {
+        to: '/threatintel/observe',
+        label: 'Observable 360',
+        desc: 'Unified entity view — resolve IPs, domains, hashes, CVEs, and threat actors against cached IOCs, C2 feeds, breach data, and wiki articles.',
+        icon: Radar,
         badge: 'new',
       },
       {

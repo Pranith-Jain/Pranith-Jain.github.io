@@ -76,6 +76,12 @@ const THREATINTEL_TOOL_TO_CATEGORY: Record<string, string> = {
   malpedia: 'adversary',
   maltrail: 'adversary',
   // knowledge
+  'observable-db': 'knowledge',
+  observe: 'knowledge',
+  entity: 'knowledge',
+  search: 'knowledge',
+  copilot: 'knowledge',
+  'copilot-chat': 'knowledge',
   research: 'knowledge',
   signal: 'knowledge',
   writeups: 'knowledge',
