@@ -1,5 +1,4 @@
 import type { Candidate } from '../types';
-import { runnerTopic } from './rotation';
 
 export interface RunDiscoveryDeps {
   /** Topic name → runner. Generic so new topics (breach, scam, aisec,

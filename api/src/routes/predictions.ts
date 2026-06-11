@@ -1,6 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { fetchPredictions, type PredictionBuckets } from '../lib/manifold';
+import { safeNullLog } from '../lib/safe-catch';
 
 /**
  * GET /api/v1/predictions
@@ -36,7 +37,7 @@ export async function predictionsHandler(c: Context<{ Bindings: Env }>): Promise
 
   // Warm path: serve the self-warmed blob if present (0 upstream subrequests).
   if (kv) {
-    const cached = await kv.get<PredictionsResponse>(KV_KEY, 'json').catch(() => null);
+    const cached = await safeNullLog('kv-get-predictions', kv.get<PredictionsResponse>(KV_KEY, 'json'));
     if (cached && cached.buckets) {
       return c.json(cached, 200, { 'Cache-Control': 'public, max-age=600' });
     }
@@ -46,7 +47,7 @@ export async function predictionsHandler(c: Context<{ Bindings: Env }>): Promise
   const buckets = await fetchPredictions();
   const body = envelope(buckets);
   if (kv && body.total > 0) {
-    await kv.put(KV_KEY, JSON.stringify(body), { expirationTtl: KV_TTL }).catch(() => {});
+    safeNullLog('kv-put-predictions', kv.put(KV_KEY, JSON.stringify(body), { expirationTtl: KV_TTL }));
   }
   return c.json(body, 200, { 'Cache-Control': 'public, max-age=600' });
 }

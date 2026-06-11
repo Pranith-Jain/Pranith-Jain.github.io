@@ -1,7 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { detectType } from '../lib/indicator';
-import type { Indicator, ProviderResult, ProviderId, ProviderAdapter, ProviderEnv } from '../providers/types';
+import type { Indicator, ProviderResult, ProviderId } from '../providers/types';
 import { ADAPTERS, buildProviderEnv, PROVIDER_LABELS, PROVIDER_SUPPORT, PROVIDER_TIMEOUT_MS } from '../providers';
 import { ProviderCache } from '../lib/cache';
 import { isCircuitOpen, recordProviderFailure, recordProviderSuccess } from '../lib/circuit-breaker';

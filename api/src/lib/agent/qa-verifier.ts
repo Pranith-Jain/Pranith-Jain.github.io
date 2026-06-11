@@ -64,7 +64,7 @@ function buildDataSummary(steps: AgentStep[]): string {
   return lines.join('\n\n');
 }
 
-function buildQaPrompt(queryType: string): string {
+function buildQaPrompt(_queryType: string): string {
   return `<role>You are a CTI report quality assurance analyst. Your job is to verify every claim in an intelligence report against the actual data collected during the investigation.</role>
 
 <task>

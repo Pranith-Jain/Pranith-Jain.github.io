@@ -3,6 +3,7 @@ import type { Env } from '../env';
 import { computeConfidence, SOURCE_RELIABILITY_REGISTRY, type ConfidenceScore } from '../lib/confidence';
 import { readLastGood, writeLastGood } from '../lib/lastgood';
 import { FEED_STATUS_CACHE_KEY } from './feed-status';
+import { safeNullLog } from '../lib/safe-catch';
 
 // ── Probe coverage map ──────────────────────────────────────────────────
 // Mirrors the idMap in feed-status.ts's buildPassiveProbes(). Maps
@@ -710,7 +711,7 @@ export async function detectPirAlerts(env: Pick<Env, 'KV_CACHE'>): Promise<{ tot
   // Only WRITE when there is genuinely a new alert id: the hourly cron otherwise
   // re-persists an identical set every run, burning the Free-plan write budget.
   if (alerts.length > 0 && env.KV_CACHE) {
-    const existing = (await env.KV_CACHE.get(ALERT_ACTIVE_KEY, 'json').catch(() => null)) as PirAlert[] | null;
+    const existing = (await safeNullLog('kv-get-pir-active', env.KV_CACHE.get(ALERT_ACTIVE_KEY, 'json'))) as PirAlert[] | null;
     const seen = new Set((existing ?? []).map((a) => a.id));
     const fresh = alerts.filter((a) => !seen.has(a.id));
     if (fresh.length > 0) {
@@ -749,7 +750,7 @@ export async function pirAlertListHandler(c: Context<{ Bindings: Env }>): Promis
     const includeAcknowledged = c.req.query('include_acknowledged') === 'true';
     const kv = c.env.KV_CACHE;
     if (!kv) return c.json({ generated_at: new Date().toISOString(), total: 0, alerts: [] });
-    const raw = (await kv.get(ALERT_ACTIVE_KEY, 'json').catch(() => null)) as PirAlert[] | null;
+    const raw = (await safeNullLog('kv-get-pir-list', kv.get(ALERT_ACTIVE_KEY, 'json'))) as PirAlert[] | null;
     const alerts = raw ?? [];
     const filtered = includeAcknowledged ? alerts : alerts.filter((a) => !a.acknowledged);
     return c.json({
@@ -769,7 +770,7 @@ export async function pirAlertAckHandler(c: Context<{ Bindings: Env }>): Promise
     const alertId = c.req.param('id');
     const kv = c.env.KV_CACHE;
     if (!kv) return c.json({ error: 'KV not available' }, 503);
-    const raw = await kv.get(ALERT_ACTIVE_KEY, 'json').catch(() => null);
+    const raw = await safeNullLog('kv-get-pir-ack-detail', kv.get(ALERT_ACTIVE_KEY, 'json'));
     const alerts: PirAlert[] = (raw as PirAlert[]) ?? [];
     const alert = alerts.find((a) => a.id === alertId);
     if (!alert) return c.json({ error: 'Alert not found' }, 404);
@@ -802,7 +803,7 @@ export async function pirAlertAckAllHandler(c: Context<{ Bindings: Env }>): Prom
   try {
     const kv = c.env.KV_CACHE;
     if (!kv) return c.json({ error: 'KV not available' }, 503);
-    const raw = await kv.get(ALERT_ACTIVE_KEY, 'json').catch(() => null);
+    const raw = await safeNullLog('kv-get-pir-ack-all', kv.get(ALERT_ACTIVE_KEY, 'json'));
     const alerts: PirAlert[] = (raw as PirAlert[]) ?? [];
     if (alerts.length === 0) return c.json({ acknowledged: 0 });
     const updated = alerts.map((a) => (a.acknowledged ? a : { ...a, acknowledged: true }));

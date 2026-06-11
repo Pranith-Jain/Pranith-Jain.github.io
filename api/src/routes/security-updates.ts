@@ -27,7 +27,6 @@ interface SecurityUpdatesResponse {
   timestamp: string;
 }
 
-const CACHE_TTL = 3600;
 const API_TIMEOUT = 15000;
 
 const VENDOR_ADVISORIES: Record<string, string> = {

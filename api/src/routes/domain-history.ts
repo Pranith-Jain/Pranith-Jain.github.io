@@ -23,6 +23,7 @@ import {
   getWhoisStats,
 } from '../lib/whois-history';
 import { badRequest, internalError } from '../lib/api-error';
+import { safeNullLog } from '../lib/safe-catch';
 
 /**
  * GET /api/v1/domain/history?domain=example.com
@@ -233,7 +234,7 @@ export async function domainRegistrantSearchHandler(c: Context<{ Bindings: Env }
  * Useful for pre-populating history or forcing a refresh.
  */
 export async function domainSnapshotHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
-  const body = await c.req.json().catch(() => null);
+  const body = await safeNullLog('parse-body-domain-history', c.req.json());
   const domain = body?.domain;
   if (!domain) return badRequest(c, 'domain field is required');
 

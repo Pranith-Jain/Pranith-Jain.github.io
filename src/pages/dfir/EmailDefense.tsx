@@ -26,7 +26,7 @@ export default function EmailDefense(): JSX.Element {
 
   useEffect(() => {
     if (initial) lookup();
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps — Intentional: mount-only effect
 
   const lookup = async () => {
     const trimmed = domain

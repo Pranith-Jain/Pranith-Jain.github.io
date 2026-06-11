@@ -4,6 +4,7 @@ import { abuseipdb } from '../providers/abuseipdb';
 import { spur } from '../providers/spur';
 import { ipinfo } from '../providers/ipinfo';
 import { fetchResilient } from '../lib/fetch-resilient';
+import { safeNullLog } from '../lib/safe-catch';
 import { buildIpGeoResponse } from '../core/use-cases';
 import type { IpWhoIsResponse } from '../core/use-cases';
 
@@ -64,7 +65,7 @@ export function createIpGeoController() {
 
       const [geoRaw, repRaw] = await Promise.all([
         fetchIpWhoIs(ip),
-        abuseipdb({ value: ip, type: kind }, provEnv, ctrl.signal).catch(() => null),
+        safeNullLog('provider-abuseipdb', abuseipdb({ value: ip, type: kind }, provEnv, ctrl.signal)),
       ]);
       clearTimeout(timer);
 
@@ -75,8 +76,8 @@ export function createIpGeoController() {
       };
 
       const [spurRaw, ipinfoRaw] = await Promise.all([
-        spur({ value: ip, type: kind }, provEnvForPrivacy, ctrl.signal).catch(() => null),
-        ipinfo({ value: ip, type: kind }, provEnvForPrivacy, ctrl.signal).catch(() => null),
+        safeNullLog('provider-spur', spur({ value: ip, type: kind }, provEnvForPrivacy, ctrl.signal)),
+        safeNullLog('provider-ipinfo', ipinfo({ value: ip, type: kind }, provEnvForPrivacy, ctrl.signal)),
       ]);
 
       const body = buildIpGeoResponse({

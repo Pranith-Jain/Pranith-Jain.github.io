@@ -62,7 +62,7 @@ export interface StealerForumIntelResponse {
   totals: { tracked_sources: number; categories: number };
 }
 
-async function readCachedJson<T>(cacheKey: string): Promise<T | null> {
+async function _readCachedJson<T>(cacheKey: string): Promise<T | null> {
   try {
     const cache = (caches as unknown as { default: Cache }).default;
     const hit = await cache.match(cacheKey);

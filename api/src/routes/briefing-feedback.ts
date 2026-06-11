@@ -19,6 +19,7 @@ import type { Context } from 'hono';
 import type { Env } from '../env';
 import { badRequest, internalError } from '../lib/api-error';
 import { z } from 'zod';
+import { safeNullLog } from '../lib/safe-catch';
 
 // ── Validation Schemas ──────────────────────────────────────────
 
@@ -60,7 +61,7 @@ export async function submitFeedbackHandler(c: Context<{ Bindings: Env }>): Prom
   const db = c.env.BRIEFINGS_DB;
   if (!db) return c.json({ error: 'database unavailable' }, 503);
 
-  const body = await c.req.json().catch(() => null);
+  const body = await safeNullLog('parse-body-briefing-feedback', c.req.json());
   const parsed = feedbackSchema.safeParse(body);
   if (!parsed.success) return badRequest(c, parsed.error.issues.map((i) => i.message).join('; '));
 
@@ -153,7 +154,7 @@ export async function submitAnnotationHandler(c: Context<{ Bindings: Env }>): Pr
   const db = c.env.BRIEFINGS_DB;
   if (!db) return c.json({ error: 'database unavailable' }, 503);
 
-  const body = await c.req.json().catch(() => null);
+  const body = await safeNullLog('parse-body-briefing-annotation', c.req.json());
   const parsed = annotationSchema.safeParse(body);
   if (!parsed.success) return badRequest(c, parsed.error.issues.map((i) => i.message).join('; '));
 

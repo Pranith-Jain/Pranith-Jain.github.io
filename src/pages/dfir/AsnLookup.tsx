@@ -73,7 +73,7 @@ export default function AsnLookup(): JSX.Element {
       autoFetched.current = true;
       void runLookup(initialQuery);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps — Intentional: mount-only effect
   }, []);
 
   return (

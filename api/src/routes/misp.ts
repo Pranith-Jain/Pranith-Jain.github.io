@@ -1,6 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { pinnedFetch, SsrfError } from '../lib/ssrf-guard';
+import { safeNull } from '../lib/safe-catch';
 
 export async function mispProxyHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const { baseUrl, apiKey, endpoint, params } = await c.req.json<{
@@ -60,7 +61,7 @@ export async function mispProxyHandler(c: Context<{ Bindings: Env }>): Promise<R
   try {
     body = await response.json();
   } catch {
-    await response.body?.cancel().catch(() => {});
+    if (response.body) safeNull(response.body.cancel());
     return c.json({ error: 'MISP returned invalid JSON' }, 502, { 'cache-control': 'no-store' });
   }
   return c.json(body, response.ok ? 200 : 502, {

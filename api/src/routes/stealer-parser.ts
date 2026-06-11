@@ -3,6 +3,7 @@ import type { Env } from '../env';
 import { stealerParserJsonSchema, rawLogTextSchema } from '../lib/validation-schemas';
 import { validationError } from '../lib/api-error';
 import { pinnedFetchFollow, SsrfError } from '../lib/ssrf-guard';
+import { safeNull } from '../lib/safe-catch';
 
 /**
  * Infostealer Log Parser — extract credentials and IOCs from stealer logs.
@@ -194,7 +195,7 @@ export async function stealerParserHandler(c: Context<{ Bindings: Env }>): Promi
             headers: { 'User-Agent': 'threat-intel-parser/1.0' },
           });
           if (res.ok) text = await res.text();
-          else await res.body?.cancel().catch(() => {});
+          else if (res.body) safeNull(res.body.cancel());
         } catch (e) {
           if (e instanceof SsrfError) {
             return c.json({ error: 'blocked', message: e.detail }, 400);

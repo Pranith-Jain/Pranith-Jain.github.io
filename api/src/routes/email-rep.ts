@@ -1,6 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { safeErrorMessage } from '../lib/error';
+import { safeNullLog } from '../lib/safe-catch';
 import { emailrep } from '../providers/emailrep';
 
 /**
@@ -69,7 +70,7 @@ export async function emailRepHandler(c: Context<{ Bindings: Env }>): Promise<Re
   // caches their analysis longer than 30 min internally.
   const cache = (caches as unknown as { default: Cache }).default;
   const cacheReq = new Request(`https://email-rep-cache.internal/v1?e=${encodeURIComponent(raw)}`);
-  const cached = await cache.match(cacheReq).catch(() => null);
+  const cached = await safeNullLog('cache-match-emailrep', cache.match(cacheReq));
   if (cached) {
     try {
       const body = (await cached.json()) as EmailRepResponse;
@@ -139,7 +140,7 @@ export async function emailRepHandler(c: Context<{ Bindings: Env }>): Promise<Re
         'cache-control': `public, max-age=${CACHE_TTL_SECONDS}`,
       },
     });
-    c.executionCtx.waitUntil(cache.put(cacheReq, toCache).catch(() => {}));
+    c.executionCtx.waitUntil(safeNullLog('cache-put-emailrep', cache.put(cacheReq, toCache)));
     return jsonResponse(c, body, 200, CACHE_TTL_SECONDS);
   } catch (err) {
     return jsonResponse(

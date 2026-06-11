@@ -735,7 +735,7 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
-  <!-- Threat Intel — pages (101) -->
+  <!-- Threat Intel — pages (103) -->
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/mitre</loc>
     <lastmod>2026-06-11</lastmod>
@@ -1109,6 +1109,18 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://pranithjain.qzz.io/threatintel/copilot-chat</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://pranithjain.qzz.io/threatintel/observe</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://pranithjain.qzz.io/threatintel/watches</loc>
     <lastmod>2026-06-11</lastmod>
     <changefreq>weekly</changefreq>
@@ -1436,7 +1448,13 @@
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
-  <!-- Blog posts (15) -->
+  <!-- Blog posts (16) -->
+  <url>
+    <loc>https://pranithjain.qzz.io/blog/phish-brand-google-google-phishing-campaign-11-active-sites</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
   <url>
     <loc>https://pranithjain.qzz.io/blog/agentic-emergence-of-blacksuit-ransomware-new-encryptor-targets-high-emergence-of-blacksuit-ransomware-new-en</loc>
     <lastmod>2026-06-08</lastmod>

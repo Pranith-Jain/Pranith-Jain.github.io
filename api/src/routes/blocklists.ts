@@ -1,6 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { BLOCKLIST_KV_ALL_KEY, buildBlocklists } from '../lib/blocklist-builder';
+import { safeNullLog } from '../lib/safe-catch';
 
 interface BlocklistAll {
   pfsense: string;
@@ -31,12 +32,12 @@ async function readAllFromKv(kv: KVNamespace | undefined): Promise<BlocklistAll 
     if (raw && typeof raw === 'object' && 'pfsense' in raw) {
       const all = raw as BlocklistAll;
       // Write-through so subsequent reads in this colo skip KV for the TTL.
-      await cache
-        .put(
+      safeNullLog('cache-put-blocklists',
+        cache.put(
           new Request(BLOCKLIST_CACHE_KEY),
           new Response(JSON.stringify(all), { headers: { 'cache-control': `max-age=${BLOCKLIST_CACHE_TTL}` } })
         )
-        .catch(() => {});
+      );
       return all;
     }
   } catch (e) {

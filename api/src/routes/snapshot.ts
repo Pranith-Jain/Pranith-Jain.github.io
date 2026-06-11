@@ -4,6 +4,7 @@ import { fetchRansomwareRecent, RANSOMWARE_RECENT_CACHE_KEY } from './ransomware
 import { fetchTelegramFeed, TELEGRAM_FEED_CACHE_KEY, type TelegramFeedResponse } from './telegram-feed';
 import { aggregateFeeds } from './feeds-aggregate';
 import { listBriefings } from '../lib/briefing-builder';
+import { safeNullLog } from '../lib/safe-catch';
 
 /**
  * Unified live-snapshot endpoint. Replaces six client-side fetches that the
@@ -173,7 +174,7 @@ function budgeted<T>(fn: () => Promise<T>, ms: number = SOURCE_BUDGET_MS): Promi
  */
 export async function readWarmTelegram(kv: KVNamespace | undefined): Promise<TelegramFeedResponse | null> {
   if (!kv) return null;
-  const warm = (await kv.get('gp:warm:telegram', 'json').catch(() => null)) as TelegramFeedResponse | null;
+  const warm = (await safeNullLog('kv-get-warm-telegram', kv.get('gp:warm:telegram', 'json'))) as TelegramFeedResponse | null;
   if (warm?.items?.length || warm?.channels?.length) return warm;
   return null;
 }

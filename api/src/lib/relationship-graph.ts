@@ -3,6 +3,7 @@ import { ACTOR_ALIASES } from '../data/threat-actor-aliases';
 import { mitreGroupRef } from './ransomware-mitre-groups';
 import { techniquesForGroup } from './ransomware-group-techniques';
 import { cvesForActor, CVE_ACTORS } from './cve-actor-mapping';
+import { safeNullLog } from './safe-catch';
 
 const CVE_RE = /^CVE-\d{4}-\d{4,}$/i;
 const IP_RE = /^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/;
@@ -244,7 +245,7 @@ async function expandCve(acc: GraphAccum, cveId: string, depth: number): Promise
 
   // Async: CVE details (CVSS, KEV, products)
   if (depth > 0 && !truncated(acc)) {
-    const result = await lookupCve(cveId).catch(() => null);
+    const result = await safeNullLog('lookup-cve-relgraph', lookupCve(cveId));
     if (result?.ok) {
       const d = result.data;
       if (d.affected_products) {

@@ -1,6 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 
+import { safeNullLog } from '../lib/safe-catch';
 const CACHE_TTL_SECONDS = 3600;
 
 async function fetchText(endpoint: string, q: string): Promise<string> {
@@ -32,7 +33,7 @@ function makeHandler(endpoint: string, cacheKeyPrefix: string) {
     const kvKey = `${KV_PREFIX}${cacheKeyPrefix}:${q.toLowerCase()}`;
 
     if (kv) {
-      const kvCached = await kv.get(kvKey, 'json').catch(() => null);
+      const kvCached = await safeNullLog('kv-get-hackertarget', kv.get(kvKey, 'json'));
       if (kvCached && typeof kvCached === 'object' && kvCached !== null && 'raw' in kvCached) {
         const body = JSON.stringify({ ...kvCached as Record<string, unknown>, from_kv: true });
         const response = new Response(body, {
@@ -58,7 +59,7 @@ function makeHandler(endpoint: string, cacheKeyPrefix: string) {
     } catch (e) {
       if (e instanceof Error && e.message === 'RATE_LIMITED') {
         if (kv) {
-          const kvCached = await kv.get(kvKey, 'json').catch(() => null);
+          const kvCached = await safeNullLog('kv-get-hackertarget-rate', kv.get(kvKey, 'json'));
           if (kvCached && typeof kvCached === 'object' && kvCached !== null && 'raw' in kvCached) {
             return c.json({ ...kvCached as Record<string, unknown>, from_kv: true, stale: true }, 200);
           }

@@ -34,6 +34,16 @@ import { shouldWriteLastGood } from '../lib/lastgood-debounce';
  */
 
 const UPSTREAM = 'https://api.ransomwhe.re/export';
+
+/**
+ * OpenSanctions mirrors the raw Ransomwhere export as-is in source.json,
+ * updated weekly. Used as fallback when the primary upstream is unreachable.
+ * The data is the same Ransomwhere dataset, just redistributed by OpenSanctions.
+ * @see https://www.opensanctions.org/datasets/ransomwhere/
+ */
+const FALLBACK_UPSTREAM =
+  'https://data.opensanctions.org/datasets/latest/ransomwhere/source.json';
+
 const SOURCE = 'Ransomwhere';
 const SOURCE_URL = 'https://ransomwhe.re/';
 const DATASET_URL = 'https://doi.org/10.5281/zenodo.6512123';
@@ -171,39 +181,46 @@ export async function ransomwhereHandler(c: Context<{ Bindings: Env }>): Promise
   let full: RansomwhereResponse | null = null;
   let upstreamError = '';
 
-  try {
-    const res = await fetchResilient(
-      UPSTREAM,
-      {
-        headers: { 'User-Agent': 'pranithjain-dfir/1.0', accept: 'application/json' },
-        cf: { cacheTtl: CACHE_TTL_SECONDS, cacheEverything: true },
-      } as RequestInit,
-      { attempts: 3, timeoutMs: 20_000 }
-    );
-    if (res.ok) {
-      const data = (await res.json()) as { result?: unknown };
-      const rawWallets = Array.isArray(data.result) ? data.result.slice(0, MAX_WALLETS) : [];
-      const wallets = rawWallets
-        .map((r) => normalizeWallet((r ?? {}) as Record<string, unknown>))
-        .filter((w) => w.address);
-      const total_balance_usd = wallets.reduce((sum, w) => sum + w.balance_usd, 0);
-      full = {
-        source: SOURCE,
-        source_url: SOURCE_URL,
-        dataset_url: DATASET_URL,
-        license: DEFAULT_LICENSE,
-        generated_at: new Date().toISOString(),
-        count: wallets.length,
-        total: wallets.length,
-        total_balance_usd,
-        facets: buildFacets(wallets),
-        wallets,
-      };
-    } else {
-      upstreamError = `upstream ${res.status}`;
+  const upstreams = [
+    { url: UPSTREAM, label: 'primary' },
+    { url: FALLBACK_UPSTREAM, label: 'fallback' },
+  ];
+  for (const { url, label } of upstreams) {
+    if (full) break;
+    try {
+      const res = await fetchResilient(
+        url,
+        {
+          headers: { 'User-Agent': 'pranithjain-dfir/1.0', accept: 'application/json' },
+          cf: { cacheTtl: CACHE_TTL_SECONDS, cacheEverything: true },
+        } as RequestInit,
+        { attempts: 2, timeoutMs: 15_000 }
+      );
+      if (res.ok) {
+        const data = (await res.json()) as { result?: unknown };
+        const rawWallets = Array.isArray(data.result) ? data.result.slice(0, MAX_WALLETS) : [];
+        const wallets = rawWallets
+          .map((r) => normalizeWallet((r ?? {}) as Record<string, unknown>))
+          .filter((w) => w.address);
+        const total_balance_usd = wallets.reduce((sum, w) => sum + w.balance_usd, 0);
+        full = {
+          source: SOURCE,
+          source_url: SOURCE_URL,
+          dataset_url: DATASET_URL,
+          license: DEFAULT_LICENSE,
+          generated_at: new Date().toISOString(),
+          count: wallets.length,
+          total: wallets.length,
+          total_balance_usd,
+          facets: buildFacets(wallets),
+          wallets,
+        };
+      } else {
+        upstreamError = `${label} ${res.status}`;
+      }
+    } catch (err) {
+      upstreamError = err instanceof Error ? err.message : `${label} fetch failed`;
     }
-  } catch (err) {
-    upstreamError = err instanceof Error ? err.message : 'fetch failed';
   }
 
   // Upstream failed → serve KV last-good (full dataset), filtered, marked stale.

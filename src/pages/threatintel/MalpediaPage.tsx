@@ -28,7 +28,7 @@ export default function MalpediaPage(): JSX.Element {
 
   useEffect(() => {
     if (initial) search();
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps — Intentional: mount-only effect
 
   const search = async () => {
     if (!query.trim()) return;

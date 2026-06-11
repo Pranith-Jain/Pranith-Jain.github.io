@@ -183,7 +183,7 @@ export default function RelationshipGraphCanvas({
       simRef.current = null;
       setSimRunning(false);
     }
-  }, [layoutMode, graphData.nodes.length]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [layoutMode, graphData.nodes.length]); // eslint-disable-line react-hooks/exhaustive-deps — reactFlowInstance/setSimRunning/simRef are stable; graphData is covered via .nodes.length
 
   prevNodeCount.current = graphData.nodes.length;
 

@@ -24,6 +24,7 @@ import { STEALER_FORUM_INTEL_CACHE_KEY } from './stealer-forum-intel';
 import { BREACH_FORUMS_CACHE_KEY } from './breach-forums';
 import { INTEL_BUNDLE_CACHE_KEY } from './intel-bundle';
 import { concurrentMap } from '../lib/concurrent-map';
+import { safeNullLog } from '../lib/safe-catch';
 
 /**
  * Feed-status dashboard. Reads every per-feed edge-cache entry directly
@@ -909,7 +910,7 @@ export async function feedStatusHandler(c: Context<{ Bindings: Env }>): Promise<
   try {
     const cache = (caches as unknown as { default: Cache }).default;
     const cacheReq = new Request(FEED_STATUS_CACHE_KEY);
-    const cached = await cache.match(cacheReq).catch(() => null);
+    const cached = await safeNullLog('cache-match-feed-status', cache.match(cacheReq));
     if (cached) return new Response(cached.body, cached);
 
     // Split probes: those with cache keys get concurrency-limited probes;

@@ -1,4 +1,5 @@
 import { applyFilter } from './filter';
+import { safeNullLog } from '../safe-catch';
 import type { Transfer, TransferFilter, FetchResult } from './types';
 
 const FETCH_TIMEOUT = 10_000;
@@ -51,7 +52,7 @@ export async function fetchTronTransfers(address: string, filter: TransferFilter
     const url = `https://api.trongrid.io/v1/accounts/${encodeURIComponent(address)}/transactions/trc20?limit=${Math.min(limit, 200)}`;
     const res = await fetch(url, { signal: ctrl.signal, headers: { Accept: 'application/json' } });
     if (!res.ok) return { transfers: [], truncated: false };
-    const body = (await res.json().catch(() => null)) as { data?: Trc20Row[] } | null;
+    const body = (await safeNullLog('tron-tr20-json', res.json())) as { data?: Trc20Row[] } | null;
     return applyFilter(mapTrc20Rows(address, body?.data ?? []), filter);
   } catch {
     return { transfers: [], truncated: false };

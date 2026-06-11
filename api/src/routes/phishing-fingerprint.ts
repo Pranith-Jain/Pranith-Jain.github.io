@@ -3,6 +3,7 @@ import type { Env } from '../env';
 import { shouldWriteLastGood } from '../lib/lastgood-debounce';
 import { safeJsonBody } from '../lib/safe-body';
 import { pinnedFetchFollow } from '../lib/ssrf-guard';
+import { safeNullLog } from '../lib/safe-catch';
 
 const FP_KV_PREFIX = 'phishing-fp:';
 const MAX_HTML_BYTES = 512 * 1024;
@@ -61,7 +62,7 @@ export async function fingerprintHandler(ctx: Context<{ Bindings: Env }>): Promi
   if (!ctx.env.KV_CACHE) return ctx.json({ error: 'KV not available' }, 503);
 
   const key = `${FP_KV_PREFIX}${hash}`;
-  const existing = (await ctx.env.KV_CACHE.get(key, 'json').catch(() => null)) as FingerprintRecord | null;
+  const existing = (await safeNullLog('kv-get-phishing-fp', ctx.env.KV_CACHE.get(key, 'json'))) as FingerprintRecord | null;
 
   if (existing) {
     const updated: FingerprintRecord = {

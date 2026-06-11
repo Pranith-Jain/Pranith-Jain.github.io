@@ -272,7 +272,7 @@ export default function CtiGlobe({
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to initialize globe');
     }
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps — Intentional: mount-only effect (globe init)
 
   // Update data when it changes
   useEffect(() => {

@@ -2,6 +2,7 @@ import type { Context } from 'hono';
 import type { Env } from '../env';
 import { fetchRlUpstream } from './ransomwarelive';
 import { fetchMtiSource, type MtiGroup, type MtiRansomwareClaim } from '../lib/mythreatintel-api';
+import { safeNullLog } from '../lib/safe-catch';
 
 /**
  * Ransomware negotiations aggregator.
@@ -137,8 +138,8 @@ export async function buildNegotiations(env: Env): Promise<NegotiationsResponse>
     // MyThreatIntel: actor profiles (descriptions) + victim claims for a
     // per-group recent-victim count. Additive context only — never alters
     // the RL negotiation-economics rows.
-    fetchMtiSource(env, 'groups', { limit: 500 }).catch(() => null),
-    fetchMtiSource(env, 'ransomware', { limit: 500 }).catch(() => null),
+    safeNullLog('fetch-mti-groups', fetchMtiSource(env, 'groups', { limit: 500 })),
+    safeNullLog('fetch-mti-ransomware', fetchMtiSource(env, 'ransomware', { limit: 500 })),
   ]);
 
   const negotiations = perGroup.flat().sort((a, b) => (b.date ?? '').localeCompare(a.date ?? ''));

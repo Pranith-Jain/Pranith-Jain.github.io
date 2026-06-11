@@ -556,7 +556,7 @@ export default function Metrics(): JSX.Element {
       .map(([label, value]) => ({ label, value }))
       .sort((a, b) => b.value - a.value)
       .slice(0, 10);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps — inRansomwareWindow is a closure, excluded; ransomwareWindowDayKeys captures its dependency
   }, [dedupedRansomware, ransomwareWindowDayKeys]);
 
   // MyThreatIntel: which currently-active ransomware groups carry a
@@ -576,7 +576,7 @@ export default function Metrics(): JSX.Element {
       .map(([label, value]) => ({ label, value }))
       .sort((a, b) => b.value - a.value)
       .slice(0, 12);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps — inRansomwareWindow is a closure, excluded; ransomwareWindowDayKeys captures its dependency
   }, [dedupedRansomware, state.mtiGroups, ransomwareWindowDayKeys]);
 
   // 11. NEW — country-origin of malicious IPs. data.threatMap.countries was
@@ -792,7 +792,7 @@ export default function Metrics(): JSX.Element {
       .map(([label, value]) => ({ label, value }))
       .sort((a, b) => b.value - a.value)
       .slice(0, 10);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps — inRansomwareWindow is a closure, excluded; ransomwareWindowDayKeys captures its dependency
   }, [dedupedRansomware, ransomwareWindowDayKeys]);
 
   const sectorClassifiedPct = useMemo(() => {
@@ -801,7 +801,7 @@ export default function Metrics(): JSX.Element {
     if (!within.length) return 0;
     const known = within.filter((v) => v.sector && v.sector !== 'Unknown').length;
     return Math.round((known / within.length) * 100);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps — inRansomwareWindow is a closure, excluded; ransomwareWindowDayKeys captures its dependency
   }, [dedupedRansomware, ransomwareWindowDayKeys]);
 
   /** Top vendors on the KEV catalogue. Parsed from "[KEV] Vendor Product:" prefix in description. */

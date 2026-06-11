@@ -20,6 +20,7 @@ import type { Env } from '../env';
 import { pinnedFetchFollow, SsrfError } from '../lib/ssrf-guard';
 import { badRequest, internalError } from '../lib/api-error';
 import { z } from 'zod';
+import { safeNull, safeNullLog } from '../lib/safe-catch';
 
 // ── Types ────────────────────────────────────────────────────────
 
@@ -293,7 +294,7 @@ const scanSchema = z.object({
 });
 
 export async function openDirectoryScanHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
-  const body = await c.req.json().catch(() => null);
+  const body = await safeNullLog('parse-body-open-directory', c.req.json());
   const parsed = scanSchema.safeParse(body);
   if (!parsed.success) return badRequest(c, parsed.error.issues.map((i) => i.message).join('; '));
 
@@ -314,7 +315,7 @@ export async function openDirectoryScanHandler(c: Context<{ Bindings: Env }>): P
 
     if (!res.ok) {
       // Consume response body to free the connection.
-      await res.body?.cancel().catch(() => {});
+      if (res.body) safeNull(res.body.cancel());
       return c.json({
         url,
         isOpen: false,
@@ -330,7 +331,7 @@ export async function openDirectoryScanHandler(c: Context<{ Bindings: Env }>): P
 
     // Only parse HTML responses
     if (!contentType.includes('text/html') && !contentType.includes('application/xhtml')) {
-      await res.body?.cancel().catch(() => {});
+      if (res.body) safeNull(res.body.cancel());
       return c.json({
         url,
         isOpen: false,

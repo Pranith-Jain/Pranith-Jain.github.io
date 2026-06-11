@@ -3,6 +3,7 @@ import type { Env } from '../env';
 import { fetchResilient } from '../lib/fetch-resilient';
 import { safeIso } from '../lib/safe-date';
 import { buildMtiRansomwareRss, MTI_RANSOMWARE_FEED_PATH } from './mti-ransomware-rss';
+import { safeNull } from '../lib/safe-catch';
 import { buildRansomwareMergedRss, RANSOMWARE_MERGED_FEED_PATH } from './ransomware-merged-rss';
 
 /**
@@ -460,7 +461,7 @@ async function fetchOne(url: string, perSource: number, env?: Env): Promise<Fetc
       if (!ALLOWED_HOSTS.has(next.hostname.toLowerCase())) {
         return { items: [], error: 'redirect_not_allowlisted' };
       }
-      await res.body?.cancel().catch(() => {});
+      if (res.body) safeNull(res.body.cancel());
       currentUrl = next.toString();
       res = await fetchResilient(currentUrl, fetchInit, resilientOpts);
     }

@@ -1,6 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import type { D1Database } from '@cloudflare/workers-types';
+import { safeNullLog } from '../lib/safe-catch';
 
 /**
  * IOC Bloom Filter — fast membership testing for known IOCs.
@@ -49,12 +50,12 @@ async function readFilterEntry(kv: KVNamespace, type: string): Promise<unknown |
   }
   const cached = await kv.get(`${KV_PREFIX}${type}`, 'json');
   if (cached) {
-    await cache
-      .put(
+    safeNullLog('cache-put-bloom-filter-loaded',
+      cache.put(
         filterCacheReq(type),
         new Response(JSON.stringify(cached), { headers: { 'cache-control': `max-age=${FILTER_ENTRY_CACHE_TTL}` } })
       )
-      .catch(() => {});
+    );
   }
   return cached;
 }
@@ -205,12 +206,12 @@ export async function bloomFilterHandler(c: Context<{ Bindings: Env }>): Promise
   await kv.put(cacheKey, JSON.stringify(entry), { expirationTtl: 3600 });
   // Write-through the per-colo cache so the freshly built filter is reused
   // without a KV round-trip on subsequent same-colo requests.
-  await (caches as unknown as { default: Cache }).default
-    .put(
+  safeNullLog('cache-put-bloom-filter-built',
+    (caches as unknown as { default: Cache }).default.put(
       filterCacheReq(type),
       new Response(JSON.stringify(entry), { headers: { 'cache-control': `max-age=${FILTER_ENTRY_CACHE_TTL}` } })
     )
-    .catch(() => {});
+  );
 
   return c.json(
     {

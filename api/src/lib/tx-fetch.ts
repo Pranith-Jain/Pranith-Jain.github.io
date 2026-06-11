@@ -1,3 +1,4 @@
+import { safeNullLog } from './safe-catch';
 const FETCH_TIMEOUT = 10_000;
 
 export interface FetchedTx {
@@ -31,7 +32,7 @@ async function rpcGetTx(rpc: string, hash: string): Promise<RpcTx | null> {
       signal: ctrl.signal,
     });
     if (!r.ok) return null;
-    const j = (await r.json().catch(() => null)) as { result?: RpcTx | null } | null;
+    const j = (await safeNullLog('evm-rpc-json', r.json())) as { result?: RpcTx | null } | null;
     return j?.result ?? null;
   } catch {
     return null;
@@ -67,7 +68,7 @@ export async function fetchTronTx(hash: string): Promise<FetchedTx> {
       signal: ctrl.signal,
     });
     if (!r.ok) return { found: false, chain: 'tron', input: '' };
-    const j = (await r.json().catch(() => null)) as TronTxRaw | null;
+    const j = (await safeNullLog('tron-tx-json', r.json())) as TronTxRaw | null;
     const contract = j?.raw_data?.contract?.[0]?.parameter?.value;
     if (!contract) return { found: false, chain: 'tron', input: '' };
     return {

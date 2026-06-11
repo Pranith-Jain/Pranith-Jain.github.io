@@ -1,6 +1,6 @@
 import type { Candidate, DedupRecord, CaseStudyType } from '../types';
 import { topicKey } from '../stable-keys';
-import { recencyScore, severityScore, noveltyScore, finalScore } from '../scoring';
+import { severityScore, noveltyScore, finalScore } from '../scoring';
 
 export interface AgenticTrendsDeps {
   now: Date;

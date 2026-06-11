@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { safeNullLog } from '../lib/safe-catch';
 
 export type FeedbackTarget = 'copilot' | 'briefing' | 'pir' | 'finding' | 'ioc' | 'assessment';
 export type FeedbackRating = 'useful' | 'not_useful' | 'actioned' | 'accurate' | 'inaccurate' | 'no_value';
@@ -141,12 +142,12 @@ async function loadAllFeedback(kv: KVNamespace): Promise<Feedback[]> {
   );
   const feedbacks: Feedback[] = results.filter((f): f is Feedback => f !== null);
   feedbacks.sort((a, b) => b.created_at.localeCompare(a.created_at));
-  await cache
-    .put(
+  safeNullLog('cache-put-feedback-list',
+    cache.put(
       new Request(FEEDBACK_LIST_CACHE),
       new Response(JSON.stringify(feedbacks), { headers: { 'cache-control': `max-age=${FEEDBACK_LIST_TTL}` } })
     )
-    .catch(() => {});
+  );
   return feedbacks;
 }
 

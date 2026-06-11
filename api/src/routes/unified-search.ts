@@ -2,6 +2,7 @@ import type { Context } from 'hono';
 import { lookupCve } from '../lib/cve-lookup';
 import { ACTOR_ALIASES } from '../data/threat-actor-aliases';
 import { rankSections } from '../lib/search/rank';
+import { safeNullLog } from '../lib/safe-catch';
 
 // ── Cache keys (imported where available, hardcoded for internal-only keys) ──
 import { LIVE_IOCS_CACHE_KEY, type LiveIocsResponse } from './live-iocs';
@@ -447,13 +448,13 @@ async function searchIocCheck(needle: string, env: import('../env').Env): Promis
   // hardcoded 'dummy' key, guaranteeing a 401 and silently returning nothing.
   if (iocType === 'ip' && env.ABUSEIPDB_API_KEY) {
     try {
-      const res = await fetch(
+      const res = await safeNullLog('fetch-abuseipdb', fetch(
         `https://api.abuseipdb.com/api/v2/check?ipAddress=${encodeURIComponent(q)}&maxAgeInDays=90`,
         {
           headers: { Key: env.ABUSEIPDB_API_KEY, Accept: 'application/json' },
           signal: AbortSignal.timeout(5000),
         }
-      ).catch(() => null);
+      ));
       if (res?.ok) {
         const data = (await res.json()) as {
           data?: {
@@ -483,9 +484,9 @@ async function searchIocCheck(needle: string, env: import('../env').Env): Promis
 
     // Check blocklist.de
     try {
-      const bl = await fetch(`https://api.blocklist.de/api.php?ip=${encodeURIComponent(q)}`, {
+      const bl = await safeNullLog('fetch-blocklist-de', fetch(`https://api.blocklist.de/api.php?ip=${encodeURIComponent(q)}`, {
         signal: AbortSignal.timeout(4000),
-      }).catch(() => null);
+      }));
       if (bl?.ok) {
         const text = await bl.text();
         if (text.includes('found')) {
@@ -508,12 +509,12 @@ async function searchIocCheck(needle: string, env: import('../env').Env): Promis
   if (iocType === 'domain') {
     // Check URLhaus
     try {
-      const uh = await fetch(`https://urlhaus-api.abuse.ch/v1/host/`, {
+      const uh = await safeNullLog('fetch-urlhaus', fetch(`https://urlhaus-api.abuse.ch/v1/host/`, {
         method: 'POST',
         headers: { 'content-type': 'application/x-www-form-urlencoded' },
         body: `host=${encodeURIComponent(q)}`,
         signal: AbortSignal.timeout(5000),
-      }).catch(() => null);
+      }));
       if (uh?.ok) {
         const ud = (await uh.json()) as { query_status?: string; url_count?: number };
         if (ud.query_status === 'ok' && (ud.url_count ?? 0) > 0) {
@@ -536,12 +537,12 @@ async function searchIocCheck(needle: string, env: import('../env').Env): Promis
   if (iocType === 'hash') {
     // Check MalwareBazaar
     try {
-      const mb = await fetch('https://mb-api.abuse.ch/api/v1/', {
+      const mb = await safeNullLog('fetch-malwarebazaar-hash', fetch('https://mb-api.abuse.ch/api/v1/', {
         method: 'POST',
         headers: { 'content-type': 'application/x-www-form-urlencoded' },
         body: `query=get_info&hash=${q}`,
         signal: AbortSignal.timeout(5000),
-      }).catch(() => null);
+      }));
       if (mb?.ok) {
         const md = (await mb.json()) as {
           query_status?: string;

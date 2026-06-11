@@ -5,6 +5,7 @@ import { badRequest, notFound, serviceUnavailable } from '../lib/api-error';
 import { ensureGraphTables, upsertNode, type NodeType } from './threat-graph';
 import { recordIocObservation } from './ioc-lifecycle';
 import { pinnedFetchFollow } from '../lib/ssrf-guard';
+import { safeNull, safeNullLog } from '../lib/safe-catch';
 import type { D1Database } from '@cloudflare/workers-types';
 
 interface FeedJob {
@@ -77,7 +78,7 @@ async function writeJobsCache(jobs: FeedJob[]): Promise<void> {
 async function listJobs(kv: KVNamespace): Promise<FeedJob[]> {
   const cached = await readJobsCached();
   if (cached) return cached;
-  const raw = await kv.get(JOBS_KV_KEY, 'json').catch(() => null);
+  const raw = await safeNullLog('kv-get-feed-jobs', kv.get(JOBS_KV_KEY, 'json'));
   const jobs = (raw as FeedJob[]) ?? [];
   await writeJobsCache(jobs);
   return jobs;
@@ -112,7 +113,7 @@ async function readCombinedHistory(kv: KVNamespace): Promise<Record<string, Feed
  */
 async function writeCombinedHistoryForJob(kv: KVNamespace, jobId: string, hist: FeedRunHistory[]): Promise<void> {
   try {
-    const raw = (await kv.get(HISTORY_ALL_KV_KEY, 'json').catch(() => null)) as Record<string, FeedRunHistory[]> | null;
+    const raw = (await safeNullLog('kv-get-feed-combined-history', kv.get(HISTORY_ALL_KV_KEY, 'json'))) as Record<string, FeedRunHistory[]> | null;
     const all = raw ?? {};
     all[jobId] = hist;
     await kv.put(HISTORY_ALL_KV_KEY, JSON.stringify(all));
@@ -309,10 +310,10 @@ export async function deleteFeedJobHandler(c: Context<{ Bindings: Env }>): Promi
   await saveJobs(kv, jobs);
 
   const historyKey = `feed-scheduler:history:${id}`;
-  await kv.delete(historyKey).catch(() => {});
+  safeNullLog('kv-delete-feed-history', kv.delete(historyKey));
   // Remove job's history from the combined blob
   try {
-    const raw = (await kv.get(HISTORY_ALL_KV_KEY, 'json').catch(() => null)) as Record<string, FeedRunHistory[]> | null;
+    const raw = (await safeNullLog('kv-get-feed-history-remove', kv.get(HISTORY_ALL_KV_KEY, 'json'))) as Record<string, FeedRunHistory[]> | null;
     if (raw && raw[id]) {
       delete raw[id];
       await kv.put(HISTORY_ALL_KV_KEY, JSON.stringify(raw));
@@ -370,7 +371,7 @@ export async function runFeedJobHandler(c: Context<{ Bindings: Env }>): Promise<
     };
 
     const historyKey = `feed-scheduler:history:${id}`;
-    const existing = (await kv.get(historyKey, 'json').catch(() => null)) as FeedRunHistory[] | null;
+    const existing = (await safeNullLog('kv-get-feed-run-ok', kv.get(historyKey, 'json'))) as FeedRunHistory[] | null;
     const hist = [history, ...(existing ?? [])].slice(0, MAX_HISTORY);
     await kv.put(historyKey, JSON.stringify(hist));
     await writeCombinedHistoryForJob(kv, id, hist);
@@ -394,7 +395,7 @@ export async function runFeedJobHandler(c: Context<{ Bindings: Env }>): Promise<
     };
 
     const historyKey = `feed-scheduler:history:${id}`;
-    const existing = (await kv.get(historyKey, 'json').catch(() => null)) as FeedRunHistory[] | null;
+    const existing = (await safeNullLog('kv-get-feed-run-err', kv.get(historyKey, 'json'))) as FeedRunHistory[] | null;
     const hist = [history, ...(existing ?? [])].slice(0, MAX_HISTORY);
     await kv.put(historyKey, JSON.stringify(hist));
     await writeCombinedHistoryForJob(kv, id, hist);
@@ -411,7 +412,7 @@ export async function getFeedJobHistoryHandler(c: Context<{ Bindings: Env }>): P
   if (!id) return badRequest(c, 'id required');
 
   const historyKey = `feed-scheduler:history:${id}`;
-  const history = (await kv.get(historyKey, 'json').catch(() => null)) as FeedRunHistory[] | null;
+  const history = (await safeNullLog('kv-get-feed-history-get', kv.get(historyKey, 'json'))) as FeedRunHistory[] | null;
   return c.json({ history: history ?? [] }, 200, { 'Cache-Control': 'no-store' });
 }
 
@@ -508,7 +509,7 @@ export async function autoRunFeedJobs(
           savedCount++;
           // Track in IOC lifecycle table
           const lt = nodeType === 'ip' ? 'ipv4' : nodeType;
-          recordIocObservation(db, trimmed, lt, 50, [`feed:${job.name}`]).catch(() => {});
+          safeNull(recordIocObservation(db, trimmed, lt, 50, [`feed:${job.name}`]));
         } catch (nodeErr) {
           console.warn(
             JSON.stringify({
@@ -546,7 +547,7 @@ export async function autoRunFeedJobs(
     item_count: job.last_item_count ?? 0,
     error: job.last_error,
   };
-  const existing = (await kv.get(historyKey, 'json').catch(() => null)) as FeedRunHistory[] | null;
+  const existing = (await safeNullLog('kv-get-feed-run-history', kv.get(historyKey, 'json'))) as FeedRunHistory[] | null;
   const hist = [history, ...(existing ?? [])].slice(0, MAX_HISTORY);
   await kv.put(historyKey, JSON.stringify(hist));
   await writeCombinedHistoryForJob(kv, job.id, hist);

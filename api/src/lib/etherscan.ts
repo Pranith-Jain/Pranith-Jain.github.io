@@ -15,6 +15,7 @@
 
 import { fmtAmount } from './blockscout';
 import type { Transfer } from './chain-sources/types';
+import { safeNullLog } from './safe-catch';
 
 const API_BASE = 'https://api.etherscan.io/v2/api';
 const CHAIN_ID = 1; // Ethereum mainnet
@@ -86,7 +87,7 @@ export async function fetchEtherscanNativeTransfers(address: string, apiKey: str
     const res = await fetch(url, { signal: ctrl.signal, headers: { accept: 'application/json' } });
     clearTimeout(timer);
     if (!res.ok) return [];
-    const body = (await res.json().catch(() => null)) as { status?: string; result?: unknown } | null;
+    const body = (await safeNullLog('etherscan-json', res.json())) as { status?: string; result?: unknown } | null;
     // Etherscan returns status "0" with a string `result` on error/empty.
     if (!body || body.status === '0') return [];
     return parseEtherscanTxlist(body.result, address);

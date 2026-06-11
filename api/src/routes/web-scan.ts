@@ -1,6 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { assertPublicHost } from '../lib/ssrf-guard';
+import { safeNull } from '../lib/safe-catch';
 
 /**
  * Web vulnerability + configuration scanner.
@@ -571,7 +572,7 @@ export async function webScanHandler(c: Context<{ Bindings: Env }>): Promise<Res
       if (done) break;
       if (value) read += value.byteLength;
     }
-    void reader.cancel().catch(() => {});
+    safeNull(reader.cancel());
   }
 
   const rawHeaders: Record<string, string> = {};

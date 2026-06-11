@@ -324,7 +324,7 @@ export default function XWatch(): JSX.Element {
     // when we already know auth is down.
     if (authStatus && !authStatus.configured) return;
     return load(active);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps — load is a closure that changes every render; data deps are already listed
   }, [active, sinceDays, includeReplies, includePinned, authStatus?.configured]);
 
   // Probe every handle on mount + whenever the window/auth changes so
@@ -374,7 +374,7 @@ export default function XWatch(): JSX.Element {
     // Re-probe when window/replies/auth changes. customHandles changes
     // intentionally NOT in dep list — adding a custom handle probes that
     // single handle via the load() side-effect, no need to re-fire all
-    // 41 probes.
+    // 41 probes. load is a closure (excluded for same reason as above).
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sinceDays, includeReplies, authStatus?.configured]);
 

@@ -1,6 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { safeErrorMessage } from '../lib/error';
+import { safeNullLog } from '../lib/safe-catch';
 
 /**
  * Google-Dorks proxy backed by SerpAPI.
@@ -102,7 +103,7 @@ export async function googleDorksHandler(c: Context<{ Bindings: Env }>): Promise
   // burn SerpAPI quota each time.
   const cache = (caches as unknown as { default: Cache }).default;
   const cacheReq = cacheKeyFor(query, num);
-  const cached = await cache.match(cacheReq).catch(() => null);
+  const cached = await safeNullLog('cache-match-google-dorks', cache.match(cacheReq));
   if (cached) {
     try {
       const body = await cached.json();
@@ -168,7 +169,7 @@ export async function googleDorksHandler(c: Context<{ Bindings: Env }>): Promise
         'cache-control': `public, max-age=${CACHE_TTL_SECONDS}`,
       },
     });
-    c.executionCtx.waitUntil(cache.put(cacheReq, toCache).catch(() => {}));
+    c.executionCtx.waitUntil(safeNullLog('cache-put-google-dorks', cache.put(cacheReq, toCache)));
   }
 
   return jsonResponse(c, body, 200, CACHE_TTL_SECONDS);

@@ -20,11 +20,6 @@ interface PhishuntResult {
   malicious_urlscan: boolean;
 }
 
-interface PhishuntResponse {
-  count: number;
-  results: PhishuntResult[];
-}
-
 export interface DiscoverPhishuntDeps {
   fetchPhishunt: () => Promise<PhishuntResult[]>;
   now: Date;

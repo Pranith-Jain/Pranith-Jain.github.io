@@ -643,7 +643,7 @@ function EmailTab({ initialQuery = '' }: { initialQuery?: string }): JSX.Element
       autoFetched.current = true;
       void runLookup(initialQuery);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps — Intentional: mount-only effect
   }, []);
 
   return (
@@ -882,7 +882,7 @@ function DomainTab({ initialQuery = '' }: { initialQuery?: string }): JSX.Elemen
       autoFetched.current = true;
       void runLookup(initialQuery);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps — Intentional: mount-only effect
   }, []);
 
   return (
@@ -1082,7 +1082,7 @@ export default function BreachPage(): JSX.Element {
   // React to URL changes from outside (back/forward, deep links).
   useEffect(() => {
     if (isMode(urlMode) && urlMode !== mode) setModeState(urlMode);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps — adding `mode` would infinite-loop (effect sets mode when urlMode !== mode)
   }, [urlMode]);
 
   return (

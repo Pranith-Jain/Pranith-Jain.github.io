@@ -1,6 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { requireAdmin } from '../lib/admin-auth';
+import { safeNull, safeNullLog } from '../lib/safe-catch';
 
 /**
  * Campaign persistence — KV-backed save / list / detail / delete for
@@ -90,8 +91,8 @@ const listCacheReq = (): Request => new Request('https://campaigns-cache.interna
 const detailCacheReq = (id: string): Request => new Request(`https://campaigns-cache.internal/v1/detail/${id}`);
 async function invalidateCampaignCaches(id?: string): Promise<void> {
   const cache = campaignsCache();
-  await cache.delete(listCacheReq()).catch(() => {});
-  if (id) await cache.delete(detailCacheReq(id)).catch(() => {});
+  safeNullLog('cache-delete-campaign-list', cache.delete(listCacheReq()));
+  if (id) safeNullLog('cache-delete-campaign-detail', cache.delete(detailCacheReq(id)));
 }
 
 function indexEntryFor(saved: SavedCampaign): IndexEntry {
@@ -166,7 +167,7 @@ export async function listCampaignsHandler(c: Context<{ Bindings: Env }>): Promi
   if (!kv) return c.json({ items: [], count: 0, error: 'KV not configured' });
   const cache = campaignsCache();
   const req = listCacheReq();
-  const hit = await cache.match(req).catch(() => null);
+  const hit = await safeNullLog('cache-match-campaign-list', cache.match(req));
   if (hit) return new Response(hit.body, hit);
   const index = await readIndex(kv);
   const resp = c.json({ items: index, count: index.length, generated_at: new Date().toISOString() }, 200, {
@@ -183,7 +184,7 @@ export async function getCampaignHandler(c: Context<{ Bindings: Env }>): Promise
   if (!ID_RE.test(id)) return c.json({ error: 'invalid id' }, 400);
   const cache = campaignsCache();
   const req = detailCacheReq(id);
-  const hit = await cache.match(req).catch(() => null);
+  const hit = await safeNullLog('cache-match-campaign-detail', cache.match(req));
   if (hit) return new Response(hit.body, hit);
   const raw = await kv.get(`campaign:${id}`);
   if (!raw) return c.json({ error: 'campaign not found' }, 404);

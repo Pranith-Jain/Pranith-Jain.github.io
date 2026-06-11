@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { safeNullLog } from '../lib/safe-catch';
 
 /**
  * Wayback Machine CDX proxy.
@@ -176,7 +177,7 @@ export async function waybackCdxHandler(c: Context<{ Bindings: Env }>): Promise<
         if (kv) {
           const expiresAt = Math.floor(Date.now() / 1000) + retrySec;
           c.executionCtx.waitUntil(
-            kv.put(COOLDOWN_KEY, String(expiresAt), { expirationTtl: retrySec }).catch(() => {})
+            safeNullLog('kv-put-wayback-cooldown', kv.put(COOLDOWN_KEY, String(expiresAt), { expirationTtl: retrySec }))
           );
         }
         return cooldownResponse(c, retrySec);

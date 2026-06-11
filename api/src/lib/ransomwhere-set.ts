@@ -25,9 +25,16 @@ import type { TracerChain } from './chain-sources/types';
 export type RansomMap = Map<string, string>; // normalizedAddress -> family ('' when upstream omitted it)
 
 const CACHE_TTL = 24 * 3600;
-const CACHE_KEY = 'https://ransomwhere-set-cache.internal/v1/map';
-const FETCH_TIMEOUT = 20_000;
+const CACHE_KEY = 'https://ransomwhere-set-cache.internal/v2-map';
+const FETCH_TIMEOUT = 15_000;
 const SOURCE_URL = 'https://api.ransomwhe.re/export';
+
+/**
+ * OpenSanctions mirrors the raw Ransomwhere export as-is — used as fallback
+ * when the primary upstream is unreachable.
+ */
+const FALLBACK_SOURCE_URL =
+  'https://data.opensanctions.org/datasets/latest/ransomwhere/source.json';
 
 /** Upstream `blockchain` value → tracer chain. Anything absent here is dropped. */
 const CHAIN_MAP: Record<string, TracerChain> = { bitcoin: 'btc', ethereum: 'evm' };
@@ -99,20 +106,24 @@ export async function loadRansomwhereMap(): Promise<RansomMap> {
   }
 
   let map: RansomMap = new Map();
-  try {
-    const ctrl = new AbortController();
-    const timer = setTimeout(() => ctrl.abort(), FETCH_TIMEOUT);
-    const res = await fetch(SOURCE_URL, {
-      signal: ctrl.signal,
-      headers: { 'User-Agent': 'pranithjain-dfir/1.0', accept: 'application/json' },
-    });
-    clearTimeout(timer);
-    if (res.ok) {
-      const data = (await res.json()) as { result?: unknown };
-      map = buildRansomMap(data.result);
+  const sources = [SOURCE_URL, FALLBACK_SOURCE_URL];
+  for (const url of sources) {
+    if (map.size > 0) break;
+    try {
+      const ctrl = new AbortController();
+      const timer = setTimeout(() => ctrl.abort(), FETCH_TIMEOUT);
+      const res = await fetch(url, {
+        signal: ctrl.signal,
+        headers: { 'User-Agent': 'pranithjain-dfir/1.0', accept: 'application/json' },
+      });
+      clearTimeout(timer);
+      if (res.ok) {
+        const data = (await res.json()) as { result?: unknown };
+        map = buildRansomMap(data.result);
+      }
+    } catch {
+      /* try next source */
     }
-  } catch {
-    /* upstream unreachable — return empty map, don't cache */
   }
 
   if (map.size > 0) {

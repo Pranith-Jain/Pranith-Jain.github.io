@@ -172,7 +172,7 @@ const SECRET_PATTERNS: Array<{
   },
 ];
 
-function redact(line: string, pattern: { extract: (l: string) => string | null }): string | null {
+function _redact(line: string, pattern: { extract: (l: string) => string | null }): string | null {
   return pattern.extract(line);
 }
 

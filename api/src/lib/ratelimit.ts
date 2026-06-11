@@ -2,6 +2,7 @@ import type { Context, Next } from 'hono';
 import type { Env } from '../env';
 
 type KvNamespace = import('@cloudflare/workers-types').KVNamespace;
+import { safeNullLog } from './safe-catch';
 
 const LIMIT = 30; // keyless (website / anonymous) requests per minute per IP/colo
 // Authenticated API-key callers get 4x headroom. The same-origin website is
@@ -51,9 +52,7 @@ async function cacheApiRateLimit(c: Context<{ Bindings: Env }>, next: Next): Pro
     });
   }
   c.executionCtx.waitUntil(
-    cache
-      .put(key, new Response(String(count + 1), { headers: { 'cache-control': `max-age=${WINDOW_SEC}` } }))
-      .catch(() => {})
+    safeNullLog('cache-put-ratelimit', cache.put(key, new Response(String(count + 1), { headers: { 'cache-control': `max-age=${WINDOW_SEC}` } })))
   );
   return next();
 }

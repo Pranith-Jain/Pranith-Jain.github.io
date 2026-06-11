@@ -16,6 +16,7 @@ import {
   parseHostsFormat,
 } from '../lib/ioc-feed-parsers';
 import { trackEvent, visitorCountry } from '../lib/analytics';
+import { safeNullLog } from '../lib/safe-catch';
 import { fetchMtiSource, type MtiIoc } from '../lib/mythreatintel-api';
 
 /**
@@ -200,7 +201,7 @@ export async function fetchIocCorrelation(env?: Env): Promise<IocCorrelationResp
     fetchText('https://www.botvrij.eu/data/ioclist.domain'),
     // MyThreatIntel file-hash IOCs — a hash present here AND in another
     // hash feed (MalwareBazaar / ThreatFox) becomes a correlated indicator.
-    env ? fetchMtiSource(env, 'iocs', { limit: PER_FEED_CAP }).catch(() => null) : Promise.resolve(null),
+    env ? safeNullLog('fetch-mti-iocs-correlation', fetchMtiSource(env, 'iocs', { limit: PER_FEED_CAP })) : Promise.resolve(null),
   ]);
 
   const ipBucket: MutableBucket = { map: new Map() };

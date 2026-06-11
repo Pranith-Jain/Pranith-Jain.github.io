@@ -9,7 +9,7 @@ import { admiraltyGrade } from '../lib/admiralty';
 import { ProviderCache } from '../lib/cache';
 import { trackEvent, visitorCountry } from '../lib/analytics';
 import { isCircuitOpen, recordProviderFailure, recordProviderSuccess } from '../lib/circuit-breaker';
-import type { ProviderResult, ProviderId, ProviderAdapter, ProviderEnv } from '../providers/types';
+import type { ProviderResult, ProviderId, ProviderEnv } from '../providers/types';
 import { ADAPTERS, buildProviderEnv, PROVIDER_SUPPORT, PROVIDER_TIMEOUT_MS } from '../providers';
 
 const PROVIDER_CHUNK_SIZE = 10;

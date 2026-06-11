@@ -3,6 +3,7 @@ import type { Env } from '../env';
 import { WRITEUP_SOURCES, type WriteupSourceSpec } from '../lib/writeup-sources';
 import { concurrentMap } from '../lib/concurrent-map';
 import { safeIso } from '../lib/safe-date';
+import { safeNullLog } from '../lib/safe-catch';
 
 /**
  * Source labels marked as `tier: 'signal'`. Computed once at module load
@@ -531,7 +532,7 @@ export async function writeupsHandler(c: Context<{ Bindings: Env }>): Promise<Re
 
     // Inflate from the all-sources cache when present; filter post-cache so
     // a tier flip doesn't require a re-fetch upstream.
-    const cached = await cache.match(cacheReq).catch(() => null);
+    const cached = await safeNullLog('cache-match-writeups', cache.match(cacheReq));
     if (cached) {
       const body = (await cached.json()) as WriteupsResponse;
       return makeResp(filterByTier(body, tier));

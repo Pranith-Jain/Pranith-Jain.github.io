@@ -22,6 +22,7 @@ import type { Env } from '../env';
 import { badRequest } from '../lib/api-error';
 import { trackEvent, visitorCountry } from '../lib/analytics';
 import { readRecentDeltas, type StatusDelta } from '../lib/breach-forum-status';
+import { safeNullLog } from '../lib/safe-catch';
 
 const CACHE_TTL_SECONDS = 600;
 const MAX_LIMIT = 500;
@@ -84,10 +85,9 @@ export async function breachForumStatusHandler(c: Context<{ Bindings: Env }>): P
 
   const [deltas, totalRow] = await Promise.all([
     readRecentDeltas(db, { since, limit }),
-    db
+    safeNullLog('d1-count-breach-forum', db
       .prepare('SELECT COUNT(*) AS n FROM breach_forum_status')
-      .first<{ n: number }>()
-      .catch(() => null),
+      .first<{ n: number }>()),
   ]);
 
   const body: BreachForumStatusResponse = {

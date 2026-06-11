@@ -26,6 +26,7 @@ import {
   type MtiRecord,
 } from '../lib/mythreatintel-api';
 import { shouldWriteLastGood } from '../lib/lastgood-debounce';
+import { safeNullLog } from '../lib/safe-catch';
 
 /**
  * Global (cross-colo) last-good store for the default (no-query) view of each
@@ -77,9 +78,9 @@ export async function mtiHandler(c: Context<{ Bindings: Env }>): Promise<Respons
           // on every cache-miss success across colos (KV 1-write/sec/key limit +
           // write cost). The fallback only needs refreshing every few hours.
           if (!(await shouldWriteLastGood('mti:' + source))) return;
-          await kv
-            .put(lastGoodKey, JSON.stringify(payload), { expirationTtl: MTI_LASTGOOD_TTL_SECONDS })
-            .catch(() => {});
+          safeNullLog('kv-put-mti-lastgood',
+            kv.put(lastGoodKey, JSON.stringify(payload), { expirationTtl: MTI_LASTGOOD_TTL_SECONDS })
+          )
         })()
       );
     }

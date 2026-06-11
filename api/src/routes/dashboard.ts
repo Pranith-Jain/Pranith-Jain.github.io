@@ -1,6 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { badRequest, serviceUnavailable } from '../lib/api-error';
+import { safeNullLog } from '../lib/safe-catch';
 // Canonical producer key — the watchlist `ioc_sightings` read previously
 // hardcoded stale v11 and so was always 0 for every watched domain.
 import { LIVE_IOCS_CACHE_KEY } from './live-iocs';
@@ -65,7 +66,7 @@ async function writeWatchlistCache(wl: Watchlist): Promise<void> {
 async function readWatchlist(kv: KVNamespace): Promise<Watchlist> {
   const cached = await readWatchlistCached();
   if (cached) return cached;
-  const raw = await kv.get(WATCHLIST_KV_KEY, 'json').catch(() => null);
+  const raw = await safeNullLog('kv-get-watchlist', kv.get(WATCHLIST_KV_KEY, 'json'));
   const wl = (raw as Watchlist) ?? { domains: [], emails: [] };
   await writeWatchlistCache(wl);
   return wl;

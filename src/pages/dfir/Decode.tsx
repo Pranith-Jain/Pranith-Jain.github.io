@@ -118,7 +118,7 @@ export default function Decode(): JSX.Element {
       autoRan.current = true;
       runDecode(initialQ, initialMode);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps — Intentional: mount-only effect
   }, []);
 
   const detectedOnLoad = input ? detectEncoding(input) : 'unknown';

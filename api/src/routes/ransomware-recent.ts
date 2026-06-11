@@ -3,6 +3,7 @@ import type { Env } from '../env';
 import { classifySector, type Sector } from '../lib/sector-classifier';
 import { safeIsoOr } from '../lib/safe-date';
 import { fetchMythreatintelRansomwareVictims } from '../lib/mythreatintel-parser';
+import { safeNullLog } from '../lib/safe-catch';
 import { fetchAFRansomwareVictims } from '../lib/andreafortuna-feeds';
 import { fetchMtiSource, type MtiRansomwareClaim } from '../lib/mythreatintel-api';
 import { shouldWriteLastGood } from '../lib/lastgood-debounce';
@@ -461,7 +462,7 @@ async function fetchCtiFyiVictims(): Promise<RansomwareVictim[]> {
  * double-count.
  */
 async function fetchMtiApiVictims(env: Env): Promise<RansomwareVictim[]> {
-  const res = await fetchMtiSource(env, 'ransomware', { limit: MAX_ITEMS }).catch(() => null);
+  const res = await safeNullLog('fetch-mti-ransomware-recent', fetchMtiSource(env, 'ransomware', { limit: MAX_ITEMS }));
   if (!res || !res.ok) return [];
   // 7-day cutoff: the MTI REST API returns the latest N rows (no
   // server-side date filter). Without this, months-old claims get
@@ -704,14 +705,15 @@ export async function fetchRansomwareRecent(env?: Env): Promise<{
   // visitors — the exact failure this guards against.
   if (upstreamOk && body.victims.length > 0 && env?.KV_CACHE) {
     caches.default
-      .put(
-        new Request(RANSOMWARE_RECENT_CACHE_KEY),
-        new Response(JSON.stringify(body), {
-          status: 200,
-          headers: { 'cache-control': `public, max-age=${CACHE_TTL_SECONDS}` },
-        })
-      )
-      .catch(() => {});
+      safeNullLog('cache-put-ransomware-recent',
+        (caches as unknown as { default: Cache }).default.put(
+          new Request(RANSOMWARE_RECENT_CACHE_KEY),
+          new Response(JSON.stringify(body), {
+            status: 200,
+            headers: { 'cache-control': `public, max-age=${CACHE_TTL_SECONDS}` },
+          })
+        )
+      );
   }
 
   return { body, upstreamOk, rateLimited };

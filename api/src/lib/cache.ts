@@ -1,5 +1,6 @@
 // Cloudflare Workers runtime exposes caches.default but the TypeScript
 // lib types only define `caches.open()`. Cast is required for `caches.default`.
+import { safeNullLog } from './safe-catch';
 const CACHE_PLATFORM = caches as unknown as { default: Cache };
 
 export function getCache(): Cache {
@@ -120,7 +121,7 @@ export class ProviderCache {
         const cacheResp = new Response(JSON.stringify(cached), {
           headers: { 'cache-control': `public, max-age=${ttl}` },
         });
-        if (cache) await cache.put(new Request(this.cacheUrl(provider, indicator)), cacheResp).catch(() => {});
+        if (cache) safeNullLog('cache-put-provider', cache.put(new Request(this.cacheUrl(provider, indicator)), cacheResp));
         return { ...cached, cached: true };
       }
       return cached;
@@ -149,7 +150,7 @@ export class ProviderCache {
       const cacheResp = new Response(JSON.stringify(data), {
         headers: { 'cache-control': `public, max-age=${ttl}` },
       });
-      await cache.put(new Request(this.cacheUrl(provider, indicator)), cacheResp).catch(() => {});
+      safeNullLog('cache-put-provider-set', cache.put(new Request(this.cacheUrl(provider, indicator)), cacheResp));
     }
   }
 
@@ -168,7 +169,7 @@ export class ProviderCache {
     // Purge from per-colo cache
     const cache = this.cacheApi();
     if (cache) {
-      await cache.delete(new Request(this.cacheUrl(provider, indicator))).catch(() => {});
+      safeNullLog('cache-delete-provider', cache.delete(new Request(this.cacheUrl(provider, indicator))));
     }
   }
 

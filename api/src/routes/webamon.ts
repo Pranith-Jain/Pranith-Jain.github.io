@@ -57,7 +57,6 @@ interface WebamonSearchResponse {
 }
 
 async function webamonFetch(path: string, retries = 2): Promise<Response | null> {
-  let last: null | { type: string; status?: number } = null;
   for (let attempt = 1; attempt <= retries; attempt++) {
     try {
       const ctrl = new AbortController();
@@ -68,9 +67,7 @@ async function webamonFetch(path: string, retries = 2): Promise<Response | null>
       });
       clearTimeout(timer);
       if (res.ok || res.status !== 429) return res;
-      last = { type: 'rate_limited', status: res.status };
     } catch {
-      last = { type: 'network_error' };
     }
     if (attempt < retries) await new Promise((r) => setTimeout(r, 800 * attempt));
   }

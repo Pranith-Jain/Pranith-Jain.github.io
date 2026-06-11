@@ -1,0 +1,531 @@
+import type { PulseEvent, PulseKind, Sev, XClaimsResponse, ActorTimelineResponse, IocCorrelationResponse } from './types';
+import { COUNTRY_COORDS, countryNameToCode } from './geo';
+import { asSev } from './shared';
+
+/* ─── Converters ────────────────────────────────────────────────────────── */
+
+export function iocFromThreatMap(data: {
+  countries: Array<{ countryCode: string; country: string; count: number; sources: Record<string, number> }>;
+}): PulseEvent[] {
+  return (data.countries ?? [])
+    .filter((c) => c.count > 0)
+    .flatMap((c) => {
+      try {
+        const baseCoords = COUNTRY_COORDS[c.countryCode];
+        const jitterLat = (Math.random() - 0.5) * 3;
+        const jitterLng = (Math.random() - 0.5) * 5;
+        return [
+          {
+            id: `ioc-${c.countryCode}`,
+            kind: 'ioc_activity' as const,
+            title: `${c.country ?? 'Unknown'} — ${c.count ?? 0} malicious IPs`,
+            description: `Threat activity from ${Object.keys(c.sources ?? {}).length} feed sources`,
+            lat: (baseCoords?.[0] ?? 0) + jitterLat,
+            lng: (baseCoords?.[1] ?? 0) + jitterLng,
+            timestamp: new Date().toISOString(),
+            severity:
+              (c.count ?? 0) > 1000
+                ? ('critical' as const)
+                : (c.count ?? 0) > 500
+                  ? ('high' as const)
+                  : (c.count ?? 0) > 100
+                    ? ('medium' as const)
+                    : ('low' as const),
+            source: 'threat-map',
+            country: c.country,
+          },
+        ];
+      } catch {
+        return [];
+      }
+    });
+}
+
+export function fromReddit(data: {
+  items?: Array<{ title: string; sub: string; sub_topic: string; link: string; pub_date: string }>;
+}): PulseEvent[] {
+  return (data.items ?? []).slice(0, 40).flatMap((i) => {
+    try {
+      return [
+        {
+          id: `reddit-${(i.link ?? '').slice(-20) || 'x'}`,
+          kind: 'reddit' as const,
+          title: i.title ?? '',
+          description: `r/${i.sub ?? '?'} · ${i.sub_topic ?? ''}`,
+          lat: 0,
+          lng: 0,
+          timestamp: i.pub_date || new Date().toISOString(),
+          severity: 'low' as const,
+          source: `r/${i.sub ?? '?'}`,
+          url: i.link,
+        },
+      ];
+    } catch {
+      return [];
+    }
+  });
+}
+
+export function fromTelegram(data: {
+  items?: Array<{ text: string; channel_name: string; channel_topic: string; permalink: string; datetime: string }>;
+}): PulseEvent[] {
+  return (data.items ?? []).slice(0, 40).map((i) => ({
+    id: `tg-${i.permalink.slice(-20)}`,
+    kind: 'telegram' as const,
+    title: i.text.slice(0, 120) || `Message from ${i.channel_name}`,
+    description: `${i.channel_name} · ${i.channel_topic}`,
+    lat: 0,
+    lng: 0,
+    timestamp: i.datetime || new Date().toISOString(),
+    severity: 'low' as const,
+    source: `TG: ${i.channel_name}`,
+    url: i.permalink,
+  }));
+}
+
+export function fromXFeed(data: {
+  items?: Array<{
+    text: string;
+    handle_name: string;
+    platform: string;
+    handle_topic: string;
+    link: string;
+    pub_date: string;
+  }>;
+}): PulseEvent[] {
+  return (data.items ?? []).slice(0, 40).map((i) => ({
+    id: `x-${i.link.slice(-20)}`,
+    kind: 'x_feed' as const,
+    title: i.text.slice(0, 120) || `Post by ${i.handle_name}`,
+    description: `${i.handle_name} · ${i.platform} · ${i.handle_topic}`,
+    lat: 0,
+    lng: 0,
+    timestamp: i.pub_date || new Date().toISOString(),
+    severity: 'low' as const,
+    source: `${i.platform}: ${i.handle_name}`,
+    url: i.link,
+  }));
+}
+
+export function fromScam(data: { items?: Array<{ domain: string; tld: string }>; generated_at?: string }): PulseEvent[] {
+  return (data.items ?? []).slice(0, 30).map((i, idx) => ({
+    id: `scam-${i.domain}-${idx}`,
+    kind: 'scam' as const,
+    title: i.domain,
+    description: `Crypto scam/phishing domain · ${i.tld}`,
+    lat: 0,
+    lng: 0,
+    timestamp: data.generated_at || new Date().toISOString(),
+    severity: 'medium' as const,
+    source: 'Crypto Scam Feed',
+    url: `https://${i.domain}`,
+  }));
+}
+
+export function fromBreaches(data: {
+  breaches?: Array<{
+    name: string;
+    title: string;
+    pwn_count?: number;
+    added_date?: string;
+    breach_date?: string;
+    domain?: string;
+  }>;
+}): PulseEvent[] {
+  return (data.breaches ?? []).slice(0, 30).map((b) => ({
+    id: `breach-${b.name}`,
+    kind: 'breach' as const,
+    title: b.title,
+    description: `${(b.pwn_count ?? 0).toLocaleString()} accounts breached`,
+    // Breaches are global — no specific geo
+    lat: 0,
+    lng: 0,
+    timestamp: b.added_date || b.breach_date || new Date().toISOString(),
+    severity:
+      (b.pwn_count ?? 0) > 10_000_000
+        ? ('critical' as const)
+        : (b.pwn_count ?? 0) > 1_000_000
+          ? ('high' as const)
+          : ('medium' as const),
+    source: 'HIBP',
+    url: `https://haveibeenpwned.com/api/v3/breach/${b.name}`,
+  }));
+}
+
+export function fromBriefings(items: Array<{ slug: string; metadata: Record<string, unknown> }>): PulseEvent[] {
+  return items.slice(0, 10).map((b) => ({
+    id: `briefing-${b.slug}`,
+    kind: 'briefing' as const,
+    title: (b.metadata.title as string) ?? b.slug,
+    description: `${(b.metadata.type as string) ?? 'daily'} briefing · ${(b.metadata.findings as number) ?? 0} findings`,
+    lat: 0,
+    lng: 0,
+    timestamp: (b.metadata.date as string) ?? new Date().toISOString(),
+    severity: 'low' as const,
+    source: 'Briefings',
+    url: `/threatintel/briefings/${b.slug}`,
+  }));
+}
+
+export function fromLiveIocs(data: {
+  items?: Array<{ value: string; kind: string; source: string; observed_at?: string }>;
+}): PulseEvent[] {
+  return (data.items ?? []).slice(0, 50).flatMap((i, idx) => {
+    try {
+      return [
+        {
+          id: `liveioc-${idx}-${(i.value ?? '').slice(-15) || 'x'}`,
+          kind: 'cyber_attack' as const,
+          title: `${(i.kind ?? '').toUpperCase()}: ${(i.value ?? '').slice(0, 80)}`,
+          description: `Live IOC from ${i.source ?? 'unknown'}`,
+          lat: 0,
+          lng: 0,
+          timestamp: i.observed_at || new Date().toISOString(),
+          severity: 'high' as const,
+          source: i.source ?? 'unknown',
+          url: '/threatintel/live-iocs',
+        },
+      ];
+    } catch {
+      return [];
+    }
+  });
+}
+
+// ── GitHub secret leaks (secret-leaks) ──────────────────────────────────
+export function fromSecretLeaks(data: {
+  leaks?: Array<{ repo?: string; provider?: string; severity?: string; timestamp?: string; url?: string }>;
+}): PulseEvent[] {
+  return (data.leaks ?? []).slice(0, 25).map((l, i) => ({
+    id: `secret-${i}-${(l.repo ?? '').slice(-18)}`,
+    kind: 'secret_leak' as const,
+    title: l.repo || 'leaked secret',
+    description: `${l.provider ?? 'secret'} key leaked in public repo`,
+    lat: 0,
+    lng: 0,
+    timestamp: l.timestamp || new Date().toISOString(),
+    severity: asSev(l.severity, 'high'),
+    source: 'GitHub Leaks',
+    url: l.url,
+  }));
+}
+
+// ── Malicious packages (malicious-packages) ─────────────────────────────
+export function fromMaliciousPackages(data: {
+  packages?: Array<{ name?: string; ecosystem?: string; ossf_url?: string }>;
+}): PulseEvent[] {
+  return (data.packages ?? []).slice(0, 25).map((p, i) => ({
+    id: `malpkg-${i}-${(p.name ?? '').slice(-18)}`,
+    kind: 'malicious_package' as const,
+    title: p.name || 'malicious package',
+    description: `${p.ecosystem ?? 'package'} malware (OpenSSF)`,
+    lat: 0,
+    lng: 0,
+    timestamp: new Date().toISOString(),
+    severity: 'high' as const,
+    source: 'OpenSSF',
+    url: p.ossf_url,
+  }));
+}
+
+// ── Public exploits (exploit-db) ────────────────────────────────────────
+export function fromExploitDb(data: {
+  results?: Array<{ description?: string; type?: string; platform?: string; date?: string; url?: string }>;
+}): PulseEvent[] {
+  return (data.results ?? []).slice(0, 20).map((e, i) => ({
+    id: `exploit-${i}-${(e.description ?? '').slice(0, 18)}`,
+    kind: 'exploit' as const,
+    title: (e.description || 'exploit').slice(0, 120),
+    description: `${e.type ?? 'exploit'} · ${e.platform ?? 'multi'}`,
+    lat: 0,
+    lng: 0,
+    timestamp: e.date || new Date().toISOString(),
+    severity: 'high' as const,
+    source: 'Exploit-DB',
+    url: e.url,
+  }));
+}
+
+// ── GitHub security advisories (github-security) ────────────────────────
+export function fromGithubAdvisories(data: {
+  advisories?: Array<{
+    ghsa_id?: string;
+    summary?: string;
+    severity?: string;
+    published_at?: string;
+    vulnerabilities?: Array<{ package?: { ecosystem?: string; name?: string } }>;
+  }>;
+}): PulseEvent[] {
+  return (data.advisories ?? []).slice(0, 20).map((a, i) => {
+    const pkg = a.vulnerabilities?.[0]?.package;
+    return {
+      id: `ghsa-${i}-${(a.ghsa_id ?? '').slice(-18)}`,
+      kind: 'github_advisory' as const,
+      title: (a.summary || a.ghsa_id || 'advisory').slice(0, 120),
+      description: pkg ? `${pkg.ecosystem ?? ''}: ${pkg.name ?? ''}`.trim() : 'GitHub advisory',
+      lat: 0,
+      lng: 0,
+      timestamp: a.published_at || new Date().toISOString(),
+      severity: asSev(a.severity),
+      source: 'GitHub GHSA',
+      url: a.ghsa_id ? `https://github.com/advisories/${a.ghsa_id}` : undefined,
+    };
+  });
+}
+
+// ── CISA Known Exploited Vulnerabilities (cisa-kev) ─────────────────────
+export function fromCisaKev(data: {
+  vulnerabilities?: Array<{
+    cve_id?: string;
+    product?: string;
+    vulnerability_name?: string;
+    date_added?: string;
+    known_ransomware_campaign_use?: string;
+  }>;
+}): PulseEvent[] {
+  return (data.vulnerabilities ?? []).slice(0, 25).map((v, i) => ({
+    id: `kev-${i}-${v.cve_id ?? ''}`,
+    kind: 'kev' as const,
+    title: `${v.cve_id ?? ''} ${v.product ?? ''}`.trim() || 'KEV',
+    description: v.vulnerability_name || 'Known exploited vulnerability',
+    lat: 0,
+    lng: 0,
+    timestamp: v.date_added || new Date().toISOString(),
+    severity: v.known_ransomware_campaign_use === 'Known' ? ('critical' as const) : ('high' as const),
+    source: 'CISA KEV',
+    url: v.cve_id ? `https://nvd.nist.gov/vuln/detail/${v.cve_id}` : undefined,
+  }));
+}
+
+export function fromStealerForum(data: {
+  forums?: Array<{ category: string; entries?: Array<{ name: string; url?: string; status?: string }> }>;
+  chatter?: Array<{ text?: string; source?: string; date?: string }>;
+}): PulseEvent[] {
+  const events: PulseEvent[] = [];
+  for (const forum of data.forums ?? []) {
+    for (const entry of forum.entries ?? []) {
+      if (events.length >= 30) break;
+      events.push({
+        id: `stealer-${events.length}-${entry.name.slice(-15)}`,
+        kind: 'infostealer' as const,
+        title: entry.name.slice(0, 120),
+        description: `${forum.category} · ${entry.status || 'unknown'}`,
+        lat: 0,
+        lng: 0,
+        timestamp: new Date().toISOString(),
+        severity: 'high' as const,
+        source: forum.category,
+        url: entry.url,
+      });
+    }
+  }
+  return events;
+}
+
+export function fromPhishing(data: { urls?: Array<{ url: string; source?: string; first_seen?: string }> }): PulseEvent[] {
+  return (data.urls ?? []).slice(0, 30).map((i, idx) => ({
+    id: `phish-${idx}-${i.url.slice(-20)}`,
+    kind: 'phishing' as const,
+    title: i.url.slice(0, 100),
+    description: `Phishing URL from ${i.source || 'unknown'}`,
+    lat: 0,
+    lng: 0,
+    timestamp: i.first_seen || new Date().toISOString(),
+    severity: 'high' as const,
+    source: i.source || 'Phishing Feed',
+    url: i.url,
+  }));
+}
+
+export function fromMalware(data: {
+  samples?: Array<{ sha256: string; reporter?: string; first_seen?: string; file_type?: string; signature?: string }>;
+}): PulseEvent[] {
+  return (data.samples ?? []).slice(0, 20).map((i, idx) => ({
+    id: `malware-${idx}-${i.sha256.slice(-12)}`,
+    kind: 'malware' as const,
+    title: `Sample: ${i.sha256.slice(0, 16)}…`,
+    description: `${i.file_type || 'binary'} · ${i.signature || 'no signature'}`,
+    lat: 0,
+    lng: 0,
+    timestamp: i.first_seen || new Date().toISOString(),
+    severity: 'high' as const,
+    source: i.reporter || 'MalwareBazaar',
+  }));
+}
+
+export function fromRansomware(data: {
+  victims?: Array<{
+    victim: string;
+    group: string;
+    discovered: string;
+    country?: string;
+    sector?: string;
+    source_url?: string;
+  }>;
+}): PulseEvent[] {
+  return (data.victims ?? []).slice(0, 30).map((v) => {
+    // Look up coordinates from country name
+    const cc = countryNameToCode(v.country);
+    return {
+      id: `ransom-${v.victim}-${v.group}`,
+      kind: 'ransomware' as const,
+      title: `${v.victim} — ${v.group}`,
+      description: `${v.sector || 'Unknown'} sector · ${v.country || 'Unknown country'}`,
+      lat: cc ? (COUNTRY_COORDS[cc]?.[0] ?? 0) : 0,
+      lng: cc ? (COUNTRY_COORDS[cc]?.[1] ?? 0) : 0,
+      timestamp: v.discovered || new Date().toISOString(),
+      severity: 'critical' as const,
+      source: v.group,
+      url: v.source_url,
+      country: v.country,
+    };
+  });
+}
+
+export function fromCybercrime(data: {
+  items?: Array<{ title: string; source?: string; url?: string; date?: string; published?: string }>;
+}): PulseEvent[] {
+  return (data.items ?? []).slice(0, 30).map((i, idx) => ({
+    id: `crime-${idx}-${i.title.slice(-15)}`,
+    kind: 'cybercrime' as const,
+    title: i.title.slice(0, 120),
+    description: `Cybercrime intel from ${i.source || 'unknown'}`,
+    lat: 0,
+    lng: 0,
+    timestamp: i.published || i.date || new Date().toISOString(),
+    severity: 'medium' as const,
+    source: i.source || 'Cybercrime',
+    url: i.url,
+  }));
+}
+
+export function fromWriteups(data: {
+  items?: Array<{ title: string; source?: string; url?: string; published?: string }>;
+}): PulseEvent[] {
+  return (data.items ?? []).slice(0, 15).map((i, idx) => ({
+    id: `writeup-${idx}-${i.title.slice(-15)}`,
+    kind: 'research' as const,
+    title: i.title.slice(0, 120),
+    description: `Research from ${i.source || 'unknown'}`,
+    lat: 0,
+    lng: 0,
+    timestamp: i.published || new Date().toISOString(),
+    severity: 'low' as const,
+    source: i.source || 'Research',
+    url: i.url,
+  }));
+}
+
+export function fromCveRecent(data: {
+  cves?: Array<{
+    id: string;
+    severity: string;
+    score: number | null;
+    kev: boolean;
+    published: string;
+    description?: string;
+  }>;
+}): PulseEvent[] {
+  return (data.cves ?? []).slice(0, 20).map((c) => ({
+    id: `cve-${c.id}`,
+    kind: 'cve' as const,
+    title: c.id,
+    description: c.description?.slice(0, 120) || `CVSS ${c.score ?? 'N/A'} · ${c.kev ? 'KEV' : 'NVD'}`,
+    lat: 0,
+    lng: 0,
+    timestamp: c.published || new Date().toISOString(),
+    severity:
+      c.severity === 'CRITICAL'
+        ? ('critical' as const)
+        : c.severity === 'HIGH'
+          ? ('high' as const)
+          : ('medium' as const),
+    source: c.kev ? 'CISA KEV' : 'NVD',
+    url: `https://nvd.nist.gov/vuln/detail/${c.id}`,
+  }));
+}
+
+/* ─── X Claims (ransomware claims from Twitter) ──────────────────────────── */
+
+export function fromXClaims(data: XClaimsResponse): PulseEvent[] {
+  const events: PulseEvent[] = [];
+  for (const v of (data.ransomware ?? []).slice(0, 20)) {
+    events.push({
+      id: `xclaim-ransom-${v.victim}-${v.group}`,
+      kind: 'ransomware',
+      title: `${v.victim} — ${v.group} (X claim)`,
+      description: `${v.description || 'Ransomware claim from X/Twitter'} · ${v.sector || 'Unknown sector'}`,
+      lat: 0,
+      lng: 0,
+      timestamp: v.discovered || new Date().toISOString(),
+      severity: 'critical',
+      source: `X: ${v.group}`,
+      url: v.source_url,
+      country: v.country,
+    });
+  }
+  for (const [bi, b] of (data.breach ?? []).slice(0, 10).entries()) {
+    events.push({
+      id: `xclaim-breach-${b.discovered}-${b.victim?.slice(0, 20) || ''}-${bi}`,
+      kind: 'breach',
+      title: `Breach claim: ${b.victim || 'Unknown'}`,
+      description: b.text.slice(0, 120),
+      lat: 0,
+      lng: 0,
+      timestamp: b.discovered || new Date().toISOString(),
+      severity: 'high',
+      source: `X: @${b.handle}`,
+      url: b.source_url,
+    });
+  }
+  return events;
+}
+
+/* ─── Actor Timeline (threat actor activity) ──────────────────────────────── */
+
+export function fromActorTimeline(data: ActorTimelineResponse): PulseEvent[] {
+  return (data.groups ?? [])
+    .filter((g) => g.posts_in_window > 0)
+    .slice(0, 20)
+    .map((g) => ({
+      id: `actor-${g.slug}`,
+      kind: 'actor_sighting',
+      title: `${g.display_name} — ${g.posts_in_window} posts (30d)`,
+      description: `${g.raas ? 'RaaS · ' : ''}${g.description?.slice(0, 100) || 'Active threat actor group'}${g.mitre ? ` · MITRE: ${g.mitre.name}` : ''}`,
+      lat: 0,
+      lng: 0,
+      timestamp: new Date(data.generated_at).toISOString(),
+      severity: g.posts_in_window > 100 ? 'critical' : g.posts_in_window > 20 ? 'high' : 'medium',
+      source: 'Actor Timeline',
+    }));
+}
+
+/* ─── IOC Correlation (cross-feed IOCs) ──────────────────────────────────── */
+
+export function fromIocCorrelation(data: IocCorrelationResponse): PulseEvent[] {
+  const events: PulseEvent[] = [];
+  const byKind = { ips: 'ip', urls: 'url', domains: 'domain', hashes: 'hash' } as const;
+  for (const [key, kind] of Object.entries(byKind)) {
+    const items = (data as unknown as Record<string, unknown>)[key] as Array<{
+      value: string;
+      source_count: number;
+      sources: string[];
+      context?: string;
+      last_seen?: string;
+    }>;
+    for (const i of (items ?? []).filter((i) => i.source_count >= 2).slice(0, 10)) {
+      events.push({
+        id: `ioc-corr-${kind}-${i.value.slice(0, 20)}`,
+        kind: 'ioc_correlation',
+        title: `${kind.toUpperCase()}: ${i.value.slice(0, 80)}`,
+        description: `Cross-feed IOC (${i.source_count} sources) · ${i.context || 'No context'}`,
+        lat: 0,
+        lng: 0,
+        timestamp: i.last_seen || data.generated_at,
+        severity: i.source_count >= 5 ? 'critical' : i.source_count >= 3 ? 'high' : 'medium',
+        source: i.sources[0] || 'IOC Correlation',
+      });
+    }
+  }
+  return events;
+}

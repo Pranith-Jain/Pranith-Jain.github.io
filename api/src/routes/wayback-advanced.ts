@@ -134,7 +134,7 @@ const SUSPICIOUS_PATH_PATTERNS = [
 
 function analyzeSecurityIndicators(
   entries: WaybackEntry[],
-  domain: string
+  _domain: string
 ): WaybackAdvancedResponse['analysis']['security_indicators'] {
   const httpToHttps = entries.some((e) => e.original?.startsWith('http://') && !e.original?.includes('https://'));
   const suspiciousPaths: string[] = [];

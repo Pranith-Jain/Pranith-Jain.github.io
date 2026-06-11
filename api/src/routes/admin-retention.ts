@@ -20,6 +20,7 @@ import type { Env } from '../env';
 import { requireAdmin } from '../lib/admin-auth';
 import { badRequest, internalError } from '../lib/api-error';
 import { auditAdminAction } from '../lib/admin-audit';
+import { safeNullLog } from '../lib/safe-catch';
 import { runRetentionSweep, DEFAULT_RETENTION_DAYS } from '../lib/retention';
 import { z } from 'zod';
 
@@ -34,7 +35,7 @@ export async function runRetentionHandler(c: Context<{ Bindings: Env }>): Promis
 
   let body: { days?: number; dry_run?: boolean } = {};
   if (c.req.method === 'POST') {
-    const raw = await c.req.json().catch(() => null);
+    const raw = await safeNullLog('parse-body-admin-retention', c.req.json());
     if (raw) {
       const parsed = schema.safeParse(raw);
       if (!parsed.success) return badRequest(c, parsed.error.issues.map((i) => i.message).join('; '));

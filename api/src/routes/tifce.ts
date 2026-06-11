@@ -3,6 +3,7 @@ import type { Env } from '../env';
 import type { D1Database } from '@cloudflare/workers-types';
 import { fetchIocCorrelation } from './ioc-correlation';
 import { fetchLiveIocs, type LiveIocsResponse, type LiveIoc, type LiveSource } from './live-iocs';
+import { safeNullLog } from '../lib/safe-catch';
 import { scoreAllFeeds, type FeedContribution, type TifceHistoryRow, type TifceResult } from '../lib/tifce';
 import { trackEvent, visitorCountry } from '../lib/analytics';
 
@@ -55,8 +56,8 @@ export async function feedQualityHandler(c: Context<{ Bindings: Env }>): Promise
   // degrades the relevant pillar (env-relevance / freshness) but does not
   // crash the whole route.
   const [correlation, live] = await Promise.all([
-    fetchIocCorrelation(c.env).catch(() => null),
-    fetchLiveIocs(c.executionCtx, c.env.KV_CACHE, c.env).catch(() => null),
+    safeNullLog('fetch-ioc-correlation', fetchIocCorrelation(c.env)),
+    safeNullLog('fetch-live-iocs', fetchLiveIocs(c.executionCtx, c.env.KV_CACHE, c.env)),
   ]);
 
   if (!live) {
@@ -274,14 +275,14 @@ async function loadDetectionFiredSet(env: Env): Promise<Set<string>> {
     } while (cursor);
 
     if (cache && set.size > 0) {
-      cache
-        .put(
+      safeNullLog('cache-put-tifce-detection',
+        cache.put(
           new Request(CACHE_KEY),
           new Response(JSON.stringify([...set]), {
             headers: { 'cache-control': `max-age=${300}` },
           })
         )
-        .catch(() => {});
+      );
     }
     return set;
   } catch (err) {

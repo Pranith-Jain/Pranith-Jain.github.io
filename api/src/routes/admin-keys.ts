@@ -8,6 +8,7 @@ import type { Env } from '../env';
 import { requireAdmin, safeEqual } from '../lib/admin-auth';
 import { generateApiKey, revokeApiKey, listApiKeys } from '../lib/auth';
 import { badRequest, internalError } from '../lib/api-error';
+import { safeNullLog } from '../lib/safe-catch';
 import { auditAdminAction } from '../lib/admin-audit';
 import { z } from 'zod';
 
@@ -46,7 +47,7 @@ export async function createSessionHandler(c: Context<{ Bindings: Env }>): Promi
   const required = c.env.ADMIN_TOKEN;
   if (!required) return c.json({ error: 'admin endpoint disabled' }, 403);
 
-  const body = await c.req.json().catch(() => null);
+  const body = await safeNullLog('parse-body-admin-session', c.req.json());
   const token = body?.token;
   if (typeof token !== 'string' || !token) {
     return badRequest(c, 'token field required');
@@ -87,7 +88,7 @@ export async function createApiKeyHandler(c: Context<{ Bindings: Env }>): Promis
   const db = c.env.BRIEFINGS_DB;
   if (!db) return internalError(c, new Error('BRIEFINGS_DB not bound'));
 
-  const body = await c.req.json().catch(() => null);
+  const body = await safeNullLog('parse-body-admin-create-key', c.req.json());
   const parsed = createKeySchema.safeParse(body);
   if (!parsed.success) return badRequest(c, parsed.error.issues.map((i) => i.message).join('; '));
 

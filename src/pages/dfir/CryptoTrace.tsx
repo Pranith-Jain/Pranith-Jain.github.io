@@ -167,7 +167,7 @@ export default function CryptoTrace(): JSX.Element {
       initialDone.current = true;
       void lookup(initial);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps — Intentional: mount-only effect
   }, []);
 
   const explorerLinks = useMemo(() => {

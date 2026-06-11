@@ -5,6 +5,7 @@ import type { D1Database } from '@cloudflare/workers-types';
 import { LIVE_IOCS_CACHE_KEY } from '../routes/live-iocs';
 import { RANSOMWARE_RECENT_CACHE_KEY } from '../routes/ransomware-recent';
 import { pinnedFetch } from './ssrf-guard';
+import { safeNullLog } from './safe-catch';
 
 export interface Watch {
   id: string;
@@ -70,7 +71,7 @@ export async function listWatches(kv: KVNamespace, db?: D1Database): Promise<Wat
       /* fall through to KV */
     }
   }
-  const raw = await kv.get(WATCHES_KV_KEY, 'json').catch(() => null);
+  const raw = await safeNullLog('kv-get-watches', kv.get(WATCHES_KV_KEY, 'json'));
   return (raw as Watch[]) ?? [];
 }
 
@@ -127,7 +128,7 @@ export async function appendAlertLog(kv: KVNamespace, event: AlertEvent, db?: D1
       /* fall through to KV */
     }
   }
-  const raw = await kv.get(ALERT_LOG_KV_KEY, 'json').catch(() => null);
+  const raw = await safeNullLog('kv-get-alert-log', kv.get(ALERT_LOG_KV_KEY, 'json'));
   const log = (raw as AlertEvent[]) ?? [];
   log.unshift(event);
   if (log.length > 200) log.length = 200;
@@ -147,7 +148,7 @@ export async function getAlertLog(kv: KVNamespace, db?: D1Database, limit: numbe
       /* fall through to KV */
     }
   }
-  const raw = await kv.get(ALERT_LOG_KV_KEY, 'json').catch(() => null);
+  const raw = await safeNullLog('kv-get-alert-log-list', kv.get(ALERT_LOG_KV_KEY, 'json'));
   return (raw as AlertEvent[]) ?? [];
 }
 
@@ -311,7 +312,7 @@ export async function checkWatches(kv: KVNamespace, now: string, db?: D1Database
     }
 
     try {
-      const raw = await kv.get(ALERT_LOG_KV_KEY, 'json').catch(() => null);
+      const raw = await safeNullLog('kv-get-alert-log-trigger', kv.get(ALERT_LOG_KV_KEY, 'json'));
       const log = (raw as AlertEvent[]) ?? [];
       for (const event of alerts) log.unshift(event);
       if (log.length > 200) log.length = 200;

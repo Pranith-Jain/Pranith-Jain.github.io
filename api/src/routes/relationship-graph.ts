@@ -1,6 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { buildGraph, type GraphResponse } from '../lib/relationship-graph';
+import { safeNullLog } from '../lib/safe-catch';
 import { shouldWriteLastGood } from '../lib/lastgood-debounce';
 
 const CACHE_TTL = 600; // 10 min edge cache
@@ -23,7 +24,7 @@ export async function relationshipGraphHandler(c: Context<{ Bindings: Env }>): P
   // 1. Cache API (per-colo, free, no KV cost) — primary cache
   const edgeCache = caches.default;
   const edgeReq = new Request(`https://relgraph-cache.internal/v1/${encodeURIComponent(cacheKey)}`);
-  const edgeHit = await edgeCache.match(edgeReq).catch(() => null);
+  const edgeHit = await safeNullLog('cache-match-relgraph', edgeCache.match(edgeReq));
   if (edgeHit) {
     return new Response(edgeHit.body, {
       status: 200,

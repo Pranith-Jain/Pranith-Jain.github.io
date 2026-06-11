@@ -34,7 +34,7 @@ import { autoRunFeedJobs } from '../api/src/routes/feed-scheduler';
 import { enqueueAllFeeds } from '../api/src/routes/live-iocs';
 import { enqueueGpFeeds } from '../api/src/routes/global-pulse';
 import type { D1Database } from '@cloudflare/workers-types';
-import { acquireCronLease, releaseCronLease } from './durable-objects/cron-lock';
+import { acquireCronLease, releaseCronLease, heartbeatCronLease } from './durable-objects/cron-lock';
 
 // Lease TTL for the cron single-flight gate. Generous so it covers the
 // worst-case job window (the briefing build runs well past the old 120s) —
@@ -98,72 +98,6 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
     console.log(JSON.stringify({ job: 'cron-done', cron, duration_ms: Date.now() - startMs, ...extra }));
   };
 
-  // Hourly cache-warm cron — also run the publisher + Telegram archive +
-  // intel-bundle warmer.
-  if (csCron === '0 * * * *') {
-    // ── gp:warm via queue (one feed per consumer invocation) ─────────────
-    // The old inline warmer fanned out to ~15 feeds in THIS single cron
-    // invocation, which blew the Free-plan 50-subrequest cap ("Too many
-    // subrequests by single Worker invocation") and starved the rest of the
-    // hourly cron (telegram-archive, the briefing LLM, the usgs cache). Warming
-    // is now ENQUEUED: the queue consumer fetches one feed per message in its
-    // OWN invocation (its own 50-subrequest budget) and writes `gp:warm:<key>`.
-    // Enqueue is cheap (queue sends only), so it no longer competes for budget.
-    // delaySeconds stagger (see enqueueGpFeeds) keeps each feed in its own batch.
-    if (env.FEEDS_QUEUE) {
-      ctx.waitUntil(enqueueGpFeeds(env.FEEDS_QUEUE, csNow.getUTCHours()).catch(logCronFail('gp-warm-enqueue')));
-    }
-
-    ctx.waitUntil(runPublisherNow(env as unknown as CaseStudyEnv, csNow).catch(logCronFail('publisher')));
-    ctx.waitUntil(runTelegramArchive(env as unknown as ApiEnv).catch(logCronFail('telegram-archive')));
-    // Live-IOC slice warmer — enqueue a per-source refresh so the live-iocs
-    // page composes from fresh KV slices instead of paying the synchronous
-    // fan-out on a cold cache (PR3). Idle backstop; the handler also enqueues
-    // (debounced) on cache miss during active use.
-    if (env.FEEDS_QUEUE) {
-      ctx.waitUntil(enqueueAllFeeds(env.FEEDS_QUEUE).catch(logCronFail('live-iocs-enqueue')));
-    }
-    ctx.waitUntil(
-      warmIntelBundles(env as unknown as ApiEnv)
-        .then((r) =>
-          console.log(
-            JSON.stringify({
-              job: 'intel-bundle-warm',
-              built: r.built.length,
-              failed: r.failed.length,
-              has_more: r.hasMore,
-              slugs: r.built,
-              llm_ran: r.llmRan,
-              llm_partial: r.llmPartial,
-            })
-          )
-        )
-        .catch(logCronFail('intel-bundle-warm'))
-    );
-
-    // Victim re-leaks: precompute the heavy ~20s ransomlook fan-out OFF the
-    // request path, every 6h (aligned to the 6h edge-cache TTL), and park it in
-    // KV. The handler then serves KV in ~10ms instead of doing the slow compute
-    // while a user waits — which was intermittently tripping Cloudflare's
-    // request-duration limit and 500ing (and that 500 got edge-cached for 6h).
-    if (csNow.getUTCHours() % 6 === 3) {
-      ctx.waitUntil(
-        refreshVictimReleaksCache(env as unknown as ApiEnv)
-          .then((b) =>
-            console.log(
-              JSON.stringify({
-                job: 'victim-releaks-refresh',
-                releaks: b.releaks.length,
-                groups: b.groups_scanned,
-                warnings: b.warnings.length,
-              })
-            )
-          )
-          .catch(logCronFail('victim-releaks-refresh'))
-      );
-    }
-  }
-
   // Case-study discovery + planner — single daily invocation. Discovery
   // populates today's candidate queue; the planner runs immediately after
   // against the just-updated backlog so the day's first publish slot has
@@ -199,6 +133,12 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
     ctx.waitUntil(
       (async () => {
         const db = env.BRIEFINGS_DB as D1Database | undefined;
+        // Heartbeat the cron lease every 5 min so long-running jobs
+        // (briefing builds, intel bundles) don't lose the lease.
+        const heartbeatInt = setInterval(() => {
+          if (lease.token) heartbeatCronLease(env, cron, lease.token, CRON_LEASE_TTL_MS).catch(() => {});
+        }, 5 * 60_000);
+        const stopHeartbeat = () => clearInterval(heartbeatInt);
 
         // === Telegram leak scanning — FIRST, before anything else hits t.me ===
         // Telegram throttles repeated scrape bursts from the same egress IP. The
@@ -258,6 +198,39 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
               error: e instanceof Error ? e.message : String(e),
             })
           );
+        }
+
+        // ── Case-study publisher + Telegram archive + intel-bundle warm ─────
+        // These were previously in a separate `0 * * * *` block with a shared
+        // lease but no coordination — merged here so one lease + one heartbeat
+        // covers all hourly work.
+        try {
+          if (env.FEEDS_QUEUE) {
+            ctx.waitUntil(enqueueGpFeeds(env.FEEDS_QUEUE, csNow.getUTCHours()).catch(logCronFail('gp-warm-enqueue')));
+          }
+          ctx.waitUntil(runPublisherNow(env as unknown as CaseStudyEnv, csNow).catch(logCronFail('publisher')));
+          ctx.waitUntil(runTelegramArchive(env as unknown as ApiEnv).catch(logCronFail('telegram-archive')));
+          if (env.FEEDS_QUEUE) {
+            ctx.waitUntil(enqueueAllFeeds(env.FEEDS_QUEUE).catch(logCronFail('live-iocs-enqueue')));
+          }
+          ctx.waitUntil(
+            warmIntelBundles(env as unknown as ApiEnv)
+              .then((r) =>
+                console.log(JSON.stringify({ job: 'intel-bundle-warm', built: r.built.length, failed: r.failed.length, has_more: r.hasMore, slugs: r.built, llm_ran: r.llmRan, llm_partial: r.llmPartial }))
+              )
+              .catch(logCronFail('intel-bundle-warm'))
+          );
+          if (csNow.getUTCHours() % 6 === 3) {
+            ctx.waitUntil(
+              refreshVictimReleaksCache(env as unknown as ApiEnv)
+                .then((b) =>
+                  console.log(JSON.stringify({ job: 'victim-releaks-refresh', releaks: b.releaks.length, groups: b.groups_scanned, warnings: b.warnings.length }))
+                )
+                .catch(logCronFail('victim-releaks-refresh'))
+            );
+          }
+        } catch (e) {
+          logCronFail('publisher-bundle')(e);
         }
 
         // Briefing self-heal runs at the END of this hourly invocation —
@@ -730,6 +703,7 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
             logCronFail('retention-sweep')(e);
           }
         }
+        stopHeartbeat();
       })()
         .catch(logCronFail('hourly-cron'))
         .finally(releaseLease)
@@ -753,16 +727,16 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
   }
 
   // Monthly threat landscape report — fires 1st of the month at 02:30 UTC.
-  // NOTE: cron is intentionally NOT registered in wrangler.jsonc because the
-  // Cloudflare free plan caps triggers at 5 and we have 5 other scheduled
-  // jobs that are more frequent. Landscape reports are built on-demand via
-  // POST /api/v1/briefings/build?type=landscape (admin token). The handler
-  // below is preserved so the cron can be re-enabled in one line if the
-  // plan limit changes.
+  // Now registered in wrangler.jsonc (free plan allows 5 triggers; we have 5).
+  // Landscape reports can also be built on-demand via
+  // POST /api/v1/briefings/build?type=landscape (admin token).
   // Reuses the briefings table with type='landscape'. Idempotent: a row
   // for the current month (if already written) is left in place.
   if (cron === '30 2 1 * *') {
     const db = env.BRIEFINGS_DB as D1Database;
+    const landscapeHrt = setInterval(() => {
+      if (lease.token) heartbeatCronLease(env, cron, lease.token, CRON_LEASE_TTL_MS).catch(() => {});
+    }, 5 * 60_000);
     ctx.waitUntil(
       (async () => {
         const slug = expectedLandscapeSlug();
@@ -788,6 +762,7 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
             })
           );
         }
+        clearInterval(landscapeHrt);
         logCronDone({ path: 'briefing-dedicated', type: 'landscape' });
       })()
         .catch(logCronFail('landscape-dedicated'))
@@ -799,6 +774,9 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
   const isWeekly = cron === '45 0 * * 1';
   const type = isWeekly ? 'weekly' : 'daily';
 
+  const briefingHrt = setInterval(() => {
+    if (lease.token) heartbeatCronLease(env, cron, lease.token, CRON_LEASE_TTL_MS).catch(() => {});
+  }, 5 * 60_000);
   ctx.waitUntil(
     (async () => {
       const db = env.BRIEFINGS_DB as D1Database;
@@ -848,6 +826,7 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
           })
         );
       }
+      clearInterval(briefingHrt);
       logCronDone({ path: 'briefing-dedicated', type });
     })()
       .catch(logCronFail('briefing-dedicated'))

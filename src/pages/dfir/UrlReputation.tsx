@@ -52,7 +52,7 @@ export default function UrlReputation(): JSX.Element {
   useEffect(() => {
     if (initialUrl && URL_RE.test(initialUrl)) runCheck();
     return () => cancelRef.current?.();
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps — Intentional: mount-only effect
 
   const domain = useMemo(() => {
     try {

@@ -49,7 +49,6 @@ interface CTLogResponse {
   timestamp: string;
 }
 
-const CACHE_TTL = 3600;
 const CRT_SH_TIMEOUT = 15_000;
 // crt.sh is fronted by a flaky Postgres+web tier and 502s/503s under load
 // far more often than IA. One short retry catches the bulk of those blips

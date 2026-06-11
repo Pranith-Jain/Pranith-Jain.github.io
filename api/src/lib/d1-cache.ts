@@ -8,6 +8,7 @@
  * dashboards and read-only pages; not suitable for writes or user-specific data.
  */
 
+import { safeNullLog } from './safe-catch';
 const QUERY_CACHE_TTL = 30; // seconds
 
 /**
@@ -88,7 +89,7 @@ export async function cachedRun<T = Record<string, unknown>>(
       'cache-control': `public, max-age=${ttlSeconds}`,
       'x-cached-at': String(Date.now()),
     };
-    caches.default.put(new Request(key), new Response(body, { headers })).catch(() => {});
+    safeNullLog('cache-put-d1', caches.default.put(new Request(key), new Response(body, { headers })));
   }
 
   return result;

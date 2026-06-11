@@ -160,7 +160,7 @@ export default function CvePrioritizer(): JSX.Element {
 
   useEffect(() => {
     if (initial) void run();
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps — Intentional: mount-only effect
 
   /** Re-derive verdict + score whenever context changes — no re-fetch. */
   const decoratedRows = useMemo<Row[]>(() => {

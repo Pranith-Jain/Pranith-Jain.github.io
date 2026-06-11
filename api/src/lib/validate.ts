@@ -18,6 +18,7 @@ import type { Context, MiddlewareHandler, Next } from 'hono';
 import type { Env } from '../env';
 import type { ZodSchema } from 'zod';
 import { validationError } from './api-error';
+import { safeNullLog } from './safe-catch';
 
 type Source = 'json' | 'query' | 'form';
 
@@ -30,13 +31,13 @@ export function validate<T>(source: Source, schema: ZodSchema<T>): MiddlewareHan
     let input: unknown;
     switch (source) {
       case 'json':
-        input = await c.req.json().catch(() => null);
+        input = await safeNullLog('parse-body-validate-json', c.req.json());
         break;
       case 'query':
         input = c.req.query();
         break;
       case 'form':
-        input = await c.req.parseBody().catch(() => null);
+        input = await safeNullLog('parse-body-validate-form', c.req.parseBody());
         break;
     }
 

@@ -23,10 +23,11 @@
 
 import type { Env } from '../env';
 import type { IndicatorType } from './indicator';
+import { safeNull } from './safe-catch';
 import { ProviderCache } from './cache';
 import { compositeScore } from './scoring';
 import { BULK_ADAPTERS, PROVIDER_SUPPORT } from '../providers';
-import type { Indicator, ProviderAdapter, ProviderId, ProviderResult } from '../providers/types';
+import type { Indicator, ProviderId, ProviderResult } from '../providers/types';
 
 const BULK_PROVIDER_TIMEOUT_MS = 3000;
 
@@ -301,10 +302,9 @@ export async function enrichBulk(
     primed
       .filter((indicator) => touched.has(ikey(indicator)))
       .map((indicator) =>
-        caches
+        safeNull(caches
           .get(ikey(indicator))!
-          .flushBatch(indicator)
-          .catch(() => {})
+          .flushBatch(indicator))
       )
   );
 

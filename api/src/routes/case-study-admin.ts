@@ -35,7 +35,6 @@ import {
   generateSocialContent,
   generateTwitterContent,
   generateLinkedinContent,
-  generateSocialFromCandidate,
   generateTwitterFromCandidate,
   generateLinkedinFromCandidate,
   generateTwitterFromNotes,

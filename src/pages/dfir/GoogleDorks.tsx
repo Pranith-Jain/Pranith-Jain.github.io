@@ -100,7 +100,7 @@ export default function GoogleDorks(): JSX.Element {
   // shareable dork links.
   useEffect(() => {
     if (initialQuery.trim()) void runSearch(initialQuery, num);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps — Intentional: mount-only effect
   }, []);
 
   // Reset copied-badge after a tick.

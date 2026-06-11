@@ -4,7 +4,7 @@
  */
 import type { Ai } from '@cloudflare/workers-types';
 import { runCompletion, type CompletionInput } from '../../case-study/generation/ai-client';
-import type { AgentStep, AgentToolResult } from './types';
+import type { AgentToolResult } from './types';
 import { buildObserverPrompt } from './prompts';
 import { summarizeToolResult } from './tools';
 

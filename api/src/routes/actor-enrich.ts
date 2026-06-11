@@ -1,6 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { cvesForActor } from '../lib/cve-actor-mapping';
+import { safeNullLog } from '../lib/safe-catch';
 
 const MALPEDIA_BASE = 'https://malpedia.caad.fkie.fraunhofer.de';
 
@@ -164,14 +165,12 @@ export async function actorEnrichHandler(c: Context<{ Bindings: Env }>): Promise
     }
 
     // --- Maltrail: match trail files against query terms ---
-    const maltrailListRes = await fetch(
-      `https://api.github.com/repos/stamparm/maltrail/contents/trails/static/malware`,
-      {
+    const maltrailListRes = await safeNullLog('fetch-maltrail',
+      fetch(`https://api.github.com/repos/stamparm/maltrail/contents/trails/static/malware`, {
         headers: { Accept: 'application/vnd.github.v3+json', 'User-Agent': 'pranithjain.qzz.io' },
         signal: AbortSignal.timeout(15_000),
-      }
-    ).catch(() => null);
-
+      })
+    );
     if (maltrailListRes?.ok) {
       const files = (await maltrailListRes.json()) as Array<{ name: string; path: string; size: number; type: string }>;
       const trailFiles = (Array.isArray(files) ? files : []).filter(
@@ -193,13 +192,12 @@ export async function actorEnrichHandler(c: Context<{ Bindings: Env }>): Promise
     // --- OTX: search pulses ---
     const otxKey = c.env.OTX_API_KEY;
     if (otxKey) {
-      const otxRes = await fetch(
-        `https://otx.alienvault.com/api/v1/search/pulses?q=${encodeURIComponent(name.trim())}`,
-        {
+      const otxRes = await safeNullLog('fetch-otx',
+        fetch(`https://otx.alienvault.com/api/v1/search/pulses?q=${encodeURIComponent(name.trim())}`, {
           headers: { 'X-OTX-API-KEY': otxKey },
           signal: AbortSignal.timeout(25_000),
-        }
-      ).catch(() => null);
+        })
+      );
 
       if (otxRes?.ok) {
         const otxJson = (await otxRes.json()) as {

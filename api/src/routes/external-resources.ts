@@ -2,6 +2,7 @@ import type { Context } from 'hono';
 import type { Env } from '../env';
 import { safeJsonBody } from '../lib/safe-body';
 import { requireAdmin } from '../lib/admin-auth';
+import { safeNullLog } from '../lib/safe-catch';
 
 /**
  * Runtime-editable layer on top of the static External Resources catalog
@@ -79,12 +80,12 @@ async function readDynamic(kv: KVNamespace): Promise<ExternalResource[]> {
   if (!raw || !Array.isArray(raw)) return [];
   const items = raw as ExternalResource[];
   if (cache && items.length > 0) {
-    cache
-      .put(
+    safeNullLog('cache-put-ext-resources',
+      cache.put(
         RES_CACHE_KEY,
         new Response(JSON.stringify(items), { headers: { 'cache-control': `max-age=${RES_CACHE_TTL}` } })
       )
-      .catch(() => {});
+    );
   }
   return items;
 }
@@ -93,12 +94,12 @@ async function writeDynamic(kv: KVNamespace, items: ExternalResource[]): Promise
   await kv.put(KV_KEY, JSON.stringify(items));
   const cache = resCacheApi();
   if (cache) {
-    cache
-      .put(
+    safeNullLog('cache-put-ext-resources-save',
+      cache.put(
         RES_CACHE_KEY,
         new Response(JSON.stringify(items), { headers: { 'cache-control': `max-age=${RES_CACHE_TTL}` } })
       )
-      .catch(() => {});
+    );
   }
 }
 

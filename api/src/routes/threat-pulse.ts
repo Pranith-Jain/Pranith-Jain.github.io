@@ -1,6 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { getSiteUrl } from '../lib/site-config';
+import { safeNullLog } from '../lib/safe-catch';
 import { fetchTelegramFeed, TELEGRAM_FEED_CACHE_KEY } from './telegram-feed';
 import { fetchWriteups, WRITEUPS_CACHE_KEY } from './writeups';
 import { fetchCybercrime, CYBERCRIME_CACHE_KEY } from './cybercrime';
@@ -503,6 +504,6 @@ export async function threatPulseHandler(c: Context<{ Bindings: Env }>): Promise
     'Cache-Control': `public, max-age=${CACHE_TTL}`,
     'x-cache': 'MISS',
   });
-  c.executionCtx.waitUntil(cache.put(cacheReq, response.clone()).catch(() => {}));
+  c.executionCtx.waitUntil(safeNullLog('cache-put-threat-pulse', cache.put(cacheReq, response.clone())));
   return response;
 }

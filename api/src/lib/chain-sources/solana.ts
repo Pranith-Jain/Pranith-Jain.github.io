@@ -24,6 +24,7 @@ export const RE_SOLANA = /^[1-9A-HJ-NP-Za-km-z]{32,44}$/;
 
 const RPCS = ['https://solana-rpc.publicnode.com', 'https://api.mainnet-beta.solana.com'];
 const SIG_LIMIT = 10;
+import { safeNullLog } from '../safe-catch';
 const FETCH_TIMEOUT = 10_000;
 
 /** Mainnet mints worth labelling; everything else shows as 'SPL'. */
@@ -201,7 +202,7 @@ async function rpc<T>(method: string, params: unknown[]): Promise<T | null> {
       });
       clearTimeout(timer);
       if (!res.ok) continue;
-      const j = (await res.json().catch(() => null)) as RpcResp<T> | null;
+      const j = (await safeNullLog('solana-rpc-json', res.json())) as RpcResp<T> | null;
       if (j && 'result' in j) return j.result ?? null;
     } catch {
       /* try next RPC */
@@ -230,7 +231,7 @@ async function batchGetTransactions(signatures: string[]): Promise<unknown[]> {
       });
       clearTimeout(timer);
       if (!res.ok) continue;
-      const arr = (await res.json().catch(() => null)) as Array<{ result?: unknown }> | null;
+      const arr = (await safeNullLog('solana-batch-json', res.json())) as Array<{ result?: unknown }> | null;
       if (Array.isArray(arr)) return arr.map((e) => e?.result ?? null);
     } catch {
       /* try next RPC */

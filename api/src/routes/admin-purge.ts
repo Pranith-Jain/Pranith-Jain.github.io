@@ -20,6 +20,7 @@ import type { Env } from '../env';
 import { requireAdmin } from '../lib/admin-auth';
 import { badRequest, internalError, serviceUnavailable } from '../lib/api-error';
 import { auditAdminAction } from '../lib/admin-audit';
+import { safeNullLog } from '../lib/safe-catch';
 import { z } from 'zod';
 
 const purgeSchema = z
@@ -35,7 +36,7 @@ export async function purgeCacheHandler(c: Context<{ Bindings: Env }>): Promise<
   const gate = requireAdmin(c);
   if ('error' in gate) return gate.error;
 
-  const body = await c.req.json().catch(() => null);
+  const body = await safeNullLog('parse-body-admin-purge', c.req.json());
   const parsed = purgeSchema.safeParse(body);
   if (!parsed.success) return badRequest(c, parsed.error.issues.map((i) => i.message).join('; '));
 

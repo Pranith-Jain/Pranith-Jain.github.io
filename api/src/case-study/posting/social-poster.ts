@@ -114,8 +114,6 @@ export async function postToLinkedin(text: string, accessToken: string): Promise
 
   const parts = splitSocialParts(text);
   const bodyText = parts.body.trim();
-  const linkText = parts.link?.value ?? '';
-
   if (!bodyText) {
     return { ok: false, platform: 'linkedin', error: 'empty_content' };
   }

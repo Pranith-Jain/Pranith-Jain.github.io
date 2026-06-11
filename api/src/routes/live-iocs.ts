@@ -2,6 +2,7 @@ import type { Context } from 'hono';
 import type { Env } from '../env';
 import type { D1Database, Queue } from '@cloudflare/workers-types';
 import { shouldWriteLastGood } from '../lib/lastgood-debounce';
+import { safeNullLog } from '../lib/safe-catch';
 import { readLastGood } from '../lib/lastgood';
 import { concurrentMap } from '../lib/concurrent-map';
 import { readSlice, type FeedQueueMessage } from '../lib/live-iocs-slices';
@@ -320,7 +321,7 @@ const tweetfeedSource: FeedSource = {
 const malwarebazaarSource: FeedSource = {
   id: 'malwarebazaar',
   run: async ({ executionCtx }) => {
-    const malwareBazaarResult = await fetchMalwareSamplesCached(executionCtx).catch(() => null);
+    const malwareBazaarResult = await safeNullLog('fetch-malwarebazaar', fetchMalwareSamplesCached(executionCtx));
     const items: LiveIoc[] = [];
     if (!malwareBazaarResult) return { items, sources: [{ id: 'malwarebazaar', ok: false, count: 0 }] };
     let count = 0;
@@ -346,7 +347,7 @@ const malwarebazaarSource: FeedSource = {
 const phishingSource: FeedSource = {
   id: 'phishing',
   run: async ({ executionCtx, kv }) => {
-    const phishingResult = await fetchPhishingUrlsCached(executionCtx, kv).catch(() => null);
+    const phishingResult = await safeNullLog('fetch-phishing', fetchPhishingUrlsCached(executionCtx, kv));
     const items: LiveIoc[] = [];
     if (!phishingResult) {
       return {
@@ -387,7 +388,7 @@ const phishingSource: FeedSource = {
 const cryptoScamSource: FeedSource = {
   id: 'crypto-scam',
   run: async ({ executionCtx, kv }) => {
-    const result = await fetchCryptoScamCached(executionCtx, kv).catch(() => null);
+    const result = await safeNullLog('fetch-crypto-scam', fetchCryptoScamCached(executionCtx, kv));
     const items: LiveIoc[] = [];
     if (!result) return { items, sources: [{ id: 'crypto-scam', ok: false, count: 0 }] };
     for (const it of result.items.slice(0, PER_FEED_CAP)) {
@@ -469,7 +470,7 @@ const andreafortunaSource: FeedSource = {
 const mythreatintelSource: FeedSource = {
   id: 'mythreatintel',
   run: async ({ env }) => {
-    const mtiIocResult = env ? await fetchMtiSource(env, 'iocs', { limit: PER_FEED_CAP }).catch(() => null) : null;
+    const mtiIocResult = env ? await safeNullLog('fetch-mti-iocs', fetchMtiSource(env, 'iocs', { limit: PER_FEED_CAP })) : null;
     const items: LiveIoc[] = [];
     if (!(mtiIocResult && mtiIocResult.ok && mtiIocResult.items.length > 0)) {
       return { items, sources: [{ id: 'mythreatintel', ok: false, count: 0 }] };
@@ -957,7 +958,7 @@ async function isEnqueueCoolingDown(kv: KVNamespace | undefined): Promise<boolea
       /* fall through to KV */
     }
   }
-  const fresh = await kv.get(ENQUEUE_COOLDOWN_KEY).catch(() => null);
+  const fresh = await safeNullLog('kv-get-enqueue-cooldown', kv.get(ENQUEUE_COOLDOWN_KEY));
   if (cache && fresh) {
     try {
       await cache.put(

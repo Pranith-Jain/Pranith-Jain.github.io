@@ -2,6 +2,7 @@ import type { Context } from 'hono';
 import type { Env } from '../env';
 import { rdapLookup } from '../lib/rdap';
 import { ctLogs } from '../lib/crt-sh';
+import { safeNullLog } from '../lib/safe-catch';
 
 // ── Types ────────────────────────────────────────────────────────────────
 
@@ -291,7 +292,7 @@ export async function huntV2Handler(c: Context<{ Bindings: Env }>): Promise<Resp
       checkProviders(db, q, type),
       db ? checkTelegramLeaks(db, q, type) : Promise.resolve([] as TelegramHit[]),
       checkBreaches(q, type),
-      type === 'domain' ? rdapLookup(q).catch(() => null) : Promise.resolve(null),
+      type === 'domain' ? safeNullLog('rdap-lookup', rdapLookup(q)) : Promise.resolve(null),
       type === 'domain' ? ctLogs(q).catch(() => []) : Promise.resolve([]),
     ]);
 

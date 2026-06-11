@@ -1,6 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { requireAdmin } from '../lib/admin-auth';
+import { safeNullLog } from '../lib/safe-catch';
 
 const CUSTOM_CHANNELS_KV_KEY = 'tg:custom-channels:v1';
 
@@ -527,7 +528,7 @@ export async function readBumpValue(env: Env): Promise<string | null> {
   } catch {
     /* fall through to KV */
   }
-  const fresh = env.KV_CACHE ? await env.KV_CACHE.get('tg:custom-channels:bump').catch(() => null) : null;
+  const fresh = env.KV_CACHE ? await safeNullLog('kv-get-tg-bump', env.KV_CACHE.get('tg:custom-channels:bump')) : null;
   // Always write a shadow — even "no bump" cached as empty string saves
   // the same read next time. Empty marker is treated as absent on read.
   try {

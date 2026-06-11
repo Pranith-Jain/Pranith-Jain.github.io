@@ -13,6 +13,7 @@
  */
 
 import type { Transfer } from './chain-sources/types';
+import { safeNullLog } from './safe-catch';
 
 const FETCH_TIMEOUT = 10_000;
 const CTX_CACHE_TTL = 300; // 5 min
@@ -141,7 +142,7 @@ export async function getAddressContext(address: string): Promise<AddressContext
   const res = await fetchWithTimeout(`${BS_BASE}/addresses/${address}`);
   if (!res || !res.ok) return EMPTY_CTX(address);
 
-  const body = (await res.json().catch(() => null)) as BSAddressResponse | null;
+  const body = (await safeNullLog('blockscout-address-json', res.json())) as BSAddressResponse | null;
   if (!body || !body.hash) return EMPTY_CTX(address);
 
   const ctx: AddressContext = {
@@ -174,13 +175,13 @@ export async function getRecentTransfers(address: string, flaggedSet: Set<string
   const cached = await cache.match(cacheKey);
   let raw: BSTransferItem[] | null = null;
   if (cached) {
-    raw = ((await cached.json().catch(() => null)) as { items?: BSTransferItem[] } | null)?.items ?? null;
+    raw = ((await safeNullLog('blockscout-cached-json', cached.json())) as { items?: BSTransferItem[] } | null)?.items ?? null;
   }
 
   if (!raw) {
     const res = await fetchWithTimeout(`${BS_BASE}/addresses/${address}/token-transfers?type=ERC-20`);
     if (!res || !res.ok) return [];
-    const body = (await res.json().catch(() => null)) as BSTransfersResponse | null;
+    const body = (await safeNullLog('blockscout-transfers-json', res.json())) as BSTransfersResponse | null;
     raw = body?.items ?? [];
     const stored = new Response(JSON.stringify({ items: raw }), {
       headers: {
@@ -279,6 +280,6 @@ export async function getBlockscoutNativeTransfers(address: string): Promise<Tra
   if (!RE_EVM.test(address)) return [];
   const res = await fetchWithTimeout(`${BS_BASE}/addresses/${address}/transactions`);
   if (!res || !res.ok) return [];
-  const body = await res.json().catch(() => null);
+  const body = await safeNullLog('blockscout-native-json', res.json());
   return parseBlockscoutNativeTxs(body, address);
 }

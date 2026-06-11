@@ -89,7 +89,7 @@ export default function CertSearch(): JSX.Element {
       autoFetched.current = true;
       void lookup(initial);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps — Intentional: mount-only effect
   }, []);
 
   const filteredNames = useMemo(() => {

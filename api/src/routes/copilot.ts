@@ -2,6 +2,7 @@ import type { Context } from 'hono';
 import type { Env } from '../env';
 import { badRequest, internalError } from '../lib/api-error';
 import { LIVE_IOCS_CACHE_KEY } from './live-iocs';
+import { safeNullLog } from '../lib/safe-catch';
 import { RANSOMWARE_RECENT_CACHE_KEY } from './ransomware-recent';
 import { ACTOR_TIMELINE_CACHE_KEY } from './actor-timeline';
 import { CVE_RECENT_CACHE_KEY } from './cve-recent';
@@ -562,9 +563,11 @@ export async function gatherLiveEnrichment(query: string, queryType: QueryType, 
 
     // Malpedia live lookup
     try {
-      const mpRes = await fetch(`https://malpedia.caad.fkie.fraunhofer.de/api/get/family/${encodeURIComponent(q)}`, {
-        signal: AbortSignal.timeout(5000),
-      }).catch(() => null);
+      const mpRes = await safeNullLog('fetch-malpedia',
+        fetch(`https://malpedia.caad.fkie.fraunhofer.de/api/get/family/${encodeURIComponent(q)}`, {
+          signal: AbortSignal.timeout(5000),
+        })
+      );
       if (mpRes?.ok) {
         const mpData = (await mpRes.json()) as Record<string, unknown>;
         liveSources.push({
@@ -581,10 +584,12 @@ export async function gatherLiveEnrichment(query: string, queryType: QueryType, 
     // Tries direct page first, falls back to search API for redirects
     try {
       const wikiTitle = q.replace(/\s+/g, '_');
-      const wikiRes = await fetch(
-        `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(wikiTitle)}`,
-        { headers: { 'User-Agent': 'pranithjain-copilot/1.0' }, signal: AbortSignal.timeout(4000) }
-      ).catch(() => null);
+      const wikiRes = await safeNullLog('fetch-wikipedia',
+        fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(wikiTitle)}`, {
+          headers: { 'User-Agent': 'pranithjain-copilot/1.0' },
+          signal: AbortSignal.timeout(4000),
+        })
+      );
       if (wikiRes?.ok) {
         const wikiData = (await wikiRes.json()) as {
           extract?: string;
@@ -611,10 +616,12 @@ export async function gatherLiveEnrichment(query: string, queryType: QueryType, 
     if (liveSources.length === 0) {
       try {
         const searchUrl = `https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(q + ' cyber')}&format=json&srlimit=3&origin=*`;
-        const srRes = await fetch(searchUrl, {
-          headers: { 'User-Agent': 'pranithjain-copilot/1.0' },
-          signal: AbortSignal.timeout(4000),
-        }).catch(() => null);
+        const srRes = await safeNullLog('fetch-wikipedia-search',
+          fetch(searchUrl, {
+            headers: { 'User-Agent': 'pranithjain-copilot/1.0' },
+            signal: AbortSignal.timeout(4000),
+          })
+        );
         if (srRes?.ok) {
           const srData = (await srRes.json()) as { query?: { search?: Array<{ title: string; snippet: string }> } };
           const results = srData?.query?.search ?? [];
