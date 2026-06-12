@@ -109,21 +109,46 @@ export async function infraSearchHandler(c: Context<{ Bindings: Env }>): Promise
     return c.json({ error: 'failed to build Overpass query' }, 500);
   }
 
+  // Try multiple Overpass instances (primary may rate-limit)
+  const OVERPASS_INSTANCES = [
+    'https://overpass-api.de/api/interpreter',
+    'https://overpass.kumi.systems/api/interpreter',
+    'https://maps.mail.ru/osm/tools/overpass/api/interpreter',
+  ];
+
   let overpassData: { elements?: OverpassElement[] } = {};
-  try {
-    const ctrl = new AbortController();
-    const timer = setTimeout(() => ctrl.abort(), FETCH_TIMEOUT_MS);
-    const r = await fetch('https://overpass-api.de/api/interpreter', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: `data=${encodeURIComponent(overpassQl)}`,
-      signal: ctrl.signal,
-    });
-    clearTimeout(timer);
-    if (!r.ok) throw new Error(`Overpass API ${r.status}`);
-    overpassData = await r.json();
-  } catch (err) {
-    return c.json({ error: `Overpass API error: ${err instanceof Error ? err.message : 'unknown'}` }, 502);
+  let lastError = '';
+  for (const instance of OVERPASS_INSTANCES) {
+    try {
+      const ctrl = new AbortController();
+      const timer = setTimeout(() => ctrl.abort(), FETCH_TIMEOUT_MS);
+      const body = new URLSearchParams({ data: overpassQl });
+      const r = await fetch(instance, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: body.toString(),
+        signal: ctrl.signal,
+      });
+      clearTimeout(timer);
+      if (!r.ok) {
+        lastError = `HTTP ${r.status}`;
+        continue;
+      }
+      const text = await r.text();
+      try {
+        overpassData = JSON.parse(text);
+      } catch {
+        lastError = 'invalid JSON';
+        continue;
+      }
+      if (overpassData.elements) break;
+    } catch (err) {
+      lastError = err instanceof Error ? err.message : 'unknown';
+    }
+  }
+
+  if (!overpassData.elements) {
+    return c.json({ error: `Overpass API failed: ${lastError || 'all instances unavailable'}` }, 502);
   }
 
   // Transform results
