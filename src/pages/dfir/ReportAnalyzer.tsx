@@ -208,6 +208,7 @@ export default function ReportAnalyzer(): JSX.Element {
   const [inputText, setInputText] = useState('');
   const [inputUrl, setInputUrl] = useState('');
   const [imageUrls, setImageUrls] = useState('');
+  const [includeStix, setIncludeStix] = useState(false);
   const [data, setData] = useState<AnalyzerOutput | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
@@ -231,6 +232,7 @@ export default function ReportAnalyzer(): JSX.Element {
         .map((s) => s.trim())
         .filter(Boolean);
       if (imgs.length > 0) body.imageUrls = imgs;
+      if (includeStix) body.includeStix = true;
       const res = await fetch('/api/v1/report-analyzer', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
@@ -302,6 +304,26 @@ export default function ReportAnalyzer(): JSX.Element {
               placeholder="https://example.com/screenshot1.png"
               className="w-full h-20 rounded border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 p-2 text-xs font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none"
             />
+            <div className="mt-3 flex items-start gap-2 text-xs text-slate-500 dark:text-slate-400">
+              <input
+                id="report-analyzer-stix"
+                type="checkbox"
+                checked={includeStix}
+                onChange={(e) => setIncludeStix(e.target.checked)}
+                className="mt-0.5 h-3.5 w-3.5 rounded border-slate-300 text-brand-500 focus:ring-brand-500"
+                aria-label="Include STIX bundle"
+              />
+              <label htmlFor="report-analyzer-stix" className="cursor-pointer">
+                <span className="font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 block">
+                  Include STIX bundle
+                </span>
+                <span className="block mt-0.5 normal-case">
+                  Off by default — STIX enrichment (VT / RDAP / ThreatFox / NVD) can exceed the free-plan subrequest
+                  budget on larger reports. Turn on for short / high-value reports where you specifically need the STIX
+                  tab populated.
+                </span>
+              </label>
+            </div>
             <button
               type="button"
               onClick={run}

@@ -73,10 +73,12 @@ export interface AnalyzerInput {
   /** Source label embedded in the STIX bundle. */
   source?: string;
   /**
-   * Whether to attempt the STIX bundle build. Defaults to true. Set to
-   * false for short/quick analyses where the enrichment network cost
-   * isn't worth it. The STIX tab on the page handles the absence
-   * gracefully (shows 'generation failed' / 'skipped').
+   * Whether to attempt the STIX bundle build. Defaults to false. The
+   * STIX pass does network-bound enrichment (VT / RDAP / ThreatFox /
+   * NVD) and exceeds the free-plan 50-subrequest-per-invocation limit
+   * when the report has more than a couple of IOCs. Set to true to
+   * opt in for high-value / low-IOC analyses. The STIX tab on the
+   * page handles the absence gracefully (shows 'skipped' empty state).
    */
   includeStix?: boolean;
 }
@@ -454,8 +456,12 @@ export async function runReportAnalyzer(input: AnalyzerInput, env: Env): Promise
   // computed above. The dangling promise is left to settle in the
   // background; the analyst sees a 'STIX generation timed out' pill on
   // the STIX tab instead of a 503.
+  // STIX is opt-in: the intel-bundle enrichment pass makes too many
+  // subrequests for a free-plan invocation (the report-analyzer is
+  // already over budget on the per-50 subrequest limit). Callers can
+  // set includeStix=true when they specifically need the STIX bundle.
   let stix: BuildResult | null = null;
-  if (input.includeStix !== false) {
+  if (input.includeStix === true) {
     const STIX_BUDGET_MS = 6_000;
     let stixTimer: ReturnType<typeof setTimeout> | undefined;
     try {
