@@ -449,12 +449,15 @@ export async function runReportAnalyzer(input: AnalyzerInput, env: Env): Promise
     // minimal Hono-shaped object that exposes `env`. This is the same
     // pattern used by `case-study/run.js` (env as unknown as CaseStudyEnv).
     // intel-bundle calls c.executionCtx.waitUntil(...) for non-blocking DB
-    // persistence; without a stub the call throws "Cannot read properties
-    // of undefined (reading 'waitUntil')". The waitUntil is a fire-and-forget
-    // hint — a no-op stub is fine for the analyzer (we already captured
-    // the bundle in `stix` and never need the DB row).
-    const stubExecutionCtx = { waitUntil: () => {}, passThroughOnException: () => {} };
-    const fakeC = { env, executionCtx: stubExecutionCtx } as unknown as Parameters<typeof buildBundleFromReport>[0];
+    // persistence. The waitUntil throws because we don't have a real
+    // executionCtx here — the try/catch swallows it, stix stays null,
+    // and the rest of the analyzer payload is still returned. Adding a
+    // stub executionCtx (so the call proceeds) blows past the 30s CPU
+    // budget on the free plan, because the enrichment phase inside
+    // buildBundleFromReport does network-bound work (VT / RDAP / ThreatFox
+    // / NVD lookups) that the analyzer's 8s AbortController can't cancel
+    // cleanly across all branches.
+    const fakeC = { env } as unknown as Parameters<typeof buildBundleFromReport>[0];
     stix = await buildBundleFromReport(fakeC, {
       sourceId: 'report-analyzer',
       sourceName: input.source ?? 'Report Analyzer',
