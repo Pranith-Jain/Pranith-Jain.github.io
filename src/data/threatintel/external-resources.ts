@@ -1396,6 +1396,16 @@ export const RESOURCES: ExternalResource[] = [
     description:
       'CIA-style real-time geopolitical news monitoring platform — live map visualization, news crawler, facilities database, and Neo4j network graph explorer. MENA region focus with interactive map overlays and dark/light mode.',
   },
+  {
+    id: 'worldwideview',
+    name: 'WorldWideView',
+    url: 'https://demo.worldwideview.dev/',
+    kind: 'dashboard',
+    featured: true,
+    tags: ['osint', 'threat-intel'],
+    description:
+      'Geospatial intelligence platform — real-time 3D globe with live data feeds, entity filters, and infrastructure tracking. AI-powered news aggregation, geopolitical monitoring, and infrastructure visualization.',
+  },
   // ── YARA Rules & Detection Sources (2026-06-12) ────────────────────────
   {
     id: 'signature-base',
@@ -1424,7 +1434,7 @@ export const RESOURCES: ExternalResource[] = [
     kind: 'dashboard',
     tags: ['threat-intel', 'malware'],
     description:
-      'Ransomware group monitoring — tracks 100+ ransomware operations, scrapes leak sites, and publishes structured JSON of new victim posts. MIT licensed. Integrated into this platform\'s live IOCs feed.',
+      "Ransomware group monitoring — tracks 100+ ransomware operations, scrapes leak sites, and publishes structured JSON of new victim posts. MIT licensed. Integrated into this platform's live IOCs feed.",
   },
   {
     id: 'misp-galaxy',
