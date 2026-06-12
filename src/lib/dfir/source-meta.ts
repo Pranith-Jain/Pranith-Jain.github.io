@@ -207,6 +207,36 @@ export const SOURCE_META: Record<string, SourceMeta> = {
     color: DEFAULT_SOURCE_COLOR,
     weight: 30,
   },
+  'crypto-scam': {
+    label: 'Crypto Scam',
+    color: 'border-yellow-500/40 bg-yellow-500/10 text-yellow-700 dark:text-yellow-300',
+    weight: 15,
+  },
+  'phishing-database': {
+    label: 'Phishing.Database',
+    color: 'border-pink-500/40 bg-pink-500/10 text-pink-700 dark:text-pink-300',
+    weight: 30,
+  },
+  'threatview-ip': {
+    label: 'Threatview IP',
+    color: 'border-orange-500/40 bg-orange-500/10 text-orange-700 dark:text-orange-300',
+    weight: 20,
+  },
+  'threatview-domains': {
+    label: 'Threatview Domains',
+    color: 'border-orange-500/40 bg-orange-500/10 text-orange-700 dark:text-orange-300',
+    weight: 20,
+  },
+  'viriback-c2': {
+    label: 'ViriBack C2',
+    color: 'border-red-500/40 bg-red-500/10 text-red-700 dark:text-red-300',
+    weight: 45,
+  },
+  'feed-scheduler': {
+    label: 'Feed Scheduler',
+    color: DEFAULT_SOURCE_COLOR,
+    weight: 5,
+  },
 };
 
 /**
