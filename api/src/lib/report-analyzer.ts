@@ -72,6 +72,13 @@ export interface AnalyzerInput {
   tlp?: 'WHITE' | 'AMBER' | 'RED';
   /** Source label embedded in the STIX bundle. */
   source?: string;
+  /**
+   * Whether to attempt the STIX bundle build. Defaults to true. Set to
+   * false for short/quick analyses where the enrichment network cost
+   * isn't worth it. The STIX tab on the page handles the absence
+   * gracefully (shows 'generation failed' / 'skipped').
+   */
+  includeStix?: boolean;
 }
 
 export interface AnalyzerOutput {
@@ -438,39 +445,46 @@ export async function runReportAnalyzer(input: AnalyzerInput, env: Env): Promise
   const entities = extractEntities(text);
   const mindmap = buildMindmap(iocs, ttp, cves, entities, title);
 
-  // STIX bundle — best-effort, async, capped. The branch fails silently
-  // if intel-bundle isn't reachable; the rest of the page still works.
+  // STIX bundle — best-effort with a real wall-clock cap. The
+  // `intel-bundle` enrichment phase is network-bound (VT / RDAP /
+  // ThreatFox / NVD lookups) and can blow past the 30s free-plan CPU
+  // budget on a single domain — Cloudflare returns 1102 to the client.
+  // We guard the call with a Promise.race timeout so a slow enrichment
+  // cannot block the summary / IOCs / TTPs / 5W payload that's already
+  // computed above. The dangling promise is left to settle in the
+  // background; the analyst sees a 'STIX generation timed out' pill on
+  // the STIX tab instead of a 503.
   let stix: BuildResult | null = null;
-  try {
-    const ctrl = new AbortController();
-    const timer = setTimeout(() => ctrl.abort(), 8_000);
-    // `intel-bundle` expects (c, ReportInput) — it reads `c.env` for AI
-    // and enrichers. We don't have a `Context` here, so we cast a
-    // minimal Hono-shaped object that exposes `env`. This is the same
-    // pattern used by `case-study/run.js` (env as unknown as CaseStudyEnv).
-    // intel-bundle calls c.executionCtx.waitUntil(...) for non-blocking DB
-    // persistence. The waitUntil throws because we don't have a real
-    // executionCtx here — the try/catch swallows it, stix stays null,
-    // and the rest of the analyzer payload is still returned. Adding a
-    // stub executionCtx (so the call proceeds) blows past the 30s CPU
-    // budget on the free plan, because the enrichment phase inside
-    // buildBundleFromReport does network-bound work (VT / RDAP / ThreatFox
-    // / NVD lookups) that the analyzer's 8s AbortController can't cancel
-    // cleanly across all branches.
-    const fakeC = { env } as unknown as Parameters<typeof buildBundleFromReport>[0];
-    stix = await buildBundleFromReport(fakeC, {
-      sourceId: 'report-analyzer',
-      sourceName: input.source ?? 'Report Analyzer',
-      itemRef: `analyzer-${Date.now()}`,
-      title,
-      body: text.slice(0, 10_000),
-      url: input.url,
-      publishedAt: new Date().toISOString(),
-      tlp: input.tlp === 'WHITE' ? 'WHITE' : 'AMBER',
-    });
-    clearTimeout(timer);
-  } catch (e) {
-    errors.push({ branch: 'stix', message: e instanceof Error ? e.message : String(e) });
+  if (input.includeStix !== false) {
+    const STIX_BUDGET_MS = 6_000;
+    let stixTimer: ReturnType<typeof setTimeout> | undefined;
+    try {
+      // `intel-bundle` expects (c, ReportInput) — it reads `c.env` for AI
+      // and enrichers. The waitUntil call inside it throws (no real
+      // executionCtx here); the catch below captures it.
+      const fakeC = { env } as unknown as Parameters<typeof buildBundleFromReport>[0];
+      const stixPromise = buildBundleFromReport(fakeC, {
+        sourceId: 'report-analyzer',
+        sourceName: input.source ?? 'Report Analyzer',
+        itemRef: `analyzer-${Date.now()}`,
+        title,
+        body: text.slice(0, 10_000),
+        url: input.url,
+        publishedAt: new Date().toISOString(),
+        tlp: input.tlp === 'WHITE' ? 'WHITE' : 'AMBER',
+      });
+      const timeoutPromise = new Promise<null>((resolve) => {
+        stixTimer = setTimeout(() => resolve(null), STIX_BUDGET_MS);
+      });
+      stix = await Promise.race([stixPromise, timeoutPromise]);
+      if (stix === null) {
+        errors.push({ branch: 'stix', message: `STIX generation exceeded ${STIX_BUDGET_MS}ms budget` });
+      }
+    } catch (e) {
+      errors.push({ branch: 'stix', message: e instanceof Error ? e.message : String(e) });
+    } finally {
+      if (stixTimer) clearTimeout(stixTimer);
+    }
   }
 
   return {
