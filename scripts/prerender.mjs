@@ -209,7 +209,11 @@ const ROUTES = [
   // ── ThreatIntel pages (4) — 0 API calls ───────────────────────
   '/threatintel/about',
   '/threatintel/external-resources',
+  '/threatintel/threatsignal',
   '/threatintel/bitwire-blocklist',
+  '/threatintel/owasp-ai-landscape',
+  '/threatintel/curated-toolbox',
+  '/threatintel/redhunt-labs',
 
   // ── ThreatIntel: static catalogs (5) — 0 API calls ────────────
   '/threatintel/wiki',
@@ -299,6 +303,8 @@ const ROUTES = [
   '/dfir/host-graph',
   '/dfir/identity-lookup',
   '/dfir/report-parser',
+  '/dfir/report-composer',
+  '/dfir/report-analyzer',
   '/dfir/threat-hunt',
 
   // ── Phase 5: New gap features ─────────────────────────────────

@@ -1247,6 +1247,13 @@ export const SECTIONS: Section[] = [
         desc: 'Cover · summary · findings · IOCs · sources · TLP marking · export to PDF (jsPDF) or DOCX (OOXML via JSZip) · localStorage autosave · 100% client-side',
         icon: FileText,
       },
+      {
+        path: '/dfir/report-analyzer',
+        useCase: 'Paste a report URL/text and extract IOCs, TTPs, CVEs, and a STIX bundle in one round-trip.',
+        label: 'Report Analyzer',
+        desc: 'AI summary · IOC extraction (allowlist + confidence) · MITRE ATT&CK TTP mapping · 5W context · CVE extraction · image-OCR for embedded IOCs · STIX 2.1 bundle + mindmap',
+        icon: ScanSearch,
+      },
     ],
   },
 ];

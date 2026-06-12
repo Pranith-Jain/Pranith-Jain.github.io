@@ -189,7 +189,11 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   // ── ThreatIntel: pages ────────────────────────────────────────
   ['/threatintel/about', '/__prerendered/threatintel__about'],
   ['/threatintel/external-resources', '/__prerendered/threatintel__external-resources'],
+  ['/threatintel/threatsignal', '/__prerendered/threatintel__threatsignal'],
   ['/threatintel/bitwire-blocklist', '/__prerendered/threatintel__bitwire-blocklist'],
+  ['/threatintel/owasp-ai-landscape', '/__prerendered/threatintel__owasp-ai-landscape'],
+  ['/threatintel/curated-toolbox', '/__prerendered/threatintel__curated-toolbox'],
+  ['/threatintel/redhunt-labs', '/__prerendered/threatintel__redhunt-labs'],
 
   // ── ThreatIntel: live-feed surfaces ───────────────────────────
   ['/threatintel/pulse', '/__prerendered/threatintel__pulse'],
@@ -269,6 +273,8 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/dfir/host-graph', '/__prerendered/dfir__host-graph'],
   ['/dfir/identity-lookup', '/__prerendered/dfir__identity-lookup'],
   ['/dfir/report-parser', '/__prerendered/dfir__report-parser'],
+  ['/dfir/report-composer', '/__prerendered/dfir__report-composer'],
+  ['/dfir/report-analyzer', '/__prerendered/dfir__report-analyzer'],
   ['/dfir/threat-hunt', '/__prerendered/dfir__threat-hunt'],
 
   // ── Phase 5: New gap features ─────────────────────────────────

@@ -184,8 +184,10 @@ const OnionWatch = lazy(() => import('./pages/dfir/OnionWatch'));
 const TelegramWatch = lazy(() => import('./pages/dfir/TelegramWatch'));
 const AwesomeLists = lazy(() => import('./pages/dfir/AwesomeLists'));
 const ExternalResources = lazy(() => import('./pages/threatintel/ExternalResources'));
+const ThreatSignalRss = lazy(() => import('./pages/threatintel/ThreatSignalRss'));
 const BitwireBlocklist = lazy(() => import('./pages/threatintel/BitwireBlocklist'));
 const OwaspAiLandscape = lazy(() => import('./pages/threatintel/OwaspAiLandscape'));
+const RedHuntLabsResearch = lazy(() => import('./pages/threatintel/RedHuntLabsResearch'));
 const CuratedToolbox = lazy(() => import('./pages/threatintel/CuratedToolbox'));
 const OsintCountryMap = lazy(() => import('./pages/threatintel/OsintCountryMap'));
 const DarkWebOsintTools = lazy(() => import('./pages/threatintel/DarkWebOsintTools'));
@@ -296,11 +298,10 @@ const ObservableDb = lazy(() => import('./pages/threatintel/ObservableDb'));
 const MalwareVault = lazy(() => import('./pages/threatintel/MalwareVault'));
 const SecretLeaks = lazy(() => import('./pages/threatintel/SecretLeaks'));
 const LlmThreatAtlas = lazy(() => import('./pages/threatintel/LlmThreatAtlas'));
-const AiDefense = lazy(() => import('./pages/threatintel/AiDefense'));
 const ExportHub = lazy(() => import('./pages/dfir/ExportHub'));
 const MultiSearch = lazy(() => import('./pages/dfir/MultiSearch'));
 const ReportComposer = lazy(() => import('./pages/dfir/ReportComposer'));
-const JobSearch = lazy(() => import('./pages/JobSearch'));
+const ReportAnalyzer = lazy(() => import('./pages/dfir/ReportAnalyzer'));
 
 /**
  * /dfir/file?h=<hash> is the legacy entry point for the standalone hash
@@ -571,9 +572,11 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel/telegram-settings', Component: TelegramSettings },
   { path: '/threatintel/awesome-lists', Component: AwesomeLists },
   { path: '/threatintel/external-resources', Component: ExternalResources },
+  { path: '/threatintel/threatsignal', Component: ThreatSignalRss },
   { path: '/threatintel/bitwire-blocklist', Component: BitwireBlocklist },
   { path: '/threatintel/owasp-ai-landscape', Component: OwaspAiLandscape },
   { path: '/threatintel/curated-toolbox', Component: CuratedToolbox },
+  { path: '/threatintel/redhunt-labs', Component: RedHuntLabsResearch },
   { path: '/threatintel/osint-map', Component: OsintCountryMap },
   { path: '/threatintel/darkweb-tools', Component: DarkWebOsintTools },
   { path: '/threatintel/aggregated-feeds', Component: AggregatedFeeds },
@@ -593,7 +596,6 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel/misp-browser', Component: MispBrowser },
   { path: '/threatintel/search', Component: UnifiedSearch },
   { path: '/threatintel/llm-threat-atlas', Component: LlmThreatAtlas },
-  { path: '/threatintel/ai-defense', Component: AiDefense },
   { path: '/threatintel/ioc-enrichment', Component: IocEnrichment },
   { path: '/threatintel/relationship-graph', Component: RelationshipGraph },
   { path: '/threatintel/ach', Component: ACH },
@@ -610,7 +612,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/dfir/export-hub', Component: ExportHub },
   { path: '/dfir/multi-search', Component: MultiSearch },
   { path: '/dfir/report-composer', Component: ReportComposer },
-  { path: '/job-search', Component: JobSearch },
+  { path: '/dfir/report-analyzer', Component: ReportAnalyzer },
   { path: '/admin', Component: AdminApp },
 ];
 
@@ -618,6 +620,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
 const REDIRECTS: ReadonlyArray<{ path: string; to: string }> = [
   { path: '/dfir/host', to: '/dfir/asset-intel' },
   { path: '/threatintel/intelligence-gaps', to: '/threatintel/status' },
+  { path: '/threatintel/report-analyzer', to: '/dfir/report-analyzer' },
   { path: '/dfir/sigma-convert', to: '/dfir/rule-converter' },
   { path: '/threatintel/mti', to: '/threatintel/mythreatintel' },
   { path: '/threatintel/urls', to: '/threatintel/live-iocs' },
