@@ -200,7 +200,8 @@ export default function ThreatPulse(): JSX.Element {
           Entities mentioned across multiple independent intelligence surfaces simultaneously. Higher cross-source count
           = higher confidence that this is a real, active threat. Scans Reddit (16 subs), Bluesky (16 researchers),
           Mastodon (infosec.exchange — 8 accounts), Telegram (curated cybersec channels), X (cookie-auth firehose for 5
-          CTI handles + TweetFeed × fxtwitter), CTI writeups (35+ blogs), and cybercrime news in real time.
+          CTI handles + TweetFeed × fxtwitter), CTI writeups (35+ blogs), and cybercrime news in real time. IOC feeds
+          include Phishing.Database, ViriBack C2, Threatview IP/Domain blocklists, and 12+ other live threat sources.
         </p>
       </header>
 

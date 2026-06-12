@@ -167,6 +167,13 @@ export function fromBriefings(items: Array<{ slug: string; metadata: Record<stri
   }));
 }
 
+const IOC_KIND: Record<string, PulseKind> = {
+  'phishing-database': 'phishing',
+  'viriback-c2': 'c2_tracker',
+  'threatview-ip': 'blocklist',
+  'threatview-domains': 'blocklist',
+};
+
 export function fromLiveIocs(data: {
   items?: Array<{ value: string; kind: string; source: string; observed_at?: string }>;
 }): PulseEvent[] {
@@ -175,7 +182,7 @@ export function fromLiveIocs(data: {
       return [
         {
           id: `liveioc-${idx}-${(i.value ?? '').slice(-15) || 'x'}`,
-          kind: 'cyber_attack' as const,
+          kind: IOC_KIND[i.source ?? ''] ?? 'cyber_attack',
           title: `${(i.kind ?? '').toUpperCase()}: ${(i.value ?? '').slice(0, 80)}`,
           description: `Live IOC from ${i.source ?? 'unknown'}`,
           lat: 0,
