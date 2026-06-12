@@ -424,6 +424,7 @@ import { supplyChainAttacksHandler } from './routes/supply-chain-attacks';
 import { k8sCveHandler } from './routes/k8s-cve';
 import { mispGalaxyActorsHandler } from './routes/misp-galaxy-actors';
 import { cloudThreatLandscapeHandler } from './routes/cloud-threat-landscape';
+import { getRedHuntInsightsHandler } from './routes/redhunt-insights';
 import { ransomwhereHandler } from './routes/ransomwhere';
 import { disarmFrameworkHandler } from './routes/disarm-framework';
 import { attackFlowLibraryHandler } from './routes/attack-flow-library';
@@ -1249,6 +1250,7 @@ app.get('/api/v1/owasp-ai-landscape', getOwaspAiLandscapeHandler);
 app.get('/api/v1/owasp-ai-landscape/meta', getOwaspAiLandscapeMetaHandler);
 app.get('/api/v1/curated-toolbox', getCuratedToolboxHandler);
 app.get('/api/v1/curated-toolbox/meta', getCuratedToolboxMetaHandler);
+app.get('/api/v1/redhunt-insights', getRedHuntInsightsHandler);
 app.get('/api/v1/predictions', predictionsHandler);
 
 app.get('/api/v1/dashboard', dashboardHandler);

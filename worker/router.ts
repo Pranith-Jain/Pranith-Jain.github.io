@@ -194,6 +194,7 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/threatintel/owasp-ai-landscape', '/__prerendered/threatintel__owasp-ai-landscape'],
   ['/threatintel/curated-toolbox', '/__prerendered/threatintel__curated-toolbox'],
   ['/threatintel/redhunt-labs', '/__prerendered/threatintel__redhunt-labs'],
+  ['/threatintel/redhunt-insights', '/__prerendered/threatintel__redhunt-insights'],
 
   // ── ThreatIntel: live-feed surfaces ───────────────────────────
   ['/threatintel/pulse', '/__prerendered/threatintel__pulse'],

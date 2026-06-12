@@ -214,6 +214,7 @@ const ROUTES = [
   '/threatintel/owasp-ai-landscape',
   '/threatintel/curated-toolbox',
   '/threatintel/redhunt-labs',
+  '/threatintel/redhunt-insights',
 
   // ── ThreatIntel: static catalogs (5) — 0 API calls ────────────
   '/threatintel/wiki',

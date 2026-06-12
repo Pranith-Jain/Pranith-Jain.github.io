@@ -103,6 +103,7 @@ const threatIntel: SidebarConfig = {
         { label: 'OWASP AI', href: '/threatintel/owasp-ai-landscape', icon: ShieldCheck },
         { label: 'Toolbox', href: '/threatintel/curated-toolbox', icon: Compass },
         { label: 'RedHunt Labs', href: '/threatintel/redhunt-labs', icon: FlaskConical },
+        { label: 'RedHunt Insights', href: '/threatintel/redhunt-insights', icon: Activity },
       ],
     },
     {

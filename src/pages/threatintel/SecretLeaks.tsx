@@ -3,6 +3,7 @@ import { BackLink } from '../../components/BackLink';
 import { DataState } from '../../components/DataState';
 import { SEVERITY_TONE, SEVERITY_BAR } from '../../components/severity';
 import {
+  Activity,
   AlertTriangle,
   ArrowLeft,
   Bug,
@@ -331,7 +332,7 @@ export default function SecretLeaks(): JSX.Element {
               </div>
 
               {/* Related research — secret-leak pattern references */}
-              <div className="grid sm:grid-cols-2 gap-3">
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
                 <a
                   href="/threatintel/redhunt-labs"
                   className="group flex items-start gap-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4 hover:border-brand-500/60 hover:shadow-e2 transition-all"
@@ -374,6 +375,28 @@ export default function SecretLeaks(): JSX.Element {
                     </p>
                     <p className="mt-1 inline-flex items-center gap-1 text-micro font-mono text-brand-600 dark:text-brand-400">
                       open external <ExternalLink className="h-3 w-3" />
+                    </p>
+                  </div>
+                </a>
+                <a
+                  href="/threatintel/redhunt-insights"
+                  className="group flex items-start gap-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4 hover:border-brand-500/60 hover:shadow-e2 transition-all"
+                >
+                  <Activity className="mt-0.5 h-5 w-5 shrink-0 text-brand-600 dark:text-brand-400" />
+                  <div className="min-w-0 flex-1">
+                    <p className="text-micro font-mono uppercase tracking-wider text-brand-600 dark:text-brand-400">
+                      Live analytics
+                    </p>
+                    <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100 group-hover:text-brand-600 dark:group-hover:text-brand-400">
+                      RedHunt Internet Insights
+                    </h3>
+                    <p className="mt-1 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                      Live internet-wide exposure dashboard — 7.6B+ subdomains, 11B+ commits, 14M+ secrets, and 6-week
+                      growth charts across GitHub, GitLab, BitBucket, DockerHub, APKs, and Postman. Auto-refreshes every
+                      minute.
+                    </p>
+                    <p className="mt-1 inline-flex items-center gap-1 text-micro font-mono text-brand-600 dark:text-brand-400">
+                      open live dashboard <ExternalLink className="h-3 w-3" />
                     </p>
                   </div>
                 </a>
