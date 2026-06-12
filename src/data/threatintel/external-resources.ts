@@ -1195,6 +1195,15 @@ export const RESOURCES: ExternalResource[] = [
     description:
       'Curated collection of OSINT data collectors — web scraping templates, API wrappers, and data extraction scripts for open-source intelligence gathering across platforms.',
   },
+  {
+    id: 'osint-for-countries',
+    name: 'OSINT for Countries',
+    url: 'https://github.com/wddadk/OSINT-for-countries',
+    kind: 'directory',
+    tags: ['osint'],
+    description:
+      'Per-country OSINT resource directory — 1,500+ curated tools and data sources across 247 countries. Covers government registries, news, maps, people search, social media, transportation, utilities, and crime data. Powers the interactive country OSINT map on this platform.',
+  },
   // ── Incident Response & Cloud Security (2026-05-30) ────────────────────
   {
     id: 'aws-ir-samples',
