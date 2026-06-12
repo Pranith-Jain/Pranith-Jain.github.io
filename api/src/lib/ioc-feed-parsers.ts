@@ -26,6 +26,7 @@ export interface IocFeedSummary {
     | 'phishing-army'
     | 'tweetfeed'
     | 'bitwire'
+    | 'bitwire-inbound'
     | 'malwareworld'
     | 'phishing-database'
     | 'threatview-ip'
@@ -547,6 +548,11 @@ export const FEED_SOURCES: Record<SourceId, FeedSource> = {
     name: 'Bitwire IP Blocklist (outbound)',
     url: 'https://raw.githubusercontent.com/bitwire-it/ipblocklist/main/outbound.txt',
   },
+  'bitwire-inbound': {
+    id: 'bitwire-inbound',
+    name: 'Bitwire IP Blocklist (inbound)',
+    url: 'https://raw.githubusercontent.com/bitwire-it/ipblocklist/main/inbound.txt',
+  },
   malwareworld: {
     id: 'malwareworld',
     name: 'MalwareWorld Bad Reputation',
@@ -683,6 +689,7 @@ export function buildSummary(sourceId: SourceId, rawBody: string, cap: number = 
     case 'blocklist-de':
     case 'binary-defense':
     case 'bitwire':
+    case 'bitwire-inbound':
     case 'malwareworld':
       entries = parsePlainTextIps(rawBody, cap);
       break;

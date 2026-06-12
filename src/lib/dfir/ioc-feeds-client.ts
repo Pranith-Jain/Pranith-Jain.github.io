@@ -15,6 +15,7 @@ export type SourceId =
   | 'phishing-army'
   | 'tweetfeed'
   | 'bitwire'
+  | 'bitwire-inbound'
   | 'malwareworld';
 
 export interface IocEntry {
@@ -51,7 +52,8 @@ export const FEED_SOURCES: FeedSourceMeta[] = [
   { id: 'ipsum', label: 'Ipsum (consensus)', iocType: 'ipv4' },
   { id: 'phishing-army', label: 'Phishing Army', iocType: 'domain' },
   { id: 'tweetfeed', label: 'TweetFeed', iocType: 'mixed' },
-  { id: 'bitwire', label: 'Bitwire Blocklist', iocType: 'ipv4' },
+  { id: 'bitwire', label: 'Bitwire (outbound)', iocType: 'ipv4' },
+  { id: 'bitwire-inbound', label: 'Bitwire (inbound)', iocType: 'ipv4' },
   { id: 'malwareworld', label: 'MalwareWorld', iocType: 'ipv4' },
 ];
 

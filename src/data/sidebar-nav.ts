@@ -98,6 +98,7 @@ const threatIntel: SidebarConfig = {
         { label: 'Predictive', href: '/threatintel/predictive', icon: TrendingUp },
         { label: 'Secret Leaks', href: '/threatintel/secret-leaks', icon: KeyRound },
         { label: 'Cross-campaign', href: '/threatintel/cross-campaign', icon: Link2 },
+        { label: 'Bitwire', href: '/threatintel/bitwire-blocklist', icon: Shield },
       ],
     },
     {

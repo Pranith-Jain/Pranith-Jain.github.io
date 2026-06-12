@@ -207,6 +207,7 @@ const ROUTES = [
   // ── ThreatIntel pages (4) — 0 API calls ───────────────────────
   '/threatintel/about',
   '/threatintel/external-resources',
+  '/threatintel/bitwire-blocklist',
 
   // ── ThreatIntel: static catalogs (5) — 0 API calls ────────────
   '/threatintel/wiki',
@@ -332,6 +333,7 @@ const ROUTES = [
   '/threatintel/telegram-leaks/stats',
   '/threatintel/yara',
   '/threatintel/llm-threat-atlas',
+  '/threatintel/ai-defense',
   '/threatintel/osint-map',
 ];
 

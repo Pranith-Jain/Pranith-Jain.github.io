@@ -728,6 +728,22 @@ const FEED_SOURCES: FeedSource[] = [
     context: 'phishing/warning domain',
   }),
   textFeedSource({
+    id: 'bitwire-outbound',
+    url: 'https://raw.githubusercontent.com/bitwire-it/ipblocklist/main/outbound.txt',
+    parse: parsePlainTextIps,
+    kind: 'ip',
+    reporter: 'Bitwire',
+    context: 'malicious destination IP (C2, malware, phishing)',
+  }),
+  textFeedSource({
+    id: 'bitwire-inbound',
+    url: 'https://raw.githubusercontent.com/bitwire-it/ipblocklist/main/inbound.txt',
+    parse: parsePlainTextIps,
+    kind: 'ip',
+    reporter: 'Bitwire',
+    context: 'reported attack source (spam, scanning, brute-force)',
+  }),
+  textFeedSource({
     id: 'phishunt',
     url: 'https://phishunt.io/feed.txt',
     parse: parseBotvrijUrls,

@@ -187,6 +187,7 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   // ── ThreatIntel: pages ────────────────────────────────────────
   ['/threatintel/about', '/__prerendered/threatintel__about'],
   ['/threatintel/external-resources', '/__prerendered/threatintel__external-resources'],
+  ['/threatintel/bitwire-blocklist', '/__prerendered/threatintel__bitwire-blocklist'],
 
   // ── ThreatIntel: live-feed surfaces ───────────────────────────
   ['/threatintel/pulse', '/__prerendered/threatintel__pulse'],
@@ -300,6 +301,7 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/threatintel/telegram-leaks/stats', '/__prerendered/threatintel__telegram-leaks__stats'],
   ['/threatintel/yara', '/__prerendered/threatintel__yara'],
   ['/threatintel/llm-threat-atlas', '/__prerendered/threatintel__llm-threat-atlas'],
+  ['/threatintel/ai-defense', '/__prerendered/threatintel__ai-defense'],
   ['/threatintel/osint-map', '/__prerendered/threatintel__osint-map'],
 ]);
 

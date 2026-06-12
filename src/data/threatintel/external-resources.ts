@@ -398,11 +398,12 @@ export const RESOURCES: ExternalResource[] = [
   },
   {
     id: 'bitwire-blocklist',
-    name: 'BitWire IP Blocklist',
+    name: 'BitWire IP Blocklist (stats)',
     url: 'https://bitwire.it/blocklist-stats',
-    kind: 'tool',
+    kind: 'dashboard',
+    tags: ['blocklist', 'threat-intel'],
     description:
-      'Open-source IP blocklist with statistics and live feed. Covers malicious IPs across multiple threat categories. REST API and downloadable blocklists.',
+      'Upstream stats dashboard for bitwire-it/ipblocklist — live counters, growth history and source attribution. Pairs with the in-platform mirror at /threatintel/bitwire-blocklist.',
   },
   {
     id: 'crowdthreat',
@@ -1518,5 +1519,44 @@ export const RESOURCES: ExternalResource[] = [
     tags: ['threat-intel', 'osint'],
     description:
       'Curated start.me page aggregating threat-intelligence platform resources, tooling, and references. Useful for discovering adjacent CTI sources and community-maintained watchlists.',
+  },
+  {
+    id: 'bitwire-repo',
+    name: 'Bitwire IP Blocklist (GitHub)',
+    url: 'https://github.com/bitwire-it/ipblocklist',
+    kind: 'directory',
+    featured: true,
+    tags: ['threat-intel', 'blocklist'],
+    description:
+      'Bitwire-it/ipblocklist — 338-star GitHub repo aggregating 30+ IP blocklists (AbuseIPDB, FireHOL, ipsum, ThreatFox, Spamhaus DROP, Binary Defense, SANS, CINSscore) into two curated feeds updated every 2h. inbound.txt (~2M IPs) for WAN-IN drops, outbound.txt (~150K IPs) for LAN-OUT blocks. CC BY-NC-SA 4.0.',
+    why: 'Best open-source single-source-of-truth for compiled malicious IP feeds. Reflected in /threatintel/bitwire-blocklist (in-platform dashboard), /dfir/blocklists (consolidated pfSense/iptables/Suricata) and /api/v1/feeds/ioc-summary?source=bitwire-inbound|bitwire.',
+  },
+  {
+    id: 'ifconfig-co',
+    name: 'ifconfig.co',
+    url: 'https://ifconfig.co/',
+    kind: 'tool',
+    tags: ['osint'],
+    description:
+      'Minimal "what is my IP" service with JSON / plain-text / user-agent / port-aware endpoints. Useful as a sanity check during egress filtering tests, IP-reputation triage, and to confirm whether a VPN / proxy / Tor exit is in use.',
+  },
+  {
+    id: 'gonzosint-fingerprinter',
+    name: 'Gonzosint Fingerprinter',
+    url: 'https://gonzosint.github.io/fingerprinter/',
+    kind: 'tool',
+    tags: ['osint'],
+    description:
+      'Comprehensive browser-fingerprint demo from Gonzosint. Loads ThumbmarkJS, ImprintJS and 8+ other fingerprinting libraries side-by-side so analysts can see what each library leaks: canvas hash, audio context, WebGL renderer, font enumeration, hardware concurrency, etc.',
+    why: 'Side-by-side comparison of every major fingerprint library is unique — useful for /dfir/privacy follow-up: see exactly what your own browser is leaking and which library would be the most effective adversary tool.',
+  },
+  {
+    id: 'osintnewsletter-tools',
+    name: 'OSINT Newsletter — OSINT Tools Library',
+    url: 'https://tools.osintnewsletter.com/osint-tools',
+    kind: 'directory',
+    tags: ['osint'],
+    description:
+      'Curated GitBook catalog of OSINT tools maintained by the OSINT Newsletter community. Grouped by category (people search, geolocation, social, infra) with one-page summaries, screenshots, and quick links. A more editorial / human-curated alternative to the OSINT Framework.',
   },
 ];
