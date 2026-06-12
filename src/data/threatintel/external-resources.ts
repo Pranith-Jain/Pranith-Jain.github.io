@@ -8,7 +8,7 @@
  * (e.g. OpenSourceMalware: samples AND community) are tagged by their dominant
  * artefact; the description mentions the secondary aspect.
  *
- * Last verified 2026-05-14.
+ * Last verified 2026-06-13.
  */
 
 export type ResourceKind =
@@ -1446,5 +1446,77 @@ export const RESOURCES: ExternalResource[] = [
     description:
       'Open knowledge base of threat actor clusters, malware, ransomware, tools, and ATT&CK matrices. 200+ clusters covering threat actors, backdoors, bankers, exploit kits, ransomware, RATs, and surveillance vendors. CC0-licensed — importable into any threat intelligence platform.',
     why: 'Definitive open-source repository of structured threat intelligence clusters — the reference for actor naming, tool tracking, and cross-platform STIX-compatible sharing.',
+  },
+  {
+    id: 'osint-vault',
+    name: 'The OSINT Vault',
+    url: 'https://theosintvault.io',
+    kind: 'tool',
+    tags: ['osint'],
+    description:
+      'Complete OSINT platform with 4,577+ verified public records sources across all 50 US states, multi-search launcher (80+ platforms), Google dork generator, report composer, bookmarklet library (60+ one-click tools), and investigation notebook. All browser-based, no registration required.',
+    why: 'The OSINT Grid (4,577 public records sources) is a unique structured dataset. Multi-search launcher and dork generator complement our existing /dfir/google-dorks and /dfir/osint-map tools.',
+  },
+  {
+    id: 'threatsignal',
+    name: 'ThreatSignal',
+    url: 'https://threatsignal.in',
+    kind: 'dashboard',
+    tags: ['threat-intel'],
+    description:
+      'Threat intelligence dashboard — live IOC feeds, campaign tracking, and real-time security event monitoring from Mjolnir Security.',
+  },
+  {
+    id: 'bamqam',
+    name: 'BAMQAM',
+    url: 'https://bamqam.com',
+    kind: 'dashboard',
+    featured: true,
+    tags: ['threat-intel', 'osint'],
+    description:
+      'Live military/geopolitical operations dashboard by Nehemia Gershuni-Aylho. ADS-B aircraft tracking, AIS ship tracking, satellite tracking, GPS jamming overlays, fire/thermal detection, UKMTO maritime incidents, Gulf civil defense alerts, NOTAM data, and time-machine replay. Real-time CENTCOM theater visualization.',
+    why: 'Bridges the gap between civilian CTI and military OSINT. The GPS jamming overlay, time-machine replay, and UKMTO maritime incident feed are unique capabilities not found in other open dashboards. Strong complement to our GlobalPulse war-room and aircraft layers.',
+  },
+  {
+    id: 'pathfinding-cloud',
+    name: 'pathfinding.cloud',
+    url: 'https://pathfinding.cloud',
+    kind: 'lab',
+    featured: true,
+    tags: ['vulnerability', 'dfir'],
+    description:
+      'AWS IAM privilege escalation attack paths and hands-on labs by Datadog Security Labs. Comprehensive library of IAM escalation techniques with exploitation guides, detection coverage maps, and deployable lab scenarios (Stratus Red Team meets IAM Vulnerable).',
+    why: 'The only open-source resource mapping complete AWS IAM privilege escalation chains with both offensive and defensive coverage. Essential for cloud security assessments and detection engineering.',
+  },
+  {
+    id: 'osiris',
+    name: 'OSIRIS',
+    url: 'https://www.osirisai.live/',
+    kind: 'dashboard',
+    featured: true,
+    tags: ['osint', 'threat-intel'],
+    description:
+      'Open-source Palantir alternative — 3D globe tracking 10,000+ aircraft (ADS-B), 2,000+ satellites, and worldwide CCTV. Built-in browser tools: Nmap, DNS, WHOIS, SSL cert, BGP/ASN lookups, IP reputation. 20+ live feeds (earthquakes, wildfires, nuclear facilities, cyber threats, conflicts, GPS jamming).',
+    why: 'Unifies the OSINT + CTI + GEOINT experience into a single browser dashboard — closest open-source analogue to commercial intelligence platforms. Strong complement to our GlobalPulse war-room and our aircraft/satellite layers.',
+  },
+  {
+    id: 'personal-security-checklist',
+    name: 'Personal Security Checklist',
+    url: 'https://github.com/lissy93/personal-security-checklist',
+    kind: 'directory',
+    featured: true,
+    tags: ['osint'],
+    description:
+      "Lissy93's curated checklist of 300+ tips for protecting digital security and privacy — 21k+ stars on GitHub. Structured as a YAML knowledge base with categories covering accounts, devices, networks, communications, physical, and OPSEC. CC0-licensed.",
+    why: 'The de-facto open-source personal security checklist. The structured YAML makes it a natural complement to a local interactive checklist implementation.',
+  },
+  {
+    id: 'mastering-ti-platforms',
+    name: 'Mastering Threat Intelligence Platforms',
+    url: 'https://start.me/p/gGj8gn/mastering-threat-intelligence-platforms',
+    kind: 'directory',
+    tags: ['threat-intel', 'osint'],
+    description:
+      'Curated start.me page aggregating threat-intelligence platform resources, tooling, and references. Useful for discovering adjacent CTI sources and community-maintained watchlists.',
   },
 ];

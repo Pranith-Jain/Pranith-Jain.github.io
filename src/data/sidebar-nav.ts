@@ -7,6 +7,7 @@ import {
   Bitcoin,
   BookOpen,
   Bot,
+  Briefcase,
   Bug,
   Compass,
   Crosshair,
@@ -30,6 +31,7 @@ import {
   Radio,
   Scale,
   Search,
+  Send,
   Shield,
   ShieldAlert,
   ShieldCheck,
@@ -150,13 +152,29 @@ const dfir: SidebarConfig = {
         { label: 'STIX Builder', href: '/dfir/stix-builder', icon: GitBranch },
         { label: 'Decode', href: '/dfir/decode', icon: FileCode },
         { label: 'Sec Headers', href: '/dfir/sec-headers', icon: Shield },
+        { label: 'Personal Security', href: '/dfir/personal-security', icon: ShieldCheck },
         { label: 'Kill Chain', href: '/dfir/kill-chain', icon: Map },
         { label: 'ATT&CK Nav', href: '/dfir/attack-navigator', icon: Target },
         { label: 'A3M Matrix', href: '/dfir/attack-navigator?matrix=a3m', icon: Sparkles },
         { label: 'D3FEND Matrix', href: '/dfir/attack-navigator?matrix=d3fend', icon: ShieldCheck },
         { label: 'Diamond', href: '/dfir/diamond', icon: Target },
         { label: 'OSINT Mapper', href: '/dfir/osint-mapper', icon: Map },
+        { label: 'Multi-Search', href: '/dfir/multi-search', icon: Send },
+        { label: 'Report Composer', href: '/dfir/report-composer', icon: FileText },
       ],
+    },
+  ],
+};
+
+// Job Search is a top-level tool, not part of /dfir or /threatintel,
+// so it gets its own sidebar configuration that mounts when the
+// pathname is exactly /job-search.
+const jobSearch: SidebarConfig = {
+  sectionLabel: 'Job Search',
+  groups: [
+    {
+      title: 'Workflow',
+      items: [{ label: 'OSINT Job Board', href: '/job-search', icon: Briefcase }],
     },
   ],
 };
@@ -164,6 +182,7 @@ const dfir: SidebarConfig = {
 const SIDEBARS: Record<string, SidebarConfig> = {
   '/threatintel': threatIntel,
   '/dfir': dfir,
+  '/job-search': jobSearch,
 };
 
 export function getSidebarForSection(pathname: string): SidebarConfig | null {
