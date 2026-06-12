@@ -40,6 +40,7 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/dfir/grc', '/__prerendered/dfir__grc'],
   ['/dfir/data-classification', '/__prerendered/dfir__data-classification'],
   ['/dfir/privacy-hub', '/__prerendered/dfir__privacy-hub'],
+  ['/dfir/personal-security', '/__prerendered/dfir__personal-security'],
 
   // ── DFIR: utilities & decoders ────────────────────────────────
   ['/dfir/timestamp', '/__prerendered/dfir__timestamp'],
@@ -304,7 +305,6 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/threatintel/telegram-leaks/stats', '/__prerendered/threatintel__telegram-leaks__stats'],
   ['/threatintel/yara', '/__prerendered/threatintel__yara'],
   ['/threatintel/llm-threat-atlas', '/__prerendered/threatintel__llm-threat-atlas'],
-  ['/threatintel/ai-defense', '/__prerendered/threatintel__ai-defense'],
   ['/threatintel/osint-map', '/__prerendered/threatintel__osint-map'],
 ]);
 

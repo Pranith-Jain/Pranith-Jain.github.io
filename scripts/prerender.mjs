@@ -78,6 +78,7 @@ const ROUTES = [
   '/dfir/grc',
   '/dfir/data-classification',
   '/dfir/privacy-hub',
+  '/dfir/personal-security',
 
   // ── DFIR: utilities & decoders (7) — 0 API calls ──────────────
   '/dfir/timestamp',
@@ -334,7 +335,6 @@ const ROUTES = [
   '/threatintel/telegram-leaks/stats',
   '/threatintel/yara',
   '/threatintel/llm-threat-atlas',
-  '/threatintel/ai-defense',
   '/threatintel/osint-map',
 ];
 
