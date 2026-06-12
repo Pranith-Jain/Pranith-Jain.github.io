@@ -71,6 +71,53 @@ export default {
       return env.LIVE_FEED_DO.get(doId).fetch(request);
     }
 
+    // WebSocket upgrade — route to the InvestigatorAgent Durable Object
+    if (url.pathname.startsWith('/api/v1/ws/agent/') && request.headers.get('upgrade') === 'websocket') {
+      const wsOrigin = request.headers.get('origin') ?? '';
+      const wsAllowed = new Set(WS_ALLOWED_ORIGINS_STATIC);
+      if (env.SITE_URL) wsAllowed.add(env.SITE_URL.replace(/\/$/, ''));
+      if (!wsAllowed.has(wsOrigin)) {
+        return new Response('forbidden origin', { status: 403 });
+      }
+      if (!env.INVESTIGATOR_AGENT) return new Response('Agent not configured', { status: 503 });
+      // Extract the investigation ID from /api/v1/ws/agent/:id
+      const agentId = url.pathname.split('/api/v1/ws/agent/')[1]?.split('/')[0];
+      if (!agentId) return new Response('missing agent id', { status: 400 });
+      const doId = env.INVESTIGATOR_AGENT.idFromName(agentId);
+      return env.INVESTIGATOR_AGENT.get(doId).fetch(request);
+    }
+
+    // WebSocket upgrade — route to the ReportBuilder Durable Object
+    if (url.pathname.startsWith('/api/v1/ws/report/') && request.headers.get('upgrade') === 'websocket') {
+      const wsOrigin = request.headers.get('origin') ?? '';
+      const wsAllowed = new Set(WS_ALLOWED_ORIGINS_STATIC);
+      if (env.SITE_URL) wsAllowed.add(env.SITE_URL.replace(/\/$/, ''));
+      if (!wsAllowed.has(wsOrigin)) {
+        return new Response('forbidden origin', { status: 403 });
+      }
+      if (!env.REPORT_BUILDER) return new Response('Report builder not configured', { status: 503 });
+      const reportId = url.pathname.split('/api/v1/ws/report/')[1]?.split('/')[0];
+      if (!reportId) return new Response('missing report id', { status: 400 });
+      const doId = env.REPORT_BUILDER.idFromName('global');
+      return env.REPORT_BUILDER.get(doId).fetch(request);
+    }
+
+    // WebSocket upgrade — route to chat sessions
+    if (url.pathname.startsWith('/api/v1/ws/chat/') && request.headers.get('upgrade') === 'websocket') {
+      const wsOrigin = request.headers.get('origin') ?? '';
+      const wsAllowed = new Set(WS_ALLOWED_ORIGINS_STATIC);
+      if (env.SITE_URL) wsAllowed.add(env.SITE_URL.replace(/\/$/, ''));
+      if (!wsAllowed.has(wsOrigin)) {
+        return new Response('forbidden origin', { status: 403 });
+      }
+      // Chat WS is handled inline in the api app via a dedicated handler
+      // Forward to api app which has the chat WS logic
+      const apiRes = await apiApp.fetch(request, env as never, ctx);
+      const h = new Headers(apiRes.headers);
+      h.set('x-request-id', requestId);
+      return new Response(apiRes.body, { status: apiRes.status, statusText: apiRes.statusText, headers: h });
+    }
+
     // MCP server — DFIR & Threat Intel tools for AI agents. Wrap the response so
     // it carries the same security headers (CSP/HSTS/nosniff/…) as every other
     // surface instead of bypassing withSecurityHeaders.

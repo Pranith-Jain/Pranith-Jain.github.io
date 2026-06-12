@@ -52,7 +52,9 @@ export function withSecurityHeaders(response: Response, nonce?: string): Respons
   if (!h.has('strict-transport-security'))
     h.set('strict-transport-security', 'max-age=63072000; includeSubDomains; preload');
   if (!h.has('cross-origin-opener-policy')) h.set('cross-origin-opener-policy', 'same-origin');
-  if (!h.has('cross-origin-embedder-policy')) h.set('cross-origin-embedder-policy', 'require-corp');
+  // COEP require-corp removed: it blocks cross-origin map tiles (CARTO, OSM)
+  // that lack Cross-Origin-Resource-Policy headers. Nothing in this app
+  // requires SharedArrayBuffer or needs COEP enforcement.
   // Remove the default Cloudflare server header but don't replace it with
   // a custom value — no need to advertise the server identity.
   h.delete('server');

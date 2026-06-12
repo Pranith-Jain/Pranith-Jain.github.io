@@ -3,6 +3,8 @@ import { advance, initState, type ReportState } from '../../api/src/lib/report/p
 import type { Env as ApiEnv } from '../../api/src/env';
 import type { TemplateId, Tlp } from '../../api/src/lib/report/types';
 
+const MAX_REPORT_WS_CONNECTIONS = 5;
+
 /**
  * Alarm-driven report builder. Each `alarm()` runs ONE pipeline phase (its own
  * subrequest budget), persists the state, and reschedules until the report is
@@ -11,6 +13,9 @@ import type { TemplateId, Tlp } from '../../api/src/lib/report/types';
 export class ReportBuilderDO {
   private ctx: DurableObjectState;
   private env: Env;
+  private sessions = new Map<string, WebSocket>();
+  private ipConnections = new Map<string, number>();
+
   constructor(ctx: DurableObjectState, env: Env) {
     this.ctx = ctx;
     this.env = env;
@@ -18,6 +23,11 @@ export class ReportBuilderDO {
 
   async fetch(request: Request): Promise<Response> {
     const url = new URL(request.url);
+
+    // WebSocket upgrade — real-time progress streaming
+    if (request.headers.get('upgrade') === 'websocket') {
+      return this.handleWebSocketUpgrade(request);
+    }
 
     if (url.pathname === '/build' && request.method === 'POST') {
       const body = (await request.json()) as { id: string; subject: string; template?: TemplateId; tlp: Tlp };
@@ -37,6 +47,55 @@ export class ReportBuilderDO {
     return new Response('not found', { status: 404 });
   }
 
+  private handleWebSocketUpgrade(request: Request): Response {
+    if (this.sessions.size >= MAX_REPORT_WS_CONNECTIONS) {
+      return new Response('Too many connections', { status: 429 });
+    }
+
+    const clientIp = request.headers.get('cf-connecting-ip') ?? 'unknown';
+    const ipCount = this.ipConnections.get(clientIp) ?? 0;
+    if (ipCount >= 3) {
+      return new Response('Too many connections from this IP', { status: 429 });
+    }
+
+    const pair = new WebSocketPair();
+    const client = pair[0];
+    const server = pair[1];
+    const sessionId = crypto.randomUUID();
+
+    this.sessions.set(sessionId, server);
+    this.ipConnections.set(clientIp, ipCount + 1);
+    server.accept();
+
+    let cleaned = false;
+    const cleanup = () => {
+      if (cleaned) return;
+      cleaned = true;
+      this.sessions.delete(sessionId);
+      const remaining = this.ipConnections.get(clientIp) ?? 1;
+      if (remaining <= 1) this.ipConnections.delete(clientIp);
+      else this.ipConnections.set(clientIp, remaining - 1);
+    };
+    server.addEventListener('close', cleanup);
+    server.addEventListener('error', cleanup);
+
+    server.send(JSON.stringify({ type: 'connected' }));
+
+    return new Response(null, { status: 101, webSocket: client });
+  }
+
+  private broadcast(msg: unknown): void {
+    if (this.sessions.size === 0) return;
+    const payload = JSON.stringify(msg);
+    for (const [id, ws] of this.sessions) {
+      try {
+        ws.send(payload);
+      } catch {
+        this.sessions.delete(id);
+      }
+    }
+  }
+
   async alarm(): Promise<void> {
     const all = await this.ctx.storage.list<ReportState>({ prefix: 'state:' });
     let anyPending = false;
@@ -48,8 +107,27 @@ export class ReportBuilderDO {
           write: { ai: (this.env as unknown as ApiEnv).AI, groqKey: (this.env as unknown as ApiEnv).GROQ_API_KEY },
         });
         await this.ctx.storage.put(key, next);
-        if (next.phase === 'done' || next.phase === 'error') await this.persist(next);
-        else anyPending = true;
+
+        // Push progress to WebSocket clients
+        this.broadcast({
+          type: 'progress',
+          reportId: next.id,
+          phase: next.phase,
+          pct: next.pct,
+          detail: next.detail,
+        });
+
+        if (next.phase === 'done' || next.phase === 'error') {
+          await this.persist(next);
+          this.broadcast({
+            type: next.phase,
+            reportId: next.id,
+            report: next.report,
+            error: next.error,
+          });
+        } else {
+          anyPending = true;
+        }
       } catch (err) {
         console.error(
           JSON.stringify({
@@ -58,7 +136,6 @@ export class ReportBuilderDO {
             error: err instanceof Error ? err.message : String(err),
           })
         );
-        // Mark as error so the report doesn't stay stuck in 'building' forever
         const errored: ReportState = {
           ...state,
           phase: 'error',
@@ -66,6 +143,7 @@ export class ReportBuilderDO {
         };
         await this.ctx.storage.put(key, errored);
         await this.persist(errored);
+        this.broadcast({ type: 'error', reportId: state.id, error: errored.error });
       }
     }
     if (anyPending) await this.ctx.storage.setAlarm(Date.now() + 1);

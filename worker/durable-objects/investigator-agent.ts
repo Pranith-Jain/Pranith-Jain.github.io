@@ -33,9 +33,14 @@ function truncateData(data: unknown, maxChars: number): unknown {
  * subrequest budget so the agent can run for minutes without hitting
  * Worker CPU limits.
  */
+const MAX_AGENT_WS_CONNECTIONS = 10;
+
 export class InvestigatorAgentDO {
   private ctx: DurableObjectState;
   private env: Env;
+  private sessions = new Map<string, WebSocket>();
+  private ipConnections = new Map<string, number>();
+
   constructor(ctx: DurableObjectState, env: Env) {
     this.ctx = ctx;
     this.env = env;
@@ -43,6 +48,11 @@ export class InvestigatorAgentDO {
 
   async fetch(request: Request): Promise<Response> {
     const url = new URL(request.url);
+
+    // WebSocket upgrade — real-time step streaming
+    if (request.headers.get('upgrade') === 'websocket') {
+      return this.handleWebSocketUpgrade(request);
+    }
 
     // POST /investigate — start a new investigation
     if (url.pathname === '/investigate' && request.method === 'POST') {
@@ -68,7 +78,7 @@ export class InvestigatorAgentDO {
       return Response.json({ id: body.id, status: 'running' });
     }
 
-    // GET /state — poll current investigation state
+    // GET /state — poll current investigation state (kept for SSE backward compat)
     if (url.pathname === '/state') {
       const id = url.searchParams.get('id') ?? '';
       const state = await this.ctx.storage.get<AgentState>(`state:${id}`);
@@ -85,6 +95,56 @@ export class InvestigatorAgentDO {
     return new Response('not found', { status: 404 });
   }
 
+  private handleWebSocketUpgrade(request: Request): Response {
+    if (this.sessions.size >= MAX_AGENT_WS_CONNECTIONS) {
+      return new Response('Too many connections', { status: 429 });
+    }
+
+    const clientIp = request.headers.get('cf-connecting-ip') ?? 'unknown';
+    const ipCount = this.ipConnections.get(clientIp) ?? 0;
+    if (ipCount >= 5) {
+      return new Response('Too many connections from this IP', { status: 429 });
+    }
+
+    const pair = new WebSocketPair();
+    const client = pair[0];
+    const server = pair[1];
+    const sessionId = crypto.randomUUID();
+
+    this.sessions.set(sessionId, server);
+    this.ipConnections.set(clientIp, ipCount + 1);
+    server.accept();
+
+    let cleaned = false;
+    const cleanup = () => {
+      if (cleaned) return;
+      cleaned = true;
+      this.sessions.delete(sessionId);
+      const remaining = this.ipConnections.get(clientIp) ?? 1;
+      if (remaining <= 1) this.ipConnections.delete(clientIp);
+      else this.ipConnections.set(clientIp, remaining - 1);
+    };
+    server.addEventListener('close', cleanup);
+    server.addEventListener('error', cleanup);
+
+    server.send(JSON.stringify({ type: 'connected' }));
+
+    return new Response(null, { status: 101, webSocket: client });
+  }
+
+  /** Broadcast a message to all connected WebSocket clients. */
+  private broadcast(msg: unknown): void {
+    if (this.sessions.size === 0) return;
+    const payload = JSON.stringify(msg);
+    for (const [id, ws] of this.sessions) {
+      try {
+        ws.send(payload);
+      } catch {
+        this.sessions.delete(id);
+      }
+    }
+  }
+
   async alarm(): Promise<void> {
     const all = await this.ctx.storage.list<AgentState>({ prefix: 'state:' });
     let anyPending = false;
@@ -97,8 +157,21 @@ export class InvestigatorAgentDO {
         const next = await this.advanceOneStep(state);
         await this.ctx.storage.put(key, next);
 
+        // Push the new step to WebSocket clients in real-time
+        if (next.steps.length > state.steps.length) {
+          const newStep = next.steps[next.steps.length - 1];
+          this.broadcast({ type: 'step', step: newStep });
+        }
+
         if (next.status === 'done' || next.status === 'error') {
           await this.persist(next);
+          this.broadcast({
+            type: next.status,
+            report: next.report,
+            error: next.error,
+            modelUsed: next.modelUsed,
+            qa: next.qa,
+          });
         } else {
           // Schedule next step with a small delay to avoid burst
           await this.ctx.storage.setAlarm(Date.now() + 100);
@@ -111,6 +184,7 @@ export class InvestigatorAgentDO {
         state.completedAt = new Date().toISOString();
         await this.ctx.storage.put(key, state);
         await this.persist(state);
+        this.broadcast({ type: 'error', error: errMsg });
       }
     }
 

@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 import { BackLink } from '../../components/BackLink';
 import { useDataFetch } from '../../hooks/useDataFetch';
+import { useWebSocket } from '../../hooks/useWebSocket';
 import { extractStixBundle, StixRelationshipGraph, StixObjectTable } from '../../components/StixBundleViewer';
 
 interface AgentToolResult {
@@ -69,19 +70,67 @@ interface SessionEntry {
   created_at: string;
 }
 
+type AgentWsMessage =
+  | { type: 'connected' }
+  | { type: 'step'; step: AgentStep }
+  | { type: 'done'; report: string; modelUsed: string; qa?: AgentState['qa'] }
+  | { type: 'error'; error: string };
+
 export default function AgentInvestigator(): JSX.Element {
   const [query, setQuery] = useState('');
   const [activeId, setActiveId] = useState<string | null>(null);
   const [agentState, setAgentState] = useState<AgentState | null>(null);
   const [isStarting, setIsStarting] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const eventSourceRef = useRef<EventSource | null>(null);
   const stepsEndRef = useRef<HTMLDivElement>(null);
 
   const { data: sessions, refetch: refetchSessions } = useDataFetch<{ sessions: SessionEntry[] }>({
     url: '/api/v1/agent/sessions',
     ttl: 30_000,
     staleWhileRevalidate: true,
+  });
+
+  // WebSocket connection for real-time step updates
+  const wsUrl = activeId
+    ? `${window.location.protocol === 'https:' ? 'wss:' : 'ws:'}//${window.location.host}/api/v1/ws/agent/${activeId}`
+    : null;
+  const { connected } = useWebSocket<AgentWsMessage>(wsUrl, {
+    onMessage: useCallback(
+      (msg: AgentWsMessage) => {
+        if (msg.type === 'step') {
+          setAgentState((prev) => {
+            if (!prev) return prev;
+            const steps = [...prev.steps];
+            const idx = steps.findIndex((s) => s.stepNumber === msg.step.stepNumber);
+            if (idx >= 0) steps[idx] = msg.step;
+            else steps.push(msg.step);
+            return { ...prev, steps, currentStep: msg.step.stepNumber };
+          });
+        } else if (msg.type === 'done') {
+          setAgentState((prev) =>
+            prev
+              ? {
+                  ...prev,
+                  status: 'done',
+                  report: msg.report,
+                  modelUsed: msg.modelUsed,
+                  qa: msg.qa,
+                  completedAt: new Date().toISOString(),
+                }
+              : prev
+          );
+          refetchSessions();
+        } else if (msg.type === 'error') {
+          setError(msg.error);
+          setAgentState((prev) =>
+            prev ? { ...prev, status: 'error', error: msg.error, completedAt: new Date().toISOString() } : prev
+          );
+        }
+      },
+      [refetchSessions]
+    ),
+    reconnect: true,
+    maxReconnectAttempts: 5,
   });
 
   useEffect(() => {
@@ -107,64 +156,6 @@ export default function AgentInvestigator(): JSX.Element {
       const { id } = (await res.json()) as { id: string };
       setActiveId(id);
 
-      const es = new EventSource(`/api/v1/agent/${id}/stream`);
-      eventSourceRef.current = es;
-
-      es.onmessage = (ev) => {
-        try {
-          const msg = JSON.parse(ev.data) as
-            | { type: 'step'; step: AgentStep }
-            | { type: 'done'; report: string; modelUsed: string }
-            | { type: 'error'; error: string };
-
-          if (msg.type === 'step') {
-            setAgentState((prev) => {
-              if (!prev) return prev;
-              const steps = [...prev.steps];
-              const idx = steps.findIndex((s) => s.stepNumber === msg.step.stepNumber);
-              if (idx >= 0) steps[idx] = msg.step;
-              else steps.push(msg.step);
-              return { ...prev, steps, currentStep: msg.step.stepNumber };
-            });
-          } else if (msg.type === 'done') {
-            setAgentState((prev) =>
-              prev
-                ? {
-                    ...prev,
-                    status: 'done',
-                    report: msg.report,
-                    modelUsed: msg.modelUsed,
-                    completedAt: new Date().toISOString(),
-                  }
-                : prev
-            );
-            es.close();
-            refetchSessions();
-          } else if (msg.type === 'error') {
-            setError(msg.error);
-            setAgentState((prev) =>
-              prev ? { ...prev, status: 'error', error: msg.error, completedAt: new Date().toISOString() } : prev
-            );
-            es.close();
-          }
-        } catch {
-          /* ignore parse errors */
-        }
-      };
-
-      es.onerror = () => {
-        es.close();
-        if (id) {
-          fetch(`/api/v1/agent/${id}`)
-            .then((r) => r.json())
-            .then((s) => {
-              setAgentState(s as AgentState);
-              refetchSessions();
-            })
-            .catch(() => {});
-        }
-      };
-
       setAgentState({
         id,
         query: query.trim(),
@@ -184,13 +175,23 @@ export default function AgentInvestigator(): JSX.Element {
     } finally {
       setIsStarting(false);
     }
-  }, [query, isStarting, refetchSessions]);
+  }, [query, isStarting]);
 
+  // Fallback: if WebSocket disconnects and investigation is still running, poll
   useEffect(() => {
-    return () => {
-      eventSourceRef.current?.close();
-    };
-  }, []);
+    if (!activeId || !agentState || agentState.status !== 'running' || connected) return;
+    const interval = setInterval(() => {
+      fetch(`/api/v1/agent/${activeId}`)
+        .then((r) => r.json())
+        .then((s) => {
+          const state = s as AgentState;
+          setAgentState(state);
+          if (state.status !== 'running') refetchSessions();
+        })
+        .catch(() => {});
+    }, 2000);
+    return () => clearInterval(interval);
+  }, [activeId, agentState?.status, connected, refetchSessions]);
 
   const deleteSession = async (id: string) => {
     try {

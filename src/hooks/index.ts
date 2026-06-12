@@ -19,3 +19,5 @@ export { useCountUp } from './useCountUp';
 export { useMediaQuery, useIsMobile, useIsTablet, useIsDesktop, useReduceMotion } from './useMediaQuery';
 export { useDebounce } from './useDebounce';
 export { useClipboard } from './useClipboard';
+export { useWebSocket } from './useWebSocket';
+export type { WebSocketState, UseWebSocketOptions, UseWebSocketReturn } from './useWebSocket';
