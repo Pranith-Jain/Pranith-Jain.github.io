@@ -313,25 +313,30 @@ export default function Tracer(): JSX.Element {
   );
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-6">
-      <BackLink to="/dfir" className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-blue-400">
-        <ArrowLeft size={14} /> DFIR Toolkit
+    <div className="max-w-7xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
+      <BackLink
+        to="/dfir"
+        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+      >
+        <ArrowLeft size={14} /> back
       </BackLink>
-      <h1 className="mt-2 flex items-center gap-2 text-2xl font-bold">
-        <Coins className="h-6 w-6" /> Fund-Flow Tracer
-      </h1>
-      <p className="mt-1 text-sm text-gray-500">
-        Seed an address, then click a node to expand the next hop. Edges are <strong>candidates</strong> until you
-        confirm them.
-      </p>
+      <div className="animate-fade-in-up">
+        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
+          <Coins size={28} className="text-brand-600 dark:text-brand-400" /> Fund-Flow Tracer
+        </h1>
+        <p className="text-slate-600 dark:text-slate-400 mb-8 max-w-2xl">
+          Seed an address, then click a node to expand the next hop. Edges are <strong>candidates</strong> until you
+          confirm them.
+        </p>
+      </div>
 
       <div className="mt-4 grid grid-cols-1 gap-4 lg:grid-cols-[260px_1fr_300px]">
         {/* Control rail */}
-        <div className="space-y-3 rounded-lg border border-gray-700 p-3 text-sm">
+        <div className="space-y-3 rounded-lg border border-slate-700 p-3 text-sm">
           <label className="block">
-            <span className="text-gray-400">Chain</span>
+            <span className="text-slate-400">Chain</span>
             <select
-              className="mt-1 w-full rounded bg-gray-800 p-2"
+              className="mt-1 w-full rounded bg-slate-800 p-2"
               value={chain}
               onChange={(e) => setChain(e.target.value as TracerChain)}
             >
@@ -343,18 +348,18 @@ export default function Tracer(): JSX.Element {
             </select>
           </label>
           <label className="block">
-            <span className="text-gray-400">Seed address</span>
+            <span className="text-slate-400">Seed address</span>
             <input
-              className="mt-1 w-full rounded bg-gray-800 p-2 font-mono text-xs"
+              className="mt-1 w-full rounded bg-slate-800 p-2 font-mono text-xs"
               value={seed}
               onChange={(e) => setSeed(e.target.value)}
               placeholder="0x… / bc1… / T…"
             />
           </label>
           <label className="block">
-            <span className="text-gray-400">Direction</span>
+            <span className="text-slate-400">Direction</span>
             <select
-              className="mt-1 w-full rounded bg-gray-800 p-2"
+              className="mt-1 w-full rounded bg-slate-800 p-2"
               value={direction}
               onChange={(e) => setDirection(e.target.value as 'in' | 'out' | 'both')}
             >
@@ -363,38 +368,38 @@ export default function Tracer(): JSX.Element {
               <option value="in">Incoming</option>
             </select>
           </label>
-          <div className="border-t border-gray-700 pt-2">
-            <span className="text-gray-400">Time tolerance (optional)</span>
+          <div className="border-t border-slate-700 pt-2">
+            <span className="text-slate-400">Time tolerance (optional)</span>
             <input
               type="datetime-local"
-              className="mt-1 w-full rounded bg-gray-800 p-2 text-xs"
+              className="mt-1 w-full rounded bg-slate-800 p-2 text-xs"
               value={around}
               onChange={(e) => setAround(e.target.value)}
             />
             <input
               type="number"
               min={1}
-              className="mt-1 w-full rounded bg-gray-800 p-2 text-xs"
+              className="mt-1 w-full rounded bg-slate-800 p-2 text-xs"
               value={toleranceMin}
               onChange={(e) => setToleranceMin(e.target.value)}
               placeholder="± minutes"
             />
           </div>
           <input
-            className="w-full rounded bg-gray-800 p-2 text-xs"
+            className="w-full rounded bg-slate-800 p-2 text-xs"
             value={token}
             onChange={(e) => setToken(e.target.value)}
             placeholder="Token symbol filter (e.g. USDT)"
           />
           <input
             type="number"
-            className="w-full rounded bg-gray-800 p-2 text-xs"
+            className="w-full rounded bg-slate-800 p-2 text-xs"
             value={minAmount}
             onChange={(e) => setMinAmount(e.target.value)}
             placeholder="Min amount"
           />
           <button
-            className="flex w-full items-center justify-center gap-2 rounded bg-blue-600 p-2 font-medium hover:bg-blue-500 disabled:opacity-50"
+            className="flex w-full items-center justify-center gap-2 rounded-lg bg-brand-600 dark:bg-brand-500 p-2 font-mono font-semibold text-white hover:bg-brand-700 dark:hover:bg-brand-400 disabled:opacity-30"
             onClick={onSeed}
             disabled={loading || !seed.trim()}
           >
@@ -409,33 +414,33 @@ export default function Tracer(): JSX.Element {
           </button>
           <div className="grid grid-cols-2 gap-2">
             <button
-              className="rounded border border-gray-600 p-2 text-xs hover:bg-gray-800 disabled:opacity-40"
+              className="rounded border border-slate-600 p-2 text-xs hover:bg-slate-800 disabled:opacity-40"
               disabled={!graph}
               onClick={saveTrace}
             >
               Save trace
             </button>
-            <button className="rounded border border-gray-600 p-2 text-xs hover:bg-gray-800" onClick={loadList}>
+            <button className="rounded border border-slate-600 p-2 text-xs hover:bg-slate-800" onClick={loadList}>
               Load…
             </button>
           </div>
           <div className="grid grid-cols-3 gap-2">
             <button
-              className="rounded border border-gray-600 p-1 text-[10px] hover:bg-gray-800 disabled:opacity-40"
+              className="rounded border border-slate-600 p-1 text-[10px] hover:bg-slate-800 disabled:opacity-40"
               disabled={!graph}
               onClick={() => void exportTrace('json')}
             >
               JSON
             </button>
             <button
-              className="rounded border border-gray-600 p-1 text-[10px] hover:bg-gray-800 disabled:opacity-40"
+              className="rounded border border-slate-600 p-1 text-[10px] hover:bg-slate-800 disabled:opacity-40"
               disabled={!graph}
               onClick={() => void exportTrace('csv')}
             >
               CSV
             </button>
             <button
-              className="rounded border border-gray-600 p-1 text-[10px] hover:bg-gray-800 disabled:opacity-40"
+              className="rounded border border-slate-600 p-1 text-[10px] hover:bg-slate-800 disabled:opacity-40"
               disabled={!graph}
               onClick={() => void exportTrace('png')}
             >
@@ -443,23 +448,23 @@ export default function Tracer(): JSX.Element {
             </button>
           </div>
           {savedList ? (
-            <div className="rounded border border-gray-700 p-2 text-xs">
-              <span className="text-gray-400">Saved traces</span>
+            <div className="rounded border border-slate-700 p-2 text-xs">
+              <span className="text-slate-400">Saved traces</span>
               {savedList.length ? (
                 <ul className="mt-1 space-y-1">
                   {savedList.map((sv) => (
                     <li key={sv.id}>
                       <button
-                        className="w-full truncate text-left hover:text-blue-400"
+                        className="w-full truncate text-left hover:text-brand-400"
                         onClick={() => void loadTrace(sv.id)}
                       >
-                        {sv.title} <span className="text-gray-500">({sv.chain})</span>
+                        {sv.title} <span className="text-slate-500">({sv.chain})</span>
                       </button>
                     </li>
                   ))}
                 </ul>
               ) : (
-                <p className="text-gray-500">none yet</p>
+                <p className="text-slate-500">none yet</p>
               )}
             </div>
           ) : null}
@@ -472,7 +477,7 @@ export default function Tracer(): JSX.Element {
         </div>
 
         {/* Canvas */}
-        <div className="min-h-[560px] rounded-lg border border-gray-700">
+        <div className="min-h-[560px] rounded-lg border border-slate-700">
           {graphData ? (
             <RelationshipGraphCanvas
               graphData={graphData}
@@ -482,25 +487,25 @@ export default function Tracer(): JSX.Element {
               highlightedPath={highlightPath}
             />
           ) : (
-            <div className="flex h-[560px] items-center justify-center text-gray-500">Seed an address to begin.</div>
+            <div className="flex h-[560px] items-center justify-center text-slate-500">Seed an address to begin.</div>
           )}
         </div>
 
         {/* Detail panel */}
-        <div className="space-y-3 rounded-lg border border-gray-700 p-3 text-sm">
+        <div className="space-y-3 rounded-lg border border-slate-700 p-3 text-sm">
           {selected ? (
             <>
               <div className="break-all font-mono text-xs">{selected.address}</div>
               <div>
-                <span className="text-gray-400">Label: </span>
-                {selected.label ?? '—'} <span className="text-gray-500">({selected.category})</span>
+                <span className="text-slate-400">Label: </span>
+                {selected.label ?? '—'} <span className="text-slate-500">({selected.category})</span>
               </div>
               <div>
-                <span className="text-gray-400">Risk: </span>
+                <span className="text-slate-400">Risk: </span>
                 <span className="font-semibold uppercase">{selected.risk.level}</span> ({selected.risk.score})
               </div>
               {selected.risk.signals.length ? (
-                <ul className="list-inside list-disc text-xs text-gray-400">
+                <ul className="list-inside list-disc text-xs text-slate-400">
                   {selected.risk.signals.map((s) => (
                     <li key={s}>{s}</li>
                   ))}
@@ -508,7 +513,7 @@ export default function Tracer(): JSX.Element {
               ) : null}
               <div className="flex flex-col gap-2 pt-2">
                 <button
-                  className="rounded bg-blue-600 p-2 text-xs hover:bg-blue-500"
+                  className="rounded bg-brand-600 p-2 text-xs hover:bg-brand-700"
                   onClick={() => void expand(selected.address, selected.chain, graph)}
                 >
                   Expand this node
@@ -521,7 +526,7 @@ export default function Tracer(): JSX.Element {
                 </button>
                 {sanitizeHttpUrl(selected.explorer_url) ? (
                   <a
-                    className="flex items-center justify-center gap-1 rounded border border-gray-600 p-2 text-xs hover:bg-gray-800"
+                    className="flex items-center justify-center gap-1 rounded border border-slate-600 p-2 text-xs hover:bg-slate-800"
                     href={sanitizeHttpUrl(selected.explorer_url)}
                     target="_blank"
                     rel="noreferrer"
@@ -530,7 +535,7 @@ export default function Tracer(): JSX.Element {
                   </a>
                 ) : null}
                 <button
-                  className="rounded border border-gray-600 p-2 text-xs hover:bg-gray-800"
+                  className="rounded border border-slate-600 p-2 text-xs hover:bg-slate-800"
                   onClick={() => void pinToInvestigation(selected.address, 'crypto-address')}
                 >
                   Pin to investigation
@@ -539,21 +544,21 @@ export default function Tracer(): JSX.Element {
 
               {/* Transactions → calldata inspector */}
               {incidentEdges.length ? (
-                <div className="border-t border-gray-700 pt-2">
-                  <span className="text-gray-400">Transactions</span>
+                <div className="border-t border-slate-700 pt-2">
+                  <span className="text-slate-400">Transactions</span>
                   <ul className="mt-1 space-y-1">
                     {incidentEdges.map((e) => (
                       <li key={e.id} className="flex items-center justify-between gap-2">
-                        <span className="truncate font-mono text-[10px] text-gray-400">{e.tx_hash.slice(0, 14)}…</span>
+                        <span className="truncate font-mono text-[10px] text-slate-400">{e.tx_hash.slice(0, 14)}…</span>
                         <button
-                          className="rounded border border-gray-600 px-1 text-[10px] hover:bg-gray-800 disabled:opacity-40"
+                          className="rounded border border-slate-600 px-1 text-[10px] hover:bg-slate-800 disabled:opacity-40"
                           disabled={selected.chain === 'btc' || selected.chain === 'solana' || calldataLoading}
                           onClick={() => void inspectCalldata(e.tx_hash, selected.chain)}
                         >
                           Inspect calldata
                         </button>
                         <button
-                          className="rounded border border-gray-600 px-1 text-[10px] hover:bg-gray-800"
+                          className="rounded border border-slate-600 px-1 text-[10px] hover:bg-slate-800"
                           onClick={() => void pinToInvestigation(e.tx_hash, 'tx-hash')}
                         >
                           pin
@@ -563,9 +568,9 @@ export default function Tracer(): JSX.Element {
                   </ul>
                 </div>
               ) : null}
-              {calldataLoading ? <p className="text-xs text-gray-500">Analyzing calldata…</p> : null}
+              {calldataLoading ? <p className="text-xs text-slate-500">Analyzing calldata…</p> : null}
               {calldata ? (
-                <div className="rounded border border-gray-700 p-2 text-xs">
+                <div className="rounded border border-slate-700 p-2 text-xs">
                   <div>
                     Verdict:{' '}
                     <span
@@ -580,22 +585,22 @@ export default function Tracer(): JSX.Element {
                       {calldata.analysis.verdict}
                     </span>
                   </div>
-                  <div className="text-gray-400">
+                  <div className="text-slate-400">
                     {calldata.analysis.known_method ?? calldata.analysis.selector ?? 'no selector'} ·{' '}
                     {calldata.analysis.input_size}B
                   </div>
                   {calldata.analysis.flags.length ? (
-                    <ul className="list-inside list-disc text-gray-400">
+                    <ul className="list-inside list-disc text-slate-400">
                       {calldata.analysis.flags.map((f) => (
                         <li key={f}>{f}</li>
                       ))}
                     </ul>
                   ) : null}
                   {calldata.resolved_pointer ? (
-                    <div className="mt-1 border-t border-gray-700 pt-1">
+                    <div className="mt-1 border-t border-slate-700 pt-1">
                       Cross-chain pointer →{' '}
                       {calldata.resolved_pointer.found ? `${calldata.resolved_pointer.chain} (resolved)` : 'unresolved'}
-                      <div className="break-all font-mono text-[10px] text-gray-500">
+                      <div className="break-all font-mono text-[10px] text-slate-500">
                         {calldata.resolved_pointer.value}
                       </div>
                     </div>
@@ -605,14 +610,14 @@ export default function Tracer(): JSX.Element {
 
               {/* BTC common-input cluster */}
               {cluster && cluster.length ? (
-                <div className="border-t border-gray-700 pt-2">
-                  <span className="text-gray-400">Likely same-owner (common-input)</span>
+                <div className="border-t border-slate-700 pt-2">
+                  <span className="text-slate-400">Likely same-owner (common-input)</span>
                   <ul className="mt-1 space-y-1">
                     {cluster.slice(0, 8).map((c) => (
                       <li key={c.address} className="flex items-center justify-between gap-2">
                         <span className="truncate font-mono text-[10px]">{c.address}</span>
                         <button
-                          className="rounded border border-gray-600 px-1 text-[10px] hover:bg-gray-800"
+                          className="rounded border border-slate-600 px-1 text-[10px] hover:bg-slate-800"
                           onClick={() => setSeed(c.address)}
                         >
                           seed
@@ -624,8 +629,8 @@ export default function Tracer(): JSX.Element {
               ) : null}
 
               {/* OSINT pivots (Phase D) */}
-              <div className="border-t border-gray-700 pt-2">
-                <span className="text-gray-400">OSINT pivots</span>
+              <div className="border-t border-slate-700 pt-2">
+                <span className="text-slate-400">OSINT pivots</span>
                 <div className="mt-1 flex flex-wrap gap-1">
                   {buildDorkQueries(selected.address).map((d) => (
                     <a
@@ -633,22 +638,22 @@ export default function Tracer(): JSX.Element {
                       href={d.webUrl}
                       target="_blank"
                       rel="noreferrer"
-                      className="rounded border border-gray-600 px-1 text-[10px] hover:bg-gray-800"
+                      className="rounded border border-slate-600 px-1 text-[10px] hover:bg-slate-800"
                     >
                       {d.label}
                     </a>
                   ))}
                 </div>
                 <button
-                  className="mt-1 w-full rounded border border-gray-600 p-1 text-[10px] hover:bg-gray-800"
+                  className="mt-1 w-full rounded border border-slate-600 p-1 text-[10px] hover:bg-slate-800"
                   onClick={() => void runUnifiedSearch(selected.address)}
                 >
                   Run unified search
                 </button>
-                {unifiedResult ? <p className="mt-1 text-[10px] text-gray-400">{unifiedResult}</p> : null}
+                {unifiedResult ? <p className="mt-1 text-[10px] text-slate-400">{unifiedResult}</p> : null}
                 {selected.chain === 'evm' && !selected.label && !ensName ? (
                   <button
-                    className="mt-1 w-full rounded border border-gray-600 p-1 text-[10px] hover:bg-gray-800"
+                    className="mt-1 w-full rounded border border-slate-600 p-1 text-[10px] hover:bg-slate-800"
                     onClick={() => void resolveEns(selected.address)}
                   >
                     Resolve ENS
@@ -659,14 +664,14 @@ export default function Tracer(): JSX.Element {
                   const links = tier2Pivots(targets);
                   return links.length ? (
                     <div className="mt-1">
-                      <span className="text-gray-500">
+                      <span className="text-slate-500">
                         Identity pivots ({targets.ens ?? targets.domains[0] ?? targets.usernames[0]})
                       </span>
                       <ul className="mt-1 space-y-1">
                         {links.map((l) => (
                           <li key={l.label}>
                             <a
-                              className="text-[10px] text-blue-400 hover:underline"
+                              className="text-[10px] text-brand-400 hover:underline"
                               href={l.apiPath}
                               target="_blank"
                               rel="noreferrer"
@@ -682,15 +687,18 @@ export default function Tracer(): JSX.Element {
               </div>
 
               {/* Monitoring (Phase E) */}
-              <div className="border-t border-gray-700 pt-2">
+              <div className="border-t border-slate-700 pt-2">
                 <div className="grid grid-cols-2 gap-2">
                   <button
-                    className="rounded border border-gray-600 p-2 text-xs hover:bg-gray-800"
+                    className="rounded border border-slate-600 p-2 text-xs hover:bg-slate-800"
                     onClick={watchAddress}
                   >
                     Watch address
                   </button>
-                  <button className="rounded border border-gray-600 p-2 text-xs hover:bg-gray-800" onClick={loadAlerts}>
+                  <button
+                    className="rounded border border-slate-600 p-2 text-xs hover:bg-slate-800"
+                    onClick={loadAlerts}
+                  >
                     Load alerts
                   </button>
                 </div>
@@ -698,20 +706,20 @@ export default function Tracer(): JSX.Element {
                   alerts.length ? (
                     <ul className="mt-1 space-y-1 text-[10px]">
                       {alerts.slice(0, 8).map((al, i) => (
-                        <li key={i} className="text-gray-400">
+                        <li key={i} className="text-slate-400">
                           <span className="font-semibold text-amber-400">{al.alert_type}</span> ·{' '}
                           {al.detected_at.slice(0, 16)}
                         </li>
                       ))}
                     </ul>
                   ) : (
-                    <p className="mt-1 text-[10px] text-gray-500">no alerts yet</p>
+                    <p className="mt-1 text-[10px] text-slate-500">no alerts yet</p>
                   )
                 ) : null}
               </div>
             </>
           ) : (
-            <p className="text-gray-500">Click a node to inspect it.</p>
+            <p className="text-slate-500">Click a node to inspect it.</p>
           )}
         </div>
       </div>

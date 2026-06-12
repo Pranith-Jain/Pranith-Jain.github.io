@@ -314,19 +314,19 @@ export default function SampleScan(): JSX.Element {
   const busy = phase === 'hashing' || phase === 'streaming';
 
   return (
-    <div className="mx-auto max-w-4xl px-4 py-8">
+    <div className="max-w-4xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/dfir"
-        className="mb-8 inline-flex items-center gap-2 font-mono text-sm text-slate-600 hover:text-brand-600 dark:text-slate-400"
+        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
 
-      <header className="mb-6 mt-2">
-        <h1 className="inline-flex items-center gap-2 font-mono text-2xl font-bold text-slate-900 dark:text-slate-100">
-          <ScanSearch size={22} className="text-brand-600 dark:text-brand-400" /> Sample scan
+      <header className="animate-fade-in-up">
+        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
+          <ScanSearch size={28} className="text-brand-600 dark:text-brand-400" /> Sample Scan
         </h1>
-        <p className="mt-2 max-w-prose text-sm text-slate-600 dark:text-slate-400">
+        <p className="text-slate-600 dark:text-slate-400 mb-8 max-w-2xl">
           Drop a sample (or paste a hash) → static analysis (SHA-256 / SHA-1 / MD5, magic-byte family, entropy,
           suspicious strings) → 9-engine free public reputation fan-out (VirusTotal, MalwareBazaar, YARAify, Hybrid
           Analysis, OTX, ThreatFox, Malshare, Hashlookup, Kaspersky) → composite verdict + one-click deep links to 12

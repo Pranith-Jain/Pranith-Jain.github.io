@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, Plus, Trash2, FileDown, Edit2, X, Copy, ExternalLink } from 'lucide-react';
+import { ArrowLeft, Plus, Trash2, FileDown, Edit2, X, Copy, ExternalLink, ScrollText } from 'lucide-react';
 
 interface YaraRule {
   id: string;
@@ -119,20 +119,20 @@ export default function YaraManager(): JSX.Element {
   const categories = [...new Set([...DEFAULT_CATEGORIES, ...rules.map((r) => r.category)])];
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-6 py-6">
+    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-6 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
 
-      <div className="flex items-center justify-between mb-6 flex-wrap gap-3">
+      <div className="animate-fade-in-up flex items-center justify-between mb-8 flex-wrap gap-3">
         <div>
-          <h1 className="font-mono text-xl font-semibold text-slate-900 dark:text-slate-100 uppercase tracking-[-0.02em]">
-            YARA Rule Manager
+          <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
+            <ScrollText size={28} className="text-brand-600 dark:text-brand-400" /> YARA Rule Manager
           </h1>
-          <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">{rules.length} rules stored locally</p>
+          <p className="text-slate-600 dark:text-slate-400">{rules.length} rules stored locally</p>
         </div>
         <div className="flex items-center gap-2">
           <button
