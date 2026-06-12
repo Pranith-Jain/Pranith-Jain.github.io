@@ -195,6 +195,7 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/threatintel/curated-toolbox', '/__prerendered/threatintel__curated-toolbox'],
   ['/threatintel/redhunt-labs', '/__prerendered/threatintel__redhunt-labs'],
   ['/threatintel/redhunt-insights', '/__prerendered/threatintel__redhunt-insights'],
+  ['/threatintel/ai-report', '/__prerendered/threatintel__ai-report'],
 
   // ── ThreatIntel: live-feed surfaces ───────────────────────────
   ['/threatintel/pulse', '/__prerendered/threatintel__pulse'],

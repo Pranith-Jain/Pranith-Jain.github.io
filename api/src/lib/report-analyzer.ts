@@ -95,6 +95,10 @@ export interface AnalyzerOutput {
   ttp: TtpHit[];
   cves: ExtractedCve[];
   mindmap: { nodes: MindmapNode[]; edges: MindmapEdge[] };
+  /** Diamond Model — derived from extracted entities + TTPs + IOCs + 5W. */
+  diamond: DiamondModel | null;
+  /** Attack Flow (kill chain phases) — TTPs bucketed by MITRE tactic. */
+  attackFlow: AttackFlowPhase[];
   stix: BuildResult | null;
   /** Branch failures — non-fatal; the rest of the payload is still usable. */
   errors: { branch: string; message: string }[];
@@ -504,8 +508,160 @@ export async function runReportAnalyzer(input: AnalyzerInput, env: Env): Promise
     ttp,
     cves,
     mindmap,
+    diamond: buildDiamondModel(entities, ttp, iocs, fivewRes, text),
+    attackFlow: buildAttackFlow(ttp),
     stix,
     errors,
     elapsed_ms: Date.now() - t0,
   };
+}
+
+/* ─── Diamond Model + Attack Flow derivations ──────────────────────────
+ * Both are pure derivations from the already-extracted TTP / IOC / 5W /
+ * entity data. No new LLM calls. The Diamond Model and Attack Flow are
+ * standard CTI views; the PDF the user shared (TI-Mindmap-HUB Lazarus
+ * report) uses them as section 4 and section 8, so we mirror that shape
+ * to keep the in-platform report visually equivalent to the upstream
+ * reference.
+ */
+
+/** Tactic order matching the MITRE ATT&CK Enterprise matrix left-to-right
+ *  (Initial Access → Exfiltration). Used to bucket TTPs into Kill Chain
+ *  phases for the Attack Flow view. TTPs whose tactic isn't in this list
+ *  fall into a "Other" bucket sorted after the canonical phases. */
+const TACTIC_ORDER = [
+  'Reconnaissance',
+  'Resource Development',
+  'Initial Access',
+  'Execution',
+  'Persistence',
+  'Privilege Escalation',
+  'Defense Evasion',
+  'Credential Access',
+  'Discovery',
+  'Lateral Movement',
+  'Collection',
+  'Command and Control',
+  'Exfiltration',
+  'Impact',
+] as const;
+
+export interface DiamondFacet {
+  /** Adversary / Capability / Infrastructure / Victim. */
+  pillar: 'adversary' | 'capability' | 'infrastructure' | 'victim';
+  /** A short list of bullet items belonging to this facet. */
+  items: string[];
+}
+
+export interface DiamondModel {
+  adversary: string[];
+  capability: { id: string; name: string; tactic: string; evidence: string }[];
+  infrastructure: string[];
+  victim: { sector: string; geography: string; asset: string };
+}
+
+export interface AttackFlowPhase {
+  /** Phase label, e.g. "Initial Access". */
+  phase: string;
+  /** MITRE techniques observed in this phase, in document order. */
+  techniques: { id: string; name: string; evidence: string }[];
+}
+
+/** Build the Diamond Model from the extracted entities + TTPs + IOCs + 5W.
+ *  The four pillars map to:
+ *    adversary      ← entities.actors (or the 5W 'who' field as fallback)
+ *    capability     ← entities.malware + extracted TTPs
+ *    infrastructure ← network-shaped IOCs (ip, domain, url)
+ *    victim         ← 5W 'where' and 'why' fields
+ *  The intent is to give the analyst a 4-axis pivot view in a single frame. */
+export function buildDiamondModel(
+  entities: { actors: string[]; malware: string[] },
+  ttp: TtpHit[],
+  iocs: ExtractedIoc[],
+  fiveW: FiveW | null,
+  text: string
+): DiamondModel {
+  const adversary =
+    entities.actors.length > 0
+      ? entities.actors
+      : fiveW?.who
+        ? [fiveW.who.replace(/\s+/g, ' ').trim().split(/[.,;]/)[0]!.trim()].filter(Boolean)
+        : [];
+  // Capability = malware + techniques, deduped.
+  const capability: DiamondModel['capability'] = [];
+  for (const m of entities.malware) {
+    capability.push({ id: m, name: m, tactic: 'tooling', evidence: 'mentioned in report' });
+  }
+  for (const t of ttp) {
+    if (capability.some((c) => c.id === t.id)) continue;
+    capability.push({ id: t.id, name: t.name, tactic: t.tactic, evidence: t.evidence.slice(0, 160) });
+  }
+  // Infrastructure = network-shaped IOCs.
+  const infraSet = new Set<string>();
+  for (const i of iocs) {
+    if (i.kind === 'ip' || i.kind === 'domain' || i.kind === 'url') {
+      if (!infraSet.has(i.value) && i.confidence_band !== 'low') {
+        infraSet.add(i.value);
+      }
+    }
+  }
+  const infrastructure = Array.from(infraSet).slice(0, 12);
+  // Victim: 5W 'where' is the source of truth; fall back to sector
+  // keywords in the report text.
+  const where = fiveW?.where?.trim() ?? '';
+  const why = fiveW?.why?.trim() ?? '';
+  const sector = inferSector(text);
+  return {
+    adversary,
+    capability: capability.slice(0, 16),
+    infrastructure,
+    victim: {
+      sector: sector ?? (where ? where.split(/[.,;]/)[0]!.trim() : 'unspecified'),
+      geography: where || 'unspecified',
+      asset: why ? why.split(/[.,;]/)[0]!.trim() : 'unspecified',
+    },
+  };
+}
+
+/** Build the Attack Flow (kill-chain) view by bucketing the extracted TTPs
+ *  into MITRE ATT&CK tactic phases, in document order. Returns one phase
+ *  per tactic that has at least one TTP, plus an "Other" phase for any
+ *  TTPs whose tactic isn't in TACTIC_ORDER. */
+export function buildAttackFlow(ttp: TtpHit[]): AttackFlowPhase[] {
+  if (ttp.length === 0) return [];
+  const buckets = new Map<string, AttackFlowPhase>();
+  for (const t of ttp) {
+    const tactic = t.tactic || 'Other';
+    if (!buckets.has(tactic)) buckets.set(tactic, { phase: tactic, techniques: [] });
+    buckets.get(tactic)!.techniques.push({ id: t.id, name: t.name, evidence: t.evidence.slice(0, 160) });
+  }
+  // Stable sort: TACTIC_ORDER first, then "Other" last.
+  const out: AttackFlowPhase[] = [];
+  for (const tactic of TACTIC_ORDER) {
+    const phase = buckets.get(tactic);
+    if (phase) out.push(phase);
+  }
+  const other = buckets.get('Other');
+  if (other) out.push(other);
+  return out;
+}
+
+const SECTOR_KEYWORDS: Array<[string, RegExp]> = [
+  ['financial', /\b(financial|bank|banking|swift|atm|payment|credit.card|finance|fintech)\b/i],
+  ['healthcare', /\b(hospital|clinic|patient|medical|healthcare|pharma|hhs)\b/i],
+  ['government', /\b(government|federal|state|dod|defense|ministry|diplomat|embassy|sector|agency)\b/i],
+  ['energy', /\b(energy|oil|gas|petrochemical|electric|grid|utility|pipeline)\b/i],
+  ['technology', /\b(software|saas|cloud|hosting|cdn|tech|startup|platform|api|developer)\b/i],
+  ['retail', /\b(retail|e-?commerce|shop|store|merchant|point.of.sale|pos)\b/i],
+  ['education', /\b(university|college|school|education|academic|research.student)\b/i],
+  ['manufacturing', /\b(manufacturing|factory|industrial|ics|scada|ot\b|plc)\b/i],
+  ['telecommunications', /\b(telecom|isp|mobile|carrier|5g|voip)\b/i],
+  ['media', /\b(media|news|press|journalist|broadcaster|publishing)\b/i],
+];
+
+function inferSector(text: string): string | null {
+  for (const [name, re] of SECTOR_KEYWORDS) {
+    if (re.test(text)) return name;
+  }
+  return null;
 }

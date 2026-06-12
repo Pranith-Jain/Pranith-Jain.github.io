@@ -1,0 +1,774 @@
+import { useEffect, useMemo, useState } from 'react';
+import {
+  Beaker,
+  BookOpen,
+  Bug,
+  Calendar,
+  CircleDot,
+  Diamond,
+  ExternalLink,
+  Eye,
+  FileText,
+  Globe2,
+  Link2,
+  Loader2,
+  Network,
+  RefreshCw,
+  Sparkles,
+  Target,
+  TrendingUp,
+  Users,
+} from 'lucide-react';
+import { DataPageLayout } from '../../components/DataPageLayout';
+import { SAMPLE_REPORTS, type SampleReport } from '../../data/threatintel/sample-reports';
+
+// Mirror of api/src/lib/report-analyzer.ts types (kept in sync — this page
+// is a read-only consumer; if the API shape changes, this needs an update).
+type IocKind = 'ip' | 'url' | 'domain' | 'hash' | 'cve' | 'email';
+interface ExtractedIoc {
+  value: string;
+  kind: IocKind;
+  confidence: number;
+  confidence_band: 'high' | 'medium' | 'low';
+  evidence: string;
+  source: 'report-text' | 'image-ocr';
+}
+interface TtpHit {
+  id: string;
+  name: string;
+  tactic: string;
+  confidence: 'high' | 'medium' | 'low';
+  evidence: string;
+}
+interface ExtractedCve {
+  id: string;
+  context: string;
+}
+interface FiveW {
+  who: string;
+  what: string;
+  when: string;
+  where: string;
+  why: string;
+  attribution_basis?: string;
+  confidence: number;
+}
+interface MindmapNode {
+  id: string;
+  label: string;
+  kind: 'actor' | 'malware' | 'ttp' | 'ioc' | 'cve' | 'finding';
+}
+interface MindmapEdge {
+  source: string;
+  target: string;
+  label: string;
+}
+interface DiamondModel {
+  adversary: string[];
+  capability: { id: string; name: string; tactic: string; evidence: string }[];
+  infrastructure: string[];
+  victim: { sector: string; geography: string; asset: string };
+}
+interface AttackFlowPhase {
+  phase: string;
+  techniques: { id: string; name: string; evidence: string }[];
+}
+interface AnalyzerOutput {
+  title: string;
+  source?: string;
+  textLength: number;
+  generatedAt: string;
+  summary: { text: string; model: string } | null;
+  fiveW: FiveW | null;
+  iocs: ExtractedIoc[];
+  ttp: TtpHit[];
+  cves: ExtractedCve[];
+  mindmap: { nodes: MindmapNode[]; edges: MindmapEdge[] };
+  diamond: DiamondModel | null;
+  attackFlow: AttackFlowPhase[];
+  stix: { bundle: { type: string; id: string; objects: unknown[] }; view: unknown } | null;
+  errors: { branch: string; message: string }[];
+  elapsed_ms: number;
+}
+
+// ── Tab IDs (PDF section IDs mirrored from the upstream report) ────────
+type TabId = 'summary' | 'mindmap' | 'stix' | 'diamond' | 'iocs' | 'ttps' | 'attackflow' | '5w';
+
+const TABS: { id: TabId; label: string; icon: typeof FileText }[] = [
+  { id: 'summary', label: 'AI Summary', icon: FileText },
+  { id: 'mindmap', label: 'Mindmap', icon: Network },
+  { id: 'stix', label: 'STIX 2.1', icon: Globe2 },
+  { id: 'diamond', label: 'Diamond Model', icon: Diamond },
+  { id: 'iocs', label: 'IOCs', icon: Link2 },
+  { id: 'ttps', label: 'TTP Catalog', icon: Bug },
+  { id: 'attackflow', label: 'Attack Flow', icon: TrendingUp },
+  { id: '5w', label: '5W Analysis', icon: Users },
+];
+
+// ── Formatting helpers ────────────────────────────────────────────────
+function fmtTime(ms: number): string {
+  if (ms < 1000) return `${ms}ms`;
+  return `${(ms / 1000).toFixed(1)}s`;
+}
+
+function fmtConfidence(n: number): string {
+  return `${Math.round(n * 100)}%`;
+}
+
+const CONFIDENCE_PILL: Record<'high' | 'medium' | 'low', string> = {
+  high: 'text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/40 border-emerald-300 dark:border-emerald-800',
+  medium: 'text-sky-700 dark:text-sky-300 bg-sky-50 dark:bg-sky-950/40 border-sky-300 dark:border-sky-800',
+  low: 'text-amber-700 dark:text-amber-300 bg-amber-50 dark:bg-amber-950/40 border-amber-300 dark:border-amber-800',
+};
+
+const IOC_PILL: Record<IocKind, string> = {
+  ip: 'text-cyan-700 dark:text-cyan-300 bg-cyan-50 dark:bg-cyan-950/40 border-cyan-300 dark:border-cyan-800',
+  url: 'text-purple-700 dark:text-purple-300 bg-purple-50 dark:bg-purple-950/40 border-purple-300 dark:border-purple-800',
+  domain: 'text-sky-700 dark:text-sky-300 bg-sky-50 dark:bg-sky-950/40 border-sky-300 dark:border-sky-800',
+  hash: 'text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/40 border-emerald-300 dark:border-emerald-800',
+  cve: 'text-amber-700 dark:text-amber-300 bg-amber-50 dark:bg-amber-950/40 border-amber-300 dark:border-amber-800',
+  email: 'text-rose-700 dark:text-rose-300 bg-rose-50 dark:bg-rose-950/40 border-rose-300 dark:border-rose-800',
+};
+
+// ── Tab bodies (mirror the ReportAnalyzer styles, no React Flow needed
+//    for the showcase — we use a CSS-only mindmap rendering so the page
+//    loads without the 250KB xyflow bundle) ───────────────────────────
+
+function SummaryTab({ data, sample }: { data: AnalyzerOutput; sample: SampleReport }): JSX.Element {
+  return (
+    <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-5 space-y-4">
+      <div className="flex flex-wrap items-baseline justify-between gap-2 border-b border-slate-200 dark:border-slate-800 pb-3">
+        <div>
+          <p className="text-micro font-mono uppercase tracking-wider text-brand-600 dark:text-brand-400">
+            AI-Generated Summary · {data.summary?.model ?? 'unknown model'}
+          </p>
+          <h2 className="text-xl sm:text-2xl font-display font-bold text-slate-900 dark:text-slate-100 mt-1">
+            {data.title || sample.title}
+          </h2>
+        </div>
+        <div className="text-right text-xs text-slate-500 dark:text-slate-400 font-mono">
+          <p>elapsed: {fmtTime(data.elapsed_ms)}</p>
+          <p>chars: {data.textLength.toLocaleString()}</p>
+        </div>
+      </div>
+      {data.summary?.text ? (
+        <div className="prose prose-slate dark:prose-invert max-w-none text-sm leading-relaxed text-slate-700 dark:text-slate-300 whitespace-pre-wrap">
+          {data.summary.text}
+        </div>
+      ) : (
+        <p className="text-sm text-slate-500 dark:text-slate-400 italic">No AI summary was generated.</p>
+      )}
+    </div>
+  );
+}
+
+function MindmapSimpleTab({ mindmap }: { mindmap: { nodes: MindmapNode[]; edges: MindmapEdge[] } }): JSX.Element {
+  // CSS-only rendering: a central "finding" card with each connected node
+  // listed under a kind label. We trade the interactive force-layout of the
+  // /dfir/report-analyzer page for a lighter, SEO-friendly version that
+  // works without lazy-loading xyflow.
+  if (mindmap.nodes.length === 0) {
+    return <EmptyTab msg="No mindmap nodes were generated for this report." />;
+  }
+  const finding = mindmap.nodes.find((n) => n.kind === 'finding');
+  const byKind: Record<string, MindmapNode[]> = {};
+  for (const n of mindmap.nodes) {
+    if (n.id === finding?.id) continue;
+    (byKind[n.kind] ??= []).push(n);
+  }
+  const KIND_ORDER: Array<{ kind: string; label: string; tone: string }> = [
+    {
+      kind: 'actor',
+      label: 'Actors',
+      tone: 'border-rose-300 dark:border-rose-800 bg-rose-50/40 dark:bg-rose-950/20 text-rose-700 dark:text-rose-300',
+    },
+    {
+      kind: 'malware',
+      label: 'Malware / Tools',
+      tone: 'border-violet-300 dark:border-violet-800 bg-violet-50/40 dark:bg-violet-950/20 text-violet-700 dark:text-violet-300',
+    },
+    {
+      kind: 'ttp',
+      label: 'TTPs',
+      tone: 'border-indigo-300 dark:border-indigo-800 bg-indigo-50/40 dark:bg-indigo-950/20 text-indigo-700 dark:text-indigo-300',
+    },
+    {
+      kind: 'cve',
+      label: 'CVEs',
+      tone: 'border-amber-300 dark:border-amber-800 bg-amber-50/40 dark:bg-amber-950/20 text-amber-700 dark:text-amber-300',
+    },
+    {
+      kind: 'ioc',
+      label: 'IOCs',
+      tone: 'border-sky-300 dark:border-sky-800 bg-sky-50/40 dark:bg-sky-950/20 text-sky-700 dark:text-sky-300',
+    },
+  ];
+  return (
+    <div className="space-y-3">
+      {finding && (
+        <div className="rounded-lg border-2 border-brand-400 dark:border-brand-600 bg-brand-50 dark:bg-brand-950/30 p-4 text-center shadow-e1">
+          <p className="text-micro font-mono uppercase tracking-wider text-brand-600 dark:text-brand-400">
+            Central Finding
+          </p>
+          <h3 className="mt-1 text-base font-semibold text-slate-900 dark:text-slate-100">{finding.label}</h3>
+        </div>
+      )}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        {KIND_ORDER.map(({ kind, label, tone }) => {
+          const items = byKind[kind] ?? [];
+          if (items.length === 0) return null;
+          return (
+            <div key={kind} className={`rounded-lg border ${tone} p-4 shadow-e1`}>
+              <p className="text-micro font-mono uppercase tracking-wider opacity-80 mb-2">
+                {label} · {items.length}
+              </p>
+              <ul className="space-y-1">
+                {items.slice(0, 10).map((n) => (
+                  <li
+                    key={n.id}
+                    className="text-xs font-mono truncate text-slate-700 dark:text-slate-300"
+                    title={n.label}
+                  >
+                    {n.label}
+                  </li>
+                ))}
+                {items.length > 10 && <li className="text-xs text-slate-500">+{items.length - 10} more</li>}
+              </ul>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+function StixTab({ data }: { data: AnalyzerOutput }): JSX.Element {
+  if (!data.stix) return <EmptyTab msg="No STIX 2.1 bundle was generated." />;
+  const objects = Array.isArray((data.stix.bundle as { objects?: unknown[] }).objects)
+    ? (data.stix.bundle as { objects: unknown[] }).objects
+    : [];
+  // Count object types for a summary
+  const typeCounts: Record<string, number> = {};
+  for (const o of objects) {
+    if (typeof o === 'object' && o !== null) {
+      const t = (o as { type?: string }).type ?? 'unknown';
+      typeCounts[t] = (typeCounts[t] ?? 0) + 1;
+    }
+  }
+  return (
+    <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-5 space-y-4">
+      <div className="flex items-baseline justify-between">
+        <p className="text-micro font-mono uppercase tracking-wider text-brand-600 dark:text-brand-400">
+          STIX 2.1 Bundle · {objects.length} objects
+        </p>
+        <details className="text-xs">
+          <summary className="cursor-pointer text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 font-mono">
+            show raw JSON
+          </summary>
+          <pre className="mt-2 max-h-96 overflow-auto rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-3 text-[11px] text-slate-700 dark:text-slate-300">
+            {JSON.stringify(data.stix.bundle, null, 2)}
+          </pre>
+        </details>
+      </div>
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+        {Object.entries(typeCounts).map(([type, n]) => (
+          <div
+            key={type}
+            className="rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-3 text-center"
+          >
+            <p className="text-2xl font-display font-bold text-slate-900 dark:text-slate-100">{n}</p>
+            <p className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mt-1">
+              {type}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function DiamondTabView({ diamond }: { diamond: DiamondModel | null }): JSX.Element {
+  if (!diamond) return <EmptyTab msg="No Diamond Model could be derived from this report." />;
+  const pillars = [
+    {
+      key: 'adversary',
+      title: 'Adversary',
+      items: diamond.adversary,
+      tone: 'border-rose-300 dark:border-rose-800 bg-rose-50/40 dark:bg-rose-950/20 text-rose-700 dark:text-rose-300',
+    },
+    {
+      key: 'capability',
+      title: 'Capability',
+      items: diamond.capability.map((c) => c.id),
+      tone: 'border-violet-300 dark:border-violet-800 bg-violet-50/40 dark:bg-violet-950/20 text-violet-700 dark:text-violet-300',
+    },
+    {
+      key: 'infrastructure',
+      title: 'Infrastructure',
+      items: diamond.infrastructure,
+      tone: 'border-sky-300 dark:border-sky-800 bg-sky-50/40 dark:bg-sky-950/20 text-sky-700 dark:text-sky-300',
+    },
+    {
+      key: 'victim',
+      title: 'Victim',
+      items: [`${diamond.victim.sector} · ${diamond.victim.geography}`],
+      tone: 'border-emerald-300 dark:border-emerald-800 bg-emerald-50/40 dark:bg-emerald-950/20 text-emerald-700 dark:text-emerald-300',
+    },
+  ] as const;
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+      {pillars.map((p) => (
+        <div key={p.key} className={`rounded-lg border ${p.tone} p-4 shadow-e1`}>
+          <div className="flex items-center gap-2 mb-2">
+            <Diamond className="h-4 w-4 opacity-70" />
+            <h3 className="text-sm font-semibold">{p.title}</h3>
+            <span className="ml-auto text-micro font-mono uppercase opacity-70">
+              {p.items.length} item{p.items.length === 1 ? '' : 's'}
+            </span>
+          </div>
+          {p.items.length === 0 ? (
+            <p className="text-xs opacity-60 italic">none</p>
+          ) : (
+            <ul className="space-y-1">
+              {p.items.slice(0, 8).map((i, idx) => (
+                <li key={idx} className="text-xs font-mono truncate" title={i}>
+                  {i}
+                </li>
+              ))}
+              {p.items.length > 8 && <li className="text-xs opacity-70">+{p.items.length - 8} more</li>}
+            </ul>
+          )}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function IocsTab({ iocs }: { iocs: ExtractedIoc[] }): JSX.Element {
+  if (iocs.length === 0) return <EmptyTab msg="No IOCs were extracted." />;
+  return (
+    <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 overflow-hidden">
+      <table className="w-full text-sm">
+        <thead className="bg-slate-50 dark:bg-slate-900 text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
+          <tr>
+            <th className="text-left px-4 py-2">Value</th>
+            <th className="text-left px-4 py-2">Type</th>
+            <th className="text-left px-4 py-2">Confidence</th>
+            <th className="text-left px-4 py-2">Source</th>
+          </tr>
+        </thead>
+        <tbody className="divide-y divide-slate-100 dark:divide-slate-800/60">
+          {iocs.slice(0, 50).map((i, idx) => (
+            <tr key={idx} className="hover:bg-slate-50 dark:hover:bg-slate-900/50">
+              <td
+                className="px-4 py-2 font-mono text-xs text-slate-700 dark:text-slate-300 truncate max-w-md"
+                title={i.value}
+              >
+                {i.value}
+              </td>
+              <td className="px-4 py-2">
+                <span
+                  className={`text-micro font-mono uppercase tracking-wider rounded border px-1.5 py-0.5 ${IOC_PILL[i.kind]}`}
+                >
+                  {i.kind}
+                </span>
+              </td>
+              <td className="px-4 py-2">
+                <span
+                  className={`text-micro font-mono uppercase tracking-wider rounded border px-1.5 py-0.5 ${CONFIDENCE_PILL[i.confidence_band]}`}
+                >
+                  {i.confidence_band} · {fmtConfidence(i.confidence)}
+                </span>
+              </td>
+              <td className="px-4 py-2 text-xs text-slate-500 dark:text-slate-400 font-mono">{i.source}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      {iocs.length > 50 && (
+        <p className="px-4 py-2 text-xs text-slate-500 dark:text-slate-400 border-t border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900">
+          Showing first 50 of {iocs.length} indicators.
+        </p>
+      )}
+    </div>
+  );
+}
+
+function TtpsTab({ ttp }: { ttp: TtpHit[] }): JSX.Element {
+  if (ttp.length === 0) return <EmptyTab msg="No MITRE ATT&CK techniques were extracted." />;
+  return (
+    <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 overflow-hidden">
+      <table className="w-full text-sm">
+        <thead className="bg-slate-50 dark:bg-slate-900 text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
+          <tr>
+            <th className="text-left px-4 py-2">Technique</th>
+            <th className="text-left px-4 py-2">ID</th>
+            <th className="text-left px-4 py-2">Tactic</th>
+            <th className="text-left px-4 py-2">Confidence</th>
+            <th className="text-left px-4 py-2">Evidence</th>
+          </tr>
+        </thead>
+        <tbody className="divide-y divide-slate-100 dark:divide-slate-800/60">
+          {ttp.map((t, idx) => (
+            <tr key={idx} className="hover:bg-slate-50 dark:hover:bg-slate-900/50">
+              <td className="px-4 py-2 text-slate-900 dark:text-slate-100 font-medium">{t.name}</td>
+              <td className="px-4 py-2 font-mono text-xs">
+                <a
+                  href={`https://attack.mitre.org/techniques/${t.id.replace('.', '/')}/`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-brand-600 dark:text-brand-400 hover:underline"
+                >
+                  {t.id}
+                </a>
+              </td>
+              <td className="px-4 py-2 text-xs text-slate-600 dark:text-slate-400">{t.tactic}</td>
+              <td className="px-4 py-2">
+                <span
+                  className={`text-micro font-mono uppercase tracking-wider rounded border px-1.5 py-0.5 ${CONFIDENCE_PILL[t.confidence]}`}
+                >
+                  {t.confidence}
+                </span>
+              </td>
+              <td className="px-4 py-2 text-xs text-slate-500 dark:text-slate-400 max-w-md truncate" title={t.evidence}>
+                {t.evidence}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+function AttackFlowTabView({ phases }: { phases: AttackFlowPhase[] }): JSX.Element {
+  if (phases.length === 0) return <EmptyTab msg="No kill-chain phases to render." />;
+  return (
+    <div className="space-y-2">
+      {phases.map((p) => (
+        <div
+          key={p.phase}
+          className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 shadow-e1 overflow-hidden"
+        >
+          <div className="flex items-center gap-2 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 px-4 py-2">
+            <TrendingUp className="h-4 w-4 text-brand-600 dark:text-brand-400" />
+            <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">{p.phase}</h3>
+            <span className="ml-auto text-micro font-mono uppercase text-slate-500">
+              {p.techniques.length} technique{p.techniques.length === 1 ? '' : 's'}
+            </span>
+          </div>
+          <ul className="divide-y divide-slate-100 dark:divide-slate-800/60">
+            {p.techniques.map((t) => (
+              <li key={t.id} className="flex items-start gap-3 px-4 py-2.5">
+                <span className="mt-0.5 inline-flex h-5 items-center rounded border border-violet-300 dark:border-violet-800 bg-violet-50 dark:bg-violet-950/40 px-1.5 text-[10px] font-mono uppercase tracking-wider text-violet-700 dark:text-violet-300">
+                  {t.id}
+                </span>
+                <div className="min-w-0 flex-1">
+                  <p className="text-sm font-medium text-slate-900 dark:text-slate-100">{t.name}</p>
+                  {t.evidence && (
+                    <p className="mt-0.5 text-xs text-slate-600 dark:text-slate-400 line-clamp-2">{t.evidence}</p>
+                  )}
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function FiveWTab({ fiveW }: { fiveW: FiveW | null }): JSX.Element {
+  if (!fiveW) return <EmptyTab msg="No 5W analysis was generated." />;
+  const questions: Array<{ q: string; a: string; icon: typeof Users }> = [
+    { q: 'Who', a: fiveW.who, icon: Users },
+    { q: 'What', a: fiveW.what, icon: Target },
+    { q: 'When', a: fiveW.when, icon: Calendar },
+    { q: 'Where', a: fiveW.where, icon: Globe2 },
+    { q: 'Why', a: fiveW.why, icon: Eye },
+  ];
+  return (
+    <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-5 space-y-3">
+      <p className="text-micro font-mono uppercase tracking-wider text-brand-600 dark:text-brand-400">
+        5W Analysis · AI confidence {fmtConfidence(fiveW.confidence)}
+      </p>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+        {questions.map(({ q, a, icon: Icon }) => (
+          <div
+            key={q}
+            className="rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-3"
+          >
+            <div className="flex items-center gap-2 mb-1">
+              <Icon className="h-3.5 w-3.5 text-slate-500" />
+              <p className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">{q}</p>
+            </div>
+            <p className="text-sm text-slate-800 dark:text-slate-200">{a || '—'}</p>
+          </div>
+        ))}
+      </div>
+      {fiveW.attribution_basis && (
+        <div className="rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-3">
+          <p className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">
+            Attribution basis
+          </p>
+          <p className="text-sm text-slate-700 dark:text-slate-300">{fiveW.attribution_basis}</p>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function EmptyTab({ msg }: { msg: string }): JSX.Element {
+  return (
+    <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-8 text-center text-sm text-slate-500 dark:text-slate-400">
+      {msg}
+    </div>
+  );
+}
+
+// ── Page ─────────────────────────────────────────────────────────────
+export default function AIReportShowcase(): JSX.Element {
+  const [selectedId, setSelectedId] = useState<string>(SAMPLE_REPORTS[0]?.id ?? '');
+  const [data, setData] = useState<AnalyzerOutput | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [tab, setTab] = useState<TabId>('summary');
+  const [startedAt, setStartedAt] = useState<number | null>(null);
+
+  const sample = useMemo(() => SAMPLE_REPORTS.find((r) => r.id === selectedId) ?? SAMPLE_REPORTS[0]!, [selectedId]);
+
+  const runAnalyzer = useMemo(() => {
+    return async (report: SampleReport) => {
+      setLoading(true);
+      setError(null);
+      setStartedAt(Date.now());
+      const t0 = Date.now();
+      try {
+        const r = await fetch('/api/v1/report-analyzer', {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({ text: report.text, source: report.source, title: report.title }),
+        });
+        if (!r.ok) {
+          const body = await r.text();
+          throw new Error(`HTTP ${r.status}: ${body.slice(0, 200)}`);
+        }
+        const d = (await r.json()) as AnalyzerOutput;
+        setData(d);
+      } catch (e) {
+        const message = e instanceof Error ? e.message : String(e);
+        setError(message || 'analysis failed');
+      } finally {
+        setLoading(false);
+        void t0;
+      }
+    };
+  }, []);
+
+  // Auto-run on first mount with the default sample.
+  useEffect(() => {
+    if (selectedId && !data) {
+      void runAnalyzer(sample);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Re-run when the user picks a different sample.
+  function handleSelect(id: string) {
+    setSelectedId(id);
+    setData(null);
+    void runAnalyzer(SAMPLE_REPORTS.find((r) => r.id === id)!);
+  }
+
+  return (
+    <DataPageLayout
+      backTo="/threatintel"
+      backLabel="back to threat intel"
+      icon={<Sparkles className="h-6 w-6" />}
+      title="AI Report Showcase"
+      description={
+        <span>
+          A live, in-browser demonstration of the{' '}
+          <a href="/dfir/report-analyzer" className="text-brand-600 dark:text-brand-400 hover:underline">
+            Report Analyzer
+          </a>{' '}
+          pipeline. Pick a sample report (or paste your own at{' '}
+          <a href="/dfir/report-analyzer" className="text-brand-600 dark:text-brand-400 hover:underline">
+            /dfir/report-analyzer
+          </a>
+          ) — the page runs the eight-branch AI extraction (summary, IOCs, MITRE ATT&CK TTPs, 5W, CVEs, mindmap, Diamond
+          Model, STIX 2.1) and renders all 9 PDF-quality sections below.
+        </span>
+      }
+      headerExtra={
+        <div className="flex flex-wrap items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
+          {data && !loading && (
+            <span className="rounded border border-emerald-300 dark:border-emerald-700 bg-emerald-50 dark:bg-emerald-950/40 px-2 py-1 text-emerald-700 dark:text-emerald-300 font-mono">
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse mr-1.5" />
+              analyzed in {fmtTime(data.elapsed_ms)}
+            </span>
+          )}
+          {data && data.errors.length > 0 && (
+            <span
+              className="rounded border border-amber-300 dark:border-amber-700 bg-amber-50 dark:bg-amber-950/40 px-2 py-1 font-mono text-amber-700 dark:text-amber-300"
+              title={data.errors.map((e) => `${e.branch}: ${e.message}`).join('\n')}
+            >
+              {data.errors.length} branch{data.errors.length > 1 ? 'es' : ''} degraded
+            </span>
+          )}
+          {startedAt && loading && (
+            <span className="rounded border border-slate-300 dark:border-slate-700 px-2 py-1 font-mono inline-flex items-center gap-1.5">
+              <Loader2 className="h-3.5 w-3.5 animate-spin" />
+              analyzing…
+            </span>
+          )}
+        </div>
+      }
+      loading={loading && !data}
+      error={error}
+      onRetry={() => void runAnalyzer(sample)}
+      maxWidthClass="max-w-7xl"
+    >
+      {/* ── Sample picker ───────────────────────────────────────────── */}
+      <div className="mb-4 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
+        <div className="flex items-center gap-2 mb-3">
+          <Beaker className="h-4 w-4 text-brand-600 dark:text-brand-400" />
+          <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">Pick a sample report</h3>
+          <span className="ml-auto text-micro font-mono uppercase text-slate-500">
+            {SAMPLE_REPORTS.length} curated samples
+          </span>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+          {SAMPLE_REPORTS.map((r) => {
+            const active = r.id === selectedId;
+            return (
+              <button
+                key={r.id}
+                type="button"
+                onClick={() => handleSelect(r.id)}
+                className={`text-left rounded-lg border p-3 transition-all ${
+                  active
+                    ? 'border-brand-500 bg-brand-50 dark:bg-brand-950/30 shadow-e2'
+                    : 'border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 hover:border-brand-400/60'
+                }`}
+              >
+                <div className="flex items-baseline justify-between gap-2 mb-1">
+                  <p className="text-sm font-medium text-slate-900 dark:text-slate-100 line-clamp-2">{r.title}</p>
+                  {active && <CircleDot className="h-3 w-3 text-brand-500 shrink-0" />}
+                </div>
+                <p className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">
+                  {r.source} · {r.publishedAt}
+                </p>
+                <p className="text-xs text-slate-600 dark:text-slate-400 line-clamp-2">
+                  {r.tags.slice(0, 4).join(' · ')}
+                </p>
+              </button>
+            );
+          })}
+        </div>
+        <div className="mt-3 flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
+          <span>Source:</span>
+          <a
+            href={sample.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+          >
+            {sample.url}
+            <ExternalLink className="h-3 w-3" />
+          </a>
+          <span className="ml-auto">
+            {sample.text.length.toLocaleString()} chars · ~{Math.ceil(sample.text.length / 4).toLocaleString()} tokens
+          </span>
+        </div>
+      </div>
+
+      {/* ── Tabs ──────────────────────────────────────────────────────── */}
+      {data && (
+        <>
+          <div className="mb-3 flex flex-wrap gap-1.5">
+            {TABS.map((t) => {
+              const Icon = t.icon;
+              const count =
+                t.id === 'iocs'
+                  ? data.iocs.length
+                  : t.id === 'ttps'
+                    ? data.ttp.length
+                    : t.id === 'mindmap'
+                      ? data.mindmap.nodes.length
+                      : t.id === 'stix'
+                        ? Array.isArray((data.stix?.bundle as { objects?: unknown[] })?.objects)
+                          ? (data.stix?.bundle as { objects: unknown[] }).objects.length
+                          : 0
+                        : t.id === 'diamond'
+                          ? data.diamond
+                            ? data.diamond.adversary.length +
+                              data.diamond.capability.length +
+                              data.diamond.infrastructure.length
+                            : 0
+                          : t.id === 'attackflow'
+                            ? data.attackFlow.length
+                            : null;
+              return (
+                <button
+                  key={t.id}
+                  type="button"
+                  onClick={() => setTab(t.id)}
+                  className={`inline-flex items-center gap-1.5 text-mini font-mono rounded-full border px-2.5 py-1 transition-colors ${
+                    tab === t.id
+                      ? 'border-brand-500 bg-brand-50 dark:bg-brand-950/40 text-brand-700 dark:text-brand-300'
+                      : 'border-slate-300 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-slate-400 dark:hover:border-slate-500'
+                  }`}
+                >
+                  <Icon className="h-3.5 w-3.5" /> {t.label}
+                  {count != null && count > 0 && <span className="opacity-60">· {count}</span>}
+                </button>
+              );
+            })}
+            <button
+              type="button"
+              onClick={() => void runAnalyzer(sample)}
+              disabled={loading}
+              className="ml-auto inline-flex items-center gap-1.5 text-mini font-mono rounded-full border border-slate-300 dark:border-slate-700 px-2.5 py-1 text-slate-500 dark:text-slate-400 hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors disabled:opacity-50"
+            >
+              <RefreshCw className={`h-3.5 w-3.5 ${loading ? 'animate-spin' : ''}`} />
+              re-run
+            </button>
+          </div>
+
+          {/* Tab body */}
+          {tab === 'summary' && <SummaryTab data={data} sample={sample} />}
+          {tab === 'mindmap' && <MindmapSimpleTab mindmap={data.mindmap} />}
+          {tab === 'stix' && <StixTab data={data} />}
+          {tab === 'diamond' && <DiamondTabView diamond={data.diamond} />}
+          {tab === 'iocs' && <IocsTab iocs={data.iocs} />}
+          {tab === 'ttps' && <TtpsTab ttp={data.ttp} />}
+          {tab === 'attackflow' && <AttackFlowTabView phases={data.attackFlow} />}
+          {tab === '5w' && <FiveWTab fiveW={data.fiveW} />}
+
+          {/* Footer credit */}
+          <div className="mt-6 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 p-4 text-xs text-slate-500 dark:text-slate-400">
+            <p>
+              The output above is a live result from{' '}
+              <code className="rounded bg-slate-100 dark:bg-slate-800 px-1 py-0.5 font-mono">
+                POST /api/v1/report-analyzer
+              </code>{' '}
+              on the selected sample. The same pipeline backs the standalone{' '}
+              <a href="/dfir/report-analyzer" className="text-brand-600 dark:text-brand-400 hover:underline">
+                /dfir/report-analyzer
+              </a>{' '}
+              page where you can paste a URL, raw text, or attach image URLs for OCR-based IOC extraction.
+            </p>
+          </div>
+        </>
+      )}
+
+      {!data && !loading && !error && (
+        <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-12 text-center">
+          <BookOpen className="mx-auto h-10 w-10 text-slate-400 dark:text-slate-500 mb-3" />
+          <p className="text-sm text-slate-600 dark:text-slate-400">Pick a sample above to begin.</p>
+        </div>
+      )}
+    </DataPageLayout>
+  );
+}

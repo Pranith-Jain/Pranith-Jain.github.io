@@ -189,6 +189,7 @@ const BitwireBlocklist = lazy(() => import('./pages/threatintel/BitwireBlocklist
 const OwaspAiLandscape = lazy(() => import('./pages/threatintel/OwaspAiLandscape'));
 const RedHuntLabsResearch = lazy(() => import('./pages/threatintel/RedHuntLabsResearch'));
 const RedHuntInsights = lazy(() => import('./pages/threatintel/RedHuntInsights'));
+const AIReportShowcase = lazy(() => import('./pages/threatintel/AIReportShowcase'));
 const CuratedToolbox = lazy(() => import('./pages/threatintel/CuratedToolbox'));
 const OsintCountryMap = lazy(() => import('./pages/threatintel/OsintCountryMap'));
 const DarkWebOsintTools = lazy(() => import('./pages/threatintel/DarkWebOsintTools'));
@@ -579,6 +580,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel/curated-toolbox', Component: CuratedToolbox },
   { path: '/threatintel/redhunt-labs', Component: RedHuntLabsResearch },
   { path: '/threatintel/redhunt-insights', Component: RedHuntInsights },
+  { path: '/threatintel/ai-report', Component: AIReportShowcase },
   { path: '/threatintel/osint-map', Component: OsintCountryMap },
   { path: '/threatintel/darkweb-tools', Component: DarkWebOsintTools },
   { path: '/threatintel/aggregated-feeds', Component: AggregatedFeeds },

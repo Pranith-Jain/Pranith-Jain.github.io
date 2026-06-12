@@ -215,6 +215,7 @@ const ROUTES = [
   '/threatintel/curated-toolbox',
   '/threatintel/redhunt-labs',
   '/threatintel/redhunt-insights',
+  '/threatintel/ai-report',
 
   // ── ThreatIntel: static catalogs (5) — 0 API calls ────────────
   '/threatintel/wiki',

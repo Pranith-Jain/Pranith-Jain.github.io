@@ -23,6 +23,8 @@ import {
   Network,
   Bug,
   Users,
+  Diamond,
+  GitBranch,
   Globe2,
   Download,
 } from 'lucide-react';
@@ -69,6 +71,21 @@ interface MindmapEdge {
   target: string;
   label: string;
 }
+
+/** Diamond Model — 4-axis view of an intrusion. */
+interface DiamondModel {
+  adversary: string[];
+  capability: { id: string; name: string; tactic: string; evidence: string }[];
+  infrastructure: string[];
+  victim: { sector: string; geography: string; asset: string };
+}
+
+/** Attack Flow — kill-chain phases, each holding the TTPs observed in that phase. */
+interface AttackFlowPhase {
+  phase: string;
+  techniques: { id: string; name: string; evidence: string }[];
+}
+
 interface AnalyzerOutput {
   title: string;
   source?: string;
@@ -80,6 +97,8 @@ interface AnalyzerOutput {
   ttp: TtpHit[];
   cves: ExtractedCve[];
   mindmap: { nodes: MindmapNode[]; edges: MindmapEdge[] };
+  diamond: DiamondModel | null;
+  attackFlow: AttackFlowPhase[];
   stix: { bundle: { type: string; id: string; objects: unknown[] }; view: unknown } | null;
   errors: { branch: string; message: string }[];
   elapsed_ms: number;
@@ -167,7 +186,7 @@ function layoutNodes(rawNodes: MindmapNode[], rawEdges: MindmapEdge[]): { nodes:
 
 // ── Page ──────────────────────────────────────────────────────────────
 
-const TABS = ['summary', 'iocs', 'ttps', 'cves', '5w', 'mindmap', 'stix'] as const;
+const TABS = ['summary', 'iocs', 'ttps', 'cves', '5w', 'diamond', 'attackflow', 'mindmap', 'stix'] as const;
 type Tab = (typeof TABS)[number];
 
 const TAB_META: Record<Tab, { label: string; icon: React.ReactNode }> = {
@@ -178,6 +197,8 @@ const TAB_META: Record<Tab, { label: string; icon: React.ReactNode }> = {
   '5w': { label: '5W', icon: <Users className="h-3.5 w-3.5" /> },
   mindmap: { label: 'Mindmap', icon: <Network className="h-3.5 w-3.5" /> },
   stix: { label: 'STIX', icon: <Globe2 className="h-3.5 w-3.5" /> },
+  diamond: { label: 'Diamond', icon: <Diamond className="h-3.5 w-3.5" /> },
+  attackflow: { label: 'Attack Flow', icon: <GitBranch className="h-3.5 w-3.5" /> },
 };
 
 const IOC_PILL: Record<IocKind, string> = {
@@ -407,6 +428,8 @@ export default function ReportAnalyzer(): JSX.Element {
           {tab === '5w' && <FiveWTab fiveW={data.fiveW} />}
           {tab === 'mindmap' && <MindmapTab mindmap={data.mindmap} />}
           {tab === 'stix' && <StixTab data={data} />}
+          {tab === 'diamond' && <DiamondTab diamond={data.diamond} />}
+          {tab === 'attackflow' && <AttackFlowTab phases={data.attackFlow} />}
         </>
       )}
     </DataPageLayout>
@@ -641,6 +664,172 @@ function FiveWTab({ fiveW }: { fiveW: FiveW | null }) {
         </div>
       )}
     </section>
+  );
+}
+
+function DiamondTab({ diamond }: { diamond: DiamondModel | null }): JSX.Element {
+  if (!diamond) {
+    return (
+      <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-8 text-center text-sm text-slate-500 dark:text-slate-400">
+        <Diamond className="mx-auto mb-2 h-8 w-8 text-slate-400 dark:text-slate-500" />
+        No adversary/capability/infrastructure/victim signal could be derived from this report.
+      </div>
+    );
+  }
+  const facets: Array<{
+    pillar: 'adversary' | 'capability' | 'infrastructure' | 'victim';
+    title: string;
+    tone: string;
+    ring: string;
+    items: JSX.Element[];
+  }> = [
+    {
+      pillar: 'adversary',
+      title: 'Adversary',
+      tone: 'border-rose-200 dark:border-rose-900/60 bg-rose-50/40 dark:bg-rose-950/20',
+      ring: 'ring-rose-400/40',
+      items:
+        diamond.adversary.length === 0
+          ? [
+              <span key="none" className="text-xs text-slate-500">
+                not identified in the report
+              </span>,
+            ]
+          : diamond.adversary.map((a) => (
+              <span
+                key={a}
+                className="inline-flex items-center rounded border border-rose-300 dark:border-rose-800 bg-white dark:bg-rose-950/40 px-2 py-0.5 text-xs font-mono text-rose-700 dark:text-rose-300"
+              >
+                {a}
+              </span>
+            )),
+    },
+    {
+      pillar: 'capability',
+      title: 'Capability',
+      tone: 'border-violet-200 dark:border-violet-900/60 bg-violet-50/40 dark:bg-violet-950/20',
+      ring: 'ring-violet-400/40',
+      items:
+        diamond.capability.length === 0
+          ? [
+              <span key="none" className="text-xs text-slate-500">
+                none extracted
+              </span>,
+            ]
+          : diamond.capability.slice(0, 8).map((c) => (
+              <span
+                key={c.id}
+                className="inline-flex items-center gap-1 rounded border border-violet-300 dark:border-violet-800 bg-white dark:bg-violet-950/40 px-2 py-0.5 text-xs font-mono text-violet-700 dark:text-violet-300"
+                title={c.tactic}
+              >
+                {c.id.startsWith('T') && /^T\d{4}(\.\d{3})?$/.test(c.id) ? (
+                  <span className="text-[10px] text-slate-500">{c.id}</span>
+                ) : null}
+                <span className="truncate max-w-[180px]">{c.name}</span>
+              </span>
+            )),
+    },
+    {
+      pillar: 'infrastructure',
+      title: 'Infrastructure',
+      tone: 'border-sky-200 dark:border-sky-900/60 bg-sky-50/40 dark:bg-sky-950/20',
+      ring: 'ring-sky-400/40',
+      items:
+        diamond.infrastructure.length === 0
+          ? [
+              <span key="none" className="text-xs text-slate-500">
+                no network IOCs
+              </span>,
+            ]
+          : diamond.infrastructure.slice(0, 8).map((i) => (
+              <span
+                key={i}
+                className="inline-flex items-center rounded border border-sky-300 dark:border-sky-800 bg-white dark:bg-sky-950/40 px-2 py-0.5 text-xs font-mono text-sky-700 dark:text-sky-300 truncate max-w-[200px]"
+              >
+                {i}
+              </span>
+            )),
+    },
+    {
+      pillar: 'victim',
+      title: 'Victim',
+      tone: 'border-emerald-200 dark:border-emerald-900/60 bg-emerald-50/40 dark:bg-emerald-950/20',
+      ring: 'ring-emerald-400/40',
+      items: [
+        <div key="v" className="space-y-1 text-xs">
+          <p>
+            <span className="text-micro font-mono uppercase text-slate-500">sector</span> ·{' '}
+            <span className="font-mono text-slate-700 dark:text-slate-300">{diamond.victim.sector}</span>
+          </p>
+          <p>
+            <span className="text-micro font-mono uppercase text-slate-500">geography</span> ·{' '}
+            <span className="font-mono text-slate-700 dark:text-slate-300">{diamond.victim.geography}</span>
+          </p>
+          <p>
+            <span className="text-micro font-mono uppercase text-slate-500">asset</span> ·{' '}
+            <span className="font-mono text-slate-700 dark:text-slate-300">{diamond.victim.asset}</span>
+          </p>
+        </div>,
+      ],
+    },
+  ];
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+      {facets.map((f) => (
+        <div key={f.pillar} className={`rounded-lg border ${f.tone} p-4 shadow-e1`}>
+          <div className="mb-2 flex items-center gap-2">
+            <Diamond className="h-4 w-4 text-slate-600 dark:text-slate-300" />
+            <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">{f.title}</h3>
+            <span className="ml-auto text-micro font-mono uppercase text-slate-500">{f.pillar}</span>
+          </div>
+          <div className="flex flex-wrap gap-1.5">{f.items}</div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function AttackFlowTab({ phases }: { phases: AttackFlowPhase[] }): JSX.Element {
+  if (phases.length === 0) {
+    return (
+      <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-8 text-center text-sm text-slate-500 dark:text-slate-400">
+        <GitBranch className="mx-auto mb-2 h-8 w-8 text-slate-400 dark:text-slate-500" />
+        No TTP signal to render as a kill chain.
+      </div>
+    );
+  }
+  return (
+    <div className="space-y-2">
+      {phases.map((p) => (
+        <div
+          key={p.phase}
+          className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 shadow-e1 overflow-hidden"
+        >
+          <div className="flex items-center gap-2 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 px-4 py-2">
+            <GitBranch className="h-4 w-4 text-brand-600 dark:text-brand-400" />
+            <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">{p.phase}</h3>
+            <span className="ml-auto text-micro font-mono uppercase text-slate-500">
+              {p.techniques.length} technique{p.techniques.length === 1 ? '' : 's'}
+            </span>
+          </div>
+          <ul className="divide-y divide-slate-100 dark:divide-slate-800/60">
+            {p.techniques.map((t) => (
+              <li key={t.id} className="flex items-start gap-3 px-4 py-2.5">
+                <span className="mt-0.5 inline-flex h-5 items-center rounded border border-violet-300 dark:border-violet-800 bg-violet-50 dark:bg-violet-950/40 px-1.5 text-[10px] font-mono uppercase tracking-wider text-violet-700 dark:text-violet-300">
+                  {t.id}
+                </span>
+                <div className="min-w-0 flex-1">
+                  <p className="text-sm font-medium text-slate-900 dark:text-slate-100">{t.name}</p>
+                  {t.evidence && (
+                    <p className="mt-0.5 text-xs text-slate-600 dark:text-slate-400 line-clamp-2">{t.evidence}</p>
+                  )}
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
   );
 }
 
