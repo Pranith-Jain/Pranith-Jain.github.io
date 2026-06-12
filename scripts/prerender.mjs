@@ -316,7 +316,6 @@ const ROUTES = [
   '/threatintel/feed-scheduler',
   '/threatintel/insider-threat-matrix',
   '/threatintel/intel-dashboard',
-  '/threatintel/phishing-dashboard',
   '/threatintel/investigations',
   '/threatintel/malware-iocs',
   '/threatintel/malware-vault',
