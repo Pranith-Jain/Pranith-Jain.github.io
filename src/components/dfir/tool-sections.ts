@@ -224,6 +224,13 @@ export const SECTIONS: Section[] = [
         icon: Microscope,
       },
       {
+        path: '/dfir/malware-capabilities',
+        useCase: 'Identify malware capabilities and MITRE ATT&CK techniques from a hash.',
+        label: 'Malware Capabilities',
+        desc: 'capa-style analysis · family identification via MalwareBazaar · 30+ curated malware behavior database · MITRE ATT&CK technique mapping · capabilities extraction',
+        icon: Shield,
+      },
+      {
         path: '/dfir/sample-scan',
         useCase: 'Composite hash verdict + one-click public-sandbox detonation.',
         label: 'Sample Scan (lite 0x12)',
@@ -409,9 +416,16 @@ export const SECTIONS: Section[] = [
     tools: [
       {
         path: '/dfir/domain',
-        useCase: 'Get WHOIS, DNS and email auth in one shot.',
+        useCase: 'Deep-dive any domain: DNS, WHOIS, email auth, CT logs, threat intel.',
         label: 'Domain Lookup',
         desc: 'WHOIS · DNS · email auth · CT logs',
+        icon: Globe,
+      },
+      {
+        path: '/dfir/webcheck',
+        useCase: 'Full domain security audit: HTTP, TLS, headers, tech stack, ports.',
+        label: 'Domain Web Check',
+        desc: 'HTTP probe · TLS inspection · security headers scoring · technology fingerprinting · Shodan ports · redirect chain analysis',
         icon: Globe,
       },
       {
@@ -598,6 +612,13 @@ export const SECTIONS: Section[] = [
         label: 'Username Pivot',
         desc: 'Sherlock-lite · 50+ services · live CORS checks for GitHub/GitLab/Reddit/HN/Mastodon · client-side',
         icon: AtSign,
+      },
+      {
+        path: '/dfir/username-osint',
+        useCase: 'Enumerate username presence across 60+ platforms server-side.',
+        label: 'Username OSINT',
+        desc: '60+ platforms (social, dev, gaming, creative, finance) · server-side HTTP checks · bounded concurrency · 15min edge cache',
+        icon: Users,
       },
       {
         path: '/dfir/google-dorks',

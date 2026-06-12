@@ -42,6 +42,7 @@ const DFIR = lazy(() => import('./pages/DFIR'));
 const IocCheck = lazy(() => import('./pages/dfir/IocCheck'));
 const Phishing = lazy(() => import('./pages/dfir/Phishing'));
 const Domain = lazy(() => import('./pages/dfir/Domain'));
+const DomainWebcheck = lazy(() => import('./pages/dfir/DomainWebcheck'));
 const FullSpectrum = lazy(() => import('./pages/dfir/FullSpectrum'));
 const Exposure = lazy(() => import('./pages/dfir/Exposure'));
 const AssetIntel = lazy(() => import('./pages/dfir/AssetIntel'));
@@ -93,6 +94,7 @@ const StixBuilder = lazy(() => import('./pages/dfir/StixBuilder'));
 const DarkWeb = lazy(() => import('./pages/dfir/DarkWeb'));
 const ThreatMap = lazy(() => import('./pages/dfir/ThreatMap'));
 const GlobalPulse = lazy(() => import('./pages/threatintel/GlobalPulse'));
+const Facilities = lazy(() => import('./pages/threatintel/Facilities'));
 const Rules = lazy(() => import('./pages/dfir/Rules'));
 const Owasp = lazy(() => import('./pages/dfir/Owasp'));
 const PromptInjection = lazy(() => import('./pages/dfir/PromptInjection'));
@@ -134,6 +136,7 @@ const DlpScan = lazy(() => import('./pages/dfir/DlpScan'));
 const DataClassification = lazy(() => import('./pages/dfir/DataClassification'));
 const PrivacyHub = lazy(() => import('./pages/dfir/PrivacyHub'));
 const UsernamePivot = lazy(() => import('./pages/dfir/UsernamePivot'));
+const UsernameOsnit = lazy(() => import('./pages/dfir/UsernameOsnit'));
 const Wayback = lazy(() => import('./pages/dfir/Wayback'));
 const IpGeo = lazy(() => import('./pages/dfir/IpGeo'));
 const LogParser = lazy(() => import('./pages/dfir/LogParser'));
@@ -164,6 +167,7 @@ const PrefetchAnalyzer = lazy(() => import('./pages/dfir/PrefetchAnalyzer'));
 const CveResourcesCatalog = lazy(() => import('./pages/dfir/CveResourcesCatalog'));
 const WebScan = lazy(() => import('./pages/dfir/WebScan'));
 const MalwareScan = lazy(() => import('./pages/dfir/MalwareScan'));
+const MalwareCapabilities = lazy(() => import('./pages/dfir/MalwareCapabilities'));
 const SampleScan = lazy(() => import('./pages/dfir/SampleScan'));
 
 const ReverseImage = lazy(() => import('./pages/dfir/ReverseImage'));
@@ -332,6 +336,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/dfir/phishing', Component: Phishing },
   { path: '/dfir/threat-hunt', Component: ThreatHunt },
   { path: '/dfir/domain', Component: Domain },
+  { path: '/dfir/webcheck', Component: DomainWebcheck },
   { path: '/dfir/domain-rep', Component: DomainReputation },
   { path: '/dfir/whois-history', Component: WhoisHistory },
   { path: '/dfir/open-directory', Component: OpenDirectory },
@@ -450,6 +455,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel/threat-map', Component: ThreatMap },
   { path: '/threatintel/global-pulse', Component: GlobalPulse },
   { path: '/threatintel/cti-platform', Component: GlobalPulse },
+  { path: '/threatintel/facilities', Component: Facilities },
   { path: '/threatintel/rules', Component: Rules },
   { path: '/threatintel/deepdarkcti', Component: DeepDarkCTI },
   { path: '/threatintel/ransomware-live', Component: RansomwareLive },
@@ -498,6 +504,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/dfir/data-classification', Component: DataClassification },
   { path: '/dfir/privacy-hub', Component: PrivacyHub },
   { path: '/dfir/username', Component: UsernamePivot },
+  { path: '/dfir/username-osint', Component: UsernameOsnit },
   { path: '/dfir/identity-lookup', Component: IdentityLookup },
   { path: '/dfir/wayback', Component: Wayback },
   { path: '/dfir/ip-geo', Component: IpGeo },
@@ -527,6 +534,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel/cve-resources', Component: CveResourcesCatalog },
   { path: '/dfir/web-scan', Component: WebScan },
   { path: '/dfir/malware-scan', Component: MalwareScan },
+  { path: '/dfir/malware-capabilities', Component: MalwareCapabilities },
   { path: '/dfir/sample-scan', Component: SampleScan },
 
   { path: '/dfir/reverse-image', Component: ReverseImage },
