@@ -205,6 +205,7 @@ const TelegramLeaksPage = lazy(() => import('./pages/threatintel/TelegramLeaks')
 const TelegramDiscoveredChannelsPage = lazy(() => import('./pages/threatintel/TelegramDiscoveredChannels'));
 const TelegramLeakStatsPage = lazy(() => import('./pages/threatintel/TelegramLeakStats'));
 const IntelDashboardPage = lazy(() => import('./pages/threatintel/IntelDashboard'));
+const PhishingDashboardPage = lazy(() => import('./pages/threatintel/PhishingDashboard'));
 const BreachDisclosuresPage = lazy(() => import('./pages/threatintel/BreachDisclosures'));
 const RedditFirehosePage = lazy(() => import('./pages/threatintel/RedditFirehose'));
 const CryptoScamFeedPage = lazy(() => import('./pages/threatintel/CryptoScamFeed'));
@@ -415,6 +416,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel/telegram-leaks', Component: TelegramLeaksPage },
   { path: '/threatintel/telegram-leaks/stats', Component: TelegramLeakStatsPage },
   { path: '/threatintel/intel-dashboard', Component: IntelDashboardPage },
+  { path: '/threatintel/phishing-dashboard', Component: PhishingDashboardPage },
   { path: '/threatintel/source-reliability', Component: SourceReliability },
   { path: '/threatintel/collection-slo', Component: CollectionSlo },
   { path: '/threatintel/pir-dashboard', Component: PirDashboard },

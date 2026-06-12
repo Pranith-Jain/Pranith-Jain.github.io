@@ -67,6 +67,7 @@ import {
 import { cveRecentHandler } from './routes/cve-recent';
 import { cveThreatMapHandler } from './routes/cve-threat-map';
 import { phishingUrlsHandler } from './routes/phishing-urls';
+import { phishingOverviewHandler } from './routes/phishing-overview';
 import { cryptoScamFeedHandler } from './routes/crypto-scam-feed';
 import { actorUsernamesHandler, actorUsernamesStatsHandler } from './routes/actor-usernames';
 import { scrapedintelUsernamesHandler } from './routes/scrapedintel-usernames';
@@ -804,6 +805,7 @@ app.get('/api/v1/global-pulse', globalPulseHandler);
 app.get('/api/v1/cve-recent', cveRecentHandler);
 app.get('/api/v1/cve-threat-map', cveThreatMapHandler);
 app.get('/api/v1/phishing-urls', phishingUrlsHandler);
+app.get('/api/v1/phishing-overview', phishingOverviewHandler);
 app.get('/api/v1/crypto-scam-feed', cryptoScamFeedHandler);
 app.get('/api/v1/actor-usernames', actorUsernamesHandler);
 app.get('/api/v1/actor-usernames/stats', actorUsernamesStatsHandler);
