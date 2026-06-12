@@ -370,6 +370,12 @@ export const SECTIONS: Section[] = [
         icon: Building2,
       },
       {
+        to: '/threatintel/infra-search',
+        label: 'Infrastructure Search',
+        desc: 'Search 200+ infrastructure types from OpenStreetMap — telecom, energy, military, aviation, maritime, industrial. Natural language queries with interactive map.',
+        icon: Building2,
+      },
+      {
         to: '/threatintel/metrics',
         label: 'Threat Intel Metrics',
         desc: 'Ten panels covering the questions CTI teams actually ask. Ransomware groups, CVE severity, KEV cadence, IOC volume, sector targeting.',
