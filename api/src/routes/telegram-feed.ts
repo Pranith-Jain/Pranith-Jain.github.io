@@ -127,6 +127,12 @@ const CHANNELS: ChannelSpec[] = [
     blurb: 'OSINT-style cyber-news firehose',
     topic: 'osint',
   },
+  {
+    handle: 'CTIUpdates',
+    name: 'CTI Updates',
+    blurb: 'Real-time CTI feed — IOCs, threat reports, advisories',
+    topic: 'osint',
+  },
   // CVE / vulnerability disclosure channels (verified 2026-05-12: each has
   // 40+ recent posts and a sub-day publish cadence). Classed as 'osint'
   // because they're disclosure intelligence rather than breaking news.

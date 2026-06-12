@@ -104,6 +104,9 @@ const SECTIONS: HandleSection[] = [
       'DarkWebIntelBot',
       'volitant136',
       'etugenio',
+      'alphahunt_io',
+      'CTI__Updates',
+      'spchainattack',
     ],
   },
   {
@@ -130,6 +133,7 @@ const SECTIONS: HandleSection[] = [
       'whiteintel_io',
       'AikidoSecurity',
       'cloudsa',
+      'SpiderLabs',
     ],
   },
   {
