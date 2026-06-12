@@ -217,6 +217,7 @@ import { triageSearchHandler } from './routes/triage';
 import { reportParserHandler } from './routes/report-parser';
 import { reportIngestHandler } from './routes/report-ingest';
 import { domainRepHandler, domainMonitorHandler } from './routes/domain-advanced';
+import { domainWebcheckHandler } from './routes/domain-webcheck';
 import {
   domainHistoryHandler,
   domainChangesHandler,
@@ -1153,6 +1154,7 @@ app.get('/api/v1/threat-intel/cross-campaign/correlations', crossCampaignCorrela
 // ── Domain Intelligence ──────────────────────────────────────────
 app.get('/api/v1/domain-rep', domainRepHandler);
 app.get('/api/v1/domain-monitor', domainMonitorHandler);
+app.get('/api/v1/domain/webcheck', domainWebcheckHandler);
 
 // ── Domain WHOIS History & Pivot ──────────────────────────────────
 app.get('/api/v1/domain/history', domainHistoryHandler);
