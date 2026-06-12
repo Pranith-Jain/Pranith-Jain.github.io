@@ -711,6 +711,31 @@ const FEED_SOURCES: FeedSource[] = [
     context: entryContext,
     withTimestamp: true,
   }),
+  textFeedSource({
+    id: 'cins-score',
+    url: 'https://cinsscore.com/list/ci-badguys.txt',
+    parse: parsePlainTextIps,
+    kind: 'ip',
+    reporter: 'CINS Score',
+    context: 'high-risk IP (CINS consensus)',
+  }),
+  textFeedSource({
+    id: 'certpl-warnings',
+    url: 'https://hole.cert.pl/domains/domains.txt',
+    parse: parseThreatviewDomains,
+    kind: 'domain',
+    reporter: 'CERT.PL',
+    context: 'phishing/warning domain',
+  }),
+  textFeedSource({
+    id: 'phishunt',
+    url: 'https://phishunt.io/feed.txt',
+    parse: parseBotvrijUrls,
+    kind: 'url',
+    reporter: 'phishunt',
+    context: 'phishing URL',
+    okRequiresItems: true,
+  }),
 ];
 
 /**

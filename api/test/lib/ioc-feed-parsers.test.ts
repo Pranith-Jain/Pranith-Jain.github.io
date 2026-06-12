@@ -325,4 +325,34 @@ describe('buildSummary', () => {
     expect(s.total_in_feed).toBe(3);
     expect(s.entries[0]!.type).toBe('cve');
   });
+
+  it('returns correct shape for cins-score', () => {
+    const fixture = '1.2.3.4\n5.6.7.8\n# comment\n9.10.11.12';
+    const s = buildSummary('cins-score', fixture);
+    expect(s.source).toBe('cins-score');
+    expect(s.source_name).toBe('CINS Score');
+    expect(s.count).toBe(3);
+    expect(s.entries[0]!.type).toBe('ipv4');
+    expect(s.entries[0]!.value).toBe('1.2.3.4');
+  });
+
+  it('returns correct shape for certpl-warnings', () => {
+    const fixture = 'evil.example.com\nphish.bad.net\n# comment';
+    const s = buildSummary('certpl-warnings', fixture);
+    expect(s.source).toBe('certpl-warnings');
+    expect(s.source_name).toBe('CERT.PL Warning List');
+    expect(s.count).toBe(2);
+    expect(s.entries[0]!.type).toBe('domain');
+    expect(s.entries[0]!.value).toBe('evil.example.com');
+  });
+
+  it('returns correct shape for phishunt', () => {
+    const fixture = 'http://phish1.example.com\nhttps://phish2.example.com\n# comment';
+    const s = buildSummary('phishunt', fixture);
+    expect(s.source).toBe('phishunt');
+    expect(s.source_name).toBe('phishunt');
+    expect(s.count).toBe(2);
+    expect(s.entries[0]!.type).toBe('url');
+    expect(s.entries[0]!.value).toBe('http://phish1.example.com');
+  });
 });

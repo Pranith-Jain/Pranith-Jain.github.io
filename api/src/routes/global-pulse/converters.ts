@@ -1,4 +1,11 @@
-import type { PulseEvent, PulseKind, Sev, XClaimsResponse, ActorTimelineResponse, IocCorrelationResponse } from './types';
+import type {
+  PulseEvent,
+  PulseKind,
+  Sev,
+  XClaimsResponse,
+  ActorTimelineResponse,
+  IocCorrelationResponse,
+} from './types';
 import { COUNTRY_COORDS, countryNameToCode } from './geo';
 import { asSev } from './shared';
 
@@ -107,7 +114,10 @@ export function fromXFeed(data: {
   }));
 }
 
-export function fromScam(data: { items?: Array<{ domain: string; tld: string }>; generated_at?: string }): PulseEvent[] {
+export function fromScam(data: {
+  items?: Array<{ domain: string; tld: string }>;
+  generated_at?: string;
+}): PulseEvent[] {
   return (data.items ?? []).slice(0, 30).map((i, idx) => ({
     id: `scam-${i.domain}-${idx}`,
     kind: 'scam' as const,
@@ -172,6 +182,9 @@ const IOC_KIND: Record<string, PulseKind> = {
   'viriback-c2': 'c2_tracker',
   'threatview-ip': 'blocklist',
   'threatview-domains': 'blocklist',
+  'cins-score': 'blocklist',
+  'certpl-warnings': 'phishing',
+  phishunt: 'phishing',
 };
 
 export function fromLiveIocs(data: {
@@ -329,7 +342,9 @@ export function fromStealerForum(data: {
   return events;
 }
 
-export function fromPhishing(data: { urls?: Array<{ url: string; source?: string; first_seen?: string }> }): PulseEvent[] {
+export function fromPhishing(data: {
+  urls?: Array<{ url: string; source?: string; first_seen?: string }>;
+}): PulseEvent[] {
   return (data.urls ?? []).slice(0, 30).map((i, idx) => ({
     id: `phish-${idx}-${i.url.slice(-20)}`,
     kind: 'phishing' as const,

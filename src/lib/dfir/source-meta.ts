@@ -211,6 +211,21 @@ export const SOURCE_META: Record<string, SourceMeta> = {
     color: 'border-red-500/40 bg-red-500/10 text-red-700 dark:text-red-300',
     weight: 45,
   },
+  'cins-score': {
+    label: 'CINS Score',
+    color: 'border-orange-500/40 bg-orange-500/10 text-orange-700 dark:text-orange-300',
+    weight: 25,
+  },
+  'certpl-warnings': {
+    label: 'CERT.PL',
+    color: 'border-yellow-500/40 bg-yellow-500/10 text-yellow-700 dark:text-yellow-300',
+    weight: 20,
+  },
+  phishunt: {
+    label: 'phishunt',
+    color: 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300',
+    weight: 15,
+  },
   'feed-scheduler': {
     label: 'Feed Scheduler',
     color: DEFAULT_SOURCE_COLOR,

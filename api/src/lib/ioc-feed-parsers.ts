@@ -30,7 +30,10 @@ export interface IocFeedSummary {
     | 'phishing-database'
     | 'threatview-ip'
     | 'threatview-domains'
-    | 'viriback-c2';
+    | 'viriback-c2'
+    | 'cins-score'
+    | 'certpl-warnings'
+    | 'phishunt';
   source_name: string;
   fetched_at: string;
   count: number;
@@ -569,6 +572,21 @@ export const FEED_SOURCES: Record<SourceId, FeedSource> = {
     name: 'ViriBack C2 Tracker',
     url: 'https://tracker.viriback.com/dump.php',
   },
+  'cins-score': {
+    id: 'cins-score',
+    name: 'CINS Score',
+    url: 'https://cinsscore.com/list/ci-badguys.txt',
+  },
+  'certpl-warnings': {
+    id: 'certpl-warnings',
+    name: 'CERT.PL Warning List',
+    url: 'https://hole.cert.pl/domains/domains.txt',
+  },
+  phishunt: {
+    id: 'phishunt',
+    name: 'phishunt',
+    url: 'https://phishunt.io/feed.txt',
+  },
 };
 
 // ─── Plain URL list (one URL per line, http-prefixed) ────────────────────────
@@ -688,6 +706,15 @@ export function buildSummary(sourceId: SourceId, rawBody: string, cap: number = 
       break;
     case 'viriback-c2':
       entries = parseViriback(rawBody, cap);
+      break;
+    case 'cins-score':
+      entries = parsePlainTextIps(rawBody, cap);
+      break;
+    case 'certpl-warnings':
+      entries = parseThreatviewDomains(rawBody, cap);
+      break;
+    case 'phishunt':
+      entries = parseUrlList(rawBody, cap);
       break;
   }
 
