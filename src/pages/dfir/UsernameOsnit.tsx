@@ -1,7 +1,9 @@
 import { useState, type FormEvent } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, Search, Users, ExternalLink } from 'lucide-react';
+import { ArrowLeft, Search, Users, ExternalLink, CheckCircle2 } from 'lucide-react';
+
+const USERNAME_RE = /^[A-Za-z0-9._-]{2,64}$/;
 
 interface PlatformResult {
   platform: string;
@@ -20,31 +22,31 @@ interface OsnitResponse {
   summary: Record<string, number>;
 }
 
-const CATEGORY_COLORS: Record<string, string> = {
-  social: 'bg-pink-500/10 text-pink-600 dark:text-pink-400 border-pink-500/20',
-  dev: 'bg-sky-500/10 text-sky-600 dark:text-sky-400 border-sky-500/20',
-  tech: 'bg-violet-500/10 text-violet-600 dark:text-violet-400 border-violet-500/20',
-  gaming: 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20',
-  creative: 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20',
-  finance: 'bg-orange-500/10 text-orange-600 dark:text-orange-400 border-orange-500/20',
-  other: 'bg-slate-500/10 text-slate-600 dark:text-slate-400 border-slate-500/20',
+const CATEGORY_CLS: Record<string, string> = {
+  social: 'border-pink-500/40 bg-pink-500/10 text-pink-700 dark:text-pink-300',
+  dev: 'border-sky-500/40 bg-sky-500/10 text-sky-700 dark:text-sky-300',
+  tech: 'border-violet-500/40 bg-violet-500/10 text-violet-700 dark:text-violet-300',
+  gaming: 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300',
+  creative: 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300',
+  finance: 'border-orange-500/40 bg-orange-500/10 text-orange-700 dark:text-orange-300',
+  other: 'border-slate-500/40 bg-slate-500/10 text-slate-700 dark:text-slate-300',
 };
 
 export default function UsernameOsnit(): JSX.Element {
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [input, setInput] = useState(searchParams.get('username') ?? '');
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<OsnitResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [filter, setFilter] = useState<'all' | 'found'>('all');
 
-  async function handleSearch(e: FormEvent) {
+  const valid = USERNAME_RE.test(input.trim());
+
+  const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
     const username = input.trim();
-    if (!username || username.length < 2) {
-      setError('Username must be 2+ chars');
-      return;
-    }
+    if (!USERNAME_RE.test(username)) return;
+    setSearchParams({ username }, { replace: true });
     setLoading(true);
     setError(null);
     setResult(null);
@@ -53,133 +55,159 @@ export default function UsernameOsnit(): JSX.Element {
       if (!r.ok) throw new Error(`HTTP ${r.status}`);
       setResult(await r.json());
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed');
+      setError(err instanceof Error ? err.message : 'search failed');
     } finally {
       setLoading(false);
     }
-  }
+  };
 
   const filtered = result?.results.filter((r) => filter === 'all' || r.status === 'found') ?? [];
   const found = filtered.filter((r) => r.status === 'found');
   const notFound = filtered.filter((r) => r.status === 'not-found');
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
-      <div className="max-w-5xl mx-auto px-4 py-8">
-        <BackLink to="/dfir">
-          <ArrowLeft size={14} /> Back to DFIR
-        </BackLink>
-        <h1 className="text-2xl font-bold mt-4 flex items-center gap-2">
-          <Users className="text-pink-500" /> Username OSINT
-        </h1>
-        <p className="text-sm text-slate-500 mt-1">
-          Check 240+ platforms for a username — social, dev, gaming, creative, finance, crypto
-        </p>
+    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
+      <BackLink
+        to="/dfir"
+        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+      >
+        <ArrowLeft size={14} /> back
+      </BackLink>
 
-        <form onSubmit={handleSearch} className="mt-6 flex gap-2">
+      <div className="animate-fade-in-up">
+        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2">
+          <Users size={28} className="inline mr-2 text-brand-500" />
+          Username OSINT
+        </h1>
+        <p className="text-slate-600 dark:text-slate-400 mb-8 max-w-2xl">
+          Check 60+ platforms for a username — social, dev, gaming, creative, finance. Server-side HTTP checks, bounded
+          concurrency.
+        </p>
+      </div>
+
+      <form onSubmit={onSubmit} className="mb-10">
+        <div className="flex gap-2">
           <input
+            type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            placeholder="Enter username (e.g. elonmusk)"
-            className="flex-1 px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-sm"
+            placeholder="elonmusk"
+            className="flex-1 px-4 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
           />
           <button
             type="submit"
-            disabled={loading}
-            className="px-4 py-2 bg-pink-600 text-white rounded-lg text-sm font-medium hover:bg-pink-700 disabled:opacity-50 flex items-center gap-1"
+            disabled={!valid || loading}
+            className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-lg disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400"
           >
-            <Search size={14} /> {loading ? 'Searching…' : 'Search'}
+            <Search size={16} className="inline mr-2" />
+            Search
           </button>
-        </form>
-
-        {error && (
-          <div className="mt-4 p-3 bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800 rounded-lg text-red-700 dark:text-red-300 text-sm">
-            {error}
-          </div>
+        </div>
+        {input && !valid && (
+          <p className="mt-2 text-xs font-mono text-amber-600 dark:text-amber-400">2-64 chars, a-z 0-9 . _ - only.</p>
         )}
+      </form>
 
-        {result && (
-          <div className="mt-6 space-y-4">
-            <div className="flex items-center gap-4">
-              <div className="text-sm text-slate-400">
-                Checked <span className="font-bold text-slate-200">{result.total_checked}</span> platforms · Found on{' '}
-                <span className="font-bold text-emerald-400">{result.found}</span>
-              </div>
-              <div className="flex gap-1 ml-auto">
-                {(['all', 'found'] as const).map((f) => (
-                  <button
-                    key={f}
-                    onClick={() => setFilter(f)}
-                    className={`px-2 py-0.5 text-xs rounded ${filter === f ? 'bg-pink-600 text-white' : 'bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400'}`}
+      {loading && <p className="font-mono text-slate-600 dark:text-slate-400">Checking 60+ platforms…</p>}
+      {error && (
+        <p role="alert" className="font-mono text-rose-600 dark:text-rose-400">
+          error: {error}
+        </p>
+      )}
+
+      {result && (
+        <div className="space-y-6">
+          <div className="flex items-center gap-4 font-mono text-sm">
+            <span className="text-slate-500">
+              Checked <span className="text-slate-900 dark:text-slate-100 font-bold">{result.total_checked}</span>{' '}
+              platforms
+            </span>
+            <span className="text-slate-500">
+              Found <span className="text-emerald-600 dark:text-emerald-400 font-bold">{result.found}</span>
+            </span>
+            <div className="flex gap-1 ml-auto">
+              {(['all', 'found'] as const).map((f) => (
+                <button
+                  key={f}
+                  onClick={() => setFilter(f)}
+                  className={`px-2.5 py-1 text-xs font-mono rounded-lg border ${
+                    filter === f
+                      ? 'bg-brand-600 text-white border-brand-600'
+                      : 'border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'
+                  }`}
+                >
+                  {f === 'all' ? 'All' : 'Found'}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Found */}
+          {found.length > 0 && (
+            <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+              <h2 className="font-display font-bold text-xl mb-4 flex items-center gap-2">
+                <CheckCircle2 size={18} className="text-emerald-500" /> Found ({found.length})
+              </h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
+                {found.map((r) => (
+                  <a
+                    key={r.platform}
+                    href={r.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 p-2.5 rounded-xl bg-emerald-500/5 border border-emerald-500/20 hover:bg-emerald-500/10 transition text-sm font-mono"
                   >
-                    {f === 'all' ? 'All' : 'Found Only'}
-                  </button>
+                    <span className="text-emerald-500">✓</span>
+                    <span className="font-medium text-slate-900 dark:text-slate-100">{r.name}</span>
+                    <span
+                      className={`text-[10px] px-1.5 py-0.5 rounded border ${CATEGORY_CLS[r.category] ?? CATEGORY_CLS.other}`}
+                    >
+                      {r.category}
+                    </span>
+                    <ExternalLink size={10} className="text-slate-400 ml-auto shrink-0" />
+                  </a>
                 ))}
               </div>
-            </div>
+            </section>
+          )}
 
-            {result.found > 0 && (
-              <div className="rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-4">
-                <h3 className="text-sm font-semibold mb-3 text-emerald-400">Found ({found.length})</h3>
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
-                  {found.map((r) => (
-                    <a
-                      key={r.platform}
-                      href={r.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2 p-2 rounded-md bg-emerald-500/5 border border-emerald-500/20 hover:bg-emerald-500/10 transition text-sm"
-                    >
-                      <span className="text-emerald-400">✓</span>
-                      <span className="font-medium">{r.name}</span>
-                      <span
-                        className={`text-xs px-1.5 py-0.5 rounded border ${CATEGORY_COLORS[r.category] ?? CATEGORY_COLORS.other}`}
-                      >
-                        {r.category}
-                      </span>
-                      <ExternalLink size={10} className="text-slate-500 ml-auto" />
-                    </a>
-                  ))}
-                </div>
+          {/* Not Found */}
+          {filter === 'all' && notFound.length > 0 && (
+            <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+              <h2 className="font-display font-bold text-xl mb-4 text-slate-400">Not Found ({notFound.length})</h2>
+              <div className="flex flex-wrap gap-1.5">
+                {notFound.map((r) => (
+                  <span
+                    key={r.platform}
+                    className="text-xs font-mono px-2 py-0.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-500 border border-slate-200 dark:border-slate-700"
+                  >
+                    {r.name}
+                  </span>
+                ))}
               </div>
-            )}
+            </section>
+          )}
 
-            {filter === 'all' && notFound.length > 0 && (
-              <div className="rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-4">
-                <h3 className="text-sm font-semibold mb-3 text-slate-400">Not Found ({notFound.length})</h3>
-                <div className="flex flex-wrap gap-1.5">
-                  {notFound.map((r) => (
+          {/* Category Breakdown */}
+          {Object.keys(result.summary).length > 0 && (
+            <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+              <h2 className="font-display font-bold text-xl mb-4 text-slate-400">Category Breakdown</h2>
+              <div className="flex flex-wrap gap-2">
+                {Object.entries(result.summary)
+                  .sort((a, b) => b[1] - a[1])
+                  .map(([cat, count]) => (
                     <span
-                      key={r.platform}
-                      className="text-xs px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-500"
+                      key={cat}
+                      className={`text-xs font-mono px-2.5 py-1 rounded-lg border ${CATEGORY_CLS[cat] ?? CATEGORY_CLS.other}`}
                     >
-                      {r.name}
+                      {cat}: {count}
                     </span>
                   ))}
-                </div>
               </div>
-            )}
-
-            {Object.keys(result.summary).length > 0 && (
-              <div className="rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-4">
-                <h3 className="text-sm font-semibold mb-2 text-slate-400">Category Breakdown</h3>
-                <div className="flex flex-wrap gap-3">
-                  {Object.entries(result.summary)
-                    .sort((a, b) => b[1] - a[1])
-                    .map(([cat, count]) => (
-                      <span
-                        key={cat}
-                        className={`text-xs px-2 py-1 rounded border ${CATEGORY_COLORS[cat] ?? CATEGORY_COLORS.other}`}
-                      >
-                        {cat}: {count}
-                      </span>
-                    ))}
-                </div>
-              </div>
-            )}
-          </div>
-        )}
-      </div>
+            </section>
+          )}
+        </div>
+      )}
     </div>
   );
 }

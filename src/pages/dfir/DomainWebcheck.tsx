@@ -1,7 +1,7 @@
 import { useState, type FormEvent } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, Search, Globe, Shield, Lock, Server, ExternalLink, type LucideIcon } from 'lucide-react';
+import { ArrowLeft, Search, Globe, Shield, Lock, Server, ExternalLink } from 'lucide-react';
 
 const DOMAIN_RE = /^([a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}$/;
 
@@ -39,33 +39,39 @@ interface WebcheckResponse {
   shodan?: { ip?: string; org?: string; os?: string; vulns?: string[]; hostnames?: string[] };
 }
 
-const GRADE_COLOR: Record<string, string> = {
-  'A+': 'text-emerald-400',
-  A: 'text-emerald-400',
-  B: 'text-sky-400',
-  C: 'text-amber-400',
-  D: 'text-orange-400',
-  F: 'text-red-400',
+const GRADE_CLS: Record<string, string> = {
+  'A+': 'text-emerald-600 dark:text-emerald-400',
+  A: 'text-emerald-600 dark:text-emerald-400',
+  B: 'text-sky-600 dark:text-sky-400',
+  C: 'text-amber-600 dark:text-amber-400',
+  D: 'text-orange-600 dark:text-orange-400',
+  F: 'text-rose-600 dark:text-rose-400',
 };
 
 export default function DomainWebcheck(): JSX.Element {
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [input, setInput] = useState(searchParams.get('domain') ?? '');
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<WebcheckResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  async function handleSearch(e: FormEvent) {
+  const valid = DOMAIN_RE.test(
+    input
+      .trim()
+      .toLowerCase()
+      .replace(/^https?:\/\//, '')
+      .replace(/\/.*$/, '')
+  );
+
+  const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
     const domain = input
       .trim()
       .toLowerCase()
       .replace(/^https?:\/\//, '')
       .replace(/\/.*$/, '');
-    if (!DOMAIN_RE.test(domain)) {
-      setError('Invalid domain');
-      return;
-    }
+    if (!DOMAIN_RE.test(domain)) return;
+    setSearchParams({ domain }, { replace: true });
     setLoading(true);
     setError(null);
     setResult(null);
@@ -74,159 +80,190 @@ export default function DomainWebcheck(): JSX.Element {
       if (!r.ok) throw new Error(`HTTP ${r.status}`);
       setResult(await r.json());
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed');
+      setError(err instanceof Error ? err.message : 'scan failed');
     } finally {
       setLoading(false);
     }
-  }
+  };
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
-      <div className="max-w-5xl mx-auto px-4 py-8">
-        <BackLink to="/dfir">
-          <ArrowLeft size={14} /> Back to DFIR
-        </BackLink>
-        <h1 className="text-2xl font-bold mt-4 flex items-center gap-2">
-          <Globe className="text-sky-500" /> Domain Web Check
-        </h1>
-        <p className="text-sm text-slate-500 mt-1">
-          HTTP probe · TLS inspection · Security headers audit · Technology fingerprinting · Open ports
-        </p>
+    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
+      <BackLink
+        to="/dfir"
+        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+      >
+        <ArrowLeft size={14} /> back
+      </BackLink>
 
-        <form onSubmit={handleSearch} className="mt-6 flex gap-2">
+      <div className="animate-fade-in-up">
+        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2">
+          <Globe size={28} className="inline mr-2 text-brand-500" />
+          Domain Web Check
+        </h1>
+        <p className="text-slate-600 dark:text-slate-400 mb-8 max-w-2xl">
+          HTTP probe, TLS inspection, security headers audit, technology fingerprinting, open ports, and redirect chain
+          analysis.
+        </p>
+      </div>
+
+      <form onSubmit={onSubmit} className="mb-10">
+        <div className="flex gap-2">
           <input
+            type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            placeholder="Enter domain (e.g. github.com)"
-            className="flex-1 px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-sm"
+            placeholder="example.com"
+            className="flex-1 px-4 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
           />
           <button
             type="submit"
-            disabled={loading}
-            className="px-4 py-2 bg-sky-600 text-white rounded-lg text-sm font-medium hover:bg-sky-700 disabled:opacity-50 flex items-center gap-1"
+            disabled={!valid || loading}
+            className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-lg disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400"
           >
-            <Search size={14} /> {loading ? 'Scanning…' : 'Scan'}
+            <Search size={16} className="inline mr-2" />
+            Scan
           </button>
-        </form>
-
-        {error && (
-          <div className="mt-4 p-3 bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800 rounded-lg text-red-700 dark:text-red-300 text-sm">
-            {error}
-          </div>
+        </div>
+        {input && !valid && (
+          <p className="mt-2 text-xs font-mono text-amber-600 dark:text-amber-400">Not a valid domain.</p>
         )}
+      </form>
 
-        {result && (
-          <div className="mt-6 space-y-4">
-            {/* HTTP + TLS */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-              <Card label="HTTP Status" value={String(result.http.status)} sub={`${result.http.response_time_ms}ms`} />
-              <Card label="TLS" value={result.tls.protocol ?? 'N/A'} sub={result.tls.issuer ?? ''} />
-              <Card
-                label="Security Score"
-                value={`${result.security_headers.score}/100`}
-                valueClass={GRADE_COLOR[result.security_headers.grade] ?? 'text-slate-300'}
-                sub={`Grade: ${result.security_headers.grade}`}
-              />
-              <Card label="Open Ports" value={result.ports.length ? result.ports.join(', ') : 'None detected'} />
-            </div>
+      {loading && <p className="font-mono text-slate-600 dark:text-slate-400">Scanning…</p>}
+      {error && (
+        <p role="alert" className="font-mono text-rose-600 dark:text-rose-400">
+          error: {error}
+        </p>
+      )}
 
-            {/* Security Headers */}
-            <Section title="Security Headers" icon={Shield}>
-              <div className="space-y-1.5">
-                {result.security_headers.checks.map((ch) => (
-                  <div key={ch.header} className="flex items-center gap-2 text-sm">
-                    <span className={ch.secure ? 'text-emerald-400' : ch.present ? 'text-amber-400' : 'text-red-400'}>
-                      {ch.secure ? '✓' : ch.present ? '⚠' : '✗'}
+      {result && (
+        <div className="space-y-6">
+          {/* Summary cards */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            <StatCard label="HTTP" value={String(result.http.status)} sub={`${result.http.response_time_ms}ms`} />
+            <StatCard label="TLS" value={result.tls.protocol ?? 'N/A'} sub={result.tls.issuer ?? ''} />
+            <StatCard
+              label="Security"
+              value={`${result.security_headers.score}/100`}
+              valueClass={GRADE_CLS[result.security_headers.grade] ?? ''}
+              sub={`Grade ${result.security_headers.grade}`}
+            />
+            <StatCard
+              label="Ports"
+              value={result.ports.length ? result.ports.join(', ') : '—'}
+              sub={`${result.ports.length} open`}
+            />
+          </div>
+
+          {/* Security Headers */}
+          <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+            <h2 className="font-display font-bold text-xl mb-4 flex items-center gap-2">
+              <Shield size={18} className="text-brand-500" /> Security Headers
+            </h2>
+            <div className="space-y-1.5">
+              {result.security_headers.checks.map((ch) => (
+                <div key={ch.header} className="flex items-center gap-2 text-sm font-mono">
+                  <span className={ch.secure ? 'text-emerald-500' : ch.present ? 'text-amber-500' : 'text-rose-500'}>
+                    {ch.secure ? '✓' : ch.present ? '⚠' : '✗'}
+                  </span>
+                  <span className="w-48 truncate text-slate-700 dark:text-slate-300">{ch.header}</span>
+                  <span className="text-slate-500 text-xs flex-1 truncate">
+                    {ch.present ? (ch.value?.slice(0, 60) ?? 'present') : 'MISSING'}
+                  </span>
+                  {!ch.secure && ch.recommendation && (
+                    <span className="text-xs text-slate-400 hidden md:block max-w-xs truncate">
+                      {ch.recommendation}
                     </span>
-                    <span className="font-mono text-xs w-48 truncate">{ch.header}</span>
-                    <span className="text-slate-500 text-xs flex-1">
-                      {ch.present ? (ch.value?.slice(0, 60) ?? 'present') : 'MISSING'}
-                    </span>
-                    {!ch.secure && ch.recommendation && (
-                      <span className="text-xs text-slate-400 hidden md:block max-w-xs truncate">
-                        {ch.recommendation}
-                      </span>
-                    )}
-                  </div>
-                ))}
-              </div>
-            </Section>
-
-            {/* Technology */}
-            {result.technology.length > 0 && (
-              <Section title="Technology Stack" icon={Server}>
-                <div className="flex flex-wrap gap-2">
-                  {result.technology.map((t, i) => (
-                    <span
-                      key={i}
-                      className="px-2 py-1 rounded-md text-xs bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700"
-                    >
-                      <span className="text-slate-400">{t.category}:</span> {t.name}
-                    </span>
-                  ))}
-                </div>
-              </Section>
-            )}
-
-            {/* Shodan */}
-            {result.shodan && (
-              <Section title="Shodan Intelligence" icon={Lock}>
-                <div className="text-sm space-y-1">
-                  <div>
-                    <span className="text-slate-400">IP:</span> {result.shodan.ip}
-                  </div>
-                  <div>
-                    <span className="text-slate-400">Org:</span> {result.shodan.org}
-                  </div>
-                  <div>
-                    <span className="text-slate-400">OS:</span> {result.shodan.os}
-                  </div>
-                  {result.shodan.vulns && result.shodan.vulns.length > 0 && (
-                    <div>
-                      <span className="text-slate-400">Vulns:</span> {result.shodan.vulns.join(', ')}
-                    </div>
                   )}
                 </div>
-              </Section>
-            )}
+              ))}
+            </div>
+          </section>
 
-            {/* Redirect Chain */}
-            {result.http.redirect_chain.length > 0 && (
-              <Section title="Redirect Chain" icon={ExternalLink}>
-                <div className="text-xs font-mono space-y-0.5">
-                  {result.http.redirect_chain.map((url, i) => (
-                    <div key={i} className="text-slate-500">
-                      {url}
-                    </div>
-                  ))}
-                  <div className="text-slate-300">{result.http.url}</div>
+          {/* Technology Stack */}
+          {result.technology.length > 0 && (
+            <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+              <h2 className="font-display font-bold text-xl mb-4 flex items-center gap-2">
+                <Server size={18} className="text-brand-500" /> Technology Stack
+              </h2>
+              <div className="flex flex-wrap gap-2">
+                {result.technology.map((t, i) => (
+                  <span
+                    key={i}
+                    className="px-2.5 py-1 rounded-lg text-xs font-mono bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700"
+                  >
+                    <span className="text-slate-400">{t.category}:</span> {t.name}
+                  </span>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {/* Shodan */}
+          {result.shodan && (
+            <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+              <h2 className="font-display font-bold text-xl mb-4 flex items-center gap-2">
+                <Lock size={18} className="text-brand-500" /> Shodan Intelligence
+              </h2>
+              <div className="font-mono text-sm space-y-1">
+                <div>
+                  <span className="text-slate-400">IP:</span> {result.shodan.ip}
                 </div>
-              </Section>
-            )}
-          </div>
-        )}
+                <div>
+                  <span className="text-slate-400">Org:</span> {result.shodan.org}
+                </div>
+                <div>
+                  <span className="text-slate-400">OS:</span> {result.shodan.os}
+                </div>
+                {result.shodan.vulns && result.shodan.vulns.length > 0 && (
+                  <div>
+                    <span className="text-slate-400">Vulns:</span> {result.shodan.vulns.join(', ')}
+                  </div>
+                )}
+              </div>
+            </section>
+          )}
+
+          {/* Redirect Chain */}
+          {result.http.redirect_chain.length > 0 && (
+            <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+              <h2 className="font-display font-bold text-xl mb-4 flex items-center gap-2">
+                <ExternalLink size={18} className="text-brand-500" /> Redirect Chain
+              </h2>
+              <div className="text-xs font-mono space-y-0.5">
+                {result.http.redirect_chain.map((url, i) => (
+                  <div key={i} className="text-slate-500">
+                    {url}
+                  </div>
+                ))}
+                <div className="text-slate-900 dark:text-slate-100 font-semibold">{result.http.url}</div>
+              </div>
+            </section>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function StatCard({
+  label,
+  value,
+  valueClass,
+  sub,
+}: {
+  label: string;
+  value: string;
+  valueClass?: string;
+  sub?: string;
+}) {
+  return (
+    <div className="p-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
+      <div className="text-xs font-mono text-slate-400">{label}</div>
+      <div className={`text-lg font-bold font-mono mt-0.5 ${valueClass ?? 'text-slate-900 dark:text-slate-100'}`}>
+        {value}
       </div>
-    </div>
-  );
-}
-
-function Card({ label, value, valueClass, sub }: { label: string; value: string; valueClass?: string; sub?: string }) {
-  return (
-    <div className="p-3 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
-      <div className="text-xs text-slate-400">{label}</div>
-      <div className={`text-lg font-bold mt-0.5 ${valueClass ?? 'text-slate-100'}`}>{value}</div>
-      {sub && <div className="text-xs text-slate-500 mt-0.5">{sub}</div>}
-    </div>
-  );
-}
-
-function Section({ title, icon: Icon, children }: { title: string; icon: LucideIcon; children: React.ReactNode }) {
-  return (
-    <div className="rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-4">
-      <h3 className="text-sm font-semibold flex items-center gap-2 mb-3">
-        <Icon size={14} className="text-sky-400" /> {title}
-      </h3>
-      {children}
+      {sub && <div className="text-xs font-mono text-slate-500 mt-0.5">{sub}</div>}
     </div>
   );
 }
