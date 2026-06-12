@@ -127,10 +127,6 @@ export const SOURCE_META: Record<string, SourceMeta> = {
     label: 'CPS Collected',
     color: 'border-blue-500/40 bg-blue-500/10 text-blue-700 dark:text-blue-300',
   },
-  greensnow: {
-    label: 'GreenSnow',
-    color: 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300',
-  },
   'blocklist-de': {
     label: 'Blocklist.de',
     color: 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300',
@@ -157,19 +153,6 @@ export const SOURCE_META: Record<string, SourceMeta> = {
     label: 'Domains Blacklist',
     color: 'border-slate-500/40 bg-slate-500/10 text-slate-700 dark:text-slate-300',
   },
-  nocoin: {
-    label: 'NoCoin',
-    color: 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300',
-  },
-  'monero-miner': {
-    label: 'Monero Miner',
-    color: 'border-orange-500/40 bg-orange-500/10 text-orange-700 dark:text-orange-300',
-  },
-  'botvrij-hostnames': {
-    label: 'Botvrij hostnames',
-    color: 'border-lime-500/40 bg-lime-500/10 text-lime-700 dark:text-lime-300',
-    weight: 18,
-  },
   'botvrij-urls': {
     label: 'Botvrij URLs',
     color: 'border-lime-500/40 bg-lime-500/10 text-lime-700 dark:text-lime-300',
@@ -179,10 +162,6 @@ export const SOURCE_META: Record<string, SourceMeta> = {
     label: 'Botvrij IPs',
     color: 'border-lime-500/40 bg-lime-500/10 text-lime-700 dark:text-lime-300',
     weight: 18,
-  },
-  hancitor: {
-    label: 'Hancitor',
-    color: 'border-pink-500/40 bg-pink-500/10 text-pink-700 dark:text-pink-300',
   },
   darklist: {
     label: 'Darklist',

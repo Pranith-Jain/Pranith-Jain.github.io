@@ -55,7 +55,7 @@ const CACHE_KEY = LIVE_IOCS_CACHE_KEY;
 const CACHE_TTL_SECONDS = 30 * 60;
 // When a build is degraded (an upstream fetch failed), cache for a shorter
 // window so it recovers sooner — but NOT 60s: a persistently-down feed at 60s
-// would re-run the full ~33-source fan-out every minute.
+// would re-run the full source fan-out every minute.
 const DEGRADED_TTL_SECONDS = 5 * 60;
 const FETCH_TIMEOUT_MS = 12_000;
 const PER_FEED_CAP = 300;
@@ -613,14 +613,6 @@ const FEED_SOURCES: FeedSource[] = [
     context: 'CPS internally collected malicious IPs',
   }),
   textFeedSource({
-    id: 'greensnow',
-    url: 'https://blocklist.greensnow.co/greensnow.txt',
-    parse: parsePlainTextIps,
-    kind: 'ip',
-    reporter: 'GreenSnow',
-    context: 'malicious IP blocklist',
-  }),
-  textFeedSource({
     id: 'blocklist-de',
     url: 'https://lists.blocklist.de/lists/all.txt',
     parse: parsePlainTextIps,
@@ -646,44 +638,12 @@ const FEED_SOURCES: FeedSource[] = [
     context: 'malicious IP blocklist',
   }),
   textFeedSource({
-    id: 'bbcan177-dnsbl',
-    url: 'https://gist.githubusercontent.com/BBcan177/4a8bf37c131be4803cb2/raw',
-    parse: parsePhishingArmy,
-    kind: 'domain',
-    reporter: 'BBcan177',
-    context: 'IRC botnet domains',
-  }),
-  textFeedSource({
     id: 'domains-blacklist',
     url: 'https://www.joewein.net/dl/bl/dom-bl.txt',
     parse: parsePhishingArmy,
     kind: 'domain',
     reporter: 'Joewein.net',
     context: 'known malicious domain',
-  }),
-  textFeedSource({
-    id: 'nocoin',
-    url: 'https://raw.githubusercontent.com/hoshsadiq/adblock-nocoin-list/master/hosts.txt',
-    parse: parsePhishingArmy,
-    kind: 'domain',
-    reporter: 'NoCoin',
-    context: 'cryptomining / browser miner',
-  }),
-  textFeedSource({
-    id: 'monero-miner',
-    url: 'https://raw.githubusercontent.com/Hestat/minerchk/master/hostslist.txt',
-    parse: parsePhishingArmy,
-    kind: 'domain',
-    reporter: 'MinerBlock',
-    context: 'Monero mining pool / miner domain',
-  }),
-  textFeedSource({
-    id: 'botvrij-hostnames',
-    url: 'https://www.botvrij.eu/data/ioclist.hostname.raw',
-    parse: parsePhishingArmy,
-    kind: 'domain',
-    reporter: 'Botvrij.eu',
-    context: 'curated malicious hostname',
   }),
   textFeedSource({
     id: 'botvrij-urls',
@@ -701,14 +661,6 @@ const FEED_SOURCES: FeedSource[] = [
     kind: 'ip',
     reporter: 'Botvrij.eu',
     context: 'curated malicious IP',
-  }),
-  textFeedSource({
-    id: 'hancitor',
-    url: 'https://raw.githubusercontent.com/LinuxTracker/Blocklists/master/HancitorIPs.txt',
-    parse: parsePlainTextIps,
-    kind: 'ip',
-    reporter: 'LinuxTracker',
-    context: 'Hancitor malspam source',
   }),
   textFeedSource({
     id: 'darklist',
@@ -763,7 +715,7 @@ const FEED_SOURCES: FeedSource[] = [
 
 /**
  * Registry source ids — the per-source runner units the queue fan-out
- * enqueues. NB: this is the FeedSource.id set (32 entries, incl. the
+ * enqueues. NB: this is the FeedSource.id set (28 entries, incl. the
  * 'phishing' wrapper that emits phishtank + openphish), NOT the response
  * source-id set. It excludes 'feed-scheduler' (a compose-time D1 read that
  * bypasses the staleness filter — see fetchLiveIocs).
@@ -981,7 +933,7 @@ const ENQUEUE_COOLDOWN_SHADOW = new Request('https://live-iocs-enqueue-cooldown-
 
 /**
  * Enqueue a slice refresh, debounced via a short KV cooldown so a burst of
- * hits doesn't fire 33 fan-out fetches per source. Re-checks the KV marker
+ * hits doesn't fire a fan-out fetch per source. Re-checks the KV marker
  * for cross-colo coordination, but caches the result in `caches.default` for
  * `ENQUEUE_COOLDOWN_SECONDS` so a hot path is a cache hit, not a KV read.
  */
@@ -1062,7 +1014,7 @@ async function composeOrFallback(c: Context<{ Bindings: Env }>): Promise<LiveIoc
 }
 
 // In-isolate single-flight for the cold-cache build (DOS-1). On a cold colo
-// cache, N concurrent requests would each launch the full ~33-source upstream
+// cache, N concurrent requests would each launch the full source upstream
 // fan-out (cache stampede). Collapsing concurrent builds onto one shared
 // in-flight promise per isolate means only one fan-out runs while the rest
 // await its result; the promise clears on settle so the next cold miss

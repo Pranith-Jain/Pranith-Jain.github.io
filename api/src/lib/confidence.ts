@@ -344,14 +344,6 @@ export const SOURCE_RELIABILITY_REGISTRY: Record<string, SourceReliabilityEntry>
     known_bias: 'Curated from diverse sources — quality and freshness vary by rule origin',
   },
   // ── New sources from feed catalog CSV (2026-05-30) ───────────────────────
-  greensnow: {
-    id: 'greensnow',
-    name: 'GreenSnow IP Blocklist',
-    reliability: 'B',
-    category: 'secondary',
-    description: 'GreenSnow IP reputation blocklist — actively updated malicious IPs from honeypot network',
-    known_bias: 'Automated honeypot detection; may include legitimate scanners',
-  },
   'blocklist-de': {
     id: 'blocklist-de',
     name: 'Blocklist.de',

@@ -46,6 +46,7 @@ const DEFAULT_BEARER =
 const USER_BY_SN_QID = 'G3KGOASz96M-Qu0nwmGXNg';
 const USER_TWEETS_QID = 'V7H0Ap3_Hh2FyS75OCDO3Q';
 const USER_TWEETS_AND_REPLIES_QID = 'E4wA5vo2sjVyvpliUffSCw';
+const SEARCH_TIMELINE_QID = 'nK1dw4oV3k4w5TdtcAdSww';
 
 // user_id lookup TTL — cached in caches.default (no KV quota), 7 days.
 const USERID_TTL = 7 * 24 * 3600;
@@ -79,6 +80,35 @@ const FEATURES_USER_BY_SN = {
 // fields. These match what x.com's own web app sends, so the GraphQL
 // returns the proper chronological timeline.
 const FEATURES_USER_TWEETS_AUTHED = {
+  rweb_tipjar_consumption_enabled: true,
+  responsive_web_graphql_exclude_directive_enabled: true,
+  verified_phone_label_enabled: false,
+  creator_subscriptions_tweet_preview_api_enabled: true,
+  responsive_web_graphql_timeline_navigation_enabled: true,
+  responsive_web_graphql_skip_user_profile_image_extensions_enabled: false,
+  communities_web_enable_tweet_community_results_fetch: true,
+  c9s_tweet_anatomy_moderator_badge_enabled: true,
+  articles_preview_enabled: true,
+  responsive_web_edit_tweet_api_enabled: true,
+  graphql_is_translatable_rweb_tweet_is_translatable_enabled: true,
+  view_counts_everywhere_api_enabled: true,
+  longform_notetweets_consumption_enabled: true,
+  responsive_web_twitter_article_tweet_consumption_enabled: true,
+  tweet_awards_web_tipping_enabled: false,
+  creator_subscriptions_quote_tweet_preview_enabled: false,
+  freedom_of_speech_not_reach_fetch_enabled: true,
+  standardized_nudges_misinfo: true,
+  tweet_with_visibility_results_prefer_gql_limited_actions_policy_enabled: true,
+  rweb_video_timestamps_enabled: true,
+  longform_notetweets_rich_text_read_enabled: true,
+  longform_notetweets_inline_media_enabled: true,
+  responsive_web_enhance_cards_enabled: false,
+  tweetypie_unmention_optimization_enabled: true,
+  profile_label_improvements_pcf_label_in_post_enabled: true,
+};
+
+// Search-specific features — matches what x.com sends for the "Latest" tab.
+const FEATURES_SEARCH_TIMELINE = {
   rweb_tipjar_consumption_enabled: true,
   responsive_web_graphql_exclude_directive_enabled: true,
   verified_phone_label_enabled: false,
@@ -292,6 +322,24 @@ function parseAuthedTimeline(raw: unknown, screenName: string): AuthedTimelineIt
   const v2 = (timelineRoot?.timeline_v2 as Record<string, unknown>)?.timeline as Record<string, unknown> | undefined;
   const fallback = (timelineRoot?.timeline as Record<string, unknown>)?.timeline as Record<string, unknown> | undefined;
   const instructions = ((v2 ?? fallback)?.instructions as unknown[]) ?? [];
+  return parseTimelineInstructions(instructions, screenName);
+}
+
+/** Parse a SearchTimeline GraphQL response. Same entry structure as
+ *  UserTweets but reached via `search_by_raw_query.search_timeline`. */
+function parseSearchTimeline(raw: unknown): AuthedTimelineItem[] {
+  const root = raw as Record<string, unknown>;
+  const searchTimeline = (
+    (root.data as Record<string, unknown>)?.search_by_raw_query as Record<string, unknown> | undefined
+  )?.search_timeline as Record<string, unknown> | undefined;
+  const timeline = searchTimeline?.timeline as Record<string, unknown> | undefined;
+  const instructions = (timeline?.instructions as unknown[]) ?? [];
+  return parseTimelineInstructions(instructions, '');
+}
+
+/** Shared instruction walker — extracts tweets from TimelineAddEntries
+ *  and pinned-tweet instructions. Used by both user timelines and search. */
+function parseTimelineInstructions(instructions: unknown[], screenName: string): AuthedTimelineItem[] {
   const items: AuthedTimelineItem[] = [];
 
   function pushFromTweetResult(tr: unknown, isRetweet: boolean, isPinned: boolean): void {
@@ -470,6 +518,85 @@ export async function fetchAuthedTimeline(
     display_name: userInfo.name,
     bio: userInfo.bio,
     followers_count: userInfo.followers,
+    items,
+    generated_at: new Date().toISOString(),
+    cached: false,
+    auth_used: true,
+  };
+
+  try {
+    const cacheable = new Response(JSON.stringify(body), {
+      status: 200,
+      headers: {
+        'content-type': 'application/json',
+        'cache-control': `public, max-age=${CACHE_TWEETS_TTL}, s-maxage=${CACHE_TWEETS_TTL}`,
+      },
+    });
+    await edgeCache.put(cacheKey, cacheable);
+  } catch {
+    /* swallow */
+  }
+  return body;
+}
+
+export interface SearchTimelineResponse {
+  query: string;
+  items: AuthedTimelineItem[];
+  generated_at: string;
+  cached: boolean;
+  auth_used: true;
+}
+
+/** Search X/Twitter via the SearchTimeline GraphQL endpoint. Returns
+ *  chronological results for the given query string. The end-user never
+ *  authenticates — the operator's cookies are used server-side.
+ *
+ *  `product` controls the search tab:
+ *    - 'Latest' (default) — reverse-chronological
+ *    - 'Top' — Twitter's relevance-ranked
+ *    - 'Media' — photos and videos only
+ */
+export async function fetchSearchTimeline(
+  env: Env,
+  query: string,
+  options: { count?: number; product?: 'Latest' | 'Top' | 'Media' } = {}
+): Promise<SearchTimelineResponse> {
+  if (!query || query.trim().length === 0) throw new Error('search query cannot be empty');
+  if (query.length > 500) throw new Error('search query too long (max 500 chars)');
+  const creds = readAuthCookies(env);
+  const count = Math.min(options.count ?? 20, 40);
+  const product = options.product ?? 'Latest';
+
+  const edgeCache = (caches as unknown as { default: Cache }).default;
+  const cacheKey = new Request(
+    `https://x-search-cache.internal/v1?q=${encodeURIComponent(query.toLowerCase())}&p=${product}&n=${count}`
+  );
+  const cached = await edgeCache.match(cacheKey);
+  if (cached) {
+    try {
+      const body = (await cached.json()) as SearchTimelineResponse;
+      return { ...body, cached: true };
+    } catch {
+      /* fall through */
+    }
+  }
+
+  const rawQuery = query.trim();
+  const variables = encodeURIComponent(
+    JSON.stringify({
+      rawQuery: rawQuery,
+      count,
+      querySource: 'typed_query',
+      product,
+    })
+  );
+  const features = encodeURIComponent(JSON.stringify(FEATURES_SEARCH_TIMELINE));
+  const url = `https://api.twitter.com/graphql/${SEARCH_TIMELINE_QID}/SearchTimeline?variables=${variables}&features=${features}`;
+  const data = await graphqlGet<unknown>(url, creds);
+  const items = parseSearchTimeline(data);
+
+  const body: SearchTimelineResponse = {
+    query: rawQuery,
     items,
     generated_at: new Date().toISOString(),
     cached: false,

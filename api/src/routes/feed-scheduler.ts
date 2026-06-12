@@ -113,7 +113,10 @@ async function readCombinedHistory(kv: KVNamespace): Promise<Record<string, Feed
  */
 async function writeCombinedHistoryForJob(kv: KVNamespace, jobId: string, hist: FeedRunHistory[]): Promise<void> {
   try {
-    const raw = (await safeNullLog('kv-get-feed-combined-history', kv.get(HISTORY_ALL_KV_KEY, 'json'))) as Record<string, FeedRunHistory[]> | null;
+    const raw = (await safeNullLog('kv-get-feed-combined-history', kv.get(HISTORY_ALL_KV_KEY, 'json'))) as Record<
+      string,
+      FeedRunHistory[]
+    > | null;
     const all = raw ?? {};
     all[jobId] = hist;
     await kv.put(HISTORY_ALL_KV_KEY, JSON.stringify(all));
@@ -149,13 +152,6 @@ const PRESETS: { id: string; name: string; source_url: string; parser: FeedJob['
     source_url: 'https://lists.blocklist.de/lists/all.txt',
     parser: 'plaintext-ips',
     tags: ['blocklist', 'ip', 'attacker'],
-  },
-  {
-    id: 'greensnow',
-    name: 'GreenSnow',
-    source_url: 'https://blocklist.greensnow.co/greensnow.txt',
-    parser: 'plaintext-ips',
-    tags: ['blocklist', 'ip'],
   },
   {
     id: 'cert-pl',
@@ -313,7 +309,10 @@ export async function deleteFeedJobHandler(c: Context<{ Bindings: Env }>): Promi
   safeNullLog('kv-delete-feed-history', kv.delete(historyKey));
   // Remove job's history from the combined blob
   try {
-    const raw = (await safeNullLog('kv-get-feed-history-remove', kv.get(HISTORY_ALL_KV_KEY, 'json'))) as Record<string, FeedRunHistory[]> | null;
+    const raw = (await safeNullLog('kv-get-feed-history-remove', kv.get(HISTORY_ALL_KV_KEY, 'json'))) as Record<
+      string,
+      FeedRunHistory[]
+    > | null;
     if (raw && raw[id]) {
       delete raw[id];
       await kv.put(HISTORY_ALL_KV_KEY, JSON.stringify(raw));
@@ -547,7 +546,9 @@ export async function autoRunFeedJobs(
     item_count: job.last_item_count ?? 0,
     error: job.last_error,
   };
-  const existing = (await safeNullLog('kv-get-feed-run-history', kv.get(historyKey, 'json'))) as FeedRunHistory[] | null;
+  const existing = (await safeNullLog('kv-get-feed-run-history', kv.get(historyKey, 'json'))) as
+    | FeedRunHistory[]
+    | null;
   const hist = [history, ...(existing ?? [])].slice(0, MAX_HISTORY);
   await kv.put(historyKey, JSON.stringify(hist));
   await writeCombinedHistoryForJob(kv, job.id, hist);
