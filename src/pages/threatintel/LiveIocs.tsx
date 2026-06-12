@@ -315,9 +315,11 @@ export default function LiveIocs(): JSX.Element {
                   className={`text-mini font-mono px-2 py-1 rounded border inline-flex items-center gap-1.5 ${
                     active
                       ? pillCls
-                      : isEmpty
-                        ? 'border-slate-300/60 dark:border-slate-700/60 text-slate-400 dark:text-slate-500 opacity-60'
-                        : 'border-slate-300 dark:border-slate-700 text-slate-500'
+                      : s.ok === false
+                        ? 'border-rose-300/70 dark:border-rose-700/40 text-rose-700/80 dark:text-rose-400/80'
+                        : isEmpty
+                          ? 'border-slate-300/60 dark:border-slate-700/60 text-slate-400 dark:text-slate-500 opacity-60'
+                          : 'border-slate-300 dark:border-slate-700 text-slate-500'
                   }`}
                   title={tooltip}
                 >
@@ -328,6 +330,12 @@ export default function LiveIocs(): JSX.Element {
                     <span
                       className="inline-block w-1.5 h-1.5 rounded-full bg-slate-300 dark:bg-slate-600"
                       aria-label="empty this snapshot"
+                    />
+                  )}
+                  {s.ok === false && (
+                    <span
+                      className="inline-block w-1.5 h-1.5 rounded-full bg-rose-400 dark:bg-rose-500"
+                      aria-label="unreachable"
                     />
                   )}
                   {s.id} <span className="opacity-70">· {s.count}</span>
