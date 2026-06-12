@@ -7,7 +7,6 @@ import {
   Bitcoin,
   BookOpen,
   Bot,
-  Briefcase,
   Bug,
   Compass,
   Crosshair,
@@ -18,6 +17,7 @@ import {
   FileText,
   Filter,
   Fingerprint,
+  FlaskConical,
   Flame,
   GitBranch,
   Globe,
@@ -29,6 +29,7 @@ import {
   Newspaper,
   Radar,
   Radio,
+  Rss,
   Scale,
   Search,
   Send,
@@ -101,6 +102,7 @@ const threatIntel: SidebarConfig = {
         { label: 'Bitwire', href: '/threatintel/bitwire-blocklist', icon: Shield },
         { label: 'OWASP AI', href: '/threatintel/owasp-ai-landscape', icon: ShieldCheck },
         { label: 'Toolbox', href: '/threatintel/curated-toolbox', icon: Compass },
+        { label: 'RedHunt Labs', href: '/threatintel/redhunt-labs', icon: FlaskConical },
       ],
     },
     {
@@ -109,6 +111,7 @@ const threatIntel: SidebarConfig = {
         { label: 'MITRE Map', href: '/threatintel/mitre', icon: Compass },
         { label: 'Wiki', href: '/threatintel/wiki', icon: BookOpen },
         { label: 'Research', href: '/threatintel/research', icon: FileText },
+        { label: 'ThreatSignal', href: '/threatintel/threatsignal', icon: Rss },
         { label: 'Status', href: '/threatintel/status', icon: BarChart3 },
       ],
     },
@@ -170,23 +173,9 @@ const dfir: SidebarConfig = {
   ],
 };
 
-// Job Search is a top-level tool, not part of /dfir or /threatintel,
-// so it gets its own sidebar configuration that mounts when the
-// pathname is exactly /job-search.
-const jobSearch: SidebarConfig = {
-  sectionLabel: 'Job Search',
-  groups: [
-    {
-      title: 'Workflow',
-      items: [{ label: 'OSINT Job Board', href: '/job-search', icon: Briefcase }],
-    },
-  ],
-};
-
 const SIDEBARS: Record<string, SidebarConfig> = {
   '/threatintel': threatIntel,
   '/dfir': dfir,
-  '/job-search': jobSearch,
 };
 
 export function getSidebarForSection(pathname: string): SidebarConfig | null {

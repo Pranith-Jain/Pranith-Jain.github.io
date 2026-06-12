@@ -6,6 +6,8 @@ import {
   AlertTriangle,
   ArrowLeft,
   Bug,
+  ExternalLink,
+  FlaskConical,
   Copy,
   FileWarning,
   Globe,
@@ -326,6 +328,55 @@ export default function SecretLeaks(): JSX.Element {
                 >
                   <Key size={16} /> View Live Leaks
                 </button>
+              </div>
+
+              {/* Related research — secret-leak pattern references */}
+              <div className="grid sm:grid-cols-2 gap-3">
+                <a
+                  href="/threatintel/redhunt-labs"
+                  className="group flex items-start gap-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4 hover:border-brand-500/60 hover:shadow-e2 transition-all"
+                >
+                  <FlaskConical className="mt-0.5 h-5 w-5 shrink-0 text-brand-600 dark:text-brand-400" />
+                  <div className="min-w-0 flex-1">
+                    <p className="text-micro font-mono uppercase tracking-wider text-brand-600 dark:text-brand-400">
+                      Related research
+                    </p>
+                    <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100 group-hover:text-brand-600 dark:group-hover:text-brand-400">
+                      RedHunt Labs Research
+                    </h3>
+                    <p className="mt-1 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                      Open-source security tools from RedHunt Labs (Datasploit, BucketLoot, Octopii, KubeStalk, RedHunt
+                      OS and more), plus the Project Resonance internet-wide research initiative. Many of their tools
+                      are directly relevant to secret-leak and exposure research.
+                    </p>
+                    <p className="mt-1 inline-flex items-center gap-1 text-micro font-mono text-brand-600 dark:text-brand-400">
+                      open the mirror <ExternalLink className="h-3 w-3" />
+                    </p>
+                  </div>
+                </a>
+                <a
+                  href="https://research.redhuntlabs.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex items-start gap-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4 hover:border-brand-500/60 hover:shadow-e2 transition-all"
+                >
+                  <Bug className="mt-0.5 h-5 w-5 shrink-0 text-brand-600 dark:text-brand-400" />
+                  <div className="min-w-0 flex-1">
+                    <p className="text-micro font-mono uppercase tracking-wider text-brand-600 dark:text-brand-400">
+                      Upstream
+                    </p>
+                    <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100 group-hover:text-brand-600 dark:group-hover:text-brand-400">
+                      research.redhuntlabs.com
+                    </h3>
+                    <p className="mt-1 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                      The canonical RedHunt Labs Research site. ASM, Project Resonance, downloadable datasets, and the
+                      full tools catalog.
+                    </p>
+                    <p className="mt-1 inline-flex items-center gap-1 text-micro font-mono text-brand-600 dark:text-brand-400">
+                      open external <ExternalLink className="h-3 w-3" />
+                    </p>
+                  </div>
+                </a>
               </div>
             </div>
           )}

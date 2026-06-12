@@ -1,0 +1,538 @@
+import { useEffect, useMemo, useState } from 'react';
+import {
+  Search,
+  ExternalLink,
+  ChevronDown,
+  ChevronRight,
+  FolderTree,
+  Info,
+  Wrench,
+  FlaskConical,
+  Database,
+  Building2,
+  Github,
+  Twitter,
+  Linkedin,
+  Mail,
+} from 'lucide-react';
+import { DataPageLayout } from '../../components/DataPageLayout';
+import {
+  SECTIONS,
+  TOOLS,
+  RESEARCH_ITEMS,
+  DATASETS,
+  ABOUT,
+  COUNTS,
+  type RedHuntCategory,
+  type RedHuntTool,
+  type RedHuntResearchItem,
+  type RedHuntDataset,
+} from '../../data/threatintel/redhunt-labs-research';
+
+type TabId = RedHuntCategory;
+
+const TABS: { id: TabId; label: string; icon: typeof Wrench; count: number }[] = [
+  { id: 'tools', label: 'Tools', icon: Wrench, count: COUNTS.tools },
+  { id: 'research', label: 'Research', icon: FlaskConical, count: COUNTS.research },
+  { id: 'datasets', label: 'Datasets', icon: Database, count: COUNTS.datasets },
+  { id: 'about', label: 'About', icon: Building2, count: 0 },
+];
+
+// Pill palette for tool tags / conferences. Tones: docker, k8s, ML/LLM,
+// recon / osint, vulnerability scanner, and conference.
+const TAG_PILL: Record<string, string> = {
+  docker: 'border-sky-300 dark:border-sky-800 bg-sky-50 dark:bg-sky-950/40 text-sky-700 dark:text-sky-300',
+  k8s: 'border-blue-300 dark:border-blue-800 bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300',
+  firebase:
+    'border-amber-300 dark:border-amber-800 bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-300',
+  aws: 'border-orange-300 dark:border-orange-800 bg-orange-50 dark:bg-orange-950/40 text-orange-700 dark:text-orange-300',
+  gcp: 'border-cyan-300 dark:border-cyan-800 bg-cyan-50 dark:bg-cyan-950/40 text-cyan-700 dark:text-cyan-300',
+  'digital-ocean':
+    'border-indigo-300 dark:border-indigo-800 bg-indigo-50 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-300',
+  ML: 'border-fuchsia-300 dark:border-fuchsia-800 bg-fuchsia-50 dark:bg-fuchsia-950/40 text-fuchsia-700 dark:text-fuchsia-300',
+  LLM: 'border-purple-300 dark:border-purple-800 bg-purple-50 dark:bg-purple-950/40 text-purple-700 dark:text-purple-300',
+  'PII-scanner': 'border-rose-300 dark:border-rose-800 bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300',
+  'vulnerability-scanner':
+    'border-red-300 dark:border-red-800 bg-red-50 dark:bg-red-950/40 text-red-700 dark:text-red-300',
+  recon:
+    'border-emerald-300 dark:border-emerald-800 bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300',
+  osint: 'border-teal-300 dark:border-teal-800 bg-teal-50 dark:bg-teal-950/40 text-teal-700 dark:text-teal-300',
+  burpsuite:
+    'border-orange-300 dark:border-orange-800 bg-orange-50 dark:bg-orange-950/40 text-orange-700 dark:text-orange-300',
+  'awesome-list':
+    'border-yellow-300 dark:border-yellow-800 bg-yellow-50 dark:bg-yellow-950/40 text-yellow-700 dark:text-yellow-300',
+  os: 'border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-700 dark:text-slate-300',
+};
+
+function hostnameOf(url: string): string {
+  try {
+    return new URL(url).hostname.replace(/^www\./, '');
+  } catch {
+    return url;
+  }
+}
+
+function matchesText(haystack: string, q: string): boolean {
+  return haystack.toLowerCase().includes(q.toLowerCase());
+}
+
+function ToolRow({
+  tool,
+  query,
+  defaultOpen,
+  depth,
+}: {
+  tool: RedHuntTool;
+  query: string;
+  defaultOpen: boolean;
+  depth: number;
+}): JSX.Element {
+  const [open, setOpen] = useState(defaultOpen);
+  const haystack = `${tool.name} ${tool.description} ${tool.tags.join(' ')} ${tool.conferences.join(' ')} ${tool.authors.map((a) => a.name).join(' ')}`;
+  const visible = !query || matchesText(haystack, query);
+  if (!visible) return <></>;
+  return (
+    <div className="border-b border-slate-200 dark:border-slate-800 last:border-b-0">
+      <div
+        className="flex items-start gap-3 px-3 py-3 hover:bg-slate-50 dark:hover:bg-slate-900/50 transition-colors"
+        style={{ paddingLeft: `${depth * 16 + 12}px` }}
+      >
+        <button
+          type="button"
+          onClick={() => setOpen((v) => !v)}
+          className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded text-slate-500 dark:text-slate-400 hover:bg-slate-200/60 dark:hover:bg-slate-800/60"
+          aria-label={open ? 'Collapse' : 'Expand'}
+        >
+          {open ? <ChevronDown className="h-4 w-4" /> : <ChevronRight className="h-4 w-4" />}
+        </button>
+        <div className="min-w-0 flex-1">
+          <div className="flex flex-wrap items-baseline gap-2">
+            <a
+              href={tool.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-medium text-slate-900 dark:text-slate-100 hover:text-brand-600 dark:hover:text-brand-400 hover:underline"
+            >
+              {tool.name}
+            </a>
+            <span className="text-xs text-slate-500 dark:text-slate-400">
+              by {tool.authors.map((a) => a.name).join(', ')}
+            </span>
+            {tool.tags.map((t) => (
+              <span
+                key={t}
+                className={`text-micro font-mono uppercase tracking-wider rounded border px-1.5 py-0.5 ${
+                  TAG_PILL[t] ??
+                  'border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-600 dark:text-slate-400'
+                }`}
+              >
+                {t}
+              </span>
+            ))}
+            {tool.conferences.length > 0 && (
+              <span className="text-micro font-mono rounded border border-violet-300 dark:border-violet-800 bg-violet-50 dark:bg-violet-950/40 px-1.5 py-0.5 text-violet-700 dark:text-violet-300">
+                {tool.conferences.length} conf
+              </span>
+            )}
+            <a
+              href={tool.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="ml-auto text-slate-400 hover:text-brand-600 dark:hover:text-brand-400"
+              aria-label="Open on GitHub"
+            >
+              <ExternalLink className="h-3.5 w-3.5" />
+            </a>
+          </div>
+          {open && (
+            <>
+              <p className="mt-1 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{tool.description}</p>
+              {tool.conferences.length > 0 && (
+                <p className="mt-1 text-xs text-slate-500 dark:text-slate-500">
+                  Showcased at: {tool.conferences.join(' · ')}
+                </p>
+              )}
+            </>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ResearchCard({ item, query }: { item: RedHuntResearchItem; query: string }): JSX.Element | null {
+  const haystack = `${item.title} ${item.summary} ${item.details ?? ''}`;
+  if (query && !matchesText(haystack, query)) return null;
+  return (
+    <a
+      href={item.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="block rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 p-4 hover:border-brand-500/60 hover:shadow-e2 transition-all"
+    >
+      <div className="flex items-start gap-2">
+        <FlaskConical className="mt-0.5 h-4 w-4 shrink-0 text-brand-600 dark:text-brand-400" />
+        <div className="min-w-0 flex-1">
+          <h3 className="text-base font-medium text-slate-900 dark:text-slate-100">{item.title}</h3>
+          <p className="mt-1 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{item.summary}</p>
+          {item.details && (
+            <p className="mt-2 text-xs text-slate-500 dark:text-slate-500 leading-relaxed line-clamp-3">
+              {item.details}
+            </p>
+          )}
+          <p className="mt-2 inline-flex items-center gap-1 text-xs text-brand-600 dark:text-brand-400">
+            {hostnameOf(item.url)}
+            <ExternalLink className="h-3 w-3" />
+          </p>
+        </div>
+      </div>
+    </a>
+  );
+}
+
+function DatasetCard({ ds, query }: { ds: RedHuntDataset; query: string }): JSX.Element | null {
+  const haystack = `${ds.title} ${ds.description} ${ds.wave}`;
+  if (query && !matchesText(haystack, query)) return null;
+  const statusTone =
+    ds.releaseStatus === 'available'
+      ? 'border-emerald-300 dark:border-emerald-800 bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300'
+      : ds.releaseStatus === 'pending'
+        ? 'border-amber-300 dark:border-amber-800 bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-300'
+        : 'border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-600 dark:text-slate-400';
+  return (
+    <a
+      href={ds.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="block rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 p-4 hover:border-brand-500/60 hover:shadow-e2 transition-all"
+    >
+      <div className="flex items-start gap-2">
+        <Database className="mt-0.5 h-4 w-4 shrink-0 text-brand-600 dark:text-brand-400" />
+        <div className="min-w-0 flex-1">
+          <div className="flex flex-wrap items-baseline gap-2">
+            <h3 className="text-base font-medium text-slate-900 dark:text-slate-100">{ds.title}</h3>
+            <span className="text-micro font-mono rounded border border-slate-300 dark:border-slate-700 px-1.5 py-0.5 text-slate-500 dark:text-slate-400">
+              {ds.wave}
+            </span>
+            <span className={`text-micro font-mono rounded border px-1.5 py-0.5 ${statusTone}`}>
+              {ds.releaseStatus}
+            </span>
+          </div>
+          <p className="mt-1 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{ds.description}</p>
+        </div>
+      </div>
+    </a>
+  );
+}
+
+function socialIcon(label: string): typeof Github {
+  if (label === 'GitHub') return Github;
+  if (label === 'Twitter') return Twitter;
+  if (label === 'LinkedIn') return Linkedin;
+  return Mail;
+}
+
+/**
+ * RedHunt Labs Research — curated mirror of https://research.redhuntlabs.com/
+ *
+ * RedHunt Labs is an ASM (Attack Surface Management) and exposures
+ * shop. Their research arm publishes ~11 open-source security tools
+ * (most presented at Black Hat conferences) and runs Project Resonance,
+ * an internet-wide security research initiative that ships
+ * downloadable datasets one Wave at a time.
+ *
+ * This page is the in-platform landing for the catalog entry
+ * `redhunt-labs-research` in /threatintel/external-resources. It uses
+ * the same tabbed shell as /owasp-ai-landscape and /curated-toolbox
+ * so the navigation pattern is consistent across curated research
+ * mirrors.
+ *
+ * Data is bundled (no API fetch) because the upstream research site is
+ * a client-rendered Next.js app and scraping it reliably is out of
+ * scope for a static mirror. Each tool links directly to the upstream
+ * GitHub repo so the page never goes stale when RedHunt updates a
+ * README.
+ *
+ * Mirrored: 2026-06-13.
+ */
+export default function RedHuntLabsResearch(): JSX.Element {
+  const [tab, setTab] = useState<TabId>('tools');
+  const [query, setQuery] = useState('');
+
+  // Persist last-open tab in localStorage so a returning visitor picks
+  // up where they left off. Defaults to 'tools' on first visit.
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem('redhunt.tab.v1');
+      if (stored && SECTIONS.some((s) => s.id === stored)) {
+        setTab(stored as TabId);
+      }
+    } catch {
+      /* localStorage may be disabled (private mode, sandbox) — fall back to default. */
+    }
+  }, []);
+  useEffect(() => {
+    try {
+      localStorage.setItem('redhunt.tab.v1', tab);
+    } catch {
+      /* no-op */
+    }
+  }, [tab]);
+
+  const section = useMemo(() => SECTIONS.find((s) => s.id === tab) ?? SECTIONS[0]!, [tab]);
+
+  const filteredTools = useMemo(() => TOOLS, []);
+  const filteredResearch = useMemo(() => RESEARCH_ITEMS, []);
+  const filteredDatasets = useMemo(() => DATASETS, []);
+
+  return (
+    <DataPageLayout
+      backTo="/threatintel"
+      backLabel="back to threat intel"
+      icon={<FlaskConical className="h-6 w-6" />}
+      title="RedHunt Labs Research"
+      description={
+        <span>
+          Curated mirror of{' '}
+          <a
+            href="https://research.redhuntlabs.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-brand-600 dark:text-brand-400 hover:underline"
+          >
+            research.redhuntlabs.com
+          </a>{' '}
+          — ASM and Exposure research, open-source security tools, Project Resonance waves, and downloadable datasets.
+          Pairs with the catalog entry at /threatintel/external-resources.
+        </span>
+      }
+      headerExtra={
+        <div className="flex flex-wrap items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
+          <span className="rounded border border-slate-300 dark:border-slate-700 px-2 py-1 text-slate-500 dark:text-slate-400 font-mono">
+            mirrored <span className="text-slate-700 dark:text-slate-200">2026-06-13</span>
+          </span>
+          <span className="rounded border border-emerald-300 dark:border-emerald-700 bg-emerald-50 dark:bg-emerald-950/40 px-2 py-1 text-emerald-700 dark:text-emerald-300 font-mono">
+            static seed
+          </span>
+        </div>
+      }
+      maxWidthClass="max-w-6xl"
+    >
+      {/* Tabs */}
+      <div className="mb-4 flex flex-wrap items-center gap-1.5 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-2">
+        {TABS.map((t) => {
+          const Icon = t.icon;
+          const active = t.id === tab;
+          return (
+            <button
+              key={t.id}
+              type="button"
+              onClick={() => setTab(t.id)}
+              className={`inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm font-medium transition-colors ${
+                active
+                  ? 'bg-brand-500/15 text-brand-700 dark:text-brand-300 border border-brand-300/60 dark:border-brand-700/60'
+                  : 'border border-transparent text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800/50'
+              }`}
+            >
+              <Icon className="h-4 w-4" />
+              {t.label}
+              {t.count > 0 && (
+                <span className="rounded-full border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 px-1.5 py-0.5 text-micro font-mono">
+                  {t.count}
+                </span>
+              )}
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Section intro card */}
+      <div className="mb-3 flex items-start gap-2 rounded-lg border border-sky-200 dark:border-sky-900 bg-sky-50 dark:bg-sky-950/30 p-3 text-sm text-slate-700 dark:text-slate-300">
+        <Info className="mt-0.5 h-4 w-4 shrink-0 text-sky-600 dark:text-sky-400" />
+        <span>{section.intro}</span>
+      </div>
+
+      {/* Toolbar (only on list tabs) */}
+      {tab !== 'about' && (
+        <section className="mb-4 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <div className="relative flex-1">
+              <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+              <input
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder={
+                  tab === 'tools'
+                    ? `Search ${TOOLS.length} tools by name, tag, conference, or author…`
+                    : tab === 'research'
+                      ? `Search ${RESEARCH_ITEMS.length} research projects…`
+                      : `Search ${DATASETS.length} datasets…`
+                }
+                className="w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 py-2 pl-9 pr-3 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none"
+              />
+            </div>
+            {query && (
+              <button
+                type="button"
+                onClick={() => setQuery('')}
+                className="text-mini font-mono rounded border border-slate-300 dark:border-slate-700 px-2.5 py-1 text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300"
+              >
+                clear
+              </button>
+            )}
+          </div>
+        </section>
+      )}
+
+      {/* Header cards */}
+      <div className="mb-4 grid grid-cols-2 gap-2 sm:grid-cols-4">
+        <Stat label="Tools" value={COUNTS.tools} />
+        <Stat label="Research" value={COUNTS.research} />
+        <Stat label="Datasets" value={COUNTS.datasets} />
+        <Stat
+          label="Source"
+          value={
+            <a
+              href="https://research.redhuntlabs.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-brand-600 dark:text-brand-400 hover:underline truncate"
+            >
+              research.redhuntlabs.com
+            </a>
+          }
+        />
+      </div>
+
+      {/* Tab content */}
+      {tab === 'tools' && (
+        <div className="overflow-hidden rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950">
+          {filteredTools.length === 0 ? (
+            <div className="p-8 text-center text-sm text-slate-500 dark:text-slate-400">
+              <FolderTree className="mx-auto mb-2 h-8 w-8 text-slate-400 dark:text-slate-500" />
+              No tools match &quot;{query}&quot;.
+            </div>
+          ) : (
+            filteredTools.map((t) => <ToolRow key={t.id} tool={t} query={query} defaultOpen={!query} depth={0} />)
+          )}
+        </div>
+      )}
+
+      {tab === 'research' && (
+        <div className="grid gap-2 sm:grid-cols-2">
+          {filteredResearch.length === 0 ||
+          filteredResearch.every((r) => {
+            const haystack = `${r.title} ${r.summary} ${r.details ?? ''}`;
+            return query && !matchesText(haystack, query);
+          }) ? (
+            <div className="col-span-full rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-8 text-center text-sm text-slate-500 dark:text-slate-400">
+              <Search className="mx-auto mb-2 h-8 w-8 text-slate-400 dark:text-slate-500" />
+              No research projects match &quot;{query}&quot;.
+            </div>
+          ) : (
+            filteredResearch.map((r) => <ResearchCard key={r.id} item={r} query={query} />)
+          )}
+        </div>
+      )}
+
+      {tab === 'datasets' && (
+        <div className="grid gap-2 sm:grid-cols-2">
+          {filteredDatasets.length === 0 ||
+          filteredDatasets.every((d) => {
+            const haystack = `${d.title} ${d.description} ${d.wave}`;
+            return query && !matchesText(haystack, query);
+          }) ? (
+            <div className="col-span-full rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-8 text-center text-sm text-slate-500 dark:text-slate-400">
+              <Search className="mx-auto mb-2 h-8 w-8 text-slate-400 dark:text-slate-500" />
+              No datasets match &quot;{query}&quot;.
+            </div>
+          ) : (
+            filteredDatasets.map((d) => <DatasetCard key={d.id} ds={d} query={query} />)
+          )}
+        </div>
+      )}
+
+      {tab === 'about' && (
+        <div className="space-y-4">
+          {/* Mission */}
+          <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-5">
+            <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100">Our Mission</h2>
+            <p className="mt-2 text-sm text-slate-700 dark:text-slate-300 leading-relaxed">{ABOUT.mission}</p>
+          </div>
+
+          {/* Principles */}
+          <div>
+            <h2 className="mb-2 text-lg font-semibold text-slate-900 dark:text-slate-100">
+              Join Hands in our Research
+            </h2>
+            <div className="grid gap-2 sm:grid-cols-3">
+              {ABOUT.principles.map((p) => (
+                <div
+                  key={p.title}
+                  className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 p-4"
+                >
+                  <h3 className="text-sm font-medium text-slate-900 dark:text-slate-100">{p.title}</h3>
+                  <p className="mt-1 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">{p.body}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Contact + Socials */}
+          <div className="grid gap-2 sm:grid-cols-2">
+            <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
+              <h3 className="text-sm font-medium text-slate-900 dark:text-slate-100">Contact</h3>
+              <ul className="mt-2 space-y-1 text-sm">
+                {ABOUT.contact.map((c) => (
+                  <li key={c.label}>
+                    <a
+                      href={c.href}
+                      className="inline-flex items-center gap-1.5 text-brand-600 dark:text-brand-400 hover:underline"
+                    >
+                      <Mail className="h-3.5 w-3.5" />
+                      {c.value}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
+              <h3 className="text-sm font-medium text-slate-900 dark:text-slate-100">Social</h3>
+              <ul className="mt-2 space-y-1 text-sm">
+                {ABOUT.socials.map((s) => {
+                  const Icon = socialIcon(s.label);
+                  return (
+                    <li key={s.label}>
+                      <a
+                        href={s.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 text-brand-600 dark:text-brand-400 hover:underline"
+                      >
+                        <Icon className="h-3.5 w-3.5" />
+                        {s.label}
+                      </a>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          </div>
+
+          <p className="text-center text-xs text-slate-500 dark:text-slate-500">
+            Built with passion by the RedHunt Labs Research Team — Fueling research and innovation for the community.
+          </p>
+        </div>
+      )}
+    </DataPageLayout>
+  );
+}
+
+function Stat({ label, value }: { label: string; value: React.ReactNode }): JSX.Element {
+  return (
+    <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 px-3 py-2">
+      <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">{label}</div>
+      <div className="text-lg font-semibold text-slate-900 dark:text-slate-100 truncate">{value}</div>
+    </div>
+  );
+}
