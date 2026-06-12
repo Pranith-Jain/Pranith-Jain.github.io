@@ -1,46 +1,84 @@
 import type { KVNamespace } from '@cloudflare/workers-types';
 import type { Candidate, CaseStudyType } from '../types';
-import { kv } from '../kv-keys';
 
 const THIRTY_DAYS_SECONDS = 30 * 24 * 3600;
 
+/** All known candidate types — used by `listAllCandidates` to read per-type
+ *  blobs without an unbounded `.list()` call. */
+const ALL_TYPES: CaseStudyType[] = [
+  'cve', 'actor', 'malware', 'ransom', 'breach', 'scam', 'aisec',
+  'intel', 'osint', 'methodology', 'trend', 'briefing', 'analysis',
+];
+
+function blobKey(type: CaseStudyType): string {
+  return `candidates:${type}:all`;
+}
+
+function oldPrefix(type: CaseStudyType): string {
+  return `candidates:${type}:`;
+}
+
+async function readTypeBlob(ns: KVNamespace, type: CaseStudyType): Promise<Candidate[]> {
+  const key = blobKey(type);
+  const blob = (await ns.get(key, 'json')) as Candidate[] | null;
+  if (blob) return blob;
+
+  // One-time migration: read old per-key format and promote to blob.
+  const { keys } = await ns.list({ prefix: oldPrefix(type) });
+  const oldKeys = keys.filter((k) => k.name !== key);
+  if (oldKeys.length === 0) return [];
+  const migrated = (
+    await Promise.all(oldKeys.map((k) => ns.get(k.name, 'json') as Promise<Candidate | null>))
+  ).filter((x): x is Candidate => x !== null);
+  if (migrated.length > 0) {
+    await ns.put(key, JSON.stringify(migrated), { expirationTtl: THIRTY_DAYS_SECONDS });
+    for (const k of oldKeys) ns.delete(k.name).catch(() => {});
+  }
+  return migrated;
+}
+
+async function writeTypeBlob(ns: KVNamespace, type: CaseStudyType, list: Candidate[]): Promise<void> {
+  await ns.put(blobKey(type), JSON.stringify(list), { expirationTtl: THIRTY_DAYS_SECONDS });
+}
+
 export async function putCandidate(ns: KVNamespace, c: Candidate): Promise<void> {
-  await ns.put(kv.candidate(c.type, c.key), JSON.stringify(c), {
-    expirationTtl: THIRTY_DAYS_SECONDS,
-  });
+  // readTypeBlob triggers migration on first access if blob doesn't exist yet.
+  const list = await readTypeBlob(ns, c.type);
+  const idx = list.findIndex((x) => x.key === c.key);
+  if (idx >= 0) list[idx] = c;
+  else list.push(c);
+  await writeTypeBlob(ns, c.type, list);
 }
 
 export async function getCandidate(ns: KVNamespace, type: CaseStudyType, stableKey: string): Promise<Candidate | null> {
-  const raw = await ns.get(kv.candidate(type, stableKey), 'json');
-  return raw as Candidate | null;
+  const list = await readTypeBlob(ns, type);
+  return list.find((x) => x.key === stableKey) ?? null;
 }
 
 export async function listCandidates(ns: KVNamespace, type: CaseStudyType): Promise<Candidate[]> {
-  const { keys } = await ns.list({ prefix: kv.candidatesPrefix(type) });
-  const results = await Promise.all(keys.map((k) => ns.get(k.name, 'json') as Promise<Candidate | null>));
-  return results.filter((x): x is Candidate => x !== null);
+  return readTypeBlob(ns, type);
 }
 
 /**
- * All pending candidates across every type in ONE `KV.list`.
- *
- * Candidate keys are `candidates:<type>:<key>`, so the shared `candidates:`
- * prefix returns the whole set. Callers that previously looped the 12 types
- * (12 list ops) now do 1 list + the same N body gets.
+ * All pending candidates across every type — reads each type's blob
+ * in parallel (13 reads) instead of the old unbounded `.list()` + N gets.
  */
 export async function listAllCandidates(ns: KVNamespace): Promise<Candidate[]> {
-  const out: Candidate[] = [];
-  let cursor: string | undefined;
-  for (let page = 0; page < 5; page += 1) {
-    const res = await ns.list({ prefix: kv.candidatesAllPrefix, cursor });
-    const batch = await Promise.all(res.keys.map((k) => ns.get(k.name, 'json') as Promise<Candidate | null>));
-    for (const c of batch) if (c) out.push(c);
-    if (res.list_complete) break;
-    cursor = res.cursor;
-  }
-  return out;
+  const perType = await Promise.all(ALL_TYPES.map((t) => readTypeBlob(ns, t)));
+  return perType.flat();
 }
 
 export async function deleteCandidate(ns: KVNamespace, type: CaseStudyType, stableKey: string): Promise<void> {
-  await ns.delete(kv.candidate(type, stableKey));
+  const list = await readTypeBlob(ns, type);
+  await writeTypeBlob(
+    ns,
+    type,
+    list.filter((x) => x.key !== stableKey),
+  );
+}
+
+/** Count all candidates across every type — reads all type blobs in parallel. */
+export async function countAllCandidates(ns: KVNamespace): Promise<number> {
+  const perType = await Promise.all(ALL_TYPES.map((t) => readTypeBlob(ns, t)));
+  return perType.reduce((sum, arr) => sum + arr.length, 0);
 }

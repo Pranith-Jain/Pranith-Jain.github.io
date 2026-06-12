@@ -3,8 +3,7 @@ import type { Env } from '../env';
 import type { Candidate, CaseStudyType, Post, PostIOC, PostSource, SocialContent } from '../case-study/types';
 import { requireAdminMiddleware } from '../lib/admin-auth';
 import { safeJsonBody } from '../lib/safe-body';
-import { listAllCandidates, getCandidate, deleteCandidate } from '../case-study/storage/candidates';
-import { countByPrefix } from '../case-study/storage/kv-util';
+import { listAllCandidates, getCandidate, deleteCandidate, countAllCandidates } from '../case-study/storage/candidates';
 import { getDedup, touchDedup, suppressDedupMany } from '../case-study/storage/dedup';
 import {
   getSocialSchedule,
@@ -13,12 +12,12 @@ import {
   isSocialPlatform,
 } from '../case-study/storage/social-schedule';
 import { postToTwitter, postToLinkedin } from '../case-study/posting/social-poster';
-import { approve, unapprove, listApproved, getApproved } from '../case-study/storage/approved';
+import { approve, unapprove, listApproved, getApproved, countApproved } from '../case-study/storage/approved';
 import { getSchedule, setSchedule, markSlotStatus, removeSlot } from '../case-study/storage/schedule';
 import { putPost, listPostIndex, removePost } from '../case-study/storage/posts';
 import { listDraftIndex, getDraft, approveDraft, rejectDraft } from '../case-study/storage/drafts';
 import { renderMarkdown } from '../case-study/rendering/markdown';
-import { listFailures, deleteFailure, clearFailures } from '../case-study/storage/failed';
+import { listFailures, deleteFailure, clearFailures, countFailures } from '../case-study/storage/failed';
 import {
   runDiscoveryNow,
   runPlannerNow,
@@ -899,9 +898,9 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
     // just to call .length. Now: 3 prefix list-counts + 2 single gets.
     const ns = c.env.CASE_STUDIES;
     const [pendingCount, approvedCount, failureCount, schedule, postsIndex] = await Promise.all([
-      countByPrefix(ns, csKvKeys.candidatesAllPrefix),
-      countByPrefix(ns, csKvKeys.approvedPrefix),
-      countByPrefix(ns, 'failed:'),
+      countAllCandidates(ns),
+      countApproved(ns),
+      countFailures(ns),
       getSchedule(ns),
       listPostIndex(ns),
     ]);
