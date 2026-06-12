@@ -53,6 +53,14 @@ function FitBounds({ bbox }: { bbox: [number, number, number, number] }) {
   return null;
 }
 
+function GlobalView() {
+  const map = useMap();
+  useEffect(() => {
+    map.setView([20, 0], 2);
+  }, [map]);
+  return null;
+}
+
 interface MapResult {
   id: string;
   name: string;
@@ -65,28 +73,33 @@ interface MapResult {
 export default function InfraMap({
   results,
   bbox,
+  global,
 }: {
   results: MapResult[];
   bbox?: [number, number, number, number] | null;
+  global?: boolean;
 }) {
   const center = useMemo(() => {
     if (bbox) {
       const [s, w, n, e] = bbox;
       return [(s + n) / 2, (w + e) / 2] as [number, number];
     }
-    if (results.length > 0) {
+    if (results.length > 0 && !global) {
       return [results[0].lat, results[0].lon] as [number, number];
     }
     return [20, 0] as [number, number];
-  }, [bbox, results]);
+  }, [bbox, results, global]);
+
+  const zoom = global ? 2 : bbox ? undefined : results.length > 0 ? 5 : 2;
 
   return (
-    <MapContainer center={center} zoom={5} style={{ height: '100%', width: '100%' }} scrollWheelZoom={true}>
+    <MapContainer center={center} zoom={zoom} style={{ height: '100%', width: '100%' }} scrollWheelZoom={true}>
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a>'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      {bbox && <FitBounds bbox={bbox} />}
+      {global && <GlobalView />}
+      {bbox && !global && <FitBounds bbox={bbox} />}
       {results.map((r) => (
         <Marker key={r.id} position={[r.lat, r.lon]} icon={markerIcon(CATEGORY_COLORS[r.category] ?? '#6366f1')}>
           <Popup>

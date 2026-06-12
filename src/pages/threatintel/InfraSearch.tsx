@@ -1,7 +1,7 @@
 import { lazy, Suspense, useState, type FormEvent } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, Search, MapPin, Loader2, Building2 } from 'lucide-react';
+import { ArrowLeft, Search, MapPin, Loader2, Building2, Globe } from 'lucide-react';
 
 const InfraMap = lazy(() => import('../../components/threatintel/InfraMap'));
 
@@ -57,6 +57,7 @@ export default function InfraSearch(): JSX.Element {
   const [result, setResult] = useState<InfraSearchResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [catFilter, setCatFilter] = useState('All');
+  const [mapGlobal, setMapGlobal] = useState(false);
 
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -164,19 +165,29 @@ export default function InfraSearch(): JSX.Element {
 
           {/* Map */}
           {result.results.length > 0 && (
-            <section
-              className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden"
-              style={{ height: 400 }}
-            >
-              <Suspense
-                fallback={
-                  <div className="flex items-center justify-center h-full text-slate-400 font-mono text-sm">
-                    <Loader2 className="animate-spin mr-2" /> Loading map…
-                  </div>
-                }
-              >
-                <InfraMap results={filtered} bbox={result.bbox} />
-              </Suspense>
+            <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden">
+              <div className="flex items-center justify-between px-4 py-2 border-b border-slate-200 dark:border-slate-800">
+                <span className="text-xs font-mono text-slate-500">
+                  {mapGlobal ? 'Global view' : 'Zoomed to results'}
+                </span>
+                <button
+                  onClick={() => setMapGlobal(!mapGlobal)}
+                  className="text-xs font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 inline-flex items-center gap-1"
+                >
+                  <Globe size={12} /> {mapGlobal ? 'Zoom to results' : 'Global view'}
+                </button>
+              </div>
+              <div style={{ height: 500 }}>
+                <Suspense
+                  fallback={
+                    <div className="flex items-center justify-center h-full text-slate-400 font-mono text-sm">
+                      <Loader2 className="animate-spin mr-2" /> Loading map…
+                    </div>
+                  }
+                >
+                  <InfraMap results={filtered} bbox={result.bbox} global={mapGlobal} />
+                </Suspense>
+              </div>
             </section>
           )}
 
