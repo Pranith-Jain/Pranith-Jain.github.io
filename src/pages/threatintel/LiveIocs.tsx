@@ -226,6 +226,46 @@ export default function LiveIocs(): JSX.Element {
             );
           })()}
         </p>
+        {data &&
+          (() => {
+            const list = data.registered_sources ?? data.sources;
+            if (list.length === 0) return null;
+            const healthy = list.filter((s) => s.ok && s.count > 0).length;
+            const empty = list.filter((s) => s.ok && s.count === 0).length;
+            const unreachable = list.filter((s) => s.ok === false);
+            const unreachableIds = unreachable.map((s) => s.id).join(', ');
+            const dotCls = (cls: string) => `inline-block w-1.5 h-1.5 rounded-full ${cls}`;
+            return (
+              <p
+                className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-2"
+                title={
+                  unreachable.length > 0
+                    ? `Unreachable this snapshot: ${unreachableIds}`
+                    : 'All registered feeds reachable this snapshot'
+                }
+              >
+                feed health:{' '}
+                <span className="inline-flex items-center gap-1">
+                  <span className={dotCls('bg-emerald-500')} aria-label="healthy" />
+                  {healthy} healthy
+                </span>
+                <span className="mx-1.5 opacity-50">·</span>
+                <span className="inline-flex items-center gap-1">
+                  <span className={dotCls('bg-slate-300 dark:bg-slate-600')} aria-label="empty" />
+                  {empty} empty
+                </span>
+                <span className="mx-1.5 opacity-50">·</span>
+                <span
+                  className={`inline-flex items-center gap-1 ${
+                    unreachable.length > 0 ? 'text-rose-700 dark:text-rose-400' : ''
+                  }`}
+                >
+                  <span className={dotCls('bg-rose-400 dark:bg-rose-500')} aria-label="unreachable" />
+                  {unreachable.length} unreachable
+                </span>
+              </p>
+            );
+          })()}
       </div>
 
       <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-4">

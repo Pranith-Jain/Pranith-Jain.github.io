@@ -292,7 +292,15 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
           // empty on the page). global-pulse caches itself on the first page visit.
           '/api/v1/crypto-scam-feed',
           '/api/v1/breach-disclosures',
-          '/api/v1/live-iocs',
+          // NOTE: /api/v1/live-iocs intentionally NOT warmed here - its
+          // synchronous fan-out is 36 subrequests (one per registered feed
+          // source) plus 1 KV/queue write, blowing the 50-subrequest cap on
+          // the cache-warm Worker invocation when paired with the other 21
+          // endpoints fanned out above. The hourly cron already enqueues 36
+          // per-source queue messages; the consumer fills the per-colo
+          // Cache API slices, and the compose-on-read path serves from there.
+          // live-iocs warms itself on the first real page visit via the
+          // single-flight path in buildLiveIocsSingleFlight.
           '/api/v1/deepdarkcti',
           '/api/v1/stealer-forum-intel',
           '/api/v1/cyber-crime',

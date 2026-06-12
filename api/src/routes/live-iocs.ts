@@ -207,6 +207,15 @@ export type FeedDeps = {
   executionCtx?: { waitUntil: (p: Promise<unknown>) => void };
   kv?: KVNamespace;
   env?: Env;
+  /**
+   * Optional per-invocation subrequest budget. Each source's `run()` is
+   * expected to check + increment this when it does an upstream fetch or
+   * KV read; when the counter is at or over `max`, the caller short-circuits
+   * the source to a `ok:false` stub before launching the request. The default
+   * (no `budget` passed) is unbounded, so the queue-consumer path and tests
+   * stay unaffected.
+   */
+  budget?: { used: number; max: number };
 };
 export type FeedResult = { items: LiveIoc[]; sources: LiveSource[] };
 interface FeedSource {
@@ -214,11 +223,14 @@ interface FeedSource {
   run: (deps: FeedDeps) => Promise<FeedResult>;
 }
 
-// Bounded in-flight count for the source fan-out. The Workers runtime caps
-// concurrent subrequests at ~6; a slightly higher cap lets the cache-backed
-// special sources (malwarebazaar/phishing/mti) overlap the plain-fetch feeds
-// without the fetches themselves exceeding the runtime limit.
-const FEED_FANOUT_CONCURRENCY = 8;
+// Bounded in-flight count for the synchronous source fan-out. The Workers
+// free-plan hard cap is 50 SUBREQUESTS per invocation (not connections) -
+// a synchronous 36-source fan-out easily blows that when paired with the
+// KV/queue/analytics reads fetchLiveIocs does. We cap in-flight requests
+// at 5 so the fan-out stays well under the 50-subrequest ceiling even
+// with the other reads in flight. The compose-on-read path is the primary
+// read model; this only runs on a cold start / slice miss. 2026-06 audit.
+const FEED_FANOUT_CONCURRENCY = 5;
 
 const CPS_BASE = 'https://raw.githubusercontent.com/CriticalPathSecurity/Public-Intelligence-Feeds/master';
 
@@ -244,6 +256,13 @@ interface TextFeedConfig {
   /** Mark the source unhealthy when it yielded zero items (vs the default:
    *  healthy whenever the fetch succeeded, even with zero parsed items). */
   okRequiresItems?: boolean;
+  /** Optional fallback URLs tried in order when the primary URL fails.
+   *  Use for feeds whose primary host is flaky / has a known outage - the
+   *  2026-06 CPS_BASE outage (raw.githubusercontent.com 4xx on the
+   *  CriticalPathSecurity/Public-Intelligence-Feeds paths) is the first
+   *  use case. The first URL to return 2xx with a non-empty body wins;
+   *  only when ALL URLs fail do we report `ok:false`. */
+  fallbackUrls?: string[];
 }
 
 /** Use the parser's per-entry context verbatim. */
@@ -259,7 +278,12 @@ function textFeedSource(cfg: TextFeedConfig): FeedSource {
   return {
     id: cfg.id,
     run: async () => {
-      const text = await fetchText(cfg.url);
+      const urls = [cfg.url, ...(cfg.fallbackUrls ?? [])];
+      let text: string | null = null;
+      for (const u of urls) {
+        text = await fetchText(u);
+        if (text) break;
+      }
       if (!text) return { items: [], sources: [{ id: cfg.id, ok: false, count: 0 }] };
       const parsed = cfg.parse(text, PER_FEED_CAP);
       const items: LiveIoc[] = [];
@@ -609,6 +633,7 @@ const FEED_SOURCES: FeedSource[] = [
   textFeedSource({
     id: 'binarydefense',
     url: `${CPS_BASE}/binarydefense.txt`,
+    fallbackUrls: ['https://www.binarydefense.com/banlist.txt'],
     parse: parsePlainTextIps,
     kind: 'ip',
     reporter: 'BinaryDefense',
@@ -617,6 +642,7 @@ const FEED_SOURCES: FeedSource[] = [
   textFeedSource({
     id: 'tor-exit',
     url: `${CPS_BASE}/tor-exit.txt`,
+    fallbackUrls: ['https://check.torproject.org/torbulkexitlist'],
     parse: parsePlainTextIps,
     kind: 'ip',
     reporter: 'Tor Project',
@@ -964,8 +990,38 @@ export async function fetchLiveIocs(
   // delayed the start of batch 3). concurrentMap preserves input order, so the
   // flattened sources/items keep FEED_SOURCES order — which the freshness sort
   // and the per-source recount in finalizeLiveIocs rely on being stable.
-  const deps: FeedDeps = { executionCtx, kv, env };
-  const feedResults = await concurrentMap(FEED_SOURCES, (s) => s.run(deps), FEED_FANOUT_CONCURRENCY);
+  //
+  // Subrequest-budget guard (2026-06 audit): the synchronous fan-out is the
+  // FALLBACK for cold-colo / missing-slice, and the cache-warm cron runs it
+  // ~22x per cron tick. Each feed `run()` does >= 1 subrequest (most do 1-3
+  // + KV reads), so a 36-source fan-out can hit the 50-subrequest cap with
+  // room to spare. We install a shared budget and short-circuit a source to
+  // `ok:false` (with `error: 'budget_exhausted'`) when the cap is reached,
+  // so we degrade gracefully instead of throwing and dropping ALL 36
+  // sources on the floor (the previous behavior under subrequest exhaustion).
+  // The cap leaves headroom for the analytics + KV/queue reads that follow
+  // the fan-out in composeOrFallback.
+  const SUBREQUEST_BUDGET = 30;
+  const budget = { used: 0, max: SUBREQUEST_BUDGET };
+  const deps: FeedDeps = { executionCtx, kv, env, budget };
+  const feedResults = await concurrentMap(
+    FEED_SOURCES,
+    async (s) => {
+      // Atomically reserve 1 subrequest slot; if the budget is gone, return
+      // a stub so concurrentMap still produces a result for this index.
+      // (concurrentMap preserves order; finalize needs every slot to have a
+      // matching source row.)
+      if (budget.used >= budget.max) {
+        return {
+          items: [] as LiveIoc[],
+          sources: [{ id: s.id, ok: false, count: 0 }] as LiveSource[],
+        };
+      }
+      budget.used += 1;
+      return s.run(deps);
+    },
+    FEED_FANOUT_CONCURRENCY
+  );
 
   const items: LiveIoc[] = [];
   const sources: LiveSource[] = [];
