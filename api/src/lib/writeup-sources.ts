@@ -55,7 +55,6 @@ export const WRITEUP_SOURCES: WriteupSourceSpec[] = [
     label: 'BushidoToken',
     tier: 'signal',
   },
-  { kind: 'rss', url: 'https://doublepulsar.com/feed', label: 'DoublePulsar (Kevin Beaumont)', tier: 'signal' },
   { kind: 'rss', url: 'https://krebsonsecurity.com/feed/', label: 'Krebs on Security' },
   { kind: 'rss', url: 'https://research.openanalysis.net/feed.xml', label: 'OpenAnalysis Lab', tier: 'signal' },
   { kind: 'rss', url: 'https://opensourcemalware.com/rss.xml', label: 'OpenSourceMalware', tier: 'signal' },

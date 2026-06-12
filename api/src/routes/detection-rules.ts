@@ -203,6 +203,16 @@ const SOURCES: SourceConfig[] = [
       'Pre-commit-friendly secret scanner with pluggable detectors. Useful as a CI gate for the patterns gitleaks already covers, with different tuning trade-offs.',
     rules_path: 'detect_secrets/plugins',
   },
+  {
+    id: 'threathunter-playbook',
+    label: 'OTRF/ThreatHunter-Playbook',
+    repo: 'OTRF/ThreatHunter-Playbook',
+    type: 'Sigma',
+    description:
+      'Detection logic mapped to MITRE ATT&CK — Jupyter notebooks with Sigma rules, Splunk queries, and threat-hunting methodologies for each technique. Community-driven, regularly updated.',
+    rules_path: 'detections',
+    homepage: 'https://threathunterplaybook.com/',
+  },
 ];
 
 interface RecentCommit {

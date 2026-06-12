@@ -451,7 +451,17 @@ export default function GlobalPulse(): JSX.Element {
   const [showFilters, setShowFilters] = useState(false);
   const [severityFilter, setSeverityFilter] = useState<Set<string>>(new Set(['critical', 'high', 'medium', 'low']));
   const [ctiFilter, setCtiFilter] = useState<'all' | 'ransomware' | 'cve' | 'ioc'>('all');
+  const [regionFilter, setRegionFilter] = useState<'all' | 'mena'>('all');
   const loadIdRef = useRef(0);
+
+  const MENA_COUNTRIES = useMemo(
+    () =>
+      new Set([
+        'DZ', 'BH', 'EG', 'IQ', 'IR', 'IL', 'JO', 'KW', 'LB', 'LY',
+        'MA', 'OM', 'PS', 'QA', 'SA', 'SY', 'TN', 'TR', 'AE', 'YE',
+      ]),
+    []
+  );
 
   const load = useCallback(async () => {
     const myId = ++loadIdRef.current;
@@ -570,6 +580,7 @@ export default function GlobalPulse(): JSX.Element {
         if (ctiFilter === 'ransomware' && e.cti !== 'ransomware') return false;
         if (ctiFilter === 'cve' && e.cti !== 'cve') return false;
         if (ctiFilter === 'ioc' && e.cti !== 'ioc') return false;
+        if (regionFilter === 'mena' && (!e.country || !MENA_COUNTRIES.has(e.country))) return false;
         if (searchQuery) {
           const q = searchQuery.toLowerCase();
           return (
@@ -587,7 +598,7 @@ export default function GlobalPulse(): JSX.Element {
         if (pa !== pb) return pb - pa;
         return new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime();
       });
-  }, [data, activeLayers, severityFilter, searchQuery, timeRange, ctiFilter, ctiPriority]);
+  }, [data, activeLayers, severityFilter, searchQuery, timeRange, ctiFilter, regionFilter, MENA_COUNTRIES, ctiPriority]);
 
   // Export to CSV
   const exportToCsv = useCallback(() => {
@@ -1158,8 +1169,8 @@ export default function GlobalPulse(): JSX.Element {
                 );
               })}
 
-              {/* CTI Defaults Reset */}
-              <div className="flex items-center gap-2 pt-2 border-t border-slate-100 dark:border-slate-800">
+              {/* Preset Buttons */}
+              <div className="flex flex-wrap items-center gap-2 pt-2 border-t border-slate-100 dark:border-slate-800">
                 <button
                   type="button"
                   onClick={() => {
@@ -1189,10 +1200,56 @@ export default function GlobalPulse(): JSX.Element {
                     );
                     setSeverityFilter(new Set(['critical', 'high', 'medium', 'low']));
                     setCtiFilter('all');
+                    setRegionFilter('all');
                   }}
                   className="text-micro font-mono px-2.5 py-1.5 rounded-lg bg-brand-500/10 text-brand-600 dark:text-brand-400 hover:bg-brand-500/20 border border-brand-500/20 transition-colors"
                 >
-                  Reset to CTI Defaults
+                  CTI Defaults
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setActiveLayers(
+                      new Set([
+                        'geopolitical',
+                        'war_room',
+                        'aircraft',
+                        'ioc_activity',
+                        'cyber_attack',
+                        'c2_tracker',
+                        'breach',
+                        'cisa_advisory',
+                      ])
+                    );
+                    setSeverityFilter(new Set(['critical', 'high', 'medium', 'low']));
+                    setCtiFilter('all');
+                    setRegionFilter('mena');
+                    setFocus({ lat: 30, lng: 45 });
+                    setMapMode('3d');
+                  }}
+                  className="text-micro font-mono px-2.5 py-1.5 rounded-lg bg-amber-500/10 text-amber-600 dark:text-amber-400 hover:bg-amber-500/20 border border-amber-500/20 transition-colors"
+                >
+                  MENA Focus
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setActiveLayers(
+                      new Set([
+                        'war_room',
+                        'geopolitical',
+                        'aircraft',
+                        'earthquake',
+                      ])
+                    );
+                    setSeverityFilter(new Set(['critical', 'high', 'medium', 'low']));
+                    setCtiFilter('all');
+                    setRegionFilter('all');
+                    setMapMode('2d');
+                  }}
+                  className="text-micro font-mono px-2.5 py-1.5 rounded-lg bg-red-500/10 text-red-600 dark:text-red-400 hover:bg-red-500/20 border border-red-500/20 transition-colors"
+                >
+                  Conflict Zones
                 </button>
               </div>
             </div>
@@ -1208,6 +1265,12 @@ export default function GlobalPulse(): JSX.Element {
             >
               {/* Globe Status Badge */}
               <div className="absolute top-4 right-4 z-20 flex items-center gap-2">
+                {regionFilter === 'mena' && (
+                  <div className="bg-amber-500/20 backdrop-blur-sm rounded-lg border border-amber-500/50 px-3 py-1.5 flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
+                    <span className="text-micro font-mono text-amber-300">MENA</span>
+                  </div>
+                )}
                 <div className="bg-[#0f1629]/80 backdrop-blur-sm rounded-lg border border-slate-600/50 px-3 py-1.5 flex items-center gap-2">
                   <span
                     className={`w-2 h-2 rounded-full ${mapMode === '3d' ? 'bg-brand-500 animate-pulse' : 'bg-emerald-500'}`}

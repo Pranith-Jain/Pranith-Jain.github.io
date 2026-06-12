@@ -1385,6 +1385,47 @@ export const RESOURCES: ExternalResource[] = [
       'Version-controlled CTI methodology with 8 structured training assignments covering reactive, proactive, and full-cycle intelligence. Docker Compose lab stack (OpenCTI, TheHive, Cortex, Elastic SIEM). Evidence-traced analysis with deployable Sigma rule output.',
     why: 'Practitioner-grade CTI training that treats investigations like software engineering — version-controlled, template-driven, evidence-traced, and reproducible.',
   },
+  // ── Geopolitical OSINT & News Monitoring (2026-06-12) ───────────────────
+  {
+    id: 'redroom-live',
+    name: 'Redroom',
+    url: 'https://redroom.live/',
+    kind: 'dashboard',
+    featured: true,
+    tags: ['osint', 'threat-intel'],
+    description:
+      'CIA-style real-time geopolitical news monitoring platform — live map visualization, news crawler, facilities database, and Neo4j network graph explorer. MENA region focus with interactive map overlays and dark/light mode.',
+  },
+  // ── YARA Rules & Detection Sources (2026-06-12) ────────────────────────
+  {
+    id: 'signature-base',
+    name: 'signature-base',
+    url: 'https://github.com/Neo23x0/signature-base',
+    kind: 'samples',
+    featured: true,
+    tags: ['malware', 'dfir', 'threat-intel'],
+    description:
+      'Comprehensive YARA rules and IOC signatures by Florian Roth. 1,000+ rules covering APT groups, malware families, web shells, and exploitation tools. Updated regularly. MIT licensed.',
+  },
+  {
+    id: 'threathunter-playbook',
+    name: 'ThreatHunter-Playbook',
+    url: 'https://github.com/OTRF/ThreatHunter-Playbook',
+    kind: 'research',
+    featured: true,
+    tags: ['threat-intel', 'dfir'],
+    description:
+      'Detection logic mapped to MITRE ATT&CK — Jupyter notebooks with Sigma rules, Splunk queries, and threat-hunting methodologies for each technique. Community-driven, regularly updated.',
+  },
+  {
+    id: 'ransomwatch',
+    name: 'ransomwatch',
+    url: 'https://github.com/joshhighet/ransomwatch',
+    kind: 'dashboard',
+    tags: ['threat-intel', 'malware'],
+    description:
+      'Ransomware group monitoring — tracks 100+ ransomware operations, scrapes leak sites, and publishes structured JSON of new victim posts. MIT licensed. Integrated into this platform\'s live IOCs feed.',
+  },
   {
     id: 'misp-galaxy',
     name: 'MISP Galaxy',

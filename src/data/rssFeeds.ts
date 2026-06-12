@@ -357,18 +357,6 @@ export const rssFeeds: RSSFeed[] = [
     language: 'en',
   },
   {
-    id: 'doublepulsar',
-    name: 'DoublePulsar (Kevin Beaumont)',
-    // Kevin Beaumont moved from Medium to Substack. doublepulsar.com/feed
-    // redirects to doublepulsar.substack.com/feed, which wasn't allowlisted
-    // — the aggregator returned redirect_not_allowlisted.
-    url: 'https://doublepulsar.substack.com/feed',
-    description: 'Kevin Beaumont on ransomware, zero-days, and active exploitation campaigns',
-    category: 'threat-intel',
-    source: 'doublepulsar.substack.com',
-    language: 'en',
-  },
-  {
     id: 'mitre-attack-medium',
     name: 'MITRE ATT&CK',
     url: 'https://medium.com/feed/mitre-attack',
@@ -990,15 +978,6 @@ export const rssFeeds: RSSFeed[] = [
     language: 'en-US',
   },
   {
-    id: 'mit-ai-news',
-    name: 'MIT — AI News',
-    url: 'https://news.mit.edu/topic/mitartificial-intelligence2/rss',
-    description: 'MIT artificial intelligence research news — CSAIL, model development, AI policy',
-    category: 'tech',
-    source: 'news.mit.edu',
-    language: 'en-US',
-  },
-  {
     id: 'gnews-ai-regulation',
     name: 'Google News — AI regulation & policy',
     url: 'https://news.google.com/rss/search?q=AI+regulation+OR+AI+governance+OR+AI+policy&hl=en-US&gl=US&ceid=US:en',
@@ -1036,15 +1015,6 @@ export const rssFeeds: RSSFeed[] = [
     description: 'Financial technology news — banking security, payments, regtech, digital transformation in finance',
     category: 'news',
     source: 'finextra.com',
-    language: 'en-US',
-  },
-  {
-    id: 'bankinfosecurity',
-    name: 'Bank Info Security',
-    url: 'https://www.bankinfosecurity.com/rss-feeds/',
-    description: 'Banking and financial-services cybersecurity — breaches, compliance, fraud, risk management',
-    category: 'news',
-    source: 'bankinfosecurity.com',
     language: 'en-US',
   },
   {
@@ -1360,26 +1330,6 @@ export const rssFeeds: RSSFeed[] = [
   // FEEDSPOT HIGH-QUALITY FEEDS 2026-06 — curated from rss.feedspot.com/hacker_rss_feeds/
   // ============================================================================
   {
-    id: 'gbhackers',
-    name: 'GBHackers on Security',
-    url: 'https://gbhackers.com/feed/',
-    description:
-      'Daily cybersecurity news, SOC resources, Kali Linux tutorials, and technology updates from the GBHackers team',
-    category: 'threat-intel',
-    source: 'gbhackers.com',
-    language: 'en',
-  },
-  {
-    id: 'samcurry',
-    name: 'Sam Curry',
-    url: 'https://samcurry.net/feed/',
-    description:
-      'Elite bug bounty hunter and security researcher — web application vulnerability deep-dives, SSRF, XSS, OAuth misconfigurations',
-    category: 'threat-intel',
-    source: 'samcurry.net',
-    language: 'en',
-  },
-  {
     id: 'tisiphone',
     name: 'Tisiphone (Lesley Carhart)',
     url: 'https://tisiphone.net/feed/',
@@ -1440,16 +1390,6 @@ export const rssFeeds: RSSFeed[] = [
     language: 'en',
   },
   {
-    id: 'kitploit',
-    name: 'KitPloit',
-    url: 'https://www.kitploit.com/feeds/posts/default',
-    description:
-      'Leading source of security tools, hacking tools, exploits, malware samples, and penetration testing utilities',
-    category: 'threat-intel',
-    source: 'kitploit.com',
-    language: 'en',
-  },
-  {
     id: 'knowbe4',
     name: 'KnowBe4 Security Awareness',
     url: 'https://blog.knowbe4.com/rss.xml',
@@ -1457,16 +1397,6 @@ export const rssFeeds: RSSFeed[] = [
       'Security awareness training blog — social engineering, ransomware, phishing attacks, and cybercrime trends',
     category: 'threat-intel',
     source: 'blog.knowbe4.com',
-    language: 'en',
-  },
-  {
-    id: 'hakin9',
-    name: 'Hakin9',
-    url: 'https://hakin9.org/feed/',
-    description:
-      'Monthly hacking and cybersecurity magazine — tutorials, case studies, and online courses for security professionals',
-    category: 'threat-intel',
-    source: 'hakin9.org',
     language: 'en',
   },
   {
@@ -1480,16 +1410,6 @@ export const rssFeeds: RSSFeed[] = [
     language: 'en',
   },
   {
-    id: 'orange-cyberdefense',
-    name: 'Orange Cyberdefense — Ethical Hacking',
-    url: 'https://www.orangecyberdefense.com/global/blog/ethical-hacking/feed',
-    description:
-      'European cyber defense perspective — ethical hacking techniques, vulnerability research, and penetration testing insights',
-    category: 'threat-intel',
-    source: 'orangecyberdefense.com',
-    language: 'en',
-  },
-  {
     id: 'hackingarticles',
     name: 'Hacking Articles (Raj Chandel)',
     url: 'https://www.hackingarticles.in/feed/',
@@ -1497,28 +1417,6 @@ export const rssFeeds: RSSFeed[] = [
       'Comprehensive penetration testing tutorials — system exploitation, vulnerability research, tools, and CTF walkthroughs',
     category: 'threat-intel',
     source: 'hackingarticles.in',
-    language: 'en',
-  },
-  {
-    id: 'massive-alliance',
-    name: 'Massive Alliance',
-    url: 'https://www.massivealliance.com/blog/feed/',
-    description:
-      'Cyber intelligence and brand protection — executive threat monitoring, dark-web reputation, and industry whitepapers',
-    category: 'threat-intel',
-    source: 'massivealliance.com',
-    language: 'en',
-  },
-  {
-    id: 'hackerfactor',
-    name: 'Hacker Factor (Dr. Neal Krawetz)',
-    // Changed http→https 2026-06; the site supports HTTPS but the old URL
-    // was hardcoded as http (the only plain-HTTP feed in this collection).
-    url: 'https://www.hackerfactor.com/blog/index.php?/feeds/index.rss2',
-    description:
-      'Computer forensics research and analysis from Dr. Neal Krawetz — photo forensics, OSINT, and security investigation',
-    category: 'threat-intel',
-    source: 'hackerfactor.com',
     language: 'en',
   },
   {
@@ -1591,7 +1489,6 @@ export const landingAiFeeds = [
   'anthropic-blog',
   'deepmind-blog',
   'huggingface-blog',
-  'mit-ai-news',
   'the-decoder',
   'gnews-ai-security',
   'gnews-ai-funding',
@@ -1604,7 +1501,6 @@ export const landingAiFeeds = [
 
 export const landingFinanceFeeds = [
   'finextra',
-  'bankinfosecurity',
   'gnews-banking-cyber',
   'gnews-fintech-breach',
   'gnews-payment-security',
@@ -1667,7 +1563,6 @@ export const landingThreatVendor = [
   'ahnlab-asec',
   'detectify',
   'knowbe4',
-  'orange-cyberdefense',
   'cqure-academy',
 ];
 
@@ -1684,16 +1579,10 @@ export const landingThreatInvestigation = [
   'bushidotoken',
   'ransomware-merged',
   'infostealers-com',
-  'gbhackers',
-  'samcurry',
   'tisiphone',
   'thehackerblog',
   'pentestlab',
   'embracethered',
-  'kitploit',
-  'hakin9',
-  'massive-alliance',
-  'hackerfactor',
   'darknet',
 ];
 

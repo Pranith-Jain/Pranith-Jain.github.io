@@ -165,6 +165,8 @@ export default function DarkWeb(): JSX.Element {
   const [search, setSearch] = useState(searchParams.get('q') ?? '');
   const [activeSources, setActiveSources] = useState<Set<string>>(() => new Set(ALL_FEED_IDS));
   const [dateWindow, setDateWindow] = useState<DateWindow>('30d');
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => { setMounted(true); }, []);
 
   // Hydrate from localStorage
   useEffect(() => {
@@ -515,7 +517,7 @@ export default function DarkWeb(): JSX.Element {
           {search ? `${matched.length} matching items` : ''}
         </div>
 
-        {matched.length > 0 && (
+        {mounted && matched.length > 0 && (
           <Virtuoso
             style={{ height: '80vh' }}
             totalCount={matched.length}

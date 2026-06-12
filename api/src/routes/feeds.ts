@@ -74,7 +74,6 @@ const ALLOWED_HOSTS = new Set([
   'redcanary.com',
   // Researcher blogs
   'www.malware-traffic-analysis.net',
-  'doublepulsar.com',
   'www.hackmageddon.com',
   'www.infostealers.com',
   'medium.com',
@@ -155,12 +154,9 @@ const ALLOWED_HOSTS = new Set([
   'www.anthropic.com',
   'anthropic.com',
   'deepmind.google',
-  'news.mit.edu',
   // Finance & banking (2026-06) — kept in sync with feeds-aggregate.ts
   'www.finextra.com',
   'finextra.com',
-  'www.bankinfosecurity.com',
-  'bankinfosecurity.com',
   'www.paymentsdive.com',
   'paymentsdive.com',
   'www.bankingdive.com',
@@ -197,9 +193,6 @@ const ALLOWED_HOSTS = new Set([
   'www.wiz.io',
   'wiz.io',
   // Feedspot high-quality feeds 2026-06 — curated from rss.feedspot.com/hacker_rss_feeds/
-  'gbhackers.com',
-  'www.gbhackers.com',
-  'samcurry.net',
   'tisiphone.net',
   'thehackerblog.com',
   'blog.detectify.com',
@@ -217,28 +210,16 @@ const ALLOWED_HOSTS = new Set([
   'hackers-arise.com',
   'www.hackers-arise.com',
   'embracethered.com',
-  'kitploit.com',
-  'www.kitploit.com',
   'blog.knowbe4.com',
   'darknet.org.uk',
-  'hakin9.org',
-  'www.hakin9.org',
   'cqureacademy.com',
-  'orangecyberdefense.com',
-  'www.orangecyberdefense.com',
   'hackingarticles.in',
-  'massivealliance.com',
-  'www.massivealliance.com',
-  'hackerfactor.com',
-  'www.hackerfactor.com',
   // www-prefixed variants used by some feeds
   'www.hackingarticles.in',
   'www.darknet.org.uk',
   // 2026-06: direct-fetch host for The Hacker News (was FeedBurner)
   'thehackernews.com',
   'www.thehackernews.com',
-  // 2026-06: Kevin Beaumont's Substack (was doublepulsar.com)
-  'doublepulsar.substack.com',
 ]);
 
 export async function feedProxyHandler(c: Context<{ Bindings: Env }>) {

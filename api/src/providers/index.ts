@@ -49,6 +49,8 @@ import { secrets } from './secrets';
 import { webamon } from './webamon';
 import { stopforumspam } from './stopforumspam';
 import { dshield } from './dshield';
+import { safebrowsing } from './safebrowsing';
+import { zoomeye } from './zoomeye';
 
 export { PROVIDER_SUPPORT, PROVIDER_TIMEOUT_MS };
 
@@ -102,6 +104,8 @@ export const ADAPTERS: Record<ProviderId, ProviderAdapter> = {
   webamon,
   stopforumspam,
   dshield,
+  safebrowsing,
+  zoomeye,
 };
 
 export const BULK_ADAPTERS: Partial<Record<ProviderId, ProviderAdapter>> = {
@@ -182,6 +186,8 @@ export const PROVIDER_LABELS: Record<string, string> = {
   webamon: 'Webamon Intel',
   stopforumspam: 'StopForumSpam',
   dshield: 'SANS ISC / DShield',
+  safebrowsing: 'Google Safe Browsing',
+  zoomeye: 'ZoomEye',
 };
 
 export function buildProviderEnv(env: {
@@ -202,6 +208,8 @@ export function buildProviderEnv(env: {
   KASPERSKY_API_KEY?: string;
   SPUR_API_KEY?: string;
   VULNCHECK_API_TOKEN?: string;
+  GOOGLE_SAFE_BROWSING_API_KEY?: string;
+  ZOOMEYE_API_KEY?: string;
 }): ProviderEnv {
   return {
     VT_API_KEY: env.VT_API_KEY ?? '',
@@ -221,5 +229,7 @@ export function buildProviderEnv(env: {
     KASPERSKY_API_KEY: env.KASPERSKY_API_KEY,
     SPUR_API_KEY: env.SPUR_API_KEY,
     VULNCHECK_API_TOKEN: env.VULNCHECK_API_TOKEN,
+    GOOGLE_SAFE_BROWSING_API_KEY: env.GOOGLE_SAFE_BROWSING_API_KEY,
+    ZOOMEYE_API_KEY: env.ZOOMEYE_API_KEY,
   };
 }

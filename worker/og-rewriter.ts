@@ -80,6 +80,11 @@ export const OG_OVERRIDES: Record<string, OgOverride> = {
     description:
       'Off-site cross-references for threat-intel work — dashboards (My Threat Intel, World Monitor), OSINT directories, training labs (AI Goat, WebVerse, VulnOS), malware samples, and AI-security research. Filterable by kind, searchable by name/description.',
   },
+  '/threatintel/facilities': {
+    title: 'Facilities Database · pranithjain.qzz.io',
+    description:
+      'Strategic facilities worldwide — conflict zones, military bases, nuclear sites, disputed territories, sanctions targets, and critical infrastructure. Filterable by type and region with map view.',
+  },
   '/threatintel/correlation': {
     title: 'Cross-source IOC correlation · pranithjain.qzz.io',
     description:

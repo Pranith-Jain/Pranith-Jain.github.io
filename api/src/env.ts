@@ -81,6 +81,13 @@ export interface Env {
    *  and the report engine's VulnCheck source. Optional — those degrade cleanly
    *  when unset. */
   VULNCHECK_API_TOKEN?: string;
+  /** Google Safe Browsing v4 API key (`wrangler secret put GOOGLE_SAFE_BROWSING_API_KEY`).
+   *  Free tier: 10K req/day. Enriches url-rep and phishing tools with
+   *  Google's threat database (malware, social engineering, unwanted software). */
+  GOOGLE_SAFE_BROWSING_API_KEY?: string;
+  /** ZoomEye API key (`wrangler secret put ZOOMEYE_API_KEY`).
+   *  Free tier: 10K req/month. Host/port search + web fingerprinting. */
+  ZOOMEYE_API_KEY?: string;
   /** X (Twitter) auth cookies for the cookie-authenticated firehose at
    *  /api/v1/x-firehose. Set via `wrangler secret put X_AUTH_TOKEN` and
    *  `wrangler secret put X_CT0` (values are the `auth_token` and `ct0`

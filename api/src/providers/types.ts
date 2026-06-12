@@ -49,7 +49,9 @@ export type ProviderId =
   | 'secrets'
   | 'webamon'
   | 'stopforumspam'
-  | 'dshield';
+  | 'dshield'
+  | 'safebrowsing'
+  | 'zoomeye';
 
 export type Verdict = 'clean' | 'suspicious' | 'malicious' | 'unknown';
 
@@ -119,6 +121,10 @@ export interface ProviderEnv {
   /** Free VulnCheck Community token. The `vulncheck` provider degrades to
    *  'unsupported' when unset. */
   VULNCHECK_API_TOKEN?: string;
+  /** Google Safe Browsing v4 API key. Free tier: 10K req/day. */
+  GOOGLE_SAFE_BROWSING_API_KEY?: string;
+  /** ZoomEye API key. Free tier: 10K req/month. Host/port search + web fingerprinting. */
+  ZOOMEYE_API_KEY?: string;
 }
 
 export type ProviderAdapter = (indicator: Indicator, env: ProviderEnv, signal: AbortSignal) => Promise<ProviderResult>;
@@ -179,4 +185,6 @@ export const PROVIDER_SUPPORT: Record<ProviderId, IndicatorType[]> = {
   webamon: ['domain'],
   stopforumspam: ['ipv4', 'email'],
   dshield: ['ipv4'],
+  safebrowsing: ['url', 'domain'],
+  zoomeye: ['ipv4', 'ipv6', 'domain'],
 };

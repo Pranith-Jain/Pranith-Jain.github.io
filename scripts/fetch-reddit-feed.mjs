@@ -25,11 +25,17 @@ const SUBS = [
   { name: 'scambait', label: 'r/scambait', blurb: 'Scam-baiting community — surfaces fresh fraud playbooks + tactics in real-time', topic: 'scams' },
 ];
 
-const CONCURRENCY = 4;
+const CONCURRENCY = 1;
 const MAX_POSTS_PER_SUB = 100;
 const MAX_POST_AGE_DAYS = 7;
 const MAX_TEXT_LEN = 400;
 const FETCH_TIMEOUT_MS = 15_000;
+const DELAY_BETWEEN_MS = 5_000;
+const MAX_RETRIES = 3;
+const RETRY_BASE_MS = 10_000;
+const COOLDOWN_MS = 30_000;
+
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 function normalizeTopic(t) {
   if (!['news', 'research', 'red-team', 'blue-team', 'osint', 'malware', 'help', 'scams'].includes(t)) {
@@ -126,26 +132,46 @@ function parseFeedItems(xml, spec) {
 
 async function fetchSub(spec) {
   const url = `https://www.reddit.com/r/${encodeURIComponent(spec.name)}/.rss?limit=${MAX_POSTS_PER_SUB}`;
-  const ctrl = new AbortController();
-  const timer = setTimeout(() => ctrl.abort(), FETCH_TIMEOUT_MS);
-  try {
-    const r = await fetch(url, {
-      signal: ctrl.signal,
-      headers: {
-        'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-        accept: 'application/atom+xml, application/rss+xml, application/xml, text/xml',
-      },
-    });
-    if (!r.ok) return { ok: false, items: [], error: `HTTP ${r.status}` };
-    const xml = await r.text();
-    if (!xml || xml.length < 100) return { ok: false, items: [], error: 'empty response' };
-    const items = parseFeedItems(xml, spec);
-    return { ok: true, items };
-  } catch (e) {
-    return { ok: false, items: [], error: e.message };
-  } finally {
-    clearTimeout(timer);
+  for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
+    if (attempt > 0) {
+      const backoff = RETRY_BASE_MS * 2 ** (attempt - 1) + Math.random() * 3_000;
+      console.log(`  retry ${attempt}/${MAX_RETRIES} for r/${spec.name} in ${Math.round(backoff)}ms`);
+      await sleep(backoff);
+    }
+    const ctrl = new AbortController();
+    const timer = setTimeout(() => ctrl.abort(), FETCH_TIMEOUT_MS);
+    try {
+      const r = await fetch(url, {
+        signal: ctrl.signal,
+        headers: {
+          'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+          accept: 'application/atom+xml, application/rss+xml, application/xml, text/xml',
+        },
+      });
+      if (r.status === 429) {
+        const retryAfter = Number(r.headers.get('retry-after')) || 0;
+        if (retryAfter > 0) {
+          console.log(`  r/${spec.name} 429 — Retry-After: ${retryAfter}s, cooling down`);
+          await sleep(retryAfter * 1000);
+        } else {
+          console.log(`  r/${spec.name} 429 — cooling down ${COOLDOWN_MS / 1000}s`);
+          await sleep(COOLDOWN_MS);
+        }
+        continue;
+      }
+      if (!r.ok) return { ok: false, items: [], error: `HTTP ${r.status}` };
+      const xml = await r.text();
+      if (!xml || xml.length < 100) return { ok: false, items: [], error: 'empty response' };
+      const items = parseFeedItems(xml, spec);
+      return { ok: true, items };
+    } catch (e) {
+      if (attempt < MAX_RETRIES) continue;
+      return { ok: false, items: [], error: e.message };
+    } finally {
+      clearTimeout(timer);
+    }
   }
+  return { ok: false, items: [], error: 'rate limited after retries' };
 }
 
 async function buildFeed() {
@@ -162,6 +188,7 @@ async function buildFeed() {
       if (!r.ok) warnings.push(`could not fetch r/${spec.name} (${r.error})`);
       subStatus.push({ name: spec.name, label: spec.label, topic: normalizeTopic(spec.topic), ok: r.ok, count: r.items.length });
       allItems.push(...r.items);
+      if (queue.length > 0) await sleep(DELAY_BETWEEN_MS);
     }
   }
   await Promise.all(Array.from({ length: CONCURRENCY }, worker));

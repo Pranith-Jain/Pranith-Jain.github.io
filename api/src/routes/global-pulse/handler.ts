@@ -14,7 +14,7 @@ import {
 import {
   fetchEarthquakes, fetchNaturalEvents, fetchFlights, fetchGdacsAlerts,
   fetchBotnetC2, fetchSupplyChain, fetchDShieldAttackers, fetchCompromisedIPs,
-  fetchBlocklistAttackers, fetchCisaKev, fetchUrlhaus,
+  fetchBlocklistAttackers, fetchCisaKev, fetchUrlhaus, fetchRansomwatch,
 } from './fetchers';
 import { getTechInfrastructureEvents, getGeopoliticalEvents, getCableEvents, getFinancialEvents } from './static-data';
 
@@ -329,6 +329,7 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
       fetchGdacsAlerts(),
       fetchBotnetC2(),
       fetchSupplyChain(),
+      fetchRansomwatch(),
       fetchDShieldAttackers(),
       fetchCompromisedIPs(),
       fetchBlocklistAttackers(),

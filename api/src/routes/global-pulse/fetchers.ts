@@ -602,3 +602,40 @@ export async function fetchSupplyChain(): Promise<PulseEvent[]> {
     return [];
   }
 }
+
+/* ─── ransomwatch — ransomware group monitoring ───────────────────────── */
+
+export async function fetchRansomwatch(): Promise<PulseEvent[]> {
+  // ransomwatch (joshhighet/ransomwatch, MIT) tracks ransomware group leak sites.
+  // Pulls recent posts from GitHub — groups, dates, and scraped page snippets.
+  try {
+    const res = await fetch('https://raw.githubusercontent.com/joshhighet/ransomwatch/main/posts.json', {
+      signal: AbortSignal.timeout(10000),
+      headers: { 'user-agent': 'pranithjain-dfir/1.0' },
+    });
+    if (!res.ok) return [];
+    const data = (await res.json()) as Array<{
+      group_name: string;
+      post_title: string;
+      date: string;
+      url?: string;
+      scraped?: string;
+    }>;
+    // Take the 50 most recent posts
+    return data.slice(-50).reverse().map((p, idx) => ({
+      id: `rw-${idx}-${p.group_name}-${p.date}`,
+      kind: 'ransomware' as const,
+      title: `${p.group_name}: ${p.post_title}`.slice(0, 140),
+      description: p.scraped?.slice(0, 200) || `Ransomware group ${p.group_name} posted new victim`,
+      lat: 0,
+      lng: 0,
+      timestamp: p.date || new Date().toISOString(),
+      severity: 'high' as const,
+      source: 'ransomwatch',
+      url: p.url,
+      cti: 'ransomware' as const,
+    }));
+  } catch {
+    return [];
+  }
+}

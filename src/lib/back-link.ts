@@ -49,6 +49,7 @@ const THREATINTEL_TOOL_TO_CATEGORY: Record<string, string> = {
   'threat-map': 'cti-platforms',
   'global-pulse': 'cti-platforms',
   'cti-platform': 'cti-platforms',
+  facilities: 'cti-platforms',
   metrics: 'cti-platforms',
   status: 'cti-platforms',
   briefings: 'cti-platforms',

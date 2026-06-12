@@ -244,6 +244,7 @@ const ROUTES = [
   '/threatintel/research',
   '/threatintel/cve-list',
   '/threatintel/threat-map',
+  '/threatintel/facilities',
   '/threatintel/deepdarkcti',
   '/threatintel/ransomware-live',
   '/threatintel/infostealer',

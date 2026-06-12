@@ -10,6 +10,7 @@ import {
   BrainCircuit,
   Briefcase,
   Bug,
+  Building2,
   Cloud,
   Compass,
   Database,
@@ -361,6 +362,12 @@ export const SECTIONS: Section[] = [
         desc: 'Real-time global intelligence hub: 3D globe with severity arcs, earthquakes, cyber attacks, IOCs, ransomware, dark web, phishing, malware, CVEs, breaches, Reddit, Telegram, X, and tech news. All feeds live.',
         icon: Radio,
         badge: 'live',
+      },
+      {
+        to: '/threatintel/facilities',
+        label: 'Facilities Database',
+        desc: 'Strategic facilities worldwide — conflict zones, military bases, nuclear sites, disputed territories, sanctions targets, and critical infrastructure. Filterable by type and region.',
+        icon: Building2,
       },
       {
         to: '/threatintel/metrics',
