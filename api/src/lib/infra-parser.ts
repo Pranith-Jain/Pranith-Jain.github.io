@@ -98,8 +98,21 @@ function extractStructured(text: string): {
 
 /** Try to match a word to an infrastructure type via the alias index. */
 function matchType(word: string): InfraType | null {
-  const key = aliasIndex.get(word.toLowerCase());
-  return key ? (TYPE_BY_KEY.get(key) ?? null) : null;
+  const lower = word.toLowerCase();
+  const key = aliasIndex.get(lower);
+  if (key) return TYPE_BY_KEY.get(key) ?? null;
+  // Try stripping trailing 's' for plurals
+  if (lower.endsWith('s') && lower.length > 3) {
+    const singular = lower.slice(0, -1);
+    const key2 = aliasIndex.get(singular);
+    if (key2) return TYPE_BY_KEY.get(key2) ?? null;
+    // Try 'es' ending
+    if (lower.endsWith('es') && lower.length > 4) {
+      const key3 = aliasIndex.get(lower.slice(0, -2));
+      if (key3) return TYPE_BY_KEY.get(key3) ?? null;
+    }
+  }
+  return null;
 }
 
 /** Common region names → approximate bbox (subset for hot regions). */
