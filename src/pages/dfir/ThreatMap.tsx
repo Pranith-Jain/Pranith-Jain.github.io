@@ -5,7 +5,6 @@ import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, RefreshCw, Globe, Loader2, Pause, Play, X } from 'lucide-react';
 import { IocSnapshotPanel } from '../../components/dfir/IocSnapshotPanel';
 import { ActorTtpsPanel } from '../../components/threatintel/ActorTtpsPanel';
-import { AttackArcs } from '../../components/threatintel/AttackArcs';
 
 // Lazy-loaded — react-simple-maps is ~80KB. Side panel + stats render first.
 const ThreatMapChart = lazy(() => import('./ThreatMapChart'));
@@ -508,19 +507,7 @@ export default function ThreatMap(): JSX.Element {
                   selectedAlpha2={selected?.alpha2 ?? null}
                   globeView={globeView}
                 />
-                {data && <AttackArcs countries={data.countries} width={900} height={460} playing={liveMode} />}
               </Suspense>
-              {hoveredAgg && (
-                <div className="absolute top-3 left-3 rounded-lg bg-slate-900/90 dark:bg-slate-950/90 backdrop-blur px-3 py-2 text-xs font-mono text-slate-100 border border-amber-400/40 max-w-[240px]">
-                  <div className="font-bold text-amber-300">{hoveredAgg.country}</div>
-                  <div>{hoveredAgg.count} malicious IPs</div>
-                  {Object.entries(hoveredAgg.sources).map(([s, n]) => (
-                    <div key={s} className="text-slate-500">
-                      {s}: {n}
-                    </div>
-                  ))}
-                </div>
-              )}
               {hovered && !hoveredAgg && (
                 <div className="absolute top-3 left-3 rounded-lg bg-slate-900/80 backdrop-blur px-3 py-1.5 text-xs font-mono text-slate-300">
                   {hovered.name}: no current IOCs
