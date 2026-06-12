@@ -63,11 +63,13 @@ export default function ExternalResources(): JSX.Element {
   // entries are missing because of an upstream/KV problem (rather than
   // silently rendering only the curated static list).
   const [dynamicError, setDynamicError] = useState<string | null>(null);
+  const [dynamicLoading, setDynamicLoading] = useState(true);
 
   useEffect(() => {
     let cancelled = false;
     const ctrl = new AbortController();
     setDynamicError(null);
+    setDynamicLoading(true);
     fetch('/api/v1/external-resources', { signal: ctrl.signal })
       .then((r) => (r.ok ? r.json() : Promise.reject(new Error(`HTTP ${r.status}`))))
       .then((j: { items?: DynamicEntry[] }) => {
@@ -76,10 +78,11 @@ export default function ExternalResources(): JSX.Element {
       })
       .catch((e: { name?: string; message?: string }) => {
         if (cancelled || e.name === 'AbortError') return;
-        // Endpoint missing or KV unbound — keep the curated list usable but
-        // tell the user we couldn't load community entries.
         setDynamicEntries([]);
         setDynamicError(e.message ?? 'failed to load community entries');
+      })
+      .finally(() => {
+        if (!cancelled) setDynamicLoading(false);
       });
     return () => {
       cancelled = true;
@@ -378,6 +381,11 @@ export default function ExternalResources(): JSX.Element {
       <p className="text-mini font-mono text-slate-500 dark:text-slate-400 mb-4">
         Showing {filtered.length} of {merged.length}
         {featuredOnly && ' (featured quality resources)'}
+        {dynamicLoading && (
+          <span className="ml-2 inline-flex items-center gap-1 text-slate-400">
+            <Loader2 size={11} className="animate-spin" /> loading community entries…
+          </span>
+        )}
       </p>
 
       {dynamicError && (

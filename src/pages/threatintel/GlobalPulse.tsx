@@ -25,6 +25,7 @@ import {
   X,
   Clock,
   Crosshair,
+  Building2,
 } from 'lucide-react';
 import type { ReactNode } from 'react';
 import { DataPageLayout } from '../../components/DataPageLayout';
@@ -70,7 +71,8 @@ type PulseKind =
   | 'exploit'
   | 'github_advisory'
   | 'supply_chain_attacks'
-  | 'kev';
+  | 'kev'
+  | 'infrastructure';
 
 interface PulseEvent {
   id: string;
@@ -355,6 +357,14 @@ const LAYER_DEFS: Record<PulseKind, LayerDef> = {
     bgColor: 'bg-sky-500/10 border-sky-500/20',
     group: 'social',
   },
+  infrastructure: {
+    label: 'Infrastructure',
+    shortLabel: 'INFRA',
+    icon: <Building2 size={14} />,
+    color: 'text-teal-400',
+    bgColor: 'bg-teal-500/10 border-teal-500/20',
+    group: 'geo',
+  },
 };
 
 /* ─── Helpers ───────────────────────────────────────────────────────────── */
@@ -454,6 +464,64 @@ export default function GlobalPulse(): JSX.Element {
   const [ctiFilter, setCtiFilter] = useState<'all' | 'ransomware' | 'cve' | 'ioc'>('all');
   const [regionFilter, setRegionFilter] = useState<'all' | 'mena'>('all');
   const loadIdRef = useRef(0);
+
+  // Infrastructure search (Overpass API + Nominatim, inspired by Sightline MIT)
+  const [infraQuery, setInfraQuery] = useState('');
+  const [infraLoading, setInfraLoading] = useState(false);
+  const [infraResults, setInfraResults] = useState<PulseEvent[]>([]);
+  const [infraError, setInfraError] = useState<string | null>(null);
+  const infraAbortRef = useRef<AbortController | null>(null);
+
+  const searchInfra = useCallback(async (query: string) => {
+    const q = query.trim();
+    if (!q) {
+      setInfraResults([]);
+      setInfraError(null);
+      return;
+    }
+    infraAbortRef.current?.abort();
+    const ctrl = new AbortController();
+    infraAbortRef.current = ctrl;
+    setInfraLoading(true);
+    setInfraError(null);
+    try {
+      const r = await fetch('/api/v1/infra-search', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ query: q }),
+        signal: ctrl.signal,
+      });
+      if (!r.ok) throw new Error(`HTTP ${r.status}`);
+      const json = (await r.json()) as {
+        results: Array<{
+          id: string;
+          name: string;
+          lat: number;
+          lon: number;
+          category: string;
+          tags: Record<string, string>;
+        }>;
+      };
+      const events: PulseEvent[] = (json.results ?? []).map((item) => ({
+        id: `infra-${item.id}`,
+        kind: 'infrastructure' as PulseKind,
+        title: item.name || item.category,
+        description: `${item.category} — ${item.name || 'unnamed'}`,
+        lat: item.lat,
+        lng: item.lon,
+        severity: 'low' as const,
+        source: 'OpenStreetMap / Overpass API',
+        timestamp: new Date().toISOString(),
+      }));
+      setInfraResults(events);
+    } catch (e) {
+      if (e instanceof DOMException && e.name === 'AbortError') return;
+      setInfraError((e as Error).message);
+      setInfraResults([]);
+    } finally {
+      setInfraLoading(false);
+    }
+  }, []);
 
   const MENA_COUNTRIES = useMemo(
     () =>
@@ -586,37 +654,37 @@ export default function GlobalPulse(): JSX.Element {
   }, []);
 
   const filteredEvents = useMemo(() => {
-    if (!data) return [];
+    if (!data) return infraResults.length > 0 && activeLayers.has('infrastructure') ? infraResults : [];
     const now = Date.now();
-    return data.events
-      .filter((e) => {
-        if (!activeLayers.has(e.kind)) return false;
-        if (!severityFilter.has(e.severity)) return false;
-        if (timeRange > 0) {
-          const eventTime = new Date(e.timestamp).getTime();
-          if (now - eventTime > timeRange * 3600000) return false;
-        }
-        if (ctiFilter === 'ransomware' && e.cti !== 'ransomware') return false;
-        if (ctiFilter === 'cve' && e.cti !== 'cve') return false;
-        if (ctiFilter === 'ioc' && e.cti !== 'ioc') return false;
-        if (regionFilter === 'mena' && (!e.country || !MENA_COUNTRIES.has(e.country))) return false;
-        if (searchQuery) {
-          const q = searchQuery.toLowerCase();
-          return (
-            e.title.toLowerCase().includes(q) ||
-            e.description.toLowerCase().includes(q) ||
-            e.source.toLowerCase().includes(q) ||
-            e.kind.toLowerCase().includes(q)
-          );
-        }
-        return true;
-      })
-      .sort((a, b) => {
-        const pa = ctiPriority(a.cti);
-        const pb = ctiPriority(b.cti);
-        if (pa !== pb) return pb - pa;
-        return new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime();
-      });
+    const base = data.events.filter((e) => {
+      if (!activeLayers.has(e.kind)) return false;
+      if (!severityFilter.has(e.severity)) return false;
+      if (timeRange > 0) {
+        const eventTime = new Date(e.timestamp).getTime();
+        if (now - eventTime > timeRange * 3600000) return false;
+      }
+      if (ctiFilter === 'ransomware' && e.cti !== 'ransomware') return false;
+      if (ctiFilter === 'cve' && e.cti !== 'cve') return false;
+      if (ctiFilter === 'ioc' && e.cti !== 'ioc') return false;
+      if (regionFilter === 'mena' && (!e.country || !MENA_COUNTRIES.has(e.country))) return false;
+      if (searchQuery) {
+        const q = searchQuery.toLowerCase();
+        return (
+          e.title.toLowerCase().includes(q) ||
+          e.description.toLowerCase().includes(q) ||
+          e.source.toLowerCase().includes(q) ||
+          e.kind.toLowerCase().includes(q)
+        );
+      }
+      return true;
+    });
+    const all = activeLayers.has('infrastructure') ? [...base, ...infraResults] : base;
+    return all.sort((a, b) => {
+      const pa = ctiPriority(a.cti);
+      const pb = ctiPriority(b.cti);
+      if (pa !== pb) return pb - pa;
+      return new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime();
+    });
   }, [
     data,
     activeLayers,
@@ -627,6 +695,7 @@ export default function GlobalPulse(): JSX.Element {
     regionFilter,
     MENA_COUNTRIES,
     ctiPriority,
+    infraResults,
   ]);
 
   // Export to CSV
@@ -957,6 +1026,50 @@ export default function GlobalPulse(): JSX.Element {
                 </button>
               )}
             </div>
+
+            {/* Infrastructure Search (Overpass API + Nominatim) */}
+            <div className="relative flex-1 min-w-[200px] max-w-sm">
+              <input
+                type="text"
+                placeholder="Infra: hospitals in berlin…"
+                value={infraQuery}
+                onChange={(e) => setInfraQuery(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    e.preventDefault();
+                    searchInfra(infraQuery);
+                    if (!activeLayers.has('infrastructure')) toggleLayer('infrastructure');
+                  }
+                }}
+                className="w-full pl-8 pr-8 py-2 text-xs font-mono rounded-lg border border-teal-500/30 dark:border-teal-500/20 bg-white dark:bg-slate-900 shadow-e1 text-slate-700 dark:text-slate-300 placeholder-slate-400 focus:outline-none focus:border-teal-500/50"
+              />
+              <Building2 size={13} className="absolute left-2.5 top-2.5 text-teal-400" />
+              {infraQuery && (
+                <button
+                  onClick={() => {
+                    setInfraQuery('');
+                    setInfraResults([]);
+                    setInfraError(null);
+                  }}
+                  className="absolute right-2 top-2 text-slate-400 hover:text-slate-600"
+                >
+                  <X size={14} />
+                </button>
+              )}
+              {infraLoading && (
+                <span className="absolute right-2 top-2">
+                  <RefreshCw size={12} className="animate-spin text-teal-400" />
+                </span>
+              )}
+            </div>
+            {infraResults.length > 0 && (
+              <span className="text-mini font-mono text-teal-500 dark:text-teal-400">{infraResults.length} infra</span>
+            )}
+            {infraError && (
+              <span className="text-mini font-mono text-rose-500" title={infraError}>
+                infra error
+              </span>
+            )}
 
             {/* Time Range Filter */}
             <div className="inline-flex rounded-lg border border-slate-200 dark:border-slate-800 overflow-hidden">
