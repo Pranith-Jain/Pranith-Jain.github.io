@@ -262,7 +262,7 @@ export default function Rules(): JSX.Element {
                         rel="noopener noreferrer"
                         className="inline-flex items-center gap-1 px-2 py-1 rounded border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:border-brand-500/40"
                       >
-                        <ExternalLink size={11} /> downloads
+                        <ExternalLink size={11} /> live site
                       </a>
                     )}
                   </div>

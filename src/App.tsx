@@ -95,6 +95,7 @@ const DarkWeb = lazy(() => import('./pages/dfir/DarkWeb'));
 const ThreatMap = lazy(() => import('./pages/dfir/ThreatMap'));
 const GlobalPulse = lazy(() => import('./pages/threatintel/GlobalPulse'));
 const Facilities = lazy(() => import('./pages/threatintel/Facilities'));
+const InfraSearch = lazy(() => import('./pages/threatintel/InfraSearch'));
 const Rules = lazy(() => import('./pages/dfir/Rules'));
 const Owasp = lazy(() => import('./pages/dfir/Owasp'));
 const PromptInjection = lazy(() => import('./pages/dfir/PromptInjection'));
@@ -212,6 +213,7 @@ const TelegramLeakStatsPage = lazy(() => import('./pages/threatintel/TelegramLea
 const IntelDashboardPage = lazy(() => import('./pages/threatintel/IntelDashboard'));
 const BreachDisclosuresPage = lazy(() => import('./pages/threatintel/BreachDisclosures'));
 const RedditFirehosePage = lazy(() => import('./pages/threatintel/RedditFirehose'));
+const GoXDRPage = lazy(() => import('./pages/threatintel/GoXDR'));
 const CryptoScamFeedPage = lazy(() => import('./pages/threatintel/CryptoScamFeed'));
 const ActorUsernamesPage = lazy(() => import('./pages/threatintel/ActorUsernames'));
 const ScrapedIntelUsernamesPage = lazy(() => import('./pages/threatintel/ScrapedIntelUsernames'));
@@ -427,6 +429,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel/telegram-leaks/channels', Component: TelegramDiscoveredChannelsPage },
   { path: '/threatintel/breach', Component: BreachDisclosuresPage },
   { path: '/threatintel/reddit', Component: RedditFirehosePage },
+  { path: '/threatintel/goxdr', Component: GoXDRPage },
   { path: '/threatintel/crypto-scams', Component: CryptoScamFeedPage },
   { path: '/threatintel/actor-usernames', Component: ActorUsernamesPage },
   { path: '/threatintel/scrapedintel-usernames', Component: ScrapedIntelUsernamesPage },
@@ -456,6 +459,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel/global-pulse', Component: GlobalPulse },
   { path: '/threatintel/cti-platform', Component: GlobalPulse },
   { path: '/threatintel/facilities', Component: Facilities },
+  { path: '/threatintel/infra-search', Component: InfraSearch },
   { path: '/threatintel/rules', Component: Rules },
   { path: '/threatintel/deepdarkcti', Component: DeepDarkCTI },
   { path: '/threatintel/ransomware-live', Component: RansomwareLive },

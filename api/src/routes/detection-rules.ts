@@ -11,7 +11,7 @@ import type { Env } from '../env';
  */
 
 /** Exported so /api/v1/feed-status can read the same cached payload directly. */
-export const DETECTION_RULES_CACHE_KEY = 'https://detection-rules-cache.internal/v3-slimkql';
+export const DETECTION_RULES_CACHE_KEY = 'https://detection-rules-cache.internal/v4-goxdr';
 const CACHE_KEY = DETECTION_RULES_CACHE_KEY;
 const CACHE_TTL_SECONDS = 3600;
 const FETCH_TIMEOUT_MS = 10_000;
@@ -87,6 +87,16 @@ const SOURCES: SourceConfig[] = [
     description:
       'KQL detection-rule mirror maintained by SlimKQL. Defender XDR / Sentinel rules with a focus on AI-related and identity-attack detections — complements Azure-Sentinel with a sharper, niche selection.',
     rules_path: 'KQL',
+  },
+  {
+    id: 'goxdr',
+    label: 'gokselatakan/GoXDR',
+    repo: 'gokselatakan/GoXDR',
+    type: 'KQL',
+    description:
+      'Curated KQL query library for Microsoft Sentinel + Defender XDR. 100+ queries covering identity attacks, NTLM abuse, LDAP recon, lateral movement, and shadow IT — searchable with severity/platform filters at goxdr.fyi.',
+    rules_path: '.',
+    homepage: 'https://goxdr.fyi',
   },
   {
     id: 'emerging-threats',

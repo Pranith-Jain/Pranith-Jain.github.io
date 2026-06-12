@@ -886,6 +886,16 @@ export const TOOLS: Tool[] = [
     source_url: 'https://github.com/Azure/Azure-Sentinel',
   },
   {
+    id: 'goxdr',
+    name: 'GoXDR',
+    url: 'https://goxdr.fyi',
+    categories: ['detection-engineering'],
+    pricing: 'open-source',
+    description:
+      'Curated KQL query library for Sentinel + Defender XDR. 100+ queries covering identity attacks, NTLM abuse, LDAP recon, lateral movement, and shadow IT.',
+    source_url: 'https://github.com/gokselatakan/GoXDR',
+  },
+  {
     id: 'limacharlie',
     name: 'LimaCharlie',
     url: 'https://www.limacharlie.io',

@@ -719,6 +719,13 @@ export const SECTIONS: Section[] = [
         icon: FileCode,
       },
       {
+        to: '/threatintel/goxdr',
+        label: 'GoXDR KQL Library',
+        desc: '100+ curated KQL detection queries for Sentinel + Defender XDR — identity, NTLM, LDAP, lateral movement, shadow IT.',
+        icon: FileCode,
+        badge: 'new',
+      },
+      {
         to: '/threatintel/detections',
         label: 'Detections',
         desc: 'Curated detection-rule pack evaluated hourly against the unified live-IOC stream. Write your own in the Detection Lab.',
