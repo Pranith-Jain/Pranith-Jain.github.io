@@ -733,7 +733,6 @@ const FEED_SOURCES: FeedSource[] = [
     kind: 'url',
     reporter: 'Phishing.Database',
     context: 'verified phishing URL',
-    okRequiresItems: true,
   }),
   textFeedSource({
     id: 'threatview-ip',
