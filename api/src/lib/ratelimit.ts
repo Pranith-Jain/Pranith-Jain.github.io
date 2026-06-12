@@ -190,7 +190,7 @@ async function atomicAdminIncr(c: Context<{ Bindings: Env }>, ip: string, bucket
 
 export async function rateLimit(c: Context<{ Bindings: Env }>, next: Next): Promise<Response | void> {
   const url = new URL(c.req.url);
-  if (!url.pathname.startsWith('/api/v1/')) return next();
+  if (!url.pathname.startsWith('/api/v1/') && !url.pathname.startsWith('/api/taxii2/')) return next();
   if (isBypassed(url.pathname)) return next();
 
   // Everything below uses caches.default — per-colo state, no KV quota.

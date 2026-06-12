@@ -443,6 +443,19 @@ app.use('/api/v1/*', rateLimit);
 // paid-upstream fan-out" gap the per-IP limiter alone left open.
 app.use('/api/v1/*', apiKeyRateLimit);
 app.use('/api/v1/*', apiVersion);
+app.use(
+  '/api/taxii2/*',
+  cors({
+    origin: (_, c) => getSiteUrl(c.env as { SITE_URL?: string }),
+    allowHeaders: ['Authorization', 'Content-Type', 'X-API-Key'],
+    allowMethods: ['GET', 'POST', 'DELETE', 'OPTIONS'],
+    maxAge: 86400,
+  })
+);
+app.use('/api/taxii2/*', requestId);
+app.use('/api/taxii2/*', csrfGuard);
+app.use('/api/taxii2/*', authenticate('external-only'));
+app.use('/api/taxii2/*', requestLogger);
 app.use('/api/taxii2/*', rateLimit);
 
 // ── Operator-only gates ────────────────────────────────────────────────────
