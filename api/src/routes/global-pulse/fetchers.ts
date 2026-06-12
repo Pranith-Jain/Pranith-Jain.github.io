@@ -622,19 +622,22 @@ export async function fetchRansomwatch(): Promise<PulseEvent[]> {
       scraped?: string;
     }>;
     // Take the 50 most recent posts
-    return data.slice(-50).reverse().map((p, idx) => ({
-      id: `rw-${idx}-${p.group_name}-${p.date}`,
-      kind: 'ransomware' as const,
-      title: `${p.group_name}: ${p.post_title}`.slice(0, 140),
-      description: p.scraped?.slice(0, 200) || `Ransomware group ${p.group_name} posted new victim`,
-      lat: 0,
-      lng: 0,
-      timestamp: p.date || new Date().toISOString(),
-      severity: 'high' as const,
-      source: 'ransomwatch',
-      url: p.url,
-      cti: 'ransomware' as const,
-    }));
+    return data
+      .slice(-50)
+      .reverse()
+      .map((p, idx) => ({
+        id: `rw-${idx}-${p.group_name}-${p.date}`,
+        kind: 'ransomware' as const,
+        title: `${p.group_name}: ${p.post_title}`.slice(0, 140),
+        description: p.scraped?.slice(0, 200) || `Ransomware group ${p.group_name} posted new victim`,
+        lat: 0,
+        lng: 0,
+        timestamp: p.date || new Date().toISOString(),
+        severity: 'high' as const,
+        source: 'ransomwatch',
+        url: typeof p.url === 'string' && /^https?:\/\//.test(p.url) ? p.url : undefined,
+        cti: 'ransomware' as const,
+      }));
   } catch {
     return [];
   }

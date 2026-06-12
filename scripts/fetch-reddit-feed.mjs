@@ -30,10 +30,10 @@ const MAX_POSTS_PER_SUB = 100;
 const MAX_POST_AGE_DAYS = 7;
 const MAX_TEXT_LEN = 400;
 const FETCH_TIMEOUT_MS = 15_000;
-const DELAY_BETWEEN_MS = 5_000;
-const MAX_RETRIES = 3;
-const RETRY_BASE_MS = 10_000;
-const COOLDOWN_MS = 30_000;
+const DELAY_BETWEEN_MS = 60_000;
+const MAX_RETRIES = 2;
+const RETRY_BASE_MS = 60_000;
+const COOLDOWN_MS = 60_000;
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
@@ -144,7 +144,7 @@ async function fetchSub(spec) {
       const r = await fetch(url, {
         signal: ctrl.signal,
         headers: {
-          'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+          'user-agent': 'pranithjain-dfir/1.0 (RSS reader; +https://pranithjain.qzz.io)',
           accept: 'application/atom+xml, application/rss+xml, application/xml, text/xml',
         },
       });

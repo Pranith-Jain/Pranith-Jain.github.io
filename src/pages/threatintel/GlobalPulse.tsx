@@ -1,4 +1,5 @@
 import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState, type JSX } from 'react';
+import { sanitizeUrl } from '../../lib/sanitize-url';
 import {
   Activity,
   Globe,
@@ -457,8 +458,26 @@ export default function GlobalPulse(): JSX.Element {
   const MENA_COUNTRIES = useMemo(
     () =>
       new Set([
-        'DZ', 'BH', 'EG', 'IQ', 'IR', 'IL', 'JO', 'KW', 'LB', 'LY',
-        'MA', 'OM', 'PS', 'QA', 'SA', 'SY', 'TN', 'TR', 'AE', 'YE',
+        'DZ',
+        'BH',
+        'EG',
+        'IQ',
+        'IR',
+        'IL',
+        'JO',
+        'KW',
+        'LB',
+        'LY',
+        'MA',
+        'OM',
+        'PS',
+        'QA',
+        'SA',
+        'SY',
+        'TN',
+        'TR',
+        'AE',
+        'YE',
       ]),
     []
   );
@@ -598,7 +617,17 @@ export default function GlobalPulse(): JSX.Element {
         if (pa !== pb) return pb - pa;
         return new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime();
       });
-  }, [data, activeLayers, severityFilter, searchQuery, timeRange, ctiFilter, regionFilter, MENA_COUNTRIES, ctiPriority]);
+  }, [
+    data,
+    activeLayers,
+    severityFilter,
+    searchQuery,
+    timeRange,
+    ctiFilter,
+    regionFilter,
+    MENA_COUNTRIES,
+    ctiPriority,
+  ]);
 
   // Export to CSV
   const exportToCsv = useCallback(() => {
@@ -891,9 +920,7 @@ export default function GlobalPulse(): JSX.Element {
                   map.wddadk.com <ExternalLink size={10} />
                 </a>
               </div>
-              <div className="text-micro font-mono text-slate-500 mt-1.5">
-                247 countries, 1,535 OSINT resources
-              </div>
+              <div className="text-micro font-mono text-slate-500 mt-1.5">247 countries, 1,535 OSINT resources</div>
             </div>
           </div>
 
@@ -1234,14 +1261,7 @@ export default function GlobalPulse(): JSX.Element {
                 <button
                   type="button"
                   onClick={() => {
-                    setActiveLayers(
-                      new Set([
-                        'war_room',
-                        'geopolitical',
-                        'aircraft',
-                        'earthquake',
-                      ])
-                    );
+                    setActiveLayers(new Set(['war_room', 'geopolitical', 'aircraft', 'earthquake']));
                     setSeverityFilter(new Set(['critical', 'high', 'medium', 'low']));
                     setCtiFilter('all');
                     setRegionFilter('all');
@@ -1539,7 +1559,7 @@ export default function GlobalPulse(): JSX.Element {
                                 )}
                                 {ev.url && (
                                   <a
-                                    href={ev.url}
+                                    href={sanitizeUrl(ev.url) || undefined}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     onClick={(e) => e.stopPropagation()}
@@ -1621,7 +1641,7 @@ export default function GlobalPulse(): JSX.Element {
                   </div>
                   {selectedEvent.url && (
                     <a
-                      href={selectedEvent.url}
+                      href={sanitizeUrl(selectedEvent.url) || undefined}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-1.5 mt-4 text-xs font-mono text-brand-600 dark:text-brand-400 hover:underline"
