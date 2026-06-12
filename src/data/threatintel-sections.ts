@@ -897,6 +897,13 @@ export const SECTIONS: Section[] = [
         badge: 'new',
       },
       {
+        to: '/threatintel/ai-defense',
+        label: 'AI Defense Coverage',
+        desc: 'Defense-side view of the LLM Threat Atlas. ~480 vectors re-presented as the hard control you implement and the framework column (ATLAS, OWASP LLM/Agentic/MCP, NIST AI RMF, ATT&CK) that control lives in. Cross-framework filter, risk-scored, with concrete tests and evidence to keep.',
+        icon: Sparkles,
+        badge: 'new',
+      },
+      {
         to: '/threatintel/insider-threat-matrix',
         label: 'Insider Threat Matrix',
         desc: 'Open framework for insider threat investigations. 140+ techniques across Motive, Means, Preparation, Infringement.',
@@ -1017,6 +1024,20 @@ export const SECTIONS: Section[] = [
         label: 'External Resources',
         desc: 'Off-site cross-references: dashboards, OSINT directories, training labs, malware samples, research portfolios.',
         icon: ExternalLink,
+      },
+      {
+        to: '/threatintel/owasp-ai-landscape',
+        label: 'OWASP AI Landscape',
+        desc: 'Full tree of OWASP AI / ML / agentic projects — guides, cheat sheets, CTFs. Auto-synced daily from the public data.json.',
+        icon: Shield,
+        badge: 'live',
+      },
+      {
+        to: '/threatintel/curated-toolbox',
+        label: 'Curated Threat-Intel Toolbox',
+        desc: 'Mirror of Harun Seker’s "Mastering Threat Intelligence Platforms" start.me page. Synced daily via Jina Reader.',
+        icon: Layers,
+        badge: 'live',
       },
       {
         to: '/threatintel/osint-map',

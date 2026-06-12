@@ -183,6 +183,7 @@ const OnionWatch = lazy(() => import('./pages/dfir/OnionWatch'));
 const TelegramWatch = lazy(() => import('./pages/dfir/TelegramWatch'));
 const AwesomeLists = lazy(() => import('./pages/dfir/AwesomeLists'));
 const ExternalResources = lazy(() => import('./pages/threatintel/ExternalResources'));
+const BitwireBlocklist = lazy(() => import('./pages/threatintel/BitwireBlocklist'));
 const OwaspAiLandscape = lazy(() => import('./pages/threatintel/OwaspAiLandscape'));
 const CuratedToolbox = lazy(() => import('./pages/threatintel/CuratedToolbox'));
 const OsintCountryMap = lazy(() => import('./pages/threatintel/OsintCountryMap'));
@@ -568,6 +569,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel/telegram-settings', Component: TelegramSettings },
   { path: '/threatintel/awesome-lists', Component: AwesomeLists },
   { path: '/threatintel/external-resources', Component: ExternalResources },
+  { path: '/threatintel/bitwire-blocklist', Component: BitwireBlocklist },
   { path: '/threatintel/owasp-ai-landscape', Component: OwaspAiLandscape },
   { path: '/threatintel/curated-toolbox', Component: CuratedToolbox },
   { path: '/threatintel/osint-map', Component: OsintCountryMap },

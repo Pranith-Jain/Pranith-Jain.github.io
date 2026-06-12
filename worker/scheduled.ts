@@ -29,6 +29,7 @@ import { buildBlocklists } from '../api/src/lib/blocklist-builder';
 import { indexTelegramLeaks } from '../api/src/routes/rag-index';
 import { indexAllCorpora } from '../api/src/routes/rag-corpus-index';
 import { detectPirAlerts } from '../api/src/routes/pir';
+import { syncOwaspAiLandscape, syncCuratedToolbox } from '../api/src/lib/landscape-sync';
 import { runGraphIngest } from '../api/src/routes/graph-ingest';
 import { autoRunFeedJobs } from '../api/src/routes/feed-scheduler';
 import { enqueueAllFeeds } from '../api/src/routes/live-iocs';
@@ -216,7 +217,17 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
           ctx.waitUntil(
             warmIntelBundles(env as unknown as ApiEnv)
               .then((r) =>
-                console.log(JSON.stringify({ job: 'intel-bundle-warm', built: r.built.length, failed: r.failed.length, has_more: r.hasMore, slugs: r.built, llm_ran: r.llmRan, llm_partial: r.llmPartial }))
+                console.log(
+                  JSON.stringify({
+                    job: 'intel-bundle-warm',
+                    built: r.built.length,
+                    failed: r.failed.length,
+                    has_more: r.hasMore,
+                    slugs: r.built,
+                    llm_ran: r.llmRan,
+                    llm_partial: r.llmPartial,
+                  })
+                )
               )
               .catch(logCronFail('intel-bundle-warm'))
           );
@@ -224,7 +235,14 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
             ctx.waitUntil(
               refreshVictimReleaksCache(env as unknown as ApiEnv)
                 .then((b) =>
-                  console.log(JSON.stringify({ job: 'victim-releaks-refresh', releaks: b.releaks.length, groups: b.groups_scanned, warnings: b.warnings.length }))
+                  console.log(
+                    JSON.stringify({
+                      job: 'victim-releaks-refresh',
+                      releaks: b.releaks.length,
+                      groups: b.groups_scanned,
+                      warnings: b.warnings.length,
+                    })
+                  )
                 )
                 .catch(logCronFail('victim-releaks-refresh'))
             );
@@ -712,6 +730,46 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
     return;
   }
 
+  // === Curated-landscape sync (OWASP AI + start.me toolbox) ===
+  // PIGGYBACKS on the daily briefing cron ("30 0 * * *") — the free plan
+  // caps cron triggers at 5, and we already have 5 distinct expressions.
+  // Runs in parallel with the briefing build via Promise.allSettled so a
+  // sync failure or upstream 5xx can never block the briefing pipeline.
+  // Each sub-sync is bounded by FETCH_TIMEOUT_MS (20s) and writes to
+  // KV_CACHE; the GET endpoints serve the latest snapshot. Sub-sync
+  // failures are non-fatal: the GET handler falls back to the bundled
+  // seed, and meta carries the error string for the UI badge.
+  const runLandscapeSync = (): Promise<void> =>
+    Promise.allSettled([
+      syncOwaspAiLandscape(env as unknown as ApiEnv).then((o) => {
+        console.log(
+          JSON.stringify({
+            job: 'landscape-owasp',
+            ok: o.ok,
+            error: o.error,
+            counts: o.counts,
+          })
+        );
+      }),
+      syncCuratedToolbox(env as unknown as ApiEnv).then((c) => {
+        console.log(
+          JSON.stringify({
+            job: 'landscape-curated',
+            ok: c.ok,
+            error: c.error,
+            totalTools: c.totalTools,
+            totalSections: c.totalSections,
+          })
+        );
+      }),
+    ]).then((results) => {
+      results.forEach((r, i) => {
+        if (r.status === 'rejected') {
+          logCronFail(i === 0 ? 'landscape-owasp' : 'landscape-curated')(r.reason);
+        }
+      });
+    });
+
   // === Dedicated briefings cron path ===
   if (cron !== '30 0 * * *' && cron !== '45 0 * * 1' && cron !== '30 2 1 * *') {
     // Unknown cron string — release the lease immediately so a stale entry
@@ -727,7 +785,7 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
   }
 
   // Monthly threat landscape report — fires 1st of the month at 02:30 UTC.
-  // Now registered in wrangler.jsonc (free plan allows 5 triggers; we have 5).
+  // Now registered in wrangler.jsonc (free plan allows 5 triggers; landscape sync piggybacks on 30 0 * * *).
   // Landscape reports can also be built on-demand via
   // POST /api/v1/briefings/build?type=landscape (admin token).
   // Reuses the briefings table with type='landscape'. Idempotent: a row
@@ -779,6 +837,11 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
   }, 5 * 60_000);
   ctx.waitUntil(
     (async () => {
+      // Kick off the landscape sync in parallel with the briefing build.
+      // Each sub-sync is bounded by FETCH_TIMEOUT_MS (20s) and never throws
+      // (Promise.allSettled + per-callback logCronFail), so a slow upstream
+      // can't extend the lease beyond the briefing build's window.
+      const landscapePromise = runLandscapeSync();
       const db = env.BRIEFINGS_DB as D1Database;
       try {
         const briefing = await buildBriefing(type, undefined, {
@@ -826,6 +889,11 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
           })
         );
       }
+      // Wait for the parallel landscape sync to finish so the heartbeat
+      // interval is still alive (and the lease is held) for its duration.
+      // The sub-syncs are bounded by FETCH_TIMEOUT_MS each, so worst case
+      // is ~25 s; well within the 15-min lease + 5-min heartbeat.
+      await landscapePromise;
       clearInterval(briefingHrt);
       logCronDone({ path: 'briefing-dedicated', type });
     })()

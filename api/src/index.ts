@@ -53,6 +53,7 @@ import { builtwithHandler } from './routes/builtwith';
 import { ctLogHandler } from './routes/ct-log';
 import { waybackAdvancedHandler } from './routes/wayback-advanced';
 import { threatPulseHandler } from './routes/threat-pulse';
+import { firmsUkmtoHandler } from './routes/firms-ukmto';
 import { ipGeoHandler } from './routes/ip-geo';
 import { stixFetchHandler } from './routes/stix-fetch';
 import { certSearchHandler } from './routes/cert-search';
@@ -411,6 +412,12 @@ import { attackFlowLibraryHandler } from './routes/attack-flow-library';
 import { volexityThreatIntelHandler } from './routes/volexity-threat-intel';
 import { passiveDnsLookupHandler } from './routes/passive-dns';
 import { gitHubSecurityHandler } from './routes/github-security';
+import {
+  getOwaspAiLandscapeHandler,
+  getOwaspAiLandscapeMetaHandler,
+  getCuratedToolboxHandler,
+  getCuratedToolboxMetaHandler,
+} from './routes/landscape';
 import { predictionsHandler } from './routes/predictions';
 
 const app = new Hono<{ Bindings: Env }>();
@@ -765,6 +772,7 @@ app.delete('/api/v1/crypto-monitor/watch/:address/:chain', cryptoWatchRemoveHand
 app.get('/api/v1/crypto-monitor/alerts', cryptoAlertsHandler);
 app.get('/api/v1/wayback/cdx', validate('query', waybackSchema), waybackCdxHandler);
 app.get('/api/v1/threat-pulse', threatPulseHandler);
+app.get('/api/v1/firms-ukmto', firmsUkmtoHandler);
 app.get('/api/v1/ip-geo', validate('query', ipGeoSchema), ipGeoHandler);
 app.get('/api/v1/stix/fetch', stixFetchHandler);
 app.get('/api/v1/cert-search', certSearchHandler);
@@ -1189,6 +1197,15 @@ app.get('/api/v1/attack-flow-library', validate('query', attackFlowLibrarySchema
 app.get('/api/v1/volexity-threat-intel', validate('query', volexityThreatIntelSchema), volexityThreatIntelHandler);
 app.get('/api/v1/passive-dns', validate('query', passiveDnsSchema), passiveDnsLookupHandler);
 app.get('/api/v1/github-security', validate('query', githubSecuritySchema), gitHubSecurityHandler);
+
+// ── Curated landscapes (OWASP AI + start.me mirror) ────────────────
+// Public reads; both payloads are tiny JSON trees cached in KV by a
+// daily cron (see worker/scheduled.ts). The `*meta` endpoints power
+// the "synced 3h ago" badge in the UI.
+app.get('/api/v1/owasp-ai-landscape', getOwaspAiLandscapeHandler);
+app.get('/api/v1/owasp-ai-landscape/meta', getOwaspAiLandscapeMetaHandler);
+app.get('/api/v1/curated-toolbox', getCuratedToolboxHandler);
+app.get('/api/v1/curated-toolbox/meta', getCuratedToolboxMetaHandler);
 app.get('/api/v1/predictions', predictionsHandler);
 
 app.get('/api/v1/dashboard', dashboardHandler);
