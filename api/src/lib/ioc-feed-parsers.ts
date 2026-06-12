@@ -547,6 +547,47 @@ export const FEED_SOURCES: Record<SourceId, FeedSource> = {
   },
 };
 
+// ─── ViriBack C2 Tracker ────────────────────────────────────────────────────
+// CSV: Malware Family,URL,IP Address,First Seen
+
+export function parseViriback(body: string, cap: number = CAP): IocEntry[] {
+  const entries: IocEntry[] = [];
+  for (const cols of csvLines(body)) {
+    if (cols.length < 4) continue;
+    const family = unquote(cols[0] ?? '');
+    const url = unquote(cols[1] ?? '');
+    const ip = unquote(cols[2] ?? '');
+    const timestamp = unquote(cols[3] ?? '') || undefined;
+    const context = `ViriBack C2: ${family || 'unknown'}`;
+    if (ip) {
+      entries.push({ type: 'ipv4', value: ip, context, timestamp });
+      if (entries.length >= cap) break;
+    }
+    if (url && url.startsWith('http')) {
+      entries.push({ type: 'url', value: url, context, timestamp });
+      if (entries.length >= cap) break;
+    }
+  }
+  return entries;
+}
+
+// ─── Threatview.io Domain Blocklist ─────────────────────────────────────────
+// Plain text, one domain per line.
+
+const BARE_DOMAIN_RE = /^([a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,}$/i;
+
+export function parseThreatviewDomains(body: string, cap: number = CAP): IocEntry[] {
+  const entries: IocEntry[] = [];
+  for (const line of body.split('\n')) {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.startsWith('#') || trimmed.startsWith(';')) continue;
+    if (!BARE_DOMAIN_RE.test(trimmed)) continue;
+    entries.push({ type: 'domain', value: trimmed });
+    if (entries.length >= cap) break;
+  }
+  return entries;
+}
+
 /**
  * Build a normalized IocFeedSummary from raw upstream text + source id.
  */

@@ -17,6 +17,8 @@ import {
   parseSslblC2,
   parseBotvrijDomains,
   parsePhishingArmy,
+  parseViriback,
+  parseThreatviewDomains,
 } from '../lib/ioc-feed-parsers';
 import { fetchMalwareSamplesCached } from './malware-samples';
 import { fetchPhishingUrlsCached } from './phishing-urls';
@@ -470,7 +472,9 @@ const andreafortunaSource: FeedSource = {
 const mythreatintelSource: FeedSource = {
   id: 'mythreatintel',
   run: async ({ env }) => {
-    const mtiIocResult = env ? await safeNullLog('fetch-mti-iocs', fetchMtiSource(env, 'iocs', { limit: PER_FEED_CAP })) : null;
+    const mtiIocResult = env
+      ? await safeNullLog('fetch-mti-iocs', fetchMtiSource(env, 'iocs', { limit: PER_FEED_CAP }))
+      : null;
     const items: LiveIoc[] = [];
     if (!(mtiIocResult && mtiIocResult.ok && mtiIocResult.items.length > 0)) {
       return { items, sources: [{ id: 'mythreatintel', ok: false, count: 0 }] };
@@ -721,6 +725,40 @@ const FEED_SOURCES: FeedSource[] = [
     kind: 'ip',
     reporter: 'BruteForce Blocker',
     context: 'brute-force attack source',
+  }),
+  textFeedSource({
+    id: 'phishing-database',
+    url: 'https://raw.githubusercontent.com/Phishing-Database/Phishing.Database/refs/heads/master/phishing-links-ACTIVE-NOW.txt',
+    parse: parseBotvrijUrls,
+    kind: 'url',
+    reporter: 'Phishing.Database',
+    context: 'verified phishing URL',
+    okRequiresItems: true,
+  }),
+  textFeedSource({
+    id: 'threatview-ip',
+    url: 'https://threatview.io/Downloads/IP-High-Confidence-Feed.txt',
+    parse: parsePlainTextIps,
+    kind: 'ip',
+    reporter: 'Threatview.io',
+    context: 'high confidence malicious IP',
+  }),
+  textFeedSource({
+    id: 'threatview-domains',
+    url: 'https://threatview.io/Downloads/DOMAIN-High-Confidence-Feed.txt',
+    parse: parseThreatviewDomains,
+    kind: 'domain',
+    reporter: 'Threatview.io',
+    context: 'high confidence malicious domain',
+  }),
+  textFeedSource({
+    id: 'viriback-c2',
+    url: 'https://tracker.viriback.com/dump.php',
+    parse: parseViriback,
+    kind: 'per-entry',
+    reporter: 'ViriBack C2 Tracker',
+    context: entryContext,
+    withTimestamp: true,
   }),
 ];
 
