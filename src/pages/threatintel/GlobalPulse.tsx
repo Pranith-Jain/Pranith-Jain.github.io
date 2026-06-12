@@ -741,7 +741,7 @@ export default function GlobalPulse(): JSX.Element {
       {data && (
         <div className="space-y-4">
           {/* ─── Top Stats Bar ─── */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+          <div className="grid grid-cols-2 lg:grid-cols-5 gap-3">
             {/* Total events */}
             <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 shadow-e1 p-4">
               <div className="flex items-center justify-between gap-2 mb-2">
@@ -855,6 +855,33 @@ export default function GlobalPulse(): JSX.Element {
                     <span className="text-eyebrow text-slate-500">PAUSED</span>
                   </span>
                 )}
+              </div>
+            </div>
+
+            {/* OSINT Country Map source */}
+            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 shadow-e1 p-4">
+              <div className="flex items-center gap-1.5 text-eyebrow uppercase text-slate-500 mb-2">
+                <Globe size={12} className="text-slate-400" /> OSINT Map Source
+              </div>
+              <div className="flex items-center gap-2">
+                <a
+                  href="/threatintel/osint-map"
+                  className="inline-flex items-center gap-1 text-sm font-medium text-brand-600 dark:text-brand-400 hover:underline"
+                >
+                  Country Resources
+                </a>
+                <span className="text-slate-300 dark:text-slate-600">·</span>
+                <a
+                  href="https://map.wddadk.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 text-sm font-medium text-brand-600 dark:text-brand-400 hover:underline"
+                >
+                  map.wddadk.com <ExternalLink size={10} />
+                </a>
+              </div>
+              <div className="text-micro font-mono text-slate-500 mt-1.5">
+                247 countries, 1,535 OSINT resources
               </div>
             </div>
           </div>
@@ -1552,25 +1579,6 @@ export default function GlobalPulse(): JSX.Element {
           )}
         </div>
       )}
-      {/* ─── Related Tools ─── */}
-      <div className="mt-4 flex items-center gap-4 text-xs text-slate-500 dark:text-zinc-500">
-        <span>Related:</span>
-        <a
-          href="/threatintel/osint-map"
-          className="flex items-center gap-1 text-brand-600 dark:text-brand-400 hover:underline"
-        >
-          <Globe size={12} /> OSINT Country Map
-        </a>
-        <span className="text-zinc-700">|</span>
-        <a
-          href="https://map.wddadk.com/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center gap-1 text-brand-600 dark:text-brand-400 hover:underline"
-        >
-          <ExternalLink size={12} /> map.wddadk.com
-        </a>
-      </div>
     </DataPageLayout>
   );
 }
