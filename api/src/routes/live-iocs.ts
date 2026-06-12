@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { isBenign, refang, scoreConfidence } from '../lib/ioc-normalize';
 import type { D1Database, Queue } from '@cloudflare/workers-types';
 import { shouldWriteLastGood } from '../lib/lastgood-debounce';
 import { safeNullLog } from '../lib/safe-catch';
@@ -88,6 +89,15 @@ export interface LiveIoc {
   reference_url?: string;
   /** ISO 8601 — derived from feed entry; undefined for sources without per-entry time. */
   observed_at?: string;
+  /**
+   * Per-IOC extraction confidence, computed by `scoreConfidence` in
+   * ioc-normalize.ts. Bounded [0, 1]. Items in the `rejected` band
+   * (allowlist false-positives, RFC 5737, vendor docs, etc.) are
+   * filtered out of the public payload before this field is set.
+   */
+  confidence?: number;
+  /** Quick visual band: high / medium / low. */
+  confidence_band?: 'high' | 'medium' | 'low';
 }
 
 export interface LiveSource {
@@ -793,6 +803,30 @@ async function finalizeLiveIocs(
   env?: Env,
   extraDegraded = false
 ): Promise<LiveIocsResponse> {
+  // Refang + allowlist + confidence scoring. Runs before the staleness
+  // filter so we don't pay the cost of scoring items we're about to drop.
+  // Items that fail the allowlist (RFC 5737 docs, vendor domains, etc.) or
+  // score in the 'rejected' band are removed here.
+  const iocKindToConfidenceKind: Record<IocKind, 'ipv4' | 'domain' | 'url' | 'hash'> = {
+    ip: 'ipv4',
+    url: 'url',
+    domain: 'domain',
+    hash: 'hash',
+  };
+  const normalizedItems: LiveIoc[] = [];
+  for (const it of items) {
+    const refanged = refang(it.value);
+    if (refanged !== it.value) it.value = refanged;
+    const kind = iocKindToConfidenceKind[it.kind] ?? 'unknown';
+    if (isBenign(it.value, kind).allow === false) continue;
+    const c = scoreConfidence(it.value, kind, it.context);
+    if (c.band === 'rejected') continue;
+    it.confidence = c.score;
+    it.confidence_band = c.band;
+    normalizedItems.push(it);
+  }
+  items = normalizedItems;
+
   // Drop stale items — observed before the freshness cutoff. Items without
   // observed_at survive (they're bulk-snapshot feeds whose freshness is
   // governed by the upstream publish cadence, not per-entry).

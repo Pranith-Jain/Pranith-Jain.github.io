@@ -673,3 +673,146 @@ export async function graphStatsHandler(c: Context<{ Bindings: Env }>): Promise<
     { 'Cache-Control': 'public, max-age=60' }
   );
 }
+
+/**
+ * GET /api/v1/graph/cross-report — knowledge-graph snapshot spanning
+ * every ingested source. Returns the top N most-referenced nodes (by
+ * `last_seen` recency + source count) and the edges that connect them,
+ * paginated by node type filter. Backs the /threatintel/knowledge-graph
+ * explorer.
+ *
+ * Query params:
+ *   - types    comma-separated NodeType[] to include (default: all)
+ *   - limit    max nodes to return (default 200, max 1000)
+ *   - days     only consider nodes/edges seen in the last N days
+ *              (default 90; 0 = no time filter)
+ *   - minConn  minimum cross-source edge count to include a node
+ *              (default 0; useful to de-noise the graph)
+ */
+export async function graphCrossReportHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
+  const db = c.env.BRIEFINGS_DB;
+  if (!db) return c.json({ error: 'Database not configured' }, 503);
+
+  const VALID_NODE_TYPES: NodeType[] = [
+    'ip',
+    'domain',
+    'hash',
+    'url',
+    'actor',
+    'malware',
+    'campaign',
+    'cve',
+    'technique',
+  ];
+
+  const typesParam = (c.req.query('types') ?? '')
+    .split(',')
+    .map((s) => s.trim())
+    .filter(Boolean);
+  const types =
+    typesParam.length > 0
+      ? (typesParam.filter((t) => VALID_NODE_TYPES.includes(t as NodeType)) as NodeType[])
+      : VALID_NODE_TYPES;
+
+  const limit = Math.min(1000, Math.max(1, parseInt(c.req.query('limit') ?? '200', 10) || 200));
+  const days = Math.max(0, parseInt(c.req.query('days') ?? '90', 10) || 0);
+  const minConn = Math.max(0, parseInt(c.req.query('minConn') ?? '0', 10) || 0);
+
+  await ensureGraphTables(db);
+
+  const cutoff = days > 0 ? new Date(Date.now() - days * 86_400_000).toISOString() : null;
+  const placeholders = types.map(() => '?').join(',');
+
+  // Rank nodes by recency + how many distinct sources reference them.
+  // `sources` is a JSON array; json_array_length gives us the count.
+  const sql = cutoff
+    ? `SELECT n.*,
+              json_array_length(n.sources) AS source_count
+         FROM graph_nodes n
+         WHERE n.type IN (${placeholders})
+           AND n.last_seen >= ?
+         ORDER BY n.last_seen DESC, source_count DESC
+         LIMIT ?`
+    : `SELECT n.*,
+              json_array_length(n.sources) AS source_count
+         FROM graph_nodes n
+         WHERE n.type IN (${placeholders})
+         ORDER BY n.last_seen DESC, source_count DESC
+         LIMIT ?`;
+  const binds: (string | number)[] = [...types, ...(cutoff ? [cutoff] : []), limit];
+
+  const nodeRes = await db
+    .prepare(sql)
+    .bind(...binds)
+    .all<GraphNode & { source_count: number }>();
+  const nodes = nodeRes.results ?? [];
+  const nodeIds = nodes.map((n) => n.id);
+
+  if (nodeIds.length === 0) {
+    return c.json(
+      { nodes: [], edges: [], stats: { nodeCount: 0, edgeCount: 0, sourceTypes: [] }, cutoff, types, limit },
+      200,
+      { 'Cache-Control': 'public, max-age=60' }
+    );
+  }
+
+  // Fetch edges between the selected nodes only. We use a temp-ish IN clause
+  // to keep the result bounded. D1 supports up to 100 binds per statement;
+  // batch the edge query if the node set is large.
+  const edges: GraphEdge[] = [];
+  const BATCH = 80;
+  for (let i = 0; i < nodeIds.length; i += BATCH) {
+    const batch = nodeIds.slice(i, i + BATCH);
+    const ph = batch.map(() => '?').join(',');
+    const eRes = await db
+      .prepare(`SELECT * FROM graph_edges WHERE source_id IN (${ph}) AND target_id IN (${ph})`)
+      .bind(...batch, ...batch)
+      .all<GraphEdge>();
+    if (eRes.results) edges.push(...eRes.results);
+  }
+
+  // Filter: a node is "well-connected" if it has at least `minConn` edges
+  // in the kept set. Drops isolated nodes that pass the source/recency
+  // filter but contribute nothing to the visible graph.
+  const kept =
+    minConn > 0
+      ? (() => {
+          const edgeCount = new Map<string, number>();
+          for (const e of edges) {
+            edgeCount.set(e.source_id, (edgeCount.get(e.source_id) ?? 0) + 1);
+            edgeCount.set(e.target_id, (edgeCount.get(e.target_id) ?? 0) + 1);
+          }
+          return nodes.filter((n) => (edgeCount.get(n.id) ?? 0) >= minConn);
+        })()
+      : nodes;
+
+  const keptIds = new Set(kept.map((n) => n.id));
+  const keptEdges = edges.filter((e) => keptIds.has(e.source_id) && keptIds.has(e.target_id));
+
+  // Edge dedup (same pair + relationship).
+  const seenEdge = new Set<string>();
+  const dedupEdges: GraphEdge[] = [];
+  for (const e of keptEdges) {
+    const k = `${e.source_id}->${e.target_id}:${e.relationship}`;
+    if (seenEdge.has(k)) continue;
+    seenEdge.add(k);
+    dedupEdges.push(e);
+  }
+
+  return c.json(
+    {
+      nodes: kept,
+      edges: dedupEdges,
+      stats: {
+        nodeCount: kept.length,
+        edgeCount: dedupEdges.length,
+        sourceTypes: Array.from(new Set(kept.map((n) => n.type))),
+      },
+      cutoff,
+      types,
+      limit,
+    },
+    200,
+    { 'Cache-Control': 'public, max-age=60' }
+  );
+}

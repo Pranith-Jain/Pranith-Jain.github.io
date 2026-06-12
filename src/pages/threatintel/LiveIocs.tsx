@@ -22,6 +22,10 @@ interface LiveIoc {
   context?: string;
   reference_url?: string;
   observed_at?: string;
+  /** Extraction confidence, 0-1. Set by the ioc-normalize lib. */
+  confidence?: number;
+  /** Quick visual band: high / medium / low. */
+  confidence_band?: 'high' | 'medium' | 'low';
 }
 
 interface LiveSource {
@@ -64,6 +68,14 @@ const KIND_PILL: Record<IocKind, string> = {
   url: 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300',
   domain: 'border-sky-500/40 bg-sky-500/10 text-sky-700 dark:text-sky-300',
   hash: 'border-violet-500/40 bg-violet-500/10 text-violet-700 dark:text-violet-300',
+};
+
+/** Confidence-band pill colors. Aligned with the ioc-normalize lib's
+ *  `scoreConfidence` band thresholds: high ≥ 0.8, medium ≥ 0.5, low < 0.5. */
+const CONFIDENCE_PILL: Record<'high' | 'medium' | 'low', string> = {
+  high: 'text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/40 border-emerald-300 dark:border-emerald-800',
+  medium: 'text-sky-700 dark:text-sky-300 bg-sky-50 dark:bg-sky-950/40 border-sky-300 dark:border-sky-800',
+  low: 'text-amber-700 dark:text-amber-300 bg-amber-50 dark:bg-amber-950/40 border-amber-300 dark:border-amber-800',
 };
 
 export default function LiveIocs(): JSX.Element {
@@ -339,6 +351,18 @@ export default function LiveIocs(): JSX.Element {
                 >
                   {it.kind}
                 </span>
+                {it.confidence_band && (
+                  <span
+                    className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border shrink-0 ${CONFIDENCE_PILL[it.confidence_band]}`}
+                    title={
+                      it.confidence != null
+                        ? `extraction confidence: ${(it.confidence * 100).toFixed(0)}%`
+                        : 'extraction confidence'
+                    }
+                  >
+                    conf {Math.round((it.confidence ?? 0) * 100)}%
+                  </span>
+                )}
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center gap-2">
                     <IocChip value={it.value} size="sm" bare truncate={56} className="min-w-0" />

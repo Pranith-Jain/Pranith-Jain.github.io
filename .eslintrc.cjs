@@ -96,6 +96,11 @@ module.exports = {
         // OSINT mapper graph components — part of the lazy OsintMapper chunk.
         'src/components/dfir/osint/IdentifierNode.tsx',
         'src/components/dfir/osint/IdentifierGraph.tsx',
+        // ReportAnalyzer.tsx and KnowledgeGraph.tsx are themselves the
+        // dynamic-import targets (App.tsx lazy-imports them as route
+        // chunks), so static xyflow imports are legitimate.
+        'src/pages/dfir/ReportAnalyzer.tsx',
+        'src/pages/threatintel/KnowledgeGraph.tsx',
       ],
       rules: {
         '@typescript-eslint/no-restricted-imports': 'off',

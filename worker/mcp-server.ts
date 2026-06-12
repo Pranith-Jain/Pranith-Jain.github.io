@@ -798,5 +798,147 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         return untrustedToolResult(data);
       }
     );
+
+    // ── Phase 4b: threatintel-flavored MCP tools ────────────────────────
+    // Six new tools that expose the per-report AI pipeline + the curated
+    // landscape endpoints to MCP-aware clients (VS Code Copilot, Claude,
+    // custom agents). All are thin wrappers over existing /api/v1 routes.
+
+    // 1. extract_ttps — MITRE ATT&CK mapping for a free-text report.
+    this.server.tool(
+      'extract_ttps',
+      'Extract MITRE ATT&CK techniques from a free-text threat report. Returns technique IDs, tactic labels, confidence (high/medium/low), and the supporting evidence string. Combines a deterministic keyword scanner with an LLM pass and merges the results.',
+      {
+        text: z.string().min(30).max(50_000).describe('Report text (30 chars – 50KB)'),
+        use_llm: z
+          .boolean()
+          .optional()
+          .describe('Run the LLM branch too (default true). Set false for cheap keyword-only extraction.'),
+      },
+      async ({ text, use_llm }) => {
+        const data = await apiFetch<Record<string, unknown>>(this.env.SELF, '/api/v1/ttp-extract', this.apiKey, {
+          method: 'POST',
+          body: JSON.stringify({ text, useLlm: use_llm ?? true }),
+        });
+        return untrustedToolResult(data);
+      }
+    );
+
+    // 2. extract_fivew — Who/What/When/Where/Why summary.
+    this.server.tool(
+      'extract_fivew',
+      'Extract the classic 5W grid (who/what/when/where/why) from a free-text report. Single LLM call; returns structured JSON with a per-grid confidence score.',
+      {
+        text: z.string().min(100).max(50_000).describe('Report text (100 chars – 50KB)'),
+      },
+      async ({ text }) => {
+        const data = await apiFetch<Record<string, unknown>>(this.env.SELF, '/api/v1/fivew', this.apiKey, {
+          method: 'POST',
+          body: JSON.stringify({ text }),
+        });
+        return untrustedToolResult(data);
+      }
+    );
+
+    // 3. extract_iocs_from_image — OCR an image URL for embedded indicators.
+    this.server.tool(
+      'extract_iocs_from_image',
+      'Fetch an image and run Workers AI vision over it to extract IOCs that are only visible in screenshots (IPs, domains, URLs, hashes, CVEs, emails). Returns the OCR text + the per-IOC confidence band.',
+      {
+        url: z.string().url().describe('HTTP(S) URL of the image to analyze (max 5MB)'),
+      },
+      async ({ url }) => {
+        const data = await apiFetch<Record<string, unknown>>(this.env.SELF, '/api/v1/image-ioc', this.apiKey, {
+          method: 'POST',
+          body: JSON.stringify({ url }),
+        });
+        return untrustedToolResult(data);
+      }
+    );
+
+    // 4. analyze_report — the unified per-report orchestrator.
+    this.server.tool(
+      'analyze_report',
+      'Unified per-report analyzer. Runs summary + IOC extraction (with allowlist + confidence) + MITRE ATT&CK TTP mapping + 5W context + CVE extraction + image-OCR + STIX 2.1 bundle in a single round-trip. Accepts text, URL, or both; optionally takes image URLs to OCR.',
+      {
+        text: z.string().max(80_000).optional().describe('Report text (optional if url provided)'),
+        url: z.string().url().optional().describe('Report URL to fetch (optional if text provided)'),
+        image_urls: z.array(z.string().url()).max(8).optional().describe('Image URLs to OCR for embedded IOCs (max 8)'),
+        title: z.string().optional().describe('Display title for the report'),
+      },
+      async ({ text, url, image_urls, title }) => {
+        const data = await apiFetch<Record<string, unknown>>(this.env.SELF, '/api/v1/report-analyzer', this.apiKey, {
+          method: 'POST',
+          body: JSON.stringify({
+            text,
+            url,
+            imageUrls: image_urls,
+            title,
+          }),
+        });
+        return untrustedToolResult(data);
+      }
+    );
+
+    // 5. get_cross_report_graph — knowledge graph snapshot.
+    this.server.tool(
+      'get_cross_report_graph',
+      'Cross-report knowledge-graph snapshot. Returns the top N most-referenced nodes (IOCs, actors, malware, CVEs, techniques, campaigns) across every ingested source, with the edges that connect them. Filter by node type and time window.',
+      {
+        types: z
+          .array(z.enum(['ip', 'domain', 'hash', 'url', 'actor', 'malware', 'campaign', 'cve', 'technique']))
+          .optional()
+          .describe('Node types to include (default: all)'),
+        days: z
+          .number()
+          .int()
+          .min(0)
+          .max(3650)
+          .optional()
+          .describe('Only consider nodes seen in the last N days (default 90; 0 = all)'),
+        limit: z.number().int().min(10).max(1000).optional().describe('Max nodes to return (default 200, max 1000)'),
+        min_conn: z
+          .number()
+          .int()
+          .min(0)
+          .max(50)
+          .optional()
+          .describe('Minimum edge count to include a node (default 0)'),
+      },
+      async ({ types, days, limit, min_conn }) => {
+        const params = new URLSearchParams();
+        if (types && types.length > 0) params.set('types', types.join(','));
+        if (days !== undefined) params.set('days', String(days));
+        if (limit !== undefined) params.set('limit', String(limit));
+        if (min_conn !== undefined && min_conn > 0) params.set('minConn', String(min_conn));
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          `/api/v1/graph/cross-report?${params.toString()}`,
+          this.apiKey
+        );
+        return untrustedToolResult(data);
+      }
+    );
+
+    // 6. get_live_iocs — paginated, allowlist-filtered live IOC feed.
+    this.server.tool(
+      'get_live_iocs',
+      'Get the most recent live IOCs aggregated from 12+ providers (URLhaus, ThreatFox, AlienVault OTX, SANS ISC, etc). Items are normalized, allowlist-filtered (RFC 5737, vendor docs), and confidence-scored. Supports filtering by IOC kind.',
+      {
+        kind: z.enum(['ip', 'url', 'domain', 'hash']).optional().describe('Filter to a single IOC kind'),
+        limit: z.number().int().min(1).max(500).optional().describe('Max items to return (default 50)'),
+      },
+      async ({ kind, limit }) => {
+        const params = new URLSearchParams();
+        if (kind) params.set('kind', kind);
+        if (limit) params.set('limit', String(limit));
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          `/api/v1/live-iocs?${params.toString()}`,
+          this.apiKey
+        );
+        return untrustedToolResult(data);
+      }
+    );
   }
 }

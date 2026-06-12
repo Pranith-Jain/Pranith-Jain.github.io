@@ -44,6 +44,14 @@ import {
   cryptoAlertsHandler,
 } from './routes/crypto-monitor';
 import { abuseRssHandler } from './routes/abuse-rss';
+import {
+  threatSignalRssHandler,
+  threatSignalRssXmlHandler,
+  openSourceMalwareRssHandler,
+  openSourceMalwareRssXmlHandler,
+  rssAggregateHandler,
+  rssSourcesHandler,
+} from './routes/threatsignal-rss';
 import { mtiRansomwareRssHandler } from './routes/mti-ransomware-rss';
 import { ransomwareMergedRssHandler } from './routes/ransomware-merged-rss';
 import { mtiHandler, mtiDnsHandler } from './routes/mti';
@@ -244,7 +252,13 @@ import {
 } from './routes/taxii';
 import { stealerParserHandler } from './routes/stealer-parser';
 import { bloomFilterHandler, bloomCheckHandler, bloomStatsHandler } from './routes/bloom-filter';
-import { graphNodeHandler, graphPathHandler, graphCommunitiesHandler, graphStatsHandler } from './routes/threat-graph';
+import {
+  graphNodeHandler,
+  graphPathHandler,
+  graphCommunitiesHandler,
+  graphStatsHandler,
+  graphCrossReportHandler,
+} from './routes/threat-graph';
 import { graphIngestManualHandler } from './routes/graph-ingest';
 import {
   temporalTimelineHandler,
@@ -370,6 +384,10 @@ import { sandboxLookupHandler } from './routes/sandbox';
 import { sampleScanHandler } from './routes/sample-scan';
 import { irPlaybookHandler } from './routes/ir-playbooks';
 import { aiSummaryHandler } from './routes/ai-summary';
+import { ttpExtractHandler } from './routes/ttp-extract';
+import { fivewHandler } from './routes/fivew';
+import { imageIocHandler } from './routes/image-ioc';
+import { reportAnalyzerHandler } from './routes/report-analyzer';
 import { leakIxSearchHandler } from './routes/leakix';
 import { hostIntelHandler } from './routes/host';
 import { proxyNovaSearchHandler } from './routes/proxynova';
@@ -707,6 +725,21 @@ app.post(
 app.post('/api/v1/file/analyze', validate('json', hashAnalyzeSchema), fileAnalyzeHandler);
 app.get('/api/v1/feeds/proxy', feedProxyHandler);
 app.get('/api/v1/feeds/abuse-rss', abuseRssHandler);
+// /threatsignal — live RSS proxy + parsed JSON for the /threatintel/threatsignal page.
+// Public (no auth): the feed is a public research publication and we want the
+// page to hydrate without an admin token.
+app.get('/api/v1/threatsignal/rss', threatSignalRssHandler);
+app.get('/api/v1/threatsignal/rss.xml', threatSignalRssXmlHandler);
+// /opensourcemalware — second source, same shape, separate cache key.
+app.get('/api/v1/opensourcemalware/rss', openSourceMalwareRssHandler);
+app.get('/api/v1/opensourcemalware/rss.xml', openSourceMalwareRssXmlHandler);
+// /rss/aggregate — merged feed across all sources (or one source via ?source=).
+// Powers the /threatintel/threatsignal page. Returns 207 (Multi-Status) if
+// some sources are unreachable but at least one is healthy.
+app.get('/api/v1/rss/aggregate', rssAggregateHandler);
+// /rss/sources — light endpoint for clients that want to render their own
+// source picker without hard-coding ids.
+app.get('/api/v1/rss/sources', rssSourcesHandler);
 app.get('/api/v1/feeds/mti-ransomware', mtiRansomwareRssHandler);
 app.get('/api/v1/feeds/ransomware-merged', ransomwareMergedRssHandler);
 app.get('/api/v1/feeds/ioc-summary', iocFeedSummaryHandler);
@@ -1002,6 +1035,14 @@ app.post('/api/v1/rag/index-all', async (c) => {
   return c.json({ ok: true, ...result });
 });
 app.post('/api/v1/ai-summary', validate('json', aiSummarySchema), aiSummaryHandler);
+// Phase 2: per-report AI primitives. Backs the /threatintel/report-analyzer
+// page and is also useful as standalone tools (TTP map, 5W grid, image-OCR).
+app.post('/api/v1/ttp-extract', ttpExtractHandler);
+app.post('/api/v1/fivew', fivewHandler);
+app.post('/api/v1/image-ioc', imageIocHandler);
+// Phase 3: unified per-report analyzer (summary + IOCs + TTPs + 5W +
+// image-IOCs + STIX bundle, all in one round-trip).
+app.post('/api/v1/report-analyzer', reportAnalyzerHandler);
 app.post('/api/v1/copilot/investigate', validate('json', copilotInvestigateSchema), copilotInvestigateHandler);
 app.get('/api/v1/copilot/investigate', copilotInvestigateHandler);
 app.post('/api/v1/copilot/chat', copilotChatHandler);
@@ -1065,6 +1106,8 @@ app.get('/api/v1/graph/node/:type/:value', graphNodeHandler);
 app.get('/api/v1/graph/path', graphPathHandler);
 app.get('/api/v1/graph/communities', graphCommunitiesHandler);
 app.get('/api/v1/graph/stats', graphStatsHandler);
+// Cross-report knowledge graph snapshot. Backs the explorer page.
+app.get('/api/v1/graph/cross-report', graphCrossReportHandler);
 app.post('/api/v1/graph/ingest', validate('query', graphIngestSchema), graphIngestManualHandler);
 
 // ── Hunting & IR Tools ─────────────────────────────────────────────
