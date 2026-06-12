@@ -32,8 +32,12 @@ function appRoutePaths(): Set<string> {
 function prerenderPaths(): string[] {
   const src = read('scripts/prerender.mjs');
   const start = src.indexOf('const ROUTES = [');
-  const block = src.slice(start, src.indexOf('\n]', start));
-  return [...block.matchAll(/'(\/[^']*)'/g)].map((m) => m[1]);
+  // Strip JS line comments (//...) so audit prose like
+  // `// '/threatintel/briefings' removed from prerender: ...`
+  // doesn't get picked up as a route.
+  const raw = src.slice(start, src.indexOf('\n]', start));
+  const noComments = raw.replace(/\/\/[^\n]*/g, '');
+  return [...noComments.matchAll(/'(\/[^']*)'/g)].map((m) => m[1]);
 }
 
 /** Keys of worker/router.ts's PRERENDERED_ROUTES map (what the Worker serves as prerendered). */
@@ -62,6 +66,20 @@ describe('route source-of-truth drift guard', () => {
     expect(
       missing,
       `worker/router.ts PRERENDERED_ROUTES serves paths that scripts/prerender.mjs never generates (would 404) — drift: ${missing.join(', ')}`
+    ).toEqual([]);
+  });
+
+  it('every prerender.mjs entry is served by the Worker (no wasted HTML)', () => {
+    // Reverse of the previous test. prerender.mjs emitting HTML the Worker
+    // never serves is wasted build time + dead bytes in the assets bundle.
+    // Before this guard, copilot-chat + observe drifted for an unknown
+    // number of deploys.
+    const router = new Set(routerPrerenderedKeys());
+    expect(router.size, 'worker/router.ts PRERENDERED_ROUTES extraction failed — adjust the regex').toBeGreaterThan(50);
+    const wasted = prerenderPaths().filter((p) => !router.has(p));
+    expect(
+      wasted,
+      `scripts/prerender.mjs ROUTES contains paths the Worker never serves (HTML is generated but returned as SPA shell) — drift: ${wasted.join(', ')}`
     ).toEqual([]);
   });
 });

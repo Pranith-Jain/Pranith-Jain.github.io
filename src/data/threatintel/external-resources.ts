@@ -1559,4 +1559,86 @@ export const RESOURCES: ExternalResource[] = [
     description:
       'Curated GitBook catalog of OSINT tools maintained by the OSINT Newsletter community. Grouped by category (people search, geolocation, social, infra) with one-page summaries, screenshots, and quick links. A more editorial / human-curated alternative to the OSINT Framework.',
   },
+  {
+    id: 'urlscan',
+    name: 'URLScan.io',
+    url: 'https://urlscan.io/',
+    kind: 'tool',
+    featured: true,
+    tags: ['osint', 'phishing', 'threat-intel'],
+    description:
+      'Free public URL sandbox — 100 scans/day without auth. Captures screenshot, rendered DOM, network requests, TLS chain, and verdicts for any submitted URL. Used by /api/v1/url-preview and as enrichment in /dfir/phishing.',
+  },
+  {
+    id: 'greynoise',
+    name: 'GreyNoise Community',
+    url: 'https://www.greynoise.io/',
+    kind: 'tool',
+    tags: ['osint', 'threat-intel'],
+    description:
+      'Free community API classifies IPs as benign / malicious / unknown by tracking internet-wide scanner/mass-exploitation traffic. Tag-based filter lets analysts separate targeted from opportunistic noise. Strong complement to AbuseIPDB.',
+  },
+  {
+    id: 'leakix',
+    name: 'LeakIX',
+    url: 'https://leakix.net/',
+    kind: 'tool',
+    tags: ['osint', 'vulnerability'],
+    description:
+      'Open search engine for exposed services and leaked credentials. Free public API. Used by /api/v1/breach/leakix to surface internet-exposed hosts with CVE / version context.',
+  },
+  {
+    id: 'abuseipdb',
+    name: 'AbuseIPDB',
+    url: 'https://www.abuseipdb.com/',
+    kind: 'tool',
+    tags: ['osint', 'threat-intel'],
+    description:
+      'Community IP-reputation database — 1000 free lookups/day. Confidence-scored abuse reports per IP. Used as enrichment in /api/v1/ioc-check.',
+  },
+  {
+    id: 'shodan',
+    name: 'Shodan',
+    url: 'https://www.shodan.io/',
+    kind: 'tool',
+    tags: ['osint', 'vulnerability'],
+    description:
+      "Internet-wide device / service / banner search engine. Free tier exposes the most popular queries. Used in the platform's enrichment providers for service fingerprinting and CVE/CPE lookup.",
+  },
+  {
+    id: 'feodo-tracker',
+    name: 'Feodo Tracker',
+    url: 'https://feodotracker.abuse.ch/',
+    kind: 'tool',
+    tags: ['threat-intel', 'c2'],
+    description:
+      'abuse.ch project tracking botnet C2 infrastructure (Dridex, Emotet, TrickBot, QakBot). Free blocklist + browseable IP feed. Referenced in /api/v1/c2-tracker.',
+  },
+  {
+    id: 'pulsedive',
+    name: 'PulseDive',
+    url: 'https://pulsedive.com/',
+    kind: 'tool',
+    tags: ['osint', 'threat-intel'],
+    description:
+      'Free threat intelligence platform — IOC scanning, risk scoring, indicator enrichment. Public API (free tier with rate limits). Good general-purpose pivot point for IPs, domains, URLs and hashes.',
+  },
+  {
+    id: 'crt-sh',
+    name: 'crt.sh',
+    url: 'https://crt.sh/',
+    kind: 'tool',
+    tags: ['osint', 'vulnerability'],
+    description:
+      'Certificate Transparency log search — free, unlimited, no API key. Surfaces every cert ever issued for a domain (incl. subdomains via CN/SAN). Powers /api/v1/cert-search.',
+  },
+  {
+    id: 'misp-project',
+    name: 'MISP Project',
+    url: 'https://www.misp-project.org/',
+    kind: 'tool',
+    tags: ['threat-intel'],
+    description:
+      "Open-source threat-intelligence sharing platform (6.4k stars, AGPL-3.0). Industry-standard IOC/TAXII/STIX sharing — REST API, feed import, correlation. The platform's name references MISP for a reason: the IOC fan-out + STIX builder mirror a MISP-style workflow.",
+  },
 ];

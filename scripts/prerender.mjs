@@ -158,6 +158,7 @@ const ROUTES = [
   '/dfir/domain-rep',
   '/dfir/full-spectrum',
   '/dfir/exposure',
+  '/dfir/exposed-host',
   '/dfir/dashboard',
   '/dfir/cve',
   '/dfir/cert-search',

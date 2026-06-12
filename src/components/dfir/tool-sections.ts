@@ -58,6 +58,8 @@ import {
   FolderOpen,
   Download,
   Map as MapIcon,
+  Bot,
+  FileText,
   type LucideIcon,
 } from 'lucide-react';
 import type { FeatureFlag } from '../../lib/features';
@@ -207,6 +209,13 @@ export const SECTIONS: Section[] = [
         label: 'Certificate Transparency Monitor',
         desc: 'Watch domains for new certificates · detects suspicious patterns, typosquatting, wildcard certs · crt.sh integration · free unlimited lookups',
         icon: ShieldCheck,
+      },
+      {
+        path: '/dfir/abuse-rep',
+        useCase: 'Look up IP or email abuse history from a crowdsourced registry.',
+        label: 'Abuse Reputation',
+        desc: 'Stop Forum Spam IP/email abuse registry · report count · last-seen · tor-exit flag · confidence score',
+        icon: ShieldAlert,
       },
     ],
   },
@@ -649,6 +658,13 @@ export const SECTIONS: Section[] = [
         icon: Users,
       },
       {
+        path: '/dfir/multi-search',
+        useCase: 'Fan out one piece of intel to 60+ OSINT platforms in parallel.',
+        label: 'Multi-Search',
+        desc: 'Auto-detect input kind (email/IP/username/hash/CVE/BTC) · fill 60+ platform URL templates · open all in parallel new tabs · 100% client-side',
+        icon: Search,
+      },
+      {
         path: '/dfir/osint-mapper',
         useCase: 'Map identifiers and locations for an investigation.',
         label: 'OSINT Mapper',
@@ -663,6 +679,13 @@ export const SECTIONS: Section[] = [
     label: 'Network & URL Intel',
     blurb: 'IP geo, URL reputation, crypto tracing.',
     tools: [
+      {
+        path: '/dfir/host-graph',
+        useCase: 'Map an IP to its ASN, prefix, abuse contact, and peers.',
+        label: 'Host Graph',
+        desc: 'IP / ASN / CIDR enrichment · RDAP · abuse contact · prefix tree · clickable graph to pivot across network footprint',
+        icon: Network,
+      },
       {
         path: '/dfir/ip-geo',
         useCase: 'Geolocate an IP and flag VPN or hosting.',
@@ -1030,6 +1053,13 @@ export const SECTIONS: Section[] = [
         icon: Network,
       },
       {
+        path: '/dfir/agent',
+        useCase: 'Let an autonomous agent plan and run CTI tools to answer a query.',
+        label: 'Agent Investigator',
+        desc: 'Autonomous CTI investigator · plans steps · runs server-side tools via WebSocket · streams STIX bundle + step-by-step trace · LLM synthesis',
+        icon: Bot,
+      },
+      {
         path: '/dfir/atlas',
         useCase: 'Reference MITRE ATLAS techniques.',
         label: 'MITRE ATLAS',
@@ -1086,6 +1116,13 @@ export const SECTIONS: Section[] = [
         label: 'Privacy Check',
         desc: 'IP · WebRTC · fingerprint',
         icon: Lock,
+      },
+      {
+        path: '/dfir/personal-security',
+        useCase: 'Work through a personal OPSEC / cybersecurity checklist.',
+        label: 'Personal Security Checklist',
+        desc: 'OPSEC audit across accounts, devices, network, travel, comms, crypto & family · mark-done progress · exportable report',
+        icon: ShieldCheck,
       },
     ],
   },
@@ -1202,6 +1239,13 @@ export const SECTIONS: Section[] = [
         label: 'Export Hub',
         desc: 'Export IOCs to 8 standard formats: STIX 2.1, MISP Event, Sigma, YARA, Snort, Suricata, CSV, pfSense Alias. Open standards, no paid services.',
         icon: Download,
+      },
+      {
+        path: '/dfir/report-composer',
+        useCase: 'Draft a multi-section investigation report in the browser.',
+        label: 'Report Composer',
+        desc: 'Cover · summary · findings · IOCs · sources · TLP marking · export to PDF (jsPDF) or DOCX (OOXML via JSZip) · localStorage autosave · 100% client-side',
+        icon: FileText,
       },
     ],
   },

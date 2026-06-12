@@ -99,6 +99,8 @@ const threatIntel: SidebarConfig = {
         { label: 'Secret Leaks', href: '/threatintel/secret-leaks', icon: KeyRound },
         { label: 'Cross-campaign', href: '/threatintel/cross-campaign', icon: Link2 },
         { label: 'Bitwire', href: '/threatintel/bitwire-blocklist', icon: Shield },
+        { label: 'OWASP AI', href: '/threatintel/owasp-ai-landscape', icon: ShieldCheck },
+        { label: 'Toolbox', href: '/threatintel/curated-toolbox', icon: Compass },
       ],
     },
     {
@@ -126,6 +128,7 @@ const dfir: SidebarConfig = {
         { label: 'Email Defense', href: '/dfir/email-defense', icon: Mail },
         { label: 'Phishing', href: '/dfir/phishing', icon: AlertTriangle },
         { label: 'Domain Rep', href: '/dfir/domain-rep', icon: Globe },
+        { label: 'Exposed Host', href: '/dfir/exposed-host', icon: ShieldAlert },
         { label: 'Threat Hunt', href: '/dfir/threat-hunt', icon: Radar },
         { label: 'Full Spectrum', href: '/dfir/full-spectrum', icon: Zap },
       ],

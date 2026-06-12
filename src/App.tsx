@@ -63,6 +63,7 @@ const AsnLookup = lazy(() => import('./pages/dfir/AsnLookup'));
 const HostGraph = lazy(() => import('./pages/dfir/HostGraph'));
 const Breach = lazy(() => import('./pages/dfir/Breach'));
 const ExifParse = lazy(() => import('./pages/dfir/ExifParse'));
+const ExposedHostPage = lazy(() => import('./pages/dfir/ExposedHost'));
 const MitreMatrix = lazy(() => import('./pages/dfir/MitreMatrix'));
 const AtlasMatrix = lazy(() => import('./pages/dfir/AtlasMatrix'));
 const UrlPreview = lazy(() => import('./pages/dfir/UrlPreview'));
@@ -352,6 +353,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/dfir/open-directory', Component: OpenDirectory },
   { path: '/dfir/full-spectrum', Component: FullSpectrum },
   { path: '/dfir/exposure', Component: Exposure },
+  { path: '/dfir/exposed-host', Component: ExposedHostPage },
   { path: '/dfir/asset-intel', Component: AssetIntel },
   { path: '/dfir/file', Component: DfirFileRedirect, eager: true },
   { path: '/threatintel/pulse', Component: ThreatPulse },
