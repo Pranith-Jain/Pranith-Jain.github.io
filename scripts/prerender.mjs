@@ -331,6 +331,7 @@ const ROUTES = [
   '/threatintel/telegram-leaks/stats',
   '/threatintel/yara',
   '/threatintel/llm-threat-atlas',
+  '/threatintel/osint-map',
 ];
 
 const SHELL_PATH = resolve(ROOT, 'dist/index.html');

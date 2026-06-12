@@ -26,7 +26,11 @@ export interface IocFeedSummary {
     | 'phishing-army'
     | 'tweetfeed'
     | 'bitwire'
-    | 'malwareworld';
+    | 'malwareworld'
+    | 'phishing-database'
+    | 'threatview-ip'
+    | 'threatview-domains'
+    | 'viriback-c2';
   source_name: string;
   fetched_at: string;
   count: number;
@@ -545,7 +549,39 @@ export const FEED_SOURCES: Record<SourceId, FeedSource> = {
     name: 'MalwareWorld Bad Reputation',
     url: 'https://malwareworld.com/data/type_BadReputation_ips.txt',
   },
+  'phishing-database': {
+    id: 'phishing-database',
+    name: 'Phishing.Database',
+    url: 'https://raw.githubusercontent.com/Phishing-Database/Phishing.Database/refs/heads/master/phishing-links-ACTIVE-NOW.txt',
+  },
+  'threatview-ip': {
+    id: 'threatview-ip',
+    name: 'Threatview.io IP Blocklist',
+    url: 'https://threatview.io/Downloads/IP-High-Confidence-Feed.txt',
+  },
+  'threatview-domains': {
+    id: 'threatview-domains',
+    name: 'Threatview.io Domain Blocklist',
+    url: 'https://threatview.io/Downloads/DOMAIN-High-Confidence-Feed.txt',
+  },
+  'viriback-c2': {
+    id: 'viriback-c2',
+    name: 'ViriBack C2 Tracker',
+    url: 'https://tracker.viriback.com/dump.php',
+  },
 };
+
+// ─── Plain URL list (one URL per line, http-prefixed) ────────────────────────
+// Used by: Phishing.Database, VXVault, and similar URL-only feeds.
+
+export function parseUrlList(body: string, cap: number = CAP): IocEntry[] {
+  return body
+    .split('\n')
+    .map((l) => l.trim())
+    .filter((l) => l.startsWith('http'))
+    .slice(0, cap)
+    .map((value) => ({ type: 'url', value }));
+}
 
 // ─── ViriBack C2 Tracker ────────────────────────────────────────────────────
 // CSV: Malware Family,URL,IP Address,First Seen
@@ -640,6 +676,18 @@ export function buildSummary(sourceId: SourceId, rawBody: string, cap: number = 
       break;
     case 'tweetfeed':
       entries = parseTweetFeed(rawBody, cap);
+      break;
+    case 'phishing-database':
+      entries = parseUrlList(rawBody, cap);
+      break;
+    case 'threatview-ip':
+      entries = parsePlainTextIps(rawBody, cap);
+      break;
+    case 'threatview-domains':
+      entries = parseThreatviewDomains(rawBody, cap);
+      break;
+    case 'viriback-c2':
+      entries = parseViriback(rawBody, cap);
       break;
   }
 

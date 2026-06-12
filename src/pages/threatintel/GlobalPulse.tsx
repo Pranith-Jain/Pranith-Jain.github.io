@@ -1552,6 +1552,25 @@ export default function GlobalPulse(): JSX.Element {
           )}
         </div>
       )}
+      {/* ─── Related Tools ─── */}
+      <div className="mt-4 flex items-center gap-4 text-xs text-slate-500 dark:text-zinc-500">
+        <span>Related:</span>
+        <a
+          href="/threatintel/osint-map"
+          className="flex items-center gap-1 text-brand-600 dark:text-brand-400 hover:underline"
+        >
+          <Globe size={12} /> OSINT Country Map
+        </a>
+        <span className="text-zinc-700">|</span>
+        <a
+          href="https://map.wddadk.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center gap-1 text-brand-600 dark:text-brand-400 hover:underline"
+        >
+          <ExternalLink size={12} /> map.wddadk.com
+        </a>
+      </div>
     </DataPageLayout>
   );
 }

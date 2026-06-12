@@ -177,6 +177,7 @@ const OnionWatch = lazy(() => import('./pages/dfir/OnionWatch'));
 const TelegramWatch = lazy(() => import('./pages/dfir/TelegramWatch'));
 const AwesomeLists = lazy(() => import('./pages/dfir/AwesomeLists'));
 const ExternalResources = lazy(() => import('./pages/threatintel/ExternalResources'));
+const OsintCountryMap = lazy(() => import('./pages/threatintel/OsintCountryMap'));
 const DarkWebOsintTools = lazy(() => import('./pages/threatintel/DarkWebOsintTools'));
 const ThreatIntelHome = lazy(() => import('./pages/threatintel/Home'));
 const ThreatIntelAbout = lazy(() => import('./pages/threatintel/About'));
@@ -547,6 +548,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel/telegram-settings', Component: TelegramSettings },
   { path: '/threatintel/awesome-lists', Component: AwesomeLists },
   { path: '/threatintel/external-resources', Component: ExternalResources },
+  { path: '/threatintel/osint-map', Component: OsintCountryMap },
   { path: '/threatintel/darkweb-tools', Component: DarkWebOsintTools },
   { path: '/threatintel/aggregated-feeds', Component: AggregatedFeeds },
   { path: '/threatintel/predictions', Component: Predictions },

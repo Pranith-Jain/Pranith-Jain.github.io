@@ -999,6 +999,12 @@ export const SECTIONS: Section[] = [
         icon: ExternalLink,
       },
       {
+        to: '/threatintel/osint-map',
+        label: 'OSINT Country Map',
+        desc: 'Interactive world map of OSINT resources by country — click any nation for jurisdiction-specific tools, registries, and investigation links.',
+        icon: Globe,
+      },
+      {
         to: '/threatintel/osint-framework',
         label: 'OSINT Framework',
         desc: '70+ curated OSINT tools across 15 categories. Filter by pricing tier and category.',
