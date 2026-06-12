@@ -38,7 +38,21 @@ interface LiveSource {
 
 interface LiveIocsResponse {
   generated_at: string;
+  /**
+   * Sources that contributed items to THIS snapshot. Drives the
+   * count / freshness badge in the header. Silent-failure / empty
+   * sources are NOT here — see `registered_sources` for the full roster.
+   */
   sources: LiveSource[];
+  /**
+   * Every source the backend knows about, with the result of the latest
+   * run attached. Includes silent-failure / empty sources. Used for the
+   * "Sources: …" prose and the filter-pill row so the user sees the
+   * full ~30-feed roster, not just the 10-12 that happened to have
+   * items in the current snapshot. Field was added 2026-06 — older
+   * responses omit it and we fall back to `sources`.
+   */
+  registered_sources?: LiveSource[];
   total: number;
   items: LiveIoc[];
 }
@@ -195,7 +209,22 @@ export default function LiveIocs(): JSX.Element {
           observed and by whom."
         </p>
         <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-6">
-          Sources: {sourcesSentence(data?.sources)}.
+          Sources:{' '}
+          {(() => {
+            const list = data?.registered_sources ?? data?.sources ?? [];
+            const labels = sourcesSentence(list);
+            // Add a soft note when the backend didn't ship the full roster
+            // (older API version) OR when only active sources were shown.
+            const isFullRoster = !!data?.registered_sources;
+            return (
+              <>
+                {labels}
+                {!isFullRoster && list.length > 0 && (
+                  <span className="text-slate-400 italic"> (active only — others may be empty)</span>
+                )}
+              </>
+            );
+          })()}
         </p>
       </div>
 
@@ -254,35 +283,52 @@ export default function LiveIocs(): JSX.Element {
         </div>
         {data && (
           <div className="flex flex-wrap items-center gap-1.5 mt-2">
-            <span className="text-mini font-mono text-slate-500 mr-1">sources:</span>
-            {data.sources.map((s) => {
+            <span className="text-mini font-mono text-slate-500 mr-1">
+              sources ({data.registered_sources?.length ?? data.sources.length}
+              {data.registered_sources ? '' : ' active'}):
+            </span>
+            {(data.registered_sources ?? data.sources).map((s) => {
               const active = sourceFilter.has(s.id);
               const pillCls = sourceColor(s.id);
               const fresh = sourceFreshness(s.newest_observation);
               const dot = FRESHNESS_DOT[fresh];
               const newestRel = s.newest_observation ? shortRel(s.newest_observation) : null;
-              const tooltip = s.ok
-                ? newestRel
+              // Inactive here means: registered but produced 0 items OR errored
+              // in the current snapshot. Still clickable for filtering (so the
+              // user can pick "all sources" or drill in) — the filter just
+              // won’t match anything until the source has items again.
+              const isEmpty = s.count === 0;
+              const tooltip = isEmpty
+                ? s.ok
+                  ? newestRel
+                    ? `${s.id}: 0 items in this snapshot · ${dot.label} · newest ${newestRel}`
+                    : `${s.id}: 0 items in this snapshot (bulk feed) · ${dot.label}`
+                  : `${s.id} unreachable in this snapshot`
+                : newestRel
                   ? `${s.count} items from ${s.id} · ${dot.label} · newest ${newestRel}`
-                  : `${s.count} items from ${s.id} · ${dot.label}`
-                : `${s.id} unreachable`;
+                  : `${s.count} items from ${s.id} · ${dot.label}`;
               return (
                 <button
                   key={s.id}
                   type="button"
                   onClick={() => toggleSource(s.id)}
-                  disabled={!s.ok}
                   className={`text-mini font-mono px-2 py-1 rounded border inline-flex items-center gap-1.5 ${
                     active
                       ? pillCls
-                      : s.ok
-                        ? 'border-slate-300 dark:border-slate-700 text-slate-500'
-                        : 'border-slate-300 dark:border-slate-700 text-slate-400 opacity-50 cursor-not-allowed'
+                      : isEmpty
+                        ? 'border-slate-300/60 dark:border-slate-700/60 text-slate-400 dark:text-slate-500 opacity-60'
+                        : 'border-slate-300 dark:border-slate-700 text-slate-500'
                   }`}
                   title={tooltip}
                 >
-                  {s.ok && (
+                  {!isEmpty && s.ok && (
                     <span className={`inline-block w-1.5 h-1.5 rounded-full ${dot.cls}`} aria-label={dot.label} />
+                  )}
+                  {isEmpty && s.ok && (
+                    <span
+                      className="inline-block w-1.5 h-1.5 rounded-full bg-slate-300 dark:bg-slate-600"
+                      aria-label="empty this snapshot"
+                    />
                   )}
                   {s.id} <span className="opacity-70">· {s.count}</span>
                 </button>

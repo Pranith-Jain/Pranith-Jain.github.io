@@ -117,7 +117,23 @@ export interface LiveSource {
 
 export interface LiveIocsResponse {
   generated_at: string;
+  /**
+   * Sources that produced items in this snapshot. The "active" subset —
+   * derived from `registered_sources` by filtering out count===0 entries.
+   * Drives the freshness/count badges in the UI; does NOT represent the
+   * full registered feed roster. See `registered_sources` for that.
+   */
   sources: LiveSource[];
+  /**
+   * The full roster of every source the API knows about, including
+   * ones that produced 0 fresh items this snapshot (count===0, ok===true)
+   * and ones whose last fetch failed (ok===false). This is the pre-filter
+   * list — UI uses it for the "Sources: …" prose and the filter-pill
+   * row so users can see and filter by the complete set of ~30+ feeds,
+   * not just the ones that happened to have items. The "active" subset
+   * is in `sources` above.
+   */
+  registered_sources: LiveSource[];
   total: number;
   /** All items, sorted newest-first (entries without timestamp last). */
   items: LiveIoc[];
@@ -926,7 +942,12 @@ async function finalizeLiveIocs(
 
   return {
     generated_at: new Date().toISOString(),
+    // Active sources (count > 0) drive the freshness/count badges. We also
+    // ship the pre-filter roster as `registered_sources` so the UI can
+    // render the full ~30+ feed list (and the filter pills for it),
+    // distinguishing "empty this snapshot" from "actively producing".
     sources: activeSources,
+    registered_sources: sources,
     total: freshItems.length,
     items: freshItems.slice(0, MAX_ITEMS),
     degraded,
