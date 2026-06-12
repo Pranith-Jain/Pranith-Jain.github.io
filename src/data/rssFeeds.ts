@@ -1025,15 +1025,6 @@ export const rssFeeds: RSSFeed[] = [
     source: 'the-decoder.com',
     language: 'en-US',
   },
-  {
-    id: 'import-ai',
-    name: 'Import AI (Jack Clark)',
-    url: 'https://importai.substack.com/feed',
-    description: 'Weekly AI newsletter covering frontier model releases, safety research, policy, and industry trends',
-    category: 'tech',
-    source: 'importai.substack.com',
-    language: 'en-US',
-  },
 
   // ============================================================================
   // FINANCE & BANKING — cyber threats, fintech security, financial-sector incidents
@@ -1300,6 +1291,42 @@ export const rssFeeds: RSSFeed[] = [
     description: 'AhnLab Security Emergency-response Center — malware, phishing and APT analysis',
     category: 'threat-intel',
     source: 'asec.ahnlab.com',
+    language: 'en',
+  },
+  {
+    id: 'huggingface-blog',
+    name: 'Hugging Face Blog',
+    url: 'https://huggingface.co/blog/feed.xml',
+    description: 'Open-source AI / ML research, model releases and tooling',
+    category: 'tech',
+    source: 'huggingface.co',
+    language: 'en',
+  },
+  {
+    id: 'the-decoder',
+    name: 'The Decoder',
+    url: 'https://the-decoder.com/feed/',
+    description: 'AI industry news — model launches, research, policy and enterprise adoption',
+    category: 'tech',
+    source: 'the-decoder.com',
+    language: 'en',
+  },
+  {
+    id: 'import-ai',
+    name: 'Import AI (Jack Clark)',
+    url: 'https://importai.substack.com/feed',
+    description: 'Weekly AI research & policy analysis newsletter',
+    category: 'tech',
+    source: 'importai.substack.com',
+    language: 'en',
+  },
+  {
+    id: 'deepmind-blog',
+    name: 'Google DeepMind',
+    url: 'https://blog.google/innovation-and-ai/models-and-research/google-deepmind/rss/',
+    description: 'DeepMind research announcements and model releases',
+    category: 'tech',
+    source: 'blog.google',
     language: 'en',
   },
   {
@@ -1632,30 +1659,26 @@ export const landingThreatVendor = [
   'red-canary',
   'malware-traffic-analysis',
   'doublepulsar',
-  // dfir-lab removed 2026-06: site goes offline for months at a time,
-  // returning timeout or parser_zero_items.
+  'dfir-lab',
   'dfir-radar',
   'sans-isc',
   'rapid7-blog',
   'jpcert',
   'ahnlab-asec',
-  // detectify removed 2026-06: acquired by Trend Micro; blog.detectify.com
-  // redirects or 404s.
+  'detectify',
   'knowbe4',
-  // orange-cyberdefense removed 2026-06: deep-path URL
-  // (/global/blog/ethical-hacking/feed) broken by CMS restructure.
+  'orange-cyberdefense',
   'cqure-academy',
 ];
 
 export const landingThreatInvestigation = [
   'dfir-report',
   'the-record',
-  // curated-intel removed 2026-06: Blogger-hosted, dormant (no posts in
-  // the 7-day aggregation window → always returns 0 items).
+  'curated-intel',
   'darkwebinformer',
   'ransomware-live',
   'databreaches',
-  // mitre-attack-medium removed 2026-06: Medium blocks Worker IPs (503).
+  'mitre-attack-medium',
   'cyble-blog',
   'socradar-blog',
   'bushidotoken',
@@ -1668,11 +1691,10 @@ export const landingThreatInvestigation = [
   'pentestlab',
   'embracethered',
   'kitploit',
-  // hakin9 removed 2026-06: magazine defunct since 2023; domain unreliable.
-  // massive-alliance removed 2026-06: small consulting firm; site down or
-  // restructured.
+  'hakin9',
+  'massive-alliance',
   'hackerfactor',
-  // darknet removed 2026-06: inactive since 2024; parser_zero_items.
+  'darknet',
 ];
 
 // Reddit blocks Cloudflare Worker egress IPs at the network level (see
