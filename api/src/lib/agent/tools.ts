@@ -22,7 +22,11 @@ async function apiFetch<T>(
     ...((init?.headers as Record<string, string>) ?? {}),
   };
   if (apiKey) headers['authorization'] = `Bearer ${apiKey}`;
-  const req = new Request(`${API_BASE}${path}`, { ...init, headers });
+  // Default 20s per-call timeout — long enough for the heaviest
+  // actor-enrich fan-out, short enough that one stalled upstream
+  // can't pin the agent loop. Callers can override via `init.signal`.
+  const initWithTimeout: RequestInit = init?.signal ? init : { ...init, signal: AbortSignal.timeout(20_000) };
+  const req = new Request(`${API_BASE}${path}`, { ...initWithTimeout, headers });
   const res = self ? await self.fetch(req) : await fetch(req);
   if (!res.ok) {
     const body = await res.text().catch(() => '');
@@ -39,7 +43,10 @@ async function apiFetchSse(
 ): Promise<{ events: Array<{ event: string; data: unknown }> }> {
   const headers: Record<string, string> = { accept: 'text/event-stream', ...(internalHeader ?? {}) };
   if (apiKey) headers['authorization'] = `Bearer ${apiKey}`;
-  const req = new Request(`${API_BASE}${path}`, { headers });
+  // SSE streams are long-lived; cap at 60s so a wedged upstream
+  // can't pin the agent loop. (Real IOC-check streams typically
+  // complete in <5s; 60s leaves headroom for large indicator fan-outs.)
+  const req = new Request(`${API_BASE}${path}`, { headers, signal: AbortSignal.timeout(60_000) });
   const res = self ? await self.fetch(req) : await fetch(req);
   if (!res.ok) {
     const body = await res.text().catch(() => '');

@@ -34,6 +34,22 @@ const USER_AGENT = 'Mozilla/5.0 (compatible; portfolio-landscape-sync/1.0)';
 const FETCH_TIMEOUT_MS = 20_000;
 const CACHE_MAX_AGE_S = 300; // serve stale up to 5 min while we revalidate
 
+/**
+ * Per-colo Cache API shadow for the OWASP AI Landscape / Curated Toolbox
+ * payload. KV reads cost quota; per-colo `caches.default` is free. The
+ * shape of the data — large JSON, low write rate, identical across colos
+ * — is the textbook case for cache-API-as-L1 + KV-as-L2.
+ *
+ * `writeShadow` runs on the (rare) cron-sync write-through so a freshly
+ * fetched payload is available to all colos without each one re-reading
+ * from KV. `readShadow` is the hot path: ~1 KV read per colo per TTL
+ * window instead of per origin request.
+ */
+function shadowCacheReq(kind: 'owasp' | 'owasp-meta' | 'curated' | 'curated-meta', kvKey: string): Request {
+  // Encode the KV key into the URL so a key bump (e.g. v1 → v2) auto-busts.
+  return new Request(`https://landscape-shadow.internal/v1/${kind}/${encodeURIComponent(kvKey)}`);
+}
+
 /* ─────────────────────────── OWASP AI Landscape ─────────────────────── */
 
 export type OwaspNodeType = 'umbrella' | 'sub-umbrella' | 'guide' | 'standard' | 'cheat sheet' | 'tool' | 'ctf';
@@ -221,6 +237,26 @@ export async function syncOwaspAiLandscape(
       await env.KV_CACHE.put(OWASP_AI_LANDSCAPE_KV_KEY, JSON.stringify(payload));
       const meta: OwaspMeta = { source: OWASP_RAW_URL, fetchedAt: payload.fetchedAt, ok: true, counts };
       await env.KV_CACHE.put(OWASP_AI_LANDSCAPE_META_KEY, JSON.stringify(meta));
+      // Write-through to the per-colo cache shadow so readers in colos that
+      // already have a stale L1 entry pick up the new value on the next
+      // request (instead of serving stale for up to CACHE_MAX_AGE_S).
+      try {
+        const cache = (caches as unknown as { default: Cache }).default;
+        await cache.put(
+          shadowCacheReq('owasp', OWASP_AI_LANDSCAPE_KV_KEY),
+          new Response(JSON.stringify(payload), {
+            headers: { 'content-type': 'application/json', 'cache-control': `public, max-age=${CACHE_MAX_AGE_S}` },
+          })
+        );
+        await cache.put(
+          shadowCacheReq('owasp-meta', OWASP_AI_LANDSCAPE_META_KEY),
+          new Response(JSON.stringify(meta), {
+            headers: { 'content-type': 'application/json', 'cache-control': `public, max-age=${CACHE_MAX_AGE_S}` },
+          })
+        );
+      } catch {
+        /* best-effort */
+      }
     }
     return { ok: true, counts };
   } catch (e) {
@@ -245,8 +281,32 @@ export async function getOwaspAiLandscapeHandler(c: Context<{ Bindings: Env }>) 
   if (!kv) {
     return c.json(OWASP_AI_LANDSCAPE_SEED, 200, { 'cache-control': 'public, max-age=60' });
   }
+  // L1: per-colo Cache API. Hot path — collapses N origin requests/colo
+  // to 1 KV read per TTL window.
+  const cache = (caches as unknown as { default: Cache }).default;
+  const shadowReq = shadowCacheReq('owasp', OWASP_AI_LANDSCAPE_KV_KEY);
+  try {
+    const hit = await cache.match(shadowReq);
+    if (hit)
+      return new Response(hit.body, {
+        headers: { 'content-type': 'application/json', 'cache-control': `public, max-age=${CACHE_MAX_AGE_S}` },
+      });
+  } catch {
+    /* fall through to KV */
+  }
   const raw = await kv.get(OWASP_AI_LANDSCAPE_KV_KEY, 'json');
   if (raw) {
+    // Write-through to L1 so the next read in this colo skips KV for 5 min.
+    try {
+      await cache.put(
+        shadowReq,
+        new Response(JSON.stringify(raw), {
+          headers: { 'content-type': 'application/json', 'cache-control': `public, max-age=${CACHE_MAX_AGE_S}` },
+        })
+      );
+    } catch {
+      /* best-effort */
+    }
     return c.json(raw, 200, { 'cache-control': `public, max-age=${CACHE_MAX_AGE_S}` });
   }
   let meta: OwaspMeta | null = null;
@@ -261,8 +321,29 @@ export async function getOwaspAiLandscapeHandler(c: Context<{ Bindings: Env }>) 
 export async function getOwaspAiLandscapeMetaHandler(c: Context<{ Bindings: Env }>) {
   const kv = c.env.KV_CACHE;
   if (!kv) return c.json({ ok: true, source: 'seed' }, 200, { 'cache-control': 'no-store' });
+  // L1: cache-api shadow. META flips only on cron sync (~1×/6h).
+  const cache = (caches as unknown as { default: Cache }).default;
+  const shadowReq = shadowCacheReq('owasp-meta', OWASP_AI_LANDSCAPE_META_KEY);
+  try {
+    const hit = await cache.match(shadowReq);
+    if (hit)
+      return new Response(hit.body, { headers: { 'content-type': 'application/json', 'cache-control': 'no-store' } });
+  } catch {
+    /* fall through to KV */
+  }
   const raw = await kv.get(OWASP_AI_LANDSCAPE_META_KEY, 'json');
-  return c.json(raw ?? { ok: true, source: 'seed' }, 200, { 'cache-control': 'no-store' });
+  const value = raw ?? { ok: true, source: 'seed' };
+  try {
+    await cache.put(
+      shadowReq,
+      new Response(JSON.stringify(value), {
+        headers: { 'content-type': 'application/json', 'cache-control': `max-age=${CACHE_MAX_AGE_S}` },
+      })
+    );
+  } catch {
+    /* best-effort */
+  }
+  return c.json(value, 200, { 'cache-control': 'no-store' });
 }
 
 /* ─────────────────────────── Curated Toolbox ───────────────────────── */
@@ -533,6 +614,24 @@ export async function syncCuratedToolbox(
         totalSections: payload.totalSections,
       };
       await env.KV_CACHE.put(CURATED_TOOLBOX_META_KEY, JSON.stringify(meta));
+      // Write-through to per-colo cache shadow (see OWASP handler above).
+      try {
+        const cache = (caches as unknown as { default: Cache }).default;
+        await cache.put(
+          shadowCacheReq('curated', CURATED_TOOLBOX_KV_KEY),
+          new Response(JSON.stringify(payload), {
+            headers: { 'content-type': 'application/json', 'cache-control': `public, max-age=${CACHE_MAX_AGE_S}` },
+          })
+        );
+        await cache.put(
+          shadowCacheReq('curated-meta', CURATED_TOOLBOX_META_KEY),
+          new Response(JSON.stringify(meta), {
+            headers: { 'content-type': 'application/json', 'cache-control': 'max-age=60' },
+          })
+        );
+      } catch {
+        /* best-effort */
+      }
     }
     return { ok: true, totalTools: payload.totalTools, totalSections: payload.totalSections };
   } catch (e) {
@@ -560,8 +659,31 @@ export async function getCuratedToolboxHandler(c: Context<{ Bindings: Env }>) {
   if (!kv) {
     return c.json(CURATED_TOOLBOX_SEED, 200, { 'cache-control': 'public, max-age=60' });
   }
+  // L1: cache-api shadow. Same pattern as the OWASP handler — payload is
+  // large JSON, low write rate, identical across colos.
+  const cache = (caches as unknown as { default: Cache }).default;
+  const shadowReq = shadowCacheReq('curated', CURATED_TOOLBOX_KV_KEY);
+  try {
+    const hit = await cache.match(shadowReq);
+    if (hit)
+      return new Response(hit.body, {
+        headers: { 'content-type': 'application/json', 'cache-control': `public, max-age=${CACHE_MAX_AGE_S}` },
+      });
+  } catch {
+    /* fall through to KV */
+  }
   const raw = await kv.get(CURATED_TOOLBOX_KV_KEY, 'json');
   if (raw) {
+    try {
+      await cache.put(
+        shadowReq,
+        new Response(JSON.stringify(raw), {
+          headers: { 'content-type': 'application/json', 'cache-control': `public, max-age=${CACHE_MAX_AGE_S}` },
+        })
+      );
+    } catch {
+      /* best-effort */
+    }
     return c.json(raw, 200, { 'cache-control': `public, max-age=${CACHE_MAX_AGE_S}` });
   }
   let meta: CuratedMeta | null = null;
@@ -576,6 +698,28 @@ export async function getCuratedToolboxHandler(c: Context<{ Bindings: Env }>) {
 export async function getCuratedToolboxMetaHandler(c: Context<{ Bindings: Env }>) {
   const kv = c.env.KV_CACHE;
   if (!kv) return c.json({ ok: true, source: 'seed' }, 200, { 'cache-control': 'no-store' });
+  // L1: cache-api shadow (60s TTL is fine for meta — UI just shows the
+  // last-updated stamp; the value only flips on cron sync).
+  const cache = (caches as unknown as { default: Cache }).default;
+  const shadowReq = shadowCacheReq('curated-meta', CURATED_TOOLBOX_META_KEY);
+  try {
+    const hit = await cache.match(shadowReq);
+    if (hit)
+      return new Response(hit.body, { headers: { 'content-type': 'application/json', 'cache-control': 'no-store' } });
+  } catch {
+    /* fall through to KV */
+  }
   const raw = await kv.get(CURATED_TOOLBOX_META_KEY, 'json');
-  return c.json(raw ?? { ok: true, source: 'seed' }, 200, { 'cache-control': 'no-store' });
+  const value = raw ?? { ok: true, source: 'seed' };
+  try {
+    await cache.put(
+      shadowReq,
+      new Response(JSON.stringify(value), {
+        headers: { 'content-type': 'application/json', 'cache-control': 'max-age=60' },
+      })
+    );
+  } catch {
+    /* best-effort */
+  }
+  return c.json(value, 200, { 'cache-control': 'no-store' });
 }

@@ -1,5 +1,7 @@
 // Cloudflare Workers runtime exposes caches.default but the TypeScript
 // lib types only define `caches.open()`. Cast is required for `caches.default`.
+// The batched mode of ProviderCache (used by the IOC fan-out) is intentionally
+// L1-only (caches.default) — see the class docstring for why.
 import { safeNullLog } from './safe-catch';
 const CACHE_PLATFORM = caches as unknown as { default: Cache };
 
@@ -16,11 +18,17 @@ interface BatchEntry {
 }
 
 /**
- * KV-backed provider result cache.
+ * Provider result cache (KV + per-colo Cache API).
  *
  * Caches upstream provider responses (VirusTotal, AbuseIPDB, etc.) to
- * reduce API quota consumption and improve response times. Uses KV with
- * configurable TTL.
+ * reduce API quota consumption and improve response times. Two layers:
+ *   - L1: per-colo `caches.default` (free, sub-millisecond)
+ *   - L2: KV namespace (cross-colo durable, metered reads/writes)
+ *
+ * The non-batched get/set path uses L1 first, falling through to L2 on
+ * miss. The batched mode (used by the IOC fan-out) is L1-only — it
+ * coalesces an entire indicator's worth of provider results into a single
+ * Cache API entry to stay under the 50-subrequest-per-invocation limit.
  *
  * Gracefully degrades when KV is unavailable — all operations become
  * no-ops so the IOC check still works (just without caching).
@@ -33,9 +41,11 @@ export class ProviderCache {
    * Worker invocation; doing a per-provider KV get + set (and the Cache
    * API front below) burns ~2N+ subrequests, which on the Workers Free
    * plan trips the 50-subrequests-per-invocation ceiling once N grows
-   * past ~12. Batched mode collapses that to ONE KV read (`primeBatch`)
-   * and ONE KV write (`flushBatch`) for the whole indicator, keyed by a
-   * single combined key holding every provider's result.
+   * past ~12. Batched mode collapses that to ONE Cache API read
+   * (`primeBatch`) and ONE Cache API write (`flushBatch`) for the whole
+   * indicator, keyed by a single combined entry holding every provider's
+   * result. (Note: the batched mode is intentionally Cache-API-only — the
+   * class docstring used to claim this was KV; that was wrong.)
    */
   private primed: Record<string, BatchEntry> | null = null;
   private staged: Record<string, BatchEntry> = {};
@@ -121,7 +131,8 @@ export class ProviderCache {
         const cacheResp = new Response(JSON.stringify(cached), {
           headers: { 'cache-control': `public, max-age=${ttl}` },
         });
-        if (cache) safeNullLog('cache-put-provider', cache.put(new Request(this.cacheUrl(provider, indicator)), cacheResp));
+        if (cache)
+          safeNullLog('cache-put-provider', cache.put(new Request(this.cacheUrl(provider, indicator)), cacheResp));
         return { ...cached, cached: true };
       }
       return cached;
@@ -188,10 +199,12 @@ export class ProviderCache {
   }
 
   /**
-   * Load the combined cache entry for `indicator` from the Cloudflare Cache API
-   * (per-colo, free — does NOT count against the KV quota). Provider results are
-   * ephemeral and per-colo caching is sufficient, so this keeps the hot IOC-check
-   * path off KV entirely.
+   * Load the combined cache entry for `indicator` from the per-colo
+   * Cache API (free, does NOT count against the KV quota). The batched
+   * mode is intentionally L1-only — the payload shape (a per-indicator
+   * map of every provider's result) is not stable enough to version in
+   * KV cost-effectively. Provider results are ephemeral, so per-colo
+   * caching is sufficient for the IOC-fanout hot path.
    */
   async primeBatch(indicator: Indicator): Promise<void> {
     this.primed = {};
@@ -226,9 +239,12 @@ export class ProviderCache {
   }
 
   /**
-   * Write the merged batch (still-valid primed entries + freshly staged ones)
-   * back under the combined key in one KV put. The key's TTL tracks the
-   * longest-lived entry so storage is bounded; per-entry `exp` gates reads.
+   * Write the merged batch (still-valid primed entries + freshly staged
+   * ones) back to the per-colo Cache API in a single put. The cache
+   * entry's TTL tracks the longest-lived entry so storage is bounded;
+   * per-entry `exp` gates reads. Note: this is intentionally Cache-API
+   * only, not KV — see the primeBatch comment for why the batched mode
+   * avoids KV entirely.
    */
   async flushBatch(indicator: Indicator): Promise<void> {
     const now = Math.floor(Date.now() / 1000);

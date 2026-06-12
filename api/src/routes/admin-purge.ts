@@ -77,6 +77,11 @@ export async function purgeCacheHandler(c: Context<{ Bindings: Env }>): Promise<
         Authorization: `Bearer ${apiToken}`,
         'Content-Type': 'application/json',
       },
+      // CF purge API is normally <300ms; cap at 10s. Without this a
+      // wedged API call could pin the request — and since this is an
+      // admin endpoint, a hung response is hard to spot from logs
+      // without a request-id tie-out.
+      signal: AbortSignal.timeout(10_000),
       body: JSON.stringify(payload),
     });
 

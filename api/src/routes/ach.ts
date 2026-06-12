@@ -160,6 +160,9 @@ async function callLlm(env: Env, system: string, user: string): Promise<string> 
       const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
         method: 'POST',
         headers: { Authorization: `Bearer ${key}`, 'content-type': 'application/json' },
+        // ACH scoring is a single LLM call; 30s matches the LLM
+        // call ceiling used by the other Groq-bound routes.
+        signal: AbortSignal.timeout(30_000),
         body: JSON.stringify({
           model: 'openai/gpt-oss-120b',
           messages: [
@@ -170,7 +173,6 @@ async function callLlm(env: Env, system: string, user: string): Promise<string> 
           temperature: 0.2,
           reasoning_effort: 'medium',
         }),
-        signal: AbortSignal.timeout(45000),
       });
       if (res.ok) {
         const data = await res.json<{ choices?: Array<{ message?: { content?: string } }> }>();

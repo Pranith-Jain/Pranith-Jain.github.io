@@ -125,7 +125,14 @@ export async function extractIocsFromImageUrl(
   env: { AI?: AIBindings } & Pick<Env, never>
 ): Promise<{ text: string; hits: ImageIocHit[]; error?: string }> {
   try {
-    const res = await fetch(url, { headers: { 'user-agent': 'Mozilla/5.0 (compatible; portfolio-ocr/1.0)' } });
+    // Image OCR fetch — 15s ceiling. Caller is `report-analyzer` (admin
+    // / authenticated pipeline) so this isn't a public SSRF surface,
+    // but the URL is user-supplied and a slow target shouldn't pin
+    // the Worker past the CPU budget.
+    const res = await fetch(url, {
+      headers: { 'user-agent': 'Mozilla/5.0 (compatible; portfolio-ocr/1.0)' },
+      signal: AbortSignal.timeout(15_000),
+    });
     if (!res.ok) return { text: '', hits: [], error: `fetch ${res.status}` };
     const ab = await res.arrayBuffer();
     return extractIocsFromImageBytes(new Uint8Array(ab), env);

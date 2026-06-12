@@ -96,6 +96,9 @@ async function runGroq(key: string, input: LlmInput): Promise<string> {
   const res = await fetch(GROQ_URL, {
     method: 'POST',
     headers: { Authorization: `Bearer ${key}`, 'content-type': 'application/json' },
+    // LLM calls are slow (3–15s typical). 30s ceiling matches the
+    // expected streaming response time for a YARA rule generation.
+    signal: AbortSignal.timeout(30_000),
     body: JSON.stringify({
       model: GROQ_MODEL,
       messages: [
@@ -106,7 +109,6 @@ async function runGroq(key: string, input: LlmInput): Promise<string> {
       temperature: input.temperature ?? 0.2,
       reasoning_effort: 'medium',
     }),
-    signal: AbortSignal.timeout(30_000),
   });
   if (res.status === 429) throw new Error('groq rate-limited');
   if (!res.ok) throw new Error(`groq HTTP ${res.status}`);

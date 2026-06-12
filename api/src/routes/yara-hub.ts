@@ -21,6 +21,9 @@ export async function yaraHubListHandler(c: Context<{ Bindings: Env }>) {
         'Auth-Key': authKey,
         'Content-Type': 'application/json',
       },
+      // YARAify is community-hosted — be generous on the ceiling. 15s
+      // matches the other upstream-bound calls in this file.
+      signal: AbortSignal.timeout(15_000),
       body: JSON.stringify({ query: 'recent_yararules', result_max: resultMax }),
     });
 
@@ -54,6 +57,7 @@ export async function yaraHubRuleHandler(c: Context<{ Bindings: Env }>) {
         'Auth-Key': authKey,
         'Content-Type': 'application/json',
       },
+      signal: AbortSignal.timeout(15_000),
       body: JSON.stringify({
         query: 'get_yara_rule',
         uuid,

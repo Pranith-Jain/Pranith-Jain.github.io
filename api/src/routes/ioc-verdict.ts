@@ -127,6 +127,7 @@ async function callAi(env: Env, system: string, user: string): Promise<string> {
       const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
         method: 'POST',
         headers: { Authorization: `Bearer ${key}`, 'content-type': 'application/json' },
+        signal: AbortSignal.timeout(30_000),
         body: JSON.stringify({
           model: 'openai/gpt-oss-120b',
           messages: [
@@ -137,7 +138,6 @@ async function callAi(env: Env, system: string, user: string): Promise<string> {
           temperature: 0.2,
           reasoning_effort: 'low',
         }),
-        signal: AbortSignal.timeout(30000),
       });
       if (res.ok) {
         const data = await res.json<{ choices?: Array<{ message?: { content?: string } }> }>();

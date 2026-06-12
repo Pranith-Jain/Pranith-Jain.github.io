@@ -207,6 +207,11 @@ async function sendTo(env: Env, chatId: string, text: string): Promise<boolean> 
     const r = await fetch(`https://api.telegram.org/bot${env.TELEGRAM_BOT_TOKEN}/sendMessage`, {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
+      // Telegram's sendMessage endpoint is normally <500ms; cap at 8s so
+      // a flapping connection can't pin the request past the Worker's
+      // CPU budget. Same ceiling as the other Telegram calls in the
+      // codebase for consistency.
+      signal: AbortSignal.timeout(8_000),
       body: JSON.stringify({
         chat_id: chatId,
         text,
@@ -214,7 +219,6 @@ async function sendTo(env: Env, chatId: string, text: string): Promise<boolean> 
         disable_web_page_preview: true,
         disable_notification: true,
       }),
-      signal: AbortSignal.timeout(10_000),
     });
     return r.ok; // 429 / 5xx → false
   } catch {

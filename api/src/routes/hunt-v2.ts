@@ -99,6 +99,10 @@ async function checkPhishingArmy(value: string): Promise<ProviderHit | null> {
     const res = await fetch(`https://phishing.army/download/phishing_army_blocklist.txt`, {
       headers: { 'user-agent': UA },
       cf: { cacheTtl: 600, cacheEverything: true },
+      // The blocklist is cached at the CF edge (cacheTtl: 600) but the
+      // cold-cache miss can stall on a slow egress. 8s matches the
+      // other abuse.ch calls in this file.
+      signal: AbortSignal.timeout(8_000),
     } as RequestInit);
     if (!res.ok) return null;
     const list = await res.text();

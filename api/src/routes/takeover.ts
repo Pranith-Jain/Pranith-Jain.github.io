@@ -107,6 +107,8 @@ async function dohCname(name: string): Promise<string | null> {
   try {
     const r = await fetch(`https://cloudflare-dns.com/dns-query?name=${encodeURIComponent(name)}&type=CNAME`, {
       headers: { accept: 'application/dns-json' },
+      // DoH endpoint should respond in <100ms; 5s is a generous ceiling.
+      signal: AbortSignal.timeout(5_000),
     });
     if (!r.ok) return null;
     const data = (await r.json()) as { Answer?: { type: number; data?: string }[] };

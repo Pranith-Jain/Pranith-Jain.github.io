@@ -269,10 +269,15 @@ interface RpcResp<T> {
 
 async function rpcCall<T>(rpc: string, method: string, params: unknown[]): Promise<T | null> {
   try {
+    // Public RPC endpoints occasionally hang (rate-limited drops
+    // connections silently). 8s matches the FETCH_TIMEOUT used
+    // elsewhere in this file so a single hung RPC doesn't blow the
+    // multi-RPC fallback chain's budget.
     const r = await fetch(rpc, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ jsonrpc: '2.0', id: 1, method, params }),
+      signal: AbortSignal.timeout(FETCH_TIMEOUT),
     });
     if (!r.ok) return null;
     const j = (await r.json()) as RpcResp<T>;

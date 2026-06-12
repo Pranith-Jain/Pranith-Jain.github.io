@@ -59,6 +59,10 @@ export async function fetchRedditFeed(): Promise<RedditFeedResponse> {
       headers: { 'user-agent': 'pranithjain-dfir/1.0', accept: 'application/json' },
       // GitHub raw has its own ~5min CDN cache; this caches it at our edge too.
       cf: { cacheTtl: 300, cacheEverything: true },
+      // GitHub-raw CDN rarely hangs but the upstream can stall on a
+      // cold-cache miss — cap the request so a slow egress can't pin
+      // the Worker past the 30s CPU budget. 10s is generous for a CDN.
+      signal: AbortSignal.timeout(10_000),
     });
     if (!r.ok) return emptyFeed(`reddit feed unavailable (raw HTTP ${r.status})`);
     const data = (await r.json()) as RedditFeedResponse;

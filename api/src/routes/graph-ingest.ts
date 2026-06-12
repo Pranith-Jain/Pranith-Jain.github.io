@@ -114,6 +114,9 @@ async function ingestLiveIocs(db: D1Database): Promise<IngestResult> {
   try {
     const res = await fetch('https://threatfox.abuse.ch/export/csv/recent/', {
       headers: { 'user-agent': 'pranithjain-graph-ingest/1.0', accept: 'text/csv' },
+      // threatfox sometimes stalls on the CSV export; 20s ceiling so a
+      // hung cron subrequest doesn't pin the Worker past the CPU limit.
+      signal: AbortSignal.timeout(20_000),
     });
     if (!res.ok) return { nodes_upserted: 0, edges_created: 0, errors: [`live-iocs: threatfox HTTP ${res.status}`] };
     const csv = await res.text();
@@ -136,6 +139,8 @@ async function ingestPhishingUrls(db: D1Database): Promise<IngestResult> {
   try {
     const res = await fetch('https://openphish.com/feed.txt', {
       headers: { 'user-agent': 'pranithjain-graph-ingest/1.0', accept: 'text/plain' },
+      // openphish CDN is fast but flaky; 15s ceiling.
+      signal: AbortSignal.timeout(15_000),
     });
     if (!res.ok) return { nodes_upserted: 0, edges_created: 0, errors: [`phishing: openphish HTTP ${res.status}`] };
     const text = await res.text();
