@@ -1,7 +1,7 @@
 import { useState, type FormEvent } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, Search, Users, ExternalLink, CheckCircle2 } from 'lucide-react';
+import { ArrowLeft, Search, Users, ExternalLink, CheckCircle2, Loader2 } from 'lucide-react';
 
 const USERNAME_RE = /^[A-Za-z0-9._-]{2,64}$/;
 
@@ -75,25 +75,34 @@ export default function UsernameOsnit(): JSX.Element {
       </BackLink>
 
       <div className="animate-fade-in-up">
-        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2">
-          <Users size={28} className="inline mr-2 text-brand-500" />
-          Username OSINT
+        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
+          <Users size={28} className="text-brand-600 dark:text-brand-400" /> Username OSINT
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 mb-8 max-w-2xl">
+        <p className="text-slate-600 dark:text-slate-400 mb-2 leading-relaxed">
           Check 60+ platforms for a username — social, dev, gaming, creative, finance. Server-side HTTP checks, bounded
-          concurrency.
+          concurrency, 15-minute edge cache.
+        </p>
+        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-8">
+          Inspired by Sherlock (84k stars). Checks live HTTP status codes to determine presence — "found" means the
+          profile page returned 200/3xx, not that the account belongs to the same person.
         </p>
       </div>
 
-      <form onSubmit={onSubmit} className="mb-10">
-        <div className="flex gap-2">
-          <input
-            type="text"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            placeholder="elonmusk"
-            className="flex-1 px-4 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
-          />
+      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
+        <form onSubmit={onSubmit} className="flex gap-2">
+          <div className="relative flex-1 min-w-[220px]">
+            <Users size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" aria-hidden="true" />
+            <input
+              type="text"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              placeholder="username (letters / digits / . _ -)"
+              className="w-full pl-9 pr-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 font-mono text-sm text-slate-900 dark:text-slate-100 focus:border-brand-500/60 focus:outline-none"
+              autoComplete="off"
+              spellCheck={false}
+              aria-label="Username"
+            />
+          </div>
           <button
             type="submit"
             disabled={!valid || loading}
@@ -102,15 +111,19 @@ export default function UsernameOsnit(): JSX.Element {
             <Search size={16} className="inline mr-2" />
             Search
           </button>
-        </div>
+        </form>
         {input && !valid && (
           <p className="mt-2 text-xs font-mono text-amber-600 dark:text-amber-400">2-64 chars, a-z 0-9 . _ - only.</p>
         )}
-      </form>
+      </section>
 
-      {loading && <p className="font-mono text-slate-600 dark:text-slate-400">Checking 60+ platforms…</p>}
+      {loading && (
+        <p className="text-sm font-mono text-slate-600 dark:text-slate-400 mb-4 inline-flex items-center gap-2">
+          <Loader2 size={14} className="animate-spin" /> Checking 60+ platforms…
+        </p>
+      )}
       {error && (
-        <p role="alert" className="font-mono text-rose-600 dark:text-rose-400">
+        <p className="text-sm font-mono text-rose-600 dark:text-rose-400 mb-4 inline-flex items-center gap-2">
           error: {error}
         </p>
       )}

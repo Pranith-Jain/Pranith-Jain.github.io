@@ -1,7 +1,7 @@
 import { useState, type FormEvent } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, Search, Globe, Shield, Lock, Server, ExternalLink } from 'lucide-react';
+import { ArrowLeft, Search, Globe, Shield, Lock, Server, ExternalLink, Loader2 } from 'lucide-react';
 
 const DOMAIN_RE = /^([a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}$/;
 
@@ -96,9 +96,8 @@ export default function DomainWebcheck(): JSX.Element {
       </BackLink>
 
       <div className="animate-fade-in-up">
-        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2">
-          <Globe size={28} className="inline mr-2 text-brand-500" />
-          Domain Web Check
+        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
+          <Globe size={28} className="text-brand-600 dark:text-brand-400" /> Domain Web Check
         </h1>
         <p className="text-slate-600 dark:text-slate-400 mb-8 max-w-2xl">
           HTTP probe, TLS inspection, security headers audit, technology fingerprinting, open ports, and redirect chain
@@ -106,14 +105,16 @@ export default function DomainWebcheck(): JSX.Element {
         </p>
       </div>
 
-      <form onSubmit={onSubmit} className="mb-10">
-        <div className="flex gap-2">
+      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
+        <form onSubmit={onSubmit} className="flex gap-2">
           <input
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="example.com"
-            className="flex-1 px-4 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="flex-1 px-4 py-3 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-lg font-mono text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            autoComplete="off"
+            spellCheck={false}
           />
           <button
             type="submit"
@@ -123,15 +124,19 @@ export default function DomainWebcheck(): JSX.Element {
             <Search size={16} className="inline mr-2" />
             Scan
           </button>
-        </div>
+        </form>
         {input && !valid && (
           <p className="mt-2 text-xs font-mono text-amber-600 dark:text-amber-400">Not a valid domain.</p>
         )}
-      </form>
+      </section>
 
-      {loading && <p className="font-mono text-slate-600 dark:text-slate-400">Scanning…</p>}
+      {loading && (
+        <p className="text-sm font-mono text-slate-600 dark:text-slate-400 mb-4 inline-flex items-center gap-2">
+          <Loader2 size={14} className="animate-spin" /> Scanning…
+        </p>
+      )}
       {error && (
-        <p role="alert" className="font-mono text-rose-600 dark:text-rose-400">
+        <p className="text-sm font-mono text-rose-600 dark:text-rose-400 mb-4 inline-flex items-center gap-2">
           error: {error}
         </p>
       )}
@@ -158,7 +163,7 @@ export default function DomainWebcheck(): JSX.Element {
           {/* Security Headers */}
           <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
             <h2 className="font-display font-bold text-xl mb-4 flex items-center gap-2">
-              <Shield size={18} className="text-brand-500" /> Security Headers
+              <Shield size={18} className="text-brand-600 dark:text-brand-400" /> Security Headers
             </h2>
             <div className="space-y-1.5">
               {result.security_headers.checks.map((ch) => (
@@ -184,7 +189,7 @@ export default function DomainWebcheck(): JSX.Element {
           {result.technology.length > 0 && (
             <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
               <h2 className="font-display font-bold text-xl mb-4 flex items-center gap-2">
-                <Server size={18} className="text-brand-500" /> Technology Stack
+                <Server size={18} className="text-brand-600 dark:text-brand-400" /> Technology Stack
               </h2>
               <div className="flex flex-wrap gap-2">
                 {result.technology.map((t, i) => (
@@ -203,7 +208,7 @@ export default function DomainWebcheck(): JSX.Element {
           {result.shodan && (
             <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
               <h2 className="font-display font-bold text-xl mb-4 flex items-center gap-2">
-                <Lock size={18} className="text-brand-500" /> Shodan Intelligence
+                <Lock size={18} className="text-brand-600 dark:text-brand-400" /> Shodan Intelligence
               </h2>
               <div className="font-mono text-sm space-y-1">
                 <div>
@@ -228,7 +233,7 @@ export default function DomainWebcheck(): JSX.Element {
           {result.http.redirect_chain.length > 0 && (
             <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
               <h2 className="font-display font-bold text-xl mb-4 flex items-center gap-2">
-                <ExternalLink size={18} className="text-brand-500" /> Redirect Chain
+                <ExternalLink size={18} className="text-brand-600 dark:text-brand-400" /> Redirect Chain
               </h2>
               <div className="text-xs font-mono space-y-0.5">
                 {result.http.redirect_chain.map((url, i) => (
@@ -258,7 +263,7 @@ function StatCard({
   sub?: string;
 }) {
   return (
-    <div className="p-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
+    <div className="p-3 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
       <div className="text-xs font-mono text-slate-400">{label}</div>
       <div className={`text-lg font-bold font-mono mt-0.5 ${valueClass ?? 'text-slate-900 dark:text-slate-100'}`}>
         {value}
