@@ -365,7 +365,16 @@ async function callTool<T>(name: string, args: Record<string, unknown>, apiKey: 
 // ── Typed wrappers for the tools the AI Report page actually uses ─────
 
 export interface TiReportSummary {
-  report_id: string;
+  /**
+   * The upstream has been inconsistent across versions about which
+   * field name carries the report id -- some rows return
+   * `report_id`, others `id`, others `article_id`. We accept all
+   * three and normalize them in `idForReport()` so the rest of the
+   * client can treat them uniformly.
+   */
+  report_id?: string;
+  id?: string;
+  article_id?: string;
   title?: string;
   source?: string;
   published_at?: string;
@@ -378,6 +387,11 @@ export interface TiReportSummary {
   ioc_count?: number;
   ttp_count?: number;
   cve_count?: number;
+}
+
+/** Normalize the various id-field names a report row can use. */
+export function idForReport(r: TiReportSummary): string {
+  return r.report_id ?? r.id ?? r.article_id ?? '';
 }
 
 export interface ListReportsResult {
@@ -435,6 +449,23 @@ export async function getReportDetails(apiKey: string, reportId: string): Promis
 }
 
 /**
+ * Same as getReportDetails but with `article_id` -- some versions of
+ * the upstream tool are named after articles, not reports. We try
+ * `report_id` first (per the published docs) and fall back to
+ * `article_id` if the server rejects it as a missing field.
+ */
+export async function getReportDetailsFlexible(apiKey: string, reportId: string): Promise<ReportDetailsResult> {
+  try {
+    return await getReportDetails(apiKey, reportId);
+  } catch (e) {
+    if (e instanceof McpError && /report_id|Missing required/i.test(e.message)) {
+      return callTool<ReportDetailsResult>('get_report_details', { article_id: reportId }, apiKey);
+    }
+    throw e;
+  }
+}
+
+/**
  * Fetch one of the eight content slices for a report. The MCP server
  * returns each slice as a JSON-encoded text block; for the `raw` text
  * the payload is just the article body, so we return a string.
@@ -444,7 +475,24 @@ export async function getReportContent(
   reportId: string,
   contentType: ReportContentType
 ): Promise<unknown> {
-  return callTool<unknown>('get_report_content', { report_id: reportId, content_type: contentType }, apiKey);
+  if (!reportId) {
+    throw new McpError(
+      'reportId is empty -- the upstream returned a row with no report_id / id / article_id field',
+      -32000,
+      'The list_reports response shape may have changed. Check the proxy log for the raw row.'
+    );
+  }
+  try {
+    return await callTool<unknown>('get_report_content', { report_id: reportId, content_type: contentType }, apiKey);
+  } catch (e) {
+    // Some versions of the upstream tool are named after articles.
+    // If the server rejects report_id as missing, retry with
+    // article_id before giving up.
+    if (e instanceof McpError && /report_id|Missing required/i.test(e.message)) {
+      return callTool<unknown>('get_report_content', { article_id: reportId, content_type: contentType }, apiKey);
+    }
+    throw e;
+  }
 }
 
 export interface SourcesListResult {

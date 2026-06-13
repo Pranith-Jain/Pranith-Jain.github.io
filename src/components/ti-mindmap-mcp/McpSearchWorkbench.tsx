@@ -18,6 +18,8 @@ import {
   searchCve,
   listReports,
   listBriefings,
+  idForReport,
+  type TiReportSummary,
   type IocSearchResult,
   type CveSearchResult,
   type ListReportsResult,
@@ -297,7 +299,7 @@ function IocHitCard({ hit }: { hit: IocSearchResult }): JSX.Element {
       ) : (
         <ul className="space-y-1.5">
           {reports.slice(0, 6).map((r) => (
-            <ReportRow key={r.report_id} r={r} />
+            <ReportRow key={idForReport(r) || r.title || Math.random().toString(36)} r={r} />
           ))}
         </ul>
       )}
@@ -367,7 +369,7 @@ function ReportsHitCard({ hit }: { hit: ListReportsResult }): JSX.Element {
       ) : (
         <ul className="space-y-1.5">
           {reports.slice(0, 8).map((r) => (
-            <ReportRow key={r.report_id} r={r} />
+            <ReportRow key={idForReport(r) || r.title || Math.random().toString(36)} r={r} />
           ))}
         </ul>
       )}
@@ -390,21 +392,12 @@ function BriefingHitCard({ hit }: { hit: BriefingSummary }): JSX.Element {
   );
 }
 
-function ReportRow(props: {
-  r: {
-    report_id: string;
-    title?: string;
-    source?: string;
-    published_at?: string;
-    actor?: string;
-    cves?: string[];
-    summary?: string;
-  };
-}): JSX.Element {
+function ReportRow(props: { r: TiReportSummary }): JSX.Element {
   const r = props.r;
+  const id = idForReport(r);
   return (
     <li className="rounded border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-2.5 py-1.5">
-      <p className="text-xs font-medium text-slate-800 dark:text-slate-200 line-clamp-2">{r.title ?? r.report_id}</p>
+      <p className="text-xs font-medium text-slate-800 dark:text-slate-200 line-clamp-2">{r.title ?? id}</p>
       <p className="mt-0.5 text-[10px] font-mono uppercase text-slate-500 dark:text-slate-400">
         {r.source ?? 'unknown'}
         {r.published_at ? ` · ${r.published_at}` : ''}
