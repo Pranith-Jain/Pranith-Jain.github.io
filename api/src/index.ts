@@ -645,6 +645,21 @@ import {
   exportCsvHandler,
   exportPfSenseHandler,
 } from './routes/export';
+import {
+  siIndexHandler,
+  siSkillsHandler,
+  siSkillHandler,
+  siQueriesHandler,
+  siQueryHandler,
+  siQueryBySlugHandler,
+  siAutomationsHandler,
+  siAutomationHandler,
+  siDocsHandler,
+  siDocHandler,
+  siRefListHandler,
+  siRefHandler,
+  siRoutingPromptHandler,
+} from './routes/security-investigator';
 
 app.get('/api/v1/health', (c) =>
   c.json({ ok: true, timestamp: new Date().toISOString() }, 200, { 'Cache-Control': 'public, max-age=60' })
@@ -1283,6 +1298,22 @@ app.post('/api/v1/export/snort', exportSnortHandler);
 app.post('/api/v1/export/suricata', exportSuricataHandler);
 app.post('/api/v1/export/csv', exportCsvHandler);
 app.post('/api/v1/export/pfsense', exportPfSenseHandler);
+
+// Security Investigator (replicated from SCStelz/security-investigator, MIT).
+// Public data lives in dist/data/si/ and is read via env.ASSETS. Cached at the edge.
+app.get('/api/v1/si/index', siIndexHandler);
+app.get('/api/v1/si/skills', siSkillsHandler);
+app.get('/api/v1/si/skills/:slug', siSkillHandler);
+app.get('/api/v1/si/queries', siQueriesHandler);
+app.get('/api/v1/si/queries/:domain/:file', siQueryHandler);
+app.get('/api/v1/si/query', siQueryBySlugHandler);
+app.get('/api/v1/si/automations', siAutomationsHandler);
+app.get('/api/v1/si/automations/:slug', siAutomationHandler);
+app.get('/api/v1/si/docs', siDocsHandler);
+app.get('/api/v1/si/docs/:slug', siDocHandler);
+app.get('/api/v1/si/ref', siRefListHandler);
+app.get('/api/v1/si/ref/:name', siRefHandler);
+app.get('/api/v1/si/routing-prompt', siRoutingPromptHandler);
 
 // Standardized 404 shape: matches the api-error contract ({ error, message })
 // so clients get a human-readable message, not just a bare error code.
