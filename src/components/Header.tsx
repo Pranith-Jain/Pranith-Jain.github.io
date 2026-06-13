@@ -19,18 +19,9 @@ export const Header = memo(function Header({ isDark, onToggleTheme, navLinks, to
   const [isScrolled, setIsScrolled] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [isMac, setIsMac] = useState<boolean | null>(null);
-  const dropdownRefs = useRef<Map<string, HTMLDivElement>>(new Map());
   const mobileMenuButtonRef = useRef<HTMLButtonElement>(null);
   const scrollRafRef = useRef<number>(0);
   const location = useLocation();
-
-  // Clean up stale dropdown ref entries on unmount.
-  useEffect(() => {
-    const refs = dropdownRefs.current;
-    return () => {
-      refs.clear();
-    };
-  }, []);
 
   useEffect(() => {
     if (typeof navigator === 'undefined') return;
@@ -63,7 +54,7 @@ export const Header = memo(function Header({ isDark, onToggleTheme, navLinks, to
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (openDropdown) {
-        const dropdownEl = dropdownRefs.current.get(openDropdown);
+        const dropdownEl = document.querySelector<HTMLElement>(`[data-nav-href="${CSS.escape(openDropdown)}"]`);
         if (dropdownEl && !dropdownEl.contains(e.target as Node)) {
           setOpenDropdown(null);
         }
@@ -205,13 +196,7 @@ export const Header = memo(function Header({ isDark, onToggleTheme, navLinks, to
             {navLinks
               .filter((link) => link.label !== 'Home' && !link.cta)
               .map((link) => (
-                <div
-                  key={link.href}
-                  className="relative"
-                  ref={(el) => {
-                    if (el) dropdownRefs.current.set(link.href, el);
-                  }}
-                >
+                <div key={link.href} data-nav-href={link.href} className="relative">
                   {'children' in link && link.children ? (
                     <>
                       <button

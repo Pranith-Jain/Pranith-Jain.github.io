@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 
 type FeedbackRating = 'useful' | 'not_useful' | 'actioned' | 'accurate' | 'inaccurate' | 'no_value';
 type FeedbackTarget = 'copilot' | 'briefing' | 'pir' | 'finding' | 'ioc' | 'assessment';
@@ -29,8 +29,11 @@ export function FeedbackWidget({ targetType, targetId, sector, compact, onFeedba
   const [error, setError] = useState<string | null>(null);
   const [selectedRating, setSelectedRating] = useState<FeedbackRating | null>(null);
   const [comment, setComment] = useState('');
+  const savingRef = useRef(false);
 
   async function handleSubmit(rating: FeedbackRating) {
+    if (savingRef.current) return;
+    savingRef.current = true;
     setSaving(true);
     setError(null);
     try {
@@ -63,6 +66,7 @@ export function FeedbackWidget({ targetType, targetId, sector, compact, onFeedba
       setError(e instanceof Error ? e.message : String(e));
     } finally {
       setSaving(false);
+      savingRef.current = false;
     }
   }
 

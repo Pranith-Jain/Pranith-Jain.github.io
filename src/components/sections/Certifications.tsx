@@ -57,8 +57,8 @@ function CertCategory({ id, title, certs }: CertCategoryProps) {
         <span className="text-mini font-mono text-slate-500">{certs.length}</span>
       </div>
       <div className="animate-fade-in-up grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {visible.map((cert, index) => (
-          <div key={`${cert.title}-${index}`}>
+        {visible.map((cert) => (
+          <div key={`cert-${cert.title}-${cert.issuer}`}>
             <CertCard
               title={cert.title}
               issuer={cert.issuer}

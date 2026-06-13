@@ -174,8 +174,10 @@ export default function ReportComposer(): JSX.Element {
         const blob = await exportReportPdf(doc);
         downloadBlob(blob, pdfFilename(doc));
       } else {
-        const { exportReportDocx, docxFilename, downloadBlob } =
-          await import('../../lib/dfir/report-composer/export-docx');
+        const [{ exportReportDocx, docxFilename }, { downloadBlob }] = await Promise.all([
+          import('../../lib/dfir/report-composer/export-docx'),
+          import('../../lib/dfir/report-composer/export-pdf'),
+        ]);
         const blob = await exportReportDocx(doc);
         downloadBlob(blob, docxFilename(doc));
       }

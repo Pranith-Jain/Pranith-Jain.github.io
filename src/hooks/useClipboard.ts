@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useRef } from 'react';
 
 export interface UseClipboardOptions {
   timeout?: number;
@@ -11,9 +11,11 @@ export interface UseClipboardResult {
 
 export function useClipboard({ timeout = 2000 }: UseClipboardOptions = {}): UseClipboardResult {
   const [copied, setCopied] = useState(false);
+  const timerRef = useRef<ReturnType<typeof setTimeout>>();
 
   const copy = useCallback(
     async (text: string) => {
+      clearTimeout(timerRef.current);
       try {
         await navigator.clipboard.writeText(text);
       } catch {
@@ -27,7 +29,7 @@ export function useClipboard({ timeout = 2000 }: UseClipboardOptions = {}): UseC
         document.body.removeChild(ta);
       }
       setCopied(true);
-      setTimeout(() => setCopied(false), timeout);
+      timerRef.current = setTimeout(() => setCopied(false), timeout);
     },
     [timeout]
   );

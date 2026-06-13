@@ -16,9 +16,15 @@
  * this browser is the live path for the entire upstream catalog.
  */
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { ChevronLeft, ChevronRight, ExternalLink, Loader2, Search } from 'lucide-react';
-import { listReports, getReportContent, type TiReportSummary, type ListReportsResult } from '../../lib/ti-mindmap-mcp';
+import {
+  listReports,
+  getReportContent,
+  idForReport,
+  type TiReportSummary,
+  type ListReportsResult,
+} from '../../lib/ti-mindmap-mcp';
 import { useMcp, McpError } from './McpContext';
 
 const PAGE_SIZE = 25;
@@ -46,41 +52,44 @@ export function McpReportBrowser(props: {
   const [data, setData] = useState<ListReportsResult | null>(null);
   const [err, setErr] = useState<string | null>(null);
 
-  async function fetchPage(p: number, s: string, tr: typeof timeRange): Promise<void> {
-    if (status !== 'connected' || !apiKey) return;
-    setBusy(true);
-    setErr(null);
-    try {
-      const r = await listReports(apiKey, {
-        search: s || undefined,
-        timeRange: tr === 'all' ? undefined : tr,
-        limit: PAGE_SIZE,
-      });
-      setData(r);
-      setPage(p);
-    } catch (e) {
-      const msg = e instanceof McpError ? e.message : e instanceof Error ? e.message : String(e);
-      setErr(msg);
-    } finally {
-      setBusy(false);
-    }
-  }
+  const fetchPage = useCallback(
+    async (p: number, s: string, tr: typeof timeRange): Promise<void> => {
+      if (status !== 'connected' || !apiKey) return;
+      setBusy(true);
+      setErr(null);
+      try {
+        const r = await listReports(apiKey, {
+          search: s || undefined,
+          timeRange: tr === 'all' ? undefined : tr,
+          limit: PAGE_SIZE,
+        });
+        setData(r);
+        setPage(p);
+      } catch (e) {
+        const msg = e instanceof McpError ? e.message : e instanceof Error ? e.message : String(e);
+        setErr(msg);
+      } finally {
+        setBusy(false);
+      }
+    },
+    [apiKey, status]
+  );
 
   useEffect(() => {
     void fetchPage(1, '', timeRange);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [status, apiKey, timeRange]);
+  }, [fetchPage, timeRange]);
 
   async function loadReport(s: TiReportSummary): Promise<void> {
     if (status !== 'connected' || !apiKey) return;
-    setLoadingId(s.report_id);
+    const reportId = idForReport(s);
+    setLoadingId(reportId);
     setErr(null);
     try {
-      const raw = await getReportContent(apiKey, s.report_id, 'raw');
+      const raw = await getReportContent(apiKey, reportId, 'raw');
       const text = typeof raw === 'string' ? raw : JSON.stringify(raw, null, 2);
       props.onLoad({
-        reportId: s.report_id,
-        title: s.title ?? s.report_id,
+        reportId,
+        title: s.title ?? reportId,
         source: s.source,
         publishedAt: s.published_at,
         url: s.url,

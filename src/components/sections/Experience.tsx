@@ -50,7 +50,7 @@ export function Experience({ experiences }: ExperienceProps) {
           const bodyId = `experience-body-${index}`;
           return (
             <div
-              key={`${exp.title}-${index}`}
+              key={exp.title}
               className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40"
             >
               <button

@@ -34,16 +34,16 @@ export async function healthDetailedHandler(c: Context<{ Bindings: Env }>): Prom
   const probe = async (fn: () => Promise<unknown>): Promise<{ ok: boolean; latency_ms: number; error?: string }> => {
     const start = Date.now();
     try {
-      // Race fn() against a timeout. setTimeout's return type in a Worker is
-      // `number` (no unref); in Node it's a Timeout with `.unref()`. The
-      // optional-chain call is intentional — it no-ops in the Worker runtime
-      // and keeps the probe from holding the Node loop open in tests.
-      const timer = setTimeout(() => {}, PROBE_BUDGET_MS) as unknown as { unref?: () => void };
-      timer.unref?.();
-      await Promise.race([
-        fn(),
-        new Promise<never>((_, reject) => setTimeout(() => reject(new Error('probe timeout')), PROBE_BUDGET_MS)),
-      ]);
+      let raceTimerId: ReturnType<typeof setTimeout> | undefined;
+      const raceTimeout = new Promise<never>((_, reject) => {
+        raceTimerId = setTimeout(() => reject(new Error('probe timeout')), PROBE_BUDGET_MS);
+        // In Node.js tests, .unref() prevents the timeout from keeping the event loop open
+        if (typeof raceTimerId === 'object' && 'unref' in raceTimerId) {
+          (raceTimerId as { unref?: () => void }).unref?.();
+        }
+      });
+      await Promise.race([fn(), raceTimeout]);
+      if (raceTimerId !== undefined) clearTimeout(raceTimerId);
       return { ok: true, latency_ms: Date.now() - start };
     } catch (e) {
       return { ok: false, latency_ms: Date.now() - start, error: e instanceof Error ? e.message : 'unknown' };

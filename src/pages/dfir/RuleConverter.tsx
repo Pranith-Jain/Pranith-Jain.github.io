@@ -390,7 +390,10 @@ export default function RuleConverter(): JSX.Element {
             ) : (
               <ul className="space-y-2 max-h-[28rem] overflow-y-auto">
                 {batchResult.map((b) => (
-                  <li key={b.index} className="rounded border border-slate-200 dark:border-slate-800 p-2">
+                  <li
+                    key={b.title ? `doc-${b.title}` : `doc-${b.index}`}
+                    className="rounded border border-slate-200 dark:border-slate-800 p-2"
+                  >
                     <div className="flex items-center justify-between gap-2 mb-1">
                       <span
                         className={
