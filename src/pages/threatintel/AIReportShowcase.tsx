@@ -1254,21 +1254,6 @@ export default function AIReportShowcase(): JSX.Element {
           {tab === 'ttps' && <TtpsTab ttp={data.ttp} />}
           {tab === 'attackflow' && <AttackFlowTabView phases={data.attackFlow} />}
           {tab === '5w' && <FiveWTab fiveW={data.fiveW} />}
-
-          {/* Footer credit */}
-          <div className="mt-6 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 p-4 text-xs text-slate-500 dark:text-slate-400">
-            <p>
-              The output above is a live result from{' '}
-              <code className="rounded bg-slate-100 dark:bg-slate-800 px-1 py-0.5 font-mono">
-                POST /api/v1/report-analyzer
-              </code>{' '}
-              on the selected sample. The same pipeline backs the standalone{' '}
-              <a href="/dfir/report-analyzer" className="text-brand-600 dark:text-brand-400 hover:underline">
-                /dfir/report-analyzer
-              </a>{' '}
-              page where you can paste a URL, raw text, or attach image URLs for OCR-based IOC extraction.
-            </p>
-          </div>
         </>
       )}
 

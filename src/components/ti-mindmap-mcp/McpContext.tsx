@@ -43,7 +43,7 @@ const Ctx = createContext<McpContextValue | null>(null);
 
 export function McpProvider({ children }: { children: ReactNode }): JSX.Element {
   const [apiKey, setApiKey] = useState<string>('');
-  const [status, setStatus] = useState<McpStatus>('idle');
+  const [status, setStatus] = useState<McpStatus>('unconfigured');
   const [statusMsg, setStatusMsg] = useState<string>('');
 
   const reprobe = useCallback(

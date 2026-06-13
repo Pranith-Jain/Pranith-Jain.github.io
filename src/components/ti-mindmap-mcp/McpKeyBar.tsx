@@ -10,7 +10,7 @@
  */
 
 import { useEffect, useRef, useState } from 'react';
-import { AlertTriangle, ChevronDown, Key, Loader2, Plug, PlugZap } from 'lucide-react';
+import { AlertTriangle, ChevronDown, Key, Loader2, Plug, PlugZap, RefreshCw } from 'lucide-react';
 import { useMcp } from './McpContext';
 
 interface McpKeyBarProps {
@@ -19,7 +19,7 @@ interface McpKeyBarProps {
 }
 
 export function McpKeyBar({ variant = 'compact', className = '' }: McpKeyBarProps): JSX.Element {
-  const { apiKey, status, statusMsg, saveKey } = useMcp();
+  const { apiKey, status, statusMsg, saveKey, reprobe } = useMcp();
   const [open, setOpen] = useState(false);
   const [draft, setDraft] = useState(apiKey);
   const ref = useRef<HTMLDivElement | null>(null);
@@ -122,7 +122,8 @@ export function McpKeyBar({ variant = 'compact', className = '' }: McpKeyBarProp
               setDraft={setDraft}
               onSave={(k) => {
                 saveKey(k);
-                setOpen(false);
+                // Keep the popover open so the user can see the
+                // probe result (the pill updates in place).
               }}
               onClear={
                 apiKey
@@ -133,17 +134,33 @@ export function McpKeyBar({ variant = 'compact', className = '' }: McpKeyBarProp
                   : undefined
               }
             />
-            <p className="mt-2 text-[10px] text-slate-500 dark:text-slate-400">
-              Keys stay in your browser (localStorage) and never reach our backend. Get one at{' '}
-              <a
-                href="https://ti-mindmap-hub.com/settings"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-brand-600 dark:text-brand-400 hover:underline"
+            {status === 'error' && statusMsg && (
+              <p className="mt-2 text-[10px] text-rose-600 dark:text-rose-400 font-mono break-words">
+                last probe: {statusMsg}
+              </p>
+            )}
+            <div className="mt-2 flex items-start justify-between gap-2">
+              <p className="text-[10px] text-slate-500 dark:text-slate-400 flex-1">
+                Keys stay in your browser (localStorage) and never reach our backend. Get one at{' '}
+                <a
+                  href="https://ti-mindmap-hub.com/settings"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-brand-600 dark:text-brand-400 hover:underline"
+                >
+                  ti-mindmap-hub.com/settings ↗
+                </a>
+              </p>
+              <button
+                type="button"
+                onClick={() => void reprobe()}
+                disabled={status === 'probing' || !apiKey}
+                className="inline-flex items-center gap-1 rounded border border-slate-300 dark:border-slate-700 px-1.5 py-0.5 text-[10px] font-mono text-slate-600 dark:text-slate-300 hover:border-brand-400 disabled:opacity-50 shrink-0"
+                title="Re-run the MCP initialize handshake with the stored key"
               >
-                ti-mindmap-hub.com/settings ↗
-              </a>
-            </p>
+                <RefreshCw className={`h-3 w-3 ${status === 'probing' ? 'animate-spin' : ''}`} /> re-probe
+              </button>
+            </div>
           </div>
         )}
       </div>

@@ -67,7 +67,7 @@ export function McpSearchWorkbench(props: {
   /** Compact mode for use in side panels. */
   compact?: boolean;
 }): JSX.Element {
-  const { apiKey, status } = useMcp();
+  const { apiKey, status, statusMsg } = useMcp();
   const [mode, setMode] = useState<Mode>('ioc');
   const [q, setQ] = useState('');
   const [busy, setBusy] = useState(false);
@@ -202,9 +202,21 @@ export function McpSearchWorkbench(props: {
           </p>
         )}
         {status === 'error' && (
-          <p className="mt-3 text-xs text-rose-600 dark:text-rose-400 font-mono">
-            MCP connection error — check the key in the header.
-          </p>
+          <div className="mt-3 flex flex-wrap items-start gap-2 rounded border border-rose-300 dark:border-rose-800 bg-rose-50 dark:bg-rose-950/40 px-2.5 py-1.5 text-xs text-rose-700 dark:text-rose-300">
+            <AlertTriangle className="h-3.5 w-3.5 mt-0.5 shrink-0" />
+            <div className="min-w-0 flex-1">
+              <p className="font-mono font-semibold">MCP connection error</p>
+              {statusMsg && (
+                <p className="mt-0.5 font-mono text-[11px] text-rose-700/80 dark:text-rose-300/80 break-words">
+                  {statusMsg}
+                </p>
+              )}
+              <p className="mt-1 text-rose-700/80 dark:text-rose-300/80">
+                Common causes: invalid or revoked key, or network/CORS issue. Open the MCP pill in the header to edit or
+                re-probe the key.
+              </p>
+            </div>
+          </div>
         )}
 
         {props.showHistory !== false && history.length > 0 && (

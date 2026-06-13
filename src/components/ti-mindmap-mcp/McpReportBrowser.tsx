@@ -36,7 +36,7 @@ export function McpReportBrowser(props: {
   /** Called when the user picks a report and we have its raw text. */
   onLoad: (r: LoadedReport) => void;
 }): JSX.Element {
-  const { apiKey, status } = useMcp();
+  const { apiKey, status, statusMsg } = useMcp();
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState('');
   const [searchInput, setSearchInput] = useState('');
@@ -171,6 +171,32 @@ export function McpReportBrowser(props: {
 
       {reports.length === 0 && !busy && status === 'connected' && (
         <p className="p-6 text-center text-xs text-slate-500 dark:text-slate-400">No reports match this filter.</p>
+      )}
+
+      {reports.length === 0 && !busy && status === 'unconfigured' && (
+        <div className="p-6 text-center text-xs text-slate-500 dark:text-slate-400 space-y-1.5">
+          <p className="font-semibold text-slate-700 dark:text-slate-200">Catalog unavailable</p>
+          <p>
+            Add your TI-Mindmap-Hub API key in the header pill to load the 1,628+ reports from the upstream catalog.
+          </p>
+          <p>
+            The key stays in your browser (localStorage) and is sent only to ti-mindmap-hub.com — never to our backend.
+          </p>
+        </div>
+      )}
+
+      {reports.length === 0 && !busy && status === 'error' && (
+        <div className="p-4 text-xs text-rose-700 dark:text-rose-300 space-y-1.5">
+          <p className="font-semibold">Could not load the catalog.</p>
+          {statusMsg && <p className="font-mono text-[11px] break-words">{statusMsg}</p>}
+          <p>Click the MCP pill in the header to edit the key, then hit re-probe.</p>
+        </div>
+      )}
+
+      {reports.length === 0 && !busy && status === 'probing' && (
+        <p className="p-6 text-center text-xs text-slate-500 dark:text-slate-400 inline-flex items-center gap-1.5 justify-center w-full">
+          <Loader2 className="h-3 w-3 animate-spin" /> probing MCP connection…
+        </p>
       )}
 
       <ul className="divide-y divide-slate-100 dark:divide-slate-800/60 max-h-[28rem] overflow-y-auto">

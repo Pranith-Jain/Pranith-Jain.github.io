@@ -194,7 +194,7 @@ export default function McpSearch(): JSX.Element {
             <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">
               Local analysis of: <span className="text-brand-600 dark:text-brand-400">{loaded?.title ?? '—'}</span>
             </h3>
-            <span className="ml-auto text-micro font-mono uppercase text-slate-500">via /api/v1/report-analyzer</span>
+            <span className="ml-auto text-micro font-mono uppercase text-slate-500">local AI Report pipeline</span>
           </div>
           <div className="p-4">
             {!loaded && <p className="text-xs text-slate-500">No report loaded yet.</p>}
