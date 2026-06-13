@@ -1,24 +1,22 @@
 /**
- * Compact MCP key + status pill, designed for the TopBar.
+ * MCP settings pill, rendered top-right in the global TopBar.
  *
- * Two render variants:
- *   - `variant="compact"` (default): a single button with the status
- *     text inline + a popover for the key input. Used in the TopBar.
- *   - `variant="full"`: a wider bar with the status pill, an
- *     always-visible key input, and the deep link. Used at the top
- *     of dedicated pages like /threatintel/ai-report.
+ * One source of truth for the user's TI-Mindmap-Hub MCP API key. Clicking
+ * the pill opens a small popover with the key input, the re-probe button,
+ * and the deep link to ti-mindmap-hub.com/settings. The two pages that
+ * need MCP (AI Report showcase, MCP Search) render a READ-ONLY
+ * `McpStatusBanner` instead -- the key is only edited here.
+ *
+ * State, the localStorage persist, and the probe logic live in
+ * ./McpContext.tsx -- this component is a pure presentational layer
+ * over that context.
  */
 
 import { useEffect, useRef, useState } from 'react';
-import { AlertTriangle, ChevronDown, Key, Loader2, Plug, PlugZap, RefreshCw } from 'lucide-react';
+import { AlertTriangle, ChevronDown, Key, Loader2, Plug, PlugZap, RefreshCw, Settings2 } from 'lucide-react';
 import { useMcp } from './McpContext';
 
-interface McpKeyBarProps {
-  variant?: 'compact' | 'full';
-  className?: string;
-}
-
-export function McpKeyBar({ variant = 'compact', className = '' }: McpKeyBarProps): JSX.Element {
+export function McpKeyBar({ className = '' }: { className?: string }): JSX.Element {
   const { apiKey, status, statusMsg, saveKey, reprobe } = useMcp();
   const [open, setOpen] = useState(false);
   const [draft, setDraft] = useState(apiKey);
@@ -28,15 +26,14 @@ export function McpKeyBar({ variant = 'compact', className = '' }: McpKeyBarProp
     setDraft(apiKey);
   }, [apiKey]);
 
-  // Close on outside click for the compact variant.
   useEffect(() => {
-    if (!open || variant !== 'compact') return;
+    if (!open) return;
     const onClick = (e: MouseEvent): void => {
       if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
     };
     window.addEventListener('mousedown', onClick);
     return () => window.removeEventListener('mousedown', onClick);
-  }, [open, variant]);
+  }, [open]);
 
   const pillInner = ((): JSX.Element => {
     if (status === 'unconfigured') {
@@ -98,95 +95,70 @@ export function McpKeyBar({ variant = 'compact', className = '' }: McpKeyBarProp
     return 'border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-600 dark:text-slate-300';
   })();
 
-  if (variant === 'compact') {
-    return (
-      <div ref={ref} className={`relative ${className}`}>
-        <button
-          type="button"
-          onClick={() => setOpen((o) => !o)}
-          className={`inline-flex items-center gap-1.5 rounded border ${tone} px-2 py-1 text-xs font-mono hover:opacity-90 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500`}
-          aria-expanded={open}
-          aria-label="TI-Mindmap-Hub MCP connection"
-          title={status === 'error' ? statusMsg || 'Connection failed' : 'TI-Mindmap-Hub MCP'}
-        >
-          {pillInner}
-          <ChevronDown className={`h-3 w-3 transition-transform ${open ? 'rotate-180' : ''}`} />
-        </button>
-        {open && (
-          <div className="absolute right-0 mt-1.5 w-80 max-w-[calc(100vw-1rem)] rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e2 p-3 z-50">
-            <p className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
-              TI-Mindmap-Hub MCP key
-            </p>
-            <KeyForm
-              draft={draft}
-              setDraft={setDraft}
-              onSave={(k) => {
-                saveKey(k);
-                // Keep the popover open so the user can see the
-                // probe result (the pill updates in place).
-              }}
-              onClear={
-                apiKey
-                  ? () => {
-                      saveKey('');
-                      setDraft('');
-                    }
-                  : undefined
-              }
-            />
-            {status === 'error' && statusMsg && (
-              <p className="mt-2 text-[10px] text-rose-600 dark:text-rose-400 font-mono break-words">
-                last probe: {statusMsg}
-              </p>
-            )}
-            <div className="mt-2 flex items-start justify-between gap-2">
-              <p className="text-[10px] text-slate-500 dark:text-slate-400 flex-1">
-                Keys stay in your browser (localStorage) and never reach our backend. Get one at{' '}
-                <a
-                  href="https://ti-mindmap-hub.com/settings"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-brand-600 dark:text-brand-400 hover:underline"
-                >
-                  ti-mindmap-hub.com/settings ↗
-                </a>
-              </p>
-              <button
-                type="button"
-                onClick={() => void reprobe()}
-                disabled={status === 'probing' || !apiKey}
-                className="inline-flex items-center gap-1 rounded border border-slate-300 dark:border-slate-700 px-1.5 py-0.5 text-[10px] font-mono text-slate-600 dark:text-slate-300 hover:border-brand-400 disabled:opacity-50 shrink-0"
-                title="Re-run the MCP initialize handshake with the stored key"
-              >
-                <RefreshCw className={`h-3 w-3 ${status === 'probing' ? 'animate-spin' : ''}`} /> re-probe
-              </button>
-            </div>
-          </div>
-        )}
-      </div>
-    );
-  }
-
-  // full variant
   return (
-    <div className={`flex flex-wrap items-center gap-2 ${className}`}>
-      <span className={`inline-flex items-center gap-1.5 rounded border px-2 py-1 text-xs font-mono ${tone}`}>
+    <div ref={ref} className={`relative ${className}`}>
+      <button
+        type="button"
+        onClick={() => setOpen((o) => !o)}
+        className={`inline-flex items-center gap-1.5 rounded border ${tone} px-2 py-1 text-xs font-mono hover:opacity-90 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500`}
+        aria-expanded={open}
+        aria-label="TI-Mindmap-Hub MCP connection settings"
+        title={status === 'error' ? statusMsg || 'Connection failed' : 'TI-Mindmap-Hub MCP settings'}
+      >
         {pillInner}
-      </span>
-      <KeyForm
-        draft={draft}
-        setDraft={setDraft}
-        onSave={(k) => saveKey(k)}
-        onClear={
-          apiKey
-            ? () => {
-                saveKey('');
-                setDraft('');
-              }
-            : undefined
-        }
-        inline
-      />
+        <ChevronDown className={`h-3 w-3 transition-transform ${open ? 'rotate-180' : ''}`} />
+      </button>
+      {open && (
+        <div className="absolute right-0 mt-1.5 w-80 max-w-[calc(100vw-1rem)] rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e2 p-3 z-50">
+          <p className="flex items-center gap-1.5 text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
+            <Settings2 className="h-3 w-3" /> MCP settings
+          </p>
+          <KeyForm
+            draft={draft}
+            setDraft={setDraft}
+            onSave={(k) => {
+              saveKey(k);
+              // Keep the popover open so the user can see the
+              // probe result (the pill updates in place).
+            }}
+            onClear={
+              apiKey
+                ? () => {
+                    saveKey('');
+                    setDraft('');
+                  }
+                : undefined
+            }
+          />
+          {status === 'error' && statusMsg && (
+            <p className="mt-2 text-[10px] text-rose-600 dark:text-rose-400 font-mono break-words">
+              last probe: {statusMsg}
+            </p>
+          )}
+          <div className="mt-2 flex items-start justify-between gap-2">
+            <p className="text-[10px] text-slate-500 dark:text-slate-400 flex-1">
+              Keys stay in your browser (localStorage) and never reach our backend. Get one at{' '}
+              <a
+                href="https://ti-mindmap-hub.com/settings"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-brand-600 dark:text-brand-400 hover:underline"
+              >
+                ti-mindmap-hub.com/settings ↗
+              </a>
+            </p>
+            <button
+              type="button"
+              onClick={() => void reprobe()}
+              disabled={status === 'probing' || !apiKey}
+              className="inline-flex items-center gap-1 rounded border border-slate-300 dark:border-slate-700 px-1.5 py-0.5 text-[10px] font-mono text-slate-600 dark:text-slate-300 hover:border-brand-400 disabled:opacity-50 shrink-0"
+              title="Re-run the MCP initialize handshake with the stored key"
+            >
+              <RefreshCw className={`h-3 w-3 ${status === 'probing' ? 'animate-spin' : ''}`} /> re-probe
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
@@ -196,7 +168,6 @@ function KeyForm(props: {
   setDraft: (s: string) => void;
   onSave: (k: string) => void;
   onClear?: () => void;
-  inline?: boolean;
 }): JSX.Element {
   return (
     <form
@@ -204,7 +175,7 @@ function KeyForm(props: {
         e.preventDefault();
         props.onSave(props.draft.trim());
       }}
-      className={props.inline ? 'flex flex-wrap items-center gap-2' : 'flex flex-col gap-2'}
+      className="flex flex-col gap-2"
     >
       <input
         type="password"

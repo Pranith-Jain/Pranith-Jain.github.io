@@ -17,7 +17,7 @@
 import { useState } from 'react';
 import { Plug, Sparkles } from 'lucide-react';
 import { DataPageLayout } from '../../components/DataPageLayout';
-import { McpKeyBar } from '../../components/ti-mindmap-mcp/McpKeyBar';
+import { McpStatusBanner } from '../../components/ti-mindmap-mcp/McpStatusBanner';
 import { McpSearchWorkbench } from '../../components/ti-mindmap-mcp/McpSearchWorkbench';
 import { McpReportBrowser, type LoadedReport } from '../../components/ti-mindmap-mcp/McpReportBrowser';
 import { useMcp } from '../../components/ti-mindmap-mcp/McpContext';
@@ -175,7 +175,7 @@ export default function McpSearch(): JSX.Element {
           ).
         </span>
       }
-      headerExtra={<McpKeyBar variant="full" />}
+      headerExtra={<McpStatusBanner className="max-w-2xl" />}
       maxWidthClass="max-w-7xl"
     >
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">

@@ -220,7 +220,7 @@ export function AppShell({ mode, isDark, onToggleTheme, children }: AppShellProp
         mark={mode}
         onOpenMobileNav={() => setMobileNavOpen(true)}
         mobileNavOpen={mobileNavOpen}
-        topBarExtra={<McpKeyBar variant="compact" />}
+        topBarExtra={<McpKeyBar />}
       />
       <div className="flex-1 flex min-h-0 max-w-[1500px] w-full mx-auto px-3 sm:px-6 gap-3 sm:gap-4">
         {sidebarConfig && <Sidebar config={sidebarConfig} />}

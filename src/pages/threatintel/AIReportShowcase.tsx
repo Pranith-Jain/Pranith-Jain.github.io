@@ -5,20 +5,16 @@ import {
   BookOpen,
   Bug,
   Calendar,
-  ChevronDown,
   CircleDot,
   Diamond,
   ExternalLink,
   Eye,
   FileText,
   Globe2,
-  Key,
   Link2,
   LinkIcon,
   Loader2,
   Network,
-  Plug,
-  PlugZap,
   RefreshCw,
   Search,
   Sparkles,
@@ -27,10 +23,10 @@ import {
   Users,
 } from 'lucide-react';
 import { DataPageLayout } from '../../components/DataPageLayout';
+import { McpStatusBanner } from '../../components/ti-mindmap-mcp/McpStatusBanner';
 import { SAMPLE_REPORTS, type SampleReport } from '../../data/threatintel/sample-reports';
 import {
   getStoredApiKey,
-  setStoredApiKey,
   probeConnection,
   searchIoc,
   searchCve,
@@ -642,9 +638,9 @@ function EmptyTab({ msg }: { msg: string }): JSX.Element {
 // Browser-side client for https://mcp.ti-mindmap-hub.com/mcp (JSON-RPC over
 // HTTPS + SSE). The API key is stored in localStorage and never reaches our
 // backend — the MCP server validates it directly. Components below:
-//   - McpKeyBar   : key input + connection status pill
-//   - McpSearchPanel : free-text search across reports / IOCs / CVEs
-//   - IocEnrichment : per-IOC lookup result chip rendered next to each row
+//   - McpStatusBanner : read-only status, key editing lives in the global TopBar
+//   - McpSearchPanel  : free-text search across reports / IOCs / CVEs
+//   - IocEnrichment   : per-IOC lookup result chip rendered next to each row
 
 type McpMode = 'report' | 'ioc' | 'cve';
 type McpStatus = 'idle' | 'probing' | 'connected' | 'error' | 'unconfigured';
@@ -653,120 +649,6 @@ interface McpSearchHit {
   ioc?: IocSearchResult;
   cve?: CveSearchResult;
   reports?: ListReportsResult;
-}
-
-function McpKeyBar(props: {
-  apiKey: string;
-  status: McpStatus;
-  statusMsg?: string;
-  onSave: (k: string) => void;
-  onProbe: () => void;
-}): JSX.Element {
-  const [draft, setDraft] = useState(props.apiKey);
-  const [showInput, setShowInput] = useState(false);
-  // Keep the input in sync if the key changes externally (e.g. after probe).
-  useEffect(() => {
-    setDraft(props.apiKey);
-  }, [props.apiKey]);
-
-  const pill: JSX.Element = (() => {
-    if (props.status === 'unconfigured') {
-      return (
-        <span className="inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 px-2 py-1 font-mono text-slate-600 dark:text-slate-300">
-          <Plug className="h-3.5 w-3.5" /> MCP not configured
-        </span>
-      );
-    }
-    if (props.status === 'probing') {
-      return (
-        <span className="inline-flex items-center gap-1.5 rounded border border-sky-300 dark:border-sky-700 bg-sky-50 dark:bg-sky-950/40 px-2 py-1 font-mono text-sky-700 dark:text-sky-300">
-          <Loader2 className="h-3.5 w-3.5 animate-spin" /> probing MCP…
-        </span>
-      );
-    }
-    if (props.status === 'connected') {
-      return (
-        <span
-          className="inline-flex items-center gap-1.5 rounded border border-emerald-300 dark:border-emerald-700 bg-emerald-50 dark:bg-emerald-950/40 px-2 py-1 font-mono text-emerald-700 dark:text-emerald-300"
-          title="Session established with https://mcp.ti-mindmap-hub.com/mcp"
-        >
-          <PlugZap className="h-3.5 w-3.5" /> MCP connected · 19 tools
-        </span>
-      );
-    }
-    if (props.status === 'error') {
-      return (
-        <span
-          className="inline-flex items-center gap-1.5 rounded border border-rose-300 dark:border-rose-700 bg-rose-50 dark:bg-rose-950/40 px-2 py-1 font-mono text-rose-700 dark:text-rose-300"
-          title={props.statusMsg || 'Connection failed'}
-        >
-          <AlertTriangle className="h-3.5 w-3.5" /> MCP error
-        </span>
-      );
-    }
-    return <span className="font-mono">MCP idle</span>;
-  })();
-
-  return (
-    <div className="flex flex-wrap items-center gap-2">
-      {pill}
-      <button
-        type="button"
-        onClick={() => setShowInput((s) => !s)}
-        className="inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-2 py-1 font-mono text-slate-600 dark:text-slate-300 hover:border-brand-400"
-      >
-        <Key className="h-3.5 w-3.5" />
-        {showInput ? 'hide key' : props.apiKey ? 'edit key' : 'set API key'}
-        <ChevronDown className={`h-3 w-3 transition-transform ${showInput ? 'rotate-180' : ''}`} />
-      </button>
-      {showInput && (
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            props.onSave(draft.trim());
-          }}
-          className="flex flex-wrap items-center gap-2"
-        >
-          <input
-            type="password"
-            value={draft}
-            onChange={(e) => setDraft(e.target.value)}
-            placeholder="tim_xxxxxxxxxxxx"
-            className="rounded border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-2 py-1 font-mono text-xs text-slate-800 dark:text-slate-200 w-56"
-            autoComplete="off"
-            spellCheck={false}
-          />
-          <button
-            type="submit"
-            disabled={!draft.trim()}
-            className="rounded border border-brand-300 dark:border-brand-700 bg-brand-50 dark:bg-brand-950/40 px-2 py-1 font-mono text-brand-700 dark:text-brand-300 hover:bg-brand-100 disabled:opacity-50"
-          >
-            save &amp; probe
-          </button>
-          {props.apiKey && (
-            <button
-              type="button"
-              onClick={() => {
-                setDraft('');
-                props.onSave('');
-              }}
-              className="rounded border border-rose-300 dark:border-rose-700 bg-rose-50 dark:bg-rose-950/40 px-2 py-1 font-mono text-rose-700 dark:text-rose-300"
-            >
-              clear
-            </button>
-          )}
-          <a
-            href="https://ti-mindmap-hub.com/settings"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-xs text-brand-600 dark:text-brand-400 hover:underline"
-          >
-            get a key ↗
-          </a>
-        </form>
-      )}
-    </div>
-  );
 }
 
 function McpSearchPanel(props: { apiKey: string; status: McpStatus }): JSX.Element {
@@ -999,7 +881,6 @@ export default function AIReportShowcase(): JSX.Element {
   // ── TI-Mindmap-Hub MCP state ──────────────────────────────────────
   const [apiKey, setApiKey] = useState<string>('');
   const [mcpStatus, setMcpStatus] = useState<McpStatus>('idle');
-  const [mcpStatusMsg, setMcpStatusMsg] = useState<string>('');
 
   // On mount, hydrate the key from localStorage and probe the connection.
   useEffect(() => {
@@ -1056,25 +937,15 @@ export default function AIReportShowcase(): JSX.Element {
   async function doProbe(key: string): Promise<void> {
     if (!key) {
       setMcpStatus('unconfigured');
-      setMcpStatusMsg('');
       return;
     }
     setMcpStatus('probing');
-    setMcpStatusMsg('');
     const r = await probeConnection(key);
     if (r.ok) {
       setMcpStatus('connected');
-      setMcpStatusMsg('');
     } else {
       setMcpStatus('error');
-      setMcpStatusMsg(r.error ?? 'unknown error');
     }
-  }
-
-  function handleSaveKey(k: string): void {
-    setStoredApiKey(k);
-    setApiKey(k);
-    void doProbe(k);
   }
 
   return (
@@ -1180,15 +1051,9 @@ export default function AIReportShowcase(): JSX.Element {
         </div>
       </div>
 
-      {/* ── MCP key bar (always visible) + cross-source search panel ── */}
-      <div className="mb-4">
-        <McpKeyBar
-          apiKey={apiKey}
-          status={mcpStatus}
-          statusMsg={mcpStatusMsg}
-          onSave={handleSaveKey}
-          onProbe={() => void doProbe(apiKey)}
-        />
+      {/* ── MCP status banner (read-only; key editing lives in the TopBar) ── */}
+      <div className="mb-4 space-y-3">
+        <McpStatusBanner />
         <McpSearchPanel apiKey={apiKey} status={mcpStatus} />
       </div>
 

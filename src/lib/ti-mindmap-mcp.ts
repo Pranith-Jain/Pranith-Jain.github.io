@@ -295,20 +295,52 @@ async function callRaw<T>(
 }
 
 function parseSseFrame<T>(text: string, _id: number | string): JsonRpcResponse<T> {
-  for (const line of text.split('\n')) {
-    if (line.startsWith('data: ')) {
+  // Strip a UTF-8 BOM some proxies tack on.
+  const cleaned = text.replace(/^\uFEFF/, '');
+  // Per the SSE spec (https://html.spec.whatwg.org/multipage/server-sent-events.html):
+  //   * "data:" MAY be followed by a single space (commonly seen) or no space at all.
+  //   * A message can span MULTIPLE data: lines -- concatenate them with '\n'.
+  //   * Empty lines terminate a message; we treat each non-empty data:-line as
+  //     a candidate, but if concatenation yields a single valid JSON blob we
+  //     use that (the spec's intended behaviour).
+  const dataLines: string[] = [];
+  for (const raw of cleaned.split(/\r?\n/)) {
+    const line = raw.replace(/\r$/, '');
+    if (!line) continue;
+    if (line.startsWith('data:')) {
+      // Strip the leading "data:" and AT MOST one optional space after it.
+      dataLines.push(line.startsWith('data: ') ? line.substring(6) : line.substring(5));
+    }
+    // Other SSE fields (event:, id:, retry:, comments starting with ':') are
+    // intentionally ignored -- MCP uses only data: frames.
+  }
+  const joined = dataLines.join('\n');
+  if (joined) {
+    try {
+      return JSON.parse(joined) as JsonRpcResponse<T>;
+    } catch {
+      /* fall through to per-line and full-blob fallbacks */
+    }
+    for (const part of dataLines) {
+      const trimmed = part.trim();
+      if (!trimmed) continue;
       try {
-        return JSON.parse(line.substring(6)) as JsonRpcResponse<T>;
+        return JSON.parse(trimmed) as JsonRpcResponse<T>;
       } catch {
-        /* keep scanning */
+        /* try the next line */
       }
     }
   }
-  // Fallback -- try the whole blob as JSON.
+  // Last-ditch: maybe the server sent a plain JSON body labelled
+  // content-type: text/event-stream by mistake.
   try {
-    return JSON.parse(text) as JsonRpcResponse<T>;
+    return JSON.parse(cleaned) as JsonRpcResponse<T>;
   } catch {
-    throw new McpError(`MCP SSE response could not be parsed: ${text.slice(0, 120)}`, -32700);
+    throw new McpError(
+      `MCP SSE response could not be parsed: ${cleaned.slice(0, 200)}`,
+      -32700,
+      'The upstream did not return a JSON-RPC payload on any data: line. Re-probe the key.'
+    );
   }
 }
 

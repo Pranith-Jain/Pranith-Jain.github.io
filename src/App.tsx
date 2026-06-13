@@ -761,12 +761,7 @@ function PortfolioShell({
 
       <ScrollProgress progress={progress} />
       <McpProvider>
-        <Header
-          isDark={isDark}
-          onToggleTheme={toggleTheme}
-          navLinks={navLinks}
-          topBarExtra={<McpKeyBar variant="compact" />}
-        />
+        <Header isDark={isDark} onToggleTheme={toggleTheme} navLinks={navLinks} topBarExtra={<McpKeyBar />} />
       </McpProvider>
       <Suspense fallback={null}>
         <CommandPalette />
