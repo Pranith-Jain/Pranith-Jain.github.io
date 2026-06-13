@@ -391,6 +391,7 @@ import { reportAnalyzerHandler } from './routes/report-analyzer';
 import { leakIxSearchHandler } from './routes/leakix';
 import { hostIntelHandler } from './routes/host';
 import { proxyNovaSearchHandler } from './routes/proxynova';
+import { mcpProxyHandler, mcpProxyOptions } from './routes/mcp-proxy';
 import { identityProxyHandler } from './routes/identity-proxy';
 import { hudsonRockSearchHandler, hudsonRockDomainHandler } from './routes/hudsonrock';
 import { projectDiscoveryHandler } from './routes/projectdiscovery';
@@ -758,6 +759,15 @@ app.get('/api/v1/breach/email', breachEmailHandler);
 app.get('/api/v1/breach/domain', breachDomainHandler);
 app.get('/api/v1/breach/leakix', leakIxSearchHandler);
 app.get('/api/v1/breach/proxynova', proxyNovaSearchHandler);
+
+// ── TI-Mindmap-Hub MCP proxy (CORS relay) ──────────────────────────
+// The upstream MCP server (mcp.ti-mindmap-hub.com) does not send CORS
+// headers, so a browser cross-origin POST fails the preflight. This
+// proxy terminates the request on our origin, replays it to the
+// upstream with the user's X-API-Key (forwarded in the body), and
+// relays the response back. The key is never persisted server-side.
+app.options('/api/v1/mcp/proxy', mcpProxyOptions);
+app.post('/api/v1/mcp/proxy', mcpProxyHandler);
 app.get('/api/v1/breach/hudsonrock', hudsonRockSearchHandler);
 app.get('/api/v1/breach/hudsonrock/domain', hudsonRockDomainHandler);
 app.get('/api/v1/breach/projectdiscovery', projectDiscoveryHandler);

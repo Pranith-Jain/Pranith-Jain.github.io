@@ -17,6 +17,61 @@
  */
 
 const MCP_URL = 'https://mcp.ti-mindmap-hub.com/mcp';
+/**
+ * Our Worker-side CORS proxy. The upstream MCP server does not send
+ * CORS headers, so a browser cross-origin POST from our origin fails
+ * the preflight with `NetworkError when attempting to fetch resource`.
+ * The proxy at /api/v1/mcp/proxy terminates the request on our origin,
+ * forwards it upstream with the user's X-API-Key (carried in the
+ * request body so the browser preflight stays minimal), and relays
+ * the response back. Same-origin (external-only auth) only -- the
+ * key never reaches a third party.
+ */
+const PROXY_URL = '/api/v1/mcp/proxy';
+
+/**
+ * Sanitize an API key before putting it on the wire.
+ *
+ * TI-Mindmap-Hub returns keys as `tim_xxxxxxxxxxxx` (lowercase ASCII
+ * alnum + underscore). The Cloudflare Workers fetch() validates header
+ * values as `record<ByteString, ByteString>` and refuses any value that
+ * contains a code point > 255 (it throws a `DataCloneError`-style
+ * error like 'Cannot convert value ... character at index N has value
+ * 8212 which is greater than 255'). The most common way a user hits
+ * this in the wild is by copy-pasting the key from a webpage that
+ * renders it with smart quotes, em-dash, NBSP, or zero-width spaces
+ * around it -- all of which the X-API-Key header then rejects.
+ *
+ * Strip whitespace + any character outside printable ASCII, warn if
+ * anything was removed, and validate the shape so we fail loud in the
+ * popover instead of mid-fetch.
+ */
+export interface SanitizedKey {
+  key: string;
+  /** Characters we had to remove. Empty when the input was already clean. */
+  removed: string;
+  /** True when the input didn't start with `tim_`. */
+  wrongShape: boolean;
+}
+
+const KEY_RE = /^tim_[a-z0-9_]+$/;
+
+export function sanitizeKey(raw: string): SanitizedKey {
+  // Strip leading/trailing whitespace and any character outside printable ASCII.
+  const trimmed = raw.trim();
+  const kept: string[] = [];
+  const removedSet = new Set<string>();
+  for (const ch of trimmed) {
+    if (ch >= '\x20' && ch <= '\x7E') kept.push(ch);
+    else removedSet.add(ch);
+  }
+  const key = kept.join('');
+  return {
+    key,
+    removed: Array.from(removedSet).join(' '),
+    wrongShape: key.length > 0 && !KEY_RE.test(key),
+  };
+}
 const KEY_STORAGE = 'ti-mindmap:api-key';
 const SESSION_STORAGE = 'ti-mindmap:session-id';
 const PROBE_TIMEOUT_MS = 8_000;
@@ -41,8 +96,16 @@ export function getStoredApiKey(): string {
 export function setStoredApiKey(key: string): void {
   if (typeof window === 'undefined') return;
   try {
-    if (key) window.localStorage.setItem(KEY_STORAGE, key);
-    else window.localStorage.removeItem(KEY_STORAGE);
+    if (key) {
+      // Always persist the sanitized form. Non-ASCII characters (smart
+      // quotes, em-dash, NBSP from copy-paste) would otherwise make
+      // every later fetch() throw a 'character at index N has value
+      // 8212 which is greater than 255' DataCloneError.
+      const { key: clean } = sanitizeKey(key);
+      window.localStorage.setItem(KEY_STORAGE, clean);
+    } else {
+      window.localStorage.removeItem(KEY_STORAGE);
+    }
     // Any new key invalidates the previous session id.
     window.localStorage.removeItem(SESSION_STORAGE);
   } catch {
@@ -91,7 +154,7 @@ interface JsonRpcResponse<T> {
 }
 
 /** Initialize (or re-initialize) the MCP session. Returns the session id. */
-export async function initSession(apiKey: string, endpoint = MCP_URL): Promise<string> {
+export async function initSession(apiKey: string, endpoint = PROXY_URL): Promise<string> {
   const existing = loadSession();
   if (existing) return existing;
   const res = await callRaw<{ serverInfo?: { name?: string; version?: string } }>(
@@ -119,14 +182,31 @@ async function callRaw<T>(
   fresh = false
 ): Promise<{ data: JsonRpcResponse<T>; headers: Headers }> {
   const id = method === 'initialize' ? 1 : Math.floor(Math.random() * 1e9);
-  const body = { jsonrpc: '2.0', id, method, params: params ?? {} };
+  // Two transport modes:
+  //  - same-origin proxy (default): the key is sent in the body so
+  //    the browser preflight stays minimal. The proxy reads it and
+  //    forwards to the upstream.
+  //  - direct upstream (MCP_URL): the key goes in the X-API-Key
+  //    header per the MCP server's spec. Only used for testing --
+  //    production callers always go through the proxy.
+  const useProxy = endpoint !== MCP_URL;
+  const sid = fresh ? '' : loadSession();
+
   const headers: Record<string, string> = {
     'Content-Type': 'application/json',
     Accept: 'application/json, text/event-stream',
-    'X-API-Key': apiKey,
   };
-  const sid = fresh ? '' : loadSession();
+  if (!useProxy) headers['X-API-Key'] = apiKey;
   if (sid) headers['Mcp-Session-Id'] = sid;
+
+  // When using the proxy, embed the apiKey + sessionId in the body
+  // (the proxy reads these and forwards them upstream). The direct
+  // upstream path keeps the spec-compliant header-only shape.
+  const body: Record<string, unknown> = { jsonrpc: '2.0', id, method, params: params ?? {} };
+  if (useProxy) {
+    if (apiKey) body.apiKey = apiKey;
+    if (sid) body.sessionId = sid;
+  }
 
   const ctl = new AbortController();
   const timer = setTimeout(() => ctl.abort(), method === 'initialize' ? PROBE_TIMEOUT_MS : CALL_TIMEOUT_MS);
@@ -219,7 +299,7 @@ async function callTool<T>(name: string, args: Record<string, unknown>, apiKey: 
   // Always (re-)use an existing session; initialize lazily on the first call.
   if (!loadSession()) await initSession(apiKey);
   try {
-    const { data, headers } = await callRaw<McpToolResult>('tools/call', { name, arguments: args }, apiKey, MCP_URL);
+    const { data, headers } = await callRaw<McpToolResult>('tools/call', { name, arguments: args }, apiKey, PROXY_URL);
     // Some servers return a fresh session id on the first call -- pick it up.
     const newSid = headers.get('mcp-session-id');
     if (newSid && newSid !== loadSession()) saveSession(newSid);
