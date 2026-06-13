@@ -301,6 +301,44 @@ Phishing analysis tools parse the raw HTML source and compare \`href\` attribute
 
   // ── Threat Intelligence ──────────────────────────────────────────────────────
   {
+    slug: 'f3ead',
+    title: 'F3EAD (Find, Fix, Finish, Exploit, Analyze, Disseminate)',
+    category: 'Threat Intelligence',
+    description:
+      "A six-phase targeting cycle adapted from US Special Operations Forces doctrine to Cyber Threat Intelligence. Closes the ops-intel gap by fusing Find-Fix-Finish with the intelligence cycle, and explicitly feeds Disseminate back into the next cycle's Find.",
+    body: `## What is F3EAD?
+
+F3EAD is a six-phase process framework adapted from US Special Operations Forces (USSOF) targeting doctrine (descended from F2T2EA in FM 3-05.40 / JP 3-05.1). It fuses the operations side (Find, Fix, Finish) with the intelligence cycle (Exploit, Analyze, Disseminate) and is the most common way CTI teams are organised end-to-end on a target.
+
+The key insight: it is a **loop**, not a pipeline. The Disseminate phase produces the PIRs, signatures, and briefings that re-open the Find phase of the next cycle.
+
+## The six phases
+
+| # | Phase | Owner | Output |
+|---|---|---|---|
+| 1 | **Find** | Intel + SOC | Named actor, campaign, or hypothesis; PIRs |
+| 2 | **Fix** | SOC + threat hunting + IR | Affected hosts / accounts / time window; working detections |
+| 3 | **Finish** | IR + SecOps | Containment, eradication, recovery |
+| 4 | **Exploit** | IR + DFIR | IOCs, TTPs, captured samples |
+| 5 | **Analyze** | CTI + DFIR | Diamond reconstruction, ATT&CK mapping, attribution confidence |
+| 6 | **Disseminate** | CTI lead + comms | Briefings, technical reports, detection signatures |
+
+## Why it matters
+
+- F3EAD is a **process** framework. It does not replace ATT&CK, the Lockheed Kill Chain, or the Diamond Model -- those are **content** frameworks describing what the adversary did. F3EAD describes how the defender team operates end-to-end.
+- The Disseminate-to-Find feedback loop is the maturity marker: teams that skip it produce shelfware reports; teams that close it keep their intel actionable.
+- Modern adaptations (SANS FOR578, CREST) explicitly align the Finish phase to NIST SP 800-61 IR phases and the Analyze phase to ACH (Analysis of Competing Hypotheses).
+
+## See also
+
+- [Full F3EAD reference page](/threatintel/f3ead) -- loop diagram, phase detail, Lazarus / Copperhedge walkthrough, comparison table
+- [MITRE ATT&CK](/threatintel/mitre) -- the shared technique vocabulary used inside the Analyze phase
+- [Diamond Model](/dfir/diamond) -- per-event reconstruction
+- [ACH](/threatintel/ach) -- structured analytic technique used inside Analyze
+- [IR Playbooks](/dfir/ir-playbooks) -- the Finish phase
+`,
+  },
+  {
     slug: 'indicators-of-compromise',
     title: 'Indicators of Compromise (IOCs)',
     category: 'Threat Intelligence',

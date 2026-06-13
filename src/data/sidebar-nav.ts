@@ -112,6 +112,7 @@ const threatIntel: SidebarConfig = {
     {
       title: 'Reference',
       items: [
+        { label: 'F3EAD', href: '/threatintel/f3ead', icon: Crosshair },
         { label: 'MITRE Map', href: '/threatintel/mitre', icon: Compass },
         { label: 'Wiki', href: '/threatintel/wiki', icon: BookOpen },
         { label: 'Research', href: '/threatintel/research', icon: FileText },

@@ -327,6 +327,7 @@ const ROUTES = [
   '/threatintel/entity-resolution',
   '/threatintel/feed-catalog',
   '/threatintel/feed-scheduler',
+  '/threatintel/f3ead',
   '/threatintel/insider-threat-matrix',
   '/threatintel/intel-dashboard',
   '/threatintel/investigations',

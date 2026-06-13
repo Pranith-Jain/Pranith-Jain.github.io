@@ -297,6 +297,7 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/threatintel/entity-resolution', '/__prerendered/threatintel__entity-resolution'],
   ['/threatintel/feed-catalog', '/__prerendered/threatintel__feed-catalog'],
   ['/threatintel/feed-scheduler', '/__prerendered/threatintel__feed-scheduler'],
+  ['/threatintel/f3ead', '/__prerendered/threatintel__f3ead'],
   ['/threatintel/insider-threat-matrix', '/__prerendered/threatintel__insider-threat-matrix'],
   ['/threatintel/intel-dashboard', '/__prerendered/threatintel__intel-dashboard'],
   ['/threatintel/investigations', '/__prerendered/threatintel__investigations'],

@@ -285,6 +285,7 @@ const SourceReliability = lazy(() => import('./pages/threatintel/SourceReliabili
 const CollectionSlo = lazy(() => import('./pages/threatintel/CollectionSlo'));
 const PirDashboard = lazy(() => import('./pages/threatintel/PirDashboard'));
 const ACH = lazy(() => import('./pages/threatintel/ACH'));
+const F3ead = lazy(() => import('./pages/threatintel/F3ead'));
 const CrossCorrelate = lazy(() => import('./pages/threatintel/CrossCorrelate'));
 const Assessments = lazy(() => import('./pages/threatintel/Assessments'));
 const FeedQuality = lazy(() => import('./pages/threatintel/FeedQuality'));
@@ -607,6 +608,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel/ioc-enrichment', Component: IocEnrichment },
   { path: '/threatintel/relationship-graph', Component: RelationshipGraph },
   { path: '/threatintel/ach', Component: ACH },
+  { path: '/threatintel/f3ead', Component: F3ead },
   { path: '/threatintel/cross-correlate', Component: CrossCorrelate },
   { path: '/threatintel/assessments', Component: Assessments },
   { path: '/threatintel/assessments/:id', Component: AssessmentDetail },
