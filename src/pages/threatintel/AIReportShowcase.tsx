@@ -1,19 +1,26 @@
 import { useEffect, useMemo, useState } from 'react';
 import {
+  AlertTriangle,
   Beaker,
   BookOpen,
   Bug,
   Calendar,
+  ChevronDown,
   CircleDot,
   Diamond,
   ExternalLink,
   Eye,
   FileText,
   Globe2,
+  Key,
   Link2,
+  LinkIcon,
   Loader2,
   Network,
+  Plug,
+  PlugZap,
   RefreshCw,
+  Search,
   Sparkles,
   Target,
   TrendingUp,
@@ -21,6 +28,19 @@ import {
 } from 'lucide-react';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { SAMPLE_REPORTS, type SampleReport } from '../../data/threatintel/sample-reports';
+import {
+  getStoredApiKey,
+  setStoredApiKey,
+  probeConnection,
+  searchIoc,
+  searchCve,
+  listReports,
+  McpError,
+  type IocSearchResult,
+  type CveSearchResult,
+  type ListReportsResult,
+  type TiReportSummary,
+} from '../../lib/ti-mindmap-mcp';
 
 // Mirror of api/src/lib/report-analyzer.ts types (kept in sync — this page
 // is a read-only consumer; if the API shape changes, this needs an update).
@@ -344,10 +364,73 @@ function DiamondTabView({ diamond }: { diamond: DiamondModel | null }): JSX.Elem
   );
 }
 
-function IocsTab({ iocs }: { iocs: ExtractedIoc[] }): JSX.Element {
+interface IocEnrichmentRow {
+  ioc: ExtractedIoc;
+  hit: IocSearchResult | null;
+  loading: boolean;
+  error?: string;
+}
+
+function IocsTab(props: { iocs: ExtractedIoc[]; apiKey: string; mcpStatus: McpStatus }): JSX.Element {
+  const { iocs, apiKey, mcpStatus } = props;
+  const [enrichments, setEnrichments] = useState<Record<string, IocEnrichmentRow>>({});
+  const [enriching, setEnriching] = useState(false);
+
   if (iocs.length === 0) return <EmptyTab msg="No IOCs were extracted." />;
+
+  const enrichable = iocs.filter(
+    (i) =>
+      i.confidence_band !== 'low' && (i.kind === 'ip' || i.kind === 'domain' || i.kind === 'hash' || i.kind === 'url')
+  );
+  const canEnrich = mcpStatus === 'connected' && !!apiKey;
+
+  async function runEnrichment(): Promise<void> {
+    if (!canEnrich || enrichable.length === 0) return;
+    setEnriching(true);
+    // Cap at 8 to keep latency + rate limit polite.
+    const targets = enrichable.slice(0, 8);
+    // Optimistic loading rows.
+    const initRows: Record<string, IocEnrichmentRow> = {};
+    for (const i of targets) {
+      initRows[i.value] = { ioc: i, hit: null, loading: true };
+    }
+    setEnrichments(initRows);
+    // Fan out the lookups in parallel.
+    await Promise.all(
+      targets.map(async (i) => {
+        try {
+          const r = await searchIoc(apiKey, i.value);
+          setEnrichments((prev) => ({ ...prev, [i.value]: { ioc: i, hit: r, loading: false } }));
+        } catch (e) {
+          const msg = e instanceof McpError ? e.message : e instanceof Error ? e.message : String(e);
+          setEnrichments((prev) => ({ ...prev, [i.value]: { ioc: i, hit: null, loading: false, error: msg } }));
+        }
+      })
+    );
+    setEnriching(false);
+  }
+
   return (
     <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 overflow-hidden">
+      <div className="flex flex-wrap items-center gap-2 px-4 py-2.5 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900">
+        <Link2 className="h-4 w-4 text-brand-600 dark:text-brand-400" />
+        <p className="text-sm font-semibold text-slate-900 dark:text-slate-100">
+          {iocs.length} IOC{iocs.length === 1 ? '' : 's'} extracted
+        </p>
+        <span className="text-micro font-mono uppercase text-slate-500">{enrichable.length} cross-checkable</span>
+        <button
+          type="button"
+          onClick={() => void runEnrichment()}
+          disabled={!canEnrich || enriching || enrichable.length === 0}
+          className="ml-auto inline-flex items-center gap-1.5 rounded border border-brand-300 dark:border-brand-700 bg-brand-50 dark:bg-brand-950/40 px-2.5 py-1 text-xs font-medium text-brand-700 dark:text-brand-300 hover:bg-brand-100 disabled:opacity-50"
+          title={
+            canEnrich ? `Cross-check up to 8 IOCs against TI-Mindmap-Hub` : 'Configure your MCP API key above to enable'
+          }
+        >
+          {enriching ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Search className="h-3.5 w-3.5" />}
+          cross-check on TI-Mindmap-Hub
+        </button>
+      </div>
       <table className="w-full text-sm">
         <thead className="bg-slate-50 dark:bg-slate-900 text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
           <tr>
@@ -355,34 +438,63 @@ function IocsTab({ iocs }: { iocs: ExtractedIoc[] }): JSX.Element {
             <th className="text-left px-4 py-2">Type</th>
             <th className="text-left px-4 py-2">Confidence</th>
             <th className="text-left px-4 py-2">Source</th>
+            <th className="text-left px-4 py-2">TI-Mindmap-Hub</th>
           </tr>
         </thead>
         <tbody className="divide-y divide-slate-100 dark:divide-slate-800/60">
-          {iocs.slice(0, 50).map((i, idx) => (
-            <tr key={idx} className="hover:bg-slate-50 dark:hover:bg-slate-900/50">
-              <td
-                className="px-4 py-2 font-mono text-xs text-slate-700 dark:text-slate-300 truncate max-w-md"
-                title={i.value}
-              >
-                {i.value}
-              </td>
-              <td className="px-4 py-2">
-                <span
-                  className={`text-micro font-mono uppercase tracking-wider rounded border px-1.5 py-0.5 ${IOC_PILL[i.kind]}`}
+          {iocs.slice(0, 50).map((i, idx) => {
+            const er = enrichments[i.value];
+            return (
+              <tr key={idx} className="hover:bg-slate-50 dark:hover:bg-slate-900/50">
+                <td
+                  className="px-4 py-2 font-mono text-xs text-slate-700 dark:text-slate-300 truncate max-w-md"
+                  title={i.value}
                 >
-                  {i.kind}
-                </span>
-              </td>
-              <td className="px-4 py-2">
-                <span
-                  className={`text-micro font-mono uppercase tracking-wider rounded border px-1.5 py-0.5 ${CONFIDENCE_PILL[i.confidence_band]}`}
-                >
-                  {i.confidence_band} · {fmtConfidence(i.confidence)}
-                </span>
-              </td>
-              <td className="px-4 py-2 text-xs text-slate-500 dark:text-slate-400 font-mono">{i.source}</td>
-            </tr>
-          ))}
+                  {i.value}
+                </td>
+                <td className="px-4 py-2">
+                  <span
+                    className={`text-micro font-mono uppercase tracking-wider rounded border px-1.5 py-0.5 ${IOC_PILL[i.kind]}`}
+                  >
+                    {i.kind}
+                  </span>
+                </td>
+                <td className="px-4 py-2">
+                  <span
+                    className={`text-micro font-mono uppercase tracking-wider rounded border px-1.5 py-0.5 ${CONFIDENCE_PILL[i.confidence_band]}`}
+                  >
+                    {i.confidence_band} · {fmtConfidence(i.confidence)}
+                  </span>
+                </td>
+                <td className="px-4 py-2 text-xs text-slate-500 dark:text-slate-400 font-mono">{i.source}</td>
+                <td className="px-4 py-2 text-xs">
+                  {!er ? (
+                    <span className="text-slate-400 dark:text-slate-600 font-mono">—</span>
+                  ) : er.loading ? (
+                    <span className="inline-flex items-center gap-1 font-mono text-slate-500">
+                      <Loader2 className="h-3 w-3 animate-spin" /> searching…
+                    </span>
+                  ) : er.error ? (
+                    <span className="font-mono text-rose-600 dark:text-rose-400" title={er.error}>
+                      error
+                    </span>
+                  ) : er.hit ? (
+                    <span className="inline-flex items-center gap-1.5">
+                      <span
+                        className={`rounded border px-1.5 py-0.5 font-mono ${(er.hit.total_reports ?? er.hit.reports?.length ?? 0) > 0 ? 'text-rose-700 dark:text-rose-300 border-rose-300 dark:border-rose-800 bg-rose-50 dark:bg-rose-950/40' : 'text-slate-600 dark:text-slate-400 border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-900'}`}
+                      >
+                        {er.hit.total_reports ?? er.hit.reports?.length ?? 0} report
+                        {(er.hit.total_reports ?? er.hit.reports?.length ?? 0) === 1 ? '' : 's'}
+                      </span>
+                      {er.hit.last_seen && (
+                        <span className="font-mono text-slate-500 dark:text-slate-400">last {er.hit.last_seen}</span>
+                      )}
+                    </span>
+                  ) : null}
+                </td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
       {iocs.length > 50 && (
@@ -526,6 +638,355 @@ function EmptyTab({ msg }: { msg: string }): JSX.Element {
   );
 }
 
+// ── TI-Mindmap-Hub MCP integration ────────────────────────────
+// Browser-side client for https://mcp.ti-mindmap-hub.com/mcp (JSON-RPC over
+// HTTPS + SSE). The API key is stored in localStorage and never reaches our
+// backend — the MCP server validates it directly. Components below:
+//   - McpKeyBar   : key input + connection status pill
+//   - McpSearchPanel : free-text search across reports / IOCs / CVEs
+//   - IocEnrichment : per-IOC lookup result chip rendered next to each row
+
+type McpMode = 'report' | 'ioc' | 'cve';
+type McpStatus = 'idle' | 'probing' | 'connected' | 'error' | 'unconfigured';
+
+interface McpSearchHit {
+  ioc?: IocSearchResult;
+  cve?: CveSearchResult;
+  reports?: ListReportsResult;
+}
+
+function McpKeyBar(props: {
+  apiKey: string;
+  status: McpStatus;
+  statusMsg?: string;
+  onSave: (k: string) => void;
+  onProbe: () => void;
+}): JSX.Element {
+  const [draft, setDraft] = useState(props.apiKey);
+  const [showInput, setShowInput] = useState(false);
+  // Keep the input in sync if the key changes externally (e.g. after probe).
+  useEffect(() => {
+    setDraft(props.apiKey);
+  }, [props.apiKey]);
+
+  const pill: JSX.Element = (() => {
+    if (props.status === 'unconfigured') {
+      return (
+        <span className="inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 px-2 py-1 font-mono text-slate-600 dark:text-slate-300">
+          <Plug className="h-3.5 w-3.5" /> MCP not configured
+        </span>
+      );
+    }
+    if (props.status === 'probing') {
+      return (
+        <span className="inline-flex items-center gap-1.5 rounded border border-sky-300 dark:border-sky-700 bg-sky-50 dark:bg-sky-950/40 px-2 py-1 font-mono text-sky-700 dark:text-sky-300">
+          <Loader2 className="h-3.5 w-3.5 animate-spin" /> probing MCP…
+        </span>
+      );
+    }
+    if (props.status === 'connected') {
+      return (
+        <span
+          className="inline-flex items-center gap-1.5 rounded border border-emerald-300 dark:border-emerald-700 bg-emerald-50 dark:bg-emerald-950/40 px-2 py-1 font-mono text-emerald-700 dark:text-emerald-300"
+          title="Session established with https://mcp.ti-mindmap-hub.com/mcp"
+        >
+          <PlugZap className="h-3.5 w-3.5" /> MCP connected · 19 tools
+        </span>
+      );
+    }
+    if (props.status === 'error') {
+      return (
+        <span
+          className="inline-flex items-center gap-1.5 rounded border border-rose-300 dark:border-rose-700 bg-rose-50 dark:bg-rose-950/40 px-2 py-1 font-mono text-rose-700 dark:text-rose-300"
+          title={props.statusMsg || 'Connection failed'}
+        >
+          <AlertTriangle className="h-3.5 w-3.5" /> MCP error
+        </span>
+      );
+    }
+    return <span className="font-mono">MCP idle</span>;
+  })();
+
+  return (
+    <div className="flex flex-wrap items-center gap-2">
+      {pill}
+      <button
+        type="button"
+        onClick={() => setShowInput((s) => !s)}
+        className="inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-2 py-1 font-mono text-slate-600 dark:text-slate-300 hover:border-brand-400"
+      >
+        <Key className="h-3.5 w-3.5" />
+        {showInput ? 'hide key' : props.apiKey ? 'edit key' : 'set API key'}
+        <ChevronDown className={`h-3 w-3 transition-transform ${showInput ? 'rotate-180' : ''}`} />
+      </button>
+      {showInput && (
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            props.onSave(draft.trim());
+          }}
+          className="flex flex-wrap items-center gap-2"
+        >
+          <input
+            type="password"
+            value={draft}
+            onChange={(e) => setDraft(e.target.value)}
+            placeholder="tim_xxxxxxxxxxxx"
+            className="rounded border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-2 py-1 font-mono text-xs text-slate-800 dark:text-slate-200 w-56"
+            autoComplete="off"
+            spellCheck={false}
+          />
+          <button
+            type="submit"
+            disabled={!draft.trim()}
+            className="rounded border border-brand-300 dark:border-brand-700 bg-brand-50 dark:bg-brand-950/40 px-2 py-1 font-mono text-brand-700 dark:text-brand-300 hover:bg-brand-100 disabled:opacity-50"
+          >
+            save &amp; probe
+          </button>
+          {props.apiKey && (
+            <button
+              type="button"
+              onClick={() => {
+                setDraft('');
+                props.onSave('');
+              }}
+              className="rounded border border-rose-300 dark:border-rose-700 bg-rose-50 dark:bg-rose-950/40 px-2 py-1 font-mono text-rose-700 dark:text-rose-300"
+            >
+              clear
+            </button>
+          )}
+          <a
+            href="https://ti-mindmap-hub.com/settings"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-xs text-brand-600 dark:text-brand-400 hover:underline"
+          >
+            get a key ↗
+          </a>
+        </form>
+      )}
+    </div>
+  );
+}
+
+function McpSearchPanel(props: { apiKey: string; status: McpStatus }): JSX.Element {
+  const [mode, setMode] = useState<McpMode>('ioc');
+  const [q, setQ] = useState('');
+  const [busy, setBusy] = useState(false);
+  const [hit, setHit] = useState<McpSearchHit | null>(null);
+  const [err, setErr] = useState<string | null>(null);
+
+  const disabled = !props.apiKey || props.status !== 'connected' || !q.trim() || busy;
+
+  async function run(): Promise<void> {
+    if (disabled) return;
+    setBusy(true);
+    setErr(null);
+    setHit(null);
+    try {
+      if (mode === 'ioc') {
+        const r = await searchIoc(props.apiKey, q.trim());
+        setHit({ ioc: r });
+      } else if (mode === 'cve') {
+        const r = await searchCve(props.apiKey, q.trim().toUpperCase());
+        setHit({ cve: r });
+      } else {
+        const r = await listReports(props.apiKey, { search: q.trim(), limit: 8 });
+        setHit({ reports: r });
+      }
+    } catch (e) {
+      const msg = e instanceof McpError ? e.message : e instanceof Error ? e.message : String(e);
+      setErr(msg);
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  return (
+    <div className="mt-3 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
+      <div className="flex flex-wrap items-center gap-2 mb-3">
+        <Search className="h-4 w-4 text-brand-600 dark:text-brand-400" />
+        <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">Cross-Source Search</h3>
+        <span className="ml-auto text-micro font-mono uppercase text-slate-500">via TI-Mindmap-Hub MCP · 19 tools</span>
+      </div>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          void run();
+        }}
+        className="flex flex-wrap items-center gap-2"
+      >
+        <div className="flex rounded border border-slate-300 dark:border-slate-700 overflow-hidden text-xs font-mono">
+          {(['ioc', 'cve', 'report'] as McpMode[]).map((m) => (
+            <button
+              key={m}
+              type="button"
+              onClick={() => setMode(m)}
+              className={`px-2.5 py-1.5 ${mode === m ? 'bg-brand-50 dark:bg-brand-950/40 text-brand-700 dark:text-brand-300' : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800'}`}
+            >
+              {m}
+            </button>
+          ))}
+        </div>
+        <input
+          type="text"
+          value={q}
+          onChange={(e) => setQ(e.target.value)}
+          placeholder={
+            mode === 'ioc'
+              ? '8.8.8.8 · evil.com · sha256…'
+              : mode === 'cve'
+                ? 'CVE-2025-55182'
+                : 'ransomware · lazarus · apt29'
+          }
+          className="flex-1 min-w-[12rem] rounded border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 px-2.5 py-1.5 font-mono text-sm text-slate-800 dark:text-slate-200"
+          autoComplete="off"
+          spellCheck={false}
+        />
+        <button
+          type="submit"
+          disabled={disabled}
+          className="inline-flex items-center gap-1.5 rounded border border-brand-300 dark:border-brand-700 bg-brand-600 dark:bg-brand-500 px-3 py-1.5 text-sm font-medium text-white hover:bg-brand-700 disabled:opacity-50"
+        >
+          {busy ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Search className="h-3.5 w-3.5" />}
+          search
+        </button>
+      </form>
+
+      {!props.apiKey && (
+        <p className="mt-3 text-xs text-slate-500 dark:text-slate-400">
+          Add your TI-Mindmap-Hub API key above to enable cross-source lookups. Keys stay in your browser (localStorage)
+          — they are never sent to our backend.
+        </p>
+      )}
+
+      {err && (
+        <div className="mt-3 rounded border border-rose-300 dark:border-rose-800 bg-rose-50 dark:bg-rose-950/40 p-2.5 text-xs text-rose-700 dark:text-rose-300">
+          <AlertTriangle className="inline h-3.5 w-3.5 mr-1" /> {err}
+        </div>
+      )}
+
+      {hit && (
+        <div className="mt-3 space-y-2">
+          {hit.ioc && <IocHitCard hit={hit.ioc} />}
+          {hit.cve && <CveHitCard hit={hit.cve} />}
+          {hit.reports && <ReportsHitCard hit={hit.reports} />}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function IocHitCard({ hit }: { hit: IocSearchResult }): JSX.Element {
+  const reports = hit.reports ?? [];
+  return (
+    <div className="rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-3">
+      <p className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">
+        IOC search · <span className="text-slate-800 dark:text-slate-200">{hit.ioc_value}</span>
+        {hit.ioc_type && (
+          <span className="ml-2 rounded border border-slate-300 dark:border-slate-700 px-1.5 py-0.5">
+            {hit.ioc_type}
+          </span>
+        )}
+        {typeof hit.total_reports === 'number' && (
+          <span className="ml-2 text-emerald-600 dark:text-emerald-400">
+            {hit.total_reports} report{hit.total_reports === 1 ? '' : 's'}
+          </span>
+        )}
+      </p>
+      {reports.length === 0 ? (
+        <p className="text-xs text-slate-500 dark:text-slate-400">No reports mention this indicator.</p>
+      ) : (
+        <ul className="space-y-1.5">
+          {reports.slice(0, 5).map((r) => (
+            <ReportRow key={r.report_id} r={r} />
+          ))}
+          {reports.length > 5 && (
+            <li className="text-xs text-slate-500 dark:text-slate-400">+ {reports.length - 5} more reports</li>
+          )}
+        </ul>
+      )}
+    </div>
+  );
+}
+
+function CveHitCard({ hit }: { hit: CveSearchResult }): JSX.Element {
+  return (
+    <div className="rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-3">
+      <p className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">
+        CVE · <span className="text-slate-800 dark:text-slate-200">{hit.cve_id}</span>
+        {hit.severity && (
+          <span className="ml-2 rounded border border-amber-300 dark:border-amber-700 px-1.5 py-0.5 text-amber-700 dark:text-amber-300">
+            {hit.severity}
+          </span>
+        )}
+        {typeof hit.cvss_score === 'number' && <span className="ml-2 font-mono">CVSS {hit.cvss_score.toFixed(1)}</span>}
+        {typeof hit.epss_score === 'number' && (
+          <span className="ml-2 font-mono">EPSS {(hit.epss_score * 100).toFixed(1)}%</span>
+        )}
+        {hit.exploited && (
+          <span className="ml-2 rounded border border-rose-300 dark:border-rose-700 px-1.5 py-0.5 text-rose-700 dark:text-rose-300">
+            KEV
+          </span>
+        )}
+      </p>
+      {hit.description && <p className="text-xs text-slate-700 dark:text-slate-300 line-clamp-3">{hit.description}</p>}
+      {hit.references && hit.references.length > 0 && (
+        <ul className="mt-2 space-y-0.5">
+          {hit.references.slice(0, 3).map((ref, i) => (
+            <li key={i} className="text-[10px] text-slate-500 dark:text-slate-400 truncate font-mono">
+              <LinkIcon className="inline h-2.5 w-2.5 mr-1" />
+              {ref}
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+}
+
+function ReportsHitCard({ hit }: { hit: ListReportsResult }): JSX.Element {
+  const reports = hit.reports ?? [];
+  return (
+    <div className="rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-3">
+      <p className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">
+        Reports · {reports.length} match{reports.length === 1 ? '' : 'es'}
+        {typeof hit.total === 'number' && hit.total !== reports.length && (
+          <span className="ml-1 text-slate-500">(of {hit.total} total)</span>
+        )}
+      </p>
+      {reports.length === 0 ? (
+        <p className="text-xs text-slate-500 dark:text-slate-400">No matching reports.</p>
+      ) : (
+        <ul className="space-y-1.5">
+          {reports.slice(0, 6).map((r) => (
+            <ReportRow key={r.report_id} r={r} />
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+}
+
+function ReportRow({ r }: { r: TiReportSummary }): JSX.Element {
+  return (
+    <li className="rounded border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-2.5 py-1.5">
+      <p className="text-xs font-medium text-slate-800 dark:text-slate-200 line-clamp-2">{r.title ?? r.report_id}</p>
+      <p className="mt-0.5 text-[10px] font-mono uppercase text-slate-500 dark:text-slate-400">
+        {r.source ?? 'unknown'} {r.published_at ? `· ${r.published_at}` : ''}
+        {r.actor && <span className="ml-2 text-rose-600 dark:text-rose-400">actor: {r.actor}</span>}
+        {r.cves && r.cves.length > 0 && (
+          <span className="ml-2 text-amber-600 dark:text-amber-400">
+            cve: {r.cves.slice(0, 2).join(', ')}
+            {r.cves.length > 2 ? '…' : ''}
+          </span>
+        )}
+      </p>
+      {r.summary && <p className="mt-1 text-[11px] text-slate-600 dark:text-slate-400 line-clamp-2">{r.summary}</p>}
+    </li>
+  );
+}
+
 // ── Page ─────────────────────────────────────────────────────────────
 export default function AIReportShowcase(): JSX.Element {
   const [selectedId, setSelectedId] = useState<string>(SAMPLE_REPORTS[0]?.id ?? '');
@@ -534,6 +995,18 @@ export default function AIReportShowcase(): JSX.Element {
   const [loading, setLoading] = useState(false);
   const [tab, setTab] = useState<TabId>('summary');
   const [startedAt, setStartedAt] = useState<number | null>(null);
+
+  // ── TI-Mindmap-Hub MCP state ──────────────────────────────────────
+  const [apiKey, setApiKey] = useState<string>('');
+  const [mcpStatus, setMcpStatus] = useState<McpStatus>('idle');
+  const [mcpStatusMsg, setMcpStatusMsg] = useState<string>('');
+
+  // On mount, hydrate the key from localStorage and probe the connection.
+  useEffect(() => {
+    const k = getStoredApiKey();
+    setApiKey(k);
+    if (k) void doProbe(k);
+  }, []);
 
   const sample = useMemo(() => SAMPLE_REPORTS.find((r) => r.id === selectedId) ?? SAMPLE_REPORTS[0]!, [selectedId]);
 
@@ -578,6 +1051,30 @@ export default function AIReportShowcase(): JSX.Element {
     setSelectedId(id);
     setData(null);
     void runAnalyzer(SAMPLE_REPORTS.find((r) => r.id === id)!);
+  }
+
+  async function doProbe(key: string): Promise<void> {
+    if (!key) {
+      setMcpStatus('unconfigured');
+      setMcpStatusMsg('');
+      return;
+    }
+    setMcpStatus('probing');
+    setMcpStatusMsg('');
+    const r = await probeConnection(key);
+    if (r.ok) {
+      setMcpStatus('connected');
+      setMcpStatusMsg('');
+    } else {
+      setMcpStatus('error');
+      setMcpStatusMsg(r.error ?? 'unknown error');
+    }
+  }
+
+  function handleSaveKey(k: string): void {
+    setStoredApiKey(k);
+    setApiKey(k);
+    void doProbe(k);
   }
 
   return (
@@ -683,6 +1180,18 @@ export default function AIReportShowcase(): JSX.Element {
         </div>
       </div>
 
+      {/* ── MCP key bar (always visible) + cross-source search panel ── */}
+      <div className="mb-4">
+        <McpKeyBar
+          apiKey={apiKey}
+          status={mcpStatus}
+          statusMsg={mcpStatusMsg}
+          onSave={handleSaveKey}
+          onProbe={() => void doProbe(apiKey)}
+        />
+        <McpSearchPanel apiKey={apiKey} status={mcpStatus} />
+      </div>
+
       {/* ── Tabs ──────────────────────────────────────────────────────── */}
       {data && (
         <>
@@ -741,7 +1250,7 @@ export default function AIReportShowcase(): JSX.Element {
           {tab === 'mindmap' && <MindmapSimpleTab mindmap={data.mindmap} />}
           {tab === 'stix' && <StixTab data={data} />}
           {tab === 'diamond' && <DiamondTabView diamond={data.diamond} />}
-          {tab === 'iocs' && <IocsTab iocs={data.iocs} />}
+          {tab === 'iocs' && <IocsTab iocs={data.iocs} apiKey={apiKey} mcpStatus={mcpStatus} />}
           {tab === 'ttps' && <TtpsTab ttp={data.ttp} />}
           {tab === 'attackflow' && <AttackFlowTabView phases={data.attackFlow} />}
           {tab === '5w' && <FiveWTab fiveW={data.fiveW} />}
