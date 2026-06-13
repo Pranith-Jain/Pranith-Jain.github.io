@@ -12,6 +12,8 @@ import { AppShell } from './components/AppShell';
 import { BackgroundLayer } from './components/BackgroundLayer';
 import { LazyRoute } from './components/LazyRoute';
 import { FeaturesProvider } from './components/FeaturesProvider';
+import { McpProvider } from './components/ti-mindmap-mcp/McpContext';
+import { McpKeyBar } from './components/ti-mindmap-mcp/McpKeyBar';
 
 const CommandPalette = lazy(() =>
   import('./components/dfir/CommandPalette').then((m) => ({ default: m.CommandPalette }))
@@ -190,6 +192,7 @@ const OwaspAiLandscape = lazy(() => import('./pages/threatintel/OwaspAiLandscape
 const RedHuntLabsResearch = lazy(() => import('./pages/threatintel/RedHuntLabsResearch'));
 const RedHuntInsights = lazy(() => import('./pages/threatintel/RedHuntInsights'));
 const AIReportShowcase = lazy(() => import('./pages/threatintel/AIReportShowcase'));
+const McpSearch = lazy(() => import('./pages/threatintel/McpSearch'));
 const CuratedToolbox = lazy(() => import('./pages/threatintel/CuratedToolbox'));
 const OsintCountryMap = lazy(() => import('./pages/threatintel/OsintCountryMap'));
 const DarkWebOsintTools = lazy(() => import('./pages/threatintel/DarkWebOsintTools'));
@@ -581,6 +584,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel/redhunt-labs', Component: RedHuntLabsResearch },
   { path: '/threatintel/redhunt-insights', Component: RedHuntInsights },
   { path: '/threatintel/ai-report', Component: AIReportShowcase },
+  { path: '/threatintel/mcp-search', Component: McpSearch },
   { path: '/threatintel/osint-map', Component: OsintCountryMap },
   { path: '/threatintel/darkweb-tools', Component: DarkWebOsintTools },
   { path: '/threatintel/aggregated-feeds', Component: AggregatedFeeds },
@@ -716,9 +720,11 @@ export function AppContent() {
         <Suspense fallback={null}>
           <CommandPalette />
         </Suspense>
-        <AppShell mode={appMode} isDark={isDark} onToggleTheme={toggleTheme}>
-          {routes}
-        </AppShell>
+        <McpProvider>
+          <AppShell mode={appMode} isDark={isDark} onToggleTheme={toggleTheme}>
+            {routes}
+          </AppShell>
+        </McpProvider>
         <div id="aria-live-region" aria-live="polite" aria-atomic="true" className="sr-only" />
       </>
     );
@@ -754,7 +760,14 @@ function PortfolioShell({
       <BackgroundLayer isDark={isDark} />
 
       <ScrollProgress progress={progress} />
-      <Header isDark={isDark} onToggleTheme={toggleTheme} navLinks={navLinks} />
+      <McpProvider>
+        <Header
+          isDark={isDark}
+          onToggleTheme={toggleTheme}
+          navLinks={navLinks}
+          topBarExtra={<McpKeyBar variant="compact" />}
+        />
+      </McpProvider>
       <Suspense fallback={null}>
         <CommandPalette />
       </Suspense>

@@ -41,6 +41,7 @@ import {
   TrendingUp,
   Users,
   Zap,
+  Plug,
 } from 'lucide-react';
 
 export interface SidebarItem {
@@ -105,6 +106,7 @@ const threatIntel: SidebarConfig = {
         { label: 'RedHunt Labs', href: '/threatintel/redhunt-labs', icon: FlaskConical },
         { label: 'RedHunt Insights', href: '/threatintel/redhunt-insights', icon: Activity },
         { label: 'AI Report', href: '/threatintel/ai-report', icon: Sparkles },
+        { label: 'MCP Search', href: '/threatintel/mcp-search', icon: Plug },
       ],
     },
     {

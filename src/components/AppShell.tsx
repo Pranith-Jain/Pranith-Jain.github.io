@@ -9,6 +9,7 @@ import { useDataFetch } from '../hooks/useDataFetch';
 import { useScrollProgress } from '../hooks/useScrollProgress';
 import { BackToTop } from './ui/BackToTop';
 import { SkipToContent } from './SkipToContent';
+import { McpKeyBar } from './ti-mindmap-mcp/McpKeyBar';
 import { recordVisit } from '../lib/recentTools';
 
 const SECTION_META: Record<'dfir' | 'threatintel', { label: string; href: string; accent: string }> = {
@@ -219,6 +220,7 @@ export function AppShell({ mode, isDark, onToggleTheme, children }: AppShellProp
         mark={mode}
         onOpenMobileNav={() => setMobileNavOpen(true)}
         mobileNavOpen={mobileNavOpen}
+        topBarExtra={<McpKeyBar variant="compact" />}
       />
       <div className="flex-1 flex min-h-0 max-w-[1500px] w-full mx-auto px-3 sm:px-6 gap-3 sm:gap-4">
         {sidebarConfig && <Sidebar config={sidebarConfig} />}

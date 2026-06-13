@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Search, Moon, Sun, Shield, Radar, Menu, X } from 'lucide-react';
@@ -25,6 +26,12 @@ interface TopBarProps {
    * → X transition. When undefined, always render the hamburger.
    */
   mobileNavOpen?: boolean;
+  /**
+   * Optional extra slot rendered just to the left of the theme toggle.
+   * Used by the threatintel shell to mount the MCP connection pill
+   * (visible on every page; popover holds the key input).
+   */
+  topBarExtra?: ReactNode;
 }
 
 const SEARCH_PLACEHOLDERS: Record<string, string> = {
@@ -51,6 +58,7 @@ export function TopBar({
   mark = 'dfir',
   onOpenMobileNav,
   mobileNavOpen,
+  topBarExtra,
 }: TopBarProps): JSX.Element {
   const [isMac, setIsMac] = useState<boolean | null>(null);
   const searchKey = sectionHref.replace(/^\//, '');
@@ -131,6 +139,7 @@ export function TopBar({
           )}
         </button>
 
+        {topBarExtra}
         <button
           type="button"
           onClick={onToggleTheme}

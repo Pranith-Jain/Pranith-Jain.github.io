@@ -1,4 +1,4 @@
-import { memo, useState, useEffect, useRef, useCallback } from 'react';
+import { memo, useState, useEffect, useRef, useCallback, type ReactNode } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, ChevronDown, Command } from 'lucide-react';
 import type { NavLink } from '../core/entities';
@@ -10,9 +10,11 @@ interface HeaderProps {
   isDark: boolean;
   onToggleTheme: () => void;
   navLinks: NavLink[];
+  /** Optional extra slot rendered just before the theme toggle. */
+  topBarExtra?: ReactNode;
 }
 
-export const Header = memo(function Header({ isDark, onToggleTheme, navLinks }: HeaderProps) {
+export const Header = memo(function Header({ isDark, onToggleTheme, navLinks, topBarExtra }: HeaderProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
@@ -335,6 +337,7 @@ export const Header = memo(function Header({ isDark, onToggleTheme, navLinks }: 
               </button>
             )}
 
+            {topBarExtra}
             <ThemeToggle isDark={isDark} onToggle={onToggleTheme} />
 
             <button

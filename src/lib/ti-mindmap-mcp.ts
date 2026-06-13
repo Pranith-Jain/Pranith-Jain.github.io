@@ -292,6 +292,71 @@ export async function listReports(
   return callTool<ListReportsResult>('list_reports', args, apiKey);
 }
 
+// ── Report content fetchers (used by the AI Report showcase to load
+//    any of the 1,628+ reports on ti-mindmap-hub.com on demand) ──────
+
+export type ReportContentType =
+  | 'summary'
+  | 'raw'
+  | 'mindmap'
+  | 'ttps_table'
+  | 'ttps_execution'
+  | 'five_whats'
+  | 'stix'
+  | 'iocs';
+
+export interface ReportDetailsResult {
+  report_id: string;
+  title?: string;
+  source?: string;
+  published_at?: string;
+  url?: string;
+  tags?: string[];
+  summary?: string;
+  actor?: string;
+  malware?: string[];
+  cves?: string[];
+  iocs?: Array<{ type?: string; value: string }>;
+  ttps?: Array<{ id?: string; name?: string; tactic?: string }>;
+  cvss?: number;
+  severity?: string;
+  epss?: number;
+}
+
+/** Detailed metadata for a single report. */
+export async function getReportDetails(apiKey: string, reportId: string): Promise<ReportDetailsResult> {
+  return callTool<ReportDetailsResult>('get_report_details', { report_id: reportId }, apiKey);
+}
+
+/**
+ * Fetch one of the eight content slices for a report. The MCP server
+ * returns each slice as a JSON-encoded text block; for the `raw` text
+ * the payload is just the article body, so we return a string.
+ */
+export async function getReportContent(
+  apiKey: string,
+  reportId: string,
+  contentType: ReportContentType
+): Promise<unknown> {
+  return callTool<unknown>('get_report_content', { report_id: reportId, content_type: contentType }, apiKey);
+}
+
+export interface SourcesListResult {
+  sources?: Array<{ name: string; count?: number }>;
+}
+
+export async function listAvailableSources(apiKey: string): Promise<SourcesListResult> {
+  return callTool<SourcesListResult>('get_available_sources', {}, apiKey);
+}
+
+export interface TagsListResult {
+  tags?: Array<{ name: string; count?: number }>;
+}
+
+export async function listAvailableTags(apiKey: string): Promise<TagsListResult> {
+  return callTool<TagsListResult>('get_available_tags', {}, apiKey);
+}
+
 export interface IocSearchResult {
   ioc_value: string;
   ioc_type?: string;
