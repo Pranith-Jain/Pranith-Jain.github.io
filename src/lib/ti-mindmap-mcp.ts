@@ -211,20 +211,46 @@ async function callRaw<T>(
   const ctl = new AbortController();
   const timer = setTimeout(() => ctl.abort(), method === 'initialize' ? PROBE_TIMEOUT_MS : CALL_TIMEOUT_MS);
   let res: Response;
+  let resInfo = `endpoint=${endpoint} method=${method}`;
   try {
     res = await fetch(endpoint, { method: 'POST', headers, body: JSON.stringify(body), signal: ctl.signal });
   } catch (e) {
     clearTimeout(timer);
     const msg = e instanceof Error ? e.message : String(e);
-    throw new McpError(
-      msg.includes('aborted')
-        ? `MCP request timed out after ${Math.round(CALL_TIMEOUT_MS / 1000)}s`
-        : `Network error: ${msg}`,
-      -32000,
-      'Check your network connection and try again.'
-    );
+    // Distinguish a CORS preflight failure (Safari/Chrome report
+    // these as "NetworkError when attempting to fetch resource") from
+    // a real network error. We can't tell with 100% certainty from
+    // the message alone, but if the user is hitting the same-origin
+    // proxy path, a fetch() error here means the browser blocked the
+    // request BEFORE we got a response -- almost always a stale cache,
+    // a service worker, or a browser extension interfering.
+    const isCorsStyle = /NetworkError|fetch resource|Failed to fetch|Load failed/i.test(msg);
+    const isAbort = msg.toLowerCase().includes('aborted') || msg.toLowerCase().includes('aborts');
+    if (isAbort) {
+      throw new McpError(
+        `MCP request timed out after ${Math.round(CALL_TIMEOUT_MS / 1000)}s`,
+        -32000,
+        `(${resInfo}) Check your network and re-probe.`
+      );
+    }
+    if (isCorsStyle && endpoint === PROXY_URL) {
+      throw new McpError(
+        `Browser blocked the MCP call: ${msg}`,
+        -32000,
+        `(${resInfo}) The request goes to our same-origin /api/v1/mcp/proxy, so CORS is not the cause. Try a hard refresh (Cmd/Ctrl+Shift+R) to clear the cached JS bundle, or open the page in an incognito window. If that still fails, paste your key into the popover and re-probe.`
+      );
+    }
+    if (isCorsStyle) {
+      throw new McpError(
+        `Browser blocked the MCP call: ${msg}`,
+        -32000,
+        `(${resInfo}) The upstream MCP server does not send CORS headers. The request should go through our /api/v1/mcp/proxy -- open the MCP pill in the header to re-probe.`
+      );
+    }
+    throw new McpError(`Network error: ${msg}`, -32000, `(${resInfo}) Check your network connection and try again.`);
   }
   clearTimeout(timer);
+  resInfo += ` status=${res.status}`;
 
   if (res.status === 401 || res.status === 403) {
     saveSession('');
@@ -504,7 +530,7 @@ export async function getStats(apiKey: string): Promise<PlatformStats> {
  *  Returns `{ ok, error? }` -- never throws. */
 export async function probeConnection(
   apiKey: string,
-  endpoint = MCP_URL
+  endpoint = PROXY_URL
 ): Promise<{ ok: boolean; serverInfo?: { name?: string; version?: string }; error?: string }> {
   if (!apiKey) return { ok: false, error: 'No API key set' };
   try {
