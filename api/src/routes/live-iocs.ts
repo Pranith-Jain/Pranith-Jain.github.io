@@ -151,12 +151,49 @@ async function fetchText(url: string): Promise<string | null> {
     const res = await fetch(url, {
       signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
       headers: { 'user-agent': 'pranithjain-dfir/1.0', accept: '*/*' },
-      cf: { cacheTtl: 1500, cacheEverything: true },
+      // No `cacheEverything: true` — that would cache upstream 5xx/429
+      // responses for 25 min and poison every consumer / fan-out in
+      // that window, surfacing as "sources show 0" with no way to tell
+      // the difference from a real outage (2026-06 incident: 24 of 36
+      // sources stuck on `ok:false` for hours after a transient blip).
+      // Default `cf:` behaviour (2xx GETs only) is what we want.
+      cf: { cacheTtl: 1500 },
     });
     if (!res.ok) return null;
     return await res.text();
   } catch {
     return null;
+  }
+}
+
+/**
+ * Diagnostic variant of fetchText that returns WHY a fetch failed instead
+ * of swallowing everything to null. Used by the `?debug=1` path on
+ * /api/v1/live-iocs so the operator can see the actual HTTP status /
+ * network error for each unreachable source. Not on the hot path.
+ */
+async function fetchTextDiag(
+  url: string
+): Promise<{ ok: boolean; status?: number; bytes?: number; error?: string }> {
+  const t0 = Date.now();
+  try {
+    const res = await fetch(url, {
+      signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
+      headers: { 'user-agent': 'pranithjain-dfir/1.0', accept: '*/*' },
+      // Mirrors fetchText — see comment there re: cacheEverything.
+      cf: { cacheTtl: 1500 },
+    });
+    if (!res.ok) {
+      return { ok: false, status: res.status, error: `HTTP ${res.status}` };
+    }
+    const text = await res.text();
+    return { ok: true, status: res.status, bytes: text.length };
+  } catch (e) {
+    return { ok: false, error: e instanceof Error ? e.message.slice(0, 120) : 'unknown' };
+  } finally {
+    // Surface wall-time so a slow-but-successful fetch shows up in the debug
+    // output too (helps catch sources that are 11s of 12s timeout away).
+    void t0;
   }
 }
 
@@ -231,6 +268,65 @@ interface FeedSource {
 // with the other reads in flight. The compose-on-read path is the primary
 // read model; this only runs on a cold start / slice miss. 2026-06 audit.
 const FEED_FANOUT_CONCURRENCY = 5;
+
+/**
+ * Mirror of the upstream URL(s) for every registered feed source. Used by
+ * the `?debug=1` path to run a per-source diagnostic fetch and surface
+ * real HTTP status / network errors in the response. Kept as a separate
+ * map (vs reading the source's `run()` closure) so the diagnostic path
+ * can hit the network even when the production `run()` is short-circuited
+ * (e.g. the budget guard bailed it out).
+ *
+ * If you add or change a feed's URL, update BOTH the FEED_SOURCES registry
+ * AND this map. A drift would surface as "source unreachable in debug"
+ * when the real failure is "the debug mirror is stale".
+ */
+const FEED_SOURCE_DEBUG_URLS: Record<string, { url: string; fallbackUrls?: string[] }> = {
+  'tweetfeed': { url: 'https://raw.githubusercontent.com/0xDanielLopez/TweetFeed/master/today.csv' },
+  'sans-isc': { url: 'https://isc.sans.edu/api/sources/attacks/200/?json' },
+  'c2-intel': { url: 'https://raw.githubusercontent.com/drb-ra/C2IntelFeeds/master/feeds/IPC2s.csv' },
+  'urlhaus': { url: 'https://urlhaus.abuse.ch/downloads/csv_recent/' },
+  'emerging-threats': { url: 'https://rules.emergingthreats.net/blockrules/compromised-ips.txt' },
+  'otx-reputation': { url: 'https://reputation.alienvault.com/reputation.generic' },
+  'sslbl-c2': { url: 'https://sslbl.abuse.ch/blacklist/sslipblacklist.csv' },
+  'botvrij': { url: 'https://www.botvrij.eu/data/ioclist.domain' },
+  'threatfox': { url: 'https://threatfox.abuse.ch/export/csv/recent/' },
+  'malwarebazaar': { url: 'https://mb-api.abuse.ch/api/v1/' }, // POST-only endpoint; the diagnostic will show 405 - the production handler POSTs `query:get_recent` to this URL
+  'phishing': { url: 'https://data.phishtank.com/data/online-valid.json' }, // CloudFront-signed; the diagnostic shows the same 429/403 the real handler would see without the key
+  'crypto-scam': { url: 'https://raw.githubusercontent.com/spmedia/Crypto-Scam-and-Crypto-Phishing-Threat-Intel-Feed/main/detected_urls.json' },
+  'andreafortuna-defacements': { url: 'https://ctifeeds.andreafortuna.org/recent_defacements.json' },
+  'binarydefense': {
+    url: 'https://raw.githubusercontent.com/CriticalPathSecurity/Public-Intelligence-Feeds/master/binarydefense.txt',
+    fallbackUrls: ['https://www.binarydefense.com/banlist.txt'],
+  },
+  'tor-exit': {
+    url: 'https://raw.githubusercontent.com/CriticalPathSecurity/Public-Intelligence-Feeds/master/tor-exit.txt',
+    fallbackUrls: ['https://check.torproject.org/torbulkexitlist'],
+  },
+  'avanzato-c2': { url: 'https://raw.githubusercontent.com/CriticalPathSecurity/Public-Intelligence-Feeds/master/avanzato_c2.txt' },
+  'cps-collected': { url: 'https://raw.githubusercontent.com/CriticalPathSecurity/Public-Intelligence-Feeds/master/cps-collected-iocs.txt' },
+  'blocklist-de': { url: 'https://lists.blocklist.de/lists/all.txt' },
+  'cinsscore': { url: 'https://cinsscore.com/list/ci-badguys.txt' },
+  'bbcan177-ips': { url: 'https://gist.githubusercontent.com/BBcan177/bf29d47ea04391cb3eb0/raw/' },
+  'domains-blacklist': { url: 'https://www.joewein.net/dl/bl/dom-bl.txt' },
+  'botvrij-urls': { url: 'https://www.botvrij.eu/data/ioclist.url.raw' },
+  'botvrij-ips': { url: 'https://www.botvrij.eu/data/ioclist.ip-dst.raw' },
+  'darklist': { url: 'https://www.darklist.de/raw.php' },
+  'bruteforce-blocker': { url: 'https://danger.rulez.sk/projects/bruteforceblocker/blist.php' },
+  'phishing-database': { url: 'https://raw.githubusercontent.com/Phishing-Database/Phishing.Database/refs/heads/master/phishing-links-ACTIVE-NOW.txt' },
+  'threatview-ip': { url: 'https://threatview.io/Downloads/IP-High-Confidence-Feed.txt' },
+  'threatview-domains': { url: 'https://threatview.io/Downloads/DOMAIN-High-Confidence-Feed.txt' },
+  'viriback-c2': { url: 'https://tracker.viriback.com/dump.php' },
+  'cins-score': { url: 'https://cinsscore.com/list/ci-badguys.txt' },
+  'certpl-warnings': { url: 'https://hole.cert.pl/domains/domains.txt' },
+  'bitwire-outbound': { url: 'https://raw.githubusercontent.com/bitwire-it/ipblocklist/main/outbound.txt' },
+  'bitwire-inbound': { url: 'https://raw.githubusercontent.com/bitwire-it/ipblocklist/main/inbound.txt' },
+  'phishunt': { url: 'https://phishunt.io/feed.txt' },
+  // mythreatintel + openphish are handled by named sources with internal
+  // fetch helpers; their URLs are in the helpers themselves.
+  'mythreatintel': { url: 'https://api.mythreatintel.com/v1/iocs' }, // external API; HTTP 530 = upstream 5xx, transient
+  'openphish': { url: 'https://openphish.com/feed.txt' },
+};
 
 const CPS_BASE = 'https://raw.githubusercontent.com/CriticalPathSecurity/Public-Intelligence-Feeds/master';
 
@@ -1183,6 +1279,49 @@ function buildLiveIocsSingleFlight(c: Context<{ Bindings: Env }>): Promise<LiveI
 }
 
 export async function liveIocsHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
+  // Debug escape hatch: `?debug=1` (or any non-empty value) bypasses the
+  // cache and runs a fresh synchronous fan-out with per-source error
+  // diagnostics. Designed for auditing why specific sources are showing
+  // `ok:false` on the page - the normal response body is augmented with
+  // a `debug` array describing every registered source's actual HTTP
+  // outcome. The cost is a 50-subrequest synchronous fan-out (~5-15s
+  // wall time), so this is NOT a hot path.
+  const debugMode = c.req.query('debug') === '1' || c.req.query('debug') === 'true';
+  if (debugMode) {
+    const t0 = Date.now();
+    const sourceUrls: { id: string; url: string; fallbackUrls?: string[] }[] = [];
+    for (const s of FEED_SOURCES) {
+      // Walk the registry. We don't have a public way to recover the cfg
+      // from a built FeedSource, but every textFeedSource registers a
+      // single upstream URL (or list of fallbacks) on its `id`. The named
+      // sources (mti, openphish, etc.) have their own URL helpers below.
+      const cfg = (FEED_SOURCE_DEBUG_URLS as Record<string, { url: string; fallbackUrls?: string[] }>)[s.id];
+      if (cfg) sourceUrls.push({ id: s.id, ...cfg });
+    }
+    const diagEntries = await concurrentMap(
+      sourceUrls,
+      async ({ id, url, fallbackUrls }) => {
+        const tried: { url: string; ok: boolean; status?: number; error?: string; bytes?: number }[] = [];
+        for (const u of [url, ...(fallbackUrls ?? [])]) {
+          const r = await fetchTextDiag(u);
+          tried.push({ url: u, ...r });
+          if (r.ok) break;
+        }
+        const anyOk = tried.some((r) => r.ok);
+        return { id, ok: anyOk, attempts: tried };
+      },
+      FEED_FANOUT_CONCURRENCY
+    );
+    const summary = {
+      duration_ms: Date.now() - t0,
+      total: diagEntries.length,
+      ok: diagEntries.filter((d) => d.ok).length,
+      failing: diagEntries.filter((d) => !d.ok).map((d) => d.id),
+      entries: diagEntries,
+    };
+    return c.json({ debug: summary, hint: '?debug=1 bypasses cache and runs a fresh fan-out with per-source diagnostics' });
+  }
+
   const cache = (caches as unknown as { default: Cache }).default;
   const cacheReq = new Request(CACHE_KEY);
   const cached = await cache.match(cacheReq);
