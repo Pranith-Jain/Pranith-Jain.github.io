@@ -59,7 +59,7 @@ class Stmt {
     const tbl = this.tblName();
     if (!tbl) return { success: true, meta: { changes: 0 } };
     const t = (this.db.tables[tbl] ??= new Map());
-    if (/^INSERT/i.test(this.sql.trim())) {
+    if (/^INSERT\b/i.test(this.sql.trim())) {
       const cols = (this.sql.match(/INSERT INTO \w+\s*\(([^)]+)\)\s*VALUES/i)?.[1] ?? '').split(',').map((s) => s.trim().replace(/^\d+:?\s*/, ''));
       const vals = (this.sql.match(/VALUES\s*\(([^)]+)\)/i)?.[1] ?? '').split(',').map((s) => s.trim());
       const row: Record<string, unknown> = {};

@@ -29,6 +29,7 @@ class Stmt {
   }
   async all() {
     const tbl = (this.sql.match(/FROM\s+(\w+)/i) ?? [])[1];
+    console.log('SHIM ALL:', this.sql.slice(0, 200), '→', tbl);
     const t = this.db.tables[tbl!];
     if (!t) return { results: [] };
     let rows = Array.from(t.values());
@@ -69,7 +70,7 @@ class Stmt {
     const tbl = (this.sql.match(/(?:INSERT INTO|UPDATE)\s+(\w+)/i) ?? [])[1];
     if (!tbl) return { success: true, meta: { changes: 0 } };
     const t = (this.db.tables[tbl] ??= new Map());
-    if (/^INSERT/i.test(this.sql.trim())) {
+    if (/^INSERT\b/i.test(this.sql.trim())) {
       const cols = (this.sql.match(/INSERT INTO \w+\s*\(([^)]+)\)\s*VALUES/i)?.[1] ?? '').split(',').map((s) => s.trim().replace(/^\d+:?\s*/, ''));
       const vals = (this.sql.match(/VALUES\s*\(([^)]+)\)/i)?.[1] ?? '').split(',').map((s) => s.trim());
       const row: Record<string, unknown> = {};

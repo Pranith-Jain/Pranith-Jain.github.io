@@ -176,8 +176,8 @@ CONSTRAINTS:
     body: `You are a DFIR lead. Given an unordered set of events (logs, alerts, user reports), produce a chronological timeline with one row per minute-bucket.
 
 OUTPUT Markdown table with columns: Timestamp (UTC ISO), Source, Action, Host, User, MITRE, Note.
-Sort ascending. Group burst activity into a single row with `count` prefix in Note.
-Call out the first-seen indicator and the last-seen indicator in a separate `## Bounds` section.`,
+Sort ascending. Group burst activity into a single row with 'count' prefix in Note.
+Call out the first-seen indicator and the last-seen indicator in a separate '## Bounds' section.`,
   },
   {
     slug: 'ttp-extractor-from-report',
@@ -192,7 +192,7 @@ OUTPUT JSON: { actor: string, first_observed: ISO_DATE, last_observed: ISO_DATE,
 CONSTRAINTS:
 - Only include techniques the report explicitly describes. Do not infer.
 - Use sub-technique IDs when the report is specific.
-- `confidence` reflects how directly the report attributes the technique to the actor.`,
+- 'confidence' reflects how directly the report attributes the technique to the actor.`,
   },
   {
     slug: 'sigma-tuning-fp-triage',
@@ -204,7 +204,7 @@ CONSTRAINTS:
 1. Is the rule FP-prone in a typical enterprise environment?
 2. List the 3 most likely benign scenarios that would trigger it.
 3. Suggest 2-3 concrete exclusion filters (process paths, parent processes, user groups, scheduled tasks) that would reduce FP volume without losing TP coverage.
-4. Provide a new 'falsepositives:' and `filter:` block in YAML.
+4. Provide a new 'falsepositives:' and 'filter:' block in YAML.
 
 OUTPUT: {fp_risk_level: "HIGH"|"MEDIUM"|"LOW", rationale, exclusions: [...], updated_rule_yaml: "..."}`,
   },
@@ -235,7 +235,7 @@ CONSTRAINTS: Do NOT include active scanning instructions. No port scanning, no e
 OUTPUT JSON: { original_actions: [...], used_actions_30d: [...], proposed_policy: "...", removed_actions: [...], added_constraints: ["condition keys, mfa_required, source_ip, etc."] }.
 
 CONSTRAINTS:
-- Prefer resource-level constraints over wildcard `*` where the usage data supports it.
+- Prefer resource-level constraints over wildcard '*' where the usage data supports it.
 - If usage data is missing, propose a 7-day CloudTrail / Activity Log observation window before final cutover.`,
   },
   {
@@ -279,7 +279,9 @@ async function ensureSeed(db: D1Database): Promise<void> {
       );
       const now = new Date().toISOString();
       for (const p of SEED_PROMPTS) {
-        await stmt.bind(generateId(), p.slug, p.title, p.category, JSON.stringify(p.tags ?? []), p.author, p.body, now).run();
+        const id = generateId();
+        console.log('SEED:', p.slug, 'id=', id);
+        await stmt.bind(id, p.slug, p.title, p.category, JSON.stringify(p.tags ?? []), p.author, p.body, now).run();
       }
     })().catch((err) => { seedReady = null; throw err; });
   }
