@@ -238,7 +238,7 @@ export default function BreachForums(): JSX.Element {
 
       <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6 flex items-center justify-between gap-3 flex-wrap">
         {data && (
-          <p className="text-mini font-mono text-slate-500">
+          <p className="text-mini font-mono text-slate-500 dark:text-slate-400">
             {data.rows.length} entries · {data.totals.directory} from deepdarkCTI · {data.totals.curated} curated
           </p>
         )}

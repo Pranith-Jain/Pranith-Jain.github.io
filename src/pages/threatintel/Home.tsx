@@ -210,19 +210,19 @@ export default function ThreatIntelHome(): JSX.Element {
 
       {isSearching ? (
         <section className="animate-fade-in-up mb-12">
-          <ul className="stagger grid gap-3 md:grid-cols-2 lg:grid-cols-3">
+          <ul className="stagger grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {searchResults.map(({ section, ...t }) => {
               const Icon = t.icon;
               const cardClass =
-                'group relative block h-full overflow-hidden rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 ' +
+                'surface-card group relative block h-full overflow-hidden p-4 ' +
                 'transition-[transform,border-color,box-shadow] duration-200 hover:-translate-y-0.5 hover:border-brand-500/50 ' +
-                'hover:shadow-[0_10px_30px_-12px_rgba(44,62,229,0.35)] focus-visible:outline-none focus-visible:-translate-y-0.5 ' +
+                'hover:shadow-e2 focus-visible:outline-none focus-visible:-translate-y-0.5 ' +
                 'focus-visible:border-brand-500 focus-visible:ring-2 focus-visible:ring-brand-500/40';
               const inner = (
                 <>
                   <div className="mb-2 flex items-start justify-between gap-2">
                     <Icon size={18} className="mt-0.5 shrink-0 text-brand-600 dark:text-brand-400" aria-hidden="true" />
-                    <span className="mt-0.5 inline-flex items-center rounded border border-slate-300 bg-slate-50 px-1.5 py-0.5 font-mono text-micro uppercase tracking-wider text-slate-500 dark:border-slate-700 dark:bg-slate-800/50">
+                    <span className="mt-0.5 inline-flex items-center rounded border border-slate-300 bg-slate-50 px-1.5 py-0.5 font-mono text-micro uppercase tracking-wider text-slate-500 dark:border-slate-700 dark:bg-slate-800/50 dark:text-slate-400">
                       {section.label}
                     </span>
                   </div>
@@ -273,7 +273,7 @@ export default function ThreatIntelHome(): JSX.Element {
       ) : activeSection ? (
         <section className="animate-fade-in-up mb-12">
           <div className="flex flex-wrap items-center gap-2 mb-6 text-mini font-mono">
-            <span className="text-slate-500">categories:</span>
+            <span className="text-slate-500 dark:text-slate-400">categories:</span>
             {SECTIONS.map((s) => (
               <Link
                 key={s.id}
@@ -289,24 +289,24 @@ export default function ThreatIntelHome(): JSX.Element {
             ))}
           </div>
           <div className="mb-4">
-            <h2 className="font-display font-bold text-2xl text-slate-900 dark:text-slate-100">
+            <h2 className="font-display font-bold text-2xl text-slate-900 dark:text-slate-100 mb-3">
               {activeSection.label}
             </h2>
             <p className="text-sm text-slate-500 dark:text-slate-400 font-mono mt-1">
               {activeSection.blurb} · {activeSection.tools.length}{' '}
               {activeSection.tools.length === 1 ? 'source' : 'sources'}
             </p>
-            <p className="text-mini font-mono text-slate-400 mt-2">
+            <p className="text-mini font-mono text-slate-400 dark:text-slate-500 mt-2">
               Reference only. Feeds refreshed at the edge each visit; verify indicators in your own environment.
             </p>
           </div>
-          <ul className="stagger grid gap-3 md:grid-cols-2 lg:grid-cols-3">
+          <ul className="stagger grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {activeSection.tools.map((t) => {
               const Icon = t.icon;
               const cardClass =
-                'group relative block h-full overflow-hidden rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 ' +
+                'surface-card group relative block h-full overflow-hidden p-4 ' +
                 'transition-[transform,border-color,box-shadow] duration-200 hover:-translate-y-0.5 hover:border-brand-500/50 ' +
-                'hover:shadow-[0_10px_30px_-12px_rgba(44,62,229,0.35)] focus-visible:outline-none focus-visible:-translate-y-0.5 ' +
+                'hover:shadow-e2 focus-visible:outline-none focus-visible:-translate-y-0.5 ' +
                 'focus-visible:border-brand-500 focus-visible:ring-2 focus-visible:ring-brand-500/40';
               const inner = (
                 <>

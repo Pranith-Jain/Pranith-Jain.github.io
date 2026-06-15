@@ -21,7 +21,7 @@ import { useState, useEffect, useCallback, useMemo } from 'react';
 import {
   Rss, ExternalLink, Search, RefreshCw,
   AlertTriangle, Clock, Tag, ChevronRight,
-} from 'lucide-react';
+ExternalLink } from 'lucide-react';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 

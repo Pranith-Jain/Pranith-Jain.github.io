@@ -20,7 +20,7 @@ import {
   ShieldCheck,
   ShieldX,
   Trophy,
-} from 'lucide-react';
+ExternalLink } from 'lucide-react';
 
 type TabId = 'overview' | 'live' | 'leaderboard';
 type Severity = 'critical' | 'high' | 'medium' | 'low';
@@ -530,7 +530,7 @@ export default function SecretLeaks(): JSX.Element {
                                 {leak.owner}/{leak.repo}
                               </span>
                               <span className="text-xs text-slate-400">/</span>
-                              <span className="text-xs font-mono text-slate-500">{leak.file}</span>
+                              <span className="text-xs font-mono text-slate-500 dark:text-slate-400">{leak.file}</span>
                             </div>
                             <div className="flex items-center gap-3 text-xs font-mono text-slate-500">
                               <span>
@@ -572,7 +572,7 @@ export default function SecretLeaks(): JSX.Element {
               {/* Pagination */}
               {totalPages > 1 && (
                 <div className="flex items-center justify-between pt-4">
-                  <span className="text-xs font-mono text-slate-500">
+                  <span className="text-xs font-mono text-slate-500 dark:text-slate-400">
                     Page {page} of {totalPages}
                   </span>
                   <div className="flex gap-2">

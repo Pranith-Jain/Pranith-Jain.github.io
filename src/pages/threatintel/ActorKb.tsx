@@ -239,7 +239,7 @@ export default function ActorKb(): JSX.Element {
       </BackLink>
 
       <div className="animate-fade-in-up">
-        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
+        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-3 flex items-center gap-3">
           <Users size={28} className="text-brand-600 dark:text-brand-400" /> Threat-Actor Knowledge Base
         </h1>
         <p className="text-slate-600 dark:text-slate-400 mb-6 max-w-2xl">
@@ -261,11 +261,11 @@ export default function ActorKb(): JSX.Element {
               onChange={(e) => setQ(e.target.value)}
               placeholder="Search actor, alias, Gxxxx, technique, malware…"
               aria-label="Search threat actors"
-              className="w-full pl-9 pr-3 py-2.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="w-full pl-9 pr-3 py-2.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 dark:placeholder:text-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
             />
           </div>
           {selected && (
-            <section className="mb-8 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-5">
+            <section className="mb-8 surface-card p-5">
               <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
                 <h2 className="text-2xl font-display font-bold">{selected.name}</h2>
                 <a
@@ -278,7 +278,7 @@ export default function ActorKb(): JSX.Element {
                 </a>
               </div>
               {selected.aliases.length > 0 && (
-                <p className="text-meta font-mono text-slate-500 mt-1">aka {selected.aliases.join(' · ')}</p>
+                <p className="text-meta font-mono text-slate-500 dark:text-slate-400 mt-1">aka {selected.aliases.join(' · ')}</p>
               )}
               <p className="text-sm text-slate-700 dark:text-slate-300 mt-3 leading-relaxed">{selected.description}</p>
 
@@ -406,7 +406,7 @@ export default function ActorKb(): JSX.Element {
                         </div>
                       )}
                       {enrich.malpedia.length === 0 && enrich.maltrail.length === 0 && enrich.otx.length === 0 && (
-                        <p className="text-mini font-mono text-slate-500">No enrichment found.</p>
+                        <p className="text-mini font-mono text-slate-500 dark:text-slate-400">No enrichment found.</p>
                       )}
                     </div>
                   )}
@@ -426,7 +426,7 @@ export default function ActorKb(): JSX.Element {
             />
           </div>
 
-          <div className="text-meta font-mono text-slate-500 mb-2">
+          <div className="text-meta font-mono text-slate-500 dark:text-slate-400 mb-2">
             {filtered.length} of {actorKb.length} actors
           </div>
           <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
@@ -435,10 +435,10 @@ export default function ActorKb(): JSX.Element {
                 key={a.attackId}
                 type="button"
                 onClick={() => open(a.attackId)}
-                className={`text-left rounded-lg border p-3 transition-colors ${
+                className={`text-left surface-card p-3 transition-colors ${
                   a.attackId === selectedId
-                    ? 'border-brand-500/50 bg-brand-500/5'
-                    : 'border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:border-brand-500/40'
+                    ? 'border-brand-500/50 bg-brand-500/5 dark:bg-brand-500/5'
+                    : 'hover:border-brand-500/40'
                 }`}
               >
                 <div className="flex items-baseline justify-between gap-2">
@@ -464,17 +464,17 @@ export default function ActorKb(): JSX.Element {
           canonical-actor match are auto-promoted to skeleton profiles so
           their IOCs always have a home — a later MITRE/Malpedia
           enrichment can flesh them out. */}
-      <section className="mt-12 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+      <section className="mt-12 surface-card p-5">
         <div className="flex items-start justify-between gap-3 mb-3 flex-wrap">
           <div>
             <h2 className="text-lg font-display font-bold inline-flex items-center gap-2">
               <Sparkles size={16} className="text-brand-600 dark:text-brand-400" />
               Maltrail-discovered actors
               {!skeletonsLoading && skeletons.length > 0 && (
-                <span className="text-xs font-mono text-slate-500">· {skeletons.length}</span>
+                <span className="text-xs font-mono text-slate-500 dark:text-slate-400">· {skeletons.length}</span>
               )}
             </h2>
-            <p className="text-mini font-mono text-slate-500 mt-1 max-w-3xl">
+            <p className="text-mini font-mono text-slate-500 dark:text-slate-400 mt-1 max-w-3xl">
               <code>apt_*.txt</code> files in stamparm/maltrail with no canonical MITRE / Malpedia match. Auto-created
               skeleton profiles so the IOC trail isn't dropped.
             </p>
@@ -503,15 +503,15 @@ export default function ActorKb(): JSX.Element {
             {syncError}
           </div>
         )}
-        {skeletonsLoading && <p className="text-xs font-mono text-slate-500">Loading skeleton actors…</p>}
+        {skeletonsLoading && <p className="text-xs font-mono text-slate-500 dark:text-slate-400">Loading skeleton actors…</p>}
         {!skeletonsLoading && skeletons.length === 0 && (
-          <p className="text-xs font-mono text-slate-500">
+          <p className="text-xs font-mono text-slate-500 dark:text-slate-400">
             No skeleton actors yet — click <span className="text-brand-600 dark:text-brand-400">sync maltrail</span> to
             discover unmatched apt_*.txt profiles.
           </p>
         )}
         {!skeletonsLoading && skeletons.length > 0 && skeletonMatches.length === 0 && q.trim() && (
-          <p className="text-xs font-mono text-slate-500">No skeletons match the current search.</p>
+          <p className="text-xs font-mono text-slate-500 dark:text-slate-400">No skeletons match the current search.</p>
         )}
         {skeletonMatches.length > 0 && (
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-2">

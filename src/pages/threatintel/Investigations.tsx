@@ -363,7 +363,7 @@ function InvestigationsPage(): JSX.Element {
         )}
 
         <div className="flex gap-2 mb-6">
-          <span className="text-mini font-mono text-slate-500">Severity:</span>
+          <span className="text-mini font-mono text-slate-500 dark:text-slate-400">Severity:</span>
           {(['low', 'medium', 'high', 'critical'] as const).map((s) => (
             <button
               key={s}
@@ -717,7 +717,7 @@ function InvestigationsPage(): JSX.Element {
       {loading && (
         <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-12 text-center">
           <Loader2 size={20} className="animate-spin mx-auto text-slate-400 mb-2" />
-          <p className="text-xs font-mono text-slate-500">Loading investigations…</p>
+          <p className="text-xs font-mono text-slate-500 dark:text-slate-400">Loading investigations…</p>
         </div>
       )}
 

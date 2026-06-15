@@ -303,7 +303,7 @@ function DnsScanPanel(): JSX.Element {
             aria-label="Keyword variants"
           />
         </div>
-        <p className="text-mini font-mono text-slate-500">
+        <p className="text-mini font-mono text-slate-500 dark:text-slate-400">
           Live dnstwist scan — typically 30–120s depending on domain and TLD breadth.
         </p>
       </form>
@@ -321,7 +321,7 @@ function DnsScanPanel(): JSX.Element {
           {data && (
             <>
               <div className="flex items-center justify-between gap-3 mb-3 flex-wrap">
-                <p className="text-mini font-mono text-slate-500">
+                <p className="text-mini font-mono text-slate-500 dark:text-slate-400">
                   {data.count.toLocaleString()} permutations for{' '}
                   <span className="text-slate-700 dark:text-slate-300">{data.domain}</span> · showing{' '}
                   {rows.length.toLocaleString()}

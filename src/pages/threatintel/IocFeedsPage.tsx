@@ -80,7 +80,7 @@ export default function IocFeedsPage(): JSX.Element {
             className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-lg font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
           />
         </div>
-        <span className="text-xs font-mono text-slate-500">{filtered.length} feeds</span>
+        <span className="text-xs font-mono text-slate-500 dark:text-slate-400">{filtered.length} feeds</span>
       </div>
 
       <div className="flex flex-wrap gap-1.5 mb-6">

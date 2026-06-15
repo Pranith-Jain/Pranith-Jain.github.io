@@ -167,7 +167,7 @@ export default function Yarahub(): JSX.Element {
       {loading && !error && (
         <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-8 text-center">
           <Loader2 size={20} className="animate-spin mx-auto text-slate-400 mb-2" />
-          <p className="text-xs font-mono text-slate-500">Fetching YARA rules from YARAhub…</p>
+          <p className="text-xs font-mono text-slate-500 dark:text-slate-400">Fetching YARA rules from YARAhub…</p>
         </div>
       )}
 
@@ -250,7 +250,7 @@ export default function Yarahub(): JSX.Element {
       {contentLoading && (
         <div className="mt-6 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-8 text-center">
           <Loader2 size={20} className="animate-spin mx-auto text-slate-400 mb-2" />
-          <p className="text-xs font-mono text-slate-500">Downloading rule content…</p>
+          <p className="text-xs font-mono text-slate-500 dark:text-slate-400">Downloading rule content…</p>
         </div>
       )}
 

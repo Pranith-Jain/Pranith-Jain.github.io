@@ -715,7 +715,7 @@ export default function H3adLearn(): JSX.Element {
                   <BookOpen size={18} className="text-brand-600 dark:text-brand-400" />
                   {d.title}
                 </h2>
-                <span className="text-xs font-mono text-slate-500">{domainProgress(d)}% complete</span>
+                <span className="text-xs font-mono text-slate-500 dark:text-slate-400">{domainProgress(d)}% complete</span>
               </div>
               <div className="h-2 rounded-full bg-slate-200 dark:bg-slate-800 overflow-hidden mb-6">
                 <div

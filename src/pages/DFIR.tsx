@@ -252,7 +252,7 @@ export default function DFIRPage(): JSX.Element {
               >
                 <div className="flex items-baseline gap-2 mb-2">
                   <span className="font-mono text-mini text-brand-600 dark:text-brand-400">{`0${i + 1}`}</span>
-                  <span className="font-mono text-mini uppercase tracking-[0.18em] text-slate-500">
+                  <span className="font-mono text-mini uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">
                     {p.path.replace('/dfir/', '')}
                   </span>
                 </div>
@@ -271,7 +271,7 @@ export default function DFIRPage(): JSX.Element {
 
       <section className="animate-fade-in-up">
         <div className="mb-6 flex items-baseline justify-between gap-3 border-t border-slate-200/70 pt-6 dark:border-slate-800">
-          <h2 className="font-display text-base font-semibold text-slate-700 dark:text-slate-300">Pick a workbench</h2>
+          <h2 className="font-display text-base font-semibold text-slate-700 dark:text-slate-300 mb-2">Pick a workbench</h2>
           <Link
             to="/dfir/dashboard"
             className="text-xs font-mono text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
@@ -312,7 +312,7 @@ export default function DFIRPage(): JSX.Element {
         <details>
           <summary className="cursor-pointer rounded font-display text-xl font-bold text-slate-900 hover:text-brand-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 dark:text-slate-100 dark:hover:text-brand-400">
             Used in real cases{' '}
-            <span className="font-mono text-mini font-normal text-slate-500">({TOOL_CASES.length})</span>
+            <span className="font-mono text-mini font-normal text-slate-500 dark:text-slate-400">({TOOL_CASES.length})</span>
           </summary>
           <ul className="mt-5 space-y-3">
             {TOOL_CASES.map((tc) => (
@@ -327,7 +327,7 @@ export default function DFIRPage(): JSX.Element {
                   >
                     {tc.caseTitle}
                   </Link>
-                  <span className="text-mini font-mono text-slate-500">{tc.caseSlug}</span>
+                  <span className="text-mini font-mono text-slate-500 dark:text-slate-400">{tc.caseSlug}</span>
                 </div>
                 <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-2">{tc.contribution}</p>
                 <div className="flex flex-wrap gap-1.5">

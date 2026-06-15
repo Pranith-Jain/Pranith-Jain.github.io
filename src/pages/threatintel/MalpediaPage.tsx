@@ -167,7 +167,7 @@ export default function MalpediaPage(): JSX.Element {
                         {String(f.family_name ?? f.common_name ?? '?')}
                       </div>
                       {String(f.common_name) && String(f.common_name) !== String(f.family_name) && (
-                        <p className="text-mini font-mono text-slate-500">aka {String(f.common_name)}</p>
+                        <p className="text-mini font-mono text-slate-500 dark:text-slate-400">aka {String(f.common_name)}</p>
                       )}
                       {desc && (
                         <p className="text-mini font-mono text-slate-500 mt-1 line-clamp-2">{desc.slice(0, 200)}</p>
@@ -201,7 +201,7 @@ export default function MalpediaPage(): JSX.Element {
               </h2>
               {typeof result.data.common_name === 'string' &&
                 result.data.common_name !== String(result.data.family_name) && (
-                  <p className="text-xs font-mono text-slate-500">aka {result.data.common_name}</p>
+                  <p className="text-xs font-mono text-slate-500 dark:text-slate-400">aka {result.data.common_name}</p>
                 )}
             </div>
           </div>

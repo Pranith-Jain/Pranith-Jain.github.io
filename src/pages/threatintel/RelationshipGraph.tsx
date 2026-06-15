@@ -316,7 +316,7 @@ export default function RelationshipGraphPage(): JSX.Element {
               path
             </button>
             {expandedCount > 0 && (
-              <span className="text-mini font-mono text-slate-500">
+              <span className="text-mini font-mono text-slate-500 dark:text-slate-400">
                 +{expandedCount} expansion{expandedCount > 1 ? 's' : ''}
               </span>
             )}

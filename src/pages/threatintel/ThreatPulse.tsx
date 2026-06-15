@@ -13,7 +13,7 @@ import {
   Layers,
   RefreshCw,
   ExternalLink,
-} from 'lucide-react';
+ExternalLink } from 'lucide-react';
 import { DataState } from '../../components/DataState';
 import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
 import { LiveFreshnessPill } from '../../components/LiveFreshnessPill';

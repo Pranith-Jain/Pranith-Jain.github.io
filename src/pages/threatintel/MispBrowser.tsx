@@ -362,7 +362,7 @@ export default function MispBrowser() {
                       <span className="text-xs font-semibold text-slate-700 dark:text-slate-300">{o.name}</span>
                       <span className="text-micro font-mono text-slate-400">{o.meta_category}</span>
                     </div>
-                    {o.description && <p className="text-mini font-mono text-slate-500">{o.description}</p>}
+                    {o.description && <p className="text-mini font-mono text-slate-500 dark:text-slate-400">{o.description}</p>}
                     {o.Attribute && o.Attribute.length > 0 && (
                       <ul className="space-y-1">
                         {o.Attribute.slice(0, 5).map((a) => (
@@ -463,7 +463,7 @@ export default function MispBrowser() {
       <div className="flex items-baseline justify-between gap-3 flex-wrap">
         <div className="flex items-baseline gap-2">
           <h1 className="font-display font-bold text-2xl text-slate-900 dark:text-slate-100">MISP Browser</h1>
-          <span className="text-mini font-mono text-slate-500">{total > 0 ? `${total} events` : ''}</span>
+          <span className="text-mini font-mono text-slate-500 dark:text-slate-400">{total > 0 ? `${total} events` : ''}</span>
         </div>
         <div className="flex items-center gap-2">
           <button

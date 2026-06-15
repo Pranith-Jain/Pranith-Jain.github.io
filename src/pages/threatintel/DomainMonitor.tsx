@@ -138,19 +138,19 @@ export default function DomainMonitor(): JSX.Element {
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
               <div className="text-center">
                 <div className="text-2xl font-bold text-slate-900 dark:text-slate-100">{results.total_variants}</div>
-                <div className="text-xs font-mono text-slate-500">Total Variants</div>
+                <div className="text-xs font-mono text-slate-500 dark:text-slate-400">Total Variants</div>
               </div>
               <div className="text-center">
                 <div className="text-2xl font-bold text-amber-500">{results.checked}</div>
-                <div className="text-xs font-mono text-slate-500">Checked</div>
+                <div className="text-xs font-mono text-slate-500 dark:text-slate-400">Checked</div>
               </div>
               <div className="text-center">
                 <div className="text-2xl font-bold text-rose-500">{results.active}</div>
-                <div className="text-xs font-mono text-slate-500">Active</div>
+                <div className="text-xs font-mono text-slate-500 dark:text-slate-400">Active</div>
               </div>
               <div className="text-center">
                 <div className="text-2xl font-bold text-emerald-500">{results.inactive}</div>
-                <div className="text-xs font-mono text-slate-500">Inactive</div>
+                <div className="text-xs font-mono text-slate-500 dark:text-slate-400">Inactive</div>
               </div>
             </div>
           </section>

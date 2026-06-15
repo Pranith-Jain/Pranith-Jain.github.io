@@ -113,7 +113,7 @@ export default function C2Tracker(): JSX.Element {
               <div className="flex flex-wrap items-baseline justify-between gap-3 mb-4">
                 <h2 className="font-display font-bold text-xl">Active C2 infrastructure</h2>
                 <div className="flex items-center gap-3">
-                  <span className="text-xs font-mono text-slate-500">{data.count} IPs tracked</span>
+                  <span className="text-xs font-mono text-slate-500 dark:text-slate-400">{data.count} IPs tracked</span>
                   <button
                     type="button"
                     onClick={() => setRefreshKey((k) => k + 1)}

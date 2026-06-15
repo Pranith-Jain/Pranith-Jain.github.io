@@ -407,7 +407,7 @@ export default function SocIocs(): JSX.Element {
                 <span>
                   {buckets.critical}
                   <br />
-                  <span className="text-meta font-mono text-slate-500">critical</span>
+                  <span className="text-meta font-mono text-slate-500 dark:text-slate-400">critical</span>
                 </span>
               }
             />
@@ -424,7 +424,7 @@ export default function SocIocs(): JSX.Element {
             title="Observation timeline"
             right={
               dailyCounts.length > 0 ? (
-                <span className="text-meta font-mono text-slate-500">
+                <span className="text-meta font-mono text-slate-500 dark:text-slate-400">
                   peak {Math.max(...dailyCounts.map((d) => d.value))} / day
                 </span>
               ) : null

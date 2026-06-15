@@ -341,7 +341,7 @@ export default function SocRansomware(): JSX.Element {
             title="Claim frequency (daily)"
             right={
               timeline.length > 0 ? (
-                <span className="text-meta font-mono text-slate-500">
+                <span className="text-meta font-mono text-slate-500 dark:text-slate-400">
                   peak {Math.max(...timeline.map((t) => t.value))} / day
                 </span>
               ) : null
@@ -360,7 +360,7 @@ export default function SocRansomware(): JSX.Element {
           <SocPanel>
             <SocSection
               title="Sector breakdown"
-              right={<span className="text-meta font-mono text-slate-500">by share %</span>}
+              right={<span className="text-meta font-mono text-slate-500 dark:text-slate-400">by share %</span>}
             />
             <SocBar
               items={(data?.sectors ?? []).slice(0, 8).map((s) => ({

@@ -11,7 +11,7 @@ import {
   Search,
   Shield,
   ShieldOff,
-} from 'lucide-react';
+ExternalLink } from 'lucide-react';
 
 interface Advisory {
   id: string;
@@ -322,7 +322,7 @@ export default function SupplyChainIntelligence(): JSX.Element {
             <Bug className="w-5 h-5 text-rose-500" /> OSSF Malicious Packages
             {ossfData?.stale && <span className="text-xs font-mono text-amber-500">(stale)</span>}
           </h2>
-          <span className="text-xs font-mono text-slate-500">{stats.total} packages</span>
+          <span className="text-xs font-mono text-slate-500 dark:text-slate-400">{stats.total} packages</span>
         </div>
 
         {/* Ecosystem tabs */}

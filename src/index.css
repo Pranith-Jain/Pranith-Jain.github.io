@@ -471,3 +471,15 @@
     line-height: 1.25;
   }
 }
+
+/* ─────────────────────────────────────────────────────────────────────
+   Dark Mode Text Color Convention
+   
+   All secondary/metadata text MUST include dark:text-slate-400 variant:
+   - text-slate-500 in light mode → text-slate-500 dark:text-slate-400
+   - Ensures readability in dark mode (4.5:1 contrast)
+   - Examples: meta labels, timestamps, category badges, footnotes
+   
+   Never use bare text-slate-400 or text-slate-500 without dark variant.
+   ───────────────────────────────────────────────────────────────────── */
+

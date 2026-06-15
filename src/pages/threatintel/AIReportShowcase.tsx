@@ -21,7 +21,7 @@ import {
   Target,
   TrendingUp,
   Users,
-} from 'lucide-react';
+ExternalLink } from 'lucide-react';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { McpStatusBanner } from '../../components/ti-mindmap-mcp/McpStatusBanner';
 import { SAMPLE_REPORTS, type SampleReport } from '../../data/threatintel/sample-reports';

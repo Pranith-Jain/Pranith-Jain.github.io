@@ -161,7 +161,7 @@ export default function MaltrailTrails(): JSX.Element {
                   </div>
                 </div>
                 <div className="flex items-center gap-2 mt-2">
-                  <span className="text-mini font-mono text-slate-500">Actors: {content.actors.join(', ')}</span>
+                  <span className="text-mini font-mono text-slate-500 dark:text-slate-400">Actors: {content.actors.join(', ')}</span>
                 </div>
                 {content.truncated && (
                   <p className="text-mini font-mono text-amber-600 dark:text-amber-400 mt-2">

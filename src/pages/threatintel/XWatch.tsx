@@ -18,7 +18,7 @@ import {
   Twitter,
   Settings,
   CheckCircle2,
-} from 'lucide-react';
+ExternalLink } from 'lucide-react';
 
 interface TweetItem {
   id: string;
@@ -717,7 +717,7 @@ export default function XWatch(): JSX.Element {
                       <span className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100">
                         {t.author.name}
                       </span>
-                      <span className="text-mini font-mono text-slate-500">@{t.author.screen_name}</span>
+                      <span className="text-mini font-mono text-slate-500 dark:text-slate-400">@{t.author.screen_name}</span>
                       {t.is_pinned && (
                         <span className="text-micro font-mono px-1 py-0.5 rounded border border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300">
                           pinned

@@ -12,7 +12,7 @@ import {
   RefreshCw,
   XCircle,
   type LucideIcon,
-} from 'lucide-react';
+ExternalLink } from 'lucide-react';
 
 type Status = 'ok' | 'degraded' | 'down' | 'cold';
 
@@ -169,12 +169,12 @@ export default function FeedStatus(): JSX.Element {
                 </span>
               );
             })}
-            <span className="text-mini font-mono text-slate-500">
+            <span className="text-mini font-mono text-slate-500 dark:text-slate-400">
               snapshot {ageString(Math.round((Date.now() - Date.parse(data.generated_at)) / 1000))}
             </span>
           </div>
         ) : (
-          <span className="text-mini font-mono text-slate-500">—</span>
+          <span className="text-mini font-mono text-slate-500 dark:text-slate-400">—</span>
         )}
         <button
           type="button"

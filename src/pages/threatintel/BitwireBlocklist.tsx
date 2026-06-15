@@ -19,7 +19,7 @@ import {
   Shield,
   ShieldAlert,
   ShieldCheck,
-} from 'lucide-react';
+ExternalLink } from 'lucide-react';
 import { fetchIocFeed, type IocEntry, type IocFeedSummary } from '../../lib/dfir/ioc-feeds-client';
 import { CopyToClipboard } from '../../components/CopyToClipboard';
 

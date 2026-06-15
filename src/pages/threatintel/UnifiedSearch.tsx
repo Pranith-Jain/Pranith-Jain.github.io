@@ -19,7 +19,7 @@ import {
   Wrench,
   ArrowUpRight,
   Zap,
-} from 'lucide-react';
+ExternalLink } from 'lucide-react';
 
 interface SearchItem {
   label: string;
@@ -307,7 +307,7 @@ export default function UnifiedSearch(): JSX.Element {
             extraBody={{ q: data.q }}
           />
 
-          <p className="text-meta font-mono text-slate-500">
+          <p className="text-meta font-mono text-slate-500 dark:text-slate-400">
             {total} live result{total === 1 ? '' : 's'} for &ldquo;{data.q}&rdquo;
           </p>
           {data.sections.map((section) => {

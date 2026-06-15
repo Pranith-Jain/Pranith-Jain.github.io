@@ -127,7 +127,7 @@ export default function ActorTimeline(): JSX.Element {
 
       <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6 flex items-center justify-between gap-3 flex-wrap">
         {data && (
-          <p className="text-mini font-mono text-slate-500">
+          <p className="text-mini font-mono text-slate-500 dark:text-slate-400">
             {data.groups.length} active groups · snapshot{' '}
             <span className="text-slate-700 dark:text-slate-300">{shortRel(data.generated_at)}</span>
             {data.warnings.length > 0 && (

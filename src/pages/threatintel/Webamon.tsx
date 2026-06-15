@@ -23,7 +23,7 @@ import {
   Eye,
   Monitor,
   HardDrive,
-} from 'lucide-react';
+ExternalLink } from 'lucide-react';
 
 /* ─── Shared types ───────────────────────────────────────────────────── */
 

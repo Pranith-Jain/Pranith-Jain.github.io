@@ -370,7 +370,7 @@ export default function SocVulns(): JSX.Element {
             title="Detection frequency"
             right={
               dailyCounts.length > 0 ? (
-                <span className="text-meta font-mono text-slate-500">
+                <span className="text-meta font-mono text-slate-500 dark:text-slate-400">
                   peak {Math.max(...dailyCounts.map((d) => d.value))} / day
                 </span>
               ) : null

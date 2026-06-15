@@ -12,7 +12,7 @@ import {
   ExternalLink,
   Save,
   FolderOpen,
-} from 'lucide-react';
+ExternalLink } from 'lucide-react';
 import { adminAuthHeaders } from '../../lib/admin-token';
 
 interface KillChainStep {

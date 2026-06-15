@@ -258,7 +258,7 @@ export default function CertStreamLive(): JSX.Element {
       {streaming && (
         <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
           <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
-            <div className="text-xs font-mono text-slate-500">
+            <div className="text-xs font-mono text-slate-500 dark:text-slate-400">
               {loading ? (
                 <span className="inline-flex items-center gap-1">
                   <RefreshCw size={11} className="animate-spin" /> polling crt.sh…

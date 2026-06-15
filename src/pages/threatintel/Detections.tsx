@@ -183,7 +183,7 @@ function DetectionCard({ d }: { d: Detection }): JSX.Element {
         <div className="min-w-0 flex-1">
           <div className="flex items-baseline gap-2 flex-wrap">
             <span className="font-display font-semibold text-slate-900 dark:text-slate-100">{d.rule_name}</span>
-            <span className="text-mini font-mono text-slate-500">×{d.match_count}</span>
+            <span className="text-mini font-mono text-slate-500 dark:text-slate-400">×{d.match_count}</span>
           </div>
           {d.group_key && (
             <code className="text-mini font-mono text-brand-600 dark:text-brand-400 break-all">{d.group_key}</code>
@@ -376,7 +376,7 @@ export default function Detections(): JSX.Element {
                 >
                   {hero.severity}
                 </span>
-                <span className="text-mini font-mono text-slate-500">
+                <span className="text-mini font-mono text-slate-500 dark:text-slate-400">
                   {hero.match_count} matches · last seen {shortRel(hero.last_observed)}
                 </span>
               </div>

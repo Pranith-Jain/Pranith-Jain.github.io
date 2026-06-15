@@ -116,7 +116,7 @@ export default function TelegramLeakStats(): JSX.Element {
                   })}
                 </div>
               ) : (
-                <p className="text-xs font-mono text-slate-500">No entries yet</p>
+                <p className="text-xs font-mono text-slate-500 dark:text-slate-400">No entries yet</p>
               )}
             </section>
 
@@ -138,7 +138,7 @@ export default function TelegramLeakStats(): JSX.Element {
                     ))}
                   </div>
                 ) : (
-                  <p className="text-xs font-mono text-slate-500">No data yet</p>
+                  <p className="text-xs font-mono text-slate-500 dark:text-slate-400">No data yet</p>
                 )}
               </section>
 
@@ -158,7 +158,7 @@ export default function TelegramLeakStats(): JSX.Element {
                     ))}
                   </div>
                 ) : (
-                  <p className="text-xs font-mono text-slate-500">No data yet</p>
+                  <p className="text-xs font-mono text-slate-500 dark:text-slate-400">No data yet</p>
                 )}
               </section>
             </div>

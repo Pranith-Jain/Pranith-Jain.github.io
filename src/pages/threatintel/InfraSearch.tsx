@@ -288,7 +288,7 @@ export default function InfraSearch(): JSX.Element {
               {/* Results list */}
               <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
                 <div className="px-4 py-2 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
-                  <span className="text-xs font-mono text-slate-500">
+                  <span className="text-xs font-mono text-slate-500 dark:text-slate-400">
                     {filtered.length} result{filtered.length !== 1 ? 's' : ''}
                   </span>
                 </div>

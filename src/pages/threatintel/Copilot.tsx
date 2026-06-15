@@ -13,7 +13,7 @@ import {
   Lightbulb,
   Search,
   Save,
-} from 'lucide-react';
+ExternalLink } from 'lucide-react';
 import { FeedbackWidget } from '../../components/FeedbackWidget';
 import { BackLink } from '../../components/BackLink';
 import { adminAuthHeaders } from '../../lib/admin-token';

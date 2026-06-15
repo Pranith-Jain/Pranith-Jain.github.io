@@ -246,7 +246,7 @@ export default function IocEnrichment(): JSX.Element {
               {expanded ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
               Response from {source.label}
             </span>
-            <span className="text-mini font-mono text-slate-500">
+            <span className="text-mini font-mono text-slate-500 dark:text-slate-400">
               {JSON.stringify(data).length.toLocaleString()} bytes
             </span>
           </button>

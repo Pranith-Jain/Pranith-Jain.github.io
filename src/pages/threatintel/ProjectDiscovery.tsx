@@ -11,7 +11,7 @@ import {
   Loader2,
   Search,
   ShieldAlert,
-} from 'lucide-react';
+ExternalLink } from 'lucide-react';
 import { BackLink } from '../../components/BackLink';
 import { DataState } from '../../components/DataState';
 import { SEVERITY_TONE, type Severity } from '../../components/severity';
@@ -341,7 +341,7 @@ function SubdomainsTab(): JSX.Element {
           {data && (
             <>
               <div className="flex items-center justify-between gap-3 mb-3 flex-wrap">
-                <p className="text-mini font-mono text-slate-500">
+                <p className="text-mini font-mono text-slate-500 dark:text-slate-400">
                   {data.count.toLocaleString()} subdomains for{' '}
                   <span className="text-slate-700 dark:text-slate-300">{data.domain}</span>
                   {data.truncated && (
@@ -618,7 +618,7 @@ function CvesTab(): JSX.Element {
                                 <Loader2 size={12} className="animate-spin" /> loading Shodan CVEDB…
                               </span>
                             ) : det === 'error' ? (
-                              <span className="text-meta font-mono text-slate-500">No CVEDB record for {cve.id}.</span>
+                              <span className="text-meta font-mono text-slate-500 dark:text-slate-400">No CVEDB record for {cve.id}.</span>
                             ) : (
                               <div className="space-y-2 text-meta">
                                 <div className="flex flex-wrap gap-2">
