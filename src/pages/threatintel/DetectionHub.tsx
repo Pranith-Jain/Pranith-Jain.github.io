@@ -1,6 +1,5 @@
 import { Suspense, lazy, useState } from 'react';
-import { DataPageLayout } from '../../components/DataPageLayout';
-import { ShieldCheck, Loader2 } from 'lucide-react';
+import { Loader2 } from 'lucide-react';
 const Detections = lazy(() => import('./Detections'));
 const DisarmFramework = lazy(() => import('./DisarmFramework'));
 const YaraPage = lazy(() => import('./Yarahub'));
@@ -23,14 +22,9 @@ function TabFallback() {
 export default function DetectionHub(): JSX.Element {
   const [activeTab, setActiveTab] = useState<TabId>('detections');
   return (
-    <DataPageLayout
-      backTo="/threatintel"
-      icon={<ShieldCheck size={28} />}
-      title="Detection & Rules"
-      description="Detection rules, DISARM framework, and YARA."
-    >
+    <div className="max-w-7xl mx-auto px-4 sm:px-8 py-6">
       <nav
-        className="flex flex-wrap gap-1 border-b border-slate-200 dark:border-slate-800 mb-6"
+        className="flex flex-wrap gap-1 border-b border-slate-200 dark:border-slate-800 mb-4"
         aria-label="Detection tools"
       >
         {TABS.map((t) => (
@@ -46,17 +40,12 @@ export default function DetectionHub(): JSX.Element {
           </button>
         ))}
       </nav>
-      <p className="text-xs font-mono text-slate-500 dark:text-slate-400 mb-4">
-        {TABS.find((t) => t.id === activeTab)?.desc}
-      </p>
-      <div role="tabpanel">
-        <Suspense fallback={<TabFallback />}>
-          {activeTab === 'detections' && <Detections />}
-          {activeTab === 'disarm' && <DisarmFramework />}
-          {activeTab === 'yara' && <YaraPage />}
-          {activeTab === 'signal' && <ThreatSignalRss />}
-        </Suspense>
-      </div>
-    </DataPageLayout>
+      <Suspense fallback={<TabFallback />}>
+        {activeTab === 'detections' && <Detections />}
+        {activeTab === 'disarm' && <DisarmFramework />}
+        {activeTab === 'yara' && <YaraPage />}
+        {activeTab === 'signal' && <ThreatSignalRss />}
+      </Suspense>
+    </div>
   );
 }

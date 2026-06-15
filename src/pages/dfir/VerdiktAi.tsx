@@ -8,7 +8,6 @@ import {
   Copy,
   Download,
   Check,
-  Bot,
   Search,
   Globe,
   Fingerprint,
@@ -17,31 +16,6 @@ import {
   Terminal,
 } from 'lucide-react';
 import { CopyButton } from '../../components/dfir/CopyButton';
-import { adminAuthHeaders } from '../../lib/admin-token';
-
-type LlmProvider = 'claude' | 'gpt4o' | 'gemini-flash' | 'groq';
-
-const LLM_PROVIDERS: Array<{ id: LlmProvider; label: string }> = [
-  { id: 'claude', label: 'Claude' },
-  { id: 'gpt4o', label: 'GPT-4o' },
-  { id: 'gemini-flash', label: 'Gemini Flash' },
-  { id: 'groq', label: 'Groq' },
-];
-
-const STORAGE_KEY = 'verdiktAiLlmProvider';
-
-function loadLlmPref(): LlmProvider {
-  try {
-    const v = localStorage.getItem(STORAGE_KEY);
-    if (v && LLM_PROVIDERS.some((p) => p.id === v)) return v as LlmProvider;
-  } catch { /* */ }
-  return 'claude';
-}
-
-function saveLlmPref(p: LlmProvider) {
-  try { localStorage.setItem(STORAGE_KEY, p); } catch { /* */ }
-}
-
 function detectIocType(value: string): 'ip' | 'domain' | 'url' | 'hash' | 'unknown' {
   const v = value.trim();
   if (/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/.test(v)) return 'ip';
@@ -79,7 +53,6 @@ function downloadBlob(content: string, filename: string, type: string) {
 
 export default function VerdiktAi(): JSX.Element {
   const [iocValue, setIocValue] = useState('');
-  const [llmProvider, setLlmProvider] = useState<LlmProvider>(loadLlmPref);
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<{
     iocType?: string;
@@ -112,7 +85,7 @@ export default function VerdiktAi(): JSX.Element {
       // Step 1: IOC check
       if (isIpOrDomain || isHash) {
         const iocRes = await fetch(`/api/v1/ioc/check?q=${encodeURIComponent(cleanValue)}`, {
-          headers: { ...adminAuthHeaders() },
+          headers: {},
         });
         if (iocRes.ok) {
           enrichmentData = (await iocRes.json()) as Record<string, unknown>;
@@ -122,7 +95,7 @@ export default function VerdiktAi(): JSX.Element {
       // Step 2: AI analysis
       const aiRes = await fetch('/api/v1/ai-summary', {
         method: 'POST',
-        headers: { ...adminAuthHeaders(), 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           surface: 'verdikt-ai',
           date: new Date().toISOString().slice(0, 10),
@@ -150,7 +123,11 @@ export default function VerdiktAi(): JSX.Element {
         try {
           const jsonMatch = raw.match(/\{[\s\S]*\}/);
           if (jsonMatch) {
-            const parsed = JSON.parse(jsonMatch[0]) as { narrative?: string; mitreTechniques?: string[]; detectionQueries?: Array<{ siem: string; query: string }> };
+            const parsed = JSON.parse(jsonMatch[0]) as {
+              narrative?: string;
+              mitreTechniques?: string[];
+              detectionQueries?: Array<{ siem: string; query: string }>;
+            };
             narrative = parsed.narrative ?? raw;
             mitreTechniques = parsed.mitreTechniques ?? [];
             detectionQueries = parsed.detectionQueries ?? [];
@@ -166,7 +143,9 @@ export default function VerdiktAi(): JSX.Element {
         iocType: iocTypeDetected,
         iocValue: cleanValue,
         iocDetails: Object.keys(enrichmentData).length > 0 ? enrichmentData : undefined,
-        enrichmentSources: enrichmentData?.sources as Array<{ name: string; status: 'success' | 'rate_limited' | 'error'; data?: string }> | undefined,
+        enrichmentSources: enrichmentData?.sources as
+          | Array<{ name: string; status: 'success' | 'rate_limited' | 'error'; data?: string }>
+          | undefined,
         narrative,
         mitreTechniques,
         detectionQueries,
@@ -176,7 +155,7 @@ export default function VerdiktAi(): JSX.Element {
     } finally {
       setLoading(false);
     }
-  }, [iocValue, llmProvider, isIpOrDomain, isHash]);
+  }, [iocValue, isIpOrDomain, isHash]);
 
   const copyNarrative = async () => {
     if (!result?.narrative) return;
@@ -184,7 +163,9 @@ export default function VerdiktAi(): JSX.Element {
       await navigator.clipboard.writeText(result.narrative);
       setCopiedNarrative(true);
       setTimeout(() => setCopiedNarrative(false), 1500);
-    } catch { /* */ }
+    } catch {
+      /* */
+    }
   };
 
   const downloadReport = () => {
@@ -225,8 +206,8 @@ export default function VerdiktAi(): JSX.Element {
           <Shield size={28} className="text-brand-600 dark:text-brand-400" /> VERDIKT-AI
         </h1>
         <p className="text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed">
-          Combine IOC enrichment with AI analysis. Submit an IP, domain, URL, or hash — get enrichment from
-          multiple sources plus an AI-generated analyst narrative.
+          Combine IOC enrichment with AI analysis. Submit an IP, domain, URL, or hash — get enrichment from multiple
+          sources plus an AI-generated analyst narrative.
         </p>
       </div>
 
@@ -252,25 +233,6 @@ export default function VerdiktAi(): JSX.Element {
                   {TYPE_LABELS[iocType]}
                 </div>
               )}
-            </div>
-          </div>
-
-          <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5">
-            <h2 className="font-display font-bold text-sm mb-3">LLM Provider</h2>
-            <div className="flex flex-wrap gap-1.5">
-              {LLM_PROVIDERS.map((p) => (
-                <button
-                  key={p.id}
-                  onClick={() => { setLlmProvider(p.id); saveLlmPref(p.id); }}
-                  className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-mono border transition-colors ${
-                    llmProvider === p.id
-                      ? 'border-brand-500/60 bg-brand-500/10 text-brand-600 dark:text-brand-400'
-                      : 'border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-brand-500/30'
-                  }`}
-                >
-                  <Bot size={12} /> {p.label}
-                </button>
-              ))}
             </div>
           </div>
 
@@ -326,12 +288,14 @@ export default function VerdiktAi(): JSX.Element {
                 </div>
                 {result.iocDetails && (
                   <div className="grid grid-cols-2 gap-2 text-xs text-slate-600 dark:text-slate-400">
-                    {Object.entries(result.iocDetails).slice(0, 6).map(([k, v]) => (
-                      <div key={k}>
-                        <span className="text-micro font-mono uppercase tracking-wider text-slate-500">{k}</span>
-                        <div className="font-mono truncate">{String(v ?? '—')}</div>
-                      </div>
-                    ))}
+                    {Object.entries(result.iocDetails)
+                      .slice(0, 6)
+                      .map(([k, v]) => (
+                        <div key={k}>
+                          <span className="text-micro font-mono uppercase tracking-wider text-slate-500">{k}</span>
+                          <div className="font-mono truncate">{String(v ?? '—')}</div>
+                        </div>
+                      ))}
                   </div>
                 )}
               </div>
@@ -344,13 +308,22 @@ export default function VerdiktAi(): JSX.Element {
                   </h2>
                   <div className="grid grid-cols-2 gap-2">
                     {result.enrichmentSources.map((s, i) => (
-                      <div key={i} className="flex items-center justify-between p-2 rounded-lg bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800">
+                      <div
+                        key={i}
+                        className="flex items-center justify-between p-2 rounded-lg bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800"
+                      >
                         <span className="text-xs font-mono text-slate-700 dark:text-slate-300">{s.name}</span>
-                        <span className={`text-micro font-mono px-1.5 py-0.5 rounded ${
-                          s.status === 'success' ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300' :
-                          s.status === 'rate_limited' ? 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300' :
-                          'bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-300'
-                        }`}>{s.status}</span>
+                        <span
+                          className={`text-micro font-mono px-1.5 py-0.5 rounded ${
+                            s.status === 'success'
+                              ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300'
+                              : s.status === 'rate_limited'
+                                ? 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300'
+                                : 'bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-300'
+                          }`}
+                        >
+                          {s.status}
+                        </span>
                       </div>
                     ))}
                   </div>
@@ -372,7 +345,9 @@ export default function VerdiktAi(): JSX.Element {
                       {copiedNarrative ? 'Copied' : 'Copy'}
                     </button>
                   </div>
-                  <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed whitespace-pre-wrap">{result.narrative}</p>
+                  <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed whitespace-pre-wrap">
+                    {result.narrative}
+                  </p>
                 </div>
               )}
 

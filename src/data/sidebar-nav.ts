@@ -47,6 +47,7 @@ interface SidebarItem {
   label: string;
   href: string;
   icon: LucideIcon;
+  description?: string;
 }
 
 interface SidebarGroup {
@@ -54,7 +55,7 @@ interface SidebarGroup {
   items: SidebarItem[];
 }
 
-interface SidebarConfig {
+export interface SidebarConfig {
   sectionLabel: string;
   groups: SidebarGroup[];
 }

@@ -211,7 +211,7 @@ export default function ThreatIntelHome(): JSX.Element {
       {isSearching ? (
         <section className="animate-fade-in-up mb-12">
           <ul className="stagger grid gap-3 md:grid-cols-2 lg:grid-cols-3">
-            {searchResults.map(({ tool: t, section }) => {
+            {searchResults.map(({ section, ...t }) => {
               const Icon = t.icon;
               const cardClass =
                 'group relative block h-full overflow-hidden rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 ' +

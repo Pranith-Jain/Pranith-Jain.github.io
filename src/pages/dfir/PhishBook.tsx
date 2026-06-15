@@ -240,7 +240,8 @@ const PHASES: PhaseSection[] = [
     icon: Search,
     title: 'Triage & Classification',
     purpose: 'Determine if the reported email is a phish, BEC, spam, or benign.',
-    description: 'Initial assessment of the reported email. Review the subject, sender, urgency cues, and any embedded threats. Classify into category and assign severity.',
+    description:
+      'Initial assessment of the reported email. Review the subject, sender, urgency cues, and any embedded threats. Classify into category and assign severity.',
     decisionTree: [
       'Does the email contain urgent language? → Yes: escalate to phish/BEC',
       'Is the sender domain suspicious or newly registered? → Yes: phish',
@@ -260,7 +261,8 @@ const PHASES: PhaseSection[] = [
     icon: Shield,
     title: 'Header Analysis',
     purpose: 'Extract SPF/DKIM/DMARC verdicts, trace hop chain, and identify sender origination.',
-    description: 'Parse email headers to validate authentication results, trace the email path through MTAs, and identify the true originating IP.',
+    description:
+      'Parse email headers to validate authentication results, trace the email path through MTAs, and identify the true originating IP.',
     decisionTree: [
       'SPF pass/fail? → Fail: sender IP not authorized',
       'DKIM signature valid? → Fail: message may be tampered',
@@ -280,7 +282,8 @@ const PHASES: PhaseSection[] = [
     icon: Link2,
     title: 'URL Investigation',
     purpose: 'Reputation check, sandbox screenshot, domain age, and URL structure analysis.',
-    description: 'Extract all URLs from the email and analyze each for malicious intent. Check domain registration age, urlscan.io reputation, and redirect chains.',
+    description:
+      'Extract all URLs from the email and analyze each for malicious intent. Check domain registration age, urlscan.io reputation, and redirect chains.',
     decisionTree: [
       'URL uses HTTPS with suspicious domain? → check cert transparency',
       'Domain registered < 30 days ago? → likely malicious',
@@ -300,7 +303,8 @@ const PHASES: PhaseSection[] = [
     icon: FileBox,
     title: 'Attachment Analysis',
     purpose: 'Hash calculation, sandbox submission, static analysis, and YARA scan.',
-    description: 'Analyze attachments using hash lookups (VirusTotal), static analysis (file type, macros), and behavioral sandbox detonation.',
+    description:
+      'Analyze attachments using hash lookups (VirusTotal), static analysis (file type, macros), and behavioral sandbox detonation.',
     decisionTree: [
       'File type matches extension? → no: extension spoofing',
       'Macros or scripts present? → likely malicious',
@@ -320,7 +324,8 @@ const PHASES: PhaseSection[] = [
     icon: User,
     title: 'Identity & Session Review',
     purpose: 'Review MFA events, logins, Okta alerts, and session activity for the targeted user.',
-    description: 'Check if the phishing campaign successfully compromised identities. Review authentication logs, MFA events, and suspicious session activity.',
+    description:
+      'Check if the phishing campaign successfully compromised identities. Review authentication logs, MFA events, and suspicious session activity.',
     decisionTree: [
       'Did user click the link? → Yes: credential harvesting likely',
       'Any successful logins after the email? → potential compromise',
@@ -340,7 +345,8 @@ const PHASES: PhaseSection[] = [
     icon: Search,
     title: 'Scope Determination',
     purpose: 'Mailbox search, inbox rules, forwarding rules, Teams and Zoom abuse check.',
-    description: 'Determine the full scope of the compromise. Search all mailboxes for the phishing email, check for inbox rules, and investigate lateral movement vectors.',
+    description:
+      'Determine the full scope of the compromise. Search all mailboxes for the phishing email, check for inbox rules, and investigate lateral movement vectors.',
     decisionTree: [
       'How many users received the email? → scope of email blast',
       'Any inbox rules created? → forward/redirect/auto-delete',
@@ -360,7 +366,8 @@ const PHASES: PhaseSection[] = [
     icon: Lock,
     title: 'Containment',
     purpose: 'Block indicators, quarantine emails, disable accounts, and delete malicious messages.',
-    description: 'Execute containment actions to prevent further compromise. Block IOCs at the gateway, quarantine the malicious email across all recipients, and secure compromised accounts.',
+    description:
+      'Execute containment actions to prevent further compromise. Block IOCs at the gateway, quarantine the malicious email across all recipients, and secure compromised accounts.',
     decisionTree: [
       'Block sender domain at gateway → immediate action',
       'Quarantine email from all mailboxes → stop further access',
@@ -380,7 +387,8 @@ const PHASES: PhaseSection[] = [
     icon: RefreshCw,
     title: 'Remediation',
     purpose: 'Password reset, MFA enforcement, user training, and system hardening.',
-    description: 'Restore affected systems to a secure state. Ensure compromised accounts are fully remediated, MFA is enforced, and users receive security awareness training.',
+    description:
+      'Restore affected systems to a secure state. Ensure compromised accounts are fully remediated, MFA is enforced, and users receive security awareness training.',
     decisionTree: [
       'Password reset forced on all affected accounts?',
       'MFA re-enrolled for compromised accounts?',
@@ -400,7 +408,8 @@ const PHASES: PhaseSection[] = [
     icon: ClipboardCheck,
     title: 'Post-Incident',
     purpose: 'IOC sharing, signature creation (YARA/Sigma), lessons learned, and report generation.',
-    description: 'Finalize the incident with knowledge-sharing artifacts. Publish IOCs to threat intel platforms, create detection signatures, and conduct a lessons-learned review.',
+    description:
+      'Finalize the incident with knowledge-sharing artifacts. Publish IOCs to threat intel platforms, create detection signatures, and conduct a lessons-learned review.',
     decisionTree: [
       'Share IOCs with threat intel platform (MISP)?',
       'Create YARA rules for any new malware family?',
@@ -424,13 +433,6 @@ export default function PhishBook(): JSX.Element {
     setExpanded((prev) => (prev === id ? null : id));
   };
 
-  const stepLabel = (idx: number) => {
-    const phase = PHASES[idx];
-    if (!phase) return <ChevronRight size={14} className="text-slate-400" />;
-    const Icon = phase.icon;
-    return <Icon size={14} className="text-brand-600 dark:text-brand-400" />;
-  };
-
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
@@ -445,7 +447,8 @@ export default function PhishBook(): JSX.Element {
           <BookOpen size={28} className="text-brand-600 dark:text-brand-400" /> PHISHBOOK
         </h1>
         <p className="text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed">
-          Phishing Incident Response Playbook — decision trees, enrichment tools, query templates, and escalation criteria across 9 investigation phases.
+          Phishing Incident Response Playbook — decision trees, enrichment tools, query templates, and escalation
+          criteria across 9 investigation phases.
         </p>
       </div>
 
@@ -499,8 +502,14 @@ export default function PhishBook(): JSX.Element {
                   </div>
                 </div>
                 <div className="flex items-center gap-3 flex-shrink-0">
-                  <span className="text-[10px] font-mono text-slate-400">{PHASES.indexOf(phase) + 1} / {PHASES.length}</span>
-                  {open ? <ChevronDown size={16} className="text-slate-400" /> : <ChevronRight size={16} className="text-slate-400" />}
+                  <span className="text-[10px] font-mono text-slate-400">
+                    {PHASES.indexOf(phase) + 1} / {PHASES.length}
+                  </span>
+                  {open ? (
+                    <ChevronDown size={16} className="text-slate-400" />
+                  ) : (
+                    <ChevronRight size={16} className="text-slate-400" />
+                  )}
                 </div>
               </button>
 
@@ -515,12 +524,22 @@ export default function PhishBook(): JSX.Element {
                       </h3>
                       <div className="space-y-2">
                         {phase.decisionTree.map((d, i) => (
-                          <div key={i} className="flex items-start gap-2 text-xs font-mono text-slate-700 dark:text-slate-300">
-                            <span className={`flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold ${
-                              d.includes('Yes') || d.includes('phish') || d.includes('malicious') || d.includes('compromise')
-                                ? 'bg-rose-100 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400'
-                                : 'bg-slate-100 dark:bg-slate-800 text-slate-500'
-                            }`}>{i + 1}</span>
+                          <div
+                            key={i}
+                            className="flex items-start gap-2 text-xs font-mono text-slate-700 dark:text-slate-300"
+                          >
+                            <span
+                              className={`flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold ${
+                                d.includes('Yes') ||
+                                d.includes('phish') ||
+                                d.includes('malicious') ||
+                                d.includes('compromise')
+                                  ? 'bg-rose-100 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400'
+                                  : 'bg-slate-100 dark:bg-slate-800 text-slate-500'
+                              }`}
+                            >
+                              {i + 1}
+                            </span>
                             <span>{d}</span>
                           </div>
                         ))}
@@ -533,7 +552,10 @@ export default function PhishBook(): JSX.Element {
                       </h3>
                       <div className="flex flex-wrap gap-2 mb-6">
                         {phase.tools.map((t) => (
-                          <span key={t} className="text-[10px] font-mono px-2 py-1 rounded-md bg-sky-50 dark:bg-sky-900/20 text-sky-700 dark:text-sky-300 border border-sky-200/50 dark:border-sky-800/50">
+                          <span
+                            key={t}
+                            className="text-[10px] font-mono px-2 py-1 rounded-md bg-sky-50 dark:bg-sky-900/20 text-sky-700 dark:text-sky-300 border border-sky-200/50 dark:border-sky-800/50"
+                          >
                             {t}
                           </span>
                         ))}
@@ -545,19 +567,25 @@ export default function PhishBook(): JSX.Element {
                       <div className="space-y-1.5 text-xs font-mono">
                         {phase.escalationL1.length > 0 && (
                           <div className="flex items-start gap-2">
-                            <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 flex-shrink-0 mt-0.5">L1</span>
+                            <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 flex-shrink-0 mt-0.5">
+                              L1
+                            </span>
                             <span className="text-slate-600 dark:text-slate-400">{phase.escalationL1.join(', ')}</span>
                           </div>
                         )}
                         {phase.escalationL2.length > 0 && (
                           <div className="flex items-start gap-2">
-                            <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 flex-shrink-0 mt-0.5">L2</span>
+                            <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 flex-shrink-0 mt-0.5">
+                              L2
+                            </span>
                             <span className="text-slate-600 dark:text-slate-400">{phase.escalationL2.join(', ')}</span>
                           </div>
                         )}
                         {phase.escalationL3.length > 0 && (
                           <div className="flex items-start gap-2">
-                            <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-rose-100 dark:bg-rose-900/30 text-rose-700 dark:text-rose-400 flex-shrink-0 mt-0.5">L3</span>
+                            <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-rose-100 dark:bg-rose-900/30 text-rose-700 dark:text-rose-400 flex-shrink-0 mt-0.5">
+                              L3
+                            </span>
                             <span className="text-slate-600 dark:text-slate-400">{phase.escalationL3.join(', ')}</span>
                           </div>
                         )}
@@ -567,17 +595,34 @@ export default function PhishBook(): JSX.Element {
 
                   <div>
                     <h3 className="font-display font-bold text-xs mb-3 flex items-center gap-2 text-brand-700 dark:text-brand-400">
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+                      <svg
+                        width="12"
+                        height="12"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <polyline points="4 17 10 11 4 5" />
+                        <line x1="12" y1="19" x2="20" y2="19" />
+                      </svg>
                       Query Templates
                     </h3>
                     <div className="space-y-3">
                       {phase.queries.map((q, i) => (
-                        <div key={i} className="rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-950/5 dark:bg-slate-950/30 overflow-hidden">
+                        <div
+                          key={i}
+                          className="rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-950/5 dark:bg-slate-950/30 overflow-hidden"
+                        >
                           <div className="flex items-center justify-between px-4 py-2 bg-slate-100/50 dark:bg-slate-900/50 border-b border-slate-200 dark:border-slate-800">
                             <span className="text-[10px] font-mono font-bold text-slate-500">{q.language}</span>
                             <CopyButton value={q.code} title={`Copy ${q.language} query`} />
                           </div>
-                          <pre className="p-4 text-xs font-mono text-slate-700 dark:text-slate-300 overflow-x-auto leading-relaxed">{q.code}</pre>
+                          <pre className="p-4 text-xs font-mono text-slate-700 dark:text-slate-300 overflow-x-auto leading-relaxed">
+                            {q.code}
+                          </pre>
                         </div>
                       ))}
                     </div>
@@ -585,12 +630,28 @@ export default function PhishBook(): JSX.Element {
 
                   <div>
                     <h3 className="font-display font-bold text-xs mb-3 flex items-center gap-2 text-purple-700 dark:text-purple-400">
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+                      <svg
+                        width="12"
+                        height="12"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <rect x="3" y="3" width="18" height="18" rx="2" />
+                        <circle cx="8.5" cy="8.5" r="1.5" />
+                        <path d="M21 15l-5-5L5 21" />
+                      </svg>
                       Key Artifacts
                     </h3>
                     <div className="flex flex-wrap gap-2">
                       {phase.artifacts.map((a) => (
-                        <span key={a} className="text-[10px] font-mono px-2 py-1 rounded-md bg-purple-50 dark:bg-purple-900/20 text-purple-700 dark:text-purple-300 border border-purple-200/50 dark:border-purple-800/50 flex items-center gap-1">
+                        <span
+                          key={a}
+                          className="text-[10px] font-mono px-2 py-1 rounded-md bg-purple-50 dark:bg-purple-900/20 text-purple-700 dark:text-purple-300 border border-purple-200/50 dark:border-purple-800/50 flex items-center gap-1"
+                        >
                           <CheckCircle2 size={10} />
                           {a}
                         </span>

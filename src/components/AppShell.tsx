@@ -92,9 +92,6 @@ const ROUTE_LABELS: Record<string, string> = {
   '/threatintel/predictive': 'Predictive Intel',
   '/threatintel/malware-iocs': 'Malware IOCs',
   '/threatintel/malpedia': 'Malpedia',
-  '/threatintel/research-hub': 'Research Hub',
-  '/threatintel/predictive': 'Predictive Intel',
-  '/threatintel/about': 'About',
 };
 
 /**

@@ -19,25 +19,10 @@ import {
   Clock,
   Braces,
   Terminal,
-  Bot,
-  ChevronDown,
 } from 'lucide-react';
-import { CopyButton } from '../../components/dfir/CopyButton';
-import { adminAuthHeaders } from '../../lib/admin-token';
-
-type ModeId =
-  | 'full-runbook'
-  | 'triage'
-  | 'playbook'
-  | 'fp-analysis'
-  | 'queries'
-  | 'attack'
-  | 'artifacts'
-  | 'timeline';
+type ModeId = 'full-runbook' | 'triage' | 'playbook' | 'fp-analysis' | 'queries' | 'attack' | 'artifacts' | 'timeline';
 
 type SiemFormat = 'kql' | 'spl' | 'sigma' | 'xql';
-
-type LlmProvider = 'claude' | 'gpt4o' | 'gemini-flash' | 'groq';
 
 const MODES: Array<{ id: ModeId; label: string; icon: React.ReactNode }> = [
   { id: 'full-runbook', label: 'Full Runbook', icon: <BookOpen size={14} /> },
@@ -57,13 +42,6 @@ const SIEM_FORMATS: Array<{ id: SiemFormat; label: string }> = [
   { id: 'xql', label: 'XQL' },
 ];
 
-const LLM_PROVIDERS: Array<{ id: LlmProvider; label: string }> = [
-  { id: 'claude', label: 'Claude' },
-  { id: 'gpt4o', label: 'GPT-4o' },
-  { id: 'gemini-flash', label: 'Gemini Flash' },
-  { id: 'groq', label: 'Groq' },
-];
-
 const EXAMPLE_PROMPTS = [
   'Suspicious PowerShell encoded command execution on domain controller',
   'Multiple failed logins followed by successful authentication from foreign IP',
@@ -72,20 +50,6 @@ const EXAMPLE_PROMPTS = [
   'Large data transfer to external cloud storage at 3 AM',
   'WMI persistence creation followed by beacon callout',
 ];
-
-const STORAGE_KEY = 'insightAiLlmProvider';
-
-function loadLlmPref(): LlmProvider {
-  try {
-    const v = localStorage.getItem(STORAGE_KEY);
-    if (v && LLM_PROVIDERS.some((p) => p.id === v)) return v as LlmProvider;
-  } catch { /* */ }
-  return 'claude';
-}
-
-function saveLlmPref(p: LlmProvider) {
-  try { localStorage.setItem(STORAGE_KEY, p); } catch { /* */ }
-}
 
 function downloadBlob(content: string, filename: string, type: string) {
   const blob = new Blob([content], { type });
@@ -101,7 +65,6 @@ export default function InsightAi(): JSX.Element {
   const [alertText, setAlertText] = useState('');
   const [selectedModes, setSelectedModes] = useState<Set<ModeId>>(new Set(['full-runbook']));
   const [selectedSiems, setSelectedSiems] = useState<Set<SiemFormat>>(new Set(['kql', 'sigma']));
-  const [llmProvider, setLlmProvider] = useState<LlmProvider>(loadLlmPref);
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -126,11 +89,6 @@ export default function InsightAi(): JSX.Element {
     });
   };
 
-  const handleProviderChange = (p: LlmProvider) => {
-    setLlmProvider(p);
-    saveLlmPref(p);
-  };
-
   const handleGenerate = useCallback(async () => {
     if (!alertText.trim() || selectedModes.size === 0) return;
     setLoading(true);
@@ -139,7 +97,7 @@ export default function InsightAi(): JSX.Element {
     try {
       const res = await fetch('/api/v1/ai-summary', {
         method: 'POST',
-        headers: { ...adminAuthHeaders(), 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           surface: 'insight-ai',
           date: new Date().toISOString().slice(0, 10),
@@ -150,7 +108,6 @@ export default function InsightAi(): JSX.Element {
                 `Alert: ${alertText.trim()}`,
                 `Modes: ${[...selectedModes].join(', ')}`,
                 `SIEM Formats: ${[...selectedSiems].join(', ')}`,
-                `LLM Provider: ${llmProvider}`,
               ].join('\n'),
             },
           ],
@@ -162,7 +119,9 @@ export default function InsightAi(): JSX.Element {
         try {
           const p = JSON.parse(body) as { message?: string; error?: string };
           msg = p.message ?? p.error ?? msg;
-        } catch { /* */ }
+        } catch {
+          /* */
+        }
         throw new Error(msg);
       }
       const data = (await res.json()) as { summary?: string };
@@ -174,7 +133,7 @@ export default function InsightAi(): JSX.Element {
     } finally {
       setLoading(false);
     }
-  }, [alertText, selectedModes, selectedSiems, llmProvider]);
+  }, [alertText, selectedModes, selectedSiems]);
 
   const copyResult = async () => {
     if (!result) return;
@@ -182,7 +141,9 @@ export default function InsightAi(): JSX.Element {
       await navigator.clipboard.writeText(result);
       setCopied(true);
       setTimeout(() => setCopied(false), 1500);
-    } catch { /* */ }
+    } catch {
+      /* */
+    }
   };
 
   const downloadAs = (fmt: 'md' | 'json' | 'yaml' | 'txt') => {
@@ -193,10 +154,18 @@ export default function InsightAi(): JSX.Element {
         downloadBlob(result, `insight-ai-${ts}.md`, 'text/markdown');
         break;
       case 'json':
-        downloadBlob(JSON.stringify({ result, generatedAt: new Date().toISOString(), modes: [...selectedModes] }, null, 2), `insight-ai-${ts}.json`, 'application/json');
+        downloadBlob(
+          JSON.stringify({ result, generatedAt: new Date().toISOString(), modes: [...selectedModes] }, null, 2),
+          `insight-ai-${ts}.json`,
+          'application/json'
+        );
         break;
       case 'yaml':
-        downloadBlob(`# INSIGHT-AI Runbook\n# Generated: ${new Date().toISOString()}\n---\n${result}`, `insight-ai-${ts}.yaml`, 'text/yaml');
+        downloadBlob(
+          `# INSIGHT-AI Runbook\n# Generated: ${new Date().toISOString()}\n---\n${result}`,
+          `insight-ai-${ts}.yaml`,
+          'text/yaml'
+        );
         break;
       case 'txt':
         downloadBlob(result, `insight-ai-${ts}.txt`, 'text/plain');
@@ -218,8 +187,8 @@ export default function InsightAi(): JSX.Element {
           <Sparkles size={28} className="text-brand-600 dark:text-brand-400" /> INSIGHT-AI
         </h1>
         <p className="text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed">
-          AI-powered runbook generator. Paste an alert description and generate a structured investigation playbook
-          with triage, queries, ATT&CK mapping, and more.
+          AI-powered runbook generator. Paste an alert description and generate a structured investigation playbook with
+          triage, queries, ATT&CK mapping, and more.
         </p>
       </div>
 
@@ -285,25 +254,6 @@ export default function InsightAi(): JSX.Element {
                   }`}
                 >
                   <Terminal size={12} /> {s.label}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5">
-            <h2 className="font-display font-bold text-sm mb-3">LLM Provider</h2>
-            <div className="flex flex-wrap gap-1.5">
-              {LLM_PROVIDERS.map((p) => (
-                <button
-                  key={p.id}
-                  onClick={() => handleProviderChange(p.id)}
-                  className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-mono border transition-colors ${
-                    llmProvider === p.id
-                      ? 'border-brand-500/60 bg-brand-500/10 text-brand-600 dark:text-brand-400'
-                      : 'border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-brand-500/30'
-                  }`}
-                >
-                  <Bot size={12} /> {p.label}
                 </button>
               ))}
             </div>

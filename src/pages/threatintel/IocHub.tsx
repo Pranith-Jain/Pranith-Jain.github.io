@@ -1,6 +1,5 @@
 import { Suspense, lazy, useState } from 'react';
-import { DataPageLayout } from '../../components/DataPageLayout';
-import { Crosshair, Loader2 } from 'lucide-react';
+import { Loader2 } from 'lucide-react';
 const LiveIocs = lazy(() => import('./LiveIocs'));
 const IocEnrichment = lazy(() => import('./IocEnrichment'));
 const IocFeedsPage = lazy(() => import('./IocFeedsPage'));
@@ -27,13 +26,8 @@ function TabFallback() {
 export default function IocHub(): JSX.Element {
   const [activeTab, setActiveTab] = useState<TabId>('live');
   return (
-    <DataPageLayout
-      backTo="/threatintel"
-      icon={<Crosshair size={28} />}
-      title="IOC Intelligence"
-      description="Live IOC feeds, enrichment, entity resolution, and geo-visualization."
-    >
-      <nav className="flex flex-wrap gap-1 border-b border-slate-200 dark:border-slate-800 mb-6" aria-label="IOC tools">
+    <div className="max-w-7xl mx-auto px-4 sm:px-8 py-6">
+      <nav className="flex flex-wrap gap-1 border-b border-slate-200 dark:border-slate-800 mb-4" aria-label="IOC tools">
         {TABS.map((t) => (
           <button
             key={t.id}
@@ -47,19 +41,14 @@ export default function IocHub(): JSX.Element {
           </button>
         ))}
       </nav>
-      <p className="text-xs font-mono text-slate-500 dark:text-slate-400 mb-4">
-        {TABS.find((t) => t.id === activeTab)?.desc}
-      </p>
-      <div role="tabpanel">
-        <Suspense fallback={<TabFallback />}>
-          {activeTab === 'live' && <LiveIocs />}
-          {activeTab === 'enrichment' && <IocEnrichment />}
-          {activeTab === 'feeds' && <IocFeedsPage />}
-          {activeTab === 'entity' && <EntityResolution />}
-          {activeTab === 'c2' && <C2Tracker />}
-          {activeTab === 'map' && <ThreatMap />}
-        </Suspense>
-      </div>
-    </DataPageLayout>
+      <Suspense fallback={<TabFallback />}>
+        {activeTab === 'live' && <LiveIocs />}
+        {activeTab === 'enrichment' && <IocEnrichment />}
+        {activeTab === 'feeds' && <IocFeedsPage />}
+        {activeTab === 'entity' && <EntityResolution />}
+        {activeTab === 'c2' && <C2Tracker />}
+        {activeTab === 'map' && <ThreatMap />}
+      </Suspense>
+    </div>
   );
 }

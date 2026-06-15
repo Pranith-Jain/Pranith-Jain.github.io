@@ -16,8 +16,6 @@ import {
   Lock,
   ListTree,
   FileText,
-  AlertTriangle,
-  Copy,
 } from 'lucide-react';
 
 type StepId = 1 | 2 | 3 | 4 | 5 | 6 | 7;
@@ -45,13 +43,55 @@ interface InvestigationState {
 }
 
 const STEPS: StepDef[] = [
-  { id: 1, label: 'Header Analysis', icon: Shield, title: 'Header Analysis', description: 'Extract and analyze email headers — From, Reply-To, Return-Path, SPF, DKIM, and DMARC verdicts.' },
-  { id: 2, label: 'URL Triage', icon: Link2, title: 'URL Triage', description: 'Extract URLs, check reputation via urlscan preview, and evaluate domain age.' },
-  { id: 3, label: 'Attachment Sandbox', icon: FileBox, title: 'Attachment Sandbox', description: 'Calculate file hashes, detect file type, and submit to sandbox for detonation.' },
-  { id: 4, label: 'Identity Impact', icon: User, title: 'Identity Impact', description: 'Review Okta/M365 sessions, MFA events, and suspicious logins for the recipient.' },
-  { id: 5, label: 'Containment', icon: Lock, title: 'Containment', description: 'Block sender, quarantine email, and disable compromised accounts.' },
-  { id: 6, label: 'IOC Aggregation', icon: ListTree, title: 'IOC Aggregation', description: 'Consolidate all extracted IOCs — IPs, domains, URLs, hashes, email addresses.' },
-  { id: 7, label: 'Closure', icon: FileText, title: 'Closure', description: 'Summarize findings, document notes, and export the investigation report.' },
+  {
+    id: 1,
+    label: 'Header Analysis',
+    icon: Shield,
+    title: 'Header Analysis',
+    description: 'Extract and analyze email headers — From, Reply-To, Return-Path, SPF, DKIM, and DMARC verdicts.',
+  },
+  {
+    id: 2,
+    label: 'URL Triage',
+    icon: Link2,
+    title: 'URL Triage',
+    description: 'Extract URLs, check reputation via urlscan preview, and evaluate domain age.',
+  },
+  {
+    id: 3,
+    label: 'Attachment Sandbox',
+    icon: FileBox,
+    title: 'Attachment Sandbox',
+    description: 'Calculate file hashes, detect file type, and submit to sandbox for detonation.',
+  },
+  {
+    id: 4,
+    label: 'Identity Impact',
+    icon: User,
+    title: 'Identity Impact',
+    description: 'Review Okta/M365 sessions, MFA events, and suspicious logins for the recipient.',
+  },
+  {
+    id: 5,
+    label: 'Containment',
+    icon: Lock,
+    title: 'Containment',
+    description: 'Block sender, quarantine email, and disable compromised accounts.',
+  },
+  {
+    id: 6,
+    label: 'IOC Aggregation',
+    icon: ListTree,
+    title: 'IOC Aggregation',
+    description: 'Consolidate all extracted IOCs — IPs, domains, URLs, hashes, email addresses.',
+  },
+  {
+    id: 7,
+    label: 'Closure',
+    icon: FileText,
+    title: 'Closure',
+    description: 'Summarize findings, document notes, and export the investigation report.',
+  },
 ];
 
 const STORAGE_KEY = 'phishops-investigation';
@@ -118,7 +158,9 @@ function loadState(): InvestigationState | null {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (raw) return JSON.parse(raw) as InvestigationState;
-  } catch { /* ignore */ }
+  } catch {
+    /* ignore */
+  }
   return null;
 }
 
@@ -152,7 +194,10 @@ const EXAMPLE_DATA: Record<StepId, { fields: Array<{ label: string; value: strin
       { label: 'File Size', value: '246 KB' },
       { label: 'MD5', value: 'a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6' },
       { label: 'SHA-256', value: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855' },
-      { label: 'True Type', value: 'Microsoft Word Macro-Enabled Document (application/vnd.ms-word.document.macroenabled.12)' },
+      {
+        label: 'True Type',
+        value: 'Microsoft Word Macro-Enabled Document (application/vnd.ms-word.document.macroenabled.12)',
+      },
       { label: 'Sandbox Verdict', value: 'MALICIOUS — dropped Cobalt Strike beacon via macro' },
     ],
   },
@@ -162,7 +207,11 @@ const EXAMPLE_DATA: Record<StepId, { fields: Array<{ label: string; value: strin
       { label: 'Okta Sessions', value: '2 active sessions (desktop + mobile) — no unusual IPs' },
       { label: 'MFA Events', value: '1 MFA push accepted at 14:32 UTC from IP 198.51.100.7 (unusual)' },
       { label: 'Suspicious Logins', value: '198.51.100.7 — no previous auth history for this user' },
-      { label: 'Inbox Rules', value: '1 new rule created: "move to Junk" disabled; rule "Forward to phish@evil-domain.xyz" created at 14:33 UTC' },
+      {
+        label: 'Inbox Rules',
+        value:
+          '1 new rule created: "move to Junk" disabled; rule "Forward to phish@evil-domain.xyz" created at 14:33 UTC',
+      },
     ],
   },
   5: {
@@ -179,18 +228,41 @@ const EXAMPLE_DATA: Record<StepId, { fields: Array<{ label: string; value: strin
       { label: 'IPs', value: '203.0.113.42 (sending MTA), 198.51.100.7 (auth proxy)' },
       { label: 'Domains', value: 'evil-domain.xyz, microsoft-verify.com (spoofed)' },
       { label: 'URLs', value: 'https://evil-domain.xyz/login.php?token=abc123, https://evil-domain.xyz/collect.php' },
-      { label: 'File Hashes', value: 'MD5: a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6, SHA-256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855' },
-      { label: 'Email Addresses', value: 'security@microsoft-verify.com (spoofed sender), phish-actor@evil-domain.xyz (reply-to), john.doe@company.com (target)' },
-      { label: 'Confidence Tags', value: 'HIGH — phishing kit detected, credential harvesting confirmed, sandbox detonation produced C2 beacon' },
+      {
+        label: 'File Hashes',
+        value:
+          'MD5: a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6, SHA-256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
+      },
+      {
+        label: 'Email Addresses',
+        value:
+          'security@microsoft-verify.com (spoofed sender), phish-actor@evil-domain.xyz (reply-to), john.doe@company.com (target)',
+      },
+      {
+        label: 'Confidence Tags',
+        value: 'HIGH — phishing kit detected, credential harvesting confirmed, sandbox detonation produced C2 beacon',
+      },
     ],
   },
   7: {
     fields: [
-      { label: 'Summary', value: 'Targeted spear-phishing campaign impersonating Microsoft Security. Email bypassed SPF/DKIM/DMARC due to lax DMARC policy (none). User clicked link and entered credentials on phishing page. Attached .docm macro dropped Cobalt Strike. Quick containment prevented lateral movement.' },
+      {
+        label: 'Summary',
+        value:
+          'Targeted spear-phishing campaign impersonating Microsoft Security. Email bypassed SPF/DKIM/DMARC due to lax DMARC policy (none). User clicked link and entered credentials on phishing page. Attached .docm macro dropped Cobalt Strike. Quick containment prevented lateral movement.',
+      },
       { label: 'Incident Category', value: 'Phishing → Credential Theft → Malware Dropper' },
       { label: 'Severity', value: 'HIGH (credential compromise + C2 beacon)' },
-      { label: 'Timeline', value: '14:30 UTC — Email received. 14:32 UTC — User clicked link and entered credentials. 14:33 UTC — Inbox rule created. 14:35 UTC — Alert triggered. 14:40 UTC — Analyst begins triage. 15:00 UTC — Account disabled, email quarantined. 15:15 UTC — Containment complete.' },
-      { label: 'Lessons Learned', value: '1. DMARC policy should be p=reject. 2. Users need better phishing awareness. 3. MFA geographic anomaly detection prevented further compromise.' },
+      {
+        label: 'Timeline',
+        value:
+          '14:30 UTC — Email received. 14:32 UTC — User clicked link and entered credentials. 14:33 UTC — Inbox rule created. 14:35 UTC — Alert triggered. 14:40 UTC — Analyst begins triage. 15:00 UTC — Account disabled, email quarantined. 15:15 UTC — Containment complete.',
+      },
+      {
+        label: 'Lessons Learned',
+        value:
+          '1. DMARC policy should be p=reject. 2. Users need better phishing awareness. 3. MFA geographic anomaly detection prevented further compromise.',
+      },
     ],
   },
 };
@@ -221,12 +293,14 @@ function buildReport(s: InvestigationState): string {
 
 export default function PhishOps(): JSX.Element {
   const [state, setState] = useState<InvestigationState>(() => {
-    return loadState() ?? {
-      currentStep: 1 as StepId,
-      checklists: defaultChecklists(),
-      notes: {},
-      startedAt: new Date().toISOString(),
-    };
+    return (
+      loadState() ?? {
+        currentStep: 1 as StepId,
+        checklists: defaultChecklists(),
+        notes: {} as Record<StepId, string>,
+        startedAt: new Date().toISOString(),
+      }
+    );
   });
 
   useEffect(() => {
@@ -245,18 +319,14 @@ export default function PhishOps(): JSX.Element {
 
   const toggleCheck = useCallback((step: StepId, itemId: string) => {
     setState((prev) => {
-      const items = prev.checklists[step]?.map((c) =>
-        c.id === itemId ? { ...c, done: !c.done } : c
-      ) ?? [];
+      const items = prev.checklists[step]?.map((c) => (c.id === itemId ? { ...c, done: !c.done } : c)) ?? [];
       return { ...prev, checklists: { ...prev.checklists, [step]: items } };
     });
   }, []);
 
   const updateNote = useCallback((step: StepId, id: string, val: string) => {
     setState((prev) => {
-      const items = prev.checklists[step]?.map((c) =>
-        c.id === id ? { ...c, notes: val } : c
-      ) ?? [];
+      const items = prev.checklists[step]?.map((c) => (c.id === id ? { ...c, notes: val } : c)) ?? [];
       return { ...prev, checklists: { ...prev.checklists, [step]: items } };
     });
   }, []);
@@ -272,7 +342,7 @@ export default function PhishOps(): JSX.Element {
     setState({
       currentStep: 1 as StepId,
       checklists: defaultChecklists(),
-      notes: {},
+      notes: {} as Record<StepId, string>,
       startedAt: new Date().toISOString(),
     });
   }, []);
@@ -291,8 +361,8 @@ export default function PhishOps(): JSX.Element {
   const data = EXAMPLE_DATA[state.currentStep];
   const checklist = totalChecklist(state.currentStep);
   const doneCount = doneChecklist(state.currentStep);
-  const prevStep = state.currentStep > 1 ? (state.currentStep - 1) as StepId : null;
-  const nextStep = state.currentStep < 7 ? (state.currentStep + 1) as StepId : null;
+  const prevStep = state.currentStep > 1 ? ((state.currentStep - 1) as StepId) : null;
+  const nextStep = state.currentStep < 7 ? ((state.currentStep + 1) as StepId) : null;
 
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
@@ -357,7 +427,13 @@ export default function PhishOps(): JSX.Element {
                       : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/50'
                 }`}
               >
-                {complete ? <CheckCircle2 size={12} /> : active ? <Circle size={12} /> : <Circle size={12} className="opacity-40" />}
+                {complete ? (
+                  <CheckCircle2 size={12} />
+                ) : active ? (
+                  <Circle size={12} />
+                ) : (
+                  <Circle size={12} className="opacity-40" />
+                )}
                 <span>{s.id}</span>
                 <span className="hidden sm:inline">{s.label}</span>
               </button>
@@ -404,9 +480,14 @@ export default function PhishOps(): JSX.Element {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
             {data.fields.map((f, i) => (
-              <div key={i} className="flex items-start gap-2 p-3 rounded-lg bg-slate-50 dark:bg-slate-900/30 border border-slate-200 dark:border-slate-800">
+              <div
+                key={i}
+                className="flex items-start gap-2 p-3 rounded-lg bg-slate-50 dark:bg-slate-900/30 border border-slate-200 dark:border-slate-800"
+              >
                 <div className="flex-1 min-w-0">
-                  <div className="text-xs font-mono font-semibold text-slate-500 dark:text-slate-400 mb-0.5">{f.label}</div>
+                  <div className="text-xs font-mono font-semibold text-slate-500 dark:text-slate-400 mb-0.5">
+                    {f.label}
+                  </div>
                   <div className="text-xs font-mono text-slate-800 dark:text-slate-200 break-all">{f.value}</div>
                 </div>
                 <CopyButton value={f.value} title={`Copy ${f.label}`} />
@@ -436,12 +517,20 @@ export default function PhishOps(): JSX.Element {
                   {item.done && <CheckCircle2 size={12} />}
                 </button>
                 <div className="flex-1 min-w-0">
-                  <label
+                  <span
+                    role="button"
+                    tabIndex={0}
                     className={`text-sm font-mono cursor-pointer ${item.done ? 'line-through text-slate-400 dark:text-slate-500' : 'text-slate-700 dark:text-slate-300'}`}
                     onClick={() => toggleCheck(state.currentStep, item.id)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        toggleCheck(state.currentStep, item.id);
+                      }
+                    }}
                   >
                     {item.label}
-                  </label>
+                  </span>
                   <input
                     type="text"
                     value={item.notes}

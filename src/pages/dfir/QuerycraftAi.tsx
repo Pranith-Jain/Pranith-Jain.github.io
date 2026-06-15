@@ -1,18 +1,6 @@
 import { useState, useCallback } from 'react';
 import { BackLink } from '../../components/BackLink';
-import {
-  ArrowLeft,
-  Crosshair,
-  Loader2,
-  AlertTriangle,
-  Shield,
-  Database,
-  Terminal,
-  Search,
-  Clock,
-  RotateCcw,
-  Trash2,
-} from 'lucide-react';
+import { ArrowLeft, Crosshair, Loader2, AlertTriangle, Shield, Terminal, Search, Clock, Trash2 } from 'lucide-react';
 import { CopyButton } from '../../components/dfir/CopyButton';
 
 type SiemFormat = 'kql' | 'spl' | 'sigma' | 'xql';
@@ -60,11 +48,17 @@ function loadHistory(): HistoryEntry[] {
   try {
     const raw = localStorage.getItem(HISTORY_KEY);
     return raw ? (JSON.parse(raw) as HistoryEntry[]) : [];
-  } catch { return []; }
+  } catch {
+    return [];
+  }
 }
 
 function saveHistory(entries: HistoryEntry[]) {
-  try { localStorage.setItem(HISTORY_KEY, JSON.stringify(entries.slice(0, 20))); } catch { /* */ }
+  try {
+    localStorage.setItem(HISTORY_KEY, JSON.stringify(entries.slice(0, 20)));
+  } catch {
+    /* */
+  }
 }
 
 export default function QuerycraftAi(): JSX.Element {
@@ -102,7 +96,9 @@ export default function QuerycraftAi(): JSX.Element {
         try {
           const p = JSON.parse(body) as { error?: string; message?: string };
           msg = p.error ?? p.message ?? msg;
-        } catch { /* */ }
+        } catch {
+          /* */
+        }
         throw new Error(msg);
       }
       const data = (await res.json()) as {
@@ -112,7 +108,12 @@ export default function QuerycraftAi(): JSX.Element {
       };
       const q = data.queries?.[0];
       if (!q) throw new Error('No query returned');
-      const r = { query: q.query, description: q.description, mitre_techniques: data.mitre_techniques ?? [], confidence: q.confidence ?? 'medium' };
+      const r = {
+        query: q.query,
+        description: q.description,
+        mitre_techniques: data.mitre_techniques ?? [],
+        confidence: q.confidence ?? 'medium',
+      };
       setResult(r);
 
       const entry: HistoryEntry = {
@@ -143,7 +144,13 @@ export default function QuerycraftAi(): JSX.Element {
     setDescription(entry.description);
     setSiem(entry.siem);
     setTrack(entry.track);
-    setResult({ query: entry.result, description: entry.description, mitre: entry.mitre, confidence: entry.confidence });
+    const fullResult = entry as HistoryEntry & { mitre?: string[] };
+    setResult({
+      query: fullResult.result,
+      description: fullResult.description,
+      mitre_techniques: fullResult.mitre ?? [],
+      confidence: fullResult.confidence,
+    });
     setError(null);
   };
 
@@ -161,8 +168,8 @@ export default function QuerycraftAi(): JSX.Element {
           <Crosshair size={28} className="text-brand-600 dark:text-brand-400" /> QUERYSECT-AI
         </h1>
         <p className="text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed">
-          Build detection queries from natural language descriptions. Describe what to detect in plain English and
-          get production-ready SIEM queries with MITRE ATT&CK mapping.
+          Build detection queries from natural language descriptions. Describe what to detect in plain English and get
+          production-ready SIEM queries with MITRE ATT&CK mapping.
         </p>
       </div>
 
@@ -221,14 +228,19 @@ export default function QuerycraftAi(): JSX.Element {
           {SIEM_CARDS.map((s) => (
             <button
               key={s.id}
-              onClick={() => { setSiem(s.id); setResult(null); }}
+              onClick={() => {
+                setSiem(s.id);
+                setResult(null);
+              }}
               className={`rounded-lg border p-3 text-left transition-colors ${
                 siem === s.id
                   ? 'border-brand-500/60 bg-brand-500/10'
                   : 'border-slate-200 dark:border-slate-700 hover:border-brand-500/30 bg-white dark:bg-slate-900/20'
               }`}
             >
-              <div className={`text-xs font-mono font-semibold ${siem === s.id ? 'text-brand-600 dark:text-brand-400' : 'text-slate-700 dark:text-slate-300'}`}>
+              <div
+                className={`text-xs font-mono font-semibold ${siem === s.id ? 'text-brand-600 dark:text-brand-400' : 'text-slate-700 dark:text-slate-300'}`}
+              >
                 {s.label}
               </div>
               <div className="text-micro text-slate-500 dark:text-slate-400 mt-0.5">{s.desc}</div>
@@ -299,13 +311,13 @@ export default function QuerycraftAi(): JSX.Element {
             <p className="mt-3 text-xs text-slate-500 dark:text-slate-400 leading-relaxed">{result.description}</p>
           </div>
 
-          {result.mitre.length > 0 && (
+          {result.mitre_techniques.length > 0 && (
             <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5">
               <h2 className="font-display font-bold text-sm mb-3 flex items-center gap-2">
                 <Shield size={14} className="text-brand-600 dark:text-brand-400" /> MITRE ATT&CK
               </h2>
               <div className="flex flex-wrap gap-1.5">
-                {result.mitre.map((t) => (
+                {result.mitre_techniques.map((t) => (
                   <a
                     key={t}
                     href={`https://attack.mitre.org/techniques/${t.replace('.', '/')}/`}

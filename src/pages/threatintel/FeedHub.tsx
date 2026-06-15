@@ -1,6 +1,5 @@
 import { Suspense, lazy, useState } from 'react';
-import { DataPageLayout } from '../../components/DataPageLayout';
-import { Radio, Loader2 } from 'lucide-react';
+import { Loader2 } from 'lucide-react';
 const FeedCatalog = lazy(() => import('./FeedCatalog'));
 const FeedSources = lazy(() => import('./FeedSources'));
 const FeedQuality = lazy(() => import('./FeedQuality'));
@@ -25,14 +24,9 @@ function TabFallback() {
 export default function FeedHub(): JSX.Element {
   const [activeTab, setActiveTab] = useState<TabId>('catalog');
   return (
-    <DataPageLayout
-      backTo="/threatintel"
-      icon={<Radio size={28} />}
-      title="Feed & Source Management"
-      description="Feed catalogs, source health, quality metrics, and scheduling."
-    >
+    <div className="max-w-7xl mx-auto px-4 sm:px-8 py-6">
       <nav
-        className="flex flex-wrap gap-1 border-b border-slate-200 dark:border-slate-800 mb-6"
+        className="flex flex-wrap gap-1 border-b border-slate-200 dark:border-slate-800 mb-4"
         aria-label="Feed tools"
       >
         {TABS.map((t) => (
@@ -48,18 +42,13 @@ export default function FeedHub(): JSX.Element {
           </button>
         ))}
       </nav>
-      <p className="text-xs font-mono text-slate-500 dark:text-slate-400 mb-4">
-        {TABS.find((t) => t.id === activeTab)?.desc}
-      </p>
-      <div role="tabpanel">
-        <Suspense fallback={<TabFallback />}>
-          {activeTab === 'catalog' && <FeedCatalog />}
-          {activeTab === 'sources' && <FeedSources />}
-          {activeTab === 'quality' && <FeedQuality />}
-          {activeTab === 'scheduler' && <FeedScheduler />}
-          {activeTab === 'threatfeeds' && <ThreatFeeds />}
-        </Suspense>
-      </div>
-    </DataPageLayout>
+      <Suspense fallback={<TabFallback />}>
+        {activeTab === 'catalog' && <FeedCatalog />}
+        {activeTab === 'sources' && <FeedSources />}
+        {activeTab === 'quality' && <FeedQuality />}
+        {activeTab === 'scheduler' && <FeedScheduler />}
+        {activeTab === 'threatfeeds' && <ThreatFeeds />}
+      </Suspense>
+    </div>
   );
 }

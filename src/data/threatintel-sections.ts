@@ -8,6 +8,7 @@ import {
   Compass,
   Crosshair,
   Database,
+  ExternalLink,
   FileText,
   Flame,
   Globe,

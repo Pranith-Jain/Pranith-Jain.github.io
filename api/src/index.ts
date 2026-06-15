@@ -530,7 +530,8 @@ app.use('/api/v1/tracer/graphs', requireAdminMiddleware);
 app.use('/api/v1/crypto-monitor', requireAdminMiddleware);
 app.use('/api/v1/crypto-monitor/*', requireAdminMiddleware);
 app.use('/api/v1/tracer/graphs/*', requireAdminMiddleware);
-app.use('/api/v1/ai-summary', requireAdminMiddleware);
+// Public — AI investigation tools use Workers AI (internal billing gate).
+// app.use('/api/v1/ai-summary', requireAdminMiddleware);
 app.use('/api/v1/yara/*', requireAdminMiddleware);
 app.use('/api/v1/rules/generate', requireAdminMiddleware);
 app.use('/api/v1/rules/validate', requireAdminMiddleware);

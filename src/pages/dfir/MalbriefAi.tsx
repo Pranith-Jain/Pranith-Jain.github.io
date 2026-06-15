@@ -8,38 +8,11 @@ import {
   Copy,
   Download,
   Check,
-  Bot,
   Shield,
   Crosshair,
   FileSearch,
   ListChecks,
 } from 'lucide-react';
-import { CopyButton } from '../../components/dfir/CopyButton';
-import { adminAuthHeaders } from '../../lib/admin-token';
-
-type LlmProvider = 'claude' | 'gpt4o' | 'gemini-flash' | 'groq';
-
-const LLM_PROVIDERS: Array<{ id: LlmProvider; label: string }> = [
-  { id: 'claude', label: 'Claude' },
-  { id: 'gpt4o', label: 'GPT-4o' },
-  { id: 'gemini-flash', label: 'Gemini Flash' },
-  { id: 'groq', label: 'Groq' },
-];
-
-const STORAGE_KEY = 'malbriefAiLlmProvider';
-
-function loadLlmPref(): LlmProvider {
-  try {
-    const v = localStorage.getItem(STORAGE_KEY);
-    if (v && LLM_PROVIDERS.some((p) => p.id === v)) return v as LlmProvider;
-  } catch { /* */ }
-  return 'claude';
-}
-
-function saveLlmPref(p: LlmProvider) {
-  try { localStorage.setItem(STORAGE_KEY, p); } catch { /* */ }
-}
-
 const CONFIDENCE_BADGE: Record<string, string> = {
   high: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300',
   medium: 'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300',
@@ -58,7 +31,6 @@ function downloadBlob(content: string, filename: string, type: string) {
 
 export default function MalbriefAi(): JSX.Element {
   const [indicators, setIndicators] = useState('');
-  const [llmProvider, setLlmProvider] = useState<LlmProvider>(loadLlmPref);
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<{
     classification?: string;
@@ -79,7 +51,7 @@ export default function MalbriefAi(): JSX.Element {
     try {
       const res = await fetch('/api/v1/ai-summary', {
         method: 'POST',
-        headers: { ...adminAuthHeaders(), 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           surface: 'malbrief-ai',
           date: new Date().toISOString().slice(0, 10),
@@ -97,7 +69,9 @@ export default function MalbriefAi(): JSX.Element {
         try {
           const p = JSON.parse(body) as { message?: string; error?: string };
           msg = p.message ?? p.error ?? msg;
-        } catch { /* */ }
+        } catch {
+          /* */
+        }
         throw new Error(msg);
       }
       const data = (await res.json()) as { summary?: string };
@@ -108,38 +82,52 @@ export default function MalbriefAi(): JSX.Element {
         if (jsonMatch) {
           parsed = JSON.parse(jsonMatch[0]) as typeof result;
         }
-      } catch { /* */ }
+      } catch {
+        /* */
+      }
       setResult(parsed ?? { summary: raw });
     } catch (err) {
       setError(err instanceof Error ? err.message : String(err));
     } finally {
       setLoading(false);
     }
-  }, [indicators, llmProvider]);
+  }, [indicators]);
 
   const copyResult = async () => {
     if (!result) return;
     const lines = ['# MALBRIEF-AI Malware Analysis', ''];
-    if (result.classification) lines.push(`**Classification:** ${result.classification} (${result.confidence ?? 'N/A'})`);
+    if (result.classification)
+      lines.push(`**Classification:** ${result.classification} (${result.confidence ?? 'N/A'})`);
     if (result.summary) lines.push(`\n## Analysis\n${result.summary}`);
-    if (result.mitre?.length) lines.push(`\n## MITRE ATT&CK\n${result.mitre.map((m) => `- ${m.id}: ${m.name}`).join('\n')}`);
-    if (result.signatures?.length) lines.push(`\n## Detection Signatures\n${result.signatures.map((s) => `- ${s}`).join('\n')}`);
-    if (result.huntingPivots?.length) lines.push(`\n## Hunting Pivots\n${result.huntingPivots.map((p) => `- ${p}`).join('\n')}`);
+    if (result.mitre?.length)
+      lines.push(`\n## MITRE ATT&CK\n${result.mitre.map((m) => `- ${m.id}: ${m.name}`).join('\n')}`);
+    if (result.signatures?.length)
+      lines.push(`\n## Detection Signatures\n${result.signatures.map((s) => `- ${s}`).join('\n')}`);
+    if (result.huntingPivots?.length)
+      lines.push(`\n## Hunting Pivots\n${result.huntingPivots.map((p) => `- ${p}`).join('\n')}`);
     try {
       await navigator.clipboard.writeText(lines.join('\n'));
       setCopied(true);
       setTimeout(() => setCopied(false), 1500);
-    } catch { /* */ }
+    } catch {
+      /* */
+    }
   };
 
   const downloadReport = () => {
     if (!result) return;
     const lines = ['# MALBRIEF-AI Malware Behavior Briefing', `# Generated: ${new Date().toISOString()}`, ''];
-    if (result.classification) lines.push(`## Classification\n\n**Malware:** ${result.classification}\n**Confidence:** ${result.confidence ?? 'N/A'}\n`);
+    if (result.classification)
+      lines.push(
+        `## Classification\n\n**Malware:** ${result.classification}\n**Confidence:** ${result.confidence ?? 'N/A'}\n`
+      );
     if (result.summary) lines.push(`## Analysis\n\n${result.summary}\n`);
-    if (result.mitre?.length) lines.push(`## MITRE ATT&CK\n\n${result.mitre.map((m) => `- ${m.id} — ${m.name}`).join('\n')}\n`);
-    if (result.signatures?.length) lines.push(`## Detection Signatures\n\n${result.signatures.map((s) => `- \`${s}\``).join('\n')}\n`);
-    if (result.huntingPivots?.length) lines.push(`## Hunting Pivots\n\n${result.huntingPivots.map((p) => `- ${p}`).join('\n')}\n`);
+    if (result.mitre?.length)
+      lines.push(`## MITRE ATT&CK\n\n${result.mitre.map((m) => `- ${m.id} — ${m.name}`).join('\n')}\n`);
+    if (result.signatures?.length)
+      lines.push(`## Detection Signatures\n\n${result.signatures.map((s) => `- \`${s}\``).join('\n')}\n`);
+    if (result.huntingPivots?.length)
+      lines.push(`## Hunting Pivots\n\n${result.huntingPivots.map((p) => `- ${p}`).join('\n')}\n`);
     downloadBlob(lines.join('\n'), `malbrief-ai-${Date.now()}.md`, 'text/markdown');
   };
 
@@ -157,8 +145,8 @@ export default function MalbriefAi(): JSX.Element {
           <Bug size={28} className="text-brand-600 dark:text-brand-400" /> MALBRIEF-AI
         </h1>
         <p className="text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed">
-          Submit behavioral indicators and get malware classification, MITRE ATT&CK mapping, detection signatures,
-          and hunting pivot recommendations.
+          Submit behavioral indicators and get malware classification, MITRE ATT&CK mapping, detection signatures, and
+          hunting pivot recommendations.
         </p>
       </div>
 
@@ -177,25 +165,6 @@ export default function MalbriefAi(): JSX.Element {
               placeholder="Paste behavioral indicators, sandbox output, or malware analysis notes…"
               className="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 p-3 font-mono text-xs text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/40"
             />
-          </div>
-
-          <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5">
-            <h2 className="font-display font-bold text-sm mb-3">LLM Provider</h2>
-            <div className="flex flex-wrap gap-1.5">
-              {LLM_PROVIDERS.map((p) => (
-                <button
-                  key={p.id}
-                  onClick={() => { setLlmProvider(p.id); saveLlmPref(p.id); }}
-                  className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-mono border transition-colors ${
-                    llmProvider === p.id
-                      ? 'border-brand-500/60 bg-brand-500/10 text-brand-600 dark:text-brand-400'
-                      : 'border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-brand-500/30'
-                  }`}
-                >
-                  <Bot size={12} /> {p.label}
-                </button>
-              ))}
-            </div>
           </div>
 
           <button
@@ -243,7 +212,9 @@ export default function MalbriefAi(): JSX.Element {
                       <Bug size={14} className="text-brand-600 dark:text-brand-400" /> Classification
                     </h2>
                     {result.confidence && (
-                      <span className={`inline-block px-2 py-0.5 rounded text-xs font-mono ${CONFIDENCE_BADGE[result.confidence] ?? ''}`}>
+                      <span
+                        className={`inline-block px-2 py-0.5 rounded text-xs font-mono ${CONFIDENCE_BADGE[result.confidence] ?? ''}`}
+                      >
                         {result.confidence}
                       </span>
                     )}
@@ -312,7 +283,9 @@ export default function MalbriefAi(): JSX.Element {
                   <h2 className="font-display font-bold text-sm mb-2 flex items-center gap-2">
                     <ListChecks size={14} className="text-brand-600 dark:text-brand-400" /> Analysis Summary
                   </h2>
-                  <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed whitespace-pre-wrap">{result.summary}</p>
+                  <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed whitespace-pre-wrap">
+                    {result.summary}
+                  </p>
                 </div>
               )}
 

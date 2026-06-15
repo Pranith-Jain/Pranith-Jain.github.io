@@ -1,22 +1,6 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { DataPageLayout } from '../../components/DataPageLayout';
-import {
-  ArrowUpRight,
-  Bug,
-  ExternalLink,
-  FileText,
-  Globe,
-  Hash,
-  Info,
-  Loader2,
-  Mail,
-  Search,
-  Shield,
-  ShieldAlert,
-  ShieldCheck,
-  Target,
-  Zap,
-} from 'lucide-react';
+import { Bug, ExternalLink, Globe, Hash, Info, Loader2, Mail, Search, Shield, ShieldAlert, Zap } from 'lucide-react';
 
 interface EnrichmentResult {
   provider: string;

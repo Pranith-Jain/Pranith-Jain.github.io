@@ -1,13 +1,12 @@
 import { Suspense, lazy, useState } from 'react';
-import { DataPageLayout } from '../../components/DataPageLayout';
-import { Mail, Loader2 } from 'lucide-react';
+import { Loader2 } from 'lucide-react';
 const PhishFeed = lazy(() => import('./PhishFeed'));
-const PhishingUrls = lazy(() => import('./PhishingWordlists'));
+const PhishingWordlists = lazy(() => import('./PhishingWordlists'));
 const ScamWatch = lazy(() => import('../dfir/ScamWatch'));
 type TabId = 'phish' | 'urls' | 'scam';
 const TABS: Array<{ id: TabId; label: string; desc: string }> = [
   { id: 'phish', label: 'Phish Feed', desc: 'Phishing feed aggregation' },
-  { id: 'urls', label: 'URLs', desc: 'Phishing URL database' },
+  { id: 'urls', label: 'Wordlists', desc: 'Phishing wordlists' },
   { id: 'scam', label: 'Scam Watch', desc: 'Scam watch and monitoring' },
 ];
 function TabFallback() {
@@ -21,14 +20,9 @@ function TabFallback() {
 export default function EmailPhishHub(): JSX.Element {
   const [activeTab, setActiveTab] = useState<TabId>('phish');
   return (
-    <DataPageLayout
-      backTo="/threatintel"
-      icon={<Mail size={28} />}
-      title="Email & Phishing Intelligence"
-      description="Phishing feeds, URL tracking, and scam monitoring."
-    >
+    <div className="max-w-7xl mx-auto px-4 sm:px-8 py-6">
       <nav
-        className="flex flex-wrap gap-1 border-b border-slate-200 dark:border-slate-800 mb-6"
+        className="flex flex-wrap gap-1 border-b border-slate-200 dark:border-slate-800 mb-4"
         aria-label="Email tools"
       >
         {TABS.map((t) => (
@@ -44,16 +38,11 @@ export default function EmailPhishHub(): JSX.Element {
           </button>
         ))}
       </nav>
-      <p className="text-xs font-mono text-slate-500 dark:text-slate-400 mb-4">
-        {TABS.find((t) => t.id === activeTab)?.desc}
-      </p>
-      <div role="tabpanel">
-        <Suspense fallback={<TabFallback />}>
-          {activeTab === 'phish' && <PhishFeed />}
-          {activeTab === 'urls' && <PhishingUrls />}
-          {activeTab === 'scam' && <ScamWatch />}
-        </Suspense>
-      </div>
-    </DataPageLayout>
+      <Suspense fallback={<TabFallback />}>
+        {activeTab === 'phish' && <PhishFeed />}
+        {activeTab === 'urls' && <PhishingWordlists />}
+        {activeTab === 'scam' && <ScamWatch />}
+      </Suspense>
+    </div>
   );
 }

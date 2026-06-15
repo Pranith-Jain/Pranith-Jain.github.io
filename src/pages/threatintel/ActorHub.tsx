@@ -1,6 +1,5 @@
 import { Suspense, lazy, useState } from 'react';
-import { DataPageLayout } from '../../components/DataPageLayout';
-import { Users, Loader2 } from 'lucide-react';
+import { Loader2 } from 'lucide-react';
 const ActorDirectory = lazy(() => import('./ActorDirectory'));
 const ActorTimeline = lazy(() => import('./ActorTimeline'));
 const ActorDNA = lazy(() => import('./ActorDNA'));
@@ -25,14 +24,9 @@ function TabFallback() {
 export default function ActorHub(): JSX.Element {
   const [activeTab, setActiveTab] = useState<TabId>('directory');
   return (
-    <DataPageLayout
-      backTo="/threatintel"
-      icon={<Users size={28} />}
-      title="Threat Actor Intelligence"
-      description="Unified actor browser — directory, DNA, timeline, attribution, and username search."
-    >
+    <div className="max-w-7xl mx-auto px-4 sm:px-8 py-6">
       <nav
-        className="flex flex-wrap gap-1 border-b border-slate-200 dark:border-slate-800 mb-6"
+        className="flex flex-wrap gap-1 border-b border-slate-200 dark:border-slate-800 mb-4"
         aria-label="Actor tools"
       >
         {TABS.map((t) => (
@@ -48,18 +42,13 @@ export default function ActorHub(): JSX.Element {
           </button>
         ))}
       </nav>
-      <p className="text-xs font-mono text-slate-500 dark:text-slate-400 mb-4">
-        {TABS.find((t) => t.id === activeTab)?.desc}
-      </p>
-      <div role="tabpanel">
-        <Suspense fallback={<TabFallback />}>
-          {activeTab === 'directory' && <ActorDirectory />}
-          {activeTab === 'timeline' && <ActorTimeline />}
-          {activeTab === 'dna' && <ActorDNA />}
-          {activeTab === 'usernames' && <ActorUsernameSearch />}
-          {activeTab === 'attribution' && <Attribution />}
-        </Suspense>
-      </div>
-    </DataPageLayout>
+      <Suspense fallback={<TabFallback />}>
+        {activeTab === 'directory' && <ActorDirectory />}
+        {activeTab === 'timeline' && <ActorTimeline />}
+        {activeTab === 'dna' && <ActorDNA />}
+        {activeTab === 'usernames' && <ActorUsernameSearch />}
+        {activeTab === 'attribution' && <Attribution />}
+      </Suspense>
+    </div>
   );
 }

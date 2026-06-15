@@ -255,7 +255,7 @@ export default function UnifiedSearch(): JSX.Element {
             <span className="text-mini font-mono opacity-70">· {toolMatches.length}</span>
           </div>
           <ul className="divide-y divide-slate-100 dark:divide-slate-800/50">
-            {toolMatches.map(({ tool, section }) => (
+            {toolMatches.map(({ section, ...tool }) => (
               <li key={tool.to} className="px-4 py-2.5 hover:bg-slate-50 dark:hover:bg-slate-950/50">
                 <Link to={tool.to} className="flex items-start justify-between gap-2 group">
                   <div className="min-w-0">
