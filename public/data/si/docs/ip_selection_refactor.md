@@ -22,7 +22,7 @@ let end = datetime(<EndDate>);
 let upn = '<UPN>';
 
 // Priority 1: Anomaly IPs (top 8 by anomaly count)
-let anomaly_ips = 
+let anomaly_ips =
     Signinlogs_Anomalies_KQL_CL
     | where DetectedDateTime between (start .. end)
     | where UserPrincipalName =~ upn
@@ -32,7 +32,7 @@ let anomaly_ips =
     | extend Priority = 1, Source = "Anomaly";
 
 // Priority 2: Risky IPs from Identity Protection (top 10 for selection pool)
-let risky_ips_pool = 
+let risky_ips_pool =
     AADUserRiskEvents
     | where ActivityDateTime between (start .. end)
     | where UserPrincipalName =~ upn
@@ -54,17 +54,17 @@ let frequent_ips_pool =
 let anomaly_ip_list = anomaly_ips | project IPAddress;
 
 // Get anomaly + risky IP list for exclusion from frequent slot
-let priority_ip_list = 
+let priority_ip_list =
     union anomaly_ips, risky_ips_pool
     | project IPAddress;
 
 // Reserve slots with deduplication: 8 anomaly + 4 risky + 3 frequent
 let anomaly_slot = anomaly_ips | extend Count = AnomalyCount;
-let risky_slot = risky_ips_pool 
+let risky_slot = risky_ips_pool
     | join kind=anti anomaly_ip_list on IPAddress  // Exclude IPs already in anomaly list
     | top 4 by RiskCount desc
     | extend Count = RiskCount;
-let frequent_slot = frequent_ips_pool 
+let frequent_slot = frequent_ips_pool
     | join kind=anti priority_ip_list on IPAddress  // Exclude IPs already in anomaly/risky lists
     | top 3 by SignInCount desc
     | extend Count = SignInCount;
@@ -92,7 +92,6 @@ union anomaly_slot, risky_slot, frequent_slot
    - Query 3d (Sign-in Counts by IP)
 
 ## Investigation Workflow Sequence
-
 
 **Current Workflow:**
 
@@ -155,7 +154,7 @@ most_recent_signins
     AuthStepResultDetail has "First factor requirement satisfied", 3,
     AuthStepResultDetail has "MFA required", 4,
     999)
-| summarize 
+| summarize
     MostRecentTime = any(TimeGenerated),
     MostRecentResultType = any(ResultType),
     HasAuthDetails = any(HasAuthDetails),
@@ -177,7 +176,7 @@ most_recent_signins
     | where TimeGenerated between (start .. end)
     | where UserPrincipalName =~ '<UPN>'
     | where IPAddress in (target_ips)
-    | summarize 
+    | summarize
         SignInCount = count(),
         SuccessCount = countif(ResultType == '0'),
         FailureCount = countif(ResultType != '0'),
@@ -192,12 +191,14 @@ most_recent_signins
 ### Key Implementation Details
 
 **AuthenticationDetails Handling:**
+
 1. **Check if empty**: `array_length(AuthDetails) > 0`
 2. **Create fallback array**: `iif(HasAuthDetails, AuthDetails, dynamic([{"authenticationStepResultDetail": ""}]))`
 3. **Prioritize failure + empty auth**: `not(HasAuthDetails) and MostRecentResultType != "0"` → "Authentication failed"
 4. **Handle success + empty auth**: `not(HasAuthDetails) and MostRecentResultType == "0"` → "Token"
 
 **Why This Matters:**
+
 - `mv-expand` on empty arrays drops rows entirely
 - Empty `AuthenticationDetails` is valid (token-based auth, non-interactive sign-ins)
 - Without fallback, important IPs disappear from results
@@ -254,5 +255,6 @@ The investigation JSON structure includes:
 ## References
 
 For complete query documentation and usage examples, see:
+
 - `copilot-instructions.md` - Sample KQL Queries section (Query 1, Query 3d)
 - `docs/Signinlogs_Anomalies_KQL_CL.md` - Anomaly detection details

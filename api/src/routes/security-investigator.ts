@@ -475,18 +475,16 @@ function flattenRowsManifest(parsed: unknown): RenderManifest {
 // resolves from api/src/routes/ → worker/lib/si-svg-png.ts.
 // Wrapped in a dynamic import so the route file still typechecks
 // in api/tsconfig.json (which doesn't include worker/).
+import { svgDashboardToPng as _svgDashboardToPng } from '../lib/si-svg-png';
+
 async function renderPngFromSvg(svg: string, env: unknown): Promise<Uint8Array> {
-  // The PNG rasteriser lives in worker/lib/si-svg-png.ts. We hide the path
-  // behind a runtime expression so api/tsconfig.json's tsc (which has
-  // moduleResolution=Bundler and would otherwise eagerly resolve the string
-  // literal in import()) doesn't try to follow the relative path out of the
-  // api/ include glob. Vite + wrangler bundle both trees together so the
-  // resolved specifier works at build time.
-  const specifier = ['..', '..', '..', 'worker', 'lib', 'si-svg-png'].join('/');
-  const mod = (await import(/* @vite-ignore */ specifier)) as {
-    svgDashboardToPng(env: unknown, svg: string, opts?: { width?: number }): Promise<Uint8Array>;
-  };
-  return mod.svgDashboardToPng(env, svg);
+  // The PNG rasteriser lives in worker/lib/si-svg-png.ts and is exposed
+  // to the api/ tree via the api/src/lib/si-svg-png.ts symlink. The static
+  // import resolves at Vite + wrangler build time (no runtime fetch), so
+  // /api/v1/si/render?format=png doesn't fail with "No such module" in
+  // the Worker runtime (the previous dynamic-import hack worked at type-
+  // check time but not in the wrangler bundle).
+  return _svgDashboardToPng(env as Parameters<typeof _svgDashboardToPng>[0], svg);
 }
 
 // Cached manifest YAMLs are pulled from the skills' svgWidgetsYaml field.

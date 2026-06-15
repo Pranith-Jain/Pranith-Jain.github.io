@@ -13,6 +13,7 @@ The security investigation system uses a comprehensive `SecurityIncident` query 
 ### 1. Current KQL Query Pattern
 
 **Approach:**
+
 - Query `SecurityIncident` table joined with `SecurityAlert`
 - Provides full incident lifecycle information
 - Includes incident metadata: title, classification, owner, provider URLs
@@ -23,6 +24,7 @@ The security investigation system uses a comprehensive `SecurityIncident` query 
 ### 2. Updated Files
 
 #### `.github/copilot-instructions.md`
+
 - **Section 6**: Security Incidents with Alerts Correlated to User
 - **Required Fields** (returned by query):
   - `ProviderIncidentId` (grouping key - external incident ID like "2273")
@@ -38,6 +40,7 @@ The security investigation system uses a comprehensive `SecurityIncident` query 
 - **Critical Requirement**: Must provide `targetUPN`, `targetUserId`, and `targetSid` (all three identifiers)
 
 #### `report_generator.py`
+
 - Enhanced security alerts table with 7 columns (was 4):
   - Incident # (with clickable URL link)
   - Title
@@ -55,9 +58,11 @@ The security investigation system uses a comprehensive `SecurityIncident` query 
   - Undetermined: Gray
 
 #### `investigator.py`
+
 - Updated risk assessment logic to use incident `Severity` field (with fallback to `AlertSeverity`)
 
 #### `investigation_user_7days.py`
+
 - Updated sample data to include all new incident fields
 - Changed from 7 fields per alert to 13 fields per incident
 
@@ -83,7 +88,7 @@ SecurityIncident
 | extend ProviderIncidentUrl = tostring(AdditionalData.providerIncidentUrl)
 | extend OwnerUPN = tostring(Owner.userPrincipalName)
 | extend LastModifiedTime = todatetime(LastModifiedTime)
-| summarize 
+| summarize
     Title = any(Title),
     Severity = any(Severity),
     Status = any(Status),
@@ -99,6 +104,7 @@ SecurityIncident
 ```
 
 **Key Query Features:**
+
 - **Three-identifier matching**: Searches alerts by UPN, User Object ID, and Windows SID (catches both cloud and on-premises alerts)
 - **Time filtering**: Uses `CreatedTime` for incident creation time (not `TimeGenerated`)
 - **Deduplication**: `arg_max(TimeGenerated, *)` on both IncidentNumber and SystemAlertId
@@ -123,6 +129,7 @@ SecurityIncident
 ## Testing
 
 Regenerated investigation report for user@domain.com:
+
 - ✅ All 7 incidents loaded successfully
 - ✅ Incident metadata displayed correctly
 - ✅ Classification color coding working
@@ -134,10 +141,13 @@ Regenerated investigation report for user@domain.com:
 ## Usage in Investigation Workflow
 
 **Prerequisites:**
+
 1. **Get User Identifiers** (REQUIRED before running query):
+
    ```
    /v1.0/users/<UPN>?$select=id,onPremisesSecurityIdentifier
    ```
+
    Returns:
    - `id`: Azure AD User Object ID (GUID)
    - `onPremisesSecurityIdentifier`: Windows SID (format: S-1-5-21-...)
@@ -159,10 +169,12 @@ Regenerated investigation report for user@domain.com:
 ## Why Three Identifiers Are Required
 
 **Problem**: Different alert types use different entity formats
+
 - **Cloud alerts**: Use Azure AD UPN or User Object ID (e.g., "Device Code Authentication Flow Detected")
 - **On-premises alerts**: Use Windows SID only (e.g., "Rare RDP Connections", "RDP Nesting")
 
 **Solution**: Search alerts using all three identifiers:
+
 ```kql
 | where Entities has targetUPN or Entities has targetUserId or Entities has targetSid
 ```

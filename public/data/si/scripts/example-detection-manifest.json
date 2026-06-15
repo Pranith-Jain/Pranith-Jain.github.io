@@ -25,9 +25,7 @@
     "mitreTechniques": ["T1053.005", "T1059.001"],
     "description": "{{AccountName}} generated {{EventCount}} suspicious events on {{DeviceName}} within 1 hour.",
     "recommendedActions": null,
-    "impactedAssets": [
-      { "type": "device", "identifier": "deviceName" }
-    ],
+    "impactedAssets": [{ "type": "device", "identifier": "deviceName" }],
     "responseActions": []
   }
 ]

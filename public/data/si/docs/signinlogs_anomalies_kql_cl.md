@@ -6,57 +6,62 @@ Scope: Interactive & Non-Interactive Entra ID sign-in anomaly events
 Retention (assumed): Matches Log Analytics custom table retention unless overridden
 
 ## Purpose
+
 The `Signinlogs_Anomalies_KQL_CL` table stores normalized anomaly detection results produced by a scheduled **hourly KQL job**. It consolidates both Interactive (`SigninLogs`) and Non-Interactive (`AADNonInteractiveUserSignInLogs`) sign-in anomalies, enabling rapid triage, correlation, enrichment, and alerting. Each record represents a NEW entity observation within the **last 1 hour** relative to a 90-day baseline excluding the most recent 1-hour window (baseline vs recent comparison model). The logic flags network origin changes, device fingerprint changes, and geo novelty.
 
 ## Detection Model Summary
+
 1. Baseline Window: (Now - 90d - 1h) to (Now - 1h) – captures historical, stable usage (90-day lookback excluding the most recent hour).
 2. Recent Window: Last 1 hour – candidate period for new artifacts (evaluated every hour).
 3. IPv6 Exclusion: Baseline and recent IP sets exclude IPv6 (`where IPAddress !has ":"`) to reduce noise from frequently changing IPv6 addresses and privacy extensions.
 4. Newness Criteria:
-    - IP: Not in baseline (IPv4-only) IP set for user.
-    - Device Combo: OS|BrowserFamily not in baseline device set for user.
-    - Geo Novelty: Country / City / State not previously observed in baseline sets for user.
+   - IP: Not in baseline (IPv4-only) IP set for user.
+   - Device Combo: OS|BrowserFamily not in baseline device set for user.
+   - Geo Novelty: Country / City / State not previously observed in baseline sets for user.
 5. Volume Metrics: `ArtifactHits` counts recent window occurrences for the anomaly value (IP or Device), used for severity scoring and noise suppression.
 
 ### IPv6 Exclusion Rationale
+
 Transient IPv6 addresses (privacy extensions, mobile carriers, rotating prefixes) inflated false positives without meaningful security signal. Filtering to IPv4 stabilizes baseline continuity while retaining most actionable anomalies (corporate NATs, VPN egress, residential broadband). Re‑enable IPv6 later if you implement prefix aggregation or heuristic grouping.
 
 ## Columns
-| Column | Type | Description |
-|--------|------|-------------|
-| `DetectedDateTime` | datetime | Time the anomaly record was generated (job execution time). |
-| `UserPrincipalName` | string | Entra ID user identifier associated with the anomaly. |
-| `AnomalyType` | string | Category: `NewInteractiveIP`, `NewInteractiveDeviceCombo`, `NewNonInteractiveIP`, `NewNonInteractiveDeviceCombo`. |
-| `Value` | string | Primary anomalous artifact (IP address or `OS|BrowserFamily` device combo). |
-| `OS` | string | Operating system (for device anomalies; empty for IP anomalies). |
-| `BrowserFamily` | string | Parsed high-level browser family (first token before space). |
-| `RawBrowser` | string | Full raw browser string (version included). |
-| `Country` | string | Normalized country or region code/name (prefers `countryOrRegion` over simple `Location`). |
-| `City` | string | City from `LocationDetails`. |
-| `State` | string | State / region from `LocationDetails`. |
-| `CountryNovelty` | bool | True if `Country` not in baseline countries for the user. |
-| `CityNovelty` | bool | True if `City` not in baseline cities for the user (non-empty). |
-| `StateNovelty` | bool | True if `State` not in baseline states for the user (non-empty). |
-| `BaselineCountryCount` | int | Count of distinct baseline countries for the user. |
-| `BaselineCityCount` | int | Count of distinct baseline cities. |
-| `BaselineStateCount` | int | Count of distinct baseline states. |
-| `BaselineSize` | int | Size of baseline set (IPs for IP anomalies; device combos for device anomalies). |
-| `RecentSize` | int | Size of recent set for the respective artifact type. |
-| `FirstSeenRecent` | datetime | First timestamp the new artifact appeared during recent window. |
-| (Removed) `Lat` | real | Removed to simplify payload; re-add if travel distance scoring required. |
-| (Removed) `Lon` | real | Removed; can be reintroduced with geo distance logic. |
-| `ArtifactHits` | int | Count of occurrences of the new artifact in recent window (signal strength). |
-| `BaselineIPList` | dynamic | Array of baseline IPs for the user (included for IP anomalies; present & useful for device anomalies too). |
-| `BaselineCountryList` | dynamic | Array of baseline countries. |
-| `BaselineCityList` | dynamic | Array of baseline cities. |
-| `BaselineStateList` | dynamic | Array of baseline states. |
-| `BaselineDeviceList` | dynamic | Array of baseline device combos. |
-| `BaselineOSList` | dynamic | Array of baseline operating systems. |
-| `BaselineBrowserFamilyList` | dynamic | Array of baseline browser families. |
-| `BaselineRawBrowserList` | dynamic | Array of baseline raw browser strings. |
-| `Severity` | string | Derived field computed post-ingestion using artifact volume & novelty logic. |
+
+| Column                      | Type     | Description                                                                                                       |
+| --------------------------- | -------- | ----------------------------------------------------------------------------------------------------------------- | ----------------------------- |
+| `DetectedDateTime`          | datetime | Time the anomaly record was generated (job execution time).                                                       |
+| `UserPrincipalName`         | string   | Entra ID user identifier associated with the anomaly.                                                             |
+| `AnomalyType`               | string   | Category: `NewInteractiveIP`, `NewInteractiveDeviceCombo`, `NewNonInteractiveIP`, `NewNonInteractiveDeviceCombo`. |
+| `Value`                     | string   | Primary anomalous artifact (IP address or `OS                                                                     | BrowserFamily` device combo). |
+| `OS`                        | string   | Operating system (for device anomalies; empty for IP anomalies).                                                  |
+| `BrowserFamily`             | string   | Parsed high-level browser family (first token before space).                                                      |
+| `RawBrowser`                | string   | Full raw browser string (version included).                                                                       |
+| `Country`                   | string   | Normalized country or region code/name (prefers `countryOrRegion` over simple `Location`).                        |
+| `City`                      | string   | City from `LocationDetails`.                                                                                      |
+| `State`                     | string   | State / region from `LocationDetails`.                                                                            |
+| `CountryNovelty`            | bool     | True if `Country` not in baseline countries for the user.                                                         |
+| `CityNovelty`               | bool     | True if `City` not in baseline cities for the user (non-empty).                                                   |
+| `StateNovelty`              | bool     | True if `State` not in baseline states for the user (non-empty).                                                  |
+| `BaselineCountryCount`      | int      | Count of distinct baseline countries for the user.                                                                |
+| `BaselineCityCount`         | int      | Count of distinct baseline cities.                                                                                |
+| `BaselineStateCount`        | int      | Count of distinct baseline states.                                                                                |
+| `BaselineSize`              | int      | Size of baseline set (IPs for IP anomalies; device combos for device anomalies).                                  |
+| `RecentSize`                | int      | Size of recent set for the respective artifact type.                                                              |
+| `FirstSeenRecent`           | datetime | First timestamp the new artifact appeared during recent window.                                                   |
+| (Removed) `Lat`             | real     | Removed to simplify payload; re-add if travel distance scoring required.                                          |
+| (Removed) `Lon`             | real     | Removed; can be reintroduced with geo distance logic.                                                             |
+| `ArtifactHits`              | int      | Count of occurrences of the new artifact in recent window (signal strength).                                      |
+| `BaselineIPList`            | dynamic  | Array of baseline IPs for the user (included for IP anomalies; present & useful for device anomalies too).        |
+| `BaselineCountryList`       | dynamic  | Array of baseline countries.                                                                                      |
+| `BaselineCityList`          | dynamic  | Array of baseline cities.                                                                                         |
+| `BaselineStateList`         | dynamic  | Array of baseline states.                                                                                         |
+| `BaselineDeviceList`        | dynamic  | Array of baseline device combos.                                                                                  |
+| `BaselineOSList`            | dynamic  | Array of baseline operating systems.                                                                              |
+| `BaselineBrowserFamilyList` | dynamic  | Array of baseline browser families.                                                                               |
+| `BaselineRawBrowserList`    | dynamic  | Array of baseline raw browser strings.                                                                            |
+| `Severity`                  | string   | Derived field computed post-ingestion using artifact volume & novelty logic.                                      |
 
 ## Suggested Severity Logic (Post-Ingestion)
+
 ```
 | extend Severity = case(
     // Baseline guardrail: suppress users still building baseline (< 3 artifacts in 90-day history)
@@ -73,7 +78,9 @@ Transient IPv6 addresses (privacy extensions, mobile carriers, rotating prefixes
     "Informational"
 )
 ```
+
 **Threshold Rationale (Hourly Detection Window):**
+
 - **Baseline guardrail:** `BaselineSize < 3` → always Informational (user still building 90d baseline; applies to ALL anomaly types — interactive and non-interactive). New users generate noise because everything is "new" — Q3/Identity Protection provides genuine new-account compromise coverage.
 - **20 hits/hour** = Very aggressive (1 sign-in every 3 minutes) → High severity
 - **10 hits/hour** = Active session (P95 threshold) → Medium severity
@@ -83,26 +90,32 @@ Transient IPv6 addresses (privacy extensions, mobile carriers, rotating prefixes
 These thresholds are calibrated for **hourly detection windows** (1-hour recent period). If you change the detection frequency (e.g., daily runs), adjust proportionally (multiply by 24 for daily detection).
 
 ## Common Triage Questions & How to Answer
-| Question | KQL / Approach |
-|----------|----------------|
-| Has this IP now appeared in interactive AND non-interactive? | Join table back to source logs: `Signinlogs_Anomalies_KQL_CL | where Value matches regex "^([0-9]{1,3}\.){3}[0-9]{1,3}$" | join kind=inner (SigninLogs ...) on UserPrincipalName, Value`. |
-| Was MFA enforced for sessions behind this anomaly IP? | Pull sign-ins: `SigninLogs | where IPAddress == Value and UserPrincipalName == ... | project TimeGenerated, MfaDetail, ConditionalAccessStatus`. |
-| Is geo novelty legitimate travel? | Compare to HR travel feed (if ingested) or correlate with device compliance: `Device compliance logs` vs anomaly timestamps. |
-| Does the device combo also change when IP changes? | `Signinlogs_Anomalies_KQL_CL | summarize by UserPrincipalName, AnomalyType, Value, OS, BrowserFamily`. |
-| Do we see risky sign-ins around FirstSeenRecent? | Join to `AADUserRiskEvents` on UserPrincipalName with time window ±1h. |
+
+| Question                                                     | KQL / Approach                                                                                                               |
+| ------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------- | -------------------------------------------------------------- |
+| Has this IP now appeared in interactive AND non-interactive? | Join table back to source logs: `Signinlogs_Anomalies_KQL_CL                                                                 | where Value matches regex "^([0-9]{1,3}\.){3}[0-9]{1,3}$"               | join kind=inner (SigninLogs ...) on UserPrincipalName, Value`. |
+| Was MFA enforced for sessions behind this anomaly IP?        | Pull sign-ins: `SigninLogs                                                                                                   | where IPAddress == Value and UserPrincipalName == ...                   | project TimeGenerated, MfaDetail, ConditionalAccessStatus`.    |
+| Is geo novelty legitimate travel?                            | Compare to HR travel feed (if ingested) or correlate with device compliance: `Device compliance logs` vs anomaly timestamps. |
+| Does the device combo also change when IP changes?           | `Signinlogs_Anomalies_KQL_CL                                                                                                 | summarize by UserPrincipalName, AnomalyType, Value, OS, BrowserFamily`. |
+| Do we see risky sign-ins around FirstSeenRecent?             | Join to `AADUserRiskEvents` on UserPrincipalName with time window ±1h.                                                       |
 
 ## False Positive Patterns
+
 - Cloud infrastructure shift (new Azure region NAT IP) without device or country novelty (only IP flagged).
 - Mobile user switching cellular subnet within same metro repeatedly (CityNovelty toggles among neighborhoods).
 - Browser auto-update altering minor version (no anomaly unless OS|BrowserFamily changes).
 
 ## Recommended Suppression / Allowlisting
+
 Create a watchlist or custom table (e.g. `AcceptedAnomalyArtifacts_CL`) containing JSON objects:
+
 ```
 { "Type": "IP", "Artifact": "13.72.241.239", "User": "user@domain.com", "Expires": "2025-12-31" }
 { "Type": "Device", "Artifact": "Windows10|Edge", "User": "*", "Expires": "2026-01-15" }
 ```
+
 Usage: Left-anti join before alerting.
+
 ```
 Signinlogs_Anomalies_KQL_CL
 | lookup AcceptedAnomalyArtifacts_CL on $left.Value == $right.Artifact and $left.UserPrincipalName == $right.User
@@ -110,6 +123,7 @@ Signinlogs_Anomalies_KQL_CL
 ```
 
 ## Sample Alert Rule (Conceptual)
+
 ```
 Signinlogs_Anomalies_KQL_CL
 | where DetectedDateTime > ago(1h)  // Query last hour of detections (aligned with hourly job execution)
@@ -119,33 +133,40 @@ Signinlogs_Anomalies_KQL_CL
 ```
 
 ## Enrichment Opportunities
+
 - ASN / Org: Join to IP enrichment table (e.g. `IPEnrichment_CL` with columns `IPAddress`, `ASN`, `Org`).
 - Risk Aggregation: Correlate with `AADUserRiskEvents` severity or `RiskLevelDuringSignIn`.
 - Conditional Access Context: Count distinct enforced policies at anomaly time.
 - Geo Distance: Compute km between baseline centroid and anomaly coordinate using Haversine to rank travel plausibility.
 
 ## (Optional) Geo Distance
+
 Lat/Lon dropped for baseline job. If re-added, compute distance using Haversine and store `TravelDistanceKm` then severity-weight by unexpected large jumps.
 
 ## Operational Workflow
+
 1. **Ingest anomalies** - Scheduled hourly job runs every hour, detecting new artifacts in the last 1 hour compared to 90-day baseline.
 2. **Hourly/shift review** - Filter High/Medium severity (or threshold hits) from most recent run.
 3. **Enrich with IP reputation** - WHOIS/ASN lookup for new IPs.
 4. **Classify** - Benign Infrastructure / User Travel / Suspicious.
 5. **Suppress benign artifacts** - Add to allowlist with expiry date.
 6. **Escalate suspicious** - Create incident, force token revocation, add conditional access hardening.
-7. **Periodic baseline tuning** - Baseline window is automatically maintained (90 days, excluding most recent hour).  
+7. **Periodic baseline tuning** - Baseline window is automatically maintained (90 days, excluding most recent hour).
 
 ## Table Maintenance & Quality Checks
+
 - Validate column presence after job updates; add KQL unit tests: `project-away` expected fields; if fails, trigger notification.
 - Monitor growth: If ArtifactHits inflation occurs, consider percentile-based thresholds instead of static numeric cutoffs.
 - Confirm no duplicate rows per (UserPrincipalName, AnomalyType, Value, FirstSeenRecent) each run; apply a `summarize arg_min(DetectedDateTime, *)` de-dup if needed.
 
 ## Extending Schema
+
 Add columns via job modification: `Severity`, `ASN`, `Org`, `WatchlistStatus`, `TravelDistanceKm`. Keep names consistent; avoid renaming existing to preserve downstream dashboards.
 
 ## Quick Access Query Snippets
+
 Top 20 newest IP anomalies last 24h (multiple hourly runs):
+
 ```
 Signinlogs_Anomalies_KQL_CL
 | where AnomalyType endswith "IP" and DetectedDateTime > ago(24h)
@@ -154,18 +175,23 @@ Signinlogs_Anomalies_KQL_CL
 ```
 
 Most recent hourly anomalies:
+
 ```
 Signinlogs_Anomalies_KQL_CL
 | where DetectedDateTime > ago(1h)
 | sort by Severity asc, ArtifactHits desc
 ```
+
 High activity new device combos (ArtifactHits >= 20):
+
 ```
 Signinlogs_Anomalies_KQL_CL
 | where AnomalyType endswith "DeviceCombo" and ArtifactHits >= 20
 | project UserPrincipalName, Value, ArtifactHits, CountryNovelty, CityNovelty
 ```
+
 Users with multiple geo novelties in 7d:
+
 ```
 Signinlogs_Anomalies_KQL_CL
 | where CountryNovelty or CityNovelty
@@ -174,11 +200,13 @@ Signinlogs_Anomalies_KQL_CL
 ```
 
 ## Design Rationale
+
 - Dual-set baseline separation prevents recent novel artifacts from polluting historical reference during evaluation.
 - Use of dynamic arrays allows flexible post-processing without altering detection job.
 - Explicit baseline lists accelerate manual analyst verification (no need to recompute sets per user in ad-hoc queries).
 
 ## Future Improvements
+
 - Unified baseline across interactive & non-interactive before anomaly classification (reduces duplicate novelty events).
 - Machine learning scoring (e.g. user entropy change) layering on top of rule-based anomalies.
 - Automated acceptance workflow: After N consecutive days appearance + no risk events → mark artifact benign automatically.
@@ -231,19 +259,19 @@ Signinlogs_Anomalies_KQL_CL
 
 **Sample Results** (17 anomalies detected):
 
-| DetectedDateTime | City | State | Severity | BaselineSize | ArtifactHits | CountryNovelty |
-|------------------|------|-------|----------|--------------|--------------|----------------|
-| 2025-11-27T17:00 | Phoenix | Arizona | Medium | 20 | 1 | false |
-| 2025-11-27T09:00 | Dallas | Texas | Medium | 19 | 5 | false |
-| 2025-11-25T13:00 | Atlanta | Georgia | Medium | 15 | 5 | false |
-| 2025-11-23T16:30 | Denver | Colorado | Medium | 10 | 3 | false |
-| 2025-11-22T16:30 | Seattle | Washington | Medium | 8 | 2 | false |
-| 2025-11-21T16:30 | Portland | Oregon | Medium | 5 | 7 | false |
-| 2025-11-21T16:30 | Miami | Florida | Medium | 5 | 1 | false |
-| 2025-11-21T16:30 | Toronto | Ontario | Medium | 5 | 46 | true |
-| 2025-12-01T08:00 | Chicago | Illinois | Informational | 22 | 6 | false |
-| 2025-11-28T09:00 | Boston | Massachusetts | Informational | 21 | 5 | false |
-| ... | ... | ... | ... | ... | ... | ... |
+| DetectedDateTime | City     | State         | Severity      | BaselineSize | ArtifactHits | CountryNovelty |
+| ---------------- | -------- | ------------- | ------------- | ------------ | ------------ | -------------- |
+| 2025-11-27T17:00 | Phoenix  | Arizona       | Medium        | 20           | 1            | false          |
+| 2025-11-27T09:00 | Dallas   | Texas         | Medium        | 19           | 5            | false          |
+| 2025-11-25T13:00 | Atlanta  | Georgia       | Medium        | 15           | 5            | false          |
+| 2025-11-23T16:30 | Denver   | Colorado      | Medium        | 10           | 3            | false          |
+| 2025-11-22T16:30 | Seattle  | Washington    | Medium        | 8            | 2            | false          |
+| 2025-11-21T16:30 | Portland | Oregon        | Medium        | 5            | 7            | false          |
+| 2025-11-21T16:30 | Miami    | Florida       | Medium        | 5            | 1            | false          |
+| 2025-11-21T16:30 | Toronto  | Ontario       | Medium        | 5            | 46           | true           |
+| 2025-12-01T08:00 | Chicago  | Illinois      | Informational | 22           | 6            | false          |
+| 2025-11-28T09:00 | Boston   | Massachusetts | Informational | 21           | 5            | false          |
+| ...              | ...      | ...           | ...           | ...          | ...          | ...            |
 
 ### Step 2: Extract Unique IPs and Enrich
 
@@ -254,6 +282,7 @@ python enrich_ips.py 203.0.118.42 198.51.105.18 192.0.2.125 ... (all 17 IPs)
 ```
 
 **Enrichment Summary**:
+
 - **16 Clean IPs**: All US-based residential ISPs (Verizon, AT&T, Comcast, T-Mobile)
 - **1 VPN/Corporate Infrastructure**: 40.68.205.15 (Toronto) - Microsoft Corporation datacenter
 - **No malicious indicators**: Zero abuse reports, no threat intelligence matches
@@ -263,18 +292,19 @@ python enrich_ips.py 203.0.118.42 198.51.105.18 192.0.2.125 ... (all 17 IPs)
 
 Tracking `BaselineSize` progression over time:
 
-| Date | BaselineSize | Daily Growth | Anomaly Count |
-|------|--------------|--------------|---------------|
-| Nov 21 | 5 | - | 3 new IPs |
-| Nov 22 | 8 | +3 | 1 new IP |
-| Nov 23 | 10 | +2 | 2 new IPs |
-| Nov 24 | 12 | +2 | 2 new IPs |
-| Nov 25 | 14-16 | +2-4 | 3 new IPs |
-| Nov 27 | 18-20 | +2-4 | 3 new IPs |
-| Nov 28 | 21 | +1 | 1 new IP |
-| Dec 1 | 22 | +1 | 1 new IP |
+| Date   | BaselineSize | Daily Growth | Anomaly Count |
+| ------ | ------------ | ------------ | ------------- |
+| Nov 21 | 5            | -            | 3 new IPs     |
+| Nov 22 | 8            | +3           | 1 new IP      |
+| Nov 23 | 10           | +2           | 2 new IPs     |
+| Nov 24 | 12           | +2           | 2 new IPs     |
+| Nov 25 | 14-16        | +2-4         | 3 new IPs     |
+| Nov 27 | 18-20        | +2-4         | 3 new IPs     |
+| Nov 28 | 21           | +1           | 1 new IP      |
+| Dec 1  | 22           | +1           | 1 new IP      |
 
 **Growth Pattern**:
+
 - **Early Period (Nov 21-25)**: Rapid expansion at ~2-3 IPs/day (340% growth over 10 days)
 - **Recent Period (Nov 27-Dec 1)**: Slowdown to ~1 IP/day
 - **Trend**: Decelerating growth indicating baseline saturation
@@ -282,12 +312,14 @@ Tracking `BaselineSize` progression over time:
 ### Step 4: Findings and Interpretation
 
 **User Behavior Profile**:
+
 1. **Mobile Professional**: Exclusive use of cellular ISPs (Verizon, AT&T, T-Mobile) across diverse US cities
 2. **Geographic Coverage**: 15 US cities across 10 states + 1 international (Toronto - Microsoft office)
 3. **Corporate Context**: Toronto IP is Microsoft infrastructure, likely accessing SharePoint/Teams
 4. **Authentication Pattern**: All NewNonInteractiveIP anomalies = token-based auth (normal OAuth refresh)
 
 **Baseline Growth Explanation**:
+
 - User is establishing **regional sales territory** connectivity pattern
 - Each new city visited adds new mobile carrier IP to baseline
 - Growth rate (340% in 10 days) reflects **extensive field travel**
@@ -296,6 +328,7 @@ Tracking `BaselineSize` progression over time:
 **Risk Assessment**: **LOW**
 
 **Why This is Legitimate**:
+
 - ✅ All US IPs are residential/mobile ISPs (not hosting/VPN/proxy)
 - ✅ Microsoft infrastructure IP expected for corporate employee
 - ✅ Zero abuse reports or threat intelligence hits
@@ -305,6 +338,7 @@ Tracking `BaselineSize` progression over time:
 - ✅ No impossible travel or concurrent sessions from distant locations
 
 **Recommendations**:
+
 1. **No action required** - Pattern consistent with mobile sales employee
 2. **Optional user confirmation**: "We noticed you've been traveling across the US recently - is this expected for your role?"
 3. **Monitor for changes**: Watch for non-US locations (outside Canada) or sudden hosting/VPN usage
@@ -322,9 +356,11 @@ Tracking `BaselineSize` progression over time:
 6. **Don't panic on Medium severity** - Geographic novelty alone doesn't mean compromise
 
 ---
+
 Reference this file in agent prompts to provide context on the anomaly table structure and intended analytic workflows.
 
 ## Full Current Hourly Anomaly Query (IPv6 excluded, Lat/Lon removed)
+
 ```
 let RecentDays = 1h;
 let BaselineDays = 90d;        // Baseline excludes the recent 1h window (evaluated hourly)
@@ -673,3 +709,4 @@ InteractiveIPAnomalies
     "Informational"
 )
 | order by DetectedDateTime desc
+```
