@@ -738,6 +738,13 @@ export const SECTIONS: Section[] = [
         badge: 'new',
       },
       {
+        to: '/threatintel/supply-chain-intel',
+        label: 'Supply Chain Intelligence',
+        desc: 'depx-style dashboard: package verdict checker, OSSF malicious package directory, OSV integration. Check if any npm/PyPI/Go/Maven package is known-malicious.',
+        icon: Shield,
+        badge: 'new',
+      },
+      {
         to: '/threatintel/malicious-packages',
         label: 'Malicious package directory',
         desc: 'Cross-ecosystem malware/typosquat/dependency-confusion IOCs across npm, PyPI, RubyGems, Maven, Go, Rust.',

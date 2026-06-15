@@ -348,6 +348,7 @@ import {
 } from './routes/campaigns';
 import { maltrailSyncHandler, listSkeletonActorsHandler, getSkeletonActorHandler } from './routes/maltrail-sync';
 import { maliciousPackagesHandler } from './routes/malicious-packages';
+import { packageVerdictHandler } from './routes/package-verdict';
 import { secretLeaksHandler } from './routes/secret-leaks';
 import { feedQualityHandler } from './routes/tifce';
 import {
@@ -1031,6 +1032,7 @@ app.post('/api/v1/maltrail-sync', maltrailSyncHandler);
 app.get('/api/v1/skeleton-actors', listSkeletonActorsHandler);
 app.get('/api/v1/skeleton-actors/:slug', getSkeletonActorHandler);
 app.get('/api/v1/malicious-packages', maliciousPackagesHandler);
+app.get('/api/v1/package-verdict', packageVerdictHandler);
 app.get('/api/v1/x-tweets', xTweetsHandler);
 app.get('/api/v1/x-live', xLiveHandler);
 app.get('/api/v1/x-firehose', xFirehoseHandler);

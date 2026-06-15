@@ -144,6 +144,7 @@ const UsernamePivot = lazy(() => import('./pages/dfir/UsernamePivot'));
 const UsernameOsnit = lazy(() => import('./pages/dfir/UsernameOsnit'));
 const PhoneOsint = lazy(() => import('./pages/dfir/PhoneOsint'));
 const WeatherOsint = lazy(() => import('./pages/dfir/WeatherOsint'));
+const VulnToolkitCatalog = lazy(() => import('./pages/dfir/VulnToolkitCatalog'));
 const Wayback = lazy(() => import('./pages/dfir/Wayback'));
 const IpGeo = lazy(() => import('./pages/dfir/IpGeo'));
 const LogParser = lazy(() => import('./pages/dfir/LogParser'));
@@ -316,6 +317,7 @@ const GithubAdvisories = lazy(() => import('./pages/threatintel/GithubAdvisories
 const PhishFeedPage = lazy(() => import('./pages/threatintel/PhishFeed'));
 const DarknetMarketsTimeline = lazy(() => import('./pages/threatintel/DarknetMarketsTimeline'));
 const PhysicalBitcoinAttacks = lazy(() => import('./pages/threatintel/PhysicalBitcoinAttacks'));
+const SupplyChainIntel = lazy(() => import('./pages/threatintel/SupplyChainIntelligence'));
 
 /**
  * /dfir/file?h=<hash> is the legacy entry point for the standalone hash
@@ -388,6 +390,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel/briefings', Component: Briefings },
   { path: '/threatintel/briefings/:slug', Component: BriefingDetail },
   { path: '/dfir/cve', Component: Cve },
+  { path: '/dfir/vuln-toolkit', Component: VulnToolkitCatalog },
   { path: '/dfir/decode', Component: Decode },
   { path: '/dfir/encoder', Component: Encoder },
   { path: '/dfir/cert-search', Component: CertSearch },
@@ -486,6 +489,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel/phish-feed', Component: PhishFeedPage },
   { path: '/threatintel/darknet-markets', Component: DarknetMarketsTimeline },
   { path: '/threatintel/physical-bitcoin-attacks', Component: PhysicalBitcoinAttacks },
+  { path: '/threatintel/supply-chain-intel', Component: SupplyChainIntel },
   { path: '/threatintel/threat-map', Component: ThreatMap },
   { path: '/threatintel/global-pulse', Component: GlobalPulse },
   { path: '/threatintel/cti-platform', Component: GlobalPulse },
