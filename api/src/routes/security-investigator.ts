@@ -63,7 +63,11 @@ async function fetchText(env: Env, path: string): Promise<string | null> {
  * bodies that are too large (up to ~100KB for threat-pulse) for a
  * single JSON round-trip to be pleasant.
  */
-function sliceMarkdownLines(text: string, fromLine?: number, maxLines?: number): { startLine: number; endLine: number; totalLines: number; chunk: string } {
+function sliceMarkdownLines(
+  text: string,
+  fromLine?: number,
+  maxLines?: number
+): { startLine: number; endLine: number; totalLines: number; chunk: string } {
   // Count by splitting on newlines; preserve a trailing-empty-line invariant.
   const lines = text.split('\n');
   const total = lines.length;
@@ -84,7 +88,10 @@ function stringToStream(s: string, chunkSize = 8192): ReadableStream<Uint8Array>
     start(controller) {
       let i = 0;
       const push = () => {
-        if (i >= s.length) { controller.close(); return; }
+        if (i >= s.length) {
+          controller.close();
+          return;
+        }
         const slice = s.slice(i, i + chunkSize);
         controller.enqueue(enc.encode(slice));
         i += chunkSize;
@@ -109,7 +116,10 @@ interface SiIndex {
 
 export async function siIndexHandler(c: Context<{ Bindings: Env }>) {
   const idx = await fetchJson<SiIndex>(c.env, `${DATA_PREFIX}/index.json`);
-  if (!idx) return c.json({ error: 'si_index_missing', message: 'public/data/si/index.json not found' }, 404, { 'Cache-Control': 'no-store' });
+  if (!idx)
+    return c.json({ error: 'si_index_missing', message: 'public/data/si/index.json not found' }, 404, {
+      'Cache-Control': 'no-store',
+    });
   return c.json(idx, 200, { 'Cache-Control': 'public, max-age=300, s-maxage=3600' });
 }
 
@@ -123,7 +133,8 @@ export async function siSkillsHandler(c: Context<{ Bindings: Env }>) {
   if (category) out = out.filter((s) => s.category === category);
   if (needle) {
     out = out.filter((s) => {
-      const hay = `${s.slug} ${(s as { name?: string }).name ?? ''} ${(s as { description?: string }).description ?? ''}`.toLowerCase();
+      const hay =
+        `${s.slug} ${(s as { name?: string }).name ?? ''} ${(s as { description?: string }).description ?? ''}`.toLowerCase();
       return hay.includes(needle);
     });
   }
@@ -137,14 +148,21 @@ export async function siSkillHandler(c: Context<{ Bindings: Env }>) {
   const slug = c.req.param('slug');
   if (!slug) return c.json({ error: 'missing_slug' }, 400, { 'Cache-Control': 'no-store' });
   const body = await fetchJson<Record<string, unknown>>(c.env, `${DATA_PREFIX}/skills/${safeFilename(slug)}.json`);
-  if (!body) return c.json({ error: 'skill_not_found', message: `no skill with slug "${slug}"` }, 404, { 'Cache-Control': 'no-store' });
+  if (!body)
+    return c.json({ error: 'skill_not_found', message: `no skill with slug "${slug}"` }, 404, {
+      'Cache-Control': 'no-store',
+    });
   // ?stream=true returns the bodyMarkdown as text/markdown stream (no
   // JSON envelope), and ?from_line / ?max_lines select a slice. Useful
   // for large skills (threat-pulse ~100KB) when the client only needs
   // the first ~200 lines to decide whether to fetch the rest.
   if (c.req.query('stream') === 'true') {
     const text = String(body.bodyMarkdown ?? '');
-    const slice = sliceMarkdownLines(text, c.req.query('from_line') ? Number(c.req.query('from_line')) : undefined, c.req.query('max_lines') ? Number(c.req.query('max_lines')) : undefined);
+    const slice = sliceMarkdownLines(
+      text,
+      c.req.query('from_line') ? Number(c.req.query('from_line')) : undefined,
+      c.req.query('max_lines') ? Number(c.req.query('max_lines')) : undefined
+    );
     return new Response(stringToStream(slice.chunk), {
       status: 200,
       headers: {
@@ -170,7 +188,8 @@ export async function siQueriesHandler(c: Context<{ Bindings: Env }>) {
   if (domain) out = out.filter((q) => q.domain === domain);
   if (needle) {
     out = out.filter((q) => {
-      const hay = `${q.slug} ${(q as { title?: string }).title ?? ''} ${(q as { filename?: string }).filename ?? ''}`.toLowerCase();
+      const hay =
+        `${q.slug} ${(q as { title?: string }).title ?? ''} ${(q as { filename?: string }).filename ?? ''}`.toLowerCase();
       return hay.includes(needle);
     });
   }
@@ -187,17 +206,29 @@ export async function siQueryHandler(c: Context<{ Bindings: Env }>) {
   // threat-intelligence queries have a month in the path: threat-intelligence/2026-04/foo
   // The REST route collapses that to domain="threat-intelligence" and file="2026-04__foo" or
   // we can use a wildcard catch-all. The simpler shape is /queries?slug=... — see below.
-  return c.json({ error: 'use_query_by_slug', message: 'use GET /api/v1/si/query?slug=...' }, 404, { 'Cache-Control': 'no-store' });
+  return c.json({ error: 'use_query_by_slug', message: 'use GET /api/v1/si/query?slug=...' }, 404, {
+    'Cache-Control': 'no-store',
+  });
 }
 
 export async function siQueryBySlugHandler(c: Context<{ Bindings: Env }>) {
   const slug = c.req.query('slug');
-  if (!slug) return c.json({ error: 'missing_slug', message: 'pass ?slug=cloud/aitm_threat_detection' }, 400, { 'Cache-Control': 'no-store' });
+  if (!slug)
+    return c.json({ error: 'missing_slug', message: 'pass ?slug=cloud/aitm_threat_detection' }, 400, {
+      'Cache-Control': 'no-store',
+    });
   const body = await fetchJson<Record<string, unknown>>(c.env, `${DATA_PREFIX}/queries/${safeFilename(slug)}.json`);
-  if (!body) return c.json({ error: 'query_not_found', message: `no query with slug "${slug}"` }, 404, { 'Cache-Control': 'no-store' });
+  if (!body)
+    return c.json({ error: 'query_not_found', message: `no query with slug "${slug}"` }, 404, {
+      'Cache-Control': 'no-store',
+    });
   if (c.req.query('stream') === 'true') {
     const text = String(body.bodyMarkdown ?? '');
-    const slice = sliceMarkdownLines(text, c.req.query('from_line') ? Number(c.req.query('from_line')) : undefined, c.req.query('max_lines') ? Number(c.req.query('max_lines')) : undefined);
+    const slice = sliceMarkdownLines(
+      text,
+      c.req.query('from_line') ? Number(c.req.query('from_line')) : undefined,
+      c.req.query('max_lines') ? Number(c.req.query('max_lines')) : undefined
+    );
     return new Response(stringToStream(slice.chunk), {
       status: 200,
       headers: {
@@ -252,7 +283,11 @@ export async function siDocHandler(c: Context<{ Bindings: Env }>) {
   // line-range metadata in response headers. For docs that are 50KB+
   // (most of /docs/) this avoids the JSON-encode round-trip cost.
   if (c.req.query('stream') === 'true') {
-    const slice = sliceMarkdownLines(text, c.req.query('from_line') ? Number(c.req.query('from_line')) : undefined, c.req.query('max_lines') ? Number(c.req.query('max_lines')) : undefined);
+    const slice = sliceMarkdownLines(
+      text,
+      c.req.query('from_line') ? Number(c.req.query('from_line')) : undefined,
+      c.req.query('max_lines') ? Number(c.req.query('max_lines')) : undefined
+    );
     return new Response(stringToStream(slice.chunk), {
       status: 200,
       headers: {
@@ -267,18 +302,38 @@ export async function siDocHandler(c: Context<{ Bindings: Env }>) {
       },
     });
   }
-  return c.json({ slug, title: entry?.title ?? slug, filename: entry?.filename ?? `${slug}.md`, bodyMarkdown: text, sizeBytes: text.length }, 200, {
-    'Cache-Control': 'public, max-age=300, s-maxage=3600',
-  });
+  return c.json(
+    {
+      slug,
+      title: entry?.title ?? slug,
+      filename: entry?.filename ?? `${slug}.md`,
+      bodyMarkdown: text,
+      sizeBytes: text.length,
+    },
+    200,
+    {
+      'Cache-Control': 'public, max-age=300, s-maxage=3600',
+    }
+  );
 }
 
 export async function siRefListHandler(c: Context<{ Bindings: Env }>) {
   // The build script writes a known set of ref files; probe each to discover what's there.
   const known = [
-    'mitre-attck-enterprise', 'known-kql-tables', 'm365-platform-coverage',
-    'ingestion-q2', 'ingestion-q6a', 'ingestion-q6b', 'ingestion-q6c',
-    'ingestion-q9', 'ingestion-q9b', 'ingestion-q10',
-    'ingestion-q12', 'ingestion-q13', 'ingestion-q16', 'ingestion-q17',
+    'mitre-attck-enterprise',
+    'known-kql-tables',
+    'm365-platform-coverage',
+    'ingestion-q2',
+    'ingestion-q6a',
+    'ingestion-q6b',
+    'ingestion-q6c',
+    'ingestion-q9',
+    'ingestion-q9b',
+    'ingestion-q10',
+    'ingestion-q12',
+    'ingestion-q13',
+    'ingestion-q16',
+    'ingestion-q17',
   ];
   const found: Array<{ name: string; bytes: number }> = [];
   for (const name of known) {
@@ -315,8 +370,15 @@ export async function siRoutingPromptHandler(c: Context<{ Bindings: Env }>) {
  */
 export async function siScriptsHandler(c: Context<{ Bindings: Env }>) {
   const spec = ['..', '..', '..', 'worker', 'lib', 'si-manifest'].join('/');
-  const mod = await import(/* @vite-ignore */ spec) as {
-    loadScriptsIndex(assets: Fetcher): Promise<{ source: string; license: string; count: number; scripts: Array<{ name: string; sizeBytes: number; language?: string }> }>;
+  const mod = (await import(/* @vite-ignore */ spec)) as {
+    loadScriptsIndex(
+      assets: Fetcher
+    ): Promise<{
+      source: string;
+      license: string;
+      count: number;
+      scripts: Array<{ name: string; sizeBytes: number; language?: string }>;
+    }>;
   };
   const assets = (c.env as unknown as { ASSETS?: Fetcher }).ASSETS;
   if (!assets) return c.json({ error: 'no_assets_binding' }, 500, { 'Cache-Control': 'no-store' });
@@ -326,7 +388,9 @@ export async function siScriptsHandler(c: Context<{ Bindings: Env }>) {
       'Cache-Control': 'public, max-age=300, s-maxage=3600',
     });
   } catch (e) {
-    return c.json({ error: 'scripts_index_failed', message: e instanceof Error ? e.message : String(e) }, 500, { 'Cache-Control': 'no-store' });
+    return c.json({ error: 'scripts_index_failed', message: e instanceof Error ? e.message : String(e) }, 500, {
+      'Cache-Control': 'no-store',
+    });
   }
 }
 
@@ -344,7 +408,7 @@ export async function siScriptHandler(c: Context<{ Bindings: Env }>) {
     return c.json({ error: 'invalid_name' }, 400, { 'Cache-Control': 'no-store' });
   }
   const spec = ['..', '..', '..', 'worker', 'lib', 'si-manifest'].join('/');
-  const mod = await import(/* @vite-ignore */ spec) as {
+  const mod = (await import(/* @vite-ignore */ spec)) as {
     getScript(assets: Fetcher, name: string): Promise<{ name: string; body: string; sizeBytes: number } | null>;
   };
   const assets = (c.env as unknown as { ASSETS?: Fetcher }).ASSETS;
@@ -354,13 +418,60 @@ export async function siScriptHandler(c: Context<{ Bindings: Env }>) {
   // Detect content-type from filename extension for the convenience GET.
   const isMarkdown = name.endsWith('.md');
   const isJson = name.endsWith('.json');
-  const ct = isMarkdown ? 'text/markdown; charset=utf-8' : isJson ? 'application/json; charset=utf-8' : 'text/plain; charset=utf-8';
-  return new Response(body.body, { status: 200, headers: { 'Content-Type': ct, 'Cache-Control': 'public, max-age=300, s-maxage=3600', 'X-SI-Bytes': String(body.sizeBytes) } });
+  const ct = isMarkdown
+    ? 'text/markdown; charset=utf-8'
+    : isJson
+      ? 'application/json; charset=utf-8'
+      : 'text/plain; charset=utf-8';
+  return new Response(body.body, {
+    status: 200,
+    headers: {
+      'Content-Type': ct,
+      'Cache-Control': 'public, max-age=300, s-maxage=3600',
+      'X-SI-Bytes': String(body.sizeBytes),
+    },
+  });
 }
-
 
 import { parseMiniYaml, MiniYamlError } from '../lib/si-yaml-mini';
 import { renderDashboard, type RenderManifest } from '../lib/si-svg-renderer';
+
+/**
+ * Flatten upstream `rows[].widgets[]` manifests into the flat `widgets: []`
+ * shape the renderer expects. Some upstream skills (notably `threat-pulse`)
+ * declare the layout as a list of rows, each row having its own widgets
+ * array. The 2D grid layout in renderDashboard operates on a single flat
+ * widget list, so we collapse the rows at the render boundary. Row-level
+ * `height` and `id` are preserved on the widget when present.
+ *
+ * If the manifest already has a flat `widgets:` array, this is a no-op.
+ * Other top-level keys (canvas, palette, …) pass through unchanged.
+ */
+function flattenRowsManifest(parsed: unknown): RenderManifest {
+  if (!parsed || typeof parsed !== 'object') return parsed as RenderManifest;
+  const obj = parsed as Record<string, unknown>;
+  const rows = obj.rows;
+  if (!Array.isArray(rows) || obj.widgets) return obj as RenderManifest;
+  const flat: Array<Record<string, unknown>> = [];
+  for (const row of rows) {
+    if (!row || typeof row !== 'object') continue;
+    const r = row as Record<string, unknown>;
+    const ws = r.widgets;
+    if (Array.isArray(ws)) {
+      for (const w of ws) {
+        if (w && typeof w === 'object') {
+          const widget = { ...(w as Record<string, unknown>) };
+          // Preserve row-level metadata as widget hints (e.g. height).
+          if (typeof r.height === 'number' && widget.height === undefined) widget.height = r.height;
+          if (typeof r.id === 'string' && widget.row_id === undefined) widget.row_id = r.id;
+          flat.push(widget);
+        }
+      }
+    }
+  }
+  const { rows: _drop, ...rest } = obj;
+  return { ...rest, widgets: flat } as RenderManifest;
+}
 // The PNG rasteriser is in the Worker tree (it needs the resvg-wasm
 // import which is bundled into the Worker). The relative path
 // resolves from api/src/routes/ → worker/lib/si-svg-png.ts.
@@ -374,7 +485,7 @@ async function renderPngFromSvg(svg: string, env: unknown): Promise<Uint8Array> 
   // api/ include glob. Vite + wrangler bundle both trees together so the
   // resolved specifier works at build time.
   const specifier = ['..', '..', '..', 'worker', 'lib', 'si-svg-png'].join('/');
-  const mod = await import(/* @vite-ignore */ specifier) as {
+  const mod = (await import(/* @vite-ignore */ specifier)) as {
     svgDashboardToPng(env: unknown, svg: string, opts?: { width?: number }): Promise<Uint8Array>;
   };
   return mod.svgDashboardToPng(env, svg);
@@ -412,12 +523,22 @@ export async function siRenderHandler(c: Context<{ Bindings: Env }>) {
   if (slug) {
     const skill = await fetchJson<SiSkillWithManifest>(c.env, `${DATA_PREFIX}/skills/${safeFilename(slug)}.json`);
     if (!skill || !skill.svgWidgetsYaml) {
-      return c.json({ error: 'no_manifest', slug, hint: 'This skill does not ship an svg-widgets.yaml. Use si_render_svg_dashboard or pass manifest explicitly.' }, 404, { 'Cache-Control': 'no-store' });
+      return c.json(
+        {
+          error: 'no_manifest',
+          slug,
+          hint: 'This skill does not ship an svg-widgets.yaml. Use si_render_svg_dashboard or pass manifest explicitly.',
+        },
+        404,
+        { 'Cache-Control': 'no-store' }
+      );
     }
     try {
-      manifest = parseMiniYaml(skill.svgWidgetsYaml) as RenderManifest;
+      manifest = flattenRowsManifest(parseMiniYaml(skill.svgWidgetsYaml));
     } catch (e) {
-      return c.json({ error: 'yaml_parse_failed', message: e instanceof Error ? e.message : String(e) }, 400, { 'Cache-Control': 'no-store' });
+      return c.json({ error: 'yaml_parse_failed', message: e instanceof Error ? e.message : String(e) }, 400, {
+        'Cache-Control': 'no-store',
+      });
     }
   } else {
     // POST or GET with body — accept JSON or YAML.
@@ -427,18 +548,29 @@ export async function siRenderHandler(c: Context<{ Bindings: Env }>) {
       try {
         manifest = parseMiniYaml(text) as RenderManifest;
       } catch (e) {
-        return c.json({ error: 'yaml_parse_failed', message: e instanceof Error ? e.message : String(e) }, 400, { 'Cache-Control': 'no-store' });
+        return c.json({ error: 'yaml_parse_failed', message: e instanceof Error ? e.message : String(e) }, 400, {
+          'Cache-Control': 'no-store',
+        });
       }
     } else {
       const body = await c.req.json().catch(() => null);
       if (!body || typeof body !== 'object') {
-        return c.json({ error: 'missing_manifest', hint: 'Pass ?slug=<skill> or POST a JSON/YAML body with {manifest|manifestYaml, data}.' }, 400, { 'Cache-Control': 'no-store' });
+        return c.json(
+          {
+            error: 'missing_manifest',
+            hint: 'Pass ?slug=<skill> or POST a JSON/YAML body with {manifest|manifestYaml, data}.',
+          },
+          400,
+          { 'Cache-Control': 'no-store' }
+        );
       }
       if (typeof body.manifestYaml === 'string') {
         try {
           manifest = parseMiniYaml(body.manifestYaml) as RenderManifest;
         } catch (e) {
-          return c.json({ error: 'yaml_parse_failed', message: e instanceof Error ? e.message : String(e) }, 400, { 'Cache-Control': 'no-store' });
+          return c.json({ error: 'yaml_parse_failed', message: e instanceof Error ? e.message : String(e) }, 400, {
+            'Cache-Control': 'no-store',
+          });
         }
       } else if (body.manifest) {
         manifest = body.manifest as RenderManifest;
@@ -452,9 +584,12 @@ export async function siRenderHandler(c: Context<{ Bindings: Env }>) {
   }
 
   if (dataQuery && Object.keys(data).length === 0) {
-    try { data = JSON.parse(decodeURIComponent(dataQuery)); }
-    catch (e) {
-      return c.json({ error: 'data_parse_failed', message: e instanceof Error ? e.message : String(e) }, 400, { 'Cache-Control': 'no-store' });
+    try {
+      data = JSON.parse(decodeURIComponent(dataQuery));
+    } catch (e) {
+      return c.json({ error: 'data_parse_failed', message: e instanceof Error ? e.message : String(e) }, 400, {
+        'Cache-Control': 'no-store',
+      });
     }
   }
 
@@ -487,11 +622,17 @@ export async function siRenderHandler(c: Context<{ Bindings: Env }>) {
           },
         });
       } catch (e) {
-        return c.json({ error: 'png_render_failed', message: e instanceof Error ? e.message : String(e) }, 500, { 'Cache-Control': 'no-store' });
+        return c.json({ error: 'png_render_failed', message: e instanceof Error ? e.message : String(e) }, 500, {
+          'Cache-Control': 'no-store',
+        });
       }
     }
-    return c.json({ svg, bytes: svg.length, widgetCount: (manifest.widgets ?? []).length }, 200, { 'Cache-Control': 'public, max-age=300, s-maxage=3600' });
+    return c.json({ svg, bytes: svg.length, widgetCount: (manifest.widgets ?? []).length }, 200, {
+      'Cache-Control': 'public, max-age=300, s-maxage=3600',
+    });
   } catch (e) {
-    return c.json({ error: 'render_failed', message: e instanceof Error ? e.message : String(e) }, 500, { 'Cache-Control': 'no-store' });
+    return c.json({ error: 'render_failed', message: e instanceof Error ? e.message : String(e) }, 500, {
+      'Cache-Control': 'no-store',
+    });
   }
 }

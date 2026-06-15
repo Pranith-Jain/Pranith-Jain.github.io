@@ -17,7 +17,12 @@
 type Json = string | number | boolean | null | Json[] | { [k: string]: Json };
 
 export class MiniYamlError extends Error {
-  constructor(msg: string, public line: number) { super(`YAML parse error at line ${line}: ${msg}`); }
+  constructor(
+    msg: string,
+    public line: number
+  ) {
+    super(`YAML parse error at line ${line}: ${msg}`);
+  }
 }
 
 export function parseMiniYaml(src: string): Json {
@@ -42,7 +47,7 @@ export function parseMiniYaml(src: string): Json {
   }
 
   function parseValue(raw: string | undefined, line: number): Json {
-    let v = (raw ?? '').trim();
+    const v = (raw ?? '').trim();
     if (v.startsWith('"') && v.endsWith('"')) return v.slice(1, -1);
     if (v.startsWith("'") && v.endsWith("'")) return v.slice(1, -1);
     if (v === 'true') return true;
@@ -74,7 +79,10 @@ export function parseMiniYaml(src: string): Json {
     const obj: Record<string, Json> = {};
     while (pos < lines.length) {
       const line = lines[pos]!;
-      if (/^\s*(#|$)/.test(line)) { pos++; continue; }
+      if (/^\s*(#|$)/.test(line)) {
+        pos++;
+        continue;
+      }
       const ind = indentOf(line);
       if (ind < parentIndent) break;
       if (ind > parentIndent) {
@@ -108,6 +116,28 @@ export function parseMiniYaml(src: string): Json {
             }
           }
         }
+      } else if (rest === '|' || rest === '>' || /^\|[+-]?$/.test(rest ?? '') || /^>[+-]?$/.test(rest ?? '')) {
+        // Block-literal (`|`) or block-folded (`>`) scalar indicator. Consume
+        // all subsequent lines indented strictly more than `ind` as a single
+        // string. We don't honour chomping indicators (|-, |+, >-, >+) — all
+        // trailing newlines are stripped. This is enough to swallow the
+        // `field_mapping_notes: |` block at the tail of upstream skill
+        // manifests, which the render path doesn't need but the naive parser
+        // would otherwise trip on with "unexpected indent".
+        const literal: string[] = [];
+        const blockInd = ind + 2;
+        while (pos < lines.length) {
+          const cur = lines[pos]!;
+          if (/^\s*(#|$)/.test(cur)) {
+            pos++;
+            continue;
+          }
+          const curInd = indentOf(cur);
+          if (curInd < blockInd) break;
+          literal.push(cur.slice(blockInd));
+          pos++;
+        }
+        obj[key] = literal.join('\n').replace(/\n+$/, '');
       } else {
         obj[key] = parseValue(rest, pos);
       }
@@ -119,7 +149,10 @@ export function parseMiniYaml(src: string): Json {
     const arr: Json[] = [];
     while (pos < lines.length) {
       const line = lines[pos]!;
-      if (/^\s*(#|$)/.test(line)) { pos++; continue; }
+      if (/^\s*(#|$)/.test(line)) {
+        pos++;
+        continue;
+      }
       const ind = indentOf(line);
       if (ind < itemIndent) break;
       if (ind > itemIndent) {
@@ -132,9 +165,15 @@ export function parseMiniYaml(src: string): Json {
       if (afterDash === '') {
         // Nested block under "-".
         const next = peek();
-        if (next === undefined) { arr.push({}); continue; }
+        if (next === undefined) {
+          arr.push({});
+          continue;
+        }
         const nextInd = indentOf(next);
-        if (nextInd <= ind) { arr.push({}); continue; }
+        if (nextInd <= ind) {
+          arr.push({});
+          continue;
+        }
         arr.push(parseBlock(nextInd));
       } else {
         // Could be "- key: value" or "- value".
@@ -146,7 +185,10 @@ export function parseMiniYaml(src: string): Json {
           const thisItemIndent = indentOf(line);
           while (pos < lines.length) {
             const nl = lines[pos]!;
-            if (/^\s*(#|$)/.test(nl)) { pos++; continue; }
+            if (/^\s*(#|$)/.test(nl)) {
+              pos++;
+              continue;
+            }
             const nlInd = indentOf(nl);
             const nlTrim = nl.trim();
             if (nlInd !== thisItemIndent + 2) break;
