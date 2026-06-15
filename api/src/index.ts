@@ -243,6 +243,7 @@ import { openDirectoryScanHandler } from './routes/open-directory';
 import { exposedHostHandler } from './routes/exposed-host';
 import { iocLifecycleHandler, iocLifecycleTrendingHandler, iocLifecycleStatsHandler } from './routes/ioc-lifecycle';
 import { ruleGeneratorHandler, ruleValidateHandler } from './routes/yara-generator';
+import { fplensAnalyzeHandler } from './routes/fplens';
 import { ctWatchedListHandler, ctWatchAddHandler, ctWatchRemoveHandler, ctCertsHandler } from './routes/ct-monitor';
 import {
   taxiiDiscoveryHandler,
@@ -570,6 +571,7 @@ import {
   irPlaybookSchema,
   ruleGenerateSchema,
   ruleValidateSchema,
+  fplensAnalyzeSchema,
   threatIntelFeedbackSchema,
   assessmentSchema,
   assessmentUpdateSchema,
@@ -1109,6 +1111,12 @@ app.get('/api/v1/ioc-lifecycle/stats', iocLifecycleStatsHandler);
 // ── AI Rule Generator ────────────────────────────────────────────
 app.post('/api/v1/rules/generate', validate('json', ruleGenerateSchema), ruleGeneratorHandler);
 app.post('/api/v1/rules/validate', validate('json', ruleValidateSchema), ruleValidateHandler);
+
+// ── FPLENS — False Positive Likelihood Analyzer ─────────────────
+// Open to all callers (not admin-gated). The endpoint reads detection
+// rules + sample hits / env context and returns a structured verdict
+// on FP risk + tuning guidance. Workers AI with Groq fallback.
+app.post('/api/v1/fplens/analyze', validate('json', fplensAnalyzeSchema), fplensAnalyzeHandler);
 // Legacy routes for backward compatibility
 app.post('/api/v1/yara/generate', validate('json', ruleGenerateSchema), ruleGeneratorHandler);
 app.post('/api/v1/yara/validate', validate('json', ruleValidateSchema), ruleValidateHandler);

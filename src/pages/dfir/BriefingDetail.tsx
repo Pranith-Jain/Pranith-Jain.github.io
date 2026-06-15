@@ -92,6 +92,7 @@ interface BriefingStats {
   high: number;
   medium: number;
   low: number;
+  ransomware_victims: number;
 }
 
 interface Briefing {
@@ -376,6 +377,92 @@ function IocDumpPanel({
     </section>
   );
 }
+
+/**
+ * Jump-nav pill row for the daily/weekly briefing detail page. Lets the user
+ * jump straight to the CVE findings, ransomware victims, IOC dump, or MITRE
+ * techniques block without scrolling through a long page. Pills carry a
+ * count badge so a reader can see at a glance "this brief has 0 ransomware
+ * victims" without expanding the section.
+ *
+ * Pills are plain <a href="#anchor"> links so they survive prerender, no-JS
+ * viewers, and the keyboard-tab order. Anchor targets are added to the
+ * section wrappers (id="briefing-cves", id="briefing-ransomware", etc.).
+ */
+function JumpNav({
+  cveCount,
+  ransomwareCount,
+  iocCount,
+  mitreCount,
+}: {
+  cveCount: number;
+  ransomwareCount: number;
+  iocCount: number;
+  mitreCount: number;
+}): JSX.Element | null {
+  // Hide the row entirely if there's literally nothing to jump to (a
+  // landscape report, or a daily that has zero of every category).
+  if (cveCount + ransomwareCount + iocCount + mitreCount === 0) return null;
+  return (
+    <nav
+      aria-label="Jump to section"
+      className="mb-8 flex flex-wrap items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-800 bg-white/60 dark:bg-slate-900/60 px-3 py-2 text-xs"
+    >
+      <span className="font-display font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mr-1">
+        Jump to
+      </span>
+      {cveCount > 0 && (
+        <a
+          href="#briefing-cves"
+          className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-1 font-semibold text-slate-700 dark:text-slate-200 hover:border-brand-400 hover:text-brand-700 dark:hover:text-brand-300 transition-colors"
+        >
+          <ShieldAlert className="h-3.5 w-3.5" />
+          CVEs
+          <span className="rounded-full bg-slate-100 dark:bg-slate-800 px-1.5 text-mini font-mono text-slate-600 dark:text-slate-300">
+            {cveCount.toLocaleString()}
+          </span>
+        </a>
+      )}
+      {ransomwareCount > 0 && (
+        <a
+          href="#briefing-ransomware"
+          className="inline-flex items-center gap-1.5 rounded-full border border-rose-200 dark:border-rose-900 bg-rose-50 dark:bg-rose-950/30 px-3 py-1 font-semibold text-rose-700 dark:text-rose-300 hover:border-rose-400 transition-colors"
+        >
+          <Users className="h-3.5 w-3.5" />
+          Ransomware
+          <span className="rounded-full bg-rose-100 dark:bg-rose-900/50 px-1.5 text-mini font-mono">
+            {ransomwareCount.toLocaleString()}
+          </span>
+        </a>
+      )}
+      {iocCount > 0 && (
+        <a
+          href="#briefing-iocs"
+          className="inline-flex items-center gap-1.5 rounded-full border border-emerald-200 dark:border-emerald-900 bg-emerald-50 dark:bg-emerald-950/30 px-3 py-1 font-semibold text-emerald-700 dark:text-emerald-300 hover:border-emerald-400 transition-colors"
+        >
+          <ListChecks className="h-3.5 w-3.5" />
+          IOCs
+          <span className="rounded-full bg-emerald-100 dark:bg-emerald-900/50 px-1.5 text-mini font-mono">
+            {iocCount.toLocaleString()}
+          </span>
+        </a>
+      )}
+      {mitreCount > 0 && (
+        <a
+          href="#briefing-mitre"
+          className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-1 font-semibold text-slate-700 dark:text-slate-200 hover:border-brand-400 hover:text-brand-700 dark:hover:text-brand-300 transition-colors"
+        >
+          <Compass className="h-3.5 w-3.5" />
+          MITRE
+          <span className="rounded-full bg-slate-100 dark:bg-slate-800 px-1.5 text-mini font-mono text-slate-600 dark:text-slate-300">
+            {mitreCount.toLocaleString()}
+          </span>
+        </a>
+      )}
+    </nav>
+  );
+}
+
 
 /**
  * Landscape-report specific view. Distinct from the daily/weekly view
@@ -737,6 +824,18 @@ export default function BriefingDetail(): JSX.Element {
         </section>
       )}
 
+      {/* Jump-nav pills — link to the CVE / ransomware / IOC / MITRE blocks
+          further down the page. Hidden on landscape reports and on briefs
+          that have nothing in any of those buckets. */}
+      {briefing.type !== 'landscape' && (
+        <JumpNav
+          cveCount={stats.cves}
+          ransomwareCount={stats.ransomware_victims}
+          iocCount={stats.iocs}
+          mitreCount={briefing.mitre_techniques?.length ?? 0}
+        />
+      )}
+
       {/* Structured STIX 2.1 intel view. Renders an enriched card backed by
           /api/v1/intel-bundle — heuristic-extracted actors, malware, CVEs,
           theme tags + bulk-enriched IoCs with risk scores. Falls back to
@@ -763,11 +862,12 @@ export default function BriefingDetail(): JSX.Element {
         <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">{briefing.executive_summary}</p>
       </section>
 
-      {/* Sections — daily/weekly only; landscape uses LandscapeReportView above */}
+      {/* Sections — daily/weekly only; landscape uses LandscapeReportView above.
+          The id="briefing-cves" target is used by the JumpNav pills. */}
       {briefing.type !== 'landscape' && briefing.sections && briefing.sections.length > 0 && (
-        <section className="mb-12 space-y-8">
+        <section id="briefing-cves" className="mb-12 space-y-8 scroll-mt-20">
           {briefing.sections.map((s) => (
-            <div key={s.id}>
+            <div key={s.id} id={s.id === 'ransomware-activity' ? 'briefing-ransomware' : undefined} className="scroll-mt-20">
               <div className="flex items-baseline justify-between mb-2">
                 <h2 className="font-display font-bold text-xl flex items-center gap-2">
                   <AlertTriangle size={18} className="text-brand-600 dark:text-brand-400" />
@@ -788,9 +888,10 @@ export default function BriefingDetail(): JSX.Element {
         </section>
       )}
 
-      {/* MITRE techniques observed — daily/weekly only */}
+      {/* MITRE techniques observed — daily/weekly only. id="briefing-mitre" is
+          the JumpNav target. */}
       {briefing.type !== 'landscape' && briefing.mitre_techniques && briefing.mitre_techniques.length > 0 && (
-        <section className="mb-10">
+        <section id="briefing-mitre" className="mb-10 scroll-mt-20">
           <h2 className="font-display font-bold text-lg mb-3">MITRE ATT&amp;CK Techniques Observed</h2>
           <div className="flex flex-wrap gap-2">
             {briefing.mitre_techniques.map((t) => (
@@ -803,13 +904,14 @@ export default function BriefingDetail(): JSX.Element {
       {/* IOCs — daily/weekly only. Rendered as a single txt dump (capped at
           30 total) with download + copy buttons, NOT inline tables. The inline
           per-kind IocTable is gone — when a user wants the actual list of
-          indicators they grab the txt and use it as a blocklist seed. */}
+          indicators they grab the txt and use it as a blocklist seed.
+          id="briefing-iocs" is the JumpNav target. */}
       {briefing.type !== 'landscape' && briefing.ioc_dump && briefing.ioc_dump.count > 0 && (
-        <section className="mb-10">
+        <section id="briefing-iocs" className="mb-10 scroll-mt-20">
           <div className="mb-4 flex items-baseline justify-between gap-4">
             <h2 className="font-display font-bold text-lg">Active Threat Indicators</h2>
             <span className="text-xs font-mono text-slate-500">
-              {briefing.ioc_dump.count} of {briefing.ioc_dump.rawTotal.toLocaleString()} unique (cap 30)
+              {briefing.ioc_dump.count.toLocaleString()} unique indicators
             </span>
           </div>
           <IocDumpPanel slug={briefing.slug} dump={briefing.ioc_dump} />

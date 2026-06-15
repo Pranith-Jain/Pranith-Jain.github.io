@@ -48,6 +48,10 @@ export interface BriefingStats {
   high: number;
   medium: number;
   low: number;
+  /** In-window ransomware victim claims (counted from the ransomware-activity
+   *  section, capped at 60 per build). Surfaced as a stat pill and as a
+   *  count badge on the JumpNav 'Ransomware' pill. */
+  ransomware_victims: number;
 }
 
 export interface BriefingIocDump {

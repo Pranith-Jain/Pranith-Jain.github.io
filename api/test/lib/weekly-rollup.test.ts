@@ -72,6 +72,7 @@ function dailyBody(
       high: cves.filter((f) => f.severity === 'high').length,
       medium: cves.filter((f) => f.severity === 'medium').length,
       low: cves.filter((f) => f.severity === 'low').length,
+      ransomware_victims: rwFindings.length,
     },
     sections,
     iocs: emptyBuckets(),

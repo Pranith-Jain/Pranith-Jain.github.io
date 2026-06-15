@@ -45,6 +45,7 @@ import {
   Coins,
   Database,
   Smartphone,
+  Phone,
   ScanLine,
   ScanSearch,
   Server,
@@ -60,6 +61,7 @@ import {
   Download,
   Map as MapIcon,
   Bot,
+  Bug,
   FileText,
   type LucideIcon,
 } from 'lucide-react';
@@ -594,6 +596,13 @@ export const SECTIONS: Section[] = [
         icon: Search,
       },
       {
+        path: '/dfir/vuln-toolkit',
+        useCase: 'Browse CVE exploit toolkits and PoC releases for patch prioritization.',
+        label: 'Vulnerability Toolkit Catalog',
+        desc: 'Curated CVE exploit catalog · severity/vendor/type filtering · CVSS scoring · NVD/vendor advisory links · exploit availability flags',
+        icon: Bug,
+      },
+      {
         path: '/dfir/breach',
         useCase: 'Check a password against breach corpora.',
         label: 'Breach Checker',
@@ -636,6 +645,20 @@ export const SECTIONS: Section[] = [
         label: 'Username OSINT',
         desc: '60+ platforms (social, dev, gaming, creative, finance) · server-side HTTP checks · bounded concurrency · 15min edge cache',
         icon: Users,
+      },
+      {
+        path: '/dfir/phone-osint',
+        useCase: 'Investigate a phone number — reverse lookup, carrier, geolocation, messaging presence.',
+        label: 'Phone OSINT',
+        desc: 'E.164 parser · 20+ lookup services (TrueCaller, NumLookup, NumVerify, WhatsApp/Telegram check) · reverse lookup, carrier, geolocation, breach, social · category filtering',
+        icon: Phone,
+      },
+      {
+        path: '/dfir/weather-osint',
+        useCase: 'Use weather data to verify alibis, reconstruct timelines, or cross-reference photo metadata.',
+        label: 'Weather OSINT',
+        desc: 'Location-based weather intelligence — current conditions, 7-day forecast, astronomy, alerts · alibi verification, timeline reconstruction, geolocation confirmation · Google Maps/Windy/Zoom Earth pivots',
+        icon: Cloud,
       },
       {
         path: '/dfir/google-dorks',
@@ -859,6 +882,13 @@ export const SECTIONS: Section[] = [
         label: 'AI Rule Generator',
         desc: 'Plain English → Sigma, KQL, Splunk SPL, Elastic EQL, YARA, Snort, Suricata, DLP regex, Semgrep, Falco · Workers AI',
         icon: Sparkles,
+      },
+      {
+        path: '/dfir/fp-lens',
+        useCase: 'Score detection rules for false-positive risk before going live.',
+        label: 'FPLENS — FP Analyzer',
+        desc: 'Paste a rule + sample hits → FP risk verdict, plausible FP patterns, TP signals, suggested exclusions, and tuning guidance · Workers AI',
+        icon: ScanSearch,
       },
       {
         path: '/dfir/cve-prioritizer',

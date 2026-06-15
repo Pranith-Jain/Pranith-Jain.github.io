@@ -11,6 +11,7 @@ import {
   type Briefing,
   type BriefingType,
 } from '../lib/briefing-builder';
+import { buildIocDump } from '../lib/briefing-builder/aggregate';
 import { extractBriefingTags } from '../lib/briefing-tags';
 import { requireAdmin as requireSharedAdmin, safeEqual } from '../lib/admin-auth';
 import { badRequest, notFound, internalError, serviceUnavailable } from '../lib/api-error';
@@ -31,6 +32,25 @@ function enrichBriefingWithTags(b: Briefing): Briefing {
     }),
   }));
   return { ...b, sections } as Briefing;
+}
+
+
+/**
+ * Derive `ioc_dump` from the (possibly already-capped) `iocs` buckets on any
+ * pre-deploy briefing that lacks the field. The pre-deploy cap was 30 per
+ * type, so old briefings can carry up to 120 entries; the dump preserves
+ * that breakdown with the same line format as the in-builder version.
+ *
+ * New briefings always carry the field, so this is a no-op for them.
+ */
+function ensureIocDump(b: Briefing): Briefing {
+  if (b.type === 'landscape') return b;
+  if (b.ioc_dump && b.ioc_dump.count > 0) return b;
+  if (!b.iocs) return b;
+  const total = b.iocs.urls.length + b.iocs.domains.length + b.iocs.ipv4s.length + b.iocs.hashes.length;
+  if (total === 0) return b;
+  const dump = buildIocDump(b.iocs, b.stats?.iocs ?? total);
+  return dump ? { ...b, ioc_dump: dump } : b;
 }
 
 function dbOrError(c: Context<{ Bindings: Env }>): D1Database | null {
@@ -144,7 +164,7 @@ export async function getBriefingHandler(c: Context<{ Bindings: Env }>) {
   if (cached) return new Response(cached.body, cached);
   const briefing = await readBriefing(db, slug);
   if (!briefing) return notFound(c);
-  const res = c.json(enrichBriefingWithTags(briefing), 200, {
+  const res = c.json(ensureIocDump(enrichBriefingWithTags(briefing)), 200, {
     'cache-control': BRIEFINGS_CC,
     'last-modified': new Date().toUTCString(),
   });
@@ -165,7 +185,7 @@ export async function todayBriefingHandler(c: Context<{ Bindings: Env }>) {
   const slug = `daily-${yesterday.toISOString().slice(0, 10)}`;
   const briefing = await readBriefing(db, slug);
   if (!briefing) return c.json({ error: 'not yet generated', slug }, 404);
-  const res = c.json(enrichBriefingWithTags(briefing), 200, {
+  const res = c.json(ensureIocDump(enrichBriefingWithTags(briefing)), 200, {
     'cache-control': BRIEFINGS_CC,
     'last-modified': new Date().toUTCString(),
   });
@@ -484,7 +504,7 @@ export async function briefingsForActorHandler(c: Context<{ Bindings: Env }>) {
   for (const row of settled) {
     if (!row) continue;
     const { b, full } = row;
-    const enriched = enrichBriefingWithTags(full);
+    const enriched = ensureIocDump(enrichBriefingWithTags(full));
     const matched: Array<{ section: string; finding: Record<string, unknown> }> = [];
     for (const section of enriched.sections) {
       for (const finding of section.findings) {
@@ -611,7 +631,7 @@ export async function pruneEmptyBriefingsHandler(c: AdminCtx) {
  * GET /api/v1/briefings/:slug/iocs.txt — stream the IOC dump as plain text.
  *
  * The brief page links to this URL with `download`, so a click saves a
- * `<slug>.txt` file containing the top 30 IOCs (capped). Mirrors the
+ * `<slug>.txt` file containing the full deduped IOC list. Mirrors the
  * ioc_dump.content field embedded in the JSON payload, but as a real
  * text/plain file with the right Content-Disposition.
  *
@@ -632,7 +652,11 @@ export async function briefingIocsTxtHandler(c: Context<{ Bindings: Env }>) {
   if (cached) return new Response(cached.body, cached);
   const briefing = await readBriefing(db, slug);
   if (!briefing) return notFound(c);
-  const dump = briefing.ioc_dump;
+  // Backward-compat: pre-deploy briefings (and the current weekly) lack the
+  // ioc_dump field. Derive it on-read from the existing iocs buckets so the
+  // .txt endpoint is useful for the whole list, not only newly-built briefs.
+  const hydrated = ensureIocDump(briefing);
+  const dump = hydrated.ioc_dump;
   if (!dump || dump.count === 0) {
     return c.json(
       { error: 'no_iocs_in_briefing', slug, message: 'this briefing has no in-window IOCs' },
@@ -640,7 +664,7 @@ export async function briefingIocsTxtHandler(c: Context<{ Bindings: Env }>) {
     );
   }
   const filename = `${slug}-iocs.txt`;
-  const body = `# ${briefing.title}\n# generated_at: ${briefing.generated_at}\n# count: ${dump.count} of ${dump.rawTotal} unique indicators (cap 30)\n\n${dump.content}\n`;
+  const body = `# ${briefing.title}\n# generated_at: ${briefing.generated_at}\n# count: ${dump.count} unique indicators\n\n${dump.content}\n`;
   const res = new Response(body, {
     status: 200,
     headers: {

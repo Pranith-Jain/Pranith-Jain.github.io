@@ -240,28 +240,20 @@ export function bucketIocs(entries: IocEntry[]): BriefingIocBuckets {
     else if (e.type === 'ipv4') buckets.ipv4s.push(e);
     else if (e.type === 'hash') buckets.hashes.push(e);
   }
-  // Cap at 30 total across all 4 IOC types (was 30 per type = up to 120). The
-  // brief page renders a txt dump instead of an in-line list, so the inline
-  // buckets only need a quick-look summary. Distribution order: urls ->
-  // domains -> ipv4s -> hashes; any type after the cap is consumed gets dropped.
-  let remaining = 30;
-  for (const k of ['urls', 'domains', 'ipv4s', 'hashes'] as Array<keyof BriefingIocBuckets>) {
-    if (remaining <= 0) {
-      buckets[k] = [];
-      continue;
-    }
-    if (buckets[k].length > remaining) buckets[k] = buckets[k].slice(0, remaining);
-    remaining -= buckets[k].length;
-  }
+  // No truncation here — the brief page surfaces the IOC list as a single
+  // txt dump via buildIocDump(), and that dump includes every deduped entry
+  // (capping was removed; the user wants the FULL list as a blocklist seed).
+  // Inline buckets are kept just so the JSON payload still has a structured
+  // per-type view for any other consumer.
   return buckets;
 }
 
 /**
- * Build the plain-text IOC dump attached to each briefing. Capped at 30
- * indicators total across all types (urls -> domains -> ipv4s -> hashes,
- * same priority as the inline bucket truncation). Each line includes the
- * IOC value plus its type prefix and a timestamp/context when available,
- * so the dump is usable as a copy-paste blocklist seed.
+ * Build the plain-text IOC dump attached to each briefing. Includes EVERY
+ * deduped indicator (urls -> domains -> ipv4s -> hashes, in the order they
+ * were deduped upstream). Each line includes the IOC value plus its type
+ * prefix and a timestamp/context when available, so the dump is usable as
+ * a copy-paste blocklist seed.
  *
  * Returns undefined when the bucket is empty so the field is omitted on
  * briefs that have no in-window IOCs (cleaner payload, and the page hides
@@ -368,7 +360,7 @@ function buildExecutiveSummary(args: {
           : `${iocSources.slice(0, -1).join(', ')}, and ${iocSources[iocSources.length - 1]}`;
     const sampledTotal = iocs.urls.length + iocs.domains.length + iocs.ipv4s.length + iocs.hashes.length;
     parts.push(
-      `Active threat indicators ${iocPerSource ? 'per source' : 'across'} ${breakdown} — ${iocsRawTotal.toLocaleString()} unique after cross-source dedup; the top ${sampledTotal} indicators (${sampledBits.join(', ')}, capped at 30 total) are included in the IOC dump.`
+      `Active threat indicators ${iocPerSource ? 'per source' : 'across'} ${breakdown} — ${iocsRawTotal.toLocaleString()} unique after cross-source dedup; all ${sampledTotal} indicators (${sampledBits.join(', ')}) are included in the IOC dump.`
     );
   }
   parts.push(
@@ -463,7 +455,12 @@ export async function buildLlmExecutiveSummary(args: Parameters<typeof buildExec
   return templateSummary;
 }
 
-export function buildStats(findings: BriefingFinding[], sections: BriefingSection[], iocsTotal: number): BriefingStats {
+export function buildStats(
+  findings: BriefingFinding[],
+  sections: BriefingSection[],
+  iocsTotal: number,
+  ransomwareVictims = 0
+): BriefingStats {
   const totalFindings = sections.reduce((n, s) => n + (s.findings?.length ?? 0), 0);
   return {
     findings: totalFindings,
@@ -475,6 +472,7 @@ export function buildStats(findings: BriefingFinding[], sections: BriefingSectio
     high: findings.filter((f) => f.severity === 'high').length,
     medium: findings.filter((f) => f.severity === 'medium').length,
     low: findings.filter((f) => f.severity === 'low').length,
+    ransomware_victims: ransomwareVictims,
   };
 }
 

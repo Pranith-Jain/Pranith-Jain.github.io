@@ -309,7 +309,7 @@ export async function buildBriefing(
     });
   }
 
-  const stats = buildStats(findings, sections, iocsRawTotal);
+  const stats = buildStats(findings, sections, iocsRawTotal, ransomwareFindings.length);
   const summaryArgs = {
     type,
     range_label: rangeLabel,
