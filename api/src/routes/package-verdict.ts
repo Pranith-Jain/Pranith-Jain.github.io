@@ -1,6 +1,5 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
-import { fetchResilient } from '../lib/fetch-resilient';
 
 /**
  * Package verdict checker — inspired by projectdiscovery/depx.
@@ -103,17 +102,31 @@ async function checkOssf(ecosystem: string, packageName: string, token?: string)
 
 async function checkOsv(ecosystem: string, packageName: string): Promise<Advisory[]> {
   try {
-    const res = await fetchResilient(
-      OSV_API,
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'User-Agent': 'pranithjain-dfir/1.0' },
-        body: JSON.stringify({
-          package: { name: packageName, ecosystem: ecosystem.toUpperCase() },
-        }),
-      },
-      { attempts: 2, timeoutMs: 10_000 }
-    );
+    const ecoMap: Record<string, string> = {
+      npm: 'npm',
+      pypi: 'PYPI',
+      go: 'Go',
+      maven: 'MAVEN',
+      rubygems: 'RUBYGEMS',
+      'crates.io': 'CRATES',
+      nuget: 'NUGET',
+      packagist: 'PACKAGIST',
+    };
+    const osvEco = ecoMap[ecosystem] ?? ecosystem.toUpperCase();
+
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 8000);
+
+    const res = await fetch(OSV_API, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        package: { name: packageName, ecosystem: osvEco },
+      }),
+      signal: controller.signal,
+    });
+    clearTimeout(timeout);
+
     if (!res.ok) return [];
     const data = (await res.json()) as {
       vulns?: Array<{ id: string; summary?: string; modified?: string; published?: string; withdrawn?: string }>;
@@ -131,68 +144,76 @@ async function checkOsv(ecosystem: string, packageName: string): Promise<Advisor
 }
 
 export async function packageVerdictHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
-  let ecosystem: string;
-  let packageName: string;
+  try {
+    let ecosystem: string;
+    let packageName: string;
 
-  // Support ?ref=npm:lodash or ?ecosystem=npm&package=lodash
-  const ref = c.req.query('ref');
-  if (ref) {
-    const parts = ref.split(':');
-    if (parts.length !== 2) {
-      return c.json({ error: 'invalid ref format; expected ecosystem:package (e.g. npm:lodash)' }, 400);
+    // Support ?ref=npm:lodash or ?ecosystem=npm&package=lodash
+    const ref = c.req.query('ref');
+    if (ref) {
+      const parts = ref.split(':');
+      if (parts.length !== 2) {
+        return c.json({ error: 'invalid ref format; expected ecosystem:package (e.g. npm:lodash)' }, 400);
+      }
+      ecosystem = normalizeEco(parts[0]);
+      packageName = parts[1];
+    } else {
+      ecosystem = normalizeEco(c.req.query('ecosystem') ?? '');
+      packageName = (c.req.query('package') ?? '').trim();
     }
-    ecosystem = normalizeEco(parts[0]);
-    packageName = parts[1];
-  } else {
-    ecosystem = normalizeEco(c.req.query('ecosystem') ?? '');
-    packageName = (c.req.query('package') ?? '').trim();
-  }
 
-  if (!ecosystem || !packageName) {
-    return c.json({ error: 'missing required params: ecosystem + package, or ref' }, 400);
-  }
-
-  const githubToken = c.env.GITHUB_TOKEN;
-
-  // Check OSSF + OSV in parallel
-  const [ossfAdvisories, osvAdvisories] = await Promise.all([
-    checkOssf(ecosystem, packageName, githubToken),
-    checkOsv(ecosystem, packageName),
-  ]);
-
-  // Deduplicate advisories by ID
-  const seen = new Set<string>();
-  const advisories: Advisory[] = [];
-  for (const a of [...osvAdvisories, ...ossfAdvisories]) {
-    if (!seen.has(a.id)) {
-      seen.add(a.id);
-      advisories.push(a);
+    if (!ecosystem || !packageName) {
+      return c.json({ error: 'missing required params: ecosystem + package, or ref' }, 400);
     }
+
+    const githubToken = c.env.GITHUB_TOKEN;
+
+    // Check OSSF + OSV in parallel — OSV is optional, degrade gracefully
+    const [ossfAdvisories, osvAdvisories] = await Promise.all([
+      checkOssf(ecosystem, packageName, githubToken).catch(() => [] as Advisory[]),
+      checkOsv(ecosystem, packageName).catch(() => [] as Advisory[]),
+    ]);
+
+    // Deduplicate advisories by ID
+    const seen = new Set<string>();
+    const advisories: Advisory[] = [];
+    for (const a of [...osvAdvisories, ...ossfAdvisories]) {
+      if (!seen.has(a.id)) {
+        seen.add(a.id);
+        advisories.push(a);
+      }
+    }
+
+    const isMalicious = advisories.some((a) => a.id.startsWith('MAL-') && !a.withdrawn);
+    const verdict = isMalicious ? 'malicious' : advisories.length > 0 ? 'clean' : 'unknown';
+    const confidence = isMalicious ? 'high' : advisories.length > 0 ? 'medium' : 'low';
+
+    const response: VerdictResponse = {
+      schema_version: '1',
+      command: 'check',
+      depx_version: 'v0.1.0 (integrated)',
+      data: {
+        ref: `${ecosystem}:${packageName}`,
+        purl: `pkg:${ecosystem}/${packageName}`,
+        verdict,
+        confidence,
+        ids: advisories.map((a) => a.id),
+        package_ecosystem: ecosystem,
+        package_name: packageName,
+        registry_url: `${REGISTRY_URLS[ecosystem] ?? ''}${packageName}`,
+        advisories,
+      },
+      timestamp: new Date().toISOString(),
+    };
+
+    return c.json(response, 200, {
+      'Cache-Control': 'public, max-age=3600',
+    });
+  } catch (err) {
+    return c.json(
+      { error: 'package verdict lookup failed', message: err instanceof Error ? err.message : 'Unknown error' },
+      500,
+      { 'Cache-Control': 'no-store' }
+    );
   }
-
-  const isMalicious = advisories.some((a) => a.id.startsWith('MAL-') && !a.withdrawn);
-  const verdict = isMalicious ? 'malicious' : advisories.length > 0 ? 'clean' : 'unknown';
-  const confidence = isMalicious ? 'high' : advisories.length > 0 ? 'medium' : 'low';
-
-  const response: VerdictResponse = {
-    schema_version: '1',
-    command: 'check',
-    depx_version: 'v0.1.0 (integrated)',
-    data: {
-      ref: `${ecosystem}:${packageName}`,
-      purl: `pkg:${ecosystem}/${packageName}`,
-      verdict,
-      confidence,
-      ids: advisories.map((a) => a.id),
-      package_ecosystem: ecosystem,
-      package_name: packageName,
-      registry_url: `${REGISTRY_URLS[ecosystem] ?? ''}${packageName}`,
-      advisories,
-    },
-    timestamp: new Date().toISOString(),
-  };
-
-  return c.json(response, 200, {
-    'Cache-Control': 'public, max-age=3600',
-  });
 }
