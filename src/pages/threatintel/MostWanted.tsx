@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { ShieldAlert, Search } from 'lucide-react';
+import { ASCIIArt } from '../../components/ASCIIArt';
 
 const MOST_WANTED = [
   {
@@ -162,6 +163,9 @@ export default function MostWanted(): JSX.Element {
       title="Threat Actor Most Wanted"
       description="Curated list of the most significant threat actors and cybercriminal groups currently active — prioritized by risk and global impact."
     >
+      <div className="flex justify-center mb-4 opacity-30">
+        <ASCIIArt />
+      </div>
       <div className="relative mb-6">
         <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
         <input

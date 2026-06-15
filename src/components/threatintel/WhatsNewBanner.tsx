@@ -118,7 +118,7 @@ export function WhatsNewBanner(): JSX.Element | null {
         key: 'scam',
         count: scamCount,
         label: scamCount === 1 ? 'scam report' : 'scam reports',
-        to: '/threatintel/scam-watch',
+        to: '/threatintel/social',
       });
     }
     const intelCount = countNew(snapshot.threat_intel?.data?.items, previous, (it) => it.pubDate);

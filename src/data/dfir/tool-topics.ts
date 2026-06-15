@@ -24,10 +24,10 @@ export const TOOL_TOPICS: ToolTopic[] = [
   // Authoritative concepts → matrix / lookup pages
   {
     term: 'MITRE ATT&CK',
-    href: '/threatintel/mitre',
+    href: '/threatintel/tools',
     blurb: 'Browse the ATT&CK matrix and tag your detection coverage',
   },
-  { term: 'ATT&CK', href: '/threatintel/mitre', blurb: 'Browse the ATT&CK matrix and tag your detection coverage' },
+  { term: 'ATT&CK', href: '/threatintel/tools', blurb: 'Browse the ATT&CK matrix and tag your detection coverage' },
   { term: 'CISA KEV', href: '/dfir/cve', blurb: 'Search the Known Exploited Vulnerabilities catalog' },
   { term: 'EPSS', href: '/dfir/cve', blurb: 'Look up Exploit Prediction Scoring System scores' },
   {

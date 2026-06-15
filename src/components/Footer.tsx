@@ -31,6 +31,10 @@ const BUILD_LINKS: Array<{ label: string; href: string }> = [
   { label: 'DFIR Toolkit', href: '/dfir' },
   { label: 'Threat Intel', href: '/threatintel' },
   { label: 'Briefings', href: '/threatintel/briefings' },
+  { label: 'Most Wanted', href: '/threatintel/most-wanted' },
+  { label: 'Live Center', href: '/threatintel/live-center' },
+  { label: 'Behind the Reports', href: '/behind-the-reports' },
+  { label: 'Sponsor', href: '/sponsor' },
   { label: 'Blog', href: '/blog' },
 ];
 

@@ -1,38 +1,20 @@
 import {
   Activity,
-  AlertOctagon,
   AlertTriangle,
   BarChart3,
-  Bell,
   BookOpen,
-  BookText,
-  Bot,
-  BrainCircuit,
-  Briefcase,
   Bug,
-  Building2,
   Cloud,
   Compass,
   Crosshair,
   Database,
-  Dna,
-  ExternalLink,
-  FileCode,
   FileText,
-  Fish,
-  FlaskConical,
-  GitBranch,
-  Megaphone,
-  GitBranchPlus,
+  Flame,
   Globe,
-  Globe2,
-  Grid3x3,
-  Handshake,
-  Info,
+  GitBranch,
   KeyRound,
-  Layers,
   LayoutDashboard,
-  MessageSquare,
+  Link2,
   Newspaper,
   Radar,
   Radio,
@@ -48,7 +30,6 @@ import {
   Terminal,
   TrendingUp,
   Users,
-  UserCheck,
   Zap,
   type LucideIcon,
 } from 'lucide-react';
@@ -70,1151 +51,356 @@ export interface Section {
 }
 
 export const SECTIONS: Section[] = [
-  // ── Ransomware ──────────────────────────────────────────────────
+  // ── 1. Threat Landscape ────────────────────────────────────────
   {
-    id: 'ransomware',
-    label: 'Ransomware',
-    blurb: 'Leak-site claims, negotiation economics, re-victimisation, onion reachability.',
+    id: 'threat-landscape',
+    label: 'Threat Landscape',
+    blurb: 'High-level overview of the current threat environment.',
     tools: [
       {
-        to: '/threatintel/iocs',
-        label: 'Ransomware crypto wallets',
-        desc: 'Crowdsourced directory of crypto wallets attributed to ransomware families — on-chain balances + tx counts. Source: Ransomwhere (MIT).',
-        icon: KeyRound,
-        badge: 'new',
-      },
-      {
-        to: '/threatintel/iocs',
-        label: 'Live ransomware activity',
-        desc: 'Recent ransomware leak-site claims aggregated from Ransomlook · per-victim screenshots when available',
-        icon: AlertTriangle,
-        badge: 'live',
-      },
-      {
-        to: '/threatintel/ransomware-live',
-        label: 'ransomware.live PRO',
-        desc: 'Authenticated, edge-cached view of the ransomware.live PRO API: stats, recent cyberattacks (HudsonRock infostealer-enriched), leaked negotiation logs, and per-group YARA rules.',
-        icon: ShieldAlert,
-        badge: 'live',
-      },
-      {
-        to: '/threatintel/iocs',
-        label: 'Ransomware group report',
-        desc: 'Searchable per-group dossier from the ransomware.live PRO API: overview, MITRE ATT&CK TTPs, tooling, exploited CVEs, infrastructure/IOCs, and per-group YARA rules — with print-to-PDF export.',
-        icon: FileText,
-        badge: 'live',
-      },
-      {
-        to: '/threatintel/iocs',
-        label: 'Ransomware victim geo-heatmap',
-        desc: 'World choropleth shaded by victim count per country, aggregated from ransomfeed.it, ransomwatch, ransomware.live, and Andrea Fortuna.',
-        icon: Globe2,
-        badge: 'new',
-      },
-      {
-        to: '/threatintel/iocs',
-        label: 'Ransomware negotiations',
-        desc: 'Negotiation chats across every ransomware.live PRO group. Initial demand vs. negotiated figure, discount, settlement flag, with transcript drill-down.',
-        icon: Handshake,
-        badge: 'live',
-      },
-      {
-        to: '/threatintel/iocs',
-        label: 'Victim re-leak detection',
-        desc: 'Victims claimed by 2+ ransomware groups in the last 12 months. Cross-actor match on normalised victim names.',
-        icon: Users,
-      },
-      {
-        to: '/threatintel/darkweb',
-        label: 'Onion Watch',
-        desc: 'Live inventory of .onion mirrors for the top ransomware leak sites. Per-group reachability from Ransomlook.',
-        icon: Globe,
-      },
-    ],
-  },
-  // ── Dark Web ────────────────────────────────────────────────────
-  {
-    id: 'dark-web',
-    label: 'Dark Web',
-    blurb: 'Dark-web monitoring, criminal forums, market indexes, and OSINT tools.',
-    tools: [
-      {
-        to: '/threatintel/darkweb',
-        label: 'Dark Web Watch',
-        desc: 'Aggregated leak-site, ransomware, breach activity · keyword watchlist · per-source separation',
-        icon: Bell,
-        badge: 'live',
-      },
-      {
-        to: '/threatintel/darkweb',
-        label: 'Breach / leak-forum tracker',
-        desc: 'Directory of criminal forums + dark markets (deepdarkCTI) plus a curated set of notable breach/leak forums.',
-        icon: Shield,
-        badge: 'live',
-      },
-      {
-        to: '/threatintel/darkweb',
-        label: 'deepdarkCTI Index',
-        desc: 'Parsed mirror of fastfire/deepdarkCTI: ransomware leak sites, dark markets, criminal forums, infostealer & threat-actor Telegram/Twitter channels, dark-web search engines.',
-        icon: Globe,
-      },
-      {
-        to: '/threatintel/darkweb',
-        label: 'Dark Web OSINT Tools',
-        desc: 'Curated directory of dark-web investigation tools across 8 categories — search engines, onion link discovery, scanners, crawlers, intel platforms, and more.',
-        icon: Globe,
-      },
-      {
-        to: '/threatintel/darkweb',
-        label: 'Darknet Markets Timeline',
-        desc: 'Historical and current darknet marketplaces — status, founding dates, seizure history, exit scams. 20+ markets tracked.',
-        icon: Globe,
-        badge: 'new',
-      },
-      {
-        to: '/threatintel/darkweb',
-        label: 'Physical Bitcoin Attacks',
-        desc: 'Known physical attacks against crypto holders — armed robberies, kidnappings, home invasions. Real-world violence driven by crypto wealth.',
-        icon: Skull,
-        badge: 'new',
-      },
-    ],
-  },
-  // ── Breach & Leaks ─────────────────────────────────────────────
-  {
-    id: 'breach-leaks',
-    label: 'Breach & Leaks',
-    blurb: 'Breach disclosures, infostealer logs, scam alerts, and Telegram leak monitoring.',
-    tools: [
-      {
-        to: '/threatintel/iocs',
-        label: 'Live breach disclosures',
-        desc: 'Public breach disclosures from Have I Been Pwned, with verification flags, sensitivity markers, and the data classes that leaked.',
-        icon: Database,
-        badge: 'live',
-      },
-      {
-        to: '/threatintel/iocs',
-        label: 'Infostealer live tracker',
-        desc: 'Three live infostealer surfaces in one: HudsonRock victim exposure, demonforums ULP / cloud-log market threads, and active stealer-log Telegram channel directory.',
-        icon: KeyRound,
-        badge: 'live',
-      },
-      {
-        to: '/threatintel/social',
-        label: 'Scam Watch',
-        desc: 'Live FTC and FBI IC3 alerts, deepfake-scam news, and Reddit victim reports. Search and filter built in.',
-        icon: AlertTriangle,
-      },
-      {
-        to: '/threatintel/social',
-        label: 'Telegram Leak Monitor',
-        desc: 'Credential leaks, paste dumps, and file leaks detected across monitored Telegram channels.',
-        icon: AlertTriangle,
-        badge: 'new',
-      },
-      {
-        to: '/threatintel/social',
-        label: 'Discovered TG Channels',
-        desc: 'Telegram channels auto-discovered from monitored feeds. Review, approve, and add to the leak-scanning watchlist.',
-        icon: UserCheck,
-        badge: 'new',
-      },
-      {
-        to: '/threatintel/social',
-        label: 'Telegram Leak Stats',
-        desc: 'KPIs, severity distribution, top channels and domains from the Telegram leak database.',
-        icon: BarChart3,
-        badge: 'new',
-      },
-      {
-        to: '/threatintel/iocs',
-        label: 'Secret Leak Dashboard',
-        desc: 'Exposed API keys, tokens, and credentials in public repos. Provider rankings, repo leaderboards, severity mix.',
-        icon: KeyRound,
-        badge: 'new',
-      },
-    ],
-  },
-  // ── Live Feeds ──────────────────────────────────────────────────
-  {
-    id: 'live-feeds',
-    label: 'Live Feeds',
-    blurb: 'Streaming social feeds from Telegram, Reddit, Bluesky, Mastodon, and X.',
-    tools: [
-      {
-        to: '/threatintel/social',
-        label: 'Cybersec Telegram firehose',
-        desc: 'Message stream from curated public cybersec Telegram channels. IOC drops, vendor advisories, leak announcements.',
-        icon: Send,
-        badge: 'live',
-      },
-      {
-        to: '/threatintel/social',
-        label: 'Cybersec Reddit firehose',
-        desc: '16 cybersec subreddits: r/netsec, r/blueteamsec, r/redteamsec, r/Malware, r/OSINT, r/computerforensics, and scam/fraud coverage.',
-        icon: MessageSquare,
-        badge: 'live',
-      },
-      {
-        to: '/threatintel/social',
-        label: 'Cybersec social firehose',
-        desc: '16 cybersec researchers and vendor labs on Bluesky and Mastodon. Krebs, MalwareTech, Talos, Mandiant, Beaumont, Florian Roth, Cimpanu, vxunderground.',
-        icon: Cloud,
-        badge: 'live',
-      },
-      {
-        to: '/threatintel/social',
-        label: 'X live (cybersec)',
-        desc: 'Chronological recent X tweets from cybersec IOC-posting accounts — TweetFeed permalink stream with fxtwitter enrichment.',
-        icon: MessageSquare,
-        badge: 'live',
-      },
-      {
-        to: '/threatintel/social',
-        label: 'Prediction Markets',
-        desc: 'Live Manifold prediction-market odds on cyber-threat, tech, and AI outcomes — ranked by liquidity. Community crowd forecasts via the public Manifold API.',
-        icon: TrendingUp,
-        badge: 'new',
-      },
-      {
-        to: '/threatintel/social',
-        label: 'X firehose',
-        desc: 'Live chronological tweets from 70 cybersec accounts across researchers, vendor labs, CTI feeds, OSINT, IR/DFIR, and security press.',
-        icon: MessageSquare,
-        badge: 'live',
-      },
-    ],
-  },
-  // ── SOC Dashboards ──────────────────────────────────────────────
-  {
-    id: 'soc-dashboards',
-    label: 'SOC Dashboards',
-    blurb:
-      'Tactical operational views. Live data, auto-refresh, time-range selector, CSV export, status pill driven by the actual data shape.',
-    tools: [
-      {
-        to: '/threatintel/soc-dashboard',
-        label: 'SOC: Ransomware',
-        desc: 'Red DEFCON-style panel. Top actors, country + sector distribution, daily claim frequency, recent victims. Status escalates when the dominant actor holds ≥20% of claims.',
-        icon: BarChart3,
-        badge: 'new',
-      },
-      {
-        to: '/threatintel/soc-dashboard',
-        label: 'SOC: Vulnerabilities',
-        desc: 'Cyan panel. NVD CVE feed merged with CISA KEV + MTI ransomware-use flag. Detection frequency, severity index, top vendors, KEV-flagged table.',
-        icon: Activity,
-        badge: 'new',
-      },
-      {
-        to: '/threatintel/soc-dashboard',
-        label: 'SOC: IOC Stream',
-        desc: 'Purple panel. Indicator firehose with per-IOC criticality score (source reputation + kind + context richness), kind filter chips, source bars, top-critical list.',
-        icon: Radar,
-        badge: 'new',
-      },
-    ],
-  },
-  // ── News & Press ────────────────────────────────────────────────
-  {
-    id: 'news-press',
-    label: 'News & Press',
-    blurb: 'Cyber-crime coverage, tech news, RSS aggregation, and entity pulse.',
-    tools: [
-      {
-        to: '/threatintel/social',
-        label: 'Cyber crime & fraud feeds',
-        desc: 'Live incident coverage: DOJ indictments, Chainalysis crypto-crime tracing, Krebs, BleepingComputer, DataBreaches.net, CISA, The Record.',
-        icon: AlertOctagon,
-        badge: 'live',
-      },
-      {
-        to: '/threatintel/social',
-        label: 'Tech & AI News',
-        desc: '16-source feed for AI labs, cyber-vendor funding and M&A, general tech, and HN/YC.',
-        icon: Newspaper,
-      },
-      {
-        to: '/threatintel/feeds',
-        label: 'Threat Feeds',
-        desc: '40-source aggregation: CISA advisories, vendor labs, IR write-ups, Reddit infosec, CVE/Exploit-DB, and security press.',
-        icon: Radio,
-      },
-      {
-        to: '/threatintel/feeds',
-        label: 'Threat Pulse',
-        desc: 'Real-time aggregator of fresh threat entities (actors, malware families, CVEs, IOCs) ranked by cross-source activity over the last 24h',
-        icon: Activity,
-        badge: 'live',
-      },
-      {
-        to: '/threatintel/feeds',
-        label: 'Aggregated Feeds',
-        desc: 'Browse all 21 CriticalPathSecurity public feed files with search and category filter.',
-        icon: Layers,
-        badge: 'new',
-      },
-      {
-        to: '/threatintel/iocs',
-        label: 'Crypto Scam Feed',
-        desc: 'Curated feed of fresh crypto phishing, scam, drainer, and pig-butchering domains (spmedia Crypto-Scam Threat Intel Feed, refreshed daily). Also feeds the live-IOC firehose.',
-        icon: AlertOctagon,
-        badge: 'new',
-      },
-    ],
-  },
-  // ── Platform Overview ───────────────────────────────────────────
-  {
-    id: 'platform-overview',
-    label: 'Platform Overview',
-    blurb: 'Threat maps, metrics, feed health, dashboards, and collection SLOs.',
-    tools: [
-      {
-        to: '/threatintel/infra',
-        label: 'Cyber Threat Map',
-        desc: 'Live geolocation of malicious infrastructure. Choropleth map plus country leaderboard.',
-        icon: Globe2,
-      },
-      {
-        to: '/threatintel/iocs',
-        label: 'Bitwire IP Blocklist',
-        desc: 'Bitwire inbound + outbound IP blocklists rendered as searchable threat-intel pages, with per-country breakdowns and IOC pivot.',
-        icon: Shield,
-        badge: 'new',
-      },
-      {
-        to: '/threatintel/external',
-        label: 'RedHunt Labs Research',
-        desc: 'Research.redHuntLabs.com mirror -- secret-leak exposure, subdomain counts, APK correlations, postman / dockerhub pivots.',
-        icon: FlaskConical,
-        badge: 'new',
-      },
-      {
-        to: '/threatintel/external',
-        label: 'RedHunt Insights Dashboard',
-        desc: 'Live-updating exposure KPIs (subdomains, commits, secrets, dockerhub users) sourced from RedHunt Labs telemetry.',
-        icon: Activity,
-        badge: 'new',
-      },
-      {
-        to: '/threatintel/feeds',
-        label: 'Global Pulse — Live Intel',
-        desc: 'Real-time global intelligence hub: 3D globe with severity arcs, earthquakes, cyber attacks, IOCs, ransomware, dark web, phishing, malware, CVEs, breaches, Reddit, Telegram, X, and tech news. All feeds live.',
-        icon: Radio,
-        badge: 'live',
-      },
-      {
-        to: '/threatintel/infra',
-        label: 'Facilities Database',
-        desc: 'Strategic facilities worldwide — conflict zones, military bases, nuclear sites, disputed territories, sanctions targets, and critical infrastructure. Filterable by type and region.',
-        icon: Building2,
-      },
-      {
-        to: '/threatintel/infra',
-        label: 'Infrastructure Search',
-        desc: 'Search 200+ infrastructure types from OpenStreetMap — telecom, energy, military, aviation, maritime, industrial. Natural language queries with interactive map.',
-        icon: Building2,
-      },
-      {
-        to: '/threatintel/tools',
-        label: 'Threat Intel Metrics',
-        desc: 'Ten panels covering the questions CTI teams actually ask. Ransomware groups, CVE severity, KEV cadence, IOC volume, sector targeting.',
-        icon: BarChart3,
-      },
-      {
-        to: '/threatintel/tools',
-        label: 'Feed status',
-        desc: 'Health of every upstream-backed feed. When a page looks empty, check here first.',
-        icon: Activity,
-      },
-      {
-        to: '/threatintel/tools',
-        label: 'Intel Dashboard',
-        desc: 'Consolidated view across all threat intelligence sources: leak KPIs, breach stats, feed health, source catalog, and a CTI-CMM Program Health scorecard (5 domains, 0–5 bands).',
+        to: '/threatintel/threat-landscape',
+        label: 'Threat Landscape',
+        desc: 'Key stats, trending actors, top malware families, emerging threats, and attack vector distribution.',
         icon: LayoutDashboard,
         badge: 'new',
       },
-      {
-        to: '/threatintel/tools',
-        label: 'Collection SLO',
-        desc: 'Live health of every intelligence collector — uptime %, staleness, reliability grades.',
-        icon: Activity,
-      },
-      {
-        to: '/threatintel/tools',
-        label: 'Source Reliability',
-        desc: 'NATO Admiralty Code (A–F) grading for all 25+ intelligence sources.',
-        icon: Shield,
-      },
-      {
-        to: '/threatintel/tools',
-        label: 'Intelligence Requirements',
-        desc: 'PIR-driven tasking: define what decisions to inform, score collection against requirements, track coverage gaps.',
-        icon: Target,
-        badge: 'new',
-      },
-      {
-        to: '/threatintel/tools',
-        label: 'TIFCE Feed Quality',
-        desc: 'Four-pillar scorecard (originality, platform relevance, signal vs noise, freshness) for every IOC feed — re-implementation of the TIFCE framework.',
-        icon: BarChart3,
-        badge: 'new',
-      },
     ],
   },
-  // ── AI & Automation ─────────────────────────────────────────────
-  {
-    id: 'ai-automation',
-    label: 'AI & Automation',
-    blurb: 'AI-powered copilot, analysis orchestration, and campaign generation.',
-    tools: [
-      {
-        to: '/threatintel/tools',
-        label: 'AI Investigation Copilot',
-        desc: 'AI-powered threat investigation. Paste a CVE, IP, domain, hash, or actor name — auto-detects query type, fans out to cache sources.',
-        icon: Sparkles,
-        badge: 'new',
-      },
-      {
-        to: '/threatintel/tools',
-        label: 'AI Chat (Agent-Powered)',
-        desc: 'Agent-driven multi-turn investigation. Chat about CVEs, actors, IPs, domains — the agent plans steps, calls 30+ intel tools, and produces structured reports.',
-        icon: Bot,
-        badge: 'new',
-      },
-      {
-        to: '/dfir/agent',
-        label: 'Autonomous Investigator Agent',
-        desc: 'Multi-step autonomous agent. Describe what to investigate — the agent plans, calls 30+ intel tools, analyzes results, and produces a structured report.',
-        icon: Bot,
-        badge: 'new',
-      },
-      {
-        to: '/threatintel/tools',
-        label: 'Analysis Orchestration',
-        desc: 'IntelOwl-inspired observable analysis. Single input fans out to all 45 SSE providers with composite score and verdict chips.',
-        icon: Search,
-        badge: 'new',
-      },
-      {
-        to: '/threatintel/tools',
-        label: 'AI Campaign Generator',
-        desc: 'Turn an analyst brief into a structured campaign hypothesis with kill-chain mapping, ATT&CK techniques, and hunting hypotheses.',
-        icon: Sparkles,
-        badge: 'new',
-      },
-      {
-        to: '/threatintel/campaigns',
-        label: 'Saved campaigns',
-        desc: 'Browse persisted campaign hypotheses. Each entry keeps the full kill-chain, MITRE mapping, and hunting hypotheses.',
-        icon: Briefcase,
-        badge: 'new',
-      },
-      {
-        to: '/threatintel/tools',
-        label: 'AI Report Showcase',
-        desc: 'Live analyst reports generated end-to-end: pull a sample, fan out to 30+ intel tools, and render the 8-section deliverable inline.',
-        icon: Sparkles,
-        badge: 'new',
-      },
-      {
-        to: '/threatintel/tools',
-        label: 'TI-Mindmap-Hub MCP Search',
-        desc: "Live workbench against ti-mindmap-hub.com's 1,628+ reports via their MCP server. Free-text + catalog browser, with one-click load-into-analyzer.",
-        icon: KeyRound,
-        badge: 'new',
-      },
-    ],
-  },
-  // ── Data & Search ───────────────────────────────────────────────
-  {
-    id: 'data-search',
-    label: 'Data & Search',
-    blurb: 'Observable storage, unified search, entity resolution, and investigation board.',
-    tools: [
-      {
-        to: '/threatintel/iocs',
-        label: 'Observable Database',
-        desc: 'Yeti-inspired persistent IOC storage. Searchable by indicator/type/score/tag with enrichment history.',
-        icon: Database,
-        badge: 'new',
-      },
-      {
-        to: '/threatintel/iocs',
-        label: 'Observable 360',
-        desc: 'Unified entity view — resolve IPs, domains, hashes, CVEs, and threat actors against cached IOCs, C2 feeds, breach data, and wiki articles.',
-        icon: Radar,
-        badge: 'new',
-      },
-      {
-        to: '/threatintel/tools',
-        label: 'Unified Search',
-        desc: 'Cross-source search across 10+ threat intel sources — CVE, threat actors, ransomware, malware, IoC feeds, Telegram, breach data.',
-        icon: Search,
-        badge: 'new',
-      },
-      {
-        to: '/threatintel/tools',
-        label: 'Entity Resolution',
-        desc: 'Resolve threat actor names, ransomware groups, CVEs, IPs, domains, and hashes against a curated 500+ entry alias index.',
-        icon: Search,
-        badge: 'new',
-      },
-      {
-        to: '/threatintel/tools',
-        label: 'Relationship Graph',
-        desc: 'Interactive graph of cross-source connections between CVEs, threat actors, ransomware groups, IPs, domains, and hashes.',
-        icon: Globe2,
-        badge: 'new',
-      },
-      {
-        to: '/threatintel/tools',
-        label: 'Webamon',
-        desc: 'Search 750M+ scanned domains, submit URLs for sandbox analysis, and explore infrastructure relationships — all in one view.',
-        icon: Globe2,
-        badge: 'new',
-      },
-      {
-        to: '/threatintel/tools',
-        label: 'Investigation Board',
-        desc: 'TheHive-inspired case management. Create investigations with severity/TLP/status, manage observables, track tasks.',
-        icon: Shield,
-        badge: 'new',
-      },
-    ],
-  },
-  // ── IOC Enrichment & Tools ──────────────────────────────────────
-  {
-    id: 'ioc-enrichment-tools',
-    label: 'IOC Enrichment & Tools',
-    blurb: 'Provider-based enrichment, API key management, and platform integrations.',
-    tools: [
-      {
-        to: '/threatintel/iocs',
-        label: 'IOC Enrichment',
-        desc: 'Query external free threat intel APIs — Maltiverse, InQuest Labs, CertSpotter, HackerTarget DNS, Cloudflare Radar — from one interface.',
-        icon: Search,
-        badge: 'new',
-      },
-      {
-        to: '/threatintel/iocs',
-        label: 'MyThreatIntel',
-        desc: 'Authenticated, edge-cached view of the MyThreatIntel CTI platform REST API: IOCs, malware, CVEs, ransomware victims, leaks, threat groups.',
-        icon: Radar,
-        badge: 'live',
-      },
-      {
-        to: '/threatintel/tools',
-        label: 'MISP Browser',
-        desc: 'Connect to any MISP instance to browse events, attributes, objects, galaxies, and tags.',
-        icon: Search,
-      },
-      {
-        to: '/threatintel/tools',
-        label: 'API Keys & Settings',
-        desc: 'Reference table of 21 provider API keys with environment variable names, signup URLs, and free-tier limits.',
-        icon: KeyRound,
-        badge: 'new',
-      },
-      {
-        to: '/threatintel/tools',
-        label: 'Telegram Settings',
-        desc: 'Manage custom Telegram channels for the Cybersec Telegram firehose. Add channels by @handle, view active list.',
-        icon: Send,
-        badge: 'new',
-      },
-      {
-        to: '/threatintel/tools',
-        label: 'ProjectDiscovery Intel',
-        desc: 'Free ProjectDiscovery intel — combolist/leak exposure for an email or domain, Chaos public-domain subdomain recon, and the Nuclei-template CVE catalogue. No paid PD scan credits used.',
-        icon: Target,
-        badge: 'new',
-      },
-    ],
-  },
-  // ── Feed Management ─────────────────────────────────────────────
-  {
-    id: 'feed-management',
-    label: 'Feed Management',
-    blurb: 'RSS source catalog, feed scheduler, alert engine, and feed file browser.',
-    tools: [
-      {
-        to: '/threatintel/feeds',
-        label: 'Feed Sources',
-        desc: 'Browse and manage all 50+ RSS feeds grouped by category — ransomware, APT, malware, CVE, dark-web, press, research.',
-        icon: Radio,
-        badge: 'new',
-      },
-      {
-        to: '/threatintel/feeds',
-        label: 'Feed Scheduler',
-        desc: 'INTELMQ/Yeti-inspired feed collection. Configure external sources, set intervals, manual trigger with live fetch.',
-        icon: Radio,
-        badge: 'new',
-      },
-      {
-        to: '/threatintel/feeds',
-        label: 'Alert Engine',
-        desc: 'Set up keyword watches on threat feeds. KV-backed event history with per-trigger context and webhook alerts.',
-        icon: Bell,
-        badge: 'new',
-      },
-      {
-        to: '/threatintel/feeds',
-        label: 'Feed File Catalog',
-        desc: 'Browse all CriticalPathSecurity public feed files with search, category filter, and sample entries.',
-        icon: Layers,
-        badge: 'new',
-      },
-    ],
-  },
-  // ── Briefings & Assessments ─────────────────────────────────────
-  {
-    id: 'briefings',
-    label: 'Briefings & Assessments',
-    blurb: 'Intel briefings, cross-correlation insights, and published assessments.',
-    tools: [
-      {
-        to: '/threatintel/briefings',
-        label: 'Intel Briefings',
-        desc: 'Daily/weekly tactical digest plus monthly Threat Landscape Reports (top threats, trending actors, key incidents, recommended actions, outlook). Filter by Daily · Weekly · Landscape.',
-        icon: Briefcase,
-        badge: 'new',
-      },
-      {
-        to: '/threatintel/briefings',
-        label: 'Cross-Correlate',
-        desc: 'Cross-source intelligence correlation. Identify critical and high-severity insights across actors, sectors, and TTPs.',
-        icon: GitBranch,
-        badge: 'new',
-      },
-      {
-        to: '/threatintel/briefings',
-        label: 'Intel Assessments',
-        desc: 'Published threat intelligence assessments with confidence scoring, status tracking, and sector tagging.',
-        icon: FileText,
-        badge: 'new',
-      },
-    ],
-  },
-  // ── IOC Intelligence ────────────────────────────────────────────
-  {
-    id: 'ioc-intelligence',
-    label: 'IOC Intelligence',
-    blurb: 'Fresh indicators, cross-source correlation, C2 infra, and certificate monitoring.',
-    tools: [
-      {
-        to: '/threatintel/iocs',
-        label: 'Wiz Cloud Threat Landscape',
-        desc: 'Cloud / SaaS / identity threat campaigns, intrusion sets, and actors curated by Wiz Research (STIX 2.1).',
-        icon: Cloud,
-        badge: 'new',
-      },
-      {
-        to: '/threatintel/iocs',
-        label: 'Live IOC stream',
-        desc: 'Chronological firehose with per-IOC reporter handles + timestamps. Sources: TweetFeed, SANS ISC, C2IntelFeeds, URLhaus, ThreatFox, MalwareBazaar.',
-        icon: Radio,
-        badge: 'live',
-      },
-      {
-        to: '/threatintel/iocs',
-        label: 'Cross-source IOC correlation',
-        desc: 'Indicators that appear in 2+ independent feeds, ranked by source consensus.',
-        icon: GitBranchPlus,
-      },
-      {
-        to: '/threatintel/c2-tracker',
-        label: 'C2 Infrastructure Tracker',
-        desc: 'Live C2 server IPs from drb-ra/C2IntelFeeds and abuse.ch ThreatFox. Filter by framework: Cobalt Strike, Sliver, Metasploit, etc.',
-        icon: Radar,
-        badge: 'new',
-      },
-      {
-        to: '/threatintel/iocs',
-        label: 'CertStream live feed',
-        desc: 'Polls crt.sh every 15s for newly-issued certificates matching a keyword. Built-in suspicion scoring.',
-        icon: Radio,
-        badge: 'new',
-      },
-      {
-        to: '/threatintel/iocs',
-        label: 'Supply Chain Intelligence',
-        desc: 'depx-style dashboard: package verdict checker, OSSF malicious package directory, OSV integration. Check if any npm/PyPI/Go/Maven package is known-malicious.',
-        icon: Shield,
-        badge: 'new',
-      },
-      {
-        to: '/threatintel/iocs',
-        label: 'Malicious package directory',
-        desc: 'Cross-ecosystem malware/typosquat/dependency-confusion IOCs across npm, PyPI, RubyGems, Maven, Go, Rust.',
-        icon: KeyRound,
-        badge: 'new',
-      },
-      {
-        to: '/threatintel/iocs',
-        label: 'Supply-chain attack incidents',
-        desc: 'Confirmed software supply-chain compromises (npm/PyPI/container/AI-agents) with status, severity, blast radius, remediation, and GHSA sources — from supplychainattack.org.',
-        icon: AlertOctagon,
-        badge: 'new',
-      },
-    ],
-  },
-  // ── Detection & Rules ───────────────────────────────────────────
-  {
-    id: 'detection-rules',
-    label: 'Detection & Rules',
-    blurb: 'Detection rules, CVE updates, domain monitoring, malware samples, and YARA.',
-    tools: [
-      {
-        to: '/threatintel/detections',
-        label: 'Kubernetes CVE Feed',
-        desc: 'The official Kubernetes CVE feed (kubernetes.io, CC-BY-4.0) — core-Kubernetes vulnerabilities with status + CVE-id pivots.',
-        icon: Bug,
-        badge: 'new',
-      },
-      {
-        to: '/threatintel/detections',
-        label: 'Detection Rules',
-        desc: 'Sigma, YARA, Elastic, Splunk, KQL, and Suricata. Live commit feeds from upstream repos.',
-        icon: FileCode,
-      },
-      {
-        to: '/threatintel/detections',
-        label: 'GoXDR KQL Library',
-        desc: '100+ curated KQL detection queries for Sentinel + Defender XDR — identity, NTLM, LDAP, lateral movement, shadow IT.',
-        icon: FileCode,
-        badge: 'new',
-      },
-      {
-        to: '/threatintel/detections',
-        label: 'Detections',
-        desc: 'Curated detection-rule pack evaluated hourly against the unified live-IOC stream. Write your own in the Detection Lab.',
-        icon: AlertOctagon,
-        badge: 'new',
-      },
-      {
-        to: '/threatintel/cves',
-        label: 'Live CVE updates',
-        desc: 'NVD published-CVE feed (last 14 days) merged with CISA KEV catalogue. Severity, KEV flag, ransomware-use flag.',
-        icon: Shield,
-        badge: 'live',
-      },
-      {
-        to: '/threatintel/cves',
-        label: 'Exploitable CVEs',
-        desc: 'Live feed of CVEs with known exploits and active exploitation. Aggregated from vendor labs, CISA KEV, Lyrie Research, and community sources. Modeled after redteam.community.',
-        icon: Zap,
-        badge: 'new',
-      },
-      {
-        to: '/threatintel/cves',
-        label: 'CISA KEV Catalog',
-        desc: 'Interactive catalog of CISA Known Exploited Vulnerabilities — filter by vendor, product, ransomware use, and timeframe. Export to JSON/CSV.',
-        icon: ShieldAlert,
-        badge: 'new',
-      },
-      {
-        to: '/threatintel/cves',
-        label: 'GitHub Advisories Feed',
-        desc: 'Live GitHub Security Advisory feed — reviewed vulnerabilities with severity, ecosystem breakdown, and auto-refresh.',
-        icon: Bug,
-        badge: 'live',
-      },
-      {
-        to: '/threatintel/tools',
-        label: 'Domain Monitor',
-        desc: 'Typosquatting and domain impersonation scanner. Generates lookalike variants, TLD swaps, homoglyphs.',
-        icon: Search,
-      },
-      {
-        to: '/threatintel/malware',
-        label: 'Malware IOC Browser',
-        desc: 'Browse 50+ malware families with IOC lists. Left sidebar family selector, right panel shows IPs/domains/hashes/URLs per family.',
-        icon: Bug,
-        badge: 'new',
-      },
-      {
-        to: '/threatintel/malware',
-        label: 'Malware Vault',
-        desc: 'Viper-inspired sample storage. Upload files, auto-hash, detect magic bytes, tag with family, search/download.',
-        icon: Shield,
-        badge: 'new',
-      },
-      {
-        to: '/threatintel/detections',
-        label: 'YARA Rule Browser',
-        desc: 'Browse and search YARA rules from YARAify. View rule details, download individual rules, and search by family or author.',
-        icon: FileCode,
-        badge: 'new',
-      },
-      {
-        to: '/threatintel/phishing',
-        label: 'Phishing Hunting Wordlists',
-        desc: 'Phishing-kit hunting wordlists (spmedia PhishingSecLists) — Gobuster/ffuf fuzzing lists for the filenames threat actors use to stash stolen creds, admin panels, and webshells on phishing infra.',
-        icon: FileText,
-        badge: 'new',
-      },
-      {
-        to: '/threatintel/phishing',
-        label: 'Phish Feed',
-        desc: 'Live phishing URL feed from OpenPhish + PhishTank. Export as plain list, hosts file, or AdBlock rules. Domain scanner, brand targeting, TLD risk scoring.',
-        icon: Fish,
-        badge: 'live',
-      },
-    ],
-  },
-  // ── Threat Actors ───────────────────────────────────────────────
+  // ── 2. Threat Actors ───────────────────────────────────────────
   {
     id: 'threat-actors',
     label: 'Threat Actors',
-    blurb: 'APT catalogues, actor knowledge base, timelines, DNA profiling, and malware family attribution.',
+    blurb: 'Actor profiles, knowledge base, timelines, and behavioral analysis.',
     tools: [
       {
         to: '/threatintel/threat-actor-catalog',
         label: 'Threat Actor Catalog',
-        desc: 'Curated profiles of 15 major threat actor groups — APTs, cybercrime, ransomware. Aliases, countries, malware, TTPs, campaigns, MITRE mapping.',
+        desc: 'Curated profiles of 15 major groups — aliases, countries, malware, TTPs, campaigns, MITRE mapping.',
         icon: Skull,
         badge: 'new',
       },
       {
-        to: '/threatintel/threat-landscape',
-        label: 'Threat Landscape',
-        desc: 'Current threat landscape overview — key stats, trending actors, top malware, emerging threats, attack vector distribution. Updated from live data.',
-        icon: LayoutDashboard,
-        badge: 'new',
-      },
-      {
         to: '/threatintel/actors',
-        label: 'Actor Alias Directory',
-        desc: 'Searchable threat-actor alias index from the MISP Galaxy threat-actor cluster (CC0/BSD-2) — synonyms, country, references.',
-        icon: Users,
-        badge: 'new',
-      },
-      {
-        to: '/threatintel/actors',
-        label: 'Volexity APT IOCs',
-        desc: "Volexity's published APT/malware research IOCs + YARA rules (BSD-2), per research write-up — pivot indicators to the IOC checker.",
-        icon: Users,
-        badge: 'new',
-      },
-      {
-        to: '/threatintel/actors',
-        label: 'DISARM (disinformation TTPs)',
-        desc: 'The DISARM framework for Foreign Information Manipulation & Interference (FIMI) — ATT&CK-shaped disinformation techniques + tactics (STIX 2.1, CC BY-SA).',
-        icon: Megaphone,
-        badge: 'new',
-      },
-      {
-        to: '/threatintel/actors',
-        label: 'Threat Actors',
-        desc: 'APT catalogue. STIX-aware, with TTPs, associated tooling, and MITRE technique mapping per actor.',
+        label: 'Actor Directory',
+        desc: 'Unified actor browser — MITRE ATT&CK, MISP Galaxy, and platform database with search.',
         icon: Users,
       },
+    ],
+  },
+  // ── 3. Ransomware ──────────────────────────────────────────────
+  {
+    id: 'ransomware',
+    label: 'Ransomware',
+    blurb: 'Leak-site tracking, negotiations, crypto wallets, and victim monitoring.',
+    tools: [
       {
-        to: '/threatintel/actors',
-        label: 'Threat-Actor Knowledge Base',
-        desc: '174 MITRE ATT&CK intrusion-sets. Search by name / alias / Gxxxx / technique / malware.',
-        icon: BookText,
+        to: '/threatintel/iocs',
+        label: 'Ransomware Hub',
+        desc: 'Live leak-site claims, group activity, victim geo-heatmap, negotiation logs, and crypto wallet tracking.',
+        icon: Flame,
       },
+    ],
+  },
+  // ── 4. Dark Web ────────────────────────────────────────────────
+  {
+    id: 'dark-web',
+    label: 'Dark Web',
+    blurb: 'Criminal forums, dark markets, and onion infrastructure.',
+    tools: [
       {
-        to: '/threatintel/actors',
-        label: 'Actor activity timeline',
-        desc: 'Per-actor leak-site cadence Gantt for the most-active ransomware groups.',
-        icon: BarChart3,
+        to: '/threatintel/darkweb',
+        label: 'Dark Web Watch',
+        desc: 'Aggregated leak-site, ransomware, breach activity, keyword watchlist, and per-source separation.',
+        icon: Globe,
       },
+    ],
+  },
+  // ── 5. Breach & Leaks ──────────────────────────────────────────
+  {
+    id: 'breach-leaks',
+    label: 'Breach & Leaks',
+    blurb: 'Breach disclosures, infostealer logs, and leak monitoring.',
+    tools: [
       {
-        to: '/threatintel/actors',
-        label: 'Actor Behavioral DNA',
-        desc: 'Fingerprint threat actors by behavior. TTP signatures, infrastructure patterns, operational tempo, victimology.',
-        icon: Dna,
-        badge: 'new',
+        to: '/threatintel/iocs',
+        label: 'Breach & Leak Hub',
+        desc: 'Live breach disclosures, infostealer tracker, scam alerts, Telegram leaks, and secret leak dashboard.',
+        icon: ShieldAlert,
       },
+    ],
+  },
+  // ── 6. Live Feeds ──────────────────────────────────────────────
+  {
+    id: 'live-feeds',
+    label: 'Live Feeds',
+    blurb: 'Streaming social feeds from Telegram, Reddit, Bluesky, and X.',
+    tools: [
+      {
+        to: '/threatintel/social',
+        label: 'Social & Telegram Feeds',
+        desc: 'Cybersec Telegram firehose, Reddit, X/Bluesky, Mastodon, prediction markets, and scam watch.',
+        icon: Radio,
+        badge: 'live',
+      },
+    ],
+  },
+  // ── 7. IOC Intelligence ────────────────────────────────────────
+  {
+    id: 'ioc-intelligence',
+    label: 'IOC Intelligence',
+    blurb: 'Live indicators, C2 tracking, certificate monitoring, and supply chain intel.',
+    tools: [
+      {
+        to: '/threatintel/iocs',
+        label: 'IOC Hub',
+        desc: 'Live IOC stream, cross-source correlation, C2 tracker, CertStream, supply chain intelligence, and malicious packages.',
+        icon: Target,
+        badge: 'live',
+      },
+    ],
+  },
+  // ── 8. Detection & Rules ───────────────────────────────────────
+  {
+    id: 'detection-rules',
+    label: 'Detection & Rules',
+    blurb: 'Sigma, YARA, Suricata rules, CVE feeds, and domain monitoring.',
+    tools: [
+      {
+        to: '/threatintel/detections',
+        label: 'Detection Hub',
+        desc: 'Detection rules (Sigma/YARA/Suricata), GoXDR KQL library, CVE feeds, KEV catalog, malware IOC browser, and YARA rules.',
+        icon: Shield,
+      },
+    ],
+  },
+  // ── 9. CVE & Vulnerabilities ───────────────────────────────────
+  {
+    id: 'cves',
+    label: 'CVE & Vulnerabilities',
+    blurb: 'NVD feeds, CISA KEV, exploit tracking, and GitHub advisories.',
+    tools: [
+      {
+        to: '/threatintel/cves',
+        label: 'CVE Hub',
+        desc: 'Live CVE updates, exploitable CVEs, CISA KEV catalog, GitHub advisories, and Kubernetes CVE feed.',
+        icon: AlertTriangle,
+      },
+    ],
+  },
+  // ── 10. Malware ────────────────────────────────────────────────
+  {
+    id: 'malware',
+    label: 'Malware',
+    blurb: 'IOC browser, sandbox analysis, vault, and family attribution.',
+    tools: [
       {
         to: '/threatintel/malware',
-        label: 'Malpedia',
-        desc: 'Malware family attribution via Fraunhofer FKIE. Search actors and families for descriptions and references.',
+        label: 'Malware Hub',
+        desc: 'Malware IOC browser (50+ families), sandbox analysis, malware vault, Malpedia, and Maltrail APT trails.',
         icon: Bug,
-        badge: 'new',
       },
       {
-        to: '/threatintel/malware',
-        label: 'Maltrail APT Trails',
-        desc: 'Per-actor IOC trail files curated by Miroslav Stampar. Browse 75+ APT trail files.',
-        icon: FileCode,
-        badge: 'new',
-      },
-      {
-        to: '/threatintel/osint',
-        label: 'Threat-Actor Usernames',
-        desc: 'Search ~291k threat-actor handles scraped from ~25 cybercrime/hacking forums (spmedia Threat-Actor-Usernames-Scrape). Shows which forums a handle appears on, active vs. defunct.',
-        icon: UserCheck,
-        badge: 'new',
-      },
-      {
-        to: '/threatintel/osint',
-        label: 'Forum Handles (ScrapedIntel)',
-        desc: 'Live search of 2M+ threat-actor handles indexed across cybercrime forums & open sources (threatactorusernames.com / ScrapedIntel). Shows which forums a handle appears on. Rate-limited, edge-cached.',
-        icon: UserCheck,
+        to: '/threatintel/malware-sandbox',
+        label: 'Malware Sandbox',
+        desc: 'Hash lookup across 10+ public sandbox platforms — consensus verdict, family attribution, one-click detonation.',
+        icon: Bug,
         badge: 'new',
       },
     ],
   },
-  // ── Frameworks ──────────────────────────────────────────────────
+  // ── 11. Phishing ───────────────────────────────────────────────
+  {
+    id: 'phishing',
+    label: 'Phishing',
+    blurb: 'Phishing wordlists, email defense, and domain monitoring.',
+    tools: [
+      {
+        to: '/threatintel/phishing',
+        label: 'Phishing Hub',
+        desc: 'Phishing hunting wordlists, phish feed, email defense analysis, and domain impersonation monitoring.',
+        icon: ShieldAlert,
+      },
+    ],
+  },
+  // ── 12. SOC Dashboards ─────────────────────────────────────────
+  {
+    id: 'soc-dashboards',
+    label: 'SOC Dashboards',
+    blurb: 'Operational panels for ransomware, vulnerabilities, and IOC streams.',
+    tools: [
+      {
+        to: '/threatintel/soc-dashboard',
+        label: 'SOC Dashboards',
+        desc: 'Red/cyan/purple panels — ransomware activity, vulnerability index, and IOC stream with consensus scoring.',
+        icon: LayoutDashboard,
+        badge: 'new',
+      },
+    ],
+  },
+  // ── 13. Campaigns & Attribution ────────────────────────────────
+  {
+    id: 'campaigns',
+    label: 'Campaigns & Attribution',
+    blurb: 'Campaign lifecycle, cross-campaign correlation, and attribution framework.',
+    tools: [
+      {
+        to: '/threatintel/campaigns',
+        label: 'Campaigns Hub',
+        desc: 'Campaign lifecycle tracking, cross-campaign correlation, and multi-signal attribution framework.',
+        icon: GitBranch,
+      },
+    ],
+  },
+  // ── 14. Frameworks & Reference ─────────────────────────────────
   {
     id: 'frameworks',
-    label: 'Frameworks',
+    label: 'Frameworks & Reference',
     blurb: 'MITRE ATT&CK, ATLAS, insider threat matrix, and analytic tradecraft.',
     tools: [
       {
         to: '/threatintel/tools',
-        label: 'Attack Flow Library',
-        desc: 'CTID Attack Flow corpus — ~40 real incidents as ordered STIX 2.1 attack-flow graphs (Apache-2.0). Browse + render a flow.',
-        icon: GitBranch,
-        badge: 'new',
+        label: 'Frameworks Hub',
+        desc: 'MITRE ATT&CK matrix, ATLAS (AI/ML), LLM Threat Atlas, insider threat matrix, ACH, F3EAD, and attack flow library.',
+        icon: Compass,
+      },
+    ],
+  },
+  // ── 15. OSINT Tools ────────────────────────────────────────────
+  {
+    id: 'osint',
+    label: 'OSINT Tools',
+    blurb: 'Username search, OSINT frameworks, and tool directories.',
+    tools: [
+      {
+        to: '/threatintel/osint',
+        label: 'OSINT Hub',
+        desc: 'Username search (291k handles), OSINT framework (70+ tools), OSINT country map, and tool directories.',
+        icon: Search,
       },
       {
-        to: '/threatintel/tools',
-        label: 'MITRE ATT&CK',
-        desc: 'The matrix, plus per-technique deep-dives. Pivot both ways: actor to technique, technique to actor.',
-        icon: Grid3x3,
-      },
-      {
-        to: '/threatintel/tools',
-        label: 'MITRE ATLAS (AI/ML)',
-        desc: 'Adversarial-ML taxonomy — tactics, techniques, and real-world case studies of attacks on AI and ML systems.',
-        icon: Grid3x3,
-      },
-      {
-        to: '/threatintel/tools',
-        label: 'LLM Threat Coverage Atlas',
-        desc: '480 curated LLM/agentic-AI attack vectors across 15 domains (prompt injection, RAG, tools, MCP, quorum, identity, supply chain, output handling, DoS, extraction, multi-agent, multimodal, human factors, ops, plugins). OWASP/MITRE mappings, scores, test guidance, framework cross-walk.',
-        icon: BrainCircuit,
-        badge: 'new',
-      },
-      {
-        to: '/threatintel/tools',
-        label: 'Insider Threat Matrix',
-        desc: 'Open framework for insider threat investigations. 140+ techniques across Motive, Means, Preparation, Infringement.',
-        icon: UserCheck,
-        badge: 'new',
-      },
-      {
-        to: '/threatintel/tools',
-        label: 'ACH (Analysis of Competing Hypotheses)',
-        desc: 'Structured analytic technique. Define hypotheses, weigh evidence for/against, track diagnostic value.',
-        icon: Scale,
-        badge: 'new',
-      },
-      {
-        to: '/threatintel/tools',
-        label: 'F3EAD (Find, Fix, Finish, Exploit, Analyze, Disseminate)',
-        desc: 'US SOF targeting doctrine adapted to CTI. Six-phase loop that closes the ops-intel gap, with cross-links to IR playbooks, threat hunting, ACH, briefings, and IOC lifecycle.',
-        icon: Crosshair,
+        to: '/threatintel/osint-cli-tools',
+        label: 'OSINT CLI Tools',
+        desc: '55+ curated CLI tools across 10 categories — username, email, domain, social, dorking, recon.',
+        icon: Terminal,
         badge: 'new',
       },
     ],
   },
-  // ── Attribution & Campaigns ─────────────────────────────────────
+  // ── 16. AI & Automation ────────────────────────────────────────
   {
-    id: 'attribution-campaigns',
-    label: 'Attribution & Campaigns',
-    blurb: 'Multi-signal attribution, campaign lifecycle, cross-campaign correlation, and forecasting.',
+    id: 'ai-automation',
+    label: 'AI & Automation',
+    blurb: 'AI copilot, campaign generator, and analysis orchestration.',
     tools: [
-      {
-        to: '/threatintel/actors',
-        label: 'Attribution Framework',
-        desc: 'Multi-signal attribution with confidence scoring. Technical, behavioral, and infrastructure evidence analysis.',
-        icon: Scale,
-        badge: 'new',
-      },
-      {
-        to: '/threatintel/campaigns',
-        label: 'Campaign Lifecycle',
-        desc: 'Track campaigns from preparation to monetization. Predictive modeling, kill chain phases, escalation detection.',
-        icon: Target,
-        badge: 'new',
-      },
-      {
-        to: '/threatintel/campaigns',
-        label: 'Cross-Campaign Correlation',
-        desc: 'Find connections between campaigns: shared infrastructure, tooling, and TTPs.',
-        icon: GitBranch,
-        badge: 'new',
-      },
-      {
-        to: '/threatintel/predictive',
-        label: 'Predictive Intelligence',
-        desc: 'AI-driven threat forecasting based on current intelligence trends, actor behavior patterns, and historical data.',
-        icon: TrendingUp,
-        badge: 'new',
-      },
-    ],
-  },
-  // ── Research & Writing ──────────────────────────────────────────
-  {
-    id: 'research-writing',
-    label: 'Research & Writing',
-    blurb: 'Authored research, elite vendor analysis, and broad-ecosystem writeups.',
-    tools: [
-      {
-        to: '/threatintel/research-hub',
-        label: 'Research (authored)',
-        desc: "Original adversary-tracking and methodology pieces by Pranith Jain. Every claim sourced to the platform's data or third-party reporting.",
-        icon: FileText,
-      },
-      {
-        to: '/threatintel/research-hub',
-        label: 'Research Signal',
-        desc: 'Tight curated set of elite vendor labs + independent research only (DFIR Report, SentinelLabs, Unit 42, Huntress, etc).',
-        icon: Radio,
-        badge: 'live',
-      },
-      {
-        to: '/threatintel/research-hub',
-        label: 'Writeups Feed',
-        desc: 'Broad ecosystem cut. Krebs, BleepingComputer, CrowdStrike, ESET, Recorded Future, Intezer, and Medium threat-intel feeds.',
-        icon: BookText,
-        badge: 'live',
-      },
-      {
-        to: '/threatintel/research-hub',
-        label: 'ThreatSignal RSS',
-        desc: 'Live merged feed of threatsignal.in (Threat Intel / Defensive Sec / Offensive Tradecraft / Advanced Research) plus opensourcemalware.com (open-source software-supply-chain malware). Edge-aggregated, 15-min cache, source pills, category filters, weekly-fresh toggle.',
-        icon: Rss,
-        badge: 'live',
-      },
-    ],
-  },
-  // ── Knowledge & Reference ───────────────────────────────────────
-  {
-    id: 'knowledge-reference',
-    label: 'Knowledge & Reference',
-    blurb: 'Wiki, catalogs, awesome lists, external resources, and Telegram directory.',
-    tools: [
-      {
-        to: '/threatintel/about',
-        label: 'About the platform',
-        desc: "What's covered, the data-principles that shape it (live-not-cached, verify-first, cross-source, open/portable), and the analyst-first design intent behind the surface.",
-        icon: Info,
-      },
-      {
-        to: '/threatintel/wiki',
-        label: 'Knowledge Base',
-        desc: 'Long-form articles on Telegram OSINT tradecraft, dark-web monitoring, MITRE workflows, and briefing methodology.',
-        icon: BookOpen,
-      },
-      {
-        to: '/threatintel/cves',
-        label: 'CVE Resources Catalog',
-        desc: 'About 70 curated CVE sources. Databases, exploit and PoC repos, vendor PSIRTs, scoring services, research labs.',
-        icon: BookText,
-      },
       {
         to: '/threatintel/tools',
-        label: 'SecOps Tools Catalog',
-        desc: 'About 140 hand-picked tools across 14 categories: DFIR, Threat Intel, AI Sec, Malware, Vuln Mgmt, Detection.',
-        icon: Layers,
-      },
-      {
-        to: '/threatintel/external',
-        label: 'Awesome Lists',
-        desc: 'GitHub awesome-lists for OSINT, threat intel, IR, and MCP / AI security. Filterable by stars and focus area.',
+        label: 'AI & Automation Hub',
+        desc: 'AI Investigation Copilot, AI Chat, campaign generator, analysis orchestration, MCP search, and AI report showcase.',
         icon: Sparkles,
+        badge: 'new',
       },
+    ],
+  },
+  // ── 17. Briefings & Reports ────────────────────────────────────
+  {
+    id: 'briefings',
+    label: 'Briefings & Reports',
+    blurb: 'Daily digests, threat landscape reports, and intel assessments.',
+    tools: [
       {
-        to: '/threatintel/external',
-        label: 'External Resources',
-        desc: 'Off-site cross-references: dashboards, OSINT directories, training labs, malware samples, research portfolios.',
-        icon: ExternalLink,
+        to: '/threatintel/briefings',
+        label: 'Briefings Hub',
+        desc: 'Daily/weekly tactical digests, threat landscape reports, cross-correlate insights, and published assessments.',
+        icon: Newspaper,
       },
       {
         to: '/threatintel/reports',
         label: 'Threat Intel Reports',
-        desc: 'Original threat intelligence reports with structured IOCs, detection rules (Sigma/YARA/Suricata), and severity scoring. Aggregated from research sources.',
+        desc: 'Original research reports with IOCs, detection rules, and severity scoring.',
         icon: FileText,
         badge: 'new',
       },
+    ],
+  },
+  // ── 18. Feed Management ────────────────────────────────────────
+  {
+    id: 'feed-management',
+    label: 'Feed Management',
+    blurb: 'RSS sources, feed scheduler, alert engine, and feed catalog.',
+    tools: [
       {
-        to: '/threatintel/osint-cli-tools',
-        label: 'OSINT CLI Tools Directory',
-        desc: '55+ curated OSINT command-line tools organized by use case — username hunting, email intel, domain recon, social media, dorking, malware analysis.',
-        icon: Terminal,
-        badge: 'new',
+        to: '/threatintel/feeds',
+        label: 'Feed Hub',
+        desc: 'Feed sources (50+ RSS), feed scheduler, alert engine, feed file catalog, and aggregated feeds.',
+        icon: Rss,
       },
+    ],
+  },
+  // ── 19. Data & Search ──────────────────────────────────────────
+  {
+    id: 'data-search',
+    label: 'Data & Search',
+    blurb: 'Observable storage, entity resolution, and investigation board.',
+    tools: [
+      {
+        to: '/threatintel/tools',
+        label: 'Data & Search Hub',
+        desc: 'Observable database, entity resolution, relationship graph, webamon, investigations, and unified search.',
+        icon: Database,
+      },
+    ],
+  },
+  // ── 20. STIX & Export ──────────────────────────────────────────
+  {
+    id: 'stix-export',
+    label: 'STIX & Export',
+    blurb: 'STIX 2.1 bundles, IOC feeds, and export formats.',
+    tools: [
       {
         to: '/threatintel/stix-bundles',
         label: 'STIX Bundle Browser',
-        desc: 'Browse and download STIX 2.1 threat intelligence bundles — import into OpenCTI, MISP, or any STIX-aware platform. 12 campaigns, 247 IOCs.',
+        desc: 'Browse and download STIX 2.1 bundles — import into OpenCTI, MISP, or any STIX-aware platform.',
         icon: GitBranch,
         badge: 'new',
       },
       {
         to: '/threatintel/ioc-feeds',
         label: 'IOC Feeds',
-        desc: 'Structured indicator feeds ready for SIEM, EDR, or CTI platform ingestion. 17 feeds with copy-URL and download.',
+        desc: 'Structured indicator feeds ready for SIEM, EDR, or CTI platform ingestion.',
         icon: Rss,
         badge: 'new',
       },
+    ],
+  },
+  // ── 21. External Resources ─────────────────────────────────────
+  {
+    id: 'external',
+    label: 'External Resources',
+    blurb: 'Off-site tools, catalogs, and reference materials.',
+    tools: [
       {
-        to: '/threatintel/malware-sandbox',
-        label: 'Malware Sandbox',
-        desc: 'Hash lookup across 10+ public sandbox platforms — consensus verdict, malware family attribution, behavioral analysis, one-click detonation links.',
-        icon: Bug,
-        badge: 'new',
-      },
-      {
-        to: '/threatintel/tools',
-        label: 'OWASP AI Landscape',
-        desc: 'Full tree of OWASP AI / ML / agentic projects — guides, cheat sheets, CTFs. Auto-synced daily from the public data.json.',
-        icon: Shield,
-        badge: 'live',
-      },
-      {
-        to: '/threatintel/tools',
-        label: 'Curated Threat-Intel Toolbox',
-        desc: 'Mirror of Harun Seker’s "Mastering Threat Intelligence Platforms" start.me page. Synced daily via Jina Reader.',
-        icon: Layers,
-        badge: 'live',
-      },
-      {
-        to: '/threatintel/osint',
-        label: 'OSINT Country Map',
-        desc: 'Interactive world map of OSINT resources by country — click any nation for jurisdiction-specific tools, registries, and investigation links.',
-        icon: Globe,
-      },
-      {
-        to: '/threatintel/osint',
-        label: 'OSINT Framework',
-        desc: '70+ curated OSINT tools across 15 categories. Filter by pricing tier and category.',
-        icon: Compass,
-      },
-      {
-        to: '/threatintel/social',
-        label: 'Telegram Catalog',
-        desc: 'Curated index of public threat-intel, cybercrime, and OSINT Telegram channels. Category and language filters.',
-        icon: Send,
+        to: '/threatintel/external',
+        label: 'External Resources',
+        desc: 'Off-site cross-references — dashboards, OSINT directories, training labs, malware samples, research portfolios.',
+        icon: ExternalLink,
       },
     ],
   },
 ];
 
-export interface ToolMatch {
-  tool: Tool;
-  section: Section;
+// ── Helper functions ──────────────────────────────────────────────
+
+/** Flatten all tools across sections into a single array with section context. */
+export function flattenTools(sections: Section[]): Array<Tool & { section: Section }> {
+  return sections.flatMap((s) => s.tools.map((t) => ({ ...t, section: s })));
 }
 
-export function flattenTools(sections: Section[]): ToolMatch[] {
-  return sections.flatMap((s) => s.tools.map((t) => ({ tool: t, section: s })));
-}
-
-export function matchesQuery(t: ToolMatch, q: string): boolean {
-  if (!q) return true;
-  const hay = `${t.tool.label} ${t.tool.desc} ${t.section.label}`.toLowerCase();
-  return q
-    .toLowerCase()
-    .split(/\s+/)
-    .filter(Boolean)
-    .every((token) => hay.includes(token));
+/** Simple search match against tool label + description + section label. */
+export function matchesQuery(tool: Tool & { section: Section }, query: string): boolean {
+  const q = query.toLowerCase();
+  return (
+    tool.label.toLowerCase().includes(q) ||
+    tool.desc.toLowerCase().includes(q) ||
+    tool.section.label.toLowerCase().includes(q)
+  );
 }

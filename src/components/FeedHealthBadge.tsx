@@ -49,7 +49,7 @@ export function FeedHealthBadge(): JSX.Element | null {
 
   return (
     <Link
-      to="/threatintel/status"
+      to="/threatintel/tools"
       className={`inline-flex items-center gap-2 rounded-lg border px-3 py-1.5 text-mini font-mono transition-colors hover:opacity-80 ${meta.bg}`}
     >
       <span className={`relative flex h-2 w-2 ${data.overall === 'ok' ? 'animate-pulse' : ''}`}>

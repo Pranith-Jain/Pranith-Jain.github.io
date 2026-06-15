@@ -4,14 +4,12 @@ import { ShieldCheck, Loader2 } from 'lucide-react';
 const Detections = lazy(() => import('./Detections'));
 const DisarmFramework = lazy(() => import('./DisarmFramework'));
 const YaraPage = lazy(() => import('./Yarahub'));
-const ThreatMap = lazy(() => import('../dfir/ThreatMap'));
 const ThreatSignalRss = lazy(() => import('./ThreatSignalRss'));
-type TabId = 'detections' | 'disarm' | 'yara' | 'map' | 'signal';
+type TabId = 'detections' | 'disarm' | 'yara' | 'signal';
 const TABS: Array<{ id: TabId; label: string; desc: string }> = [
   { id: 'detections', label: 'Detections', desc: 'Detection rule catalog' },
   { id: 'disarm', label: 'DISARM', desc: 'DISARM framework' },
   { id: 'yara', label: 'YARA', desc: 'YARA rule browser' },
-  { id: 'map', label: 'Threat Map', desc: 'Threat map visualization' },
   { id: 'signal', label: 'Signal', desc: 'ThreatSignal RSS feed' },
 ];
 function TabFallback() {
@@ -29,7 +27,7 @@ export default function DetectionHub(): JSX.Element {
       backTo="/threatintel"
       icon={<ShieldCheck size={28} />}
       title="Detection & Rules"
-      description="Detection rules, DISARM framework, YARA, and threat mapping."
+      description="Detection rules, DISARM framework, and YARA."
     >
       <nav
         className="flex flex-wrap gap-1 border-b border-slate-200 dark:border-slate-800 mb-6"
@@ -56,7 +54,6 @@ export default function DetectionHub(): JSX.Element {
           {activeTab === 'detections' && <Detections />}
           {activeTab === 'disarm' && <DisarmFramework />}
           {activeTab === 'yara' && <YaraPage />}
-          {activeTab === 'map' && <ThreatMap />}
           {activeTab === 'signal' && <ThreatSignalRss />}
         </Suspense>
       </div>

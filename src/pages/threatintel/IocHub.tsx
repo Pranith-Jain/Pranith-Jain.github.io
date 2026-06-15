@@ -6,13 +6,15 @@ const IocEnrichment = lazy(() => import('./IocEnrichment'));
 const IocFeedsPage = lazy(() => import('./IocFeedsPage'));
 const EntityResolution = lazy(() => import('./EntityResolution'));
 const C2Tracker = lazy(() => import('./C2Tracker'));
-type TabId = 'live' | 'enrichment' | 'feeds' | 'entity' | 'c2';
+const ThreatMap = lazy(() => import('../dfir/ThreatMap'));
+type TabId = 'live' | 'enrichment' | 'feeds' | 'entity' | 'c2' | 'map';
 const TABS: Array<{ id: TabId; label: string; desc: string }> = [
   { id: 'live', label: 'Live', desc: 'Real-time IOC feed' },
   { id: 'enrichment', label: 'Enrichment', desc: 'IOC enrichment and lookup' },
   { id: 'feeds', label: 'Feeds', desc: 'IOC feed catalog' },
   { id: 'entity', label: 'Entity', desc: 'Entity resolution across intel sources' },
   { id: 'c2', label: 'C2', desc: 'C2 infrastructure tracker' },
+  { id: 'map', label: 'Threat Map', desc: 'Geo-visualization of IOCs by country' },
 ];
 function TabFallback() {
   return (
@@ -29,7 +31,7 @@ export default function IocHub(): JSX.Element {
       backTo="/threatintel"
       icon={<Crosshair size={28} />}
       title="IOC Intelligence"
-      description="Live IOC feeds, enrichment, and entity resolution."
+      description="Live IOC feeds, enrichment, entity resolution, and geo-visualization."
     >
       <nav className="flex flex-wrap gap-1 border-b border-slate-200 dark:border-slate-800 mb-6" aria-label="IOC tools">
         {TABS.map((t) => (
@@ -55,6 +57,7 @@ export default function IocHub(): JSX.Element {
           {activeTab === 'feeds' && <IocFeedsPage />}
           {activeTab === 'entity' && <EntityResolution />}
           {activeTab === 'c2' && <C2Tracker />}
+          {activeTab === 'map' && <ThreatMap />}
         </Suspense>
       </div>
     </DataPageLayout>

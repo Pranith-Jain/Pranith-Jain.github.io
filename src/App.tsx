@@ -110,6 +110,9 @@ const SandboxIntegration = lazy(() => import('./pages/dfir/SandboxIntegration'))
 const IrPlaybooks = lazy(() => import('./pages/dfir/IrPlaybooks'));
 const EmailDefense = lazy(() => import('./pages/dfir/EmailDefense'));
 const Nhi = lazy(() => import('./pages/dfir/Nhi'));
+const Pivex = lazy(() => import('./pages/dfir/Pivex'));
+const Tracepulse = lazy(() => import('./pages/dfir/Tracepulse'));
+const Quicktrace = lazy(() => import('./pages/dfir/Quicktrace'));
 const PowershellDeobf = lazy(() => import('./pages/dfir/PowershellDeobf'));
 const AgentMap = lazy(() => import('./pages/dfir/AgentMap'));
 const Tabletop = lazy(() => import('./pages/dfir/Tabletop'));
@@ -155,6 +158,11 @@ const MalwareScan = lazy(() => import('./pages/dfir/MalwareScan'));
 const MalwareCapabilities = lazy(() => import('./pages/dfir/MalwareCapabilities'));
 const SampleScan = lazy(() => import('./pages/dfir/SampleScan'));
 
+const InsightAi = lazy(() => import('./pages/dfir/InsightAi'));
+const QuerycraftAi = lazy(() => import('./pages/dfir/QuerycraftAi'));
+const ChronoAi = lazy(() => import('./pages/dfir/ChronoAi'));
+const MalbriefAi = lazy(() => import('./pages/dfir/MalbriefAi'));
+const VerdiktAi = lazy(() => import('./pages/dfir/VerdiktAi'));
 const ReverseImage = lazy(() => import('./pages/dfir/ReverseImage'));
 const EmlExtractor = lazy(() => import('./pages/dfir/EmlExtractor'));
 const Tracer = lazy(() => import('./pages/dfir/Tracer'));
@@ -199,6 +207,9 @@ const ApkAnalyzer = lazy(() => import('./pages/dfir/ApkAnalyzer'));
 const PgpTool = lazy(() => import('./pages/dfir/PgpTool'));
 const TorGateway = lazy(() => import('./pages/dfir/TorGateway'));
 const EmailReputation = lazy(() => import('./pages/dfir/EmailReputation'));
+const PhishOps = lazy(() => import('./pages/dfir/PhishOps'));
+const PhishBook = lazy(() => import('./pages/dfir/PhishBook'));
+const H3adLearn = lazy(() => import('./pages/threatintel/H3adLearn'));
 // (removed LiveFeedsPage and MyDashboardPage)
 const InfostealerDetail = lazy(() => import('./pages/threatintel/InfostealerDetail'));
 const DmarcAnalyzer = lazy(() => import('./pages/dfir/DmarcAnalyzer'));
@@ -339,6 +350,11 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/dfir/hunting-query-generator', Component: HuntingQueryGenerator },
   { path: '/dfir/sandbox', Component: SandboxIntegration },
   { path: '/dfir/ir-playbooks', Component: IrPlaybooks },
+  { path: '/dfir/phishops', Component: PhishOps },
+  { path: '/dfir/phishbook', Component: PhishBook },
+  { path: '/dfir/pivex', Component: Pivex },
+  { path: '/dfir/tracepulse', Component: Tracepulse },
+  { path: '/dfir/quicktrace', Component: Quicktrace },
   { path: '/dfir/email-defense', Component: EmailDefense },
   { path: '/dfir/dmarc-analyzer', Component: DmarcAnalyzer },
   { path: '/dfir/nhi', Component: Nhi },
@@ -405,6 +421,11 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/dfir/malware-scan', Component: MalwareScan },
   { path: '/dfir/malware-capabilities', Component: MalwareCapabilities },
   { path: '/dfir/sample-scan', Component: SampleScan },
+  { path: '/dfir/insight-ai', Component: InsightAi },
+  { path: '/dfir/querycraft-ai', Component: QuerycraftAi },
+  { path: '/dfir/chrono-ai', Component: ChronoAi },
+  { path: '/dfir/malbrief-ai', Component: MalbriefAi },
+  { path: '/dfir/verdikt-ai', Component: VerdiktAi },
 
   { path: '/dfir/reverse-image', Component: ReverseImage },
   { path: '/dfir/eml', Component: EmlExtractor },
@@ -425,6 +446,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel/feeds', Component: FeedHub },
   { path: '/threatintel/social', Component: SocialHub },
   { path: '/threatintel/phishing', Component: EmailPhishHub },
+  { path: '/threatintel/learn', Component: H3adLearn },
   { path: '/threatintel/infra', Component: InfraHub },
   { path: '/threatintel/detections', Component: DetectionHub },
   { path: '/threatintel/research-hub', Component: ResearchHub },

@@ -37,6 +37,31 @@
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
+  <!-- Misc (4) -->
+  <url>
+    <loc>https://pranithjain.qzz.io/behind-the-reports</loc>
+    <lastmod>2026-06-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://pranithjain.qzz.io/sponsor</loc>
+    <lastmod>2026-06-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://pranithjain.qzz.io/admin</loc>
+    <lastmod>2026-06-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://pranithjain.qzz.io/copilot</loc>
+    <lastmod>2026-06-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
   <!-- Landings (2) -->
   <url>
     <loc>https://pranithjain.qzz.io/dfir</loc>
@@ -765,7 +790,7 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
-  <!-- Threat Intel — pages (127) -->
+  <!-- Threat Intel — pages (129) -->
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/mitre</loc>
     <lastmod>2026-06-15</lastmod>
@@ -816,6 +841,12 @@
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/actors</loc>
+    <lastmod>2026-06-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://pranithjain.qzz.io/threatintel/most-wanted</loc>
     <lastmod>2026-06-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -882,6 +913,12 @@
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/mcp-search</loc>
+    <lastmod>2026-06-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://pranithjain.qzz.io/threatintel/live-center</loc>
     <lastmod>2026-06-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -1534,19 +1571,6 @@
     <lastmod>2026-06-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
-  </url>
-  <!-- Misc (2) -->
-  <url>
-    <loc>https://pranithjain.qzz.io/admin</loc>
-    <lastmod>2026-06-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://pranithjain.qzz.io/copilot</loc>
-    <lastmod>2026-06-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
   </url>
   <!-- Case studies (6) -->
   <url>

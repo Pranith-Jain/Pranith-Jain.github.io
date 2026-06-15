@@ -246,7 +246,7 @@ export function LivePulse(): JSX.Element {
 
           {/* IOCs in today's briefing */}
           <StatCell
-            to="/threatintel/live-iocs"
+            to="/threatintel/iocs"
             label="IOCs · today"
             icon={<Radar size={14} className="text-brand-600 dark:text-brand-400" aria-hidden="true" />}
             iconClass="bg-brand-500/10"

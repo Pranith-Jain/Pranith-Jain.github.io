@@ -36,27 +36,27 @@ import { SECTIONS, flattenTools, matchesQuery } from '../../data/threatintel-sec
  */
 const QUICK_ACTIONS: QuickAction[] = [
   {
-    to: '/threatintel/global-pulse',
+    to: '/threatintel/feeds',
     label: 'Global Pulse',
     description: 'Live 3D globe with 700+ events across 21 layers.',
     icon: Globe,
     badge: 'live',
   },
   {
-    to: '/threatintel/live-iocs',
+    to: '/threatintel/iocs',
     label: 'Live IOCs',
     description: 'Streaming indicator feed from 12 providers.',
     icon: Activity,
     badge: 'live',
   },
   {
-    to: '/threatintel/actor-kb',
+    to: '/threatintel/actors',
     label: 'Actor KB',
     description: 'Threat-actor knowledge base with cross-references.',
     icon: Users,
   },
   {
-    to: '/threatintel/cross-campaign',
+    to: '/threatintel/campaigns',
     label: 'Cross-Campaign',
     description: 'Find connections across campaigns + actors + IOCs.',
     icon: Link2,

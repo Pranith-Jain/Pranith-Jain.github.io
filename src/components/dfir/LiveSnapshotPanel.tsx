@@ -542,7 +542,7 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
           showNewBadge={lastVisit > 0}
           rightAction={
             <Link
-              to="/threatintel/scam-watch"
+              to="/threatintel/social"
               className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-0.5"
             >
               full feed <ExternalLink size={9} />

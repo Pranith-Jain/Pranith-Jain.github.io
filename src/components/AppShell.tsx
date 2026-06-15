@@ -29,6 +29,8 @@ const ROUTE_LABELS: Record<string, string> = {
   // ── DFIR ─────────────────────────────────────────────────────
   '/dfir/ioc-check': 'IOC & Hash Checker',
   '/dfir/phishing': 'Phishing',
+  '/dfir/phishops': 'PHISHOPS',
+  '/dfir/phishbook': 'PhishBook',
   '/dfir/domain-rep': 'Domain Reputation',
   '/dfir/threat-hunt': 'Threat Hunt',
   '/dfir/full-spectrum': 'Full Spectrum',
@@ -61,8 +63,9 @@ const ROUTE_LABELS: Record<string, string> = {
   '/dfir/tools': 'All Tools',
   '/dfir/tools/about': 'About the Toolkit',
   // ── Threat Intel ────────────────────────────────────────────
+  '/threatintel/learn': 'H3AD-LEARN',
   '/threatintel/pulse': 'Threat Pulse',
-  '/threatintel/live-iocs': 'Live IOCs',
+  '/threatintel/iocs': 'Live IOCs',
   '/threatintel/certstream': 'Cert Stream',
   '/threatintel/breach': 'Live Breach Disclosures',
   '/threatintel/actor-kb': 'Actor KB',
@@ -98,7 +101,7 @@ const ROUTE_LABELS: Record<string, string> = {
   '/threatintel/threat-map': 'Threat Map',
   '/threatintel/metrics': 'Metrics',
   '/threatintel/status': 'Feed Status',
-  '/threatintel/intel-dashboard': 'Intel Dashboard',
+  '/threatintel/tools': 'Intel Dashboard',
   '/threatintel/collection-slo': 'Collection SLO',
   '/threatintel/source-reliability': 'Source Reliability',
   '/threatintel/pir-dashboard': 'Intelligence Requirements',
