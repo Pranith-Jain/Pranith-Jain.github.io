@@ -32,6 +32,7 @@ export function cspHeader(nonce?: string): string {
     "img-src 'self' data: https:",
     "connect-src 'self' https://api.cloudflare.com https://cloudflare-dns.com https://cloudflareinsights.com https://*.cloudflareinsights.com https://unpkg.com https://cdn.jsdelivr.net https://d3js.org https://mr-akuma.github.io https://nominatim.openstreetmap.org https://goxdr.fyi",
     "font-src 'self' data:",
+    "frame-src 'self' blob:",
     "frame-ancestors 'none'",
     "base-uri 'self'",
     "form-action 'self'",
