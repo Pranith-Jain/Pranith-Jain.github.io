@@ -374,6 +374,16 @@ export const ruleValidateSchema = z.object({
   rule: z.string().min(1, 'rule body required').max(50_000, 'rule too long'),
 });
 
+// ── FPLENS — False Positive Likelihood Analyzer ────────────────
+// Open endpoint (not admin-gated). The handler is defensive against
+// LLM misbehavior — bad JSON falls back to an "insufficient detail"
+// rendering, not a 5xx.
+export const fplensAnalyzeSchema = z.object({
+  rule: z.string().min(1, 'rule is required').max(8_000, 'rule too long'),
+  sample_hits: z.string().max(4_000, 'sample_hits too long').optional(),
+  env_context: z.string().max(1_000, 'env_context too long').optional(),
+});
+
 // ── Feedback / Assessments (user data persistence) ──────────────
 
 export const threatIntelFeedbackSchema = z.object({
