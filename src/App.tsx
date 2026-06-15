@@ -142,6 +142,7 @@ const PrivacyHub = lazy(() => import('./pages/dfir/PrivacyHub'));
 const PersonalSecurity = lazy(() => import('./pages/dfir/PersonalSecurity'));
 const UsernamePivot = lazy(() => import('./pages/dfir/UsernamePivot'));
 const UsernameOsnit = lazy(() => import('./pages/dfir/UsernameOsnit'));
+const PhoneOsint = lazy(() => import('./pages/dfir/PhoneOsint'));
 const Wayback = lazy(() => import('./pages/dfir/Wayback'));
 const IpGeo = lazy(() => import('./pages/dfir/IpGeo'));
 const LogParser = lazy(() => import('./pages/dfir/LogParser'));
@@ -229,6 +230,7 @@ const GoXDRPage = lazy(() => import('./pages/threatintel/GoXDR'));
 const CryptoScamFeedPage = lazy(() => import('./pages/threatintel/CryptoScamFeed'));
 const ActorUsernamesPage = lazy(() => import('./pages/threatintel/ActorUsernames'));
 const ScrapedIntelUsernamesPage = lazy(() => import('./pages/threatintel/ScrapedIntelUsernames'));
+const ThreatActorDbPage = lazy(() => import('./pages/threatintel/ThreatActorDb'));
 const PhishingWordlistsPage = lazy(() => import('./pages/threatintel/PhishingWordlists'));
 const ProjectDiscoveryPage = lazy(() => import('./pages/threatintel/ProjectDiscovery'));
 const RansomReportPage = lazy(() => import('./pages/threatintel/RansomReport'));
@@ -308,6 +310,11 @@ const ExportHub = lazy(() => import('./pages/dfir/ExportHub'));
 const MultiSearch = lazy(() => import('./pages/dfir/MultiSearch'));
 const ReportComposer = lazy(() => import('./pages/dfir/ReportComposer'));
 const ReportAnalyzer = lazy(() => import('./pages/dfir/ReportAnalyzer'));
+const CisaKevCatalog = lazy(() => import('./pages/threatintel/CisaKevCatalog'));
+const GithubAdvisories = lazy(() => import('./pages/threatintel/GithubAdvisories'));
+const PhishFeedPage = lazy(() => import('./pages/threatintel/PhishFeed'));
+const DarknetMarketsTimeline = lazy(() => import('./pages/threatintel/DarknetMarketsTimeline'));
+const PhysicalBitcoinAttacks = lazy(() => import('./pages/threatintel/PhysicalBitcoinAttacks'));
 
 /**
  * /dfir/file?h=<hash> is the legacy entry point for the standalone hash
@@ -450,6 +457,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel/crypto-scams', Component: CryptoScamFeedPage },
   { path: '/threatintel/actor-usernames', Component: ActorUsernamesPage },
   { path: '/threatintel/scrapedintel-usernames', Component: ScrapedIntelUsernamesPage },
+  { path: '/threatintel/threat-actor-db', Component: ThreatActorDbPage },
   { path: '/threatintel/phishing-wordlists', Component: PhishingWordlistsPage },
   { path: '/threatintel/projectdiscovery', Component: ProjectDiscoveryPage },
   { path: '/threatintel/ransom-report', Component: RansomReportPage },
@@ -472,6 +480,11 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel/research/:slug', Component: ResearchPostPage },
   { path: '/threatintel/cve-list', Component: CveList },
   { path: '/threatintel/exploitable-cves', Component: ExploitableCves },
+  { path: '/threatintel/cisa-kev', Component: CisaKevCatalog },
+  { path: '/threatintel/github-advisories', Component: GithubAdvisories },
+  { path: '/threatintel/phish-feed', Component: PhishFeedPage },
+  { path: '/threatintel/darknet-markets', Component: DarknetMarketsTimeline },
+  { path: '/threatintel/physical-bitcoin-attacks', Component: PhysicalBitcoinAttacks },
   { path: '/threatintel/threat-map', Component: ThreatMap },
   { path: '/threatintel/global-pulse', Component: GlobalPulse },
   { path: '/threatintel/cti-platform', Component: GlobalPulse },

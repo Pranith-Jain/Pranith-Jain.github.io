@@ -192,6 +192,25 @@ export const rssFeeds: RSSFeed[] = [
     language: 'en',
   },
   {
+    id: 'hunters-ledger',
+    name: "The Hunter's Ledger",
+    url: 'https://the-hunters-ledger.com/feed.xml',
+    description:
+      'Original threat intelligence research — malware analysis, open-directory investigations, IOC feeds, and hunting detections',
+    category: 'threat-intel',
+    source: 'the-hunters-ledger.com',
+    language: 'en',
+  },
+  {
+    id: 'fbi-ic3',
+    name: 'FBI IC3 Advisories',
+    url: 'https://www.ic3.gov/CSA/RSS',
+    description: 'FBI Internet Crime Complaint Center — cyber security advisories, alerts, and wanted notices',
+    category: 'advisory',
+    source: 'ic3.gov',
+    language: 'en-US',
+  },
+  {
     id: 'ransomware-live',
     name: 'Ransomware.live',
     url: 'https://ransomware.live/rss.xml',

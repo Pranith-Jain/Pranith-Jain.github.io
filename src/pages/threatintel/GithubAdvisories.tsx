@@ -1,0 +1,312 @@
+import { useEffect, useMemo, useState } from 'react';
+import { BackLink } from '../../components/BackLink';
+import { ArrowLeft, Bug, ExternalLink, Package, RefreshCw, Search } from 'lucide-react';
+import { useDataFetch } from '../../hooks/useDataFetch';
+import { DataState } from '../../components/DataState';
+import { relativeAgo } from '../../lib/relativeTime';
+
+interface GhsaAdvisory {
+  ghsa_id: string;
+  summary: string;
+  description: string;
+  severity: 'critical' | 'high' | 'medium' | 'low';
+  identifiers: Array<{ type: string; value: string }>;
+  references: string[];
+  published_at: string;
+  updated_at: string;
+  vulnerabilities: Array<{
+    package: { ecosystem: string; name: string };
+    severity: string;
+    vulnerable_version_range: string;
+    patched_versions: string[];
+  }>;
+}
+
+interface AdvisoriesResponse {
+  total: number;
+  advisories: GhsaAdvisory[];
+  query: string;
+  query_type: string;
+  timestamp: string;
+}
+
+const SEVERITY_COLORS: Record<string, { bg: string; text: string; border: string }> = {
+  critical: { bg: 'bg-rose-500/10', text: 'text-rose-700 dark:text-rose-300', border: 'border-rose-500/30' },
+  high: { bg: 'bg-orange-500/10', text: 'text-orange-700 dark:text-orange-300', border: 'border-orange-500/30' },
+  medium: { bg: 'bg-amber-500/10', text: 'text-amber-700 dark:text-amber-300', border: 'border-amber-500/30' },
+  low: { bg: 'bg-slate-500/10', text: 'text-slate-700 dark:text-slate-300', border: 'border-slate-500/30' },
+};
+
+const ECOSYSTEMS = ['npm', 'pip', 'maven', 'nuget', 'rubygems', 'composer', 'cargo', 'go', 'pub', 'swift'];
+
+export default function GithubAdvisories(): JSX.Element {
+  const [query, setQuery] = useState('');
+  const [ecoFilter, setEcoFilter] = useState('');
+  const [sevFilter, setSevFilter] = useState<Set<string>>(new Set());
+  const [refreshKey, setRefreshKey] = useState(0);
+
+  const params = new URLSearchParams({ recent: 'true' });
+  if (ecoFilter) params.set('ecosystem', ecoFilter);
+  if (query.trim()) params.set('q', query.trim());
+
+  const url = `/api/v1/github-security?${params}`;
+
+  const { data, loading, error, refetch } = useDataFetch<AdvisoriesResponse>({
+    url,
+    ttl: 120_000,
+    staleWhileRevalidate: true,
+  });
+
+  useEffect(() => {
+    refetch();
+  }, [ecoFilter, query, refreshKey]);
+
+  const filtered = useMemo(() => {
+    if (!data) return [];
+    if (sevFilter.size === 0) return data.advisories;
+    return data.advisories.filter((a) => sevFilter.has(a.severity));
+  }, [data, sevFilter]);
+
+  const stats = useMemo(() => {
+    if (!data) return { critical: 0, high: 0, medium: 0, low: 0, total: 0, ecosystems: 0 };
+    const s = { critical: 0, high: 0, medium: 0, low: 0, total: data.total, ecosystems: 0 };
+    const ecoSet = new Set<string>();
+    for (const a of data.advisories) {
+      s[a.severity as keyof typeof s] = (s[a.severity as keyof typeof s] as number) + 1;
+      for (const v of a.vulnerabilities) ecoSet.add(v.package.ecosystem);
+    }
+    s.ecosystems = ecoSet.size;
+    return s;
+  }, [data]);
+
+  const ecoBreakdown = useMemo(() => {
+    if (!data) return [];
+    const counts = new Map<string, number>();
+    for (const a of data.advisories) {
+      for (const v of a.vulnerabilities) {
+        const eco = v.package.ecosystem || 'unknown';
+        counts.set(eco, (counts.get(eco) ?? 0) + 1);
+      }
+    }
+    return [...counts.entries()].sort((a, b) => b[1] - a[1]).slice(0, 10);
+  }, [data]);
+
+  const toggleSev = (s: string) => {
+    setSevFilter((prev) => {
+      const next = new Set(prev);
+      if (next.has(s)) next.delete(s);
+      else next.add(s);
+      return next;
+    });
+  };
+
+  return (
+    <div className="max-w-6xl mx-auto px-4 py-8">
+      <BackLink
+        to="/threatintel"
+        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-6 font-mono"
+      >
+        <ArrowLeft size={14} /> back
+      </BackLink>
+
+      <div className="flex items-center gap-3 mb-1">
+        <Bug className="w-7 h-7 text-rose-500" />
+        <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100">GitHub Advisories Feed</h1>
+      </div>
+      <p className="text-slate-600 dark:text-slate-400 mb-6 text-sm max-w-3xl leading-relaxed">
+        Live GitHub Security Advisory feed — reviewed vulnerabilities normalized into a CVE-style view.
+      </p>
+
+      {/* Stats */}
+      <div className="grid grid-cols-3 sm:grid-cols-6 gap-2 mb-5">
+        {[
+          { label: 'Total', value: stats.total, cls: 'text-slate-500' },
+          { label: 'Critical', value: stats.critical, cls: 'text-rose-600 dark:text-rose-400' },
+          { label: 'High', value: stats.high, cls: 'text-orange-600 dark:text-orange-400' },
+          { label: 'Medium', value: stats.medium, cls: 'text-amber-600 dark:text-amber-400' },
+          { label: 'Low', value: stats.low, cls: 'text-slate-500' },
+          { label: 'Ecosystems', value: stats.ecosystems, cls: 'text-sky-600 dark:text-sky-400' },
+        ].map(({ label, value, cls }) => (
+          <div
+            key={label}
+            className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/50 shadow-e1 p-2.5"
+          >
+            <div className={`text-mini uppercase tracking-wider mb-0.5 ${cls}`}>{label}</div>
+            <div className="text-lg font-bold text-slate-900 dark:text-slate-100">{value}</div>
+          </div>
+        ))}
+      </div>
+
+      {/* Severity filter pills */}
+      <div className="flex flex-wrap items-center gap-1.5 mb-4">
+        <span className="text-xs text-slate-500 mr-1 font-mono">severity:</span>
+        {(['critical', 'high', 'medium', 'low'] as const).map((s) => {
+          const active = sevFilter.has(s);
+          const colors = SEVERITY_COLORS[s];
+          return (
+            <button
+              key={s}
+              onClick={() => toggleSev(s)}
+              className={`px-2 py-1 rounded text-xs font-mono font-medium border flex items-center gap-1 transition ${
+                active
+                  ? `${colors.bg} ${colors.text} ${colors.border}`
+                  : 'border-slate-300 dark:border-slate-700 text-slate-500 hover:border-slate-400'
+              }`}
+            >
+              {s}
+            </button>
+          );
+        })}
+        <span className="text-xs text-slate-500 ml-3 mr-1 font-mono">ecosystem:</span>
+        <select
+          value={ecoFilter}
+          onChange={(e) => setEcoFilter(e.target.value)}
+          className="px-2 py-1 rounded text-xs font-mono border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 focus:outline-none focus:border-brand-500"
+        >
+          <option value="">All</option>
+          {ECOSYSTEMS.map((e) => (
+            <option key={e} value={e}>
+              {e}
+            </option>
+          ))}
+        </select>
+        {(sevFilter.size > 0 || ecoFilter) && (
+          <button
+            onClick={() => {
+              setSevFilter(new Set());
+              setEcoFilter('');
+            }}
+            className="text-xs text-brand-600 dark:text-brand-400 hover:underline ml-2"
+          >
+            clear filters
+          </button>
+        )}
+      </div>
+
+      {/* Search + refresh */}
+      <div className="flex gap-3 mb-4">
+        <div className="relative flex-1">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+          <input
+            type="text"
+            placeholder="Search package name…"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            className="w-full pl-9 pr-3 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-brand-500"
+          />
+        </div>
+        <button
+          onClick={() => {
+            setRefreshKey((k) => k + 1);
+            refetch();
+          }}
+          className="px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-slate-400 dark:hover:border-slate-600 text-sm flex items-center gap-2"
+        >
+          <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} /> Refresh
+        </button>
+      </div>
+
+      {data && (
+        <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-600 mb-3 font-mono">
+          <span>{filtered.length} advisories</span>
+          <span>synced {relativeAgo(data.timestamp)}</span>
+        </div>
+      )}
+
+      <DataState loading={loading} error={error} empty={filtered.length === 0} onRetry={refetch} rows={8}>
+        <div className="space-y-2">
+          {filtered.map((a) => {
+            const colors = SEVERITY_COLORS[a.severity] || SEVERITY_COLORS.medium;
+            const cveId = a.identifiers.find((i) => i.type === 'CVE')?.value;
+            return (
+              <div
+                key={a.ghsa_id}
+                className={`rounded-xl border border-l-4 ${colors.border} border-l-current bg-white dark:bg-slate-900/50 p-3 hover:shadow-md transition`}
+              >
+                <div className="flex items-start gap-3">
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 flex-wrap mb-1">
+                      <a
+                        href={`https://github.com/advisories/${a.ghsa_id}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-sm font-semibold font-mono text-slate-900 dark:text-slate-100 hover:text-brand-600 dark:hover:text-brand-400 flex items-center gap-1"
+                      >
+                        {a.ghsa_id} <ExternalLink className="w-3 h-3" />
+                      </a>
+                      <span
+                        className={`px-1.5 py-0.5 text-micro font-mono uppercase rounded border ${colors.bg} ${colors.text} ${colors.border}`}
+                      >
+                        {a.severity}
+                      </span>
+                      {cveId && (
+                        <a
+                          href={`https://nvd.nist.gov/vuln/detail/${cveId}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="px-1.5 py-0.5 text-micro font-mono rounded border border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400"
+                        >
+                          {cveId}
+                        </a>
+                      )}
+                    </div>
+                    <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed mb-1.5">{a.summary}</p>
+                    <div className="flex items-center gap-2 flex-wrap text-mini text-slate-500">
+                      {a.vulnerabilities.map((v, i) => (
+                        <span
+                          key={i}
+                          className="flex items-center gap-1 px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50 font-mono"
+                        >
+                          <Package className="w-2.5 h-2.5" /> {v.package.ecosystem}/{v.package.name}
+                          {v.vulnerable_version_range && (
+                            <span className="text-slate-400">({v.vulnerable_version_range})</span>
+                          )}
+                        </span>
+                      ))}
+                      <span>{relativeAgo(a.published_at)}</span>
+                      {a.references.length > 0 && (
+                        <a
+                          href={a.references[0]}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-brand-600 dark:text-brand-400 hover:underline flex items-center gap-0.5"
+                        >
+                          <ExternalLink className="w-2.5 h-2.5" /> ref
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </DataState>
+
+      {/* Ecosystem breakdown */}
+      {ecoBreakdown.length > 0 && (
+        <div className="mt-8 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/50 p-4">
+          <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100 mb-3">Ecosystem Breakdown</h3>
+          <div className="space-y-1.5">
+            {ecoBreakdown.map(([eco, count]) => (
+              <div key={eco} className="flex items-center gap-2 text-xs">
+                <span className="font-mono text-slate-700 dark:text-slate-300 w-24">{eco}</span>
+                <div className="flex-1 h-2 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+                  <div
+                    className="h-full bg-brand-500 rounded-full"
+                    style={{ width: `${Math.min(100, (count / Math.max(...ecoBreakdown.map(([, c]) => c))) * 100)}%` }}
+                  />
+                </div>
+                <span className="font-mono text-slate-500 w-8 text-right">{count}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      <div className="mt-6 pt-4 border-t border-slate-200 dark:border-slate-800 text-xs text-slate-500 dark:text-slate-600 font-mono">
+        Source: GitHub Advisory Database via Worker API
+      </div>
+    </div>
+  );
+}

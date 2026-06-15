@@ -22,7 +22,7 @@ interface GitHubSecurityResponse {
   total: number;
   advisories: GitHubSecurityAdvisory[];
   query: string;
-  query_type: 'cve' | 'ghsa' | 'ecosystem' | 'package';
+  query_type: 'cve' | 'ghsa' | 'ecosystem' | 'package' | 'recent';
   timestamp: string;
 }
 
@@ -54,19 +54,28 @@ export async function gitHubSecurityHandler(c: Context<{ Bindings: Env }>): Prom
   const ghsa = c.req.query('ghsa')?.trim()?.toUpperCase();
   const ecosystem = c.req.query('ecosystem')?.trim()?.toLowerCase();
   const packageQuery = c.req.query('package')?.trim();
+  const recent = c.req.query('recent') === 'true';
 
   const githubToken = c.env.GITHUB_TOKEN;
 
-  if (!query && !cve && !ghsa && !ecosystem && !packageQuery) {
-    return c.json({ error: 'missing query parameter (q, cve, ghsa, ecosystem, or package)' }, 400);
+  if (!query && !cve && !ghsa && !ecosystem && !packageQuery && !recent) {
+    return c.json({ error: 'missing query parameter (q, cve, ghsa, ecosystem, package, or recent=true)' }, 400);
   }
 
   try {
     let advisories: GitHubSecurityAdvisory[] = [];
-    let queryType: 'cve' | 'ghsa' | 'ecosystem' | 'package' = 'package';
+    let queryType: 'cve' | 'ghsa' | 'ecosystem' | 'package' | 'recent' = 'package';
     const actualQuery = cve || ghsa || packageQuery || query;
 
-    if (ghsa) {
+    if (recent) {
+      queryType = 'recent';
+      const data = await githubRequest(
+        `/advisories?type=reviewed&per_page=100&sort=published&direction=desc`,
+        githubToken
+      );
+      const arr = Array.isArray(data) ? data : [];
+      advisories = arr.map(transformAdvisory);
+    } else if (ghsa) {
       queryType = 'ghsa';
       const data = await githubRequest(`/advisories/${encodeURIComponent(ghsa)}`, githubToken);
       // Single-advisory endpoint returns one object (not an array).

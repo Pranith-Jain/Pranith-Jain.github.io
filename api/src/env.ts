@@ -179,6 +179,11 @@ export interface Env {
    *  Set via `wrangler secret put GITHUB_TOKEN`. Optional — the free
    *  anonymous GitHub API tier (60 req/hr) is the default. */
   GITHUB_TOKEN?: string;
+  /** PhishTank API key (free registration at phishtank.org/developer_info.php).
+   *  Set via `wrangler secret put PHISHTANK_API_KEY`. Optional — the phish
+   *  feed works without it using OpenPhish + brand detection; setting a key
+   *  adds PhishTank's verified + target metadata. */
+  PHISHTANK_API_KEY?: string;
   /** Canonical site URL. Set via
    *  `wrangler.jsonc#vars.SITE_URL` — used for CORS, RSS links, and
    *  canonical URLs. Falls back to the hardcoded default. */

@@ -172,9 +172,7 @@ async function fetchText(url: string): Promise<string | null> {
  * /api/v1/live-iocs so the operator can see the actual HTTP status /
  * network error for each unreachable source. Not on the hot path.
  */
-async function fetchTextDiag(
-  url: string
-): Promise<{ ok: boolean; status?: number; bytes?: number; error?: string }> {
+async function fetchTextDiag(url: string): Promise<{ ok: boolean; status?: number; bytes?: number; error?: string }> {
   const t0 = Date.now();
   try {
     const res = await fetch(url, {
@@ -282,20 +280,22 @@ const FEED_FANOUT_CONCURRENCY = 5;
  * when the real failure is "the debug mirror is stale".
  */
 const FEED_SOURCE_DEBUG_URLS: Record<string, { url: string; fallbackUrls?: string[] }> = {
-  'tweetfeed': { url: 'https://raw.githubusercontent.com/0xDanielLopez/TweetFeed/master/today.csv' },
+  tweetfeed: { url: 'https://raw.githubusercontent.com/0xDanielLopez/TweetFeed/master/today.csv' },
   'sans-isc': { url: 'https://isc.sans.edu/api/sources/attacks/200/?json' },
   'c2-intel': { url: 'https://raw.githubusercontent.com/drb-ra/C2IntelFeeds/master/feeds/IPC2s.csv' },
-  'urlhaus': { url: 'https://urlhaus.abuse.ch/downloads/csv_recent/' },
+  urlhaus: { url: 'https://urlhaus.abuse.ch/downloads/csv_recent/' },
   'emerging-threats': { url: 'https://rules.emergingthreats.net/blockrules/compromised-ips.txt' },
   'otx-reputation': { url: 'https://reputation.alienvault.com/reputation.generic' },
   'sslbl-c2': { url: 'https://sslbl.abuse.ch/blacklist/sslipblacklist.csv' },
-  'botvrij': { url: 'https://www.botvrij.eu/data/ioclist.domain' },
-  'threatfox': { url: 'https://threatfox.abuse.ch/export/csv/recent/' },
-  'malwarebazaar': { url: 'https://mb-api.abuse.ch/api/v1/' }, // POST-only endpoint; the diagnostic will show 405 - the production handler POSTs `query:get_recent` to this URL
-  'phishing': { url: 'https://data.phishtank.com/data/online-valid.json' }, // CloudFront-signed; the diagnostic shows the same 429/403 the real handler would see without the key
-  'crypto-scam': { url: 'https://raw.githubusercontent.com/spmedia/Crypto-Scam-and-Crypto-Phishing-Threat-Intel-Feed/main/detected_urls.json' },
+  botvrij: { url: 'https://www.botvrij.eu/data/ioclist.domain' },
+  threatfox: { url: 'https://threatfox.abuse.ch/export/csv/recent/' },
+  malwarebazaar: { url: 'https://mb-api.abuse.ch/api/v1/' }, // POST-only endpoint; the diagnostic will show 405 - the production handler POSTs `query:get_recent` to this URL
+  phishing: { url: 'https://data.phishtank.com/data/online-valid.json' }, // CloudFront-signed; the diagnostic shows the same 429/403 the real handler would see without the key
+  'crypto-scam': {
+    url: 'https://raw.githubusercontent.com/spmedia/Crypto-Scam-and-Crypto-Phishing-Threat-Intel-Feed/main/detected_urls.json',
+  },
   'andreafortuna-defacements': { url: 'https://ctifeeds.andreafortuna.org/recent_defacements.json' },
-  'binarydefense': {
+  binarydefense: {
     url: 'https://raw.githubusercontent.com/CriticalPathSecurity/Public-Intelligence-Feeds/master/binarydefense.txt',
     fallbackUrls: ['https://www.binarydefense.com/banlist.txt'],
   },
@@ -303,17 +303,23 @@ const FEED_SOURCE_DEBUG_URLS: Record<string, { url: string; fallbackUrls?: strin
     url: 'https://raw.githubusercontent.com/CriticalPathSecurity/Public-Intelligence-Feeds/master/tor-exit.txt',
     fallbackUrls: ['https://check.torproject.org/torbulkexitlist'],
   },
-  'avanzato-c2': { url: 'https://raw.githubusercontent.com/CriticalPathSecurity/Public-Intelligence-Feeds/master/avanzato_c2.txt' },
-  'cps-collected': { url: 'https://raw.githubusercontent.com/CriticalPathSecurity/Public-Intelligence-Feeds/master/cps-collected-iocs.txt' },
+  'avanzato-c2': {
+    url: 'https://raw.githubusercontent.com/CriticalPathSecurity/Public-Intelligence-Feeds/master/avanzato_c2.txt',
+  },
+  'cps-collected': {
+    url: 'https://raw.githubusercontent.com/CriticalPathSecurity/Public-Intelligence-Feeds/master/cps-collected-iocs.txt',
+  },
   'blocklist-de': { url: 'https://lists.blocklist.de/lists/all.txt' },
-  'cinsscore': { url: 'https://cinsscore.com/list/ci-badguys.txt' },
+  cinsscore: { url: 'https://cinsscore.com/list/ci-badguys.txt' },
   'bbcan177-ips': { url: 'https://gist.githubusercontent.com/BBcan177/bf29d47ea04391cb3eb0/raw/' },
   'domains-blacklist': { url: 'https://www.joewein.net/dl/bl/dom-bl.txt' },
   'botvrij-urls': { url: 'https://www.botvrij.eu/data/ioclist.url.raw' },
   'botvrij-ips': { url: 'https://www.botvrij.eu/data/ioclist.ip-dst.raw' },
-  'darklist': { url: 'https://www.darklist.de/raw.php' },
+  darklist: { url: 'https://www.darklist.de/raw.php' },
   'bruteforce-blocker': { url: 'https://danger.rulez.sk/projects/bruteforceblocker/blist.php' },
-  'phishing-database': { url: 'https://raw.githubusercontent.com/Phishing-Database/Phishing.Database/refs/heads/master/phishing-links-ACTIVE-NOW.txt' },
+  'phishing-database': {
+    url: 'https://raw.githubusercontent.com/Phishing-Database/Phishing.Database/refs/heads/master/phishing-links-ACTIVE-NOW.txt',
+  },
   'threatview-ip': { url: 'https://threatview.io/Downloads/IP-High-Confidence-Feed.txt' },
   'threatview-domains': { url: 'https://threatview.io/Downloads/DOMAIN-High-Confidence-Feed.txt' },
   'viriback-c2': { url: 'https://tracker.viriback.com/dump.php' },
@@ -321,11 +327,11 @@ const FEED_SOURCE_DEBUG_URLS: Record<string, { url: string; fallbackUrls?: strin
   'certpl-warnings': { url: 'https://hole.cert.pl/domains/domains.txt' },
   'bitwire-outbound': { url: 'https://raw.githubusercontent.com/bitwire-it/ipblocklist/main/outbound.txt' },
   'bitwire-inbound': { url: 'https://raw.githubusercontent.com/bitwire-it/ipblocklist/main/inbound.txt' },
-  'phishunt': { url: 'https://phishunt.io/feed.txt' },
+  phishunt: { url: 'https://phishunt.io/feed.txt' },
   // mythreatintel + openphish are handled by named sources with internal
   // fetch helpers; their URLs are in the helpers themselves.
-  'mythreatintel': { url: 'https://api.mythreatintel.com/v1/iocs' }, // external API; HTTP 530 = upstream 5xx, transient
-  'openphish': { url: 'https://openphish.com/feed.txt' },
+  mythreatintel: { url: 'https://api.mythreatintel.com/v1/iocs' }, // external API; HTTP 530 = upstream 5xx, transient
+  openphish: { url: 'https://openphish.com/feed.txt' },
 };
 
 const CPS_BASE = 'https://raw.githubusercontent.com/CriticalPathSecurity/Public-Intelligence-Feeds/master';
@@ -494,8 +500,11 @@ const malwarebazaarSource: FeedSource = {
 /** PhishTank + OpenPhish: one fetch, two source entries (per-entry reporter). */
 const phishingSource: FeedSource = {
   id: 'phishing',
-  run: async ({ executionCtx, kv }) => {
-    const phishingResult = await safeNullLog('fetch-phishing', fetchPhishingUrlsCached(executionCtx, kv));
+  run: async ({ executionCtx, kv, env }) => {
+    const phishingResult = await safeNullLog(
+      'fetch-phishing',
+      fetchPhishingUrlsCached(executionCtx, kv, env?.PHISHTANK_API_KEY)
+    );
     const items: LiveIoc[] = [];
     if (!phishingResult) {
       return {
@@ -1319,7 +1328,10 @@ export async function liveIocsHandler(c: Context<{ Bindings: Env }>): Promise<Re
       failing: diagEntries.filter((d) => !d.ok).map((d) => d.id),
       entries: diagEntries,
     };
-    return c.json({ debug: summary, hint: '?debug=1 bypasses cache and runs a fresh fan-out with per-source diagnostics' });
+    return c.json({
+      debug: summary,
+      hint: '?debug=1 bypasses cache and runs a fresh fan-out with per-source diagnostics',
+    });
   }
 
   const cache = (caches as unknown as { default: Cache }).default;

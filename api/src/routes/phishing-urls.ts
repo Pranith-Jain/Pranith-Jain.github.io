@@ -4,21 +4,15 @@ import { fetchResilient } from '../lib/fetch-resilient';
 import { shouldWriteLastGood } from '../lib/lastgood-debounce';
 
 /**
- * Recent phishing URLs (PhishTank + OpenPhish).
+ * Recent phishing URLs (OpenPhish + optional PhishTank enrichment).
  *
- * The standalone /threatintel/phishing-urls page was retired 2026-05-11 —
- * entries now surface in the unified /threatintel/live-iocs firehose. This
- * endpoint stays alive because Metrics.tsx still consumes the rich
- * PhishingUrl[] shape (target-brand attribution, verification flag) which
- * the live-iocs payload flattens away.
+ * PhishTank now requires an API key — when PHISHTANK_API_KEY is not set,
+ * the system falls back to OpenPhish only. Our built-in brand-keyword
+ * detection (brandFromUrl) provides target-brand attribution for OpenPhish
+ * URLs, so PhishTank is purely optional enrichment.
  *
  * Source: OpenPhish public feed (https://openphish.com/feed.txt) — one URL
- * per line, refreshed every ~12h. Free tier exposes only the URL list, not
- * the brand classification (paid tier has it).
- *
- * We pair it with PhishTank's URL_FEED_NAME from their public CSV at
- * https://data.phishtank.com/data/online-valid.csv (free, no key) to get
- * verification status + brand context for the entries we can match.
+ * per line, refreshed every ~12h.
  *
  * Cached 1h server-side — these feeds update on the order of hours.
  */
@@ -36,14 +30,7 @@ const FETCH_TIMEOUT_MS_PHISHTANK = 25_000;
 const MAX_ITEMS = 500;
 
 const OPENPHISH_URL = 'https://openphish.com/feed.txt';
-/**
- * PhishTank's hostname 302s to a signed CloudFront URL. The signed URL
- * carries an Expires param so it can't be Cloudflare-edge-cached across
- * requests — we explicitly disable `cf.cacheEverything` for this fetch.
- * A standard browser UA gets past their gate (a custom UA used to return
- * a redirect loop that 0-byted us with cacheEverything on).
- */
-const PHISHTANK_URL = 'https://data.phishtank.com/data/online-valid.csv';
+/** PhishTank requires a registered API key — URL constructed at fetch time. */
 const PHISHTANK_UA =
   'Mozilla/5.0 (compatible; pranithjain-dfir/1.0; +https://pranithjain.qzz.io/threatintel/phishing-urls)';
 
@@ -161,18 +148,19 @@ async function fetchOpenphish(): Promise<string | null> {
   }
 }
 
-async function fetchPhishtank(): Promise<string | null> {
+async function fetchPhishtank(apiKey?: string): Promise<string | null> {
+  // PhishTank requires an API key — skip gracefully when not configured.
+  // Register at https://phishtank.org/developer_info.php for a free key.
+  if (!apiKey) return null;
+
   try {
+    const url = `https://data.phishtank.com/data/${encodeURIComponent(apiKey)}/online-valid.csv`;
     const res = await fetchResilient(
-      PHISHTANK_URL,
+      url,
       {
         headers: { 'user-agent': PHISHTANK_UA, accept: 'text/csv,*/*' },
-        // Signed CloudFront URLs can't be CDN-cached cleanly across requests; our
-        // own KV-style cache (CACHE_KEY at the response level) handles dedupe.
         redirect: 'follow',
       },
-      // PhishTank is the larger (10–12 MB) dump, so it needs the bigger budget —
-      // without this it fell back to the default timeout and could abort early.
       { attempts: 3, timeoutMs: FETCH_TIMEOUT_MS_PHISHTANK }
     );
     if (!res.ok) return null;
@@ -425,9 +413,10 @@ function parseOpenphish(text: string, max: number): PhishingUrl[] {
 
 export async function fetchPhishingUrls(
   executionCtx?: { waitUntil: (p: Promise<unknown>) => void },
-  kv?: KVNamespace
+  kv?: KVNamespace,
+  phishtankApiKey?: string
 ): Promise<PhishingUrlsResponse> {
-  const [opText, ptText] = await Promise.all([fetchOpenphish(), fetchPhishtank()]);
+  const [opText, ptText] = await Promise.all([fetchOpenphish(), fetchPhishtank(phishtankApiKey)]);
 
   let ptUrls = ptText ? parsePhishtank(ptText, MAX_ITEMS) : [];
   let opUrls = opText ? parseOpenphish(opText, MAX_ITEMS) : [];
@@ -464,10 +453,16 @@ export async function fetchPhishingUrls(
     seen.add(u.url);
   }
 
+  const hasPtKey = Boolean(phishtankApiKey);
   return {
     generated_at: new Date().toISOString(),
     sources: [
-      { id: 'phishtank', ok: ptText !== null || ptUrls.length > 0, count: ptUrls.length, stale: ptStale || undefined },
+      {
+        id: 'phishtank',
+        ok: hasPtKey && (ptText !== null || ptUrls.length > 0),
+        count: ptUrls.length,
+        stale: ptStale || undefined,
+      },
       { id: 'openphish', ok: opText !== null || opUrls.length > 0, count: opUrls.length, stale: opStale || undefined },
     ],
     total: merged.length,
@@ -494,14 +489,15 @@ function ttlFor(body: PhishingUrlsResponse): number {
 
 export async function fetchPhishingUrlsCached(
   executionCtx?: { waitUntil: (p: Promise<unknown>) => void },
-  kv?: KVNamespace
+  kv?: KVNamespace,
+  phishtankApiKey?: string
 ): Promise<PhishingUrlsResponse> {
   const cache = (caches as unknown as { default: Cache }).default;
   const cached = await cache.match(new Request(PHISHING_URLS_CACHE_KEY));
   if (cached) {
     return (await cached.json()) as PhishingUrlsResponse;
   }
-  const body = await fetchPhishingUrls(executionCtx, kv);
+  const body = await fetchPhishingUrls(executionCtx, kv, phishtankApiKey);
   if (executionCtx) {
     const resp = new Response(JSON.stringify(body), {
       headers: {
@@ -520,7 +516,7 @@ export async function phishingUrlsHandler(c: Context<{ Bindings: Env }>): Promis
   const cached = await cache.match(cacheReq);
   if (cached) return new Response(cached.body, cached);
 
-  const body = await fetchPhishingUrls(c.executionCtx, c.env.KV_CACHE);
+  const body = await fetchPhishingUrls(c.executionCtx, c.env.KV_CACHE, c.env.PHISHTANK_API_KEY);
   const response = new Response(JSON.stringify(body), {
     status: 200,
     headers: {
