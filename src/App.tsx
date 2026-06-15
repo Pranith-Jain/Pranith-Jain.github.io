@@ -160,6 +160,7 @@ const EmlExtractor = lazy(() => import('./pages/dfir/EmlExtractor'));
 const Tracer = lazy(() => import('./pages/dfir/Tracer'));
 const ThreatIntelHome = lazy(() => import('./pages/threatintel/Home'));
 const ThreatIntelAbout = lazy(() => import('./pages/threatintel/About'));
+const LiveCenter = lazy(() => import('./pages/threatintel/LiveCenter'));
 const TelegramMonitor = lazy(() => import('./pages/threatintel/TelegramMonitor'));
 const SourceHealth = lazy(() => import('./pages/threatintel/SourceHealth'));
 const SocDashboard = lazy(() => import('./pages/threatintel/SocDashboard'));
@@ -174,6 +175,7 @@ const SocialHub = lazy(() => import('./pages/threatintel/SocialHub'));
 const EmailPhishHub = lazy(() => import('./pages/threatintel/EmailPhishHub'));
 const InfraHub = lazy(() => import('./pages/threatintel/InfraHub'));
 const DetectionHub = lazy(() => import('./pages/threatintel/DetectionHub'));
+const MostWanted = lazy(() => import('./pages/threatintel/MostWanted'));
 const ResearchHub = lazy(() => import('./pages/threatintel/ResearchHub'));
 const KnowledgeHub = lazy(() => import('./pages/threatintel/KnowledgeHub'));
 const OsintHub = lazy(() => import('./pages/threatintel/OsintHub'));
@@ -183,6 +185,8 @@ const ExternalHub = lazy(() => import('./pages/threatintel/ExternalHub'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 const CampaignDetail = lazy(() => import('./pages/threatintel/CampaignDetail'));
 const AbuseRepPage = lazy(() => import('./pages/dfir/AbuseRep'));
+const BehindTheReports = lazy(() => import('./pages/BehindTheReports'));
+const Sponsor = lazy(() => import('./pages/Sponsor'));
 const Blog = lazy(() => import('./pages/Blog'));
 const BlogPost = lazy(() => import('./pages/BlogPost'));
 const AdminApp = lazy(() => import('./pages/admin/AdminApp'));
@@ -239,6 +243,8 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/experience', Component: Experience },
   { path: '/projects', Component: Projects },
   { path: '/projects/:slug', Component: CaseStudy },
+  { path: '/behind-the-reports', Component: BehindTheReports },
+  { path: '/sponsor', Component: Sponsor },
   { path: '/blog', Component: Blog },
   { path: '/blog/c/:type', Component: Blog },
   { path: '/blog/:slug', Component: BlogPost },
@@ -411,6 +417,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel', Component: ThreatIntelHome },
   { path: '/threatintel/assessments/:id', Component: AssessmentDetail },
   { path: '/threatintel/actors', Component: ActorHub },
+  { path: '/threatintel/most-wanted', Component: MostWanted },
   { path: '/threatintel/campaigns', Component: CampaignHub },
   { path: '/threatintel/cves', Component: VulnHub },
   { path: '/threatintel/iocs', Component: IocHub },
@@ -424,6 +431,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel/osint', Component: OsintHub },
   { path: '/threatintel/tools', Component: ToolsHub },
   { path: '/threatintel/external', Component: ExternalHub },
+  { path: '/threatintel/live-center', Component: LiveCenter },
   { path: '/dfir/pgp-tool', Component: PgpTool },
   { path: '/dfir/tor-gateway', Component: TorGateway },
   { path: '/dfir/blocklists', Component: Blocklists },

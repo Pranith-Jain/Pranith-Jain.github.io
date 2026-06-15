@@ -42,12 +42,14 @@ const CONCURRENCY = Math.max(1, cpus().length);
 // rather than waiting for JS parse + React mount, and hydration matches
 // the initial loading-state tree so there's no tearing.
 const ROUTES = [
-  // ── Portfolio (6) ──────────────────────────────────────────────
+  // ── Portfolio (8) ──────────────────────────────────────────────
   '/',
   '/about',
   '/skills',
   '/experience',
   '/projects',
+  '/behind-the-reports',
+  '/sponsor',
   '/blog',
 
   // ── Landings (2) ───────────────────────────────────────────────
@@ -200,6 +202,7 @@ const ROUTES = [
   '/threatintel/intelligence-gaps',
   '/threatintel/cross-campaign',
   '/threatintel/actors',
+  '/threatintel/most-wanted',
   '/threatintel/rules',
   // '/threatintel/briefings' removed from prerender: list is data-driven
   // (fetches /api/v1/briefings/list on mount). Prerendering the empty
@@ -218,6 +221,7 @@ const ROUTES = [
   '/threatintel/redhunt-insights',
   '/threatintel/ai-report',
   '/threatintel/mcp-search',
+  '/threatintel/live-center',
 
   // ── ThreatIntel: static catalogs (5) — 0 API calls ────────────
   '/threatintel/wiki',

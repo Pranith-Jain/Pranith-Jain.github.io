@@ -25,6 +25,8 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/skills', '/__prerendered/skills'],
   ['/experience', '/__prerendered/experience'],
   ['/projects', '/__prerendered/projects'],
+  ['/behind-the-reports', '/__prerendered/behind-the-reports'],
+  ['/sponsor', '/__prerendered/sponsor'],
   ['/blog', '/__prerendered/blog'],
 
   // ── Landings ──────────────────────────────────────────────────
@@ -180,6 +182,7 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/threatintel/intelligence-gaps', '/__prerendered/threatintel__intelligence-gaps'],
   ['/threatintel/cross-campaign', '/__prerendered/threatintel__cross-campaign'],
   ['/threatintel/actors', '/__prerendered/threatintel__actors'],
+  ['/threatintel/most-wanted', '/__prerendered/threatintel__most-wanted'],
   ['/threatintel/rules', '/__prerendered/threatintel__rules'],
   // '/threatintel/briefings' removed from PRERENDERED_ROUTES: list is
   // data-driven (fetches /api/v1/briefings/list on mount). Prerendering
@@ -198,6 +201,7 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/threatintel/redhunt-insights', '/__prerendered/threatintel__redhunt-insights'],
   ['/threatintel/ai-report', '/__prerendered/threatintel__ai-report'],
   ['/threatintel/mcp-search', '/__prerendered/threatintel__mcp-search'],
+  ['/threatintel/live-center', '/__prerendered/threatintel__live-center'],
 
   // ── ThreatIntel: live-feed surfaces ───────────────────────────
   ['/threatintel/pulse', '/__prerendered/threatintel__pulse'],
