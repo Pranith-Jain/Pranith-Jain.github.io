@@ -1130,6 +1130,20 @@ export const SECTIONS: Section[] = [
         badge: 'new',
       },
       {
+        to: '/threatintel/stix-bundles',
+        label: 'STIX Bundle Browser',
+        desc: 'Browse and download STIX 2.1 threat intelligence bundles — import into OpenCTI, MISP, or any STIX-aware platform. 12 campaigns, 247 IOCs.',
+        icon: GitBranch,
+        badge: 'new',
+      },
+      {
+        to: '/threatintel/ioc-feeds',
+        label: 'IOC Feeds',
+        desc: 'Structured indicator feeds ready for SIEM, EDR, or CTI platform ingestion. 17 feeds with copy-URL and download.',
+        icon: Rss,
+        badge: 'new',
+      },
+      {
         to: '/threatintel/owasp-ai-landscape',
         label: 'OWASP AI Landscape',
         desc: 'Full tree of OWASP AI / ML / agentic projects — guides, cheat sheets, CTFs. Auto-synced daily from the public data.json.',

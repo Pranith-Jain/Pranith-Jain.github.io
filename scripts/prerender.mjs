@@ -350,6 +350,8 @@ const ROUTES = [
   '/threatintel/osint-map',
   '/threatintel/osint-cli-tools',
   '/threatintel/reports',
+  '/threatintel/stix-bundles',
+  '/threatintel/ioc-feeds',
 ];
 
 const SHELL_PATH = resolve(ROOT, 'dist/index.html');

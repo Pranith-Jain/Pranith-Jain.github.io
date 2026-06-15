@@ -319,6 +319,8 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/threatintel/osint-map', '/__prerendered/threatintel__osint-map'],
   ['/threatintel/osint-cli-tools', '/__prerendered/threatintel__osint-cli-tools'],
   ['/threatintel/reports', '/__prerendered/threatintel__reports'],
+  ['/threatintel/stix-bundles', '/__prerendered/threatintel__stix-bundles'],
+  ['/threatintel/ioc-feeds', '/__prerendered/threatintel__ioc-feeds'],
 ]);
 
 /**
