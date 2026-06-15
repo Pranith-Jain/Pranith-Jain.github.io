@@ -47,10 +47,16 @@ describe('useInView', () => {
     expect(isInView).toBe(false);
   });
 
-  it('should return a ref object', () => {
+  it('should return a ref callback', () => {
+    // The hook returns [refCallback, isInView]. The ref is a function
+    // (React's callback-ref API) that, when invoked, attaches the node.
     const { result } = renderHook(() => useInView());
     const [ref] = result.current;
-    expect(ref).toHaveProperty('current');
+    expect(typeof ref).toBe('function');
+    // Calling the ref with a node should not throw and should make the
+    // node available to the IntersectionObserver (asserted by the
+    // "should create IntersectionObserver with correct options" test).
+    expect(() => ref(document.createElement('div'))).not.toThrow();
   });
 
   it('should create IntersectionObserver with correct options', () => {
