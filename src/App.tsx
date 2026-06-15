@@ -209,6 +209,7 @@ const ThreatIntelReports = lazy(() => import('./pages/threatintel/ThreatIntelRep
 const StixBundleBrowser = lazy(() => import('./pages/threatintel/StixBundleBrowser'));
 const IocFeedsBrowser = lazy(() => import('./pages/threatintel/IocFeedsPage'));
 const MalwareSandboxPage = lazy(() => import('./pages/threatintel/MalwareSandbox'));
+const ThreatActorCatalogPage = lazy(() => import('./pages/threatintel/ThreatActorCatalog'));
 const InfraIntel = lazy(() => import('./pages/threatintel/InfraIntel'));
 const RansomwareActivityPage = lazy(() => import('./pages/threatintel/RansomwareActivity'));
 const RansomwareGeoMap = lazy(() => import('./pages/threatintel/RansomwareMap'));
@@ -371,6 +372,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel/stix-bundles', Component: StixBundleBrowser },
   { path: '/threatintel/ioc-feeds', Component: IocFeedsBrowser },
   { path: '/threatintel/malware-sandbox', Component: MalwareSandboxPage },
+  { path: '/threatintel/threat-actor-catalog', Component: ThreatActorCatalogPage },
   { path: '/threatintel/infra-intel', Component: InfraIntel },
   { path: '/threatintel/facilities', Component: InfraIntel },
   { path: '/threatintel/infra-search', Component: InfraIntel },

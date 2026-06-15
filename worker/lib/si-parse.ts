@@ -51,10 +51,13 @@ const REFANG_PATTERNS: Array<[RegExp, string]> = [
   [/\[\:\]/g, ':'],
   [/\[\/\]/g, '/'],
   [/\[\@\]/g, '@'],
-  // Generic: strip square brackets ONLY around non-alphanumeric content
+  // Generic: strip square brackets around non-alphanumeric content
   // (so [://], [port], [path] etc. unwrap, but [dot] [com] [at] etc. are
   // left for the specific spelled-out rules below).
-  [/\[([^\[\]\na-zA-Z0-9]{1,6})\]/g, '$1'],
+  [/\[([^\[\]\na-zA-Z]{1,6})\]/g, '$1'],
+  // Defanged TLDs: [com], [tk], [io], [ru], [cn], [ml], [ga], [cf], [xyz]
+  [/\[\.(com|tk|io|ru|cn|ml|ga|cf|xyz|net|org|info|biz|us|uk|co|me|app|dev)\b\]/gi, '.$1'],
+  [/\[(com|tk|io|ru|cn|ml|ga|cf|xyz|net|org|info|biz|us|uk|co|me|app|dev)\b\]/gi, '.$1'],
   // Spelled-out
   [/\b\[dot\]/gi, '.'],
   [/\(dot\)/gi, '.'],

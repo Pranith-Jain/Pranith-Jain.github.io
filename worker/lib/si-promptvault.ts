@@ -129,8 +129,8 @@ CONSTRAINTS:
 - One rule per narrative. Do not split into multi-stage rules unless absolutely necessary.
 - logsource.product and logsource.service MUST be filled.
 - Use the most specific MITRE ATT&CK technique ID that fits.
-- Provide a `falsepositives:` block with 2-3 plausible benign scenarios.
-- Use `level:` from {informational, low, medium, high, critical}.
+- Provide a 'falsepositives:' block with 2-3 plausible benign scenarios.
+- Use 'level:' from {informational, low, medium, high, critical}.
 - Output only the YAML — no markdown fences, no commentary.
 
 NARRATIVE:
@@ -204,7 +204,7 @@ CONSTRAINTS:
 1. Is the rule FP-prone in a typical enterprise environment?
 2. List the 3 most likely benign scenarios that would trigger it.
 3. Suggest 2-3 concrete exclusion filters (process paths, parent processes, user groups, scheduled tasks) that would reduce FP volume without losing TP coverage.
-4. Provide a new `falsepositives:` and `filter:` block in YAML.
+4. Provide a new 'falsepositives:' and `filter:` block in YAML.
 
 OUTPUT: {fp_risk_level: "HIGH"|"MEDIUM"|"LOW", rationale, exclusions: [...], updated_rule_yaml: "..."}`,
   },

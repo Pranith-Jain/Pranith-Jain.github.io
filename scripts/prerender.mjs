@@ -353,6 +353,7 @@ const ROUTES = [
   '/threatintel/stix-bundles',
   '/threatintel/ioc-feeds',
   '/threatintel/malware-sandbox',
+  '/threatintel/threat-actor-catalog',
 ];
 
 const SHELL_PATH = resolve(ROOT, 'dist/index.html');

@@ -872,6 +872,13 @@ export const SECTIONS: Section[] = [
     blurb: 'APT catalogues, actor knowledge base, timelines, DNA profiling, and malware family attribution.',
     tools: [
       {
+        to: '/threatintel/threat-actor-catalog',
+        label: 'Threat Actor Catalog',
+        desc: 'Curated profiles of 15 major threat actor groups — APTs, cybercrime, ransomware. Aliases, countries, malware, TTPs, campaigns, MITRE mapping.',
+        icon: Skull,
+        badge: 'new',
+      },
+      {
         to: '/threatintel/misp-galaxy-actors',
         label: 'Actor Alias Directory',
         desc: 'Searchable threat-actor alias index from the MISP Galaxy threat-actor cluster (CC0/BSD-2) — synonyms, country, references.',
