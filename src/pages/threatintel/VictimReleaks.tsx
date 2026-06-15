@@ -4,6 +4,7 @@ import { sanitizeUrl } from '../../lib/sanitize-url';
 import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, ChevronDown, ChevronRight, ExternalLink, RefreshCw, Search, Users } from 'lucide-react';
 import { DataState } from '../../components/DataState';
+import { ClusterTabs, RANSOMWARE_TABS } from '../../components/threatintel/ClusterTabs';
 
 interface VictimClaim {
   group: string;
@@ -194,6 +195,7 @@ export default function VictimReleaks(): JSX.Element {
           Scans the top-8 active groups' per-group histories. Sector is a name-only heuristic; operation-type is a
           curated lookup — both best-effort, verify before acting.
         </p>
+        <ClusterTabs tabs={RANSOMWARE_TABS} ariaLabel="Ransomware intel" />
       </div>
 
       {data && (

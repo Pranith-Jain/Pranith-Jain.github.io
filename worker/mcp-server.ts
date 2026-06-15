@@ -2,8 +2,31 @@ import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { McpAgent } from 'agents/mcp';
 import type { Connection, ConnectionContext } from 'agents';
 import { z } from 'zod';
+import {
+  loadSiIndex,
+  getSiSkill,
+  getSiQuery,
+  getSiAutomation,
+  getDoc,
+  getRef,
+  getRoutingPrompt,
+  loadDocsIndex,
+  filterSkills,
+  filterQueries,
+  siCacheStats,
+  type SiSkillCategory,
+} from './lib/si-manifest';
+import { enrichIp, enrichIpsBatch, isValidIp } from './lib/si-enrich';
+import { kqlToAhUrl, kqlToAhUrlMarkdown } from './lib/kql-to-ah-url';
+import { loadScriptsIndex, getScript } from './lib/si-manifest';
+import { renderDashboard, type RenderManifest } from './lib/si-svg-renderer';
 
 type Env = {
+  /** Static asset binding — used to load the security-investigator
+   *  manifest JSON shipped in /public/data/si/. Optional; tools fall back
+   *  to a helpful error if the binding is missing or the data wasn't built. */
+  ASSETS?: Fetcher;
+
   KV_CACHE?: KVNamespace;
   BRIEFINGS_DB?: D1Database;
   /** Self-referencing service binding — lets tool calls hit our own /api/* in
@@ -940,5 +963,452 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         return untrustedToolResult(data);
       }
     );
+    // ── KQL → Defender XDR Advanced Hunting deep link (no ASSETS needed) ──
+    this.server.tool(
+      'si_kql_to_ah_url',
+      'Encode a KQL query into a Defender XDR Advanced Hunting deep link. Mirrors upstream kql_to_ah_url.py: UTF-16LE → GZip → Base64url. Optionally append &tid=<tenant_id> for cross-tenant linking. Returns the URL.',
+      {
+        kql: z.string().describe('KQL query string, e.g. "DeviceInfo | where Timestamp > ago(7d) | take 10". Newlines are normalized to CRLF automatically.'),
+        tenant_id: z.string().optional().describe('Azure AD tenant GUID. Omit to produce a tenant-agnostic link.'),
+        markdown: z.boolean().optional().describe('If true, return as a markdown link "[Run in Advanced Hunting](<url>)" ready to paste into a report.'),
+      },
+      async ({ kql, tenant_id, markdown }) => {
+        try {
+          const url = await kqlToAhUrl(kql, tenant_id ? { tenantId: tenant_id } : {});
+          if (markdown) {
+            return untrustedToolResult({ url, markdown: await kqlToAhUrlMarkdown(kql, { tenantId: tenant_id }) });
+          }
+          return untrustedToolResult({ url, kqlBytes: kql.length, encodedBytes: url.length - 50 });
+        } catch (e) {
+          return untrustedToolResult({ error: 'encode_failed', message: e instanceof Error ? e.message : String(e) });
+        }
+      }
+    );
+
+    // ── Security Investigator: 25 Agent Skills + 45 KQL queries ───────
+    // The manifest ships in /public/data/si/ as static JSON and is read
+    // back through env.ASSETS at runtime. The index is small (≈37 KB)
+    // and cached in-memory per isolate; per-skill / per-query bodies are
+    // cached on demand with an LRU of 200 entries.
+    //
+    // All skill + query bodies are upstream markdown sourced from
+    // github.com/SCStelz/security-investigator (MIT). Clients should
+    // render the markdown themselves — we return it raw so the worker
+    // doesn't need a markdown parser at the edge.
+
+    if (this.env.ASSETS) {
+      const ASSETS = this.env.ASSETS;
+
+      this.server.tool(
+        'si_list_skills',
+        'List the security investigation skills shipped in this Worker (replicated from SCStelz/security-investigator, MIT). Each skill is a guided KQL+playbook workflow. Filter by category or free-text keyword.',
+        {
+          category: z
+            .enum([
+              'Quick Scan',
+              'Core Investigation',
+              'Auth & Access',
+              'Behavioral Drift',
+              'Posture & Exposure',
+              'Data Security',
+              'Visualization',
+              'Tooling',
+            ])
+            .optional()
+            .describe('Restrict to a single skill category'),
+          keyword: z.string().optional().describe('Case-insensitive substring match against slug / name / description / trigger keywords'),
+          limit: z.number().int().min(1).max(100).optional().describe('Max skills to return (default 50)'),
+        },
+        async ({ category, keyword, limit }) => {
+          const idx = await loadSiIndex(ASSETS);
+          const skills = filterSkills(idx, { category: category as SiSkillCategory | undefined, keyword, limit: limit ?? 50 });
+          return untrustedToolResult({
+            total: idx.skills.length,
+            returned: skills.length,
+            source: idx.source,
+            license: idx.license,
+            replicatedAt: idx.replicatedAt,
+            skills,
+          });
+        }
+      );
+
+      this.server.tool(
+        'si_get_skill',
+        'Return the full SKILL.md body (markdown) for a single security investigation skill. Use si_list_skills first to discover slugs.',
+        {
+          slug: z
+            .string()
+            .describe('Skill slug, e.g. "threat-pulse", "user-investigation", "scope-drift-detection/user". Get these from si_list_skills.'),
+        },
+        async ({ slug }) => {
+          const body = await getSiSkill(ASSETS, slug);
+          if (!body) {
+            return untrustedToolResult({
+              error: 'skill_not_found',
+              slug,
+              hint: 'Call si_list_skills to see available slugs.',
+            });
+          }
+          return untrustedToolResult(body);
+        }
+      );
+
+      this.server.tool(
+        'si_list_queries',
+        'List the KQL queries shipped in this Worker (Defender XDR / Sentinel hunt library replicated from SCStelz/security-investigator, MIT). Filter by domain (cloud / email / endpoint / identity / incidents / network / threat-intelligence) or free-text keyword.',
+        {
+          domain: z
+            .enum(['cloud', 'email', 'endpoint', 'identity', 'incidents', 'network', 'threat-intelligence'])
+            .optional()
+            .describe('Restrict to a single query domain'),
+          keyword: z.string().optional().describe('Case-insensitive substring match against slug / title / filename / domain / subdomain'),
+          limit: z.number().int().min(1).max(200).optional().describe('Max queries to return (default 100)'),
+        },
+        async ({ domain, keyword, limit }) => {
+          const idx = await loadSiIndex(ASSETS);
+          const queries = filterQueries(idx, { domain, keyword, limit: limit ?? 100 });
+          return untrustedToolResult({
+            total: idx.queries.length,
+            returned: queries.length,
+            source: idx.source,
+            license: idx.license,
+            replicatedAt: idx.replicatedAt,
+            queries,
+          });
+        }
+      );
+
+      this.server.tool(
+        'si_get_query',
+        'Return the full markdown body of a single KQL query (Defender XDR / Sentinel hunting query, IoC correlation, or campaign playbook). Use si_list_queries first to discover slugs.',
+        {
+          slug: z
+            .string()
+            .describe('Query slug, e.g. "cloud/agent365_observability" or "identity/aitm_threat_detection". Get these from si_list_queries.'),
+        },
+        async ({ slug }) => {
+          const body = await getSiQuery(ASSETS, slug);
+          if (!body) {
+            return untrustedToolResult({
+              error: 'query_not_found',
+              slug,
+              hint: 'Call si_list_queries to see available slugs.',
+            });
+          }
+          return untrustedToolResult(body);
+        }
+      );
+
+      this.server.tool(
+        'si_get_automation',
+        'Return a scheduled-workflow definition (Copilot App / GitHub Actions) for running the skills unattended. Three automations ship: daily-threat-pulse, daily-mcp-auth-health-check, weekly-threat-intel-campaign.',
+        {
+          slug: z
+            .enum(['daily-threat-pulse', 'daily-mcp-auth-health-check', 'weekly-threat-intel-campaign'])
+            .describe('Automation slug'),
+        },
+        async ({ slug }) => {
+          const body = await getSiAutomation(ASSETS, slug);
+          if (!body) {
+            return untrustedToolResult({ error: 'automation_not_found', slug });
+          }
+          return untrustedToolResult(body);
+        }
+      );
+
+      this.server.tool(
+        'si_stats',
+        'Return cache + manifest stats for the Security Investigator data: index loaded, body-cache sizes and hit ratios. Useful for diagnosing cold-start latency.',
+        {},
+        async () => {
+          const idx = await loadSiIndex(ASSETS);
+          return untrustedToolResult({
+            counts: idx.counts,
+            source: idx.source,
+            license: idx.license,
+            replicatedAt: idx.replicatedAt,
+            cache: siCacheStats(),
+          });
+        }
+      );
+
+      // ── R2 SVG dashboard renderer ─────────────────────────────────
+      // Returns the SVG widget manifest for a skill (the YAML body
+      // embedded in the skill JSON), plus a reference to the
+      // svg-dashboard skill's component library. Clients render the
+      // SVG client-side using the widget library + the manifest.
+      this.server.tool(
+        'si_render_svg_dashboard',
+        'Return the SVG widget manifest (YAML) for a skill that ships one (14 of 25 skills do). The manifest declares canvas, palette, and a list of widget instances to render. Pair with si_get_skill({slug: "svg-dashboard"}) for the component-library reference. Returns {hasManifest:false,...} if the skill has no SVG manifest.',
+        {
+          slug: z.string().describe('Skill slug, e.g. "threat-pulse", "mitre-coverage-report".'),
+        },
+        async ({ slug }) => {
+          const skill = await getSiSkill(ASSETS, slug);
+          if (!skill) {
+            return untrustedToolResult({ error: 'skill_not_found', slug });
+          }
+          const yaml = (skill as Record<string, unknown>).svgWidgetsYaml as string | undefined;
+          return untrustedToolResult({
+            slug,
+            hasManifest: !!yaml,
+            manifestYaml: yaml ?? null,
+            manifestSizeBytes: yaml ? yaml.length : 0,
+            hint: yaml
+              ? 'Parse manifestYaml client-side and render widgets per the svg-dashboard skill component library.'
+              : 'This skill does not ship an SVG manifest. Use the freeform mode of svg-dashboard with ad-hoc data.',
+          });
+        }
+      );
+
+      // ── R3 Knowledge base: 10 deep-dive docs ──────────────────────
+      this.server.tool(
+        'si_list_docs',
+        'List the 10 deep-dive knowledge-base docs from the upstream repo (Sentinel Exposure Graph guide, signinlog anomalies KQL cookbook, identity protection, honeypot investigation, ingestion cost best practices, etc). Each is a long-form markdown guide.',
+        {},
+        async () => {
+          const idx = await loadDocsIndex(ASSETS);
+          return untrustedToolResult(idx);
+        }
+      );
+
+      this.server.tool(
+        'si_get_doc',
+        'Return the full markdown body of a single knowledge-base doc. Get slugs from si_list_docs.',
+        {
+          slug: z.string().describe('Doc slug, e.g. "sentinel-exposure-graph-mcp-guide", "signinlogs_anomalies_kql_cl", "identity_protection".'),
+        },
+        async ({ slug }) => {
+          const doc = await getDoc(ASSETS, slug);
+          if (!doc) {
+            return untrustedToolResult({
+              error: 'doc_not_found',
+              slug,
+              hint: 'Call si_list_docs to see available slugs.',
+            });
+          }
+          return untrustedToolResult(doc);
+        }
+      );
+
+      // ── R4 Routing prompt (copilot-instructions.md) ───────────────
+      this.server.tool(
+        'si_get_routing_prompt',
+        'Return the upstream .github/copilot-instructions.md verbatim — the universal skill-detection / routing prompt. Clients should load this once at session start to learn how to map natural language to the right si_* tool. ~91 KB.',
+        {},
+        async () => {
+          const text = await getRoutingPrompt(ASSETS);
+          return untrustedToolResult({
+            source: 'github.com/SCStelz/security-investigator/.github/copilot-instructions.md',
+            license: 'MIT',
+            bytes: text.length,
+            promptMarkdown: text,
+            usage: 'Inject this into the client\'s system prompt at session start. It contains the skill-detection logic that maps user natural language to si_* tool calls.',
+          });
+        }
+      );
+
+      // ── R5 Reference data: MITRE catalog + known KQL tables + M365 coverage ─
+      this.server.tool(
+        'si_list_ref',
+        'List the reference datasets available via si_get_ref: MITRE ATT&CK enterprise catalog, known KQL tables for the M365 platform, M365 platform coverage matrix, and the 11 Sentinel ingestion-scan query schemas.',
+        {},
+        async () => {
+          // We don't have a separate ref-index, so we probe by trying each known filename.
+          const known = [
+            'mitre-attck-enterprise',
+            'known-kql-tables',
+            'm365-platform-coverage',
+            'ingestion-q2', 'ingestion-q6a', 'ingestion-q6b', 'ingestion-q6c',
+            'ingestion-q9', 'ingestion-q9b', 'ingestion-q10',
+            'ingestion-q12', 'ingestion-q13', 'ingestion-q16', 'ingestion-q17',
+          ];
+          const found: Array<{ name: string; bytes: number }> = [];
+          for (const name of known) {
+            const v = await getRef<unknown>(ASSETS, name);
+            if (v !== null) {
+              const json = JSON.stringify(v);
+              found.push({ name, bytes: json.length });
+            }
+          }
+          return untrustedToolResult({
+            source: 'github.com/SCStelz/security-investigator/.github/skills/',
+            license: 'MIT',
+            count: found.length,
+            refs: found,
+          });
+        }
+      );
+
+      this.server.tool(
+        'si_get_ref',
+        'Return a reference dataset by name. Get names from si_list_ref. Common: mitre-attck-enterprise (MITRE ATT&CK enterprise matrix, ~32 KB), known-kql-tables (M365 Defender table inventory, ~17 KB), m365-platform-coverage (coverage map, ~16 KB), ingestion-qN (Sentinel ingestion-scan query result schemas).',
+        {
+          name: z.string().describe('Reference dataset name without .json, e.g. "mitre-attck-enterprise", "known-kql-tables", "m365-platform-coverage", "ingestion-q9".'),
+        },
+        async ({ name }) => {
+          const v = await getRef<unknown>(ASSETS, name);
+          if (v === null) {
+            return untrustedToolResult({
+              error: 'ref_not_found',
+              name,
+              hint: 'Call si_list_ref to see available datasets.',
+            });
+          }
+          return untrustedToolResult({
+            name,
+            data: v,
+            bytes: JSON.stringify(v).length,
+          });
+        }
+      );
+
+      // ── IP enrichment (ported from upstream enrich_ips.py) ──────
+      // Hits existing platform providers through env.SELF (in-process,
+      // no public internet hop). Mirrors the enrich_ips.py output
+      // shape so upstream clients (and Python notebooks) get the same
+      // record layout.
+      this.server.tool(
+        'si_enrich_ip',
+        'Enrich a single IPv4/IPv6 address using the platform\'s IPinfo / AbuseIPDB / Shodan / Shodan-InternetDB / VPNAPI providers. Returns the same shape as upstream security-investigator/enrich_ips.py. Use si_enrich_ip_batch for up to 25 IPs in one call.',
+        {
+          ip: z.string().describe('IPv4 or IPv6 address, e.g. "203.0.113.42" or "2001:db8::1".'),
+        },
+        async ({ ip }) => {
+          if (!isValidIp(ip)) {
+            return untrustedToolResult({ error: 'invalid_ip', ip, hint: 'Pass a valid IPv4 or IPv6 address.' });
+          }
+          const r = await enrichIp(this.env as unknown as Parameters<typeof enrichIp>[0], ip);
+          return untrustedToolResult(r);
+        }
+      );
+
+      this.server.tool(
+        'si_enrich_ip_batch',
+        'Enrich up to 25 IP addresses in one call. Returns an array of the same shape as si_enrich_ip. Order is preserved. IPs that fail validation are returned with a single "validator:failed" diagnostic and empty enrichment fields.',
+        {
+          ips: z.array(z.string()).min(1).max(25).describe('Array of IPv4/IPv6 addresses (max 25).'),
+        },
+        async ({ ips }) => {
+          const results = await enrichIpsBatch(this.env as unknown as Parameters<typeof enrichIp>[0], ips);
+          return untrustedToolResult({ count: results.length, results });
+        }
+      );
+
+      // ── PowerShell + detection-manifest scripts (round 3) ──────
+      this.server.tool(
+        'si_list_scripts',
+        'List the 5 PowerShell / detection-manifest assets that ship in the SI bundle: Deploy-CustomDetections.ps1 (batch-deploy Defender XDR rules), Invoke-MitreScan.ps1 (full MITRE coverage scanner), Invoke-IngestionScan.ps1 (Sentinel ingestion health), example-detection-manifest.json (input template), sentinel-ingestion-drilldown.md (companion guide).',
+        {},
+        async () => {
+          const idx = await loadScriptsIndex(ASSETS);
+          return untrustedToolResult(idx);
+        }
+      );
+
+      this.server.tool(
+        'si_get_script',
+        'Return the raw body of a PowerShell script or detection-manifest. Use si_list_scripts to discover filenames. The PowerShell scripts target Microsoft Defender XDR / Sentinel / M365 — they are NOT executable in the Worker; copy them to a PowerShell 7+ session locally to run.',
+        {
+          name: z.string().describe('Script filename, e.g. "Deploy-CustomDetections.ps1", "Invoke-MitreScan.ps1", "Invoke-IngestionScan.ps1", "example-detection-manifest.json", "sentinel-ingestion-drilldown.md".'),
+        },
+        async ({ name }) => {
+          const body = await getScript(ASSETS, name);
+          if (!body) {
+            return untrustedToolResult({ error: 'script_not_found', name, hint: 'Call si_list_scripts to see available filenames.' });
+          }
+          return untrustedToolResult(body);
+        }
+      );
+
+      // ── Server-side SVG rendering (round 3, E) ────────────────────
+      // Renders the manifest to a self-contained <svg> string. Supports
+      // 6 widget types (title-banner, kpi-card, score-card, donut-chart,
+      // stacked-bar-chart, table-widget); unsupported widgets fall back
+      // to a dashed "use si_render_svg_dashboard" stub so the layout
+      // still renders.
+      this.server.tool(
+        'si_render_svg',
+        'Render an SVG dashboard from a manifest + data. Returns a self-contained <svg> string with inline styles, no external dependencies. Use si_render_svg_dashboard(slug) to get the canonical manifest for a skill, then pass its body as manifestYaml here. Supports all 14 widget types: title-banner, kpi-card, delta-kpi-card, score-card, donut-chart, stacked-bar-chart, horizontal-bar-chart, line-chart, waterfall-chart, sparkline, progress-bar, table-widget, recommendation-cards, assessment-banner, coverage-matrix. Unknown types render as a dashed warning panel.',
+        {
+          manifest_yaml: z.string().describe('YAML manifest body. Pull from si_render_svg_dashboard(slug).manifestYaml, or write your own.'),
+          data_json: z.string().optional().describe('Optional JSON string mapping widget-name → data object. The renderer merges per-widget data with the global map.'),
+        },
+        async ({ manifest_yaml, data_json }) => {
+          // The Worker has no YAML parser. We expect callers to send the
+          // manifest as a parsed JS object via JSON; if it looks like
+          // YAML text, we surface a clear error.
+          if (manifest_yaml.trim().startsWith('canvas:') || manifest_yaml.trim().startsWith('palette:') || manifest_yaml.trim().startsWith('widgets:')) {
+            return untrustedToolResult({
+              error: 'yaml_not_supported',
+              hint: 'The Worker has no YAML parser. Send the manifest as JSON via the si_render_svg JSON arg, or use the HTTP /api/v1/si/render route which accepts YAML and parses it with the lighter approach (each top-level field on its own line).',
+            });
+          }
+          let manifest: RenderManifest;
+          try {
+            manifest = JSON.parse(manifest_yaml);
+          } catch (e) {
+            return untrustedToolResult({ error: 'parse_failed', message: e instanceof Error ? e.message : String(e), hint: 'manifest_yaml must be a JSON-encoded RenderManifest object.' });
+          }
+          let data: Record<string, unknown> = {};
+          if (data_json) {
+            try { data = JSON.parse(data_json); }
+            catch (e) { return untrustedToolResult({ error: 'data_parse_failed', message: e instanceof Error ? e.message : String(e) }); }
+          }
+          try {
+            const svg = renderDashboard(manifest, data);
+            return untrustedToolResult({ svg, bytes: svg.length, widgetCount: (manifest.widgets ?? []).length });
+          } catch (e) {
+            return untrustedToolResult({ error: 'render_failed', message: e instanceof Error ? e.message : String(e) });
+          }
+        }
+      );
+
+      // Renders the same manifest to a PNG byte array via @resvg/resvg-wasm.
+      // Useful when the LLM client wants to drop the dashboard into a
+      // markdown image, email, or social-preview that can't render SVG.
+      // The response is a base64-encoded PNG (MCP text fields can't carry
+      // raw binary) with {bytes, width, hash} metadata.
+      this.server.tool(
+        'si_render_png',
+        'Render an SVG dashboard and rasterise it to PNG (base64-encoded in the JSON response). Same manifest + data shape as si_render_svg, but the output is a portable bitmap you can embed in markdown, email, or social previews. Uses the bundled @resvg/resvg-wasm + Hanken Grotesk TTF.',
+        {
+          manifest_json: z.string().describe('JSON-encoded RenderManifest object. Same shape as si_render_svg(manifest_yaml=JSON.stringify(manifest)).'),
+          data_json: z.string().optional().describe('Optional JSON string mapping widget-name → data object.'),
+          width: z.number().int().min(400).max(2800).optional().describe('Output width in CSS pixels (default 1400). Height is derived from the manifest canvas aspect ratio.'),
+        },
+        async ({ manifest_json, data_json, width }) => {
+          let manifest: RenderManifest;
+          let data: Record<string, unknown> = {};
+          try {
+            manifest = JSON.parse(manifest_json);
+          } catch (e) {
+            return untrustedToolResult({ error: 'parse_failed', message: e instanceof Error ? e.message : String(e) });
+          }
+          if (data_json) {
+            try { data = JSON.parse(data_json); }
+            catch (e) { return untrustedToolResult({ error: 'data_parse_failed', message: e instanceof Error ? e.message : String(e) }); }
+          }
+          try {
+            const svg = renderDashboard(manifest, data);
+            const { svgDashboardToPng } = await import('./lib/si-svg-png');
+            const png = await svgDashboardToPng(this.env, svg, { width: width ?? 1400 });
+            // MCP text fields are strings — return the PNG base64-encoded.
+            const b64 = btoa(String.fromCharCode(...png));
+            return untrustedToolResult({
+              png_base64: b64,
+              bytes: png.length,
+              width: width ?? 1400,
+              svg_bytes: svg.length,
+              hint: 'Decode png_base64 (standard base64) and write to a .png file. The bytes are a valid PNG (IHDR / IDAT / IEND chunks).',
+            });
+          } catch (e) {
+            return untrustedToolResult({ error: 'png_render_failed', message: e instanceof Error ? e.message : String(e) });
+          }
+        }
+      );
+    }
+
   }
 }

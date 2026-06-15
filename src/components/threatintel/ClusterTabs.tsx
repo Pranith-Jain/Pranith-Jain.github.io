@@ -39,7 +39,11 @@ export function ClusterTabs({ tabs, ariaLabel = 'Section' }: { tabs: ClusterTab[
 // eslint-disable-next-line react-refresh/only-export-components
 export const RANSOMWARE_TABS: ClusterTab[] = [
   { label: 'Live', to: '/threatintel/ransomware-live' },
-  { label: 'Map', to: '/threatintel/ransomware-map' },
   { label: 'Activity', to: '/threatintel/ransomware-activity' },
+  { label: 'Map', to: '/threatintel/ransomware-map' },
   { label: 'Report', to: '/threatintel/ransom-report' },
+  { label: 'Negotiations', to: '/threatintel/negotiations' },
+  { label: 'Wallets', to: '/threatintel/ransomwhere' },
+  { label: 'Re-leaks', to: '/threatintel/re-leaks' },
+  { label: 'Onion Watch', to: '/threatintel/onion-watch' },
 ];

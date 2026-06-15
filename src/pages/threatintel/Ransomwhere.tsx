@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Bitcoin, ExternalLink, Search } from 'lucide-react';
 import { DataPageLayout } from '../../components/DataPageLayout';
+import { ClusterTabs, RANSOMWARE_TABS } from '../../components/threatintel/ClusterTabs';
 
 interface Wallet {
   address: string;
@@ -139,6 +140,7 @@ export default function Ransomwhere(): JSX.Element {
   const headerExtra =
     data && !error ? (
       <div className="space-y-2">
+        <ClusterTabs tabs={RANSOMWARE_TABS} ariaLabel="Ransomware intel" />
         {data.stale && (
           <p className="text-micro font-mono text-amber-600 dark:text-amber-400">
             ⚠ showing cached data (upstream temporarily unavailable)

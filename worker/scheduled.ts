@@ -36,6 +36,7 @@ import { enqueueAllFeeds } from '../api/src/routes/live-iocs';
 import { enqueueGpFeeds } from '../api/src/routes/global-pulse';
 import type { D1Database } from '@cloudflare/workers-types';
 import { acquireCronLease, releaseCronLease, heartbeatCronLease } from './durable-objects/cron-lock';
+import { siCacheStats, loadSiIndex } from './lib/si-manifest';
 
 // Lease TTL for the cron single-flight gate. Generous so it covers the
 // worst-case job window (the briefing build runs well past the old 120s) —
@@ -62,6 +63,24 @@ import type { Env } from './env';
  *                  cache TTL bumped to 1h to match.
  */
 export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: ExecutionContext): Promise<void> {
+  // Security Investigator: log cache + manifest health once per cron tick.
+  // Cheap (in-memory); no I/O. If the counts drift, the next deploy will
+  // rebuild the manifest via scripts/build-si-manifest.mjs.
+  if (env.ASSETS) {
+    try {
+      const idx = await loadSiIndex(env.ASSETS);
+      const cache = siCacheStats();
+      console.log(JSON.stringify({
+        job: 'si-stats',
+        counts: idx.counts,
+        cacheHits: cache.skills.hits + cache.queries.hits + cache.automations.hits,
+        cacheMisses: cache.skills.misses + cache.queries.misses + cache.automations.misses,
+      }));
+    } catch (e) {
+      console.log(JSON.stringify({ job: 'si-stats', status: 'failed', error: e instanceof Error ? e.message : String(e) }));
+    }
+  }
+
   const cron = event.cron;
   const startMs = Date.now();
 

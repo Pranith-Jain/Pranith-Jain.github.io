@@ -1641,4 +1641,63 @@ export const RESOURCES: ExternalResource[] = [
     description:
       "Open-source threat-intelligence sharing platform (6.4k stars, AGPL-3.0). Industry-standard IOC/TAXII/STIX sharing — REST API, feed import, correlation. The platform's name references MISP for a reason: the IOC fan-out + STIX builder mirror a MISP-style workflow.",
   },
+  // ── New entries (2026-06-15) ─────────────────────────────────────────────
+  {
+    id: 'opengridworks',
+    name: 'OpenGridWorks',
+    url: 'https://opengridworks.com/',
+    kind: 'research',
+    tags: ['threat-intel', 'osint'],
+    description:
+      'Security research and open-source intelligence resource — covers threat analysis, grid/infrastructure monitoring, and investigative methodologies.',
+  },
+  {
+    id: 'relatedrepos-awesome-ti-blogs',
+    name: 'Awesome Threat Intel Blogs',
+    url: 'https://relatedrepos.com/gh/muchdogesec/awesome_threat_intel_blogs',
+    kind: 'directory',
+    tags: ['threat-intel'],
+    description:
+      'Curated directory of threat intelligence blogs and researcher feeds by muchdogesec. Aggregates active CTI practitioners writing about threat actors, campaigns, detection engineering, and operational intelligence.',
+  },
+  {
+    id: '0xprivacy-tools',
+    name: '0xPrivacy Tools',
+    url: 'https://0xprivacy.online/tools',
+    kind: 'tool',
+    tags: ['anonymity', 'osint'],
+    description:
+      'Privacy and OPSEC tooling — utilities for digital footprint reduction, encrypted communications, and anonymity hardening for security practitioners.',
+  },
+  {
+    id: 'osint-cabal',
+    name: 'OSINT Cabal',
+    url: 'https://osintcabal.org/',
+    kind: 'community',
+    featured: true,
+    tags: ['osint', 'threat-intel', 'dfir'],
+    description:
+      'Community OSINT collective with browser-based Live Center (20+ CLI tools runnable from the web), threat actor dashboard tracking extremists/predators/scammers, investigation kits (username, email, domain, breach, web crawling), and curated methods & guides database. Founded by a licensed PI.',
+    why: 'The Live Center concept (browser-executable CLI tools) and threat actor dashboard with community-sourced intelligence are unique differentiators.',
+  },
+  {
+    id: 'the-osint-toolbox',
+    name: 'The OSINT Toolbox',
+    url: 'https://the-osint-toolbox.com/OSINT%20Resources.html',
+    kind: 'directory',
+    tags: ['osint', 'threat-intel', 'dfir'],
+    description:
+      'Curated OSINT resource directory — tools, guides, frameworks, and training materials for open-source intelligence investigations across digital forensics, social media, and cyber threat intelligence.',
+  },
+  {
+    id: 'osintframework',
+    name: 'OSINT Framework',
+    url: 'https://www.osintframework.com/',
+    kind: 'directory',
+    featured: true,
+    tags: ['osint', 'dfir'],
+    description:
+      'Interactive decision-tree OSINT tool finder — start with a data point (username, email, IP, domain, phone, image, etc.) and navigate branches to discover the right tool for each investigation step. De facto starting point for OSINT methodology.',
+    why: 'The branching decision-tree UI is unique — no other resource maps data-point → tool selection as intuitively.',
+  },
 ];

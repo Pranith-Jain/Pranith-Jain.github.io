@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
 import { AlertTriangle, ArrowLeft, ExternalLink, RefreshCw, Search, Bell, Copy, Check } from 'lucide-react';
 import { formatRelativeTime } from '../../services/rssService';
+import { ClusterTabs, RANSOMWARE_TABS } from '../../components/threatintel/ClusterTabs';
 
 /**
  * Dedicated .onion mirror tracker.
@@ -175,6 +176,7 @@ export default function OnionWatch(): JSX.Element {
           . Reachability is upstream-observed and your own Tor client may see different status. Treat any leak-site
           visit as opsec-sensitive.
         </p>
+        <ClusterTabs tabs={RANSOMWARE_TABS} ariaLabel="Ransomware intel" />
       </div>
 
       {/* Headline stats */}

@@ -2,6 +2,7 @@ import { Fragment, useEffect, useMemo, useRef, useState } from 'react';
 import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, ChevronDown, ChevronRight, Handshake, RefreshCw } from 'lucide-react';
 import { DataState } from '../../components/DataState';
+import { ClusterTabs, RANSOMWARE_TABS } from '../../components/threatintel/ClusterTabs';
 
 /**
  * Ransomware negotiations. Backed by /api/v1/negotiations — a server-side
@@ -183,6 +184,7 @@ export default function Negotiations(): JSX.Element {
           Source: ransomware.live PRO <code>/negotiations</code> (per-group fan-out, edge-cached 1h) · transcripts from
           the public <code>Casualtek/Ransomchats</code> research repo on demand.
         </p>
+        <ClusterTabs tabs={RANSOMWARE_TABS} ariaLabel="Ransomware intel" />
       </div>
 
       <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6 flex items-center justify-between gap-3 flex-wrap">

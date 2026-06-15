@@ -277,8 +277,8 @@ export function renderDashboard(manifest: RenderManifest, data: RenderData = {})
   const widgets = manifest.widgets ?? [];
   // 2-column grid layout. Widgets with type=full-width span both columns.
   const cellW = (W - pad * 2 - colGap) / 2;
-  let cursorY = pad;
-  let rowBuf: Array<{ widget: Record<string, unknown>; x: number; y: number; w: number; h: number }> = [];
+  const cursorY = pad;
+  const rowBuf: Array<{ widget: Record<string, unknown>; x: number; y: number; w: number; h: number }> = [];
 
   const placeWidget = (w: Record<string, unknown>, w_px: number, h_px: number, x: number, y: number) => {
     const renderer = RENDERERS[asString(w.type, '')];
