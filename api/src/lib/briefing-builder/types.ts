@@ -50,6 +50,15 @@ export interface BriefingStats {
   low: number;
 }
 
+export interface BriefingIocDump {
+  /** Number of IOCs included in the txt dump (capped at 30). */
+  count: number;
+  /** Total unique IOCs observed in-window before the cap. */
+  rawTotal: number;
+  /** Newline-separated list, one IOC per line. */
+  content: string;
+}
+
 export interface Briefing {
   slug: string;
   type: BriefingType;
@@ -63,6 +72,12 @@ export interface Briefing {
   stats: BriefingStats;
   sections: BriefingSection[];
   iocs: BriefingIocBuckets;
+  /**
+   * Plain-text dump of the top IOC list (max 30, all IOCs after cross-source
+   * dedup). Surface this as a download or paste-friendly <pre> block; the
+   * inline IocTable on the brief page is just a quick-look summary now.
+   */
+  ioc_dump?: BriefingIocDump;
   mitre_techniques: string[];
   sources: string[];
   degraded?: boolean;

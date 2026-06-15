@@ -17,6 +17,7 @@ import {
   buildSections,
   bucketIocs,
   buildStats,
+  buildIocDump,
   buildLlmExecutiveSummary,
   severityFromCvss,
   deriveMitreTechniques,
@@ -336,6 +337,8 @@ export async function buildBriefing(
   if (ransomwareFindings.length > 0) sources.push('ransomware.live');
   sources.push(...iocSources);
 
+  const ioc_dump = buildIocDump(iocs, iocsRawTotal);
+
   return {
     slug,
     type,
@@ -349,6 +352,7 @@ export async function buildBriefing(
     stats,
     sections,
     iocs,
+    ...(ioc_dump ? { ioc_dump } : {}),
     mitre_techniques: Array.from(techniqueSet).sort(),
     sources,
     ...(degraded ? { degraded: true } : {}),

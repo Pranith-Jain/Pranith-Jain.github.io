@@ -14,6 +14,7 @@ import {
   resolveCirclBaseScore,
   type Briefing,
 } from '../../src/lib/briefing-builder';
+import { bucketIocs, buildIocDump } from '../../src/lib/briefing-builder/aggregate';
 import { readLastGood, writeLastGood } from '../../src/lib/lastgood';
 import type { Env } from '../../src/env';
 
@@ -438,5 +439,88 @@ describe('CIRCL CVE 5.x parsing (regression: findings=0 on 2026-06-04/05)', () =
     expect(resolveCirclCveId({ foo: 'bar' })).toBeNull();
     expect(resolveCirclPublished({ foo: 'bar' })).toBe('');
     expect(resolveCirclBaseScore({ foo: 'bar' })).toBeUndefined();
+  });
+});
+
+
+describe('bucketIocs 30-total cap', () => {
+  const mk = (type: 'url' | 'domain' | 'ipv4' | 'hash', i: number) => ({
+    type,
+    value: `${type}-${i}`,
+  });
+  it('caps at 30 across all 4 types (was 30 per type = up to 120)', () => {
+    const entries = [
+      ...Array.from({ length: 30 }, (_, i) => mk('url', i)),
+      ...Array.from({ length: 30 }, (_, i) => mk('domain', i)),
+      ...Array.from({ length: 30 }, (_, i) => mk('ipv4', i)),
+      ...Array.from({ length: 30 }, (_, i) => mk('hash', i)),
+    ];
+    const b = bucketIocs(entries);
+    const total = b.urls.length + b.domains.length + b.ipv4s.length + b.hashes.length;
+    expect(total).toBe(30);
+    expect(b.urls.length).toBe(30);
+    expect(b.domains.length).toBe(0);
+    expect(b.ipv4s.length).toBe(0);
+    expect(b.hashes.length).toBe(0);
+  });
+
+  it('distributes proportionally when each type has fewer than 30', () => {
+    const entries = [
+      ...Array.from({ length: 10 }, (_, i) => mk('url', i)),
+      ...Array.from({ length: 8 }, (_, i) => mk('domain', i)),
+      ...Array.from({ length: 5 }, (_, i) => mk('ipv4', i)),
+      ...Array.from({ length: 3 }, (_, i) => mk('hash', i)),
+    ];
+    const b = bucketIocs(entries);
+    expect(b.urls.length).toBe(10);
+    expect(b.domains.length).toBe(8);
+    expect(b.ipv4s.length).toBe(5);
+    expect(b.hashes.length).toBe(3);
+  });
+
+  it('returns empty buckets for empty input', () => {
+    const b = bucketIocs([]);
+    expect(b).toEqual({ urls: [], domains: [], ipv4s: [], hashes: [] });
+  });
+});
+
+describe('buildIocDump', () => {
+  it('returns undefined for an empty bucket', () => {
+    expect(
+      buildIocDump({ urls: [], domains: [], ipv4s: [], hashes: [] }, 0)
+    ).toBeUndefined();
+  });
+
+  it('formats one line per IOC with type + value + context/timestamp', () => {
+    const dump = buildIocDump(
+      {
+        urls: [{ type: 'url', value: 'http://evil.example/p', context: 'phish', timestamp: '2026-06-14T01:00:00Z' }],
+        domains: [{ type: 'domain', value: 'mal.example' }],
+        ipv4s: [],
+        hashes: [{ type: 'hash', value: 'aa11bb22cc33' }],
+      },
+      3
+    );
+    expect(dump).toBeDefined();
+    expect(dump!.count).toBe(3);
+    expect(dump!.rawTotal).toBe(3);
+    const lines = dump!.content.split('\n');
+    expect(lines[0]).toContain('url  http://evil.example/p');
+    expect(lines[0]).toContain('# phish');
+    expect(lines[0]).toContain('@ 2026-06-14T01:00:00Z');
+    expect(lines[1]).toBe('domain  mal.example');
+    expect(lines[2]).toBe('hash  aa11bb22cc33');
+  });
+
+  it('caps content lines at 30 (mirrors bucketIocs 30-total cap)', () => {
+    const entries = [
+      ...Array.from({ length: 30 }, (_, i) => ({ type: 'url' as const, value: `u${i}` })),
+      ...Array.from({ length: 30 }, (_, i) => ({ type: 'domain' as const, value: `d${i}` })),
+    ];
+    const b = bucketIocs(entries);
+    const dump = buildIocDump(b, 60);
+    expect(dump).toBeDefined();
+    expect(dump!.count).toBe(30);
+    expect(dump!.content.split('\n')).toHaveLength(30);
   });
 });

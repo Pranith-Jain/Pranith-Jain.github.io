@@ -124,6 +124,7 @@ import {
   pruneEmptyBriefingsHandler,
   briefingsForActorHandler,
   briefingPrintHandler,
+  briefingIocsTxtHandler,
 } from './routes/briefings';
 import { briefingsRssHandler } from './routes/briefings-rss';
 import {
@@ -659,6 +660,9 @@ import {
   siRefListHandler,
   siRefHandler,
   siRoutingPromptHandler,
+  siScriptsHandler,
+  siScriptHandler,
+  siRenderHandler,
 } from './routes/security-investigator';
 
 app.get('/api/v1/health', (c) =>
@@ -994,6 +998,7 @@ app.post('/api/v1/briefings/prune-empty', pruneEmptyBriefingsHandler);
 app.post('/api/v1/briefings/delete', validate('query', briefingDeleteSchema), deleteBriefingHandler);
 app.get('/api/v1/briefings/for-actor/:slug', briefingsForActorHandler);
 app.get('/api/v1/briefings/:slug/print', briefingPrintHandler);
+app.get('/api/v1/briefings/:slug/iocs.txt', briefingIocsTxtHandler);
 app.get('/api/v1/briefings/:slug', getBriefingHandler);
 
 // ── Briefing Feedback & Annotations ─────────────────────────────
@@ -1299,6 +1304,12 @@ app.post('/api/v1/export/suricata', exportSuricataHandler);
 app.post('/api/v1/export/csv', exportCsvHandler);
 app.post('/api/v1/export/pfsense', exportPfSenseHandler);
 
+// SI: server-side SVG rendering. GET with ?slug=<skill> returns image/svg+xml directly;
+// POST with JSON/YAML body returns the same SVG wrapped in JSON (with bytes + widgetCount).
+// See worker/lib/si-svg-renderer.ts for supported widget types.
+app.get('/api/v1/si/render', siRenderHandler);
+app.post('/api/v1/si/render', siRenderHandler);
+
 // Security Investigator (replicated from SCStelz/security-investigator, MIT).
 // Public data lives in dist/data/si/ and is read via env.ASSETS. Cached at the edge.
 app.get('/api/v1/si/index', siIndexHandler);
@@ -1314,6 +1325,8 @@ app.get('/api/v1/si/docs/:slug', siDocHandler);
 app.get('/api/v1/si/ref', siRefListHandler);
 app.get('/api/v1/si/ref/:name', siRefHandler);
 app.get('/api/v1/si/routing-prompt', siRoutingPromptHandler);
+app.get('/api/v1/si/scripts', siScriptsHandler);
+app.get('/api/v1/si/scripts/:name', siScriptHandler);
 
 // Standardized 404 shape: matches the api-error contract ({ error, message })
 // so clients get a human-readable message, not just a bare error code.

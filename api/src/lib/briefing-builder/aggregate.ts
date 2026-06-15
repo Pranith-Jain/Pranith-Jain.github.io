@@ -240,8 +240,55 @@ export function bucketIocs(entries: IocEntry[]): BriefingIocBuckets {
     else if (e.type === 'ipv4') buckets.ipv4s.push(e);
     else if (e.type === 'hash') buckets.hashes.push(e);
   }
-  for (const k of Object.keys(buckets) as Array<keyof BriefingIocBuckets>) buckets[k] = buckets[k].slice(0, 30);
+  // Cap at 30 total across all 4 IOC types (was 30 per type = up to 120). The
+  // brief page renders a txt dump instead of an in-line list, so the inline
+  // buckets only need a quick-look summary. Distribution order: urls ->
+  // domains -> ipv4s -> hashes; any type after the cap is consumed gets dropped.
+  let remaining = 30;
+  for (const k of ['urls', 'domains', 'ipv4s', 'hashes'] as Array<keyof BriefingIocBuckets>) {
+    if (remaining <= 0) {
+      buckets[k] = [];
+      continue;
+    }
+    if (buckets[k].length > remaining) buckets[k] = buckets[k].slice(0, remaining);
+    remaining -= buckets[k].length;
+  }
   return buckets;
+}
+
+/**
+ * Build the plain-text IOC dump attached to each briefing. Capped at 30
+ * indicators total across all types (urls -> domains -> ipv4s -> hashes,
+ * same priority as the inline bucket truncation). Each line includes the
+ * IOC value plus its type prefix and a timestamp/context when available,
+ * so the dump is usable as a copy-paste blocklist seed.
+ *
+ * Returns undefined when the bucket is empty so the field is omitted on
+ * briefs that have no in-window IOCs (cleaner payload, and the page hides
+ * the section entirely).
+ */
+export function buildIocDump(
+  iocs: BriefingIocBuckets,
+  rawTotal: number
+): { count: number; rawTotal: number; content: string } | undefined {
+  const lines: string[] = [];
+  const collect = (kind: string, entries: IocEntry[]) => {
+    for (const e of entries) {
+      const ctx = e.context ? `  # ${e.context}` : '';
+      const ts = e.timestamp ? `  @ ${e.timestamp}` : '';
+      lines.push(`${kind}  ${e.value}${ctx}${ts}`);
+    }
+  };
+  collect('url', iocs.urls);
+  collect('domain', iocs.domains);
+  collect('ipv4', iocs.ipv4s);
+  collect('hash', iocs.hashes);
+  if (lines.length === 0) return undefined;
+  return {
+    count: lines.length,
+    rawTotal,
+    content: lines.join('\n'),
+  };
 }
 
 function topVendors(findings: BriefingFinding[], n: number): string[] {
@@ -321,7 +368,7 @@ function buildExecutiveSummary(args: {
           : `${iocSources.slice(0, -1).join(', ')}, and ${iocSources[iocSources.length - 1]}`;
     const sampledTotal = iocs.urls.length + iocs.domains.length + iocs.ipv4s.length + iocs.hashes.length;
     parts.push(
-      `Active threat indicators ${iocPerSource ? 'per source' : 'across'} ${breakdown} — ${iocsRawTotal.toLocaleString()} unique after cross-source dedup; this briefing samples the top ${sampledTotal} (${sampledBits.join(', ')}, capped at 30 per type).`
+      `Active threat indicators ${iocPerSource ? 'per source' : 'across'} ${breakdown} — ${iocsRawTotal.toLocaleString()} unique after cross-source dedup; the top ${sampledTotal} indicators (${sampledBits.join(', ')}, capped at 30 total) are included in the IOC dump.`
     );
   }
   parts.push(
