@@ -1,14 +1,6 @@
 import { useMemo, useState } from 'react';
 import { DataPageLayout } from '../../components/DataPageLayout';
-import {
-  ChevronDown,
-  ChevronUp,
-  ExternalLink,
-  Search,
-  Shield,
-  Skull,
-  Users,
-} from 'lucide-react';
+import { ChevronDown, ChevronUp, Search, Skull } from 'lucide-react';
 import {
   THREAT_ACTORS,
   TYPE_LABELS,
@@ -44,14 +36,17 @@ export default function ThreatActorCatalog(): JSX.Element {
   const toggle = (id: string) => {
     setExpanded((prev) => {
       const next = new Set(prev);
-      if (next.has(id)) next.delete(id); else next.add(id);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
       return next;
     });
   };
 
   const typeCounts = useMemo(() => {
     const c: Record<string, number> = {};
-    THREAT_ACTORS.forEach((a) => { c[a.type] = (c[a.type] || 0) + 1; });
+    THREAT_ACTORS.forEach((a) => {
+      c[a.type] = (c[a.type] || 0) + 1;
+    });
     return c;
   }, []);
 
@@ -81,7 +76,8 @@ export default function ThreatActorCatalog(): JSX.Element {
         <button
           onClick={() => setActiveType(null)}
           className={`text-xs font-mono px-3 py-1.5 rounded-lg border transition-colors ${
-            !activeType ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
+            !activeType
+              ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
               : 'border-slate-200 dark:border-slate-800 text-slate-500 hover:border-slate-300 dark:hover:border-slate-700'
           }`}
         >
@@ -92,7 +88,8 @@ export default function ThreatActorCatalog(): JSX.Element {
             key={t}
             onClick={() => setActiveType(activeType === t ? null : t)}
             className={`text-xs font-mono px-3 py-1.5 rounded-lg border transition-colors ${
-              activeType === t ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
+              activeType === t
+                ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
                 : 'border-slate-200 dark:border-slate-800 text-slate-500 hover:border-slate-300 dark:hover:border-slate-700'
             }`}
           >
@@ -114,13 +111,23 @@ export default function ThreatActorCatalog(): JSX.Element {
   );
 }
 
-function ActorCard({ actor, expanded, onToggle }: { actor: ThreatActor; expanded: boolean; onToggle: () => void }): JSX.Element {
+function ActorCard({
+  actor,
+  expanded,
+  onToggle,
+}: {
+  actor: ThreatActor;
+  expanded: boolean;
+  onToggle: () => void;
+}): JSX.Element {
   return (
     <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden transition-all hover:border-slate-300 dark:hover:border-slate-700">
       <button type="button" onClick={onToggle} className="w-full text-left p-4 flex items-start gap-4">
         <span className="text-lg mt-0.5">{actor.country.split(' ')[0]}</span>
         <div className="flex-1 min-w-0">
-          <h3 className="font-mono font-semibold text-sm text-slate-900 dark:text-slate-100 leading-snug mb-1">{actor.name}</h3>
+          <h3 className="font-mono font-semibold text-sm text-slate-900 dark:text-slate-100 leading-snug mb-1">
+            {actor.name}
+          </h3>
           <div className="flex items-center gap-3 text-[11px] font-mono text-slate-500 flex-wrap">
             <span className={`font-semibold ${STATUS_COLORS[actor.status]}`}>{actor.status}</span>
             <span>·</span>
@@ -133,7 +140,11 @@ function ActorCard({ actor, expanded, onToggle }: { actor: ThreatActor; expanded
             <span>{actor.ttps.length} TTPs</span>
           </div>
         </div>
-        {expanded ? <ChevronUp size={16} className="text-slate-400 flex-shrink-0 mt-1" /> : <ChevronDown size={16} className="text-slate-400 flex-shrink-0 mt-1" />}
+        {expanded ? (
+          <ChevronUp size={16} className="text-slate-400 flex-shrink-0 mt-1" />
+        ) : (
+          <ChevronDown size={16} className="text-slate-400 flex-shrink-0 mt-1" />
+        )}
       </button>
 
       {expanded && (
@@ -143,41 +154,77 @@ function ActorCard({ actor, expanded, onToggle }: { actor: ThreatActor; expanded
           {actor.aliases.length > 0 && (
             <Section title="Aliases">
               {actor.aliases.map((a) => (
-                <span key={a} className="text-[10px] font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-slate-700 text-slate-500">{a}</span>
+                <span
+                  key={a}
+                  className="text-[10px] font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-slate-700 text-slate-500"
+                >
+                  {a}
+                </span>
               ))}
             </Section>
           )}
 
           <Section title="Malware Families">
             {actor.malware.map((m) => (
-              <span key={m} className="text-[10px] font-mono px-2 py-0.5 rounded border border-rose-500/30 bg-rose-500/10 text-rose-700 dark:text-rose-300">{m}</span>
+              <span
+                key={m}
+                className="text-[10px] font-mono px-2 py-0.5 rounded border border-rose-500/30 bg-rose-500/10 text-rose-700 dark:text-rose-300"
+              >
+                {m}
+              </span>
             ))}
           </Section>
 
           <Section title="Tools">
             {actor.tools.map((t) => (
-              <span key={t} className="text-[10px] font-mono px-2 py-0.5 rounded border border-amber-500/30 bg-amber-500/10 text-amber-700 dark:text-amber-300">{t}</span>
+              <span
+                key={t}
+                className="text-[10px] font-mono px-2 py-0.5 rounded border border-amber-500/30 bg-amber-500/10 text-amber-700 dark:text-amber-300"
+              >
+                {t}
+              </span>
             ))}
           </Section>
 
           <Section title="MITRE ATT&CK">
             {actor.ttps.map((t) => (
-              <span key={t} className="text-[10px] font-mono px-2 py-0.5 rounded border border-blue-500/30 bg-blue-500/10 text-blue-700 dark:text-blue-300">{t}</span>
+              <span
+                key={t}
+                className="text-[10px] font-mono px-2 py-0.5 rounded border border-blue-500/30 bg-blue-500/10 text-blue-700 dark:text-blue-300"
+              >
+                {t}
+              </span>
             ))}
-            {actor.mitreGroups.length > 0 && actor.mitreGroups.map((g) => (
-              <span key={g} className="text-[10px] font-mono px-2 py-0.5 rounded border border-purple-500/30 bg-purple-500/10 text-purple-700 dark:text-purple-300">{g}</span>
-            ))}
+            {actor.mitreGroups.length > 0 &&
+              actor.mitreGroups.map((g) => (
+                <span
+                  key={g}
+                  className="text-[10px] font-mono px-2 py-0.5 rounded border border-purple-500/30 bg-purple-500/10 text-purple-700 dark:text-purple-300"
+                >
+                  {g}
+                </span>
+              ))}
           </Section>
 
           <Section title="Campaigns">
             {actor.campaigns.map((c) => (
-              <span key={c} className="text-[10px] font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400">{c}</span>
+              <span
+                key={c}
+                className="text-[10px] font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400"
+              >
+                {c}
+              </span>
             ))}
           </Section>
 
           <Section title="Targets">
             {actor.targets.map((t) => (
-              <span key={t} className="text-[10px] font-mono px-2 py-0.5 rounded border border-cyan-500/30 bg-cyan-500/10 text-cyan-700 dark:text-cyan-300">{t}</span>
+              <span
+                key={t}
+                className="text-[10px] font-mono px-2 py-0.5 rounded border border-cyan-500/30 bg-cyan-500/10 text-cyan-700 dark:text-cyan-300"
+              >
+                {t}
+              </span>
             ))}
           </Section>
 

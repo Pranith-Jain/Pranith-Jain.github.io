@@ -37,7 +37,9 @@ describe('si-hypos', () => {
   it('returns kill chain phase on each hypothesis', async () => {
     const r = await siHyposGenerate({ text: 'lsass access observed', environment: 'endpoint' });
     for (const h of r.hypotheses) {
-      expect(h.killChainPhase).toMatch(/^(reconnaissance|weaponization|delivery|exploitation|installation|command-and-control|actions-on-objectives)$/);
+      expect(h.killChainPhase).toMatch(
+        /^(reconnaissance|weaponization|delivery|exploitation|installation|command-and-control|actions-on-objectives|initial-access|persistence|privilege-escalation|defense-evasion|credential-access|discovery|execution|lateral-movement|collection|exfiltration|impact|supply-chain-compromise)$/
+      );
     }
   });
 

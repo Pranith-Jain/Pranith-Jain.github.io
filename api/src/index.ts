@@ -667,6 +667,7 @@ import {
   siScriptHandler,
   siRenderHandler,
 } from './routes/security-investigator';
+import { siEdgeToolsRouter } from './routes/si-edge-tools';
 
 app.get('/api/v1/health', (c) =>
   c.json({ ok: true, timestamp: new Date().toISOString() }, 200, { 'Cache-Control': 'public, max-age=60' })
@@ -1319,6 +1320,12 @@ app.post('/api/v1/export/pfsense', exportPfSenseHandler);
 // See worker/lib/si-svg-renderer.ts for supported widget types.
 app.get('/api/v1/si/render', siRenderHandler);
 app.post('/api/v1/si/render', siRenderHandler);
+
+// SI edge tools (H3AD-SEC replicas): PARSE-X, MAILSCOPE, SHIFTLOG, HYPOS, PROMPTVAULT
+// Mounted as a sub-router so all routes get the /api/v1/ prefix via the
+// parent app. Each tool runs in a few ms on the edge — no external calls
+// except HYPOS which uses the ASSETS binding for SI skill matching.
+app.route('/api/v1', siEdgeToolsRouter);
 
 // Security Investigator (replicated from SCStelz/security-investigator, MIT).
 // Public data lives in dist/data/si/ and is read via env.ASSETS. Cached at the edge.

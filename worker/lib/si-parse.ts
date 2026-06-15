@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape, @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any */
 /**
  * PARSE-X — Raw text → clean artifacts.
  *
@@ -74,19 +75,32 @@ const REFANG_PATTERNS: Array<[RegExp, string]> = [
 ];
 
 const HOMOGRAPHS: Record<string, string> = {
-  '\u0430': 'a', '\u0410': 'A',
-  '\u0435': 'e', '\u0415': 'E',
-  '\u043E': 'o', '\u041E': 'O',
-  '\u0440': 'p', '\u0420': 'P',
-  '\u0441': 'c', '\u0421': 'C',
-  '\u0445': 'x', '\u0425': 'X',
-  '\u0455': 's', '\u0405': 'S',
-  '\u0456': 'i', '\u0406': 'I',
-  '\u03BF': 'o', '\u039F': 'O',
-  '\u03B1': 'a', '\u0391': 'A',
-  '\u03C1': 'p', '\u03A1': 'P',
+  '\u0430': 'a',
+  '\u0410': 'A',
+  '\u0435': 'e',
+  '\u0415': 'E',
+  '\u043E': 'o',
+  '\u041E': 'O',
+  '\u0440': 'p',
+  '\u0420': 'P',
+  '\u0441': 'c',
+  '\u0421': 'C',
+  '\u0445': 'x',
+  '\u0425': 'X',
+  '\u0455': 's',
+  '\u0405': 'S',
+  '\u0456': 'i',
+  '\u0406': 'I',
+  '\u03BF': 'o',
+  '\u039F': 'O',
+  '\u03B1': 'a',
+  '\u0391': 'A',
+  '\u03C1': 'p',
+  '\u03A1': 'P',
   '\u03C5': 'u',
-  '\uFF0E': '.', '\u3002': '.', '\u00B7': '.',
+  '\uFF0E': '.',
+  '\u3002': '.',
+  '\u00B7': '.',
 };
 
 export function foldHomographs(s: string): { folded: string; changed: boolean } {
@@ -122,10 +136,24 @@ export function refang(s: string): string {
 // ---------------------------------------------------------------------------
 
 export type ArtifactKind =
-  | 'ipv4' | 'ipv6' | 'domain' | 'url' | 'email'
-  | 'md5' | 'sha1' | 'sha256' | 'sha512'
-  | 'cve' | 'mitre'
-  | 'registry' | 'process' | 'dll' | 'filePath' | 'port' | 'mac' | 'asn';
+  | 'ipv4'
+  | 'ipv6'
+  | 'domain'
+  | 'url'
+  | 'email'
+  | 'md5'
+  | 'sha1'
+  | 'sha256'
+  | 'sha512'
+  | 'cve'
+  | 'mitre'
+  | 'registry'
+  | 'process'
+  | 'dll'
+  | 'filePath'
+  | 'port'
+  | 'mac'
+  | 'asn';
 
 const PATTERNS: Record<ArtifactKind, RegExp> = {
   ipv4: /\b(?:(?:25[0-5]|2[0-4]\d|1?\d?\d)\.){3}(?:25[0-5]|2[0-4]\d|1?\d?\d)\b/g,
@@ -139,7 +167,8 @@ const PATTERNS: Record<ArtifactKind, RegExp> = {
   sha512: /\b[a-f0-9]{128}\b/gi,
   cve: /\bCVE-(?:19|20)\d{2}-\d{4,7}\b/gi,
   mitre: /\bT1(?:0[0-9]{2}|[1-9]\d{2})(?:\.\d{3})?\b/g,
-  registry: /\bH(?:K(LM|E_(?:LM|U(?:SERS|CLASSES(?:_LOCAL_MACHINE|_CURRENT_USER))?)|CR))\\(?:[A-Za-z0-9_ \-\.]+\\)*[A-Za-z0-9_ \-\.]+/g,
+  registry:
+    /\bH(?:K(LM|E_(?:LM|U(?:SERS|CLASSES(?:_LOCAL_MACHINE|_CURRENT_USER))?)|CR))\\(?:[A-Za-z0-9_ \-\.]+\\)*[A-Za-z0-9_ \-\.]+/g,
   process: /\b[a-z0-9_\- ]+\.(?:exe|bat|cmd|ps1|vbs|js|hta|wsf|lnk|jar|scr|com)\b/gi,
   dll: /\b[a-z0-9_\- ]+\.dll\b/gi,
   filePath: /(?:[A-Za-z]:(?:\\[^\\/:*?"<>|\s]+\\?)+|\/(?:[a-z0-9_\-\.]+\/)+[a-z0-9_\-\.]+(?:\.[a-z0-9]+)?)/g,
@@ -148,7 +177,12 @@ const PATTERNS: Record<ArtifactKind, RegExp> = {
   asn: /\bAS(?:N)?\s?-?\s?(\d{1,10})\b/gi,
 };
 
-interface RawHit { value: string; offset: number; line: number; col: number; }
+interface RawHit {
+  value: string;
+  offset: number;
+  line: number;
+  col: number;
+}
 
 function runWithMeta(input: string, pattern: RegExp, captureGroup = 0): RawHit[] {
   const hits: RawHit[] = [];
@@ -171,7 +205,10 @@ export interface ParseResult {
   defangedInput: string;
   homographsFolded: boolean;
   counts: Record<ArtifactKind, number>;
-  artifacts: Record<ArtifactKind, Array<{ value: string; offset: number; line: number; col: number; source: 'refanged' | 'verbatim' }>>;
+  artifacts: Record<
+    ArtifactKind,
+    Array<{ value: string; offset: number; line: number; col: number; source: 'refanged' | 'verbatim' }>
+  >;
   iocs: {
     network: Array<{ kind: ArtifactKind; value: string; line: number }>;
     host: Array<{ kind: ArtifactKind; value: string; line: number }>;
@@ -191,14 +228,16 @@ export function parseArtifacts(
 ): ParseResult {
   const { foldHomographs: doFold = true, refangInput: doRefang = true } = opts;
   const refanged = doRefang ? refang(input) : input;
-  const { folded, changed: homographsFolded } = doFold ? foldHomographs(refanged) : { folded: refanged, changed: false };
+  const { folded, changed: homographsFolded } = doFold
+    ? foldHomographs(refanged)
+    : { folded: refanged, changed: false };
 
   const artifacts = emptyArtifacts();
   const counts = emptyCounts();
 
   for (const kind of ALL_KINDS) {
     const pattern = PATTERNS[kind];
-    const captureGroup = (kind === 'port' || kind === 'asn') ? 1 : 0;
+    const captureGroup = kind === 'port' || kind === 'asn' ? 1 : 0;
     const hits = runWithMeta(folded, pattern, captureGroup);
     const seen = new Set<string>();
     const dedup: ParseResult['artifacts'][ArtifactKind] = [];
@@ -221,7 +260,7 @@ export function parseArtifacts(
   // Remove sub-hash false positives: a sha1 hex string that is a prefix of
   // a sha256 in the same input.
   for (const long of ['sha256', 'sha1', 'md5'] as ArtifactKind[]) {
-    const longer = long === 'md5' ? null : (long === 'sha1' ? 'sha256' : (long === 'sha256' ? 'sha512' : null));
+    const longer = long === 'md5' ? null : long === 'sha1' ? 'sha256' : long === 'sha256' ? 'sha512' : null;
     if (!longer) continue;
     artifacts[long] = artifacts[long].filter((a) => {
       for (const longer2 of artifacts[longer]) {
@@ -264,7 +303,9 @@ export function siParseText(input: string, opts: SiParseOptions = {}): ParseResu
     };
   }
   if (input.length > maxChars) {
-    throw new Error(`Input exceeds maxChars=${maxChars} (got ${input.length}). Pass a smaller chunk or raise the limit.`);
+    throw new Error(
+      `Input exceeds maxChars=${maxChars} (got ${input.length}). Pass a smaller chunk or raise the limit.`
+    );
   }
   const result = parseArtifacts(input, { refangInput: opts.refang, foldHomographs: opts.foldHomographs });
   if (opts.kinds && opts.kinds.length > 0) {
@@ -276,9 +317,15 @@ export function siParseText(input: string, opts: SiParseOptions = {}): ParseResu
       }
     }
     result.iocs = { network: [], host: [], threat: [] };
-    for (const k of NETWORK) if (allowed.has(k)) for (const a of result.artifacts[k]) result.iocs.network.push({ kind: k, value: a.value, line: a.line });
-    for (const k of HOST) if (allowed.has(k)) for (const a of result.artifacts[k]) result.iocs.host.push({ kind: k, value: a.value, line: a.line });
-    for (const k of THREAT) if (allowed.has(k)) for (const a of result.artifacts[k]) result.iocs.threat.push({ kind: k, value: a.value, line: a.line });
+    for (const k of NETWORK)
+      if (allowed.has(k))
+        for (const a of result.artifacts[k]) result.iocs.network.push({ kind: k, value: a.value, line: a.line });
+    for (const k of HOST)
+      if (allowed.has(k))
+        for (const a of result.artifacts[k]) result.iocs.host.push({ kind: k, value: a.value, line: a.line });
+    for (const k of THREAT)
+      if (allowed.has(k))
+        for (const a of result.artifacts[k]) result.iocs.threat.push({ kind: k, value: a.value, line: a.line });
   }
   return result;
 }
@@ -289,8 +336,14 @@ function emptyCounts(): Record<ArtifactKind, number> {
   return c;
 }
 
-function emptyArtifacts(): Record<ArtifactKind, Array<{ value: string; offset: number; line: number; col: number; source: 'refanged' | 'verbatim' }>> {
-  const a = {} as Record<ArtifactKind, Array<{ value: string; offset: number; line: number; col: number; source: 'refanged' | 'verbatim' }>>;
+function emptyArtifacts(): Record<
+  ArtifactKind,
+  Array<{ value: string; offset: number; line: number; col: number; source: 'refanged' | 'verbatim' }>
+> {
+  const a = {} as Record<
+    ArtifactKind,
+    Array<{ value: string; offset: number; line: number; col: number; source: 'refanged' | 'verbatim' }>
+  >;
   for (const k of ALL_KINDS) a[k] = [];
   return a;
 }

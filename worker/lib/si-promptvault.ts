@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape, @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any */
 /**
  * PROMPTVAULT — Community-driven AI prompt library.
  *
@@ -73,14 +74,17 @@ const ALLOWED_CATEGORIES = [
 ];
 
 let schemaReady: Promise<void> | null = null;
-let seedReady: Promise<void> | null = null;
+const seedReady: Promise<void> | null = null;
 
 const B32 = '0123456789ABCDEFGHJKMNPQRSTVWXYZ';
 
 function generateId(now: Date = new Date()): string {
   let ts = '';
   let t = now.getTime();
-  for (let i = 0; i < 10; i++) { ts = B32[t % 32] + ts; t = Math.floor(t / 32); }
+  for (let i = 0; i < 10; i++) {
+    ts = B32[t % 32] + ts;
+    t = Math.floor(t / 32);
+  }
   let rand = '';
   const bytes = new Uint8Array(6);
   crypto.getRandomValues(bytes);
@@ -90,9 +94,10 @@ function generateId(now: Date = new Date()): string {
 
 function ensureSchema(db: D1Database): Promise<void> {
   if (!schemaReady) {
-    schemaReady = db
-      .prepare(
-        `CREATE TABLE IF NOT EXISTS promptvault_entries (
+    schemaReady = (async () => {
+      await db
+        .prepare(
+          `CREATE TABLE IF NOT EXISTS promptvault_entries (
           id TEXT PRIMARY KEY,
           slug TEXT UNIQUE NOT NULL,
           title TEXT NOT NULL,
@@ -107,11 +112,14 @@ function ensureSchema(db: D1Database): Promise<void> {
           created_at TEXT NOT NULL,
           updated_at TEXT NOT NULL
         )`
-      )
-      .then(() => db.prepare('CREATE INDEX IF NOT EXISTS idx_pv_category ON promptvault_entries(category)').run())
-      .then(() => db.prepare('CREATE INDEX IF NOT EXISTS idx_pv_updated ON promptvault_entries(updated_at DESC)').run())
-      .then(() => undefined)
-      .catch((err) => { schemaReady = null; throw err; });
+        )
+        .run();
+      await db.prepare('CREATE INDEX IF NOT EXISTS idx_pv_category ON promptvault_entries(category)').run();
+      await db.prepare('CREATE INDEX IF NOT EXISTS idx_pv_updated ON promptvault_entries(updated_at DESC)').run();
+    })().catch((err) => {
+      schemaReady = null;
+      throw err;
+    });
   }
   return schemaReady;
 }
@@ -121,7 +129,7 @@ const SEED_PROMPTS: CreatePromptInput[] = [
     slug: 'sigma-rule-from-narrative',
     title: 'Sigma rule from incident narrative',
     category: 'detection-engineering',
-    tags: ['sigma','detection','kql','sentinel'],
+    tags: ['sigma', 'detection', 'kql', 'sentinel'],
     author: 'system',
     body: `You are a senior detection engineer. Given an incident narrative (paste below), output a Sigma rule in YAML that would have detected the malicious behaviour.
 
@@ -140,7 +148,7 @@ NARRATIVE:
     slug: 'kql-hunt-from-ioc',
     title: 'KQL hunt from a single IOC',
     category: 'threat-hunting',
-    tags: ['kql','hunt','defender','sentinel'],
+    tags: ['kql', 'hunt', 'defender', 'sentinel'],
     author: 'system',
     body: `You are a threat hunter. Given a single IOC (IP, domain, URL, hash, or email), generate a Microsoft Defender / Sentinel KQL hunt that finds any activity involving that indicator across a 30-day window.
 
@@ -156,7 +164,7 @@ CONSTRAINTS:
     slug: 'phishing-email-triage',
     title: 'Phishing email triage',
     category: 'phishing-analysis',
-    tags: ['phish','email','triage','verdict'],
+    tags: ['phish', 'email', 'triage', 'verdict'],
     author: 'system',
     body: `You are a phishing triage analyst. Given a raw email (headers + body), produce a verdict in 60 seconds.
 
@@ -171,7 +179,7 @@ CONSTRAINTS:
     slug: 'incident-timeline-builder',
     title: 'Incident timeline builder',
     category: 'incident-response',
-    tags: ['timeline','ir','forensic','chronology'],
+    tags: ['timeline', 'ir', 'forensic', 'chronology'],
     author: 'system',
     body: `You are a DFIR lead. Given an unordered set of events (logs, alerts, user reports), produce a chronological timeline with one row per minute-bucket.
 
@@ -183,7 +191,7 @@ Call out the first-seen indicator and the last-seen indicator in a separate '## 
     slug: 'ttp-extractor-from-report',
     title: 'TTP extractor from threat report',
     category: 'threat-intelligence',
-    tags: ['mitre','att&ck','ttp','cti'],
+    tags: ['mitre', 'att&ck', 'ttp', 'cti'],
     author: 'system',
     body: `You are a CTI analyst. Given a threat report (URL, PDF text, or pasted markdown), extract all MITRE ATT&CK techniques the actor uses.
 
@@ -198,7 +206,7 @@ CONSTRAINTS:
     slug: 'sigma-tuning-fp-triage',
     title: 'Sigma rule false-positive triage',
     category: 'detection-engineering',
-    tags: ['sigma','fp','tuning','fplens'],
+    tags: ['sigma', 'fp', 'tuning', 'fplens'],
     author: 'system',
     body: `You are a senior SOC detection engineer reviewing a Sigma rule. Given the rule YAML and (optionally) recent sample hits, decide:
 1. Is the rule FP-prone in a typical enterprise environment?
@@ -212,7 +220,7 @@ OUTPUT: {fp_risk_level: "HIGH"|"MEDIUM"|"LOW", rationale, exclusions: [...], upd
     slug: 'osint-domain-recon',
     title: 'OSINT domain reconnaissance',
     category: 'osint',
-    tags: ['osint','recon','whois','dns','cert'],
+    tags: ['osint', 'recon', 'whois', 'dns', 'cert'],
     author: 'system',
     body: `You are an OSINT analyst. Given a single domain, generate a checklist of (1) passive lookups you would run, (2) expected signals of maliciousness, (3) queries to identify phishing / C2 / compromised-redirector, (4) correlations across certificate transparency + passive DNS + WHOIS history.
 
@@ -228,7 +236,7 @@ CONSTRAINTS: Do NOT include active scanning instructions. No port scanning, no e
     slug: 'cloud-iam-least-priv',
     title: 'Cloud IAM least-privilege rewriter',
     category: 'cloud-security',
-    tags: ['iam','aws','azure','gcp','least-privilege'],
+    tags: ['iam', 'aws', 'azure', 'gcp', 'least-privilege'],
     author: 'system',
     body: `You are a cloud security architect. Given a high-privilege IAM policy (paste below), produce a least-privilege rewrite that retains only the permissions the user / role demonstrably needs (from usage data if provided).
 
@@ -242,7 +250,7 @@ CONSTRAINTS:
     slug: 'malware-yara-from-behavior',
     title: 'YARA rule from malware behaviour',
     category: 'malware-analysis',
-    tags: ['yara','malware','behaviour','detection'],
+    tags: ['yara', 'malware', 'behaviour', 'detection'],
     author: 'system',
     body: `You are a malware analyst. Given a description of malware behaviour (strings, file operations, registry keys, network calls, mutexes), produce a YARA rule that would detect similar samples.
 
@@ -257,7 +265,7 @@ CONSTRAINTS:
     slug: 'briefing-summary-from-feed',
     title: 'Executive briefing summary from threat feed',
     category: 'threat-intelligence',
-    tags: ['briefing','exec','summary','stix'],
+    tags: ['briefing', 'exec', 'summary', 'stix'],
     author: 'system',
     body: `You are a CTI briefing writer. Given a list of recent incidents / IOCs / advisories (paste below), produce a 1-paragraph executive summary (max 100 words) and a 5-bullet technical summary (max 25 words each).
 
@@ -269,23 +277,22 @@ CONSTRAINTS:
 ];
 
 async function ensureSeed(db: D1Database): Promise<void> {
-  if (!seedReady) {
-    seedReady = (async () => {
-      await ensureSchema(db);
-      const stmt = db.prepare(
-        `INSERT OR IGNORE INTO promptvault_entries
-          (id, slug, title, category, tags, author, version, body, rating_sum, rating_count, downloads, created_at, updated_at)
-          VALUES (?1, ?2, ?3, ?4, ?5, ?6, 1, ?7, 0, 0, 0, ?8, ?8)`
-      );
-      const now = new Date().toISOString();
-      for (const p of SEED_PROMPTS) {
-        const id = generateId();
-        console.log('SEED:', p.slug, 'id=', id);
-        await stmt.bind(id, p.slug, p.title, p.category, JSON.stringify(p.tags ?? []), p.author, p.body, now).run();
-      }
-    })().catch((err) => { seedReady = null; throw err; });
+  // Check if seeds are already inserted (idempotent: do nothing on repeat calls).
+  const existing = await db.prepare('SELECT COUNT(*) as c FROM promptvault_entries').first();
+  if (existing && (existing as { c: number }).c > 0) return;
+  await ensureSchema(db);
+  const stmt = db.prepare(
+    `INSERT OR IGNORE INTO promptvault_entries
+      (id, slug, title, category, tags, author, version, body, rating_sum, rating_count, downloads, created_at, updated_at)
+      VALUES (?1, ?2, ?3, ?4, ?5, ?6, 1, ?7, 0, 0, 0, ?8, ?8)`
+  );
+  const now = new Date().toISOString();
+  for (const p of SEED_PROMPTS) {
+    await stmt
+      .bind(generateId(), p.slug, p.title, p.category, JSON.stringify(p.tags ?? []), p.author, p.body, now)
+      .run();
   }
-  return seedReady;
+  const after = await db.prepare('SELECT COUNT(*) as c FROM promptvault_entries').first();
 }
 
 function rowToEntry(row: Record<string, unknown>): PromptVaultEntry {
@@ -332,8 +339,14 @@ export async function promptVaultList(
   const limit = Math.min(100, Math.max(1, opts.limit ?? 50));
   const conds: string[] = [];
   const binds: unknown[] = [];
-  if (opts.category) { conds.push('category = ?'); binds.push(opts.category); }
-  if (opts.tag) { conds.push('tags LIKE ?'); binds.push(`%"${opts.tag}"%`); }
+  if (opts.category) {
+    conds.push('category = ?');
+    binds.push(opts.category);
+  }
+  if (opts.tag) {
+    conds.push('tags LIKE ?');
+    binds.push(`%"${opts.tag}"%`);
+  }
   if (opts.q) {
     conds.push('(title LIKE ? OR body LIKE ? OR tags LIKE ?)');
     const q = `%${opts.q}%`;
@@ -341,7 +354,10 @@ export async function promptVaultList(
   }
   const where = conds.length ? `WHERE ${conds.join(' AND ')}` : '';
   const sql = `SELECT * FROM promptvault_entries ${where} ORDER BY updated_at DESC LIMIT ${limit}`;
-  const res = await db.prepare(sql).bind(...binds).all();
+  const res = (await db
+    .prepare(sql)
+    .bind(...binds)
+    .all()) as any;
   return (res.results ?? []).map((r) => rowToEntry(r as Record<string, unknown>));
 }
 
@@ -353,7 +369,10 @@ export async function promptVaultGet(env: EnvWithDb, slug: string): Promise<Prom
   const row = await db.prepare('SELECT * FROM promptvault_entries WHERE slug = ?1').bind(slug).first();
   if (!row) return null;
   // Increment downloads (best-effort, fire-and-forget).
-  void db.prepare('UPDATE promptvault_entries SET downloads = downloads + 1, updated_at = updated_at WHERE slug = ?1').bind(slug).run();
+  void db
+    .prepare('UPDATE promptvault_entries SET downloads = downloads + 1, updated_at = updated_at WHERE slug = ?1')
+    .bind(slug)
+    .run();
   return rowToEntry(row as Record<string, unknown>);
 }
 
@@ -406,10 +425,13 @@ export async function promptVaultRate(env: EnvWithDb, input: RatePromptInput): P
     throw new Error('rating must be an integer 1..5');
   }
   await ensureSchema(db);
+  await ensureSeed(db);
   const existing = await db.prepare('SELECT * FROM promptvault_entries WHERE slug = ?1').bind(input.slug).first();
   if (!existing) return null;
   await db
-    .prepare('UPDATE promptvault_entries SET rating_sum = rating_sum + ?1, rating_count = rating_count + 1, updated_at = ?2 WHERE slug = ?3')
+    .prepare(
+      'UPDATE promptvault_entries SET rating_sum = rating_sum + ?1, rating_count = rating_count + 1, updated_at = ?2 WHERE slug = ?3'
+    )
     .bind(input.rating, new Date().toISOString(), input.slug)
     .run();
   const updated = await db.prepare('SELECT * FROM promptvault_entries WHERE slug = ?1').bind(input.slug).first();

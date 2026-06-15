@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape, @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any */
 /**
  * MAILSCOPE — Email header parser.
  *
@@ -112,7 +113,11 @@ export interface Flag {
 // Header parsing — RFC 5322 unfolded.
 // ---------------------------------------------------------------------------
 
-interface RawHeader { name: string; value: string; raw: string; }
+interface RawHeader {
+  name: string;
+  value: string;
+  raw: string;
+}
 
 function unfoldHeaders(raw: string): RawHeader[] {
   // Normalise CRLF → LF, then split on header boundaries.
@@ -122,7 +127,10 @@ function unfoldHeaders(raw: string): RawHeader[] {
   let cur: RawHeader | null = null;
   for (const line of lines) {
     if (line === '' || line === '\r') {
-      if (cur) { out.push(cur); cur = null; }
+      if (cur) {
+        out.push(cur);
+        cur = null;
+      }
       continue;
     }
     if (/^[ \t]/.test(line) && cur) {
@@ -135,7 +143,10 @@ function unfoldHeaders(raw: string): RawHeader[] {
     const m = line.match(/^([!-9;-~]+):\s*(.*)$/);
     if (!m) {
       // Malformed — treat as a continuation of a synthetic header.
-      if (cur) { cur.value += ' ' + line; cur.raw += '\n' + line; }
+      if (cur) {
+        cur.value += ' ' + line;
+        cur.raw += '\n' + line;
+      }
       continue;
     }
     cur = { name: m[1], value: m[2], raw: line };
@@ -162,7 +173,11 @@ function headerAll(headers: RawHeader[], name: string): string[] {
 // the display name. Strips RFC 2047 encoded-word =?charset?Q?...?= later.
 // ---------------------------------------------------------------------------
 
-interface Addr { name?: string; address: string; raw: string; }
+interface Addr {
+  name?: string;
+  address: string;
+  raw: string;
+}
 
 function parseAddressList(s: string | undefined): Addr[] {
   if (!s) return [];
@@ -172,9 +187,21 @@ function parseAddressList(s: string | undefined): Addr[] {
   let buf = '';
   let inQ = false;
   for (const ch of s) {
-    if (ch === '"') { inQ = !inQ; buf += ch; continue; }
-    if (!inQ && ch === '(') { depth++; buf += ch; continue; }
-    if (!inQ && ch === ')') { depth--; buf += ch; continue; }
+    if (ch === '"') {
+      inQ = !inQ;
+      buf += ch;
+      continue;
+    }
+    if (!inQ && ch === '(') {
+      depth++;
+      buf += ch;
+      continue;
+    }
+    if (!inQ && ch === ')') {
+      depth--;
+      buf += ch;
+      continue;
+    }
     if (!inQ && depth === 0 && ch === ',') {
       const a = parseOneAddress(buf.trim());
       if (a) out.push(a);
@@ -225,7 +252,7 @@ function parseReceived(value: string, raw: string, idx: number, prevDate: Date |
 
   const date = dateMatch ? new Date(dateMatch[1].trim()) : null;
   const validDate = date && !Number.isNaN(date.getTime()) ? date : null;
-  const delay = validDate && prevDate ? (prevDate.getTime() - validDate.getTime()) : null;
+  const delay = validDate && prevDate ? prevDate.getTime() - validDate.getTime() : null;
 
   // TLS info — look for "using TLSvX.Y" or "over TLS"
   let tls: string | null = null;
@@ -238,7 +265,7 @@ function parseReceived(value: string, raw: string, idx: number, prevDate: Date |
   if (authMatch) auth = authMatch[1].trim();
 
   // rDNS / TLD
-  const rDNS = (fromMatch ? fromMatch[1].trim().split(/\s+/)[0] : null);
+  const rDNS = fromMatch ? fromMatch[1].trim().split(/\s+/)[0] : null;
   let tld: string | null = null;
   if (rDNS && rDNS.includes('.')) {
     const lastDot = rDNS.lastIndexOf('.');
@@ -310,7 +337,11 @@ function splitAuthMethods(value: string): string[] {
   let inQ = false;
   for (let i = 0; i < value.length; i++) {
     const ch = value[i];
-    if (ch === '"') { inQ = !inQ; buf += ch; continue; }
+    if (ch === '"') {
+      inQ = !inQ;
+      buf += ch;
+      continue;
+    }
     if (!inQ && ch === ';') {
       if (buf.trim()) out.push(buf.trim());
       buf = '';
@@ -335,7 +366,7 @@ function parseAuthProps(body: string): Partial<AuthResult> {
   if (dkimDomain) props.domain = dkimDomain[1].toLowerCase();
   const dkimSelector = body.match(/\bheader\.i=@([^\s;.]+)/i);
   if (dkimSelector) props.selector = dkimSelector[1].toLowerCase();
-  const policy = body.match(/\bp(?:olicy)?\.(?:sp|disposition)=([^\s;]+)/i);
+  const policy = body.match(/\bp(?:olicy)?(?:\.(?:sp|disposition))?\s*=\s*([^\s;]+)/i);
   if (policy) props.policy = policy[1].toLowerCase();
   const pct = body.match(/\bpct=(\d+)/i);
   if (pct) props.pct = Number(pct[1]);
@@ -406,7 +437,12 @@ function buildFlags(headers: RawHeader[], auth: AuthResults, hops: HopInfo[]): F
       evidence: { header: 'Authentication-Results', value: 'spf=' + auth.spf.result },
     });
   }
-  if (auth.dkim.result && auth.dkim.result !== 'pass' && auth.dkim.result !== 'none' && auth.dkim.result !== 'unknown') {
+  if (
+    auth.dkim.result &&
+    auth.dkim.result !== 'pass' &&
+    auth.dkim.result !== 'none' &&
+    auth.dkim.result !== 'unknown'
+  ) {
     flags.push({
       severity: auth.dkim.result === 'fail' ? 'high' : 'medium',
       code: 'dkim_failed',
@@ -414,7 +450,12 @@ function buildFlags(headers: RawHeader[], auth: AuthResults, hops: HopInfo[]): F
       evidence: { header: 'Authentication-Results', value: 'dkim=' + auth.dkim.result },
     });
   }
-  if (auth.dmarc.result && auth.dmarc.result !== 'pass' && auth.dmarc.result !== 'none' && auth.dmarc.result !== 'unknown') {
+  if (
+    auth.dmarc.result &&
+    auth.dmarc.result !== 'pass' &&
+    auth.dmarc.result !== 'none' &&
+    auth.dmarc.result !== 'unknown'
+  ) {
     flags.push({
       severity: auth.dmarc.result === 'fail' ? 'high' : 'medium',
       code: 'dmarc_failed',
@@ -485,13 +526,21 @@ export function siParseEmailHeaders(input: string, opts: MailScopeOptions = {}):
     return {
       summary: { receivedCount: 0 },
       hops: [],
-      auth: { spf: { result: 'unknown' }, dkim: { result: 'unknown' }, dmarc: { result: 'unknown' }, comp: { result: 'unknown' }, raw: null },
+      auth: {
+        spf: { result: 'unknown' },
+        dkim: { result: 'unknown' },
+        dmarc: { result: 'unknown' },
+        comp: { result: 'unknown' },
+        raw: null,
+      },
       flags: [],
       riskScore: 0,
     };
   }
   if (input.length > maxChars) {
-    throw new Error(`Input exceeds maxChars=${maxChars} (got ${input.length}). Pass a smaller chunk or raise the limit.`);
+    throw new Error(
+      `Input exceeds maxChars=${maxChars} (got ${input.length}). Pass a smaller chunk or raise the limit.`
+    );
   }
   // Allow callers to pass either just the headers (most common) or
   // a full RFC 822 message — we strip the body in the latter case.
@@ -534,7 +583,15 @@ export function siParseEmailHeaders(input: string, opts: MailScopeOptions = {}):
   // Authentication-Results — most-recent (last in header) wins.
   const authRawAll = headerAll(headers, 'Authentication-Results');
   const authRaw = authRawAll[authRawAll.length - 1] ?? null;
-  const auth = authRaw ? parseAuthHeader(authRaw) : { spf: { result: 'unknown' }, dkim: { result: 'unknown' }, dmarc: { result: 'unknown' }, comp: { result: 'unknown' }, raw: null };
+  const auth = authRaw
+    ? parseAuthHeader(authRaw)
+    : {
+        spf: { result: 'unknown' },
+        dkim: { result: 'unknown' },
+        dmarc: { result: 'unknown' },
+        comp: { result: 'unknown' },
+        raw: null,
+      };
 
   const flags = buildFlags(headers, auth, hops);
   const riskScore = scoreFromFlags(flags);

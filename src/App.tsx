@@ -183,7 +183,6 @@ const ExternalHub = lazy(() => import('./pages/threatintel/ExternalHub'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 const CampaignDetail = lazy(() => import('./pages/threatintel/CampaignDetail'));
 const AbuseRepPage = lazy(() => import('./pages/dfir/AbuseRep'));
-const C2TrackerPage = lazy(() => import('./pages/threatintel/C2Tracker'));
 const Blog = lazy(() => import('./pages/Blog'));
 const BlogPost = lazy(() => import('./pages/BlogPost'));
 const AdminApp = lazy(() => import('./pages/admin/AdminApp'));
@@ -204,14 +203,6 @@ const AssessmentDetail = lazy(() => import('./pages/threatintel/AssessmentDetail
 const ExportHub = lazy(() => import('./pages/dfir/ExportHub'));
 const MultiSearch = lazy(() => import('./pages/dfir/MultiSearch'));
 const ReportComposer = lazy(() => import('./pages/dfir/ReportComposer'));
-const SupplyChainIntel = lazy(() => import('./pages/threatintel/SupplyChainIntelligence'));
-const ThreatActorCatalog = lazy(() => import('./pages/threatintel/ThreatActorCatalog'));
-const ThreatLandscape = lazy(() => import('./pages/threatintel/ThreatLandscape'));
-const OsintCliTools = lazy(() => import('./pages/threatintel/OsintCliTools'));
-const ThreatIntelReports = lazy(() => import('./pages/threatintel/ThreatIntelReports'));
-const StixBundleBrowser = lazy(() => import('./pages/threatintel/StixBundleBrowser'));
-const IocFeedsBrowser = lazy(() => import('./pages/threatintel/IocFeedsPage'));
-const MalwareSandboxPage = lazy(() => import('./pages/threatintel/MalwareSandbox'));
 
 /**
  * /dfir/file?h=<hash> is the legacy entry point for the standalone hash

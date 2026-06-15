@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape, @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any */
 /**
  * SHIFTLOG — SOC shift handover tracker.
  *
@@ -78,9 +79,10 @@ let schemaReady: Promise<void> | null = null;
 
 function ensureSchema(db: D1Database): Promise<void> {
   if (!schemaReady) {
-    schemaReady = db
-      .prepare(
-        `CREATE TABLE IF NOT EXISTS shiftlog_entries (
+    schemaReady = (async () => {
+      await db
+        .prepare(
+          `CREATE TABLE IF NOT EXISTS shiftlog_entries (
           id TEXT PRIMARY KEY,
           shift TEXT NOT NULL,
           author TEXT NOT NULL,
@@ -93,24 +95,14 @@ function ensureSchema(db: D1Database): Promise<void> {
           created_at TEXT NOT NULL,
           updated_at TEXT NOT NULL
         )`
-      )
-      .then(() =>
-        db
-          .prepare('CREATE INDEX IF NOT EXISTS idx_shiftlog_started ON shiftlog_entries(started_at DESC)')
-          .run()
-      )
-      .then(() =>
-        db
-          .prepare('CREATE INDEX IF NOT EXISTS idx_shiftlog_author ON shiftlog_entries(author)')
-          .run()
-      )
-      .then(() => undefined)
-      .catch((err) => {
-        // Reset so the next call retries — a transient D1 error shouldn't
-        // poison the worker permanently.
-        schemaReady = null;
-        throw err;
-      });
+        )
+        .run();
+      await db.prepare('CREATE INDEX IF NOT EXISTS idx_shiftlog_started ON shiftlog_entries(started_at DESC)').run();
+      await db.prepare('CREATE INDEX IF NOT EXISTS idx_shiftlog_author ON shiftlog_entries(author)').run();
+    })().catch((err) => {
+      schemaReady = null;
+      throw err;
+    });
   }
   return schemaReady;
 }
@@ -237,12 +229,23 @@ export async function shiftlogList(
   const limit = Math.min(100, Math.max(1, opts.limit ?? 20));
   const conds: string[] = [];
   const binds: unknown[] = [];
-  if (opts.author) { conds.push('author = ?'); binds.push(opts.author); }
-  if (opts.shift) { conds.push('shift = ?'); binds.push(opts.shift); }
-  if (opts.openOnly) { conds.push('ended_at IS NULL'); }
+  if (opts.author) {
+    conds.push('author = ?');
+    binds.push(opts.author);
+  }
+  if (opts.shift) {
+    conds.push('shift = ?');
+    binds.push(opts.shift);
+  }
+  if (opts.openOnly) {
+    conds.push('ended_at IS NULL');
+  }
   const where = conds.length ? `WHERE ${conds.join(' AND ')}` : '';
   const sql = `SELECT * FROM shiftlog_entries ${where} ORDER BY started_at DESC LIMIT ${limit}`;
-  const res = await db.prepare(sql).bind(...binds).all();
+  const res = await db
+    .prepare(sql)
+    .bind(...binds)
+    .all();
   return (res.results ?? []).map((r) => rowToEntry(r as Record<string, unknown>));
 }
 

@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape, @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any */
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { McpAgent } from 'agents/mcp';
 import type { Connection, ConnectionContext } from 'agents';
@@ -20,6 +21,25 @@ import { enrichIp, enrichIpsBatch, isValidIp } from './lib/si-enrich';
 import { kqlToAhUrl, kqlToAhUrlMarkdown } from './lib/kql-to-ah-url';
 import { loadScriptsIndex, getScript } from './lib/si-manifest';
 import { renderDashboard, type RenderManifest } from './lib/si-svg-renderer';
+import { siParseText, type SiParseOptions, type ArtifactKind } from './lib/si-parse';
+import { siParseEmailHeaders } from './lib/si-mailscope';
+import {
+  shiftlogCreate,
+  shiftlogGet,
+  shiftlogList,
+  shiftlogUpdate,
+  shiftlogClose,
+  type UpdateShiftLogInput,
+} from './lib/si-shiftlog';
+import { siHyposGenerate, type HypoObservation } from './lib/si-hypos';
+import {
+  promptVaultList,
+  promptVaultGet,
+  promptVaultCreate,
+  promptVaultRate,
+  promptVaultCategories,
+  type CreatePromptInput,
+} from './lib/si-promptvault';
 
 type Env = {
   /** Static asset binding — used to load the security-investigator
@@ -968,9 +988,18 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
       'si_kql_to_ah_url',
       'Encode a KQL query into a Defender XDR Advanced Hunting deep link. Mirrors upstream kql_to_ah_url.py: UTF-16LE → GZip → Base64url. Optionally append &tid=<tenant_id> for cross-tenant linking. Returns the URL.',
       {
-        kql: z.string().describe('KQL query string, e.g. "DeviceInfo | where Timestamp > ago(7d) | take 10". Newlines are normalized to CRLF automatically.'),
+        kql: z
+          .string()
+          .describe(
+            'KQL query string, e.g. "DeviceInfo | where Timestamp > ago(7d) | take 10". Newlines are normalized to CRLF automatically.'
+          ),
         tenant_id: z.string().optional().describe('Azure AD tenant GUID. Omit to produce a tenant-agnostic link.'),
-        markdown: z.boolean().optional().describe('If true, return as a markdown link "[Run in Advanced Hunting](<url>)" ready to paste into a report.'),
+        markdown: z
+          .boolean()
+          .optional()
+          .describe(
+            'If true, return as a markdown link "[Run in Advanced Hunting](<url>)" ready to paste into a report.'
+          ),
       },
       async ({ kql, tenant_id, markdown }) => {
         try {
@@ -1016,12 +1045,19 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
             ])
             .optional()
             .describe('Restrict to a single skill category'),
-          keyword: z.string().optional().describe('Case-insensitive substring match against slug / name / description / trigger keywords'),
+          keyword: z
+            .string()
+            .optional()
+            .describe('Case-insensitive substring match against slug / name / description / trigger keywords'),
           limit: z.number().int().min(1).max(100).optional().describe('Max skills to return (default 50)'),
         },
         async ({ category, keyword, limit }) => {
           const idx = await loadSiIndex(ASSETS);
-          const skills = filterSkills(idx, { category: category as SiSkillCategory | undefined, keyword, limit: limit ?? 50 });
+          const skills = filterSkills(idx, {
+            category: category as SiSkillCategory | undefined,
+            keyword,
+            limit: limit ?? 50,
+          });
           return untrustedToolResult({
             total: idx.skills.length,
             returned: skills.length,
@@ -1039,7 +1075,9 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         {
           slug: z
             .string()
-            .describe('Skill slug, e.g. "threat-pulse", "user-investigation", "scope-drift-detection/user". Get these from si_list_skills.'),
+            .describe(
+              'Skill slug, e.g. "threat-pulse", "user-investigation", "scope-drift-detection/user". Get these from si_list_skills.'
+            ),
         },
         async ({ slug }) => {
           const body = await getSiSkill(ASSETS, slug);
@@ -1062,7 +1100,10 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
             .enum(['cloud', 'email', 'endpoint', 'identity', 'incidents', 'network', 'threat-intelligence'])
             .optional()
             .describe('Restrict to a single query domain'),
-          keyword: z.string().optional().describe('Case-insensitive substring match against slug / title / filename / domain / subdomain'),
+          keyword: z
+            .string()
+            .optional()
+            .describe('Case-insensitive substring match against slug / title / filename / domain / subdomain'),
           limit: z.number().int().min(1).max(200).optional().describe('Max queries to return (default 100)'),
         },
         async ({ domain, keyword, limit }) => {
@@ -1085,7 +1126,9 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         {
           slug: z
             .string()
-            .describe('Query slug, e.g. "cloud/agent365_observability" or "identity/aitm_threat_detection". Get these from si_list_queries.'),
+            .describe(
+              'Query slug, e.g. "cloud/agent365_observability" or "identity/aitm_threat_detection". Get these from si_list_queries.'
+            ),
         },
         async ({ slug }) => {
           const body = await getSiQuery(ASSETS, slug);
@@ -1177,7 +1220,11 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         'si_get_doc',
         'Return the full markdown body of a single knowledge-base doc. Get slugs from si_list_docs.',
         {
-          slug: z.string().describe('Doc slug, e.g. "sentinel-exposure-graph-mcp-guide", "signinlogs_anomalies_kql_cl", "identity_protection".'),
+          slug: z
+            .string()
+            .describe(
+              'Doc slug, e.g. "sentinel-exposure-graph-mcp-guide", "signinlogs_anomalies_kql_cl", "identity_protection".'
+            ),
         },
         async ({ slug }) => {
           const doc = await getDoc(ASSETS, slug);
@@ -1204,7 +1251,8 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
             license: 'MIT',
             bytes: text.length,
             promptMarkdown: text,
-            usage: 'Inject this into the client\'s system prompt at session start. It contains the skill-detection logic that maps user natural language to si_* tool calls.',
+            usage:
+              "Inject this into the client's system prompt at session start. It contains the skill-detection logic that maps user natural language to si_* tool calls.",
           });
         }
       );
@@ -1220,9 +1268,17 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
             'mitre-attck-enterprise',
             'known-kql-tables',
             'm365-platform-coverage',
-            'ingestion-q2', 'ingestion-q6a', 'ingestion-q6b', 'ingestion-q6c',
-            'ingestion-q9', 'ingestion-q9b', 'ingestion-q10',
-            'ingestion-q12', 'ingestion-q13', 'ingestion-q16', 'ingestion-q17',
+            'ingestion-q2',
+            'ingestion-q6a',
+            'ingestion-q6b',
+            'ingestion-q6c',
+            'ingestion-q9',
+            'ingestion-q9b',
+            'ingestion-q10',
+            'ingestion-q12',
+            'ingestion-q13',
+            'ingestion-q16',
+            'ingestion-q17',
           ];
           const found: Array<{ name: string; bytes: number }> = [];
           for (const name of known) {
@@ -1245,7 +1301,11 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         'si_get_ref',
         'Return a reference dataset by name. Get names from si_list_ref. Common: mitre-attck-enterprise (MITRE ATT&CK enterprise matrix, ~32 KB), known-kql-tables (M365 Defender table inventory, ~17 KB), m365-platform-coverage (coverage map, ~16 KB), ingestion-qN (Sentinel ingestion-scan query result schemas).',
         {
-          name: z.string().describe('Reference dataset name without .json, e.g. "mitre-attck-enterprise", "known-kql-tables", "m365-platform-coverage", "ingestion-q9".'),
+          name: z
+            .string()
+            .describe(
+              'Reference dataset name without .json, e.g. "mitre-attck-enterprise", "known-kql-tables", "m365-platform-coverage", "ingestion-q9".'
+            ),
         },
         async ({ name }) => {
           const v = await getRef<unknown>(ASSETS, name);
@@ -1271,7 +1331,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
       // record layout.
       this.server.tool(
         'si_enrich_ip',
-        'Enrich a single IPv4/IPv6 address using the platform\'s IPinfo / AbuseIPDB / Shodan / Shodan-InternetDB / VPNAPI providers. Returns the same shape as upstream security-investigator/enrich_ips.py. Use si_enrich_ip_batch for up to 25 IPs in one call.',
+        "Enrich a single IPv4/IPv6 address using the platform's IPinfo / AbuseIPDB / Shodan / Shodan-InternetDB / VPNAPI providers. Returns the same shape as upstream security-investigator/enrich_ips.py. Use si_enrich_ip_batch for up to 25 IPs in one call.",
         {
           ip: z.string().describe('IPv4 or IPv6 address, e.g. "203.0.113.42" or "2001:db8::1".'),
         },
@@ -1311,12 +1371,20 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         'si_get_script',
         'Return the raw body of a PowerShell script or detection-manifest. Use si_list_scripts to discover filenames. The PowerShell scripts target Microsoft Defender XDR / Sentinel / M365 — they are NOT executable in the Worker; copy them to a PowerShell 7+ session locally to run.',
         {
-          name: z.string().describe('Script filename, e.g. "Deploy-CustomDetections.ps1", "Invoke-MitreScan.ps1", "Invoke-IngestionScan.ps1", "example-detection-manifest.json", "sentinel-ingestion-drilldown.md".'),
+          name: z
+            .string()
+            .describe(
+              'Script filename, e.g. "Deploy-CustomDetections.ps1", "Invoke-MitreScan.ps1", "Invoke-IngestionScan.ps1", "example-detection-manifest.json", "sentinel-ingestion-drilldown.md".'
+            ),
         },
         async ({ name }) => {
           const body = await getScript(ASSETS, name);
           if (!body) {
-            return untrustedToolResult({ error: 'script_not_found', name, hint: 'Call si_list_scripts to see available filenames.' });
+            return untrustedToolResult({
+              error: 'script_not_found',
+              name,
+              hint: 'Call si_list_scripts to see available filenames.',
+            });
           }
           return untrustedToolResult(body);
         }
@@ -1332,14 +1400,25 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         'si_render_svg',
         'Render an SVG dashboard from a manifest + data. Returns a self-contained <svg> string with inline styles, no external dependencies. Use si_render_svg_dashboard(slug) to get the canonical manifest for a skill, then pass its body as manifestYaml here. Supports all 14 widget types: title-banner, kpi-card, delta-kpi-card, score-card, donut-chart, stacked-bar-chart, horizontal-bar-chart, line-chart, waterfall-chart, sparkline, progress-bar, table-widget, recommendation-cards, assessment-banner, coverage-matrix. Unknown types render as a dashed warning panel.',
         {
-          manifest_yaml: z.string().describe('YAML manifest body. Pull from si_render_svg_dashboard(slug).manifestYaml, or write your own.'),
-          data_json: z.string().optional().describe('Optional JSON string mapping widget-name → data object. The renderer merges per-widget data with the global map.'),
+          manifest_yaml: z
+            .string()
+            .describe('YAML manifest body. Pull from si_render_svg_dashboard(slug).manifestYaml, or write your own.'),
+          data_json: z
+            .string()
+            .optional()
+            .describe(
+              'Optional JSON string mapping widget-name → data object. The renderer merges per-widget data with the global map.'
+            ),
         },
         async ({ manifest_yaml, data_json }) => {
           // The Worker has no YAML parser. We expect callers to send the
           // manifest as a parsed JS object via JSON; if it looks like
           // YAML text, we surface a clear error.
-          if (manifest_yaml.trim().startsWith('canvas:') || manifest_yaml.trim().startsWith('palette:') || manifest_yaml.trim().startsWith('widgets:')) {
+          if (
+            manifest_yaml.trim().startsWith('canvas:') ||
+            manifest_yaml.trim().startsWith('palette:') ||
+            manifest_yaml.trim().startsWith('widgets:')
+          ) {
             return untrustedToolResult({
               error: 'yaml_not_supported',
               hint: 'The Worker has no YAML parser. Send the manifest as JSON via the si_render_svg JSON arg, or use the HTTP /api/v1/si/render route which accepts YAML and parses it with the lighter approach (each top-level field on its own line).',
@@ -1349,12 +1428,22 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
           try {
             manifest = JSON.parse(manifest_yaml);
           } catch (e) {
-            return untrustedToolResult({ error: 'parse_failed', message: e instanceof Error ? e.message : String(e), hint: 'manifest_yaml must be a JSON-encoded RenderManifest object.' });
+            return untrustedToolResult({
+              error: 'parse_failed',
+              message: e instanceof Error ? e.message : String(e),
+              hint: 'manifest_yaml must be a JSON-encoded RenderManifest object.',
+            });
           }
           let data: Record<string, unknown> = {};
           if (data_json) {
-            try { data = JSON.parse(data_json); }
-            catch (e) { return untrustedToolResult({ error: 'data_parse_failed', message: e instanceof Error ? e.message : String(e) }); }
+            try {
+              data = JSON.parse(data_json);
+            } catch (e) {
+              return untrustedToolResult({
+                error: 'data_parse_failed',
+                message: e instanceof Error ? e.message : String(e),
+              });
+            }
           }
           try {
             const svg = renderDashboard(manifest, data);
@@ -1374,9 +1463,21 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         'si_render_png',
         'Render an SVG dashboard and rasterise it to PNG (base64-encoded in the JSON response). Same manifest + data shape as si_render_svg, but the output is a portable bitmap you can embed in markdown, email, or social previews. Uses the bundled @resvg/resvg-wasm + Hanken Grotesk TTF.',
         {
-          manifest_json: z.string().describe('JSON-encoded RenderManifest object. Same shape as si_render_svg(manifest_yaml=JSON.stringify(manifest)).'),
+          manifest_json: z
+            .string()
+            .describe(
+              'JSON-encoded RenderManifest object. Same shape as si_render_svg(manifest_yaml=JSON.stringify(manifest)).'
+            ),
           data_json: z.string().optional().describe('Optional JSON string mapping widget-name → data object.'),
-          width: z.number().int().min(400).max(2800).optional().describe('Output width in CSS pixels (default 1400). Height is derived from the manifest canvas aspect ratio.'),
+          width: z
+            .number()
+            .int()
+            .min(400)
+            .max(2800)
+            .optional()
+            .describe(
+              'Output width in CSS pixels (default 1400). Height is derived from the manifest canvas aspect ratio.'
+            ),
         },
         async ({ manifest_json, data_json, width }) => {
           let manifest: RenderManifest;
@@ -1387,8 +1488,14 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
             return untrustedToolResult({ error: 'parse_failed', message: e instanceof Error ? e.message : String(e) });
           }
           if (data_json) {
-            try { data = JSON.parse(data_json); }
-            catch (e) { return untrustedToolResult({ error: 'data_parse_failed', message: e instanceof Error ? e.message : String(e) }); }
+            try {
+              data = JSON.parse(data_json);
+            } catch (e) {
+              return untrustedToolResult({
+                error: 'data_parse_failed',
+                message: e instanceof Error ? e.message : String(e),
+              });
+            }
           }
           try {
             const svg = renderDashboard(manifest, data);
@@ -1404,11 +1511,239 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
               hint: 'Decode png_base64 (standard base64) and write to a .png file. The bytes are a valid PNG (IHDR / IDAT / IEND chunks).',
             });
           } catch (e) {
-            return untrustedToolResult({ error: 'png_render_failed', message: e instanceof Error ? e.message : String(e) });
+            return untrustedToolResult({
+              error: 'png_render_failed',
+              message: e instanceof Error ? e.message : String(e),
+            });
           }
         }
       );
     }
 
+    // ── si_parse_text (PARSE-X) ─────────────────────────────────────────
+    this.server.tool(
+      'si_parse_text',
+      'PARSE-X: extract IOCs, file paths, registry keys, processes, DLLs, CVEs, MITRE techniques, hashes, emails, ports, MACs, and ASNs from raw text. Handles defang (hxxp, [.], (dot)) and Cyrillic/Greek homographs.',
+      {
+        text: z.string().describe('Raw text — incident report, SIEM alert, log lines, email body, etc.'),
+        refang: z.boolean().optional().describe('Apply iterative refang to defanged indicators. Default: true.'),
+        fold_homographs: z.boolean().optional().describe('Fold Cyrillic/Greek lookalikes to ASCII. Default: true.'),
+        max_chars: z
+          .number()
+          .int()
+          .positive()
+          .max(5_000_000)
+          .optional()
+          .describe('Cap input size in chars. Default: 1,000,000.'),
+        kinds: z
+          .array(z.string())
+          .optional()
+          .describe('Only return these artifact kinds (ipv4, domain, sha256, cve, mitre, etc.).'),
+      },
+      async ({ text, refang, fold_homographs, max_chars, kinds }) => {
+        const result = siParseText(text, {
+          refang: refang ?? true,
+          foldHomographs: fold_homographs ?? true,
+          maxChars: max_chars ?? 1_000_000,
+          kinds: kinds as ArtifactKind[] | undefined,
+        });
+        return untrustedToolResult(result);
+      }
+    );
+
+    // ── si_parse_email_headers (MAILSCOPE) ──────────────────────────────
+    this.server.tool(
+      'si_parse_email_headers',
+      'MAILSCOPE: parse raw email headers, extract the Received hop chain, compute SPF/DKIM/DMARC verdicts, and flag spoofing/impersonation patterns. Returns a 0-100 risk score.',
+      {
+        headers: z.string().describe('Raw email headers, or a full RFC 822 message (body will be stripped).'),
+        max_chars: z
+          .number()
+          .int()
+          .positive()
+          .max(5_000_000)
+          .optional()
+          .describe('Cap input size in chars. Default: 1,000,000.'),
+      },
+      async ({ headers, max_chars }) => {
+        const result = siParseEmailHeaders(headers, { maxChars: max_chars ?? 1_000_000 });
+        return untrustedToolResult(result);
+      }
+    );
+
+    // ── si_shiftlog_* (SHIFTLOG) ────────────────────────────────────────
+    this.server.tool(
+      'si_shiftlog_create',
+      'SHIFTLOG: start a new SOC shift handover entry. Returns the created entry including its id (sl_...).',
+      {
+        shift: z.enum(['morning', 'afternoon', 'night', 'weekend', 'oncall']).describe('Shift type.'),
+        author: z.string().describe('Analyst handle (≤64 chars).'),
+        started_at: z.string().optional().describe('ISO timestamp. Default: now.'),
+        open_cases: z.array(z.string()).optional().describe('Case ids open at the start of the shift.'),
+        iocs: z.array(z.string()).optional().describe('IOC strings to flag.'),
+        escalations: z.array(z.string()).optional().describe('Escalation targets / ticket ids.'),
+        notes: z.string().optional().describe('Free-form notes (≤8000 chars).'),
+      },
+      async (input) => {
+        const entry = await shiftlogCreate(this.env, {
+          shift: input.shift,
+          author: input.author,
+          startedAt: input.started_at,
+          openCases: input.open_cases,
+          iocs: input.iocs,
+          escalations: input.escalations,
+          notes: input.notes,
+        });
+        return untrustedToolResult(entry);
+      }
+    );
+    this.server.tool(
+      'si_shiftlog_list',
+      'SHIFTLOG: list recent shift handover entries. Filter by author, shift, or openOnly (excludes closed shifts).',
+      {
+        author: z.string().optional(),
+        shift: z.enum(['morning', 'afternoon', 'night', 'weekend', 'oncall']).optional(),
+        open_only: z.boolean().optional(),
+        limit: z.number().int().min(1).max(100).optional(),
+      },
+      async (input) => {
+        const list = await shiftlogList(this.env, {
+          author: input.author,
+          shift: input.shift,
+          openOnly: input.open_only,
+          limit: input.limit,
+        });
+        return untrustedToolResult(list);
+      }
+    );
+    this.server.tool(
+      'si_shiftlog_get',
+      'SHIFTLOG: fetch a single shift handover entry by id (sl_...).',
+      { id: z.string().describe('The sl_... id returned by si_shiftlog_create.') },
+      async ({ id }) => {
+        const e = await shiftlogGet(this.env, id);
+        return untrustedToolResult(e);
+      }
+    );
+    this.server.tool(
+      'si_shiftlog_update',
+      'SHIFTLOG: patch a shift entry (notes, open cases, IOCs, escalations, endedAt).',
+      {
+        id: z.string(),
+        open_cases: z.array(z.string()).optional(),
+        iocs: z.array(z.string()).optional(),
+        escalations: z.array(z.string()).optional(),
+        notes: z.string().optional(),
+        ended_at: z.string().nullable().optional(),
+      },
+      async ({ id, ...patch }) => {
+        const e = await shiftlogUpdate(this.env, id, patch as UpdateShiftLogInput);
+        return untrustedToolResult(e);
+      }
+    );
+    this.server.tool(
+      'si_shiftlog_close',
+      'SHIFTLOG: close a shift entry (sets ended_at to now, or to a provided ISO timestamp).',
+      { id: z.string(), ended_at: z.string().optional() },
+      async ({ id, ended_at }) => {
+        const e = await shiftlogClose(this.env, id, ended_at);
+        return untrustedToolResult(e);
+      }
+    );
+
+    // ── si_hypos_generate (HYPOS) ───────────────────────────────────────
+    this.server.tool(
+      'si_hypos_generate',
+      'HYPOS: hypothesis engine for threat hunting. Given a free-text anomaly description and optional IOCs / environment, return ranked hypotheses with kill-chain phase, MITRE techniques, what-to-look-for signals, sample KQL, and matched SI skills.',
+      {
+        text: z
+          .string()
+          .describe('Free-text description of the anomaly (alert name, observed behaviour, user report, etc.).'),
+        iocs: z.array(z.string()).optional().describe('Optional IOCs to bias scoring.'),
+        environment: z.enum(['endpoint', 'identity', 'cloud', 'network', 'email', 'saas', 'unknown']).optional(),
+        top_n: z.number().int().min(1).max(10).optional().describe('Number of hypotheses to return. Default: 5.'),
+        include_skills: z.boolean().optional().describe('Also return matched SI skill slugs. Default: true.'),
+      },
+      async (input) => {
+        const r = await siHyposGenerate(
+          {
+            text: input.text,
+            iocs: input.iocs,
+            environment: input.environment,
+            topN: input.top_n,
+            includeSkills: input.include_skills,
+          },
+          { ASSETS: this.env.ASSETS }
+        );
+        return untrustedToolResult(r);
+      }
+    );
+
+    // ── si_promptvault_* (PROMPTVAULT) ──────────────────────────────────
+    this.server.tool(
+      'si_promptvault_list',
+      'PROMPTVAULT: list community AI prompts for SOC analysts, detection engineers, and threat hunters. Filter by category, tag, or text search.',
+      {
+        category: z.string().optional().describe('e.g. detection-engineering, threat-hunting, incident-response.'),
+        tag: z.string().optional(),
+        q: z.string().optional().describe('Full-text search across title, body, tags.'),
+        limit: z.number().int().min(1).max(100).optional(),
+      },
+      async (input) => {
+        const list = await promptVaultList(this.env, input);
+        return untrustedToolResult(list);
+      }
+    );
+    this.server.tool(
+      'si_promptvault_get',
+      'PROMPTVAULT: fetch a single prompt by slug. Auto-increments the download counter.',
+      { slug: z.string() },
+      async ({ slug }) => {
+        const p = await promptVaultGet(this.env, slug);
+        return untrustedToolResult(p);
+      }
+    );
+    this.server.tool(
+      'si_promptvault_create',
+      'PROMPTVAULT: add a new prompt to the vault. Returns the created entry.',
+      {
+        slug: z.string().describe('URL-safe slug, /^[a-z0-9][a-z0-9-_]{1,63}$/'),
+        title: z.string().describe('≤200 chars.'),
+        category: z.enum([
+          'detection-engineering',
+          'threat-hunting',
+          'incident-response',
+          'threat-intelligence',
+          'malware-analysis',
+          'cloud-security',
+          'identity-security',
+          'osint',
+          'phishing-analysis',
+          'reverse-engineering',
+          'forensics',
+          'governance',
+          'general',
+        ]),
+        tags: z.array(z.string()).optional(),
+        author: z.string().describe('Analyst handle.'),
+        body: z.string().describe('Prompt body, ≤32KB. Use {{placeholder}} for variables.'),
+      },
+      async (input) => {
+        const p = await promptVaultCreate(this.env, input as CreatePromptInput);
+        return untrustedToolResult(p);
+      }
+    );
+    this.server.tool(
+      'si_promptvault_rate',
+      'PROMPTVAULT: rate a prompt 1-5 stars. Returns the updated entry with new rating count and average.',
+      { slug: z.string(), rating: z.number().int().min(1).max(5) },
+      async ({ slug, rating }) => {
+        const p = await promptVaultRate(this.env, { slug, rating });
+        return untrustedToolResult(p);
+      }
+    );
+    this.server.tool('si_promptvault_categories', 'PROMPTVAULT: list the valid prompt categories.', {}, async () => ({
+      content: [{ type: 'text' as const, text: JSON.stringify({ categories: promptVaultCategories() }) }],
+    }));
   }
 }
