@@ -58,6 +58,7 @@ const ROUTES = [
   //    but missing here, so they were served as the bare SPA shell and
   //    cached 24h as "prerendered". Now generated like their siblings. ──
   '/dfir/ai-rule-generator',
+  '/dfir/fp-lens',
   '/dfir/threat-graph',
   '/dfir/attack-chain',
   '/dfir/hunting-query-generator',
@@ -336,6 +337,7 @@ const ROUTES = [
   '/threatintel/observable-db',
   '/threatintel/phishing-wordlists',
   '/threatintel/pir-dashboard',
+  '/threatintel/threat-actor-db',
   '/threatintel/projectdiscovery',
   '/threatintel/ransom-report',
   '/threatintel/relationship-graph',
@@ -346,6 +348,8 @@ const ROUTES = [
   '/threatintel/yara',
   '/threatintel/llm-threat-atlas',
   '/threatintel/osint-map',
+  '/threatintel/osint-cli-tools',
+  '/threatintel/reports',
 ];
 
 const SHELL_PATH = resolve(ROOT, 'dist/index.html');

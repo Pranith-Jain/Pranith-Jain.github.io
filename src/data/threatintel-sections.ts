@@ -45,6 +45,7 @@ import {
   Skull,
   Sparkles,
   Target,
+  Terminal,
   TrendingUp,
   Users,
   UserCheck,
@@ -1113,6 +1114,20 @@ export const SECTIONS: Section[] = [
         label: 'External Resources',
         desc: 'Off-site cross-references: dashboards, OSINT directories, training labs, malware samples, research portfolios.',
         icon: ExternalLink,
+      },
+      {
+        to: '/threatintel/reports',
+        label: 'Threat Intel Reports',
+        desc: 'Original threat intelligence reports with structured IOCs, detection rules (Sigma/YARA/Suricata), and severity scoring. Aggregated from research sources.',
+        icon: FileText,
+        badge: 'new',
+      },
+      {
+        to: '/threatintel/osint-cli-tools',
+        label: 'OSINT CLI Tools Directory',
+        desc: '55+ curated OSINT command-line tools organized by use case — username hunting, email intel, domain recon, social media, dorking, malware analysis.',
+        icon: Terminal,
+        badge: 'new',
       },
       {
         to: '/threatintel/owasp-ai-landscape',

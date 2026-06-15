@@ -116,6 +116,7 @@ const StealerParser = lazy(() => import('./pages/dfir/StealerParser'));
 const TaxiiServer = lazy(() => import('./pages/dfir/TaxiiServer'));
 const BloomFilter = lazy(() => import('./pages/dfir/BloomFilter'));
 const AiRuleGenerator = lazy(() => import('./pages/dfir/AiRuleGenerator'));
+const FpLens = lazy(() => import('./pages/dfir/FpLens'));
 const ThreatGraph = lazy(() => import('./pages/dfir/ThreatGraph'));
 const AttackChain = lazy(() => import('./pages/dfir/AttackChain'));
 const AttackNavigator = lazy(() => import('./pages/dfir/AttackNavigator'));
@@ -232,6 +233,8 @@ const GoXDRPage = lazy(() => import('./pages/threatintel/GoXDR'));
 const CryptoScamFeedPage = lazy(() => import('./pages/threatintel/CryptoScamFeed'));
 const ActorUsernamesPage = lazy(() => import('./pages/threatintel/ActorUsernames'));
 const ScrapedIntelUsernamesPage = lazy(() => import('./pages/threatintel/ScrapedIntelUsernames'));
+const OsintCliToolsPage = lazy(() => import('./pages/threatintel/OsintCliTools'));
+const ThreatIntelReportsPage = lazy(() => import('./pages/threatintel/ThreatIntelReports'));
 const PhishingWordlistsPage = lazy(() => import('./pages/threatintel/PhishingWordlists'));
 const ProjectDiscoveryPage = lazy(() => import('./pages/threatintel/ProjectDiscovery'));
 const RansomReportPage = lazy(() => import('./pages/threatintel/RansomReport'));
@@ -460,6 +463,8 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel/crypto-scams', Component: CryptoScamFeedPage },
   { path: '/threatintel/actor-usernames', Component: ActorUsernamesPage },
   { path: '/threatintel/scrapedintel-usernames', Component: ScrapedIntelUsernamesPage },
+  { path: '/threatintel/osint-cli-tools', Component: OsintCliToolsPage },
+  { path: '/threatintel/reports', Component: ThreatIntelReportsPage },
   { path: '/threatintel/phishing-wordlists', Component: PhishingWordlistsPage },
   { path: '/threatintel/projectdiscovery', Component: ProjectDiscoveryPage },
   { path: '/threatintel/ransom-report', Component: RansomReportPage },
@@ -521,6 +526,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/dfir/taxii', Component: TaxiiServer },
   { path: '/dfir/bloom', Component: BloomFilter },
   { path: '/dfir/ai-rule-generator', Component: AiRuleGenerator },
+  { path: '/dfir/fp-lens', Component: FpLens },
   { path: '/dfir/threat-graph', Component: ThreatGraph },
   { path: '/dfir/attack-chain', Component: AttackChain },
   { path: '/dfir/attack-navigator', Component: AttackNavigator },

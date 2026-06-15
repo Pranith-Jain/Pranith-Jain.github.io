@@ -103,6 +103,7 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/dfir/stix', '/__prerendered/dfir__stix'],
   ['/dfir/stix-builder', '/__prerendered/dfir__stix-builder'],
   ['/dfir/ai-rule-generator', '/__prerendered/dfir__ai-rule-generator'],
+  ['/dfir/fp-lens', '/__prerendered/dfir__fp-lens'],
   ['/dfir/threat-graph', '/__prerendered/dfir__threat-graph'],
   ['/dfir/attack-chain', '/__prerendered/dfir__attack-chain'],
   ['/dfir/hunting-query-generator', '/__prerendered/dfir__hunting-query-generator'],
@@ -316,6 +317,8 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/threatintel/yara', '/__prerendered/threatintel__yara'],
   ['/threatintel/llm-threat-atlas', '/__prerendered/threatintel__llm-threat-atlas'],
   ['/threatintel/osint-map', '/__prerendered/threatintel__osint-map'],
+  ['/threatintel/osint-cli-tools', '/__prerendered/threatintel__osint-cli-tools'],
+  ['/threatintel/reports', '/__prerendered/threatintel__reports'],
 ]);
 
 /**
