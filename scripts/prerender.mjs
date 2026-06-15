@@ -354,6 +354,7 @@ const ROUTES = [
   '/threatintel/ioc-feeds',
   '/threatintel/malware-sandbox',
   '/threatintel/threat-actor-catalog',
+  '/threatintel/threat-landscape',
 ];
 
 const SHELL_PATH = resolve(ROOT, 'dist/index.html');

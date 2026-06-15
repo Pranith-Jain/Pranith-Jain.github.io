@@ -879,6 +879,13 @@ export const SECTIONS: Section[] = [
         badge: 'new',
       },
       {
+        to: '/threatintel/threat-landscape',
+        label: 'Threat Landscape',
+        desc: 'Current threat landscape overview — key stats, trending actors, top malware, emerging threats, attack vector distribution. Updated from live data.',
+        icon: LayoutDashboard,
+        badge: 'new',
+      },
+      {
         to: '/threatintel/misp-galaxy-actors',
         label: 'Actor Alias Directory',
         desc: 'Searchable threat-actor alias index from the MISP Galaxy threat-actor cluster (CC0/BSD-2) — synonyms, country, references.',
