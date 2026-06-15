@@ -60,7 +60,6 @@ const HostGraph = lazy(() => import('./pages/dfir/HostGraph'));
 const Breach = lazy(() => import('./pages/dfir/Breach'));
 const ExifParse = lazy(() => import('./pages/dfir/ExifParse'));
 const ExposedHostPage = lazy(() => import('./pages/dfir/ExposedHost'));
-const AtlasMatrix = lazy(() => import('./pages/dfir/AtlasMatrix'));
 const UrlPreview = lazy(() => import('./pages/dfir/UrlPreview'));
 const IocExtractor = lazy(() => import('./pages/dfir/IocExtractor'));
 const IocPivot = lazy(() => import('./pages/dfir/IocPivot'));
@@ -86,7 +85,6 @@ const Punycode = lazy(() => import('./pages/dfir/Punycode'));
 const Takeover = lazy(() => import('./pages/dfir/Takeover'));
 const StixViewer = lazy(() => import('./pages/dfir/StixViewer'));
 const StixBuilder = lazy(() => import('./pages/dfir/StixBuilder'));
-const GlobalPulse = lazy(() => import('./pages/threatintel/GlobalPulse'));
 const Owasp = lazy(() => import('./pages/dfir/Owasp'));
 const PromptInjection = lazy(() => import('./pages/dfir/PromptInjection'));
 const McpAudit = lazy(() => import('./pages/dfir/McpAudit'));
@@ -107,7 +105,6 @@ const FpLens = lazy(() => import('./pages/dfir/FpLens'));
 const ThreatGraph = lazy(() => import('./pages/dfir/ThreatGraph'));
 const AttackChain = lazy(() => import('./pages/dfir/AttackChain'));
 const AttackNavigator = lazy(() => import('./pages/dfir/AttackNavigator'));
-const AttributionFramework = lazy(() => import('./pages/threatintel/AttributionFramework'));
 const HuntingQueryGenerator = lazy(() => import('./pages/dfir/HuntingQueryGenerator'));
 const SandboxIntegration = lazy(() => import('./pages/dfir/SandboxIntegration'));
 const IrPlaybooks = lazy(() => import('./pages/dfir/IrPlaybooks'));
@@ -115,7 +112,6 @@ const EmailDefense = lazy(() => import('./pages/dfir/EmailDefense'));
 const Nhi = lazy(() => import('./pages/dfir/Nhi'));
 const PowershellDeobf = lazy(() => import('./pages/dfir/PowershellDeobf'));
 const AgentMap = lazy(() => import('./pages/dfir/AgentMap'));
-const AgentInvestigator = lazy(() => import('./pages/dfir/AgentInvestigator'));
 const Tabletop = lazy(() => import('./pages/dfir/Tabletop'));
 const Grc = lazy(() => import('./pages/dfir/Grc'));
 const DlpScan = lazy(() => import('./pages/dfir/DlpScan'));
@@ -162,17 +158,11 @@ const SampleScan = lazy(() => import('./pages/dfir/SampleScan'));
 const ReverseImage = lazy(() => import('./pages/dfir/ReverseImage'));
 const EmlExtractor = lazy(() => import('./pages/dfir/EmlExtractor'));
 const Tracer = lazy(() => import('./pages/dfir/Tracer'));
-const OnionWatch = lazy(() => import('./pages/dfir/OnionWatch'));
-const TelegramWatch = lazy(() => import('./pages/dfir/TelegramWatch'));
-const BitwireBlocklist = lazy(() => import('./pages/threatintel/BitwireBlocklist'));
 const ThreatIntelHome = lazy(() => import('./pages/threatintel/Home'));
 const ThreatIntelAbout = lazy(() => import('./pages/threatintel/About'));
-const ThreatPulse = lazy(() => import('./pages/threatintel/ThreatPulse'));
-const CveIntel = lazy(() => import('./pages/threatintel/CveIntel'));
 const TelegramMonitor = lazy(() => import('./pages/threatintel/TelegramMonitor'));
 const SourceHealth = lazy(() => import('./pages/threatintel/SourceHealth'));
 const SocDashboard = lazy(() => import('./pages/threatintel/SocDashboard'));
-const ActorDirectory = lazy(() => import('./pages/threatintel/ActorDirectory'));
 const ActorHub = lazy(() => import('./pages/threatintel/ActorHub'));
 const CampaignHub = lazy(() => import('./pages/threatintel/CampaignHub'));
 const VulnHub = lazy(() => import('./pages/threatintel/VulnHub'));
@@ -191,25 +181,13 @@ const DashboardHub = lazy(() => import('./pages/threatintel/DashboardHub'));
 const ToolsHub = lazy(() => import('./pages/threatintel/ToolsHub'));
 const ExternalHub = lazy(() => import('./pages/threatintel/ExternalHub'));
 const NotFound = lazy(() => import('./pages/NotFound'));
-const ActorUsernameSearch = lazy(() => import('./pages/threatintel/ActorUsernameSearch'));
-const RansomwareActivityPage = lazy(() => import('./pages/threatintel/RansomwareActivity'));
-const RansomwareGeoMap = lazy(() => import('./pages/threatintel/RansomwareMap'));
-const CertStreamLive = lazy(() => import('./pages/threatintel/CertStreamLive'));
 const CampaignDetail = lazy(() => import('./pages/threatintel/CampaignDetail'));
-const SupplyChainAttacks = lazy(() => import('./pages/threatintel/SupplyChainAttacks'));
-const Ransomwhere = lazy(() => import('./pages/threatintel/Ransomwhere'));
-const AttackFlowLibrary = lazy(() => import('./pages/threatintel/AttackFlowLibrary'));
 const AbuseRepPage = lazy(() => import('./pages/dfir/AbuseRep'));
-const VictimReleaksPage = lazy(() => import('./pages/threatintel/VictimReleaks'));
 const C2TrackerPage = lazy(() => import('./pages/threatintel/C2Tracker'));
 const Blog = lazy(() => import('./pages/Blog'));
 const BlogPost = lazy(() => import('./pages/BlogPost'));
 const AdminApp = lazy(() => import('./pages/admin/AdminApp'));
 const RansomwareLive = lazy(() => import('./pages/threatintel/RansomwareLive'));
-const Infostealer = lazy(() => import('./pages/threatintel/Infostealer'));
-const TelegramSettings = lazy(() => import('./pages/threatintel/TelegramSettings'));
-const Negotiations = lazy(() => import('./pages/threatintel/Negotiations'));
-const BreachForums = lazy(() => import('./pages/threatintel/BreachForums'));
 const UrlReputation = lazy(() => import('./pages/dfir/UrlReputation'));
 const DomainReputation = lazy(() => import('./pages/dfir/DomainReputation'));
 const WhoisHistory = lazy(() => import('./pages/dfir/WhoisHistory'));
@@ -218,29 +196,22 @@ const ApkAnalyzer = lazy(() => import('./pages/dfir/ApkAnalyzer'));
 const PgpTool = lazy(() => import('./pages/dfir/PgpTool'));
 const TorGateway = lazy(() => import('./pages/dfir/TorGateway'));
 const EmailReputation = lazy(() => import('./pages/dfir/EmailReputation'));
-const WatchesPage = lazy(() => import('./pages/threatintel/Watches'));
-const CopilotPage = lazy(() => import('./pages/threatintel/Copilot'));
-const CopilotChatPage = lazy(() => import('./pages/threatintel/CopilotChat'));
-const ObservePage = lazy(() => import('./pages/threatintel/Observe'));
 // (removed LiveFeedsPage and MyDashboardPage)
 const InfostealerDetail = lazy(() => import('./pages/threatintel/InfostealerDetail'));
-const SettingsPage = lazy(() => import('./pages/threatintel/Settings'));
 const DmarcAnalyzer = lazy(() => import('./pages/dfir/DmarcAnalyzer'));
-const UnifiedSearch = lazy(() => import('./pages/threatintel/UnifiedSearch'));
 const ThreatHunt = lazy(() => import('./pages/dfir/ThreatHunt'));
-const ACH = lazy(() => import('./pages/threatintel/ACH'));
-const CrossCorrelate = lazy(() => import('./pages/threatintel/CrossCorrelate'));
 const AssessmentDetail = lazy(() => import('./pages/threatintel/AssessmentDetail'));
-const Analyze = lazy(() => import('./pages/threatintel/Analyze'));
-const Yarahub = lazy(() => import('./pages/threatintel/Yarahub'));
-const ObservableDb = lazy(() => import('./pages/threatintel/ObservableDb'));
-const SecretLeaks = lazy(() => import('./pages/threatintel/SecretLeaks'));
 const ExportHub = lazy(() => import('./pages/dfir/ExportHub'));
 const MultiSearch = lazy(() => import('./pages/dfir/MultiSearch'));
 const ReportComposer = lazy(() => import('./pages/dfir/ReportComposer'));
 const SupplyChainIntel = lazy(() => import('./pages/threatintel/SupplyChainIntelligence'));
 const ThreatActorCatalog = lazy(() => import('./pages/threatintel/ThreatActorCatalog'));
 const ThreatLandscape = lazy(() => import('./pages/threatintel/ThreatLandscape'));
+const OsintCliTools = lazy(() => import('./pages/threatintel/OsintCliTools'));
+const ThreatIntelReports = lazy(() => import('./pages/threatintel/ThreatIntelReports'));
+const StixBundleBrowser = lazy(() => import('./pages/threatintel/StixBundleBrowser'));
+const IocFeedsBrowser = lazy(() => import('./pages/threatintel/IocFeedsPage'));
+const MalwareSandboxPage = lazy(() => import('./pages/threatintel/MalwareSandbox'));
 
 /**
  * /dfir/file?h=<hash> is the legacy entry point for the standalone hash
@@ -277,7 +248,6 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/experience', Component: Experience },
   { path: '/projects', Component: Projects },
   { path: '/projects/:slug', Component: CaseStudy },
-  { path: '/copilot', Component: CopilotPage },
   { path: '/blog', Component: Blog },
   { path: '/blog/c/:type', Component: Blog },
   { path: '/blog/:slug', Component: BlogPost },
@@ -296,32 +266,10 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/dfir/exposed-host', Component: ExposedHostPage },
   { path: '/dfir/asset-intel', Component: AssetIntel },
   { path: '/dfir/file', Component: DfirFileRedirect, eager: true },
-  { path: '/threatintel/pulse', Component: ThreatPulse },
   { path: '/threatintel/wiki', Component: KnowledgeHub },
   { path: '/threatintel/wiki/:slug', Component: WikiArticle },
   { path: '/dfir/dashboard', Component: Dashboard },
-  { path: '/threatintel/actor-kb', Component: ActorDirectory },
-  { path: '/threatintel/actor-dna', Component: ActorHub },
   { path: '/threatintel/predictive', Component: DashboardHub },
-  { path: '/threatintel/insider-threat-matrix', Component: KnowledgeHub },
-  { path: '/threatintel/campaign-lifecycle', Component: CampaignHub },
-  { path: '/threatintel/attribution', Component: AttributionFramework },
-  { path: '/threatintel/cross-campaign', Component: CampaignHub },
-  { path: '/threatintel/actor-directory', Component: ActorDirectory },
-  { path: '/threatintel/actors', Component: ActorDirectory },
-  { path: '/threatintel/actor-kb', Component: ActorDirectory },
-  { path: '/threatintel/misp-galaxy-actors', Component: ActorDirectory },
-  { path: '/threatintel/actor-usernames', Component: ActorUsernameSearch },
-  { path: '/threatintel/scrapedintel-usernames', Component: ActorUsernameSearch },
-  { path: '/threatintel/osint-cli-tools', Component: OsintHub },
-  { path: '/threatintel/reports', Component: ResearchHub },
-  { path: '/threatintel/stix-bundles', Component: ToolsHub },
-  { path: '/threatintel/ioc-feeds', Component: IocHub },
-  { path: '/threatintel/malware-sandbox', Component: MalwareHub },
-  { path: '/threatintel/threat-actor-catalog', Component: ActorHub },
-  { path: '/threatintel/infra-intel', Component: InfraHub },
-  { path: '/threatintel/facilities', Component: InfraHub },
-  { path: '/threatintel/infra-search', Component: InfraHub },
   { path: '/threatintel/actors/:slug', Component: ActorDetail },
   { path: '/dfir/privacy', Component: Privacy },
   { path: '/threatintel/briefings', Component: Briefings },
@@ -331,13 +279,10 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/dfir/decode', Component: Decode },
   { path: '/dfir/encoder', Component: Encoder },
   { path: '/dfir/cert-search', Component: CertSearch },
-  { path: '/dfir/atlas', Component: AtlasMatrix },
-  { path: '/threatintel/atlas', Component: AtlasMatrix },
   { path: '/dfir/asn', Component: AsnLookup },
   { path: '/dfir/host-graph', Component: HostGraph },
   { path: '/dfir/breach', Component: Breach },
   { path: '/dfir/exif', Component: ExifParse },
-  { path: '/threatintel/mitre', Component: KnowledgeHub },
   { path: '/dfir/url-preview', Component: UrlPreview },
   { path: '/dfir/extract', Component: IocExtractor },
   { path: '/dfir/ioc-pivot', Component: IocPivot },
@@ -366,79 +311,13 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/dfir/stix-builder/b/:bundleId', Component: StixBuilder },
   { path: '/dfir/report-ingest', Component: StixBuilder },
   { path: '/threatintel/darkweb', Component: DarkwebHub },
-  { path: '/threatintel/ransomware-activity', Component: RansomwareActivityPage },
-  { path: '/threatintel/ransomware-map', Component: RansomwareGeoMap },
-  { path: '/threatintel/certstream', Component: CertStreamLive },
-  { path: '/threatintel/campaign-generator', Component: CampaignHub },
-  { path: '/threatintel/campaigns', Component: CampaignHub },
   { path: '/threatintel/campaigns/:id', Component: CampaignDetail },
-  { path: '/threatintel/malicious-packages', Component: MalwareHub },
-  { path: '/threatintel/supply-chain', Component: SupplyChainAttacks },
-  { path: '/threatintel/k8s-cve', Component: VulnHub },
-  { path: '/threatintel/misp-galaxy-actors', Component: ActorDirectory },
-  { path: '/threatintel/cloud-threat-landscape', Component: InfraHub },
-  { path: '/threatintel/ransomwhere', Component: Ransomwhere },
-  { path: '/threatintel/disarm', Component: DetectionHub },
-  { path: '/threatintel/attack-flow-library', Component: AttackFlowLibrary },
-  { path: '/threatintel/volexity', Component: ResearchHub },
-  { path: '/threatintel/x-watch', Component: SocialHub },
-  { path: '/threatintel/social-firehose', Component: SocialHub },
-  { path: '/threatintel/cybersec', Component: SocialHub },
-  { path: '/threatintel/reddit', Component: SocialHub },
-  { path: '/threatintel/x', Component: SocialHub },
-  { path: '/threatintel/x-live', Component: SocialHub },
-  { path: '/threatintel/x-watch', Component: SocialHub },
   { path: '/threatintel/telegram-monitor', Component: TelegramMonitor },
-  { path: '/threatintel/telegram-leaks', Component: TelegramMonitor },
-  { path: '/threatintel/telegram-leaks/stats', Component: TelegramMonitor },
-  { path: '/threatintel/telegram-leaks/channels', Component: TelegramMonitor },
-  { path: '/threatintel/telegram-settings', Component: TelegramMonitor },
   { path: '/threatintel/source-health', Component: SourceHealth },
-  { path: '/threatintel/status', Component: SourceHealth },
-  { path: '/threatintel/collection-slo', Component: SourceHealth },
-  { path: '/threatintel/source-reliability', Component: SourceHealth },
   { path: '/threatintel/soc-dashboard', Component: SocDashboard },
-  { path: '/threatintel/soc-ransomware', Component: SocDashboard },
-  { path: '/threatintel/soc-vulns', Component: SocDashboard },
-  { path: '/threatintel/soc-iocs', Component: SocDashboard },
-  { path: '/threatintel/correlation', Component: IocHub },
-  { path: '/threatintel/actor-timeline', Component: ActorHub },
-  { path: '/threatintel/re-leaks', Component: VictimReleaksPage },
-  { path: '/threatintel/live-iocs', Component: IocHub },
-  { path: '/threatintel/detections', Component: DetectionHub },
-  { path: '/threatintel/cyber-crime', Component: DarkwebHub },
-  { path: '/threatintel/c2-tracker', Component: C2TrackerPage },
-  { path: '/threatintel/writeups', Component: ResearchHub },
-  { path: '/threatintel/signal', Component: ResearchHub },
-  { path: '/threatintel/research', Component: ResearchHub },
   { path: '/threatintel/research/:slug', Component: ResearchPostPage },
-  { path: '/threatintel/cve-intel', Component: CveIntel },
-  { path: '/threatintel/cve-list', Component: CveIntel },
-  { path: '/threatintel/exploitable-cves', Component: CveIntel },
-  { path: '/threatintel/cisa-kev', Component: CveIntel },
-  { path: '/threatintel/github-advisories', Component: VulnHub },
-  { path: '/threatintel/phish-feed', Component: EmailPhishHub },
-  { path: '/threatintel/darknet-markets', Component: DarkwebHub },
-  { path: '/threatintel/physical-bitcoin-attacks', Component: DarkwebHub },
-  { path: '/threatintel/supply-chain-intel', Component: SupplyChainIntel },
-  { path: '/threatintel/threat-actor-catalog', Component: ThreatActorCatalog },
-  { path: '/threatintel/threat-landscape', Component: ThreatLandscape },
-  { path: '/threatintel/threat-map', Component: DetectionHub },
-  { path: '/threatintel/global-pulse', Component: GlobalPulse },
-  { path: '/threatintel/cti-platform', Component: GlobalPulse },
-  { path: '/threatintel/facilities', Component: InfraHub },
-  { path: '/threatintel/infra-search', Component: InfraHub },
-  { path: '/threatintel/rules', Component: DetectionHub },
-  { path: '/threatintel/deepdarkcti', Component: DarkwebHub },
   { path: '/threatintel/ransomware-live', Component: RansomwareLive },
-  { path: '/threatintel/infostealer', Component: Infostealer },
   { path: '/threatintel/infostealer/:slug', Component: InfostealerDetail },
-  { path: '/threatintel/feed-sources', Component: FeedHub },
-  { path: '/threatintel/settings', Component: SettingsPage },
-  { path: '/threatintel/negotiations', Component: Negotiations },
-  { path: '/threatintel/maltrail', Component: MalwareHub },
-  { path: '/threatintel/malpedia', Component: MalwareHub },
-  { path: '/threatintel/breach-forums', Component: BreachForums },
   { path: '/dfir/owasp', Component: Owasp },
   { path: '/dfir/prompt-injection', Component: PromptInjection },
   { path: '/dfir/mcp-audit', Component: McpAudit },
@@ -463,14 +342,11 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/dfir/hunting-query-generator', Component: HuntingQueryGenerator },
   { path: '/dfir/sandbox', Component: SandboxIntegration },
   { path: '/dfir/ir-playbooks', Component: IrPlaybooks },
-  { path: '/dfir/detection-lab', Component: DetectionHub },
   { path: '/dfir/email-defense', Component: EmailDefense },
   { path: '/dfir/dmarc-analyzer', Component: DmarcAnalyzer },
   { path: '/dfir/nhi', Component: Nhi },
   { path: '/dfir/powershell-deobf', Component: PowershellDeobf },
   { path: '/dfir/agent-map', Component: AgentMap },
-  { path: '/dfir/agent', Component: AgentInvestigator },
-  { path: '/threatintel/agent', Component: AgentInvestigator },
   { path: '/dfir/tabletop', Component: Tabletop },
   { path: '/dfir/grc', Component: Grc },
   { path: '/dfir/dlp-scan', Component: DlpScan },
@@ -509,8 +385,6 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/dfir/ip-geo', Component: IpGeo },
   { path: '/dfir/log-parser', Component: LogParser },
   { path: '/dfir/socmint', Component: Socmint },
-  { path: '/threatintel/osint-framework', Component: OsintHub },
-  { path: '/threatintel/secops-tools', Component: OsintHub },
   { path: '/dfir/tools/about', Component: ToolsAbout },
   { path: '/dfir/tools/:group', Component: ToolsCategory },
   { path: '/dfir/timestamp', Component: TimestampConverter },
@@ -530,7 +404,6 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/dfir/pe', Component: PeAnalyzer },
   { path: '/dfir/web-log', Component: WebLogAnalyzer },
   { path: '/dfir/prefetch', Component: PrefetchAnalyzer },
-  { path: '/threatintel/cve-resources', Component: VulnHub },
   { path: '/dfir/web-scan', Component: WebScan },
   { path: '/dfir/malware-scan', Component: MalwareScan },
   { path: '/dfir/malware-capabilities', Component: MalwareCapabilities },
@@ -540,58 +413,26 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/dfir/eml', Component: EmlExtractor },
   { path: '/dfir/url-rep', Component: UrlReputation },
   { path: '/dfir/email-rep', Component: EmailReputation },
-  { path: '/threatintel/domain-monitor', Component: InfraHub },
-  { path: '/threatintel/watches', Component: WatchesPage },
-  { path: '/threatintel/copilot', Component: CopilotPage },
-  { path: '/threatintel/copilot-chat', Component: CopilotChatPage },
-  { path: '/threatintel/observe', Component: ObservePage },
-  { path: '/threatintel/scam-watch', Component: EmailPhishHub },
   { path: '/dfir/crypto-trace', Component: Tracer },
   { path: '/dfir/tracer', Component: Tracer },
-  { path: '/threatintel/tech-ai-news', Component: SocialHub },
-  { path: '/threatintel/threat-feeds', Component: FeedHub },
-  { path: '/threatintel/onion-watch', Component: OnionWatch },
-  { path: '/threatintel/telegram-watch', Component: TelegramWatch },
-  { path: '/threatintel/telegram-settings', Component: TelegramSettings },
-  { path: '/threatintel/awesome-lists', Component: ExternalHub },
-  { path: '/threatintel/external-resources', Component: ExternalHub },
-  { path: '/threatintel/threatsignal', Component: DetectionHub },
-  { path: '/threatintel/bitwire-blocklist', Component: BitwireBlocklist },
-  { path: '/threatintel/owasp-ai-landscape', Component: KnowledgeHub },
-  { path: '/threatintel/curated-toolbox', Component: OsintHub },
-  { path: '/threatintel/redhunt-labs', Component: ResearchHub },
-  { path: '/threatintel/redhunt-insights', Component: ResearchHub },
-  { path: '/threatintel/ai-report', Component: ResearchHub },
-  { path: '/threatintel/mcp-search', Component: ToolsHub },
-  { path: '/threatintel/osint-map', Component: OsintHub },
-  { path: '/threatintel/darkweb-tools', Component: OsintHub },
-  { path: '/threatintel/aggregated-feeds', Component: FeedHub },
-  { path: '/threatintel/predictions', Component: DashboardHub },
-  { path: '/threatintel/malware-iocs', Component: MalwareHub },
-  { path: '/threatintel/feed-catalog', Component: FeedHub },
-  { path: '/threatintel/analyze', Component: Analyze },
-  { path: '/threatintel/yara', Component: Yarahub },
-  { path: '/threatintel/investigations', Component: ToolsHub },
-  { path: '/threatintel/feed-scheduler', Component: FeedHub },
-  { path: '/threatintel/observable-db', Component: ObservableDb },
-  { path: '/threatintel/malware-vault', Component: MalwareHub },
-  { path: '/threatintel/secret-leaks', Component: SecretLeaks },
   { path: '/threatintel/about', Component: ThreatIntelAbout },
   { path: '/threatintel/c/:cat', Component: ThreatIntelHome },
   { path: '/threatintel', Component: ThreatIntelHome },
-  { path: '/threatintel/misp-browser', Component: ToolsHub },
-  { path: '/threatintel/search', Component: UnifiedSearch },
-  { path: '/threatintel/llm-threat-atlas', Component: KnowledgeHub },
-  { path: '/threatintel/ioc-enrichment', Component: IocHub },
-  { path: '/threatintel/relationship-graph', Component: ToolsHub },
-  { path: '/threatintel/ach', Component: ACH },
-  { path: '/threatintel/f3ead', Component: KnowledgeHub },
-  { path: '/threatintel/cross-correlate', Component: CrossCorrelate },
-  { path: '/threatintel/assessments', Component: DashboardHub },
   { path: '/threatintel/assessments/:id', Component: AssessmentDetail },
-  { path: '/threatintel/feed-quality', Component: FeedHub },
-  { path: '/threatintel/entity-resolution', Component: IocHub },
-  { path: '/threatintel/webamon', Component: InfraHub },
+  { path: '/threatintel/actors', Component: ActorHub },
+  { path: '/threatintel/campaigns', Component: CampaignHub },
+  { path: '/threatintel/cves', Component: VulnHub },
+  { path: '/threatintel/iocs', Component: IocHub },
+  { path: '/threatintel/malware', Component: MalwareHub },
+  { path: '/threatintel/feeds', Component: FeedHub },
+  { path: '/threatintel/social', Component: SocialHub },
+  { path: '/threatintel/phishing', Component: EmailPhishHub },
+  { path: '/threatintel/infra', Component: InfraHub },
+  { path: '/threatintel/detections', Component: DetectionHub },
+  { path: '/threatintel/research-hub', Component: ResearchHub },
+  { path: '/threatintel/osint', Component: OsintHub },
+  { path: '/threatintel/tools', Component: ToolsHub },
+  { path: '/threatintel/external', Component: ExternalHub },
   { path: '/dfir/pgp-tool', Component: PgpTool },
   { path: '/dfir/tor-gateway', Component: TorGateway },
   { path: '/dfir/blocklists', Component: Blocklists },
@@ -606,24 +447,14 @@ const ROUTES: ReadonlyArray<RouteDef> = [
 /** Legacy / renamed paths preserved as redirects so in-flight links don't 404. */
 const REDIRECTS: ReadonlyArray<{ path: string; to: string }> = [
   { path: '/dfir/host', to: '/dfir/asset-intel' },
-  { path: '/threatintel/intelligence-gaps', to: '/threatintel/status' },
-  { path: '/threatintel/report-analyzer', to: '/dfir/report-analyzer' },
   { path: '/dfir/sigma-convert', to: '/dfir/rule-converter' },
-  { path: '/threatintel/mti', to: '/threatintel/mythreatintel' },
-  { path: '/threatintel/urls', to: '/threatintel/live-iocs' },
-  { path: '/threatintel/domains', to: '/threatintel/live-iocs' },
-  { path: '/threatintel/hashs', to: '/threatintel/live-iocs' },
-  { path: '/threatintel/malicious-urls', to: '/threatintel/live-iocs' },
-  { path: '/threatintel/iocs-by-type', to: '/threatintel/live-iocs' },
-  { path: '/threatintel/phishing-urls', to: '/threatintel/live-iocs' },
-  { path: '/threatintel/malware-samples', to: '/threatintel/live-iocs' },
-  { path: '/threatintel/ransom-library', to: '/threatintel' },
-  { path: '/threatintel/webamon/sandbox', to: '/threatintel/webamon' },
-  { path: '/threatintel/webamon/infra', to: '/threatintel/webamon' },
-  { path: '/dfir/discord-watch', to: '/threatintel/awesome-lists' },
-  { path: '/dfir/industry-news', to: '/threatintel/tech-ai-news' },
+  { path: '/dfir/discord-watch', to: '/threatintel/social' },
+  { path: '/dfir/industry-news', to: '/threatintel/social' },
   { path: '/difr', to: '/dfir' },
   { path: '/osint-tools', to: '/threatintel/osint-cli-tools' },
+  { path: '/dfir/agent', to: '/dfir/ioc-check' },
+  { path: '/threatintel/awesome-lists', to: '/threatintel/external' },
+  { path: '/threatintel/tech-ai-news', to: '/threatintel/social' },
 ];
 
 export function AppContent() {
