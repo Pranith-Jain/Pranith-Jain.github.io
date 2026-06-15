@@ -115,6 +115,7 @@ const Tracepulse = lazy(() => import('./pages/dfir/Tracepulse'));
 const Quicktrace = lazy(() => import('./pages/dfir/Quicktrace'));
 const PowershellDeobf = lazy(() => import('./pages/dfir/PowershellDeobf'));
 const AgentMap = lazy(() => import('./pages/dfir/AgentMap'));
+const AgentInvestigator = lazy(() => import('./pages/dfir/AgentInvestigator'));
 const Tabletop = lazy(() => import('./pages/dfir/Tabletop'));
 const Grc = lazy(() => import('./pages/dfir/Grc'));
 const DlpScan = lazy(() => import('./pages/dfir/DlpScan'));
@@ -361,6 +362,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/dfir/nhi', Component: Nhi },
   { path: '/dfir/powershell-deobf', Component: PowershellDeobf },
   { path: '/dfir/agent-map', Component: AgentMap },
+  { path: '/dfir/agent', Component: AgentInvestigator },
   { path: '/dfir/tabletop', Component: Tabletop },
   { path: '/dfir/grc', Component: Grc },
   { path: '/dfir/dlp-scan', Component: DlpScan },
@@ -475,7 +477,6 @@ const REDIRECTS: ReadonlyArray<{ path: string; to: string }> = [
   { path: '/dfir/industry-news', to: '/threatintel/social' },
   { path: '/difr', to: '/dfir' },
   { path: '/osint-tools', to: '/threatintel/osint-cli-tools' },
-  { path: '/dfir/agent', to: '/dfir/ioc-check' },
   { path: '/threatintel/awesome-lists', to: '/threatintel/external' },
   { path: '/threatintel/tech-ai-news', to: '/threatintel/social' },
 ];
