@@ -1,35 +1,25 @@
 import {
-  Activity,
   AlertTriangle,
   BarChart3,
   BookOpen,
   Bug,
   Compass,
-  Crosshair,
-  Database,
   FileText,
-  Flame,
   Globe,
   GitBranch,
-  KeyRound,
   LayoutDashboard,
-  Link2,
   Newspaper,
-  Radar,
   Radio,
   Rss,
   Scale,
   Search,
-  Send,
   Shield,
   ShieldAlert,
   Skull,
-  Sparkles,
   Target,
   Terminal,
   TrendingUp,
   Users,
-  Zap,
   type LucideIcon,
 } from 'lucide-react';
 
@@ -39,6 +29,8 @@ export interface Tool {
   desc: string;
   icon: LucideIcon;
   badge?: string;
+  /** When true the tile links to an external resource (rendered with an external-link affordance / new tab). */
+  external?: boolean;
 }
 
 export interface Section {

@@ -1,6 +1,5 @@
 import {
   AlertTriangle,
-  BarChart3,
   BookOpen,
   Bug,
   Compass,
@@ -19,25 +18,25 @@ import {
   Search,
   Shield,
   ShieldAlert,
-  Skull,
   Target,
   Terminal,
-  TrendingUp,
   Users,
   Zap,
   type LucideIcon,
 } from 'lucide-react';
 
-interface SidebarItem {
+export interface SidebarItem {
   label: string;
   href: string;
   icon: LucideIcon;
+  /** Optional one-line description, surfaced by RecentToolsRow / the 404 nav grid. */
+  description?: string;
 }
-interface SidebarGroup {
+export interface SidebarGroup {
   title: string;
   items: SidebarItem[];
 }
-interface SidebarConfig {
+export interface SidebarConfig {
   sectionLabel: string;
   groups: SidebarGroup[];
 }
