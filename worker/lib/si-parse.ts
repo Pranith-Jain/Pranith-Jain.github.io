@@ -44,13 +44,17 @@ const REFANG_PATTERNS: Array<[RegExp, string]> = [
   [/\bhxxps?/gi, (m) => m.toLowerCase().replace('hxxp', 'http')],
   [/\bhxtps?/gi, (m) => m.toLowerCase().replace('hxtp', 'http')],
   [/\b\[protocol\]/gi, 'https'],
-  // Bracket defangs
+  // Bracket defangs (specific)
   [/\[\.\]/g, '.'],
   [/\(\.\)/g, '.'],
   [/\{\.\}/g, '.'],
   [/\[\:\]/g, ':'],
   [/\[\/\]/g, '/'],
   [/\[\@\]/g, '@'],
+  // Generic: strip square brackets ONLY around non-alphanumeric content
+  // (so [://], [port], [path] etc. unwrap, but [dot] [com] [at] etc. are
+  // left for the specific spelled-out rules below).
+  [/\[([^\[\]\na-zA-Z0-9]{1,6})\]/g, '$1'],
   // Spelled-out
   [/\b\[dot\]/gi, '.'],
   [/\(dot\)/gi, '.'],
@@ -135,7 +139,7 @@ const PATTERNS: Record<ArtifactKind, RegExp> = {
   registry: /\bH(?:K(LM|E_(?:LM|U(?:SERS|CLASSES(?:_LOCAL_MACHINE|_CURRENT_USER))?)|CR))\\(?:[A-Za-z0-9_ \-\.]+\\)*[A-Za-z0-9_ \-\.]+/g,
   process: /\b[a-z0-9_\- ]+\.(?:exe|bat|cmd|ps1|vbs|js|hta|wsf|lnk|jar|scr|com)\b/gi,
   dll: /\b[a-z0-9_\- ]+\.dll\b/gi,
-  filePath: /(?:[A-Za-z]:\\(?:[^\\/:*?"<>|\r\n]+\\)*[^\\/:*?"<>|\r\n]+|\/(?:[a-z0-9_\-]+\/)+[a-z0-9_\-]+(?:\.[a-z0-9]+)?)/g,
+  filePath: /(?:[A-Za-z]:(?:\\[^\\/:*?"<>|\s]+\\?)+|\/(?:[a-z0-9_\-\.]+\/)+[a-z0-9_\-\.]+(?:\.[a-z0-9]+)?)/g,
   port: /\b(?:port|Port|PORT)\s*[=:]\s*([0-9]{1,5})\b/g,
   mac: /\b(?:[0-9a-fA-F]{2}[:\-]){5}[0-9a-fA-F]{2}\b/g,
   asn: /\bAS(?:N)?\s?-?\s?(\d{1,10})\b/gi,

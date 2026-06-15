@@ -549,6 +549,7 @@ export const navLinks: NavLinkExt[] = [
       { label: 'Ransomware', href: '/threatintel/ransomware-activity' },
       { label: 'Graph', href: '/threatintel/relationship-graph' },
       { label: 'Darkweb', href: '/threatintel/darkweb' },
+      { label: 'OSINT Tools', href: '/threatintel/osint-cli-tools' },
     ],
   },
   {
