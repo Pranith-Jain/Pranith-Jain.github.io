@@ -1,0 +1,165 @@
+import { describe, it, expect } from 'vitest';
+import { evaluateRules } from '../../src/lib/detection-engine';
+const ioc = (p) => ({
+    ...p,
+});
+describe('evaluateRules', () => {
+    it('fires a flat rule when minMatches is reached', () => {
+        const rule = {
+            id: 'c2',
+            name: 'C2',
+            severity: 'high',
+            match: { contextRegex: 'cobalt[ -]?strike' },
+            minMatches: 1,
+        };
+        const items = [
+            ioc({ value: '1.2.3.4', kind: 'ip', source: 'c2-intel', context: 'Cobalt Strike beacon' }),
+            ioc({ value: '5.6.7.8', kind: 'ip', source: 'sans-isc', context: 'ssh bruteforce' }),
+        ];
+        const { detections } = evaluateRules([rule], items);
+        expect(detections).toHaveLength(1);
+        expect(detections[0].match_count).toBe(1);
+        expect(detections[0].indicators[0].value).toBe('1.2.3.4');
+    });
+    it('does not fire a flat rule below minMatches', () => {
+        const rule = {
+            id: 'r',
+            name: 'r',
+            severity: 'low',
+            match: { kind: 'hash' },
+            minMatches: 3,
+        };
+        const items = [ioc({ value: 'abc', kind: 'hash', source: 'mb' })];
+        expect(evaluateRules([rule], items).detections).toHaveLength(0);
+    });
+    it('aggregates cross-feed consensus by distinct source', () => {
+        const rule = {
+            id: 'consensus',
+            name: 'consensus',
+            severity: 'high',
+            match: { kind: 'ip' },
+            aggregate: { groupBy: 'value', minCount: 2, distinctBy: 'source' },
+        };
+        const items = [
+            ioc({ value: '9.9.9.9', kind: 'ip', source: 'feed-a' }),
+            ioc({ value: '9.9.9.9', kind: 'ip', source: 'feed-b' }),
+            ioc({ value: '9.9.9.9', kind: 'ip', source: 'feed-a' }), // duplicate source — not counted twice
+            ioc({ value: '8.8.8.8', kind: 'ip', source: 'feed-a' }), // only one source — no consensus
+        ];
+        const { detections } = evaluateRules([rule], items);
+        expect(detections).toHaveLength(1);
+        expect(detections[0].group_key).toBe('9.9.9.9');
+        expect(detections[0].match_count).toBe(2);
+    });
+    it('skips empty group keys', () => {
+        const rule = {
+            id: 'g',
+            name: 'g',
+            severity: 'low',
+            match: {},
+            aggregate: { groupBy: 'context', minCount: 1 },
+        };
+        const items = [ioc({ value: 'x', kind: 'ip', source: 's' })]; // no context
+        expect(evaluateRules([rule], items).detections).toHaveLength(0);
+    });
+    it('reports a warning for an invalid regex and skips the rule', () => {
+        const rule = {
+            id: 'bad',
+            name: 'bad',
+            severity: 'low',
+            match: { valueRegex: '(' },
+        };
+        const items = [ioc({ value: 'x', kind: 'ip', source: 's' })];
+        const { detections, warnings } = evaluateRules([rule], items);
+        expect(detections).toHaveLength(0);
+        expect(warnings[0].rule_id).toBe('bad');
+        expect(warnings[0].message).toMatch(/invalid match\.value regex/);
+    });
+    it('honours enabled:false', () => {
+        const rule = {
+            id: 'off',
+            name: 'off',
+            severity: 'low',
+            enabled: false,
+            match: { kind: 'ip' },
+        };
+        expect(evaluateRules([rule], [ioc({ value: 'x', kind: 'ip', source: 's' })]).detections).toHaveLength(0);
+    });
+    it('sorts detections by severity then match_count', () => {
+        const items = [
+            ioc({ value: 'a', kind: 'ip', source: 's', context: 'lockbit ransomware' }),
+            ioc({ value: 'b', kind: 'ip', source: 's', context: 'lockbit ransomware' }),
+            ioc({ value: 'c', kind: 'ip', source: 's', context: 'scan' }),
+        ];
+        const rules = [
+            { id: 'low', name: 'low', severity: 'low', match: { kind: 'ip' } },
+            { id: 'crit', name: 'crit', severity: 'critical', match: { contextRegex: 'ransomware' } },
+        ];
+        const { detections } = evaluateRules(rules, items);
+        expect(detections[0].severity).toBe('critical');
+        expect(detections[1].severity).toBe('low');
+    });
+    it('exclude clause suppresses an otherwise-matching indicator', () => {
+        const rule = {
+            id: 'ssh-brute',
+            name: 'SSH brute-force scans',
+            severity: 'medium',
+            match: { kind: 'ip', contextRegex: 'ssh|sshd' },
+            exclude: { source: 'greynoise' }, // tune out known-benign internet scanners
+        };
+        const items = [
+            ioc({ value: '1.1.1.1', kind: 'ip', source: 'sans-isc', context: 'ssh bruteforce' }),
+            ioc({ value: '2.2.2.2', kind: 'ip', source: 'greynoise', context: 'ssh scanner' }),
+        ];
+        const { detections } = evaluateRules([rule], items);
+        expect(detections).toHaveLength(1);
+        expect(detections[0].indicators).toHaveLength(1);
+        expect(detections[0].indicators[0].value).toBe('1.1.1.1');
+    });
+    it('an empty exclude object is treated as absent (does not suppress every match)', () => {
+        const rule = {
+            id: 'r',
+            name: 'r',
+            severity: 'low',
+            match: { kind: 'ip' },
+            exclude: {}, // empty — must not silently swallow every indicator
+        };
+        const items = [
+            ioc({ value: '1.1.1.1', kind: 'ip', source: 's' }),
+            ioc({ value: '2.2.2.2', kind: 'ip', source: 's' }),
+        ];
+        const { detections } = evaluateRules([rule], items);
+        expect(detections).toHaveLength(1);
+        expect(detections[0].match_count).toBe(2);
+    });
+    it('exclude with an invalid regex is reported as a warning, not a silent skip', () => {
+        const rule = {
+            id: 'r',
+            name: 'r',
+            severity: 'low',
+            match: { kind: 'ip' },
+            exclude: { valueRegex: '[' }, // unclosed character class
+        };
+        const items = [ioc({ value: '1.1.1.1', kind: 'ip', source: 's' })];
+        const { detections, warnings } = evaluateRules([rule], items);
+        expect(detections).toHaveLength(0);
+        expect(warnings.find((w) => w.rule_id === 'r')?.message).toMatch(/exclude/);
+    });
+    it('propagates technique / tactic / references from the rule onto its detection', () => {
+        const rule = {
+            id: 't',
+            name: 'Cobalt Strike beacon',
+            severity: 'high',
+            match: { contextRegex: 'cobalt' },
+            technique: 'T1071.001',
+            tactic: 'Command and Control',
+            references: ['https://attack.mitre.org/techniques/T1071/001/'],
+        };
+        const items = [ioc({ value: '1.1.1.1', kind: 'ip', source: 's', context: 'cobalt strike beacon' })];
+        const { detections } = evaluateRules([rule], items);
+        expect(detections).toHaveLength(1);
+        expect(detections[0].technique).toBe('T1071.001');
+        expect(detections[0].tactic).toBe('Command and Control');
+        expect(detections[0].references).toEqual(['https://attack.mitre.org/techniques/T1071/001/']);
+    });
+});

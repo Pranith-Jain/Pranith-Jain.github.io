@@ -1,0 +1,418 @@
+import { SELF } from 'cloudflare:test';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
+beforeEach(() => {
+    vi.restoreAllMocks();
+});
+const SAMPLE_HIBP_RESPONSE = `0018A45C4D1DEF81644B54AB7F969B88D65:1\r\n001D04836D2BB07D55F0ECA5F1B14CCF:2\r\n0020C62B2B8A1BF54E2ABA2F97D2C2DBE:5`;
+describe('GET /api/v1/breach/range', () => {
+    it('returns 400 on missing prefix', async () => {
+        const r = await SELF.fetch('https://x/api/v1/breach/range');
+        expect(r.status).toBe(400);
+        const body = (await r.json());
+        expect(body.error).toBe('missing_param');
+    });
+    it('returns 400 on invalid prefix (too short)', async () => {
+        const r = await SELF.fetch('https://x/api/v1/breach/range?prefix=21BD');
+        expect(r.status).toBe(400);
+        const body = (await r.json());
+        expect(body.error).toBe('invalid_prefix');
+    });
+    it('returns 400 on invalid prefix (non-hex)', async () => {
+        const r = await SELF.fetch('https://x/api/v1/breach/range?prefix=ZZZXX');
+        expect(r.status).toBe(400);
+        const body = (await r.json());
+        expect(body.error).toBe('invalid_prefix');
+    });
+    it('returns 200 text/plain on valid prefix', async () => {
+        vi.spyOn(globalThis, 'fetch').mockImplementation(async () => new Response(SAMPLE_HIBP_RESPONSE, {
+            status: 200,
+            headers: { 'Content-Type': 'text/plain' },
+        }));
+        const r = await SELF.fetch('https://x/api/v1/breach/range?prefix=21BD1');
+        expect(r.status).toBe(200);
+        expect(r.headers.get('Content-Type')).toContain('text/plain');
+        const body = await r.text();
+        expect(body).toContain('0018A45C4D1DEF81644B54AB7F969B88D65:1');
+    });
+    it('accepts lowercase hex prefix', async () => {
+        vi.spyOn(globalThis, 'fetch').mockImplementation(async (input) => {
+            const url = String(input);
+            // Verify prefix is uppercased when calling upstream
+            expect(url).toContain('21BD1');
+            return new Response(SAMPLE_HIBP_RESPONSE, { status: 200 });
+        });
+        const r = await SELF.fetch('https://x/api/v1/breach/range?prefix=21bd1');
+        expect(r.status).toBe(200);
+    });
+    it('returns 502 on upstream error', async () => {
+        vi.spyOn(globalThis, 'fetch').mockRejectedValue(new Error('network error'));
+        const r = await SELF.fetch('https://x/api/v1/breach/range?prefix=21BD1');
+        expect(r.status).toBe(502);
+        const body = (await r.json());
+        expect(body.error).toBe('upstream_error');
+    });
+    it('returns cache-control header', async () => {
+        vi.spyOn(globalThis, 'fetch').mockImplementation(async () => new Response(SAMPLE_HIBP_RESPONSE, { status: 200 }));
+        const r = await SELF.fetch('https://x/api/v1/breach/range?prefix=21BD1');
+        expect(r.headers.get('Cache-Control')).toBe('public, max-age=3600');
+    });
+});
+// ─── Email handler ────────────────────────────────────────────────────────────
+describe('GET /api/v1/breach/email', () => {
+    it('400 on missing email', async () => {
+        const r = await SELF.fetch('https://x/api/v1/breach/email');
+        expect(r.status).toBe(400);
+        const body = (await r.json());
+        expect(body.error).toBe('missing_param');
+    });
+    it('400 on invalid email (no @)', async () => {
+        const r = await SELF.fetch('https://x/api/v1/breach/email?email=notanemail');
+        expect(r.status).toBe(400);
+        const body = (await r.json());
+        expect(body.error).toBe('invalid_email');
+    });
+    it('400 on invalid email (just @)', async () => {
+        const r = await SELF.fetch('https://x/api/v1/breach/email?email=%40domain.com');
+        expect(r.status).toBe(400);
+    });
+    it('returns found=false when XposedOrNot reports no breaches (null ExposedBreaches)', async () => {
+        vi.spyOn(globalThis, 'fetch').mockImplementation(async () => new Response(JSON.stringify({ ExposedBreaches: null, BreachesSummary: { site: '' } }), { status: 200 }));
+        const r = await SELF.fetch('https://x/api/v1/breach/email?email=clean@example.com');
+        expect(r.status).toBe(200);
+        const body = (await r.json());
+        expect(body.found).toBe(false);
+        expect(body.breach_count).toBe(0);
+        expect(body.source).toBe('xposedornot');
+    });
+    it('returns found=false when XposedOrNot returns Error: Not found style response', async () => {
+        vi.spyOn(globalThis, 'fetch').mockImplementation(async () => new Response(JSON.stringify({ Error: 'Not found' }), { status: 200 }));
+        const r = await SELF.fetch('https://x/api/v1/breach/email?email=clean@example.com');
+        expect(r.status).toBe(200);
+        const body = (await r.json());
+        expect(body.found).toBe(false);
+        expect(body.breach_count).toBe(0);
+    });
+    it('parses XposedOrNot breach-analytics response', async () => {
+        vi.spyOn(globalThis, 'fetch').mockImplementation(async () => new Response(JSON.stringify({
+            ExposedBreaches: {
+                breaches_details: [
+                    {
+                        breach: 'LinkedIn',
+                        details: 'desc',
+                        domain: 'linkedin.com',
+                        logo: 'https://xposedornot.com/static/logos/Linkedin.png',
+                        industry: 'IT',
+                        password_risk: 'easytocrack',
+                        references: '',
+                        searchable: 'Yes',
+                        verified: 'Yes',
+                        xposed_date: '2012',
+                        xposed_records: 164000000,
+                        xposed_data: 'emails;passwords',
+                    },
+                ],
+            },
+        }), { status: 200 }));
+        const r = await SELF.fetch('https://x/api/v1/breach/email?email=test@linkedin.com');
+        expect(r.status).toBe(200);
+        const body = (await r.json());
+        expect(body.found).toBe(true);
+        expect(body.source).toBe('xposedornot');
+        expect(body.breach_count).toBe(1);
+        const breaches = body.breaches;
+        expect(breaches[0].name).toBe('LinkedIn');
+        expect(breaches[0].domain).toBe('linkedin.com');
+        expect(breaches[0].breach_date).toBe('2012');
+        expect(breaches[0].pwn_count).toBe(164000000);
+        expect(breaches[0].data_classes).toEqual(['emails', 'passwords']);
+    });
+    it('returns cache-control on success', async () => {
+        vi.spyOn(globalThis, 'fetch').mockImplementation(async () => new Response(JSON.stringify({ ExposedBreaches: null }), { status: 200 }));
+        const r = await SELF.fetch('https://x/api/v1/breach/email?email=test@example.com');
+        expect(r.headers.get('Cache-Control')).toBe('public, max-age=3600');
+    });
+    it('falls back to LeakCheck on XposedOrNot 5xx', async () => {
+        let calls = 0;
+        vi.spyOn(globalThis, 'fetch').mockImplementation(async (input) => {
+            const url = String(input);
+            calls++;
+            if (url.includes('xposedornot.com'))
+                return new Response('boom', { status: 503 });
+            if (url.includes('leakcheck.io')) {
+                return new Response(JSON.stringify({
+                    success: true,
+                    found: 2,
+                    sources: [
+                        { name: 'A', date: '2019' },
+                        { name: 'B', date: '2020' },
+                    ],
+                    fields: ['email', 'password'],
+                }), { status: 200 });
+            }
+            return new Response('{}', { status: 200 });
+        });
+        const r = await SELF.fetch('https://x/api/v1/breach/email?email=test@example.com');
+        expect(r.status).toBe(200);
+        const body = (await r.json());
+        expect(body.source).toBe('leakcheck');
+        expect(body.breach_count).toBe(2);
+        expect(calls).toBeGreaterThanOrEqual(2);
+    });
+    it('returns 502 when both upstreams fail', async () => {
+        vi.spyOn(globalThis, 'fetch').mockRejectedValue(new Error('network error'));
+        const r = await SELF.fetch('https://x/api/v1/breach/email?email=test@example.com');
+        expect(r.status).toBe(502);
+    });
+    it('surfaces a deliverable verification when both free verifiers agree', async () => {
+        vi.spyOn(globalThis, 'fetch').mockImplementation(async (input) => {
+            const url = String(input);
+            if (url.includes('throwaway.sslboard.com')) {
+                return new Response(JSON.stringify({
+                    email: 'a@example.com',
+                    domain: 'example.com',
+                    valid_tld: true,
+                    has_mx: true,
+                    disposable: false,
+                    should_reject: false,
+                }), { status: 200 });
+            }
+            if (url.includes('rapid-email-verifier.fly.dev')) {
+                return new Response(JSON.stringify({
+                    email: 'a@example.com',
+                    validations: { syntax: true, domain_exists: true, mx_records: true },
+                    status: 'VALID',
+                    is_disposable: false,
+                    is_role_account: false,
+                    is_alias: false,
+                }), { status: 200 });
+            }
+            return new Response(JSON.stringify({ status: 'success', message: null, exposedBreaches: [] }), { status: 200 });
+        });
+        const r = await SELF.fetch('https://x/api/v1/breach/email?email=a@example.com');
+        expect(r.status).toBe(200);
+        const body = (await r.json());
+        const v = body.verification;
+        expect(v.status).toBe('deliverable');
+        expect(v.isDisposable).toBe(false);
+        expect(v.hasMx).toBe(true);
+        expect(v.syntaxValid).toBe(true);
+        expect(v.validTld).toBe(true);
+        expect(v.domainExists).toBe(true);
+        expect(v.isRole).toBe(false);
+        expect(v.isAlias).toBe(false);
+        expect(v.score).toBe(100);
+        expect(v.sources.throwaway).toBe(true);
+        expect(v.sources.rapid).toBe(true);
+    });
+    it('marks the verification undeliverable when either source flags the address as disposable', async () => {
+        vi.spyOn(globalThis, 'fetch').mockImplementation(async (input) => {
+            const url = String(input);
+            if (url.includes('throwaway.sslboard.com')) {
+                return new Response(JSON.stringify({
+                    email: 'a@mailinator.com',
+                    domain: 'mailinator.com',
+                    valid_tld: true,
+                    has_mx: true,
+                    disposable: true,
+                    should_reject: true,
+                }), { status: 200 });
+            }
+            if (url.includes('rapid-email-verifier.fly.dev')) {
+                return new Response(JSON.stringify({
+                    email: 'a@mailinator.com',
+                    validations: { syntax: true, domain_exists: true, mx_records: true },
+                    status: 'VALID',
+                    is_disposable: false,
+                    is_role_account: false,
+                    is_alias: false,
+                }), { status: 200 });
+            }
+            return new Response(JSON.stringify({ status: 'success', message: null, exposedBreaches: [] }), { status: 200 });
+        });
+        const r = await SELF.fetch('https://x/api/v1/breach/email?email=a@mailinator.com');
+        expect(r.status).toBe(200);
+        const body = (await r.json());
+        expect(body.verification.status).toBe('undeliverable');
+        expect(body.verification.isDisposable).toBe(true);
+    });
+    it('returns status=risky for a role address (info@)', async () => {
+        vi.spyOn(globalThis, 'fetch').mockImplementation(async (input) => {
+            const url = String(input);
+            if (url.includes('throwaway.sslboard.com')) {
+                return new Response(JSON.stringify({
+                    email: 'info@corp.com',
+                    domain: 'corp.com',
+                    valid_tld: true,
+                    has_mx: true,
+                    disposable: false,
+                    should_reject: false,
+                }), { status: 200 });
+            }
+            if (url.includes('rapid-email-verifier.fly.dev')) {
+                return new Response(JSON.stringify({
+                    email: 'info@corp.com',
+                    validations: { syntax: true, domain_exists: true, mx_records: true },
+                    status: 'VALID',
+                    is_disposable: false,
+                    is_role_account: true,
+                    is_alias: false,
+                }), { status: 200 });
+            }
+            return new Response(JSON.stringify({ status: 'success', message: null, exposedBreaches: [] }), { status: 200 });
+        });
+        const r = await SELF.fetch('https://x/api/v1/breach/email?email=info@corp.com');
+        expect(r.status).toBe(200);
+        const body = (await r.json());
+        expect(body.verification.status).toBe('risky');
+        expect(body.verification.isRole).toBe(true);
+    });
+    it('returns status=unknown with sources empty when BOTH free verifiers fail', async () => {
+        vi.spyOn(globalThis, 'fetch').mockImplementation(async (input) => {
+            const url = String(input);
+            if (url.includes('throwaway.sslboard.com') || url.includes('rapid-email-verifier.fly.dev')) {
+                return new Response('boom', { status: 502 });
+            }
+            return new Response(JSON.stringify({ status: 'success', message: null, exposedBreaches: [] }), { status: 200 });
+        });
+        const r = await SELF.fetch('https://x/api/v1/breach/email?email=any@thing.com');
+        expect(r.status).toBe(200);
+        const body = (await r.json());
+        expect(body.verification.status).toBe('unknown');
+        expect(body.verification.sources.throwaway).toBe(false);
+        expect(body.verification.sources.rapid).toBe(false);
+        // When both verifiers return null, the "absence of red flags" weights
+        // still apply: !isRole + !isAlias + !isDisposable = 5+5+5 = 15. The
+        // positive weights (TLD/domain/MX/syntax) all stay at 0.
+        expect(body.verification.score).toBe(15);
+    });
+});
+// ─── Domain handler ───────────────────────────────────────────────────────────
+describe('GET /api/v1/breach/domain', () => {
+    it('400 on missing domain', async () => {
+        const r = await SELF.fetch('https://x/api/v1/breach/domain');
+        expect(r.status).toBe(400);
+        const body = (await r.json());
+        expect(body.error).toBe('missing_param');
+    });
+    it('400 on invalid domain', async () => {
+        const r = await SELF.fetch('https://x/api/v1/breach/domain?domain=not_a_domain');
+        expect(r.status).toBe(400);
+        const body = (await r.json());
+        expect(body.error).toBe('invalid_domain');
+    });
+    it('400 on domain with spaces', async () => {
+        const r = await SELF.fetch('https://x/api/v1/breach/domain?domain=bad%20domain.com');
+        expect(r.status).toBe(400);
+    });
+    it('returns breaches for a known domain', async () => {
+        vi.spyOn(globalThis, 'fetch').mockImplementation(async () => new Response(JSON.stringify({
+            status: 'success',
+            message: null,
+            exposedBreaches: [
+                {
+                    breachID: 'LinkedIn',
+                    breachedDate: '2012-05-01T00:00:00+00:00',
+                    domain: 'linkedin.com',
+                    industry: 'Information Technology',
+                    logo: 'https://xposedornot.com/static/logos/Linkedin.png',
+                    exposedData: ['Email addresses', 'Passwords'],
+                    exposedRecords: 160042644,
+                    exposureDescription: 'LinkedIn 2012 breach',
+                },
+            ],
+        }), { status: 200 }));
+        const r = await SELF.fetch('https://x/api/v1/breach/domain?domain=linkedin.com');
+        expect(r.status).toBe(200);
+        const body = (await r.json());
+        expect(body.found).toBe(true);
+        expect(body.source).toBe('xposedornot');
+        const breaches = body.breaches;
+        expect(breaches.length).toBeGreaterThan(0);
+        expect(breaches[0].name).toBe('LinkedIn');
+        expect(breaches[0].breach_date).toBe('2012-05-01');
+        expect(breaches[0].pwn_count).toBe(160042644);
+    });
+    it('returns found=false when no breaches for domain', async () => {
+        vi.spyOn(globalThis, 'fetch').mockImplementation(async () => new Response(JSON.stringify({ status: 'success', message: null, exposedBreaches: [] }), { status: 200 }));
+        const r = await SELF.fetch('https://x/api/v1/breach/domain?domain=clean-domain.com');
+        expect(r.status).toBe(200);
+        const body = (await r.json());
+        expect(body.found).toBe(false);
+        expect(body.breach_count).toBe(0);
+    });
+    it('returns cache-control on success', async () => {
+        vi.spyOn(globalThis, 'fetch').mockImplementation(async () => new Response(JSON.stringify({ status: 'success', message: null, exposedBreaches: [] }), { status: 200 }));
+        const r = await SELF.fetch('https://x/api/v1/breach/domain?domain=example.com');
+        expect(r.headers.get('Cache-Control')).toBe('public, max-age=3600');
+    });
+    it('falls back to LeakCheck on XposedOrNot 5xx', async () => {
+        let calls = 0;
+        vi.spyOn(globalThis, 'fetch').mockImplementation(async (input) => {
+            const url = String(input);
+            calls++;
+            if (url.includes('xposedornot.com'))
+                return new Response('boom', { status: 503 });
+            if (url.includes('leakcheck.io')) {
+                return new Response(JSON.stringify({
+                    success: true,
+                    found: 1,
+                    sources: [{ name: 'SomeBreach', date: '2020' }],
+                    fields: ['email'],
+                }), { status: 200 });
+            }
+            return new Response('{}', { status: 200 });
+        });
+        const r = await SELF.fetch('https://x/api/v1/breach/domain?domain=example.com');
+        expect(r.status).toBe(200);
+        const body = (await r.json());
+        expect(body.source).toBe('leakcheck');
+        expect(calls).toBeGreaterThanOrEqual(2);
+    });
+    it('returns 502 when both upstreams fail', async () => {
+        vi.spyOn(globalThis, 'fetch').mockRejectedValue(new Error('network error'));
+        const r = await SELF.fetch('https://x/api/v1/breach/domain?domain=example.com');
+        expect(r.status).toBe(502);
+    });
+    it('queries ProjectDiscovery and surfaces combolist exposure as a domain summary', async () => {
+        let pdCalled = false;
+        vi.spyOn(globalThis, 'fetch').mockImplementation(async (input) => {
+            const url = String(input);
+            if (url.includes('projectdiscovery.io')) {
+                pdCalled = true;
+                return new Response(JSON.stringify({
+                    combolist_exposure: [{ combolist_exposure: 4200 }],
+                    leak_user_count: [{ user: 1800 }],
+                    leak_devices_count: [{ devices: 75 }],
+                }), { status: 200 });
+            }
+            // Primary upstreams report nothing for this domain.
+            return new Response(JSON.stringify({ status: 'success', message: null, exposedBreaches: [] }), { status: 200 });
+        });
+        const r = await SELF.fetch('https://x/api/v1/breach/domain?domain=example.com');
+        expect(r.status).toBe(200);
+        expect(pdCalled).toBe(true);
+        const body = (await r.json());
+        expect(body.found).toBe(true);
+        expect(body.source).toBe('projectdiscovery');
+        expect(body.sources_queried).toContain('projectdiscovery');
+        const breaches = body.breaches;
+        expect(breaches.length).toBe(1);
+        expect(breaches[0].source).toBe('projectdiscovery');
+        expect(breaches[0].pwn_count).toBe(4200);
+        expect(breaches[0].name).toMatch(/domain credential exposure/i);
+    });
+    it('returns found=false when ProjectDiscovery is the only source reachable but has zero exposure', async () => {
+        vi.spyOn(globalThis, 'fetch').mockImplementation(async (input) => {
+            const url = String(input);
+            if (url.includes('projectdiscovery.io')) {
+                return new Response(JSON.stringify({ combolist_exposure: [] }), { status: 200 });
+            }
+            return new Response(JSON.stringify({ status: 'success', message: null, exposedBreaches: [] }), { status: 200 });
+        });
+        const r = await SELF.fetch('https://x/api/v1/breach/domain?domain=clean-domain.com');
+        expect(r.status).toBe(200);
+        const body = (await r.json());
+        expect(body.found).toBe(false);
+        expect(body.breach_count).toBe(0);
+    });
+});

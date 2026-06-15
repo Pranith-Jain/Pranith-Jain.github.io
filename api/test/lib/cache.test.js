@@ -1,0 +1,99 @@
+import { describe, it, expect, beforeEach } from 'vitest';
+import { env } from 'cloudflare:test';
+import { ProviderCache } from '../../src/lib/cache';
+const sample = {
+    source: 'virustotal',
+    status: 'ok',
+    score: 50,
+    verdict: 'suspicious',
+    raw_summary: { detected: 5 },
+    tags: [],
+    fetched_at: new Date().toISOString(),
+    cached: false,
+};
+describe('ProviderCache', () => {
+    let cache;
+    beforeEach(() => {
+        cache = new ProviderCache(env.KV_CACHE);
+    });
+    it('miss returns null', async () => {
+        const r = await cache.get('virustotal', { type: 'ipv4', value: '1.1.1.1' });
+        expect(r).toBeNull();
+    });
+    it('set then get returns the same payload with cached=true', async () => {
+        await cache.set('virustotal', { type: 'ipv4', value: '1.1.1.1' }, sample);
+        const got = await cache.get('virustotal', { type: 'ipv4', value: '1.1.1.1' });
+        expect(got?.score).toBe(50);
+        expect(got?.cached).toBe(true);
+    });
+    it('different indicator -> different cache slot', async () => {
+        await cache.set('virustotal', { type: 'ipv4', value: '1.1.1.1' }, sample);
+        const other = await cache.get('virustotal', { type: 'ipv4', value: '2.2.2.2' });
+        expect(other).toBeNull();
+    });
+    it('different provider -> different cache slot', async () => {
+        await cache.set('virustotal', { type: 'ipv4', value: '1.1.1.1' }, sample);
+        const other = await cache.get('abuseipdb', { type: 'ipv4', value: '1.1.1.1' });
+        expect(other).toBeNull();
+    });
+    it('uses 24h TTL for hash, 1h for ipv4', () => {
+        expect(ProviderCache.ttlSeconds('hash')).toBe(86400);
+        expect(ProviderCache.ttlSeconds('ipv4')).toBe(3600);
+        expect(ProviderCache.ttlSeconds('domain')).toBe(21600);
+        expect(ProviderCache.ttlSeconds('url')).toBe(3600);
+    });
+    it('per-provider override takes precedence over the type default', () => {
+        // urlhaus URLs churn fast → 30 min vs the 1h url default.
+        expect(ProviderCache.ttlSeconds('url', 'urlhaus')).toBe(1800);
+        // sslbl is curated daily → 4h vs the 1h ipv4 default.
+        expect(ProviderCache.ttlSeconds('ipv4', 'sslbl')).toBe(14400);
+        // hashlookup/NSRL is effectively static → 7d vs the 24h hash default.
+        expect(ProviderCache.ttlSeconds('hash', 'hashlookup')).toBe(604800);
+        // A provider with no override still uses the type default.
+        expect(ProviderCache.ttlSeconds('ipv4', 'abuseipdb')).toBe(3600);
+    });
+    it('case-insensitive indicator value (uppercase / lowercase share cache)', async () => {
+        await cache.set('virustotal', { type: 'domain', value: 'EXAMPLE.com' }, sample);
+        const got = await cache.get('virustotal', { type: 'domain', value: 'example.COM' });
+        expect(got?.score).toBe(50);
+    });
+    describe('batched mode', () => {
+        const ind = { type: 'domain', value: 'batch.example.com' };
+        it('stage then flush then re-prime returns the result with cached=true', async () => {
+            await cache.primeBatch(ind);
+            expect(cache.getBatched('virustotal')).toBeNull(); // cold
+            cache.stageBatched('virustotal', ind, sample);
+            await cache.flushBatch(ind);
+            // A fresh instance proves it round-tripped through KV under one key.
+            const next = new ProviderCache(env.KV_CACHE);
+            await next.primeBatch(ind);
+            const got = next.getBatched('virustotal');
+            expect(got?.score).toBe(50);
+            expect(got?.cached).toBe(true);
+            // A provider that was never staged stays a miss.
+            expect(next.getBatched('abuseipdb')).toBeNull();
+        });
+        it('flush merges fresh results with still-valid primed entries', async () => {
+            await cache.primeBatch(ind);
+            cache.stageBatched('virustotal', ind, sample);
+            await cache.flushBatch(ind);
+            // Second run stages a different provider; virustotal must survive.
+            const run2 = new ProviderCache(env.KV_CACHE);
+            await run2.primeBatch(ind);
+            run2.stageBatched('otx', ind, { ...sample, source: 'otx', score: 30 });
+            await run2.flushBatch(ind);
+            const run3 = new ProviderCache(env.KV_CACHE);
+            await run3.primeBatch(ind);
+            expect(run3.getBatched('virustotal')?.score).toBe(50);
+            expect(run3.getBatched('otx')?.score).toBe(30);
+        });
+        it('case-insensitive value shares the batch key', async () => {
+            await cache.primeBatch({ type: 'domain', value: 'CASE.example.com' });
+            cache.stageBatched('virustotal', { type: 'domain', value: 'CASE.example.com' }, sample);
+            await cache.flushBatch({ type: 'domain', value: 'CASE.example.com' });
+            const next = new ProviderCache(env.KV_CACHE);
+            await next.primeBatch({ type: 'domain', value: 'case.EXAMPLE.com' });
+            expect(next.getBatched('virustotal')?.score).toBe(50);
+        });
+    });
+});
