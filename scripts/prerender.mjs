@@ -230,6 +230,23 @@ const ROUTES = [
   '/threatintel/cve-resources',
   '/threatintel/osint-framework',
 
+  // ── H3AD-SEC AI tools (5) — make API calls, prerendered chrome ─
+  '/dfir/insight-ai',
+  '/dfir/querycraft-ai',
+  '/dfir/chrono-ai',
+  '/dfir/malbrief-ai',
+  '/dfir/verdikt-ai',
+
+  // ── H3AD-SEC hunting / detection / ops (5) — prerendered chrome ─
+  '/dfir/pivex',
+  '/dfir/tracepulse',
+  '/dfir/quicktrace',
+  '/dfir/phishops',
+  '/dfir/phishbook',
+
+  // ── H3AD-SEC training (1) — static content, prerendered ─────
+  '/threatintel/learn',
+
   // ── ThreatIntel: live-feed surfaces (38) — prerendered chrome ─
   // Client hydrates and fetches /api/v1/* on mount.
   '/threatintel/pulse',
@@ -364,6 +381,7 @@ const ROUTES = [
   '/threatintel/stix-bundles',
   '/threatintel/ioc-feeds',
   '/threatintel/malware-sandbox',
+  '/dfir/copilot',
 ];
 
 const SHELL_PATH = resolve(ROOT, 'dist/index.html');

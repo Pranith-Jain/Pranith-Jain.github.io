@@ -127,6 +127,7 @@ const MalwareAnalyzer = lazy(() => import('./pages/dfir/MalwareAnalyzer'));
 const VulnToolkitCatalog = lazy(() => import('./pages/dfir/VulnToolkitCatalog'));
 const WeatherOsint = lazy(() => import('./pages/dfir/WeatherOsint'));
 const IocInvestigate = lazy(() => import('./pages/dfir/IocInvestigate'));
+const DfirCopilotPage = lazy(() => import('./pages/dfir/DfirCopilot'));
 const YaraWorkbench = lazy(() => import('./pages/dfir/YaraWorkbench'));
 const StixWorkbench = lazy(() => import('./pages/dfir/StixWorkbench'));
 const PhoneOsint = lazy(() => import('./pages/dfir/PhoneOsint'));
@@ -383,6 +384,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/dfir/sandbox', Component: MalwareAnalyzer },
   { path: '/dfir/ioc-investigate', Component: IocInvestigate },
   { path: '/dfir/ioc-check', Component: IocInvestigate },
+  { path: '/dfir/copilot', Component: DfirCopilotPage },
   { path: '/dfir/ioc-pivot', Component: IocInvestigate },
   { path: '/dfir/threat-hunt', Component: IocInvestigate },
   { path: '/dfir/yara-workbench', Component: YaraWorkbench },

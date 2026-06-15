@@ -287,6 +287,17 @@ const PRERENDERED_ROUTES = new Map<string, string>([
 
   // ── Phase 5: New gap features ─────────────────────────────────
   ['/dfir/export-hub', '/__prerendered/dfir__export-hub'],
+  ['/dfir/insight-ai', '/__prerendered/dfir__insight-ai'],
+  ['/dfir/querycraft-ai', '/__prerendered/dfir__querycraft-ai'],
+  ['/dfir/chrono-ai', '/__prerendered/dfir__chrono-ai'],
+  ['/dfir/malbrief-ai', '/__prerendered/dfir__malbrief-ai'],
+  ['/dfir/verdikt-ai', '/__prerendered/dfir__verdikt-ai'],
+  ['/dfir/pivex', '/__prerendered/dfir__pivex'],
+  ['/dfir/tracepulse', '/__prerendered/dfir__tracepulse'],
+  ['/dfir/quicktrace', '/__prerendered/dfir__quicktrace'],
+  ['/dfir/phishops', '/__prerendered/dfir__phishops'],
+  ['/dfir/phishbook', '/__prerendered/dfir__phishbook'],
+  ['/threatintel/learn', '/__prerendered/threatintel__learn'],
 
   // ── ThreatIntel: real pages, not redirects (28) ──────────────
   ['/threatintel/ach', '/__prerendered/threatintel__ach'],
@@ -333,6 +344,7 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/threatintel/stix-bundles', '/__prerendered/threatintel__stix-bundles'],
   ['/threatintel/ioc-feeds', '/__prerendered/threatintel__ioc-feeds'],
   ['/threatintel/malware-sandbox', '/__prerendered/threatintel__malware-sandbox'],
+  ['/dfir/copilot', '/__prerendered/dfir__copilot'],
 ]);
 
 /**
