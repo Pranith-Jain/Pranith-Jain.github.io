@@ -47,9 +47,26 @@ export function parseMiniYaml(src: string): Json {
   }
 
   function parseValue(raw: string | undefined, line: number): Json {
-    const v = (raw ?? '').trim();
-    if (v.startsWith('"') && v.endsWith('"')) return v.slice(1, -1);
-    if (v.startsWith("'") && v.endsWith("'")) return v.slice(1, -1);
+    // Strip trailing inline comments first (whitespace + # to EOL), but only
+    // if the # is OUTSIDE of any quoted substring. Without this guard, a
+    // value like `"foo # bar"` would be incorrectly truncated at the #.
+    let v = (raw ?? '').trim();
+    let inQuote: '"' | "'" | null = null;
+    let commentStart = -1;
+    for (let i = 0; i < v.length; i++) {
+      const c = v[i];
+      if (inQuote) {
+        if (c === inQuote) inQuote = null;
+      } else if (c === '"' || c === "'") {
+        inQuote = c as '"' | "'";
+      } else if (c === '#' && (i === 0 || /\s/.test(v[i - 1] ?? ''))) {
+        commentStart = i;
+        break;
+      }
+    }
+    if (commentStart >= 0) v = v.slice(0, commentStart).trimEnd();
+    if (v.startsWith('"') && v.endsWith('"') && v.length >= 2) return v.slice(1, -1);
+    if (v.startsWith("'") && v.endsWith("'") && v.length >= 2) return v.slice(1, -1);
     if (v === 'true') return true;
     if (v === 'false') return false;
     if (v === 'null' || v === '~') return null;
@@ -71,8 +88,7 @@ export function parseMiniYaml(src: string): Json {
       }
       return out;
     }
-    // Plain string (strip trailing inline comment after # if outside quotes)
-    return v.replace(/\s+#.*$/, '');
+    return v;
   }
 
   function parseBlock(parentIndent: number): Json {

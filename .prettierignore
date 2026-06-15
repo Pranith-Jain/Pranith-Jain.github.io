@@ -1,3 +1,4 @@
 dist
 node_modules
 public/tesseract
+api/src/lib/si-svg-png.ts

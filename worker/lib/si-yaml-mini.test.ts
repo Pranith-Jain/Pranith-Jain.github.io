@@ -97,6 +97,23 @@ note: >
     expect(totalWidgets).toBeGreaterThan(5);
   });
 
+  it('strips inline comments after quoted values', () => {
+    // Regression: a value like `"#409AE1"  # blue` must drop the trailing
+    // comment but keep the quoted string. The previous order (quote-strip
+    // first, then comment-strip) left the quote characters intact when a
+    // comment was present.
+    const yaml = 'palette:\n  primary: "#409AE1"  # blue — KPI highlights\n  secondary: "#b4a0ff"\n';
+    const out = parseMiniYaml(yaml) as { palette: { primary: string; secondary: string } };
+    expect(out.palette.primary).toBe('#409AE1');
+    expect(out.palette.secondary).toBe('#b4a0ff');
+  });
+
+  it('preserves # inside a quoted string', () => {
+    const yaml = 'color: "#1a2b3c # literal hash inside"\n';
+    const out = parseMiniYaml(yaml) as { color: string };
+    expect(out.color).toBe('#1a2b3c # literal hash inside');
+  });
+
   it('throws MiniYamlError on truly malformed input', () => {
     expect(() => parseMiniYaml('  bad-indent: oops\n')).toThrow(MiniYamlError);
   });
