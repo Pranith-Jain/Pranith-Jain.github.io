@@ -1,0 +1,6 @@
+Contact: mailto:security@pranithjain.qzz.io
+Contact: https://github.com/Pranith-Jain/Pranith-Jain.github.io/issues
+Expires: 2027-06-15T00:00:00Z
+Preferred-Languages: en
+Canonical: https://pranithjain.qzz.io/.well-known/security.txt
+Policy: https://pranithjain.qzz.io/.well-known/security.txt

@@ -107,7 +107,7 @@ export default function CryptoScamFeed(): JSX.Element {
             spmedia/Crypto-Scam-and-Crypto-Phishing-Threat-Intel-Feed
           </a>{' '}
           (MIT). Also flows into the{' '}
-          <a href="/threatintel/live-iocs" className="text-brand-600 dark:text-brand-400 hover:underline">
+          <a href="/threatintel/iocs" className="text-brand-600 dark:text-brand-400 hover:underline">
             Live IOCs
           </a>{' '}
           firehose.

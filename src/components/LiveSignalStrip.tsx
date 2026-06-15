@@ -129,7 +129,7 @@ export function LiveSignalStrip(): JSX.Element {
               : topGroup
                 ? `Leader: ${topGroup} (${topCount} ${topCount === 1 ? 'claim' : 'claims'}). 24h slice of the 7d sparkline above.`
                 : '24h slice of the 7d sparkline above; aggregated across tracked leak sites.',
-          href: '/threatintel/ransomware-activity',
+          href: '/threatintel/iocs',
           accent: 'rose',
         };
       }
@@ -216,7 +216,7 @@ export function LiveSignalStrip(): JSX.Element {
               label: 'Ransomware claims · last 24h',
               primary: '…',
               context: 'loading',
-              href: '/threatintel/ransomware-activity',
+              href: '/threatintel/iocs',
               accent: 'rose' as const,
             },
             {

@@ -21,7 +21,7 @@ interface DashboardData {
 const SOURCES = [
   {
     key: 'ransomware',
-    href: '/threatintel/ransomware-activity',
+    href: '/threatintel/iocs',
     label: 'Ransomware',
     icon: AlertTriangle,
     desc: 'Victim claims, leak-site activity, extortion tracking',
@@ -49,7 +49,7 @@ const SOURCES = [
   },
   {
     key: 'telegram',
-    href: '/threatintel/cybersec',
+    href: '/threatintel/social',
     label: 'Telegram Intel',
     icon: Globe2,
     desc: '22 channels + custom — IOC drops, leak announcements',
@@ -63,7 +63,7 @@ const SOURCES = [
   },
   {
     key: 'breach',
-    href: '/threatintel/breach',
+    href: '/threatintel/iocs',
     label: 'Breach Database',
     icon: Activity,
     desc: '7 breach sources — email + domain search',
@@ -207,12 +207,12 @@ export default function IntelDashboard(): JSX.Element {
                   { label: 'Telegram Leaks', href: '/threatintel/telegram-leaks' },
                   { label: 'Leak Stats', href: '/threatintel/telegram-leaks/stats' },
                   { label: 'Discovered Channels', href: '/threatintel/telegram-leaks/channels' },
-                  { label: 'Breach Search', href: '/threatintel/breach' },
+                  { label: 'Breach Search', href: '/threatintel/iocs' },
                   { label: 'IOC Correlation', href: '/threatintel/correlation' },
                   { label: 'Threat Map', href: '/threatintel/threat-map' },
                   { label: 'Feed Status', href: '/threatintel/status' },
-                  { label: 'Live IOCs', href: '/threatintel/live-iocs' },
-                  { label: 'Ransomware', href: '/threatintel/ransomware-activity' },
+                  { label: 'Live IOCs', href: '/threatintel/iocs' },
+                  { label: 'Ransomware', href: '/threatintel/iocs' },
                   { label: 'CVE List', href: '/threatintel/cve-list' },
                   { label: 'Malware Samples', href: '/threatintel/malware-vault' },
                   { label: 'Phishing Monitor', href: '/dfir/phishing' },
