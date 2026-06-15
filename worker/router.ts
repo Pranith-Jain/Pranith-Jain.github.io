@@ -316,8 +316,6 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/threatintel/yara', '/__prerendered/threatintel__yara'],
   ['/threatintel/llm-threat-atlas', '/__prerendered/threatintel__llm-threat-atlas'],
   ['/threatintel/osint-map', '/__prerendered/threatintel__osint-map'],
-  ['/threatintel/threat-actor-db', '/__prerendered/threatintel__threat-actor-db'],
-  ['/data/threat-actor-db.html', '/data/threat-actor-db.html'],
 ]);
 
 /**

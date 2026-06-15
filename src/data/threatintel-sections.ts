@@ -938,13 +938,6 @@ export const SECTIONS: Section[] = [
         badge: 'new',
       },
       {
-        to: '/threatintel/threat-actor-db',
-        label: 'Threat Actor Username Index',
-        desc: 'Interactive dark-web forum username index — search handles across underground forums, mindmap, 3D force-graph, infinite-scroll leaderboard, live vs seized status.',
-        icon: Database,
-        badge: 'new',
-      },
-      {
         to: '/threatintel/scrapedintel-usernames',
         label: 'Forum Handles (ScrapedIntel)',
         desc: 'Live search of 2M+ threat-actor handles indexed across cybercrime forums & open sources (threatactorusernames.com / ScrapedIntel). Shows which forums a handle appears on. Rate-limited, edge-cached.',
