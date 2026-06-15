@@ -1,0 +1,33 @@
+[
+  {
+    "displayName": "Example Alert-Only Detection",
+    "title": "Suspicious Activity by {{AccountName}} on {{DeviceName}}",
+    "queryText": "SecurityEvent\n| where EventID == 9999\n| where SubjectUserSid != \"S-1-5-18\"\n| project\n    TimeGenerated = TimeGenerated,\n    DeviceName = Computer,\n    AccountName = SubjectUserName,\n    AccountDomain = SubjectDomainName,\n    AccountSid = SubjectUserSid,\n    ReportId = CallerProcessId",
+    "schedule": "0",
+    "severity": "medium",
+    "category": "Discovery",
+    "mitreTechniques": ["T1087.001"],
+    "description": "Example NRT detection. User {{AccountName}} performed a suspicious action on {{DeviceName}}.",
+    "recommendedActions": "Investigate the activity and verify whether it was authorized.",
+    "impactedAssets": [
+      { "type": "device", "identifier": "deviceName" },
+      { "type": "user", "identifier": "accountSid" }
+    ],
+    "responseActions": []
+  },
+  {
+    "displayName": "Example Threshold Detection with Summarize",
+    "title": "High Volume Activity ({{EventCount}}) by {{AccountName}}",
+    "queryText": "SecurityEvent\n| where ingestion_time() > ago(1h)\n| where EventID == 8888\n| where AccountType != \"Machine\"\n| summarize\n    (TimeGenerated, ReportId) = arg_max(TimeGenerated, CallerProcessId),\n    EventCount = count()\n    by DeviceName = Computer, AccountName = SubjectUserName,\n       AccountDomain = SubjectDomainName, AccountSid = SubjectUserSid\n| where EventCount >= 10\n| project TimeGenerated, DeviceName, AccountName, AccountDomain,\n    AccountSid, EventCount, ReportId",
+    "schedule": "1H",
+    "severity": "high",
+    "category": "Persistence",
+    "mitreTechniques": ["T1053.005", "T1059.001"],
+    "description": "{{AccountName}} generated {{EventCount}} suspicious events on {{DeviceName}} within 1 hour.",
+    "recommendedActions": null,
+    "impactedAssets": [
+      { "type": "device", "identifier": "deviceName" }
+    ],
+    "responseActions": []
+  }
+]

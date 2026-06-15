@@ -1,0 +1,67 @@
+name: SI upstream sync (weekly)
+
+# Re-fetches the security-investigator content from upstream and
+# rebuilds the public/data/si/ manifest. If the data changed, opens a
+# PR with the diff so a human can review + merge.
+
+on:
+  schedule:
+    # Mondays 06:00 UTC. Adjust to taste.
+    - cron: "0 6 * * 1"
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Install
+        run: npm ci --no-audit --no-fund || npm install --no-audit --no-fund
+
+      - name: Sync upstream
+        run: node scripts/sync-si-from-upstream.mjs
+
+      - name: Build manifest
+        run: node scripts/build-si-manifest.mjs
+
+      - name: Show diff stat
+        run: |
+          echo "=== public/data/si/ changed files ==="
+          git status --short public/data/si/ | head -40
+          echo "=== replication folder size ==="
+          du -sh security-investigator-replication/ || true
+
+      - name: Open PR if data changed
+        uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: "chore(si): sync from SCStelz/security-investigator"
+          title: "SI upstream sync — ${{ github.event.schedule || 'manual' }}"
+          body: |
+            Automated weekly sync from
+            [SCStelz/security-investigator](https://github.com/SCStelz/security-investigator).
+
+            Re-runs `scripts/sync-si-from-upstream.mjs` (sparse git clone) and
+            `scripts/build-si-manifest.mjs` (manifest rebuild). Review the diff in
+            `public/data/si/` and merge if the upstream content is what we want.
+
+            Trigger: `${{ github.event_name }}`
+            Run:     `${{ github.run_id }}`
+          branch: chore/si-upstream-sync
+          delete-branch: true
+          add-paths: |
+            public/data/si/
+            security-investigator-replication/

@@ -1,0 +1,1 @@
+../../../worker/lib/si-svg-renderer.ts
