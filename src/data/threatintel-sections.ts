@@ -42,6 +42,7 @@ import {
   Send,
   Shield,
   ShieldAlert,
+  Skull,
   Sparkles,
   Target,
   TrendingUp,
