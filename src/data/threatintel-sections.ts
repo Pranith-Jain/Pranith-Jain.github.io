@@ -1144,6 +1144,13 @@ export const SECTIONS: Section[] = [
         badge: 'new',
       },
       {
+        to: '/threatintel/malware-sandbox',
+        label: 'Malware Sandbox',
+        desc: 'Hash lookup across 10+ public sandbox platforms — consensus verdict, malware family attribution, behavioral analysis, one-click detonation links.',
+        icon: Bug,
+        badge: 'new',
+      },
+      {
         to: '/threatintel/owasp-ai-landscape',
         label: 'OWASP AI Landscape',
         desc: 'Full tree of OWASP AI / ML / agentic projects — guides, cheat sheets, CTFs. Auto-synced daily from the public data.json.',

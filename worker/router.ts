@@ -321,6 +321,7 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/threatintel/reports', '/__prerendered/threatintel__reports'],
   ['/threatintel/stix-bundles', '/__prerendered/threatintel__stix-bundles'],
   ['/threatintel/ioc-feeds', '/__prerendered/threatintel__ioc-feeds'],
+  ['/threatintel/malware-sandbox', '/__prerendered/threatintel__malware-sandbox'],
 ]);
 
 /**
