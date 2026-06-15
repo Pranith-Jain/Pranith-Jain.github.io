@@ -371,9 +371,7 @@ export async function siRoutingPromptHandler(c: Context<{ Bindings: Env }>) {
 export async function siScriptsHandler(c: Context<{ Bindings: Env }>) {
   const spec = ['..', '..', '..', 'worker', 'lib', 'si-manifest'].join('/');
   const mod = (await import(/* @vite-ignore */ spec)) as {
-    loadScriptsIndex(
-      assets: Fetcher
-    ): Promise<{
+    loadScriptsIndex(assets: Fetcher): Promise<{
       source: string;
       license: string;
       count: number;
@@ -595,19 +593,10 @@ export async function siRenderHandler(c: Context<{ Bindings: Env }>) {
 
   try {
     const svg = renderDashboard(manifest, data);
-    // SVG-with-slug or explicit format=svg returns image/svg+xml.
-    if (slug || c.req.query('format') === 'svg') {
-      return new Response(svg, {
-        status: 200,
-        headers: {
-          'Content-Type': 'image/svg+xml; charset=utf-8',
-          'Cache-Control': 'public, max-age=300, s-maxage=3600',
-          'X-SVG-Bytes': String(svg.length),
-        },
-      });
-    }
     // format=png rasterises the dashboard via @resvg/resvg-wasm. Used by
     // GitHub social previews, readme thumbnails, and X/Twitter unfurls.
+    // This check runs BEFORE the default SVG-with-slug response so that
+    // a slug + format=png URL doesn't get short-circuited to SVG.
     if (c.req.query('format') === 'png') {
       try {
         const width = Number(c.req.query('width')) || 1400;
@@ -626,6 +615,17 @@ export async function siRenderHandler(c: Context<{ Bindings: Env }>) {
           'Cache-Control': 'no-store',
         });
       }
+    }
+    // SVG-with-slug or explicit format=svg returns image/svg+xml.
+    if (slug || c.req.query('format') === 'svg') {
+      return new Response(svg, {
+        status: 200,
+        headers: {
+          'Content-Type': 'image/svg+xml; charset=utf-8',
+          'Cache-Control': 'public, max-age=300, s-maxage=3600',
+          'X-SVG-Bytes': String(svg.length),
+        },
+      });
     }
     return c.json({ svg, bytes: svg.length, widgetCount: (manifest.widgets ?? []).length }, 200, {
       'Cache-Control': 'public, max-age=300, s-maxage=3600',
