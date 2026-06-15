@@ -143,6 +143,7 @@ const PersonalSecurity = lazy(() => import('./pages/dfir/PersonalSecurity'));
 const UsernamePivot = lazy(() => import('./pages/dfir/UsernamePivot'));
 const UsernameOsnit = lazy(() => import('./pages/dfir/UsernameOsnit'));
 const PhoneOsint = lazy(() => import('./pages/dfir/PhoneOsint'));
+const WeatherOsint = lazy(() => import('./pages/dfir/WeatherOsint'));
 const Wayback = lazy(() => import('./pages/dfir/Wayback'));
 const IpGeo = lazy(() => import('./pages/dfir/IpGeo'));
 const LogParser = lazy(() => import('./pages/dfir/LogParser'));
@@ -541,6 +542,8 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/dfir/username', Component: UsernamePivot },
   { path: '/dfir/username-osint', Component: UsernameOsnit },
   { path: '/dfir/identity-lookup', Component: IdentityLookup },
+  { path: '/dfir/phone-osint', Component: PhoneOsint },
+  { path: '/dfir/weather-osint', Component: WeatherOsint },
   { path: '/dfir/wayback', Component: Wayback },
   { path: '/dfir/ip-geo', Component: IpGeo },
   { path: '/dfir/log-parser', Component: LogParser },

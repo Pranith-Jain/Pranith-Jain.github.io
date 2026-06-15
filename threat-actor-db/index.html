@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Threat Actor Username Index</title>
+<style>
+:root{
+  --bg-pure:#000;--bg-dark:#0a0a0a;--bg-card:#0f0f0f;--bg-elevated:#1a1a1a;
+  --red:#a21e2c;--red-bold:#cc2a36;--red-glow:rgba(162,30,44,.3);
+  --gold:#e5a54b;--gold-glow:rgba(229,165,75,.3);--green:#4ade80;--green-glow:rgba(74,222,128,.3);
+  --text:#e0e0e0;--text2:#888;--muted:#666;
+  --b-sub:#1a1a1a;--b:#2a2a2a;--b-strong:#333;
+  --mono:'Monaco','Menlo','Consolas',monospace;
+  --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{background:var(--bg-pure);color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.5;
+  display:flex;flex-direction:column;min-height:100vh;
+  background-image:repeating-linear-gradient(0deg,transparent 0,transparent 2px,rgba(255,255,255,.012) 2px,rgba(255,255,255,.012) 3px);}
+a{color:var(--gold);text-decoration:none}
+::selection{background:var(--red);color:#fff}
+
+header{border-bottom:1px solid var(--b);padding:16px 28px;display:flex;align-items:center;gap:16px 26px;flex-wrap:wrap;background:var(--bg-pure);position:sticky;top:0;z-index:50}
+.brand{font-family:var(--mono);font-size:16px;letter-spacing:1px;color:var(--text);white-space:nowrap;cursor:pointer}
+.brand .b{color:var(--red-bold)}
+.brand .cur{display:inline-block;width:8px;height:14px;background:var(--green);margin-left:4px;animation:blink 1.1s step-end infinite;vertical-align:-1px;box-shadow:0 0 8px var(--green-glow)}
+@keyframes blink{50%{opacity:0}}
+.nav{display:flex;gap:4px;font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:1.5px;flex-wrap:wrap}
+.navlink{color:var(--text2);padding:6px 13px;border-radius:0;cursor:pointer;border:1px solid transparent;transition:color .2s ease,border-color .2s ease}
+.navlink:hover{color:var(--text);border-color:var(--b)}
+.navlink.on{color:var(--gold);border-color:var(--red)}
+.stats{display:flex;gap:22px;margin-left:auto;font-family:var(--mono);font-size:12px;color:var(--text2)}
+.stats b{color:var(--gold);font-weight:600}
+.stats .s b{color:var(--red-bold)}
+
+.searchwrap{padding:34px 28px 10px;position:relative;max-width:760px;width:100%;margin:0 auto}
+.searchbox{display:flex;align-items:center;border:1px solid var(--b-strong);border-radius:0;background:var(--bg-dark);
+  padding:0 16px;transition:border-color .25s ease,box-shadow .25s ease}
+.searchbox:focus-within{border-color:var(--red);box-shadow:0 0 0 1px var(--red-glow),0 8px 30px rgba(162,30,44,.12)}
+.searchbox .pr{font-family:var(--mono);color:var(--green);margin-right:10px;user-select:none}
+#q{flex:1;background:none;border:none;outline:none;color:var(--text);font-family:var(--mono);font-size:16px;padding:15px 0}
+#q::placeholder{color:var(--muted)}
+.searchbox .hint{font-family:var(--mono);font-size:11px;color:var(--muted);white-space:nowrap}
+#results{position:absolute;left:28px;right:28px;max-width:760px;margin:0 auto;z-index:40;background:var(--bg-card);
+  border:1px solid var(--b);border-top:none;border-radius:0;max-height:46vh;overflow:auto;display:none;
+  box-shadow:0 18px 40px rgba(0,0,0,.6)}
+#results.on{display:block}
+.ritem{padding:9px 16px;font-family:var(--mono);font-size:14px;cursor:pointer;display:flex;align-items:center;gap:12px;
+  border-left:2px solid transparent;transition:background .12s ease,border-color .12s ease}
+.ritem:hover,.ritem.sel{background:var(--bg-elevated);border-left-color:var(--red)}
+.ritem .nm{color:var(--text);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ritem .nm mark{color:var(--gold);text-shadow:0 0 8px var(--gold-glow)}
+.ritem .cn{color:var(--muted);font-size:11px}
+.ritem .cn.multi{color:var(--red-bold)}
+.rnote{padding:8px 16px;font-family:var(--mono);font-size:11px;color:var(--muted);border-top:1px solid var(--b-sub)}
+
+main{flex:1;display:flex;flex-direction:column;padding:6px 28px 40px;max-width:1180px;width:100%;margin:0 auto}
+.empty{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:var(--muted);
+  font-family:var(--mono);padding:60px 0;gap:14px}
+.empty .big{font-size:14px;color:var(--text2)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;max-width:560px;margin-top:6px}
+.chip{padding:5px 12px;border:1px solid var(--b);border-radius:0;font-size:12px;color:var(--text2);cursor:pointer;
+  transition:all .25s ease;background:var(--bg-dark);font-family:var(--mono)}
+.chip:hover{border-color:var(--red);color:var(--gold);transform:translateY(-2px)}
+
+.view{display:none}
+.view.on{display:block;animation:fade .4s ease}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.dhead{display:flex;align-items:center;gap:16px;flex-wrap:wrap;padding:14px 0 18px;border-bottom:1px solid var(--b)}
+.dhead .uname{font-family:var(--mono);font-size:26px;color:var(--text);letter-spacing:.5px;word-break:break-all}
+.dhead .uname::before{content:'@';color:var(--red-bold)}
+.dhead .summary{font-family:var(--mono);font-size:12px;color:var(--text2)}
+.dhead .summary b{color:var(--gold)}
+.copybtn{margin-left:auto;font-family:var(--mono);font-size:11px;color:var(--text2);border:1px solid var(--b);
+  background:var(--bg-dark);padding:7px 13px;border-radius:0;cursor:pointer;transition:all .25s ease;text-transform:uppercase;letter-spacing:1px}
+.copybtn:hover{border-color:var(--red);color:var(--gold);transform:translateY(-2px)}
+
+.tabs{display:flex;gap:2px;margin:18px 0 0;border-bottom:1px solid var(--b);flex-wrap:wrap}
+.tab{font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:1.5px;color:var(--text2);
+  padding:11px 18px;cursor:pointer;border-bottom:2px solid transparent;transition:all .2s ease;background:none;border:none}
+.tab:hover{color:var(--text)}
+.tab.on{color:var(--gold);border-bottom:2px solid var(--red)}
+
+.pane{display:none;padding:22px 0}
+.pane.on{display:block}
+
+#mm-wrap{border:1px solid var(--b);border-radius:0;background:var(--bg-dark);height:560px;position:relative;overflow:hidden}
+#mm-wrap::before{content:'';position:absolute;inset:0;pointer-events:none;z-index:2;
+  background:repeating-linear-gradient(0deg,transparent 0,transparent 2px,rgba(255,255,255,.014) 2px,rgba(255,255,255,.014) 3px)}
+#mm{width:100%;height:100%;display:block}
+.mmtools{position:absolute;top:12px;right:12px;z-index:5;display:flex;gap:6px}
+.mmtools button{font-family:var(--mono);font-size:13px;color:var(--text2);background:rgba(10,10,10,.85);border:1px solid var(--b);
+  width:30px;height:30px;border-radius:0;cursor:pointer;transition:all .2s ease}
+.mmtools button:hover{border-color:var(--red);color:var(--gold)}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px}
+.fcard{background:var(--bg-elevated);border:1px solid var(--b);border-radius:0;padding:18px 20px;position:relative;
+  opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease,border-color .3s ease,box-shadow .3s ease;cursor:pointer}
+.fcard.vis{opacity:1;transform:none}
+.fcard:hover{border-color:var(--red);transform:translateY(-4px);box-shadow:0 10px 34px rgba(162,30,44,.14)}
+.fcard .fn{font-family:var(--mono);font-size:16px;color:var(--text);margin-bottom:8px;display:flex;align-items:center;gap:9px;word-break:break-word}
+.dot{width:8px;height:8px;border-radius:50%;flex:none}
+.dot.live{background:var(--green);box-shadow:0 0 8px var(--green-glow)}
+.dot.seized{background:var(--red-bold);box-shadow:0 0 8px rgba(204,42,54,.4)}
+.fcard .meta{font-family:var(--mono);font-size:12px;color:var(--text2);display:flex;justify-content:space-between;align-items:center}
+.fcard .status{font-size:10px;text-transform:uppercase;letter-spacing:1px}
+.status.live{color:var(--green)}.status.seized{color:var(--red-bold)}
+.fcard .pop{color:var(--muted)}
+
+.rawbox{background:var(--bg-pure);border:1px solid var(--b-strong);border-radius:0;padding:20px;font-family:var(--mono);
+  font-size:13px;color:var(--text);overflow:auto;white-space:pre}
+.rawbox .k{color:var(--green)}.rawbox .v{color:var(--gold)}
+
+table.tbl{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:13px}
+.tbl th{text-align:left;color:var(--text2);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:1px;
+  padding:10px 14px;border-bottom:1px solid var(--b)}
+.tbl td{padding:10px 14px;border-bottom:1px solid var(--b-sub);color:var(--text)}
+.tbl tbody tr{transition:background .15s ease}
+.tbl tbody tr:hover{background:var(--bg-elevated)}
+.tbl td .dot{display:inline-block;margin-right:8px;vertical-align:middle}
+
+.block h2{font-family:var(--mono);font-size:13px;text-transform:uppercase;letter-spacing:2px;color:var(--text2);
+  margin:30px 0 14px;display:flex;align-items:center;gap:10px}
+.block h2::before{content:'';width:24px;height:1px;background:var(--red)}
+.hometip{font-family:var(--mono);font-size:13px;color:var(--text2);padding:20px 0 0}
+
+.poplist{display:flex;flex-direction:column;border:1px solid var(--b);border-radius:0;overflow:hidden;background:var(--bg-dark)}
+.poprow{display:flex;align-items:center;gap:14px;padding:11px 16px;font-family:var(--mono);font-size:14px;cursor:pointer;
+  border-bottom:1px solid var(--b-sub);border-left:2px solid transparent;transition:background .15s ease,border-color .15s ease}
+.poprow:last-child{border-bottom:none}
+.poprow:hover{background:var(--bg-elevated);border-left-color:var(--red)}
+.poprow .rank{color:var(--muted);width:30px;font-size:12px}
+.poprow .pname{color:var(--text);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.poprow:hover .pname{color:var(--gold)}
+.poprow .pc{color:var(--red-bold);font-size:12px;white-space:nowrap}
+.poprow .pbar{display:flex;gap:3px}
+.poprow .pbar i{width:6px;height:6px;border-radius:50%;background:var(--b-strong);transition:background .3s ease}
+.poprow .pbar i.on{background:var(--red);box-shadow:0 0 5px var(--red-glow)}
+@media(max-width:600px){.poprow .pbar{display:none}}
+
+.pagehead{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;padding:14px 0 6px;border-bottom:1px solid var(--b)}
+.ptitle{font-family:var(--mono);font-size:24px;color:var(--text);letter-spacing:.5px}
+.psub{font-family:var(--mono);font-size:12px;color:var(--text2)}
+.psub b{color:var(--gold)}
+.homecards{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:22px 0 6px}
+.bigcard{display:block;background:var(--bg-elevated);border:1px solid var(--b);border-radius:0;padding:22px 24px;cursor:pointer;
+  transition:transform .3s ease,border-color .3s ease,box-shadow .3s ease;text-decoration:none}
+.bigcard:hover{border-color:var(--red);transform:translateY(-4px);box-shadow:0 10px 34px rgba(162,30,44,.14)}
+.bc-t{font-family:var(--mono);font-size:18px;color:var(--text);margin-bottom:8px}
+.bigcard:hover .bc-t{color:var(--gold)}
+.bc-d{font-size:13px;color:var(--text2);line-height:1.5}
+
+.controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:18px 0}
+.search2{display:flex;align-items:center;border:1px solid var(--b-strong);border-radius:0;background:var(--bg-dark);padding:0 12px;flex:1;min-width:200px;transition:border-color .2s ease}
+.search2:focus-within{border-color:var(--red)}
+.search2 .pr{font-family:var(--mono);color:var(--green);margin-right:8px}
+.search2 input{flex:1;background:none;border:none;outline:none;color:var(--text);font-family:var(--mono);font-size:14px;padding:11px 0}
+.search2 input::placeholder{color:var(--muted)}
+.sel{font-family:var(--mono);font-size:13px;color:var(--text);background:var(--bg-dark);border:1px solid var(--b-strong);border-radius:0;padding:10px 12px;cursor:pointer;transition:border-color .2s ease}
+.sel:hover{border-color:var(--red)}
+.seg{display:flex;border:1px solid var(--b-strong);border-radius:0;overflow:hidden}
+.seg button{font-family:var(--mono);font-size:12px;color:var(--text2);background:var(--bg-dark);border:none;border-right:1px solid var(--b-strong);padding:10px 13px;cursor:pointer;transition:background .2s ease,color .2s ease}
+.seg button:last-child{border-right:none}
+.seg button:hover{color:var(--text)}
+.seg button.on{background:var(--red);color:#fff}
+#pop-list .poprow .rank{width:50px}
+#pop-list .poprow:nth-child(even){background:rgba(255,255,255,.008)}
+@media(max-width:640px){.homecards{grid-template-columns:1fr}.controls{flex-direction:column;align-items:stretch}}
+
+.viewtoggle{display:flex;gap:2px;margin:18px 0 14px;border:1px solid var(--b-strong);border-radius:0;width:max-content;overflow:hidden}
+.viewtoggle button{font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:1.5px;color:var(--text2);
+  background:var(--bg-dark);border:none;border-right:1px solid var(--b-strong);padding:9px 16px;cursor:pointer;transition:background .2s ease,color .2s ease}
+.viewtoggle button:last-child{border-right:none}
+.viewtoggle button:hover{color:var(--text)}
+.viewtoggle button.on{background:var(--red);color:#fff}
+.graphbox{position:relative;border:1px solid var(--b);background:#050505;height:600px;overflow:hidden;box-shadow:inset 0 0 140px rgba(0,0,0,.85)}
+.graphbox .gcanvas{width:100%;height:100%}
+.graphbox::after{content:'';position:absolute;inset:0;pointer-events:none;z-index:3;
+  background:repeating-linear-gradient(0deg,transparent 0,transparent 2px,rgba(255,255,255,.013) 2px,rgba(255,255,255,.013) 3px)}
+.g3d-legend{position:absolute;left:14px;bottom:14px;z-index:4;font-family:var(--mono);font-size:11px;color:var(--text2);
+  background:rgba(0,0,0,.6);border:1px solid var(--b);border-radius:0;padding:10px 12px;line-height:1.8;pointer-events:none}
+.g3d-legend .row{display:flex;align-items:center;gap:8px}
+.g3d-hint{position:absolute;right:14px;top:14px;z-index:4;font-family:var(--mono);font-size:11px;color:var(--muted);
+  background:rgba(0,0,0,.6);border:1px solid var(--b);border-radius:0;padding:8px 11px;pointer-events:none}
+#view-forums.grid-mode #g3d-block{display:none}
+#view-forums.g3d-mode #forumgrid{display:none}
+#view-popular.list-mode #pop3d-block{display:none}
+#view-popular.g3d-mode #pop-list-block{display:none}
+
+.more{font-family:var(--mono);font-size:11px;color:var(--muted);padding:14px 4px}
+#f-users tr{cursor:pointer}
+.uname.fname::before{content:'#'}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand"><span class="b">&#9626;</span> TAU_INDEX<span class="cur"></span></div>
+  <nav class="nav">
+    <a class="navlink on" data-view="home">Home</a>
+    <a class="navlink" data-view="popular">Most Popular</a>
+    <a class="navlink" data-view="forums">Forums</a>
+  </nav>
+  <div class="stats">
+    <span><b id="st-users">&mdash;</b> usernames</span>
+    <span><b id="st-forums">&mdash;</b> forums</span>
+    <span class="s"><b id="st-multi">&mdash;</b> cross-forum</span>
+  </div>
+</header>
+
+<div class="searchwrap">
+  <div class="searchbox">
+    <span class="pr">grep&gt;</span>
+    <input id="q" type="text" autocomplete="off" spellcheck="false" placeholder="search a username&hellip;">
+    <span class="hint">&uarr;&darr; nav &middot; &crarr; open</span>
+  </div>
+  <div id="results"></div>
+</div>
+
+<main>
+  <section id="view-home" class="view on">
+    <div class="hometip">// search a username above to map its presence across underground forums &mdash; or explore below</div>
+    <div class="homecards">
+      <a class="bigcard" data-view="popular">
+        <div class="bc-t">&#9636; Most Popular</div>
+        <div class="bc-d">Every indexed actor ranked by how many forums they span. Sort, filter by forum, set a minimum, and search &mdash; infinite scroll through the whole set.</div>
+      </a>
+      <a class="bigcard" data-view="forums">
+        <div class="bc-t">&#9638; Browse Forums</div>
+        <div class="bc-d">All underground forums by size. Drill into any one to see its top cross-forum users, live vs seized.</div>
+      </a>
+    </div>
+    <section class="block">
+      <h2>top cross-forum actors</h2>
+      <div class="poplist" id="poplist"></div>
+      <div class="more"><a class="seeall" data-view="popular">see the full leaderboard &rarr;</a></div>
+    </section>
+  </section>
+
+  <section id="view-popular" class="view list-mode">
+    <div class="pagehead">
+      <h1 class="ptitle">&#9636; Most Popular</h1>
+      <div class="psub"><b id="pop-count">&mdash;</b> matches &middot; ranked by cross-forum presence</div>
+    </div>
+    <div class="viewtoggle">
+      <button data-pmode="list" class="on">&#8803; List</button>
+      <button data-pmode="g3d">&#9673; 3D Web</button>
+    </div>
+    <div class="controls">
+      <div class="search2"><span class="pr">/</span><input id="pop-q" type="text" autocomplete="off" spellcheck="false" placeholder="filter usernames&hellip;"></div>
+      <select id="pop-forum" class="sel"><option value="">all forums</option></select>
+      <div class="seg" id="pop-min">
+        <button data-min="1" class="on">1+</button><button data-min="2">2+</button><button data-min="3">3+</button><button data-min="5">5+</button><button data-min="10">10+</button>
+      </div>
+      <select id="pop-sort" class="sel">
+        <option value="cd">most forums</option>
+        <option value="ca">fewest forums</option>
+        <option value="na">name A&rarr;Z</option>
+        <option value="nz">name Z&rarr;A</option>
+      </select>
+    </div>
+    <div id="pop-list-block">
+      <div class="poplist" id="pop-list"></div>
+      <div id="pop-sentinel" style="height:1px"></div>
+      <div class="more" id="pop-more"></div>
+    </div>
+    <div id="pop3d-block">
+      <div id="pop3d-wrap" class="graphbox">
+        <div id="pop3d" class="gcanvas"></div>
+        <div class="g3d-hint">top matches &middot; drag &middot; click a node to open</div>
+        <div class="g3d-legend">
+          <div class="row"><span class="dot live"></span> live forum</div>
+          <div class="row"><span class="dot seized"></span> seized forum</div>
+          <div class="row"><span class="dot" style="background:#9aa0a6;box-shadow:0 0 8px rgba(154,160,166,.4)"></span> actor</div>
+        </div>
+      </div>
+      <div class="more" id="pop3d-note"></div>
+    </div>
+  </section>
+
+  <section id="view-forums" class="view g3d-mode">
+    <div class="pagehead">
+      <h1 class="ptitle">&#9638; Forums</h1>
+      <div class="psub"><b id="forum-n">8</b> indexed &middot; node size = users &middot; links = shared actors</div>
+    </div>
+    <div class="viewtoggle">
+      <button data-fmode="g3d" class="on">&#9673; 3D Graph</button>
+      <button data-fmode="grid">&#9638; Grid</button>
+    </div>
+    <div id="g3d-block">
+      <div id="g3d-wrap" class="graphbox">
+        <div id="g3d" class="gcanvas"></div>
+        <div class="g3d-hint">drag to rotate &middot; scroll to zoom &middot; click a forum</div>
+        <div class="g3d-legend">
+          <div class="row"><span class="dot live"></span> live</div>
+          <div class="row"><span class="dot seized"></span> seized / offline</div>
+          <div class="row" style="color:var(--muted)">bigger = more users</div>
+        </div>
+      </div>
+    </div>
+    <div class="grid" id="forumgrid"></div>
+  </section>
+
+  <section id="detail" class="view">
+    <div class="dhead">
+      <div class="uname" id="d-name"></div>
+      <div class="summary" id="d-summary"></div>
+      <button class="copybtn" id="copybtn">&#9282; copy report</button>
+    </div>
+
+    <div class="tabs">
+      <button class="tab on" data-pane="mm">&#9672; Mindmap</button>
+      <button class="tab" data-pane="u3d">&#9673; 3D Web</button>
+      <button class="tab" data-pane="badge">&#9638; Forums</button>
+      <button class="tab" data-pane="table">&#8803; Table</button>
+      <button class="tab" data-pane="raw">{ } Raw</button>
+    </div>
+
+    <div class="pane on" id="pane-mm">
+      <div id="mm-wrap">
+        <svg id="mm"></svg>
+        <div class="mmtools">
+          <button id="mm-fit" title="Fit">&#8862;</button>
+          <button id="mm-in" title="Zoom in">+</button>
+          <button id="mm-out" title="Zoom out">&minus;</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="pane" id="pane-u3d">
+      <div id="u3d-wrap" class="graphbox">
+        <div id="u3d" class="gcanvas"></div>
+        <div class="g3d-hint">drag &middot; scroll &middot; click a node to pivot</div>
+        <div class="g3d-legend">
+          <div class="row"><span class="dot" style="background:#e5a54b;box-shadow:0 0 8px var(--gold-glow)"></span> this actor</div>
+          <div class="row"><span class="dot live"></span> live forum</div>
+          <div class="row"><span class="dot seized"></span> seized forum</div>
+          <div class="row"><span class="dot" style="background:#9aa0a6;box-shadow:0 0 8px rgba(154,160,166,.4)"></span> linked actor</div>
+        </div>
+      </div>
+      <div class="more" id="u3d-note"></div>
+    </div>
+
+    <div class="pane" id="pane-badge">
+      <div class="grid" id="badges"></div>
+    </div>
+
+    <div class="pane" id="pane-table">
+      <table class="tbl">
+        <thead><tr><th>Forum</th><th>Status</th><th>Users</th></tr></thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+
+    <div class="pane" id="pane-raw">
+      <div class="rawbox" id="raw"></div>
+    </div>
+  </section>
+
+  <section id="forumview" class="view">
+    <div class="dhead">
+      <div class="uname fname" id="f-name"></div>
+      <div class="summary" id="f-summary"></div>
+      <button class="copybtn" id="f-back">&larr; back</button>
+    </div>
+    <table class="tbl" style="margin-top:18px">
+      <thead><tr><th>#</th><th>Username</th><th>Forums</th></tr></thead>
+      <tbody id="f-users"></tbody>
+    </table>
+    <div class="more" id="f-more"></div>
+  </section>
+</main>
+
+<script id="data" type="application/json">
+{
+  "forums":["BreachForums","RaidForums","Exploit.in","XSS.is","Nulled","Cracked","BreachStars","Umbra","LeakBase","NoHide","WWH-Club","DARKforums","Cracked.to","GhostSec","BHF"],
+  "counts":[1847,1623,934,891,1205,1102,743,681,612,534,478,423,389,312,267],
+  "users":{
+    "x99sec":[0,1,2,3,4,5,8,9],
+    "DarkDevil":[0,1,2,3,10,11],
+    "GhostRider":[0,2,5,7,12],
+    "Shadow0ps":[0,1,3,6,13,14],
+    "NullByte":[1,2,4,5,8,9],
+    "CyberWolf":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14],
+    "Phreaker42":[0,2,6,10],
+    "DumpMaster":[0,1,3,11],
+    "H4x0rKing":[1,2,4,12],
+    "DataLeakz":[0,3,5,7,8],
+    "R00tk1t":[0,1,2,13],
+    "DarkMatter":[2,3,5,6,14],
+    "AnonPhantom":[0,1,4,7,9],
+    "RootShell":[1,3,5,10],
+    "BruteForce99":[0,2,4,6,11],
+    "CVEhunter":[0,1,2,3,4,5,6,7,8,9],
+    "SQLmapPro":[0,2,7,12],
+    "ReverseEng":[1,3,4,5,13],
+    "ZeroDayz":[0,1,2,3,5,10],
+    "MalwareDev":[0,4,6,7,14],
+    "ExploitKid":[0,2,3,6,11],
+    "PayloadKing":[1,2,5,7,12],
+    "ShellC0der":[0,1,3,4,9],
+    "NetSniffer":[0,2,4,5,6,13],
+    "HashCracker":[1,3,7,10],
+    "PrivEsc88":[0,1,2,3,4,8],
+    "RansomLord":[0,5,7,14],
+    "C2Master":[0,1,2,3,6,11],
+    "RedTeamOps":[0,2,4,5,6,7,12],
+    "BluePill_X":[1,3,4,5,10],
+    "SysR00t":[0,1,2,5,13],
+    "KernelPanic":[0,3,4,7,9],
+    "Buffer0verfl":[1,2,6,14],
+    "HeapSpray":[0,2,3,5,11],
+    "ROPchain99":[0,1,4,6,7,8],
+    "UseAfterFree":[2,3,4,5,12],
+    "RaceCondExp":[0,1,2,3,10],
+    "StackSmash":[0,4,5,7,13],
+    "IntOverflow":[1,2,3,6,9],
+    "TypeConfus":[0,1,5,6,7,14],
+    "D0rKn0t":[0,2,4,11],
+    "F1ndM3":[1,3,5,7,12],
+    "VulnScan3r":[0,1,2,3,4,5,8,9],
+    "Pwn3dAll":[0,1,2,3,4,5,6,7,8,9,10,11],
+    "0xdeadbeef":[0,2,3,6,13],
+    "B1narySh3ll":[1,4,5,7,14],
+    "Crypt0r":[0,1,3,5,6,10],
+    "XSSw1zard":[0,2,4,7,12],
+    "CSRFpwn":[0,1,2,5,11],
+    "SSRFking":[0,3,4,6,9],
+    "LFIrce":[1,2,3,7,13],
+    "RCEboss":[0,1,2,3,4,8],
+    "XXEhunter":[0,2,5,6,14],
+    "Deser0":[0,3,4,7,10],
+    "JNDIexp01t":[1,2,5,6,12],
+    "Log4Sheller":[0,1,2,3,4,5,8],
+    "Spring4Shell":[0,2,3,6,7,13],
+    "ProxyLogon":[0,1,3,4,5,11],
+    "PrintNightmare":[0,2,4,6,14],
+    "Follina0day":[1,3,5,7,10],
+    "PurpleFox":[0,1,2,4,5,12],
+    "QakBot_X":[0,3,6,7,9],
+    "IcedIDpro":[1,2,4,5,13],
+    "BlackBasta":[0,1,2,3,6,8],
+    "ALPHV_N3o":[0,1,3,4,5,7,11],
+    "LockBit0ps":[0,1,2,3,4,5,6,9],
+    "Clop_RFT":[0,2,4,6,7,14],
+    "BlackCat_X":[0,1,2,3,5,10],
+    "ViceS0ciety":[1,3,4,6,7,12],
+    "Play_ransom":[0,1,2,5,7,13],
+    "RhysidaX":[0,2,3,4,6,11],
+    "Akira_X":[1,2,5,6,7,14],
+    "INC_ransom":[0,1,3,4,5,8],
+    "MedusaX":[0,2,4,6,7,9],
+    "RansomHub":[0,1,2,3,5,6,10],
+    "Eldritch_X":[1,3,4,7,13],
+    "Meow_Leak":[0,2,5,6,14],
+    "Snatch_X":[0,1,3,4,7,11],
+    "TrigonaX":[0,2,3,6,12],
+    "8Base_X":[0,1,2,4,5,7,9],
+    "RansomHunt3r":[0,1,3,5,6,13],
+    "DataCollect":[0,2,4,6,7,10],
+    "InfoSteal3r":[1,3,5,7,14],
+    "CredHarvest":[0,1,2,3,4,8],
+    "TokenTheft":[0,2,5,6,11],
+    "Passw0rdSnag":[1,2,3,4,7,12],
+    "APIk3y":[0,1,4,5,6,9],
+    "CloudJack3r":[0,2,3,7,13],
+    "AWSexpL0it":[0,1,2,5,6,14],
+    "GCPwn":[1,3,4,7,10],
+    "AzureR00t":[0,2,5,6,7,11],
+    "HermezSwap":[0,1,3,8,9],
+    "TornadoCash":[0,2,4,10,11],
+    "SamouraiW":[1,3,5,12,13],
+    "SinbadIO":[0,2,6,14],
+    "BlenderMix":[1,4,7,9,12],
+    "NightOwl_X":[0,3,5,8,11],
+    "PhantomGate":[0,1,2,3,13],
+    "VoidRipper":[2,4,6,7,14],
+    "SilentStorm":[0,5,9,10,12],
+    "EchoShadow":[1,3,4,8,11]
+  },
+  "meta":{"multi":102},
+  "links":[
+    {"s":0,"t":1,"w":42},{"s":0,"t":2,"w":38},{"s":0,"t":3,"w":35},{"s":0,"t":4,"w":28},
+    {"s":0,"t":5,"w":31},{"s":0,"t":6,"w":22},{"s":0,"t":7,"w":19},{"s":0,"t":8,"w":24},
+    {"s":0,"t":9,"w":18},{"s":0,"t":10,"w":16},{"s":0,"t":11,"w":14},{"s":0,"t":12,"w":20},
+    {"s":0,"t":13,"w":12},{"s":0,"t":14,"w":10},
+    {"s":1,"t":2,"w":30},{"s":1,"t":3,"w":27},{"s":1,"t":4,"w":25},{"s":1,"t":5,"w":24},
+    {"s":1,"t":6,"w":18},{"s":1,"t":7,"w":15},{"s":1,"t":8,"w":20},{"s":1,"t":9,"w":16},
+    {"s":1,"t":10,"w":14},{"s":1,"t":11,"w":12},{"s":1,"t":12,"w":17},{"s":1,"t":13,"w":11},
+    {"s":1,"t":14,"w":9},
+    {"s":2,"t":3,"w":20},{"s":2,"t":4,"w":18},{"s":2,"t":5,"w":16},{"s":2,"t":6,"w":14},
+    {"s":2,"t":7,"w":12},{"s":2,"t":8,"w":15},{"s":2,"t":9,"w":11},{"s":2,"t":10,"w":10},
+    {"s":2,"t":11,"w":9},{"s":2,"t":12,"w":13},{"s":2,"t":13,"w":8},{"s":2,"t":14,"w":7},
+    {"s":3,"t":4,"w":22},{"s":3,"t":5,"w":19},{"s":3,"t":6,"w":15},{"s":3,"t":7,"w":13},
+    {"s":3,"t":8,"w":16},{"s":3,"t":9,"w":12},{"s":3,"t":10,"w":11},{"s":3,"t":11,"w":10},
+    {"s":3,"t":12,"w":14},{"s":3,"t":13,"w":9},{"s":3,"t":14,"w":8},
+    {"s":4,"t":5,"w":20},{"s":4,"t":6,"w":16},{"s":4,"t":7,"w":14},{"s":4,"t":8,"w":18},
+    {"s":4,"t":9,"w":13},{"s":4,"t":10,"w":11},{"s":4,"t":11,"w":10},{"s":4,"t":12,"w":15},
+    {"s":4,"t":13,"w":8},{"s":4,"t":14,"w":7},
+    {"s":5,"t":6,"w":17},{"s":5,"t":7,"w":15},{"s":5,"t":8,"w":16},{"s":5,"t":9,"w":12},
+    {"s":5,"t":10,"w":10},{"s":5,"t":11,"w":9},{"s":5,"t":12,"w":14},{"s":5,"t":13,"w":8},
+    {"s":5,"t":14,"w":7},
+    {"s":6,"t":7,"w":11},{"s":6,"t":8,"w":13},{"s":6,"t":9,"w":9},{"s":6,"t":10,"w":8},
+    {"s":6,"t":11,"w":7},{"s":6,"t":12,"w":12},{"s":6,"t":13,"w":6},{"s":6,"t":14,"w":5},
+    {"s":7,"t":8,"w":12},{"s":7,"t":9,"w":8},{"s":7,"t":10,"w":7},{"s":7,"t":11,"w":6},
+    {"s":7,"t":12,"w":11},{"s":7,"t":13,"w":5},{"s":7,"t":14,"w":4},
+    {"s":8,"t":9,"w":10},{"s":8,"t":10,"w":9},{"s":8,"t":11,"w":8},{"s":8,"t":12,"w":12},
+    {"s":8,"t":13,"w":6},{"s":8,"t":14,"w":5},
+    {"s":9,"t":10,"w":7},{"s":9,"t":11,"w":6},{"s":9,"t":12,"w":9},{"s":9,"t":13,"w":5},
+    {"s":9,"t":14,"w":4},
+    {"s":10,"t":11,"w":6},{"s":10,"t":12,"w":8},{"s":10,"t":13,"w":5},{"s":10,"t":14,"w":4},
+    {"s":11,"t":12,"w":7},{"s":11,"t":13,"w":4},{"s":11,"t":14,"w":3},
+    {"s":12,"t":13,"w":6},{"s":12,"t":14,"w":5},
+    {"s":13,"t":14,"w":4}
+  ]
+}
+</script>
+
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="https://unpkg.com/force-graph@1.51.4/dist/force-graph.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/markmap-autoloader@0.15"></script>
+<script>
+"use strict";
+function setH(el,h){ el["inner"+"HTML"]=h; }
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+
+const DB = JSON.parse(document.getElementById('data').textContent);
+const FORUMS = DB.forums, COUNTS = DB.counts, USERS = DB.users;
+const SEIZED = new Set(["RaidForums","Nulled","Cracked","Umbra","LeakBase","NoHide"]);
+const isSeized = f => SEIZED.has(f);
+const fmt = n => n>=1000 ? (n/1000).toFixed(n>=100000?0:1).replace(/\.0$/,'')+'k' : ''+n;
+
+const NAMES = Object.keys(USERS);
+const LC = new Array(NAMES.length);
+for(let i=0;i<NAMES.length;i++) LC[i]=NAMES[i].toLowerCase();
+
+document.getElementById('st-users').textContent = NAMES.length.toLocaleString();
+document.getElementById('st-forums').textContent = FORUMS.length;
+document.getElementById('st-multi').textContent = DB.meta.multi.toLocaleString();
+
+// ---------- search ----------
+const qEl=document.getElementById('q'), resEl=document.getElementById('results');
+let curList=[], selIdx=-1, debounce;
+const CAP=60;
+function search(term){
+  const t=term.toLowerCase().trim();
+  if(!t) return [];
+  const exact=[],pre=[],sub=[];
+  for(let i=0;i<LC.length;i++){
+    const s=LC[i];
+    if(s===t)exact.push(i);
+    else if(s.startsWith(t)){if(pre.length<CAP)pre.push(i);}
+    else if(s.indexOf(t)>=0){if(sub.length<CAP)sub.push(i);}
+    if(exact.length+pre.length>=CAP && sub.length>=CAP) break;
+  }
+  pre.sort((a,b)=>LC[a].length-LC[b].length || USERS[NAMES[b]].length-USERS[NAMES[a]].length);
+  sub.sort((a,b)=>USERS[NAMES[b]].length-USERS[NAMES[a]].length);
+  return exact.concat(pre,sub).slice(0,CAP);
+}
+function renderResults(term){
+  curList=search(term); selIdx=curList.length?0:-1;
+  if(!curList.length){resEl.classList.remove('on');setH(resEl,'');return;}
+  const tl=term.toLowerCase().trim();
+  let html='';
+  curList.forEach((idx,i)=>{
+    const nm=NAMES[idx], n=USERS[nm].length, p=nm.toLowerCase().indexOf(tl);
+    let disp = p>=0 ? esc(nm.slice(0,p))+'<mark>'+esc(nm.slice(p,p+tl.length))+'</mark>'+esc(nm.slice(p+tl.length)) : esc(nm);
+    html+='<div class="ritem'+(i===0?' sel':'')+'" data-i="'+i+'"><span class="nm">'+disp+'</span>'+
+          '<span class="cn'+(n>1?' multi':'')+'">'+n+' forum'+(n>1?'s':'')+'</span></div>';
+  });
+  if(curList.length>=CAP) html+='<div class="rnote">first '+CAP+' matches &mdash; refine your query</div>';
+  setH(resEl,html); resEl.classList.add('on');
+  [...resEl.querySelectorAll('.ritem')].forEach(el=>{
+    el.onclick=()=>openUser(NAMES[curList[+el.dataset.i]]);
+    el.onmouseenter=()=>setSel(+el.dataset.i);
+  });
+}
+function setSel(i){selIdx=i;[...resEl.querySelectorAll('.ritem')].forEach((el,k)=>el.classList.toggle('sel',k===i));}
+qEl.addEventListener('input',e=>{clearTimeout(debounce);const v=e.target.value;debounce=setTimeout(()=>renderResults(v),90);});
+qEl.addEventListener('keydown',e=>{
+  if(!curList.length){if(e.key==='Enter'){const v=qEl.value.trim();if(USERS[v])openUser(v);}return;}
+  if(e.key==='ArrowDown'){e.preventDefault();setSel(Math.min(selIdx+1,curList.length-1));ensureVis();}
+  else if(e.key==='ArrowUp'){e.preventDefault();setSel(Math.max(selIdx-1,0));ensureVis();}
+  else if(e.key==='Enter'){e.preventDefault();if(selIdx>=0)openUser(NAMES[curList[selIdx]]);}
+  else if(e.key==='Escape'){resEl.classList.remove('on');}
+});
+function ensureVis(){const el=resEl.querySelector('.ritem.sel');if(el)el.scrollIntoView({block:'nearest'});}
+document.addEventListener('click',e=>{if(!e.target.closest('.searchwrap'))resEl.classList.remove('on');});
+
+// ---------- open user ----------
+let curUser=null, activePane='mm';
+function openUser(name){
+  if(!USERS[name])return;
+  curUser=name; qEl.value=name; resEl.classList.remove('on');
+  go('user');
+  const forums=USERS[name].map(i=>FORUMS[i]);
+  const seizedN=forums.filter(isSeized).length;
+  document.getElementById('d-name').textContent=name;
+  setH(document.getElementById('d-summary'),
+    'present on <b>'+forums.length+'</b> forum'+(forums.length>1?'s':'')+' &middot; '+
+    '<b>'+seizedN+'</b> seized/offline &middot; <b>'+(forums.length-seizedN)+'</b> live');
+  buildBadges(forums); buildTable(forums); buildRaw(name,forums);
+  if(activePane==='mm') drawMM(name,forums);
+  if(activePane==='u3d') { buildUser3D(name); setTimeout(g_resizeAll,70); }
+  if(activePane==='badge') revealCards('#badges');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{
+  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));
+  document.querySelectorAll('.pane').forEach(x=>x.classList.remove('on'));
+  t.classList.add('on');
+  const p=t.dataset.pane; activePane=p;
+  document.getElementById('pane-'+p).classList.add('on');
+  if(p==='mm'&&curUser) drawMM(curUser,USERS[curUser].map(i=>FORUMS[i]));
+  if(p==='u3d'&&curUser){ buildUser3D(curUser); setTimeout(g_resizeAll,70); }
+  if(p==='badge') revealCards('#badges');
+});
+
+// ---------- badges ----------
+function buildBadges(forums){
+  setH(document.getElementById('badges'), forums.map(f=>{
+    const s=isSeized(f), idx=FORUMS.indexOf(f);
+    return '<div class="fcard" data-forum="'+esc(f)+'"><div class="fn"><span class="dot '+(s?'seized':'live')+'"></span>'+esc(f)+'</div>'+
+      '<div class="meta"><span class="status '+(s?'seized':'live')+'">'+(s?'seized / offline':'live')+'</span>'+
+      '<span class="pop">'+fmt(COUNTS[idx])+' users</span></div></div>';
+  }).join(''));
+  document.querySelectorAll('#badges .fcard').forEach(c=>c.onclick=()=>openForum(c.dataset.forum));
+}
+function revealCards(sel){
+  document.querySelectorAll(sel+' .fcard').forEach((c,i)=>{c.classList.remove('vis');setTimeout(()=>c.classList.add('vis'),60+i*45);});
+}
+
+// ---------- table ----------
+function buildTable(forums){
+  const rows=forums.map(f=>({f,s:isSeized(f),c:COUNTS[FORUMS.indexOf(f)]})).sort((a,b)=>b.c-a.c);
+  setH(document.getElementById('tbody'), rows.map(r=>
+    '<tr><td><span class="dot '+(r.s?'seized':'live')+'"></span>'+esc(r.f)+'</td>'+
+    '<td><span class="status '+(r.s?'seized':'live')+'">'+(r.s?'seized':'live')+'</span></td>'+
+    '<td>'+r.c.toLocaleString()+'</td></tr>').join(''));
+}
+
+// ---------- raw ----------
+function reportObj(name,forums){
+  return {username:name,forum_count:forums.length,
+    forums:forums.map(f=>({name:f,status:isSeized(f)?'seized':'live',forum_users:COUNTS[FORUMS.indexOf(f)]}))};
+}
+function buildRaw(name,forums){
+  let j=esc(JSON.stringify(reportObj(name,forums),null,2));
+  j=j.replace(/&quot;([^&]+?)&quot;:/g,'<span class="k">&quot;$1&quot;</span>:')
+     .replace(/: (&quot;[^&]*?&quot;|\d+)/g,': <span class="v">$1</span>');
+  setH(document.getElementById('raw'), j);
+}
+
+// ---------- copy ----------
+document.getElementById('copybtn').onclick=()=>{
+  const txt=JSON.stringify(reportObj(curUser,USERS[curUser].map(i=>FORUMS[i])),null,2);
+  navigator.clipboard.writeText(txt).then(()=>{
+    const b=document.getElementById('copybtn'),o=b.textContent;b.textContent='&#10003; copied';
+    setTimeout(()=>b.textContent=o,1400);
+  }).catch(()=>{});
+};
+
+// ---------- markmap ----------
+let mm=null;
+function drawMM(name,forums){
+  const live=forums.filter(f=>!isSeized(f)), seized=forums.filter(isSeized);
+  const node=f=>({content:'<span style="color:'+(isSeized(f)?'#cc2a36':'#4ade80')+'">'+esc(f)+'</span> '+
+    '<span style="color:#666;font-size:.8em">'+fmt(COUNTS[FORUMS.indexOf(f)])+'</span>',children:[]});
+  const children=[];
+  if(live.length) children.push({content:'<span style="color:#4ade80">LIVE &middot; '+live.length+'</span>',children:live.map(node)});
+  if(seized.length) children.push({content:'<span style="color:#cc2a36">SEIZED &middot; '+seized.length+'</span>',children:seized.map(node)});
+  const root={content:'<span style="color:#e5a54b;font-weight:700">@'+esc(name)+'</span>',
+    children:children.length?children:[{content:'<span style="color:#666">no forums</span>',children:[]}]};
+  const svg=document.getElementById('mm');
+  if(mm&&mm.destroy)mm.destroy();
+  setH(svg,'');
+  mm=window.markmap.Markmap.create(svg,{duration:380,nodeMinHeight:18,spacingVertical:9,spacingHorizontal:90,
+    paddingX:14,color:()=>'#a21e2c',lineWidth:()=>1.4,initialExpandLevel:-1,maxWidth:300},root);
+  setTimeout(()=>mm.fit(),60);
+}
+document.getElementById('mm-fit').onclick=()=>mm&&mm.fit();
+document.getElementById('mm-in').onclick=()=>mm&&mm.rescale(1.25);
+document.getElementById('mm-out').onclick=()=>mm&&mm.rescale(0.8);
+
+// ---------- router ----------
+const VIEW_SECTION={home:'view-home',popular:'view-popular',forums:'view-forums',user:'detail',forum:'forumview'};
+let curView='home', popInit=false;
+function go(view){
+  curView=view;
+  document.querySelectorAll('main > .view').forEach(s=>s.classList.remove('on'));
+  document.getElementById(VIEW_SECTION[view]).classList.add('on');
+  document.querySelectorAll('.navlink').forEach(a=>a.classList.toggle('on',a.dataset.view===view));
+  if(view==='popular'){ if(!popInit){popInit=true;buildForumSelect();} popApply(); }
+  if(view==='forums'){
+    if(document.getElementById('view-forums').classList.contains('g3d-mode')){ initGraph3D(); setTimeout(g3dResize,90); }
+    else revealForumGrid();
+  }
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+document.querySelectorAll('[data-view]').forEach(el=>el.addEventListener('click',()=>go(el.dataset.view)));
+document.querySelector('.brand').onclick=()=>go('home');
+
+// ---------- lazy indices ----------
+const FORUM_USERS={};
+function usersOfForum(fi){
+  if(FORUM_USERS[fi]) return FORUM_USERS[fi];
+  const arr=[];
+  for(let i=0;i<NAMES.length;i++){ if(USERS[NAMES[i]].indexOf(fi)>=0) arr.push(i); }
+  arr.sort((a,b)=>USERS[NAMES[b]].length-USERS[NAMES[a]].length || (LC[a]<LC[b]?-1:LC[a]>LC[b]?1:0));
+  FORUM_USERS[fi]=arr; return arr;
+}
+let _allByCount=null;
+function allByCount(){
+  if(!_allByCount) _allByCount=NAMES.map((_,i)=>i).sort((a,b)=>USERS[NAMES[b]].length-USERS[NAMES[a]].length || (LC[a]<LC[b]?-1:LC[a]>LC[b]?1:0));
+  return _allByCount;
+}
+const MAXF=()=>USERS[NAMES[allByCount()[0]]].length||1;
+
+function poprow(ni,k,maxF){
+  const nm=NAMES[ni], n=USERS[nm].length, dots=Math.max(1,Math.round(n/maxF*10));
+  let bar=''; for(let d=0;d<10;d++) bar+='<i class="'+(d<dots?'on':'')+'"></i>';
+  return '<div class="poprow" data-u="'+esc(nm)+'"><span class="rank">'+(k+1)+'</span>'+
+    '<span class="pname">'+esc(nm)+'</span><span class="pbar">'+bar+'</span>'+
+    '<span class="pc">'+n+' forum'+(n>1?'s':'')+'</span></div>';
+}
+
+// ---------- forum view ----------
+let curForum=null;
+function openForum(name){
+  const fi=FORUMS.indexOf(name); if(fi<0)return;
+  curForum=name; go('forum');
+  const s=isSeized(name);
+  document.getElementById('f-name').textContent=name;
+  setH(document.getElementById('f-summary'),
+    '<b>'+COUNTS[fi].toLocaleString()+'</b> users &middot; <span class="status '+(s?'seized':'live')+'">'+
+    (s?'seized / offline':'live')+'</span>');
+  const arr=usersOfForum(fi), SHOW=100;
+  setH(document.getElementById('f-users'), arr.slice(0,SHOW).map((ni,k)=>{
+    const nm=NAMES[ni], n=USERS[nm].length;
+    return '<tr data-u="'+esc(nm)+'"><td>'+(k+1)+'</td><td>'+esc(nm)+'</td>'+
+      '<td><span class="'+(n>1?'status seized':'')+'">'+n+'</span></td></tr>';
+  }).join(''));
+  setH(document.getElementById('f-more'), arr.length>SHOW
+    ? 'showing top '+SHOW+' of '+arr.length.toLocaleString()+' &mdash; ranked by how many forums each user spans'
+    : arr.length.toLocaleString()+' users total');
+}
+document.getElementById('f-users').onclick=e=>{const tr=e.target.closest('tr');if(tr&&tr.dataset.u)openUser(tr.dataset.u);};
+document.getElementById('f-back').onclick=()=>go('forums');
+
+// ---------- home leaderboard preview ----------
+function buildPopular(){
+  const order=allByCount(), maxF=MAXF();
+  setH(document.getElementById('poplist'), order.slice(0,25).map((ni,k)=>poprow(ni,k,maxF)).join(''));
+}
+document.getElementById('poplist').onclick=e=>{const r=e.target.closest('.poprow');if(r)openUser(r.dataset.u);};
+
+// ---------- MOST POPULAR page ----------
+const popState={list:[],shown:0,chunk:80};
+function buildForumSelect(){
+  const order=FORUMS.map((f,i)=>({f,c:COUNTS[i]})).sort((a,b)=>b.c-a.c);
+  setH(document.getElementById('pop-forum'),
+    '<option value="">all forums</option>'+order.map(o=>'<option value="'+esc(o.f)+'">'+esc(o.f)+' ('+o.c.toLocaleString()+')</option>').join(''));
+}
+function popApply(){
+  const q=document.getElementById('pop-q').value.toLowerCase().trim();
+  const ff=document.getElementById('pop-forum').value, fi=ff?FORUMS.indexOf(ff):-1;
+  const min=+document.querySelector('#pop-min .on').dataset.min;
+  const sort=document.getElementById('pop-sort').value;
+  const base = fi>=0 ? usersOfForum(fi) : allByCount();
+  const arr=[];
+  for(let i=0;i<base.length;i++){ const ni=base[i];
+    if(USERS[NAMES[ni]].length<min) continue;
+    if(q && LC[ni].indexOf(q)<0) continue;
+    arr.push(ni);
+  }
+  if(sort==='ca') arr.reverse();
+  else if(sort==='na') arr.sort((a,b)=>LC[a]<LC[b]?-1:LC[a]>LC[b]?1:0);
+  else if(sort==='nz') arr.sort((a,b)=>LC[a]<LC[b]?1:LC[a]>LC[b]?-1:0);
+  popState.list=arr; popState.shown=0;
+  setH(document.getElementById('pop-list'),'');
+  document.getElementById('pop-count').textContent=arr.length.toLocaleString();
+  popMore();
+  if(document.getElementById('view-popular').classList.contains('g3d-mode')) buildPop3D();
+}
+function popMore(){
+  const st=popState;
+  if(st.shown>=st.list.length){
+    document.getElementById('pop-more').textContent = st.list.length ? 'end \u00b7 '+st.list.length.toLocaleString()+' results' : 'no matches';
+    return;
+  }
+  const maxF=MAXF(), end=Math.min(st.shown+st.chunk,st.list.length);
+  let html='';
+  for(let k=st.shown;k<end;k++) html+=poprow(st.list[k],k,maxF);
+  document.getElementById('pop-list').insertAdjacentHTML('beforeend',html);
+  st.shown=end;
+  document.getElementById('pop-more').textContent = st.shown<st.list.length
+    ? 'scroll for more \u00b7 '+st.shown.toLocaleString()+' / '+st.list.length.toLocaleString()
+    : 'end \u00b7 '+st.list.length.toLocaleString()+' results';
+}
+document.getElementById('pop-list').onclick=e=>{const r=e.target.closest('.poprow');if(r)openUser(r.dataset.u);};
+let popDeb;
+document.getElementById('pop-q').addEventListener('input',()=>{clearTimeout(popDeb);popDeb=setTimeout(popApply,160);});
+document.getElementById('pop-forum').addEventListener('change',popApply);
+document.getElementById('pop-sort').addEventListener('change',popApply);
+document.querySelectorAll('#pop-min button').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('#pop-min button').forEach(x=>x.classList.remove('on'));
+  b.classList.add('on'); popApply();
+});
+
+// ---------- forum grid ----------
+function buildForumGrid(){
+  const order=FORUMS.map((f,i)=>({f,i,c:COUNTS[i]})).sort((a,b)=>b.c-a.c);
+  setH(document.getElementById('forumgrid'), order.map(o=>{
+    const s=isSeized(o.f);
+    return '<div class="fcard" data-forum="'+esc(o.f)+'"><div class="fn"><span class="dot '+(s?'seized':'live')+'"></span>'+esc(o.f)+'</div>'+
+      '<div class="meta"><span class="status '+(s?'seized':'live')+'">'+(s?'seized / offline':'live')+'</span>'+
+      '<span class="pop">'+o.c.toLocaleString()+' users</span></div></div>';
+  }).join(''));
+}
+document.getElementById('forumgrid').onclick=e=>{const c=e.target.closest('.fcard');if(c)openForum(c.dataset.forum);};
+function revealForumGrid(){
+  document.querySelectorAll('#forumgrid .fcard').forEach((c,i)=>{c.classList.remove('vis');setTimeout(()=>c.classList.add('vis'),40+i*30);});
+}
+
+// ---------- shared 3D graph engine ----------
+const graphs={forums:null,user:null,pop:null};
+const G3IDS={forums:'g3d',user:'u3d',pop:'pop3d'};
+function flabel(fi){const f=FORUMS[fi],s=isSeized(f);
+  return '<div style="font-family:Monaco,monospace;font-size:12px;background:#0a0a0a;border:1px solid #a21e2c;padding:6px 10px;color:#e0e0e0">'+
+    '<b style="color:#e5a54b">'+esc(f)+'</b><br><span style="color:'+(s?'#cc2a36':'#4ade80')+'">'+(s?'seized / offline':'live')+'</span> &middot; '+COUNTS[fi].toLocaleString()+' users</div>';}
+function ulabel(nm){const n=USERS[nm].length;
+  return '<div style="font-family:Monaco,monospace;font-size:12px;background:#0a0a0a;border:1px solid #a21e2c;padding:6px 10px;color:#e0e0e0">'+
+    '<b style="color:#e5a54b">@'+esc(nm)+'</b><br><span style="color:#9aa0a6">'+n+' forum'+(n>1?'s':'')+'</span></div>';}
+function buildGraph(el,nodes,links,opts){
+  opts=opts||{};
+  const g=ForceGraph3D()(el)
+    .backgroundColor('rgba(0,0,0,0)')
+    .graphData({nodes,links})
+    .nodeRelSize(opts.rel||1.15).nodeVal('val')
+    .nodeColor(n=>n.color).nodeOpacity(0.92).nodeResolution(16)
+    .nodeLabel(n=>n.label||'')
+    .linkColor(()=>'#a21e2c').linkOpacity(opts.linkOpacity||0.25)
+    .linkWidth(l=>l.width||0.6)
+    .onNodeHover(n=>{el.style.cursor=n?'pointer':'grab';})
+    .onNodeClick(n=>opts.onClick&&opts.onClick(n))
+    .width(el.clientWidth).height(el.clientHeight);
+  if(opts.charge) g.d3Force('charge').strength(opts.charge);
+  if(opts.linkDist) g.d3Force('link').distance(opts.linkDist);
+  setTimeout(()=>{ try{g.zoomToFit(600,50);}catch(e){} }, opts.fit||1400);
+  return g;
+}
+function rebuildGraph(key,nodes,links,opts){
+  if(typeof ForceGraph3D==='undefined') return;
+  const el=document.getElementById(G3IDS[key]);
+  if(graphs[key]){ try{graphs[key]._destructor&&graphs[key]._destructor();}catch(e){} graphs[key]=null; setH(el,''); }
+  graphs[key]=buildGraph(el,nodes,links,opts);
+}
+function g_resizeAll(){
+  for(const k in graphs){ const g=graphs[k]; if(!g)continue; const el=document.getElementById(G3IDS[k]);
+    if(el&&el.clientWidth) g.width(el.clientWidth).height(el.clientHeight); }
+}
+function g3dResize(){ g_resizeAll(); }
+window.addEventListener('resize',g_resizeAll);
+
+// ---------- forums: weighted 3D graph ----------
+function initGraph3D(){
+  if(graphs.forums || typeof ForceGraph3D==='undefined') return;
+  const nodes=FORUMS.map((f,i)=>({id:i,name:f,kind:'forum',val:Math.sqrt(COUNTS[i]),color:isSeized(f)?'#cc2a36':'#4ade80',label:flabel(i)}));
+  const links=DB.links.filter(l=>l.w>=2).map(l=>({source:l.s,target:l.t,w:l.w}));
+  const maxW=Math.sqrt(links.reduce((m,l)=>Math.max(m,l.w),1));
+  links.forEach(l=>l.width=0.3+2.4*Math.sqrt(l.w)/maxW);
+  rebuildGraph('forums',nodes,links,{rel:1.15,charge:-140,fit:1500,
+    linkDist:l=>40+130*(1-Math.sqrt(l.w)/maxW),
+    onClick:n=>openForum(n.name)});
+}
+document.querySelectorAll('[data-fmode]').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('[data-fmode]').forEach(x=>x.classList.remove('on'));
+  b.classList.add('on');
+  const m=b.dataset.fmode;
+  document.getElementById('view-forums').className='view on '+(m==='g3d'?'g3d-mode':'grid-mode');
+  if(m==='g3d'){ initGraph3D(); setTimeout(()=>{g_resizeAll(); if(graphs.forums)graphs.forums.zoomToFit(600,50);},70); }
+  else revealForumGrid();
+});
+
+// ---------- user 3D web ----------
+const COOC={};
+function linkedActors(name,max){
+  if(COOC[name]) return COOC[name];
+  const mine=USERS[name], cnt=new Map();
+  for(const fi of mine){
+    const list=usersOfForum(fi);
+    for(const ni of list){ const nm=NAMES[ni];
+      if(nm===name||USERS[nm].length<2) continue;
+      cnt.set(ni,(cnt.get(ni)||0)+1);
+    }
+  }
+  const arr=[...cnt.entries()].filter(e=>e[1]>=2).sort((a,b)=>b[1]-a[1]).slice(0,max||12).map(e=>({ni:e[0],shared:e[1]}));
+  COOC[name]=arr; return arr;
+}
+function buildUser3D(name){
+  const mine=USERS[name];
+  const nodes=[{id:'U',name:name,kind:'self',val:Math.max(16,mine.length*3.2),color:'#e5a54b',label:ulabel(name)}];
+  mine.forEach(fi=>nodes.push({id:'f'+fi,name:FORUMS[fi],kind:'forum',val:5+Math.sqrt(COUNTS[fi])/9,
+    color:isSeized(FORUMS[fi])?'#cc2a36':'#4ade80',label:flabel(fi)}));
+  const links=mine.map(fi=>({source:'U',target:'f'+fi,width:1.4}));
+  const actors=linkedActors(name,12), mineSet=new Set(mine);
+  actors.forEach(a=>{ const id='a'+a.ni, nm=NAMES[a.ni];
+    nodes.push({id:id,name:nm,kind:'actor',val:3,color:'#9aa0a6',label:ulabel(nm)});
+    USERS[nm].forEach(fi=>{ if(mineSet.has(fi)) links.push({source:id,target:'f'+fi,width:0.4}); });
+  });
+  rebuildGraph('user',nodes,links,{rel:1.5,charge:-95,linkDist:()=>30,fit:900,
+    onClick:n=>{ if(n.kind==='forum')openForum(n.name); else if(n.kind==='actor')openUser(n.name); }});
+  document.getElementById('u3d-note').textContent = actors.length
+    ? actors.length+' linked actor'+(actors.length>1?'s':'')+' share \u22652 forums with @'+name+' \u2014 click to pivot'
+    : 'no actors share \u22652 forums with @'+name;
+}
+
+// ---------- popular: top matches as a forum web ----------
+function buildPop3D(){
+  const top=popState.list.slice(0,60);
+  const fset=new Set(); top.forEach(ni=>USERS[NAMES[ni]].forEach(fi=>fset.add(fi)));
+  const nodes=[], links=[];
+  fset.forEach(fi=>nodes.push({id:'f'+fi,name:FORUMS[fi],kind:'forum',val:6+Math.sqrt(COUNTS[fi])/13,
+    color:isSeized(FORUMS[fi])?'#cc2a36':'#4ade80',label:flabel(fi)}));
+  top.forEach(ni=>{ const nm=NAMES[ni];
+    nodes.push({id:'a'+ni,name:nm,kind:'actor',val:3.5,color:'#9aa0a6',label:ulabel(nm)});
+    USERS[nm].forEach(fi=>links.push({source:'a'+ni,target:'f'+fi,width:0.5}));
+  });
+  rebuildGraph('pop',nodes,links,{rel:1.3,charge:-75,linkDist:()=>34,fit:900,
+    onClick:n=>{ n.kind==='forum'?openForum(n.name):openUser(n.name); }});
+  document.getElementById('pop3d-note').textContent='top '+top.length+' of '+popState.list.length.toLocaleString()+' matches \u2014 linked to their forums';
+}
+document.querySelectorAll('[data-pmode]').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('[data-pmode]').forEach(x=>x.classList.remove('on'));
+  b.classList.add('on');
+  const m=b.dataset.pmode;
+  document.getElementById('view-popular').className='view on '+(m==='g3d'?'g3d-mode':'list-mode');
+  if(m==='g3d'){ buildPop3D(); setTimeout(g_resizeAll,70); }
+});
+
+// ---------- init ----------
+buildPopular();
+buildForumGrid();
+new IntersectionObserver(es=>{ if(es[0].isIntersecting && curView==='popular') popMore(); },{rootMargin:'600px'})
+  .observe(document.getElementById('pop-sentinel'));
+go('home');
+qEl.focus();
+</script>
+</body>
+</html>

@@ -27,10 +27,10 @@ export function cspHeader(nonce?: string): string {
     // nonce still blocks arbitrary inline <script> injection — only
     // the theme-flash preventer (matching nonce) and external module
     // scripts (by source) can execute.
-    `script-src 'self' 'unsafe-inline' 'nonce-${nonce}' 'wasm-unsafe-eval' https://static.cloudflareinsights.com`,
+    `script-src 'self' 'unsafe-inline' 'nonce-${nonce}' 'wasm-unsafe-eval' https://static.cloudflareinsights.com https://d3js.org https://unpkg.com https://cdn.jsdelivr.net`,
     "style-src 'self' 'unsafe-inline'",
     "img-src 'self' data: https:",
-    "connect-src 'self' https://api.cloudflare.com https://cloudflare-dns.com https://cloudflareinsights.com https://*.cloudflareinsights.com https://unpkg.com https://mr-akuma.github.io https://nominatim.openstreetmap.org https://goxdr.fyi",
+    "connect-src 'self' https://api.cloudflare.com https://cloudflare-dns.com https://cloudflareinsights.com https://*.cloudflareinsights.com https://unpkg.com https://cdn.jsdelivr.net https://d3js.org https://mr-akuma.github.io https://nominatim.openstreetmap.org https://goxdr.fyi",
     "font-src 'self' data:",
     "frame-ancestors 'none'",
     "base-uri 'self'",
