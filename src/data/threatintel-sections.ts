@@ -4,11 +4,9 @@ import {
   BarChart3,
   BookOpen,
   Bug,
-  Cloud,
   Compass,
   Crosshair,
   Database,
-  ExternalLink,
   FileText,
   Flame,
   Globe,
@@ -41,7 +39,6 @@ export interface Tool {
   desc: string;
   icon: LucideIcon;
   badge?: string;
-  external?: boolean;
 }
 
 export interface Section {
@@ -52,27 +49,19 @@ export interface Section {
 }
 
 export const SECTIONS: Section[] = [
-  // ── 1. Threat Landscape ────────────────────────────────────────
+  // ── 1. Threat Intelligence ─────────────────────────────────────
   {
-    id: 'threat-landscape',
-    label: 'Threat Landscape',
-    blurb: 'High-level overview of the current threat environment.',
+    id: 'threat-intel',
+    label: 'Threat Intelligence',
+    blurb: 'Landscape overview, actor profiles, campaign tracking, and intelligence briefings.',
     tools: [
       {
         to: '/threatintel/threat-landscape',
         label: 'Threat Landscape',
-        desc: 'Key stats, trending actors, top malware families, emerging threats, and attack vector distribution.',
+        desc: 'Key stats, trending actors, top malware, emerging threats, and attack vector distribution.',
         icon: LayoutDashboard,
         badge: 'new',
       },
-    ],
-  },
-  // ── 2. Threat Actors ───────────────────────────────────────────
-  {
-    id: 'threat-actors',
-    label: 'Threat Actors',
-    blurb: 'Actor profiles, knowledge base, timelines, and behavioral analysis.',
-    tools: [
       {
         to: '/threatintel/threat-actor-catalog',
         label: 'Threat Actor Catalog',
@@ -86,55 +75,25 @@ export const SECTIONS: Section[] = [
         desc: 'Unified actor browser — MITRE ATT&CK, MISP Galaxy, and platform database with search.',
         icon: Users,
       },
-    ],
-  },
-  // ── 3. Ransomware ──────────────────────────────────────────────
-  {
-    id: 'ransomware',
-    label: 'Ransomware',
-    blurb: 'Leak-site tracking, negotiations, crypto wallets, and victim monitoring.',
-    tools: [
       {
-        to: '/threatintel/iocs',
-        label: 'Ransomware Hub',
-        desc: 'Live leak-site claims, group activity, victim geo-heatmap, negotiation logs, and crypto wallet tracking.',
-        icon: Flame,
+        to: '/threatintel/campaigns',
+        label: 'Campaigns & Attribution',
+        desc: 'Campaign lifecycle tracking, cross-campaign correlation, and multi-signal attribution framework.',
+        icon: GitBranch,
+      },
+      {
+        to: '/threatintel/briefings',
+        label: 'Briefings & Reports',
+        desc: 'Daily/weekly tactical digests, threat landscape reports, and published assessments.',
+        icon: Newspaper,
       },
     ],
   },
-  // ── 4. Dark Web ────────────────────────────────────────────────
+  // ── 2. Live Intelligence ───────────────────────────────────────
   {
-    id: 'dark-web',
-    label: 'Dark Web',
-    blurb: 'Criminal forums, dark markets, and onion infrastructure.',
-    tools: [
-      {
-        to: '/threatintel/darkweb',
-        label: 'Dark Web Watch',
-        desc: 'Aggregated leak-site, ransomware, breach activity, keyword watchlist, and per-source separation.',
-        icon: Globe,
-      },
-    ],
-  },
-  // ── 5. Breach & Leaks ──────────────────────────────────────────
-  {
-    id: 'breach-leaks',
-    label: 'Breach & Leaks',
-    blurb: 'Breach disclosures, infostealer logs, and leak monitoring.',
-    tools: [
-      {
-        to: '/threatintel/iocs',
-        label: 'Breach & Leak Hub',
-        desc: 'Live breach disclosures, infostealer tracker, scam alerts, Telegram leaks, and secret leak dashboard.',
-        icon: ShieldAlert,
-      },
-    ],
-  },
-  // ── 6. Live Feeds ──────────────────────────────────────────────
-  {
-    id: 'live-feeds',
-    label: 'Live Feeds',
-    blurb: 'Streaming social feeds from Telegram, Reddit, Bluesky, and X.',
+    id: 'live-intel',
+    label: 'Live Intelligence',
+    blurb: 'Real-time feeds, social monitoring, dark web tracking, and SOC dashboards.',
     tools: [
       {
         to: '/threatintel/social',
@@ -143,28 +102,39 @@ export const SECTIONS: Section[] = [
         icon: Radio,
         badge: 'live',
       },
-    ],
-  },
-  // ── 7. IOC Intelligence ────────────────────────────────────────
-  {
-    id: 'ioc-intelligence',
-    label: 'IOC Intelligence',
-    blurb: 'Live indicators, C2 tracking, certificate monitoring, and supply chain intel.',
-    tools: [
+      {
+        to: '/threatintel/darkweb',
+        label: 'Dark Web Watch',
+        desc: 'Aggregated leak-site, ransomware, breach activity, keyword watchlist, and per-source separation.',
+        icon: Globe,
+      },
       {
         to: '/threatintel/iocs',
         label: 'IOC Hub',
-        desc: 'Live IOC stream, cross-source correlation, C2 tracker, CertStream, supply chain intelligence, and malicious packages.',
+        desc: 'Live IOC stream, cross-source correlation, C2 tracker, supply chain intelligence, and ransomware activity.',
         icon: Target,
         badge: 'live',
       },
+      {
+        to: '/threatintel/soc-dashboard',
+        label: 'SOC Dashboards',
+        desc: 'Red/cyan/purple panels — ransomware activity, vulnerability index, and IOC stream with consensus scoring.',
+        icon: LayoutDashboard,
+        badge: 'new',
+      },
+      {
+        to: '/threatintel/feeds',
+        label: 'Feed Management',
+        desc: 'Feed sources (50+ RSS), feed scheduler, alert engine, feed file catalog, and aggregated feeds.',
+        icon: Rss,
+      },
     ],
   },
-  // ── 8. Detection & Rules ───────────────────────────────────────
+  // ── 3. Detection & Response ────────────────────────────────────
   {
-    id: 'detection-rules',
-    label: 'Detection & Rules',
-    blurb: 'Sigma, YARA, Suricata rules, CVE feeds, and domain monitoring.',
+    id: 'detection',
+    label: 'Detection & Response',
+    blurb: 'Detection rules, CVE tracking, malware analysis, and phishing defense.',
     tools: [
       {
         to: '/threatintel/detections',
@@ -172,32 +142,16 @@ export const SECTIONS: Section[] = [
         desc: 'Detection rules (Sigma/YARA/Suricata), GoXDR KQL library, CVE feeds, KEV catalog, malware IOC browser, and YARA rules.',
         icon: Shield,
       },
-    ],
-  },
-  // ── 9. CVE & Vulnerabilities ───────────────────────────────────
-  {
-    id: 'cves',
-    label: 'CVE & Vulnerabilities',
-    blurb: 'NVD feeds, CISA KEV, exploit tracking, and GitHub advisories.',
-    tools: [
       {
         to: '/threatintel/cves',
         label: 'CVE Hub',
         desc: 'Live CVE updates, exploitable CVEs, CISA KEV catalog, GitHub advisories, and Kubernetes CVE feed.',
         icon: AlertTriangle,
       },
-    ],
-  },
-  // ── 10. Malware ────────────────────────────────────────────────
-  {
-    id: 'malware',
-    label: 'Malware',
-    blurb: 'IOC browser, sandbox analysis, vault, and family attribution.',
-    tools: [
       {
         to: '/threatintel/malware',
         label: 'Malware Hub',
-        desc: 'Malware IOC browser (50+ families), sandbox analysis, malware vault, Malpedia, and Maltrail APT trails.',
+        desc: 'Malware IOC browser (50+ families), Malpedia, and Maltrail APT trails.',
         icon: Bug,
       },
       {
@@ -207,70 +161,19 @@ export const SECTIONS: Section[] = [
         icon: Bug,
         badge: 'new',
       },
-    ],
-  },
-  // ── 11. Phishing ───────────────────────────────────────────────
-  {
-    id: 'phishing',
-    label: 'Phishing',
-    blurb: 'Phishing wordlists, email defense, and domain monitoring.',
-    tools: [
       {
         to: '/threatintel/phishing',
-        label: 'Phishing Hub',
+        label: 'Phishing Defense',
         desc: 'Phishing hunting wordlists, phish feed, email defense analysis, and domain impersonation monitoring.',
         icon: ShieldAlert,
       },
     ],
   },
-  // ── 12. SOC Dashboards ─────────────────────────────────────────
+  // ── 4. Analysis Tools ──────────────────────────────────────────
   {
-    id: 'soc-dashboards',
-    label: 'SOC Dashboards',
-    blurb: 'Operational panels for ransomware, vulnerabilities, and IOC streams.',
-    tools: [
-      {
-        to: '/threatintel/soc-dashboard',
-        label: 'SOC Dashboards',
-        desc: 'Red/cyan/purple panels — ransomware activity, vulnerability index, and IOC stream with consensus scoring.',
-        icon: LayoutDashboard,
-        badge: 'new',
-      },
-    ],
-  },
-  // ── 13. Campaigns & Attribution ────────────────────────────────
-  {
-    id: 'campaigns',
-    label: 'Campaigns & Attribution',
-    blurb: 'Campaign lifecycle, cross-campaign correlation, and attribution framework.',
-    tools: [
-      {
-        to: '/threatintel/campaigns',
-        label: 'Campaigns Hub',
-        desc: 'Campaign lifecycle tracking, cross-campaign correlation, and multi-signal attribution framework.',
-        icon: GitBranch,
-      },
-    ],
-  },
-  // ── 14. Frameworks & Reference ─────────────────────────────────
-  {
-    id: 'frameworks',
-    label: 'Frameworks & Reference',
-    blurb: 'MITRE ATT&CK, ATLAS, insider threat matrix, and analytic tradecraft.',
-    tools: [
-      {
-        to: '/threatintel/tools',
-        label: 'Frameworks Hub',
-        desc: 'MITRE ATT&CK matrix, ATLAS (AI/ML), LLM Threat Atlas, insider threat matrix, ACH, F3EAD, and attack flow library.',
-        icon: Compass,
-      },
-    ],
-  },
-  // ── 15. OSINT Tools ────────────────────────────────────────────
-  {
-    id: 'osint',
-    label: 'OSINT Tools',
-    blurb: 'Username search, OSINT frameworks, and tool directories.',
+    id: 'analysis',
+    label: 'Analysis Tools',
+    blurb: 'OSINT frameworks, AI copilot, data search, and investigative utilities.',
     tools: [
       {
         to: '/threatintel/osint',
@@ -285,78 +188,12 @@ export const SECTIONS: Section[] = [
         icon: Terminal,
         badge: 'new',
       },
-    ],
-  },
-  // ── 16. AI & Automation ────────────────────────────────────────
-  {
-    id: 'ai-automation',
-    label: 'AI & Automation',
-    blurb: 'AI copilot, campaign generator, and analysis orchestration.',
-    tools: [
       {
         to: '/threatintel/tools',
-        label: 'AI & Automation Hub',
-        desc: 'AI Investigation Copilot, AI Chat, campaign generator, analysis orchestration, MCP search, and AI report showcase.',
-        icon: Sparkles,
-        badge: 'new',
+        label: 'Frameworks & Tools',
+        desc: 'MITRE ATT&CK, ATLAS, insider threat matrix, ACH, F3EAD, AI copilot, and analysis orchestration.',
+        icon: Compass,
       },
-    ],
-  },
-  // ── 17. Briefings & Reports ────────────────────────────────────
-  {
-    id: 'briefings',
-    label: 'Briefings & Reports',
-    blurb: 'Daily digests, threat landscape reports, and intel assessments.',
-    tools: [
-      {
-        to: '/threatintel/briefings',
-        label: 'Briefings Hub',
-        desc: 'Daily/weekly tactical digests, threat landscape reports, cross-correlate insights, and published assessments.',
-        icon: Newspaper,
-      },
-      {
-        to: '/threatintel/reports',
-        label: 'Threat Intel Reports',
-        desc: 'Original research reports with IOCs, detection rules, and severity scoring.',
-        icon: FileText,
-        badge: 'new',
-      },
-    ],
-  },
-  // ── 18. Feed Management ────────────────────────────────────────
-  {
-    id: 'feed-management',
-    label: 'Feed Management',
-    blurb: 'RSS sources, feed scheduler, alert engine, and feed catalog.',
-    tools: [
-      {
-        to: '/threatintel/feeds',
-        label: 'Feed Hub',
-        desc: 'Feed sources (50+ RSS), feed scheduler, alert engine, feed file catalog, and aggregated feeds.',
-        icon: Rss,
-      },
-    ],
-  },
-  // ── 19. Data & Search ──────────────────────────────────────────
-  {
-    id: 'data-search',
-    label: 'Data & Search',
-    blurb: 'Observable storage, entity resolution, and investigation board.',
-    tools: [
-      {
-        to: '/threatintel/tools',
-        label: 'Data & Search Hub',
-        desc: 'Observable database, entity resolution, relationship graph, webamon, investigations, and unified search.',
-        icon: Database,
-      },
-    ],
-  },
-  // ── 20. STIX & Export ──────────────────────────────────────────
-  {
-    id: 'stix-export',
-    label: 'STIX & Export',
-    blurb: 'STIX 2.1 bundles, IOC feeds, and export formats.',
-    tools: [
       {
         to: '/threatintel/stix-bundles',
         label: 'STIX Bundle Browser',
@@ -373,17 +210,56 @@ export const SECTIONS: Section[] = [
       },
     ],
   },
-  // ── 21. External Resources ─────────────────────────────────────
+  // ── 5. Reports & Knowledge ─────────────────────────────────────
   {
-    id: 'external',
-    label: 'External Resources',
-    blurb: 'Off-site tools, catalogs, and reference materials.',
+    id: 'reports',
+    label: 'Reports & Knowledge',
+    blurb: 'Research reports, knowledge base, external resources, and curated catalogs.',
     tools: [
+      {
+        to: '/threatintel/reports',
+        label: 'Threat Intel Reports',
+        desc: 'Original research reports with IOCs, detection rules, and severity scoring.',
+        icon: FileText,
+        badge: 'new',
+      },
+      {
+        to: '/threatintel/wiki',
+        label: 'Knowledge Base',
+        desc: 'Long-form articles on Telegram OSINT, dark-web monitoring, MITRE workflows, and briefing methodology.',
+        icon: BookOpen,
+      },
       {
         to: '/threatintel/external',
         label: 'External Resources',
         desc: 'Off-site cross-references — dashboards, OSINT directories, training labs, malware samples, research portfolios.',
-        icon: ExternalLink,
+        icon: Globe,
+      },
+      {
+        to: '/threatintel/about',
+        label: 'About the Platform',
+        desc: "What's covered, data principles, and the analyst-first design intent behind the surface.",
+        icon: Scale,
+      },
+    ],
+  },
+  // ── 6. Export & Operations ─────────────────────────────────────
+  {
+    id: 'operations',
+    label: 'Export & Operations',
+    blurb: 'IOC export, alert management, source health, and operational dashboards.',
+    tools: [
+      {
+        to: '/threatintel/tools',
+        label: 'Operations Hub',
+        desc: 'Metrics, feed status, collection SLO, source reliability, intelligence requirements, and feed quality scorecard.',
+        icon: BarChart3,
+      },
+      {
+        to: '/threatintel/predictive',
+        label: 'Predictive Intelligence',
+        desc: 'AI-driven threat forecasting based on current intelligence trends and historical data.',
+        icon: TrendingUp,
       },
     ],
   },
@@ -391,12 +267,10 @@ export const SECTIONS: Section[] = [
 
 // ── Helper functions ──────────────────────────────────────────────
 
-/** Flatten all tools across sections into a single array with section context. */
 export function flattenTools(sections: Section[]): Array<Tool & { section: Section }> {
   return sections.flatMap((s) => s.tools.map((t) => ({ ...t, section: s })));
 }
 
-/** Simple search match against tool label + description + section label. */
 export function matchesQuery(tool: Tool & { section: Section }, query: string): boolean {
   const q = query.toLowerCase();
   return (

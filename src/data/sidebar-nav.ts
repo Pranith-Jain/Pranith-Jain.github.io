@@ -1,42 +1,27 @@
 import {
-  Activity,
-  AlertOctagon,
   AlertTriangle,
   BarChart3,
   BookOpen,
   Bug,
-  Bot,
   Compass,
-  Crosshair,
   Database,
-  Dna,
-  FileCode,
-  FileSearch,
   FileText,
   Flame,
-  FlaskConical,
-  Fingerprint,
-  GitBranch,
   Globe,
-  Info,
+  GitBranch,
   KeyRound,
   LayoutDashboard,
-  Link2,
-  Mail,
-  Map,
   Newspaper,
   Radar,
   Radio,
   Rss,
   Scale,
   Search,
-  Send,
   Shield,
   ShieldAlert,
-  ShieldCheck,
   Skull,
-  Sparkles,
   Target,
+  Terminal,
   TrendingUp,
   Users,
   Zap,
@@ -47,15 +32,12 @@ interface SidebarItem {
   label: string;
   href: string;
   icon: LucideIcon;
-  description?: string;
 }
-
 interface SidebarGroup {
   title: string;
   items: SidebarItem[];
 }
-
-export interface SidebarConfig {
+interface SidebarConfig {
   sectionLabel: string;
   groups: SidebarGroup[];
 }
@@ -64,23 +46,23 @@ const threatIntel: SidebarConfig = {
   sectionLabel: 'Threat Intel',
   groups: [
     {
-      title: 'Overview',
+      title: 'Intelligence',
       items: [
         { label: 'Browse', href: '/threatintel', icon: Compass },
         { label: 'Landscape', href: '/threatintel/threat-landscape', icon: LayoutDashboard },
-        { label: 'Threat Actors', href: '/threatintel/threat-actor-catalog', icon: Skull },
+        { label: 'Actors', href: '/threatintel/actors', icon: Users },
         { label: 'Campaigns', href: '/threatintel/campaigns', icon: GitBranch },
+        { label: 'Briefings', href: '/threatintel/briefings', icon: Newspaper },
       ],
     },
     {
-      title: 'Intelligence',
+      title: 'Live Feeds',
       items: [
+        { label: 'Social Feeds', href: '/threatintel/social', icon: Radio },
+        { label: 'Dark Web', href: '/threatintel/darkweb', icon: Globe },
         { label: 'IOC Hub', href: '/threatintel/iocs', icon: Target },
         { label: 'SOC Dashboards', href: '/threatintel/soc-dashboard', icon: LayoutDashboard },
-        { label: 'Dark Web', href: '/threatintel/darkweb', icon: Globe },
-        { label: 'Breach & Leaks', href: '/threatintel/iocs', icon: ShieldAlert },
-        { label: 'Social Feeds', href: '/threatintel/social', icon: Radio },
-        { label: 'Ransomware', href: '/threatintel/iocs', icon: Flame },
+        { label: 'Feed Management', href: '/threatintel/feeds', icon: Rss },
       ],
     },
     {
@@ -94,15 +76,22 @@ const threatIntel: SidebarConfig = {
       ],
     },
     {
-      title: 'Tools & Reference',
+      title: 'Tools',
       items: [
-        { label: 'Frameworks', href: '/threatintel/tools', icon: Compass },
         { label: 'OSINT Hub', href: '/threatintel/osint', icon: Search },
+        { label: 'CLI Tools', href: '/threatintel/osint-cli-tools', icon: Terminal },
+        { label: 'Frameworks', href: '/threatintel/tools', icon: Compass },
         { label: 'STIX Bundles', href: '/threatintel/stix-bundles', icon: GitBranch },
         { label: 'IOC Feeds', href: '/threatintel/ioc-feeds', icon: Rss },
-        { label: 'Briefings', href: '/threatintel/briefings', icon: Newspaper },
-        { label: 'External', href: '/threatintel/external', icon: Globe },
+      ],
+    },
+    {
+      title: 'Reference',
+      items: [
+        { label: 'Reports', href: '/threatintel/reports', icon: FileText },
         { label: 'Wiki', href: '/threatintel/wiki', icon: BookOpen },
+        { label: 'External', href: '/threatintel/external', icon: Globe },
+        { label: 'About', href: '/threatintel/about', icon: Scale },
       ],
     },
   ],
@@ -117,8 +106,8 @@ const dfir: SidebarConfig = {
         { label: 'Dashboard', href: '/dfir', icon: LayoutDashboard },
         { label: 'IOC Check', href: '/dfir/ioc-check', icon: Search },
         { label: 'Abuse Rep', href: '/dfir/abuse-rep', icon: ShieldAlert },
-        { label: 'Email Defense', href: '/dfir/email-defense', icon: Mail },
-        { label: 'Phishing', href: '/dfir/phishing', icon: AlertTriangle },
+        { label: 'Email Defense', href: '/dfir/email-defense', icon: Zap },
+        { label: 'Phishing', href: '/dfir/phishing', icon: ShieldAlert },
         { label: 'Domain Rep', href: '/dfir/domain-rep', icon: Globe },
         { label: 'Exposed Host', href: '/dfir/exposed-host', icon: ShieldAlert },
         { label: 'Threat Hunt', href: '/dfir/threat-hunt', icon: Radar },
@@ -128,7 +117,8 @@ const dfir: SidebarConfig = {
     {
       title: 'Investigate',
       items: [
-        { label: 'Report Ingest', href: '/dfir/report-ingest', icon: FileSearch },
+        { label: 'Copilot', href: '/dfir/copilot', icon: Zap },
+        { label: 'Report Ingest', href: '/dfir/report-ingest', icon: FileText },
         { label: 'Asset Intel', href: '/dfir/asset-intel', icon: Database },
         { label: 'CVE Prioritizer', href: '/dfir/cve-prioritizer', icon: ShieldAlert },
         { label: 'CVE Lookup', href: '/dfir/cve', icon: Bug },
@@ -142,18 +132,16 @@ const dfir: SidebarConfig = {
     {
       title: 'Reference',
       items: [
-        { label: 'Rule Converter', href: '/dfir/rule-converter', icon: FileCode },
+        { label: 'Rule Converter', href: '/dfir/rule-converter', icon: FileText },
         { label: 'Detection Lab', href: '/dfir/detection-lab', icon: Flame },
         { label: 'MITRE Atlas', href: '/dfir/atlas', icon: Compass },
         { label: 'STIX Builder', href: '/dfir/stix-builder', icon: GitBranch },
-        { label: 'Decode', href: '/dfir/decode', icon: FileCode },
+        { label: 'Decode', href: '/dfir/decode', icon: FileText },
         { label: 'Sec Headers', href: '/dfir/sec-headers', icon: Shield },
-        { label: 'Personal Security', href: '/dfir/personal-security', icon: ShieldCheck },
-        { label: 'Kill Chain', href: '/dfir/kill-chain', icon: Map },
+        { label: 'Kill Chain', href: '/dfir/kill-chain', icon: Target },
         { label: 'ATT&CK Nav', href: '/dfir/attack-navigator', icon: Target },
         { label: 'Diamond', href: '/dfir/diamond', icon: Target },
-        { label: 'OSINT Mapper', href: '/dfir/osint-mapper', icon: Map },
-        { label: 'Multi-Search', href: '/dfir/multi-search', icon: Send },
+        { label: 'Multi-Search', href: '/dfir/multi-search', icon: Search },
         { label: 'Report Composer', href: '/dfir/report-composer', icon: FileText },
       ],
     },
@@ -165,17 +153,13 @@ const SIDEBARS: Record<string, SidebarConfig> = {
   '/dfir': dfir,
 };
 
-export function getSidebarForPath(pathname: string): SidebarConfig | null {
+export function getSidebarForSection(pathname: string): SidebarConfig | null {
   for (const [prefix, config] of Object.entries(SIDEBARS)) {
     if (pathname.startsWith(prefix)) return config;
   }
   return null;
 }
 
-/** Alias for backward compatibility. */
-export const getSidebarForSection = getSidebarForPath;
-
-/** Page titles for breadcrumb labels. */
 export const PAGE_TITLES: Record<string, string> = {
   '/threatintel': 'Threat Intel',
   '/threatintel/threat-landscape': 'Threat Landscape',
@@ -203,4 +187,6 @@ export const PAGE_TITLES: Record<string, string> = {
   '/threatintel/wiki': 'Knowledge Base',
   '/threatintel/about': 'About',
   '/threatintel/research-hub': 'Research Hub',
+  '/threatintel/predictive': 'Predictive Intel',
+  '/threatintel/metrics': 'Metrics',
 };

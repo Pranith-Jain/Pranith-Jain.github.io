@@ -90,6 +90,7 @@ const ROUTE_LABELS: Record<string, string> = {
   '/threatintel/about': 'About',
   '/threatintel/research-hub': 'Research Hub',
   '/threatintel/predictive': 'Predictive Intel',
+  '/threatintel/metrics': 'Metrics',
   '/threatintel/malware-iocs': 'Malware IOCs',
   '/threatintel/malpedia': 'Malpedia',
 };
