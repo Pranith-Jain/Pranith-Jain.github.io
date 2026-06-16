@@ -113,6 +113,7 @@ export function createSiRateLimiter(kv: KVNamespace | undefined, now: () => numb
   return {
     async consume(provider) {
       const q = PROVIDER_QUOTAS[provider];
+      // Early return for disabled providers — no KV access needed
       if (!q.enabled) {
         return {
           allowed: true,
@@ -125,7 +126,6 @@ export function createSiRateLimiter(kv: KVNamespace | undefined, now: () => numb
         };
       }
       if (!kv) {
-        // No KV — allow but log so we know the limiter is bypassed.
         return {
           allowed: true,
           count: 0,
@@ -151,8 +151,6 @@ export function createSiRateLimiter(kv: KVNamespace | undefined, now: () => numb
           remaining: 0,
         };
       }
-      // TTL is window length + 1 hour (so the key naturally expires
-      // and the counter resets). KV `expirationTtl` is in seconds.
       await kv.put(key, String(next), { expirationTtl: Math.ceil(q.windowMs / 1000) + 3600 });
       return {
         allowed: true,
@@ -168,7 +166,14 @@ export function createSiRateLimiter(kv: KVNamespace | undefined, now: () => numb
     async peek(provider) {
       const q = PROVIDER_QUOTAS[provider];
       if (!q.enabled || !kv) {
-        return { count: 0, limit: q.maxPerWindow, windowStart: 0, windowMs: q.windowMs, retryAfterSeconds: 0, remaining: q.maxPerWindow };
+        return {
+          count: 0,
+          limit: q.maxPerWindow,
+          windowStart: 0,
+          windowMs: q.windowMs,
+          retryAfterSeconds: 0,
+          remaining: q.maxPerWindow,
+        };
       }
       const ws = windowStart(now(), q.windowMs);
       const key = `rl:${provider}:${ws}`;
@@ -187,11 +192,9 @@ export function createSiRateLimiter(kv: KVNamespace | undefined, now: () => numb
       if (!kv) return;
       const q = PROVIDER_QUOTAS[provider];
       if (!q.enabled) return;
-      // Clear all windows we know about — there are at most 2 (current
-      // and previous) in practice but we just iterate to be safe.
       const ws = windowStart(now(), q.windowMs);
-      await kv.delete(`rl:${provider}:${ws}`);
-      await kv.delete(`rl:${provider}:${ws - q.windowMs}`);
+      // Batch delete current and previous window in parallel
+      await Promise.all([kv.delete(`rl:${provider}:${ws}`), kv.delete(`rl:${provider}:${ws - q.windowMs}`)]);
     },
   };
 }
