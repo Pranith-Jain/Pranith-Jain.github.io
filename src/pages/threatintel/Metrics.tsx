@@ -190,12 +190,12 @@ function HBar({
         return (
           <li key={`${it.label}-${idx}`} className="text-mini font-mono">
             <div className="flex items-baseline justify-between mb-0.5">
-              <span className="text-slate-700 dark:text-slate-300 truncate" title={it.label}>
-                {it.label}
+              <span className="text-slate-700 dark:text-slate-300 truncate" title={String(it.label)}>
+                {String(it.label)}
               </span>
               <span className="text-slate-500 tabular-nums shrink-0">
                 {fmt(it.value)}
-                {it.hint && <span className="text-slate-400 ml-1">{it.hint}</span>}
+                {it.hint && <span className="text-slate-400 ml-1">{String(it.hint)}</span>}
               </span>
             </div>
             <div className="h-1.5 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
@@ -281,7 +281,7 @@ function Sparkbars({ buckets, color }: { buckets: { label: string; value: number
                 aria-label={`${b.label}: ${b.value}`}
               >
                 <title>
-                  {b.label}: {b.value}
+                  {String(b.label)}: {b.value}
                 </title>
               </rect>
               {b.value > 0 && barH > 12 && (
@@ -305,7 +305,7 @@ function Sparkbars({ buckets, color }: { buckets: { label: string; value: number
                 fill="currentColor"
                 className="text-slate-500"
               >
-                {b.label}
+                {String(b.label)}
               </text>
             </g>
           );
@@ -1171,7 +1171,7 @@ export default function Metrics(): JSX.Element {
                 </div>
                 <div className="rounded border border-slate-200 dark:border-slate-800 px-2 py-1.5">
                   <div className="text-slate-500">prior 7d</div>
-                  <div className="text-slate-900 dark:text-slate-100 font-semibold text-sm">{headlineRead.prior7}</div>
+                  <div className="text-slate-900 dark:text-slate-100 font-semibold text-sm">{String(headlineRead.prior7)}</div>
                 </div>
                 <div
                   className={`rounded border px-2 py-1.5 ${
@@ -1195,7 +1195,7 @@ export default function Metrics(): JSX.Element {
                     i === 0 ? 'text-slate-900 dark:text-slate-100 font-medium' : 'text-slate-700 dark:text-slate-300'
                   }`}
                 >
-                  {s}
+                  {typeof s === 'string' ? s : String(s)}
                 </p>
               ))}
               <p className="text-mini font-mono text-slate-500 pt-1">

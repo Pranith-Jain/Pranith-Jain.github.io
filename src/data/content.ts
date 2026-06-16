@@ -578,7 +578,7 @@ export const navLinks: NavLinkExt[] = [
   },
   { label: 'Behind the Reports', href: '/behind-the-reports' },
   { label: 'Sponsor', href: '/sponsor' },
-  { label: 'Copilot', href: '/copilot' },
+  { label: 'Copilot', href: '/dfir/copilot' },
   { label: 'Agent', href: '/dfir/agent' },
   { label: 'Blog', href: '/blog' },
   { label: 'Contact', href: '/#contact', cta: true },

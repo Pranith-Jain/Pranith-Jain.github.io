@@ -1,4 +1,5 @@
-import { lazy, useState } from 'react';
+import { lazy, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import { HubShell } from '../../components/HubShell';
 const CopilotChat = lazy(() => import('./CopilotChat'));
 const McpSearch = lazy(() => import('./McpSearch'));
@@ -17,10 +18,19 @@ const TABS: Array<{ id: TabId; label: string; desc: string }> = [
   { id: 'investigations', label: 'Cases', desc: 'Investigation case manager' },
   { id: 'watches', label: 'Watches', desc: 'Watch lists' },
 ];
+const HUB_PATH = 'tools';
+const DEFAULT_TAB: TabId = 'copilot';
 export default function ToolsHub(): JSX.Element {
-  const [activeTab, setActiveTab] = useState<TabId>('copilot');
+  const { tab } = useParams<{ tab?: string }>();
+  const navigate = useNavigate();
+  const activeTab = tab && TABS.some(t => t.id === tab) ? (tab as TabId) : DEFAULT_TAB;
+  useEffect(() => {
+    if (!tab || !TABS.some(t => t.id === tab)) {
+      navigate(`/threatintel/${HUB_PATH}/${DEFAULT_TAB}`, { replace: true });
+    }
+  }, [tab, navigate]);
   return (
-    <HubShell tabs={TABS} active={activeTab} onSelect={setActiveTab} ariaLabel="Utility tools" tone="rose">
+    <HubShell tabs={TABS} active={activeTab} onSelect={(id) => navigate(`/threatintel/${HUB_PATH}/${id}`, { replace: true })} ariaLabel="Utility tools" tone="rose">
       {activeTab === 'copilot' && <CopilotChat />}
       {activeTab === 'mcp' && <McpSearch />}
       {activeTab === 'misp' && <MispBrowser />}
