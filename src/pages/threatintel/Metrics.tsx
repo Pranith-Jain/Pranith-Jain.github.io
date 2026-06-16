@@ -491,7 +491,8 @@ export default function Metrics(): JSX.Element {
         });
       } catch (e) {
         if (cancelled) return;
-        setState((s) => ({ ...s, loading: false, error: (e as Error).message }));
+        const msg = e instanceof Error ? e.message : typeof e === 'string' ? e : String(e);
+        setState((s) => ({ ...s, loading: false, error: msg }));
       }
     })();
     return () => {
@@ -1164,7 +1165,9 @@ export default function Metrics(): JSX.Element {
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 mt-3 text-mini font-mono">
                 <div className="rounded border border-slate-200 dark:border-slate-800 px-2 py-1.5">
                   <div className="text-slate-500">last 7d</div>
-                  <div className="text-slate-900 dark:text-slate-100 font-semibold text-sm">{headlineRead.last7}</div>
+                  <div className="text-slate-900 dark:text-slate-100 font-semibold text-sm">
+                    {String(headlineRead.last7)}
+                  </div>
                 </div>
                 <div className="rounded border border-slate-200 dark:border-slate-800 px-2 py-1.5">
                   <div className="text-slate-500">prior 7d</div>
