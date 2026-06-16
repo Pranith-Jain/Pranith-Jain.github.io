@@ -392,4 +392,25 @@ export const CATALOG: TelegramEntry[] = [
       'Independent hacker / data-broker personas (USDoD, IntelBroker, R00TK1T) frequently announce sales on Telegram. Indexed in deepdarkCTI; primary handles rotate after platform takedowns.',
     badge: 'pointer',
   },
+  {
+    id: 'breachdetect',
+    name: 'BreachDetect',
+    handle: 'breachdetect',
+    categories: ['breach-leaks', 'threat-intel'],
+    language: 'en',
+    audience: 'public-channel',
+    description:
+      'Breach announcements, database leak alerts, and compromised-credential disclosures. Posts fresh breach data and sample dumps as they surface.',
+  },
+  {
+    id: 'dwi-cve-alerts',
+    name: 'DWI CVE Alerts',
+    handle: 'DWI_CVE_Alerts',
+    categories: ['threat-intel', 'security-news'],
+    language: 'en',
+    audience: 'public-channel',
+    description:
+      'CVE alert feed — new critical and high-severity CVEs tracked by DWI, with affected products, CVSS scores, and mitigation timelines.',
+    badge: 'research',
+  },
 ];
