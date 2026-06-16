@@ -1,6 +1,7 @@
 import { useMemo, useEffect, useRef, useState } from 'react';
 import {
   ReactFlow,
+  ReactFlowProvider,
   Background,
   Controls,
   MiniMap,
@@ -52,19 +53,21 @@ function RelNodeBox({
 
 const NODE_TYPES: NodeTypes = { relNode: RelNodeBox };
 
-export default function RelationshipGraphCanvas({
-  graphData,
-  onNodeClick,
-  onExpandNode,
-  layoutMode = 'dagre',
-  highlightedPath,
-}: {
+interface RelationshipGraphCanvasProps {
   graphData: GraphResponse;
   onNodeClick: (node: GraphNodeData | null) => void;
   onExpandNode?: (node: GraphNodeData) => void;
   layoutMode?: LayoutMode;
   highlightedPath?: string[];
-}): JSX.Element {
+}
+
+function RelationshipGraphCanvasInner({
+  graphData,
+  onNodeClick,
+  onExpandNode,
+  layoutMode = 'dagre',
+  highlightedPath,
+}: RelationshipGraphCanvasProps): JSX.Element {
   const reactFlowInstance = useReactFlow();
   const simRef = useRef<ForceSimulation | null>(null);
   const [simRunning, setSimRunning] = useState(false);
@@ -183,7 +186,7 @@ export default function RelationshipGraphCanvas({
       simRef.current = null;
       setSimRunning(false);
     }
-  }, [layoutMode, graphData.nodes.length]); // eslint-disable-line react-hooks/exhaustive-deps — reactFlowInstance/setSimRunning/simRef are stable; graphData is covered via .nodes.length
+  }, [layoutMode, graphData.nodes.length]); // eslint-disable-line react-hooks/exhaustive-deps -- reactFlowInstance/setSimRunning/simRef are stable; graphData is covered via .nodes.length
 
   prevNodeCount.current = graphData.nodes.length;
 
@@ -227,5 +230,21 @@ export default function RelationshipGraphCanvas({
         </div>
       )}
     </ReactFlow>
+  );
+}
+
+/**
+ * Wrapper that supplies the React Flow store context. `useReactFlow()` (and
+ * any other React Flow hook) must run *inside* a provider — rendering
+ * <ReactFlow> alone only gives the context to its children, not to the
+ * component that renders it, so calling the hook beside <ReactFlow> in the
+ * same component throws "you have not used zustand provider as an ancestor".
+ * Wrapping the inner component in <ReactFlowProvider> fixes that.
+ */
+export default function RelationshipGraphCanvas(props: RelationshipGraphCanvasProps): JSX.Element {
+  return (
+    <ReactFlowProvider>
+      <RelationshipGraphCanvasInner {...props} />
+    </ReactFlowProvider>
   );
 }
