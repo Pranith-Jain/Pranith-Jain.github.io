@@ -488,12 +488,154 @@ const REDIRECTS: ReadonlyArray<{ path: string; to: string }> = [
   { path: '/dfir/discord-watch', to: '/threatintel/social' },
   { path: '/dfir/industry-news', to: '/threatintel/social' },
   { path: '/difr', to: '/dfir' },
-  { path: '/osint-tools', to: '/threatintel/osint-cli-tools' },
-  { path: '/threatintel/awesome-lists', to: '/threatintel/external/awesome' },
+  { path: '/osint-tools', to: '/threatintel/osint/cli' },
+
+  // ── Social Hub ──────────────────────────────────────────────────
+  { path: '/threatintel/cybersec', to: '/threatintel/social/telegram' },
+  { path: '/threatintel/breach', to: '/threatintel/social/telegram' },
+  { path: '/threatintel/cyber-crime', to: '/threatintel/social/telegram' },
+  { path: '/threatintel/telegram-watch', to: '/threatintel/social/telegram' },
+  { path: '/threatintel/telegram-settings', to: '/threatintel/social/telegram' },
+  { path: '/threatintel/telegram-leaks', to: '/threatintel/social/telegram' },
+  { path: '/threatintel/telegram-leaks/channels', to: '/threatintel/social/telegram' },
+  { path: '/threatintel/telegram-leaks/stats', to: '/threatintel/social/telegram' },
+  { path: '/threatintel/onion-watch', to: '/threatintel/social/telegram' },
   { path: '/threatintel/tech-ai-news', to: '/threatintel/social' },
-  { path: '/threatintel/malware-sandbox', to: '/threatintel/malware/sandbox' },
+  { path: '/threatintel/x-watch', to: '/threatintel/social/x' },
+  { path: '/threatintel/x-live', to: '/threatintel/social/x' },
+  { path: '/threatintel/x', to: '/threatintel/social/x' },
+  { path: '/threatintel/reddit', to: '/threatintel/social/reddit' },
+  { path: '/threatintel/scam-watch', to: '/threatintel/social/scam' },
+  { path: '/threatintel/crypto-scams', to: '/threatintel/social/scam' },
+  { path: '/threatintel/mythreatintel', to: '/threatintel/social' },
+  { path: '/threatintel/status', to: '/threatintel/social' },
+
+  // ── Dark Web Hub ────────────────────────────────────────────────
+  { path: '/threatintel/deepdarkcti', to: '/threatintel/darkweb/deepdarkcti' },
+  { path: '/threatintel/re-leaks', to: '/threatintel/darkweb/leaks' },
+  { path: '/threatintel/ransomware-map', to: '/threatintel/darkweb/ransomware' },
+  { path: '/threatintel/ransomware-activity', to: '/threatintel/darkweb/ransomware' },
+  { path: '/threatintel/ransom-report', to: '/threatintel/darkweb/ransomware' },
+  { path: '/threatintel/negotiations', to: '/threatintel/darkweb/ransomware' },
+  { path: '/threatintel/breach-forums', to: '/threatintel/darkweb/forums' },
+  { path: '/threatintel/darkweb-tools', to: '/threatintel/darkweb/tools' },
+
+  // ── IOC Hub ─────────────────────────────────────────────────────
+  { path: '/threatintel/c2-tracker', to: '/threatintel/iocs/c2' },
+  { path: '/threatintel/soc-iocs', to: '/threatintel/iocs/live' },
+  { path: '/threatintel/live-iocs', to: '/threatintel/iocs/live' },
+  { path: '/threatintel/ioc-enrichment', to: '/threatintel/iocs/enrichment' },
+  { path: '/threatintel/entity-resolution', to: '/threatintel/iocs/entity' },
+  { path: '/threatintel/threat-map', to: '/threatintel/iocs/map' },
+  { path: '/threatintel/threat-feeds', to: '/threatintel/iocs/feeds' },
+  { path: '/threatintel/aggregated-feeds', to: '/threatintel/iocs/feeds' },
+  { path: '/threatintel/correlation', to: '/threatintel/iocs' },
+  { path: '/threatintel/cross-correlate', to: '/threatintel/iocs' },
+  { path: '/threatintel/observable-db', to: '/threatintel/iocs' },
+  { path: '/threatintel/bitwire-blocklist', to: '/threatintel/iocs/feeds' },
+  { path: '/threatintel/certstream', to: '/threatintel/iocs/live' },
+  { path: '/threatintel/domain-monitor', to: '/threatintel/iocs' },
+  { path: '/threatintel/facilities', to: '/threatintel/iocs' },
+  { path: '/threatintel/pulse', to: '/threatintel/iocs' },
+  { path: '/threatintel/ioc-feeds', to: '/threatintel/iocs/feeds' },
+
+  // ── Feed Hub ────────────────────────────────────────────────────
+  { path: '/threatintel/feed-sources', to: '/threatintel/feeds/sources' },
+  { path: '/threatintel/feed-quality', to: '/threatintel/feeds/quality' },
+  { path: '/threatintel/feed-scheduler', to: '/threatintel/feeds/scheduler' },
+  { path: '/threatintel/feed-catalog', to: '/threatintel/feeds/catalog' },
+  { path: '/threatintel/collection-slo', to: '/threatintel/feeds/quality' },
+  { path: '/threatintel/settings', to: '/threatintel/feeds/settings' },
+
+  // ── Predictive / Dashboard Hub ──────────────────────────────────
+  { path: '/threatintel/predictions', to: '/threatintel/predictive/predictions' },
+  { path: '/threatintel/analyze', to: '/threatintel/predictive/analyze' },
+  { path: '/threatintel/observe', to: '/threatintel/predictive/observe' },
+  { path: '/threatintel/intel-dashboard', to: '/threatintel/predictive/dashboard' },
+  { path: '/threatintel/pir-dashboard', to: '/threatintel/predictive/dashboard' },
+  { path: '/threatintel/soc-ransomware', to: '/threatintel/predictive/dashboard' },
+  { path: '/threatintel/soc-vulns', to: '/threatintel/predictive/dashboard' },
   { path: '/threatintel/threat-landscape', to: '/threatintel/predictive/dashboard' },
   { path: '/threatintel/metrics', to: '/threatintel/predictive/dashboard' },
+
+  // ── Malware Hub ─────────────────────────────────────────────────
+  { path: '/threatintel/malware-iocs', to: '/threatintel/malware/iocs' },
+  { path: '/threatintel/malware-vault', to: '/threatintel/malware/vault' },
+  { path: '/threatintel/malicious-packages', to: '/threatintel/malware/packages' },
+  { path: '/threatintel/malpedia', to: '/threatintel/malware/malpedia' },
+  { path: '/threatintel/maltrail', to: '/threatintel/malware/maltrail' },
+  { path: '/threatintel/malware-sandbox', to: '/threatintel/malware/sandbox' },
+
+  // ── Detection Hub ───────────────────────────────────────────────
+  { path: '/threatintel/rules', to: '/threatintel/detections/detections' },
+  { path: '/threatintel/signal', to: '/threatintel/detections/signal' },
+  { path: '/threatintel/threatsignal', to: '/threatintel/detections/signal' },
+  { path: '/threatintel/yara', to: '/threatintel/detections/yara' },
+  { path: '/threatintel/disarm', to: '/threatintel/detections/disarm' },
+
+  // ── Knowledge Hub (wiki + frameworks, uses ?tab=) ───────────────
+  { path: '/threatintel/mitre', to: '/threatintel/wiki?tab=mitre' },
+  { path: '/threatintel/owasp-ai-landscape', to: '/threatintel/wiki?tab=owasp' },
+  { path: '/threatintel/insider-threat-matrix', to: '/threatintel/wiki?tab=insider' },
+  { path: '/threatintel/f3ead', to: '/threatintel/wiki?tab=f3ead' },
+  { path: '/threatintel/llm-threat-atlas', to: '/threatintel/wiki?tab=llm' },
+  { path: '/threatintel/atlas', to: '/threatintel/wiki' },
+
+  // ── Tools Hub ───────────────────────────────────────────────────
+  { path: '/threatintel/copilot', to: '/threatintel/tools/copilot' },
+  { path: '/threatintel/copilot-chat', to: '/threatintel/tools/copilot' },
+  { path: '/threatintel/mcp-search', to: '/threatintel/tools/mcp' },
+  { path: '/threatintel/misp-browser', to: '/threatintel/tools/misp' },
+  { path: '/threatintel/investigations', to: '/threatintel/tools/investigations' },
+  { path: '/threatintel/watches', to: '/threatintel/tools/watches' },
+  { path: '/threatintel/relationship-graph', to: '/threatintel/tools/graph' },
+  { path: '/threatintel/search', to: '/threatintel/tools' },
+  { path: '/threatintel/campaign-generator', to: '/threatintel/tools' },
+  { path: '/threatintel/ach', to: '/threatintel/tools' },
+  { path: '/threatintel/stix-bundles', to: '/threatintel/tools/stix' },
+  { path: '/threatintel/source-reliability', to: '/threatintel/tools' },
+
+  // ── External Hub ────────────────────────────────────────────────
+  { path: '/threatintel/external-resources', to: '/threatintel/external/external' },
+  { path: '/threatintel/awesome-lists', to: '/threatintel/external/awesome' },
+  { path: '/threatintel/projectdiscovery', to: '/threatintel/external' },
+
+  // ── Research Hub ────────────────────────────────────────────────
+  { path: '/threatintel/research', to: '/threatintel/research-hub/research' },
+  { path: '/threatintel/redhunt-labs', to: '/threatintel/research-hub/redhunt-labs' },
+  { path: '/threatintel/redhunt-insights', to: '/threatintel/research-hub/redhunt' },
+  { path: '/threatintel/ai-report', to: '/threatintel/research-hub/ai' },
+  { path: '/threatintel/writeups', to: '/threatintel/research-hub/writeups' },
+  { path: '/threatintel/reports', to: '/threatintel/research-hub/reports' },
+
+  // ── OSINT Hub ───────────────────────────────────────────────────
+  { path: '/threatintel/osint-framework', to: '/threatintel/osint/framework' },
+  { path: '/threatintel/osint-map', to: '/threatintel/osint/map' },
+  { path: '/threatintel/curated-toolbox', to: '/threatintel/osint/toolbox' },
+  { path: '/threatintel/secops-tools', to: '/threatintel/osint/secops' },
+  { path: '/threatintel/osint-cli-tools', to: '/threatintel/osint/cli' },
+  { path: '/threatintel/cve-resources', to: '/threatintel/cves' },
+  { path: '/threatintel/cve-list', to: '/threatintel/cves/cves' },
+
+  // ── Actor Hub (uses ?tab= to avoid /:slug conflict) ─────────────
+  { path: '/threatintel/actor-kb', to: '/threatintel/actors' },
+  { path: '/threatintel/actor-dna', to: '/threatintel/actors' },
+  { path: '/threatintel/actor-timeline', to: '/threatintel/actors?tab=timeline' },
+  { path: '/threatintel/actor-usernames', to: '/threatintel/actors?tab=usernames' },
+  { path: '/threatintel/threat-actor-catalog', to: '/threatintel/actors' },
+  { path: '/threatintel/threat-actor-db', to: '/threatintel/actors' },
+  { path: '/threatintel/intelligence-gaps', to: '/threatintel/actors?tab=gaps' },
+
+  // ── Campaign Hub (uses ?tab= to avoid /:id conflict) ────────────
+  { path: '/threatintel/campaign-lifecycle', to: '/threatintel/campaigns?tab=lifecycle' },
+  { path: '/threatintel/attribution', to: '/threatintel/campaigns?tab=attribution' },
+  { path: '/threatintel/cross-campaign', to: '/threatintel/campaigns?tab=cross' },
+
+  // ── Phishing Hub ────────────────────────────────────────────────
+  { path: '/threatintel/phishing-wordlists', to: '/threatintel/phishing/defense' },
+
+  // ── Assessments ─────────────────────────────────────────────────
+  { path: '/threatintel/assessments', to: '/threatintel/predictive/assessments' },
 ];
 
 export function AppContent() {
