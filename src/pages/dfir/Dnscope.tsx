@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, Globe, Search, ShieldCheck, Loader2 } from 'lucide-react';
 
 interface DnsSection {
@@ -116,22 +116,19 @@ export default function Dnscope(): JSX.Element {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12">
-      <Link
+    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
+      <BackLink
         to="/dfir"
         className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
-        <ArrowLeft size={14} /> Back to DFIR
-      </Link>
+        <ArrowLeft size={14} /> back
+      </BackLink>
 
-      <div className="animate-fade-in-up mb-8">
-        <div className="flex items-center gap-3 mb-3">
-          <Globe size={28} className="text-brand-600 dark:text-brand-400" />
-          <h1 className="font-display font-bold text-2xl text-slate-900 dark:text-slate-100">
-            DNSCOPE — Map the Infrastructure
-          </h1>
-        </div>
-        <p className="text-sm text-slate-600 dark:text-slate-400 max-w-3xl">
+      <div className="animate-fade-in-up mb-10">
+        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
+          <Globe size={28} className="text-brand-600 dark:text-brand-400" /> DNSCOPE
+        </h1>
+        <p className="text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed">
           Deep domain infrastructure mapping across 14 data dimensions. WHOIS, DNS records, certificates, subdomains,
           lookalikes, ports, CDN detection, and threat intel — all in one scan.
         </p>
@@ -142,21 +139,21 @@ export default function Dnscope(): JSX.Element {
           <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5">
             <div className="flex items-center gap-2 mb-3">
               <Search size={14} className="text-slate-400" />
-              <span className="text-micro font-mono uppercase tracking-wider text-slate-400">Target</span>
+              <span className="text-micro font-mono uppercase tracking-wider text-slate-400">Target Domain</span>
             </div>
             <input
               type="text"
               value={domain}
               onChange={(e) => setDomain(e.target.value)}
               placeholder="example.com"
-              className="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg font-mono text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-brand-500/40"
+              className="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 p-3 text-sm text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/40 font-mono"
             />
             <div className="flex gap-2 mt-3">
               <button
                 type="button"
                 onClick={runScan}
                 disabled={scanning || !domain.trim()}
-                className="flex items-center gap-2 px-5 py-2.5 bg-brand-600 hover:bg-brand-500 disabled:bg-slate-300 dark:disabled:bg-slate-700 text-white rounded-xl text-sm font-medium transition-colors"
+                className="flex items-center gap-2 px-5 py-2.5 bg-brand-600 hover:bg-brand-500 disabled:bg-slate-300 dark:disabled:bg-slate-700 text-white rounded-xl text-sm font-semibold transition-colors"
               >
                 {scanning ? <Loader2 size={16} className="animate-spin" /> : <Globe size={16} />}
                 {scanning ? 'Scanning…' : 'Scan'}
@@ -177,8 +174,7 @@ export default function Dnscope(): JSX.Element {
           {sections.length > 0 && (
             <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-4">
               <div className="flex items-center gap-2 mb-2">
-                <span className="text-micro font-mono uppercase tracking-wider text-slate-400">IOCs</span>
-                <span className="text-xs font-mono text-slate-400">Export</span>
+                <span className="text-micro font-mono uppercase tracking-wider text-slate-400">Export</span>
               </div>
               <button
                 type="button"

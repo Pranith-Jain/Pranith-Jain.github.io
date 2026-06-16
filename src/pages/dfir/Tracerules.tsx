@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { Link } from 'react-router-dom';
+import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, Search, Shield, Copy, Check, FileCode, Terminal, Code2 } from 'lucide-react';
 
 type QueryFormat = 'KQL' | 'Sigma' | 'XQL';
@@ -194,22 +194,19 @@ export default function Tracerules(): JSX.Element {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12">
-      <Link
+    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
+      <BackLink
         to="/dfir"
         className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
-        <ArrowLeft size={14} /> Back to DFIR
-      </Link>
+        <ArrowLeft size={14} /> back
+      </BackLink>
 
-      <div className="animate-fade-in-up mb-8">
-        <div className="flex items-center gap-3 mb-3">
-          <Shield size={28} className="text-brand-600 dark:text-brand-400" />
-          <h1 className="font-display font-bold text-2xl text-slate-900 dark:text-slate-100">
-            TRACERULES — Detection Query Arsenal
-          </h1>
-        </div>
-        <p className="text-sm text-slate-600 dark:text-slate-400 max-w-3xl">
+      <div className="animate-fade-in-up mb-10">
+        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
+          <Shield size={28} className="text-brand-600 dark:text-brand-400" /> TRACERULES
+        </h1>
+        <p className="text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed">
           Curated detection query library across KQL, Sigma, and XQL. Filter by format, tactic, or technique. Copy
           queries directly for use in your SIEM.
         </p>

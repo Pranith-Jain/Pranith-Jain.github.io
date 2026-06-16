@@ -1,5 +1,5 @@
 import { useState, useMemo, useCallback } from 'react';
-import { Link } from 'react-router-dom';
+import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, Search, Shield, AlertTriangle, CheckCircle, HelpCircle, Loader2, Upload, X } from 'lucide-react';
 
 type Verdict = 'malicious' | 'suspicious' | 'benign' | 'unknown';
@@ -110,11 +110,13 @@ export default function XVeridikt(): JSX.Element {
   const [mode, setMode] = useState<'single' | 'bulk'>('single');
   const [results, setResults] = useState<IocResult[]>([]);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [filterVerdict, setFilterVerdict] = useState<Verdict | 'all'>('all');
   const [filterType, setFilterType] = useState<string>('all');
 
   const runAnalysis = useCallback(async () => {
     setLoading(true);
+    setError(null);
     const inputs = mode === 'single' ? [iocInput] : bulkInput.split('\n').filter(Boolean);
     await new Promise((r) => setTimeout(r, 1500));
     setResults(MOCK_RESULTS.filter((r) => inputs.some((i) => r.ioc.includes(i)) || inputs.length === 0));
@@ -133,26 +135,33 @@ export default function XVeridikt(): JSX.Element {
   const uniqueTypes = useMemo(() => [...new Set(results.map((r) => r.type))], [results]);
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12">
-      <Link
+    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
+      <BackLink
         to="/dfir"
         className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
-        <ArrowLeft size={14} /> Back to DFIR
-      </Link>
+        <ArrowLeft size={14} /> back
+      </BackLink>
 
-      <div className="animate-fade-in-up mb-8">
-        <div className="flex items-center gap-3 mb-3">
-          <Shield size={28} className="text-brand-600 dark:text-brand-400" />
-          <h1 className="font-display font-bold text-2xl text-slate-900 dark:text-slate-100">
-            X-VERDIKT — Multi-Source IOC Verdict
-          </h1>
-        </div>
-        <p className="text-sm text-slate-600 dark:text-slate-400 max-w-3xl">
+      <div className="animate-fade-in-up mb-10">
+        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
+          <Shield size={28} className="text-brand-600 dark:text-brand-400" /> X-VERDIKT
+        </h1>
+        <p className="text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed">
           Cross-reference an indicator across 10 threat-intel sources in parallel. Single or bulk mode. Get a consensus
           verdict with per-source scores, flags, and detail in one view.
         </p>
       </div>
+
+      {error && (
+        <div className="rounded-xl border border-rose-300/70 dark:border-rose-800/60 bg-rose-50/60 dark:bg-rose-950/30 p-4 flex items-start gap-3 mb-6">
+          <AlertTriangle size={16} className="text-rose-600 dark:text-rose-400 flex-shrink-0 mt-0.5" />
+          <div>
+            <p className="text-sm font-semibold text-rose-700 dark:text-rose-300">Analysis failed</p>
+            <p className="text-xs text-rose-600 dark:text-rose-400 mt-1 font-mono break-all">{error}</p>
+          </div>
+        </div>
+      )}
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div className="space-y-4">
@@ -198,7 +207,7 @@ export default function XVeridikt(): JSX.Element {
                   value={iocInput}
                   onChange={(e) => setIocInput(e.target.value)}
                   placeholder="IP / Domain / URL / Hash…"
-                  className="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg font-mono text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-brand-500/40"
+                  className="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 p-3 text-sm text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/40 font-mono"
                 />
                 <p className="text-micro font-mono text-slate-400">
                   Auto-detects IPv4, IPv6, Domains, URLs, MD5/SHA1/SHA256/SHA512
@@ -213,9 +222,9 @@ export default function XVeridikt(): JSX.Element {
                 <textarea
                   value={bulkInput}
                   onChange={(e) => setBulkInput(e.target.value)}
-                  placeholder="One IOC per line&#10;185.234.72.10&#10;malware.example.com&#10;d41d8cd98f00b204e9800998ecf8427e"
+                  placeholder={'One IOC per line\n185.234.72.10\nmalware.example.com\nd41d8cd98f00b204e9800998ecf8427e'}
                   rows={6}
-                  className="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg font-mono text-xs text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-brand-500/40"
+                  className="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 p-3 text-xs text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/40 font-mono"
                 />
                 <p className="text-micro font-mono text-slate-400">One IOC per line. Auto-detects type.</p>
               </div>
@@ -226,7 +235,7 @@ export default function XVeridikt(): JSX.Element {
                 type="button"
                 onClick={runAnalysis}
                 disabled={loading || (!iocInput && !bulkInput)}
-                className="flex items-center gap-2 px-5 py-2.5 bg-brand-600 hover:bg-brand-500 disabled:bg-slate-300 dark:disabled:bg-slate-700 text-white rounded-xl text-sm font-medium transition-colors"
+                className="flex items-center gap-2 px-5 py-2.5 bg-brand-600 hover:bg-brand-500 disabled:bg-slate-300 dark:disabled:bg-slate-700 text-white rounded-xl text-sm font-semibold transition-colors"
               >
                 {loading ? <Loader2 size={16} className="animate-spin" /> : <Search size={16} />}
                 {loading ? 'Analyzing…' : 'Analyze'}

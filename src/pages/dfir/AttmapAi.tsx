@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, Target, Sparkles, Loader2 } from 'lucide-react';
 
 interface Technique {
@@ -135,22 +135,19 @@ export default function AttmapAi(): JSX.Element {
   })).filter((g) => g.techniques.length > 0);
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12">
-      <Link
+    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
+      <BackLink
         to="/dfir"
         className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
-        <ArrowLeft size={14} /> Back to DFIR
-      </Link>
+        <ArrowLeft size={14} /> back
+      </BackLink>
 
-      <div className="animate-fade-in-up mb-8">
-        <div className="flex items-center gap-3 mb-3">
-          <Target size={28} className="text-brand-600 dark:text-brand-400" />
-          <h1 className="font-display font-bold text-2xl text-slate-900 dark:text-slate-100">
-            ATTMAP-AI — Behavior to ATT&CK. Mapped.
-          </h1>
-        </div>
-        <p className="text-sm text-slate-600 dark:text-slate-400 max-w-3xl">
+      <div className="animate-fade-in-up mb-10">
+        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
+          <Target size={28} className="text-brand-600 dark:text-brand-400" /> ATTMAP-AI
+        </h1>
+        <p className="text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed">
           Describe an adversary behavior, alert, log, or report — AI maps it to MITRE ATT&CK techniques with confidence
           scores, evidence, and tactic grouping.
         </p>
@@ -211,7 +208,7 @@ export default function AttmapAi(): JSX.Element {
                 type="button"
                 onClick={runMapping}
                 disabled={loading || !input.trim()}
-                className="flex items-center gap-2 px-5 py-2.5 bg-brand-600 hover:bg-brand-500 disabled:bg-slate-300 dark:disabled:bg-slate-700 text-white rounded-xl text-sm font-medium transition-colors"
+                className="flex items-center gap-2 px-5 py-2.5 bg-brand-600 hover:bg-brand-500 disabled:bg-slate-300 dark:disabled:bg-slate-700 text-white rounded-xl text-sm font-semibold transition-colors"
               >
                 {loading ? <Loader2 size={16} className="animate-spin" /> : <Target size={16} />}
                 {loading ? 'Mapping…' : 'Map to ATT&CK'}
