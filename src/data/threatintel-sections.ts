@@ -48,7 +48,7 @@ export const SECTIONS: Section[] = [
     blurb: 'Landscape overview, actor profiles, campaign tracking, and intelligence briefings.',
     tools: [
       {
-        to: '/threatintel/predictive/dashboard',
+        to: '/threatintel/predictive',
         label: 'Threat Landscape',
         desc: 'Key stats, trending actors, top malware, emerging threats, and attack vector distribution.',
         icon: LayoutDashboard,
@@ -147,7 +147,7 @@ export const SECTIONS: Section[] = [
         icon: Bug,
       },
       {
-        to: '/threatintel/malware/sandbox',
+        to: '/threatintel/malware-sandbox',
         label: 'Malware Sandbox',
         desc: 'Hash lookup across 10+ public sandbox platforms — consensus verdict, family attribution, one-click detonation.',
         icon: Bug,
@@ -174,7 +174,7 @@ export const SECTIONS: Section[] = [
         icon: Search,
       },
       {
-        to: '/threatintel/osint/cli',
+        to: '/threatintel/osint-cli-tools',
         label: 'OSINT CLI Tools',
         desc: '55+ curated CLI tools across 10 categories — username, email, domain, social, dorking, recon.',
         icon: Terminal,
@@ -187,14 +187,14 @@ export const SECTIONS: Section[] = [
         icon: Compass,
       },
       {
-        to: '/threatintel/tools/stix',
+        to: '/threatintel/stix-bundles',
         label: 'STIX Bundle Browser',
         desc: 'Browse and download STIX 2.1 bundles — import into OpenCTI, MISP, or any STIX-aware platform.',
         icon: GitBranch,
         badge: 'new',
       },
       {
-        to: '/threatintel/iocs/feeds',
+        to: '/threatintel/ioc-feeds',
         label: 'IOC Feeds',
         desc: 'Structured indicator feeds ready for SIEM, EDR, or CTI platform ingestion.',
         icon: Rss,
@@ -209,7 +209,7 @@ export const SECTIONS: Section[] = [
     blurb: 'Research reports, knowledge base, external resources, and curated catalogs.',
     tools: [
       {
-        to: '/threatintel/research-hub/reports',
+        to: '/threatintel/reports',
         label: 'Threat Intel Reports',
         desc: 'Original research reports with IOCs, detection rules, and severity scoring.',
         icon: FileText,
