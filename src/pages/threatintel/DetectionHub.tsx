@@ -1,6 +1,7 @@
-import { lazy, useEffect } from 'react';
+import { Suspense, lazy, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { HubShell } from '../../components/HubShell';
+import { TabLoader } from '../../components/ui/TabLoader';
 const Detections = lazy(() => import('./Detections'));
 const DisarmFramework = lazy(() => import('./DisarmFramework'));
 const YaraPage = lazy(() => import('./Yarahub'));
@@ -17,18 +18,26 @@ const DEFAULT_TAB: TabId = 'detections';
 export default function DetectionHub(): JSX.Element {
   const { tab } = useParams<{ tab?: string }>();
   const navigate = useNavigate();
-  const activeTab = tab && TABS.some(t => t.id === tab) ? (tab as TabId) : DEFAULT_TAB;
+  const activeTab = tab && TABS.some((t) => t.id === tab) ? (tab as TabId) : DEFAULT_TAB;
   useEffect(() => {
-    if (!tab || !TABS.some(t => t.id === tab)) {
+    if (!tab || !TABS.some((t) => t.id === tab)) {
       navigate(`/threatintel/${HUB_PATH}/${DEFAULT_TAB}`, { replace: true });
     }
   }, [tab, navigate]);
   return (
-    <HubShell tabs={TABS} active={activeTab} onSelect={(id) => navigate(`/threatintel/${HUB_PATH}/${id}`, { replace: true })} ariaLabel="Detection tools" tone="rose">
-      {activeTab === 'detections' && <Detections />}
-      {activeTab === 'disarm' && <DisarmFramework />}
-      {activeTab === 'yara' && <YaraPage />}
-      {activeTab === 'signal' && <ThreatSignalRss />}
+    <HubShell
+      tabs={TABS}
+      active={activeTab}
+      onSelect={(id) => navigate(`/threatintel/${HUB_PATH}/${id}`, { replace: true })}
+      ariaLabel="Detection tools"
+      tone="rose"
+    >
+      <Suspense fallback={<TabLoader />}>
+        {activeTab === 'detections' && <Detections />}
+        {activeTab === 'disarm' && <DisarmFramework />}
+        {activeTab === 'yara' && <YaraPage />}
+        {activeTab === 'signal' && <ThreatSignalRss />}
+      </Suspense>
     </HubShell>
   );
 }

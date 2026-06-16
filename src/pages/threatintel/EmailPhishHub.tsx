@@ -1,6 +1,7 @@
-import { lazy, useEffect } from 'react';
+import { Suspense, lazy, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { HubShell } from '../../components/HubShell';
+import { TabLoader } from '../../components/ui/TabLoader';
 const PhishFeed = lazy(() => import('./PhishFeed'));
 const PhishingWordlists = lazy(() => import('./PhishingWordlists'));
 const ScamWatch = lazy(() => import('../dfir/ScamWatch'));
@@ -29,9 +30,11 @@ export default function EmailPhishHub(): JSX.Element {
       ariaLabel="Email tools"
       tone="rose"
     >
-      {activeTab === 'phish' && <PhishFeed />}
-      {activeTab === 'urls' && <PhishingWordlists />}
-      {activeTab === 'scam' && <ScamWatch />}
+      <Suspense fallback={<TabLoader />}>
+        {activeTab === 'phish' && <PhishFeed />}
+        {activeTab === 'urls' && <PhishingWordlists />}
+        {activeTab === 'scam' && <ScamWatch />}
+      </Suspense>
     </HubShell>
   );
 }

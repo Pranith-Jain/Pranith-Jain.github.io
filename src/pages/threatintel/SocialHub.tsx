@@ -1,6 +1,7 @@
-import { lazy, useEffect } from 'react';
+import { Suspense, lazy, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { HubShell } from '../../components/HubShell';
+import { TabLoader } from '../../components/ui/TabLoader';
 const SocialFirehose = lazy(() => import('./SocialFirehose'));
 const TechAiNews = lazy(() => import('../dfir/TechAiNews'));
 type TabId = 'firehose' | 'news';
@@ -27,8 +28,10 @@ export default function SocialHub(): JSX.Element {
       ariaLabel="Social tools"
       tone="rose"
     >
-      {activeTab === 'firehose' && <SocialFirehose />}
-      {activeTab === 'news' && <TechAiNews />}
+      <Suspense fallback={<TabLoader />}>
+        {activeTab === 'firehose' && <SocialFirehose />}
+        {activeTab === 'news' && <TechAiNews />}
+      </Suspense>
     </HubShell>
   );
 }

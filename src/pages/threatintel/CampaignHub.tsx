@@ -1,6 +1,7 @@
-import { lazy } from 'react';
+import { Suspense, lazy } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { HubShell } from '../../components/HubShell';
+import { TabLoader } from '../../components/ui/TabLoader';
 const Campaigns = lazy(() => import('./Campaigns'));
 const CampaignLifecycle = lazy(() => import('./CampaignLifecycle'));
 const CampaignGenerator = lazy(() => import('./CampaignGenerator'));
@@ -25,10 +26,12 @@ export default function CampaignHub(): JSX.Element {
       ariaLabel="Campaign tools"
       tone="rose"
     >
-      {activeTab === 'active' && <Campaigns />}
-      {activeTab === 'lifecycle' && <CampaignLifecycle />}
-      {activeTab === 'generator' && <CampaignGenerator />}
-      {activeTab === 'cross' && <CrossCampaignCorrelation />}
+      <Suspense fallback={<TabLoader />}>
+        {activeTab === 'active' && <Campaigns />}
+        {activeTab === 'lifecycle' && <CampaignLifecycle />}
+        {activeTab === 'generator' && <CampaignGenerator />}
+        {activeTab === 'cross' && <CrossCampaignCorrelation />}
+      </Suspense>
     </HubShell>
   );
 }

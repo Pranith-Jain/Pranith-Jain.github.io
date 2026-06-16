@@ -1,6 +1,7 @@
-import { lazy, useEffect } from 'react';
+import { Suspense, lazy, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { HubShell } from '../../components/HubShell';
+import { TabLoader } from '../../components/ui/TabLoader';
 const CloudThreatLandscape = lazy(() => import('./CloudThreatLandscape'));
 const InfraIntel = lazy(() => import('./InfraIntel'));
 const Webamon = lazy(() => import('./Webamon'));
@@ -31,10 +32,12 @@ export default function InfraHub(): JSX.Element {
       ariaLabel="Infrastructure tools"
       tone="rose"
     >
-      {activeTab === 'cloud' && <CloudThreatLandscape />}
-      {activeTab === 'infra' && <InfraIntel />}
-      {activeTab === 'webamon' && <Webamon />}
-      {activeTab === 'domain' && <DomainMonitor />}
+      <Suspense fallback={<TabLoader />}>
+        {activeTab === 'cloud' && <CloudThreatLandscape />}
+        {activeTab === 'infra' && <InfraIntel />}
+        {activeTab === 'webamon' && <Webamon />}
+        {activeTab === 'domain' && <DomainMonitor />}
+      </Suspense>
     </HubShell>
   );
 }

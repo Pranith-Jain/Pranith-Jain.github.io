@@ -341,6 +341,19 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/threatintel/threat-landscape', '/__prerendered/threatintel__threat-landscape'],
   ['/threatintel/threat-actor-db', '/__prerendered/threatintel__threat-actor-db'],
   ['/dfir/copilot', '/__prerendered/dfir__copilot'],
+
+  // ── ThreatIntel: hub bases (11) — Suspense-wrapped tabs, prerendered chrome ─
+  ['/threatintel/iocs', '/__prerendered/threatintel__iocs'],
+  ['/threatintel/cves', '/__prerendered/threatintel__cves'],
+  ['/threatintel/malware', '/__prerendered/threatintel__malware'],
+  ['/threatintel/feeds', '/__prerendered/threatintel__feeds'],
+  ['/threatintel/social', '/__prerendered/threatintel__social'],
+  ['/threatintel/phishing', '/__prerendered/threatintel__phishing'],
+  ['/threatintel/infra', '/__prerendered/threatintel__infra'],
+  ['/threatintel/research-hub', '/__prerendered/threatintel__research-hub'],
+  ['/threatintel/osint', '/__prerendered/threatintel__osint'],
+  ['/threatintel/tools', '/__prerendered/threatintel__tools'],
+  ['/threatintel/external', '/__prerendered/threatintel__external'],
 ]);
 
 /**
@@ -392,6 +405,22 @@ const DYNAMIC_ROUTE_FALLBACKS: ReadonlyArray<[RegExp, string]> = [
   [/^\/projects\/[^/]+$/i, '/__prerendered/projects'],
   // ── DFIR tools category ────────────────────────────────────────
   [/^\/dfir\/tools\/[^/]+$/i, '/__prerendered/dfir'],
+
+  // ── ThreatIntel: hub tab routes (14) — fall back to hub base prerender ─────
+  [/^\/threatintel\/iocs\/[^/]+$/i, '/__prerendered/threatintel__iocs'],
+  [/^\/threatintel\/cves\/[^/]+$/i, '/__prerendered/threatintel__cves'],
+  [/^\/threatintel\/malware\/[^/]+$/i, '/__prerendered/threatintel__malware'],
+  [/^\/threatintel\/feeds\/[^/]+$/i, '/__prerendered/threatintel__feeds'],
+  [/^\/threatintel\/social\/[^/]+$/i, '/__prerendered/threatintel__social'],
+  [/^\/threatintel\/phishing\/[^/]+$/i, '/__prerendered/threatintel__phishing'],
+  [/^\/threatintel\/infra\/[^/]+$/i, '/__prerendered/threatintel__infra'],
+  [/^\/threatintel\/detections\/[^/]+$/i, '/__prerendered/threatintel__detections'],
+  [/^\/threatintel\/research-hub\/[^/]+$/i, '/__prerendered/threatintel__research-hub'],
+  [/^\/threatintel\/osint\/[^/]+$/i, '/__prerendered/threatintel__osint'],
+  [/^\/threatintel\/tools\/[^/]+$/i, '/__prerendered/threatintel__tools'],
+  [/^\/threatintel\/external\/[^/]+$/i, '/__prerendered/threatintel__external'],
+  [/^\/threatintel\/predictive\/[^/]+$/i, '/__prerendered/threatintel__predictive'],
+  [/^\/threatintel\/darkweb\/[^/]+$/i, '/__prerendered/threatintel__darkweb'],
 ];
 
 function resolveDynamicRoute(pathname: string): string | null {

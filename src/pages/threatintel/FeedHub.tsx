@@ -1,6 +1,7 @@
-import { lazy, useEffect } from 'react';
+import { Suspense, lazy, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { HubShell } from '../../components/HubShell';
+import { TabLoader } from '../../components/ui/TabLoader';
 const FeedCatalog = lazy(() => import('./FeedCatalog'));
 const FeedSources = lazy(() => import('./FeedSources'));
 const FeedQuality = lazy(() => import('./FeedQuality'));
@@ -33,11 +34,13 @@ export default function FeedHub(): JSX.Element {
       ariaLabel="Feed tools"
       tone="rose"
     >
-      {activeTab === 'catalog' && <FeedCatalog />}
-      {activeTab === 'sources' && <FeedSources />}
-      {activeTab === 'quality' && <FeedQuality />}
-      {activeTab === 'scheduler' && <FeedScheduler />}
-      {activeTab === 'threatfeeds' && <ThreatFeeds />}
+      <Suspense fallback={<TabLoader />}>
+        {activeTab === 'catalog' && <FeedCatalog />}
+        {activeTab === 'sources' && <FeedSources />}
+        {activeTab === 'quality' && <FeedQuality />}
+        {activeTab === 'scheduler' && <FeedScheduler />}
+        {activeTab === 'threatfeeds' && <ThreatFeeds />}
+      </Suspense>
     </HubShell>
   );
 }

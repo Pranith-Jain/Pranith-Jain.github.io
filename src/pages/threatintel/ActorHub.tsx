@@ -1,6 +1,7 @@
-import { lazy } from 'react';
+import { Suspense, lazy } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { HubShell } from '../../components/HubShell';
+import { TabLoader } from '../../components/ui/TabLoader';
 const ActorDirectory = lazy(() => import('./ActorDirectory'));
 const ActorTimeline = lazy(() => import('./ActorTimeline'));
 const ActorDNA = lazy(() => import('./ActorDNA'));
@@ -27,11 +28,13 @@ export default function ActorHub(): JSX.Element {
       ariaLabel="Actor tools"
       tone="rose"
     >
-      {activeTab === 'directory' && <ActorDirectory />}
-      {activeTab === 'timeline' && <ActorTimeline />}
-      {activeTab === 'dna' && <ActorDNA />}
-      {activeTab === 'usernames' && <ActorUsernameSearch />}
-      {activeTab === 'attribution' && <Attribution />}
+      <Suspense fallback={<TabLoader />}>
+        {activeTab === 'directory' && <ActorDirectory />}
+        {activeTab === 'timeline' && <ActorTimeline />}
+        {activeTab === 'dna' && <ActorDNA />}
+        {activeTab === 'usernames' && <ActorUsernameSearch />}
+        {activeTab === 'attribution' && <Attribution />}
+      </Suspense>
     </HubShell>
   );
 }

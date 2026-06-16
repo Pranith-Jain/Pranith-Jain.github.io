@@ -1,6 +1,7 @@
-import { lazy, useEffect } from 'react';
+import { Suspense, lazy, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { HubShell } from '../../components/HubShell';
+import { TabLoader } from '../../components/ui/TabLoader';
 const CveIntel = lazy(() => import('./CveIntel'));
 const GithubAdvisories = lazy(() => import('./GithubAdvisories'));
 const CveResourcesCatalog = lazy(() => import('../dfir/CveResourcesCatalog'));
@@ -29,9 +30,11 @@ export default function VulnHub(): JSX.Element {
       ariaLabel="Vulnerability tools"
       tone="rose"
     >
-      {activeTab === 'cves' && <CveIntel />}
-      {activeTab === 'advisories' && <GithubAdvisories />}
-      {activeTab === 'resources' && <CveResourcesCatalog />}
+      <Suspense fallback={<TabLoader />}>
+        {activeTab === 'cves' && <CveIntel />}
+        {activeTab === 'advisories' && <GithubAdvisories />}
+        {activeTab === 'resources' && <CveResourcesCatalog />}
+      </Suspense>
     </HubShell>
   );
 }

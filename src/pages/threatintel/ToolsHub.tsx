@@ -1,6 +1,7 @@
-import { lazy, useEffect } from 'react';
+import { Suspense, lazy, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { HubShell } from '../../components/HubShell';
+import { TabLoader } from '../../components/ui/TabLoader';
 const CopilotChat = lazy(() => import('./CopilotChat'));
 const McpSearch = lazy(() => import('./McpSearch'));
 const MispBrowser = lazy(() => import('./MispBrowser'));
@@ -23,21 +24,29 @@ const DEFAULT_TAB: TabId = 'copilot';
 export default function ToolsHub(): JSX.Element {
   const { tab } = useParams<{ tab?: string }>();
   const navigate = useNavigate();
-  const activeTab = tab && TABS.some(t => t.id === tab) ? (tab as TabId) : DEFAULT_TAB;
+  const activeTab = tab && TABS.some((t) => t.id === tab) ? (tab as TabId) : DEFAULT_TAB;
   useEffect(() => {
-    if (!tab || !TABS.some(t => t.id === tab)) {
+    if (!tab || !TABS.some((t) => t.id === tab)) {
       navigate(`/threatintel/${HUB_PATH}/${DEFAULT_TAB}`, { replace: true });
     }
   }, [tab, navigate]);
   return (
-    <HubShell tabs={TABS} active={activeTab} onSelect={(id) => navigate(`/threatintel/${HUB_PATH}/${id}`, { replace: true })} ariaLabel="Utility tools" tone="rose">
-      {activeTab === 'copilot' && <CopilotChat />}
-      {activeTab === 'mcp' && <McpSearch />}
-      {activeTab === 'misp' && <MispBrowser />}
-      {activeTab === 'stix' && <StixBundleBrowser />}
-      {activeTab === 'graph' && <RelationshipGraph />}
-      {activeTab === 'investigations' && <Investigations />}
-      {activeTab === 'watches' && <Watches />}
+    <HubShell
+      tabs={TABS}
+      active={activeTab}
+      onSelect={(id) => navigate(`/threatintel/${HUB_PATH}/${id}`, { replace: true })}
+      ariaLabel="Utility tools"
+      tone="rose"
+    >
+      <Suspense fallback={<TabLoader />}>
+        {activeTab === 'copilot' && <CopilotChat />}
+        {activeTab === 'mcp' && <McpSearch />}
+        {activeTab === 'misp' && <MispBrowser />}
+        {activeTab === 'stix' && <StixBundleBrowser />}
+        {activeTab === 'graph' && <RelationshipGraph />}
+        {activeTab === 'investigations' && <Investigations />}
+        {activeTab === 'watches' && <Watches />}
+      </Suspense>
     </HubShell>
   );
 }

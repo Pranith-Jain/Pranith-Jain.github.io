@@ -1,6 +1,7 @@
-import { lazy, useEffect } from 'react';
+import { Suspense, lazy, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { HubShell } from '../../components/HubShell';
+import { TabLoader } from '../../components/ui/TabLoader';
 const LiveIocs = lazy(() => import('./LiveIocs'));
 const IocEnrichment = lazy(() => import('./IocEnrichment'));
 const IocFeedsPage = lazy(() => import('./IocFeedsPage'));
@@ -35,12 +36,14 @@ export default function IocHub(): JSX.Element {
       ariaLabel="IOC tools"
       tone="rose"
     >
-      {activeTab === 'live' && <LiveIocs />}
-      {activeTab === 'enrichment' && <IocEnrichment />}
-      {activeTab === 'feeds' && <IocFeedsPage />}
-      {activeTab === 'entity' && <EntityResolution />}
-      {activeTab === 'c2' && <C2Tracker />}
-      {activeTab === 'map' && <ThreatMap />}
+      <Suspense fallback={<TabLoader />}>
+        {activeTab === 'live' && <LiveIocs />}
+        {activeTab === 'enrichment' && <IocEnrichment />}
+        {activeTab === 'feeds' && <IocFeedsPage />}
+        {activeTab === 'entity' && <EntityResolution />}
+        {activeTab === 'c2' && <C2Tracker />}
+        {activeTab === 'map' && <ThreatMap />}
+      </Suspense>
     </HubShell>
   );
 }

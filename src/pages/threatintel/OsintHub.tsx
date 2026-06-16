@@ -1,6 +1,7 @@
-import { lazy, useEffect } from 'react';
+import { Suspense, lazy, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { HubShell } from '../../components/HubShell';
+import { TabLoader } from '../../components/ui/TabLoader';
 const OsintFramework = lazy(() => import('../dfir/OsintFramework'));
 const OsintCliTools = lazy(() => import('./OsintCliTools'));
 const OsintCountryMap = lazy(() => import('./OsintCountryMap'));
@@ -33,11 +34,13 @@ export default function OsintHub(): JSX.Element {
       ariaLabel="OSINT tools"
       tone="rose"
     >
-      {activeTab === 'framework' && <OsintFramework />}
-      {activeTab === 'cli' && <OsintCliTools />}
-      {activeTab === 'map' && <OsintCountryMap />}
-      {activeTab === 'toolbox' && <CuratedToolbox />}
-      {activeTab === 'secops' && <SecopsCatalog />}
+      <Suspense fallback={<TabLoader />}>
+        {activeTab === 'framework' && <OsintFramework />}
+        {activeTab === 'cli' && <OsintCliTools />}
+        {activeTab === 'map' && <OsintCountryMap />}
+        {activeTab === 'toolbox' && <CuratedToolbox />}
+        {activeTab === 'secops' && <SecopsCatalog />}
+      </Suspense>
     </HubShell>
   );
 }

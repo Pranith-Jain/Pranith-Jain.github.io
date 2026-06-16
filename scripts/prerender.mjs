@@ -382,6 +382,19 @@ const ROUTES = [
   '/threatintel/ioc-feeds',
   '/threatintel/malware-sandbox',
   '/dfir/copilot',
+
+  // ── ThreatIntel: hub pages (11) — Suspense-wrapped tabs, prerendered chrome ─
+  '/threatintel/iocs',
+  '/threatintel/cves',
+  '/threatintel/malware',
+  '/threatintel/feeds',
+  '/threatintel/social',
+  '/threatintel/phishing',
+  '/threatintel/infra',
+  '/threatintel/research-hub',
+  '/threatintel/osint',
+  '/threatintel/tools',
+  '/threatintel/external',
 ];
 
 const SHELL_PATH = resolve(ROOT, 'dist/index.html');

@@ -1,6 +1,7 @@
-import { lazy, useEffect } from 'react';
+import { Suspense, lazy, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { HubShell } from '../../components/HubShell';
+import { TabLoader } from '../../components/ui/TabLoader';
 const ExternalResources = lazy(() => import('./ExternalResources'));
 const SupplyChainIntelligence = lazy(() => import('./SupplyChainIntelligence'));
 const AwesomeLists = lazy(() => import('../dfir/AwesomeLists'));
@@ -29,9 +30,11 @@ export default function ExternalHub(): JSX.Element {
       ariaLabel="External tools"
       tone="rose"
     >
-      {activeTab === 'external' && <ExternalResources />}
-      {activeTab === 'supply' && <SupplyChainIntelligence />}
-      {activeTab === 'awesome' && <AwesomeLists />}
+      <Suspense fallback={<TabLoader />}>
+        {activeTab === 'external' && <ExternalResources />}
+        {activeTab === 'supply' && <SupplyChainIntelligence />}
+        {activeTab === 'awesome' && <AwesomeLists />}
+      </Suspense>
     </HubShell>
   );
 }

@@ -1,6 +1,7 @@
-import { lazy, useEffect } from 'react';
+import { Suspense, lazy, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { HubShell } from '../../components/HubShell';
+import { TabLoader } from '../../components/ui/TabLoader';
 const DarkWeb = lazy(() => import('./DarkWebOsintTools'));
 const DarknetMarketsTimeline = lazy(() => import('./DarknetMarketsTimeline'));
 const BreachForums = lazy(() => import('./BreachForums'));
@@ -35,12 +36,14 @@ export default function DarkwebHub(): JSX.Element {
       ariaLabel="Dark web tools"
       tone="rose"
     >
-      {activeTab === 'watch' && <DarkWeb />}
-      {activeTab === 'markets' && <DarknetMarketsTimeline />}
-      {activeTab === 'forums' && <BreachForums />}
-      {activeTab === 'deepdark' && <DeepDarkCTI />}
-      {activeTab === 'crime' && <CyberCrime />}
-      {activeTab === 'bitcoin' && <PhysicalBitcoinAttacks />}
+      <Suspense fallback={<TabLoader />}>
+        {activeTab === 'watch' && <DarkWeb />}
+        {activeTab === 'markets' && <DarknetMarketsTimeline />}
+        {activeTab === 'forums' && <BreachForums />}
+        {activeTab === 'deepdark' && <DeepDarkCTI />}
+        {activeTab === 'crime' && <CyberCrime />}
+        {activeTab === 'bitcoin' && <PhysicalBitcoinAttacks />}
+      </Suspense>
     </HubShell>
   );
 }

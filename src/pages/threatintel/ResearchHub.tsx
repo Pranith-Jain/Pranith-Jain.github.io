@@ -1,6 +1,7 @@
-import { lazy, useEffect } from 'react';
+import { Suspense, lazy, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { HubShell } from '../../components/HubShell';
+import { TabLoader } from '../../components/ui/TabLoader';
 const ResearchIndex = lazy(() => import('./Research'));
 const Reports = lazy(() => import('./ThreatIntelReports'));
 const AIReportShowcase = lazy(() => import('./AIReportShowcase'));
@@ -39,14 +40,16 @@ export default function ResearchHub(): JSX.Element {
       ariaLabel="Research tools"
       tone="rose"
     >
-      {activeTab === 'research' && <ResearchIndex />}
-      {activeTab === 'reports' && <Reports />}
-      {activeTab === 'ai' && <AIReportShowcase />}
-      {activeTab === 'writeups' && <Writeups />}
-      {activeTab === 'signal' && <ResearchSignal />}
-      {activeTab === 'redhunt' && <RedHuntInsights />}
-      {activeTab === 'redhunt-labs' && <RedHuntLabsResearch />}
-      {activeTab === 'volexity' && <VolexityThreatIntel />}
+      <Suspense fallback={<TabLoader />}>
+        {activeTab === 'research' && <ResearchIndex />}
+        {activeTab === 'reports' && <Reports />}
+        {activeTab === 'ai' && <AIReportShowcase />}
+        {activeTab === 'writeups' && <Writeups />}
+        {activeTab === 'signal' && <ResearchSignal />}
+        {activeTab === 'redhunt' && <RedHuntInsights />}
+        {activeTab === 'redhunt-labs' && <RedHuntLabsResearch />}
+        {activeTab === 'volexity' && <VolexityThreatIntel />}
+      </Suspense>
     </HubShell>
   );
 }

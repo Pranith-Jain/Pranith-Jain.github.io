@@ -1623,4 +1623,15 @@ export const RESOURCES: ExternalResource[] = [
     description:
       'Threat intelligence and cybercrime news blog — deep-dive investigations into organized crime, crypto heists, infostealers, piracy takedowns, and underground markets. Ghost-powered, CC BY 4.0.',
   },
+  {
+    id: 'h3ad-sec',
+    name: 'H3AD-SEC',
+    url: 'https://h3ad-sec.github.io/',
+    kind: 'tool',
+    featured: true,
+    tags: ['threat-intel', 'dfir', 'osint'],
+    description:
+      'Operational cyber defense platform with 20+ live tools across 7 domains: Threat Exchange (VERDIKT, X-VERDIKT, PARSE-X, DNSCOPE, MAILSCOPE), AI-powered runbooks (INSIGHT-AI, QUERYCRAFT-AI, FPLENS-AI, ATTMAP-AI, CHRONO-AI, MALBRIEF-AI, PROMPTVAULT, VERDIKT-AI), Detection Engineering (TRACERULES), Threat Hunting (HYPOS, PIVEX, TRACEPULSE), SOC Ops (QUICKTRACE, PHISHOPS, SHIFTLOG), Digital Forensics (REGSCOPE, MALBRIEF-AI), and IR (PHISHBOOK).',
+    why: 'Comprehensive platform with tools across the full kill chain. Several tools are directly integrated into this platform (FPLENS, QUERYCRAFT, CHRONO, MALBRIEF, VERDIKT, PHISHOPS, PIVEX, TRACEPULSE, QUICKTRACE, PHISHBOOK).',
+  },
 ];
