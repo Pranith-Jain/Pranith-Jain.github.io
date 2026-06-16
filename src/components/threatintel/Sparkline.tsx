@@ -1,3 +1,5 @@
+import { memo } from 'react';
+
 /**
  * Zero-dependency SVG sparkline. Draws a single series as a line + faint
  * area fill with an endpoint dot. Inherits its colour from the parent via
@@ -8,6 +10,9 @@
  * Decorative by default (aria-hidden): the LivePulse cell that hosts it
  * already exposes the same trend as text, so the chart is redundant for
  * screen readers. Pass `ariaLabel` to give it a standalone text equivalent.
+ *
+ * Memoised: pure function of `values` + presentation props; re-renders
+ * only when the series or visual props change.
  */
 interface SparklineProps {
   values: number[];
@@ -17,7 +22,7 @@ interface SparklineProps {
   ariaLabel?: string;
 }
 
-export function Sparkline({
+export const Sparkline = memo(function Sparkline({
   values,
   width = 104,
   height = 30,
@@ -38,16 +43,15 @@ export function Sparkline({
     return [x, y] as const;
   });
   const line = points.map(([x, y], i) => `${i ? 'L' : 'M'}${x.toFixed(1)} ${y.toFixed(1)}`).join(' ');
-  const [lastX, lastY] = points[points.length - 1]!;
-  const area = `${line} L${(pad + w).toFixed(1)} ${(pad + h).toFixed(1)} L${pad} ${(pad + h).toFixed(1)} Z`;
-
+  const area = `${line} L${(pad + w).toFixed(1)} ${(pad + h).toFixed(1)} L${pad.toFixed(1)} ${(pad + h).toFixed(1)} Z`;
+  const [lastX, lastY] = points[points.length - 1] as readonly [number, number];
   return (
     <svg
+      viewBox={`0 0 ${width} ${height}`}
       width={width}
       height={height}
-      viewBox={`0 0 ${width} ${height}`}
+      preserveAspectRatio="none"
       className={className}
-      fill="none"
       role={ariaLabel ? 'img' : undefined}
       aria-label={ariaLabel}
       aria-hidden={ariaLabel ? undefined : true}
@@ -57,4 +61,4 @@ export function Sparkline({
       <circle cx={lastX} cy={lastY} r={2.2} fill="currentColor" />
     </svg>
   );
-}
+});

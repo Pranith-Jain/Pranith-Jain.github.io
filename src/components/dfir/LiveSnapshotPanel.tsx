@@ -9,6 +9,63 @@ import { sanitizeUrl } from '../../lib/sanitize-url';
 import { LiveIndicator } from '../LiveIndicator';
 
 /**
+ * Module-scope rightAction links. These don't depend on any prop or state —
+ * the deep-link targets are fixed and the only thing that varies is the
+ * label/arrow icon. Hoisting them out of the render function means each
+ * SnapshotCard (which is React.memo'd) gets a stable `rightAction` prop
+ * reference, so a re-render of the panel (e.g. when lastVisit flips) only
+ * re-renders the cards whose own props actually changed.
+ */
+const RIGHT_ACTION_RANSOMWARE = (
+  <Link
+    to="/threatintel/darkweb/ransom-activity"
+    className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-0.5"
+  >
+    feed <ExternalLink size={9} />
+  </Link>
+);
+const RIGHT_ACTION_TELEGRAM = (
+  <Link
+    to="/threatintel/social/telegram-leaks"
+    className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-0.5"
+  >
+    full feed <ExternalLink size={9} />
+  </Link>
+);
+const RIGHT_ACTION_SCAM = (
+  <Link
+    to="/threatintel/phishing/scam"
+    className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-0.5"
+  >
+    full feed <ExternalLink size={9} />
+  </Link>
+);
+const RIGHT_ACTION_THREAT_INTEL = (
+  <Link
+    to="/threatintel/feeds/threatfeeds"
+    className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-0.5"
+  >
+    full feeds <ExternalLink size={9} />
+  </Link>
+);
+const RIGHT_ACTION_TECH_AI = (
+  <Link
+    to="/threatintel/social/news"
+    className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-0.5"
+  >
+    full feeds <ExternalLink size={9} />
+  </Link>
+);
+const RIGHT_ACTION_BRIEFINGS = (
+  <Link
+    to="/threatintel/briefings"
+    className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-0.5"
+  >
+    archive <ExternalLink size={9} />
+  </Link>
+);
+
+/**
  * Live "right now" snapshot — 6 cards: Ransomware claims, Cybersec
  * Telegram firehose, Scam intel (FTC + IC3), Threat intel firehose,
  * Tech & AI news, Threat briefings. Mounts on /threatintel landing.
@@ -185,11 +242,15 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
 
   // Single fetch to /api/v1/snapshot — server-side fan-out replaces six
   // parallel client requests. One round-trip, one setState cycle, lower TBT.
+  // 12s hard timeout: the server-side snapshot already has an 8s per-source
+  // budget, so a 12s abort is the client-side kill switch for a slow edge.
   useEffect(() => {
+    const ctrl = new AbortController();
+    const timer = setTimeout(() => ctrl.abort(), 12_000);
     let cancelled = false;
     void (async () => {
       try {
-        const r = await fetch('/api/v1/snapshot');
+        const r = await fetch('/api/v1/snapshot', { signal: ctrl.signal });
         if (!r.ok) throw new Error(`HTTP ${r.status}`);
         const env = (await r.json()) as SnapshotResp;
         if (cancelled) return;
@@ -239,6 +300,8 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
     })();
     return () => {
       cancelled = true;
+      ctrl.abort();
+      clearTimeout(timer);
     };
   }, []);
 
@@ -384,14 +447,7 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
           watchCount={watchedRansomware}
           watchTerms={watchlist}
           showNewBadge={lastVisit > 0}
-          rightAction={
-            <Link
-              to="/threatintel/darkweb/ransom-activity"
-              className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-0.5"
-            >
-              feed <ExternalLink size={9} />
-            </Link>
-          }
+          rightAction={RIGHT_ACTION_RANSOMWARE}
           loading={!ransomware}
           error={errors.ransomware}
           compact={compact}
@@ -463,14 +519,7 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
           watchCount={watchedTelegram}
           watchTerms={watchlist}
           showNewBadge={lastVisit > 0}
-          rightAction={
-            <Link
-              to="/threatintel/social/telegram-leaks"
-              className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-0.5"
-            >
-              full feed <ExternalLink size={9} />
-            </Link>
-          }
+          rightAction={RIGHT_ACTION_TELEGRAM}
           loading={!telegram}
           error={errors.telegram}
           compact={compact}
@@ -540,14 +589,7 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
           watchCount={watchedScam}
           watchTerms={watchlist}
           showNewBadge={lastVisit > 0}
-          rightAction={
-            <Link
-              to="/threatintel/phishing/scam"
-              className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-0.5"
-            >
-              full feed <ExternalLink size={9} />
-            </Link>
-          }
+          rightAction={RIGHT_ACTION_SCAM}
           loading={!scam}
           error={errors.scam}
           compact={compact}
@@ -611,14 +653,7 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
           watchCount={watchedThreatIntel}
           watchTerms={watchlist}
           showNewBadge={lastVisit > 0}
-          rightAction={
-            <Link
-              to="/threatintel/feeds/threatfeeds"
-              className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-0.5"
-            >
-              full feeds <ExternalLink size={9} />
-            </Link>
-          }
+          rightAction={RIGHT_ACTION_THREAT_INTEL}
           loading={!threatIntel}
           error={errors.threatIntel}
           compact={compact}
@@ -684,14 +719,7 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
           watchCount={watchedTechAi}
           watchTerms={watchlist}
           showNewBadge={lastVisit > 0}
-          rightAction={
-            <Link
-              to="/threatintel/social/news"
-              className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-0.5"
-            >
-              full feeds <ExternalLink size={9} />
-            </Link>
-          }
+          rightAction={RIGHT_ACTION_TECH_AI}
           loading={!techAi}
           error={errors.techAi}
           compact={compact}
@@ -758,14 +786,7 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
           icon={ScrollText}
           title="Threat briefings"
           showNewBadge={false}
-          rightAction={
-            <Link
-              to="/threatintel/briefings"
-              className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-0.5"
-            >
-              archive <ExternalLink size={9} />
-            </Link>
-          }
+          rightAction={RIGHT_ACTION_BRIEFINGS}
           loading={!briefings}
           error={errors.briefings}
           compact={compact}

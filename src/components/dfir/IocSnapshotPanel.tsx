@@ -109,19 +109,28 @@ export function IocSnapshotPanel(): JSX.Element {
   const watchlist = useWatchlist();
 
   useEffect(() => {
+    const ctrl = new AbortController();
+    const timer = setTimeout(() => ctrl.abort(), 12_000);
     let cancelled = false;
     void (async () => {
       try {
-        const r = await fetch('/api/v1/ioc-snapshot');
+        const r = await fetch('/api/v1/ioc-snapshot', { signal: ctrl.signal });
         if (!r.ok) throw new Error(`HTTP ${r.status}`);
         const json = (await r.json()) as IocSnapshotResp;
-        if (!cancelled) setData(json);
+        if (cancelled) return;
+        setData(json);
       } catch (e) {
-        if (!cancelled) setErr((e as Error).message);
+        if (cancelled) return;
+        if (e instanceof DOMException && e.name === 'AbortError') return;
+        setErr((e as Error).message);
+      } finally {
+        clearTimeout(timer);
       }
     })();
     return () => {
       cancelled = true;
+      ctrl.abort();
+      clearTimeout(timer);
     };
   }, []);
 

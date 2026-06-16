@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 type FeedbackRating = 'useful' | 'not_useful' | 'actioned' | 'accurate' | 'inaccurate' | 'no_value';
 type FeedbackTarget = 'copilot' | 'briefing' | 'pir' | 'finding' | 'ioc' | 'assessment';
@@ -30,12 +30,25 @@ export function FeedbackWidget({ targetType, targetId, sector, compact, onFeedba
   const [selectedRating, setSelectedRating] = useState<FeedbackRating | null>(null);
   const [comment, setComment] = useState('');
   const savingRef = useRef(false);
+  // Abort the in-flight POST on unmount so a fast nav away from the page
+  // doesn't leave a pending request that races a later feedback submit.
+  const inflightRef = useRef<AbortController | null>(null);
+  useEffect(
+    () => () => {
+      inflightRef.current?.abort();
+      inflightRef.current = null;
+    },
+    []
+  );
 
   async function handleSubmit(rating: FeedbackRating) {
     if (savingRef.current) return;
     savingRef.current = true;
     setSaving(true);
     setError(null);
+    const ctrl = new AbortController();
+    inflightRef.current = ctrl;
+    const timer = setTimeout(() => ctrl.abort(), 10_000);
     try {
       const res = await fetch('/api/v1/threat-intel/feedback', {
         method: 'POST',
@@ -47,6 +60,7 @@ export function FeedbackWidget({ targetType, targetId, sector, compact, onFeedba
           comment: comment || undefined,
           sector,
         }),
+        signal: ctrl.signal,
       });
       if (!res.ok) {
         const errBody = await res.text().catch(() => '');
@@ -65,8 +79,12 @@ export function FeedbackWidget({ targetType, targetId, sector, compact, onFeedba
     } catch (e) {
       setError(e instanceof Error ? e.message : String(e));
     } finally {
-      setSaving(false);
-      savingRef.current = false;
+      clearTimeout(timer);
+      if (inflightRef.current === ctrl) inflightRef.current = null;
+      if (!ctrl.signal.aborted) {
+        setSaving(false);
+        savingRef.current = false;
+      }
     }
   }
 

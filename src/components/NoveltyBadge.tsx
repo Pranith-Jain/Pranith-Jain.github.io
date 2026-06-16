@@ -18,18 +18,28 @@ export function NoveltyBadge({ text, markSeen, compact }: NoveltyBadgeProps) {
       setLoading(false);
       return;
     }
+    const ctrl = new AbortController();
+    const timer = setTimeout(() => ctrl.abort(), 6_000);
     const params = new URLSearchParams({ q: text });
     if (markSeen) params.set('mark', '1');
-    fetch(`/api/v1/threat-intel/novelty?${params}`)
+    fetch(`/api/v1/threat-intel/novelty?${params}`, { signal: ctrl.signal })
       .then((r) => r.json() as Promise<{ novel: boolean; score: number }>)
       .then((d) => {
+        if (ctrl.signal.aborted) return;
         setNovel(d.novel);
         setScore(d.score);
       })
       .catch(() => {
-        /* non-fatal */
+        /* non-fatal — silent skip on abort or transient network error */
       })
-      .finally(() => setLoading(false));
+      .finally(() => {
+        clearTimeout(timer);
+        if (!ctrl.signal.aborted) setLoading(false);
+      });
+    return () => {
+      ctrl.abort();
+      clearTimeout(timer);
+    };
   }, [text, markSeen]);
 
   if (loading) return null;

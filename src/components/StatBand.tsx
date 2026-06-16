@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { Link } from 'react-router-dom';
 import type { ReactNode } from 'react';
 import { useCountUp } from '../hooks/useCountUp';
@@ -20,7 +21,10 @@ export const prefersReducedMotion = (): boolean =>
   window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 /** Big animated count-up number. Honours reduced motion via duration 0. */
-export function StatNumber({
+/** memoised: each count-up is independent; the parent band re-renders
+ *  on data fetch so a per-cell memo keeps the count-up animation from
+ *  restarting across the band on every state change. */
+export const StatNumber = memo(function StatNumber({
   value,
   reduce,
   className,
@@ -31,7 +35,7 @@ export function StatNumber({
 }): JSX.Element {
   const v = useCountUp({ to: value, duration: reduce ? 0 : 750 });
   return <span className={className}>{v.toLocaleString()}</span>;
-}
+});
 
 /** Shared type ramp for a band cell's number + sub-line. */
 export const STAT_NUM = 'font-display text-3xl font-bold leading-none tabular-nums sm:text-4xl';
@@ -45,8 +49,18 @@ interface StatCellProps {
   ariaLabel: string;
   children: ReactNode;
 }
-/** One cell of the band — an icon-chipped, labelled link wrapping a number. */
-export function StatCell({ to, label, icon, iconClass, ariaLabel, children }: StatCellProps): JSX.Element {
+/** One cell of the band — an icon-chipped, labelled link wrapping a number.
+ *  memoised: each cell renders a <Link> + count-up + sub-line; the band
+ *  re-renders on data fetch, so memo keeps cells whose slice of state
+ *  didn't change from re-rendering their (potentially expensive) children. */
+export const StatCell = memo(function StatCell({
+  to,
+  label,
+  icon,
+  iconClass,
+  ariaLabel,
+  children,
+}: StatCellProps): JSX.Element {
   return (
     <Link
       to={to}
@@ -60,7 +74,7 @@ export function StatCell({ to, label, icon, iconClass, ariaLabel, children }: St
       {children}
     </Link>
   );
-}
+});
 
 interface StatBandProps {
   ariaLabel: string;

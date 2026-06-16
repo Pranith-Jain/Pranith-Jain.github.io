@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import { memo, type ReactNode } from 'react';
 import type { LucideIcon } from 'lucide-react';
 
 /**
@@ -110,7 +110,19 @@ function Skeleton(): JSX.Element {
   );
 }
 
-export function SnapshotCard({
+/**
+ * The card itself is memoised because:
+ *  - the parent LiveSnapshotPanel/IocSnapshotPanel re-renders on every
+ *    `lastVisit` prop change (e.g. when the new-since-last-visit
+ *    pill flips from 0 to N), and
+ *  - each card's body is expensive (a list of 3-4 items with
+ *    watchlist filtering, sanitized links, etc.).
+ *
+ * Card props are mostly primitives + a `children` node; `memo`
+ * short-circuits the re-render when nothing in this card's slice
+ * of state changed.
+ */
+export const SnapshotCard = memo(function SnapshotCard({
   accent,
   icon: Icon,
   title,
@@ -145,4 +157,4 @@ export function SnapshotCard({
       {!loading && !error && children}
     </div>
   );
-}
+});
