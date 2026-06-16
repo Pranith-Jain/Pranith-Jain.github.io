@@ -19,63 +19,30 @@ interface IocResult {
   sources: SourceVerdict[];
 }
 
-const MOCK_RESULTS: IocResult[] = [
-  {
-    ioc: '185.234.72.10',
-    type: 'IP',
-    verdict: 'malicious',
-    consensus: 80,
-    sources: [
-      { source: 'VT', verdict: 'malicious', score: 85, detail: '4 engines detected' },
-      { source: 'AbuseIPDB', verdict: 'malicious', score: 92, detail: '15 reports, ISP: M247' },
-      { source: 'OTX', verdict: 'malicious', score: 78, detail: '3 pulses, Mirai tag' },
-      { source: 'URLScan', verdict: 'suspicious', score: 55, detail: 'Recent scan, 3 redirects' },
-      { source: 'ThreatFox', verdict: 'malicious', score: 90, detail: 'C2: QakBot' },
-      { source: 'URLhaus', verdict: 'malicious', score: 88, detail: 'Payload delivery' },
-      { source: 'MalwareBazaar', verdict: 'unknown', score: 0, detail: 'No sample found' },
-      { source: 'HybridAnalysis', verdict: 'suspicious', score: 60, detail: 'Contacted by malware' },
-      { source: 'FileScan.io', verdict: 'unknown', score: 0, detail: 'No report' },
-      { source: 'Shodan', verdict: 'suspicious', score: 45, detail: 'Port 22, 80, 443 open' },
-    ],
-  },
-  {
-    ioc: 'malware.example.com',
-    type: 'Domain',
-    verdict: 'malicious',
-    consensus: 70,
-    sources: [
-      { source: 'VT', verdict: 'malicious', score: 75, detail: '3 engines detected' },
-      { source: 'OTX', verdict: 'suspicious', score: 60, detail: '1 pulse' },
-      { source: 'URLScan', verdict: 'malicious', score: 82, detail: 'Phishing kit detected' },
-      { source: 'ThreatFox', verdict: 'malicious', score: 85, detail: 'C2 domain' },
-      { source: 'URLhaus', verdict: 'suspicious', score: 50, detail: 'Listed' },
-      { source: 'Shodan', verdict: 'unknown', score: 0, detail: 'No data' },
-    ],
-  },
-  {
-    ioc: '8.8.8.8',
-    type: 'IP',
-    verdict: 'benign',
-    consensus: 95,
-    sources: [
-      { source: 'VT', verdict: 'benign', score: 5, detail: 'Clean' },
-      { source: 'AbuseIPDB', verdict: 'benign', score: 0, detail: 'No reports' },
-      { source: 'OTX', verdict: 'benign', score: 0, detail: 'No pulses' },
-      { source: 'Shodan', verdict: 'benign', score: 10, detail: 'Google DNS' },
-    ],
-  },
-  {
-    ioc: 'd41d8cd98f00b204e9800998ecf8427e',
-    type: 'Hash',
-    verdict: 'benign',
-    consensus: 90,
-    sources: [
-      { source: 'VT', verdict: 'benign', score: 0, detail: 'No matches' },
-      { source: 'MalwareBazaar', verdict: 'benign', score: 0, detail: 'Not listed' },
-      { source: 'HybridAnalysis', verdict: 'unknown', score: 0, detail: 'No report' },
-    ],
-  },
-];
+interface ExplainEvidence {
+  source: string;
+  finding: string;
+  score: number;
+}
+
+interface ExplainResponse {
+  indicator: string;
+  type: string;
+  verdict: 'malicious' | 'suspicious' | 'clean' | 'unknown';
+  score: number;
+  confidence: 'low' | 'medium' | 'high';
+  explanation: string;
+  top_evidence: ExplainEvidence[];
+  contributed_providers: number;
+  generated_at: string;
+}
+
+const VERDICT_MAP: Record<string, Verdict> = {
+  malicious: 'malicious',
+  suspicious: 'suspicious',
+  clean: 'benign',
+  unknown: 'unknown',
+};
 
 function detectIocType(value: string): string {
   const v = value.trim();
@@ -117,10 +84,60 @@ export default function XVeridikt(): JSX.Element {
   const runAnalysis = useCallback(async () => {
     setLoading(true);
     setError(null);
-    const inputs = mode === 'single' ? [iocInput] : bulkInput.split('\n').filter(Boolean);
-    await new Promise((r) => setTimeout(r, 1500));
-    setResults(MOCK_RESULTS.filter((r) => inputs.some((i) => r.ioc.includes(i)) || inputs.length === 0));
-    setLoading(false);
+    setResults([]);
+
+    const inputs =
+      mode === 'single'
+        ? [iocInput.trim()]
+        : bulkInput
+            .split('\n')
+            .map((s) => s.trim())
+            .filter(Boolean);
+    if (inputs.length === 0) {
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const outcomes = await Promise.all(
+        inputs.map(async (indicator) => {
+          const res = await fetch('/api/v1/ioc/explain', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ indicator }),
+          });
+          if (!res.ok) {
+            const body = await res.text().catch(() => '');
+            let msg = `HTTP ${res.status}`;
+            try {
+              const p = JSON.parse(body) as { message?: string; error?: string };
+              msg = p.message ?? p.error ?? msg;
+            } catch {
+              /* */
+            }
+            throw new Error(`${indicator}: ${msg}`);
+          }
+          const data = (await res.json()) as ExplainResponse;
+          return {
+            ioc: data.indicator,
+            type: data.type.charAt(0).toUpperCase() + data.type.slice(1),
+            verdict: VERDICT_MAP[data.verdict] ?? 'unknown',
+            consensus: data.score,
+            sources: data.top_evidence.map((e) => ({
+              source: e.source,
+              verdict: VERDICT_MAP[data.verdict] ?? 'unknown',
+              score: e.score,
+              detail: e.finding,
+            })),
+          } as IocResult;
+        })
+      );
+      setResults(outcomes);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : String(err));
+    } finally {
+      setLoading(false);
+    }
   }, [iocInput, bulkInput, mode]);
 
   const iocType = useMemo(() => detectIocType(iocInput), [iocInput]);
@@ -157,7 +174,7 @@ export default function XVeridikt(): JSX.Element {
         <div className="rounded-xl border border-rose-300/70 dark:border-rose-800/60 bg-rose-50/60 dark:bg-rose-950/30 p-4 flex items-start gap-3 mb-6">
           <AlertTriangle size={16} className="text-rose-600 dark:text-rose-400 flex-shrink-0 mt-0.5" />
           <div>
-            <p className="text-sm font-semibold text-rose-700 dark:text-rose-300">Analysis failed</p>
+            <p className="text-sm font-semibold text-rose-700 dark:text-rose-300">Verdict failed</p>
             <p className="text-xs text-rose-600 dark:text-rose-400 mt-1 font-mono break-all">{error}</p>
           </div>
         </div>
@@ -210,7 +227,7 @@ export default function XVeridikt(): JSX.Element {
                   className="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 p-3 text-sm text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/40 font-mono"
                 />
                 <p className="text-micro font-mono text-slate-400">
-                  Auto-detects IPv4, IPv6, Domains, URLs, MD5/SHA1/SHA256/SHA512
+                  Auto-detects IPv4, Domains, URLs, MD5/SHA1/SHA256/SHA512
                 </p>
               </div>
             ) : (
@@ -246,6 +263,7 @@ export default function XVeridikt(): JSX.Element {
                   setResults([]);
                   setIocInput('');
                   setBulkInput('');
+                  setError(null);
                 }}
                 className="flex items-center gap-2 px-4 py-2.5 bg-white dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 rounded-xl text-sm font-medium hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors"
               >
@@ -292,19 +310,18 @@ export default function XVeridikt(): JSX.Element {
           {loading && (
             <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-8 flex flex-col items-center gap-3">
               <Loader2 size={32} className="animate-spin text-brand-600" />
-              <p className="text-sm font-mono text-slate-500">Querying 10 sources in parallel…</p>
+              <p className="text-sm font-mono text-slate-500">Querying threat-intel sources in parallel…</p>
             </div>
           )}
 
-          {!loading && results.length === 0 && (
+          {!loading && results.length === 0 && !error && (
             <div className="rounded-xl border-2 border-dashed border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/20 p-8 flex flex-col items-center justify-center text-center">
               <Shield size={48} className="text-slate-300 dark:text-slate-700 mb-4" />
               <p className="text-sm font-mono text-slate-500 dark:text-slate-400">
                 Enter an IOC above to get multi-source verdict
               </p>
               <p className="text-micro font-mono text-slate-400 dark:text-slate-500 mt-2">
-                VT · AbuseIPDB · OTX · URLScan · ThreatFox · URLhaus · MalwareBazaar · HybridAnalysis · FileScan.io ·
-                Shodan
+                Multi-provider enrichment · AI-powered analysis
               </p>
             </div>
           )}
@@ -349,24 +366,26 @@ export default function XVeridikt(): JSX.Element {
                       </div>
                     </div>
 
-                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-                      {result.sources.map((src) => {
-                        const SIcon = VERDICT_ICONS[src.verdict];
-                        return (
-                          <div
-                            key={src.source}
-                            className={`rounded-lg border px-2.5 py-2 ${VERDICT_STYLES[src.verdict]}`}
-                          >
-                            <div className="text-micro font-mono font-semibold">{src.source}</div>
-                            <div className="flex items-center gap-1 mt-0.5">
-                              <SIcon size={10} />
-                              <span className="text-micro font-mono">{src.verdict}</span>
-                              <span className="text-micro font-mono ml-auto">{src.score}</span>
+                    {result.sources.length > 0 && (
+                      <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                        {result.sources.map((src) => {
+                          const SIcon = VERDICT_ICONS[src.verdict];
+                          return (
+                            <div
+                              key={src.source}
+                              className={`rounded-lg border px-2.5 py-2 ${VERDICT_STYLES[src.verdict]}`}
+                            >
+                              <div className="text-micro font-mono font-semibold">{src.source}</div>
+                              <div className="flex items-center gap-1 mt-0.5">
+                                <SIcon size={10} />
+                                <span className="text-micro font-mono">{src.verdict}</span>
+                                <span className="text-micro font-mono ml-auto">{src.score}</span>
+                              </div>
                             </div>
-                          </div>
-                        );
-                      })}
-                    </div>
+                          );
+                        })}
+                      </div>
+                    )}
                   </div>
                 );
               })}
@@ -375,9 +394,7 @@ export default function XVeridikt(): JSX.Element {
         </div>
       </div>
 
-      <p className="mt-8 text-micro font-mono text-slate-400 text-center">
-        Parallel engine · 10 sources · H3AD-X / X-VERDIKT
-      </p>
+      <p className="mt-8 text-micro font-mono text-slate-400 text-center">Multi-provider engine · H3AD-X / X-VERDIKT</p>
     </div>
   );
 }

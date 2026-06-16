@@ -1,119 +1,151 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, Globe, Search, ShieldCheck, Loader2 } from 'lucide-react';
+import { ArrowLeft, Globe, Search, ShieldCheck, Loader2, AlertTriangle } from 'lucide-react';
 
 interface DnsSection {
   id: string;
   label: string;
-  status: 'done' | 'loading' | 'pending';
   data: string[];
 }
 
-function generateMockSections(domain: string): DnsSection[] {
-  return [
-    {
-      id: 'whois',
-      label: 'WHOIS · RDAP',
-      status: 'done',
-      data: [
-        `Registrar: Namecheap`,
-        `Created: 2020-03-15`,
-        `Expires: 2027-03-15`,
-        `Name servers: dns1.example.com, dns2.example.com`,
-      ],
-    },
-    {
-      id: 'dns',
-      label: 'Live DNS Records',
-      status: 'done',
-      data: [`A → 192.0.2.10`, `MX → mail.${domain} (priority 10)`, `TXT → v=spf1 include:_spf.google.com ~all`],
-    },
-    {
-      id: 'email',
-      label: 'Email Infrastructure',
-      status: 'done',
-      data: [`SPF: Pass`, `DKIM: selector1._domainkey.${domain}`, `DMARC: p=reject`, `BIMI: Not configured`],
-    },
-    {
-      id: 'asn',
-      label: 'ASN · Network',
-      status: 'done',
-      data: [`AS15169 (Google LLC)`, `Prefix: 192.0.2.0/24`, `Country: US`],
-    },
-    {
-      id: 'passive',
-      label: 'Passive DNS',
-      status: 'done',
-      data: [`mail.${domain} → 192.0.2.10 (2024-01-01)`, `www.${domain} → 192.0.2.20 (2024-06-15)`],
-    },
-    {
-      id: 'certs',
-      label: 'Certificates · CT Logs',
-      status: 'done',
-      data: [`3 certificates found`, `Issuer: Let's Encrypt`, `SANs: ${domain}, www.${domain}`],
-    },
-    {
-      id: 'subs',
-      label: 'Subdomains',
-      status: 'done',
-      data: [`www.${domain}`, `mail.${domain}`, `api.${domain}`, `cdn.${domain}`],
-    },
-    {
-      id: 'lookalike',
-      label: 'Lookalike · Permutations',
-      status: 'done',
-      data: [`${domain.replace(/\./g, '')}-secure.com`, `${domain.replace(/\./g, '')}-login.com`],
-    },
-    {
-      id: 'cohosted',
-      label: 'Co-Hosted Infrastructure',
-      status: 'done',
-      data: [`other-site.com (192.0.2.10)`, `another-site.org (192.0.2.10)`],
-    },
-    {
-      id: 'ports',
-      label: 'Ports · Services',
-      status: 'done',
-      data: [`22/tcp (SSH)`, `80/tcp (HTTP)`, `443/tcp (HTTPS)`],
-    },
-    {
-      id: 'fingerprints',
-      label: 'Fingerprints · JARM · Favicon',
-      status: 'done',
-      data: [`JARM: 29d21d...`, `Favicon hash: e4a5b64e...`, `TLS: TLS 1.3`],
-    },
-    {
-      id: 'cloud',
-      label: 'Cloud · Hosting Provider',
-      status: 'done',
-      data: [`Google Cloud Platform (GCP)`, `Region: us-central1`],
-    },
-    { id: 'cdn', label: 'CDN · WAF Detection', status: 'done', data: [`Cloudflare detected`, `WAF: Enabled`] },
-    {
-      id: 'urlscan',
-      label: 'URLScan · Screenshot',
-      status: 'done',
-      data: [`Last scan: 2026-06-15`, `Screenshot available`, `Categories: hosting, business`],
-    },
-  ];
+interface DomainLookupResponse {
+  domain: string;
+  score: number;
+  verdict: string;
+  rdap: {
+    registrar?: string;
+    registrar_abuse_email?: string;
+    created?: string;
+    expires?: string;
+    nameservers: string[];
+    status: string[];
+    error?: string;
+  };
+  dns: Record<string, { records: string[]; error?: string }>;
+  email_auth: {
+    spf: { present: boolean; policy?: string; record?: string };
+    dmarc: { present: boolean; policy?: string; record?: string };
+    dkim: { selectors_found: string[] };
+    bimi: { present: boolean; logo?: string };
+    mta_sts: { present: boolean; mode?: string };
+    tls_rpt: { present: boolean; rua?: string };
+  };
+  certificates: Array<{ id: number; issuer: string; not_before: string; not_after: string; subjects: string[] }>;
+  threat_intel: {
+    verdict: string;
+    hits: number;
+    sources: Array<{ source: string; status: string; verdict: string; tags: string[] }>;
+  };
 }
 
 export default function Dnscope(): JSX.Element {
   const [domain, setDomain] = useState('');
   const [scanning, setScanning] = useState(false);
   const [sections, setSections] = useState<DnsSection[]>([]);
+  const [error, setError] = useState<string | null>(null);
 
-  const runScan = async () => {
-    if (!domain.trim()) return;
+  const runScan = useCallback(async () => {
+    const d = domain.trim();
+    if (!d) return;
     setScanning(true);
-    const mock = generateMockSections(domain.trim());
-    setSections(mock.map((s) => ({ ...s, status: 'loading' as const })));
-    for (let i = 0; i < mock.length; i++) {
-      await new Promise((r) => setTimeout(r, 200));
-      setSections((prev) => prev.map((s, j) => (j === i ? { ...s, status: 'done' as const } : s)));
+    setError(null);
+    setSections([]);
+
+    try {
+      const res = await fetch(`/api/v1/domain/lookup?domain=${encodeURIComponent(d)}`);
+      if (!res.ok) {
+        const body = await res.text().catch(() => '');
+        let msg = `HTTP ${res.status}`;
+        try {
+          const p = JSON.parse(body) as { message?: string; error?: string };
+          msg = p.message ?? p.error ?? msg;
+        } catch {
+          /* */
+        }
+        throw new Error(msg);
+      }
+
+      const data = (await res.json()) as DomainLookupResponse;
+      const built: DnsSection[] = [];
+
+      if (data.rdap && !data.rdap.error) {
+        const lines: string[] = [];
+        if (data.rdap.registrar) lines.push(`Registrar: ${data.rdap.registrar}`);
+        if (data.rdap.created) lines.push(`Created: ${data.rdap.created}`);
+        if (data.rdap.expires) lines.push(`Expires: ${data.rdap.expires}`);
+        if (data.rdap.nameservers?.length) lines.push(`Name servers: ${data.rdap.nameservers.join(', ')}`);
+        if (lines.length) built.push({ id: 'whois', label: 'WHOIS · RDAP', data: lines });
+      }
+
+      if (data.dns) {
+        const lines: string[] = [];
+        for (const [type, result] of Object.entries(data.dns)) {
+          if (result.records?.length) {
+            lines.push(`${type} → ${result.records.join(', ')}`);
+          }
+        }
+        if (lines.length) built.push({ id: 'dns', label: 'Live DNS Records', data: lines });
+      }
+
+      if (data.email_auth) {
+        const lines: string[] = [];
+        const { spf, dmarc, dkim, bimi, mta_sts } = data.email_auth;
+        if (spf.present) lines.push(`SPF: ${spf.policy ?? 'present'}${spf.record ? ` — ${spf.record}` : ''}`);
+        if (dmarc.present) lines.push(`DMARC: ${dmarc.policy ?? 'present'}${dmarc.record ? ` — ${dmarc.record}` : ''}`);
+        if (dkim.selectors_found?.length) lines.push(`DKIM: ${dkim.selectors_found.length} selector(s) found`);
+        if (bimi.present) lines.push(`BIMI: logo configured`);
+        if (mta_sts.present) lines.push(`MTA-STS: ${mta_sts.mode ?? 'enabled'}`);
+        if (lines.length) built.push({ id: 'email', label: 'Email Infrastructure', data: lines });
+      }
+
+      if (data.certificates?.length) {
+        const lines = data.certificates.slice(0, 5).map((c) => {
+          const san = c.subjects
+            ?.filter((s) => s !== data.domain)
+            .slice(0, 2)
+            .join(', ');
+          return `${c.issuer?.slice(0, 40)}… — ${c.not_before?.slice(0, 10)}${san ? ` SAN: ${san}` : ''}`;
+        });
+        lines.unshift(`${data.certificates.length} certificate(s) found`);
+        built.push({ id: 'certs', label: 'Certificates · CT Logs', data: lines });
+      }
+
+      if (data.threat_intel) {
+        const lines: string[] = [];
+        lines.push(`Verdict: ${data.threat_intel.verdict}`);
+        lines.push(`Hits: ${data.threat_intel.hits}`);
+        if (data.threat_intel.sources?.length) {
+          const active = data.threat_intel.sources.filter((s) => s.status === 'ok');
+          lines.push(`Responding sources: ${active.length}/${data.threat_intel.sources.length}`);
+        }
+        built.push({ id: 'threat', label: 'Threat Intelligence', data: lines });
+      }
+
+      built.push(
+        {
+          id: 'subs',
+          label: 'Subdomains (coming soon)',
+          data: ['Subdomain enumeration via external API — not yet wired'],
+        },
+        {
+          id: 'lookalike',
+          label: 'Lookalike · Permutations (coming soon)',
+          data: ['Permutation analysis — not yet wired'],
+        },
+        {
+          id: 'ports',
+          label: 'Ports · Services (coming soon)',
+          data: ['Port scan via Shodan/InternetDB — not yet wired'],
+        }
+      );
+
+      setSections(built);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : String(err));
+    } finally {
+      setScanning(false);
     }
-    setScanning(false);
-  };
+  }, [domain]);
 
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
@@ -129,10 +161,20 @@ export default function Dnscope(): JSX.Element {
           <Globe size={28} className="text-brand-600 dark:text-brand-400" /> DNSCOPE
         </h1>
         <p className="text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed">
-          Deep domain infrastructure mapping across 14 data dimensions. WHOIS, DNS records, certificates, subdomains,
-          lookalikes, ports, CDN detection, and threat intel — all in one scan.
+          Deep domain infrastructure mapping via live DNS, RDAP, certificate transparency, email auth, and threat
+          intelligence — all in one scan.
         </p>
       </div>
+
+      {error && (
+        <div className="rounded-xl border border-rose-300/70 dark:border-rose-800/60 bg-rose-50/60 dark:bg-rose-950/30 p-4 flex items-start gap-3 mb-6">
+          <AlertTriangle size={16} className="text-rose-600 dark:text-rose-400 flex-shrink-0 mt-0.5" />
+          <div>
+            <p className="text-sm font-semibold text-rose-700 dark:text-rose-300">Scan failed</p>
+            <p className="text-xs text-rose-600 dark:text-rose-400 mt-1 font-mono break-all">{error}</p>
+          </div>
+        </div>
+      )}
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div className="space-y-4">
@@ -163,6 +205,7 @@ export default function Dnscope(): JSX.Element {
                 onClick={() => {
                   setDomain('');
                   setSections([]);
+                  setError(null);
                 }}
                 className="flex items-center gap-2 px-4 py-2.5 bg-white dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 text-sm font-medium rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors"
               >
@@ -170,67 +213,48 @@ export default function Dnscope(): JSX.Element {
               </button>
             </div>
           </div>
-
-          {sections.length > 0 && (
-            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-4">
-              <div className="flex items-center gap-2 mb-2">
-                <span className="text-micro font-mono uppercase tracking-wider text-slate-400">Export</span>
-              </div>
-              <button
-                type="button"
-                className="flex items-center gap-2 px-3 py-1.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg text-xs font-mono text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/60"
-              >
-                CSV
-              </button>
-            </div>
-          )}
         </div>
 
         <div>
-          {sections.length === 0 && !scanning && (
+          {scanning && (
+            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-8 flex flex-col items-center gap-3">
+              <Loader2 size={32} className="animate-spin text-brand-600" />
+              <p className="text-sm font-mono text-slate-500">Querying DNS, RDAP, certificates, and threat intel…</p>
+            </div>
+          )}
+
+          {!scanning && sections.length === 0 && !error && (
             <div className="rounded-xl border-2 border-dashed border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/20 p-8 flex flex-col items-center justify-center text-center">
               <Globe size={48} className="text-slate-300 dark:text-slate-700 mb-4" />
               <p className="text-sm font-mono text-slate-500 dark:text-slate-400">
                 Enter a domain above to map its infrastructure
               </p>
               <p className="text-micro font-mono text-slate-400 dark:text-slate-500 mt-2">
-                VT · OTX · Shodan · Censys · crt.sh · BGPView · Robtex · ipinfo · URLScan · ThreatFox · RDAP
+                DNS · RDAP · CT logs · Email auth · Threat intel
               </p>
             </div>
           )}
 
-          {sections.length > 0 && (
+          {!scanning && sections.length > 0 && (
             <div className="space-y-2">
               {sections.map((section) => (
                 <div
                   key={section.id}
-                  className={`rounded-xl border bg-white dark:bg-slate-900/40 shadow-e1 p-4 transition-all ${
-                    section.status === 'loading'
-                      ? 'border-brand-400/50 opacity-70'
-                      : 'border-slate-200 dark:border-slate-800'
-                  }`}
+                  className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-4"
                 >
                   <div className="flex items-center justify-between mb-2">
                     <h3 className="font-mono text-xs font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
                       {section.label}
                     </h3>
-                    {section.status === 'loading' && <Loader2 size={12} className="animate-spin text-brand-600" />}
-                    {section.status === 'done' && <ShieldCheck size={12} className="text-green-500" />}
+                    <ShieldCheck size={12} className="text-green-500" />
                   </div>
-                  {section.status === 'done' && (
-                    <ul className="space-y-0.5">
-                      {section.data.map((line, i) => (
-                        <li key={i} className="text-xs font-mono text-slate-600 dark:text-slate-400">
-                          {line}
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                  {section.status === 'loading' && (
-                    <div className="flex items-center gap-2">
-                      <div className="h-3 w-full max-w-[200px] rounded bg-slate-100 dark:bg-slate-800 animate-pulse" />
-                    </div>
-                  )}
+                  <ul className="space-y-0.5">
+                    {section.data.map((line, i) => (
+                      <li key={i} className="text-xs font-mono text-slate-600 dark:text-slate-400">
+                        {line}
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               ))}
             </div>
@@ -238,7 +262,9 @@ export default function Dnscope(): JSX.Element {
         </div>
       </div>
 
-      <p className="mt-8 text-micro font-mono text-slate-400 text-center">14 data dimensions · H3AD-X / DNSCOPE</p>
+      <p className="mt-8 text-micro font-mono text-slate-400 text-center">
+        H3AD-X / DNSCOPE — Live multi-source domain scan
+      </p>
     </div>
   );
 }

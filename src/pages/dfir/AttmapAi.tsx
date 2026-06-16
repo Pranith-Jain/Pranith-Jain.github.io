@@ -56,55 +56,364 @@ const TACTIC_COLORS: Record<string, string> = {
 
 const INPUT_TYPES = ['Article / Report', 'Logs', 'Alert Details', 'Behavior Description'] as const;
 
-const MOCK_MAPPINGS: Technique[] = [
+interface TechniqueRule {
+  id: string;
+  name: string;
+  tactic: string;
+  keywords: string[];
+  confidence: 'high' | 'medium' | 'low';
+}
+
+const TECHNIQUE_RULES: TechniqueRule[] = [
+  // Initial Access
   {
     id: 'T1566.001',
     name: 'Spearphishing Attachment',
     tactic: 'Initial Access',
+    keywords: ['phishing', 'email', 'attachment', 'macro', 'document', 'word', 'excel', 'pdf'],
     confidence: 'high',
-    evidence: 'Email with malicious attachment delivered to target',
   },
+  {
+    id: 'T1566.002',
+    name: 'Spearphishing Link',
+    tactic: 'Initial Access',
+    keywords: ['phishing link', 'url', 'click', 'redirect', 'credential harvesting'],
+    confidence: 'high',
+  },
+  {
+    id: 'T1190',
+    name: 'Exploit Public-Facing Application',
+    tactic: 'Initial Access',
+    keywords: ['exploit', 'vulnerability', 'cve', 'web app', 'rce', 'sqli', 'injection', 'xxe', 'ssrf'],
+    confidence: 'high',
+  },
+  {
+    id: 'T1133',
+    name: 'External Remote Services',
+    tactic: 'Initial Access',
+    keywords: ['vpn', 'rdp', 'ssh', 'remote', 'brute force', 'credential stuffing'],
+    confidence: 'medium',
+  },
+  {
+    id: 'T1078',
+    name: 'Valid Accounts',
+    tactic: 'Initial Access',
+    keywords: ['compromised account', 'stolen credentials', 'password spray', 'default password'],
+    confidence: 'medium',
+  },
+
+  // Execution
   {
     id: 'T1204.002',
     name: 'User Execution: Malicious File',
     tactic: 'Execution',
+    keywords: ['user opened', 'executed', 'ran', 'double-click', 'user action'],
     confidence: 'high',
-    evidence: 'User opened the attachment, executing the payload',
   },
   {
     id: 'T1059.001',
-    name: 'Command and Scripting Interpreter: PowerShell',
+    name: 'PowerShell',
     tactic: 'Execution',
-    confidence: 'medium',
-    evidence: 'PowerShell process spawned from email client',
+    keywords: ['powershell', 'ps1', 'cmdlet', 'invoke-expression', 'iex', 'downloadstring'],
+    confidence: 'high',
   },
+  {
+    id: 'T1059.003',
+    name: 'Windows Command Shell',
+    tactic: 'Execution',
+    keywords: ['cmd.exe', 'command prompt', 'batch', 'bat file', 'cmd /c'],
+    confidence: 'high',
+  },
+  {
+    id: 'T1059.006',
+    name: 'Python',
+    tactic: 'Execution',
+    keywords: ['python', 'py script', 'pip', 'requests', 'socket'],
+    confidence: 'medium',
+  },
+  {
+    id: 'T1059.007',
+    name: 'JavaScript',
+    tactic: 'Execution',
+    keywords: ['javascript', 'js file', 'wscript', 'cscript', 'node.js'],
+    confidence: 'medium',
+  },
+  {
+    id: 'T1203',
+    name: 'Exploitation for Client Execution',
+    tactic: 'Execution',
+    keywords: ['exploit', 'buffer overflow', 'use-after-free', 'memory corruption'],
+    confidence: 'high',
+  },
+  {
+    id: 'T1047',
+    name: 'Windows Management Instrumentation',
+    tactic: 'Execution',
+    keywords: ['wmi', 'wmic', 'win32', 'powershell wmi'],
+    confidence: 'high',
+  },
+
+  // Persistence
   {
     id: 'T1547.001',
-    name: 'Registry Run Keys / Startup Folder',
+    name: 'Registry Run Keys',
     tactic: 'Persistence',
+    keywords: ['registry', 'run key', 'startup', 'hkcu', 'hklm', 'currentversion\\run'],
     confidence: 'high',
-    evidence: 'Registry key added under HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Run',
   },
   {
-    id: 'T1055.001',
-    name: 'Process Injection: DLL Injection',
-    tactic: 'Defense Evasion',
-    confidence: 'medium',
-    evidence: 'malware.dll injected into explorer.exe',
+    id: 'T1543.003',
+    name: 'Windows Service',
+    tactic: 'Persistence',
+    keywords: ['service', 'sc create', 'new-service', 'service install'],
+    confidence: 'high',
   },
+  {
+    id: 'T1053.005',
+    name: 'Scheduled Task',
+    tactic: 'Persistence',
+    keywords: ['scheduled task', 'cron', 'at.exe', 'schtasks', 'task scheduler'],
+    confidence: 'high',
+  },
+  {
+    id: 'T1546.003',
+    name: 'WMI Event Subscription',
+    tactic: 'Persistence',
+    keywords: ['wmi event', 'event subscription', 'permanent wmi'],
+    confidence: 'medium',
+  },
+  {
+    id: 'T1136.001',
+    name: 'Local Account',
+    tactic: 'Persistence',
+    keywords: ['new user', 'net user', 'add user', 'created account'],
+    confidence: 'medium',
+  },
+
+  // Privilege Escalation
+  {
+    id: 'T1068',
+    name: 'Exploitation for Privilege Escalation',
+    tactic: 'Privilege Escalation',
+    keywords: ['privilege escalation', 'kernel exploit', 'system root', 'admin', 'elevation'],
+    confidence: 'high',
+  },
+  {
+    id: 'T1055',
+    name: 'Process Injection',
+    tactic: 'Defense Evasion',
+    keywords: ['injection', 'dll injection', 'process hollowing', 'reflective loading', 'inject'],
+    confidence: 'high',
+  },
+  {
+    id: 'T1134',
+    name: 'Access Token Manipulation',
+    tactic: 'Defense Evasion',
+    keywords: ['token', 'impersonation', 'steal token', 'duplicate token'],
+    confidence: 'medium',
+  },
+
+  // Credential Access
+  {
+    id: 'T1003.001',
+    name: 'LSASS Memory',
+    tactic: 'Credential Access',
+    keywords: ['lsass', 'mimikatz', 'credential dump', 'sekurlsa', 'procdump'],
+    confidence: 'high',
+  },
+  {
+    id: 'T1003.002',
+    name: 'Security Account Manager',
+    tactic: 'Credential Access',
+    keywords: ['sam', 'security account manager', 'sam database'],
+    confidence: 'high',
+  },
+  {
+    id: 'T1110',
+    name: 'Brute Force',
+    tactic: 'Credential Access',
+    keywords: ['brute force', 'password spray', 'credential stuffing', 'login attempt'],
+    confidence: 'high',
+  },
+  {
+    id: 'T1558',
+    name: 'Steal or Forge Kerberos Tickets',
+    tactic: 'Credential Access',
+    keywords: ['kerberos', 'golden ticket', 'silver ticket', 'kerberoasting', 'as-rep'],
+    confidence: 'high',
+  },
+  {
+    id: 'T1555',
+    name: 'Credentials from Password Stores',
+    tactic: 'Credential Access',
+    keywords: ['password manager', 'keepass', 'browser credential', 'saved password'],
+    confidence: 'medium',
+  },
+
+  // Discovery
+  {
+    id: 'T1046',
+    name: 'Network Service Discovery',
+    tactic: 'Discovery',
+    keywords: ['port scan', 'nmap', 'service discovery', 'network scan'],
+    confidence: 'high',
+  },
+  {
+    id: 'T1082',
+    name: 'System Information Discovery',
+    tactic: 'Discovery',
+    keywords: ['system info', 'os version', 'hostname', 'systeminfo', 'whoami'],
+    confidence: 'medium',
+  },
+  {
+    id: 'T1083',
+    name: 'File and Directory Discovery',
+    tactic: 'Discovery',
+    keywords: ['dir listing', 'file enumeration', 'directory traversal', 'ls', 'dir'],
+    confidence: 'medium',
+  },
+
+  // Lateral Movement
+  {
+    id: 'T1021.002',
+    name: 'SMB/Windows Admin Shares',
+    tactic: 'Lateral Movement',
+    keywords: ['smb', 'psexec', 'wmic', 'admin share', 'c$', 'ipc$'],
+    confidence: 'high',
+  },
+  {
+    id: 'T1021.001',
+    name: 'Remote Desktop Protocol',
+    tactic: 'Lateral Movement',
+    keywords: ['rdp', 'remote desktop', 'mstsc', 'terminal server'],
+    confidence: 'high',
+  },
+  {
+    id: 'T1021.006',
+    name: 'Windows Remote Management',
+    tactic: 'Lateral Movement',
+    keywords: ['winrm', 'remoting', 'powershell remoting', 'enter-pssession'],
+    confidence: 'high',
+  },
+
+  // Collection
+  {
+    id: 'T1005',
+    name: 'Data from Local System',
+    tactic: 'Collection',
+    keywords: ['local file', 'collected', 'gathered', 'harvested', 'sensitive file'],
+    confidence: 'medium',
+  },
+  {
+    id: 'T1039',
+    name: 'Data from Network Shared Drive',
+    tactic: 'Collection',
+    keywords: ['network share', 'unc path', 'mapped drive', 'smb share'],
+    confidence: 'medium',
+  },
+  {
+    id: 'T1113',
+    name: 'Screen Capture',
+    tactic: 'Collection',
+    keywords: ['screenshot', 'screen capture', 'screen recording'],
+    confidence: 'medium',
+  },
+  {
+    id: 'T1056.001',
+    name: 'Keylogging',
+    tactic: 'Collection',
+    keywords: ['keylog', 'keystroke', 'keyboard input', 'input capture'],
+    confidence: 'high',
+  },
+
+  // C2
   {
     id: 'T1071.001',
     name: 'Web Protocols',
     tactic: 'Command and Control',
+    keywords: ['http', 'https', 'beacon', 'c2', 'callback', 'reverse shell', 'port 443', 'port 80'],
     confidence: 'high',
-    evidence: 'Beaconing to C2 server on port 443 every 60s',
   },
+  {
+    id: 'T1071.004',
+    name: 'DNS',
+    tactic: 'Command and Control',
+    keywords: ['dns tunnel', 'dns query', 'dns beacon', 'dga', 'domain generation'],
+    confidence: 'high',
+  },
+  {
+    id: 'T1573',
+    name: 'Encrypted Channel',
+    tactic: 'Command and Control',
+    keywords: ['encrypted', 'tls', 'ssl', 'certificate', 'channel encryption'],
+    confidence: 'medium',
+  },
+  {
+    id: 'T1095',
+    name: 'Non-Application Layer Protocol',
+    tactic: 'Command and Control',
+    keywords: ['raw tcp', 'icmp tunnel', 'custom protocol', 'non-standard port'],
+    confidence: 'medium',
+  },
+  {
+    id: 'T1105',
+    name: 'Ingress Tool Transfer',
+    tactic: 'Command and Control',
+    keywords: ['download', 'tool transfer', 'payload delivery', 'remote file'],
+    confidence: 'medium',
+  },
+
+  // Exfiltration
   {
     id: 'T1041',
     name: 'Exfiltration Over C2 Channel',
     tactic: 'Exfiltration',
+    keywords: ['exfiltrated', 'data theft', 'stole data', 'exfil', 'data out'],
+    confidence: 'high',
+  },
+  {
+    id: 'T1048',
+    name: 'Exfiltration Over Alternative Protocol',
+    tactic: 'Exfiltration',
+    keywords: ['exfil dns', 'exfil icmp', 'alternative protocol', 'dns exfil'],
     confidence: 'medium',
-    evidence: 'Data compressed and exfiltrated via the same C2 channel',
+  },
+  {
+    id: 'T1567',
+    name: 'Exfiltration Over Web Service',
+    tactic: 'Exfiltration',
+    keywords: ['uploaded', 'cloud storage', 'pastebin', 'google drive', 'mega'],
+    confidence: 'medium',
+  },
+
+  // Impact
+  {
+    id: 'T1486',
+    name: 'Data Encrypted for Impact',
+    tactic: 'Impact',
+    keywords: ['ransomware', 'encrypted', 'ransom', 'decrypt', 'bitcoin', 'extortion'],
+    confidence: 'high',
+  },
+  {
+    id: 'T1489',
+    name: 'Service Stop',
+    tactic: 'Impact',
+    keywords: ['service stop', 'stopped service', 'disabled service', 'service disruption'],
+    confidence: 'high',
+  },
+  {
+    id: 'T1485',
+    name: 'Data Destruction',
+    tactic: 'Impact',
+    keywords: ['deleted', 'wiped', 'destroyed', 'overwritten', 'shredded'],
+    confidence: 'high',
+  },
+  {
+    id: 'T1490',
+    name: 'Inhibit System Recovery',
+    tactic: 'Impact',
+    keywords: ['shadow copy', 'vss delete', 'backup delete', 'recovery prevention'],
+    confidence: 'high',
   },
 ];
 
@@ -113,6 +422,34 @@ const CONFIDENCE_STYLES: Record<string, string> = {
   medium: 'bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300',
   low: 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400',
 };
+
+function mapToTechniques(text: string, context: string): Technique[] {
+  const combined = `${text} ${context}`.toLowerCase();
+  const matched: Technique[] = [];
+  const seen = new Set<string>();
+
+  for (const rule of TECHNIQUE_RULES) {
+    const matchCount = rule.keywords.filter((kw) => combined.includes(kw)).length;
+    if (matchCount > 0 && !seen.has(rule.id)) {
+      seen.add(rule.id);
+      const matchedKeywords = rule.keywords.filter((kw) => combined.includes(kw));
+      matched.push({
+        id: rule.id,
+        name: rule.name,
+        tactic: rule.tactic,
+        confidence: matchCount >= 2 ? rule.confidence : rule.confidence === 'high' ? 'medium' : 'low',
+        evidence: `Matched: ${matchedKeywords.slice(0, 3).join(', ')}`,
+      });
+    }
+  }
+
+  matched.sort((a, b) => {
+    const order = { high: 0, medium: 1, low: 2 };
+    return order[a.confidence] - order[b.confidence];
+  });
+
+  return matched;
+}
 
 export default function AttmapAi(): JSX.Element {
   const [inputType, setInputType] = useState<string>(INPUT_TYPES[0]);
@@ -124,8 +461,10 @@ export default function AttmapAi(): JSX.Element {
   const runMapping = async () => {
     if (!input.trim()) return;
     setLoading(true);
-    await new Promise((r) => setTimeout(r, 2000));
-    setMappings(MOCK_MAPPINGS);
+    // Brief delay for UX
+    await new Promise((r) => setTimeout(r, 300));
+    const results = mapToTechniques(input, context);
+    setMappings(results);
     setLoading(false);
   };
 
@@ -148,7 +487,7 @@ export default function AttmapAi(): JSX.Element {
           <Target size={28} className="text-brand-600 dark:text-brand-400" /> ATTMAP-AI
         </h1>
         <p className="text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed">
-          Describe an adversary behavior, alert, log, or report — AI maps it to MITRE ATT&CK techniques with confidence
+          Describe an adversary behavior, alert, log, or report — maps to MITRE ATT&CK techniques with confidence
           scores, evidence, and tactic grouping.
         </p>
       </div>
@@ -200,7 +539,7 @@ export default function AttmapAi(): JSX.Element {
             </div>
 
             <p className="text-micro font-mono text-slate-400 mt-2">
-              Content is sent to Workers AI only — never stored by this tool.
+              Analysis runs entirely in your browser — no data is sent to any server.
             </p>
 
             <div className="flex gap-2 mt-4">
@@ -250,6 +589,9 @@ export default function AttmapAi(): JSX.Element {
 
           {!loading && mappings.length > 0 && (
             <div className="space-y-6">
+              <div className="text-xs font-mono text-slate-500">
+                {mappings.length} technique{mappings.length !== 1 ? 's' : ''} mapped
+              </div>
               {groupedByTactic.map(({ tactic, techniques }) => (
                 <div
                   key={tactic}
@@ -290,7 +632,7 @@ export default function AttmapAi(): JSX.Element {
       </div>
 
       <p className="mt-8 text-micro font-mono text-slate-400 text-center">
-        H3AD-AI / ATTMAP-AI — Behavior to ATT&CK. Mapped.
+        Client-side analysis · no data leaves your browser · H3AD-AI / ATTMAP-AI
       </p>
     </div>
   );

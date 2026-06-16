@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { Sparkles, RefreshCw, Loader2 } from 'lucide-react';
 import { adminAuthHeaders, readAdminToken } from '../../lib/admin-token';
 
@@ -64,8 +64,20 @@ export function AiSummaryCard({
   // same-origin endpoint, where the card renders for everyone.
   const allowed = requireAdmin ? readAdminToken() !== null : true;
 
+  // Inflight request — cancelled on unmount + before a new fetch, so a
+  // fast double-click on "Generate" or a hot-reload doesn't leave a
+  // pending POST in flight that could race a later one. Also bounds the
+  // request with a 20s timeout so a stuck AI worker can't pin the card
+  // on a spinner forever.
+  const inflightRef = useRef<AbortController | null>(null);
+
   const fetchSummary = useCallback(async () => {
     if (items.length === 0) return;
+    // Cancel any in-flight request before kicking off a new one.
+    if (inflightRef.current) inflightRef.current.abort();
+    const ctrl = new AbortController();
+    inflightRef.current = ctrl;
+    const timer = setTimeout(() => ctrl.abort(), 20_000);
     setLoading(true);
     setError(null);
     try {
@@ -82,6 +94,7 @@ export function AiSummaryCard({
           })),
           ...extraBody,
         }),
+        signal: ctrl.signal,
       });
       if (!res.ok) {
         if (res.status === 503) {
@@ -91,13 +104,28 @@ export function AiSummaryCard({
         throw new Error(`HTTP ${res.status}`);
       }
       const json = (await res.json()) as SummaryResponse;
+      if (ctrl.signal.aborted) return;
       setData(json);
     } catch (err) {
+      if (ctrl.signal.aborted) return;
+      if (err instanceof DOMException && err.name === 'AbortError') return;
       setError(err instanceof Error ? err.message : 'Failed to load summary.');
     } finally {
-      setLoading(false);
+      clearTimeout(timer);
+      if (inflightRef.current === ctrl) inflightRef.current = null;
+      if (!ctrl.signal.aborted) setLoading(false);
     }
   }, [surface, date, items, endpoint, requireAdmin, extraBody]);
+
+  // Abort any in-flight request on unmount so the POST is cancelled, not
+  // silently abandoned (saves a worker roundtrip + closes a leak where a
+  // late .then() could call setState on an unmounted component).
+  useEffect(() => {
+    return () => {
+      inflightRef.current?.abort();
+      inflightRef.current = null;
+    };
+  }, []);
 
   // Auto-fetch on mount when enabled + allowed + items are present. Opt-in
   // surfaces (autoFetch=false, e.g. the omnibox) fetch only on the button.
