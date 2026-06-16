@@ -1,4 +1,5 @@
-import { lazy, useState } from 'react';
+import { lazy } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { HubShell } from '../../components/HubShell';
 const ActorDirectory = lazy(() => import('./ActorDirectory'));
 const ActorTimeline = lazy(() => import('./ActorTimeline'));
@@ -13,10 +14,19 @@ const TABS: Array<{ id: TabId; label: string; desc: string }> = [
   { id: 'usernames', label: 'Usernames', desc: 'Search forum handles across 2M+ records' },
   { id: 'attribution', label: 'Attribution', desc: 'Attribution framework and analysis' },
 ];
+const DEFAULT_TAB: TabId = 'directory';
 export default function ActorHub(): JSX.Element {
-  const [activeTab, setActiveTab] = useState<TabId>('directory');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const tab = searchParams.get('tab');
+  const activeTab = tab && TABS.some((t) => t.id === tab) ? (tab as TabId) : DEFAULT_TAB;
   return (
-    <HubShell tabs={TABS} active={activeTab} onSelect={setActiveTab} ariaLabel="Actor tools" tone="rose">
+    <HubShell
+      tabs={TABS}
+      active={activeTab}
+      onSelect={(id) => setSearchParams({ tab: id }, { replace: true })}
+      ariaLabel="Actor tools"
+      tone="rose"
+    >
       {activeTab === 'directory' && <ActorDirectory />}
       {activeTab === 'timeline' && <ActorTimeline />}
       {activeTab === 'dna' && <ActorDNA />}

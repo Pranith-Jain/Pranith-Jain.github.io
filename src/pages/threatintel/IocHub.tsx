@@ -1,4 +1,5 @@
-import { lazy, useState } from 'react';
+import { lazy, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import { HubShell } from '../../components/HubShell';
 const LiveIocs = lazy(() => import('./LiveIocs'));
 const IocEnrichment = lazy(() => import('./IocEnrichment'));
@@ -15,10 +16,25 @@ const TABS: Array<{ id: TabId; label: string; desc: string }> = [
   { id: 'c2', label: 'C2', desc: 'C2 infrastructure tracker' },
   { id: 'map', label: 'Threat Map', desc: 'Geo-visualization of IOCs by country' },
 ];
+const HUB_PATH = 'iocs';
+const DEFAULT_TAB: TabId = 'live';
 export default function IocHub(): JSX.Element {
-  const [activeTab, setActiveTab] = useState<TabId>('live');
+  const { tab } = useParams<{ tab?: string }>();
+  const navigate = useNavigate();
+  const activeTab = tab && TABS.some((t) => t.id === tab) ? (tab as TabId) : DEFAULT_TAB;
+  useEffect(() => {
+    if (!tab || !TABS.some((t) => t.id === tab)) {
+      navigate(`/threatintel/${HUB_PATH}/${DEFAULT_TAB}`, { replace: true });
+    }
+  }, [tab, navigate]);
   return (
-    <HubShell tabs={TABS} active={activeTab} onSelect={setActiveTab} ariaLabel="IOC tools" tone="rose">
+    <HubShell
+      tabs={TABS}
+      active={activeTab}
+      onSelect={(id) => navigate(`/threatintel/${HUB_PATH}/${id}`, { replace: true })}
+      ariaLabel="IOC tools"
+      tone="rose"
+    >
       {activeTab === 'live' && <LiveIocs />}
       {activeTab === 'enrichment' && <IocEnrichment />}
       {activeTab === 'feeds' && <IocFeedsPage />}

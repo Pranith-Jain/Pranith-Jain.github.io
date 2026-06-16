@@ -1,4 +1,5 @@
-import { lazy, useState } from 'react';
+import { lazy, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import { HubShell } from '../../components/HubShell';
 const DarkWeb = lazy(() => import('./DarkWebOsintTools'));
 const DarknetMarketsTimeline = lazy(() => import('./DarknetMarketsTimeline'));
@@ -15,10 +16,25 @@ const TABS: Array<{ id: TabId; label: string; desc: string }> = [
   { id: 'crime', label: 'Crime', desc: 'Cybercrime ecosystem intelligence' },
   { id: 'bitcoin', label: 'Bitcoin', desc: 'Physical Bitcoin attack tracking' },
 ];
+const HUB_PATH = 'darkweb';
+const DEFAULT_TAB: TabId = 'watch';
 export default function DarkwebHub(): JSX.Element {
-  const [activeTab, setActiveTab] = useState<TabId>('watch');
+  const { tab } = useParams<{ tab?: string }>();
+  const navigate = useNavigate();
+  const activeTab = tab && TABS.some((t) => t.id === tab) ? (tab as TabId) : DEFAULT_TAB;
+  useEffect(() => {
+    if (!tab || !TABS.some((t) => t.id === tab)) {
+      navigate(`/threatintel/${HUB_PATH}/${DEFAULT_TAB}`, { replace: true });
+    }
+  }, [tab, navigate]);
   return (
-    <HubShell tabs={TABS} active={activeTab} onSelect={setActiveTab} ariaLabel="Dark web tools" tone="rose">
+    <HubShell
+      tabs={TABS}
+      active={activeTab}
+      onSelect={(id) => navigate(`/threatintel/${HUB_PATH}/${id}`, { replace: true })}
+      ariaLabel="Dark web tools"
+      tone="rose"
+    >
       {activeTab === 'watch' && <DarkWeb />}
       {activeTab === 'markets' && <DarknetMarketsTimeline />}
       {activeTab === 'forums' && <BreachForums />}

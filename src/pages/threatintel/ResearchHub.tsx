@@ -1,4 +1,5 @@
-import { lazy, useState } from 'react';
+import { lazy, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import { HubShell } from '../../components/HubShell';
 const ResearchIndex = lazy(() => import('./Research'));
 const Reports = lazy(() => import('./ThreatIntelReports'));
@@ -19,10 +20,25 @@ const TABS: Array<{ id: TabId; label: string; desc: string }> = [
   { id: 'redhunt-labs', label: 'RedHunt Labs', desc: 'RedHunt Labs research' },
   { id: 'volexity', label: 'Volexity', desc: 'Volexity threat intelligence' },
 ];
+const HUB_PATH = 'research-hub';
+const DEFAULT_TAB: TabId = 'research';
 export default function ResearchHub(): JSX.Element {
-  const [activeTab, setActiveTab] = useState<TabId>('research');
+  const { tab } = useParams<{ tab?: string }>();
+  const navigate = useNavigate();
+  const activeTab = tab && TABS.some((t) => t.id === tab) ? (tab as TabId) : DEFAULT_TAB;
+  useEffect(() => {
+    if (!tab || !TABS.some((t) => t.id === tab)) {
+      navigate(`/threatintel/${HUB_PATH}/${DEFAULT_TAB}`, { replace: true });
+    }
+  }, [tab, navigate]);
   return (
-    <HubShell tabs={TABS} active={activeTab} onSelect={setActiveTab} ariaLabel="Research tools" tone="rose">
+    <HubShell
+      tabs={TABS}
+      active={activeTab}
+      onSelect={(id) => navigate(`/threatintel/${HUB_PATH}/${id}`, { replace: true })}
+      ariaLabel="Research tools"
+      tone="rose"
+    >
       {activeTab === 'research' && <ResearchIndex />}
       {activeTab === 'reports' && <Reports />}
       {activeTab === 'ai' && <AIReportShowcase />}

@@ -1,4 +1,5 @@
-import { lazy, useState } from 'react';
+import { lazy, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import { HubShell } from '../../components/HubShell';
 const FeedCatalog = lazy(() => import('./FeedCatalog'));
 const FeedSources = lazy(() => import('./FeedSources'));
@@ -13,10 +14,25 @@ const TABS: Array<{ id: TabId; label: string; desc: string }> = [
   { id: 'scheduler', label: 'Scheduler', desc: 'Feed scheduling and orchestration' },
   { id: 'threatfeeds', label: 'Threat Feeds', desc: 'Threat intelligence feeds' },
 ];
+const HUB_PATH = 'feeds';
+const DEFAULT_TAB: TabId = 'catalog';
 export default function FeedHub(): JSX.Element {
-  const [activeTab, setActiveTab] = useState<TabId>('catalog');
+  const { tab } = useParams<{ tab?: string }>();
+  const navigate = useNavigate();
+  const activeTab = tab && TABS.some((t) => t.id === tab) ? (tab as TabId) : DEFAULT_TAB;
+  useEffect(() => {
+    if (!tab || !TABS.some((t) => t.id === tab)) {
+      navigate(`/threatintel/${HUB_PATH}/${DEFAULT_TAB}`, { replace: true });
+    }
+  }, [tab, navigate]);
   return (
-    <HubShell tabs={TABS} active={activeTab} onSelect={setActiveTab} ariaLabel="Feed tools" tone="rose">
+    <HubShell
+      tabs={TABS}
+      active={activeTab}
+      onSelect={(id) => navigate(`/threatintel/${HUB_PATH}/${id}`, { replace: true })}
+      ariaLabel="Feed tools"
+      tone="rose"
+    >
       {activeTab === 'catalog' && <FeedCatalog />}
       {activeTab === 'sources' && <FeedSources />}
       {activeTab === 'quality' && <FeedQuality />}

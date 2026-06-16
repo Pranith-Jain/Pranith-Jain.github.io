@@ -1,4 +1,5 @@
-import { lazy, useState } from 'react';
+import { lazy, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import { HubShell } from '../../components/HubShell';
 const OsintFramework = lazy(() => import('../dfir/OsintFramework'));
 const OsintCliTools = lazy(() => import('./OsintCliTools'));
@@ -13,10 +14,25 @@ const TABS: Array<{ id: TabId; label: string; desc: string }> = [
   { id: 'toolbox', label: 'Toolbox', desc: 'Curated security toolbox' },
   { id: 'secops', label: 'SecOps', desc: 'SecOps tools catalog' },
 ];
+const HUB_PATH = 'osint';
+const DEFAULT_TAB: TabId = 'framework';
 export default function OsintHub(): JSX.Element {
-  const [activeTab, setActiveTab] = useState<TabId>('framework');
+  const { tab } = useParams<{ tab?: string }>();
+  const navigate = useNavigate();
+  const activeTab = tab && TABS.some((t) => t.id === tab) ? (tab as TabId) : DEFAULT_TAB;
+  useEffect(() => {
+    if (!tab || !TABS.some((t) => t.id === tab)) {
+      navigate(`/threatintel/${HUB_PATH}/${DEFAULT_TAB}`, { replace: true });
+    }
+  }, [tab, navigate]);
   return (
-    <HubShell tabs={TABS} active={activeTab} onSelect={setActiveTab} ariaLabel="OSINT tools" tone="rose">
+    <HubShell
+      tabs={TABS}
+      active={activeTab}
+      onSelect={(id) => navigate(`/threatintel/${HUB_PATH}/${id}`, { replace: true })}
+      ariaLabel="OSINT tools"
+      tone="rose"
+    >
       {activeTab === 'framework' && <OsintFramework />}
       {activeTab === 'cli' && <OsintCliTools />}
       {activeTab === 'map' && <OsintCountryMap />}
