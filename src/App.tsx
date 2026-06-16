@@ -174,6 +174,7 @@ const TelegramMonitor = lazy(() => import('./pages/threatintel/TelegramMonitor')
 const SourceHealth = lazy(() => import('./pages/threatintel/SourceHealth'));
 const SocDashboard = lazy(() => import('./pages/threatintel/SocDashboard'));
 const ActorHub = lazy(() => import('./pages/threatintel/ActorHub'));
+const AptTracker = lazy(() => import('./pages/threatintel/AptTracker'));
 const CampaignHub = lazy(() => import('./pages/threatintel/CampaignHub'));
 const VulnHub = lazy(() => import('./pages/threatintel/VulnHub'));
 const IocHub = lazy(() => import('./pages/threatintel/IocHub'));
@@ -442,6 +443,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel', Component: ThreatIntelHome },
   { path: '/threatintel/assessments/:id', Component: AssessmentDetail },
   { path: '/threatintel/actors', Component: ActorHub },
+  { path: '/threatintel/apt-tracker', Component: AptTracker },
   { path: '/threatintel/most-wanted', Component: MostWanted },
   { path: '/threatintel/campaigns', Component: CampaignHub },
   { path: '/threatintel/cves/:tab', Component: VulnHub },
@@ -636,6 +638,13 @@ const REDIRECTS: ReadonlyArray<{ path: string; to: string }> = [
 
   // ── Assessments ─────────────────────────────────────────────────
   { path: '/threatintel/assessments', to: '/threatintel/predictive/assessments' },
+
+  // ── Pre-existing drill routes (prerendered in scripts/prerender.mjs) ───
+  { path: '/dfir/detection-lab', to: '/dfir/rule-converter' },
+  { path: '/dfir/dashboard', to: '/dfir' },
+  { path: '/dfir/atlas', to: '/threatintel/wiki?tab=llm' },
+  { path: '/threatintel/infostealer', to: '/threatintel/malware' },
+  { path: '/copilot', to: '/threatintel/tools/copilot' },
 ];
 
 export function AppContent() {
