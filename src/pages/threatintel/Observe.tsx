@@ -18,7 +18,7 @@ import {
   ChevronDown,
   ChevronRight,
   Download,
-ExternalLink } from 'lucide-react';
+} from 'lucide-react';
 
 interface ResolvedEntity {
   type: string;

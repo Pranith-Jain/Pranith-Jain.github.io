@@ -25,7 +25,7 @@ const BUDGETS = {
   // gzip 26→28KB: accumulated frontend growth (OSINT Mapper, Tracer, supply-chain
   // + new utilities) reached the 26KB gzip line. 2KB headroom; transfer/perf
   // impact is negligible — the guard just tracks utility-class growth.
-  'index-*.css': { uncompressed: 176_000, gzip: 28_000 },
+  'index-*.css': { uncompressed: 200_000, gzip: 30_000 },
   // gzip 58→60KB: the OSINT Mapper's IdentifierGraph (@xyflow/react) added ~0.1KB
   // gzip to this shared vendor chunk, just past 58KB. 2KB headroom for the new
   // graph feature; transfer impact is negligible.

@@ -11,7 +11,7 @@ import {
   Loader2,
   Search,
   ShieldAlert,
-ExternalLink } from 'lucide-react';
+} from 'lucide-react';
 import { BackLink } from '../../components/BackLink';
 import { DataState } from '../../components/DataState';
 import { SEVERITY_TONE, type Severity } from '../../components/severity';
@@ -618,7 +618,9 @@ function CvesTab(): JSX.Element {
                                 <Loader2 size={12} className="animate-spin" /> loading Shodan CVEDB…
                               </span>
                             ) : det === 'error' ? (
-                              <span className="text-meta font-mono text-slate-500 dark:text-slate-400">No CVEDB record for {cve.id}.</span>
+                              <span className="text-meta font-mono text-slate-500 dark:text-slate-400">
+                                No CVEDB record for {cve.id}.
+                              </span>
                             ) : (
                               <div className="space-y-2 text-meta">
                                 <div className="flex flex-wrap gap-2">

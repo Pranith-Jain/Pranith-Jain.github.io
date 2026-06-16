@@ -14,7 +14,7 @@ import {
   Twitter,
   Linkedin,
   Mail,
-ExternalLink } from 'lucide-react';
+} from 'lucide-react';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import {
   SECTIONS,

@@ -11,7 +11,7 @@ import {
   Search,
   Shield,
   ShieldOff,
-ExternalLink } from 'lucide-react';
+} from 'lucide-react';
 
 interface Advisory {
   id: string;

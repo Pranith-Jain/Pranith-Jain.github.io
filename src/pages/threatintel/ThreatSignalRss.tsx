@@ -18,10 +18,7 @@
 //     and a stale-snapshot banner per affected source.
 
 import { useState, useEffect, useCallback, useMemo } from 'react';
-import {
-  Rss, ExternalLink, Search, RefreshCw,
-  AlertTriangle, Clock, Tag, ChevronRight,
-ExternalLink } from 'lucide-react';
+import { Rss, ExternalLink, Search, RefreshCw, AlertTriangle, Clock, Tag, ChevronRight } from 'lucide-react';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 
@@ -77,10 +74,12 @@ const CATEGORY_STYLE: Record<string, { label: string; className: string }> = {
 
 function categoryStyle(cat: string | null): { label: string; className: string } {
   if (!cat) return { label: 'Uncategorised', className: 'bg-slate-500/15 text-slate-300 border-slate-500/30' };
-  return CATEGORY_STYLE[cat] ?? {
-    label: cat.charAt(0) + cat.slice(1).toLowerCase(),
-    className: 'bg-slate-500/15 text-slate-300 border-slate-500/30',
-  };
+  return (
+    CATEGORY_STYLE[cat] ?? {
+      label: cat.charAt(0) + cat.slice(1).toLowerCase(),
+      className: 'bg-slate-500/15 text-slate-300 border-slate-500/30',
+    }
+  );
 }
 
 const ACCENT_PILL: Record<Accent, string> = {
@@ -113,7 +112,14 @@ function relativeDate(iso: string): string {
 function fullDate(iso: string): string {
   const t = Date.parse(iso);
   if (!Number.isFinite(t)) return iso;
-  return new Date(t).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit', timeZoneName: 'short' });
+  return new Date(t).toLocaleDateString('en-US', {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    timeZoneName: 'short',
+  });
 }
 
 /* ── Page ────────────────────────────────────────────────────────── */
@@ -144,7 +150,9 @@ export default function ThreatSignalRss(): JSX.Element {
     }
   }, []);
 
-  useEffect(() => { void load(); }, [load]);
+  useEffect(() => {
+    void load();
+  }, [load]);
 
   // Distinct categories across the current aggregate (so the filter bar
   // only shows what's actually present).
@@ -223,10 +231,25 @@ export default function ThreatSignalRss(): JSX.Element {
       description={
         <span>
           Live RSS feed from{' '}
-          <a href="https://www.threatsignal.in/" target="_blank" rel="noopener noreferrer" className="text-brand-600 dark:text-brand-400 hover:underline">threatsignal.in</a>
-          {' '}and{' '}
-          <a href="https://opensourcemalware.com/" target="_blank" rel="noopener noreferrer" className="text-brand-600 dark:text-brand-400 hover:underline">opensourcemalware.com</a>
-          {' '}- malware analysis, campaign breakdowns, offensive tradecraft, and supply-chain threats. Fetched every 15 min via Cloudflare edge cache.
+          <a
+            href="https://www.threatsignal.in/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-brand-600 dark:text-brand-400 hover:underline"
+          >
+            threatsignal.in
+          </a>{' '}
+          and{' '}
+          <a
+            href="https://opensourcemalware.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-brand-600 dark:text-brand-400 hover:underline"
+          >
+            opensourcemalware.com
+          </a>{' '}
+          - malware analysis, campaign breakdowns, offensive tradecraft, and supply-chain threats. Fetched every 15 min
+          via Cloudflare edge cache.
         </span>
       }
       headerExtra={headerExtra}
@@ -234,9 +257,11 @@ export default function ThreatSignalRss(): JSX.Element {
       error={error}
       onRetry={load}
       empty={!loading && !error && filtered.length === 0 && totalCount > 0}
-      emptyMessage={query || activeSources.size > 0 || activeCategories.size > 0 || freshOnly
-        ? 'No posts match the current filters.'
-        : 'The feeds are currently empty.'}
+      emptyMessage={
+        query || activeSources.size > 0 || activeCategories.size > 0 || freshOnly
+          ? 'No posts match the current filters.'
+          : 'The feeds are currently empty.'
+      }
     >
       {/* Per-source stale banner */}
       {staleSources.length > 0 && (
@@ -245,37 +270,40 @@ export default function ThreatSignalRss(): JSX.Element {
           <span>
             <strong>Stale snapshot{staleSources.length === 1 ? '' : 's'}.</strong>{' '}
             {staleSources.map((s) => s.source.name).join(', ')} upstream
-            {staleSources.length === 1 ? ' is' : 's are'} currently unreachable; showing
-            the last good snapshot{staleSources.length === 1 ? '' : 's'}.
+            {staleSources.length === 1 ? ' is' : 's are'} currently unreachable; showing the last good snapshot
+            {staleSources.length === 1 ? '' : 's'}.
           </span>
         </div>
       )}
 
       {/* Per-source error banner (no items at all) */}
-      {agg?.sources.filter((s) => s.error && s.itemCount === 0).map((s) => (
-        <div key={s.source.id} className="mb-4 rounded-lg border border-rose-300 dark:border-rose-700 bg-rose-50 dark:bg-rose-950/40 px-3 py-2 text-xs text-rose-700 dark:text-rose-300 font-mono flex items-start gap-2">
-          <AlertTriangle size={14} className="shrink-0 mt-0.5" />
-          <span>
-            <strong>{s.source.name} is unreachable.</strong> {s.error}
-          </span>
-        </div>
-      ))}
+      {agg?.sources
+        .filter((s) => s.error && s.itemCount === 0)
+        .map((s) => (
+          <div
+            key={s.source.id}
+            className="mb-4 rounded-lg border border-rose-300 dark:border-rose-700 bg-rose-50 dark:bg-rose-950/40 px-3 py-2 text-xs text-rose-700 dark:text-rose-300 font-mono flex items-start gap-2"
+          >
+            <AlertTriangle size={14} className="shrink-0 mt-0.5" />
+            <span>
+              <strong>{s.source.name} is unreachable.</strong> {s.error}
+            </span>
+          </div>
+        ))}
 
       {/* Stats strip */}
       {agg && (
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-4">
           <StatCard label="Posts" value={totalCount} />
-          <StatCard
-            label="Sources"
-            value={agg.sources.length}
-            accent="violet"
-          />
+          <StatCard label="Sources" value={agg.sources.length} accent="violet" />
           <StatCard
             label="This week"
-            value={agg.items.filter((it) => {
-              const t = Date.parse(it.pubDate);
-              return Number.isFinite(t) && t > Date.now() - 7 * 24 * 60 * 60 * 1000;
-            }).length}
+            value={
+              agg.items.filter((it) => {
+                const t = Date.parse(it.pubDate);
+                return Number.isFinite(t) && t > Date.now() - 7 * 24 * 60 * 60 * 1000;
+              }).length
+            }
             accent="emerald"
           />
           <StatCard
@@ -302,7 +330,9 @@ export default function ThreatSignalRss(): JSX.Element {
                 className="group rounded-lg border border-slate-200 dark:border-slate-800 bg-white/40 dark:bg-slate-900/40 p-3 flex flex-col gap-1 transition-colors hover:border-brand-500/50"
               >
                 <div className="flex items-center gap-2">
-                  <span className={`inline-flex items-center px-1.5 py-0.5 text-[10px] font-mono rounded border ${ACCENT_PILL[s.source.accent]}`}>
+                  <span
+                    className={`inline-flex items-center px-1.5 py-0.5 text-[10px] font-mono rounded border ${ACCENT_PILL[s.source.accent]}`}
+                  >
                     {s.source.name}
                   </span>
                   {s.stale && (
@@ -344,11 +374,7 @@ export default function ThreatSignalRss(): JSX.Element {
               />
             </div>
             <label className="ml-auto inline-flex items-center gap-1 px-2 py-1 text-[11px] rounded-md bg-emerald-500/10 border border-emerald-500/30 text-emerald-700 dark:text-emerald-300 cursor-pointer">
-              <input
-                type="checkbox"
-                checked={freshOnly}
-                onChange={(e) => setFreshOnly(e.target.checked)}
-              />
+              <input type="checkbox" checked={freshOnly} onChange={(e) => setFreshOnly(e.target.checked)} />
               fresh this week
             </label>
             <span className="text-xs text-slate-500 font-mono">
@@ -470,19 +496,21 @@ function PostCard({ item }: { item: RssItem }): JSX.Element {
       </div>
 
       {item.description && (
-        <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed line-clamp-3">
-          {item.description}
-        </p>
+        <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed line-clamp-3">{item.description}</p>
       )}
 
       <div className="flex flex-wrap items-center gap-2 mt-auto pt-2">
         {/* Source pill */}
-        <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 text-[10px] font-mono rounded border ${ACCENT_PILL[item.sourceAccent]}`}>
+        <span
+          className={`inline-flex items-center gap-1 px-1.5 py-0.5 text-[10px] font-mono rounded border ${ACCENT_PILL[item.sourceAccent]}`}
+        >
           {item.sourceName}
         </span>
         {/* Category pill (only if present) */}
         {item.category && (
-          <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 text-[10px] font-mono rounded border ${cat.className}`}>
+          <span
+            className={`inline-flex items-center gap-1 px-1.5 py-0.5 text-[10px] font-mono rounded border ${cat.className}`}
+          >
             <Tag size={9} />
             {cat.label}
           </span>
@@ -494,11 +522,7 @@ function PostCard({ item }: { item: RssItem }): JSX.Element {
           <Clock size={9} />
           {relativeDate(item.pubDate)}
         </span>
-        {item.author && (
-          <span className="text-[10px] font-mono text-slate-400">
-            · {item.author}
-          </span>
-        )}
+        {item.author && <span className="text-[10px] font-mono text-slate-400">· {item.author}</span>}
         <span className="ml-auto inline-flex items-center gap-0.5 text-[10px] font-mono text-slate-400 group-hover:text-brand-500">
           read <ChevronRight size={10} />
         </span>
@@ -517,16 +541,17 @@ interface StatCardProps {
 }
 function StatCard({ label, value, accent = 'brand', small = false }: StatCardProps): JSX.Element {
   const color =
-    accent === 'emerald' ? 'text-emerald-500 dark:text-emerald-400' :
-    accent === 'amber' ? 'text-amber-500 dark:text-amber-400' :
-    accent === 'violet' ? 'text-violet-500 dark:text-violet-400' :
-    'text-brand-500 dark:text-brand-400';
+    accent === 'emerald'
+      ? 'text-emerald-500 dark:text-emerald-400'
+      : accent === 'amber'
+        ? 'text-amber-500 dark:text-amber-400'
+        : accent === 'violet'
+          ? 'text-violet-500 dark:text-violet-400'
+          : 'text-brand-500 dark:text-brand-400';
   return (
     <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white/40 dark:bg-slate-900/40 px-3 py-2">
       <div className="text-[10px] uppercase tracking-wide text-slate-500 dark:text-slate-400 font-mono">{label}</div>
-      <div className={`font-bold font-mono ${color} ${small ? 'text-sm' : 'text-2xl'}`}>
-        {value}
-      </div>
+      <div className={`font-bold font-mono ${color} ${small ? 'text-sm' : 'text-2xl'}`}>{value}</div>
     </div>
   );
 }

@@ -479,6 +479,9 @@ const REDIRECTS: ReadonlyArray<{ path: string; to: string }> = [
   { path: '/osint-tools', to: '/threatintel/osint-cli-tools' },
   { path: '/threatintel/awesome-lists', to: '/threatintel/external' },
   { path: '/threatintel/tech-ai-news', to: '/threatintel/social' },
+  { path: '/threatintel/malware-sandbox', to: '/threatintel/malware' },
+  { path: '/threatintel/threat-landscape', to: '/threatintel/external' },
+  { path: '/threatintel/metrics', to: '/threatintel/dashboard' },
 ];
 
 export function AppContent() {

@@ -30,7 +30,7 @@ import {
   CheckCircle2,
   Sparkles,
   BookOpen,
-ExternalLink } from 'lucide-react';
+} from 'lucide-react';
 import { DataPageLayout } from '../../components/DataPageLayout';
 
 // ---------------------------------------------------------------------------

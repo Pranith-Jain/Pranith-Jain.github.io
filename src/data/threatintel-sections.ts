@@ -29,7 +29,7 @@ export interface Tool {
   desc: string;
   icon: LucideIcon;
   badge?: string;
-  /** When true the tile links to an external resource (rendered with an external-link affordance / new tab). */
+  /** When true, the tile links out via <a target="_blank"> instead of an in-app <Link>. */
   external?: boolean;
 }
 

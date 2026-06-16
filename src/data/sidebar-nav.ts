@@ -29,7 +29,6 @@ export interface SidebarItem {
   label: string;
   href: string;
   icon: LucideIcon;
-  /** Optional one-line description, surfaced by RecentToolsRow / the 404 nav grid. */
   description?: string;
 }
 export interface SidebarGroup {

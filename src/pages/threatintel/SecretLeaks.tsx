@@ -20,7 +20,7 @@ import {
   ShieldCheck,
   ShieldX,
   Trophy,
-ExternalLink } from 'lucide-react';
+} from 'lucide-react';
 
 type TabId = 'overview' | 'live' | 'leaderboard';
 type Severity = 'critical' | 'high' | 'medium' | 'low';

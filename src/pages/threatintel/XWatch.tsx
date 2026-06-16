@@ -18,7 +18,7 @@ import {
   Twitter,
   Settings,
   CheckCircle2,
-ExternalLink } from 'lucide-react';
+} from 'lucide-react';
 
 interface TweetItem {
   id: string;
@@ -323,7 +323,7 @@ export default function XWatch(): JSX.Element {
     // when we already know auth is down.
     if (authStatus && !authStatus.configured) return;
     return load(active);
-    // eslint-disable-next-line react-hooks/exhaustive-deps — load is a closure that changes every render; data deps are already listed
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [active, sinceDays, includeReplies, includePinned, authStatus?.configured]);
 
   // Probe every handle on mount + whenever the window/auth changes so
@@ -717,7 +717,9 @@ export default function XWatch(): JSX.Element {
                       <span className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100">
                         {t.author.name}
                       </span>
-                      <span className="text-mini font-mono text-slate-500 dark:text-slate-400">@{t.author.screen_name}</span>
+                      <span className="text-mini font-mono text-slate-500 dark:text-slate-400">
+                        @{t.author.screen_name}
+                      </span>
                       {t.is_pinned && (
                         <span className="text-micro font-mono px-1 py-0.5 rounded border border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300">
                           pinned

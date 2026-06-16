@@ -19,7 +19,7 @@ import {
   Wrench,
   ArrowUpRight,
   Zap,
-ExternalLink } from 'lucide-react';
+} from 'lucide-react';
 
 interface SearchItem {
   label: string;

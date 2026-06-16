@@ -26,7 +26,7 @@ import {
   Clock,
   Crosshair,
   Building2,
-ExternalLink } from 'lucide-react';
+} from 'lucide-react';
 import type { ReactNode } from 'react';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { CountUp } from '../../components/ui/CountUp';
@@ -1509,7 +1509,9 @@ export default function GlobalPulse(): JSX.Element {
                 <div className="flex items-center gap-2">
                   <Radio size={14} className="text-rose-400 animate-pulse" />
                   <h3 className="text-sm font-semibold font-mono text-slate-700 dark:text-slate-300">CTI Live Feed</h3>
-                  <span className="text-xs font-mono text-slate-500 dark:text-slate-400">({filteredEvents.length})</span>
+                  <span className="text-xs font-mono text-slate-500 dark:text-slate-400">
+                    ({filteredEvents.length})
+                  </span>
                 </div>
                 <div className="flex items-center gap-1.5">
                   {(() => {

@@ -12,7 +12,7 @@ import {
   RefreshCw,
   XCircle,
   type LucideIcon,
-ExternalLink } from 'lucide-react';
+} from 'lucide-react';
 
 type Status = 'ok' | 'degraded' | 'down' | 'cold';
 

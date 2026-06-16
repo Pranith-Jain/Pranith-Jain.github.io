@@ -14,7 +14,7 @@ import {
   Bug,
   Shield,
   AlertTriangle,
-ExternalLink } from 'lucide-react';
+} from 'lucide-react';
 import { adminAuthHeaders } from '../../lib/admin-token';
 
 // ── Types mirroring the backend API ──────────────────────────────────────

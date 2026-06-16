@@ -556,7 +556,7 @@ export default function Metrics(): JSX.Element {
       .map(([label, value]) => ({ label, value }))
       .sort((a, b) => b.value - a.value)
       .slice(0, 10);
-    // eslint-disable-next-line react-hooks/exhaustive-deps — inRansomwareWindow is a closure, excluded; ransomwareWindowDayKeys captures its dependency
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dedupedRansomware, ransomwareWindowDayKeys]);
 
   // MyThreatIntel: which currently-active ransomware groups carry a
@@ -576,7 +576,7 @@ export default function Metrics(): JSX.Element {
       .map(([label, value]) => ({ label, value }))
       .sort((a, b) => b.value - a.value)
       .slice(0, 12);
-    // eslint-disable-next-line react-hooks/exhaustive-deps — inRansomwareWindow is a closure, excluded; ransomwareWindowDayKeys captures its dependency
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dedupedRansomware, state.mtiGroups, ransomwareWindowDayKeys]);
 
   // 11. NEW — country-origin of malicious IPs. data.threatMap.countries was
@@ -792,7 +792,7 @@ export default function Metrics(): JSX.Element {
       .map(([label, value]) => ({ label, value }))
       .sort((a, b) => b.value - a.value)
       .slice(0, 10);
-    // eslint-disable-next-line react-hooks/exhaustive-deps — inRansomwareWindow is a closure, excluded; ransomwareWindowDayKeys captures its dependency
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dedupedRansomware, ransomwareWindowDayKeys]);
 
   const sectorClassifiedPct = useMemo(() => {
@@ -801,7 +801,7 @@ export default function Metrics(): JSX.Element {
     if (!within.length) return 0;
     const known = within.filter((v) => v.sector && v.sector !== 'Unknown').length;
     return Math.round((known / within.length) * 100);
-    // eslint-disable-next-line react-hooks/exhaustive-deps — inRansomwareWindow is a closure, excluded; ransomwareWindowDayKeys captures its dependency
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dedupedRansomware, ransomwareWindowDayKeys]);
 
   /** Top vendors on the KEV catalogue. Parsed from "[KEV] Vendor Product:" prefix in description. */
@@ -1199,10 +1199,7 @@ export default function Metrics(): JSX.Element {
                 Method: 7-vs-7-day delta with a 10% deadband; concentration is the top operator's share of the last 7
                 days. Sources: ransomlook.io aggregated leak-site index merged with MyThreatIntel CTI events (deduped by
                 victim).{' '}
-                <Link
-                  to="/threatintel/ransomware-activity"
-                  className="text-brand-600 dark:text-brand-400 hover:underline"
-                >
+                <Link to="/threatintel/iocs" className="text-brand-600 dark:text-brand-400 hover:underline">
                   Drill into the underlying data →
                 </Link>
               </p>
@@ -1231,7 +1228,7 @@ export default function Metrics(): JSX.Element {
               title="Most active ransomware groups"
               question={`Who's claiming the most victims in the last ${windowDays} days?`}
               footer={`Ransomlook + MyThreatIntel CTI events + ransomfeed.it + ransomwatch · ${dedupedRansomware.length.toLocaleString()} unique victims (deduped by group + victim, earliest discovery wins)`}
-              href="/threatintel/ransomware-activity"
+              href="/threatintel/iocs"
               interpretation={ransomwareGroupsRead}
             >
               <HBar items={topRansomwareGroups} color="#e11d48" />
@@ -1243,7 +1240,7 @@ export default function Metrics(): JSX.Element {
               title="Ransomware cadence · last 7 days"
               question="Is leak-site posting accelerating or cooling this week?"
               footer="Daily claim count · fixed 7-day axis · per-day labels"
-              href="/threatintel/ransomware-activity"
+              href="/threatintel/iocs"
               interpretation={ransomwareCadenceRead}
             >
               <Sparkbars buckets={ransomwareCadence} color="#e11d48" />
@@ -1333,7 +1330,7 @@ export default function Metrics(): JSX.Element {
               title="Most-impersonated brands"
               question="Whose customers are getting phished right now?"
               footer={`From PhishTank. ${state.phishing?.filter((u) => u.target).length ?? 0} URLs have brand attribution.`}
-              href="/threatintel/live-iocs"
+              href="/threatintel/iocs"
             >
               <HBar items={topPhishingBrands} color="#0ea5e9" />
             </ChartCard>
@@ -1353,7 +1350,7 @@ export default function Metrics(): JSX.Element {
               title={`Targeted sectors · ${windowDays}d (heuristic)`}
               question="Which industries are ransomware groups hitting right now?"
               footer={`Classified ${sectorClassifiedPct}% of recent victims by keyword match on victim name + description. Best-effort; verify before action.`}
-              href="/threatintel/ransomware-activity"
+              href="/threatintel/iocs"
             >
               <HBar items={targetedSectors} color="#0891b2" />
             </ChartCard>
@@ -1363,7 +1360,7 @@ export default function Metrics(): JSX.Element {
               title="Most-active malware families · 24h"
               question="Which malware families are dropping on MalwareBazaar right now?"
               footer={`From MalwareBazaar recent samples · ${state.malware?.length ?? 0} samples in window`}
-              href="/threatintel/live-iocs"
+              href="/threatintel/iocs"
             >
               <HBar items={topMalwareFamilies} color="#a855f7" />
             </ChartCard>
@@ -1393,7 +1390,7 @@ export default function Metrics(): JSX.Element {
               title="Largest recent breach disclosures"
               question="Which freshly-disclosed breaches exposed the most accounts?"
               footer={`From HaveIBeenPwned · ${state.breaches?.length ?? 0} recent disclosures indexed`}
-              href="/threatintel/breach"
+              href="/threatintel/iocs"
             >
               <HBar
                 items={largestBreaches}
@@ -1409,7 +1406,7 @@ export default function Metrics(): JSX.Element {
               title="OSINT chatter — most cross-referenced entities"
               question="Which CVEs, actors, techniques and malware are researchers talking about across the most feeds?"
               footer={`From threat-pulse · ${state.pulse?.length ?? 0} entities seen across Reddit / Mastodon / Telegram researcher feeds. Value = distinct feeds.`}
-              href="/threatintel/pulse"
+              href="/threatintel/feeds"
             >
               <HBar items={topPulseEntities} color="#6366f1" />
             </ChartCard>
@@ -1465,7 +1462,7 @@ export default function Metrics(): JSX.Element {
             Victim re-leak detection →
           </Link>
           <Link
-            to="/threatintel/live-iocs"
+            to="/threatintel/iocs"
             className="px-3 py-2 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40 text-slate-700 dark:text-slate-300"
           >
             Live IOC stream →
