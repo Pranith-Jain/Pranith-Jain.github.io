@@ -1606,98 +1606,21 @@ export const RESOURCES: ExternalResource[] = [
       "Internet-wide device / service / banner search engine. Free tier exposes the most popular queries. Used in the platform's enrichment providers for service fingerprinting and CVE/CPE lookup.",
   },
   {
-    id: 'feodo-tracker',
-    name: 'Feodo Tracker',
-    url: 'https://feodotracker.abuse.ch/',
-    kind: 'tool',
-    tags: ['threat-intel', 'c2'],
+    id: 'apt-tracker',
+    name: 'APT Tracker',
+    url: 'https://onuroktay14.github.io/APTTracker/',
+    kind: 'directory',
+    tags: ['threat-intel', 'osint'],
     description:
-      'abuse.ch project tracking botnet C2 infrastructure (Dridex, Emotet, TrickBot, QakBot). Free blocklist + browseable IP feed. Referenced in /api/v1/c2-tracker.',
+      'Open-source APT groups and operations database — tracks 411 groups across 9 regions with aliases, attributed malware, known operations, and country-level mapping. CC BY 4.0 licensed, compiled from public threat intelligence sources.',
   },
   {
-    id: 'pulsedive',
-    name: 'PulseDive',
-    url: 'https://pulsedive.com/',
-    kind: 'tool',
-    tags: ['osint', 'threat-intel'],
-    description:
-      'Free threat intelligence platform — IOC scanning, risk scoring, indicator enrichment. Public API (free tier with rate limits). Good general-purpose pivot point for IPs, domains, URLs and hashes.',
-  },
-  {
-    id: 'crt-sh',
-    name: 'crt.sh',
-    url: 'https://crt.sh/',
-    kind: 'tool',
-    tags: ['osint', 'vulnerability'],
-    description:
-      'Certificate Transparency log search — free, unlimited, no API key. Surfaces every cert ever issued for a domain (incl. subdomains via CN/SAN). Powers /api/v1/cert-search.',
-  },
-  {
-    id: 'misp-project',
-    name: 'MISP Project',
-    url: 'https://www.misp-project.org/',
-    kind: 'tool',
-    tags: ['threat-intel'],
-    description:
-      "Open-source threat-intelligence sharing platform (6.4k stars, AGPL-3.0). Industry-standard IOC/TAXII/STIX sharing — REST API, feed import, correlation. The platform's name references MISP for a reason: the IOC fan-out + STIX builder mirror a MISP-style workflow.",
-  },
-  // ── New entries (2026-06-15) ─────────────────────────────────────────────
-  {
-    id: 'opengridworks',
-    name: 'OpenGridWorks',
-    url: 'https://opengridworks.com/',
+    id: 'vxdb',
+    name: 'vxdb.sh',
+    url: 'https://vxdb.sh/',
     kind: 'research',
     tags: ['threat-intel', 'osint'],
     description:
-      'Security research and open-source intelligence resource — covers threat analysis, grid/infrastructure monitoring, and investigative methodologies.',
-  },
-  {
-    id: 'relatedrepos-awesome-ti-blogs',
-    name: 'Awesome Threat Intel Blogs',
-    url: 'https://relatedrepos.com/gh/muchdogesec/awesome_threat_intel_blogs',
-    kind: 'directory',
-    tags: ['threat-intel'],
-    description:
-      'Curated directory of threat intelligence blogs and researcher feeds by muchdogesec. Aggregates active CTI practitioners writing about threat actors, campaigns, detection engineering, and operational intelligence.',
-  },
-  {
-    id: '0xprivacy-tools',
-    name: '0xPrivacy Tools',
-    url: 'https://0xprivacy.online/tools',
-    kind: 'tool',
-    tags: ['anonymity', 'osint'],
-    description:
-      'Privacy and OPSEC tooling — utilities for digital footprint reduction, encrypted communications, and anonymity hardening for security practitioners.',
-  },
-  {
-    id: 'osint-cabal',
-    name: 'OSINT Cabal',
-    url: 'https://osintcabal.org/',
-    kind: 'community',
-    featured: true,
-    tags: ['osint', 'threat-intel', 'dfir'],
-    description:
-      'Community OSINT collective with browser-based Live Center (20+ CLI tools runnable from the web), threat actor dashboard tracking extremists/predators/scammers, investigation kits (username, email, domain, breach, web crawling), and curated methods & guides database. Founded by a licensed PI.',
-    why: 'The Live Center concept (browser-executable CLI tools) and threat actor dashboard with community-sourced intelligence are unique differentiators.',
-  },
-  {
-    id: 'the-osint-toolbox',
-    name: 'The OSINT Toolbox',
-    url: 'https://the-osint-toolbox.com/OSINT%20Resources.html',
-    kind: 'directory',
-    tags: ['osint', 'threat-intel', 'dfir'],
-    description:
-      'Curated OSINT resource directory — tools, guides, frameworks, and training materials for open-source intelligence investigations across digital forensics, social media, and cyber threat intelligence.',
-  },
-  {
-    id: 'osintframework',
-    name: 'OSINT Framework',
-    url: 'https://www.osintframework.com/',
-    kind: 'directory',
-    featured: true,
-    tags: ['osint', 'dfir'],
-    description:
-      'Interactive decision-tree OSINT tool finder — start with a data point (username, email, IP, domain, phone, image, etc.) and navigate branches to discover the right tool for each investigation step. De facto starting point for OSINT methodology.',
-    why: 'The branching decision-tree UI is unique — no other resource maps data-point → tool selection as intuitively.',
+      'Threat intelligence and cybercrime news blog — deep-dive investigations into organized crime, crypto heists, infostealers, piracy takedowns, and underground markets. Ghost-powered, CC BY 4.0.',
   },
 ];

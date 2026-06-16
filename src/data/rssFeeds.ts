@@ -180,6 +180,16 @@ export const rssFeeds: RSSFeed[] = [
     source: 'infostealers.com',
     language: 'en',
   },
+  {
+    id: 'vxdb',
+    name: 'vxdb.sh',
+    url: 'https://vxdb.sh/rss/',
+    description:
+      'Threat intelligence and cybercrime news — deep-dive investigations into organized crime, crypto heists, infostealers, piracy takedowns, and underground markets.',
+    category: 'threat-intel',
+    source: 'vxdb.sh',
+    language: 'en',
+  },
 
   // Dark web, ransomware, and breach trackers
   {
