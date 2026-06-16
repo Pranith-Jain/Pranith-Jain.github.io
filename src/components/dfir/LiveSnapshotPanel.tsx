@@ -386,7 +386,7 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
           showNewBadge={lastVisit > 0}
           rightAction={
             <Link
-              to="/threatintel/ransomware-activity"
+              to="/threatintel/darkweb/ransom-activity"
               className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-0.5"
             >
               feed <ExternalLink size={9} />
@@ -465,7 +465,7 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
           showNewBadge={lastVisit > 0}
           rightAction={
             <Link
-              to="/threatintel/cybersec"
+              to="/threatintel/social/telegram-leaks"
               className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-0.5"
             >
               full feed <ExternalLink size={9} />
@@ -542,7 +542,7 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
           showNewBadge={lastVisit > 0}
           rightAction={
             <Link
-              to="/threatintel/social"
+              to="/threatintel/social/crypto-scam"
               className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-0.5"
             >
               full feed <ExternalLink size={9} />
@@ -613,7 +613,7 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
           showNewBadge={lastVisit > 0}
           rightAction={
             <Link
-              to="/threatintel/threat-feeds"
+              to="/threatintel/feeds/threatfeeds"
               className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-0.5"
             >
               full feeds <ExternalLink size={9} />
@@ -686,7 +686,7 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
           showNewBadge={lastVisit > 0}
           rightAction={
             <Link
-              to="/threatintel/tech-ai-news"
+              to="/threatintel/social/news"
               className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-0.5"
             >
               full feeds <ExternalLink size={9} />

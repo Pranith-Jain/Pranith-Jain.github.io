@@ -68,10 +68,16 @@ interface StatBandProps {
   indicator: ReactNode;
   /** Optional right-aligned header note (hidden on the narrowest screens). */
   note?: ReactNode;
-  /** The cells (or skeletons) — a 2-up / 4-up hairline grid. */
+  /** The cells (or skeletons) — a 2-up / 3-up / 4-up hairline grid.
+   *  Defaults to 4 to keep /dfir's CapabilityBand unchanged. */
+  gridCols?: 3 | 4;
   children: ReactNode;
 }
-export function StatBand({ ariaLabel, indicator, note, children }: StatBandProps): JSX.Element {
+const GRID_COLS_CLASS: Record<NonNullable<StatBandProps['gridCols']>, string> = {
+  3: 'lg:grid-cols-3',
+  4: 'lg:grid-cols-4',
+};
+export function StatBand({ ariaLabel, indicator, note, children, gridCols = 4 }: StatBandProps): JSX.Element {
   return (
     <section
       aria-label={ariaLabel}
@@ -81,7 +87,9 @@ export function StatBand({ ariaLabel, indicator, note, children }: StatBandProps
         <div className="flex items-center gap-2">{indicator}</div>
         {note}
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-px bg-slate-200/70 lg:grid-cols-4 dark:bg-slate-800">
+      <div
+        className={`grid grid-cols-1 sm:grid-cols-2 gap-px bg-slate-200/70 ${GRID_COLS_CLASS[gridCols]} dark:bg-slate-800`}
+      >
         {children}
       </div>
     </section>
