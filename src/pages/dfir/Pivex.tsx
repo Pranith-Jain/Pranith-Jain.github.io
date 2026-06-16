@@ -1,15 +1,23 @@
 import { useState, useMemo, useCallback } from 'react';
 import { BackLink } from '../../components/BackLink';
-import {
-  ArrowLeft,
-  Network,
-  Search,
-  Download,
-  Eye,
-  EyeOff,
-} from 'lucide-react';
+import { ArrowLeft, Network, Search, Download, Eye, EyeOff, Loader2 } from 'lucide-react';
 
-type EntityType = 'ip' | 'domain' | 'certificate' | 'asn' | 'actor';
+type EntityType =
+  | 'ip'
+  | 'domain'
+  | 'certificate'
+  | 'asn'
+  | 'actor'
+  | 'cve'
+  | 'ransomware'
+  | 'malware'
+  | 'campaign'
+  | 'hash'
+  | 'technique'
+  | 'victim'
+  | 'c2_framework'
+  | 'product'
+  | 'reference';
 
 interface GraphNode {
   id: string;
@@ -24,101 +32,102 @@ interface GraphEdge {
   label: string;
 }
 
-const ENTITY_COLORS: Record<EntityType, string> = {
+interface GraphApiResponse {
+  nodes: Array<{ id: string; type: string; label: string; subtitle?: string }>;
+  edges: Array<{ id: string; source: string; target: string; label: string }>;
+  seed: string;
+  seed_type: string | null;
+  truncated: boolean;
+  warning?: string;
+}
+
+const ENTITY_COLORS: Record<string, string> = {
   ip: 'border-blue-500/40 bg-blue-500/10 text-blue-700 dark:text-blue-300',
   domain: 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300',
   certificate: 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300',
   asn: 'border-purple-500/40 bg-purple-500/10 text-purple-700 dark:text-purple-300',
   actor: 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300',
+  cve: 'border-red-500/40 bg-red-500/10 text-red-700 dark:text-red-300',
+  ransomware: 'border-rose-600/40 bg-rose-600/10 text-rose-700 dark:text-rose-300',
+  malware: 'border-orange-500/40 bg-orange-500/10 text-orange-700 dark:text-orange-300',
+  campaign: 'border-pink-500/40 bg-pink-500/10 text-pink-700 dark:text-pink-300',
+  hash: 'border-slate-500/40 bg-slate-500/10 text-slate-700 dark:text-slate-300',
+  technique: 'border-cyan-500/40 bg-cyan-500/10 text-cyan-700 dark:text-cyan-300',
+  victim: 'border-gray-500/40 bg-gray-500/10 text-gray-700 dark:text-gray-300',
+  c2_framework: 'border-fuchsia-500/40 bg-fuchsia-500/10 text-fuchsia-700 dark:text-fuchsia-300',
+  product: 'border-teal-500/40 bg-teal-500/10 text-teal-700 dark:text-teal-300',
+  reference: 'border-slate-400/40 bg-slate-400/10 text-slate-600 dark:text-slate-400',
 };
 
-const ENTITY_BG: Record<EntityType, string> = {
+const ENTITY_BG: Record<string, string> = {
   ip: 'bg-blue-100 dark:bg-blue-900/20',
   domain: 'bg-emerald-100 dark:bg-emerald-900/20',
   certificate: 'bg-amber-100 dark:bg-amber-900/20',
   asn: 'bg-purple-100 dark:bg-purple-900/20',
   actor: 'bg-rose-100 dark:bg-rose-900/20',
+  cve: 'bg-red-100 dark:bg-red-900/20',
+  ransomware: 'bg-rose-100 dark:bg-rose-900/20',
+  malware: 'bg-orange-100 dark:bg-orange-900/20',
+  campaign: 'bg-pink-100 dark:bg-pink-900/20',
+  hash: 'bg-slate-100 dark:bg-slate-900/20',
+  technique: 'bg-cyan-100 dark:bg-cyan-900/20',
+  victim: 'bg-gray-100 dark:bg-gray-900/20',
+  c2_framework: 'bg-fuchsia-100 dark:bg-fuchsia-900/20',
+  product: 'bg-teal-100 dark:bg-teal-900/20',
+  reference: 'bg-slate-100 dark:bg-slate-900/20',
 };
 
-const ENTITY_ICON_COLORS: Record<EntityType, string> = {
+const ENTITY_ICON_COLORS: Record<string, string> = {
   ip: 'text-blue-600 dark:text-blue-400',
   domain: 'text-emerald-600 dark:text-emerald-400',
   certificate: 'text-amber-600 dark:text-amber-400',
   asn: 'text-purple-600 dark:text-purple-400',
   actor: 'text-rose-600 dark:text-rose-400',
+  cve: 'text-red-600 dark:text-red-400',
+  ransomware: 'text-rose-600 dark:text-rose-400',
+  malware: 'text-orange-600 dark:text-orange-400',
+  campaign: 'text-pink-600 dark:text-pink-400',
+  hash: 'text-slate-600 dark:text-slate-400',
+  technique: 'text-cyan-600 dark:text-cyan-400',
+  victim: 'text-gray-600 dark:text-gray-400',
+  c2_framework: 'text-fuchsia-600 dark:text-fuchsia-400',
+  product: 'text-teal-600 dark:text-teal-400',
+  reference: 'text-slate-500 dark:text-slate-400',
 };
 
-const EXAMPLE_NODES: GraphNode[] = [
-  { id: 'ip-1', label: '185.130.44.0', type: 'ip', subtitle: 'Origin IP' },
-  { id: 'ip-2', label: '198.51.100.23', type: 'ip', subtitle: 'C2 Server' },
-  { id: 'ip-3', label: '203.0.113.88', type: 'ip', subtitle: 'Exfil IP' },
-
-  { id: 'dom-1', label: 'malware-c2.net', type: 'domain', subtitle: 'C2 Domain' },
-  { id: 'dom-2', label: 'update-service.org', type: 'domain', subtitle: 'Phishing Domain' },
-  { id: 'dom-3', label: 'cdn-assets.io', type: 'domain', subtitle: 'Staging Domain' },
-  { id: 'dom-4', label: 'docs-helper.com', type: 'domain', subtitle: 'SAN Domain' },
-  { id: 'dom-5', label: 'api-gateway.dev', type: 'domain', subtitle: 'SAN Domain' },
-  { id: 'dom-6', label: 'analytics-pulse.net', type: 'domain', subtitle: 'SAN Domain' },
-  { id: 'dom-7', label: 'status-checker.org', type: 'domain', subtitle: 'SAN Domain' },
-  { id: 'dom-8', label: 'redirect-edge.com', type: 'domain', subtitle: 'SAN Domain' },
-  { id: 'dom-9', label: 'known-malware.bazar', type: 'domain', subtitle: 'Malware Domain' },
-
-  { id: 'cert-1', label: '*.malware-c2.net', type: 'certificate', subtitle: 'Wildcard Cert' },
-
-  { id: 'asn-1', label: 'ASN 394161', type: 'asn', subtitle: 'Hosting Provider' },
-  { id: 'asn-2', label: 'ASN 20473', type: 'asn', subtitle: 'AS SHARKTECH' },
-
-  { id: 'actor-1', label: 'TA-1842', type: 'actor', subtitle: 'FIN7 Cluster' },
-];
-
-const EXAMPLE_EDGES: GraphEdge[] = [
-  { source: 'ip-1', target: 'dom-1', label: 'reverse DNS' },
-  { source: 'ip-1', target: 'dom-2', label: 'reverse DNS' },
-  { source: 'ip-1', target: 'dom-3', label: 'reverse DNS' },
-  { source: 'dom-1', target: 'ip-2', label: 'DNS resolution' },
-  { source: 'dom-2', target: 'ip-2', label: 'DNS resolution' },
-  { source: 'dom-1', target: 'cert-1', label: 'CT log' },
-  { source: 'cert-1', target: 'dom-3', label: 'SAN' },
-  { source: 'cert-1', target: 'dom-4', label: 'SAN' },
-  { source: 'cert-1', target: 'dom-5', label: 'SAN' },
-  { source: 'cert-1', target: 'dom-6', label: 'SAN' },
-  { source: 'cert-1', target: 'dom-7', label: 'SAN' },
-  { source: 'cert-1', target: 'dom-8', label: 'SAN' },
-  { source: 'ip-2', target: 'asn-1', label: 'BGP origin' },
-  { source: 'ip-3', target: 'asn-2', label: 'BGP origin' },
-  { source: 'asn-2', target: 'dom-9', label: 'hosts domain' },
-  { source: 'actor-1', target: 'dom-1', label: 'attributed C2' },
-  { source: 'actor-1', target: 'ip-3', label: 'attributed exfil' },
-  { source: 'dom-9', target: 'asn-2', label: 'DNS resolution' },
-];
-
-const EDGE_LABEL_COLORS: Record<string, string> = {
-  'reverse DNS': 'text-cyan-600 dark:text-cyan-400',
-  'DNS resolution': 'text-emerald-600 dark:text-emerald-400',
-  'CT log': 'text-amber-600 dark:text-amber-400',
-  SAN: 'text-orange-600 dark:text-orange-400',
-  'BGP origin': 'text-purple-600 dark:text-purple-400',
-  'hosts domain': 'text-sky-600 dark:text-sky-400',
-  'attributed C2': 'text-rose-600 dark:text-rose-400',
-  'attributed exfil': 'text-rose-600 dark:text-rose-400',
-};
-
-const TYPE_LABELS: Record<EntityType, string> = {
+const TYPE_LABELS: Record<string, string> = {
   ip: 'IP Address',
   domain: 'Domain',
   certificate: 'Certificate',
   asn: 'ASN',
   actor: 'Threat Actor',
+  cve: 'CVE',
+  ransomware: 'Ransomware',
+  malware: 'Malware',
+  campaign: 'Campaign',
+  hash: 'Hash',
+  technique: 'MITRE Technique',
+  victim: 'Victim',
+  c2_framework: 'C2 Framework',
+  product: 'Product',
+  reference: 'Reference',
 };
 
 export default function Pivex(): JSX.Element {
-  const [query, setQuery] = useState('185.130.44.0');
+  const [query, setQuery] = useState('');
+  const [nodes, setNodes] = useState<GraphNode[]>([]);
+  const [edges, setEdges] = useState<GraphEdge[]>([]);
   const [highlightNode, setHighlightNode] = useState<string | null>(null);
   const [highlightMode, setHighlightMode] = useState(false);
   const [showGraph, setShowGraph] = useState(false);
-
-  const nodes = EXAMPLE_NODES;
-  const edges = EXAMPLE_EDGES;
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [seedInfo, setSeedInfo] = useState<{
+    seed: string;
+    type: string | null;
+    truncated: boolean;
+    warning?: string;
+  } | null>(null);
 
   const adjacencyList = useMemo(() => {
     const map = new Map<string, Set<string>>();
@@ -159,12 +168,47 @@ export default function Pivex(): JSX.Element {
     return map;
   }, [edges]);
 
-  const handleBuildGraph = useCallback(() => {
+  const handleBuildGraph = useCallback(async () => {
+    if (!query.trim()) return;
+    setLoading(true);
+    setError(null);
     setShowGraph(true);
-  }, []);
+    try {
+      const res = await fetch(`/api/v1/relationship-graph?q=${encodeURIComponent(query.trim())}`);
+      if (!res.ok) {
+        const body = await res.json().catch(() => ({}));
+        throw new Error(body.error ?? `HTTP ${res.status}`);
+      }
+      const data: GraphApiResponse = await res.json();
+      const mappedNodes: GraphNode[] = data.nodes.map((n) => ({
+        id: n.id,
+        label: n.label,
+        type: (n.type as EntityType) ?? 'domain',
+        subtitle: n.subtitle,
+      }));
+      const mappedEdges: GraphEdge[] = data.edges.map((e) => ({
+        source: e.source,
+        target: e.target,
+        label: e.label,
+      }));
+      setNodes(mappedNodes);
+      setEdges(mappedEdges);
+      setSeedInfo({ seed: data.seed, type: data.seed_type, truncated: data.truncated, warning: data.warning });
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'Graph build failed');
+      setNodes([]);
+      setEdges([]);
+    } finally {
+      setLoading(false);
+    }
+  }, [query]);
 
   const handleExportJson = useCallback(() => {
-    const graph = { nodes, edges, metadata: { generated: new Date().toISOString(), totalNodes: nodes.length, totalEdges: edges.length } };
+    const graph = {
+      nodes,
+      edges,
+      metadata: { generated: new Date().toISOString(), totalNodes: nodes.length, totalEdges: edges.length },
+    };
     const blob = new Blob([JSON.stringify(graph, null, 2)], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -174,9 +218,9 @@ export default function Pivex(): JSX.Element {
     URL.revokeObjectURL(url);
   }, [nodes, edges]);
 
-  const getNodeColor = (type: EntityType) => ENTITY_COLORS[type];
-  const getNodeBg = (type: EntityType) => ENTITY_BG[type];
-  const getIconColor = (type: EntityType) => ENTITY_ICON_COLORS[type];
+  const getNodeColor = (type: string) => ENTITY_COLORS[type] ?? ENTITY_COLORS.reference;
+  const getNodeBg = (type: string) => ENTITY_BG[type] ?? ENTITY_BG.reference;
+  const getIconColor = (type: string) => ENTITY_ICON_COLORS[type] ?? ENTITY_ICON_COLORS.reference;
 
   const nodeMap = useMemo(() => {
     const map = new Map<string, GraphNode>();
@@ -195,6 +239,8 @@ export default function Pivex(): JSX.Element {
     return 'opacity-10';
   };
 
+  const uniqueEdgeLabels = useMemo(() => [...new Set(edges.map((e) => e.label))], [edges]);
+
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
@@ -209,12 +255,16 @@ export default function Pivex(): JSX.Element {
           <Network size={28} className="text-brand-600 dark:text-brand-400" /> PIVEX
         </h1>
         <p className="text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed">
-          Infrastructure pivot graph — map relationships between IPs, domains, certificates, ASNs, and threat actors
-          using force-directed link analysis. <span className="text-slate-500">{nodes.length} node types · {edges.length} edge types</span>
+          Infrastructure pivot graph — map relationships between IPs, domains, certificates, ASNs, and threat actors.
+          {nodes.length > 0 && (
+            <span className="text-slate-500">
+              {' '}
+              {nodes.length} nodes · {edges.length} relationships
+            </span>
+          )}
         </p>
       </div>
 
-      {/* Input */}
       <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5 mb-6">
         <h2 className="font-display font-bold text-sm mb-3">Start Investigation</h2>
         <div className="flex gap-2">
@@ -223,32 +273,52 @@ export default function Pivex(): JSX.Element {
             <input
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="IP address, domain, or certificate hash…"
+              onKeyDown={(e) => e.key === 'Enter' && handleBuildGraph()}
+              placeholder="IP address, domain, CVE, actor name, or hash…"
               className="w-full pl-9 pr-3 h-10 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-lg text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 font-mono"
             />
           </div>
           <button
             onClick={handleBuildGraph}
-            className="px-5 py-2 bg-brand-600 hover:bg-brand-500 rounded-lg text-sm font-semibold text-white transition-colors flex items-center gap-2"
+            disabled={loading || !query.trim()}
+            className="px-5 py-2 bg-brand-600 hover:bg-brand-500 disabled:bg-slate-300 dark:disabled:bg-slate-700 rounded-lg text-sm font-semibold text-white transition-colors flex items-center gap-2"
           >
-            <Network size={14} /> Build Graph
+            {loading ? <Loader2 size={14} className="animate-spin" /> : <Network size={14} />}
+            {loading ? 'Building…' : 'Build Graph'}
           </button>
         </div>
       </div>
 
-      {!showGraph && (
+      {error && (
+        <div className="rounded-xl border border-rose-300/50 dark:border-rose-800/50 bg-rose-50/50 dark:bg-rose-950/20 p-4 mb-6">
+          <p className="text-sm text-rose-700 dark:text-rose-300 font-mono">{error}</p>
+        </div>
+      )}
+
+      {!showGraph && !loading && (
         <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-8 text-center">
           <Network size={48} className="mx-auto mb-3 text-slate-300 dark:text-slate-600" />
           <p className="text-sm text-slate-500 dark:text-slate-400">
-            Enter an IP or domain and click <span className="font-semibold text-slate-700 dark:text-slate-300">Build Graph</span> to visualise
-            the infrastructure pivot graph.
+            Enter an IP, domain, CVE, or actor name and click{' '}
+            <span className="font-semibold text-slate-700 dark:text-slate-300">Build Graph</span> to visualise the
+            infrastructure pivot graph.
           </p>
         </div>
       )}
 
       {showGraph && (
         <div className="space-y-6 animate-fade-in-up">
-          {/* Controls */}
+          {seedInfo && (
+            <div className="flex items-center gap-2 text-xs font-mono text-slate-500">
+              <span>
+                Seed: <span className="text-slate-700 dark:text-slate-300">{seedInfo.seed}</span>
+              </span>
+              {seedInfo.type && <span className="text-slate-400">({seedInfo.type})</span>}
+              {seedInfo.truncated && <span className="text-amber-600">· truncated</span>}
+              {seedInfo.warning && <span className="text-amber-600">· {seedInfo.warning}</span>}
+            </div>
+          )}
+
           <div className="flex items-center justify-between flex-wrap gap-3">
             <div className="flex items-center gap-2">
               <span className="text-xs text-slate-500 dark:text-slate-400">
@@ -275,20 +345,22 @@ export default function Pivex(): JSX.Element {
             </div>
           </div>
 
-          {/* Legend */}
-          <div className="flex flex-wrap gap-3">
-            {(Object.entries(TYPE_LABELS) as [EntityType, string][]).map(([type, label]) => (
-              <div key={type} className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg border text-xs font-mono ${getNodeColor(type)}`}>
-                <span className={`w-2 h-2 rounded-full ${getNodeBg(type)} border`} />
-                {label}
-              </div>
-            ))}
+          <div className="flex flex-wrap gap-2">
+            {Object.keys(TYPE_LABELS)
+              .filter((t) => nodes.some((n) => n.type === t))
+              .map((type) => (
+                <div
+                  key={type}
+                  className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg border text-xs font-mono ${getNodeColor(type)}`}
+                >
+                  <span className={`w-2 h-2 rounded-full ${getNodeBg(type)} border`} />
+                  {TYPE_LABELS[type]}
+                </div>
+              ))}
           </div>
 
-          {/* Graph Visualization */}
           <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950/60 shadow-e1 p-6 overflow-x-auto">
             <div className="flex flex-col gap-6 min-w-[700px]">
-              {/* Node grid with edges shown as lines between grouped clusters */}
               <GraphCluster
                 nodes={nodes}
                 edgesBySource={edgesBySource}
@@ -303,45 +375,19 @@ export default function Pivex(): JSX.Element {
             </div>
           </div>
 
-          {/* Relationship cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <RelationCard
-              title="IP ↔ Domain (Reverse DNS)"
-              edges={edges.filter((e) => e.label === 'reverse DNS')}
-              nodeMap={nodeMap}
-              getNodeColor={getNodeColor}
-            />
-            <RelationCard
-              title="Domain ↔ IP (DNS Resolution)"
-              edges={edges.filter((e) => e.label === 'DNS resolution')}
-              nodeMap={nodeMap}
-              getNodeColor={getNodeColor}
-            />
-            <RelationCard
-              title="Domain ↔ Certificate (CT Logs)"
-              edges={edges.filter((e) => e.label === 'CT log')}
-              nodeMap={nodeMap}
-              getNodeColor={getNodeColor}
-            />
-            <RelationCard
-              title="Certificate ↔ Domains (SANs)"
-              edges={edges.filter((e) => e.label === 'SAN')}
-              nodeMap={nodeMap}
-              getNodeColor={getNodeColor}
-            />
-            <RelationCard
-              title="IP ↔ ASN (BGP Origin)"
-              edges={edges.filter((e) => e.label === 'BGP origin')}
-              nodeMap={nodeMap}
-              getNodeColor={getNodeColor}
-            />
-            <RelationCard
-              title="ASN ↔ Domain (Hosted Services)"
-              edges={edges.filter((e) => e.label === 'hosts domain')}
-              nodeMap={nodeMap}
-              getNodeColor={getNodeColor}
-            />
-          </div>
+          {uniqueEdgeLabels.length > 0 && (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {uniqueEdgeLabels.map((label) => (
+                <RelationCard
+                  key={label}
+                  title={label}
+                  edges={edges.filter((e) => e.label === label)}
+                  nodeMap={nodeMap}
+                  getNodeColor={getNodeColor}
+                />
+              ))}
+            </div>
+          )}
         </div>
       )}
     </div>
@@ -362,15 +408,31 @@ function GraphCluster({
   nodes: GraphNode[];
   edgesBySource: Map<string, GraphEdge[]>;
   nodeMap: Map<string, GraphNode>;
-  getNodeColor: (t: EntityType) => string;
-  getIconColor: (t: EntityType) => string;
+  getNodeColor: (t: string) => string;
+  getIconColor: (t: string) => string;
   isDimmed: (id: string) => boolean;
   edgeOpacity: (s: string, t: string) => string;
   highlightNode: string | null;
   onNodeClick: (id: string) => void;
 }) {
-  const typeOrder: EntityType[] = ['ip', 'domain', 'certificate', 'asn', 'actor'];
-  const grouped = new Map<EntityType, GraphNode[]>();
+  const typeOrder = [
+    'ip',
+    'domain',
+    'certificate',
+    'asn',
+    'actor',
+    'cve',
+    'ransomware',
+    'malware',
+    'campaign',
+    'hash',
+    'technique',
+    'victim',
+    'c2_framework',
+    'product',
+    'reference',
+  ];
+  const grouped = new Map<string, GraphNode[]>();
   for (const type of typeOrder) grouped.set(type, []);
   for (const n of graphNodes) {
     const arr = grouped.get(n.type);
@@ -385,7 +447,7 @@ function GraphCluster({
         return (
           <div key={type}>
             <h3 className={`text-xs font-mono font-semibold uppercase tracking-wider mb-3 ${getIconColor(type)}`}>
-              {TYPE_LABELS[type]} ({typeNodes.length})
+              {TYPE_LABELS[type] ?? type} ({typeNodes.length})
             </h3>
             <div className="flex flex-wrap gap-3">
               {typeNodes.map((n) => (
@@ -399,19 +461,23 @@ function GraphCluster({
                 </button>
               ))}
             </div>
-            {/* Edges from these nodes */}
             <div className="mt-2 space-y-0.5">
-              {typeNodes.flatMap((n) => (edgesBySource.get(n.id) ?? []).map((e) => {
-                const target = nodeMap.get(e.target);
-                if (!target) return null;
-                return (
-                  <div key={`${e.source}-${e.target}`} className={`flex items-center gap-2 text-[11px] font-mono transition-opacity ${getEdgeOpacity(e.source, e.target)}`}>
-                    <span className="text-slate-500">{n.label}</span>
-                    <span className={`text-slate-400 ${EDGE_LABEL_COLORS[e.label] ?? 'text-slate-400'}`}>── {e.label} ──</span>
-                    <span className="text-slate-600 dark:text-slate-300">{target.label}</span>
-                  </div>
-                );
-              }))}
+              {typeNodes.flatMap((n) =>
+                (edgesBySource.get(n.id) ?? []).map((e) => {
+                  const target = nodeMap.get(e.target);
+                  if (!target) return null;
+                  return (
+                    <div
+                      key={`${e.source}-${e.target}`}
+                      className={`flex items-center gap-2 text-[11px] font-mono transition-opacity ${getEdgeOpacity(e.source, e.target)}`}
+                    >
+                      <span className="text-slate-500">{n.label}</span>
+                      <span className="text-slate-400">── {e.label} ──</span>
+                      <span className="text-slate-600 dark:text-slate-300">{target.label}</span>
+                    </div>
+                  );
+                })
+              )}
             </div>
           </div>
         );
@@ -429,7 +495,7 @@ function RelationCard({
   title: string;
   edges: GraphEdge[];
   nodeMap: Map<string, GraphNode>;
-  getNodeColor: (t: EntityType) => string;
+  getNodeColor: (t: string) => string;
 }) {
   return (
     <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-4">
@@ -440,19 +506,15 @@ function RelationCard({
         <p className="text-xs text-slate-400 italic">No relationships mapped</p>
       ) : (
         <div className="space-y-1.5">
-          {edges.map((e) => {
+          {edges.map((e, i) => {
             const source = nodeMap.get(e.source);
             const target = nodeMap.get(e.target);
             if (!source || !target) return null;
             return (
-              <div key={`${e.source}-${e.target}`} className="flex items-center gap-2 text-xs font-mono">
-                <span className={`px-1.5 py-0.5 rounded text-[10px] ${getNodeColor(source.type)}`}>
-                  {source.label}
-                </span>
+              <div key={`${e.source}-${e.target}-${i}`} className="flex items-center gap-2 text-xs font-mono">
+                <span className={`px-1.5 py-0.5 rounded text-[10px] ${getNodeColor(source.type)}`}>{source.label}</span>
                 <span className="text-slate-400 text-[10px]">→</span>
-                <span className={`px-1.5 py-0.5 rounded text-[10px] ${getNodeColor(target.type)}`}>
-                  {target.label}
-                </span>
+                <span className={`px-1.5 py-0.5 rounded text-[10px] ${getNodeColor(target.type)}`}>{target.label}</span>
               </div>
             );
           })}

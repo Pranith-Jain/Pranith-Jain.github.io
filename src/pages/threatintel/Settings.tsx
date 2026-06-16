@@ -1,5 +1,6 @@
 import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, Plug, Shield, Globe, Server, FileSearch, Cpu, Book, Bug, Terminal } from 'lucide-react';
+import { useTheme } from '../../hooks';
+import { ArrowLeft, Moon, Plug, Shield, Globe, Server, FileSearch, Cpu, Book, Bug, Sun, Terminal } from 'lucide-react';
 
 /**
  * Public-facing integrations directory.
@@ -244,6 +245,7 @@ const CATEGORY_LABEL: Record<Integration['category'], string> = {
 const CATEGORY_ORDER: Integration['category'][] = ['reputation', 'recon', 'malware', 'breach', 'social', 'platform'];
 
 export default function Settings(): JSX.Element {
+  const { isDark, toggleTheme } = useTheme();
   const byCategory = CATEGORY_ORDER.map((cat) => ({
     cat,
     items: INTEGRATIONS.filter((i) => i.category === cat),
@@ -270,6 +272,30 @@ export default function Settings(): JSX.Element {
           soft until then so nothing else breaks.
         </p>
       </div>
+
+      {/* ── Preferences ──────────────────────────────────────────── */}
+      <section className="mb-10 animate-fade-in-up">
+        <h2 className="font-display font-semibold text-base mb-3 text-slate-800 dark:text-slate-200">Preferences</h2>
+        <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="font-medium text-sm text-slate-900 dark:text-slate-100">Dark mode</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                {isDark ? 'Currently using dark theme' : 'Currently using light theme'}
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={toggleTheme}
+              className="inline-flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-3 py-2 text-sm font-mono text-slate-700 dark:text-slate-300 hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+              aria-label={`Switch to ${isDark ? 'light' : 'dark'} mode`}
+            >
+              {isDark ? <Sun size={16} /> : <Moon size={16} />}
+              {isDark ? 'Light' : 'Dark'}
+            </button>
+          </div>
+        </div>
+      </section>
 
       <div className="space-y-8">
         {byCategory.map(({ cat, items }) => (
