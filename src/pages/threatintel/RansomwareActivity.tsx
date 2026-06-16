@@ -52,7 +52,7 @@ export default function RansomwareActivity(): JSX.Element {
             </a>
             ,{' '}
             <a
-              href="https://github.com/joshhighet/ransomwatch"
+              href="https://ransomwatch.telemetry.ltd/"
               target="_blank"
               rel="noopener noreferrer"
               className="text-brand-600 dark:text-brand-400 hover:underline"

@@ -166,7 +166,9 @@ export default function DarkWeb(): JSX.Element {
   const [activeSources, setActiveSources] = useState<Set<string>>(() => new Set(ALL_FEED_IDS));
   const [dateWindow, setDateWindow] = useState<DateWindow>('30d');
   const [mounted, setMounted] = useState(false);
-  useEffect(() => { setMounted(true); }, []);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // Hydrate from localStorage
   useEffect(() => {
@@ -816,7 +818,7 @@ const ORIGIN_PILL: Record<RansomwareOrigin, { label: string; cls: string; toolti
   ransomwatch: {
     label: 'RW',
     cls: 'border-violet-500/40 bg-violet-500/10 text-violet-700 dark:text-violet-300',
-    tooltip: 'ransomwatch — joshhighet/ransomwatch GitHub posts.json',
+    tooltip: 'ransomwatch slot — RansomLook deep leak-site feed (extended 7-day coverage)',
   },
   ransomwarelive: {
     label: 'RL!',

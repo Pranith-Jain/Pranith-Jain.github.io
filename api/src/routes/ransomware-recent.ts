@@ -42,8 +42,22 @@ const FETCH_TIMEOUT_MS = 15_000;
 const UPSTREAM = 'https://www.ransomlook.io/api/recent';
 /** Secondary tracker. RSS of victim claims. Independently aggregated. */
 const RANSOMFEED_RSS = 'https://www.ransomfeed.it/rss.php';
-/** Tertiary tracker. JSON dump on GitHub, ~16k historical + current entries. */
-const RANSOMWATCH_JSON = 'https://raw.githubusercontent.com/joshhighet/ransomwatch/main/posts.json';
+/**
+ * Tertiary tracker — the "ransomwatch" gap-filler slot. The original
+ * joshhighet/ransomwatch source (a GitHub posts.json dump) was ARCHIVED
+ * upstream and its data froze on 2025-06-16, so the 7-day window filtered
+ * it down to zero live rows. We keep the `ransomwatch` origin pill but back
+ * it with RansomLook's DEEP recent feed (`/api/recent/<N>`) instead: the
+ * primary Ransomlook source (UPSTREAM, `/api/recent`) is capped at ~100
+ * entries which covers under a day of leak-site activity, so the deeper
+ * pull surfaces the rest of the 7-day window. The merge dedupes by
+ * (group + victim), so rows already carried by the primary source, cti.fyi,
+ * or ransomfeed collapse to those origins — only the genuinely-additional
+ * leak-site claims are attributed to `ransomwatch`. Same JSON shape as
+ * UPSTREAM, so it reuses the primary parser's field mapping (incl. .onion
+ * screenshot URLs the old joshhighet dump never had).
+ */
+const RANSOMWATCH_DEEP = 'https://www.ransomlook.io/api/recent/500';
 /**
  * ransomware.live public data dump (free, no key). Newest-first, ~28k
  * entries, richer than ransomwatch: carries country + activity (sector) +
@@ -279,18 +293,22 @@ async function fetchRansomfeedVictims(): Promise<RansomwareVictim[]> {
 }
 
 /**
- * Parse joshhighet/ransomwatch's posts.json into our normalized victim shape.
+ * The "ransomwatch" gap-filler slot, backed by RansomLook's DEEP recent
+ * feed (`/api/recent/500`). See RANSOMWATCH_DEEP for why the original
+ * joshhighet/ransomwatch source was dropped (archived, year-stale).
  *
- * The file contains ~16k historical entries with the shape
- *   { post_title, group_name, discovered }
- * No description, no website, no screenshot. We still find it useful as a
- * gap-filler — ransomwatch monitors leak sites that Ransomlook misses and
- * vice versa. The dataset is large (~2.2MB); we read the tail and only
- * keep the last 7 days so the merge stays bounded.
+ * The primary Ransomlook source (UPSTREAM, `/api/recent`) is capped at ~100
+ * entries — under a day of leak-site activity — so it truncates the 7-day
+ * window hard. This pulls the deeper 500-entry feed and keeps the last 7
+ * days; the merge dedupes by (group + victim), so the ~100 rows already
+ * carried by the primary source (plus cti.fyi / ransomfeed) collapse to
+ * those higher-priority origins, and only the *additional* leak-site claims
+ * keep the `ransomwatch` origin. Same JSON shape as UPSTREAM, so the field
+ * mapping (incl. .onion screenshot URLs) mirrors the primary parser.
  */
 async function fetchRansomwatchVictims(): Promise<RansomwareVictim[]> {
   try {
-    const res = await fetch(RANSOMWATCH_JSON, {
+    const res = await fetch(RANSOMWATCH_DEEP, {
       headers: {
         Accept: 'application/json',
         'User-Agent': 'pranithjain.qzz.io DFIR toolkit (free, read-only)',
@@ -299,24 +317,31 @@ async function fetchRansomwatchVictims(): Promise<RansomwareVictim[]> {
       cf: { cacheTtlByStatus: { '200-299': 3600, '400-599': 0 }, cacheEverything: true },
     } as RequestInit);
     if (!res.ok) return [];
-    const raw = (await res.json()) as Array<{ post_title?: string; group_name?: string; discovered?: string }>;
+    const raw = (await res.json()) as RansomlookEntry[];
     if (!Array.isArray(raw)) return [];
     const cutoffMs = Date.now() - 7 * 24 * 3600 * 1000;
     const out: RansomwareVictim[] = [];
-    // ransomwatch appends new entries at the end of the array; walk backwards.
-    for (let i = raw.length - 1; i >= 0 && out.length < MAX_ITEMS; i--) {
-      const e = raw[i];
+    // Newest-first array. Walk forward, keep rows inside the 7-day window;
+    // the list is sorted by discovery so we can stop at the first older row.
+    for (const e of raw) {
+      if (out.length >= MAX_ITEMS) break;
       if (!e || !e.post_title || !e.group_name || !e.discovered) continue;
       const discovered = toIsoDate(e.discovered);
       const ts = Date.parse(discovered);
-      if (!Number.isFinite(ts) || ts < cutoffMs) break; // entries are ordered, can stop
+      if (!Number.isFinite(ts)) continue;
+      if (ts < cutoffMs) break; // sorted desc — everything after is older
       const victim = e.post_title.trim();
+      const description = e.description?.trim() || undefined;
       out.push({
         victim,
         group: normalizeGroup(e.group_name),
         discovered,
-        source_url: 'https://github.com/joshhighet/ransomwatch',
-        sector: classifySector(victim, undefined),
+        description,
+        source_url: e.link
+          ? `https://www.ransomlook.io${e.link.startsWith('/') ? '' : '/'}${e.link}`
+          : 'https://www.ransomlook.io/recent',
+        screen_url: e.screen ? `https://www.ransomlook.io/${e.screen.replace(/^\//, '')}` : undefined,
+        sector: classifySector(victim, description),
         origin: 'ransomwatch' as const,
       });
     }
@@ -704,16 +729,17 @@ export async function fetchRansomwareRecent(env?: Env): Promise<{
   // pins an empty feed for the whole TTL and the page blanks for repeat
   // visitors — the exact failure this guards against.
   if (upstreamOk && body.victims.length > 0 && env?.KV_CACHE) {
-    caches.default
-      safeNullLog('cache-put-ransomware-recent',
-        (caches as unknown as { default: Cache }).default.put(
-          new Request(RANSOMWARE_RECENT_CACHE_KEY),
-          new Response(JSON.stringify(body), {
-            status: 200,
-            headers: { 'cache-control': `public, max-age=${CACHE_TTL_SECONDS}` },
-          })
-        )
-      );
+    caches.default;
+    safeNullLog(
+      'cache-put-ransomware-recent',
+      (caches as unknown as { default: Cache }).default.put(
+        new Request(RANSOMWARE_RECENT_CACHE_KEY),
+        new Response(JSON.stringify(body), {
+          status: 200,
+          headers: { 'cache-control': `public, max-age=${CACHE_TTL_SECONDS}` },
+        })
+      )
+    );
   }
 
   return { body, upstreamOk, rateLimited };
