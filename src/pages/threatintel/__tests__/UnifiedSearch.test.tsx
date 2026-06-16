@@ -44,4 +44,20 @@ describe('UnifiedSearch omnibox', () => {
     renderAt('/threatintel/unified-search?q=LockBit');
     expect(screen.getByRole('searchbox', { name: /search across all intelligence/i })).toHaveValue('LockBit');
   });
+
+  it('surfaces the Pages section for subpage keyword queries', () => {
+    // "wiki" should match the /threatintel/wiki Knowledge Base page.
+    renderAt('/threatintel/unified-search?q=wiki');
+    const pagesHeader = screen.getByText(/^Pages$/);
+    expect(pagesHeader).toBeInTheDocument();
+    const wikiLink = screen.getByRole('link', { name: /Knowledge Base/i });
+    expect(wikiLink).toHaveAttribute('href', '/threatintel/wiki');
+  });
+
+  it('surfaces the Pages section for DFIR keyword queries', () => {
+    // "cve" should match the /dfir/cve page.
+    renderAt('/threatintel/unified-search?q=cve');
+    const cveLink = screen.getByRole('link', { name: /CVE Lookup/i });
+    expect(cveLink).toHaveAttribute('href', '/dfir/cve');
+  });
 });

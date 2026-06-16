@@ -108,7 +108,7 @@ export default function ThreatIntelHome(): JSX.Element {
       <AppHero
         kicker="Privacy-first · Live edge feeds · No login · No tracking"
         title="Threat-intel platform"
-        sub="CTI aggregator and DFIR analyst toolkit, both running on Cloudflare Workers. Pulls from ~30 public feeds — ransomware leak sites, CVE/KEV, malware samples, phishing URLs, social and Telegram, MyThreatIntel — plus multi-provider IOC enrichment and STIX 2.1 export. Coverage is a sample, not exhaustive."
+        sub="Live CTI from ~30 public feeds — ransomware leaks, CVE/KEV, malware, phishing, social, and Telegram. All edge-hosted on Cloudflare."
         meta={
           <>
             {totalTiles} intel surfaces · by{' '}
@@ -288,18 +288,13 @@ export default function ThreatIntelHome(): JSX.Element {
               </Link>
             ))}
           </div>
-          <div className="mb-4">
-            <h2 className="font-display font-bold text-2xl text-slate-900 dark:text-slate-100 mb-3">
-              {activeSection.label}
-            </h2>
-            <p className="text-sm text-slate-500 dark:text-slate-400 font-mono mt-1">
-              {activeSection.blurb} · {activeSection.tools.length}{' '}
-              {activeSection.tools.length === 1 ? 'source' : 'sources'}
-            </p>
-            <p className="text-mini font-mono text-slate-400 dark:text-slate-500 mt-2">
-              Reference only. Feeds refreshed at the edge each visit; verify indicators in your own environment.
-            </p>
-          </div>
+          <h2 className="font-display font-bold text-2xl text-slate-900 dark:text-slate-100 mb-1">
+            {activeSection.label}
+          </h2>
+          <p className="text-sm text-slate-500 dark:text-slate-400 font-mono mb-6">
+            {activeSection.blurb} · {activeSection.tools.length}{' '}
+            {activeSection.tools.length === 1 ? 'source' : 'sources'}
+          </p>
           <ul className="stagger grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {activeSection.tools.map((t) => {
               const Icon = t.icon;

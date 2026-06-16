@@ -3,7 +3,7 @@ import { useDebounce } from '../../hooks/useDebounce';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 import { relativeAgo as shortRel } from '../../lib/relativeTime';
 import { useSearchParams } from 'react-router-dom';
-import { DataPageLayout } from '../../components/DataPageLayout';
+import { DataPageLayout, useInsideDataPageLayout } from '../../components/DataPageLayout';
 import { AtSign, Cloud, ExternalLink, RefreshCw, Search, Sparkles } from 'lucide-react';
 import { useLastVisit, isNewSince } from '../../hooks';
 
@@ -43,6 +43,7 @@ const TOPIC_PILL: Record<XFeedItem['handle_topic'], string> = {
 };
 
 export default function XFirehose(): JSX.Element {
+  const insideLayout = useInsideDataPageLayout();
   const [searchParams, setSearchParams] = useSearchParams();
   const [data, setData] = useState<XFeedResponse | null>(null);
   const [loading, setLoading] = useState(true);
@@ -223,6 +224,7 @@ export default function XFirehose(): JSX.Element {
   return (
     <DataPageLayout
       backTo="/threatintel"
+      hideBack={insideLayout}
       icon={<Cloud size={28} />}
       title="Cybersec social firehose"
       description={

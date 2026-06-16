@@ -1,0 +1,2883 @@
+/**
+ * Searchable page index.
+ *
+ * Why this exists:
+ *   The Unified Search omnibox (and the ⌘K command palette) used to match
+ *   only the `SECTIONS` tiles in `threatintel-sections.ts` and
+ *   `dfir/tool-sections.ts`. Those tile catalogs are intentionally lean
+ *   (~24 + ~138 entries) — they describe the marketing surface, not the
+ *   full route table. App.tsx registers ~336 paths, so the previous
+ *   search was missing the majority of routable subpages (most tab
+ *   variants, every /threatintel/* hub, every DFIR /tools/* leaf, the
+ *   admin app, the wiki articles, etc.).
+ *
+ *   This file is the canonical "find any subpage" registry. The Unified
+ *   Search page merges it with the tool catalogs, the IOC quick-actions,
+ *   and the server-side `/api/v1/unified-search` so a query returns
+ *   matches across all four layers.
+ *
+ * Source-of-truth ordering:
+ *   1. PORTFOLIO_PAGES, DFIR_PAGES, THREATINTEL_PAGES, ADMIN_PAGES —
+ *      explicit, hand-curated entries. Edit these when a new page
+ *      ships; the search picks it up automatically. The blog index
+ *      and per-post page live in PORTFOLIO_PAGES because they share
+ *      the same chrome as the rest of the portfolio.
+ *   2. The PAGES export concatenates the four arrays. Parametrized
+ *      routes (e.g. /threatintel/wiki/:slug) carry a `:param` in
+ *      their `path` and surface via the "Page" kind on the omnibox
+ *      without needing to know a specific slug.
+ *
+ * What this file does NOT do:
+ *   - It does not lazy-load page components. The search matches by
+ *     `path` only and navigates via `react-router` <Link>. The
+ *     destination chunk is loaded by the router on click.
+ *   - It does not replace `SECTIONS` / `tool-sections.ts` — those
+ *     files own the visual tile grid for /threatintel and /dfir. This
+ *     index is a parallel data source used solely for search.
+ *
+ * If you add a new route to App.tsx:
+ *   1. Add the path + label + description to the matching section
+ *      array below.
+ *   2. Run `npm test -- pages-index` to confirm the new path resolves
+ *      and the `coversAllAppRoutes` test still passes.
+ *
+ * Last reviewed: alongside the Unified Search omnibox rebuild.
+ */
+
+export type PageGroup = 'portfolio' | 'dfir' | 'threatintel' | 'admin' | 'blog' | 'case-study';
+
+export interface PageEntry {
+  /** URL path the search result navigates to. Can include `:param`. */
+  path: string;
+  /** Display label shown as the result row title. */
+  label: string;
+  /** One-line context shown under the label. */
+  description: string;
+  /** Section / category hint shown alongside description. */
+  sectionLabel: string;
+  /** Top-level group — used to filter the index and tint badges. */
+  group: PageGroup;
+  /**
+   * Free-form keyword bag for the matcher. Includes synonyms and
+   * analyst vocabulary (e.g. "edr", "siem", "sigma", "ransomware")
+   * that should surface this entry even when the label does not
+   * literally contain them.
+   */
+  keywords?: readonly string[];
+}
+
+/* ------------------------------------------------------------------ */
+/*  1. Portfolio (top-level)                                          */
+/* ------------------------------------------------------------------ */
+
+const PORTFOLIO_PAGES: readonly PageEntry[] = [
+  {
+    path: '/',
+    label: 'Home',
+    description: 'Landing page — overview, recent work, featured case studies, and call-to-action.',
+    sectionLabel: 'Portfolio',
+    group: 'portfolio',
+  },
+  {
+    path: '/about',
+    label: 'About',
+    description: 'Background, focus areas, and how I approach threat-informed engineering.',
+    sectionLabel: 'Portfolio',
+    group: 'portfolio',
+    keywords: ['bio', 'summary'],
+  },
+  {
+    path: '/skills',
+    label: 'Skills',
+    description: 'Technical and tradecraft skills, grouped by domain and tooling.',
+    sectionLabel: 'Portfolio',
+    group: 'portfolio',
+  },
+  {
+    path: '/experience',
+    label: 'Experience',
+    description: 'Work history, role-by-role responsibilities, and the artifacts I owned.',
+    sectionLabel: 'Portfolio',
+    group: 'portfolio',
+    keywords: ['resume', 'cv', 'work history'],
+  },
+  {
+    path: '/projects',
+    label: 'Projects',
+    description: 'Public projects and tools with a short writeup and a link to source.',
+    sectionLabel: 'Portfolio',
+    group: 'portfolio',
+  },
+  {
+    path: '/projects/:slug',
+    label: 'Case Study',
+    description: 'Per-project deep dive — problem, approach, detection logic, and impact.',
+    sectionLabel: 'Portfolio',
+    group: 'case-study',
+    keywords: ['writeup', 'case', 'study'],
+  },
+  {
+    path: '/blog',
+    label: 'Blog',
+    description: 'Long-form posts on detection engineering, OSINT, and DFIR workflows.',
+    sectionLabel: 'Portfolio',
+    group: 'blog',
+  },
+  {
+    path: '/blog/c/:type',
+    label: 'Blog (filtered)',
+    description: 'Blog index pre-filtered by category or tag.',
+    sectionLabel: 'Portfolio',
+    group: 'blog',
+  },
+  {
+    path: '/blog/:slug',
+    label: 'Blog Post',
+    description: 'A single blog post — narrative, IOCs, and detection logic.',
+    sectionLabel: 'Portfolio',
+    group: 'blog',
+  },
+  {
+    path: '/behind-the-reports',
+    label: 'Behind the Reports',
+    description: 'Process notes — how a published report is sourced, drafted, and reviewed.',
+    sectionLabel: 'Portfolio',
+    group: 'portfolio',
+  },
+  {
+    path: '/sponsor',
+    label: 'Sponsor',
+    description: 'Sponsorship tiers, deliverables, and the threat-intel platforms I support.',
+    sectionLabel: 'Portfolio',
+    group: 'portfolio',
+  },
+  {
+    path: '/copilot',
+    label: 'Copilot (alias)',
+    description: 'Legacy top-level alias for the Threat Intel Copilot inside the Tools hub.',
+    sectionLabel: 'Portfolio',
+    group: 'threatintel',
+    keywords: ['ai', 'assistant', 'chat'],
+  },
+  {
+    path: '/osint-tools',
+    label: 'OSINT CLI Tools (alias)',
+    description: 'Legacy top-level alias for the OSINT CLI tools view.',
+    sectionLabel: 'Portfolio',
+    group: 'threatintel',
+    keywords: ['osint', 'cli', 'tools'],
+  },
+];
+
+/* ------------------------------------------------------------------ */
+/*  2. DFIR tools                                                     */
+/* ------------------------------------------------------------------ */
+
+const DFIR_PAGES: readonly PageEntry[] = [
+  // Triage / dispatcher
+  {
+    path: '/dfir',
+    label: 'DFIR Dashboard',
+    description: 'DFIR landing — paste-an-IOC dispatcher, recent tools, and quick pivots.',
+    sectionLabel: 'DFIR · Triage',
+    group: 'dfir',
+    keywords: ['home', 'landing'],
+  },
+  {
+    path: '/dfir/ioc-check',
+    label: 'IOC Check',
+    description: 'Multi-engine indicator lookup — VirusTotal, AbuseIPDB, URLScan, GreyNoise.',
+    sectionLabel: 'DFIR · Triage',
+    group: 'dfir',
+    keywords: ['ioc', 'indicator', 'hash', 'ip', 'domain', 'url', 'lookup'],
+  },
+  {
+    path: '/dfir/abuse-rep',
+    label: 'Abuse Report',
+    description: 'Draft an abuse report to a hosting provider, registrar, or cert authority.',
+    sectionLabel: 'DFIR · Triage',
+    group: 'dfir',
+    keywords: ['abuse', 'report', 'complaint'],
+  },
+  {
+    path: '/dfir/phishing',
+    label: 'Phishing Analyzer',
+    description: 'Paste a URL or raw email and extract sender, links, attachments, and brand-impersonation signals.',
+    sectionLabel: 'DFIR · Triage',
+    group: 'dfir',
+    keywords: ['phish', 'email', 'smtp', 'message'],
+  },
+  {
+    path: '/dfir/email-defense',
+    label: 'Email Defense',
+    description: 'SPF / DKIM / DMARC analyzer, header parsing, and authentication-failure reporting.',
+    sectionLabel: 'DFIR · Triage',
+    group: 'dfir',
+    keywords: ['spf', 'dkim', 'dmarc', 'arc', 'email', 'auth'],
+  },
+  {
+    path: '/dfir/email-rep',
+    label: 'Email Reputation',
+    description: 'Sender domain & IP reputation across blocklists and email-security vendors.',
+    sectionLabel: 'DFIR · Triage',
+    group: 'dfir',
+  },
+  {
+    path: '/dfir/eml',
+    label: 'EML Extractor',
+    description: 'Parse a .eml file, extract headers, body, attachments, and IOCs.',
+    sectionLabel: 'DFIR · Triage',
+    group: 'dfir',
+  },
+  {
+    path: '/dfir/dmarc-analyzer',
+    label: 'DMARC Analyzer',
+    description: 'DMARC record lookup, alignment checks, and reporting policy breakdown.',
+    sectionLabel: 'DFIR · Triage',
+    group: 'dfir',
+    keywords: ['dmarc', 'email', 'auth'],
+  },
+  {
+    path: '/dfir/domain',
+    label: 'Domain Investigator',
+    description: 'WHOIS, DNS records, certificate transparency, and infrastructure pivots for a domain.',
+    sectionLabel: 'DFIR · Triage',
+    group: 'dfir',
+  },
+  {
+    path: '/dfir/domain-rep',
+    label: 'Domain Reputation',
+    description: 'Reputation lookups against blocklists, threat feeds, and registrar abuse history.',
+    sectionLabel: 'DFIR · Triage',
+    group: 'dfir',
+  },
+  {
+    path: '/dfir/domain-investigator',
+    label: 'Domain Investigator (deep)',
+    description: 'Deep-dive domain analysis — nameserver history, IP neighbors, and SSL SAN pivots.',
+    sectionLabel: 'DFIR · Triage',
+    group: 'dfir',
+  },
+  {
+    path: '/dfir/webcheck',
+    label: 'Domain Webcheck',
+    description: 'Live HTTP fetch of a domain — title, headers, cookies, and screenshot.',
+    sectionLabel: 'DFIR · Triage',
+    group: 'dfir',
+  },
+  {
+    path: '/dfir/web-scan',
+    label: 'Web Scan',
+    description: 'Headless scan of a URL — TLS, redirects, technology fingerprint, and exposed endpoints.',
+    sectionLabel: 'DFIR · Triage',
+    group: 'dfir',
+  },
+  {
+    path: '/dfir/url-preview',
+    label: 'URL Preview',
+    description: 'Sandboxed URL preview — server-rendered screenshot and meta extraction.',
+    sectionLabel: 'DFIR · Triage',
+    group: 'dfir',
+  },
+  {
+    path: '/dfir/url-rep',
+    label: 'URL Reputation',
+    description: 'URL reputation lookup against blocklists, phishing feeds, and sandbox verdict history.',
+    sectionLabel: 'DFIR · Triage',
+    group: 'dfir',
+  },
+  {
+    path: '/dfir/exposure',
+    label: 'Exposure Scan',
+    description: 'External attack-surface scan — open ports, exposed services, and ASN neighbors.',
+    sectionLabel: 'DFIR · Triage',
+    group: 'dfir',
+  },
+  {
+    path: '/dfir/exposed-host',
+    label: 'Exposed Host',
+    description: 'Investigate a single exposed host — services, banners, and CVE candidates.',
+    sectionLabel: 'DFIR · Triage',
+    group: 'dfir',
+  },
+  {
+    path: '/dfir/full-spectrum',
+    label: 'Full Spectrum',
+    description: 'Multi-vector investigation pivot — given an indicator, fan out across IP, domain, hash, and TLS.',
+    sectionLabel: 'DFIR · Triage',
+    group: 'dfir',
+  },
+  {
+    path: '/dfir/threat-hunt',
+    label: 'Threat Hunt',
+    description: 'Hypothesis-driven hunting — craft Sigma/SPL/KQL queries from a starting TTP.',
+    sectionLabel: 'DFIR · Triage',
+    group: 'dfir',
+    keywords: ['hunt', 'sigma', 'kql', 'spl'],
+  },
+  {
+    path: '/dfir/threat-graph',
+    label: 'Threat Graph',
+    description: 'Interactive graph of indicators, actors, and campaigns — pivot by clicking a node.',
+    sectionLabel: 'DFIR · Triage',
+    group: 'dfir',
+  },
+  {
+    path: '/dfir/attack-chain',
+    label: 'Attack Chain',
+    description: 'Reconstruct a kill-chain from a sequence of events — TTPs, gaps, and detection coverage.',
+    sectionLabel: 'DFIR · Triage',
+    group: 'dfir',
+  },
+  {
+    path: '/dfir/attack-navigator',
+    label: 'ATT&CK Navigator',
+    description: 'MITRE ATT&CK layer editor — annotate techniques, color by coverage, export as JSON.',
+    sectionLabel: 'DFIR · Triage',
+    group: 'dfir',
+    keywords: ['mitre', 'attack', 'navigator', 'ttp'],
+  },
+  {
+    path: '/dfir/kill-chain',
+    label: 'Kill Chain',
+    description: 'Lockheed Martin cyber kill-chain view — annotate, score, and pivot.',
+    sectionLabel: 'DFIR · Triage',
+    group: 'dfir',
+  },
+  {
+    path: '/dfir/diamond',
+    label: 'Diamond Model',
+    description: 'Diamond Model of intrusion analysis — adversary, infrastructure, capability, victim.',
+    sectionLabel: 'DFIR · Triage',
+    group: 'dfir',
+  },
+  {
+    path: '/dfir/atlas',
+    label: 'MITRE ATLAS',
+    description: 'MITRE ATLAS matrix for AI/ML threats — annotated view of adversary techniques.',
+    sectionLabel: 'DFIR · Triage',
+    group: 'dfir',
+    keywords: ['ai', 'ml', 'llm', 'atlas', 'mitre'],
+  },
+  {
+    path: '/dfir/owasp',
+    label: 'OWASP',
+    description: 'OWASP Top 10 and supporting references — web, API, and LLM threat views.',
+    sectionLabel: 'DFIR · Triage',
+    group: 'dfir',
+  },
+  {
+    path: '/dfir/lolbins',
+    label: 'LOLBins',
+    description: 'Living-off-the-land binaries — catalog of signed Microsoft tools abused by attackers.',
+    sectionLabel: 'DFIR · Triage',
+    group: 'dfir',
+    keywords: ['lolbin', 'lolbas', 'living off the land'],
+  },
+  {
+    path: '/dfir/prompt-injection',
+    label: 'Prompt Injection',
+    description: 'Test prompts for injection, jailbreak, and data exfiltration across common LLM patterns.',
+    sectionLabel: 'DFIR · Triage',
+    group: 'dfir',
+    keywords: ['llm', 'ai', 'injection', 'jailbreak'],
+  },
+  {
+    path: '/dfir/zero-trust-ai-agents',
+    label: 'Zero-Trust AI Agents',
+    description: 'Threat model and reference architecture for zero-trust LLM agents.',
+    sectionLabel: 'DFIR · Triage',
+    group: 'dfir',
+    keywords: ['ai', 'llm', 'agent', 'zero trust'],
+  },
+  {
+    path: '/dfir/mcp-audit',
+    label: 'MCP Audit',
+    description:
+      'Audit a Model Context Protocol server config for tool poisoning, exfiltration, and over-permissioning.',
+    sectionLabel: 'DFIR · Triage',
+    group: 'dfir',
+    keywords: ['mcp', 'ai', 'llm', 'agent'],
+  },
+  {
+    path: '/dfir/nhi',
+    label: 'Non-Human Identity',
+    description: 'Inventory and risk-score non-human identities — service accounts, tokens, OAuth apps.',
+    sectionLabel: 'DFIR · Triage',
+    group: 'dfir',
+    keywords: ['nhi', 'service account', 'identity'],
+  },
+  {
+    path: '/dfir/agent',
+    label: 'Agent Investigator',
+    description: 'Investigate an AI agent — call graph, tool list, prompt history, and policy drift.',
+    sectionLabel: 'DFIR · Triage',
+    group: 'dfir',
+    keywords: ['ai', 'agent', 'llm'],
+  },
+  {
+    path: '/dfir/agent-map',
+    label: 'Agent Map',
+    description: 'Map of agent ↔ tool ↔ data dependencies — drift detection and policy gaps.',
+    sectionLabel: 'DFIR · Triage',
+    group: 'dfir',
+    keywords: ['ai', 'agent', 'llm'],
+  },
+  {
+    path: '/dfir/pivex',
+    label: 'Pivot Express',
+    description: 'Express pivot tool — given an indicator, find the next likely indicator with one click.',
+    sectionLabel: 'DFIR · Triage',
+    group: 'dfir',
+  },
+  {
+    path: '/dfir/phishops',
+    label: 'PhishOps',
+    description: 'Phishing response runbook — extract, enrich, block, and notify in one workspace.',
+    sectionLabel: 'DFIR · Triage',
+    group: 'dfir',
+  },
+  {
+    path: '/dfir/phishbook',
+    label: 'Phishbook',
+    description: 'Phishing case notebook — track per-incident pivots, decisions, and follow-ups.',
+    sectionLabel: 'DFIR · Triage',
+    group: 'dfir',
+  },
+  {
+    path: '/dfir/tracepulse',
+    label: 'Tracepulse',
+    description: 'Live trace viewer for distributed traces — flag outliers, decode protobuf, pivot on tags.',
+    sectionLabel: 'DFIR · Triage',
+    group: 'dfir',
+    keywords: ['otel', 'tracing'],
+  },
+  {
+    path: '/dfir/quicktrace',
+    label: 'Quicktrace',
+    description: 'Fast trace search — paste a trace ID, get the call tree, dependencies, and errors.',
+    sectionLabel: 'DFIR · Triage',
+    group: 'dfir',
+  },
+  {
+    path: '/dfir/copilot',
+    label: 'DFIR Copilot',
+    description: 'Conversational DFIR assistant — ask follow-up questions, summarize IOCs, draft pivots.',
+    sectionLabel: 'DFIR · Investigate',
+    group: 'dfir',
+    keywords: ['ai', 'assistant', 'chat'],
+  },
+  {
+    path: '/dfir/dashboard',
+    label: 'DFIR Dashboard (alias)',
+    description: 'Alias for the DFIR landing page.',
+    sectionLabel: 'DFIR · Triage',
+    group: 'dfir',
+  },
+  {
+    path: '/dfir/file',
+    label: 'File → IOC Check',
+    description: 'Hash redirect — hashes the input and pivots into the IOC checker.',
+    sectionLabel: 'DFIR · Triage',
+    group: 'dfir',
+  },
+
+  // Investigate / enrich
+  {
+    path: '/dfir/asset-intel',
+    label: 'Asset Intel',
+    description: 'Per-asset intelligence — owner, exposure score, recent events.',
+    sectionLabel: 'DFIR · Investigate',
+    group: 'dfir',
+  },
+  {
+    path: '/dfir/host-graph',
+    label: 'Host Graph',
+    description: 'Graph view of host-to-host and host-to-infrastructure relationships.',
+    sectionLabel: 'DFIR · Investigate',
+    group: 'dfir',
+  },
+  {
+    path: '/dfir/report-ingest',
+    label: 'Report Ingest',
+    description: 'Paste a threat report and auto-extract IOCs, TTPs, and entities.',
+    sectionLabel: 'DFIR · Investigate',
+    group: 'dfir',
+  },
+  {
+    path: '/dfir/report-analyzer',
+    label: 'Report Analyzer',
+    description: 'Deep analysis of a threat report — entities, timeline, severity, and pivot list.',
+    sectionLabel: 'DFIR · Investigate',
+    group: 'dfir',
+  },
+  {
+    path: '/dfir/report-parser',
+    label: 'Report Parser',
+    description: 'Parse a raw threat report (PDF, blog, JSON) into structured STIX-like fields.',
+    sectionLabel: 'DFIR · Investigate',
+    group: 'dfir',
+  },
+  {
+    path: '/dfir/report-composer',
+    label: 'Report Composer',
+    description: 'Compose a finished threat report from a set of IOCs, TTPs, and findings.',
+    sectionLabel: 'DFIR · Investigate',
+    group: 'dfir',
+  },
+  {
+    path: '/dfir/extract',
+    label: 'IOC Extractor',
+    description: 'Bulk IOC extraction from text — regex + parser for IPv4, IPv6, hashes, URLs, emails, CVEs.',
+    sectionLabel: 'DFIR · Investigate',
+    group: 'dfir',
+  },
+  {
+    path: '/dfir/ioc-pivot',
+    label: 'IOC Pivot',
+    description: 'Pivot a single indicator through enrichment, related IOCs, and infrastructure neighbors.',
+    sectionLabel: 'DFIR · Investigate',
+    group: 'dfir',
+  },
+  {
+    path: '/dfir/ioc-investigate',
+    label: 'IOC Investigate',
+    description: 'Full investigative flow for an indicator — enrichment, history, related campaigns.',
+    sectionLabel: 'DFIR · Investigate',
+    group: 'dfir',
+  },
+  {
+    path: '/dfir/ioc-lifecycle',
+    label: 'IOC Lifecycle',
+    description: 'Track indicator lifecycle — first-seen, last-seen, decay, and retirement.',
+    sectionLabel: 'DFIR · Investigate',
+    group: 'dfir',
+  },
+  {
+    path: '/dfir/asn',
+    label: 'ASN Lookup',
+    description: 'ASN, prefix, and registrant lookup for an IP or range.',
+    sectionLabel: 'DFIR · Investigate',
+    group: 'dfir',
+  },
+  {
+    path: '/dfir/cve',
+    label: 'CVE Lookup',
+    description: 'Single-CVE detail — description, CVSS, affected products, KEV status, exploits.',
+    sectionLabel: 'DFIR · Investigate',
+    group: 'dfir',
+    keywords: ['cve', 'vuln', 'vulnerability'],
+  },
+  {
+    path: '/dfir/cve-prioritizer',
+    label: 'CVE Prioritizer',
+    description: 'Rank CVEs by exploitability, exposure, and asset criticality.',
+    sectionLabel: 'DFIR · Investigate',
+    group: 'dfir',
+  },
+  {
+    path: '/dfir/cloudtrail-triage',
+    label: 'CloudTrail Triage',
+    description: 'Triage suspicious AWS CloudTrail events — root usage, IAM changes, console logins.',
+    sectionLabel: 'DFIR · Investigate',
+    group: 'dfir',
+    keywords: ['aws', 'cloud', 'iam'],
+  },
+  {
+    path: '/dfir/gcp-iam',
+    label: 'GCP IAM Analyzer',
+    description: 'Analyze a GCP IAM policy dump — privilege escalation paths, risky bindings.',
+    sectionLabel: 'DFIR · Investigate',
+    group: 'dfir',
+    keywords: ['gcp', 'google cloud', 'iam', 'cloud'],
+  },
+  {
+    path: '/dfir/azure-rbac',
+    label: 'Azure RBAC Analyzer',
+    description: 'Analyze an Azure RBAC export — role assignments, escalation paths, and PIM posture.',
+    sectionLabel: 'DFIR · Investigate',
+    group: 'dfir',
+    keywords: ['azure', 'rbac', 'cloud'],
+  },
+  {
+    path: '/dfir/k8s-rbac',
+    label: 'K8s RBAC Analyzer',
+    description: 'Analyze a Kubernetes RBAC dump — RoleBindings, ClusterRoleBindings, escalation paths.',
+    sectionLabel: 'DFIR · Investigate',
+    group: 'dfir',
+    keywords: ['kubernetes', 'k8s', 'rbac'],
+  },
+  {
+    path: '/dfir/iam-analyzer',
+    label: 'IAM Policy Analyzer',
+    description: 'Generic IAM policy analyzer — works against any JSON IAM policy export.',
+    sectionLabel: 'DFIR · Investigate',
+    group: 'dfir',
+  },
+  {
+    path: '/dfir/sg-analyzer',
+    label: 'Security Group Analyzer',
+    description: 'AWS security-group diff — find open rules, shadowed rules, and risky ingress.',
+    sectionLabel: 'DFIR · Investigate',
+    group: 'dfir',
+  },
+  {
+    path: '/dfir/identity-lookup',
+    label: 'Identity Lookup',
+    description: 'Lookup usernames, emails, and aliases across OSINT platforms.',
+    sectionLabel: 'DFIR · Investigate',
+    group: 'dfir',
+  },
+  {
+    path: '/dfir/username-investigator',
+    label: 'Username Investigator',
+    description: 'Enumerate a username across 200+ platforms — first/last seen, profile pivots.',
+    sectionLabel: 'DFIR · Investigate',
+    group: 'dfir',
+  },
+  {
+    path: '/dfir/username',
+    label: 'Username (alias)',
+    description: 'Alias for the Username Investigator.',
+    sectionLabel: 'DFIR · Investigate',
+    group: 'dfir',
+  },
+  {
+    path: '/dfir/username-osint',
+    label: 'Username OSINT',
+    description: 'Username OSINT sweep — fast enumeration with first-seen timing.',
+    sectionLabel: 'DFIR · Investigate',
+    group: 'dfir',
+  },
+  {
+    path: '/dfir/socmint',
+    label: 'SOCMINT',
+    description: 'Social-media intelligence — extract profile data, posts, and pivots.',
+    sectionLabel: 'DFIR · Investigate',
+    group: 'dfir',
+    keywords: ['social', 'twitter', 'x', 'instagram'],
+  },
+  {
+    path: '/dfir/phone-osint',
+    label: 'Phone OSINT',
+    description: 'Phone-number OSINT — carrier, geolocation, breach exposure, and reporting.',
+    sectionLabel: 'DFIR · Investigate',
+    group: 'dfir',
+  },
+  {
+    path: '/dfir/weather-osint',
+    label: 'Weather OSINT',
+    description: 'Geolocate a photo via weather, sun-angle, and shadow signals.',
+    sectionLabel: 'DFIR · Investigate',
+    group: 'dfir',
+  },
+  {
+    path: '/dfir/reverse-image',
+    label: 'Reverse Image',
+    description: 'Reverse image search across engines — Yandex, Google, TinEye, Bing.',
+    sectionLabel: 'DFIR · Investigate',
+    group: 'dfir',
+  },
+  {
+    path: '/dfir/image-fingerprint',
+    label: 'Image Fingerprint',
+    description: 'Generate perceptual hashes (pHash, aHash) for an image and search the local corpus.',
+    sectionLabel: 'DFIR · Investigate',
+    group: 'dfir',
+    keywords: ['phash', 'ahash', 'image'],
+  },
+  {
+    path: '/dfir/exif',
+    label: 'EXIF Parser',
+    description: 'Extract EXIF / XMP / IPTC metadata from an image — camera, GPS, software.',
+    sectionLabel: 'DFIR · Investigate',
+    group: 'dfir',
+  },
+  {
+    path: '/dfir/screenshot-intel',
+    label: 'Screenshot Intel',
+    description: 'Analyze a screenshot — extract text (OCR), URLs, and brand assets.',
+    sectionLabel: 'DFIR · Investigate',
+    group: 'dfir',
+  },
+  {
+    path: '/dfir/whois-history',
+    label: 'WHOIS History',
+    description: 'Historical WHOIS for a domain — registrant changes, nameserver pivots.',
+    sectionLabel: 'DFIR · Investigate',
+    group: 'dfir',
+    keywords: ['whois', 'rdap'],
+  },
+  {
+    path: '/dfir/cert-search',
+    label: 'Cert Search',
+    description: 'Certificate transparency search — find certs by domain, issuer, or fingerprint.',
+    sectionLabel: 'DFIR · Investigate',
+    group: 'dfir',
+    keywords: ['ct', 'certificate', 'transparency', 'ssl', 'tls'],
+  },
+  {
+    path: '/dfir/ct-monitor',
+    label: 'CT Monitor',
+    description: 'Live certificate-transparency monitor for watched domains.',
+    sectionLabel: 'DFIR · Investigate',
+    group: 'dfir',
+  },
+  {
+    path: '/dfir/breach',
+    label: 'Breach Lookup',
+    description: 'Look up credentials (email / username) across public breach corpora.',
+    sectionLabel: 'DFIR · Investigate',
+    group: 'dfir',
+    keywords: ['leak', 'credential', 'hibp'],
+  },
+  {
+    path: '/dfir/open-directory',
+    label: 'Open Directory',
+    description: 'Discover open directories and exposed file listings on a host.',
+    sectionLabel: 'DFIR · Investigate',
+    group: 'dfir',
+    keywords: ['directory', 'listing', 'exposure'],
+  },
+  {
+    path: '/dfir/ip-geo',
+    label: 'IP Geolocation',
+    description: 'IP geolocation — country, city, ASN, and hosting provider.',
+    sectionLabel: 'DFIR · Investigate',
+    group: 'dfir',
+  },
+  {
+    path: '/dfir/wayback',
+    label: 'Wayback Machine',
+    description: 'Wayback Machine lookup — historical snapshots of a URL.',
+    sectionLabel: 'DFIR · Investigate',
+    group: 'dfir',
+    keywords: ['archive', 'historical'],
+  },
+  {
+    path: '/dfir/brand-impersonation',
+    label: 'Brand Impersonation',
+    description: 'Monitor brand-impersonation domains — punycode, homoglyphs, and TLD variants.',
+    sectionLabel: 'DFIR · Investigate',
+    group: 'dfir',
+  },
+  {
+    path: '/dfir/tracer',
+    label: 'Crypto Tracer',
+    description: 'Trace cryptocurrency transactions across addresses, clusters, and services.',
+    sectionLabel: 'DFIR · Investigate',
+    group: 'dfir',
+    keywords: ['crypto', 'btc', 'eth', 'blockchain'],
+  },
+  {
+    path: '/dfir/crypto-trace',
+    label: 'Crypto Trace (alias)',
+    description: 'Alias for the Crypto Tracer.',
+    sectionLabel: 'DFIR · Investigate',
+    group: 'dfir',
+  },
+  {
+    path: '/dfir/osint-mapper',
+    label: 'OSINT Mapper',
+    description: 'Map OSINT collection across a target — entities, sources, and gaps.',
+    sectionLabel: 'DFIR · Investigate',
+    group: 'dfir',
+  },
+  {
+    path: '/dfir/jwt',
+    label: 'JWT Inspector',
+    description: 'Decode, verify, and forge JWT tokens — header / payload / signature view.',
+    sectionLabel: 'DFIR · Investigate',
+    group: 'dfir',
+    keywords: ['json web token', 'jwt', 'token'],
+  },
+  {
+    path: '/dfir/decode',
+    label: 'Decoder',
+    description: 'Multi-format decoder — base64, URL, hex, ROT13, gzip, and chained decoding.',
+    sectionLabel: 'DFIR · Investigate',
+    group: 'dfir',
+  },
+  {
+    path: '/dfir/encoder',
+    label: 'Encoder',
+    description: 'Multi-format encoder — base64, URL, hex, ROT, and chained encoding.',
+    sectionLabel: 'DFIR · Investigate',
+    group: 'dfir',
+  },
+  {
+    path: '/dfir/punycode',
+    label: 'Punycode',
+    description: 'Convert and inspect punycode / IDN domains — spot homoglyph attacks.',
+    sectionLabel: 'DFIR · Investigate',
+    group: 'dfir',
+  },
+  {
+    path: '/dfir/takeover',
+    label: 'Subdomain Takeover',
+    description: 'Subdomain takeover scanner — detect dangling DNS records across cloud providers.',
+    sectionLabel: 'DFIR · Investigate',
+    group: 'dfir',
+  },
+  {
+    path: '/dfir/hash-calc',
+    label: 'Hash Calculator',
+    description: 'MD5 / SHA-1 / SHA-256 / SHA-512 / SSDEEP / TLSH for a file or text.',
+    sectionLabel: 'DFIR · Investigate',
+    group: 'dfir',
+    keywords: ['hash', 'md5', 'sha1', 'sha256'],
+  },
+  {
+    path: '/dfir/timestamp',
+    label: 'Timestamp Converter',
+    description: 'Convert epoch, ISO, and human timestamps across timezones — useful for log normalization.',
+    sectionLabel: 'DFIR · Investigate',
+    group: 'dfir',
+  },
+
+  // Detection / response
+  {
+    path: '/dfir/rule-converter',
+    label: 'Rule Converter',
+    description: 'Convert detection rules between Sigma / Splunk SPL / Elastic KQL / Microsoft KQL.',
+    sectionLabel: 'DFIR · Detection',
+    group: 'dfir',
+    keywords: ['sigma', 'spl', 'kql', 'elastic', 'convert'],
+  },
+  {
+    path: '/dfir/sigma-convert',
+    label: 'Sigma Convert',
+    description: 'Alias for the Rule Converter (Sigma target).',
+    sectionLabel: 'DFIR · Detection',
+    group: 'dfir',
+  },
+  {
+    path: '/dfir/detection-lab',
+    label: 'Detection Lab',
+    description: 'Sandbox detection rules — pre-built lab with sample telemetry to test against.',
+    sectionLabel: 'DFIR · Detection',
+    group: 'dfir',
+  },
+  {
+    path: '/dfir/rule-playground',
+    label: 'Rule Playground',
+    description: 'Write and test detection rules with live syntax highlighting and example matches.',
+    sectionLabel: 'DFIR · Detection',
+    group: 'dfir',
+  },
+  {
+    path: '/dfir/ai-rule-generator',
+    label: 'AI Rule Generator',
+    description: 'AI-assisted Sigma rule generation from a natural-language hypothesis.',
+    sectionLabel: 'DFIR · Detection',
+    group: 'dfir',
+    keywords: ['ai', 'sigma', 'detection', 'rule'],
+  },
+  {
+    path: '/dfir/hunting-query-generator',
+    label: 'Hunting Query Generator',
+    description: 'Generate hunting queries (Sigma/SPL/KQL) from a TTP or IOC list.',
+    sectionLabel: 'DFIR · Detection',
+    group: 'dfir',
+  },
+  {
+    path: '/dfir/yara',
+    label: 'YARA Manager',
+    description: 'YARA rule authoring, testing, and corpus scanning — sandboxed runner.',
+    sectionLabel: 'DFIR · Detection',
+    group: 'dfir',
+    keywords: ['yara'],
+  },
+  {
+    path: '/dfir/yara-workbench',
+    label: 'YARA Workbench',
+    description: 'YARA rule workbench — multi-rule composition, test harness, and false-positive triage.',
+    sectionLabel: 'DFIR · Detection',
+    group: 'dfir',
+    keywords: ['yara'],
+  },
+  {
+    path: '/dfir/fp-lens',
+    label: 'False Positive Lens',
+    description: 'False-positive analyzer for detection rules — backtest against historical alerts.',
+    sectionLabel: 'DFIR · Detection',
+    group: 'dfir',
+    keywords: ['false positive', 'fp', 'tune'],
+  },
+  {
+    path: '/dfir/osv-scan',
+    label: 'OSV Scan',
+    description: 'Scan a project dependency list (package-lock, requirements, etc.) against OSV.',
+    sectionLabel: 'DFIR · Detection',
+    group: 'dfir',
+    keywords: ['osv', 'sca', 'dependency', 'vuln'],
+  },
+  {
+    path: '/dfir/terraform-scan',
+    label: 'Terraform Scanner',
+    description: 'Scan Terraform plans / state for misconfigurations and security risks.',
+    sectionLabel: 'DFIR · Detection',
+    group: 'dfir',
+    keywords: ['iac', 'tf', 'cloud', 'misconfig'],
+  },
+  {
+    path: '/dfir/secret-scan',
+    label: 'Secret Scanner',
+    description: 'Scan a file or repo for leaked credentials — AWS, GCP, GitHub, generic tokens.',
+    sectionLabel: 'DFIR · Detection',
+    group: 'dfir',
+    keywords: ['secret', 'leak', 'token', 'credential'],
+  },
+  {
+    path: '/dfir/openapi-audit',
+    label: 'OpenAPI Audit',
+    description: 'Audit an OpenAPI / Swagger spec for security issues — broken auth, missing scopes.',
+    sectionLabel: 'DFIR · Detection',
+    group: 'dfir',
+    keywords: ['openapi', 'swagger', 'api'],
+  },
+  {
+    path: '/dfir/graphql-audit',
+    label: 'GraphQL Audit',
+    description: 'Audit a GraphQL schema — introspection, depth limits, cost analysis.',
+    sectionLabel: 'DFIR · Detection',
+    group: 'dfir',
+    keywords: ['graphql', 'api'],
+  },
+  {
+    path: '/dfir/sec-headers',
+    label: 'Security Headers',
+    description: 'Inspect a URL for security headers — HSTS, CSP, X-Frame-Options, Referrer-Policy.',
+    sectionLabel: 'DFIR · Detection',
+    group: 'dfir',
+  },
+  {
+    path: '/dfir/taxii',
+    label: 'TAXII Server',
+    description: 'TAXII 2.1 server browser — list collections, pull indicators, and subscribe.',
+    sectionLabel: 'DFIR · Detection',
+    group: 'dfir',
+    keywords: ['taxii', 'stix'],
+  },
+  {
+    path: '/dfir/stix',
+    label: 'STIX Viewer',
+    description: 'STIX 2.1 bundle viewer — tree of objects, relationships, and references.',
+    sectionLabel: 'DFIR · Detection',
+    group: 'dfir',
+    keywords: ['stix'],
+  },
+  {
+    path: '/dfir/stix-builder',
+    label: 'STIX Builder',
+    description: 'STIX 2.1 bundle builder — craft a bundle from indicators, threat actors, and relationships.',
+    sectionLabel: 'DFIR · Detection',
+    group: 'dfir',
+    keywords: ['stix'],
+  },
+  {
+    path: '/dfir/stix-builder/b/:bundleId',
+    label: 'STIX Bundle',
+    description: 'Edit an existing STIX 2.1 bundle — loaded by bundle id.',
+    sectionLabel: 'DFIR · Detection',
+    group: 'dfir',
+    keywords: ['stix'],
+  },
+  {
+    path: '/dfir/stix-workbench',
+    label: 'STIX Workbench',
+    description: 'STIX workbench — multi-bundle workspace, diff, merge, and export.',
+    sectionLabel: 'DFIR · Detection',
+    group: 'dfir',
+    keywords: ['stix'],
+  },
+  {
+    path: '/dfir/bloom',
+    label: 'Bloom Filter',
+    description: 'Bloom filter analyzer — given a filter, test membership and estimate FPR.',
+    sectionLabel: 'DFIR · Detection',
+    group: 'dfir',
+  },
+  {
+    path: '/dfir/stealer-parser',
+    label: 'Stealer Log Parser',
+    description: 'Parse stealer-log dumps (RedLine, Raccoon, Lumma, Meta) into structured rows.',
+    sectionLabel: 'DFIR · Detection',
+    group: 'dfir',
+    keywords: ['stealer', 'redline', 'lumma', 'raccoon', 'meta'],
+  },
+  {
+    path: '/dfir/tabletop',
+    label: 'Tabletop Exercise',
+    description: 'Tabletop scenarios — facilitator script, injects, and decision-trail capture.',
+    sectionLabel: 'DFIR · Detection',
+    group: 'dfir',
+  },
+  {
+    path: '/dfir/ir-playbooks',
+    label: 'IR Playbooks',
+    description: 'Incident-response playbooks — step-by-step, with role assignments and exit criteria.',
+    sectionLabel: 'DFIR · Detection',
+    group: 'dfir',
+  },
+
+  // Forensics
+  {
+    path: '/dfir/linux-triage',
+    label: 'Linux Triage',
+    description: 'Linux host triage checklist — volatile data, persistence, logs, network.',
+    sectionLabel: 'DFIR · Forensics',
+    group: 'dfir',
+  },
+  {
+    path: '/dfir/log-parser',
+    label: 'Log Parser',
+    description: 'Parse and normalize a log file — extract events, IOCs, and timelines.',
+    sectionLabel: 'DFIR · Forensics',
+    group: 'dfir',
+  },
+  {
+    path: '/dfir/web-log',
+    label: 'Web Log Analyzer',
+    description: 'Web server log analyzer — top IPs, error rates, suspicious paths, and UA pivots.',
+    sectionLabel: 'DFIR · Forensics',
+    group: 'dfir',
+  },
+  {
+    path: '/dfir/pcap-triage',
+    label: 'PCAP Triage',
+    description: 'PCAP triage — quick statistics, top talkers, DNS resolutions, and exported objects.',
+    sectionLabel: 'DFIR · Forensics',
+    group: 'dfir',
+    keywords: ['pcap', 'packet', 'network'],
+  },
+  {
+    path: '/dfir/registry-hive',
+    label: 'Registry Hive',
+    description: 'Windows registry hive parser — recent docs, USB history, shellbags, services.',
+    sectionLabel: 'DFIR · Forensics',
+    group: 'dfir',
+  },
+  {
+    path: '/dfir/prefetch',
+    label: 'Prefetch Analyzer',
+    description: 'Windows Prefetch parser — execution history with run count and timestamps.',
+    sectionLabel: 'DFIR · Forensics',
+    group: 'dfir',
+  },
+  {
+    path: '/dfir/evtx',
+    label: 'EVTX Parser',
+    description: 'Windows EVTX parser — filter by channel, event id, and time range.',
+    sectionLabel: 'DFIR · Forensics',
+    group: 'dfir',
+    keywords: ['evtx', 'windows', 'event log'],
+  },
+  {
+    path: '/dfir/plist-protobuf',
+    label: 'Plist / Protobuf',
+    description: 'Parse Apple plist and Protobuf payloads — useful for iOS backup analysis.',
+    sectionLabel: 'DFIR · Forensics',
+    group: 'dfir',
+  },
+  {
+    path: '/dfir/ios-backup',
+    label: 'iOS Backup Explorer',
+    description: 'iOS backup explorer — per-app data, keychain, and sqlite databases.',
+    sectionLabel: 'DFIR · Forensics',
+    group: 'dfir',
+  },
+  {
+    path: '/dfir/mobile-sqlite',
+    label: 'Mobile SQLite',
+    description: 'Alias for the SQLite Explorer — useful for mobile backups.',
+    sectionLabel: 'DFIR · Forensics',
+    group: 'dfir',
+  },
+  {
+    path: '/dfir/sqlite',
+    label: 'SQLite Explorer',
+    description: 'SQLite database browser — schemas, rows, and BLOB export.',
+    sectionLabel: 'DFIR · Forensics',
+    group: 'dfir',
+  },
+  {
+    path: '/dfir/pe',
+    label: 'PE Analyzer',
+    description: 'PE binary analyzer — imports, sections, entropy, signatures, and YARA match.',
+    sectionLabel: 'DFIR · Forensics',
+    group: 'dfir',
+    keywords: ['pe', 'portable executable', 'binary'],
+  },
+  {
+    path: '/dfir/apk-analyzer',
+    label: 'APK Analyzer',
+    description: 'Android APK analyzer — manifest, permissions, components, and code risk.',
+    sectionLabel: 'DFIR · Forensics',
+    group: 'dfir',
+    keywords: ['apk', 'android', 'mobile'],
+  },
+  {
+    path: '/dfir/powershell-deobf',
+    label: 'PowerShell Deobfuscator',
+    description: 'Deobfuscate PowerShell — decode base64, XOR, string reversal, and Invoke-Expression.',
+    sectionLabel: 'DFIR · Forensics',
+    group: 'dfir',
+    keywords: ['powershell', 'deobfuscate', 'obfuscation'],
+  },
+  {
+    path: '/dfir/sample-scan',
+    label: 'Sample Scan',
+    description: 'Scan a malware sample — hash lookup, sandbox verdict, and family attribution.',
+    sectionLabel: 'DFIR · Forensics',
+    group: 'dfir',
+  },
+  {
+    path: '/dfir/malware-scan',
+    label: 'Malware Scan',
+    description: 'Submit a file for multi-engine malware scanning and aggregate verdicts.',
+    sectionLabel: 'DFIR · Forensics',
+    group: 'dfir',
+  },
+  {
+    path: '/dfir/malware-analyzer',
+    label: 'Malware Analyzer',
+    description: 'Static + dynamic malware analysis — strings, imports, behavior, and pivots.',
+    sectionLabel: 'DFIR · Forensics',
+    group: 'dfir',
+  },
+  {
+    path: '/dfir/malware-capabilities',
+    label: 'Malware Capabilities',
+    description: 'MITRE ATT&CK mapping of a malware sample — techniques, mitigations, detections.',
+    sectionLabel: 'DFIR · Forensics',
+    group: 'dfir',
+  },
+  {
+    path: '/dfir/sandbox',
+    label: 'Malware Sandbox',
+    description: 'Detonate a sample in a sandboxed environment — network, file, and process capture.',
+    sectionLabel: 'DFIR · Forensics',
+    group: 'dfir',
+  },
+  {
+    path: '/dfir/sandbox-integration',
+    label: 'Sandbox Integration',
+    description: 'Integrate external sandboxes (ANY.RUN, Hybrid-Analysis, Cuckoo) for detonation.',
+    sectionLabel: 'DFIR · Forensics',
+    group: 'dfir',
+  },
+
+  // AI assistants + blocklists + privacy + tools hub
+  {
+    path: '/dfir/insight-ai',
+    label: 'Insight AI',
+    description: 'AI summarization of an investigation, briefing, or report.',
+    sectionLabel: 'DFIR · AI',
+    group: 'dfir',
+    keywords: ['ai', 'summary', 'briefing'],
+  },
+  {
+    path: '/dfir/querycraft-ai',
+    label: 'QueryCraft AI',
+    description: 'AI-assisted detection query generation from natural language.',
+    sectionLabel: 'DFIR · AI',
+    group: 'dfir',
+    keywords: ['ai', 'query', 'detection'],
+  },
+  {
+    path: '/dfir/chrono-ai',
+    label: 'Chrono AI',
+    description: 'AI timeline builder — given a raw narrative, build a chronological event list.',
+    sectionLabel: 'DFIR · AI',
+    group: 'dfir',
+    keywords: ['ai', 'timeline'],
+  },
+  {
+    path: '/dfir/malbrief-ai',
+    label: 'Malbrief AI',
+    description: 'AI malware briefing — summarize a sample, family, and IOCs from a hash.',
+    sectionLabel: 'DFIR · AI',
+    group: 'dfir',
+    keywords: ['ai', 'malware', 'briefing'],
+  },
+  {
+    path: '/dfir/verdikt-ai',
+    label: 'Verdikt AI',
+    description: 'AI verdict reconciliation — aggregate multi-engine verdicts and explain disagreements.',
+    sectionLabel: 'DFIR · AI',
+    group: 'dfir',
+    keywords: ['ai', 'verdict', 'scan'],
+  },
+  {
+    path: '/dfir/blocklists',
+    label: 'Blocklists',
+    description: 'Curated blocklists — IP, domain, URL — exportable for SIEM, EDR, firewall.',
+    sectionLabel: 'DFIR · Operations',
+    group: 'dfir',
+  },
+  {
+    path: '/dfir/export-hub',
+    label: 'Export Hub',
+    description: 'Export the active investigation as a STIX bundle, CSV, JSON, or markdown report.',
+    sectionLabel: 'DFIR · Operations',
+    group: 'dfir',
+  },
+  {
+    path: '/dfir/multi-search',
+    label: 'Multi-Search',
+    description: 'Run a single query across multiple OSINT / enrichment engines in parallel.',
+    sectionLabel: 'DFIR · Triage',
+    group: 'dfir',
+  },
+  {
+    path: '/dfir/privacy',
+    label: 'Privacy',
+    description: 'PII / secret redaction helper — scrub logs, screenshots, and exports.',
+    sectionLabel: 'DFIR · Operations',
+    group: 'dfir',
+  },
+  {
+    path: '/dfir/privacy-hub',
+    label: 'Privacy Hub',
+    description: 'Privacy hub — GDPR / CCPA / data-subject-request workflows and templates.',
+    sectionLabel: 'DFIR · Compliance',
+    group: 'dfir',
+  },
+  {
+    path: '/dfir/personal-security',
+    label: 'Personal Security',
+    description: 'Personal security playbook — opsec for high-risk users, account hardening, device hygiene.',
+    sectionLabel: 'DFIR · Compliance',
+    group: 'dfir',
+  },
+  {
+    path: '/dfir/dlp-scan',
+    label: 'DLP Scan',
+    description: 'Data-loss-prevention scan — find sensitive data in files, repos, and storage.',
+    sectionLabel: 'DFIR · Compliance',
+    group: 'dfir',
+    keywords: ['dlp', 'data', 'pii'],
+  },
+  {
+    path: '/dfir/data-classification',
+    label: 'Data Classification',
+    description: 'Classify a dataset by sensitivity — public, internal, confidential, restricted.',
+    sectionLabel: 'DFIR · Compliance',
+    group: 'dfir',
+  },
+  {
+    path: '/dfir/grc',
+    label: 'GRC',
+    description: 'Governance, risk, and compliance — control mapping, evidence collection, and audits.',
+    sectionLabel: 'DFIR · Compliance',
+    group: 'dfir',
+  },
+  {
+    path: '/dfir/pgp-tool',
+    label: 'PGP Tool',
+    description: 'PGP key generation, encrypt / decrypt, sign / verify — web-of-trust friendly.',
+    sectionLabel: 'DFIR · Operations',
+    group: 'dfir',
+  },
+  {
+    path: '/dfir/tor-gateway',
+    label: 'Tor Gateway',
+    description: 'Tor / .onion gateway — route a fetch through Tor to reach onion services.',
+    sectionLabel: 'DFIR · Operations',
+    group: 'dfir',
+  },
+  {
+    path: '/dfir/vuln-toolkit',
+    label: 'Vulnerability Toolkit',
+    description: 'Curated vulnerability toolkit — exploitation references, lab environments, and reports.',
+    sectionLabel: 'DFIR · Detection',
+    group: 'dfir',
+  },
+  {
+    path: '/dfir/briefings',
+    label: 'Briefings',
+    description: 'DFIR briefings — daily / weekly tactical digests, threat-landscape reports.',
+    sectionLabel: 'DFIR · Operations',
+    group: 'dfir',
+  },
+  {
+    path: '/dfir/briefings/:slug',
+    label: 'Briefing',
+    description: 'A single DFIR briefing — narrative, IOCs, and detection logic.',
+    sectionLabel: 'DFIR · Operations',
+    group: 'dfir',
+  },
+  {
+    path: '/dfir/host',
+    label: 'Host alias',
+    description: 'Alias — redirects to the Asset Intel page.',
+    sectionLabel: 'DFIR · Triage',
+    group: 'dfir',
+  },
+  {
+    path: '/dfir/x-verdikt',
+    label: 'X-VERDIKT',
+    description:
+      'Multi-source IOC verdict comparison across 10 threat-intel providers — VT, AbuseIPDB, OTX, URLScan, and more.',
+    sectionLabel: 'DFIR · Intelligence',
+    group: 'dfir',
+    keywords: ['verdikt', 'ioc', 'verdict', 'enrichment', 'threatfox'],
+  },
+  {
+    path: '/dfir/dnscope',
+    label: 'DNSCOPE',
+    description:
+      'Deep domain infrastructure mapping — WHOIS, DNS, certificates, subdomains, lookalikes, ports, CDN, and threat intel.',
+    sectionLabel: 'DFIR · Investigation',
+    group: 'dfir',
+    keywords: ['dns', 'domain', 'infrastructure', 'whois', 'certificates'],
+  },
+  {
+    path: '/dfir/attmap-ai',
+    label: 'ATTMAP-AI',
+    description:
+      'AI-powered MITRE ATT&CK technique mapper — describe adversary behavior and get mapped techniques with confidence scores.',
+    sectionLabel: 'DFIR · Intelligence',
+    group: 'dfir',
+    keywords: ['attack', 'mitre', 'technique', 'mapping', 'ttps'],
+  },
+  {
+    path: '/dfir/tracerules',
+    label: 'TRACERULES',
+    description:
+      'Detection query arsenal — browse, search, and copy KQL, Sigma, and XQL detection queries by tactic and technique.',
+    sectionLabel: 'DFIR · Intelligence',
+    group: 'dfir',
+    keywords: ['detection', 'kql', 'sigma', 'xql', 'query', 'rules'],
+  },
+  {
+    path: '/dfir/regscope',
+    label: 'REGSCOPE',
+    description:
+      'Windows registry artifact analyzer — identify known persistence, defense evasion, and credential access registry keys with ATT&CK mapping.',
+    sectionLabel: 'DFIR · Core DFIR',
+    group: 'dfir',
+    keywords: ['registry', 'regscope', 'persistence', 'windows', 'forensics'],
+  },
+
+  // Tools hub
+  {
+    path: '/dfir/tools/:group',
+    label: 'DFIR Tools (category)',
+    description: 'DFIR tools grouped by category — pick a subcategory to see relevant tooling.',
+    sectionLabel: 'DFIR · Tools',
+    group: 'dfir',
+  },
+  {
+    path: '/dfir/tools/about',
+    label: 'DFIR Tools — About',
+    description: 'About the DFIR tool surface — what is covered, what is out of scope, and how to extend.',
+    sectionLabel: 'DFIR · Tools',
+    group: 'dfir',
+  },
+
+  /* ------------------------------------------------------------------ */
+  /*  3. Threat Intel                                                   */
+];
+/* ------------------------------------------------------------------ */
+
+const THREATINTEL_PAGES: readonly PageEntry[] = [
+  // Root + about
+  {
+    path: '/threatintel',
+    label: 'Threat Intel Home',
+    description: 'Threat-intel landing — live center, top sources, recent campaigns.',
+    sectionLabel: 'Threat Intel · Home',
+    group: 'threatintel',
+    keywords: ['home', 'landing', 'browse'],
+  },
+  {
+    path: '/threatintel/c/:cat',
+    label: 'Threat Intel (category)',
+    description: 'Threat-intel landing filtered by category.',
+    sectionLabel: 'Threat Intel · Home',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/about',
+    label: 'About the Platform',
+    description: "What's covered, data principles, and the analyst-first design intent.",
+    sectionLabel: 'Threat Intel · Reference',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/copilot',
+    label: 'Threat Intel Copilot',
+    description: 'Conversational threat-intel assistant — ask, pivot, summarize.',
+    sectionLabel: 'Threat Intel · Tools',
+    group: 'threatintel',
+    keywords: ['ai', 'assistant', 'chat'],
+  },
+  {
+    path: '/threatintel/copilot-chat',
+    label: 'Threat Intel Copilot (chat)',
+    description: 'Direct chat interface for the threat-intel copilot.',
+    sectionLabel: 'Threat Intel · Tools',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/search',
+    label: 'Unified Search (alias)',
+    description: 'Alias for the unified-search omnibox inside the Tools hub.',
+    sectionLabel: 'Threat Intel · Tools',
+    group: 'threatintel',
+    keywords: ['search', 'omni', 'find'],
+  },
+  {
+    path: '/threatintel/settings',
+    label: 'Settings',
+    description: 'Platform settings — API keys, default view, and notification preferences.',
+    sectionLabel: 'Threat Intel · Operations',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/ach',
+    label: 'ACH (alias)',
+    description: 'Alias for the Tools hub.',
+    sectionLabel: 'Threat Intel · Tools',
+    group: 'threatintel',
+  },
+
+  // Predictive / landscape
+  {
+    path: '/threatintel/predictive',
+    label: 'Predictive Intel',
+    description: 'Predictive threat intelligence — AI-driven forecasting from current trends.',
+    sectionLabel: 'Threat Intel · Predictive',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/predictive/:tab',
+    label: 'Predictive Intel (tab)',
+    description: 'Predictive intelligence tab — landscape, assessments, metrics, or dashboard.',
+    sectionLabel: 'Threat Intel · Predictive',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/predictions',
+    label: 'Predictions',
+    description: 'Forward-looking threat predictions with confidence scoring.',
+    sectionLabel: 'Threat Intel · Predictive',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/threat-landscape',
+    label: 'Threat Landscape (alias)',
+    description: 'Alias for the predictive / dashboard view.',
+    sectionLabel: 'Threat Intel · Predictive',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/metrics',
+    label: 'Metrics (alias)',
+    description: 'Alias for the predictive / metrics view.',
+    sectionLabel: 'Threat Intel · Predictive',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/intel-dashboard',
+    label: 'Intel Dashboard',
+    description: 'Curated intel dashboard — top stories, top IOCs, and trending actors.',
+    sectionLabel: 'Threat Intel · Predictive',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/pir-dashboard',
+    label: 'PIR Dashboard',
+    description: 'Priority Intelligence Requirements dashboard — coverage and gaps.',
+    sectionLabel: 'Threat Intel · Predictive',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/assessments',
+    label: 'Assessments',
+    description: 'Threat-intel assessments — formal, scored, and time-bounded.',
+    sectionLabel: 'Threat Intel · Predictive',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/assessments/:id',
+    label: 'Assessment',
+    description: 'A single threat-intel assessment.',
+    sectionLabel: 'Threat Intel · Predictive',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/predictive/dashboard',
+    label: 'Threat Landscape',
+    description: 'Key stats, trending actors, top malware, emerging threats, and attack-vector distribution.',
+    sectionLabel: 'Threat Intel · Predictive',
+    group: 'threatintel',
+  },
+
+  // Actors
+  {
+    path: '/threatintel/actors',
+    label: 'Actor Directory',
+    description: 'Unified actor browser — MITRE ATT&CK, MISP Galaxy, and platform database.',
+    sectionLabel: 'Threat Intel · Actors',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/actors/:slug',
+    label: 'Threat Actor Profile',
+    description: 'Per-actor profile — aliases, TTPs, campaigns, infrastructure, and IOCs.',
+    sectionLabel: 'Threat Intel · Actors',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/actor-dna',
+    label: 'Actor DNA (alias)',
+    description: 'Alias for the Actor Directory.',
+    sectionLabel: 'Threat Intel · Actors',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/actor-kb',
+    label: 'Actor KB (alias)',
+    description: 'Alias for the Actor Directory.',
+    sectionLabel: 'Threat Intel · Actors',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/actor-timeline',
+    label: 'Actor Timeline',
+    description: 'Actor activity timeline — operations, leaks, and infrastructure churn over time.',
+    sectionLabel: 'Threat Intel · Actors',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/actor-usernames',
+    label: 'Actor Usernames',
+    description: 'Usernames attributed to threat actors — pivots from handles to personas.',
+    sectionLabel: 'Threat Intel · Actors',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/apt-tracker',
+    label: 'APT Tracker',
+    description: 'Nation-state APT tracker — operations, sponsors, and target sectors.',
+    sectionLabel: 'Threat Intel · Actors',
+    group: 'threatintel',
+    keywords: ['apt', 'nation-state'],
+  },
+  {
+    path: '/threatintel/most-wanted',
+    label: 'Most Wanted Actors',
+    description: 'Most-wanted threat actors — top impact, top activity.',
+    sectionLabel: 'Threat Intel · Actors',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/extremists',
+    label: 'Extremism Monitoring',
+    description:
+      'Tracked extremist ideologies, networks, and movements — indicators and monitoring sources for counter-extremism analysis.',
+    sectionLabel: 'Threat Intel · Actors',
+    group: 'threatintel',
+    keywords: ['extremist', 'extremism', 'terrorism', 'radicalization'],
+  },
+  {
+    path: '/threatintel/predators',
+    label: 'Predator Monitoring',
+    description:
+      'Online predator tracking categories — exploitation networks, sextortion, trafficking, and investigator response resources.',
+    sectionLabel: 'Threat Intel · Actors',
+    group: 'threatintel',
+    keywords: ['predator', 'exploitation', 'trafficking', 'sextortion', 'csam'],
+  },
+  {
+    path: '/threatintel/threat-actor-catalog',
+    label: 'Threat Actor Catalog (alias)',
+    description: 'Alias for the Actor Directory.',
+    sectionLabel: 'Threat Intel · Actors',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/threat-actor-db',
+    label: 'Threat Actor DB (alias)',
+    description: 'Alias for the Actor Directory.',
+    sectionLabel: 'Threat Intel · Actors',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/intelligence-gaps',
+    label: 'Intelligence Gaps',
+    description: 'Coverage gaps in the threat-intel corpus.',
+    sectionLabel: 'Threat Intel · Actors',
+    group: 'threatintel',
+  },
+
+  // Campaigns
+  {
+    path: '/threatintel/campaigns',
+    label: 'Campaigns',
+    description: 'Campaign lifecycle tracking, cross-campaign correlation, and attribution framework.',
+    sectionLabel: 'Threat Intel · Campaigns',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/campaigns/:id',
+    label: 'Campaign Detail',
+    description: 'Per-campaign detail — timeline, IOCs, victims, and TTPs.',
+    sectionLabel: 'Threat Intel · Campaigns',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/campaign-lifecycle',
+    label: 'Campaign Lifecycle',
+    description: 'Lifecycle view of campaigns — discovery, exploitation, monetization, and decay.',
+    sectionLabel: 'Threat Intel · Campaigns',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/campaign-generator',
+    label: 'Campaign Generator',
+    description: 'Generate a campaign draft from a set of IOCs and TTPs.',
+    sectionLabel: 'Threat Intel · Campaigns',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/attribution',
+    label: 'Attribution Framework',
+    description: 'Multi-signal attribution framework — confidence scoring and evidence ledger.',
+    sectionLabel: 'Threat Intel · Campaigns',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/cross-campaign',
+    label: 'Cross-Campaign Correlation',
+    description: 'Find overlapping infrastructure, malware, and TTPs across campaigns.',
+    sectionLabel: 'Threat Intel · Campaigns',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/correlation',
+    label: 'Correlation',
+    description: 'Cross-source correlation view — pivot by indicator, actor, or campaign.',
+    sectionLabel: 'Threat Intel · Campaigns',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/cross-correlate',
+    label: 'Cross-Correlate',
+    description: 'Ad-hoc cross-source correlation between two indicators or actors.',
+    sectionLabel: 'Threat Intel · Campaigns',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/observe',
+    label: 'Observe',
+    description: 'Observation workspace — pin indicators and watch the correlated signal stream.',
+    sectionLabel: 'Threat Intel · Campaigns',
+    group: 'threatintel',
+  },
+
+  // Live intel
+  {
+    path: '/threatintel/live-center',
+    label: 'Live Center',
+    description: 'Real-time intel center — live IOCs, breaking campaigns, and trending stories.',
+    sectionLabel: 'Threat Intel · Live',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/social',
+    label: 'Social & Telegram Feeds',
+    description: 'Cybersec Telegram firehose, Reddit, X/Bluesky, Mastodon, prediction markets.',
+    sectionLabel: 'Threat Intel · Live',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/social/:tab',
+    label: 'Social Hub',
+    description: 'Social hub — Telegram, X, Reddit, Mastodon, prediction markets, scam watch.',
+    sectionLabel: 'Threat Intel · Live',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/darkweb',
+    label: 'Dark Web Watch',
+    description: 'Aggregated leak-site, ransomware, breach activity, and per-source separation.',
+    sectionLabel: 'Threat Intel · Live',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/darkweb/:tab',
+    label: 'Darkweb Hub',
+    description: 'Dark-web hub — leaks, ransomware, forums, onion-watch, deepdarkCTI.',
+    sectionLabel: 'Threat Intel · Live',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/iocs',
+    label: 'IOC Hub',
+    description: 'Live IOC stream, cross-source correlation, C2 tracker, and ransomware activity.',
+    sectionLabel: 'Threat Intel · Live',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/iocs/:tab',
+    label: 'IOC Hub (tab)',
+    description: 'IOC hub tab — live, enrichment, entity resolution, map, feeds, C2.',
+    sectionLabel: 'Threat Intel · Live',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/c2-tracker',
+    label: 'C2 Tracker',
+    description: 'Command-and-control tracker — known C2 infrastructure, IPs, and SSL fingerprints.',
+    sectionLabel: 'Threat Intel · Live',
+    group: 'threatintel',
+    keywords: ['c2', 'command and control'],
+  },
+  {
+    path: '/threatintel/ioc-enrichment',
+    label: 'IOC Enrichment',
+    description: 'IOC enrichment — pivot an indicator through vendor feeds and reputation sources.',
+    sectionLabel: 'Threat Intel · Live',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/entity-resolution',
+    label: 'Entity Resolution',
+    description: 'Entity resolution — deduplicate and cluster indicators across sources.',
+    sectionLabel: 'Threat Intel · Live',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/threat-map',
+    label: 'Threat Map',
+    description: 'Geolocated threat map — origin, target, and attack type per indicator.',
+    sectionLabel: 'Threat Intel · Live',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/soc-iocs',
+    label: 'SOC IOCs (alias)',
+    description: 'Alias for the IOC hub live view.',
+    sectionLabel: 'Threat Intel · Live',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/soc-ransomware',
+    label: 'SOC Ransomware (alias)',
+    description: 'Alias for the SOC ransomware dashboard.',
+    sectionLabel: 'Threat Intel · Live',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/soc-vulns',
+    label: 'SOC Vulnerabilities (alias)',
+    description: 'Alias for the SOC vulnerability dashboard.',
+    sectionLabel: 'Threat Intel · Live',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/soc-dashboard',
+    label: 'SOC Dashboards',
+    description: 'Red/cyan/purple panels — ransomware, vulnerabilities, and IOC stream with consensus scoring.',
+    sectionLabel: 'Threat Intel · Live',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/live-iocs',
+    label: 'Live IOCs (alias)',
+    description: 'Alias for the live IOC stream.',
+    sectionLabel: 'Threat Intel · Live',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/threat-feeds',
+    label: 'Threat Feeds (alias)',
+    description: 'Alias for the feed hub.',
+    sectionLabel: 'Threat Intel · Live',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/threat-pulse',
+    label: 'Threat Pulse',
+    description: 'Live intel pulse — minute-by-minute indicator deltas and trending clusters.',
+    sectionLabel: 'Threat Intel · Live',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/mythreatintel',
+    label: 'My Threat Intel (alias)',
+    description: 'Alias for the Social hub.',
+    sectionLabel: 'Threat Intel · Live',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/status',
+    label: 'Status (alias)',
+    description: 'Alias for the Social hub status view.',
+    sectionLabel: 'Threat Intel · Live',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/feeds',
+    label: 'Feed Hub',
+    description: 'Feed management — sources, scheduler, alert engine, file catalog, aggregated feeds.',
+    sectionLabel: 'Threat Intel · Live',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/feeds/:tab',
+    label: 'Feed Hub (tab)',
+    description: 'Feed hub tab — sources, scheduler, status, quality, or catalog.',
+    sectionLabel: 'Threat Intel · Live',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/feed-sources',
+    label: 'Feed Sources',
+    description: 'Feed source list — add, remove, and edit upstream feeds.',
+    sectionLabel: 'Threat Intel · Live',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/feed-scheduler',
+    label: 'Feed Scheduler',
+    description: 'Feed scheduler — when each source polls and how failures are retried.',
+    sectionLabel: 'Threat Intel · Live',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/feed-quality',
+    label: 'Feed Quality',
+    description: 'Feed quality scorecard — precision, recall, freshness, and signal-to-noise.',
+    sectionLabel: 'Threat Intel · Live',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/feed-catalog',
+    label: 'Feed Catalog',
+    description: 'Catalog of all known feeds — taxonomy, examples, and provenance.',
+    sectionLabel: 'Threat Intel · Live',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/aggregated-feeds',
+    label: 'Aggregated Feeds',
+    description: 'Aggregated feed views — merged signal from multiple upstream feeds.',
+    sectionLabel: 'Threat Intel · Live',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/source-health',
+    label: 'Source Health',
+    description: 'Source health monitor — uptime, latency, error rate per upstream.',
+    sectionLabel: 'Threat Intel · Live',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/source-reliability',
+    label: 'Source Reliability',
+    description: 'Source reliability scoring — historical accuracy, citation count, and decay.',
+    sectionLabel: 'Threat Intel · Live',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/collection-slo',
+    label: 'Collection SLO',
+    description: 'Collection SLO — coverage, freshness, and availability targets.',
+    sectionLabel: 'Threat Intel · Live',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/facilities',
+    label: 'Facilities',
+    description: 'Collection facilities — cloud accounts, API keys, and quota usage.',
+    sectionLabel: 'Threat Intel · Live',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/watches',
+    label: 'Watches',
+    description: 'Watch lists — keyword, indicator, and entity watches with notification routing.',
+    sectionLabel: 'Threat Intel · Live',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/investigations',
+    label: 'Investigations (alias)',
+    description: 'Alias for the Investigations workspace inside the Tools hub.',
+    sectionLabel: 'Threat Intel · Tools',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/observable-db',
+    label: 'Observable DB',
+    description: 'Observable database — catalog of every observed indicator across feeds.',
+    sectionLabel: 'Threat Intel · Live',
+    group: 'threatintel',
+  },
+
+  // Detection
+  {
+    path: '/threatintel/detections',
+    label: 'Detection Hub',
+    description: 'Detection rules (Sigma/YARA/Suricata), GoXDR KQL, CVE feeds, KEV, malware IOCs.',
+    sectionLabel: 'Threat Intel · Detection',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/detections/:tab',
+    label: 'Detection Hub (tab)',
+    description: 'Detection hub tab — detections, signal, yara, disarm.',
+    sectionLabel: 'Threat Intel · Detection',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/signal',
+    label: 'Signal (alias)',
+    description: 'Alias for the Detection Hub signal view.',
+    sectionLabel: 'Threat Intel · Detection',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/threatsignal',
+    label: 'Threat Signal (alias)',
+    description: 'Alias for the Detection Hub signal view.',
+    sectionLabel: 'Threat Intel · Detection',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/yara',
+    label: 'YARA (alias)',
+    description: 'Alias for the Detection Hub yara view.',
+    sectionLabel: 'Threat Intel · Detection',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/rules',
+    label: 'Detection Rules (alias)',
+    description: 'Alias for the Detection Hub detections view.',
+    sectionLabel: 'Threat Intel · Detection',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/disarm',
+    label: 'DISARM Framework',
+    description: 'DISARM disinformation framework — detection engineering for influence ops.',
+    sectionLabel: 'Threat Intel · Detection',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/cves',
+    label: 'CVE Hub',
+    description: 'Live CVE updates, exploitable CVEs, CISA KEV, GitHub advisories, K8s CVE feed.',
+    sectionLabel: 'Threat Intel · Detection',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/cves/:tab',
+    label: 'CVE Hub (tab)',
+    description: 'CVE hub tab — list, KEV, GitHub, Kubernetes.',
+    sectionLabel: 'Threat Intel · Detection',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/cve-list',
+    label: 'CVE List (alias)',
+    description: 'Alias for the CVE Hub list view.',
+    sectionLabel: 'Threat Intel · Detection',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/cve-resources',
+    label: 'CVE Resources (alias)',
+    description: 'Alias for the CVE Hub.',
+    sectionLabel: 'Threat Intel · Detection',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/malware',
+    label: 'Malware Hub',
+    description: 'Malware IOC browser (50+ families), Malpedia, and Maltrail APT trails.',
+    sectionLabel: 'Threat Intel · Detection',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/malware/:tab',
+    label: 'Malware Hub (tab)',
+    description: 'Malware hub tab — IOCs, vault, packages, malpedia, maltrail, sandbox.',
+    sectionLabel: 'Threat Intel · Detection',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/malware-sandbox',
+    label: 'Malware Sandbox',
+    description: 'Hash lookup across 10+ public sandbox platforms — consensus verdict, family attribution.',
+    sectionLabel: 'Threat Intel · Detection',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/malware-iocs',
+    label: 'Malware IOCs (alias)',
+    description: 'Alias for the Malware Hub IOCs view.',
+    sectionLabel: 'Threat Intel · Detection',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/malware-vault',
+    label: 'Malware Vault (alias)',
+    description: 'Alias for the Malware Hub vault view.',
+    sectionLabel: 'Threat Intel · Detection',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/malicious-packages',
+    label: 'Malicious Packages',
+    description: 'Malicious-package feed — typosquats, backdoored deps, and supply-chain attacks.',
+    sectionLabel: 'Threat Intel · Detection',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/malpedia',
+    label: 'Malpedia (alias)',
+    description: 'Alias for the Malware Hub malpedia view.',
+    sectionLabel: 'Threat Intel · Detection',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/maltrail',
+    label: 'Maltrail (alias)',
+    description: 'Alias for the Malware Hub maltrail view.',
+    sectionLabel: 'Threat Intel · Detection',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/infostealer',
+    label: 'Infostealer (alias)',
+    description: 'Alias for the Malware Hub.',
+    sectionLabel: 'Threat Intel · Detection',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/infostealer/:slug',
+    label: 'Infostealer Family',
+    description: 'Per-family infostealer detail — indicators, capabilities, and post-infection TTPs.',
+    sectionLabel: 'Threat Intel · Detection',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/phishing',
+    label: 'Phishing Defense',
+    description: 'Phishing hunting wordlists, phish feed, email defense, and domain impersonation.',
+    sectionLabel: 'Threat Intel · Detection',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/phishing/:tab',
+    label: 'Phishing Hub',
+    description: 'Phishing hub tab — feed, defense, impersonation, wordlists.',
+    sectionLabel: 'Threat Intel · Detection',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/phishing-wordlists',
+    label: 'Phishing Wordlists (alias)',
+    description: 'Alias for the phishing defense wordlists view.',
+    sectionLabel: 'Threat Intel · Detection',
+    group: 'threatintel',
+  },
+
+  // OSINT
+  {
+    path: '/threatintel/osint',
+    label: 'OSINT Hub',
+    description: 'Username search (291k handles), OSINT framework (70+ tools), OSINT country map.',
+    sectionLabel: 'Threat Intel · OSINT',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/osint/:tab',
+    label: 'OSINT Hub (tab)',
+    description: 'OSINT hub tab — username, framework, map, toolbox, secops, cli.',
+    sectionLabel: 'Threat Intel · OSINT',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/osint-framework',
+    label: 'OSINT Framework (alias)',
+    description: 'Alias for the OSINT hub framework view.',
+    sectionLabel: 'Threat Intel · OSINT',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/osint-map',
+    label: 'OSINT Map (alias)',
+    description: 'Alias for the OSINT hub map view.',
+    sectionLabel: 'Threat Intel · OSINT',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/curated-toolbox',
+    label: 'Curated Toolbox',
+    description: 'Curated OSINT toolbox — analyst-grade tooling, grouped by tradecraft niche.',
+    sectionLabel: 'Threat Intel · OSINT',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/secops-tools',
+    label: 'SecOps Tools',
+    description: 'SecOps catalog — vendor and open-source security operations tools.',
+    sectionLabel: 'Threat Intel · OSINT',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/osint-cli-tools',
+    label: 'OSINT CLI Tools (alias)',
+    description: 'Alias for the OSINT hub CLI view.',
+    sectionLabel: 'Threat Intel · OSINT',
+    group: 'threatintel',
+  },
+
+  // Infra
+  {
+    path: '/threatintel/infra',
+    label: 'Infra Hub',
+    description: 'Infrastructure hub — ASN, IP space, hosting, and cert graphs.',
+    sectionLabel: 'Threat Intel · Infra',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/infra/:tab',
+    label: 'Infra Hub (tab)',
+    description: 'Infra hub tab — search, ASN, IP neighbors, hosting pivots.',
+    sectionLabel: 'Threat Intel · Infra',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/infra-search',
+    label: 'Infra Search',
+    description: 'Infrastructure search — find related infrastructure across ASN, IP, and cert graphs.',
+    sectionLabel: 'Threat Intel · Infra',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/domain-monitor',
+    label: 'Domain Monitor',
+    description: 'Domain monitor — watch a list of domains for cert, whois, and DNS changes.',
+    sectionLabel: 'Threat Intel · Infra',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/certstream',
+    label: 'CertStream Live',
+    description: 'Live certificate-transparency stream — watch new certs in real time.',
+    sectionLabel: 'Threat Intel · Infra',
+    group: 'threatintel',
+    keywords: ['ct', 'certificate'],
+  },
+  {
+    path: '/threatintel/bitwire-blocklist',
+    label: 'Bitwire Blocklist',
+    description: 'Bitwire curated IP blocklist — phishing and C2 infrastructure.',
+    sectionLabel: 'Threat Intel · Infra',
+    group: 'threatintel',
+  },
+
+  // Briefings + research hub
+  {
+    path: '/threatintel/briefings',
+    label: 'Briefings & Reports',
+    description: 'Daily/weekly tactical digests, threat-landscape reports, and assessments.',
+    sectionLabel: 'Threat Intel · Briefings',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/briefings/:slug',
+    label: 'Briefing',
+    description: 'A single briefing — narrative, IOCs, and detection logic.',
+    sectionLabel: 'Threat Intel · Briefings',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/research-hub',
+    label: 'Research Hub',
+    description: 'Research hub — original reports, writeups, and external research.',
+    sectionLabel: 'Threat Intel · Research',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/research-hub/:tab',
+    label: 'Research Hub (tab)',
+    description: 'Research hub tab — research, writeups, redhunt, AI reports, reports.',
+    sectionLabel: 'Threat Intel · Research',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/research',
+    label: 'Research (alias)',
+    description: 'Alias for the Research Hub research view.',
+    sectionLabel: 'Threat Intel · Research',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/research/:slug',
+    label: 'Research Post',
+    description: 'A single research post — narrative, IOCs, and detection logic.',
+    sectionLabel: 'Threat Intel · Research',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/reports',
+    label: 'Threat Intel Reports',
+    description: 'Original research reports with IOCs, detection rules, and severity scoring.',
+    sectionLabel: 'Threat Intel · Research',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/writeups',
+    label: 'Writeups',
+    description: 'Long-form writeups — deep dives on incidents, malware, and tradecraft.',
+    sectionLabel: 'Threat Intel · Research',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/redhunt-labs',
+    label: 'RedHunt Labs Research',
+    description: 'RedHunt Labs research — curated reports on adversary TTPs.',
+    sectionLabel: 'Threat Intel · Research',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/redhunt-insights',
+    label: 'RedHunt Insights',
+    description: 'RedHunt Insights — long-form analysis and tradecraft posts.',
+    sectionLabel: 'Threat Intel · Research',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/ai-report',
+    label: 'AI Report',
+    description: 'AI-assisted report — auto-drafted from a set of IOCs and TTPs.',
+    sectionLabel: 'Threat Intel · Research',
+    group: 'threatintel',
+  },
+
+  // Wiki + knowledge + external
+  {
+    path: '/threatintel/wiki',
+    label: 'Knowledge Base',
+    description: 'Long-form articles on Telegram OSINT, dark-web monitoring, MITRE workflows.',
+    sectionLabel: 'Threat Intel · Reference',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/wiki/:slug',
+    label: 'Wiki Article',
+    description: 'A single wiki article — concept, references, and analyst notes.',
+    sectionLabel: 'Threat Intel · Reference',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/learn',
+    label: 'H3ad Learn',
+    description: 'H3adLearn — guided learning paths for SOC analysts and CTI researchers.',
+    sectionLabel: 'Threat Intel · Reference',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/external',
+    label: 'External Resources',
+    description: 'Off-site cross-references — dashboards, OSINT directories, training labs, sample sources.',
+    sectionLabel: 'Threat Intel · Reference',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/external/:tab',
+    label: 'External Hub',
+    description: 'External hub tab — external, awesome-lists, projectdiscovery.',
+    sectionLabel: 'Threat Intel · Reference',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/external-resources',
+    label: 'External Resources (alias)',
+    description: 'Alias for the external hub.',
+    sectionLabel: 'Threat Intel · Reference',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/awesome-lists',
+    label: 'Awesome Lists (alias)',
+    description: 'Alias for the external hub awesome-lists view.',
+    sectionLabel: 'Threat Intel · Reference',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/projectdiscovery',
+    label: 'ProjectDiscovery (alias)',
+    description: 'Alias for the external hub projectdiscovery view.',
+    sectionLabel: 'Threat Intel · Reference',
+    group: 'threatintel',
+  },
+
+  // Tools hub
+  {
+    path: '/threatintel/tools',
+    label: 'Frameworks & Tools',
+    description: 'MITRE ATT&CK, ATLAS, insider threat matrix, ACH, F3EAD, AI copilot, analysis orchestration.',
+    sectionLabel: 'Threat Intel · Tools',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/tools/:tab',
+    label: 'Tools Hub',
+    description: 'Tools hub tab — copilot, mcp, misp, stix, graph, investigations, watches, settings, unified-search.',
+    sectionLabel: 'Threat Intel · Tools',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/unified-search',
+    label: 'Unified Search',
+    description: 'Cross-source omnibox — search the platform, query IOC pivots, and trigger an AI summary.',
+    sectionLabel: 'Threat Intel · Tools',
+    group: 'threatintel',
+    keywords: ['search', 'omni', 'find', 'q='],
+  },
+  {
+    path: '/threatintel/stix-bundles',
+    label: 'STIX Bundles (alias)',
+    description: 'Alias for the Tools hub STIX browser.',
+    sectionLabel: 'Threat Intel · Tools',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/mcp-search',
+    label: 'MCP Search (alias)',
+    description: 'Alias for the Tools hub MCP search.',
+    sectionLabel: 'Threat Intel · Tools',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/misp-browser',
+    label: 'MISP Browser (alias)',
+    description: 'Alias for the Tools hub MISP browser.',
+    sectionLabel: 'Threat Intel · Tools',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/relationship-graph',
+    label: 'Relationship Graph (alias)',
+    description: 'Alias for the Tools hub relationship graph.',
+    sectionLabel: 'Threat Intel · Tools',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/ioc-feeds',
+    label: 'IOC Feeds',
+    description: 'Structured indicator feeds ready for SIEM, EDR, or CTI platform ingestion.',
+    sectionLabel: 'Threat Intel · Tools',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/analyze',
+    label: 'Analyze',
+    description: 'Ad-hoc analysis workspace — paste data, run enrichment, and pivot.',
+    sectionLabel: 'Threat Intel · Tools',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/knowledge-graph',
+    label: 'Knowledge Graph',
+    description: 'Knowledge graph — entities, relationships, and cross-source pivots.',
+    sectionLabel: 'Threat Intel · Tools',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/knowledge-hub',
+    label: 'Knowledge Hub',
+    description: 'Knowledge hub — wiki, learning, and external research entry points.',
+    sectionLabel: 'Threat Intel · Tools',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/redhunt-labs-research',
+    label: 'RedHunt Labs Research (page)',
+    description: 'RedHunt Labs research — curated reports and tradecraft posts.',
+    sectionLabel: 'Threat Intel · Research',
+    group: 'threatintel',
+  },
+
+  // Frameworks + reference (alias-only or in the tools hub)
+  {
+    path: '/threatintel/atlas',
+    label: 'MITRE ATLAS (alias)',
+    description: 'Alias for the Knowledge Base ATLAS tab.',
+    sectionLabel: 'Threat Intel · Reference',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/mitre',
+    label: 'MITRE ATT&CK (alias)',
+    description: 'Alias for the Knowledge Base MITRE ATT&CK tab.',
+    sectionLabel: 'Threat Intel · Reference',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/owasp-ai-landscape',
+    label: 'OWASP AI Landscape (alias)',
+    description: 'Alias for the Knowledge Base OWASP AI tab.',
+    sectionLabel: 'Threat Intel · Reference',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/insider-threat-matrix',
+    label: 'Insider Threat Matrix (alias)',
+    description: 'Alias for the Knowledge Base Insider tab.',
+    sectionLabel: 'Threat Intel · Reference',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/f3ead',
+    label: 'F3EAD (alias)',
+    description: 'Alias for the Knowledge Base F3EAD tab.',
+    sectionLabel: 'Threat Intel · Reference',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/llm-threat-atlas',
+    label: 'LLM Threat Atlas (alias)',
+    description: 'Alias for the Knowledge Base LLM tab.',
+    sectionLabel: 'Threat Intel · Reference',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/disarm-framework',
+    label: 'DISARM Framework (alias)',
+    description: 'Alias for the Detection Hub DISARM view.',
+    sectionLabel: 'Threat Intel · Detection',
+    group: 'threatintel',
+  },
+
+  // Dark-web sub-tabs
+  {
+    path: '/threatintel/breach',
+    label: 'Breach (alias)',
+    description: 'Alias for the Darkweb Hub social/telegram view.',
+    sectionLabel: 'Threat Intel · Live',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/breach-forums',
+    label: 'Breach Forums (alias)',
+    description: 'Alias for the Darkweb Hub forums view.',
+    sectionLabel: 'Threat Intel · Live',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/cyber-crime',
+    label: 'Cyber Crime (alias)',
+    description: 'Alias for the Darkweb Hub social/telegram view.',
+    sectionLabel: 'Threat Intel · Live',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/cybersec',
+    label: 'Cybersec (alias)',
+    description: 'Alias for the Social Hub telegram view.',
+    sectionLabel: 'Threat Intel · Live',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/telegram-monitor',
+    label: 'Telegram Monitor',
+    description: 'Telegram channel monitor — track messages and media across curated channels.',
+    sectionLabel: 'Threat Intel · Live',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/telegram-watch',
+    label: 'Telegram Watch (alias)',
+    description: 'Alias for the Social Hub telegram view.',
+    sectionLabel: 'Threat Intel · Live',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/telegram-leaks',
+    label: 'Telegram Leaks (alias)',
+    description: 'Alias for the Social Hub telegram view.',
+    sectionLabel: 'Threat Intel · Live',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/telegram-leaks/channels',
+    label: 'Telegram Leaks — Channels (alias)',
+    description: 'Alias for the Social Hub telegram view.',
+    sectionLabel: 'Threat Intel · Live',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/telegram-leaks/stats',
+    label: 'Telegram Leaks — Stats (alias)',
+    description: 'Alias for the Social Hub telegram view.',
+    sectionLabel: 'Threat Intel · Live',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/telegram-settings',
+    label: 'Telegram Settings (alias)',
+    description: 'Alias for the Social Hub telegram view.',
+    sectionLabel: 'Threat Intel · Live',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/tech-ai-news',
+    label: 'Tech & AI News (alias)',
+    description: 'Alias for the Social Hub.',
+    sectionLabel: 'Threat Intel · Live',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/onion-watch',
+    label: 'Onion Watch (alias)',
+    description: 'Alias for the Darkweb Hub onion-watch view.',
+    sectionLabel: 'Threat Intel · Live',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/darkweb-tools',
+    label: 'Dark Web Tools (alias)',
+    description: 'Alias for the Darkweb Hub tools view.',
+    sectionLabel: 'Threat Intel · Live',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/deepdarkcti',
+    label: 'DeepDarkCTI (alias)',
+    description: 'Alias for the Darkweb Hub deepdarkCTI view.',
+    sectionLabel: 'Threat Intel · Live',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/re-leaks',
+    label: 'Victim Releaks (alias)',
+    description: 'Alias for the Darkweb Hub leaks view.',
+    sectionLabel: 'Threat Intel · Live',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/ransomware-map',
+    label: 'Ransomware Map (alias)',
+    description: 'Alias for the Darkweb Hub ransomware view.',
+    sectionLabel: 'Threat Intel · Live',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/ransomware-activity',
+    label: 'Ransomware Activity (alias)',
+    description: 'Alias for the Darkweb Hub ransomware view.',
+    sectionLabel: 'Threat Intel · Live',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/ransom-report',
+    label: 'Ransom Report (alias)',
+    description: 'Alias for the Darkweb Hub ransomware view.',
+    sectionLabel: 'Threat Intel · Live',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/negotiations',
+    label: 'Negotiations (alias)',
+    description: 'Alias for the Darkweb Hub ransomware view.',
+    sectionLabel: 'Threat Intel · Live',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/ransomware-live',
+    label: 'Ransomware Live',
+    description: 'Live ransomware-victim feed with sector, country, and group attribution.',
+    sectionLabel: 'Threat Intel · Live',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/scam-watch',
+    label: 'Scam Watch (alias)',
+    description: 'Alias for the Social Hub scam view.',
+    sectionLabel: 'Threat Intel · Live',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/crypto-scams',
+    label: 'Crypto Scams (alias)',
+    description: 'Alias for the Social Hub scam view.',
+    sectionLabel: 'Threat Intel · Live',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/reddit',
+    label: 'Reddit (alias)',
+    description: 'Alias for the Social Hub reddit view.',
+    sectionLabel: 'Threat Intel · Live',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/x',
+    label: 'X (alias)',
+    description: 'Alias for the Social Hub x view.',
+    sectionLabel: 'Threat Intel · Live',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/x-live',
+    label: 'X Live (alias)',
+    description: 'Alias for the Social Hub x view.',
+    sectionLabel: 'Threat Intel · Live',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/x-watch',
+    label: 'X Watch (alias)',
+    description: 'Alias for the Social Hub x view.',
+    sectionLabel: 'Threat Intel · Live',
+    group: 'threatintel',
+  },
+
+  // Detection / research aliases and one-offs
+  {
+    path: '/threatintel/pulse',
+    label: 'Pulse Map (alias)',
+    description: 'Alias for the global pulse map view.',
+    sectionLabel: 'Threat Intel · Live',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/campaign-hub',
+    label: 'Campaign Hub (alias)',
+    description: 'Alias for the campaigns overview.',
+    sectionLabel: 'Threat Intel · Campaigns',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/actor-hub',
+    label: 'Actor Hub (alias)',
+    description: 'Alias for the actor directory.',
+    sectionLabel: 'Threat Intel · Actors',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/social-hub',
+    label: 'Social Hub (alias)',
+    description: 'Alias for the social hub.',
+    sectionLabel: 'Threat Intel · Live',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/feed-hub',
+    label: 'Feed Hub (alias)',
+    description: 'Alias for the feed hub.',
+    sectionLabel: 'Threat Intel · Live',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/ioc-hub',
+    label: 'IOC Hub (alias)',
+    description: 'Alias for the IOC hub.',
+    sectionLabel: 'Threat Intel · Live',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/malware-hub',
+    label: 'Malware Hub (alias)',
+    description: 'Alias for the malware hub.',
+    sectionLabel: 'Threat Intel · Detection',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/external-hub',
+    label: 'External Hub (alias)',
+    description: 'Alias for the external hub.',
+    sectionLabel: 'Threat Intel · Reference',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/research-hub-home',
+    label: 'Research Hub Home (alias)',
+    description: 'Alias for the research hub home.',
+    sectionLabel: 'Threat Intel · Research',
+    group: 'threatintel',
+  },
+
+  // Fill-in for the few DFIR redirect-targets that aren't a redirect.
+  {
+    path: '/dfir/dork-builder',
+    label: 'Dork Builder',
+    description: 'Compose Google / Bing / GitHub dorks from a template — filter by site, filetype, inurl.',
+    sectionLabel: 'DFIR · Investigate',
+    group: 'dfir',
+    keywords: ['dork', 'google', 'bing', 'osint'],
+  },
+  {
+    path: '/dfir/google-dorks',
+    label: 'Google Dorks',
+    description: 'Google Dorks — ready-made search queries for exposed files, leaks, and misconfigs.',
+    sectionLabel: 'DFIR · Investigate',
+    group: 'dfir',
+    keywords: ['dork', 'google', 'osint'],
+  },
+  {
+    path: '/dfir/discord-watch',
+    label: 'Discord Watch (alias)',
+    description: 'Alias for the Social hub — Discord watchlists.',
+    sectionLabel: 'DFIR · Triage',
+    group: 'dfir',
+  },
+  {
+    path: '/dfir/industry-news',
+    label: 'Industry News (alias)',
+    description: 'Alias for the Social hub — industry-news view.',
+    sectionLabel: 'DFIR · Triage',
+    group: 'dfir',
+  },
+
+  /* ------------------------------------------------------------------ */
+  /*  4. Admin + Case Study + Final wiring                              */
+];
+/* ------------------------------------------------------------------ */
+
+const ADMIN_PAGES: readonly PageEntry[] = [
+  {
+    path: '/admin',
+    label: 'Admin App',
+    description: 'Internal admin — briefings, drafts, published, schedule, retention, manual entries.',
+    sectionLabel: 'Admin',
+    group: 'admin',
+    keywords: ['admin', 'backstage', 'cms'],
+  },
+];
+
+/* ------------------------------------------------------------------ */
+/*  5. Public surface — combined + helpers                            */
+/* ------------------------------------------------------------------ */
+
+export const PAGES: readonly PageEntry[] = [...PORTFOLIO_PAGES, ...DFIR_PAGES, ...THREATINTEL_PAGES, ...ADMIN_PAGES];
+
+/** Subpage match score: higher = more relevant. -1 = no match. */
+export interface ScoredPage {
+  page: PageEntry;
+  score: number;
+}
+
+const NORMALIZE_RE = /[^a-z0-9]+/g;
+
+/** Tokenize + lowercase a string for matching. */
+function tokenize(value: string): string[] {
+  return value.toLowerCase().split(NORMALIZE_RE).filter(Boolean);
+}
+
+/**
+ * Score a single page against a normalized query.
+ *
+ * Scoring (descending priority):
+ *   - exact path match            : 100
+ *   - exact label match           : 90
+ *   - label contains all tokens   : 60 + per-token bonus
+ *   - description contains all    : 35 + per-token bonus
+ *   - sectionLabel contains all   : 25 + per-token bonus
+ *   - any keyword contains all    : 45 + per-token bonus
+ *   - path segment contains all   : 30
+ *
+ * Returns -1 if the page does not match.
+ */
+function scorePage(page: PageEntry, normalizedQuery: string, queryTokens: string[]): number {
+  // Substring pre-check: if no query token appears in the haystack, the
+  // page cannot match. This makes the worst case O(n*haystack) without
+  // doing per-token AND scoring for obviously-irrelevant entries.
+  const haystack = (
+    page.path +
+    ' ' +
+    page.label +
+    ' ' +
+    page.description +
+    ' ' +
+    page.sectionLabel +
+    ' ' +
+    (page.keywords ?? []).join(' ')
+  ).toLowerCase();
+
+  if (normalizedQuery && !haystack.includes(normalizedQuery) && !queryTokens.some((t) => haystack.includes(t))) {
+    return -1;
+  }
+
+  const label = page.label.toLowerCase();
+  const desc = page.description.toLowerCase();
+  const section = page.sectionLabel.toLowerCase();
+  const path = page.path.toLowerCase();
+  const keywords = (page.keywords ?? []).map((k) => k.toLowerCase());
+
+  // Exact path: handle parametrized routes like /threatintel/wiki/:slug
+  // by treating the path-prefix as a positive signal too.
+  if (path === normalizedQuery) return 100;
+
+  let score = 0;
+
+  // Exact label match is the strongest signal.
+  if (label === normalizedQuery) {
+    score = Math.max(score, 90);
+  }
+
+  // AND-tokenised substring scoring.
+  if (queryTokens.length > 0) {
+    const allInLabel = queryTokens.every((t) => label.includes(t));
+    const allInDesc = queryTokens.every((t) => desc.includes(t));
+    const allInSection = queryTokens.every((t) => section.includes(t));
+    const allInKeywords = keywords.length > 0 && queryTokens.every((t) => keywords.some((k) => k.includes(t)));
+    const allInPath = queryTokens.every((t) => path.replace(/[:/]/g, ' ').includes(t));
+
+    if (allInLabel) score = Math.max(score, 60 + queryTokens.length * 5);
+    if (allInKeywords) score = Math.max(score, 45 + queryTokens.length * 4);
+    if (allInDesc) score = Math.max(score, 35 + queryTokens.length * 3);
+    if (allInPath) score = Math.max(score, 30);
+    if (allInSection) score = Math.max(score, 25 + queryTokens.length * 2);
+  }
+
+  return score;
+}
+
+/**
+ * Find pages matching the query. Substring + AND-tokenized, scored so the
+ * most relevant entry surfaces first. Optional `group` filter limits the
+ * search to one area (e.g. only DFIR pages).
+ */
+export function searchPages(query: string, options: { group?: PageGroup | 'any'; limit?: number } = {}): ScoredPage[] {
+  const { group = 'any', limit = 30 } = options;
+  const q = query.trim();
+  if (!q) return [];
+  const normalized = q.toLowerCase();
+  const tokens = tokenize(q);
+  if (tokens.length === 0) return [];
+
+  const out: ScoredPage[] = [];
+  for (const p of PAGES) {
+    if (group !== 'any' && p.group !== group) continue;
+    const s = scorePage(p, normalized, tokens);
+    if (s > 0) out.push({ page: p, score: s });
+  }
+  out.sort((a, b) => {
+    if (b.score !== a.score) return b.score - a.score;
+    // Stable tiebreak: more specific group first, then alpha.
+    if (a.page.group !== b.page.group) return a.page.group.localeCompare(b.page.group);
+    return a.page.label.localeCompare(b.page.label);
+  });
+  return out.slice(0, limit);
+}
+
+/**
+ * Quick yes/no for "does this page match the query". Used by the
+ * UnifedSearch omnibox to decide whether a "Pages" section should render.
+ */
+export function hasPageMatch(query: string, group?: PageGroup): boolean {
+  return searchPages(query, { group, limit: 1 }).length > 0;
+}

@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 import { Link } from 'react-router-dom';
-import { DataPageLayout } from '../../components/DataPageLayout';
+import { DataPageLayout, useInsideDataPageLayout } from '../../components/DataPageLayout';
 import { XClaimsPanel } from '../../components/threatintel/XClaimsPanel';
 import {
   RefreshCw,
@@ -200,6 +200,7 @@ function compactNumber(n?: number): string {
 }
 
 export default function XWatch(): JSX.Element {
+  const insideLayout = useInsideDataPageLayout();
   const [active, setActive] = useState<string>(() => {
     try {
       return localStorage.getItem(STORAGE_KEY_LAST) ?? DEFAULT_HANDLE;
@@ -405,6 +406,7 @@ export default function XWatch(): JSX.Element {
   return (
     <DataPageLayout
       backTo="/threatintel"
+      hideBack={insideLayout}
       icon={<Twitter size={28} />}
       title="X firehose"
       description='Live chronological tweets from cybersec accounts. Filter by handle, time window, replies, and pinned. Inactive handles (no posts within the selected window) are hidden by default — click "+N inactive" in each section to surface them.'

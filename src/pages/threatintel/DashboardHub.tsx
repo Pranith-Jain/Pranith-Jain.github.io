@@ -13,6 +13,7 @@ const PredictiveIntel = lazy(() => import('./PredictiveIntel'));
 const Analyze = lazy(() => import('./Analyze'));
 const Assessments = lazy(() => import('./Assessments'));
 const Observe = lazy(() => import('./Observe'));
+const AnalyticsDashboard = lazy(() => import('./AnalyticsDashboard'));
 type TabId =
   | 'dashboard'
   | 'global-pulse'
@@ -24,7 +25,8 @@ type TabId =
   | 'predictive'
   | 'analyze'
   | 'assessments'
-  | 'observe';
+  | 'observe'
+  | 'analytics';
 const TABS: Array<{ id: TabId; label: string; desc: string }> = [
   { id: 'dashboard', label: 'Dashboard', desc: 'Intel dashboard overview' },
   { id: 'global-pulse', label: 'Global Pulse', desc: 'Global threat pulse monitoring' },
@@ -32,6 +34,7 @@ const TABS: Array<{ id: TabId; label: string; desc: string }> = [
   { id: 'certstream', label: 'CertStream', desc: 'Certificate transparency live feed' },
   { id: 'pir', label: 'PIR Dashboard', desc: 'PIR dashboard' },
   { id: 'metrics', label: 'Metrics', desc: 'Ten-panel metrics board' },
+  { id: 'analytics', label: 'Analytics & Ops', desc: 'Platform health, feed reliability, and intel metrics' },
   { id: 'predictions', label: 'Predictions', desc: 'Threat predictions' },
   { id: 'predictive', label: 'Predictive', desc: 'Predictive intelligence' },
   { id: 'analyze', label: 'Analyze', desc: 'Intelligence analysis' },
@@ -74,6 +77,7 @@ export default function DashboardHub(): JSX.Element {
         {activeTab === 'analyze' && <Analyze />}
         {activeTab === 'assessments' && <Assessments />}
         {activeTab === 'observe' && <Observe />}
+        {activeTab === 'analytics' && <AnalyticsDashboard />}
       </Suspense>
     </HubShell>
   );

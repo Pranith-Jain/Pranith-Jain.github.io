@@ -341,7 +341,6 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/threatintel/threat-landscape', '/__prerendered/threatintel__threat-landscape'],
   ['/threatintel/threat-actor-db', '/__prerendered/threatintel__threat-actor-db'],
   ['/dfir/copilot', '/__prerendered/dfir__copilot'],
-
   // ── ThreatIntel: hub bases (11) — Suspense-wrapped tabs, prerendered chrome ─
   ['/threatintel/iocs', '/__prerendered/threatintel__iocs'],
   ['/threatintel/cves', '/__prerendered/threatintel__cves'],

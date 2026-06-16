@@ -18,6 +18,8 @@ import {
   Search,
   Shield,
   ShieldAlert,
+  ShieldOff,
+  FolderTree,
   Target,
   Terminal,
   Users,
@@ -47,10 +49,13 @@ const threatIntel: SidebarConfig = {
       title: 'Intelligence',
       items: [
         { label: 'Browse', href: '/threatintel', icon: Compass },
+        { label: 'Global Pulse', href: '/threatintel/feeds', icon: Globe },
         { label: 'Landscape', href: '/threatintel/predictive/dashboard', icon: LayoutDashboard },
         { label: 'Actors', href: '/threatintel/actors', icon: Users },
         { label: 'Campaigns', href: '/threatintel/campaigns', icon: GitBranch },
         { label: 'Briefings', href: '/threatintel/briefings', icon: Newspaper },
+        { label: 'Extremists', href: '/threatintel/extremists', icon: ShieldOff },
+        { label: 'Predators', href: '/threatintel/predators', icon: ShieldOff },
       ],
     },
     {
@@ -60,7 +65,7 @@ const threatIntel: SidebarConfig = {
         { label: 'Dark Web', href: '/threatintel/darkweb', icon: Globe },
         { label: 'IOC Hub', href: '/threatintel/iocs', icon: Target },
         { label: 'SOC Dashboards', href: '/threatintel/soc-dashboard', icon: LayoutDashboard },
-        { label: 'Feed Management', href: '/threatintel/feeds', icon: Rss },
+        { label: 'Feed Status', href: '/threatintel/feeds', icon: Rss },
       ],
     },
     {
@@ -103,6 +108,8 @@ const dfir: SidebarConfig = {
       items: [
         { label: 'Dashboard', href: '/dfir', icon: LayoutDashboard },
         { label: 'IOC Check', href: '/dfir/ioc-check', icon: Search },
+        { label: 'X-VERDIKT', href: '/dfir/x-verdikt', icon: Shield },
+        { label: 'REGSCOPE', href: '/dfir/regscope', icon: FolderTree },
         { label: 'Abuse Rep', href: '/dfir/abuse-rep', icon: ShieldAlert },
         { label: 'Email Defense', href: '/dfir/email-defense', icon: Zap },
         { label: 'Phishing', href: '/dfir/phishing', icon: ShieldAlert },
@@ -118,6 +125,7 @@ const dfir: SidebarConfig = {
         { label: 'Copilot', href: '/dfir/copilot', icon: Zap },
         { label: 'Report Ingest', href: '/dfir/report-ingest', icon: FileText },
         { label: 'Asset Intel', href: '/dfir/asset-intel', icon: Database },
+        { label: 'DNSCOPE', href: '/dfir/dnscope', icon: Globe },
         { label: 'CVE Prioritizer', href: '/dfir/cve-prioritizer', icon: ShieldAlert },
         { label: 'CVE Lookup', href: '/dfir/cve', icon: Bug },
         { label: 'CloudTrail Triage', href: '/dfir/cloudtrail-triage', icon: Compass },
@@ -131,6 +139,8 @@ const dfir: SidebarConfig = {
       title: 'Reference',
       items: [
         { label: 'Rule Converter', href: '/dfir/rule-converter', icon: FileText },
+        { label: 'TRACERULES', href: '/dfir/tracerules', icon: Shield },
+        { label: 'ATTMAP-AI', href: '/dfir/attmap-ai', icon: Target },
         { label: 'Detection Lab', href: '/dfir/detection-lab', icon: Flame },
         { label: 'MITRE Atlas', href: '/dfir/atlas', icon: Compass },
         { label: 'STIX Builder', href: '/dfir/stix-builder', icon: GitBranch },

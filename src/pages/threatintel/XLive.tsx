@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 import { Link } from 'react-router-dom';
-import { DataPageLayout } from '../../components/DataPageLayout';
+import { DataPageLayout, useInsideDataPageLayout } from '../../components/DataPageLayout';
 import { RefreshCw, ExternalLink, MessageSquare, Repeat, Heart, BarChart3, Search, Twitter } from 'lucide-react';
 
 interface LiveTweet {
@@ -61,6 +61,7 @@ const IOC_TYPE_COLOR: Record<string, string> = {
 };
 
 export default function XLive(): JSX.Element {
+  const insideLayout = useInsideDataPageLayout();
   const [data, setData] = useState<XLiveResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -205,6 +206,7 @@ export default function XLive(): JSX.Element {
   return (
     <DataPageLayout
       backTo="/threatintel"
+      hideBack={insideLayout}
       icon={<Twitter size={28} />}
       title="X live (cybersec)"
       description={

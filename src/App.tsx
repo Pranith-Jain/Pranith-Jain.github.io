@@ -186,6 +186,8 @@ const EmailPhishHub = lazy(() => import('./pages/threatintel/EmailPhishHub'));
 const InfraHub = lazy(() => import('./pages/threatintel/InfraHub'));
 const DetectionHub = lazy(() => import('./pages/threatintel/DetectionHub'));
 const MostWanted = lazy(() => import('./pages/threatintel/MostWanted'));
+const Extremists = lazy(() => import('./pages/threatintel/Extremists'));
+const Predators = lazy(() => import('./pages/threatintel/Predators'));
 const ResearchHub = lazy(() => import('./pages/threatintel/ResearchHub'));
 const KnowledgeHub = lazy(() => import('./pages/threatintel/KnowledgeHub'));
 const OsintHub = lazy(() => import('./pages/threatintel/OsintHub'));
@@ -220,6 +222,11 @@ const AssessmentDetail = lazy(() => import('./pages/threatintel/AssessmentDetail
 const ExportHub = lazy(() => import('./pages/dfir/ExportHub'));
 const MultiSearch = lazy(() => import('./pages/dfir/MultiSearch'));
 const ReportComposer = lazy(() => import('./pages/dfir/ReportComposer'));
+const XVeridikt = lazy(() => import('./pages/dfir/XVeridikt'));
+const Dnscope = lazy(() => import('./pages/dfir/Dnscope'));
+const AttmapAi = lazy(() => import('./pages/dfir/AttmapAi'));
+const Tracerules = lazy(() => import('./pages/dfir/Tracerules'));
+const Regscope = lazy(() => import('./pages/dfir/Regscope'));
 
 /**
  * /dfir/file?h=<hash> is the legacy entry point for the standalone hash
@@ -431,6 +438,11 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/dfir/chrono-ai', Component: ChronoAi },
   { path: '/dfir/malbrief-ai', Component: MalbriefAi },
   { path: '/dfir/verdikt-ai', Component: VerdiktAi },
+  { path: '/dfir/x-verdikt', Component: XVeridikt },
+  { path: '/dfir/dnscope', Component: Dnscope },
+  { path: '/dfir/attmap-ai', Component: AttmapAi },
+  { path: '/dfir/tracerules', Component: Tracerules },
+  { path: '/dfir/regscope', Component: Regscope },
 
   { path: '/dfir/reverse-image', Component: ReverseImage },
   { path: '/dfir/eml', Component: EmlExtractor },
@@ -445,6 +457,8 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel/actors', Component: ActorHub },
   { path: '/threatintel/apt-tracker', Component: AptTracker },
   { path: '/threatintel/most-wanted', Component: MostWanted },
+  { path: '/threatintel/extremists', Component: Extremists },
+  { path: '/threatintel/predators', Component: Predators },
   { path: '/threatintel/campaigns', Component: CampaignHub },
   { path: '/threatintel/cves/:tab', Component: VulnHub },
   { path: '/threatintel/cves', Component: VulnHub },
@@ -531,7 +545,7 @@ const REDIRECTS: ReadonlyArray<{ path: string; to: string }> = [
   { path: '/threatintel/threat-map', to: '/threatintel/iocs/map' },
   { path: '/threatintel/threat-feeds', to: '/threatintel/feeds/threatfeeds' },
   { path: '/threatintel/aggregated-feeds', to: '/threatintel/feeds/threatfeeds' },
-  { path: '/threatintel/correlation', to: '/threatintel/iocs' },
+  { path: '/threatintel/correlation', to: '/threatintel/iocs/cross' },
   { path: '/threatintel/cross-correlate', to: '/threatintel/iocs' },
   { path: '/threatintel/observable-db', to: '/threatintel/iocs' },
   { path: '/threatintel/bitwire-blocklist', to: '/threatintel/feeds/threatfeeds' },
@@ -638,7 +652,6 @@ const REDIRECTS: ReadonlyArray<{ path: string; to: string }> = [
 
   // ── Assessments ─────────────────────────────────────────────────
   { path: '/threatintel/assessments', to: '/threatintel/predictive/assessments' },
-
   // ── Pre-existing drill routes (prerendered in scripts/prerender.mjs) ───
   { path: '/dfir/detection-lab', to: '/dfir/rule-converter' },
   { path: '/dfir/dashboard', to: '/dfir' },

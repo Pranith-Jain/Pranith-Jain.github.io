@@ -174,7 +174,7 @@ export function LivePulse(): JSX.Element {
               visitor who saw the same number on the root sees the same
               "Leader: <group> (N claims)" attribution here. */}
           <StatCell
-            to="/threatintel/iocs"
+            to="/threatintel/darkweb/ransom-activity"
             label="Ransomware claims · last 24h"
             icon={<Flame size={14} className="text-rose-600 dark:text-rose-400" aria-hidden="true" />}
             iconClass="bg-rose-500/10"
@@ -239,7 +239,7 @@ export function LivePulse(): JSX.Element {
               endpoint and same 18-feed copy as the root strip; the trust
               signal the platform actually exists to produce. */}
           <StatCell
-            to="/threatintel/correlation"
+            to="/threatintel/iocs/cross"
             label="Cross-source IOC consensus"
             icon={<Radio size={14} className="text-brand-600 dark:text-brand-400" aria-hidden="true" />}
             iconClass="bg-brand-500/10"

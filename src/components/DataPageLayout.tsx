@@ -1,7 +1,26 @@
-import type { ReactNode } from 'react';
+import { createContext, useContext, type ReactNode } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { ArrowLeft, Loader2, AlertTriangle, RefreshCw } from 'lucide-react';
 import { backCategoryFor } from '../lib/back-link';
+
+/**
+ * When a `DataPageLayout` is already mounted higher in the tree, nested
+ * children (e.g. tab panels that also wrap in `DataPageLayout`) should
+ * suppress their own back link to avoid duplicates.  The context carries
+ * a single boolean — `true` when an ancestor layout is present.
+ */
+const DataPageLayoutContext = createContext(false);
+
+/**
+ * Returns `true` when the calling component is nested inside a
+ * `DataPageLayout`.  Use this to conditionally hide a back link:
+ *
+ *     const insideLayout = useInsideDataPageLayout();
+ *     {!insideLayout && <BackLink to="/threatintel">…</BackLink>}
+ */
+export function useInsideDataPageLayout(): boolean {
+  return useContext(DataPageLayoutContext);
+}
 
 export interface DataPageLayoutProps {
   backTo: string;
@@ -20,6 +39,11 @@ export interface DataPageLayoutProps {
   className?: string;
   /** Container width cap. Defaults to max-w-5xl; pass e.g. max-w-7xl for wide/command-center pages. */
   maxWidthClass?: string;
+  /** Suppress the back link. When true the component still provides the
+   *  layout shell (title, description, error/loading/empty states) but
+   *  skips rendering the ArrowLeft back link — useful when an ancestor
+   *  `DataPageLayout` already renders one. */
+  hideBack?: boolean;
 }
 
 export function DataPageLayout({
@@ -38,6 +62,7 @@ export function DataPageLayout({
   children,
   className,
   maxWidthClass = 'max-w-5xl',
+  hideBack = false,
 }: DataPageLayoutProps): JSX.Element {
   // Smart back target: return to the category-filtered hub the user likely came
   // from (e.g. /threatintel/c/knowledge) when one is mapped for this route, else
@@ -49,12 +74,14 @@ export function DataPageLayout({
     <div
       className={`${maxWidthClass} mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100 ${className ?? ''}`}
     >
-      <Link
-        to={backTarget}
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono transition-colors"
-      >
-        <ArrowLeft size={14} /> {backLabel}
-      </Link>
+      {!hideBack && (
+        <Link
+          to={backTarget}
+          className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono transition-colors"
+        >
+          <ArrowLeft size={14} /> {backLabel}
+        </Link>
+      )}
 
       <div className="animate-fade-in-up mb-10">
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
@@ -99,7 +126,9 @@ export function DataPageLayout({
           <p className="text-sm text-slate-500 dark:text-slate-400">{emptyMessage}</p>
         </div>
       ) : (
-        <div className="animate-fade-in-up">{children}</div>
+        <DataPageLayoutContext.Provider value>
+          <div className="animate-fade-in-up">{children}</div>
+        </DataPageLayoutContext.Provider>
       )}
     </div>
   );

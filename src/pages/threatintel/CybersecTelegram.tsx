@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { RefreshCw, Send } from 'lucide-react';
-import { DataPageLayout } from '../../components/DataPageLayout';
+import { DataPageLayout, useInsideDataPageLayout } from '../../components/DataPageLayout';
 import { TelegramFeedPanel } from '../dfir/DarkWeb';
 import { FeedAggregateCard } from '../../components/intel/FeedAggregateCard';
 
@@ -21,6 +21,7 @@ interface TelegramAggResponse {
  * LiveSnapshotPanel "full feed" link lands somewhere focused.
  */
 export default function CybersecTelegram(): JSX.Element {
+  const insideLayout = useInsideDataPageLayout();
   // Lightweight side-fetch just for the aggregate card. TelegramFeedPanel
   // already owns its own fetch; the edge cache will dedupe.
   const [items, setItems] = useState<TelegramAggItem[]>([]);
@@ -46,6 +47,7 @@ export default function CybersecTelegram(): JSX.Element {
   return (
     <DataPageLayout
       backTo="/threatintel"
+      hideBack={insideLayout}
       icon={<Send size={28} />}
       title="Cybersec Telegram firehose"
       headerExtra={

@@ -4,6 +4,7 @@ import { sanitizeUrl } from '../../lib/sanitize-url';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
 import { SECTIONS, flattenTools, matchesQuery } from '../../data/threatintel-sections';
+import { searchPages } from '../../data/pages-index';
 import { detectIoc, getIocPivots, IOC_TYPE_LABEL } from '../../lib/dfir/ioc-detect';
 import {
   Search,
@@ -19,6 +20,11 @@ import {
   Wrench,
   ArrowUpRight,
   Zap,
+  Compass,
+  BookOpen,
+  Newspaper,
+  Scale,
+  type LucideIcon,
 } from 'lucide-react';
 
 interface SearchItem {
@@ -72,8 +78,27 @@ const SECTION_COLORS: Record<string, string> = {
   malware: 'text-emerald-600 dark:text-emerald-400 border-emerald-500/30 bg-emerald-500/10',
 };
 
+const PAGE_GROUP_ICONS: Record<string, LucideIcon> = {
+  portfolio: Compass,
+  dfir: Wrench,
+  threatintel: Shield,
+  admin: Scale,
+  blog: Newspaper,
+  'case-study': BookOpen,
+};
+
+const PAGE_GROUP_COLORS: Record<string, string> = {
+  portfolio: 'text-slate-600 dark:text-slate-300 border-slate-400/40 bg-slate-500/10',
+  dfir: 'text-brand-600 dark:text-brand-400 border-brand-500/30 bg-brand-500/10',
+  threatintel: 'text-emerald-600 dark:text-emerald-300 border-emerald-500/30 bg-emerald-500/10',
+  admin: 'text-amber-600 dark:text-amber-300 border-amber-500/30 bg-amber-500/10',
+  blog: 'text-violet-600 dark:text-violet-300 border-violet-500/30 bg-violet-500/10',
+  'case-study': 'text-indigo-600 dark:text-indigo-300 border-indigo-500/30 bg-indigo-500/10',
+};
+
 const DEBOUNCE_MS = 350;
 const MAX_TOOL_MATCHES = 6;
+const MAX_PAGE_MATCHES = 12;
 
 export default function UnifiedSearch(): JSX.Element {
   const [params, setParams] = useSearchParams();
@@ -91,6 +116,16 @@ export default function UnifiedSearch(): JSX.Element {
   const toolMatches = useMemo(
     () => (query.trim() ? allTools.filter((t) => matchesQuery(t, query.trim())).slice(0, MAX_TOOL_MATCHES) : []),
     [allTools, query]
+  );
+
+  // Subpage matches — covers every registered route in App.tsx (DFIR,
+  // threatintel, blog, projects, admin, plus common aliases). The pages
+  // index is hand-curated; the search ranks by exact label, path,
+  // description, and keyword bag so e.g. "ransomware" surfaces both the
+  // Ransomware Live page and the SOC ransomware view.
+  const pageMatches = useMemo(
+    () => (query.trim() ? searchPages(query.trim(), { limit: MAX_PAGE_MATCHES }) : []),
+    [query]
   );
 
   // Instant entity detection → typed quick-action pivots. Reuses the SAME
@@ -179,7 +214,13 @@ export default function UnifiedSearch(): JSX.Element {
   const total = data?.total ?? 0;
   const hasQuery = query.trim().length > 0;
   const nothingAnywhere =
-    hasQuery && !loading && !error && total === 0 && toolMatches.length === 0 && pivots.length === 0;
+    hasQuery &&
+    !loading &&
+    !error &&
+    total === 0 &&
+    toolMatches.length === 0 &&
+    pageMatches.length === 0 &&
+    pivots.length === 0;
 
   return (
     <DataPageLayout
@@ -270,6 +311,52 @@ export default function UnifiedSearch(): JSX.Element {
                 </Link>
               </li>
             ))}
+          </ul>
+        </section>
+      )}
+
+      {/* Pages — every registered subpage in the app (DFIR, threatintel,
+          portfolio, blog, admin). Surfaces routes that aren't in the
+          tile-level SECTIONS catalog. */}
+      {pageMatches.length > 0 && (
+        <section className="mb-4 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 overflow-hidden">
+          <div className="flex items-center gap-2 px-4 py-2.5 border-b border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-200">
+            <Compass size={14} />
+            <span className="font-display font-semibold text-sm">Pages</span>
+            <span className="text-mini font-mono opacity-70">· {pageMatches.length}</span>
+          </div>
+          <ul className="divide-y divide-slate-100 dark:divide-slate-800/50">
+            {pageMatches.map(({ page }) => {
+              const Icon = PAGE_GROUP_ICONS[page.group] ?? Compass;
+              const color = PAGE_GROUP_COLORS[page.group] ?? 'text-slate-500 border-slate-300 bg-slate-50';
+              return (
+                <li
+                  key={`${page.group}:${page.path}`}
+                  className="px-4 py-2.5 hover:bg-slate-50 dark:hover:bg-slate-950/50"
+                >
+                  <Link to={page.path} className="flex items-start justify-between gap-2 group">
+                    <div className="min-w-0 flex items-start gap-2">
+                      <Icon
+                        size={14}
+                        aria-hidden="true"
+                        className={`mt-0.5 shrink-0 inline-flex items-center justify-center rounded border px-1 py-0.5 ${color}`}
+                      />
+                      <div className="min-w-0">
+                        <span className="text-sm font-medium text-slate-900 dark:text-slate-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 block truncate">
+                          {page.label}
+                        </span>
+                        <span className="text-mini font-mono text-slate-500 mt-0.5 block truncate">
+                          {page.description}
+                        </span>
+                      </div>
+                    </div>
+                    <span className="shrink-0 mt-0.5 inline-flex items-center rounded border border-slate-300 bg-slate-50 px-1.5 py-0.5 font-mono text-micro uppercase tracking-wider text-slate-500 dark:border-slate-700 dark:bg-slate-800/50">
+                      {page.sectionLabel}
+                    </span>
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         </section>
       )}

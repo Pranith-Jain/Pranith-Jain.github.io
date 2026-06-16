@@ -129,7 +129,7 @@ export function LiveSignalStrip(): JSX.Element {
               : topGroup
                 ? `Leader: ${topGroup} (${topCount} ${topCount === 1 ? 'claim' : 'claims'}). 24h slice of the 7d sparkline above.`
                 : '24h slice of the 7d sparkline above; aggregated across tracked leak sites.',
-          href: '/threatintel/iocs',
+          href: '/threatintel/darkweb/ransom-activity',
           accent: 'rose',
         };
       }
@@ -174,7 +174,7 @@ export function LiveSignalStrip(): JSX.Element {
             scanned > 0
               ? `Out of ${scanned.toLocaleString()} indicators scanned across 18 feeds.`
               : 'Indicators on two or more independent feeds.',
-          href: '/threatintel/correlation',
+          href: '/threatintel/iocs/cross',
           accent: 'brand',
         };
       }
@@ -216,7 +216,7 @@ export function LiveSignalStrip(): JSX.Element {
               label: 'Ransomware claims · last 24h',
               primary: '…',
               context: 'loading',
-              href: '/threatintel/iocs',
+              href: '/threatintel/darkweb/ransom-activity',
               accent: 'rose' as const,
             },
             {
@@ -232,7 +232,7 @@ export function LiveSignalStrip(): JSX.Element {
               label: 'Cross-source IOC consensus',
               primary: '…',
               context: 'loading',
-              href: '/threatintel/correlation',
+              href: '/threatintel/iocs/cross',
               accent: 'brand' as const,
             },
           ]
