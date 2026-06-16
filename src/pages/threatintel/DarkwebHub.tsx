@@ -1,14 +1,32 @@
-import { Suspense, lazy, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { HubShell } from '../../components/HubShell';
-import { TabLoader } from '../../components/ui/TabLoader';
+import { Suspense, lazy, useState } from 'react';
+import { Loader2 } from 'lucide-react';
 const DarkWeb = lazy(() => import('./DarkWebOsintTools'));
 const DarknetMarketsTimeline = lazy(() => import('./DarknetMarketsTimeline'));
 const BreachForums = lazy(() => import('./BreachForums'));
 const DeepDarkCTI = lazy(() => import('./DeepDarkCTI'));
 const CyberCrime = lazy(() => import('./CyberCrime'));
 const PhysicalBitcoinAttacks = lazy(() => import('./PhysicalBitcoinAttacks'));
-type TabId = 'watch' | 'markets' | 'forums' | 'deepdark' | 'crime' | 'bitcoin';
+const Infostealer = lazy(() => import('./Infostealer'));
+const SecretLeaks = lazy(() => import('./SecretLeaks'));
+const BreachDisclosures = lazy(() => import('./BreachDisclosures'));
+const RansomReport = lazy(() => import('./RansomReport'));
+const RansomwareActivity = lazy(() => import('./RansomwareActivity'));
+const RansomwareMap = lazy(() => import('./RansomwareMap'));
+const Ransomwhere = lazy(() => import('./Ransomwhere'));
+type TabId =
+  | 'watch'
+  | 'markets'
+  | 'forums'
+  | 'deepdark'
+  | 'crime'
+  | 'bitcoin'
+  | 'infostealer'
+  | 'leaks'
+  | 'disclosures'
+  | 'ransom-report'
+  | 'ransom-activity'
+  | 'ransom-map'
+  | 'ransomwhere';
 const TABS: Array<{ id: TabId; label: string; desc: string }> = [
   { id: 'watch', label: 'Watch', desc: 'Dark web monitoring dashboard' },
   { id: 'markets', label: 'Markets', desc: 'Darknet market timelines' },
@@ -16,34 +34,58 @@ const TABS: Array<{ id: TabId; label: string; desc: string }> = [
   { id: 'deepdark', label: 'DeepDark', desc: 'DeepDark CTI sources' },
   { id: 'crime', label: 'Crime', desc: 'Cybercrime ecosystem intelligence' },
   { id: 'bitcoin', label: 'Bitcoin', desc: 'Physical Bitcoin attack tracking' },
+  { id: 'infostealer', label: 'Infostealer', desc: 'Infostealer log analysis' },
+  { id: 'leaks', label: 'Secret Leaks', desc: 'Secret and credential leak monitoring' },
+  { id: 'disclosures', label: 'Breach Disclosures', desc: 'Breach disclosure feed' },
+  { id: 'ransom-report', label: 'Ransom Report', desc: 'Per-group CTI dossier' },
+  { id: 'ransom-activity', label: 'Ransom Activity', desc: 'Live ransomware activity feed' },
+  { id: 'ransom-map', label: 'Ransom Map', desc: 'Ransomware victim geo map' },
+  { id: 'ransomwhere', label: 'Ransomwhere', desc: 'Crypto wallet directory' },
 ];
-const HUB_PATH = 'darkweb';
-const DEFAULT_TAB: TabId = 'watch';
-export default function DarkwebHub(): JSX.Element {
-  const { tab } = useParams<{ tab?: string }>();
-  const navigate = useNavigate();
-  const activeTab = tab && TABS.some((t) => t.id === tab) ? (tab as TabId) : DEFAULT_TAB;
-  useEffect(() => {
-    if (!tab || !TABS.some((t) => t.id === tab)) {
-      navigate(`/threatintel/${HUB_PATH}/${DEFAULT_TAB}`, { replace: true });
-    }
-  }, [tab, navigate]);
+function TabFallback() {
   return (
-    <HubShell
-      tabs={TABS}
-      active={activeTab}
-      onSelect={(id) => navigate(`/threatintel/${HUB_PATH}/${id}`, { replace: true })}
-      ariaLabel="Dark web tools"
-      tone="rose"
-    >
-      <Suspense fallback={<TabLoader />}>
+    <div className="flex items-center justify-center py-12">
+      <Loader2 size={20} className="animate-spin text-slate-400 mr-2" />
+      <span className="text-sm font-mono text-slate-500">Loading…</span>
+    </div>
+  );
+}
+export default function DarkwebHub(): JSX.Element {
+  const [activeTab, setActiveTab] = useState<TabId>('watch');
+  return (
+    <div className="max-w-7xl mx-auto px-4 sm:px-8 py-6">
+      <nav
+        className="flex flex-wrap gap-1 border-b border-slate-200 dark:border-slate-800 mb-4"
+        aria-label="Dark web tools"
+      >
+        {TABS.map((t) => (
+          <button
+            key={t.id}
+            type="button"
+            onClick={() => setActiveTab(t.id)}
+            className={`border-b-2 px-3 py-2 font-mono text-sm font-semibold transition-colors ${activeTab === t.id ? 'border-brand-600 text-brand-600 dark:border-brand-400 dark:text-brand-400' : 'border-transparent text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}`}
+            aria-selected={activeTab === t.id}
+            role="tab"
+          >
+            {t.label}
+          </button>
+        ))}
+      </nav>
+      <Suspense fallback={<TabFallback />}>
         {activeTab === 'watch' && <DarkWeb />}
         {activeTab === 'markets' && <DarknetMarketsTimeline />}
         {activeTab === 'forums' && <BreachForums />}
         {activeTab === 'deepdark' && <DeepDarkCTI />}
         {activeTab === 'crime' && <CyberCrime />}
         {activeTab === 'bitcoin' && <PhysicalBitcoinAttacks />}
+        {activeTab === 'infostealer' && <Infostealer />}
+        {activeTab === 'leaks' && <SecretLeaks />}
+        {activeTab === 'disclosures' && <BreachDisclosures />}
+        {activeTab === 'ransom-report' && <RansomReport />}
+        {activeTab === 'ransom-activity' && <RansomwareActivity />}
+        {activeTab === 'ransom-map' && <RansomwareMap />}
+        {activeTab === 'ransomwhere' && <Ransomwhere />}
       </Suspense>
-    </HubShell>
+    </div>
   );
 }

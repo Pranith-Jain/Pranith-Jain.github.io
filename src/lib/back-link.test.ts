@@ -14,12 +14,20 @@ describe('backCategoryFor', () => {
     expect(backCategoryFor('/dfir/prompt-injection')).toBe('/dfir/tools/aisec');
   });
 
-  it('returns null for unknown / nested / off-surface paths', () => {
+  it('returns null for unknown / off-surface paths', () => {
     expect(backCategoryFor('/threatintel/about')).toBeNull(); // not in SECTIONS
     expect(backCategoryFor('/dfir/unknown-tool')).toBeNull();
     expect(backCategoryFor('/threatintel/c/ransomware')).toBeNull(); // already a category page
-    expect(backCategoryFor('/threatintel/briefings/daily-2026-05-19')).toBeNull(); // nested
     expect(backCategoryFor('/blog/some-post')).toBeNull();
+  });
+
+  it('routes 3-segment threatintel tab routes to hub base or category', () => {
+    // Hub with category mapping: go to category hub
+    expect(backCategoryFor('/threatintel/briefings/daily-2026-05-19')).toBe('/threatintel/c/cti-platforms');
+    expect(backCategoryFor('/threatintel/actors/APT28')).toBe('/threatintel/c/adversary');
+    // Hub without category mapping: go to hub base
+    expect(backCategoryFor('/threatintel/social/firehose')).toBe('/threatintel/social');
+    expect(backCategoryFor('/threatintel/cves/cves')).toBe('/threatintel/cves');
   });
 
   // Drift guard: every threat-intel slug declared in the back-link map points

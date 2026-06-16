@@ -117,10 +117,22 @@ const DFIR_TOOL_TO_GROUP: Record<string, ToolGroup> = (() => {
  * back to the surface's hub root (`/threatintel` or `/dfir`).
  */
 export function backCategoryFor(pathname: string): string | null {
+  // 2-segment threatintel tool pages: /threatintel/<slug> → category hub
   const ti = /^\/threatintel\/([^/]+)$/.exec(pathname);
   if (ti) {
     const cat = THREATINTEL_TOOL_TO_CATEGORY[ti[1]!];
     return cat ? `/threatintel/c/${cat}` : null;
+  }
+  // 3-segment threatintel tab/detail routes: /threatintel/<hub>/<tab>
+  // Back to hub base when there's no category, or to the category hub
+  // when the hub has one (e.g. /threatintel/actors/APT28 → adversary).
+  const tiTab = /^\/threatintel\/([^/]+)\/[^/]+$/.exec(pathname);
+  if (tiTab) {
+    const hub = tiTab[1]!;
+    // Category-filter routes (/threatintel/c/<cat>) have no parent route
+    if (hub === 'c') return null;
+    const cat = THREATINTEL_TOOL_TO_CATEGORY[hub];
+    return cat ? `/threatintel/c/${cat}` : `/threatintel/${hub}`;
   }
   const df = /^\/dfir\/([^/]+)$/.exec(pathname);
   if (df) {

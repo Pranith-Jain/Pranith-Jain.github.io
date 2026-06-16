@@ -1,14 +1,28 @@
-import { Suspense, lazy, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { HubShell } from '../../components/HubShell';
-import { TabLoader } from '../../components/ui/TabLoader';
+import { Suspense, lazy, useState } from 'react';
+import { Loader2 } from 'lucide-react';
 const LiveIocs = lazy(() => import('./LiveIocs'));
 const IocEnrichment = lazy(() => import('./IocEnrichment'));
 const IocFeedsPage = lazy(() => import('./IocFeedsPage'));
 const EntityResolution = lazy(() => import('./EntityResolution'));
 const C2Tracker = lazy(() => import('./C2Tracker'));
 const ThreatMap = lazy(() => import('../dfir/ThreatMap'));
-type TabId = 'live' | 'enrichment' | 'feeds' | 'entity' | 'c2' | 'map';
+const CrossCorrelate = lazy(() => import('./CrossCorrelate'));
+const IocCorrelation = lazy(() => import('./IocCorrelation'));
+const AggregatedFeeds = lazy(() => import('./AggregatedFeeds'));
+const SocIocs = lazy(() => import('./SocIocs'));
+const ObservableDb = lazy(() => import('./ObservableDb'));
+type TabId =
+  | 'live'
+  | 'enrichment'
+  | 'feeds'
+  | 'entity'
+  | 'c2'
+  | 'map'
+  | 'cross'
+  | 'correlation'
+  | 'aggregated'
+  | 'soc'
+  | 'observable';
 const TABS: Array<{ id: TabId; label: string; desc: string }> = [
   { id: 'live', label: 'Live', desc: 'Real-time IOC feed' },
   { id: 'enrichment', label: 'Enrichment', desc: 'IOC enrichment and lookup' },
@@ -16,34 +30,51 @@ const TABS: Array<{ id: TabId; label: string; desc: string }> = [
   { id: 'entity', label: 'Entity', desc: 'Entity resolution across intel sources' },
   { id: 'c2', label: 'C2', desc: 'C2 infrastructure tracker' },
   { id: 'map', label: 'Threat Map', desc: 'Geo-visualization of IOCs by country' },
+  { id: 'cross', label: 'Cross-Correlate', desc: 'Cross-source IOC correlation' },
+  { id: 'correlation', label: 'Correlation', desc: 'IOC correlation analysis' },
+  { id: 'aggregated', label: 'Aggregated', desc: 'Aggregated feed browser' },
+  { id: 'soc', label: 'SOC IOCs', desc: 'SOC IOC dashboard' },
+  { id: 'observable', label: 'Observable DB', desc: 'Observable database' },
 ];
-const HUB_PATH = 'iocs';
-const DEFAULT_TAB: TabId = 'live';
-export default function IocHub(): JSX.Element {
-  const { tab } = useParams<{ tab?: string }>();
-  const navigate = useNavigate();
-  const activeTab = tab && TABS.some((t) => t.id === tab) ? (tab as TabId) : DEFAULT_TAB;
-  useEffect(() => {
-    if (!tab || !TABS.some((t) => t.id === tab)) {
-      navigate(`/threatintel/${HUB_PATH}/${DEFAULT_TAB}`, { replace: true });
-    }
-  }, [tab, navigate]);
+function TabFallback() {
   return (
-    <HubShell
-      tabs={TABS}
-      active={activeTab}
-      onSelect={(id) => navigate(`/threatintel/${HUB_PATH}/${id}`, { replace: true })}
-      ariaLabel="IOC tools"
-      tone="rose"
-    >
-      <Suspense fallback={<TabLoader />}>
+    <div className="flex items-center justify-center py-12">
+      <Loader2 size={20} className="animate-spin text-slate-400 mr-2" />
+      <span className="text-sm font-mono text-slate-500">Loading…</span>
+    </div>
+  );
+}
+export default function IocHub(): JSX.Element {
+  const [activeTab, setActiveTab] = useState<TabId>('live');
+  return (
+    <div className="max-w-7xl mx-auto px-4 sm:px-8 py-6">
+      <nav className="flex flex-wrap gap-1 border-b border-slate-200 dark:border-slate-800 mb-4" aria-label="IOC tools">
+        {TABS.map((t) => (
+          <button
+            key={t.id}
+            type="button"
+            onClick={() => setActiveTab(t.id)}
+            className={`border-b-2 px-3 py-2 font-mono text-sm font-semibold transition-colors ${activeTab === t.id ? 'border-brand-600 text-brand-600 dark:border-brand-400 dark:text-brand-400' : 'border-transparent text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}`}
+            aria-selected={activeTab === t.id}
+            role="tab"
+          >
+            {t.label}
+          </button>
+        ))}
+      </nav>
+      <Suspense fallback={<TabFallback />}>
         {activeTab === 'live' && <LiveIocs />}
         {activeTab === 'enrichment' && <IocEnrichment />}
         {activeTab === 'feeds' && <IocFeedsPage />}
         {activeTab === 'entity' && <EntityResolution />}
         {activeTab === 'c2' && <C2Tracker />}
         {activeTab === 'map' && <ThreatMap />}
+        {activeTab === 'cross' && <CrossCorrelate />}
+        {activeTab === 'correlation' && <IocCorrelation />}
+        {activeTab === 'aggregated' && <AggregatedFeeds />}
+        {activeTab === 'soc' && <SocIocs />}
+        {activeTab === 'observable' && <ObservableDb />}
       </Suspense>
-    </HubShell>
+    </div>
   );
 }
