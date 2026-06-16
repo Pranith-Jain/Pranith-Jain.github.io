@@ -668,18 +668,22 @@ export async function fetchRansomwareRecent(env?: Env): Promise<{
   }
 
   // AF passed last → lowest dedupe priority. It re-aggregates Ransomlook, so
-  // originals win ties; AF only fills gaps the four primary trackers missed.
+  // originals win ties; AF only fills gaps the other trackers missed.
   // Priority at tie-break: Ransomlook (screenshots) → MTI (country+desc) →
-  // cti.fyi (screenshots) → ransomfeed → ransomwatch → ransomware.live → AF.
+  // cti.fyi (screenshots) → ransomfeed → ransomware.live (country+sector) →
+  // ransomwatch (deep RansomLook gap-filler) → AF.
   // cti.fyi sits ahead of the screenshot-less trackers so its .webp wins ties.
+  // ransomwatch (tertiaryVictims, now a deep RansomLook pull) sits AFTER
+  // ransomware.live so the latter's country/sector enrichment wins ties; the
+  // ransomwatch slot then only keeps leak-site claims no richer source had.
   const victims = mergeVictims(
     primary,
     mtiApiVictims,
     mtiVictims as RansomwareVictim[],
     ctiFyiVictims,
     secondaryVictims,
-    tertiaryVictims,
     rlVictims,
+    tertiaryVictims,
     afVictims,
     // X channels last — free-text parsed, so any structured tracker wins ties.
     xVictims
