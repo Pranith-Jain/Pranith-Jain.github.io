@@ -36,27 +36,37 @@ import { SECTIONS, flattenTools, matchesQuery } from '../../data/threatintel-sec
  */
 const QUICK_ACTIONS: QuickAction[] = [
   {
-    to: '/threatintel/feeds',
+    // The 3D-globe CTI live map. Lives in the predictive hub's
+    // `global-pulse` tab — NOT the feed management hub.
+    to: '/threatintel/predictive/global-pulse',
     label: 'Global Pulse',
     description: 'Live 3D globe with 700+ events across 21 layers.',
     icon: Globe,
     badge: 'live',
   },
   {
-    to: '/threatintel/iocs',
+    // Streaming indicator feed. The IocHub defaults to the `live` tab
+    // so the bare /iocs URL is the right landing for "Live IOCs".
+    to: '/threatintel/iocs/live',
     label: 'Live IOCs',
     description: 'Streaming indicator feed from 12 providers.',
     icon: Activity,
     badge: 'live',
   },
   {
-    to: '/threatintel/actors',
+    // ActorHub is query-tabbed — `?tab=kb` is the dedicated Knowledge
+    // Base view. The bare /actors URL defaults to the directory tab,
+    // which is NOT what the tile label promises.
+    to: '/threatintel/actors?tab=kb',
     label: 'Actor KB',
     description: 'Threat-actor knowledge base with cross-references.',
     icon: Users,
   },
   {
-    to: '/threatintel/campaigns',
+    // CampaignHub is also query-tabbed — `?tab=cross` is the
+    // Cross-Campaign Correlation view. Without the query param the
+    // hub lands on the `active` campaigns tab.
+    to: '/threatintel/campaigns?tab=cross',
     label: 'Cross-Campaign',
     description: 'Find connections across campaigns + actors + IOCs.',
     icon: Link2,
