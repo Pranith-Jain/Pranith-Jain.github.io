@@ -1,5 +1,7 @@
-import { Suspense, lazy, useState } from 'react';
-import { Loader2 } from 'lucide-react';
+import { Suspense, lazy, useEffect, useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { HubShell } from '../../components/HubShell';
+import { TabLoader } from '../../components/ui/TabLoader';
 const DarkWeb = lazy(() => import('./DarkWebOsintTools'));
 const DarknetMarketsTimeline = lazy(() => import('./DarknetMarketsTimeline'));
 const BreachForums = lazy(() => import('./BreachForums'));
@@ -42,36 +44,31 @@ const TABS: Array<{ id: TabId; label: string; desc: string }> = [
   { id: 'ransom-map', label: 'Ransom Map', desc: 'Ransomware victim geo map' },
   { id: 'ransomwhere', label: 'Ransomwhere', desc: 'Crypto wallet directory' },
 ];
-function TabFallback() {
-  return (
-    <div className="flex items-center justify-center py-12">
-      <Loader2 size={20} className="animate-spin text-slate-400 mr-2" />
-      <span className="text-sm font-mono text-slate-500">Loading…</span>
-    </div>
-  );
-}
+const HUB_PATH = 'darkweb';
+const DEFAULT_TAB: TabId = 'watch';
 export default function DarkwebHub(): JSX.Element {
-  const [activeTab, setActiveTab] = useState<TabId>('watch');
+  // Deep links like /threatintel/darkweb/markets should land on the right
+  // tab. Seed state with the default tab so the SSR/first client render
+  // match the hub-base prerender; sync to the URL param in a post-mount
+  // effect.
+  const { tab } = useParams<{ tab?: string }>();
+  const navigate = useNavigate();
+  const [activeTab, setActiveTab] = useState<TabId>(DEFAULT_TAB);
+  useEffect(() => {
+    if (tab && TABS.some((t) => t.id === tab)) {
+      setActiveTab(tab as TabId);
+    } else if (!tab) {
+      navigate(`/threatintel/${HUB_PATH}/${DEFAULT_TAB}`, { replace: true });
+    }
+  }, [tab, navigate]);
+  const onSelect = (id: TabId) => {
+    if (id === activeTab) return;
+    setActiveTab(id);
+    navigate(`/threatintel/${HUB_PATH}/${id}`, { replace: true });
+  };
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-8 py-6">
-      <nav
-        className="flex flex-wrap gap-1 border-b border-slate-200 dark:border-slate-800 mb-4"
-        aria-label="Dark web tools"
-      >
-        {TABS.map((t) => (
-          <button
-            key={t.id}
-            type="button"
-            onClick={() => setActiveTab(t.id)}
-            className={`border-b-2 px-3 py-2 font-mono text-sm font-semibold transition-colors ${activeTab === t.id ? 'border-brand-600 text-brand-600 dark:border-brand-400 dark:text-brand-400' : 'border-transparent text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}`}
-            aria-selected={activeTab === t.id}
-            role="tab"
-          >
-            {t.label}
-          </button>
-        ))}
-      </nav>
-      <Suspense fallback={<TabFallback />}>
+    <HubShell tabs={TABS} active={activeTab} onSelect={onSelect} ariaLabel="Dark web tools" tone="rose">
+      <Suspense fallback={<TabLoader />}>
         {activeTab === 'watch' && <DarkWeb />}
         {activeTab === 'markets' && <DarknetMarketsTimeline />}
         {activeTab === 'forums' && <BreachForums />}
@@ -86,6 +83,6 @@ export default function DarkwebHub(): JSX.Element {
         {activeTab === 'ransom-map' && <RansomwareMap />}
         {activeTab === 'ransomwhere' && <Ransomwhere />}
       </Suspense>
-    </div>
+    </HubShell>
   );
 }

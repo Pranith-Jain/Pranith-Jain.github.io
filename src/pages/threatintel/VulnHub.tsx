@@ -1,6 +1,7 @@
 import { Suspense, lazy, useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Loader2 } from 'lucide-react';
+import { HubShell } from '../../components/HubShell';
+import { TabLoader } from '../../components/ui/TabLoader';
 const CveIntel = lazy(() => import('./CveIntel'));
 const GithubAdvisories = lazy(() => import('./GithubAdvisories'));
 const CveResourcesCatalog = lazy(() => import('../dfir/CveResourcesCatalog'));
@@ -18,14 +19,6 @@ const TABS: Array<{ id: TabId; label: string; desc: string }> = [
 ];
 const HUB_PATH = 'cves';
 const DEFAULT_TAB: TabId = 'cves';
-function TabFallback() {
-  return (
-    <div className="flex items-center justify-center py-12">
-      <Loader2 size={20} className="animate-spin text-slate-400 mr-2" />
-      <span className="text-sm font-mono text-slate-500">Loading…</span>
-    </div>
-  );
-}
 export default function VulnHub(): JSX.Element {
   // Deep links like /threatintel/cves/advisories should land on the right
   // tab. To keep SSR/first client render identical (the worker serves the
@@ -50,29 +43,8 @@ export default function VulnHub(): JSX.Element {
     navigate(`/threatintel/${HUB_PATH}/${id}`, { replace: true });
   };
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-8 py-6">
-      <nav
-        className="flex flex-wrap gap-1 border-b border-slate-200 dark:border-slate-800 mb-4"
-        aria-label="Vulnerability tools"
-      >
-        {TABS.map((t) => (
-          <button
-            key={t.id}
-            type="button"
-            onClick={() => onSelect(t.id)}
-            className={`border-b-2 px-3 py-2 font-mono text-sm font-semibold transition-colors ${
-              activeTab === t.id
-                ? 'border-brand-600 text-brand-600 dark:border-brand-400 dark:text-brand-400'
-                : 'border-transparent text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'
-            }`}
-            aria-selected={activeTab === t.id}
-            role="tab"
-          >
-            {t.label}
-          </button>
-        ))}
-      </nav>
-      <Suspense fallback={<TabFallback />}>
+    <HubShell tabs={TABS} active={activeTab} onSelect={onSelect} ariaLabel="Vulnerability tools" tone="rose">
+      <Suspense fallback={<TabLoader />}>
         {activeTab === 'cves' && <CveIntel />}
         {activeTab === 'advisories' && <GithubAdvisories />}
         {activeTab === 'resources' && <CveResourcesCatalog />}
@@ -80,6 +52,6 @@ export default function VulnHub(): JSX.Element {
         {activeTab === 'exploitable' && <ExploitableCves />}
         {activeTab === 'list' && <CveList />}
       </Suspense>
-    </div>
+    </HubShell>
   );
 }

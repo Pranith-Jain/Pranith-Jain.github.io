@@ -1,5 +1,7 @@
-import { Suspense, lazy, useState } from 'react';
-import { Loader2 } from 'lucide-react';
+import { Suspense, lazy, useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
+import { HubShell } from '../../components/HubShell';
+import { TabLoader } from '../../components/ui/TabLoader';
 const ActorDirectory = lazy(() => import('./ActorDirectory'));
 const ActorTimeline = lazy(() => import('./ActorTimeline'));
 const ActorDNA = lazy(() => import('./ActorDNA'));
@@ -19,36 +21,24 @@ const TABS: Array<{ id: TabId; label: string; desc: string }> = [
   { id: 'kb', label: 'Knowledge Base', desc: 'Actor knowledge base with MITRE mapping' },
   { id: 'graph', label: 'Graph', desc: 'Relationship graph visualization' },
 ];
-function TabFallback() {
-  return (
-    <div className="flex items-center justify-center py-12">
-      <Loader2 size={20} className="animate-spin text-slate-400 mr-2" />
-      <span className="text-sm font-mono text-slate-500">Loading…</span>
-    </div>
-  );
-}
+const DEFAULT_TAB: TabId = 'directory';
 export default function ActorHub(): JSX.Element {
-  const [activeTab, setActiveTab] = useState<TabId>('directory');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const tab = searchParams.get('tab');
+  const [activeTab, setActiveTab] = useState<TabId>(DEFAULT_TAB);
+  useEffect(() => {
+    if (tab && TABS.some((t) => t.id === tab)) {
+      setActiveTab(tab as TabId);
+    }
+  }, [tab]);
+  const onSelect = (id: TabId) => {
+    if (id === activeTab) return;
+    setActiveTab(id);
+    setSearchParams(id === DEFAULT_TAB ? {} : { tab: id }, { replace: true });
+  };
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-8 py-6">
-      <nav
-        className="flex flex-wrap gap-1 border-b border-slate-200 dark:border-slate-800 mb-4"
-        aria-label="Actor tools"
-      >
-        {TABS.map((t) => (
-          <button
-            key={t.id}
-            type="button"
-            onClick={() => setActiveTab(t.id)}
-            className={`border-b-2 px-3 py-2 font-mono text-sm font-semibold transition-colors ${activeTab === t.id ? 'border-brand-600 text-brand-600 dark:border-brand-400 dark:text-brand-400' : 'border-transparent text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}`}
-            aria-selected={activeTab === t.id}
-            role="tab"
-          >
-            {t.label}
-          </button>
-        ))}
-      </nav>
-      <Suspense fallback={<TabFallback />}>
+    <HubShell tabs={TABS} active={activeTab} onSelect={onSelect} ariaLabel="Actor tools" tone="rose">
+      <Suspense fallback={<TabLoader />}>
         {activeTab === 'directory' && <ActorDirectory />}
         {activeTab === 'timeline' && <ActorTimeline />}
         {activeTab === 'dna' && <ActorDNA />}
@@ -58,6 +48,6 @@ export default function ActorHub(): JSX.Element {
         {activeTab === 'kb' && <ActorKb />}
         {activeTab === 'graph' && <RelationshipGraph />}
       </Suspense>
-    </div>
+    </HubShell>
   );
 }

@@ -1,5 +1,7 @@
-import { Suspense, lazy, useState } from 'react';
-import { Loader2 } from 'lucide-react';
+import { Suspense, lazy, useEffect, useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { HubShell } from '../../components/HubShell';
+import { TabLoader } from '../../components/ui/TabLoader';
 const SocialFirehose = lazy(() => import('./SocialFirehose'));
 const TechAiNews = lazy(() => import('../dfir/TechAiNews'));
 const TelegramLeaks = lazy(() => import('./TelegramLeaks'));
@@ -39,36 +41,30 @@ const TABS: Array<{ id: TabId; label: string; desc: string }> = [
   { id: 'x-watch', label: 'X Watch', desc: 'X/Twitter firehose from 70+ accounts' },
   { id: 'scraped-intel', label: 'Scraped Intel', desc: 'Scraped intelligence usernames' },
 ];
-function TabFallback() {
-  return (
-    <div className="flex items-center justify-center py-12">
-      <Loader2 size={20} className="animate-spin text-slate-400 mr-2" />
-      <span className="text-sm font-mono text-slate-500">Loading…</span>
-    </div>
-  );
-}
+const HUB_PATH = 'social';
+const DEFAULT_TAB: TabId = 'firehose';
 export default function SocialHub(): JSX.Element {
-  const [activeTab, setActiveTab] = useState<TabId>('firehose');
+  // Deep links like /threatintel/social/reddit should land on the right tab.
+  // Seed state with the default tab so the SSR/first client render match
+  // the hub-base prerender; sync to the URL param in a post-mount effect.
+  const { tab } = useParams<{ tab?: string }>();
+  const navigate = useNavigate();
+  const [activeTab, setActiveTab] = useState<TabId>(DEFAULT_TAB);
+  useEffect(() => {
+    if (tab && TABS.some((t) => t.id === tab)) {
+      setActiveTab(tab as TabId);
+    } else if (!tab) {
+      navigate(`/threatintel/${HUB_PATH}/${DEFAULT_TAB}`, { replace: true });
+    }
+  }, [tab, navigate]);
+  const onSelect = (id: TabId) => {
+    if (id === activeTab) return;
+    setActiveTab(id);
+    navigate(`/threatintel/${HUB_PATH}/${id}`, { replace: true });
+  };
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-8 py-6">
-      <nav
-        className="flex flex-wrap gap-1 border-b border-slate-200 dark:border-slate-800 mb-4"
-        aria-label="Social tools"
-      >
-        {TABS.map((t) => (
-          <button
-            key={t.id}
-            type="button"
-            onClick={() => setActiveTab(t.id)}
-            className={`border-b-2 px-3 py-2 font-mono text-sm font-semibold transition-colors ${activeTab === t.id ? 'border-brand-600 text-brand-600 dark:border-brand-400 dark:text-brand-400' : 'border-transparent text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}`}
-            aria-selected={activeTab === t.id}
-            role="tab"
-          >
-            {t.label}
-          </button>
-        ))}
-      </nav>
-      <Suspense fallback={<TabFallback />}>
+    <HubShell tabs={TABS} active={activeTab} onSelect={onSelect} ariaLabel="Social tools" tone="rose">
+      <Suspense fallback={<TabLoader />}>
         {activeTab === 'firehose' && <SocialFirehose />}
         {activeTab === 'news' && <TechAiNews />}
         {activeTab === 'telegram-leaks' && <TelegramLeaks />}
@@ -82,6 +78,6 @@ export default function SocialHub(): JSX.Element {
         {activeTab === 'x-watch' && <XWatch />}
         {activeTab === 'scraped-intel' && <ScrapedIntelUsernames />}
       </Suspense>
-    </div>
+    </HubShell>
   );
 }
