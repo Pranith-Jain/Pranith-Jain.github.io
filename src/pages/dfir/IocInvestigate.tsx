@@ -1,6 +1,4 @@
-import { Suspense, lazy, useState } from 'react';
-import { DataPageLayout } from '../../components/DataPageLayout';
-import { Crosshair, Loader2 } from 'lucide-react';
+import {TabLoader } from '../../components/ui/TabLoader'; import { Suspense, lazy, useState } from 'react'; import { DataPageLayout } from '../../components/DataPageLayout'; import { Crosshair } from 'lucide-react';
 
 const IocCheck = lazy(() => import('./IocCheck'));
 const IocPivot = lazy(() => import('./IocPivot'));
@@ -14,14 +12,6 @@ const TABS: Array<{ id: TabId; label: string; desc: string }> = [
   { id: 'hunt', label: 'Threat Hunt', desc: 'Extended with Telegram leak cross-ref + breach DB links' },
 ];
 
-function TabFallback() {
-  return (
-    <div className="flex items-center justify-center py-12">
-      <Loader2 size={20} className="animate-spin text-slate-400 mr-2" />
-      <span className="text-sm font-mono text-slate-500">Loading…</span>
-    </div>
-  );
-}
 
 export default function IocInvestigate(): JSX.Element {
   const [activeTab, setActiveTab] = useState<TabId>('table');
@@ -57,7 +47,7 @@ export default function IocInvestigate(): JSX.Element {
       </p>
 
       <div role="tabpanel">
-        <Suspense fallback={<TabFallback />}>
+        <Suspense fallback={<TabLoader />}>
           {activeTab === 'table' && <IocCheck />}
           {activeTab === 'graph' && <IocPivot />}
           {activeTab === 'hunt' && <ThreatHunt />}

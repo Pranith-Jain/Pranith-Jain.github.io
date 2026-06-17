@@ -1,6 +1,7 @@
 import { Suspense, lazy, useState } from 'react';
+import { TabLoader } from '../../components/ui/TabLoader';
 import { DataPageLayout } from '../../components/DataPageLayout';
-import { MessageSquare, Loader2 } from 'lucide-react';
+import { MessageSquare } from 'lucide-react';
 
 const TelegramLeaks = lazy(() => import('./TelegramLeaks'));
 const TelegramLeakStats = lazy(() => import('./TelegramLeakStats'));
@@ -16,14 +17,6 @@ const TABS: Array<{ id: TabId; label: string; desc: string }> = [
   { id: 'settings', label: 'Settings', desc: 'Custom channel management and configuration' },
 ];
 
-function TabFallback() {
-  return (
-    <div className="flex items-center justify-center py-12">
-      <Loader2 size={20} className="animate-spin text-slate-400 mr-2" />
-      <span className="text-sm font-mono text-slate-500">Loading…</span>
-    </div>
-  );
-}
 
 export default function TelegramMonitor(): JSX.Element {
   const [activeTab, setActiveTab] = useState<TabId>('leaks');
@@ -59,7 +52,7 @@ export default function TelegramMonitor(): JSX.Element {
       </p>
 
       <div role="tabpanel">
-        <Suspense fallback={<TabFallback />}>
+        <Suspense fallback={<TabLoader />}>
           {activeTab === 'leaks' && <TelegramLeaks />}
           {activeTab === 'stats' && <TelegramLeakStats />}
           {activeTab === 'channels' && <TelegramDiscoveredChannels />}

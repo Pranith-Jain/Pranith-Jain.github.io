@@ -1,6 +1,7 @@
 import { Suspense, lazy, useState } from 'react';
+import { TabLoader } from '../../components/ui/TabLoader';
 import { DataPageLayout } from '../../components/DataPageLayout';
-import { Activity, Loader2 } from 'lucide-react';
+import { Activity } from 'lucide-react';
 
 const FeedStatus = lazy(() => import('./FeedStatus'));
 const CollectionSlo = lazy(() => import('./CollectionSlo'));
@@ -14,14 +15,6 @@ const TABS: Array<{ id: TabId; label: string; desc: string }> = [
   { id: 'grades', label: 'Trust Grades', desc: 'NATO Admiralty Code (A-F) grading for all sources' },
 ];
 
-function TabFallback() {
-  return (
-    <div className="flex items-center justify-center py-12">
-      <Loader2 size={20} className="animate-spin text-slate-400 mr-2" />
-      <span className="text-sm font-mono text-slate-500">Loading…</span>
-    </div>
-  );
-}
 
 export default function SourceHealth(): JSX.Element {
   const [activeTab, setActiveTab] = useState<TabId>('status');
@@ -57,7 +50,7 @@ export default function SourceHealth(): JSX.Element {
       </p>
 
       <div role="tabpanel">
-        <Suspense fallback={<TabFallback />}>
+        <Suspense fallback={<TabLoader />}>
           {activeTab === 'status' && <FeedStatus />}
           {activeTab === 'slo' && <CollectionSlo />}
           {activeTab === 'grades' && <SourceReliability />}

@@ -1,7 +1,4 @@
-import { Suspense, lazy, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
-import { DataPageLayout } from '../../components/DataPageLayout';
-import { Users, Loader2 } from 'lucide-react';
+import {TabLoader } from '../../components/ui/TabLoader'; import { Suspense, lazy, useState } from 'react'; import { useSearchParams } from 'react-router-dom'; import { DataPageLayout } from '../../components/DataPageLayout'; import { Users } from 'lucide-react';
 
 const IdentityLookup = lazy(() => import('./IdentityLookup'));
 const UsernamePivot = lazy(() => import('./UsernamePivot'));
@@ -15,14 +12,6 @@ const TABS: Array<{ id: TabId; label: string; desc: string }> = [
   { id: 'deep', label: 'Deep Scan', desc: 'Server-side HTTP checks across 60+ platforms with 15-min cache' },
 ];
 
-function TabFallback() {
-  return (
-    <div className="flex items-center justify-center py-12">
-      <Loader2 size={20} className="animate-spin text-slate-400 mr-2" />
-      <span className="text-sm font-mono text-slate-500">Loading…</span>
-    </div>
-  );
-}
 
 export default function UsernameInvestigator(): JSX.Element {
   const [searchParams] = useSearchParams();
@@ -64,7 +53,7 @@ export default function UsernameInvestigator(): JSX.Element {
 
       {/* Tab content */}
       <div role="tabpanel">
-        <Suspense fallback={<TabFallback />}>
+        <Suspense fallback={<TabLoader />}>
           {activeTab === 'profiles' && <IdentityLookup />}
           {activeTab === 'quick' && <UsernamePivot />}
           {activeTab === 'deep' && <UsernameOsnit />}

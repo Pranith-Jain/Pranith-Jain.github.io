@@ -1,6 +1,7 @@
 import { Suspense, lazy, useState } from 'react';
+import { TabLoader } from '../../components/ui/TabLoader';
 import { DataPageLayout } from '../../components/DataPageLayout';
-import { Bug, Loader2 } from 'lucide-react';
+import { Bug } from 'lucide-react';
 
 const CveList = lazy(() => import('./CveList'));
 const ExploitableCves = lazy(() => import('./ExploitableCves'));
@@ -16,14 +17,6 @@ const TABS: Array<{ id: TabId; label: string; desc: string }> = [
   { id: 'k8s', label: 'Kubernetes', desc: 'Kubernetes-specific CVE feed from official security advisories' },
 ];
 
-function TabFallback() {
-  return (
-    <div className="flex items-center justify-center py-12">
-      <Loader2 size={20} className="animate-spin text-slate-400 mr-2" />
-      <span className="text-sm font-mono text-slate-500">Loading…</span>
-    </div>
-  );
-}
 
 export default function CveIntel(): JSX.Element {
   const [activeTab, setActiveTab] = useState<TabId>('all');
@@ -59,7 +52,7 @@ export default function CveIntel(): JSX.Element {
       </p>
 
       <div role="tabpanel">
-        <Suspense fallback={<TabFallback />}>
+        <Suspense fallback={<TabLoader />}>
           {activeTab === 'all' && <CveList />}
           {activeTab === 'exploitable' && <ExploitableCves />}
           {activeTab === 'kev' && <CisaKevCatalog />}

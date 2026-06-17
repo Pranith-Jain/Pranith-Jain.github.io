@@ -178,7 +178,6 @@ const AptTracker = lazy(() => import('./pages/threatintel/AptTracker'));
 const MostWanted = lazy(() => import('./pages/threatintel/MostWanted'));
 const Extremists = lazy(() => import('./pages/threatintel/Extremists'));
 const Predators = lazy(() => import('./pages/threatintel/Predators'));
-const CategoryLanding = lazy(() => import('./pages/threatintel/CategoryLanding'));
 // ── Threat Intel: direct page components (auto-added by audit) ──
 const ACH = lazy(() => import('./pages/threatintel/ACH'));
 const AIReportShowcase = lazy(() => import('./pages/threatintel/AIReportShowcase'));
@@ -340,6 +339,7 @@ const Dnscope = lazy(() => import('./pages/dfir/Dnscope'));
 const AttmapAi = lazy(() => import('./pages/dfir/AttmapAi'));
 const Tracerules = lazy(() => import('./pages/dfir/Tracerules'));
 const Regscope = lazy(() => import('./pages/dfir/Regscope'));
+const DfirCatalog = lazy(() => import('./pages/dfir/Catalog'));
 
 /**
  * /dfir/file?h=<hash> is the legacy entry point for the standalone hash
@@ -552,6 +552,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/dfir/tracerules', Component: Tracerules },
   { path: '/dfir/regscope', Component: Regscope },
 
+  { path: '/dfir/catalog', Component: DfirCatalog },
   { path: '/dfir/reverse-image', Component: ReverseImage },
   { path: '/dfir/eml', Component: EmlExtractor },
   { path: '/dfir/url-rep', Component: UrlReputation },
@@ -560,7 +561,6 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/dfir/tracer', Component: Tracer },
   { path: '/threatintel/catalog', Component: ThreatIntelCatalog },
   { path: '/threatintel/about', Component: ThreatIntelAbout },
-  { path: '/threatintel/c/:cat', Component: ThreatIntelHome },
   { path: '/threatintel', Component: ThreatIntelHome },
   { path: '/threatintel/assessments/:id', Component: AssessmentDetail },
   { path: '/threatintel/apt-tracker', Component: AptTracker },
@@ -698,12 +698,6 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel/cves/k8s', Component: K8sCve },
   { path: '/threatintel/cves/exploitable', Component: ExploitableCves },
   { path: '/threatintel/cves/list', Component: CveList },
-  // Generic catch-all for hub landing pages. Must come AFTER all specific
-  // sub-routes (/threatintel/<hub>/<tab>) so the more specific static routes
-  // take precedence. Reads :hubId from the URL and looks up the hub in
-  // HUB_META (see src/data/threatintel-hubs.ts). Unknown hub ids render an
-  // "Unknown hub" error message.
-  { path: '/threatintel/:hubId', Component: CategoryLanding },
   { path: '/dfir/pgp-tool', Component: PgpTool },
   { path: '/dfir/tor-gateway', Component: TorGateway },
   { path: '/dfir/blocklists', Component: Blocklists },
@@ -719,8 +713,8 @@ const ROUTES: ReadonlyArray<RouteDef> = [
 const REDIRECTS: ReadonlyArray<{ path: string; to: string }> = [
   { path: '/dfir/host', to: '/dfir/asset-intel' },
   { path: '/dfir/sigma-convert', to: '/dfir/rule-converter' },
-  { path: '/dfir/discord-watch', to: '/threatintel/social' },
-  { path: '/dfir/industry-news', to: '/threatintel/social' },
+  { path: '/dfir/discord-watch', to: '/threatintel/catalog?cat=social' },
+  { path: '/dfir/industry-news', to: '/threatintel/catalog?cat=social' },
   { path: '/difr', to: '/dfir' },
   { path: '/osint-tools', to: '/threatintel/osint/cli' },
 
@@ -734,15 +728,15 @@ const REDIRECTS: ReadonlyArray<{ path: string; to: string }> = [
   { path: '/threatintel/telegram-leaks/channels', to: '/threatintel/social/telegram-leaks' },
   { path: '/threatintel/telegram-leaks/stats', to: '/threatintel/social/telegram-leaks' },
   { path: '/threatintel/onion-watch', to: '/threatintel/social/telegram-leaks' },
-  { path: '/threatintel/tech-ai-news', to: '/threatintel/social' },
+  { path: '/threatintel/tech-ai-news', to: '/threatintel/catalog?cat=social' },
   { path: '/threatintel/x-watch', to: '/threatintel/social/x-firehose' },
   { path: '/threatintel/x-live', to: '/threatintel/social/x-firehose' },
   { path: '/threatintel/x', to: '/threatintel/social/x-firehose' },
   { path: '/threatintel/reddit', to: '/threatintel/social/reddit' },
   { path: '/threatintel/scam-watch', to: '/threatintel/social/crypto-scam' },
   { path: '/threatintel/crypto-scams', to: '/threatintel/social/crypto-scam' },
-  { path: '/threatintel/mythreatintel', to: '/threatintel/social' },
-  { path: '/threatintel/status', to: '/threatintel/social' },
+  { path: '/threatintel/mythreatintel', to: '/threatintel/catalog?cat=social' },
+  { path: '/threatintel/status', to: '/threatintel/catalog?cat=social' },
 
   // ── Dark Web Hub ────────────────────────────────────────────────
   { path: '/threatintel/deepdarkcti', to: '/threatintel/darkweb/deepdarkcti' },
@@ -764,13 +758,13 @@ const REDIRECTS: ReadonlyArray<{ path: string; to: string }> = [
   { path: '/threatintel/threat-feeds', to: '/threatintel/feeds/threatfeeds' },
   { path: '/threatintel/aggregated-feeds', to: '/threatintel/feeds/threatfeeds' },
   { path: '/threatintel/correlation', to: '/threatintel/iocs/cross' },
-  { path: '/threatintel/cross-correlate', to: '/threatintel/iocs' },
-  { path: '/threatintel/observable-db', to: '/threatintel/iocs' },
+  { path: '/threatintel/cross-correlate', to: '/threatintel/catalog?cat=iocs' },
+  { path: '/threatintel/observable-db', to: '/threatintel/catalog?cat=iocs' },
   { path: '/threatintel/bitwire-blocklist', to: '/threatintel/feeds/threatfeeds' },
   { path: '/threatintel/certstream', to: '/threatintel/iocs/live' },
-  { path: '/threatintel/domain-monitor', to: '/threatintel/iocs' },
-  { path: '/threatintel/facilities', to: '/threatintel/iocs' },
-  { path: '/threatintel/pulse', to: '/threatintel/iocs' },
+  { path: '/threatintel/domain-monitor', to: '/threatintel/catalog?cat=iocs' },
+  { path: '/threatintel/facilities', to: '/threatintel/catalog?cat=iocs' },
+  { path: '/threatintel/pulse', to: '/threatintel/catalog?cat=iocs' },
   { path: '/threatintel/ioc-feeds', to: '/threatintel/feeds/threatfeeds' },
 
   // ── Feed Hub ────────────────────────────────────────────────────
@@ -813,7 +807,7 @@ const REDIRECTS: ReadonlyArray<{ path: string; to: string }> = [
   { path: '/threatintel/insider-threat-matrix', to: '/threatintel/wiki/insider' },
   { path: '/threatintel/f3ead', to: '/threatintel/wiki/f3ead' },
   { path: '/threatintel/llm-threat-atlas', to: '/threatintel/wiki/llm' },
-  { path: '/threatintel/atlas', to: '/threatintel/wiki' },
+  { path: '/threatintel/atlas', to: '/threatintel/catalog?cat=wiki' },
 
   // ── Tools Hub ───────────────────────────────────────────────────
   { path: '/threatintel/copilot', to: '/threatintel/tools/copilot' },
@@ -823,16 +817,16 @@ const REDIRECTS: ReadonlyArray<{ path: string; to: string }> = [
   { path: '/threatintel/investigations', to: '/threatintel/tools/investigations' },
   { path: '/threatintel/watches', to: '/threatintel/tools/watches' },
   { path: '/threatintel/relationship-graph', to: '/threatintel/tools/graph' },
-  { path: '/threatintel/search', to: '/threatintel/tools' },
-  { path: '/threatintel/campaign-generator', to: '/threatintel/tools' },
-  { path: '/threatintel/ach', to: '/threatintel/tools' },
+  { path: '/threatintel/search', to: '/threatintel/catalog?cat=tools' },
+  { path: '/threatintel/campaign-generator', to: '/threatintel/catalog?cat=tools' },
+  { path: '/threatintel/ach', to: '/threatintel/catalog?cat=tools' },
   { path: '/threatintel/stix-bundles', to: '/threatintel/tools/stix' },
-  { path: '/threatintel/source-reliability', to: '/threatintel/tools' },
+  { path: '/threatintel/source-reliability', to: '/threatintel/catalog?cat=tools' },
 
   // ── External Hub ────────────────────────────────────────────────
   { path: '/threatintel/external-resources', to: '/threatintel/external/external' },
   { path: '/threatintel/awesome-lists', to: '/threatintel/external/awesome' },
-  { path: '/threatintel/projectdiscovery', to: '/threatintel/external' },
+  { path: '/threatintel/projectdiscovery', to: '/threatintel/catalog?cat=external' },
 
   // ── Research Hub ────────────────────────────────────────────────
   { path: '/threatintel/research', to: '/threatintel/research-hub/research' },
@@ -848,17 +842,17 @@ const REDIRECTS: ReadonlyArray<{ path: string; to: string }> = [
   { path: '/threatintel/curated-toolbox', to: '/threatintel/osint/toolbox' },
   { path: '/threatintel/secops-tools', to: '/threatintel/osint/secops' },
   { path: '/threatintel/osint-cli-tools', to: '/threatintel/osint/cli' },
-  { path: '/threatintel/cve-resources', to: '/threatintel/cves' },
+  { path: '/threatintel/cve-resources', to: '/threatintel/catalog?cat=cves' },
   { path: '/threatintel/cve-list', to: '/threatintel/cves/cves' },
 
   // ── Actor Hub ──────────────────────────────────────────────────
-  { path: '/threatintel/actor-kb', to: '/threatintel/actors' },
-  { path: '/threatintel/actor-dna', to: '/threatintel/actors' },
+  { path: '/threatintel/actor-kb', to: '/threatintel/catalog?cat=actors' },
+  { path: '/threatintel/actor-dna', to: '/threatintel/catalog?cat=actors' },
   { path: '/threatintel/actor-timeline', to: '/threatintel/actors/timeline' },
   { path: '/threatintel/actor-usernames', to: '/threatintel/actors/usernames' },
-  { path: '/threatintel/threat-actor-catalog', to: '/threatintel/actors' },
-  { path: '/threatintel/threat-actor-db', to: '/threatintel/actors' },
-  { path: '/threatintel/intelligence-gaps', to: '/threatintel/actors' },
+  { path: '/threatintel/threat-actor-catalog', to: '/threatintel/catalog?cat=actors' },
+  { path: '/threatintel/threat-actor-db', to: '/threatintel/catalog?cat=actors' },
+  { path: '/threatintel/intelligence-gaps', to: '/threatintel/catalog?cat=actors' },
 
   // ── Campaign Hub ───────────────────────────────────────────────
   { path: '/threatintel/campaign-lifecycle', to: '/threatintel/campaigns/lifecycle' },
@@ -874,7 +868,7 @@ const REDIRECTS: ReadonlyArray<{ path: string; to: string }> = [
   { path: '/dfir/detection-lab', to: '/dfir/rule-converter' },
   { path: '/dfir/dashboard', to: '/dfir' },
   { path: '/dfir/atlas', to: '/threatintel/wiki/llm' },
-  { path: '/threatintel/infostealer', to: '/threatintel/malware' },
+  { path: '/threatintel/infostealer', to: '/threatintel/catalog?cat=malware' },
   { path: '/copilot', to: '/threatintel/tools/copilot' },
 ];
 

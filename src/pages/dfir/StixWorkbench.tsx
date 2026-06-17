@@ -1,6 +1,4 @@
-import { Suspense, lazy, useState } from 'react';
-import { DataPageLayout } from '../../components/DataPageLayout';
-import { FileText, Loader2 } from 'lucide-react';
+import {TabLoader } from '../../components/ui/TabLoader'; import { Suspense, lazy, useState } from 'react'; import { DataPageLayout } from '../../components/DataPageLayout'; import { FileText } from 'lucide-react';
 
 const StixBuilder = lazy(() => import('./StixBuilder'));
 const StixViewer = lazy(() => import('./StixViewer'));
@@ -14,14 +12,6 @@ const TABS: Array<{ id: TabId; label: string; desc: string }> = [
   { id: 'taxii', label: 'TAXII Server', desc: 'In-browser TAXII 2.1 server for STIX sharing' },
 ];
 
-function TabFallback() {
-  return (
-    <div className="flex items-center justify-center py-12">
-      <Loader2 size={20} className="animate-spin text-slate-400 mr-2" />
-      <span className="text-sm font-mono text-slate-500">Loading…</span>
-    </div>
-  );
-}
 
 export default function StixWorkbench(): JSX.Element {
   const [activeTab, setActiveTab] = useState<TabId>('build');
@@ -55,7 +45,7 @@ export default function StixWorkbench(): JSX.Element {
         {TABS.find((t) => t.id === activeTab)?.desc}
       </p>
       <div role="tabpanel">
-        <Suspense fallback={<TabFallback />}>
+        <Suspense fallback={<TabLoader />}>
           {activeTab === 'build' && <StixBuilder />}
           {activeTab === 'view' && <StixViewer />}
           {activeTab === 'taxii' && <TaxiiServer />}

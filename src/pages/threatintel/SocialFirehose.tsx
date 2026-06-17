@@ -1,6 +1,7 @@
 import { Suspense, lazy, useState } from 'react';
+import { TabLoader } from '../../components/ui/TabLoader';
 import { DataPageLayout } from '../../components/DataPageLayout';
-import { Radio, Loader2 } from 'lucide-react';
+import { Radio } from 'lucide-react';
 
 const CybersecTelegram = lazy(() => import('./CybersecTelegram'));
 const RedditFirehose = lazy(() => import('./RedditFirehose'));
@@ -18,14 +19,6 @@ const TABS: Array<{ id: TabId; label: string; desc: string }> = [
   { id: 'bluesky', label: 'Bluesky & Mastodon', desc: '16 researchers across Bluesky and Mastodon' },
 ];
 
-function TabFallback() {
-  return (
-    <div className="flex items-center justify-center py-12">
-      <Loader2 size={20} className="animate-spin text-slate-400 mr-2" />
-      <span className="text-sm font-mono text-slate-500">Loading…</span>
-    </div>
-  );
-}
 
 export default function SocialFirehose(): JSX.Element {
   const [activeTab, setActiveTab] = useState<TabId>('telegram');
@@ -61,7 +54,7 @@ export default function SocialFirehose(): JSX.Element {
       </p>
 
       <div role="tabpanel">
-        <Suspense fallback={<TabFallback />}>
+        <Suspense fallback={<TabLoader />}>
           {activeTab === 'telegram' && <CybersecTelegram />}
           {activeTab === 'reddit' && <RedditFirehose />}
           {activeTab === 'x-live' && <XLive />}

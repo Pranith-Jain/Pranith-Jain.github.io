@@ -1,6 +1,7 @@
 import { Suspense, lazy, useState } from 'react';
+import { TabLoader } from '../../components/ui/TabLoader';
 import { DataPageLayout } from '../../components/DataPageLayout';
-import { Globe, Loader2 } from 'lucide-react';
+import { Globe } from 'lucide-react';
 
 const Facilities = lazy(() => import('./Facilities'));
 const InfraSearch = lazy(() => import('./InfraSearch'));
@@ -12,14 +13,6 @@ const TABS: Array<{ id: TabId; label: string; desc: string }> = [
   { id: 'osm', label: 'OSM Search', desc: '200+ infrastructure types from OpenStreetMap with natural language queries' },
 ];
 
-function TabFallback() {
-  return (
-    <div className="flex items-center justify-center py-12">
-      <Loader2 size={20} className="animate-spin text-slate-400 mr-2" />
-      <span className="text-sm font-mono text-slate-500">Loading…</span>
-    </div>
-  );
-}
 
 export default function InfraIntel(): JSX.Element {
   const [activeTab, setActiveTab] = useState<TabId>('strategic');
@@ -53,7 +46,7 @@ export default function InfraIntel(): JSX.Element {
         {TABS.find((t) => t.id === activeTab)?.desc}
       </p>
       <div role="tabpanel">
-        <Suspense fallback={<TabFallback />}>
+        <Suspense fallback={<TabLoader />}>
           {activeTab === 'strategic' && <Facilities />}
           {activeTab === 'osm' && <InfraSearch />}
         </Suspense>

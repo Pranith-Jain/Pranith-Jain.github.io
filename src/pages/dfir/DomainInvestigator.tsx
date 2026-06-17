@@ -1,6 +1,4 @@
-import { Suspense, lazy, useState } from 'react';
-import { DataPageLayout } from '../../components/DataPageLayout';
-import { Globe, Loader2 } from 'lucide-react';
+import {TabLoader } from '../../components/ui/TabLoader'; import { Suspense, lazy, useState } from 'react'; import { DataPageLayout } from '../../components/DataPageLayout'; import { Globe } from 'lucide-react';
 
 const Domain = lazy(() => import('./Domain'));
 const DomainReputation = lazy(() => import('./DomainReputation'));
@@ -18,14 +16,6 @@ const TABS: Array<{ id: TabId; label: string; desc: string }> = [
   { id: 'full', label: 'Full Scan', desc: 'Orchestrator: runs all checks in parallel with composite scoring' },
 ];
 
-function TabFallback() {
-  return (
-    <div className="flex items-center justify-center py-12">
-      <Loader2 size={20} className="animate-spin text-slate-400 mr-2" />
-      <span className="text-sm font-mono text-slate-500">Loading…</span>
-    </div>
-  );
-}
 
 export default function DomainInvestigator(): JSX.Element {
   const [activeTab, setActiveTab] = useState<TabId>('dns');
@@ -62,7 +52,7 @@ export default function DomainInvestigator(): JSX.Element {
       </p>
 
       <div role="tabpanel">
-        <Suspense fallback={<TabFallback />}>
+        <Suspense fallback={<TabLoader />}>
           {activeTab === 'dns' && <Domain />}
           {activeTab === 'reputation' && <DomainReputation />}
           {activeTab === 'web' && <DomainWebcheck />}

@@ -174,6 +174,15 @@ const PORTFOLIO_PAGES: readonly PageEntry[] = [
 /* ------------------------------------------------------------------ */
 
 const DFIR_PAGES: readonly PageEntry[] = [
+  // Overview
+  {
+    path: '/dfir/catalog',
+    label: 'DFIR Catalog',
+    description: 'Every DFIR tool, searchable, grouped by category.',
+    sectionLabel: 'DFIR · Overview',
+    group: 'dfir',
+    keywords: ['catalog', 'directory', 'browse', 'all tools', 'overview'],
+  },
   // Triage / dispatcher
   {
     path: '/dfir',
@@ -1370,6 +1379,14 @@ const DFIR_PAGES: readonly PageEntry[] = [
     group: 'dfir',
   },
   {
+    path: '/dfir/c/:cat',
+    label: 'DFIR Hub',
+    description: 'A per-hub category landing for the DFIR area - ioc-triage, malware, file-analysis, artifacts, domain-network, asset-attack, email, identity-osint, vuln, detection, stix-taxii, cloud, ai-security, api, copilot, reports, dark-web, grc.',
+    sectionLabel: 'DFIR · Hub',
+    group: 'dfir',
+    keywords: ['hub', 'category', 'pillar'],
+  },
+  {
     path: '/dfir/tools/about',
     label: 'DFIR Tools — About',
     description: 'About the DFIR tool surface — what is covered, what is out of scope, and how to extend.',
@@ -1391,13 +1408,6 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
     sectionLabel: 'Threat Intel · Home',
     group: 'threatintel',
     keywords: ['home', 'landing', 'browse'],
-  },
-  {
-    path: '/threatintel/c/:cat',
-    label: 'Threat Intel (category)',
-    description: 'Threat-intel landing filtered by category.',
-    sectionLabel: 'Threat Intel · Home',
-    group: 'threatintel',
   },
   {
     path: '/threatintel/about',

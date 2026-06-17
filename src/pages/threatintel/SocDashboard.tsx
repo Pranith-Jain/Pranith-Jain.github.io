@@ -1,6 +1,7 @@
 import { Suspense, lazy, useState } from 'react';
+import { TabLoader } from '../../components/ui/TabLoader';
 import { DataPageLayout } from '../../components/DataPageLayout';
-import { Shield, Loader2 } from 'lucide-react';
+import { Shield } from 'lucide-react';
 
 const SocRansomware = lazy(() => import('./SocRansomware'));
 const SocVulns = lazy(() => import('./SocVulns'));
@@ -14,14 +15,6 @@ const TABS: Array<{ id: TabId; label: string; desc: string }> = [
   { id: 'iocs', label: 'IOC Stream', desc: 'Purple IOC stream panel' },
 ];
 
-function TabFallback() {
-  return (
-    <div className="flex items-center justify-center py-12">
-      <Loader2 size={20} className="animate-spin text-slate-400 mr-2" />
-      <span className="text-sm font-mono text-slate-500">Loading…</span>
-    </div>
-  );
-}
 
 export default function SocDashboard(): JSX.Element {
   const [activeTab, setActiveTab] = useState<TabId>('ransomware');
@@ -57,7 +50,7 @@ export default function SocDashboard(): JSX.Element {
       </p>
 
       <div role="tabpanel">
-        <Suspense fallback={<TabFallback />}>
+        <Suspense fallback={<TabLoader />}>
           {activeTab === 'ransomware' && <SocRansomware />}
           {activeTab === 'vulns' && <SocVulns />}
           {activeTab === 'iocs' && <SocIocs />}

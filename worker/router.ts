@@ -161,23 +161,6 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/threatintel/cves/k8s', '/__prerendered/threatintel__cves__k8s'],
   ['/threatintel/cves/exploitable', '/__prerendered/threatintel__cves__exploitable'],
   ['/threatintel/cves/list', '/__prerendered/threatintel__cves__list'],
-  ['/threatintel/actors', '/__prerendered/threatintel__actors'],
-  ['/threatintel/cves', '/__prerendered/threatintel__cves'],
-  ['/threatintel/feeds', '/__prerendered/threatintel__feeds'],
-  ['/threatintel/predictive', '/__prerendered/threatintel__predictive'],
-  ['/threatintel/social', '/__prerendered/threatintel__social'],
-  ['/threatintel/malware', '/__prerendered/threatintel__malware'],
-  ['/threatintel/darkweb', '/__prerendered/threatintel__darkweb'],
-  ['/threatintel/wiki', '/__prerendered/threatintel__wiki'],
-  ['/threatintel/iocs', '/__prerendered/threatintel__iocs'],
-  ['/threatintel/research-hub', '/__prerendered/threatintel__research-hub'],
-  ['/threatintel/tools', '/__prerendered/threatintel__tools'],
-  ['/threatintel/infra', '/__prerendered/threatintel__infra'],
-  ['/threatintel/external', '/__prerendered/threatintel__external'],
-  ['/threatintel/campaigns', '/__prerendered/threatintel__campaigns'],
-  ['/threatintel/detections', '/__prerendered/threatintel__detections'],
-  ['/threatintel/osint', '/__prerendered/threatintel__osint'],
-  ['/threatintel/phishing', '/__prerendered/threatintel__phishing'],
 
   // ── DFIR: static catalogs & education ─────────────────────────
   ['/dfir/diamond', '/__prerendered/dfir__diamond'],
@@ -250,6 +233,28 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   // ── DFIR: STIX ────────────────────────────────────────────────
   ['/dfir/stix', '/__prerendered/dfir__stix'],
   ['/dfir/stix-builder', '/__prerendered/dfir__stix-builder'],
+  // ── DFIR: catalog + per-hub category landings (2026-06-17) ───
+  // ── DFIR: catalog + per-hub category landings (2026-06-17) ───
+  ['/dfir/catalog', '/__prerendered/dfir__catalog'],
+  ['/dfir/c/overview', '/__prerendered/dfir__c__overview'],
+  ['/dfir/c/ioc-triage', '/__prerendered/dfir__c__ioc-triage'],
+  ['/dfir/c/malware', '/__prerendered/dfir__c__malware'],
+  ['/dfir/c/file-analysis', '/__prerendered/dfir__c__file-analysis'],
+  ['/dfir/c/artifacts', '/__prerendered/dfir__c__artifacts'],
+  ['/dfir/c/domain-network', '/__prerendered/dfir__c__domain-network'],
+  ['/dfir/c/asset-attack', '/__prerendered/dfir__c__asset-attack'],
+  ['/dfir/c/email', '/__prerendered/dfir__c__email'],
+  ['/dfir/c/identity-osint', '/__prerendered/dfir__c__identity-osint'],
+  ['/dfir/c/vuln', '/__prerendered/dfir__c__vuln'],
+  ['/dfir/c/detection', '/__prerendered/dfir__c__detection'],
+  ['/dfir/c/stix-taxii', '/__prerendered/dfir__c__stix-taxii'],
+  ['/dfir/c/cloud', '/__prerendered/dfir__c__cloud'],
+  ['/dfir/c/ai-security', '/__prerendered/dfir__c__ai-security'],
+  ['/dfir/c/api', '/__prerendered/dfir__c__api'],
+  ['/dfir/c/copilot', '/__prerendered/dfir__c__copilot'],
+  ['/dfir/c/reports', '/__prerendered/dfir__c__reports'],
+  ['/dfir/c/dark-web', '/__prerendered/dfir__c__dark-web'],
+  ['/dfir/c/grc', '/__prerendered/dfir__c__grc'],
   ['/dfir/ai-rule-generator', '/__prerendered/dfir__ai-rule-generator'],
   ['/dfir/fp-lens', '/__prerendered/dfir__fp-lens'],
   ['/dfir/threat-graph', '/__prerendered/dfir__threat-graph'],
@@ -314,7 +319,6 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/dfir/crypto-trace', '/__prerendered/dfir__crypto-trace'],
 
   // ── ThreatIntel: static catalogs ──────────────────────────────
-  ['/threatintel/wiki', '/__prerendered/threatintel__wiki'],
   ['/threatintel/awesome-lists', '/__prerendered/threatintel__awesome-lists'],
   ['/threatintel/secops-tools', '/__prerendered/threatintel__secops-tools'],
   ['/threatintel/cve-resources', '/__prerendered/threatintel__cve-resources'],
@@ -322,12 +326,10 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/threatintel/mitre', '/__prerendered/threatintel__mitre'],
   ['/threatintel/actor-kb', '/__prerendered/threatintel__actor-kb'],
   ['/threatintel/actor-dna', '/__prerendered/threatintel__actor-dna'],
-  ['/threatintel/predictive', '/__prerendered/threatintel__predictive'],
   ['/threatintel/campaign-lifecycle', '/__prerendered/threatintel__campaign-lifecycle'],
   ['/threatintel/attribution', '/__prerendered/threatintel__attribution'],
   ['/threatintel/intelligence-gaps', '/__prerendered/threatintel__intelligence-gaps'],
   ['/threatintel/cross-campaign', '/__prerendered/threatintel__cross-campaign'],
-  ['/threatintel/actors', '/__prerendered/threatintel__actors'],
   ['/threatintel/most-wanted', '/__prerendered/threatintel__most-wanted'],
   ['/threatintel/rules', '/__prerendered/threatintel__rules'],
   // '/threatintel/briefings' removed from PRERENDERED_ROUTES: list is
@@ -351,11 +353,9 @@ const PRERENDERED_ROUTES = new Map<string, string>([
 
   // ── ThreatIntel: live-feed surfaces ───────────────────────────
   ['/threatintel/pulse', '/__prerendered/threatintel__pulse'],
-  ['/threatintel/darkweb', '/__prerendered/threatintel__darkweb'],
   ['/threatintel/ransomware-map', '/__prerendered/threatintel__ransomware-map'],
   ['/threatintel/certstream', '/__prerendered/threatintel__certstream'],
   ['/threatintel/campaign-generator', '/__prerendered/threatintel__campaign-generator'],
-  ['/threatintel/campaigns', '/__prerendered/threatintel__campaigns'],
   ['/threatintel/malicious-packages', '/__prerendered/threatintel__malicious-packages'],
   ['/threatintel/x-watch', '/__prerendered/threatintel__x-watch'],
   ['/threatintel/x-live', '/__prerendered/threatintel__x-live'],
@@ -406,7 +406,6 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/threatintel/cyber-crime', '/__prerendered/threatintel__cyber-crime'],
   ['/threatintel/ransomware-activity', '/__prerendered/threatintel__ransomware-activity'],
   ['/threatintel/live-iocs', '/__prerendered/threatintel__live-iocs'],
-  ['/threatintel/detections', '/__prerendered/threatintel__detections'],
   ['/threatintel/assessments', '/__prerendered/threatintel__assessments'],
   ['/threatintel/feed-quality', '/__prerendered/threatintel__feed-quality'],
 
@@ -488,17 +487,6 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/threatintel/threat-actor-db', '/__prerendered/threatintel__threat-actor-db'],
   ['/dfir/copilot', '/__prerendered/dfir__copilot'],
   // ── ThreatIntel: hub bases (11) — Suspense-wrapped tabs, prerendered chrome ─
-  ['/threatintel/iocs', '/__prerendered/threatintel__iocs'],
-  ['/threatintel/cves', '/__prerendered/threatintel__cves'],
-  ['/threatintel/malware', '/__prerendered/threatintel__malware'],
-  ['/threatintel/feeds', '/__prerendered/threatintel__feeds'],
-  ['/threatintel/social', '/__prerendered/threatintel__social'],
-  ['/threatintel/phishing', '/__prerendered/threatintel__phishing'],
-  ['/threatintel/infra', '/__prerendered/threatintel__infra'],
-  ['/threatintel/research-hub', '/__prerendered/threatintel__research-hub'],
-  ['/threatintel/osint', '/__prerendered/threatintel__osint'],
-  ['/threatintel/tools', '/__prerendered/threatintel__tools'],
-  ['/threatintel/external', '/__prerendered/threatintel__external'],
 ]);
 
 /**
@@ -528,44 +516,47 @@ const PRERENDERED_ROUTES = new Map<string, string>([
  * the parent and a slug-aware React Router <Route>.
  */
 const DYNAMIC_ROUTE_FALLBACKS: ReadonlyArray<[RegExp, string]> = [
-  // ── ThreatIntel category / sub-pages ───────────────────────────
-  [/^\/threatintel\/c\/[^/]+$/i, '/__prerendered/threatintel'],
-  [/^\/threatintel\/wiki\/[^/]+$/i, '/__prerendered/threatintel__wiki'],
-  [/^\/threatintel\/actors\/[^/]+$/i, '/__prerendered/threatintel__actors'],
+  // ── ThreatIntel: category filter on the home (legacy) ─────────
+  [/^\/threatintel\/c\/[^/]+$/i, '/__prerendered/threatintel__catalog'],
+  // ── ThreatIntel: unknown sub-slugs (slug-aware routes) ─────────
   // Briefings detail pages intentionally do NOT fall back to the index
   // prerender: the index DOM (skeleton list, filter pills, aria-current on
   // Briefings) and the detail DOM (executive summary, findings, IOCs) are
   // completely different trees. React 18's hydration mismatch handler leaves
   // the SSR'd DOM in place and only logs a warning, so the user would see
   // the index skeleton forever. Serve the empty SPA shell instead — the
-  // client hydrates clean and BriefingDetail takes over.
-  [/^\/threatintel\/campaigns\/[^/]+$/i, '/__prerendered/threatintel__campaigns'],
-  [/^\/threatintel\/research\/[^/]+$/i, '/__prerendered/threatintel__research'],
-  [/^\/threatintel\/infostealer\/[^/]+$/i, '/__prerendered/threatintel__infostealer'],
-  [/^\/threatintel\/assessments\/[^/]+$/i, '/__prerendered/threatintel__assessments'],
+  // client hydrates clean and the detail component takes over.
+  [/^\/threatintel\/wiki\/[^/]+$/i, '/__prerendered/threatintel__catalog'],
+  [/^\/threatintel\/actors\/[^/]+$/i, '/__prerendered/threatintel__catalog'],
+  [/^\/threatintel\/campaigns\/[^/]+$/i, '/__prerendered/threatintel__catalog'],
+  [/^\/threatintel\/research\/[^/]+$/i, '/__prerendered/threatintel__catalog'],
+  [/^\/threatintel\/infostealer\/[^/]+$/i, '/__prerendered/threatintel__catalog'],
+  [/^\/threatintel\/assessments\/[^/]+$/i, '/__prerendered/threatintel__catalog'],
   // ── Blog ───────────────────────────────────────────────────────
   [/^\/blog\/c\/[^/]+$/i, '/__prerendered/blog'],
   [/^\/blog\/[^/]+$/i, '/__prerendered/blog'],
   // ── Projects ───────────────────────────────────────────────────
   [/^\/projects\/[^/]+$/i, '/__prerendered/projects'],
   // ── DFIR tools category ────────────────────────────────────────
-  [/^\/dfir\/tools\/[^/]+$/i, '/__prerendered/dfir'],
-
-  // ── ThreatIntel: hub tab routes (14) — fall back to hub base prerender ─────
-  [/^\/threatintel\/iocs\/[^/]+$/i, '/__prerendered/threatintel__iocs'],
-  [/^\/threatintel\/cves\/[^/]+$/i, '/__prerendered/threatintel__cves'],
-  [/^\/threatintel\/malware\/[^/]+$/i, '/__prerendered/threatintel__malware'],
-  [/^\/threatintel\/feeds\/[^/]+$/i, '/__prerendered/threatintel__feeds'],
-  [/^\/threatintel\/social\/[^/]+$/i, '/__prerendered/threatintel__social'],
-  [/^\/threatintel\/phishing\/[^/]+$/i, '/__prerendered/threatintel__phishing'],
-  [/^\/threatintel\/infra\/[^/]+$/i, '/__prerendered/threatintel__infra'],
-  [/^\/threatintel\/detections\/[^/]+$/i, '/__prerendered/threatintel__detections'],
-  [/^\/threatintel\/research-hub\/[^/]+$/i, '/__prerendered/threatintel__research-hub'],
-  [/^\/threatintel\/osint\/[^/]+$/i, '/__prerendered/threatintel__osint'],
-  [/^\/threatintel\/tools\/[^/]+$/i, '/__prerendered/threatintel__tools'],
-  [/^\/threatintel\/external\/[^/]+$/i, '/__prerendered/threatintel__external'],
-  [/^\/threatintel\/predictive\/[^/]+$/i, '/__prerendered/threatintel__predictive'],
-  [/^\/threatintel\/darkweb\/[^/]+$/i, '/__prerendered/threatintel__darkweb'],
+  [/^\/dfir\/tools\/[^/]+$/i, '/__prerendered/dfir__catalog'],
+  // ── ThreatIntel: hub tab routes (14) — fall back to catalog ──
+  // The catalog at /threatintel/catalog is the single navigation surface;
+  // unknown sub-slugs in any hub render the catalog so the user can
+  // browse to the correct page.
+  [/^\/threatintel\/iocs\/[^/]+$/i, '/__prerendered/threatintel__catalog'],
+  [/^\/threatintel\/cves\/[^/]+$/i, '/__prerendered/threatintel__catalog'],
+  [/^\/threatintel\/malware\/[^/]+$/i, '/__prerendered/threatintel__catalog'],
+  [/^\/threatintel\/feeds\/[^/]+$/i, '/__prerendered/threatintel__catalog'],
+  [/^\/threatintel\/social\/[^/]+$/i, '/__prerendered/threatintel__catalog'],
+  [/^\/threatintel\/phishing\/[^/]+$/i, '/__prerendered/threatintel__catalog'],
+  [/^\/threatintel\/infra\/[^/]+$/i, '/__prerendered/threatintel__catalog'],
+  [/^\/threatintel\/detections\/[^/]+$/i, '/__prerendered/threatintel__catalog'],
+  [/^\/threatintel\/research-hub\/[^/]+$/i, '/__prerendered/threatintel__catalog'],
+  [/^\/threatintel\/osint\/[^/]+$/i, '/__prerendered/threatintel__catalog'],
+  [/^\/threatintel\/tools\/[^/]+$/i, '/__prerendered/threatintel__catalog'],
+  [/^\/threatintel\/external\/[^/]+$/i, '/__prerendered/threatintel__catalog'],
+  [/^\/threatintel\/predictive\/[^/]+$/i, '/__prerendered/threatintel__catalog'],
+  [/^\/threatintel\/darkweb\/[^/]+$/i, '/__prerendered/threatintel__catalog'],
 ];
 
 function resolveDynamicRoute(pathname: string): string | null {

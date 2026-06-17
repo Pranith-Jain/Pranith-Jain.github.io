@@ -1,6 +1,7 @@
 import { Suspense, lazy, useState } from 'react';
+import { TabLoader } from '../../components/ui/TabLoader';
 import { DataPageLayout } from '../../components/DataPageLayout';
-import { Search, Loader2 } from 'lucide-react';
+import { Search } from 'lucide-react';
 
 const ActorUsernames = lazy(() => import('./ActorUsernames'));
 const ScrapedIntelUsernames = lazy(() => import('./ScrapedIntelUsernames'));
@@ -12,14 +13,6 @@ const TABS: Array<{ id: TabId; label: string; desc: string }> = [
   { id: 'scrapedintel', label: 'ScrapedIntel (2M+)', desc: 'Search 2M+ handles from threatactorusernames.com API' },
 ];
 
-function TabFallback() {
-  return (
-    <div className="flex items-center justify-center py-12">
-      <Loader2 size={20} className="animate-spin text-slate-400 mr-2" />
-      <span className="text-sm font-mono text-slate-500">Loading…</span>
-    </div>
-  );
-}
 
 export default function ActorUsernameSearch(): JSX.Element {
   const [activeTab, setActiveTab] = useState<TabId>('local');
@@ -53,7 +46,7 @@ export default function ActorUsernameSearch(): JSX.Element {
         {TABS.find((t) => t.id === activeTab)?.desc}
       </p>
       <div role="tabpanel">
-        <Suspense fallback={<TabFallback />}>
+        <Suspense fallback={<TabLoader />}>
           {activeTab === 'local' && <ActorUsernames />}
           {activeTab === 'scrapedintel' && <ScrapedIntelUsernames />}
         </Suspense>

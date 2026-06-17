@@ -1,6 +1,7 @@
 import { Suspense, lazy, useState } from 'react';
+import { TabLoader } from '../../components/ui/TabLoader';
 import { DataPageLayout } from '../../components/DataPageLayout';
-import { Users, Loader2 } from 'lucide-react';
+import { Users } from 'lucide-react';
 
 const Actors = lazy(() => import('../dfir/Actors'));
 const ActorKb = lazy(() => import('./ActorKb'));
@@ -13,15 +14,6 @@ const TABS: Array<{ id: TabId; label: string; desc: string }> = [
   { id: 'mitre', label: 'MITRE ATT&CK', desc: '174 intrusion-sets searchable by name/alias/technique' },
   { id: 'misp', label: 'MISP Galaxy', desc: 'Threat-actor alias index from MISP Galaxy clusters' },
 ];
-
-function TabFallback() {
-  return (
-    <div className="flex items-center justify-center py-12">
-      <Loader2 size={20} className="animate-spin text-slate-400 mr-2" />
-      <span className="text-sm font-mono text-slate-500">Loading…</span>
-    </div>
-  );
-}
 
 export default function ActorDirectory(): JSX.Element {
   const [activeTab, setActiveTab] = useState<TabId>('platform');
@@ -55,7 +47,7 @@ export default function ActorDirectory(): JSX.Element {
         {TABS.find((t) => t.id === activeTab)?.desc}
       </p>
       <div role="tabpanel">
-        <Suspense fallback={<TabFallback />}>
+        <Suspense fallback={<TabLoader />}>
           {activeTab === 'platform' && <Actors />}
           {activeTab === 'mitre' && <ActorKb />}
           {activeTab === 'misp' && <MispGalaxyActors />}

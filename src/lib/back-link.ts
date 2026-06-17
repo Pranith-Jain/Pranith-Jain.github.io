@@ -1,9 +1,9 @@
 /**
  * Back-link routing: when you're on a tool page (say /threatintel/writeups),
- * the "← back" affordance should drop you on the category-filtered hub
- * (/threatintel/c/knowledge), not the full hub home. That keeps related
- * sources one click away instead of forcing you to re-navigate the chip
- * strip.
+ * the "← back" affordance should drop you on the catalog filtered by
+ * category (/threatintel/catalog?cat=knowledge), not the full home. That
+ * keeps related sources one click away instead of forcing you to
+ * re-navigate the chip strip.
  *
  * The source-of-truth for the DFIR mapping is `tool-sections.ts` (already
  * a pure data module). The threat-intel mapping is duplicated here because
@@ -117,22 +117,24 @@ const DFIR_TOOL_TO_GROUP: Record<string, ToolGroup> = (() => {
  * back to the surface's hub root (`/threatintel` or `/dfir`).
  */
 export function backCategoryFor(pathname: string): string | null {
-  // 2-segment threatintel tool pages: /threatintel/<slug> → category hub
+  // 2-segment threatintel tool pages: /threatintel/<slug> → catalog
+  // filtered by category (e.g. /threatintel/catalog?cat=knowledge).
+  // The hub landing pages are gone; the catalog with ?cat= is the
+  // single way to land on a category-filtered browse view.
   const ti = /^\/threatintel\/([^/]+)$/.exec(pathname);
   if (ti) {
     const cat = THREATINTEL_TOOL_TO_CATEGORY[ti[1]!];
-    return cat ? `/threatintel/c/${cat}` : null;
+    return cat ? `/threatintel/catalog?cat=${cat}` : null;
   }
   // 3-segment threatintel tab/detail routes: /threatintel/<hub>/<tab>
-  // Back to hub base when there's no category, or to the category hub
-  // when the hub has one (e.g. /threatintel/actors/APT28 → adversary).
+  // Back to catalog filtered by category when the hub has one
+  // (e.g. /threatintel/actors/APT28 → ?cat=adversary), else to the
+  // surface root.
   const tiTab = /^\/threatintel\/([^/]+)\/[^/]+$/.exec(pathname);
   if (tiTab) {
     const hub = tiTab[1]!;
-    // Category-filter routes (/threatintel/c/<cat>) have no parent route
-    if (hub === 'c') return null;
     const cat = THREATINTEL_TOOL_TO_CATEGORY[hub];
-    return cat ? `/threatintel/c/${cat}` : `/threatintel/${hub}`;
+    return cat ? `/threatintel/catalog?cat=${cat}` : null;
   }
   const df = /^\/dfir\/([^/]+)$/.exec(pathname);
   if (df) {

@@ -1,11 +1,15 @@
 /**
  * Canonical registry of every page in the threat-intel area.
  *
- * Each "hub" is a category of related pages. The hub root URL
- * (/threatintel/<hub-id>) renders a SaaS-style category landing page that
- * lists all sub-pages. Each sub-page has its own direct URL
- * (/threatintel/<hub-id>/<tab-id>) which renders the page component
- * directly — no hub wrapper, no tab bar.
+ * Pages are grouped by category ("hub"). Each page has its own direct
+ * URL (/threatintel/<hub-id>/<tab-id>) which renders the page
+ * component directly — no hub wrapper, no tab bar, no /threatintel/<hub>
+ * landing page in between.
+ *
+ * The /threatintel/catalog page is the single navigation surface for
+ * browsing a category. It accepts ?cat=<hub-id> to pre-filter to a
+ * single category. The sidebar lists direct page URLs grouped by
+ * hub for at-a-glance scanning.
  *
  * Why this exists:
  *   The original design used a tab-bar pattern where /threatintel/<hub>
@@ -16,9 +20,8 @@
  *
  *   This file is the single source of truth that drives:
  *     - App.tsx route registration
- *     - CategoryHub landing pages (the hub root URL)
  *     - Sidebar nav (auto-generated from HUB_META)
- *     - Catalog page
+ *     - Catalog page (groups + search)
  *     - Prerender manifest (scripts/prerender.mjs)
  *     - Sitemap (public/sitemap.xml)
  *

@@ -2,10 +2,10 @@ import { describe, it, expect } from 'vitest';
 import { backCategoryFor, __TEST_ONLY } from './back-link';
 
 describe('backCategoryFor', () => {
-  it('maps a threat-intel tool slug to /threatintel/c/<cat>', () => {
-    expect(backCategoryFor('/threatintel/writeups')).toBe('/threatintel/c/knowledge');
-    expect(backCategoryFor('/threatintel/cve-list')).toBe('/threatintel/c/ioc-detection');
-    expect(backCategoryFor('/threatintel/ransomware-activity')).toBe('/threatintel/c/ransomware');
+  it('maps a threat-intel tool slug to /threatintel/catalog?cat=<id>', () => {
+    expect(backCategoryFor('/threatintel/writeups')).toBe('/threatintel/catalog?cat=knowledge');
+    expect(backCategoryFor('/threatintel/cve-list')).toBe('/threatintel/catalog?cat=ioc-detection');
+    expect(backCategoryFor('/threatintel/ransomware-activity')).toBe('/threatintel/catalog?cat=ransomware');
   });
 
   it('maps a dfir tool slug to /dfir/tools/<group>', () => {
@@ -17,17 +17,17 @@ describe('backCategoryFor', () => {
   it('returns null for unknown / off-surface paths', () => {
     expect(backCategoryFor('/threatintel/about')).toBeNull(); // not in SECTIONS
     expect(backCategoryFor('/dfir/unknown-tool')).toBeNull();
-    expect(backCategoryFor('/threatintel/c/ransomware')).toBeNull(); // already a category page
+    expect(backCategoryFor('/threatintel/catalog')).toBeNull(); // catalog has no parent category
     expect(backCategoryFor('/blog/some-post')).toBeNull();
   });
 
-  it('routes 3-segment threatintel tab routes to hub base or category', () => {
-    // Hub with category mapping: go to category hub
-    expect(backCategoryFor('/threatintel/briefings/daily-2026-05-19')).toBe('/threatintel/c/cti-platforms');
-    expect(backCategoryFor('/threatintel/actors/APT28')).toBe('/threatintel/c/adversary');
-    // Hub without category mapping: go to hub base
-    expect(backCategoryFor('/threatintel/social/firehose')).toBe('/threatintel/social');
-    expect(backCategoryFor('/threatintel/cves/cves')).toBe('/threatintel/cves');
+  it('routes 3-segment threatintel tab routes to catalog with category filter', () => {
+    // Hub with category mapping: go to catalog filtered by that category
+    expect(backCategoryFor('/threatintel/briefings/daily-2026-05-19')).toBe('/threatintel/catalog?cat=cti-platforms');
+    expect(backCategoryFor('/threatintel/actors/APT28')).toBe('/threatintel/catalog?cat=adversary');
+    // Hub without category mapping: no smart back, fall through to surface root
+    expect(backCategoryFor('/threatintel/social/firehose')).toBeNull();
+    expect(backCategoryFor('/threatintel/cves/cves')).toBeNull();
   });
 
   // Drift guard: every threat-intel slug declared in the back-link map points

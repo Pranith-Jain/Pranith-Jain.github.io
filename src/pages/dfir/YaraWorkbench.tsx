@@ -1,6 +1,4 @@
-import { Suspense, lazy, useState } from 'react';
-import { DataPageLayout } from '../../components/DataPageLayout';
-import { FileCode, Loader2 } from 'lucide-react';
+import {TabLoader } from '../../components/ui/TabLoader'; import { Suspense, lazy, useState } from 'react'; import { DataPageLayout } from '../../components/DataPageLayout'; import { FileCode } from 'lucide-react';
 
 const YaraManager = lazy(() => import('./YaraManager'));
 const RulePlayground = lazy(() => import('./RulePlayground'));
@@ -12,14 +10,6 @@ const TABS: Array<{ id: TabId; label: string; desc: string }> = [
   { id: 'test', label: 'Test Lab', desc: 'Paste a YARA/Sigma rule + sample, highlight matches' },
 ];
 
-function TabFallback() {
-  return (
-    <div className="flex items-center justify-center py-12">
-      <Loader2 size={20} className="animate-spin text-slate-400 mr-2" />
-      <span className="text-sm font-mono text-slate-500">Loading…</span>
-    </div>
-  );
-}
 
 export default function YaraWorkbench(): JSX.Element {
   const [activeTab, setActiveTab] = useState<TabId>('library');
@@ -53,7 +43,7 @@ export default function YaraWorkbench(): JSX.Element {
         {TABS.find((t) => t.id === activeTab)?.desc}
       </p>
       <div role="tabpanel">
-        <Suspense fallback={<TabFallback />}>
+        <Suspense fallback={<TabLoader />}>
           {activeTab === 'library' && <YaraManager />}
           {activeTab === 'test' && <RulePlayground />}
         </Suspense>

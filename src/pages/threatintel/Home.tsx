@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import {
   Activity,
   ArrowRight,
@@ -11,7 +11,6 @@ import {
   X,
   Compass,
   Filter as FilterIcon,
-  Sparkles,
   type LucideIcon,
 } from 'lucide-react';
 import { LiveSnapshotPanel } from '../../components/dfir/LiveSnapshotPanel';
@@ -92,8 +91,6 @@ export default function ThreatIntelHome(): JSX.Element {
     [allTools, query]
   );
   const isSearching = query.trim().length > 0;
-  const { cat } = useParams<{ cat?: string }>();
-  const activeSection = cat ? SECTIONS.find((s) => s.id === cat) : undefined;
 
   // Keyboard: '/' or 'Cmd/Ctrl+K' focuses the search; 'Esc' clears.
   useEffect(() => {
@@ -227,7 +224,7 @@ export default function ThreatIntelHome(): JSX.Element {
         )}
       </div>
 
-      {!isSearching && !cat && (
+      {!isSearching && (
         <section
           aria-label="Live across the platform"
           className="animate-fade-in-up rounded-2xl border border-slate-200/70 bg-gradient-to-b from-slate-50/80 to-white p-4 dark:border-slate-800 dark:from-slate-900/50 dark:to-slate-950/20 sm:p-5"
@@ -298,85 +295,6 @@ export default function ThreatIntelHome(): JSX.Element {
             </div>
           )}
         </section>
-      ) : activeSection ? (
-        <section className="animate-fade-in-up mb-12">
-          <div className="flex flex-wrap items-center gap-2 mb-6 text-mini font-mono">
-            <span className="text-slate-500 dark:text-slate-400">categories:</span>
-            {SECTIONS.map((s) => (
-              <Link
-                key={s.id}
-                to={`/threatintel/c/${s.id}`}
-                className={`px-3 py-1.5 rounded border ${
-                  s.id === cat
-                    ? 'border-brand-500/50 bg-brand-500/10 text-brand-700 dark:text-brand-300'
-                    : 'border-slate-200 dark:border-slate-800 text-slate-500 hover:border-brand-500/40'
-                }`}
-              >
-                {s.label}
-              </Link>
-            ))}
-          </div>
-          <h2 className="font-display font-bold text-2xl text-slate-900 dark:text-slate-100 mb-1">
-            {activeSection.label}
-          </h2>
-          <p className="text-sm text-slate-500 dark:text-slate-400 font-mono mb-6">
-            {activeSection.blurb} · {activeSection.tools.length}{' '}
-            {activeSection.tools.length === 1 ? 'source' : 'sources'}
-          </p>
-          <ul className="stagger grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            {activeSection.tools.map((t) => {
-              const Icon = t.icon;
-              const cardClass =
-                'surface-card group relative block h-full overflow-hidden p-4 ' +
-                'transition-[transform,border-color,box-shadow] duration-200 hover:-translate-y-0.5 hover:border-brand-500/50 ' +
-                'hover:shadow-e2 focus-visible:outline-none focus-visible:-translate-y-0.5 ' +
-                'focus-visible:border-brand-500 focus-visible:ring-2 focus-visible:ring-brand-500/40';
-              const inner = (
-                <>
-                  <div className="flex items-start justify-between gap-2 mb-2">
-                    <Icon size={18} className="text-brand-600 dark:text-brand-400 shrink-0 mt-0.5" aria-hidden="true" />
-                    <ArrowRight
-                      size={14}
-                      className="text-slate-300 dark:text-slate-700 group-hover:text-brand-500 dark:group-hover:text-brand-400 transition-colors mt-0.5 shrink-0"
-                      aria-hidden="true"
-                    />
-                  </div>
-                  <div className="flex items-baseline justify-between gap-2 mb-1">
-                    <h3 className="font-display font-semibold text-base text-slate-900 dark:text-slate-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors flex items-center gap-1">
-                      {t.label}
-                      {t.external && <ExternalLink size={11} className="opacity-60" aria-hidden="true" />}
-                    </h3>
-                    {t.badge && (
-                      <span
-                        className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border shrink-0 ${
-                          t.badge === 'live'
-                            ? 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300'
-                            : 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300'
-                        }`}
-                      >
-                        {t.badge}
-                      </span>
-                    )}
-                  </div>
-                  <p className="text-meta font-mono text-slate-600 dark:text-slate-400 leading-relaxed">{t.desc}</p>
-                </>
-              );
-              return t.external ? (
-                <li key={t.to}>
-                  <a href={t.to} target="_blank" rel="noopener noreferrer" className={cardClass}>
-                    {inner}
-                  </a>
-                </li>
-              ) : (
-                <li key={t.to}>
-                  <Link to={t.to} className={cardClass}>
-                    {inner}
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
-        </section>
       ) : (
         <section className="animate-fade-in-up mb-12">
           <div className="mb-5 border-t border-slate-200/70 pt-6 dark:border-slate-800">
@@ -388,7 +306,7 @@ export default function ThreatIntelHome(): JSX.Element {
             {SECTIONS.map((s) => (
               <Link
                 key={s.id}
-                to={`/threatintel/c/${s.id}`}
+                to="/threatintel/catalog"
                 className="group surface-card p-5 transition hover:-translate-y-0.5 hover:border-brand-500/50 hover:shadow-e2"
               >
                 <div className="flex items-center justify-between mb-1.5">

@@ -1,9 +1,24 @@
+import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Hash, Mail, ShieldAlert, Zap, GitBranch } from 'lucide-react';
-import { GROUP_META, MAIN_TOOL_COUNT, UTILITY_TOOLS, type ToolGroup } from '../components/dfir/tool-sections';
+import {
+  ArrowRight,
+  Compass,
+  Filter as FilterIcon,
+  GitBranch,
+  Hash,
+  Mail,
+  Search,
+  ShieldAlert,
+  X,
+  Zap,
+  type LucideIcon,
+} from 'lucide-react';
+import { MAIN_TOOL_COUNT, UTILITY_TOOLS } from '../components/dfir/tool-sections';
+import { HUB_META, type HubMeta, type HubPage } from '../data/dfir-hubs';
 import { ToolSearchBar } from '../components/dfir/ToolSearchBar';
 import { personalInfo } from '../data/content';
 import { AppHero } from '../components/AppHero';
+import { catalogSearch } from '../data/dfir-catalog';
 
 import { QuickActions, type QuickAction } from '../components/QuickActions';
 import { RecentToolsRow } from '../components/RecentToolsRow';
@@ -273,23 +288,27 @@ export default function DFIRPage(): JSX.Element {
         <div className="mb-6 flex items-baseline justify-between gap-3 border-t border-slate-200/70 pt-6 dark:border-slate-800">
           <h2 className="font-display text-base font-semibold text-slate-700 dark:text-slate-300 mb-2">Pick a workbench</h2>
           <Link
-            to="/dfir/dashboard"
+            to="/dfir/catalog"
             className="text-xs font-mono text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
           >
-            recent lookups <ArrowRight size={12} aria-hidden="true" />
+            full catalog <ArrowRight size={12} aria-hidden="true" />
           </Link>
         </div>
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {(['core-dfir', 'investigation', 'intelligence', 'recon', 'specialized', 'grc', 'aisec'] as ToolGroup[]).map(
-            (g) => (
+          {HUB_META.map((h) => {
+            const Icon = h.icon;
+            return (
               <Link
-                key={g}
-                to={`/dfir/tools/${g}`}
+                key={h.id}
+                to={`/dfir/catalog?cat=${h.id}`}
                 className="group surface-card p-5 transition hover:-translate-y-0.5 hover:border-brand-500/50 hover:shadow-e2"
               >
                 <div className="flex items-center justify-between mb-1.5">
-                  <span className="font-display font-semibold text-slate-900 dark:text-slate-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
-                    {GROUP_META[g].label}
+                  <span className="flex items-center gap-2 font-display font-semibold text-slate-900 dark:text-slate-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
+                    <span className={`inline-flex items-center justify-center rounded-md border px-1.5 py-1 ${h.tone}`}>
+                      <Icon size={14} aria-hidden="true" />
+                    </span>
+                    {h.label}
                   </span>
                   <ArrowRight
                     size={14}
@@ -297,10 +316,13 @@ export default function DFIRPage(): JSX.Element {
                     aria-hidden="true"
                   />
                 </div>
-                <p className="text-tool text-slate-600 dark:text-slate-400 leading-relaxed">{GROUP_META[g].blurb}</p>
+                <p className="text-tool text-slate-600 dark:text-slate-400 leading-relaxed">{h.blurb}</p>
+                <p className="mt-2 font-mono text-mini text-slate-400">
+                  {h.pages.length} {h.pages.length === 1 ? 'tool' : 'tools'}
+                </p>
               </Link>
-            )
-          )}
+            );
+          })}
         </div>
       </section>
 
@@ -412,6 +434,218 @@ export default function DFIRPage(): JSX.Element {
           </div>
         </details>
       </section>
+
+      {/* ── Full catalog embed ────────────────────────────────── */}
+      <HomeCatalog />
     </div>
+  );
+}
+
+/**
+ * The full DFIR catalog embedded in the home page, with search + filter
+ * chips. Mirrors the threatintel Home.tsx HomeCatalog (commit 4fb739ae,
+ * 2026-06-17). Sits at the bottom of the page so a power-user can pivot
+ * to any tool without leaving the home view; the dedicated
+ * /dfir/catalog page is the bookmarkable copy of this same widget.
+ */
+const BADGE_STYLES: Record<NonNullable<HubPage['badge']>, string> = {
+  live: 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300',
+  new: 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300',
+  beta: 'border-violet-500/40 bg-violet-500/10 text-violet-700 dark:text-violet-300',
+};
+
+function HomeCatalog(): JSX.Element {
+  const [query, setQuery] = useState('');
+  const [activeCat, setActiveCat] = useState('all');
+  const totalEntries = useMemo(() => [...HUB_META].reduce((sum, h) => sum + h.pages.length, 0), []);
+  const searchResults = useMemo(() => {
+    if (!query.trim()) return null;
+    return catalogSearch(query);
+  }, [query]);
+  const visibleCategories = useMemo<HubMeta[]>(() => {
+    const all = [...HUB_META];
+    if (searchResults) {
+      const ids = new Set(searchResults.map((r) => r.category.id));
+      return all.filter((c) => ids.has(c.id));
+    }
+    if (activeCat === 'all') return all;
+    return all.filter((c) => c.id === activeCat);
+  }, [searchResults, activeCat]);
+
+  return (
+    <section className="animate-fade-in-up mb-12">
+      <div className="mb-5 border-t border-slate-200/70 pt-6 dark:border-slate-800">
+        <h2 className="flex items-center gap-2 font-display text-base font-semibold text-slate-700 dark:text-slate-300">
+          <Compass size={18} className="text-brand-600 dark:text-brand-400" /> Tool Catalog
+          <span className="font-mono text-mini text-slate-400 font-normal">- {totalEntries} tools</span>
+        </h2>
+      </div>
+
+      <div className="mb-6 space-y-3">
+        <div className="relative">
+          <Search
+            size={14}
+            className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+            aria-hidden="true"
+          />
+          <input
+            type="text"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Search every DFIR tool, by name, route, or keyword..."
+            aria-label="Search DFIR tools"
+            className="w-full rounded-lg border border-slate-200 bg-white py-2.5 pl-9 pr-10 font-mono text-tool text-slate-900 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/20 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-100 dark:placeholder:text-slate-500"
+          />
+          {query && (
+            <button
+              type="button"
+              onClick={() => setQuery('')}
+              className="absolute right-2 top-1/2 inline-flex -translate-y-1/2 items-center gap-1 rounded px-1.5 py-0.5 font-mono text-micro text-slate-500 hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-800 dark:hover:text-slate-100"
+              aria-label="Clear search"
+            >
+              <X size={11} /> clear
+            </button>
+          )}
+        </div>
+
+        <div className="flex flex-wrap items-center gap-2" role="tablist" aria-label="Catalog categories">
+          <span className="inline-flex items-center gap-1 font-mono text-micro uppercase tracking-wider text-slate-500 dark:text-slate-400">
+            <FilterIcon size={11} /> filter
+          </span>
+          <HomeCategoryPill
+            label="All"
+            count={totalEntries}
+            active={activeCat === 'all'}
+            onClick={() => setActiveCat('all')}
+            accent="text-slate-700 dark:text-slate-300"
+          />
+          {HUB_META.map((c) => (
+            <HomeCategoryPill
+              key={c.id}
+              label={c.label}
+              count={c.pages.length}
+              active={activeCat === c.id}
+              onClick={() => setActiveCat(c.id)}
+              accent={c.tone}
+            />
+          ))}
+        </div>
+
+        {searchResults && (
+          <div className="font-mono text-mini text-slate-500">
+            {searchResults.length} {searchResults.length === 1 ? 'match' : 'matches'} for &ldquo;{query.trim()}&rdquo;
+            {searchResults.length === 0 ? ' - try fewer or different keywords' : ''}
+          </div>
+        )}
+      </div>
+
+      <div className="space-y-8">
+        {visibleCategories.length === 0 && (
+          <div className="rounded-xl border border-dashed border-slate-300 dark:border-slate-700 p-10 text-center">
+            <p className="text-sm text-slate-500 dark:text-slate-400">
+              No tools match the current filter. Try a different category or clear the search box.
+            </p>
+          </div>
+        )}
+        {visibleCategories.map((cat) => {
+          const entries =
+            searchResults != null
+              ? searchResults.filter((r) => r.category.id === cat.id).map((r) => r as HubPage)
+              : cat.pages;
+          return <HomeCatalogSection key={cat.id} category={cat} entries={entries} />;
+        })}
+      </div>
+    </section>
+  );
+}
+
+function HomeCategoryPill({
+  label,
+  count,
+  active,
+  onClick,
+  accent,
+}: {
+  label: string;
+  count: number;
+  active: boolean;
+  onClick: () => void;
+  accent: string;
+}): JSX.Element {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      role="tab"
+      aria-selected={active}
+      className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 font-mono text-micro transition-colors ${
+        active
+          ? `${accent} border-current bg-current/10`
+          : 'border-slate-300/60 bg-white text-slate-500 hover:border-slate-400 hover:text-slate-900 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-400 dark:hover:border-slate-600 dark:hover:text-slate-100'
+      }`}
+    >
+      {label}
+      <span
+        className={`rounded-full px-1.5 py-0.5 text-[10px] font-mono ${active ? 'bg-current/15' : 'bg-slate-100 dark:bg-slate-800'}`}
+      >
+        {count}
+      </span>
+    </button>
+  );
+}
+
+function HomeCatalogSection({ category, entries }: { category: HubMeta; entries: readonly HubPage[] }): JSX.Element {
+  if (entries.length === 0) return <></>;
+  return (
+    <section aria-labelledby={`home-hub-${category.id}`}>
+      <div className="mb-3 flex items-baseline justify-between gap-2 border-b border-slate-200 pb-2 dark:border-slate-800">
+        <h2 id={`home-hub-${category.id}`} className="flex items-center gap-2 font-display text-lg font-semibold">
+          <span className={`inline-flex items-center justify-center rounded-md border px-1.5 py-1 ${category.tone}`}>
+            <category.icon size={16} aria-hidden="true" />
+          </span>
+          {category.label}
+          <span className="font-mono text-micro text-slate-400">- {entries.length}</span>
+        </h2>
+        <p className="hidden text-tool text-slate-500 dark:text-slate-400 sm:block">{category.blurb}</p>
+      </div>
+      <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        {entries.map((e) => (
+          <HomeCatalogCard key={e.path} entry={e} hubIcon={category.icon} />
+        ))}
+      </ul>
+    </section>
+  );
+}
+
+function HomeCatalogCard({ entry, hubIcon }: { entry: HubPage; hubIcon: LucideIcon }): JSX.Element {
+  const Icon = entry.icon ?? hubIcon;
+  return (
+    <li>
+      <Link
+        to={entry.path}
+        className="group block h-full rounded-xl border border-slate-200 bg-white p-3 transition-[transform,border-color,box-shadow] duration-200 hover:-translate-y-0.5 hover:border-brand-500/40 hover:shadow-e2 focus-visible:-translate-y-0.5 focus-visible:border-brand-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/30 dark:border-slate-800 dark:bg-slate-900"
+      >
+        <div className="flex items-start justify-between gap-2">
+          <Icon size={16} className="mt-0.5 shrink-0 text-brand-600 dark:text-brand-400" aria-hidden="true" />
+          {entry.badge && (
+            <span
+              className={`rounded border px-1.5 py-0.5 font-mono text-[10px] uppercase tracking-wider ${BADGE_STYLES[entry.badge]}`}
+            >
+              {entry.badge}
+            </span>
+          )}
+        </div>
+        <h3 className="mt-2 font-display text-sm font-semibold text-slate-900 transition-colors group-hover:text-brand-600 dark:text-slate-100 dark:group-hover:text-brand-400">
+          {entry.label}
+        </h3>
+        <p className="mt-0.5 line-clamp-2 text-tool text-slate-500 dark:text-slate-400">{entry.desc}</p>
+        <div className="mt-2 flex items-center justify-between gap-2 font-mono text-[10px] text-slate-400">
+          <code className="truncate font-mono">{entry.path}</code>
+          <span className="inline-flex items-center gap-0.5 text-brand-600 dark:text-brand-400 opacity-0 transition-opacity group-hover:opacity-100">
+            open <ArrowRight size={10} />
+          </span>
+        </div>
+      </Link>
+    </li>
   );
 }

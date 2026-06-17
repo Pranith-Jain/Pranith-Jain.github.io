@@ -9,58 +9,18 @@
  * It's grouped by hub and shows all direct page URLs (no nested tabs).
  */
 
-import {
-  AlertOctagon,
-  AlertTriangle,
-  BookOpen,
-  Brain,
-  Bug,
-  Cloud,
-  Compass,
-  Database,
-  ExternalLink,
-  Eye,
-  FileSearch,
-  FileText,
-  Flame,
-  FolderTree,
-  GitBranch,
-  Globe,
-  KeyRound,
-  Layers,
-  LayoutDashboard,
-  LineChart,
-  List,
-  Map,
-  MessageSquare,
-  Newspaper,
-  Package,
-  Radar,
-  Radio,
-  Repeat2,
-  Rss,
-  Scale,
-  ScrollText,
-  Search,
-  Settings,
-  Share2,
-  Shield,
-  ShieldAlert,
-  ShieldCheck,
-  Sparkles,
-  Target,
-  Telescope,
-  Terminal,
-  TrendingUp,
-  UserSearch,
-  Users,
-  Wallet,
-  Wifi,
-  Wrench,
-  Zap,
-  type LucideIcon,
-} from 'lucide-react';
+import { AlertOctagon, AlertTriangle, Compass, BookOpen, Brain,
+  Bug, Cloud, Database, ExternalLink, Eye,
+  FileSearch, FileText, Flame, FolderTree, GitBranch,
+  Globe, KeyRound, Layers, LayoutDashboard, LineChart,
+  List, Map, MessageSquare, Newspaper, Package,
+  Radar, Radio, Repeat2, Rss, Scale,
+  ScrollText, Search, Settings, Share2, Shield,
+  ShieldAlert, ShieldCheck, Sparkles, Target, Telescope,
+  Terminal, TrendingUp, UserSearch, Users, Wallet,
+  Wifi, Wrench, Zap, type LucideIcon } from 'lucide-react';
 import { HUB_META } from './threatintel-hubs';
+import { HUB_META as DFIR_HUB_META } from './dfir-hubs';
 
 export interface SidebarItem {
   label: string;
@@ -262,25 +222,17 @@ function buildThreatIntelSidebar(): SidebarConfig {
     ],
   };
 
-  // Per-hub groups — show hub landing + all sub-pages
+  // Per-hub groups — list direct page URLs only (no hub landing page; the
+  // catalog at /threatintel/catalog?cat=<id> is the single navigation
+  // surface for browsing a category).
   const hubGroups: SidebarGroup[] = HUB_META.map((hub) => ({
     title: hub.label,
-    items: [
-      // Hub landing page
-      {
-        label: `${hub.label} — overview`,
-        href: `/threatintel/${hub.id}`,
-        icon: hub.icon,
-        description: hub.blurb,
-      },
-      // Sub-pages
-      ...hub.pages.map((p) => ({
-        label: p.label,
-        href: p.path,
-        icon: PAGE_ICON_OVERRIDES[p.path] ?? hub.icon,
-        description: p.desc,
-      })),
-    ],
+    items: hub.pages.map((p) => ({
+      label: p.label,
+      href: p.path,
+      icon: PAGE_ICON_OVERRIDES[p.path] ?? hub.icon,
+      description: p.desc,
+    })),
   }));
 
   return {
@@ -302,6 +254,7 @@ const dfir: SidebarConfig = {
       title: 'Triage',
       items: [
         { label: 'Dashboard', href: '/dfir', icon: LayoutDashboard },
+        { label: 'Catalog', href: '/dfir/catalog', icon: Compass, description: 'Every DFIR tool, searchable.' },
         { label: 'IOC Check', href: '/dfir/ioc-check', icon: Search },
         { label: 'X-VERDIKT', href: '/dfir/x-verdikt', icon: Shield },
         { label: 'REGSCOPE', href: '/dfir/regscope', icon: FolderTree },
@@ -368,8 +321,17 @@ export const PAGE_TITLES: Record<string, string> = (() => {
   out['/threatintel'] = 'Threat Intel';
   out['/threatintel/catalog'] = 'Page Catalog';
   out['/threatintel/about'] = 'About';
+  // Per-page titles only — no bare hub paths in PAGE_TITLES since
+  // hub landing pages are gone. The catalog is the single navigation
+  // surface for browsing a category.
   for (const hub of HUB_META) {
-    out[`/threatintel/${hub.id}`] = hub.label;
+    for (const p of hub.pages) {
+      out[p.path] = p.label;
+    }
+  }
+  // DFIR catalog + per-page titles (driven by dfir-hubs)
+  out['/dfir/catalog'] = 'DFIR Catalog';
+  for (const hub of DFIR_HUB_META) {
     for (const p of hub.pages) {
       out[p.path] = p.label;
     }
