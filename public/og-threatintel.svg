@@ -1,77 +1,63 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
-  <!--
-    /threatintel OG image. The platform's editorial pitch in one card:
-    a working CTI surface on the edge, not a feature list. Headline
-    deliberately echoes the DFIR card's "working / on the edge" framing
-    so the family resemblance is obvious; the supporting line + stats
-    + footer all reflect the CTI-specific story (correlation, ransomware
-    depth, authored research cadence). Visual chassis shared with the
-    portfolio OG; the LIVE-AT chip uses a rose-tinted accent on the
-    label to evoke threat-data context without leaving the brand palette.
-  -->
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" font-family="'Hanken Grotesk', system-ui, sans-serif">
   <defs>
-    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#0f172a"/>
-      <stop offset="100%" stop-color="#1e293b"/>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0b1120"/><stop offset="50%" stop-color="#1e293b"/><stop offset="100%" stop-color="#0b1120"/>
     </linearGradient>
-    <linearGradient id="brand" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#2c3ee5"/>
-      <stop offset="100%" stop-color="#435ef1"/>
-    </linearGradient>
-    <linearGradient id="brandText" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#a5b4fc"/>
-      <stop offset="100%" stop-color="#7c8fff"/>
-    </linearGradient>
-    <radialGradient id="glow" cx="80%" cy="20%" r="50%">
-      <stop offset="0%" stop-color="#e11d48" stop-opacity="0.18"/>
-      <stop offset="100%" stop-color="#e11d48" stop-opacity="0"/>
+    <radialGradient id="glow" cx="80%" cy="16%" r="60%">
+      <stop offset="0%" stop-color="#e11d48" stop-opacity="0.32"/><stop offset="55%" stop-color="#e11d48" stop-opacity="0.07"/><stop offset="100%" stop-color="#e11d48" stop-opacity="0"/>
     </radialGradient>
+    <linearGradient id="bar" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fb7185"/><stop offset="100%" stop-color="#e11d48"/>
+    </linearGradient>
+    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
+      <path d="M 48 0 L 0 0 0 48" fill="none" stroke="#fb7185" stroke-opacity="0.06" stroke-width="1"/>
+    </pattern>
   </defs>
 
   <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
   <rect width="1200" height="630" fill="url(#glow)"/>
 
-  <g stroke="#1e293b" stroke-width="1" opacity="0.6">
-    <path d="M0 157 L1200 157 M0 315 L1200 315 M0 472 L1200 472"/>
-    <path d="M300 0 L300 630 M600 0 L600 630 M900 0 L900 630"/>
+  <!-- scan-ring motif (right) -->
+  <g stroke="#fb7185" fill="none">
+    <circle cx="1030" cy="300" r="74" stroke-opacity="0.16" stroke-width="1.5"/>
+    <circle cx="1030" cy="300" r="130" stroke-opacity="0.10" stroke-width="1.5"/>
+    <circle cx="1030" cy="300" r="188" stroke-opacity="0.05" stroke-width="1.5"/>
   </g>
+  <circle cx="1030" cy="300" r="5" fill="#fb7185"/>
+  <circle cx="1095" cy="252" r="4" fill="#fbbf24"/>
+  <circle cx="962" cy="356" r="4" fill="#38bdf8"/>
 
-  <g transform="translate(80, 80)">
-    <rect width="96" height="96" rx="20" fill="url(#brand)"/>
-    <text x="48" y="62" font-family="Inter, system-ui, sans-serif" font-size="44" font-weight="800" fill="white" text-anchor="middle">PJ</text>
-  </g>
+  <rect x="0" y="0" width="8" height="630" fill="url(#bar)"/>
 
-  <text x="200" y="125" font-family="ui-monospace, monospace" font-size="20" font-weight="700" fill="#94a3b8" letter-spacing="0.2em">PRANITH JAIN</text>
-  <text x="200" y="155" font-family="ui-monospace, monospace" font-size="14" font-weight="500" fill="#64748b" letter-spacing="0.15em">/THREATINTEL · LIVE CTI PLATFORM</text>
+  <!-- header: PJ mark + name + identity -->
+  <rect x="80" y="64" width="56" height="56" rx="13" fill="#e11d48"/>
+  <text x="108" y="102" text-anchor="middle" font-size="24" font-weight="800" fill="#ffffff">PJ</text>
+  <text x="152" y="92" font-size="27" font-weight="800" letter-spacing="0.5" fill="#ffffff">PRANITH JAIN</text>
+  <text x="153" y="116" font-size="13" font-weight="700" letter-spacing="3" fill="#fda4af">SECURITY ANALYST · DETECTION ENGINEER</text>
 
-  <text x="80" y="295" font-family="Inter, system-ui, sans-serif" font-size="68" font-weight="800" fill="#f1f5f9">A working CTI</text>
-  <text x="80" y="370" font-family="Inter, system-ui, sans-serif" font-size="68" font-weight="800" fill="url(#brandText)">platform on the edge.</text>
+  <!-- section eyebrow -->
+  <text x="80" y="208" font-size="18" font-weight="800" letter-spacing="4" fill="#fda4af">THREAT INTELLIGENCE PLATFORM</text>
 
-  <text x="80" y="430" font-family="Inter, system-ui, sans-serif" font-size="24" font-weight="400" fill="#cbd5e1">Live ransomware feeds · IOC correlation across 18 sources · authored research</text>
+  <!-- headline -->
+  <text x="80" y="286" font-size="58" font-weight="800" letter-spacing="0.3" fill="#ffffff">A working CTI surface</text>
+  <text x="80" y="356" font-size="58" font-weight="800" letter-spacing="0.3" fill="#fda4af">on the edge.</text>
 
-  <g transform="translate(80, 490)" font-family="ui-monospace, monospace" font-weight="600">
-    <g>
-      <rect width="240" height="60" rx="10" fill="#1e293b" stroke="#334155" stroke-width="1"/>
-      <text x="20" y="26" font-size="11" fill="#64748b" letter-spacing="0.15em">IOC FEEDS CORRELATED</text>
-      <text x="20" y="50" font-size="22" fill="#f1f5f9">18</text>
-    </g>
-    <g transform="translate(260, 0)">
-      <rect width="280" height="60" rx="10" fill="#1e293b" stroke="#334155" stroke-width="1"/>
-      <text x="20" y="26" font-size="11" fill="#64748b" letter-spacing="0.15em">RANSOMWARE CLAIMS · 7d</text>
-      <text x="20" y="50" font-size="22" fill="#f1f5f9">200+</text>
-    </g>
-    <g transform="translate(560, 0)">
-      <rect width="220" height="60" rx="10" fill="#1e293b" stroke="#334155" stroke-width="1"/>
-      <text x="20" y="26" font-size="11" fill="#64748b" letter-spacing="0.15em">AUTHORED RESEARCH</text>
-      <text x="20" y="50" font-size="22" fill="#f1f5f9">3 PIECES</text>
-    </g>
-    <g transform="translate(800, 0)">
-      <rect width="240" height="60" rx="10" fill="url(#brand)"/>
-      <text x="20" y="26" font-size="11" fill="#fecdd3" letter-spacing="0.15em">OPEN AT</text>
-      <text x="20" y="50" font-size="20" fill="white">/threatintel</text>
-    </g>
-  </g>
+  <!-- features -->
+  <text x="80" y="448" font-size="22" font-weight="400" fill="#cbd5e1">Ransomware leaks · CVE × CISA KEV · IOC correlation · actor × MITRE · STIX 2.1</text>
 
-  <line x1="80" y1="595" x2="1120" y2="595" stroke="#1e293b" stroke-width="1"/>
-  <text x="80" y="615" font-family="ui-monospace, monospace" font-size="12" fill="#475569">/correlation · /detections · /metrics · /ransomware-activity · /research · /breach-disclosures</text>
+  <!-- divider -->
+  <rect x="80" y="486" width="120" height="4" rx="2" fill="#fb7185"/>
+
+  <!-- stats -->
+  <text x="80" y="528" font-size="42" font-weight="800" fill="#fda4af">90+</text>
+  <text x="80" y="556" font-size="15" font-weight="600" letter-spacing="2" fill="#94a3b8">INTEL SOURCES</text>
+  <text x="330" y="528" font-size="42" font-weight="800" fill="#fda4af">18</text>
+  <text x="330" y="556" font-size="15" font-weight="600" letter-spacing="2" fill="#94a3b8">FEEDS CORRELATED</text>
+  <text x="580" y="528" font-size="42" font-weight="800" fill="#fda4af">10</text>
+  <text x="580" y="556" font-size="15" font-weight="600" letter-spacing="2" fill="#94a3b8">METRIC PANELS</text>
+
+  <!-- footer -->
+  <text x="80" y="600" font-size="20" font-weight="700" letter-spacing="0.5" fill="#94a3b8"><tspan fill="#fda4af" font-weight="800">pranithjain.qzz.io/threatintel</tspan></text>
 </svg>

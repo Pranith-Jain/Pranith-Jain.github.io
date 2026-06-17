@@ -62,7 +62,8 @@ export const OG_OVERRIDES: Record<string, OgOverride> = {
   '/dfir': {
     title: 'DFIR & Security Toolkit · Pranith Jain',
     description:
-      '60+ free, browser-side DFIR and security tools: IOC checker, CVE prioritizer, email-auth auditor, decoders, and a detection-rule converter. No signup.',
+      '60+ free, browser-side DFIR and security tools across 11 categories: IOC checker, CVE prioritizer, crypto fund-flow tracer, decoders, and a YARA/Sigma rule converter. No signup.',
+    image: '/og-dfir.png?v=2',
   },
   '/copilot': {
     title: 'CTI Copilot · Pranith Jain',
@@ -73,7 +74,7 @@ export const OG_OVERRIDES: Record<string, OgOverride> = {
     title: 'Threat Intel Platform · pranithjain.qzz.io',
     description:
       'A working CTI surface on the edge. Live ransomware leak claims, CVE merged with CISA KEV, cross-source IOC correlation across 18 feeds, an actor-activity Gantt joined with MITRE Group profiles, victim re-leak detection, ten-panel metrics, STIX 2.1 export, and a writeups aggregator across 18 analyst blogs.',
-    image: '/og-threatintel.png',
+    image: '/og-threatintel.png?v=2',
   },
   '/threatintel/external-resources': {
     title: 'External Resources Catalog · pranithjain.qzz.io',
