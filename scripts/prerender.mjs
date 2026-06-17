@@ -377,8 +377,7 @@ const ROUTES = [
   '/dfir/phishops',
   '/dfir/phishbook',
 
-  // ── H3AD-SEC training (1) — static content, prerendered ─────
-  '/threatintel/learn',
+
 
   // ── ThreatIntel: live-feed surfaces (38) — prerendered chrome ─
   // Client hydrates and fetches /api/v1/* on mount.

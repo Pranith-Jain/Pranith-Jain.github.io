@@ -19,6 +19,7 @@
 
 import type { Env } from '../env';
 import { isBenign, refang, scoreConfidence } from './ioc-normalize';
+import { pinnedFetchFollow } from './ssrf-guard';
 
 export interface ImageIocHit {
   value: string;
@@ -125,11 +126,12 @@ export async function extractIocsFromImageUrl(
   env: { AI?: AIBindings } & Pick<Env, never>
 ): Promise<{ text: string; hits: ImageIocHit[]; error?: string }> {
   try {
-    // Image OCR fetch — 15s ceiling. Caller is `report-analyzer` (admin
-    // / authenticated pipeline) so this isn't a public SSRF surface,
-    // but the URL is user-supplied and a slow target shouldn't pin
-    // the Worker past the CPU budget.
-    const res = await fetch(url, {
+    // Image OCR fetch — 15s ceiling. The URL is user-supplied and this
+    // route IS publicly reachable (POST /api/v1/image-ioc), so the fetch
+    // MUST be SSRF-safe: pinnedFetchFollow re-validates + IP-pins every
+    // hop, blocking a public URL that 302s/rebinds to a private/metadata
+    // host. Do NOT downgrade to a raw fetch() — that was a read-SSRF.
+    const res = await pinnedFetchFollow(url, {
       headers: { 'user-agent': 'Mozilla/5.0 (compatible; portfolio-ocr/1.0)' },
       signal: AbortSignal.timeout(15_000),
     });

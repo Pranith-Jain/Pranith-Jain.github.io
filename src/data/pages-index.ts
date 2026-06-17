@@ -1381,7 +1381,8 @@ const DFIR_PAGES: readonly PageEntry[] = [
   {
     path: '/dfir/c/:cat',
     label: 'DFIR Hub',
-    description: 'A per-hub category landing for the DFIR area - ioc-triage, malware, file-analysis, artifacts, domain-network, asset-attack, email, identity-osint, vuln, detection, stix-taxii, cloud, ai-security, api, copilot, reports, dark-web, grc.',
+    description:
+      'A per-hub category landing for the DFIR area - ioc-triage, malware, file-analysis, artifacts, domain-network, asset-attack, email, identity-osint, vuln, detection, stix-taxii, cloud, ai-security, api, copilot, reports, dark-web, grc.',
     sectionLabel: 'DFIR · Hub',
     group: 'dfir',
     keywords: ['hub', 'category', 'pillar'],
@@ -2298,13 +2299,7 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
     sectionLabel: 'Threat Intel · Categories',
     group: 'threatintel',
   },
-  {
-    path: '/threatintel/learn',
-    label: 'H3ad Learn',
-    description: 'H3adLearn — guided learning paths for SOC analysts and CTI researchers.',
-    sectionLabel: 'Threat Intel · Reference',
-    group: 'threatintel',
-  },
+
   {
     path: '/threatintel/external',
     label: 'External Resources',

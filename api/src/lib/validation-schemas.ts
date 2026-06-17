@@ -1016,6 +1016,7 @@ export const githubSecuritySchema = z.object({
   ghsa: z.string().max(20).optional(),
   ecosystem: z.string().max(50).optional(),
   package: z.string().max(100).optional(),
+  recent: z.enum(['true', 'false']).optional(),
 });
 
 // ── Crypto Tracer (Phase A/B) ───────────────────────────────────

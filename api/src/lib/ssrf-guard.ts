@@ -169,7 +169,12 @@ export async function pinnedFetch(rawUrl: string, init?: RequestInit): Promise<R
   // Pin the connection to the validated IP (Host/SNI stay = hostname so TLS
   // still validates). Defeats rebinding: no attacker-controlled re-resolve.
   const cf = { resolveOverride: check.pinIp } as Record<string, unknown>;
-  return fetch(parsed.toString(), { ...init, cf } as RequestInit);
+  // Safe-by-default redirect handling: the platform default is `follow`, which
+  // would re-resolve the redirect target with no pin (SSRF). Force `manual`
+  // unless the caller explicitly opted into `manual`/`error`. (`follow` is
+  // already rejected above — callers that must follow use pinnedFetchFollow.)
+  const redirect = init?.redirect === 'manual' || init?.redirect === 'error' ? init.redirect : 'manual';
+  return fetch(parsed.toString(), { ...init, redirect, cf } as RequestInit);
 }
 
 /**

@@ -157,35 +157,34 @@ export const HUB_META: readonly HubMeta[] = [
         desc: 'Visualize actor → actor → IOC connections.',
         compVar: 'RelationshipGraph',
       },
-        {
+      {
         path: '/threatintel/apt-tracker',
         tabId: 'apt-tracker',
         label: 'APT Tracker',
         desc: 'APT group tracker organised by region — China, Russia, Iran, North Korea, NATO, Middle East, Israel.',
         compVar: 'AptTracker',
       },
-        {
+      {
         path: '/threatintel/most-wanted',
         tabId: 'most-wanted',
         label: 'Most Wanted Actors',
         desc: 'Top-priority threat actors — LockBit, Cl0p, Scattered Spider, BlackCat, and other high-impact groups.',
         compVar: 'MostWanted',
       },
-        {
+      {
         path: '/threatintel/extremists',
         tabId: 'extremists',
         label: 'Extremist Groups',
         desc: 'Ideology-driven extremist group tracking with indicators and monitoring sources.',
         compVar: 'Extremists',
       },
-        {
+      {
         path: '/threatintel/predators',
         tabId: 'predators',
         desc: 'Online predator categories, regional risk, and intervention resources.',
         label: 'Online Predators',
         compVar: 'Predators',
       },
-
     ],
   },
   {
@@ -224,14 +223,13 @@ export const HUB_META: readonly HubMeta[] = [
         desc: 'Find connections across campaigns, actors, and IOCs.',
         compVar: 'CrossCampaignCorrelation',
       },
-        {
+      {
         path: '/threatintel/briefings',
         tabId: 'briefings',
         label: 'Daily & Weekly Briefings',
         desc: 'Tactical digests with IOCs, severity, and detection guidance.',
         compVar: 'Briefings',
       },
-
     ],
   },
   {
@@ -489,14 +487,13 @@ export const HUB_META: readonly HubMeta[] = [
         desc: 'My curated threat-intel feed — personal bookmarks and follows.',
         compVar: 'MyThreatIntel',
       },
-        {
+      {
         path: '/threatintel/source-health',
         tabId: 'source-health',
         label: 'Source Health',
         desc: 'Operational status, SLO metrics, and NATO Admiralty trust grades for every upstream feed.',
         compVar: 'SourceHealth',
       },
-
     ],
   },
   {
@@ -597,14 +594,13 @@ export const HUB_META: readonly HubMeta[] = [
         desc: 'Scraped intel usernames — actor handles, leak-site ops.',
         compVar: 'ScrapedIntelUsernames',
       },
-        {
+      {
         path: '/threatintel/telegram-monitor',
         tabId: 'telegram-monitor',
         label: 'Telegram Leak Monitor',
         desc: 'Leak feed, KPIs, discovered channels, and per-source settings for monitored Telegram channels.',
         compVar: 'TelegramMonitor',
       },
-
     ],
   },
   {
@@ -708,14 +704,13 @@ export const HUB_META: readonly HubMeta[] = [
         desc: 'Crypto wallet directory tied to known ransom groups.',
         compVar: 'Ransomwhere',
       },
-        {
+      {
         path: '/threatintel/ransomware-live',
         tabId: 'ransomware-live',
         label: 'ransomware.live PRO',
         desc: 'Authenticated PRO surface — victim stats, recent cyberattacks, negotiations, and YARA packs.',
         compVar: 'RansomwareLive',
       },
-
     ],
   },
   {
@@ -972,22 +967,14 @@ export const HUB_META: readonly HubMeta[] = [
         label: 'LLM Threat Atlas',
         desc: 'MITRE ATLAS — LLM/AI threat atlas.',
         compVar: 'LlmThreatAtlas',
-      },      {
+      },
+      {
         path: '/threatintel/about',
         tabId: 'about',
         label: 'About the Platform',
         desc: 'What is covered, data principles, and the analyst-first design intent behind the surface.',
         compVar: 'ThreatIntelAbout',
       },
-
-        {
-        path: '/threatintel/learn',
-        tabId: 'learn',
-        label: 'H3ad Learn',
-        desc: 'Interactive training chapters with concept walkthroughs and runnable code examples.',
-        compVar: 'H3adLearn',
-      },
-
     ],
   },
   {
@@ -1107,14 +1094,13 @@ export const HUB_META: readonly HubMeta[] = [
         desc: 'Cross-source search across the entire platform.',
         compVar: 'UnifiedSearch',
       },
-        {
+      {
         path: '/threatintel/tools/settings',
         tabId: 'settings',
         label: 'Integrations & Settings',
         desc: 'What integrations are wired in and what capability each one unlocks for the platform.',
         compVar: 'Settings',
       },
-
     ],
   },
   {
@@ -1242,21 +1228,20 @@ export const HUB_META: readonly HubMeta[] = [
         compVar: 'Observe',
         badge: 'live',
       },
-        {
+      {
         path: '/threatintel/soc-dashboard',
         tabId: 'soc-dashboard',
         label: 'SOC Dashboard',
         desc: 'Unified tactical SOC view — ransomware, vulnerabilities, and IOC stream panels.',
         compVar: 'SocDashboard',
       },
-        {
+      {
         path: '/threatintel/live-center',
         tabId: 'live-center',
         label: 'Live Center — Web OSINT',
         desc: 'Browser-based live OSINT tools with install, example, and reference URL per tool.',
         compVar: 'LiveCenter',
       },
-
     ],
   },
 ];
@@ -1267,10 +1252,45 @@ export const HUB_META: readonly HubMeta[] = [
 
 const HUB_BY_ID = new Map(HUB_META.map((h) => [h.id, h]));
 const PAGE_BY_PATH = new Map<string, { hub: HubMeta; page: HubPage }>();
+// slug → hub id. The slug for a page is the LAST segment of its path
+// (e.g. `/threatintel/iocs/cross` → `cross`). The hub itself is the slug
+// for flat 2-segment pages (e.g. `/threatintel/detections`). Both
+// contribute entries here. When the same slug appears in two hubs
+// (e.g. `cross` is a tab under both `iocs` and `campaigns`) the first
+// write wins; the resolver still returns the correct hub for 3-segment
+// paths because it uses the hub part, not the slug. A drift test in
+// `src/data/threatintel-hubs.test.ts` asserts that the resulting map
+// is well-formed (every entry points to a real hub).
+const SLUG_TO_HUB = new Map<string, string>();
+// Set of all valid 2-segment paths (flat tool pages) — used by the
+// back-link resolver to disambiguate `/threatintel/<hub-id>` (the hub
+// landing page) from `/threatintel/<flat-tool-slug>` (a tool that just
+// happens to share its name with a tab elsewhere).
+const FLAT_TOOL_PATHS = new Set<string>();
 for (const hub of HUB_META) {
+  // 2-segment page: /threatintel/<hub>  → the slug is the hub id itself.
+  SLUG_TO_HUB.set(hub.id, hub.id);
   for (const page of hub.pages) {
+    const rel = page.path.replace(/^\/threatintel\//, '');
+    const parts = rel.split('/');
+    const slug = parts[parts.length - 1];
+    if (slug && !SLUG_TO_HUB.has(slug)) SLUG_TO_HUB.set(slug, hub.id);
+    if (parts.length === 1) FLAT_TOOL_PATHS.add(page.path);
     PAGE_BY_PATH.set(page.path, { hub, page });
   }
+}
+
+/** Look up the hub id for a tool slug (the last path segment after
+ *  /threatintel/). Returns `undefined` when the slug is not registered. */
+export function hubIdForSlug(slug: string): string | undefined {
+  return SLUG_TO_HUB.get(slug);
+}
+
+/** True when `path` is a registered flat 2-segment tool page
+ *  (e.g. `/threatintel/briefings` lives directly under the campaigns
+ *  hub and is a real tool, not a hub landing). */
+export function isFlatToolPath(path: string): boolean {
+  return FLAT_TOOL_PATHS.has(path);
 }
 
 export function getHub(id: string): HubMeta | undefined {

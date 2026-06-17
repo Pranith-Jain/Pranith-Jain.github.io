@@ -1,52 +1,139 @@
 import { describe, it, expect } from 'vitest';
-import { backCategoryFor, __TEST_ONLY } from './back-link';
+import { backCategoryFor } from './back-link';
+import { HUB_META, hubIdForSlug } from '../data/threatintel-hubs';
 
 describe('backCategoryFor', () => {
-  it('maps a threat-intel tool slug to /threatintel/catalog?cat=<id>', () => {
-    expect(backCategoryFor('/threatintel/writeups')).toBe('/threatintel/catalog?cat=knowledge');
-    expect(backCategoryFor('/threatintel/cve-list')).toBe('/threatintel/catalog?cat=ioc-detection');
-    expect(backCategoryFor('/threatintel/ransomware-activity')).toBe('/threatintel/catalog?cat=ransomware');
+  describe('threat-intel 2-segment paths (flat tool pages)', () => {
+    // The 2-segment shapes that the resolver should recognise as
+    // registered flat tool pages (every flat page has a direct
+    // /threatintel/<slug> URL — see HUB_META).
+
+    it('returns null for /threatintel/detections (a redirect target, not a flat page)', () => {
+      // /threatintel/detections → /threatintel/detections/detections
+      // is a legacy 2-segment alias. The 3-segment case below is the
+      // one the user actually lands on after the redirect.
+      expect(backCategoryFor('/threatintel/detections')).toBeNull();
+    });
+
+    it('maps /threatintel/briefings to the campaigns hub', () => {
+      // /threatintel/briefings is a registered flat page under `campaigns`.
+      expect(backCategoryFor('/threatintel/briefings')).toBe('/threatintel/catalog?cat=campaigns');
+    });
+
+    it('returns null for /threatintel/metrics (a redirect target)', () => {
+      // /threatintel/metrics is a legacy alias → /threatintel/predictive/dashboard.
+      expect(backCategoryFor('/threatintel/metrics')).toBeNull();
+    });
+
+    it('maps /threatintel/most-wanted to the actors hub', () => {
+      expect(backCategoryFor('/threatintel/most-wanted')).toBe('/threatintel/catalog?cat=actors');
+    });
+
+    it('maps /threatintel/apt-tracker to the actors hub', () => {
+      expect(backCategoryFor('/threatintel/apt-tracker')).toBe('/threatintel/catalog?cat=actors');
+    });
+
+    it('returns null for paths that are not registered tools', () => {
+      // /threatintel/about IS a registered flat page (wiki hub) — see
+      // HUB_META — so the resolver correctly back-links to the wiki
+      // catalog. The unrecognised path below is the real negative case.
+      expect(backCategoryFor('/threatintel/unknown-tool')).toBeNull();
+      expect(backCategoryFor('/threatintel/about')).toBe('/threatintel/catalog?cat=wiki');
+    });
   });
 
-  it('maps a dfir tool slug to /dfir/tools/<group>', () => {
-    expect(backCategoryFor('/dfir/ioc-check')).toBe('/dfir/tools/core-dfir');
-    expect(backCategoryFor('/dfir/domain')).toBe('/dfir/tools/investigation');
-    expect(backCategoryFor('/dfir/prompt-injection')).toBe('/dfir/tools/aisec');
+  describe('threat-intel 3-segment paths (hub/tab routes)', () => {
+    it('maps /threatintel/iocs/cross to the iocs hub', () => {
+      // Previously broken: 'iocs' was missing from the legacy map so
+      // the back link fell through to the surface root.
+      expect(backCategoryFor('/threatintel/iocs/cross')).toBe('/threatintel/catalog?cat=iocs');
+    });
+
+    it('maps /threatintel/detections/detections to the detections hub', () => {
+      expect(backCategoryFor('/threatintel/detections/detections')).toBe('/threatintel/catalog?cat=detections');
+    });
+
+    it('maps /threatintel/social/telegram-leaks to the social hub', () => {
+      // Previously broken: 'social' was missing from the legacy map.
+      expect(backCategoryFor('/threatintel/social/telegram-leaks')).toBe('/threatintel/catalog?cat=social');
+    });
+
+    it('maps /threatintel/darkweb/ransom-activity to the darkweb hub', () => {
+      // Previously routed to 'darkweb-breach' (legacy id, no longer
+      // exists in HUB_META).
+      expect(backCategoryFor('/threatintel/darkweb/ransom-activity')).toBe('/threatintel/catalog?cat=darkweb');
+    });
+
+    it('maps /threatintel/feeds/threatfeeds to the feeds hub', () => {
+      // Previously routed to 'feeds-news' (legacy id).
+      expect(backCategoryFor('/threatintel/feeds/threatfeeds')).toBe('/threatintel/catalog?cat=feeds');
+    });
+
+    it('maps /threatintel/phishing/scam to the phishing hub', () => {
+      // Previously broken: 'phishing' was missing from the legacy map.
+      expect(backCategoryFor('/threatintel/phishing/scam')).toBe('/threatintel/catalog?cat=phishing');
+    });
+
+    it('disambiguates slug collisions using the hub part of the path', () => {
+      // `cross` is a tab slug under both `iocs` and `campaigns`. The
+      // resolver must use the hub part of the path, not the slug.
+      expect(backCategoryFor('/threatintel/iocs/cross')).toBe('/threatintel/catalog?cat=iocs');
+      expect(backCategoryFor('/threatintel/campaigns/cross')).toBe('/threatintel/catalog?cat=campaigns');
+    });
+
+    it('returns null when the hub part is not a registered hub', () => {
+      expect(backCategoryFor('/threatintel/unknown-hub/tab')).toBeNull();
+    });
   });
 
-  it('returns null for unknown / off-surface paths', () => {
-    expect(backCategoryFor('/threatintel/about')).toBeNull(); // not in SECTIONS
-    expect(backCategoryFor('/dfir/unknown-tool')).toBeNull();
-    expect(backCategoryFor('/threatintel/catalog')).toBeNull(); // catalog has no parent category
-    expect(backCategoryFor('/blog/some-post')).toBeNull();
+  describe('dfir paths', () => {
+    it('maps /dfir/ioc-check to the core-dfir group', () => {
+      expect(backCategoryFor('/dfir/ioc-check')).toBe('/dfir/tools/core-dfir');
+    });
+
+    it('maps /dfir/domain to the investigation group', () => {
+      expect(backCategoryFor('/dfir/domain')).toBe('/dfir/tools/investigation');
+    });
+
+    it('returns null for unknown dfir tools', () => {
+      expect(backCategoryFor('/dfir/unknown-tool')).toBeNull();
+    });
   });
 
-  it('routes 3-segment threatintel tab routes to catalog with category filter', () => {
-    // Hub with category mapping: go to catalog filtered by that category
-    expect(backCategoryFor('/threatintel/briefings/daily-2026-05-19')).toBe('/threatintel/catalog?cat=cti-platforms');
-    expect(backCategoryFor('/threatintel/actors/APT28')).toBe('/threatintel/catalog?cat=adversary');
-    // Hub without category mapping: no smart back, fall through to surface root
-    expect(backCategoryFor('/threatintel/social/firehose')).toBeNull();
-    expect(backCategoryFor('/threatintel/cves/cves')).toBeNull();
+  describe('off-surface paths', () => {
+    it('returns null for the root', () => {
+      expect(backCategoryFor('/threatintel')).toBeNull();
+    });
+
+    it('returns null for blog posts and other unrelated paths', () => {
+      expect(backCategoryFor('/blog/some-post')).toBeNull();
+      expect(backCategoryFor('/')).toBeNull();
+    });
+  });
+});
+
+describe('hubIdForSlug (drift guard)', () => {
+  it('returns the hub id for every 2-segment slug registered in HUB_META', () => {
+    // 2-segment pages: every hub has a flat page that maps to its own id.
+    for (const hub of HUB_META) {
+      expect(hubIdForSlug(hub.id), `hub ${hub.id} should resolve to itself`).toBe(hub.id);
+    }
   });
 
-  // Drift guard: every threat-intel slug declared in the back-link map points
-  // to a real category id. Categories live inside Home.tsx — we hardcode the
-  // valid set here. If a category is renamed in Home.tsx, this list needs to
-  // change in lockstep and the test will fail until both are updated.
-  it('every threat-intel mapping points to a real Home.tsx category id', () => {
-    const VALID_CATEGORIES = new Set([
-      'ransomware',
-      'darkweb-breach',
-      'feeds-news',
-      'cti-platforms',
-      'soc-dashboards',
-      'ioc-detection',
-      'adversary',
-      'knowledge',
-    ]);
-    for (const [slug, cat] of Object.entries(__TEST_ONLY.THREATINTEL_TOOL_TO_CATEGORY)) {
-      expect(VALID_CATEGORIES.has(cat), `slug "${slug}" points to unknown category "${cat}"`).toBe(true);
+  it('returns a real hub id for every page tab in HUB_META', () => {
+    const HUB_IDS = new Set(HUB_META.map((h) => h.id));
+    for (const hub of HUB_META) {
+      for (const page of hub.pages) {
+        const rel = page.path.replace(/^\/threatintel\//, '');
+        const parts = rel.split('/');
+        // For 2-segment paths the slug is the hub id (covered above).
+        if (parts.length === 2) {
+          const slug = parts[1]!;
+          const resolved = hubIdForSlug(slug);
+          expect(resolved, `slug "${slug}" from ${page.path}`).toBeDefined();
+          expect(HUB_IDS.has(resolved!), `slug "${slug}" resolved to unknown hub "${resolved}"`).toBe(true);
+        }
+      }
     }
   });
 });

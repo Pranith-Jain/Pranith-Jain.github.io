@@ -325,7 +325,7 @@ const TorGateway = lazy(() => import('./pages/dfir/TorGateway'));
 const EmailReputation = lazy(() => import('./pages/dfir/EmailReputation'));
 const PhishOps = lazy(() => import('./pages/dfir/PhishOps'));
 const PhishBook = lazy(() => import('./pages/dfir/PhishBook'));
-const H3adLearn = lazy(() => import('./pages/threatintel/H3adLearn'));
+
 // (removed LiveFeedsPage and MyDashboardPage)
 const InfostealerDetail = lazy(() => import('./pages/threatintel/InfostealerDetail'));
 const DmarcAnalyzer = lazy(() => import('./pages/dfir/DmarcAnalyzer'));
@@ -567,7 +567,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel/most-wanted', Component: MostWanted },
   { path: '/threatintel/extremists', Component: Extremists },
   { path: '/threatintel/predators', Component: Predators },
-  { path: '/threatintel/learn', Component: H3adLearn },
+
   { path: '/threatintel/live-center', Component: LiveCenter },
   // ── Threat Intel: direct page URLs (auto-added by audit) ──
   { path: '/threatintel/actors/directory', Component: ActorDirectory },
@@ -796,6 +796,7 @@ const REDIRECTS: ReadonlyArray<{ path: string; to: string }> = [
 
   // ── Detection Hub ───────────────────────────────────────────────
   { path: '/threatintel/rules', to: '/threatintel/detections/detections' },
+  { path: '/threatintel/detections', to: '/threatintel/detections/detections' },
   { path: '/threatintel/signal', to: '/threatintel/detections/signal' },
   { path: '/threatintel/threatsignal', to: '/threatintel/detections/signal' },
   { path: '/threatintel/yara', to: '/threatintel/detections/yara' },

@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react';
-import { Link } from 'react-router-dom';
-import { ArrowLeft, RefreshCw, Download, Loader2, Clock } from 'lucide-react';
+import { RefreshCw, Download, Loader2, Clock } from 'lucide-react';
 import { SEVERITY_DOT, SEVERITY_PILL, SEVERITY_TEXT, type SocSeverity } from './tone';
 import { timeAgo } from './utils';
 
@@ -113,8 +112,6 @@ export function SocShell({
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100">
       <div className="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8 py-12 text-slate-900 dark:text-slate-100">
-        <BackLink />
-
         <div className="animate-fade-in-up mb-8">
           <h1 className="text-3xl sm:text-4xl font-display font-bold flex items-center gap-3">
             <span className="text-brand-600 dark:text-brand-400 [&_svg]:shrink-0">{icon}</span>
@@ -232,19 +229,6 @@ function SocSkeleton(): JSX.Element {
         ))}
       </div>
     </div>
-  );
-}
-
-/* ─── Back link (matches the rest of the app's BackLink pattern) ──── */
-
-function BackLink(): JSX.Element {
-  return (
-    <Link
-      to="/threatintel"
-      className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
-    >
-      <ArrowLeft size={14} /> back to threatintel
-    </Link>
   );
 }
 

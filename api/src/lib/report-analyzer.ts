@@ -25,7 +25,7 @@ import { generateAiSummary, type SummaryInput } from './ai-summary';
 import { extractIocsFromImageUrl } from './image-ioc-extract';
 import { buildBundleFromReport } from '../routes/intel-bundle';
 import type { BuildResult } from './stix-build';
-import { assertPublicHost, SsrfError } from './ssrf-guard';
+import { pinnedFetchFollow, SsrfError } from './ssrf-guard';
 
 export type IocKind = 'ip' | 'url' | 'domain' | 'hash' | 'cve' | 'email';
 export interface ExtractedIoc {
@@ -189,15 +189,17 @@ async function fetchReportText(url: string): Promise<string> {
   if (parsed.protocol !== 'http:' && parsed.protocol !== 'https:') {
     throw new Error('only http/https urls accepted');
   }
-  const check = await assertPublicHost(parsed.hostname);
-  if (!check.ok) throw new Error(check.error ?? 'host rejected');
   const ctrl = new AbortController();
   const timer = setTimeout(() => ctrl.abort(), 15_000);
   try {
-    const res = await fetch(url, {
+    // SSRF-safe: pinnedFetchFollow re-validates + IP-pins EVERY hop, so a
+    // public URL that 302s to a private/metadata host (or DNS-rebinds between
+    // check and fetch) is blocked. Do NOT swap this for a raw fetch() — the
+    // raw `assertPublicHost(host) + fetch(url, {redirect:'follow'})` pattern
+    // it replaced was a full read-SSRF (TOCTOU + unvalidated redirect target).
+    const res = await pinnedFetchFollow(url, {
       headers: { 'user-agent': 'Mozilla/5.0 (compatible; portfolio-analyzer/1.0)' },
       signal: ctrl.signal,
-      redirect: 'follow',
     });
     if (!res.ok) throw new Error(`fetch ${res.status}`);
     const len = parseInt(res.headers.get('content-length') ?? '0', 10);

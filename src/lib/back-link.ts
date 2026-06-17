@@ -1,104 +1,30 @@
 /**
- * Back-link routing: when you're on a tool page (say /threatintel/writeups),
- * the "← back" affordance should drop you on the catalog filtered by
- * category (/threatintel/catalog?cat=knowledge), not the full home. That
- * keeps related sources one click away instead of forcing you to
+ * Back-link routing: when you're on a tool page (say
+ * `/threatintel/detections`), the "← back" affordance should drop you on
+ * the catalog filtered by the relevant category
+ * (`/threatintel/catalog?cat=detections`), not the full home. That keeps
+ * related sources one click away instead of forcing the user to
  * re-navigate the chip strip.
  *
- * The source-of-truth for the DFIR mapping is `tool-sections.ts` (already
- * a pure data module). The threat-intel mapping is duplicated here because
- * the canonical SECTIONS array lives inside `pages/threatintel/Home.tsx`
- * alongside heavy components; pulling it would force every tool page to
- * bundle the home page's deps. A vitest test (`src/lib/back-link.test.ts`)
- * asserts the duplicate map stays in sync with Home.tsx's SECTIONS so any
- * drift fails CI rather than silently dead-ending a back link.
+ * The single source of truth is `data/threatintel-hubs.ts` — a hub is
+ * what the catalog filters by (`?cat=<hub-id>`). Pages look up their hub
+ * id by slug (last path segment) via `hubIdForSlug()`. We don't
+ * duplicate the slug → hub map here so it can't drift from the registry.
+ *
+ * For 3-segment paths like `/threatintel/<hub>/<tab>` the **hub**
+ * segment is used directly (no slug lookup), so a page like
+ * `/threatintel/iocs/cross` back-links to the `iocs` category even
+ * though the slug `cross` is also a tab under `campaigns`.
+ *
+ * DFIR's group map is built the same way: `data/dfir/tool-sections.ts`
+ * already exports SECTIONS, and we walk it once at module load.
  */
-
+import { hubIdForSlug, isFlatToolPath } from '../data/threatintel-hubs';
 import { SECTIONS as DFIR_SECTIONS, type ToolGroup } from '../components/dfir/tool-sections';
 
-// ---------------------------------------------------------------------------
-// Threat Intel: /threatintel/<slug> → category id  (categories rendered at
-// /threatintel/c/<cat>). Keep ordering aligned with Home.tsx SECTIONS so a
-// reviewer can diff the two side-by-side.
-// ---------------------------------------------------------------------------
-const THREATINTEL_TOOL_TO_CATEGORY: Record<string, string> = {
-  // ransomware
-  'ransomware-activity': 'ransomware',
-  'ransomware-live': 'ransomware',
-  negotiations: 'ransomware',
-  're-leaks': 'ransomware',
-  'onion-watch': 'ransomware',
-  mythreatintel: 'ransomware',
-  // darkweb-breach
-  darkweb: 'darkweb-breach',
-  'breach-forums': 'darkweb-breach',
-  breach: 'darkweb-breach',
-  infostealer: 'darkweb-breach',
-  deepdarkcti: 'darkweb-breach',
-  'scam-watch': 'darkweb-breach',
-  // feeds-news
-  cybersec: 'feeds-news',
-  reddit: 'feeds-news',
-  x: 'feeds-news',
-  'threat-feeds': 'feeds-news',
-  'tech-ai-news': 'feeds-news',
-  'cyber-crime': 'feeds-news',
-  pulse: 'feeds-news',
-  'telegram-settings': 'feeds-news',
-  // cti-platforms
-  'threat-map': 'cti-platforms',
-  'global-pulse': 'cti-platforms',
-  'cti-platform': 'cti-platforms',
-  facilities: 'cti-platforms',
-  metrics: 'cti-platforms',
-  status: 'cti-platforms',
-  briefings: 'cti-platforms',
-  'feed-sources': 'cti-platforms',
-  settings: 'cti-platforms',
-  // soc-dashboards
-  'soc-ransomware': 'soc-dashboards',
-  'soc-vulns': 'soc-dashboards',
-  'soc-iocs': 'soc-dashboards',
-  // ioc-detection
-  'live-iocs': 'ioc-detection',
-  correlation: 'ioc-detection',
-  'c2-tracker': 'ioc-detection',
-  rules: 'ioc-detection',
-  detections: 'ioc-detection',
-  'cve-list': 'ioc-detection',
-  'cve-threat-map': 'ioc-detection',
-  'domain-monitor': 'ioc-detection',
-  // adversary
-  actors: 'adversary',
-  'actor-kb': 'adversary',
-  'actor-timeline': 'adversary',
-  mitre: 'adversary',
-  atlas: 'adversary',
-  malpedia: 'adversary',
-  maltrail: 'adversary',
-  // knowledge
-  'observable-db': 'knowledge',
-  observe: 'knowledge',
-  entity: 'knowledge',
-  search: 'knowledge',
-  copilot: 'knowledge',
-  'copilot-chat': 'knowledge',
-  research: 'knowledge',
-  signal: 'knowledge',
-  writeups: 'knowledge',
-  wiki: 'knowledge',
-  'cve-resources': 'knowledge',
-  'secops-tools': 'knowledge',
-  'awesome-lists': 'knowledge',
-  'external-resources': 'knowledge',
-  'telegram-watch': 'knowledge',
-  'osint-framework': 'knowledge',
-};
-
-// ---------------------------------------------------------------------------
-// DFIR: /dfir/<slug> → group  (groups rendered at /dfir/tools/<group>).
-// Derived once from the SECTIONS source of truth at module load.
-// ---------------------------------------------------------------------------
+/* ------------------------------------------------------------------ */
+/*  DFIR: /dfir/<slug> → ToolGroup (rendered at /dfir/tools/<group>)  */
+/* ------------------------------------------------------------------ */
 const DFIR_TOOL_TO_GROUP: Record<string, ToolGroup> = (() => {
   const map: Record<string, ToolGroup> = {};
   for (const section of DFIR_SECTIONS) {
@@ -112,30 +38,39 @@ const DFIR_TOOL_TO_GROUP: Record<string, ToolGroup> = (() => {
 })();
 
 /**
- * Given the current pathname, return the URL the "back" link should send the
- * user to. Returns `null` when the page isn't a known tool — callers fall
- * back to the surface's hub root (`/threatintel` or `/dfir`).
+ * Given the current pathname, return the URL the "back" link should
+ * send the user to. Returns `null` when the page isn't a known tool —
+ * callers fall back to the surface's hub root (`/threatintel` or
+ * `/dfir`).
  */
 export function backCategoryFor(pathname: string): string | null {
-  // 2-segment threatintel tool pages: /threatintel/<slug> → catalog
-  // filtered by category (e.g. /threatintel/catalog?cat=knowledge).
-  // The hub landing pages are gone; the catalog with ?cat= is the
-  // single way to land on a category-filtered browse view.
+  // 2-segment threatintel paths — two cases:
+  //   (a) Hub landing page: /threatintel/<hub-id>
+  //       (e.g. /threatintel/detections → ?cat=detections)
+  //   (b) Flat tool page: /threatintel/<slug>
+  //       (e.g. /threatintel/briefings → ?cat=campaigns)
+  // We only route a 2-segment path if it is a *registered* page; that
+  // way random surface routes like /threatintel/about (which is also a
+  // tab slug under `wiki`) don't accidentally back-link to the wiki
+  // hub when the user is on a totally different surface.
   const ti = /^\/threatintel\/([^/]+)$/.exec(pathname);
   if (ti) {
-    const cat = THREATINTEL_TOOL_TO_CATEGORY[ti[1]!];
-    return cat ? `/threatintel/catalog?cat=${cat}` : null;
+    if (!isFlatToolPath(pathname)) return null;
+    const hub = hubIdForSlug(ti[1]!);
+    return hub ? `/threatintel/catalog?cat=${hub}` : null;
   }
+
   // 3-segment threatintel tab/detail routes: /threatintel/<hub>/<tab>
-  // Back to catalog filtered by category when the hub has one
-  // (e.g. /threatintel/actors/APT28 → ?cat=adversary), else to the
-  // surface root.
+  // Use the hub part directly so collisions like `cross` (which is a
+  // tab under both `iocs` and `campaigns`) resolve to the correct hub
+  // for the path the user is actually on.
   const tiTab = /^\/threatintel\/([^/]+)\/[^/]+$/.exec(pathname);
   if (tiTab) {
     const hub = tiTab[1]!;
-    const cat = THREATINTEL_TOOL_TO_CATEGORY[hub];
-    return cat ? `/threatintel/catalog?cat=${cat}` : null;
+    if (hubIdForSlug(hub)) return `/threatintel/catalog?cat=${hub}`;
+    return null;
   }
+
   const df = /^\/dfir\/([^/]+)$/.exec(pathname);
   if (df) {
     const group = DFIR_TOOL_TO_GROUP[df[1]!];
@@ -146,6 +81,5 @@ export function backCategoryFor(pathname: string): string | null {
 
 // Exposed for the drift test; not part of the public API.
 export const __TEST_ONLY = {
-  THREATINTEL_TOOL_TO_CATEGORY,
   DFIR_TOOL_TO_GROUP,
 };
