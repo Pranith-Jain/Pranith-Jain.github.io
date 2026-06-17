@@ -2492,7 +2492,13 @@
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
-  <!-- Blog posts (20) -->
+  <!-- Blog posts (21) -->
+  <url>
+    <loc>https://pranithjain.qzz.io/blog/agentic-social-engineering-campaign-latam-financ-social-engineering-campaign-targets-lata</loc>
+    <lastmod>2026-06-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
   <url>
     <loc>https://pranithjain.qzz.io/blog/agentic-evolving-landscape-analyzing-emerging-fa-the-evolving-threat-landscape-analyzing-</loc>
     <lastmod>2026-06-15</lastmod>

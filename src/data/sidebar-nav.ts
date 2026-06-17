@@ -309,7 +309,7 @@ const dfir: SidebarConfig = {
     {
       title: 'Triage',
       items: [
-        { label: 'Dashboard', href: '/dfir', icon: LayoutDashboard },
+        { label: 'Home', href: '/dfir', icon: LayoutDashboard },
         { label: 'Catalog', href: '/dfir/catalog', icon: Compass, description: 'Every DFIR tool, searchable.' },
         { label: 'IOC Check', href: '/dfir/ioc-check', icon: Search },
         { label: 'X-VERDIKT', href: '/dfir/x-verdikt', icon: Shield },

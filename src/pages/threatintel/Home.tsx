@@ -231,7 +231,7 @@ export default function ThreatIntelHome(): JSX.Element {
           aria-label="Live across the platform"
           className="animate-fade-in-up rounded-2xl border border-slate-200/70 bg-gradient-to-b from-slate-50/80 to-white p-4 dark:border-slate-800 dark:from-slate-900/50 dark:to-slate-950/20 sm:p-5"
         >
-          <LiveSnapshotPanel compact subtitle="live intel pulse across the platform" mbClass="mb-0" />
+          <LiveSnapshotPanel tone="rose" compact subtitle="live intel pulse across the platform" mbClass="mb-0" />
         </section>
       )}
 

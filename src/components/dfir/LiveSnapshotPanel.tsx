@@ -16,54 +16,29 @@ import { LiveIndicator } from '../LiveIndicator';
  * reference, so a re-render of the panel (e.g. when lastVisit flips) only
  * re-renders the cards whose own props actually changed.
  */
-const RIGHT_ACTION_RANSOMWARE = (
-  <Link
-    to="/threatintel/darkweb/ransom-activity"
-    className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-0.5"
-  >
-    feed <ExternalLink size={9} />
-  </Link>
-);
-const RIGHT_ACTION_TELEGRAM = (
-  <Link
-    to="/threatintel/social/telegram-leaks"
-    className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-0.5"
-  >
-    full feed <ExternalLink size={9} />
-  </Link>
-);
-const RIGHT_ACTION_SCAM = (
-  <Link
-    to="/threatintel/phishing/scam"
-    className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-0.5"
-  >
-    full feed <ExternalLink size={9} />
-  </Link>
-);
-const RIGHT_ACTION_THREAT_INTEL = (
-  <Link
-    to="/threatintel/feeds/threatfeeds"
-    className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-0.5"
-  >
-    full feeds <ExternalLink size={9} />
-  </Link>
-);
-const RIGHT_ACTION_TECH_AI = (
-  <Link
-    to="/threatintel/social/news"
-    className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-0.5"
-  >
-    full feeds <ExternalLink size={9} />
-  </Link>
-);
-const RIGHT_ACTION_BRIEFINGS = (
-  <Link
-    to="/threatintel/briefings"
-    className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-0.5"
-  >
-    archive <ExternalLink size={9} />
-  </Link>
-);
+const LINK_CLS = {
+  brand: 'text-brand-600 dark:text-brand-400',
+  rose: 'text-rose-600 dark:text-rose-400',
+};
+function makeRightAction(to: string, label: string, tone: 'brand' | 'rose'): JSX.Element {
+  return (
+    <Link to={to} className={`${LINK_CLS[tone]} hover:underline inline-flex items-center gap-0.5`}>
+      {label} <ExternalLink size={9} />
+    </Link>
+  );
+}
+const RIGHT_ACTION_RANSOMWARE = (tone: 'brand' | 'rose' = 'brand'): JSX.Element =>
+  makeRightAction('/threatintel/darkweb/ransom-activity', 'feed', tone);
+const RIGHT_ACTION_TELEGRAM = (tone: 'brand' | 'rose' = 'brand'): JSX.Element =>
+  makeRightAction('/threatintel/social/telegram-leaks', 'full feed', tone);
+const RIGHT_ACTION_SCAM = (tone: 'brand' | 'rose' = 'brand'): JSX.Element =>
+  makeRightAction('/threatintel/phishing/scam', 'full feed', tone);
+const RIGHT_ACTION_THREAT_INTEL = (tone: 'brand' | 'rose' = 'brand'): JSX.Element =>
+  makeRightAction('/threatintel/feeds/threatfeeds', 'full feeds', tone);
+const RIGHT_ACTION_TECH_AI = (tone: 'brand' | 'rose' = 'brand'): JSX.Element =>
+  makeRightAction('/threatintel/social/news', 'full feeds', tone);
+const RIGHT_ACTION_BRIEFINGS = (tone: 'brand' | 'rose' = 'brand'): JSX.Element =>
+  makeRightAction('/threatintel/briefings', 'archive', tone);
 
 /**
  * Live "right now" snapshot — 6 cards: Ransomware claims, Cybersec
@@ -99,6 +74,10 @@ interface Props {
    *  to `true` so /threatintel reads as live; /dfir mounts set this to
    *  `false` to keep the historical "Right now" wording. */
   showLiveIndicator?: boolean;
+  /** Section accent. 'brand' (default) for /dfir, 'rose' for /threatintel.
+   *  Drives the per-card link colour so a /threatintel "open feed →" link
+   *  doesn't read as a brand-blue DFIR reference. */
+  tone?: 'brand' | 'rose';
 }
 
 interface RansomwareVictim {
@@ -220,7 +199,14 @@ function isNewSince(iso: string | undefined, since: number): boolean {
 }
 
 export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
-  const { compact = false, headerLabel = 'Right now', subtitle, mbClass = 'mb-12', showLiveIndicator = true } = props;
+  const {
+    compact = false,
+    headerLabel = 'Right now',
+    subtitle,
+    mbClass = 'mb-12',
+    showLiveIndicator = true,
+    tone = 'brand',
+  } = props;
 
   const lastVisit = useLastVisit();
   const watchlist = useWatchlist();
@@ -447,7 +433,7 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
           watchCount={watchedRansomware}
           watchTerms={watchlist}
           showNewBadge={lastVisit > 0}
-          rightAction={RIGHT_ACTION_RANSOMWARE}
+          rightAction={RIGHT_ACTION_RANSOMWARE(tone)}
           loading={!ransomware}
           error={errors.ransomware}
           compact={compact}
@@ -519,7 +505,7 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
           watchCount={watchedTelegram}
           watchTerms={watchlist}
           showNewBadge={lastVisit > 0}
-          rightAction={RIGHT_ACTION_TELEGRAM}
+          rightAction={RIGHT_ACTION_TELEGRAM(tone)}
           loading={!telegram}
           error={errors.telegram}
           compact={compact}
@@ -589,7 +575,7 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
           watchCount={watchedScam}
           watchTerms={watchlist}
           showNewBadge={lastVisit > 0}
-          rightAction={RIGHT_ACTION_SCAM}
+          rightAction={RIGHT_ACTION_SCAM(tone)}
           loading={!scam}
           error={errors.scam}
           compact={compact}
@@ -653,7 +639,7 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
           watchCount={watchedThreatIntel}
           watchTerms={watchlist}
           showNewBadge={lastVisit > 0}
-          rightAction={RIGHT_ACTION_THREAT_INTEL}
+          rightAction={RIGHT_ACTION_THREAT_INTEL(tone)}
           loading={!threatIntel}
           error={errors.threatIntel}
           compact={compact}
@@ -719,7 +705,7 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
           watchCount={watchedTechAi}
           watchTerms={watchlist}
           showNewBadge={lastVisit > 0}
-          rightAction={RIGHT_ACTION_TECH_AI}
+          rightAction={RIGHT_ACTION_TECH_AI(tone)}
           loading={!techAi}
           error={errors.techAi}
           compact={compact}
@@ -786,7 +772,7 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
           icon={ScrollText}
           title="Threat briefings"
           showNewBadge={false}
-          rightAction={RIGHT_ACTION_BRIEFINGS}
+          rightAction={RIGHT_ACTION_BRIEFINGS(tone)}
           loading={!briefings}
           error={errors.briefings}
           compact={compact}
