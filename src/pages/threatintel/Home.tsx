@@ -1,6 +1,19 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { Activity, ArrowRight, ExternalLink, Globe, Link2, Search, Users, X } from 'lucide-react';
+import {
+  Activity,
+  ArrowRight,
+  ExternalLink,
+  Globe,
+  Link2,
+  Search,
+  Users,
+  X,
+  Compass,
+  Filter as FilterIcon,
+  Sparkles,
+  type LucideIcon,
+} from 'lucide-react';
 import { LiveSnapshotPanel } from '../../components/dfir/LiveSnapshotPanel';
 import { WhatsNewBanner } from '../../components/threatintel/WhatsNewBanner';
 import { LatestBriefingCard } from '../../components/threatintel/LatestBriefingCard';
@@ -10,6 +23,8 @@ import { QuickActions, type QuickAction } from '../../components/QuickActions';
 import { LivePulse } from '../../components/threatintel/LivePulse';
 import { RecentToolsRow } from '../../components/RecentToolsRow';
 import { SECTIONS, flattenTools, matchesQuery } from '../../data/threatintel-sections';
+import { CATALOG, catalogSearch, type HubMeta, type HubPage } from '../../data/threatintel-catalog';
+import type { HubPageBadge } from '../../data/threatintel-hubs';
 
 /**
  * Threat-Intel landing page — the SOLE entry point for sources, feeds, RSS,
@@ -401,6 +416,207 @@ export default function ThreatIntelHome(): JSX.Element {
           </div>
         </section>
       )}
+
+      {/* ── Full catalog embed ────────────────────────────────── */}
+      <HomeCatalog />
     </div>
+  );
+}
+
+const BADGE_STYLES: Record<NonNullable<HubPageBadge>, string> = {
+  live: 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300',
+  new: 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300',
+  beta: 'border-violet-500/40 bg-violet-500/10 text-violet-700 dark:text-violet-300',
+};
+
+function HomeCatalog(): JSX.Element {
+  const [query, setQuery] = useState('');
+  const [activeCat, setActiveCat] = useState('all');
+  const totalEntries = useMemo(() => CATALOG.reduce((sum, h) => sum + h.pages.length, 0), []);
+  const searchResults = useMemo(() => (query.trim() ? catalogSearch(query) : null), [query]);
+  const visibleCategories = useMemo<HubMeta[]>(() => {
+    if (searchResults) {
+      const ids = new Set(searchResults.map((r) => r.category.id));
+      return CATALOG.filter((c) => ids.has(c.id));
+    }
+    if (activeCat === 'all') return CATALOG;
+    return CATALOG.filter((c) => c.id === activeCat);
+  }, [searchResults, activeCat]);
+
+  return (
+    <section className="animate-fade-in-up mb-12">
+      <div className="mb-5 border-t border-slate-200/70 pt-6 dark:border-slate-800">
+        <h2 className="flex items-center gap-2 font-display text-base font-semibold text-slate-700 dark:text-slate-300">
+          <Compass size={18} className="text-brand-600 dark:text-brand-400" /> Page Catalog
+          <span className="font-mono text-mini text-slate-400 font-normal">· {totalEntries} pages</span>
+        </h2>
+      </div>
+
+      <div className="mb-6 space-y-3">
+        <div className="relative">
+          <Search
+            size={14}
+            className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+            aria-hidden="true"
+          />
+          <input
+            type="text"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Search by name, route, or keyword (e.g. 'ransomware', 'yara', '/iocs/c2')…"
+            aria-label="Search catalog"
+            className="w-full rounded-lg border border-slate-200 bg-white py-2.5 pl-9 pr-10 font-mono text-tool text-slate-900 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/20 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-100 dark:placeholder:text-slate-500"
+          />
+          {query && (
+            <button
+              type="button"
+              onClick={() => setQuery('')}
+              className="absolute right-2 top-1/2 inline-flex -translate-y-1/2 items-center gap-1 rounded px-1.5 py-0.5 font-mono text-micro text-slate-500 hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-800 dark:hover:text-slate-100"
+              aria-label="Clear search"
+            >
+              <X size={11} /> clear
+            </button>
+          )}
+        </div>
+
+        <div className="flex flex-wrap items-center gap-2" role="tablist" aria-label="Catalog categories">
+          <span className="inline-flex items-center gap-1 font-mono text-micro uppercase tracking-wider text-slate-500 dark:text-slate-400">
+            <FilterIcon size={11} /> filter
+          </span>
+          <CategoryPill
+            label="All"
+            count={totalEntries}
+            active={activeCat === 'all'}
+            onClick={() => setActiveCat('all')}
+            accent="text-slate-700 dark:text-slate-300"
+          />
+          {CATALOG.map((c) => (
+            <CategoryPill
+              key={c.id}
+              label={c.label}
+              count={c.pages.length}
+              active={activeCat === c.id}
+              onClick={() => setActiveCat(c.id)}
+              accent={c.tone}
+            />
+          ))}
+        </div>
+
+        {searchResults && (
+          <div className="font-mono text-mini text-slate-500">
+            {searchResults.length} {searchResults.length === 1 ? 'match' : 'matches'} for &ldquo;{query.trim()}&rdquo;
+            {searchResults.length === 0 ? ' · try fewer or different keywords' : ''}
+          </div>
+        )}
+      </div>
+
+      <div className="space-y-8">
+        {visibleCategories.length === 0 && (
+          <div className="rounded-xl border border-dashed border-slate-300 dark:border-slate-700 p-10 text-center">
+            <p className="text-sm text-slate-500 dark:text-slate-400">
+              No pages match the current filter. Try a different category or clear the search box.
+            </p>
+          </div>
+        )}
+        {visibleCategories.map((cat) => {
+          const entries =
+            searchResults != null
+              ? searchResults.filter((r) => r.category.id === cat.id).map((r) => r as HubPage)
+              : cat.pages;
+          return <CatalogSection key={cat.id} category={cat} entries={entries} />;
+        })}
+      </div>
+    </section>
+  );
+}
+
+function CategoryPill({
+  label,
+  count,
+  active,
+  onClick,
+  accent,
+}: {
+  label: string;
+  count: number;
+  active: boolean;
+  onClick: () => void;
+  accent: string;
+}): JSX.Element {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      role="tab"
+      aria-selected={active}
+      className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 font-mono text-micro transition-colors ${
+        active
+          ? `${accent} border-current bg-current/10`
+          : 'border-slate-300/60 bg-white text-slate-500 hover:border-slate-400 hover:text-slate-900 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-400 dark:hover:border-slate-600 dark:hover:text-slate-100'
+      }`}
+    >
+      {label}
+      <span
+        className={`rounded-full px-1.5 py-0.5 text-[10px] font-mono ${active ? 'bg-current/15' : 'bg-slate-100 dark:bg-slate-800'}`}
+      >
+        {count}
+      </span>
+    </button>
+  );
+}
+
+function CatalogSection({ category, entries }: { category: HubMeta; entries: readonly HubPage[] }): JSX.Element {
+  if (entries.length === 0) return <></>;
+  return (
+    <section aria-labelledby={`home-hub-${category.id}`}>
+      <div className="mb-3 flex items-baseline justify-between gap-2 border-b border-slate-200 pb-2 dark:border-slate-800">
+        <h2 id={`home-hub-${category.id}`} className="flex items-center gap-2 font-display text-lg font-semibold">
+          <span className={`inline-flex items-center justify-center rounded-md border px-1.5 py-1 ${category.tone}`}>
+            <category.icon size={16} aria-hidden="true" />
+          </span>
+          {category.label}
+          <span className="font-mono text-micro text-slate-400">· {entries.length}</span>
+        </h2>
+        <p className="hidden text-tool text-slate-500 dark:text-slate-400 sm:block">{category.blurb}</p>
+      </div>
+      <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        {entries.map((e) => (
+          <CatalogCard key={e.path} entry={e} hubIcon={category.icon} />
+        ))}
+      </ul>
+    </section>
+  );
+}
+
+function CatalogCard({ entry, hubIcon }: { entry: HubPage; hubIcon: LucideIcon }): JSX.Element {
+  const Icon = entry.icon ?? hubIcon;
+  return (
+    <li>
+      <Link
+        to={entry.path}
+        className="group block h-full rounded-xl border border-slate-200 bg-white p-3 transition-[transform,border-color,box-shadow] duration-200 hover:-translate-y-0.5 hover:border-brand-500/40 hover:shadow-e2 focus-visible:-translate-y-0.5 focus-visible:border-brand-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/30 dark:border-slate-800 dark:bg-slate-900"
+      >
+        <div className="flex items-start justify-between gap-2">
+          <Icon size={16} className="mt-0.5 shrink-0 text-brand-600 dark:text-brand-400" aria-hidden="true" />
+          {entry.badge && (
+            <span
+              className={`rounded border px-1.5 py-0.5 font-mono text-[10px] uppercase tracking-wider ${BADGE_STYLES[entry.badge]}`}
+            >
+              {entry.badge}
+            </span>
+          )}
+        </div>
+        <h3 className="mt-2 font-display text-sm font-semibold text-slate-900 transition-colors group-hover:text-brand-600 dark:text-slate-100 dark:group-hover:text-brand-400">
+          {entry.label}
+        </h3>
+        <p className="mt-0.5 line-clamp-2 text-tool text-slate-500 dark:text-slate-400">{entry.desc}</p>
+        <div className="mt-2 flex items-center justify-between gap-2 font-mono text-[10px] text-slate-400">
+          <code className="truncate font-mono">{entry.path}</code>
+          <span className="inline-flex items-center gap-0.5 text-brand-600 dark:text-brand-400 opacity-0 transition-opacity group-hover:opacity-100">
+            open <ArrowRight size={10} />
+          </span>
+        </div>
+      </Link>
+    </li>
   );
 }
