@@ -312,6 +312,9 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/threatintel/intelligence-gaps', '/__prerendered/threatintel__intelligence-gaps'],
   ['/threatintel/cross-campaign', '/__prerendered/threatintel__cross-campaign'],
   ['/threatintel/most-wanted', '/__prerendered/threatintel__most-wanted'],
+  ['/threatintel/apt-tracker', '/__prerendered/threatintel__apt-tracker'],
+  ['/threatintel/extremists', '/__prerendered/threatintel__extremists'],
+  ['/threatintel/predators', '/__prerendered/threatintel__predators'],
   ['/threatintel/rules', '/__prerendered/threatintel__rules'],
   // '/threatintel/briefings' removed from PRERENDERED_ROUTES: list is
   // data-driven (fetches /api/v1/briefings/list on mount). Prerendering
@@ -331,6 +334,9 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/threatintel/ai-report', '/__prerendered/threatintel__ai-report'],
   ['/threatintel/mcp-search', '/__prerendered/threatintel__mcp-search'],
   ['/threatintel/live-center', '/__prerendered/threatintel__live-center'],
+  ['/threatintel/telegram-monitor', '/__prerendered/threatintel__telegram-monitor'],
+  ['/threatintel/source-health', '/__prerendered/threatintel__source-health'],
+  ['/threatintel/soc-dashboard', '/__prerendered/threatintel__soc-dashboard'],
 
   // ── ThreatIntel: live-feed surfaces ───────────────────────────
   ['/threatintel/pulse', '/__prerendered/threatintel__pulse'],

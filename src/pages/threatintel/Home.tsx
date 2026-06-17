@@ -234,7 +234,7 @@ export default function ThreatIntelHome(): JSX.Element {
         </section>
       )}
 
-      {isSearching ? (
+      {isSearching && (
         <section className="animate-fade-in-up mb-12">
           <ul className="stagger grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {searchResults.map(({ section, ...t }) => {
@@ -295,38 +295,6 @@ export default function ThreatIntelHome(): JSX.Element {
               No matches. Searching across {allTools.length} intel surfaces, catalogs, and feeds.
             </div>
           )}
-        </section>
-      ) : (
-        <section className="animate-fade-in-up mb-12">
-          <div className="mb-5 border-t border-slate-200/70 pt-6 dark:border-slate-800">
-            <h2 className="font-display text-base font-semibold text-slate-700 dark:text-slate-300">
-              Browse by category
-            </h2>
-          </div>
-          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            {SECTIONS.map((s) => (
-              <Link
-                key={s.id}
-                to="/threatintel/catalog"
-                className="group surface-card p-5 transition hover:-translate-y-0.5 hover:border-brand-500/50 hover:shadow-e2"
-              >
-                <div className="flex items-center justify-between mb-1.5">
-                  <span className="font-display font-semibold text-slate-900 dark:text-slate-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
-                    {s.label}
-                  </span>
-                  <ArrowRight
-                    size={14}
-                    className="text-slate-300 dark:text-slate-700 group-hover:text-brand-500 transition-colors"
-                    aria-hidden="true"
-                  />
-                </div>
-                <p className="text-meta font-mono text-slate-600 dark:text-slate-400 leading-relaxed">{s.blurb}</p>
-                <p className="mt-2 text-mini font-mono text-slate-400">
-                  {s.tools.length} {s.tools.length === 1 ? 'source' : 'sources'}
-                </p>
-              </Link>
-            ))}
-          </div>
         </section>
       )}
 

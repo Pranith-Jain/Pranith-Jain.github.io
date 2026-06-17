@@ -157,6 +157,35 @@ export const HUB_META: readonly HubMeta[] = [
         desc: 'Visualize actor → actor → IOC connections.',
         compVar: 'RelationshipGraph',
       },
+        {
+        path: '/threatintel/apt-tracker',
+        tabId: 'apt-tracker',
+        label: 'APT Tracker',
+        desc: 'APT group tracker organised by region — China, Russia, Iran, North Korea, NATO, Middle East, Israel.',
+        compVar: 'AptTracker',
+      },
+        {
+        path: '/threatintel/most-wanted',
+        tabId: 'most-wanted',
+        label: 'Most Wanted Actors',
+        desc: 'Top-priority threat actors — LockBit, Cl0p, Scattered Spider, BlackCat, and other high-impact groups.',
+        compVar: 'MostWanted',
+      },
+        {
+        path: '/threatintel/extremists',
+        tabId: 'extremists',
+        label: 'Extremist Groups',
+        desc: 'Ideology-driven extremist group tracking with indicators and monitoring sources.',
+        compVar: 'Extremists',
+      },
+        {
+        path: '/threatintel/predators',
+        tabId: 'predators',
+        desc: 'Online predator categories, regional risk, and intervention resources.',
+        label: 'Online Predators',
+        compVar: 'Predators',
+      },
+
     ],
   },
   {
@@ -195,6 +224,14 @@ export const HUB_META: readonly HubMeta[] = [
         desc: 'Find connections across campaigns, actors, and IOCs.',
         compVar: 'CrossCampaignCorrelation',
       },
+        {
+        path: '/threatintel/briefings',
+        tabId: 'briefings',
+        label: 'Daily & Weekly Briefings',
+        desc: 'Tactical digests with IOCs, severity, and detection guidance.',
+        compVar: 'Briefings',
+      },
+
     ],
   },
   {
@@ -452,6 +489,14 @@ export const HUB_META: readonly HubMeta[] = [
         desc: 'My curated threat-intel feed — personal bookmarks and follows.',
         compVar: 'MyThreatIntel',
       },
+        {
+        path: '/threatintel/source-health',
+        tabId: 'source-health',
+        label: 'Source Health',
+        desc: 'Operational status, SLO metrics, and NATO Admiralty trust grades for every upstream feed.',
+        compVar: 'SourceHealth',
+      },
+
     ],
   },
   {
@@ -552,6 +597,14 @@ export const HUB_META: readonly HubMeta[] = [
         desc: 'Scraped intel usernames — actor handles, leak-site ops.',
         compVar: 'ScrapedIntelUsernames',
       },
+        {
+        path: '/threatintel/telegram-monitor',
+        tabId: 'telegram-monitor',
+        label: 'Telegram Leak Monitor',
+        desc: 'Leak feed, KPIs, discovered channels, and per-source settings for monitored Telegram channels.',
+        compVar: 'TelegramMonitor',
+      },
+
     ],
   },
   {
@@ -655,6 +708,14 @@ export const HUB_META: readonly HubMeta[] = [
         desc: 'Crypto wallet directory tied to known ransom groups.',
         compVar: 'Ransomwhere',
       },
+        {
+        path: '/threatintel/ransomware-live',
+        tabId: 'ransomware-live',
+        label: 'ransomware.live PRO',
+        desc: 'Authenticated PRO surface — victim stats, recent cyberattacks, negotiations, and YARA packs.',
+        compVar: 'RansomwareLive',
+      },
+
     ],
   },
   {
@@ -911,7 +972,22 @@ export const HUB_META: readonly HubMeta[] = [
         label: 'LLM Threat Atlas',
         desc: 'MITRE ATLAS — LLM/AI threat atlas.',
         compVar: 'LlmThreatAtlas',
+      },      {
+        path: '/threatintel/about',
+        tabId: 'about',
+        label: 'About the Platform',
+        desc: 'What is covered, data principles, and the analyst-first design intent behind the surface.',
+        compVar: 'ThreatIntelAbout',
       },
+
+        {
+        path: '/threatintel/learn',
+        tabId: 'learn',
+        label: 'H3ad Learn',
+        desc: 'Interactive training chapters with concept walkthroughs and runnable code examples.',
+        compVar: 'H3adLearn',
+      },
+
     ],
   },
   {
@@ -1031,6 +1107,14 @@ export const HUB_META: readonly HubMeta[] = [
         desc: 'Cross-source search across the entire platform.',
         compVar: 'UnifiedSearch',
       },
+        {
+        path: '/threatintel/tools/settings',
+        tabId: 'settings',
+        label: 'Integrations & Settings',
+        desc: 'What integrations are wired in and what capability each one unlocks for the platform.',
+        compVar: 'Settings',
+      },
+
     ],
   },
   {
@@ -1158,6 +1242,21 @@ export const HUB_META: readonly HubMeta[] = [
         compVar: 'Observe',
         badge: 'live',
       },
+        {
+        path: '/threatintel/soc-dashboard',
+        tabId: 'soc-dashboard',
+        label: 'SOC Dashboard',
+        desc: 'Unified tactical SOC view — ransomware, vulnerabilities, and IOC stream panels.',
+        compVar: 'SocDashboard',
+      },
+        {
+        path: '/threatintel/live-center',
+        tabId: 'live-center',
+        label: 'Live Center — Web OSINT',
+        desc: 'Browser-based live OSINT tools with install, example, and reference URL per tool.',
+        compVar: 'LiveCenter',
+      },
+
     ],
   },
 ];

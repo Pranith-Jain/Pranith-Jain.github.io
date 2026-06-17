@@ -10,13 +10,13 @@
  */
 
 import { AlertOctagon, AlertTriangle, Compass, BookOpen, Brain,
-  Bug, Cloud, Database, ExternalLink, Eye,
+  Activity, Bug, Cloud, Database, ExternalLink, Eye,
   FileSearch, FileText, Flame, FolderTree, GitBranch,
   Globe, KeyRound, Layers, LayoutDashboard, LineChart,
   List, Map, MessageSquare, Newspaper, Package,
   Radar, Radio, Repeat2, Rss, Scale,
   ScrollText, Search, Settings, Share2, Shield,
-  ShieldAlert, ShieldCheck, Sparkles, Target, Telescope,
+  GraduationCap, ShieldAlert, ShieldCheck, Sparkles, Target, Telescope,
   Terminal, TrendingUp, UserSearch, Users, Wallet,
   Wifi, Wrench, Zap, type LucideIcon } from 'lucide-react';
 import { HUB_META } from './threatintel-hubs';
@@ -195,6 +195,20 @@ const PAGE_ICON_OVERRIDES: Record<string, LucideIcon> = {
   '/threatintel/predictive/analyze': Search,
   '/threatintel/predictive/assessments': List,
   '/threatintel/predictive/observe': Eye,
+  // Actor extras (added with dfir-catalog consolidation)
+  '/threatintel/apt-tracker': Map,
+  '/threatintel/most-wanted': AlertOctagon,
+  '/threatintel/extremists': AlertTriangle,
+  '/threatintel/predators': Eye,
+  '/threatintel/briefings': Newspaper,
+  '/threatintel/telegram-monitor': MessageSquare,
+  '/threatintel/source-health': Activity,
+  '/threatintel/ransomware-live': Flame,
+  '/threatintel/learn': GraduationCap,
+  '/threatintel/about': Scale,
+  '/threatintel/tools/settings': Settings,
+  '/threatintel/soc-dashboard': LayoutDashboard,
+  '/threatintel/live-center': Globe,
 };
 
 /* ------------------------------------------------------------------ */

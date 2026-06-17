@@ -331,6 +331,9 @@ const ROUTES = [
   '/threatintel/intelligence-gaps',
   '/threatintel/cross-campaign',
   '/threatintel/most-wanted',
+  '/threatintel/apt-tracker',
+  '/threatintel/extremists',
+  '/threatintel/predators',
   '/threatintel/rules',
   // '/threatintel/briefings' removed from prerender: list is data-driven
   // (fetches /api/v1/briefings/list on mount). Prerendering the empty
@@ -350,6 +353,9 @@ const ROUTES = [
   '/threatintel/ai-report',
   '/threatintel/mcp-search',
   '/threatintel/live-center',
+  '/threatintel/telegram-monitor',
+  '/threatintel/source-health',
+  '/threatintel/soc-dashboard',
 
   // ── ThreatIntel: static catalogs (5) — 0 API calls ────────────
   '/threatintel/awesome-lists',
