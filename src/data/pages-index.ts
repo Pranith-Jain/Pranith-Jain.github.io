@@ -2281,6 +2281,14 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
     group: 'threatintel',
   },
   {
+    path: '/threatintel/:hubId',
+    label: 'Threat Intel Category',
+    description:
+      'SaaS-style category landing for any threat-intel hub (actors, iocs, cves, malware, feeds, social, darkweb, phishing, infra, detections, research-hub, wiki, osint, tools, external, predictive, campaigns).',
+    sectionLabel: 'Threat Intel · Categories',
+    group: 'threatintel',
+  },
+  {
     path: '/threatintel/learn',
     label: 'H3ad Learn',
     description: 'H3adLearn — guided learning paths for SOC analysts and CTI researchers.',

@@ -69,19 +69,13 @@ const QUICK_ACTIONS: QuickAction[] = [
     badge: 'live',
   },
   {
-    // ActorHub is query-tabbed — `?tab=kb` is the dedicated Knowledge
-    // Base view. The bare /actors URL defaults to the directory tab,
-    // which is NOT what the tile label promises.
-    to: '/threatintel/actors?tab=kb',
+    to: '/threatintel/actors/kb',
     label: 'Actor KB',
     description: 'Threat-actor knowledge base with cross-references.',
     icon: Users,
   },
   {
-    // CampaignHub is also query-tabbed — `?tab=cross` is the
-    // Cross-Campaign Correlation view. Without the query param the
-    // hub lands on the `active` campaigns tab.
-    to: '/threatintel/campaigns?tab=cross',
+    to: '/threatintel/campaigns/cross',
     label: 'Cross-Campaign',
     description: 'Find connections across campaigns + actors + IOCs.',
     icon: Link2,

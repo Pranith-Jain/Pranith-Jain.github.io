@@ -17,7 +17,7 @@ const subRoutes: Array<{ path: string; heading: string; skipComingSoon?: boolean
   { path: '/dfir/phishing', heading: 'Phishing Email Analyzer', skipComingSoon: true },
   { path: '/dfir/domain', heading: 'Domain Lookup', skipComingSoon: true },
   { path: '/dfir/exposure', heading: 'Exposure Scanner', skipComingSoon: true },
-  { path: '/threatintel/wiki', heading: 'DFIR Knowledge Base', skipComingSoon: true },
+  { path: '/threatintel/wiki', heading: 'Knowledge & Frameworks', skipComingSoon: true },
 
   { path: '/threatintel/briefings', heading: 'Threat Intel Briefings', skipComingSoon: true },
   { path: '/dfir/cve', heading: 'CVE Lookup', skipComingSoon: true },

@@ -561,7 +561,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel/catalog', Component: ThreatIntelCatalog },
   { path: '/threatintel/about', Component: ThreatIntelAbout },
   { path: '/threatintel/c/:cat', Component: ThreatIntelHome },
-  { path: '/threatintel', Component: ThreatIntelCatalog },
+  { path: '/threatintel', Component: ThreatIntelHome },
   { path: '/threatintel/assessments/:id', Component: AssessmentDetail },
   { path: '/threatintel/apt-tracker', Component: AptTracker },
   { path: '/threatintel/most-wanted', Component: MostWanted },
@@ -698,23 +698,12 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel/cves/k8s', Component: K8sCve },
   { path: '/threatintel/cves/exploitable', Component: ExploitableCves },
   { path: '/threatintel/cves/list', Component: CveList },
-  { path: '/threatintel/actors', Component: CategoryLanding },
-  { path: '/threatintel/campaigns', Component: CategoryLanding },
-  { path: '/threatintel/cves', Component: CategoryLanding },
-  { path: '/threatintel/darkweb', Component: CategoryLanding },
-  { path: '/threatintel/detections', Component: CategoryLanding },
-  { path: '/threatintel/external', Component: CategoryLanding },
-  { path: '/threatintel/feeds', Component: CategoryLanding },
-  { path: '/threatintel/infra', Component: CategoryLanding },
-  { path: '/threatintel/iocs', Component: CategoryLanding },
-  { path: '/threatintel/malware', Component: CategoryLanding },
-  { path: '/threatintel/osint', Component: CategoryLanding },
-  { path: '/threatintel/phishing', Component: CategoryLanding },
-  { path: '/threatintel/predictive', Component: CategoryLanding },
-  { path: '/threatintel/research-hub', Component: CategoryLanding },
-  { path: '/threatintel/social', Component: CategoryLanding },
-  { path: '/threatintel/tools', Component: CategoryLanding },
-  { path: '/threatintel/wiki', Component: CategoryLanding },
+  // Generic catch-all for hub landing pages. Must come AFTER all specific
+  // sub-routes (/threatintel/<hub>/<tab>) so the more specific static routes
+  // take precedence. Reads :hubId from the URL and looks up the hub in
+  // HUB_META (see src/data/threatintel-hubs.ts). Unknown hub ids render an
+  // "Unknown hub" error message.
+  { path: '/threatintel/:hubId', Component: CategoryLanding },
   { path: '/dfir/pgp-tool', Component: PgpTool },
   { path: '/dfir/tor-gateway', Component: TorGateway },
   { path: '/dfir/blocklists', Component: Blocklists },
@@ -818,7 +807,7 @@ const REDIRECTS: ReadonlyArray<{ path: string; to: string }> = [
   { path: '/threatintel/yara', to: '/threatintel/detections/yara' },
   { path: '/threatintel/disarm', to: '/threatintel/detections/disarm' },
 
-  // ── Knowledge Hub (wiki + frameworks, uses ?tab=) ───────────────
+  // ── Knowledge Hub (wiki + frameworks) ──────────────────────────
   { path: '/threatintel/mitre', to: '/threatintel/wiki/mitre' },
   { path: '/threatintel/owasp-ai-landscape', to: '/threatintel/wiki/owasp' },
   { path: '/threatintel/insider-threat-matrix', to: '/threatintel/wiki/insider' },
@@ -862,7 +851,7 @@ const REDIRECTS: ReadonlyArray<{ path: string; to: string }> = [
   { path: '/threatintel/cve-resources', to: '/threatintel/cves' },
   { path: '/threatintel/cve-list', to: '/threatintel/cves/cves' },
 
-  // ── Actor Hub (uses ?tab= to avoid /:slug conflict) ─────────────
+  // ── Actor Hub ──────────────────────────────────────────────────
   { path: '/threatintel/actor-kb', to: '/threatintel/actors' },
   { path: '/threatintel/actor-dna', to: '/threatintel/actors' },
   { path: '/threatintel/actor-timeline', to: '/threatintel/actors/timeline' },
@@ -871,7 +860,7 @@ const REDIRECTS: ReadonlyArray<{ path: string; to: string }> = [
   { path: '/threatintel/threat-actor-db', to: '/threatintel/actors' },
   { path: '/threatintel/intelligence-gaps', to: '/threatintel/actors' },
 
-  // ── Campaign Hub (uses ?tab= to avoid /:id conflict) ────────────
+  // ── Campaign Hub ───────────────────────────────────────────────
   { path: '/threatintel/campaign-lifecycle', to: '/threatintel/campaigns/lifecycle' },
   { path: '/threatintel/attribution', to: '/threatintel/campaigns/attribution' },
   { path: '/threatintel/cross-campaign', to: '/threatintel/campaigns/cross' },

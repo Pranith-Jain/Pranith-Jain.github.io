@@ -17,9 +17,10 @@
  *   This file is the single source of truth that drives:
  *     - App.tsx route registration
  *     - CategoryHub landing pages (the hub root URL)
- *     - Sidebar nav
+ *     - Sidebar nav (auto-generated from HUB_META)
  *     - Catalog page
- *     - HubShell tab bars (preserved for backwards compat)
+ *     - Prerender manifest (scripts/prerender.mjs)
+ *     - Sitemap (public/sitemap.xml)
  *
  *   When you add a new page:
  *     1. Create the .tsx component.

@@ -19,13 +19,35 @@ import { dirname, join } from 'node:path';
 const root = join(dirname(fileURLToPath(import.meta.url)), '..', '..');
 const read = (p: string): string => readFileSync(join(root, p), 'utf8');
 
-/** Static + redirect paths declared in App.tsx's data-driven ROUTES/REDIRECTS tables. */
-function appRoutePaths(): Set<string> {
+/** Static + redirect paths declared in App.tsx's data-driven ROUTES/REDIRECTS tables.
+ *  Parametrized routes (e.g. /threatintel/:hubId) are stored with their pattern intact so
+ *  we can match concrete paths against them with patternMatches(). */
+function appRoutePatterns(): string[] {
   const src = read('src/App.tsx');
-  const out = new Set<string>();
-  for (const m of src.matchAll(/\{\s*path:\s*'([^']+)',\s*Component:/g)) out.add(m[1]);
-  for (const m of src.matchAll(/\{\s*path:\s*'([^']+)',\s*to:\s*'[^']+'/g)) out.add(m[1]);
+  const out: string[] = [];
+  for (const m of src.matchAll(/\{\s*path:\s*'([^']+)',\s*Component:/g)) out.push(m[1]);
+  for (const m of src.matchAll(/\{\s*path:\s*'([^']+)',\s*to:\s*'[^']+'/g)) out.push(m[1]);
   return out;
+}
+
+const STATIC_APP_PATHS = new Set(appRoutePatterns().filter((p) => !p.includes(':')));
+
+/** True if `path` matches a registered route pattern. :param segments match a
+ *  single non-slash path segment. */
+function patternMatches(path: string, pattern: string): boolean {
+  const pp = pattern.split('/');
+  const ap = path.split('/');
+  if (pp.length !== ap.length) return false;
+  for (let i = 0; i < pp.length; i++) {
+    if (pp[i].startsWith(':')) continue;
+    if (pp[i] !== ap[i]) return false;
+  }
+  return true;
+}
+
+function isRegisteredAppPath(path: string): boolean {
+  if (STATIC_APP_PATHS.has(path)) return true;
+  return appRoutePatterns().some((p) => p.includes(':') && patternMatches(path, p));
 }
 
 /** Absolute paths in scripts/prerender.mjs's ROUTES array (what is SSR-rendered at build). */
@@ -50,9 +72,8 @@ function routerPrerenderedKeys(): string[] {
 
 describe('route source-of-truth drift guard', () => {
   it('every prerendered route is a real App.tsx route or redirect', () => {
-    const app = appRoutePaths();
-    expect(app.size, 'App.tsx route extraction failed — adjust the regex').toBeGreaterThan(50);
-    const orphans = prerenderPaths().filter((p) => !app.has(p));
+    expect(STATIC_APP_PATHS.size, 'App.tsx route extraction failed — adjust the regex').toBeGreaterThan(50);
+    const orphans = prerenderPaths().filter((p) => !isRegisteredAppPath(p));
     expect(
       orphans,
       `scripts/prerender.mjs ROUTES contains paths with no <Route> or redirect in src/App.tsx — drift: ${orphans.join(', ')}`
