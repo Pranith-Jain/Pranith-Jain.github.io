@@ -1,20 +1,56 @@
 import type { Context } from 'hono';
 import type { Env } from '../../env';
-import type { PulseEvent, PulseKind, GlobalPulseResponse, XClaimsResponse, ActorTimelineResponse, IocCorrelationResponse } from './types';
+import type {
+  PulseEvent,
+  PulseKind,
+  GlobalPulseResponse,
+  XClaimsResponse,
+  ActorTimelineResponse,
+  IocCorrelationResponse,
+} from './types';
 import { GP_FEEDS, gpWarmKey, GLOBAL_PULSE_CACHE, CACHE_TTL } from './config';
 import { listBriefings } from '../../lib/briefing-builder';
 import { readKvJson } from './shared';
 import {
-  iocFromThreatMap, fromReddit, fromTelegram, fromXFeed, fromScam,
-  fromBreaches, fromBriefings, fromLiveIocs, fromSecretLeaks,
-  fromMaliciousPackages, fromExploitDb, fromGithubAdvisories, fromCisaKev,
-  fromStealerForum, fromPhishing, fromMalware, fromRansomware, fromCybercrime,
-  fromWriteups, fromCveRecent, fromXClaims, fromActorTimeline, fromIocCorrelation,
+  iocFromThreatMap,
+  fromReddit,
+  fromTelegram,
+  fromXFeed,
+  fromScam,
+  fromBreaches,
+  fromBriefings,
+  fromLiveIocs,
+  fromSecretLeaks,
+  fromMaliciousPackages,
+  fromExploitDb,
+  fromGithubAdvisories,
+  fromCisaKev,
+  fromStealerForum,
+  fromPhishing,
+  fromMalware,
+  fromRansomware,
+  fromCybercrime,
+  fromWriteups,
+  fromCveRecent,
+  fromXClaims,
+  fromActorTimeline,
+  fromIocCorrelation,
+  fromFirms,
+  fromUkmto,
 } from './converters';
 import {
-  fetchEarthquakes, fetchNaturalEvents, fetchFlights, fetchGdacsAlerts,
-  fetchBotnetC2, fetchSupplyChain, fetchDShieldAttackers, fetchCompromisedIPs,
-  fetchBlocklistAttackers, fetchCisaKev, fetchUrlhaus, fetchRansomwatch,
+  fetchEarthquakes,
+  fetchNaturalEvents,
+  fetchFlights,
+  fetchGdacsAlerts,
+  fetchBotnetC2,
+  fetchSupplyChain,
+  fetchDShieldAttackers,
+  fetchCompromisedIPs,
+  fetchBlocklistAttackers,
+  fetchCisaKev,
+  fetchUrlhaus,
+  fetchRansomwatch,
 } from './fetchers';
 import { getTechInfrastructureEvents, getGeopoliticalEvents, getCableEvents, getFinancialEvents } from './static-data';
 
@@ -74,6 +110,8 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
     const finalXClaims = warm.xclaims ?? null;
     const finalActor = warm.actor ?? null;
     const finalIocCorr = warm.iocc ?? null;
+    const finalFirms = warm.firms ?? null;
+    const finalUkmto = warm.ukmto ?? null;
 
     // ── Direct endpoint fallback for still-missing layers ─────────────
     // Fetch ALL missing endpoints via SELF binding (in-process, no loopback).
@@ -107,6 +145,8 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
     if (!finalXClaims) missing.push(['/api/v1/x-claims', 'xclaims']);
     if (!finalActor) missing.push(['/api/v1/actor-timeline', 'actor']);
     if (!finalIocCorr) missing.push(['/api/v1/ioc-correlation', 'iocc']);
+    if (!finalFirms) missing.push(['/api/v1/firms-fires', 'firms']);
+    if (!finalUkmto) missing.push(['/api/v1/ukmto-incidents', 'ukmto']);
 
     // Fetch all missing in parallel (Workers subrequest limit is 50)
     const directResults = await Promise.all(missing.map(([path]) => fetchDirect(path)));
@@ -135,6 +175,8 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
     const mergedXClaims = finalXClaims ?? (direct.xclaims as typeof finalXClaims);
     const mergedActor = finalActor ?? (direct.actor as typeof finalActor);
     const mergedIocCorr = finalIocCorr ?? (direct.iocc as typeof finalIocCorr);
+    const mergedFirms = finalFirms ?? (direct.firms as typeof finalFirms);
+    const mergedUkmto = finalUkmto ?? (direct.ukmto as typeof finalUkmto);
 
     // ── Convert → events ───────────────────────────────────────────────
     const safe = <T>(fn: () => T): T => {
@@ -189,6 +231,8 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
       warm.ghsa ? fromGithubAdvisories(warm.ghsa as Parameters<typeof fromGithubAdvisories>[0]) : []
     );
     const kevEvents = safe(() => (warm.kev ? fromCisaKev(warm.kev as Parameters<typeof fromCisaKev>[0]) : []));
+    const firmsEvents = safe(() => fromFirms(mergedFirms as Parameters<typeof fromFirms>[0]));
+    const ukmtoEvents = safe(() => fromUkmto(mergedUkmto) as Parameters<typeof fromUkmto>[0]);
     const cybercrimeEvents = safe(() => (finalCybercrime ? fromCybercrime(finalCybercrime) : []));
     const researchEvents = safe(() => (finalWriteups ? fromWriteups(finalWriteups) : []));
     const cveEvents = safe(() => (mergedCve ? fromCveRecent(mergedCve) : []));
@@ -541,6 +585,8 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
       ...tagAll(exploitEvents),
       ...tagAll(ghsaEvents),
       ...tagAll(kevEvents),
+      ...tagAll(firmsEvents),
+      ...tagAll(ukmtoEvents),
     ].sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
 
     const result: GlobalPulseResponse = {
@@ -585,6 +631,8 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
         exploit: exploitEvents.length,
         github_advisory: ghsaEvents.length,
         kev: kevEvents.length,
+        firm: firmsEvents.length,
+        maritime: ukmtoEvents.length,
       },
     };
 

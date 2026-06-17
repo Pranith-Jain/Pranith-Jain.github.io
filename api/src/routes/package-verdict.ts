@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { fetchResilient } from '../lib/fetch-resilient';
 
 /**
  * Package verdict checker — inspired by projectdiscovery/depx.
@@ -155,8 +156,8 @@ export async function packageVerdictHandler(c: Context<{ Bindings: Env }>): Prom
       if (parts.length !== 2) {
         return c.json({ error: 'invalid ref format; expected ecosystem:package (e.g. npm:lodash)' }, 400);
       }
-      ecosystem = normalizeEco(parts[0]);
-      packageName = parts[1];
+      ecosystem = normalizeEco(parts[0] ?? '');
+      packageName = parts[1] ?? '';
     } else {
       ecosystem = normalizeEco(c.req.query('ecosystem') ?? '');
       packageName = (c.req.query('package') ?? '').trim();
@@ -191,7 +192,6 @@ export async function packageVerdictHandler(c: Context<{ Bindings: Env }>): Prom
     const response: VerdictResponse = {
       schema_version: '1',
       command: 'check',
-      depx_version: 'v0.1.0 (integrated)',
       data: {
         ref: `${ecosystem}:${packageName}`,
         purl: `pkg:${ecosystem}/${packageName}`,

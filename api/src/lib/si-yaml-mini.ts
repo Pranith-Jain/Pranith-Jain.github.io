@@ -80,7 +80,9 @@ export function parseMiniYaml(src: string): Json {
     if (v.startsWith('{') && v.endsWith('}')) {
       const inner = v.slice(1, -1).trim();
       if (inner === '') return {};
-      const out: Record<string, Json> = {};
+      // Null-proto accumulator: untrusted keys like `__proto__`/`constructor`
+      // become harmless own properties instead of polluting Object.prototype.
+      const out: Record<string, Json> = Object.create(null);
       for (const part of inner.split(',')) {
         const m = /^([^:]+):(.*)$/.exec(part.trim());
         if (!m || !m[1] || m[2] === undefined) throw new MiniYamlError(`bad flow-style mapping: "${part}"`, line);
@@ -92,7 +94,9 @@ export function parseMiniYaml(src: string): Json {
   }
 
   function parseBlock(parentIndent: number): Json {
-    const obj: Record<string, Json> = {};
+    // Null-proto accumulator: untrusted keys like `__proto__`/`constructor`
+    // become harmless own properties instead of polluting Object.prototype.
+    const obj: Record<string, Json> = Object.create(null);
     while (pos < lines.length) {
       const line = lines[pos]!;
       if (/^\s*(#|$)/.test(line)) {

@@ -46,6 +46,10 @@ export interface Hypothesis {
   id: string;
   title: string;
   narrative: string;
+  // Union of the original Lockheed kill-chain phases + the MITRE ATT&CK
+  // tactic slugs that hypothesis fixtures use for in-attack-stage placement
+  // (e.g. 'initial-access', 'execution', 'credential-access'). The runtime
+  // renders them straight through; the type just needs to allow both.
   killChainPhase:
     | 'reconnaissance'
     | 'weaponization'
@@ -53,7 +57,19 @@ export interface Hypothesis {
     | 'exploitation'
     | 'installation'
     | 'command-and-control'
-    | 'actions-on-objectives';
+    | 'actions-on-objectives'
+    | 'initial-access'
+    | 'execution'
+    | 'persistence'
+    | 'privilege-escalation'
+    | 'defense-evasion'
+    | 'credential-access'
+    | 'discovery'
+    | 'lateral-movement'
+    | 'collection'
+    | 'exfiltration'
+    | 'impact'
+    | 'supply-chain-compromise';
   mitre: string[]; // ATT&CK technique IDs (Txxxx[.yyy])
   signals: string[];
   whatToLookFor: string[];

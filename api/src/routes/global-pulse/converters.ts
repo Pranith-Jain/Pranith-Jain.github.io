@@ -551,3 +551,100 @@ export function fromIocCorrelation(data: IocCorrelationResponse): PulseEvent[] {
   }
   return events;
 }
+
+/* ─── NASA FIRMS thermal anomalies ───────────────────────────────────────── */
+/* Shape: { generated_at, fires: FirmsFire[] } — see api/src/routes/firms-ukmto.ts.
+   Each fire becomes a PulseEvent with FRP-derived severity:
+     - FRP < 1 MW                       → dropped (background noise)
+     - FRP < 10 MW + brightness >= 340 K → 'medium'
+     - FRP 10..50 MW                    → 'high'
+     - FRP >= 50 MW                     → 'critical'
+   Capped at 250, sorted FRP desc. */
+
+interface FirmFireLike {
+  id?: string;
+  lat: number;
+  lng: number;
+  frp: number;
+  brightness: number;
+  acq_date: string;
+  acq_time: string;
+  satellite?: string;
+  confidence?: string;
+  daynight?: 'D' | 'N';
+}
+
+function pad2(n: number): string {
+  return n < 10 ? `0${n}` : String(n);
+}
+
+export function fromFirms(data: { fires?: FirmFireLike[] } | null | undefined): PulseEvent[] {
+  if (!data) return [];
+  const fires = (data.fires ?? []).filter((f) => typeof f.frp === 'number' && f.frp >= 1);
+  // Sort by FRP desc, cap at 250.
+  const top = [...fires].sort((a, b) => b.frp - a.frp).slice(0, 250);
+  return top.map((f) => {
+    const severity: Sev = f.frp >= 50 ? 'critical' : f.frp >= 10 ? 'high' : f.brightness >= 340 ? 'medium' : 'low';
+    const hh = f.acq_time ? f.acq_time.slice(0, 2) : '00';
+    const mm = f.acq_time ? f.acq_time.slice(2, 4) : '00';
+    const ts = `${f.acq_date ?? ''}T${pad2(parseInt(hh || '0', 10))}:${pad2(parseInt(mm || '0', 10))}Z`;
+    return {
+      id: `firms-${f.id ?? `${f.acq_date}-${f.acq_time}-${f.lat}-${f.lng}`}`,
+      kind: 'firm' as const,
+      title: `FIRMS fire · FRP ${f.frp.toFixed(1)} MW${f.satellite ? ` · ${f.satellite}` : ''}`,
+      description: `Brightness ${f.brightness.toFixed(1)} K · confidence ${f.confidence ?? 'n/a'} · ${f.daynight ?? '?'}`,
+      lat: f.lat,
+      lng: f.lng,
+      timestamp: ts,
+      severity,
+      source: 'NASA FIRMS',
+    };
+  });
+}
+
+/* ─── UKMTO maritime incidents ───────────────────────────────────────────── */
+/* Shape: { generated_at, incidents: UkmtoIncident[] }.
+   Severity is category-driven:
+     - 'Piracy' / 'Armed Attack'              → 'critical'
+     - 'Suspicious Approach' / hijack / board  → 'high'
+     - anything else                          → 'medium'
+   Date string is parsed to ISO; nullish input returns []. */
+
+interface UkmtoIncidentLike {
+  id?: string;
+  title: string;
+  category: string;
+  date: string;
+  lat: number;
+  lng: number;
+}
+
+export function fromUkmto(data: { incidents?: UkmtoIncidentLike[] } | null | undefined): PulseEvent[] {
+  if (!data) return [];
+  return (data.incidents ?? []).map((i) => {
+    const cat = (i.category ?? '').toLowerCase();
+    const severity: Sev =
+      cat.includes('piracy') || cat.includes('armed')
+        ? 'critical'
+        : cat.includes('suspicious') || cat.includes('hijack') || cat.includes('board')
+          ? 'high'
+          : 'medium';
+    let ts: string;
+    try {
+      ts = new Date(i.date).toISOString();
+    } catch {
+      ts = new Date().toISOString();
+    }
+    return {
+      id: `ukmto-${i.id ?? `${i.date}-${i.lat}-${i.lng}`}`,
+      kind: 'maritime' as const,
+      title: i.title || `UKMTO ${i.category}`,
+      description: `${i.category} · ${i.lat.toFixed(2)}, ${i.lng.toFixed(2)}`,
+      lat: i.lat,
+      lng: i.lng,
+      timestamp: ts,
+      severity,
+      source: 'UKMTO',
+    };
+  });
+}

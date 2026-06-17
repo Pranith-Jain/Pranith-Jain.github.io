@@ -7,3 +7,11 @@ declare module '*.wasm' {
   const module: WebAssembly.Module;
   export default module;
 }
+
+// @resvg/resvg-wasm ships the wasm at a subpath that esbuild bundles
+// at deploy time as a CompiledWasm. Without an explicit declaration
+// the strict tsc pass fails. Match the package's exported path exactly.
+declare module '@resvg/resvg-wasm/index_bg.wasm' {
+  const module: WebAssembly.Module;
+  export default module;
+}

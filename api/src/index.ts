@@ -535,6 +535,18 @@ app.use('/api/v1/tracer/graphs/*', requireAdminMiddleware);
 app.use('/api/v1/yara/*', requireAdminMiddleware);
 app.use('/api/v1/rules/generate', requireAdminMiddleware);
 app.use('/api/v1/rules/validate', requireAdminMiddleware);
+// Admin key-management, cache purge, and retention: gate BEFORE the per-route
+// validate() runs so an unauthenticated caller gets a 401 rather than a 400
+// that enumerates the request schema (e.g. the key-minting role enum). The
+// /api/v1/admin/session login+logout routes are intentionally NOT gated — they
+// exchange the admin token in-body for the HttpOnly session cookie.
+app.use('/api/v1/admin/keys', requireAdminMiddleware);
+app.use('/api/v1/admin/keys/*', requireAdminMiddleware);
+app.use('/api/v1/admin/purge', requireAdminMiddleware);
+app.use('/api/v1/admin/retention/*', requireAdminMiddleware);
+// maltrail-sync writes KV-backed actor records and fans out to the GitHub API;
+// it is an operator-only mutation, not a public/readonly-key endpoint.
+app.use('/api/v1/maltrail-sync', requireAdminMiddleware);
 
 import {
   iocCheckSchema,

@@ -117,4 +117,15 @@ note: >
   it('throws MiniYamlError on truly malformed input', () => {
     expect(() => parseMiniYaml('  bad-indent: oops\n')).toThrow(MiniYamlError);
   });
+
+  it('does not pollute Object.prototype via a __proto__ key', () => {
+    parseMiniYaml('__proto__: polluted\nname: ok\n');
+    expect(({} as Record<string, unknown>).polluted).toBeUndefined();
+    expect((Object.prototype as Record<string, unknown>).polluted).toBeUndefined();
+  });
+
+  it('does not pollute via a flow-style __proto__ mapping', () => {
+    parseMiniYaml('cfg: { __proto__: x, a: 1 }\n');
+    expect(({} as Record<string, unknown>).x).toBeUndefined();
+  });
 });

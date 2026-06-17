@@ -1502,7 +1502,15 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
             const { svgDashboardToPng } = await import('./lib/si-svg-png');
             const png = await svgDashboardToPng(this.env, svg, { width: width ?? 1400 });
             // MCP text fields are strings — return the PNG base64-encoded.
-            const b64 = btoa(String.fromCharCode(...png));
+            // Encode in chunks: `btoa(String.fromCharCode(...png))` spreads the
+            // entire byte array as function arguments, which throws RangeError
+            // (Maximum call stack size exceeded) on multi-MB PNGs.
+            let binary = '';
+            const CHUNK = 0x8000; // 32 KB per slice
+            for (let i = 0; i < png.length; i += CHUNK) {
+              binary += String.fromCharCode(...png.subarray(i, i + CHUNK));
+            }
+            const b64 = btoa(binary);
             return untrustedToolResult({
               png_base64: b64,
               bytes: png.length,

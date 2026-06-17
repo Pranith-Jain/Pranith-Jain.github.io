@@ -19,7 +19,7 @@
  */
 import { Resvg, initWasm } from '@resvg/resvg-wasm';
 import resvgWasm from '@resvg/resvg-wasm/index_bg.wasm';
-import type { Env } from './env';
+import type { Env } from '../env';
 
 /** Internal origin for ASSETS lookups — only the pathname is significant. */
 const ASSET_ORIGIN = 'https://si-png-assets.internal';
@@ -48,10 +48,7 @@ async function ensureFonts(env: Env): Promise<Uint8Array[]> {
     // Reuse the OG-card font set. Both weights exist as TTF and have
     // broad Latin coverage; resvg's font matching falls back to the
     // first buffer for unmatched families.
-    fontBuffers = await Promise.all([
-      assetBytes(env, '/og/hanken-700.ttf'),
-      assetBytes(env, '/og/hanken-400.ttf'),
-    ]);
+    fontBuffers = await Promise.all([assetBytes(env, '/og/hanken-700.ttf'), assetBytes(env, '/og/hanken-400.ttf')]);
   }
   return fontBuffers;
 }
@@ -77,11 +74,7 @@ export interface SvgToPngOptions {
  * (the /api/v1/si/render route and the si_render_png MCP tool) should
  * wrap the call in try/catch and surface a structured error.
  */
-export async function svgDashboardToPng(
-  env: Env,
-  svg: string,
-  opts: SvgToPngOptions = {}
-): Promise<Uint8Array> {
+export async function svgDashboardToPng(env: Env, svg: string, opts: SvgToPngOptions = {}): Promise<Uint8Array> {
   if (!svg || svg.length < 32) {
     throw new Error('svg_to_png: empty or too-short svg input');
   }

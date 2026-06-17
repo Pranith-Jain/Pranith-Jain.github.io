@@ -47,7 +47,10 @@ export async function kvPutSafe(
   options?: { expirationTtl?: number; metadata?: unknown }
 ): Promise<boolean> {
   try {
-    await ns.put(key, value, options as never);
+    // KV.put accepts the wider union that includes URLSearchParams / FormData
+    // even though the DOM `BodyInit` type narrows it. Cast to `any` here
+    // so call-sites stay typed; the runtime accepts all four shapes.
+    await ns.put(key, value as unknown as string, options as never);
     return true;
   } catch (err) {
     console.warn(
@@ -82,13 +85,21 @@ export async function kvPutIfChanged(
   try {
     const existing = await ns.get(key, 'text');
     if (existing === value) return false;
-    await ns.put(key, value, options as never);
+    // KV.put accepts the wider union that includes URLSearchParams / FormData
+    // even though the DOM `BodyInit` type narrows it. Cast at the call site
+    // to the runtime signature (which is broader) so callers stay typed
+    // for the union they actually use.
+    await (ns.put as (k: string, v: typeof value, o?: typeof options) => Promise<unknown>)(key, value, options);
     return true;
   } catch {
     // On any error, fail OPEN (write through) -- losing a write opportunity
     // is cheaper than losing a data refresh.
     try {
-      await ns.put(key, value, options as never);
+      // KV.put accepts the wider union that includes URLSearchParams / FormData
+      // even though the DOM `BodyInit` type narrows it. Cast at the call site
+      // to the runtime signature (which is broader) so callers stay typed
+      // for the union they actually use.
+      await (ns.put as (k: string, v: typeof value, o?: typeof options) => Promise<unknown>)(key, value, options);
       return true;
     } catch {
       return false;

@@ -387,7 +387,7 @@ export default function SocIocs(): JSX.Element {
             title="IOC volume by source"
             right={
               <Link
-                to="/threatintel/feed-status"
+                to="/threatintel/feeds"
                 className="inline-flex items-center gap-1 text-meta font-mono text-slate-500 hover:text-brand-600 dark:hover:text-brand-400"
               >
                 feeds <ExternalLink size={10} />

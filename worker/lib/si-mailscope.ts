@@ -141,7 +141,7 @@ function unfoldHeaders(raw: string): RawHeader[] {
     }
     if (cur) out.push(cur);
     const m = line.match(/^([!-9;-~]+):\s*(.*)$/);
-    if (!m) {
+    if (!m || !m[1] || m[2] === undefined) {
       // Malformed — treat as a continuation of a synthetic header.
       if (cur) {
         cur.value += ' ' + line;
@@ -221,7 +221,7 @@ function parseOneAddress(s: string): Addr | null {
   if (!s) return null;
   // <addr@host> form
   const angle = s.match(/^(.*?)<([^>]+)>\s*$/);
-  if (angle) {
+  if (angle && angle[1] !== undefined && angle[2] !== undefined) {
     const addr = angle[2].trim();
     const name = angle[1].trim().replace(/^"|"$/g, '') || undefined;
     if (addr.includes('@')) return { name, address: addr, raw: s };
@@ -250,28 +250,29 @@ function parseReceived(value: string, raw: string, idx: number, prevDate: Date |
   // IP extraction
   const ipMatch = value.match(/\[((?:\d{1,3}\.){3}\d{1,3}|[0-9a-fA-F:]+)\]/);
 
-  const date = dateMatch ? new Date(dateMatch[1].trim()) : null;
+  const dateRaw = dateMatch?.[1]?.trim();
+  const date = dateRaw ? new Date(dateRaw) : null;
   const validDate = date && !Number.isNaN(date.getTime()) ? date : null;
   const delay = validDate && prevDate ? prevDate.getTime() - validDate.getTime() : null;
 
   // TLS info — look for "using TLSvX.Y" or "over TLS"
   let tls: string | null = null;
   const tlsMatch = value.match(/using\s+(TLSv?\d+(?:\.\d+)?)/i) || value.match(/over\s+(TLS\S*)/i);
-  if (tlsMatch) tls = tlsMatch[1];
+  if (tlsMatch && tlsMatch[1]) tls = tlsMatch[1];
 
   // Auth results on this hop
   let auth: string | null = null;
   const authMatch = value.match(/Authentication-Results:\s*([^;]+)/i);
-  if (authMatch) auth = authMatch[1].trim();
+  if (authMatch && authMatch[1]) auth = authMatch[1].trim();
 
   // rDNS / TLD
-  const rDNS = fromMatch ? fromMatch[1].trim().split(/\s+/)[0] : null;
+  const rDNS = fromMatch && fromMatch[1] ? fromMatch[1].trim().split(/\s+/)[0] : null;
   let tld: string | null = null;
   if (rDNS && rDNS.includes('.')) {
     const lastDot = rDNS.lastIndexOf('.');
     tld = rDNS.slice(lastDot);
   }
-  const ip = ipMatch ? ipMatch[1] : null;
+  const ip = ipMatch && ipMatch[1] ? ipMatch[1] : null;
   const isInternal = ip ? isInternalIp(ip) : false;
 
   return {

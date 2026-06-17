@@ -797,6 +797,16 @@ const REDIRECTS: ReadonlyArray<{ path: string; to: string }> = [
   // ── Detection Hub ───────────────────────────────────────────────
   { path: '/threatintel/rules', to: '/threatintel/detections/detections' },
   { path: '/threatintel/detections', to: '/threatintel/detections/detections' },
+  // ── Hub root redirects (catalog-filtered views are the canonical
+  //    way to land on a hub; these 2-segment aliases exist for
+  //    external links and the in-app components that point at them).
+  { path: '/threatintel/actors', to: '/threatintel/catalog?cat=actors' },
+  { path: '/threatintel/campaigns', to: '/threatintel/catalog?cat=campaigns' },
+  { path: '/threatintel/iocs', to: '/threatintel/catalog?cat=iocs' },
+  { path: '/threatintel/darkweb', to: '/threatintel/catalog?cat=darkweb' },
+  { path: '/threatintel/feeds', to: '/threatintel/catalog?cat=feeds' },
+  { path: '/threatintel/tools', to: '/threatintel/catalog?cat=tools' },
+  { path: '/threatintel/wiki', to: '/threatintel/catalog?cat=wiki' },
   { path: '/threatintel/signal', to: '/threatintel/detections/signal' },
   { path: '/threatintel/threatsignal', to: '/threatintel/detections/signal' },
   { path: '/threatintel/yara', to: '/threatintel/detections/yara' },

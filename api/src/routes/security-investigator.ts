@@ -622,6 +622,13 @@ export async function siRenderHandler(c: Context<{ Bindings: Env }>) {
           'Content-Type': 'image/svg+xml; charset=utf-8',
           'Cache-Control': 'public, max-age=300, s-maxage=3600',
           'X-SVG-Bytes': String(svg.length),
+          // Defense-in-depth for the SVG-XSS class: even if an unescaped value
+          // ever slips through the renderer's safeColor()/esc() guards, this
+          // CSP neutralizes script execution when the image/svg+xml URL is
+          // opened as a top-level document. `sandbox` + script-src 'none'
+          // block inline/embedded scripts; nosniff stops content-type tricks.
+          'Content-Security-Policy': "default-src 'none'; style-src 'unsafe-inline'; script-src 'none'; sandbox",
+          'X-Content-Type-Options': 'nosniff',
         },
       });
     }

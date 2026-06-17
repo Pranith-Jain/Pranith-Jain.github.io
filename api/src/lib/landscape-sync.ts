@@ -21,6 +21,7 @@
  */
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { kvPutIfChanged } from './safe-catch';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 

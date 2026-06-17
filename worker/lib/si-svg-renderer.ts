@@ -202,7 +202,7 @@ function renderDonutChart(
     const arcLen = (seg.value / total) * circumference;
     const dashArray = `${arcLen}, ${circumference - arcLen}`;
     const dashOffset = circumference - offset;
-    const color = safeColor(seg.color, colors[i % colors.length]);
+    const color = safeColor(seg.color, colors[i % colors.length]!);
     arcs.push(
       `<circle cx="${cx}" cy="${cy}" r="${radius}" fill="none" stroke="${color}" stroke-width="20" stroke-dasharray="${dashArray}" stroke-dashoffset="${dashOffset}" transform="rotate(-90, ${cx}, ${cy})"><title>${esc(seg.label)}: ${seg.value} (${((seg.value / total) * 100).toFixed(1)}%)</title></circle>`
     );
@@ -210,7 +210,7 @@ function renderDonutChart(
   });
   const legendX = 200;
   const legendLines: string[] = segments.map((seg: { label: string; value: number; color?: string }, i: number) => {
-    const color = safeColor(seg.color, colors[i % colors.length]);
+    const color = safeColor(seg.color, colors[i % colors.length]!);
     return (
       `<rect x="${legendX}" y="${cy - segments.length * 10 + i * 22}" width="14" height="14" fill="${color}" rx="2"/>` +
       `<text x="${legendX + 22}" y="${cy - segments.length * 10 + i * 22 + 11}" font-size="12" fill="${palette.text_primary}">${esc(seg.label)} (${seg.value})</text>`
@@ -255,7 +255,7 @@ function renderStackedBarChart(
     cat.values.forEach((v: { label: string; value: number; color?: string }, j: number) => {
       const segH = (v.value / maxTotal) * chartH;
       cumY -= segH;
-      const color = safeColor(v.color, colors[j % colors.length]);
+      const color = safeColor(v.color, colors[j % colors.length]!);
       bars.push(
         `<rect x="${x0}" y="${cumY}" width="${barWidth}" height="${segH}" fill="${color}"><title>${esc(cat.label)} → ${esc(v.label)}: ${v.value}</title></rect>`
       );

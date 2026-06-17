@@ -33,7 +33,9 @@ export type PulseKind =
   | 'exploit'
   | 'github_advisory'
   | 'supply_chain_attacks'
-  | 'kev';
+  | 'kev'
+  | 'firm'
+  | 'maritime';
 
 export interface PulseEvent {
   id: string;
