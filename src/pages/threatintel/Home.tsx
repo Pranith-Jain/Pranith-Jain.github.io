@@ -113,7 +113,7 @@ export default function ThreatIntelHome(): JSX.Element {
   }, []);
 
   return (
-    <div className="w-full py-4 sm:py-8 text-slate-900 dark:text-slate-100 space-y-6 sm:space-y-8">
+    <div className="w-full py-4 sm:py-8 text-slate-900 dark:text-slate-100 space-y-6 sm:space-y-8 dark:bg-[#0c1222]">
       {/* The page <h1> is provided by AppHero below ("Threat-intel
           platform") — no separate sr-only h1, which would create a
           second, near-duplicate top-level heading. */}

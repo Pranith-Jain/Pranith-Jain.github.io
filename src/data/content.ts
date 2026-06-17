@@ -333,6 +333,41 @@ export const projects: Project[] = [
     github: 'https://github.com/Pranith-Jain/cti-stix-connector',
   },
   {
+    title: 'DFIR MCP Server',
+    description:
+      'MCP server exposing 20 DFIR and threat intelligence tools for AI agents — IOC checking, CVE lookup, threat actor enrichment, phishing analysis, and more. Built on Cloudflare Workers with streaming SSE support. Works with Claude Desktop, Cursor, and any MCP-compatible client.',
+    tags: ['MCP', 'Cloudflare Workers', 'AI Agents', 'DFIR', 'TypeScript', 'Jun 2026'],
+    github: 'https://github.com/Pranith-Jain/dfir-mcp-server',
+  },
+  {
+    title: 'DFIR AI Skills',
+    description:
+      'AI coding assistant skills for Digital Forensics and Incident Response — investigation workflows, threat report generation, detection rule authoring. Compatible with Claude Code, Cursor, and GitHub Copilot/Codex.',
+    tags: ['AI', 'DFIR', 'Skills', 'Claude Code', 'Jun 2026'],
+    github: 'https://github.com/Pranith-Jain/dfir-ai-skills',
+  },
+  {
+    title: 'CTI AI Skills',
+    description:
+      'AI coding assistant skills for Cyber Threat Intelligence — IOC extraction, OCR analysis, threat intel, dark web monitoring, and feed management. Compatible with Claude Code, Cursor, and GitHub Copilot/Codex.',
+    tags: ['AI', 'CTI', 'Skills', 'Claude Code', 'Jun 2026'],
+    github: 'https://github.com/Pranith-Jain/cti-ai-skills',
+  },
+  {
+    title: 'DFIR CLI',
+    description:
+      'Command-line DFIR toolkit — IOC extraction, encoding, file analysis, PE triage. Powered by the pranithjain.qzz.io API.',
+    tags: ['CLI', 'DFIR', 'Python', 'Jun 2026'],
+    github: 'https://github.com/Pranith-Jain/dfir-cli',
+  },
+  {
+    title: 'CTI CLI',
+    description:
+      'Command-line threat intelligence — AI copilot, IOC checker, 13+ feeds. Powered by the pranithjain.qzz.io API.',
+    tags: ['CLI', 'CTI', 'Python', 'Jun 2026'],
+    github: 'https://github.com/Pranith-Jain/cti-cli',
+  },
+  {
     title: 'Email Infrastructure Automation Platform',
     description:
       'Built when onboarding a new client domain was taking the team most of an afternoon. End-to-end domain setup across 1,300+ domains, now down to under 10 minutes per domain. The Smartlead MCP server on top of it bundles 23 analytics tools so warmup health, deliverability, and campaign metrics for 2,700+ inboxes all live in one place instead of three tabs.',
@@ -541,20 +576,22 @@ export const navLinks: NavLinkExt[] = [
     label: 'Threat Intel',
     href: '/threatintel',
     children: [
+      { label: 'Catalog', href: '/threatintel/catalog' },
       { label: 'Briefings', href: '/threatintel/briefings' },
+      { label: 'Live IOCs', href: '/threatintel/iocs/live' },
+      { label: 'Global Pulse', href: '/threatintel/predictive/global-pulse' },
+      { label: 'Intel Dashboard', href: '/threatintel/predictive/dashboard' },
       { label: 'Most Wanted', href: '/threatintel/most-wanted' },
-      { label: 'Live Center', href: '/threatintel/live-center' },
-      { label: 'Extremists', href: '/threatintel/extremists' },
-      { label: 'Predators', href: '/threatintel/predators' },
+      { label: 'Actor KB', href: '/threatintel/actors/kb' },
     ],
   },
   {
     label: 'DFIR',
-    href: '/dfir',
+    href: '/dfir/catalog',
     children: [
-      { label: 'Dashboard', href: '/dfir' },
-      { label: 'CVE Lookup', href: '/dfir/cve' },
+      { label: 'Catalog', href: '/dfir/catalog' },
       { label: 'IOC Check', href: '/dfir/ioc-check' },
+      { label: 'CVE Lookup', href: '/dfir/cve' },
       { label: 'Domain Rep', href: '/dfir/domain-rep' },
       { label: 'Full Spectrum', href: '/dfir/full-spectrum' },
       { label: 'Decode', href: '/dfir/decode' },
@@ -566,7 +603,7 @@ export const navLinks: NavLinkExt[] = [
       { label: 'REGSCOPE', href: '/dfir/regscope' },
       { label: 'Rule Converter', href: '/dfir/rule-converter' },
       { label: 'Blocklists', href: '/dfir/blocklists' },
-      { label: 'Graph', href: '/dfir/threat-graph' },
+      { label: 'Threat Graph', href: '/dfir/threat-graph' },
     ],
   },
   { label: 'Blog', href: '/blog' },
