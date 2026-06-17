@@ -22,6 +22,7 @@ import { QuickActions, type QuickAction } from '../../components/QuickActions';
 import { LivePulse } from '../../components/threatintel/LivePulse';
 import { RecentToolsRow } from '../../components/RecentToolsRow';
 import { SECTIONS, flattenTools, matchesQuery } from '../../data/threatintel-sections';
+import { useDocumentMeta } from '../../hooks/useDocumentMeta';
 import { CATALOG, catalogSearch, type HubMeta, type HubPage } from '../../data/threatintel-catalog';
 import type { HubPageBadge } from '../../data/threatintel-hubs';
 
@@ -344,6 +345,14 @@ const BADGE_STYLES: Record<NonNullable<HubPageBadge>, string> = {
 function HomeCatalog(): JSX.Element {
   const [query, setQuery] = useState('');
   const [activeCat, setActiveCat] = useState('all');
+  useDocumentMeta({
+    title: 'Threat Intel Home',
+    description:
+      'Sources, feeds, RSS, news, briefings, and curated threat-intel catalogs — every page is deep-linkable.',
+    section: 'Threat Intel',
+    canonicalPath: '/threatintel',
+  });
+
   const totalEntries = useMemo(() => CATALOG.reduce((sum, h) => sum + h.pages.length, 0), []);
   const searchResults = useMemo(() => (query.trim() ? catalogSearch(query) : null), [query]);
   const visibleCategories = useMemo<HubMeta[]>(() => {

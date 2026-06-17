@@ -51,6 +51,7 @@ async function gzipUtf16Le(input: string): Promise<Uint8Array> {
   const reader = cs.readable.getReader();
   const chunks: Uint8Array[] = [];
   let total = 0;
+  // eslint-disable-next-line no-constant-condition -- intentional stream drain loop (reader returns done=true to exit)
   while (true) {
     const { value, done } = await reader.read();
     if (done) break;
@@ -59,7 +60,10 @@ async function gzipUtf16Le(input: string): Promise<Uint8Array> {
   }
   const merged = new Uint8Array(total);
   let off = 0;
-  for (const c of chunks) { merged.set(c, off); off += c.length; }
+  for (const c of chunks) {
+    merged.set(c, off);
+    off += c.length;
+  }
   return merged;
 }
 

@@ -190,6 +190,7 @@ export async function fetchNvdByIds(cveIds: string[], apiKey?: string): Promise<
       const cve = json.vulnerabilities?.[0]?.cve;
       if (cve) out.set(id, cve);
     } catch {
+      /* noop */
     }
   }
   return out;

@@ -54,7 +54,7 @@ export default function Takeover(): JSX.Element {
       autoFetched.current = true;
       void runCheck(initialDomain);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps — Intentional: mount-only effect
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { ArrowRight, Compass, Filter as FilterIcon, Search, Sparkles, X, type LucideIcon } from 'lucide-react';
 import { DataPageLayout } from '../../components/DataPageLayout';
+import { useDocumentMeta } from '../../hooks/useDocumentMeta';
 import { CATALOG, catalogSearch, type HubMeta, type HubPage } from '../../data/dfir-catalog';
 import type { HubPageBadge } from '../../data/dfir-hubs';
 
@@ -30,6 +31,14 @@ export default function DfirCatalogPage(): JSX.Element {
     if (activeCat && activeCat !== 'all') next.set('cat', activeCat);
     setSearchParams(next, { replace: true });
   }, [query, activeCat, setSearchParams]);
+
+  useDocumentMeta({
+    title: 'DFIR Toolkit Catalog',
+    description:
+      'Every routable page in the DFIR / security-toolkit area — search by name, route, or keyword, or filter by category.',
+    section: 'DFIR',
+    canonicalPath: '/dfir/catalog',
+  });
 
   const totalEntries = useMemo(() => CATALOG.reduce((sum, h) => sum + h.pages.length, 0), []);
 
@@ -75,7 +84,9 @@ export default function DfirCatalogPage(): JSX.Element {
           </span>
           <span className="font-mono text-mini text-slate-500 dark:text-slate-400">
             {totalEntries} pages - {CATALOG.length} hubs - deep-linkable via{' '}
-            <code className="font-mono text-tool bg-slate-100 dark:bg-slate-800 rounded px-1.5 py-0.5">?q=...&cat=...</code>
+            <code className="font-mono text-tool bg-slate-100 dark:bg-slate-800 rounded px-1.5 py-0.5">
+              ?q=...&cat=...
+            </code>
           </span>
         </div>
       }

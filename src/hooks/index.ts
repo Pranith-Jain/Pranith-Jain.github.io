@@ -20,3 +20,4 @@ export { useDebounce } from './useDebounce';
 export { useClipboard } from './useClipboard';
 export { useWebSocket } from './useWebSocket';
 export type { WebSocketState, UseWebSocketOptions, UseWebSocketReturn } from './useWebSocket';
+export { useDocumentMeta, type DocumentMeta } from './useDocumentMeta';

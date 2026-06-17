@@ -141,7 +141,7 @@ export default function HostGraphView(): JSX.Element {
     if (initial && !result && !error) {
       void fetchGraph(initial);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps — Intentional: mount-only effect
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onSubmit = (e: FormEvent) => {

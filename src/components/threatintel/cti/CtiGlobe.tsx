@@ -10,7 +10,7 @@
  */
 
 import { useEffect, useRef, useState, useMemo, type JSX } from 'react';
-import Globe from 'globe.gl';
+import Globe, { type GlobeInstance } from 'globe.gl';
 import type { CtiArc, CtiPoint } from './geo';
 import { severityColor } from './geo';
 import { useReduceMotion } from '../../../hooks/useMediaQuery';
@@ -25,6 +25,17 @@ function escHtml(s: string): string {
 }
 
 /* ─── Types ─────────────────────────────────────────────────────────────── */
+
+/** Helper: cast the opaque `object` datum that globe.gl passes to its
+ *  accessors to a known datum type. Cheap and safe because the corresponding
+ *  *Data() setter below is statically typed to the same shape. */
+function datum<T>(obj: object): T {
+  return obj as T;
+}
+
+/** Alias for use as a globe.gl datum type (globe.gl reads `any`-shaped
+ *  data, but the props are statically CtiPoint-shaped so this is safe). */
+type CtiPointDatum = CtiPoint;
 
 interface RingDatum {
   lat: number;
@@ -54,8 +65,7 @@ export default function CtiGlobe({
 }: CtiGlobeProps): JSX.Element {
   const containerRef = useRef<HTMLDivElement>(null);
   const reduceMotion = useReduceMotion();
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const globeRef = useRef<any>(null);
+  const globeRef = useRef<GlobeInstance | null>(null);
   const rotAngleRef = useRef(0);
   const rafRef = useRef(0);
   const userInteracting = useRef(false);
@@ -103,14 +113,10 @@ export default function CtiGlobe({
         .atmosphereAltitude(0.2)
         // Points
         .pointsData(points)
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        .pointLat((p: any) => p.lat)
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        .pointLng((p: any) => p.lng)
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        .pointColor((p: any) => severityColor(p.severity))
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        .pointAltitude((p: any) => {
+        .pointLat((p: object) => datum<CtiPointDatum>(p).lat)
+        .pointLng((p: object) => datum<CtiPointDatum>(p).lng)
+        .pointColor((p: object) => severityColor(datum<CtiPointDatum>(p).severity))
+        .pointAltitude((p: object) => {
           const alts: Record<string, number> = {
             critical: 0.15,
             high: 0.09,
@@ -118,10 +124,9 @@ export default function CtiGlobe({
             low: 0.035,
             info: 0.02,
           };
-          return alts[p.severity] ?? 0.035;
+          return alts[datum<CtiPointDatum>(p).severity] ?? 0.035;
         })
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        .pointRadius((p: any) => {
+        .pointRadius((p: object) => {
           const sizes: Record<string, number> = {
             critical: 2.0,
             high: 1.5,
@@ -129,12 +134,11 @@ export default function CtiGlobe({
             low: 0.6,
             info: 0.4,
           };
-          return sizes[p.severity] ?? 0.7;
+          return sizes[datum<CtiPointDatum>(p).severity] ?? 0.7;
         })
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        .pointLabel((p: any) => {
-          const sevColor = severityColor(p.severity);
-          const label = escHtml(p.label);
+        .pointLabel((p: object) => {
+          const sevColor = severityColor(datum<CtiPointDatum>(p).severity);
+          const label = escHtml(datum<CtiPointDatum>(p).label);
           return `
             <div style="
               background: rgba(10,15,26,0.95);
@@ -158,23 +162,22 @@ export default function CtiGlobe({
                   font-size: 11px;
                   font-weight: 600;
                   text-transform: uppercase;
-                ">${p.severity}</span>
-                <span style="opacity: 0.6; font-size: 12px;">Count: ${p.count}</span>
+                ">${datum<CtiPointDatum>(p).severity}</span>
+                <span style="opacity: 0.6; font-size: 12px;">Count: ${datum<CtiPointDatum>(p).count}</span>
               </div>
               <div style="margin-top: 8px; font-size: 11px; opacity: 0.5;">Click to focus</div>
             </div>
           `;
         })
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        .onPointClick((p: any) => {
-          const point = p as CtiPoint;
+        .onPointClick((p: object | null) => {
+          if (!p) return;
+          const point = datum<CtiPoint>(p);
           setSelectedPoint(point);
           onPointClick?.(point);
           lastInteraction.current = Date.now();
         })
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        .onPointHover((p: any) => {
-          const point = p ? (p as CtiPoint) : null;
+        .onPointHover((p: object | null) => {
+          const point = p ? datum<CtiPoint>(p) : null;
           setHoveredPoint(point);
           onPointHover?.(point);
           if (typeof document !== 'undefined') {
@@ -183,27 +186,21 @@ export default function CtiGlobe({
         })
         // Rings
         .ringsData(ringData)
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        .ringLat((r: any) => r.lat)
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        .ringLng((r: any) => r.lng)
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        .ringColor((r: any) => r.color)
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        .ringMaxRadius((r: any) => r.size)
+        .ringLat((r: object) => datum<RingDatum>(r).lat)
+        .ringLng((r: object) => datum<RingDatum>(r).lng)
+        .ringColor((r: object) => datum<RingDatum>(r).color)
+        .ringMaxRadius((r: object) => datum<RingDatum>(r).size)
         .ringAltitude(0.005)
         .ringRepeatPeriod(2000)
         // Arcs
         .arcsData(arcs)
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        .arcColor((a: any) => a.color)
+        .arcColor((a: object) => datum<CtiArc>(a).color)
         .arcDashLength(0.6)
         .arcDashGap(0.04)
         .arcDashAnimateTime(3000)
         .arcStroke(0.5)
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        .arcLabel((a: any) => {
-          const label = escHtml(a.label);
+        .arcLabel((a: object) => {
+          const label = escHtml(datum<CtiArc>(a).label);
           return `
             <div style="
               background: rgba(10,15,26,0.95);
@@ -213,7 +210,7 @@ export default function CtiGlobe({
               font-size: 11px;
               font-family: monospace;
               max-width: 280px;
-              border: 1px solid ${a.color}40;
+              border: 1px solid ${datum<CtiArc>(a).color}40;
               box-shadow: 0 4px 16px rgba(0,0,0,0.4);
             ">${label}</div>
           `;
@@ -272,7 +269,7 @@ export default function CtiGlobe({
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to initialize globe');
     }
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps — Intentional: mount-only effect (globe init)
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Update data when it changes
   useEffect(() => {

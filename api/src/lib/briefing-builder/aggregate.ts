@@ -369,7 +369,10 @@ function buildExecutiveSummary(args: {
   return parts.join(' ');
 }
 
-export async function buildLlmExecutiveSummary(args: Parameters<typeof buildExecutiveSummary>[0], env?: Env): Promise<string> {
+export async function buildLlmExecutiveSummary(
+  args: Parameters<typeof buildExecutiveSummary>[0],
+  env?: Env
+): Promise<string> {
   const templateSummary = buildExecutiveSummary(args);
   if (!env) return templateSummary;
   const {
@@ -451,6 +454,7 @@ export async function buildLlmExecutiveSummary(args: Parameters<typeof buildExec
       return text;
     }
   } catch {
+    /* noop */
   }
   return templateSummary;
 }

@@ -154,7 +154,7 @@ export default function Analyze(): JSX.Element {
       autoRanRef.current = true;
       runCheck();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps — Intentional: single-shot via ref guard
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initialInput]);
 
   const exportJson = () => {

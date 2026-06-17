@@ -112,7 +112,7 @@ export default function DomainReputation(): JSX.Element {
   useEffect(() => {
     if (searchParams.get('domain') || searchParams.get('q')) run();
     return () => abortRef.current?.abort();
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps — Intentional: mount-only effect
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Compute aggregated stats from results
   const allChecks = results ? [...(results.domain ?? []), ...(results.ips ?? []).flatMap((r) => r.checks)] : [];

@@ -8,6 +8,7 @@ import { ErrorBoundary } from '../components/ErrorBoundary';
 import { RecentWritingSkeleton } from '../components/RecentWriting';
 import { personalInfo } from '../data/content';
 import { useInView } from '../hooks/useInView';
+import { useDocumentMeta } from '../hooks/useDocumentMeta';
 
 const RecentWriting = lazy(() => import('../components/RecentWriting').then((m) => ({ default: m.RecentWriting })));
 
@@ -26,6 +27,12 @@ function RevealSection({ children, className = '' }: { children: React.ReactNode
 }
 
 export default function Home() {
+  useDocumentMeta({
+    title: 'Home',
+    description:
+      'Pranith Jain — Security Analyst & Detection Engineer. DFIR toolkit, threat-intel catalogs, and live breach signals.',
+    canonicalPath: '/',
+  });
   return (
     <>
       <Hero personalInfo={personalInfo} />

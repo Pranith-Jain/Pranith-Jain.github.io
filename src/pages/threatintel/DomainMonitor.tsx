@@ -77,7 +77,7 @@ export default function DomainMonitor(): JSX.Element {
   useEffect(() => {
     if (searchParams.get('domain')) run();
     return () => abortRef.current?.abort();
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps — Intentional: mount-only effect
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <DataPageLayout

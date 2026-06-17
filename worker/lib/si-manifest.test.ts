@@ -37,33 +37,67 @@ function makeAssetsFixture() {
     replicatedAt: '2026-01-01',
     counts: { skills: 2, queries: 2, automations: 0 },
     skills: [
-      { slug: 'threat-pulse', name: 'Threat Pulse', category: 'Quick Scan',
-        description: 'rapid broad scan', triggerKeywords: ['pulse','scan'],
-        hasAssets: false, sizeBytes: 1000 },
-      { slug: 'user-investigation', name: 'User Investigation', category: 'Core Investigation',
-        description: 'investigate a user', triggerKeywords: ['user','investigate'],
-        hasAssets: false, sizeBytes: 2000 },
+      {
+        slug: 'threat-pulse',
+        name: 'Threat Pulse',
+        category: 'Quick Scan',
+        description: 'rapid broad scan',
+        triggerKeywords: ['pulse', 'scan'],
+        hasAssets: false,
+        sizeBytes: 1000,
+      },
+      {
+        slug: 'user-investigation',
+        name: 'User Investigation',
+        category: 'Core Investigation',
+        description: 'investigate a user',
+        triggerKeywords: ['user', 'investigate'],
+        hasAssets: false,
+        sizeBytes: 2000,
+      },
     ],
     queries: [
-      { slug: 'identity/aitm_threat_detection', domain: 'identity', subdomain: null,
-        title: 'AiTM Hunting', filename: 'aitm.md', sizeBytes: 5000 },
-      { slug: 'cloud/agent365_observability', domain: 'cloud', subdomain: null,
-        title: 'Agent365', filename: 'agent365.md', sizeBytes: 7000 },
+      {
+        slug: 'identity/aitm_threat_detection',
+        domain: 'identity',
+        subdomain: null,
+        title: 'AiTM Hunting',
+        filename: 'aitm.md',
+        sizeBytes: 5000,
+      },
+      {
+        slug: 'cloud/agent365_observability',
+        domain: 'cloud',
+        subdomain: null,
+        title: 'Agent365',
+        filename: 'agent365.md',
+        sizeBytes: 7000,
+      },
     ],
     automations: [],
   };
   data.set('/data/si/index.json', idx);
 
   const skill: SiSkillBody = {
-    slug: 'threat-pulse', name: 'Threat Pulse', category: 'Quick Scan',
-    description: 'rapid broad scan', triggerKeywords: ['pulse','scan'],
-    hasAssets: false, sizeBytes: 1000, bodyMarkdown: '# Threat Pulse\n\ndo the pulse', domain: 'threat-pulse',
+    slug: 'threat-pulse',
+    name: 'Threat Pulse',
+    category: 'Quick Scan',
+    description: 'rapid broad scan',
+    triggerKeywords: ['pulse', 'scan'],
+    hasAssets: false,
+    sizeBytes: 1000,
+    bodyMarkdown: '# Threat Pulse\n\ndo the pulse',
+    domain: 'threat-pulse',
   };
   data.set('/data/si/skills/threat-pulse.json', skill);
 
   const query: SiQueryBody = {
-    slug: 'identity/aitm_threat_detection', domain: 'identity', subdomain: null,
-    title: 'AiTM Hunting', filename: 'aitm.md', sizeBytes: 5000,
+    slug: 'identity/aitm_threat_detection',
+    domain: 'identity',
+    subdomain: null,
+    title: 'AiTM Hunting',
+    filename: 'aitm.md',
+    sizeBytes: 5000,
     bodyMarkdown: '# AiTM\n\n```kql\nSigninLogs | where ...\n```',
   };
   data.set('/data/si/queries/identity__aitm_threat_detection.json', query);
@@ -74,7 +108,8 @@ function makeAssetsFixture() {
       const hit = data.get(path);
       if (!hit) return new Response('not found', { status: 404 });
       return new Response(JSON.stringify(hit), {
-        status: 200, headers: { 'content-type': 'application/json' },
+        status: 200,
+        headers: { 'content-type': 'application/json' },
       });
     }),
   } as unknown as Fetcher;
@@ -198,14 +233,21 @@ describe('siCacheStats', () => {
 function makeExtendedFixture() {
   const data = new Map<string, unknown>();
   data.set('/data/si/docs-index.json', {
-    source: 'test', license: 'MIT', count: 2,
+    source: 'test',
+    license: 'MIT',
+    count: 2,
     docs: [
       { slug: 'identity_protection', title: 'Identity Protection', filename: 'IDENTITY_PROTECTION.md', sizeBytes: 100 },
-      { slug: 'honeypotinvestigation', title: 'Honeypot Investigation', filename: 'Honeypotinvestigation.md', sizeBytes: 200 },
+      {
+        slug: 'honeypotinvestigation',
+        title: 'Honeypot Investigation',
+        filename: 'Honeypotinvestigation.md',
+        sizeBytes: 200,
+      },
     ],
   });
   // Note: docs are stored as .md, not .json — handled in test below.
-  const refData = { 'name': 'MITRE ATT&CK', 'version': 'test' };
+  const refData = { name: 'MITRE ATT&CK', version: 'test' };
   data.set('/data/si/ref/mitre-attck-enterprise.json', refData);
   data.set('/data/si/routing-prompt.md', '# Routing\n\nUse si_list_skills to find skills.');
 
@@ -250,10 +292,7 @@ describe('loadDocsIndex / getDoc', () => {
 
 describe('getRoutingPrompt', () => {
   beforeEach(() => {
-    try {
-      const m = require('./si-manifest') as { clearDocsCache?: () => void };
-      m.clearDocsCache?.();
-    } catch { /* esm */ }
+    clearDocsCache();
   });
 
   it('returns the routing prompt markdown', async () => {
@@ -276,10 +315,7 @@ describe('getRoutingPrompt', () => {
 
 describe('getRef', () => {
   beforeEach(() => {
-    try {
-      const m = require('./si-manifest') as { clearDocsCache?: () => void };
-      m.clearDocsCache?.();
-    } catch { /* esm */ }
+    clearDocsCache();
   });
 
   it('returns parsed JSON for a known ref', async () => {
@@ -309,7 +345,9 @@ import { loadScriptsIndex, getScript } from './si-manifest';
 function makeScriptsFixture() {
   const data = new Map<string, unknown>();
   data.set('/data/si/scripts-index.json', {
-    source: 'test', license: 'MIT', count: 2,
+    source: 'test',
+    license: 'MIT',
+    count: 2,
     scripts: [
       { name: 'Deploy-CustomDetections.ps1', sizeBytes: 13365 },
       { name: 'example-detection-manifest.json', sizeBytes: 1979 },

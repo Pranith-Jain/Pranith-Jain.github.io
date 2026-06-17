@@ -205,7 +205,7 @@ export default function EmailReputation(): JSX.Element {
   useEffect(() => {
     if (searchParams.get('domain') || searchParams.get('q')) lookup();
     return () => abortRef.current?.abort();
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps — Intentional: mount-only effect
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">

@@ -137,7 +137,7 @@ export default function UrlPreview(): JSX.Element {
       autoFetched.current = true;
       void runPreview(initialUrl);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps — Intentional: mount-only effect
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

@@ -135,7 +135,7 @@ export default function Wayback(): JSX.Element {
       initialDone.current = true;
       void lookup(initial);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps — Intentional: mount-only effect
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const stats = useMemo(() => {

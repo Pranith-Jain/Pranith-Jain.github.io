@@ -121,7 +121,7 @@ export default function RelationshipGraphPage(): JSX.Element {
         }
       })
       .finally(() => setInitialLoading(false));
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps — Intentional: mount-only effect
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const fetchGraph = useCallback(
     async (q: string) => {

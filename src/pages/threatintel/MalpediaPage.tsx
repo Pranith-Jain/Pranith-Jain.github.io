@@ -28,7 +28,7 @@ export default function MalpediaPage(): JSX.Element {
 
   useEffect(() => {
     if (initial) search();
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps — Intentional: mount-only effect
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const search = async () => {
     if (!query.trim()) return;
@@ -167,7 +167,9 @@ export default function MalpediaPage(): JSX.Element {
                         {String(f.family_name ?? f.common_name ?? '?')}
                       </div>
                       {String(f.common_name) && String(f.common_name) !== String(f.family_name) && (
-                        <p className="text-mini font-mono text-slate-500 dark:text-slate-400">aka {String(f.common_name)}</p>
+                        <p className="text-mini font-mono text-slate-500 dark:text-slate-400">
+                          aka {String(f.common_name)}
+                        </p>
                       )}
                       {desc && (
                         <p className="text-mini font-mono text-slate-500 mt-1 line-clamp-2">{desc.slice(0, 200)}</p>

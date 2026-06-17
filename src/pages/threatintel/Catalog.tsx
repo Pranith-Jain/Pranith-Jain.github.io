@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { ArrowRight, Compass, Filter as FilterIcon, Search, Sparkles, X, type LucideIcon } from 'lucide-react';
 import { DataPageLayout } from '../../components/DataPageLayout';
+import { useDocumentMeta } from '../../hooks/useDocumentMeta';
 import { CATALOG, catalogSearch, type HubMeta, type HubPage } from '../../data/threatintel-catalog';
 import type { HubPageBadge } from '../../data/threatintel-hubs';
 
@@ -32,6 +33,14 @@ export default function CatalogPage(): JSX.Element {
     if (activeCat && activeCat !== 'all') next.set('cat', activeCat);
     setSearchParams(next, { replace: true });
   }, [query, activeCat, setSearchParams]);
+
+  useDocumentMeta({
+    title: 'Threat Intel Catalog',
+    description:
+      'Every routable page in the threat-intel area — search by name, route, or keyword, or filter by category.',
+    section: 'Threat Intel',
+    canonicalPath: '/threatintel/catalog',
+  });
 
   const totalEntries = useMemo(() => CATALOG.reduce((sum, h) => sum + h.pages.length, 0), []);
 

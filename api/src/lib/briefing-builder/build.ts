@@ -78,6 +78,7 @@ export async function buildBriefing(
             const r = await fetchNvdRecent(rangeStart, rangeEnd, opts.nvdApiKey);
             if (r.length > 0) return r;
           } catch {
+            /* noop */
           }
           return fetchCirclRecent(rangeStart, rangeEnd);
         }),
@@ -418,6 +419,7 @@ export async function writeBriefing(
       .bind(briefing.slug)
       .run();
   } catch {
+    /* noop */
   }
   return { written: true };
 }

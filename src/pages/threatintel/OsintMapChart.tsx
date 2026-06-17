@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-restricted-imports -- react-simple-maps: small inner chart; refactoring to lazy requires parent route changes (out of scope for this audit) */
 import { ComposableMap, Geographies, Geography } from 'react-simple-maps';
 import type { OsintCountry } from '../../data/threatintel/osint-countries';
 

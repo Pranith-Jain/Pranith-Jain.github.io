@@ -2,16 +2,7 @@ import { useState, useMemo } from 'react';
 import { BackLink } from '../../components/BackLink';
 import { CopyButton } from '../../components/dfir/CopyButton';
 import { SEVERITY_TONE } from '../../components/severity';
-import {
-  ArrowLeft,
-  Search,
-  AlertTriangle,
-  Shield,
-  Tag,
-  Calendar,
-  User,
-  FileCode,
-} from 'lucide-react';
+import { ArrowLeft, Search, AlertTriangle, Shield, Tag, Calendar, User, FileCode } from 'lucide-react';
 
 type Severity = 'critical' | 'high' | 'medium';
 type TabId = 'all' | 'cves' | 'campaigns' | 'actors';
@@ -45,7 +36,8 @@ const QUERY_PACKS: QueryPack[] = [
     affectedProducts: ['cPanel', 'WHM', 'Apache httpd'],
     techniques: ['T1190', 'T1505', 'T1059'],
     datePublished: '2026-04-12',
-    summary: 'Harvester toolkit targeting cPanel admin panels via unauthenticated API injection. Deploys web shell and exfiltrates hosting credentials.',
+    summary:
+      'Harvester toolkit targeting cPanel admin panels via unauthenticated API injection. Deploys web shell and exfiltrates hosting credentials.',
     queries: [
       {
         lang: 'kql',
@@ -105,7 +97,8 @@ dataset = process_creation
     affectedProducts: ['Microsoft Exchange Server 2019', 'Exchange Online'],
     techniques: ['T1190', 'T1210', 'T1505'],
     datePublished: '2026-02-18',
-    summary: 'Pre-auth remote code execution in Exchange Server OWA component. Chained SSRF to deserialisation in ECP endpoint.',
+    summary:
+      'Pre-auth remote code execution in Exchange Server OWA component. Chained SSRF to deserialisation in ECP endpoint.',
     queries: [
       {
         lang: 'kql',
@@ -164,7 +157,8 @@ NewProcessName=*powershell.exe
     affectedProducts: ['Apache Log4j 2.x', 'Multiple vendor appliances'],
     techniques: ['T1190', 'T1211', 'T1068'],
     datePublished: '2026-01-05',
-    summary: 'New Log4Shell bypass variants targeting patched 2.17.1+ installations. JNDI LDAP injection via message lookup conversion pattern.',
+    summary:
+      'New Log4Shell bypass variants targeting patched 2.17.1+ installations. JNDI LDAP injection via message lookup conversion pattern.',
     queries: [
       {
         lang: 'kql',
@@ -227,7 +221,8 @@ dest_port IN (389,1389,636) dest_ip!="10.0.0.0/8" dest_ip!="172.16.0.0/12" dest_
     affectedProducts: ['Windows Server', 'VMware ESXi', 'SMB shares'],
     techniques: ['T1486', 'T1490', 'T1047', 'T1021'],
     datePublished: '2026-03-01',
-    summary: 'Active LockBit 3.0 campaign leveraging PsExec lateral movement and custom encryptor. Targets Windows + ESXi environments.',
+    summary:
+      'Active LockBit 3.0 campaign leveraging PsExec lateral movement and custom encryptor. Targets Windows + ESXi environments.',
     queries: [
       {
         lang: 'kql',
@@ -235,7 +230,7 @@ dest_port IN (389,1389,636) dest_ip!="10.0.0.0/8" dest_ip!="172.16.0.0/12" dest_
 // Detect LockBit named pipe + service creation
 DeviceProcessEvents
 | where Timestamp > ago(7d)
-| where ProcessCommandLine contains "\\\\.\\pipe\\" or ProcessCommandLine contains "\\\LockBit\\"
+| where ProcessCommandLine contains "\\\\.\\pipe\\" or ProcessCommandLine contains "LockBit\\"
 | project Timestamp, DeviceName, FileName, ProcessCommandLine`,
       },
       {
@@ -250,7 +245,7 @@ detection:
   selection:
     CommandLine|contains:
       - '\\\\.\\pipe\\lockbit'
-      - '\\LockBit\\'
+      - 'LockBit\\'
   condition: selection
 level: high`,
       },
@@ -259,13 +254,13 @@ level: high`,
         code: `// LockBit 3.0 — Named Pipe + Service Install
 dataset = process_creation
 | filter event_type = "PROCESS" and TIMESTAMP > NOW() - 7d
-| filter process_cmdline contains any ("\\\\.\\pipe\\lockbit", "\\LockBit\\")
+| filter process_cmdline contains any ("\\\\.\\pipe\\lockbit", "LockBit\\")
 | fields TIMESTAMP, hostname, process_path, process_cmdline, user`,
       },
       {
         lang: 'spl',
         code: `index=windows sourcetype=WinEventLog:Security
-CommandLine="*\\\\.\\pipe\\lockbit*" OR CommandLine="*\\LockBit\\*"
+CommandLine="*\\\\.\\pipe\\lockbit*" OR CommandLine="*LockBit\\*"
 | eval threat="LockBit 3.0 Deployment"
 | table _time, host, user, CommandLine`,
       },
@@ -280,7 +275,8 @@ CommandLine="*\\\\.\\pipe\\lockbit*" OR CommandLine="*\\LockBit\\*"
     affectedProducts: ['Progress MOVEit Transfer', 'MOVEit Cloud'],
     techniques: ['T1190', 'T1211', 'T1489'],
     datePublished: '2026-02-25',
-    summary: 'Ongoing CLOP ransomware exploitation of MOVEit Transfer SQLi vulnerability. Data exfiltration via HTTPS to known CLOP infrastructure.',
+    summary:
+      'Ongoing CLOP ransomware exploitation of MOVEit Transfer SQLi vulnerability. Data exfiltration via HTTPS to known CLOP infrastructure.',
     queries: [
       {
         lang: 'kql',
@@ -335,7 +331,8 @@ uri="*/human.txt*" OR uri="*/moveitapi*"
     affectedProducts: ['SolarWinds Orion', 'Microsoft 365', 'Azure AD'],
     techniques: ['T1195', 'T1550', 'T1526', 'T1098'],
     datePublished: '2026-01-20',
-    summary: 'APT29 post-compromise activity on SolarWinds Orion deployments. SAML token forging, Azure AD persistence, and mailbox exfiltration.',
+    summary:
+      'APT29 post-compromise activity on SolarWinds Orion deployments. SAML token forging, Azure AD persistence, and mailbox exfiltration.',
     queries: [
       {
         lang: 'kql',
@@ -393,7 +390,8 @@ result=success
     affectedProducts: ['Windows', 'Linux', 'VMware ESXi', 'NAS appliances'],
     techniques: ['T1486', 'T1059', 'T1047', 'T1021'],
     datePublished: '2026-03-30',
-    summary: 'ALPHV ransomware encryptor deployment via Rust-based binary. Uses intermittent encryption for speed and AppLocker bypass.',
+    summary:
+      'ALPHV ransomware encryptor deployment via Rust-based binary. Uses intermittent encryption for speed and AppLocker bypass.',
     queries: [
       {
         lang: 'kql',
@@ -448,7 +446,8 @@ CommandLine="*-encrypt*" OR CommandLine="*--decrypt*" OR CommandLine="*-vss*"
     affectedProducts: ['Web3 bridge contracts', 'Node.js', 'Linux servers'],
     techniques: ['T1190', 'T1204', 'T1059', 'T1071'],
     datePublished: '2026-04-05',
-    summary: 'Lazarus targeting cryptocurrency bridge smart contracts. Social engineering of developers followed by malicious npm packages for persistent access.',
+    summary:
+      'Lazarus targeting cryptocurrency bridge smart contracts. Social engineering of developers followed by malicious npm packages for persistent access.',
     queries: [
       {
         lang: 'kql',
@@ -506,7 +505,8 @@ command="*npm install*web3-bridge*" OR command="*npm install*ethers-bridge*"
     affectedProducts: ['Okta', 'Microsoft 365', 'AWS', 'Salesforce', 'Slack'],
     techniques: ['T1078', 'T1556', 'T1528', 'T1566'],
     datePublished: '2026-03-15',
-    summary: 'Scattered Spider social-engineering campaigns targeting SaaS help desks. SIM swapping, MFA fatigue, and impersonation of IT staff.',
+    summary:
+      'Scattered Spider social-engineering campaigns targeting SaaS help desks. SIM swapping, MFA fatigue, and impersonation of IT staff.',
     queries: [
       {
         lang: 'kql',
@@ -562,7 +562,8 @@ ResultType=500121
     affectedProducts: ['Citrix ADC', 'Citrix Gateway', 'NetScaler'],
     techniques: ['T1190', 'T1211', 'T1021'],
     datePublished: '2026-02-01',
-    summary: 'Citrix ADC/Gateway buffer overflow allowing unauthenticated RCE. Mass exploitation by multiple ransomware groups for initial access.',
+    summary:
+      'Citrix ADC/Gateway buffer overflow allowing unauthenticated RCE. Mass exploitation by multiple ransomware groups for initial access.',
     queries: [
       {
         lang: 'kql',
@@ -633,7 +634,7 @@ export default function Tracepulse(): JSX.Element {
   const filteredPacks = useMemo(() => {
     const all: FilteredPack[] = QUERY_PACKS.map((p) => ({
       ...p,
-      matchType: p.cveId ? 'cves' : (p.campaignName ? 'campaigns' : 'actors'),
+      matchType: p.cveId ? 'cves' : p.campaignName ? 'campaigns' : 'actors',
     }));
     const tabFiltered = tab === 'all' ? all : all.filter((p) => p.matchType === tab);
     if (!search.trim()) return tabFiltered;
@@ -673,7 +674,11 @@ export default function Tracepulse(): JSX.Element {
         </h1>
         <p className="text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed">
           CVE and campaign-tied detection query packs — deploy as soon as a new CVE drops or campaign goes active.
-          <span className="text-slate-500"> {QUERY_PACKS.length} query packs · {QUERY_PACKS.reduce((s, p) => s + p.queries.length, 0)} queries across KQL · Sigma · XQL · SPL</span>
+          <span className="text-slate-500">
+            {' '}
+            {QUERY_PACKS.length} query packs · {QUERY_PACKS.reduce((s, p) => s + p.queries.length, 0)} queries across
+            KQL · Sigma · XQL · SPL
+          </span>
         </p>
       </div>
 
@@ -729,16 +734,32 @@ export default function Tracepulse(): JSX.Element {
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-1 flex-wrap">
                       <h3 className="text-sm font-semibold">{pack.name}</h3>
-                      <span className={`text-micro font-mono px-1.5 py-0.5 rounded border ${SEVERITY_TONE[pack.severity]}`}>
+                      <span
+                        className={`text-micro font-mono px-1.5 py-0.5 rounded border ${SEVERITY_TONE[pack.severity]}`}
+                      >
                         {pack.severity.toUpperCase()}
                       </span>
                     </div>
                     <p className="text-xs text-slate-600 dark:text-slate-400 mb-2">{pack.summary}</p>
                     <div className="flex flex-wrap gap-x-4 gap-y-1 text-micro font-mono text-slate-500">
-                      {pack.cveId && <span className="flex items-center gap-1"><Shield size={10} /> {pack.cveId}</span>}
-                      {pack.campaignName && <span className="flex items-center gap-1"><Tag size={10} /> {pack.campaignName}</span>}
-                      {pack.actorName && <span className="flex items-center gap-1"><User size={10} /> {pack.actorName}</span>}
-                      <span className="flex items-center gap-1"><Calendar size={10} /> {pack.datePublished}</span>
+                      {pack.cveId && (
+                        <span className="flex items-center gap-1">
+                          <Shield size={10} /> {pack.cveId}
+                        </span>
+                      )}
+                      {pack.campaignName && (
+                        <span className="flex items-center gap-1">
+                          <Tag size={10} /> {pack.campaignName}
+                        </span>
+                      )}
+                      {pack.actorName && (
+                        <span className="flex items-center gap-1">
+                          <User size={10} /> {pack.actorName}
+                        </span>
+                      )}
+                      <span className="flex items-center gap-1">
+                        <Calendar size={10} /> {pack.datePublished}
+                      </span>
                     </div>
                   </div>
                   <div className="flex items-center gap-1.5">
@@ -757,7 +778,12 @@ export default function Tracepulse(): JSX.Element {
                 {/* Products + Techniques */}
                 <div className="flex flex-wrap gap-1.5 mt-2">
                   {pack.affectedProducts.map((p) => (
-                    <span key={p} className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400">{p}</span>
+                    <span
+                      key={p}
+                      className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400"
+                    >
+                      {p}
+                    </span>
                   ))}
                   {pack.techniques.map((t) => (
                     <a
@@ -783,7 +809,9 @@ export default function Tracepulse(): JSX.Element {
                         className="w-full flex items-center justify-between px-5 py-2.5 text-left hover:bg-slate-50 dark:hover:bg-slate-900/20 transition-colors"
                       >
                         <div className="flex items-center gap-2">
-                          <span className={`text-micro font-mono px-1.5 py-0.5 rounded ${LANG_COLORS[q.lang]}`}>{LANG_LABELS[q.lang]}</span>
+                          <span className={`text-micro font-mono px-1.5 py-0.5 rounded ${LANG_COLORS[q.lang]}`}>
+                            {LANG_LABELS[q.lang]}
+                          </span>
                           <span className="text-xs text-slate-500 dark:text-slate-400">Query {i + 1}</span>
                         </div>
                         <CopyButton value={q.code} />

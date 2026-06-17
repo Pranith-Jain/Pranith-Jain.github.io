@@ -123,7 +123,7 @@ export default function IdentityLookup(): JSX.Element {
     if (initial && USERNAME_RE.test(initial)) {
       void startLookup(initial);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps — Intentional: mount-only effect
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const filtered = useMemo(() => {

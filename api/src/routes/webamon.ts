@@ -68,6 +68,7 @@ async function webamonFetch(path: string, retries = 2): Promise<Response | null>
       clearTimeout(timer);
       if (res.ok || res.status !== 429) return res;
     } catch {
+      /* noop */
     }
     if (attempt < retries) await new Promise((r) => setTimeout(r, 800 * attempt));
   }

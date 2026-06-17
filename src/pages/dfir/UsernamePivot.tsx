@@ -105,7 +105,7 @@ export default function UsernamePivot(): JSX.Element {
       initialDone.current = true;
       void startScan(initial);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps — Intentional: mount-only effect
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const filteredRows = useMemo(() => {
