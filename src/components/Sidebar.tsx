@@ -23,6 +23,32 @@ function isActive(pathname: string, href: string): boolean {
 }
 
 /**
+ * Tone classes for the sidebar's active-item styling. Brand (blue) is
+ * the default and is used by DFIR; rose is used by the threat-intel
+ * sidebar so the active state matches the page accent. Kept centralised
+ * here so both the expanded (SidebarContent) and collapsed
+ * (SidebarContentCollapsed) renders stay in sync.
+ */
+function toneClasses(tone: 'brand' | 'rose' = 'brand') {
+  if (tone === 'rose') {
+    return {
+      activeBg: 'bg-rose-500/10 text-rose-700 dark:text-rose-300',
+      activeIcon: 'text-rose-600 dark:text-rose-400',
+      activeDot: 'bg-rose-500',
+      activeBorder: 'border-rose-500',
+      focusRing: 'focus-visible:ring-rose-500',
+    };
+  }
+  return {
+    activeBg: 'bg-brand-500/10 text-brand-700 dark:text-brand-300',
+    activeIcon: 'text-brand-600 dark:text-brand-400',
+    activeDot: 'bg-brand-500',
+    activeBorder: 'border-brand-500',
+    focusRing: 'focus-visible:ring-brand-500',
+  };
+}
+
+/**
  * Inner content shared between the desktop Sidebar and the mobile
  * drawer. Renders the section label header, the grouped category list,
  * and the bottom item-count footer. No outer positioning chrome — the
@@ -32,6 +58,7 @@ function isActive(pathname: string, href: string): boolean {
 export function SidebarContent({ config }: { config: SidebarConfig }): JSX.Element {
   const location = useLocation();
   const totalItems = config.groups.reduce((n, g) => n + g.items.length, 0);
+  const { activeBg, activeIcon, activeDot, focusRing } = toneClasses(config.tone);
 
   // No header row here. The section label is already provided by:
   //   - the TopBar brand on desktop
@@ -56,22 +83,24 @@ export function SidebarContent({ config }: { config: SidebarConfig }): JSX.Eleme
                     <Link
                       to={item.href}
                       aria-current={active ? 'page' : undefined}
-                      className={`group flex items-center gap-2.5 rounded-lg px-2 py-2 text-sm font-medium transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 ${
+                      className={`group flex items-center gap-2.5 rounded-lg px-2 py-2 text-sm font-medium transition focus:outline-none focus-visible:ring-2 ${focusRing} ${
                         active
-                          ? 'bg-brand-500/10 text-brand-700 dark:text-brand-300'
+                          ? activeBg
                           : 'text-slate-600 hover:bg-slate-900/5 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-white/10 dark:hover:text-white'
                       }`}
                     >
                       <Icon
                         className={`h-4 w-4 flex-shrink-0 ${
                           active
-                            ? 'text-brand-600 dark:text-brand-400'
+                            ? activeIcon
                             : 'text-slate-400 dark:text-slate-500 group-hover:text-slate-600 dark:group-hover:text-slate-300'
                         }`}
                         aria-hidden="true"
                       />
                       <span className="truncate flex-1">{item.label}</span>
-                      {active && <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-brand-500 shrink-0" />}
+                      {active && (
+                        <span aria-hidden="true" className={`h-1.5 w-1.5 rounded-full ${activeDot} shrink-0`} />
+                      )}
                     </Link>
                   </li>
                 );
@@ -149,6 +178,7 @@ export function Sidebar({ config }: SidebarProps): JSX.Element {
  */
 function SidebarContentCollapsed({ config }: { config: SidebarConfig }): JSX.Element {
   const location = useLocation();
+  const { activeBg, activeIcon, activeBorder, focusRing } = toneClasses(config.tone);
   return (
     <nav className="flex-1 overflow-y-auto px-2 py-3" aria-label={`${config.sectionLabel} categories`}>
       {config.groups.map((group) => (
@@ -162,13 +192,13 @@ function SidebarContentCollapsed({ config }: { config: SidebarConfig }): JSX.Ele
                 to={item.href}
                 aria-current={active ? 'page' : undefined}
                 title={item.label}
-                className={`grid h-9 w-9 mx-auto place-items-center rounded-lg transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 ${
+                className={`grid h-9 w-9 mx-auto place-items-center rounded-lg transition focus:outline-none focus-visible:ring-2 ${focusRing} ${
                   active
-                    ? 'bg-brand-500/10 text-brand-700 dark:text-brand-300 border-l-2 border-brand-500 rounded-l-none'
+                    ? `${activeBg} border-l-2 ${activeBorder} rounded-l-none`
                     : 'text-slate-500 hover:bg-slate-900/5 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-white/10 dark:hover:text-white'
                 }`}
               >
-                <Icon className={`h-4 w-4 ${active ? 'text-brand-600 dark:text-brand-400' : ''}`} aria-hidden="true" />
+                <Icon className={`h-4 w-4 ${active ? activeIcon : ''}`} aria-hidden="true" />
               </Link>
             );
           })}

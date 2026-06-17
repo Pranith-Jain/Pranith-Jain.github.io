@@ -63,6 +63,7 @@ export function CategoryHub({
       title={title}
       description={blurb}
       maxWidthClass="max-w-7xl"
+      accentClass={accentClass}
       headerExtra={
         <div className="flex flex-wrap items-center gap-2 font-mono text-mini text-slate-500 dark:text-slate-400">
           <span>
@@ -98,6 +99,7 @@ function CategoryTile({ item, accentClass }: { item: CategoryItem; accentClass: 
     <Link to={item.href} className="group block h-full">
       <Card
         variant="interactive"
+        tone="rose"
         padding="md"
         className="h-full transition-[transform,border-color,box-shadow] group-hover:-translate-y-0.5"
       >
@@ -123,12 +125,12 @@ function CategoryTile({ item, accentClass }: { item: CategoryItem; accentClass: 
             )}
             <ArrowRight
               size={14}
-              className="text-slate-300 transition-transform group-hover:translate-x-0.5 group-hover:text-brand-500 dark:text-slate-700"
+              className="text-slate-300 transition-transform group-hover:translate-x-0.5 group-hover:text-rose-500 dark:text-slate-700"
               aria-hidden="true"
             />
           </div>
         </div>
-        <h3 className="mb-1 font-display text-base font-semibold text-slate-900 transition-colors group-hover:text-brand-600 dark:text-slate-100 dark:group-hover:text-brand-400">
+        <h3 className="mb-1 font-display text-base font-semibold text-slate-900 transition-colors group-hover:text-rose-600 dark:text-slate-100 dark:group-hover:text-rose-400">
           {item.label}
         </h3>
         <p className="line-clamp-2 text-tool leading-relaxed text-slate-500 dark:text-slate-400">{item.desc}</p>

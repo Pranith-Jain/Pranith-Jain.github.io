@@ -75,6 +75,10 @@ export interface SidebarGroup {
 export interface SidebarConfig {
   sectionLabel: string;
   groups: SidebarGroup[];
+  /** Accent tone for active states. Defaults to "brand" (blue, for DFIR).
+   *  Pass "rose" for threat-intel so the active sidebar item matches the
+   *  page accent. */
+  tone?: 'brand' | 'rose';
 }
 
 /* ------------------------------------------------------------------ */
@@ -282,6 +286,7 @@ function buildThreatIntelSidebar(): SidebarConfig {
   return {
     sectionLabel: 'Threat Intel',
     groups: [home, ...hubGroups],
+    tone: 'rose',
   };
 }
 
@@ -291,6 +296,7 @@ function buildThreatIntelSidebar(): SidebarConfig {
 
 const dfir: SidebarConfig = {
   sectionLabel: 'DFIR',
+  tone: 'brand',
   groups: [
     {
       title: 'Triage',

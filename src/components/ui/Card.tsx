@@ -4,17 +4,29 @@ export interface CardProps<T extends ElementType = 'div'> {
   as?: T;
   variant?: 'default' | 'glass' | 'surface' | 'interactive';
   padding?: 'none' | 'sm' | 'md' | 'lg';
+  /** Accent color for interactive hover (border + focus ring). Defaults to
+   *  brand (blue, for DFIR). Pass "rose" for threat-intel pages so the
+   *  hover/focus state matches the page accent. */
+  tone?: 'brand' | 'rose';
   className?: string;
   children?: ReactNode;
   onClick?: () => void;
 }
 
-const CARD_VARIANT: Record<string, string> = {
+const TONE_CLASSES: Record<'brand' | 'rose', string> = {
+  brand: 'hover:border-brand-500/30 focus-visible:ring-brand-500',
+  rose: 'hover:border-rose-500/30 focus-visible:ring-rose-500',
+};
+
+function interactiveVariant(tone: 'brand' | 'rose'): string {
+  return `border border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900 cursor-pointer transition-all hover:shadow-md focus-visible:outline-none focus-visible:ring-2 ${TONE_CLASSES[tone]}`;
+}
+
+const CARD_VARIANT: Record<'default' | 'glass' | 'surface' | 'interactive', string> = {
   default: 'border border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900',
   glass: 'glass',
   surface: 'surface',
-  interactive:
-    'border border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900 cursor-pointer transition-all hover:shadow-md hover:border-brand-500/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500',
+  interactive: '', // computed in Card() based on tone
 };
 
 const CARD_PADDING: Record<string, string> = {
@@ -28,13 +40,15 @@ export function Card<T extends ElementType = 'div'>({
   as,
   variant = 'default',
   padding = 'md',
+  tone = 'brand',
   className = '',
   children,
   ...rest
 }: CardProps<T> & Omit<ComponentPropsWithoutRef<T>, keyof CardProps<T>>) {
   const Tag = as || ('div' as ElementType);
+  const variantClass = variant === 'interactive' ? interactiveVariant(tone) : CARD_VARIANT[variant];
   return (
-    <Tag className={`rounded-2xl ${CARD_VARIANT[variant]} ${CARD_PADDING[padding]} ${className}`} {...rest}>
+    <Tag className={`rounded-2xl ${variantClass} ${CARD_PADDING[padding]} ${className}`} {...rest}>
       {children}
     </Tag>
   );

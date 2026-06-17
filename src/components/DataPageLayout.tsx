@@ -44,6 +44,10 @@ export interface DataPageLayoutProps {
    *  skips rendering the ArrowLeft back link — useful when an ancestor
    *  `DataPageLayout` already renders one. */
   hideBack?: boolean;
+  /** Accent color for the H1 icon. Defaults to brand (blue, for DFIR).
+   *  Pass e.g. "text-rose-600 dark:text-rose-400" for threat-intel pages so
+   *  the header icon matches the page accent. */
+  accentClass?: string;
 }
 
 export function DataPageLayout({
@@ -63,6 +67,7 @@ export function DataPageLayout({
   className,
   maxWidthClass = 'max-w-5xl',
   hideBack = false,
+  accentClass = 'text-brand-600 dark:text-brand-400',
 }: DataPageLayoutProps): JSX.Element {
   // Smart back target: return to the category-filtered hub the user likely came
   // from (e.g. /threatintel/c/knowledge) when one is mapped for this route, else
@@ -85,7 +90,7 @@ export function DataPageLayout({
 
       <div className="animate-fade-in-up mb-10">
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
-          <span className="text-brand-600 dark:text-brand-400">{icon}</span> {title}
+          <span className={accentClass}>{icon}</span> {title}
         </h1>
         {description && <p className="text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed">{description}</p>}
         {headerExtra && <div className="mt-4">{headerExtra}</div>}
