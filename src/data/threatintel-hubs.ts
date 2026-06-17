@@ -1,0 +1,1193 @@
+/**
+ * Canonical registry of every page in the threat-intel area.
+ *
+ * Each "hub" is a category of related pages. The hub root URL
+ * (/threatintel/<hub-id>) renders a SaaS-style category landing page that
+ * lists all sub-pages. Each sub-page has its own direct URL
+ * (/threatintel/<hub-id>/<tab-id>) which renders the page component
+ * directly — no hub wrapper, no tab bar.
+ *
+ * Why this exists:
+ *   The original design used a tab-bar pattern where /threatintel/<hub>
+ *   was a single page that switched between sub-pages via query params
+ *   (e.g. ?tab=directory) or path params (e.g. /<hub>/<tab>). The tabs
+ *   were real React components but not real URLs — the user couldn't
+ *   bookmark them, share them, or use Cmd+K to jump to them.
+ *
+ *   This file is the single source of truth that drives:
+ *     - App.tsx route registration
+ *     - CategoryHub landing pages (the hub root URL)
+ *     - Sidebar nav
+ *     - Catalog page
+ *     - HubShell tab bars (preserved for backwards compat)
+ *
+ *   When you add a new page:
+ *     1. Create the .tsx component.
+ *     2. Add a HubPage entry to the right hub's `pages` array.
+ *     3. Add the route to App.tsx.
+ *     4. (Optional) add a redirect for any legacy alias.
+ */
+
+import {
+  AlertTriangle,
+  Brain,
+  Bug,
+  Cloud,
+  ExternalLink,
+  FileText,
+  GitBranch,
+  Globe,
+  LineChart,
+  type LucideIcon,
+  Radio,
+  Rss,
+  Search,
+  Shield,
+  ShieldAlert,
+  Target,
+  Users,
+  Wrench,
+} from 'lucide-react';
+
+export type HubPageBadge = 'live' | 'new' | 'beta';
+
+export interface HubPage {
+  /** Direct URL the page is reachable at. */
+  path: string;
+  /** The tab id used in the legacy hub-tab URL pattern. */
+  tabId: string;
+  /** Display label for the tile and sidebar. */
+  label: string;
+  /** One-line description. */
+  desc: string;
+  /** Lazily-loaded component variable name (from App.tsx). */
+  compVar: string;
+  /** Optional live/new badge. */
+  badge?: HubPageBadge;
+  /** Extra search keywords. */
+  keywords?: readonly string[];
+  /** Optional per-page icon. Falls back to hub icon when absent. */
+  icon?: LucideIcon;
+}
+
+export interface HubMeta {
+  /** Unique id for the hub. Used in URLs (/threatintel/<id>). */
+  id: string;
+  /** Display label. */
+  label: string;
+  /** One-line description for the hub landing page. */
+  blurb: string;
+  /** Lucide icon name. */
+  icon: LucideIcon;
+  /** Tailwind tone classes. */
+  tone: string;
+  /** All pages that belong to this hub. */
+  pages: readonly HubPage[];
+}
+
+/* ------------------------------------------------------------------ */
+/*  Hub definitions                                                   */
+/* ------------------------------------------------------------------ */
+
+export const HUB_META: readonly HubMeta[] = [
+  {
+    id: 'actors',
+    label: 'Actors & Threat Groups',
+    blurb: 'Threat-actor profiles, attribution, DNA, timelines, and APT tracking.',
+    icon: Users,
+    tone: 'text-rose-700 dark:text-rose-300 border-rose-500/30 bg-rose-500/10',
+    pages: [
+      {
+        path: '/threatintel/actors/directory',
+        tabId: 'directory',
+        label: 'Actor Directory',
+        desc: 'Unified actor browser — MITRE ATT&CK, MISP Galaxy, and platform DB.',
+        compVar: 'ActorDirectory',
+      },
+      {
+        path: '/threatintel/actors/timeline',
+        tabId: 'timeline',
+        label: 'Actor Timeline',
+        desc: 'Posting activity and operational tempo per actor.',
+        compVar: 'ActorTimeline',
+      },
+      {
+        path: '/threatintel/actors/dna',
+        tabId: 'dna',
+        label: 'Actor DNA',
+        desc: 'TTP signatures and infrastructure fingerprints.',
+        compVar: 'ActorDNA',
+      },
+      {
+        path: '/threatintel/actors/usernames',
+        tabId: 'usernames',
+        label: 'Actor Usernames',
+        desc: 'Search forum handles across 2M+ records.',
+        compVar: 'ActorUsernameSearch',
+      },
+      {
+        path: '/threatintel/actors/attribution',
+        tabId: 'attribution',
+        label: 'Attribution Framework',
+        desc: 'Attribution framework and analysis.',
+        compVar: 'Attribution',
+      },
+      {
+        path: '/threatintel/actors/catalog',
+        tabId: 'catalog',
+        label: 'Threat Actor Catalog',
+        desc: 'Curated profiles — aliases, countries, malware, TTPs.',
+        compVar: 'ThreatActorCatalog',
+      },
+      {
+        path: '/threatintel/actors/kb',
+        tabId: 'kb',
+        label: 'Actor Knowledge Base',
+        desc: 'Knowledge base with cross-references and MITRE mapping.',
+        compVar: 'ActorKb',
+      },
+      {
+        path: '/threatintel/actors/graph',
+        tabId: 'graph',
+        label: 'Actor Graph',
+        desc: 'Visualize actor → actor → IOC connections.',
+        compVar: 'RelationshipGraph',
+      },
+    ],
+  },
+  {
+    id: 'campaigns',
+    label: 'Campaigns & Briefings',
+    blurb: 'Active and historical campaigns, attribution, briefings, and assessments.',
+    icon: GitBranch,
+    tone: 'text-orange-700 dark:text-orange-300 border-orange-500/30 bg-orange-500/10',
+    pages: [
+      {
+        path: '/threatintel/campaigns/active',
+        tabId: 'active',
+        label: 'Active Campaigns',
+        desc: 'Active campaign tracker with status, severity, and IOC rollups.',
+        compVar: 'Campaigns',
+      },
+      {
+        path: '/threatintel/campaigns/lifecycle',
+        tabId: 'lifecycle',
+        label: 'Campaign Lifecycle',
+        desc: 'Discovery → exploitation → actions on objectives.',
+        compVar: 'CampaignLifecycle',
+      },
+      {
+        path: '/threatintel/campaigns/generator',
+        tabId: 'generator',
+        label: 'Campaign Generator',
+        desc: 'AI-powered campaign generation for tabletop exercises.',
+        compVar: 'CampaignGenerator',
+        badge: 'new',
+      },
+      {
+        path: '/threatintel/campaigns/cross',
+        tabId: 'cross',
+        label: 'Cross-Campaign',
+        desc: 'Find connections across campaigns, actors, and IOCs.',
+        compVar: 'CrossCampaignCorrelation',
+      },
+    ],
+  },
+  {
+    id: 'iocs',
+    label: 'IOCs & Threat Intel',
+    blurb: 'Live indicator streams, enrichment, C2 tracking, and supply-chain intel.',
+    icon: Target,
+    tone: 'text-amber-700 dark:text-amber-300 border-amber-500/30 bg-amber-500/10',
+    pages: [
+      {
+        path: '/threatintel/iocs/live',
+        tabId: 'live',
+        label: 'Live IOC Stream',
+        desc: 'Real-time IOC feed from 12+ providers — IP, domain, hash, URL.',
+        compVar: 'LiveIocs',
+        badge: 'live',
+      },
+      {
+        path: '/threatintel/iocs/enrichment',
+        tabId: 'enrichment',
+        label: 'IOC Enrichment',
+        desc: 'Pivot and enrich any indicator across VT, AbuseIPDB, Shodan, OTX.',
+        compVar: 'IocEnrichment',
+      },
+      {
+        path: '/threatintel/iocs/feeds',
+        tabId: 'feeds',
+        label: 'IOC Feeds',
+        desc: 'Structured indicator feeds ready for SIEM, EDR, or CTI ingestion.',
+        compVar: 'IocFeedsPage',
+      },
+      {
+        path: '/threatintel/iocs/entity',
+        tabId: 'entity',
+        label: 'Entity Resolution',
+        desc: 'Resolve entities across intel sources — actor, malware, campaign.',
+        compVar: 'EntityResolution',
+      },
+      {
+        path: '/threatintel/iocs/c2',
+        tabId: 'c2',
+        label: 'C2 Tracker',
+        desc: 'Live C2 infrastructure tracker — Cobalt Strike, Sliver, Mythic, 30+ families.',
+        compVar: 'C2Tracker',
+        badge: 'live',
+      },
+      {
+        path: '/threatintel/iocs/map',
+        tabId: 'map',
+        label: 'Threat Map',
+        desc: 'Geo-visualization of IOCs by country and ASN.',
+        compVar: 'ThreatMap',
+      },
+      {
+        path: '/threatintel/iocs/cross',
+        tabId: 'cross',
+        label: 'Cross-Correlate',
+        desc: 'Cross-source IOC correlation — single-feed vs multi-feed confidence.',
+        compVar: 'CrossCorrelate',
+      },
+      {
+        path: '/threatintel/iocs/correlation',
+        tabId: 'correlation',
+        label: 'IOC Correlation',
+        desc: 'IOC correlation analysis with timeline.',
+        compVar: 'IocCorrelation',
+      },
+      {
+        path: '/threatintel/iocs/aggregated',
+        tabId: 'aggregated',
+        label: 'Aggregated Feeds',
+        desc: 'Aggregated feed browser — what each provider ships.',
+        compVar: 'AggregatedFeeds',
+      },
+      {
+        path: '/threatintel/iocs/soc',
+        tabId: 'soc',
+        label: 'SOC IOC Dashboard',
+        desc: 'SOC IOC dashboard with priority scoring.',
+        compVar: 'SocIocs',
+      },
+      {
+        path: '/threatintel/iocs/observable',
+        tabId: 'observable',
+        label: 'Observable DB',
+        desc: 'Every indicator seen, with provenance.',
+        compVar: 'ObservableDb',
+      },
+    ],
+  },
+  {
+    id: 'cves',
+    label: 'CVEs & Vulnerabilities',
+    blurb: 'CVE intel, KEV catalog, GitHub advisories, and exploit tracking.',
+    icon: AlertTriangle,
+    tone: 'text-red-700 dark:text-red-300 border-red-500/30 bg-red-500/10',
+    pages: [
+      {
+        path: '/threatintel/cves/cves',
+        tabId: 'cves',
+        label: 'CVE Intel',
+        desc: 'Unified CVE intelligence — NVD + KEV + EPSS + exploit availability.',
+        compVar: 'CveIntel',
+      },
+      {
+        path: '/threatintel/cves/advisories',
+        tabId: 'advisories',
+        label: 'GitHub Advisories',
+        desc: 'GitHub security advisories with affected versions and patches.',
+        compVar: 'GithubAdvisories',
+      },
+      {
+        path: '/threatintel/cves/resources',
+        tabId: 'resources',
+        label: 'CVE Resources',
+        desc: 'CVE resource catalogs — patch priority, exploit DB, vendor bulletins.',
+        compVar: 'CveResourcesCatalog',
+      },
+      {
+        path: '/threatintel/cves/k8s',
+        tabId: 'k8s',
+        label: 'Kubernetes CVEs',
+        desc: 'Kubernetes-specific CVE feed with workload impact.',
+        compVar: 'K8sCve',
+      },
+      {
+        path: '/threatintel/cves/exploitable',
+        tabId: 'exploitable',
+        label: 'Exploitable CVEs',
+        desc: 'CVEs with public exploits or in-the-wild reports.',
+        compVar: 'ExploitableCves',
+      },
+      {
+        path: '/threatintel/cves/list',
+        tabId: 'list',
+        label: 'CVE List',
+        desc: 'Full CVE listing with search and filters.',
+        compVar: 'CveList',
+      },
+    ],
+  },
+  {
+    id: 'malware',
+    label: 'Malware & Samples',
+    blurb: 'Malware IOCs, sandbox, sample vault, malicious packages, and family encyclopedia.',
+    icon: Bug,
+    tone: 'text-emerald-700 dark:text-emerald-300 border-emerald-500/30 bg-emerald-500/10',
+    pages: [
+      {
+        path: '/threatintel/malware/iocs',
+        tabId: 'iocs',
+        label: 'Malware IOCs',
+        desc: 'Malware IOC feeds across 50+ families.',
+        compVar: 'MalwareIocs',
+      },
+      {
+        path: '/threatintel/malware/vault',
+        tabId: 'vault',
+        label: 'Malware Vault',
+        desc: 'Malware sample vault with hashes and metadata.',
+        compVar: 'MalwareVault',
+      },
+      {
+        path: '/threatintel/malware/sandbox',
+        tabId: 'sandbox',
+        label: 'Malware Sandbox',
+        desc: 'Hash lookup across 10+ sandbox platforms — consensus verdict.',
+        compVar: 'MalwareSandbox',
+        badge: 'new',
+      },
+      {
+        path: '/threatintel/malware/packages',
+        tabId: 'packages',
+        label: 'Malicious Packages',
+        desc: 'Malicious package tracking — npm, PyPI, RubyGems, Maven, NuGet.',
+        compVar: 'MaliciousPackages',
+      },
+      {
+        path: '/threatintel/malware/malpedia',
+        tabId: 'malpedia',
+        label: 'Malpedia',
+        desc: 'Malpedia malware encyclopedia — families, YARA, references.',
+        compVar: 'MalpediaPage',
+      },
+      {
+        path: '/threatintel/malware/maltrail',
+        tabId: 'maltrail',
+        label: 'Maltrail Trails',
+        desc: 'Maltrail detection trails for known malware.',
+        compVar: 'MaltrailTrails',
+      },
+    ],
+  },
+  {
+    id: 'feeds',
+    label: 'Feeds & Sources',
+    blurb: 'Feed catalog, sources, quality, scheduler, and reliability tracking.',
+    icon: Rss,
+    tone: 'text-sky-700 dark:text-sky-300 border-sky-500/30 bg-sky-500/10',
+    pages: [
+      {
+        path: '/threatintel/feeds/catalog',
+        tabId: 'catalog',
+        label: 'Feed Catalog',
+        desc: 'Feed file browser with format and sample preview.',
+        compVar: 'FeedCatalog',
+      },
+      {
+        path: '/threatintel/feeds/sources',
+        tabId: 'sources',
+        label: 'Feed Sources',
+        desc: 'Feed source registry with enabled/disabled state.',
+        compVar: 'FeedSources',
+      },
+      {
+        path: '/threatintel/feeds/quality',
+        tabId: 'quality',
+        label: 'Feed Quality',
+        desc: 'Feed quality metrics — freshness, accuracy, FP rate.',
+        compVar: 'FeedQuality',
+      },
+      {
+        path: '/threatintel/feeds/scheduler',
+        tabId: 'scheduler',
+        label: 'Feed Scheduler',
+        desc: 'Feed scheduling and orchestration — cron, retry, backoff.',
+        compVar: 'FeedScheduler',
+      },
+      {
+        path: '/threatintel/feeds/threatfeeds',
+        tabId: 'threatfeeds',
+        label: 'Threat Feeds',
+        desc: 'Curated threat intelligence feeds from 50+ providers.',
+        compVar: 'ThreatFeeds',
+        badge: 'live',
+      },
+      {
+        path: '/threatintel/feeds/status',
+        tabId: 'status',
+        label: 'Feed Status',
+        desc: 'Feed health status — last pull, errors, lag.',
+        compVar: 'FeedStatus',
+      },
+      {
+        path: '/threatintel/feeds/reliability',
+        tabId: 'reliability',
+        label: 'Source Reliability',
+        desc: 'Source reliability grades — Admiralty scale, FP rate.',
+        compVar: 'SourceReliability',
+      },
+      {
+        path: '/threatintel/feeds/mythreatintel',
+        tabId: 'mythreatintel',
+        label: 'My Threat Intel',
+        desc: 'My curated threat-intel feed — personal bookmarks and follows.',
+        compVar: 'MyThreatIntel',
+      },
+    ],
+  },
+  {
+    id: 'social',
+    label: 'Social & Live Feeds',
+    blurb: 'Telegram, X/Bluesky, Reddit, and crypto-scam streams.',
+    icon: Radio,
+    tone: 'text-violet-700 dark:text-violet-300 border-violet-500/30 bg-violet-500/10',
+    pages: [
+      {
+        path: '/threatintel/social/firehose',
+        tabId: 'firehose',
+        label: 'Social Firehose',
+        desc: 'Multi-platform social media firehose.',
+        compVar: 'SocialFirehose',
+        badge: 'live',
+      },
+      {
+        path: '/threatintel/social/news',
+        tabId: 'news',
+        label: 'Tech & AI News',
+        desc: 'Tech and AI news aggregation.',
+        compVar: 'TechAiNews',
+      },
+      {
+        path: '/threatintel/social/telegram-leaks',
+        tabId: 'telegram-leaks',
+        label: 'Telegram Leaks',
+        desc: 'Telegram credential leak feed with channel discovery.',
+        compVar: 'TelegramLeaks',
+        badge: 'live',
+      },
+      {
+        path: '/threatintel/social/telegram-stats',
+        tabId: 'telegram-stats',
+        label: 'Telegram Stats',
+        desc: 'Telegram leak statistics — volume, trending, time-of-day.',
+        compVar: 'TelegramLeakStats',
+      },
+      {
+        path: '/threatintel/social/telegram-channels',
+        tabId: 'telegram-channels',
+        label: 'Telegram Channels',
+        desc: 'Auto-discovered Telegram channels.',
+        compVar: 'TelegramDiscoveredChannels',
+      },
+      {
+        path: '/threatintel/social/telegram-settings',
+        tabId: 'telegram-settings',
+        label: 'Telegram Settings',
+        desc: 'Custom channel management — mute, follow, alert rules.',
+        compVar: 'TelegramSettings',
+      },
+      {
+        path: '/threatintel/social/crypto-scam',
+        tabId: 'crypto-scam',
+        label: 'Crypto Scam Feed',
+        desc: 'Crypto scam feed — wallet addresses, drainers, phishing sites.',
+        compVar: 'CryptoScamFeed',
+        badge: 'live',
+      },
+      {
+        path: '/threatintel/social/reddit',
+        tabId: 'reddit',
+        label: 'Reddit Firehose',
+        desc: 'Reddit security subreddits firehose.',
+        compVar: 'RedditFirehose',
+        badge: 'live',
+      },
+      {
+        path: '/threatintel/social/x-firehose',
+        tabId: 'x-firehose',
+        label: 'X / Bluesky Firehose',
+        desc: 'Bluesky and Mastodon firehose — security researchers.',
+        compVar: 'XFirehose',
+        badge: 'live',
+      },
+      {
+        path: '/threatintel/social/x-live',
+        tabId: 'x-live',
+        label: 'X Live (TweetFeed)',
+        desc: 'X/Twitter live feed via TweetFeed.',
+        compVar: 'XLive',
+        badge: 'live',
+      },
+      {
+        path: '/threatintel/social/x-watch',
+        tabId: 'x-watch',
+        label: 'X Watch',
+        desc: 'X/Twitter firehose from 70+ security accounts.',
+        compVar: 'XWatch',
+        badge: 'live',
+      },
+      {
+        path: '/threatintel/social/scraped-intel',
+        tabId: 'scraped-intel',
+        label: 'Scraped Intel Usernames',
+        desc: 'Scraped intel usernames — actor handles, leak-site ops.',
+        compVar: 'ScrapedIntelUsernames',
+      },
+    ],
+  },
+  {
+    id: 'darkweb',
+    label: 'Dark Web & Cybercrime',
+    blurb: 'Dark-web monitoring, ransomware activity, breach forums, and infostealer logs.',
+    icon: Globe,
+    tone: 'text-slate-700 dark:text-slate-300 border-slate-500/30 bg-slate-500/10',
+    pages: [
+      {
+        path: '/threatintel/darkweb/watch',
+        tabId: 'watch',
+        label: 'Dark Web Watch',
+        desc: 'Dark-web monitoring dashboard.',
+        compVar: 'DarkWeb',
+      },
+      {
+        path: '/threatintel/darkweb/markets',
+        tabId: 'markets',
+        label: 'Darknet Markets Timeline',
+        desc: 'Darknet market timelines — Empire, Genesis, Hydra successors.',
+        compVar: 'DarknetMarketsTimeline',
+      },
+      {
+        path: '/threatintel/darkweb/forums',
+        tabId: 'forums',
+        label: 'Breach Forums',
+        desc: 'Breach forum tracker — posts, threads, user activity.',
+        compVar: 'BreachForums',
+      },
+      {
+        path: '/threatintel/darkweb/deepdark',
+        tabId: 'deepdark',
+        label: 'DeepDarkCTI',
+        desc: 'DeepDark CTI sources — vetted onion feeds.',
+        compVar: 'DeepDarkCTI',
+      },
+      {
+        path: '/threatintel/darkweb/crime',
+        tabId: 'crime',
+        label: 'Cybercrime',
+        desc: 'Cybercrime ecosystem intelligence — actors, services, pricing.',
+        compVar: 'CyberCrime',
+      },
+      {
+        path: '/threatintel/darkweb/bitcoin',
+        tabId: 'bitcoin',
+        label: 'Physical Bitcoin Attacks',
+        desc: 'Physical Bitcoin attack tracking — wrench attacks, kidnappings.',
+        compVar: 'PhysicalBitcoinAttacks',
+      },
+      {
+        path: '/threatintel/darkweb/infostealer',
+        tabId: 'infostealer',
+        label: 'Infostealer Logs',
+        desc: 'Infostealer log analysis — credentials, cookies, system fingerprints.',
+        compVar: 'Infostealer',
+        badge: 'live',
+      },
+      {
+        path: '/threatintel/darkweb/leaks',
+        tabId: 'leaks',
+        label: 'Secret Leaks',
+        desc: 'Secret and credential leak monitoring across paste sites.',
+        compVar: 'SecretLeaks',
+        badge: 'live',
+      },
+      {
+        path: '/threatintel/darkweb/disclosures',
+        tabId: 'disclosures',
+        label: 'Breach Disclosures',
+        desc: 'Breach disclosure feed — official statements and regulatory filings.',
+        compVar: 'BreachDisclosures',
+      },
+      {
+        path: '/threatintel/darkweb/ransom-report',
+        tabId: 'ransom-report',
+        label: 'Ransom Report',
+        desc: 'Per-group ransomware CTI dossier — TTPs, victims, demands.',
+        compVar: 'RansomReport',
+      },
+      {
+        path: '/threatintel/darkweb/ransom-activity',
+        tabId: 'ransom-activity',
+        label: 'Ransomware Activity',
+        desc: 'Live ransomware activity feed — new victims, leak posts.',
+        compVar: 'RansomwareActivity',
+        badge: 'live',
+      },
+      {
+        path: '/threatintel/darkweb/ransom-map',
+        tabId: 'ransom-map',
+        label: 'Ransomware Map',
+        desc: 'Ransomware victim geo map — country, sector, group.',
+        compVar: 'RansomwareMap',
+      },
+      {
+        path: '/threatintel/darkweb/ransomwhere',
+        tabId: 'ransomwhere',
+        label: 'Ransomwhere',
+        desc: 'Crypto wallet directory tied to known ransom groups.',
+        compVar: 'Ransomwhere',
+      },
+    ],
+  },
+  {
+    id: 'phishing',
+    label: 'Phishing & Email Defense',
+    blurb: 'Phish feed, wordlists, scam watch, and email-defense analysis.',
+    icon: ShieldAlert,
+    tone: 'text-pink-700 dark:text-pink-300 border-pink-500/30 bg-pink-500/10',
+    pages: [
+      {
+        path: '/threatintel/phishing/phish',
+        tabId: 'phish',
+        label: 'Phish Feed',
+        desc: 'Phishing feed aggregation — fresh URLs and lure analysis.',
+        compVar: 'PhishFeed',
+        badge: 'live',
+      },
+      {
+        path: '/threatintel/phishing/urls',
+        tabId: 'urls',
+        label: 'Phishing Wordlists',
+        desc: 'Phishing hunting wordlists — brand, gift-card, sextortion, BEC.',
+        compVar: 'PhishingWordlists',
+      },
+      {
+        path: '/threatintel/phishing/scam',
+        tabId: 'scam',
+        label: 'Scam Watch',
+        desc: 'Scam watch and monitoring — pig-butchering, romance, investment.',
+        compVar: 'ScamWatch',
+      },
+    ],
+  },
+  {
+    id: 'infra',
+    label: 'Infrastructure & Cloud',
+    blurb: 'Cloud threat landscape, infrastructure intel, web assets, and domain monitoring.',
+    icon: Cloud,
+    tone: 'text-cyan-700 dark:text-cyan-300 border-cyan-500/30 bg-cyan-500/10',
+    pages: [
+      {
+        path: '/threatintel/infra/cloud',
+        tabId: 'cloud',
+        label: 'Cloud Threat Landscape',
+        desc: 'Cloud threat landscape — AWS, Azure, GCP, Kubernetes, SaaS.',
+        compVar: 'CloudThreatLandscape',
+      },
+      {
+        path: '/threatintel/infra/infra',
+        tabId: 'infra',
+        label: 'Infrastructure Intel',
+        desc: 'Infrastructure intelligence — ASN, IP, certificate, hosting pivots.',
+        compVar: 'InfraIntel',
+      },
+      {
+        path: '/threatintel/infra/webamon',
+        tabId: 'webamon',
+        label: 'Webamon',
+        desc: 'Web asset monitoring — external footprint, exposed services, drift detection.',
+        compVar: 'Webamon',
+      },
+      {
+        path: '/threatintel/infra/domain',
+        tabId: 'domain',
+        label: 'Domain Monitor',
+        desc: 'Domain monitoring — typosquats, lookalikes, certificate transparency.',
+        compVar: 'DomainMonitor',
+      },
+    ],
+  },
+  {
+    id: 'detections',
+    label: 'Detection & Response',
+    blurb: 'Detection rules, ATT&CK mapping, YARA, and threat signal feeds.',
+    icon: Shield,
+    tone: 'text-indigo-700 dark:text-indigo-300 border-indigo-500/30 bg-indigo-500/10',
+    pages: [
+      {
+        path: '/threatintel/detections/detections',
+        tabId: 'detections',
+        label: 'Detection Rules',
+        desc: 'Detection rule catalog — Sigma, YARA, Suricata, KQL.',
+        compVar: 'Detections',
+      },
+      {
+        path: '/threatintel/detections/disarm',
+        tabId: 'disarm',
+        label: 'DISARM Framework',
+        desc: 'DISARM red-team framework mapping.',
+        compVar: 'DisarmFramework',
+      },
+      {
+        path: '/threatintel/detections/yara',
+        tabId: 'yara',
+        label: 'YARA Hub',
+        desc: 'YARA rule hub — community and curated rules.',
+        compVar: 'YaraPage',
+      },
+      {
+        path: '/threatintel/detections/signal',
+        tabId: 'signal',
+        label: 'Threat Signal RSS',
+        desc: 'Threat-signal RSS feed with auto-classified indicators.',
+        compVar: 'ThreatSignalRss',
+      },
+    ],
+  },
+  {
+    id: 'research-hub',
+    label: 'Research & Reports',
+    blurb: 'Research posts, intelligence reports, write-ups, and external research.',
+    icon: FileText,
+    tone: 'text-amber-700 dark:text-amber-300 border-amber-500/30 bg-amber-500/10',
+    pages: [
+      {
+        path: '/threatintel/research-hub/research',
+        tabId: 'research',
+        label: 'Research Index',
+        desc: 'Long-form research posts and deep-dive analyses.',
+        compVar: 'ResearchIndex',
+      },
+      {
+        path: '/threatintel/research-hub/reports',
+        tabId: 'reports',
+        label: 'Threat Intel Reports',
+        desc: 'Original research reports with IOCs, detections, severity scoring.',
+        compVar: 'Reports',
+      },
+      {
+        path: '/threatintel/research-hub/ai',
+        tabId: 'ai',
+        label: 'AI Reports',
+        desc: 'AI-generated research reports from LLM analysis.',
+        compVar: 'AIReportShowcase',
+        badge: 'new',
+      },
+      {
+        path: '/threatintel/research-hub/writeups',
+        tabId: 'writeups',
+        label: 'Write-ups',
+        desc: 'Security write-ups and post-mortems.',
+        compVar: 'Writeups',
+      },
+      {
+        path: '/threatintel/research-hub/signal',
+        tabId: 'signal',
+        label: 'Research Signal',
+        desc: 'Research-signal feed — what changed since last visit.',
+        compVar: 'ResearchSignal',
+      },
+      {
+        path: '/threatintel/research-hub/redhunt',
+        tabId: 'redhunt',
+        label: 'RedHunt Insights',
+        desc: 'RedHunt Labs threat-intel insights.',
+        compVar: 'RedHuntInsights',
+      },
+      {
+        path: '/threatintel/research-hub/redhunt-labs',
+        tabId: 'redhunt-labs',
+        label: 'RedHunt Labs Research',
+        desc: 'RedHunt Labs research feed.',
+        compVar: 'RedHuntLabsResearch',
+      },
+      {
+        path: '/threatintel/research-hub/volexity',
+        tabId: 'volexity',
+        label: 'Volexity Threat Intel',
+        desc: 'Volexity threat-intelligence posts.',
+        compVar: 'VolexityThreatIntel',
+      },
+      {
+        path: '/threatintel/research-hub/post',
+        tabId: 'post',
+        label: 'Research Post',
+        desc: 'Individual research post (template page).',
+        compVar: 'ResearchPost',
+      },
+      {
+        path: '/threatintel/research-hub/attack-flow',
+        tabId: 'attack-flow',
+        label: 'Attack Flow Library',
+        desc: 'ATT&CK attack-flow library with reusable patterns.',
+        compVar: 'AttackFlowLibrary',
+      },
+      {
+        path: '/threatintel/research-hub/campaign-gen',
+        tabId: 'campaign-gen',
+        label: 'Campaign Gen',
+        desc: 'AI campaign generator for tabletop exercises.',
+        compVar: 'CampaignGenerator',
+      },
+      {
+        path: '/threatintel/research-hub/knowledge',
+        tabId: 'knowledge',
+        label: 'Knowledge Graph',
+        desc: 'Knowledge graph of actors, malware, campaigns, IOCs.',
+        compVar: 'KnowledgeGraph',
+      },
+      {
+        path: '/threatintel/research-hub/ach',
+        tabId: 'ach',
+        label: 'ACH',
+        desc: 'Analysis of Competing Hypotheses.',
+        compVar: 'ACH',
+      },
+    ],
+  },
+  {
+    id: 'wiki',
+    label: 'Knowledge & Frameworks',
+    blurb: 'Wiki, MITRE ATT&CK, F3EAD, insider threat, OWASP AI, and LLM atlas.',
+    icon: Brain,
+    tone: 'text-fuchsia-700 dark:text-fuchsia-300 border-fuchsia-500/30 bg-fuchsia-500/10',
+    pages: [
+      {
+        path: '/threatintel/wiki/wiki',
+        tabId: 'wiki',
+        label: 'Threat Intel Wiki',
+        desc: 'Long-form articles on Telegram OSINT, dark-web monitoring.',
+        compVar: 'Wiki',
+      },
+      {
+        path: '/threatintel/wiki/mitre',
+        tabId: 'mitre',
+        label: 'MITRE ATT&CK',
+        desc: 'MITRE ATT&CK matrix with technique pivots.',
+        compVar: 'MitreMatrix',
+      },
+      {
+        path: '/threatintel/wiki/f3ead',
+        tabId: 'f3ead',
+        label: 'F3EAD',
+        desc: 'F3EAD intelligence workflow framework.',
+        compVar: 'F3ead',
+      },
+      {
+        path: '/threatintel/wiki/insider',
+        tabId: 'insider',
+        label: 'Insider Threat Matrix',
+        desc: 'Insider threat matrix and detection guidance.',
+        compVar: 'InsiderThreatMatrix',
+      },
+      {
+        path: '/threatintel/wiki/owasp',
+        tabId: 'owasp',
+        label: 'OWASP AI Landscape',
+        desc: 'OWASP AI security landscape and LLM top-10.',
+        compVar: 'OwaspAiLandscape',
+      },
+      {
+        path: '/threatintel/wiki/llm',
+        tabId: 'llm',
+        label: 'LLM Threat Atlas',
+        desc: 'MITRE ATLAS — LLM/AI threat atlas.',
+        compVar: 'LlmThreatAtlas',
+      },
+    ],
+  },
+  {
+    id: 'osint',
+    label: 'OSINT',
+    blurb: 'OSINT frameworks, CLI tools, country map, and curated toolbox.',
+    icon: Search,
+    tone: 'text-teal-700 dark:text-teal-300 border-teal-500/30 bg-teal-500/10',
+    pages: [
+      {
+        path: '/threatintel/osint/framework',
+        tabId: 'framework',
+        label: 'OSINT Framework',
+        desc: 'OSINT framework browser — 70+ tools organized by category.',
+        compVar: 'OsintFramework',
+      },
+      {
+        path: '/threatintel/osint/cli',
+        tabId: 'cli',
+        label: 'OSINT CLI Tools',
+        desc: 'Curated CLI tools — username, email, domain, social, recon.',
+        compVar: 'OsintCliTools',
+        badge: 'new',
+      },
+      {
+        path: '/threatintel/osint/map',
+        tabId: 'map',
+        label: 'OSINT Country Map',
+        desc: 'Country-based OSINT map — sources by jurisdiction.',
+        compVar: 'OsintCountryMap',
+      },
+      {
+        path: '/threatintel/osint/toolbox',
+        tabId: 'toolbox',
+        label: 'Curated Toolbox',
+        desc: 'Curated security toolbox — hand-picked, vetted, well-maintained.',
+        compVar: 'CuratedToolbox',
+      },
+      {
+        path: '/threatintel/osint/secops',
+        tabId: 'secops',
+        label: 'SecOps Tools',
+        desc: 'SecOps tools catalog — SIEM, EDR, SOAR, log shippers.',
+        compVar: 'SecopsCatalog',
+      },
+    ],
+  },
+  {
+    id: 'tools',
+    label: 'Tools & Utilities',
+    blurb: 'AI copilot, MCP search, MISP, STIX, investigations, and watches.',
+    icon: Wrench,
+    tone: 'text-amber-700 dark:text-amber-300 border-amber-500/30 bg-amber-500/10',
+    pages: [
+      {
+        path: '/threatintel/tools/copilot',
+        tabId: 'copilot',
+        label: 'Threat Intel Copilot',
+        desc: 'AI copilot — ask, pivot, summarize, draft.',
+        compVar: 'Copilot',
+        badge: 'new',
+      },
+      {
+        path: '/threatintel/tools/copilot-chat',
+        tabId: 'copilot-chat',
+        label: 'Copilot Chat',
+        desc: 'Direct chat interface for the threat-intel copilot.',
+        compVar: 'CopilotChat',
+      },
+      {
+        path: '/threatintel/tools/mcp',
+        tabId: 'mcp',
+        label: 'MCP Search',
+        desc: 'MCP (Model Context Protocol) tool search.',
+        compVar: 'McpSearch',
+      },
+      {
+        path: '/threatintel/tools/misp',
+        tabId: 'misp',
+        label: 'MISP Browser',
+        desc: 'MISP galaxy and event browser.',
+        compVar: 'MispBrowser',
+      },
+      {
+        path: '/threatintel/tools/stix',
+        tabId: 'stix',
+        label: 'STIX Bundle Browser',
+        desc: 'Browse and download STIX 2.1 bundles for OpenCTI, MISP, etc.',
+        compVar: 'StixBundleBrowser',
+        badge: 'new',
+      },
+      {
+        path: '/threatintel/tools/graph',
+        tabId: 'graph',
+        label: 'Relationship Graph',
+        desc: 'Visualize cross-source relationships between actors, malware, IOCs.',
+        compVar: 'RelationshipGraph',
+      },
+      {
+        path: '/threatintel/tools/investigations',
+        tabId: 'investigations',
+        label: 'Investigations',
+        desc: 'Investigation case manager — open, closed, shared.',
+        compVar: 'Investigations',
+      },
+      {
+        path: '/threatintel/tools/watches',
+        tabId: 'watches',
+        label: 'Watches',
+        desc: 'Watch lists — actor, indicator, keyword, and saved searches.',
+        compVar: 'Watches',
+      },
+      {
+        path: '/threatintel/tools/unified-search',
+        tabId: 'unified-search',
+        label: 'Unified Search',
+        desc: 'Cross-source search across the entire platform.',
+        compVar: 'UnifiedSearch',
+      },
+    ],
+  },
+  {
+    id: 'external',
+    label: 'External Resources',
+    blurb: 'External directories, supply-chain intel, and awesome lists.',
+    icon: ExternalLink,
+    tone: 'text-stone-700 dark:text-stone-300 border-stone-500/30 bg-stone-500/10',
+    pages: [
+      {
+        path: '/threatintel/external/external',
+        tabId: 'external',
+        label: 'External Resources',
+        desc: 'Off-site cross-references — dashboards, OSINT directories, training labs.',
+        compVar: 'ExternalResources',
+      },
+      {
+        path: '/threatintel/external/supply',
+        tabId: 'supply',
+        label: 'Supply Chain Intel',
+        desc: 'Supply chain intelligence — SolarWinds, 3CX, MOVEit, XZ Utils.',
+        compVar: 'SupplyChainIntelligence',
+      },
+      {
+        path: '/threatintel/external/awesome',
+        tabId: 'awesome',
+        label: 'Awesome Lists',
+        desc: 'Curated awesome-security list — vetted, ranked, kept current.',
+        compVar: 'AwesomeLists',
+      },
+    ],
+  },
+  {
+    id: 'predictive',
+    label: 'Predictive & Dashboards',
+    blurb: 'Intel dashboard, predictions, metrics, and predictive analysis.',
+    icon: LineChart,
+    tone: 'text-purple-700 dark:text-purple-300 border-purple-500/30 bg-purple-500/10',
+    pages: [
+      {
+        path: '/threatintel/predictive/dashboard',
+        tabId: 'dashboard',
+        label: 'Intel Dashboard',
+        desc: 'Top-level intel dashboard — key stats, trending, top actors.',
+        compVar: 'IntelDashboard',
+      },
+      {
+        path: '/threatintel/predictive/global-pulse',
+        tabId: 'global-pulse',
+        label: 'Global Pulse',
+        desc: 'Live 3D globe — 700+ events across 21 layers.',
+        compVar: 'GlobalPulse',
+        badge: 'live',
+      },
+      {
+        path: '/threatintel/predictive/threat-pulse',
+        tabId: 'threat-pulse',
+        label: 'Threat Pulse',
+        desc: 'Threat-pulse tracking — actor activity, campaign spikes, geo shifts.',
+        compVar: 'ThreatPulse',
+        badge: 'live',
+      },
+      {
+        path: '/threatintel/predictive/certstream',
+        tabId: 'certstream',
+        label: 'CertStream',
+        desc: 'Certificate transparency live feed.',
+        compVar: 'CertStreamLive',
+        badge: 'live',
+      },
+      {
+        path: '/threatintel/predictive/pir',
+        tabId: 'pir',
+        label: 'PIR Dashboard',
+        desc: 'Priority Intelligence Requirements dashboard.',
+        compVar: 'PirDashboard',
+      },
+      {
+        path: '/threatintel/predictive/metrics',
+        tabId: 'metrics',
+        label: 'Metrics',
+        desc: 'Ten-panel metrics board.',
+        compVar: 'Metrics',
+      },
+      {
+        path: '/threatintel/predictive/analytics',
+        tabId: 'analytics',
+        label: 'Analytics & Ops',
+        desc: 'Platform health, feed reliability, and intel metrics.',
+        compVar: 'AnalyticsDashboard',
+      },
+      {
+        path: '/threatintel/predictive/predictions',
+        tabId: 'predictions',
+        label: 'Predictions',
+        desc: 'Forward-looking threat predictions with confidence.',
+        compVar: 'Predictions',
+      },
+      {
+        path: '/threatintel/predictive/predictive',
+        tabId: 'predictive',
+        label: 'Predictive Intel',
+        desc: 'AI-driven threat forecasting from current trends.',
+        compVar: 'PredictiveIntel',
+      },
+      {
+        path: '/threatintel/predictive/analyze',
+        tabId: 'analyze',
+        label: 'Analyze',
+        desc: 'Intelligence analysis workspace.',
+        compVar: 'Analyze',
+      },
+      {
+        path: '/threatintel/predictive/assessments',
+        tabId: 'assessments',
+        label: 'Assessments',
+        desc: 'Security assessments and risk scoring.',
+        compVar: 'Assessments',
+      },
+      {
+        path: '/threatintel/predictive/observe',
+        tabId: 'observe',
+        label: 'Observe',
+        desc: 'Observation dashboard — what is happening right now.',
+        compVar: 'Observe',
+        badge: 'live',
+      },
+    ],
+  },
+];
+
+/* ------------------------------------------------------------------ */
+/*  Lookup helpers                                                     */
+/* ------------------------------------------------------------------ */
+
+const HUB_BY_ID = new Map(HUB_META.map((h) => [h.id, h]));
+const PAGE_BY_PATH = new Map<string, { hub: HubMeta; page: HubPage }>();
+for (const hub of HUB_META) {
+  for (const page of hub.pages) {
+    PAGE_BY_PATH.set(page.path, { hub, page });
+  }
+}
+
+export function getHub(id: string): HubMeta | undefined {
+  return HUB_BY_ID.get(id);
+}
+
+export function getPageByPath(path: string): { hub: HubMeta; page: HubPage } | undefined {
+  return PAGE_BY_PATH.get(path);
+}
+
+export function getAllPages(): Array<{ hub: HubMeta; page: HubPage }> {
+  return Array.from(PAGE_BY_PATH.values());
+}
+
+export function flattenPages(): Array<HubPage & { hub: HubMeta }> {
+  const out: Array<HubPage & { hub: HubMeta }> = [];
+  for (const hub of HUB_META) {
+    for (const page of hub.pages) {
+      out.push({ ...page, hub });
+    }
+  }
+  return out;
+}

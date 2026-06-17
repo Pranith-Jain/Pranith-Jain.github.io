@@ -1,4 +1,5 @@
 import type { Context } from 'hono';
+import type { Fetcher } from '@cloudflare/workers-types';
 import type { Env } from '../env';
 
 /**
@@ -7,17 +8,15 @@ import type { Env } from '../env';
  * Reddit blocks Cloudflare Workers IP ranges at the network level, so the
  * Worker NEVER fetches Reddit directly. A GitHub Action cron
  * (scripts/fetch-reddit-feed.mjs, every 30 min) fetches each subreddit's RSS
- * from a non-blocked runner, builds the feed, and publishes it as a single
- * JSON file on the orphan `reddit-feed-data` branch. This handler reads that
- * file from raw.githubusercontent.com — no Cloudflare KV, no API token, no
- * RSS2JSON / Deno proxy. There is no live-fetch fallback (every proxy that ran
- * on a datacenter IP was blocked by Reddit anyway).
+ * from a non-blocked runner, builds the feed, and commits it to the main
+ * branch at public/data/reddit-feed.json. The handler reads that file from the
+ * ASSETS binding (bundled with the Worker on deploy), so there is zero
+ * external network dependency at runtime.
  *
- * Consumed by /threatintel/reddit.
+ * Consumed by /threatintel/reddit and /threatintel/social/reddit.
  */
 
-const FEED_RAW_URL =
-  'https://raw.githubusercontent.com/Pranith-Jain/Pranith-Jain.github.io/reddit-feed-data/reddit-feed.json';
+const REDDIT_FEED_ASSETS_PATH = '/data/reddit-feed.json';
 const CACHE_TTL = 30 * 60;
 
 type RedditTopic = 'news' | 'research' | 'red-team' | 'blue-team' | 'osint' | 'malware' | 'help' | 'scams';
@@ -49,30 +48,46 @@ function emptyFeed(warning: string): RedditFeedResponse {
 }
 
 /**
- * Pure-data fetcher exposed for snapshot composition. Reads the feed published
- * by the GitHub Action from GitHub raw. Returns an empty feed (with a warning)
- * if it isn't published yet or the fetch fails.
+ * Pure-data fetcher exposed for snapshot composition. Reads the feed from the
+ * ASSETS bundle (public/data/reddit-feed.json, committed by the GitHub Action
+ * on every run). Falls back to raw.githubusercontent.com for backward compat
+ * with the older orphan-branch publishing approach.
+ * Returns an empty feed (with a warning) if every source fails.
  */
-export async function fetchRedditFeed(): Promise<RedditFeedResponse> {
+export async function fetchRedditFeed(env?: { ASSETS: Fetcher }): Promise<RedditFeedResponse> {
+  // Try ASSETS first (bundle-local, zero latency)
+  if (env?.ASSETS) {
+    try {
+      const url = new URL('https://placeholder');
+      url.pathname = REDDIT_FEED_ASSETS_PATH;
+      const r = await env.ASSETS.fetch(new Request(url));
+      if (r.ok) {
+        const data = (await r.json()) as RedditFeedResponse;
+        if (Array.isArray(data.items) && Array.isArray(data.subs)) return data;
+      }
+    } catch {
+      // fall through
+    }
+  }
+
+  // Fall back to raw.githubusercontent.com (orphan branch on the public repo)
+  const FEED_RAW_URL =
+    'https://raw.githubusercontent.com/Pranith-Jain/Pranith-Jain.github.io/reddit-feed-data/reddit-feed.json';
   try {
     const r = await fetch(FEED_RAW_URL, {
       headers: { 'user-agent': 'pranithjain-dfir/1.0', accept: 'application/json' },
-      // GitHub raw has its own ~5min CDN cache; this caches it at our edge too.
       cf: { cacheTtl: 300, cacheEverything: true },
-      // GitHub-raw CDN rarely hangs but the upstream can stall on a
-      // cold-cache miss — cap the request so a slow egress can't pin
-      // the Worker past the 30s CPU budget. 10s is generous for a CDN.
       signal: AbortSignal.timeout(10_000),
     });
-    if (!r.ok) return emptyFeed(`reddit feed unavailable (raw HTTP ${r.status})`);
-    const data = (await r.json()) as RedditFeedResponse;
-    if (!Array.isArray(data.items) || !Array.isArray(data.subs)) {
-      return emptyFeed('reddit feed malformed');
+    if (r.ok) {
+      const data = (await r.json()) as RedditFeedResponse;
+      if (Array.isArray(data.items) && Array.isArray(data.subs)) return data;
     }
-    return data;
   } catch {
-    return emptyFeed('reddit feed not yet published — the fetcher cron publishes every 30 min');
+    // fall through
   }
+
+  return emptyFeed('reddit feed unavailable — ASSETS and raw.githubusercontent.com both failed');
 }
 
 export const REDDIT_FEED_CACHE_KEY = 'https://reddit-feed-cache.internal/v11-raw';
@@ -83,7 +98,7 @@ export async function redditFeedHandler(c: Context<{ Bindings: Env }>): Promise<
   const cached = await cache.match(cacheKey);
   if (cached) return new Response(cached.body, cached);
 
-  const body = await fetchRedditFeed();
+  const body = await fetchRedditFeed(c.env as unknown as { ASSETS: Fetcher });
   const cacheable = body.items.length > 0;
   const response = c.json(body, 200, {
     'Cache-Control': cacheable ? `public, max-age=${CACHE_TTL}, stale-while-revalidate=${CACHE_TTL * 4}` : 'no-store',

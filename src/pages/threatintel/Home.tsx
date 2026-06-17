@@ -154,6 +154,15 @@ export default function ThreatIntelHome(): JSX.Element {
           carries an icon, badge ("live"), and a one-line description
           so a returning user can self-orient at a glance. */}
       <QuickActions actions={QUICK_ACTIONS} accentClass="text-rose-600 dark:text-rose-400" tone="rose" />
+      <div className="flex justify-end -mt-2">
+        <Link
+          to="/threatintel/catalog"
+          className="inline-flex items-center gap-1 font-mono text-mini text-slate-500 hover:text-brand-600 dark:text-slate-400 dark:hover:text-brand-400 transition-colors"
+        >
+          <Search size={11} /> Browse the full page catalog
+          <ArrowRight size={11} />
+        </Link>
+      </div>
 
       {/* Recently used — surfaces the last few tools the user actually
           opened (tracked in localStorage by the AppShell on every

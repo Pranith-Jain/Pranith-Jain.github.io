@@ -48,6 +48,13 @@ export const SECTIONS: Section[] = [
     blurb: 'Landscape overview, actor profiles, campaign tracking, and intelligence briefings.',
     tools: [
       {
+        to: '/threatintel/catalog',
+        label: 'Page Catalog',
+        desc: 'Every routable page in the threat-intel area — searchable, filterable, with deep links.',
+        icon: Search,
+        badge: 'new',
+      },
+      {
         to: '/threatintel/predictive',
         label: 'Threat Landscape',
         desc: 'Key stats, trending actors, top malware, emerging threats, and attack vector distribution.',

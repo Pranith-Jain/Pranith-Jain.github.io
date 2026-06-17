@@ -760,7 +760,7 @@ export async function graphCrossReportHandler(c: Context<{ Bindings: Env }>): Pr
   // to keep the result bounded. D1 supports up to 100 binds per statement;
   // batch the edge query if the node set is large.
   const edges: GraphEdge[] = [];
-  const BATCH = 80;
+  const BATCH = 40;
   for (let i = 0; i < nodeIds.length; i += BATCH) {
     const batch = nodeIds.slice(i, i + BATCH);
     const ph = batch.map(() => '?').join(',');

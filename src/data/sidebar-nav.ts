@@ -1,31 +1,66 @@
+/**
+ * Sidebar navigation for the threat-intel area.
+ *
+ * Auto-generated from `data/threatintel-hubs.ts` so every page in the
+ * catalog has a sidebar entry. Adding a new page to the registry
+ * automatically adds a sidebar item — no manual upkeep.
+ *
+ * The sidebar is the primary wayfinding surface for /threatintel/* pages.
+ * It's grouped by hub and shows all direct page URLs (no nested tabs).
+ */
+
 import {
+  AlertOctagon,
   AlertTriangle,
   BookOpen,
+  Brain,
   Bug,
+  Cloud,
   Compass,
   Database,
+  ExternalLink,
+  Eye,
+  FileSearch,
   FileText,
   Flame,
-  Globe,
+  FolderTree,
   GitBranch,
+  Globe,
   KeyRound,
+  Layers,
   LayoutDashboard,
+  LineChart,
+  List,
+  Map,
+  MessageSquare,
   Newspaper,
+  Package,
   Radar,
   Radio,
+  Repeat2,
   Rss,
   Scale,
+  ScrollText,
   Search,
+  Settings,
+  Share2,
   Shield,
   ShieldAlert,
-  ShieldOff,
-  FolderTree,
+  ShieldCheck,
+  Sparkles,
   Target,
+  Telescope,
   Terminal,
+  TrendingUp,
+  UserSearch,
   Users,
+  Wallet,
+  Wifi,
+  Wrench,
   Zap,
   type LucideIcon,
 } from 'lucide-react';
+import { HUB_META } from './threatintel-hubs';
 
 export interface SidebarItem {
   label: string;
@@ -42,63 +77,217 @@ export interface SidebarConfig {
   groups: SidebarGroup[];
 }
 
-const threatIntel: SidebarConfig = {
-  sectionLabel: 'Threat Intel',
-  groups: [
-    {
-      title: 'Intelligence',
-      items: [
-        { label: 'Browse', href: '/threatintel', icon: Compass },
-        { label: 'Global Pulse', href: '/threatintel/feeds', icon: Globe },
-        { label: 'Landscape', href: '/threatintel/predictive/dashboard', icon: LayoutDashboard },
-        { label: 'Actors', href: '/threatintel/actors', icon: Users },
-        { label: 'Campaigns', href: '/threatintel/campaigns', icon: GitBranch },
-        { label: 'Briefings', href: '/threatintel/briefings', icon: Newspaper },
-        { label: 'Extremists', href: '/threatintel/extremists', icon: ShieldOff },
-        { label: 'Predators', href: '/threatintel/predators', icon: ShieldOff },
-      ],
-    },
-    {
-      title: 'Live Feeds',
-      items: [
-        { label: 'Social Feeds', href: '/threatintel/social', icon: Radio },
-        { label: 'Dark Web', href: '/threatintel/darkweb', icon: Globe },
-        { label: 'IOC Hub', href: '/threatintel/iocs', icon: Target },
-        { label: 'SOC Dashboards', href: '/threatintel/soc-dashboard', icon: LayoutDashboard },
-        { label: 'Feed Status', href: '/threatintel/feeds', icon: Rss },
-      ],
-    },
-    {
-      title: 'Detection',
-      items: [
-        { label: 'Detection Hub', href: '/threatintel/detections', icon: Shield },
-        { label: 'CVE Hub', href: '/threatintel/cves', icon: AlertTriangle },
-        { label: 'Malware Hub', href: '/threatintel/malware', icon: Bug },
-        { label: 'Malware Sandbox', href: '/threatintel/malware/sandbox', icon: Bug },
-        { label: 'Phishing', href: '/threatintel/phishing', icon: ShieldAlert },
-      ],
-    },
-    {
-      title: 'Tools',
-      items: [
-        { label: 'OSINT Hub', href: '/threatintel/osint', icon: Search },
-        { label: 'CLI Tools', href: '/threatintel/osint/cli', icon: Terminal },
-        { label: 'Frameworks', href: '/threatintel/tools', icon: Compass },
-        { label: 'STIX Bundles', href: '/threatintel/tools/stix', icon: GitBranch },
-        { label: 'IOC Feeds', href: '/threatintel/iocs/feeds', icon: Rss },
-      ],
-    },
-    {
-      title: 'Reference',
-      items: [
-        { label: 'Reports', href: '/threatintel/research-hub/reports', icon: FileText },
-        { label: 'Wiki', href: '/threatintel/wiki', icon: BookOpen },
-        { label: 'External', href: '/threatintel/external', icon: Globe },
-        { label: 'About', href: '/threatintel/about', icon: Scale },
-      ],
-    },
-  ],
+/* ------------------------------------------------------------------ */
+/*  Per-page icon override                                            */
+/* ------------------------------------------------------------------ */
+
+/**
+ * Map page path -> custom icon. Pages not in this map fall back to the
+ * hub's icon. The override is needed because not every page has a
+ * distinct visual from its hub.
+ */
+const PAGE_ICON_OVERRIDES: Record<string, LucideIcon> = {
+  // Actors
+  '/threatintel/actors/directory': Users,
+  '/threatintel/actors/timeline': ScrollText,
+  '/threatintel/actors/dna': Share2,
+  '/threatintel/actors/usernames': UserSearch,
+  '/threatintel/actors/attribution': Telescope,
+  '/threatintel/actors/catalog': BookOpen,
+  '/threatintel/actors/kb': BookOpen,
+  '/threatintel/actors/graph': Share2,
+  // Campaigns
+  '/threatintel/campaigns/active': GitBranch,
+  '/threatintel/campaigns/lifecycle': Repeat2,
+  '/threatintel/campaigns/generator': Sparkles,
+  '/threatintel/campaigns/cross': LinkIcon,
+  // IOCs
+  '/threatintel/iocs/live': Radar,
+  '/threatintel/iocs/enrichment': Search,
+  '/threatintel/iocs/feeds': Rss,
+  '/threatintel/iocs/entity': Layers,
+  '/threatintel/iocs/c2': Wifi,
+  '/threatintel/iocs/map': Map,
+  '/threatintel/iocs/cross': LinkIcon,
+  '/threatintel/iocs/correlation': Share2,
+  '/threatintel/iocs/aggregated': Database,
+  '/threatintel/iocs/soc': MonitorIcon,
+  '/threatintel/iocs/observable': Database,
+  // CVEs
+  '/threatintel/cves/cves': AlertTriangle,
+  '/threatintel/cves/advisories': CodeIcon,
+  '/threatintel/cves/resources': Wrench,
+  '/threatintel/cves/k8s': Package,
+  '/threatintel/cves/exploitable': Bug,
+  '/threatintel/cves/list': List,
+  // Malware
+  '/threatintel/malware/iocs': Bug,
+  '/threatintel/malware/vault': KeyIcon,
+  '/threatintel/malware/sandbox': BeakerIcon,
+  '/threatintel/malware/packages': Package,
+  '/threatintel/malware/malpedia': BookOpen,
+  '/threatintel/malware/maltrail': Map,
+  // Feeds
+  '/threatintel/feeds/catalog': FileText,
+  '/threatintel/feeds/sources': PlugIcon,
+  '/threatintel/feeds/quality': ShieldCheck,
+  '/threatintel/feeds/scheduler': TimerIcon,
+  '/threatintel/feeds/threatfeeds': Rss,
+  '/threatintel/feeds/status': ActivityIcon,
+  '/threatintel/feeds/reliability': ShieldCheck,
+  '/threatintel/feeds/mythreatintel': TagIcon,
+  // Social
+  '/threatintel/social/firehose': Radio,
+  '/threatintel/social/news': Newspaper,
+  '/threatintel/social/telegram-leaks': BellIcon,
+  '/threatintel/social/telegram-stats': BarChartIcon,
+  '/threatintel/social/telegram-channels': Users,
+  '/threatintel/social/telegram-settings': Settings,
+  '/threatintel/social/crypto-scam': Wallet,
+  '/threatintel/social/reddit': MessageSquare,
+  '/threatintel/social/x-firehose': MessageSquare,
+  '/threatintel/social/x-live': Eye,
+  '/threatintel/social/x-watch': Eye,
+  '/threatintel/social/scraped-intel': UserSearch,
+  // Dark web
+  '/threatintel/darkweb/watch': Globe,
+  '/threatintel/darkweb/markets': StoreIcon,
+  '/threatintel/darkweb/forums': MessageSquare,
+  '/threatintel/darkweb/deepdark': NetworkIcon,
+  '/threatintel/darkweb/crime': ShoppingBagIcon,
+  '/threatintel/darkweb/bitcoin': AlertOctagon,
+  '/threatintel/darkweb/infostealer': KeyRound,
+  '/threatintel/darkweb/leaks': LockIcon,
+  '/threatintel/darkweb/disclosures': FileText,
+  '/threatintel/darkweb/ransom-report': FileText,
+  '/threatintel/darkweb/ransom-activity': Flame,
+  '/threatintel/darkweb/ransom-map': MapPinIcon,
+  '/threatintel/darkweb/ransomwhere': Wallet,
+  // Phishing
+  '/threatintel/phishing/phish': ShieldAlert,
+  '/threatintel/phishing/urls': FileText,
+  '/threatintel/phishing/scam': Eye,
+  // Infra
+  '/threatintel/infra/cloud': Cloud,
+  '/threatintel/infra/infra': NetworkIcon,
+  '/threatintel/infra/webamon': CameraIcon,
+  '/threatintel/infra/domain': Globe,
+  // Detections
+  '/threatintel/detections/detections': Shield,
+  '/threatintel/detections/disarm': SwordIcon,
+  '/threatintel/detections/yara': FileSearch,
+  '/threatintel/detections/signal': Rss,
+  // Research
+  '/threatintel/research-hub/research': ScrollText,
+  '/threatintel/research-hub/reports': FileText,
+  '/threatintel/research-hub/ai': Sparkles,
+  '/threatintel/research-hub/writeups': BookOpen,
+  '/threatintel/research-hub/signal': TrendingUp,
+  '/threatintel/research-hub/redhunt': Telescope,
+  '/threatintel/research-hub/redhunt-labs': Telescope,
+  '/threatintel/research-hub/volexity': Telescope,
+  '/threatintel/research-hub/post': FileText,
+  '/threatintel/research-hub/attack-flow': NetworkIcon,
+  '/threatintel/research-hub/campaign-gen': Sparkles,
+  '/threatintel/research-hub/knowledge': Share2,
+  '/threatintel/research-hub/ach': Scale,
+  // Knowledge
+  '/threatintel/wiki/wiki': BookOpen,
+  '/threatintel/wiki/mitre': GridIcon,
+  '/threatintel/wiki/f3ead': Compass,
+  '/threatintel/wiki/insider': UserSearch,
+  '/threatintel/wiki/owasp': Sparkles,
+  '/threatintel/wiki/llm': Brain,
+  // OSINT
+  '/threatintel/osint/framework': Search,
+  '/threatintel/osint/cli': Terminal,
+  '/threatintel/osint/map': Map,
+  '/threatintel/osint/toolbox': Wrench,
+  '/threatintel/osint/secops': Settings,
+  // Tools
+  '/threatintel/tools/copilot': Sparkles,
+  '/threatintel/tools/copilot-chat': MessageSquare,
+  '/threatintel/tools/mcp': Zap,
+  '/threatintel/tools/misp': Database,
+  '/threatintel/tools/stix': FileText,
+  '/threatintel/tools/graph': Share2,
+  '/threatintel/tools/investigations': FolderTree,
+  '/threatintel/tools/watches': Eye,
+  '/threatintel/tools/unified-search': Search,
+  // External
+  '/threatintel/external/external': ExternalLink,
+  '/threatintel/external/supply': Package,
+  '/threatintel/external/awesome': StarIcon,
+  // Predictive
+  '/threatintel/predictive/dashboard': LayoutDashboard,
+  '/threatintel/predictive/global-pulse': Globe,
+  '/threatintel/predictive/threat-pulse': ActivityIcon,
+  '/threatintel/predictive/certstream': ShieldCheck,
+  '/threatintel/predictive/pir': List,
+  '/threatintel/predictive/metrics': BarChartIcon,
+  '/threatintel/predictive/analytics': LineChart,
+  '/threatintel/predictive/predictions': TrendingUp,
+  '/threatintel/predictive/predictive': Sparkles,
+  '/threatintel/predictive/analyze': Search,
+  '/threatintel/predictive/assessments': List,
+  '/threatintel/predictive/observe': Eye,
 };
+
+/* ------------------------------------------------------------------ */
+/*  Build the threat-intel sidebar from the registry                  */
+/* ------------------------------------------------------------------ */
+
+function buildThreatIntelSidebar(): SidebarConfig {
+  // Top-level entry: Home + Catalog + a few key standalone pages
+  const home: SidebarGroup = {
+    title: 'Overview',
+    items: [
+      {
+        label: 'Home',
+        href: '/threatintel',
+        icon: Compass,
+        description: 'Landing page — quick actions and recent tools',
+      },
+      {
+        label: 'Page Catalog',
+        href: '/threatintel/catalog',
+        icon: List,
+        description: 'Every page in the threat-intel area',
+      },
+      { label: 'About', href: '/threatintel/about', icon: Scale, description: 'About the platform' },
+    ],
+  };
+
+  // Per-hub groups — show hub landing + all sub-pages
+  const hubGroups: SidebarGroup[] = HUB_META.map((hub) => ({
+    title: hub.label,
+    items: [
+      // Hub landing page
+      {
+        label: `${hub.label} — overview`,
+        href: `/threatintel/${hub.id}`,
+        icon: hub.icon,
+        description: hub.blurb,
+      },
+      // Sub-pages
+      ...hub.pages.map((p) => ({
+        label: p.label,
+        href: p.path,
+        icon: PAGE_ICON_OVERRIDES[p.path] ?? hub.icon,
+        description: p.desc,
+      })),
+    ],
+  }));
+
+  return {
+    sectionLabel: 'Threat Intel',
+    groups: [home, ...hubGroups],
+  };
+}
+
+/* ------------------------------------------------------------------ */
+/*  DFIR sidebar (unchanged, kept for parity)                          */
+/* ------------------------------------------------------------------ */
 
 const dfir: SidebarConfig = {
   sectionLabel: 'DFIR',
@@ -157,7 +346,7 @@ const dfir: SidebarConfig = {
 };
 
 const SIDEBARS: Record<string, SidebarConfig> = {
-  '/threatintel': threatIntel,
+  '/threatintel': buildThreatIntelSidebar(),
   '/dfir': dfir,
 };
 
@@ -168,40 +357,80 @@ export function getSidebarForSection(pathname: string): SidebarConfig | null {
   return null;
 }
 
-export const PAGE_TITLES: Record<string, string> = {
-  '/threatintel': 'Threat Intel',
-  '/threatintel/threat-landscape': 'Threat Landscape',
-  '/threatintel/threat-actor-catalog': 'Threat Actor Catalog',
-  '/threatintel/actors': 'Actor Directory',
-  '/threatintel/campaigns': 'Campaigns',
-  '/threatintel/iocs': 'IOC Hub',
-  '/threatintel/soc-dashboard': 'SOC Dashboards',
-  '/threatintel/darkweb': 'Dark Web',
-  '/threatintel/social': 'Social Feeds',
-  '/threatintel/detections': 'Detection Hub',
-  '/threatintel/cves': 'CVE Hub',
-  '/threatintel/malware': 'Malware Hub',
-  '/threatintel/malware-sandbox': 'Malware Sandbox',
-  '/threatintel/phishing': 'Phishing',
-  '/threatintel/tools': 'Frameworks & Tools',
-  '/threatintel/osint': 'OSINT Hub',
-  '/threatintel/osint-cli-tools': 'OSINT CLI Tools',
-  '/threatintel/stix-bundles': 'STIX Bundles',
-  '/threatintel/ioc-feeds': 'IOC Feeds',
-  '/threatintel/briefings': 'Briefings',
-  '/threatintel/reports': 'Threat Intel Reports',
-  '/threatintel/feeds': 'Feed Hub',
-  '/threatintel/external': 'External Resources',
-  '/threatintel/wiki': 'Knowledge Base',
-  '/threatintel/about': 'About',
-  '/threatintel/research-hub': 'Research Hub',
-  '/threatintel/predictive': 'Predictive Intel',
-  '/threatintel/metrics': 'Metrics',
-  '/threatintel/malware/sandbox': 'Malware Sandbox',
-  '/threatintel/osint/cli': 'OSINT CLI Tools',
-  '/threatintel/tools/stix': 'STIX Bundle Browser',
-  '/threatintel/iocs/feeds': 'IOC Feeds',
-  '/threatintel/research-hub/reports': 'Threat Intel Reports',
-  '/threatintel/predictive/dashboard': 'Threat Landscape',
-  '/threatintel/external/awesome': 'Awesome Lists',
+export const PAGE_TITLES: Record<string, string> = (() => {
+  const out: Record<string, string> = {};
+  out['/threatintel'] = 'Threat Intel';
+  out['/threatintel/catalog'] = 'Page Catalog';
+  out['/threatintel/about'] = 'About';
+  for (const hub of HUB_META) {
+    out[`/threatintel/${hub.id}`] = hub.label;
+    for (const p of hub.pages) {
+      out[p.path] = p.label;
+    }
+  }
+  return out;
+})();
+
+/* ------------------------------------------------------------------ */
+/*  Icon imports — all the icons used in the override map above.       */
+/*  Kept inline so this file remains the single source of truth.      */
+/* ------------------------------------------------------------------ */
+
+// (Icons already imported at the top of the file.)
+
+// Local alias so the import-only icons at the top are referenced —
+// keeps the type checker happy about unused-imports while making
+// the file self-contained.
+const _ = {
+  ActivityIcon,
+  AlertOctagon,
+  BarChartIcon,
+  BeakerIcon,
+  BellIcon,
+  CameraIcon,
+  CodeIcon,
+  Database,
+  FolderTree,
+  GridIcon,
+  KeyIcon,
+  Layers,
+  LinkIcon,
+  LockIcon,
+  MapPinIcon,
+  MonitorIcon,
+  NetworkIcon,
+  Package,
+  PlugIcon,
+  Repeat2,
+  ShoppingBagIcon,
+  StarIcon,
+  StoreIcon,
+  SwordIcon,
+  TagIcon,
+  TimerIcon,
 };
+void _;
+
+// Local icon aliases (used in the override map)
+import {
+  Activity as ActivityIcon,
+  BarChart as BarChartIcon,
+  Beaker as BeakerIcon,
+  Bell as BellIcon,
+  Camera as CameraIcon,
+  Code as CodeIcon,
+  Grid3x3 as GridIcon,
+  Key as KeyIcon,
+  Link as LinkIcon,
+  Lock as LockIcon,
+  MapPin as MapPinIcon,
+  Monitor as MonitorIcon,
+  Network as NetworkIcon,
+  Plug as PlugIcon,
+  ShoppingBag as ShoppingBagIcon,
+  Star as StarIcon,
+  Store as StoreIcon,
+  Sword as SwordIcon,
+  Tag as TagIcon,
+  Timer as TimerIcon,
+} from 'lucide-react';
