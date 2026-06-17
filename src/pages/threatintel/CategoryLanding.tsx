@@ -33,6 +33,15 @@ export default function CategoryLanding(): JSX.Element {
   }
 
   const items: CategoryItem[] = hub.pages.map((p) => hubPageToItem(p, hub.icon));
+  // Extract the text+dark classes from the hub's full tone. The full tone
+  // is "text-X light dark:X border-X bg-X" — we only want the text portion
+  // (light + dark) for the page header icon, and CategoryHubIcon/CategoryTile
+  // add the matching border/bg via `border-current` / `bg-current` (which
+  // derive from text color in Tailwind).
+  const textAccent = hub.tone
+    .split(' ')
+    .filter((c) => c.startsWith('text-') || c.startsWith('dark:text-'))
+    .join(' ');
   return (
     <CategoryHub
       title={hub.label}
@@ -41,7 +50,7 @@ export default function CategoryLanding(): JSX.Element {
       backTo="/threatintel"
       backLabel="Threat Intel home"
       items={items}
-      accentClass={hub.tone.split(' ')[0]}
+      accentClass={textAccent}
     />
   );
 }

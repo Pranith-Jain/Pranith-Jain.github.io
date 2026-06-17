@@ -24,7 +24,9 @@ export interface CategoryHubProps {
   backLabel?: string;
   /** Items rendered as a tile grid. */
   items: ReadonlyArray<CategoryItem>;
-  /** Optional per-tile accent — applied to the icon. */
+  /** Optional per-tile accent — applied to the icon. Should include both
+   *  light and dark variants (e.g. "text-amber-700 dark:text-amber-300")
+   *  so the tile stays readable in both modes. */
   accentClass?: string;
 }
 
