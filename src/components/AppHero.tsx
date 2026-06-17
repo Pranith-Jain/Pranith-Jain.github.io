@@ -10,22 +10,39 @@ export function AppHero({
   title,
   sub,
   meta,
+  tone = 'brand',
 }: {
   kicker?: string;
   title: string;
   sub: string;
   meta?: ReactNode;
+  /** Accent palette. 'brand' (default, blue) for DFIR, 'rose' for
+   *  threat-intel. Drives the kicker text, the hero wash blob, and
+   *  the focus ring so the page anchor reads as part of the section. */
+  tone?: 'brand' | 'rose';
 }): JSX.Element {
+  const TONE = {
+    brand: {
+      kicker: 'text-brand-600 dark:text-brand-400',
+      blob: 'bg-brand-500/10 dark:bg-brand-400/10',
+    },
+    rose: {
+      kicker: 'text-rose-600 dark:text-rose-400',
+      blob: 'bg-rose-500/10 dark:bg-rose-400/10',
+    },
+  }[tone];
   return (
     <section className="relative overflow-hidden rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 sm:p-6 lg:p-8 mb-4 sm:mb-6">
       {/* Brand wash — this is the page anchor, it should read heavier than
           the uniform cards below it (hierarchy, not more chrome). */}
       <div
         aria-hidden
-        className="pointer-events-none absolute -top-24 -right-16 h-56 w-56 rounded-full bg-brand-500/10 blur-3xl dark:bg-brand-400/10"
+        className={`pointer-events-none absolute -top-24 -right-16 h-56 w-56 rounded-full ${TONE.blob} blur-3xl`}
       />
       <div className="relative">
-        <div className="text-mini font-mono uppercase tracking-[0.18em] text-brand-600 dark:text-brand-400 mb-2 sm:mb-3 inline-flex items-center gap-2">
+        <div
+          className={`text-mini font-mono uppercase tracking-[0.18em] ${TONE.kicker} mb-2 sm:mb-3 inline-flex items-center gap-2`}
+        >
           <Lock size={12} aria-hidden="true" /> {kicker}
         </div>
         <h1 className="font-display font-bold text-2xl sm:text-4xl lg:text-[2.75rem] leading-[1.1] tracking-tight">

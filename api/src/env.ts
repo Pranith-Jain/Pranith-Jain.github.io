@@ -193,17 +193,16 @@ export interface Env {
    *  heuristic that fingerprints the target's live HTTP headers + HTML body.
    *  There is no free BuiltWith JSON API, so the heuristic is the default. */
   BUILTWITH_API_KEY?: string;
-}
-
-/**
- * ASSETS binding — the SVG-PNG renderer (si-svg-png.ts) loads its fonts
- * from the static asset bucket at runtime. The binding is plumbed in by
- * the worker (worker/index.ts) which mounts apiApp with the full Env
- * (including ASSETS). Marked optional so the type stays usable from
- * contexts (api-only unit tests, vitest) that don't have the binding.
- */
-declare global {
-  interface CloudflareEnv {
-    ASSETS?: { fetch: (req: Request) => Promise<Response> };
-  }
+  /**
+   * ASSETS binding — the SVG-PNG renderer (si-svg-png.ts) loads its fonts
+   * from the static asset bucket at runtime. The binding is plumbed in by
+   * the worker (worker/index.ts) which mounts apiApp with the full Env
+   * (including ASSETS). Marked optional so the type stays usable from
+   * contexts (api-only unit tests, vitest) that don't have the binding.
+   */
+  /** Static asset bucket binding. Type matches `Fetcher` from
+   *  @cloudflare/workers-types so the SVG-PNG renderer's `env.ASSETS.fetch(...)`
+   *  call is fully typed end-to-end. Optional so api-only unit tests still
+   *  compile when the binding is unbound. */
+  ASSETS?: Fetcher;
 }

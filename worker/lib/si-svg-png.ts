@@ -28,6 +28,7 @@ let wasmReady: Promise<void> | null = null;
 let fontBuffers: Uint8Array[] | null = null;
 
 async function assetBytes(env: Env, path: string): Promise<Uint8Array> {
+  if (!env.ASSETS) throw new Error('si-png asset lookup needs the ASSETS binding');
   const res = await env.ASSETS.fetch(new Request(`${ASSET_ORIGIN}${path}`));
   if (!res.ok) throw new Error(`si-png asset ${path} -> HTTP ${res.status}`);
   return new Uint8Array(await res.arrayBuffer());

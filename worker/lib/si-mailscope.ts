@@ -266,7 +266,7 @@ function parseReceived(value: string, raw: string, idx: number, prevDate: Date |
   if (authMatch && authMatch[1]) auth = authMatch[1].trim();
 
   // rDNS / TLD
-  const rDNS = fromMatch && fromMatch[1] ? fromMatch[1].trim().split(/\s+/)[0] : null;
+  const rDNS = fromMatch && fromMatch[1] ? (fromMatch[1].trim().split(/\s+/)[0] ?? null) : null;
   let tld: string | null = null;
   if (rDNS && rDNS.includes('.')) {
     const lastDot = rDNS.lastIndexOf('.');

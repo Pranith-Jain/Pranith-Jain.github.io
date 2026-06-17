@@ -123,13 +123,14 @@ export default function ThreatIntelHome(): JSX.Element {
       <WhatsNewBanner />
       <LatestBriefingCard />
       <AppHero
+        tone="rose"
         kicker="Privacy-first · Live edge feeds · No login · No tracking"
         title="Threat-intel platform"
         sub="Live CTI from ~30 public feeds — ransomware leaks, CVE/KEV, malware, phishing, social, and Telegram. All edge-hosted on Cloudflare."
         meta={
           <>
             {totalTiles} intel surfaces · by{' '}
-            <Link to="/" className="text-brand-600 dark:text-brand-400 hover:underline">
+            <Link to="/" className="text-rose-600 dark:text-rose-400 hover:underline">
               {personalInfo.name}
             </Link>{' '}
             ·{' '}

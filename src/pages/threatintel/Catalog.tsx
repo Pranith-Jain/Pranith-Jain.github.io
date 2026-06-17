@@ -241,10 +241,14 @@ function CatalogCard({ entry, hubIcon }: { entry: HubPage; hubIcon: LucideIcon }
     <li>
       <Link
         to={entry.path}
-        className="group block h-full rounded-xl border border-slate-200 bg-white p-3 transition-[transform,border-color,box-shadow] duration-200 hover:-translate-y-0.5 hover:border-brand-500/40 hover:shadow-e2 focus-visible:-translate-y-0.5 focus-visible:border-brand-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/30 dark:border-slate-800 dark:bg-slate-900"
+        className="group tile-reveal block h-full rounded-xl border border-slate-200 bg-white p-3 transition-[transform,border-color,box-shadow] duration-200 hover:-translate-y-0.5 hover:border-rose-500/40 hover:shadow-e2 focus-visible:-translate-y-0.5 focus-visible:border-rose-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500/30 dark:border-slate-800 dark:bg-slate-900 hover-rose"
       >
         <div className="flex items-start justify-between gap-2">
-          <Icon size={16} className="mt-0.5 shrink-0 text-brand-600 dark:text-brand-400" aria-hidden="true" />
+          <Icon
+            size={16}
+            className="mt-0.5 shrink-0 text-rose-600 dark:text-rose-400 transition-colors"
+            aria-hidden="true"
+          />
           {entry.badge && (
             <span
               className={`rounded border px-1.5 py-0.5 font-mono text-[10px] uppercase tracking-wider ${BADGE_STYLES[entry.badge]}`}
@@ -253,13 +257,13 @@ function CatalogCard({ entry, hubIcon }: { entry: HubPage; hubIcon: LucideIcon }
             </span>
           )}
         </div>
-        <h3 className="mt-2 font-display text-sm font-semibold text-slate-900 transition-colors group-hover:text-brand-600 dark:text-slate-100 dark:group-hover:text-brand-400">
+        <h3 className="mt-2 font-display text-sm font-semibold text-slate-900 transition-colors group-hover:text-rose-600 dark:text-slate-100 dark:group-hover:text-rose-400">
           {entry.label}
         </h3>
         <p className="mt-0.5 line-clamp-2 text-tool text-slate-500 dark:text-slate-400">{entry.desc}</p>
         <div className="mt-2 flex items-center justify-between gap-2 font-mono text-[10px] text-slate-400">
           <code className="truncate font-mono">{entry.path}</code>
-          <span className="inline-flex items-center gap-0.5 text-brand-600 dark:text-brand-400 opacity-0 transition-opacity group-hover:opacity-100">
+          <span className="inline-flex items-center gap-0.5 text-rose-600 dark:text-rose-400 opacity-0 transition-opacity group-hover:opacity-100">
             open <ArrowRight size={10} />
           </span>
         </div>

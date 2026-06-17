@@ -206,12 +206,59 @@
     border-color: rgba(71, 85, 105, 0.6);
     background-color: rgba(30, 41, 59, 0.75);
   }
+
+  /* ── Rose-tinted card hover for /threatintel pages ─────────────────
+     Identical lift/translate to .card-hover, but uses the rose accent
+     so the threat-intel area doesn't read as a brand-blue clone of DFIR.
+     Pair with .card-hover (it does the lift); this only swaps the
+     border / shadow tint. */
+  .hover-rose:hover {
+    border-color: rgb(244 63 94 / 0.4);
+  }
+  .dark .hover-rose:hover {
+    border-color: rgb(244 63 94 / 0.35);
+  }
+  .hover-rose:focus-visible {
+    border-color: rgb(244 63 94 / 0.6);
+    outline: none;
+    box-shadow: 0 0 0 2px rgb(244 63 94 / 0.25);
+  }
 }
 
 @layer utilities {
   .bg-dot-grid {
     background-image: radial-gradient(rgba(15, 23, 42, 0.08) 1px, transparent 1px);
     background-size: 28px 28px;
+  }
+
+  /* ── Hero glow for threat-intel surfaces ──────────────────────────
+     A radial-pink glow that sits behind the hero of a /threatintel
+     page, giving the rose palette more presence on dark backgrounds.
+     Pair with a positioned absolute layer; the utility is opt-in
+     per-page so a /dfir page never picks it up. */
+  .bg-rose-glow {
+    background-image: radial-gradient(at 50% 0%, rgba(244, 63, 94, 0.18) 0px, transparent 60%);
+  }
+  .dark .bg-rose-glow {
+    background-image: radial-gradient(at 50% 0%, rgba(244, 63, 94, 0.25) 0px, transparent 60%);
+  }
+
+  /* ── "Page-load" reveal (translate + fade) for catalog/grid tiles.
+     Faster than .stagger (which caps at 400ms) so long grids don't
+     make the last row feel laggy. Pairs with prefers-reduced-motion
+     (already disabled in the global guard above). */
+  @keyframes tile-reveal {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  .tile-reveal {
+    animation: tile-reveal 0.22s cubic-bezier(0.16, 1, 0.3, 1) both;
   }
 
   .dark .bg-dot-grid {

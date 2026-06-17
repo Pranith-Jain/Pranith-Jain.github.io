@@ -231,8 +231,8 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
       warm.ghsa ? fromGithubAdvisories(warm.ghsa as Parameters<typeof fromGithubAdvisories>[0]) : []
     );
     const kevEvents = safe(() => (warm.kev ? fromCisaKev(warm.kev as Parameters<typeof fromCisaKev>[0]) : []));
-    const firmsEvents = safe(() => fromFirms(mergedFirms as Parameters<typeof fromFirms>[0]));
-    const ukmtoEvents = safe(() => fromUkmto(mergedUkmto) as Parameters<typeof fromUkmto>[0]);
+    const firmsEvents = safe(() => fromFirms((mergedFirms ?? null) as Parameters<typeof fromFirms>[0])) as PulseEvent[];
+    const ukmtoEvents = safe(() => fromUkmto((mergedUkmto ?? null) as Parameters<typeof fromUkmto>[0])) as PulseEvent[];
     const cybercrimeEvents = safe(() => (finalCybercrime ? fromCybercrime(finalCybercrime) : []));
     const researchEvents = safe(() => (finalWriteups ? fromWriteups(finalWriteups) : []));
     const cveEvents = safe(() => (mergedCve ? fromCveRecent(mergedCve) : []));

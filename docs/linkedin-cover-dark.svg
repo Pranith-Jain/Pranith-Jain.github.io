@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- LinkedIn cover banner (1584×396) for Pranith Jain — v2.
+     Brand language mirrors worker/og-image.ts: dark slate gradient, faint
+     grid, indigo glow, left accent bar, Hanken Grotesk type.
+     "Get noticed" strategy: LinkedIn already renders the NAME large beside the
+     avatar, so the banner leads with a value proposition (the hook), not the
+     name. Name is a small eyebrow; a benefit headline is the hero; a single
+     CTA carries the proof + URL. Composition is centered + vertically balanced
+     so the avatar (lower-left overlap) and mobile side-crop never clip it. -->
+<svg xmlns="http://www.w3.org/2000/svg" width="1584" height="396" viewBox="0 0 1584 396" font-family="'Hanken Grotesk', system-ui, sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0b1120"/>
+      <stop offset="50%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#0b1120"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="22%" r="62%">
+      <stop offset="0%" stop-color="#2c3ee5" stop-opacity="0.32"/>
+      <stop offset="55%" stop-color="#2c3ee5" stop-opacity="0.07"/>
+      <stop offset="100%" stop-color="#2c3ee5" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#5a78f2"/>
+      <stop offset="100%" stop-color="#a1b6fb"/>
+    </linearGradient>
+    <linearGradient id="bar" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#5a78f2"/>
+      <stop offset="100%" stop-color="#2c3ee5"/>
+    </linearGradient>
+    <pattern id="grid" width="44" height="44" patternUnits="userSpaceOnUse">
+      <path d="M 44 0 L 0 0 0 44" fill="none" stroke="#5a78f2" stroke-opacity="0.06" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <!-- Backdrop -->
+  <rect width="1584" height="396" fill="url(#bg)"/>
+  <rect width="1584" height="396" fill="url(#grid)"/>
+  <rect width="1584" height="396" fill="url(#glow)"/>
+
+  <!-- Decorative concentric "scan ring" motif (right side, crop-safe) -->
+  <g stroke="#5a78f2" fill="none" opacity="0.5">
+    <circle cx="1410" cy="198" r="60" stroke-opacity="0.16" stroke-width="1.5"/>
+    <circle cx="1410" cy="198" r="104" stroke-opacity="0.10" stroke-width="1.5"/>
+    <circle cx="1410" cy="198" r="150" stroke-opacity="0.06" stroke-width="1.5"/>
+  </g>
+  <circle cx="1410" cy="198" r="4" fill="#38bdf8"/>
+  <circle cx="1462" cy="160" r="3.5" fill="#fb7185"/>
+  <circle cx="1356" cy="246" r="3.5" fill="#fbbf24"/>
+
+  <!-- Left brand accent bar -->
+  <rect x="0" y="0" width="6" height="396" fill="url(#bar)"/>
+
+  <!-- Eyebrow: name + role (small — LinkedIn shows the big name by the avatar) -->
+  <text x="792" y="74" text-anchor="middle" font-size="15.5" font-weight="700" letter-spacing="4" fill="#a1b6fb">PRANITH JAIN  ·  THREAT INTELLIGENCE · DFIR · DETECTION ENGINEERING</text>
+
+  <!-- Hero: the portfolio headline (verbatim brand voice) -->
+  <text x="792" y="152" text-anchor="middle" font-size="46" font-weight="800" letter-spacing="0.3" fill="#ffffff">Building at the intersection of AI,</text>
+  <text x="792" y="210" text-anchor="middle" font-size="46" font-weight="800" letter-spacing="0.3" fill="#a1b6fb">threat intel &amp; edge-native security tooling.</text>
+
+  <!-- Proof strip (credibility numbers from the portfolio) -->
+  <text x="792" y="262" text-anchor="middle" font-size="20" font-weight="400" fill="#cbd5e1">90+ threat-intel sources  ·  60+ DFIR tools across 11 categories</text>
+
+  <!-- CTA pill: proof + URL -->
+  <g transform="translate(792, 330)">
+    <rect x="-336" y="-23" width="672" height="46" rx="23" fill="#2c3ee5" fill-opacity="0.12" stroke="#5a78f2" stroke-opacity="0.45" stroke-width="1.5"/>
+    <text x="0" y="7" text-anchor="middle" font-size="17" font-weight="700" letter-spacing="0.5" fill="#e2e8f0">live IOC &amp; breach feeds  ·  STIX/TAXII export  ·  <tspan fill="#a1b6fb" font-weight="800">pranithjain.qzz.io</tspan></text>
+  </g>
+</svg>
