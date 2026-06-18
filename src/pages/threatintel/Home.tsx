@@ -63,7 +63,7 @@ const CATEGORY_CARDS: CategoryCard[] = [
       'Research APT groups, criminal organizations, and individual threat actors. TTPs, aliases, and infrastructure.',
     icon: Users,
     href: '/threatintel/catalog?cat=actors',
-    tone: 'text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-900/20 border-rose-200 dark:border-rose-800',
+    tone: 'text-rose-600 dark:text-rose-400 bg-white dark:bg-[rgb(18,18,24)] border-slate-200 dark:border-white/10',
     pages: 12,
   },
   {
@@ -183,7 +183,7 @@ export default function ThreatIntelHome(): JSX.Element {
       <section className="relative overflow-hidden rounded-2xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] p-6 sm:p-8 lg:p-10">
         <div
           aria-hidden
-          className="pointer-events-none absolute -top-24 -right-16 h-56 w-56 rounded-full bg-rose-500/10 dark:bg-rose-400/10 blur-3xl"
+          className="pointer-events-none absolute -top-24 -right-16 h-56 w-56 rounded-full bg-brand-500/10 dark:bg-brand-400/10 blur-3xl"
         />
         <div className="relative">
           <div className="text-mini font-mono uppercase tracking-[0.18em] text-rose-600 dark:text-rose-400 mb-3 inline-flex items-center gap-2">
@@ -353,7 +353,7 @@ export default function ThreatIntelHome(): JSX.Element {
                     to={item.href}
                     className="group flex items-center gap-3 rounded-xl border border-slate-200 bg-white p-4 transition-[transform,border-color,box-shadow] duration-200 hover:-translate-y-0.5 hover:border-rose-500/40 hover:shadow-e2 dark:border-[#1e2030] dark:bg-[#12121a]"
                   >
-                    <div className="grid h-10 w-10 place-items-center rounded-lg bg-rose-50 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400 shrink-0">
+                    <div className="grid h-10 w-10 place-items-center rounded-lg bg-slate-50 dark:bg-white/5 text-rose-600 dark:text-rose-400 shrink-0">
                       <Icon size={18} />
                     </div>
                     <div className="min-w-0">
@@ -474,7 +474,7 @@ export default function ThreatIntelHome(): JSX.Element {
                   },
                 ].map((s) => (
                   <div key={s.step} className="flex gap-3">
-                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-rose-50 dark:bg-rose-500/20 font-mono text-sm font-bold text-rose-600 dark:text-rose-400">
+                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-slate-50 dark:bg-white/5 font-mono text-sm font-bold text-rose-600 dark:text-rose-400">
                       {s.step}
                     </span>
                     <div>

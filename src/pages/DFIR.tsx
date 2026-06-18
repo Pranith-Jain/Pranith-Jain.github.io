@@ -58,7 +58,7 @@ const CATEGORY_CARDS: CategoryCard[] = [
     description: 'Check IPs, domains, URLs, and hashes across 24+ sources. Get consensus verdicts in seconds.',
     icon: Crosshair,
     href: '/dfir/catalog?cat=ioc-triage',
-    tone: 'text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-900/20 border-rose-200 dark:border-rose-800',
+    tone: 'text-rose-600 dark:text-rose-400 bg-white dark:bg-[rgb(18,18,24)] border-slate-200 dark:border-white/10',
     pages: 9,
   },
   {
@@ -464,7 +464,7 @@ export default function DFIRPage(): JSX.Element {
                     to={item.href}
                     className="group flex items-center gap-3 rounded-xl border border-slate-200 bg-white p-4 transition-[transform,border-color,box-shadow] duration-200 hover:-translate-y-0.5 hover:border-brand-500/40 hover:shadow-e2 dark:border-[#1e2030] dark:bg-[#12121a]"
                   >
-                    <div className="grid h-10 w-10 place-items-center rounded-lg bg-brand-50 dark:bg-brand-900/30 text-brand-600 dark:text-brand-400 shrink-0">
+                    <div className="grid h-10 w-10 place-items-center rounded-lg bg-slate-50 dark:bg-white/5 text-brand-600 dark:text-brand-400 shrink-0">
                       <Icon size={18} />
                     </div>
                     <div className="min-w-0">
@@ -552,7 +552,7 @@ export default function DFIRPage(): JSX.Element {
                   },
                 ].map((s) => (
                   <div key={s.step} className="flex gap-3">
-                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand-50 dark:bg-brand-500/20 font-mono text-sm font-bold text-brand-600 dark:text-brand-400">
+                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-slate-50 dark:bg-white/5 font-mono text-sm font-bold text-brand-600 dark:text-brand-400">
                       {s.step}
                     </span>
                     <div>
