@@ -97,8 +97,7 @@ function NodeRow({ node, depth, defaultOpen }: { node: OwaspNode; depth: number;
   const hasKids = (node.children?.length ?? 0) > 0;
   const isLeaf = !hasKids;
   const pill =
-    TYPE_PILL[node.type] ??
-    'border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-600 dark:text-slate-400';
+    TYPE_PILL[node.type] ?? 'border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-muted';
   return (
     <div className="border-b border-slate-200 dark:border-slate-800 last:border-b-0">
       <div
@@ -148,9 +147,7 @@ function NodeRow({ node, depth, defaultOpen }: { node: OwaspNode; depth: number;
               </a>
             )}
           </div>
-          {node.description && (
-            <p className="mt-1 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{node.description}</p>
-          )}
+          {node.description && <p className="mt-1 text-sm text-muted leading-relaxed">{node.description}</p>}
         </div>
       </div>
       {hasKids && open && (

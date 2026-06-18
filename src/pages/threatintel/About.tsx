@@ -30,7 +30,7 @@ function Section({ title, children }: { title: string; children: React.ReactNode
   return (
     <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-6 mb-6">
       <h2 className="font-display font-bold text-xl mb-3">{title}</h2>
-      <div className="text-sm font-mono text-slate-600 dark:text-slate-400 leading-relaxed space-y-3">{children}</div>
+      <div className="text-sm font-mono text-muted leading-relaxed space-y-3">{children}</div>
     </section>
   );
 }
@@ -40,7 +40,7 @@ export default function ThreatIntelAbout(): JSX.Element {
     <div className="max-w-4xl mx-auto px-4 sm:px-8 py-6 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -48,7 +48,7 @@ export default function ThreatIntelAbout(): JSX.Element {
       <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
         <ShieldCheck size={28} className="text-brand-600 dark:text-brand-400" /> About the threat-intel platform
       </h1>
-      <p className="text-sm font-mono text-slate-600 dark:text-slate-400 mb-8 max-w-2xl">
+      <p className="text-sm font-mono text-muted mb-8 max-w-2xl">
         A live, edge-aggregated threat-intelligence surface by {personalInfo.name} — {personalInfo.title}. Built to
         answer the questions a CTI analyst actually asks, without an account or a vendor portal.
       </p>
@@ -64,7 +64,7 @@ export default function ThreatIntelAbout(): JSX.Element {
               <div className="flex items-center gap-2 font-display font-semibold mb-1">
                 <I size={16} className="text-brand-600 dark:text-brand-400" /> {p.t}
               </div>
-              <p className="text-tool font-mono text-slate-600 dark:text-slate-400 leading-relaxed">{p.d}</p>
+              <p className="text-tool font-mono text-muted leading-relaxed">{p.d}</p>
             </div>
           );
         })}

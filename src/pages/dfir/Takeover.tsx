@@ -61,14 +61,14 @@ export default function Takeover(): JSX.Element {
     <div className="max-w-4xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
 
       <div className="animate-fade-in-up">
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2">Subdomain Takeover Check</h1>
-        <p className="text-slate-600 dark:text-slate-400 mb-8 max-w-2xl">
+        <p className="text-muted mb-8 max-w-2xl">
           Resolves a subdomain's CNAME chain and matches it against ~15 known dangling-service patterns (S3, GitHub
           Pages, Heroku, Azure, Shopify, Webflow, Statuspage, and more). If the CNAME points to an unclaimed service,
           the dangling fingerprint is verified by fetching the page.
@@ -104,7 +104,7 @@ export default function Takeover(): JSX.Element {
       {result && (
         <div className="space-y-6">
           <section
-            className={`rounded-2xl border p-6 ${
+            className={`rounded-lg border p-6 ${
               result.vulnerable
                 ? 'border-rose-300 bg-rose-50 dark:border-rose-900 dark:bg-rose-900/10'
                 : 'border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900'
@@ -121,12 +121,12 @@ export default function Takeover(): JSX.Element {
               </h2>
             </div>
             {result.service && (
-              <p className="text-sm font-mono text-slate-600 dark:text-slate-400">
+              <p className="text-sm font-mono text-muted">
                 Service: <span className="text-slate-900 dark:text-slate-100">{result.service}</span>
               </p>
             )}
             {result.evidence && (
-              <p className="text-sm font-mono text-slate-600 dark:text-slate-400 mt-1">
+              <p className="text-sm font-mono text-muted mt-1">
                 Evidence: <span className="text-slate-900 dark:text-slate-100">{result.evidence}</span>
               </p>
             )}
@@ -154,7 +154,7 @@ export default function Takeover(): JSX.Element {
           {result.notes.length > 0 && (
             <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-5 space-y-2">
               {result.notes.map((n) => (
-                <div key={n} className="flex items-start gap-2 text-sm text-slate-600 dark:text-slate-400">
+                <div key={n} className="flex items-start gap-2 text-sm text-muted">
                   <Info size={14} className="mt-0.5 flex-shrink-0" />
                   <span>{n}</span>
                 </div>

@@ -151,21 +151,21 @@ export default function InfostealerDetail(): JSX.Element {
       maxWidthClass="max-w-5xl"
     >
       <div className="grid gap-6 md:grid-cols-3 mb-8 animate-fade-in-up">
-        <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
+        <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
           <div className="flex items-center gap-2 mb-2">
             <Calendar size={14} className="text-slate-500" />
             <span className="text-micro font-mono uppercase tracking-wider text-slate-500">First seen</span>
           </div>
           <p className="font-mono text-sm font-semibold">{family.firstSeen}</p>
         </div>
-        <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
+        <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
           <div className="flex items-center gap-2 mb-2">
             <Globe size={14} className="text-slate-500" />
             <span className="text-micro font-mono uppercase tracking-wider text-slate-500">Platforms</span>
           </div>
           <p className="font-mono text-sm font-semibold">{family.platforms.join(', ')}</p>
         </div>
-        <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
+        <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
           <div className="flex items-center gap-2 mb-2">
             <Layers size={14} className="text-slate-500" />
             <span className="text-micro font-mono uppercase tracking-wider text-slate-500">Capabilities</span>
@@ -184,7 +184,7 @@ export default function InfostealerDetail(): JSX.Element {
           {family.capabilities.map((c) => (
             <span
               key={c}
-              className="text-mini font-mono px-2 py-1 rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-slate-600 dark:text-slate-400"
+              className="text-mini font-mono px-2 py-1 rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-muted"
             >
               {c}
             </span>
@@ -311,9 +311,7 @@ export default function InfostealerDetail(): JSX.Element {
                   </span>
                 </div>
                 <div className="flex items-center gap-2 mt-1">
-                  <code className="font-mono text-mini text-slate-600 dark:text-slate-400 break-all flex-1 min-w-0">
-                    {x.value}
-                  </code>
+                  <code className="font-mono text-mini text-muted break-all flex-1 min-w-0">{x.value}</code>
                   <button
                     type="button"
                     onClick={() => void navigator.clipboard.writeText(x.value)}

@@ -295,7 +295,7 @@ export default function RelationshipGraphPage(): JSX.Element {
               className={`px-2.5 py-1.5 rounded-lg font-mono text-xs inline-flex items-center gap-1.5 border transition-colors ${
                 layoutMode === 'force'
                   ? 'bg-brand-50 dark:bg-brand-900/20 border-brand-300 dark:border-brand-700 text-brand-700 dark:text-brand-300'
-                  : 'border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'
+                  : 'border-slate-200 dark:border-slate-800 text-muted hover:bg-slate-100 dark:hover:bg-slate-800'
               }`}
               title="Toggle between hierarchical (dagre) and force-directed layout"
             >
@@ -308,7 +308,7 @@ export default function RelationshipGraphPage(): JSX.Element {
               className={`px-2.5 py-1.5 rounded-lg font-mono text-xs inline-flex items-center gap-1.5 border transition-colors ${
                 pathFinder.phase !== 'idle'
                   ? 'bg-amber-50 dark:bg-amber-900/20 border-amber-300 dark:border-amber-700 text-amber-700 dark:text-amber-300'
-                  : 'border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'
+                  : 'border-slate-200 dark:border-slate-800 text-muted hover:bg-slate-100 dark:hover:bg-slate-800'
               }`}
               title="Find shortest path between two nodes"
             >
@@ -407,9 +407,7 @@ export default function RelationshipGraphPage(): JSX.Element {
           ) : (
             <div className="flex h-full flex-col items-center justify-center text-slate-500 font-mono text-sm gap-4 p-8 text-center">
               <Network size={40} className="text-slate-300 dark:text-slate-600" />
-              <div className="font-semibold text-slate-600 dark:text-slate-400">
-                Search any entity to see its relationships
-              </div>
+              <div className="font-semibold text-muted">Search any entity to see its relationships</div>
               <div className="text-xs text-slate-400 max-w-md">
                 Traverses CVE ↔ actor, actor ↔ ransomware, actor ↔ technique, and infrastructure links across all
                 intelligence sources.
@@ -428,7 +426,7 @@ export default function RelationshipGraphPage(): JSX.Element {
                           setQuery(cve.id);
                           void fetchGraph(cve.id);
                         }}
-                        className="text-mini font-mono px-2 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-brand-100 dark:hover:bg-brand-900/30 hover:text-brand-700 dark:hover:text-brand-300 transition-colors"
+                        className="text-mini font-mono px-2 py-1 rounded bg-slate-100 dark:bg-slate-800 text-muted hover:bg-brand-100 dark:hover:bg-brand-900/30 hover:text-brand-700 dark:hover:text-brand-300 transition-colors"
                       >
                         {cve.id}
                       </button>
@@ -491,10 +489,7 @@ export default function RelationshipGraphPage(): JSX.Element {
               <div className="text-xs font-mono uppercase tracking-wider text-slate-500 mb-3">Legend</div>
               <div className="grid grid-cols-2 gap-x-3 gap-y-1.5">
                 {(Object.entries(NODE_COLORS) as [GraphNodeData['type'], string][]).map(([type, color]) => (
-                  <div
-                    key={type}
-                    className="flex items-center gap-2 text-mini font-mono text-slate-600 dark:text-slate-400"
-                  >
+                  <div key={type} className="flex items-center gap-2 text-mini font-mono text-muted">
                     <span
                       className="inline-block w-2.5 h-2.5 rounded-full flex-shrink-0"
                       style={{ backgroundColor: color }}

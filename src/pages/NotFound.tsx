@@ -118,15 +118,15 @@ export default function NotFound(): JSX.Element {
   return (
     <div className="max-w-5xl mx-auto text-slate-900 dark:text-slate-100">
       <div className="animate-fade-in-up text-center">
-        <div className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 mb-3">
+        <div className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-3">
           {moved ? '301 · Moved' : '404 · Not Found'}
         </div>
-        <h1 className="text-4xl sm:text-5xl font-display font-bold mb-4">
+        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-4">
           {moved ? 'This page moved.' : 'That page is off-grid.'}
         </h1>
         {moved ? (
           <div className="mb-10">
-            <p className="text-slate-600 dark:text-slate-400 mb-3">
+            <p className="text-muted mb-3">
               Intel pages live under <span className="font-mono text-slate-900 dark:text-slate-100">/threatintel/</span>{' '}
               as of May 2026. The page you followed is at a new URL.
             </p>
@@ -139,7 +139,7 @@ export default function NotFound(): JSX.Element {
             </Link>
           </div>
         ) : (
-          <p className="text-slate-600 dark:text-slate-400 mb-6 max-w-xl mx-auto">
+          <p className="text-muted mb-6 max-w-xl mx-auto">
             The URL <code className="font-mono text-slate-900 dark:text-slate-100">{location.pathname}</code> doesn't
             match anything on this site. The link may be old, mistyped, or the page has moved.
           </p>

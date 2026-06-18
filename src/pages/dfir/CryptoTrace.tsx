@@ -185,7 +185,7 @@ export default function CryptoTrace(): JSX.Element {
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -194,7 +194,7 @@ export default function CryptoTrace(): JSX.Element {
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
           <Coins size={28} className="text-brand-600 dark:text-brand-400" /> Crypto Address Tracer
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 mb-2 leading-relaxed">
+        <p className="text-muted mb-2 leading-relaxed">
           Multi-chain inspector. Paste a Bitcoin, EVM (ETH/Polygon/BSC/Arbitrum/Optimism/Base), or Solana address —
           balance, tx count, recent transactions, and pivot links to every block-explorer / NFT marketplace / DeFi
           dashboard / scam-check service.
@@ -275,7 +275,7 @@ export default function CryptoTrace(): JSX.Element {
         <>
           <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
             <div className="flex flex-wrap items-baseline justify-between gap-2 mb-1">
-              <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono">
+              <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
                 Address inspected
               </h2>
               <div className="flex flex-wrap items-center gap-1.5">
@@ -287,7 +287,7 @@ export default function CryptoTrace(): JSX.Element {
                     className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${
                       data.context.is_contract
                         ? 'border-violet-500/30 bg-violet-500/10 text-violet-700 dark:text-violet-300'
-                        : 'border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400'
+                        : 'border-slate-300 dark:border-slate-700 text-muted'
                     }`}
                   >
                     {data.context.is_contract ? 'contract' : 'EOA'}
@@ -427,7 +427,7 @@ export default function CryptoTrace(): JSX.Element {
             ))}
 
           <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
-            <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-3">
+            <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
               Per-chain balance & activity
             </h2>
             <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
@@ -480,7 +480,7 @@ export default function CryptoTrace(): JSX.Element {
           {data.recent_token_transfers && data.recent_token_transfers.length > 0 && (
             <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
               <div className="flex items-baseline justify-between gap-2 mb-3">
-                <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono">
+                <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
                   Recent ERC-20 transfers (Ethereum)
                 </h2>
                 {data.recent_token_transfers.some((t) => t.counterparty_flagged) && (
@@ -553,7 +553,7 @@ export default function CryptoTrace(): JSX.Element {
 
           {data.results.some((r) => r.recent_txs.length > 0) && (
             <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
-              <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-3">
+              <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
                 Recent transactions
               </h2>
               {data.results
@@ -596,7 +596,7 @@ export default function CryptoTrace(): JSX.Element {
 
           {explorerLinks.length > 0 && (
             <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
-              <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-3">
+              <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
                 Pivot links
               </h2>
               <p className="text-mini font-mono text-slate-500 dark:text-slate-400 mb-3">
@@ -648,10 +648,10 @@ export default function CryptoTrace(): JSX.Element {
       )}
 
       <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
-        <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-3">
+        <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
           Notes & references
         </h2>
-        <ul className="space-y-1.5 text-sm font-mono text-slate-600 dark:text-slate-400 list-disc pl-5">
+        <ul className="space-y-1.5 text-sm font-mono text-muted list-disc pl-5">
           <li>
             EVM addresses are checked across <strong>6 chains</strong> in parallel. An address that doesn't exist on a
             chain still returns a "0 balance, 0 tx" result — that's normal.

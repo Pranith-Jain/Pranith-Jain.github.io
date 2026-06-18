@@ -8,10 +8,10 @@ interface AboutProps {
 
 export function About({ stats }: AboutProps) {
   return (
-    <section id="about" className="mt-20 scroll-mt-24">
+    <section id="about" className="scroll-mt-24">
       <div className="max-w-3xl">
         <div className="mb-3 text-eyebrow font-mono uppercase text-slate-500">About me</div>
-        <h2 className="font-display text-4xl sm:text-5xl font-bold tracking-tight leading-tight text-slate-900 dark:text-white">
+        <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight leading-tight text-slate-900 dark:text-white">
           Alerts first, then everything else
         </h2>
 

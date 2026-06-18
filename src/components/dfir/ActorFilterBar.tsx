@@ -31,7 +31,7 @@ function Pill<T extends string>({
       className={`px-3 py-1 rounded-full text-xs font-mono uppercase tracking-wider border transition-colors ${
         active
           ? 'bg-brand-500/15 dark:bg-brand-400/15 text-brand-600 dark:text-brand-400 border-brand-500/40'
-          : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 border-slate-200 dark:border-slate-800 hover:border-brand-500/30'
+          : 'bg-white dark:bg-slate-900 text-muted border-slate-200 dark:border-slate-800 hover:border-brand-500/30'
       }`}
     >
       {children}

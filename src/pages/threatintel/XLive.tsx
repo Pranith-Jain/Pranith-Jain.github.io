@@ -137,7 +137,7 @@ export default function XLive(): JSX.Element {
         <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30">
           live · free
         </span>
-        <label className="inline-flex items-center gap-1 text-mini font-mono text-slate-600 dark:text-slate-400">
+        <label className="inline-flex items-center gap-1 text-mini font-mono text-muted">
           window:
           <select
             value={sinceHours}
@@ -179,7 +179,7 @@ export default function XLive(): JSX.Element {
             className={`text-mini font-mono px-2 py-0.5 rounded border transition-colors ${
               activeHandle === null
                 ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                : 'border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-brand-500/40'
+                : 'border-slate-300 dark:border-slate-700 text-muted hover:border-brand-500/40'
             }`}
           >
             all · {data?.items.length ?? 0}
@@ -192,7 +192,7 @@ export default function XLive(): JSX.Element {
               className={`text-mini font-mono px-2 py-0.5 rounded border transition-colors ${
                 activeHandle === handle
                   ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                  : 'border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-brand-500/40'
+                  : 'border-slate-300 dark:border-slate-700 text-muted hover:border-brand-500/40'
               }`}
             >
               @{handle} · {count}

@@ -149,7 +149,7 @@ function ActorCard({
 
       {expanded && (
         <div className="px-4 pb-4 border-t border-slate-100 dark:border-slate-800">
-          <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mt-3 mb-3">{actor.description}</p>
+          <p className="text-sm text-muted leading-relaxed mt-3 mb-3">{actor.description}</p>
 
           {actor.aliases.length > 0 && (
             <Section title="Aliases">
@@ -210,7 +210,7 @@ function ActorCard({
             {actor.campaigns.map((c) => (
               <span
                 key={c}
-                className="text-[10px] font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400"
+                className="text-[10px] font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-slate-700 text-muted"
               >
                 {c}
               </span>

@@ -48,7 +48,7 @@ const VERDICT_COLORS: Record<string, string> = {
   malicious: 'bg-rose-500/15 text-rose-600 dark:text-rose-400 border-rose-500/40',
   suspicious: 'bg-amber-500/15 text-amber-600 dark:text-amber-400 border-amber-500/40',
   clean: 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border-emerald-500/40',
-  unknown: 'bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border-slate-300 dark:border-slate-700',
+  unknown: 'bg-slate-200 dark:bg-slate-800 text-muted border-slate-300 dark:border-slate-700',
 };
 
 const CONFIDENCE_COLORS: Record<string, string> = {
@@ -87,7 +87,7 @@ export default function ThreatHunt(): JSX.Element {
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -96,7 +96,7 @@ export default function ThreatHunt(): JSX.Element {
         <h1 className="text-3xl sm:text-4xl font-display font-bold flex items-center gap-3">
           <Search size={28} className="text-brand-600 dark:text-brand-400" /> Threat Hunt
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 mt-2 max-w-2xl">
+        <p className="text-muted mt-2 max-w-2xl">
           Deep-dive hunt across IOC providers, Telegram leaks, breach databases, WHOIS, and certificate logs.
         </p>
       </div>
@@ -204,9 +204,7 @@ export default function ThreatHunt(): JSX.Element {
                 {result.telegram_leaks.hits.map((h) => (
                   <div key={`${h.channel}-${h.date}`} className="px-3 py-2 rounded-lg bg-slate-50 dark:bg-slate-800/50">
                     <p className="text-mini font-mono text-brand-600 dark:text-brand-400">{h.channel}</p>
-                    <p className="text-xs font-mono text-slate-600 dark:text-slate-400 mt-0.5 line-clamp-2">
-                      {h.message}
-                    </p>
+                    <p className="text-xs font-mono text-muted mt-0.5 line-clamp-2">{h.message}</p>
                   </div>
                 ))}
               </div>
@@ -246,7 +244,7 @@ export default function ThreatHunt(): JSX.Element {
           {/* Certificate Logs */}
           {result.cert_logs.count > 0 && (
             <Section icon={<FileText size={14} />} title="Certificate Transparency" count={result.cert_logs.count}>
-              <div className="text-xs font-mono text-slate-600 dark:text-slate-400 space-y-1">
+              <div className="text-xs font-mono text-muted space-y-1">
                 <p>{result.cert_logs.count} certificates found</p>
                 {result.cert_logs.recent.length > 0 && (
                   <div className="flex flex-wrap gap-1 mt-2">
@@ -268,13 +266,13 @@ export default function ThreatHunt(): JSX.Element {
           <div className="flex flex-wrap gap-3 pt-2">
             <a
               href={`/dfir/ioc-check?indicator=${encodeURIComponent(result.q)}`}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-800 text-xs font-mono text-slate-600 dark:text-slate-400 hover:border-brand-500/40 transition-colors"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-800 text-xs font-mono text-muted hover:border-brand-500/40 transition-colors"
             >
               <ExternalLink size={12} /> Full IOC Check (39 providers)
             </a>
             <a
               href={`/dfir/breach?q=${encodeURIComponent(result.q)}`}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-800 text-xs font-mono text-slate-600 dark:text-slate-400 hover:border-brand-500/40 transition-colors"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-800 text-xs font-mono text-muted hover:border-brand-500/40 transition-colors"
             >
               <ExternalLink size={12} /> Breach Deep Dive
             </a>

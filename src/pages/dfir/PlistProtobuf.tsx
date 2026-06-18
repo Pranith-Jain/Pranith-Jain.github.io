@@ -197,7 +197,7 @@ export default function PlistProtobuf(): JSX.Element {
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-6 text-slate-900 dark:text-slate-100">
       <Link
         to="/dfir/tools/dfir"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> DFIR tools
       </Link>
@@ -205,7 +205,7 @@ export default function PlistProtobuf(): JSX.Element {
         <FileCode size={22} className="text-brand-600 dark:text-brand-400" />
         Plist & Protobuf Decoder
       </h1>
-      <p className="text-sm font-mono text-slate-600 dark:text-slate-400 mt-1 mb-6">
+      <p className="text-sm font-mono text-muted mt-1 mb-6">
         Decodes Apple binary plists (<code>bplist00</code>), XML plists, and schema-less protobuf blobs. Hand-rolled
         parsers — no upload, fully client-side.
       </p>

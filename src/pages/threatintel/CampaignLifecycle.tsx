@@ -97,7 +97,7 @@ export default function CampaignLifecycle(): JSX.Element {
               <h2 className="font-display font-bold text-lg">{lifecycle.name}</h2>
               <span className="text-micro font-mono text-slate-400">Confidence: {lifecycle.confidence}%</span>
             </div>
-            <div className="text-sm text-slate-600 dark:text-slate-400">Actor: {lifecycle.actor}</div>
+            <div className="text-sm text-muted">Actor: {lifecycle.actor}</div>
             <div className="flex items-center gap-2 mt-2 text-xs">
               <span className="font-mono text-brand-600 dark:text-brand-400">Current: {lifecycle.current_phase}</span>
               <ChevronRight size={12} className="text-slate-400" />

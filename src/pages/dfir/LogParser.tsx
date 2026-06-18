@@ -83,7 +83,7 @@ export default function LogParser(): JSX.Element {
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -92,7 +92,7 @@ export default function LogParser(): JSX.Element {
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
           <ScrollText size={28} className="text-brand-600 dark:text-brand-400" /> Log Parser
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 mb-2 max-w-3xl leading-relaxed">
+        <p className="text-muted mb-2 max-w-3xl leading-relaxed">
           Paste raw log lines — Sysmon / Windows Security / syslog / JSON-line / key=value. Each line is auto-detected,
           parsed into a structured record, and tagged with MITRE ATT&amp;CK techniques where heuristics fire. Hunting
           queries are generated for Splunk SPL, Elastic KQL, and Microsoft Sentinel KQL.
@@ -105,7 +105,7 @@ export default function LogParser(): JSX.Element {
 
       <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
         <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
-          <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono">
+          <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
             Input
           </h2>
           <div className="flex flex-wrap gap-1.5">
@@ -140,7 +140,7 @@ export default function LogParser(): JSX.Element {
         <>
           {/* Summary */}
           <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
-            <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-3">
+            <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
               Batch summary
             </h2>
             <div className="grid sm:grid-cols-3 gap-4 mb-3">
@@ -174,7 +174,7 @@ export default function LogParser(): JSX.Element {
                 ))}
               {summary.unique_techniques.length > 0 && (
                 <details className="w-full mt-2">
-                  <summary className="text-mini font-mono text-slate-600 dark:text-slate-400 cursor-pointer">
+                  <summary className="text-mini font-mono text-muted cursor-pointer">
                     Techniques: {summary.unique_techniques.join(', ')}
                   </summary>
                 </details>
@@ -284,7 +284,7 @@ export default function LogParser(): JSX.Element {
           {/* Hunting queries */}
           {queries.length > 0 && (
             <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
-              <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-3">
+              <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
                 Hunting queries
               </h2>
               <ul className="space-y-3">

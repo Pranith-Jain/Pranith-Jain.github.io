@@ -125,13 +125,13 @@ export default function Privacy(): JSX.Element {
     <div className="max-w-3xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
       <div className="animate-fade-in-up">
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2">Privacy Check</h1>
-        <p className="text-slate-600 dark:text-slate-400 mb-6 max-w-2xl">
+        <p className="text-muted mb-6 max-w-2xl">
           Your browser reveals more than you think. This tool surfaces what trackers, advertisers, and threat actors can
           see about you — but the scan itself collects identifying signal, so it requires your explicit consent before
           running.
@@ -139,7 +139,7 @@ export default function Privacy(): JSX.Element {
       </div>
 
       {!fp && !scanning && (
-        <section className="mb-8 rounded-2xl border border-amber-500/40 bg-amber-500/5 p-5">
+        <section className="mb-8 rounded-lg border border-amber-500/40 bg-amber-500/5 p-5">
           <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-amber-700 dark:text-amber-300 font-mono mb-3">
             What this scan collects
           </h2>
@@ -154,7 +154,7 @@ export default function Privacy(): JSX.Element {
             <li>Battery level + charging state (where the browser still exposes it)</li>
             <li>Connection type / effective bandwidth (where the browser still exposes it)</li>
           </ul>
-          <p className="text-xs font-mono text-slate-600 dark:text-slate-400 mb-4">
+          <p className="text-xs font-mono text-muted mb-4">
             <strong>Retention:</strong> none. Results live only in this browser tab — not stored, not logged server-side
             beyond standard Cloudflare access logs that already exist for any visit. Refreshing the page clears
             everything. The composite fingerprint hash is computed locally and never sent anywhere.
@@ -180,7 +180,7 @@ export default function Privacy(): JSX.Element {
             {scanning ? 'Scanning…' : 'Scan again'}
           </button>
           {fpHash && (
-            <span className="font-mono text-xs text-slate-600 dark:text-slate-400">
+            <span className="font-mono text-xs text-muted">
               fingerprint: <span className="text-brand-600 dark:text-brand-400">{fpHash}</span>
             </span>
           )}
@@ -195,7 +195,7 @@ export default function Privacy(): JSX.Element {
 
       {opsec && (
         <section
-          className={`mb-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 ring-1 ${GRADE_STYLES[opsec.grade].ring}`}
+          className={`mb-6 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 ring-1 ${GRADE_STYLES[opsec.grade].ring}`}
         >
           <div className="flex items-center gap-6 mb-4">
             <div
@@ -213,7 +213,7 @@ export default function Privacy(): JSX.Element {
                   {GRADE_STYLES[opsec.grade].label}
                 </span>
               </h2>
-              <p className="text-sm text-slate-600 dark:text-slate-400">
+              <p className="text-sm text-muted">
                 {opsec.factors.filter((f) => f.hit).length} of {opsec.factors.length} privacy weaknesses detected.
                 Higher score = less identifying signal exposed.
               </p>
@@ -245,7 +245,7 @@ export default function Privacy(): JSX.Element {
 
       <div className="space-y-6">
         {server && (
-          <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+          <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
             <h2 className="font-display font-bold text-lg mb-3 flex items-center gap-2">
               <Eye size={16} className="text-brand-600 dark:text-brand-400" />
               Server-side view
@@ -262,7 +262,7 @@ export default function Privacy(): JSX.Element {
         )}
 
         {webrtc && (
-          <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+          <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
             <h2 className="font-display font-bold text-lg mb-3">WebRTC leak detection</h2>
             <Row label="local IPs" value={webrtc.localIps.join(', ') || undefined} />
             <Row label="public IPs (RTC)" value={webrtc.publicIps.join(', ') || undefined} />
@@ -275,7 +275,7 @@ export default function Privacy(): JSX.Element {
         )}
 
         {fp && (
-          <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+          <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
             <h2 className="font-display font-bold text-lg mb-3">Browser fingerprint</h2>
             <Row label="user-agent" value={fp.userAgent} mono={false} />
             <Row label="platform" value={fp.platform} />
@@ -296,7 +296,7 @@ export default function Privacy(): JSX.Element {
         )}
 
         {network && (
-          <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+          <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
             <h2 className="font-display font-bold text-lg mb-3">Network</h2>
             <Row label="connection" value={network.effectiveType} />
             <Row label="downlink (Mbps)" value={network.downlink} />
@@ -306,7 +306,7 @@ export default function Privacy(): JSX.Element {
         )}
 
         {battery && (
-          <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+          <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
             <h2 className="font-display font-bold text-lg mb-3">Battery</h2>
             <Row
               label="level"

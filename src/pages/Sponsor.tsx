@@ -47,10 +47,10 @@ export default function Sponsor() {
     <>
       <div className="mx-auto max-w-4xl px-4 py-12 sm:px-6">
         <div className="mb-16 text-center">
-          <h1 className="font-display text-4xl sm:text-5xl font-bold tracking-tight text-slate-900 dark:text-white">
+          <h1 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
             Sponsor This Research
           </h1>
-          <p className="mt-4 text-lg text-slate-600 dark:text-slate-400 leading-relaxed max-w-2xl mx-auto">
+          <p className="mt-3 text-base sm:text-lg text-muted leading-relaxed max-w-2xl mx-auto">
             Support independent threat intelligence production. Your sponsorship keeps the collection infrastructure
             running, the sandbox detonating, and the reports coming — all while reaching the security community that
             matters.
@@ -63,7 +63,7 @@ export default function Sponsor() {
               key={tier.name}
               className="rounded-xl border border-slate-200/70 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-6 sm:p-8 flex flex-col"
             >
-              <div className="mb-3 text-xs font-mono uppercase tracking-[0.16em] text-brand-600 dark:text-brand-400">
+              <div className="mb-3 text-eyebrow font-mono uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">
                 {tier.name}
               </div>
               <div className="mb-1">
@@ -91,7 +91,7 @@ export default function Sponsor() {
         </div>
 
         <div className="mb-16 rounded-xl border border-slate-200/70 dark:border-slate-800 p-6 sm:p-8">
-          <div className="mb-3 text-xs font-mono uppercase tracking-[0.16em] text-brand-600 dark:text-brand-400">
+          <div className="mb-3 text-eyebrow font-mono uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">
             Editorial Independence
           </div>
           <h2 className="font-display text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white mb-4">
@@ -113,7 +113,7 @@ export default function Sponsor() {
 
         <div className="mb-16">
           <div className="mb-8 text-center">
-            <div className="mb-3 text-xs font-mono uppercase tracking-[0.16em] text-brand-600 dark:text-brand-400">
+            <div className="mb-3 text-eyebrow font-mono uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">
               Why Sponsor
             </div>
             <h2 className="font-display text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white">
@@ -127,7 +127,7 @@ export default function Sponsor() {
                 className="rounded-xl border border-slate-200/70 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-6"
               >
                 <h3 className="font-semibold text-slate-900 dark:text-white mb-2">{b.title}</h3>
-                <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{b.body}</p>
+                <p className="text-sm text-muted leading-relaxed">{b.body}</p>
               </div>
             ))}
           </div>

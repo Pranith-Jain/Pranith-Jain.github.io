@@ -262,7 +262,7 @@ export default function DomainMonitor(): JSX.Element {
 
           {/* Type Legend */}
           <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
-            <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-3">
+            <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
               Detection Types
             </h3>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
@@ -284,19 +284,19 @@ export default function DomainMonitor(): JSX.Element {
           <div className="flex gap-2 flex-wrap">
             <Link
               to={`/dfir/domain-rep?domain=${encodeURIComponent(clean)}`}
-              className="inline-flex items-center gap-1 text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:border-brand-500/40"
+              className="inline-flex items-center gap-1 text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-slate-800 text-muted hover:border-brand-500/40"
             >
               <ExternalLink size={10} /> Domain Reputation
             </Link>
             <Link
               to={`/dfir/ioc-check?indicator=${encodeURIComponent(clean)}`}
-              className="inline-flex items-center gap-1 text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:border-brand-500/40"
+              className="inline-flex items-center gap-1 text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-slate-800 text-muted hover:border-brand-500/40"
             >
               <ExternalLink size={10} /> IOC Checker
             </Link>
             <Link
               to={`/dfir/breach?domain=${encodeURIComponent(clean)}`}
-              className="inline-flex items-center gap-1 text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:border-brand-500/40"
+              className="inline-flex items-center gap-1 text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-slate-800 text-muted hover:border-brand-500/40"
             >
               <ExternalLink size={10} /> Breach Check
             </Link>

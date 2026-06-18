@@ -103,7 +103,7 @@ export function ReportView({ report, onExportPdf, onExportMd }: Props): JSX.Elem
   return (
     <div className="space-y-5">
       {/* Cover */}
-      <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden">
+      <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden">
         <div className={`px-4 py-1.5 text-mini font-mono font-semibold tracking-wide ${TLP_CLASS[tlp]}`}>TLP:{tlp}</div>
         <div className="p-5">
           <h1 className="font-display font-bold text-xl text-slate-900 dark:text-slate-100">{report.cover.title}</h1>
@@ -165,7 +165,7 @@ export function ReportView({ report, onExportPdf, onExportMd }: Props): JSX.Elem
       </div>
 
       {/* Executive summary */}
-      <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
         <h2 className="font-display font-semibold text-lg mb-2">Executive Summary</h2>
         <div className="text-sm leading-relaxed text-slate-700 dark:text-slate-300">
           {renderBody(report.executive_summary)}
@@ -174,7 +174,7 @@ export function ReportView({ report, onExportPdf, onExportMd }: Props): JSX.Elem
 
       {/* Key findings */}
       {report.key_findings.length > 0 && (
-        <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+        <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
           <h2 className="font-display font-semibold text-lg mb-2">Key Findings</h2>
           <ul className="space-y-2">
             {report.key_findings.map((f, i) => (
@@ -195,7 +195,7 @@ export function ReportView({ report, onExportPdf, onExportMd }: Props): JSX.Elem
       {report.sections.map((sec) => (
         <section
           key={sec.id}
-          className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5"
+          className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5"
         >
           <h2 className="font-display font-semibold text-lg mb-2">{sec.heading}</h2>
           <div className="text-sm leading-relaxed text-slate-700 dark:text-slate-300">{renderBody(sec.body_md)}</div>
@@ -204,7 +204,7 @@ export function ReportView({ report, onExportPdf, onExportMd }: Props): JSX.Elem
 
       {/* Conflicts */}
       {report.appendices.conflicts.length > 0 && (
-        <section className="rounded-2xl border border-amber-300 dark:border-amber-800 bg-amber-50 dark:bg-amber-950/30 p-5">
+        <section className="rounded-lg border border-amber-300 dark:border-amber-800 bg-amber-50 dark:bg-amber-950/30 p-5">
           <h2 className="font-display font-semibold text-lg mb-2 text-amber-800 dark:text-amber-300">
             Sources Conflict
           </h2>
@@ -248,7 +248,7 @@ export function ReportView({ report, onExportPdf, onExportMd }: Props): JSX.Elem
 
       {/* Sources appendix (with Admiralty badges + anchor targets for citations) */}
       {report.appendices.sources.length > 0 && (
-        <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+        <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
           <h2 className="font-display font-semibold text-lg mb-3">Appendix D — Sources</h2>
           <ul className="space-y-1.5">
             {report.appendices.sources.map((s) => (
@@ -287,7 +287,7 @@ export function ReportView({ report, onExportPdf, onExportMd }: Props): JSX.Elem
 
 function AppendixTable({ title, head, rows }: { title: string; head: string[]; rows: string[][] }): JSX.Element {
   return (
-    <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 overflow-x-auto">
+    <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 overflow-x-auto">
       <h2 className="font-display font-semibold text-lg mb-3">{title}</h2>
       <table className="w-full text-xs font-mono">
         <thead>

@@ -44,13 +44,13 @@ export default function Exposure(): JSX.Element {
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
       <div className="animate-fade-in-up">
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2">Exposure Scanner</h1>
-        <p className="text-slate-600 dark:text-slate-400 mb-8 max-w-2xl">
+        <p className="text-muted mb-8 max-w-2xl">
           Subdomains seen in Certificate Transparency logs, resolved to IPs, with optional Shodan host enrichment when
           available.
         </p>
@@ -75,7 +75,7 @@ export default function Exposure(): JSX.Element {
         </div>
       </form>
 
-      {loading && <p className="font-mono text-slate-600 dark:text-slate-400">Scanning…</p>}
+      {loading && <p className="font-mono text-muted">Scanning…</p>}
       {error && (
         <p role="alert" className="font-mono text-rose-600 dark:text-rose-400">
           error: {error}
@@ -84,7 +84,7 @@ export default function Exposure(): JSX.Element {
 
       {result && (
         <div className="space-y-6">
-          <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+          <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
             <div className="flex items-baseline justify-between">
               <h2 className="font-display font-bold text-2xl">{result.domain}</h2>
               <span className="font-mono text-sm">
@@ -102,12 +102,12 @@ export default function Exposure(): JSX.Element {
                 </span>
               </span>
             </div>
-            <p className="mt-2 font-mono text-sm text-slate-600 dark:text-slate-400">
+            <p className="mt-2 font-mono text-sm text-muted">
               {result.subdomains.length} of {result.total_subdomains_seen} subdomains shown · Shodan:{' '}
               {result.shodan_enabled ? 'enabled' : 'unavailable'}
             </p>
           </section>
-          <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+          <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
             <h3 className="font-display font-bold text-lg mb-3">Subdomains seen in CT logs</h3>
             <SubdomainTree subdomains={result.subdomains} />
           </section>

@@ -40,7 +40,7 @@ function chip(active: boolean): string {
   return `text-xs font-mono px-2.5 py-1 rounded border transition-colors ${
     active
       ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-      : 'border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-brand-500/40'
+      : 'border-slate-300 dark:border-slate-700 text-muted hover:border-brand-500/40'
   }`;
 }
 
@@ -78,10 +78,7 @@ export default function MispGalaxyActors(): JSX.Element {
     };
   }, []);
 
-  const countries = useMemo(
-    () => Object.entries(data?.countries ?? {}).sort((a, b) => b[1] - a[1]),
-    [data]
-  );
+  const countries = useMemo(() => Object.entries(data?.countries ?? {}).sort((a, b) => b[1] - a[1]), [data]);
 
   const filtered = useMemo(() => {
     const list = data?.actors ?? [];
@@ -100,8 +97,8 @@ export default function MispGalaxyActors(): JSX.Element {
 
   const description = (
     <>
-      Searchable threat-actor alias directory — canonical name, known synonyms, suspected origin country, and
-      reference links from the{' '}
+      Searchable threat-actor alias directory — canonical name, known synonyms, suspected origin country, and reference
+      links from the{' '}
       <a
         href="https://github.com/MISP/misp-galaxy"
         target="_blank"
@@ -213,9 +210,7 @@ export default function MispGalaxyActors(): JSX.Element {
             )}
 
             {actor.description && (
-              <p className="text-xs text-slate-600 dark:text-slate-400 mt-2 leading-relaxed line-clamp-4">
-                {actor.description}
-              </p>
+              <p className="text-xs text-muted mt-2 leading-relaxed line-clamp-4">{actor.description}</p>
             )}
 
             {actor.refs.length > 0 && (

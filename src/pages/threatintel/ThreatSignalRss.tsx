@@ -495,9 +495,7 @@ function PostCard({ item }: { item: RssItem }): JSX.Element {
         <ExternalLink size={12} className="text-slate-400 group-hover:text-brand-500 shrink-0 mt-0.5" />
       </div>
 
-      {item.description && (
-        <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed line-clamp-3">{item.description}</p>
-      )}
+      {item.description && <p className="text-xs text-muted leading-relaxed line-clamp-3">{item.description}</p>}
 
       <div className="flex flex-wrap items-center gap-2 mt-auto pt-2">
         {/* Source pill */}

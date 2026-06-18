@@ -43,15 +43,15 @@ export default function AboutPage() {
 
       <About stats={stats} />
 
-      <section id="story" className="mt-20 scroll-mt-24">
+      <section id="story" className="mt-16 scroll-mt-24">
         <div className="mb-10 max-w-2xl">
-          <div className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400">
+          <div className="mb-3 text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
             The Story
           </div>
-          <h2 className="font-display text-4xl sm:text-5xl font-bold tracking-tight text-slate-900 dark:text-white">
+          <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
             How I got here
           </h2>
-          <p className="mt-4 text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
+          <p className="mt-3 text-base sm:text-lg text-muted leading-relaxed">
             From code to incidents: the path that shaped the work I do now.
           </p>
         </div>
@@ -61,10 +61,10 @@ export default function AboutPage() {
             <div key={chapter.period} className="relative pl-8 sm:pl-10">
               <div className="absolute left-0 top-1 bottom-0 w-px bg-slate-200 dark:bg-slate-800" />
               <div className="absolute -left-[5px] top-1 h-2.5 w-2.5 rounded-full border-2 border-brand-500 bg-white dark:bg-slate-900" />
-              <div className="text-xs font-mono uppercase tracking-[0.16em] text-brand-600 dark:text-brand-400 mb-3">
+              <div className="text-eyebrow font-mono uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400 mb-3">
                 {chapter.period}
               </div>
-              <div className="space-y-4 text-base text-slate-700 dark:text-slate-300 leading-relaxed">
+              <div className="space-y-4 text-base text-muted leading-relaxed">
                 {chapter.paragraphs.map((p, i) => (
                   <p key={i}>{p}</p>
                 ))}

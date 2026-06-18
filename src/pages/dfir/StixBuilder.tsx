@@ -244,17 +244,17 @@ export default function StixBuilder(): JSX.Element {
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono transition-colors"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono transition-colors"
       >
         <ArrowLeft size={14} /> all tools
       </BackLink>
 
       <header className="animate-fade-in-up mb-10">
-        <span className="inline-block text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 mb-3">
+        <span className="inline-block text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-3">
           DFIR · CTI / Intel
         </span>
         <h1 className="text-3xl sm:text-4xl font-display font-bold leading-tight mb-2">STIX 2.1 Builder</h1>
-        <p className="text-sm text-slate-600 dark:text-slate-400 max-w-3xl leading-relaxed">
+        <p className="text-sm text-muted max-w-3xl leading-relaxed">
           Turn a threat-report blurb, a flat IoC list, or a public URL into a strict STIX 2.1 bundle — heuristic actor /
           malware / CVE / IoC extraction, bulk-provider enrichment with composite risk scores, deterministic UUIDv5 IDs
           so the same input always yields the same bundle. Importable into OpenCTI, MISP, or any TAXII 2.1 client.
@@ -299,7 +299,7 @@ export default function StixBuilder(): JSX.Element {
               accept=".pdf,.docx,.txt,.md,.html,.htm,.png,.jpg,.jpeg,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/plain,text/html,image/png,image/jpeg"
               onChange={(e) => setFile(e.target.files?.[0] ?? null)}
               aria-label="Upload report file"
-              className="block w-full text-sm text-slate-600 dark:text-slate-400"
+              className="block w-full text-sm text-muted"
             />
             <p className="mt-2 text-xs text-slate-500 dark:text-slate-400">
               Upload a threat report — text / HTML parse in-Worker, images via OCR, PDF / DOCX via the optional file2txt

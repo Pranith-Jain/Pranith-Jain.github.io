@@ -10,7 +10,7 @@ const CATEGORY_META: Record<RSSFeed['category'], { label: string; icon: typeof R
   advisory: { label: 'Advisory', icon: GraduationCap, className: 'text-amber-600 dark:text-amber-400' },
   'threat-intel': { label: 'Threat Intel', icon: Globe, className: 'text-brand-600 dark:text-brand-400' },
   news: { label: 'News', icon: Newspaper, className: 'text-blue-600 dark:text-blue-400' },
-  general: { label: 'General', icon: Rss, className: 'text-slate-600 dark:text-slate-400' },
+  general: { label: 'General', icon: Rss, className: 'text-muted' },
   'ics-cert': { label: 'ICS CERT', icon: Cpu, className: 'text-violet-600 dark:text-violet-400' },
   tech: { label: 'Tech', icon: Wrench, className: 'text-emerald-600 dark:text-emerald-400' },
 };

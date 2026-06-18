@@ -232,7 +232,7 @@ export function MaturityPanel(): JSX.Element {
   }
   return (
     <DataState rows={1}>
-      <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+      <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <MaturityScorecard report={maturity} />
           <ReliabilityHistogram data={feed} />

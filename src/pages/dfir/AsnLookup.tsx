@@ -80,14 +80,14 @@ export default function AsnLookup(): JSX.Element {
     <div className="max-w-4xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
 
       <div className="animate-fade-in-up">
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2">ASN Lookup</h1>
-        <p className="text-slate-600 dark:text-slate-400 mb-8 max-w-2xl">
+        <p className="text-muted mb-8 max-w-2xl">
           Query RIPEstat for Autonomous System details. Includes name, RIR, abuse contacts, and announced IP prefixes.
         </p>
       </div>
@@ -119,7 +119,7 @@ export default function AsnLookup(): JSX.Element {
         )}
       </form>
 
-      {loading && <p className="font-mono text-slate-600 dark:text-slate-400">Querying RIPEstat…</p>}
+      {loading && <p className="font-mono text-muted">Querying RIPEstat…</p>}
       {error && (
         <p role="alert" className="font-mono text-rose-600 dark:text-rose-400">
           error: {error}
@@ -129,7 +129,7 @@ export default function AsnLookup(): JSX.Element {
       {result && (
         <div className="space-y-6">
           {/* Header */}
-          <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+          <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
             <div className="flex flex-wrap items-start gap-3 mb-3">
               <h2 className="font-display font-bold text-2xl font-mono">AS{result.asn}</h2>
               {result.name && (
@@ -138,7 +138,7 @@ export default function AsnLookup(): JSX.Element {
                 </span>
               )}
               {result.type && (
-                <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-mono bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border border-slate-300 dark:border-slate-700">
+                <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-mono bg-slate-100 dark:bg-slate-800 text-muted border border-slate-300 dark:border-slate-700">
                   {result.type}
                 </span>
               )}
@@ -158,7 +158,7 @@ export default function AsnLookup(): JSX.Element {
 
           {/* Contacts */}
           {result.abuse_contacts && result.abuse_contacts.length > 0 && (
-            <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+            <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
               <h3 className="font-display font-semibold text-lg mb-3">Abuse Contacts</h3>
               <div className="flex flex-wrap gap-2">
                 {result.abuse_contacts.map((email) => (
@@ -176,7 +176,7 @@ export default function AsnLookup(): JSX.Element {
 
           {/* RIR */}
           {result.rir && (result.rir.name || result.rir.description) && (
-            <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+            <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
               <h3 className="font-display font-semibold text-lg mb-3">RIR / Registry</h3>
               <div className="grid sm:grid-cols-2 gap-4 font-mono text-sm">
                 {result.rir.name && (
@@ -196,7 +196,7 @@ export default function AsnLookup(): JSX.Element {
           )}
 
           {/* Prefixes */}
-          <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+          <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
             <h3 className="font-display font-semibold text-lg mb-4">Announced Prefixes</h3>
             <div className="grid sm:grid-cols-2 gap-6">
               <div>

@@ -477,7 +477,7 @@ function IocsTab(props: { iocs: ExtractedIoc[]; apiKey: string; mcpStatus: McpSt
                   ) : er.hit ? (
                     <span className="inline-flex items-center gap-1.5">
                       <span
-                        className={`rounded border px-1.5 py-0.5 font-mono ${(er.hit.total_reports ?? er.hit.reports?.length ?? 0) > 0 ? 'text-rose-700 dark:text-rose-300 border-rose-300 dark:border-rose-800 bg-rose-50 dark:bg-rose-950/40' : 'text-slate-600 dark:text-slate-400 border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-900'}`}
+                        className={`rounded border px-1.5 py-0.5 font-mono ${(er.hit.total_reports ?? er.hit.reports?.length ?? 0) > 0 ? 'text-rose-700 dark:text-rose-300 border-rose-300 dark:border-rose-800 bg-rose-50 dark:bg-rose-950/40' : 'text-muted border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-900'}`}
                       >
                         {er.hit.total_reports ?? er.hit.reports?.length ?? 0} report
                         {(er.hit.total_reports ?? er.hit.reports?.length ?? 0) === 1 ? '' : 's'}
@@ -530,7 +530,7 @@ function TtpsTab({ ttp }: { ttp: TtpHit[] }): JSX.Element {
                   {t.id}
                 </a>
               </td>
-              <td className="px-4 py-2 text-xs text-slate-600 dark:text-slate-400">{t.tactic}</td>
+              <td className="px-4 py-2 text-xs text-muted">{t.tactic}</td>
               <td className="px-4 py-2">
                 <span
                   className={`text-micro font-mono uppercase tracking-wider rounded border px-1.5 py-0.5 ${CONFIDENCE_PILL[t.confidence]}`}
@@ -573,9 +573,7 @@ function AttackFlowTabView({ phases }: { phases: AttackFlowPhase[] }): JSX.Eleme
                 </span>
                 <div className="min-w-0 flex-1">
                   <p className="text-sm font-medium text-slate-900 dark:text-slate-100">{t.name}</p>
-                  {t.evidence && (
-                    <p className="mt-0.5 text-xs text-slate-600 dark:text-slate-400 line-clamp-2">{t.evidence}</p>
-                  )}
+                  {t.evidence && <p className="mt-0.5 text-xs text-muted line-clamp-2">{t.evidence}</p>}
                 </div>
               </li>
             ))}
@@ -864,7 +862,7 @@ function ReportRow({ r }: { r: TiReportSummary }): JSX.Element {
           </span>
         )}
       </p>
-      {r.summary && <p className="mt-1 text-[11px] text-slate-600 dark:text-slate-400 line-clamp-2">{r.summary}</p>}
+      {r.summary && <p className="mt-1 text-[11px] text-muted line-clamp-2">{r.summary}</p>}
     </li>
   );
 }
@@ -1027,9 +1025,7 @@ export default function AIReportShowcase(): JSX.Element {
                 <p className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">
                   {r.source} · {r.publishedAt}
                 </p>
-                <p className="text-xs text-slate-600 dark:text-slate-400 line-clamp-2">
-                  {r.tags.slice(0, 4).join(' · ')}
-                </p>
+                <p className="text-xs text-muted line-clamp-2">{r.tags.slice(0, 4).join(' · ')}</p>
               </button>
             );
           })}
@@ -1125,7 +1121,7 @@ export default function AIReportShowcase(): JSX.Element {
       {!data && !loading && !error && (
         <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-12 text-center">
           <BookOpen className="mx-auto h-10 w-10 text-slate-400 dark:text-slate-500 mb-3" />
-          <p className="text-sm text-slate-600 dark:text-slate-400">Pick a sample above to begin.</p>
+          <p className="text-sm text-muted">Pick a sample above to begin.</p>
         </div>
       )}
     </DataPageLayout>

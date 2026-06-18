@@ -256,14 +256,14 @@ export default function MitreMatrix(): JSX.Element {
       <div className="max-w-7xl mx-auto">
         <BackLink
           to="/threatintel"
-          className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+          className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
         >
           <ArrowLeft size={14} /> back
         </BackLink>
 
         <div className="animate-fade-in-up">
           <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2">MITRE ATT&amp;CK</h1>
-          <p className="text-slate-600 dark:text-slate-400 mb-2 max-w-3xl">
+          <p className="text-muted mb-2 max-w-3xl">
             Enterprise tactics and techniques. Click any technique tile to open a side drawer with description, tactics,
             platforms, data sources, detection guidance, related techniques, and tracked actors that use it. Highlighted
             tiles indicate techniques observed in actor tradecraft.
@@ -328,7 +328,7 @@ export default function MitreMatrix(): JSX.Element {
             className={`text-xs font-mono px-3 py-2 rounded border transition-colors ${
               coverageMode
                 ? 'border-emerald-500/60 bg-emerald-500/15 text-emerald-700 dark:text-emerald-300'
-                : 'border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-emerald-500/40'
+                : 'border-slate-300 dark:border-slate-700 text-muted hover:border-emerald-500/40'
             }`}
             title="In coverage mode, clicking a tile cycles its detection-coverage tag instead of opening the drawer."
           >
@@ -340,7 +340,7 @@ export default function MitreMatrix(): JSX.Element {
             className={`text-xs font-mono px-3 py-2 rounded border transition-colors ${
               showGapsOnly
                 ? 'border-rose-500/60 bg-rose-500/15 text-rose-700 dark:text-rose-300'
-                : 'border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-rose-500/40'
+                : 'border-slate-300 dark:border-slate-700 text-muted hover:border-rose-500/40'
             }`}
             title="Show only techniques tagged uncovered/partial or untagged — your detection gap."
           >

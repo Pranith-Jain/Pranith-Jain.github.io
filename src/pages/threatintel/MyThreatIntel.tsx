@@ -144,7 +144,7 @@ function DistBar({ rows, distKey }: { rows: MtiRow[]; distKey: string | null }):
       <div className="space-y-2">
         {buckets.map(([label, n]) => (
           <div key={label} className="flex items-center gap-3">
-            <div className="w-32 sm:w-44 truncate font-mono text-xs text-slate-600 dark:text-slate-400" title={label}>
+            <div className="w-32 sm:w-44 truncate font-mono text-xs text-muted" title={label}>
               {label}
             </div>
             <div className="flex-1 h-2.5 rounded bg-slate-100 dark:bg-slate-800 overflow-hidden">
@@ -367,15 +367,9 @@ function DnsScanPanel(): JSX.Element {
                           <td className="px-3 py-2 font-mono text-meta text-slate-800 dark:text-slate-200 break-all">
                             {r.domain || '—'}
                           </td>
-                          <td className="px-3 py-2 font-mono text-mini text-slate-600 dark:text-slate-400 break-all">
-                            {recArr(r.dns_a)}
-                          </td>
-                          <td className="px-3 py-2 font-mono text-mini text-slate-600 dark:text-slate-400 break-all">
-                            {recArr(r.dns_mx)}
-                          </td>
-                          <td className="px-3 py-2 font-mono text-mini text-slate-600 dark:text-slate-400 break-all">
-                            {recArr(r.dns_ns)}
-                          </td>
+                          <td className="px-3 py-2 font-mono text-mini text-muted break-all">{recArr(r.dns_a)}</td>
+                          <td className="px-3 py-2 font-mono text-mini text-muted break-all">{recArr(r.dns_mx)}</td>
+                          <td className="px-3 py-2 font-mono text-mini text-muted break-all">{recArr(r.dns_ns)}</td>
                           <td className="px-3 py-2 whitespace-nowrap">
                             {registered ? (
                               <span className="text-mini font-mono px-2 py-0.5 rounded border border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300">
@@ -470,7 +464,7 @@ export default function MyThreatIntel(): JSX.Element {
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -479,7 +473,7 @@ export default function MyThreatIntel(): JSX.Element {
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
           <Radar size={28} className="text-brand-600 dark:text-brand-400" /> MyThreatIntel
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 mb-2 max-w-3xl leading-relaxed">
+        <p className="text-muted mb-2 max-w-3xl leading-relaxed">
           Live view of the MyThreatIntel CTI platform via its authenticated REST API. The bearer token is held as a
           Worker secret and injected server-side — it never reaches the browser.
         </p>
@@ -502,7 +496,7 @@ export default function MyThreatIntel(): JSX.Element {
               className={`text-xs font-mono px-3 py-1.5 rounded border transition-colors ${
                 view === 'records' && source === s
                   ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                  : 'border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:border-brand-500/40'
+                  : 'border-slate-200 dark:border-slate-800 text-muted hover:border-brand-500/40'
               }`}
             >
               {SOURCE_LABEL[s]}
@@ -514,7 +508,7 @@ export default function MyThreatIntel(): JSX.Element {
             className={`inline-flex items-center gap-1 text-xs font-mono px-3 py-1.5 rounded border transition-colors ${
               view === 'dns'
                 ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                : 'border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:border-brand-500/40'
+                : 'border-slate-200 dark:border-slate-800 text-muted hover:border-brand-500/40'
             }`}
           >
             <Globe size={12} /> DNS typosquat

@@ -129,7 +129,7 @@ export default function Grc(): JSX.Element {
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -138,7 +138,7 @@ export default function Grc(): JSX.Element {
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
           <FileCheck size={28} className="text-brand-600 dark:text-brand-400" /> GRC Compliance &amp; Maturity
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 mb-2 leading-relaxed">
+        <p className="text-muted mb-2 leading-relaxed">
           Six major frameworks side-by-side with cross-mapping and self-assessment. NIST CSF 2.0 is the spine; ISO
           27001:2022, ISO 42001:2023 (AI Management System), CIS Controls v8, and SOC 2 are mapped to NIST where
           official cross-references exist. SOC-CMM gives a maturity view across Business / People / Process / Technology
@@ -198,7 +198,7 @@ export default function Grc(): JSX.Element {
             className={`text-sm font-mono px-3 py-1.5 rounded border transition-colors ${
               tab === fid
                 ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                : 'border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-brand-500/40'
+                : 'border-slate-300 dark:border-slate-700 text-muted hover:border-brand-500/40'
             }`}
           >
             {FRAMEWORK_META[fid].label}
@@ -239,9 +239,7 @@ export default function Grc(): JSX.Element {
                   <span className="block font-display font-semibold text-slate-900 dark:text-slate-100">
                     {fn.title}
                   </span>
-                  <span className="block text-xs font-mono text-slate-600 dark:text-slate-400 truncate">
-                    {fn.description}
-                  </span>
+                  <span className="block text-xs font-mono text-muted truncate">{fn.description}</span>
                 </span>
                 <span className="flex-none text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
                   {fn.categories.reduce((n, c) => n + c.controls.length, 0)} subcat
@@ -255,7 +253,7 @@ export default function Grc(): JSX.Element {
                       <h4 className="font-display font-semibold text-sm text-slate-800 dark:text-slate-200 mb-1">
                         {cat.shortId} — {cat.title}
                       </h4>
-                      <p className="text-xs font-mono text-slate-600 dark:text-slate-400 mb-2">{cat.description}</p>
+                      <p className="text-xs font-mono text-muted mb-2">{cat.description}</p>
                       <div className="space-y-1.5">
                         {cat.controls.map((ctl) => {
                           const s: CoverageStatus = a.controls[ctl.id] ?? 'unset';
@@ -284,9 +282,7 @@ export default function Grc(): JSX.Element {
                                   </span>
                                 ))}
                               </div>
-                              <p className="text-mini font-mono text-slate-600 dark:text-slate-400 leading-relaxed">
-                                {ctl.body}
-                              </p>
+                              <p className="text-mini font-mono text-muted leading-relaxed">{ctl.body}</p>
                             </div>
                           );
                         })}
@@ -315,7 +311,7 @@ export default function Grc(): JSX.Element {
                   {theme.controls.length}/{theme.controlCount} sampled
                 </span>
               </div>
-              <p className="text-xs font-mono text-slate-600 dark:text-slate-400 mb-3">{theme.description}</p>
+              <p className="text-xs font-mono text-muted mb-3">{theme.description}</p>
               <div className="space-y-1.5">
                 {theme.controls.map((ctl) => {
                   const s: CoverageStatus = a.controls[ctl.id] ?? 'unset';
@@ -343,9 +339,7 @@ export default function Grc(): JSX.Element {
                           </span>
                         ))}
                       </div>
-                      <p className="text-mini font-mono text-slate-600 dark:text-slate-400 leading-relaxed">
-                        {ctl.body}
-                      </p>
+                      <p className="text-mini font-mono text-muted leading-relaxed">{ctl.body}</p>
                     </div>
                   );
                 })}
@@ -388,7 +382,7 @@ export default function Grc(): JSX.Element {
                   {domain.controls.length} control{domain.controls.length === 1 ? '' : 's'}
                 </span>
               </div>
-              <p className="text-xs font-mono text-slate-600 dark:text-slate-400 mb-3">{domain.description}</p>
+              <p className="text-xs font-mono text-muted mb-3">{domain.description}</p>
               <div className="space-y-1.5">
                 {domain.controls.map((ctl) => {
                   const s: CoverageStatus = a.controls[ctl.id] ?? 'unset';
@@ -417,9 +411,7 @@ export default function Grc(): JSX.Element {
                           </span>
                         ))}
                       </div>
-                      <p className="text-mini font-mono text-slate-600 dark:text-slate-400 leading-relaxed">
-                        {ctl.body}
-                      </p>
+                      <p className="text-mini font-mono text-muted leading-relaxed">{ctl.body}</p>
                     </div>
                   );
                 })}
@@ -446,7 +438,7 @@ export default function Grc(): JSX.Element {
                   <span className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 flex-1">
                     {c.title}
                   </span>
-                  <span className="text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400">
+                  <span className="text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-slate-300 dark:border-slate-700 text-muted">
                     IG{c.igLevel}
                   </span>
                   <button
@@ -456,9 +448,7 @@ export default function Grc(): JSX.Element {
                     {STATUS_STYLES[s].label}
                   </button>
                 </div>
-                <p className="text-mini font-mono text-slate-600 dark:text-slate-400 leading-relaxed">
-                  {c.description}
-                </p>
+                <p className="text-mini font-mono text-muted leading-relaxed">{c.description}</p>
               </div>
             );
           })}
@@ -499,9 +489,7 @@ export default function Grc(): JSX.Element {
                               {c.shortId} {c.title}
                             </span>
                           </div>
-                          <p className="text-mini font-mono text-slate-600 dark:text-slate-400 leading-relaxed">
-                            {c.description}
-                          </p>
+                          <p className="text-mini font-mono text-muted leading-relaxed">{c.description}</p>
                         </div>
                       );
                     })}
@@ -538,7 +526,7 @@ export default function Grc(): JSX.Element {
                       className={`text-xs font-mono px-2 py-1 rounded border transition-colors ${
                         lvl === n
                           ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                          : 'border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-brand-500/40'
+                          : 'border-slate-300 dark:border-slate-700 text-muted hover:border-brand-500/40'
                       }`}
                     >
                       {n}
@@ -555,10 +543,10 @@ export default function Grc(): JSX.Element {
       )}
 
       <section className="mt-8 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
-        <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-3">
+        <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
           References
         </h2>
-        <ul className="space-y-1.5 text-sm font-mono text-slate-600 dark:text-slate-400">
+        <ul className="space-y-1.5 text-sm font-mono text-muted">
           <li>
             <a
               href="https://www.nist.gov/cyberframework"

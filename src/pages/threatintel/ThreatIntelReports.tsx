@@ -167,7 +167,7 @@ function ReportCard({
 
       {expanded && (
         <div className="px-4 pb-4 border-t border-slate-100 dark:border-slate-800">
-          <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mt-3 mb-4">{report.summary}</p>
+          <p className="text-sm text-muted leading-relaxed mt-3 mb-4">{report.summary}</p>
 
           <div className="flex flex-wrap gap-1.5 mb-4">
             {report.tags.map((tag) => (

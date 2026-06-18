@@ -20,7 +20,7 @@ const TIER_COLORS: Record<string, string> = {
   High: 'text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/40 border-amber-300 dark:border-amber-800',
   Medium:
     'text-yellow-700 dark:text-yellow-400 bg-yellow-50 dark:bg-yellow-950/40 border-yellow-300 dark:border-yellow-700',
-  Low: 'text-slate-600 dark:text-slate-400 bg-slate-100 dark:bg-slate-900 border-slate-300 dark:border-slate-700',
+  Low: 'text-muted bg-slate-100 dark:bg-slate-900 border-slate-300 dark:border-slate-700',
 };
 
 const DOMAIN_DESCRIPTIONS: Record<string, string> = {
@@ -80,7 +80,7 @@ function chip(active: boolean): string {
   return `text-xs font-mono px-2.5 py-1 rounded border transition-colors ${
     active
       ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-      : 'border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-brand-500/40'
+      : 'border-slate-300 dark:border-slate-700 text-muted hover:border-brand-500/40'
   }`;
 }
 
@@ -253,16 +253,14 @@ export default function LlmThreatAtlas(): JSX.Element {
               >
                 <div className="flex items-start justify-between gap-2">
                   <span className="font-mono text-lg font-bold text-brand-600 dark:text-brand-400">{key}</span>
-                  <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400">
+                  <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-200 dark:bg-slate-800 text-muted">
                     {count}
                   </span>
                 </div>
                 <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100 mt-0.5 leading-snug">
                   {first?.domain_title ?? ''}
                 </h3>
-                <p className="text-xs text-slate-600 dark:text-slate-400 mt-1 leading-relaxed line-clamp-2">
-                  {DOMAIN_DESCRIPTIONS[key] ?? ''}
-                </p>
+                <p className="text-xs text-muted mt-1 leading-relaxed line-clamp-2">{DOMAIN_DESCRIPTIONS[key] ?? ''}</p>
               </div>
             );
           })}
@@ -303,9 +301,7 @@ export default function LlmThreatAtlas(): JSX.Element {
                   <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100 mt-1 leading-snug">
                     {item.attack_vector}
                   </h3>
-                  <p className="text-xs text-slate-600 dark:text-slate-400 mt-0.5 leading-relaxed">
-                    {item.threat_model_question}
-                  </p>
+                  <p className="text-xs text-muted mt-0.5 leading-relaxed">{item.threat_model_question}</p>
                 </div>
                 <div className="flex items-center gap-2 shrink-0">
                   {item.architectures.slice(0, 3).map((arch) => (
@@ -433,7 +429,7 @@ function Section({ icon: Icon, title, text }: { icon: typeof Shield; title: stri
         <Icon size={12} className="text-slate-400" aria-hidden="true" />
         {title}
       </h4>
-      <p className="text-slate-600 dark:text-slate-400 leading-relaxed">{text}</p>
+      <p className="text-muted leading-relaxed">{text}</p>
     </div>
   );
 }

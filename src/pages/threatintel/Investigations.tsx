@@ -57,13 +57,13 @@ interface Investigation {
 }
 
 const STATUS_COLORS: Record<string, string> = {
-  open: 'bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400',
+  open: 'bg-slate-200 dark:bg-slate-800 text-muted',
   'in-progress': 'bg-blue-500/15 text-blue-600 dark:text-blue-400',
   closed: 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400',
 };
 
 const TLP_COLORS: Record<string, string> = {
-  white: 'bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400',
+  white: 'bg-slate-200 dark:bg-slate-800 text-muted',
   green: 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400',
   amber: 'bg-amber-500/15 text-amber-600 dark:text-amber-400',
   red: 'bg-rose-500/15 text-rose-600 dark:text-rose-400',
@@ -312,7 +312,7 @@ function InvestigationsPage(): JSX.Element {
         <button
           type="button"
           onClick={() => setActiveInv(null)}
-          className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-6 font-mono"
+          className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-6 font-mono"
         >
           <ArrowLeft size={14} /> back to investigations
         </button>
@@ -358,9 +358,7 @@ function InvestigationsPage(): JSX.Element {
           </div>
         </div>
 
-        {inv.description && (
-          <p className="text-sm font-mono text-slate-600 dark:text-slate-400 mb-6">{inv.description}</p>
-        )}
+        {inv.description && <p className="text-sm font-mono text-muted mb-6">{inv.description}</p>}
 
         <div className="flex gap-2 mb-6">
           <span className="text-mini font-mono text-slate-500 dark:text-slate-400">Severity:</span>
@@ -578,7 +576,7 @@ function InvestigationsPage(): JSX.Element {
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -586,7 +584,7 @@ function InvestigationsPage(): JSX.Element {
       <div className="flex flex-wrap items-start justify-between gap-4 mb-6">
         <div>
           <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2">Investigations</h1>
-          <p className="text-sm font-mono text-slate-600 dark:text-slate-400 max-w-2xl">
+          <p className="text-sm font-mono text-muted max-w-2xl">
             Case management board — create investigations, track observables, manage tasks, and document your analysis
             timeline. Inspired by TheHive.
           </p>

@@ -16,7 +16,7 @@ const sections = [
     body: [
       'Each investigation follows a structured multi-agent AI workflow. A drafting agent produces an initial narrative from raw sandbox output, network logs, and OSINT enrichment. A review agent checks for logical gaps, missing evidence, and unsupported claims. A final editorial pass ensures clarity, proper citation, and adherence to the structured threat-information format.',
       'The output is not a machine dump. It is prose that explains what the threat does, who it targets, how it operates, and what defenders should do about it. Every claim is sourced. Every indicator is validated. Every report is designed to be acted on within minutes of reading.',
-      'This workflow produces original research, not aggregation. The Hunter\'s Ledger does not repackage third-party feeds. Every report published here originates from raw data we collected, analyzed, and verified ourselves.',
+      "This workflow produces original research, not aggregation. The Hunter's Ledger does not repackage third-party feeds. Every report published here originates from raw data we collected, analyzed, and verified ourselves.",
     ],
   },
 ];
@@ -26,15 +26,13 @@ export default function BehindTheReports() {
     <>
       <div className="mx-auto max-w-4xl px-4 py-12 sm:px-6">
         <div className="mb-16">
-          <div className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400">
+          <div className="mb-3 text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
             Behind the Reports
           </div>
-          <h1 className="font-display text-4xl sm:text-5xl font-bold tracking-tight text-slate-900 dark:text-white">
+          <h1 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
             Behind the Reports
           </h1>
-          <p className="mt-4 text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
-            How the Intelligence Is Produced
-          </p>
+          <p className="mt-3 text-base sm:text-lg text-muted leading-relaxed">How the Intelligence Is Produced</p>
         </div>
 
         <div className="stagger space-y-12">
@@ -43,7 +41,7 @@ export default function BehindTheReports() {
               key={section.label}
               className="rounded-xl border border-slate-200/70 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-6 sm:p-8"
             >
-              <div className="mb-3 text-xs font-mono uppercase tracking-[0.16em] text-brand-600 dark:text-brand-400">
+              <div className="mb-3 text-eyebrow font-mono uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">
                 {section.label}
               </div>
               <h2 className="font-display text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white mb-5">
@@ -64,8 +62,8 @@ export default function BehindTheReports() {
               Most threat intelligence fails defenders
             </span>{' '}
             — it is too slow, too generic, or too noisy to act on. The Hunter's Ledger exists to fill that gap. Every
-            report is original research, produced from raw collection through a rigorous, repeatable process designed for
-            one purpose: giving you intelligence you can trust under pressure.
+            report is original research, produced from raw collection through a rigorous, repeatable process designed
+            for one purpose: giving you intelligence you can trust under pressure.
           </p>
         </div>
 

@@ -820,9 +820,7 @@ function AttackFlowTab({ phases }: { phases: AttackFlowPhase[] }): JSX.Element {
                 </span>
                 <div className="min-w-0 flex-1">
                   <p className="text-sm font-medium text-slate-900 dark:text-slate-100">{t.name}</p>
-                  {t.evidence && (
-                    <p className="mt-0.5 text-xs text-slate-600 dark:text-slate-400 line-clamp-2">{t.evidence}</p>
-                  )}
+                  {t.evidence && <p className="mt-0.5 text-xs text-muted line-clamp-2">{t.evidence}</p>}
                 </div>
               </li>
             ))}

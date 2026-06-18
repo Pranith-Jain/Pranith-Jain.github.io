@@ -185,7 +185,7 @@ export default function ACH(): JSX.Element {
                           diagnostic: {h.diagnostic_value}
                         </span>
                       </div>
-                      <p className="text-xs text-slate-600 dark:text-slate-400 mt-1 line-clamp-2">{h.description}</p>
+                      <p className="text-xs text-muted mt-1 line-clamp-2">{h.description}</p>
                     </div>
                     <div className="text-right shrink-0">
                       <div
@@ -204,7 +204,7 @@ export default function ACH(): JSX.Element {
 
                   {isOpen && (
                     <div className="px-4 pb-5 pt-0 border-t border-slate-200 dark:border-slate-800">
-                      <p className="text-xs text-slate-600 dark:text-slate-400 mt-3 leading-relaxed">{h.description}</p>
+                      <p className="text-xs text-muted mt-3 leading-relaxed">{h.description}</p>
 
                       {/* Evidence matrix */}
                       <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -300,7 +300,7 @@ export default function ACH(): JSX.Element {
                         <div className="flex items-center gap-1.5 text-mini font-semibold text-amber-600 dark:text-amber-400 mb-1">
                           <Lightbulb size={12} /> What would change this assessment
                         </div>
-                        <p className="text-mini text-slate-600 dark:text-slate-400">{h.what_would_change}</p>
+                        <p className="text-mini text-muted">{h.what_would_change}</p>
                       </div>
                     </div>
                   )}
@@ -317,7 +317,7 @@ export default function ACH(): JSX.Element {
               </h3>
               <ul className="space-y-2">
                 {result.key_assumptions.map((a, i) => (
-                  <li key={a} className="flex items-start gap-2 text-xs text-slate-600 dark:text-slate-400">
+                  <li key={a} className="flex items-start gap-2 text-xs text-muted">
                     <span className="text-slate-300 mt-0.5">{i + 1}.</span>
                     {a}
                   </li>
@@ -334,7 +334,7 @@ export default function ACH(): JSX.Element {
               </h3>
               <ul className="space-y-2">
                 {result.recommended_collection.map((r) => (
-                  <li key={r} className="flex items-start gap-2 text-xs text-slate-600 dark:text-slate-400">
+                  <li key={r} className="flex items-start gap-2 text-xs text-muted">
                     <span className="text-brand-500 mt-0.5">→</span>
                     {r}
                   </li>

@@ -158,7 +158,7 @@ export default function QuerycraftAi(): JSX.Element {
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -167,7 +167,7 @@ export default function QuerycraftAi(): JSX.Element {
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
           <Crosshair size={28} className="text-brand-600 dark:text-brand-400" /> QUERYSECT-AI
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed">
+        <p className="text-muted max-w-2xl leading-relaxed">
           Build detection queries from natural language descriptions. Describe what to detect in plain English and get
           production-ready SIEM queries with MITRE ATT&CK mapping.
         </p>

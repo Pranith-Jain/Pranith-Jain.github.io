@@ -1,16 +1,7 @@
 import { useState, useMemo } from 'react';
 import { BackLink } from '../../components/BackLink';
 import { CopyButton } from '../../components/dfir/CopyButton';
-import {
-  ArrowLeft,
-  Search,
-  Zap,
-  Shield,
-  Globe,
-  Monitor,
-  Cloud,
-  AlertTriangle,
-} from 'lucide-react';
+import { ArrowLeft, Search, Zap, Shield, Globe, Monitor, Cloud, AlertTriangle } from 'lucide-react';
 
 type CategoryId = 'auth' | 'network' | 'endpoint' | 'cloud';
 type PlatformId = 'kql' | 'xql' | 'spl';
@@ -192,7 +183,8 @@ ResultType=50126
   {
     id: 'net-001',
     name: 'Unusual Outbound Traffic — Beaconing',
-    description: 'Periodic outbound connections to rare destinations with regular intervals indicative of C2 beaconing.',
+    description:
+      'Periodic outbound connections to rare destinations with regular intervals indicative of C2 beaconing.',
     category: 'network',
     dataSources: ['Firewall logs', 'Zeek', 'Cloudflare'],
     platforms: {
@@ -618,7 +610,7 @@ export default function Quicktrace(): JSX.Element {
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -627,8 +619,9 @@ export default function Quicktrace(): JSX.Element {
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
           <Zap size={28} className="text-brand-600 dark:text-brand-400" /> QUICKTRACE
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed">
-          Daily triage queries across authentication, network, endpoint, and cloud — ready to paste into Sentinel, XQL, or Splunk.
+        <p className="text-muted max-w-2xl leading-relaxed">
+          Daily triage queries across authentication, network, endpoint, and cloud — ready to paste into Sentinel, XQL,
+          or Splunk.
           <span className="text-slate-500"> {totalQueries} queries across 4 domains</span>
         </p>
       </div>
@@ -637,7 +630,12 @@ export default function Quicktrace(): JSX.Element {
       <div className="flex flex-wrap gap-1 mb-5 border-b border-slate-200 dark:border-slate-800 pb-0">
         {CATEGORY_ORDER.map((cat) => {
           const Icon = CATEGORY_META[cat].icon;
-          const counts: Record<CategoryId, number> = { auth: totalAuth, network: totalNet, endpoint: totalEnd, cloud: totalCloud };
+          const counts: Record<CategoryId, number> = {
+            auth: totalAuth,
+            network: totalNet,
+            endpoint: totalEnd,
+            cloud: totalCloud,
+          };
           return (
             <button
               key={cat}
@@ -709,7 +707,7 @@ export default function Quicktrace(): JSX.Element {
                       {CATEGORY_META[query.category].label}
                     </span>
                   </div>
-                  <p className="text-xs text-slate-600 dark:text-slate-400">{query.description}</p>
+                  <p className="text-xs text-muted">{query.description}</p>
                 </div>
                 <CopyButton value={query.platforms[platform] ?? 'No query available for this platform'} />
               </div>
@@ -726,7 +724,9 @@ export default function Quicktrace(): JSX.Element {
               </div>
               {/* Query code */}
               <pre className="bg-slate-50 dark:bg-slate-950 rounded-lg p-4 overflow-x-auto text-xs text-slate-700 dark:text-slate-300 font-mono border border-slate-200 dark:border-slate-800 whitespace-pre-wrap">
-                {query.platforms[platform] ?? <span className="text-slate-400 italic">Not available for {platform.toUpperCase()}</span>}
+                {query.platforms[platform] ?? (
+                  <span className="text-slate-400 italic">Not available for {platform.toUpperCase()}</span>
+                )}
               </pre>
             </div>
           ))}
@@ -735,7 +735,8 @@ export default function Quicktrace(): JSX.Element {
 
       {/* Summary footer */}
       <div className="mt-8 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-4 text-center text-xs text-slate-500 dark:text-slate-400 font-mono">
-        {totalQueries} queries across 4 domains · {totalAuth} authentication · {totalNet} network · {totalEnd} endpoint · {totalCloud} cloud
+        {totalQueries} queries across 4 domains · {totalAuth} authentication · {totalNet} network · {totalEnd} endpoint
+        · {totalCloud} cloud
       </div>
     </div>
   );

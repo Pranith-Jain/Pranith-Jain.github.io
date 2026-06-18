@@ -244,7 +244,7 @@ export default function CopilotChat(): JSX.Element {
       <div className="flex items-center justify-between mb-6">
         <BackLink
           to="/threatintel"
-          className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 font-mono"
+          className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 font-mono"
         >
           <ArrowLeft size={14} /> back
         </BackLink>
@@ -263,7 +263,7 @@ export default function CopilotChat(): JSX.Element {
           <Bot className="text-brand-600 dark:text-brand-400" size={28} />
           CTI Chat
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 max-w-3xl leading-relaxed">
+        <p className="text-muted max-w-3xl leading-relaxed">
           Autonomous multi-turn investigation. Ask about any CVE, threat actor, ransomware group, IP, domain, or hash —
           the agent plans, gathers intelligence, and produces a structured report.
         </p>
@@ -336,7 +336,7 @@ export default function CopilotChat(): JSX.Element {
                     className="border border-slate-200 dark:border-slate-700 rounded-lg overflow-hidden text-xs"
                   >
                     <div className="flex items-center justify-between px-3 py-2 bg-slate-50 dark:bg-slate-800/50">
-                      <span className="font-mono text-slate-600 dark:text-slate-400 flex items-center gap-1.5">
+                      <span className="font-mono text-muted flex items-center gap-1.5">
                         {step.status === 'done' ? (
                           <CheckCircle2 size={12} className="text-green-500" />
                         ) : step.status === 'error' ? (
@@ -356,7 +356,7 @@ export default function CopilotChat(): JSX.Element {
                         Plan &amp; results
                       </summary>
                       <div className="mt-2 space-y-2">
-                        <p className="text-slate-600 dark:text-slate-400">{step.plan}</p>
+                        <p className="text-muted">{step.plan}</p>
                         {step.results.map((r, j) => (
                           <div key={j} className="flex items-start gap-1.5 text-slate-500">
                             <ChevronRight size={10} className="mt-0.5 shrink-0" />

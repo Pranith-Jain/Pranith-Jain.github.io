@@ -260,16 +260,14 @@ export default function Extremists(): JSX.Element {
               {group.regions.map((region) => (
                 <span
                   key={region}
-                  className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700"
+                  className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-muted border border-slate-200 dark:border-slate-700"
                 >
                   {region}
                 </span>
               ))}
             </div>
 
-            <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-3 line-clamp-3">
-              {group.description}
-            </p>
+            <p className="text-sm text-muted leading-relaxed mb-3 line-clamp-3">{group.description}</p>
 
             <div className="mt-auto space-y-2 text-xs font-mono text-slate-500 dark:text-slate-500">
               <div>
@@ -278,7 +276,7 @@ export default function Extremists(): JSX.Element {
                 </span>
                 <ul className="space-y-0.5">
                   {group.indicators.map((ind) => (
-                    <li key={ind} className="text-slate-600 dark:text-slate-400">
+                    <li key={ind} className="text-muted">
                       · {ind}
                     </li>
                   ))}
@@ -290,7 +288,7 @@ export default function Extremists(): JSX.Element {
                 </span>
                 <ul className="space-y-0.5">
                   {group.monitoringSources.map((src) => (
-                    <li key={src} className="text-slate-600 dark:text-slate-400">
+                    <li key={src} className="text-muted">
                       · {src}
                     </li>
                   ))}

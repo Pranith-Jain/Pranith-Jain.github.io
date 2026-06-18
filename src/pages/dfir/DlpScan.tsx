@@ -19,7 +19,7 @@ const CONF_STYLES: Record<Confidence, string> = {
   verified: 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300',
   high: 'border-orange-500/40 bg-orange-500/10 text-orange-700 dark:text-orange-300',
   medium: 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300',
-  low: 'border-slate-500/40 bg-slate-500/10 text-slate-600 dark:text-slate-400',
+  low: 'border-slate-500/40 bg-slate-500/10 text-muted',
 };
 
 const CATEGORY_LABELS: Record<Category, string> = {
@@ -126,7 +126,7 @@ export default function DlpScan(): JSX.Element {
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -135,7 +135,7 @@ export default function DlpScan(): JSX.Element {
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
           <ShieldAlert size={28} className="text-brand-600 dark:text-brand-400" /> Sensitive Data Detector
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 mb-2 leading-relaxed">
+        <p className="text-muted mb-2 leading-relaxed">
           Scan any text for {PATTERNS.length} sensitive-data patterns. Credentials, financial identifiers, government
           IDs, health, network, personal contact. Credit cards are Luhn-checked, IBANs are mod-97 verified, AADHAAR is
           Verhoeff-checked, NHS is mod-11. Pure client-side; nothing leaves your browser.
@@ -155,7 +155,7 @@ export default function DlpScan(): JSX.Element {
 
       <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
         <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
-          <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono">
+          <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
             Input
           </h2>
           <div className="flex flex-wrap gap-1.5">
@@ -192,7 +192,7 @@ export default function DlpScan(): JSX.Element {
         <>
           <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
             <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
-              <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono">
+              <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
                 Verdict
               </h2>
               <span
@@ -215,7 +215,7 @@ export default function DlpScan(): JSX.Element {
               ))}
             </div>
             {stats.total > 0 && (
-              <div className="grid grid-cols-2 gap-1.5 sm:grid-cols-3 mt-3 text-mini font-mono text-slate-600 dark:text-slate-400">
+              <div className="grid grid-cols-2 gap-1.5 sm:grid-cols-3 mt-3 text-mini font-mono text-muted">
                 {(Object.keys(CATEGORY_LABELS) as Category[])
                   .filter((c) => stats.byCategory[c] > 0)
                   .map((c) => (
@@ -232,7 +232,7 @@ export default function DlpScan(): JSX.Element {
           </section>
 
           <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
-            <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-3">
+            <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
               Highlighted input
             </h2>
             <div className="rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-3 font-mono text-sm text-slate-800 dark:text-slate-200 leading-relaxed overflow-x-auto">
@@ -243,7 +243,7 @@ export default function DlpScan(): JSX.Element {
           {findings.length > 0 && (
             <>
               <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
-                <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-3">
+                <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
                   Findings
                 </h2>
                 <ul className="space-y-2">
@@ -287,7 +287,7 @@ export default function DlpScan(): JSX.Element {
 
               <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
                 <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
-                  <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono">
+                  <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
                     Redacted output
                   </h2>
                   <CopyChip value={redacted} label="copy redacted" />
@@ -313,7 +313,7 @@ export default function DlpScan(): JSX.Element {
       )}
 
       <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
-        <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-3">
+        <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
           Pattern catalog ({PATTERNS.length})
         </h2>
         <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
@@ -345,10 +345,10 @@ export default function DlpScan(): JSX.Element {
       </section>
 
       <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
-        <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-3">
+        <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
           References
         </h2>
-        <ul className="space-y-1.5 text-sm font-mono text-slate-600 dark:text-slate-400">
+        <ul className="space-y-1.5 text-sm font-mono text-muted">
           <li>
             <a
               href="https://github.com/mazen160/secrets-patterns-db"

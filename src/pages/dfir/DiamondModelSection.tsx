@@ -42,7 +42,7 @@ const VERTICES = [
 
 export default function DiamondModelSection({ actor }: Props): JSX.Element {
   return (
-    <section className="mb-8 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+    <section className="mb-8 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
       <h2 className="font-display font-bold text-lg mb-4">Diamond Model Analysis</h2>
 
       <div className="grid gap-6 md:grid-cols-[1fr_1.5fr]">

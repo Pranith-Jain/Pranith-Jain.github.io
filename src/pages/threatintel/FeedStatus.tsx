@@ -52,7 +52,7 @@ const PILL: Record<Status, { cls: string; label: string; icon: LucideIcon }> = {
   },
   down: { cls: 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300', label: 'DOWN', icon: XCircle },
   cold: {
-    cls: 'border-slate-400/40 bg-slate-400/10 text-slate-600 dark:text-slate-400',
+    cls: 'border-slate-400/40 bg-slate-400/10 text-muted',
     label: 'COLD',
     icon: CircleDashed,
   },
@@ -76,7 +76,7 @@ const CREDIBILITY: Record<number, { label: string; tone: string }> = {
   3: { label: '3 · Possibly true', tone: 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300' },
   4: { label: '4 · Doubtful', tone: 'border-orange-500/40 bg-orange-500/10 text-orange-700 dark:text-orange-300' },
   5: { label: '5 · Improbable', tone: 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300' },
-  6: { label: '6 · Cannot judge', tone: 'border-slate-400/40 bg-slate-400/10 text-slate-600 dark:text-slate-400' },
+  6: { label: '6 · Cannot judge', tone: 'border-slate-400/40 bg-slate-400/10 text-muted' },
 };
 
 /**
@@ -89,7 +89,7 @@ const RELIABILITY_TONE: Record<string, string> = {
   C: 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300',
   D: 'border-orange-500/40 bg-orange-500/10 text-orange-700 dark:text-orange-300',
   E: 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300',
-  F: 'border-slate-400/40 bg-slate-400/10 text-slate-600 dark:text-slate-400',
+  F: 'border-slate-400/40 bg-slate-400/10 text-muted',
 };
 
 export default function FeedStatus(): JSX.Element {
@@ -125,7 +125,7 @@ export default function FeedStatus(): JSX.Element {
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -134,7 +134,7 @@ export default function FeedStatus(): JSX.Element {
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
           <Activity size={28} className="text-brand-600 dark:text-brand-400" /> Feed status
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 mb-2 max-w-3xl leading-relaxed">
+        <p className="text-muted mb-2 max-w-3xl leading-relaxed">
           Live health of every upstream-backed feed on /threatintel. Each row probes its API endpoint and reports
           whether the upstream is contributing data. When a page looks empty, check here first. The answer is usually
           "upstream is down", not "your config is wrong".
@@ -235,9 +235,7 @@ export default function FeedStatus(): JSX.Element {
                       </span>
                     </div>
                   </div>
-                  <p className="text-meta font-mono text-slate-600 dark:text-slate-400 leading-relaxed mb-1.5">
-                    {r.reason}
-                  </p>
+                  <p className="text-meta font-mono text-muted leading-relaxed mb-1.5">{r.reason}</p>
                   <div className="flex flex-wrap items-center gap-2 text-micro font-mono text-slate-500">
                     <Link to={r.page_path} className="hover:text-brand-600 dark:hover:text-brand-400">
                       {r.page_path}

@@ -124,7 +124,7 @@ export function AttackHeatmap({
             return (
               <div key={tactic} className="flex flex-col" style={{ minWidth: 120, maxWidth: 150 }}>
                 <div
-                  className="text-micro font-mono font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider mb-2 px-1.5 truncate"
+                  className="text-micro font-mono font-semibold text-muted uppercase tracking-wider mb-2 px-1.5 truncate"
                   title={tacticLabel(tactic)}
                 >
                   {tacticLabel(tactic)}

@@ -5,8 +5,7 @@ const SOPH_STYLES: Record<string, string> = {
   'nation-state': 'bg-rose-500/15 dark:bg-rose-400/15 text-rose-600 dark:text-rose-400 border-rose-500/40',
   expert: 'bg-amber-500/15 dark:bg-amber-400/15 text-amber-600 dark:text-amber-400 border-amber-500/40',
   advanced: 'bg-amber-500/15 dark:bg-amber-400/15 text-amber-500 border-amber-500/40',
-  intermediate:
-    'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border-slate-300 dark:border-slate-700',
+  intermediate: 'bg-slate-100 dark:bg-slate-800 text-muted border-slate-300 dark:border-slate-700',
   novice: 'bg-slate-200 dark:bg-slate-800 text-slate-500 border-slate-300 dark:border-slate-700',
 };
 
@@ -40,9 +39,7 @@ export function ActorCard({ actor }: { actor: ThreatActor }): JSX.Element {
           </span>
         </div>
       </div>
-      <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed line-clamp-3 mb-3">
-        {actor.description}
-      </p>
+      <p className="text-sm text-muted leading-relaxed line-clamp-3 mb-3">{actor.description}</p>
       <div className="flex items-center gap-3 text-xs font-mono text-slate-500">
         {actor.country && <span>{actor.country}</span>}
         <span>{actor.techniques.length} techniques</span>

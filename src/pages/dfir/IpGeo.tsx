@@ -72,7 +72,7 @@ function verdictPill(v?: string): string {
     case 'clean':
       return 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300';
     default:
-      return 'border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400';
+      return 'border-slate-300 dark:border-slate-700 text-muted';
   }
 }
 
@@ -132,7 +132,7 @@ export default function IpGeo(): JSX.Element {
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -141,7 +141,7 @@ export default function IpGeo(): JSX.Element {
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
           <Globe2 size={28} className="text-brand-600 dark:text-brand-400" /> IP Geolocation
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 mb-2 leading-relaxed">
+        <p className="text-muted mb-2 leading-relaxed">
           Country, ASN, hosting provider, reverse DNS, proxy/mobile/hosting flags — composed from{' '}
           <a
             href="https://ip-api.com"
@@ -226,7 +226,7 @@ export default function IpGeo(): JSX.Element {
         <>
           <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
             <div className="flex flex-wrap items-baseline justify-between gap-2 mb-2">
-              <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono">
+              <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
                 Address
               </h2>
               <span className="text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-brand-500/30 bg-brand-500/10 text-brand-700 dark:text-brand-300">
@@ -237,7 +237,7 @@ export default function IpGeo(): JSX.Element {
               {data.ip}
             </code>
             {data.geo.ok && data.geo.reverse_dns && (
-              <p className="text-meta font-mono text-slate-600 dark:text-slate-400 mt-2">
+              <p className="text-meta font-mono text-muted mt-2">
                 reverse: <span className="text-slate-900 dark:text-slate-100">{data.geo.reverse_dns}</span>
               </p>
             )}
@@ -256,7 +256,7 @@ export default function IpGeo(): JSX.Element {
             }`}
           >
             <div className="flex flex-wrap items-baseline justify-between gap-2 mb-2">
-              <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono inline-flex items-center gap-2">
+              <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono inline-flex items-center gap-2">
                 <ShieldAlert size={12} /> Reputation
               </h2>
               {data.reputation.ok && data.reputation.verdict && (
@@ -306,7 +306,7 @@ export default function IpGeo(): JSX.Element {
 
           {/* Geolocation */}
           <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
-            <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-3 inline-flex items-center gap-2">
+            <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3 inline-flex items-center gap-2">
               <MapPin size={12} /> Geolocation & network
             </h2>
             {data.geo.ok ? (

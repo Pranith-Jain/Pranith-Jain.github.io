@@ -66,7 +66,7 @@ export default function UrlReputation(): JSX.Element {
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -74,7 +74,7 @@ export default function UrlReputation(): JSX.Element {
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
           <Globe size={28} className="text-brand-600 dark:text-brand-400" /> URL Reputation
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 mb-8 max-w-2xl">
+        <p className="text-muted mb-8 max-w-2xl">
           Check a URL against 20+ threat intelligence sources in parallel. Get a composite verdict with per-source
           scores, tags, and evidence — powered by the same streaming pipeline as the IOC Checker.
         </p>
@@ -132,7 +132,7 @@ export default function UrlReputation(): JSX.Element {
             </h2>
             <VerdictChip verdict={summary.verdict} />
           </div>
-          <div className="flex flex-wrap gap-4 font-mono text-sm text-slate-600 dark:text-slate-400">
+          <div className="flex flex-wrap gap-4 font-mono text-sm text-muted">
             <span>
               score: <span className="font-semibold text-slate-900 dark:text-slate-100">{summary.score}</span>/100
             </span>
@@ -149,7 +149,7 @@ export default function UrlReputation(): JSX.Element {
       {results.length > 0 && (
         <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
           <div className="flex items-baseline justify-between mb-3">
-            <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono">
+            <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
               Per-source results
             </h3>
             <span className="text-mini font-mono text-slate-500">
@@ -168,25 +168,25 @@ export default function UrlReputation(): JSX.Element {
         <div className="flex gap-2 mt-4 flex-wrap">
           <Link
             to={`/dfir/domain?domain=${encodeURIComponent(domain)}`}
-            className="inline-flex items-center gap-1 text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:border-brand-500/40"
+            className="inline-flex items-center gap-1 text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-slate-800 text-muted hover:border-brand-500/40"
           >
             <ExternalLink size={10} /> Domain lookup
           </Link>
           <Link
             to={`/dfir/url-preview?url=${encodeURIComponent(input.trim())}`}
-            className="inline-flex items-center gap-1 text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:border-brand-500/40"
+            className="inline-flex items-center gap-1 text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-slate-800 text-muted hover:border-brand-500/40"
           >
             <ExternalLink size={10} /> URL Preview
           </Link>
           <Link
             to={`/dfir/ioc-check?indicator=${encodeURIComponent(input.trim())}`}
-            className="inline-flex items-center gap-1 text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:border-brand-500/40"
+            className="inline-flex items-center gap-1 text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-slate-800 text-muted hover:border-brand-500/40"
           >
             <ExternalLink size={10} /> IOC Checker
           </Link>
           <Link
             to={`/dfir/email-rep?domain=${encodeURIComponent(domain)}`}
-            className="inline-flex items-center gap-1 text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:border-brand-500/40"
+            className="inline-flex items-center gap-1 text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-slate-800 text-muted hover:border-brand-500/40"
           >
             <ExternalLink size={10} /> Email Reputation
           </Link>

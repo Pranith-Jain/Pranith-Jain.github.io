@@ -398,7 +398,7 @@ export default function PirDashboard(): JSX.Element {
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -408,7 +408,7 @@ export default function PirDashboard(): JSX.Element {
           <h1 className="text-3xl sm:text-4xl font-display font-bold flex items-center gap-3">
             <Target size={28} className="text-brand-600 dark:text-brand-400" /> Intelligence Requirements (PIRs)
           </h1>
-          <p className="text-slate-600 dark:text-slate-400 mt-2 max-w-3xl">
+          <p className="text-muted mt-2 max-w-3xl">
             Priority Intelligence Requirements define what decisions we're informing and who the consumer is. Each PIR
             is scored against current collection state.
           </p>
@@ -677,9 +677,7 @@ export default function PirDashboard(): JSX.Element {
                   <div className="space-y-1.5">
                     {ganttRows.slice(0, 15).map((r) => (
                       <div key={r.source_id} className="flex items-center gap-2 text-micro">
-                        <span className="w-28 shrink-0 font-mono text-slate-600 dark:text-slate-400 truncate">
-                          {r.source_id}
-                        </span>
+                        <span className="w-28 shrink-0 font-mono text-muted truncate">{r.source_id}</span>
                         <div className="flex-1 bg-slate-100 dark:bg-slate-800 rounded h-3 relative overflow-hidden">
                           <div
                             className={`h-full rounded ${r.effective_cadence_hours <= 1 ? 'bg-rose-400' : r.effective_cadence_hours <= 3 ? 'bg-amber-400' : r.effective_cadence_hours <= 8 ? 'bg-emerald-400' : 'bg-slate-400'}`}
@@ -708,7 +706,7 @@ export default function PirDashboard(): JSX.Element {
                     <div key={r.source_id} className="flex items-center gap-3 px-4 py-2.5 text-xs">
                       <span className="font-mono text-slate-700 dark:text-slate-300 w-36 shrink-0">{r.source_id}</span>
                       <span
-                        className={`font-mono px-1.5 py-0.5 rounded text-micro ${r.effective_cadence_hours <= 1 ? 'bg-rose-100 dark:bg-rose-900/30 text-rose-700 dark:text-rose-300' : r.effective_cadence_hours <= 3 ? 'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400'}`}
+                        className={`font-mono px-1.5 py-0.5 rounded text-micro ${r.effective_cadence_hours <= 1 ? 'bg-rose-100 dark:bg-rose-900/30 text-rose-700 dark:text-rose-300' : r.effective_cadence_hours <= 3 ? 'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300' : 'bg-slate-100 dark:bg-slate-800 text-muted'}`}
                       >
                         {c}
                       </span>
@@ -927,15 +925,13 @@ export default function PirDashboard(): JSX.Element {
                             <Trash2 size={10} /> Delete
                           </button>
                         </div>
-                        <p className="text-xs text-slate-600 dark:text-slate-400 mt-2 leading-relaxed">
-                          {pir.description}
-                        </p>
+                        <p className="text-xs text-muted mt-2 leading-relaxed">{pir.description}</p>
                         <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-3">
                           <div>
                             <p className="text-micro font-mono uppercase tracking-wider text-slate-400 mb-1">
                               Decision
                             </p>
-                            <p className="text-xs text-slate-600 dark:text-slate-400">{pir.decision}</p>
+                            <p className="text-xs text-muted">{pir.decision}</p>
                           </div>
                           <div>
                             <p className="text-micro font-mono uppercase tracking-wider text-slate-400 mb-1 flex items-center gap-1">
@@ -958,7 +954,7 @@ export default function PirDashboard(): JSX.Element {
                                         {answered ? <CheckCircle size={12} /> : <Circle size={12} />}
                                       </button>
                                       <span
-                                        className={`${answered ? 'text-emerald-600 dark:text-emerald-400 line-through decoration-emerald-400/30' : 'text-slate-600 dark:text-slate-400'}`}
+                                        className={`${answered ? 'text-emerald-600 dark:text-emerald-400 line-through decoration-emerald-400/30' : 'text-muted'}`}
                                       >
                                         {k}
                                       </span>
@@ -1025,16 +1021,16 @@ export default function PirDashboard(): JSX.Element {
                               </div>
                             </div>
                             <div className="flex flex-wrap gap-2">
-                              <span className="text-micro font-mono px-2 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">
+                              <span className="text-micro font-mono px-2 py-1 rounded bg-slate-100 dark:bg-slate-800 text-muted">
                                 Sources: {score.sources_contributing_today}/{score.total_relevant_sources}
                               </span>
                               {pir.min_source_ratio && (
-                                <span className="text-micro font-mono px-2 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">
+                                <span className="text-micro font-mono px-2 py-1 rounded bg-slate-100 dark:bg-slate-800 text-muted">
                                   Alert threshold: {pir.min_source_ratio}%
                                 </span>
                               )}
                               {pir.collection_cadence_hours && (
-                                <span className="text-micro font-mono px-2 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">
+                                <span className="text-micro font-mono px-2 py-1 rounded bg-slate-100 dark:bg-slate-800 text-muted">
                                   Cadence: every {pir.collection_cadence_hours}h
                                 </span>
                               )}
@@ -1050,7 +1046,7 @@ export default function PirDashboard(): JSX.Element {
                                 .map((r) => (
                                   <span
                                     key={r.source_id}
-                                    className="text-micro font-mono px-2 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400"
+                                    className="text-micro font-mono px-2 py-1 rounded bg-slate-100 dark:bg-slate-800 text-muted"
                                   >
                                     {r.source_id}: {r.effective_cadence_hours}h cadence
                                   </span>

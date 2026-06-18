@@ -21,7 +21,7 @@ function hostOf(url: string): string | null {
 export function UrlList({ urls }: UrlListProps): JSX.Element | null {
   if (urls.length === 0) {
     return (
-      <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
         <h2 className="font-display font-bold text-xl mb-2">URLs Extracted</h2>
         <p className="text-sm font-mono text-slate-500">No URLs found in email body.</p>
       </section>
@@ -29,10 +29,9 @@ export function UrlList({ urls }: UrlListProps): JSX.Element | null {
   }
 
   return (
-    <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+    <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
       <h2 className="font-display font-bold text-xl mb-4">
-        URLs Extracted{' '}
-        <span className="text-sm font-mono text-slate-600 dark:text-slate-400 font-normal">({urls.length})</span>
+        URLs Extracted <span className="text-sm font-mono text-muted font-normal">({urls.length})</span>
       </h2>
       <p className="text-mini font-mono text-slate-500 dark:text-slate-400 mb-3">
         Each row pivots to per-tool analysis. Hover for the pivot label.
@@ -43,7 +42,7 @@ export function UrlList({ urls }: UrlListProps): JSX.Element | null {
           return (
             <li key={url} className="border-b border-slate-200 dark:border-slate-800 pb-2 last:border-0 last:pb-0">
               <div className="flex items-baseline gap-2 mb-1">
-                <ExternalLink size={12} className="text-slate-600 dark:text-slate-400 flex-shrink-0" />
+                <ExternalLink size={12} className="text-muted flex-shrink-0" />
                 <span className="font-mono text-xs text-slate-700 dark:text-slate-300 break-all flex-1">{url}</span>
               </div>
               <div className="flex flex-wrap gap-2 ml-5">

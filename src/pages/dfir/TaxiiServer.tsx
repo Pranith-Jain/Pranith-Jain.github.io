@@ -82,7 +82,7 @@ export default function TaxiiServer(): JSX.Element {
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -91,7 +91,7 @@ export default function TaxiiServer(): JSX.Element {
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
           <Server size={28} className="text-brand-600 dark:text-brand-400" /> TAXII 2.1 Server
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed">
+        <p className="text-muted max-w-2xl leading-relaxed">
           Browse and consume STIX 2.1 collections via the TAXII protocol. Compatible with MISP, OpenCTI, Splunk SOAR,
           and any TAXII 2.1 client.
         </p>
@@ -110,9 +110,7 @@ export default function TaxiiServer(): JSX.Element {
           </div>
           <div className="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 px-3 py-2">
             <span className="text-micro font-mono uppercase tracking-wider text-slate-400 shrink-0">Content-Type</span>
-            <code className="text-xs text-slate-600 dark:text-slate-400 font-mono">
-              application/vnd.oasis.taxii+json; version=2.1
-            </code>
+            <code className="text-xs text-muted font-mono">application/vnd.oasis.taxii+json; version=2.1</code>
           </div>
         </div>
       </div>
@@ -257,7 +255,7 @@ function ObjectCard({ obj }: { obj: TaxiiObject }) {
               <span className="text-slate-500">Modified:</span> {new Date(obj.modified).toLocaleString()}
             </div>
           )}
-          <pre className="bg-slate-100 dark:bg-slate-900 rounded p-2 overflow-x-auto text-micro text-slate-600 dark:text-slate-400 font-mono mt-2">
+          <pre className="bg-slate-100 dark:bg-slate-900 rounded p-2 overflow-x-auto text-micro text-muted font-mono mt-2">
             {JSON.stringify(obj, null, 2)}
           </pre>
         </div>

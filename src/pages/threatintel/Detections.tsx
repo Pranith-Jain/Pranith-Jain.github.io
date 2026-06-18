@@ -188,9 +188,7 @@ function DetectionCard({ d }: { d: Detection }): JSX.Element {
           {d.group_key && (
             <code className="text-mini font-mono text-brand-600 dark:text-brand-400 break-all">{d.group_key}</code>
           )}
-          {d.description && (
-            <p className="text-meta text-slate-600 dark:text-slate-400 mt-1 leading-relaxed">{d.description}</p>
-          )}
+          {d.description && <p className="text-meta text-muted mt-1 leading-relaxed">{d.description}</p>}
           <div className="text-mini font-mono text-slate-500 mt-1 flex flex-wrap gap-x-3 gap-y-0.5">
             <span className="text-slate-400">rule: {d.rule_id}</span>
             {d.last_observed && <span>last seen {shortRel(d.last_observed)}</span>}
@@ -327,7 +325,7 @@ export default function Detections(): JSX.Element {
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -336,7 +334,7 @@ export default function Detections(): JSX.Element {
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
           <ShieldAlert size={28} className="text-brand-600 dark:text-brand-400" /> Detections
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 mb-2 max-w-3xl leading-relaxed">
+        <p className="text-muted mb-2 max-w-3xl leading-relaxed">
           A curated detection-rule pack evaluated hourly against the unified live-IOC stream. Each card is a rule that
           fired — cross-feed consensus, C2 / ransomware / infostealer tagging, and campaign clustering — with the
           indicators that triggered it.
@@ -452,7 +450,7 @@ export default function Detections(): JSX.Element {
                             </span>
                             <span className="text-micro font-mono text-slate-500">×{d.match_count}</span>
                           </div>
-                          <p className="text-meta text-slate-600 dark:text-slate-400 leading-relaxed">{sn.what}</p>
+                          <p className="text-meta text-muted leading-relaxed">{sn.what}</p>
                         </div>
                       );
                     })}

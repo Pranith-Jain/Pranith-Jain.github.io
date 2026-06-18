@@ -179,11 +179,11 @@ export default function FeedCatalog() {
                         >
                           {entry.status}
                         </span>
-                        <span className="text-xs px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700 uppercase">
+                        <span className="text-xs px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-muted border border-slate-200 dark:border-slate-700 uppercase">
                           {entry.category}
                         </span>
                       </div>
-                      <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">{entry.description}</p>
+                      <p className="text-muted text-sm mt-1">{entry.description}</p>
                     </div>
                     <a
                       href={sanitizeUrl(entry.raw_url)}

@@ -57,7 +57,7 @@ export default function Regscope(): JSX.Element {
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -66,7 +66,7 @@ export default function Regscope(): JSX.Element {
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
           <FolderTree size={28} className="text-brand-600 dark:text-brand-400" /> REGSCOPE
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed">
+        <p className="text-muted max-w-2xl leading-relaxed">
           Analyze Windows registry key paths for known persistence, defense evasion, and credential access techniques.
           Contains {KNOWN_KEYS.length} entries across {categories.length} categories and {tactics.length} ATT&CK
           tactics. 100% client-side — no data leaves your browser.
@@ -98,7 +98,7 @@ export default function Regscope(): JSX.Element {
               {['HKLM', 'HKCU', 'HKCR', 'HKU', 'HKCC'].map((hive) => (
                 <span
                   key={hive}
-                  className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700"
+                  className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-muted border border-slate-200 dark:border-slate-700"
                 >
                   {hive}
                 </span>
@@ -120,7 +120,7 @@ export default function Regscope(): JSX.Element {
                   setKeyPath('');
                   setResult(null);
                 }}
-                className="flex items-center gap-2 px-4 py-2.5 bg-white dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 text-sm font-medium rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors"
+                className="flex items-center gap-2 px-4 py-2.5 bg-white dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800 text-muted text-sm font-medium rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors"
               >
                 Clear
               </button>
@@ -234,9 +234,7 @@ export default function Regscope(): JSX.Element {
                     <h3 className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 mb-1">
                       Known Key Match
                     </h3>
-                    <code className="text-xs font-mono text-slate-600 dark:text-slate-400 break-all">
-                      {result.path}
-                    </code>
+                    <code className="text-xs font-mono text-muted break-all">{result.path}</code>
                   </div>
                   <span
                     className={`shrink-0 text-micro font-mono font-semibold uppercase tracking-wider px-2 py-1 rounded-md border ${RISK_COLORS[result.risk]}`}
@@ -258,7 +256,7 @@ export default function Regscope(): JSX.Element {
 
                 <div className="rounded-lg border border-slate-200 dark:border-slate-800 p-3 mb-3">
                   <span className="text-micro font-mono uppercase tracking-wider text-slate-400">Description</span>
-                  <p className="text-xs font-mono text-slate-600 dark:text-slate-400 mt-1">{result.description}</p>
+                  <p className="text-xs font-mono text-muted mt-1">{result.description}</p>
                 </div>
 
                 <div className="rounded-lg border border-slate-200 dark:border-slate-800 p-3 mb-3">
@@ -268,7 +266,7 @@ export default function Regscope(): JSX.Element {
                   <span className="inline-block text-micro font-mono px-1.5 py-0.5 rounded bg-brand-500/10 text-brand-700 dark:text-brand-300 border border-brand-500/30 mr-1">
                     {result.techniqueId}
                   </span>
-                  <span className="text-xs font-mono text-slate-600 dark:text-slate-400">{result.technique}</span>
+                  <span className="text-xs font-mono text-muted">{result.technique}</span>
                 </div>
 
                 {result.malware.length > 0 && (

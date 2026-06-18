@@ -196,14 +196,14 @@ export default function Punycode(): JSX.Element {
     <div className="max-w-4xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
 
       <div className="animate-fade-in-up">
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2">Punycode / Homograph Detector</h1>
-        <p className="text-slate-600 dark:text-slate-400 mb-8 max-w-2xl">
+        <p className="text-muted mb-8 max-w-2xl">
           Paste a domain. Detects internationalized (IDN) tricks: mixed scripts, Cyrillic / Greek lookalikes, and
           confusables that mimic well-known brand names.
         </p>
@@ -265,7 +265,7 @@ export default function Punycode(): JSX.Element {
                 {result.charInfo.map((c, i) => (
                   <div
                     key={i}
-                    className={`rounded border px-2 py-1 ${c.ascii ? 'border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400' : 'border-amber-400 bg-amber-50 dark:bg-amber-900/20 text-amber-700 dark:text-amber-300'}`}
+                    className={`rounded border px-2 py-1 ${c.ascii ? 'border-slate-200 dark:border-slate-800 text-muted' : 'border-amber-400 bg-amber-50 dark:bg-amber-900/20 text-amber-700 dark:text-amber-300'}`}
                   >
                     <span className="text-base">{c.char}</span> · U+
                     {c.codePoint.toString(16).toUpperCase().padStart(4, '0')} · {c.script}
@@ -286,7 +286,7 @@ function Flag({ tone, text }: { tone: 'warn' | 'ok' | 'info'; text: string }): J
       ? 'text-rose-700 dark:text-rose-400'
       : tone === 'ok'
         ? 'text-emerald-700 dark:text-emerald-400'
-        : 'text-slate-600 dark:text-slate-400';
+        : 'text-muted';
   const Icon = tone === 'ok' ? ShieldCheck : AlertTriangle;
   return (
     <div className={`flex items-start gap-2 text-sm ${cls}`}>

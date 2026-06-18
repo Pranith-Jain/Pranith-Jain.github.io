@@ -114,7 +114,7 @@ export default function MaliciousPackages(): JSX.Element {
               className={`text-xs font-mono px-2.5 py-1 rounded border transition-colors ${
                 ecosystem === e.id
                   ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                  : 'border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-brand-500/40'
+                  : 'border-slate-300 dark:border-slate-700 text-muted hover:border-brand-500/40'
               }`}
             >
               {e.label}

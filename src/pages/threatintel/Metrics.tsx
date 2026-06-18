@@ -1049,7 +1049,7 @@ export default function Metrics(): JSX.Element {
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -1058,7 +1058,7 @@ export default function Metrics(): JSX.Element {
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
           <BarChart3 size={28} className="text-brand-600 dark:text-brand-400" /> Threat Intel Metrics
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 mb-6 max-w-3xl leading-relaxed">
+        <p className="text-muted mb-6 max-w-3xl leading-relaxed">
           Quantitative snapshot computed live in the browser from ten upstream feeds. One headline read, six narrative
           panels with written interpretations, and ten more panels in the disclosure below. Headline counters show the
           ▲/▼ change since your last refresh.
@@ -1171,7 +1171,9 @@ export default function Metrics(): JSX.Element {
                 </div>
                 <div className="rounded border border-slate-200 dark:border-slate-800 px-2 py-1.5">
                   <div className="text-slate-500">prior 7d</div>
-                  <div className="text-slate-900 dark:text-slate-100 font-semibold text-sm">{String(headlineRead.prior7)}</div>
+                  <div className="text-slate-900 dark:text-slate-100 font-semibold text-sm">
+                    {String(headlineRead.prior7)}
+                  </div>
                 </div>
                 <div
                   className={`rounded border px-2 py-1.5 ${
@@ -1221,7 +1223,7 @@ export default function Metrics(): JSX.Element {
           analyst use case. */}
       {!state.loading && (
         <section className="mb-8">
-          <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-4">
+          <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-4">
             Narrative panels · the six worth reading first
           </h2>
           <div className="grid gap-4 lg:grid-cols-2">

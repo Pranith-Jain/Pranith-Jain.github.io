@@ -190,7 +190,7 @@ export default function Wayback(): JSX.Element {
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -199,7 +199,7 @@ export default function Wayback(): JSX.Element {
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
           <History size={28} className="text-brand-600 dark:text-brand-400" /> Wayback Machine Pivot
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 mb-2 leading-relaxed">
+        <p className="text-muted mb-2 leading-relaxed">
           Paste a URL — get the Internet Archive snapshot timeline (first / last seen, status-code distribution, deduped
           via content digest). Useful for phishing-site evolution, infrastructure churn, and content provenance.
         </p>
@@ -275,7 +275,7 @@ export default function Wayback(): JSX.Element {
       {stats && (
         <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
           <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
-            <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono">
+            <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
               Timeline summary
             </h2>
             <span className="text-mini font-mono text-slate-500 dark:text-slate-400 inline-flex items-center gap-1.5">
@@ -310,7 +310,7 @@ export default function Wayback(): JSX.Element {
 
       {displaySnapshots.length > 0 && (
         <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
-          <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-3">
+          <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
             Snapshots (sorted by {sortKey} {sortDir})
           </h2>
           <div className="overflow-x-auto">
@@ -347,8 +347,8 @@ export default function Wayback(): JSX.Element {
                         {s.status || '—'}
                       </span>
                     </td>
-                    <td className="py-1.5 pr-3 text-slate-600 dark:text-slate-400">{s.mime || '—'}</td>
-                    <td className="py-1.5 pr-3 text-slate-600 dark:text-slate-400">{s.length}</td>
+                    <td className="py-1.5 pr-3 text-muted">{s.mime || '—'}</td>
+                    <td className="py-1.5 pr-3 text-muted">{s.length}</td>
                     <td className="py-1.5 pr-3">
                       <div className="flex items-center gap-2">
                         <a
@@ -391,10 +391,10 @@ export default function Wayback(): JSX.Element {
       )}
 
       <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
-        <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-2">
+        <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-2">
           Companion lookups
         </h2>
-        <ul className="space-y-1.5 text-sm font-mono text-slate-600 dark:text-slate-400 list-disc pl-5">
+        <ul className="space-y-1.5 text-sm font-mono text-muted list-disc pl-5">
           <li>
             <Link to="/dfir/domain" className="text-brand-600 dark:text-brand-400 hover:underline">
               Domain Lookup

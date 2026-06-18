@@ -239,7 +239,7 @@ function ResultCard({
         const dmarcPolicy = auth?.dmarc?.policy;
         const dmarcPresent = auth?.dmarc?.present === true;
         return (
-          <div className="text-mini font-mono text-slate-600 dark:text-slate-400 space-y-0.5 mt-1">
+          <div className="text-mini font-mono text-muted space-y-0.5 mt-1">
             <span>
               SPF: <span className="text-slate-900 dark:text-slate-100">{spfPresent ? '✅' : '❌'}</span>
             </span>
@@ -257,7 +257,7 @@ function ResultCard({
         const subs = (data.subdomains as unknown[] | undefined) ?? [];
         const total = (data.total_subdomains_seen as number | undefined) ?? subs.length;
         return (
-          <p className="text-mini font-mono text-slate-600 dark:text-slate-400 mt-1">
+          <p className="text-mini font-mono text-muted mt-1">
             {subs.length} of {total} subdomain{total !== 1 ? 's' : ''} discovered
           </p>
         );
@@ -303,7 +303,7 @@ function ResultCard({
         const unique = data.unique_names as string[] | undefined;
         const count = total ?? unique?.length ?? 0;
         return (
-          <div className="text-mini font-mono text-slate-600 dark:text-slate-400 mt-1">
+          <div className="text-mini font-mono text-muted mt-1">
             <span>{count} certificates</span>
             {unique && unique.length > 0 && (
               <p className="truncate text-slate-500 dark:text-slate-400">
@@ -344,7 +344,7 @@ function ResultCard({
         const results = d?.results ?? [];
         const first = results[0];
         return (
-          <div className="text-mini font-mono mt-1 text-slate-600 dark:text-slate-400">
+          <div className="text-mini font-mono mt-1 text-muted">
             {first ? (
               <span>
                 Risk: <span className="text-slate-900 dark:text-slate-100">{first.meta?.risk_score ?? 'N/A'}</span>
@@ -436,7 +436,7 @@ export default function FullSpectrum(): JSX.Element {
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -445,7 +445,7 @@ export default function FullSpectrum(): JSX.Element {
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
           <Shield size={28} className="text-brand-600 dark:text-brand-400" /> Full Spectrum Investigation
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 mb-8 max-w-3xl">
+        <p className="text-muted mb-8 max-w-3xl">
           Fire six parallel domain-intelligence tools from one input — domain lookup, exposure scan, web vulnerability
           scan, takeover check, certificate search, and breach database check.
         </p>

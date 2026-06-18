@@ -7,13 +7,13 @@ const ERROR_CHIP_STYLE: Record<ProviderErrorCode, string> = {
   upstream_4xx: 'bg-rose-500/15 text-rose-700 dark:text-rose-300 border-rose-500/30',
   unauthorized: 'bg-rose-500/15 text-rose-700 dark:text-rose-300 border-rose-500/30',
   forbidden: 'bg-rose-500/15 text-rose-700 dark:text-rose-300 border-rose-500/30',
-  not_found: 'bg-slate-500/15 text-slate-600 dark:text-slate-400 border-slate-500/30',
+  not_found: 'bg-slate-500/15 text-muted border-slate-500/30',
   timeout: 'bg-amber-500/15 text-amber-700 dark:text-amber-300 border-amber-500/30',
   network: 'bg-amber-500/15 text-amber-700 dark:text-amber-300 border-amber-500/30',
   parse: 'bg-orange-500/15 text-orange-700 dark:text-orange-300 border-orange-500/30',
-  unsupported_indicator: 'bg-slate-500/15 text-slate-600 dark:text-slate-400 border-slate-500/30',
+  unsupported_indicator: 'bg-slate-500/15 text-muted border-slate-500/30',
   no_api_key: 'bg-orange-500/15 text-orange-700 dark:text-orange-300 border-orange-500/30',
-  unknown: 'bg-slate-500/15 text-slate-600 dark:text-slate-400 border-slate-500/30',
+  unknown: 'bg-slate-500/15 text-muted border-slate-500/30',
 };
 
 const ERROR_LABEL: Record<ProviderErrorCode, string> = {
@@ -54,7 +54,7 @@ export function IocResultRow({ r }: { r: ProviderResultWire }): JSX.Element {
         <span className="font-display font-semibold text-slate-900 dark:text-slate-100 capitalize">{r.source}</span>
         <VerdictChip verdict={r.verdict} />
       </div>
-      <div className="flex items-center gap-4 text-sm font-mono text-slate-600 dark:text-slate-400 flex-wrap">
+      <div className="flex items-center gap-4 text-sm font-mono text-muted flex-wrap">
         <span>
           score: <span className="text-slate-900 dark:text-slate-100">{r.score}</span>
         </span>
@@ -96,7 +96,7 @@ export function IocResultRow({ r }: { r: ProviderResultWire }): JSX.Element {
           {r.tags.slice(0, 6).map((t) => (
             <span
               key={t}
-              className="text-xs font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-800"
+              className="text-xs font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-muted border border-slate-200 dark:border-slate-800"
             >
               {t}
             </span>

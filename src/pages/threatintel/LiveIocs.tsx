@@ -193,7 +193,7 @@ export default function LiveIocs(): JSX.Element {
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -203,7 +203,7 @@ export default function LiveIocs(): JSX.Element {
           <Radio size={28} className="text-brand-600 dark:text-brand-400" /> Live IOC stream
           <LiveFreshnessPill tone="live" ago={data ? shortRel(data.generated_at) : undefined} className="ml-1" />
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 mb-2 max-w-3xl leading-relaxed">
+        <p className="text-muted mb-2 max-w-3xl leading-relaxed">
           A chronological firehose of individual indicators, each carrying a reporter handle, source feed, and
           first-observed timestamp. /correlation answers "what's in 2+ feeds"; this page answers "what's freshly
           observed and by whom."
@@ -476,7 +476,7 @@ export default function LiveIocs(): JSX.Element {
                   <div className="text-mini font-mono text-slate-500 flex items-center gap-2 flex-wrap mt-0.5">
                     <span className={`px-1.5 py-0.5 rounded border ${sourcePill}`}>{it.source}</span>
                     <AdmiraltyBadge admiralty={gradeForLiveIoc(it.source, it.kind)} compact />
-                    {it.reporter && <span className="text-slate-600 dark:text-slate-400">{it.reporter}</span>}
+                    {it.reporter && <span className="text-muted">{it.reporter}</span>}
                     {it.context && (
                       <span className="text-slate-400 italic truncate max-w-[40ch]" title={it.context}>
                         · {it.context}

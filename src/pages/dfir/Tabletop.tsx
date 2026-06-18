@@ -107,7 +107,7 @@ export default function Tabletop(): JSX.Element {
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -116,7 +116,7 @@ export default function Tabletop(): JSX.Element {
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
           <ScrollText size={28} className="text-brand-600 dark:text-brand-400" /> Tabletop / IR Exercise Generator
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 mb-2 leading-relaxed">
+        <p className="text-muted mb-2 leading-relaxed">
           Generate a tabletop scenario from {ARCHETYPES.length} archetypes (ransomware, BEC, supply-chain, espionage,
           edge-exploit, insider) populated with a real threat-actor profile from{' '}
           <Link to="/threatintel/actors" className="text-brand-600 dark:text-brand-400 hover:underline">
@@ -243,7 +243,7 @@ export default function Tabletop(): JSX.Element {
             className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4"
           >
             <div className="flex flex-wrap items-baseline gap-3 mb-1.5">
-              <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400">
+              <span className="font-mono text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
                 {inj.t}
               </span>
               <h3 className="font-display font-semibold text-slate-900 dark:text-slate-100">{inj.headline}</h3>
@@ -271,10 +271,10 @@ export default function Tabletop(): JSX.Element {
       </section>
 
       <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
-        <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-3">
+        <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
           Facilitator notes
         </h2>
-        <ul className="space-y-1.5 text-sm font-mono text-slate-600 dark:text-slate-400 list-disc pl-5">
+        <ul className="space-y-1.5 text-sm font-mono text-muted list-disc pl-5">
           <li>
             <strong>Time-box.</strong> 10-15 minutes per inject keeps a 60-90 minute exercise on track.
           </li>

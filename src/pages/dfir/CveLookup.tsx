@@ -191,14 +191,14 @@ export default function CveLookup(): JSX.Element {
     <div className="max-w-4xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
 
       <div className="animate-fade-in-up">
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2">CVE Lookup</h1>
-        <p className="text-slate-600 dark:text-slate-400 mb-8 max-w-2xl">
+        <p className="text-muted mb-8 max-w-2xl">
           Query NVD for CVE details. Get CVSS score, EPSS exploit likelihood, CISA KEV status, and references.
         </p>
       </div>
@@ -230,7 +230,7 @@ export default function CveLookup(): JSX.Element {
         )}
       </form>
 
-      {loading && <p className="font-mono text-slate-600 dark:text-slate-400">Querying NVD…</p>}
+      {loading && <p className="font-mono text-muted">Querying NVD…</p>}
       {error && (
         <p role="alert" className="font-mono text-rose-600 dark:text-rose-400">
           error: {error}
@@ -240,7 +240,7 @@ export default function CveLookup(): JSX.Element {
       {result && (
         <div className="space-y-6">
           {/* Header */}
-          <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+          <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
             <div className="flex flex-wrap items-start gap-3 mb-3">
               <h2 className="font-display font-bold text-2xl font-mono">{result.cve_id}</h2>
               {result.kev.in_kev && (
@@ -293,7 +293,7 @@ export default function CveLookup(): JSX.Element {
             const p = prioritise({ cvss: result.cvss, epss: result.epss, kev: result.kev });
             const total = p.contributions.cvss + p.contributions.epss + p.contributions.kev;
             return (
-              <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+              <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
                 <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
                   <h3 className="font-display font-semibold text-lg inline-flex items-center gap-2">
                     <Gauge size={18} className="text-brand-600 dark:text-brand-400" /> Patch priority
@@ -312,7 +312,7 @@ export default function CveLookup(): JSX.Element {
                   />
                 </div>
 
-                <p className="text-sm font-mono text-slate-600 dark:text-slate-400 mb-4">
+                <p className="text-sm font-mono text-muted mb-4">
                   Combined signal across CVSS severity, EPSS exploit probability, and CISA KEV listing. SLA suggestion:{' '}
                   <strong className="text-slate-800 dark:text-slate-200">{p.sla}</strong>.
                 </p>
@@ -490,7 +490,7 @@ export default function CveLookup(): JSX.Element {
 
           {/* Description */}
           {result.description && (
-            <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+            <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
               <h3 className="font-display font-semibold text-lg mb-3">Description</h3>
               <p className="text-slate-700 dark:text-slate-300 leading-relaxed">{result.description}</p>
             </section>
@@ -498,7 +498,7 @@ export default function CveLookup(): JSX.Element {
 
           {/* CVSS */}
           {result.cvss && (
-            <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+            <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
               <h3 className="font-display font-semibold text-lg mb-4">CVSS {result.cvss.version}</h3>
               <div className="flex items-center gap-6">
                 <div className="text-center">
@@ -522,7 +522,7 @@ export default function CveLookup(): JSX.Element {
 
           {/* EPSS */}
           {result.epss && (
-            <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+            <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
               <h3 className="font-display font-semibold text-lg mb-3">EPSS, Exploit Prediction</h3>
               <div className="flex gap-8 font-mono">
                 <div>
@@ -534,7 +534,7 @@ export default function CveLookup(): JSX.Element {
                   <div className="text-xs text-slate-500">percentile</div>
                 </div>
                 <div>
-                  <div className="text-sm text-slate-600 dark:text-slate-400">{result.epss.date}</div>
+                  <div className="text-sm text-muted">{result.epss.date}</div>
                   <div className="text-xs text-slate-500">data date</div>
                 </div>
               </div>
@@ -544,7 +544,7 @@ export default function CveLookup(): JSX.Element {
           {/* KEV Details */}
           {result.kev.in_kev && (
             <section
-              className={`rounded-2xl border p-6 ${
+              className={`rounded-lg border p-6 ${
                 result.kev.known_ransomware
                   ? 'border-amber-400 dark:border-amber-700 bg-amber-50 dark:bg-amber-900/15'
                   : 'border-rose-200 dark:border-rose-900/40 bg-rose-50 dark:bg-rose-900/10'
@@ -595,7 +595,7 @@ export default function CveLookup(): JSX.Element {
 
           {/* Actor attribution panel — surfaces evidence-scored CVE→actor links */}
           {result.actor_links && result.actor_links.length > 0 && (
-            <section className="rounded-2xl border border-violet-200 dark:border-violet-900/40 bg-violet-50/40 dark:bg-violet-900/10 p-6">
+            <section className="rounded-lg border border-violet-200 dark:border-violet-900/40 bg-violet-50/40 dark:bg-violet-900/10 p-6">
               <h3 className="font-display font-semibold text-lg mb-3 text-violet-900 dark:text-violet-300">
                 Threat-actor attribution
               </h3>
@@ -619,7 +619,7 @@ export default function CveLookup(): JSX.Element {
                         ? 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300'
                         : conf >= 60
                           ? 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300'
-                          : 'border-slate-400/40 bg-slate-400/10 text-slate-600 dark:text-slate-400';
+                          : 'border-slate-400/40 bg-slate-400/10 text-muted';
                     return (
                       <li
                         key={link.slug}
@@ -685,7 +685,7 @@ export default function CveLookup(): JSX.Element {
 
           {/* CWEs */}
           {result.cwe && result.cwe.length > 0 && (
-            <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+            <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
               <h3 className="font-display font-semibold text-lg mb-3">Weaknesses (CWE)</h3>
               <div className="flex flex-wrap gap-2">
                 {result.cwe.map((id) => {
@@ -709,11 +709,11 @@ export default function CveLookup(): JSX.Element {
 
           {/* Affected Products */}
           {result.affected_products && result.affected_products.length > 0 && (
-            <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+            <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
               <h3 className="font-display font-semibold text-lg mb-3">Affected Products</h3>
               <ul className="space-y-1">
                 {result.affected_products.map((cpe) => (
-                  <li key={cpe} className="font-mono text-xs text-slate-600 dark:text-slate-400 break-all">
+                  <li key={cpe} className="font-mono text-xs text-muted break-all">
                     {cpe}
                   </li>
                 ))}
@@ -740,7 +740,7 @@ export default function CveLookup(): JSX.Element {
                   return next;
                 });
               return (
-                <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+                <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
                   <div className="flex items-baseline justify-between gap-2 mb-3">
                     <h3 className="font-display font-semibold text-lg">
                       References{' '}

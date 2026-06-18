@@ -118,7 +118,7 @@ export default function CrossCorrelate(): JSX.Element {
                   </span>
                   <div className="flex-1 min-w-0">
                     <h3 className="text-sm font-semibold">{insight.title}</h3>
-                    <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">{insight.description}</p>
+                    <p className="text-xs text-muted mt-1">{insight.description}</p>
 
                     {/* Entities */}
                     {insight.entities.length > 0 && (
@@ -126,7 +126,7 @@ export default function CrossCorrelate(): JSX.Element {
                         {insight.entities.map((e, j) => (
                           <span
                             key={j}
-                            className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400"
+                            className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-muted"
                           >
                             {e}
                           </span>
@@ -138,13 +138,13 @@ export default function CrossCorrelate(): JSX.Element {
                     <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-3">
                       <div className="p-2.5 rounded-lg bg-white/60 dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800">
                         <p className="text-micro font-mono uppercase tracking-wider text-rose-500 mb-1">Implication</p>
-                        <p className="text-mini text-slate-600 dark:text-slate-400">{insight.implication}</p>
+                        <p className="text-mini text-muted">{insight.implication}</p>
                       </div>
                       <div className="p-2.5 rounded-lg bg-white/60 dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800">
                         <p className="text-micro font-mono uppercase tracking-wider text-emerald-500 mb-1">
                           Recommendation
                         </p>
-                        <p className="text-mini text-slate-600 dark:text-slate-400">{insight.recommendation}</p>
+                        <p className="text-mini text-muted">{insight.recommendation}</p>
                       </div>
                     </div>
                   </div>

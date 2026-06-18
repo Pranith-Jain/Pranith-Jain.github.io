@@ -69,7 +69,7 @@ export default function UsernameOsnit(): JSX.Element {
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -78,7 +78,7 @@ export default function UsernameOsnit(): JSX.Element {
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
           <Users size={28} className="text-brand-600 dark:text-brand-400" /> Username OSINT
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 mb-2 leading-relaxed">
+        <p className="text-muted mb-2 leading-relaxed">
           Check 60+ platforms for a username — social, dev, gaming, creative, finance. Server-side HTTP checks, bounded
           concurrency, 15-minute edge cache.
         </p>
@@ -118,7 +118,7 @@ export default function UsernameOsnit(): JSX.Element {
       </section>
 
       {loading && (
-        <p className="text-sm font-mono text-slate-600 dark:text-slate-400 mb-4 inline-flex items-center gap-2">
+        <p className="text-sm font-mono text-muted mb-4 inline-flex items-center gap-2">
           <Loader2 size={14} className="animate-spin" /> Checking 60+ platforms…
         </p>
       )}
@@ -146,7 +146,7 @@ export default function UsernameOsnit(): JSX.Element {
                   className={`px-2.5 py-1 text-xs font-mono rounded-lg border ${
                     filter === f
                       ? 'bg-brand-600 text-white border-brand-600'
-                      : 'border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'
+                      : 'border-slate-200 dark:border-slate-700 text-muted hover:bg-slate-100 dark:hover:bg-slate-800'
                   }`}
                 >
                   {f === 'all' ? 'All' : 'Found'}
@@ -157,7 +157,7 @@ export default function UsernameOsnit(): JSX.Element {
 
           {/* Found */}
           {found.length > 0 && (
-            <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+            <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
               <h2 className="font-display font-bold text-xl mb-4 flex items-center gap-2">
                 <CheckCircle2 size={18} className="text-emerald-500" /> Found ({found.length})
               </h2>
@@ -186,7 +186,7 @@ export default function UsernameOsnit(): JSX.Element {
 
           {/* Not Found */}
           {filter === 'all' && notFound.length > 0 && (
-            <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+            <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
               <h2 className="font-display font-bold text-xl mb-4 text-slate-400">Not Found ({notFound.length})</h2>
               <div className="flex flex-wrap gap-1.5">
                 {notFound.map((r) => (
@@ -203,7 +203,7 @@ export default function UsernameOsnit(): JSX.Element {
 
           {/* Category Breakdown */}
           {Object.keys(result.summary).length > 0 && (
-            <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+            <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
               <h2 className="font-display font-bold text-xl mb-4 text-slate-400">Category Breakdown</h2>
               <div className="flex flex-wrap gap-2">
                 {Object.entries(result.summary)

@@ -202,7 +202,7 @@ export default function MispBrowser() {
       <div className="max-w-4xl mx-auto px-4 py-6 space-y-6">
         <BackLink
           to="/threatintel"
-          className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-6 font-mono"
+          className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-6 font-mono"
         >
           <ArrowLeft size={14} /> back
         </BackLink>
@@ -268,7 +268,7 @@ export default function MispBrowser() {
       <div className="max-w-6xl mx-auto px-4 py-6 space-y-6">
         <button
           onClick={() => setSelected(null)}
-          className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-4 font-mono"
+          className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-4 font-mono"
         >
           <ArrowLeft size={14} /> back to events
         </button>
@@ -291,7 +291,7 @@ export default function MispBrowser() {
               <span className={`inline-flex items-center gap-1 px-2 py-1 rounded text-mini font-mono ${tl.color}`}>
                 <TlIcon size={12} /> {tl.label}
               </span>
-              <span className="text-mini font-mono px-2 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">
+              <span className="text-mini font-mono px-2 py-1 rounded bg-slate-100 dark:bg-slate-800 text-muted">
                 {ANALYSIS_LABELS[e.analysis] ?? 'Unknown'}
               </span>
               {e.published && (
@@ -304,7 +304,7 @@ export default function MispBrowser() {
 
           {e.Attribute && e.Attribute.length > 0 && (
             <div>
-              <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-2">
+              <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-2">
                 Attributes ({e.Attribute.length})
               </h3>
               <div className="overflow-auto max-h-80">
@@ -352,7 +352,7 @@ export default function MispBrowser() {
 
           {e.Object && e.Object.length > 0 && (
             <div>
-              <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-2">
+              <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-2">
                 Objects ({e.Object.length})
               </h3>
               <div className="grid gap-3 sm:grid-cols-2">
@@ -362,11 +362,13 @@ export default function MispBrowser() {
                       <span className="text-xs font-semibold text-slate-700 dark:text-slate-300">{o.name}</span>
                       <span className="text-micro font-mono text-slate-400">{o.meta_category}</span>
                     </div>
-                    {o.description && <p className="text-mini font-mono text-slate-500 dark:text-slate-400">{o.description}</p>}
+                    {o.description && (
+                      <p className="text-mini font-mono text-slate-500 dark:text-slate-400">{o.description}</p>
+                    )}
                     {o.Attribute && o.Attribute.length > 0 && (
                       <ul className="space-y-1">
                         {o.Attribute.slice(0, 5).map((a) => (
-                          <li key={a.id} className="text-mini font-mono text-slate-600 dark:text-slate-400 truncate">
+                          <li key={a.id} className="text-mini font-mono text-muted truncate">
                             <span className="text-slate-400">{a.type}:</span> {a.value}
                           </li>
                         ))}
@@ -383,7 +385,7 @@ export default function MispBrowser() {
 
           {e.Galaxy && e.Galaxy.length > 0 && (
             <div>
-              <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-2">
+              <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-2">
                 Galaxies ({e.Galaxy.length})
               </h3>
               <div className="flex flex-wrap gap-2">
@@ -413,14 +415,14 @@ export default function MispBrowser() {
 
           {e.tags && e.tags.length > 0 && (
             <div>
-              <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-2">
+              <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-2">
                 Tags ({e.tags.length})
               </h3>
               <div className="flex flex-wrap gap-1">
                 {e.tags.map((t) => (
                   <span
                     key={t.Tag.name}
-                    className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400"
+                    className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-muted"
                   >
                     {t.Tag.name}
                   </span>
@@ -431,7 +433,7 @@ export default function MispBrowser() {
 
           {e.related_events && e.related_events.length > 0 && (
             <div>
-              <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-2">
+              <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-2">
                 Related Events ({e.related_events.length})
               </h3>
               <div className="grid gap-2">
@@ -463,13 +465,15 @@ export default function MispBrowser() {
       <div className="flex items-baseline justify-between gap-3 flex-wrap">
         <div className="flex items-baseline gap-2">
           <h1 className="font-display font-bold text-2xl text-slate-900 dark:text-slate-100">MISP Browser</h1>
-          <span className="text-mini font-mono text-slate-500 dark:text-slate-400">{total > 0 ? `${total} events` : ''}</span>
+          <span className="text-mini font-mono text-slate-500 dark:text-slate-400">
+            {total > 0 ? `${total} events` : ''}
+          </span>
         </div>
         <div className="flex items-center gap-2">
           <button
             onClick={() => loadEvents(1)}
             disabled={loading}
-            className="flex items-center gap-1 px-3 py-1.5 text-mini font-mono rounded-lg border border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-brand-500"
+            className="flex items-center gap-1 px-3 py-1.5 text-mini font-mono rounded-lg border border-slate-300 dark:border-slate-700 text-muted hover:border-brand-500"
           >
             <RefreshCw size={12} className={loading ? 'animate-spin' : ''} /> Refresh
           </button>
@@ -603,7 +607,7 @@ export default function MispBrowser() {
           <button
             onClick={() => loadEvents(page - 1)}
             disabled={loading}
-            className="px-3 py-1.5 text-xs font-mono rounded-lg border border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-brand-500 disabled:opacity-50"
+            className="px-3 py-1.5 text-xs font-mono rounded-lg border border-slate-300 dark:border-slate-700 text-muted hover:border-brand-500 disabled:opacity-50"
           >
             ← Previous
           </button>
@@ -611,7 +615,7 @@ export default function MispBrowser() {
           <button
             onClick={() => loadEvents(page + 1)}
             disabled={loading || events.length < 20}
-            className="px-3 py-1.5 text-xs font-mono rounded-lg border border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-brand-500 disabled:opacity-50"
+            className="px-3 py-1.5 text-xs font-mono rounded-lg border border-slate-300 dark:border-slate-700 text-muted hover:border-brand-500 disabled:opacity-50"
           >
             Next →
           </button>

@@ -181,12 +181,12 @@ function ErrorBanner({ error }: { error: string }) {
 
 function HostIntelPanel({ data }: { data: HostIntel }) {
   return (
-    <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+    <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
       <div className="flex items-baseline justify-between flex-wrap gap-2">
         <h2 className="font-display font-bold text-2xl tracking-tight flex items-center gap-3">
           <Server size={22} className="text-brand-600" /> {data.ip}
         </h2>
-        <span className="font-mono text-sm text-slate-600 dark:text-slate-400">{data.artifact_count} artifacts</span>
+        <span className="font-mono text-sm text-muted">{data.artifact_count} artifacts</span>
       </div>
 
       <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mt-5">
@@ -274,7 +274,7 @@ function WhoisPanel({ data }: { data: HistoryResult }) {
 
   return (
     <div className="space-y-6">
-      <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
         <h2 className="font-display font-bold text-xl mb-4 flex items-center gap-2">
           <Globe size={20} className="text-brand-600" /> {data.domain}
         </h2>
@@ -404,13 +404,13 @@ function WhoisPanel({ data }: { data: HistoryResult }) {
         </div>
       </section>
 
-      <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
         <h3 className="font-display font-bold text-lg mb-3">Related Domains</h3>
         {pivotLoading ? (
           <Loading text="Searching for related domains…" />
         ) : pivots && pivots.related_domains.length > 0 ? (
           <div className="space-y-2">
-            <p className="text-sm text-slate-600 dark:text-slate-400 mb-3">
+            <p className="text-sm text-muted mb-3">
               Found <span className="font-bold text-brand-600">{pivots.total_found}</span> related domains
             </p>
             {pivots.related_domains.map((d) => {
@@ -455,7 +455,7 @@ function WhoisPanel({ data }: { data: HistoryResult }) {
       </section>
 
       {data.changes.length > 0 && (
-        <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+        <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
           <h3 className="font-display font-bold text-lg mb-3">
             Detected Changes
             <span className="ml-2 px-1.5 py-0.5 rounded-full text-micro bg-rose-100 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400 align-middle">
@@ -557,7 +557,7 @@ export default function AssetIntel(): JSX.Element {
       </Link>
 
       <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2">Asset Intelligence</h1>
-      <p className="text-slate-600 dark:text-slate-400 mb-8 max-w-3xl">
+      <p className="text-muted mb-8 max-w-3xl">
         Unified IP and domain asset intelligence — exposed host view, WHOIS history, domain pivoting, and artifact
         analysis. Inspired by etugen.io's asset reconnaissance capabilities.
       </p>
@@ -596,7 +596,7 @@ export default function AssetIntel(): JSX.Element {
       {hostIntel && (
         <div className="space-y-6">
           <HostIntelPanel data={hostIntel} />
-          <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+          <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
             <h3 className="font-display font-bold text-lg mb-3">Exposed services &amp; artifacts</h3>
             <ArtifactTable artifacts={hostIntel.artifacts} />
           </section>

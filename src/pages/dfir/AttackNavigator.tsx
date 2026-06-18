@@ -286,7 +286,7 @@ export default function AttackNavigator(): JSX.Element {
       <div className="max-w-[1600px] mx-auto">
         <BackLink
           to="/dfir"
-          className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+          className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
         >
           <ArrowLeft size={14} /> back to DFIR
         </BackLink>
@@ -305,7 +305,7 @@ export default function AttackNavigator(): JSX.Element {
               </span>
             )}
           </div>
-          <p className="text-slate-600 dark:text-slate-400 mb-2 max-w-4xl">
+          <p className="text-muted mb-2 max-w-4xl">
             {matrixSource === 'attack' &&
               'Interactive matrix mapping LLM-specific attack techniques to the MITRE ATT&CK framework. Color intensity reflects technique prevalence, risk scores, or actor adoption. Click any highlighted tile for full detail including ARiES scores, sub-techniques, and linked actors.'}
             {matrixSource === 'a3m' &&
@@ -434,7 +434,7 @@ export default function AttackNavigator(): JSX.Element {
             />
           </div>
           {matrixSource === 'attack' && (
-            <label className="flex items-center gap-2 text-xs font-mono text-slate-600 dark:text-slate-400">
+            <label className="flex items-center gap-2 text-xs font-mono text-muted">
               Color by:
               <select
                 value={colorMode}

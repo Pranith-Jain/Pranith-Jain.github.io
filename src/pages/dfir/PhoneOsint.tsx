@@ -16,12 +16,12 @@ interface PhoneLookup {
 const CATEGORY_ICONS: Record<string, typeof Globe> = {
   'reverse-lookup': Search,
   carrier: Wifi,
-  'geolocation': MapPin,
-  'breach': Shield,
-  'social': Users,
-  'business': Building2,
-  'messaging': Phone,
-  'directory': Globe,
+  geolocation: MapPin,
+  breach: Shield,
+  social: Users,
+  business: Building2,
+  messaging: Phone,
+  directory: Globe,
 };
 
 const CATEGORY_LABELS: Record<string, string> = {
@@ -357,9 +357,7 @@ export default function PhoneOsint(): JSX.Element {
                       {l.service} <ExternalLink size={12} className="opacity-60 shrink-0" />
                     </a>
                     <div className="flex items-center gap-1 shrink-0">
-                      <span
-                        className="text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-slate-300 dark:border-slate-700 text-slate-500 flex items-center gap-1"
-                      >
+                      <span className="text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-slate-300 dark:border-slate-700 text-slate-500 flex items-center gap-1">
                         <Icon size={9} /> {CATEGORY_LABELS[l.category] ?? l.category}
                       </span>
                       {!l.free && (
@@ -369,9 +367,7 @@ export default function PhoneOsint(): JSX.Element {
                       )}
                     </div>
                   </div>
-                  <p className="text-meta font-mono text-slate-600 dark:text-slate-400 leading-relaxed break-words">
-                    {l.description}
-                  </p>
+                  <p className="text-meta font-mono text-muted leading-relaxed break-words">{l.description}</p>
                 </li>
               );
             })}
@@ -390,7 +386,7 @@ export default function PhoneOsint(): JSX.Element {
         <h3 className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 mb-2">
           Investigation Tips
         </h3>
-        <ul className="text-meta font-mono text-slate-600 dark:text-slate-400 space-y-1.5">
+        <ul className="text-meta font-mono text-muted space-y-1.5">
           <li>
             <strong>WhatsApp check:</strong> Click the WhatsApp link — if a profile photo appears, the number is active.
             Screenshot it before they change it.

@@ -124,7 +124,7 @@ export default function ReportIngest(): JSX.Element {
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -133,7 +133,7 @@ export default function ReportIngest(): JSX.Element {
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
           <Upload size={28} className="text-brand-600 dark:text-brand-400" /> Report Ingest
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 mb-8 max-w-2xl">
+        <p className="text-muted mb-8 max-w-2xl">
           Upload a threat report (text, HTML, or image). It is parsed, indicators are enriched across providers, and a
           STIX 2.1 bundle is built. PDF/DOCX require the optional extraction bridge.
         </p>
@@ -167,14 +167,12 @@ export default function ReportIngest(): JSX.Element {
           aria-label="Upload a report file"
         />
         <Upload size={28} className="mx-auto mb-3 text-slate-400" />
-        <p className="font-mono text-sm text-slate-600 dark:text-slate-400">
-          {fileName ? fileName : 'Drop a file here, or click to choose'}
-        </p>
+        <p className="font-mono text-sm text-muted">{fileName ? fileName : 'Drop a file here, or click to choose'}</p>
         <p className="font-mono text-xs text-slate-400 mt-1">txt · md · html · png · jpg · pdf · docx — max 10 MB</p>
       </div>
 
       {status === 'loading' && (
-        <p className="font-mono text-sm text-slate-600 dark:text-slate-400 flex items-center gap-2" role="status">
+        <p className="font-mono text-sm text-muted flex items-center gap-2" role="status">
           <Loader2 size={14} className="animate-spin" /> extracting text → enriching indicators → building STIX bundle…
         </p>
       )}
@@ -188,7 +186,7 @@ export default function ReportIngest(): JSX.Element {
             <AlertTriangle size={14} /> {error}
           </span>
           {errorStatus === 503 && (
-            <span className="block mt-2 text-slate-600 dark:text-slate-400">
+            <span className="block mt-2 text-muted">
               Upload text/HTML/an image instead, or paste text into{' '}
               <Link to="/dfir/report-parser" className="underline text-brand-600 dark:text-brand-400">
                 Report Parser
@@ -205,7 +203,7 @@ export default function ReportIngest(): JSX.Element {
             <div className="flex items-start justify-between gap-4">
               <div>
                 <h2 className="text-xl font-display font-bold">{view.title}</h2>
-                {view.summary && <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">{view.summary}</p>}
+                {view.summary && <p className="text-sm text-muted mt-1">{view.summary}</p>}
               </div>
               <span className="shrink-0 font-mono text-xs px-2 py-1 rounded border border-amber-500/40 text-amber-600">
                 TLP:{view.tlp}

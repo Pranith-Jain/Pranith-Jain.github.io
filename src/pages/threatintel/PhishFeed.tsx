@@ -144,7 +144,7 @@ export default function PhishFeed(): JSX.Element {
     <div className="max-w-6xl mx-auto px-4 py-8">
       <BackLink
         to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-6 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-6 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -153,7 +153,7 @@ export default function PhishFeed(): JSX.Element {
         <Fish className="w-7 h-7 text-amber-500" />
         <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100">Phish Feed</h1>
       </div>
-      <p className="text-slate-600 dark:text-slate-400 mb-6 text-sm max-w-3xl leading-relaxed">
+      <p className="text-muted mb-6 text-sm max-w-3xl leading-relaxed">
         Live phishing URLs from OpenPhish with built-in brand detection. PhishTank enrichment is optional (requires API
         key). Export as plain list, hosts file, or AdBlock rules.
       </p>
@@ -211,7 +211,7 @@ export default function PhishFeed(): JSX.Element {
         </button>
         <button
           onClick={() => refetch()}
-          className="px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-slate-400 dark:hover:border-slate-600 text-sm flex items-center gap-2"
+          className="px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-700 text-muted hover:border-slate-400 dark:hover:border-slate-600 text-sm flex items-center gap-2"
         >
           <RefreshCw className="w-4 h-4" /> Refresh
         </button>
@@ -245,7 +245,7 @@ export default function PhishFeed(): JSX.Element {
         </select>
         <button
           onClick={doExport}
-          className="px-3 py-1.5 rounded-lg border border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-slate-400 dark:hover:border-slate-600 text-xs flex items-center gap-1.5"
+          className="px-3 py-1.5 rounded-lg border border-slate-300 dark:border-slate-700 text-muted hover:border-slate-400 dark:hover:border-slate-600 text-xs flex items-center gap-1.5"
         >
           <Download className="w-3.5 h-3.5" /> Export ({filtered.length})
         </button>
@@ -332,7 +332,7 @@ export default function PhishFeed(): JSX.Element {
                 className={`w-full flex items-center gap-2 text-xs px-2 py-1 rounded transition ${
                   query === brand
                     ? 'bg-brand-500/10 border border-brand-500/30 text-brand-700 dark:text-brand-300'
-                    : 'hover:bg-slate-50 dark:hover:bg-slate-800/50 text-slate-600 dark:text-slate-400'
+                    : 'hover:bg-slate-50 dark:hover:bg-slate-800/50 text-muted'
                 }`}
               >
                 <span className="font-mono truncate flex-1 text-left">{brand}</span>

@@ -165,7 +165,7 @@ export default function AggregatedFeeds() {
                   <div className="flex items-start justify-between gap-4">
                     <div>
                       <h3 className="font-semibold text-lg">{feed.name}</h3>
-                      <p className="text-slate-600 dark:text-slate-400 text-sm mt-0.5">{feed.description}</p>
+                      <p className="text-muted text-sm mt-0.5">{feed.description}</p>
                     </div>
                     <a
                       href={sanitizeUrl(feed.url)}
@@ -190,7 +190,7 @@ export default function AggregatedFeeds() {
                       <span className="text-slate-400 dark:text-slate-500">Size:</span>{' '}
                       <strong>{formatBytes(feed.size_bytes)}</strong>
                     </span>
-                    <span className="text-slate-600 dark:text-slate-400 text-xs capitalize px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+                    <span className="text-muted text-xs capitalize px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
                       {meta.label}
                     </span>
                   </div>

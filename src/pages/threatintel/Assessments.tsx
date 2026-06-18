@@ -22,7 +22,7 @@ interface Assessment {
 }
 
 const STATUS_STYLES: Record<string, string> = {
-  draft: 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border-slate-300 dark:border-slate-700',
+  draft: 'bg-slate-100 dark:bg-slate-800 text-muted border-slate-300 dark:border-slate-700',
   review: 'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 border-amber-300 dark:border-amber-800',
   published:
     'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 border-emerald-300 dark:border-emerald-800',
@@ -69,7 +69,7 @@ export default function Assessments(): JSX.Element {
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -79,7 +79,7 @@ export default function Assessments(): JSX.Element {
           <h1 className="text-3xl sm:text-4xl font-display font-bold flex items-center gap-3">
             <FileText size={28} className="text-brand-600 dark:text-brand-400" /> Intelligence Assessments
           </h1>
-          <p className="text-slate-600 dark:text-slate-400 mt-2 max-w-3xl">
+          <p className="text-muted mt-2 max-w-3xl">
             Published analytical assessments with mandatory provenance, confidence scoring, and lifecycle management.
           </p>
         </div>

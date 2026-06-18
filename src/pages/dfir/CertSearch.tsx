@@ -105,7 +105,7 @@ export default function CertSearch(): JSX.Element {
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -114,7 +114,7 @@ export default function CertSearch(): JSX.Element {
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
           <ShieldAlert size={28} className="text-brand-600 dark:text-brand-400" /> Certificate Search
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 mb-2 max-w-3xl leading-relaxed">
+        <p className="text-muted mb-2 max-w-3xl leading-relaxed">
           Enumerate certificates issued for a domain. Fast subdomain discovery via Certificate Transparency logs. Free,
           no key, powered by{' '}
           <a
@@ -165,7 +165,7 @@ export default function CertSearch(): JSX.Element {
                 spellCheck={false}
               />
             </div>
-            <label className="self-center text-meta font-mono text-slate-600 dark:text-slate-400 cursor-pointer inline-flex items-center gap-1.5">
+            <label className="self-center text-meta font-mono text-muted cursor-pointer inline-flex items-center gap-1.5">
               <input type="checkbox" checked={includeSubs} onChange={(e) => setIncludeSubs(e.target.checked)} />
               include subdomains
             </label>
@@ -205,7 +205,7 @@ export default function CertSearch(): JSX.Element {
         <>
           {/* Summary */}
           <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
-            <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-3">
+            <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
               Summary
             </h2>
             <div className="grid sm:grid-cols-3 gap-4">
@@ -239,7 +239,7 @@ export default function CertSearch(): JSX.Element {
           {/* Unique DNS names */}
           <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
             <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
-              <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono inline-flex items-center gap-2">
+              <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono inline-flex items-center gap-2">
                 <Globe2 size={12} /> Unique DNS names
                 {filter && (
                   <span className="text-slate-500">
@@ -285,7 +285,7 @@ export default function CertSearch(): JSX.Element {
 
           {/* Recent issuances */}
           <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
-            <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-3 inline-flex items-center gap-2">
+            <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3 inline-flex items-center gap-2">
               <ScrollText size={12} /> Recent issuances ({data.recent.length})
             </h2>
             <ul className="space-y-2">

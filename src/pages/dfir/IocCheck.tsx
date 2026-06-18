@@ -401,14 +401,14 @@ export default function IocCheck(): JSX.Element {
     <div className="max-w-4xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
 
       <div className="animate-fade-in-up">
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2">IOC Checker</h1>
-        <p className="text-slate-600 dark:text-slate-400 mb-8 max-w-2xl">
+        <p className="text-muted mb-8 max-w-2xl">
           Checks IPs, domains, URLs, and file hashes against 27 threat-intel sources in parallel. Streamed per-source
           verdicts with a weighted composite score; tags surface when a provider reports them.
         </p>
@@ -696,7 +696,7 @@ export default function IocCheck(): JSX.Element {
           const Icon = next.tone === 'malicious' ? ShieldAlert : next.tone === 'suspicious' ? AlertCircle : ShieldCheck;
           return (
             <>
-              <section className="mb-4 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+              <section className="mb-4 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
                 <div className="flex items-baseline justify-between mb-2">
                   <h2 ref={summaryRef} tabIndex={-1} className="font-display font-bold text-2xl focus:outline-none">
                     Composite verdict
@@ -711,7 +711,7 @@ export default function IocCheck(): JSX.Element {
                     />
                   </div>
                 </div>
-                <div className="flex flex-wrap items-center gap-x-4 gap-y-1 font-mono text-sm text-slate-600 dark:text-slate-400">
+                <div className="flex flex-wrap items-center gap-x-4 gap-y-1 font-mono text-sm text-muted">
                   <span>
                     score: <span className="font-semibold text-slate-900 dark:text-slate-100">{summary.score}</span> /
                     100
@@ -726,9 +726,9 @@ export default function IocCheck(): JSX.Element {
                 </div>
               </section>
               {summary.admiralty && (
-                <section className="mb-4 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+                <section className="mb-4 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
                   <h3 className="font-display font-semibold text-sm mb-2">NATO Admiralty Code</h3>
-                  <p className="text-sm font-mono text-slate-600 dark:text-slate-400 leading-relaxed">
+                  <p className="text-sm font-mono text-muted leading-relaxed">
                     <span className="font-bold">{summary.admiralty.label}</span>
                     {' — '}
                     Reliability <strong>{summary.admiralty.reliability}</strong> (source ceiling), Credibility{' '}
@@ -830,7 +830,7 @@ export default function IocCheck(): JSX.Element {
                 </section>
               )}
               <PivotMatrix type={detectedType} value={input.trim()} verdict={summary.verdict} />
-              <section className={`mb-8 rounded-2xl border p-5 ${toneStyles}`}>
+              <section className={`mb-8 rounded-lg border p-5 ${toneStyles}`}>
                 <h3 className="font-display font-semibold text-base mb-3 inline-flex items-center gap-2">
                   <Icon size={16} aria-hidden="true" /> {next.title}
                 </h3>
@@ -864,7 +864,7 @@ export default function IocCheck(): JSX.Element {
                     key={p}
                     className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 animate-pulse"
                   >
-                    <span className="font-display capitalize text-slate-600 dark:text-slate-400">{p}</span>
+                    <span className="font-display capitalize text-muted">{p}</span>
                     <span className="block mt-2 text-xs font-mono text-slate-500">querying…</span>
                   </div>
                 );
@@ -912,7 +912,7 @@ export default function IocCheck(): JSX.Element {
       )}
 
       {mode === 'single' && summary && (
-        <section className="mt-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+        <section className="mt-6 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
           <h3 className="font-display font-semibold text-sm mb-3 inline-flex items-center gap-2">
             <Search size={14} /> External Enrichment
           </h3>

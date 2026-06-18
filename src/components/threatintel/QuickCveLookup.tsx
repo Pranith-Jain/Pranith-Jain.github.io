@@ -116,9 +116,7 @@ export default function QuickCveLookup() {
             )}
           </div>
 
-          {result.description && (
-            <p className="text-mini text-slate-600 dark:text-slate-400 line-clamp-2">{result.description}</p>
-          )}
+          {result.description && <p className="text-mini text-muted line-clamp-2">{result.description}</p>}
 
           {(result.cvss || result.epss) && (
             <div className="flex gap-3 text-micro font-mono text-slate-500">

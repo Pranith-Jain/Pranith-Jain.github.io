@@ -104,7 +104,7 @@ export default function GithubAdvisories(): JSX.Element {
     <div className="max-w-6xl mx-auto px-4 py-8">
       <BackLink
         to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-6 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-6 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -113,7 +113,7 @@ export default function GithubAdvisories(): JSX.Element {
         <Bug className="w-7 h-7 text-rose-500" />
         <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100">GitHub Advisories Feed</h1>
       </div>
-      <p className="text-slate-600 dark:text-slate-400 mb-6 text-sm max-w-3xl leading-relaxed">
+      <p className="text-muted mb-6 text-sm max-w-3xl leading-relaxed">
         Live GitHub Security Advisory feed — reviewed vulnerabilities normalized into a CVE-style view.
       </p>
 
@@ -200,7 +200,7 @@ export default function GithubAdvisories(): JSX.Element {
             setRefreshKey((k) => k + 1);
             refetch();
           }}
-          className="px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-slate-400 dark:hover:border-slate-600 text-sm flex items-center gap-2"
+          className="px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-700 text-muted hover:border-slate-400 dark:hover:border-slate-600 text-sm flex items-center gap-2"
         >
           <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} /> Refresh
         </button>
@@ -244,7 +244,7 @@ export default function GithubAdvisories(): JSX.Element {
                           href={`https://nvd.nist.gov/vuln/detail/${cveId}`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="px-1.5 py-0.5 text-micro font-mono rounded border border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400"
+                          className="px-1.5 py-0.5 text-micro font-mono rounded border border-slate-300 dark:border-slate-700 text-muted hover:text-brand-600 dark:hover:text-brand-400"
                         >
                           {cveId}
                         </a>

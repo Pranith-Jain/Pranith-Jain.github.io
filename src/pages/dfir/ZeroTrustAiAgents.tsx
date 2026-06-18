@@ -362,7 +362,7 @@ function WhyNowStatRow({ stat }: { stat: WhyNowStat }): JSX.Element {
       <dt className="shrink-0 w-24 sm:w-28 font-display font-bold text-brand-700 dark:text-brand-300 text-sm whitespace-nowrap">
         {display}
       </dt>
-      <dd className="text-mini font-mono text-slate-600 dark:text-slate-400 leading-snug">{stat.label}</dd>
+      <dd className="text-mini font-mono text-muted leading-snug">{stat.label}</dd>
     </div>
   );
 }
@@ -410,14 +410,14 @@ export default function ZeroTrustAiAgents(): JSX.Element {
         <div className="flex items-center justify-between gap-2 mb-8">
           <BackLink
             to="/dfir"
-            className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 font-mono"
+            className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 font-mono"
           >
             <ArrowLeft size={14} /> back
           </BackLink>
           <button
             type="button"
             onClick={handlePrint}
-            className="inline-flex items-center gap-1.5 text-meta font-mono text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 ring-1 ring-slate-200 dark:ring-slate-800 hover:ring-brand-500/40 px-2.5 py-1.5 transition-colors print:hidden"
+            className="inline-flex items-center gap-1.5 text-meta font-mono text-muted hover:text-brand-600 dark:hover:text-brand-400 ring-1 ring-slate-200 dark:ring-slate-800 hover:ring-brand-500/40 px-2.5 py-1.5 transition-colors print:hidden"
             aria-label="Print reference card"
           >
             <Printer size={12} /> print
@@ -426,7 +426,7 @@ export default function ZeroTrustAiAgents(): JSX.Element {
 
         {/* ─── Header ──────────────────────────────────────────────── */}
         <header className="relative mb-8 sm:mb-10">
-          <div className="flex items-center gap-2 text-eyebrow font-mono uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 mb-4">
+          <div className="flex items-center gap-2 text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-4">
             <ShieldCheck size={14} /> security framework · reference card
           </div>
           <div className="grid lg:grid-cols-[1fr_auto] gap-6 items-start">
@@ -434,7 +434,7 @@ export default function ZeroTrustAiAgents(): JSX.Element {
               <h1 className="text-3xl sm:text-4xl lg:text-5xl font-display font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.05]">
                 ZERO TRUST FOR AI AGENTS
               </h1>
-              <p className="mt-3 text-base sm:text-lg text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed">
+              <p className="mt-3 text-base sm:text-lg text-muted max-w-2xl leading-relaxed">
                 A security framework for deploying autonomous AI agents in the enterprise
               </p>
             </div>
@@ -464,9 +464,7 @@ export default function ZeroTrustAiAgents(): JSX.Element {
                   <h3 className="font-display font-semibold text-slate-900 dark:text-slate-100 text-sm leading-snug">
                     {p.title}
                   </h3>
-                  <p className="mt-1 text-meta font-mono text-slate-600 dark:text-slate-400 leading-relaxed">
-                    {p.body}
-                  </p>
+                  <p className="mt-1 text-meta font-mono text-muted leading-relaxed">{p.body}</p>
                   <p className="mt-2 text-mini font-mono text-slate-500 dark:text-slate-500 leading-relaxed italic border-t border-slate-200 dark:border-slate-800 pt-2">
                     <Lightbulb size={10} className="inline -mt-0.5 mr-1 text-brand-500" aria-hidden="true" />
                     {p.example}
@@ -728,9 +726,7 @@ export default function ZeroTrustAiAgents(): JSX.Element {
                           <span className="text-rose-600 dark:text-rose-400 font-mono mr-1.5">{t.num}.</span>
                           {t.title}
                         </h3>
-                        <p className="mt-1 text-meta font-mono text-slate-600 dark:text-slate-400 leading-relaxed">
-                          {t.body}
-                        </p>
+                        <p className="mt-1 text-meta font-mono text-muted leading-relaxed">{t.body}</p>
                         <span
                           className={[
                             'mt-1.5 inline-block text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded ring-1',
@@ -822,7 +818,7 @@ export default function ZeroTrustAiAgents(): JSX.Element {
                       {p.title}
                     </h3>
                   </div>
-                  <p className="mt-1 text-mini font-mono text-slate-600 dark:text-slate-400 leading-snug">{p.body}</p>
+                  <p className="mt-1 text-mini font-mono text-muted leading-snug">{p.body}</p>
                 </button>
               );
             })}

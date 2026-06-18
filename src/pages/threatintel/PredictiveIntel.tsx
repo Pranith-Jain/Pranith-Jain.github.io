@@ -131,7 +131,7 @@ export default function PredictiveIntel(): JSX.Element {
                   {s.top_threats.map((t, j) => (
                     <span
                       key={j}
-                      className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400"
+                      className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-muted"
                     >
                       {t.replace(/_/g, ' ')}
                     </span>
@@ -182,7 +182,7 @@ export default function PredictiveIntel(): JSX.Element {
                     <div className="text-micro font-mono uppercase tracking-wider text-slate-400 mb-1">Basis</div>
                     <ul className="space-y-0.5">
                       {f.basis.map((b, j) => (
-                        <li key={j} className="text-xs text-slate-600 dark:text-slate-400 flex items-start gap-1.5">
+                        <li key={j} className="text-xs text-muted flex items-start gap-1.5">
                           <span className="mt-1">•</span> {b}
                         </li>
                       ))}

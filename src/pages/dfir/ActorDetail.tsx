@@ -41,7 +41,7 @@ export default function ActorDetail(): JSX.Element {
       <div className="max-w-3xl mx-auto px-4 sm:px-8 py-12 sm:py-20 text-slate-900 dark:text-slate-100">
         <Link
           to="/threatintel/actors"
-          className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+          className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
         >
           <ArrowLeft size={14} /> back
         </Link>
@@ -54,7 +54,7 @@ export default function ActorDetail(): JSX.Element {
     <div className="max-w-4xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <Link
         to="/threatintel/actors"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </Link>
@@ -62,7 +62,7 @@ export default function ActorDetail(): JSX.Element {
       <div className="animate-fade-in-up mb-8">
         <h1 className="text-5xl font-display font-bold mb-3">{actor.name}</h1>
         {actor.aliases.length > 0 && (
-          <p className="text-base font-mono text-slate-600 dark:text-slate-400 mb-4">aka {actor.aliases.join(', ')}</p>
+          <p className="text-base font-mono text-muted mb-4">aka {actor.aliases.join(', ')}</p>
         )}
         <div className="flex flex-wrap gap-2">
           <span
@@ -78,36 +78,30 @@ export default function ActorDetail(): JSX.Element {
             {actor.sophistication}
           </span>
           {actor.country && (
-            <span className="text-xs font-mono px-2 py-1 rounded border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400">
+            <span className="text-xs font-mono px-2 py-1 rounded border border-slate-200 dark:border-slate-800 text-muted">
               {actor.country}
             </span>
           )}
         </div>
       </div>
 
-      <section className="mb-8 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
-        <p className="text-base text-slate-600 dark:text-slate-400 leading-relaxed whitespace-pre-line">
-          {actor.description}
-        </p>
+      <section className="mb-8 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+        <p className="text-base text-muted leading-relaxed whitespace-pre-line">{actor.description}</p>
       </section>
 
       <div className="grid sm:grid-cols-2 gap-6 mb-8">
-        <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+        <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
           <h2 className="font-display font-bold text-lg mb-3">Motivation</h2>
           <p className="font-mono text-sm text-slate-900 dark:text-slate-100">{actor.motivation}</p>
           {actor.active_since && (
-            <p className="mt-2 font-mono text-xs text-slate-600 dark:text-slate-400">
-              active since: {actor.active_since}
-            </p>
+            <p className="mt-2 font-mono text-xs text-muted">active since: {actor.active_since}</p>
           )}
-          {actor.last_activity && (
-            <p className="font-mono text-xs text-slate-600 dark:text-slate-400">last activity: {actor.last_activity}</p>
-          )}
+          {actor.last_activity && <p className="font-mono text-xs text-muted">last activity: {actor.last_activity}</p>}
         </section>
 
-        <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+        <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
           <h2 className="font-display font-bold text-lg mb-3">Targets</h2>
-          <ul className="space-y-1 text-sm font-mono text-slate-600 dark:text-slate-400">
+          <ul className="space-y-1 text-sm font-mono text-muted">
             {actor.targets.map((t) => (
               <li key={t}>· {t}</li>
             ))}
@@ -115,7 +109,7 @@ export default function ActorDetail(): JSX.Element {
         </section>
       </div>
 
-      <section className="mb-8 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+      <section className="mb-8 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
         <h2 className="font-display font-bold text-lg mb-3">Malware &amp; Tools</h2>
         {actor.malware.length > 0 ? (
           <div className="flex flex-wrap gap-2">
@@ -135,7 +129,7 @@ export default function ActorDetail(): JSX.Element {
 
       <DiamondModelSection actor={actor} />
 
-      <section className="mb-8 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+      <section className="mb-8 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
         <h2 className="font-display font-bold text-lg mb-1 inline-flex items-center gap-2">
           <ShieldAlert size={18} className="text-rose-500" /> Linked CVEs
           {linkedCves && linkedCves.length > 0 && (
@@ -168,7 +162,7 @@ export default function ActorDetail(): JSX.Element {
         )}
       </section>
 
-      <section className="mb-8 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+      <section className="mb-8 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
         <h2 className="font-display font-bold text-lg mb-3">MITRE ATT&amp;CK Techniques</h2>
         <div className="flex flex-wrap gap-2">
           {actor.techniques.map((t) => (
@@ -186,7 +180,7 @@ export default function ActorDetail(): JSX.Element {
       </section>
 
       {actor.references && actor.references.length > 0 && (
-        <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+        <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
           <h2 className="font-display font-bold text-lg mb-3">References</h2>
           <ul className="space-y-2">
             {actor.references.map((r) => (

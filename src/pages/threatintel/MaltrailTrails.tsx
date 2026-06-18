@@ -82,7 +82,7 @@ export default function MaltrailTrails(): JSX.Element {
       loading={loading}
       error={error}
       headerExtra={
-        <p className="text-sm font-mono text-slate-600 dark:text-slate-400 max-w-3xl">
+        <p className="text-sm font-mono text-muted max-w-3xl">
           Curated APT IOC trail files from{' '}
           <a
             href="https://github.com/stamparm/maltrail"
@@ -115,7 +115,7 @@ export default function MaltrailTrails(): JSX.Element {
                     className={`w-full text-left px-2.5 py-2 rounded text-xs font-mono transition-colors truncate ${
                       selected === f.name
                         ? 'bg-brand-500/10 border border-brand-500/30 text-brand-700 dark:text-brand-300'
-                        : 'hover:bg-slate-100 dark:hover:bg-slate-950 border border-transparent text-slate-600 dark:text-slate-400'
+                        : 'hover:bg-slate-100 dark:hover:bg-slate-950 border border-transparent text-muted'
                     }`}
                   >
                     <div className="font-semibold truncate">{f.name.replace(/\.txt$/i, '')}</div>
@@ -161,7 +161,9 @@ export default function MaltrailTrails(): JSX.Element {
                   </div>
                 </div>
                 <div className="flex items-center gap-2 mt-2">
-                  <span className="text-mini font-mono text-slate-500 dark:text-slate-400">Actors: {content.actors.join(', ')}</span>
+                  <span className="text-mini font-mono text-slate-500 dark:text-slate-400">
+                    Actors: {content.actors.join(', ')}
+                  </span>
                 </div>
                 {content.truncated && (
                   <p className="text-mini font-mono text-amber-600 dark:text-amber-400 mt-2">
@@ -191,7 +193,7 @@ export default function MaltrailTrails(): JSX.Element {
                           <IocChip value={ioc.value} bare size="sm" pivots={false} className="min-w-0" />
                         </td>
                         <td className="px-4 py-1.5">
-                          <span className="text-micro uppercase bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 rounded px-1 py-0.5">
+                          <span className="text-micro uppercase bg-slate-100 dark:bg-slate-800 text-muted rounded px-1 py-0.5">
                             {ioc.type}
                           </span>
                         </td>

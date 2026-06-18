@@ -15,7 +15,7 @@ interface CertCardProps {
 function CertCard({ title, issuer, year, featured, type }: CertCardProps) {
   return (
     <div
-      className={`rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5 transition hover:border-brand-500/40 h-full flex flex-col ${
+      className={`rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5 transition hover:border-brand-500/40 h-full flex flex-col ${
         featured ? 'border-l-[3px] border-l-brand-500' : ''
       }`}
     >
@@ -23,7 +23,7 @@ function CertCard({ title, issuer, year, featured, type }: CertCardProps) {
         {type}
       </div>
       <div className="text-base font-semibold text-slate-900 dark:text-white leading-snug">{title}</div>
-      <div className="mt-1.5 text-xs text-slate-600 dark:text-slate-400">
+      <div className="mt-1.5 text-xs text-muted">
         {issuer} · {year}
       </div>
     </div>
@@ -127,12 +127,12 @@ export function Certifications({ certifications, education }: CertificationsProp
   }));
 
   return (
-    <section id="certifications" className="mt-20 scroll-mt-24">
+    <section id="certifications" className="scroll-mt-24">
       <div className="mb-10 max-w-2xl">
         <div className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400">
           Credentials
         </div>
-        <h2 className="font-display text-4xl sm:text-5xl font-bold tracking-tight text-slate-900 dark:text-white">
+        <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
           Education, certifications &amp; coursework
         </h2>
       </div>
@@ -146,10 +146,10 @@ export function Certifications({ certifications, education }: CertificationsProp
           {education.map((e) => (
             <li
               key={e.degree}
-              className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 px-5 py-4"
+              className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 px-5 py-4"
             >
               <div className="font-semibold text-slate-900 dark:text-white">{e.degree}</div>
-              <div className="text-sm text-slate-600 dark:text-slate-400">{e.school}</div>
+              <div className="text-sm text-muted">{e.school}</div>
             </li>
           ))}
         </ul>

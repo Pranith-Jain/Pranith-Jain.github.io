@@ -233,7 +233,7 @@ export default function ActorKb(): JSX.Element {
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -242,7 +242,7 @@ export default function ActorKb(): JSX.Element {
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-3 flex items-center gap-3">
           <Users size={28} className="text-brand-600 dark:text-brand-400" /> Threat-Actor Knowledge Base
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 mb-6 max-w-2xl">
+        <p className="text-muted mb-6 max-w-2xl">
           {actorKb.length} MITRE ATT&amp;CK intrusion-sets — aliases, tradecraft (TTPs by tactic) and tooling.
         </p>
       </div>
@@ -278,7 +278,9 @@ export default function ActorKb(): JSX.Element {
                 </a>
               </div>
               {selected.aliases.length > 0 && (
-                <p className="text-meta font-mono text-slate-500 dark:text-slate-400 mt-1">aka {selected.aliases.join(' · ')}</p>
+                <p className="text-meta font-mono text-slate-500 dark:text-slate-400 mt-1">
+                  aka {selected.aliases.join(' · ')}
+                </p>
               )}
               <p className="text-sm text-slate-700 dark:text-slate-300 mt-3 leading-relaxed">{selected.description}</p>
 
@@ -291,7 +293,7 @@ export default function ActorKb(): JSX.Element {
                     {selected.software.map((s) => (
                       <span
                         key={s}
-                        className="text-mini font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400"
+                        className="text-mini font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-slate-700 text-muted"
                       >
                         {s}
                       </span>
@@ -319,7 +321,7 @@ export default function ActorKb(): JSX.Element {
                               target="_blank"
                               rel="noopener noreferrer"
                               title={tech.name}
-                              className="text-mini font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-slate-600 dark:text-slate-400 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
+                              className="text-mini font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-muted hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
                             >
                               {tech.id} {tech.name}
                             </a>
@@ -371,7 +373,7 @@ export default function ActorKb(): JSX.Element {
                                 href={`/api/v1/maltrail/fetch?trail=${encodeURIComponent(t.filename)}`}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="text-mini font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-brand-500/40 inline-flex items-center gap-1"
+                                className="text-mini font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-slate-700 text-muted hover:border-brand-500/40 inline-flex items-center gap-1"
                               >
                                 {t.displayName} <ExternalLink size={10} />
                               </a>
@@ -391,7 +393,7 @@ export default function ActorKb(): JSX.Element {
                                 href={`https://otx.alienvault.com/pulse/${p.id}`}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="block text-mini font-mono px-1.5 py-1 rounded border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
+                                className="block text-mini font-mono px-1.5 py-1 rounded border border-slate-200 dark:border-slate-800 text-muted hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
                               >
                                 <span className="text-slate-900 dark:text-slate-100">{p.name}</span>
                                 {p.author && <span className="ml-2 text-slate-500">by {p.author}</span>}
@@ -503,7 +505,9 @@ export default function ActorKb(): JSX.Element {
             {syncError}
           </div>
         )}
-        {skeletonsLoading && <p className="text-xs font-mono text-slate-500 dark:text-slate-400">Loading skeleton actors…</p>}
+        {skeletonsLoading && (
+          <p className="text-xs font-mono text-slate-500 dark:text-slate-400">Loading skeleton actors…</p>
+        )}
         {!skeletonsLoading && skeletons.length === 0 && (
           <p className="text-xs font-mono text-slate-500 dark:text-slate-400">
             No skeleton actors yet — click <span className="text-brand-600 dark:text-brand-400">sync maltrail</span> to

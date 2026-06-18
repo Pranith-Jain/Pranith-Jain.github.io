@@ -122,7 +122,7 @@ export default function YaraManager(): JSX.Element {
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -132,7 +132,7 @@ export default function YaraManager(): JSX.Element {
           <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
             <ScrollText size={28} className="text-brand-600 dark:text-brand-400" /> YARA Rule Manager
           </h1>
-          <p className="text-slate-600 dark:text-slate-400">{rules.length} rules stored locally</p>
+          <p className="text-muted">{rules.length} rules stored locally</p>
         </div>
         <div className="flex items-center gap-2">
           <button
@@ -146,7 +146,7 @@ export default function YaraManager(): JSX.Element {
             <button
               type="button"
               onClick={exportAll}
-              className="inline-flex items-center gap-1.5 border border-slate-200 dark:border-slate-800 px-3 py-1.5 font-mono text-xs text-slate-600 dark:text-slate-400 transition-colors duration-enter hover:border-brand-500 hover:text-brand-600 dark:hover:text-brand-400"
+              className="inline-flex items-center gap-1.5 border border-slate-200 dark:border-slate-800 px-3 py-1.5 font-mono text-xs text-muted transition-colors duration-enter hover:border-brand-500 hover:text-brand-600 dark:hover:text-brand-400"
             >
               <FileDown className="h-3 w-3" /> export all
             </button>
@@ -168,7 +168,7 @@ export default function YaraManager(): JSX.Element {
 
       {filtered.length === 0 && (
         <div className="border border-slate-200 dark:border-slate-800 p-8 text-center">
-          <p className="font-mono text-sm text-slate-600 dark:text-slate-400">
+          <p className="font-mono text-sm text-muted">
             {rules.length === 0 ? 'No rules yet. Create one to get started.' : 'No rules match your filter.'}
           </p>
         </div>
@@ -185,9 +185,7 @@ export default function YaraManager(): JSX.Element {
                     {rule.category}
                   </span>
                 </div>
-                {rule.description && (
-                  <p className="text-xs text-slate-600 dark:text-slate-400 mt-0.5">{rule.description}</p>
-                )}
+                {rule.description && <p className="text-xs text-muted mt-0.5">{rule.description}</p>}
               </div>
               <div className="flex items-center gap-1 shrink-0">
                 <button
@@ -261,7 +259,7 @@ export default function YaraManager(): JSX.Element {
               <summary className="px-4 py-2 font-mono text-micro text-slate-500 dark:text-slate-400 cursor-pointer hover:text-slate-900 dark:text-slate-100 transition-colors select-none">
                 rule source ({rule.rule.split('\n').length} lines)
               </summary>
-              <pre className="px-4 pb-3 pt-1 overflow-x-auto text-mini font-mono text-slate-600 dark:text-slate-400 leading-relaxed whitespace-pre">
+              <pre className="px-4 pb-3 pt-1 overflow-x-auto text-mini font-mono text-muted leading-relaxed whitespace-pre">
                 {rule.rule}
               </pre>
             </details>
@@ -422,7 +420,7 @@ function RansomwareIntelPanels(): JSX.Element {
                   >
                     {a.group}
                   </button>
-                  <span className="text-slate-600 dark:text-slate-400 truncate flex-1 min-w-0" title={a.victim}>
+                  <span className="text-muted truncate flex-1 min-w-0" title={a.victim}>
                     {a.victim}
                   </span>
                   {a.date && <span className="text-slate-400 text-micro">{a.date.slice(0, 10)}</span>}

@@ -80,7 +80,7 @@ const VERDICT_META: Record<string, { icon: typeof Shield; color: string; bg: str
   },
   unknown: {
     icon: HelpCircle,
-    color: 'text-slate-600 dark:text-slate-400',
+    color: 'text-muted',
     bg: 'border-slate-500/30 bg-slate-500/10',
     label: 'UNKNOWN',
   },
@@ -161,7 +161,7 @@ export default function SupplyChainIntelligence(): JSX.Element {
     <div className="max-w-6xl mx-auto px-4 py-8">
       <BackLink
         to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-6 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-6 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -170,7 +170,7 @@ export default function SupplyChainIntelligence(): JSX.Element {
         <Shield className="w-7 h-7 text-emerald-500" />
         <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100">Supply Chain Intelligence</h1>
       </div>
-      <p className="text-slate-600 dark:text-slate-400 mb-6 text-sm max-w-3xl leading-relaxed">
+      <p className="text-muted mb-6 text-sm max-w-3xl leading-relaxed">
         Malicious package & supply-chain intelligence — powered by{' '}
         <a
           href="https://github.com/ossf/malicious-packages"
@@ -202,7 +202,7 @@ export default function SupplyChainIntelligence(): JSX.Element {
       </p>
 
       {/* ── Package Verdict Checker ────────────────────────────────────── */}
-      <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/50 p-6 mb-8">
+      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/50 p-6 mb-8">
         <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-4 flex items-center gap-2">
           <Search className="w-5 h-5 text-brand-500" /> Package Verdict Checker
         </h2>
@@ -303,7 +303,7 @@ export default function SupplyChainIntelligence(): JSX.Element {
             {verdict.advisories.length > 0 && (
               <div className="mt-3 space-y-1">
                 {verdict.advisories.slice(0, 5).map((a) => (
-                  <div key={a.id} className="text-xs text-slate-600 dark:text-slate-400 flex items-center gap-2">
+                  <div key={a.id} className="text-xs text-muted flex items-center gap-2">
                     <span className="font-mono text-slate-400">{a.id}</span>
                     <span className="truncate">{a.summary}</span>
                     {a.withdrawn && <span className="text-amber-500">(withdrawn)</span>}
@@ -316,7 +316,7 @@ export default function SupplyChainIntelligence(): JSX.Element {
       </section>
 
       {/* ── OSSF Malicious Packages Directory ──────────────────────────── */}
-      <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/50 p-6">
+      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/50 p-6">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
             <Bug className="w-5 h-5 text-rose-500" /> OSSF Malicious Packages

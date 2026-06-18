@@ -55,7 +55,7 @@ export default function MalpediaPage(): JSX.Element {
 
   const headerExtra = (
     <div>
-      <p className="text-sm font-mono text-slate-600 dark:text-slate-400 mb-5 max-w-3xl">
+      <p className="text-sm font-mono text-muted mb-5 max-w-3xl">
         Malware family attribution lookup powered by{' '}
         <a
           href="https://malpedia.caad.fkie.fraunhofer.de/"
@@ -77,7 +77,7 @@ export default function MalpediaPage(): JSX.Element {
               className={`px-3 py-1.5 rounded text-xs font-mono font-semibold transition-colors ${
                 mode === m
                   ? 'bg-brand-600 text-white'
-                  : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700'
+                  : 'bg-slate-100 dark:bg-slate-800 text-muted hover:bg-slate-200 dark:hover:bg-slate-700'
               }`}
             >
               {m === 'search' ? 'Search all' : m === 'actor' ? 'Actor lookup' : 'Family lookup'}

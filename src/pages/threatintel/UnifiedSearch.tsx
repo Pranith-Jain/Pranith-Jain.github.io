@@ -253,7 +253,7 @@ export default function UnifiedSearch(): JSX.Element {
         <div className="mb-4 rounded-lg border border-brand-200/60 dark:border-brand-800/40 bg-brand-50/40 dark:bg-brand-950/10 p-3">
           <div className="mb-2 flex items-center gap-2">
             <Zap size={14} className="text-brand-600 dark:text-brand-400" />
-            <span className="text-mini font-mono text-slate-600 dark:text-slate-400">
+            <span className="text-mini font-mono text-muted">
               Detected {IOC_TYPE_LABEL[detected.type]} — quick actions
             </span>
           </div>

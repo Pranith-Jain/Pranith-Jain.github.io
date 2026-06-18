@@ -421,7 +421,7 @@ export default function XWatch(): JSX.Element {
       {authStatus?.configured && <XClaimsPanel />}
 
       {authStatus && !authStatus.configured && (
-        <section className="rounded-2xl border border-amber-300 dark:border-amber-800 bg-amber-50/60 dark:bg-amber-950/40 p-5 mb-6">
+        <section className="rounded-lg border border-amber-300 dark:border-amber-800 bg-amber-50/60 dark:bg-amber-950/40 p-5 mb-6">
           <div className="flex items-start gap-2">
             <Settings size={16} className="text-amber-700 dark:text-amber-300 shrink-0 mt-0.5" />
             <div>
@@ -474,7 +474,7 @@ export default function XWatch(): JSX.Element {
                           ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
                           : dim
                             ? 'border-slate-300/40 dark:border-slate-700/40 text-slate-500 opacity-50'
-                            : 'border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-brand-500/40'
+                            : 'border-slate-300 dark:border-slate-700 text-muted hover:border-brand-500/40'
                       }`}
                       title={
                         count !== undefined
@@ -522,7 +522,7 @@ export default function XWatch(): JSX.Element {
                   className={`inline-flex items-center gap-1 text-xs font-mono px-2 py-1 rounded border transition-colors ${
                     active === h
                       ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                      : 'border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-brand-500/40'
+                      : 'border-slate-300 dark:border-slate-700 text-muted hover:border-brand-500/40'
                   }`}
                 >
                   <button type="button" onClick={() => setActive(h)}>
@@ -561,7 +561,7 @@ export default function XWatch(): JSX.Element {
           >
             <Plus size={11} /> add
           </button>
-          <label className="inline-flex items-center gap-1 text-mini font-mono text-slate-600 dark:text-slate-400">
+          <label className="inline-flex items-center gap-1 text-mini font-mono text-muted">
             window:
             <select
               value={sinceDays}
@@ -575,7 +575,7 @@ export default function XWatch(): JSX.Element {
               ))}
             </select>
           </label>
-          <label className="inline-flex items-center gap-1 text-mini font-mono text-slate-600 dark:text-slate-400 cursor-pointer">
+          <label className="inline-flex items-center gap-1 text-mini font-mono text-muted cursor-pointer">
             <input
               type="checkbox"
               checked={includeReplies}
@@ -584,7 +584,7 @@ export default function XWatch(): JSX.Element {
             />
             replies
           </label>
-          <label className="inline-flex items-center gap-1 text-mini font-mono text-slate-600 dark:text-slate-400 cursor-pointer">
+          <label className="inline-flex items-center gap-1 text-mini font-mono text-muted cursor-pointer">
             <input
               type="checkbox"
               checked={includePinned}
@@ -604,7 +604,7 @@ export default function XWatch(): JSX.Element {
         </div>
       </div>
 
-      <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+      <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
         <div className="flex flex-wrap items-start justify-between gap-3 mb-4">
           <div>
             <h2 className="text-xl font-display font-bold inline-flex items-center gap-2">

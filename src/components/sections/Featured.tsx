@@ -7,7 +7,7 @@ interface FeaturedProps {
 
 export function Featured({ featuredArticles }: FeaturedProps) {
   return (
-    <section id="featured" className="mt-20 scroll-mt-24">
+    <section id="featured" className="scroll-mt-24">
       {/* Header — section contains external interviews and expert
           profiles ABOUT me, not original writing BY me. The previous
           heading ("Where the work shows up / Recognition") could be
@@ -15,13 +15,13 @@ export function Featured({ featuredArticles }: FeaturedProps) {
           distinction explicit. Authored writing lives in the
           "Recent writing" section above. */}
       <div className="mb-10 max-w-3xl">
-        <div className="mb-3 text-eyebrow font-bold uppercase text-brand-600 dark:text-brand-400">
+        <div className="mb-3 text-eyebrow font-mono uppercase text-slate-500 dark:text-slate-400">
           External coverage
         </div>
-        <h2 className="font-display text-4xl sm:text-5xl font-bold tracking-tight text-slate-900 dark:text-white">
+        <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
           Press &amp; interviews
         </h2>
-        <p className="mt-4 text-lg text-slate-600 dark:text-slate-400">
+        <p className="mt-3 text-base sm:text-lg text-muted">
           Where security publications have profiled the work, in their words rather than mine.
         </p>
       </div>
@@ -34,7 +34,7 @@ export function Featured({ featuredArticles }: FeaturedProps) {
             href={sanitizeUrl(article.url)}
             target="_blank"
             rel="noreferrer"
-            className="group flex flex-col gap-5 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 transition hover:border-brand-500/40 h-full"
+            className="group flex flex-col gap-5 p-6 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 transition hover:border-brand-500/40 h-full"
           >
             <div className="flex items-center justify-between">
               <div
@@ -60,7 +60,7 @@ export function Featured({ featuredArticles }: FeaturedProps) {
               <h3 className="text-xl font-bold text-slate-900 dark:text-white group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
                 {article.title}
               </h3>
-              <p className="mt-3 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{article.description}</p>
+              <p className="mt-3 text-sm text-muted leading-relaxed">{article.description}</p>
               <div className="mt-6 flex items-center gap-2 text-xs font-bold text-slate-500">
                 <span>{article.source}</span>
                 <span>•</span>

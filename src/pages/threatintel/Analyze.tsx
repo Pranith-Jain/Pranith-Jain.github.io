@@ -297,7 +297,7 @@ export default function Analyze(): JSX.Element {
               />
             </div>
           </div>
-          <div className="flex flex-wrap items-center gap-x-6 gap-y-1 font-mono text-sm text-slate-600 dark:text-slate-400">
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-1 font-mono text-sm text-muted">
             <span>
               score: <span className="font-semibold text-slate-900 dark:text-slate-100">{summary.score}</span> / 100
             </span>
@@ -432,7 +432,7 @@ export default function Analyze(): JSX.Element {
                           </div>
                         </td>
                         <td className="px-3 py-2.5">
-                          <span className="text-meta font-mono text-slate-600 dark:text-slate-400 line-clamp-1">
+                          <span className="text-meta font-mono text-muted line-clamp-1">
                             {r.status === 'error'
                               ? (r.error ?? r.error_code ?? 'error')
                               : r.status === 'unsupported'
@@ -460,7 +460,7 @@ export default function Analyze(): JSX.Element {
                                       ? 'bg-rose-500/15 text-rose-700 dark:text-rose-300 border-rose-500/30'
                                       : r.error_code === 'timeout' || r.error_code === 'network'
                                         ? 'bg-amber-500/15 text-amber-700 dark:text-amber-300 border-amber-500/30'
-                                        : 'bg-slate-500/15 text-slate-600 dark:text-slate-400 border-slate-500/30'
+                                        : 'bg-slate-500/15 text-muted border-slate-500/30'
                                 }`}
                               >
                                 {r.error_code}

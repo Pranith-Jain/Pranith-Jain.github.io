@@ -541,7 +541,7 @@ export function CommandPalette(): JSX.Element | null {
       />
 
       {/* Modal */}
-      <div className="relative w-full max-w-2xl rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-2xl overflow-hidden">
+      <div className="relative w-full max-w-2xl rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-2xl overflow-hidden">
         <div className="flex items-center gap-3 px-4 py-3 border-b border-slate-200 dark:border-slate-800">
           <Search size={18} className="text-slate-500 dark:text-slate-400 shrink-0" aria-hidden="true" />
           <input

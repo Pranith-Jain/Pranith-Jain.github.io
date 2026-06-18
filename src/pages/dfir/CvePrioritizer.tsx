@@ -270,14 +270,14 @@ export default function CvePrioritizer(): JSX.Element {
     <div className="max-w-4xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
 
       <div className="animate-fade-in-up">
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2">CVE Exploit Prioritizer</h1>
-        <p className="text-slate-600 dark:text-slate-400 mb-3 max-w-2xl">
+        <p className="text-muted mb-3 max-w-2xl">
           Paste CVE IDs (any format — IDs are extracted). Each is enriched with NVD CVSS + FIRST EPSS + CISA KEV (incl.
           known-ransomware) + public PoC count + named-actor attribution and reduced to a single verdict, a 0-100 score,
           and a CVSS vector breakdown. CVSS alone over-prioritises — KEV + EPSS + PoCs + actor attribution + asset
@@ -473,7 +473,7 @@ export default function CvePrioritizer(): JSX.Element {
 
                       {/* Top-line signal row */}
                       {r.data && (
-                        <div className="flex flex-wrap gap-x-4 gap-y-1 mt-2 text-meta font-mono text-slate-600 dark:text-slate-400">
+                        <div className="flex flex-wrap gap-x-4 gap-y-1 mt-2 text-meta font-mono text-muted">
                           <span>
                             CVSS{' '}
                             <span className="text-slate-900 dark:text-slate-100">
@@ -582,11 +582,7 @@ export default function CvePrioritizer(): JSX.Element {
                         </p>
                       )}
 
-                      {r.verdict?.why && (
-                        <p className="text-sm text-slate-600 dark:text-slate-400 mt-2 leading-relaxed">
-                          {r.verdict.why}
-                        </p>
-                      )}
+                      {r.verdict?.why && <p className="text-sm text-muted mt-2 leading-relaxed">{r.verdict.why}</p>}
 
                       {r.data && (
                         <button
@@ -684,9 +680,7 @@ export default function CvePrioritizer(): JSX.Element {
                                 <summary className="text-mini font-mono text-slate-500 cursor-pointer">
                                   NVD description
                                 </summary>
-                                <p className="mt-1 text-meta text-slate-600 dark:text-slate-400 leading-relaxed">
-                                  {r.data.description}
-                                </p>
+                                <p className="mt-1 text-meta text-muted leading-relaxed">{r.data.description}</p>
                               </details>
                             )}
                           </div>

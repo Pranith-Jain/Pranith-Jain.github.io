@@ -76,7 +76,7 @@ export default function PhishingWordlists(): JSX.Element {
     <div className="max-w-4xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -85,7 +85,7 @@ export default function PhishingWordlists(): JSX.Element {
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
           <FileSearch size={28} className="text-brand-600 dark:text-brand-400" /> Phishing hunting wordlists
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 mb-2 max-w-3xl leading-relaxed">
+        <p className="text-muted mb-2 max-w-3xl leading-relaxed">
           Fuzzing wordlists (Gobuster / ffuf) for hunting exposed credential dumps, admin panels, and webshells on
           phishing infrastructure — the filenames threat actors use to stash stolen creds and campaign data. Pairs with
           open-directory / exposed-host hunting. Sourced from{' '}
@@ -174,7 +174,7 @@ export default function PhishingWordlists(): JSX.Element {
           <button
             type="button"
             onClick={() => setVisible((v) => v + 200)}
-            className="mt-3 w-full rounded-lg border border-slate-200 dark:border-slate-800 py-2 font-mono text-meta text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+            className="mt-3 w-full rounded-lg border border-slate-200 dark:border-slate-800 py-2 font-mono text-meta text-muted hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
           >
             Show more ({(filtered.length - visible).toLocaleString()} remaining)
           </button>

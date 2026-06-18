@@ -24,9 +24,9 @@ const TAG_COLORS: Record<string, string> = {
   config: 'text-amber-600 dark:text-amber-400 border-amber-300/50 dark:border-amber-500/30',
   tunnel: 'text-sky-600 dark:text-sky-400 border-sky-300/50 dark:border-sky-500/30',
   scanner: 'text-sky-600 dark:text-sky-400 border-sky-300/50 dark:border-sky-500/30',
-  history: 'text-slate-600 dark:text-slate-400 border-slate-300/50 dark:border-slate-600/40',
-  'source-code': 'text-slate-600 dark:text-slate-400 border-slate-300/50 dark:border-slate-600/40',
-  archive: 'text-slate-600 dark:text-slate-400 border-slate-300/50 dark:border-slate-600/40',
+  history: 'text-muted border-slate-300/50 dark:border-slate-600/40',
+  'source-code': 'text-muted border-slate-300/50 dark:border-slate-600/40',
+  archive: 'text-muted border-slate-300/50 dark:border-slate-600/40',
 };
 
 /** Map a risk tag to the most relevant MITRE ATT&CK technique. */
@@ -56,7 +56,7 @@ function formatSize(bytes?: number): string {
 }
 
 function TagBadge({ tag }: { tag: string }): JSX.Element {
-  const color = TAG_COLORS[tag] ?? 'text-slate-600 dark:text-slate-400 border-slate-300/50 dark:border-slate-600/40';
+  const color = TAG_COLORS[tag] ?? 'text-muted border-slate-300/50 dark:border-slate-600/40';
   return <span className={`font-mono text-micro px-1.5 py-0.5 rounded border ${color}`}>{tag}</span>;
 }
 
@@ -130,7 +130,7 @@ function ArtifactRow({ artifact }: { artifact: HostArtifact }): JSX.Element {
                     <span className="text-rose-600 dark:text-rose-400 border border-rose-300/50 dark:border-rose-500/30 rounded px-1.5 py-0.5">
                       {mitre.id}
                     </span>{' '}
-                    <span className="text-slate-600 dark:text-slate-400">{mitre.name}</span>
+                    <span className="text-muted">{mitre.name}</span>
                   </dd>
                 </div>
               )}

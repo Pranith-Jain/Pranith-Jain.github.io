@@ -367,7 +367,7 @@ export default function ThreatMap(): JSX.Element {
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -376,7 +376,7 @@ export default function ThreatMap(): JSX.Element {
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
           <Globe size={28} className="text-brand-600 dark:text-brand-400" /> Cyber Threat Map
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 mb-8 max-w-3xl">
+        <p className="text-muted mb-8 max-w-3xl">
           Live distribution of malicious infrastructure across IPs, URLs, domains, and file hashes. Sources: URLhaus,
           ThreatFox, Ipsum (3+ source consensus), CINS Army, Bitwire, and MalwareBazaar. IPs are geolocated and
           aggregated by country; URLs / domains / hashes appear in dedicated panels. Refreshes hourly, real data.
@@ -401,7 +401,7 @@ export default function ThreatMap(): JSX.Element {
 
       {data && (
         <>
-          <header className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs font-mono text-slate-600 dark:text-slate-400 mb-6">
+          <header className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs font-mono text-muted mb-6">
             <span>
               <span
                 className="text-slate-900 dark:text-slate-100 text-base font-bold tabular-nums"
@@ -517,7 +517,7 @@ export default function ThreatMap(): JSX.Element {
 
             {/* Leaderboard */}
             <aside className="space-y-3">
-              <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400">
+              <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
                 Top origins
               </h3>
               <ul className="space-y-1.5">
@@ -579,7 +579,7 @@ export default function ThreatMap(): JSX.Element {
                     <span className="text-slate-500 dark:text-slate-400 text-xs font-mono">({selected.alpha2})</span>
                   </h3>
                   {selectedAgg ? (
-                    <p className="text-xs font-mono text-slate-600 dark:text-slate-400 mt-1">
+                    <p className="text-xs font-mono text-muted mt-1">
                       <span className="font-semibold text-slate-900 dark:text-slate-100">{selectedAgg.count}</span>{' '}
                       malicious IPs · sources:{' '}
                       {Object.entries(selectedAgg.sources)
@@ -627,7 +627,7 @@ export default function ThreatMap(): JSX.Element {
           {/* Recent IPs (geolocated) */}
           {data.samples.length > 0 && (
             <section className="mt-8">
-              <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 mb-3">
+              <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-3">
                 Recent IPs
               </h3>
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-2">
@@ -802,7 +802,7 @@ function SourcesBreakdown({ sourceCounts, iocTypes, totalIps }: SourcesBreakdown
   return (
     <section className="mt-6 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 sm:p-5">
       <div className="flex flex-wrap items-baseline justify-between gap-2 mb-3">
-        <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400">
+        <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
           Sources contributing to this snapshot
         </h3>
         <span className="text-mini font-mono text-slate-500 tabular-nums">
@@ -839,7 +839,7 @@ function SourcesBreakdown({ sourceCounts, iocTypes, totalIps }: SourcesBreakdown
               </span>
             </div>
             <div className="flex items-baseline justify-between gap-2 text-meta font-mono">
-              <span className="text-slate-600 dark:text-slate-400 truncate" title={r.meta.desc}>
+              <span className="text-muted truncate" title={r.meta.desc}>
                 {r.meta.desc || '—'}
               </span>
               <span className="text-brand-600 dark:text-brand-400 font-bold tabular-nums shrink-0">
@@ -876,7 +876,7 @@ function IocTypeBreakdown({ ipsCount, buckets }: { ipsCount: number; buckets: Io
   return (
     <section className="mt-6 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 sm:p-5">
       <div className="flex flex-wrap items-baseline justify-between gap-2 mb-3">
-        <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400">
+        <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
           IOC type breakdown
         </h3>
         <span className="text-mini font-mono text-slate-500 tabular-nums">

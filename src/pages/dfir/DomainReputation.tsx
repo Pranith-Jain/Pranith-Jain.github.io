@@ -123,7 +123,7 @@ export default function DomainReputation(): JSX.Element {
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -131,7 +131,7 @@ export default function DomainReputation(): JSX.Element {
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
           <Globe size={28} className="text-brand-600 dark:text-brand-400" /> Domain & IP Reputation
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 mb-8 max-w-2xl">
+        <p className="text-muted mb-8 max-w-2xl">
           Check a domain or IP against <strong>26+ DNSBL sources</strong> (Spamhaus, Barracuda, SORBS, URIBL, CBL,
           SURBL, and more) via server-side DNS resolution. Resolves A records and checks every resolved IP. No API key
           required.
@@ -205,7 +205,7 @@ export default function DomainReputation(): JSX.Element {
                 style={{ width: `${Math.max(2, results.score)}%` }}
               />
             </div>
-            <p className="text-sm font-mono text-slate-600 dark:text-slate-400">
+            <p className="text-sm font-mono text-muted">
               {listedCount > 0 ? (
                 <>
                   <span className="text-rose-500 font-semibold">{listedCount}</span> of {totalChecks} sources flag this{' '}
@@ -223,7 +223,7 @@ export default function DomainReputation(): JSX.Element {
           {/* Domain Blacklists */}
           {results.domain && results.domain.length > 0 && (
             <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
-              <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-3">
+              <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
                 Domain blacklists ({results.domain.length})
               </h3>
               <div className="flex flex-wrap gap-2">
@@ -271,26 +271,26 @@ export default function DomainReputation(): JSX.Element {
           <div className="flex gap-2 flex-wrap">
             <Link
               to={`/dfir/email-rep?domain=${encodeURIComponent(clean)}`}
-              className="inline-flex items-center gap-1 text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:border-brand-500/40"
+              className="inline-flex items-center gap-1 text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-slate-800 text-muted hover:border-brand-500/40"
             >
               <ExternalLink size={10} /> Email Reputation
             </Link>
             <Link
               to={`/dfir/url-rep?url=${encodeURIComponent(isIp ? `http://${clean}` : `https://${clean}`)}`}
-              className="inline-flex items-center gap-1 text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:border-brand-500/40"
+              className="inline-flex items-center gap-1 text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-slate-800 text-muted hover:border-brand-500/40"
             >
               <ExternalLink size={10} /> URL Reputation
             </Link>
             <Link
               to={`/dfir/ioc-check?indicator=${encodeURIComponent(clean)}`}
-              className="inline-flex items-center gap-1 text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:border-brand-500/40"
+              className="inline-flex items-center gap-1 text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-slate-800 text-muted hover:border-brand-500/40"
             >
               <ExternalLink size={10} /> IOC Checker
             </Link>
             {!isIp && (
               <Link
                 to={`/threatintel/domain-monitor?domain=${encodeURIComponent(clean)}`}
-                className="inline-flex items-center gap-1 text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:border-brand-500/40"
+                className="inline-flex items-center gap-1 text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-slate-800 text-muted hover:border-brand-500/40"
               >
                 <ExternalLink size={10} /> Domain Monitor
               </Link>
@@ -299,7 +299,7 @@ export default function DomainReputation(): JSX.Element {
 
           {/* External Tools */}
           <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
-            <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-3 inline-flex items-center gap-2">
+            <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3 inline-flex items-center gap-2">
               <BookOpen size={12} aria-hidden="true" /> External reputation lookups
             </h3>
             <p className="text-mini font-mono text-slate-500 mb-3">

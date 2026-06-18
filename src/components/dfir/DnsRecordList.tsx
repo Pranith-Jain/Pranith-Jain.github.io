@@ -4,7 +4,7 @@ const ORDER = ['A', 'AAAA', 'MX', 'NS', 'CNAME', 'TXT', 'SOA', 'CAA'] as const;
 
 export function DnsRecordList({ dns }: { dns: DomainLookupResponse['dns'] }): JSX.Element {
   return (
-    <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+    <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
       <h3 className="font-display font-bold text-lg mb-3">DNS Records</h3>
       <div className="space-y-3">
         {ORDER.map((t) => {

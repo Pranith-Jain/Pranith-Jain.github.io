@@ -411,7 +411,7 @@ export default function F3ead(): JSX.Element {
                   </div>
                   <div className="relative mt-2">
                     <h3 className="text-base font-semibold text-slate-900 dark:text-slate-100">{p.name}</h3>
-                    <p className="text-xs text-slate-600 dark:text-slate-400 mt-0.5">{p.short}</p>
+                    <p className="text-xs text-muted mt-0.5">{p.short}</p>
                   </div>
                 </button>
                 {/* Loop arrow back to Find on the last card. */}
@@ -440,7 +440,7 @@ export default function F3ead(): JSX.Element {
                     <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100">
                       {p.number}. {p.name} &mdash; {p.short}
                     </h3>
-                    <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">{p.description}</p>
+                    <p className="text-sm text-muted mt-1">{p.description}</p>
                     <dl className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2 text-xs">
                       <div>
                         <dt className="font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">Who</dt>
@@ -513,7 +513,7 @@ export default function F3ead(): JSX.Element {
           <h2 className="text-xl font-display font-semibold text-slate-800 dark:text-slate-200">
             Walk an incident through F3EAD
           </h2>
-          <p className="text-sm text-slate-600 dark:text-slate-400 mt-1 max-w-3xl">
+          <p className="text-sm text-muted mt-1 max-w-3xl">
             A 6-step click-through using the Lazarus / Copperhedge sample already in the platform's
             <Link to="/threatintel/ai-report" className="text-brand-600 dark:text-brand-400 hover:underline mx-1">
               AI Report showcase
@@ -536,7 +536,7 @@ export default function F3ead(): JSX.Element {
                   className={`inline-flex items-center gap-1.5 rounded border px-2 py-1 text-[11px] font-mono transition-colors ${
                     active
                       ? 'border-brand-400 bg-brand-50 dark:bg-brand-950/40 text-brand-700 dark:text-brand-300'
-                      : 'border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-slate-600 dark:text-slate-400 hover:border-slate-300 dark:hover:border-slate-700'
+                      : 'border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-muted hover:border-slate-300 dark:hover:border-slate-700'
                   }`}
                 >
                   <span className="opacity-70">{phase.number}</span>
@@ -556,7 +556,7 @@ export default function F3ead(): JSX.Element {
                 Step {walkStep + 1} of {WALK.length} &middot; {currentPhase.name}
               </p>
               <h3 className="text-base font-semibold text-slate-900 dark:text-slate-100 mt-0.5">{currentWalk.title}</h3>
-              <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">{currentWalk.prompt}</p>
+              <p className="text-sm text-muted mt-1">{currentWalk.prompt}</p>
             </div>
           </div>
 
@@ -606,7 +606,7 @@ export default function F3ead(): JSX.Element {
           <h2 className="text-xl font-display font-semibold text-slate-800 dark:text-slate-200">
             F3EAD vs. the other frameworks on the platform
           </h2>
-          <p className="text-sm text-slate-600 dark:text-slate-400 mt-1 max-w-3xl">
+          <p className="text-sm text-muted mt-1 max-w-3xl">
             F3EAD is a <strong>process</strong> framework. It does not replace ATT&CK, the Kill Chain, or Diamond; it
             sits beside them as the loop that turns their outputs into action.
           </p>
@@ -667,7 +667,7 @@ export default function F3ead(): JSX.Element {
                       <ExternalLink className="h-3 w-3" />
                     </Link>
                   </td>
-                  <td className="px-3 py-2 text-slate-600 dark:text-slate-400 text-xs">{row.note}</td>
+                  <td className="px-3 py-2 text-muted text-xs">{row.note}</td>
                 </tr>
               ))}
             </tbody>
@@ -681,7 +681,7 @@ export default function F3ead(): JSX.Element {
           <BookOpen className="h-4 w-4 text-slate-500" />
           <h2 className="text-base font-semibold text-slate-800 dark:text-slate-200">References</h2>
         </header>
-        <ul className="space-y-1.5 text-xs text-slate-600 dark:text-slate-400">
+        <ul className="space-y-1.5 text-xs text-muted">
           <li>
             <strong className="text-slate-800 dark:text-slate-200">FM 3-05.40 (Army Special Operations Forces)</strong>{' '}
             &mdash; the doctrinal origin of the F2T2EA / F3EAD targeting cycle.

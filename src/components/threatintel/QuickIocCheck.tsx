@@ -102,7 +102,7 @@ export default function QuickIocCheck() {
                               r.error_code === 'unauthorized' ||
                               r.error_code === 'forbidden'
                             ? 'text-rose-700 dark:text-rose-300 border-rose-500/30'
-                            : 'text-slate-600 dark:text-slate-400 border-slate-500/30'
+                            : 'text-muted border-slate-500/30'
                       }`}
                       title={r.error ?? ''}
                     >

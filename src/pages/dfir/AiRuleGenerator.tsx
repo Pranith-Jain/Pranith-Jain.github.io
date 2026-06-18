@@ -232,7 +232,7 @@ export default function AiRuleGenerator(): JSX.Element {
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -241,7 +241,7 @@ export default function AiRuleGenerator(): JSX.Element {
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
           <Wand2 size={28} className="text-brand-600 dark:text-brand-400" /> AI Rule Generator
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed">
+        <p className="text-muted max-w-2xl leading-relaxed">
           Describe a detection in plain English and generate syntactically valid rules in 10 formats. Powered by Workers
           AI with Groq fallback.
         </p>
@@ -272,7 +272,7 @@ export default function AiRuleGenerator(): JSX.Element {
                         className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-mono border transition-colors ${
                           ruleType === rt.type
                             ? 'border-brand-500/60 bg-brand-500/10 text-brand-600 dark:text-brand-400'
-                            : 'border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-brand-500/30'
+                            : 'border-slate-200 dark:border-slate-700 text-muted hover:border-brand-500/30'
                         }`}
                       >
                         {rt.icon} {rt.label}
@@ -487,7 +487,7 @@ export default function AiRuleGenerator(): JSX.Element {
               {result.testing_notes && (
                 <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5">
                   <h2 className="font-display font-bold text-sm mb-2">Testing Notes</h2>
-                  <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{result.testing_notes}</p>
+                  <p className="text-sm text-muted leading-relaxed">{result.testing_notes}</p>
                 </div>
               )}
             </>

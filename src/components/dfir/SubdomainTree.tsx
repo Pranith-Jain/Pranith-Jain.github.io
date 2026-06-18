@@ -2,7 +2,7 @@ import type { ExposureScanResponse } from '../../lib/dfir/types';
 
 export function SubdomainTree({ subdomains }: { subdomains: ExposureScanResponse['subdomains'] }): JSX.Element {
   if (subdomains.length === 0) {
-    return <p className="font-mono text-sm text-slate-600 dark:text-slate-400">No subdomains seen in CT logs.</p>;
+    return <p className="font-mono text-sm text-muted">No subdomains seen in CT logs.</p>;
   }
   return (
     <ul className="space-y-2">
@@ -13,14 +13,14 @@ export function SubdomainTree({ subdomains }: { subdomains: ExposureScanResponse
         >
           <div className="flex items-center justify-between">
             <span className="font-mono text-sm text-slate-900 dark:text-slate-100">{s.name}</span>
-            <span className="font-mono text-xs text-slate-600 dark:text-slate-400">
+            <span className="font-mono text-xs text-muted">
               {s.ips.length} IP{s.ips.length === 1 ? '' : 's'}
             </span>
           </div>
           {s.ips.length > 0 && <div className="mt-1 font-mono text-xs text-slate-500">{s.ips.join(' · ')}</div>}
           {s.shodan?.status === 'ok' && (
             <div className="mt-2 font-mono text-xs">
-              <span className="text-slate-600 dark:text-slate-400">ports: </span>
+              <span className="text-muted">ports: </span>
               <span className="text-slate-900 dark:text-slate-100">
                 {(s.shodan.raw_summary.ports ?? []).slice(0, 8).join(', ') || '—'}
               </span>

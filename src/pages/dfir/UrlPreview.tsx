@@ -144,14 +144,14 @@ export default function UrlPreview(): JSX.Element {
     <div className="max-w-4xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
 
       <div className="animate-fade-in-up">
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2">URL Preview</h1>
-        <p className="text-slate-600 dark:text-slate-400 mb-8 max-w-2xl">
+        <p className="text-muted mb-8 max-w-2xl">
           Fetch metadata from a URL server-side. Get title, meta description, Open Graph, and Twitter Card tags. No
           JavaScript execution, no rendering.
         </p>
@@ -195,7 +195,7 @@ export default function UrlPreview(): JSX.Element {
         )}
       </form>
 
-      {loading && <p className="font-mono text-slate-600 dark:text-slate-400">Fetching metadata…</p>}
+      {loading && <p className="font-mono text-muted">Fetching metadata…</p>}
       {error && (
         <p role="alert" className="font-mono text-rose-600 dark:text-rose-400">
           error: {error}
@@ -205,7 +205,7 @@ export default function UrlPreview(): JSX.Element {
       {result && (
         <div className="space-y-5">
           {/* Header */}
-          <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+          <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
             <div className="flex flex-wrap items-center gap-3 mb-3">
               <StatusBadge status={result.status} />
               {result.content_type && (
@@ -263,7 +263,7 @@ export default function UrlPreview(): JSX.Element {
 
           {/* Redirect blocked */}
           {result.redirect_blocked && (
-            <section className="rounded-2xl border border-amber-200 dark:border-amber-800 bg-amber-50 dark:bg-amber-900/10 p-6">
+            <section className="rounded-lg border border-amber-200 dark:border-amber-800 bg-amber-50 dark:bg-amber-900/10 p-6">
               <h3 className="font-display font-semibold text-lg mb-2 text-amber-800 dark:text-amber-300">
                 Redirect Blocked
               </h3>
@@ -271,7 +271,7 @@ export default function UrlPreview(): JSX.Element {
                 The redirect target was blocked by the SSRF guard — it resolves to a private or reserved IP.
               </p>
               {result.redirect_blocked.location && (
-                <div className="mt-2 text-sm font-mono text-slate-600 dark:text-slate-400">
+                <div className="mt-2 text-sm font-mono text-muted">
                   Location:{' '}
                   <span className="text-slate-800 dark:text-slate-200">{result.redirect_blocked.location}</span>
                 </div>
@@ -281,7 +281,7 @@ export default function UrlPreview(): JSX.Element {
 
           {/* Page title */}
           {result.title && (
-            <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+            <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
               <div className="text-xs uppercase tracking-wider text-slate-500 font-mono mb-1">Page Title</div>
               <p className="text-slate-900 dark:text-slate-100 font-semibold">{result.title}</p>
             </section>
@@ -289,7 +289,7 @@ export default function UrlPreview(): JSX.Element {
 
           {/* Meta description */}
           {result.description && (
-            <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+            <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
               <div className="text-xs uppercase tracking-wider text-slate-500 font-mono mb-1">Meta Description</div>
               <p className="text-slate-700 dark:text-slate-300 text-sm">{result.description}</p>
             </section>
@@ -297,7 +297,7 @@ export default function UrlPreview(): JSX.Element {
 
           {/* Site basics: favicon, lang, charset, feeds */}
           {(result.favicon || result.lang || result.charset || (result.feeds && result.feeds.length > 0)) && (
-            <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+            <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
               <div className="text-xs uppercase tracking-wider text-slate-500 font-mono mb-3">Site</div>
               <div className="flex flex-wrap items-center gap-3 text-sm font-mono">
                 {result.favicon && (
@@ -355,7 +355,7 @@ export default function UrlPreview(): JSX.Element {
 
           {/* urlscan.io — most recent existing public scan */}
           {result.urlscan && (
-            <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+            <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
               <div className="flex items-center justify-between mb-3">
                 <h3 className="font-display font-semibold text-lg">urlscan.io</h3>
                 <a
@@ -412,7 +412,7 @@ export default function UrlPreview(): JSX.Element {
 
           {/* Other meta */}
           {result.meta && Object.values(result.meta).some(Boolean) && (
-            <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+            <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
               <div className="text-xs uppercase tracking-wider text-slate-500 font-mono mb-3">Other Meta</div>
               <div className="grid sm:grid-cols-2 gap-3 font-mono text-sm">
                 {(
@@ -438,7 +438,7 @@ export default function UrlPreview(): JSX.Element {
 
           {/* Canonical */}
           {result.canonical && (
-            <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+            <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
               <div className="text-xs uppercase tracking-wider text-slate-500 font-mono mb-1">Canonical URL</div>
               <a
                 href={sanitizeUrl(result.canonical)}
@@ -453,7 +453,7 @@ export default function UrlPreview(): JSX.Element {
 
           {/* Open Graph */}
           {hasOgData(result.og) && (
-            <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+            <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
               <h3 className="font-display font-semibold text-lg mb-4">Open Graph</h3>
               {result.og?.image && (
                 <div className="mb-4">
@@ -502,7 +502,7 @@ export default function UrlPreview(): JSX.Element {
 
           {/* Twitter Card */}
           {hasTwitterData(result.twitter) && (
-            <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+            <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
               <h3 className="font-display font-semibold text-lg mb-4">Twitter Card</h3>
               {result.twitter?.image && (
                 <div className="mb-4">

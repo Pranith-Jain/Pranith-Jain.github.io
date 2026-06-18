@@ -88,13 +88,14 @@ function MarketCard({ m }: { m: PredictionMarket }): JSX.Element {
           className="text-slate-400 opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0 mt-0.5"
         />
       </div>
-      <p className="text-sm font-medium text-slate-800 dark:text-slate-200 leading-snug mb-4 line-clamp-3" title={m.question}>
+      <p
+        className="text-sm font-medium text-slate-800 dark:text-slate-200 leading-snug mb-4 line-clamp-3"
+        title={m.question}
+      >
         {m.question}
       </p>
       <div className="flex items-center justify-between text-xs mb-1.5">
-        <span className="font-mono text-slate-500 dark:text-slate-400">
-          {top ? `${top.name} ${pct}%` : `${pct}%`}
-        </span>
+        <span className="font-mono text-slate-500 dark:text-slate-400">{top ? `${top.name} ${pct}%` : `${pct}%`}</span>
         <span className="font-mono text-slate-400 dark:text-slate-500">{formatVolume(m.volume)} vol</span>
       </div>
       <div className="h-1.5 w-full rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
@@ -151,7 +152,7 @@ export default function Predictions(): JSX.Element {
             className={`px-3 py-1.5 rounded-lg text-xs font-mono border transition-colors ${
               active
                 ? 'border-brand-500 bg-brand-50 dark:bg-brand-500/10 text-brand-700 dark:text-brand-300'
-                : 'border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-slate-400 dark:hover:border-slate-600'
+                : 'border-slate-300 dark:border-slate-700 text-muted hover:border-slate-400 dark:hover:border-slate-600'
             }`}
           >
             {b === 'all' ? 'All' : BUCKET_META[b].label} ({count})

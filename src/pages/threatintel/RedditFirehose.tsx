@@ -130,7 +130,7 @@ export default function RedditFirehose(): JSX.Element {
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -139,7 +139,7 @@ export default function RedditFirehose(): JSX.Element {
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
           <MessageSquare size={28} className="text-brand-600 dark:text-brand-400" /> Cybersec Reddit firehose
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 mb-2 max-w-3xl leading-relaxed">
+        <p className="text-muted mb-2 max-w-3xl leading-relaxed">
           Curated stream from active public cybersec subreddits. Research, advisories, IR write-ups, malware analysis,
           OSINT, and CTI threads. Same shape as the Telegram firehose. Click a post title to open the Reddit thread.
         </p>
@@ -273,9 +273,7 @@ export default function RedditFirehose(): JSX.Element {
                   <ExternalLink size={11} className="text-slate-400 shrink-0" />
                 </div>
                 {it.text && (
-                  <p className="text-meta font-mono text-slate-600 dark:text-slate-400 leading-relaxed line-clamp-2 mb-1.5">
-                    {it.text}
-                  </p>
+                  <p className="text-meta font-mono text-muted leading-relaxed line-clamp-2 mb-1.5">{it.text}</p>
                 )}
                 <div className="text-mini font-mono text-slate-500 flex items-center gap-2 flex-wrap">
                   <span className={`px-1.5 py-0.5 rounded border ${TOPIC_PILL[it.sub_topic]}`}>{it.sub_label}</span>
@@ -292,7 +290,7 @@ export default function RedditFirehose(): JSX.Element {
           <button
             type="button"
             onClick={() => setVisible((v) => v + 60)}
-            className="mt-3 w-full rounded-lg border border-slate-200 dark:border-slate-800 py-2 font-mono text-meta text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+            className="mt-3 w-full rounded-lg border border-slate-200 dark:border-slate-800 py-2 font-mono text-meta text-muted hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
           >
             Show more ({filtered.length - visible} remaining)
           </button>

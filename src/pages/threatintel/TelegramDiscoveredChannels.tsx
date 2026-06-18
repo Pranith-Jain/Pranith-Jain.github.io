@@ -95,7 +95,7 @@ export default function TelegramDiscoveredChannels(): JSX.Element {
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -128,7 +128,7 @@ export default function TelegramDiscoveredChannels(): JSX.Element {
             </button>
           </div>
         </div>
-        <p className="text-slate-600 dark:text-slate-400 mb-6 max-w-3xl leading-relaxed">
+        <p className="text-muted mb-6 max-w-3xl leading-relaxed">
           Channels auto-discovered from messages in monitored feeds and bot-subscribed chats. <strong>Approve</strong>{' '}
           to add a channel to the watchlist for leak scanning, or <strong>reject</strong> to dismiss it — rejected
           channels are remembered and won&apos;t be surfaced again.

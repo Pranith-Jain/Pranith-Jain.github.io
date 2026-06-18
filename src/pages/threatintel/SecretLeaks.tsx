@@ -185,7 +185,7 @@ export default function SecretLeaks(): JSX.Element {
       <div className="max-w-7xl mx-auto">
         <BackLink
           to="/threatintel"
-          className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+          className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
         >
           <ArrowLeft size={14} /> back to Threat Intel
         </BackLink>
@@ -202,7 +202,7 @@ export default function SecretLeaks(): JSX.Element {
               </span>
             )}
           </div>
-          <p className="text-slate-600 dark:text-slate-400 mb-2 max-w-3xl">
+          <p className="text-muted mb-2 max-w-3xl">
             Real-time monitoring of exposed API keys, tokens, and credentials in public repositories. Inspired by{' '}
             <a
               href="https://x3r0day.me/WebShame/"
@@ -260,10 +260,10 @@ export default function SecretLeaks(): JSX.Element {
                     The Mission
                   </p>
                   <h2 className="text-xl font-display font-bold mb-3">Visibility that helps teams defend fast.</h2>
-                  <p className="text-sm text-slate-600 dark:text-slate-400 mb-4">
+                  <p className="text-sm text-muted mb-4">
                     We surface public metadata so defenders can respond quickly without retaining code.
                   </p>
-                  <ul className="space-y-2 text-sm text-slate-600 dark:text-slate-400">
+                  <ul className="space-y-2 text-sm text-muted">
                     {[
                       'Secrets leak to public repos daily.',
                       'Attackers exploit instantly. Visibility enables defense.',
@@ -293,7 +293,7 @@ export default function SecretLeaks(): JSX.Element {
                       <span className="text-xs font-mono font-semibold text-brand-600 dark:text-brand-400 w-24 flex-shrink-0">
                         {item.label}
                       </span>
-                      <span className="text-sm text-slate-600 dark:text-slate-400">{item.desc}</span>
+                      <span className="text-sm text-muted">{item.desc}</span>
                     </div>
                   ))}
                 </div>
@@ -345,7 +345,7 @@ export default function SecretLeaks(): JSX.Element {
                     <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100 group-hover:text-brand-600 dark:group-hover:text-brand-400">
                       RedHunt Labs Research
                     </h3>
-                    <p className="mt-1 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                    <p className="mt-1 text-xs text-muted leading-relaxed">
                       Open-source security tools from RedHunt Labs (Datasploit, BucketLoot, Octopii, KubeStalk, RedHunt
                       OS and more), plus the Project Resonance internet-wide research initiative. Many of their tools
                       are directly relevant to secret-leak and exposure research.
@@ -369,7 +369,7 @@ export default function SecretLeaks(): JSX.Element {
                     <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100 group-hover:text-brand-600 dark:group-hover:text-brand-400">
                       research.redhuntlabs.com
                     </h3>
-                    <p className="mt-1 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                    <p className="mt-1 text-xs text-muted leading-relaxed">
                       The canonical RedHunt Labs Research site. ASM, Project Resonance, downloadable datasets, and the
                       full tools catalog.
                     </p>
@@ -390,7 +390,7 @@ export default function SecretLeaks(): JSX.Element {
                     <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100 group-hover:text-brand-600 dark:group-hover:text-brand-400">
                       RedHunt Internet Insights
                     </h3>
-                    <p className="mt-1 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                    <p className="mt-1 text-xs text-muted leading-relaxed">
                       Live internet-wide exposure dashboard — 7.6B+ subdomains, 11B+ commits, 14M+ secrets, and 6-week
                       growth charts across GitHub, GitLab, BitBucket, DockerHub, APKs, and Postman. Auto-refreshes every
                       minute.
@@ -580,7 +580,7 @@ export default function SecretLeaks(): JSX.Element {
                       type="button"
                       disabled={page <= 1}
                       onClick={() => setPage((p) => Math.max(1, p - 1))}
-                      className="px-3 py-1.5 text-xs font-mono border border-slate-200 dark:border-slate-700 rounded text-slate-600 dark:text-slate-400 hover:border-brand-500/40 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+                      className="px-3 py-1.5 text-xs font-mono border border-slate-200 dark:border-slate-700 rounded text-muted hover:border-brand-500/40 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
                     >
                       Prev
                     </button>
@@ -588,7 +588,7 @@ export default function SecretLeaks(): JSX.Element {
                       type="button"
                       disabled={page >= totalPages}
                       onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
-                      className="px-3 py-1.5 text-xs font-mono border border-slate-200 dark:border-slate-700 rounded text-slate-600 dark:text-slate-400 hover:border-brand-500/40 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+                      className="px-3 py-1.5 text-xs font-mono border border-slate-200 dark:border-slate-700 rounded text-muted hover:border-brand-500/40 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
                     >
                       Next
                     </button>

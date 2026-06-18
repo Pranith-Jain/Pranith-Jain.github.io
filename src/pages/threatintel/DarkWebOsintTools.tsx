@@ -186,9 +186,7 @@ export default function DarkWebOsintTools(): JSX.Element {
                 </span>
               </div>
             )}
-            <p className="text-meta font-mono text-slate-600 dark:text-slate-400 leading-relaxed mb-2">
-              {t.description}
-            </p>
+            <p className="text-meta font-mono text-muted leading-relaxed mb-2">{t.description}</p>
             <div className="flex flex-wrap items-center gap-1.5">
               <button
                 type="button"

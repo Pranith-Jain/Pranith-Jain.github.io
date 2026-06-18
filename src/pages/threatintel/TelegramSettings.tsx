@@ -76,7 +76,7 @@ export default function TelegramSettings(): JSX.Element {
     <div className="max-w-3xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -85,7 +85,7 @@ export default function TelegramSettings(): JSX.Element {
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
           <ExternalLink size={28} className="text-brand-600 dark:text-brand-400" /> Telegram channel settings
         </h1>
-        <p className="text-sm font-mono text-slate-600 dark:text-slate-400 mt-1">
+        <p className="text-sm font-mono text-muted mt-1">
           Add public Telegram channels to monitor. They will appear alongside the curated channels on the Telegram feed.
           Enter the channel handle without the @ prefix. Channels must have public{' '}
           <code className="text-xs">t.me/s/</code> preview enabled.

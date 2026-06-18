@@ -90,7 +90,7 @@ export default function SourceReliability(): JSX.Element {
                     <span className="text-sm font-medium">{s.name}</span>
                     <span className="text-micro font-mono text-slate-400">({s.id})</span>
                   </div>
-                  <p className="text-xs text-slate-600 dark:text-slate-400 mt-0.5">{s.description}</p>
+                  <p className="text-xs text-muted mt-0.5">{s.description}</p>
                   {s.known_bias && (
                     <p className="text-micro font-mono text-amber-600 dark:text-amber-400 mt-1">Bias: {s.known_bias}</p>
                   )}

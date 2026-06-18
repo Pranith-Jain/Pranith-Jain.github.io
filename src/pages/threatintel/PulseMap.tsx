@@ -250,9 +250,7 @@ export default function PulseMap({ markers, onMarkerClick }: PulseMapProps): JSX
               {selectedMarker.title && (
                 <p className="text-sm font-semibold text-slate-900 dark:text-white">{selectedMarker.title}</p>
               )}
-              {selectedMarker.description && (
-                <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">{selectedMarker.description}</p>
-              )}
+              {selectedMarker.description && <p className="text-xs text-muted mt-1">{selectedMarker.description}</p>}
               <div className="flex items-center gap-3 mt-2">
                 <span
                   className="text-micro font-mono capitalize"
@@ -289,9 +287,7 @@ export default function PulseMap({ markers, onMarkerClick }: PulseMapProps): JSX
 
       {/* Marker count overlay */}
       <div className="absolute bottom-2 left-2 bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm rounded-md px-2 py-1 border border-slate-200 dark:border-slate-700">
-        <span className="text-micro font-mono text-slate-600 dark:text-slate-400">
-          {markers.length} points · Click for details
-        </span>
+        <span className="text-micro font-mono text-muted">{markers.length} points · Click for details</span>
       </div>
     </div>
   );

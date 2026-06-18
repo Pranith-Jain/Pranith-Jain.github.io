@@ -139,7 +139,7 @@ export default function Owasp(): JSX.Element {
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -148,7 +148,7 @@ export default function Owasp(): JSX.Element {
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
           <ShieldCheck size={28} className="text-brand-600 dark:text-brand-400" /> OWASP Top 10
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 mb-8 max-w-3xl">
+        <p className="text-muted mb-8 max-w-3xl">
           Reference for the three current authoritative OWASP lists: Web (2021), API (2023), and LLM (2025). Each item
           gives the definition, a concrete attack example, and a code-level mitigation. Click an item's{' '}
           <span className="font-mono">unset</span> chip to mark it{' '}
@@ -182,7 +182,7 @@ export default function Owasp(): JSX.Element {
       </div>
 
       {/* Stats */}
-      <section className="mb-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+      <section className="mb-6 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
         <div className="flex flex-wrap items-baseline justify-between gap-4">
           <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1 text-xs font-mono">
             <span className="text-slate-500">Coverage:</span>
@@ -240,7 +240,7 @@ export default function Owasp(): JSX.Element {
                     <span className="font-mono text-xs text-slate-500">{it.id}</span>
                     <h3 className="font-display font-semibold text-slate-900 dark:text-slate-100">{it.title}</h3>
                   </div>
-                  <p className="text-sm text-slate-600 dark:text-slate-400 mt-1 leading-relaxed">{it.summary}</p>
+                  <p className="text-sm text-muted mt-1 leading-relaxed">{it.summary}</p>
                 </button>
               </header>
               {isExpanded && (

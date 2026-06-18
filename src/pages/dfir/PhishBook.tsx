@@ -437,7 +437,7 @@ export default function PhishBook(): JSX.Element {
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -446,7 +446,7 @@ export default function PhishBook(): JSX.Element {
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
           <BookOpen size={28} className="text-brand-600 dark:text-brand-400" /> PHISHBOOK
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed">
+        <p className="text-muted max-w-2xl leading-relaxed">
           Phishing Incident Response Playbook — decision trees, enrichment tools, query templates, and escalation
           criteria across 9 investigation phases.
         </p>
@@ -515,7 +515,7 @@ export default function PhishBook(): JSX.Element {
 
               {open && (
                 <div className="px-5 pb-6 space-y-6 animate-fade-in-up">
-                  <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{phase.description}</p>
+                  <p className="text-sm text-muted leading-relaxed">{phase.description}</p>
 
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                     <div>
@@ -570,7 +570,7 @@ export default function PhishBook(): JSX.Element {
                             <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 flex-shrink-0 mt-0.5">
                               L1
                             </span>
-                            <span className="text-slate-600 dark:text-slate-400">{phase.escalationL1.join(', ')}</span>
+                            <span className="text-muted">{phase.escalationL1.join(', ')}</span>
                           </div>
                         )}
                         {phase.escalationL2.length > 0 && (
@@ -578,7 +578,7 @@ export default function PhishBook(): JSX.Element {
                             <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 flex-shrink-0 mt-0.5">
                               L2
                             </span>
-                            <span className="text-slate-600 dark:text-slate-400">{phase.escalationL2.join(', ')}</span>
+                            <span className="text-muted">{phase.escalationL2.join(', ')}</span>
                           </div>
                         )}
                         {phase.escalationL3.length > 0 && (
@@ -586,7 +586,7 @@ export default function PhishBook(): JSX.Element {
                             <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-rose-100 dark:bg-rose-900/30 text-rose-700 dark:text-rose-400 flex-shrink-0 mt-0.5">
                               L3
                             </span>
-                            <span className="text-slate-600 dark:text-slate-400">{phase.escalationL3.join(', ')}</span>
+                            <span className="text-muted">{phase.escalationL3.join(', ')}</span>
                           </div>
                         )}
                       </div>

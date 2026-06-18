@@ -118,9 +118,7 @@ export function SocShell({
             {title}
             <SocStatusBadge status={status} />
           </h1>
-          {description && (
-            <p className="text-slate-600 dark:text-slate-400 mt-2 max-w-3xl leading-relaxed">{description}</p>
-          )}
+          {description && <p className="text-muted mt-2 max-w-3xl leading-relaxed">{description}</p>}
           {meta && <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mt-2">{meta}</p>}
         </div>
 

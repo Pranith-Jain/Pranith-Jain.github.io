@@ -54,7 +54,7 @@ function ProfileCard({ profile, platform }: { profile: IdentityProfile; platform
               <CatIcon size={10} /> {CATEGORY_LABELS[platform.category] ?? platform.category}
             </span>
           </div>
-          <div className="text-mini font-mono text-slate-600 dark:text-slate-400 mt-1 leading-relaxed line-clamp-2">
+          <div className="text-mini font-mono text-muted mt-1 leading-relaxed line-clamp-2">
             {profile.bio ?? 'No bio'}
           </div>
           <div className="flex items-center gap-3 mt-1.5 text-micro font-mono text-slate-500 flex-wrap">
@@ -142,7 +142,7 @@ export default function IdentityLookup(): JSX.Element {
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -151,7 +151,7 @@ export default function IdentityLookup(): JSX.Element {
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
           <Search size={28} className="text-brand-600 dark:text-brand-400" /> Identity Lookup
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 mb-2 leading-relaxed">
+        <p className="text-muted mb-2 leading-relaxed">
           Look up a username across {PLATFORMS.length} platforms and see profile details — avatar, bio, followers,
           repos. All checks run from your browser against public APIs.
         </p>
@@ -198,7 +198,7 @@ export default function IdentityLookup(): JSX.Element {
         <>
           <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
             <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
-              <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono flex items-center gap-2">
+              <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono flex items-center gap-2">
                 <Globe size={14} /> Profiles for <span className="text-slate-900 dark:text-slate-100">@{query}</span>
               </h2>
               <span className="text-mini font-mono text-slate-500">
@@ -211,7 +211,7 @@ export default function IdentityLookup(): JSX.Element {
                 className={`text-mini font-mono px-2 py-1 rounded border transition-colors ${
                   categoryFilter === 'all'
                     ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                    : 'border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-brand-500/40'
+                    : 'border-slate-300 dark:border-slate-700 text-muted hover:border-brand-500/40'
                 }`}
               >
                 All ({PLATFORMS.length})
@@ -226,7 +226,7 @@ export default function IdentityLookup(): JSX.Element {
                     className={`text-mini font-mono px-2 py-1 rounded border transition-colors inline-flex items-center gap-1 ${
                       categoryFilter === cat
                         ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                        : 'border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-brand-500/40'
+                        : 'border-slate-300 dark:border-slate-700 text-muted hover:border-brand-500/40'
                     }`}
                   >
                     <CatIcon size={11} /> {CATEGORY_LABELS[cat] ?? cat} <span className="opacity-60">· {count}</span>
@@ -267,10 +267,10 @@ export default function IdentityLookup(): JSX.Element {
       )}
 
       <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
-        <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-2">
+        <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-2">
           Notes
         </h2>
-        <ul className="space-y-1.5 text-sm font-mono text-slate-600 dark:text-slate-400 list-disc pl-5">
+        <ul className="space-y-1.5 text-sm font-mono text-muted list-disc pl-5">
           <li>
             Each platform is checked via its public API — no auth keys, no server proxy. Data is what the API returns.
           </li>

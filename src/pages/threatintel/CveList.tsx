@@ -53,7 +53,7 @@ const SEVERITY_PILL: Record<RecentCve['severity'], string> = {
 const ORIGIN_PILL: Record<RecentCve['origin'], { label: string; cls: string; tooltip: string }> = {
   nvd: {
     label: 'NVD',
-    cls: 'border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400',
+    cls: 'border-slate-300 dark:border-slate-700 text-muted',
     tooltip: 'Canonical NIST National Vulnerability Database entry',
   },
   kev: {
@@ -165,7 +165,7 @@ export default function CveList(): JSX.Element {
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -174,7 +174,7 @@ export default function CveList(): JSX.Element {
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
           <ShieldAlert size={28} className="text-brand-600 dark:text-brand-400" /> Live CVE updates
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 mb-2 max-w-3xl leading-relaxed">
+        <p className="text-muted mb-2 max-w-3xl leading-relaxed">
           Up to <strong>1,500 CVEs newly published in the last 30 days</strong> (NVD) merged with{' '}
           <strong>CISA KEV</strong> additions, <strong>MyThreatIntel</strong> alerts, and{' '}
           <strong>cvefeed.io high-severity</strong> RSS as gap-fillers. NVD reports ~5,500 CVEs per 30-day window — this
@@ -394,9 +394,7 @@ export default function CveList(): JSX.Element {
                     </span>
                   </div>
                 </div>
-                <p className="text-meta font-mono text-slate-600 dark:text-slate-400 leading-relaxed">
-                  {c.description}
-                </p>
+                <p className="text-meta font-mono text-muted leading-relaxed">{c.description}</p>
                 {c.reference && (
                   <a
                     href={sanitizeUrl(c.reference) || undefined}

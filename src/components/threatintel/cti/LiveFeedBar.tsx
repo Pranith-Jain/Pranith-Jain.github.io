@@ -14,7 +14,7 @@ const KIND_BADGE: Record<string, string> = {
   ip: 'bg-brand-500/10 text-brand-700 dark:text-brand-300',
   url: 'bg-sky-500/10 text-sky-700 dark:text-sky-300',
   domain: 'bg-amber-500/10 text-amber-700 dark:text-amber-300',
-  hash: 'bg-slate-500/10 text-slate-600 dark:text-slate-400',
+  hash: 'bg-slate-500/10 text-muted',
 };
 
 /* ─── Time formatting ──────────────────────────────────────────────────── */
@@ -46,9 +46,7 @@ export default function LiveFeedBar({ items }: LiveFeedBarProps): JSX.Element {
       >
         <div className="flex items-center gap-2">
           <Radio size={12} className="text-rose-500 animate-pulse" />
-          <span className="text-micro font-mono uppercase tracking-[0.15em] text-slate-600 dark:text-slate-400">
-            Live Feed
-          </span>
+          <span className="text-micro font-mono uppercase tracking-[0.15em] text-muted">Live Feed</span>
           <span className="text-micro font-mono text-slate-400">({items.length})</span>
         </div>
         {collapsed ? (

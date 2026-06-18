@@ -181,7 +181,7 @@ export default function Writeups(): JSX.Element {
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-6 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-6 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-6 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -340,9 +340,7 @@ export default function Writeups(): JSX.Element {
                   <ExternalLink size={12} className="text-slate-400 shrink-0 mt-1" />
                 </div>
                 {it.description && (
-                  <p className="text-tool text-slate-600 dark:text-slate-400 leading-relaxed mb-2 line-clamp-3">
-                    {it.description}
-                  </p>
+                  <p className="text-tool text-muted leading-relaxed mb-2 line-clamp-3">{it.description}</p>
                 )}
                 <div className="flex items-center gap-2 text-mini font-mono text-slate-500 flex-wrap">
                   <span className={`px-1.5 py-0.5 rounded border ${KIND_PILL[it.kind]}`}>{it.source}</span>
@@ -353,10 +351,7 @@ export default function Writeups(): JSX.Element {
                   {it.tags && it.tags.length > 0 && (
                     <span className="flex flex-wrap gap-1 ml-1">
                       {it.tags.slice(0, 4).map((t) => (
-                        <span
-                          key={t}
-                          className="px-1 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400"
-                        >
+                        <span key={t} className="px-1 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-muted">
                           {t}
                         </span>
                       ))}

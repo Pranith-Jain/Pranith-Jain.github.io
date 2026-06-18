@@ -168,7 +168,7 @@ export default function Socmint(): JSX.Element {
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -177,7 +177,7 @@ export default function Socmint(): JSX.Element {
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
           <Users size={28} className="text-brand-600 dark:text-brand-400" /> SOCMINT Pivots
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 mb-2 max-w-3xl leading-relaxed">
+        <p className="text-muted mb-2 max-w-3xl leading-relaxed">
           Paste an email, domain, username, handle, or name. You get a categorised list of OSINT lookup links across
           breach, B2B contact databases (ZoomInfo, Apollo, Hunter, RocketReach…), social, dev, paste-site dorks,
           search-engine dorks, identity, and infra. URL-only; no scraping.
@@ -276,7 +276,7 @@ export default function Socmint(): JSX.Element {
             <button
               type="button"
               onClick={() => void copyAll()}
-              className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-brand-500/40 inline-flex items-center gap-1"
+              className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-slate-700 text-muted hover:border-brand-500/40 inline-flex items-center gap-1"
             >
               {copied === 'all' ? <Check size={11} /> : <Clipboard size={11} />}
               {copied === 'all' ? 'copied URLs' : 'copy all URLs'}

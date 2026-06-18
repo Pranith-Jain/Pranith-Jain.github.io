@@ -95,7 +95,7 @@ export default function SandboxIntegration(): JSX.Element {
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -104,7 +104,7 @@ export default function SandboxIntegration(): JSX.Element {
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
           <Upload size={28} className="text-brand-600 dark:text-brand-400" /> Sandbox Integration
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed">
+        <p className="text-muted max-w-2xl leading-relaxed">
           Query multiple sandbox and malware analysis platforms with a single hash. Get consensus verdicts, behavioral
           analysis, and family attribution.
         </p>
@@ -115,7 +115,7 @@ export default function SandboxIntegration(): JSX.Element {
         {['VirusTotal', 'MalwareBazaar', 'ANY.RUN', 'Triage', 'Hybrid Analysis', 'Joe Sandbox', 'OTX'].map((s) => (
           <span
             key={s}
-            className="px-2.5 py-1 rounded-lg text-xs font-mono border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400"
+            className="px-2.5 py-1 rounded-lg text-xs font-mono border border-slate-200 dark:border-slate-700 text-muted"
           >
             {s}
           </span>
@@ -172,7 +172,7 @@ export default function SandboxIntegration(): JSX.Element {
                 {result.consensus.verdict}
               </span>
             </div>
-            <div className="text-sm text-slate-600 dark:text-slate-400">
+            <div className="text-sm text-muted">
               {result.consensus.sources_agreeing} of {result.results.length} sources agree · Confidence:{' '}
               {result.consensus.confidence}%
             </div>
@@ -209,7 +209,7 @@ export default function SandboxIntegration(): JSX.Element {
                     )}
                   </div>
                 </div>
-                {r.summary && <p className="text-xs text-slate-600 dark:text-slate-400 mb-2">{r.summary}</p>}
+                {r.summary && <p className="text-xs text-muted mb-2">{r.summary}</p>}
                 {r.families && r.families.length > 0 && (
                   <div className="flex flex-wrap gap-1 mb-2">
                     {r.families.map((f, j) => (

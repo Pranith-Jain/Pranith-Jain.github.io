@@ -180,9 +180,7 @@ export function TodaysRead(): JSX.Element {
             <p className="text-sm font-medium text-slate-900 dark:text-slate-100 leading-snug mb-1.5 line-clamp-3">
               {latestResearch.title}
             </p>
-            <p className="text-meta text-slate-600 dark:text-slate-400 leading-relaxed line-clamp-2">
-              {latestResearch.excerpt}
-            </p>
+            <p className="text-meta text-muted leading-relaxed line-clamp-2">{latestResearch.excerpt}</p>
             <div className="mt-auto pt-2.5 inline-flex items-center gap-1 text-mini font-mono text-brand-600 dark:text-brand-400 group-hover:underline">
               read · {latestResearch.readingTime} <ArrowRight size={11} />
             </div>
@@ -205,7 +203,7 @@ export function TodaysRead(): JSX.Element {
               <p className="text-sm font-medium text-slate-900 dark:text-slate-100 leading-snug mb-1.5">
                 {det.rule_name}
               </p>
-              <p className="text-meta text-slate-600 dark:text-slate-400 leading-relaxed">
+              <p className="text-meta text-muted leading-relaxed">
                 {det.match_count.toLocaleString()} indicators matched · {det.severity} severity
               </p>
             </>
@@ -242,7 +240,7 @@ export function TodaysRead(): JSX.Element {
                 {ransom.primary}
                 <span className="text-sm font-mono text-slate-500 ml-2">claims</span>
               </p>
-              <p className="text-meta text-slate-600 dark:text-slate-400 leading-relaxed">{ransom.secondary}</p>
+              <p className="text-meta text-muted leading-relaxed">{ransom.secondary}</p>
             </>
           )}
           <div className="mt-auto pt-2.5 inline-flex items-center gap-1 text-mini font-mono text-rose-700 dark:text-rose-400 group-hover:underline">

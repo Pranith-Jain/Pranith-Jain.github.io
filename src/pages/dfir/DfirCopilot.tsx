@@ -195,7 +195,7 @@ export default function DfirCopilot(): JSX.Element {
                   setQuery(ex.label);
                   investigate(ex.label);
                 }}
-                className="text-xs font-mono px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+                className="text-xs font-mono px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-800 text-muted hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
               >
                 {ex.label} <span className="text-slate-400 ml-1">({ex.type})</span>
               </button>
@@ -228,7 +228,7 @@ export default function DfirCopilot(): JSX.Element {
                 {Math.round(result.consensus.confidence * 100)}% confidence
               </span>
             </div>
-            <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{result.narrative}</p>
+            <p className="text-sm text-muted leading-relaxed">{result.narrative}</p>
           </div>
 
           {/* Per-source results */}
@@ -289,7 +289,7 @@ export default function DfirCopilot(): JSX.Element {
               </h3>
               <ul className="space-y-1.5">
                 {result.recommendations.map((r, i) => (
-                  <li key={i} className="flex items-start gap-2 text-sm text-slate-600 dark:text-slate-400">
+                  <li key={i} className="flex items-start gap-2 text-sm text-muted">
                     <span className="text-brand-600 dark:text-brand-400 mt-0.5">→</span>
                     {r}
                   </li>

@@ -216,7 +216,7 @@ export default function BreachForums(): JSX.Element {
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -225,7 +225,7 @@ export default function BreachForums(): JSX.Element {
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
           <ShieldAlert size={28} className="text-brand-600 dark:text-brand-400" /> Breach / leak-forum tracker
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 mb-2 max-w-3xl leading-relaxed">
+        <p className="text-muted mb-2 max-w-3xl leading-relaxed">
           A directory of criminal forums and dark markets (community-maintained deepdarkCTI list) plus a curated set of
           notable breach/leak forums. This is <strong>intelligence about</strong> these venues — names, status, public
           OSINT coverage, and historical status deltas.
@@ -312,9 +312,7 @@ export default function BreachForums(): JSX.Element {
                           OSINT coverage <ExternalLink size={9} />
                         </a>
                       ) : (
-                        <code className="font-mono text-mini text-slate-600 dark:text-slate-400 break-all">
-                          {r.url}
-                        </code>
+                        <code className="font-mono text-mini text-muted break-all">{r.url}</code>
                       )}
                       <button
                         type="button"
@@ -338,7 +336,7 @@ export default function BreachForums(): JSX.Element {
         <h2 id="status-deltas" className="text-xl font-display font-semibold mb-2 flex items-center gap-2">
           <History size={18} className="text-brand-600 dark:text-brand-400" /> Recent status changes
         </h2>
-        <p className="text-slate-600 dark:text-slate-400 text-sm mb-4 max-w-3xl leading-relaxed">
+        <p className="text-muted text-sm mb-4 max-w-3xl leading-relaxed">
           Hourly diff against the deepdarkCTI snapshot. First-observations, removals, and status transitions only —
           no-op snapshots are dropped. Persisted by the scheduled Worker, not reconstructed on each read.
         </p>
@@ -402,7 +400,7 @@ export default function BreachForums(): JSX.Element {
         <h2 id="osint-coverage" className="text-xl font-display font-semibold mb-2 flex items-center gap-2">
           <Newspaper size={18} className="text-brand-600 dark:text-brand-400" /> OSINT coverage
         </h2>
-        <p className="text-slate-600 dark:text-slate-400 text-sm mb-4 max-w-3xl leading-relaxed">
+        <p className="text-muted text-sm mb-4 max-w-3xl leading-relaxed">
           Headlines from 8 public cybersecurity news sites (DarkWebInformer, DataBreaches.net, BleepingComputer, The
           Record, Threatpost, HackRead, SecurityWeek, CyberScoop) ranked by keyword density and recency. No forum links,
           no leak dumps — just the press.
@@ -441,9 +439,7 @@ export default function BreachForums(): JSX.Element {
                       {it.source_name || shortSourceId(it.source_id)}
                     </span>
                   </div>
-                  {it.snippet && (
-                    <p className="text-meta text-slate-600 dark:text-slate-400 mt-1 leading-relaxed">{it.snippet}</p>
-                  )}
+                  {it.snippet && <p className="text-meta text-muted mt-1 leading-relaxed">{it.snippet}</p>}
                   <p className="font-mono text-micro text-slate-500 mt-1">{formatTimestamp(it.pubDate)}</p>
                 </li>
               ))}
@@ -457,7 +453,7 @@ export default function BreachForums(): JSX.Element {
         <h2 id="forum-mentions" className="text-xl font-display font-semibold mb-2 flex items-center gap-2">
           <Radio size={18} className="text-brand-600 dark:text-brand-400" /> Forum mentions in OSINT
         </h2>
-        <p className="text-slate-600 dark:text-slate-400 text-sm mb-4 max-w-3xl leading-relaxed">
+        <p className="text-muted text-sm mb-4 max-w-3xl leading-relaxed">
           Tight filter — only headlines that name a specific leak forum (BreachForums, Leakbase, Cracked, XSS, Dread,
           Sinisterly, Exploit, etc.). Useful for spotting law-enforcement seizures and successor-site chatter.
         </p>
@@ -493,9 +489,7 @@ export default function BreachForums(): JSX.Element {
                     </a>
                     <span className="font-mono text-micro text-slate-500 ml-auto">{it.source_name}</span>
                   </div>
-                  {it.snippet && (
-                    <p className="text-meta text-slate-600 dark:text-slate-400 mt-1 leading-relaxed">{it.snippet}</p>
-                  )}
+                  {it.snippet && <p className="text-meta text-muted mt-1 leading-relaxed">{it.snippet}</p>}
                 </li>
               ))}
             </ul>

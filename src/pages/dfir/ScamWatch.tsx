@@ -162,7 +162,7 @@ export default function ScamWatch(): JSX.Element {
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -171,7 +171,7 @@ export default function ScamWatch(): JSX.Element {
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
           <AlertTriangle size={28} className="text-brand-600 dark:text-brand-400" /> Scam Watch
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 mb-2 max-w-2xl">
+        <p className="text-muted mb-2 max-w-2xl">
           Live aggregator of digital-scam activity — official advisories, deepfake incidents, first-person victim
           reports, and mainstream coverage. {ALL_FEED_IDS.length} sources fetched server-side, deduped, sorted by
           publication time.
@@ -191,7 +191,7 @@ export default function ScamWatch(): JSX.Element {
       </div>
 
       {/* Filters */}
-      <section className="mb-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 space-y-3">
+      <section className="mb-6 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 space-y-3">
         <div className="flex items-center gap-2">
           <Search size={14} className="text-brand-600 dark:text-brand-400" aria-hidden="true" />
           <input
@@ -218,7 +218,7 @@ export default function ScamWatch(): JSX.Element {
             className={`text-xs font-mono px-2 py-1 rounded border transition-colors ${
               activeSection === 'all'
                 ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                : 'border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-brand-500/40'
+                : 'border-slate-300 dark:border-slate-700 text-muted hover:border-brand-500/40'
             }`}
           >
             All <span className="opacity-60">· {sectionCounts.all ?? 0}</span>
@@ -230,7 +230,7 @@ export default function ScamWatch(): JSX.Element {
               className={`text-xs font-mono px-2 py-1 rounded border transition-colors ${
                 activeSection === sec.id
                   ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                  : 'border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-brand-500/40'
+                  : 'border-slate-300 dark:border-slate-700 text-muted hover:border-brand-500/40'
               }`}
             >
               {sec.label} <span className="opacity-60">· {sectionCounts[sec.id] ?? 0}</span>
@@ -241,7 +241,7 @@ export default function ScamWatch(): JSX.Element {
             className={`ml-auto text-xs font-mono px-2 py-1 rounded border inline-flex items-center gap-1.5 ${
               showSourcePanel
                 ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                : 'border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-brand-500/40'
+                : 'border-slate-300 dark:border-slate-700 text-muted hover:border-brand-500/40'
             }`}
             aria-pressed={showSourcePanel}
           >
@@ -331,7 +331,7 @@ export default function ScamWatch(): JSX.Element {
               {item.pubDate && <> · {formatRelativeTime(item.pubDate)}</>}
             </div>
             {item.description && (
-              <p className="text-meta font-mono text-slate-600 dark:text-slate-400 leading-relaxed line-clamp-3">
+              <p className="text-meta font-mono text-muted leading-relaxed line-clamp-3">
                 {stripHtml(item.description)}
               </p>
             )}

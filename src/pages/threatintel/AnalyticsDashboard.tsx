@@ -210,7 +210,7 @@ export default function AnalyticsDashboard(): JSX.Element {
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono transition-colors"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono transition-colors"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -222,7 +222,7 @@ export default function AnalyticsDashboard(): JSX.Element {
           </span>{' '}
           Analytics &amp; Ops
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed">
+        <p className="text-muted max-w-2xl leading-relaxed">
           Combined view of platform health, feed reliability, and key intelligence metrics. Data refreshes on each load.
         </p>
         <div className="flex items-center gap-3 mt-3">
@@ -454,7 +454,7 @@ export default function AnalyticsDashboard(): JSX.Element {
                 <div>
                   <span className="font-mono text-sm font-semibold text-slate-900 dark:text-slate-100">{src.id}</span>
                   <span className="text-xs text-slate-500 ml-2">({src.status})</span>
-                  <p className="text-xs text-slate-600 dark:text-slate-400 mt-0.5">{src.reason}</p>
+                  <p className="text-xs text-muted mt-0.5">{src.reason}</p>
                 </div>
               </div>
             ))}

@@ -228,9 +228,7 @@ export default function Yarahub(): JSX.Element {
                       {rule.last_matched && <span>last: {new Date(rule.last_matched).toLocaleDateString()}</span>}
                     </div>
                     {rule.description && (
-                      <p className="mt-1 text-meta font-mono text-slate-600 dark:text-slate-400 line-clamp-2">
-                        {rule.description}
-                      </p>
+                      <p className="mt-1 text-meta font-mono text-muted line-clamp-2">{rule.description}</p>
                     )}
                   </div>
                   <button

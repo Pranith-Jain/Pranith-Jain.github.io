@@ -132,14 +132,14 @@ export default function JwtInspect(): JSX.Element {
     <div className="max-w-4xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
 
       <div className="animate-fade-in-up">
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2">JWT Inspector</h1>
-        <p className="text-slate-600 dark:text-slate-400 mb-8 max-w-2xl">
+        <p className="text-muted mb-8 max-w-2xl">
           Paste a JSON Web Token. Header and payload are decoded locally; common security weaknesses are flagged.
           Nothing leaves your browser.
         </p>
@@ -179,7 +179,7 @@ export default function JwtInspect(): JSX.Element {
                 </div>
               ))}
               {decoded.notes.map((w) => (
-                <div key={w} className="flex items-start gap-2 text-sm text-slate-600 dark:text-slate-400">
+                <div key={w} className="flex items-start gap-2 text-sm text-muted">
                   <Info size={14} className="mt-0.5 flex-shrink-0" />
                   <span>{w}</span>
                 </div>

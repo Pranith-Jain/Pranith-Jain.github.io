@@ -205,7 +205,7 @@ export default function Copilot(): JSX.Element {
       {!isStandalone && (
         <BackLink
           to="/threatintel"
-          className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+          className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
         >
           <ArrowLeft size={14} /> back
         </BackLink>
@@ -216,7 +216,7 @@ export default function Copilot(): JSX.Element {
           <Sparkles className="text-brand-600 dark:text-brand-400" size={28} />
           Investigation Copilot
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 max-w-3xl leading-relaxed">
+        <p className="text-muted max-w-3xl leading-relaxed">
           AI-powered investigation of CVEs, threat actors, ransomware groups, IPs, domains, and more.
         </p>
       </div>
@@ -371,7 +371,7 @@ export default function Copilot(): JSX.Element {
       {loading && (
         <div className="text-center py-16">
           <Loader2 size={32} className="mx-auto mb-4 text-brand-500 animate-spin" />
-          <p className="text-sm text-slate-600 dark:text-slate-400 font-mono">Gathering intelligence...</p>
+          <p className="text-sm text-muted font-mono">Gathering intelligence...</p>
           <p className="text-xs text-slate-500 dark:text-slate-500 mt-1 font-mono">
             Querying threat data sources and generating narrative
           </p>
@@ -442,7 +442,7 @@ export default function Copilot(): JSX.Element {
           </div>
 
           {/* Narrative */}
-          <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden">
+          <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden">
             <div className="flex items-center gap-2 px-6 py-3 border-b border-slate-100 dark:border-slate-800 bg-slate-50/80 dark:bg-slate-800/40">
               <FileText size={15} className="text-brand-600 dark:text-brand-400" />
               <span className="text-sm font-semibold text-slate-700 dark:text-slate-300">Investigation Report</span>

@@ -307,7 +307,7 @@ export default function DmarcAnalyzer(): JSX.Element {
     <div className="max-w-7xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -316,7 +316,7 @@ export default function DmarcAnalyzer(): JSX.Element {
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
           <Shield size={28} className="text-brand-600 dark:text-brand-400" /> DMARC RUA Analyzer
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 mb-2 leading-relaxed">
+        <p className="text-muted mb-2 leading-relaxed">
           Parse &amp; analyze your DMARC aggregate (RUA) XML reports — XML parsed in-browser, IPs enriched via real-time
           WHOIS/GeoIP.
         </p>
@@ -377,9 +377,7 @@ export default function DmarcAnalyzer(): JSX.Element {
           aria-label="Upload DMARC XML report"
         />
         <Upload size={36} className="mx-auto mb-3 text-slate-400 dark:text-slate-400" />
-        <p className="text-sm font-mono text-slate-600 dark:text-slate-400 mb-1">
-          Drag &amp; drop your DMARC XML report here
-        </p>
+        <p className="text-sm font-mono text-muted mb-1">Drag &amp; drop your DMARC XML report here</p>
         <p className="text-xs text-slate-500 dark:text-slate-400 font-mono">
           or click to browse — .xml, .gz, .zip up to 25 MB
         </p>
@@ -397,7 +395,7 @@ export default function DmarcAnalyzer(): JSX.Element {
       {loading && (
         <div className="flex items-center justify-center py-12">
           <Loader2 size={24} className="animate-spin text-brand-600 dark:text-brand-400" />
-          <span className="ml-3 font-mono text-sm text-slate-600 dark:text-slate-400">Parsing DMARC report...</span>
+          <span className="ml-3 font-mono text-sm text-muted">Parsing DMARC report...</span>
         </div>
       )}
 

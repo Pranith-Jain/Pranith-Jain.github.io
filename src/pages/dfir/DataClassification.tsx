@@ -94,7 +94,7 @@ export default function DataClassification(): JSX.Element {
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -103,7 +103,7 @@ export default function DataClassification(): JSX.Element {
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
           <FolderTree size={28} className="text-brand-600 dark:text-brand-400" /> Data Classification &amp; Handling
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 mb-2 leading-relaxed">
+        <p className="text-muted mb-2 leading-relaxed">
           Define your tier policies (Public / Internal / Confidential / Restricted), inventory the datasets that exist
           in your environment, and assign each one to a tier. The matrix view renders the cross-product as a handling
           reference. localStorage; everything stays in your browser.
@@ -373,7 +373,7 @@ export default function DataClassification(): JSX.Element {
                                 className={`text-xs font-mono px-2 py-1 rounded border ${
                                   d.tier === t
                                     ? TIER_STYLES[t]
-                                    : 'border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-brand-500/40'
+                                    : 'border-slate-300 dark:border-slate-700 text-muted hover:border-brand-500/40'
                                 }`}
                               >
                                 {TIER_LABELS[t]}
@@ -517,10 +517,10 @@ export default function DataClassification(): JSX.Element {
       )}
 
       <section className="mt-8 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
-        <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-3">
+        <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
           References
         </h2>
-        <ul className="space-y-1.5 text-sm font-mono text-slate-600 dark:text-slate-400">
+        <ul className="space-y-1.5 text-sm font-mono text-muted">
           <li>
             <a
               href="https://csrc.nist.gov/glossary/term/data_classification"
@@ -569,7 +569,7 @@ function TabBtn({
       className={`text-sm font-mono px-3 py-1.5 rounded border transition-colors ${
         active
           ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-          : 'border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-brand-500/40'
+          : 'border-slate-300 dark:border-slate-700 text-muted hover:border-brand-500/40'
       }`}
     >
       {children}

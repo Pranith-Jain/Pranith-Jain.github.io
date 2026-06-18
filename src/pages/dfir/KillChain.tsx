@@ -24,7 +24,7 @@ function PhaseHeader({
       </span>
       <span className="flex-1 min-w-0">
         <span className="block font-display font-semibold text-slate-900 dark:text-slate-100">{phase.name}</span>
-        <span className="block text-xs font-mono text-slate-600 dark:text-slate-400 truncate">{phase.short}</span>
+        <span className="block text-xs font-mono text-muted truncate">{phase.short}</span>
       </span>
       <span className="flex-none text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
         {phase.techniques.length} techniques
@@ -83,7 +83,7 @@ function PhaseBody({ phase }: { phase: KillChainPhase }): JSX.Element {
                     </Link>
                   )}
                 </div>
-                <p className="text-mini font-mono text-slate-600 dark:text-slate-400 leading-relaxed">{t.example}</p>
+                <p className="text-mini font-mono text-muted leading-relaxed">{t.example}</p>
               </div>
             ))}
           </div>
@@ -136,7 +136,7 @@ export default function KillChain(): JSX.Element {
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -145,7 +145,7 @@ export default function KillChain(): JSX.Element {
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
           <Crosshair size={28} className="text-brand-600 dark:text-brand-400" /> Cyber Kill Chain
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 mb-2 leading-relaxed">
+        <p className="text-muted mb-2 leading-relaxed">
           Lockheed Martin's 7-phase intrusion model. {KILL_CHAIN_TECHNIQUE_COUNT} representative techniques across the
           chain, each cross-linked to MITRE ATT&amp;CK where applicable.
         </p>
@@ -178,10 +178,10 @@ export default function KillChain(): JSX.Element {
       </div>
 
       <div className="mt-8 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
-        <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-3">
+        <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
           References
         </h2>
-        <ul className="space-y-1.5 text-sm font-mono text-slate-600 dark:text-slate-400">
+        <ul className="space-y-1.5 text-sm font-mono text-muted">
           <li>
             <a
               href="https://www.lockheedmartin.com/en-us/capabilities/cyber/cyber-kill-chain.html"

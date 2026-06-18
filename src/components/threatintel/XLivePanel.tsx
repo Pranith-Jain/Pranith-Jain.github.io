@@ -86,7 +86,7 @@ export function XLivePanel({
 
   return (
     <section
-      className={`rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 ${className}`}
+      className={`rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 ${className}`}
     >
       <div className="flex items-center justify-between mb-3">
         <h3 className="font-display font-semibold text-sm inline-flex items-center gap-1.5">

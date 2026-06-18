@@ -145,7 +145,7 @@ export default function PromptInjection(): JSX.Element {
     <div className="space-y-6">
       <BackLink
         to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -158,7 +158,7 @@ export default function PromptInjection(): JSX.Element {
           <h1 className="text-2xl font-display font-bold text-slate-900 dark:text-slate-100">
             Prompt Injection Detector
           </h1>
-          <p className="mt-1 text-sm font-mono text-slate-600 dark:text-slate-400">
+          <p className="mt-1 text-sm font-mono text-muted">
             Scan system prompts, user inputs, or LLM outputs against {PATTERNS.length} known injection and jailbreak
             patterns. Pure client-side — nothing leaves your browser.
           </p>
@@ -167,7 +167,7 @@ export default function PromptInjection(): JSX.Element {
 
       <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
         <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
-          <span className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono">
+          <span className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
             Input
           </span>
           <div className="flex flex-wrap gap-1.5">
@@ -204,7 +204,7 @@ export default function PromptInjection(): JSX.Element {
         <>
           <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
             <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
-              <span className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono">
+              <span className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
                 Verdict
               </span>
               <span className={`text-xs font-mono uppercase tracking-wider px-2.5 py-1 rounded ${gradeTone(grade)}`}>
@@ -214,7 +214,7 @@ export default function PromptInjection(): JSX.Element {
             <div className="h-2 rounded bg-slate-200 dark:bg-slate-800 overflow-hidden mb-3">
               <div className={`h-full transition-all ${gradeBar(grade)}`} style={{ width: `${Math.max(2, score)}%` }} />
             </div>
-            <p className="text-sm font-mono text-slate-600 dark:text-slate-400">
+            <p className="text-sm font-mono text-muted">
               {matches.length === 0 ? (
                 <span className="inline-flex items-center gap-1.5">
                   <CheckCircle2 className="h-4 w-4 text-emerald-500" aria-hidden="true" />
@@ -232,7 +232,7 @@ export default function PromptInjection(): JSX.Element {
           </section>
 
           <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
-            <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-3">
+            <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
               Highlighted input
             </h2>
             <div className="rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-3 font-mono text-sm text-slate-800 dark:text-slate-200 leading-relaxed">
@@ -242,7 +242,7 @@ export default function PromptInjection(): JSX.Element {
 
           {matches.length > 0 && (
             <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
-              <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-3">
+              <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
                 Findings
               </h2>
               <ul className="space-y-3">
@@ -273,7 +273,7 @@ export default function PromptInjection(): JSX.Element {
                         </span>
                       ))}
                     </div>
-                    <p className="text-sm font-mono text-slate-600 dark:text-slate-400">{m.pattern.description}</p>
+                    <p className="text-sm font-mono text-muted">{m.pattern.description}</p>
                     {m.pattern.reference && (
                       <p className="mt-1 text-mini font-mono text-slate-500 dark:text-slate-400">
                         Ref: {m.pattern.reference}
@@ -290,7 +290,7 @@ export default function PromptInjection(): JSX.Element {
       {/* ── Red-team prompt library ────────────────────────────────────── */}
       <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
         <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
-          <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono inline-flex items-center gap-2">
+          <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono inline-flex items-center gap-2">
             <Swords size={14} /> Red-team prompt library ({filteredRedTeam.length}/{RED_TEAM_PROMPTS.length})
           </h2>
           <button
@@ -315,7 +315,7 @@ export default function PromptInjection(): JSX.Element {
             className={`text-xs font-mono px-2 py-1 rounded border transition-colors ${
               rtCategory === 'all'
                 ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                : 'border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-brand-500/40'
+                : 'border-slate-300 dark:border-slate-700 text-muted hover:border-brand-500/40'
             }`}
           >
             All
@@ -330,7 +330,7 @@ export default function PromptInjection(): JSX.Element {
                 className={`text-xs font-mono px-2 py-1 rounded border transition-colors ${
                   rtCategory === c.id
                     ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                    : 'border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-brand-500/40'
+                    : 'border-slate-300 dark:border-slate-700 text-muted hover:border-brand-500/40'
                 }`}
               >
                 {c.label} <span className="opacity-60">· {count}</span>
@@ -348,7 +348,7 @@ export default function PromptInjection(): JSX.Element {
             className={`text-xs font-mono px-2 py-1 rounded border transition-colors ${
               rtOwasp === 'all'
                 ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                : 'border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-brand-500/40'
+                : 'border-slate-300 dark:border-slate-700 text-muted hover:border-brand-500/40'
             }`}
           >
             All
@@ -364,7 +364,7 @@ export default function PromptInjection(): JSX.Element {
                 className={`text-xs font-mono px-2 py-1 rounded border transition-colors ${
                   rtOwasp === id
                     ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                    : 'border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-brand-500/40'
+                    : 'border-slate-300 dark:border-slate-700 text-muted hover:border-brand-500/40'
                 }`}
               >
                 {id} <span className="opacity-60">· {count}</span>
@@ -441,7 +441,7 @@ export default function PromptInjection(): JSX.Element {
 
       <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
         <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
-          <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono">
+          <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
             Pattern catalog ({filteredCatalog.length}/{PATTERNS.length})
           </h2>
         </div>
@@ -451,7 +451,7 @@ export default function PromptInjection(): JSX.Element {
             className={`text-xs font-mono px-2 py-1 rounded border transition-colors ${
               owaspFilter === 'all'
                 ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                : 'border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-brand-500/40'
+                : 'border-slate-300 dark:border-slate-700 text-muted hover:border-brand-500/40'
             }`}
           >
             All
@@ -467,7 +467,7 @@ export default function PromptInjection(): JSX.Element {
                 className={`text-xs font-mono px-2 py-1 rounded border transition-colors ${
                   owaspFilter === id
                     ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                    : 'border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-brand-500/40'
+                    : 'border-slate-300 dark:border-slate-700 text-muted hover:border-brand-500/40'
                 }`}
               >
                 {id} <span className="opacity-60">· {count}</span>
@@ -511,10 +511,10 @@ export default function PromptInjection(): JSX.Element {
       </section>
 
       <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
-        <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-3">
+        <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
           Further reading
         </h2>
-        <ul className="space-y-1.5 text-sm font-mono text-slate-600 dark:text-slate-400">
+        <ul className="space-y-1.5 text-sm font-mono text-muted">
           <li>
             <a
               href="https://owasp.org/www-project-top-10-for-large-language-model-applications/"

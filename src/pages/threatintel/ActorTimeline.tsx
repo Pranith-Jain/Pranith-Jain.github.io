@@ -106,7 +106,7 @@ export default function ActorTimeline(): JSX.Element {
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -115,7 +115,7 @@ export default function ActorTimeline(): JSX.Element {
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
           <Skull size={28} className="text-brand-600 dark:text-brand-400" /> Ransomware actor activity timeline
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 mb-2 max-w-3xl leading-relaxed">
+        <p className="text-muted mb-2 max-w-3xl leading-relaxed">
           Per-actor leak-site cadence across the last {data?.window_days ?? 30} days. Rows are the most-active groups
           this week; cells are daily post counts (relative shading per row so a slow week is still visible). MITRE
           ATT&CK Group profile linked where known, so you can pivot from "who's posting" to "what TTPs to hunt for."
@@ -284,7 +284,7 @@ export default function ActorTimeline(): JSX.Element {
                         </div>
 
                         {g.description && (
-                          <p className="mt-2 ml-[200px] text-mini font-mono text-slate-600 dark:text-slate-400 leading-relaxed">
+                          <p className="mt-2 ml-[200px] text-mini font-mono text-muted leading-relaxed">
                             {g.description}
                             {g.description.length >= 400 ? '…' : ''}
                           </p>
@@ -302,7 +302,7 @@ export default function ActorTimeline(): JSX.Element {
 
             <section className="mt-6 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-4">
               <h3 className="font-display font-semibold text-sm mb-2">How to read this</h3>
-              <ul className="text-meta font-mono text-slate-600 dark:text-slate-400 space-y-1 list-disc list-inside">
+              <ul className="text-meta font-mono text-muted space-y-1 list-disc list-inside">
                 <li>
                   Cell shading is relative to <em>each row's</em> peak, so a slow week for one group can still highlight
                   its peak day.

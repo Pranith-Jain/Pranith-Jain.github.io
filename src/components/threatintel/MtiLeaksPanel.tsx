@@ -130,7 +130,7 @@ export function MtiLeaksPanel(): JSX.Element {
   }, [data, query, sortBy]);
 
   return (
-    <section className="mb-10 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+    <section className="mb-10 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
       <div className="flex flex-wrap items-baseline justify-between gap-3 mb-3">
         <h2 className="font-display font-bold text-xl inline-flex items-center gap-2">
           <Database size={20} className="text-brand-600 dark:text-brand-400" /> Active leak listings
@@ -144,7 +144,7 @@ export function MtiLeaksPanel(): JSX.Element {
               : ''}
         </span>
       </div>
-      <p className="text-tool text-slate-600 dark:text-slate-400 leading-relaxed mb-4 max-w-3xl">
+      <p className="text-tool text-muted leading-relaxed mb-4 max-w-3xl">
         What's actively being shopped or scraped this week. Different signal from the HIBP corpus below: this catches
         listings before they get canonicalised into "official" breach records, with the data dump size and first-seen
         timestamp. Records here may turn into HIBP entries later, or never (if the dump is fake, retired, or re-claimed

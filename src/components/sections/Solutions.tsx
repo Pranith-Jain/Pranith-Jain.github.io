@@ -43,13 +43,13 @@ const PILLARS: SolutionPillar[] = [
 
 export function Solutions() {
   return (
-    <section id="solutions" className="mt-20 scroll-mt-24">
+    <section id="solutions" className="scroll-mt-24">
       <div className="mb-8 max-w-3xl">
-        <div className="mb-3 text-eyebrow font-bold uppercase text-brand-600 dark:text-brand-400">Solutions</div>
-        <h2 className="font-display text-4xl sm:text-5xl font-bold tracking-tight text-slate-900 dark:text-white">
+        <div className="mb-3 text-eyebrow font-mono uppercase text-slate-500 dark:text-slate-400">Solutions</div>
+        <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
           Everything you need for threat intelligence &amp; DFIR
         </h2>
-        <p className="mt-4 text-lg text-slate-600 dark:text-slate-400">
+        <p className="mt-3 text-base sm:text-lg text-muted">
           A complete ecosystem of tools, feeds, and frameworks — built by an analyst, for analysts.
         </p>
       </div>
@@ -61,7 +61,7 @@ export function Solutions() {
             <Link
               key={pillar.href}
               to={pillar.href}
-              className="group block rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-6 transition hover:border-brand-500/50"
+              className="group block rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-6 transition hover:border-brand-500/50"
             >
               <div className="mb-4 flex items-center gap-3">
                 <span className="grid h-10 w-10 place-items-center rounded-xl bg-brand-500/10 text-brand-600 dark:text-brand-400 transition-colors group-hover:bg-brand-500/20">
@@ -76,7 +76,7 @@ export function Solutions() {
                   aria-hidden="true"
                 />
               </div>
-              <p className="mb-4 text-sm leading-relaxed text-slate-600 dark:text-slate-400">{pillar.desc}</p>
+              <p className="mb-4 text-sm leading-relaxed text-muted">{pillar.desc}</p>
               <ul className="flex flex-wrap gap-1.5">
                 {pillar.bullets.map((b) => (
                   <li key={b}>

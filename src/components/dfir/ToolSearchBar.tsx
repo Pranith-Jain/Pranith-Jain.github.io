@@ -113,7 +113,7 @@ export function ToolSearchBar(): JSX.Element {
     <section className="mb-8 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 sm:p-5">
       <label
         htmlFor="dfir-tool-search"
-        className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 mb-2"
+        className="inline-flex items-center gap-2 text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-2"
       >
         <Search size={14} aria-hidden="true" /> Search the toolkit
       </label>
@@ -214,9 +214,7 @@ export function ToolSearchBar(): JSX.Element {
                     </div>
                     <div className="font-mono text-mini text-slate-500 truncate">{h.tool.path}</div>
                     {h.tool.desc && (
-                      <div className="text-meta text-slate-600 dark:text-slate-400 leading-snug mt-0.5 line-clamp-1">
-                        {h.tool.desc}
-                      </div>
+                      <div className="text-meta text-muted leading-snug mt-0.5 line-clamp-1">{h.tool.desc}</div>
                     )}
                   </div>
                   {isActive && (

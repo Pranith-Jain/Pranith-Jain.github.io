@@ -103,7 +103,7 @@ export default function InfraSearch(): JSX.Element {
     <div className="max-w-[1600px] mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -112,7 +112,7 @@ export default function InfraSearch(): JSX.Element {
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
           <Building2 size={28} className="text-brand-600 dark:text-brand-400" /> Infrastructure Search
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 mb-2 leading-relaxed max-w-3xl">
+        <p className="text-muted mb-2 leading-relaxed max-w-3xl">
           Map real-world infrastructure from OpenStreetMap data — 200+ types across 30+ categories. Search by type,
           operator, or location with natural language.
         </p>
@@ -166,7 +166,7 @@ export default function InfraSearch(): JSX.Element {
       </section>
 
       {loading && (
-        <p className="text-sm font-mono text-slate-600 dark:text-slate-400 mb-4 inline-flex items-center gap-2">
+        <p className="text-sm font-mono text-muted mb-4 inline-flex items-center gap-2">
           <Loader2 size={14} className="animate-spin" /> Querying OpenStreetMap…
         </p>
       )}
@@ -204,7 +204,7 @@ export default function InfraSearch(): JSX.Element {
           {/* Map + Results side by side */}
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-4">
             {/* Map */}
-            <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden">
+            <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden">
               <div className="flex items-center justify-between px-4 py-2 border-b border-slate-200 dark:border-slate-800">
                 <div className="flex items-center gap-2 text-xs font-mono text-slate-500">
                   <Map size={12} />
@@ -215,13 +215,13 @@ export default function InfraSearch(): JSX.Element {
                 <div className="flex items-center gap-1">
                   <button
                     onClick={() => setMapGlobal(!mapGlobal)}
-                    className="text-xs font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 inline-flex items-center gap-1"
+                    className="text-xs font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-slate-700 text-muted hover:bg-slate-100 dark:hover:bg-slate-800 inline-flex items-center gap-1"
                   >
                     <Globe size={10} /> {mapGlobal ? 'Zoom in' : 'Global'}
                   </button>
                   <button
                     onClick={() => setDarkTiles(!darkTiles)}
-                    className="text-xs font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
+                    className="text-xs font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-slate-700 text-muted hover:bg-slate-100 dark:hover:bg-slate-800"
                     title="Toggle map style"
                   >
                     {darkTiles ? '☀️' : '🌙'}
@@ -286,7 +286,7 @@ export default function InfraSearch(): JSX.Element {
               )}
 
               {/* Results list */}
-              <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
+              <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
                 <div className="px-4 py-2 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
                   <span className="text-xs font-mono text-slate-500 dark:text-slate-400">
                     {filtered.length} result{filtered.length !== 1 ? 's' : ''}
@@ -331,7 +331,7 @@ export default function InfraSearch(): JSX.Element {
 
       {/* Empty state — global map when no search */}
       {!result && !loading && !error && (
-        <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden">
+        <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden">
           <div className="px-4 py-2 border-b border-slate-200 dark:border-slate-800 flex items-center gap-2 text-xs font-mono text-slate-500">
             <Globe size={12} />
             Global infrastructure map — search above to populate

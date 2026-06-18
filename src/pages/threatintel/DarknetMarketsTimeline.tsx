@@ -38,7 +38,7 @@ const STATUS_META: Record<DarknetMarket['status'], { label: string; icon: typeof
     defunct: {
       label: 'Defunct',
       icon: Shield,
-      color: 'text-slate-600 dark:text-slate-400',
+      color: 'text-muted',
       bg: 'border-slate-500/30 bg-slate-500/10',
     },
     compromised: {
@@ -303,7 +303,7 @@ export default function DarknetMarketsTimeline(): JSX.Element {
     <div className="max-w-6xl mx-auto px-4 py-8">
       <BackLink
         to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-6 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-6 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -312,7 +312,7 @@ export default function DarknetMarketsTimeline(): JSX.Element {
         <Globe className="w-7 h-7 text-violet-500" />
         <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100">Darknet Markets Timeline</h1>
       </div>
-      <p className="text-slate-600 dark:text-slate-400 mb-6 text-sm max-w-3xl leading-relaxed">
+      <p className="text-muted mb-6 text-sm max-w-3xl leading-relaxed">
         Historical and current darknet marketplaces — status, founding dates, seizure history, and exit scams. Data
         sourced from{' '}
         <a
@@ -433,7 +433,7 @@ export default function DarknetMarketsTimeline(): JSX.Element {
                       {meta.label}
                     </span>
                     {m.country && (
-                      <span className="px-1.5 py-0.5 text-micro font-mono rounded border border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400">
+                      <span className="px-1.5 py-0.5 text-micro font-mono rounded border border-slate-300 dark:border-slate-700 text-muted">
                         {m.country}
                       </span>
                     )}

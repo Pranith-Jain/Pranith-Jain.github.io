@@ -35,7 +35,7 @@ const Card = memo(function Card({ tool }: { tool: Tool }): JSX.Element {
         </span>
       </div>
       {/* Prose, not mono — mono is for IOC/data, not tile descriptions. */}
-      <p className="text-tool text-slate-600 dark:text-slate-400 leading-relaxed">{desc}</p>
+      <p className="text-tool text-muted leading-relaxed">{desc}</p>
     </>
   );
   if (external) {
@@ -56,7 +56,7 @@ const SectionBlock = memo(function SectionBlock({ section }: { section: Section 
   return (
     <div>
       <div className="flex items-baseline justify-between gap-3 mb-3 mt-2 flex-wrap">
-        <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono">
+        <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
           {section.label}
         </h3>
         <span className="text-mini font-mono text-slate-500 dark:text-slate-400">
@@ -178,7 +178,7 @@ export function ToolGrid({ group }: { group?: ToolGroup } = {}): JSX.Element {
           {filteredExternal.length > 0 && (
             <div>
               <div className="flex items-baseline justify-between gap-3 mb-3 mt-2 flex-wrap">
-                <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono">
+                <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
                   External resources
                 </h3>
                 <span className="text-mini font-mono text-slate-500 dark:text-slate-400">

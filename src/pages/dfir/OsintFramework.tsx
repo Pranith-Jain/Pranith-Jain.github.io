@@ -50,7 +50,7 @@ export default function OsintFramework(): JSX.Element {
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -59,7 +59,7 @@ export default function OsintFramework(): JSX.Element {
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
           <Compass size={28} className="text-brand-600 dark:text-brand-400" /> OSINT Framework
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 mb-2 leading-relaxed">
+        <p className="text-muted mb-2 leading-relaxed">
           {ENTRIES.length} curated OSINT tools and sources across {Object.keys(CATEGORY_LABELS).length} categories.
           Filter by category, by pricing tier (free / free-with-account / freemium / paid), or full-text search.
         </p>
@@ -102,7 +102,7 @@ export default function OsintFramework(): JSX.Element {
             className={`text-xs font-mono px-2 py-1 rounded border transition-colors ${
               pricingFilter === 'all'
                 ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                : 'border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-brand-500/40'
+                : 'border-slate-300 dark:border-slate-700 text-muted hover:border-brand-500/40'
             }`}
           >
             All
@@ -117,7 +117,7 @@ export default function OsintFramework(): JSX.Element {
                 className={`text-xs font-mono px-2 py-1 rounded border transition-colors ${
                   pricingFilter === p
                     ? PRICING_STYLES[p]
-                    : 'border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-brand-500/40'
+                    : 'border-slate-300 dark:border-slate-700 text-muted hover:border-brand-500/40'
                 }`}
               >
                 {PRICING_LABELS[p]} <span className="opacity-60">· {count}</span>
@@ -135,7 +135,7 @@ export default function OsintFramework(): JSX.Element {
             className={`text-xs font-mono px-2 py-1 rounded border transition-colors ${
               category === 'all'
                 ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                : 'border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-brand-500/40'
+                : 'border-slate-300 dark:border-slate-700 text-muted hover:border-brand-500/40'
             }`}
           >
             All
@@ -149,7 +149,7 @@ export default function OsintFramework(): JSX.Element {
                 className={`text-xs font-mono px-2 py-1 rounded border transition-colors ${
                   category === c
                     ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                    : 'border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-brand-500/40'
+                    : 'border-slate-300 dark:border-slate-700 text-muted hover:border-brand-500/40'
                 }`}
               >
                 {CATEGORY_LABELS[c]} <span className="opacity-60">· {categoryCounts[c]}</span>
@@ -187,7 +187,7 @@ export default function OsintFramework(): JSX.Element {
             <p className="text-micro font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-1">
               {CATEGORY_LABELS[e.category]}
             </p>
-            <p className="text-meta font-mono text-slate-600 dark:text-slate-400 leading-relaxed">{e.description}</p>
+            <p className="text-meta font-mono text-muted leading-relaxed">{e.description}</p>
           </article>
         ))}
         {filtered.length === 0 && (

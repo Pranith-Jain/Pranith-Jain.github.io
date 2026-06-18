@@ -288,7 +288,7 @@ export default function XFirehose(): JSX.Element {
         <button
           type="button"
           onClick={() => setVisible((v) => v + 60)}
-          className="mt-3 w-full rounded-lg border border-slate-200 dark:border-slate-800 py-2 font-mono text-meta text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+          className="mt-3 w-full rounded-lg border border-slate-200 dark:border-slate-800 py-2 font-mono text-meta text-muted hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
         >
           Show more ({filtered.length - visible} remaining)
         </button>

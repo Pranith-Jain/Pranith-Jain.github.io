@@ -285,7 +285,7 @@ export default function MultiSearch(): JSX.Element {
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono transition-colors"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono transition-colors"
       >
         ← back to DFIR
       </BackLink>
@@ -296,7 +296,7 @@ export default function MultiSearch(): JSX.Element {
         </span>
         Multi-Search Launcher
       </h1>
-      <p className="text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed mb-8">
+      <p className="text-muted max-w-2xl leading-relaxed mb-8">
         Fan out a single indicator across {PLATFORMS.length}+ OSINT platforms in parallel. Type a value, the page
         auto-detects the kind and pre-selects every matching tool. Pure frontend — no API keys, no rate limits, no
         server cost.

@@ -124,14 +124,14 @@ export default function BlocklistsPage(): JSX.Element {
     <div className="max-w-4xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
 
       <div className="animate-fade-in-up">
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2">Blocklist Export</h1>
-        <p className="text-slate-600 dark:text-slate-400 mb-8 max-w-3xl">
+        <p className="text-muted mb-8 max-w-3xl">
           Daily-generated blocklists from cross-source IOC consensus. IPs appearing in 2+ independent feeds. Download
           for pfSense, iptables, or Suricata. Updated every 24 hours.
         </p>
@@ -230,7 +230,7 @@ export default function BlocklistsPage(): JSX.Element {
       {/* Usage instructions */}
       <div className="mt-8 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-5">
         <h3 className="font-display font-semibold text-sm mb-3 text-slate-900 dark:text-slate-100">Usage</h3>
-        <div className="space-y-2 text-xs font-mono text-slate-600 dark:text-slate-400">
+        <div className="space-y-2 text-xs font-mono text-muted">
           <p>
             <span className="text-brand-600 dark:text-brand-400">pfSense:</span> Add the URL as an Alias of type URL
             (URL Alias) in Firewall → Aliases.
@@ -277,7 +277,7 @@ function FormatPreview({ label, url, maxLines }: { label: string; url: string; m
       <button
         type="button"
         onClick={() => setShow(!show)}
-        className="text-xs font-mono text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-1"
+        className="text-xs font-mono text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-1"
       >
         {show ? '▼' : '▶'} {label}
       </button>

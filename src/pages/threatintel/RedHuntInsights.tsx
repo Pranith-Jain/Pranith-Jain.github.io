@@ -263,7 +263,7 @@ function SecretTypeRow({ name, count, max }: { name: string; count: number; max:
         <span className="min-w-0 flex-1 truncate text-slate-700 dark:text-slate-300" title={name}>
           {name}
         </span>
-        <span className="font-mono tabular-nums text-slate-600 dark:text-slate-400">{count.toLocaleString()}</span>
+        <span className="font-mono tabular-nums text-muted">{count.toLocaleString()}</span>
       </div>
       <div className="mt-1 h-1.5 w-full overflow-hidden rounded-full bg-slate-200 dark:bg-slate-800">
         <div
@@ -421,7 +421,7 @@ export default function RedHuntInsights(): JSX.Element {
                 <h2 className="mt-1 text-2xl sm:text-3xl font-display font-bold text-slate-900 dark:text-slate-100">
                   3.7+ Billion Addresses Analyzed
                 </h2>
-                <p className="mt-1 text-sm text-slate-600 dark:text-slate-400 max-w-2xl">
+                <p className="mt-1 text-sm text-muted max-w-2xl">
                   Checkout Our Recent Internet Scan Study — aggregate counts of the assets RedHunt Labs' Project
                   Resonance engine has catalogued across subdomains, code-platform commits, DockerHub, APKs, and
                   Postman.
@@ -518,7 +518,7 @@ export default function RedHuntInsights(): JSX.Element {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 pt-2 pb-4">
               <div>
                 <div className="flex items-baseline justify-between">
-                  <p className="text-sm text-slate-600 dark:text-slate-400">Subdomains</p>
+                  <p className="text-sm text-muted">Subdomains</p>
                   <p className="text-2xl font-display font-bold text-slate-900 dark:text-slate-100 tabular-nums">
                     {fmtExact(trends.temp_domains_v1?.last_30_days_count)}
                   </p>
@@ -529,7 +529,7 @@ export default function RedHuntInsights(): JSX.Element {
               </div>
               <div>
                 <div className="flex items-baseline justify-between">
-                  <p className="text-sm text-slate-600 dark:text-slate-400">APKs</p>
+                  <p className="text-sm text-muted">APKs</p>
                   <p className="text-2xl font-display font-bold text-slate-900 dark:text-slate-100 tabular-nums">
                     {fmtExact(trends.android_pkg_metadata_v1?.last_30_days_count)}
                   </p>
@@ -566,9 +566,7 @@ export default function RedHuntInsights(): JSX.Element {
                     {topDomainsEntries.map(([d, c]) => (
                       <tr key={d} className="border-t border-slate-100 dark:border-slate-800">
                         <td className="py-1 font-mono text-slate-700 dark:text-slate-300">{d}</td>
-                        <td className="py-1 text-right font-mono tabular-nums text-slate-600 dark:text-slate-400">
-                          {c.toLocaleString()}
-                        </td>
+                        <td className="py-1 text-right font-mono tabular-nums text-muted">{c.toLocaleString()}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -755,13 +753,13 @@ export default function RedHuntInsights(): JSX.Element {
             </p>
             <div className="mt-4 grid grid-cols-1 lg:grid-cols-2 gap-6 pb-4">
               <div>
-                <p className="text-sm text-slate-600 dark:text-slate-400">Collections</p>
+                <p className="text-sm text-muted">Collections</p>
                 <div className="mt-2">
                   <MiniLineChart series={trends.postman_requests_v1?.last_six_weeks} color="#0ea5e9" height={100} />
                 </div>
               </div>
               <div>
-                <p className="text-sm text-slate-600 dark:text-slate-400">Environments</p>
+                <p className="text-sm text-muted">Environments</p>
                 <div className="mt-2">
                   <MiniLineChart series={trends.postman_environments_v1?.last_six_weeks} color="#8b5cf6" height={100} />
                 </div>
@@ -779,7 +777,7 @@ export default function RedHuntInsights(): JSX.Element {
               <span className="text-emerald-600 dark:text-emerald-400">ATTACK</span> ·{' '}
               <span className="text-rose-600 dark:text-rose-400">REPEAT</span>
             </p>
-            <p className="mt-2 text-sm text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+            <p className="mt-2 text-sm text-muted max-w-2xl mx-auto">
               This mirror polls{' '}
               <a
                 href="https://research.redhuntlabs.com/internet-insights"

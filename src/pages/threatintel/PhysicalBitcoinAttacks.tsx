@@ -349,7 +349,7 @@ export default function PhysicalBitcoinAttacks(): JSX.Element {
     <div className="max-w-6xl mx-auto px-4 py-8">
       <BackLink
         to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-6 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-6 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -358,7 +358,7 @@ export default function PhysicalBitcoinAttacks(): JSX.Element {
         <Skull className="w-7 h-7 text-amber-500" />
         <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100">Physical Bitcoin Attacks</h1>
       </div>
-      <p className="text-slate-600 dark:text-slate-400 mb-6 text-sm max-w-3xl leading-relaxed">
+      <p className="text-muted mb-6 text-sm max-w-3xl leading-relaxed">
         Known physical attacks against Bitcoin and crypto asset holders — armed robberies, kidnappings, home invasions,
         and express kidnappings. A database of real-world violence driven by crypto wealth.
       </p>
@@ -454,7 +454,7 @@ export default function PhysicalBitcoinAttacks(): JSX.Element {
                     >
                       {outcome.label}
                     </span>
-                    <span className="px-1.5 py-0.5 text-micro font-mono rounded border border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 flex items-center gap-0.5">
+                    <span className="px-1.5 py-0.5 text-micro font-mono rounded border border-slate-300 dark:border-slate-700 text-muted flex items-center gap-0.5">
                       <VictimIcon className="w-2.5 h-2.5" /> {a.victim_type}
                     </span>
                   </div>

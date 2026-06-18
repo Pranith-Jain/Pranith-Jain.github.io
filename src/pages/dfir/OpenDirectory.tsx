@@ -94,7 +94,7 @@ export default function OpenDirectory(): JSX.Element {
       </Link>
 
       <h1 className="text-3xl font-display font-bold mb-2">Open Directory Scanner</h1>
-      <p className="text-slate-600 dark:text-slate-400 mb-6">
+      <p className="text-muted mb-6">
         Scan HTTP servers for exposed open directories and catalog files for threat analysis. Identifies malware
         staging, credential dumps, config files, and other sensitive artifacts. Inspired by etugen.io's open-directory
         intel feature.
@@ -160,7 +160,7 @@ export default function OpenDirectory(): JSX.Element {
                 ? 'bg-emerald-50 dark:bg-emerald-950/20 border-emerald-200 dark:border-emerald-800/50 text-emerald-700 dark:text-emerald-300'
                 : result.isOpen
                   ? 'bg-amber-50 dark:bg-amber-950/20 border-amber-200 dark:border-amber-800/50 text-amber-700 dark:text-amber-300'
-                  : 'bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400'
+                  : 'bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-muted'
             }`}
           >
             {result.isOpen && result.isDirectoryListing ? (
@@ -207,7 +207,7 @@ export default function OpenDirectory(): JSX.Element {
                 className={`px-2.5 py-1 rounded text-xs font-mono capitalize transition-colors ${
                   filterRisk === r
                     ? 'bg-brand-600 text-white'
-                    : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700'
+                    : 'bg-slate-100 dark:bg-slate-800 text-muted hover:bg-slate-200 dark:hover:bg-slate-700'
                 }`}
               >
                 {r} {r !== 'all' && `(${riskCounts[r]})`}
@@ -222,21 +222,11 @@ export default function OpenDirectory(): JSX.Element {
               <table className="w-full text-xs">
                 <thead className="bg-slate-50 dark:bg-slate-800/60 sticky top-0">
                   <tr>
-                    <th className="px-3 py-2 text-left font-mono font-semibold text-slate-600 dark:text-slate-400">
-                      Name
-                    </th>
-                    <th className="px-3 py-2 text-left font-mono font-semibold text-slate-600 dark:text-slate-400 w-20">
-                      Type
-                    </th>
-                    <th className="px-3 py-2 text-right font-mono font-semibold text-slate-600 dark:text-slate-400 w-24">
-                      Size
-                    </th>
-                    <th className="px-3 py-2 text-left font-mono font-semibold text-slate-600 dark:text-slate-400 w-20">
-                      Risk
-                    </th>
-                    <th className="px-3 py-2 text-left font-mono font-semibold text-slate-600 dark:text-slate-400 w-48">
-                      Reason
-                    </th>
+                    <th className="px-3 py-2 text-left font-mono font-semibold text-muted">Name</th>
+                    <th className="px-3 py-2 text-left font-mono font-semibold text-muted w-20">Type</th>
+                    <th className="px-3 py-2 text-right font-mono font-semibold text-muted w-24">Size</th>
+                    <th className="px-3 py-2 text-left font-mono font-semibold text-muted w-20">Risk</th>
+                    <th className="px-3 py-2 text-left font-mono font-semibold text-muted w-48">Reason</th>
                   </tr>
                 </thead>
                 <tbody>

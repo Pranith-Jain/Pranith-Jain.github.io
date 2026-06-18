@@ -28,13 +28,13 @@ export default function Wiki(): JSX.Element {
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
       <div className="animate-fade-in-up">
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2">DFIR Knowledge Base</h1>
-        <p className="text-slate-600 dark:text-slate-400 mb-8 max-w-2xl">
+        <p className="text-muted mb-8 max-w-2xl">
           A practical glossary of digital forensics and incident response concepts, explained for practitioners.
         </p>
       </div>
@@ -47,9 +47,7 @@ export default function Wiki(): JSX.Element {
         ))}
       </div>
 
-      {filtered.length === 0 && (
-        <p className="font-mono text-sm text-slate-600 dark:text-slate-400">No articles in this category yet.</p>
-      )}
+      {filtered.length === 0 && <p className="font-mono text-sm text-muted">No articles in this category yet.</p>}
     </div>
   );
 }

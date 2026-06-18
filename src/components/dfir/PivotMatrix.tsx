@@ -101,7 +101,7 @@ export function PivotMatrix({ type, value, verdict }: { type: string; value: str
   if (pivots.length === 0) return <></>;
 
   return (
-    <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 mb-6">
+    <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 mb-6">
       <h3 className="font-display font-semibold text-base mb-3 inline-flex items-center gap-2">
         <Search size={15} className="text-brand-600 dark:text-brand-400" />
         Pivot Matrix — investigation steps

@@ -207,7 +207,7 @@ export default function WhoisHistory(): JSX.Element {
       </Link>
 
       <h1 className="text-3xl font-display font-bold mb-2">WHOIS History Explorer</h1>
-      <p className="text-slate-600 dark:text-slate-400 mb-8">
+      <p className="text-muted mb-8">
         Track domain registration changes over time and discover related domains by shared registrant fingerprints.
         Inspired by etugen.io's WHOIS history capabilities.
       </p>
@@ -433,7 +433,7 @@ export default function WhoisHistory(): JSX.Element {
               ) : pivots && pivots.related_domains.length > 0 ? (
                 <>
                   <div className="mb-4 flex items-center justify-between">
-                    <p className="text-sm text-slate-600 dark:text-slate-400">
+                    <p className="text-sm text-muted">
                       Found <span className="font-bold text-brand-600">{pivots.total_found}</span> related domains
                       sharing registrant attributes with <span className="font-mono">{pivots.target}</span>
                     </p>

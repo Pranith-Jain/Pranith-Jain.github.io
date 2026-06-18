@@ -118,7 +118,7 @@ export default function IntelDashboard(): JSX.Element {
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -127,9 +127,7 @@ export default function IntelDashboard(): JSX.Element {
         <h1 className="text-3xl sm:text-4xl font-display font-bold flex items-center gap-3">
           <Activity size={28} className="text-brand-600 dark:text-brand-400" /> Intelligence Dashboard
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 mt-2 max-w-3xl">
-          Consolidated view across all threat intelligence sources.
-        </p>
+        <p className="text-muted mt-2 max-w-3xl">Consolidated view across all threat intelligence sources.</p>
       </div>
 
       <DataState loading={loading} error={error} rows={16}>
@@ -199,7 +197,7 @@ export default function IntelDashboard(): JSX.Element {
 
             {/* Quick links */}
             <section className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-5">
-              <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-3">
+              <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
                 Quick Actions
               </h2>
               <div className="flex flex-wrap gap-2">

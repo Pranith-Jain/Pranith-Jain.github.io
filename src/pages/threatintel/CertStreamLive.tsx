@@ -160,7 +160,7 @@ export default function CertStreamLive(): JSX.Element {
   const displayItems = showOnlySuspicious ? items.filter((it) => suspicionScore(it, keyword) >= 2) : items;
 
   const headerExtra = (
-    <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+    <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
       <div className="mb-3">
         <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30">
           live
@@ -209,7 +209,7 @@ export default function CertStreamLive(): JSX.Element {
             key={s.label}
             type="button"
             onClick={() => setKeyword(s.keyword)}
-            className="text-mini font-mono rounded border border-slate-300 dark:border-slate-700 px-2 py-0.5 text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 hover:border-brand-500/40"
+            className="text-mini font-mono rounded border border-slate-300 dark:border-slate-700 px-2 py-0.5 text-muted hover:text-brand-600 dark:hover:text-brand-400 hover:border-brand-500/40"
           >
             {s.label}
           </button>
@@ -256,7 +256,7 @@ export default function CertStreamLive(): JSX.Element {
       )}
 
       {streaming && (
-        <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+        <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
           <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
             <div className="text-xs font-mono text-slate-500 dark:text-slate-400">
               {loading ? (
@@ -356,7 +356,7 @@ export default function CertStreamLive(): JSX.Element {
       )}
 
       {!streaming && (
-        <div className="rounded-2xl border border-dashed border-slate-300 dark:border-slate-700 bg-slate-50/60 dark:bg-slate-950/40 p-8 text-center">
+        <div className="rounded-lg border border-dashed border-slate-300 dark:border-slate-700 bg-slate-50/60 dark:bg-slate-950/40 p-8 text-center">
           <Radio size={28} className="mx-auto text-slate-400 mb-2" />
           <p className="text-sm font-mono text-slate-500">
             Enter a keyword and press <span className="text-brand-600 dark:text-brand-400">Start stream</span> to begin

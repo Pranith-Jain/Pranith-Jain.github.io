@@ -82,7 +82,7 @@ function AptGroupDetail({ group, onClose }: { group: AptGroup; onClose: () => vo
                 {group.aliases.map((a) => (
                   <span
                     key={a}
-                    className="text-xs font-mono px-2 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400"
+                    className="text-xs font-mono px-2 py-1 rounded bg-slate-100 dark:bg-slate-800 text-muted"
                   >
                     {a}
                   </span>
@@ -107,12 +107,12 @@ function AptGroupDetail({ group, onClose }: { group: AptGroup; onClose: () => vo
           )}
           <div>
             <h4 className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-2">Malware & Tools</h4>
-            <p className="text-sm font-mono text-slate-600 dark:text-slate-400 leading-relaxed">{group.malware}</p>
+            <p className="text-sm font-mono text-muted leading-relaxed">{group.malware}</p>
           </div>
           {group.targets && (
             <div>
               <h4 className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-2">Targets</h4>
-              <p className="text-sm font-mono text-slate-600 dark:text-slate-400">{group.targets}</p>
+              <p className="text-sm font-mono text-muted">{group.targets}</p>
             </div>
           )}
           {group.links.length > 0 && (

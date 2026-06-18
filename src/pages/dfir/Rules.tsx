@@ -116,7 +116,7 @@ export default function Rules(): JSX.Element {
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -125,7 +125,7 @@ export default function Rules(): JSX.Element {
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
           <FileCode size={28} className="text-brand-600 dark:text-brand-400" /> Detection Rules
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 mb-8 max-w-3xl">
+        <p className="text-muted mb-8 max-w-3xl">
           Live registry of the open-source detection rule sources defenders actually use: Sigma, YARA, Elastic, Splunk,
           KQL, Suricata. Pulled fresh from each repo's public metadata + commit feed, cached hourly. No GitHub auth
           required, no signup, no paid tier.
@@ -143,7 +143,7 @@ export default function Rules(): JSX.Element {
 
       {data && (
         <>
-          <header className="flex flex-wrap items-baseline gap-x-4 gap-y-2 text-xs font-mono text-slate-600 dark:text-slate-400 mb-6">
+          <header className="flex flex-wrap items-baseline gap-x-4 gap-y-2 text-xs font-mono text-muted mb-6">
             <span>
               <span className="text-slate-900 dark:text-slate-100 text-base font-bold">{data.sources.length}</span> rule
               sources
@@ -243,7 +243,7 @@ export default function Rules(): JSX.Element {
                       href={s.commits_url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 px-2 py-1 rounded border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:border-brand-500/40"
+                      className="inline-flex items-center gap-1 px-2 py-1 rounded border border-slate-200 dark:border-slate-800 text-muted hover:border-brand-500/40"
                     >
                       <GitCommit size={11} /> commits
                     </a>
@@ -251,7 +251,7 @@ export default function Rules(): JSX.Element {
                       href={s.repo_url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 px-2 py-1 rounded border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:border-brand-500/40"
+                      className="inline-flex items-center gap-1 px-2 py-1 rounded border border-slate-200 dark:border-slate-800 text-muted hover:border-brand-500/40"
                     >
                       <ExternalLink size={11} /> repo
                     </a>
@@ -260,7 +260,7 @@ export default function Rules(): JSX.Element {
                         href={s.homepage}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 px-2 py-1 rounded border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:border-brand-500/40"
+                        className="inline-flex items-center gap-1 px-2 py-1 rounded border border-slate-200 dark:border-slate-800 text-muted hover:border-brand-500/40"
                       >
                         <ExternalLink size={11} /> live site
                       </a>

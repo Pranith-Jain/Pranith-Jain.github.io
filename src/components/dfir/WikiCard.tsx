@@ -11,7 +11,7 @@ export function WikiCard({ article }: { article: WikiArticleMeta }): JSX.Element
         {article.category}
       </span>
       <h3 className="font-display font-bold text-lg text-slate-900 dark:text-slate-100">{article.title}</h3>
-      <p className="mt-2 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{article.description}</p>
+      <p className="mt-2 text-sm text-muted leading-relaxed">{article.description}</p>
     </Link>
   );
 }

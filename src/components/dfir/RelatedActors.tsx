@@ -7,7 +7,7 @@ export function RelatedActors({ hints }: { hints: CtiHints }): JSX.Element | nul
   if (matches.length === 0) return null;
 
   return (
-    <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+    <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
       <header className="flex items-center gap-2 mb-4">
         <Users size={16} className="text-brand-600 dark:text-brand-400" aria-hidden="true" />
         <h3 className="font-display font-bold text-lg text-slate-900 dark:text-slate-100">Related Threat Actors</h3>
@@ -29,14 +29,12 @@ export function RelatedActors({ hints }: { hints: CtiHints }): JSX.Element | nul
                 </span>
               )}
             </div>
-            <p className="text-xs text-slate-600 dark:text-slate-400 line-clamp-2 mb-2">
-              {actor.description.split('.')[0]}.
-            </p>
+            <p className="text-xs text-muted line-clamp-2 mb-2">{actor.description.split('.')[0]}.</p>
             <div className="flex flex-wrap gap-1">
               {matched.slice(0, 3).map((m) => (
                 <span
                   key={m}
-                  className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400"
+                  className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-muted"
                 >
                   {m}
                 </span>

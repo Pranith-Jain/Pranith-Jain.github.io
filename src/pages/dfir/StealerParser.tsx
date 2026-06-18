@@ -61,7 +61,7 @@ export default function StealerParser(): JSX.Element {
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -70,7 +70,7 @@ export default function StealerParser(): JSX.Element {
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
           <Bug size={28} className="text-brand-600 dark:text-brand-400" /> Infostealer Log Parser
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed">
+        <p className="text-muted max-w-2xl leading-relaxed">
           Extract credentials, IOCs, crypto wallets, and system info from stealer log dumps. Auto-detects format and
           parses client-side where possible.
         </p>
@@ -81,7 +81,7 @@ export default function StealerParser(): JSX.Element {
         {SUPPORTED_STEALERS.map((s) => (
           <span
             key={s}
-            className="px-2.5 py-1 rounded-lg text-xs font-mono border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400"
+            className="px-2.5 py-1 rounded-lg text-xs font-mono border border-slate-200 dark:border-slate-700 text-muted"
           >
             {s}
           </span>
@@ -249,7 +249,7 @@ export default function StealerParser(): JSX.Element {
                 {result.emails.map((e) => (
                   <span
                     key={e}
-                    className="px-2 py-0.5 rounded border border-slate-200 dark:border-slate-700 text-xs font-mono text-slate-600 dark:text-slate-400"
+                    className="px-2 py-0.5 rounded border border-slate-200 dark:border-slate-700 text-xs font-mono text-muted"
                   >
                     {e}
                   </span>
@@ -266,7 +266,7 @@ export default function StealerParser(): JSX.Element {
                 {result.installed_software.map((s) => (
                   <span
                     key={s}
-                    className="px-2 py-1 rounded border border-slate-200 dark:border-slate-700 text-xs text-slate-600 dark:text-slate-400"
+                    className="px-2 py-1 rounded border border-slate-200 dark:border-slate-700 text-xs text-muted"
                   >
                     {s}
                   </span>

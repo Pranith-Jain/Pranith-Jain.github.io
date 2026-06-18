@@ -3,6 +3,17 @@
 @tailwind utilities;
 
 @layer base {
+  /* Hunt.io radius override — applied globally so we don't have to
+     edit 178 sites that use rounded-2xl. Tightens the default 16px
+     to 10px so data cards read as instrument panels, not pillows.
+     3xl and above are kept (hero/CTA surfaces earn the larger
+     radius). Section <h1/h2> rounding is overridden below because
+     Tailwind's preflight sets border-radius: 0 on headings and the
+     old `rounded-2xl` on cards was the AI-glassmorphism tell. */
+  .rounded-2xl {
+    border-radius: 0.625rem; /* 10px — was 16px */
+  }
+
   html {
     font-family: theme('fontFamily.sans');
     scroll-behavior: smooth;

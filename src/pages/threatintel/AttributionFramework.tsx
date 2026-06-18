@@ -153,7 +153,7 @@ export default function AttributionFramework(): JSX.Element {
           {assessment.methodology && (
             <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5">
               <h3 className="font-display font-bold text-sm mb-2">Methodology</h3>
-              <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">{assessment.methodology}</p>
+              <p className="text-xs text-muted leading-relaxed">{assessment.methodology}</p>
             </div>
           )}
           {assessment.caveats.length > 0 && (

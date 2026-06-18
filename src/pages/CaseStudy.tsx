@@ -102,7 +102,7 @@ export default function CaseStudy(): JSX.Element {
       </Link>
 
       <header className="mb-8">
-        <div className="text-mini font-mono uppercase tracking-[0.18em] text-brand-600 dark:text-brand-400">
+        <div className="text-eyebrow font-mono uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">
           {study.kicker}
         </div>
         <h1 className="font-display text-3xl sm:text-4xl font-bold tracking-tight mt-2 leading-tight">{study.title}</h1>

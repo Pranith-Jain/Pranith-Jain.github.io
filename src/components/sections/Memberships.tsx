@@ -33,15 +33,15 @@ const colorMap: Record<string, { bg: string; text: string; darkBg: string; darkT
 
 export function Memberships({ memberships }: MembershipsProps) {
   return (
-    <section id="memberships" className="mt-20 scroll-mt-24">
+    <section id="memberships" className="scroll-mt-24">
       <div className="mb-10 max-w-3xl">
         <div className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400">
           Professional Affiliations
         </div>
-        <h2 className="font-display text-4xl sm:text-5xl font-bold tracking-tight text-slate-900 dark:text-white">
+        <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
           Memberships
         </h2>
-        <p className="mt-4 text-lg text-slate-600 dark:text-slate-400">
+        <p className="mt-3 text-base sm:text-lg text-muted">
           Active contributor to premier cybersecurity and intelligence communities.
         </p>
       </div>
@@ -52,7 +52,7 @@ export function Memberships({ memberships }: MembershipsProps) {
           return (
             <div
               key={membership.name}
-              className="group flex flex-col gap-5 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 transition hover:border-brand-500/40 h-full"
+              className="group flex flex-col gap-5 p-6 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 transition hover:border-brand-500/40 h-full"
             >
               <div className="flex items-center justify-between">
                 <div
@@ -71,11 +71,9 @@ export function Memberships({ memberships }: MembershipsProps) {
                   {membership.name}
                 </h3>
                 <p className="mt-1 text-xs font-semibold text-slate-500 dark:text-slate-400">{membership.period}</p>
-                <p className="mt-3 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                  {membership.description}
-                </p>
+                <p className="mt-3 text-sm text-muted leading-relaxed">{membership.description}</p>
                 {membership.details && (
-                  <ul className="mt-4 space-y-2 text-xs text-slate-600 dark:text-slate-400">
+                  <ul className="mt-4 space-y-2 text-xs text-muted">
                     {membership.details.map((detail) => (
                       <li key={detail.label} className="flex items-start gap-2">
                         <span className="text-brand-500 mt-0.5">•</span>

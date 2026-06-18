@@ -357,9 +357,7 @@ export default function LiveCenter(): JSX.Element {
                           {cat.id}
                         </span>
                       </div>
-                      <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed mb-3">
-                        {tool.desc}
-                      </p>
+                      <p className="text-xs text-muted leading-relaxed mb-3">{tool.desc}</p>
                       <button
                         type="button"
                         onClick={() => toggle(key)}

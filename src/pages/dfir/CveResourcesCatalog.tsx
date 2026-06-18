@@ -104,7 +104,7 @@ export default function CveResourcesCatalog(): JSX.Element {
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -113,7 +113,7 @@ export default function CveResourcesCatalog(): JSX.Element {
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
           <BookText size={28} className="text-brand-600 dark:text-brand-400" /> CVE Resources Catalog
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 mb-2 max-w-3xl leading-relaxed">
+        <p className="text-muted mb-2 max-w-3xl leading-relaxed">
           {RESOURCES.length} hand-picked CVE resources across {ALL_CATEGORIES.length} categories. Right tool for the
           right question — "what is this CVE?" / "is there an exploit?" / "what's the patch?" / "should I patch NOW?" /
           "who's writing about it?" / "tell me when something hits".
@@ -240,9 +240,7 @@ export default function CveResourcesCatalog(): JSX.Element {
                 )}
               </div>
             )}
-            <p className="text-meta font-mono text-slate-600 dark:text-slate-400 leading-relaxed mb-2">
-              {r.description}
-            </p>
+            <p className="text-meta font-mono text-muted leading-relaxed mb-2">{r.description}</p>
             <div className="flex flex-wrap items-center gap-1.5">
               {r.categories.map((c) => (
                 <button

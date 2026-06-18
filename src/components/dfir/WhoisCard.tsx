@@ -4,7 +4,7 @@ import { ExternalLink } from 'lucide-react';
 export function WhoisCard({ rdap }: { rdap: DomainLookupResponse['rdap'] }): JSX.Element {
   if (rdap.error) {
     return (
-      <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
         <h3 className="font-display font-bold text-lg mb-3">WHOIS / RDAP</h3>
         <p className="font-mono text-sm text-rose-600 dark:text-rose-400">error: {rdap.error}</p>
       </section>
@@ -13,30 +13,28 @@ export function WhoisCard({ rdap }: { rdap: DomainLookupResponse['rdap'] }): JSX
   const fmt = (s?: string) => (s ? new Date(s).toISOString().slice(0, 10) : '—');
   const fmtDateTime = (s?: string) => (s ? new Date(s).toISOString().replace('T', ' ').slice(0, 19) + 'Z' : '—');
   return (
-    <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+    <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
       <h3 className="font-display font-bold text-lg mb-3">WHOIS / RDAP</h3>
 
       {/* Registration Details */}
       <div className="mb-4">
-        <span className="text-xs text-slate-600 dark:text-slate-400 font-mono uppercase tracking-wider">
-          Registration Details
-        </span>
+        <span className="text-xs text-muted font-mono uppercase tracking-wider">Registration Details</span>
         <dl className="mt-2 grid grid-cols-[140px_1fr] gap-x-4 gap-y-1.5 text-sm font-mono">
           {rdap.registry_domain_id && (
             <>
-              <dt className="text-slate-600 dark:text-slate-400">Domain ID</dt>
+              <dt className="text-muted">Domain ID</dt>
               <dd className="text-slate-900 dark:text-slate-100">{rdap.registry_domain_id}</dd>
             </>
           )}
-          <dt className="text-slate-600 dark:text-slate-400">Created</dt>
+          <dt className="text-muted">Created</dt>
           <dd className="text-slate-900 dark:text-slate-100">{fmtDateTime(rdap.created)}</dd>
-          <dt className="text-slate-600 dark:text-slate-400">Updated</dt>
+          <dt className="text-muted">Updated</dt>
           <dd className="text-slate-900 dark:text-slate-100">{fmtDateTime(rdap.updated)}</dd>
-          <dt className="text-slate-600 dark:text-slate-400">Expires</dt>
+          <dt className="text-muted">Expires</dt>
           <dd className="text-slate-900 dark:text-slate-100">{fmt(rdap.expires)}</dd>
           {rdap.dnssec && (
             <>
-              <dt className="text-slate-600 dark:text-slate-400">DNSSEC</dt>
+              <dt className="text-muted">DNSSEC</dt>
               <dd
                 className={
                   rdap.dnssec === 'signed'
@@ -53,19 +51,19 @@ export function WhoisCard({ rdap }: { rdap: DomainLookupResponse['rdap'] }): JSX
 
       {/* Registrar Details */}
       <div className="mb-4">
-        <span className="text-xs text-slate-600 dark:text-slate-400 font-mono uppercase tracking-wider">Registrar</span>
+        <span className="text-xs text-muted font-mono uppercase tracking-wider">Registrar</span>
         <dl className="mt-2 grid grid-cols-[140px_1fr] gap-x-4 gap-y-1.5 text-sm font-mono">
-          <dt className="text-slate-600 dark:text-slate-400">Name</dt>
+          <dt className="text-muted">Name</dt>
           <dd className="text-slate-900 dark:text-slate-100">{rdap.registrar ?? '—'}</dd>
           {rdap.registrar_iana_id && (
             <>
-              <dt className="text-slate-600 dark:text-slate-400">IANA ID</dt>
+              <dt className="text-muted">IANA ID</dt>
               <dd className="text-slate-900 dark:text-slate-100">{rdap.registrar_iana_id}</dd>
             </>
           )}
           {rdap.registrar_abuse_email && (
             <>
-              <dt className="text-slate-600 dark:text-slate-400">Abuse Email</dt>
+              <dt className="text-muted">Abuse Email</dt>
               <dd>
                 <a
                   href={`mailto:${rdap.registrar_abuse_email}`}
@@ -78,13 +76,13 @@ export function WhoisCard({ rdap }: { rdap: DomainLookupResponse['rdap'] }): JSX
           )}
           {rdap.registrar_abuse_phone && (
             <>
-              <dt className="text-slate-600 dark:text-slate-400">Abuse Phone</dt>
+              <dt className="text-muted">Abuse Phone</dt>
               <dd className="text-slate-900 dark:text-slate-100">{rdap.registrar_abuse_phone}</dd>
             </>
           )}
           {rdap.registrar_url && (
             <>
-              <dt className="text-slate-600 dark:text-slate-400">Info</dt>
+              <dt className="text-muted">Info</dt>
               <dd>
                 <a
                   href={rdap.registrar_url}
@@ -103,9 +101,7 @@ export function WhoisCard({ rdap }: { rdap: DomainLookupResponse['rdap'] }): JSX
       {/* Name Servers */}
       {rdap.nameservers.length > 0 && (
         <div className="mb-4">
-          <span className="text-xs text-slate-600 dark:text-slate-400 font-mono uppercase tracking-wider">
-            Name Servers
-          </span>
+          <span className="text-xs text-muted font-mono uppercase tracking-wider">Name Servers</span>
           <ul className="mt-1 space-y-0.5 text-sm font-mono text-slate-900 dark:text-slate-100">
             {rdap.nameservers.map((ns) => (
               <li key={ns}>{ns.toLowerCase()}</li>
@@ -117,9 +113,7 @@ export function WhoisCard({ rdap }: { rdap: DomainLookupResponse['rdap'] }): JSX
       {/* Domain Status */}
       {rdap.status.length > 0 && (
         <div>
-          <span className="text-xs text-slate-600 dark:text-slate-400 font-mono uppercase tracking-wider">
-            Domain Status
-          </span>
+          <span className="text-xs text-muted font-mono uppercase tracking-wider">Domain Status</span>
           <div className="mt-1 flex flex-wrap gap-1">
             {rdap.status.map((s) => {
               // Parse status URL if present (e.g., "ok https://icann.org/epp#ok")
@@ -129,7 +123,7 @@ export function WhoisCard({ rdap }: { rdap: DomainLookupResponse['rdap'] }): JSX
               return (
                 <span
                   key={s}
-                  className="text-xs font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-800"
+                  className="text-xs font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-muted border border-slate-200 dark:border-slate-800"
                 >
                   {statusUrl ? (
                     <a

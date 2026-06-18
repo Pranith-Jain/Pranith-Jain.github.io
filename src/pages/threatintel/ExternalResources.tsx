@@ -460,9 +460,7 @@ export default function ExternalResources(): JSX.Element {
                 )}
               </div>
             </div>
-            <p className="text-meta font-mono text-slate-600 dark:text-slate-400 leading-relaxed mb-2 break-words">
-              {r.description}
-            </p>
+            <p className="text-meta font-mono text-muted leading-relaxed mb-2 break-words">{r.description}</p>
             {(r.tags ?? []).length > 0 && (
               <div className="flex flex-wrap gap-1 mb-1">
                 {(r.tags ?? []).map((t) => (

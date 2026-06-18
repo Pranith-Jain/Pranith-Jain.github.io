@@ -1,17 +1,7 @@
 import { useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { DataPageLayout } from '../../components/DataPageLayout';
-import {
-  Bug,
-  Search,
-  ExternalLink,
-  Shield,
-  ShieldAlert,
-  ShieldCheck,
-  Calendar,
-  Package,
-  Filter,
-} from 'lucide-react';
+import { Bug, Search, ExternalLink, Shield, ShieldAlert, ShieldCheck, Calendar, Package, Filter } from 'lucide-react';
 import { CopyChip } from '../../components/dfir/CopyButton';
 
 interface VulnEntry {
@@ -62,7 +52,8 @@ const ENTRIES: VulnEntry[] = [
     cvss: 9.8,
     type: 'RCE',
     published: '2026-06-10',
-    description: 'Remote code execution vulnerability in Microsoft SharePoint Server allowing unauthenticated attackers to execute arbitrary code.',
+    description:
+      'Remote code execution vulnerability in Microsoft SharePoint Server allowing unauthenticated attackers to execute arbitrary code.',
     advisories: [
       { label: 'NVD', url: 'https://nvd.nist.gov/vuln/detail/CVE-2026-47294' },
       { label: 'MSRC', url: 'https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-47294' },
@@ -79,7 +70,8 @@ const ENTRIES: VulnEntry[] = [
     cvss: 9.8,
     type: 'RCE',
     published: '2026-06-14',
-    description: 'Multiple critical vulnerabilities in Langflow AI framework allowing remote code execution through crafted API requests.',
+    description:
+      'Multiple critical vulnerabilities in Langflow AI framework allowing remote code execution through crafted API requests.',
     advisories: [
       { label: 'NVD', url: 'https://nvd.nist.gov/vuln/detail/CVE-2026-12174' },
       { label: 'GitHub', url: 'https://github.com/langflow-ai/langflow/security/advisories' },
@@ -250,9 +242,7 @@ const ENTRIES: VulnEntry[] = [
     type: 'RCE',
     published: '2026-06-10',
     description: 'Remote code execution in React2Shell framework through server-side rendering injection.',
-    advisories: [
-      { label: 'NVD', url: 'https://nvd.nist.gov/vuln/detail/CVE-2026-55182' },
-    ],
+    advisories: [{ label: 'NVD', url: 'https://nvd.nist.gov/vuln/detail/CVE-2026-55182' }],
     tags: ['react2shell', 'ssr', 'framework', 'rce'],
     hasExploit: true,
   },
@@ -266,9 +256,7 @@ const ENTRIES: VulnEntry[] = [
     type: 'RCE',
     published: '2026-06-10',
     description: 'Command injection in Edimax router web interface allowing full device takeover.',
-    advisories: [
-      { label: 'NVD', url: 'https://nvd.nist.gov/vuln/detail/CVE-2026-9439' },
-    ],
+    advisories: [{ label: 'NVD', url: 'https://nvd.nist.gov/vuln/detail/CVE-2026-9439' }],
     tags: ['edimax', 'router', 'iot', 'command-injection'],
     hasExploit: true,
   },
@@ -282,9 +270,7 @@ const ENTRIES: VulnEntry[] = [
     type: 'RCE',
     published: '2026-06-10',
     description: 'Command injection in Edimax router management interface.',
-    advisories: [
-      { label: 'NVD', url: 'https://nvd.nist.gov/vuln/detail/CVE-2026-9440' },
-    ],
+    advisories: [{ label: 'NVD', url: 'https://nvd.nist.gov/vuln/detail/CVE-2026-9440' }],
     tags: ['edimax', 'router', 'iot', 'command-injection'],
     hasExploit: true,
   },
@@ -298,9 +284,7 @@ const ENTRIES: VulnEntry[] = [
     type: 'RCE',
     published: '2026-06-10',
     description: 'Command injection vulnerability in Edimax device firmware.',
-    advisories: [
-      { label: 'NVD', url: 'https://nvd.nist.gov/vuln/detail/CVE-2026-9441' },
-    ],
+    advisories: [{ label: 'NVD', url: 'https://nvd.nist.gov/vuln/detail/CVE-2026-9441' }],
     tags: ['edimax', 'router', 'iot', 'command-injection'],
     hasExploit: true,
   },
@@ -314,9 +298,7 @@ const ENTRIES: VulnEntry[] = [
     type: 'Info Leak',
     published: '2026-06-10',
     description: 'Information disclosure in Edimax router configuration endpoints.',
-    advisories: [
-      { label: 'NVD', url: 'https://nvd.nist.gov/vuln/detail/CVE-2026-9442' },
-    ],
+    advisories: [{ label: 'NVD', url: 'https://nvd.nist.gov/vuln/detail/CVE-2026-9442' }],
     tags: ['edimax', 'router', 'iot', 'info-leak'],
     hasExploit: false,
   },
@@ -330,9 +312,7 @@ const ENTRIES: VulnEntry[] = [
     type: 'RCE',
     published: '2026-06-10',
     description: 'Authenticated command injection in Edimax router admin panel.',
-    advisories: [
-      { label: 'NVD', url: 'https://nvd.nist.gov/vuln/detail/CVE-2026-9443' },
-    ],
+    advisories: [{ label: 'NVD', url: 'https://nvd.nist.gov/vuln/detail/CVE-2026-9443' }],
     tags: ['edimax', 'router', 'iot', 'command-injection', 'authenticated'],
     hasExploit: true,
   },
@@ -346,9 +326,7 @@ const ENTRIES: VulnEntry[] = [
     type: 'RCE',
     published: '2026-06-10',
     description: 'Command injection via setdmzcfg endpoint in TotoLink A8000RU router.',
-    advisories: [
-      { label: 'NVD', url: 'https://nvd.nist.gov/vuln/detail/CVE-2026-9455' },
-    ],
+    advisories: [{ label: 'NVD', url: 'https://nvd.nist.gov/vuln/detail/CVE-2026-9455' }],
     tags: ['totolink', 'router', 'iot', 'command-injection'],
     hasExploit: true,
   },
@@ -362,9 +340,7 @@ const ENTRIES: VulnEntry[] = [
     type: 'Buffer Overflow',
     published: '2026-06-10',
     description: 'Buffer overflow in Telnet NEW-ENVIRON option handling.',
-    advisories: [
-      { label: 'NVD', url: 'https://nvd.nist.gov/vuln/detail/CVE-2026-24061' },
-    ],
+    advisories: [{ label: 'NVD', url: 'https://nvd.nist.gov/vuln/detail/CVE-2026-24061' }],
     tags: ['telnet', 'netkit', 'buffer-overflow', 'legacy'],
     hasExploit: true,
   },
@@ -378,9 +354,7 @@ const ENTRIES: VulnEntry[] = [
     type: 'Buffer Overflow',
     published: '2026-06-10',
     description: 'Buffer overflow in Telnetd LINEMODE SLC option processing.',
-    advisories: [
-      { label: 'NVD', url: 'https://nvd.nist.gov/vuln/detail/CVE-2026-32746' },
-    ],
+    advisories: [{ label: 'NVD', url: 'https://nvd.nist.gov/vuln/detail/CVE-2026-32746' }],
     tags: ['telnet', 'netkit', 'buffer-overflow', 'linemode'],
     hasExploit: true,
   },
@@ -393,7 +367,8 @@ const ENTRIES: VulnEntry[] = [
     cvss: 9.8,
     type: 'RCE',
     published: '2021-07-15',
-    description: 'Remote code execution in Laravel Ignition via phar:// deserialization (historically significant, still relevant for unpatched deployments).',
+    description:
+      'Remote code execution in Laravel Ignition via phar:// deserialization (historically significant, still relevant for unpatched deployments).',
     advisories: [
       { label: 'NVD', url: 'https://nvd.nist.gov/vuln/detail/CVE-2021-3129' },
       { label: 'Laravel', url: 'https://laravel.com/docs/8.x/releases#security-fixes' },
@@ -411,9 +386,7 @@ const ENTRIES: VulnEntry[] = [
     type: 'RCE',
     published: '2026-06-01',
     description: 'Remote code execution in KMW CCTV camera systems through authenticated command injection.',
-    advisories: [
-      { label: 'NVD', url: 'https://nvd.nist.gov/vuln/detail/CVE-2026-5386' },
-    ],
+    advisories: [{ label: 'NVD', url: 'https://nvd.nist.gov/vuln/detail/CVE-2026-5386' }],
     tags: ['kmw', 'cctv', 'camera', 'iot', 'command-injection'],
     hasExploit: true,
   },
@@ -478,7 +451,8 @@ const ENTRIES: VulnEntry[] = [
     cvss: 9.8,
     type: 'Buffer Overflow',
     published: '2025-04-03',
-    description: 'Stack-based buffer overflow in Ivanti Policy Secure allowing unauthenticated RCE (actively exploited in the wild).',
+    description:
+      'Stack-based buffer overflow in Ivanti Policy Secure allowing unauthenticated RCE (actively exploited in the wild).',
     advisories: [
       { label: 'NVD', url: 'https://nvd.nist.gov/vuln/detail/CVE-2025-22457' },
       { label: 'Ivanti', url: 'https://forums.ivanti.com/s/article/Security-Advisory' },
@@ -495,7 +469,8 @@ const ENTRIES: VulnEntry[] = [
     cvss: 9.0,
     type: 'Buffer Overflow',
     published: '2025-01-08',
-    description: 'Stack-based buffer overflow in Ivanti Connect Secure SSL VPN, exploited by UNC17885 (Chinese state actor).',
+    description:
+      'Stack-based buffer overflow in Ivanti Connect Secure SSL VPN, exploited by UNC17885 (Chinese state actor).',
     advisories: [
       { label: 'NVD', url: 'https://nvd.nist.gov/vuln/detail/CVE-2025-0282' },
       { label: 'Ivanti', url: 'https://forums.ivanti.com/s/article/Security-Advisory' },
@@ -512,7 +487,8 @@ const ENTRIES: VulnEntry[] = [
     cvss: 10.0,
     type: 'Command Injection',
     published: '2024-04-12',
-    description: 'Critical command injection in PAN-OS GlobalProtect gateway (CVSS 10.0), exploited by UNC4841 Chinese state actor.',
+    description:
+      'Critical command injection in PAN-OS GlobalProtect gateway (CVSS 10.0), exploited by UNC4841 Chinese state actor.',
     advisories: [
       { label: 'NVD', url: 'https://nvd.nist.gov/vuln/detail/CVE-2024-3400' },
       { label: 'PAN', url: 'https://security.paloaltonetworks.com/CVE-2024-3400' },
@@ -529,7 +505,8 @@ const ENTRIES: VulnEntry[] = [
     cvss: 9.8,
     type: 'Command Injection',
     published: '2024-01-12',
-    description: 'Command injection in Ivanti Connect Secure and Policy Secure web components, chained with CVE-2023-46805 for mass exploitation.',
+    description:
+      'Command injection in Ivanti Connect Secure and Policy Secure web components, chained with CVE-2023-46805 for mass exploitation.',
     advisories: [
       { label: 'NVD', url: 'https://nvd.nist.gov/vuln/detail/CVE-2024-21887' },
       { label: 'Ivanti', url: 'https://forums.ivanti.com/s/article/Security-Advisory' },
@@ -546,7 +523,8 @@ const ENTRIES: VulnEntry[] = [
     cvss: 8.2,
     type: 'Auth Bypass',
     published: '2024-01-12',
-    description: 'Authentication bypass in Ivanti Connect Secure, chainable with CVE-2024-21887 for unauthenticated RCE.',
+    description:
+      'Authentication bypass in Ivanti Connect Secure, chainable with CVE-2024-21887 for unauthenticated RCE.',
     advisories: [
       { label: 'NVD', url: 'https://nvd.nist.gov/vuln/detail/CVE-2023-46805' },
       { label: 'Ivanti', url: 'https://forums.ivanti.com/s/article/Security-Advisory' },
@@ -580,7 +558,8 @@ const ENTRIES: VulnEntry[] = [
     cvss: 9.8,
     type: 'Format String',
     published: '2024-10-14',
-    description: 'Format string vulnerability in FortiOS fgfmd daemon allowing remote code execution via specially crafted packets.',
+    description:
+      'Format string vulnerability in FortiOS fgfmd daemon allowing remote code execution via specially crafted packets.',
     advisories: [
       { label: 'NVD', url: 'https://nvd.nist.gov/vuln/detail/CVE-2024-23113' },
       { label: 'Fortinet', url: 'https://www.fortiguard.com/psirt/FG-IR-24-320' },
@@ -614,7 +593,8 @@ const ENTRIES: VulnEntry[] = [
     cvss: 9.4,
     type: 'Buffer Overflow',
     published: '2023-10-10',
-    description: 'Sensitive information disclosure in Citrix NetScaler ADC and Gateway (Citrix Bleed), heavily exploited by LockBit ransomware affiliates.',
+    description:
+      'Sensitive information disclosure in Citrix NetScaler ADC and Gateway (Citrix Bleed), heavily exploited by LockBit ransomware affiliates.',
     advisories: [
       { label: 'NVD', url: 'https://nvd.nist.gov/vuln/detail/CVE-2023-4966' },
       { label: 'Citrix', url: 'https://support.citrix.com/article/CTX579459' },
@@ -631,7 +611,8 @@ const ENTRIES: VulnEntry[] = [
     cvss: 8.8,
     type: 'Auth Bypass',
     published: '2025-02-12',
-    description: 'Authentication bypass in PAN-OS management web interface allowing privileged access to restricted resources.',
+    description:
+      'Authentication bypass in PAN-OS management web interface allowing privileged access to restricted resources.',
     advisories: [
       { label: 'NVD', url: 'https://nvd.nist.gov/vuln/detail/CVE-2025-0108' },
       { label: 'PAN', url: 'https://security.paloaltonetworks.com/CVE-2025-0108' },
@@ -665,7 +646,8 @@ const ENTRIES: VulnEntry[] = [
     cvss: 9.8,
     type: 'RCE',
     published: '2026-06-11',
-    description: 'Remote code execution in Microsoft Exchange Server via SSRF in Outlook Web Access (ProxyShell variant).',
+    description:
+      'Remote code execution in Microsoft Exchange Server via SSRF in Outlook Web Access (ProxyShell variant).',
     advisories: [
       { label: 'NVD', url: 'https://nvd.nist.gov/vuln/detail/CVE-2026-36911' },
       { label: 'MSRC', url: 'https://msrc.microsoft.com/update-guide/' },
@@ -716,7 +698,8 @@ const ENTRIES: VulnEntry[] = [
     cvss: 9.8,
     type: 'Buffer Overflow',
     published: '2026-06-11',
-    description: 'Buffer overflow in Windows LDAP Server allowing unauthenticated remote code execution (ZeroLogon-class).',
+    description:
+      'Buffer overflow in Windows LDAP Server allowing unauthenticated remote code execution (ZeroLogon-class).',
     advisories: [
       { label: 'NVD', url: 'https://nvd.nist.gov/vuln/detail/CVE-2026-21908' },
       { label: 'MSRC', url: 'https://msrc.microsoft.com/update-guide/' },
@@ -733,7 +716,8 @@ const ENTRIES: VulnEntry[] = [
     cvss: 9.8,
     type: 'Deserialization',
     published: '2026-06-10',
-    description: 'Deserialization vulnerability in Progress Telerik UI for ASP.NET AJAX allowing remote code execution.',
+    description:
+      'Deserialization vulnerability in Progress Telerik UI for ASP.NET AJAX allowing remote code execution.',
     advisories: [
       { label: 'NVD', url: 'https://nvd.nist.gov/vuln/detail/CVE-2026-33883' },
       { label: 'Progress', url: 'https://www.telerik.com/support/security-bulletins' },
@@ -784,7 +768,8 @@ const ENTRIES: VulnEntry[] = [
     cvss: 8.4,
     type: 'Privilege Escalation',
     published: '2026-06-10',
-    description: 'Privilege escalation in Kubernetes API server via crafted TokenReview request allowing cluster-admin impersonation.',
+    description:
+      'Privilege escalation in Kubernetes API server via crafted TokenReview request allowing cluster-admin impersonation.',
     advisories: [
       { label: 'NVD', url: 'https://nvd.nist.gov/vuln/detail/CVE-2026-46210' },
       { label: 'K8s', url: 'https://kubernetes.io/docs/reference/issues-security/' },
@@ -801,7 +786,8 @@ const ENTRIES: VulnEntry[] = [
     cvss: 8.1,
     type: 'Path Traversal',
     published: '2026-06-10',
-    description: 'Server-side request forgery and path traversal in Next.js middleware allowing file read on the server.',
+    description:
+      'Server-side request forgery and path traversal in Next.js middleware allowing file read on the server.',
     advisories: [
       { label: 'NVD', url: 'https://nvd.nist.gov/vuln/detail/CVE-2026-32889' },
       { label: 'GitHub', url: 'https://github.com/vercel/next.js/security/advisories' },
@@ -818,7 +804,8 @@ const ENTRIES: VulnEntry[] = [
     cvss: 8.8,
     type: 'Auth Bypass',
     published: '2026-06-10',
-    description: 'Authentication bypass in Grafana dashboard sharing allowing unauthenticated access to private dashboards.',
+    description:
+      'Authentication bypass in Grafana dashboard sharing allowing unauthenticated access to private dashboards.',
     advisories: [
       { label: 'NVD', url: 'https://nvd.nist.gov/vuln/detail/CVE-2026-33497' },
       { label: 'Grafana', url: 'https://grafana.com/security/' },
@@ -972,9 +959,7 @@ const ENTRIES: VulnEntry[] = [
     type: 'Command Injection',
     published: '2026-06-10',
     description: 'Unauthenticated command injection in D-Link DIR-823 router via Set_sysTimezone handler.',
-    advisories: [
-      { label: 'NVD', url: 'https://nvd.nist.gov/vuln/detail/CVE-2026-20018' },
-    ],
+    advisories: [{ label: 'NVD', url: 'https://nvd.nist.gov/vuln/detail/CVE-2026-20018' }],
     tags: ['dlink', 'router', 'iot', 'command-injection', 'unauthenticated'],
     hasExploit: true,
   },
@@ -988,9 +973,7 @@ const ENTRIES: VulnEntry[] = [
     type: 'Command Injection',
     published: '2026-06-10',
     description: 'Unauthenticated command injection in TP-Link Archer AX73 via debug menu endpoint.',
-    advisories: [
-      { label: 'NVD', url: 'https://nvd.nist.gov/vuln/detail/CVE-2026-27002' },
-    ],
+    advisories: [{ label: 'NVD', url: 'https://nvd.nist.gov/vuln/detail/CVE-2026-27002' }],
     tags: ['tplink', 'router', 'wifi-6', 'command-injection', 'debug'],
     hasExploit: true,
   },
@@ -1041,10 +1024,10 @@ export default function VulnToolkitCatalog(): JSX.Element {
     new Set((searchParams.get('sev')?.split(',').filter(Boolean) ?? []) as string[])
   );
   const [vendorFilter, setVendorFilter] = useState<Set<string>>(
-    new Set((searchParams.get('vendor')?.split(',').filter(Boolean) ?? []))
+    new Set(searchParams.get('vendor')?.split(',').filter(Boolean) ?? [])
   );
   const [typeFilter, setTypeFilter] = useState<Set<string>>(
-    new Set((searchParams.get('type')?.split(',').filter(Boolean) ?? []))
+    new Set(searchParams.get('type')?.split(',').filter(Boolean) ?? [])
   );
   const [showExploitsOnly, setShowExploitsOnly] = useState(searchParams.get('exploits') === '1');
 
@@ -1057,7 +1040,10 @@ export default function VulnToolkitCatalog(): JSX.Element {
       if (showExploitsOnly && !e.hasExploit) return false;
       if (!q) return true;
       const hay = `${e.cve} ${e.product} ${e.vendor} ${e.type} ${e.description} ${e.tags.join(' ')}`.toLowerCase();
-      return q.split(/\s+/).filter(Boolean).every((tok) => hay.includes(tok));
+      return q
+        .split(/\s+/)
+        .filter(Boolean)
+        .every((tok) => hay.includes(tok));
     });
   }, [query, severityFilter, vendorFilter, typeFilter, showExploitsOnly]);
 
@@ -1270,9 +1256,9 @@ export default function VulnToolkitCatalog(): JSX.Element {
                         <span className="text-slate-900 dark:text-slate-100">{e.product}</span>
                       </div>
                     </td>
-                    <td className="py-3 px-4 text-slate-600 dark:text-slate-400">{e.vendor}</td>
+                    <td className="py-3 px-4 text-muted">{e.vendor}</td>
                     <td className="py-3 px-4">
-                      <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">
+                      <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-muted">
                         {e.type}
                       </span>
                     </td>
@@ -1289,8 +1275,8 @@ export default function VulnToolkitCatalog(): JSX.Element {
                           (e.cvss ?? 0) >= 9
                             ? 'text-rose-600 dark:text-rose-400'
                             : (e.cvss ?? 0) >= 7
-                            ? 'text-orange-600 dark:text-orange-400'
-                            : 'text-slate-600 dark:text-slate-400'
+                              ? 'text-orange-600 dark:text-orange-400'
+                              : 'text-muted'
                         }`}
                       >
                         {e.cvss?.toFixed(1) ?? '—'}
@@ -1340,10 +1326,10 @@ export default function VulnToolkitCatalog(): JSX.Element {
         <h3 className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 mb-2">
           About This Catalog
         </h3>
-        <ul className="text-meta font-mono text-slate-600 dark:text-slate-400 space-y-1.5">
+        <ul className="text-meta font-mono text-muted space-y-1.5">
           <li>
-            <strong>Purpose:</strong> Track CVE exploit toolkits and PoC releases for patch prioritization and
-            detection engineering. Each entry links to official NVD/vendor advisories.
+            <strong>Purpose:</strong> Track CVE exploit toolkits and PoC releases for patch prioritization and detection
+            engineering. Each entry links to official NVD/vendor advisories.
           </li>
           <li>
             <strong>EXP tag:</strong> Indicates an exploit toolkit or PoC is known to exist for this CVE. Check the

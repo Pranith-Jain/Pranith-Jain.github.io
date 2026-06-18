@@ -159,7 +159,7 @@ export default function WebScan(): JSX.Element {
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -168,7 +168,7 @@ export default function WebScan(): JSX.Element {
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
           <ShieldAlert size={28} className="text-brand-600 dark:text-brand-400" /> Web Vulnerability Scanner
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 mb-2 max-w-3xl leading-relaxed">
+        <p className="text-muted mb-2 max-w-3xl leading-relaxed">
           Audit a public web URL. HTTP security headers, cookie attributes, version disclosure, and around 30 common
           exposed paths (<code>.git/</code>, <code>.env</code>, <code>/admin</code>, <code>phpinfo.php</code>,
           <code>robots.txt</code>, and similar).
@@ -251,7 +251,7 @@ export default function WebScan(): JSX.Element {
           {/* Summary */}
           <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
             <div className="flex items-baseline justify-between gap-2 mb-3">
-              <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono inline-flex items-center gap-2">
+              <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono inline-flex items-center gap-2">
                 <Globe size={12} /> Summary
               </h2>
               <span className="text-mini font-mono text-slate-500">HTTP {data.status}</span>
@@ -290,7 +290,7 @@ export default function WebScan(): JSX.Element {
               </Link>
               <Link
                 to={`/dfir/url-preview?url=${encodeURIComponent(data.url)}`}
-                className="px-2 py-0.5 rounded border border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-brand-500/40"
+                className="px-2 py-0.5 rounded border border-slate-300 dark:border-slate-700 text-muted hover:border-brand-500/40"
               >
                 → preview
               </Link>
@@ -299,7 +299,7 @@ export default function WebScan(): JSX.Element {
 
           {/* HTTP findings */}
           <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
-            <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-3 inline-flex items-center gap-2">
+            <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3 inline-flex items-center gap-2">
               <ShieldAlert size={12} /> HTTP / cookie findings ({findings.length})
             </h2>
             <ul className="space-y-2">
@@ -325,7 +325,7 @@ export default function WebScan(): JSX.Element {
                       {f.severity}
                     </span>
                   </div>
-                  {f.detail && <p className="text-meta font-mono text-slate-600 dark:text-slate-400">{f.detail}</p>}
+                  {f.detail && <p className="text-meta font-mono text-muted">{f.detail}</p>}
                   {f.value && (
                     <code className="block text-mini font-mono text-slate-500 dark:text-slate-400 mt-1 break-all bg-white dark:bg-slate-900 px-2 py-1 rounded">
                       {f.value}
@@ -366,7 +366,7 @@ export default function WebScan(): JSX.Element {
                         </span>
                       </div>
                     </div>
-                    <p className="text-mini font-mono text-slate-600 dark:text-slate-400 mt-0.5">
+                    <p className="text-mini font-mono text-muted mt-0.5">
                       {p.description}
                       {p.redirectsTo && <span className="ml-2 text-slate-500">→ {p.redirectsTo}</span>}
                     </p>
@@ -379,7 +379,7 @@ export default function WebScan(): JSX.Element {
           {/* Other probes — collapsed */}
           <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
             <details>
-              <summary className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono cursor-pointer inline-flex items-center gap-2">
+              <summary className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono cursor-pointer inline-flex items-center gap-2">
                 <Info size={12} /> All probe results ({data.exposed_paths.length})
               </summary>
               <ul className="mt-3 space-y-1 font-mono text-mini">
@@ -401,7 +401,7 @@ export default function WebScan(): JSX.Element {
           {/* Raw headers */}
           <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
             <details>
-              <summary className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono cursor-pointer inline-flex items-center gap-2">
+              <summary className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono cursor-pointer inline-flex items-center gap-2">
                 <FileText size={12} /> Raw response headers ({Object.keys(data.raw_headers).length})
               </summary>
               <dl className="grid sm:grid-cols-[180px_1fr] gap-x-4 gap-y-1 text-mini font-mono mt-3 max-h-96 overflow-auto">

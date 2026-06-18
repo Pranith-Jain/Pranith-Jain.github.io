@@ -361,7 +361,7 @@ export default function BlogPost() {
             <header className="mb-8">
               <Link
                 to={`/blog/c/${post.type}`}
-                className="text-mini font-mono uppercase tracking-[0.16em] text-brand-600 dark:text-brand-400 hover:underline"
+                className="text-eyebrow font-mono uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400 hover:underline"
               >
                 {post.type}
               </Link>
@@ -464,7 +464,7 @@ export default function BlogPost() {
                 href={`https://x.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 rounded-md border border-slate-200 dark:border-slate-700 px-3 py-1.5 text-xs font-semibold text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 hover:border-brand-300 dark:hover:border-brand-700 transition-colors"
+                className="inline-flex items-center gap-1.5 rounded-md border border-slate-200 dark:border-slate-700 px-3 py-1.5 text-xs font-semibold text-muted hover:bg-slate-50 dark:hover:bg-slate-800 hover:border-brand-300 dark:hover:border-brand-700 transition-colors"
               >
                 <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="currentColor" aria-hidden="true">
                   <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
@@ -475,7 +475,7 @@ export default function BlogPost() {
                 href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 rounded-md border border-slate-200 dark:border-slate-700 px-3 py-1.5 text-xs font-semibold text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 hover:border-brand-300 dark:hover:border-brand-700 transition-colors"
+                className="inline-flex items-center gap-1.5 rounded-md border border-slate-200 dark:border-slate-700 px-3 py-1.5 text-xs font-semibold text-muted hover:bg-slate-50 dark:hover:bg-slate-800 hover:border-brand-300 dark:hover:border-brand-700 transition-colors"
               >
                 <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="currentColor" aria-hidden="true">
                   <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
@@ -508,7 +508,7 @@ export default function BlogPost() {
             )}
 
             {/* Author Bio */}
-            <section className="mt-10 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-6 sm:p-8">
+            <section className="mt-10 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-6 sm:p-8">
               <div className="flex items-start gap-4">
                 <div className="flex-shrink-0">
                   <div className="h-16 w-16 rounded-full bg-brand-100 dark:bg-brand-900/30 flex items-center justify-center">
@@ -517,7 +517,7 @@ export default function BlogPost() {
                 </div>
                 <div>
                   <h3 className="font-display text-lg font-bold text-slate-900 dark:text-white">Pranith Jain</h3>
-                  <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">
+                  <p className="text-sm text-muted mt-1">
                     Detection & response practitioner specializing in threat intelligence, email security, and cloud
                     identity. Building tools that make CTI accessible to everyone.
                   </p>
@@ -546,13 +546,13 @@ export default function BlogPost() {
               </div>
             </section>
 
-            <section className="mt-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-6 sm:p-8">
+            <section className="mt-6 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-6 sm:p-8">
               <div className="sm:flex sm:items-center sm:justify-between gap-6">
                 <div className="mb-4 sm:mb-0">
                   <h3 className="font-display text-xl font-bold text-slate-900 dark:text-white">
                     Try the DFIR Toolkit
                   </h3>
-                  <p className="mt-1 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                  <p className="mt-1 text-sm text-muted leading-relaxed">
                     Free, edge-hosted tools for IOC enrichment, email analysis, and live threat intelligence. No signup,
                     no rate limits on core tools.
                   </p>
@@ -602,7 +602,7 @@ export default function BlogPost() {
                       <Link
                         key={p.slug}
                         to={`/blog/${p.slug}`}
-                        className="group rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5 transition hover:border-brand-500/40 h-full flex flex-col"
+                        className="group rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5 transition hover:border-brand-500/40 h-full flex flex-col"
                       >
                         <div className="flex flex-wrap gap-1 mb-2">
                           {p.tags.slice(0, 2).map((t) => (
@@ -622,9 +622,7 @@ export default function BlogPost() {
                         <h3 className="font-display text-base font-bold text-slate-900 dark:text-white transition-colors group-hover:text-brand-600 dark:group-hover:text-brand-400 line-clamp-2">
                           {p.title}
                         </h3>
-                        <p className="mt-1.5 text-xs text-slate-600 dark:text-slate-400 leading-relaxed line-clamp-2 flex-1">
-                          {p.excerpt}
-                        </p>
+                        <p className="mt-1.5 text-xs text-muted leading-relaxed line-clamp-2 flex-1">{p.excerpt}</p>
                         <div className="mt-3 text-mini font-mono text-slate-400">
                           {formatDate(p.publishedAt)} · {relatedReadTime} min read
                         </div>

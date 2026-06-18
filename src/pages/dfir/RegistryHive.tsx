@@ -145,7 +145,7 @@ function Node({ k, depth }: { k: RKey; depth: number }): JSX.Element {
       {open && (
         <div>
           {k.values.map((v, i) => (
-            <div key={i} className="ml-4 font-mono text-mini text-slate-600 dark:text-slate-400 break-all">
+            <div key={i} className="ml-4 font-mono text-mini text-muted break-all">
               <span className="text-emerald-600 dark:text-emerald-400">{v.name}</span> [{v.type}] = {v.value}
             </div>
           ))}
@@ -167,7 +167,7 @@ export default function RegistryHive(): JSX.Element {
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-6 text-slate-900 dark:text-slate-100">
       <Link
         to="/dfir/tools/dfir"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> DFIR tools
       </Link>
@@ -175,7 +175,7 @@ export default function RegistryHive(): JSX.Element {
         <FolderTree size={22} className="text-brand-600 dark:text-brand-400" />
         Registry Hive Explorer
       </h1>
-      <p className="text-sm font-mono text-slate-600 dark:text-slate-400 mt-1 mb-6">
+      <p className="text-sm font-mono text-muted mt-1 mb-6">
         Drop a raw Windows registry hive (<code>SYSTEM</code>, <code>SOFTWARE</code>, <code>NTUSER.DAT</code>, etc.).
         Hand-rolled <code>regf</code> parser walks keys + values entirely in your browser. Capped at {MAX_NODES} nodes
         for responsiveness.

@@ -272,7 +272,7 @@ function BreachCards({ breaches }: { breaches: BreachEntry[] }): JSX.Element {
               ))}
             </div>
           )}
-          {b.description && <p className="text-sm text-slate-600 dark:text-slate-400 line-clamp-2">{b.description}</p>}
+          {b.description && <p className="text-sm text-muted line-clamp-2">{b.description}</p>}
         </div>
       ))}
     </div>
@@ -295,7 +295,7 @@ function VerificationCard({ verification }: { verification: EmailVerification })
   const Icon = v.Icon;
   const sourceCount = (verification.sources.throwaway ? 1 : 0) + (verification.sources.rapid ? 1 : 0);
   return (
-    <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+    <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
       <div className="flex items-start gap-4">
         <Icon size={22} className="shrink-0 mt-0.5 text-slate-500" />
         <div className="flex-1 min-w-0">
@@ -324,7 +324,7 @@ function VerificationCard({ verification }: { verification: EmailVerification })
               rapid-verifier <ExternalLink size={9} />
             </a>
           </div>
-          <p className="text-sm text-slate-600 dark:text-slate-400 mt-1.5">{v.blurb}</p>
+          <p className="text-sm text-muted mt-1.5">{v.blurb}</p>
 
           <div className="mt-3 flex items-center gap-3">
             <div className="flex-1 h-1.5 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
@@ -507,7 +507,7 @@ function PasswordTab(): JSX.Element {
       </form>
 
       {loading && (
-        <div className="flex items-center gap-2 text-slate-600 dark:text-slate-400">
+        <div className="flex items-center gap-2 text-muted">
           <div className="animate-spin w-4 h-4 border-2 border-brand-500 border-t-transparent rounded-full" />
           <span className="font-mono text-sm">Checking breach databases...</span>
         </div>
@@ -521,7 +521,7 @@ function PasswordTab(): JSX.Element {
       {result && (
         <div className="animate-fade-in-up">
           {result.found && result.count !== undefined ? (
-            <section className="rounded-2xl border border-amber-200 dark:border-amber-900/40 bg-amber-50 dark:bg-amber-900/10 p-6">
+            <section className="rounded-lg border border-amber-200 dark:border-amber-900/40 bg-amber-50 dark:bg-amber-900/10 p-6">
               <div className="flex items-start gap-4">
                 <AlertTriangle size={24} className="text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
                 <div>
@@ -552,7 +552,7 @@ function PasswordTab(): JSX.Element {
               </div>
             </section>
           ) : (
-            <section className="rounded-2xl border border-emerald-200 dark:border-emerald-900/40 bg-emerald-50 dark:bg-emerald-900/10 p-6">
+            <section className="rounded-lg border border-emerald-200 dark:border-emerald-900/40 bg-emerald-50 dark:bg-emerald-900/10 p-6">
               <div className="flex items-start gap-4">
                 <ShieldCheck size={24} className="text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
                 <div>
@@ -710,7 +710,7 @@ function EmailTab({ initialQuery = '' }: { initialQuery?: string }): JSX.Element
       </form>
 
       {loading && (
-        <div className="flex items-center gap-2 text-slate-600 dark:text-slate-400">
+        <div className="flex items-center gap-2 text-muted">
           <div className="animate-spin w-4 h-4 border-2 border-brand-500 border-t-transparent rounded-full" />
           <span className="font-mono text-sm">Querying breach databases...</span>
         </div>
@@ -725,7 +725,7 @@ function EmailTab({ initialQuery = '' }: { initialQuery?: string }): JSX.Element
         <div className="animate-fade-in-up space-y-6">
           {/* Summary */}
           <section
-            className={`rounded-2xl border p-6 ${
+            className={`rounded-lg border p-6 ${
               result.found
                 ? 'border-rose-200 dark:border-rose-900 bg-rose-50 dark:bg-rose-950/20'
                 : 'border-emerald-200 dark:border-emerald-900 bg-emerald-50 dark:bg-emerald-950/20'
@@ -768,7 +768,7 @@ function EmailTab({ initialQuery = '' }: { initialQuery?: string }): JSX.Element
 
           {/* Breach cards */}
           {result.breaches.length > 0 && (
-            <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+            <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
               <h3 className="font-display font-semibold text-lg mb-4 flex items-center gap-2">
                 <ShieldAlert size={18} className="text-rose-500" />
                 Found in {result.breaches.length} breach{result.breaches.length !== 1 ? 'es' : ''}
@@ -779,7 +779,7 @@ function EmailTab({ initialQuery = '' }: { initialQuery?: string }): JSX.Element
 
           {/* Not found */}
           {!result.found && (
-            <div className="rounded-2xl border border-emerald-200 dark:border-emerald-900 bg-emerald-50 dark:bg-emerald-950/20 p-6 text-center">
+            <div className="rounded-lg border border-emerald-200 dark:border-emerald-900 bg-emerald-50 dark:bg-emerald-950/20 p-6 text-center">
               <ShieldCheck size={32} className="mx-auto mb-3 text-emerald-500" />
               <p className="text-emerald-700 dark:text-emerald-400 font-semibold">No breaches found</p>
               <p className="text-sm text-emerald-600 dark:text-emerald-500 mt-1">
@@ -796,7 +796,7 @@ function EmailTab({ initialQuery = '' }: { initialQuery?: string }): JSX.Element
           {/* SOCMINT pivot CTA */}
           <Link
             to={`/dfir/socmint?q=${encodeURIComponent(result.email)}`}
-            className="block rounded-2xl border border-brand-500/30 bg-brand-500/5 p-5 hover:border-brand-500/60 transition-colors"
+            className="block rounded-lg border border-brand-500/30 bg-brand-500/5 p-5 hover:border-brand-500/60 transition-colors"
           >
             <div className="flex items-center gap-3">
               <Users size={22} className="text-brand-600 dark:text-brand-400 shrink-0" />
@@ -804,7 +804,7 @@ function EmailTab({ initialQuery = '' }: { initialQuery?: string }): JSX.Element
                 <h3 className="font-display font-semibold text-base text-slate-900 dark:text-slate-100">
                   Pivot this email to SOCMINT sources →
                 </h3>
-                <p className="text-xs font-mono text-slate-600 dark:text-slate-400 mt-0.5">
+                <p className="text-xs font-mono text-muted mt-0.5">
                   Look up <code>{result.email}</code> across XposedOrNot, IntelX, EmailRep, Hunter, Apollo, ZoomInfo,
                   RocketReach, Lusha, GitHub commit-author search, paste-site dorks, social profiles, Gravatar, and
                   more.
@@ -949,7 +949,7 @@ function DomainTab({ initialQuery = '' }: { initialQuery?: string }): JSX.Elemen
       </form>
 
       {loading && (
-        <div className="flex items-center gap-2 text-slate-600 dark:text-slate-400">
+        <div className="flex items-center gap-2 text-muted">
           <div className="animate-spin w-4 h-4 border-2 border-brand-500 border-t-transparent rounded-full" />
           <span className="font-mono text-sm">Querying breach databases...</span>
         </div>
@@ -964,7 +964,7 @@ function DomainTab({ initialQuery = '' }: { initialQuery?: string }): JSX.Elemen
         <div className="animate-fade-in-up space-y-6">
           {/* Summary */}
           <section
-            className={`rounded-2xl border p-6 ${
+            className={`rounded-lg border p-6 ${
               result.found
                 ? 'border-rose-200 dark:border-rose-900 bg-rose-50 dark:bg-rose-950/20'
                 : 'border-emerald-200 dark:border-emerald-900 bg-emerald-50 dark:bg-emerald-950/20'
@@ -1007,7 +1007,7 @@ function DomainTab({ initialQuery = '' }: { initialQuery?: string }): JSX.Elemen
 
           {/* Breach cards */}
           {result.breaches.length > 0 && (
-            <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+            <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
               <h3 className="font-display font-semibold text-lg mb-4 flex items-center gap-2">
                 <ShieldAlert size={18} className="text-rose-500" />
                 Found in {result.breaches.length} breach{result.breaches.length !== 1 ? 'es' : ''}
@@ -1018,7 +1018,7 @@ function DomainTab({ initialQuery = '' }: { initialQuery?: string }): JSX.Elemen
 
           {/* Not found */}
           {!result.found && (
-            <div className="rounded-2xl border border-emerald-200 dark:border-emerald-900 bg-emerald-50 dark:bg-emerald-950/20 p-6 text-center">
+            <div className="rounded-lg border border-emerald-200 dark:border-emerald-900 bg-emerald-50 dark:bg-emerald-950/20 p-6 text-center">
               <ShieldCheck size={32} className="mx-auto mb-3 text-emerald-500" />
               <p className="text-emerald-700 dark:text-emerald-400 font-semibold">No breaches found</p>
               <p className="text-sm text-emerald-600 dark:text-emerald-500 mt-1">
@@ -1030,7 +1030,7 @@ function DomainTab({ initialQuery = '' }: { initialQuery?: string }): JSX.Elemen
           {/* SOCMINT pivot CTA */}
           <Link
             to={`/dfir/socmint?q=${encodeURIComponent(result.domain)}`}
-            className="block rounded-2xl border border-brand-500/30 bg-brand-500/5 p-5 hover:border-brand-500/60 transition-colors"
+            className="block rounded-lg border border-brand-500/30 bg-brand-500/5 p-5 hover:border-brand-500/60 transition-colors"
           >
             <div className="flex items-center gap-3">
               <Users size={22} className="text-brand-600 dark:text-brand-400 shrink-0" />
@@ -1038,7 +1038,7 @@ function DomainTab({ initialQuery = '' }: { initialQuery?: string }): JSX.Elemen
                 <h3 className="font-display font-semibold text-base text-slate-900 dark:text-slate-100">
                   Pivot this domain to SOCMINT sources →
                 </h3>
-                <p className="text-xs font-mono text-slate-600 dark:text-slate-400 mt-0.5">
+                <p className="text-xs font-mono text-muted mt-0.5">
                   Look up <code>{result.domain}</code> across Hunter, Apollo, ZoomInfo, RocketReach, GitHub
                   commit-author search, paste-site dorks, LinkedIn @domain dork, Shodan, Censys, crt.sh, and more.
                 </p>
@@ -1089,14 +1089,14 @@ export default function BreachPage(): JSX.Element {
     <div className="max-w-4xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
 
       <div className="animate-fade-in-up">
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2">Breach Checker</h1>
-        <p className="text-slate-600 dark:text-slate-400 mb-8 max-w-2xl">
+        <p className="text-muted mb-8 max-w-2xl">
           Check if a password, email address, or domain has appeared in known data breaches.
         </p>
       </div>
@@ -1113,7 +1113,7 @@ export default function BreachPage(): JSX.Element {
               className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-mono uppercase tracking-wider border transition-colors ${
                 mode === m.id
                   ? 'bg-brand-500/15 dark:bg-brand-400/15 text-brand-700 dark:text-brand-300 border-brand-500/40'
-                  : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 border-slate-200 dark:border-slate-800 hover:border-brand-500/40'
+                  : 'bg-white dark:bg-slate-900 text-muted border-slate-200 dark:border-slate-800 hover:border-brand-500/40'
               }`}
             >
               <Icon size={12} />

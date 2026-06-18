@@ -114,7 +114,7 @@ function ToolCard({ tool }: { tool: CliTool }): JSX.Element {
         <span className="font-mono font-semibold text-sm text-slate-900 dark:text-slate-100">{tool.name}</span>
         <ExternalLink size={12} className="text-slate-400 flex-shrink-0 mt-0.5" />
       </div>
-      <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed mb-3 line-clamp-2">{tool.desc}</p>
+      <p className="text-xs text-muted leading-relaxed mb-3 line-clamp-2">{tool.desc}</p>
       <div className="flex items-center gap-2 flex-wrap">
         <span className="text-[10px] font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-slate-700 text-slate-500 uppercase tracking-wider">
           {CATEGORY_LABELS[tool.category]}

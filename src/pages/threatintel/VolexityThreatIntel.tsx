@@ -81,7 +81,7 @@ function chip(active: boolean): string {
   return `text-xs font-mono px-2.5 py-1 rounded border transition-colors ${
     active
       ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-      : 'border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-brand-500/40'
+      : 'border-slate-300 dark:border-slate-700 text-muted hover:border-brand-500/40'
   }`;
 }
 
@@ -155,9 +155,7 @@ function FolderRow({ folder }: FolderRowProps): JSX.Element {
             ))}
           </span>
         </span>
-        {folder.date && (
-          <span className="text-micro font-mono text-slate-400 shrink-0">{folder.date}</span>
-        )}
+        {folder.date && <span className="text-micro font-mono text-slate-400 shrink-0">{folder.date}</span>}
       </button>
 
       {open && (
@@ -249,9 +247,7 @@ function FolderRow({ folder }: FolderRowProps): JSX.Element {
                             )}
                           </td>
                           <td className="py-1 pr-3 font-mono whitespace-nowrap">
-                            <span
-                              className={`px-1.5 py-0.5 rounded border ${KIND_TONE[ioc.kind] ?? KIND_TONE.other}`}
-                            >
+                            <span className={`px-1.5 py-0.5 rounded border ${KIND_TONE[ioc.kind] ?? KIND_TONE.other}`}>
                               {ioc.entity_type || ioc.kind}
                             </span>
                           </td>
@@ -317,10 +313,7 @@ export default function VolexityThreatIntel(): JSX.Element {
     };
   }, []);
 
-  const years = useMemo(
-    () => Object.entries(data?.years ?? {}).sort((a, b) => b[0].localeCompare(a[0])),
-    [data]
-  );
+  const years = useMemo(() => Object.entries(data?.years ?? {}).sort((a, b) => b[0].localeCompare(a[0])), [data]);
 
   const filtered = useMemo(() => {
     const list = data?.folders ?? [];
@@ -341,9 +334,9 @@ export default function VolexityThreatIntel(): JSX.Element {
       >
         threat-intel
       </a>{' '}
-      repository — each folder ships an indicators CSV plus YARA / Snort detection rules. Expand a folder to
-      load its indicators on demand and pivot any hash / domain / IP to the IOC checker. Licensed BSD-2-Clause;
-      free to display and cite with attribution to Volexity.
+      repository — each folder ships an indicators CSV plus YARA / Snort detection rules. Expand a folder to load its
+      indicators on demand and pivot any hash / domain / IP to the IOC checker. Licensed BSD-2-Clause; free to display
+      and cite with attribution to Volexity.
     </>
   );
 

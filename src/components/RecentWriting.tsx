@@ -60,7 +60,7 @@ function loadEntries(): Entry[] {
 
 export function RecentWritingSkeleton(): JSX.Element {
   return (
-    <section className="mt-20 scroll-mt-24">
+    <section className="scroll-mt-24">
       <div className="mb-8 max-w-3xl">
         <div className="mb-3 h-4 w-20 rounded bg-slate-200 dark:bg-slate-800 animate-pulse" />
         <div className="h-10 w-64 rounded bg-slate-200 dark:bg-slate-800 animate-pulse" />
@@ -70,7 +70,7 @@ export function RecentWritingSkeleton(): JSX.Element {
         {[1, 2, 3, 4].map((i) => (
           <div
             key={i}
-            className="flex h-full flex-col gap-3 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5"
+            className="flex h-full flex-col gap-3 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5"
           >
             <div className="h-4 w-28 rounded bg-slate-200 dark:bg-slate-800 animate-pulse" />
             <div className="h-6 w-3/4 rounded bg-slate-200 dark:bg-slate-800 animate-pulse" />
@@ -89,14 +89,14 @@ export function RecentWriting(): JSX.Element | null {
   if (entries.length === 0) return null;
 
   return (
-    <section id="recent-writing" className="mt-20 scroll-mt-24">
+    <section id="recent-writing" className="scroll-mt-24">
       <div className="mb-8 flex flex-wrap items-baseline justify-between gap-3 max-w-3xl">
         <div>
-          <div className="mb-3 text-eyebrow font-bold uppercase text-brand-600 dark:text-brand-400">Writing</div>
-          <h2 className="font-display text-4xl sm:text-5xl font-bold tracking-tight text-slate-900 dark:text-white">
+          <div className="mb-3 text-eyebrow font-mono uppercase text-slate-500 dark:text-slate-400">Writing</div>
+          <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
             Recent writing
           </h2>
-          <p className="mt-4 text-lg text-slate-600 dark:text-slate-400 max-w-2xl">
+          <p className="mt-3 text-base sm:text-lg text-muted max-w-2xl">
             Case studies on systems I've built, plus original adversary research grounded in the platform's own data.
           </p>
         </div>
@@ -132,7 +132,7 @@ export function RecentWriting(): JSX.Element | null {
             <li key={e.href}>
               <Link
                 to={e.href}
-                className="group card-hover flex h-full flex-col gap-3 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5 transition"
+                className="group card-hover flex h-full flex-col gap-3 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5 transition"
               >
                 <div className="flex items-center gap-2">
                   <span
@@ -146,7 +146,7 @@ export function RecentWriting(): JSX.Element | null {
                 <h3 className="font-display text-xl font-bold text-slate-900 dark:text-white group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors leading-snug">
                   {e.title}
                 </h3>
-                <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed line-clamp-3">{e.excerpt}</p>
+                <p className="text-sm text-muted leading-relaxed line-clamp-3">{e.excerpt}</p>
                 <div className="mt-auto flex items-center gap-2 text-meta font-mono text-slate-400">
                   <time dateTime={e.publishedAt}>{dateLabel}</time>
                   <span aria-hidden="true">·</span>

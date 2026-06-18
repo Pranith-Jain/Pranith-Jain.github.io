@@ -130,7 +130,7 @@ export default function UsernamePivot(): JSX.Element {
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -139,7 +139,7 @@ export default function UsernamePivot(): JSX.Element {
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
           <AtSign size={28} className="text-brand-600 dark:text-brand-400" /> Username Pivot
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 mb-2 leading-relaxed">
+        <p className="text-muted mb-2 leading-relaxed">
           Check whether a username is registered across {SERVICES.length} services. The{' '}
           {SERVICES.filter((s) => s.mode === 'active').length} services with public CORS-friendly endpoints (GitHub,
           GitLab, Codeberg, Reddit, HN, Lobsters, npm, Dev.to, Mastodon) are verified live; the rest are deep-link
@@ -194,7 +194,7 @@ export default function UsernamePivot(): JSX.Element {
           {/* Stats + filter */}
           <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
             <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
-              <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono">
+              <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
                 Results for <span className="text-slate-900 dark:text-slate-100">{submitted}</span>
               </h2>
               <span className="text-mini font-mono text-slate-500 dark:text-slate-400">
@@ -208,7 +208,7 @@ export default function UsernamePivot(): JSX.Element {
                 className={`text-mini font-mono px-2 py-1 rounded border transition-colors ${
                   categoryFilter === 'all'
                     ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                    : 'border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-brand-500/40'
+                    : 'border-slate-300 dark:border-slate-700 text-muted hover:border-brand-500/40'
                 }`}
               >
                 All
@@ -223,7 +223,7 @@ export default function UsernamePivot(): JSX.Element {
                     className={`text-mini font-mono px-2 py-1 rounded border transition-colors ${
                       categoryFilter === c
                         ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                        : 'border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-brand-500/40'
+                        : 'border-slate-300 dark:border-slate-700 text-muted hover:border-brand-500/40'
                     }`}
                   >
                     {CATEGORY_LABELS[c]} <span className="opacity-60">· {count}</span>
@@ -276,10 +276,10 @@ export default function UsernamePivot(): JSX.Element {
       )}
 
       <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
-        <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-2">
+        <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-2">
           Notes
         </h2>
-        <ul className="space-y-1.5 text-sm font-mono text-slate-600 dark:text-slate-400 list-disc pl-5">
+        <ul className="space-y-1.5 text-sm font-mono text-muted list-disc pl-5">
           <li>
             "exists" is a structural signal, not identity — a hit on the same handle across 5 sites is a much stronger
             pivot than a hit on 1.

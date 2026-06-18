@@ -4,15 +4,15 @@ interface CompaniesProps {
 
 export function Companies({ companies }: CompaniesProps) {
   return (
-    <section id="companies" className="mt-20 scroll-mt-24">
+    <section id="companies" className="scroll-mt-24">
       <div className="mb-10 max-w-3xl">
         <div className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400">
           Worked with
         </div>
-        <h2 className="font-display text-4xl sm:text-5xl font-bold tracking-tight text-slate-900 dark:text-white">
+        <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
           Brands I&rsquo;ve worked with
         </h2>
-        <p className="mt-4 text-lg text-slate-600 dark:text-slate-400">
+        <p className="mt-3 text-base sm:text-lg text-muted">
           Email infrastructure, DFIR, and detection work shipped across 150+ startups and enterprises in AI, HealthTech,
           and SaaS.
         </p>

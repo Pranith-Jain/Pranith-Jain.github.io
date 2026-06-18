@@ -92,7 +92,7 @@ export default function ReportParser(): JSX.Element {
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -101,7 +101,7 @@ export default function ReportParser(): JSX.Element {
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
           <FileText size={28} className="text-brand-600 dark:text-brand-400" /> Threat Report Parser
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed">
+        <p className="text-muted max-w-2xl leading-relaxed">
           Extract IOCs, threat actors, TTPs, and CVEs from threat intelligence reports and blog posts.
         </p>
       </div>
@@ -162,7 +162,7 @@ export default function ReportParser(): JSX.Element {
             <h2 className="font-display font-bold text-sm mb-2 flex items-center gap-2">
               <Shield size={14} className="text-brand-600 dark:text-brand-400" /> Executive Summary
             </h2>
-            <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{result.summary}</p>
+            <p className="text-sm text-muted leading-relaxed">{result.summary}</p>
             <div className="mt-3 flex flex-wrap gap-1.5">
               <span className="text-micro font-mono px-2 py-0.5 rounded bg-brand-100 dark:bg-brand-900/30 text-brand-700 dark:text-brand-300">
                 {totalIocs} IOCs

@@ -145,7 +145,7 @@ export default function ExposedHostView(): JSX.Element {
       </Link>
 
       <h1 className="text-3xl font-display font-bold mb-2">Exposed Host Intelligence</h1>
-      <p className="text-slate-600 dark:text-slate-400 mb-6">
+      <p className="text-muted mb-6">
         Per-IP asset intelligence view — open ports, services, CVEs, privacy flags, and artifact inventory. Inspired by
         etugen.io's exposed host feature.
       </p>
@@ -233,7 +233,7 @@ export default function ExposedHostView(): JSX.Element {
                 {result.tags.map((tag) => (
                   <span
                     key={tag}
-                    className={`px-2 py-0.5 rounded text-micro font-mono ${TAG_COLORS[tag] ?? 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400'}`}
+                    className={`px-2 py-0.5 rounded text-micro font-mono ${TAG_COLORS[tag] ?? 'bg-slate-100 dark:bg-slate-800 text-muted'}`}
                   >
                     {tag}
                   </span>
@@ -402,7 +402,7 @@ export default function ExposedHostView(): JSX.Element {
                       {result.cpes.map((cpe) => (
                         <div
                           key={cpe}
-                          className="p-2 rounded bg-slate-50 dark:bg-slate-800/50 font-mono text-xs text-slate-600 dark:text-slate-400 break-all"
+                          className="p-2 rounded bg-slate-50 dark:bg-slate-800/50 font-mono text-xs text-muted break-all"
                         >
                           {cpe}
                         </div>

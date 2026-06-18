@@ -23,10 +23,10 @@ function Chip({ label, ok, detail, warn }: ChipProps): JSX.Element {
 
 export function EmailAuthCard({ auth }: { auth: DomainLookupResponse['email_auth'] }): JSX.Element {
   return (
-    <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+    <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
       <div className="flex items-baseline justify-between mb-3">
         <h3 className="font-display font-bold text-lg">Email Authentication</h3>
-        <span className="font-mono text-sm text-slate-600 dark:text-slate-400">
+        <span className="font-mono text-sm text-muted">
           {auth.evaluation.score}/100 ·{' '}
           <span
             className={
@@ -70,10 +70,8 @@ export function EmailAuthCard({ auth }: { auth: DomainLookupResponse['email_auth
       </div>
       {auth.evaluation.weaknesses.length > 0 && (
         <div>
-          <span className="text-xs font-mono uppercase tracking-wider text-slate-600 dark:text-slate-400">
-            Weaknesses
-          </span>
-          <ul className="mt-1 space-y-0.5 list-disc list-inside text-sm text-slate-600 dark:text-slate-400">
+          <span className="text-xs font-mono uppercase tracking-wider text-muted">Weaknesses</span>
+          <ul className="mt-1 space-y-0.5 list-disc list-inside text-sm text-muted">
             {auth.evaluation.weaknesses.map((w) => (
               <li key={w}>{w}</li>
             ))}

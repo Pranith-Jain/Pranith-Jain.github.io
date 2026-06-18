@@ -51,7 +51,7 @@ function confidenceLabel(n: number): { label: string; cls: string } {
   if (n >= 5) return { label: 'very high', cls: 'text-rose-700 dark:text-rose-300' };
   if (n >= 4) return { label: 'high', cls: 'text-amber-700 dark:text-amber-300' };
   if (n >= 3) return { label: 'medium', cls: 'text-sky-700 dark:text-sky-300' };
-  return { label: 'low', cls: 'text-slate-600 dark:text-slate-400' };
+  return { label: 'low', cls: 'text-muted' };
 }
 
 type Freshness = 'fresh' | 'recent' | 'stale' | 'no-timestamp';
@@ -77,7 +77,7 @@ const FRESHNESS_PILL: Record<Freshness, { label: string; cls: string }> = {
   },
   stale: {
     label: 'stale · >7d',
-    cls: 'border-slate-400/40 bg-slate-200/40 dark:bg-slate-800/40 text-slate-600 dark:text-slate-400',
+    cls: 'border-slate-400/40 bg-slate-200/40 dark:bg-slate-800/40 text-muted',
   },
   'no-timestamp': {
     label: 'no upstream timestamp',
@@ -115,10 +115,7 @@ function IocRow({ ioc }: { ioc: CorrelatedIoc }) {
             )}
           </span>
           {ioc.sources.map((s) => (
-            <span
-              key={s}
-              className="px-1 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400"
-            >
+            <span key={s} className="px-1 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-muted">
               {s}
             </span>
           ))}
@@ -234,7 +231,7 @@ export default function IocCorrelation(): JSX.Element {
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -243,7 +240,7 @@ export default function IocCorrelation(): JSX.Element {
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
           <GitBranchPlus size={28} className="text-brand-600 dark:text-brand-400" /> Cross-source IOC correlation
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 mb-2 max-w-3xl leading-relaxed">
+        <p className="text-muted mb-2 max-w-3xl leading-relaxed">
           Indicators that appear in 2+ independent IOC feeds. A single feed can carry false positives; consensus across
           independent sources is what analysts trust. Higher source-count = higher confidence the indicator is currently
           malicious.
@@ -282,7 +279,7 @@ export default function IocCorrelation(): JSX.Element {
       {data && (
         <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-4">
           <div className="flex items-baseline justify-between gap-3 mb-3 flex-wrap">
-            <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400">
+            <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
               Feed health
             </h3>
             <span className="text-mini font-mono text-slate-500 tabular-nums">
@@ -477,7 +474,7 @@ export default function IocCorrelation(): JSX.Element {
       {data && (
         <section className="mt-6 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-4">
           <h3 className="font-display font-semibold text-sm mb-2">How to read this</h3>
-          <ul className="text-meta font-mono text-slate-600 dark:text-slate-400 space-y-1 list-disc list-inside">
+          <ul className="text-meta font-mono text-muted space-y-1 list-disc list-inside">
             <li>
               <span className="text-rose-700 dark:text-rose-300">very high (5+ sources)</span>: broad consensus, treat
               as confirmed malicious infra.
@@ -490,8 +487,7 @@ export default function IocCorrelation(): JSX.Element {
               <span className="text-sky-700 dark:text-sky-300">medium (3 sources)</span>: worth blocking and tracking.
             </li>
             <li>
-              <span className="text-slate-600 dark:text-slate-400">low (2 sources)</span>: corroborated, but verify
-              before action.
+              <span className="text-muted">low (2 sources)</span>: corroborated, but verify before action.
             </li>
           </ul>
           {/* Feeds-queried run-on line removed 2026-05-14 — replaced by

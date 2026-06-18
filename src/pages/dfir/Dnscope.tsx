@@ -151,7 +151,7 @@ export default function Dnscope(): JSX.Element {
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -160,7 +160,7 @@ export default function Dnscope(): JSX.Element {
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
           <Globe size={28} className="text-brand-600 dark:text-brand-400" /> DNSCOPE
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed">
+        <p className="text-muted max-w-2xl leading-relaxed">
           Deep domain infrastructure mapping via live DNS, RDAP, certificate transparency, email auth, and threat
           intelligence — all in one scan.
         </p>
@@ -207,7 +207,7 @@ export default function Dnscope(): JSX.Element {
                   setSections([]);
                   setError(null);
                 }}
-                className="flex items-center gap-2 px-4 py-2.5 bg-white dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 text-sm font-medium rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors"
+                className="flex items-center gap-2 px-4 py-2.5 bg-white dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800 text-muted text-sm font-medium rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors"
               >
                 Clear
               </button>
@@ -250,7 +250,7 @@ export default function Dnscope(): JSX.Element {
                   </div>
                   <ul className="space-y-0.5">
                     {section.data.map((line, i) => (
-                      <li key={i} className="text-xs font-mono text-slate-600 dark:text-slate-400">
+                      <li key={i} className="text-xs font-mono text-muted">
                         {line}
                       </li>
                     ))}

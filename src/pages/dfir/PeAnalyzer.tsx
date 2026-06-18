@@ -167,7 +167,7 @@ export default function PeAnalyzer(): JSX.Element {
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-6 text-slate-900 dark:text-slate-100">
       <Link
         to="/dfir/tools/dfir"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> DFIR tools
       </Link>
@@ -175,7 +175,7 @@ export default function PeAnalyzer(): JSX.Element {
         <Binary size={22} className="text-brand-600 dark:text-brand-400" />
         PE Static Analyzer <span className="text-sm font-mono text-slate-500">Lite</span>
       </h1>
-      <p className="text-sm font-mono text-slate-600 dark:text-slate-400 mt-1 mb-6">
+      <p className="text-sm font-mono text-muted mt-1 mb-6">
         Drop a Windows <code>.exe</code>/<code>.dll</code> — parses headers, mitigations, sections (with entropy for a
         packed-binary signal) and the import table (suspicious APIs flagged). Hand-rolled parser; nothing is uploaded.
       </p>
@@ -246,9 +246,7 @@ export default function PeAnalyzer(): JSX.Element {
               </div>
             ))}
           </div>
-          <div className="font-mono text-mini text-slate-600 dark:text-slate-400">
-            mitigations: {pe.flags.join(' · ') || 'none detected'}
-          </div>
+          <div className="font-mono text-mini text-muted">mitigations: {pe.flags.join(' · ') || 'none detected'}</div>
 
           <div className="rounded-lg border border-slate-200 dark:border-slate-800 overflow-auto">
             <table className="w-full text-mini font-mono">
@@ -296,7 +294,7 @@ export default function PeAnalyzer(): JSX.Element {
                 {im.fns.slice(0, 200).map((fn, i) => (
                   <span
                     key={i}
-                    className={`font-mono text-micro px-1 py-0.5 rounded border ${SUSPECT.test(fn) ? 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300' : 'border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400'}`}
+                    className={`font-mono text-micro px-1 py-0.5 rounded border ${SUSPECT.test(fn) ? 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300' : 'border-slate-200 dark:border-slate-800 text-muted'}`}
                   >
                     {fn}
                   </span>

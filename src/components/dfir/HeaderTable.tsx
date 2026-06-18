@@ -39,10 +39,10 @@ export function HeaderTable({ headers }: HeaderTableProps): JSX.Element {
   const displayEntries = expanded ? [...priorityEntries, ...otherEntries] : priorityEntries;
 
   return (
-    <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+    <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
       <h2 className="font-display font-bold text-xl mb-4">Email Headers</h2>
       {hops !== undefined && (
-        <div className="mb-4 text-xs font-mono text-slate-600 dark:text-slate-400">
+        <div className="mb-4 text-xs font-mono text-muted">
           Received hops:{' '}
           <span
             className={`font-semibold ${hops > 8 ? 'text-rose-600 dark:text-rose-400' : 'text-slate-900 dark:text-slate-100'}`}
@@ -56,10 +56,7 @@ export function HeaderTable({ headers }: HeaderTableProps): JSX.Element {
           <tbody>
             {displayEntries.map(([key, value]) => (
               <tr key={key} className="border-b border-slate-200 dark:border-slate-800 last:border-0">
-                <th
-                  scope="row"
-                  className="py-2 pr-4 text-slate-600 dark:text-slate-400 align-top whitespace-nowrap w-40 font-normal text-left"
-                >
+                <th scope="row" className="py-2 pr-4 text-muted align-top whitespace-nowrap w-40 font-normal text-left">
                   {key}
                 </th>
                 <td className="py-2 text-slate-900 dark:text-slate-100 break-all whitespace-pre-wrap">
@@ -73,7 +70,7 @@ export function HeaderTable({ headers }: HeaderTableProps): JSX.Element {
       {otherEntries.length > 0 && (
         <button
           onClick={() => setExpanded((e) => !e)}
-          className="mt-3 flex items-center gap-1 text-xs font-mono text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400"
+          className="mt-3 flex items-center gap-1 text-xs font-mono text-muted hover:text-brand-600 dark:hover:text-brand-400"
         >
           {expanded ? <ChevronUp size={12} /> : <ChevronDown size={12} />}
           {expanded ? 'Show less' : `Show ${otherEntries.length} more header${otherEntries.length > 1 ? 's' : ''}`}

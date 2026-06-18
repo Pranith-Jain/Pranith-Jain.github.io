@@ -22,15 +22,15 @@ interface SkillsProps {
 
 export function Skills({ skills }: SkillsProps) {
   return (
-    <section id="skills" className="mt-20 scroll-mt-24">
+    <section id="skills" className="scroll-mt-24">
       {/* Header — matches the design-system rhythm: caps-mono kicker + a
           plain display heading + a single-line lede. */}
       <div className="mb-10 max-w-3xl">
         <div className="mb-3 text-micro font-mono uppercase tracking-[0.2em] text-slate-500">Expertise</div>
-        <h2 className="font-display text-4xl sm:text-5xl font-bold tracking-tight text-slate-900 dark:text-white">
+        <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
           Core competencies
         </h2>
-        <p className="mt-4 text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
+        <p className="mt-3 text-base sm:text-lg text-muted leading-relaxed">
           Focused on threat intelligence, cyber criminology, email security, and cloud-identity defense.
         </p>
       </div>
@@ -41,7 +41,7 @@ export function Skills({ skills }: SkillsProps) {
           return (
             <div
               key={skill.title}
-              className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5"
+              className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5"
             >
               <div className="flex items-center gap-3 mb-4">
                 <span className="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-brand-50 text-brand-600 dark:bg-brand-900/30 dark:text-brand-300">
@@ -49,7 +49,7 @@ export function Skills({ skills }: SkillsProps) {
                 </span>
                 <h3 className="font-display font-semibold text-lg text-slate-900 dark:text-white">{skill.title}</h3>
               </div>
-              <ul className="space-y-2 text-sm text-slate-600 dark:text-slate-400">
+              <ul className="space-y-2 text-sm text-muted">
                 {skill.items.map((item) => (
                   <li key={item} className="flex items-start gap-2">
                     <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-brand-500" aria-hidden="true" />

@@ -296,14 +296,14 @@ export default function DarkWeb(): JSX.Element {
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
 
       <div className="animate-fade-in-up">
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2">Dark Web Watch</h1>
-        <p className="text-slate-600 dark:text-slate-400 mb-4 max-w-2xl">
+        <p className="text-muted mb-4 max-w-2xl">
           Aggregated dark web, leak-site, breach, and security-research activity from
           {` ${DARKWEB_FEEDS.length} `}curated free sources. Use the search box for live filtering (regex like{' '}
           <code className="font-mono text-xs bg-slate-100 dark:bg-slate-800 px-1 rounded">/lockbit|alphv/i</code>{' '}
@@ -333,7 +333,7 @@ export default function DarkWeb(): JSX.Element {
 
       <>
         {/* Search + filters */}
-        <section className="mb-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 space-y-4">
+        <section className="mb-6 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 space-y-4">
           <div className="flex items-center gap-2">
             <Search size={14} className="text-brand-600 dark:text-brand-400" />
             <input
@@ -406,10 +406,10 @@ export default function DarkWeb(): JSX.Element {
         </section>
 
         {/* Watchlist control */}
-        <section className="mb-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+        <section className="mb-6 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
           <div className="flex items-center gap-2 mb-3">
             <Bell size={14} className="text-brand-600 dark:text-brand-400" />
-            <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400">
+            <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
               Watchlist
             </h2>
           </div>
@@ -465,7 +465,7 @@ export default function DarkWeb(): JSX.Element {
         {/* Stats */}
         <header className="flex items-baseline justify-between mb-4 flex-wrap gap-2">
           <h2 className="font-display font-bold text-xl">Recent activity</h2>
-          <div className="flex items-center gap-3 text-xs font-mono text-slate-600 dark:text-slate-400">
+          <div className="flex items-center gap-3 text-xs font-mono text-muted">
             <span>
               {sourceCount} of {DARKWEB_FEEDS.length} sources
             </span>
@@ -494,9 +494,7 @@ export default function DarkWeb(): JSX.Element {
           </div>
         </header>
 
-        {loading && items.length === 0 && (
-          <p className="font-mono text-sm text-slate-600 dark:text-slate-400">Fetching…</p>
-        )}
+        {loading && items.length === 0 && <p className="font-mono text-sm text-muted">Fetching…</p>}
 
         {!loading && matched.length === 0 && items.length > 0 && (
           <p className="font-mono text-sm text-slate-500">
@@ -661,7 +659,7 @@ export function BreachDisclosuresPanel(): JSX.Element {
   const visible = data?.breaches.slice(0, expanded ? data.breaches.length : 8) ?? [];
 
   return (
-    <section className="mb-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+    <section className="mb-6 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
       <div className="flex flex-wrap items-baseline justify-between gap-3 mb-3">
         <h2 className="font-display font-semibold text-lg inline-flex items-center gap-2">
           Recent breach disclosures
@@ -729,7 +727,7 @@ export function BreachDisclosuresPanel(): JSX.Element {
                   {b.data_classes.slice(0, 5).map((c) => (
                     <span
                       key={c}
-                      className="text-micro font-mono px-1 py-0.5 rounded border border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400"
+                      className="text-micro font-mono px-1 py-0.5 rounded border border-slate-300 dark:border-slate-700 text-muted"
                     >
                       {c}
                     </span>
@@ -742,9 +740,7 @@ export function BreachDisclosuresPanel(): JSX.Element {
                 </div>
               )}
               {b.description && (
-                <p className="text-mini font-mono text-slate-600 dark:text-slate-400 leading-relaxed line-clamp-3">
-                  {b.description}
-                </p>
+                <p className="text-mini font-mono text-muted leading-relaxed line-clamp-3">{b.description}</p>
               )}
             </li>
           ))}
@@ -931,7 +927,7 @@ export function RansomwareActivityPanel(): JSX.Element {
   );
 
   return (
-    <section className="mb-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+    <section className="mb-6 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
       <div className="flex flex-wrap items-baseline justify-between gap-3 mb-3">
         <h2 className="font-display font-semibold text-lg inline-flex items-center gap-2">
           Recent ransomware activity
@@ -983,7 +979,7 @@ export function RansomwareActivityPanel(): JSX.Element {
             className={`text-mini font-mono px-2 py-1 rounded border transition-colors ${
               groupFilter === 'all'
                 ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                : 'border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-brand-500/40'
+                : 'border-slate-300 dark:border-slate-700 text-muted hover:border-brand-500/40'
             }`}
           >
             All <span className="opacity-60">· {data.count}</span>
@@ -1010,7 +1006,7 @@ export function RansomwareActivityPanel(): JSX.Element {
               className={`text-mini font-mono px-2 py-1 rounded border transition-colors ${
                 groupFilter === g.group
                   ? 'border-rose-500/60 bg-rose-500/15 text-rose-700 dark:text-rose-300'
-                  : 'border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-rose-500/40'
+                  : 'border-slate-300 dark:border-slate-700 text-muted hover:border-rose-500/40'
               }`}
             >
               {g.group} <span className="opacity-60">· {g.count}</span>
@@ -1089,9 +1085,7 @@ export function RansomwareActivityPanel(): JSX.Element {
                     claimed {formatRelativeTime(v.discovered)}
                   </div>
                   {v.description && (
-                    <p className="text-mini font-mono text-slate-600 dark:text-slate-400 leading-relaxed line-clamp-2">
-                      {v.description}
-                    </p>
+                    <p className="text-mini font-mono text-muted leading-relaxed line-clamp-2">{v.description}</p>
                   )}
                 </div>
               </div>
@@ -1341,7 +1335,7 @@ export function TelegramFeedPanel(): JSX.Element {
   const watchHits = matchedItems.filter((m) => m.matches.length > 0).length;
 
   return (
-    <section className="mb-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+    <section className="mb-6 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
       <div className="flex flex-wrap items-baseline justify-between gap-3 mb-1">
         <h2 className="font-display font-semibold text-lg inline-flex items-center gap-2">
           Cybersec Telegram firehose
@@ -1395,7 +1389,7 @@ export function TelegramFeedPanel(): JSX.Element {
             className={`text-mini font-mono px-2 py-1 rounded border transition-colors ${
               activeChannel === 'all'
                 ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                : 'border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-brand-500/40'
+                : 'border-slate-300 dark:border-slate-700 text-muted hover:border-brand-500/40'
             }`}
           >
             All <span className="opacity-60">· {data.items.length}</span>
@@ -1435,7 +1429,7 @@ export function TelegramFeedPanel(): JSX.Element {
                     activeChannel === ch.handle
                       ? 'border-sky-500/60 bg-sky-500/15 text-sky-700 dark:text-sky-300'
                       : ch.ok
-                        ? 'border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-sky-500/40'
+                        ? 'border-slate-300 dark:border-slate-700 text-muted hover:border-sky-500/40'
                         : 'border-slate-200 dark:border-slate-800 text-slate-400 dark:text-slate-600 cursor-not-allowed opacity-50'
                   }`}
                   title={tip}

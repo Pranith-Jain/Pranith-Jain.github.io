@@ -43,7 +43,7 @@ interface WeatherResult {
 }
 
 function formatTemp(c: number): string {
-  return `${Math.round(c)}°C / ${Math.round(c * 9/5 + 32)}°F`;
+  return `${Math.round(c)}°C / ${Math.round((c * 9) / 5 + 32)}°F`;
 }
 
 function formatDate(d: string): string {
@@ -76,10 +76,7 @@ export default function WeatherOsint(): JSX.Element {
       );
       if (!r.ok) {
         // weatherapi.com free tier requires API key; fall back to wttr.in
-        const wttr = await fetch(
-          `https://wttr.in/${encodeURIComponent(search)}?format=j1`,
-          { signal }
-        );
+        const wttr = await fetch(`https://wttr.in/${encodeURIComponent(search)}?format=j1`, { signal });
         if (!wttr.ok) throw new Error(`Weather lookup failed: ${wttr.status}`);
         const data = await wttr.json();
         if (signal.aborted) return;
@@ -93,7 +90,7 @@ export default function WeatherOsint(): JSX.Element {
             date: d.date as string,
             max_c: Number(d.maxtempC ?? 0),
             min_c: Number(d.mintempC ?? 0),
-            condition: (h4.weatherDesc as Record<string, unknown>[])?.[0]?.value as string ?? 'Unknown',
+            condition: ((h4.weatherDesc as Record<string, unknown>[])?.[0]?.value as string) ?? 'Unknown',
             precip_mm: Number(h4.precipMM ?? 0),
             wind_kph: Number(h4.windspeedKmph ?? 0),
             humidity: Number(h4.humidity ?? 0),
@@ -276,7 +273,9 @@ export default function WeatherOsint(): JSX.Element {
                   {result.location}, {result.country}
                 </h2>
                 <div className="flex items-center gap-3 mt-1 text-sm font-mono text-slate-500">
-                  <span>{result.lat.toFixed(4)}, {result.lon.toFixed(4)}</span>
+                  <span>
+                    {result.lat.toFixed(4)}, {result.lon.toFixed(4)}
+                  </span>
                   <CopyChip value={`${result.lat},${result.lon}`} />
                 </div>
               </div>
@@ -312,7 +311,9 @@ export default function WeatherOsint(): JSX.Element {
                 <Eye size={14} className="text-slate-400" />
                 <div>
                   <div className="text-micro font-mono text-slate-500">Visibility</div>
-                  <div className="text-sm font-mono text-slate-900 dark:text-slate-100">{result.current.visibility_km} km</div>
+                  <div className="text-sm font-mono text-slate-900 dark:text-slate-100">
+                    {result.current.visibility_km} km
+                  </div>
                 </div>
               </div>
               <div className="flex items-center gap-2">
@@ -332,7 +333,9 @@ export default function WeatherOsint(): JSX.Element {
               </div>
               <div>
                 <div className="text-micro font-mono text-slate-500">Pressure</div>
-                <div className="text-sm font-mono text-slate-900 dark:text-slate-100">{result.current.pressure_mb} mb</div>
+                <div className="text-sm font-mono text-slate-900 dark:text-slate-100">
+                  {result.current.pressure_mb} mb
+                </div>
               </div>
               <div>
                 <div className="text-micro font-mono text-slate-500">UV Index</div>
@@ -340,7 +343,9 @@ export default function WeatherOsint(): JSX.Element {
               </div>
               <div>
                 <div className="text-micro font-mono text-slate-500">Precipitation</div>
-                <div className="text-sm font-mono text-slate-900 dark:text-slate-100">{result.current.precip_mm} mm</div>
+                <div className="text-sm font-mono text-slate-900 dark:text-slate-100">
+                  {result.current.precip_mm} mm
+                </div>
               </div>
             </div>
           </div>
@@ -375,10 +380,14 @@ export default function WeatherOsint(): JSX.Element {
           {/* Alerts */}
           {result.alerts.length > 0 && (
             <div className="mb-6 rounded-lg border border-amber-500/40 bg-amber-50 dark:bg-amber-950/30 p-4">
-              <h3 className="font-display font-semibold text-sm text-amber-700 dark:text-amber-300 mb-2">Weather Alerts</h3>
+              <h3 className="font-display font-semibold text-sm text-amber-700 dark:text-amber-300 mb-2">
+                Weather Alerts
+              </h3>
               <ul className="space-y-1">
                 {result.alerts.map((a, i) => (
-                  <li key={i} className="text-sm font-mono text-amber-700 dark:text-amber-300">{a}</li>
+                  <li key={i} className="text-sm font-mono text-amber-700 dark:text-amber-300">
+                    {a}
+                  </li>
                 ))}
               </ul>
             </div>
@@ -387,7 +396,9 @@ export default function WeatherOsint(): JSX.Element {
           {/* Forecast */}
           {result.forecast.length > 0 && (
             <div className="mb-6 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
-              <h3 className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 mb-3">7-Day Forecast</h3>
+              <h3 className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 mb-3">
+                7-Day Forecast
+              </h3>
               <div className="overflow-x-auto">
                 <table className="w-full text-sm font-mono">
                   <thead>
@@ -405,8 +416,10 @@ export default function WeatherOsint(): JSX.Element {
                     {result.forecast.map((d) => (
                       <tr key={d.date} className="border-b border-slate-100 dark:border-slate-800/50">
                         <td className="py-2 pr-4 text-slate-900 dark:text-slate-100">{formatDate(d.date)}</td>
-                        <td className="py-2 pr-4 text-slate-600 dark:text-slate-400">{d.condition}</td>
-                        <td className="py-2 pr-4 text-right text-slate-900 dark:text-slate-100">{formatTemp(d.max_c)}</td>
+                        <td className="py-2 pr-4 text-muted">{d.condition}</td>
+                        <td className="py-2 pr-4 text-right text-slate-900 dark:text-slate-100">
+                          {formatTemp(d.max_c)}
+                        </td>
                         <td className="py-2 pr-4 text-right text-slate-500">{formatTemp(d.min_c)}</td>
                         <td className="py-2 pr-4 text-right text-slate-500">{d.precip_mm} mm</td>
                         <td className="py-2 pr-4 text-right text-slate-500">{d.wind_kph} km/h</td>
@@ -421,7 +434,9 @@ export default function WeatherOsint(): JSX.Element {
 
           {/* OSINT pivots */}
           <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
-            <h3 className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 mb-3">Investigation Pivots</h3>
+            <h3 className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 mb-3">
+              Investigation Pivots
+            </h3>
             <div className="grid sm:grid-cols-2 gap-2">
               <a
                 href={`https://www.google.com/maps?q=${result.lat},${result.lon}`}
@@ -462,10 +477,8 @@ export default function WeatherOsint(): JSX.Element {
 
       {/* Tips */}
       <div className="mt-8 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
-        <h3 className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 mb-2">
-          OSINT Use Cases
-        </h3>
-        <ul className="text-meta font-mono text-slate-600 dark:text-slate-400 space-y-1.5">
+        <h3 className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 mb-2">OSINT Use Cases</h3>
+        <ul className="text-meta font-mono text-muted space-y-1.5">
           <li>
             <strong>Alibi verification:</strong> Check if weather conditions at a claimed location match a suspect's
             alibi. If they claim to be in Miami but it was raining, that's a data point.
@@ -479,8 +492,8 @@ export default function WeatherOsint(): JSX.Element {
             (e.g., "it rained between 2-4 PM, so footprints were made after that").
           </li>
           <li>
-            <strong>Geolocation confirmation:</strong> Match weather patterns in background video/photos with
-            historical data to confirm or dispute a claimed location.
+            <strong>Geolocation confirmation:</strong> Match weather patterns in background video/photos with historical
+            data to confirm or dispute a claimed location.
           </li>
           <li>
             <strong>Search terms:</strong> Accepts city names, coordinates (lat,lon), or even IP-based lookup for

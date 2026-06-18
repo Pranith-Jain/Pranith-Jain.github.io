@@ -204,9 +204,7 @@ function FindingCard({ finding }: { finding: BriefingFinding }) {
         </span>
       </div>
       {finding.description && (
-        <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-3 line-clamp-6">
-          {finding.description}
-        </p>
+        <p className="text-sm text-muted leading-relaxed mb-3 line-clamp-6">{finding.description}</p>
       )}
       {finding.tags &&
         (finding.tags.cves.length > 0 || finding.tags.actors.length > 0 || finding.tags.sectors.length > 0) && (
@@ -463,7 +461,6 @@ function JumpNav({
   );
 }
 
-
 /**
  * Landscape-report specific view. Distinct from the daily/weekly view
  * because the data shape is different — landscape reports have named
@@ -542,7 +539,7 @@ function LandscapeReportView({ briefing }: { briefing: LandscapeReport }): JSX.E
               </h2>
               <span className="text-xs font-mono text-slate-500">{section.count} items</span>
             </div>
-            <p className="text-sm text-slate-600 dark:text-slate-400 mb-4">{section.blurb}</p>
+            <p className="text-sm text-muted mb-4">{section.blurb}</p>
             <div className="space-y-3">
               {section.findings.map((f) => (
                 <article
@@ -560,9 +557,7 @@ function LandscapeReportView({ briefing }: { briefing: LandscapeReport }): JSX.E
                     )}
                   </div>
                   {f.description && (
-                    <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-3 line-clamp-4">
-                      {f.description}
-                    </p>
+                    <p className="text-sm text-muted leading-relaxed mb-3 line-clamp-4">{f.description}</p>
                   )}
                   <div className="flex flex-wrap items-center gap-2 text-mini font-mono text-slate-500">
                     <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-800">
@@ -710,13 +705,13 @@ export default function BriefingDetail(): JSX.Element {
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <Link
         to="/threatintel/briefings"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono transition-colors"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono transition-colors"
       >
         <ArrowLeft size={14} /> all briefings
       </Link>
 
       <header className="animate-fade-in-up mb-8">
-        <span className="inline-block text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 mb-3">
+        <span className="inline-block text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-3">
           Intel Briefing · {briefing.type}
         </span>
         <h1 className="text-3xl sm:text-4xl font-display font-bold leading-tight mb-2">{briefing.title}</h1>
@@ -867,7 +862,11 @@ export default function BriefingDetail(): JSX.Element {
       {briefing.type !== 'landscape' && briefing.sections && briefing.sections.length > 0 && (
         <section id="briefing-cves" className="mb-12 space-y-8 scroll-mt-20">
           {briefing.sections.map((s) => (
-            <div key={s.id} id={s.id === 'ransomware-activity' ? 'briefing-ransomware' : undefined} className="scroll-mt-20">
+            <div
+              key={s.id}
+              id={s.id === 'ransomware-activity' ? 'briefing-ransomware' : undefined}
+              className="scroll-mt-20"
+            >
               <div className="flex items-baseline justify-between mb-2">
                 <h2 className="font-display font-bold text-xl flex items-center gap-2">
                   <AlertTriangle size={18} className="text-brand-600 dark:text-brand-400" />
@@ -877,7 +876,7 @@ export default function BriefingDetail(): JSX.Element {
                   {s.count} {s.count === 1 ? 'finding' : 'findings'}
                 </span>
               </div>
-              <p className="text-sm text-slate-600 dark:text-slate-400 mb-4">{s.blurb}</p>
+              <p className="text-sm text-muted mb-4">{s.blurb}</p>
               <div className="space-y-3">
                 {s.findings.map((f) => (
                   <FindingCard key={f.id} finding={f} />

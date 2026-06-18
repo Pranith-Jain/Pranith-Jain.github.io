@@ -48,7 +48,7 @@ interface CybercrimeResponse {
 const CATEGORY_PILL: Record<Category, string> = {
   'law-enforcement': 'border-blue-500/40 bg-blue-500/10 text-blue-700 dark:text-blue-300',
   'crypto-crime': 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300',
-  news: 'border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400',
+  news: 'border-slate-300 dark:border-slate-700 text-muted',
   breaches: 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300',
   'fraud-research': 'border-violet-500/40 bg-violet-500/10 text-violet-700 dark:text-violet-300',
   'underground-forums': 'border-purple-500/40 bg-purple-500/10 text-purple-700 dark:text-purple-300',
@@ -191,7 +191,7 @@ export default function CyberCrime(): JSX.Element {
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -200,7 +200,7 @@ export default function CyberCrime(): JSX.Element {
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
           <AlertOctagon size={28} className="text-rose-600 dark:text-rose-400" /> Cyber crime &amp; fraud feeds
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 mb-8 max-w-3xl">
+        <p className="text-muted mb-8 max-w-3xl">
           Live coverage of cyber crime incidents — indictments, takedowns, crypto-crime tracing, BEC and romance-scam
           schemes, sanctions, breach reporting. Aggregated from US DOJ, CISA, Chainalysis, Elliptic, Krebs on Security,
           The Record, BleepingComputer, DataBreaches.net, and HackRead. Round-robin selection means no single chatty
@@ -306,9 +306,7 @@ export default function CyberCrime(): JSX.Element {
               </div>
               <div className="text-mini font-mono text-slate-500 dark:text-slate-400 mb-1">{it.source}</div>
               {it.description && (
-                <p className="text-meta font-mono text-slate-600 dark:text-slate-400 leading-relaxed line-clamp-3">
-                  {it.description}
-                </p>
+                <p className="text-meta font-mono text-muted leading-relaxed line-clamp-3">{it.description}</p>
               )}
             </li>
           ))}

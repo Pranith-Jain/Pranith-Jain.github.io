@@ -130,7 +130,7 @@ export default function AssessmentDetail(): JSX.Element {
                 {assessment.sources.map((s, i) => (
                   <span
                     key={i}
-                    className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400"
+                    className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-muted"
                   >
                     {s}
                   </span>

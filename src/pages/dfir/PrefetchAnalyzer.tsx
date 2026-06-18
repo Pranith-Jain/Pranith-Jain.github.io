@@ -193,7 +193,7 @@ export default function PrefetchAnalyzer(): JSX.Element {
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-6 text-slate-900 dark:text-slate-100">
       <Link
         to="/dfir/tools/dfir"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> DFIR tools
       </Link>
@@ -201,7 +201,7 @@ export default function PrefetchAnalyzer(): JSX.Element {
         <Activity size={22} className="text-brand-600 dark:text-brand-400" />
         Prefetch Analyzer <span className="text-sm font-mono text-slate-500">Lite</span>
       </h1>
-      <p className="text-sm font-mono text-slate-600 dark:text-slate-400 mt-1 mb-6">
+      <p className="text-sm font-mono text-muted mt-1 mb-6">
         Drop a Windows <code>.pf</code> prefetch file. Decompresses Win8+/Win10+ MAM containers (LZXPRESS-Huffman) in
         the browser, then extracts the executable, run count, last-run times and every referenced file/DLL path — 100%
         client-side.
@@ -290,7 +290,7 @@ export default function PrefetchAnalyzer(): JSX.Element {
             />
             <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-3 overflow-auto max-h-[55vh]">
               {shown.slice(0, 3000).map((f, i) => (
-                <div key={i} className="font-mono text-mini text-slate-600 dark:text-slate-400 break-all">
+                <div key={i} className="font-mono text-mini text-muted break-all">
                   {f}
                 </div>
               ))}

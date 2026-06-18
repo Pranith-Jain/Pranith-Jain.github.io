@@ -238,14 +238,14 @@ export default function IocExtractor(): JSX.Element {
     <div className="max-w-4xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
 
       <div className="animate-fade-in-up">
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2">IOC Extractor</h1>
-        <p className="text-slate-600 dark:text-slate-400 mb-8 max-w-2xl">
+        <p className="text-muted mb-8 max-w-2xl">
           Paste any blob of text, like an email, log line, blog post, or threat report. The extractor pulls out every
           IP, domain, URL, hash, and email it finds. Refanging is automatic.
         </p>
@@ -266,9 +266,7 @@ export default function IocExtractor(): JSX.Element {
           aria-label="Drop an .eml or text file here, or click to choose"
         >
           <Upload size={20} className="mx-auto mb-1 text-slate-500" />
-          <p className="text-sm font-mono text-slate-600 dark:text-slate-400">
-            Drop an .eml or .txt file, or paste below
-          </p>
+          <p className="text-sm font-mono text-muted">Drop an .eml or .txt file, or paste below</p>
         </button>
         <input
           ref={fileRef}
@@ -313,11 +311,11 @@ export default function IocExtractor(): JSX.Element {
       />
 
       <div className="flex flex-wrap items-center justify-between gap-3 mt-4 mb-4">
-        <span className="text-sm font-mono text-slate-600 dark:text-slate-400">
+        <span className="text-sm font-mono text-muted">
           {totalCount} indicator{totalCount === 1 ? '' : 's'} extracted
         </span>
         <div className="flex flex-wrap items-center gap-4">
-          <label className="flex items-center gap-2 text-sm font-mono text-slate-600 dark:text-slate-400 cursor-pointer">
+          <label className="flex items-center gap-2 text-sm font-mono text-muted cursor-pointer">
             <input
               type="checkbox"
               checked={normaliseHomographs}
@@ -325,7 +323,7 @@ export default function IocExtractor(): JSX.Element {
             />
             fold Cyrillic/Greek homographs
           </label>
-          <label className="flex items-center gap-2 text-sm font-mono text-slate-600 dark:text-slate-400 cursor-pointer">
+          <label className="flex items-center gap-2 text-sm font-mono text-muted cursor-pointer">
             <input type="checkbox" checked={defanged} onChange={(e) => setDefanged(e.target.checked)} />
             defang for output
           </label>

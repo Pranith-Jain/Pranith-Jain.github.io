@@ -124,7 +124,7 @@ export function BreachDatabasesPanel({ initialQuery }: { initialQuery?: string }
         </h2>
         <span className="text-xs font-mono text-slate-500">{DATABASES.length} sources</span>
       </div>
-      <p className="text-sm text-slate-600 dark:text-slate-400 mb-4 max-w-3xl">
+      <p className="text-sm text-muted mb-4 max-w-3xl">
         For deeper coverage beyond what this tool can check directly. Each link opens an external search — credentials
         and ToS apply.{trimmed && ' Where supported, the link is pre-filled with your query.'}
       </p>
@@ -148,7 +148,7 @@ export function BreachDatabasesPanel({ initialQuery }: { initialQuery?: string }
                 {TIER_LABEL[db.tier]}
               </span>
             </div>
-            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">{db.desc}</p>
+            <p className="text-xs text-muted leading-relaxed">{db.desc}</p>
           </a>
         ))}
       </div>

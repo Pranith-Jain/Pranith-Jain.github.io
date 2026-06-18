@@ -180,7 +180,7 @@ export default function Blog() {
       <h1 className="font-display text-3xl font-bold tracking-tight mb-2">
         {inCategoryMode ? categoryMeta!.label : 'Case Studies'}
       </h1>
-      <p className="text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
+      <p className="text-muted mb-6 leading-relaxed">
         {inCategoryMode ? categoryMeta!.blurb : 'Security research, threat analysis, and deep dives.'}
       </p>
 
@@ -196,7 +196,7 @@ export default function Blog() {
             <Link
               key={t}
               to={`/blog/c/${t}`}
-              className="text-meta font-mono px-2.5 py-1.5 rounded border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+              className="text-meta font-mono px-2.5 py-1.5 rounded border border-slate-200 dark:border-slate-800 text-muted hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
             >
               {metaFor(t)
                 .label.toLowerCase()
@@ -307,13 +307,13 @@ export default function Blog() {
           {filtered.map((p) => (
             <article key={p.slug}>
               <Link to={`/blog/${p.slug}`} className="group block">
-                <span className="text-mini font-mono uppercase tracking-[0.16em] text-brand-600 dark:text-brand-400">
+                <span className="text-eyebrow font-mono uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">
                   {p.type}
                 </span>
                 <h2 className="font-display text-xl font-semibold mt-1 text-slate-900 dark:text-slate-100 transition-colors group-hover:text-brand-600 dark:group-hover:text-brand-400">
                   {p.title}
                 </h2>
-                <p className="text-slate-600 dark:text-slate-400 mt-1.5 leading-relaxed">{p.excerpt}</p>
+                <p className="text-muted mt-1.5 leading-relaxed">{p.excerpt}</p>
               </Link>
               <div className="flex items-center gap-2 mt-2 text-xs text-slate-500">
                 <span>Pranith Jain</span>
@@ -346,9 +346,9 @@ export default function Blog() {
         </div>
       </DataState>
 
-      <section className="mt-16 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+      <section className="mt-16 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
         <h2 className="font-display font-bold text-lg text-slate-900 dark:text-slate-100 mb-1">Stay updated</h2>
-        <p className="text-sm text-slate-600 dark:text-slate-400 mb-4">
+        <p className="text-sm text-muted mb-4">
           New case studies land when I finish an investigation worth writing up. Subscribe via{' '}
           <a
             href="/blog/rss.xml"

@@ -380,9 +380,7 @@ function SectionCard({
                     <ExternalLink className="ml-1 inline h-3 w-3" />
                   </a>
                 </div>
-                {t.description && (
-                  <p className="mt-0.5 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">{t.description}</p>
-                )}
+                {t.description && <p className="mt-0.5 text-xs text-muted leading-relaxed">{t.description}</p>}
               </div>
             </li>
           ))}

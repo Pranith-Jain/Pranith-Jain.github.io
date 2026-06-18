@@ -12,11 +12,10 @@ export function CertList({ certs }: { certs: DomainLookupResponse['certificates'
   const visibleTimeline = expanded ? sortedByDate : sortedByDate.slice(0, 10);
 
   return (
-    <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+    <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
       <div className="flex items-center justify-between mb-3 flex-wrap gap-2">
         <h3 className="font-display font-bold text-lg">
-          Certificate Transparency{' '}
-          <span className="text-sm font-mono text-slate-600 dark:text-slate-400">({certs.length} entries)</span>
+          Certificate Transparency <span className="text-sm font-mono text-muted">({certs.length} entries)</span>
         </h3>
         <div className="flex gap-1" role="tablist" aria-label="View mode">
           <button
@@ -26,7 +25,7 @@ export function CertList({ certs }: { certs: DomainLookupResponse['certificates'
             className={`px-3 py-1 text-xs font-mono rounded-full border transition-colors ${
               viewMode === 'list'
                 ? 'bg-brand-600 dark:bg-brand-500 text-white border-brand-600 dark:border-brand-500'
-                : 'border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-brand-500/40'
+                : 'border-slate-200 dark:border-slate-700 text-muted hover:border-brand-500/40'
             }`}
           >
             List
@@ -38,7 +37,7 @@ export function CertList({ certs }: { certs: DomainLookupResponse['certificates'
             className={`px-3 py-1 text-xs font-mono rounded-full border transition-colors ${
               viewMode === 'timeline'
                 ? 'bg-brand-600 dark:bg-brand-500 text-white border-brand-600 dark:border-brand-500'
-                : 'border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-brand-500/40'
+                : 'border-slate-200 dark:border-slate-700 text-muted hover:border-brand-500/40'
             }`}
           >
             Timeline
@@ -56,9 +55,7 @@ export function CertList({ certs }: { certs: DomainLookupResponse['certificates'
               </time>
               <p className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100">{c.issuer}</p>
               {c.subjects.length > 0 && (
-                <p className="text-xs font-mono text-slate-600 dark:text-slate-400 mt-0.5">
-                  {c.subjects.slice(0, 2).join(' · ')}
-                </p>
+                <p className="text-xs font-mono text-muted mt-0.5">{c.subjects.slice(0, 2).join(' · ')}</p>
               )}
             </li>
           ))}
@@ -69,7 +66,7 @@ export function CertList({ certs }: { certs: DomainLookupResponse['certificates'
             <div key={c.id} className="rounded-lg border border-slate-200 dark:border-slate-800 p-3">
               <div className="flex items-baseline justify-between text-sm">
                 <span className="font-display font-semibold text-slate-900 dark:text-slate-100">{c.issuer}</span>
-                <span className="font-mono text-xs text-slate-600 dark:text-slate-400">
+                <span className="font-mono text-xs text-muted">
                   {c.not_before.slice(0, 10)} → {c.not_after.slice(0, 10)}
                 </span>
               </div>
@@ -77,7 +74,7 @@ export function CertList({ certs }: { certs: DomainLookupResponse['certificates'
                 {c.subjects.slice(0, 4).map((s) => (
                   <span
                     key={s}
-                    className="text-xs font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-800 break-all"
+                    className="text-xs font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-muted border border-slate-200 dark:border-slate-800 break-all"
                   >
                     {s}
                   </span>

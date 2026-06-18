@@ -118,7 +118,7 @@ export default function AtlasMatrix(): JSX.Element {
       <div className="max-w-7xl mx-auto">
         <BackLink
           to="/threatintel"
-          className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+          className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
         >
           <ArrowLeft size={14} /> back
         </BackLink>
@@ -127,11 +127,11 @@ export default function AtlasMatrix(): JSX.Element {
           <h1 className="text-4xl font-mono font-bold mb-2 text-slate-900 dark:text-slate-100 tracking-[-0.03em] uppercase">
             MITRE ATLAS
           </h1>
-          <p className="text-slate-600 dark:text-slate-400 mb-2 max-w-3xl">
+          <p className="text-muted mb-2 max-w-3xl">
             Adversarial Threat Landscape for Artificial-Intelligence Systems. ATLAS maps tactics and techniques
             targeting ML models, AI pipelines, and LLM-based applications. Click any technique for live details.
           </p>
-          <div className="flex flex-wrap items-center gap-4 text-sm font-mono text-slate-600 dark:text-slate-400 mb-3">
+          <div className="flex flex-wrap items-center gap-4 text-sm font-mono text-muted mb-3">
             <span>
               <span className="text-slate-900 dark:text-slate-100">{totalTactics}</span> tactics
             </span>
@@ -214,7 +214,7 @@ export default function AtlasMatrix(): JSX.Element {
                         ].join(' ')}
                         title={technique.description ?? technique.name}
                       >
-                        <div className="text-micro font-mono text-slate-600 dark:text-slate-400">{technique.id}</div>
+                        <div className="text-micro font-mono text-muted">{technique.id}</div>
                         <div className="text-xs font-medium text-slate-900 dark:text-slate-100 leading-tight line-clamp-2 mt-0.5">
                           {technique.name}
                         </div>
@@ -232,7 +232,7 @@ export default function AtlasMatrix(): JSX.Element {
           </div>
         </div>
 
-        <div className="mt-8 flex flex-wrap gap-4 text-xs font-mono text-slate-600 dark:text-slate-400">
+        <div className="mt-8 flex flex-wrap gap-4 text-xs font-mono text-muted">
           <span className="inline-flex items-center gap-2">
             <span className="inline-block w-4 h-4 border bg-slate-50 dark:bg-slate-800/60 border-slate-200 dark:border-slate-800" />
             AI/ML attack technique
@@ -266,23 +266,21 @@ export default function AtlasMatrix(): JSX.Element {
                 type="button"
                 onClick={closeDrawer}
                 aria-label="close"
-                className="shrink-0 p-1.5 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:text-slate-100 hover:bg-slate-50 dark:bg-slate-800/60 transition-colors"
+                className="shrink-0 p-1.5 text-muted hover:text-slate-900 dark:text-slate-100 hover:bg-slate-50 dark:bg-slate-800/60 transition-colors"
               >
                 <X size={18} aria-hidden="true" />
               </button>
             </div>
 
             <div className="px-6 py-5 space-y-6">
-              {detailLoading && (
-                <p className="font-mono text-sm text-slate-600 dark:text-slate-400">Fetching live data…</p>
-              )}
+              {detailLoading && <p className="font-mono text-sm text-muted">Fetching live data…</p>}
               {detailError && (
                 <p className="font-mono text-sm text-rose-700 dark:text-rose-400">error: {detailError}</p>
               )}
               {detail?.technique && (
                 <>
                   {detail.technique.tactic && (
-                    <div className="text-xs font-mono text-slate-600 dark:text-slate-400">
+                    <div className="text-xs font-mono text-muted">
                       Tactic: <span className="text-slate-900 dark:text-slate-100">{detail.technique.tactic}</span>
                       {detail.technique.tacticId && (
                         <span className="text-slate-500 dark:text-slate-400"> · {detail.technique.tacticId}</span>
@@ -291,9 +289,7 @@ export default function AtlasMatrix(): JSX.Element {
                   )}
                   {detail.technique.description && (
                     <div>
-                      <h3 className="text-xs font-mono uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1.5">
-                        Description
-                      </h3>
+                      <h3 className="text-xs font-mono uppercase tracking-wider text-muted mb-1.5">Description</h3>
                       <p className="text-sm text-slate-900 dark:text-slate-100 leading-relaxed">
                         {detail.technique.description}
                       </p>
@@ -301,9 +297,7 @@ export default function AtlasMatrix(): JSX.Element {
                   )}
                   {detail.relatedTechniques.length > 0 && (
                     <div>
-                      <h3 className="text-xs font-mono uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-2">
-                        Related techniques
-                      </h3>
+                      <h3 className="text-xs font-mono uppercase tracking-wider text-muted mb-2">Related techniques</h3>
                       <div className="flex flex-wrap gap-1.5">
                         {detail.relatedTechniques.map((rid) => (
                           <button
@@ -329,7 +323,7 @@ export default function AtlasMatrix(): JSX.Element {
                 </>
               )}
               {!detailLoading && !detail && !detailError && (
-                <p className="font-mono text-sm text-slate-600 dark:text-slate-400">No live data available.</p>
+                <p className="font-mono text-sm text-muted">No live data available.</p>
               )}
             </div>
           </aside>

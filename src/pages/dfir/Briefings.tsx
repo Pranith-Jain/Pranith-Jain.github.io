@@ -109,20 +109,20 @@ export default function Briefings(): JSX.Element {
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 sm:py-16 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-10 font-mono transition-colors"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-10 font-mono transition-colors"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
 
       <header className="animate-fade-in-up mb-12">
-        <span className="inline-block text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 mb-3">
+        <span className="inline-block text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-3">
           Intel Briefings
         </span>
         <h1 className="text-4xl sm:text-5xl font-display font-bold mb-4 leading-tight flex items-center gap-3 flex-wrap">
           Threat Intel Briefings
           <LiveFreshnessPill tone="live" />
         </h1>
-        <p className="text-base text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed">
+        <p className="text-base text-muted max-w-2xl leading-relaxed">
           Auto-generated daily and weekly summaries of threat-intelligence activity, drawn from CISA KEV, NVD, and
           abuse.ch / OpenPhish feeds. Daily briefings publish at 00:30 UTC; weekly at 00:45 UTC Monday. Reference only —
           verify all indicators in your own environment. For real-time activity, see the live snapshot on{' '}
@@ -183,7 +183,7 @@ export default function Briefings(): JSX.Element {
                 className={`px-3 py-2 sm:py-1 min-h-[44px] sm:min-h-0 rounded-full text-xs font-mono uppercase tracking-wider border transition-colors inline-flex items-center ${
                   isActive
                     ? 'bg-brand-500/15 dark:bg-brand-400/15 text-brand-600 dark:text-brand-400 border-brand-500/40'
-                    : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 border-slate-200 dark:border-slate-800 hover:border-brand-500/30'
+                    : 'bg-white dark:bg-slate-900 text-muted border-slate-200 dark:border-slate-800 hover:border-brand-500/30'
                 }`}
               >
                 {label}
@@ -197,7 +197,7 @@ export default function Briefings(): JSX.Element {
             {Array.from({ length: 4 }).map((_, i) => (
               <div
                 key={i}
-                className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 animate-pulse"
+                className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 animate-pulse"
               >
                 <div className="h-4 bg-slate-200 dark:bg-slate-800 rounded w-1/2 mb-2" />
                 <div className="h-3 bg-slate-200 dark:bg-slate-800 rounded w-1/4 mb-4" />
@@ -209,7 +209,7 @@ export default function Briefings(): JSX.Element {
         {error && (
           <div
             role="alert"
-            className="rounded-2xl border border-rose-300 dark:border-rose-800 bg-rose-50/50 dark:bg-rose-900/15 p-6 flex items-start justify-between gap-3"
+            className="rounded-lg border border-rose-300 dark:border-rose-800 bg-rose-50/50 dark:bg-rose-900/15 p-6 flex items-start justify-between gap-3"
           >
             <div className="text-sm font-mono text-rose-700 dark:text-rose-300">
               <span className="font-semibold">error:</span> {error}
@@ -258,7 +258,7 @@ export default function Briefings(): JSX.Element {
             <Link
               key={item.slug}
               to={`/threatintel/briefings/${item.slug}`}
-              className="block rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 hover:border-brand-500/40 transition-colors"
+              className="block rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 hover:border-brand-500/40 transition-colors"
             >
               <div className="flex items-start justify-between gap-4 mb-2">
                 <div className="min-w-0">

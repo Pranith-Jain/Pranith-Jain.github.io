@@ -30,7 +30,7 @@ const STATUS_STYLE: Record<DDCEntry['status'], string> = {
   valid: 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300',
   offline: 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300',
   expired: 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300',
-  unknown: 'border-slate-400/40 bg-slate-400/10 text-slate-600 dark:text-slate-400',
+  unknown: 'border-slate-400/40 bg-slate-400/10 text-muted',
 };
 
 export default function DeepDarkCTI(): JSX.Element {
@@ -89,7 +89,7 @@ export default function DeepDarkCTI(): JSX.Element {
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -97,7 +97,7 @@ export default function DeepDarkCTI(): JSX.Element {
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
           <Globe size={28} className="text-brand-600 dark:text-brand-400" /> deepdarkCTI Index
         </h1>
-        <p className="text-sm font-mono text-slate-600 dark:text-slate-400 mt-1">
+        <p className="text-sm font-mono text-muted mt-1">
           Parsed mirror of{' '}
           <a
             href="https://github.com/fastfire/deepdarkCTI"
@@ -161,7 +161,7 @@ export default function DeepDarkCTI(): JSX.Element {
                 <option value="onion">Onion only</option>
                 <option value="clearnet">Clearnet only</option>
               </select>
-              <label className="flex items-center gap-1.5 font-mono text-meta text-slate-600 dark:text-slate-400">
+              <label className="flex items-center gap-1.5 font-mono text-meta text-muted">
                 <input type="checkbox" checked={hideDown} onChange={(e) => setHideDown(e.target.checked)} />
                 hide offline/expired
               </label>
@@ -215,9 +215,7 @@ export default function DeepDarkCTI(): JSX.Element {
                       </div>
                       {e.actor && <div className="font-mono text-mini text-slate-500 mt-0.5">actor: {e.actor}</div>}
                       {e.onion ? (
-                        <code className="block mt-1 font-mono text-mini text-slate-600 dark:text-slate-400 break-all">
-                          {e.url}
-                        </code>
+                        <code className="block mt-1 font-mono text-mini text-muted break-all">{e.url}</code>
                       ) : (
                         <a
                           href={sanitizeUrl(e.url) || undefined}

@@ -66,7 +66,7 @@ function chip(active: boolean): string {
   return `text-xs font-mono px-2.5 py-1 rounded border transition-colors ${
     active
       ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-      : 'border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-brand-500/40'
+      : 'border-slate-300 dark:border-slate-700 text-muted hover:border-brand-500/40'
   }`;
 }
 
@@ -102,29 +102,20 @@ export default function Ransomwhere(): JSX.Element {
     };
   }, []);
 
-  const families = useMemo(
-    () => Object.entries(data?.facets.families ?? {}).sort((a, b) => b[1] - a[1]),
-    [data]
-  );
-  const blockchains = useMemo(
-    () => Object.entries(data?.facets.blockchains ?? {}).sort((a, b) => b[1] - a[1]),
-    [data]
-  );
+  const families = useMemo(() => Object.entries(data?.facets.families ?? {}).sort((a, b) => b[1] - a[1]), [data]);
+  const blockchains = useMemo(() => Object.entries(data?.facets.blockchains ?? {}).sort((a, b) => b[1] - a[1]), [data]);
 
   const filtered = useMemo(() => {
     const list = data?.wallets ?? [];
     return list
-      .filter(
-        (w) =>
-          (family === 'all' || w.family === family) && (chain === 'all' || w.blockchain === chain)
-      )
+      .filter((w) => (family === 'all' || w.family === family) && (chain === 'all' || w.blockchain === chain))
       .sort((a, b) => b.balance_usd - a.balance_usd);
   }, [data, family, chain]);
 
   const description = (
     <>
-      Crowdsourced directory of cryptocurrency wallets attributed to ransomware families — on-chain
-      balance (USD), transaction count, and first/last-seen. Data:{' '}
+      Crowdsourced directory of cryptocurrency wallets attributed to ransomware families — on-chain balance (USD),
+      transaction count, and first/last-seen. Data:{' '}
       <a
         href="https://ransomwhe.re/"
         target="_blank"
@@ -147,8 +138,8 @@ export default function Ransomwhere(): JSX.Element {
           </p>
         )}
         <p className="text-micro font-mono text-slate-500">
-          {NUM.format(data.total)} wallets · {USD.format(data.total_balance_usd)} tracked across{' '}
-          {blockchains.length} chains
+          {NUM.format(data.total)} wallets · {USD.format(data.total_balance_usd)} tracked across {blockchains.length}{' '}
+          chains
         </p>
         <div className="flex flex-wrap gap-1.5">
           <button onClick={() => setChain('all')} className={chip(chain === 'all')}>
@@ -210,17 +201,12 @@ export default function Ransomwhere(): JSX.Element {
               )}
             </div>
 
-            <p
-              className="mt-2 font-mono text-xs break-all text-slate-600 dark:text-slate-300"
-              title={w.address}
-            >
+            <p className="mt-2 font-mono text-xs break-all text-slate-600 dark:text-slate-300" title={w.address}>
               {w.address}
             </p>
 
             <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mt-2 text-micro font-mono text-slate-500">
-              <span className="text-emerald-600 dark:text-emerald-400">
-                {USD.format(w.balance_usd)}
-              </span>
+              <span className="text-emerald-600 dark:text-emerald-400">{USD.format(w.balance_usd)}</span>
               <span>{NUM.format(w.transactions)} tx</span>
               {w.first_seen && <span>first {fmtDate(w.first_seen)}</span>}
               {w.last_seen && <span>last {fmtDate(w.last_seen)}</span>}

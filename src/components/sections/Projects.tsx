@@ -28,7 +28,7 @@ function ProjectCard({ project }: ProjectCardProps): JSX.Element {
   const needsToggle = project.description.length > TRUNCATE_THRESHOLD;
 
   return (
-    <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5">
+    <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5">
       <div className="flex items-start justify-between gap-3">
         <h3 className="font-display font-semibold text-lg text-slate-900 dark:text-white">{project.title}</h3>
         {project.badge && (
@@ -37,11 +37,7 @@ function ProjectCard({ project }: ProjectCardProps): JSX.Element {
           </Badge>
         )}
       </div>
-      <p
-        className={`mt-2 text-sm text-slate-600 dark:text-slate-400 leading-relaxed ${
-          needsToggle && !expanded ? 'line-clamp-3' : ''
-        }`}
-      >
+      <p className={`mt-2 text-sm text-muted leading-relaxed ${needsToggle && !expanded ? 'line-clamp-3' : ''}`}>
         {project.description}
       </p>
       {needsToggle && (
@@ -123,10 +119,10 @@ export function Projects({ projects }: ProjectsProps) {
   const remaining = projects.length - INITIAL_PROJECTS;
 
   return (
-    <section id="projects" className="mt-20 scroll-mt-24">
+    <section id="projects" className="scroll-mt-24">
       <div className="mb-10 max-w-2xl">
         <div className="mb-3 text-eyebrow font-mono uppercase text-slate-500">Projects</div>
-        <h2 className="font-display text-4xl sm:text-5xl font-bold tracking-tight text-slate-900 dark:text-white">
+        <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
           Selected projects &amp; initiatives
         </h2>
       </div>
@@ -142,7 +138,7 @@ export function Projects({ projects }: ProjectsProps) {
               <Link
                 key={cs.slug}
                 to={`/projects/${cs.slug}`}
-                className="group rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5 transition hover:border-brand-500/40"
+                className="group rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5 transition hover:border-brand-500/40"
               >
                 <div className="text-micro font-mono uppercase tracking-[0.18em] text-brand-600 dark:text-brand-400 mb-1.5">
                   {cs.kicker}
@@ -150,9 +146,7 @@ export function Projects({ projects }: ProjectsProps) {
                 <h3 className="font-display font-semibold text-lg text-slate-900 dark:text-white leading-snug group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
                   {cs.title}
                 </h3>
-                <p className="mt-2 text-sm text-slate-600 dark:text-slate-400 leading-relaxed line-clamp-2">
-                  {cs.excerpt}
-                </p>
+                <p className="mt-2 text-sm text-muted leading-relaxed line-clamp-2">{cs.excerpt}</p>
                 <p className="mt-3 text-xs font-mono text-slate-500 dark:text-slate-400">{cs.outcome}</p>
                 <div className="mt-3 inline-flex items-center gap-1 text-xs font-medium text-brand-700 dark:text-brand-400">
                   Read case study

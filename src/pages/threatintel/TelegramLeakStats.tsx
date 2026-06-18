@@ -51,7 +51,7 @@ export default function TelegramLeakStats(): JSX.Element {
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -60,7 +60,7 @@ export default function TelegramLeakStats(): JSX.Element {
         <h1 className="text-3xl sm:text-4xl font-display font-bold flex items-center gap-3">
           <BarChart3 size={28} className="text-brand-600 dark:text-brand-400" /> Telegram Leak Monitor Stats
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 mt-2 max-w-2xl">
+        <p className="text-muted mt-2 max-w-2xl">
           Aggregate statistics across all monitored channels and leak entries.
         </p>
       </div>
@@ -92,7 +92,7 @@ export default function TelegramLeakStats(): JSX.Element {
 
             {/* Severity distribution */}
             <section className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-5">
-              <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-4 flex items-center gap-2">
+              <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-4 flex items-center gap-2">
                 <AlertTriangle size={14} /> Severity distribution
               </h2>
               {stats.severity_distribution.length > 0 ? (
@@ -101,9 +101,7 @@ export default function TelegramLeakStats(): JSX.Element {
                     const pct = totalN > 0 ? (item.n / totalN) * 100 : 0;
                     return (
                       <div key={item.severity} className="flex items-center gap-3">
-                        <span className="text-xs font-mono w-16 capitalize text-slate-600 dark:text-slate-400">
-                          {item.severity}
-                        </span>
+                        <span className="text-xs font-mono w-16 capitalize text-muted">{item.severity}</span>
                         <div className="flex-1 h-4 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
                           <div
                             className={`h-full rounded-full ${SEVERITY_BAR[toSeverity(item.severity)]}`}
@@ -123,7 +121,7 @@ export default function TelegramLeakStats(): JSX.Element {
             {/* Top channels & domains */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <section className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-5">
-                <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-3 flex items-center gap-2">
+                <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3 flex items-center gap-2">
                   <Send size={14} /> Top channels
                 </h2>
                 {stats.top_channels.length > 0 ? (
@@ -143,7 +141,7 @@ export default function TelegramLeakStats(): JSX.Element {
               </section>
 
               <section className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-5">
-                <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-3 flex items-center gap-2">
+                <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3 flex items-center gap-2">
                   <Globe size={14} /> Top domains
                 </h2>
                 {stats.top_domains.length > 0 ? (

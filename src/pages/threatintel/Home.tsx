@@ -229,7 +229,7 @@ export default function ThreatIntelHome(): JSX.Element {
       {!isSearching && (
         <section
           aria-label="Live across the platform"
-          className="animate-fade-in-up rounded-2xl border border-slate-200/70 bg-gradient-to-b from-slate-50/80 to-white p-4 dark:border-slate-800 dark:from-slate-900/50 dark:to-slate-950/20 sm:p-5"
+          className="animate-fade-in-up rounded-lg border border-slate-200/70 bg-gradient-to-b from-slate-50/80 to-white p-4 dark:border-slate-800 dark:from-slate-900/50 dark:to-slate-950/20 sm:p-5"
         >
           <LiveSnapshotPanel tone="rose" compact subtitle="live intel pulse across the platform" mbClass="mb-0" />
         </section>
@@ -270,7 +270,7 @@ export default function ThreatIntelHome(): JSX.Element {
                       </span>
                     )}
                   </div>
-                  <p className="text-tool leading-relaxed text-slate-600 dark:text-slate-400">{t.desc}</p>
+                  <p className="text-tool leading-relaxed text-muted">{t.desc}</p>
                 </>
               );
               if (t.external) {

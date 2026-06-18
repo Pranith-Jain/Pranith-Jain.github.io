@@ -71,7 +71,7 @@ export default function Research(): JSX.Element {
                 {p.title}
                 <ExternalLink size={14} className="inline-block ml-2 opacity-50" aria-hidden="true" />
               </h2>
-              <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mt-2">{p.excerpt}</p>
+              <p className="text-sm text-muted leading-relaxed mt-2">{p.excerpt}</p>
               <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mt-3 text-mini font-mono text-slate-500">
                 <time dateTime={p.publishedAt}>
                   {new Date(p.publishedAt).toLocaleDateString('en-US', {

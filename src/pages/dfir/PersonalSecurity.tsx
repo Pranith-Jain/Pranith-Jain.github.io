@@ -85,7 +85,7 @@ const SEVERITY_STYLES: Record<Severity, { label: string; cls: string; tone: 'goo
   },
   low: {
     label: 'low',
-    cls: 'border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400',
+    cls: 'border-slate-300 dark:border-slate-700 text-muted',
     tone: 'muted',
   },
 };
@@ -279,7 +279,7 @@ export default function PersonalSecurity(): JSX.Element {
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -288,7 +288,7 @@ export default function PersonalSecurity(): JSX.Element {
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
           <ShieldCheck size={28} className="text-brand-600 dark:text-brand-400" /> Personal Security &amp; OPSEC
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 mb-2 leading-relaxed">
+        <p className="text-muted mb-2 leading-relaxed">
           Interactive companion to{' '}
           <a
             href={sanitizeUrl('https://github.com/lissy93/personal-security-checklist') || undefined}
@@ -343,7 +343,7 @@ export default function PersonalSecurity(): JSX.Element {
               <span className={`text-sm font-mono font-bold ${overallGrade.cls}`}>{overallGrade.label}</span>
             </div>
           </div>
-          <div className="text-sm font-mono text-slate-600 dark:text-slate-400">
+          <div className="text-sm font-mono text-muted">
             {overall.covered}/{overall.items} weighted • {overall.gaps} open critical / high gap
             {overall.gaps === 1 ? '' : 's'}
           </div>
@@ -431,7 +431,7 @@ export default function PersonalSecurity(): JSX.Element {
 
       {/* Items */}
       <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
-        <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-3">
+        <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
           {activeCategory.items.length} actions
         </h3>
         <ul className="space-y-2">
@@ -447,7 +447,7 @@ export default function PersonalSecurity(): JSX.Element {
           <ShieldAlert size={13} aria-hidden="true" /> Highest-priority open gaps ({openGaps.length})
         </h3>
         {openGaps.length === 0 ? (
-          <p className="text-sm font-mono text-slate-600 dark:text-slate-400">
+          <p className="text-sm font-mono text-muted">
             <CheckCircle2 size={13} className="inline mr-1 text-emerald-500" aria-hidden="true" />
             No open critical / high gaps — well done. Tidy up the medium / low items for a stronger posture.
           </p>
@@ -474,7 +474,7 @@ export default function PersonalSecurity(): JSX.Element {
                     </span>
                     <span className="text-micro font-mono text-slate-500 dark:text-slate-400">· {category.short}</span>
                   </div>
-                  <p className="text-meta font-mono text-slate-600 dark:text-slate-400 leading-relaxed">{item.body}</p>
+                  <p className="text-meta font-mono text-muted leading-relaxed">{item.body}</p>
                 </li>
               );
             })}
@@ -484,10 +484,10 @@ export default function PersonalSecurity(): JSX.Element {
 
       {/* Legend */}
       <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
-        <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-2">
+        <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-2">
           Scoring legend
         </h3>
-        <ul className="grid sm:grid-cols-2 gap-1.5 text-sm font-mono text-slate-600 dark:text-slate-400">
+        <ul className="grid sm:grid-cols-2 gap-1.5 text-sm font-mono text-muted">
           <li>
             <span className={`text-micro font-mono px-1.5 py-0.5 rounded border ${STATUS_STYLES.covered.cls}`}>
               ✓ covered
@@ -513,10 +513,10 @@ export default function PersonalSecurity(): JSX.Element {
 
       {/* External references */}
       <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
-        <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-2">
+        <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-2">
           Authoritative sources
         </h3>
-        <ul className="space-y-1.5 text-sm font-mono text-slate-600 dark:text-slate-400">
+        <ul className="space-y-1.5 text-sm font-mono text-muted">
           <li>
             <a
               href={sanitizeUrl('https://github.com/lissy93/personal-security-checklist') || undefined}
@@ -585,7 +585,7 @@ function ItemRow({ item, state, cycle }: { item: CheckItem; state: State; cycle:
         </span>
         <span className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100">{item.title}</span>
       </div>
-      <p className="text-meta font-mono text-slate-600 dark:text-slate-400 leading-relaxed mb-1">{item.body}</p>
+      <p className="text-meta font-mono text-muted leading-relaxed mb-1">{item.body}</p>
       {item.refs && item.refs.length > 0 && (
         <div className="flex flex-wrap gap-2">
           {item.refs.map((r) => (

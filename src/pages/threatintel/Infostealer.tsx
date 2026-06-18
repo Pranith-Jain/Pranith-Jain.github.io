@@ -436,9 +436,7 @@ export default function Infostealer(): JSX.Element {
                     className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-3"
                   >
                     <div className="font-display font-semibold text-sm truncate">{title}</div>
-                    {sub && (
-                      <p className="font-mono text-mini text-slate-600 dark:text-slate-400 mt-1 line-clamp-2">{sub}</p>
-                    )}
+                    {sub && <p className="font-mono text-mini text-muted mt-1 line-clamp-2">{sub}</p>}
                     {date && <p className="font-mono text-micro text-slate-400 mt-1">{date}</p>}
                   </li>
                 );
@@ -504,7 +502,7 @@ export default function Infostealer(): JSX.Element {
                 </span>
               </div>
               <div className="flex items-center gap-2 mt-1">
-                <code className="font-mono text-mini text-slate-600 dark:text-slate-400 break-all">{c.url}</code>
+                <code className="font-mono text-mini text-muted break-all">{c.url}</code>
                 <button
                   type="button"
                   onClick={() => copy(c.url)}
@@ -585,7 +583,7 @@ export default function Infostealer(): JSX.Element {
                 </span>
               </div>
               <div className="flex items-center gap-2 mt-1">
-                <code className="font-mono text-mini text-slate-600 dark:text-slate-400 break-all">{x.value}</code>
+                <code className="font-mono text-mini text-muted break-all">{x.value}</code>
                 <button
                   type="button"
                   onClick={() => copy(x.value)}
@@ -639,7 +637,7 @@ export default function Infostealer(): JSX.Element {
                   {fam.capabilities.map((c) => (
                     <span
                       key={c}
-                      className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-slate-600 dark:text-slate-400"
+                      className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-muted"
                     >
                       {c}
                     </span>
@@ -738,9 +736,7 @@ export default function Infostealer(): JSX.Element {
                           </span>
                         </div>
                         <div className="flex items-center gap-2 mt-1">
-                          <code className="font-mono text-mini text-slate-600 dark:text-slate-400 break-all">
-                            {e.url}
-                          </code>
+                          <code className="font-mono text-mini text-muted break-all">{e.url}</code>
                           <button
                             type="button"
                             onClick={() => copy(e.url)}
@@ -774,7 +770,7 @@ export default function Infostealer(): JSX.Element {
                           <span className="rounded border border-rose-500/40 bg-rose-500/10 px-1.5 py-0.5 text-micro uppercase text-rose-700 dark:text-rose-300">
                             {s.keyword}
                           </span>
-                          <span className="text-slate-600 dark:text-slate-400 truncate">{s.source}</span>
+                          <span className="text-muted truncate">{s.source}</span>
                           {s.when && <span className="text-slate-400 text-micro">{s.when.slice(0, 10)}</span>}
                           {s.link && (
                             <a
@@ -847,9 +843,7 @@ export default function Infostealer(): JSX.Element {
                           {a.title}
                         </a>
                         {a.description && (
-                          <p className="font-mono text-mini text-slate-600 dark:text-slate-400 line-clamp-2 mb-1">
-                            {a.description}
-                          </p>
+                          <p className="font-mono text-mini text-muted line-clamp-2 mb-1">{a.description}</p>
                         )}
                         <div className="flex items-center gap-2 text-micro font-mono text-slate-400">
                           <ExternalLink size={10} />

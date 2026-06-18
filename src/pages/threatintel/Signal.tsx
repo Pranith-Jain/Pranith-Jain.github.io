@@ -126,7 +126,7 @@ export default function Signal(): JSX.Element {
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-6 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-6 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-6 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -134,7 +134,7 @@ export default function Signal(): JSX.Element {
       <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
         <Radio size={28} className="text-brand-600 dark:text-brand-400" /> Research Signal
       </h1>
-      <p className="text-slate-600 dark:text-slate-400 mb-1 max-w-3xl leading-relaxed">
+      <p className="text-muted mb-1 max-w-3xl leading-relaxed">
         Curated set of vendor labs and independent research outlets. ThreatSignal Research, The DFIR Report,
         SentinelLabs, Unit 42, Check Point Research, Huntress, Eye Security, Exodus, OpenAnalysis, BushidoToken,
         DoublePulsar. Low-volume sources, longer-form pieces.
@@ -270,9 +270,7 @@ export default function Signal(): JSX.Element {
                   <ExternalLink size={12} className="inline-block ml-1 opacity-50" aria-hidden="true" />
                 </h2>
                 {it.description && (
-                  <p className="text-tool text-slate-600 dark:text-slate-400 leading-relaxed mt-1.5 line-clamp-2">
-                    {it.description}
-                  </p>
+                  <p className="text-tool text-muted leading-relaxed mt-1.5 line-clamp-2">{it.description}</p>
                 )}
               </a>
               {(it.tags?.length ?? 0) > 0 && (

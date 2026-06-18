@@ -71,7 +71,7 @@ export default function ToolsCategory(): JSX.Element {
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-6 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-6 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-6 font-mono"
       >
         <ArrowLeft size={14} /> all tools
       </BackLink>
@@ -110,7 +110,7 @@ export default function ToolsCategory(): JSX.Element {
 
       <div className="mb-6">
         <h2 className="font-display font-bold text-2xl">Available Tools</h2>
-        <p className="text-sm font-mono text-slate-600 dark:text-slate-400 mt-1">
+        <p className="text-sm font-mono text-muted mt-1">
           Each tool runs 100% in your browser — your data never leaves your device.
         </p>
       </div>
@@ -118,7 +118,7 @@ export default function ToolsCategory(): JSX.Element {
       {sections.map((s) => (
         <section key={s.id} className="mb-10">
           <div className="flex items-baseline justify-between gap-3 mb-3 flex-wrap">
-            <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono">
+            <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
               {s.label}
             </h3>
             <span className="text-mini font-mono text-slate-500">{s.blurb}</span>
@@ -134,7 +134,7 @@ export default function ToolsCategory(): JSX.Element {
                       {t.label}
                     </span>
                   </div>
-                  <p className="text-sm font-mono text-slate-600 dark:text-slate-400 leading-relaxed">{t.desc}</p>
+                  <p className="text-sm font-mono text-muted leading-relaxed">{t.desc}</p>
                   {t.useCase && (
                     <p className="mt-2 text-meta font-mono italic text-slate-500 dark:text-slate-400 flex-1">
                       {t.useCase}
@@ -161,11 +161,11 @@ export default function ToolsCategory(): JSX.Element {
 
       {/* Why local */}
       {g === 'core-dfir' && (
-        <section className="mt-12 mb-8 rounded-2xl border border-brand-500/30 dark:border-brand-500/20 bg-brand-500/5 p-8">
+        <section className="mt-12 mb-8 rounded-lg border border-brand-500/30 dark:border-brand-500/20 bg-brand-500/5 p-8">
           <h2 className="font-display font-bold text-xl flex items-center gap-2 mb-4">
             <Search size={20} className="text-brand-600 dark:text-brand-400" /> Quick demo — Identity Lookup
           </h2>
-          <p className="text-sm font-mono text-slate-600 dark:text-slate-400 mb-4 leading-relaxed">
+          <p className="text-sm font-mono text-muted mb-4 leading-relaxed">
             Look up a username across 11+ platforms. All checks run from your browser against public APIs — no server,
             no sign-in. Try this live example:
           </p>
@@ -217,11 +217,11 @@ export default function ToolsCategory(): JSX.Element {
         </section>
       )}
 
-      <section className="mt-12 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-8">
+      <section className="mt-12 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-8">
         <h2 className="font-display font-bold text-xl flex items-center gap-2">
           <ShieldCheck size={20} className="text-brand-600 dark:text-brand-400" /> Why local analysis matters
         </h2>
-        <p className="text-sm font-mono text-slate-600 dark:text-slate-400 mt-3 leading-relaxed max-w-3xl">
+        <p className="text-sm font-mono text-muted mt-3 leading-relaxed max-w-3xl">
           Uploading sensitive security data to third-party servers is an unnecessary risk. Logs, hashes, indicators and
           email headers can carry confidential infrastructure detail, PII or proprietary information. Everything here is
           processed in your browser with standard Web APIs — the results are yours alone.
@@ -240,7 +240,7 @@ export default function ToolsCategory(): JSX.Element {
               className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-5"
             >
               <div className="font-display font-semibold mb-1">{a.who}</div>
-              <p className="text-sm font-mono text-slate-600 dark:text-slate-400 leading-relaxed">{a.what}</p>
+              <p className="text-sm font-mono text-muted leading-relaxed">{a.what}</p>
             </div>
           ))}
         </div>

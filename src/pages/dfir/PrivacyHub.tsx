@@ -142,7 +142,7 @@ export default function PrivacyHub(): JSX.Element {
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -151,7 +151,7 @@ export default function PrivacyHub(): JSX.Element {
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
           <Scale size={28} className="text-brand-600 dark:text-brand-400" /> Privacy &amp; Data-Protection Hub
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 mb-2 leading-relaxed">
+        <p className="text-muted mb-2 leading-relaxed">
           {REGIMES.length} privacy regimes side by side: <strong>GDPR</strong>, <strong>CCPA / CPRA</strong>,{' '}
           <strong>DPDP</strong> (India), <strong>HIPAA Privacy Rule</strong>, <strong>PCI DSS 4.0</strong>. Rights,
           controller / fiduciary obligations, breach-notification timelines, enforcement &amp; penalties — all
@@ -235,7 +235,7 @@ export default function PrivacyHub(): JSX.Element {
           </span>
           <h2 className="font-display font-bold text-xl text-slate-900 dark:text-slate-100">{active.longTitle}</h2>
         </div>
-        <div className="grid gap-2 sm:grid-cols-2 mb-3 text-meta font-mono text-slate-600 dark:text-slate-400">
+        <div className="grid gap-2 sm:grid-cols-2 mb-3 text-meta font-mono text-muted">
           <div>
             <span className="text-slate-500 dark:text-slate-400">Jurisdiction: </span>
             <span className="text-slate-700 dark:text-slate-300">{active.jurisdiction}</span>
@@ -246,7 +246,7 @@ export default function PrivacyHub(): JSX.Element {
           </div>
         </div>
         <p className="text-sm font-mono text-slate-700 dark:text-slate-300 leading-relaxed mb-2">{active.scope}</p>
-        <p className="text-meta font-mono text-slate-600 dark:text-slate-400">{active.appliesTo}</p>
+        <p className="text-meta font-mono text-muted">{active.appliesTo}</p>
       </section>
 
       {/* Breach notification */}
@@ -257,11 +257,11 @@ export default function PrivacyHub(): JSX.Element {
         <p className="text-sm font-mono text-slate-700 dark:text-slate-300 leading-relaxed mb-2">
           {active.breachNotification.detail}
         </p>
-        <p className="text-mini font-mono text-slate-600 dark:text-slate-400 mb-1">
+        <p className="text-mini font-mono text-muted mb-1">
           <strong className="text-slate-700 dark:text-slate-300">Trigger:</strong> {active.breachNotification.trigger}
         </p>
         {active.breachNotification.toIndividuals && (
-          <p className="text-mini font-mono text-slate-600 dark:text-slate-400">
+          <p className="text-mini font-mono text-muted">
             <strong className="text-slate-700 dark:text-slate-300">Individuals:</strong>{' '}
             {active.breachNotification.toIndividuals}
           </p>
@@ -271,7 +271,7 @@ export default function PrivacyHub(): JSX.Element {
       {/* Rights */}
       {active.rights.length > 0 && (
         <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
-          <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-3">
+          <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
             Data subject / individual rights ({active.rights.length})
           </h3>
           <ul className="space-y-2">
@@ -284,7 +284,7 @@ export default function PrivacyHub(): JSX.Element {
 
       {/* Obligations */}
       <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
-        <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-3">
+        <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
           Controller / fiduciary obligations ({active.obligations.length})
         </h3>
         <ul className="space-y-2">
@@ -296,7 +296,7 @@ export default function PrivacyHub(): JSX.Element {
 
       {/* Enforcement */}
       <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
-        <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-2">
+        <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-2">
           Enforcement &amp; penalties
         </h3>
         <p className="text-sm font-mono text-slate-700 dark:text-slate-300 leading-relaxed">{active.enforcement}</p>
@@ -305,7 +305,7 @@ export default function PrivacyHub(): JSX.Element {
       {/* Cross-references */}
       {active.crossRef.length > 0 && (
         <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
-          <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-2">
+          <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-2">
             Cross-references in /dfir/grc
           </h3>
           <div className="flex flex-wrap gap-1.5">
@@ -322,10 +322,10 @@ export default function PrivacyHub(): JSX.Element {
       )}
 
       <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
-        <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-2">
+        <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-2">
           Authoritative sources
         </h3>
-        <ul className="space-y-1.5 text-sm font-mono text-slate-600 dark:text-slate-400">
+        <ul className="space-y-1.5 text-sm font-mono text-muted">
           {active.links.map((l) => (
             <li key={l.href}>
               <a
@@ -369,7 +369,7 @@ function ArticleRow({
           <span className="text-micro font-mono text-slate-500 dark:text-slate-400">{article.citation}</span>
         )}
       </div>
-      <p className="text-meta font-mono text-slate-600 dark:text-slate-400 leading-relaxed">{article.body}</p>
+      <p className="text-meta font-mono text-muted leading-relaxed">{article.body}</p>
     </li>
   );
 }

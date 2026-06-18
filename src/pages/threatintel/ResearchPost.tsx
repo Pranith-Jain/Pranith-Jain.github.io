@@ -116,7 +116,7 @@ export default function ResearchPost(): JSX.Element {
       </Link>
 
       <header className="mb-10 pb-6 border-b border-slate-200 dark:border-slate-800">
-        <div className="text-mini font-mono uppercase tracking-[0.18em] text-brand-600 dark:text-brand-400">
+        <div className="text-eyebrow font-mono uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">
           {post.kicker}
         </div>
         {/* text-balance: lets the browser pick a more natural line-break
@@ -245,7 +245,7 @@ export default function ResearchPost(): JSX.Element {
           </Link>
           <Link
             to="/threatintel"
-            className="inline-flex items-center gap-2 text-sm font-mono text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400"
+            className="inline-flex items-center gap-2 text-sm font-mono text-muted hover:text-brand-600 dark:hover:text-brand-400"
           >
             threat intel platform <ArrowRight size={14} />
           </Link>

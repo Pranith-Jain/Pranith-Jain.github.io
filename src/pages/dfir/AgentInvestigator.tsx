@@ -224,7 +224,7 @@ export default function AgentInvestigator(): JSX.Element {
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -233,7 +233,7 @@ export default function AgentInvestigator(): JSX.Element {
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
           <Bot size={28} className="text-brand-600 dark:text-brand-400" /> Agent — Autonomous Investigator
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 mb-1 max-w-3xl leading-relaxed">
+        <p className="text-muted mb-1 max-w-3xl leading-relaxed">
           Describe what to investigate — the agent identifies the target, calls focused intel tools, and produces a
           structured report with STIX 2.1 export.
         </p>
@@ -297,7 +297,7 @@ export default function AgentInvestigator(): JSX.Element {
                 key={ex}
                 type="button"
                 onClick={() => setQuery(ex)}
-                className="text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40 text-slate-600 dark:text-slate-400 transition-colors"
+                className="text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40 text-muted transition-colors"
               >
                 {ex}
               </button>
@@ -364,7 +364,7 @@ export default function AgentInvestigator(): JSX.Element {
             <div className="ml-auto flex gap-2">
               <button
                 onClick={() => downloadReport(agentState, 'md')}
-                className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40 text-slate-600 dark:text-slate-400"
+                className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40 text-muted"
               >
                 <Download size={12} /> .md
               </button>
@@ -529,7 +529,7 @@ function StepCard({ step }: { step: AgentStep }): JSX.Element {
             {step.toolCalls.map((tc, i) => (
               <span
                 key={`${tc.tool}-${i}`}
-                className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400"
+                className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-800 text-muted"
               >
                 <Zap size={8} className="inline mr-0.5" />
                 {tc.tool}
@@ -563,7 +563,7 @@ function StepCard({ step }: { step: AgentStep }): JSX.Element {
               </div>
               {r.error && <p className="text-micro font-mono text-rose-600">{r.error}</p>}
               {r.data !== undefined && r.data !== null && (
-                <pre className="text-micro font-mono text-slate-600 dark:text-slate-400 overflow-x-auto max-h-48 overflow-y-auto whitespace-pre-wrap break-all">
+                <pre className="text-micro font-mono text-muted overflow-x-auto max-h-48 overflow-y-auto whitespace-pre-wrap break-all">
                   {JSON.stringify(r.data, null, 2).slice(0, 2000)}
                 </pre>
               )}

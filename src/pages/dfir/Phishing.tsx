@@ -161,13 +161,13 @@ export default function Phishing(): JSX.Element {
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
       <div className="animate-fade-in-up">
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2">Phishing Email Analyzer</h1>
-        <p className="text-slate-600 dark:text-slate-400 mb-8 max-w-2xl">
+        <p className="text-muted mb-8 max-w-2xl">
           Paste raw email source. We parse headers, check SPF/DKIM/DMARC results, extract URLs, and compute a risk
           score. URLs link straight into the IOC checker.
         </p>
@@ -199,7 +199,7 @@ export default function Phishing(): JSX.Element {
       </form>
 
       {loading && (
-        <p role="status" className="font-mono text-slate-600 dark:text-slate-400">
+        <p role="status" className="font-mono text-muted">
           Analyzing...
         </p>
       )}
@@ -211,7 +211,7 @@ export default function Phishing(): JSX.Element {
 
       {result && (
         <div className="space-y-6">
-          <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+          <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
             <div className="flex items-baseline justify-between mb-3 flex-wrap gap-2">
               <h2 ref={resultRef} tabIndex={-1} className="font-display font-bold text-2xl focus:outline-none">
                 Risk verdict
@@ -228,11 +228,11 @@ export default function Phishing(): JSX.Element {
                 <VerdictChip verdict={result.verdict} />
               </div>
             </div>
-            <div className="font-mono text-sm text-slate-600 dark:text-slate-400">
+            <div className="font-mono text-sm text-muted">
               score: <span className="text-slate-900 dark:text-slate-100">{result.score}</span> / 100
             </div>
             {result.flags.length > 0 && (
-              <ul className="mt-3 space-y-1 list-disc list-inside text-sm text-slate-600 dark:text-slate-400">
+              <ul className="mt-3 space-y-1 list-disc list-inside text-sm text-muted">
                 {result.flags.map((f) => (
                   <li key={f}>{f}</li>
                 ))}
@@ -263,7 +263,7 @@ export default function Phishing(): JSX.Element {
       )}
       <section
         id="fingerprint"
-        className="mt-12 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5"
+        className="mt-12 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5"
       >
         <h2 className="text-lg font-display font-bold mb-2 flex items-center gap-2">
           <Fingerprint size={16} className="text-brand-600 dark:text-brand-400" />
@@ -323,7 +323,7 @@ export default function Phishing(): JSX.Element {
             )}
             {fpResult.urls && fpResult.urls.length > 0 && (
               <div className="text-mini font-mono text-slate-500">
-                <span className="text-slate-600 dark:text-slate-400">sample URLs:</span>
+                <span className="text-muted">sample URLs:</span>
                 <ul className="mt-1 space-y-0.5">
                   {fpResult.urls.map((u) => (
                     <li key={u} className="truncate max-w-lg" title={u}>
@@ -343,7 +343,7 @@ export default function Phishing(): JSX.Element {
       {/* ─── URL Auto-Analysis ─────────────────────────────────────────────── */}
       <section
         id="auto-analyze"
-        className="mt-12 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5"
+        className="mt-12 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5"
       >
         <h2 className="text-lg font-display font-bold mb-2 flex items-center gap-2">
           <Eye size={16} className="text-brand-600 dark:text-brand-400" />
@@ -394,9 +394,7 @@ export default function Phishing(): JSX.Element {
                   {aaResult.fetched ? `HTTP ${aaResult.status}` : 'Unreachable'}
                 </span>
               </div>
-              <code className="text-mini font-mono text-slate-600 dark:text-slate-400 break-all block">
-                {aaResult.url}
-              </code>
+              <code className="text-mini font-mono text-muted break-all block">{aaResult.url}</code>
               {aaResult.title && <p className="text-xs mt-1.5 font-semibold">{aaResult.title}</p>}
               {aaResult.ip && (
                 <p className="text-micro font-mono text-slate-500 mt-1 flex items-center gap-1">
@@ -463,7 +461,7 @@ export default function Phishing(): JSX.Element {
                   Form Fields
                 </p>
                 {aaResult.forms.slice(0, 8).map((f, i) => (
-                  <div key={i} className="flex gap-2 text-mini font-mono text-slate-600 dark:text-slate-400">
+                  <div key={i} className="flex gap-2 text-mini font-mono text-muted">
                     <span className="text-micro px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 uppercase">
                       {f.type}
                     </span>

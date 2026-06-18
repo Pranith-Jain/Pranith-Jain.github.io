@@ -122,8 +122,7 @@ function ToolRow({
               <span
                 key={t}
                 className={`text-micro font-mono uppercase tracking-wider rounded border px-1.5 py-0.5 ${
-                  TAG_PILL[t] ??
-                  'border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-600 dark:text-slate-400'
+                  TAG_PILL[t] ?? 'border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-muted'
                 }`}
               >
                 {t}
@@ -146,7 +145,7 @@ function ToolRow({
           </div>
           {open && (
             <>
-              <p className="mt-1 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{tool.description}</p>
+              <p className="mt-1 text-sm text-muted leading-relaxed">{tool.description}</p>
               {tool.conferences.length > 0 && (
                 <p className="mt-1 text-xs text-slate-500 dark:text-slate-500">
                   Showcased at: {tool.conferences.join(' · ')}
@@ -174,7 +173,7 @@ function ResearchCard({ item, query }: { item: RedHuntResearchItem; query: strin
         <FlaskConical className="mt-0.5 h-4 w-4 shrink-0 text-brand-600 dark:text-brand-400" />
         <div className="min-w-0 flex-1">
           <h3 className="text-base font-medium text-slate-900 dark:text-slate-100">{item.title}</h3>
-          <p className="mt-1 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{item.summary}</p>
+          <p className="mt-1 text-sm text-muted leading-relaxed">{item.summary}</p>
           {item.details && (
             <p className="mt-2 text-xs text-slate-500 dark:text-slate-500 leading-relaxed line-clamp-3">
               {item.details}
@@ -198,7 +197,7 @@ function DatasetCard({ ds, query }: { ds: RedHuntDataset; query: string }): JSX.
       ? 'border-emerald-300 dark:border-emerald-800 bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300'
       : ds.releaseStatus === 'pending'
         ? 'border-amber-300 dark:border-amber-800 bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-300'
-        : 'border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-600 dark:text-slate-400';
+        : 'border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-muted';
   return (
     <a
       href={ds.url}
@@ -218,7 +217,7 @@ function DatasetCard({ ds, query }: { ds: RedHuntDataset; query: string }): JSX.
               {ds.releaseStatus}
             </span>
           </div>
-          <p className="mt-1 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{ds.description}</p>
+          <p className="mt-1 text-sm text-muted leading-relaxed">{ds.description}</p>
         </div>
       </div>
     </a>
@@ -331,7 +330,7 @@ export default function RedHuntLabsResearch(): JSX.Element {
               className={`inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm font-medium transition-colors ${
                 active
                   ? 'bg-brand-500/15 text-brand-700 dark:text-brand-300 border border-brand-300/60 dark:border-brand-700/60'
-                  : 'border border-transparent text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800/50'
+                  : 'border border-transparent text-muted hover:bg-slate-100 dark:hover:bg-slate-800/50'
               }`}
             >
               <Icon className="h-4 w-4" />
@@ -472,7 +471,7 @@ export default function RedHuntLabsResearch(): JSX.Element {
                   className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 p-4"
                 >
                   <h3 className="text-sm font-medium text-slate-900 dark:text-slate-100">{p.title}</h3>
-                  <p className="mt-1 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">{p.body}</p>
+                  <p className="mt-1 text-xs text-muted leading-relaxed">{p.body}</p>
                 </div>
               ))}
             </div>

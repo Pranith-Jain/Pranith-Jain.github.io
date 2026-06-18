@@ -209,7 +209,7 @@ export default function ReportComposer(): JSX.Element {
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono transition-colors"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono transition-colors"
       >
         ← back to DFIR
       </BackLink>
@@ -261,7 +261,7 @@ export default function ReportComposer(): JSX.Element {
           </button>
         </div>
       </div>
-      <p className="text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed mb-2">
+      <p className="text-muted max-w-2xl leading-relaxed mb-2">
         Build an investigation report in the browser, then export to PDF or DOCX. No server, no API keys — your draft
         stays in localStorage until you export.
       </p>

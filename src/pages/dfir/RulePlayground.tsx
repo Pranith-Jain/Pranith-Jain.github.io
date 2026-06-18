@@ -128,7 +128,7 @@ export default function RulePlayground(): JSX.Element {
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -137,7 +137,7 @@ export default function RulePlayground(): JSX.Element {
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
           <FlaskConical size={28} className="text-brand-600 dark:text-brand-400" /> YARA / Sigma Playground
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 mb-2 leading-relaxed">
+        <p className="text-muted mb-2 leading-relaxed">
           Paste a YARA rule or a Sigma YAML rule alongside a sample log / file. The playground extracts the rule's
           strings and keywords, highlights matches in the sample, and surfaces the parsed condition for review.
         </p>
@@ -178,7 +178,7 @@ export default function RulePlayground(): JSX.Element {
         <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
           <h2
             id="rule-playground-rule-label"
-            className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-2"
+            className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-2"
           >
             Rule
           </h2>
@@ -196,7 +196,7 @@ export default function RulePlayground(): JSX.Element {
         <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
           <h2
             id="rule-playground-sample-label"
-            className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-2"
+            className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-2"
           >
             Sample
           </h2>
@@ -216,7 +216,7 @@ export default function RulePlayground(): JSX.Element {
         <>
           <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
             <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
-              <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono">
+              <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
                 Parsed rule
               </h2>
               <span
@@ -245,7 +245,7 @@ export default function RulePlayground(): JSX.Element {
             {result.parsed.meta.length > 0 && (
               <div className="grid gap-1.5 sm:grid-cols-2 mb-3">
                 {result.parsed.meta.map((m) => (
-                  <div key={m.k} className="text-mini font-mono text-slate-600 dark:text-slate-400">
+                  <div key={m.k} className="text-mini font-mono text-muted">
                     <span className="text-slate-400 dark:text-slate-400">{m.k}:</span> {m.v}
                   </div>
                 ))}
@@ -283,7 +283,7 @@ export default function RulePlayground(): JSX.Element {
 
           <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
             <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
-              <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono">
+              <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
                 Highlighted sample
               </h2>
               <span className="text-xs font-mono text-slate-500 dark:text-slate-400 inline-flex items-center gap-1.5">
@@ -306,7 +306,7 @@ export default function RulePlayground(): JSX.Element {
 
           {result.matches.length > 0 && (
             <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
-              <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-3">
+              <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
                 Matches
               </h2>
               <ul className="space-y-1.5">
@@ -331,10 +331,10 @@ export default function RulePlayground(): JSX.Element {
       )}
 
       <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
-        <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-3">
+        <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
           References
         </h2>
-        <ul className="space-y-1.5 text-sm font-mono text-slate-600 dark:text-slate-400">
+        <ul className="space-y-1.5 text-sm font-mono text-muted">
           <li>
             <a
               href="https://yara.readthedocs.io/"

@@ -125,7 +125,7 @@ export function ActorTtpsPanel({
                 <div className="h-3 bg-slate-100 dark:bg-slate-900 rounded overflow-hidden">
                   <div className="h-full bg-rose-500/70 dark:bg-rose-500/60" style={{ width: `${widthPct}%` }} />
                 </div>
-                <span className="text-slate-600 dark:text-slate-400 text-right">
+                <span className="text-muted text-right">
                   {t.used_by_count} grp · {t.weighted_activity}p
                 </span>
               </div>

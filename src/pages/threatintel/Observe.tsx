@@ -193,7 +193,7 @@ export default function Observe(): JSX.Element {
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <Search size={14} /> back
       </BackLink>
@@ -203,7 +203,7 @@ export default function Observe(): JSX.Element {
           <Monitor className="text-brand-600 dark:text-brand-400" size={28} />
           Observable 360
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 max-w-3xl leading-relaxed">
+        <p className="text-muted max-w-3xl leading-relaxed">
           Unified view of any IP, domain, hash, URL, email, CVE, or threat actor — enrichment, context, and related
           intelligence in one place.
         </p>
@@ -263,7 +263,7 @@ export default function Observe(): JSX.Element {
                   </span>
                 </div>
                 {data.entity && (
-                  <p className="text-sm text-slate-600 dark:text-slate-400">
+                  <p className="text-sm text-muted">
                     {data.entity.label}
                     {data.entity.aliases.length > 0 && (
                       <span className="ml-2 text-slate-400">aliases: {data.entity.aliases.join(', ')}</span>
@@ -368,10 +368,7 @@ export default function Observe(): JSX.Element {
                       <p className="text-xs font-semibold text-slate-500 mb-1.5">Relationships</p>
                       <div className="space-y-1">
                         {data.profile.links.slice(0, 8).map((link, i) => (
-                          <div
-                            key={i}
-                            className="flex items-center gap-2 text-xs font-mono text-slate-600 dark:text-slate-400"
-                          >
+                          <div key={i} className="flex items-center gap-2 text-xs font-mono text-muted">
                             <span className="text-slate-400">{link.relationship}</span>
                             <Link
                               to={`/threatintel/observe?q=${encodeURIComponent(link.target_id)}`}
@@ -391,7 +388,7 @@ export default function Observe(): JSX.Element {
                         {data.profile.techniques.slice(0, 6).map((t, i) => (
                           <span
                             key={i}
-                            className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400"
+                            className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-muted"
                           >
                             {t.id}
                           </span>
@@ -457,21 +454,21 @@ export default function Observe(): JSX.Element {
               <div className="p-4 space-y-2">
                 <Link
                   to={`/dfir/export-hub?q=${encodeURIComponent(submittedQuery)}`}
-                  className="flex items-center gap-2 text-xs font-mono text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 p-2 rounded hover:bg-slate-50 dark:hover:bg-slate-800/50"
+                  className="flex items-center gap-2 text-xs font-mono text-muted hover:text-brand-600 dark:hover:text-brand-400 p-2 rounded hover:bg-slate-50 dark:hover:bg-slate-800/50"
                 >
                   <Download size={12} />
                   Export as STIX / CSV / YARA / Sigma / Blocklist
                 </Link>
                 <Link
                   to={`/threatintel/search?q=${encodeURIComponent(submittedQuery)}`}
-                  className="flex items-center gap-2 text-xs font-mono text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 p-2 rounded hover:bg-slate-50 dark:hover:bg-slate-800/50"
+                  className="flex items-center gap-2 text-xs font-mono text-muted hover:text-brand-600 dark:hover:text-brand-400 p-2 rounded hover:bg-slate-50 dark:hover:bg-slate-800/50"
                 >
                   <Search size={12} />
                   Cross-source search
                 </Link>
                 <Link
                   to={`/threatintel/copilot-chat?q=${encodeURIComponent(submittedQuery)}`}
-                  className="flex items-center gap-2 text-xs font-mono text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 p-2 rounded hover:bg-slate-50 dark:hover:bg-slate-800/50"
+                  className="flex items-center gap-2 text-xs font-mono text-muted hover:text-brand-600 dark:hover:text-brand-400 p-2 rounded hover:bg-slate-50 dark:hover:bg-slate-800/50"
                 >
                   <Users size={12} />
                   Ask the CTI Copilot
@@ -479,7 +476,7 @@ export default function Observe(): JSX.Element {
                 {entityType === 'domain' && (
                   <Link
                     to={`/dfir/domain?q=${encodeURIComponent(submittedQuery)}`}
-                    className="flex items-center gap-2 text-xs font-mono text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 p-2 rounded hover:bg-slate-50 dark:hover:bg-slate-800/50"
+                    className="flex items-center gap-2 text-xs font-mono text-muted hover:text-brand-600 dark:hover:text-brand-400 p-2 rounded hover:bg-slate-50 dark:hover:bg-slate-800/50"
                   >
                     <Globe size={12} />
                     Full domain analysis (WHOIS / DNS / email-auth)
@@ -488,7 +485,7 @@ export default function Observe(): JSX.Element {
                 {entityType === 'ip' && (
                   <Link
                     to={`/dfir/ip-geo?q=${encodeURIComponent(submittedQuery)}`}
-                    className="flex items-center gap-2 text-xs font-mono text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 p-2 rounded hover:bg-slate-50 dark:hover:bg-slate-800/50"
+                    className="flex items-center gap-2 text-xs font-mono text-muted hover:text-brand-600 dark:hover:text-brand-400 p-2 rounded hover:bg-slate-50 dark:hover:bg-slate-800/50"
                   >
                     <Monitor size={12} />
                     IP geolocation + reputation
@@ -497,7 +494,7 @@ export default function Observe(): JSX.Element {
                 {entityType === 'cve' && (
                   <Link
                     to={`/dfir/cve?q=${encodeURIComponent(submittedQuery)}`}
-                    className="flex items-center gap-2 text-xs font-mono text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 p-2 rounded hover:bg-slate-50 dark:hover:bg-slate-800/50"
+                    className="flex items-center gap-2 text-xs font-mono text-muted hover:text-brand-600 dark:hover:text-brand-400 p-2 rounded hover:bg-slate-50 dark:hover:bg-slate-800/50"
                   >
                     <Shield size={12} />
                     CVE details (EPSS, KEV, PoC)

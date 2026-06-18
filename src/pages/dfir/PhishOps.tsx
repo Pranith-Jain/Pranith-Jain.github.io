@@ -368,7 +368,7 @@ export default function PhishOps(): JSX.Element {
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -377,7 +377,7 @@ export default function PhishOps(): JSX.Element {
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
           <Shield size={28} className="text-brand-600 dark:text-brand-400" /> PHISHOPS
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed">
+        <p className="text-muted max-w-2xl leading-relaxed">
           Guided Phishing Investigation — 7-step tracker with checklists, IOC aggregation, and export.
         </p>
       </div>
@@ -392,7 +392,7 @@ export default function PhishOps(): JSX.Element {
             <button
               type="button"
               onClick={reset}
-              className="text-xs font-mono px-3 py-1.5 rounded-lg border border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-rose-400 hover:text-rose-600 dark:hover:text-rose-400 transition-colors inline-flex items-center gap-1.5"
+              className="text-xs font-mono px-3 py-1.5 rounded-lg border border-slate-300 dark:border-slate-700 text-muted hover:border-rose-400 hover:text-rose-600 dark:hover:text-rose-400 transition-colors inline-flex items-center gap-1.5"
             >
               <RotateCcw size={12} /> New Investigation
             </button>
@@ -451,7 +451,7 @@ export default function PhishOps(): JSX.Element {
             <button
               type="button"
               onClick={() => goStep(prevStep)}
-              className="text-xs font-mono px-3 py-1.5 rounded-lg border border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-brand-400 hover:text-brand-600 dark:hover:text-brand-400 transition-colors inline-flex items-center gap-1.5"
+              className="text-xs font-mono px-3 py-1.5 rounded-lg border border-slate-300 dark:border-slate-700 text-muted hover:border-brand-400 hover:text-brand-600 dark:hover:text-brand-400 transition-colors inline-flex items-center gap-1.5"
             >
               <ChevronLeft size={12} /> Previous Step
             </button>
@@ -536,7 +536,7 @@ export default function PhishOps(): JSX.Element {
                     value={item.notes}
                     onChange={(e) => updateNote(state.currentStep, item.id, e.target.value)}
                     placeholder="Add notes..."
-                    className="w-full mt-1 text-xs font-mono bg-transparent border-b border-dashed border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 focus:outline-none focus:border-brand-400 placeholder:text-slate-400 dark:placeholder:text-slate-600 pb-0.5"
+                    className="w-full mt-1 text-xs font-mono bg-transparent border-b border-dashed border-slate-300 dark:border-slate-700 text-muted focus:outline-none focus:border-brand-400 placeholder:text-slate-400 dark:placeholder:text-slate-600 pb-0.5"
                   />
                 </div>
               </div>

@@ -315,7 +315,7 @@ export default function EntityResolution(): JSX.Element {
                       {entity.aliases.map((a) => (
                         <span
                           key={a}
-                          className="rounded border border-slate-200 dark:border-slate-700 px-2 py-0.5 text-mini font-mono text-slate-600 dark:text-slate-400"
+                          className="rounded border border-slate-200 dark:border-slate-700 px-2 py-0.5 text-mini font-mono text-muted"
                         >
                           {a}
                         </span>
@@ -333,7 +333,7 @@ export default function EntityResolution(): JSX.Element {
                       {Object.entries(entity.context).map(([k, v]) => (
                         <span
                           key={k}
-                          className="rounded border border-slate-200 dark:border-slate-700 px-2 py-0.5 text-mini font-mono text-slate-600 dark:text-slate-400"
+                          className="rounded border border-slate-200 dark:border-slate-700 px-2 py-0.5 text-mini font-mono text-muted"
                         >
                           {k}={Array.isArray(v) ? v.join(', ') : String(v)}
                         </span>
@@ -364,7 +364,7 @@ export default function EntityResolution(): JSX.Element {
                         <a
                           key={pir.id}
                           href={`/threatintel/pir-dashboard`}
-                          className="flex items-center gap-2 text-mini font-mono text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+                          className="flex items-center gap-2 text-mini font-mono text-muted hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
                         >
                           <span
                             className={`px-1 py-0.5 rounded text-micro uppercase ${
@@ -399,7 +399,7 @@ export default function EntityResolution(): JSX.Element {
                         {profile.cross_references.map((ref) => (
                           <div key={ref.source_id} className="flex items-center gap-2 text-meta font-mono">
                             <ExternalLink size={12} className="text-slate-400 shrink-0" />
-                            <span className="text-slate-600 dark:text-slate-400">{ref.source_name}:</span>
+                            <span className="text-muted">{ref.source_name}:</span>
                             <span className="text-slate-900 dark:text-slate-100">{ref.label}</span>
                           </div>
                         ))}

@@ -36,7 +36,7 @@ export default function Tracerules(): JSX.Element {
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -45,7 +45,7 @@ export default function Tracerules(): JSX.Element {
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
           <Shield size={28} className="text-brand-600 dark:text-brand-400" /> TRACERULES
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed">
+        <p className="text-muted max-w-2xl leading-relaxed">
           Curated detection query library across KQL, Sigma, and XQL. Filter by format, tactic, or technique. Copy
           queries directly for use in your SIEM.
         </p>
@@ -70,7 +70,7 @@ export default function Tracerules(): JSX.Element {
               className={`px-3 py-1.5 rounded-lg text-xs font-mono font-medium transition-colors ${
                 formatFilter === 'all'
                   ? 'bg-brand-600 text-white'
-                  : 'bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400'
+                  : 'bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-muted'
               }`}
             >
               All
@@ -83,7 +83,7 @@ export default function Tracerules(): JSX.Element {
                 className={`px-3 py-1.5 rounded-lg text-xs font-mono font-medium transition-colors ${
                   formatFilter === f
                     ? 'bg-brand-600 text-white'
-                    : 'bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400'
+                    : 'bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-muted'
                 }`}
               >
                 {f}
@@ -138,7 +138,7 @@ export default function Tracerules(): JSX.Element {
                       >
                         {rule.format}
                       </span>
-                      <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700">
+                      <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-muted border border-slate-200 dark:border-slate-700">
                         {rule.tactic}
                       </span>
                       <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-brand-500/10 text-brand-700 dark:text-brand-300 border border-brand-500/30">
@@ -165,7 +165,7 @@ export default function Tracerules(): JSX.Element {
                     <button
                       type="button"
                       onClick={() => copyQuery(rule.id, rule.query)}
-                      className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-mono text-slate-600 dark:text-slate-400 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors"
+                      className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-mono text-muted bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors"
                     >
                       {copiedId === rule.id ? <Check size={12} /> : <Copy size={12} />}
                       {copiedId === rule.id ? 'Copied' : 'Copy'}

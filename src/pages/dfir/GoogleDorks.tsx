@@ -165,17 +165,17 @@ export default function GoogleDorks(): JSX.Element {
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
 
       <div className="animate-fade-in-up mb-8">
-        <span className="inline-block text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 mb-3">
+        <span className="inline-block text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-3">
           DFIR · OSINT
         </span>
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2">Google Dorks</h1>
-        <p className="text-slate-600 dark:text-slate-400 max-w-2xl">
+        <p className="text-muted max-w-2xl">
           Programmatic Google search with dork-operator hints — useful for surfacing exposed config files, public
           credential leaks, indexed admin panels, and similar OSINT leads. Backed by SerpAPI; results are edge-cached
           for an hour to keep the free tier from burning out.
@@ -285,7 +285,7 @@ export default function GoogleDorks(): JSX.Element {
                       </p>
                     )}
                     {r.snippet && (
-                      <p className="text-sm text-slate-600 dark:text-slate-400 mt-1.5">
+                      <p className="text-sm text-muted mt-1.5">
                         {r.date && <span className="text-slate-500 dark:text-slate-400">{r.date} · </span>}
                         {r.snippet}
                       </p>

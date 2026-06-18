@@ -103,7 +103,7 @@ export default function McpAudit(): JSX.Element {
     <div className="space-y-6">
       <BackLink
         to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -116,7 +116,7 @@ export default function McpAudit(): JSX.Element {
           <h1 className="text-2xl font-display font-bold text-slate-900 dark:text-slate-100">
             MCP &amp; Claude Code Auditor
           </h1>
-          <p className="mt-1 text-sm font-mono text-slate-600 dark:text-slate-400">
+          <p className="mt-1 text-sm font-mono text-muted">
             Paste an MCP server config (claude_desktop_config.json / Cursor) <em>or</em> a Claude Code{' '}
             <code>settings.json</code>. The auditor auto-detects the shape and checks for dangerous transports,
             hardcoded secrets, tool poisoning, broad-permission allow rules, hostile hooks, and bypass-permission modes.
@@ -127,7 +127,7 @@ export default function McpAudit(): JSX.Element {
 
       <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
         <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
-          <span className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono">
+          <span className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
             Config JSON
           </span>
           <div className="flex flex-wrap gap-1.5">
@@ -187,7 +187,7 @@ export default function McpAudit(): JSX.Element {
         <>
           <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
             <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
-              <span className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono inline-flex items-center gap-2">
+              <span className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono inline-flex items-center gap-2">
                 Verdict
                 {mode && (
                   <span className="inline-flex items-center gap-1 normal-case tracking-normal text-micro font-mono px-1.5 py-0.5 rounded border border-brand-500/30 bg-brand-500/10 text-brand-700 dark:text-brand-300">
@@ -225,11 +225,11 @@ export default function McpAudit(): JSX.Element {
           </section>
 
           <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
-            <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-3">
+            <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
               Findings
             </h2>
             {findings.length === 0 ? (
-              <p className="text-sm font-mono text-slate-600 dark:text-slate-400 inline-flex items-center gap-1.5">
+              <p className="text-sm font-mono text-muted inline-flex items-center gap-1.5">
                 <CheckCircle2 className="h-4 w-4 text-emerald-500" aria-hidden="true" />
                 No findings.
               </p>
@@ -249,7 +249,7 @@ export default function McpAudit(): JSX.Element {
                       </span>
                       <code className="text-mini font-mono text-slate-500 dark:text-slate-400">{f.scope}</code>
                     </div>
-                    <p className="text-sm font-mono text-slate-600 dark:text-slate-400 mb-1.5">{f.detail}</p>
+                    <p className="text-sm font-mono text-muted mb-1.5">{f.detail}</p>
                     <p className="text-xs font-mono text-emerald-700 dark:text-emerald-400">→ {f.remediation}</p>
                   </li>
                 ))}
@@ -261,7 +261,7 @@ export default function McpAudit(): JSX.Element {
 
       {!input.trim() && (
         <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
-          <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-3">
+          <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
             What this checks
           </h2>
           <div className="grid gap-4 md:grid-cols-2">
@@ -269,7 +269,7 @@ export default function McpAudit(): JSX.Element {
               <h3 className="text-xs font-mono font-bold text-slate-700 dark:text-slate-300 mb-2 inline-flex items-center gap-1.5">
                 <Plug size={12} aria-hidden="true" /> MCP config
               </h3>
-              <ul className="space-y-1.5 text-sm font-mono text-slate-600 dark:text-slate-400 list-disc pl-5">
+              <ul className="space-y-1.5 text-sm font-mono text-muted list-disc pl-5">
                 <li>
                   <strong>Dangerous startup commands</strong> — bare shells, <code>curl | sh</code> installers,
                   destructive primitives.
@@ -294,7 +294,7 @@ export default function McpAudit(): JSX.Element {
               <h3 className="text-xs font-mono font-bold text-slate-700 dark:text-slate-300 mb-2 inline-flex items-center gap-1.5">
                 <Terminal size={12} aria-hidden="true" /> Claude Code settings
               </h3>
-              <ul className="space-y-1.5 text-sm font-mono text-slate-600 dark:text-slate-400 list-disc pl-5">
+              <ul className="space-y-1.5 text-sm font-mono text-muted list-disc pl-5">
                 <li>
                   <strong>Permission allow/deny rules</strong> — flags <code>Bash(*)</code>, dangerous primitives in
                   allow, missing deny lists, sensitive Read paths (<code>~/.ssh</code>, <code>/etc</code>).
@@ -321,10 +321,10 @@ export default function McpAudit(): JSX.Element {
       )}
 
       <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
-        <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-3">
+        <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
           References
         </h2>
-        <ul className="space-y-1.5 text-sm font-mono text-slate-600 dark:text-slate-400">
+        <ul className="space-y-1.5 text-sm font-mono text-muted">
           <li>
             <a
               href="https://modelcontextprotocol.io/specification"

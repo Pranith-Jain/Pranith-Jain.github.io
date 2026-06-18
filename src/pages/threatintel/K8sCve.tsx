@@ -50,7 +50,7 @@ function chip(active: boolean): string {
   return `text-xs font-mono px-2.5 py-1 rounded border transition-colors ${
     active
       ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-      : 'border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-brand-500/40'
+      : 'border-slate-300 dark:border-slate-700 text-muted hover:border-brand-500/40'
   }`;
 }
 
@@ -91,10 +91,7 @@ export default function K8sCve(): JSX.Element {
     };
   }, []);
 
-  const statuses = useMemo(
-    () => Object.entries(data?.facets.statuses ?? {}).sort((a, b) => b[1] - a[1]),
-    [data]
-  );
+  const statuses = useMemo(() => Object.entries(data?.facets.statuses ?? {}).sort((a, b) => b[1] - a[1]), [data]);
 
   const filtered = useMemo(() => {
     const list = data?.items ?? [];
@@ -204,7 +201,7 @@ export default function K8sCve(): JSX.Element {
               </div>
 
               {cve.summary && cve.summary !== cve.title && (
-                <p className="text-xs text-slate-600 dark:text-slate-400 mt-2 leading-relaxed">{cve.summary}</p>
+                <p className="text-xs text-muted mt-2 leading-relaxed">{cve.summary}</p>
               )}
 
               {issueHref && (

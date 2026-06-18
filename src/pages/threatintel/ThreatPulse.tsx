@@ -176,7 +176,7 @@ export default function ThreatPulse(): JSX.Element {
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -196,7 +196,7 @@ export default function ThreatPulse(): JSX.Element {
             <RefreshCw size={11} /> refresh
           </button>
         </div>
-        <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed max-w-3xl">
+        <p className="text-sm text-muted leading-relaxed max-w-3xl">
           Entities mentioned across multiple independent intelligence surfaces simultaneously. Higher cross-source count
           = higher confidence that this is a real, active threat. Scans Reddit (16 subs), Bluesky (16 researchers),
           Mastodon (infosec.exchange — 8 accounts), Telegram (curated cybersec channels), X (cookie-auth firehose for 5
@@ -263,7 +263,7 @@ export default function ThreatPulse(): JSX.Element {
               className={`px-3 py-1 text-xs font-mono uppercase tracking-wider border transition-colors ${
                 kindFilter === f.id
                   ? 'bg-brand-50 dark:bg-brand-950/30 text-brand-700 dark:text-brand-300 border-brand-300 dark:border-brand-700'
-                  : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 border-slate-200 dark:border-slate-800 hover:border-brand-500/40'
+                  : 'bg-white dark:bg-slate-900 text-muted border-slate-200 dark:border-slate-800 hover:border-brand-500/40'
               }`}
             >
               {f.label}
@@ -297,7 +297,7 @@ export default function ThreatPulse(): JSX.Element {
       {data && filtered.length === 0 && (
         <div className="border border-dashed border-slate-300 dark:border-slate-700 p-10 text-center rounded-lg">
           <Activity size={32} className="mx-auto mb-3 text-slate-400 dark:text-slate-600" />
-          <p className="font-mono text-sm text-slate-600 dark:text-slate-400">
+          <p className="font-mono text-sm text-muted">
             No entities at ≥{minSources} source{minSources > 1 ? 's' : ''}
             {kindFilter ? ` in ${KIND_LABEL[kindFilter as keyof typeof KIND_LABEL]}` : ''}.
           </p>
@@ -321,7 +321,7 @@ export default function ThreatPulse(): JSX.Element {
                 <button
                   type="button"
                   onClick={() => setKindFilter(null)}
-                  className="inline-flex items-center gap-1.5 border border-slate-200 dark:border-slate-800 px-3 py-1.5 font-mono text-mini uppercase tracking-wider text-slate-600 dark:text-slate-400 transition-colors hover:border-slate-400 hover:text-slate-900 dark:hover:text-slate-100 rounded"
+                  className="inline-flex items-center gap-1.5 border border-slate-200 dark:border-slate-800 px-3 py-1.5 font-mono text-mini uppercase tracking-wider text-muted transition-colors hover:border-slate-400 hover:text-slate-900 dark:hover:text-slate-100 rounded"
                 >
                   Clear {KIND_LABEL[kindFilter as keyof typeof KIND_LABEL]} filter
                 </button>
@@ -406,7 +406,7 @@ export default function ThreatPulse(): JSX.Element {
                           {entity.sources.map((s) => (
                             <span
                               key={s}
-                              className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/60 text-slate-600 dark:text-slate-400"
+                              className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/60 text-muted"
                             >
                               {surfaceLabel(s)}
                             </span>

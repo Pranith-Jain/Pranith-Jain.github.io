@@ -53,8 +53,8 @@ const SEV_STYLE: Record<Sev, { text: string; chip: string; Icon: typeof ShieldAl
     Icon: Info,
   },
   info: {
-    text: 'text-slate-600 dark:text-slate-400',
-    chip: 'border-slate-400/30 bg-slate-400/10 text-slate-600 dark:text-slate-400',
+    text: 'text-muted',
+    chip: 'border-slate-400/30 bg-slate-400/10 text-muted',
     Icon: Info,
   },
 };
@@ -386,14 +386,14 @@ export default function IamPolicyAnalyzer(): JSX.Element {
     <div className="max-w-4xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
 
       <div className="animate-fade-in-up">
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2">IAM Policy Analyzer</h1>
-        <p className="text-slate-600 dark:text-slate-400 mb-6 max-w-2xl">
+        <p className="text-muted mb-6 max-w-2xl">
           Paste an AWS policy (identity, resource-based, S3 bucket, or role trust policy). It is analysed locally for
           least-privilege and misconfiguration risks — wildcard admin, public principals, NotAction/NotResource allows,
           privilege-escalation actions, broad secret access, and confused-deputy trust. Nothing leaves your browser.
@@ -499,7 +499,7 @@ export default function IamPolicyAnalyzer(): JSX.Element {
                           <span className="text-mini font-mono text-slate-500">{f.where}</span>
                         </div>
                         <h3 className={`font-display font-semibold mt-1.5 ${st.text}`}>{f.title}</h3>
-                        <p className="text-sm text-slate-600 dark:text-slate-400 mt-1 leading-relaxed">{f.detail}</p>
+                        <p className="text-sm text-muted mt-1 leading-relaxed">{f.detail}</p>
                         <p className="text-tool text-slate-700 dark:text-slate-300 mt-2">
                           <span className="text-slate-500 font-mono text-mini uppercase tracking-wider">fix</span>{' '}
                           {f.fix}

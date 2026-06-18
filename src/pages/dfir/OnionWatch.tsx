@@ -154,7 +154,7 @@ export default function OnionWatch(): JSX.Element {
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -163,7 +163,7 @@ export default function OnionWatch(): JSX.Element {
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
           <Bell size={28} className="text-brand-600 dark:text-brand-400" /> Onion Watch
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 mb-2 max-w-3xl leading-relaxed">
+        <p className="text-muted mb-2 max-w-3xl leading-relaxed">
           Live inventory of <code>.onion</code> leak-site mirrors for the most-active ransomware groups, with
           reachability flags from Ransomlook.io&apos;s last scrape. Pivots open in your own Tor Browser. We do not fetch
           any .onion content from this site.
@@ -237,7 +237,7 @@ export default function OnionWatch(): JSX.Element {
         <div className="flex flex-wrap items-center gap-3 mt-3 text-mini font-mono">
           <label className="inline-flex items-center gap-1.5 cursor-pointer">
             <input type="checkbox" checked={showOffline} onChange={(e) => setShowOffline(e.target.checked)} />
-            <span className="text-slate-600 dark:text-slate-400">show offline groups</span>
+            <span className="text-muted">show offline groups</span>
           </label>
 
           <span className="text-slate-300 dark:text-slate-700">|</span>

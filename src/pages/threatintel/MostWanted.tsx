@@ -10,7 +10,8 @@ const MOST_WANTED = [
     slug: 'lockbit',
     risk: 'CRITICAL' as const,
     categories: ['Ransomware', 'Cybercrime'],
-    description: 'Prolific Ransomware-as-a-Service operation responsible for thousands of attacks worldwide. Known for advanced encryption, data exfiltration, and a dedicated leak site.',
+    description:
+      'Prolific Ransomware-as-a-Service operation responsible for thousands of attacks worldwide. Known for advanced encryption, data exfiltration, and a dedicated leak site.',
     aliases: ['LockBit 2.0', 'LockBit 3.0', 'LockBit Black'],
     origin: 'Russia',
     tools: ['LockBit encryptor', 'StealBit', 'LockBit Negotiator'],
@@ -20,7 +21,8 @@ const MOST_WANTED = [
     slug: 'apt29',
     risk: 'CRITICAL' as const,
     categories: ['APT', 'Cyber Espionage'],
-    description: 'Russian state-sponsored threat group attributed to the SVR. Known for supply chain attacks, diplomatic targets, and long-term espionage campaigns.',
+    description:
+      'Russian state-sponsored threat group attributed to the SVR. Known for supply chain attacks, diplomatic targets, and long-term espionage campaigns.',
     aliases: ['Cozy Bear', 'The Dukes', 'NOBELIUM'],
     origin: 'Russia',
     tools: ['SolarWinds backdoor', 'Beacon', 'PowerShell implants'],
@@ -30,7 +32,8 @@ const MOST_WANTED = [
     slug: 'alphv',
     risk: 'CRITICAL' as const,
     categories: ['Ransomware', 'Cybercrime'],
-    description: 'Rust-based RaaS group known for sophisticated attacks, data extortion, and targeting critical infrastructure across multiple sectors.',
+    description:
+      'Rust-based RaaS group known for sophisticated attacks, data extortion, and targeting critical infrastructure across multiple sectors.',
     aliases: ['ALPHV', 'Noberus'],
     origin: 'Russia',
     tools: ['BlackCat encryptor', 'Tor leak site', 'Exfiltration tools'],
@@ -40,7 +43,8 @@ const MOST_WANTED = [
     slug: 'lazarus',
     risk: 'CRITICAL' as const,
     categories: ['APT', 'Cyber Espionage', 'Financial Crime'],
-    description: 'North Korean state-sponsored threat group responsible for destructive attacks, cryptocurrency thefts, and the Sony Pictures breach.',
+    description:
+      'North Korean state-sponsored threat group responsible for destructive attacks, cryptocurrency thefts, and the Sony Pictures breach.',
     aliases: ['Hidden Cobra', 'ZINC', 'APT38'],
     origin: 'North Korea',
     tools: ['Destructive wipers', 'RATs', 'Cryptocurrency traders'],
@@ -50,7 +54,8 @@ const MOST_WANTED = [
     slug: 'black-basta',
     risk: 'HIGH' as const,
     categories: ['Ransomware', 'Cybercrime'],
-    description: 'Ransomware group first observed in 2022. Uses double-extortion tactics and has targeted enterprises across North America and Europe.',
+    description:
+      'Ransomware group first observed in 2022. Uses double-extortion tactics and has targeted enterprises across North America and Europe.',
     aliases: [],
     origin: 'Russia',
     tools: ['Black Basta encryptor', 'QakBot', 'Cobalt Strike'],
@@ -60,7 +65,8 @@ const MOST_WANTED = [
     slug: 'scattered-spider',
     risk: 'HIGH' as const,
     categories: ['Cybercrime', 'Social Engineering'],
-    description: 'Highly social engineering-focused criminal group targeting SaaS platforms and cloud environments. Known for SIM-swapping and MFA bypass.',
+    description:
+      'Highly social engineering-focused criminal group targeting SaaS platforms and cloud environments. Known for SIM-swapping and MFA bypass.',
     aliases: ['UNC3944', 'Muddled Libra'],
     origin: 'US/UK',
     tools: ['Social engineering toolkit', 'RATs', 'Cloud exploitation'],
@@ -70,7 +76,8 @@ const MOST_WANTED = [
     slug: 'apt41',
     risk: 'HIGH' as const,
     categories: ['APT', 'Cyber Espionage', 'Financial Crime'],
-    description: 'Chinese state-sponsored group with dual motivations of espionage and financial gain. Targets gaming, tech, and healthcare sectors.',
+    description:
+      'Chinese state-sponsored group with dual motivations of espionage and financial gain. Targets gaming, tech, and healthcare sectors.',
     aliases: ['Winnti', 'BARIUM', 'ShadowPad'],
     origin: 'China',
     tools: ['Winnti backdoor', 'ShadowPad', 'PlugX'],
@@ -80,7 +87,8 @@ const MOST_WANTED = [
     slug: 'clop',
     risk: 'HIGH' as const,
     categories: ['Ransomware', 'Cybercrime'],
-    description: 'Ransomware group notorious for exploiting zero-day vulnerabilities in file transfer software (Accellion, GoAnywhere, MOVEit).',
+    description:
+      'Ransomware group notorious for exploiting zero-day vulnerabilities in file transfer software (Accellion, GoAnywhere, MOVEit).',
     aliases: ['TA505', 'FIN11'],
     origin: 'Russia',
     tools: ['Clop encryptor', 'MOVEit exploit', 'GoAnywhere exploit'],
@@ -90,7 +98,8 @@ const MOST_WANTED = [
     slug: 'apt33',
     risk: 'MEDIUM' as const,
     categories: ['APT', 'Cyber Espionage'],
-    description: 'Iranian state-sponsored threat group targeting aerospace, energy, and petrochemical sectors with destructive wiper attacks.',
+    description:
+      'Iranian state-sponsored threat group targeting aerospace, energy, and petrochemical sectors with destructive wiper attacks.',
     aliases: ['Elfin', 'Refined Kitten', 'Magnallium'],
     origin: 'Iran',
     tools: ['Shamoon wiper', 'DDoS tools', 'RATs'],
@@ -100,7 +109,8 @@ const MOST_WANTED = [
     slug: 'kimsuky',
     risk: 'MEDIUM' as const,
     categories: ['APT', 'Cyber Espionage'],
-    description: 'North Korean threat group focused on intelligence gathering against South Korean government, think tanks, and academia.',
+    description:
+      'North Korean threat group focused on intelligence gathering against South Korean government, think tanks, and academia.',
     aliases: ['Black Banshee', 'Thallium', 'Velvet Chollima'],
     origin: 'North Korea',
     tools: ['BabyShark', 'Kimusky RAT', 'AppleSeed'],
@@ -110,7 +120,8 @@ const MOST_WANTED = [
     slug: 'killnet',
     risk: 'MEDIUM' as const,
     categories: ['Hacktivism', 'DDoS'],
-    description: 'Pro-Russian hacktivist group known for large-scale DDoS attacks against governments and critical infrastructure in NATO countries.',
+    description:
+      'Pro-Russian hacktivist group known for large-scale DDoS attacks against governments and critical infrastructure in NATO countries.',
     aliases: ['Killnet', 'From Russia with Love'],
     origin: 'Russia',
     tools: ['DDoS tools', 'Web defacement', 'Leak sites'],
@@ -120,7 +131,8 @@ const MOST_WANTED = [
     slug: 'siegedsec',
     risk: 'MEDIUM' as const,
     categories: ['Hacktivism', 'Data Leaks'],
-    description: 'Hacktivist group known for targeting pro-LGBTQ+ causes and government entities with data breaches and leaks.',
+    description:
+      'Hacktivist group known for targeting pro-LGBTQ+ causes and government entities with data breaches and leaks.',
     aliases: ['SiegedSec'],
     origin: 'International',
     tools: ['Telegram leak channels', 'Social engineering'],
@@ -130,7 +142,8 @@ const MOST_WANTED = [
 const RISK_PILL: Record<string, string> = {
   CRITICAL: 'bg-red-100 text-red-800 dark:bg-red-900/40 dark:text-red-300 border-red-300 dark:border-red-800',
   HIGH: 'bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300 border-amber-300 dark:border-amber-800',
-  MEDIUM: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/40 dark:text-yellow-300 border-yellow-300 dark:border-yellow-800',
+  MEDIUM:
+    'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/40 dark:text-yellow-300 border-yellow-300 dark:border-yellow-800',
 };
 
 const RISK_ORDER: Record<string, number> = { CRITICAL: 0, HIGH: 1, MEDIUM: 2 };
@@ -203,30 +216,26 @@ export default function MostWanted(): JSX.Element {
               {actor.categories.map((cat) => (
                 <span
                   key={cat}
-                  className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700"
+                  className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-muted border border-slate-200 dark:border-slate-700"
                 >
                   {cat}
                 </span>
               ))}
             </div>
 
-            <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-3 line-clamp-3">
-              {actor.description}
-            </p>
+            <p className="text-sm text-muted leading-relaxed mb-3 line-clamp-3">{actor.description}</p>
 
             <div className="mt-auto space-y-1.5 text-xs font-mono text-slate-500 dark:text-slate-500">
               {actor.aliases.length > 0 && (
                 <p>
-                  <span className="text-slate-400 dark:text-slate-500">Aliases:</span>{' '}
-                  {actor.aliases.join(', ')}
+                  <span className="text-slate-400 dark:text-slate-500">Aliases:</span> {actor.aliases.join(', ')}
                 </p>
               )}
               <p>
                 <span className="text-slate-400 dark:text-slate-500">Origin:</span> {actor.origin}
               </p>
               <p>
-                <span className="text-slate-400 dark:text-slate-500">Tools:</span>{' '}
-                {actor.tools.join(', ')}
+                <span className="text-slate-400 dark:text-slate-500">Tools:</span> {actor.tools.join(', ')}
               </p>
             </div>
           </Link>

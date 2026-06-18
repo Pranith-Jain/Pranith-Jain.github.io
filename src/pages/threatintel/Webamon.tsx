@@ -105,7 +105,7 @@ function riskColor(score: number | undefined): string {
 function FingerprintBadge({ value }: { value: string | undefined }) {
   if (!value || value === '4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945') return null;
   return (
-    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-mini font-mono bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">
+    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-mini font-mono bg-slate-100 dark:bg-slate-800 text-muted">
       <Fingerprint size={10} />
       {value.substring(0, 12)}…
     </span>
@@ -145,7 +145,7 @@ function ResultRow({ result }: { result: WebamonResult }) {
               <span className="text-slate-400">—</span>
             )}
           </div>
-          <div className="col-span-2 text-slate-600 dark:text-slate-400 text-meta truncate">
+          <div className="col-span-2 text-muted text-meta truncate">
             {result.tag ? (
               <span className="inline-flex items-center gap-1">
                 <Tag size={10} />
@@ -438,7 +438,7 @@ function JsonBlock({ data, label }: { data: Record<string, unknown>; label: stri
         <span className="text-mini text-slate-400 font-mono">{Object.keys(data).length} fields</span>
       </button>
       {open && (
-        <pre className="text-mini font-mono text-slate-600 dark:text-slate-400 bg-slate-50 dark:bg-slate-800/50 p-4 overflow-x-auto max-h-96">
+        <pre className="text-mini font-mono text-muted bg-slate-50 dark:bg-slate-800/50 p-4 overflow-x-auto max-h-96">
           {JSON.stringify(data, null, 2)}
         </pre>
       )}
@@ -586,7 +586,7 @@ function SearchTab() {
                 type="button"
                 disabled={pagination.prev_from === null}
                 onClick={() => doSearch(query, pagination.prev_from ?? 0)}
-                className="px-4 py-2 rounded-lg text-sm font-mono bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 disabled:opacity-30 hover:border-brand-500/40 transition-colors"
+                className="px-4 py-2 rounded-lg text-sm font-mono bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-muted disabled:opacity-30 hover:border-brand-500/40 transition-colors"
               >
                 ← Prev
               </button>
@@ -597,7 +597,7 @@ function SearchTab() {
                 type="button"
                 disabled={pagination.next_from === null}
                 onClick={() => doSearch(query, pagination.next_from ?? 0)}
-                className="px-4 py-2 rounded-lg text-sm font-mono bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 disabled:opacity-30 hover:border-brand-500/40 transition-colors"
+                className="px-4 py-2 rounded-lg text-sm font-mono bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-muted disabled:opacity-30 hover:border-brand-500/40 transition-colors"
               >
                 Next →
               </button>
@@ -723,7 +723,7 @@ function SandboxTab() {
 
       {result && (
         <div className="space-y-6">
-          <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+          <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
             <h2 className="font-display font-bold text-lg mb-4 flex items-center gap-2">
               <CheckCircle size={18} className="text-emerald-500" /> Scan Submitted
             </h2>
@@ -750,7 +750,7 @@ function SandboxTab() {
           </section>
 
           {loadingReport && (
-            <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+            <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
               <div className="flex items-center gap-2 text-sm text-slate-500 font-mono">
                 <Loader2 size={14} className="animate-spin" /> Loading report…
               </div>
@@ -763,7 +763,7 @@ function SandboxTab() {
             (() => {
               const r = reportData.results[0];
               return (
-                <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 space-y-6">
+                <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 space-y-6">
                   <h2 className="font-display font-bold text-lg mb-4 flex items-center gap-2">
                     <FileImage size={18} className="text-brand-600 dark:text-brand-400" /> Scan Report
                   </h2>
@@ -873,15 +873,9 @@ function SandboxTab() {
                                   <td className="py-1 pr-2 text-slate-700 dark:text-slate-300 break-all">
                                     {c.name ?? '—'}
                                   </td>
-                                  <td className="py-1 pr-2 text-slate-600 dark:text-slate-400 break-all">
-                                    {c.domain ?? '—'}
-                                  </td>
-                                  <td className="py-1 pr-2 text-slate-600 dark:text-slate-400">
-                                    {c.secure ? 'yes' : 'no'}
-                                  </td>
-                                  <td className="py-1 pr-2 text-slate-600 dark:text-slate-400">
-                                    {c.httpOnly ? 'yes' : 'no'}
-                                  </td>
+                                  <td className="py-1 pr-2 text-muted break-all">{c.domain ?? '—'}</td>
+                                  <td className="py-1 pr-2 text-muted">{c.secure ? 'yes' : 'no'}</td>
+                                  <td className="py-1 pr-2 text-muted">{c.httpOnly ? 'yes' : 'no'}</td>
                                 </tr>
                               ))}
                             </tbody>
@@ -900,7 +894,7 @@ function SandboxTab() {
                           {r.technology.map((t, i) => (
                             <span
                               key={i}
-                              className="inline-flex items-center gap-1 px-2 py-1 rounded bg-slate-100 dark:bg-slate-800 text-mini font-mono text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700"
+                              className="inline-flex items-center gap-1 px-2 py-1 rounded bg-slate-100 dark:bg-slate-800 text-mini font-mono text-muted border border-slate-200 dark:border-slate-700"
                             >
                               <Tag size={10} />
                               {t.name}
@@ -934,11 +928,11 @@ function SandboxTab() {
                                   <td className="py-1 pr-3 text-slate-700 dark:text-slate-300 break-all">
                                     {res.sha256 ? res.sha256.slice(0, 16) + '…' : '—'}
                                   </td>
-                                  <td className="py-1 pr-3 text-slate-600 dark:text-slate-400">{res.mime ?? '—'}</td>
-                                  <td className="py-1 pr-3 text-slate-600 dark:text-slate-400">
+                                  <td className="py-1 pr-3 text-muted">{res.mime ?? '—'}</td>
+                                  <td className="py-1 pr-3 text-muted">
                                     {res.size ? `${(res.size / 1024).toFixed(1)}KB` : '—'}
                                   </td>
-                                  <td className="py-1 pr-3 text-slate-600 dark:text-slate-400 break-all max-w-[200px] truncate">
+                                  <td className="py-1 pr-3 text-muted break-all max-w-[200px] truncate">
                                     {res.url ?? '—'}
                                   </td>
                                 </tr>
@@ -957,7 +951,7 @@ function SandboxTab() {
                         </h3>
                         <div className="space-y-1 max-h-48 overflow-y-auto">
                           {r.page_links.map((l, i) => (
-                            <div key={i} className="text-mini font-mono text-slate-600 dark:text-slate-400 break-all">
+                            <div key={i} className="text-mini font-mono text-muted break-all">
                               {l}
                             </div>
                           ))}
@@ -973,7 +967,7 @@ function SandboxTab() {
                         </h3>
                         <div className="space-y-1 max-h-48 overflow-y-auto">
                           {r.page_scripts.map((s, i) => (
-                            <div key={i} className="text-mini font-mono text-slate-600 dark:text-slate-400 break-all">
+                            <div key={i} className="text-mini font-mono text-muted break-all">
                               {s}
                             </div>
                           ))}
@@ -989,7 +983,7 @@ function SandboxTab() {
                         </h3>
                         <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 p-3 text-mini font-mono space-y-1">
                           {r.monitor.map((m, i) => (
-                            <div key={i} className="flex items-center gap-2 text-slate-600 dark:text-slate-400">
+                            <div key={i} className="flex items-center gap-2 text-muted">
                               <span className="truncate">{m.url ?? '—'}</span>
                               {m.status && (
                                 <span className="px-1.5 py-0.5 rounded bg-slate-200 dark:bg-slate-800">{m.status}</span>
@@ -1014,12 +1008,12 @@ function SandboxTab() {
                             </div>
                           )}
                           {r.dom.description && (
-                            <div className="px-3 py-2 text-mini text-slate-600 dark:text-slate-400 border-b border-slate-100 dark:border-slate-800">
+                            <div className="px-3 py-2 text-mini text-muted border-b border-slate-100 dark:border-slate-800">
                               Description: {r.dom.description}
                             </div>
                           )}
                           {r.dom.keywords && (
-                            <div className="px-3 py-2 text-mini text-slate-600 dark:text-slate-400 border-b border-slate-100 dark:border-slate-800">
+                            <div className="px-3 py-2 text-mini text-muted border-b border-slate-100 dark:border-slate-800">
                               Keywords: {r.dom.keywords}
                             </div>
                           )}
@@ -1064,14 +1058,14 @@ function SandboxTab() {
           {reportId && !screenshotUrl && !screenshotLoading && (
             <button
               onClick={() => loadScreenshot(reportId)}
-              className="px-4 py-2 rounded-lg text-sm font-mono bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:border-brand-500/40 transition-colors inline-flex items-center gap-2"
+              className="px-4 py-2 rounded-lg text-sm font-mono bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-muted hover:border-brand-500/40 transition-colors inline-flex items-center gap-2"
             >
               <FileImage size={14} /> Load Screenshot
             </button>
           )}
 
           {screenshotLoading && (
-            <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+            <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
               <div className="flex items-center gap-2 text-sm text-slate-500 font-mono">
                 <Loader2 size={14} className="animate-spin" /> Loading screenshot…
               </div>
@@ -1079,7 +1073,7 @@ function SandboxTab() {
           )}
 
           {screenshotUrl && (
-            <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+            <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
               <h2 className="font-display font-bold text-lg mb-4 flex items-center gap-2">
                 <FileImage size={18} className="text-brand-600 dark:text-brand-400" /> Screenshot
               </h2>
@@ -1239,7 +1233,7 @@ export default function Webamon(): JSX.Element {
     <div className="max-w-7xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -1248,7 +1242,7 @@ export default function Webamon(): JSX.Element {
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
           <Globe size={28} className="text-brand-600 dark:text-brand-400" /> Webamon
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 max-w-3xl">
+        <p className="text-muted max-w-3xl">
           Webamon threat intelligence platform — search 750M+ domains, submit URLs for sandbox analysis, and explore
           infrastructure relationships. Data sourced from{' '}
           <a

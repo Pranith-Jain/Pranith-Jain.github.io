@@ -116,7 +116,7 @@ export default function IrPlaybooks(): JSX.Element {
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -125,7 +125,7 @@ export default function IrPlaybooks(): JSX.Element {
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
           <BookOpen size={28} className="text-brand-600 dark:text-brand-400" /> IR Playbooks
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed">
+        <p className="text-muted max-w-2xl leading-relaxed">
           Step-by-step incident response workflows with integrated tool recommendations. Select an incident type to
           generate a tailored playbook.
         </p>
@@ -192,7 +192,7 @@ export default function IrPlaybooks(): JSX.Element {
                 {result.playbook.severity}
               </span>
             </div>
-            <p className="text-sm text-slate-600 dark:text-slate-400 mb-3">{result.playbook.description}</p>
+            <p className="text-sm text-muted mb-3">{result.playbook.description}</p>
             <div className="flex flex-wrap gap-3 text-xs text-slate-500">
               <span className="flex items-center gap-1">
                 <Clock size={12} /> {result.playbook.estimated_total_time}
@@ -241,7 +241,7 @@ export default function IrPlaybooks(): JSX.Element {
                   </button>
                   {isExpanded && (
                     <div className="px-4 pb-4 pt-0 border-t border-slate-100 dark:border-slate-800">
-                      <p className="text-sm text-slate-600 dark:text-slate-400 mt-3 mb-3">{step.description}</p>
+                      <p className="text-sm text-muted mt-3 mb-3">{step.description}</p>
                       {step.tools.length > 0 && (
                         <div>
                           <div className="text-micro font-mono uppercase tracking-wider text-slate-400 mb-1.5">
@@ -273,7 +273,7 @@ export default function IrPlaybooks(): JSX.Element {
               {result.playbook.tools_used.map((tool, i) => (
                 <span
                   key={i}
-                  className="text-xs font-mono px-2 py-1 rounded border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400"
+                  className="text-xs font-mono px-2 py-1 rounded border border-slate-200 dark:border-slate-700 text-muted"
                 >
                   {tool}
                 </span>

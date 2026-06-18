@@ -142,14 +142,14 @@ export default function ExifParse(): JSX.Element {
     <div className="max-w-3xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
 
       <div className="animate-fade-in-up">
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2">EXIF Parser</h1>
-        <p className="text-slate-600 dark:text-slate-400 mb-4 max-w-2xl">
+        <p className="text-muted mb-4 max-w-2xl">
           Extract metadata from images. Includes GPS coordinates, camera make and model, capture settings, and more.
         </p>
       </div>
@@ -179,7 +179,7 @@ export default function ExifParse(): JSX.Element {
           if (e.key === 'Enter' || e.key === ' ') inputRef.current?.click();
         }}
         aria-label="Upload image file"
-        className={`mb-8 rounded-2xl border-2 border-dashed p-12 text-center cursor-pointer transition-colors w-full ${
+        className={`mb-8 rounded-lg border-2 border-dashed p-12 text-center cursor-pointer transition-colors w-full ${
           dragging
             ? 'border-brand-500 bg-brand-50 dark:bg-brand-900/10'
             : 'border-slate-300 dark:border-slate-700 hover:border-brand-400 dark:hover:border-brand-600'
@@ -189,7 +189,7 @@ export default function ExifParse(): JSX.Element {
           size={32}
           className={`mx-auto mb-3 transition-colors ${dragging ? 'text-brand-600 dark:text-brand-400' : 'text-slate-400'}`}
         />
-        <p className="font-mono text-sm text-slate-600 dark:text-slate-400">
+        <p className="font-mono text-sm text-muted">
           Drop an image here or{' '}
           <span className="text-brand-600 dark:text-brand-400 hover:underline">click to browse</span>
         </p>
@@ -197,7 +197,7 @@ export default function ExifParse(): JSX.Element {
         <input ref={inputRef} type="file" accept="image/*" className="hidden" onChange={onFileChange} />
       </button>
 
-      {loading && <p className="font-mono text-slate-600 dark:text-slate-400">Parsing EXIF data…</p>}
+      {loading && <p className="font-mono text-muted">Parsing EXIF data…</p>}
       {error && (
         <p role="alert" className="font-mono text-sm text-rose-600 dark:text-rose-400">
           error: {error}
@@ -213,7 +213,7 @@ export default function ExifParse(): JSX.Element {
 
           {/* GPS */}
           {lat !== undefined && lon !== undefined && (
-            <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+            <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
               <h2 className="font-display font-bold text-lg mb-3 flex items-center gap-2">
                 <MapPin size={16} className="text-brand-600 dark:text-brand-400" />
                 GPS Location
@@ -239,7 +239,7 @@ export default function ExifParse(): JSX.Element {
 
           {/* Camera */}
           {(metadata.Make || metadata.Model || metadata.LensModel) && (
-            <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+            <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
               <h2 className="font-display font-bold text-lg mb-3 flex items-center gap-2">
                 <Camera size={16} className="text-brand-600 dark:text-brand-400" />
                 Camera
@@ -257,7 +257,7 @@ export default function ExifParse(): JSX.Element {
             metadata.FNumber !== undefined ||
             metadata.ISO !== undefined ||
             metadata.FocalLength !== undefined) && (
-            <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+            <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
               <h2 className="font-display font-bold text-lg mb-3 flex items-center gap-2">
                 <Camera size={16} className="text-brand-600 dark:text-brand-400" />
                 Capture Settings
@@ -276,7 +276,7 @@ export default function ExifParse(): JSX.Element {
 
           {/* Image info */}
           {(metadata.ImageWidth || metadata.ImageHeight || metadata.Orientation || metadata.ColorSpace) && (
-            <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+            <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
               <h2 className="font-display font-bold text-lg mb-3 flex items-center gap-2">
                 <Image size={16} className="text-brand-600 dark:text-brand-400" />
                 Image
@@ -291,7 +291,7 @@ export default function ExifParse(): JSX.Element {
 
           {/* IPTC */}
           {(metadata.Copyright || metadata.Caption || keywordsStr) && (
-            <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+            <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
               <h2 className="font-display font-bold text-lg mb-3 flex items-center gap-2">
                 <FileText size={16} className="text-brand-600 dark:text-brand-400" />
                 IPTC Metadata

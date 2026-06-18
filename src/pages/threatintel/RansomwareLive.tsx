@@ -133,7 +133,7 @@ function ListView({ data }: { data: unknown }) {
                 </span>
               )}
             </div>
-            {sub && <p className="font-mono text-mini text-slate-600 dark:text-slate-400 mt-1 line-clamp-2">{sub}</p>}
+            {sub && <p className="font-mono text-mini text-muted mt-1 line-clamp-2">{sub}</p>}
             {date && <p className="font-mono text-micro text-slate-400 mt-1">{date}</p>}
           </li>
         );

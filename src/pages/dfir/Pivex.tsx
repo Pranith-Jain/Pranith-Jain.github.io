@@ -56,7 +56,7 @@ const ENTITY_COLORS: Record<string, string> = {
   victim: 'border-slate-500/40 bg-slate-500/10 text-slate-700 dark:text-slate-300',
   c2_framework: 'border-fuchsia-500/40 bg-fuchsia-500/10 text-fuchsia-700 dark:text-fuchsia-300',
   product: 'border-teal-500/40 bg-teal-500/10 text-teal-700 dark:text-teal-300',
-  reference: 'border-slate-400/40 bg-slate-400/10 text-slate-600 dark:text-slate-400',
+  reference: 'border-slate-400/40 bg-slate-400/10 text-muted',
 };
 
 const ENTITY_BG: Record<string, string> = {
@@ -87,9 +87,9 @@ const ENTITY_ICON_COLORS: Record<string, string> = {
   ransomware: 'text-rose-600 dark:text-rose-400',
   malware: 'text-orange-600 dark:text-orange-400',
   campaign: 'text-pink-600 dark:text-pink-400',
-  hash: 'text-slate-600 dark:text-slate-400',
+  hash: 'text-muted',
   technique: 'text-cyan-600 dark:text-cyan-400',
-  victim: 'text-slate-600 dark:text-slate-400',
+  victim: 'text-muted',
   c2_framework: 'text-fuchsia-600 dark:text-fuchsia-400',
   product: 'text-teal-600 dark:text-teal-400',
   reference: 'text-slate-500 dark:text-slate-400',
@@ -245,7 +245,7 @@ export default function Pivex(): JSX.Element {
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -254,7 +254,7 @@ export default function Pivex(): JSX.Element {
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
           <Network size={28} className="text-brand-600 dark:text-brand-400" /> PIVEX
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed">
+        <p className="text-muted max-w-2xl leading-relaxed">
           Infrastructure pivot graph — map relationships between IPs, domains, certificates, ASNs, and threat actors.
           {nodes.length > 0 && (
             <span className="text-slate-500">

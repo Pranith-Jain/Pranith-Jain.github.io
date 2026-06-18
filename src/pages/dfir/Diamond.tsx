@@ -524,7 +524,7 @@ function Diamond(): JSX.Element {
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -533,7 +533,7 @@ function Diamond(): JSX.Element {
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
           <DiamondIcon size={28} className="text-brand-600 dark:text-brand-400" /> Diamond Model
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 mb-2 leading-relaxed">
+        <p className="text-muted mb-2 leading-relaxed">
           Caltagirone, Pendergast &amp; Betz, 2013. Every intrusion event is a connected diamond of Adversary,
           Capability, Infrastructure and Victim, plus meta-features describing the event itself.
         </p>
@@ -631,7 +631,7 @@ function Diamond(): JSX.Element {
 
         <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
           <div className="flex items-center justify-between mb-3">
-            <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono">
+            <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
               {active ? `${DIAMOND_VERTICES.find((v) => v.id === active)?.name}` : 'Vertices'}
             </h2>
             <span className="text-xs font-mono text-slate-500 dark:text-slate-400">
@@ -664,7 +664,7 @@ function Diamond(): JSX.Element {
               );
             })()
           ) : (
-            <ul className="space-y-2 text-sm font-mono text-slate-600 dark:text-slate-400">
+            <ul className="space-y-2 text-sm font-mono text-muted">
               {DIAMOND_VERTICES.map((v) => (
                 <li key={v.id} className="flex items-baseline gap-2">
                   <span className="text-brand-600 dark:text-brand-400 font-semibold">{v.name}</span>
@@ -685,7 +685,7 @@ function Diamond(): JSX.Element {
             Auto-fill from indicator
           </h2>
         </div>
-        <p className="text-mini font-mono text-slate-600 dark:text-slate-400 mb-2">
+        <p className="text-mini font-mono text-muted mb-2">
           Paste any IP / IPv6 / domain / URL / hash / CVE / ransomware-actor-name — we pull context from IOC checker,
           ip-geo, cross-source correlation, KEV+actor mapping, MalwareBazaar, actor-timeline (MITRE Group), and
           ransomware-victim cross-match, then populate empty corners. Won&apos;t overwrite anything you&apos;ve already
@@ -720,7 +720,7 @@ function Diamond(): JSX.Element {
 
       <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
         <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
-          <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono">
+          <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
             Intrusion event
           </h2>
           <div className="flex flex-wrap gap-2 w-full sm:w-auto">
@@ -771,7 +771,7 @@ function Diamond(): JSX.Element {
 
       {/* Meta-features */}
       <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
-        <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-3">
+        <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
           Meta-features
         </h2>
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
@@ -795,7 +795,7 @@ function Diamond(): JSX.Element {
 
       {/* Extended axes */}
       <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
-        <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-3">
+        <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
           Extended axes
         </h2>
         <div className="grid gap-3 md:grid-cols-2">
@@ -825,10 +825,10 @@ function Diamond(): JSX.Element {
       </section>
 
       <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
-        <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-3">
+        <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
           References
         </h2>
-        <ul className="space-y-1.5 text-sm font-mono text-slate-600 dark:text-slate-400">
+        <ul className="space-y-1.5 text-sm font-mono text-muted">
           <li>
             <a
               href="https://apps.dtic.mil/sti/citations/ADA586960"

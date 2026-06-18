@@ -196,7 +196,7 @@ export default function VerdiktAi(): JSX.Element {
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -205,7 +205,7 @@ export default function VerdiktAi(): JSX.Element {
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
           <Shield size={28} className="text-brand-600 dark:text-brand-400" /> VERDIKT-AI
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed">
+        <p className="text-muted max-w-2xl leading-relaxed">
           Combine IOC enrichment with AI analysis. Submit an IP, domain, URL, or hash — get enrichment from multiple
           sources plus an AI-generated analyst narrative.
         </p>
@@ -287,7 +287,7 @@ export default function VerdiktAi(): JSX.Element {
                   <span className="text-sm font-mono text-slate-800 dark:text-slate-200">{result.iocValue}</span>
                 </div>
                 {result.iocDetails && (
-                  <div className="grid grid-cols-2 gap-2 text-xs text-slate-600 dark:text-slate-400">
+                  <div className="grid grid-cols-2 gap-2 text-xs text-muted">
                     {Object.entries(result.iocDetails)
                       .slice(0, 6)
                       .map(([k, v]) => (

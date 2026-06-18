@@ -31,12 +31,12 @@ export function Experience({ experiences }: ExperienceProps) {
   };
 
   return (
-    <section id="experience" className="mt-20 scroll-mt-24">
+    <section id="experience" className="scroll-mt-24">
       {/* Header — consistent with the rest of the redesigned sections:
           small caps-mono kicker, display heading, no chrome. */}
       <div className="mb-10 max-w-2xl">
         <div className="mb-3 text-eyebrow font-mono uppercase text-slate-500">Experience</div>
-        <h2 className="font-display text-4xl sm:text-5xl font-bold tracking-tight text-slate-900 dark:text-white">
+        <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
           Experience highlights
         </h2>
       </div>
@@ -51,7 +51,7 @@ export function Experience({ experiences }: ExperienceProps) {
           return (
             <div
               key={exp.title}
-              className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40"
+              className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40"
             >
               <button
                 type="button"

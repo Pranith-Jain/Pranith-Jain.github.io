@@ -105,7 +105,7 @@ export default function ExportHub(): JSX.Element {
       <h1 className="text-3xl font-display font-bold flex items-center gap-3 mb-2">
         <Download className="text-brand-600" /> Export Hub
       </h1>
-      <p className="text-slate-600 dark:text-slate-400 mb-8">
+      <p className="text-muted mb-8">
         Export IOCs to standard formats — STIX, MISP, Sigma, YARA, Snort, Suricata, CSV, pfSense
       </p>
 

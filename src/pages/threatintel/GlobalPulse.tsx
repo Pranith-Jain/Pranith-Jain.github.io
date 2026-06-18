@@ -1128,7 +1128,7 @@ export default function GlobalPulse(): JSX.Element {
               className={`inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded-lg border transition-colors ${
                 showFilters
                   ? 'border-brand-500/50 bg-brand-500/10 text-brand-700 dark:text-brand-300'
-                  : 'border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800'
+                  : 'border-slate-200 dark:border-slate-800 text-muted hover:bg-slate-50 dark:hover:bg-slate-800'
               }`}
             >
               <Filter size={14} />
@@ -1167,7 +1167,7 @@ export default function GlobalPulse(): JSX.Element {
                 type="button"
                 onClick={load}
                 disabled={loading}
-                className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-mono rounded-lg border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors disabled:opacity-50"
+                className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-mono rounded-lg border border-slate-200 dark:border-slate-800 text-muted hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors disabled:opacity-50"
               >
                 <RefreshCw size={12} className={loading ? 'animate-spin' : ''} />
                 Refresh
@@ -1176,7 +1176,7 @@ export default function GlobalPulse(): JSX.Element {
               <button
                 type="button"
                 onClick={toggleFullscreen}
-                className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-mono rounded-lg border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
+                className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-mono rounded-lg border border-slate-200 dark:border-slate-800 text-muted hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
                 title="Toggle fullscreen (F)"
               >
                 {isFullscreen ? (
@@ -1199,7 +1199,7 @@ export default function GlobalPulse(): JSX.Element {
               <button
                 type="button"
                 onClick={exportToCsv}
-                className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-mono rounded-lg border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
+                className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-mono rounded-lg border border-slate-200 dark:border-slate-800 text-muted hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
                 title="Export to CSV"
               >
                 <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -1707,9 +1707,7 @@ export default function GlobalPulse(): JSX.Element {
                     <h3 className="text-base font-bold text-slate-900 dark:text-white">{selectedEvent.title}</h3>
                     <SeverityPill severity={selectedEvent.severity} />
                   </div>
-                  <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
-                    {selectedEvent.description}
-                  </p>
+                  <p className="text-sm text-muted leading-relaxed mb-4">{selectedEvent.description}</p>
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                     <div>
                       <span className="text-micro font-mono uppercase text-slate-500 block">Source</span>

@@ -41,7 +41,7 @@ const FRAMEWORK_COLORS: Record<string, string> = {
   mythic: 'bg-purple-500/15 text-purple-700 dark:text-purple-300 border-purple-500/30',
   pwnrig: 'bg-stone-500/15 text-stone-700 dark:text-stone-300 border-stone-500/30',
   covenant: 'bg-lime-500/15 text-lime-700 dark:text-lime-300 border-lime-500/30',
-  unknown: 'bg-slate-500/15 text-slate-600 dark:text-slate-400 border-slate-500/30',
+  unknown: 'bg-slate-500/15 text-muted border-slate-500/30',
 };
 
 const SOURCE_COLORS: Record<string, string> = {
@@ -88,7 +88,7 @@ export default function C2Tracker(): JSX.Element {
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
@@ -97,7 +97,7 @@ export default function C2Tracker(): JSX.Element {
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
           <Radar size={28} className="text-brand-600 dark:text-brand-400" /> C2 Infrastructure Tracker
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 mb-8 max-w-2xl">
+        <p className="text-muted mb-8 max-w-2xl">
           Aggregated live C2 server infrastructure deduped across six independent feeds: C2IntelFeeds (drb-ra),
           ThreatFox (abuse.ch), CriticalPathSecurity Public-Intelligence-Feeds, CriminalIP C2-Daily-Feed, and TweetFeed
           (#C2-tagged tweets). Each framework family is fairly sampled so filters like asyncrat or havoc show real
@@ -140,7 +140,7 @@ export default function C2Tracker(): JSX.Element {
               <div className="flex flex-wrap gap-2">
                 <button
                   onClick={() => setFilter('all')}
-                  className={`text-xs font-mono px-2.5 py-1 rounded border transition-colors ${filter === 'all' ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300' : 'border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-brand-500/40'}`}
+                  className={`text-xs font-mono px-2.5 py-1 rounded border transition-colors ${filter === 'all' ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300' : 'border-slate-300 dark:border-slate-700 text-muted hover:border-brand-500/40'}`}
                 >
                   All <span className="opacity-60">· {data.count}</span>
                 </button>
@@ -148,7 +148,7 @@ export default function C2Tracker(): JSX.Element {
                   <button
                     key={fw}
                     onClick={() => setFilter(fw)}
-                    className={`text-xs font-mono px-2.5 py-1 rounded border transition-colors ${filter === fw ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300' : 'border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-brand-500/40'}`}
+                    className={`text-xs font-mono px-2.5 py-1 rounded border transition-colors ${filter === fw ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300' : 'border-slate-300 dark:border-slate-700 text-muted hover:border-brand-500/40'}`}
                   >
                     {fw} <span className="opacity-60">· {data.frameworks[fw]}</span>
                   </button>
@@ -161,7 +161,7 @@ export default function C2Tracker(): JSX.Element {
 
             {/* IP List */}
             <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
-              <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-3">
+              <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
                 {filter === 'all' ? 'All C2 IPs' : `${filter} C2 IPs`}
                 <span className="ml-2 text-slate-500">({filtered.length})</span>
               </h3>
@@ -176,7 +176,7 @@ export default function C2Tracker(): JSX.Element {
                         {entry.ip}
                       </code>
                       <span
-                        className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${FRAMEWORK_COLORS[entry.framework] ?? 'bg-slate-500/15 text-slate-600 dark:text-slate-400 border-slate-500/30'}`}
+                        className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${FRAMEWORK_COLORS[entry.framework] ?? 'bg-slate-500/15 text-muted border-slate-500/30'}`}
                       >
                         {entry.framework}
                       </span>
