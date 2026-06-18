@@ -106,7 +106,7 @@ function PipelineBar() {
   }
 
   return (
-    <div className="mb-6 rounded-lg border border-[#1e2030] bg-[#12121a] p-4">
+    <div className="mb-6 rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] p-4">
       <div className="flex flex-wrap items-center gap-2">
         <span className="text-xs font-mono uppercase tracking-wider text-slate-500 mr-2">Pipeline</span>
         {STAGES.map((s) => (
@@ -115,7 +115,7 @@ function PipelineBar() {
             onClick={() => run(s.stage)}
             disabled={busy !== null}
             title={s.hint}
-            className="px-3 py-1.5 border border-[#1e2030] rounded text-sm text-slate-300 hover:bg-[#16161f] hover:text-white disabled:opacity-50 transition-colors"
+            className="px-3 py-1.5 border border-slate-300 dark:border-[#1e2030] rounded text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[#16161f] hover:text-slate-900 dark:hover:text-white disabled:opacity-50 transition-colors"
           >
             {busy === s.stage ? `${s.label}…` : s.label}
           </button>
@@ -124,12 +124,12 @@ function PipelineBar() {
           onClick={() => void runAll()}
           disabled={busy !== null}
           title="Discover → Plan → Publish in sequence"
-          className="px-3 py-1.5 border border-emerald-500/30 text-emerald-400 rounded text-sm hover:bg-emerald-500/10 disabled:opacity-50 transition-colors"
+          className="px-3 py-1.5 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 rounded text-sm hover:bg-emerald-50 dark:hover:bg-emerald-500/10 disabled:opacity-50 transition-colors"
         >
           {busy === 'all' ? 'Running…' : 'Run full pipeline'}
         </button>
       </div>
-      {msg && <p className="mt-3 text-xs font-mono text-slate-400 break-all">{msg}</p>}
+      {msg && <p className="mt-3 text-xs font-mono text-slate-500 dark:text-slate-400 break-all">{msg}</p>}
     </div>
   );
 }
@@ -166,7 +166,7 @@ export default function AdminApp() {
   if (authStatus === 'probing') {
     return (
       <div className="max-w-6xl mx-auto px-6 py-8">
-        <p className="text-sm font-mono text-slate-400">Checking admin session…</p>
+        <p className="text-sm font-mono text-slate-500 dark:text-slate-400">Checking admin session…</p>
       </div>
     );
   }
@@ -179,12 +179,12 @@ export default function AdminApp() {
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-xl font-display font-bold text-white">Case Study Admin</h1>
+          <h1 className="text-xl font-display font-bold text-slate-900 dark:text-white">Case Study Admin</h1>
           <p className="text-xs font-mono text-slate-500 mt-0.5">Pipeline management and content admin</p>
         </div>
         <button
           onClick={logout}
-          className="px-3 py-1.5 border border-[#1e2030] rounded text-sm text-slate-400 hover:bg-[#16161f] hover:text-white transition-colors"
+          className="px-3 py-1.5 border border-slate-300 dark:border-[#1e2030] rounded text-sm text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-[#16161f] hover:text-slate-900 dark:hover:text-white transition-colors"
         >
           Logout
         </button>
@@ -193,13 +193,15 @@ export default function AdminApp() {
       <PipelineBar />
 
       {/* Tabs */}
-      <nav className="flex flex-wrap gap-1 border-b border-[#1e2030] mb-6">
+      <nav className="flex flex-wrap gap-1 border-b border-slate-200 dark:border-[#1e2030] mb-6">
         {TABS.map((t) => (
           <button
             key={t.key}
             onClick={() => setActive(t.key)}
             className={`px-4 py-2 text-sm font-medium transition-colors ${
-              active === t.key ? 'border-b-2 border-brand-500 -mb-px text-white' : 'text-slate-500 hover:text-slate-300'
+              active === t.key
+                ? 'border-b-2 border-brand-500 -mb-px text-slate-900 dark:text-white'
+                : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'
             }`}
           >
             {t.label}
@@ -208,7 +210,7 @@ export default function AdminApp() {
       </nav>
 
       {/* Content */}
-      <section className="bg-[#12121a] border border-[#1e2030] rounded-lg p-4">
+      <section className="bg-white dark:bg-[#12121a] border border-slate-200 dark:border-[#1e2030] rounded-lg p-4">
         {active === 'pending' && <PendingTab />}
         {active === 'approved' && <ApprovedTab />}
         {active === 'schedule' && <ScheduleTab />}
