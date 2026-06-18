@@ -295,7 +295,16 @@ export class InvestigatorAgentDO {
         // Per-tool timeout: 20s for most tools, 40s for heavy fan-outs
         // (enrich_actor, check_ioc, enrich_ioc_deep) that hit multiple
         // external APIs in parallel.
-        const isHeavyFanout = ['enrich_actor', 'check_ioc', 'enrich_ioc_deep', 'actor_timeline'].includes(call.tool);
+        const isHeavyFanout = [
+          'enrich_actor',
+          'check_ioc',
+          'enrich_ioc_deep',
+          'actor_timeline',
+          'sample_scan',
+          'breach_check',
+          'check_breach',
+          'scan_dependencies',
+        ].includes(call.tool);
         const timeoutMs = isHeavyFanout ? 40_000 : 20_000;
         const data = await Promise.race([
           tool.execute(call.args),
