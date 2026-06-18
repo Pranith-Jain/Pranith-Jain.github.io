@@ -1756,5 +1756,137 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
     this.server.tool('si_promptvault_categories', 'PROMPTVAULT: list the valid prompt categories.', {}, async () => ({
       content: [{ type: 'text' as const, text: JSON.stringify({ categories: promptVaultCategories() }) }],
     }));
+
+    // ── HudsonRock Cavalier (infostealer intelligence) ───────────────────
+    this.server.tool(
+      'hr_search_email',
+      'Search for compromised credentials by email address via Hudson Rock Cavalier API. Returns infostealer infections, stealer families, compromised URLs, and credential types (employee/user/third-party).',
+      { email: z.string().describe('Email address to search') },
+      async ({ email }) => {
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          `/api/v1/breach/hudsonrock?email=${encodeURIComponent(email)}`,
+          this.apiKey
+        );
+        return untrustedToolResult(data);
+      }
+    );
+    this.server.tool(
+      'hr_search_domain',
+      'Search for domain-wide infostealer compromises via Hudson Rock Cavalier API. Returns compromised employees, users, and third-party exposures with stealer families and infection dates.',
+      {
+        domain: z.string().describe('Domain name, e.g. example.com'),
+        types: z
+          .array(z.enum(['employees', 'users', 'third_parties']))
+          .optional()
+          .describe('Filter by credential type'),
+        keywords: z.array(z.string()).optional().describe('Filter URLs by keyword (e.g. sso, vpn, admin)'),
+      },
+      async ({ domain, types, keywords }) => {
+        const p = new URLSearchParams({ domain });
+        if (types) p.set('types', types.join(','));
+        if (keywords) p.set('keywords', keywords.join(','));
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          `/api/v1/breach/hudsonrock/domain?${p}`,
+          this.apiKey
+        );
+        return untrustedToolResult(data);
+      }
+    );
+    this.server.tool(
+      'hr_domain_overview',
+      'Get domain compromise overview statistics from Hudson Rock — compromised employee/user counts, last compromise dates, and upload timelines. Useful for risk posture assessment.',
+      { domain: z.string().describe('Domain name, e.g. example.com') },
+      async ({ domain }) => {
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          `/api/v1/hudsonrock/domain-overview?domain=${encodeURIComponent(domain)}`,
+          this.apiKey
+        );
+        return untrustedToolResult(data);
+      }
+    );
+    this.server.tool(
+      'hr_assets_discovery',
+      'Discover all compromised URLs for a domain (attack surface mapping). Returns URLs where credentials were stolen, occurrence counts, and compromise types.',
+      {
+        domain: z.string().describe('Domain name, e.g. example.com'),
+        types: z.array(z.enum(['employees', 'users'])).optional(),
+        keywords: z.array(z.string()).optional().describe('Filter by URL keyword'),
+      },
+      async ({ domain, types, keywords }) => {
+        const p = new URLSearchParams({ domain });
+        if (types) p.set('types', types.join(','));
+        if (keywords) p.set('keywords', keywords.join(','));
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          `/api/v1/hudsonrock/discovery?${p}`,
+          this.apiKey
+        );
+        return untrustedToolResult(data);
+      }
+    );
+    this.server.tool(
+      'hr_third_party_risk',
+      'Assess third-party / supply-chain risk for a domain. Returns employee URLs, third-party service URLs, and user URLs where credentials were compromised — indicating supply chain exposure.',
+      { domain: z.string().describe('Domain name to assess') },
+      async ({ domain }) => {
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          `/api/v1/hudsonrock/assessment?domain=${encodeURIComponent(domain)}`,
+          this.apiKey
+        );
+        return untrustedToolResult(data);
+      }
+    );
+    this.server.tool(
+      'hr_infection_analysis',
+      'AI-powered infection source analysis for a specific stealer log. Returns the likely infection URL, confidence score, timeline of suspicious activity, and analyst summary. Works best with Lumma stealers.',
+      { stealer: z.string().describe('Stealer ID from a previous search result') },
+      async ({ stealer }) => {
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          `/api/v1/hudsonrock/infection-analysis?stealer=${encodeURIComponent(stealer)}`,
+          this.apiKey
+        );
+        return untrustedToolResult(data);
+      }
+    );
+    this.server.tool(
+      'hr_search_username',
+      'Search for compromised credentials by username via Hudson Rock Cavalier API.',
+      { username: z.string().describe('Username to search') },
+      async ({ username }) => {
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          `/api/v1/hudsonrock/username?username=${encodeURIComponent(username)}`,
+          this.apiKey
+        );
+        return untrustedToolResult(data);
+      }
+    );
+    this.server.tool(
+      'hr_search_ip',
+      'Search for compromises by IP address or CIDR range via Hudson Rock Cavalier API. Useful for IR when you have a suspicious IP.',
+      { ip: z.string().describe('IP address or CIDR range') },
+      async ({ ip }) => {
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          `/api/v1/hudsonrock/ip?ip=${encodeURIComponent(ip)}`,
+          this.apiKey
+        );
+        return untrustedToolResult(data);
+      }
+    );
+    this.server.tool(
+      'hr_account',
+      'Check Hudson Rock Cavalier API account status, permissions, and quota. Use to verify the API key is valid.',
+      {},
+      async () => {
+        const data = await apiFetch<Record<string, unknown>>(this.env.SELF, '/api/v1/hudsonrock/account', this.apiKey);
+        return untrustedToolResult(data);
+      }
+    );
   }
 }

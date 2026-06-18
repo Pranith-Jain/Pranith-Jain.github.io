@@ -1016,6 +1016,15 @@ const DFIR_PAGES: readonly PageEntry[] = [
     keywords: ['stealer', 'redline', 'lumma', 'raccoon', 'meta'],
   },
   {
+    path: '/dfir/infostealer-intel',
+    label: 'Infostealer Intelligence',
+    description:
+      'Hudson Rock Cavalier — search compromised credentials, domain exposure, and infection analysis from 30M+ infostealer-infected machines.',
+    sectionLabel: 'DFIR · Detection',
+    group: 'dfir',
+    keywords: ['infostealer', 'hudsonrock', 'cavalier', 'credentials', 'stealer', 'compromised', 'breach'],
+  },
+  {
     path: '/dfir/tabletop',
     label: 'Tabletop Exercise',
     description: 'Tabletop scenarios — facilitator script, injects, and decision-trail capture.',

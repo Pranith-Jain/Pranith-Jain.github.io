@@ -335,6 +335,12 @@ const dfir: SidebarConfig = {
         { label: 'CVE Prioritizer', href: '/dfir/cve-prioritizer', icon: ShieldAlert },
         { label: 'CVE Lookup', href: '/dfir/cve', icon: Bug },
         { label: 'CloudTrail Triage', href: '/dfir/cloudtrail-triage', icon: Compass },
+        {
+          label: 'Infostealer Intel',
+          href: '/dfir/infostealer-intel',
+          icon: KeyRound,
+          description: 'Hudson Rock Cavalier — compromised credential search.',
+        },
         { label: 'K8s RBAC', href: '/dfir/k8s-rbac', icon: KeyRound },
         { label: 'GCP IAM', href: '/dfir/gcp-iam', icon: Shield },
         { label: 'Azure RBAC', href: '/dfir/azure-rbac', icon: Shield },

@@ -329,6 +329,7 @@ const PhishBook = lazy(() => import('./pages/dfir/PhishBook'));
 
 // (removed LiveFeedsPage and MyDashboardPage)
 const InfostealerDetail = lazy(() => import('./pages/threatintel/InfostealerDetail'));
+const InfostealerIntel = lazy(() => import('./pages/dfir/InfostealerIntel'));
 const DmarcAnalyzer = lazy(() => import('./pages/dfir/DmarcAnalyzer'));
 const ThreatHunt = lazy(() => import('./pages/dfir/ThreatHunt'));
 const AssessmentDetail = lazy(() => import('./pages/threatintel/AssessmentDetail'));
@@ -519,6 +520,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/dfir/ip-geo', Component: IpGeo },
   { path: '/dfir/log-parser', Component: LogParser },
   { path: '/dfir/socmint', Component: Socmint },
+  { path: '/dfir/infostealer-intel', Component: InfostealerIntel },
   { path: '/dfir/tools/about', Component: ToolsAbout },
   { path: '/dfir/tools/:group', Component: ToolsCategory },
   { path: '/dfir/timestamp', Component: TimestampConverter },
