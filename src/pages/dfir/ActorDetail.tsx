@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { ArrowLeft, ExternalLink, ShieldAlert } from 'lucide-react';
+import { ArrowLeft, ExternalLink, ShieldAlert, Sparkles } from 'lucide-react';
 import { threatActors } from '../../data/dfir/threat-actors';
 import DiamondModelSection from './DiamondModelSection';
 
@@ -9,11 +9,36 @@ interface ActorCvesResponse {
   count: number;
 }
 
+interface ActorProfileResponse {
+  name: string;
+  aliases: string[];
+  slug: string;
+  profile: {
+    malpedia?:
+      | { name?: string; description?: string; refs?: Array<{ url: string; title?: string }> }
+      | { error?: string };
+    maltrail?: Array<{ filename: string; displayName: string; size: number }>;
+    otx_pulses?: Array<{ id: string; name: string; tags?: string[]; created?: string }>;
+    timeline?: { events?: Array<{ date?: string; event: string; source?: string }> } | { events?: never[] } | unknown;
+    dna?: {
+      techniques?: Array<{ id: string; count?: number }>;
+      software?: Array<{ name: string; count?: number }>;
+      sectors?: Array<{ name: string; count?: number }>;
+    };
+    skeleton?: { canonical_name?: string; description?: string } | { skipped?: string };
+    briefings?: unknown;
+  };
+  linked_cves: string[];
+  sources: Array<{ source: string; ok: boolean; error?: string; ms: number }>;
+}
+
 export default function ActorDetail(): JSX.Element {
   const { slug } = useParams<{ slug: string }>();
   const actor = threatActors.find((a) => a.slug === slug);
   const [linkedCves, setLinkedCves] = useState<string[] | null>(null);
   const [cvesLoading, setCvesLoading] = useState(false);
+  const [profile, setProfile] = useState<ActorProfileResponse | null>(null);
+  const [profileLoading, setProfileLoading] = useState(false);
 
   useEffect(() => {
     if (!actor) return;
@@ -30,6 +55,32 @@ export default function ActorDetail(): JSX.Element {
       })
       .finally(() => {
         if (!cancelled) setCvesLoading(false);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [actor]);
+
+  // Live enrichment from the aggregator — pulls Malpedia, OTX, Maltrail,
+  // DNA, skeleton profile, and briefings in one call. Renders as a
+  // "Live Intelligence" section below the curated content.
+  useEffect(() => {
+    if (!actor) return;
+    let cancelled = false;
+    setProfileLoading(true);
+    const params = new URLSearchParams({ name: actor.name });
+    if (actor.aliases.length > 0) params.set('aliases', actor.aliases.join(','));
+    if (actor.malware.length > 0) params.set('software', actor.malware.join(','));
+    fetch(`/api/v1/actor-profile?${params.toString()}`)
+      .then((r) => (r.ok ? (r.json() as Promise<ActorProfileResponse>) : null))
+      .then((d) => {
+        if (!cancelled) setProfile(d);
+      })
+      .catch(() => {
+        if (!cancelled) setProfile(null);
+      })
+      .finally(() => {
+        if (!cancelled) setProfileLoading(false);
       });
     return () => {
       cancelled = true;
@@ -158,6 +209,107 @@ export default function ActorDetail(): JSX.Element {
                 {cve}
               </Link>
             ))}
+          </div>
+        )}
+      </section>
+
+      {/* Live Intelligence — pulled from the /api/v1/actor-profile aggregator. */}
+      <section className="mb-8 rounded-lg border border-brand-300/40 dark:border-brand-700/40 bg-brand-50/30 dark:bg-brand-950/20 p-6">
+        <h2 className="font-display font-bold text-lg mb-3 flex items-center gap-2">
+          <Sparkles size={16} className="text-brand-500" /> Live Intelligence
+          <span className="text-xs font-mono text-slate-500 ml-1">
+            ·{' '}
+            {profileLoading
+              ? 'fetching…'
+              : profile
+                ? `${profile.sources.filter((s) => s.ok).length}/${profile.sources.length} sources`
+                : 'offline'}
+          </span>
+        </h2>
+        {!profile && !profileLoading && (
+          <p className="text-xs font-mono text-slate-500">
+            Live enrichment offline — curated data above still applies.
+          </p>
+        )}
+        {profile && (
+          <div className="space-y-4">
+            {/* Malpedia */}
+            {profile.profile.malpedia && !(profile.profile.malpedia as { error?: string }).error && (
+              <div>
+                <div className="text-mini font-mono uppercase tracking-wider text-slate-500 mb-1">Malpedia</div>
+                <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
+                  {(profile.profile.malpedia as { description?: string }).description ?? 'No description'}
+                </p>
+              </div>
+            )}
+            {/* OTX Pulses */}
+            {profile.profile.otx_pulses && profile.profile.otx_pulses.length > 0 && (
+              <div>
+                <div className="text-mini font-mono uppercase tracking-wider text-slate-500 mb-1">
+                  OTX Pulses ({profile.profile.otx_pulses.length})
+                </div>
+                <ul className="space-y-1 text-sm">
+                  {profile.profile.otx_pulses.slice(0, 5).map((p) => (
+                    <li key={p.id} className="font-mono text-slate-700 dark:text-slate-300">
+                      <a
+                        href={`https://otx.alienvault.com/pulse/${p.id}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-brand-600 dark:text-brand-400 hover:underline"
+                      >
+                        {p.name}
+                      </a>
+                      {p.tags && p.tags.length > 0 && (
+                        <span className="text-xs text-slate-500 ml-2">[{p.tags.slice(0, 4).join(', ')}]</span>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            {/* Skeleton */}
+            {profile.profile.skeleton && !(profile.profile.skeleton as { skipped?: string }).skipped && (
+              <div>
+                <div className="text-mini font-mono uppercase tracking-wider text-slate-500 mb-1">
+                  Maltrail Skeleton
+                </div>
+                <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
+                  {(profile.profile.skeleton as { description?: string }).description ?? 'Profile present'}
+                </p>
+              </div>
+            )}
+            {/* DNA top techniques */}
+            {profile.profile.dna &&
+              Array.isArray((profile.profile.dna as { techniques?: unknown[] }).techniques) &&
+              (profile.profile.dna as { techniques: unknown[] }).techniques.length > 0 && (
+                <div>
+                  <div className="text-mini font-mono uppercase tracking-wider text-slate-500 mb-1">Top Techniques</div>
+                  <div className="flex flex-wrap gap-1.5">
+                    {(profile.profile.dna as { techniques: Array<{ id: string; count?: number }> }).techniques
+                      .slice(0, 10)
+                      .map((t) => (
+                        <a
+                          key={t.id}
+                          href={`https://attack.mitre.org/techniques/${t.id.replace('.', '/')}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-xs font-mono px-2 py-1 rounded bg-slate-100 dark:bg-slate-800 text-brand-600 dark:text-brand-400 border border-slate-200 dark:border-slate-800 hover:border-brand-500/40"
+                        >
+                          {t.id}
+                          {t.count ? ` (${t.count})` : ''}
+                        </a>
+                      ))}
+                  </div>
+                </div>
+              )}
+            {/* Union of curated + live CVEs */}
+            {profile.linked_cves.length > 0 && (
+              <div>
+                <div className="text-mini font-mono uppercase tracking-wider text-slate-500 mb-1">
+                  Live CVE Count: {profile.linked_cves.length} (curated + live)
+                </div>
+              </div>
+            )}
           </div>
         )}
       </section>

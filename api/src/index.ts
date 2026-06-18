@@ -2,6 +2,8 @@ import { Hono } from 'hono';
 import { cors } from 'hono/cors';
 import type { Env } from './env';
 import { iocCheckHandler } from './routes/ioc';
+import { iocEnrichDeepHandler } from './routes/ioc-enrich-deep';
+
 import { domainLookupHandler } from './routes/domain';
 import { phishingAnalyzeHandler } from './routes/phishing';
 import { exposureScanHandler } from './routes/exposure';
@@ -314,6 +316,7 @@ import {
   alertLogHandler,
 } from './routes/watches';
 import { rateLimit } from './lib/ratelimit';
+import { burstLimitActorProfile } from './lib/actor-profile-burst';
 import { apiKeyRateLimit } from './lib/api-key-ratelimit';
 import { requestLogger } from './lib/request-logger';
 import { csrfGuard } from './lib/csrf-guard';
@@ -337,6 +340,7 @@ import { runRetentionHandler } from './routes/admin-retention';
 import { malpediaActorHandler, malpediaFamilyHandler, malpediaSearchHandler } from './routes/malpedia';
 import { maltrailListHandler, maltrailFetchHandler } from './routes/maltrail';
 import { actorEnrichHandler } from './routes/actor-enrich';
+import { actorProfileHandler } from './routes/actor-profile';
 import { actorEnrichOtxStreamHandler } from './routes/actor-enrich-stream';
 import { certStreamHandler } from './routes/certstream';
 import { campaignGeneratorHandler } from './routes/campaign-generator';
@@ -764,6 +768,8 @@ app.get('/api/v1/health/vectorize', async (c) => {
   } catch (e) {
     return c.json({ status: 'error', error: e instanceof Error ? e.message : 'unknown' }, 503);
   }
+  app.get('/api/v1/ioc/enrich-deep', iocEnrichDeepHandler);
+  app.post('/api/v1/ioc/enrich-deep', iocEnrichDeepHandler);
 });
 app.get('/api/v1/ioc/check', validate('query', iocCheckSchema), iocCheckHandler);
 app.get('/api/v1/domain/lookup', validate('query', domainLookupSchema), domainLookupHandler);
@@ -1055,6 +1061,11 @@ app.get('/api/v1/malpedia/search', malpediaSearchHandler);
 app.get('/api/v1/maltrail/list', maltrailListHandler);
 app.get('/api/v1/maltrail/fetch', maltrailFetchHandler);
 app.get('/api/v1/actor-enrich', actorEnrichHandler);
+// Per-route Cache-API burst limiter: actor-profile fans out to 7+ upstream
+// calls, so cap it at 10/min/IP. The global rateLimit middleware on
+// /api/v1/* still applies on top of this.
+app.use('/api/v1/actor-profile', burstLimitActorProfile);
+app.get('/api/v1/actor-profile', actorProfileHandler);
 app.post('/api/v1/actor-enrich/otx-stream', validate('json', actorEnrichStreamSchema), actorEnrichOtxStreamHandler);
 app.get('/api/v1/certstream', certStreamHandler);
 app.post('/api/v1/campaign-generator', validate('json', campaignGeneratorSchema), campaignGeneratorHandler);

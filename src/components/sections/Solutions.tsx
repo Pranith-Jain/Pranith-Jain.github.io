@@ -46,7 +46,7 @@ export function Solutions() {
     <section id="solutions" className="scroll-mt-24">
       <div className="mb-8 max-w-3xl">
         <div className="mb-3 text-eyebrow font-mono uppercase text-slate-500 dark:text-slate-400">Solutions</div>
-        <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
+        <h2 className="font-display text-3xl sm:text-4xl font-semibold tracking-[-1.28px] text-slate-900 dark:text-white">
           Everything you need for threat intelligence &amp; DFIR
         </h2>
         <p className="mt-3 text-base sm:text-lg text-muted">
@@ -67,7 +67,7 @@ export function Solutions() {
                 <span className="grid h-10 w-10 place-items-center rounded-xl bg-brand-500/10 text-brand-600 dark:text-brand-400 transition-colors group-hover:bg-brand-500/20">
                   <Icon size={20} aria-hidden="true" />
                 </span>
-                <h3 className="font-display text-xl font-bold text-slate-900 dark:text-white transition-colors group-hover:text-brand-600 dark:group-hover:text-brand-400">
+                <h3 className="font-display text-xl font-semibold tracking-[-0.96px] text-slate-900 dark:text-white transition-colors group-hover:text-brand-600 dark:group-hover:text-brand-400">
                   {pillar.title}
                 </h3>
                 <ArrowRight

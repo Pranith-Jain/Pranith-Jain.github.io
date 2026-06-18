@@ -20,7 +20,10 @@ export function AboutPreview({ personalInfo }: AboutPreviewProps) {
       >
         <div className="flex flex-col sm:flex-row sm:items-start gap-5">
           <div className="flex-1 min-w-0">
-            <h3 id="about-preview-heading" className="font-display text-xl font-bold text-slate-900 dark:text-white">
+            <h3
+              id="about-preview-heading"
+              className="font-display text-xl font-semibold tracking-[-0.96px] text-slate-900 dark:text-white"
+            >
               {personalInfo.name}
             </h3>
             <p className="mt-0.5 text-sm text-slate-500 dark:text-slate-400 font-medium">{personalInfo.shortTitle}</p>

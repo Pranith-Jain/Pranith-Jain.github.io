@@ -93,7 +93,7 @@ export function RecentWriting(): JSX.Element | null {
       <div className="mb-8 flex flex-wrap items-baseline justify-between gap-3 max-w-3xl">
         <div>
           <div className="mb-3 text-eyebrow font-mono uppercase text-slate-500 dark:text-slate-400">Writing</div>
-          <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
+          <h2 className="font-display text-3xl sm:text-4xl font-semibold tracking-[-1.28px] text-slate-900 dark:text-white">
             Recent writing
           </h2>
           <p className="mt-3 text-base sm:text-lg text-muted max-w-2xl">
@@ -143,7 +143,7 @@ export function RecentWriting(): JSX.Element | null {
                   </span>
                   <span className="text-eyebrow font-mono uppercase text-slate-400">{e.kicker}</span>
                 </div>
-                <h3 className="font-display text-xl font-bold text-slate-900 dark:text-white group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors leading-snug">
+                <h3 className="font-display text-xl font-semibold tracking-[-0.96px] text-slate-900 dark:text-white group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors leading-snug">
                   {e.title}
                 </h3>
                 <p className="text-sm text-muted leading-relaxed line-clamp-3">{e.excerpt}</p>

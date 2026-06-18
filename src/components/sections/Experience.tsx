@@ -36,7 +36,7 @@ export function Experience({ experiences }: ExperienceProps) {
           small caps-mono kicker, display heading, no chrome. */}
       <div className="mb-10 max-w-2xl">
         <div className="mb-3 text-eyebrow font-mono uppercase text-slate-500">Experience</div>
-        <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
+        <h2 className="font-display text-3xl sm:text-4xl font-semibold tracking-[-1.28px] text-slate-900 dark:text-white">
           Experience highlights
         </h2>
       </div>

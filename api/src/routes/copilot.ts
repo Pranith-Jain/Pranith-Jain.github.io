@@ -563,7 +563,8 @@ export async function gatherLiveEnrichment(query: string, queryType: QueryType, 
 
     // Malpedia live lookup
     try {
-      const mpRes = await safeNullLog('fetch-malpedia',
+      const mpRes = await safeNullLog(
+        'fetch-malpedia',
         fetch(`https://malpedia.caad.fkie.fraunhofer.de/api/get/family/${encodeURIComponent(q)}`, {
           signal: AbortSignal.timeout(5000),
         })
@@ -584,7 +585,8 @@ export async function gatherLiveEnrichment(query: string, queryType: QueryType, 
     // Tries direct page first, falls back to search API for redirects
     try {
       const wikiTitle = q.replace(/\s+/g, '_');
-      const wikiRes = await safeNullLog('fetch-wikipedia',
+      const wikiRes = await safeNullLog(
+        'fetch-wikipedia',
         fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(wikiTitle)}`, {
           headers: { 'User-Agent': 'pranithjain-copilot/1.0' },
           signal: AbortSignal.timeout(4000),
@@ -616,7 +618,8 @@ export async function gatherLiveEnrichment(query: string, queryType: QueryType, 
     if (liveSources.length === 0) {
       try {
         const searchUrl = `https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(q + ' cyber')}&format=json&srlimit=3&origin=*`;
-        const srRes = await safeNullLog('fetch-wikipedia-search',
+        const srRes = await safeNullLog(
+          'fetch-wikipedia-search',
           fetch(searchUrl, {
             headers: { 'User-Agent': 'pranithjain-copilot/1.0' },
             signal: AbortSignal.timeout(4000),
@@ -669,6 +672,63 @@ export async function gatherLiveEnrichment(query: string, queryType: QueryType, 
     }
 
     return liveSources;
+  }
+
+  // ── For IP / domain / email: breach exposure (XposedOrNot + LeakCheck +
+  //    LeakIX + HudsonRock + ProjectDiscovery + HackMyIP) ───────────────
+  // SubjectType doesn't include 'email' explicitly, so we also detect a
+  // bare email by regex. Domain queries can also be sent through the breach
+  // domain endpoint.
+  const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const isEmail = emailRe.test(query.trim());
+  if (queryType === 'ip' || queryType === 'domain' || isEmail) {
+    const breachType: 'email' | 'domain' = isEmail || queryType === 'domain' ? (isEmail ? 'email' : 'domain') : 'email';
+    try {
+      const url = `https://pranithjain.qzz.io/api/v1/breach/${breachType}?${breachType}=${encodeURIComponent(query.trim())}`;
+      const res = await fetch(url, {
+        headers: { accept: 'application/json' },
+        signal: AbortSignal.timeout(8000),
+      });
+      if (res.ok) {
+        const data = (await res.json()) as {
+          found?: boolean;
+          breach_count?: number;
+          sources_queried?: string[];
+          source?: string;
+          breaches?: Array<{
+            name?: string;
+            source?: string;
+            breach_date?: string;
+            pwn_count?: number;
+            data_classes?: string[];
+          }>;
+        };
+        if (data.found && (data.breach_count ?? 0) > 0) {
+          return [
+            {
+              name: 'Breach Exposure',
+              items: data.breaches?.length ?? 0,
+              data: {
+                target: query.trim(),
+                type: breachType,
+                breach_count: data.breach_count ?? 0,
+                first_source: data.source ?? null,
+                sources_queried: data.sources_queried ?? [],
+                breaches: (data.breaches ?? []).slice(0, 10).map((b) => ({
+                  name: b.name,
+                  source: b.source,
+                  breach_date: b.breach_date,
+                  pwn_count: b.pwn_count,
+                  data_classes: b.data_classes,
+                })),
+              },
+            },
+          ];
+        }
+      }
+    } catch {
+      /* breach lookup optional */
+    }
   }
 
   return [];

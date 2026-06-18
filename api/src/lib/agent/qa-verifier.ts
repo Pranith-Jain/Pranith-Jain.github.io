@@ -156,8 +156,42 @@ function parseQaOutput(raw: string, originalReport: string, modelUsed: string): 
     const flaggedClaims = (parsed.flagged_claims ?? []).map((f) => `[${f.reason}] ${f.claim}: ${f.evidence}`);
     const missingFacts = (parsed.missing_facts ?? []).map((f) => `[${f.source}] ${f.fact}`);
 
-    // Apply corrections to the report
-    let verifiedReport = originalReport;
+    // Preserve the structured blocks (report-header, handoff, action-card).
+    // These are machine-parseable, not free text — textual corrections would
+    // munge them. We strip them, run QA on the prose only, then re-append.
+    const REPORT_HEADER_RE = /^```report-header\s*\n[\s\S]*?\n```\s*\n?/;
+    const HANDOFF_RE = /\n*\n:::handoff\s*\n[\s\S]*?\n:::\s*$/;
+    const ACTION_CARD_RE = /\n*\n```action-card\s*\n[\s\S]*?\n```\s*$/;
+
+    // The report-header is at the START (right after the optional
+    // <role>/<query> preamble, but in practice it's the very first block).
+    // The action-card is at the END. The handoff is just before the action-card.
+    const headerMatch = originalReport.match(REPORT_HEADER_RE);
+    let stripped = originalReport;
+    let headerPrefix = '';
+    if (headerMatch && headerMatch.index !== undefined) {
+      headerPrefix = stripped.slice(0, headerMatch.index + headerMatch[0].length);
+      stripped = stripped.slice(headerMatch.index + headerMatch[0].length);
+    }
+
+    let suffix = '';
+    const cardMatch = stripped.match(ACTION_CARD_RE);
+    if (cardMatch && cardMatch.index !== undefined) {
+      suffix = stripped.slice(cardMatch.index) + suffix;
+      stripped = stripped.slice(0, cardMatch.index);
+    }
+    const handoffMatch = stripped.match(HANDOFF_RE);
+    let cardSuffix = '';
+    if (handoffMatch && handoffMatch.index !== undefined) {
+      cardSuffix = stripped.slice(handoffMatch.index) + suffix;
+      stripped = stripped.slice(0, handoffMatch.index);
+    } else {
+      cardSuffix = suffix;
+    }
+    const proseOnly = stripped;
+
+    // Apply corrections to the prose only
+    let verifiedReport = proseOnly;
     if (parsed.corrections && parsed.corrections.length > 0) {
       for (const c of parsed.corrections) {
         if (c.original && c.corrected && c.original !== c.corrected) {
@@ -185,6 +219,10 @@ function parseQaOutput(raw: string, originalReport: string, modelUsed: string): 
         hallucinations.length +
         ' claim(s) in this report could not be verified against collected data and may be based on general knowledge rather than investigation findings.';
     }
+
+    // Re-prepend the structured header and re-append the action-card JSON
+    // block so they survive QA round-tripping.
+    verifiedReport = headerPrefix + verifiedReport + cardSuffix;
 
     return {
       verifiedReport,

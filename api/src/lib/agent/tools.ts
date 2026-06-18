@@ -94,6 +94,125 @@ export function buildToolRegistry(
         apiFetchSse(self, `/api/v1/ioc/check?indicator=${encodeURIComponent(String(args.indicator))}`, apiKey, ih),
     },
     {
+      name: 'enrich_ioc_deep',
+      description:
+        'Deep IOC enrichment — single-call orchestrator that fans out to every relevant source (reputation check from 51+ providers incl. tre.ge, Webamon, Maltiverse, AbuseIPDB, Shodan, Censys, GreyNoise + DNS/WHOIS/CT + BuiltWith tech stack + breach via ProjectDiscovery + passive DNS + relationships + Maltiverse). Returns a unified verdict with source-level provenance, tags, and the top contributing sources.',
+      params: [{ name: 'indicator', type: 'string', description: 'IP, domain, URL, or file hash', required: true }],
+      execute: (args) =>
+        apiFetch(
+          self,
+          `/api/v1/ioc/enrich-deep?indicator=${encodeURIComponent(String(args.indicator))}`,
+          apiKey,
+          undefined,
+          ih
+        ),
+    },
+    {
+      name: 'lookup_tre_ge',
+      description:
+        'tre.ge (Threat Reputation Engine) lookup — aggregated reputation across multiple sources for IP / domain / URL / hash. Returns reputation verdict, abuse score, ASN, country, source attributions, tags, and first/last seen timestamps. tre.ge is one of the 51+ providers in check_ioc — this tool extracts the tre.ge slice so the agent can cite it cleanly.',
+      params: [
+        {
+          name: 'indicator',
+          type: 'string',
+          description: 'IP, domain, URL, or hash to look up',
+          required: true,
+        },
+      ],
+      execute: (args) =>
+        apiFetch(
+          self,
+          `/api/v1/ioc/check?indicator=${encodeURIComponent(String(args.indicator))}`,
+          apiKey,
+          undefined,
+          ih
+        ).then((res: unknown) => {
+          const r = res as {
+            providers?: Array<{
+              source?: string;
+              verdict?: string;
+              score?: number;
+              raw_summary?: unknown;
+              tags?: string[];
+            }>;
+          };
+          const tre = (r.providers ?? []).find((p) => p.source === 'tre-ge');
+          return tre ?? { source: 'tre-ge', verdict: 'unknown', note: 'no record' };
+        }),
+    },
+    {
+      name: 'maltiverse_verify',
+      description:
+        'Maltiverse search — malware / IOC / domain correlation. Returns classification, tags, blacklists, and the Maltiverse sample-level verdict for the indicator.',
+      params: [{ name: 'q', type: 'string', description: 'Indicator or family name to verify', required: true }],
+      execute: (args) =>
+        apiFetch(self, `/api/v1/maltiverse?q=${encodeURIComponent(String(args.q))}`, apiKey, undefined, ih),
+    },
+    {
+      name: 'lookup_ipinfo',
+      description: 'IP intel — Shodan InternetDB ports/CVEs + IPinfo geo/org + LeakIX exposure. Cached 30 min.',
+      params: [{ name: 'ip', type: 'string', description: 'IPv4 address', required: true }],
+      execute: (args) =>
+        apiFetch(self, `/api/v1/host?ip=${encodeURIComponent(String(args.ip))}`, apiKey, undefined, ih),
+    },
+    {
+      name: 'lookup_dns',
+      description: 'DNS-over-HTTPS record lookup via HackerTarget — A, AAAA, MX, NS, TXT, SOA, CNAME, CAA.',
+      params: [{ name: 'name', type: 'string', description: 'Domain name', required: true }],
+      execute: (args) =>
+        apiFetch(self, `/api/v1/hackertarget/dns?q=${encodeURIComponent(String(args.name))}`, apiKey, undefined, ih),
+    },
+    {
+      name: 'lookup_reverse_dns',
+      description: 'Reverse IP lookup — domains hosted on the same IP via HackerTarget.',
+      params: [{ name: 'ip', type: 'string', description: 'IP address', required: true }],
+      execute: (args) =>
+        apiFetch(
+          self,
+          `/api/v1/hackertarget/reverse-ip?q=${encodeURIComponent(String(args.ip))}`,
+          apiKey,
+          undefined,
+          ih
+        ),
+    },
+    {
+      name: 'breach_check',
+      description:
+        'Breach / infostealer exposure — checks email or domain against XposedOrNot, LeakCheck, LeakIX, HudsonRock, ProjectDiscovery and HackMyIP. Returns the source, breach name, breach date, pwn count, and data classes exposed.',
+      params: [
+        {
+          name: 'target',
+          type: 'string',
+          description: 'Email address or domain',
+          required: true,
+        },
+        {
+          name: 'type',
+          type: 'enum',
+          description: 'Target type (email or domain)',
+          required: true,
+          enum: ['email', 'domain'],
+        },
+      ],
+      execute: (args) => {
+        const t = args.type === 'email' || args.type === 'domain' ? args.type : 'email';
+        return apiFetch(
+          self,
+          `/api/v1/breach/${t}?${t}=${encodeURIComponent(String(args.target))}`,
+          apiKey,
+          undefined,
+          ih
+        );
+      },
+    },
+    {
+      name: 'breach_disclosures_recent',
+      description:
+        'Recent public breach disclosures — names, dates, data classes exposed, affected record counts. Useful for "what just leaked" pivots.',
+      params: [],
+      execute: () => apiFetch(self, '/api/v1/breach-disclosures', apiKey, undefined, ih),
+    },
+    {
       name: 'correlate_iocs',
       description:
         'Cross-source IOC correlation. Find which feeds report this indicator, source count, shared infrastructure, overlapping campaigns.',

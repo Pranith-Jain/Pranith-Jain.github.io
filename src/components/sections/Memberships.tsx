@@ -38,7 +38,7 @@ export function Memberships({ memberships }: MembershipsProps) {
         <div className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400">
           Professional Affiliations
         </div>
-        <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
+        <h2 className="font-display text-3xl sm:text-4xl font-semibold tracking-[-1.28px] text-slate-900 dark:text-white">
           Memberships
         </h2>
         <p className="mt-3 text-base sm:text-lg text-muted">
@@ -67,7 +67,7 @@ export function Memberships({ memberships }: MembershipsProps) {
                 </div>
               </div>
               <div>
-                <h3 className="font-display text-xl font-bold text-slate-900 dark:text-white transition-colors group-hover:text-brand-600 dark:group-hover:text-brand-400">
+                <h3 className="font-display text-xl font-semibold tracking-[-0.96px] text-slate-900 dark:text-white transition-colors group-hover:text-brand-600 dark:group-hover:text-brand-400">
                   {membership.name}
                 </h3>
                 <p className="mt-1 text-xs font-semibold text-slate-500 dark:text-slate-400">{membership.period}</p>

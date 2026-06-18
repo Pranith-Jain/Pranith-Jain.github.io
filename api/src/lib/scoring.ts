@@ -113,6 +113,7 @@ const WEIGHTS: Record<IndicatorType, Partial<Record<ProviderId, number>>> = {
   // from breach data, blocklists, and reputation feeds. Weight it as the
   // anchor for the email composite (matches abuseipdb's role for ipv4).
   email: { otx: 1, virustotal: 1, emailrep: 4, stopforumspam: 2 },
+  cve: {},
   unknown: {},
 };
 

@@ -541,8 +541,8 @@ export function CommandPalette(): JSX.Element | null {
       />
 
       {/* Modal */}
-      <div className="relative w-full max-w-2xl rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-2xl overflow-hidden">
-        <div className="flex items-center gap-3 px-4 py-3 border-b border-slate-200 dark:border-slate-800">
+      <div className="relative w-full max-w-2xl rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-2xl overflow-hidden">
+        <div className="flex items-center gap-3 px-4 py-3 border-b border-slate-200 dark:border-[#1e2030]">
           <Search size={18} className="text-slate-500 dark:text-slate-400 shrink-0" aria-hidden="true" />
           <input
             ref={inputRef}
@@ -567,7 +567,7 @@ export function CommandPalette(): JSX.Element | null {
         </div>
 
         {/* Kind filter chip row */}
-        <div className="flex flex-wrap items-center gap-1.5 px-4 py-2 border-b border-slate-200 dark:border-slate-800">
+        <div className="flex flex-wrap items-center gap-1.5 px-4 py-2 border-b border-slate-200 dark:border-[#1e2030]">
           <button
             type="button"
             onClick={() => setKindFilter(null)}
@@ -673,7 +673,7 @@ export function CommandPalette(): JSX.Element | null {
           })}
         </ul>
 
-        <div className="border-t border-slate-200 dark:border-slate-800 px-4 py-2 text-micro font-mono text-slate-500 dark:text-slate-400 flex items-center gap-3">
+        <div className="border-t border-slate-200 dark:border-[#1e2030] px-4 py-2 text-micro font-mono text-slate-500 dark:text-slate-400 flex items-center gap-3">
           <Command size={10} aria-hidden="true" />
           <span>↑↓ navigate</span>
           <span>↵ open</span>

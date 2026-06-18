@@ -214,7 +214,7 @@ export default function Ransomwhere(): JSX.Element {
 
             <div className="mt-2 pt-2 border-t border-slate-200 dark:border-slate-800">
               <Link
-                to={`/dfir/crypto-trace?address=${encodeURIComponent(w.address)}`}
+                to={`/dfir/tracer?address=${encodeURIComponent(w.address)}`}
                 className="inline-flex items-center gap-1 text-micro font-mono text-brand-600 dark:text-brand-400 hover:underline"
                 title="Trace this address in the crypto tracer"
               >

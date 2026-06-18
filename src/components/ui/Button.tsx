@@ -1,7 +1,7 @@
 import type { ReactNode, MouseEvent } from 'react';
 import { Loader2 } from 'lucide-react';
 
-export type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'danger' | 'danger-secondary';
+export type ButtonVariant = 'primary' | 'primary-brand' | 'secondary' | 'ghost' | 'danger' | 'danger-secondary';
 export type ButtonSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
 export interface ButtonProps {
@@ -19,25 +19,44 @@ export interface ButtonProps {
   onClick?: (e: MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => void;
 }
 
+// Geist component tokens: primary = solid gray-1000 with white label
+// (the single most important action on a view); secondary = surface
+// fill with a translucent gray-alpha-400 border; tertiary = transparent
+// with gray-1000 text. The portfolio app overrides primary to brand-blue
+// (the only place we use the accent for an action) by passing
+// variant="primary" tone="brand" — see Button() below.
 const VARIANT: Record<ButtonVariant, string> = {
+  // Default: Geist-style gray-1000 fill (the "one important action" rule).
   primary:
-    'bg-brand-600 text-white hover:bg-brand-700 dark:bg-brand-500 dark:hover:bg-brand-400 disabled:opacity-30 disabled:cursor-not-allowed',
+    'bg-slate-900 text-white hover:bg-slate-800 dark:bg-white dark:text-slate-900 dark:hover:bg-slate-100 disabled:bg-slate-200 disabled:text-slate-500 dark:disabled:bg-slate-800 dark:disabled:text-slate-500 disabled:cursor-not-allowed',
+  // Brand variant: only when the action is the literal "primary" of an
+  // in-app surface (DFIR tool open, IOC check). Pass via className if
+  // the caller wants brand blue; we keep the default neutral so the
+  // portfolio landing chrome doesn't shout.
+  'primary-brand':
+    'bg-brand-600 text-white hover:bg-brand-500 dark:bg-brand-500 dark:hover:bg-brand-400 disabled:opacity-40 disabled:cursor-not-allowed',
+  // Geist secondary: background-100 fill, translucent gray-alpha-400
+  // border. Hover steps the border to gray-alpha-500 and the fill to
+  // gray-alpha-100 (so the "100 → 200 → 300" intent is honoured).
   secondary:
-    'border border-slate-200 text-slate-600 hover:border-brand-500/40 dark:border-slate-800 dark:text-slate-400 disabled:opacity-50 disabled:cursor-not-allowed',
+    'bg-white text-slate-900 border border-black/15 hover:bg-black/5 hover:border-black/25 dark:bg-transparent dark:text-slate-100 dark:border-white/10 dark:hover:bg-white/5 dark:hover:border-white/20 disabled:opacity-50 disabled:cursor-not-allowed',
   ghost:
-    'text-slate-400 hover:text-slate-700 hover:bg-slate-100 dark:hover:text-slate-200 dark:hover:bg-slate-800 disabled:opacity-40 disabled:cursor-not-allowed',
+    'bg-transparent text-slate-700 hover:bg-black/5 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-white/5 dark:hover:text-white disabled:opacity-40 disabled:cursor-not-allowed',
   danger:
-    'border border-rose-400/60 text-rose-700 hover:bg-rose-500/10 dark:text-rose-300 disabled:opacity-50 disabled:cursor-not-allowed',
+    'bg-red-700 text-white hover:bg-red-800 dark:bg-red-700 dark:hover:bg-red-800 disabled:opacity-50 disabled:cursor-not-allowed',
   'danger-secondary':
-    'border border-slate-300 text-slate-600 hover:border-rose-500/40 hover:text-rose-600 dark:border-slate-700 dark:text-slate-400 dark:hover:text-rose-400 disabled:opacity-50 disabled:cursor-not-allowed',
+    'bg-white text-red-700 border border-black/15 hover:bg-red-50 hover:border-red-300 dark:bg-transparent dark:text-red-400 dark:border-white/10 dark:hover:bg-red-500/10 dark:hover:border-red-500/30 disabled:opacity-50 disabled:cursor-not-allowed',
 };
 
+// Geist button sizes: sm 32, md 40, lg 48. Added xs (28) for tight
+// data-tile chrome and xl (52) for the Contact CTA. Padding mirrors
+// the spec: 0 6 / 0 10 / 0 14 / 0 16.
 const SIZE: Record<ButtonSize, string> = {
-  xs: 'px-3 py-1.5 text-xs',
-  sm: 'px-4 py-2 text-sm',
-  md: 'px-5 py-2.5 text-sm',
-  lg: 'px-5 py-3 text-sm',
-  xl: 'px-6 py-3 text-sm',
+  xs: 'h-7 px-1.5 text-[13px] font-medium',
+  sm: 'h-8 px-2.5 text-[13px] font-medium',
+  md: 'h-10 px-3 text-sm font-medium',
+  lg: 'h-12 px-4 text-[15px] font-medium',
+  xl: 'h-[52px] px-5 text-base font-medium',
 };
 
 export function Button({
@@ -55,8 +74,14 @@ export function Button({
   onClick,
 }: ButtonProps) {
   const classes = [
-    'inline-flex items-center justify-center gap-2 rounded-lg font-mono font-semibold transition-colors',
-    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2',
+    // Geist button: 6px radius, no monospace (default UI), medium weight
+    // (500 — the spec's button-14 fontWeight). Monospace is only
+    // appropriate for terminal-style controls; the rest of the app
+    // uses it because the previous Button passed font-mono unconditionally.
+    'inline-flex items-center justify-center gap-2 rounded-md font-sans transition-colors',
+    // Geist two-layer focus ring; the inner gap uses the surface color
+    // (handled globally by :focus-visible in index.css).
+    'focus-visible:outline-none',
     VARIANT[variant],
     SIZE[size],
     fullWidth ? 'w-full' : '',

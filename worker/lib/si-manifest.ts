@@ -238,7 +238,11 @@ export function siCacheStats(): {
     indexAgeMs: cachedIndexAt ? Date.now() - cachedIndexAt : null,
     skills: { size: skillBodyCache.map.size, hits: skillBodyCache.hits, misses: skillBodyCache.misses },
     queries: { size: queryBodyCache.map.size, hits: queryBodyCache.hits, misses: queryBodyCache.misses },
-    automations: { size: automationBodyCache.map.size, hits: automationBodyCache.hits, misses: automationBodyCache.misses },
+    automations: {
+      size: automationBodyCache.map.size,
+      hits: automationBodyCache.hits,
+      misses: automationBodyCache.misses,
+    },
   };
 }
 
@@ -308,7 +312,7 @@ export async function getDoc(assets: Fetcher, slug: string): Promise<SiDoc | nul
   const m = /^#\s+(.+)$/m.exec(text);
   const doc: SiDoc = {
     slug,
-    title: m ? m[1] : slug,
+    title: m?.[1] ?? slug,
     filename: `${slug}.md`,
     bodyMarkdown: text,
   };
@@ -369,7 +373,10 @@ export async function loadScriptsIndex(assets: Fetcher): Promise<SiScriptsIndex>
   return idx;
 }
 
-export async function getScript(assets: Fetcher, name: string): Promise<{ name: string; body: string; sizeBytes: number } | null> {
+export async function getScript(
+  assets: Fetcher,
+  name: string
+): Promise<{ name: string; body: string; sizeBytes: number } | null> {
   const hit = trackHit(scriptBodyCache, name);
   if (hit !== undefined) return { name, body: hit, sizeBytes: hit.length };
   const url = `https://si.local${DATA_PREFIX}/scripts/${name}`;

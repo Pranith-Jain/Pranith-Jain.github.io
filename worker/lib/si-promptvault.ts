@@ -88,7 +88,7 @@ function generateId(now: Date = new Date()): string {
   let rand = '';
   const bytes = new Uint8Array(6);
   crypto.getRandomValues(bytes);
-  for (let i = 0; i < bytes.length; i++) rand += B32[bytes[i] % 32];
+  for (let i = 0; i < bytes.length; i++) rand += B32[bytes[i]! % 32];
   return `pv_${ts}${rand}`;
 }
 
@@ -358,7 +358,7 @@ export async function promptVaultList(
     .prepare(sql)
     .bind(...binds)
     .all()) as any;
-  return (res.results ?? []).map((r) => rowToEntry(r as Record<string, unknown>));
+  return (res.results ?? []).map((r: Record<string, unknown>) => rowToEntry(r));
 }
 
 export async function promptVaultGet(env: EnvWithDb, slug: string): Promise<PromptVaultEntry | null> {

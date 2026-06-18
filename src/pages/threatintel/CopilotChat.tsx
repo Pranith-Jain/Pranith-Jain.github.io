@@ -15,6 +15,7 @@ import {
   XCircle,
 } from 'lucide-react';
 import { sanitizeAiHtml } from '../../lib/sanitize-html';
+import { ReportView, type ReportActionCard } from '../../components/dfir/ReportView';
 
 interface AgentToolResult {
   tool: string;
@@ -43,6 +44,10 @@ interface ChatMessage {
   query_type?: string;
   model_used?: string;
   processed_at?: string;
+  actionCard?: ReportActionCard;
+  /** Original user query that produced this assistant message — used by
+   *  the structured report view to call follow-up tools. */
+  query?: string;
 }
 
 const TYPE_BADGES: Record<string, { label: string; color: string }> = {
@@ -98,7 +103,12 @@ export default function CopilotChat(): JSX.Element {
   const [searchParams] = useSearchParams();
   const [sessionId, setSessionId] = useState<string | null>(searchParams.get('session') || null);
   const [messages, setMessages] = useState<ChatMessage[]>([]);
-  const [query, setQuery] = useState('');
+  // Pre-seed the input from ?q=... so the DFIR Agent's "Drill deeper" button
+  // (and any external deep link) can hand off a follow-up question.
+  const [query, setQuery] = useState(() => {
+    const initial = searchParams.get('q');
+    return initial ? initial.slice(0, 2000) : '';
+  });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [agentSteps, setAgentSteps] = useState<AgentStep[]>([]);
@@ -175,7 +185,13 @@ export default function CopilotChat(): JSX.Element {
           try {
             const msg = JSON.parse(ev.data) as
               | { type: 'step'; step: AgentStep }
-              | { type: 'done'; report: string | null; error: string | null; modelUsed: string | null }
+              | {
+                  type: 'done';
+                  report: string | null;
+                  error: string | null;
+                  modelUsed: string | null;
+                  actionCard?: ReportActionCard;
+                }
               | { type: 'error'; report?: null; error: string; modelUsed?: null }
               | { type: 'heartbeat' };
 
@@ -198,6 +214,8 @@ export default function CopilotChat(): JSX.Element {
                   content: msg.report,
                   model_used: msg.modelUsed ?? undefined,
                   processed_at: new Date().toISOString(),
+                  actionCard: msg.actionCard,
+                  query: q.trim(),
                 };
                 setMessages((prev) => [...prev, assistantMsg]);
               }
@@ -307,10 +325,47 @@ export default function CopilotChat(): JSX.Element {
                         {badge.label}
                       </span>
                     )}
-                    <div
-                      className="prose prose-sm dark:prose-invert max-w-none"
-                      dangerouslySetInnerHTML={{ __html: narrativeHtmls.get(i) ?? '' }}
-                    />
+                    {msg.actionCard ? (
+                      <ReportView
+                        report={msg.content}
+                        actionCard={msg.actionCard}
+                        query={msg.query}
+                        onGenerateHuntingQueries={async () => {
+                          try {
+                            const res = await fetch('/api/v1/hunting-queries/generate', {
+                              method: 'POST',
+                              headers: { 'content-type': 'application/json' },
+                              body: JSON.stringify({ threat: msg.query ?? '', siem: 'kql' }),
+                            });
+                            if (!res.ok) return { tool: 'hunting_queries', data: { error: `HTTP ${res.status}` } };
+                            return { tool: 'hunting_queries', data: await res.json() };
+                          } catch (e) {
+                            return {
+                              tool: 'hunting_queries',
+                              data: { error: e instanceof Error ? e.message : String(e) },
+                            };
+                          }
+                        }}
+                        onGenerateYaraRule={async () => {
+                          try {
+                            const res = await fetch('/api/v1/rules/generate', {
+                              method: 'POST',
+                              headers: { 'content-type': 'application/json' },
+                              body: JSON.stringify({ description: msg.query ?? '', type: 'yara' }),
+                            });
+                            if (!res.ok) return { tool: 'yara_rule', data: { error: `HTTP ${res.status}` } };
+                            return { tool: 'yara_rule', data: await res.json() };
+                          } catch (e) {
+                            return { tool: 'yara_rule', data: { error: e instanceof Error ? e.message : String(e) } };
+                          }
+                        }}
+                      />
+                    ) : (
+                      <div
+                        className="prose prose-sm dark:prose-invert max-w-none"
+                        dangerouslySetInnerHTML={{ __html: narrativeHtmls.get(i) ?? '' }}
+                      />
+                    )}
                     {msg.model_used && (
                       <p className="mt-1 text-[10px] text-slate-400 dark:text-slate-500 font-mono">
                         {msg.model_used} · {msg.processed_at ? new Date(msg.processed_at).toLocaleTimeString() : ''}

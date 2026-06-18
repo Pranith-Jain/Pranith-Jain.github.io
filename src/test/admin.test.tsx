@@ -36,7 +36,7 @@ describe('AdminApp', () => {
         <AdminApp />
       </MemoryRouter>
     );
-    expect(screen.getByText(/admin token/i)).toBeInTheDocument();
+    expect(screen.getAllByText(/admin token/i).length).toBeGreaterThan(0);
   });
 
   it('stores token and shows the admin shell on login', async () => {

@@ -43,7 +43,7 @@ export function Toolkits() {
     <section id="toolkits" className="scroll-mt-24">
       <div className="mb-8 max-w-3xl">
         <div className="mb-3 text-eyebrow font-mono uppercase text-slate-500 dark:text-slate-400">Tooling</div>
-        <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
+        <h2 className="font-display text-3xl sm:text-4xl font-semibold tracking-[-1.28px] text-slate-900 dark:text-white">
           Security tools I built
         </h2>
         <p className="mt-3 text-base sm:text-lg text-muted leading-relaxed">
@@ -58,7 +58,7 @@ export function Toolkits() {
             <Link
               key={tk.id}
               to={tk.href}
-              className="group card-hover flex flex-col rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] p-6 transition h-full"
+              className="group card-hover flex flex-col rounded-lg border border-black/10 bg-white p-6 transition-all h-full hover:border-black/25 hover:bg-black/[0.02] dark:border-white/10 dark:bg-[rgb(18,18,24)] dark:hover:border-white/20 dark:hover:bg-white/[0.03]"
             >
               <div className="flex items-start justify-between mb-4">
                 <div className="grid h-10 w-10 place-items-center rounded-md bg-brand-50 text-brand-600 dark:bg-brand-900/30 dark:text-brand-300">
@@ -69,7 +69,7 @@ export function Toolkits() {
                   <span className="text-mini font-mono text-slate-400">{tk.statLabel}</span>
                 </div>
               </div>
-              <h3 className="font-display text-xl font-bold text-slate-900 dark:text-white group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
+              <h3 className="font-display text-xl font-semibold tracking-[-0.96px] text-slate-900 dark:text-white group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
                 {tk.title}
               </h3>
               <p className="mt-2 text-sm text-muted leading-relaxed flex-1">{tk.description}</p>
@@ -90,7 +90,7 @@ export function Toolkits() {
                 {tk.builtWith.map((tech) => (
                   <span
                     key={tech}
-                    className="rounded border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-[#15151f] px-2 py-0.5 text-micro font-mono text-slate-500 dark:text-slate-400"
+                    className="rounded border border-black/10 bg-black/[0.02] px-2 py-0.5 text-[11px] font-mono text-slate-500 dark:border-white/10 dark:bg-white/[0.03] dark:text-slate-400"
                   >
                     {tech}
                   </span>

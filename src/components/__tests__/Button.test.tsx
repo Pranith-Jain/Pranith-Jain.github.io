@@ -62,18 +62,18 @@ describe('Button', () => {
 
   it('applies variant classes', () => {
     const { rerender } = render(<Button variant="primary">Primary</Button>);
-    expect(screen.getByRole('button')).toHaveClass('bg-brand-600');
+    expect(screen.getByRole('button')).toHaveClass('bg-slate-900');
 
     rerender(<Button variant="danger">Danger</Button>);
-    expect(screen.getByRole('button')).toHaveClass('text-rose-700');
+    expect(screen.getByRole('button')).toHaveClass('bg-red-700');
   });
 
   it('applies size classes', () => {
     const { rerender } = render(<Button size="xs">XS</Button>);
-    expect(screen.getByRole('button')).toHaveClass('px-3');
+    expect(screen.getByRole('button')).toHaveClass('px-1.5');
 
     rerender(<Button size="xl">XL</Button>);
-    expect(screen.getByRole('button')).toHaveClass('px-6');
+    expect(screen.getByRole('button')).toHaveClass('px-5');
   });
 
   it('renders icon on left by default', () => {

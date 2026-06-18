@@ -5,7 +5,7 @@ import { buildToolRegistry } from '../../api/src/lib/agent/tools';
 import { planNextStep } from '../../api/src/lib/agent/planner';
 import { evaluateCtiExit, filterCtiToolCalls } from '../../api/src/lib/agent/cti-loop';
 import { observeStep } from '../../api/src/lib/agent/observer';
-import { synthesizeReport } from '../../api/src/lib/agent/synthesizer';
+import { synthesizeReport, splitSynthOutput } from '../../api/src/lib/agent/synthesizer';
 import { verifyReport } from '../../api/src/lib/agent/qa-verifier';
 import { signInternalToken } from '../../api/src/lib/internal-token';
 
@@ -171,6 +171,7 @@ export class InvestigatorAgentDO {
             error: next.error,
             modelUsed: next.modelUsed,
             qa: next.qa,
+            actionCard: next.actionCard,
           });
         } else {
           // Schedule next step with a small delay to avoid burst
@@ -368,8 +369,11 @@ export class InvestigatorAgentDO {
       try {
         const qa = await verifyReport(ai, state.query, state.queryType, result.report, state.steps, { groqKey });
 
-        // Use the verified report (hallucinations removed, facts added)
-        state.report = qa.verifiedReport;
+        // Use the verified report (hallucinations removed, facts added).
+        // Re-split the QA'd text so we can carry the action card through state.
+        const { report: proseOnly, actionCard: qaCard } = splitSynthOutput(qa.verifiedReport);
+        state.report = proseOnly;
+        state.actionCard = qaCard ?? result.actionCard;
         state.modelUsed = `${result.modelUsed} → QA:${qa.modelUsed}`;
         state.qa = {
           qualityScore: qa.qualityScore,
@@ -385,7 +389,9 @@ export class InvestigatorAgentDO {
         qaStep.observation = `QA failed: ${qaErr instanceof Error ? qaErr.message : String(qaErr)}. Original report preserved.`;
         qaStep.status = 'error';
         qaStep.completedAt = new Date().toISOString();
+        // The synthesizer already split; carry the action card through.
         state.report = result.report;
+        state.actionCard = result.actionCard;
         state.modelUsed = result.modelUsed;
       }
 

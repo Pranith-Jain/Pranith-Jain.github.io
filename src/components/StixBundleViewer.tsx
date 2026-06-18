@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
+import React from 'react';
 import { ChevronDown, ChevronRight, Copy, Check } from 'lucide-react';
 
 interface StixObject {
@@ -75,15 +76,21 @@ export function extractStixBundle(report: string): StixBundle | null {
 }
 
 /** Render STIX relationships as an inline graph summary within the report. */
-export function StixRelationshipGraph({ bundle }: { bundle: StixBundle }): JSX.Element | null {
+function StixRelationshipGraphImpl({ bundle }: { bundle: StixBundle }): JSX.Element | null {
+  // Build a lookup map for object names — memoized so we don't re-allocate
+  // on every re-render of the parent (e.g. when the user toggles the
+  // stakeholder filter chip). MUST be called before any conditional return
+  // so React hooks are always invoked in the same order.
+  const nameMap = useMemo(() => {
+    const m = new Map<string, string>();
+    for (const obj of bundle.objects) {
+      m.set(obj.id, obj.name ?? obj.id.split('--')[0] ?? obj.id);
+    }
+    return m;
+  }, [bundle.objects]);
+
   const relationships = bundle.objects.filter((o) => o.type === 'relationship');
   if (relationships.length === 0) return null;
-
-  // Build a lookup map for object names
-  const nameMap = new Map<string, string>();
-  for (const obj of bundle.objects) {
-    nameMap.set(obj.id, obj.name ?? obj.id.split('--')[0] ?? obj.id);
-  }
 
   return (
     <div className="mt-4 mb-4 rounded-lg border border-emerald-500/30 bg-emerald-500/5 p-4">
@@ -112,17 +119,24 @@ export function StixRelationshipGraph({ bundle }: { bundle: StixBundle }): JSX.E
   );
 }
 
+// Memoize the relationship graph so toggling stakeholder filter chips or
+// other parent state changes don't re-walk every relationship.
+export const StixRelationshipGraph = React.memo(StixRelationshipGraphImpl);
+
 /** Render STIX objects grouped by type with expandable details. */
-export function StixObjectTable({ bundle }: { bundle: StixBundle }): JSX.Element {
+function StixObjectTableImpl({ bundle }: { bundle: StixBundle }): JSX.Element {
   const [expanded, setExpanded] = useState<Set<string>>(new Set());
   const [copied, setCopied] = useState(false);
 
-  const objectsByType = new Map<string, StixObject[]>();
-  for (const obj of bundle.objects) {
-    const arr = objectsByType.get(obj.type) ?? [];
-    arr.push(obj);
-    objectsByType.set(obj.type, arr);
-  }
+  const objectsByType = useMemo(() => {
+    const m = new Map<string, StixObject[]>();
+    for (const obj of bundle.objects) {
+      const arr = m.get(obj.type) ?? [];
+      arr.push(obj);
+      m.set(obj.type, arr);
+    }
+    return m;
+  }, [bundle.objects]);
 
   const toggle = (id: string) => {
     setExpanded((prev) => {
@@ -233,3 +247,8 @@ export function StixObjectTable({ bundle }: { bundle: StixBundle }): JSX.Element
     </div>
   );
 }
+
+// Memoize the object table — same reason as the relationship graph: avoid
+// re-grouping hundreds of objects when the parent re-renders for unrelated
+// reasons.
+export const StixObjectTable = React.memo(StixObjectTableImpl);

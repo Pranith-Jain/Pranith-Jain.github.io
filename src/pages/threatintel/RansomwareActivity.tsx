@@ -83,7 +83,10 @@ export default function RansomwareActivity(): JSX.Element {
           </p>
           <p className="text-xs text-slate-500 dark:text-slate-400 font-mono">
             Refreshed hourly from upstream. See also{' '}
-            <Link to="/threatintel/negotiations" className="text-brand-600 dark:text-brand-400 hover:underline">
+            <Link
+              to="/threatintel/darkweb/ransom-activity"
+              className="text-brand-600 dark:text-brand-400 hover:underline"
+            >
               ransomware negotiations
             </Link>{' '}
             (demand vs. paid + transcripts).

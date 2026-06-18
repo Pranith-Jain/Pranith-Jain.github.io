@@ -124,7 +124,7 @@ function generateId(now: Date = new Date()): string {
   const bytes = new Uint8Array(6);
   crypto.getRandomValues(bytes);
   for (let i = 0; i < bytes.length; i++) {
-    rand += B32[bytes[i] % 32];
+    rand += B32[bytes[i]! % 32];
   }
   return `sl_${ts}${rand}`;
 }

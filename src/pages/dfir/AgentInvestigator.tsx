@@ -17,7 +17,7 @@ import {
 import { BackLink } from '../../components/BackLink';
 import { useDataFetch } from '../../hooks/useDataFetch';
 import { useWebSocket } from '../../hooks/useWebSocket';
-import { extractStixBundle, StixRelationshipGraph, StixObjectTable } from '../../components/StixBundleViewer';
+import { ReportView, type ReportActionCard } from '../../components/dfir/ReportView';
 
 interface AgentToolResult {
   tool: string;
@@ -53,6 +53,7 @@ interface AgentState {
   startedAt: string;
   completedAt: string | null;
   error: string | null;
+  actionCard?: ReportActionCard;
   qa?: {
     qualityScore: number;
     flaggedClaims: string[];
@@ -73,7 +74,7 @@ interface SessionEntry {
 type AgentWsMessage =
   | { type: 'connected' }
   | { type: 'step'; step: AgentStep }
-  | { type: 'done'; report: string; modelUsed: string; qa?: AgentState['qa'] }
+  | { type: 'done'; report: string; modelUsed: string; qa?: AgentState['qa']; actionCard?: ReportActionCard }
   | { type: 'error'; error: string };
 
 export default function AgentInvestigator(): JSX.Element {
@@ -115,6 +116,7 @@ export default function AgentInvestigator(): JSX.Element {
                   report: msg.report,
                   modelUsed: msg.modelUsed,
                   qa: msg.qa,
+                  actionCard: msg.actionCard,
                   completedAt: new Date().toISOString(),
                 }
               : prev
@@ -415,29 +417,87 @@ export default function AgentInvestigator(): JSX.Element {
             </details>
           )}
 
-          {/* Report with inline STIX */}
-          {(() => {
-            const bundle = extractStixBundle(agentState.report ?? '');
-            // Split report at the STIX code block to render it inline
-            const reportWithoutStix = (agentState.report ?? '')
-              .replace(/```stix\s*\n[\s\S]*?```/, '')
-              .replace(/```json\s*\n\{[\s\S]*?"type"\s*:\s*"bundle"[\s\S]*?\}\s*\n```/, '')
-              .trim();
-
-            return (
-              <>
-                <div className="prose prose-sm dark:prose-invert max-w-none font-mono text-sm leading-relaxed whitespace-pre-wrap">
-                  {reportWithoutStix}
-                </div>
-
-                {/* STIX relationship graph — inline after report text */}
-                {bundle && <StixRelationshipGraph bundle={bundle} />}
-
-                {/* STIX object table — inline after relationships */}
-                {bundle && <StixObjectTable bundle={bundle} />}
-              </>
-            );
-          })()}
+          {/* Structured report view */}
+          <ReportView
+            report={agentState.report ?? ''}
+            actionCard={agentState.actionCard}
+            query={agentState.query}
+            onGenerateHuntingQueries={async () => {
+              try {
+                // Build a richer threat description that includes the action
+                // card's IOCs, MITRE techniques, and verdict so the LLM
+                // generates platform-native queries grounded in evidence
+                // rather than guessing from the bare user query.
+                const card = agentState.actionCard;
+                const iocList = (card?.iocs ?? [])
+                  .slice(0, 10)
+                  .map((i) => `${i.type}:${i.value}`)
+                  .join(', ');
+                const mitreList = (card?.mitre ?? [])
+                  .slice(0, 8)
+                  .map((m) => `${m.id} ${m.name ?? ''}`)
+                  .join('; ');
+                const threat = [
+                  agentState.query,
+                  iocList ? `\n\nObserved IOCs: ${iocList}` : '',
+                  mitreList ? `\n\nMITRE techniques: ${mitreList}` : '',
+                  card?.verdict.headline ? `\n\nVerdict: ${card.verdict.headline}` : '',
+                ]
+                  .filter(Boolean)
+                  .join('');
+                const res = await fetch('/api/v1/hunting-queries/generate', {
+                  method: 'POST',
+                  headers: { 'content-type': 'application/json' },
+                  body: JSON.stringify({
+                    threat,
+                    platforms: ['KQL', 'Splunk', 'Sigma', 'Elastic'],
+                  }),
+                });
+                if (!res.ok) return { tool: 'hunting_queries', data: { error: `HTTP ${res.status}` } };
+                return { tool: 'hunting_queries', data: await res.json() };
+              } catch (e) {
+                return { tool: 'hunting_queries', data: { error: e instanceof Error ? e.message : String(e) } };
+              }
+            }}
+            onGenerateYaraRule={async () => {
+              try {
+                // Same enrichment: pass IOCs + verdict so the LLM can
+                // anchor the rule to observed evidence.
+                const card = agentState.actionCard;
+                const iocList = (card?.iocs ?? [])
+                  .slice(0, 10)
+                  .map((i) => `${i.type}:${i.value}`)
+                  .join(', ');
+                const mitreList = (card?.mitre ?? [])
+                  .slice(0, 8)
+                  .map((m) => `${m.id} ${m.name ?? ''}`)
+                  .join('; ');
+                const description = [
+                  agentState.query,
+                  iocList ? `\n\nObserved IOCs: ${iocList}` : '',
+                  mitreList ? `\n\nMITRE techniques: ${mitreList}` : '',
+                ]
+                  .filter(Boolean)
+                  .join('');
+                const res = await fetch('/api/v1/rules/generate', {
+                  method: 'POST',
+                  headers: { 'content-type': 'application/json' },
+                  body: JSON.stringify({ description, type: 'yara' }),
+                });
+                if (!res.ok) return { tool: 'yara_rule', data: { error: `HTTP ${res.status}` } };
+                return { tool: 'yara_rule', data: await res.json() };
+              } catch (e) {
+                return { tool: 'yara_rule', data: { error: e instanceof Error ? e.message : String(e) } };
+              }
+            }}
+            onDrillDeeper={(question: string) => {
+              // Hand off to the Copilot Chat with the follow-up question
+              // pre-seeded into the input. The Copilot reads ?q=... on mount
+              // and the user just hits enter to send.
+              const params = new URLSearchParams({ q: question });
+              window.location.href = `/threatintel/tools/copilot-chat?${params.toString()}`;
+            }}
+          />
         </section>
       )}
 

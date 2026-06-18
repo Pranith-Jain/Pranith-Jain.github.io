@@ -53,9 +53,15 @@ describe('backCategoryFor', () => {
       expect(backCategoryFor('/threatintel/detections/detections')).toBe('/threatintel/catalog?cat=detections');
     });
 
-    it('maps /threatintel/social/telegram-leaks to the social hub', () => {
-      // Previously broken: 'social' was missing from the legacy map.
+    it('still back-links to the social hub from retired telegram tabs', () => {
+      // The 4 telegram tab pages collapsed into the TelegramMonitor
+      // tab container. They 301-redirect, so users land on the
+      // canonical page; the back-link uses the hub segment directly
+      // and still resolves to the social catalog.
       expect(backCategoryFor('/threatintel/social/telegram-leaks')).toBe('/threatintel/catalog?cat=social');
+      expect(backCategoryFor('/threatintel/social/telegram-stats')).toBe('/threatintel/catalog?cat=social');
+      expect(backCategoryFor('/threatintel/social/telegram-channels')).toBe('/threatintel/catalog?cat=social');
+      expect(backCategoryFor('/threatintel/social/telegram-settings')).toBe('/threatintel/catalog?cat=social');
     });
 
     it('maps /threatintel/darkweb/ransom-activity to the darkweb hub', () => {
@@ -87,16 +93,24 @@ describe('backCategoryFor', () => {
   });
 
   describe('dfir paths', () => {
-    it('maps /dfir/ioc-check to the core-dfir group', () => {
-      expect(backCategoryFor('/dfir/ioc-check')).toBe('/dfir/tools/core-dfir');
+    it('maps /dfir/ioc-investigate to the core-dfir group', () => {
+      expect(backCategoryFor('/dfir/ioc-investigate')).toBe('/dfir/tools/core-dfir');
     });
 
-    it('maps /dfir/domain to the investigation group', () => {
-      expect(backCategoryFor('/dfir/domain')).toBe('/dfir/tools/investigation');
+    it('maps /dfir/domain-investigator to the investigation group', () => {
+      expect(backCategoryFor('/dfir/domain-investigator')).toBe('/dfir/tools/investigation');
     });
 
     it('returns null for unknown dfir tools', () => {
       expect(backCategoryFor('/dfir/unknown-tool')).toBeNull();
+    });
+
+    it('returns null for retired alias paths (use canonical)', () => {
+      // /dfir/ioc-check and /dfir/domain were collapsed to hub pages.
+      // They still 301-redirect, so users land on the canonical path
+      // and the back-link lookup uses that.
+      expect(backCategoryFor('/dfir/ioc-check')).toBeNull();
+      expect(backCategoryFor('/dfir/domain')).toBeNull();
     });
   });
 

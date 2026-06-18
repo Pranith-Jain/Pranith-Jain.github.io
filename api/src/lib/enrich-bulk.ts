@@ -77,6 +77,7 @@ const TYPE_PRIORITY: Record<IndicatorType, number> = {
   ipv4: 3,
   ipv6: 2,
   email: 1,
+  cve: 0,
   unknown: 0,
 };
 
@@ -301,11 +302,7 @@ export async function enrichBulk(
   await Promise.all(
     primed
       .filter((indicator) => touched.has(ikey(indicator)))
-      .map((indicator) =>
-        safeNull(caches
-          .get(ikey(indicator))!
-          .flushBatch(indicator))
-      )
+      .map((indicator) => safeNull(caches.get(ikey(indicator))!.flushBatch(indicator)))
   );
 
   // Phase 3: aggregate per indicator.

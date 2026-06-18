@@ -51,6 +51,7 @@ import { stopforumspam } from './stopforumspam';
 import { dshield } from './dshield';
 import { safebrowsing } from './safebrowsing';
 import { zoomeye } from './zoomeye';
+import { trege } from './tre-ge';
 
 export { PROVIDER_SUPPORT, PROVIDER_TIMEOUT_MS };
 
@@ -106,6 +107,7 @@ export const ADAPTERS: Record<ProviderId, ProviderAdapter> = {
   dshield,
   safebrowsing,
   zoomeye,
+  'tre-ge': trege,
 };
 
 export const BULK_ADAPTERS: Partial<Record<ProviderId, ProviderAdapter>> = {
@@ -188,6 +190,7 @@ export const PROVIDER_LABELS: Record<string, string> = {
   dshield: 'SANS ISC / DShield',
   safebrowsing: 'Google Safe Browsing',
   zoomeye: 'ZoomEye',
+  'tre-ge': 'tre.ge',
 };
 
 export function buildProviderEnv(env: {

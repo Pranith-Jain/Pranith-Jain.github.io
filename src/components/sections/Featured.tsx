@@ -18,7 +18,7 @@ export function Featured({ featuredArticles }: FeaturedProps) {
         <div className="mb-3 text-eyebrow font-mono uppercase text-slate-500 dark:text-slate-400">
           External coverage
         </div>
-        <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
+        <h2 className="font-display text-3xl sm:text-4xl font-semibold tracking-[-1.28px] text-slate-900 dark:text-white">
           Press &amp; interviews
         </h2>
         <p className="mt-3 text-base sm:text-lg text-muted">

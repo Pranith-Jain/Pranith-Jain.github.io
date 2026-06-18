@@ -88,6 +88,7 @@ export class ProviderCache {
       domain: 21600,
       url: 3600,
       email: 3600,
+      cve: 86400,
       unknown: 3600,
     };
     const overrides: Record<string, number> = {

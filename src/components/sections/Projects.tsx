@@ -122,7 +122,7 @@ export function Projects({ projects }: ProjectsProps) {
     <section id="projects" className="scroll-mt-24">
       <div className="mb-10 max-w-2xl">
         <div className="mb-3 text-eyebrow font-mono uppercase text-slate-500">Projects</div>
-        <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
+        <h2 className="font-display text-3xl sm:text-4xl font-semibold tracking-[-1.28px] text-slate-900 dark:text-white">
           Selected projects &amp; initiatives
         </h2>
       </div>

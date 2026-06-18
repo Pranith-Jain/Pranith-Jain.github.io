@@ -80,11 +80,14 @@ export default {
 
       boxShadow: {
         glow: '0 0 0 1px rgba(37, 99, 235, 0.25), 0 18px 60px rgba(37, 99, 235, 0.15)',
-        // Elevation scale — the depth system the flat light theme was missing.
-        // Tuned soft for light surfaces (dark mode leans on borders + glass).
+        // Geist-aligned elevation — borders first, shadows subtle.
+        //   e1 → raised card:        0 2px 2px rgba(0,0,0,0.04)
+        //   e2 → popover/menu:        + 0 4px 8px -4px, 0 16px 24px -8px
+        //   e3 → modal/dialog:        + 0 8px 16px -4px, 0 24px 32px -8px
+        // Dark mode leans on borders + translucency, not shadow.
         e1: '0 1px 2px rgba(15, 23, 42, 0.04), 0 1px 3px rgba(15, 23, 42, 0.06)',
-        e2: '0 2px 4px rgba(15, 23, 42, 0.05), 0 8px 24px rgba(15, 23, 42, 0.08)',
-        e3: '0 12px 32px rgba(15, 23, 42, 0.10), 0 24px 64px rgba(15, 23, 42, 0.12)',
+        e2: '0 1px 1px rgba(0, 0, 0, 0.02), 0 4px 8px -4px rgba(0, 0, 0, 0.04), 0 16px 24px -8px rgba(0, 0, 0, 0.06)',
+        e3: '0 1px 1px rgba(0, 0, 0, 0.02), 0 8px 16px -4px rgba(0, 0, 0, 0.04), 0 24px 32px -8px rgba(0, 0, 0, 0.06)',
         // Removed unused glow-cyan/pink/purple (0 references; neon-AI tell).
       },
       animation: {

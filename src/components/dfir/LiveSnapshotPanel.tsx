@@ -30,7 +30,7 @@ function makeRightAction(to: string, label: string, tone: 'brand' | 'rose'): JSX
 const RIGHT_ACTION_RANSOMWARE = (tone: 'brand' | 'rose' = 'brand'): JSX.Element =>
   makeRightAction('/threatintel/darkweb/ransom-activity', 'feed', tone);
 const RIGHT_ACTION_TELEGRAM = (tone: 'brand' | 'rose' = 'brand'): JSX.Element =>
-  makeRightAction('/threatintel/social/telegram-leaks', 'full feed', tone);
+  makeRightAction('/threatintel/telegram-monitor', 'full feed', tone);
 const RIGHT_ACTION_SCAM = (tone: 'brand' | 'rose' = 'brand'): JSX.Element =>
   makeRightAction('/threatintel/phishing/scam', 'full feed', tone);
 const RIGHT_ACTION_THREAT_INTEL = (tone: 'brand' | 'rose' = 'brand'): JSX.Element =>

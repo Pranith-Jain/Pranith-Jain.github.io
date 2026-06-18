@@ -10,11 +10,14 @@
       name="description"
       content="Security analyst and detection engineer investigating phishing, BEC, and malware — and shipping a free 60-plus-tool DFIR toolkit on Cloudflare Workers."
     />
-    <meta name="keywords" content="security analyst, detection engineer, DFIR toolkit, threat intelligence, phishing investigation, BEC detection, email security, DMARC, SPF, DKIM, IOC analysis, subdomain takeover, JWT inspector, MITRE ATT&CK, MITRE ATT&CK mapping, Cloudflare Workers, edge security, OSINT, SOC automation, incident response, n8n, Pranith Jain" />
+    <meta
+      name="keywords"
+      content="security analyst, detection engineer, DFIR toolkit, threat intelligence, phishing investigation, BEC detection, email security, DMARC, SPF, DKIM, IOC analysis, subdomain takeover, JWT inspector, MITRE ATT&CK, MITRE ATT&CK mapping, Cloudflare Workers, edge security, OSINT, SOC automation, incident response, n8n, Pranith Jain"
+    />
     <meta name="author" content="Pranith Jain" />
     <meta name="robots" content="index, follow" />
     <meta name="language" content="English" />
-    
+
     <!-- Theme and Security -->
     <meta name="theme-color" content="#2c3ee5" />
     <meta name="referrer" content="strict-origin-when-cross-origin" />
@@ -25,7 +28,7 @@
          public/_headers (HTTP-header-delivered only — meta versions trigger
          browser console warnings). X-XSS-Protection is deprecated everywhere
          and intentionally omitted; CSP covers the same surface better. -->
-    
+
     <!-- CSP is NOT served via <meta> — the worker (withSecurityHeaders) sets it per-response with a
          fresh nonce so script-src switches from 'unsafe-inline' to nonce-based enforcement. Keeping
          a <meta> tag here would create a second, less-restrictive policy that scanners flag. -->
@@ -51,27 +54,42 @@
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://pranithjain.qzz.io" />
     <meta property="og:title" content="Pranith Jain | Threat Intel Platform, DFIR Toolkit & Detection Engineering" />
-    <meta property="og:description" content="Security analyst & detection engineer. A live threat-intel platform plus 60+ free, browser-side DFIR tools across 11 categories — 90+ intel sources, cross-source IOC correlation, and STIX/TAXII export. Hosted on Cloudflare Workers, no signup." />
+    <meta
+      property="og:description"
+      content="Security analyst & detection engineer. A live threat-intel platform plus 60+ free, browser-side DFIR tools across 11 categories — 90+ intel sources, cross-source IOC correlation, and STIX/TAXII export. Hosted on Cloudflare Workers, no signup."
+    />
     <meta property="og:image" content="https://pranithjain.qzz.io/og-image.png?v=2" />
     <meta property="og:image:type" content="image/png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Pranith Jain — threat intelligence, DFIR, and detection engineering. A live CTI platform and 60+ free, browser-side DFIR tools." />
+    <meta
+      property="og:image:alt"
+      content="Pranith Jain — threat intelligence, DFIR, and detection engineering. A live CTI platform and 60+ free, browser-side DFIR tools."
+    />
     <meta property="og:site_name" content="Pranith Jain Portfolio" />
     <meta property="og:locale" content="en_US" />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content="https://pranithjain.qzz.io" />
-    <meta property="twitter:title" content="Pranith Jain | Threat Intel Platform, DFIR Toolkit & Detection Engineering" />
-    <meta property="twitter:description" content="Security analyst & detection engineer. Live threat-intel platform + 60+ free DFIR tools across 11 categories. 90+ intel sources, STIX/TAXII export. No signup." />
+    <meta
+      property="twitter:title"
+      content="Pranith Jain | Threat Intel Platform, DFIR Toolkit & Detection Engineering"
+    />
+    <meta
+      property="twitter:description"
+      content="Security analyst & detection engineer. Live threat-intel platform + 60+ free DFIR tools across 11 categories. 90+ intel sources, STIX/TAXII export. No signup."
+    />
     <meta property="twitter:image" content="https://pranithjain.qzz.io/og-image.png?v=2" />
-    <meta property="twitter:image:alt" content="Pranith Jain — threat intelligence, DFIR, and detection engineering. A live CTI platform and 60+ free, browser-side DFIR tools." />
+    <meta
+      property="twitter:image:alt"
+      content="Pranith Jain — threat intelligence, DFIR, and detection engineering. A live CTI platform and 60+ free, browser-side DFIR tools."
+    />
 
     <!-- Favicons -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/favicon.svg" />
-    
+
     <!-- PWA -->
     <link rel="manifest" href="/manifest.json" />
 
@@ -85,14 +103,16 @@
          font CSS doesn't block the initial render. The swap is safe because
          font-display: swap already shows system fonts until the custom fonts
          load, so there is no flash-of-unstyled-text regression. -->
-    <link rel="stylesheet" href="/fonts/fonts.css" media="print" onload="this.media='all'" />
+    <link rel="stylesheet" href="/fonts/fonts.css" media="print" onload="this.media = 'all'" />
     <noscript><link rel="stylesheet" href="/fonts/fonts.css" /></noscript>
 
     <!-- Theme detection script - runs before page render to prevent flash -->
     <script>
-      (function() {
+      (function () {
         try {
-          const theme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          const theme =
+            localStorage.getItem('theme') ||
+            (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
           if (theme === 'dark') {
             document.documentElement.classList.add('dark');
           }
@@ -110,20 +130,27 @@
        and AppShell.tsx (/dfir, /threatintel) already use `overflow-x-clip`
        on their inner wrappers to contain decorative blobs without
        creating a scroll context; the body-level rule was redundant. -->
-  <body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-50 transition-colors duration-300 motion-reduce:transition-none overscroll-y-none">
+  <body
+    class="bg-white text-slate-900 dark:bg-[#0a0a0f] dark:text-slate-50 transition-colors duration-300 motion-reduce:transition-none overscroll-y-none"
+  >
+    <!-- Geist page surface: pure white in light mode, near-black in
+         dark. The previous slate-50/950 read as AI-decorative padding;
+         the body now matches background-100 in design.md. -->
 
     <!-- Main app root -->
     <div id="root"></div>
-    
+
     <!-- App script -->
     <script type="module" src="/src/main.tsx"></script>
-    
+
     <!-- Noscript fallback for users without JavaScript -->
     <noscript>
-      <div style="padding: 2rem; text-align: center; font-family: system-ui, sans-serif;">
-        <p style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; color: #2c3ee5;">JavaScript Required</p>
-        <p style="color: #475569; max-width: 600px; margin: 0 auto;">
-          This portfolio website requires JavaScript to display properly. Please enable JavaScript in your browser settings, or contact me directly at <a href="mailto:hello@pranithjain.qzz.io" style="color: #2c3ee5;">hello@pranithjain.qzz.io</a>.
+      <div style="padding: 2rem; text-align: center; font-family: system-ui, sans-serif">
+        <p style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; color: #2c3ee5">JavaScript Required</p>
+        <p style="color: #475569; max-width: 600px; margin: 0 auto">
+          This portfolio website requires JavaScript to display properly. Please enable JavaScript in your browser
+          settings, or contact me directly at
+          <a href="mailto:hello@pranithjain.qzz.io" style="color: #2c3ee5">hello@pranithjain.qzz.io</a>.
         </p>
       </div>
     </noscript>

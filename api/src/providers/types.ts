@@ -51,7 +51,8 @@ export type ProviderId =
   | 'stopforumspam'
   | 'dshield'
   | 'safebrowsing'
-  | 'zoomeye';
+  | 'zoomeye'
+  | 'tre-ge';
 
 export type Verdict = 'clean' | 'suspicious' | 'malicious' | 'unknown';
 
@@ -187,4 +188,5 @@ export const PROVIDER_SUPPORT: Record<ProviderId, IndicatorType[]> = {
   dshield: ['ipv4'],
   safebrowsing: ['url', 'domain'],
   zoomeye: ['ipv4', 'ipv6', 'domain'],
+  'tre-ge': ['ipv4', 'ipv6', 'domain', 'url', 'hash'],
 };

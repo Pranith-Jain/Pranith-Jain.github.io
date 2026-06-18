@@ -77,7 +77,9 @@ ${
     ? `Step 1: lookup_cve (get CVSS, EPSS, KEV, affected products, references, CWE)
 Step 2: For exploit-db queries — lookup_exploit_db for PoC/exploit references; for cve queries — unified_search for exploitation intel OR generate_yara_rule for detection
 Step 3: If exploit-db query returns CVEs — check_ioc on discovered IOCs. If a CVE has KEV data — lookup_cisa_kev for ransomware/exploitation context
-Step 4: Synthesize. Do NOT call enrich_actor (it's for actors, not CVEs). Do NOT call lookup_mitre without a real technique ID from the CVE data.`
+Step 4: For cve queries — generate_hunting_queries (KQL/Sigma/Splunk for this specific CVE). Synthesize.
+Step 5: Synthesize. Do NOT call enrich_actor (it's for actors, not CVEs). Do NOT call lookup_mitre without a real technique ID from the CVE data.
+If lookup_cve returned kev=true, set actionCard.kev=true (the synthesizer will pull this from the report data).`
     : ''
 }
 
@@ -103,22 +105,21 @@ Step 5: Synthesize`
 
 ${
   queryType === 'ip' || queryType === 'domain' || queryType === 'hash'
-    ? `Step 1: check_ioc (32+ provider verdicts inc. StopForumSpam, DShield)
-Step 2: get_relationships + get_ioc_lifecycle (map connections, assess activity)
-Step 3: If domain — lookup_domain + pivot_domain + lookup_builtwith + lookup_certificate_transparency + lookup_wayback_advanced (infrastructure, tech stack, certs, historical data)
-If IP — lookup_ip_geo + lookup_asn + urlscan_ip_search (find URLs hosted on IP)
-If hash — sample_scan + malware_family_detail
-Step 4: generate_yara_rule for detection. Synthesize`
+    ? `Step 1: enrich_ioc_deep (single-call fan-out to 51+ reputation providers incl. tre.ge + WHOIS/DNS/CT + BuiltWith + Webamon + breach via ProjectDiscovery + passive DNS). Cites the most sources in one shot.
+  Fallback if enrich_ioc_deep is unavailable: check_ioc (32+ provider verdicts) + lookup_tre_ge for the tre.ge slice.
+Step 2: get_relationships + get_ioc_lifecycle (map connections, assess activity). For domain: lookup_domain for DNS/WHOIS/RDAP/CT. For IP: lookup_ipinfo + lookup_reverse_dns (Shodan InternetDB + IPinfo + LeakIX + co-hosted domains). For hash: sample_scan + malware_family_detail + search_triage (RecordedFuture Triage — family, tags, MITRE, C2, configs).
+Step 3: enrich_ioc_deep again ONLY if the indicator is an email or domain (breach_check) — call breach_check to surface XposedOrNot/LeakCheck/LeakIX/HudsonRock/ProjectDiscovery/HackMyIP exposure. For domain: lookup_builtwith (tech stack) + lookup_dns (DoH records) + lookup_certificate_transparency. For IP: lookup_asn for AS detail if AS number is known from step 2. For hash: maltiverse_verify (Maltiverse cross-check) + search_malpedia (family profile, YARA references).
+Step 4: generate_yara_rule + generate_hunting_queries for detection/hunt. Synthesize.`
     : ''
 }
 
 ${
   queryType === 'actor' || queryType === 'ransomware'
     ? `Step 1: enrich_actor (profile, aliases, MITRE, CVEs)
-Step 2: actor_timeline + get_ransomware_activity (recent campaigns, victims)
-Step 3: actor_cves + analyze_campaign (attribution, kill chain)
-Step 4: generate_yara_rule + get_blocklists (detection + defense)
-Step 5: Synthesize`
+Step 2: actor_timeline + get_ransomware_activity (recent campaigns, victims). For ransomware groups — ALSO call get_ransomware_negotiations (settlement patterns, demands, discounts).
+Step 3: actor_cves + analyze_campaign (attribution, kill chain). If CVEs are surfaced, run lookup_cve on each (CVSS, EPSS, KEV) — at most 2 to stay within step budget.
+Step 4: generate_yara_rule + generate_hunting_queries (detection + hunt). For ransomware: get_blocklists.
+Step 5: Synthesize. Mark actionCard.attributed=true if enrich_actor named the actor; ransomware=true for ransomware queries.`
     : ''
 }
 

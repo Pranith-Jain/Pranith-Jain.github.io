@@ -40,7 +40,7 @@
 // naive scanners). Applied iteratively until the string stabilises.
 // ---------------------------------------------------------------------------
 
-const REFANG_PATTERNS: Array<[RegExp, string]> = [
+const REFANG_PATTERNS: Array<[RegExp, string | ((match: string) => string)]> = [
   // Protocol
   [/\bhxxps?/gi, (m) => m.toLowerCase().replace('hxxp', 'http')],
   [/\bhxtps?/gi, (m) => m.toLowerCase().replace('hxtp', 'http')],
@@ -124,7 +124,7 @@ export function refang(s: string): string {
   for (let i = 0; i < 8; i++) {
     prev = cur;
     for (const [pat, rep] of REFANG_PATTERNS) {
-      cur = typeof rep === 'string' ? cur.replace(pat, rep) : cur.replace(pat, rep as (m: string) => string);
+      cur = typeof rep === 'string' ? cur.replace(pat, rep) : cur.replace(pat, rep);
     }
     if (cur === prev) break;
   }

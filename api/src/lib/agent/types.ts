@@ -71,6 +71,8 @@ export interface AgentState {
     flaggedClaims: string[];
     missingFacts: string[];
   };
+  /** Structured action card for SOC analyst triage. */
+  actionCard?: ReportActionCard;
 }
 
 // ── Planner output ───────────────────────────────────────────────────────
@@ -86,6 +88,140 @@ export interface PlannerOutput {
 
 // ── Synthesizer output ───────────────────────────────────────────────────
 
+/**
+ * Structured action card — produced by the synthesizer alongside the prose
+ * report. The UI consumes this to render the severity banner, MITRE heat-map
+ * table, IOC table, follow-up action buttons, and the action triage list. The
+ * prose report is the human narrative; this object is the analyst's
+ * "what to do next" checklist.
+ */
+export interface MitreTechniqueEntry {
+  /** MITRE ATT&CK technique ID, e.g. "T1059.001". */
+  id: string;
+  /** Technique name as known to MITRE, e.g. "PowerShell". */
+  name?: string;
+  /** Parent tactic, e.g. "Execution". */
+  tactic?: string;
+  /** Brief context from the investigation. */
+  evidence?: string;
+  /** Whether the investigation surfaced a detection for this technique. */
+  detection?: 'yara' | 'sigma' | 'kql' | 'splunk' | 'none';
+}
+
+export interface IocEntry {
+  type: 'ipv4' | 'ipv6' | 'domain' | 'url' | 'hash' | 'email' | 'cve' | 'actor' | 'malware';
+  value: string;
+  /** Confidence label from the synthesizer. */
+  confidence: 'Confirmed' | 'Probable' | 'Possible';
+  /** Where in the report this was first mentioned. */
+  source?: string;
+}
+
+export interface ActionItem {
+  /** Urgency bucket — drives the severity banner color. */
+  severity: 'critical' | 'high' | 'medium' | 'low' | 'info';
+  /** What the analyst should do. */
+  action: string;
+  /** Which IOC/CVE/actor this applies to (optional). */
+  target?: string;
+  /** Tool the agent already used to surface the data. */
+  source?: string;
+  /** Category for filtering / grouping in the UI. */
+  category: 'contain' | 'eradicate' | 'recover' | 'detect' | 'hunt' | 'inform';
+  /** Which teams should see this action (drives the stakeholder filter). */
+  stakeholders?: ActionStakeholder[];
+}
+
+export interface ReportVerdict {
+  /** 1-line "in plain English" verdict. */
+  headline: string;
+  /** Confidence in the verdict. */
+  confidence: 'high' | 'medium' | 'low';
+  /** Why this confidence level (data-quality-grounded). */
+  confidence_rationale?: string;
+  /** Whether this is an active incident, recon, post-exploit, or informational. */
+  posture: 'active' | 'reconnaissance' | 'post-exploit' | 'informational' | 'unknown';
+  /** TLP marking default for the report. */
+  tlp: 'CLEAR' | 'GREEN' | 'AMBER' | 'RED';
+}
+
+/** Stakeholder teams that should be notified for a given action. */
+export type ActionStakeholder =
+  | 'cti'
+  | 'soc'
+  | 'ir'
+  | 'vuln'
+  | 'redteam'
+  | 'appsec'
+  | 'awareness'
+  | 'exec'
+  | 'legal'
+  | 'tprm';
+
+/** Diamond Model — adversary / capability / infrastructure / victim. */
+export interface DiamondModel {
+  adversary?: string;
+  capability?: string[];
+  infrastructure?: string[];
+  victim?: string;
+}
+
+/** A Prioritized Intelligence Requirement — drives the executive narrative. */
+export interface PirLink {
+  pir: string;
+  relevant: boolean;
+  bluf?: string;
+  businessOutcome?: string;
+}
+
+export interface ReportActionCard {
+  verdict: ReportVerdict;
+  /** Severity banner level — synthesised from the worst ActionItem. */
+  severity: 'critical' | 'high' | 'medium' | 'low' | 'info';
+  /** Ordered, deduplicated action checklist for the analyst. */
+  actions: ActionItem[];
+  /** MITRE ATT&CK techniques, sorted by tactic for the heat-map table. */
+  mitre: MitreTechniqueEntry[];
+  /** Tabular IOC list with type + confidence. */
+  iocs: IocEntry[];
+  /** True if any tool surfaced CISA KEV-listed data. */
+  kev: boolean;
+  /** CISA KEV listing date (YYYY-MM-DD) — only set when kev=true. */
+  kev_date?: string | null;
+  /** CVSS v3.1 score + vector + severity bucket. */
+  cvss?: { score: number | null; vector: string | null; severity: 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL' | null };
+  /** EPSS exploitation probability + percentile. */
+  epss?: { score: number | null; percentile: number | null };
+  /** Known / Suspected ransomware use of this CVE. */
+  ransomware_use?: 'Known' | 'Suspected' | null;
+  /** Threat actors attributed to exploiting this CVE. */
+  threat_actors?: string[];
+  /** Exploit code / weaponization status. */
+  exploit_status?: 'poc-public' | 'weaponized' | 'in-the-wild' | null;
+  /** Vendor advisory URL with the fix. */
+  patch_url?: string | null;
+  /** True if the investigation mentioned ransomware payment / wallet. */
+  ransomware: boolean;
+  /** True if the investigation found a known threat-actor attribution. */
+  attributed: boolean;
+  /** For actor / ransomware queries, a brief timeline. */
+  timeline?: Array<{ date?: string; event: string; source?: string }>;
+  /** MITRE ATT&CK Navigator layer (just the techniques + scores; the
+   *  UI serialises it to the v4 layer JSON for export). */
+  navigatorLayer?: {
+    name: string;
+    description: string;
+    techniques: Array<{ id: string; score: number; comment?: string }>;
+  };
+  /** Diamond Model — adversary / capability / infrastructure / victim. */
+  diamond?: DiamondModel;
+  /** Prioritized Intelligence Requirements the report addresses. */
+  pirs?: PirLink[];
+  /** Structured BLUF panel parsed from the synthesizer's report-header
+   *  block. Drives the dashboard's hero card. */
+  reportHeader?: import('./synthesizer').ReportHeader;
+}
+
 export interface SynthesizerOutput {
   report: string;
   modelUsed: string;
@@ -93,6 +229,8 @@ export interface SynthesizerOutput {
   confidence: 'high' | 'medium' | 'low';
   iocsExtracted: string[];
   mitreTechniques: string[];
+  /** Structured action card. Optional for backward compat. */
+  actionCard?: ReportActionCard;
 }
 
 // ── D1 row shape ─────────────────────────────────────────────────────────

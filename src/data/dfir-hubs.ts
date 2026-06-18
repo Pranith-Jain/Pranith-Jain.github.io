@@ -76,17 +76,11 @@ export const HUB_META: readonly HubMeta[] = [
   {
     id: 'ioc-triage',
     label: 'IOC Triage',
-    blurb: 'Check, extract, and track indicators across 24+ sources - IP, domain, URL, hash pivots with cross-source consensus.',
+    blurb:
+      'Check, extract, and track indicators across 24+ sources - IP, domain, URL, hash pivots with cross-source consensus.',
     icon: Crosshair,
     tone: 'text-rose-700 dark:text-rose-300 border-rose-500/30 bg-rose-500/10',
     pages: [
-      {
-        path: '/dfir/ioc-check',
-        tabId: 'ioc-check',
-        label: 'IOC & Hash Checker',
-        desc: '24 sources - streaming - IPs - domains - URLs - file hashes',
-        compVar: 'IocCheck',
-      },
       {
         path: '/dfir/ioc-investigate',
         tabId: 'ioc-investigate',
@@ -94,20 +88,7 @@ export const HUB_META: readonly HubMeta[] = [
         desc: 'Cross-source investigation hub - paste any indicator type and pivot across all sources',
         compVar: 'IocInvestigate',
       },
-      {
-        path: '/dfir/ioc-pivot',
-        tabId: 'ioc-pivot',
-        label: 'IOC Pivot Graph',
-        desc: 'Radial graph of verdict-coloured sources + derived IPs/domains/hashes/ASNs/CVEs',
-        compVar: 'IocPivot',
-      },
-      {
-        path: '/dfir/threat-hunt',
-        tabId: 'threat-hunt',
-        label: 'Threat Hunt',
-        desc: 'IP - domain - email - hash - auto-detect type - Telegram leak cross-ref + IOC providers',
-        compVar: 'ThreatHunt',
-      },
+
       {
         path: '/dfir/extract',
         tabId: 'extract',
@@ -155,27 +136,6 @@ export const HUB_META: readonly HubMeta[] = [
     tone: 'text-orange-700 dark:text-orange-300 border-orange-500/30 bg-orange-500/10',
     pages: [
       {
-        path: '/dfir/malware-scan',
-        tabId: 'malware-scan',
-        label: 'Malware Scanner',
-        desc: 'Hash lookup across 10+ public sandbox platforms - consensus verdict + family attribution',
-        compVar: 'MalwareScan',
-      },
-      {
-        path: '/dfir/malware-capabilities',
-        tabId: 'malware-capabilities',
-        label: 'Malware Capabilities',
-        desc: 'Static + behavioural capability extraction - YARA hits, strings, PE imports',
-        compVar: 'MalwareCapabilities',
-      },
-      {
-        path: '/dfir/sample-scan',
-        tabId: 'sample-scan',
-        label: 'Sample Scan (lite 0x12)',
-        desc: 'Lightweight in-browser sample scan with byte-level heuristics',
-        compVar: 'SampleScan',
-      },
-      {
         path: '/dfir/malware-analyzer',
         tabId: 'malware-analyzer',
         label: 'Malware Analyzer',
@@ -189,13 +149,7 @@ export const HUB_META: readonly HubMeta[] = [
         desc: 'Parse RedLine / Raccoon / Vidar / LummaC stealer logs - credentials, system, browser data',
         compVar: 'StealerParser',
       },
-      {
-        path: '/dfir/sandbox',
-        tabId: 'sandbox',
-        label: 'Sandbox Integration',
-        desc: 'Submit samples to public sandboxes - one-click detonation',
-        compVar: 'SandboxIntegration',
-      },
+
       {
         path: '/dfir/bloom',
         tabId: 'bloom',
@@ -326,13 +280,7 @@ export const HUB_META: readonly HubMeta[] = [
         desc: 'Manifest.db - plists - SQLite artifacts from a local iTunes backup',
         compVar: 'IosBackupExplorer',
       },
-      {
-        path: '/dfir/mobile-sqlite',
-        tabId: 'mobile-sqlite',
-        label: 'Mobile SQLite Explorer',
-        desc: 'Android SMS - contacts - call log - media store databases',
-        compVar: 'SqliteExplorer',
-      },
+
       {
         path: '/dfir/web-log',
         tabId: 'web-log',
@@ -361,7 +309,8 @@ export const HUB_META: readonly HubMeta[] = [
   {
     id: 'domain-network',
     label: 'Domain & Network',
-    blurb: 'WHOIS, DNS, reputation, certificates, and infrastructure pivots - passive reconnaissance, no active scanning.',
+    blurb:
+      'WHOIS, DNS, reputation, certificates, and infrastructure pivots - passive reconnaissance, no active scanning.',
     icon: Globe,
     tone: 'text-cyan-700 dark:text-cyan-300 border-cyan-500/30 bg-cyan-500/10',
     pages: [
@@ -371,27 +320,6 @@ export const HUB_META: readonly HubMeta[] = [
         label: 'Domain Investigator',
         desc: 'Cross-source domain investigation hub - 6 aliases route here (domain-rep, webcheck, etc.)',
         compVar: 'DomainInvestigator',
-      },
-      {
-        path: '/dfir/domain',
-        tabId: 'domain',
-        label: 'Domain Lookup',
-        desc: 'WHOIS - DNS - SSL - hosting - ASN - one-shot pivot from a single domain',
-        compVar: 'Domain',
-      },
-      {
-        path: '/dfir/webcheck',
-        tabId: 'webcheck',
-        label: 'Domain Web Check',
-        desc: 'Headers - redirects - cookies - CMS fingerprints',
-        compVar: 'DomainWebcheck',
-      },
-      {
-        path: '/dfir/domain-rep',
-        tabId: 'domain-rep',
-        label: 'Domain & IP Reputation',
-        desc: 'Cross-source reputation check for domains and IPs',
-        compVar: 'DomainReputation',
       },
       {
         path: '/dfir/whois-history',
@@ -413,13 +341,6 @@ export const HUB_META: readonly HubMeta[] = [
         label: 'Certificate Search',
         desc: 'crt.sh-style CT log search for a domain - subdomains - cert chain',
         compVar: 'CertSearch',
-      },
-      {
-        path: '/dfir/exposure',
-        tabId: 'exposure',
-        label: 'Exposure Scanner',
-        desc: 'Shodan / Censys / FOFA - exposed services, misconfigurations',
-        compVar: 'Exposure',
       },
       {
         path: '/dfir/takeover',
@@ -463,7 +384,8 @@ export const HUB_META: readonly HubMeta[] = [
   {
     id: 'asset-attack',
     label: 'Asset & Attack Surface',
-    blurb: 'Exposed-host analysis, asset intelligence, and web vulnerability scanning - see what an attacker would see.',
+    blurb:
+      'Exposed-host analysis, asset intelligence, and web vulnerability scanning - see what an attacker would see.',
     icon: Server,
     tone: 'text-sky-700 dark:text-sky-300 border-sky-500/30 bg-sky-500/10',
     pages: [
@@ -488,20 +410,7 @@ export const HUB_META: readonly HubMeta[] = [
         desc: 'Detect misconfigured web servers exposing file listings',
         compVar: 'OpenDirectory',
       },
-      {
-        path: '/dfir/full-spectrum',
-        tabId: 'full-spectrum',
-        label: 'Full Spectrum Domain',
-        desc: 'End-to-end domain recon - DNS, web, infra, breach presence, exposure',
-        compVar: 'FullSpectrum',
-      },
-      {
-        path: '/dfir/web-scan',
-        tabId: 'web-scan',
-        label: 'Web Vulnerability Scanner',
-        desc: 'Active scan for OWASP top-10 + misconfigurations + secret leakage',
-        compVar: 'WebScan',
-      },
+
       {
         path: '/dfir/url-preview',
         tabId: 'url-preview',
@@ -514,7 +423,8 @@ export const HUB_META: readonly HubMeta[] = [
   {
     id: 'email',
     label: 'Email Security',
-    blurb: 'Phishing analysis, BEC defense, and email authentication audits - SPF / DKIM / DMARC / BIMI without sending data off-host.',
+    blurb:
+      'Phishing analysis, BEC defense, and email authentication audits - SPF / DKIM / DMARC / BIMI without sending data off-host.',
     icon: Mail,
     tone: 'text-indigo-700 dark:text-indigo-300 border-indigo-500/30 bg-indigo-500/10',
     pages: [
@@ -591,27 +501,7 @@ export const HUB_META: readonly HubMeta[] = [
         desc: 'Alias of /dfir/username - the canonical page',
         compVar: 'UsernameInvestigator',
       },
-      {
-        path: '/dfir/username-osint',
-        tabId: 'username-osint',
-        label: 'Username OSINT (alias)',
-        desc: 'Alias of /dfir/username - the canonical page',
-        compVar: 'UsernameInvestigator',
-      },
-      {
-        path: '/dfir/username',
-        tabId: 'username',
-        label: 'Username Investigator',
-        desc: 'Search 500+ sites for a given username - GitHub, Reddit, X, Steam',
-        compVar: 'UsernameInvestigator',
-      },
-      {
-        path: '/dfir/identity-lookup',
-        tabId: 'identity-lookup',
-        label: 'Identity Lookup',
-        desc: 'Email / phone - breach presence, social profiles, WHOIS-linked identities',
-        compVar: 'UsernameInvestigator',
-      },
+
       {
         path: '/dfir/phone-osint',
         tabId: 'phone-osint',
@@ -728,20 +618,7 @@ export const HUB_META: readonly HubMeta[] = [
         desc: 'Sigma - KQL - SPL - YARA via one canonical IR',
         compVar: 'RuleConverter',
       },
-      {
-        path: '/dfir/rule-playground',
-        tabId: 'rule-playground',
-        label: 'Rule Playground',
-        desc: 'Author a Sigma/YARA rule and run it against sample events live',
-        compVar: 'RulePlayground',
-      },
-      {
-        path: '/dfir/yara',
-        tabId: 'yara',
-        label: 'YARA Manager',
-        desc: 'YARA rule library - author, test, share. MITRE ATT&CK tag overlay',
-        compVar: 'YaraManager',
-      },
+
       {
         path: '/dfir/yara-workbench',
         tabId: 'yara-workbench',
@@ -749,13 +626,7 @@ export const HUB_META: readonly HubMeta[] = [
         desc: 'Collaborative YARA editor with malware test corpus',
         compVar: 'YaraWorkbench',
       },
-      {
-        path: '/dfir/detection-lab',
-        tabId: 'detection-lab',
-        label: 'Detection Lab',
-        desc: 'Author against a curated event corpus, see fires in seconds',
-        compVar: 'RulePlayground',
-      },
+
       {
         path: '/dfir/attack-navigator',
         tabId: 'attack-navigator',
@@ -840,32 +711,11 @@ export const HUB_META: readonly HubMeta[] = [
     tone: 'text-teal-700 dark:text-teal-300 border-teal-500/30 bg-teal-500/10',
     pages: [
       {
-        path: '/dfir/stix',
-        tabId: 'stix',
-        label: 'STIX Viewer',
-        desc: 'Open a STIX 2.1 bundle, browse SDOs + SROs, visualise as graph',
-        compVar: 'StixViewer',
-      },
-      {
-        path: '/dfir/stix-builder',
-        tabId: 'stix-builder',
-        label: 'STIX Builder',
-        desc: 'Build a STIX 2.1 bundle from a form - IOCs, threats, relationships',
-        compVar: 'StixBuilder',
-      },
-      {
         path: '/dfir/stix-workbench',
         tabId: 'stix-workbench',
         label: 'STIX Workbench',
         desc: 'In-browser STIX 2.1 workbench - edit, validate, export',
         compVar: 'StixWorkbench',
-      },
-      {
-        path: '/dfir/taxii',
-        tabId: 'taxii',
-        label: 'TAXII Server',
-        desc: 'Local TAXII 2.1 server - push / pull bundles from your browser',
-        compVar: 'TaxiiServer',
       },
     ],
   },
@@ -974,7 +824,7 @@ export const HUB_META: readonly HubMeta[] = [
         path: '/dfir/agent-map',
         tabId: 'agent-map',
         label: 'Agent Map',
-        desc: 'Visualise an agent\'s reachable tools and data sources',
+        desc: "Visualise an agent's reachable tools and data sources",
         compVar: 'AgentMap',
       },
       {
@@ -1063,13 +913,7 @@ export const HUB_META: readonly HubMeta[] = [
         desc: 'Compose a Google dork for a target - site:, inurl:, filetype:',
         compVar: 'GoogleDorks',
       },
-      {
-        path: '/dfir/dork-builder',
-        tabId: 'dork-builder',
-        label: 'Dork Builder',
-        desc: 'Visual dork composer - generate + run against multiple search engines',
-        compVar: 'GoogleDorks',
-      },
+
       {
         path: '/dfir/log-parser',
         tabId: 'log-parser',
@@ -1100,13 +944,7 @@ export const HUB_META: readonly HubMeta[] = [
         desc: 'Query 30+ intel sources in parallel - paste an IOC or entity',
         compVar: 'MultiSearch',
       },
-      {
-        path: '/dfir/crypto-trace',
-        tabId: 'crypto-trace',
-        label: 'Crypto Trace',
-        desc: 'Bitcoin / Ethereum address trace - UTXOs, exchange wallets, mixers',
-        compVar: 'Tracer',
-      },
+
       {
         path: '/dfir/tracer',
         tabId: 'tracer',
@@ -1160,20 +998,7 @@ export const HUB_META: readonly HubMeta[] = [
         desc: 'Cover - summary - findings - IOCs - sources - TLP - export to PDF/DOCX',
         compVar: 'ReportComposer',
       },
-      {
-        path: '/dfir/report-ingest',
-        tabId: 'report-ingest',
-        label: 'Report Ingest',
-        desc: 'Ingest external reports - extract IOCs, TTPs, CVEs automatically',
-        compVar: 'ReportIngest',
-      },
-      {
-        path: '/dfir/report-parser',
-        tabId: 'report-parser',
-        label: 'Report Parser',
-        desc: 'Parse plain-text threat reports - structured IOC + TTP extraction',
-        compVar: 'ReportAnalyzer',
-      },
+
       {
         path: '/dfir/export-hub',
         tabId: 'export-hub',

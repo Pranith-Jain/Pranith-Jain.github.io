@@ -9,7 +9,7 @@ export function Companies({ companies }: CompaniesProps) {
         <div className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400">
           Worked with
         </div>
-        <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
+        <h2 className="font-display text-3xl sm:text-4xl font-semibold tracking-[-1.28px] text-slate-900 dark:text-white">
           Brands I&rsquo;ve worked with
         </h2>
         <p className="mt-3 text-base sm:text-lg text-muted">

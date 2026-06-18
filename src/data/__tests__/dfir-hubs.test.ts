@@ -81,9 +81,9 @@ describe('dfir-hubs (DFIR catalog registry)', () => {
   });
 
   it('getPageByPath returns the right page for a known path', () => {
-    const result = getPageByPath('/dfir/ioc-check');
+    const result = getPageByPath('/dfir/ioc-investigate');
     expect(result).toBeDefined();
-    expect(result?.page.label).toBe('IOC & Hash Checker');
+    expect(result?.page.label).toBe('IOC Investigator');
     expect(result?.hub.id).toBe('ioc-triage');
   });
 
@@ -136,8 +136,20 @@ describe('dfir-hubs (DFIR catalog registry)', () => {
   it('covers every DFIR route registered in App.tsx', () => {
     const routes = extractDfirRoutes();
     const registered = new Set(flattenPages().map((p) => p.path));
+    // Read the redirects from App.tsx so a route added to REDIRECTS
+    // doesn't break this test. Keeps the hubs/catalog in sync with
+    // collapsed aliases (e.g. /dfir/dork-builder → /dfir/google-dorks).
+    const appSrc = readFileSync(resolve(__dirname, '..', '..', 'App.tsx'), 'utf8');
+    const appRedirects = new Set<string>();
+    const redirectBlock = appSrc.match(/const REDIRECTS[\s\S]*?\n\];/);
+    if (redirectBlock) {
+      for (const m of redirectBlock[0].matchAll(/path:\s*'([^']+)'/g)) {
+        if (m[1].startsWith('/dfir/')) appRedirects.add(m[1]);
+      }
+    }
     const REDIRECTS = new Set([
       '/dfir/file',
+      '/dfir/infostealer-intel',
       '/dfir/host',
       '/dfir/sigma-convert',
       '/dfir/detection-lab',
@@ -145,21 +157,16 @@ describe('dfir-hubs (DFIR catalog registry)', () => {
       '/dfir/atlas',
       '/dfir/discord-watch',
       '/dfir/industry-news',
+      ...appRedirects,
     ]);
     // Catalog + per-hub landings are not in the registry - they're the
     // pages that DISPLAY the catalog. The catalog page itself is its own
     // route (/dfir/catalog) and the per-hub landings use /dfir/c/:cat.
-    const CATALOG_ROUTES = new Set([
-      '/dfir/catalog',
-    ]);
-    const expected = routes.filter(
-      (r) => !REDIRECTS.has(r) && !CATALOG_ROUTES.has(r) && !r.includes(':')
-    );
+    const CATALOG_ROUTES = new Set(['/dfir/catalog']);
+    const expected = routes.filter((r) => !REDIRECTS.has(r) && !CATALOG_ROUTES.has(r) && !r.includes(':'));
     const missing = expected.filter((r) => !registered.has(r));
     if (missing.length > 0) {
-      throw new Error(
-        `dfir-hubs is missing entries for these App.tsx routes:\n  - ${missing.join('\n  - ')}`
-      );
+      throw new Error(`dfir-hubs is missing entries for these App.tsx routes:\n  - ${missing.join('\n  - ')}`);
     }
   });
 });

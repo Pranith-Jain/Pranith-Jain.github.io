@@ -27,7 +27,7 @@ export function Skills({ skills }: SkillsProps) {
           plain display heading + a single-line lede. */}
       <div className="mb-10 max-w-3xl">
         <div className="mb-3 text-micro font-mono uppercase tracking-[0.2em] text-slate-500">Expertise</div>
-        <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
+        <h2 className="font-display text-3xl sm:text-4xl font-semibold tracking-[-1.28px] text-slate-900 dark:text-white">
           Core competencies
         </h2>
         <p className="mt-3 text-base sm:text-lg text-muted leading-relaxed">

@@ -3,12 +3,21 @@
 @tailwind utilities;
 
 @layer base {
-  /* Tighter radius — less "AI pillow", more instrument panel */
+  /* ── Geist-aligned radii ────────────────────────────────────────
+     Geist spec: 6px everyday surfaces, 12px menus, 16px fullscreen.
+     Maps to Tailwind: rounded-md=4 (chips), rounded-lg=6 (controls),
+     rounded-xl=8 (app chrome), rounded-2xl=16 (fullscreen surfaces). */
   .rounded-2xl {
-    border-radius: 0.5rem; /* 8px */
+    border-radius: 1rem; /* 16px — fullscreen surfaces */
   }
   .rounded-xl {
-    border-radius: 0.375rem; /* 6px — was 12px */
+    border-radius: 0.5rem; /* 8px — menus / app chrome */
+  }
+  .rounded-lg {
+    border-radius: 0.375rem; /* 6px — everyday surfaces / controls */
+  }
+  .rounded-md {
+    border-radius: 0.25rem; /* 4px — chips, dense data tiles */
   }
 
   html {
@@ -23,10 +32,12 @@
   h5,
   h6 {
     font-family: theme('fontFamily.display');
-    /* Bricolage Grotesque has real character at display sizes — tighten the
-       tracking and let its optical-size axis kick in so headings read
-       authored, not default. */
-    letter-spacing: -0.018em;
+    /* Geist heading tracking ramp:
+         h1 (-2.4px)  h2 (-1.28px)  h3 (-0.96px)  h4 (-0.4px)
+       The previous single -0.018em felt right at 40-56px but cramped
+       on text-xl / text-2xl. The per-size ramp below mirrors the
+       Vercel spec and keeps smaller headings from looking squeezed. */
+    letter-spacing: -0.02em;
     font-optical-sizing: auto;
   }
 
@@ -61,6 +72,16 @@
     --surface-bg: 255 255 255;
     --glass-bg: 255 255 255;
     --glass-border: 226 232 240;
+    /* Geist surface ramp (light) — pure white page, #fafafa for
+       subtle separation, gray-alpha borders for translucency.
+       Bound to CSS vars so JS themes can override them in one place. */
+    --surface-100: 255 255 255; /* primary page + card */
+    --surface-200: 250 250 250; /* subtle separation (geist background-200) */
+    --surface-300: 245 245 245; /* active/pressed fill */
+    --border-400: 0 0 0 / 0.15; /* default border (gray-alpha-400) */
+    --border-500: 0 0 0 / 0.2; /* hover border */
+    --border-600: 0 0 0 / 0.3; /* active border */
+    --hover-100: 0 0 0 / 0.05; /* hover background wash */
   }
   html.dark {
     --brand: 99 130 255;
@@ -69,11 +90,33 @@
     --surface-bg: 15 15 22;
     --glass-bg: 15 15 22;
     --glass-border: 35 40 55;
+    --surface-100: 10 10 15; /* primary dark page (geist #000) */
+    --surface-200: 18 18 24; /* card surface (gray-100) */
+    --surface-300: 28 28 36; /* hover/active fill */
+    --border-400: 255 255 255 / 0.08;
+    --border-500: 255 255 255 / 0.14;
+    --border-600: 255 255 255 / 0.22;
+    --hover-100: 255 255 255 / 0.04;
   }
 
+  /* Geist two-layer focus ring:
+       1. 2px gap in the surface color (so the ring never sits on the
+          same hue as the element it surrounds)
+       2. 2px solid brand-500 ring
+     The two-layer box-shadow keeps the ring inside the layout box, so
+     a tall input doesn't push its label down when focused. Dark mode
+     flips the inner gap to the dark surface color and the ring to a
+     brighter brand-400. */
   :focus-visible {
-    outline: 2px solid theme('colors.brand.400');
-    outline-offset: 3px;
+    outline: none;
+    box-shadow:
+      0 0 0 2px #ffffff,
+      0 0 0 4px #2c3ee5;
+  }
+  html.dark :focus-visible {
+    box-shadow:
+      0 0 0 2px #0a0a0f,
+      0 0 0 4px #6d8bf7;
   }
 
   /* iOS Safari auto-zooms when a focused input/textarea has a computed
@@ -301,9 +344,9 @@
   .dark .surface-card {
     border-color: rgba(30, 32, 48, 0.6);
     background-color: rgba(18, 18, 26, 0.8);
-    box-shadow:
-      0 1px 3px rgba(0, 0, 0, 0.5),
-      inset 0 1px 0 rgba(255, 255, 255, 0.03);
+    /* Geist dark surfaces rely on borders, not inset highlights.
+       Drop the inset gloss — it read as AI-decorative. */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
   }
   .surface-raised {
     @apply rounded-xl border border-slate-200 bg-white shadow-e2 transition duration-200;
@@ -312,9 +355,7 @@
   .dark .surface-raised {
     border-color: rgba(30, 32, 48, 0.7);
     background-color: rgba(18, 18, 26, 0.9);
-    box-shadow:
-      0 2px 6px rgba(0, 0, 0, 0.5),
-      inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
   }
   .surface-glass {
     @apply rounded-xl border bg-white/70 shadow-e1 backdrop-blur-md transition duration-200;
