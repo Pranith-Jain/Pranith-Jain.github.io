@@ -70,10 +70,7 @@ export function QuoteOfTheDay(): JSX.Element {
   return (
     <section className="group relative overflow-hidden rounded-lg border border-slate-200/70 dark:border-[#1e2030] p-5 transition-all duration-200 hover:border-brand-300/50 dark:hover:border-brand-500/30 hover:shadow-md dark:hover:shadow-brand-500/5">
       {/* Subtle gradient background */}
-      <div
-        aria-hidden
-        className="absolute inset-0 bg-gradient-to-br from-brand-50/50 via-white to-slate-50/30 dark:from-brand-500/5 dark:via-[#12121a] dark:to-[#12121a]"
-      />
+      <div aria-hidden className="absolute inset-0 bg-[rgb(var(--hover-100))]" />
       {/* Decorative icon */}
       <div aria-hidden className="absolute -right-4 -bottom-4 text-brand-100 dark:text-brand-500/10">
         <Shield size={80} strokeWidth={1} />

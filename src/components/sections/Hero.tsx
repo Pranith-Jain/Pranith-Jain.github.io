@@ -49,7 +49,7 @@ export function Hero({ personalInfo }: HeroProps) {
                 <dt className="font-display text-2xl font-semibold tracking-[-0.4px] text-slate-900 dark:text-white tabular-nums sm:text-3xl">
                   {k}
                 </dt>
-                <dd className="mt-0.5 font-mono text-[11px] uppercase tracking-[0.12em] text-slate-500 dark:text-slate-400">
+                <dd className="mt-0.5 font-mono text-mini uppercase tracking-[0.12em] text-slate-500 dark:text-slate-400">
                   {v}
                 </dd>
               </div>

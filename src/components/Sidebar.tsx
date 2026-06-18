@@ -20,7 +20,10 @@ function isActive(pathname: string, href: string): boolean {
 function toneClasses(tone: 'brand' | 'rose' = 'brand') {
   if (tone === 'rose') {
     return {
-      activeBg: 'bg-rose-500/10 text-rose-700 dark:text-rose-300',
+      // Geist active: surface-200 wash (subtle), tone-tinted icon, and
+      // a tone-tinted dot at the trailing edge. The label itself stays
+      // slate-900 so the text colour always reads at WCAG AA.
+      activeBg: 'bg-rose-500/10 text-slate-900 dark:text-white',
       activeIcon: 'text-rose-600 dark:text-rose-400',
       activeDot: 'bg-rose-500',
       activeBorder: 'border-rose-500',
@@ -28,7 +31,7 @@ function toneClasses(tone: 'brand' | 'rose' = 'brand') {
     };
   }
   return {
-    activeBg: 'bg-brand-500/10 text-brand-700 dark:text-brand-300',
+    activeBg: 'bg-brand-500/10 text-slate-900 dark:text-white',
     activeIcon: 'text-brand-600 dark:text-brand-400',
     activeDot: 'bg-brand-500',
     activeBorder: 'border-brand-500',
@@ -163,7 +166,7 @@ export function SidebarContent({ config }: { config: SidebarConfig }): JSX.Eleme
         })}
       </nav>
 
-      <div className="border-t border-slate-200 px-3 py-2 dark:border-[#1e2030]">
+      <div className="border-t border-[rgb(var(--border-400))] px-3 py-2">
         <span className="text-micro font-mono text-slate-400 dark:text-slate-500">{totalItems} tools</span>
       </div>
     </>
@@ -195,9 +198,9 @@ export function Sidebar({ config }: SidebarProps): JSX.Element {
       className={`hidden md:flex flex-col ${width} flex-shrink-0 transition-[width] duration-200 ease-out`}
       aria-label={`${config.sectionLabel} navigation`}
     >
-      <div className="sticky top-14 max-h-[calc(100vh-3.5rem)] flex flex-col border-r border-slate-200 bg-white dark:border-[#1e2030] dark:bg-[#0a0a0f]">
+      <div className="sticky top-14 max-h-[calc(100vh-3.5rem)] flex flex-col border-r border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-100))]">
         {collapsed ? <SidebarContentCollapsed config={config} /> : <SidebarContent config={config} />}
-        <div className="flex items-center justify-end border-t border-slate-200 px-2 py-1.5 dark:border-[#1e2030]">
+        <div className="flex items-center justify-end border-t border-[rgb(var(--border-400))] px-2 py-1.5">
           <button
             type="button"
             onClick={() => setCollapsed((c) => !c)}

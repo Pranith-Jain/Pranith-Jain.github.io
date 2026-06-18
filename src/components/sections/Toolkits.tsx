@@ -90,7 +90,7 @@ export function Toolkits() {
                 {tk.builtWith.map((tech) => (
                   <span
                     key={tech}
-                    className="rounded border border-black/10 bg-black/[0.02] px-2 py-0.5 text-[11px] font-mono text-slate-500 dark:border-white/10 dark:bg-white/[0.03] dark:text-slate-400"
+                    className="rounded border border-black/10 bg-black/[0.02] px-2 py-0.5 text-mini font-mono text-slate-500 dark:border-white/10 dark:bg-white/[0.03] dark:text-slate-400"
                   >
                     {tech}
                   </span>

@@ -44,16 +44,21 @@ export function Contact({ personalInfo }: ContactProps) {
             strategy calls.
           </p>
 
-          {/* CTAs — Geist h-48 (48px) height. Primary = slate-900 fill
-              ("one important action" per view, per the spec); the
-              secondary uses a translucent gray-alpha border + black/5
-              hover wash (the 100→200 step). */}
+          {/* CTAs — Geist h-48 (48px) height. Primary in light mode is
+              slate-900 fill (one important action per view). In dark
+              mode the panel is rgb(18,18,24); a pure white button
+              there read as a stark slab with no relationship to the
+              secondary, so we step the primary up to surface-300
+              (rgb(28,28,36)) with a thin white/10 ring — still the
+              single most important action, but visually integrated.
+              Secondary uses a translucent gray-alpha border + hover
+              wash (the 100→200 step). */}
           <div className="mt-8 flex flex-wrap justify-center gap-2.5">
             <a
               href={personalInfo.calendlyUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex h-12 items-center gap-1.5 rounded-md bg-slate-900 px-5 text-[15px] font-medium text-white transition-colors hover:bg-slate-800 dark:bg-white dark:text-slate-900 dark:hover:bg-slate-100 focus-visible:outline-none"
+              className="inline-flex h-12 items-center gap-1.5 rounded-md bg-slate-900 px-5 text-base font-medium text-white transition-colors hover:bg-slate-800 dark:bg-[rgb(var(--surface-300))] dark:text-white dark:hover:bg-[rgb(40,40,52)] dark:ring-1 dark:ring-white/10 focus-visible:outline-none"
               aria-label="Schedule a 30-minute consultation call"
             >
               <Calendar className="h-4 w-4" aria-hidden="true" />
@@ -61,7 +66,7 @@ export function Contact({ personalInfo }: ContactProps) {
             </a>
             <a
               href={`mailto:${personalInfo.email}`}
-              className="inline-flex h-12 items-center gap-1.5 rounded-md border border-black/15 bg-white px-5 text-[15px] font-medium text-slate-900 transition-colors hover:bg-black/5 hover:border-black/25 dark:bg-transparent dark:text-slate-100 dark:border-white/10 dark:hover:bg-white/5 dark:hover:border-white/20 focus-visible:outline-none"
+              className="inline-flex h-12 items-center gap-1.5 rounded-md border border-black/15 bg-white px-5 text-base font-medium text-slate-900 transition-colors hover:bg-black/5 hover:border-black/25 dark:bg-transparent dark:text-slate-100 dark:border-white/20 dark:hover:bg-white/5 dark:hover:border-white/30 focus-visible:outline-none"
               aria-label={`Send email to ${personalInfo.email}`}
             >
               <Mail className="h-4 w-4" aria-hidden="true" />
@@ -78,7 +83,7 @@ export function Contact({ personalInfo }: ContactProps) {
               per-link bg chips. Panel is now light, so the row uses
               slate-500 default and slate-900 hover. */}
           <ul
-            className="mt-10 flex flex-wrap justify-center gap-x-5 gap-y-2 border-t border-black/10 pt-6 font-mono text-[11px] uppercase tracking-[0.1em] text-slate-500 dark:border-white/10 dark:text-slate-400"
+            className="mt-10 flex flex-wrap justify-center gap-x-5 gap-y-2 border-t border-black/10 pt-6 font-mono text-mini uppercase tracking-[0.1em] text-slate-500 dark:border-white/10 dark:text-slate-400"
             aria-label="Social media and professional links"
           >
             <li>

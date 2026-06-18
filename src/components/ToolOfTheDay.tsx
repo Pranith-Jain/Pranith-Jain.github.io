@@ -57,10 +57,7 @@ export function ToolOfTheDay(): JSX.Element {
   return (
     <section className="group relative overflow-hidden rounded-lg border border-slate-200/70 dark:border-[#1e2030] p-5 transition-all duration-200 hover:border-amber-300/50 dark:hover:border-amber-500/30 hover:shadow-md dark:hover:shadow-amber-500/5">
       {/* Subtle gradient */}
-      <div
-        aria-hidden
-        className="absolute inset-0 bg-gradient-to-br from-amber-50/50 via-white to-orange-50/20 dark:from-amber-500/5 dark:via-[#12121a] dark:to-[#12121a]"
-      />
+      <div aria-hidden className="absolute inset-0 bg-[rgb(var(--hover-100))]" />
       <div className="relative">
         <div className="flex items-center gap-2 mb-3">
           <div className="grid h-6 w-6 place-items-center rounded bg-amber-500/10 text-amber-600 dark:text-amber-400">

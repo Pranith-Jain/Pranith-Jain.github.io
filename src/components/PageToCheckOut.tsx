@@ -50,11 +50,9 @@ export function PageToCheckOut(): JSX.Element {
 
   return (
     <section className="group relative overflow-hidden rounded-lg border border-slate-200/70 dark:border-[#1e2030] p-5 transition-all duration-200 hover:border-emerald-300/50 dark:hover:border-emerald-500/30 hover:shadow-md dark:hover:shadow-emerald-500/5">
-      {/* Subtle gradient */}
-      <div
-        aria-hidden
-        className="absolute inset-0 bg-gradient-to-br from-emerald-50/50 via-white to-teal-50/20 dark:from-emerald-500/5 dark:via-[#12121a] dark:to-[#12121a]"
-      />
+      {/* Geist: tonal surface wash, no multi-stop decorative gradient
+          (Geist hierarchy comes from borders + fills, not gradients). */}
+      <div aria-hidden className="absolute inset-0 bg-[rgb(var(--hover-100))] dark:bg-[rgb(var(--hover-100))]" />
       <div className="relative">
         <div className="flex items-center gap-2 mb-3">
           <div className="grid h-6 w-6 place-items-center rounded bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">

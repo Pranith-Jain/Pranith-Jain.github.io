@@ -39,9 +39,11 @@ const SEARCH_PLACEHOLDERS: Record<string, string> = {
   threatintel: 'Search actors, CVEs, campaigns, briefings, IOCs…',
 };
 
+// Geist mark chip: surface-200 wash + accent-tinted icon. No ring —
+// Geist leans on borders and tonal surfaces, not decorative rings.
 const MARK_ACCENT: Record<'dfir' | 'threatintel', string> = {
-  dfir: 'bg-brand-500/15 text-brand-600 dark:text-brand-300 ring-1 ring-brand-500/20',
-  threatintel: 'bg-rose-500/15 text-rose-600 dark:text-rose-300 ring-1 ring-rose-500/20',
+  dfir: 'bg-brand-500/10 text-brand-600 dark:text-brand-300',
+  threatintel: 'bg-rose-500/10 text-rose-600 dark:text-rose-300',
 };
 
 const TAGLINE: Record<'dfir' | 'threatintel', string> = {
@@ -81,13 +83,16 @@ export function TopBar({
   const MarkIcon = mark === 'dfir' ? Shield : Radar;
 
   return (
-    <header className="sticky top-0 z-40 border-b border-slate-200/60 bg-white/80 backdrop-blur-md sm:backdrop-blur-xl dark:border-[#1e2030] dark:bg-[#0a0a0f]/80 pt-[env(safe-area-inset-top)]">
+    // Geist chrome: surface-100 fill (white/80) + gray-alpha-400 border.
+    // Frosted via backdrop-blur; chrome-glass utility is reused from
+    // the design system so the header matches the footer.
+    <header className="sticky top-0 z-40 chrome-glass border-b border-[rgb(var(--border-400))] pt-[env(safe-area-inset-top)]">
       <div className="max-w-[1500px] mx-auto px-3 sm:px-6 h-14 sm:h-16 flex items-center gap-2 sm:gap-4">
         {onOpenMobileNav && (
           <button
             type="button"
             onClick={onOpenMobileNav}
-            className="md:hidden -ml-1 grid h-11 w-11 sm:h-9 sm:w-9 place-items-center rounded-lg border border-slate-200/60 bg-white/70 text-slate-600 transition hover:bg-slate-100 hover:text-slate-900 dark:border-[#1e2030] dark:bg-[#12121a]/60 dark:text-slate-300 dark:hover:bg-[#1e2030] dark:hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
+            className="md:hidden -ml-1 grid h-11 w-11 sm:h-9 sm:w-9 place-items-center rounded-md border border-[rgb(var(--border-400))] bg-white text-slate-700 transition-colors hover:bg-[rgb(var(--hover-100))] hover:border-[rgb(var(--border-500))] dark:bg-transparent dark:text-slate-200 dark:hover:bg-[rgb(var(--hover-100))] focus:outline-none"
             aria-label={mobileNavOpen ? 'Close navigation' : 'Open navigation'}
             aria-expanded={mobileNavOpen ?? false}
             aria-controls="mobile-sidebar-drawer"
@@ -153,7 +158,7 @@ export function TopBar({
         <button
           type="button"
           onClick={openPalette}
-          className="group flex-1 flex items-center gap-2 sm:gap-2.5 min-w-0 rounded-lg border border-slate-200/70 bg-slate-100/60 px-3 py-2 sm:px-3 sm:py-1.5 min-h-[44px] sm:min-h-0 text-left text-sm text-slate-500 transition hover:border-slate-300 hover:bg-white dark:border-[#1e2030] dark:bg-[#12121a]/60 dark:text-slate-400 dark:hover:border-[#2a2d42] dark:hover:bg-[#16161f] focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
+          className="group flex-1 flex items-center gap-2 sm:gap-2.5 min-w-0 rounded-md border border-[rgb(var(--border-400))] bg-[rgb(var(--surface-200))] px-3 py-2 sm:px-3 sm:py-1.5 min-h-[44px] sm:min-h-0 text-left text-sm text-slate-500 transition-colors hover:border-[rgb(var(--border-500))] hover:bg-white dark:bg-[rgb(var(--surface-200))] dark:text-slate-400 dark:hover:bg-[rgb(var(--surface-300))] focus:outline-none"
           aria-label="Open search (press Cmd+K or Ctrl+K)"
         >
           <Search
@@ -164,7 +169,7 @@ export function TopBar({
             {SEARCH_PLACEHOLDERS[searchKey] ?? `Search ${sectionLabel}…`}
           </span>
           {isMac !== null && (
-            <kbd className="hidden md:inline-flex items-center gap-0.5 rounded border border-slate-200 bg-white px-1.5 py-0.5 text-micro font-mono text-slate-600 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300">
+            <kbd className="hidden md:inline-flex items-center gap-0.5 rounded border border-[rgb(var(--border-400))] bg-white px-1.5 py-0.5 text-mini font-mono text-slate-600 dark:bg-[rgb(var(--surface-200))] dark:text-slate-300">
               {isMac ? '⌘' : 'Ctrl'} K
             </kbd>
           )}
@@ -174,7 +179,7 @@ export function TopBar({
         <button
           type="button"
           onClick={onToggleTheme}
-          className="grid h-11 w-11 sm:h-9 sm:w-9 place-items-center rounded-lg border border-slate-200/60 bg-white/70 text-slate-600 transition hover:bg-slate-100 hover:text-slate-900 dark:border-[#1e2030] dark:bg-[#12121a]/60 dark:text-slate-300 dark:hover:bg-[#1e2030] dark:hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
+          className="grid h-11 w-11 sm:h-9 sm:w-9 place-items-center rounded-md border border-[rgb(var(--border-400))] bg-white text-slate-700 transition-colors hover:bg-[rgb(var(--hover-100))] hover:border-[rgb(var(--border-500))] dark:bg-transparent dark:text-slate-200 dark:hover:bg-[rgb(var(--hover-100))] focus:outline-none"
           aria-label={`Switch to ${isDark ? 'light' : 'dark'} mode`}
           title={`Switch to ${isDark ? 'light' : 'dark'} mode`}
         >

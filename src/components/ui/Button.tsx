@@ -52,10 +52,10 @@ const VARIANT: Record<ButtonVariant, string> = {
 // data-tile chrome and xl (52) for the Contact CTA. Padding mirrors
 // the spec: 0 6 / 0 10 / 0 14 / 0 16.
 const SIZE: Record<ButtonSize, string> = {
-  xs: 'h-7 px-1.5 text-[13px] font-medium',
-  sm: 'h-8 px-2.5 text-[13px] font-medium',
+  xs: 'h-7 px-1.5 text-tool font-medium',
+  sm: 'h-8 px-2.5 text-tool font-medium',
   md: 'h-10 px-3 text-sm font-medium',
-  lg: 'h-12 px-4 text-[15px] font-medium',
+  lg: 'h-12 px-4 text-base font-medium',
   xl: 'h-[52px] px-5 text-base font-medium',
 };
 

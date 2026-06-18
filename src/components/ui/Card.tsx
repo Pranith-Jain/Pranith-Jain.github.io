@@ -19,11 +19,12 @@ const TONE_CLASSES: Record<'brand' | 'rose', string> = {
 };
 
 function interactiveVariant(tone: 'brand' | 'rose'): string {
-  return `border border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900 cursor-pointer transition-all hover:shadow-md focus-visible:outline-none focus-visible:ring-2 ${TONE_CLASSES[tone]}`;
+  return `border border-[rgb(var(--border-400))] bg-white dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] cursor-pointer transition-all hover:shadow-md focus-visible:outline-none focus-visible:ring-2 ${TONE_CLASSES[tone]}`;
 }
 
 const CARD_VARIANT: Record<'default' | 'glass' | 'surface' | 'interactive', string> = {
-  default: 'border border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900',
+  default:
+    'border border-[rgb(var(--border-400))] bg-white dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]',
   glass: 'glass',
   surface: 'surface',
   interactive: '', // computed in Card() based on tone

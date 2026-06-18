@@ -89,7 +89,7 @@ export function DataPageLayout({
       )}
 
       <div className="animate-fade-in-up mb-10">
-        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
+        <h1 className="text-3xl sm:text-4xl font-display font-semibold tracking-[-1.28px] mb-2 flex items-center gap-3">
           <span className={accentClass}>{icon}</span> {title}
         </h1>
         {description && <p className="text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed">{description}</p>}
