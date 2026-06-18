@@ -33,8 +33,6 @@ const TABS: Array<{ key: TabKey; label: string }> = [
   { key: 'pending', label: 'Pending' },
   { key: 'approved', label: 'Queue' },
   { key: 'schedule', label: 'Schedule' },
-  // Drafts sits between Schedule and Published — that's the order the
-  // pipeline transitions through when the approval gate is on.
   { key: 'drafts', label: 'Drafts' },
   { key: 'published', label: 'Published' },
   { key: 'manual', label: 'Manual' },
@@ -63,7 +61,6 @@ const STAGES: Array<{ stage: 'discover' | 'plan' | 'publish'; label: string; hin
 function summariseRunResult(stage: string, result: unknown): string {
   if (!result || typeof result !== 'object') return `${stage}: done`;
   const r = result as Record<string, unknown>;
-  // Common shapes from the worker handlers.
   if (typeof r.slug === 'string') return `${stage}: published /blog/${r.slug}`;
   if (typeof r.scheduled === 'number') return `${stage}: scheduled ${r.scheduled} slot(s)`;
   if (typeof r.discovered === 'number') return `${stage}: discovered ${r.discovered} candidate(s)`;
@@ -89,11 +86,6 @@ function PipelineBar() {
     }
   }
 
-  // Run the full pipeline in one click. Chained sequentially: discovery
-  // populates the pending queue, planner schedules the next 4-6 days, the
-  // publisher fires the now-due slot. Surfaces the cron "5 0 * * *" + "0 *
-  // * * *" sequence as a one-shot for the operator who wants to nudge the
-  // system without waiting for the next fire.
   async function runAll() {
     setBusy('all');
     setMsg(null);
@@ -114,16 +106,16 @@ function PipelineBar() {
   }
 
   return (
-    <div className="mb-6 rounded border border-slate-800 p-3">
+    <div className="mb-6 rounded-lg border border-[#1e2030] bg-[#12121a] p-4">
       <div className="flex flex-wrap items-center gap-2">
-        <span className="text-xs uppercase tracking-wider text-slate-500 mr-1">Pipeline</span>
+        <span className="text-xs font-mono uppercase tracking-wider text-slate-500 mr-2">Pipeline</span>
         {STAGES.map((s) => (
           <button
             key={s.stage}
             onClick={() => run(s.stage)}
             disabled={busy !== null}
             title={s.hint}
-            className="px-3 py-1 border border-slate-700 rounded text-sm hover:bg-slate-800 disabled:opacity-50"
+            className="px-3 py-1.5 border border-[#1e2030] rounded text-sm text-slate-300 hover:bg-[#16161f] hover:text-white disabled:opacity-50 transition-colors"
           >
             {busy === s.stage ? `${s.label}…` : s.label}
           </button>
@@ -131,21 +123,18 @@ function PipelineBar() {
         <button
           onClick={() => void runAll()}
           disabled={busy !== null}
-          title="Discover → Plan → Publish in sequence (≈ what the daily cron does)"
-          className="px-3 py-1 border border-emerald-700/60 text-emerald-300 rounded text-sm hover:bg-emerald-900/30 disabled:opacity-50"
+          title="Discover → Plan → Publish in sequence"
+          className="px-3 py-1.5 border border-emerald-500/30 text-emerald-400 rounded text-sm hover:bg-emerald-500/10 disabled:opacity-50 transition-colors"
         >
-          {busy === 'all' ? 'Running full pipeline…' : 'Run full pipeline'}
+          {busy === 'all' ? 'Running…' : 'Run full pipeline'}
         </button>
       </div>
-      {msg && <p className="mt-2 text-xs font-mono text-slate-400 break-all">{msg}</p>}
+      {msg && <p className="mt-3 text-xs font-mono text-slate-400 break-all">{msg}</p>}
     </div>
   );
 }
 
 export default function AdminApp() {
-  // 'probing' = checking cached token against /admin/health on mount so we
-  // don't render the shell with a stale token (which used to cascade into
-  // an N-fetch 401 reload storm on tabs that fan out).
   const [authStatus, setAuthStatus] = useState<'probing' | 'unauthed' | 'authed'>('probing');
   const [active, setActive] = useState<TabKey>('pending');
 
@@ -171,8 +160,6 @@ export default function AdminApp() {
 
   function logout() {
     clearAdminToken();
-    // Full reload guarantees every tab's in-flight fetch is dropped and that
-    // any cached state is cleared — simpler than trying to reset per-tab.
     window.location.reload();
   }
 
@@ -188,33 +175,40 @@ export default function AdminApp() {
   }
 
   return (
-    <div className="max-w-6xl mx-auto px-6 py-8">
+    <div className="max-w-6xl mx-auto px-6 py-8 min-h-screen">
+      {/* Header */}
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold text-slate-100">Case Study Admin</h1>
+        <div>
+          <h1 className="text-xl font-display font-bold text-white">Case Study Admin</h1>
+          <p className="text-xs font-mono text-slate-500 mt-0.5">Pipeline management and content admin</p>
+        </div>
         <button
           onClick={logout}
-          className="px-3 py-1 border border-slate-700 rounded text-sm text-slate-400 hover:bg-slate-800 hover:text-slate-200"
+          className="px-3 py-1.5 border border-[#1e2030] rounded text-sm text-slate-400 hover:bg-[#16161f] hover:text-white transition-colors"
         >
           Logout
         </button>
       </div>
+
       <PipelineBar />
-      <nav className="flex flex-wrap gap-1 border-b border-slate-800 mb-6">
+
+      {/* Tabs */}
+      <nav className="flex flex-wrap gap-1 border-b border-[#1e2030] mb-6">
         {TABS.map((t) => (
           <button
             key={t.key}
             onClick={() => setActive(t.key)}
-            className={
-              active === t.key
-                ? 'px-4 py-2 text-sm font-medium border-b-2 border-slate-100 -mb-px text-slate-100'
-                : 'px-4 py-2 text-sm text-slate-500 hover:text-slate-300'
-            }
+            className={`px-4 py-2 text-sm font-medium transition-colors ${
+              active === t.key ? 'border-b-2 border-brand-500 -mb-px text-white' : 'text-slate-500 hover:text-slate-300'
+            }`}
           >
             {t.label}
           </button>
         ))}
       </nav>
-      <section>
+
+      {/* Content */}
+      <section className="bg-[#12121a] border border-[#1e2030] rounded-lg p-4">
         {active === 'pending' && <PendingTab />}
         {active === 'approved' && <ApprovedTab />}
         {active === 'schedule' && <ScheduleTab />}

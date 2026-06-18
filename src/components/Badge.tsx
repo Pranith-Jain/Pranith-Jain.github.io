@@ -34,7 +34,7 @@ const SIZE: Record<BadgeSize, string> = {
 
 const TONE: Record<BadgeTone, string> = {
   // Default project-tag look — calm, surface-aware.
-  neutral: 'border-slate-200 bg-white/80 text-slate-700 dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-200',
+  neutral: 'border-slate-200 bg-white/80 text-slate-700 dark:border-[#1e2030] dark:bg-[#12121a]/60 dark:text-slate-200',
   brand:
     'border-brand-500/40 bg-brand-500/10 text-brand-700 dark:border-brand-400/40 dark:bg-brand-400/10 dark:text-brand-300',
   success:
@@ -43,7 +43,7 @@ const TONE: Record<BadgeTone, string> = {
     'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:border-rose-400/40 dark:bg-rose-400/10 dark:text-rose-300',
   warning:
     'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:border-amber-400/40 dark:bg-amber-400/10 dark:text-amber-300',
-  mono: 'border-slate-200 bg-slate-50 text-slate-700 font-mono dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-300',
+  mono: 'border-slate-200 bg-slate-50 text-slate-700 font-mono dark:border-[#1e2030] dark:bg-[#12121a]/60 dark:text-slate-300',
 };
 
 const DOT: Record<BadgeTone, string> = {

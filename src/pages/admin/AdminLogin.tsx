@@ -17,12 +17,8 @@ export default function AdminLogin({ onLogin }: Props) {
     if (!trimmed) return;
     setError(null);
     setBusy(true);
-    // Create an HttpOnly session cookie. The server validates the token
-    // and sets a Secure/HttpOnly/SameSite=Strict cookie that JS cannot
-    // read — the primary auth mechanism. localStorage is a fallback.
     const sessionOk = await createAdminSession(trimmed);
     if (sessionOk) {
-      // Cookie set — probe to confirm the session works
       const ok = await probeAuth();
       if (ok) {
         setBusy(false);
@@ -30,7 +26,6 @@ export default function AdminLogin({ onLogin }: Props) {
         return;
       }
     }
-    // Fallback: try direct header-based auth (legacy, or cookie failed)
     writeAdminToken(trimmed);
     const ok = await probeAuth();
     if (!ok) {
@@ -45,11 +40,15 @@ export default function AdminLogin({ onLogin }: Props) {
   }
 
   return (
-    <div className="max-w-sm mx-auto px-6 py-16">
-      <h1 className="text-2xl font-bold text-slate-100 mb-6">Case Study Admin</h1>
+    <div className="max-w-sm mx-auto px-6 py-16 min-h-screen flex flex-col justify-center">
+      <h1 className="text-xl font-display font-bold text-white mb-1">Case Study Admin</h1>
+      <p className="text-xs font-mono text-slate-500 mb-6">Enter your admin token to continue</p>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label htmlFor="adminToken" className="block text-xs uppercase tracking-wider text-slate-500 mb-1">
+          <label
+            htmlFor="adminToken"
+            className="block text-xs font-mono uppercase tracking-wider text-slate-500 mb-1.5"
+          >
             Admin Token
           </label>
           <input
@@ -58,7 +57,8 @@ export default function AdminLogin({ onLogin }: Props) {
             autoComplete="off"
             value={value}
             onChange={(e) => setValue(e.target.value)}
-            className="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded text-slate-100 focus:outline-none focus:border-brand-500"
+            className="w-full px-3 py-2.5 bg-[#0e0e15] border border-[#1e2030] rounded text-slate-100 font-mono text-sm focus:outline-none focus:border-brand-500 transition-colors"
+            placeholder="Paste token..."
           />
         </div>
         {error && (
@@ -69,7 +69,7 @@ export default function AdminLogin({ onLogin }: Props) {
         <button
           type="submit"
           disabled={busy || !value.trim()}
-          className="w-full px-4 py-2 bg-brand-600 text-white rounded font-medium hover:bg-brand-500 disabled:opacity-50"
+          className="w-full px-4 py-2.5 bg-brand-600 text-white rounded font-medium hover:bg-brand-500 disabled:opacity-50 transition-colors"
         >
           {busy ? 'Checking…' : 'Sign in'}
         </button>

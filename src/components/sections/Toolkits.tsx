@@ -6,13 +6,14 @@ const toolkits = [
     id: 'dfir',
     icon: Shield,
     title: 'DFIR Toolkit',
-    description: 'Browser-side tools I built for the incidents I work — edge-hosted on Cloudflare, free, no signup.',
+    description:
+      'Check if an indicator is malicious, investigate phishing, triage CVEs, convert detection rules, and more — 60+ tools that run in your browser.',
     rows: [
-      ['IOC checker', '20+ providers · SSE streaming'],
-      ['Frameworks', 'Diamond Model · Kill Chain · MITRE ATT&CK'],
-      ['STIX 2.1 viewer', 'Interactive relationship graph'],
+      ['IOC checker', 'Paste an IP, domain, or hash → verdict from 24 sources'],
+      ['Common tasks', 'Phishing analysis · CVE triage · rule conversion'],
+      ['How it works', 'Runs entirely in your browser — no data leaves your machine'],
     ],
-    builtWith: ['Cloudflare Workers', 'Hono', 'SSE', 'TypeScript'],
+    builtWith: ['Free', 'No signup', 'Client-side'],
     href: '/dfir',
     stat: '60+',
     statLabel: 'tools',
@@ -22,15 +23,16 @@ const toolkits = [
     id: 'threatintel',
     icon: Radio,
     title: 'Threat Intel Platform',
-    description: 'Live CTI surface that correlates 18 feeds into consensus verdicts instead of single-source noise.',
+    description:
+      'Monitor ransomware activity, track threat actors, and stay ahead of campaigns — live intelligence from 30+ public feeds.',
     rows: [
-      ['IOC correlation', '18 feeds · cross-source consensus'],
-      ['Coverage', 'Ransomware · dark web · breaches · actors'],
-      ['Export', 'STIX 2.1 bundle · actor KB · live detections'],
+      ['Live feeds', 'Ransomware leaks · CVEs · dark web · social media'],
+      ['Common tasks', 'Actor research · IOC enrichment · campaign tracking'],
+      ['How it works', 'Aggregates 30+ feeds so you see the full picture, not noise'],
     ],
-    builtWith: ['Cloudflare Workers', 'Durable Objects', 'Python', 'STIX 2.1'],
+    builtWith: ['Free', 'No login', 'Edge-hosted'],
     href: '/threatintel',
-    stat: '18',
+    stat: '30+',
     statLabel: 'feeds',
     cta: 'Open the platform',
   },
@@ -42,10 +44,10 @@ export function Toolkits() {
       <div className="mb-8 max-w-3xl">
         <div className="mb-3 text-eyebrow font-mono uppercase text-slate-500 dark:text-slate-400">Tooling</div>
         <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
-          Toolkits I ship
+          Security tools I built
         </h2>
         <p className="mt-3 text-base sm:text-lg text-muted leading-relaxed">
-          Edge-hosted security tools that do the work alongside me — free, no login, built in public.
+          Free, no signup, runs in your browser. Check indicators, investigate threats, and stay ahead of attackers.
         </p>
       </div>
 
@@ -56,7 +58,7 @@ export function Toolkits() {
             <Link
               key={tk.id}
               to={tk.href}
-              className="group card-hover flex flex-col rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-6 transition h-full"
+              className="group card-hover flex flex-col rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] p-6 transition h-full"
             >
               <div className="flex items-start justify-between mb-4">
                 <div className="grid h-10 w-10 place-items-center rounded-md bg-brand-50 text-brand-600 dark:bg-brand-900/30 dark:text-brand-300">
@@ -88,7 +90,7 @@ export function Toolkits() {
                 {tk.builtWith.map((tech) => (
                   <span
                     key={tech}
-                    className="rounded border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/60 px-2 py-0.5 text-micro font-mono text-slate-500 dark:text-slate-400"
+                    className="rounded border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-[#15151f] px-2 py-0.5 text-micro font-mono text-slate-500 dark:text-slate-400"
                   >
                     {tech}
                   </span>

@@ -31,7 +31,7 @@ export function MobileSidebarDrawer({ open, onClose, config }: MobileSidebarDraw
       size="sm"
       className="md:hidden"
     >
-      <div id="mobile-sidebar-drawer" className="flex flex-col h-full bg-white dark:bg-slate-950">
+      <div id="mobile-sidebar-drawer" className="flex flex-col h-full bg-white dark:bg-[#0a0a0f] dark:text-slate-100">
         <SidebarContent config={config} />
       </div>
     </Drawer>

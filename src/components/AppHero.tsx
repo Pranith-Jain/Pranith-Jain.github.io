@@ -32,7 +32,7 @@ export function AppHero({
     },
   }[tone];
   return (
-    <section className="relative overflow-hidden rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 sm:p-6 lg:p-8 mb-4 sm:mb-6">
+    <section className="relative overflow-hidden rounded-2xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] p-4 sm:p-6 lg:p-8 mb-4 sm:mb-6">
       {/* Brand wash — this is the page anchor, it should read heavier than
           the uniform cards below it (hierarchy, not more chrome). */}
       <div

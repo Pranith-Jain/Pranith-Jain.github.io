@@ -6,6 +6,9 @@ import { LatestBriefingCard } from '../components/threatintel/LatestBriefingCard
 import { GlobalPulseCard } from '../components/threatintel/GlobalPulseCard';
 import { ErrorBoundary } from '../components/ErrorBoundary';
 import { RecentWritingSkeleton } from '../components/RecentWriting';
+import { QuoteOfTheDay } from '../components/QuoteOfTheDay';
+import { ToolOfTheDay } from '../components/ToolOfTheDay';
+import { PageToCheckOut } from '../components/PageToCheckOut';
 import { personalInfo } from '../data/content';
 import { useInView } from '../hooks/useInView';
 import { useDocumentMeta } from '../hooks/useDocumentMeta';
@@ -34,13 +37,6 @@ export default function Home() {
     canonicalPath: '/',
   });
 
-  // Hunt.io-inspired vertical rhythm:
-  //   Hero              -> 0 (sits at the top)
-  //   LiveSignalStrip   -> mt-12  (3rem)  — pairs with the hero's stat row
-  //   Briefing+Global   -> mt-6   (1.5rem)— sits inside the same data band
-  //   Toolkits          -> mt-20  (5rem)  — first primary section
-  //   RecentWriting     -> mt-16  (4rem)
-  //   Contact           -> mt-24  (6rem)  — the closer, gets the most air
   return (
     <>
       <Hero personalInfo={personalInfo} />
@@ -56,11 +52,19 @@ export default function Home() {
         </div>
       </RevealSection>
 
-      <RevealSection className="mt-20">
-        <Toolkits />
+      <RevealSection className="mt-16">
+        <div className="grid gap-3 sm:grid-cols-3">
+          <QuoteOfTheDay />
+          <ToolOfTheDay />
+          <PageToCheckOut />
+        </div>
       </RevealSection>
 
       <RevealSection className="mt-16">
+        <Toolkits />
+      </RevealSection>
+
+      <RevealSection className="mt-12">
         <ErrorBoundary fallback={null}>
           <Suspense fallback={<RecentWritingSkeleton />}>
             <RecentWriting />
@@ -68,7 +72,7 @@ export default function Home() {
         </ErrorBoundary>
       </RevealSection>
 
-      <RevealSection className="mt-24">
+      <RevealSection className="mt-20">
         <Contact personalInfo={personalInfo} />
       </RevealSection>
     </>

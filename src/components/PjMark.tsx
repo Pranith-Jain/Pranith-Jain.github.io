@@ -16,7 +16,7 @@ export function PjMark({ className }: { className?: string }): JSX.Element {
           <stop offset="100%" stopColor="#435ef1" />
         </linearGradient>
       </defs>
-      <rect width="36" height="36" rx="8" fill={`url(#${id})`} />
+      <rect width="36" height="36" rx="4" fill={`url(#${id})`} />
       <text
         x="50%"
         y="50%"

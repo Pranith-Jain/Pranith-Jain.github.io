@@ -1,81 +1,142 @@
-import { useMemo, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import {
   ArrowRight,
+  Bug,
   Compass,
-  Filter as FilterIcon,
+  Crosshair,
+  Clock,
+  FileSearch,
+  FileText,
   GitBranch,
+  Globe,
   Hash,
   Mail,
   Search,
+  Shield,
   ShieldAlert,
   X,
-  Zap,
   type LucideIcon,
 } from 'lucide-react';
-import { MAIN_TOOL_COUNT, UTILITY_TOOLS } from '../components/dfir/tool-sections';
-import { HUB_META, type HubMeta, type HubPage } from '../data/dfir-hubs';
-import { ToolSearchBar } from '../components/dfir/ToolSearchBar';
-import { personalInfo } from '../data/content';
-import { AppHero } from '../components/AppHero';
+import { MAIN_TOOL_COUNT } from '../components/dfir/tool-sections';
 import { catalogSearch } from '../data/dfir-catalog';
-
-import { QuickActions, type QuickAction } from '../components/QuickActions';
-import { RecentToolsRow } from '../components/RecentToolsRow';
-import { CapabilityBand } from '../components/dfir/CapabilityBand';
+import { useRecentTools } from '../hooks/useRecentTools';
+import { getSidebarForSection } from '../data/sidebar-nav';
 
 /**
- * "Start here." Three tools, one prescribed sequence. Solves the hub
- * problem: a first-time visitor on the toolkit index doesn't know which
- * of the 60 tiles is the right place to start. This isn't "our best
- * three"; it's a 60-second onboarding path. Each pick has a concrete
- * "do this if you..." trigger, not a generic feature pitch.
+ * DFIR home page — redesigned following SaaS UX patterns from
+ * Huntress, Shodan, and Recorded Future.
  *
- * Ordering matters: IOC check is the universal entry, the lab/converter
- * pair is the detection-engineering loop, and CVE prioritizer is the
- * "I have a CVE number on my plate today" lookup. Three different jobs,
- * three different audiences. If a visitor only clicks one, they should
- * still land on something useful for them.
+ * Structure:
+ *   1. Bold hero — "What is this?" in one sentence + primary search
+ *   2. Stats — Social proof (Huntress "5M+ endpoints" pattern)
+ *   3. Category overview — 8 clean topic cards (NOT 60+ individual tools)
+ *   4. Quick access — Most-used tools for returning users
+ *   5. Getting started — 3-step guide for novices
+ *   6. Case studies — "Used in real cases" (proven credibility)
+ *   7. Full catalog — One click away
  */
-interface StartHerePick {
-  path: string;
-  trigger: string;
-  action: string;
+
+/* ------------------------------------------------------------------ */
+/*  Category cards — the primary navigation surface                    */
+/* ------------------------------------------------------------------ */
+
+interface CategoryCard {
+  id: string;
+  label: string;
+  description: string;
+  icon: LucideIcon;
+  href: string;
+  tone: string;
+  pages: number;
 }
-const START_HERE: StartHerePick[] = [
+
+const CATEGORY_CARDS: CategoryCard[] = [
   {
-    path: '/dfir/ioc-check',
-    trigger: 'You have one suspicious indicator (IP, domain, URL, or hash).',
-    action: 'Paste it. 24 providers in parallel, cross-source consensus in under a second.',
+    id: 'ioc-triage',
+    label: 'IOC Triage',
+    description: 'Check IPs, domains, URLs, and hashes across 24+ sources. Get consensus verdicts in seconds.',
+    icon: Crosshair,
+    href: '/dfir/catalog?cat=ioc-triage',
+    tone: 'text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-900/20 border-rose-200 dark:border-rose-800',
+    pages: 9,
   },
   {
-    path: '/dfir/detection-lab',
-    trigger: 'You write or evaluate detection rules.',
-    action:
-      'Author against a curated event corpus, see fires in seconds, then export through the Rule Converter to Sigma, KQL, SPL, EQL, Lucene, or YARA.',
+    id: 'malware',
+    label: 'Malware Analysis',
+    description: 'Triage samples, parse stealer logs, extract capabilities, and submit to sandboxes.',
+    icon: Bug,
+    href: '/dfir/catalog?cat=malware',
+    tone: 'text-orange-600 dark:text-orange-400 bg-orange-50 dark:bg-orange-900/20 border-orange-200 dark:border-orange-800',
+    pages: 7,
   },
   {
-    path: '/dfir/cve-prioritizer',
-    trigger: 'You have a CVE ID and a stakeholder asking how worried to be.',
-    action:
-      'Get a verdict that combines CVSS, EPSS, CISA KEV, and ransomware-use signals into a single patch-priority call.',
+    id: 'email-security',
+    label: 'Email Security',
+    description: 'Analyze phishing, audit SPF/DKIM/DMARC, check BEC risk, and inspect email headers.',
+    icon: Mail,
+    href: '/dfir/catalog?cat=email-security',
+    tone: 'text-violet-600 dark:text-violet-400 bg-violet-50 dark:bg-violet-900/20 border-violet-200 dark:border-violet-800',
+    pages: 5,
+  },
+  {
+    id: 'cloud-iam',
+    label: 'Cloud & IAM',
+    description: 'Audit AWS, GCP, Azure IAM policies. Analyze CloudTrail, K8s RBAC, and security groups.',
+    icon: Shield,
+    href: '/dfir/catalog?cat=cloud-iam',
+    tone: 'text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/20 border-emerald-200 dark:border-emerald-800',
+    pages: 7,
+  },
+  {
+    id: 'detection',
+    label: 'Detection & Rules',
+    description: 'Author, convert, and test detection rules. Sigma, KQL, YARA, SPL — all in one place.',
+    icon: FileSearch,
+    href: '/dfir/catalog?cat=detection',
+    tone: 'text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-900/20 border-amber-200 dark:border-amber-800',
+    pages: 8,
+  },
+  {
+    id: 'forensics',
+    label: 'Forensics & Triage',
+    description: 'Parse EVTX logs, registry hives, PCAPs, prefetch files, and iOS backups.',
+    icon: FileText,
+    href: '/dfir/catalog?cat=forensics',
+    tone: 'text-sky-600 dark:text-sky-400 bg-sky-50 dark:bg-sky-900/20 border-sky-200 dark:border-sky-800',
+    pages: 8,
+  },
+  {
+    id: 'web-reputation',
+    label: 'Web & Domain Intel',
+    description: 'Check domain reputation, WHOIS, DNS, certificates, URL safety, and open directories.',
+    icon: Globe,
+    href: '/dfir/catalog?cat=web-reputation',
+    tone: 'text-pink-600 dark:text-pink-400 bg-pink-50 dark:bg-pink-900/20 border-pink-200 dark:border-pink-800',
+    pages: 8,
+  },
+  {
+    id: 'frameworks',
+    label: 'Frameworks & Models',
+    description: 'MITRE ATT&CK, Diamond Model, Kill Chain, OWASP, STIX/TAXII — visual frameworks for analysis.',
+    icon: GitBranch,
+    href: '/dfir/catalog?cat=frameworks',
+    tone: 'text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/20 border-indigo-200 dark:border-indigo-800',
+    pages: 7,
   },
 ];
 
-/**
- * Real cases that exercised the toolkit. The point of this panel: prove
- * the 60 tools aren't an inventory, they're a workshop. Each row links a
- * case study (already written, already publicly readable on this site)
- * to the specific tools it used, with a one-line description of what the
- * tool did inside the case. No telemetry; the anchor is the prose body
- * of the case study, which is the durable artefact.
- */
+/* ------------------------------------------------------------------ */
+/*  Case studies — Huntress "Global Threats We've Wrecked" pattern     */
+/* ------------------------------------------------------------------ */
+
 interface ToolCase {
   caseSlug: string;
   caseTitle: string;
   tools: { path: string; label: string }[];
   contribution: string;
 }
+
 const TOOL_CASES: ToolCase[] = [
   {
     caseSlug: '/projects/phishing-program-at-scale',
@@ -85,14 +146,13 @@ const TOOL_CASES: ToolCase[] = [
       { path: '/dfir/email-defense', label: 'Email Defense' },
     ],
     contribution:
-      'Cross-source consensus on the IOC checker is what re-classified ~12% of "suspicious, escalate" cases as single-feed false alarms. Email Defense pre-filtered the SPF/DKIM/DMARC posture of new vendor domains before any reply went out.',
+      'Cross-source consensus on the IOC checker re-classified ~12% of "suspicious, escalate" cases as single-feed false alarms.',
   },
   {
     caseSlug: '/projects/dmarc-enforcement-1300-domains',
     caseTitle: 'DMARC enforcement across 1,300+ domains',
     tools: [{ path: '/dfir/email-defense', label: 'Email Defense / BEC Score' }],
-    contribution:
-      'The audit rules in Email Defense came directly from the failure modes seen in this rollout. Same code paths now live as the public scanner.',
+    contribution: 'The audit rules in Email Defense came directly from the failure modes seen in this rollout.',
   },
   {
     caseSlug: '/projects/dfir-toolkit-design',
@@ -102,550 +162,468 @@ const TOOL_CASES: ToolCase[] = [
       { path: '/dfir/rule-converter', label: 'Rule Converter' },
     ],
     contribution:
-      'The lab and converter are not independent tools; they are one detection-engineering loop. Author in the lab, prove the rule fires, export to the SIEM dialect you actually run. This is the pairing that justified shipping both.',
+      'Author in the lab, prove the rule fires, export to the SIEM dialect you actually run. One detection-engineering loop.',
   },
   {
     caseSlug: '/projects/threat-intel-platform-build',
     caseTitle: 'Autonomous CTI pipeline (layer-1 + layer-2 IOC defence)',
     tools: [{ path: '/dfir/ioc-check', label: 'IOC & Hash Checker' }],
     contribution:
-      'The same VT / AbuseIPDB / abuse.ch validators that power the public IOC checker also gate every IOC the autonomous case-study pipeline emits before it reaches a draft. The defence layer is shared, not duplicated.',
+      'The same validators that power the public IOC checker also gate every IOC the autonomous pipeline emits.',
   },
 ];
 
-const PROVIDER_GROUPS: { label: string; items: string[] }[] = [
-  {
-    label: 'Commercial (key required)',
-    items: ['VirusTotal', 'AbuseIPDB', 'Shodan', 'OTX', 'URLScan', 'Hybrid Analysis'],
-  },
-  {
-    label: 'abuse.ch (one shared free key)',
-    items: ['ThreatFox', 'URLhaus', 'MalwareBazaar'],
-  },
-  {
-    label: 'Public lists & DoH (no signup)',
-    items: [
-      'Spamhaus',
-      'Tor Exit',
-      'OpenPhish',
-      'PhishStats',
-      'CINS Army',
-      'CIRCL Hashlookup',
-      'Cloudflare DoH',
-      'Quad9',
-      'Bitwire',
-      'Blocklist.de',
-      'Binary Defense',
-      'Ipsum',
-      'Phishing Army',
-      'TweetFeed',
-      'crt.sh',
-      'RDAP',
-    ],
-  },
-];
-
-/**
- * The 4 most-clicked surfaces in the DFIR toolkit, surfaced as
- * "Quick actions" directly below the AppHero. Solves the "I'm back,
- * just get me to the thing" problem: a returning analyst doesn't
- * need the prescribed Start-here sequence, the Featured grid, or the
- * category picker — they need IOC check / search / rule converter /
- * CVE prioritizer in one row of large tiles.
- *
- * The `hint` field on the search action renders the ⌘K shortcut so
- * keyboard-first users see the affordance inline (TopBar also has
- * the same hint, but reinforcing it on the landing increases
- * discoverability for first-time visitors).
- */
-const QUICK_ACTIONS: QuickAction[] = [
-  {
-    to: '/dfir/ioc-check',
-    label: 'IOC Check',
-    description: 'Streaming verdicts across 24 providers in parallel.',
-    icon: Hash,
-  },
-  {
-    to: '/dfir/email-defense',
-    label: 'Email Defense',
-    description: 'SPF / DKIM / DMARC / BIMI audit with failure modes called out.',
-    icon: Mail,
-  },
-  {
-    to: '/dfir/rule-converter',
-    label: 'Rule Converter',
-    description: 'Sigma ↔ KQL ↔ SPL ↔ YARA via one canonical IR.',
-    icon: GitBranch,
-  },
-  {
-    to: '/dfir/cve-prioritizer',
-    label: 'CVE Prioritizer',
-    description: 'CVSS + EPSS + KEV + ransomware-use in one call.',
-    icon: ShieldAlert,
-  },
-];
+/* ------------------------------------------------------------------ */
+/*  Main component                                                     */
+/* ------------------------------------------------------------------ */
 
 export default function DFIRPage(): JSX.Element {
-  return (
-    <div className="w-full py-4 sm:py-8 text-slate-900 dark:text-slate-100 space-y-6 sm:space-y-8">
-      <AppHero
-        kicker="Privacy-first · No upload · No login · Local analysis only"
-        title="DFIR & security toolkit"
-        sub="Scanners, decoders, forensic parsers, lookups and frameworks that run entirely in your browser. Sub-200ms IOC checks across 22 sources, no signup, no key."
-        meta={
-          <>
-            {MAIN_TOOL_COUNT} tools · by{' '}
-            <Link to="/" className="text-brand-600 dark:text-brand-400 hover:underline">
-              {personalInfo.name}
-            </Link>{' '}
-            ·{' '}
-            <Link to="/dfir/tools/about" className="text-brand-600 dark:text-brand-400 hover:underline">
-              about
-            </Link>{' '}
-            · live feeds:{' '}
-            <Link to="/threatintel" className="text-brand-600 dark:text-brand-400 hover:underline">
-              /threatintel
-            </Link>
-          </>
+  const navigate = useNavigate();
+  const [query, setQuery] = useState('');
+  const [iocInput, setIocInput] = useState('');
+  const inputRef = useRef<HTMLInputElement | null>(null);
+  const searchResults = useMemo(() => (query.trim() ? catalogSearch(query) : null), [query]);
+  const isSearching = query.trim().length > 0;
+  const location = typeof window !== 'undefined' ? window.location.pathname : '/dfir';
+  const { entries: recentTools, isHydrated } = useRecentTools('dfir', location, 6);
+
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      const target = e.target as HTMLElement | null;
+      const inField = target && /^(INPUT|TEXTAREA)$/.test(target.tagName);
+      if (e.key === 'Escape' && document.activeElement === inputRef.current) {
+        setQuery('');
+        return;
+      }
+      if (inField) return;
+      if (e.key === '/' || ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k')) {
+        e.preventDefault();
+        inputRef.current?.focus();
+      }
+    };
+    window.addEventListener('keydown', handler);
+    return () => window.removeEventListener('keydown', handler);
+  }, []);
+
+  // Sidebar lookup for recent tool icons
+  const sidebarLookup = useMemo(() => {
+    const map = new Map<string, { icon: LucideIcon; label: string }>();
+    const sidebar = getSidebarForSection('/dfir');
+    if (sidebar) {
+      for (const g of sidebar.groups) {
+        for (const it of g.items) {
+          map.set(it.href, { icon: it.icon, label: it.label });
         }
-      />
-      {/* Capability band — elevates the old static StatBar figures into the
-          same operations-console cluster used on /threatintel, under a static
-          TOOLKIT mark (no live feeds here to fake). Build date moves to the
-          thin caption below. */}
-      <div>
-        <CapabilityBand />
-        <p className="mt-2 px-1 font-mono text-mini text-slate-400">
-          {MAIN_TOOL_COUNT} tools · client-side · build {__BUILD_DATE__}
-        </p>
-      </div>
+      }
+    }
+    return map;
+  }, []);
 
-      {/* Quick actions — the dock a returning analyst uses 90% of the
-          time. Placed BEFORE the prose-y "Start here" sequence because
-          it answers the "I'm back, get me in" question first; the
-          prescribed onboarding below carries the first-time-visitor
-          flow. Each tile has a one-line description so a returning
-          user who's forgotten which tool is which can self-orient. */}
-      <QuickActions actions={QUICK_ACTIONS} />
+  return (
+    <div className="w-full py-4 sm:py-8 text-slate-900 dark:text-slate-100 space-y-6">
+      {/* ── Hero — bold value prop + primary search ───────────── */}
+      <section className="relative overflow-hidden rounded-2xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] p-6 sm:p-8 lg:p-10">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -top-24 -right-16 h-56 w-56 rounded-full bg-brand-500/10 dark:bg-brand-400/10 blur-3xl"
+        />
+        <div className="relative">
+          <div className="text-mini font-mono uppercase tracking-[0.18em] text-brand-600 dark:text-brand-400 mb-3 inline-flex items-center gap-2">
+            Free · No signup · Runs in your browser
+          </div>
+          <h1 className="font-display font-bold text-3xl sm:text-4xl lg:text-5xl leading-[1.1] tracking-tight">
+            Investigate faster.
+            <br />
+            Respond with confidence.
+          </h1>
+          <p className="text-slate-600 dark:text-slate-300 mt-4 max-w-3xl text-base sm:text-lg leading-relaxed">
+            Check if an indicator is malicious, investigate phishing, triage CVEs, convert detection rules, and more —
+            60+ tools that run entirely in your browser with no data leaving your machine.
+          </p>
 
-      {/* Recently used — surfaces the last few tools the user actually
-          opened (tracked in localStorage by the AppShell on every
-          route change). Renders only after the user has visited at
-          least 2 distinct paths, so first-time visitors don't see an
-          empty/half-empty row. Sits ABOVE the curated QuickActions so
-          a power user gets to their last tool in one tap. */}
-      <RecentToolsRow section="dfir" />
+          {/* Primary search — the VirusTotal/Shodan pattern */}
+          <div className="mt-6 relative max-w-2xl">
+            <Search
+              size={16}
+              className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
+              aria-hidden="true"
+            />
+            <input
+              ref={inputRef}
+              type="text"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Search 60+ tools — IOC check, phishing, CVEs, decoders..."
+              className="w-full rounded-xl border border-slate-200 bg-slate-50 py-3 pl-11 pr-24 font-mono text-sm text-slate-900 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/20 dark:border-[#1e2030] dark:bg-[#0e0e15] dark:text-slate-100 dark:placeholder:text-slate-500"
+              aria-label="Search DFIR tools"
+            />
+            {query ? (
+              <button
+                type="button"
+                onClick={() => {
+                  setQuery('');
+                  inputRef.current?.focus();
+                }}
+                className="absolute right-3 top-1/2 inline-flex -translate-y-1/2 items-center gap-1 rounded px-2 py-1 text-xs font-mono text-slate-500 hover:bg-slate-200 hover:text-slate-900 dark:hover:bg-slate-700 dark:hover:text-slate-100"
+                aria-label="Clear search"
+              >
+                <X size={12} /> clear
+              </button>
+            ) : (
+              <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 hidden items-center gap-1 font-mono text-xs text-slate-400 sm:inline-flex">
+                <kbd className="rounded border border-slate-200 bg-white px-1.5 py-0.5 text-xs dark:border-slate-600 dark:bg-slate-700">
+                  /
+                </kbd>
+                <span>or</span>
+                <kbd className="rounded border border-slate-200 bg-white px-1.5 py-0.5 text-xs dark:border-slate-600 dark:bg-slate-700">
+                  ⌘K
+                </kbd>
+              </span>
+            )}
+          </div>
 
-      {/* Tool search — inline equivalent of the Cmd+K palette. Replaces
-          the previous "Paste an indicator" IOC-dispatch input that lived
-          here; that flow is still one click away via the first "Start
-          here" entry below (IOC & Hash Checker). For a returning analyst
-          who knows which of the 60+ tools they want, this is the fastest
-          path; for a first-time visitor, the prescribed Start-here
-          sequence below carries the navigational weight. */}
-      <ToolSearchBar />
-
-      {/* Start here — 3-tool prescribed sequence for a first-time visitor.
-          Solves the hub problem (60 tiles, no direction). Different from
-          "Featured" below: that's editorial best-of; this is "if you only
-          have 60 seconds, run one of these three." */}
-      <section>
-        <div className="flex items-baseline gap-3 mb-4">
-          <Zap size={16} className="text-brand-600 dark:text-brand-400" aria-hidden="true" />
-          <h2 className="font-display font-bold text-xl text-slate-900 dark:text-slate-100">Start here</h2>
-        </div>
-        <p className="text-sm text-slate-600 dark:text-slate-400 mb-4 max-w-3xl leading-relaxed">
-          Three picks, one prescribed sequence. Skip the grid below if any of these match what's on your screen right
-          now.
-        </p>
-        <ol className="stagger grid gap-3 sm:grid-cols-3">
-          {START_HERE.map((p, i) => (
-            <li key={p.path}>
+          {/* Popular shortcuts */}
+          <div className="mt-4 flex flex-wrap items-center gap-3 text-xs text-slate-500 dark:text-slate-400">
+            <span>Popular:</span>
+            {[
+              { label: 'IOC Check', href: '/dfir/ioc-check' },
+              { label: 'Email Defense', href: '/dfir/email-defense' },
+              { label: 'CVE Prioritizer', href: '/dfir/cve-prioritizer' },
+              { label: 'Rule Converter', href: '/dfir/rule-converter' },
+            ].map((link) => (
               <Link
-                to={p.path}
-                className="group block h-full rounded-xl border border-brand-500/20 bg-brand-50/30 dark:bg-brand-900/10 p-4 hover:border-brand-500/60 transition"
+                key={link.href}
+                to={link.href}
+                className="inline-flex items-center gap-1 rounded-full border border-slate-200 bg-white px-2.5 py-1 text-xs font-medium text-slate-600 hover:border-brand-300 hover:text-brand-600 dark:border-[#1e2030] dark:bg-[#12121a] dark:text-slate-300 dark:hover:border-brand-600 dark:hover:text-brand-400 transition-colors"
               >
-                <div className="flex items-baseline gap-2 mb-2">
-                  <span className="font-mono text-mini text-brand-600 dark:text-brand-400">{`0${i + 1}`}</span>
-                  <span className="font-mono text-mini uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">
-                    {p.path.replace('/dfir/', '')}
-                  </span>
-                </div>
-                <p className="text-sm font-medium text-slate-900 dark:text-slate-100 mb-1.5 leading-snug">
-                  {p.trigger}
-                </p>
-                <p className="text-meta text-slate-600 dark:text-slate-400 leading-relaxed">{p.action}</p>
-                <div className="mt-2.5 inline-flex items-center gap-1 text-mini font-mono text-brand-600 dark:text-brand-400 group-hover:underline">
-                  open <ArrowRight size={11} aria-hidden="true" />
-                </div>
+                {link.label}
               </Link>
-            </li>
-          ))}
-        </ol>
-      </section>
-
-      <section className="animate-fade-in-up">
-        <div className="mb-6 flex items-baseline justify-between gap-3 border-t border-slate-200/70 pt-6 dark:border-slate-800">
-          <h2 className="font-display text-base font-semibold text-slate-700 dark:text-slate-300 mb-2">Pick a workbench</h2>
-          <Link
-            to="/dfir/catalog"
-            className="text-xs font-mono text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
-          >
-            full catalog <ArrowRight size={12} aria-hidden="true" />
-          </Link>
-        </div>
-        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {HUB_META.map((h) => {
-            const Icon = h.icon;
-            return (
-              <Link
-                key={h.id}
-                to={`/dfir/catalog?cat=${h.id}`}
-                className="group surface-card p-5 transition hover:-translate-y-0.5 hover:border-brand-500/50 hover:shadow-e2"
-              >
-                <div className="flex items-center justify-between mb-1.5">
-                  <span className="flex items-center gap-2 font-display font-semibold text-slate-900 dark:text-slate-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
-                    <span className={`inline-flex items-center justify-center rounded-md border px-1.5 py-1 ${h.tone}`}>
-                      <Icon size={14} aria-hidden="true" />
-                    </span>
-                    {h.label}
-                  </span>
-                  <ArrowRight
-                    size={14}
-                    className="text-slate-300 dark:text-slate-700 group-hover:text-brand-500 transition-colors"
-                    aria-hidden="true"
-                  />
-                </div>
-                <p className="text-tool text-slate-600 dark:text-slate-400 leading-relaxed">{h.blurb}</p>
-                <p className="mt-2 font-mono text-mini text-slate-400">
-                  {h.pages.length} {h.pages.length === 1 ? 'tool' : 'tools'}
-                </p>
-              </Link>
-            );
-          })}
-        </div>
-      </section>
-
-      {/* Used in real cases — proves the toolkit isn't an inventory. Each
-          row links a case study (already published on this site) to the
-          specific tools the case exercised, with a sentence of context.
-          Anchored to the prose body of the case study, not telemetry. */}
-      <section>
-        <details>
-          <summary className="cursor-pointer rounded font-display text-xl font-bold text-slate-900 hover:text-brand-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 dark:text-slate-100 dark:hover:text-brand-400">
-            Used in real cases{' '}
-            <span className="font-mono text-mini font-normal text-slate-500 dark:text-slate-400">({TOOL_CASES.length})</span>
-          </summary>
-          <ul className="mt-5 space-y-3">
-            {TOOL_CASES.map((tc) => (
-              <li
-                key={tc.caseSlug}
-                className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-4"
-              >
-                <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-1.5">
-                  <Link
-                    to={tc.caseSlug}
-                    className="font-display font-semibold text-base text-slate-900 dark:text-white hover:text-brand-600 dark:hover:text-brand-400"
-                  >
-                    {tc.caseTitle}
-                  </Link>
-                  <span className="text-mini font-mono text-slate-500 dark:text-slate-400">{tc.caseSlug}</span>
-                </div>
-                <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-2">{tc.contribution}</p>
-                <div className="flex flex-wrap gap-1.5">
-                  {tc.tools.map((t) => (
-                    <Link
-                      key={t.path}
-                      to={t.path}
-                      className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-brand-500/60 hover:text-brand-600 dark:hover:text-brand-400"
-                    >
-                      {t.label}
-                    </Link>
-                  ))}
-                </div>
-              </li>
             ))}
-          </ul>
-        </details>
+          </div>
+
+          {/* Stats — Huntress "5M+ endpoints" pattern */}
+          <div className="mt-6 flex flex-wrap gap-6 text-sm">
+            {[
+              { value: `${MAIN_TOOL_COUNT}+`, label: 'tools' },
+              { value: '24', label: 'IOC sources' },
+              { value: '0', label: 'data leaves your browser' },
+            ].map((stat) => (
+              <div key={stat.label} className="flex items-baseline gap-1.5">
+                <span className="font-display text-xl font-bold text-slate-900 dark:text-white">{stat.value}</span>
+                <span className="text-xs text-slate-500 dark:text-slate-400">{stat.label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
       </section>
 
-      {/* Utilities & converters — duplicative of well-known online tools
-          (timestamp converters, hex/base64 decoders, hash calculators).
-          Surfaced behind a collapsible so the headline tool count reads
-          as the real depth of the toolkit, not a padded list. Routes
-          still resolve — nothing is deleted, only de-emphasised. */}
-      {UTILITY_TOOLS.length > 0 && (
-        <section>
-          <details>
-            <summary className="cursor-pointer rounded text-xs font-bold uppercase tracking-[0.2em] text-slate-500 hover:text-brand-600 dark:hover:text-brand-400 font-mono focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500">
-              Utilities &amp; converters ({UTILITY_TOOLS.length}). Encoders, hashes, timestamps
-            </summary>
-            <p className="mt-3 text-meta font-mono text-slate-500 max-w-2xl">
-              These are duplicative of well-known online tools (CyberChef, epochconverter, etc.) — kept here for offline
-              / client-side analysis when you can't send data outside your environment. Not where the toolkit's depth
-              is.
-            </p>
-            <ul className="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
-              {UTILITY_TOOLS.map((t) => {
-                const Icon = t.icon;
+      {/* ── Personalized workspace — "Continue where you left off" */}
+      {isHydrated && recentTools.length > 0 && (
+        <section className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] p-4 sm:p-5">
+          <div className="flex items-center justify-between mb-3">
+            <div className="flex items-center gap-2">
+              <Clock size={14} className="text-brand-600 dark:text-brand-400" />
+              <h2 className="font-display text-sm font-semibold text-slate-900 dark:text-slate-100">
+                Continue where you left off
+              </h2>
+            </div>
+            <span className="font-mono text-[10px] text-slate-400 dark:text-slate-500">
+              {recentTools.length} recent
+            </span>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {recentTools.map((entry) => {
+              const meta = sidebarLookup.get(entry.path);
+              const Icon = meta?.icon ?? Clock;
+              return (
+                <Link
+                  key={entry.path}
+                  to={entry.path}
+                  className="group inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-xs font-medium text-slate-700 hover:border-brand-500/40 hover:bg-brand-50/50 dark:border-[#1e2030] dark:bg-[#15151f] dark:text-slate-300 dark:hover:border-brand-500/40 dark:hover:bg-brand-500/10 transition-colors"
+                >
+                  <Icon
+                    size={12}
+                    className="text-slate-500 group-hover:text-brand-500 dark:text-slate-400 dark:group-hover:text-brand-400"
+                  />
+                  <span>{meta?.label ?? entry.label}</span>
+                  <ArrowRight size={10} className="opacity-0 group-hover:opacity-100 transition-opacity" />
+                </Link>
+              );
+            })}
+          </div>
+        </section>
+      )}
+
+      {/* ── Quick IOC check — paste an indicator inline */}
+      <section className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] p-4 sm:p-5">
+        <div className="flex items-center gap-2 mb-3">
+          <Hash size={14} className="text-brand-600 dark:text-brand-400" />
+          <h2 className="font-display text-sm font-semibold text-slate-900 dark:text-slate-100">Quick IOC check</h2>
+        </div>
+        <p className="text-xs text-slate-500 dark:text-slate-400 mb-3">
+          Paste an IP, domain, URL, or hash and get an instant verdict from 24 sources.
+        </p>
+        <div className="flex gap-2">
+          <input
+            type="text"
+            value={iocInput}
+            onChange={(e) => setIocInput(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' && iocInput.trim()) {
+                navigate(`/dfir/ioc-check?indicator=${encodeURIComponent(iocInput.trim())}`);
+              }
+            }}
+            placeholder="e.g. 8.8.8.8, evil.com, hash..."
+            className="flex-1 rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 font-mono text-xs text-slate-900 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/20 dark:border-[#1e2030] dark:bg-[#0e0e15] dark:text-slate-100 dark:placeholder:text-slate-500"
+            aria-label="Enter IOC to check"
+          />
+          <button
+            type="button"
+            onClick={() => {
+              if (iocInput.trim()) {
+                navigate(`/dfir/ioc-check?indicator=${encodeURIComponent(iocInput.trim())}`);
+              }
+            }}
+            disabled={!iocInput.trim()}
+            className="inline-flex items-center gap-1.5 rounded-lg bg-brand-600 px-4 py-2 text-xs font-medium text-white hover:bg-brand-700 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+          >
+            <Search size={12} />
+            Check
+          </button>
+        </div>
+      </section>
+
+      {/* ── Search results (when typing) ─────────────────────── */}
+      {isSearching && (
+        <section className="animate-fade-in-up">
+          <div className="font-mono text-xs text-slate-500 mb-4">
+            {searchResults?.length ?? 0} {searchResults?.length === 1 ? 'match' : 'matches'} for &ldquo;{query.trim()}
+            &rdquo;
+            {(searchResults?.length ?? 0) === 0 && ' — try fewer or different keywords'}
+          </div>
+          {searchResults && searchResults.length > 0 && (
+            <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              {searchResults.map(({ category, ...t }) => {
+                const Icon = t.icon ?? category.icon;
                 return (
                   <li key={t.path}>
                     <Link
                       to={t.path}
-                      className="group flex items-start gap-2.5 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 px-3 py-2 hover:border-brand-500/40 transition-colors"
+                      className="group block h-full rounded-xl border border-slate-200 bg-white p-4 transition-[transform,border-color,box-shadow] duration-200 hover:-translate-y-0.5 hover:border-brand-500/40 hover:shadow-e2 dark:border-[#1e2030] dark:bg-[#12121a]"
                     >
-                      <Icon className="h-3.5 w-3.5 mt-0.5 text-slate-500 group-hover:text-brand-500 transition-colors shrink-0" />
-                      <div className="min-w-0">
-                        <div className="text-tool font-medium text-slate-900 dark:text-slate-100 truncate">
-                          {t.label}
-                        </div>
-                        <div className="text-mini font-mono text-slate-500 truncate">{t.desc}</div>
+                      <div className="flex items-start justify-between gap-2 mb-2">
+                        <Icon size={16} className="mt-0.5 shrink-0 text-brand-600 dark:text-brand-400" />
+                        <span className="font-mono text-[10px] uppercase tracking-wider text-slate-400 dark:text-slate-500">
+                          {category.label}
+                        </span>
                       </div>
+                      <h3 className="font-display text-sm font-semibold text-slate-900 group-hover:text-brand-600 dark:text-slate-100 dark:group-hover:text-brand-400">
+                        {t.label}
+                      </h3>
+                      <p className="mt-1 text-xs text-slate-500 dark:text-slate-400 line-clamp-2">{t.desc}</p>
                     </Link>
                   </li>
                 );
               })}
             </ul>
-          </details>
+          )}
+          {searchResults && searchResults.length === 0 && (
+            <div className="rounded-xl border border-dashed border-slate-300 dark:border-slate-700 p-10 text-center">
+              <p className="text-sm text-slate-500 dark:text-slate-400">No matches. Try different keywords.</p>
+            </div>
+          )}
         </section>
       )}
 
-      <section className="pt-8 border-t border-slate-200/80 dark:border-slate-800/80">
-        <details>
-          <summary className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-6 cursor-pointer rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500">
-            Data Sources
-          </summary>
-          <div className="space-y-5 mt-4">
-            {PROVIDER_GROUPS.map((group) => (
-              <div key={group.label}>
-                <div className="text-mini font-mono uppercase tracking-wider text-slate-500 mb-2">{group.label}</div>
-                <div className="flex flex-wrap gap-2">
-                  {group.items.map((p) => (
-                    <span
-                      key={p}
-                      className="text-xs font-mono px-2 py-1 rounded border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400"
-                    >
-                      {p}
-                    </span>
-                  ))}
-                </div>
+      {/* ── Non-search content ───────────────────────────────── */}
+      {!isSearching && (
+        <>
+          {/* ── Quick access — always visible, no scrolling needed */}
+          <section>
+            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+              {[
+                { label: 'IOC Check', desc: '24 sources, streaming verdicts', href: '/dfir/ioc-check', icon: Hash },
+                { label: 'Email Defense', desc: 'SPF / DKIM / DMARC audit', href: '/dfir/email-defense', icon: Mail },
+                {
+                  label: 'CVE Prioritizer',
+                  desc: 'CVSS + EPSS + KEV in one call',
+                  href: '/dfir/cve-prioritizer',
+                  icon: ShieldAlert,
+                },
+                {
+                  label: 'Rule Converter',
+                  desc: 'Sigma ↔ KQL ↔ SPL ↔ YARA',
+                  href: '/dfir/rule-converter',
+                  icon: GitBranch,
+                },
+              ].map((item) => {
+                const Icon = item.icon;
+                return (
+                  <Link
+                    key={item.href}
+                    to={item.href}
+                    className="group flex items-center gap-3 rounded-xl border border-slate-200 bg-white p-4 transition-[transform,border-color,box-shadow] duration-200 hover:-translate-y-0.5 hover:border-brand-500/40 hover:shadow-e2 dark:border-[#1e2030] dark:bg-[#12121a]"
+                  >
+                    <div className="grid h-10 w-10 place-items-center rounded-lg bg-brand-50 dark:bg-brand-900/30 text-brand-600 dark:text-brand-400 shrink-0">
+                      <Icon size={18} />
+                    </div>
+                    <div className="min-w-0">
+                      <h3 className="font-display text-sm font-semibold text-slate-900 dark:text-slate-100 truncate">
+                        {item.label}
+                      </h3>
+                      <p className="text-xs text-slate-500 dark:text-slate-400 truncate">{item.desc}</p>
+                    </div>
+                    <ArrowRight
+                      size={14}
+                      className="ml-auto text-slate-300 dark:text-slate-700 group-hover:text-brand-500 transition-colors shrink-0"
+                    />
+                  </Link>
+                );
+              })}
+            </div>
+          </section>
+
+          {/* ── Collapsible: Explore by topic */}
+          <details className="group rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]">
+            <summary className="flex items-center justify-between cursor-pointer p-4 sm:p-5 select-none">
+              <div>
+                <h2 className="font-display font-bold text-lg text-slate-900 dark:text-slate-100">Explore by topic</h2>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                  8 categories · {MAIN_TOOL_COUNT}+ tools
+                </p>
               </div>
-            ))}
-          </div>
-        </details>
-      </section>
+              <ArrowRight size={16} className="text-slate-400 group-open:rotate-90 transition-transform" />
+            </summary>
+            <div className="px-4 sm:px-5 pb-4 sm:pb-5">
+              <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+                {CATEGORY_CARDS.map((cat) => {
+                  const Icon = cat.icon;
+                  return (
+                    <Link
+                      key={cat.id}
+                      to={cat.href}
+                      className={`group relative rounded-xl border p-4 transition-[transform,box-shadow] duration-200 hover:-translate-y-0.5 hover:shadow-e2 ${cat.tone}`}
+                    >
+                      <Icon size={20} className="mb-2" aria-hidden="true" />
+                      <h3 className="font-display text-sm font-bold text-slate-900 dark:text-slate-100 mb-1">
+                        {cat.label}
+                      </h3>
+                      <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed line-clamp-3">
+                        {cat.description}
+                      </p>
+                      <div className="mt-3 flex items-center justify-between">
+                        <span className="font-mono text-[10px] text-slate-400 dark:text-slate-500">
+                          {cat.pages} tools
+                        </span>
+                        <span className="inline-flex items-center gap-0.5 text-xs font-medium opacity-0 group-hover:opacity-100 transition-opacity">
+                          explore <ArrowRight size={10} />
+                        </span>
+                      </div>
+                    </Link>
+                  );
+                })}
+              </div>
+            </div>
+          </details>
 
-      {/* ── Full catalog embed ────────────────────────────────── */}
-      <HomeCatalog />
+          {/* ── Collapsible: Getting started */}
+          <details className="group rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]">
+            <summary className="flex items-center justify-between cursor-pointer p-4 sm:p-5 select-none">
+              <h2 className="font-display font-bold text-lg text-slate-900 dark:text-slate-100">New here?</h2>
+              <ArrowRight size={16} className="text-slate-400 group-open:rotate-90 transition-transform" />
+            </summary>
+            <div className="px-4 sm:px-5 pb-4 sm:pb-5">
+              <div className="grid gap-4 sm:grid-cols-3">
+                {[
+                  {
+                    step: '1',
+                    title: 'Pick a task',
+                    desc: 'What are you trying to do? Check an indicator? Investigate phishing? Triage a CVE?',
+                  },
+                  {
+                    step: '2',
+                    title: 'Find the tool',
+                    desc: 'Use the search bar or category cards above to find the right tool for your job.',
+                  },
+                  {
+                    step: '3',
+                    title: 'Get results',
+                    desc: 'Everything runs in your browser. No signup, no data leaves your machine.',
+                  },
+                ].map((s) => (
+                  <div key={s.step} className="flex gap-3">
+                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand-50 dark:bg-brand-500/20 font-mono text-sm font-bold text-brand-600 dark:text-brand-400">
+                      {s.step}
+                    </span>
+                    <div>
+                      <h3 className="font-display text-sm font-semibold text-slate-900 dark:text-slate-100">
+                        {s.title}
+                      </h3>
+                      <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5 leading-relaxed">{s.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </details>
+
+          {/* ── Collapsible: Case studies */}
+          <details className="group rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]">
+            <summary className="flex items-center justify-between cursor-pointer p-4 sm:p-5 select-none">
+              <div>
+                <h2 className="font-display font-bold text-lg text-slate-900 dark:text-slate-100">
+                  Used in real cases
+                </h2>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                  {TOOL_CASES.length} case studies · real incidents
+                </p>
+              </div>
+              <ArrowRight size={16} className="text-slate-400 group-open:rotate-90 transition-transform" />
+            </summary>
+            <div className="px-4 sm:px-5 pb-4 sm:pb-5">
+              <div className="grid gap-3 sm:grid-cols-2">
+                {TOOL_CASES.map((tc) => (
+                  <Link
+                    key={tc.caseSlug}
+                    to={tc.caseSlug}
+                    className="group rounded-xl border border-slate-200 bg-slate-50 p-4 transition-[transform,border-color,box-shadow] duration-200 hover:-translate-y-0.5 hover:border-brand-500/40 hover:shadow-e2 dark:border-[#1e2030] dark:bg-[#15151f]"
+                  >
+                    <h3 className="font-display text-sm font-semibold text-slate-900 dark:text-slate-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 mb-1.5">
+                      {tc.caseTitle}
+                    </h3>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-2 line-clamp-2">
+                      {tc.contribution}
+                    </p>
+                    <div className="flex flex-wrap gap-1.5">
+                      {tc.tools.map((t) => (
+                        <span
+                          key={t.path}
+                          className="text-[10px] font-mono px-1.5 py-0.5 rounded border border-brand-500/30 text-brand-600 dark:text-brand-400"
+                        >
+                          {t.label}
+                        </span>
+                      ))}
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </details>
+
+          {/* ── Full catalog link */}
+          <div className="flex justify-center">
+            <Link
+              to="/dfir/catalog"
+              className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-6 py-3 text-sm font-medium text-slate-700 hover:border-brand-300 hover:text-brand-600 dark:border-[#1e2030] dark:bg-[#12121a] dark:text-slate-300 dark:hover:border-brand-600 dark:hover:text-brand-400 transition-colors"
+            >
+              <Compass size={16} />
+              Browse the full catalog
+              <span className="font-mono text-xs text-slate-400 dark:text-slate-500">{MAIN_TOOL_COUNT}+ tools</span>
+              <ArrowRight size={14} />
+            </Link>
+          </div>
+        </>
+      )}
     </div>
-  );
-}
-
-/**
- * The full DFIR catalog embedded in the home page, with search + filter
- * chips. Mirrors the threatintel Home.tsx HomeCatalog (commit 4fb739ae,
- * 2026-06-17). Sits at the bottom of the page so a power-user can pivot
- * to any tool without leaving the home view; the dedicated
- * /dfir/catalog page is the bookmarkable copy of this same widget.
- */
-const BADGE_STYLES: Record<NonNullable<HubPage['badge']>, string> = {
-  live: 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300',
-  new: 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300',
-  beta: 'border-violet-500/40 bg-violet-500/10 text-violet-700 dark:text-violet-300',
-};
-
-function HomeCatalog(): JSX.Element {
-  const [query, setQuery] = useState('');
-  const [activeCat, setActiveCat] = useState('all');
-  const totalEntries = useMemo(() => [...HUB_META].reduce((sum, h) => sum + h.pages.length, 0), []);
-  const searchResults = useMemo(() => {
-    if (!query.trim()) return null;
-    return catalogSearch(query);
-  }, [query]);
-  const visibleCategories = useMemo<HubMeta[]>(() => {
-    const all = [...HUB_META];
-    if (searchResults) {
-      const ids = new Set(searchResults.map((r) => r.category.id));
-      return all.filter((c) => ids.has(c.id));
-    }
-    if (activeCat === 'all') return all;
-    return all.filter((c) => c.id === activeCat);
-  }, [searchResults, activeCat]);
-
-  return (
-    <section className="animate-fade-in-up mb-12">
-      <div className="mb-5 border-t border-slate-200/70 pt-6 dark:border-slate-800">
-        <h2 className="flex items-center gap-2 font-display text-base font-semibold text-slate-700 dark:text-slate-300">
-          <Compass size={18} className="text-brand-600 dark:text-brand-400" /> Tool Catalog
-          <span className="font-mono text-mini text-slate-400 font-normal">- {totalEntries} tools</span>
-        </h2>
-      </div>
-
-      <div className="mb-6 space-y-3">
-        <div className="relative">
-          <Search
-            size={14}
-            className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
-            aria-hidden="true"
-          />
-          <input
-            type="text"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search every DFIR tool, by name, route, or keyword..."
-            aria-label="Search DFIR tools"
-            className="w-full rounded-lg border border-slate-200 bg-white py-2.5 pl-9 pr-10 font-mono text-tool text-slate-900 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/20 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-100 dark:placeholder:text-slate-500"
-          />
-          {query && (
-            <button
-              type="button"
-              onClick={() => setQuery('')}
-              className="absolute right-2 top-1/2 inline-flex -translate-y-1/2 items-center gap-1 rounded px-1.5 py-0.5 font-mono text-micro text-slate-500 hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-800 dark:hover:text-slate-100"
-              aria-label="Clear search"
-            >
-              <X size={11} /> clear
-            </button>
-          )}
-        </div>
-
-        <div className="flex flex-wrap items-center gap-2" role="tablist" aria-label="Catalog categories">
-          <span className="inline-flex items-center gap-1 font-mono text-micro uppercase tracking-wider text-slate-500 dark:text-slate-400">
-            <FilterIcon size={11} /> filter
-          </span>
-          <HomeCategoryPill
-            label="All"
-            count={totalEntries}
-            active={activeCat === 'all'}
-            onClick={() => setActiveCat('all')}
-            accent="text-slate-700 dark:text-slate-300"
-          />
-          {HUB_META.map((c) => (
-            <HomeCategoryPill
-              key={c.id}
-              label={c.label}
-              count={c.pages.length}
-              active={activeCat === c.id}
-              onClick={() => setActiveCat(c.id)}
-              accent={c.tone}
-            />
-          ))}
-        </div>
-
-        {searchResults && (
-          <div className="font-mono text-mini text-slate-500">
-            {searchResults.length} {searchResults.length === 1 ? 'match' : 'matches'} for &ldquo;{query.trim()}&rdquo;
-            {searchResults.length === 0 ? ' - try fewer or different keywords' : ''}
-          </div>
-        )}
-      </div>
-
-      <div className="space-y-8">
-        {visibleCategories.length === 0 && (
-          <div className="rounded-xl border border-dashed border-slate-300 dark:border-slate-700 p-10 text-center">
-            <p className="text-sm text-slate-500 dark:text-slate-400">
-              No tools match the current filter. Try a different category or clear the search box.
-            </p>
-          </div>
-        )}
-        {visibleCategories.map((cat) => {
-          const entries =
-            searchResults != null
-              ? searchResults.filter((r) => r.category.id === cat.id).map((r) => r as HubPage)
-              : cat.pages;
-          return <HomeCatalogSection key={cat.id} category={cat} entries={entries} />;
-        })}
-      </div>
-    </section>
-  );
-}
-
-function HomeCategoryPill({
-  label,
-  count,
-  active,
-  onClick,
-  accent,
-}: {
-  label: string;
-  count: number;
-  active: boolean;
-  onClick: () => void;
-  accent: string;
-}): JSX.Element {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      role="tab"
-      aria-selected={active}
-      className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 font-mono text-micro transition-colors ${
-        active
-          ? `${accent} border-current bg-current/10`
-          : 'border-slate-300/60 bg-white text-slate-500 hover:border-slate-400 hover:text-slate-900 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-400 dark:hover:border-slate-600 dark:hover:text-slate-100'
-      }`}
-    >
-      {label}
-      <span
-        className={`rounded-full px-1.5 py-0.5 text-[10px] font-mono ${active ? 'bg-current/15' : 'bg-slate-100 dark:bg-slate-800'}`}
-      >
-        {count}
-      </span>
-    </button>
-  );
-}
-
-function HomeCatalogSection({ category, entries }: { category: HubMeta; entries: readonly HubPage[] }): JSX.Element {
-  if (entries.length === 0) return <></>;
-  return (
-    <section aria-labelledby={`home-hub-${category.id}`}>
-      <div className="mb-3 flex items-baseline justify-between gap-2 border-b border-slate-200 pb-2 dark:border-slate-800">
-        <h2 id={`home-hub-${category.id}`} className="flex items-center gap-2 font-display text-lg font-semibold">
-          <span className={`inline-flex items-center justify-center rounded-md border px-1.5 py-1 ${category.tone}`}>
-            <category.icon size={16} aria-hidden="true" />
-          </span>
-          {category.label}
-          <span className="font-mono text-micro text-slate-400">- {entries.length}</span>
-        </h2>
-        <p className="hidden text-tool text-slate-500 dark:text-slate-400 sm:block">{category.blurb}</p>
-      </div>
-      <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-        {entries.map((e) => (
-          <HomeCatalogCard key={e.path} entry={e} hubIcon={category.icon} />
-        ))}
-      </ul>
-    </section>
-  );
-}
-
-function HomeCatalogCard({ entry, hubIcon }: { entry: HubPage; hubIcon: LucideIcon }): JSX.Element {
-  const Icon = entry.icon ?? hubIcon;
-  return (
-    <li>
-      <Link
-        to={entry.path}
-        className="group block h-full rounded-xl border border-slate-200 bg-white p-3 transition-[transform,border-color,box-shadow] duration-200 hover:-translate-y-0.5 hover:border-brand-500/40 hover:shadow-e2 focus-visible:-translate-y-0.5 focus-visible:border-brand-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/30 dark:border-slate-800 dark:bg-slate-900"
-      >
-        <div className="flex items-start justify-between gap-2">
-          <Icon size={16} className="mt-0.5 shrink-0 text-brand-600 dark:text-brand-400" aria-hidden="true" />
-          {entry.badge && (
-            <span
-              className={`rounded border px-1.5 py-0.5 font-mono text-[10px] uppercase tracking-wider ${BADGE_STYLES[entry.badge]}`}
-            >
-              {entry.badge}
-            </span>
-          )}
-        </div>
-        <h3 className="mt-2 font-display text-sm font-semibold text-slate-900 transition-colors group-hover:text-brand-600 dark:text-slate-100 dark:group-hover:text-brand-400">
-          {entry.label}
-        </h3>
-        <p className="mt-0.5 line-clamp-2 text-tool text-slate-500 dark:text-slate-400">{entry.desc}</p>
-        <div className="mt-2 flex items-center justify-between gap-2 font-mono text-[10px] text-slate-400">
-          <code className="truncate font-mono">{entry.path}</code>
-          <span className="inline-flex items-center gap-0.5 text-brand-600 dark:text-brand-400 opacity-0 transition-opacity group-hover:opacity-100">
-            open <ArrowRight size={10} />
-          </span>
-        </div>
-      </Link>
-    </li>
   );
 }

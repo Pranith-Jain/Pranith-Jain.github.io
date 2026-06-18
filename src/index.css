@@ -3,15 +3,12 @@
 @tailwind utilities;
 
 @layer base {
-  /* Hunt.io radius override — applied globally so we don't have to
-     edit 178 sites that use rounded-2xl. Tightens the default 16px
-     to 10px so data cards read as instrument panels, not pillows.
-     3xl and above are kept (hero/CTA surfaces earn the larger
-     radius). Section <h1/h2> rounding is overridden below because
-     Tailwind's preflight sets border-radius: 0 on headings and the
-     old `rounded-2xl` on cards was the AI-glassmorphism tell. */
+  /* Tighter radius — less "AI pillow", more instrument panel */
   .rounded-2xl {
-    border-radius: 0.625rem; /* 10px — was 16px */
+    border-radius: 0.5rem; /* 8px */
+  }
+  .rounded-xl {
+    border-radius: 0.375rem; /* 6px — was 12px */
   }
 
   html {
@@ -42,17 +39,15 @@
 
   html.dark {
     color-scheme: dark;
-    background-color: #0c1222;
+    background-color: #0a0a0f;
+    color: #f0f0f5;
   }
 
   html:not(.dark) {
     color-scheme: light;
   }
 
-  /* ── Brand design tokens ──────────────────────────────────────────
-     A single source of truth for the #2c3ee5 brand palette so every
-     dark surface, glow, and accent can reference CSS vars instead of
-     hardcoded hex values. `--brand-rgb` enables `rgba()` composition. */
+  /* ── Brand design tokens ────────────────────────────────────────── */
   :root {
     --brand: 44 62 229;
     --brand-400: 109 139 247;
@@ -61,25 +56,19 @@
     --brand-700: 35 46 191;
     --brand-800: 33 41 155;
     --brand-950: 18 22 73;
-    /* Theme-aware secondary-text channel — see the `muted` color in
-       tailwind.config.js. Light = slate-600 (>=4.5:1 on white = WCAG AA);
-       dark = brand-300 (isomorphic tint). Use `text-muted` instead of bare
-       text-slate-400 for captions/labels so light mode never drops to the
-       2.8:1 failure. */
     --muted: 71 85 105;
-    /* Surface / glass tokens */
     --surface-border: 226 232 240;
     --surface-bg: 255 255 255;
     --glass-bg: 255 255 255;
     --glass-border: 226 232 240;
   }
   html.dark {
-    --brand: 109 139 247;
-    --muted: 148 163 184;
-    --surface-border: 30 41 59;
-    --surface-bg: 15 23 42;
-    --glass-bg: 15 23 42;
-    --glass-border: 30 41 59;
+    --brand: 99 130 255;
+    --muted: 160 170 190;
+    --surface-border: 35 40 55;
+    --surface-bg: 15 15 22;
+    --glass-bg: 15 15 22;
+    --glass-border: 35 40 55;
   }
 
   :focus-visible {
@@ -118,7 +107,7 @@
     @apply bg-slate-100;
   }
   .dark ::-webkit-scrollbar-track {
-    background-color: rgba(15, 23, 42, 0.4);
+    background-color: rgba(10, 10, 15, 0.6);
   }
 
   ::-webkit-scrollbar-thumb {
@@ -130,6 +119,146 @@
   .dark ::-webkit-scrollbar-thumb:hover {
     background-color: rgba(100, 116, 139, 0.7);
   }
+
+  /* ── Premium dark theme ──────────────────────────────────────────
+     Page: #0a0a0f (near-black with slight blue tint)
+     Cards: #12121a (subtle lift from page)
+     Borders: #1e2030 (barely visible separation)
+     Text: #f0f0f5 (near-white, not gray) */
+
+  /* Backgrounds — cards must be lighter than page */
+  .dark .bg-white {
+    background-color: #12121a !important;
+  }
+  .dark .bg-white\/60 {
+    background-color: rgba(18, 18, 26, 0.6) !important;
+  }
+  .dark .bg-white\/65 {
+    background-color: rgba(18, 18, 26, 0.65) !important;
+  }
+  .dark .bg-white\/70 {
+    background-color: rgba(18, 18, 26, 0.7) !important;
+  }
+  .dark .bg-white\/80 {
+    background-color: rgba(18, 18, 26, 0.8) !important;
+  }
+  .dark .bg-white\/95 {
+    background-color: rgba(18, 18, 26, 0.95) !important;
+  }
+  .dark .bg-slate-50 {
+    background-color: #15151f !important;
+  }
+  .dark .bg-slate-50\/40 {
+    background-color: rgba(21, 21, 31, 0.4) !important;
+  }
+  .dark .bg-slate-50\/60 {
+    background-color: rgba(21, 21, 31, 0.6) !important;
+  }
+  .dark .bg-slate-50\/70 {
+    background-color: rgba(21, 21, 31, 0.7) !important;
+  }
+  .dark .bg-slate-900 {
+    background-color: #12121a !important;
+  }
+  .dark .bg-slate-900\/40 {
+    background-color: rgba(18, 18, 26, 0.4) !important;
+  }
+  .dark .bg-slate-900\/50 {
+    background-color: rgba(18, 18, 26, 0.5) !important;
+  }
+  .dark .bg-slate-900\/60 {
+    background-color: rgba(18, 18, 26, 0.6) !important;
+  }
+  .dark .bg-slate-900\/80 {
+    background-color: rgba(18, 18, 26, 0.8) !important;
+  }
+  .dark .bg-slate-900\/95 {
+    background-color: rgba(18, 18, 26, 0.95) !important;
+  }
+  .dark .bg-slate-950 {
+    background-color: #12121a !important;
+  }
+  .dark .bg-slate-950\/40 {
+    background-color: rgba(18, 18, 26, 0.4) !important;
+  }
+  .dark .bg-slate-950\/80 {
+    background-color: rgba(18, 18, 26, 0.8) !important;
+  }
+  .dark .bg-slate-950\/95 {
+    background-color: rgba(18, 18, 26, 0.95) !important;
+  }
+  .dark .bg-gray-900 {
+    background-color: #12121a !important;
+  }
+  .dark .bg-gray-900\/60 {
+    background-color: rgba(18, 18, 26, 0.6) !important;
+  }
+  .dark .bg-gray-900\/80 {
+    background-color: rgba(18, 18, 26, 0.8) !important;
+  }
+  .dark .bg-gray-900\/95 {
+    background-color: rgba(18, 18, 26, 0.95) !important;
+  }
+  .dark .bg-gray-800 {
+    background-color: #12121a !important;
+  }
+  .dark .bg-gray-800\/60 {
+    background-color: rgba(18, 18, 26, 0.6) !important;
+  }
+
+  /* Text — high contrast, near-white */
+  .dark .text-slate-400 {
+    color: #a0a8c0 !important;
+  }
+  .dark .text-slate-500 {
+    color: #8890a8 !important;
+  }
+  .dark .text-slate-300 {
+    color: #d0d5e0 !important;
+  }
+  .dark .text-slate-200 {
+    color: #e8ecf4 !important;
+  }
+
+  /* Borders — subtle, barely visible */
+  .dark .border-slate-200 {
+    border-color: #1e2030 !important;
+  }
+  .dark .border-slate-200\/60 {
+    border-color: rgba(30, 32, 48, 0.6) !important;
+  }
+  .dark .border-slate-200\/70 {
+    border-color: rgba(30, 32, 48, 0.7) !important;
+  }
+  .dark .border-slate-300 {
+    border-color: #252840 !important;
+  }
+  .dark .border-slate-700 {
+    border-color: #1e2030 !important;
+  }
+  .dark .border-slate-700\/60 {
+    border-color: rgba(30, 32, 48, 0.6) !important;
+  }
+  .dark .border-slate-800 {
+    border-color: #1e2030 !important;
+  }
+  .dark .border-slate-800\/40 {
+    border-color: rgba(30, 32, 48, 0.4) !important;
+  }
+  .dark .border-white\/10 {
+    border-color: rgba(255, 255, 255, 0.06) !important;
+  }
+
+  /* Placeholders */
+  .dark .placeholder\:text-slate-400::placeholder {
+    color: #4a5070 !important;
+  }
+  .dark .placeholder\:text-slate-500::placeholder {
+    color: #4a5070 !important;
+  }
+  .dark .placeholder\:text-slate-600::placeholder {
+    color: #4a5070 !important;
+  }
 }
 
 @layer components {
@@ -139,20 +268,17 @@
 
   .dark .glass {
     @apply backdrop-blur-md lg:backdrop-blur-xl;
-    border-color: rgba(51, 65, 85, 0.35);
-    background-color: rgba(15, 23, 42, 0.65);
+    border-color: rgba(30, 32, 48, 0.6);
+    background-color: rgba(18, 18, 26, 0.85);
   }
 
-  /* Calm sibling to .glass for sections where every-card-translucent reads
-   * as visual noise (list-of-tiles surfaces: Skills, Solutions, Companies,
-   * Memberships, Certifications). Reuses the rest of the design tokens. */
   .surface {
     @apply border border-slate-200 bg-white transition-all duration-300;
   }
 
   .dark .surface {
-    border-color: rgba(51, 65, 85, 0.4);
-    background-color: rgba(30, 41, 59, 0.4);
+    border-color: rgba(30, 32, 48, 0.5);
+    background-color: rgba(18, 18, 26, 0.6);
   }
 
   /* ── Depth / morphism surface system ─────────────────────────────────
@@ -173,10 +299,10 @@
     border-color: rgb(var(--surface-border) / <alpha-value>);
   }
   .dark .surface-card {
-    border-color: rgba(51, 65, 85, 0.5);
-    background-color: rgba(30, 41, 59, 0.6);
+    border-color: rgba(30, 32, 48, 0.6);
+    background-color: rgba(18, 18, 26, 0.8);
     box-shadow:
-      0 1px 3px rgba(0, 0, 0, 0.3),
+      0 1px 3px rgba(0, 0, 0, 0.5),
       inset 0 1px 0 rgba(255, 255, 255, 0.03);
   }
   .surface-raised {
@@ -184,10 +310,10 @@
     border-color: rgb(var(--surface-border) / <alpha-value>);
   }
   .dark .surface-raised {
-    border-color: rgba(51, 65, 85, 0.6);
-    background-color: rgba(30, 41, 59, 0.7);
+    border-color: rgba(30, 32, 48, 0.7);
+    background-color: rgba(18, 18, 26, 0.9);
     box-shadow:
-      0 2px 6px rgba(0, 0, 0, 0.4),
+      0 2px 6px rgba(0, 0, 0, 0.5),
       inset 0 1px 0 rgba(255, 255, 255, 0.04);
   }
   .surface-glass {
@@ -195,8 +321,8 @@
     border-color: rgb(var(--surface-border) / 0.7);
   }
   .dark .surface-glass {
-    border-color: rgba(51, 65, 85, 0.4);
-    background-color: rgba(30, 41, 59, 0.5);
+    border-color: rgba(30, 32, 48, 0.4);
+    background-color: rgba(18, 18, 26, 0.5);
   }
   .chrome-glass {
     @apply backdrop-blur-xl;
@@ -204,8 +330,8 @@
     background-color: rgb(255 255 255 / 0.8);
   }
   .dark .chrome-glass {
-    border-color: rgba(51, 65, 85, 0.5);
-    background-color: rgba(15, 23, 42, 0.85);
+    border-color: rgba(30, 32, 48, 0.5);
+    background-color: rgba(10, 10, 15, 0.85);
   }
   .card-hover {
     @apply hover:-translate-y-0.5 hover:shadow-e2;
