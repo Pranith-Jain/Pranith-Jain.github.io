@@ -181,7 +181,7 @@ export default function SecretLeaks(): JSX.Element {
   }
 
   return (
-    <div className="max-w-full px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
+    <div className="max-w-full px-4 sm:px-8 py-12 text-slate-900 dark:text-white">
       <div className="max-w-7xl mx-auto">
         <BackLink
           to="/threatintel"
@@ -222,7 +222,7 @@ export default function SecretLeaks(): JSX.Element {
         </div>
 
         {/* Tabs */}
-        <div className="flex gap-1 mb-8 border-b border-slate-200 dark:border-slate-800">
+        <div className="flex gap-1 mb-8 border-b border-slate-200 dark:border-[#1e2030]">
           {tabs.map((t) => (
             <button
               key={t.id}
@@ -234,7 +234,7 @@ export default function SecretLeaks(): JSX.Element {
               className={`flex items-center gap-2 px-4 py-2.5 text-sm font-mono border-b-2 transition-colors ${
                 tab === t.id
                   ? 'border-brand-500 text-brand-600 dark:text-brand-400'
-                  : 'border-transparent text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'
+                  : 'border-transparent text-slate-500 hover:text-slate-700 dark:hover:text-white'
               }`}
             >
               <t.icon size={14} />
@@ -255,7 +255,7 @@ export default function SecretLeaks(): JSX.Element {
             <div className="space-y-8 animate-fade-in-up">
               {/* Mission */}
               <div className="grid sm:grid-cols-2 gap-6">
-                <div className="bg-slate-50 dark:bg-slate-800/60 rounded-xl border border-slate-200 dark:border-slate-700 p-6">
+                <div className="bg-slate-50 dark:bg-[#12121a] rounded-xl border border-slate-200 dark:border-[#1e2030] p-6">
                   <p className="text-micro font-mono uppercase tracking-wider text-brand-600 dark:text-brand-400 mb-2">
                     The Mission
                   </p>
@@ -288,7 +288,7 @@ export default function SecretLeaks(): JSX.Element {
                   ].map((item) => (
                     <div
                       key={item.label}
-                      className="flex items-center gap-3 p-3 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700"
+                      className="flex items-center gap-3 p-3 rounded-lg bg-white dark:bg-[#12121a] border border-slate-200 dark:border-[#1e2030]"
                     >
                       <span className="text-xs font-mono font-semibold text-brand-600 dark:text-brand-400 w-24 flex-shrink-0">
                         {item.label}
@@ -309,7 +309,7 @@ export default function SecretLeaks(): JSX.Element {
                 ].map((s) => (
                   <div
                     key={s.label}
-                    className="bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-700 p-4"
+                    className="bg-white dark:bg-[#12121a] rounded-lg border border-slate-200 dark:border-[#1e2030] p-4"
                   >
                     <div className="flex items-center gap-2 mb-2">
                       <s.icon size={14} className="text-slate-400" />
@@ -335,14 +335,14 @@ export default function SecretLeaks(): JSX.Element {
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
                 <a
                   href="/threatintel/redhunt-labs"
-                  className="group flex items-start gap-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4 hover:border-brand-500/60 hover:shadow-e2 transition-all"
+                  className="group flex items-start gap-3 rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] p-4 hover:border-brand-500/60 hover:shadow-e2 transition-all"
                 >
                   <FlaskConical className="mt-0.5 h-5 w-5 shrink-0 text-brand-600 dark:text-brand-400" />
                   <div className="min-w-0 flex-1">
                     <p className="text-micro font-mono uppercase tracking-wider text-brand-600 dark:text-brand-400">
                       Related research
                     </p>
-                    <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100 group-hover:text-brand-600 dark:group-hover:text-brand-400">
+                    <h3 className="text-sm font-semibold text-slate-900 dark:text-white group-hover:text-brand-600 dark:group-hover:text-brand-400">
                       RedHunt Labs Research
                     </h3>
                     <p className="mt-1 text-xs text-muted leading-relaxed">
@@ -359,14 +359,14 @@ export default function SecretLeaks(): JSX.Element {
                   href="https://research.redhuntlabs.com/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group flex items-start gap-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4 hover:border-brand-500/60 hover:shadow-e2 transition-all"
+                  className="group flex items-start gap-3 rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] p-4 hover:border-brand-500/60 hover:shadow-e2 transition-all"
                 >
                   <Bug className="mt-0.5 h-5 w-5 shrink-0 text-brand-600 dark:text-brand-400" />
                   <div className="min-w-0 flex-1">
                     <p className="text-micro font-mono uppercase tracking-wider text-brand-600 dark:text-brand-400">
                       Upstream
                     </p>
-                    <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100 group-hover:text-brand-600 dark:group-hover:text-brand-400">
+                    <h3 className="text-sm font-semibold text-slate-900 dark:text-white group-hover:text-brand-600 dark:group-hover:text-brand-400">
                       research.redhuntlabs.com
                     </h3>
                     <p className="mt-1 text-xs text-muted leading-relaxed">
@@ -380,14 +380,14 @@ export default function SecretLeaks(): JSX.Element {
                 </a>
                 <a
                   href="/threatintel/redhunt-insights"
-                  className="group flex items-start gap-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4 hover:border-brand-500/60 hover:shadow-e2 transition-all"
+                  className="group flex items-start gap-3 rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] p-4 hover:border-brand-500/60 hover:shadow-e2 transition-all"
                 >
                   <Activity className="mt-0.5 h-5 w-5 shrink-0 text-brand-600 dark:text-brand-400" />
                   <div className="min-w-0 flex-1">
                     <p className="text-micro font-mono uppercase tracking-wider text-brand-600 dark:text-brand-400">
                       Live analytics
                     </p>
-                    <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100 group-hover:text-brand-600 dark:group-hover:text-brand-400">
+                    <h3 className="text-sm font-semibold text-slate-900 dark:text-white group-hover:text-brand-600 dark:group-hover:text-brand-400">
                       RedHunt Internet Insights
                     </h3>
                     <p className="mt-1 text-xs text-muted leading-relaxed">
@@ -421,7 +421,7 @@ export default function SecretLeaks(): JSX.Element {
                         setPage(1);
                       }}
                       placeholder="Repo, file, provider..."
-                      className="w-full pl-8 pr-3 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded text-xs font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-brand-500"
+                      className="w-full pl-8 pr-3 py-2 bg-white dark:bg-[#12121a] border border-slate-200 dark:border-[#1e2030] rounded text-xs font-mono text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-brand-500"
                     />
                   </div>
                 </label>
@@ -433,7 +433,7 @@ export default function SecretLeaks(): JSX.Element {
                       setSeverityFilter(e.target.value as Severity | 'all');
                       setPage(1);
                     }}
-                    className="py-2 px-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded text-xs font-mono text-slate-900 dark:text-slate-100 focus:outline-none focus:border-brand-500"
+                    className="py-2 px-2 bg-white dark:bg-[#12121a] border border-slate-200 dark:border-[#1e2030] rounded text-xs font-mono text-slate-900 dark:text-white focus:outline-none focus:border-brand-500"
                   >
                     <option value="all">All levels</option>
                     <option value="critical">Critical</option>
@@ -450,7 +450,7 @@ export default function SecretLeaks(): JSX.Element {
                       setProviderFilter(e.target.value);
                       setPage(1);
                     }}
-                    className="py-2 px-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded text-xs font-mono text-slate-900 dark:text-slate-100 focus:outline-none focus:border-brand-500"
+                    className="py-2 px-2 bg-white dark:bg-[#12121a] border border-slate-200 dark:border-[#1e2030] rounded text-xs font-mono text-slate-900 dark:text-white focus:outline-none focus:border-brand-500"
                   >
                     <option value="all">All providers</option>
                     {providers.map((p) => (
@@ -468,7 +468,7 @@ export default function SecretLeaks(): JSX.Element {
                       setSourceFilter(e.target.value as 'all' | Source);
                       setPage(1);
                     }}
-                    className="py-2 px-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded text-xs font-mono text-slate-900 dark:text-slate-100 focus:outline-none focus:border-brand-500"
+                    className="py-2 px-2 bg-white dark:bg-[#12121a] border border-slate-200 dark:border-[#1e2030] rounded text-xs font-mono text-slate-900 dark:text-white focus:outline-none focus:border-brand-500"
                   >
                     <option value="all">Files and commits</option>
                     <option value="file">Files only</option>
@@ -480,7 +480,7 @@ export default function SecretLeaks(): JSX.Element {
                   <select
                     value={sortBy}
                     onChange={(e) => setSortBy(e.target.value as typeof sortBy)}
-                    className="py-2 px-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded text-xs font-mono text-slate-900 dark:text-slate-100 focus:outline-none focus:border-brand-500"
+                    className="py-2 px-2 bg-white dark:bg-[#12121a] border border-slate-200 dark:border-[#1e2030] rounded text-xs font-mono text-slate-900 dark:text-white focus:outline-none focus:border-brand-500"
                   >
                     <option value="score">Exposure score</option>
                     <option value="secrets">Secret count</option>
@@ -509,7 +509,7 @@ export default function SecretLeaks(): JSX.Element {
                     return (
                       <div
                         key={leak.id}
-                        className="bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-700 p-4 hover:border-brand-500/40 transition-colors"
+                        className="bg-white dark:bg-[#12121a] rounded-lg border border-slate-200 dark:border-[#1e2030] p-4 hover:border-brand-500/40 transition-colors"
                       >
                         <div className="flex items-start justify-between gap-4">
                           <div className="min-w-0 flex-1">
@@ -526,7 +526,7 @@ export default function SecretLeaks(): JSX.Element {
                               </span>
                             </div>
                             <div className="flex items-center gap-2 mb-1">
-                              <span className="text-sm font-mono font-semibold text-slate-900 dark:text-slate-100">
+                              <span className="text-sm font-mono font-semibold text-slate-900 dark:text-white">
                                 {leak.owner}/{leak.repo}
                               </span>
                               <span className="text-xs text-slate-400">/</span>
@@ -580,7 +580,7 @@ export default function SecretLeaks(): JSX.Element {
                       type="button"
                       disabled={page <= 1}
                       onClick={() => setPage((p) => Math.max(1, p - 1))}
-                      className="px-3 py-1.5 text-xs font-mono border border-slate-200 dark:border-slate-700 rounded text-muted hover:border-brand-500/40 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+                      className="px-3 py-1.5 text-xs font-mono border border-slate-200 dark:border-[#1e2030] rounded text-muted hover:border-brand-500/40 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
                     >
                       Prev
                     </button>
@@ -588,7 +588,7 @@ export default function SecretLeaks(): JSX.Element {
                       type="button"
                       disabled={page >= totalPages}
                       onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
-                      className="px-3 py-1.5 text-xs font-mono border border-slate-200 dark:border-slate-700 rounded text-muted hover:border-brand-500/40 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+                      className="px-3 py-1.5 text-xs font-mono border border-slate-200 dark:border-[#1e2030] rounded text-muted hover:border-brand-500/40 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
                     >
                       Next
                     </button>
@@ -631,7 +631,7 @@ export default function SecretLeaks(): JSX.Element {
                 ].map((s) => (
                   <div
                     key={s.label}
-                    className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-700 p-5"
+                    className="bg-white dark:bg-[#12121a] rounded-xl border border-slate-200 dark:border-[#1e2030] p-5"
                   >
                     <div className="flex items-center gap-2 mb-3">
                       <s.icon size={14} className="text-slate-400" />
@@ -644,7 +644,7 @@ export default function SecretLeaks(): JSX.Element {
               </div>
 
               {/* Severity Mix */}
-              <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-700 p-5">
+              <div className="bg-white dark:bg-[#12121a] rounded-xl border border-slate-200 dark:border-[#1e2030] p-5">
                 <div className="flex items-center justify-between mb-4">
                   <div>
                     <h3 className="text-sm font-display font-semibold">Leak Mix</h3>
@@ -693,7 +693,7 @@ export default function SecretLeaks(): JSX.Element {
               {/* Rankings */}
               <div className="grid sm:grid-cols-3 gap-6">
                 {/* Top Providers */}
-                <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-700 p-5">
+                <div className="bg-white dark:bg-[#12121a] rounded-xl border border-slate-200 dark:border-[#1e2030] p-5">
                   <div className="mb-4">
                     <h3 className="text-sm font-display font-semibold">Most Exposed Providers</h3>
                     <p className="text-micro font-mono text-slate-400">Top secret types by count</p>
@@ -719,7 +719,7 @@ export default function SecretLeaks(): JSX.Element {
                 </div>
 
                 {/* Top Repos */}
-                <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-700 p-5">
+                <div className="bg-white dark:bg-[#12121a] rounded-xl border border-slate-200 dark:border-[#1e2030] p-5">
                   <div className="mb-4">
                     <h3 className="text-sm font-display font-semibold">Top Repos</h3>
                     <p className="text-micro font-mono text-slate-400">Highest number of secrets found</p>
@@ -743,7 +743,7 @@ export default function SecretLeaks(): JSX.Element {
                 </div>
 
                 {/* Top Users */}
-                <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-700 p-5">
+                <div className="bg-white dark:bg-[#12121a] rounded-xl border border-slate-200 dark:border-[#1e2030] p-5">
                   <div className="mb-4">
                     <h3 className="text-sm font-display font-semibold">Top Users</h3>
                     <p className="text-micro font-mono text-slate-400">Owners with the most leaked repos</p>
