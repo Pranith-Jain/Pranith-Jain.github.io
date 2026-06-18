@@ -8,12 +8,12 @@ interface ContactProps {
 
 export function Contact({ personalInfo }: ContactProps) {
   return (
-    <section id="contact" className="mt-20 scroll-mt-24" aria-labelledby="contact-heading">
+    <section id="contact" className="scroll-mt-24" aria-labelledby="contact-heading">
       {/* Dark CTA panel — keeps its hero-y character (dark fill stands out
           from the rest of the page) but drops the blurred blobs and
-          rounded-[3rem]; uses the same rounded-2xl + thin chrome the rest
+          rounded-[3rem]; uses the same rounded-xl + thin chrome the rest
           of the design system uses. */}
-      <div className="relative overflow-hidden rounded-2xl border border-slate-800 bg-slate-900 px-5 py-10 dark:bg-brand-950 sm:px-10 sm:py-14 lg:py-16">
+      <div className="relative overflow-hidden rounded-xl border border-slate-800 bg-slate-900 px-5 py-10 dark:bg-brand-950 sm:px-10 sm:py-14 lg:py-16">
         {/* Subtle dot grid — kept because it gives the dark panel texture
             without ringing the AI-design bell. The blurred radial blobs
             were removed. */}
@@ -31,13 +31,14 @@ export function Contact({ personalInfo }: ContactProps) {
         </div>
 
         <div className="relative mx-auto max-w-4xl text-center">
-          <div className="mb-3 text-eyebrow font-bold uppercase text-brand-300">Get in touch</div>
-          <h2 id="contact-heading" className="font-display text-4xl sm:text-5xl font-bold tracking-tight text-white">
-            Ready to secure your digital presence?
+          <div className="mb-3 text-eyebrow font-mono uppercase text-slate-400">Get in touch</div>
+          <h2 id="contact-heading" className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-white">
+            Investigating an incident, or building detections before one happens?
           </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-lg text-slate-300 leading-relaxed">
-            Whether you need threat intelligence, email security hardening, or cloud identity protection, I&apos;m here
-            to help. My work bridges technical controls with business-critical trust signals across 150+ global brands.
+          <p className="mx-auto mt-4 max-w-2xl text-base sm:text-lg text-slate-300 leading-relaxed">
+            I work with security teams on phishing, BEC, and malware cases — and on the detection engineering,
+            threat-intel feeds, and email-defense work that prevents the next one. Available for short engagements and
+            strategy calls.
           </p>
 
           {/* CTAs — rounded-md (not rounded-2xl pill), no scale-hover. The
@@ -69,9 +70,10 @@ export function Contact({ personalInfo }: ContactProps) {
             <CopyToClipboard text={personalInfo.email} label="Copy email address" />
           </div>
 
-          {/* Social Links — compact icon row, no per-link bg chips */}
+          {/* Social Links — compact mono row, no per-link bg chips.
+              Hunt.io style: small text, hover underline, equal weight. */}
           <ul
-            className="mt-10 flex flex-wrap justify-center gap-x-6 gap-y-3 border-t border-white/10 pt-8"
+            className="mt-10 flex flex-wrap justify-center gap-x-5 gap-y-2 border-t border-white/10 pt-6 font-mono text-meta uppercase tracking-[0.12em] text-slate-400"
             aria-label="Social media and professional links"
           >
             <li>
@@ -79,12 +81,10 @@ export function Contact({ personalInfo }: ContactProps) {
                 href={personalInfo.linkedInUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex items-center gap-3 sm:text-sm text-xs font-bold text-slate-300 transition hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 rounded-lg px-3 py-3 min-h-[48px]"
-                aria-label="Visit LinkedIn profile (opens in new tab)"
+                className="inline-flex items-center gap-1.5 px-2 py-1 transition hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 rounded"
+                aria-label="LinkedIn profile (opens in new tab)"
               >
-                <span className="rounded-md bg-white/5 p-2 transition group-hover:bg-white/10">
-                  <Linkedin className="h-5 w-5 sm:h-4 sm:w-4" aria-hidden="true" />
-                </span>
+                <Linkedin className="h-3.5 w-3.5" aria-hidden="true" />
                 LinkedIn
               </a>
             </li>
@@ -93,12 +93,10 @@ export function Contact({ personalInfo }: ContactProps) {
                 href={personalInfo.githubUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex items-center gap-3 sm:text-sm text-xs font-bold text-slate-300 transition hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 rounded-lg px-3 py-3 min-h-[48px]"
-                aria-label="Visit GitHub profile (opens in new tab)"
+                className="inline-flex items-center gap-1.5 px-2 py-1 transition hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 rounded"
+                aria-label="GitHub profile (opens in new tab)"
               >
-                <span className="rounded-md bg-white/5 p-2 transition group-hover:bg-white/10">
-                  <Github className="h-5 w-5 sm:h-4 sm:w-4" aria-hidden="true" />
-                </span>
+                <Github className="h-3.5 w-3.5" aria-hidden="true" />
                 GitHub
               </a>
             </li>
@@ -107,12 +105,10 @@ export function Contact({ personalInfo }: ContactProps) {
                 href={personalInfo.resumeUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex items-center gap-3 sm:text-sm text-xs font-bold text-slate-300 transition hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 rounded-lg px-3 py-3 min-h-[48px]"
-                aria-label="View resume (opens in new tab)"
+                className="inline-flex items-center gap-1.5 px-2 py-1 transition hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 rounded"
+                aria-label="Resume (opens in new tab)"
               >
-                <span className="rounded-md bg-white/5 p-2 transition group-hover:bg-white/10">
-                  <FileText className="h-5 w-5 sm:h-4 sm:w-4" aria-hidden="true" />
-                </span>
+                <FileText className="h-3.5 w-3.5" aria-hidden="true" />
                 Resume
               </a>
             </li>
@@ -121,15 +117,13 @@ export function Contact({ personalInfo }: ContactProps) {
                 href={personalInfo.featuredUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex items-center gap-3 sm:text-sm text-xs font-bold text-slate-300 transition hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 rounded-lg px-3 py-3 min-h-[48px]"
-                aria-label="View Featured Experts profile (opens in new tab)"
+                className="inline-flex items-center gap-1.5 px-2 py-1 transition hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 rounded"
+                aria-label="Featured Experts profile (opens in new tab)"
               >
-                <span className="rounded-md bg-white/5 p-2 transition group-hover:bg-white/10">
-                  <svg className="h-5 w-5 sm:h-4 sm:w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
-                  </svg>
-                </span>
-                Featured Experts
+                <svg className="h-3.5 w-3.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+                </svg>
+                Featured
               </a>
             </li>
           </ul>

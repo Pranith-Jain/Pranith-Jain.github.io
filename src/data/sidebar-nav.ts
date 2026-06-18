@@ -57,6 +57,7 @@ import {
   Users,
   Wallet,
   Wifi,
+  Award,
   Wrench,
   Zap,
   type LucideIcon,
@@ -209,6 +210,7 @@ const PAGE_ICON_OVERRIDES: Record<string, LucideIcon> = {
   '/threatintel/osint/cli': Terminal,
   '/threatintel/osint/map': Map,
   '/threatintel/osint/toolbox': Wrench,
+  '/threatintel/osint/certs': Award,
   '/threatintel/osint/secops': Settings,
   // Tools
   '/threatintel/tools/copilot': Sparkles,

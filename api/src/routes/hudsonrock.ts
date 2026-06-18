@@ -1,142 +1,347 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import {
+  searchByEmails,
+  searchByDomain,
+  domainOverview,
+  assetsDiscovery,
+  thirdPartyRiskAssessment,
+  infectionAnalysis,
+  searchByUsername,
+  searchByIp,
+  searchByStealer,
+  searchByKeyword,
+  advancedSearch,
+  getAccount,
+  type HRSearchResponse,
+  type HRStealerEntry,
+} from '../../../worker/lib/hudsonrock';
 
-const HR_BASE = 'https://cavalier.hudsonrock.com/api/json/v2/osint-tools';
+const V2_BASE = 'https://cavalier.hudsonrock.com/api/json/v2/osint-tools';
 const CACHE_TTL_SECONDS = 3600;
-
-interface HudsonRockCredential {
-  url: string;
-  domain: string;
-  username: string;
-  password: string;
-  type: 'employee' | 'user' | 'third_party';
-}
-
-interface HudsonRockStealerEntry {
-  stealer: string;
-  date_compromised: string;
-  date_uploaded: string;
-  stealer_family: string;
-  ip: string;
-  computer_name: string;
-  operating_system: string;
-  credentials: HudsonRockCredential[];
-}
-
-interface HudsonRockResponse {
-  data: HudsonRockStealerEntry[];
-  nextCursor?: string;
-}
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const DOMAIN_RE = /^([a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}$/;
 
+function hasV3Key(env: Env): boolean {
+  return Boolean(env.HUDSONROCK_API_KEY);
+}
+
+function cacheGet(key: string): Promise<Response | undefined> {
+  return caches.default.match(new Request(key));
+}
+
+function cachePut(key: string, res: Response): Promise<void> {
+  return caches.default.put(new Request(key), res.clone()).then(() => {});
+}
+
+function formatV3Entry(entry: HRStealerEntry) {
+  return {
+    stealer_id: entry.stealer,
+    stealer_family: entry.stealer_family,
+    date_compromised: entry.date_compromised,
+    date_uploaded: entry.date_uploaded,
+    ip: entry.ip,
+    computer_name: entry.computer_name,
+    operating_system: entry.operating_system,
+    employee_at: entry.employeeAt,
+    client_at: entry.clientAt,
+    credentials: entry.credentials.map((c) => ({
+      url: c.url,
+      domain: c.domain,
+      username: c.username,
+      type: c.type,
+    })),
+  };
+}
+
+function successResponse(body: object, cacheKey: string, ctx: Context<{ Bindings: Env }>): Response {
+  const raw = JSON.stringify(body);
+  const res = new Response(raw, {
+    status: 200,
+    headers: {
+      'content-type': 'application/json',
+      'cache-control': `public, max-age=${CACHE_TTL_SECONDS}`,
+    },
+  });
+  ctx.executionCtx.waitUntil(cachePut(cacheKey, res));
+  return res;
+}
+
+// ─── Email search ──────────────────────────────────────────────────────────
+
 export async function hudsonRockSearchHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const email = c.req.query('email');
-  if (!email) {
-    return c.json({ error: 'email parameter required' }, 400);
-  }
-  if (!EMAIL_RE.test(email)) {
-    return c.json({ error: 'invalid email format' }, 400);
-  }
+  if (!email) return c.json({ error: 'email parameter required' }, 400);
+  if (!EMAIL_RE.test(email)) return c.json({ error: 'invalid email format' }, 400);
 
-  const cacheKeyStr = `https://hr-cache.internal/v1-${encodeURIComponent(email)}`;
-  const cacheReq = new Request(cacheKeyStr);
-  const cached = await caches.default.match(cacheReq);
-  if (cached) return new Response(cached.body, cached);
+  const cacheKey = `https://hr-cache.internal/v3-email-${encodeURIComponent(email)}`;
+  const cached = await cacheGet(cacheKey);
+  if (cached) return cached;
+
+  const env = c.env;
 
   try {
-    const res = await fetch(`${HR_BASE}/search-by-email?email=${encodeURIComponent(email)}`, {
-      headers: {
-        accept: 'application/json',
-        'user-agent': 'pranithjain.qzz.io DFIR toolkit',
-      },
+    if (hasV3Key(env)) {
+      const data = await searchByEmails(env, [email]);
+      const entries = data.data ?? [];
+      const totalCredentials = entries.reduce((s, e) => s + e.credentials.length, 0);
+      return successResponse(
+        {
+          api_version: 'v3',
+          email,
+          found: entries.length > 0,
+          total_infections: entries.length,
+          total_credentials: totalCredentials,
+          has_more: Boolean(data.nextCursor),
+          results: entries.map(formatV3Entry),
+          generated_at: new Date().toISOString(),
+        },
+        cacheKey,
+        c
+      );
+    }
+
+    // Fallback to v2 free endpoint
+    const res = await fetch(`${V2_BASE}/search-by-email?email=${encodeURIComponent(email)}`, {
+      headers: { accept: 'application/json', 'user-agent': 'pranithjain.qzz.io DFIR toolkit' },
       signal: AbortSignal.timeout(10000),
     });
     if (!res.ok) return c.json({ error: `Hudson Rock upstream ${res.status}` }, 502);
 
-    const data = (await res.json()) as HudsonRockResponse;
+    const data = (await res.json()) as { data: HRStealerEntry[] };
     const entries = Array.isArray(data?.data) ? data.data : [];
-    const totalCredentials = entries.reduce((sum, entry) => sum + entry.credentials.length, 0);
-
-    const body = JSON.stringify({
-      email,
-      found: entries.length > 0,
-      total_infections: entries.length,
-      total_credentials: totalCredentials,
-      results: entries.map((entry) => ({
-        stealer_id: entry.stealer,
-        stealer_family: entry.stealer_family,
-        date_compromised: entry.date_compromised,
-        date_uploaded: entry.date_uploaded,
-        ip: entry.ip,
-        computer_name: entry.computer_name,
-        operating_system: entry.operating_system,
-        credentials: entry.credentials.map((c) => ({
-          url: c.url,
-          domain: c.domain,
-          username: c.username,
-          type: c.type,
-        })),
-      })),
-      generated_at: new Date().toISOString(),
-    });
-
-    const response = new Response(body, {
-      status: 200,
-      headers: {
-        'content-type': 'application/json',
-        'cache-control': `public, max-age=${CACHE_TTL_SECONDS}`,
+    const totalCredentials = entries.reduce((s, e) => s + e.credentials.length, 0);
+    return successResponse(
+      {
+        api_version: 'v2',
+        email,
+        found: entries.length > 0,
+        total_infections: entries.length,
+        total_credentials: totalCredentials,
+        results: entries.map(formatV3Entry),
+        generated_at: new Date().toISOString(),
       },
-    });
-    c.executionCtx.waitUntil(caches.default.put(cacheReq, response.clone()));
-    return response;
+      cacheKey,
+      c
+    );
   } catch (e) {
     return c.json({ error: e instanceof Error ? e.message : 'Hudson Rock unreachable' }, 502);
   }
 }
 
+// ─── Domain search ─────────────────────────────────────────────────────────
+
 export async function hudsonRockDomainHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const domain = c.req.query('domain');
-  if (!domain) {
-    return c.json({ error: 'domain parameter required' }, 400);
-  }
-  if (!DOMAIN_RE.test(domain)) {
-    return c.json({ error: 'invalid domain format' }, 400);
-  }
+  if (!domain) return c.json({ error: 'domain parameter required' }, 400);
+  if (!DOMAIN_RE.test(domain)) return c.json({ error: 'invalid domain format' }, 400);
 
-  const cacheKeyStr = `https://hr-cache.internal/domain-v1-${encodeURIComponent(domain)}`;
-  const cacheReq = new Request(cacheKeyStr);
-  const cached = await caches.default.match(cacheReq);
-  if (cached) return new Response(cached.body, cached);
+  const cacheKey = `https://hr-cache.internal/v3-domain-${encodeURIComponent(domain)}`;
+  const cached = await cacheGet(cacheKey);
+  if (cached) return cached;
+
+  const env = c.env;
 
   try {
-    const res = await fetch(`${HR_BASE}/search-by-domain?domain=${encodeURIComponent(domain)}`, {
-      headers: {
-        accept: 'application/json',
-        'user-agent': 'pranithjain.qzz.io DFIR toolkit',
-      },
+    if (hasV3Key(env)) {
+      const data = await searchByDomain(env, [domain]);
+      const entries = data.data ?? [];
+      const totalCredentials = entries.reduce((s, e) => s + e.credentials.length, 0);
+      return successResponse(
+        {
+          api_version: 'v3',
+          domain,
+          found: entries.length > 0,
+          total_infections: entries.length,
+          total_credentials: totalCredentials,
+          has_more: Boolean(data.nextCursor),
+          results: entries.map(formatV3Entry),
+          generated_at: new Date().toISOString(),
+        },
+        cacheKey,
+        c
+      );
+    }
+
+    const res = await fetch(`${V2_BASE}/search-by-domain?domain=${encodeURIComponent(domain)}`, {
+      headers: { accept: 'application/json', 'user-agent': 'pranithjain.qzz.io DFIR toolkit' },
       signal: AbortSignal.timeout(10000),
     });
     if (!res.ok) return c.json({ error: `Hudson Rock upstream ${res.status}` }, 502);
-
     const data = await res.json();
-    const body = JSON.stringify({
-      domain,
-      found: true,
-      data,
-      generated_at: new Date().toISOString(),
-    });
+    return successResponse(
+      { api_version: 'v2', domain, found: true, data, generated_at: new Date().toISOString() },
+      cacheKey,
+      c
+    );
+  } catch (e) {
+    return c.json({ error: e instanceof Error ? e.message : 'Hudson Rock unreachable' }, 502);
+  }
+}
 
-    const response = new Response(body, {
-      status: 200,
-      headers: {
-        'content-type': 'application/json',
-        'cache-control': `public, max-age=${CACHE_TTL_SECONDS}`,
+// ─── Domain overview (v3 only) ─────────────────────────────────────────────
+
+export async function hudsonRockDomainOverviewHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
+  const domain = c.req.query('domain');
+  if (!domain) return c.json({ error: 'domain parameter required' }, 400);
+  if (!DOMAIN_RE.test(domain)) return c.json({ error: 'invalid domain format' }, 400);
+  if (!hasV3Key(c.env)) return c.json({ error: 'requires HUDSONROCK_API_KEY (v3 only)' }, 503);
+
+  const cacheKey = `https://hr-cache.internal/v3-overview-${encodeURIComponent(domain)}`;
+  const cached = await cacheGet(cacheKey);
+  if (cached) return cached;
+
+  try {
+    const data = await domainOverview(c.env, [domain]);
+    return successResponse(
+      { domain, overview: data.data?.[0] ?? null, generated_at: new Date().toISOString() },
+      cacheKey,
+      c
+    );
+  } catch (e) {
+    return c.json({ error: e instanceof Error ? e.message : 'Hudson Rock unreachable' }, 502);
+  }
+}
+
+// ─── Assets discovery (v3 only) ────────────────────────────────────────────
+
+export async function hudsonRockDiscoveryHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
+  const domain = c.req.query('domain');
+  if (!domain) return c.json({ error: 'domain parameter required' }, 400);
+  if (!DOMAIN_RE.test(domain)) return c.json({ error: 'invalid domain format' }, 400);
+  if (!hasV3Key(c.env)) return c.json({ error: 'requires HUDSONROCK_API_KEY (v3 only)' }, 503);
+
+  const cacheKey = `https://hr-cache.internal/v3-discovery-${encodeURIComponent(domain)}`;
+  const cached = await cacheGet(cacheKey);
+  if (cached) return cached;
+
+  try {
+    const data = await assetsDiscovery(c.env, [domain]);
+    return successResponse(
+      {
+        domain,
+        total_urls: data.data?.length ?? 0,
+        has_more: Boolean(data.nextCursor),
+        results: data.data ?? [],
+        generated_at: new Date().toISOString(),
       },
-    });
-    c.executionCtx.waitUntil(caches.default.put(cacheReq, response.clone()));
-    return response;
+      cacheKey,
+      c
+    );
+  } catch (e) {
+    return c.json({ error: e instanceof Error ? e.message : 'Hudson Rock unreachable' }, 502);
+  }
+}
+
+// ─── Third-party risk (v3 only) ────────────────────────────────────────────
+
+export async function hudsonRockAssessmentHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
+  const domain = c.req.query('domain');
+  if (!domain) return c.json({ error: 'domain parameter required' }, 400);
+  if (!DOMAIN_RE.test(domain)) return c.json({ error: 'invalid domain format' }, 400);
+  if (!hasV3Key(c.env)) return c.json({ error: 'requires HUDSONROCK_API_KEY (v3 only)' }, 503);
+
+  const cacheKey = `https://hr-cache.internal/v3-assess-${encodeURIComponent(domain)}`;
+  const cached = await cacheGet(cacheKey);
+  if (cached) return cached;
+
+  try {
+    const data = await thirdPartyRiskAssessment(c.env, domain);
+    return successResponse({ domain, assessment: data, generated_at: new Date().toISOString() }, cacheKey, c);
+  } catch (e) {
+    return c.json({ error: e instanceof Error ? e.message : 'Hudson Rock unreachable' }, 502);
+  }
+}
+
+// ─── Infection analysis (v3 only) ──────────────────────────────────────────
+
+export async function hudsonRockInfectionAnalysisHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
+  const stealer = c.req.query('stealer');
+  if (!stealer) return c.json({ error: 'stealer parameter required' }, 400);
+  if (!hasV3Key(c.env)) return c.json({ error: 'requires HUDSONROCK_API_KEY (v3 only)' }, 503);
+
+  const cacheKey = `https://hr-cache.internal/v3-infection-${encodeURIComponent(stealer)}`;
+  const cached = await cacheGet(cacheKey);
+  if (cached) return cached;
+
+  try {
+    const data = await infectionAnalysis(c.env, stealer);
+    return successResponse({ stealer, analysis: data.data, generated_at: new Date().toISOString() }, cacheKey, c);
+  } catch (e) {
+    return c.json({ error: e instanceof Error ? e.message : 'Hudson Rock unreachable' }, 502);
+  }
+}
+
+// ─── Username search (v3 only) ─────────────────────────────────────────────
+
+export async function hudsonRockUsernameHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
+  const username = c.req.query('username');
+  if (!username) return c.json({ error: 'username parameter required' }, 400);
+  if (!hasV3Key(c.env)) return c.json({ error: 'requires HUDSONROCK_API_KEY (v3 only)' }, 503);
+
+  const cacheKey = `https://hr-cache.internal/v3-username-${encodeURIComponent(username)}`;
+  const cached = await cacheGet(cacheKey);
+  if (cached) return cached;
+
+  try {
+    const data = await searchByUsername(c.env, [username]);
+    const entries = data.data ?? [];
+    return successResponse(
+      {
+        username,
+        found: entries.length > 0,
+        total_infections: entries.length,
+        has_more: Boolean(data.nextCursor),
+        results: entries.map(formatV3Entry),
+        generated_at: new Date().toISOString(),
+      },
+      cacheKey,
+      c
+    );
+  } catch (e) {
+    return c.json({ error: e instanceof Error ? e.message : 'Hudson Rock unreachable' }, 502);
+  }
+}
+
+// ─── IP search (v3 only) ───────────────────────────────────────────────────
+
+export async function hudsonRockIpHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
+  const ip = c.req.query('ip');
+  if (!ip) return c.json({ error: 'ip parameter required' }, 400);
+  if (!hasV3Key(c.env)) return c.json({ error: 'requires HUDSONROCK_API_KEY (v3 only)' }, 503);
+
+  const cacheKey = `https://hr-cache.internal/v3-ip-${encodeURIComponent(ip)}`;
+  const cached = await cacheGet(cacheKey);
+  if (cached) return cached;
+
+  try {
+    const data = await searchByIp(c.env, [ip]);
+    const entries = data.data ?? [];
+    return successResponse(
+      {
+        ip,
+        found: entries.length > 0,
+        total_infections: entries.length,
+        has_more: Boolean(data.nextCursor),
+        results: entries.map(formatV3Entry),
+        generated_at: new Date().toISOString(),
+      },
+      cacheKey,
+      c
+    );
+  } catch (e) {
+    return c.json({ error: e instanceof Error ? e.message : 'Hudson Rock unreachable' }, 502);
+  }
+}
+
+// ─── Account info (v3 only) ────────────────────────────────────────────────
+
+export async function hudsonRockAccountHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
+  if (!hasV3Key(c.env)) return c.json({ error: 'requires HUDSONROCK_API_KEY (v3 only)' }, 503);
+  try {
+    const data = await getAccount(c.env);
+    return c.json({ account: data, generated_at: new Date().toISOString() });
   } catch (e) {
     return c.json({ error: e instanceof Error ? e.message : 'Hudson Rock unreachable' }, 502);
   }

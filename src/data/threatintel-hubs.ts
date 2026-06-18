@@ -1014,6 +1014,14 @@ export const HUB_META: readonly HubMeta[] = [
         compVar: 'CuratedToolbox',
       },
       {
+        path: '/threatintel/osint/certs',
+        tabId: 'certs',
+        label: 'Free Cert Courses',
+        desc: 'Syberseeker’s start.me hub of free certification tracks — security, cloud, blue team, OSINT, GRC.',
+        compVar: 'CuratedCerts',
+        badge: 'new',
+      },
+      {
         path: '/threatintel/osint/secops',
         tabId: 'secops',
         label: 'SecOps Tools',

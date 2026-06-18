@@ -29,7 +29,7 @@ import { buildBlocklists } from '../api/src/lib/blocklist-builder';
 import { indexTelegramLeaks } from '../api/src/routes/rag-index';
 import { indexAllCorpora } from '../api/src/routes/rag-corpus-index';
 import { detectPirAlerts } from '../api/src/routes/pir';
-import { syncOwaspAiLandscape, syncCuratedToolbox } from '../api/src/lib/landscape-sync';
+import { syncOwaspAiLandscape, syncCuratedToolbox, syncCuratedCerts } from '../api/src/lib/landscape-sync';
 import { runGraphIngest } from '../api/src/routes/graph-ingest';
 import { autoRunFeedJobs } from '../api/src/routes/feed-scheduler';
 import { enqueueAllFeeds } from '../api/src/routes/live-iocs';
@@ -70,14 +70,18 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
     try {
       const idx = await loadSiIndex(env.ASSETS);
       const cache = siCacheStats();
-      console.log(JSON.stringify({
-        job: 'si-stats',
-        counts: idx.counts,
-        cacheHits: cache.skills.hits + cache.queries.hits + cache.automations.hits,
-        cacheMisses: cache.skills.misses + cache.queries.misses + cache.automations.misses,
-      }));
+      console.log(
+        JSON.stringify({
+          job: 'si-stats',
+          counts: idx.counts,
+          cacheHits: cache.skills.hits + cache.queries.hits + cache.automations.hits,
+          cacheMisses: cache.skills.misses + cache.queries.misses + cache.automations.misses,
+        })
+      );
     } catch (e) {
-      console.log(JSON.stringify({ job: 'si-stats', status: 'failed', error: e instanceof Error ? e.message : String(e) }));
+      console.log(
+        JSON.stringify({ job: 'si-stats', status: 'failed', error: e instanceof Error ? e.message : String(e) })
+      );
     }
   }
 
@@ -789,10 +793,22 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
           })
         );
       }),
+      syncCuratedCerts(env as unknown as ApiEnv).then((c) => {
+        console.log(
+          JSON.stringify({
+            job: 'landscape-certs',
+            ok: c.ok,
+            error: c.error,
+            totalTools: c.totalTools,
+            totalSections: c.totalSections,
+          })
+        );
+      }),
     ]).then((results) => {
+      const labels = ['landscape-owasp', 'landscape-curated', 'landscape-certs'];
       results.forEach((r, i) => {
         if (r.status === 'rejected') {
-          logCronFail(i === 0 ? 'landscape-owasp' : 'landscape-curated')(r.reason);
+          logCronFail(labels[i] ?? `landscape-${i}`)(r.reason);
         }
       });
     });

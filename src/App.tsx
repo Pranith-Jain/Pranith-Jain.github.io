@@ -207,6 +207,7 @@ const CrossCampaignCorrelation = lazy(() => import('./pages/threatintel/CrossCam
 const CrossCorrelate = lazy(() => import('./pages/threatintel/CrossCorrelate'));
 const CryptoScamFeed = lazy(() => import('./pages/threatintel/CryptoScamFeed'));
 const CuratedToolbox = lazy(() => import('./pages/threatintel/CuratedToolbox'));
+const CuratedCerts = lazy(() => import('./pages/threatintel/CuratedCerts'));
 const CveIntel = lazy(() => import('./pages/threatintel/CveIntel'));
 const CveList = lazy(() => import('./pages/threatintel/CveList'));
 const CveResourcesCatalog = lazy(() => import('./pages/dfir/CveResourcesCatalog'));
@@ -656,6 +657,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel/osint/cli', Component: OsintCliTools },
   { path: '/threatintel/osint/map', Component: OsintCountryMap },
   { path: '/threatintel/osint/toolbox', Component: CuratedToolbox },
+  { path: '/threatintel/osint/certs', Component: CuratedCerts },
   { path: '/threatintel/osint/secops', Component: SecopsCatalog },
   { path: '/threatintel/research-hub/research', Component: ResearchIndex },
   { path: '/threatintel/research-hub/reports', Component: Reports },

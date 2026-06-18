@@ -118,6 +118,7 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/threatintel/osint/framework', '/__prerendered/threatintel__osint__framework'],
   ['/threatintel/osint/cli', '/__prerendered/threatintel__osint__cli'],
   ['/threatintel/osint/map', '/__prerendered/threatintel__osint__map'],
+  ['/threatintel/osint/certs', '/__prerendered/threatintel__osint__certs'],
   ['/threatintel/osint/toolbox', '/__prerendered/threatintel__osint__toolbox'],
   ['/threatintel/osint/secops', '/__prerendered/threatintel__osint__secops'],
   ['/threatintel/research-hub/research', '/__prerendered/threatintel__research-hub__research'],

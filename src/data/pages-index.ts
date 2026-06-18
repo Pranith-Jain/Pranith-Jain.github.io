@@ -3359,6 +3359,13 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
     group: 'threatintel',
   },
   {
+    path: '/threatintel/osint/certs',
+    label: 'Free Cert Courses',
+    description: 'Free certification tracks mirrored from Syberseeker’s start.me hub',
+    sectionLabel: 'Threat Intel · OSINT',
+    group: 'threatintel',
+  },
+  {
     path: '/threatintel/osint/secops',
     label: 'SecOps',
     description: 'SecOps tools catalog',

@@ -175,6 +175,27 @@ export const RESOURCES: ExternalResource[] = [
     description: 'AI-assisted SOC playground by Perplexity Labs.',
   },
   {
+    id: 'aisecurity-zone',
+    name: 'AISecurity.zone',
+    url: 'https://aisecurity.zone/',
+    kind: 'directory',
+    featured: true,
+    tags: ['ai-security', 'threat-intel'],
+    description:
+      'Community-curated hub of AI-security resources — adversarial ML, LLM red-teaming, model/data exfiltration, prompt-injection catalogues, governance frameworks, and AI-CTI tooling. Useful as a discovery surface when triaging AI-system risks or scoping AI red-team engagements.',
+    why: 'Centralised AI-security starting point I cross-reference when scoping AI risk assessments or building detection content for LLM-adjacent threats.',
+  },
+  {
+    id: 'syberseeker-certs',
+    name: 'Syberseeker Free Certification Courses',
+    url: 'https://start.me/p/xb2ReR/free-certification-courses-by-syberseeker',
+    kind: 'directory',
+    featured: true,
+    description:
+      'Curated start.me page by Syberseeker aggregating free certification tracks — security, cloud, networking, and blue-team paths from vendors, universities, and community programs. Mirrored in-platform at /threatintel/osint/certs with a daily auto-sync.',
+    why: 'The single best free-cert starting point I have found. Direct mirror on the platform means the same link list is searchable, deep-linkable, and survives start.me outages.',
+  },
+  {
     id: 'leakradar',
     name: 'LeakRadar',
     url: 'https://leakradar.io/en/leaks',

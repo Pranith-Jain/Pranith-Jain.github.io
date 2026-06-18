@@ -55,6 +55,9 @@ type Env = {
   SELF?: Fetcher;
   /** Canonical site URL — used instead of hardcoded domain. */
   SITE_URL?: string;
+  /** Hudson Rock Cavalier API v3 key. Optional — MCP tools degrade to v2 free
+   *  endpoints or return setup instructions when unset. */
+  HUDSONROCK_API_KEY?: string;
 };
 
 const API_BASE_DEFAULT = 'https://pranithjain.qzz.io';

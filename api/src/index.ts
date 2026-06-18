@@ -396,7 +396,17 @@ import { hostIntelHandler } from './routes/host';
 import { proxyNovaSearchHandler } from './routes/proxynova';
 import { mcpProxyHandler, mcpProxyOptions } from './routes/mcp-proxy';
 import { identityProxyHandler } from './routes/identity-proxy';
-import { hudsonRockSearchHandler, hudsonRockDomainHandler } from './routes/hudsonrock';
+import {
+  hudsonRockSearchHandler,
+  hudsonRockDomainHandler,
+  hudsonRockDomainOverviewHandler,
+  hudsonRockDiscoveryHandler,
+  hudsonRockAssessmentHandler,
+  hudsonRockInfectionAnalysisHandler,
+  hudsonRockUsernameHandler,
+  hudsonRockIpHandler,
+  hudsonRockAccountHandler,
+} from './routes/hudsonrock';
 import { projectDiscoveryHandler } from './routes/projectdiscovery';
 import {
   pdLeaksHandler,
@@ -440,6 +450,8 @@ import {
   getOwaspAiLandscapeMetaHandler,
   getCuratedToolboxHandler,
   getCuratedToolboxMetaHandler,
+  getCuratedCertsHandler,
+  getCuratedCertsMetaHandler,
 } from './routes/landscape';
 import { predictionsHandler } from './routes/predictions';
 
@@ -806,6 +818,13 @@ app.options('/api/v1/mcp/proxy', mcpProxyOptions);
 app.post('/api/v1/mcp/proxy', mcpProxyHandler);
 app.get('/api/v1/breach/hudsonrock', hudsonRockSearchHandler);
 app.get('/api/v1/breach/hudsonrock/domain', hudsonRockDomainHandler);
+app.get('/api/v1/hudsonrock/domain-overview', hudsonRockDomainOverviewHandler);
+app.get('/api/v1/hudsonrock/discovery', hudsonRockDiscoveryHandler);
+app.get('/api/v1/hudsonrock/assessment', hudsonRockAssessmentHandler);
+app.get('/api/v1/hudsonrock/infection-analysis', hudsonRockInfectionAnalysisHandler);
+app.get('/api/v1/hudsonrock/username', hudsonRockUsernameHandler);
+app.get('/api/v1/hudsonrock/ip', hudsonRockIpHandler);
+app.get('/api/v1/hudsonrock/account', hudsonRockAccountHandler);
 app.get('/api/v1/breach/projectdiscovery', projectDiscoveryHandler);
 app.get('/api/v1/pd/leaks', pdLeaksHandler);
 app.get('/api/v1/pd/subdomains', pdSubdomainsHandler);
@@ -1304,6 +1323,8 @@ app.get('/api/v1/owasp-ai-landscape', getOwaspAiLandscapeHandler);
 app.get('/api/v1/owasp-ai-landscape/meta', getOwaspAiLandscapeMetaHandler);
 app.get('/api/v1/curated-toolbox', getCuratedToolboxHandler);
 app.get('/api/v1/curated-toolbox/meta', getCuratedToolboxMetaHandler);
+app.get('/api/v1/curated-certs', getCuratedCertsHandler);
+app.get('/api/v1/curated-certs/meta', getCuratedCertsMetaHandler);
 app.get('/api/v1/redhunt-insights', getRedHuntInsightsHandler);
 app.get('/api/v1/predictions', predictionsHandler);
 

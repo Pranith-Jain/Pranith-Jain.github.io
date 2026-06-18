@@ -65,6 +65,19 @@ export default {
         mini: ['0.6875rem', { lineHeight: '1rem' }],
         micro: ['0.625rem', { lineHeight: '0.9rem' }],
       },
+
+      // Hunt.io-inspired radius scale: sharp 4-8px on data tiles, larger
+      // radii only on hero/CTA surfaces. Use named tokens instead of
+      // raw rounded-* so intent is in the class name.
+      //   card     -> 8px   (toolkit cards, data tiles)
+      //   panel    -> 10px  (panels with internal table)
+      //   hero     -> 14px  (hero/CTA panels, top-of-page callouts)
+      borderRadius: {
+        card: '0.5rem',
+        panel: '0.625rem',
+        hero: '0.875rem',
+      },
+
       boxShadow: {
         glow: '0 0 0 1px rgba(37, 99, 235, 0.25), 0 18px 60px rgba(37, 99, 235, 0.15)',
         // Elevation scale — the depth system the flat light theme was missing.

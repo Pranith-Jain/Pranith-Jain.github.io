@@ -184,6 +184,11 @@ export interface Env {
    *  feed works without it using OpenPhish + brand detection; setting a key
    *  adds PhishTank's verified + target metadata. */
   PHISHTANK_API_KEY?: string;
+  /** Hudson Rock Cavalier API v3 key (free at hudsonrock.com/free-api-key).
+   *  Set via `wrangler secret put HUDSONROCK_API_KEY`. Optional — when unset,
+   *  the infostealer intelligence routes and MCP tools degrade to the legacy
+   *  v2 free endpoints (no key required, limited fields). */
+  HUDSONROCK_API_KEY?: string;
   /** Canonical site URL. Set via
    *  `wrangler.jsonc#vars.SITE_URL` — used for CORS, RSS links, and
    *  canonical URLs. Falls back to the hardcoded default. */

@@ -128,6 +128,7 @@ const ROUTES = [
   '/threatintel/osint/framework',
   '/threatintel/osint/map',
   '/threatintel/osint/secops',
+  '/threatintel/osint/certs',
   '/threatintel/osint/toolbox',
   '/threatintel/phishing/phish',
   '/threatintel/phishing/scam',
@@ -376,8 +377,6 @@ const ROUTES = [
   '/dfir/quicktrace',
   '/dfir/phishops',
   '/dfir/phishbook',
-
-
 
   // ── ThreatIntel: live-feed surfaces (38) — prerendered chrome ─
   // Client hydrates and fetches /api/v1/* on mount.

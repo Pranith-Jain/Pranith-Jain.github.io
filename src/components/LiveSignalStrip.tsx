@@ -199,7 +199,7 @@ export function LiveSignalStrip(): JSX.Element {
   }, []);
 
   return (
-    <section className="mt-10 mb-2" aria-labelledby="live-signal-heading">
+    <section className="mb-2" aria-labelledby="live-signal-heading">
       <div className="flex items-baseline gap-3 mb-3">
         <h2 id="live-signal-heading" className="text-eyebrow font-mono uppercase text-slate-500 dark:text-slate-400">
           Live from the platform · updated on load

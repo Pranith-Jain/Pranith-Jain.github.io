@@ -223,6 +223,32 @@
     outline: none;
     box-shadow: 0 0 0 2px rgb(244 63 94 / 0.25);
   }
+
+  /* Hunt.io-inspired prose. Apply to a wrapper of <p>/<ul>/<h2> blocks
+     in long-form pages (case studies, blog posts, glossary). Caps the
+     reading width at ~70ch, lifts the body line-height, and uses the
+     theme-aware --muted token so light/dark both stay >=4.5:1. */
+  .prose-hunt {
+    @apply max-w-[68ch] text-muted leading-[1.65];
+  }
+  .prose-hunt h2 {
+    @apply mt-10 mb-3 font-display text-2xl font-bold tracking-tight text-slate-900 dark:text-white;
+  }
+  .prose-hunt h3 {
+    @apply mt-8 mb-2 font-display text-lg font-bold tracking-tight text-slate-900 dark:text-white;
+  }
+  .prose-hunt p {
+    @apply mt-4;
+  }
+  .prose-hunt ul {
+    @apply mt-4 list-disc pl-5 space-y-1.5;
+  }
+  .prose-hunt code {
+    @apply rounded bg-slate-100 dark:bg-slate-800/60 px-1.5 py-0.5 font-mono text-[0.9em] text-slate-800 dark:text-slate-200;
+  }
+  .prose-hunt a {
+    @apply text-brand-600 dark:text-brand-400 underline-offset-2 hover:underline;
+  }
 }
 
 @layer utilities {
