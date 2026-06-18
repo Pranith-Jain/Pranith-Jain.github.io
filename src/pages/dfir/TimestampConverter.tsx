@@ -73,20 +73,20 @@ export default function TimestampConverter(): JSX.Element {
         value={val}
         onChange={(e) => setVal(e.target.value)}
         placeholder="e.g. 1747300000 · 133563456000000000 · 2026-05-15T08:00:00Z"
-        className="w-full rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 px-3 py-2.5 font-mono text-sm focus:border-brand-500 focus:outline-none"
+        className="w-full rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 px-3 py-2.5 font-mono text-sm focus:border-brand-500 focus:outline-none"
       />
       <div className="mt-2 flex gap-2 text-mini font-mono">
         <button
           type="button"
           onClick={() => setVal(String(Math.floor(now / 1000)))}
-          className="px-2 py-1 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40"
+          className="px-2 py-1 rounded border border-slate-200 dark:border-[#1e2030] hover:border-brand-500/40"
         >
           now (unix s)
         </button>
         <button
           type="button"
           onClick={() => setVal(new Date(now).toISOString())}
-          className="px-2 py-1 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40"
+          className="px-2 py-1 rounded border border-slate-200 dark:border-[#1e2030] hover:border-brand-500/40"
         >
           now (ISO)
         </button>
@@ -96,7 +96,7 @@ export default function TimestampConverter(): JSX.Element {
         {rows.map((r, i) => (
           <li
             key={i}
-            className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-3"
+            className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-3"
           >
             <div className="text-micro font-mono uppercase tracking-wider text-slate-500">{r.label}</div>
             <div className="font-mono text-sm text-slate-900 dark:text-slate-100">{r.iso}</div>

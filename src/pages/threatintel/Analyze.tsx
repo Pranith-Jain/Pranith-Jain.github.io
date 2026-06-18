@@ -218,7 +218,7 @@ export default function Analyze(): JSX.Element {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="IP, domain, URL, hash, or email"
-              className="w-full px-4 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="w-full px-4 py-3 bg-white dark:bg-[#12121a] border border-slate-200 dark:border-[#1e2030] rounded-lg font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
             />
             {input && detectedType !== 'unknown' && (
               <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-mono text-brand-600 dark:text-brand-400 uppercase">
@@ -252,7 +252,7 @@ export default function Analyze(): JSX.Element {
       </form>
 
       {streaming && results.length === 0 && (
-        <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-8 text-center animate-pulse">
+        <div className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-8 text-center animate-pulse">
           <Loader2 size={24} className="animate-spin mx-auto text-slate-400 mb-3" />
           <p className="text-sm font-mono text-slate-500">Opening SSE stream to 45 providers…</p>
         </div>
@@ -331,7 +331,7 @@ export default function Analyze(): JSX.Element {
                   className={`text-mini font-mono px-2.5 py-1 rounded border transition-colors ${
                     filterVerdict === f.key
                       ? 'bg-brand-500/15 border-brand-500/40 text-brand-700 dark:text-brand-300'
-                      : 'border-slate-200 dark:border-slate-800 text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'
+                      : 'border-slate-200 dark:border-[#1e2030] text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'
                   }`}
                 >
                   {f.label}
@@ -351,24 +351,24 @@ export default function Analyze(): JSX.Element {
               <button
                 type="button"
                 onClick={exportCsv}
-                className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1"
+                className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[#1e2030] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1"
               >
                 <FileDown size={11} /> CSV
               </button>
               <button
                 type="button"
                 onClick={exportJson}
-                className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1"
+                className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[#1e2030] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1"
               >
                 <FileDown size={11} /> JSON
               </button>
             </div>
           </div>
 
-          <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 overflow-hidden">
+          <div className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
-                <thead className="bg-slate-50 dark:bg-slate-900/60 border-b border-slate-200 dark:border-slate-800">
+                <thead className="bg-slate-50 dark:bg-[#12121a]/60 border-b border-slate-200 dark:border-[#1e2030]">
                   <tr>
                     <th className="w-8 px-2 py-2" />
                     <SortHeader label="Provider" sort="source" />
@@ -395,7 +395,7 @@ export default function Analyze(): JSX.Element {
                     return (
                       <tr
                         key={r.source}
-                        className="border-t border-slate-100 dark:border-slate-800/50 hover:bg-slate-50 dark:hover:bg-slate-900/50 cursor-pointer transition-colors"
+                        className="border-t border-slate-100 dark:border-[#1e2030]/50 hover:bg-slate-50 dark:hover:bg-slate-900/50 cursor-pointer transition-colors"
                         onClick={() =>
                           setExpanded((prev) => {
                             const next = new Set(prev);
@@ -470,7 +470,7 @@ export default function Analyze(): JSX.Element {
                             {r.tags.slice(0, 3).map((t) => (
                               <span
                                 key={t}
-                                className="text-micro font-mono px-1 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-500 border border-slate-200 dark:border-slate-700 truncate max-w-[100px]"
+                                className="text-micro font-mono px-1 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-500 border border-slate-200 dark:border-[#1e2030] truncate max-w-[100px]"
                               >
                                 {t}
                               </span>
@@ -488,7 +488,7 @@ export default function Analyze(): JSX.Element {
             </div>
 
             {expanded.size > 0 && (
-              <div className="border-t border-slate-200 dark:border-slate-800 divide-y divide-slate-100 dark:divide-slate-800/50">
+              <div className="border-t border-slate-200 dark:border-[#1e2030] divide-y divide-slate-100 dark:divide-slate-800/50">
                 {sortedResults
                   .filter((r) => expanded.has(r.source))
                   .map((r) => {
@@ -498,7 +498,7 @@ export default function Analyze(): JSX.Element {
                         )
                       : [];
                     return (
-                      <div key={`detail-${r.source}`} className="p-4 bg-slate-50/50 dark:bg-slate-900/30">
+                      <div key={`detail-${r.source}`} className="p-4 bg-slate-50/50 dark:bg-[#12121a]/30">
                         <h4 className="font-display font-semibold text-xs uppercase tracking-wider text-slate-500 mb-2">
                           {r.source} — raw evidence
                         </h4>
@@ -561,7 +561,7 @@ export default function Analyze(): JSX.Element {
       )}
 
       {!streaming && results.length === 0 && !error && !summary && (
-        <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-12 text-center">
+        <div className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-12 text-center">
           <Search size={32} className="mx-auto text-slate-300 dark:text-slate-700 mb-3" />
           <p className="text-sm font-mono text-slate-500">Enter an observable above to run a multi-source analysis</p>
           <p className="text-xs font-mono text-slate-400 mt-2">

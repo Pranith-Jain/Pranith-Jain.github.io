@@ -55,7 +55,7 @@ export default function CybersecTelegram(): JSX.Element {
           <p className="text-muted mb-2 max-w-3xl leading-relaxed">
             Curated stream from active public cybersec Telegram channels. IOC drops, threat-intel commentary, leak
             announcements, and security-news mirrors. Channel set is liveness-probed; see the catalogue at{' '}
-            <Link to="/threatintel/telegram-watch" className="text-brand-600 dark:text-brand-400 hover:underline">
+            <Link to="/threatintel/telegram-monitor" className="text-brand-600 dark:text-brand-400 hover:underline">
               /threatintel/telegram-watch
             </Link>{' '}
             for descriptions of each channel.
@@ -64,32 +64,32 @@ export default function CybersecTelegram(): JSX.Element {
             <button
               type="button"
               onClick={() => setRefreshKey((k) => k + 1)}
-              className="text-mini font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 inline-flex items-center gap-1"
+              className="text-mini font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[#1e2030] hover:border-brand-500/40 inline-flex items-center gap-1"
               aria-label="Refresh Telegram firehose"
             >
               <RefreshCw size={11} /> refresh
             </button>
             <Link
-              to="/threatintel/telegram-leaks"
-              className="text-mini font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 inline-flex items-center gap-1.5"
+              to="/threatintel/telegram-monitor"
+              className="text-mini font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[#1e2030] hover:border-brand-500/40 inline-flex items-center gap-1.5"
             >
               Leak monitor
             </Link>
             <Link
-              to="/threatintel/telegram-leaks/channels"
-              className="text-mini font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 inline-flex items-center gap-1.5"
+              to="/threatintel/telegram-monitor"
+              className="text-mini font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[#1e2030] hover:border-brand-500/40 inline-flex items-center gap-1.5"
             >
               Discovered channels
             </Link>
             <Link
-              to="/threatintel/telegram-leaks/stats"
-              className="text-mini font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 inline-flex items-center gap-1.5"
+              to="/threatintel/telegram-monitor"
+              className="text-mini font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[#1e2030] hover:border-brand-500/40 inline-flex items-center gap-1.5"
             >
               Stats
             </Link>
             <Link
-              to="/threatintel/telegram-settings"
-              className="text-mini font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 inline-flex items-center gap-1.5"
+              to="/threatintel/telegram-monitor"
+              className="text-mini font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[#1e2030] hover:border-brand-500/40 inline-flex items-center gap-1.5"
             >
               Settings
             </Link>

@@ -63,7 +63,7 @@ export default function Exposure(): JSX.Element {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="example.com"
-            className="flex-1 px-4 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="flex-1 px-4 py-3 bg-white dark:bg-[#12121a] border border-slate-200 dark:border-[#1e2030] rounded-lg font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
           />
           <button
             type="submit"
@@ -84,7 +84,7 @@ export default function Exposure(): JSX.Element {
 
       {result && (
         <div className="space-y-6">
-          <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+          <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] p-6">
             <div className="flex items-baseline justify-between">
               <h2 className="font-display font-bold text-2xl">{result.domain}</h2>
               <span className="font-mono text-sm">
@@ -107,7 +107,7 @@ export default function Exposure(): JSX.Element {
               {result.shodan_enabled ? 'enabled' : 'unavailable'}
             </p>
           </section>
-          <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+          <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] p-6">
             <h3 className="font-display font-bold text-lg mb-3">Subdomains seen in CT logs</h3>
             <SubdomainTree subdomains={result.subdomains} />
           </section>

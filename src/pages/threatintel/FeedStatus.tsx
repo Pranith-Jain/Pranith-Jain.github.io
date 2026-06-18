@@ -144,7 +144,7 @@ export default function FeedStatus(): JSX.Element {
         </p>
       </div>
 
-      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6 flex items-center justify-between gap-3 flex-wrap">
+      <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 mb-6 flex items-center justify-between gap-3 flex-wrap">
         {data ? (
           <div className="flex items-center gap-3 flex-wrap">
             <span
@@ -179,7 +179,7 @@ export default function FeedStatus(): JSX.Element {
         <button
           type="button"
           onClick={() => setRefreshKey((k) => k + 1)}
-          className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40"
+          className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-[#1e2030] hover:border-brand-500/40"
         >
           <RefreshCw size={12} /> refresh
         </button>
@@ -202,7 +202,7 @@ export default function FeedStatus(): JSX.Element {
               return (
                 <li
                   key={r.id}
-                  className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-3"
+                  className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-3"
                 >
                   <div className="flex items-baseline justify-between gap-2 mb-1 flex-wrap">
                     <Link

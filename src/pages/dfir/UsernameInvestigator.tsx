@@ -1,4 +1,8 @@
-import {TabLoader } from '../../components/ui/TabLoader'; import { Suspense, lazy, useState } from 'react'; import { useSearchParams } from 'react-router-dom'; import { DataPageLayout } from '../../components/DataPageLayout'; import { Users } from 'lucide-react';
+import { TabLoader } from '../../components/ui/TabLoader';
+import { Suspense, lazy, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
+import { DataPageLayout } from '../../components/DataPageLayout';
+import { Users } from 'lucide-react';
 
 const IdentityLookup = lazy(() => import('./IdentityLookup'));
 const UsernamePivot = lazy(() => import('./UsernamePivot'));
@@ -12,12 +16,9 @@ const TABS: Array<{ id: TabId; label: string; desc: string }> = [
   { id: 'deep', label: 'Deep Scan', desc: 'Server-side HTTP checks across 60+ platforms with 15-min cache' },
 ];
 
-
 export default function UsernameInvestigator(): JSX.Element {
   const [searchParams] = useSearchParams();
-  const [activeTab, setActiveTab] = useState<TabId>(
-    (searchParams.get('tab') as TabId) || 'profiles'
-  );
+  const [activeTab, setActiveTab] = useState<TabId>((searchParams.get('tab') as TabId) || 'profiles');
 
   return (
     <DataPageLayout
@@ -27,7 +28,10 @@ export default function UsernameInvestigator(): JSX.Element {
       description="Unified username investigation — rich profiles, quick existence checks, and deep server-side scans across 60+ platforms. Pick a tab based on the depth you need."
     >
       {/* Tab bar */}
-      <nav className="flex flex-wrap gap-1 border-b border-slate-200 dark:border-slate-800 mb-6" aria-label="Investigation mode">
+      <nav
+        className="flex flex-wrap gap-1 border-b border-slate-200 dark:border-[#1e2030] mb-6"
+        aria-label="Investigation mode"
+      >
         {TABS.map((t) => (
           <button
             key={t.id}

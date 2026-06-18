@@ -13,9 +13,9 @@ const CHECK_CYCLE: Record<Check, Check> = { unset: 'covered', covered: 'partial'
 const CHECK_STYLES: Record<Check, { label: string; bg: string; text: string; border: string }> = {
   unset: {
     label: '— unset',
-    bg: 'bg-slate-50 dark:bg-slate-900',
+    bg: 'bg-slate-50 dark:bg-[#12121a]',
     text: 'text-slate-500',
-    border: 'border-slate-300 dark:border-slate-700',
+    border: 'border-slate-300 dark:border-[#1e2030]',
   },
   covered: {
     label: '✓ covered',
@@ -171,7 +171,7 @@ export default function Owasp(): JSX.Element {
               className={`px-4 py-2 rounded-lg border text-sm font-mono transition-colors ${
                 on
                   ? 'border-brand-500/50 bg-brand-50 dark:bg-brand-900/20 text-slate-900 dark:text-slate-100'
-                  : 'border-slate-200 dark:border-slate-800 text-slate-500 hover:border-brand-500/30'
+                  : 'border-slate-200 dark:border-[#1e2030] text-slate-500 hover:border-brand-500/30'
               }`}
             >
               <span className="font-display font-semibold">{l.label}</span>
@@ -182,7 +182,7 @@ export default function Owasp(): JSX.Element {
       </div>
 
       {/* Stats */}
-      <section className="mb-6 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+      <section className="mb-6 rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] p-5">
         <div className="flex flex-wrap items-baseline justify-between gap-4">
           <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1 text-xs font-mono">
             <span className="text-slate-500">Coverage:</span>
@@ -195,14 +195,14 @@ export default function Owasp(): JSX.Element {
             <button
               type="button"
               onClick={exportReport}
-              className="inline-flex items-center gap-1 px-2 py-1 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40 transition-colors"
+              className="inline-flex items-center gap-1 px-2 py-1 rounded border border-slate-200 dark:border-[#1e2030] hover:border-brand-500/40 transition-colors"
             >
               <Download size={11} /> export markdown
             </button>
             <button
               type="button"
               onClick={resetList}
-              className="inline-flex items-center gap-1 px-2 py-1 rounded border border-slate-200 dark:border-slate-800 hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
+              className="inline-flex items-center gap-1 px-2 py-1 rounded border border-slate-200 dark:border-[#1e2030] hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
             >
               <RotateCcw size={11} /> reset
             </button>
@@ -230,7 +230,7 @@ export default function Owasp(): JSX.Element {
                 <button
                   type="button"
                   onClick={() => cycleCheck(it.id)}
-                  className={`shrink-0 text-xs font-mono px-2 py-1 rounded border ${style.border} ${style.text} bg-white dark:bg-slate-900 hover:opacity-80 transition-opacity`}
+                  className={`shrink-0 text-xs font-mono px-2 py-1 rounded border ${style.border} ${style.text} bg-white dark:bg-[#12121a] hover:opacity-80 transition-opacity`}
                   aria-label={`mark ${it.id} status (current: ${c})`}
                 >
                   {style.label}
@@ -245,13 +245,13 @@ export default function Owasp(): JSX.Element {
               </header>
               {isExpanded && (
                 <div className="px-4 pb-4 pt-0 grid sm:grid-cols-2 gap-3 text-sm">
-                  <div className="rounded border border-slate-200 dark:border-slate-800 p-3 bg-white dark:bg-slate-900">
+                  <div className="rounded border border-slate-200 dark:border-[#1e2030] p-3 bg-white dark:bg-[#12121a]">
                     <div className="text-micro font-mono uppercase tracking-wider text-rose-600 dark:text-rose-400 mb-1">
                       Attack
                     </div>
                     <p className="text-slate-700 dark:text-slate-300 leading-relaxed">{it.example}</p>
                   </div>
-                  <div className="rounded border border-slate-200 dark:border-slate-800 p-3 bg-white dark:bg-slate-900">
+                  <div className="rounded border border-slate-200 dark:border-[#1e2030] p-3 bg-white dark:bg-[#12121a]">
                     <div className="text-micro font-mono uppercase tracking-wider text-emerald-600 dark:text-emerald-400 mb-1">
                       Mitigation
                     </div>

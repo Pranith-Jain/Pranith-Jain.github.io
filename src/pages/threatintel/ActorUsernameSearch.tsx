@@ -13,7 +13,6 @@ const TABS: Array<{ id: TabId; label: string; desc: string }> = [
   { id: 'scrapedintel', label: 'ScrapedIntel (2M+)', desc: 'Search 2M+ handles from threatactorusernames.com API' },
 ];
 
-
 export default function ActorUsernameSearch(): JSX.Element {
   const [activeTab, setActiveTab] = useState<TabId>('local');
 
@@ -24,7 +23,10 @@ export default function ActorUsernameSearch(): JSX.Element {
       title="Forum Username Search"
       description="Search threat-actor handles across cybercrime forums. Local dataset (291K) or ScrapedIntel API (2M+)."
     >
-      <nav className="flex flex-wrap gap-1 border-b border-slate-200 dark:border-slate-800 mb-6" aria-label="Username sources">
+      <nav
+        className="flex flex-wrap gap-1 border-b border-slate-200 dark:border-[#1e2030] mb-6"
+        aria-label="Username sources"
+      >
         {TABS.map((t) => (
           <button
             key={t.id}

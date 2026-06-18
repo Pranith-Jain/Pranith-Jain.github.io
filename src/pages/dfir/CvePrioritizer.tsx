@@ -296,7 +296,7 @@ export default function CvePrioritizer(): JSX.Element {
             key={b.label}
             type="button"
             onClick={() => setInput(b.ids)}
-            className="text-meta font-mono px-2.5 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
+            className="text-meta font-mono px-2.5 py-1 rounded border border-slate-300 dark:border-[#1e2030] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
           >
             {b.label}
           </button>
@@ -308,7 +308,7 @@ export default function CvePrioritizer(): JSX.Element {
               setInput('');
               setRows([]);
             }}
-            className="text-meta font-mono px-2.5 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400"
+            className="text-meta font-mono px-2.5 py-1 rounded border border-slate-300 dark:border-[#1e2030] hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400"
           >
             clear
           </button>
@@ -317,7 +317,7 @@ export default function CvePrioritizer(): JSX.Element {
 
       <div className="flex flex-wrap items-center gap-2 mb-4">
         <span className="text-mini font-mono uppercase tracking-[0.2em] text-slate-500">asset context</span>
-        <div className="inline-flex rounded border border-slate-200 dark:border-slate-800 overflow-hidden">
+        <div className="inline-flex rounded border border-slate-200 dark:border-[#1e2030] overflow-hidden">
           {(['internet-facing', 'unknown', 'internal-only'] as const).map((c) => (
             <button
               key={c}
@@ -353,7 +353,7 @@ export default function CvePrioritizer(): JSX.Element {
         rows={6}
         spellCheck={false}
         aria-label="CVE IDs"
-        className="w-full px-4 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg font-mono text-tool text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+        className="w-full px-4 py-3 bg-white dark:bg-[#12121a] border border-slate-200 dark:border-[#1e2030] rounded-lg font-mono text-tool text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
       />
       <button
         type="button"
@@ -369,7 +369,7 @@ export default function CvePrioritizer(): JSX.Element {
         <div className="mt-8 space-y-4">
           {/* Summary strip — verdict counts + export buttons. Click a
               count to filter the list below to that verdict. */}
-          <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
+          <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4">
             <div className="flex flex-wrap items-center justify-between gap-3">
               <div className="flex flex-wrap items-center gap-1.5">
                 {(['ACT NOW', 'SCHEDULE', 'MONITOR', 'DEFER'] as BatchVerdict[]).map((v) =>
@@ -403,14 +403,14 @@ export default function CvePrioritizer(): JSX.Element {
                 <button
                   type="button"
                   onClick={exportCsv}
-                  className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1"
+                  className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[#1e2030] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1"
                 >
                   <FileDown size={11} /> CSV
                 </button>
                 <button
                   type="button"
                   onClick={exportJson}
-                  className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1"
+                  className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[#1e2030] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1"
                 >
                   <FileDown size={11} /> JSON
                 </button>
@@ -427,7 +427,7 @@ export default function CvePrioritizer(): JSX.Element {
               return (
                 <article
                   key={r.id}
-                  className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4"
+                  className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4"
                 >
                   <header className="flex items-start gap-2.5">
                     {r.loading ? (
@@ -481,7 +481,7 @@ export default function CvePrioritizer(): JSX.Element {
                             </span>
                             {vec.version && (
                               <span
-                                className="ml-1 text-micro font-mono uppercase tracking-wider px-1 rounded border border-slate-300/60 dark:border-slate-700/60 text-slate-500"
+                                className="ml-1 text-micro font-mono uppercase tracking-wider px-1 rounded border border-slate-300/60 dark:border-[#1e2030]/60 text-slate-500"
                                 title={`CVSS v${vec.version} vector — scoring scales and field set differ from other versions.`}
                               >
                                 v{vec.version}
@@ -599,7 +599,7 @@ export default function CvePrioritizer(): JSX.Element {
                       {isOpen && r.data && r.score && r.verdict && (
                         <div className="mt-3 grid gap-3 sm:grid-cols-2">
                           {/* Score factor breakdown */}
-                          <div className="rounded border border-slate-200 dark:border-slate-800 p-3">
+                          <div className="rounded border border-slate-200 dark:border-[#1e2030] p-3">
                             <div className="text-micro font-mono uppercase tracking-[0.2em] text-slate-500 mb-2">
                               Score factors
                             </div>
@@ -629,7 +629,7 @@ export default function CvePrioritizer(): JSX.Element {
                           </div>
 
                           {/* CVSS vector breakdown */}
-                          <div className="rounded border border-slate-200 dark:border-slate-800 p-3">
+                          <div className="rounded border border-slate-200 dark:border-[#1e2030] p-3">
                             <div className="text-micro font-mono uppercase tracking-[0.2em] text-slate-500 mb-2">
                               CVSS {vec.version ? `v${vec.version}` : ''} vector
                             </div>
@@ -666,7 +666,7 @@ export default function CvePrioritizer(): JSX.Element {
                           </div>
 
                           {/* Runbook + description */}
-                          <div className="rounded border border-slate-200 dark:border-slate-800 p-3 sm:col-span-2">
+                          <div className="rounded border border-slate-200 dark:border-[#1e2030] p-3 sm:col-span-2">
                             <div className="text-micro font-mono uppercase tracking-[0.2em] text-slate-500 mb-2">
                               Runbook · {ACTION_RUNBOOKS[r.verdict.verdict].title}
                             </div>

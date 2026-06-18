@@ -61,7 +61,7 @@ const VERDICT_STYLES: Record<Verdict, string> = {
   suspicious:
     'bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300 border-amber-300 dark:border-amber-800',
   benign: 'bg-green-100 text-green-800 dark:bg-green-900/40 dark:text-green-300 border-green-300 dark:border-green-800',
-  unknown: 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400 border-slate-300 dark:border-slate-700',
+  unknown: 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400 border-slate-300 dark:border-[#1e2030]',
 };
 
 const VERDICT_ICONS: Record<Verdict, typeof Shield> = {
@@ -189,7 +189,7 @@ export default function XVeridikt(): JSX.Element {
               className={`px-4 py-2 rounded-xl text-sm font-mono font-medium transition-colors ${
                 mode === 'single'
                   ? 'bg-brand-600 text-white'
-                  : 'bg-white dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300'
+                  : 'bg-white dark:bg-[#12121a]/40 border border-slate-200 dark:border-[#1e2030] text-slate-700 dark:text-slate-300'
               }`}
             >
               Quick Lookup
@@ -200,14 +200,14 @@ export default function XVeridikt(): JSX.Element {
               className={`px-4 py-2 rounded-xl text-sm font-mono font-medium transition-colors ${
                 mode === 'bulk'
                   ? 'bg-brand-600 text-white'
-                  : 'bg-white dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300'
+                  : 'bg-white dark:bg-[#12121a]/40 border border-slate-200 dark:border-[#1e2030] text-slate-700 dark:text-slate-300'
               }`}
             >
               Bulk IOC Input
             </button>
           </div>
 
-          <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5">
+          <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-5">
             {mode === 'single' ? (
               <div className="space-y-3">
                 <div className="flex items-center gap-2">
@@ -224,7 +224,7 @@ export default function XVeridikt(): JSX.Element {
                   value={iocInput}
                   onChange={(e) => setIocInput(e.target.value)}
                   placeholder="IP / Domain / URL / Hash…"
-                  className="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 p-3 text-sm text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/40 font-mono"
+                  className="w-full rounded-lg border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 p-3 text-sm text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/40 font-mono"
                 />
                 <p className="text-micro font-mono text-slate-400">
                   Auto-detects IPv4, Domains, URLs, MD5/SHA1/SHA256/SHA512
@@ -241,7 +241,7 @@ export default function XVeridikt(): JSX.Element {
                   onChange={(e) => setBulkInput(e.target.value)}
                   placeholder={'One IOC per line\n185.234.72.10\nmalware.example.com\nd41d8cd98f00b204e9800998ecf8427e'}
                   rows={6}
-                  className="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 p-3 text-xs text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/40 font-mono"
+                  className="w-full rounded-lg border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 p-3 text-xs text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/40 font-mono"
                 />
                 <p className="text-micro font-mono text-slate-400">One IOC per line. Auto-detects type.</p>
               </div>
@@ -265,7 +265,7 @@ export default function XVeridikt(): JSX.Element {
                   setBulkInput('');
                   setError(null);
                 }}
-                className="flex items-center gap-2 px-4 py-2.5 bg-white dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800 text-muted rounded-xl text-sm font-medium hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors"
+                className="flex items-center gap-2 px-4 py-2.5 bg-white dark:bg-[#12121a]/40 border border-slate-200 dark:border-[#1e2030] text-muted rounded-xl text-sm font-medium hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors"
               >
                 <X size={16} /> Clear
               </button>
@@ -273,7 +273,7 @@ export default function XVeridikt(): JSX.Element {
           </div>
 
           {results.length > 0 && (
-            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-4">
+            <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-4">
               <div className="flex items-center gap-2 mb-2">
                 <span className="text-micro font-mono uppercase tracking-wider text-slate-400">Filter</span>
               </div>
@@ -281,7 +281,7 @@ export default function XVeridikt(): JSX.Element {
                 <select
                   value={filterVerdict}
                   onChange={(e) => setFilterVerdict(e.target.value as Verdict | 'all')}
-                  className="px-2 py-1 text-xs font-mono bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg text-slate-700 dark:text-slate-300"
+                  className="px-2 py-1 text-xs font-mono bg-white dark:bg-[#12121a] border border-slate-200 dark:border-[#1e2030] rounded-lg text-slate-700 dark:text-slate-300"
                 >
                   <option value="all">All Verdicts</option>
                   <option value="malicious">Malicious</option>
@@ -292,7 +292,7 @@ export default function XVeridikt(): JSX.Element {
                 <select
                   value={filterType}
                   onChange={(e) => setFilterType(e.target.value)}
-                  className="px-2 py-1 text-xs font-mono bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg text-slate-700 dark:text-slate-300"
+                  className="px-2 py-1 text-xs font-mono bg-white dark:bg-[#12121a] border border-slate-200 dark:border-[#1e2030] rounded-lg text-slate-700 dark:text-slate-300"
                 >
                   <option value="all">All Types</option>
                   {uniqueTypes.map((t) => (
@@ -308,14 +308,14 @@ export default function XVeridikt(): JSX.Element {
 
         <div>
           {loading && (
-            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-8 flex flex-col items-center gap-3">
+            <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-8 flex flex-col items-center gap-3">
               <Loader2 size={32} className="animate-spin text-brand-600" />
               <p className="text-sm font-mono text-slate-500">Querying threat-intel sources in parallel…</p>
             </div>
           )}
 
           {!loading && results.length === 0 && !error && (
-            <div className="rounded-xl border-2 border-dashed border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/20 p-8 flex flex-col items-center justify-center text-center">
+            <div className="rounded-xl border-2 border-dashed border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/20 p-8 flex flex-col items-center justify-center text-center">
               <Shield size={48} className="text-slate-300 dark:text-slate-700 mb-4" />
               <p className="text-sm font-mono text-slate-500 dark:text-slate-400">
                 Enter an IOC above to get multi-source verdict
@@ -333,7 +333,7 @@ export default function XVeridikt(): JSX.Element {
                 return (
                   <div
                     key={result.ioc}
-                    className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5"
+                    className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-5"
                   >
                     <div className="flex items-start justify-between gap-3 mb-3">
                       <div>

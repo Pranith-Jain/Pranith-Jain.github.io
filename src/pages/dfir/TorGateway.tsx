@@ -50,7 +50,7 @@ export default function TorGateway() {
           type="text"
           value={onion}
           onChange={(e) => setOnion(e.target.value)}
-          className="flex-1 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 p-2 text-xs font-mono text-slate-900 dark:text-slate-100"
+          className="flex-1 rounded-lg border border-slate-300 dark:border-[#1e2030] bg-white dark:bg-[#12121a] p-2 text-xs font-mono text-slate-900 dark:text-slate-100"
           placeholder="Paste .onion address, e.g. darkfailen53ddea4vw7uxs7b6m5m6k6f7hw7j4i6byoa6woqhzxrad.onion"
         />
         <button
@@ -75,7 +75,7 @@ export default function TorGateway() {
                   href={href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-between px-4 py-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:border-brand-400 dark:hover:border-brand-600 transition-colors group"
+                  className="flex items-center justify-between px-4 py-3 rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] hover:border-brand-400 dark:hover:border-brand-600 transition-colors group"
                 >
                   <span className="text-xs font-mono text-slate-700 dark:text-slate-300">{gw.label}</span>
                   <span className="text-mini font-mono text-brand-600 dark:text-brand-400 group-hover:underline truncate ml-2 max-w-[200px]">

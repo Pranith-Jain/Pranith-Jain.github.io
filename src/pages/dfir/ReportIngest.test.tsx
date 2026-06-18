@@ -87,7 +87,7 @@ describe('ReportIngest', () => {
     renderPage();
     fireEvent.change(screen.getByLabelText(/upload a report file/i), { target: { files: [textFile('r.pdf')] } });
     await waitFor(() => expect(screen.getByText(/needs the optional bridge/i)).toBeInTheDocument());
-    expect(screen.getByRole('link', { name: /report parser/i })).toHaveAttribute('href', '/dfir/report-parser');
+    expect(screen.getByRole('link', { name: /report parser/i })).toHaveAttribute('href', '/dfir/report-analyzer');
   });
 
   it('rejects an oversize file client-side without calling fetch', async () => {

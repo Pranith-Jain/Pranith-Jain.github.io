@@ -114,9 +114,8 @@ export async function actorEnrichHandler(c: Context<{ Bindings: Env }>): Promise
   };
 
   try {
-    // --- Malpedia: search families + actors ---
-    // Each branch fault-isolated so one slow/dead upstream doesn't poison
-    // the other. AbortSignal.timeout (15s) caps tail latency.
+    // All three upstreams run in parallel — Malpedia, Maltrail, OTX.
+    // Each has its own 15s timeout so a slow upstream doesn't block the others.
     const safeJson = async (url: string): Promise<unknown> => {
       try {
         const r = await fetch(url, {
@@ -128,10 +127,34 @@ export async function actorEnrichHandler(c: Context<{ Bindings: Env }>): Promise
         return [];
       }
     };
-    const [families, actors] = await Promise.all([
-      safeJson(`${MALPEDIA_BASE}/api/get/families`) as Promise<unknown[]>,
-      safeJson(`${MALPEDIA_BASE}/api/get/actors`) as Promise<unknown[]>,
+
+    const [malpediaData, maltrailListRes, otxRes] = await Promise.all([
+      // Malpedia families + actors (parallel within Malpedia)
+      Promise.all([
+        safeJson(`${MALPEDIA_BASE}/api/get/families`) as Promise<unknown[]>,
+        safeJson(`${MALPEDIA_BASE}/api/get/actors`) as Promise<unknown[]>,
+      ]).then(([f, a]) => ({ families: f, actors: a })),
+      // Maltrail
+      safeNullLog(
+        'fetch-maltrail',
+        fetch(`https://api.github.com/repos/stamparm/maltrail/contents/trails/static/malware`, {
+          headers: { Accept: 'application/vnd.github.v3+json', 'User-Agent': 'pranithjain.qzz.io' },
+          signal: AbortSignal.timeout(15_000),
+        })
+      ),
+      // OTX
+      c.env.OTX_API_KEY
+        ? safeNullLog(
+            'fetch-otx',
+            fetch(`https://otx.alienvault.com/api/v1/search/pulses?q=${encodeURIComponent(name.trim())}`, {
+              headers: { 'X-OTX-API-KEY': c.env.OTX_API_KEY },
+              signal: AbortSignal.timeout(15_000),
+            })
+          )
+        : Promise.resolve(null),
     ]);
+
+    const { families, actors } = malpediaData;
 
     if (Array.isArray(families)) {
       for (const f of families) {
@@ -165,12 +188,6 @@ export async function actorEnrichHandler(c: Context<{ Bindings: Env }>): Promise
     }
 
     // --- Maltrail: match trail files against query terms ---
-    const maltrailListRes = await safeNullLog('fetch-maltrail',
-      fetch(`https://api.github.com/repos/stamparm/maltrail/contents/trails/static/malware`, {
-        headers: { Accept: 'application/vnd.github.v3+json', 'User-Agent': 'pranithjain.qzz.io' },
-        signal: AbortSignal.timeout(15_000),
-      })
-    );
     if (maltrailListRes?.ok) {
       const files = (await maltrailListRes.json()) as Array<{ name: string; path: string; size: number; type: string }>;
       const trailFiles = (Array.isArray(files) ? files : []).filter(
@@ -190,40 +207,30 @@ export async function actorEnrichHandler(c: Context<{ Bindings: Env }>): Promise
     }
 
     // --- OTX: search pulses ---
-    const otxKey = c.env.OTX_API_KEY;
-    if (otxKey) {
-      const otxRes = await safeNullLog('fetch-otx',
-        fetch(`https://otx.alienvault.com/api/v1/search/pulses?q=${encodeURIComponent(name.trim())}`, {
-          headers: { 'X-OTX-API-KEY': otxKey },
-          signal: AbortSignal.timeout(25_000),
-        })
-      );
+    if (otxRes?.ok) {
+      const otxJson = (await otxRes.json()) as {
+        results?: Array<{
+          id?: string;
+          name?: string;
+          description?: string;
+          tags?: string[];
+          created?: string;
+          author?: string;
+          reference_count?: number;
+          ioc_count?: number;
+        }>;
+        count?: number;
+      };
 
-      if (otxRes?.ok) {
-        const otxJson = (await otxRes.json()) as {
-          results?: Array<{
-            id?: string;
-            name?: string;
-            description?: string;
-            tags?: string[];
-            created?: string;
-            author?: string;
-            reference_count?: number;
-            ioc_count?: number;
-          }>;
-          count?: number;
-        };
-
-        if (Array.isArray(otxJson.results)) {
-          result.otx = otxJson.results.slice(0, 10).map((p) => ({
-            id: p.id ?? '',
-            name: p.name ?? '',
-            description: p.description ?? '',
-            tags: p.tags ?? [],
-            created: p.created ?? '',
-            author: p.author ?? '',
-          }));
-        }
+      if (Array.isArray(otxJson.results)) {
+        result.otx = otxJson.results.slice(0, 10).map((p) => ({
+          id: p.id ?? '',
+          name: p.name ?? '',
+          description: p.description ?? '',
+          tags: p.tags ?? [],
+          created: p.created ?? '',
+          author: p.author ?? '',
+        }));
       }
     }
   } catch (err) {

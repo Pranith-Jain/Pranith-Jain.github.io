@@ -15,7 +15,6 @@ const TABS: Array<{ id: TabId; label: string; desc: string }> = [
   { id: 'iocs', label: 'IOC Stream', desc: 'Purple IOC stream panel' },
 ];
 
-
 export default function SocDashboard(): JSX.Element {
   const [activeTab, setActiveTab] = useState<TabId>('ransomware');
 
@@ -26,7 +25,10 @@ export default function SocDashboard(): JSX.Element {
       title="SOC Dashboard"
       description="Unified tactical SOC view — ransomware activity, vulnerability intelligence, and IOC stream. All panels auto-refresh."
     >
-      <nav className="flex flex-wrap gap-1 border-b border-slate-200 dark:border-slate-800 mb-6" aria-label="SOC panels">
+      <nav
+        className="flex flex-wrap gap-1 border-b border-slate-200 dark:border-[#1e2030] mb-6"
+        aria-label="SOC panels"
+      >
         {TABS.map((t) => (
           <button
             key={t.id}

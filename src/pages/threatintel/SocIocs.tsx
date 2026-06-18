@@ -350,7 +350,7 @@ export default function SocIocs(): JSX.Element {
               className={`text-meta font-mono px-2.5 py-1 rounded border transition-colors ${
                 on
                   ? 'border-brand-500 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                  : 'border-slate-200 dark:border-slate-800 text-slate-500 dark:text-slate-400 hover:border-brand-500/40'
+                  : 'border-slate-200 dark:border-[#1e2030] text-slate-500 dark:text-slate-400 hover:border-brand-500/40'
               }`}
             >
               {KIND_LABEL[k]}
@@ -387,7 +387,7 @@ export default function SocIocs(): JSX.Element {
             title="IOC volume by source"
             right={
               <Link
-                to="/threatintel/feeds"
+                to="/threatintel/catalog?cat=feeds"
                 className="inline-flex items-center gap-1 text-meta font-mono text-slate-500 hover:text-brand-600 dark:hover:text-brand-400"
               >
                 feeds <ExternalLink size={10} />
@@ -444,7 +444,7 @@ export default function SocIocs(): JSX.Element {
             title="Top critical"
             right={
               <Link
-                to="/threatintel/live-iocs"
+                to="/threatintel/iocs/live"
                 className="inline-flex items-center gap-1 text-meta font-mono text-slate-500 hover:text-brand-600 dark:hover:text-brand-400"
               >
                 all <ExternalLink size={10} />

@@ -243,7 +243,7 @@ export default function EmailReputation(): JSX.Element {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="example.com or user@example.com"
-              className="w-full pl-9 pr-3 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="w-full pl-9 pr-3 py-3 bg-white dark:bg-[#12121a] border border-slate-200 dark:border-[#1e2030] rounded-lg font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
               aria-label="Domain or email to check"
             />
           </div>
@@ -267,7 +267,7 @@ export default function EmailReputation(): JSX.Element {
 
       {result && (
         <div className="space-y-4">
-          <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
+          <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4">
             <div className="flex items-baseline justify-between mb-3">
               <h2 className="font-display font-bold text-xl">{result.domain}</h2>
               <span
@@ -302,7 +302,7 @@ export default function EmailReputation(): JSX.Element {
           </div>
 
           {result.emailRep && (
-            <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
+            <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4">
               <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3 inline-flex items-center gap-2">
                 <Mail size={12} aria-hidden="true" /> Address reputation (emailrep.io){' '}
                 <span className="font-normal text-slate-500 normal-case">· {result.emailRep.email}</span>
@@ -327,7 +327,7 @@ export default function EmailReputation(): JSX.Element {
                       </span>
                     )}
                     {result.emailRep.reputation && (
-                      <span className="text-micro font-mono uppercase tracking-wider px-2 py-0.5 rounded border border-slate-300 dark:border-slate-700">
+                      <span className="text-micro font-mono uppercase tracking-wider px-2 py-0.5 rounded border border-slate-300 dark:border-[#1e2030]">
                         rep: {result.emailRep.reputation}
                       </span>
                     )}
@@ -342,7 +342,7 @@ export default function EmailReputation(): JSX.Element {
                       {result.emailRep.tags.map((t) => (
                         <span
                           key={t}
-                          className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 text-slate-700 dark:text-slate-300"
+                          className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 text-slate-700 dark:text-slate-300"
                         >
                           {t}
                         </span>
@@ -367,7 +367,7 @@ export default function EmailReputation(): JSX.Element {
           )}
 
           {result.domainBl.length > 0 && (
-            <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
+            <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4">
               <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3 inline-flex items-center gap-2">
                 <Globe size={12} aria-hidden="true" /> Domain blacklist status ({result.domainBl.length} sources)
               </h3>
@@ -388,7 +388,7 @@ export default function EmailReputation(): JSX.Element {
             return (
               <section
                 key={ip}
-                className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4"
+                className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4"
               >
                 <div className="flex items-baseline justify-between gap-2 mb-3">
                   <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono inline-flex items-center gap-2">
@@ -419,25 +419,25 @@ export default function EmailReputation(): JSX.Element {
           <div className="flex gap-2 flex-wrap">
             <Link
               to={`/dfir/email-defense?domain=${encodeURIComponent(result.domain)}`}
-              className="inline-flex items-center gap-1 text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-slate-800 text-muted hover:border-brand-500/40"
+              className="inline-flex items-center gap-1 text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-[#1e2030] text-muted hover:border-brand-500/40"
             >
               <ExternalLink size={10} /> BEC Score
             </Link>
             <Link
               to={`/dfir/domain?domain=${encodeURIComponent(result.domain)}`}
-              className="inline-flex items-center gap-1 text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-slate-800 text-muted hover:border-brand-500/40"
+              className="inline-flex items-center gap-1 text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-[#1e2030] text-muted hover:border-brand-500/40"
             >
               <ExternalLink size={10} /> Domain Lookup
             </Link>
             <Link
               to={`/dfir/url-rep?url=${encodeURIComponent('https://' + result.domain)}`}
-              className="inline-flex items-center gap-1 text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-slate-800 text-muted hover:border-brand-500/40"
+              className="inline-flex items-center gap-1 text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-[#1e2030] text-muted hover:border-brand-500/40"
             >
               <ExternalLink size={10} /> URL Reputation
             </Link>
             <Link
               to={`/dfir/domain-rep?domain=${encodeURIComponent(result.domain)}`}
-              className="inline-flex items-center gap-1 text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-slate-800 text-muted hover:border-brand-500/40"
+              className="inline-flex items-center gap-1 text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-[#1e2030] text-muted hover:border-brand-500/40"
             >
               <ExternalLink size={10} /> Full Blacklist
             </Link>
@@ -451,7 +451,7 @@ export default function EmailReputation(): JSX.Element {
 function Fact({ label, value, good }: { label: string; value: string; good: boolean }): JSX.Element {
   return (
     <div
-      className={`rounded-lg border p-3 ${good ? 'border-emerald-500/30 bg-emerald-500/5' : 'border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900'}`}
+      className={`rounded-lg border p-3 ${good ? 'border-emerald-500/30 bg-emerald-500/5' : 'border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]'}`}
     >
       <div className="text-micro font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-1">
         {label}

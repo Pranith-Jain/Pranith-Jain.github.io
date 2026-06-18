@@ -10,9 +10,12 @@ type TabId = 'strategic' | 'osm';
 
 const TABS: Array<{ id: TabId; label: string; desc: string }> = [
   { id: 'strategic', label: 'Strategic Facilities', desc: 'Curated military bases, nuclear sites, conflict zones' },
-  { id: 'osm', label: 'OSM Search', desc: '200+ infrastructure types from OpenStreetMap with natural language queries' },
+  {
+    id: 'osm',
+    label: 'OSM Search',
+    desc: '200+ infrastructure types from OpenStreetMap with natural language queries',
+  },
 ];
-
 
 export default function InfraIntel(): JSX.Element {
   const [activeTab, setActiveTab] = useState<TabId>('strategic');
@@ -24,7 +27,10 @@ export default function InfraIntel(): JSX.Element {
       title="Infrastructure Intelligence"
       description="Physical infrastructure lookup — curated strategic facilities and OpenStreetMap-based search."
     >
-      <nav className="flex flex-wrap gap-1 border-b border-slate-200 dark:border-slate-800 mb-6" aria-label="Infrastructure">
+      <nav
+        className="flex flex-wrap gap-1 border-b border-slate-200 dark:border-[#1e2030] mb-6"
+        aria-label="Infrastructure"
+      >
         {TABS.map((t) => (
           <button
             key={t.id}

@@ -48,7 +48,7 @@ const VERDICT_COLORS: Record<string, string> = {
   malicious: 'bg-rose-500/15 text-rose-600 dark:text-rose-400 border-rose-500/40',
   suspicious: 'bg-amber-500/15 text-amber-600 dark:text-amber-400 border-amber-500/40',
   clean: 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border-emerald-500/40',
-  unknown: 'bg-slate-200 dark:bg-slate-800 text-muted border-slate-300 dark:border-slate-700',
+  unknown: 'bg-slate-200 dark:bg-slate-800 text-muted border-slate-300 dark:border-[#1e2030]',
 };
 
 const CONFIDENCE_COLORS: Record<string, string> = {
@@ -108,7 +108,7 @@ export default function ThreatHunt(): JSX.Element {
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && void doHunt()}
             placeholder="IP, domain, email, or hash..."
-            className="flex-1 px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-sm font-mono focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40"
+            className="flex-1 px-4 py-2.5 rounded-xl border border-slate-300 dark:border-[#1e2030] bg-white dark:bg-[#12121a] text-sm font-mono focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40"
           />
           <button
             onClick={() => void doHunt()}
@@ -266,13 +266,13 @@ export default function ThreatHunt(): JSX.Element {
           <div className="flex flex-wrap gap-3 pt-2">
             <a
               href={`/dfir/ioc-check?indicator=${encodeURIComponent(result.q)}`}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-800 text-xs font-mono text-muted hover:border-brand-500/40 transition-colors"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-slate-200 dark:border-[#1e2030] text-xs font-mono text-muted hover:border-brand-500/40 transition-colors"
             >
               <ExternalLink size={12} /> Full IOC Check (39 providers)
             </a>
             <a
               href={`/dfir/breach?q=${encodeURIComponent(result.q)}`}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-800 text-xs font-mono text-muted hover:border-brand-500/40 transition-colors"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-slate-200 dark:border-[#1e2030] text-xs font-mono text-muted hover:border-brand-500/40 transition-colors"
             >
               <ExternalLink size={12} /> Breach Deep Dive
             </a>
@@ -302,7 +302,7 @@ function Section({
   children: React.ReactNode;
 }): JSX.Element {
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
+    <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4">
       <h2 className="font-display font-semibold text-sm flex items-center gap-2 mb-3">
         {icon} {title} {count > 0 && <span className="text-xs font-mono text-slate-500">({count})</span>}
       </h2>

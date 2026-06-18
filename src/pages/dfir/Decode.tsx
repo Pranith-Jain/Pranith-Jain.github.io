@@ -148,7 +148,7 @@ export default function Decode(): JSX.Element {
             className={`px-4 py-2 rounded-lg font-mono text-sm font-semibold transition-colors border ${
               mode === m
                 ? 'bg-brand-600 dark:bg-brand-500 text-white border-brand-600 dark:border-brand-500'
-                : 'bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-800 hover:border-brand-400'
+                : 'bg-white dark:bg-[#12121a] text-slate-700 dark:text-slate-300 border-slate-200 dark:border-[#1e2030] hover:border-brand-400'
             }`}
           >
             {m === 'auto' ? 'Auto-Detect' : m === 'base64' ? 'Base64 Decode' : 'URL Decode'}
@@ -176,7 +176,7 @@ export default function Decode(): JSX.Element {
             onChange={(e) => handleInput(e.target.value)}
             placeholder="Paste encoded string here..."
             rows={12}
-            className="w-full px-4 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg font-mono text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 resize-none"
+            className="w-full px-4 py-3 bg-white dark:bg-[#12121a] border border-slate-200 dark:border-[#1e2030] rounded-lg font-mono text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 resize-none"
           />
         </div>
 
@@ -213,7 +213,7 @@ export default function Decode(): JSX.Element {
               readOnly
               value={output}
               rows={12}
-              className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800 rounded-lg font-mono text-sm text-slate-900 dark:text-slate-100 resize-none focus:outline-none"
+              className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-[#1e2030] rounded-lg font-mono text-sm text-slate-900 dark:text-slate-100 resize-none focus:outline-none"
               placeholder="Decoded output will appear here..."
             />
           </div>
@@ -228,7 +228,7 @@ export default function Decode(): JSX.Element {
 
       {/* Multi-pass steps */}
       {steps.length > 1 && (
-        <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+        <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] p-6">
           <h3 className="font-display font-semibold text-lg mb-4">Decode chain: {steps.length} passes</h3>
           <div className="space-y-3">
             {steps.map((step, i) => (

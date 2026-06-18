@@ -82,8 +82,8 @@ const STATUS_COLORS: Record<string, string> = {
     'text-orange-600 dark:text-orange-400 bg-orange-50 dark:bg-orange-950/30 border-orange-200 dark:border-orange-800/50',
   clean:
     'text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/30 border-emerald-200 dark:border-emerald-800/50',
-  unknown: 'text-slate-500 bg-slate-50 dark:bg-slate-950/30 border-slate-200 dark:border-slate-800/50',
-  error: 'text-slate-500 bg-slate-50 dark:bg-slate-950/30 border-slate-200 dark:border-slate-800/50',
+  unknown: 'text-slate-500 bg-slate-50 dark:bg-slate-950/30 border-slate-200 dark:border-[#1e2030]/50',
+  error: 'text-slate-500 bg-slate-50 dark:bg-slate-950/30 border-slate-200 dark:border-[#1e2030]/50',
 };
 
 const QUERY_EXAMPLES = [
@@ -150,7 +150,7 @@ export default function DfirCopilot(): JSX.Element {
           e.preventDefault();
           investigate(query);
         }}
-        className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6"
+        className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] p-4 mb-6"
       >
         <div className="flex items-center gap-3">
           <div className="relative flex-1">
@@ -161,7 +161,7 @@ export default function DfirCopilot(): JSX.Element {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Paste an IOC — IP, domain, hash, URL, email, or CVE…"
-              className="w-full pl-9 pr-4 py-2.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-lg font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="w-full pl-9 pr-4 py-2.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[#1e2030] rounded-lg font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
             />
           </div>
           <button
@@ -195,7 +195,7 @@ export default function DfirCopilot(): JSX.Element {
                   setQuery(ex.label);
                   investigate(ex.label);
                 }}
-                className="text-xs font-mono px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-800 text-muted hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+                className="text-xs font-mono px-3 py-1.5 rounded-lg border border-slate-200 dark:border-[#1e2030] text-muted hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
               >
                 {ex.label} <span className="text-slate-400 ml-1">({ex.type})</span>
               </button>
@@ -214,7 +214,7 @@ export default function DfirCopilot(): JSX.Element {
       {result && (
         <div className="space-y-6">
           {/* Consensus verdict */}
-          <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+          <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] p-5">
             <div className="flex items-center gap-3 mb-3">
               <span
                 className={`text-xs font-mono font-semibold px-2.5 py-1 rounded border uppercase tracking-wider ${STATUS_COLORS[result.consensus.verdict]}`}
@@ -240,7 +240,7 @@ export default function DfirCopilot(): JSX.Element {
               {result.results.map((r) => (
                 <div
                   key={r.provider}
-                  className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3"
+                  className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] p-3"
                 >
                   <div className="flex items-center gap-2 mb-1">
                     <span className="text-xs font-mono font-semibold text-slate-900 dark:text-slate-100">
@@ -269,7 +269,7 @@ export default function DfirCopilot(): JSX.Element {
                       {r.tags.map((t) => (
                         <span
                           key={t}
-                          className="text-[9px] font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-700 text-slate-500"
+                          className="text-[9px] font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-[#1e2030] text-slate-500"
                         >
                           {t}
                         </span>
@@ -283,7 +283,7 @@ export default function DfirCopilot(): JSX.Element {
 
           {/* Recommendations */}
           {result.recommendations.length > 0 && (
-            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
+            <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] p-4">
               <h3 className="text-[10px] font-mono font-semibold uppercase tracking-wider text-slate-400 mb-2">
                 Recommended Actions
               </h3>
@@ -300,7 +300,7 @@ export default function DfirCopilot(): JSX.Element {
 
           {/* MITRE techniques */}
           {result.mitre_techniques && result.mitre_techniques.length > 0 && (
-            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
+            <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] p-4">
               <h3 className="text-[10px] font-mono font-semibold uppercase tracking-wider text-slate-400 mb-2">
                 MITRE ATT&CK Techniques
               </h3>

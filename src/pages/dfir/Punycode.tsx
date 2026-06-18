@@ -219,12 +219,12 @@ export default function Punycode(): JSX.Element {
         onChange={(e) => setInput(e.target.value)}
         placeholder="example.com or аpple.com"
         aria-label="Domain to check for homograph attacks"
-        className="w-full px-4 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 mb-8"
+        className="w-full px-4 py-3 bg-white dark:bg-[#12121a] border border-slate-200 dark:border-[#1e2030] rounded-lg font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 mb-8"
       />
 
       {input.trim() && (
         <div className="space-y-6">
-          <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-5">
+          <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-5">
             <h3 className="font-display font-semibold mb-3">Forms</h3>
             <dl className="grid grid-cols-[140px_1fr] gap-x-4 gap-y-2 text-sm font-mono">
               <dt className="text-slate-500">As entered</dt>
@@ -236,7 +236,7 @@ export default function Punycode(): JSX.Element {
             </dl>
           </section>
 
-          <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-5 space-y-2">
+          <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-5 space-y-2">
             {result.hasMixedScript && (
               <Flag
                 tone="warn"
@@ -259,13 +259,13 @@ export default function Punycode(): JSX.Element {
           </section>
 
           {result.charInfo.length > 0 && (
-            <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-5">
+            <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-5">
               <h3 className="font-display font-semibold mb-3">Per-character breakdown</h3>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 font-mono text-xs">
                 {result.charInfo.map((c, i) => (
                   <div
                     key={i}
-                    className={`rounded border px-2 py-1 ${c.ascii ? 'border-slate-200 dark:border-slate-800 text-muted' : 'border-amber-400 bg-amber-50 dark:bg-amber-900/20 text-amber-700 dark:text-amber-300'}`}
+                    className={`rounded border px-2 py-1 ${c.ascii ? 'border-slate-200 dark:border-[#1e2030] text-muted' : 'border-amber-400 bg-amber-50 dark:bg-amber-900/20 text-amber-700 dark:text-amber-300'}`}
                   >
                     <span className="text-base">{c.char}</span> · U+
                     {c.codePoint.toString(16).toUpperCase().padStart(4, '0')} · {c.script}

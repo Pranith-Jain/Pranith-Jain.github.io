@@ -15,6 +15,7 @@
  */
 
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Plug, Sparkles } from 'lucide-react';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { McpStatusBanner } from '../../components/ti-mindmap-mcp/McpStatusBanner';
@@ -165,13 +166,13 @@ export default function McpSearch(): JSX.Element {
           </a>
           . Add your API key in the bar below to enable free-text search and the full report browser. Pick any report to
           run our local{' '}
-          <a href="/dfir/report-analyzer" className="text-brand-600 dark:text-brand-400 hover:underline">
+          <Link to="/dfir/report-analyzer" className="text-brand-600 dark:text-brand-400 hover:underline">
             report-analyzer
-          </a>{' '}
+          </Link>{' '}
           pipeline on it (same 8-section PDF-quality output as the{' '}
-          <a href="/threatintel/ai-report" className="text-brand-600 dark:text-brand-400 hover:underline">
+          <Link to="/threatintel/research-hub/ai" className="text-brand-600 dark:text-brand-400 hover:underline">
             AI Report showcase
-          </a>
+          </Link>
           ).
         </span>
       }
@@ -188,8 +189,8 @@ export default function McpSearch(): JSX.Element {
 
       {/* Loaded report side panel */}
       {(loaded || analyzerBusy || analyzerErr || analyzerData) && (
-        <div className="mt-6 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 overflow-hidden">
-          <div className="flex flex-wrap items-center gap-2 px-4 py-3 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900">
+        <div className="mt-6 rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 overflow-hidden">
+          <div className="flex flex-wrap items-center gap-2 px-4 py-3 border-b border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-[#12121a]">
             <Sparkles className="h-4 w-4 text-brand-600 dark:text-brand-400" />
             <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">
               Local analysis of: <span className="text-brand-600 dark:text-brand-400">{loaded?.title ?? '—'}</span>
@@ -214,9 +215,9 @@ export default function McpSearch(): JSX.Element {
 
       <p className="mt-6 text-xs text-slate-500 dark:text-slate-400">
         Tip: this page is the live path to all 1,628+ reports. The 3 curated samples on{' '}
-        <a href="/threatintel/ai-report" className="text-brand-600 dark:text-brand-400 hover:underline">
+        <Link to="/threatintel/research-hub/ai" className="text-brand-600 dark:text-brand-400 hover:underline">
           /threatintel/ai-report
-        </a>{' '}
+        </Link>{' '}
         are the offline path -- they ship in the bundle so the showcase works without an MCP key.
       </p>
     </DataPageLayout>
@@ -234,7 +235,7 @@ function AnalyzerSummary({ data }: { data: AnalyzerOutput }): JSX.Element {
       </div>
 
       {data.summary?.text && (
-        <div className="rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-3">
+        <div className="rounded border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 p-3">
           <p className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">
             AI summary · {data.summary.model}
           </p>
@@ -245,7 +246,7 @@ function AnalyzerSummary({ data }: { data: AnalyzerOutput }): JSX.Element {
       )}
 
       {data.fiveW && (
-        <div className="rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-3">
+        <div className="rounded border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 p-3">
           <p className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">5W</p>
           <ul className="text-xs text-slate-700 dark:text-slate-300 space-y-0.5">
             <li>
@@ -268,7 +269,7 @@ function AnalyzerSummary({ data }: { data: AnalyzerOutput }): JSX.Element {
       )}
 
       {data.iocs.length > 0 && (
-        <div className="rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-3">
+        <div className="rounded border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 p-3">
           <p className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1.5">
             Top IOCs (high/medium confidence)
           </p>
@@ -294,7 +295,7 @@ function AnalyzerSummary({ data }: { data: AnalyzerOutput }): JSX.Element {
       )}
 
       {data.ttp.length > 0 && (
-        <div className="rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-3">
+        <div className="rounded border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 p-3">
           <p className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1.5">
             TTPs
           </p>
@@ -318,7 +319,7 @@ function AnalyzerSummary({ data }: { data: AnalyzerOutput }): JSX.Element {
 
 function Stat({ label, value }: { label: string; value: number | string }): JSX.Element {
   return (
-    <div className="rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-2">
+    <div className="rounded border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 p-2">
       <p className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">{label}</p>
       <p className="text-base font-display font-bold text-slate-900 dark:text-slate-100">{value}</p>
     </div>

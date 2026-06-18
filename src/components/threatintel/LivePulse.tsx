@@ -211,7 +211,7 @@ export function LivePulse(): JSX.Element {
               picker logic / severity rank as the root strip so the rule
               named here is the rule named there. */}
           <StatCell
-            to="/threatintel/detections"
+            to="/threatintel/detections/detections"
             label="Top firing detection"
             icon={<ShieldAlert size={14} className="text-amber-600 dark:text-amber-400" aria-hidden="true" />}
             iconClass="bg-amber-500/10"

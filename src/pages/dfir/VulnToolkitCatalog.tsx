@@ -1109,14 +1109,14 @@ export default function VulnToolkitCatalog(): JSX.Element {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search CVE, product, vendor, type (e.g. 'cisco rce', 'router command-injection')"
-            className="w-full pl-9 pr-4 py-2.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="w-full pl-9 pr-4 py-2.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[#1e2030] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
             aria-label="Search vulnerability catalog"
           />
         </div>
       </form>
 
       {/* Filters */}
-      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-4">
+      <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 mb-4">
         <div className="flex flex-wrap items-center gap-1.5 mb-3">
           <span className="text-mini font-mono text-slate-500 mr-1">severity:</span>
           {ALL_SEVERITIES.map((s) => {
@@ -1128,7 +1128,7 @@ export default function VulnToolkitCatalog(): JSX.Element {
                 type="button"
                 onClick={() => toggleSev(s)}
                 className={`text-mini font-mono px-2 py-1 rounded border transition-colors ${
-                  active ? cfg.cls : 'border-slate-300 dark:border-slate-700 text-slate-500 hover:border-slate-400'
+                  active ? cfg.cls : 'border-slate-300 dark:border-[#1e2030] text-slate-500 hover:border-slate-400'
                 }`}
                 aria-pressed={active}
               >
@@ -1149,7 +1149,7 @@ export default function VulnToolkitCatalog(): JSX.Element {
                 className={`text-mini font-mono px-2 py-1 rounded border transition-colors ${
                   active
                     ? 'border-brand-500/50 bg-brand-500/10 text-brand-700 dark:text-brand-300'
-                    : 'border-slate-300 dark:border-slate-700 text-slate-500 hover:border-brand-500/40'
+                    : 'border-slate-300 dark:border-[#1e2030] text-slate-500 hover:border-brand-500/40'
                 }`}
                 aria-pressed={active}
               >
@@ -1170,7 +1170,7 @@ export default function VulnToolkitCatalog(): JSX.Element {
                 className={`text-mini font-mono px-2 py-1 rounded border transition-colors ${
                   active
                     ? 'border-violet-500/50 bg-violet-500/10 text-violet-700 dark:text-violet-300'
-                    : 'border-slate-300 dark:border-slate-700 text-slate-500 hover:border-violet-500/40'
+                    : 'border-slate-300 dark:border-[#1e2030] text-slate-500 hover:border-violet-500/40'
                 }`}
                 aria-pressed={active}
               >
@@ -1186,7 +1186,7 @@ export default function VulnToolkitCatalog(): JSX.Element {
             className={`text-mini font-mono px-3 py-1.5 rounded border transition-colors ${
               showExploitsOnly
                 ? 'border-rose-500/50 bg-rose-500/10 text-rose-700 dark:text-rose-300'
-                : 'border-slate-300 dark:border-slate-700 text-slate-500 hover:border-rose-500/40'
+                : 'border-slate-300 dark:border-[#1e2030] text-slate-500 hover:border-rose-500/40'
             }`}
             aria-pressed={showExploitsOnly}
           >
@@ -1195,7 +1195,7 @@ export default function VulnToolkitCatalog(): JSX.Element {
           <button
             type="button"
             onClick={clearAll}
-            className="text-mini font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-slate-700 text-slate-500 hover:border-brand-500/40 transition-colors"
+            className="text-mini font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[#1e2030] text-slate-500 hover:border-brand-500/40 transition-colors"
           >
             clear all
           </button>
@@ -1209,11 +1209,11 @@ export default function VulnToolkitCatalog(): JSX.Element {
       </p>
 
       {/* Table */}
-      <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 overflow-hidden">
+      <div className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-sm font-mono">
             <thead>
-              <tr className="text-micro text-slate-500 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950">
+              <tr className="text-micro text-slate-500 border-b border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950">
                 <th className="text-left py-3 px-4">CVE</th>
                 <th className="text-left py-3 px-4">Product</th>
                 <th className="text-left py-3 px-4">Vendor</th>
@@ -1231,7 +1231,7 @@ export default function VulnToolkitCatalog(): JSX.Element {
                 return (
                   <tr
                     key={e.id}
-                    className="border-b border-slate-100 dark:border-slate-800/50 hover:bg-slate-50 dark:hover:bg-slate-950/50 transition-colors"
+                    className="border-b border-slate-100 dark:border-[#1e2030]/50 hover:bg-slate-50 dark:hover:bg-slate-950/50 transition-colors"
                   >
                     <td className="py-3 px-4">
                       <div className="flex items-center gap-2">
@@ -1322,7 +1322,7 @@ export default function VulnToolkitCatalog(): JSX.Element {
       )}
 
       {/* Info panel */}
-      <div className="mt-8 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
+      <div className="mt-8 rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4">
         <h3 className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 mb-2">
           About This Catalog
         </h3>

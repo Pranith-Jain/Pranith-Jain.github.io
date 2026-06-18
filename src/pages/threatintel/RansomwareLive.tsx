@@ -74,7 +74,7 @@ function StatsView({ data }: { data: unknown }) {
       {entries.map(([k, v]) => (
         <div
           key={k}
-          className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4"
+          className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4"
         >
           <div className="text-micro font-mono uppercase tracking-wider text-slate-500">{k.replace(/_/g, ' ')}</div>
           <div className="font-display font-bold text-xl text-slate-900 dark:text-slate-100">{String(v)}</div>
@@ -108,7 +108,7 @@ function ListView({ data }: { data: unknown }) {
           return (
             <li
               key={i}
-              className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-3 font-mono text-meta"
+              className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-3 font-mono text-meta"
             >
               {String(row)}
             </li>
@@ -121,7 +121,7 @@ function ListView({ data }: { data: unknown }) {
         return (
           <li
             key={i}
-            className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-3"
+            className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-3"
           >
             <div className="flex items-baseline justify-between gap-2">
               <span className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 truncate">
@@ -144,7 +144,7 @@ function ListView({ data }: { data: unknown }) {
 
 function RawJson({ value }: { value: unknown }) {
   return (
-    <pre className="rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 p-3 overflow-auto font-mono text-mini text-slate-700 dark:text-slate-300 max-h-[60vh]">
+    <pre className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-[#12121a] p-3 overflow-auto font-mono text-mini text-slate-700 dark:text-slate-300 max-h-[60vh]">
       {JSON.stringify(value, null, 2)}
     </pre>
   );
@@ -240,7 +240,7 @@ export default function RansomwareLive(): JSX.Element {
         <div className="space-y-4">
           <ClusterTabs tabs={RANSOMWARE_TABS} ariaLabel="Ransomware intel" />
 
-          <div className="flex flex-wrap gap-2 border-b border-slate-200 dark:border-slate-800">
+          <div className="flex flex-wrap gap-2 border-b border-slate-200 dark:border-[#1e2030]">
             {TABS.map((t) => {
               const Icon = t.icon;
               return (
@@ -267,7 +267,7 @@ export default function RansomwareLive(): JSX.Element {
               type="button"
               onClick={refreshActive}
               disabled={loading}
-              className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 inline-flex items-center gap-1 disabled:opacity-50"
+              className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[#1e2030] hover:border-brand-500/40 inline-flex items-center gap-1 disabled:opacity-50"
               aria-label={`Refresh ${active.label}`}
             >
               <RefreshCw size={11} className={loading ? 'animate-spin' : ''} /> refresh

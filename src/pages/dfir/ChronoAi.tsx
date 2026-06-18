@@ -223,7 +223,7 @@ export default function ChronoAi(): JSX.Element {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Input Panel */}
         <div className="space-y-5">
-          <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5">
+          <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-5">
             <div className="flex items-baseline justify-between mb-2">
               <h2 className="font-display font-bold text-sm">Log Events</h2>
               <span className="text-micro font-mono uppercase tracking-wider text-slate-400">required</span>
@@ -233,7 +233,7 @@ export default function ChronoAi(): JSX.Element {
               onChange={(e) => setLogs(e.target.value)}
               rows={14}
               placeholder="Paste log entries from any source…"
-              className="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 p-3 font-mono text-xs text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/40"
+              className="w-full rounded-lg border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 p-3 font-mono text-xs text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/40"
             />
           </div>
 
@@ -267,7 +267,7 @@ export default function ChronoAi(): JSX.Element {
           )}
 
           {loading && (
-            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-10 text-center">
+            <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-10 text-center">
               <Loader2 size={32} className="text-brand-600 dark:text-brand-400 mx-auto mb-3 animate-spin" />
               <p className="text-sm text-slate-600 dark:text-slate-300">Analyzing log events…</p>
               <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">Building timeline</p>
@@ -276,7 +276,7 @@ export default function ChronoAi(): JSX.Element {
 
           {result && !loading && (
             <>
-              <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5">
+              <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-5">
                 <div className="flex items-center justify-between mb-4">
                   <h2 className="font-display font-bold text-sm flex items-center gap-2">
                     <Clock size={14} className="text-brand-600 dark:text-brand-400" /> Timeline
@@ -284,13 +284,13 @@ export default function ChronoAi(): JSX.Element {
                   <div className="flex gap-1.5">
                     <button
                       onClick={copyResult}
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-[#1e2030] text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
                     >
                       {copied ? <Check size={13} /> : <Copy size={13} />}
                     </button>
                     <button
                       onClick={downloadTimeline}
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-[#1e2030] text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
                     >
                       <Download size={13} /> .md
                     </button>
@@ -329,7 +329,7 @@ export default function ChronoAi(): JSX.Element {
                     return (
                       <div
                         key={i}
-                        className={`rounded-lg border ${phase?.borderColor ?? 'border-slate-200 dark:border-slate-700'} ${phase?.bgColor ?? 'bg-slate-50/50 dark:bg-slate-950/30'} p-3 flex items-start gap-3`}
+                        className={`rounded-lg border ${phase?.borderColor ?? 'border-slate-200 dark:border-[#1e2030]'} ${phase?.bgColor ?? 'bg-slate-50/50 dark:bg-slate-950/30'} p-3 flex items-start gap-3`}
                       >
                         <div
                           className={`w-2 h-2 rounded-full mt-1.5 flex-shrink-0 ${phase?.color ?? 'bg-slate-400'}`}
@@ -384,7 +384,7 @@ export default function ChronoAi(): JSX.Element {
               </div>
 
               {result.summary && result.timeline.length === 0 && (
-                <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5">
+                <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-5">
                   <h2 className="font-display font-bold text-sm mb-2">Narrative Summary</h2>
                   <p className="text-xs text-muted leading-relaxed whitespace-pre-wrap">{result.summary}</p>
                 </div>
@@ -393,7 +393,7 @@ export default function ChronoAi(): JSX.Element {
           )}
 
           {!result && !loading && !error && (
-            <div className="rounded-xl border border-dashed border-slate-300 dark:border-slate-700 p-10 text-center">
+            <div className="rounded-xl border border-dashed border-slate-300 dark:border-[#1e2030] p-10 text-center">
               <Clock size={32} className="text-slate-300 dark:text-slate-600 mx-auto mb-3" />
               <p className="text-sm text-slate-500 dark:text-slate-400">
                 Paste log events and click <span className="font-semibold">Reconstruct</span>

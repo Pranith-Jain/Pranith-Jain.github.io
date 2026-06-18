@@ -35,7 +35,7 @@ const TOPIC_PILL: Record<RedditFeedItem['sub_topic'], string> = {
   'blue-team': 'border-cyan-500/40 bg-cyan-500/10 text-cyan-700 dark:text-cyan-300',
   osint: 'border-violet-500/40 bg-violet-500/10 text-violet-700 dark:text-violet-300',
   malware: 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300',
-  help: 'border-slate-300 dark:border-slate-700 text-slate-500',
+  help: 'border-slate-300 dark:border-[#1e2030] text-slate-500',
   scams: 'border-orange-500/40 bg-orange-500/10 text-orange-700 dark:text-orange-300',
 };
 
@@ -148,7 +148,7 @@ export default function RedditFirehose(): JSX.Element {
         </p>
       </div>
 
-      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
+      <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 mb-6">
         <div className="flex items-center gap-3">
           <div className="relative flex-1">
             <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
@@ -157,7 +157,7 @@ export default function RedditFirehose(): JSX.Element {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Filter by title, body text, or author…"
-              className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[#1e2030] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
               aria-label="Filter Reddit posts"
             />
           </div>
@@ -178,7 +178,7 @@ export default function RedditFirehose(): JSX.Element {
           <button
             type="button"
             onClick={() => setRefreshKey((k) => k + 1)}
-            className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40"
+            className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-[#1e2030] hover:border-brand-500/40"
           >
             <RefreshCw size={12} /> refresh
           </button>
@@ -198,8 +198,8 @@ export default function RedditFirehose(): JSX.Element {
                     active
                       ? TOPIC_PILL[s.topic]
                       : s.ok
-                        ? 'border-slate-300 dark:border-slate-700 text-slate-500'
-                        : 'border-slate-300 dark:border-slate-700 text-slate-400 opacity-50'
+                        ? 'border-slate-300 dark:border-[#1e2030] text-slate-500'
+                        : 'border-slate-300 dark:border-[#1e2030] text-slate-400 opacity-50'
                   }`}
                 >
                   {s.label} <span className="opacity-70">· {s.count}</span>
@@ -258,7 +258,7 @@ export default function RedditFirehose(): JSX.Element {
           {filtered.slice(0, visible).map((it, i) => (
             <li
               key={`${it.link}-${i}`}
-              className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-3"
+              className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-3"
             >
               <a
                 href={sanitizeUrl(it.link) || undefined}
@@ -290,7 +290,7 @@ export default function RedditFirehose(): JSX.Element {
           <button
             type="button"
             onClick={() => setVisible((v) => v + 60)}
-            className="mt-3 w-full rounded-lg border border-slate-200 dark:border-slate-800 py-2 font-mono text-meta text-muted hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+            className="mt-3 w-full rounded-lg border border-slate-200 dark:border-[#1e2030] py-2 font-mono text-meta text-muted hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
           >
             Show more ({filtered.length - visible} remaining)
           </button>

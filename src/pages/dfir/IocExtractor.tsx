@@ -262,7 +262,7 @@ export default function IocExtractor(): JSX.Element {
           }}
           onDragOver={(e) => e.preventDefault()}
           onClick={() => fileRef.current?.click()}
-          className="w-full border-2 border-dashed border-slate-300 dark:border-slate-700 rounded-lg p-4 text-center cursor-pointer hover:border-brand-500/40 focus-visible:outline-none focus-visible:border-brand-500/60"
+          className="w-full border-2 border-dashed border-slate-300 dark:border-[#1e2030] rounded-lg p-4 text-center cursor-pointer hover:border-brand-500/40 focus-visible:outline-none focus-visible:border-brand-500/60"
           aria-label="Drop an .eml or text file here, or click to choose"
         >
           <Upload size={20} className="mx-auto mb-1 text-slate-500" />
@@ -307,7 +307,7 @@ export default function IocExtractor(): JSX.Element {
         placeholder="Paste raw email, chat log, threat report, or any blob — refanging is automatic. Try patterns like example[.]com, hxxps://bad[.]site, 1[.]2[.]3[.]4[:]8080, [[.]] nesting, or Cyrillic homographs."
         rows={14}
         aria-label="Text blob to extract IOCs from"
-        className="w-full px-4 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg font-mono text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+        className="w-full px-4 py-3 bg-white dark:bg-[#12121a] border border-slate-200 dark:border-[#1e2030] rounded-lg font-mono text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
       />
 
       <div className="flex flex-wrap items-center justify-between gap-3 mt-4 mb-4">
@@ -363,7 +363,7 @@ export default function IocExtractor(): JSX.Element {
           return (
             <section
               key={bucket}
-              className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-5"
+              className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-5"
             >
               <div className="flex items-center justify-between mb-3">
                 <h3 className="font-display font-semibold text-slate-900 dark:text-slate-100">

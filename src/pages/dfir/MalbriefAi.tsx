@@ -153,7 +153,7 @@ export default function MalbriefAi(): JSX.Element {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Input Panel */}
         <div className="space-y-5">
-          <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5">
+          <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-5">
             <div className="flex items-baseline justify-between mb-2">
               <h2 className="font-display font-bold text-sm">Behavioral Indicators</h2>
               <span className="text-micro font-mono uppercase tracking-wider text-slate-400">required</span>
@@ -163,7 +163,7 @@ export default function MalbriefAi(): JSX.Element {
               onChange={(e) => setIndicators(e.target.value)}
               rows={10}
               placeholder="Paste behavioral indicators, sandbox output, or malware analysis notes…"
-              className="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 p-3 font-mono text-xs text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/40"
+              className="w-full rounded-lg border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 p-3 font-mono text-xs text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/40"
             />
           </div>
 
@@ -197,7 +197,7 @@ export default function MalbriefAi(): JSX.Element {
           )}
 
           {loading && (
-            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-10 text-center">
+            <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-10 text-center">
               <Loader2 size={32} className="text-brand-600 dark:text-brand-400 mx-auto mb-3 animate-spin" />
               <p className="text-sm text-slate-600 dark:text-slate-300">Analyzing indicators…</p>
             </div>
@@ -206,7 +206,7 @@ export default function MalbriefAi(): JSX.Element {
           {result && !loading && (
             <>
               {result.classification && (
-                <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5">
+                <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-5">
                   <div className="flex items-center justify-between mb-3">
                     <h2 className="font-display font-bold text-sm flex items-center gap-2">
                       <Bug size={14} className="text-brand-600 dark:text-brand-400" /> Classification
@@ -224,7 +224,7 @@ export default function MalbriefAi(): JSX.Element {
               )}
 
               {result.mitre && result.mitre.length > 0 && (
-                <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5">
+                <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-5">
                   <h2 className="font-display font-bold text-sm mb-3 flex items-center gap-2">
                     <Shield size={14} className="text-amber-600 dark:text-amber-400" /> MITRE ATT&CK
                   </h2>
@@ -245,7 +245,7 @@ export default function MalbriefAi(): JSX.Element {
               )}
 
               {result.signatures && result.signatures.length > 0 && (
-                <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5">
+                <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-5">
                   <h2 className="font-display font-bold text-sm mb-3 flex items-center gap-2">
                     <FileSearch size={14} className="text-brand-600 dark:text-brand-400" /> Detection Signatures
                   </h2>
@@ -253,7 +253,7 @@ export default function MalbriefAi(): JSX.Element {
                     {result.signatures.map((s, i) => (
                       <div key={i} className="flex items-start gap-2">
                         <span className="text-brand-500 dark:text-brand-400 mt-0.5 text-xs">→</span>
-                        <pre className="flex-1 bg-slate-50 dark:bg-slate-950 rounded p-2 text-xs font-mono text-slate-700 dark:text-slate-300 overflow-x-auto border border-slate-200 dark:border-slate-800 whitespace-pre-wrap">
+                        <pre className="flex-1 bg-slate-50 dark:bg-slate-950 rounded p-2 text-xs font-mono text-slate-700 dark:text-slate-300 overflow-x-auto border border-slate-200 dark:border-[#1e2030] whitespace-pre-wrap">
                           {s}
                         </pre>
                       </div>
@@ -263,7 +263,7 @@ export default function MalbriefAi(): JSX.Element {
               )}
 
               {result.huntingPivots && result.huntingPivots.length > 0 && (
-                <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5">
+                <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-5">
                   <h2 className="font-display font-bold text-sm mb-3 flex items-center gap-2">
                     <Crosshair size={14} className="text-emerald-600 dark:text-emerald-400" /> Hunting Pivots
                   </h2>
@@ -279,7 +279,7 @@ export default function MalbriefAi(): JSX.Element {
               )}
 
               {result.summary && (
-                <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5">
+                <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-5">
                   <h2 className="font-display font-bold text-sm mb-2 flex items-center gap-2">
                     <ListChecks size={14} className="text-brand-600 dark:text-brand-400" /> Analysis Summary
                   </h2>
@@ -292,14 +292,14 @@ export default function MalbriefAi(): JSX.Element {
               <div className="flex gap-2">
                 <button
                   onClick={copyResult}
-                  className="flex-1 px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-700 text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors flex items-center justify-center gap-2"
+                  className="flex-1 px-4 py-2 rounded-lg border border-slate-200 dark:border-[#1e2030] text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors flex items-center justify-center gap-2"
                 >
                   {copied ? <Check size={13} /> : <Copy size={13} />}
                   {copied ? 'Copied' : 'Copy Report'}
                 </button>
                 <button
                   onClick={downloadReport}
-                  className="flex-1 px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-700 text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors flex items-center justify-center gap-2"
+                  className="flex-1 px-4 py-2 rounded-lg border border-slate-200 dark:border-[#1e2030] text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors flex items-center justify-center gap-2"
                 >
                   <Download size={13} /> Download .md
                 </button>
@@ -308,7 +308,7 @@ export default function MalbriefAi(): JSX.Element {
           )}
 
           {!result && !loading && !error && (
-            <div className="rounded-xl border border-dashed border-slate-300 dark:border-slate-700 p-10 text-center">
+            <div className="rounded-xl border border-dashed border-slate-300 dark:border-[#1e2030] p-10 text-center">
               <Bug size={32} className="text-slate-300 dark:text-slate-600 mx-auto mb-3" />
               <p className="text-sm text-slate-500 dark:text-slate-400">
                 Paste behavioral indicators and click <span className="font-semibold">Analyze</span>

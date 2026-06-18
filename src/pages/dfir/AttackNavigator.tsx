@@ -385,7 +385,7 @@ export default function AttackNavigator(): JSX.Element {
         </div>
 
         {/* Matrix source tabs */}
-        <div className="flex flex-wrap items-center gap-1 mb-4 border-b border-slate-200 dark:border-slate-800">
+        <div className="flex flex-wrap items-center gap-1 mb-4 border-b border-slate-200 dark:border-[#1e2030]">
           {[
             { id: 'attack' as const, label: 'MITRE ATT&CK', sub: 'Enterprise · live' },
             { id: 'a3m' as const, label: 'A3M Matrix', sub: 'Agentic AI · live' },
@@ -429,7 +429,7 @@ export default function AttackNavigator(): JSX.Element {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Search ID, name, or description..."
-              className="w-full pl-9 pr-4 py-2.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg font-mono text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="w-full pl-9 pr-4 py-2.5 bg-white dark:bg-[#12121a] border border-slate-200 dark:border-[#1e2030] rounded-lg font-mono text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
               aria-label="Search techniques"
             />
           </div>
@@ -439,7 +439,7 @@ export default function AttackNavigator(): JSX.Element {
               <select
                 value={colorMode}
                 onChange={(e) => setColorMode(e.target.value as ColorMode)}
-                className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded px-2 py-1.5 text-xs font-mono text-slate-900 dark:text-slate-100 focus:outline-none focus:border-brand-500"
+                className="bg-white dark:bg-[#12121a] border border-slate-200 dark:border-[#1e2030] rounded px-2 py-1.5 text-xs font-mono text-slate-900 dark:text-slate-100 focus:outline-none focus:border-brand-500"
               >
                 <option value="actor_pct">% of observed actors</option>
                 <option value="risk">LLM Risk Score (ARiES)</option>
@@ -505,7 +505,7 @@ export default function AttackNavigator(): JSX.Element {
                 return (
                   <div key={tactic.id} className="w-[150px] flex-shrink-0 flex flex-col gap-[2px]">
                     {/* Tactic header */}
-                    <div className="sticky top-0 z-10 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded px-2 py-2 text-center min-h-[52px] flex flex-col justify-center">
+                    <div className="sticky top-0 z-10 bg-slate-50 dark:bg-[#12121a] border border-slate-200 dark:border-[#1e2030] rounded px-2 py-2 text-center min-h-[52px] flex flex-col justify-center">
                       <a
                         href={`https://attack.mitre.org/tactics/${tactic.id}/`}
                         target="_blank"
@@ -547,7 +547,7 @@ export default function AttackNavigator(): JSX.Element {
                             isDimmed ? 'opacity-25' : '',
                             isObserved
                               ? 'border-2 border-slate-900 dark:border-slate-100 cursor-pointer hover:brightness-95'
-                              : 'border border-slate-200 dark:border-slate-700 cursor-default',
+                              : 'border border-slate-200 dark:border-[#1e2030] cursor-default',
                           ].join(' ')}
                           style={{ backgroundColor: bg, color: fg }}
                           title={technique.name}
@@ -589,7 +589,7 @@ export default function AttackNavigator(): JSX.Element {
               Observed technique (clickable)
             </div>
             <div className="flex items-center gap-2">
-              <span className="inline-block w-4 h-4 rounded border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800" />
+              <span className="inline-block w-4 h-4 rounded border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-slate-800" />
               Not observed
             </div>
           </div>
@@ -608,9 +608,9 @@ export default function AttackNavigator(): JSX.Element {
             role="dialog"
             aria-modal="true"
             aria-labelledby="navigator-detail-title"
-            className="fixed right-0 top-0 z-50 h-full w-full max-w-xl overflow-y-auto bg-white dark:bg-slate-900 border-l border-slate-200 dark:border-slate-800 shadow-2xl"
+            className="fixed right-0 top-0 z-50 h-full w-full max-w-xl overflow-y-auto bg-white dark:bg-[#12121a] border-l border-slate-200 dark:border-[#1e2030] shadow-2xl"
           >
-            <div className="sticky top-0 z-10 flex items-center justify-between gap-4 px-6 py-4 bg-white/95 dark:bg-slate-900/95 border-b border-slate-200 dark:border-slate-800 backdrop-blur">
+            <div className="sticky top-0 z-10 flex items-center justify-between gap-4 px-6 py-4 bg-white/95 dark:bg-[#12121a]/95 border-b border-slate-200 dark:border-[#1e2030] backdrop-blur">
               <div className="min-w-0">
                 <span className="text-micro font-mono uppercase tracking-wider text-brand-600 dark:text-brand-400">
                   {selectedId}
@@ -635,7 +635,7 @@ export default function AttackNavigator(): JSX.Element {
             <div className="px-6 py-5 space-y-6">
               {/* Activity stats */}
               {selectedScore && matrixSource === 'attack' && (
-                <div className="bg-slate-50 dark:bg-slate-800/60 rounded-lg p-4 border border-slate-200 dark:border-slate-700">
+                <div className="bg-slate-50 dark:bg-[#12121a] rounded-lg p-4 border border-slate-200 dark:border-[#1e2030]">
                   <h3 className="text-xs font-mono uppercase tracking-wider text-slate-500 mb-3">Activity</h3>
                   <div className="space-y-2 text-sm">
                     <div className="flex justify-between">
@@ -648,7 +648,7 @@ export default function AttackNavigator(): JSX.Element {
                       <span className="text-slate-500">Total observations:</span>
                       <span className="font-mono font-semibold">{selectedScore.count.toLocaleString()}</span>
                     </div>
-                    <div className="border-t border-slate-200 dark:border-slate-700 pt-2 mt-2">
+                    <div className="border-t border-slate-200 dark:border-[#1e2030] pt-2 mt-2">
                       <div className="text-micro font-mono uppercase text-slate-400 mb-1">ARiES Risk Score</div>
                       <div className="flex justify-between">
                         <span className="text-slate-500">Raw mean:</span>
@@ -692,7 +692,7 @@ export default function AttackNavigator(): JSX.Element {
                     {selectedActors.map((a) => (
                       <div
                         key={a.slug}
-                        className="px-3 py-2 rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/60"
+                        className="px-3 py-2 rounded border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-[#12121a]"
                       >
                         <div className="text-sm font-semibold text-slate-900 dark:text-slate-100">{a.name}</div>
                         {a.aliases.length > 0 && (
@@ -719,7 +719,7 @@ export default function AttackNavigator(): JSX.Element {
                           return (
                             <div
                               key={sub.id}
-                              className="flex items-center gap-3 px-3 py-2 rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/60"
+                              className="flex items-center gap-3 px-3 py-2 rounded border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-[#12121a]"
                             >
                               <span className="text-xs font-mono text-brand-600 dark:text-brand-400 w-20 flex-shrink-0">
                                 {sub.id}
@@ -767,7 +767,7 @@ export default function AttackNavigator(): JSX.Element {
                 }
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/60 text-slate-700 dark:text-slate-300 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+                className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-[#12121a] text-slate-700 dark:text-slate-300 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
               >
                 {matrixSource === 'attack'
                   ? 'Open on attack.mitre.org'

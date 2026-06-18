@@ -81,7 +81,7 @@ export default function StealerParser(): JSX.Element {
         {SUPPORTED_STEALERS.map((s) => (
           <span
             key={s}
-            className="px-2.5 py-1 rounded-lg text-xs font-mono border border-slate-200 dark:border-slate-700 text-muted"
+            className="px-2.5 py-1 rounded-lg text-xs font-mono border border-slate-200 dark:border-[#1e2030] text-muted"
           >
             {s}
           </span>
@@ -89,12 +89,12 @@ export default function StealerParser(): JSX.Element {
       </div>
 
       {/* Input */}
-      <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5 mb-6">
+      <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-5 mb-6">
         <textarea
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder="Paste stealer log content here…"
-          className="w-full h-48 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-lg p-4 text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 resize-y font-mono"
+          className="w-full h-48 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[#1e2030] rounded-lg p-4 text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 resize-y font-mono"
         />
         <div className="flex items-center justify-between mt-3">
           <span className="text-xs text-slate-400 font-mono">
@@ -160,7 +160,7 @@ export default function StealerParser(): JSX.Element {
 
           {/* System Info */}
           {Object.keys(result.system_info).length > 0 && (
-            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5">
+            <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-5">
               <h3 className="font-display font-bold text-sm mb-3 flex items-center gap-2">
                 <Monitor size={14} className="text-brand-600 dark:text-brand-400" /> System Information
               </h3>
@@ -177,7 +177,7 @@ export default function StealerParser(): JSX.Element {
 
           {/* Credentials */}
           {result.credentials.length > 0 && (
-            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5">
+            <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-5">
               <div className="flex items-center justify-between mb-3">
                 <h3 className="font-display font-bold text-sm text-rose-600 dark:text-rose-400">
                   Stolen Credentials ({result.credentials.length})
@@ -187,7 +187,7 @@ export default function StealerParser(): JSX.Element {
               <div className="max-h-64 overflow-y-auto">
                 <table className="w-full text-sm">
                   <thead>
-                    <tr className="text-left text-micro font-mono uppercase tracking-wider text-slate-400 border-b border-slate-200 dark:border-slate-800">
+                    <tr className="text-left text-micro font-mono uppercase tracking-wider text-slate-400 border-b border-slate-200 dark:border-[#1e2030]">
                       <th scope="col" className="pb-2">
                         Domain
                       </th>
@@ -206,7 +206,7 @@ export default function StealerParser(): JSX.Element {
                     {result.credentials.slice(0, 50).map((cred) => (
                       <tr
                         key={`${cred.domain}-${cred.username}-${cred.source}`}
-                        className="border-b border-slate-100 dark:border-slate-800/50"
+                        className="border-b border-slate-100 dark:border-[#1e2030]/50"
                       >
                         <td className="py-1.5 font-mono text-xs">{cred.domain}</td>
                         <td className="py-1.5 font-mono text-xs">{cred.username}</td>
@@ -222,13 +222,13 @@ export default function StealerParser(): JSX.Element {
 
           {/* Crypto Wallets */}
           {result.crypto_wallets.length > 0 && (
-            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5">
+            <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-5">
               <h3 className="font-display font-bold text-sm mb-3">Crypto Wallets ({result.crypto_wallets.length})</h3>
               <div className="space-y-1.5">
                 {result.crypto_wallets.map((w) => (
                   <div
                     key={w.address}
-                    className="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 px-3 py-2"
+                    className="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 px-3 py-2"
                   >
                     <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300">
                       {w.currency}
@@ -243,13 +243,13 @@ export default function StealerParser(): JSX.Element {
 
           {/* Emails */}
           {result.emails.length > 0 && (
-            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5">
+            <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-5">
               <h3 className="font-display font-bold text-sm mb-3">Emails ({result.emails.length})</h3>
               <div className="max-h-32 overflow-y-auto flex flex-wrap gap-1">
                 {result.emails.map((e) => (
                   <span
                     key={e}
-                    className="px-2 py-0.5 rounded border border-slate-200 dark:border-slate-700 text-xs font-mono text-muted"
+                    className="px-2 py-0.5 rounded border border-slate-200 dark:border-[#1e2030] text-xs font-mono text-muted"
                   >
                     {e}
                   </span>
@@ -260,13 +260,13 @@ export default function StealerParser(): JSX.Element {
 
           {/* Installed Software */}
           {result.installed_software.length > 0 && (
-            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5">
+            <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-5">
               <h3 className="font-display font-bold text-sm mb-3">Installed Software</h3>
               <div className="flex flex-wrap gap-1.5">
                 {result.installed_software.map((s) => (
                   <span
                     key={s}
-                    className="px-2 py-1 rounded border border-slate-200 dark:border-slate-700 text-xs text-muted"
+                    className="px-2 py-1 rounded border border-slate-200 dark:border-[#1e2030] text-xs text-muted"
                   >
                     {s}
                   </span>
@@ -292,7 +292,7 @@ function StatCard({
   color?: string;
 }) {
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-4">
+    <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-4">
       <div className="flex items-center gap-2 mb-1.5">
         {icon && <span className={color ?? 'text-slate-400'}>{icon}</span>}
         <span className="text-micro font-mono uppercase tracking-wider text-slate-400">{label}</span>

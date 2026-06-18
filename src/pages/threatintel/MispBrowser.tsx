@@ -222,7 +222,7 @@ export default function MispBrowser() {
               type="url"
               value={baseUrl}
               onChange={(e) => setBaseUrl(e.target.value)}
-              className="w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 p-2 text-xs font-mono text-slate-900 dark:text-slate-100"
+              className="w-full rounded-lg border border-slate-300 dark:border-[#1e2030] bg-white dark:bg-[#12121a] p-2 text-xs font-mono text-slate-900 dark:text-slate-100"
               placeholder="https://misp.example.com"
             />
           </div>
@@ -235,7 +235,7 @@ export default function MispBrowser() {
               type="password"
               value={apiKey}
               onChange={(e) => setApiKey(e.target.value)}
-              className="w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 p-2 text-xs font-mono text-slate-900 dark:text-slate-100"
+              className="w-full rounded-lg border border-slate-300 dark:border-[#1e2030] bg-white dark:bg-[#12121a] p-2 text-xs font-mono text-slate-900 dark:text-slate-100"
               placeholder="MISP API key"
             />
           </div>
@@ -273,7 +273,7 @@ export default function MispBrowser() {
           <ArrowLeft size={14} /> back to events
         </button>
 
-        <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-6 space-y-4">
+        <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-6 space-y-4">
           <div className="flex items-start justify-between gap-4 flex-wrap">
             <div className="space-y-1">
               <h2 className="font-display font-bold text-xl text-slate-900 dark:text-slate-100">
@@ -310,7 +310,7 @@ export default function MispBrowser() {
               <div className="overflow-auto max-h-80">
                 <table className="w-full text-xs font-mono">
                   <thead>
-                    <tr className="text-left text-slate-500 border-b border-slate-200 dark:border-slate-700">
+                    <tr className="text-left text-slate-500 border-b border-slate-200 dark:border-[#1e2030]">
                       <th scope="col" className="py-1 pr-3">
                         Type
                       </th>
@@ -330,7 +330,7 @@ export default function MispBrowser() {
                   </thead>
                   <tbody>
                     {e.Attribute.map((a) => (
-                      <tr key={a.id} className="border-b border-slate-100 dark:border-slate-800">
+                      <tr key={a.id} className="border-b border-slate-100 dark:border-[#1e2030]">
                         <td className="py-1 pr-3 text-slate-500">{a.type}</td>
                         <td className="py-1 pr-3 text-slate-500">{a.category}</td>
                         <td className="py-1 pr-3 text-slate-900 dark:text-slate-100 break-all max-w-md">{a.value}</td>
@@ -357,7 +357,7 @@ export default function MispBrowser() {
               </h3>
               <div className="grid gap-3 sm:grid-cols-2">
                 {e.Object.map((o) => (
-                  <div key={o.id} className="rounded-lg border border-slate-200 dark:border-slate-700 p-3 space-y-2">
+                  <div key={o.id} className="rounded-lg border border-slate-200 dark:border-[#1e2030] p-3 space-y-2">
                     <div className="flex items-center gap-2">
                       <span className="text-xs font-semibold text-slate-700 dark:text-slate-300">{o.name}</span>
                       <span className="text-micro font-mono text-slate-400">{o.meta_category}</span>
@@ -392,7 +392,7 @@ export default function MispBrowser() {
                 {e.Galaxy.map((g) => (
                   <div
                     key={g.Galaxy.id}
-                    className="rounded-lg border border-slate-200 dark:border-slate-700 p-3 max-w-sm"
+                    className="rounded-lg border border-slate-200 dark:border-[#1e2030] p-3 max-w-sm"
                   >
                     <div className="text-xs font-semibold text-slate-700 dark:text-slate-300">{g.Galaxy.name}</div>
                     {g.GalaxyCluster && g.GalaxyCluster.length > 0 && (
@@ -441,7 +441,7 @@ export default function MispBrowser() {
                   <button
                     key={r.Event.id}
                     onClick={() => loadEventDetail(r.Event.id)}
-                    className="text-left text-xs font-mono px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 hover:border-brand-400 transition-colors"
+                    className="text-left text-xs font-mono px-3 py-2 rounded-lg border border-slate-200 dark:border-[#1e2030] hover:border-brand-400 transition-colors"
                   >
                     <span className="text-slate-400">{r.Event.date}</span>
                     <span className="text-slate-300 dark:text-slate-700 mx-1">·</span>
@@ -473,7 +473,7 @@ export default function MispBrowser() {
           <button
             onClick={() => loadEvents(1)}
             disabled={loading}
-            className="flex items-center gap-1 px-3 py-1.5 text-mini font-mono rounded-lg border border-slate-300 dark:border-slate-700 text-muted hover:border-brand-500"
+            className="flex items-center gap-1 px-3 py-1.5 text-mini font-mono rounded-lg border border-slate-300 dark:border-[#1e2030] text-muted hover:border-brand-500"
           >
             <RefreshCw size={12} className={loading ? 'animate-spin' : ''} /> Refresh
           </button>
@@ -499,7 +499,7 @@ export default function MispBrowser() {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && void loadEvents(1)}
-              className="w-full pl-7 pr-2 py-1.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-xs font-mono text-slate-900 dark:text-slate-100"
+              className="w-full pl-7 pr-2 py-1.5 rounded-lg border border-slate-300 dark:border-[#1e2030] bg-white dark:bg-[#12121a] text-xs font-mono text-slate-900 dark:text-slate-100"
               placeholder="Search events..."
             />
           </div>
@@ -514,7 +514,7 @@ export default function MispBrowser() {
             value={tagFilter}
             onChange={(e) => setTagFilter(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && void loadEvents(1)}
-            className="w-full px-2 py-1.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-xs font-mono text-slate-900 dark:text-slate-100"
+            className="w-full px-2 py-1.5 rounded-lg border border-slate-300 dark:border-[#1e2030] bg-white dark:bg-[#12121a] text-xs font-mono text-slate-900 dark:text-slate-100"
             placeholder="tag_name"
           />
         </div>
@@ -550,7 +550,7 @@ export default function MispBrowser() {
             <button
               key={e.id}
               onClick={() => loadEventDetail(e.id)}
-              className="text-left w-full rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 hover:border-brand-400 dark:hover:border-brand-600 transition-colors group"
+              className="text-left w-full rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 hover:border-brand-400 dark:hover:border-brand-600 transition-colors group"
             >
               <div className="flex items-start justify-between gap-3 flex-wrap">
                 <div className="min-w-0 flex-1">
@@ -607,7 +607,7 @@ export default function MispBrowser() {
           <button
             onClick={() => loadEvents(page - 1)}
             disabled={loading}
-            className="px-3 py-1.5 text-xs font-mono rounded-lg border border-slate-300 dark:border-slate-700 text-muted hover:border-brand-500 disabled:opacity-50"
+            className="px-3 py-1.5 text-xs font-mono rounded-lg border border-slate-300 dark:border-[#1e2030] text-muted hover:border-brand-500 disabled:opacity-50"
           >
             ← Previous
           </button>
@@ -615,7 +615,7 @@ export default function MispBrowser() {
           <button
             onClick={() => loadEvents(page + 1)}
             disabled={loading || events.length < 20}
-            className="px-3 py-1.5 text-xs font-mono rounded-lg border border-slate-300 dark:border-slate-700 text-muted hover:border-brand-500 disabled:opacity-50"
+            className="px-3 py-1.5 text-xs font-mono rounded-lg border border-slate-300 dark:border-[#1e2030] text-muted hover:border-brand-500 disabled:opacity-50"
           >
             Next →
           </button>

@@ -162,7 +162,7 @@ export default function OsintMapper(): JSX.Element {
   }
 
   const overlayWrap = 'fixed inset-0 bg-black/40 flex items-center justify-center z-50 p-4';
-  const overlayCard = 'bg-white dark:bg-slate-900 rounded-xl p-4 w-full max-w-md shadow-xl';
+  const overlayCard = 'bg-white dark:bg-[#12121a] rounded-xl p-4 w-full max-w-md shadow-xl';
 
   return (
     <DataPageLayout
@@ -180,23 +180,23 @@ export default function OsintMapper(): JSX.Element {
               setProject(emptyProject('Untitled case'));
               setSelection(null);
             }}
-            className="inline-flex items-center gap-1 text-sm px-3 py-1.5 rounded border border-slate-300 dark:border-slate-700"
+            className="inline-flex items-center gap-1 text-sm px-3 py-1.5 rounded border border-slate-300 dark:border-[#1e2030]"
           >
             <FilePlus2 size={14} /> New
           </button>
           <button
             onClick={() => setAddingId(true)}
-            className="inline-flex items-center gap-1 text-sm px-3 py-1.5 rounded border border-slate-300 dark:border-slate-700"
+            className="inline-flex items-center gap-1 text-sm px-3 py-1.5 rounded border border-slate-300 dark:border-[#1e2030]"
           >
             <Plus size={14} /> Add identifier
           </button>
           <button
             onClick={doExport}
-            className="inline-flex items-center gap-1 text-sm px-3 py-1.5 rounded border border-slate-300 dark:border-slate-700"
+            className="inline-flex items-center gap-1 text-sm px-3 py-1.5 rounded border border-slate-300 dark:border-[#1e2030]"
           >
             <Download size={14} /> Export
           </button>
-          <label className="inline-flex items-center gap-1 text-sm px-3 py-1.5 rounded border border-slate-300 dark:border-slate-700 cursor-pointer">
+          <label className="inline-flex items-center gap-1 text-sm px-3 py-1.5 rounded border border-slate-300 dark:border-[#1e2030] cursor-pointer">
             <Upload size={14} /> Import
             <input type="file" accept="application/json,.json" className="hidden" onChange={doImport} />
           </label>
@@ -206,13 +206,13 @@ export default function OsintMapper(): JSX.Element {
       <div className="mb-4 flex gap-2">
         <button
           onClick={() => setTab('graph')}
-          className={`px-3 py-1.5 text-sm rounded ${tab === 'graph' ? 'bg-brand-600 text-white' : 'border border-slate-300 dark:border-slate-700'}`}
+          className={`px-3 py-1.5 text-sm rounded ${tab === 'graph' ? 'bg-brand-600 text-white' : 'border border-slate-300 dark:border-[#1e2030]'}`}
         >
           Graph ({project.identifiers.length})
         </button>
         <button
           onClick={() => setTab('map')}
-          className={`px-3 py-1.5 text-sm rounded ${tab === 'map' ? 'bg-brand-600 text-white' : 'border border-slate-300 dark:border-slate-700'}`}
+          className={`px-3 py-1.5 text-sm rounded ${tab === 'map' ? 'bg-brand-600 text-white' : 'border border-slate-300 dark:border-[#1e2030]'}`}
         >
           Map ({project.pins.length})
         </button>

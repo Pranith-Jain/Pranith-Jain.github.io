@@ -1,4 +1,7 @@
-import {TabLoader } from '../../components/ui/TabLoader'; import { Suspense, lazy, useState } from 'react'; import { DataPageLayout } from '../../components/DataPageLayout'; import { FileCode } from 'lucide-react';
+import { TabLoader } from '../../components/ui/TabLoader';
+import { Suspense, lazy, useState } from 'react';
+import { DataPageLayout } from '../../components/DataPageLayout';
+import { FileCode } from 'lucide-react';
 
 const YaraManager = lazy(() => import('./YaraManager'));
 const RulePlayground = lazy(() => import('./RulePlayground'));
@@ -10,7 +13,6 @@ const TABS: Array<{ id: TabId; label: string; desc: string }> = [
   { id: 'test', label: 'Test Lab', desc: 'Paste a YARA/Sigma rule + sample, highlight matches' },
 ];
 
-
 export default function YaraWorkbench(): JSX.Element {
   const [activeTab, setActiveTab] = useState<TabId>('library');
 
@@ -21,7 +23,10 @@ export default function YaraWorkbench(): JSX.Element {
       title="YARA Workbench"
       description="Unified YARA workflow — build rules in the library, then test them against samples in the test lab."
     >
-      <nav className="flex flex-wrap gap-1 border-b border-slate-200 dark:border-slate-800 mb-6" aria-label="YARA tools">
+      <nav
+        className="flex flex-wrap gap-1 border-b border-slate-200 dark:border-[#1e2030] mb-6"
+        aria-label="YARA tools"
+      >
         {TABS.map((t) => (
           <button
             key={t.id}

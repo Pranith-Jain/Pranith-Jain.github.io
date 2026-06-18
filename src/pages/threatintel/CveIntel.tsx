@@ -12,11 +12,14 @@ type TabId = 'all' | 'exploitable' | 'kev' | 'k8s';
 
 const TABS: Array<{ id: TabId; label: string; desc: string }> = [
   { id: 'all', label: 'All Recent', desc: 'NVD feed + KEV + Microsoft Threat Intelligence + cvefeed.io' },
-  { id: 'exploitable', label: 'Exploitable', desc: 'CVEs with known exploits from vendor labs, security research, and KEV' },
+  {
+    id: 'exploitable',
+    label: 'Exploitable',
+    desc: 'CVEs with known exploits from vendor labs, security research, and KEV',
+  },
   { id: 'kev', label: 'CISA KEV', desc: 'CISA Known Exploited Vulnerabilities catalog with filtering and CSV export' },
   { id: 'k8s', label: 'Kubernetes', desc: 'Kubernetes-specific CVE feed from official security advisories' },
 ];
-
 
 export default function CveIntel(): JSX.Element {
   const [activeTab, setActiveTab] = useState<TabId>('all');
@@ -28,7 +31,10 @@ export default function CveIntel(): JSX.Element {
       title="CVE Intelligence"
       description="Unified CVE intelligence — recent vulnerabilities, exploitable CVEs, CISA KEV catalog, and Kubernetes-specific advisories. All feeds updated regularly."
     >
-      <nav className="flex flex-wrap gap-1 border-b border-slate-200 dark:border-slate-800 mb-6" aria-label="CVE intelligence">
+      <nav
+        className="flex flex-wrap gap-1 border-b border-slate-200 dark:border-[#1e2030] mb-6"
+        aria-label="CVE intelligence"
+      >
         {TABS.map((t) => (
           <button
             key={t.id}

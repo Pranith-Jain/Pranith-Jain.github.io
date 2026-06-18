@@ -106,7 +106,7 @@ export default function BreachDisclosures(): JSX.Element {
           <button
             type="button"
             onClick={() => setRefreshKey((k) => k + 1)}
-            className="text-mini font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 inline-flex items-center gap-1"
+            className="text-mini font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[#1e2030] hover:border-brand-500/40 inline-flex items-center gap-1"
             aria-label="Refresh breach disclosures"
           >
             <RefreshCw size={11} /> refresh
@@ -132,7 +132,7 @@ export default function BreachDisclosures(): JSX.Element {
         </div>
 
         {newsLoading && (
-          <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 inline-flex items-center gap-2 font-mono text-sm text-slate-500">
+          <div className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 inline-flex items-center gap-2 font-mono text-sm text-slate-500">
             <Loader2 size={14} className="animate-spin" /> loading breach-news feeds…
           </div>
         )}
@@ -165,7 +165,7 @@ export default function BreachDisclosures(): JSX.Element {
                 .map((item, i) => (
                   <li
                     key={`${item.link}-${i}`}
-                    className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-3 hover:border-brand-500/40 transition-colors"
+                    className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-3 hover:border-brand-500/40 transition-colors"
                   >
                     <a
                       href={sanitizeUrl(item.link) || undefined}

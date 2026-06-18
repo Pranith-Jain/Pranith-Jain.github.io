@@ -178,7 +178,7 @@ export default function Dnscope(): JSX.Element {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div className="space-y-4">
-          <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5">
+          <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-5">
             <div className="flex items-center gap-2 mb-3">
               <Search size={14} className="text-slate-400" />
               <span className="text-micro font-mono uppercase tracking-wider text-slate-400">Target Domain</span>
@@ -188,7 +188,7 @@ export default function Dnscope(): JSX.Element {
               value={domain}
               onChange={(e) => setDomain(e.target.value)}
               placeholder="example.com"
-              className="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 p-3 text-sm text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/40 font-mono"
+              className="w-full rounded-lg border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 p-3 text-sm text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/40 font-mono"
             />
             <div className="flex gap-2 mt-3">
               <button
@@ -207,7 +207,7 @@ export default function Dnscope(): JSX.Element {
                   setSections([]);
                   setError(null);
                 }}
-                className="flex items-center gap-2 px-4 py-2.5 bg-white dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800 text-muted text-sm font-medium rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors"
+                className="flex items-center gap-2 px-4 py-2.5 bg-white dark:bg-[#12121a]/40 border border-slate-200 dark:border-[#1e2030] text-muted text-sm font-medium rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors"
               >
                 Clear
               </button>
@@ -217,14 +217,14 @@ export default function Dnscope(): JSX.Element {
 
         <div>
           {scanning && (
-            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-8 flex flex-col items-center gap-3">
+            <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-8 flex flex-col items-center gap-3">
               <Loader2 size={32} className="animate-spin text-brand-600" />
               <p className="text-sm font-mono text-slate-500">Querying DNS, RDAP, certificates, and threat intel…</p>
             </div>
           )}
 
           {!scanning && sections.length === 0 && !error && (
-            <div className="rounded-xl border-2 border-dashed border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/20 p-8 flex flex-col items-center justify-center text-center">
+            <div className="rounded-xl border-2 border-dashed border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/20 p-8 flex flex-col items-center justify-center text-center">
               <Globe size={48} className="text-slate-300 dark:text-slate-700 mb-4" />
               <p className="text-sm font-mono text-slate-500 dark:text-slate-400">
                 Enter a domain above to map its infrastructure
@@ -240,7 +240,7 @@ export default function Dnscope(): JSX.Element {
               {sections.map((section) => (
                 <div
                   key={section.id}
-                  className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-4"
+                  className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-4"
                 >
                   <div className="flex items-center justify-between mb-2">
                     <h3 className="font-mono text-xs font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider">

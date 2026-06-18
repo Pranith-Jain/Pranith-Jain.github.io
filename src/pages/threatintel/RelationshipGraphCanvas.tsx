@@ -33,7 +33,7 @@ function RelNodeBox({
   const color = NODE_COLORS[data.nodeType] ?? '#94a3b8';
   return (
     <div
-      className={`rounded-lg border-2 px-3 py-2 text-xs font-mono shadow-sm bg-white dark:bg-slate-900 ${
+      className={`rounded-lg border-2 px-3 py-2 text-xs font-mono shadow-sm bg-white dark:bg-[#12121a] ${
         selected ? 'ring-2 ring-brand-500 ring-offset-2 ring-offset-white dark:ring-offset-slate-950' : ''
       }`}
       style={{ borderColor: color, minWidth: 130, maxWidth: 200 }}
@@ -225,7 +225,7 @@ function RelationshipGraphCanvasInner({
         style={{ height: 80 }}
       />
       {simRunning && (
-        <div className="absolute top-2 left-2 text-micro font-mono text-slate-500 bg-white/80 dark:bg-slate-950/80 px-2 py-1 rounded border border-slate-200 dark:border-slate-800">
+        <div className="absolute top-2 left-2 text-micro font-mono text-slate-500 bg-white/80 dark:bg-slate-950/80 px-2 py-1 rounded border border-slate-200 dark:border-[#1e2030]">
           force layout · settling…
         </div>
       )}

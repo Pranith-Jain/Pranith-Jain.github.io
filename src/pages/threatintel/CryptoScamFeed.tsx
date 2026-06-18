@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { ArrowLeft, Bitcoin, Copy, Check, RefreshCw, Search } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
 import { DataState } from '../../components/DataState';
 import { relativeAgo as shortRel } from '../../lib/relativeTime';
@@ -107,9 +108,9 @@ export default function CryptoScamFeed(): JSX.Element {
             spmedia/Crypto-Scam-and-Crypto-Phishing-Threat-Intel-Feed
           </a>{' '}
           (MIT). Also flows into the{' '}
-          <a href="/threatintel/iocs" className="text-brand-600 dark:text-brand-400 hover:underline">
+          <Link to="/threatintel/catalog?cat=iocs" className="text-brand-600 dark:text-brand-400 hover:underline">
             Live IOCs
-          </a>{' '}
+          </Link>{' '}
           firehose.
         </p>
         {data && (
@@ -126,7 +127,7 @@ export default function CryptoScamFeed(): JSX.Element {
       </div>
 
       {topTlds.length > 0 && (
-        <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
+        <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 mb-6">
           <h2 className="text-xs font-mono uppercase tracking-wider text-slate-500 mb-3">TLD breakdown</h2>
           <div className="space-y-1.5">
             {topTlds.map(([tld, count]) => {
@@ -158,7 +159,7 @@ export default function CryptoScamFeed(): JSX.Element {
         </section>
       )}
 
-      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
+      <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 mb-6">
         <div className="flex items-center gap-3">
           <div className="relative flex-1">
             <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
@@ -167,7 +168,7 @@ export default function CryptoScamFeed(): JSX.Element {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Filter domains…"
-              className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[#1e2030] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
               aria-label="Filter crypto scam domains"
             />
           </div>
@@ -175,7 +176,7 @@ export default function CryptoScamFeed(): JSX.Element {
             type="button"
             onClick={copyBlocklist}
             disabled={filtered.length === 0}
-            className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40 disabled:opacity-50"
+            className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-[#1e2030] hover:border-brand-500/40 disabled:opacity-50"
             title="Copy filtered domains as a newline-separated blocklist"
           >
             {copied ? <Check size={12} /> : <Copy size={12} />} {copied ? 'copied' : 'copy blocklist'}
@@ -183,7 +184,7 @@ export default function CryptoScamFeed(): JSX.Element {
           <button
             type="button"
             onClick={() => setRefreshKey((k) => k + 1)}
-            className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40"
+            className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-[#1e2030] hover:border-brand-500/40"
           >
             <RefreshCw size={12} /> refresh
           </button>
@@ -219,7 +220,7 @@ export default function CryptoScamFeed(): JSX.Element {
           {filtered.slice(0, visible).map((it) => (
             <li
               key={it.domain}
-              className="rounded border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-3 py-2 font-mono text-tool flex items-center justify-between gap-2"
+              className="rounded border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] px-3 py-2 font-mono text-tool flex items-center justify-between gap-2"
             >
               <span className="truncate text-slate-800 dark:text-slate-200">{it.domain}</span>
               <span className="text-mini text-slate-400 shrink-0">.{it.tld}</span>
@@ -230,7 +231,7 @@ export default function CryptoScamFeed(): JSX.Element {
           <button
             type="button"
             onClick={() => setVisible((v) => v + 100)}
-            className="mt-3 w-full rounded-lg border border-slate-200 dark:border-slate-800 py-2 font-mono text-meta text-muted hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+            className="mt-3 w-full rounded-lg border border-slate-200 dark:border-[#1e2030] py-2 font-mono text-meta text-muted hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
           >
             Show more ({filtered.length - visible} remaining)
           </button>

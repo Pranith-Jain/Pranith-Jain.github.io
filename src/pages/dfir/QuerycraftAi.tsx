@@ -175,7 +175,7 @@ export default function QuerycraftAi(): JSX.Element {
 
       {/* History */}
       {history.length > 0 && (
-        <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-4 mb-6">
+        <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-4 mb-6">
           <div className="flex items-center justify-between mb-2">
             <h2 className="font-display font-bold text-xs flex items-center gap-2">
               <Clock size={12} /> Recent Queries
@@ -192,7 +192,7 @@ export default function QuerycraftAi(): JSX.Element {
               <button
                 key={i}
                 onClick={() => restoreFromHistory(entry)}
-                className="px-2 py-1 rounded text-micro font-mono border border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-brand-500/30 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+                className="px-2 py-1 rounded text-micro font-mono border border-slate-200 dark:border-[#1e2030] text-slate-500 dark:text-slate-400 hover:border-brand-500/30 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
               >
                 {entry.description.slice(0, 35)}…
               </button>
@@ -202,20 +202,20 @@ export default function QuerycraftAi(): JSX.Element {
       )}
 
       {/* Input */}
-      <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5 mb-6">
+      <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-5 mb-6">
         <h2 className="font-display font-bold text-sm mb-3">What to detect</h2>
         <textarea
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           placeholder="Describe what you want to detect in plain language…"
-          className="w-full h-24 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-lg p-3 text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 resize-y font-mono"
+          className="w-full h-24 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[#1e2030] rounded-lg p-3 text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 resize-y font-mono"
         />
         <div className="mt-2 flex flex-wrap gap-1">
           {EXAMPLE_PROMPTS.slice(0, 5).map((ex) => (
             <button
               key={ex}
               onClick={() => setDescription(ex)}
-              className="text-mini px-2 py-1 rounded border border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-brand-500/30 transition-colors"
+              className="text-mini px-2 py-1 rounded border border-slate-200 dark:border-[#1e2030] text-slate-500 dark:text-slate-400 hover:border-brand-500/30 transition-colors"
             >
               {ex.slice(0, 40)}…
             </button>
@@ -235,7 +235,7 @@ export default function QuerycraftAi(): JSX.Element {
               className={`rounded-lg border p-3 text-left transition-colors ${
                 siem === s.id
                   ? 'border-brand-500/60 bg-brand-500/10'
-                  : 'border-slate-200 dark:border-slate-700 hover:border-brand-500/30 bg-white dark:bg-slate-900/20'
+                  : 'border-slate-200 dark:border-[#1e2030] hover:border-brand-500/30 bg-white dark:bg-[#12121a]/20'
               }`}
             >
               <div
@@ -255,7 +255,7 @@ export default function QuerycraftAi(): JSX.Element {
             className={`flex-1 px-4 py-2 rounded-lg text-xs font-mono border transition-colors ${
               track === 'detect'
                 ? 'border-brand-500/60 bg-brand-500/10 text-brand-600 dark:text-brand-400'
-                : 'border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-brand-500/30'
+                : 'border-slate-200 dark:border-[#1e2030] text-slate-500 dark:text-slate-400 hover:border-brand-500/30'
             }`}
           >
             <Shield size={12} className="inline mr-1" /> DETECT
@@ -265,7 +265,7 @@ export default function QuerycraftAi(): JSX.Element {
             className={`flex-1 px-4 py-2 rounded-lg text-xs font-mono border transition-colors ${
               track === 'hunt'
                 ? 'border-brand-500/60 bg-brand-500/10 text-brand-600 dark:text-brand-400'
-                : 'border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-brand-500/30'
+                : 'border-slate-200 dark:border-[#1e2030] text-slate-500 dark:text-slate-400 hover:border-brand-500/30'
             }`}
           >
             <Search size={12} className="inline mr-1" /> HUNT
@@ -291,7 +291,7 @@ export default function QuerycraftAi(): JSX.Element {
 
       {result && (
         <div className="space-y-5 animate-fade-in-up">
-          <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5">
+          <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-5">
             <div className="flex items-center justify-between mb-3">
               <h2 className="font-display font-bold text-sm flex items-center gap-2">
                 <Terminal size={14} className="text-brand-600 dark:text-brand-400" /> Generated Query
@@ -305,14 +305,14 @@ export default function QuerycraftAi(): JSX.Element {
                 <CopyButton value={result.query} />
               </div>
             </div>
-            <pre className="bg-slate-50 dark:bg-slate-950 rounded-lg p-4 overflow-x-auto text-xs text-slate-700 dark:text-slate-300 font-mono border border-slate-200 dark:border-slate-800 whitespace-pre-wrap max-h-[400px] overflow-y-auto">
+            <pre className="bg-slate-50 dark:bg-slate-950 rounded-lg p-4 overflow-x-auto text-xs text-slate-700 dark:text-slate-300 font-mono border border-slate-200 dark:border-[#1e2030] whitespace-pre-wrap max-h-[400px] overflow-y-auto">
               {result.query}
             </pre>
             <p className="mt-3 text-xs text-slate-500 dark:text-slate-400 leading-relaxed">{result.description}</p>
           </div>
 
           {result.mitre_techniques.length > 0 && (
-            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5">
+            <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-5">
               <h2 className="font-display font-bold text-sm mb-3 flex items-center gap-2">
                 <Shield size={14} className="text-brand-600 dark:text-brand-400" /> MITRE ATT&CK
               </h2>

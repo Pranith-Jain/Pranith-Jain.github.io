@@ -85,7 +85,7 @@ function normSeverity(raw?: string): Severity {
 function Section({ title, children }: { title: string; children: React.ReactNode }): JSX.Element {
   return (
     <section className="mb-6 break-inside-avoid">
-      <h2 className="text-xs font-mono uppercase tracking-wider text-brand-600 dark:text-brand-400 border-b border-slate-200 dark:border-slate-800 pb-1.5 mb-3">
+      <h2 className="text-xs font-mono uppercase tracking-wider text-brand-600 dark:text-brand-400 border-b border-slate-200 dark:border-[#1e2030] pb-1.5 mb-3">
         {title}
       </h2>
       {children}
@@ -419,7 +419,7 @@ export default function RansomReport(): JSX.Element {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="threat group — e.g. lockbit3, akira, qilin"
-              className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[#1e2030] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
               aria-label="Threat group"
             />
             <datalist id="rl-groups">
@@ -442,7 +442,7 @@ export default function RansomReport(): JSX.Element {
               type="button"
               onClick={() => void downloadPdf()}
               disabled={pdfBusy}
-              className="inline-flex items-center justify-center gap-1.5 text-xs font-mono px-4 py-2 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40 disabled:opacity-50"
+              className="inline-flex items-center justify-center gap-1.5 text-xs font-mono px-4 py-2 rounded border border-slate-200 dark:border-[#1e2030] hover:border-brand-500/40 disabled:opacity-50"
             >
               {pdfBusy ? <Loader2 size={13} className="animate-spin" /> : <FileDown size={13} />}{' '}
               {pdfBusy ? 'building…' : 'PDF'}
@@ -471,7 +471,7 @@ export default function RansomReport(): JSX.Element {
           {profile && (
             <div id="ransom-report">
               {/* Report header */}
-              <div className="mb-6 pb-4 border-b border-slate-200 dark:border-slate-800">
+              <div className="mb-6 pb-4 border-b border-slate-200 dark:border-[#1e2030]">
                 <div className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-1">
                   Ransomware Threat Intelligence Report
                 </div>
@@ -517,10 +517,10 @@ export default function RansomReport(): JSX.Element {
 
               {vulns.length > 0 && (
                 <Section title={`Exploited vulnerabilities (${vulns.length})`}>
-                  <div className="overflow-x-auto rounded border border-slate-200 dark:border-slate-800">
+                  <div className="overflow-x-auto rounded border border-slate-200 dark:border-[#1e2030]">
                     <table className="w-full text-sm">
                       <thead>
-                        <tr className="bg-slate-50 dark:bg-slate-900 text-left">
+                        <tr className="bg-slate-50 dark:bg-[#12121a] text-left">
                           {['CVE', 'Severity', 'CVSS', 'Vendor', 'Product'].map((h) => (
                             <th
                               key={h}
@@ -533,7 +533,7 @@ export default function RansomReport(): JSX.Element {
                       </thead>
                       <tbody>
                         {vulns.map((v, i) => (
-                          <tr key={`${v.CVE}-${i}`} className="border-t border-slate-100 dark:border-slate-800/70">
+                          <tr key={`${v.CVE}-${i}`} className="border-t border-slate-100 dark:border-[#1e2030]/70">
                             <td className="px-3 py-1.5 whitespace-nowrap">
                               <a
                                 href={sanitizeUrl(`https://nvd.nist.gov/vuln/detail/${v.CVE}`) || undefined}
@@ -595,10 +595,10 @@ export default function RansomReport(): JSX.Element {
                   <p className="text-micro font-mono text-slate-400 mb-2">
                     From the latest 100 disclosures on ransomware.live.
                   </p>
-                  <div className="overflow-x-auto rounded border border-slate-200 dark:border-slate-800">
+                  <div className="overflow-x-auto rounded border border-slate-200 dark:border-[#1e2030]">
                     <table className="w-full text-sm">
                       <thead>
-                        <tr className="bg-slate-50 dark:bg-slate-900 text-left">
+                        <tr className="bg-slate-50 dark:bg-[#12121a] text-left">
                           {['Victim', 'Country', 'Sector', 'Disclosed'].map((h) => (
                             <th
                               key={h}
@@ -611,7 +611,7 @@ export default function RansomReport(): JSX.Element {
                       </thead>
                       <tbody>
                         {victims.map((v, i) => (
-                          <tr key={`${v.victim}-${i}`} className="border-t border-slate-100 dark:border-slate-800/70">
+                          <tr key={`${v.victim}-${i}`} className="border-t border-slate-100 dark:border-[#1e2030]/70">
                             <td className="px-3 py-1.5 text-meta text-slate-700 dark:text-slate-300 break-all">
                               {v.victim ?? '—'}
                             </td>
@@ -635,13 +635,13 @@ export default function RansomReport(): JSX.Element {
                     : 'No YARA rules published for this group on ransomware.live.'}
                 </p>
                 {yaraText && (
-                  <pre className="mt-2 max-h-72 overflow-auto rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-3 text-mini font-mono whitespace-pre-wrap">
+                  <pre className="mt-2 max-h-72 overflow-auto rounded border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 p-3 text-mini font-mono whitespace-pre-wrap">
                     {yaraText.slice(0, 20000)}
                   </pre>
                 )}
               </Section>
 
-              <p className="mt-6 pt-3 border-t border-slate-200 dark:border-slate-800 text-micro font-mono text-slate-400">
+              <p className="mt-6 pt-3 border-t border-slate-200 dark:border-[#1e2030] text-micro font-mono text-slate-400">
                 Source: ransomware.live · generated by pranithjain.qzz.io threat-intel platform
               </p>
             </div>

@@ -22,11 +22,11 @@ interface Assessment {
 }
 
 const STATUS_STYLES: Record<string, string> = {
-  draft: 'bg-slate-100 dark:bg-slate-800 text-muted border-slate-300 dark:border-slate-700',
+  draft: 'bg-slate-100 dark:bg-slate-800 text-muted border-slate-300 dark:border-[#1e2030]',
   review: 'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 border-amber-300 dark:border-amber-800',
   published:
     'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 border-emerald-300 dark:border-emerald-800',
-  archived: 'bg-slate-100 dark:bg-slate-800 text-slate-400 border-slate-300 dark:border-slate-700',
+  archived: 'bg-slate-100 dark:bg-slate-800 text-slate-400 border-slate-300 dark:border-[#1e2030]',
 };
 
 export default function Assessments(): JSX.Element {
@@ -95,7 +95,7 @@ export default function Assessments(): JSX.Element {
             className={`text-mini font-mono px-3 py-1.5 rounded-lg border transition-colors ${
               statusFilter === s || (s === 'all' && !statusFilter)
                 ? 'border-brand-500 bg-brand-500/10 text-brand-700 dark:border-brand-400 dark:bg-brand-400/10 dark:text-brand-300'
-                : 'border-slate-200 dark:border-slate-800 text-slate-500 hover:border-slate-300 dark:hover:border-slate-700'
+                : 'border-slate-200 dark:border-[#1e2030] text-slate-500 hover:border-slate-300 dark:hover:border-slate-700'
             }`}
           >
             {s.charAt(0).toUpperCase() + s.slice(1)}
@@ -118,7 +118,7 @@ export default function Assessments(): JSX.Element {
             <Link
               key={a.id}
               to={`/threatintel/assessments/${a.id}`}
-              className="block rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-4 hover:border-brand-500/40 transition-colors"
+              className="block rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-4 hover:border-brand-500/40 transition-colors"
             >
               <div className="flex items-center gap-3">
                 <span className={`text-micro font-mono px-1.5 py-0.5 rounded border ${STATUS_STYLES[a.status] ?? ''}`}>

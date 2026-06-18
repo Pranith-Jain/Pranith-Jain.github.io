@@ -202,7 +202,7 @@ export default function SupplyChainIntelligence(): JSX.Element {
       </p>
 
       {/* ── Package Verdict Checker ────────────────────────────────────── */}
-      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/50 p-6 mb-8">
+      <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/50 p-6 mb-8">
         <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-4 flex items-center gap-2">
           <Search className="w-5 h-5 text-brand-500" /> Package Verdict Checker
         </h2>
@@ -215,7 +215,7 @@ export default function SupplyChainIntelligence(): JSX.Element {
           <select
             value={verdictEco}
             onChange={(e) => setVerdictEco(e.target.value)}
-            className="px-3 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:border-brand-500"
+            className="px-3 py-2 bg-white dark:bg-[#12121a] border border-slate-200 dark:border-[#1e2030] rounded-lg text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:border-brand-500"
           >
             {ECOSYSTEMS.map((e) => (
               <option key={e.id} value={e.id}>
@@ -229,7 +229,7 @@ export default function SupplyChainIntelligence(): JSX.Element {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && checkVerdict()}
-            className="flex-1 px-3 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-brand-500 font-mono"
+            className="flex-1 px-3 py-2 bg-white dark:bg-[#12121a] border border-slate-200 dark:border-[#1e2030] rounded-lg text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-brand-500 font-mono"
           />
           <button
             onClick={checkVerdict}
@@ -257,7 +257,7 @@ export default function SupplyChainIntelligence(): JSX.Element {
                 ? 'border-rose-300 dark:border-rose-700 bg-rose-50 dark:bg-rose-900/10'
                 : verdict.verdict === 'clean'
                   ? 'border-emerald-300 dark:border-emerald-700 bg-emerald-50 dark:bg-emerald-900/10'
-                  : 'border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/30'
+                  : 'border-slate-300 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-800/30'
             }`}
           >
             <div className="flex items-center gap-3 mb-2">
@@ -316,7 +316,7 @@ export default function SupplyChainIntelligence(): JSX.Element {
       </section>
 
       {/* ── OSSF Malicious Packages Directory ──────────────────────────── */}
-      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/50 p-6">
+      <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/50 p-6">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
             <Bug className="w-5 h-5 text-rose-500" /> OSSF Malicious Packages
@@ -334,7 +334,7 @@ export default function SupplyChainIntelligence(): JSX.Element {
               className={`px-3 py-1.5 rounded-lg border text-xs font-medium transition ${
                 ossfEco === e.id
                   ? 'border-brand-500/40 bg-brand-500/10 text-brand-700 dark:text-brand-300'
-                  : 'border-slate-300 dark:border-slate-700 text-slate-500 hover:border-slate-400'
+                  : 'border-slate-300 dark:border-[#1e2030] text-slate-500 hover:border-slate-400'
               }`}
             >
               {e.icon} {e.label}
@@ -350,7 +350,7 @@ export default function SupplyChainIntelligence(): JSX.Element {
             placeholder="Filter packages…"
             value={ossfSearch}
             onChange={(e) => setOssfSearch(e.target.value)}
-            className="w-full pl-9 pr-3 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-brand-500 font-mono"
+            className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[#12121a] border border-slate-200 dark:border-[#1e2030] rounded-lg text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-brand-500 font-mono"
           />
         </div>
 
@@ -373,7 +373,7 @@ export default function SupplyChainIntelligence(): JSX.Element {
                 href={p.ossf_url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/30 text-xs font-mono text-slate-700 dark:text-slate-300 hover:border-brand-500/50 hover:bg-brand-50 dark:hover:bg-brand-900/10 transition truncate"
+                className="px-3 py-2 rounded-lg border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-800/30 text-xs font-mono text-slate-700 dark:text-slate-300 hover:border-brand-500/50 hover:bg-brand-50 dark:hover:bg-brand-900/10 transition truncate"
                 title={p.name}
               >
                 {p.name}
@@ -387,7 +387,7 @@ export default function SupplyChainIntelligence(): JSX.Element {
           </div>
         )}
 
-        <div className="mt-4 pt-3 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between text-xs text-slate-500 font-mono">
+        <div className="mt-4 pt-3 border-t border-slate-200 dark:border-[#1e2030] flex items-center justify-between text-xs text-slate-500 font-mono">
           <span>
             Source:{' '}
             <a
@@ -407,7 +407,7 @@ export default function SupplyChainIntelligence(): JSX.Element {
       <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-3">
         <a
           href="/threatintel/malicious-packages"
-          className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/50 p-4 hover:shadow-md transition text-center"
+          className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/50 p-4 hover:shadow-md transition text-center"
         >
           <Package className="w-6 h-6 text-brand-500 mx-auto mb-2" />
           <div className="text-sm font-semibold text-slate-900 dark:text-slate-100">Malicious Packages</div>
@@ -415,7 +415,7 @@ export default function SupplyChainIntelligence(): JSX.Element {
         </a>
         <a
           href="/threatintel/supply-chain"
-          className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/50 p-4 hover:shadow-md transition text-center"
+          className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/50 p-4 hover:shadow-md transition text-center"
         >
           <AlertOctagon className="w-6 h-6 text-amber-500 mx-auto mb-2" />
           <div className="text-sm font-semibold text-slate-900 dark:text-slate-100">Supply Chain Attacks</div>
@@ -425,7 +425,7 @@ export default function SupplyChainIntelligence(): JSX.Element {
           href="https://osv.dev"
           target="_blank"
           rel="noopener noreferrer"
-          className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/50 p-4 hover:shadow-md transition text-center"
+          className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/50 p-4 hover:shadow-md transition text-center"
         >
           <Shield className="w-6 h-6 text-emerald-500 mx-auto mb-2" />
           <div className="text-sm font-semibold text-slate-900 dark:text-slate-100">OSV.dev</div>

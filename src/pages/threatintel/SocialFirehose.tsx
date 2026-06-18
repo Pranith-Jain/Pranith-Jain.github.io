@@ -19,7 +19,6 @@ const TABS: Array<{ id: TabId; label: string; desc: string }> = [
   { id: 'bluesky', label: 'Bluesky & Mastodon', desc: '16 researchers across Bluesky and Mastodon' },
 ];
 
-
 export default function SocialFirehose(): JSX.Element {
   const [activeTab, setActiveTab] = useState<TabId>('telegram');
 
@@ -30,7 +29,10 @@ export default function SocialFirehose(): JSX.Element {
       title="Social Media Firehose"
       description="Real-time cybersecurity social media feeds — Telegram channels, Reddit, X/Twitter, Bluesky, and Mastodon. All feeds auto-refresh."
     >
-      <nav className="flex flex-wrap gap-1 border-b border-slate-200 dark:border-slate-800 mb-6" aria-label="Social platform">
+      <nav
+        className="flex flex-wrap gap-1 border-b border-slate-200 dark:border-[#1e2030] mb-6"
+        aria-label="Social platform"
+      >
         {TABS.map((t) => (
           <button
             key={t.id}

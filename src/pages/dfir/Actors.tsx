@@ -62,13 +62,13 @@ export default function Actors(): JSX.Element {
         Showing {filtered.length} of {threatActors.length} actors.
       </p>
 
-      <section className="mt-6 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 p-5">
+      <section className="mt-6 rounded-lg border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-[#12121a]/50 p-5">
         <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-2">
           Have a STIX 2.1 bundle?
         </h2>
         <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
           Open the{' '}
-          <Link to="/dfir/stix" className="text-brand-600 dark:text-brand-400 hover:underline font-semibold">
+          <Link to="/dfir/stix-workbench" className="text-brand-600 dark:text-brand-400 hover:underline font-semibold">
             STIX Viewer
           </Link>{' '}
           to paste a bundle and explore the relationship graph in your browser.

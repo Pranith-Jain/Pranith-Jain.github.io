@@ -287,7 +287,7 @@ export default function CopilotChat(): JSX.Element {
         </p>
       </div>
 
-      <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 mb-4 min-h-[400px] flex flex-col">
+      <div className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 mb-4 min-h-[400px] flex flex-col">
         <div className="flex-1 overflow-y-auto p-4 space-y-4 max-h-[600px]">
           {messages.length === 0 && !loading && (
             <div className="flex flex-col items-center justify-center h-64 text-slate-400 dark:text-slate-600">
@@ -298,7 +298,7 @@ export default function CopilotChat(): JSX.Element {
                   <button
                     key={ex}
                     onClick={() => sendMessage(ex)}
-                    className="text-xs font-mono px-2.5 py-1 rounded-full border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                    className="text-xs font-mono px-2.5 py-1 rounded-full border border-slate-200 dark:border-[#1e2030] hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
                   >
                     {ex}
                   </button>
@@ -388,7 +388,7 @@ export default function CopilotChat(): JSX.Element {
                 {agentSteps.map((step) => (
                   <div
                     key={step.stepNumber}
-                    className="border border-slate-200 dark:border-slate-700 rounded-lg overflow-hidden text-xs"
+                    className="border border-slate-200 dark:border-[#1e2030] rounded-lg overflow-hidden text-xs"
                   >
                     <div className="flex items-center justify-between px-3 py-2 bg-slate-50 dark:bg-slate-800/50">
                       <span className="font-mono text-muted flex items-center gap-1.5">
@@ -427,7 +427,7 @@ export default function CopilotChat(): JSX.Element {
                           </div>
                         ))}
                         {step.observation && (
-                          <p className="text-slate-500 italic border-t border-slate-200 dark:border-slate-700 pt-1.5 mt-1.5">
+                          <p className="text-slate-500 italic border-t border-slate-200 dark:border-[#1e2030] pt-1.5 mt-1.5">
                             {step.observation}
                           </p>
                         )}
@@ -451,7 +451,7 @@ export default function CopilotChat(): JSX.Element {
           <div ref={messagesEndRef} />
         </div>
 
-        <div className="border-t border-slate-200 dark:border-slate-800 p-4">
+        <div className="border-t border-slate-200 dark:border-[#1e2030] p-4">
           <div className="relative">
             <input
               ref={inputRef}
@@ -461,7 +461,7 @@ export default function CopilotChat(): JSX.Element {
               onKeyDown={(e) => e.key === 'Enter' && sendMessage(query)}
               placeholder="Ask a follow-up question..."
               disabled={loading}
-              className="w-full pr-14 py-2.5 pl-4 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-lg font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 disabled:opacity-50"
+              className="w-full pr-14 py-2.5 pl-4 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[#1e2030] rounded-lg font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 disabled:opacity-50"
             />
             <button
               onClick={() => sendMessage(query)}

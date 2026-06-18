@@ -57,13 +57,13 @@ export default function AttributionFramework(): JSX.Element {
       title="Attribution Framework"
       description="Multi-signal attribution with confidence scoring."
     >
-      <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5 mb-6">
+      <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-5 mb-6">
         <h2 className="font-display font-bold text-sm mb-3">Indicators & Evidence</h2>
         <textarea
           value={indicators}
           onChange={(e) => setIndicators(e.target.value)}
           placeholder="Enter IOCs, one per line…"
-          className="w-full h-28 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-lg p-3 text-sm font-mono text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 resize-y"
+          className="w-full h-28 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[#1e2030] rounded-lg p-3 text-sm font-mono text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 resize-y"
         />
         <div className="mt-3">
           <label htmlFor="attribution-context" className="text-xs text-slate-500 dark:text-slate-400 mb-1 block">
@@ -75,7 +75,7 @@ export default function AttributionFramework(): JSX.Element {
             value={context}
             onChange={(e) => setContext(e.target.value)}
             placeholder="e.g., targeting financial sector"
-            className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-lg px-3 py-2 text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[#1e2030] rounded-lg px-3 py-2 text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
           />
         </div>
         <button
@@ -95,7 +95,7 @@ export default function AttributionFramework(): JSX.Element {
       )}
       {assessment && (
         <div className="space-y-5 animate-fade-in-up">
-          <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5">
+          <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-5">
             <div className="flex items-center justify-between mb-3">
               <div>
                 <h2 className="font-display font-bold text-lg">{assessment.actor}</h2>
@@ -117,7 +117,7 @@ export default function AttributionFramework(): JSX.Element {
               />
             </div>
           </div>
-          <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 overflow-hidden">
+          <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 overflow-hidden">
             <button
               onClick={() => setExpandedEvidence(!expandedEvidence)}
               className="w-full flex items-center justify-between p-4 text-left hover:bg-slate-50 dark:hover:bg-slate-900/20 transition-colors"
@@ -130,11 +130,11 @@ export default function AttributionFramework(): JSX.Element {
               )}
             </button>
             {expandedEvidence && (
-              <div className="px-4 pb-4 space-y-2 border-t border-slate-100 dark:border-slate-800">
+              <div className="px-4 pb-4 space-y-2 border-t border-slate-100 dark:border-[#1e2030]">
                 {assessment.evidence.map((e, i) => (
                   <div
                     key={i}
-                    className="flex items-start gap-3 py-2 border-b border-slate-100 dark:border-slate-800/50 last:border-0"
+                    className="flex items-start gap-3 py-2 border-b border-slate-100 dark:border-[#1e2030]/50 last:border-0"
                   >
                     <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-brand-100 dark:bg-brand-900/30 text-brand-700 dark:text-brand-300 shrink-0">
                       {e.type}
@@ -151,7 +151,7 @@ export default function AttributionFramework(): JSX.Element {
             )}
           </div>
           {assessment.methodology && (
-            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5">
+            <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-5">
               <h3 className="font-display font-bold text-sm mb-2">Methodology</h3>
               <p className="text-xs text-muted leading-relaxed">{assessment.methodology}</p>
             </div>

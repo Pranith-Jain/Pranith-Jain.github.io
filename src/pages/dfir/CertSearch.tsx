@@ -129,11 +129,11 @@ export default function CertSearch(): JSX.Element {
         </p>
         <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-8">
           Pairs with{' '}
-          <Link to="/dfir/domain" className="text-brand-600 dark:text-brand-400 hover:underline">
+          <Link to="/dfir/domain-investigator" className="text-brand-600 dark:text-brand-400 hover:underline">
             Domain Inspector
           </Link>{' '}
           (zone records) and{' '}
-          <Link to="/dfir/exposure" className="text-brand-600 dark:text-brand-400 hover:underline">
+          <Link to="/dfir/domain-investigator" className="text-brand-600 dark:text-brand-400 hover:underline">
             Exposure Scan
           </Link>{' '}
           (open ports). CT logs are append-only; once an issuance is logged it never disappears.
@@ -141,7 +141,7 @@ export default function CertSearch(): JSX.Element {
       </div>
 
       {/* Lookup form */}
-      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
+      <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 mb-6">
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -160,7 +160,7 @@ export default function CertSearch(): JSX.Element {
                 value={domain}
                 onChange={(e) => setDomain(e.target.value)}
                 placeholder="example.com"
-                className="w-full pl-9 pr-4 py-2.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+                className="w-full pl-9 pr-4 py-2.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[#1e2030] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
                 autoComplete="off"
                 spellCheck={false}
               />
@@ -187,7 +187,7 @@ export default function CertSearch(): JSX.Element {
               key={s.domain}
               type="button"
               onClick={() => void lookup(s.domain)}
-              className="text-mini font-mono px-3 py-2 sm:px-2 sm:py-0.5 min-h-[44px] sm:min-h-0 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center"
+              className="text-mini font-mono px-3 py-2 sm:px-2 sm:py-0.5 min-h-[44px] sm:min-h-0 rounded border border-slate-300 dark:border-[#1e2030] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center"
             >
               {s.label}
             </button>
@@ -204,7 +204,7 @@ export default function CertSearch(): JSX.Element {
       {data && (
         <>
           {/* Summary */}
-          <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
+          <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 mb-6">
             <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
               Summary
             </h2>
@@ -237,7 +237,7 @@ export default function CertSearch(): JSX.Element {
           </section>
 
           {/* Unique DNS names */}
-          <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
+          <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 mb-6">
             <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
               <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono inline-flex items-center gap-2">
                 <Globe2 size={12} /> Unique DNS names
@@ -256,14 +256,14 @@ export default function CertSearch(): JSX.Element {
                 value={filter}
                 onChange={(e) => setFilter(e.target.value)}
                 placeholder="filter (e.g. api, dev, staging)"
-                className="w-full pl-7 pr-3 py-1.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded font-mono text-mini focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+                className="w-full pl-7 pr-3 py-1.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[#1e2030] rounded font-mono text-mini focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
               />
             </div>
             <ul className="font-mono text-meta text-slate-700 dark:text-slate-300 space-y-1 max-h-80 overflow-auto break-all">
               {filteredNames.map((n, ni) => (
                 <li
                   key={`${n}-${ni}`}
-                  className="border-b border-slate-200 dark:border-slate-800 pb-1 last:border-0 flex items-baseline gap-2"
+                  className="border-b border-slate-200 dark:border-[#1e2030] pb-1 last:border-0 flex items-baseline gap-2"
                 >
                   <span className="flex-1">{n}</span>
                   <Link
@@ -284,7 +284,7 @@ export default function CertSearch(): JSX.Element {
           </section>
 
           {/* Recent issuances */}
-          <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
+          <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 mb-6">
             <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3 inline-flex items-center gap-2">
               <ScrollText size={12} /> Recent issuances ({data.recent.length})
             </h2>
@@ -295,7 +295,7 @@ export default function CertSearch(): JSX.Element {
                   className={`rounded border p-2 ${
                     it.revoked
                       ? 'border-rose-500/40 bg-rose-500/5'
-                      : 'border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950'
+                      : 'border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950'
                   }`}
                 >
                   <div className="flex flex-wrap items-baseline justify-between gap-2 mb-1">

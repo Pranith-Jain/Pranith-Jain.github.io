@@ -288,7 +288,7 @@ function StatusPip({
           : 'feeds offline';
   return (
     <Link
-      to="/threatintel/status"
+      to="/threatintel/catalog?cat=social"
       className="inline-flex items-center gap-1.5 hover:text-slate-900 dark:hover:text-slate-100"
     >
       <span className={`inline-block w-1.5 h-1.5 rounded-full ${pipCls}`} />

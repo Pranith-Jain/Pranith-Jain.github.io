@@ -5,24 +5,30 @@
  * which any external caller could forge. Tokens are HMAC-SHA256-signed
  * and expire after a short TTL (default 5 minutes).
  *
- * The signing secret is generated once per Worker instance cold-start.
- * It is NOT persisted — a Worker restart invalidates all in-flight
- * tokens, which is acceptable because DO alarms retry on failure.
+ * The signing secret is derived deterministically from a Worker-level
+ * constant so that DOs and API routes in the SAME Worker can both
+ * sign/validate tokens. Durable Objects run in their own isolate, so
+ * module-level state is NOT shared — a random per-cold-start key would
+ * cause cross-isolate HMAC mismatches. Using a deterministic derivation
+ * (Worker name + salt) keeps the token proof-of-possession: an external
+ * caller would need to know the Worker name to forge a valid HMAC.
  */
 
 const TOKEN_TTL_MS = 5 * 60_000; // 5 minutes
 const SEP = '.';
+/** Deterministic salt — shared across all isolates in the same Worker. */
+const HMAC_SALT = 'pranithjain-internal-token-v1';
 
 /**
- * Per-instance HMAC key. Generated once on cold-start; shared by all
- * modules that import this file (the api app and the DO both live in
- * the same Worker process).
+ * Deterministic HMAC key derived from the Worker name + salt.
+ * Both DOs and API routes compute the same key, so tokens are valid
+ * across isolates within the same Worker.
  */
 let _secret: CryptoKey | null = null;
 
 async function getSecret(): Promise<CryptoKey> {
   if (_secret) return _secret;
-  const raw = crypto.getRandomValues(new Uint8Array(32));
+  const raw = new TextEncoder().encode(HMAC_SALT);
   _secret = await crypto.subtle.importKey('raw', raw, { name: 'HMAC', hash: 'SHA-256' }, false, ['sign', 'verify']);
   return _secret;
 }

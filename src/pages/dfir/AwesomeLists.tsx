@@ -92,7 +92,7 @@ export default function AwesomeLists(): JSX.Element {
       </div>
 
       {/* Search */}
-      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
+      <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 mb-6">
         <div className="relative">
           <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" aria-hidden="true" />
           <input
@@ -100,7 +100,7 @@ export default function AwesomeLists(): JSX.Element {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search name, owner, description (e.g. 'osint', 'mcp', 'incident response')"
-            className="w-full pl-9 pr-4 py-2.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="w-full pl-9 pr-4 py-2.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[#1e2030] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
             aria-label="Search awesome-lists"
           />
         </div>
@@ -118,13 +118,13 @@ export default function AwesomeLists(): JSX.Element {
       </section>
 
       {/* Focus pills */}
-      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
+      <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 mb-6">
         <div className="flex flex-wrap items-center gap-1.5">
           <span className="text-mini font-mono text-slate-500 mr-1">focus:</span>
           {ALL_FOCUS.map((f) => {
             const count = focusCounts.get(f) ?? 0;
             const active = activeFocus.has(f);
-            const cls = active ? FOCUS_PILL[f] : 'border-slate-300 dark:border-slate-700 text-slate-500';
+            const cls = active ? FOCUS_PILL[f] : 'border-slate-300 dark:border-[#1e2030] text-slate-500';
             return (
               <button
                 key={f}
@@ -149,7 +149,7 @@ export default function AwesomeLists(): JSX.Element {
         {filtered.map((r) => (
           <li
             key={r.id}
-            className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4"
+            className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4"
           >
             <div className="flex items-baseline justify-between gap-2 mb-1">
               <a

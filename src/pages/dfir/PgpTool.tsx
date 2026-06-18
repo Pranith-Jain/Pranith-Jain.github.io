@@ -133,7 +133,7 @@ export default function PgpTool() {
             className={`px-3 py-1.5 text-xs font-mono rounded-lg border transition-colors ${
               mode === m.key
                 ? 'bg-brand-600 text-white border-brand-600'
-                : 'border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:border-brand-500'
+                : 'border-slate-300 dark:border-[#1e2030] text-slate-700 dark:text-slate-300 hover:border-brand-500'
             }`}
           >
             {m.label}
@@ -151,7 +151,7 @@ export default function PgpTool() {
                   value={publicKey}
                   onChange={(e) => setPublicKey(e.target.value)}
                   rows={6}
-                  className="w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 p-2 text-xs font-mono text-slate-900 dark:text-slate-100 mt-1"
+                  className="w-full rounded-lg border border-slate-300 dark:border-[#1e2030] bg-white dark:bg-[#12121a] p-2 text-xs font-mono text-slate-900 dark:text-slate-100 mt-1"
                   placeholder="-----BEGIN PGP PUBLIC KEY BLOCK-----"
                 />
               </label>
@@ -165,7 +165,7 @@ export default function PgpTool() {
                   value={privateKey}
                   onChange={(e) => setPrivateKey(e.target.value)}
                   rows={6}
-                  className="w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 p-2 text-xs font-mono text-slate-900 dark:text-slate-100 mt-1"
+                  className="w-full rounded-lg border border-slate-300 dark:border-[#1e2030] bg-white dark:bg-[#12121a] p-2 text-xs font-mono text-slate-900 dark:text-slate-100 mt-1"
                   placeholder="-----BEGIN PGP PRIVATE KEY BLOCK-----"
                 />
               </label>
@@ -179,7 +179,7 @@ export default function PgpTool() {
                   type="password"
                   value={passphrase}
                   onChange={(e) => setPassphrase(e.target.value)}
-                  className="w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 p-2 text-xs font-mono text-slate-900 dark:text-slate-100 mt-1"
+                  className="w-full rounded-lg border border-slate-300 dark:border-[#1e2030] bg-white dark:bg-[#12121a] p-2 text-xs font-mono text-slate-900 dark:text-slate-100 mt-1"
                   placeholder="Private key passphrase"
                 />
               </label>
@@ -197,7 +197,7 @@ export default function PgpTool() {
                 type="password"
                 value={passphrase}
                 onChange={(e) => setPassphrase(e.target.value)}
-                className="w-full max-w-md rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 p-2 text-xs font-mono text-slate-900 dark:text-slate-100 mt-1"
+                className="w-full max-w-md rounded-lg border border-slate-300 dark:border-[#1e2030] bg-white dark:bg-[#12121a] p-2 text-xs font-mono text-slate-900 dark:text-slate-100 mt-1"
                 placeholder="Protect private key with passphrase"
               />
             </label>
@@ -228,7 +228,7 @@ export default function PgpTool() {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               rows={6}
-              className="w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 p-2 text-xs font-mono text-slate-900 dark:text-slate-100"
+              className="w-full rounded-lg border border-slate-300 dark:border-[#1e2030] bg-white dark:bg-[#12121a] p-2 text-xs font-mono text-slate-900 dark:text-slate-100"
               placeholder="Paste input here..."
             />
           </div>
@@ -272,7 +272,7 @@ export default function PgpTool() {
               readOnly
               value={output}
               rows={8}
-              className="w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 p-2 text-xs font-mono text-slate-900 dark:text-slate-100 mt-1"
+              className="w-full rounded-lg border border-slate-300 dark:border-[#1e2030] bg-white dark:bg-[#12121a] p-2 text-xs font-mono text-slate-900 dark:text-slate-100 mt-1"
             />
           </label>
           <button

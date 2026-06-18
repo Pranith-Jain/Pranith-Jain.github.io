@@ -130,7 +130,7 @@ function Node({ k, depth }: { k: RKey; depth: number }): JSX.Element {
   const [open, setOpen] = useState(depth < 1);
   const has = k.subkeys.length > 0 || k.values.length > 0;
   return (
-    <div className="ml-3 border-l border-slate-200 dark:border-slate-800 pl-3">
+    <div className="ml-3 border-l border-slate-200 dark:border-[#1e2030] pl-3">
       <button
         type="button"
         onClick={() => setOpen(!open)}
@@ -184,7 +184,7 @@ export default function RegistryHive(): JSX.Element {
       <button
         type="button"
         onClick={() => document.getElementById('registryhive-input')?.click()}
-        className="w-full border-2 border-dashed border-slate-300 dark:border-slate-700 rounded-lg p-8 text-center cursor-pointer hover:border-brand-500/40 focus-visible:outline-none focus-visible:border-brand-500/60"
+        className="w-full border-2 border-dashed border-slate-300 dark:border-[#1e2030] rounded-lg p-8 text-center cursor-pointer hover:border-brand-500/40 focus-visible:outline-none focus-visible:border-brand-500/60"
         aria-label="Drop a hive file file or click to choose"
       >
         <Upload size={24} className="mx-auto mb-2 text-slate-500" />
@@ -229,7 +229,7 @@ export default function RegistryHive(): JSX.Element {
       {err && <p className="mt-4 font-mono text-sm text-rose-600 dark:text-rose-400">{err}</p>}
 
       {root && (
-        <div className="mt-6 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-3 overflow-auto max-h-[70vh]">
+        <div className="mt-6 rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-3 overflow-auto max-h-[70vh]">
           <Node k={root} depth={0} />
         </div>
       )}

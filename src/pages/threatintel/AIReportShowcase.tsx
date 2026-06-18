@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import { Link } from 'react-router-dom';
 import {
   AlertTriangle,
   Beaker,
@@ -152,8 +153,8 @@ const IOC_PILL: Record<IocKind, string> = {
 
 function SummaryTab({ data, sample }: { data: AnalyzerOutput; sample: SampleReport }): JSX.Element {
   return (
-    <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-5 space-y-4">
-      <div className="flex flex-wrap items-baseline justify-between gap-2 border-b border-slate-200 dark:border-slate-800 pb-3">
+    <div className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-5 space-y-4">
+      <div className="flex flex-wrap items-baseline justify-between gap-2 border-b border-slate-200 dark:border-[#1e2030] pb-3">
         <div>
           <p className="text-micro font-mono uppercase tracking-wider text-brand-600 dark:text-brand-400">
             AI-Generated Summary · {data.summary?.model ?? 'unknown model'}
@@ -272,7 +273,7 @@ function StixTab({ data }: { data: AnalyzerOutput }): JSX.Element {
     }
   }
   return (
-    <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-5 space-y-4">
+    <div className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-5 space-y-4">
       <div className="flex items-baseline justify-between">
         <p className="text-micro font-mono uppercase tracking-wider text-brand-600 dark:text-brand-400">
           STIX 2.1 Bundle · {objects.length} objects
@@ -281,7 +282,7 @@ function StixTab({ data }: { data: AnalyzerOutput }): JSX.Element {
           <summary className="cursor-pointer text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 font-mono">
             show raw JSON
           </summary>
-          <pre className="mt-2 max-h-96 overflow-auto rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-3 text-[11px] text-slate-700 dark:text-slate-300">
+          <pre className="mt-2 max-h-96 overflow-auto rounded border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 p-3 text-[11px] text-slate-700 dark:text-slate-300">
             {JSON.stringify(data.stix.bundle, null, 2)}
           </pre>
         </details>
@@ -290,7 +291,7 @@ function StixTab({ data }: { data: AnalyzerOutput }): JSX.Element {
         {Object.entries(typeCounts).map(([type, n]) => (
           <div
             key={type}
-            className="rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-3 text-center"
+            className="rounded border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 p-3 text-center"
           >
             <p className="text-2xl font-display font-bold text-slate-900 dark:text-slate-100">{n}</p>
             <p className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mt-1">
@@ -407,8 +408,8 @@ function IocsTab(props: { iocs: ExtractedIoc[]; apiKey: string; mcpStatus: McpSt
   }
 
   return (
-    <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 overflow-hidden">
-      <div className="flex flex-wrap items-center gap-2 px-4 py-2.5 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900">
+    <div className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 overflow-hidden">
+      <div className="flex flex-wrap items-center gap-2 px-4 py-2.5 border-b border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-[#12121a]">
         <Link2 className="h-4 w-4 text-brand-600 dark:text-brand-400" />
         <p className="text-sm font-semibold text-slate-900 dark:text-slate-100">
           {iocs.length} IOC{iocs.length === 1 ? '' : 's'} extracted
@@ -428,7 +429,7 @@ function IocsTab(props: { iocs: ExtractedIoc[]; apiKey: string; mcpStatus: McpSt
         </button>
       </div>
       <table className="w-full text-sm">
-        <thead className="bg-slate-50 dark:bg-slate-900 text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
+        <thead className="bg-slate-50 dark:bg-[#12121a] text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
           <tr>
             <th className="text-left px-4 py-2">Value</th>
             <th className="text-left px-4 py-2">Type</th>
@@ -477,7 +478,7 @@ function IocsTab(props: { iocs: ExtractedIoc[]; apiKey: string; mcpStatus: McpSt
                   ) : er.hit ? (
                     <span className="inline-flex items-center gap-1.5">
                       <span
-                        className={`rounded border px-1.5 py-0.5 font-mono ${(er.hit.total_reports ?? er.hit.reports?.length ?? 0) > 0 ? 'text-rose-700 dark:text-rose-300 border-rose-300 dark:border-rose-800 bg-rose-50 dark:bg-rose-950/40' : 'text-muted border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-900'}`}
+                        className={`rounded border px-1.5 py-0.5 font-mono ${(er.hit.total_reports ?? er.hit.reports?.length ?? 0) > 0 ? 'text-rose-700 dark:text-rose-300 border-rose-300 dark:border-rose-800 bg-rose-50 dark:bg-rose-950/40' : 'text-muted border-slate-300 dark:border-[#1e2030] bg-slate-50 dark:bg-[#12121a]'}`}
                       >
                         {er.hit.total_reports ?? er.hit.reports?.length ?? 0} report
                         {(er.hit.total_reports ?? er.hit.reports?.length ?? 0) === 1 ? '' : 's'}
@@ -494,7 +495,7 @@ function IocsTab(props: { iocs: ExtractedIoc[]; apiKey: string; mcpStatus: McpSt
         </tbody>
       </table>
       {iocs.length > 50 && (
-        <p className="px-4 py-2 text-xs text-slate-500 dark:text-slate-400 border-t border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900">
+        <p className="px-4 py-2 text-xs text-slate-500 dark:text-slate-400 border-t border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-[#12121a]">
           Showing first 50 of {iocs.length} indicators.
         </p>
       )}
@@ -505,9 +506,9 @@ function IocsTab(props: { iocs: ExtractedIoc[]; apiKey: string; mcpStatus: McpSt
 function TtpsTab({ ttp }: { ttp: TtpHit[] }): JSX.Element {
   if (ttp.length === 0) return <EmptyTab msg="No MITRE ATT&CK techniques were extracted." />;
   return (
-    <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 overflow-hidden">
+    <div className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 overflow-hidden">
       <table className="w-full text-sm">
-        <thead className="bg-slate-50 dark:bg-slate-900 text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
+        <thead className="bg-slate-50 dark:bg-[#12121a] text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
           <tr>
             <th className="text-left px-4 py-2">Technique</th>
             <th className="text-left px-4 py-2">ID</th>
@@ -556,9 +557,9 @@ function AttackFlowTabView({ phases }: { phases: AttackFlowPhase[] }): JSX.Eleme
       {phases.map((p) => (
         <div
           key={p.phase}
-          className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 shadow-e1 overflow-hidden"
+          className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-slate-950 shadow-e1 overflow-hidden"
         >
-          <div className="flex items-center gap-2 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 px-4 py-2">
+          <div className="flex items-center gap-2 border-b border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-[#12121a] px-4 py-2">
             <TrendingUp className="h-4 w-4 text-brand-600 dark:text-brand-400" />
             <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">{p.phase}</h3>
             <span className="ml-auto text-micro font-mono uppercase text-slate-500">
@@ -594,7 +595,7 @@ function FiveWTab({ fiveW }: { fiveW: FiveW | null }): JSX.Element {
     { q: 'Why', a: fiveW.why, icon: Eye },
   ];
   return (
-    <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-5 space-y-3">
+    <div className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-5 space-y-3">
       <p className="text-micro font-mono uppercase tracking-wider text-brand-600 dark:text-brand-400">
         5W Analysis · AI confidence {fmtConfidence(fiveW.confidence)}
       </p>
@@ -602,7 +603,7 @@ function FiveWTab({ fiveW }: { fiveW: FiveW | null }): JSX.Element {
         {questions.map(({ q, a, icon: Icon }) => (
           <div
             key={q}
-            className="rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-3"
+            className="rounded border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 p-3"
           >
             <div className="flex items-center gap-2 mb-1">
               <Icon className="h-3.5 w-3.5 text-slate-500" />
@@ -613,7 +614,7 @@ function FiveWTab({ fiveW }: { fiveW: FiveW | null }): JSX.Element {
         ))}
       </div>
       {fiveW.attribution_basis && (
-        <div className="rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-3">
+        <div className="rounded border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 p-3">
           <p className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">
             Attribution basis
           </p>
@@ -626,7 +627,7 @@ function FiveWTab({ fiveW }: { fiveW: FiveW | null }): JSX.Element {
 
 function EmptyTab({ msg }: { msg: string }): JSX.Element {
   return (
-    <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-8 text-center text-sm text-slate-500 dark:text-slate-400">
+    <div className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 p-8 text-center text-sm text-slate-500 dark:text-slate-400">
       {msg}
     </div>
   );
@@ -683,7 +684,7 @@ function McpSearchPanel(props: { apiKey: string; status: McpStatus }): JSX.Eleme
   }
 
   return (
-    <div className="mt-3 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
+    <div className="mt-3 rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4">
       <div className="flex flex-wrap items-center gap-2 mb-3">
         <Search className="h-4 w-4 text-brand-600 dark:text-brand-400" />
         <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">Cross-Source Search</h3>
@@ -696,13 +697,13 @@ function McpSearchPanel(props: { apiKey: string; status: McpStatus }): JSX.Eleme
         }}
         className="flex flex-wrap items-center gap-2"
       >
-        <div className="flex rounded border border-slate-300 dark:border-slate-700 overflow-hidden text-xs font-mono">
+        <div className="flex rounded border border-slate-300 dark:border-[#1e2030] overflow-hidden text-xs font-mono">
           {(['ioc', 'cve', 'report'] as McpMode[]).map((m) => (
             <button
               key={m}
               type="button"
               onClick={() => setMode(m)}
-              className={`px-2.5 py-1.5 ${mode === m ? 'bg-brand-50 dark:bg-brand-950/40 text-brand-700 dark:text-brand-300' : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800'}`}
+              className={`px-2.5 py-1.5 ${mode === m ? 'bg-brand-50 dark:bg-brand-950/40 text-brand-700 dark:text-brand-300' : 'bg-white dark:bg-[#12121a] text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800'}`}
             >
               {m}
             </button>
@@ -719,7 +720,7 @@ function McpSearchPanel(props: { apiKey: string; status: McpStatus }): JSX.Eleme
                 ? 'CVE-2025-55182'
                 : 'ransomware · lazarus · apt29'
           }
-          className="flex-1 min-w-[12rem] rounded border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 px-2.5 py-1.5 font-mono text-sm text-slate-800 dark:text-slate-200"
+          className="flex-1 min-w-[12rem] rounded border border-slate-300 dark:border-[#1e2030] bg-white dark:bg-slate-950 px-2.5 py-1.5 font-mono text-sm text-slate-800 dark:text-slate-200"
           autoComplete="off"
           spellCheck={false}
         />
@@ -760,11 +761,11 @@ function McpSearchPanel(props: { apiKey: string; status: McpStatus }): JSX.Eleme
 function IocHitCard({ hit }: { hit: IocSearchResult }): JSX.Element {
   const reports = hit.reports ?? [];
   return (
-    <div className="rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-3">
+    <div className="rounded border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 p-3">
       <p className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">
         IOC search · <span className="text-slate-800 dark:text-slate-200">{hit.ioc_value}</span>
         {hit.ioc_type && (
-          <span className="ml-2 rounded border border-slate-300 dark:border-slate-700 px-1.5 py-0.5">
+          <span className="ml-2 rounded border border-slate-300 dark:border-[#1e2030] px-1.5 py-0.5">
             {hit.ioc_type}
           </span>
         )}
@@ -792,7 +793,7 @@ function IocHitCard({ hit }: { hit: IocSearchResult }): JSX.Element {
 
 function CveHitCard({ hit }: { hit: CveSearchResult }): JSX.Element {
   return (
-    <div className="rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-3">
+    <div className="rounded border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 p-3">
       <p className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">
         CVE · <span className="text-slate-800 dark:text-slate-200">{hit.cve_id}</span>
         {hit.severity && (
@@ -828,7 +829,7 @@ function CveHitCard({ hit }: { hit: CveSearchResult }): JSX.Element {
 function ReportsHitCard({ hit }: { hit: ListReportsResult }): JSX.Element {
   const reports = hit.reports ?? [];
   return (
-    <div className="rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-3">
+    <div className="rounded border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 p-3">
       <p className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">
         Reports · {reports.length} match{reports.length === 1 ? '' : 'es'}
         {typeof hit.total === 'number' && hit.total !== reports.length && (
@@ -850,7 +851,7 @@ function ReportsHitCard({ hit }: { hit: ListReportsResult }): JSX.Element {
 
 function ReportRow({ r }: { r: TiReportSummary }): JSX.Element {
   return (
-    <li className="rounded border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-2.5 py-1.5">
+    <li className="rounded border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] px-2.5 py-1.5">
       <p className="text-xs font-medium text-slate-800 dark:text-slate-200 line-clamp-2">{r.title ?? r.report_id}</p>
       <p className="mt-0.5 text-[10px] font-mono uppercase text-slate-500 dark:text-slate-400">
         {r.source ?? 'unknown'} {r.published_at ? `· ${r.published_at}` : ''}
@@ -955,13 +956,13 @@ export default function AIReportShowcase(): JSX.Element {
       description={
         <span>
           A live, in-browser demonstration of the{' '}
-          <a href="/dfir/report-analyzer" className="text-brand-600 dark:text-brand-400 hover:underline">
+          <Link to="/dfir/report-analyzer" className="text-brand-600 dark:text-brand-400 hover:underline">
             Report Analyzer
-          </a>{' '}
+          </Link>{' '}
           pipeline. Pick a sample report (or paste your own at{' '}
-          <a href="/dfir/report-analyzer" className="text-brand-600 dark:text-brand-400 hover:underline">
+          <Link to="/dfir/report-analyzer" className="text-brand-600 dark:text-brand-400 hover:underline">
             /dfir/report-analyzer
-          </a>
+          </Link>
           ) — the page runs the eight-branch AI extraction (summary, IOCs, MITRE ATT&CK TTPs, 5W, CVEs, mindmap, Diamond
           Model, STIX 2.1) and renders all 9 PDF-quality sections below.
         </span>
@@ -983,7 +984,7 @@ export default function AIReportShowcase(): JSX.Element {
             </span>
           )}
           {startedAt && loading && (
-            <span className="rounded border border-slate-300 dark:border-slate-700 px-2 py-1 font-mono inline-flex items-center gap-1.5">
+            <span className="rounded border border-slate-300 dark:border-[#1e2030] px-2 py-1 font-mono inline-flex items-center gap-1.5">
               <Loader2 className="h-3.5 w-3.5 animate-spin" />
               analyzing…
             </span>
@@ -996,7 +997,7 @@ export default function AIReportShowcase(): JSX.Element {
       maxWidthClass="max-w-7xl"
     >
       {/* ── Sample picker ───────────────────────────────────────────── */}
-      <div className="mb-4 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
+      <div className="mb-4 rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4">
         <div className="flex items-center gap-2 mb-3">
           <Beaker className="h-4 w-4 text-brand-600 dark:text-brand-400" />
           <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">Pick a sample report</h3>
@@ -1015,7 +1016,7 @@ export default function AIReportShowcase(): JSX.Element {
                 className={`text-left rounded-lg border p-3 transition-all ${
                   active
                     ? 'border-brand-500 bg-brand-50 dark:bg-brand-950/30 shadow-e2'
-                    : 'border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 hover:border-brand-400/60'
+                    : 'border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 hover:border-brand-400/60'
                 }`}
               >
                 <div className="flex items-baseline justify-between gap-2 mb-1">
@@ -1087,7 +1088,7 @@ export default function AIReportShowcase(): JSX.Element {
                   className={`inline-flex items-center gap-1.5 text-mini font-mono rounded-full border px-2.5 py-1 transition-colors ${
                     tab === t.id
                       ? 'border-brand-500 bg-brand-50 dark:bg-brand-950/40 text-brand-700 dark:text-brand-300'
-                      : 'border-slate-300 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-slate-400 dark:hover:border-slate-500'
+                      : 'border-slate-300 dark:border-[#1e2030] text-slate-500 dark:text-slate-400 hover:border-slate-400 dark:hover:border-slate-500'
                   }`}
                 >
                   <Icon className="h-3.5 w-3.5" /> {t.label}
@@ -1099,7 +1100,7 @@ export default function AIReportShowcase(): JSX.Element {
               type="button"
               onClick={() => void runAnalyzer(sample)}
               disabled={loading}
-              className="ml-auto inline-flex items-center gap-1.5 text-mini font-mono rounded-full border border-slate-300 dark:border-slate-700 px-2.5 py-1 text-slate-500 dark:text-slate-400 hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors disabled:opacity-50"
+              className="ml-auto inline-flex items-center gap-1.5 text-mini font-mono rounded-full border border-slate-300 dark:border-[#1e2030] px-2.5 py-1 text-slate-500 dark:text-slate-400 hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors disabled:opacity-50"
             >
               <RefreshCw className={`h-3.5 w-3.5 ${loading ? 'animate-spin' : ''}`} />
               re-run
@@ -1119,7 +1120,7 @@ export default function AIReportShowcase(): JSX.Element {
       )}
 
       {!data && !loading && !error && (
-        <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-12 text-center">
+        <div className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 p-12 text-center">
           <BookOpen className="mx-auto h-10 w-10 text-slate-400 dark:text-slate-500 mb-3" />
           <p className="text-sm text-muted">Pick a sample above to begin.</p>
         </div>

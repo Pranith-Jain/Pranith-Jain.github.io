@@ -209,15 +209,15 @@ export default function ThreatFeeds(): JSX.Element {
         </p>
         <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-8">
           Industry / AI / general-tech content lives in{' '}
-          <Link to="/threatintel/tech-ai-news" className="text-brand-600 dark:text-brand-400 hover:underline">
+          <Link to="/threatintel/catalog?cat=social" className="text-brand-600 dark:text-brand-400 hover:underline">
             Tech &amp; AI News
           </Link>
           ; scam-watch content in{' '}
-          <Link to="/threatintel/scam-watch" className="text-brand-600 dark:text-brand-400 hover:underline">
+          <Link to="/threatintel/social/crypto-scam" className="text-brand-600 dark:text-brand-400 hover:underline">
             Scam Watch
           </Link>
           ; ransomware leak-sites and breach disclosures with their own watchlist UI in{' '}
-          <Link to="/threatintel/darkweb" className="text-brand-600 dark:text-brand-400 hover:underline">
+          <Link to="/threatintel/catalog?cat=darkweb" className="text-brand-600 dark:text-brand-400 hover:underline">
             Dark Web Watch
           </Link>
           .
@@ -225,7 +225,7 @@ export default function ThreatFeeds(): JSX.Element {
       </div>
 
       {/* Filters */}
-      <section className="mb-6 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 space-y-3">
+      <section className="mb-6 rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] p-5 space-y-3">
         <div className="flex items-center gap-2">
           <Search size={14} className="text-brand-600 dark:text-brand-400" aria-hidden="true" />
           <input
@@ -233,7 +233,7 @@ export default function ThreatFeeds(): JSX.Element {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search title or description — e.g. CVE-2026, lockbit, exchange RCE"
-            className="flex-1 px-3 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="flex-1 px-3 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[#1e2030] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
             aria-label="Search Threat Feeds"
           />
           {search && (
@@ -252,7 +252,7 @@ export default function ThreatFeeds(): JSX.Element {
             className={`text-xs font-mono px-2 py-1 rounded border transition-colors ${
               activeSection === 'all'
                 ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                : 'border-slate-300 dark:border-slate-700 text-muted hover:border-brand-500/40'
+                : 'border-slate-300 dark:border-[#1e2030] text-muted hover:border-brand-500/40'
             }`}
           >
             All <span className="opacity-60">· {sectionCounts.all ?? 0}</span>
@@ -264,7 +264,7 @@ export default function ThreatFeeds(): JSX.Element {
               className={`text-xs font-mono px-2 py-1 rounded border transition-colors ${
                 activeSection === sec.id
                   ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                  : 'border-slate-300 dark:border-slate-700 text-muted hover:border-brand-500/40'
+                  : 'border-slate-300 dark:border-[#1e2030] text-muted hover:border-brand-500/40'
               }`}
             >
               {sec.label} <span className="opacity-60">· {sectionCounts[sec.id] ?? 0}</span>
@@ -275,7 +275,7 @@ export default function ThreatFeeds(): JSX.Element {
             className={`ml-auto text-xs font-mono px-2 py-1 rounded border inline-flex items-center gap-1.5 ${
               showSourcePanel
                 ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                : 'border-slate-300 dark:border-slate-700 text-muted hover:border-brand-500/40'
+                : 'border-slate-300 dark:border-[#1e2030] text-muted hover:border-brand-500/40'
             }`}
             title="Pick which feeds to query"
             aria-pressed={showSourcePanel}
@@ -288,7 +288,7 @@ export default function ThreatFeeds(): JSX.Element {
           <button
             onClick={() => void load()}
             disabled={loading}
-            className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 inline-flex items-center gap-1.5 disabled:opacity-50"
+            className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[#1e2030] hover:border-brand-500/40 inline-flex items-center gap-1.5 disabled:opacity-50"
           >
             {loading ? <Loader2 size={11} className="animate-spin" /> : <RefreshCw size={11} />}
             {loading ? 'fetching' : 'refresh'}
@@ -296,7 +296,7 @@ export default function ThreatFeeds(): JSX.Element {
         </div>
 
         {showSourcePanel && (
-          <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-3 space-y-3 max-h-[420px] overflow-y-auto">
+          <div className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 p-3 space-y-3 max-h-[420px] overflow-y-auto">
             <div className="flex items-center justify-between gap-2">
               <p className="text-mini font-mono text-slate-500">
                 Toggle individual feeds. Disabling a feed both hides it AND skips the upstream fetch. Persisted in
@@ -306,14 +306,14 @@ export default function ThreatFeeds(): JSX.Element {
                 <button
                   type="button"
                   onClick={() => setDisabled(new Set())}
-                  className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40"
+                  className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-[#1e2030] hover:border-brand-500/40"
                 >
                   enable all
                 </button>
                 <button
                   type="button"
                   onClick={() => setDisabled(new Set(ALL_FEED_IDS))}
-                  className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-slate-700 hover:border-rose-500/40"
+                  className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-[#1e2030] hover:border-rose-500/40"
                 >
                   disable all
                 </button>
@@ -346,8 +346,8 @@ export default function ThreatFeeds(): JSX.Element {
                         }
                         className={`flex items-center gap-2 rounded px-2 py-1 text-left border transition-colors ${
                           isEnabled
-                            ? 'border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:border-brand-500/40'
-                            : 'border-slate-200/40 dark:border-slate-800/40 bg-slate-100/40 dark:bg-slate-950/40 opacity-60'
+                            ? 'border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] hover:border-brand-500/40'
+                            : 'border-slate-200/40 dark:border-[#1e2030]/40 bg-slate-100/40 dark:bg-slate-950/40 opacity-60'
                         }`}
                       >
                         <input
@@ -430,7 +430,7 @@ export default function ThreatFeeds(): JSX.Element {
         {annotated.slice(0, 200).map(({ item, section }) => (
           <li
             key={item.link ?? `${item.title}-${item.pubDate}`}
-            className="rounded border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3"
+            className="rounded border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] p-3"
           >
             <div className="flex flex-wrap items-baseline justify-between gap-2 mb-1">
               <a
@@ -442,7 +442,7 @@ export default function ThreatFeeds(): JSX.Element {
                 {item.title || '(untitled)'} <ExternalLink size={11} />
               </a>
               <span
-                className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${SECTION_STYLES[section] ?? 'border-slate-300 dark:border-slate-700 text-slate-500'}`}
+                className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${SECTION_STYLES[section] ?? 'border-slate-300 dark:border-[#1e2030] text-slate-500'}`}
               >
                 {section}
               </span>

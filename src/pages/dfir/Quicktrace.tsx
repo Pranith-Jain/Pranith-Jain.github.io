@@ -627,7 +627,7 @@ export default function Quicktrace(): JSX.Element {
       </div>
 
       {/* Category Tabs */}
-      <div className="flex flex-wrap gap-1 mb-5 border-b border-slate-200 dark:border-slate-800 pb-0">
+      <div className="flex flex-wrap gap-1 mb-5 border-b border-slate-200 dark:border-[#1e2030] pb-0">
         {CATEGORY_ORDER.map((cat) => {
           const Icon = CATEGORY_META[cat].icon;
           const counts: Record<CategoryId, number> = {
@@ -662,7 +662,7 @@ export default function Quicktrace(): JSX.Element {
             className={`px-3 py-1.5 rounded-lg text-xs font-mono border transition-colors ${
               platform === pid
                 ? 'border-brand-500/60 bg-brand-500/10 text-brand-600 dark:text-brand-400'
-                : 'border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-brand-500/30'
+                : 'border-slate-200 dark:border-[#1e2030] text-slate-500 dark:text-slate-400 hover:border-brand-500/30'
             }`}
           >
             {label}
@@ -677,7 +677,7 @@ export default function Quicktrace(): JSX.Element {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder={`Search ${CATEGORY_META[category].label.toLowerCase()} queries…`}
-          className="w-full pl-9 pr-3 h-10 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-lg text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+          className="w-full pl-9 pr-3 h-10 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[#1e2030] rounded-lg text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
         />
       </div>
 
@@ -688,7 +688,7 @@ export default function Quicktrace(): JSX.Element {
 
       {/* Query cards */}
       {categoryQueries.length === 0 ? (
-        <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-8 text-center">
+        <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-8 text-center">
           <AlertTriangle size={24} className="mx-auto mb-2 text-slate-400" />
           <p className="text-sm text-slate-500">No queries match your filter.</p>
         </div>
@@ -697,7 +697,7 @@ export default function Quicktrace(): JSX.Element {
           {categoryQueries.map((query) => (
             <div
               key={query.id}
-              className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5"
+              className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-5"
             >
               <div className="flex items-start justify-between gap-3 mb-2">
                 <div className="flex-1 min-w-0">
@@ -723,7 +723,7 @@ export default function Quicktrace(): JSX.Element {
                 ))}
               </div>
               {/* Query code */}
-              <pre className="bg-slate-50 dark:bg-slate-950 rounded-lg p-4 overflow-x-auto text-xs text-slate-700 dark:text-slate-300 font-mono border border-slate-200 dark:border-slate-800 whitespace-pre-wrap">
+              <pre className="bg-slate-50 dark:bg-slate-950 rounded-lg p-4 overflow-x-auto text-xs text-slate-700 dark:text-slate-300 font-mono border border-slate-200 dark:border-[#1e2030] whitespace-pre-wrap">
                 {query.platforms[platform] ?? (
                   <span className="text-slate-400 italic">Not available for {platform.toUpperCase()}</span>
                 )}
@@ -734,7 +734,7 @@ export default function Quicktrace(): JSX.Element {
       )}
 
       {/* Summary footer */}
-      <div className="mt-8 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-4 text-center text-xs text-slate-500 dark:text-slate-400 font-mono">
+      <div className="mt-8 rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-4 text-center text-xs text-slate-500 dark:text-slate-400 font-mono">
         {totalQueries} queries across 4 domains · {totalAuth} authentication · {totalNet} network · {totalEnd} endpoint
         · {totalCloud} cloud
       </div>

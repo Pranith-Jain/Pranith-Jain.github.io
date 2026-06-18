@@ -20,7 +20,7 @@ function AptGroupCard({ group, onClick }: { group: AptGroup; onClick: () => void
     <button
       type="button"
       onClick={onClick}
-      className="text-left rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 hover:border-brand-500/40 hover:shadow-e2 transition-all"
+      className="text-left rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 hover:border-brand-500/40 hover:shadow-e2 transition-all"
     >
       <div className="flex items-start justify-between gap-2 mb-2">
         <h3 className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100">{group.name}</h3>
@@ -58,8 +58,8 @@ function AptGroupDetail({ group, onClose }: { group: AptGroup; onClose: () => vo
         }}
         aria-label="Close"
       />
-      <div className="relative bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-e2 max-w-2xl w-full max-h-[80vh] overflow-y-auto z-50">
-        <div className="p-6 border-b border-slate-200 dark:border-slate-800">
+      <div className="relative bg-white dark:bg-[#12121a] rounded-xl border border-slate-200 dark:border-[#1e2030] shadow-e2 max-w-2xl w-full max-h-[80vh] overflow-y-auto z-50">
+        <div className="p-6 border-b border-slate-200 dark:border-[#1e2030]">
           <div className="flex items-start justify-between gap-3">
             <div>
               <h2 className="font-display font-bold text-xl text-slate-900 dark:text-slate-100">{group.name}</h2>
@@ -167,15 +167,15 @@ export default function AptTracker(): JSX.Element {
       description="Open-source APT groups and operations database — 411 groups across 9 regions. Data from onuroktay14/APTTracker (CC BY 4.0)."
     >
       <div className="grid grid-cols-3 gap-4 mb-6">
-        <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 text-center">
+        <div className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 text-center">
           <div className="text-2xl font-display font-bold text-brand-600 dark:text-brand-400">{totalGroups}</div>
           <div className="text-micro font-mono text-slate-500 uppercase">APT Groups</div>
         </div>
-        <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 text-center">
+        <div className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 text-center">
           <div className="text-2xl font-display font-bold text-brand-600 dark:text-brand-400">{APT_REGIONS.length}</div>
           <div className="text-micro font-mono text-slate-500 uppercase">Regions</div>
         </div>
-        <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 text-center">
+        <div className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 text-center">
           <div className="text-2xl font-display font-bold text-brand-600 dark:text-brand-400">{totalOps}</div>
           <div className="text-micro font-mono text-slate-500 uppercase">Operations</div>
         </div>
@@ -189,7 +189,7 @@ export default function AptTracker(): JSX.Element {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search APT groups, aliases, malware, operations..."
-            className="w-full pl-9 pr-4 py-2.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="w-full pl-9 pr-4 py-2.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[#1e2030] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
           />
         </div>
       </div>
@@ -217,7 +217,7 @@ export default function AptTracker(): JSX.Element {
               key={r.name}
               type="button"
               onClick={() => setSelectedRegion(r.name)}
-              className={`text-left rounded-xl border bg-white dark:bg-slate-900 shadow-e1 p-6 hover:shadow-e2 transition-all ${SEVERITY_COLORS[r.name] ?? 'border-slate-200 dark:border-slate-800'}`}
+              className={`text-left rounded-xl border bg-white dark:bg-[#12121a] shadow-e1 p-6 hover:shadow-e2 transition-all ${SEVERITY_COLORS[r.name] ?? 'border-slate-200 dark:border-[#1e2030]'}`}
             >
               <div className="flex items-center gap-3 mb-3">
                 <span className="text-3xl">{r.flag}</span>

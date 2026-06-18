@@ -307,7 +307,7 @@ export default function CampaignGenerator(): JSX.Element {
       }
       maxWidthClass="max-w-5xl"
     >
-      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 mb-6">
+      <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] p-5 mb-6">
         <div className="flex items-center justify-between mb-4 gap-2 flex-wrap">
           <h2 className="text-sm font-display font-semibold inline-flex items-center gap-2">
             <Target size={14} className="text-brand-600 dark:text-brand-400" /> Analyst brief
@@ -319,7 +319,7 @@ export default function CampaignGenerator(): JSX.Element {
                 key={s.label}
                 type="button"
                 onClick={() => loadSample(s)}
-                className="text-mini font-mono rounded border border-slate-300 dark:border-slate-700 px-2 py-0.5 text-muted hover:text-brand-600 dark:hover:text-brand-400 hover:border-brand-500/40"
+                className="text-mini font-mono rounded border border-slate-300 dark:border-[#1e2030] px-2 py-0.5 text-muted hover:text-brand-600 dark:hover:text-brand-400 hover:border-brand-500/40"
               >
                 {s.label}
               </button>
@@ -341,7 +341,7 @@ export default function CampaignGenerator(): JSX.Element {
               value={actor}
               onChange={(e) => setActor(e.target.value)}
               placeholder="e.g. Suspected LockBit affiliate"
-              className="w-full rounded border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 px-3 py-2 text-sm font-mono focus:border-brand-500 focus:outline-none"
+              className="w-full rounded border border-slate-300 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 px-3 py-2 text-sm font-mono focus:border-brand-500 focus:outline-none"
             />
           </div>
           <div>
@@ -357,7 +357,7 @@ export default function CampaignGenerator(): JSX.Element {
               value={sector}
               onChange={(e) => setSector(e.target.value)}
               placeholder="e.g. Manufacturing, North America"
-              className="w-full rounded border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 px-3 py-2 text-sm font-mono focus:border-brand-500 focus:outline-none"
+              className="w-full rounded border border-slate-300 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 px-3 py-2 text-sm font-mono focus:border-brand-500 focus:outline-none"
             />
           </div>
         </div>
@@ -372,7 +372,7 @@ export default function CampaignGenerator(): JSX.Element {
             onChange={(e) => setTtps(e.target.value)}
             placeholder="Free-form description of what was seen — entry vector, lateral movement, persistence, exfil, etc."
             rows={5}
-            className="w-full rounded border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 px-3 py-2 text-sm font-mono focus:border-brand-500 focus:outline-none"
+            className="w-full rounded border border-slate-300 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 px-3 py-2 text-sm font-mono focus:border-brand-500 focus:outline-none"
           />
         </div>
 
@@ -387,7 +387,7 @@ export default function CampaignGenerator(): JSX.Element {
               onChange={(e) => setIocs(e.target.value)}
               placeholder="185.220.101.45&#10;c2.bad-domain.com&#10;9cf5b1…"
               rows={5}
-              className="w-full rounded border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 px-3 py-2 text-sm font-mono focus:border-brand-500 focus:outline-none"
+              className="w-full rounded border border-slate-300 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 px-3 py-2 text-sm font-mono focus:border-brand-500 focus:outline-none"
             />
             <div className="text-micro font-mono text-slate-400 mt-1">{iocList.length} parsed · max 30</div>
           </div>
@@ -404,7 +404,7 @@ export default function CampaignGenerator(): JSX.Element {
               onChange={(e) => setNotes(e.target.value)}
               placeholder="Anything else — timeline anomalies, relationships, the gut-feel angle."
               rows={5}
-              className="w-full rounded border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 px-3 py-2 text-sm font-mono focus:border-brand-500 focus:outline-none"
+              className="w-full rounded border border-slate-300 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 px-3 py-2 text-sm font-mono focus:border-brand-500 focus:outline-none"
             />
           </div>
         </div>
@@ -440,7 +440,7 @@ export default function CampaignGenerator(): JSX.Element {
       )}
 
       {result && (
-        <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 mb-6 animate-fade-in-up">
+        <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] p-6 mb-6 animate-fade-in-up">
           <div className="flex items-start justify-between gap-3 mb-4 flex-wrap">
             <div>
               <h2 className="text-2xl font-display font-bold mb-1">{result.campaign.campaign_name}</h2>
@@ -456,7 +456,7 @@ export default function CampaignGenerator(): JSX.Element {
               <button
                 type="button"
                 onClick={() => void copyMarkdown()}
-                className="inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-slate-700 px-2.5 py-1 text-mini font-mono text-muted hover:text-brand-600 dark:hover:text-brand-400 hover:border-brand-500/40"
+                className="inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-[#1e2030] px-2.5 py-1 text-mini font-mono text-muted hover:text-brand-600 dark:hover:text-brand-400 hover:border-brand-500/40"
               >
                 {copied ? (
                   <>
@@ -487,8 +487,8 @@ export default function CampaignGenerator(): JSX.Element {
                 </button>
               )}
               <Link
-                to="/threatintel/campaigns"
-                className="inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-slate-700 px-2.5 py-1 text-mini font-mono text-muted hover:text-brand-600 dark:hover:text-brand-400 hover:border-brand-500/40"
+                to="/threatintel/catalog?cat=campaigns"
+                className="inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-[#1e2030] px-2.5 py-1 text-mini font-mono text-muted hover:text-brand-600 dark:hover:text-brand-400 hover:border-brand-500/40"
                 title="Browse saved campaigns"
               >
                 <FolderOpen size={11} /> browse
@@ -516,7 +516,7 @@ export default function CampaignGenerator(): JSX.Element {
                 {orderedKillChain.map((k) => (
                   <li
                     key={k.phase}
-                    className="rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-3"
+                    className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 p-3"
                   >
                     <div className="text-micro font-mono uppercase tracking-wider text-brand-600 dark:text-brand-400 mb-0.5">
                       {PHASE_LABELS[k.phase] ?? k.phase}
@@ -535,7 +535,7 @@ export default function CampaignGenerator(): JSX.Element {
                 {result.campaign.mitre_techniques.map((m) => (
                   <li
                     key={m.id}
-                    className="text-sm rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-2.5"
+                    className="text-sm rounded-lg border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 p-2.5"
                   >
                     <a
                       href={`https://attack.mitre.org/techniques/${m.id.replace('.', '/')}`}
@@ -573,7 +573,7 @@ export default function CampaignGenerator(): JSX.Element {
                 {result.campaign.detection_opportunities.map((d) => (
                   <li
                     key={d}
-                    className="text-sm font-mono rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-2.5 text-slate-700 dark:text-slate-300"
+                    className="text-sm font-mono rounded border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 p-2.5 text-slate-700 dark:text-slate-300"
                   >
                     {d}
                   </li>
@@ -591,7 +591,7 @@ export default function CampaignGenerator(): JSX.Element {
                   return (
                     <li
                       key={ioc}
-                      className="text-sm flex items-start gap-2 rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-2"
+                      className="text-sm flex items-start gap-2 rounded border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 p-2"
                     >
                       <span className="flex-1 text-slate-700 dark:text-slate-300">{ioc}</span>
                       <Link

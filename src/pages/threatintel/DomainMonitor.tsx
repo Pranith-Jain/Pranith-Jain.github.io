@@ -104,7 +104,7 @@ export default function DomainMonitor(): JSX.Element {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="example.com"
-                className="w-full pl-9 pr-3 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+                className="w-full pl-9 pr-3 py-3 bg-white dark:bg-[#12121a] border border-slate-200 dark:border-[#1e2030] rounded-lg font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
                 aria-label="Domain to monitor"
               />
             </div>
@@ -133,7 +133,7 @@ export default function DomainMonitor(): JSX.Element {
       {results && (
         <div className="space-y-6">
           {/* Summary Stats */}
-          <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
+          <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4">
             <h2 className="font-display font-bold text-xl mb-4">{results.domain}</h2>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
               <div className="text-center">
@@ -175,7 +175,7 @@ export default function DomainMonitor(): JSX.Element {
 
           {/* Active Domains (Potential Threats) */}
           {results.results.active.length > 0 && (
-            <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
+            <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4">
               <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-rose-600 dark:text-rose-400 font-mono mb-3 flex items-center gap-2">
                 <AlertTriangle size={12} /> Active Typosquats ({results.results.active.length})
               </h3>
@@ -213,7 +213,7 @@ export default function DomainMonitor(): JSX.Element {
 
           {/* Inactive Domains (Safe) */}
           {results.results.inactive.length > 0 && (
-            <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
+            <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4">
               <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-emerald-600 dark:text-emerald-400 font-mono mb-3">
                 Inactive Variants ({results.results.inactive.length})
               </h3>
@@ -221,7 +221,7 @@ export default function DomainMonitor(): JSX.Element {
                 {results.results.inactive.map((v) => (
                   <span
                     key={v.domain}
-                    className="text-xs font-mono px-2 py-1 rounded border border-slate-200 dark:border-slate-700 text-slate-500"
+                    className="text-xs font-mono px-2 py-1 rounded border border-slate-200 dark:border-[#1e2030] text-slate-500"
                     title={v.type}
                   >
                     {v.domain}
@@ -233,7 +233,7 @@ export default function DomainMonitor(): JSX.Element {
 
           {/* Unchecked Variants */}
           {results.results.unchecked.length > 0 && (
-            <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
+            <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4">
               <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-slate-500 font-mono mb-3">
                 Additional Variants ({results.results.unchecked.length})
               </h3>
@@ -245,7 +245,7 @@ export default function DomainMonitor(): JSX.Element {
                 {results.results.unchecked.slice(0, 20).map((v) => (
                   <span
                     key={v.domain}
-                    className="text-xs font-mono px-2 py-1 rounded border border-slate-200 dark:border-slate-700 text-slate-400"
+                    className="text-xs font-mono px-2 py-1 rounded border border-slate-200 dark:border-[#1e2030] text-slate-400"
                     title={v.type}
                   >
                     {v.domain}
@@ -261,7 +261,7 @@ export default function DomainMonitor(): JSX.Element {
           )}
 
           {/* Type Legend */}
-          <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
+          <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4">
             <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
               Detection Types
             </h3>
@@ -284,19 +284,19 @@ export default function DomainMonitor(): JSX.Element {
           <div className="flex gap-2 flex-wrap">
             <Link
               to={`/dfir/domain-rep?domain=${encodeURIComponent(clean)}`}
-              className="inline-flex items-center gap-1 text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-slate-800 text-muted hover:border-brand-500/40"
+              className="inline-flex items-center gap-1 text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-[#1e2030] text-muted hover:border-brand-500/40"
             >
               <ExternalLink size={10} /> Domain Reputation
             </Link>
             <Link
               to={`/dfir/ioc-check?indicator=${encodeURIComponent(clean)}`}
-              className="inline-flex items-center gap-1 text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-slate-800 text-muted hover:border-brand-500/40"
+              className="inline-flex items-center gap-1 text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-[#1e2030] text-muted hover:border-brand-500/40"
             >
               <ExternalLink size={10} /> IOC Checker
             </Link>
             <Link
               to={`/dfir/breach?domain=${encodeURIComponent(clean)}`}
-              className="inline-flex items-center gap-1 text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-slate-800 text-muted hover:border-brand-500/40"
+              className="inline-flex items-center gap-1 text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-[#1e2030] text-muted hover:border-brand-500/40"
             >
               <ExternalLink size={10} /> Breach Check
             </Link>

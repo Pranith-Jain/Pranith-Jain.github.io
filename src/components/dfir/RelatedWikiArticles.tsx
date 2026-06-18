@@ -53,7 +53,7 @@ export function RelatedWikiArticles({ path, limit = 5, className = '' }: Props):
       {articles.length > limit && (
         <p className="text-micro font-mono text-slate-500 dark:text-slate-400 mt-2">
           {articles.length - limit} more articles also backlink to this tool —{' '}
-          <Link to="/threatintel/wiki" className="text-cyan-700 dark:text-cyan-300 hover:underline">
+          <Link to="/threatintel/catalog?cat=wiki" className="text-cyan-700 dark:text-cyan-300 hover:underline">
             browse the full wiki
           </Link>
           .

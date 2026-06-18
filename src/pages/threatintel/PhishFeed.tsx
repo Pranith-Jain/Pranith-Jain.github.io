@@ -168,7 +168,7 @@ export default function PhishFeed(): JSX.Element {
         ].map(({ label, value, icon: Icon, cls }) => (
           <div
             key={label}
-            className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/50 shadow-e1 p-2.5"
+            className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/50 shadow-e1 p-2.5"
           >
             <div className={`flex items-center gap-1.5 text-mini uppercase tracking-wider mb-0.5 ${cls}`}>
               <Icon className="w-3 h-3" /> {label}
@@ -187,13 +187,13 @@ export default function PhishFeed(): JSX.Element {
             placeholder="Search URL, domain, or target brand…"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            className="w-full pl-9 pr-3 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-brand-500"
+            className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[#12121a] border border-slate-200 dark:border-[#1e2030] rounded-lg text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-brand-500"
           />
         </div>
         <select
           value={sourceFilter}
           onChange={(e) => setSourceFilter(e.target.value as any)}
-          className="px-3 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:border-brand-500"
+          className="px-3 py-2 bg-white dark:bg-[#12121a] border border-slate-200 dark:border-[#1e2030] rounded-lg text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:border-brand-500"
         >
           <option value="all">All sources</option>
           <option value="openphish">OpenPhish</option>
@@ -204,14 +204,14 @@ export default function PhishFeed(): JSX.Element {
           className={`px-3 py-2 rounded-lg border text-xs font-medium flex items-center gap-1.5 transition ${
             verifiedOnly
               ? 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300'
-              : 'border-slate-300 dark:border-slate-700 text-slate-500 hover:border-slate-400'
+              : 'border-slate-300 dark:border-[#1e2030] text-slate-500 hover:border-slate-400'
           }`}
         >
           <Shield className="w-3.5 h-3.5" /> Verified only
         </button>
         <button
           onClick={() => refetch()}
-          className="px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-700 text-muted hover:border-slate-400 dark:hover:border-slate-600 text-sm flex items-center gap-2"
+          className="px-3 py-2 rounded-lg border border-slate-300 dark:border-[#1e2030] text-muted hover:border-slate-400 dark:hover:border-slate-600 text-sm flex items-center gap-2"
         >
           <RefreshCw className="w-4 h-4" /> Refresh
         </button>
@@ -227,7 +227,7 @@ export default function PhishFeed(): JSX.Element {
             className={`px-2 py-1 rounded text-xs font-mono border transition ${
               sortKey === k
                 ? 'border-brand-500/40 bg-brand-500/10 text-brand-700 dark:text-brand-300'
-                : 'border-slate-300 dark:border-slate-700 text-slate-500 hover:border-slate-400'
+                : 'border-slate-300 dark:border-[#1e2030] text-slate-500 hover:border-slate-400'
             }`}
           >
             {k === 'first_seen' ? 'newest' : k}
@@ -237,7 +237,7 @@ export default function PhishFeed(): JSX.Element {
         <select
           value={exportFormat}
           onChange={(e) => setExportFormat(e.target.value as any)}
-          className="px-2 py-1 rounded text-xs font-mono border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 focus:outline-none focus:border-brand-500"
+          className="px-2 py-1 rounded text-xs font-mono border border-slate-300 dark:border-[#1e2030] bg-white dark:bg-[#12121a] text-slate-700 dark:text-slate-300 focus:outline-none focus:border-brand-500"
         >
           <option value="txt">Plain list (.txt)</option>
           <option value="hosts">Hosts file</option>
@@ -245,7 +245,7 @@ export default function PhishFeed(): JSX.Element {
         </select>
         <button
           onClick={doExport}
-          className="px-3 py-1.5 rounded-lg border border-slate-300 dark:border-slate-700 text-muted hover:border-slate-400 dark:hover:border-slate-600 text-xs flex items-center gap-1.5"
+          className="px-3 py-1.5 rounded-lg border border-slate-300 dark:border-[#1e2030] text-muted hover:border-slate-400 dark:hover:border-slate-600 text-xs flex items-center gap-1.5"
         >
           <Download className="w-3.5 h-3.5" /> Export ({filtered.length})
         </button>
@@ -273,7 +273,7 @@ export default function PhishFeed(): JSX.Element {
                 className={`flex items-center gap-2 px-3 py-2 rounded-lg border text-xs font-mono ${
                   risky
                     ? 'border-amber-300/50 dark:border-amber-500/30 bg-amber-50 dark:bg-amber-900/5'
-                    : 'border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/30'
+                    : 'border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/30'
                 } hover:bg-slate-50 dark:hover:bg-slate-900/40 transition`}
               >
                 <a
@@ -322,7 +322,7 @@ export default function PhishFeed(): JSX.Element {
 
       {/* Target brand breakdown */}
       {targetBreakdown.length > 0 && (
-        <div className="mt-8 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/50 p-4">
+        <div className="mt-8 rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/50 p-4">
           <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100 mb-3">Targeted Brands (PhishTank)</h3>
           <div className="space-y-1.5">
             {targetBreakdown.map(([brand, count]) => (
@@ -343,7 +343,7 @@ export default function PhishFeed(): JSX.Element {
         </div>
       )}
 
-      <div className="mt-6 pt-4 border-t border-slate-200 dark:border-slate-800 text-xs text-slate-500 dark:text-slate-600 font-mono">
+      <div className="mt-6 pt-4 border-t border-slate-200 dark:border-[#1e2030] text-xs text-slate-500 dark:text-slate-600 font-mono">
         Sources: OpenPhish + PhishTank (optional) · Built-in brand detection for target attribution · Cached 1h
         server-side
       </div>

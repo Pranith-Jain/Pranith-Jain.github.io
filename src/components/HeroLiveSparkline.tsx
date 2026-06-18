@@ -295,7 +295,7 @@ export function HeroLiveSparkline(): JSX.Element {
             <RefreshCw size={11} aria-hidden="true" className={refreshing ? 'animate-spin' : undefined} />
           </button>
           <Link
-            to="/threatintel/ransomware-activity"
+            to="/threatintel/darkweb/ransom-activity"
             className="text-brand-600 dark:text-brand-400 hover:underline normal-case tracking-normal"
           >
             /threatintel ↗

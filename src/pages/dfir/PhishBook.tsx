@@ -614,9 +614,9 @@ export default function PhishBook(): JSX.Element {
                       {phase.queries.map((q, i) => (
                         <div
                           key={i}
-                          className="rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-950/5 dark:bg-slate-950/30 overflow-hidden"
+                          className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-slate-950/5 dark:bg-slate-950/30 overflow-hidden"
                         >
-                          <div className="flex items-center justify-between px-4 py-2 bg-slate-100/50 dark:bg-slate-900/50 border-b border-slate-200 dark:border-slate-800">
+                          <div className="flex items-center justify-between px-4 py-2 bg-slate-100/50 dark:bg-[#12121a]/50 border-b border-slate-200 dark:border-[#1e2030]">
                             <span className="text-[10px] font-mono font-bold text-slate-500">{q.language}</span>
                             <CopyButton value={q.code} title={`Copy ${q.language} query`} />
                           </div>

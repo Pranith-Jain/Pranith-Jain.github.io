@@ -108,7 +108,7 @@ export function RecentWriting(): JSX.Element | null {
             all case studies <ArrowRight size={11} />
           </Link>
           <Link
-            to="/threatintel/research"
+            to="/threatintel/research-hub/research"
             className="inline-flex items-center gap-1 text-brand-600 dark:text-brand-400 hover:underline"
           >
             all research <ArrowRight size={11} />

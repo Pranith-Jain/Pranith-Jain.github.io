@@ -436,7 +436,7 @@ export default function ThreatMap(): JSX.Element {
               className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded border transition-colors ${
                 liveMode
                   ? 'border-emerald-400/60 bg-emerald-500/15 text-emerald-700 dark:text-emerald-300'
-                  : 'border-slate-300 dark:border-slate-700 hover:border-brand-500/40'
+                  : 'border-slate-300 dark:border-[#1e2030] hover:border-brand-500/40'
               }`}
               aria-pressed={liveMode}
               title={liveMode ? 'Pause auto-refresh' : `Auto-refresh the map every ${REFRESH_INTERVAL_MS / 1000}s`}
@@ -457,7 +457,7 @@ export default function ThreatMap(): JSX.Element {
               className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded border transition-colors ${
                 globeView
                   ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                  : 'border-slate-300 dark:border-slate-700 hover:border-brand-500/40'
+                  : 'border-slate-300 dark:border-[#1e2030] hover:border-brand-500/40'
               }`}
               aria-pressed={globeView}
               title={globeView ? 'Switch to flat (mercator) projection' : 'Switch to globe (orthographic) projection'}
@@ -479,7 +479,7 @@ export default function ThreatMap(): JSX.Element {
           <div className="grid lg:grid-cols-[1fr_280px] gap-6">
             {/* Map */}
             <div
-              className="rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 overflow-hidden relative"
+              className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 overflow-hidden relative"
               // Reserve the map's intrinsic aspect ratio (900×460 SVG) so the
               // Suspense fallback occupies the same space the loaded
               // ComposableMap will take. Without this the placeholder is
@@ -534,7 +534,7 @@ export default function ThreatMap(): JSX.Element {
                         className={`w-full flex items-baseline justify-between gap-3 text-sm font-mono px-3 py-2 min-h-[44px] sm:min-h-0 sm:py-1.5 rounded border transition-colors ${
                           isSelected
                             ? 'border-amber-400/60 bg-amber-400/10 text-slate-900 dark:text-slate-100'
-                            : 'border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:border-brand-500/40'
+                            : 'border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] hover:border-brand-500/40'
                         }`}
                         aria-pressed={isSelected}
                       >
@@ -593,7 +593,7 @@ export default function ThreatMap(): JSX.Element {
                 <button
                   type="button"
                   onClick={() => setSelected(null)}
-                  className="inline-flex items-center gap-1 text-xs font-mono px-3 py-2 min-h-[44px] sm:min-h-0 rounded border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
+                  className="inline-flex items-center gap-1 text-xs font-mono px-3 py-2 min-h-[44px] sm:min-h-0 rounded border border-slate-300 dark:border-[#1e2030] text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
                   aria-label="Clear country selection"
                 >
                   <X size={12} /> clear
@@ -611,7 +611,7 @@ export default function ThreatMap(): JSX.Element {
                       <li key={ip}>
                         <Link
                           to={`/dfir/ioc-check?indicator=${encodeURIComponent(ip)}`}
-                          className="block rounded border border-amber-400/30 hover:border-brand-500/40 bg-white dark:bg-slate-900 px-3 py-2 transition-colors"
+                          className="block rounded border border-amber-400/30 hover:border-brand-500/40 bg-white dark:bg-[#12121a] px-3 py-2 transition-colors"
                         >
                           <div className="font-mono text-sm text-slate-900 dark:text-slate-100 break-all">{ip}</div>
                           <div className="text-mini font-mono text-slate-500 mt-0.5">sources: {sources.join(', ')}</div>
@@ -635,7 +635,7 @@ export default function ThreatMap(): JSX.Element {
                   <Link
                     key={`${s.ip}-${i}`}
                     to={`/dfir/ioc-check?indicator=${encodeURIComponent(s.ip)}`}
-                    className="block rounded border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-3 py-2 hover:border-brand-500/40 transition-colors"
+                    className="block rounded border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] px-3 py-2 hover:border-brand-500/40 transition-colors"
                   >
                     <div className="font-mono text-sm text-slate-900 dark:text-slate-100 truncate">{s.ip}</div>
                     <div className="text-xs font-mono text-slate-500 flex items-center gap-2">
@@ -793,14 +793,14 @@ function SourcesBreakdown({ sourceCounts, iocTypes, totalIps }: SourcesBreakdown
 
   if (rows.length === 0) {
     return (
-      <section className="mt-6 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
+      <section className="mt-6 rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4">
         <p className="text-xs font-mono text-slate-500">No source attribution available in this snapshot.</p>
       </section>
     );
   }
 
   return (
-    <section className="mt-6 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 sm:p-5">
+    <section className="mt-6 rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 sm:p-5">
       <div className="flex flex-wrap items-baseline justify-between gap-2 mb-3">
         <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
           Sources contributing to this snapshot
@@ -813,7 +813,7 @@ function SourcesBreakdown({ sourceCounts, iocTypes, totalIps }: SourcesBreakdown
         {rows.map((r) => (
           <li
             key={`${r.name}-${r.kind}`}
-            className="rounded border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-950 p-3"
+            className="rounded border border-slate-200 dark:border-[#1e2030] bg-slate-50/50 dark:bg-slate-950 p-3"
           >
             <div className="flex items-baseline justify-between gap-2 mb-1">
               {r.meta.href ? (
@@ -874,7 +874,7 @@ function IocTypeBreakdown({ ipsCount, buckets }: { ipsCount: number; buckets: Io
   const total = rows.reduce((a, b) => a + b.count, 0) || 1;
 
   return (
-    <section className="mt-6 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 sm:p-5">
+    <section className="mt-6 rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 sm:p-5">
       <div className="flex flex-wrap items-baseline justify-between gap-2 mb-3">
         <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
           IOC type breakdown
@@ -912,7 +912,7 @@ function IocTypeBreakdown({ ipsCount, buckets }: { ipsCount: number; buckets: Io
             <Link
               key={r.kind}
               to={KIND_HREF[r.kind]}
-              className="flex items-center gap-2 rounded border border-slate-200 dark:border-slate-800 px-2.5 py-2 hover:border-brand-500/40 transition-colors"
+              className="flex items-center gap-2 rounded border border-slate-200 dark:border-[#1e2030] px-2.5 py-2 hover:border-brand-500/40 transition-colors"
             >
               <span className={`inline-block w-2.5 h-2.5 rounded shrink-0 ${KIND_COLOUR[r.kind]}`} aria-hidden="true" />
               <span className="text-slate-800 dark:text-slate-200 font-semibold">{KIND_LABEL[r.kind]}</span>

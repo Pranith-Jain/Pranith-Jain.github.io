@@ -81,7 +81,7 @@ function chip(active: boolean): string {
   return `text-xs font-mono px-2.5 py-1 rounded border transition-colors ${
     active
       ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-      : 'border-slate-300 dark:border-slate-700 text-muted hover:border-brand-500/40'
+      : 'border-slate-300 dark:border-[#1e2030] text-muted hover:border-brand-500/40'
   }`;
 }
 
@@ -121,7 +121,7 @@ function FolderRow({ folder }: FolderRowProps): JSX.Element {
   };
 
   return (
-    <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950">
+    <div className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950">
       <button
         type="button"
         onClick={toggle}
@@ -159,7 +159,7 @@ function FolderRow({ folder }: FolderRowProps): JSX.Element {
       </button>
 
       {open && (
-        <div className="px-3 pb-3 border-t border-slate-200 dark:border-slate-800 pt-3">
+        <div className="px-3 pb-3 border-t border-slate-200 dark:border-[#1e2030] pt-3">
           {/* rule-file download links (sourced from the cached tree, safeHref'd) */}
           {folder.rule_files.length > 0 && (
             <div className="flex flex-wrap gap-x-3 gap-y-1 mb-3">
@@ -231,7 +231,7 @@ function FolderRow({ folder }: FolderRowProps): JSX.Element {
                       {data.iocs.slice(0, 2000).map((ioc, i) => (
                         <tr
                           key={`${ioc.value}-${i}`}
-                          className="border-t border-slate-200/70 dark:border-slate-800/70 align-top"
+                          className="border-t border-slate-200/70 dark:border-[#1e2030]/70 align-top"
                         >
                           <td className="py-1 pr-3 font-mono break-all text-slate-800 dark:text-slate-200">
                             {pivotable(ioc.kind) ? (
@@ -363,7 +363,7 @@ export default function VolexityThreatIntel(): JSX.Element {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="filter by actor / campaign…"
-          className="w-full max-w-sm text-xs font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 focus:outline-none focus:border-brand-500/60"
+          className="w-full max-w-sm text-xs font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[#1e2030] bg-white dark:bg-[#12121a] text-slate-700 dark:text-slate-300 focus:outline-none focus:border-brand-500/60"
         />
       </div>
     ) : undefined;

@@ -146,7 +146,7 @@ export default function IocEnrichment(): JSX.Element {
       }
       maxWidthClass="max-w-6xl"
       headerExtra={
-        <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 sm:p-6">
+        <div className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 sm:p-6">
           <div className="flex flex-col sm:flex-row gap-3">
             <div className="relative flex-1">
               <div className="relative">
@@ -160,7 +160,7 @@ export default function IocEnrichment(): JSX.Element {
                   onChange={(e) => setQuery(e.target.value)}
                   onKeyDown={handleKeyDown}
                   placeholder={source.hint}
-                  className="w-full rounded-lg border border-slate-200 bg-white py-2.5 pl-9 pr-4 font-mono text-tool text-slate-900 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/20 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-100 dark:placeholder:text-slate-500"
+                  className="w-full rounded-lg border border-slate-200 bg-white py-2.5 pl-9 pr-4 font-mono text-tool text-slate-900 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/20 dark:border-[#1e2030] dark:bg-[#12121a] dark:text-slate-100 dark:placeholder:text-slate-500"
                   aria-label="Search query"
                 />
               </div>
@@ -173,7 +173,7 @@ export default function IocEnrichment(): JSX.Element {
                 aria-haspopup="listbox"
                 aria-expanded={showDropdown}
                 aria-label={`Data source: ${source.label}`}
-                className="flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2.5 font-mono text-tool text-slate-900 hover:border-brand-500/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/20 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-100 min-w-[180px] justify-between"
+                className="flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2.5 font-mono text-tool text-slate-900 hover:border-brand-500/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/20 dark:border-[#1e2030] dark:bg-[#12121a] dark:text-slate-100 min-w-[180px] justify-between"
               >
                 <span>{source.label}</span>
                 <ChevronDown size={14} className="text-slate-400" />
@@ -182,7 +182,7 @@ export default function IocEnrichment(): JSX.Element {
                 <div
                   role="listbox"
                   aria-label="Data source"
-                  className="absolute right-0 top-full mt-1 z-10 w-full min-w-[220px] rounded-lg border border-slate-200 bg-white shadow-lg dark:border-slate-800 dark:bg-slate-900"
+                  className="absolute right-0 top-full mt-1 z-10 w-full min-w-[220px] rounded-lg border border-slate-200 bg-white shadow-lg dark:border-[#1e2030] dark:bg-[#12121a]"
                 >
                   {SOURCES.map((s) => (
                     <button
@@ -236,7 +236,7 @@ export default function IocEnrichment(): JSX.Element {
       emptyMessage={`No results from ${source.label} for this query.`}
     >
       {!!data && !isEmptyResult && (
-        <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 overflow-hidden">
+        <div className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 overflow-hidden">
           <button
             type="button"
             onClick={() => setExpanded(!expanded)}

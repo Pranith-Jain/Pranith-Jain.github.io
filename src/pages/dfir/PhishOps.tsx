@@ -392,7 +392,7 @@ export default function PhishOps(): JSX.Element {
             <button
               type="button"
               onClick={reset}
-              className="text-xs font-mono px-3 py-1.5 rounded-lg border border-slate-300 dark:border-slate-700 text-muted hover:border-rose-400 hover:text-rose-600 dark:hover:text-rose-400 transition-colors inline-flex items-center gap-1.5"
+              className="text-xs font-mono px-3 py-1.5 rounded-lg border border-slate-300 dark:border-[#1e2030] text-muted hover:border-rose-400 hover:text-rose-600 dark:hover:text-rose-400 transition-colors inline-flex items-center gap-1.5"
             >
               <RotateCcw size={12} /> New Investigation
             </button>
@@ -451,7 +451,7 @@ export default function PhishOps(): JSX.Element {
             <button
               type="button"
               onClick={() => goStep(prevStep)}
-              className="text-xs font-mono px-3 py-1.5 rounded-lg border border-slate-300 dark:border-slate-700 text-muted hover:border-brand-400 hover:text-brand-600 dark:hover:text-brand-400 transition-colors inline-flex items-center gap-1.5"
+              className="text-xs font-mono px-3 py-1.5 rounded-lg border border-slate-300 dark:border-[#1e2030] text-muted hover:border-brand-400 hover:text-brand-600 dark:hover:text-brand-400 transition-colors inline-flex items-center gap-1.5"
             >
               <ChevronLeft size={12} /> Previous Step
             </button>
@@ -482,7 +482,7 @@ export default function PhishOps(): JSX.Element {
             {data.fields.map((f, i) => (
               <div
                 key={i}
-                className="flex items-start gap-2 p-3 rounded-lg bg-slate-50 dark:bg-slate-900/30 border border-slate-200 dark:border-slate-800"
+                className="flex items-start gap-2 p-3 rounded-lg bg-slate-50 dark:bg-[#12121a]/30 border border-slate-200 dark:border-[#1e2030]"
               >
                 <div className="flex-1 min-w-0">
                   <div className="text-xs font-mono font-semibold text-slate-500 dark:text-slate-400 mb-0.5">
@@ -510,7 +510,7 @@ export default function PhishOps(): JSX.Element {
                   className={`mt-0.5 flex-shrink-0 w-4 h-4 rounded border-2 flex items-center justify-center transition-colors ${
                     item.done
                       ? 'bg-emerald-500 border-emerald-500 text-white'
-                      : 'border-slate-300 dark:border-slate-700 hover:border-brand-400'
+                      : 'border-slate-300 dark:border-[#1e2030] hover:border-brand-400'
                   }`}
                   aria-label={item.done ? `Uncheck ${item.label}` : `Check ${item.label}`}
                 >
@@ -536,7 +536,7 @@ export default function PhishOps(): JSX.Element {
                     value={item.notes}
                     onChange={(e) => updateNote(state.currentStep, item.id, e.target.value)}
                     placeholder="Add notes..."
-                    className="w-full mt-1 text-xs font-mono bg-transparent border-b border-dashed border-slate-300 dark:border-slate-700 text-muted focus:outline-none focus:border-brand-400 placeholder:text-slate-400 dark:placeholder:text-slate-600 pb-0.5"
+                    className="w-full mt-1 text-xs font-mono bg-transparent border-b border-dashed border-slate-300 dark:border-[#1e2030] text-muted focus:outline-none focus:border-brand-400 placeholder:text-slate-400 dark:placeholder:text-slate-600 pb-0.5"
                   />
                 </div>
               </div>
@@ -554,7 +554,7 @@ export default function PhishOps(): JSX.Element {
             onChange={(e) => updateStepNotes(state.currentStep, e.target.value)}
             placeholder="Document findings, observations, and next steps for this phase..."
             rows={4}
-            className="w-full text-sm font-mono bg-slate-50 dark:bg-slate-900/30 border border-slate-200 dark:border-slate-800 rounded-lg p-3 text-slate-700 dark:text-slate-300 focus:outline-none focus:ring-1 focus:ring-brand-500 placeholder:text-slate-400 dark:placeholder:text-slate-600"
+            className="w-full text-sm font-mono bg-slate-50 dark:bg-[#12121a]/30 border border-slate-200 dark:border-[#1e2030] rounded-lg p-3 text-slate-700 dark:text-slate-300 focus:outline-none focus:ring-1 focus:ring-brand-500 placeholder:text-slate-400 dark:placeholder:text-slate-600"
           />
         </div>
       </div>

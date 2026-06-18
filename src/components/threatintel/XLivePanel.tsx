@@ -93,7 +93,7 @@ export function XLivePanel({
           <Twitter size={14} className="text-brand-600 dark:text-brand-400" /> {title}
         </h3>
         <Link
-          to="/threatintel/x-live"
+          to="/threatintel/social/firehose"
           className="text-mini font-mono text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-0.5"
         >
           all <ExternalLink size={9} />

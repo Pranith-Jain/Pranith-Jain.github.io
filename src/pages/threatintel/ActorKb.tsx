@@ -261,7 +261,7 @@ export default function ActorKb(): JSX.Element {
               onChange={(e) => setQ(e.target.value)}
               placeholder="Search actor, alias, Gxxxx, technique, malware…"
               aria-label="Search threat actors"
-              className="w-full pl-9 pr-3 py-2.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 dark:placeholder:text-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="w-full pl-9 pr-3 py-2.5 bg-white dark:bg-[#12121a] border border-slate-200 dark:border-[#1e2030] rounded-lg text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 dark:placeholder:text-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
             />
           </div>
           {selected && (
@@ -293,7 +293,7 @@ export default function ActorKb(): JSX.Element {
                     {selected.software.map((s) => (
                       <span
                         key={s}
-                        className="text-mini font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-slate-700 text-muted"
+                        className="text-mini font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-[#1e2030] text-muted"
                       >
                         {s}
                       </span>
@@ -321,7 +321,7 @@ export default function ActorKb(): JSX.Element {
                               target="_blank"
                               rel="noopener noreferrer"
                               title={tech.name}
-                              className="text-mini font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-muted hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
+                              className="text-mini font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 text-muted hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
                             >
                               {tech.id} {tech.name}
                             </a>
@@ -334,7 +334,7 @@ export default function ActorKb(): JSX.Element {
               )}
 
               {/* Enrichment */}
-              <div className="mt-5 pt-4 border-t border-slate-200 dark:border-slate-800">
+              <div className="mt-5 pt-4 border-t border-slate-200 dark:border-[#1e2030]">
                 <h3 className="text-mini font-mono uppercase tracking-wider text-slate-500 mb-3">
                   Enrichment · Malpedia / Maltrail / OTX
                 </h3>
@@ -373,7 +373,7 @@ export default function ActorKb(): JSX.Element {
                                 href={`/api/v1/maltrail/fetch?trail=${encodeURIComponent(t.filename)}`}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="text-mini font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-slate-700 text-muted hover:border-brand-500/40 inline-flex items-center gap-1"
+                                className="text-mini font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-[#1e2030] text-muted hover:border-brand-500/40 inline-flex items-center gap-1"
                               >
                                 {t.displayName} <ExternalLink size={10} />
                               </a>
@@ -393,7 +393,7 @@ export default function ActorKb(): JSX.Element {
                                 href={`https://otx.alienvault.com/pulse/${p.id}`}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="block text-mini font-mono px-1.5 py-1 rounded border border-slate-200 dark:border-slate-800 text-muted hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
+                                className="block text-mini font-mono px-1.5 py-1 rounded border border-slate-200 dark:border-[#1e2030] text-muted hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
                               >
                                 <span className="text-slate-900 dark:text-slate-100">{p.name}</span>
                                 {p.author && <span className="ml-2 text-slate-500">by {p.author}</span>}
@@ -522,7 +522,7 @@ export default function ActorKb(): JSX.Element {
             {skeletonMatches.slice(0, 60).map((sk) => (
               <div
                 key={sk.slug}
-                className="rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-2.5"
+                className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 p-2.5"
               >
                 <div className="flex items-baseline justify-between gap-2 mb-0.5">
                   <span className="font-display font-semibold text-sm truncate" title={sk.canonical_name}>

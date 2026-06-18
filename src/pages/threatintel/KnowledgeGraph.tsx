@@ -172,7 +172,7 @@ export default function KnowledgeGraph(): JSX.Element {
       maxWidthClass="max-w-6xl"
     >
       {/* Filter card */}
-      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-4">
+      <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 mb-4">
         <div className="flex flex-wrap items-center gap-3">
           <Filter className="h-4 w-4 text-slate-500 dark:text-slate-400" />
           <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
@@ -187,7 +187,7 @@ export default function KnowledgeGraph(): JSX.Element {
                 type="button"
                 onClick={() => toggleType(t.id)}
                 className={`text-micro font-mono uppercase tracking-wider rounded-full border px-2 py-0.5 transition-colors ${
-                  active ? 'text-white' : 'text-slate-500 dark:text-slate-400 border-slate-300 dark:border-slate-700'
+                  active ? 'text-white' : 'text-slate-500 dark:text-slate-400 border-slate-300 dark:border-[#1e2030]'
                 }`}
                 style={active ? { background: c, borderColor: c } : undefined}
               >
@@ -199,7 +199,7 @@ export default function KnowledgeGraph(): JSX.Element {
             <button
               type="button"
               onClick={() => setTypes(new Set())}
-              className="text-micro font-mono rounded-full border border-slate-300 dark:border-slate-700 px-2 py-0.5 text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300"
+              className="text-micro font-mono rounded-full border border-slate-300 dark:border-[#1e2030] px-2 py-0.5 text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300"
             >
               clear
             </button>
@@ -210,7 +210,7 @@ export default function KnowledgeGraph(): JSX.Element {
               id="kg-days"
               value={days}
               onChange={(e) => setDays(parseInt(e.target.value, 10))}
-              className="rounded border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 px-1.5 py-0.5 text-xs font-mono"
+              className="rounded border border-slate-300 dark:border-[#1e2030] bg-white dark:bg-slate-950 px-1.5 py-0.5 text-xs font-mono"
             >
               <option value={7}>7d</option>
               <option value={30}>30d</option>
@@ -226,7 +226,7 @@ export default function KnowledgeGraph(): JSX.Element {
               max={1000}
               value={limit}
               onChange={(e) => setLimit(Math.min(1000, Math.max(10, parseInt(e.target.value, 10) || 200)))}
-              className="w-20 rounded border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 px-1.5 py-0.5 text-xs font-mono"
+              className="w-20 rounded border border-slate-300 dark:border-[#1e2030] bg-white dark:bg-slate-950 px-1.5 py-0.5 text-xs font-mono"
             />
             <label htmlFor="kg-minconn">min conn</label>
             <input
@@ -236,12 +236,12 @@ export default function KnowledgeGraph(): JSX.Element {
               max={50}
               value={minConn}
               onChange={(e) => setMinConn(Math.max(0, parseInt(e.target.value, 10) || 0))}
-              className="w-16 rounded border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 px-1.5 py-0.5 text-xs font-mono"
+              className="w-16 rounded border border-slate-300 dark:border-[#1e2030] bg-white dark:bg-slate-950 px-1.5 py-0.5 text-xs font-mono"
             />
             <button
               type="button"
               onClick={() => setRefreshKey((k) => k + 1)}
-              className="inline-flex items-center gap-1 rounded border border-slate-300 dark:border-slate-700 px-2 py-0.5 text-xs hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400"
+              className="inline-flex items-center gap-1 rounded border border-slate-300 dark:border-[#1e2030] px-2 py-0.5 text-xs hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400"
             >
               <RefreshCw className="h-3 w-3" /> refresh
             </button>
@@ -252,13 +252,13 @@ export default function KnowledgeGraph(): JSX.Element {
       {/* Status bar */}
       {data && (
         <div className="mb-3 flex flex-wrap items-center gap-2 text-xs text-slate-500 dark:text-slate-400 font-mono">
-          <span className="rounded border border-slate-300 dark:border-slate-700 px-2 py-1">
+          <span className="rounded border border-slate-300 dark:border-[#1e2030] px-2 py-1">
             {data.stats.nodeCount} nodes
           </span>
-          <span className="rounded border border-slate-300 dark:border-slate-700 px-2 py-1">
+          <span className="rounded border border-slate-300 dark:border-[#1e2030] px-2 py-1">
             {data.stats.edgeCount} edges
           </span>
-          <span className="rounded border border-slate-300 dark:border-slate-700 px-2 py-1">
+          <span className="rounded border border-slate-300 dark:border-[#1e2030] px-2 py-1">
             types: {data.stats.sourceTypes.join(', ') || '—'}
           </span>
         </div>
@@ -274,7 +274,7 @@ export default function KnowledgeGraph(): JSX.Element {
       {data &&
         (data.nodes.length > 0 ? (
           <section
-            className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1"
+            className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1"
             style={{ height: 620 }}
           >
             <ReactFlowProvider>
@@ -297,7 +297,7 @@ export default function KnowledgeGraph(): JSX.Element {
             </ReactFlowProvider>
           </section>
         ) : (
-          <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-8 text-center text-sm text-slate-500 dark:text-slate-400">
+          <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 p-8 text-center text-sm text-slate-500 dark:text-slate-400">
             No nodes match the current filters. Try widening the time window or clearing the type filter.
           </section>
         ))}

@@ -301,7 +301,7 @@ export default function SocVulns(): JSX.Element {
         <span>
           NVD + CISA KEV + MyThreatIntel + cvefeed.io merged for the chosen window. Critical and high counts derived
           from CVSS; KEV tracks the all-time known-exploited corpus. Drill into the vendor list or jump to the{' '}
-          <Link to="/threatintel/cve-list" className="text-brand-600 dark:text-brand-400 hover:underline">
+          <Link to="/threatintel/cves/cves" className="text-brand-600 dark:text-brand-400 hover:underline">
             full CVE list
           </Link>
           .
@@ -399,7 +399,7 @@ export default function SocVulns(): JSX.Element {
             title="Top vendors"
             right={
               <Link
-                to="/threatintel/cve-list"
+                to="/threatintel/cves/cves"
                 className="inline-flex items-center gap-1 text-meta font-mono text-slate-500 hover:text-brand-600 dark:hover:text-brand-400"
               >
                 all <ExternalLink size={10} />
@@ -417,7 +417,7 @@ export default function SocVulns(): JSX.Element {
             title="KEV-flagged (recent)"
             right={
               <Link
-                to="/threatintel/cve-list?kev=1"
+                to="/threatintel/cves/cves?kev=1"
                 className="inline-flex items-center gap-1 text-meta font-mono text-slate-500 hover:text-brand-600 dark:hover:text-brand-400"
               >
                 feed <ExternalLink size={10} />
@@ -464,7 +464,7 @@ function KevTable({ rows }: { rows: RecentCve[] }): JSX.Element {
     <div className="overflow-x-auto -mx-4 sm:mx-0">
       <table className="w-full text-meta font-mono">
         <thead>
-          <tr className="text-left text-mini uppercase tracking-wider text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-800">
+          <tr className="text-left text-mini uppercase tracking-wider text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-[#1e2030]">
             <th className="px-4 sm:px-2 py-2 font-medium">CVE</th>
             <th className="px-2 py-2 font-medium">CVSS</th>
             <th className="px-2 py-2 font-medium">Sev</th>
@@ -476,7 +476,7 @@ function KevTable({ rows }: { rows: RecentCve[] }): JSX.Element {
           {rows.map((c) => (
             <tr
               key={c.id}
-              className="border-b border-slate-100 dark:border-slate-800/60 last:border-b-0 hover:bg-slate-50 dark:hover:bg-slate-900/40"
+              className="border-b border-slate-100 dark:border-[#1e2030]/60 last:border-b-0 hover:bg-slate-50 dark:hover:bg-slate-900/40"
             >
               <td className="px-4 sm:px-2 py-1.5">
                 <Link

@@ -8,7 +8,7 @@ const RISK_COLORS: Record<string, string> = {
   high: 'bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300 border-amber-300 dark:border-amber-800',
   medium:
     'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/40 dark:text-yellow-300 border-yellow-300 dark:border-yellow-800',
-  low: 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400 border-slate-300 dark:border-slate-700',
+  low: 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400 border-slate-300 dark:border-[#1e2030]',
 };
 
 export default function Regscope(): JSX.Element {
@@ -75,7 +75,7 @@ export default function Regscope(): JSX.Element {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div className="space-y-4">
-          <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5">
+          <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-5">
             <div className="flex items-center gap-2 mb-3">
               <Search size={14} className="text-slate-400" />
               <span className="text-micro font-mono uppercase tracking-wider text-slate-400">Registry Key Path</span>
@@ -86,7 +86,7 @@ export default function Regscope(): JSX.Element {
               value={keyPath}
               onChange={(e) => setKeyPath(e.target.value)}
               placeholder="HKLM\Software\Microsoft\Windows\CurrentVersion\Run"
-              className="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 p-3 text-sm text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/40 font-mono"
+              className="w-full rounded-lg border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 p-3 text-sm text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/40 font-mono"
             />
 
             <p className="text-micro font-mono text-slate-400 mt-2">
@@ -98,7 +98,7 @@ export default function Regscope(): JSX.Element {
               {['HKLM', 'HKCU', 'HKCR', 'HKU', 'HKCC'].map((hive) => (
                 <span
                   key={hive}
-                  className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-muted border border-slate-200 dark:border-slate-700"
+                  className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-muted border border-slate-200 dark:border-[#1e2030]"
                 >
                   {hive}
                 </span>
@@ -120,14 +120,14 @@ export default function Regscope(): JSX.Element {
                   setKeyPath('');
                   setResult(null);
                 }}
-                className="flex items-center gap-2 px-4 py-2.5 bg-white dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800 text-muted text-sm font-medium rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors"
+                className="flex items-center gap-2 px-4 py-2.5 bg-white dark:bg-[#12121a]/40 border border-slate-200 dark:border-[#1e2030] text-muted text-sm font-medium rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors"
               >
                 Clear
               </button>
             </div>
           </div>
 
-          <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5">
+          <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-5">
             <button
               type="button"
               onClick={() => setShowAll(!showAll)}
@@ -144,7 +144,7 @@ export default function Regscope(): JSX.Element {
                   <select
                     value={categoryFilter}
                     onChange={(e) => setCategoryFilter(e.target.value)}
-                    className="px-2 py-1 text-xs font-mono bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg text-slate-700 dark:text-slate-300"
+                    className="px-2 py-1 text-xs font-mono bg-white dark:bg-[#12121a] border border-slate-200 dark:border-[#1e2030] rounded-lg text-slate-700 dark:text-slate-300"
                   >
                     <option value="all">All Categories</option>
                     {categories.map((c) => (
@@ -156,7 +156,7 @@ export default function Regscope(): JSX.Element {
                   <select
                     value={tacticFilter}
                     onChange={(e) => setTacticFilter(e.target.value)}
-                    className="px-2 py-1 text-xs font-mono bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg text-slate-700 dark:text-slate-300"
+                    className="px-2 py-1 text-xs font-mono bg-white dark:bg-[#12121a] border border-slate-200 dark:border-[#1e2030] rounded-lg text-slate-700 dark:text-slate-300"
                   >
                     <option value="all">All Tactics</option>
                     {tactics.map((t) => (
@@ -173,7 +173,7 @@ export default function Regscope(): JSX.Element {
                       key={entry.path}
                       role="button"
                       tabIndex={0}
-                      className="rounded-lg border border-slate-200 dark:border-slate-800 p-2.5 hover:border-brand-500/30 cursor-pointer transition-colors"
+                      className="rounded-lg border border-slate-200 dark:border-[#1e2030] p-2.5 hover:border-brand-500/30 cursor-pointer transition-colors"
                       onClick={() => {
                         setKeyPath(entry.path);
                         setResult(entry);
@@ -215,7 +215,7 @@ export default function Regscope(): JSX.Element {
 
         <div>
           {!result && !keyPath.trim() && (
-            <div className="rounded-xl border-2 border-dashed border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/20 p-8 flex flex-col items-center justify-center text-center">
+            <div className="rounded-xl border-2 border-dashed border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/20 p-8 flex flex-col items-center justify-center text-center">
               <FolderTree size={48} className="text-slate-300 dark:text-slate-700 mb-4" />
               <p className="text-sm font-mono text-slate-500 dark:text-slate-400">
                 Paste a registry key path and click Analyze
@@ -228,7 +228,7 @@ export default function Regscope(): JSX.Element {
 
           {result && (
             <div className="space-y-4">
-              <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5">
+              <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-5">
                 <div className="flex items-start justify-between gap-3 mb-3">
                   <div className="flex-1 min-w-0">
                     <h3 className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 mb-1">
@@ -244,22 +244,22 @@ export default function Regscope(): JSX.Element {
                 </div>
 
                 <div className="grid grid-cols-2 gap-3 mb-4">
-                  <div className="rounded-lg border border-slate-200 dark:border-slate-800 p-3">
+                  <div className="rounded-lg border border-slate-200 dark:border-[#1e2030] p-3">
                     <span className="text-micro font-mono uppercase tracking-wider text-slate-400">Category</span>
                     <p className="text-sm font-mono text-slate-700 dark:text-slate-300 mt-1">{result.category}</p>
                   </div>
-                  <div className="rounded-lg border border-slate-200 dark:border-slate-800 p-3">
+                  <div className="rounded-lg border border-slate-200 dark:border-[#1e2030] p-3">
                     <span className="text-micro font-mono uppercase tracking-wider text-slate-400">Tactic</span>
                     <p className="text-sm font-mono text-slate-700 dark:text-slate-300 mt-1">{result.tactic}</p>
                   </div>
                 </div>
 
-                <div className="rounded-lg border border-slate-200 dark:border-slate-800 p-3 mb-3">
+                <div className="rounded-lg border border-slate-200 dark:border-[#1e2030] p-3 mb-3">
                   <span className="text-micro font-mono uppercase tracking-wider text-slate-400">Description</span>
                   <p className="text-xs font-mono text-muted mt-1">{result.description}</p>
                 </div>
 
-                <div className="rounded-lg border border-slate-200 dark:border-slate-800 p-3 mb-3">
+                <div className="rounded-lg border border-slate-200 dark:border-[#1e2030] p-3 mb-3">
                   <div className="flex items-center gap-2 mb-1">
                     <span className="text-micro font-mono uppercase tracking-wider text-slate-400">ATT&CK</span>
                   </div>
@@ -270,7 +270,7 @@ export default function Regscope(): JSX.Element {
                 </div>
 
                 {result.malware.length > 0 && (
-                  <div className="rounded-lg border border-slate-200 dark:border-slate-800 p-3">
+                  <div className="rounded-lg border border-slate-200 dark:border-[#1e2030] p-3">
                     <span className="text-micro font-mono uppercase tracking-wider text-slate-400">
                       Associated Malware
                     </span>
@@ -291,7 +291,7 @@ export default function Regscope(): JSX.Element {
           )}
 
           {keyPath.trim() && !result && (
-            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5">
+            <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-5">
               <div className="flex items-center gap-2 text-amber-600 dark:text-amber-400">
                 <HelpCircle size={16} />
                 <p className="text-sm font-mono">

@@ -224,7 +224,10 @@ export default function SocRansomware(): JSX.Element {
       description={
         <span>
           Recent ransomware leak-site claims merged across{' '}
-          <Link to="/threatintel/ransomware-activity" className="text-brand-600 dark:text-brand-400 hover:underline">
+          <Link
+            to="/threatintel/darkweb/ransom-activity"
+            className="text-brand-600 dark:text-brand-400 hover:underline"
+          >
             live trackers
           </Link>
           , deduped by (group + victim + day). Volume, top actors, country and sector attribution with auto-refresh and
@@ -295,7 +298,7 @@ export default function SocRansomware(): JSX.Element {
             title="Volume by actor"
             right={
               <Link
-                to="/threatintel/actors"
+                to="/threatintel/catalog?cat=actors"
                 className="inline-flex items-center gap-1 text-meta font-mono text-slate-500 hover:text-brand-600 dark:hover:text-brand-400"
               >
                 all <ExternalLink size={10} />
@@ -399,7 +402,7 @@ export default function SocRansomware(): JSX.Element {
             title="Recent claims"
             right={
               <Link
-                to="/threatintel/ransomware-activity"
+                to="/threatintel/darkweb/ransom-activity"
                 className="inline-flex items-center gap-1 text-meta font-mono text-slate-500 hover:text-brand-600 dark:hover:text-brand-400"
               >
                 feed <ExternalLink size={10} />
@@ -423,7 +426,7 @@ function RecentClaims({ rows }: { rows: RansomwareVictim[] }): JSX.Element {
     <div className="overflow-x-auto -mx-4 sm:mx-0">
       <table className="w-full text-meta font-mono">
         <thead>
-          <tr className="text-left text-mini uppercase tracking-wider text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-800">
+          <tr className="text-left text-mini uppercase tracking-wider text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-[#1e2030]">
             <th className="px-4 sm:px-2 py-2 font-mono font-medium">Victim</th>
             <th className="px-2 py-2 font-mono font-medium">Group</th>
             <th className="px-2 py-2 font-mono font-medium">Sector</th>
@@ -435,7 +438,7 @@ function RecentClaims({ rows }: { rows: RansomwareVictim[] }): JSX.Element {
           {rows.map((v, i) => (
             <tr
               key={`${v.victim}-${i}`}
-              className="border-b border-slate-100 dark:border-slate-800/60 last:border-b-0 hover:bg-slate-50 dark:hover:bg-slate-900/40"
+              className="border-b border-slate-100 dark:border-[#1e2030]/60 last:border-b-0 hover:bg-slate-50 dark:hover:bg-slate-900/40"
             >
               <td
                 className="px-4 sm:px-2 py-1.5 text-slate-900 dark:text-slate-100 truncate max-w-[200px]"

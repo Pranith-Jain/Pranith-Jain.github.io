@@ -268,7 +268,7 @@ export default function EntityResolution(): JSX.Element {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="e.g. LockBit, CVE-2024-1709, 8.8.8.8, Scattered Spider, 185.234.72.0"
-                className="w-full rounded-lg border border-slate-200 bg-white py-2.5 pl-9 pr-20 font-mono text-tool text-slate-900 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/20 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-100 dark:placeholder:text-slate-500"
+                className="w-full rounded-lg border border-slate-200 bg-white py-2.5 pl-9 pr-20 font-mono text-tool text-slate-900 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/20 dark:border-[#1e2030] dark:bg-[#12121a] dark:text-slate-100 dark:placeholder:text-slate-500"
               />
               <button
                 type="submit"
@@ -289,7 +289,7 @@ export default function EntityResolution(): JSX.Element {
           {entity && (
             <div className="space-y-4 animate-fade-in-up">
               {/* Entity header */}
-              <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-5">
+              <div className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-5">
                 <div className="flex items-start justify-between mb-3">
                   <div>
                     <div className="flex items-center gap-2 mb-2">
@@ -315,7 +315,7 @@ export default function EntityResolution(): JSX.Element {
                       {entity.aliases.map((a) => (
                         <span
                           key={a}
-                          className="rounded border border-slate-200 dark:border-slate-700 px-2 py-0.5 text-mini font-mono text-muted"
+                          className="rounded border border-slate-200 dark:border-[#1e2030] px-2 py-0.5 text-mini font-mono text-muted"
                         >
                           {a}
                         </span>
@@ -333,7 +333,7 @@ export default function EntityResolution(): JSX.Element {
                       {Object.entries(entity.context).map(([k, v]) => (
                         <span
                           key={k}
-                          className="rounded border border-slate-200 dark:border-slate-700 px-2 py-0.5 text-mini font-mono text-muted"
+                          className="rounded border border-slate-200 dark:border-[#1e2030] px-2 py-0.5 text-mini font-mono text-muted"
                         >
                           {k}={Array.isArray(v) ? v.join(', ') : String(v)}
                         </span>
@@ -355,7 +355,7 @@ export default function EntityResolution(): JSX.Element {
 
                 {/* PIR relevance */}
                 {relevantPirs.length > 0 && (
-                  <div className="mt-3 pt-3 border-t border-slate-100 dark:border-slate-800">
+                  <div className="mt-3 pt-3 border-t border-slate-100 dark:border-[#1e2030]">
                     <p className="text-micro font-mono font-semibold text-slate-500 uppercase tracking-wider mb-2">
                       Relevant PIRs ({relevantPirs.length})
                     </p>
@@ -391,7 +391,7 @@ export default function EntityResolution(): JSX.Element {
                 <>
                   {/* Cross-references */}
                   {profile.cross_references.length > 0 && (
-                    <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-5">
+                    <div className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-5">
                       <h3 className="text-xs font-mono font-semibold text-slate-500 uppercase tracking-wider mb-3">
                         Cross-references
                       </h3>
@@ -409,7 +409,7 @@ export default function EntityResolution(): JSX.Element {
 
                   {/* CVEs */}
                   {profile.cves && profile.cves.length > 0 && (
-                    <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-5">
+                    <div className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-5">
                       <h3 className="text-xs font-mono font-semibold text-slate-500 uppercase tracking-wider mb-3">
                         Linked CVEs ({profile.cves.length})
                       </h3>
@@ -428,7 +428,7 @@ export default function EntityResolution(): JSX.Element {
 
                   {/* Links */}
                   {profile.links.length > 0 && (
-                    <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-5">
+                    <div className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-5">
                       <h3 className="text-xs font-mono font-semibold text-slate-500 uppercase tracking-wider mb-3">
                         Relationships ({profile.links.length})
                       </h3>
@@ -465,7 +465,7 @@ export default function EntityResolution(): JSX.Element {
               onChange={(e) => setText(e.target.value)}
               rows={6}
               placeholder="Paste a threat report, blog post, or any text containing CVE IDs, threat actor names, ransomware group references, IPs, domains, or hashes..."
-              className="w-full rounded-lg border border-slate-200 bg-white p-3 font-mono text-tool text-slate-900 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/20 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-100 dark:placeholder:text-slate-500"
+              className="w-full rounded-lg border border-slate-200 bg-white p-3 font-mono text-tool text-slate-900 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/20 dark:border-[#1e2030] dark:bg-[#12121a] dark:text-slate-100 dark:placeholder:text-slate-500"
             />
             <div className="flex justify-end mt-2">
               <button
@@ -498,7 +498,7 @@ export default function EntityResolution(): JSX.Element {
                   return (
                     <div
                       key={e.id}
-                      className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-3 flex items-center justify-between"
+                      className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-3 flex items-center justify-between"
                     >
                       <div className="flex items-center gap-3">
                         <Icon size={16} className="text-slate-400 shrink-0" />
@@ -521,7 +521,7 @@ export default function EntityResolution(): JSX.Element {
           )}
 
           {!loading && text && extracted.length === 0 && !error && (
-            <div className="rounded-lg border border-dashed border-slate-300 dark:border-slate-700 p-8 text-center text-tool text-slate-500 font-mono">
+            <div className="rounded-lg border border-dashed border-slate-300 dark:border-[#1e2030] p-8 text-center text-tool text-slate-500 font-mono">
               No entities found in the provided text. Try pasting something with CVE IDs, actor names, IPs, domains, or
               hashes.
             </div>

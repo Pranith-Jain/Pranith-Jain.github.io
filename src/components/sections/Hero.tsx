@@ -66,7 +66,7 @@ export function Hero({ personalInfo }: HeroProps) {
               black/5 hover wash (the 100→200 step from the spec). */}
           <div className="mt-6 flex flex-wrap gap-2.5">
             <Link
-              to="/dfir/ioc-check"
+              to="/dfir/ioc-investigate"
               className="inline-flex h-10 items-center justify-center gap-1.5 rounded-md bg-brand-600 px-4 text-sm font-medium text-white transition-colors hover:bg-brand-500 focus-visible:outline-none"
             >
               Try IOC Check

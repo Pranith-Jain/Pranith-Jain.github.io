@@ -375,14 +375,14 @@ export default function RedHuntInsights(): JSX.Element {
           <button
             type="button"
             onClick={() => setRefreshKey((k) => k + 1)}
-            className="inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-slate-700 px-2 py-1 text-slate-500 dark:text-slate-400 hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+            className="inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-[#1e2030] px-2 py-1 text-slate-500 dark:text-slate-400 hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
             aria-label="Refresh now"
           >
             <RefreshCw className={`h-3.5 w-3.5 ${loading ? 'animate-spin' : ''}`} />
             refresh
           </button>
           {payload && (
-            <span className="rounded border border-slate-300 dark:border-slate-700 px-2 py-1 font-mono text-slate-500 dark:text-slate-400">
+            <span className="rounded border border-slate-300 dark:border-[#1e2030] px-2 py-1 font-mono text-slate-500 dark:text-slate-400">
               fetched <span className="text-slate-700 dark:text-slate-200">{relTimeShort(payload.fetched_at)} ago</span>
             </span>
           )}
@@ -412,7 +412,7 @@ export default function RedHuntInsights(): JSX.Element {
       {data && (
         <>
           {/* ── Headline hero ────────────────────────────────────────── */}
-          <div className="mb-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-gradient-to-br from-brand-50/60 via-white to-violet-50/40 dark:from-brand-950/20 dark:via-slate-900 dark:to-violet-950/20 p-5 shadow-e1">
+          <div className="mb-4 rounded-xl border border-slate-200 dark:border-[#1e2030] bg-gradient-to-br from-brand-50/60 via-white to-violet-50/40 dark:from-brand-950/20 dark:via-slate-900 dark:to-violet-950/20 p-5 shadow-e1">
             <div className="flex flex-wrap items-baseline justify-between gap-3">
               <div>
                 <p className="text-micro font-mono uppercase tracking-wider text-brand-600 dark:text-brand-400">
@@ -508,7 +508,7 @@ export default function RedHuntInsights(): JSX.Element {
           </div>
 
           {/* ── Collected Assets: 6-week chart for subdomains + APKs ─── */}
-          <div className="mb-6 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-5">
+          <div className="mb-6 rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-5">
             <div className="mb-2 flex flex-wrap items-baseline justify-between gap-2">
               <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100">Collected Assets</h3>
               <p className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
@@ -542,7 +542,7 @@ export default function RedHuntInsights(): JSX.Element {
           </div>
 
           {/* ── Top 25 Domains Word Cloud ────────────────────────────── */}
-          <div className="mb-6 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-5">
+          <div className="mb-6 rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-5">
             <div className="mb-1 flex flex-wrap items-baseline justify-between gap-2">
               <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100">Top 25 Domains Word Cloud</h3>
               <p className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
@@ -551,7 +551,7 @@ export default function RedHuntInsights(): JSX.Element {
             </div>
             <TopDomainsCloud domains={topDomains} />
             {topDomainsEntries.length > 0 && (
-              <details className="mt-3 border-t border-slate-200 dark:border-slate-800 pt-3 text-xs">
+              <details className="mt-3 border-t border-slate-200 dark:border-[#1e2030] pt-3 text-xs">
                 <summary className="cursor-pointer text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300 font-mono">
                   show numeric table ({topDomainsEntries.length} domains)
                 </summary>
@@ -564,7 +564,7 @@ export default function RedHuntInsights(): JSX.Element {
                   </thead>
                   <tbody>
                     {topDomainsEntries.map(([d, c]) => (
-                      <tr key={d} className="border-t border-slate-100 dark:border-slate-800">
+                      <tr key={d} className="border-t border-slate-100 dark:border-[#1e2030]">
                         <td className="py-1 font-mono text-slate-700 dark:text-slate-300">{d}</td>
                         <td className="py-1 text-right font-mono tabular-nums text-muted">{c.toLocaleString()}</td>
                       </tr>
@@ -634,7 +634,7 @@ export default function RedHuntInsights(): JSX.Element {
 
           {/* ── Commits Over Time + Secrets Found Over Time ──────────── */}
           <div className="mb-6 grid grid-cols-1 lg:grid-cols-2 gap-4">
-            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-5">
+            <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-5">
               <h3 className="mb-1 text-base font-semibold text-slate-900 dark:text-slate-100">Commits Over Time</h3>
               <p className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
                 Code Commits Scanned Across Major Code Platforms in Last 6 Weeks
@@ -651,7 +651,7 @@ export default function RedHuntInsights(): JSX.Element {
                 />
               </div>
             </div>
-            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-5">
+            <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-5">
               <h3 className="mb-1 text-base font-semibold text-slate-900 dark:text-slate-100">
                 Secrets Found Over Time
               </h3>
@@ -674,7 +674,7 @@ export default function RedHuntInsights(): JSX.Element {
 
           {/* ── Recently Discovered Secrets + Top 10 Secret Types ────── */}
           <div className="mb-6 grid grid-cols-1 lg:grid-cols-2 gap-4">
-            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-5">
+            <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-5">
               <h3 className="mb-1 text-base font-semibold text-slate-900 dark:text-slate-100">
                 Recently Discovered Secrets
               </h3>
@@ -702,7 +702,7 @@ export default function RedHuntInsights(): JSX.Element {
                 </ul>
               )}
             </div>
-            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-5">
+            <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-5">
               <div className="flex items-baseline justify-between">
                 <h3 className="text-base font-semibold text-slate-900 dark:text-slate-100">Top 10 Secrets Type</h3>
                 <p className="text-sm font-display font-bold text-slate-900 dark:text-slate-100 tabular-nums">
@@ -744,7 +744,7 @@ export default function RedHuntInsights(): JSX.Element {
               />
             </div>
           </div>
-          <div className="mb-6 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-5">
+          <div className="mb-6 rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-5">
             <h3 className="mb-1 text-base font-semibold text-slate-900 dark:text-slate-100">
               Collections and Environments Growth
             </h3>
@@ -768,7 +768,7 @@ export default function RedHuntInsights(): JSX.Element {
           </div>
 
           {/* ── Footer / discover attack repeat ─────────────────────── */}
-          <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-950 p-5 text-center">
+          <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-950 p-5 text-center">
             <p className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
               RedHunt Labs Research Loop
             </p>

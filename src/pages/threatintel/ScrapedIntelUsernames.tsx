@@ -110,7 +110,7 @@ export default function ScrapedIntelUsernames(): JSX.Element {
 
       <form
         onSubmit={submit}
-        className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6 mt-4"
+        className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 mb-6 mt-4"
       >
         <div className="flex items-center gap-3">
           <div className="relative flex-1">
@@ -120,7 +120,7 @@ export default function ScrapedIntelUsernames(): JSX.Element {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Enter a username / handle (min 2 chars)…"
-              className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[#1e2030] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
               aria-label="Search ScrapedIntel forum handles"
               maxLength={80}
             />
@@ -149,7 +149,7 @@ export default function ScrapedIntelUsernames(): JSX.Element {
       )}
 
       {submitted.trim().length < 2 ? (
-        <div className="rounded-lg border border-dashed border-slate-300 dark:border-slate-700 p-8 text-center text-sm font-mono text-slate-500">
+        <div className="rounded-lg border border-dashed border-slate-300 dark:border-[#1e2030] p-8 text-center text-sm font-mono text-slate-500">
           Enter at least 2 characters and hit search.
         </div>
       ) : (
@@ -165,7 +165,7 @@ export default function ScrapedIntelUsernames(): JSX.Element {
             {data?.results.map((m) => (
               <li
                 key={m.username}
-                className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-3"
+                className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-3"
               >
                 <div className="flex items-baseline justify-between gap-2 mb-2 flex-wrap">
                   <span className="font-mono font-semibold text-sm text-slate-900 dark:text-slate-100 break-all">

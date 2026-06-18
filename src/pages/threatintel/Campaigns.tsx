@@ -85,7 +85,7 @@ export default function Campaigns(): JSX.Element {
       description={
         <span className="text-sm font-mono">
           Saved campaign hypotheses from the{' '}
-          <Link to="/threatintel/campaign-generator" className="text-brand-600 dark:text-brand-400 hover:underline">
+          <Link to="/threatintel/catalog?cat=tools" className="text-brand-600 dark:text-brand-400 hover:underline">
             AI Campaign Generator
           </Link>
           . Each entry is a structured brief with kill-chain mapping, MITRE techniques, hunting hypotheses, and IOC
@@ -95,7 +95,7 @@ export default function Campaigns(): JSX.Element {
       headerExtra={
         <div className="flex flex-wrap items-center justify-between gap-2">
           <Link
-            to="/threatintel/campaign-generator"
+            to="/threatintel/catalog?cat=tools"
             className="inline-flex items-center gap-1.5 rounded bg-brand-600 px-3 py-1.5 text-xs font-mono font-semibold text-white hover:bg-brand-500"
           >
             <Wand2 size={12} /> Generate new campaign
@@ -104,7 +104,7 @@ export default function Campaigns(): JSX.Element {
             type="button"
             onClick={() => void load()}
             disabled={loading}
-            className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 inline-flex items-center gap-1.5 disabled:opacity-50"
+            className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[#1e2030] hover:border-brand-500/40 inline-flex items-center gap-1.5 disabled:opacity-50"
           >
             <RefreshCw size={11} className={loading ? 'animate-spin' : ''} /> refresh
           </button>
@@ -122,7 +122,7 @@ export default function Campaigns(): JSX.Element {
           {items.map((it) => (
             <li
               key={it.id}
-              className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 hover:border-brand-500/40 transition-colors"
+              className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] p-4 hover:border-brand-500/40 transition-colors"
             >
               <div className="flex items-start justify-between gap-3 mb-2 flex-wrap">
                 <Link

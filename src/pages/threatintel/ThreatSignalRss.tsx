@@ -213,7 +213,7 @@ export default function ThreatSignalRss(): JSX.Element {
         type="button"
         onClick={() => void load()}
         disabled={loading}
-        className="inline-flex items-center gap-1 px-2 py-1 rounded-md border border-slate-300 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 disabled:opacity-40"
+        className="inline-flex items-center gap-1 px-2 py-1 rounded-md border border-slate-300 dark:border-[#1e2030] hover:bg-slate-100 dark:hover:bg-slate-800 disabled:opacity-40"
         title="Refetch the aggregate (the Worker still respects its 15-min KV cache per source)"
       >
         <RefreshCw size={11} className={loading ? 'animate-spin' : ''} />
@@ -327,7 +327,7 @@ export default function ThreatSignalRss(): JSX.Element {
                 href={s.source.displayLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group rounded-lg border border-slate-200 dark:border-slate-800 bg-white/40 dark:bg-slate-900/40 p-3 flex flex-col gap-1 transition-colors hover:border-brand-500/50"
+                className="group rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white/40 dark:bg-[#12121a]/40 p-3 flex flex-col gap-1 transition-colors hover:border-brand-500/50"
               >
                 <div className="flex items-center gap-2">
                   <span
@@ -361,7 +361,7 @@ export default function ThreatSignalRss(): JSX.Element {
 
       {/* Filters */}
       {agg && agg.items.length > 0 && (
-        <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-slate-900/30 p-3 mb-4 flex flex-col gap-2">
+        <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white/50 dark:bg-[#12121a]/30 p-3 mb-4 flex flex-col gap-2">
           <div className="flex flex-wrap items-center gap-2">
             <div className="relative">
               <Search size={12} className="absolute left-2 top-1/2 -translate-y-1/2 text-slate-400" />
@@ -370,7 +370,7 @@ export default function ThreatSignalRss(): JSX.Element {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="search posts…"
-                className="pl-7 pr-2 py-1 text-xs rounded-md border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 w-48"
+                className="pl-7 pr-2 py-1 text-xs rounded-md border border-slate-300 dark:border-[#1e2030] bg-white dark:bg-[#12121a] w-48"
               />
             </div>
             <label className="ml-auto inline-flex items-center gap-1 px-2 py-1 text-[11px] rounded-md bg-emerald-500/10 border border-emerald-500/30 text-emerald-700 dark:text-emerald-300 cursor-pointer">
@@ -403,7 +403,7 @@ export default function ThreatSignalRss(): JSX.Element {
                     className={`inline-flex items-center gap-1 px-2 py-1 text-[11px] rounded-md border transition-colors ${
                       active
                         ? ACCENT_PILL[s.source.accent]
-                        : 'bg-transparent text-slate-500 dark:text-slate-400 border-slate-300 dark:border-slate-700 hover:border-slate-500'
+                        : 'bg-transparent text-slate-500 dark:text-slate-400 border-slate-300 dark:border-[#1e2030] hover:border-slate-500'
                     }`}
                   >
                     {s.source.name}
@@ -445,7 +445,7 @@ export default function ThreatSignalRss(): JSX.Element {
                     className={`inline-flex items-center gap-1 px-2 py-1 text-[11px] rounded-md border transition-colors ${
                       active
                         ? meta.className
-                        : 'bg-transparent text-slate-500 dark:text-slate-400 border-slate-300 dark:border-slate-700 hover:border-slate-500'
+                        : 'bg-transparent text-slate-500 dark:text-slate-400 border-slate-300 dark:border-[#1e2030] hover:border-slate-500'
                     }`}
                   >
                     <Tag size={10} />
@@ -486,7 +486,7 @@ function PostCard({ item }: { item: RssItem }): JSX.Element {
       href={sanitizeUrl(item.link)}
       target="_blank"
       rel="noopener noreferrer"
-      className="group rounded-xl border border-slate-200 dark:border-slate-800 bg-white/60 dark:bg-slate-900/40 p-4 flex flex-col gap-2 transition-colors hover:border-brand-500/50 hover:bg-white/80 dark:hover:bg-slate-900/60"
+      className="group rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white/60 dark:bg-[#12121a]/40 p-4 flex flex-col gap-2 transition-colors hover:border-brand-500/50 hover:bg-white/80 dark:hover:bg-slate-900/60"
     >
       <div className="flex items-start gap-2">
         <h3 className="flex-1 font-semibold text-slate-900 dark:text-slate-100 text-sm leading-snug group-hover:text-brand-600 dark:group-hover:text-brand-400">
@@ -547,7 +547,7 @@ function StatCard({ label, value, accent = 'brand', small = false }: StatCardPro
           ? 'text-violet-500 dark:text-violet-400'
           : 'text-brand-500 dark:text-brand-400';
   return (
-    <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white/40 dark:bg-slate-900/40 px-3 py-2">
+    <div className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white/40 dark:bg-[#12121a]/40 px-3 py-2">
       <div className="text-[10px] uppercase tracking-wide text-slate-500 dark:text-slate-400 font-mono">{label}</div>
       <div className={`font-bold font-mono ${color} ${small ? 'text-sm' : 'text-2xl'}`}>{value}</div>
     </div>

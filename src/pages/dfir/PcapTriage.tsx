@@ -218,7 +218,7 @@ export default function PcapTriage(): JSX.Element {
       <button
         type="button"
         onClick={() => document.getElementById('pcaptriage-input')?.click()}
-        className="w-full border-2 border-dashed border-slate-300 dark:border-slate-700 rounded-lg p-8 text-center cursor-pointer hover:border-brand-500/40 focus-visible:outline-none focus-visible:border-brand-500/60"
+        className="w-full border-2 border-dashed border-slate-300 dark:border-[#1e2030] rounded-lg p-8 text-center cursor-pointer hover:border-brand-500/40 focus-visible:outline-none focus-visible:border-brand-500/60"
         aria-label="Drop a capture file file or click to choose"
       >
         <Upload size={24} className="mx-auto mb-2 text-slate-500" />
@@ -265,7 +265,7 @@ export default function PcapTriage(): JSX.Element {
             ].map(([k, v]) => (
               <div
                 key={k}
-                className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-3"
+                className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-3"
               >
                 <div className="text-micro font-mono uppercase tracking-wider text-slate-500">{k}</div>
                 <div className="font-mono text-sm">{v}</div>
@@ -288,7 +288,7 @@ export default function PcapTriage(): JSX.Element {
 function Block({ title, rows }: { title: string; rows: Array<[string, number]> }) {
   if (rows.length === 0) return null;
   return (
-    <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-3">
+    <div className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-3">
       <div className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-2">{title}</div>
       <ul className="font-mono text-meta space-y-0.5">
         {rows.map(([k, v]) => (
@@ -304,13 +304,13 @@ function Block({ title, rows }: { title: string; rows: Array<[string, number]> }
 
 function List({ title, items }: { title: string; items: string[] }) {
   return (
-    <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-3">
+    <div className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-3">
       <div className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-2">{title}</div>
       <div className="flex flex-wrap gap-1.5">
         {items.map((i) => (
           <span
             key={i}
-            className="font-mono text-mini px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 break-all"
+            className="font-mono text-mini px-1.5 py-0.5 rounded border border-slate-200 dark:border-[#1e2030] text-slate-700 dark:text-slate-300 break-all"
           >
             {i}
           </span>

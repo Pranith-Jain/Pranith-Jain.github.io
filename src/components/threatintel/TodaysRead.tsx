@@ -189,7 +189,7 @@ export function TodaysRead(): JSX.Element {
 
         {/* 2. Top firing detection (live) */}
         <Link
-          to="/threatintel/detections"
+          to="/threatintel/detections/detections"
           className="group rounded-xl border border-amber-500/30 bg-amber-50/30 dark:bg-amber-900/10 p-4 transition hover:border-amber-500/60 flex flex-col h-full"
         >
           <div className="flex items-center gap-2 mb-2">
@@ -221,7 +221,7 @@ export function TodaysRead(): JSX.Element {
 
         {/* 3. Weekly ransomware read (live) */}
         <Link
-          to="/threatintel/metrics"
+          to="/threatintel/predictive/dashboard"
           className="group rounded-xl border border-rose-500/30 bg-rose-50/30 dark:bg-rose-900/10 p-4 transition hover:border-rose-500/60 flex flex-col h-full"
         >
           <div className="flex items-center gap-2 mb-2">

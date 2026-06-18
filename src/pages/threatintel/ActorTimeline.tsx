@@ -54,7 +54,7 @@ interface ActorTimelineResponse {
 }
 
 function cellColor(count: number, max: number): string {
-  if (count === 0) return 'bg-slate-100 dark:bg-slate-900';
+  if (count === 0) return 'bg-slate-100 dark:bg-[#12121a]';
   const intensity = Math.min(1, count / Math.max(1, max));
   if (intensity < 0.2) return 'bg-rose-200 dark:bg-rose-900/40';
   if (intensity < 0.4) return 'bg-rose-300 dark:bg-rose-800/60';
@@ -125,7 +125,7 @@ export default function ActorTimeline(): JSX.Element {
         </p>
       </div>
 
-      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6 flex items-center justify-between gap-3 flex-wrap">
+      <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 mb-6 flex items-center justify-between gap-3 flex-wrap">
         {data && (
           <p className="text-mini font-mono text-slate-500 dark:text-slate-400">
             {data.groups.length} active groups · snapshot{' '}
@@ -140,7 +140,7 @@ export default function ActorTimeline(): JSX.Element {
         <button
           type="button"
           onClick={() => refetch()}
-          className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 inline-flex items-center gap-1 disabled:opacity-50"
+          className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[#1e2030] hover:border-brand-500/40 inline-flex items-center gap-1 disabled:opacity-50"
           aria-label="refresh"
         >
           <RefreshCw size={11} className={loading ? 'animate-spin' : ''} /> refresh
@@ -183,7 +183,7 @@ export default function ActorTimeline(): JSX.Element {
                     return (
                       <li
                         key={g.slug}
-                        className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-3"
+                        className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-3"
                       >
                         <div
                           className="grid items-center gap-1"
@@ -225,7 +225,7 @@ export default function ActorTimeline(): JSX.Element {
                               MITRE {g.mitre.id} · {g.mitre.name} <ExternalLink size={9} />
                             </a>
                           ) : (
-                            <span className="px-1.5 py-0.5 rounded border border-slate-300 dark:border-slate-700 text-slate-400">
+                            <span className="px-1.5 py-0.5 rounded border border-slate-300 dark:border-[#1e2030] text-slate-400">
                               not in MITRE
                             </span>
                           )}
@@ -236,7 +236,7 @@ export default function ActorTimeline(): JSX.Element {
                           )}
                           {g.partial ? (
                             <span
-                              className="px-1.5 py-0.5 rounded border border-slate-300 dark:border-slate-700 text-slate-400"
+                              className="px-1.5 py-0.5 rounded border border-slate-300 dark:border-[#1e2030] text-slate-400"
                               title="ransomlook per-group endpoint was unreachable; this row is rebuilt from the recent-claims feed. Heatmap is accurate for the window; all-time count, mirrors and references are unavailable."
                             >
                               recent-feed only
@@ -300,7 +300,7 @@ export default function ActorTimeline(): JSX.Element {
               <ActorTtpsPanel />
             </div>
 
-            <section className="mt-6 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-4">
+            <section className="mt-6 rounded-lg border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 p-4">
               <h3 className="font-display font-semibold text-sm mb-2">How to read this</h3>
               <ul className="text-meta font-mono text-muted space-y-1 list-disc list-inside">
                 <li>
@@ -346,7 +346,7 @@ function AccelerationBadge({ buckets }: { buckets: ActorBucket[] }): JSX.Element
       ? 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300'
       : delta < 0
         ? 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300'
-        : 'border-slate-300 dark:border-slate-700 text-slate-500';
+        : 'border-slate-300 dark:border-[#1e2030] text-slate-500';
   const arrow = delta > 0 ? '▲' : delta < 0 ? '▼' : '·';
   return (
     <span

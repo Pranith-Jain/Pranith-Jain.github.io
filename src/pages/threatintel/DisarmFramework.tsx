@@ -72,7 +72,7 @@ function chip(active: boolean): string {
   return `text-xs font-mono px-2.5 py-1 rounded border transition-colors ${
     active
       ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-      : 'border-slate-300 dark:border-slate-700 text-muted hover:border-brand-500/40'
+      : 'border-slate-300 dark:border-[#1e2030] text-muted hover:border-brand-500/40'
   }`;
 }
 
@@ -156,7 +156,7 @@ export default function DisarmFramework(): JSX.Element {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search techniques / tactics (name, description, T-id)…"
-          className="w-full max-w-md rounded border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 px-3 py-1.5 text-sm font-mono text-slate-700 dark:text-slate-300 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none"
+          className="w-full max-w-md rounded border border-slate-300 dark:border-[#1e2030] bg-white dark:bg-slate-950 px-3 py-1.5 text-sm font-mono text-slate-700 dark:text-slate-300 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none"
         />
         <div className="flex flex-wrap gap-1.5">
           <button onClick={() => setType('all')} className={chip(type === 'all')}>
@@ -195,7 +195,7 @@ export default function DisarmFramework(): JSX.Element {
           return (
             <div
               key={entry.id}
-              className="rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-3"
+              className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 p-3"
             >
               <div className="flex items-start justify-between gap-2">
                 <h3 className="font-semibold text-sm text-slate-900 dark:text-slate-100 leading-snug">
@@ -248,7 +248,7 @@ export default function DisarmFramework(): JSX.Element {
               )}
 
               {entry.refs.length > 0 && (
-                <div className="flex flex-wrap gap-x-3 gap-y-1 mt-2 pt-2 border-t border-slate-200 dark:border-slate-800">
+                <div className="flex flex-wrap gap-x-3 gap-y-1 mt-2 pt-2 border-t border-slate-200 dark:border-[#1e2030]">
                   {entry.refs.map((ref, i) => {
                     const href = safeHref(ref.url);
                     const label = ref.external_id

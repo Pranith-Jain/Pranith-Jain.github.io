@@ -162,7 +162,7 @@ export default function CampaignDetail(): JSX.Element {
         <Trash2 size={28} className="mx-auto text-slate-400 mb-2" />
         <p className="text-sm font-mono text-slate-500 mb-3">Campaign deleted.</p>
         <Link
-          to="/threatintel/campaigns"
+          to="/threatintel/catalog?cat=campaigns"
           className="text-sm font-mono text-brand-600 dark:text-brand-400 hover:underline"
         >
           ← back to campaigns
@@ -198,7 +198,7 @@ export default function CampaignDetail(): JSX.Element {
             <button
               type="button"
               onClick={() => void copyMarkdown()}
-              className="inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-slate-700 px-2.5 py-1 text-mini font-mono text-muted hover:text-brand-600 dark:hover:text-brand-400 hover:border-brand-500/40"
+              className="inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-[#1e2030] px-2.5 py-1 text-mini font-mono text-muted hover:text-brand-600 dark:hover:text-brand-400 hover:border-brand-500/40"
             >
               {copied ? (
                 <>
@@ -224,16 +224,16 @@ export default function CampaignDetail(): JSX.Element {
       error={error}
     >
       {data && (
-        <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+        <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] p-6">
           {(data.input.actor || data.input.sector) && (
             <div className="flex flex-wrap gap-2 mb-4 text-mini font-mono">
               {data.input.actor && (
-                <span className="rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 px-2 py-0.5 text-slate-700 dark:text-slate-300">
+                <span className="rounded border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 px-2 py-0.5 text-slate-700 dark:text-slate-300">
                   actor: {data.input.actor}
                 </span>
               )}
               {data.input.sector && (
-                <span className="rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 px-2 py-0.5 text-slate-700 dark:text-slate-300">
+                <span className="rounded border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 px-2 py-0.5 text-slate-700 dark:text-slate-300">
                   sector: {data.input.sector}
                 </span>
               )}
@@ -260,7 +260,7 @@ export default function CampaignDetail(): JSX.Element {
                 {orderedKillChain.map((k, i) => (
                   <li
                     key={`${k.phase}-${i}`}
-                    className="rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-3"
+                    className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 p-3"
                   >
                     <div className="text-micro font-mono uppercase tracking-wider text-brand-600 dark:text-brand-400 mb-0.5">
                       {PHASE_LABELS[k.phase] ?? k.phase}
@@ -279,7 +279,7 @@ export default function CampaignDetail(): JSX.Element {
                 {data.campaign.mitre_techniques.map((m) => (
                   <li
                     key={m.id}
-                    className="text-sm rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-2.5"
+                    className="text-sm rounded-lg border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 p-2.5"
                   >
                     <a
                       href={`https://attack.mitre.org/techniques/${m.id.replace('.', '/')}`}
@@ -306,7 +306,7 @@ export default function CampaignDetail(): JSX.Element {
                 {data.input.iocs.map((ioc) => (
                   <li
                     key={ioc}
-                    className="flex items-center gap-2 rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-2 text-sm font-mono"
+                    className="flex items-center gap-2 rounded border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 p-2 text-sm font-mono"
                   >
                     <span className="flex-1 truncate text-slate-700 dark:text-slate-300" title={ioc}>
                       {ioc}
@@ -343,7 +343,7 @@ export default function CampaignDetail(): JSX.Element {
                 {data.campaign.detection_opportunities.map((d) => (
                   <li
                     key={d}
-                    className="text-sm font-mono rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-2.5 text-slate-700 dark:text-slate-300"
+                    className="text-sm font-mono rounded border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 p-2.5 text-slate-700 dark:text-slate-300"
                   >
                     {d}
                   </li>
@@ -359,7 +359,7 @@ export default function CampaignDetail(): JSX.Element {
                 {data.campaign.iocs_to_pivot.map((i, idx) => (
                   <li
                     key={idx}
-                    className="text-sm rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-2 text-slate-700 dark:text-slate-300"
+                    className="text-sm rounded border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 p-2 text-slate-700 dark:text-slate-300"
                   >
                     {i}
                   </li>

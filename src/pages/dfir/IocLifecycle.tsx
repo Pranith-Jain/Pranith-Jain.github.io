@@ -153,14 +153,14 @@ export default function IocLifecycle(): JSX.Element {
           <button
             key={t}
             onClick={() => setSearchType(t)}
-            className={`px-3 py-1.5 rounded-lg text-xs font-mono border transition-colors ${searchType === t ? 'border-brand-500/60 bg-brand-500/10 text-brand-600 dark:text-brand-400' : 'border-slate-200 dark:border-slate-700 text-slate-500 hover:border-brand-500/30'}`}
+            className={`px-3 py-1.5 rounded-lg text-xs font-mono border transition-colors ${searchType === t ? 'border-brand-500/60 bg-brand-500/10 text-brand-600 dark:text-brand-400' : 'border-slate-200 dark:border-[#1e2030] text-slate-500 hover:border-brand-500/30'}`}
           >
             {TAB_LABEL[t]}
           </button>
         ))}
       </div>
       {searchType === 'lookup' && (
-        <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5 mb-6">
+        <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-5 mb-6">
           <div className="flex gap-2">
             <input
               type="text"
@@ -168,7 +168,7 @@ export default function IocLifecycle(): JSX.Element {
               onChange={(e) => setQuery(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && void lookupIoc()}
               placeholder="Enter IP, domain, URL, or hash…"
-              className="flex-1 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-lg px-4 py-2.5 text-sm font-mono text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="flex-1 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[#1e2030] rounded-lg px-4 py-2.5 text-sm font-mono text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
             />
             <button
               onClick={lookupIoc}
@@ -209,11 +209,11 @@ export default function IocLifecycle(): JSX.Element {
         </div>
       )}
       {searchType === 'trending' && trending.length > 0 && (
-        <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 overflow-hidden animate-fade-in-up">
+        <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 overflow-hidden animate-fade-in-up">
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-slate-200 dark:border-slate-800 text-left">
+                <tr className="border-b border-slate-200 dark:border-[#1e2030] text-left">
                   {['Indicator', 'Type', 'Status', 'Trend', 'Score', 'Obs', 'Last Seen'].map((h) => (
                     <th
                       key={h}
@@ -231,7 +231,7 @@ export default function IocLifecycle(): JSX.Element {
                   return (
                     <tr
                       key={ioc.indicator}
-                      className="border-b border-slate-100 dark:border-slate-800/50 hover:bg-slate-50 dark:hover:bg-slate-900/20"
+                      className="border-b border-slate-100 dark:border-[#1e2030]/50 hover:bg-slate-50 dark:hover:bg-slate-900/20"
                     >
                       <td className="px-4 py-2.5 max-w-[200px]">
                         <IocChip
@@ -244,7 +244,7 @@ export default function IocLifecycle(): JSX.Element {
                         />
                       </td>
                       <td className="px-4 py-2.5">
-                        <span className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-700 text-slate-500">
+                        <span className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-[#1e2030] text-slate-500">
                           {ioc.indicator_type}
                         </span>
                       </td>
@@ -275,7 +275,7 @@ export default function IocLifecycle(): JSX.Element {
         </div>
       )}
       {searchType === 'lookup' && lifecycle && (
-        <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5 animate-fade-in-up">
+        <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-5 animate-fade-in-up">
           <div className="flex items-center justify-between mb-4">
             <div>
               <h2 className="text-lg font-display font-bold font-mono">{lifecycle.indicator}</h2>
@@ -318,7 +318,7 @@ export default function IocLifecycle(): JSX.Element {
                 {lifecycle.sources_seen.map((s) => (
                   <span
                     key={s}
-                    className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-700 text-slate-500"
+                    className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-[#1e2030] text-slate-500"
                   >
                     {s}
                   </span>
@@ -357,7 +357,7 @@ function StatCard({
   color?: string;
 }) {
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-4">
+    <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-4">
       <div className="flex items-center gap-2 mb-1.5">
         {icon && <span className={color ?? 'text-slate-400'}>{icon}</span>}
         <span className="text-micro font-mono uppercase tracking-wider text-slate-400">{label}</span>

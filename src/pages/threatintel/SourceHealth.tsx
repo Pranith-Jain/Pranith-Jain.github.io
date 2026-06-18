@@ -15,7 +15,6 @@ const TABS: Array<{ id: TabId; label: string; desc: string }> = [
   { id: 'grades', label: 'Trust Grades', desc: 'NATO Admiralty Code (A-F) grading for all sources' },
 ];
 
-
 export default function SourceHealth(): JSX.Element {
   const [activeTab, setActiveTab] = useState<TabId>('status');
 
@@ -26,7 +25,10 @@ export default function SourceHealth(): JSX.Element {
       title="Source Health"
       description="Unified source health dashboard — operational status, SLO metrics, and trust grades for all data sources."
     >
-      <nav className="flex flex-wrap gap-1 border-b border-slate-200 dark:border-slate-800 mb-6" aria-label="Source health">
+      <nav
+        className="flex flex-wrap gap-1 border-b border-slate-200 dark:border-[#1e2030] mb-6"
+        aria-label="Source health"
+      >
         {TABS.map((t) => (
           <button
             key={t.id}

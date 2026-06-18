@@ -1,4 +1,7 @@
-import {TabLoader } from '../../components/ui/TabLoader'; import { Suspense, lazy, useState } from 'react'; import { DataPageLayout } from '../../components/DataPageLayout'; import { Globe } from 'lucide-react';
+import { TabLoader } from '../../components/ui/TabLoader';
+import { Suspense, lazy, useState } from 'react';
+import { DataPageLayout } from '../../components/DataPageLayout';
+import { Globe } from 'lucide-react';
 
 const Domain = lazy(() => import('./Domain'));
 const DomainReputation = lazy(() => import('./DomainReputation'));
@@ -16,7 +19,6 @@ const TABS: Array<{ id: TabId; label: string; desc: string }> = [
   { id: 'full', label: 'Full Scan', desc: 'Orchestrator: runs all checks in parallel with composite scoring' },
 ];
 
-
 export default function DomainInvestigator(): JSX.Element {
   const [activeTab, setActiveTab] = useState<TabId>('dns');
 
@@ -28,7 +30,10 @@ export default function DomainInvestigator(): JSX.Element {
       description="Comprehensive domain security analysis — DNS, reputation, web security, attack surface, and full automated scans. Pick the depth you need."
     >
       {/* Tab bar */}
-      <nav className="flex flex-wrap gap-1 border-b border-slate-200 dark:border-slate-800 mb-6" aria-label="Domain analysis">
+      <nav
+        className="flex flex-wrap gap-1 border-b border-slate-200 dark:border-[#1e2030] mb-6"
+        aria-label="Domain analysis"
+      >
         {TABS.map((t) => (
           <button
             key={t.id}

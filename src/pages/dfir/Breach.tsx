@@ -215,7 +215,7 @@ function getVerificationVerdict(v: EmailVerification): {
   }
   return {
     label: 'Unknown',
-    classes: 'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300 border-slate-300 dark:border-slate-700',
+    classes: 'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300 border-slate-300 dark:border-[#1e2030]',
     Icon: BadgeCheck,
     blurb: 'Neither free verifier (throwaway.sslboard.com, rapid-email-verifier.fly.dev) responded.',
   };
@@ -229,7 +229,7 @@ function BreachCards({ breaches }: { breaches: BreachEntry[] }): JSX.Element {
       {breaches.map((b, i) => (
         <div
           key={i}
-          className="p-4 rounded-xl border border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50"
+          className="p-4 rounded-xl border border-slate-100 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-800/50"
         >
           <div className="flex items-start justify-between gap-3 mb-2">
             <div className="flex items-center gap-2 min-w-0">
@@ -250,7 +250,7 @@ function BreachCards({ breaches }: { breaches: BreachEntry[] }): JSX.Element {
             </div>
             <div className="flex flex-col items-end gap-1 shrink-0">
               <span
-                className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${SOURCE_COLORS[b.source ?? ''] || 'border-slate-300 dark:border-slate-700 text-slate-500'}`}
+                className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${SOURCE_COLORS[b.source ?? ''] || 'border-slate-300 dark:border-[#1e2030] text-slate-500'}`}
               >
                 {SOURCE_LABELS[b.source ?? ''] ?? b.source ?? 'unknown'}
               </span>
@@ -295,7 +295,7 @@ function VerificationCard({ verification }: { verification: EmailVerification })
   const Icon = v.Icon;
   const sourceCount = (verification.sources.throwaway ? 1 : 0) + (verification.sources.rapid ? 1 : 0);
   return (
-    <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+    <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] p-5">
       <div className="flex items-start gap-4">
         <Icon size={22} className="shrink-0 mt-0.5 text-slate-500" />
         <div className="flex-1 min-w-0">
@@ -485,7 +485,7 @@ function PasswordTab(): JSX.Element {
               data-form-type="other"
               aria-label="Password to check against breach datasets"
               style={{ WebkitTextSecurity: showPassword ? 'none' : 'disc' } as CSSProperties}
-              className="w-full px-4 py-3 pr-12 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="w-full px-4 py-3 pr-12 bg-white dark:bg-[#12121a] border border-slate-200 dark:border-[#1e2030] rounded-lg font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
             />
             <button
               type="button"
@@ -697,7 +697,7 @@ function EmailTab({ initialQuery = '' }: { initialQuery?: string }): JSX.Element
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="email@example.com"
-            className="flex-1 px-4 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="flex-1 px-4 py-3 bg-white dark:bg-[#12121a] border border-slate-200 dark:border-[#1e2030] rounded-lg font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
           />
           <button
             type="submit"
@@ -750,13 +750,13 @@ function EmailTab({ initialQuery = '' }: { initialQuery?: string }): JSX.Element
 
             {/* Per-source summary */}
             {result.sources_queried && result.sources_queried.length > 0 && (
-              <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-slate-200 dark:border-slate-700">
+              <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-slate-200 dark:border-[#1e2030]">
                 {result.sources_queried.map((s) => {
                   const count = result.breaches.filter((b) => b.source === s).length;
                   return (
                     <span
                       key={s}
-                      className={`text-mini font-mono px-2 py-1 rounded border ${SOURCE_COLORS[s] ?? 'border-slate-300 dark:border-slate-700 text-slate-500'}`}
+                      className={`text-mini font-mono px-2 py-1 rounded border ${SOURCE_COLORS[s] ?? 'border-slate-300 dark:border-[#1e2030] text-slate-500'}`}
                     >
                       {SOURCE_LABELS[s] ?? s}: {count} hit{count !== 1 ? 's' : ''}
                     </span>
@@ -768,7 +768,7 @@ function EmailTab({ initialQuery = '' }: { initialQuery?: string }): JSX.Element
 
           {/* Breach cards */}
           {result.breaches.length > 0 && (
-            <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+            <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] p-6">
               <h3 className="font-display font-semibold text-lg mb-4 flex items-center gap-2">
                 <ShieldAlert size={18} className="text-rose-500" />
                 Found in {result.breaches.length} breach{result.breaches.length !== 1 ? 'es' : ''}
@@ -931,7 +931,7 @@ function DomainTab({ initialQuery = '' }: { initialQuery?: string }): JSX.Elemen
             autoComplete="off"
             autoCapitalize="off"
             spellCheck={false}
-            className="flex-1 px-4 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="flex-1 px-4 py-3 bg-white dark:bg-[#12121a] border border-slate-200 dark:border-[#1e2030] rounded-lg font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
           />
           <button
             type="submit"
@@ -989,13 +989,13 @@ function DomainTab({ initialQuery = '' }: { initialQuery?: string }): JSX.Elemen
 
             {/* Per-source summary */}
             {result.sources_queried && result.sources_queried.length > 0 && (
-              <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-slate-200 dark:border-slate-700">
+              <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-slate-200 dark:border-[#1e2030]">
                 {result.sources_queried.map((s) => {
                   const count = result.breaches.filter((b) => b.source === s).length;
                   return (
                     <span
                       key={s}
-                      className={`text-mini font-mono px-2 py-1 rounded border ${SOURCE_COLORS[s] ?? 'border-slate-300 dark:border-slate-700 text-slate-500'}`}
+                      className={`text-mini font-mono px-2 py-1 rounded border ${SOURCE_COLORS[s] ?? 'border-slate-300 dark:border-[#1e2030] text-slate-500'}`}
                     >
                       {SOURCE_LABELS[s] ?? s}: {count} hit{count !== 1 ? 's' : ''}
                     </span>
@@ -1007,7 +1007,7 @@ function DomainTab({ initialQuery = '' }: { initialQuery?: string }): JSX.Elemen
 
           {/* Breach cards */}
           {result.breaches.length > 0 && (
-            <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+            <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] p-6">
               <h3 className="font-display font-semibold text-lg mb-4 flex items-center gap-2">
                 <ShieldAlert size={18} className="text-rose-500" />
                 Found in {result.breaches.length} breach{result.breaches.length !== 1 ? 'es' : ''}
@@ -1113,7 +1113,7 @@ export default function BreachPage(): JSX.Element {
               className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-mono uppercase tracking-wider border transition-colors ${
                 mode === m.id
                   ? 'bg-brand-500/15 dark:bg-brand-400/15 text-brand-700 dark:text-brand-300 border-brand-500/40'
-                  : 'bg-white dark:bg-slate-900 text-muted border-slate-200 dark:border-slate-800 hover:border-brand-500/40'
+                  : 'bg-white dark:bg-[#12121a] text-muted border-slate-200 dark:border-[#1e2030] hover:border-brand-500/40'
               }`}
             >
               <Icon size={12} />

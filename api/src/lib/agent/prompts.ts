@@ -28,9 +28,24 @@ import type { AgentStep } from './types';
 import { neutralizeUntrusted, neutralizeAttr, UNTRUSTED_DATA_SYSTEM_NOTE } from '../prompt-fence';
 
 export function buildObserverPrompt(): string {
-  return `<role>CTI analyst observer. After each tool call, extract actionable intelligence.</role>
-<task>Analyze tool results and extract: IOCs (with context), actor attributions, CVE IDs with scores, MITRE techniques, malware families, campaign indicators, infrastructure details. Be specific — include exact values, scores, dates.</task>
-<output_format>{"observation":"summary","keyFacts":["specific fact with value"],"gaps":["what's still needed"]}</output_format>`;
+  return `<role>CTI analyst observer. After each tool call, extract actionable intelligence from the raw tool output.</role>
+<task>Analyze the tool result and extract structured intelligence. Be specific — include exact values, scores, dates, and source attribution. Distinguish between confirmed facts (from tool data) and inferences (your analysis).</task>
+<output_format>
+{
+  "observation": "1-2 sentence summary of what this tool revealed",
+  "keyFacts": ["<specific fact with exact value, e.g. 'CVSS 9.8 — CVE-2024-3400 is a critical PAN-OS RCE' or 'AS12345 hosts 4 additional malicious IPs'>"],
+  "iocs": ["<extracted IOC values: IPs, domains, hashes, CVEs, actor names>"],
+  "mitre": ["<technique IDs found, e.g. T1071.001>"],
+  "confidence": "high|medium|low — how reliable is this tool's data?",
+  "gaps": ["<what's still needed to complete the investigation>"]
+}
+</output_format>
+<rules>
+- keyFacts must contain exact values from the tool data, not paraphrases.
+- iocs: only extract IOCs that appeared in the tool's actual response, not from the query.
+- confidence: high = multiple confirmed sources; medium = single source; low = heuristic/scoring only.
+- gaps: what would make the next step most valuable? What's missing from the picture?
+</rules>`;
 }
 
 /**
@@ -239,6 +254,16 @@ analyst_approval_required: true
 - Maximum 1500 words for the prose. Be dense.
 </ground_rules>
 
+<data_quality_handling>
+The data_availability section tells you exactly what you have. Follow these rules:
+- YES = you have real tool data. Cite it. Use exact values.
+- NO = tool was not called or returned empty. OMIT the corresponding section entirely.
+- NO — OMIT = explicitly skip that section. Do NOT substitute with generic advice.
+- If check_ioc and enrich_ioc_deep both say NO, write a brief verdict based on what you DO have, and note the gap in the report.
+- If ALL tools failed, write a minimal report: headline + "Investigation inconclusive — all enrichment sources returned errors" + basic next steps.
+- NEVER pad sections with filler when data is thin. Short sections are honest sections.
+</data_quality_handling>
+
 <action_card_json>
 Append a single \`\`\`action-card code block at the END of the report. Strict JSON.
 
@@ -374,13 +399,29 @@ export function buildSynthesizerUserPrompt(query: string, queryType: string, ste
     `lookup_cisa_kev: ${hasData('lookup_cisa_kev') ? 'YES' : 'NO'}`,
   ];
 
+  const totalResults = allTools.length;
+  const successRate = totalResults > 0 ? Math.round((okTools.length / totalResults) * 100) : 0;
+  const uniqueTools = [...new Set(okTools.map((r) => r.tool))];
+
   return `<investigation>
 Query: ${neutralizeUntrusted(query)}
 Type: ${queryType}
 Steps: ${steps.length}
-Tool results: ${okTools.length} ok, ${errTools.length} failed
-Tools called: ${[...new Set(allTools.map((r) => r.tool))].join(', ')}
+Tool results: ${okTools.length} ok, ${errTools.length} failed (${successRate}% success rate)
+Tools called: ${uniqueTools.join(', ')}
 </investigation>
+
+<quality_summary>
+${
+  successRate >= 80
+    ? 'HIGH quality data — most tools succeeded. Write a confident, detailed report.'
+    : successRate >= 50
+      ? "MEDIUM quality data — some tools failed. Be precise about what you know vs what you don't."
+      : 'LOW quality data — many tools failed. Write a brief, honest report. Flag gaps explicitly.'
+}
+Key data sources: ${uniqueTools.slice(0, 8).join(', ')}
+${errTools.length > 0 ? `Failed sources: ${[...new Set(errTools.map((r) => r.tool))].join(', ')}` : ''}
+</quality_summary>
 
 <data_availability>
 ${availability.join('\n')}

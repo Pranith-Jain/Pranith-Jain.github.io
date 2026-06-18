@@ -361,7 +361,7 @@ export default function RansomwareMap(): JSX.Element {
               className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded border transition-colors ${
                 liveMode
                   ? 'border-emerald-400/60 bg-emerald-500/15 text-emerald-700 dark:text-emerald-300'
-                  : 'border-slate-300 dark:border-slate-700 hover:border-brand-500/40'
+                  : 'border-slate-300 dark:border-[#1e2030] hover:border-brand-500/40'
               }`}
               aria-pressed={liveMode}
               title={liveMode ? 'Pause auto-refresh' : `Auto-refresh the map every ${REFRESH_INTERVAL_MS / 1000}s`}
@@ -382,7 +382,7 @@ export default function RansomwareMap(): JSX.Element {
               className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded border transition-colors ${
                 globeView
                   ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                  : 'border-slate-300 dark:border-slate-700 hover:border-brand-500/40'
+                  : 'border-slate-300 dark:border-[#1e2030] hover:border-brand-500/40'
               }`}
               aria-pressed={globeView}
             >
@@ -402,7 +402,7 @@ export default function RansomwareMap(): JSX.Element {
 
           <div className="grid lg:grid-cols-[1fr_280px] gap-6">
             <div
-              className="rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 overflow-hidden relative"
+              className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 overflow-hidden relative"
               style={{ aspectRatio: '900 / 460', minHeight: 280 }}
             >
               <Suspense
@@ -458,7 +458,7 @@ export default function RansomwareMap(): JSX.Element {
                         className={`w-full flex items-baseline justify-between gap-3 text-sm font-mono px-3 py-2 min-h-[44px] sm:min-h-0 sm:py-1.5 rounded border transition-colors ${
                           isSelected
                             ? 'border-rose-400/60 bg-rose-400/10 text-slate-900 dark:text-slate-100'
-                            : 'border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:border-brand-500/40'
+                            : 'border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] hover:border-brand-500/40'
                         }`}
                         aria-pressed={isSelected}
                       >
@@ -506,7 +506,7 @@ export default function RansomwareMap(): JSX.Element {
                 <button
                   type="button"
                   onClick={() => setSelected(null)}
-                  className="inline-flex items-center gap-1 text-xs font-mono px-3 py-2 min-h-[44px] sm:min-h-0 rounded border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
+                  className="inline-flex items-center gap-1 text-xs font-mono px-3 py-2 min-h-[44px] sm:min-h-0 rounded border border-slate-300 dark:border-[#1e2030] text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
                   aria-label="Clear country selection"
                 >
                   <X size={12} /> clear
@@ -538,7 +538,7 @@ export default function RansomwareMap(): JSX.Element {
                       <li key={victim}>
                         <Link
                           to={`/threatintel/darkweb/ransom-activity?q=${encodeURIComponent(victim)}`}
-                          className="block rounded border border-rose-400/30 hover:border-brand-500/40 bg-white dark:bg-slate-900 px-3 py-1.5 transition-colors font-mono text-sm text-slate-900 dark:text-slate-100"
+                          className="block rounded border border-rose-400/30 hover:border-brand-500/40 bg-white dark:bg-[#12121a] px-3 py-1.5 transition-colors font-mono text-sm text-slate-900 dark:text-slate-100"
                         >
                           {victim}
                         </Link>

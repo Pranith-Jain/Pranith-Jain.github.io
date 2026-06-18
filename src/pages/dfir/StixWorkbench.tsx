@@ -1,4 +1,7 @@
-import {TabLoader } from '../../components/ui/TabLoader'; import { Suspense, lazy, useState } from 'react'; import { DataPageLayout } from '../../components/DataPageLayout'; import { FileText } from 'lucide-react';
+import { TabLoader } from '../../components/ui/TabLoader';
+import { Suspense, lazy, useState } from 'react';
+import { DataPageLayout } from '../../components/DataPageLayout';
+import { FileText } from 'lucide-react';
 
 const StixBuilder = lazy(() => import('./StixBuilder'));
 const StixViewer = lazy(() => import('./StixViewer'));
@@ -12,7 +15,6 @@ const TABS: Array<{ id: TabId; label: string; desc: string }> = [
   { id: 'taxii', label: 'TAXII Server', desc: 'In-browser TAXII 2.1 server for STIX sharing' },
 ];
 
-
 export default function StixWorkbench(): JSX.Element {
   const [activeTab, setActiveTab] = useState<TabId>('build');
 
@@ -23,7 +25,10 @@ export default function StixWorkbench(): JSX.Element {
       title="STIX/TAXII Workbench"
       description="Unified STIX/TAXII workflow — build bundles, visualize with interactive graphs, and share via TAXII server."
     >
-      <nav className="flex flex-wrap gap-1 border-b border-slate-200 dark:border-slate-800 mb-6" aria-label="STIX tools">
+      <nav
+        className="flex flex-wrap gap-1 border-b border-slate-200 dark:border-[#1e2030] mb-6"
+        aria-label="STIX tools"
+      >
         {TABS.map((t) => (
           <button
             key={t.id}

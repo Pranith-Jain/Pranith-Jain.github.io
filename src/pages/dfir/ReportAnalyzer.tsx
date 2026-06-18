@@ -109,7 +109,7 @@ interface AnalyzerOutput {
 const NODE_STYLES: Record<MindmapNode['kind'], { light: string; dark: string; ring: string }> = {
   finding: {
     light: 'border-slate-400 bg-slate-50 text-slate-900',
-    dark: 'dark:border-slate-500 dark:bg-slate-900 dark:text-slate-100',
+    dark: 'dark:border-slate-500 dark:bg-[#12121a] dark:text-slate-100',
     ring: '#64748b',
   },
   actor: {
@@ -281,7 +281,7 @@ export default function ReportAnalyzer(): JSX.Element {
       maxWidthClass="max-w-6xl"
     >
       {/* Input card */}
-      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-4">
+      <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 mb-4">
         <div className="grid gap-3 md:grid-cols-3">
           <div className="md:col-span-2">
             <label
@@ -295,7 +295,7 @@ export default function ReportAnalyzer(): JSX.Element {
               value={inputText}
               onChange={(e) => setInputText(e.target.value)}
               placeholder="Paste the report here. Plain text or markdown. Up to 80KB."
-              className="w-full h-40 rounded border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 p-2 text-sm font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none"
+              className="w-full h-40 rounded border border-slate-300 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 p-2 text-sm font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none"
             />
           </div>
           <div>
@@ -310,7 +310,7 @@ export default function ReportAnalyzer(): JSX.Element {
               value={inputUrl}
               onChange={(e) => setInputUrl(e.target.value)}
               placeholder="https://example.com/report"
-              className="w-full rounded border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 p-2 text-sm font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none"
+              className="w-full rounded border border-slate-300 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 p-2 text-sm font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none"
             />
             <label
               htmlFor="report-analyzer-images"
@@ -323,7 +323,7 @@ export default function ReportAnalyzer(): JSX.Element {
               value={imageUrls}
               onChange={(e) => setImageUrls(e.target.value)}
               placeholder="https://example.com/screenshot1.png"
-              className="w-full h-20 rounded border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 p-2 text-xs font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none"
+              className="w-full h-20 rounded border border-slate-300 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 p-2 text-xs font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none"
             />
             <div className="mt-3 flex items-start gap-2 text-xs text-slate-500 dark:text-slate-400">
               <input
@@ -369,13 +369,13 @@ export default function ReportAnalyzer(): JSX.Element {
         <>
           {/* Status bar */}
           <div className="mb-3 flex flex-wrap items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
-            <span className="rounded border border-slate-300 dark:border-slate-700 px-2 py-1 font-mono">
+            <span className="rounded border border-slate-300 dark:border-[#1e2030] px-2 py-1 font-mono">
               title <span className="text-slate-700 dark:text-slate-200">{data.title}</span>
             </span>
-            <span className="rounded border border-slate-300 dark:border-slate-700 px-2 py-1 font-mono">
+            <span className="rounded border border-slate-300 dark:border-[#1e2030] px-2 py-1 font-mono">
               {data.textLength.toLocaleString()} chars
             </span>
-            <span className="rounded border border-slate-300 dark:border-slate-700 px-2 py-1 font-mono">
+            <span className="rounded border border-slate-300 dark:border-[#1e2030] px-2 py-1 font-mono">
               {data.elapsed_ms} ms
             </span>
             {data.errors.length > 0 && (
@@ -398,7 +398,7 @@ export default function ReportAnalyzer(): JSX.Element {
                 className={`inline-flex items-center gap-1.5 text-mini font-mono rounded-full border px-2.5 py-1 transition-colors ${
                   tab === t
                     ? 'border-brand-500 bg-brand-50 dark:bg-brand-950/40 text-brand-700 dark:text-brand-300'
-                    : 'border-slate-300 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-slate-400 dark:hover:border-slate-500'
+                    : 'border-slate-300 dark:border-[#1e2030] text-slate-500 dark:text-slate-400 hover:border-slate-400 dark:hover:border-slate-500'
                 }`}
               >
                 {TAB_META[t].icon} {TAB_META[t].label}
@@ -454,7 +454,7 @@ function FilterInput({
         value={value}
         onChange={(e) => setValue(e.target.value)}
         placeholder={placeholder}
-        className="w-full rounded border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 py-1.5 pl-9 pr-3 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none"
+        className="w-full rounded border border-slate-300 dark:border-[#1e2030] bg-white dark:bg-slate-950 py-1.5 pl-9 pr-3 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none"
       />
     </div>
   );
@@ -465,7 +465,7 @@ function SummaryTab({ data }: { data: AnalyzerOutput }) {
     return <EmptyState message="Summary branch failed. Check the degraded-branches badge for details." />;
   }
   return (
-    <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
+    <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4">
       <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
         model <span className="text-slate-700 dark:text-slate-200">{data.summary.model}</span>
       </div>
@@ -492,13 +492,13 @@ function IocsTab({
   }, [iocs, filter]);
   if (iocs.length === 0) return <EmptyState message="No indicators survived allowlist filtering." />;
   return (
-    <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
+    <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4">
       <FilterInput value={filter} setValue={setFilter} placeholder={`Filter ${iocs.length} IOCs…`} />
       <ul className="space-y-1.5">
         {filtered.map((i, idx) => (
           <li
             key={`${i.kind}-${i.value}-${idx}`}
-            className="flex flex-wrap items-center gap-2 border-b border-slate-100 dark:border-slate-800/60 pb-1.5 last:border-b-0"
+            className="flex flex-wrap items-center gap-2 border-b border-slate-100 dark:border-[#1e2030]/60 pb-1.5 last:border-b-0"
           >
             <span
               className={`text-micro font-mono uppercase tracking-wider rounded border px-1.5 py-0.5 ${IOC_PILL[i.kind]}`}
@@ -511,7 +511,7 @@ function IocsTab({
               {Math.round(i.confidence * 100)}%
             </span>
             {i.source === 'image-ocr' && (
-              <span className="text-micro font-mono rounded border border-slate-300 dark:border-slate-700 px-1.5 py-0.5 text-slate-500 dark:text-slate-400">
+              <span className="text-micro font-mono rounded border border-slate-300 dark:border-[#1e2030] px-1.5 py-0.5 text-slate-500 dark:text-slate-400">
                 ocr
               </span>
             )}
@@ -545,7 +545,7 @@ function TtpsTab({ ttp, filter, setFilter }: { ttp: TtpHit[]; filter: string; se
   }, [filtered]);
   if (ttp.length === 0) return <EmptyState message="No MITRE ATT&CK techniques identified." />;
   return (
-    <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
+    <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4">
       <FilterInput value={filter} setValue={setFilter} placeholder={`Filter ${ttp.length} techniques…`} />
       <div className="space-y-3">
         {grouped.map(([tactic, hits]) => (
@@ -557,7 +557,7 @@ function TtpsTab({ ttp, filter, setFilter }: { ttp: TtpHit[]; filter: string; se
               {hits.map((t) => (
                 <li
                   key={t.id}
-                  className="flex flex-wrap items-center gap-2 border-b border-slate-100 dark:border-slate-800/60 pb-1.5 last:border-b-0"
+                  className="flex flex-wrap items-center gap-2 border-b border-slate-100 dark:border-[#1e2030]/60 pb-1.5 last:border-b-0"
                 >
                   <a
                     href={`https://attack.mitre.org/techniques/${t.id}/`}
@@ -604,13 +604,13 @@ function CvesTab({
   }, [cves, filter]);
   if (cves.length === 0) return <EmptyState message="No CVEs mentioned in the report." />;
   return (
-    <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
+    <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4">
       <FilterInput value={filter} setValue={setFilter} placeholder={`Filter ${cves.length} CVEs…`} />
       <ul className="space-y-1.5">
         {filtered.map((c) => (
           <li
             key={c.id}
-            className="flex flex-wrap items-center gap-2 border-b border-slate-100 dark:border-slate-800/60 pb-1.5 last:border-b-0"
+            className="flex flex-wrap items-center gap-2 border-b border-slate-100 dark:border-[#1e2030]/60 pb-1.5 last:border-b-0"
           >
             <a
               href={`https://nvd.nist.gov/vuln/detail/${c.id}`}
@@ -638,7 +638,7 @@ function FiveWTab({ fiveW }: { fiveW: FiveW | null }) {
     { label: 'Why', value: fiveW.why },
   ];
   return (
-    <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
+    <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4">
       <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
         confidence <span className="text-slate-700 dark:text-slate-200">{Math.round(fiveW.confidence * 100)}%</span>
       </div>
@@ -646,7 +646,7 @@ function FiveWTab({ fiveW }: { fiveW: FiveW | null }) {
         {rows.map((r) => (
           <div
             key={r.label}
-            className="rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-2.5"
+            className="rounded border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 p-2.5"
           >
             <dt className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
               {r.label}
@@ -670,7 +670,7 @@ function FiveWTab({ fiveW }: { fiveW: FiveW | null }) {
 function DiamondTab({ diamond }: { diamond: DiamondModel | null }): JSX.Element {
   if (!diamond) {
     return (
-      <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-8 text-center text-sm text-slate-500 dark:text-slate-400">
+      <div className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 p-8 text-center text-sm text-slate-500 dark:text-slate-400">
         <Diamond className="mx-auto mb-2 h-8 w-8 text-slate-400 dark:text-slate-500" />
         No adversary/capability/infrastructure/victim signal could be derived from this report.
       </div>
@@ -792,7 +792,7 @@ function DiamondTab({ diamond }: { diamond: DiamondModel | null }): JSX.Element 
 function AttackFlowTab({ phases }: { phases: AttackFlowPhase[] }): JSX.Element {
   if (phases.length === 0) {
     return (
-      <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-8 text-center text-sm text-slate-500 dark:text-slate-400">
+      <div className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 p-8 text-center text-sm text-slate-500 dark:text-slate-400">
         <GitBranch className="mx-auto mb-2 h-8 w-8 text-slate-400 dark:text-slate-500" />
         No TTP signal to render as a kill chain.
       </div>
@@ -803,9 +803,9 @@ function AttackFlowTab({ phases }: { phases: AttackFlowPhase[] }): JSX.Element {
       {phases.map((p) => (
         <div
           key={p.phase}
-          className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 shadow-e1 overflow-hidden"
+          className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-slate-950 shadow-e1 overflow-hidden"
         >
-          <div className="flex items-center gap-2 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 px-4 py-2">
+          <div className="flex items-center gap-2 border-b border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-[#12121a] px-4 py-2">
             <GitBranch className="h-4 w-4 text-brand-600 dark:text-brand-400" />
             <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">{p.phase}</h3>
             <span className="ml-auto text-micro font-mono uppercase text-slate-500">
@@ -836,7 +836,7 @@ function MindmapTab({ mindmap }: { mindmap: { nodes: MindmapNode[]; edges: Mindm
   if (mindmap.nodes.length === 0) return <EmptyState message="Mindmap is empty (no entities extracted)." />;
   return (
     <section
-      className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1"
+      className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1"
       style={{ height: 540 }}
     >
       <ReactFlowProvider>
@@ -871,7 +871,7 @@ function StixTab({ data }: { data: AnalyzerOutput }) {
   if (!bundle) return <EmptyState message="STIX bundle generation failed." />;
   const downloadHref = `data:application/json;charset=utf-8,${encodeURIComponent(JSON.stringify(bundle, null, 2))}`;
   return (
-    <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
+    <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4">
       <div className="flex flex-wrap items-center gap-2 mb-3">
         <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
           STIX 2.1 bundle · {bundle.objects.length} objects
@@ -882,7 +882,7 @@ function StixTab({ data }: { data: AnalyzerOutput }) {
             .replace(/[^a-z0-9]+/gi, '-')
             .toLowerCase()
             .slice(0, 50)}.json`}
-          className="ml-auto inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-slate-700 px-2 py-1 text-xs text-slate-500 dark:text-slate-400 hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+          className="ml-auto inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-[#1e2030] px-2 py-1 text-xs text-slate-500 dark:text-slate-400 hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
         >
           <Download className="h-3.5 w-3.5" /> download
         </a>
@@ -891,7 +891,7 @@ function StixTab({ data }: { data: AnalyzerOutput }) {
         {byType.map(([type, n]) => (
           <div
             key={type}
-            className="rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 px-2 py-1.5"
+            className="rounded border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 px-2 py-1.5"
           >
             <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
               {type}
@@ -900,7 +900,7 @@ function StixTab({ data }: { data: AnalyzerOutput }) {
           </div>
         ))}
       </div>
-      <details className="rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-2">
+      <details className="rounded border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 p-2">
         <summary className="cursor-pointer text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
           view raw JSON
         </summary>
@@ -914,7 +914,7 @@ function StixTab({ data }: { data: AnalyzerOutput }) {
 
 function EmptyState({ message }: { message: string }) {
   return (
-    <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-8 text-center text-sm text-slate-500 dark:text-slate-400">
+    <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 p-8 text-center text-sm text-slate-500 dark:text-slate-400">
       {message}
     </section>
   );

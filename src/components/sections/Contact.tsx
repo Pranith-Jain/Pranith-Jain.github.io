@@ -58,7 +58,7 @@ export function Contact({ personalInfo }: ContactProps) {
               href={personalInfo.calendlyUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex h-12 items-center gap-1.5 rounded-md bg-slate-900 px-5 text-base font-medium text-white transition-colors hover:bg-slate-800 dark:bg-[rgb(var(--surface-300))] dark:text-white dark:hover:bg-[rgb(40,40,52)] dark:ring-1 dark:ring-white/10 focus-visible:outline-none"
+              className="inline-flex h-12 items-center gap-1.5 rounded-md bg-slate-900 px-5 text-base font-medium text-white transition-colors hover:bg-slate-800 dark:bg-white dark:text-slate-900 dark:hover:bg-slate-100 focus-visible:outline-none"
               aria-label="Schedule a 30-minute consultation call"
             >
               <Calendar className="h-4 w-4" aria-hidden="true" />

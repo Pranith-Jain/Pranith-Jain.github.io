@@ -17,7 +17,6 @@ const TABS: Array<{ id: TabId; label: string; desc: string }> = [
   { id: 'settings', label: 'Settings', desc: 'Custom channel management and configuration' },
 ];
 
-
 export default function TelegramMonitor(): JSX.Element {
   const [activeTab, setActiveTab] = useState<TabId>('leaks');
 
@@ -28,7 +27,10 @@ export default function TelegramMonitor(): JSX.Element {
       title="Telegram Leak Monitor"
       description="Unified Telegram leak monitoring — credential leak feed, channel discovery, statistics, and settings. All powered by monitored Telegram channels."
     >
-      <nav className="flex flex-wrap gap-1 border-b border-slate-200 dark:border-slate-800 mb-6" aria-label="Telegram monitor">
+      <nav
+        className="flex flex-wrap gap-1 border-b border-slate-200 dark:border-[#1e2030] mb-6"
+        aria-label="Telegram monitor"
+      >
         {TABS.map((t) => (
           <button
             key={t.id}

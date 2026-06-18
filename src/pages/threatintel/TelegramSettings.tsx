@@ -94,7 +94,7 @@ export default function TelegramSettings(): JSX.Element {
 
       <form
         onSubmit={addChannel}
-        className="mb-8 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-5"
+        className="mb-8 rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-5"
       >
         <h2 className="font-display font-semibold text-sm mb-3">Add a channel</h2>
         <div className="flex flex-wrap gap-3">
@@ -102,13 +102,13 @@ export default function TelegramSettings(): JSX.Element {
             value={handle}
             onChange={(e) => setHandle(e.target.value)}
             placeholder="handle (e.g. IntCyberDigest)"
-            className="flex-1 min-w-[180px] px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-sm font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40"
+            className="flex-1 min-w-[180px] px-3 py-2 rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] text-sm font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40"
           />
           <input
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder="display name (optional)"
-            className="flex-1 min-w-[140px] px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-sm font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40"
+            className="flex-1 min-w-[140px] px-3 py-2 rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] text-sm font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40"
           />
           <button
             type="submit"
@@ -159,7 +159,7 @@ export default function TelegramSettings(): JSX.Element {
           {channels.map((ch) => (
             <li
               key={ch.handle}
-              className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-3 flex items-center justify-between gap-3"
+              className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-3 flex items-center justify-between gap-3"
             >
               <div className="min-w-0">
                 <span className="font-display font-semibold text-sm">{ch.name}</span>
@@ -173,7 +173,7 @@ export default function TelegramSettings(): JSX.Element {
                   href={`https://t.me/s/${ch.handle}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="rounded border border-slate-200 dark:border-slate-700 p-1.5 text-slate-500 hover:text-brand-600"
+                  className="rounded border border-slate-200 dark:border-[#1e2030] p-1.5 text-slate-500 hover:text-brand-600"
                   aria-label="Preview channel"
                 >
                   <ExternalLink size={12} />
@@ -181,7 +181,7 @@ export default function TelegramSettings(): JSX.Element {
                 <button
                   type="button"
                   onClick={() => deleteChannel(ch.handle)}
-                  className="rounded border border-slate-200 dark:border-slate-700 p-1.5 text-slate-500 hover:text-rose-600"
+                  className="rounded border border-slate-200 dark:border-[#1e2030] p-1.5 text-slate-500 hover:text-rose-600"
                   aria-label="Remove channel"
                 >
                   <Trash2 size={12} />

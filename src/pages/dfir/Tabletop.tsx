@@ -119,7 +119,7 @@ export default function Tabletop(): JSX.Element {
         <p className="text-muted mb-2 leading-relaxed">
           Generate a tabletop scenario from {ARCHETYPES.length} archetypes (ransomware, BEC, supply-chain, espionage,
           edge-exploit, insider) populated with a real threat-actor profile from{' '}
-          <Link to="/threatintel/actors" className="text-brand-600 dark:text-brand-400 hover:underline">
+          <Link to="/threatintel/catalog?cat=actors" className="text-brand-600 dark:text-brand-400 hover:underline">
             the catalog
           </Link>
           . Inject sequence with role-specific discussion prompts; markdown export for your facilitator pack.
@@ -131,7 +131,7 @@ export default function Tabletop(): JSX.Element {
       </div>
 
       {/* Controls */}
-      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
+      <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 mb-6">
         <div className="grid gap-3 md:grid-cols-3">
           <label className="block">
             <span className="text-micro font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-1 block">
@@ -149,7 +149,7 @@ export default function Tabletop(): JSX.Element {
                   industry: act.targets[0] ?? s.industry,
                 }));
               }}
-              className="w-full rounded border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 px-2 py-1.5 font-mono text-xs"
+              className="w-full rounded border border-slate-300 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 px-2 py-1.5 font-mono text-xs"
             >
               {threatActors.map((a) => (
                 <option key={a.slug} value={a.slug}>
@@ -166,7 +166,7 @@ export default function Tabletop(): JSX.Element {
             <select
               value={selection.archetypeId}
               onChange={(e) => setSelection((s) => ({ ...s, archetypeId: e.target.value as Archetype }))}
-              className="w-full rounded border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 px-2 py-1.5 font-mono text-xs"
+              className="w-full rounded border border-slate-300 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 px-2 py-1.5 font-mono text-xs"
             >
               {ARCHETYPES.map((a) => (
                 <option key={a.id} value={a.id}>
@@ -184,7 +184,7 @@ export default function Tabletop(): JSX.Element {
               type="text"
               value={selection.industry}
               onChange={(e) => setSelection((s) => ({ ...s, industry: e.target.value }))}
-              className="w-full rounded border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 px-2 py-1.5 font-mono text-xs"
+              className="w-full rounded border border-slate-300 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 px-2 py-1.5 font-mono text-xs"
               placeholder="Financial services"
             />
           </label>
@@ -198,7 +198,7 @@ export default function Tabletop(): JSX.Element {
           </button>
           <button
             onClick={exportMd}
-            className="text-sm font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 inline-flex items-center gap-1.5"
+            className="text-sm font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[#1e2030] hover:border-brand-500/40 inline-flex items-center gap-1.5"
           >
             <Download size={13} /> Export markdown
           </button>
@@ -206,7 +206,7 @@ export default function Tabletop(): JSX.Element {
       </section>
 
       {/* Scenario header */}
-      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
+      <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 mb-6">
         <div className="flex flex-wrap items-baseline justify-between gap-3 mb-2">
           <h2 className="font-display font-bold text-xl text-slate-900 dark:text-slate-100">{archetype.name}</h2>
           <span className="text-mini font-mono text-slate-500 dark:text-slate-400">{archetype.timingCue}</span>
@@ -240,7 +240,7 @@ export default function Tabletop(): JSX.Element {
         {archetype.injects.map((inj, i) => (
           <div
             key={i}
-            className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4"
+            className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4"
           >
             <div className="flex flex-wrap items-baseline gap-3 mb-1.5">
               <span className="font-mono text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
@@ -270,7 +270,7 @@ export default function Tabletop(): JSX.Element {
         ))}
       </section>
 
-      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
+      <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4">
         <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
           Facilitator notes
         </h2>

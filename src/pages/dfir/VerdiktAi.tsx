@@ -214,7 +214,7 @@ export default function VerdiktAi(): JSX.Element {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Input Panel */}
         <div className="space-y-5">
-          <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5">
+          <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-5">
             <div className="flex items-baseline justify-between mb-2">
               <h2 className="font-display font-bold text-sm">IOC Value</h2>
               <span className="text-micro font-mono uppercase tracking-wider text-slate-400">required</span>
@@ -225,7 +225,7 @@ export default function VerdiktAi(): JSX.Element {
                 value={iocValue}
                 onChange={(e) => setIocValue(e.target.value)}
                 placeholder="Enter IP, domain, URL, or hash…"
-                className="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 p-3 pr-20 text-sm text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/40 font-mono"
+                className="w-full rounded-lg border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 p-3 pr-20 text-sm text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/40 font-mono"
               />
               {iocValue.trim() && (
                 <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-1 px-2 py-1 rounded text-micro font-mono bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300">
@@ -266,7 +266,7 @@ export default function VerdiktAi(): JSX.Element {
           )}
 
           {loading && (
-            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-10 text-center">
+            <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-10 text-center">
               <Loader2 size={32} className="text-brand-600 dark:text-brand-400 mx-auto mb-3 animate-spin" />
               <p className="text-sm text-slate-600 dark:text-slate-300">Checking IOC sources…</p>
               <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">Generating analyst narrative</p>
@@ -276,7 +276,7 @@ export default function VerdiktAi(): JSX.Element {
           {result && !loading && (
             <>
               {/* IOC Detail Card */}
-              <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5">
+              <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-5">
                 <h2 className="font-display font-bold text-sm mb-3 flex items-center gap-2">
                   <Fingerprint size={14} className="text-brand-600 dark:text-brand-400" /> IOC Details
                 </h2>
@@ -302,7 +302,7 @@ export default function VerdiktAi(): JSX.Element {
 
               {/* Enrichment Sources */}
               {result.enrichmentSources && result.enrichmentSources.length > 0 && (
-                <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5">
+                <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-5">
                   <h2 className="font-display font-bold text-sm mb-3 flex items-center gap-2">
                     <Network size={14} className="text-brand-600 dark:text-brand-400" /> Enrichment Sources
                   </h2>
@@ -310,7 +310,7 @@ export default function VerdiktAi(): JSX.Element {
                     {result.enrichmentSources.map((s, i) => (
                       <div
                         key={i}
-                        className="flex items-center justify-between p-2 rounded-lg bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800"
+                        className="flex items-center justify-between p-2 rounded-lg bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[#1e2030]"
                       >
                         <span className="text-xs font-mono text-slate-700 dark:text-slate-300">{s.name}</span>
                         <span
@@ -332,14 +332,14 @@ export default function VerdiktAi(): JSX.Element {
 
               {/* AI Narrative */}
               {result.narrative && (
-                <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5">
+                <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-5">
                   <div className="flex items-center justify-between mb-2">
                     <h2 className="font-display font-bold text-sm flex items-center gap-2">
                       <FileText size={14} className="text-brand-600 dark:text-brand-400" /> Analyst Narrative
                     </h2>
                     <button
                       onClick={copyNarrative}
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-[#1e2030] text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
                     >
                       {copiedNarrative ? <Check size={13} /> : <Copy size={13} />}
                       {copiedNarrative ? 'Copied' : 'Copy'}
@@ -353,7 +353,7 @@ export default function VerdiktAi(): JSX.Element {
 
               {/* MITRE ATT&CK */}
               {result.mitreTechniques && result.mitreTechniques.length > 0 && (
-                <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5">
+                <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-5">
                   <h2 className="font-display font-bold text-sm mb-3 flex items-center gap-2">
                     <Shield size={14} className="text-amber-600 dark:text-amber-400" /> MITRE ATT&CK
                   </h2>
@@ -375,7 +375,7 @@ export default function VerdiktAi(): JSX.Element {
 
               {/* Detection Queries */}
               {result.detectionQueries && result.detectionQueries.length > 0 && (
-                <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5">
+                <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-5">
                   <h2 className="font-display font-bold text-sm mb-3 flex items-center gap-2">
                     <Terminal size={14} className="text-brand-600 dark:text-brand-400" /> Detection Queries
                   </h2>
@@ -388,7 +388,7 @@ export default function VerdiktAi(): JSX.Element {
                           </span>
                           <CopyButton value={q.query} />
                         </div>
-                        <pre className="bg-slate-50 dark:bg-slate-950 rounded-lg p-3 text-xs font-mono text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800 overflow-x-auto whitespace-pre-wrap">
+                        <pre className="bg-slate-50 dark:bg-slate-950 rounded-lg p-3 text-xs font-mono text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-[#1e2030] overflow-x-auto whitespace-pre-wrap">
                           {q.query}
                         </pre>
                       </div>
@@ -399,7 +399,7 @@ export default function VerdiktAi(): JSX.Element {
 
               <button
                 onClick={downloadReport}
-                className="w-full px-4 py-2.5 rounded-lg border border-slate-200 dark:border-slate-700 text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors flex items-center justify-center gap-2"
+                className="w-full px-4 py-2.5 rounded-lg border border-slate-200 dark:border-[#1e2030] text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors flex items-center justify-center gap-2"
               >
                 <Download size={13} /> Download Report
               </button>
@@ -407,7 +407,7 @@ export default function VerdiktAi(): JSX.Element {
           )}
 
           {!result && !loading && !error && (
-            <div className="rounded-xl border border-dashed border-slate-300 dark:border-slate-700 p-10 text-center">
+            <div className="rounded-xl border border-dashed border-slate-300 dark:border-[#1e2030] p-10 text-center">
               <Search size={32} className="text-slate-300 dark:text-slate-600 mx-auto mb-3" />
               <p className="text-sm text-slate-500 dark:text-slate-400">
                 Enter an IOC and click <span className="font-semibold">Enrich & Analyze</span>

@@ -72,7 +72,7 @@ export default function WikiArticle(): JSX.Element {
     return (
       <div className="max-w-3xl mx-auto px-4 sm:px-8 py-12 sm:py-20 text-slate-900 dark:text-slate-100">
         <Link
-          to="/threatintel/wiki"
+          to="/threatintel/catalog?cat=wiki"
           className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
         >
           <ArrowLeft size={14} /> back
@@ -85,7 +85,7 @@ export default function WikiArticle(): JSX.Element {
   return (
     <div className="max-w-3xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <Link
-        to="/threatintel/wiki"
+        to="/threatintel/catalog?cat=wiki"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
@@ -112,7 +112,7 @@ export default function WikiArticle(): JSX.Element {
               <li key={t.href}>
                 <Link
                   to={t.href}
-                  className="block rounded border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-3 py-2 hover:border-brand-500/40"
+                  className="block rounded border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] px-3 py-2 hover:border-brand-500/40"
                 >
                   <span className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100">
                     {t.term}

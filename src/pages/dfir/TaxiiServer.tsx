@@ -98,17 +98,17 @@ export default function TaxiiServer(): JSX.Element {
       </div>
 
       {/* Connection Details */}
-      <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5 mb-6">
+      <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-5 mb-6">
         <h2 className="font-display font-bold text-sm mb-3 flex items-center gap-2">
           <Database size={14} className="text-brand-600 dark:text-brand-400" /> Connection
         </h2>
         <div className="space-y-2">
-          <div className="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 px-3 py-2">
+          <div className="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 px-3 py-2">
             <span className="text-micro font-mono uppercase tracking-wider text-slate-400 shrink-0">Discovery</span>
             <code className="text-xs text-brand-600 dark:text-brand-400 flex-1 truncate font-mono">{baseUrl}</code>
             <CopyButton value={baseUrl} />
           </div>
-          <div className="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 px-3 py-2">
+          <div className="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 px-3 py-2">
             <span className="text-micro font-mono uppercase tracking-wider text-slate-400 shrink-0">Content-Type</span>
             <code className="text-xs text-muted font-mono">application/vnd.oasis.taxii+json; version=2.1</code>
           </div>
@@ -117,7 +117,7 @@ export default function TaxiiServer(): JSX.Element {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
         {/* Collections */}
-        <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5">
+        <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-5">
           <div className="flex items-center justify-between mb-4">
             <h2 className="font-display font-bold text-sm flex items-center gap-2">
               <Shield size={14} className="text-brand-600 dark:text-brand-400" /> Collections ({collections.length})
@@ -142,7 +142,7 @@ export default function TaxiiServer(): JSX.Element {
                   className={`w-full text-left p-3 rounded-lg border transition-colors ${
                     selectedCollection === col.id
                       ? 'border-brand-500/60 bg-brand-500/5'
-                      : 'border-slate-200 dark:border-slate-800 hover:border-brand-500/30'
+                      : 'border-slate-200 dark:border-[#1e2030] hover:border-brand-500/30'
                   }`}
                 >
                   <div className="text-sm font-medium">{col.title}</div>
@@ -168,7 +168,7 @@ export default function TaxiiServer(): JSX.Element {
         </div>
 
         {/* Objects */}
-        <div className="lg:col-span-2 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5">
+        <div className="lg:col-span-2 rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-5">
           <h2 className="font-display font-bold text-sm mb-4 flex items-center gap-2">
             <Database size={14} className="text-brand-600 dark:text-brand-400" />
             STIX Objects{' '}
@@ -195,7 +195,7 @@ export default function TaxiiServer(): JSX.Element {
       </div>
 
       {/* Usage Examples */}
-      <div className="mt-6 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5">
+      <div className="mt-6 rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-5">
         <h2 className="font-display font-bold text-sm mb-4">Quick Start</h2>
         <div className="space-y-3">
           <CodeBlock
@@ -219,7 +219,7 @@ function ObjectCard({ obj }: { obj: TaxiiObject }) {
       role="button"
       tabIndex={0}
       aria-expanded={expanded}
-      className="rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-3 cursor-pointer hover:border-brand-500/30 transition-colors"
+      className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 p-3 cursor-pointer hover:border-brand-500/30 transition-colors"
       onClick={() => setExpanded(!expanded)}
       onKeyDown={(e) => {
         if (e.key === 'Enter' || e.key === ' ') {
@@ -240,7 +240,7 @@ function ObjectCard({ obj }: { obj: TaxiiObject }) {
         <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 line-clamp-2">{obj.description}</p>
       )}
       {expanded && (
-        <div className="mt-3 pt-3 border-t border-slate-200 dark:border-slate-800 text-xs space-y-1">
+        <div className="mt-3 pt-3 border-t border-slate-200 dark:border-[#1e2030] text-xs space-y-1">
           <div>
             <span className="text-slate-500">ID:</span>{' '}
             <code className="font-mono text-slate-600 dark:text-slate-300">{obj.id}</code>
@@ -255,7 +255,7 @@ function ObjectCard({ obj }: { obj: TaxiiObject }) {
               <span className="text-slate-500">Modified:</span> {new Date(obj.modified).toLocaleString()}
             </div>
           )}
-          <pre className="bg-slate-100 dark:bg-slate-900 rounded p-2 overflow-x-auto text-micro text-muted font-mono mt-2">
+          <pre className="bg-slate-100 dark:bg-[#12121a] rounded p-2 overflow-x-auto text-micro text-muted font-mono mt-2">
             {JSON.stringify(obj, null, 2)}
           </pre>
         </div>
@@ -268,7 +268,7 @@ function CodeBlock({ title, code }: { title: string; code: string }) {
   return (
     <div>
       <div className="text-xs text-slate-500 dark:text-slate-400 mb-1">{title}</div>
-      <div className="flex items-start gap-2 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-3">
+      <div className="flex items-start gap-2 rounded-lg border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 p-3">
         <pre className="text-xs text-slate-700 dark:text-slate-300 flex-1 overflow-x-auto font-mono">{code}</pre>
         <CopyButton value={code} />
       </div>

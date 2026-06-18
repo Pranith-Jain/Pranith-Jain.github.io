@@ -74,7 +74,7 @@ export default function PredictiveIntel(): JSX.Element {
       emptyIcon={<TrendingUp size={32} className="text-slate-300 dark:text-slate-600" />}
     >
       {summary && (
-        <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-gradient-to-br from-brand-500/5 to-brand-500/10 dark:from-brand-500/10 dark:to-brand-500/5 p-5 mb-6">
+        <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-gradient-to-br from-brand-500/5 to-brand-500/10 dark:from-brand-500/10 dark:to-brand-500/5 p-5 mb-6">
           <div className="text-xs font-mono uppercase tracking-wider text-slate-500 mb-2">Executive Summary</div>
           <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">{summary}</p>
         </div>
@@ -107,7 +107,7 @@ export default function PredictiveIntel(): JSX.Element {
             {sectorRisks.map((s, i) => (
               <div
                 key={i}
-                className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5"
+                className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-5"
               >
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center gap-2">
@@ -152,7 +152,7 @@ export default function PredictiveIntel(): JSX.Element {
             {forecasts.map((f, i) => (
               <div
                 key={i}
-                className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5"
+                className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-5"
               >
                 <div className="flex items-start justify-between mb-3">
                   <div>
@@ -198,7 +198,7 @@ export default function PredictiveIntel(): JSX.Element {
                       {f.indicators_to_watch.map((ind, j) => (
                         <span
                           key={j}
-                          className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-700 text-slate-500"
+                          className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-[#1e2030] text-slate-500"
                         >
                           {ind}
                         </span>

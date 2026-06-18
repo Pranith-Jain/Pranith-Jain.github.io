@@ -86,7 +86,7 @@ export default function IosBackupExplorer(): JSX.Element {
       <button
         type="button"
         onClick={() => document.getElementById('iosbackup-input')?.click()}
-        className="w-full border-2 border-dashed border-slate-300 dark:border-slate-700 rounded-lg p-8 text-center cursor-pointer hover:border-brand-500/40 focus-visible:outline-none focus-visible:border-brand-500/60"
+        className="w-full border-2 border-dashed border-slate-300 dark:border-[#1e2030] rounded-lg p-8 text-center cursor-pointer hover:border-brand-500/40 focus-visible:outline-none focus-visible:border-brand-500/60"
         aria-label="Drop a Manifest.db file or click to choose"
       >
         <Upload size={24} className="mx-auto mb-2 text-slate-500" />
@@ -108,7 +108,7 @@ export default function IosBackupExplorer(): JSX.Element {
 
       {files && (
         <div className="mt-6 space-y-4">
-          <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-3">
+          <div className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-3">
             <div className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-2">
               Top domains · {files.length.toLocaleString()} files total
             </div>
@@ -118,7 +118,7 @@ export default function IosBackupExplorer(): JSX.Element {
                   key={dn}
                   type="button"
                   onClick={() => setQ(dn)}
-                  className="font-mono text-mini px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-brand-500/40"
+                  className="font-mono text-mini px-1.5 py-0.5 rounded border border-slate-200 dark:border-[#1e2030] text-slate-700 dark:text-slate-300 hover:border-brand-500/40"
                 >
                   {dn || '(none)'} · {c}
                 </button>
@@ -129,17 +129,17 @@ export default function IosBackupExplorer(): JSX.Element {
             value={q}
             onChange={(e) => setQ(e.target.value)}
             placeholder="filter by domain / path — e.g. CameraRollDomain, sms.db, WhatsApp…"
-            className="w-full rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 px-3 py-2 font-mono text-sm focus:border-brand-500 focus:outline-none"
+            className="w-full rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 px-3 py-2 font-mono text-sm focus:border-brand-500 focus:outline-none"
           />
-          <div className="rounded-lg border border-slate-200 dark:border-slate-800 overflow-auto max-h-[60vh]">
+          <div className="rounded-lg border border-slate-200 dark:border-[#1e2030] overflow-auto max-h-[60vh]">
             <table className="w-full text-mini font-mono">
-              <thead className="bg-slate-50 dark:bg-slate-900 sticky top-0">
+              <thead className="bg-slate-50 dark:bg-[#12121a] sticky top-0">
                 <tr>
                   {['domain', 'relativePath', 'fileID'].map((c) => (
                     <th
                       key={c}
                       scope="col"
-                      className="text-left px-2 py-1 border-b border-slate-200 dark:border-slate-800"
+                      className="text-left px-2 py-1 border-b border-slate-200 dark:border-[#1e2030]"
                     >
                       {c}
                     </th>
@@ -149,9 +149,9 @@ export default function IosBackupExplorer(): JSX.Element {
               <tbody>
                 {shown.map((f, i) => (
                   <tr key={i} className="even:bg-slate-50/50 dark:even:bg-slate-900/50">
-                    <td className="px-2 py-1 border-b border-slate-100 dark:border-slate-800">{f.domain}</td>
-                    <td className="px-2 py-1 border-b border-slate-100 dark:border-slate-800 break-all">{f.path}</td>
-                    <td className="px-2 py-1 border-b border-slate-100 dark:border-slate-800 text-slate-500">
+                    <td className="px-2 py-1 border-b border-slate-100 dark:border-[#1e2030]">{f.domain}</td>
+                    <td className="px-2 py-1 border-b border-slate-100 dark:border-[#1e2030] break-all">{f.path}</td>
+                    <td className="px-2 py-1 border-b border-slate-100 dark:border-[#1e2030] text-slate-500">
                       {f.fileID.slice(0, 12)}…
                     </td>
                   </tr>

@@ -31,11 +31,14 @@ export default function Research(): JSX.Element {
           </span>
           <span className="mt-3 block text-meta font-mono text-slate-500">
             For aggregated third-party research, see{' '}
-            <Link to="/threatintel/signal" className="text-brand-600 dark:text-brand-400 hover:underline">
+            <Link to="/threatintel/detections/signal" className="text-brand-600 dark:text-brand-400 hover:underline">
               /threatintel/signal
             </Link>{' '}
             (curated) or{' '}
-            <Link to="/threatintel/writeups" className="text-brand-600 dark:text-brand-400 hover:underline">
+            <Link
+              to="/threatintel/research-hub/writeups"
+              className="text-brand-600 dark:text-brand-400 hover:underline"
+            >
               /threatintel/writeups
             </Link>{' '}
             (firehose).
@@ -61,7 +64,7 @@ export default function Research(): JSX.Element {
         {posts.map((p) => (
           <li
             key={p.slug}
-            className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5 transition hover:border-brand-500/40"
+            className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-5 transition hover:border-brand-500/40"
           >
             <Link to={`/threatintel/research/${p.slug}`} className="group block">
               <div className="text-micro font-mono uppercase tracking-[0.18em] text-brand-600 dark:text-brand-400 mb-1.5">
@@ -90,7 +93,7 @@ export default function Research(): JSX.Element {
                   {p.tags.slice(0, 6).map((t) => (
                     <span
                       key={t}
-                      className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-800 text-slate-500"
+                      className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-[#1e2030] text-slate-500"
                     >
                       {t}
                     </span>

@@ -768,9 +768,9 @@ app.get('/api/v1/health/vectorize', async (c) => {
   } catch (e) {
     return c.json({ status: 'error', error: e instanceof Error ? e.message : 'unknown' }, 503);
   }
-  app.get('/api/v1/ioc/enrich-deep', iocEnrichDeepHandler);
-  app.post('/api/v1/ioc/enrich-deep', iocEnrichDeepHandler);
 });
+app.get('/api/v1/ioc/enrich-deep', iocEnrichDeepHandler);
+app.post('/api/v1/ioc/enrich-deep', iocEnrichDeepHandler);
 app.get('/api/v1/ioc/check', validate('query', iocCheckSchema), iocCheckHandler);
 app.get('/api/v1/domain/lookup', validate('query', domainLookupSchema), domainLookupHandler);
 app.post(

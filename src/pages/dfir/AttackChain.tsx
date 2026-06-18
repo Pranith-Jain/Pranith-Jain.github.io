@@ -107,13 +107,13 @@ export default function AttackChain(): JSX.Element {
       </div>
 
       {/* Input */}
-      <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5 mb-6">
+      <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-5 mb-6">
         <h2 className="font-display font-bold text-sm mb-3">Indicators of Compromise</h2>
         <textarea
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder="Enter IOCs, one per line…&#10;192.168.1.100&#10;evil-domain.com&#10;a1b2c3d4e5f6…"
-          className="w-full h-28 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-lg p-3 text-sm font-mono text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 resize-y"
+          className="w-full h-28 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[#1e2030] rounded-lg p-3 text-sm font-mono text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 resize-y"
         />
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-3">
           <div>
@@ -126,7 +126,7 @@ export default function AttackChain(): JSX.Element {
               value={malware}
               onChange={(e) => setMalware(e.target.value)}
               placeholder="e.g., Cobalt Strike, Emotet"
-              className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-lg px-3 py-2 text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[#1e2030] rounded-lg px-3 py-2 text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
             />
           </div>
           <div>
@@ -139,7 +139,7 @@ export default function AttackChain(): JSX.Element {
               value={actors}
               onChange={(e) => setActors(e.target.value)}
               placeholder="e.g., APT28, Lazarus"
-              className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-lg px-3 py-2 text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[#1e2030] rounded-lg px-3 py-2 text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
             />
           </div>
         </div>
@@ -163,7 +163,7 @@ export default function AttackChain(): JSX.Element {
       {result && (
         <div className="space-y-5 animate-fade-in-up">
           {/* Kill Chain Progress */}
-          <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5">
+          <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-5">
             <div className="flex items-center justify-between mb-3">
               <h2 className="font-display font-bold text-sm">Kill Chain Progress</h2>
               <span className="text-2xl font-display font-bold text-brand-600 dark:text-brand-400">
@@ -177,20 +177,20 @@ export default function AttackChain(): JSX.Element {
               />
             </div>
             <div className="flex flex-wrap gap-1.5 text-xs font-mono">
-              <span className="px-2 py-0.5 rounded border border-slate-200 dark:border-slate-700 text-slate-500">
+              <span className="px-2 py-0.5 rounded border border-slate-200 dark:border-[#1e2030] text-slate-500">
                 {coveredTactics.length} tactics
               </span>
-              <span className="px-2 py-0.5 rounded border border-slate-200 dark:border-slate-700 text-slate-500">
+              <span className="px-2 py-0.5 rounded border border-slate-200 dark:border-[#1e2030] text-slate-500">
                 {totalTechniques} techniques
               </span>
-              <span className="px-2 py-0.5 rounded border border-slate-200 dark:border-slate-700 text-slate-500">
+              <span className="px-2 py-0.5 rounded border border-slate-200 dark:border-[#1e2030] text-slate-500">
                 {result.indicators.length} IOCs
               </span>
             </div>
           </div>
 
           {/* ATT&CK Kill Chain */}
-          <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5">
+          <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-5">
             <h2 className="font-display font-bold text-sm mb-4">MITRE ATT&CK Kill Chain</h2>
             <div className="space-y-1.5">
               {result.tactics.map((t, i) => (
@@ -201,7 +201,7 @@ export default function AttackChain(): JSX.Element {
                     {i + 1}
                   </div>
                   <div
-                    className={`flex-1 p-3 rounded-lg border ${t.coverage > 0 ? 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900/40' : 'border-slate-100 dark:border-slate-800/50 bg-slate-50 dark:bg-slate-950'}`}
+                    className={`flex-1 p-3 rounded-lg border ${t.coverage > 0 ? 'border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40' : 'border-slate-100 dark:border-[#1e2030]/50 bg-slate-50 dark:bg-slate-950'}`}
                   >
                     <div className="flex items-center justify-between">
                       <span
@@ -220,7 +220,7 @@ export default function AttackChain(): JSX.Element {
                         {t.techniques.map((tech) => (
                           <span
                             key={tech.id}
-                            className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-700 text-slate-500"
+                            className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-[#1e2030] text-slate-500"
                           >
                             {tech.id}: {tech.name}
                           </span>
@@ -279,7 +279,7 @@ export default function AttackChain(): JSX.Element {
 
           {/* Recommendations */}
           {result.recommendations.length > 0 && (
-            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5">
+            <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-5">
               <h2 className="font-display font-bold text-sm mb-3 flex items-center gap-2">
                 <CheckCircle size={14} className="text-emerald-600 dark:text-emerald-400" /> Detection Recommendations
               </h2>
@@ -287,7 +287,7 @@ export default function AttackChain(): JSX.Element {
                 {result.recommendations.map((rec) => (
                   <div
                     key={rec.action}
-                    className="flex items-center justify-between rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-3"
+                    className="flex items-center justify-between rounded-lg border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 p-3"
                   >
                     <div>
                       <div className="text-sm font-medium">{rec.action}</div>

@@ -236,7 +236,7 @@ export default function BreachForums(): JSX.Element {
         </div>
       </div>
 
-      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6 flex items-center justify-between gap-3 flex-wrap">
+      <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 mb-6 flex items-center justify-between gap-3 flex-wrap">
         {data && (
           <p className="text-mini font-mono text-slate-500 dark:text-slate-400">
             {data.rows.length} entries · {data.totals.directory} from deepdarkCTI · {data.totals.curated} curated
@@ -245,7 +245,7 @@ export default function BreachForums(): JSX.Element {
         <button
           type="button"
           onClick={() => setRefreshKey((k) => k + 1)}
-          className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40"
+          className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-[#1e2030] hover:border-brand-500/40"
         >
           <RefreshCw size={12} /> refresh
         </button>
@@ -281,7 +281,7 @@ export default function BreachForums(): JSX.Element {
                 {rows.map((r, i) => (
                   <li
                     key={`${r.name}-${i}`}
-                    className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-3"
+                    className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-3"
                   >
                     <div className="flex items-center justify-between gap-2">
                       <span className="font-display font-semibold text-sm truncate" title={r.name}>
@@ -317,7 +317,7 @@ export default function BreachForums(): JSX.Element {
                       <button
                         type="button"
                         onClick={() => copy(r.url)}
-                        className="shrink-0 rounded border border-slate-200 dark:border-slate-700 p-1 text-slate-500 hover:text-brand-600"
+                        className="shrink-0 rounded border border-slate-200 dark:border-[#1e2030] p-1 text-slate-500 hover:text-brand-600"
                         aria-label="Copy URL"
                       >
                         <Copy size={11} />
@@ -353,7 +353,7 @@ export default function BreachForums(): JSX.Element {
               {statusData.deltas.map((d, i) => (
                 <li
                   key={`${d.name}-${d.observed_at}-${i}`}
-                  className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-3 flex items-center gap-3 flex-wrap"
+                  className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-3 flex items-center gap-3 flex-wrap"
                 >
                   <span className="font-display font-semibold text-sm truncate" title={d.name}>
                     {d.name}
@@ -424,7 +424,7 @@ export default function BreachForums(): JSX.Element {
               {coverageData.items.map((it, i) => (
                 <li
                   key={`${it.link}-${i}`}
-                  className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-3"
+                  className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-3"
                 >
                   <div className="flex items-baseline gap-2 flex-wrap">
                     <a
@@ -476,7 +476,7 @@ export default function BreachForums(): JSX.Element {
               {mentionsData.items.map((it, i) => (
                 <li
                   key={`${it.link}-${i}`}
-                  className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-3"
+                  className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-3"
                 >
                   <div className="flex items-baseline gap-2 flex-wrap">
                     <a

@@ -81,7 +81,7 @@ const FRESHNESS_PILL: Record<Freshness, { label: string; cls: string }> = {
   },
   'no-timestamp': {
     label: 'no upstream timestamp',
-    cls: 'border-slate-300 dark:border-slate-700 text-slate-400',
+    cls: 'border-slate-300 dark:border-[#1e2030] text-slate-400',
   },
 };
 
@@ -90,7 +90,7 @@ function IocRow({ ioc }: { ioc: CorrelatedIoc }) {
   const fresh = freshness(ioc.last_seen);
   const freshPill = FRESHNESS_PILL[fresh];
   return (
-    <li className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 px-3 py-2.5 flex items-center gap-3">
+    <li className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 px-3 py-2.5 flex items-center gap-3">
       <span
         className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${KIND_PILL[ioc.kind]} shrink-0`}
       >
@@ -252,7 +252,7 @@ export default function IocCorrelation(): JSX.Element {
       </div>
 
       {data && (
-        <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-4 grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 mb-4 grid grid-cols-2 sm:grid-cols-4 gap-3">
           <div>
             <div className="text-micro font-mono uppercase tracking-wider text-slate-500">Correlated IPs</div>
             <div className="font-display font-bold text-xl">{data.totals.by_kind.ip}</div>
@@ -277,7 +277,7 @@ export default function IocCorrelation(): JSX.Element {
           corpus was degraded. Now: explicit per-feed dot + count + the
           aggregate "N of M online". */}
       {data && (
-        <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-4">
+        <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 mb-4">
           <div className="flex items-baseline justify-between gap-3 mb-3 flex-wrap">
             <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
               Feed health
@@ -296,7 +296,7 @@ export default function IocCorrelation(): JSX.Element {
                   key={s.id}
                   className={`flex items-center gap-2 text-mini font-mono px-2 py-1 rounded border ${
                     s.ok
-                      ? 'border-slate-200 dark:border-slate-800 bg-slate-50/60 dark:bg-slate-950'
+                      ? 'border-slate-200 dark:border-[#1e2030] bg-slate-50/60 dark:bg-slate-950'
                       : 'border-rose-400/40 bg-rose-500/5 text-rose-700 dark:text-rose-300'
                   }`}
                   title={s.ok ? `${s.id}: ${s.count} indicators` : `${s.id}: offline`}
@@ -315,7 +315,7 @@ export default function IocCorrelation(): JSX.Element {
         </section>
       )}
 
-      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-4">
+      <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 mb-4">
         <div className="flex items-center gap-3">
           <div className="relative flex-1">
             <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
@@ -324,7 +324,7 @@ export default function IocCorrelation(): JSX.Element {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Filter by indicator value, source, or context…"
-              className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[#1e2030] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
               aria-label="Filter IOCs"
             />
           </div>
@@ -346,7 +346,7 @@ export default function IocCorrelation(): JSX.Element {
             type="button"
             onClick={() => downloadFilteredCsv(filtered)}
             disabled={filtered.length === 0}
-            className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:border-brand-500/40 disabled:opacity-40"
+            className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-300 dark:border-[#1e2030] text-slate-700 dark:text-slate-300 hover:border-brand-500/40 disabled:opacity-40"
             title="Download the currently filtered IOCs as CSV. Pasteable straight into a firewall blocklist."
           >
             <Download size={12} /> CSV
@@ -364,7 +364,7 @@ export default function IocCorrelation(): JSX.Element {
               type="button"
               onClick={() => void buildStixBundle(filtered, setStixLoading, setStixBundleId, setStixError)}
               disabled={stixLoading || filtered.length === 0}
-              className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:border-brand-500/40 disabled:opacity-40"
+              className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-300 dark:border-[#1e2030] text-slate-700 dark:text-slate-300 hover:border-brand-500/40 disabled:opacity-40"
             >
               {stixLoading ? <Loader2 size={12} className="animate-spin" /> : <FileDown size={12} />}
               {stixLoading ? 'building…' : 'STIX'}
@@ -378,7 +378,7 @@ export default function IocCorrelation(): JSX.Element {
           <button
             type="button"
             onClick={() => refetch()}
-            className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40"
+            className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-[#1e2030] hover:border-brand-500/40"
           >
             <RefreshCw size={12} /> refresh
           </button>
@@ -394,7 +394,7 @@ export default function IocCorrelation(): JSX.Element {
                 type="button"
                 onClick={() => toggleKind(k)}
                 className={`text-mini font-mono px-2 py-1 rounded border ${
-                  active ? KIND_PILL[k] : 'border-slate-300 dark:border-slate-700 text-slate-500'
+                  active ? KIND_PILL[k] : 'border-slate-300 dark:border-[#1e2030] text-slate-500'
                 }`}
               >
                 {KIND_LABEL[k]} <span className="opacity-70">· {count}</span>
@@ -422,7 +422,7 @@ export default function IocCorrelation(): JSX.Element {
                 type="button"
                 onClick={() => toggleFresh(f)}
                 className={`text-mini font-mono px-2 py-1 rounded border ${
-                  active ? pill.cls : 'border-slate-300 dark:border-slate-700 text-slate-500'
+                  active ? pill.cls : 'border-slate-300 dark:border-[#1e2030] text-slate-500'
                 }`}
               >
                 {pill.label} <span className="opacity-70">· {freshCounts[f]}</span>
@@ -472,7 +472,7 @@ export default function IocCorrelation(): JSX.Element {
       </DataState>
 
       {data && (
-        <section className="mt-6 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-4">
+        <section className="mt-6 rounded-lg border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 p-4">
           <h3 className="font-display font-semibold text-sm mb-2">How to read this</h3>
           <ul className="text-meta font-mono text-muted space-y-1 list-disc list-inside">
             <li>

@@ -70,19 +70,19 @@ export default function TelegramLeakStats(): JSX.Element {
           <div className="space-y-8">
             {/* KPI cards */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-5">
+              <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-5">
                 <div className="flex items-center gap-2 text-xs font-mono text-slate-500 dark:text-slate-400 mb-1">
                   <Activity size={14} /> Total entries
                 </div>
                 <p className="text-3xl font-bold font-display">{stats.total_entries}</p>
               </div>
-              <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-5">
+              <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-5">
                 <div className="flex items-center gap-2 text-xs font-mono text-slate-500 dark:text-slate-400 mb-1">
                   <TrendingUp size={14} /> Last 24h
                 </div>
                 <p className="text-3xl font-bold font-display">{stats.last_24h}</p>
               </div>
-              <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-5">
+              <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-5">
                 <div className="flex items-center gap-2 text-xs font-mono text-slate-500 dark:text-slate-400 mb-1">
                   <Send size={14} /> Monitored channels
                 </div>
@@ -91,7 +91,7 @@ export default function TelegramLeakStats(): JSX.Element {
             </div>
 
             {/* Severity distribution */}
-            <section className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-5">
+            <section className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-5">
               <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-4 flex items-center gap-2">
                 <AlertTriangle size={14} /> Severity distribution
               </h2>
@@ -120,7 +120,7 @@ export default function TelegramLeakStats(): JSX.Element {
 
             {/* Top channels & domains */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <section className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-5">
+              <section className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-5">
                 <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3 flex items-center gap-2">
                   <Send size={14} /> Top channels
                 </h2>
@@ -140,7 +140,7 @@ export default function TelegramLeakStats(): JSX.Element {
                 )}
               </section>
 
-              <section className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-5">
+              <section className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-5">
                 <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3 flex items-center gap-2">
                   <Globe size={14} /> Top domains
                 </h2>

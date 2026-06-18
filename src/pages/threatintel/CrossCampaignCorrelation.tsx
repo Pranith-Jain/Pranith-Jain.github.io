@@ -67,7 +67,7 @@ export default function CrossCampaignCorrelation(): JSX.Element {
         {correlations.map((c, i) => (
           <div
             key={i}
-            className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5"
+            className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-5"
           >
             <div className="flex items-center justify-between mb-3">
               <div className="flex items-center gap-2">
@@ -93,7 +93,7 @@ export default function CrossCampaignCorrelation(): JSX.Element {
                   {c.shared_indicators.slice(0, 5).map((ind, j) => (
                     <span
                       key={j}
-                      className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-700 text-slate-500"
+                      className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-[#1e2030] text-slate-500"
                     >
                       {ind}
                     </span>

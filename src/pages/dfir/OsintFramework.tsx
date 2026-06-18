@@ -65,7 +65,7 @@ export default function OsintFramework(): JSX.Element {
         </p>
         <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-6">
           Hand-picked subset of osintframework.com — every entry was reachable when added. Pairs with{' '}
-          <Link to="/dfir/username" className="text-brand-600 dark:text-brand-400 hover:underline">
+          <Link to="/dfir/username-investigator" className="text-brand-600 dark:text-brand-400 hover:underline">
             Username Pivot
           </Link>
           ,{' '}
@@ -80,7 +80,7 @@ export default function OsintFramework(): JSX.Element {
         </p>
       </div>
 
-      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6 space-y-3">
+      <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 mb-6 space-y-3">
         <div className="relative">
           <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" aria-hidden="true" />
           <input
@@ -88,7 +88,7 @@ export default function OsintFramework(): JSX.Element {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search by name, description, or category — e.g. crypto, breach, court, image"
-            className="w-full pl-9 pr-3 py-2 rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 font-mono text-sm focus:border-brand-500/60 focus:outline-none"
+            className="w-full pl-9 pr-3 py-2 rounded border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 font-mono text-sm focus:border-brand-500/60 focus:outline-none"
             aria-label="Search OSINT framework"
           />
         </div>
@@ -102,7 +102,7 @@ export default function OsintFramework(): JSX.Element {
             className={`text-xs font-mono px-2 py-1 rounded border transition-colors ${
               pricingFilter === 'all'
                 ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                : 'border-slate-300 dark:border-slate-700 text-muted hover:border-brand-500/40'
+                : 'border-slate-300 dark:border-[#1e2030] text-muted hover:border-brand-500/40'
             }`}
           >
             All
@@ -117,7 +117,7 @@ export default function OsintFramework(): JSX.Element {
                 className={`text-xs font-mono px-2 py-1 rounded border transition-colors ${
                   pricingFilter === p
                     ? PRICING_STYLES[p]
-                    : 'border-slate-300 dark:border-slate-700 text-muted hover:border-brand-500/40'
+                    : 'border-slate-300 dark:border-[#1e2030] text-muted hover:border-brand-500/40'
                 }`}
               >
                 {PRICING_LABELS[p]} <span className="opacity-60">· {count}</span>
@@ -135,7 +135,7 @@ export default function OsintFramework(): JSX.Element {
             className={`text-xs font-mono px-2 py-1 rounded border transition-colors ${
               category === 'all'
                 ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                : 'border-slate-300 dark:border-slate-700 text-muted hover:border-brand-500/40'
+                : 'border-slate-300 dark:border-[#1e2030] text-muted hover:border-brand-500/40'
             }`}
           >
             All
@@ -149,7 +149,7 @@ export default function OsintFramework(): JSX.Element {
                 className={`text-xs font-mono px-2 py-1 rounded border transition-colors ${
                   category === c
                     ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                    : 'border-slate-300 dark:border-slate-700 text-muted hover:border-brand-500/40'
+                    : 'border-slate-300 dark:border-[#1e2030] text-muted hover:border-brand-500/40'
                 }`}
               >
                 {CATEGORY_LABELS[c]} <span className="opacity-60">· {categoryCounts[c]}</span>
@@ -167,7 +167,7 @@ export default function OsintFramework(): JSX.Element {
         {filtered.map((e) => (
           <article
             key={e.id}
-            className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-3"
+            className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-3"
           >
             <header className="flex flex-wrap items-baseline gap-2 mb-1">
               <a
@@ -191,7 +191,7 @@ export default function OsintFramework(): JSX.Element {
           </article>
         ))}
         {filtered.length === 0 && (
-          <div className="col-span-full rounded-lg border border-dashed border-slate-300 dark:border-slate-700 p-8 text-center text-sm font-mono text-slate-500 dark:text-slate-400">
+          <div className="col-span-full rounded-lg border border-dashed border-slate-300 dark:border-[#1e2030] p-8 text-center text-sm font-mono text-slate-500 dark:text-slate-400">
             No entries match those filters. Try clearing the search or relaxing the category filter.
           </div>
         )}

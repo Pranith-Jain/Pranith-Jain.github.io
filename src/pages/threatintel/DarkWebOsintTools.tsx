@@ -102,7 +102,7 @@ export default function DarkWebOsintTools(): JSX.Element {
       }
       headerExtra={
         <div className="space-y-6">
-          <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
+          <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4">
             <div className="relative">
               <Search
                 size={16}
@@ -114,19 +114,19 @@ export default function DarkWebOsintTools(): JSX.Element {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Search tools — e.g. 'crawler', 'ahmia', 'onion scan'"
-                className="w-full pl-9 pr-4 py-2.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+                className="w-full pl-9 pr-4 py-2.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[#1e2030] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
                 aria-label="Search dark web OSINT tools"
               />
             </div>
           </section>
 
-          <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
+          <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4">
             <div className="flex flex-wrap items-center gap-1.5">
               <span className="text-mini font-mono text-slate-500 mr-1">categories:</span>
               {ALL_CATS.map((c) => {
                 const count = catCounts.get(c) ?? 0;
                 const active = activeCats.has(c);
-                const cls = active ? CATEGORY_PILL[c] : 'border-slate-300 dark:border-slate-700 text-slate-500';
+                const cls = active ? CATEGORY_PILL[c] : 'border-slate-300 dark:border-[#1e2030] text-slate-500';
                 return (
                   <button
                     key={c}
@@ -162,7 +162,7 @@ export default function DarkWebOsintTools(): JSX.Element {
         {filtered.map((t) => (
           <li
             key={t.id}
-            className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4"
+            className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4"
           >
             <div className="flex items-baseline justify-between gap-2 mb-1.5">
               <a

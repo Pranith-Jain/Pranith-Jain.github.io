@@ -1,11 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { GitBranch, ExternalLink, Loader2, X } from 'lucide-react';
 import { DataPageLayout } from '../../components/DataPageLayout';
-import {
-  StixObjectTable,
-  StixRelationshipGraph,
-  type StixBundle,
-} from '../../components/StixBundleViewer';
+import { StixObjectTable, StixRelationshipGraph, type StixBundle } from '../../components/StixBundleViewer';
 
 interface FlowEntry {
   name: string;
@@ -149,10 +145,10 @@ export default function AttackFlowLibrary(): JSX.Element {
       >
         Center for Threat-Informed Defense
       </a>{' '}
-      Attack Flow corpus — Black Basta, Conti, NotPetya, SolarWinds, REvil, Equifax, Target, Uber, and more,
-      each modeled as a sequence of ATT&amp;CK techniques and published as a STIX 2.1 bundle. This view lists the
-      corpus from a single GitHub listing; opening a flow fetches just that one bundle on demand and renders its
-      STIX objects + relationship graph. Apache-2.0; attribution to the Center for Threat-Informed Defense.
+      Attack Flow corpus — Black Basta, Conti, NotPetya, SolarWinds, REvil, Equifax, Target, Uber, and more, each
+      modeled as a sequence of ATT&amp;CK techniques and published as a STIX 2.1 bundle. This view lists the corpus from
+      a single GitHub listing; opening a flow fetches just that one bundle on demand and renders its STIX objects +
+      relationship graph. Apache-2.0; attribution to the Center for Threat-Informed Defense.
     </>
   );
 
@@ -169,7 +165,7 @@ export default function AttackFlowLibrary(): JSX.Element {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder={`Filter ${data.total} flows…`}
-          className="w-full max-w-sm text-sm font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-800 dark:text-slate-200 focus:outline-none focus:border-brand-500/60"
+          className="w-full max-w-sm text-sm font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[#1e2030] bg-white dark:bg-slate-950 text-slate-800 dark:text-slate-200 focus:outline-none focus:border-brand-500/60"
         />
       </div>
     ) : undefined;
@@ -264,19 +260,17 @@ export default function AttackFlowLibrary(): JSX.Element {
               className={`rounded-lg border p-3 transition-colors ${
                 isActive
                   ? 'border-brand-500/60 bg-brand-500/5'
-                  : 'border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950'
+                  : 'border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950'
               }`}
             >
               <div className="flex items-start justify-between gap-2">
-                <h3 className="font-semibold text-sm text-slate-900 dark:text-slate-100 leading-snug">
-                  {flow.name}
-                </h3>
+                <h3 className="font-semibold text-sm text-slate-900 dark:text-slate-100 leading-snug">{flow.name}</h3>
                 {flow.size > 0 && (
                   <span className="shrink-0 text-micro font-mono text-slate-400">{fmtSize(flow.size)}</span>
                 )}
               </div>
 
-              <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mt-3 pt-2 border-t border-slate-200 dark:border-slate-800">
+              <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mt-3 pt-2 border-t border-slate-200 dark:border-[#1e2030]">
                 <button
                   type="button"
                   onClick={() => setActiveFlow(isActive ? null : flow.name)}

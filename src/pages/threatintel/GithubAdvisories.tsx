@@ -129,7 +129,7 @@ export default function GithubAdvisories(): JSX.Element {
         ].map(({ label, value, cls }) => (
           <div
             key={label}
-            className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/50 shadow-e1 p-2.5"
+            className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/50 shadow-e1 p-2.5"
           >
             <div className={`text-mini uppercase tracking-wider mb-0.5 ${cls}`}>{label}</div>
             <div className="text-lg font-bold text-slate-900 dark:text-slate-100">{value}</div>
@@ -150,7 +150,7 @@ export default function GithubAdvisories(): JSX.Element {
               className={`px-2 py-1 rounded text-xs font-mono font-medium border flex items-center gap-1 transition ${
                 active
                   ? `${colors.bg} ${colors.text} ${colors.border}`
-                  : 'border-slate-300 dark:border-slate-700 text-slate-500 hover:border-slate-400'
+                  : 'border-slate-300 dark:border-[#1e2030] text-slate-500 hover:border-slate-400'
               }`}
             >
               {s}
@@ -161,7 +161,7 @@ export default function GithubAdvisories(): JSX.Element {
         <select
           value={ecoFilter}
           onChange={(e) => setEcoFilter(e.target.value)}
-          className="px-2 py-1 rounded text-xs font-mono border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 focus:outline-none focus:border-brand-500"
+          className="px-2 py-1 rounded text-xs font-mono border border-slate-300 dark:border-[#1e2030] bg-white dark:bg-[#12121a] text-slate-700 dark:text-slate-300 focus:outline-none focus:border-brand-500"
         >
           <option value="">All</option>
           {ECOSYSTEMS.map((e) => (
@@ -192,7 +192,7 @@ export default function GithubAdvisories(): JSX.Element {
             placeholder="Search package name…"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            className="w-full pl-9 pr-3 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-brand-500"
+            className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[#12121a] border border-slate-200 dark:border-[#1e2030] rounded-lg text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-brand-500"
           />
         </div>
         <button
@@ -200,7 +200,7 @@ export default function GithubAdvisories(): JSX.Element {
             setRefreshKey((k) => k + 1);
             refetch();
           }}
-          className="px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-700 text-muted hover:border-slate-400 dark:hover:border-slate-600 text-sm flex items-center gap-2"
+          className="px-3 py-2 rounded-lg border border-slate-300 dark:border-[#1e2030] text-muted hover:border-slate-400 dark:hover:border-slate-600 text-sm flex items-center gap-2"
         >
           <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} /> Refresh
         </button>
@@ -221,7 +221,7 @@ export default function GithubAdvisories(): JSX.Element {
             return (
               <div
                 key={a.ghsa_id}
-                className={`rounded-xl border border-l-4 ${colors.border} border-l-current bg-white dark:bg-slate-900/50 p-3 hover:shadow-md transition`}
+                className={`rounded-xl border border-l-4 ${colors.border} border-l-current bg-white dark:bg-[#12121a]/50 p-3 hover:shadow-md transition`}
               >
                 <div className="flex items-start gap-3">
                   <div className="flex-1 min-w-0">
@@ -244,7 +244,7 @@ export default function GithubAdvisories(): JSX.Element {
                           href={`https://nvd.nist.gov/vuln/detail/${cveId}`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="px-1.5 py-0.5 text-micro font-mono rounded border border-slate-300 dark:border-slate-700 text-muted hover:text-brand-600 dark:hover:text-brand-400"
+                          className="px-1.5 py-0.5 text-micro font-mono rounded border border-slate-300 dark:border-[#1e2030] text-muted hover:text-brand-600 dark:hover:text-brand-400"
                         >
                           {cveId}
                         </a>
@@ -255,7 +255,7 @@ export default function GithubAdvisories(): JSX.Element {
                       {a.vulnerabilities.map((v, i) => (
                         <span
                           key={i}
-                          className="flex items-center gap-1 px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50 font-mono"
+                          className="flex items-center gap-1 px-1.5 py-0.5 rounded border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-800/50 font-mono"
                         >
                           <Package className="w-2.5 h-2.5" /> {v.package.ecosystem}/{v.package.name}
                           {v.vulnerable_version_range && (
@@ -285,7 +285,7 @@ export default function GithubAdvisories(): JSX.Element {
 
       {/* Ecosystem breakdown */}
       {ecoBreakdown.length > 0 && (
-        <div className="mt-8 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/50 p-4">
+        <div className="mt-8 rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/50 p-4">
           <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100 mb-3">Ecosystem Breakdown</h3>
           <div className="space-y-1.5">
             {ecoBreakdown.map(([eco, count]) => (
@@ -304,7 +304,7 @@ export default function GithubAdvisories(): JSX.Element {
         </div>
       )}
 
-      <div className="mt-6 pt-4 border-t border-slate-200 dark:border-slate-800 text-xs text-slate-500 dark:text-slate-600 font-mono">
+      <div className="mt-6 pt-4 border-t border-slate-200 dark:border-[#1e2030] text-xs text-slate-500 dark:text-slate-600 font-mono">
         Source: GitHub Advisory Database via Worker API
       </div>
     </div>

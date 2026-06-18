@@ -47,7 +47,7 @@ export function GlobalPulseCard(): JSX.Element | null {
 
   return (
     <Link
-      to="/threatintel/feeds"
+      to="/threatintel/catalog?cat=feeds"
       className="group mb-6 flex items-center gap-4 rounded-lg border border-slate-200 bg-white px-4 py-3 transition-colors hover:border-brand-400 dark:border-slate-700 dark:bg-slate-900 dark:hover:border-brand-500"
     >
       <Globe className="h-5 w-5 shrink-0 text-brand-600 dark:text-brand-400" />

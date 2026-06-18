@@ -170,6 +170,23 @@ Step 3: Synthesize`
 - If a tool returned 0 results, do NOT call it again with the same query.
 </critical_rules>
 
+<error_recovery>
+If a tool failed or returned empty data:
+1. Do NOT retry the same tool — it will fail again.
+2. Try a DIFFERENT tool that covers the same domain (e.g. check_ioc failed → try enrich_ioc_deep).
+3. If all tools for a domain fail, skip that domain and synthesize with what you have.
+4. The synthesizer handles missing data gracefully — partial intel is better than no report.
+</error_recovery>
+
+<synthesis_triggers>
+Synthesize immediately when ANY of these are true:
+- You have results from 3+ tools with actual data (not errors/empty).
+- You are on step maxSteps-1 (penultimate step).
+- The last 2 steps returned mostly errors (diminishing returns).
+- You have enough for a complete verdict: reputation + enrichment + at least one of (detection/mitre/actor context).
+Do NOT over-collect. A 3-step report with good data beats a 6-step report with noise.
+</synthesis_triggers>
+
 <security>${UNTRUSTED_DATA_SYSTEM_NOTE}</security>
 
 <output_format>
@@ -213,6 +230,16 @@ Step: ${currentStep + 1} of ${maxSteps}
 </investigation>
 
 ${historyBlock ? `<collected_data>\n${historyBlock}\n</collected_data>` : '<collected_data>None yet — start with Phase 1: Collection.</collected_data>'}
+
+<data_quality_assessment>
+${
+  steps.length > 0
+    ? `${steps.length} step(s) completed. ${
+        steps.flatMap((s) => s.results).filter((r) => r.status === 'ok').length
+      } tools returned data, ${steps.flatMap((s) => s.results).filter((r) => r.status === 'error').length} failed.`
+    : 'No steps completed yet.'
+}
+</data_quality_assessment>
 
 What is the most valuable next tool call? If I have enough data for a comprehensive report, set shouldSynthesize=true.`;
 }

@@ -292,11 +292,16 @@ export class InvestigatorAgentDO {
 
       const start = Date.now();
       try {
-        // 20s timeout per tool call — some endpoints (enrich_actor, check_ioc)
-        // fan out to multiple external providers and need more time.
+        // Per-tool timeout: 20s for most tools, 40s for heavy fan-outs
+        // (enrich_actor, check_ioc, enrich_ioc_deep) that hit multiple
+        // external APIs in parallel.
+        const isHeavyFanout = ['enrich_actor', 'check_ioc', 'enrich_ioc_deep', 'actor_timeline'].includes(call.tool);
+        const timeoutMs = isHeavyFanout ? 40_000 : 20_000;
         const data = await Promise.race([
           tool.execute(call.args),
-          new Promise<never>((_, reject) => setTimeout(() => reject(new Error('Tool timeout (20s)')), 20_000)),
+          new Promise<never>((_, reject) =>
+            setTimeout(() => reject(new Error(`Tool timeout (${timeoutMs / 1000}s)`)), timeoutMs)
+          ),
         ]);
         return { tool: call.tool, args: call.args, status: 'ok', data, durationMs: Date.now() - start };
       } catch (err) {

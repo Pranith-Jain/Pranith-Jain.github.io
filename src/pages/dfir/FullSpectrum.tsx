@@ -366,11 +366,11 @@ function ResultCard({
   const borderCls = state.error
     ? 'border-rose-500/50'
     : state.data
-      ? 'border-slate-200 dark:border-slate-800'
-      : 'border-slate-200 dark:border-slate-800/50';
+      ? 'border-slate-200 dark:border-[#1e2030]'
+      : 'border-slate-200 dark:border-[#1e2030]/50';
 
   return (
-    <div className={`rounded-lg border ${borderCls} bg-white dark:bg-slate-900 p-4 flex flex-col gap-2`}>
+    <div className={`rounded-lg border ${borderCls} bg-white dark:bg-[#12121a] p-4 flex flex-col gap-2`}>
       <div className="flex items-center justify-between gap-2">
         <div className="flex items-center gap-2 min-w-0">
           <Icon size={14} className="text-brand-600 dark:text-brand-400 shrink-0" />
@@ -463,7 +463,7 @@ export default function FullSpectrum(): JSX.Element {
             onChange={(e) => setInput(e.target.value)}
             placeholder="example.com"
             aria-label="Domain to investigate"
-            className="flex-1 px-4 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-500 dark:placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="flex-1 px-4 py-3 bg-white dark:bg-[#12121a] border border-slate-200 dark:border-[#1e2030] rounded-lg font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-500 dark:placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
           />
           <button
             type="submit"
@@ -484,7 +484,7 @@ export default function FullSpectrum(): JSX.Element {
       </form>
 
       {hasResults && (
-        <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 mb-6">
+        <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 mb-6">
           <div className="flex items-baseline justify-between gap-2">
             <h2 className="font-display font-bold text-xl truncate">{state.domain}</h2>
             <div className="flex items-center gap-2 shrink-0">
