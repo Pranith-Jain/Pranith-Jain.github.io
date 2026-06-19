@@ -342,14 +342,14 @@ export const projects: Project[] = [
   {
     title: 'DFIR AI Skills',
     description:
-      'AI coding assistant skills for Digital Forensics and Incident Response — investigation workflows, threat report generation, detection rule authoring. Compatible with Claude Code, Cursor, and GitHub Copilot/Codex.',
+      'AI coding assistant skills for Digital Forensics and Incident Response — investigation workflows, threat report generation, detection rule authoring. Compatible with Claude Code, Cursor, and GitHub Copilot/Codex. Source lives locally at /agent/dfir-ai-skills.',
     tags: ['AI', 'DFIR', 'Skills', 'Claude Code', 'Jun 2026'],
     github: 'https://github.com/Pranith-Jain/dfir-ai-skills',
   },
   {
     title: 'CTI AI Skills',
     description:
-      'AI coding assistant skills for Cyber Threat Intelligence — IOC extraction, OCR analysis, threat intel, dark web monitoring, and feed management. Compatible with Claude Code, Cursor, and GitHub Copilot/Codex.',
+      'AI coding assistant skills for Cyber Threat Intelligence — IOC extraction, OCR analysis, threat intel, dark web monitoring, and feed management. Compatible with Claude Code, Cursor, and GitHub Copilot/Codex. Source lives locally at /agent/cti-ai-skills.',
     tags: ['AI', 'CTI', 'Skills', 'Claude Code', 'Jun 2026'],
     github: 'https://github.com/Pranith-Jain/cti-ai-skills',
   },

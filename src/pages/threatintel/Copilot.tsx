@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
 import { sanitizeAiHtml } from '../../lib/sanitize-html';
 import {
@@ -13,6 +13,10 @@ import {
   Lightbulb,
   Search,
   Save,
+  Shield,
+  Globe,
+  Database,
+  Cpu,
 } from 'lucide-react';
 import { FeedbackWidget } from '../../components/FeedbackWidget';
 import { BackLink } from '../../components/BackLink';
@@ -64,6 +68,13 @@ const TYPE_BADGES: Record<string, { label: string; color: string }> = {
   },
   generic: { label: 'General', color: 'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300' },
 };
+
+const CAPABILITY_GRID = [
+  { icon: Shield, label: 'CVE Lookup', desc: 'Vulnerability context, exploits, patches' },
+  { icon: Cpu, label: 'Threat Actors', desc: 'TTPs, campaigns, attribution' },
+  { icon: Globe, label: 'IOC Triage', desc: 'IPs, domains, hashes, URLs' },
+  { icon: Database, label: 'Ransomware Intel', desc: 'Groups, leaks, negotiations' },
+];
 
 // Pure regex markdown renderer. Receives an ALREADY-sanitized string — the
 // DOMPurify strip happens in the effect below via dynamic import (see the
@@ -124,26 +135,33 @@ export default function Copilot(): JSX.Element {
   const [progress, setProgress] = useState<Progress | null>(null);
   const [report, setReport] = useState<Report | null>(null);
 
-  const runReport = async (q: string) => {
-    if (!q.trim()) return;
-    setError(null);
-    setReport(null);
-    setProgress({ phase: 'queued', pct: 0, detail: 'Queued' });
-    try {
-      const id = await buildReport(q.trim(), template === 'auto' ? undefined : template, tlp);
-      const r = await pollReport(id, setProgress);
-      setReport(r);
-      setProgress(null);
-    } catch (e) {
-      setError(e instanceof Error ? e.message : String(e));
-      setProgress(null);
-    }
-  };
+  const runReport = useCallback(
+    async (q: string) => {
+      if (!q.trim()) return;
+      setError(null);
+      setReport(null);
+      setProgress({ phase: 'queued', pct: 0, detail: 'Queued' });
+      try {
+        const id = await buildReport(q.trim(), template === 'auto' ? undefined : template, tlp);
+        const r = await pollReport(id, setProgress);
+        setReport(r);
+        setProgress(null);
+      } catch (e) {
+        setError(e instanceof Error ? e.message : String(e));
+        setProgress(null);
+      }
+    },
+    [template, tlp]
+  );
 
-  const submit = (q: string) => {
-    if (mode === 'report') void runReport(q);
-    else void investigate(q);
-  };
+  const submit = useCallback(
+    (q: string) => {
+      if (mode === 'report') void runReport(q);
+      else void investigate(q);
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [mode, runReport]
+  );
 
   useEffect(() => {
     inputRef.current?.focus();
@@ -175,7 +193,7 @@ export default function Copilot(): JSX.Element {
     };
   }, [result?.narrative]);
 
-  const investigate = async (q: string) => {
+  const investigate = useCallback(async (q: string) => {
     if (!q.trim()) return;
     setLoading(true);
     setError(null);
@@ -196,356 +214,370 @@ export default function Copilot(): JSX.Element {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
   const badge = result?.query_type ? TYPE_BADGES[result.query_type] : null;
+  const hasResults = !!(result || report || loading || progress || error);
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
+    <div className="min-h-[calc(100vh-64px)] px-4 py-12 sm:py-16 text-gray-900 dark:text-white">
       {!isStandalone && (
         <BackLink
           to="/threatintel"
-          className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+          className="mx-auto mb-8 flex max-w-3xl items-center gap-2 text-sm text-gray-500 hover:text-brand-600 dark:text-gray-400 dark:hover:text-brand-400 font-mono"
         >
           <ArrowLeft size={14} /> back
         </BackLink>
       )}
 
-      <div className="animate-fade-in-up mb-8">
-        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
-          <Sparkles className="text-brand-600 dark:text-brand-400" size={28} />
-          Investigation Copilot
-        </h1>
-        <p className="text-muted max-w-3xl leading-relaxed">
-          AI-powered investigation of CVEs, threat actors, ransomware groups, IPs, domains, and more.
-        </p>
-      </div>
-
-      {/* Mode toggle */}
-      <div className="flex flex-wrap items-center gap-2 mb-3">
-        <div className="inline-flex rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] overflow-hidden text-xs font-mono">
-          <button
-            onClick={() => setMode('quick')}
-            aria-pressed={mode === 'quick'}
-            className={`px-3 py-1.5 ${mode === 'quick' ? 'bg-brand-600 text-white' : 'bg-white dark:bg-[rgb(var(--surface-200))] text-slate-600 dark:text-slate-300'}`}
-          >
-            Quick answer
-          </button>
-          <button
-            onClick={() => setMode('report')}
-            aria-pressed={mode === 'report'}
-            className={`px-3 py-1.5 ${mode === 'report' ? 'bg-brand-600 text-white' : 'bg-white dark:bg-[rgb(var(--surface-200))] text-slate-600 dark:text-slate-300'}`}
-          >
-            Full report
-          </button>
+      {/* ── Hero (radar-style) ──────────────────────────────────────────── */}
+      <div className="mx-auto flex w-full max-w-3xl flex-col items-center gap-8">
+        <div className="flex flex-col items-center gap-4 text-center">
+          <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-brand-600/10">
+            <Sparkles className="h-8 w-8 text-brand-600" />
+          </div>
+          <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">Investigation Copilot</h1>
+          <p className="max-w-xl text-base text-gray-500 dark:text-gray-400">
+            AI-powered investigation of CVEs, threat actors, ransomware groups, IPs, and domains. Ask in plain English —
+            get a sourced, structured report.
+          </p>
         </div>
-        {mode === 'report' && (
-          <>
-            <select
-              value={template}
-              onChange={(e) => setTemplate(e.target.value)}
-              aria-label="Report template"
-              className="text-xs font-mono px-2 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]"
+
+        {/* Mode + template + TLP */}
+        <div className="flex w-full flex-wrap items-center justify-center gap-2">
+          <div className="inline-flex overflow-hidden rounded-lg border border-gray-200 text-xs font-mono dark:border-gray-700">
+            <button
+              onClick={() => setMode('quick')}
+              aria-pressed={mode === 'quick'}
+              className={`px-3 py-1.5 transition-colors ${mode === 'quick' ? 'bg-brand-600 text-white' : 'bg-white text-gray-600 hover:bg-gray-50 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700'}`}
             >
-              <option value="auto">Auto template</option>
-              <option value="ransomware-group">Ransomware Group</option>
-              <option value="threat-actor">Threat Actor</option>
-              <option value="cve">CVE / Vulnerability</option>
-              <option value="ioc">IOC Dossier</option>
-            </select>
-            <select
-              value={tlp}
-              onChange={(e) => setTlp(e.target.value)}
-              aria-label="TLP classification"
-              className="text-xs font-mono px-2 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]"
+              Quick answer
+            </button>
+            <button
+              onClick={() => setMode('report')}
+              aria-pressed={mode === 'report'}
+              className={`px-3 py-1.5 transition-colors ${mode === 'report' ? 'bg-brand-600 text-white' : 'bg-white text-gray-600 hover:bg-gray-50 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700'}`}
             >
-              <option value="CLEAR">TLP:CLEAR</option>
-              <option value="GREEN">TLP:GREEN</option>
-              <option value="AMBER">TLP:AMBER</option>
-              <option value="RED">TLP:RED</option>
-            </select>
-          </>
+              Full report
+            </button>
+          </div>
+          {mode === 'report' && (
+            <>
+              <select
+                value={template}
+                onChange={(e) => setTemplate(e.target.value)}
+                aria-label="Report template"
+                className="rounded border border-gray-200 bg-white px-2 py-1.5 text-xs font-mono text-gray-700 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300"
+              >
+                <option value="auto">Auto template</option>
+                <option value="ransomware-group">Ransomware Group</option>
+                <option value="threat-actor">Threat Actor</option>
+                <option value="cve">CVE / Vulnerability</option>
+                <option value="ioc">IOC Dossier</option>
+              </select>
+              <select
+                value={tlp}
+                onChange={(e) => setTlp(e.target.value)}
+                aria-label="TLP classification"
+                className="rounded border border-gray-200 bg-white px-2 py-1.5 text-xs font-mono text-gray-700 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300"
+              >
+                <option value="CLEAR">TLP:CLEAR</option>
+                <option value="GREEN">TLP:GREEN</option>
+                <option value="AMBER">TLP:AMBER</option>
+                <option value="RED">TLP:RED</option>
+              </select>
+            </>
+          )}
+        </div>
+
+        {/* Search input */}
+        <div className="flex w-full flex-col gap-3">
+          <div className="relative">
+            <Search className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400" />
+            <input
+              ref={inputRef}
+              type="text"
+              aria-label="Investigation query"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              onKeyDown={(e) => e.key === 'Enter' && submit(query)}
+              placeholder={
+                mode === 'report'
+                  ? 'Subject for a full report (group, actor, CVE, or IOC)…'
+                  : 'Ask about any CVE, threat actor, ransomware group, IP, or domain…'
+              }
+              className="h-14 w-full rounded-xl border border-gray-200 bg-white pl-12 pr-14 text-base text-gray-900 shadow-sm transition-colors placeholder:text-gray-400 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20 dark:border-gray-700 dark:bg-gray-800 dark:text-white dark:placeholder:text-gray-500 dark:focus:border-brand-400"
+              disabled={loading || !!progress}
+            />
+            <button
+              onClick={() => submit(query)}
+              aria-label={loading || progress ? 'Submitting query' : 'Submit query'}
+              disabled={loading || !!progress || !query.trim()}
+              className="absolute right-2 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-lg bg-brand-600 text-white transition-all hover:bg-brand-700 disabled:opacity-30 disabled:cursor-not-allowed"
+            >
+              {loading || progress ? <Loader2 size={16} className="animate-spin" /> : <Send size={16} />}
+            </button>
+          </div>
+          {error && (
+            <div
+              role="alert"
+              className="flex items-center justify-between gap-3 rounded-lg border border-rose-300 bg-rose-50/50 px-4 py-3 text-sm text-rose-700 dark:border-rose-800 dark:bg-rose-950/30 dark:text-rose-300"
+            >
+              <span className="font-mono">
+                <AlertTriangle size={14} className="mr-1 inline" /> {error}
+              </span>
+              <button
+                onClick={() => investigate(query)}
+                className="shrink-0 rounded border border-rose-400/60 px-3 py-1 font-mono text-xs text-rose-700 hover:bg-rose-500/10 dark:text-rose-300"
+              >
+                retry
+              </button>
+            </div>
+          )}
+        </div>
+
+        {/* Quick examples (radar-style chips) */}
+        {!hasResults && (
+          <div className="flex w-full flex-col items-center gap-3">
+            <p className="text-xs font-medium uppercase tracking-wider text-gray-400 flex items-center gap-2">
+              <Lightbulb size={12} /> Try an example
+            </p>
+            <div className="flex flex-wrap justify-center gap-2">
+              {QUERY_EXAMPLES.map((ex) => (
+                <button
+                  key={ex.label}
+                  onClick={() => {
+                    setQuery(ex.query);
+                    investigate(ex.query);
+                  }}
+                  className="rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-xs font-medium text-gray-700 transition-colors hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700"
+                >
+                  <span className="text-gray-400">{ex.type}:</span> <span className="font-mono">{ex.label}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Capability grid (radar-style) */}
+        {!hasResults && (
+          <div className="mt-4 grid w-full grid-cols-2 gap-4 sm:grid-cols-4">
+            {CAPABILITY_GRID.map(({ icon: Icon, label, desc }) => (
+              <div
+                key={label}
+                className="flex flex-col items-center gap-2 rounded-lg border border-gray-100 bg-gray-50/50 p-4 text-center dark:border-gray-800 dark:bg-gray-900/50"
+              >
+                <Icon className="h-5 w-5 text-brand-500" />
+                <span className="text-sm font-medium">{label}</span>
+                <span className="text-xs text-gray-500 dark:text-gray-400">{desc}</span>
+              </div>
+            ))}
+          </div>
         )}
       </div>
 
-      {/* Search input */}
-      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
-        <div className="relative">
-          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
-          <input
-            ref={inputRef}
-            type="text"
-            aria-label="Investigation query"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            onKeyDown={(e) => e.key === 'Enter' && submit(query)}
-            placeholder={
-              mode === 'report'
-                ? 'Subject for a full report (group, actor, CVE, or IOC)…'
-                : 'Ask about any CVE, threat actor, ransomware group, IP, or domain...'
-            }
-            className="w-full pl-9 pr-14 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
-            disabled={loading || !!progress}
-          />
-          <button
-            onClick={() => submit(query)}
-            aria-label={loading || progress ? 'Submitting query' : 'Submit query'}
-            disabled={loading || !!progress || !query.trim()}
-            className="absolute right-1 top-1/2 -translate-y-1/2 p-1.5 rounded bg-brand-600 dark:bg-brand-500 hover:bg-brand-700 dark:hover:bg-brand-400 disabled:opacity-30 disabled:cursor-not-allowed text-white transition-colors"
+      {/* ── Results (flow below the hero) ────────────────────────────────── */}
+      <div className="mx-auto mt-12 w-full max-w-4xl space-y-6">
+        {/* Report build progress */}
+        {progress && !report && (
+          <section
+            role="status"
+            aria-live="polite"
+            className="rounded-lg border border-gray-200 bg-white p-5 shadow-sm dark:border-gray-700 dark:bg-gray-800"
           >
-            {loading || progress ? <Loader2 size={14} className="animate-spin" /> : <Send size={14} />}
-          </button>
-        </div>
-      </section>
+            <div className="mb-2 flex items-center justify-between font-mono text-xs text-gray-500 dark:text-gray-400">
+              <span className="inline-flex items-center gap-2">
+                <Loader2 size={13} className="animate-spin text-brand-500" /> {progress.phase}
+              </span>
+              <span>{progress.pct}%</span>
+            </div>
+            <div className="h-1.5 overflow-hidden rounded bg-gray-200 dark:bg-gray-700">
+              <div className="h-full bg-brand-500 transition-all" style={{ width: `${progress.pct}%` }} />
+            </div>
+            <p className="mt-2 font-mono text-xs text-gray-500 dark:text-gray-400">{progress.detail}</p>
+          </section>
+        )}
 
-      {/* Report build progress */}
-      {progress && !report && (
-        <section
-          role="status"
-          aria-live="polite"
-          className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5 mb-6"
-        >
-          <div className="flex items-center justify-between text-xs font-mono text-slate-500 dark:text-slate-400 mb-2">
-            <span className="inline-flex items-center gap-2">
-              <Loader2 size={13} className="animate-spin text-brand-500" /> {progress.phase}
-            </span>
-            <span>{progress.pct}%</span>
+        {/* Rendered report */}
+        {report && <ReportView report={report} onExportPdf={() => void exportReportPdf(report)} />}
+
+        {/* Loading (quick mode) */}
+        {loading && !progress && (
+          <div className="py-16 text-center">
+            <Loader2 size={32} className="mx-auto mb-4 animate-spin text-brand-500" />
+            <p className="font-mono text-sm text-gray-500 dark:text-gray-400">Gathering intelligence…</p>
+            <p className="mt-1 font-mono text-xs text-gray-500 dark:text-gray-500">
+              Querying threat data sources and generating narrative
+            </p>
           </div>
-          <div className="h-1.5 rounded bg-slate-200 dark:bg-slate-800 overflow-hidden">
-            <div className="h-full bg-brand-500 transition-all" style={{ width: `${progress.pct}%` }} />
-          </div>
-          <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 font-mono">{progress.detail}</p>
-        </section>
-      )}
+        )}
 
-      {/* Rendered report */}
-      {report && (
-        <div className="mb-6">
-          <ReportView report={report} onExportPdf={() => void exportReportPdf(report)} />
-        </div>
-      )}
+        {/* Quick result */}
+        {result && !loading && !report && (
+          <div className="space-y-6">
+            {/* Header */}
+            <div className="rounded-lg border border-gray-200 bg-white p-5 shadow-sm dark:border-gray-700 dark:bg-gray-800">
+              <div className="mb-3 flex items-start justify-between gap-4">
+                <div className="flex flex-wrap items-center gap-3">
+                  <h2 className="text-lg font-bold">{result.query}</h2>
+                  {badge && (
+                    <span className={`rounded px-2 py-0.5 text-[10px] font-semibold uppercase ${badge.color}`}>
+                      {badge.label}
+                    </span>
+                  )}
+                </div>
+              </div>
+              <div className="flex flex-wrap items-center gap-x-4 gap-y-1 font-mono text-xs text-gray-400">
+                <span>model: {result.model_used}</span>
+                {result._meta && (
+                  <span>
+                    {result._meta.total_sources} sources · {result._meta.total_items} data points
+                  </span>
+                )}
+                {result.confidence && (
+                  <span
+                    className={`rounded px-1.5 py-0.5 ${
+                      result.confidence.score >= 70
+                        ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300'
+                        : result.confidence.score >= 40
+                          ? 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300'
+                          : 'bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-300'
+                    }`}
+                    title={result.confidence.reasoning}
+                  >
+                    confidence: {result.confidence.score}/100 ({result.confidence.level})
+                  </span>
+                )}
+                <span>{new Date(result.processed_at).toLocaleString()}</span>
+              </div>
 
-      {/* Quick examples */}
-      {!result && !loading && !error && (
-        <div className="mb-10">
-          <p className="text-xs text-slate-400 font-medium uppercase tracking-wider mb-3 flex items-center gap-2">
-            <Lightbulb size={12} /> Try an example
-          </p>
-          <div className="flex flex-wrap gap-2">
-            {QUERY_EXAMPLES.map((ex) => (
-              <button
-                key={ex.label}
-                onClick={() => {
-                  setQuery(ex.query);
-                  investigate(ex.query);
-                }}
-                className="px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200 dark:border-[rgb(var(--border-400))] transition-colors"
-              >
-                <span className="text-slate-400">{ex.type}:</span>{' '}
-                <span className="text-slate-700 dark:text-slate-200 font-mono">{ex.label}</span>
-              </button>
-            ))}
-          </div>
-        </div>
-      )}
+              {result.sources.length > 0 ? (
+                <div className="mt-3 border-t border-gray-100 pt-3 dark:border-gray-700">
+                  <div className="flex flex-wrap gap-1.5">
+                    {result.sources.map((s, i) => (
+                      <span
+                        key={s.name}
+                        className="inline-flex items-center gap-1 rounded border border-gray-200 bg-gray-50 px-2 py-0.5 font-mono text-[11px] text-gray-500 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400"
+                      >
+                        <span className="font-bold text-gray-400">{i + 1}.</span>
+                        {s.name}
+                        <span className="text-gray-400">({s.items})</span>
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                <div className="mt-3 border-t border-gray-100 pt-3 text-xs text-amber-600 dark:border-gray-700 dark:text-amber-400">
+                  No structured sources — report based on general knowledge.
+                </div>
+              )}
+            </div>
 
-      {/* Error */}
-      {error && (
-        <div
-          role="alert"
-          className="rounded-lg border border-rose-300 dark:border-rose-800 bg-rose-50/50 dark:bg-rose-950/30 p-4 flex items-start justify-between gap-3 mb-6"
-        >
-          <div className="text-sm font-mono text-rose-700 dark:text-rose-300">
-            <AlertTriangle size={14} className="inline mr-1" /> {error}
-          </div>
-          <button
-            onClick={() => investigate(query)}
-            className="shrink-0 text-xs font-mono px-3 py-1.5 rounded border border-rose-400/60 text-rose-700 dark:text-rose-300 hover:bg-rose-500/10"
-          >
-            retry
-          </button>
-        </div>
-      )}
-
-      {/* Loading */}
-      {loading && (
-        <div className="text-center py-16">
-          <Loader2 size={32} className="mx-auto mb-4 text-brand-500 animate-spin" />
-          <p className="text-sm text-muted font-mono">Gathering intelligence...</p>
-          <p className="text-xs text-slate-500 dark:text-slate-500 mt-1 font-mono">
-            Querying threat data sources and generating narrative
-          </p>
-        </div>
-      )}
-
-      {/* Results */}
-      {result && !loading && (
-        <div className="space-y-6">
-          {/* Header */}
-          <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5">
-            <div className="flex items-start justify-between gap-4 mb-3">
-              <div className="flex items-center gap-3 flex-wrap">
-                <h2 className="text-lg font-bold">{result.query}</h2>
-                {badge && (
-                  <span className={`px-2 py-0.5 rounded text-mini font-semibold uppercase ${badge.color}`}>
-                    {badge.label}
+            {/* Narrative */}
+            <div className="overflow-hidden rounded-lg border border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800">
+              <div className="flex items-center gap-2 border-b border-gray-100 bg-gray-50/80 px-6 py-3 dark:border-gray-700 dark:bg-gray-800/40">
+                <FileText size={15} className="text-brand-600 dark:text-brand-400" />
+                <span className="text-sm font-semibold text-gray-700 dark:text-gray-300">Investigation Report</span>
+                {result._meta && (
+                  <span className="ml-auto font-mono text-[11px] text-gray-400">
+                    {result._meta.total_items} data points across {result._meta.total_sources} sources
                   </span>
                 )}
               </div>
-            </div>
-            <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-mini font-mono text-slate-400">
-              <span>model: {result.model_used}</span>
-              {result._meta && (
-                <span>
-                  {result._meta.total_sources} sources · {result._meta.total_items} data points
-                </span>
-              )}
-              {result.confidence && (
-                <span
-                  className={`px-1.5 py-0.5 rounded text-micro ${
-                    result.confidence.score >= 70
-                      ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300'
-                      : result.confidence.score >= 40
-                        ? 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300'
-                        : 'bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-300'
-                  }`}
-                  title={result.confidence.reasoning}
-                >
-                  confidence: {result.confidence.score}/100 ({result.confidence.level})
-                </span>
-              )}
-              <span>{new Date(result.processed_at).toLocaleString()}</span>
-            </div>
-
-            {/* Sources summary */}
-            {result.sources.length > 0 && (
-              <div className="mt-3 pt-3 border-t border-slate-100 dark:border-[rgb(var(--border-400))]">
-                <div className="flex flex-wrap gap-1.5">
-                  {result.sources.map((s, i) => (
-                    <span
-                      key={s.name}
-                      className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-slate-50 dark:bg-slate-800 text-micro font-mono text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-[rgb(var(--border-400))]"
-                    >
-                      <span className="text-micro text-slate-400 font-bold">{i + 1}.</span>
-                      {s.name}
-                      <span className="text-slate-400">({s.items})</span>
-                    </span>
-                  ))}
-                </div>
+              <div
+                className="px-6 py-5 text-gray-800 dark:text-gray-200 [&_h2]:text-lg [&_h2]:font-bold [&_h2]:mt-6 [&_h2]:mb-2 [&_h2]:pb-1 [&_h2]:border-b [&_h2]:border-gray-100 [&_h2]:dark:border-gray-700 [&_h3]:text-base [&_h3]:font-semibold [&_h3]:mt-4 [&_h3]:mb-1.5 [&_p]:text-sm [&_p]:leading-relaxed [&_p]:mb-2 [&_p]:text-gray-700 [&_p]:dark:text-gray-300 [&_ul]:space-y-0.5 [&_ul]:my-1.5 [&_ol]:space-y-1 [&_ol]:my-1.5 [&_li]:ml-4 [&_li]:pl-1 [&_li]:text-sm [&_li]:text-gray-700 [&_li]:dark:text-gray-300 [&_code]:px-1 [&_code]:py-0.5 [&_code]:rounded [&_code]:bg-gray-100 [&_code]:dark:bg-gray-800 [&_code]:text-xs [&_code]:font-mono [&_code]:text-brand-700 [&_code]:dark:text-brand-300"
+                dangerouslySetInnerHTML={{ __html: narrativeHtml }}
+              />
+              <div className="border-t border-gray-100 px-6 pb-4 pt-2 dark:border-gray-700">
+                <FeedbackWidget targetType="copilot" targetId={query} compact />
               </div>
-            )}
-            {result.sources.length === 0 && (
-              <div className="mt-3 pt-3 border-t border-slate-100 dark:border-[rgb(var(--border-400))] text-xs text-amber-600 dark:text-amber-400">
-                No structured sources — report based on general knowledge.
+            </div>
+
+            {/* Source details (collapsed) */}
+            <details className="group">
+              <summary className="flex cursor-pointer items-center gap-2 text-sm font-medium text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300">
+                <ExternalLink size={14} />
+                Raw source data ({result.sources.length} sources)
+              </summary>
+              <div className="mt-3 space-y-3">
+                {result.sources.map((s) => (
+                  <details
+                    key={s.name}
+                    className="rounded-lg border border-gray-200 bg-gray-50 p-3 dark:border-gray-700 dark:bg-gray-800/30"
+                  >
+                    <summary className="cursor-pointer text-xs font-medium">
+                      {s.name} ({s.items} items)
+                    </summary>
+                    <pre className="mt-2 max-h-48 overflow-auto overflow-x-auto rounded bg-gray-100 p-2 font-mono text-[11px] dark:bg-gray-800">
+                      {JSON.stringify(s.data, null, 2)}
+                    </pre>
+                  </details>
+                ))}
               </div>
-            )}
-          </div>
+            </details>
 
-          {/* Narrative */}
-          <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] overflow-hidden">
-            <div className="flex items-center gap-2 px-6 py-3 border-b border-slate-100 dark:border-[rgb(var(--border-400))] bg-slate-50/80 dark:bg-slate-800/40">
-              <FileText size={15} className="text-brand-600 dark:text-brand-400" />
-              <span className="text-sm font-semibold text-slate-700 dark:text-slate-300">Investigation Report</span>
-              {result._meta && (
-                <span className="ml-auto text-mini text-slate-400 font-mono">
-                  {result._meta.total_items} data points across {result._meta.total_sources} sources
-                </span>
-              )}
-            </div>
-            <div
-              className="px-6 py-5 text-slate-800 dark:text-slate-200 [&_h2]:text-lg [&_h2]:font-bold [&_h2]:mt-6 [&_h2]:mb-2 [&_h2]:pb-1 [&_h2]:border-b [&_h2]:border-slate-100 [&_h2]:dark:border-[rgb(var(--border-400))] [&_h3]:text-base [&_h3]:font-semibold [&_h3]:mt-4 [&_h3]:mb-1.5 [&_p]:text-sm [&_p]:leading-relaxed [&_p]:mb-2 [&_p]:text-slate-700 [&_p]:dark:text-slate-300 [&_ul]:space-y-0.5 [&_ul]:my-1.5 [&_ol]:space-y-1 [&_ol]:my-1.5 [&_li]:ml-4 [&_li]:pl-1 [&_li]:text-sm [&_li]:text-slate-700 [&_li]:dark:text-slate-300 [&_code]:px-1 [&_code]:py-0.5 [&_code]:rounded [&_code]:bg-slate-100 [&_code]:dark:bg-slate-800 [&_code]:text-xs [&_code]:font-mono [&_code]:text-brand-700 [&_code]:dark:text-brand-300"
-              dangerouslySetInnerHTML={{ __html: narrativeHtml }}
-            />
-            {/* Feedback */}
-            <div className="px-6 pb-4 pt-2 border-t border-slate-100 dark:border-[rgb(var(--border-400))]">
-              <FeedbackWidget targetType="copilot" targetId={query} compact />
+            {/* Actions */}
+            <div className="flex flex-wrap gap-2">
+              <button
+                onClick={async () => {
+                  if (!result) return;
+                  setSaving(true);
+                  try {
+                    const res = await fetch('/api/v1/threat-intel/assessments', {
+                      method: 'POST',
+                      headers: { ...adminAuthHeaders(), 'content-type': 'application/json' },
+                      body: JSON.stringify({
+                        title: `Copilot: ${result.query}`,
+                        type:
+                          result.query_type === 'cve'
+                            ? 'cve'
+                            : result.query_type === 'actor' || result.query_type === 'ransomware'
+                              ? 'actor'
+                              : 'general',
+                        topic: result.query,
+                        body: result.narrative,
+                        sources: result.sources.map((s) => s.name),
+                        confidence_score: result.confidence?.score ?? 0,
+                        confidence_level: result.confidence?.level ?? 'unassessed',
+                      }),
+                    });
+                    if (!res.ok) throw new Error('Failed to save');
+                    setSaved(true);
+                  } catch (e) {
+                    alert(e instanceof Error ? e.message : 'Failed to save assessment');
+                  } finally {
+                    setSaving(false);
+                  }
+                }}
+                disabled={saving || saved}
+                className="inline-flex items-center gap-1.5 rounded border border-gray-200 px-3 py-2 font-mono text-xs transition-colors hover:border-brand-500/40 disabled:opacity-50 dark:border-gray-700"
+              >
+                <Save size={12} /> {saved ? 'Saved' : saving ? 'Saving…' : 'Save as Assessment'}
+              </button>
+              <button
+                onClick={() => {
+                  const blob = new Blob([result.narrative], { type: 'text/markdown' });
+                  const url = URL.createObjectURL(blob);
+                  const a = document.createElement('a');
+                  a.href = url;
+                  a.download = `${result.query.replace(/[^a-zA-Z0-9]/g, '_')}.md`;
+                  a.click();
+                  URL.revokeObjectURL(url);
+                }}
+                className="inline-flex items-center gap-1.5 rounded border border-gray-200 px-3 py-2 font-mono text-xs transition-colors hover:border-brand-500/40 dark:border-gray-700"
+              >
+                <FileText size={12} /> download .md
+              </button>
+              <button
+                onClick={() => void investigate(query)}
+                className="inline-flex items-center gap-1.5 rounded border border-gray-200 px-3 py-2 font-mono text-xs transition-colors hover:border-brand-500/40 dark:border-gray-700"
+              >
+                <RefreshCw size={12} /> re-investigate
+              </button>
             </div>
           </div>
-
-          {/* Sources detail */}
-          <details className="group">
-            <summary className="text-sm font-medium text-slate-500 dark:text-slate-400 cursor-pointer hover:text-slate-700 dark:hover:text-slate-300 flex items-center gap-2">
-              <ExternalLink size={14} />
-              Raw source data ({result.sources.length} sources)
-            </summary>
-            <div className="mt-3 space-y-3">
-              {result.sources.map((s) => (
-                <details
-                  key={s.name}
-                  className="p-3 rounded-lg bg-slate-50 dark:bg-slate-800/30 border border-slate-200 dark:border-[rgb(var(--border-400))]"
-                >
-                  <summary className="text-xs font-medium cursor-pointer">
-                    {s.name} ({s.items} items)
-                  </summary>
-                  <pre className="mt-2 p-2 rounded bg-slate-100 dark:bg-[rgb(var(--surface-200))] text-micro font-mono overflow-x-auto max-h-48 overflow-y-auto">
-                    {JSON.stringify(s.data, null, 2)}
-                  </pre>
-                </details>
-              ))}
-            </div>
-          </details>
-
-          {/* Actions */}
-          <div className="flex gap-2">
-            <button
-              onClick={async () => {
-                if (!result) return;
-                setSaving(true);
-                try {
-                  const res = await fetch('/api/v1/threat-intel/assessments', {
-                    method: 'POST',
-                    headers: { ...adminAuthHeaders(), 'content-type': 'application/json' },
-                    body: JSON.stringify({
-                      title: `Copilot: ${result.query}`,
-                      type:
-                        result.query_type === 'cve'
-                          ? 'cve'
-                          : result.query_type === 'actor' || result.query_type === 'ransomware'
-                            ? 'actor'
-                            : 'general',
-                      topic: result.query,
-                      body: result.narrative,
-                      sources: result.sources.map((s) => s.name),
-                      confidence_score: result.confidence?.score ?? 0,
-                      confidence_level: result.confidence?.level ?? 'unassessed',
-                    }),
-                  });
-                  if (!res.ok) throw new Error('Failed to save');
-                  setSaved(true);
-                } catch (e) {
-                  alert(e instanceof Error ? e.message : 'Failed to save assessment');
-                } finally {
-                  setSaving(false);
-                }
-              }}
-              disabled={saving || saved}
-              className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 transition-colors disabled:opacity-50"
-            >
-              <Save size={12} /> {saved ? 'Saved' : saving ? 'Saving…' : 'Save as Assessment'}
-            </button>
-            <button
-              onClick={() => {
-                const blob = new Blob([result.narrative], { type: 'text/markdown' });
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = `${result.query.replace(/[^a-zA-Z0-9]/g, '_')}.md`;
-                a.click();
-                URL.revokeObjectURL(url);
-              }}
-              className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 transition-colors"
-            >
-              <FileText size={12} /> download .md
-            </button>
-            <button
-              onClick={() => void investigate(query)}
-              className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 transition-colors"
-            >
-              <RefreshCw size={12} /> re-investigate
-            </button>
-          </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 }
