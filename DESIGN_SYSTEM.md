@@ -186,11 +186,89 @@ All cards using `hover:shadow-*` should pick **one** option:
 
 **Standardize on `hover:shadow-e2`** — don't mix.
 
-## Dark Mode Guidelines
+## Dark Mode Guidelines (Geist-consolidated, 2026-06-19)
 
-### Background Colors
+**Three surfaces, one source of truth.** The previous 7+ hex values
+(`#12121a`, `#0e0e15`, `#0a0a0f`, `#1e2030`, `#15151f`, `#0f0f16`,
+`#0c1222`) made card-on-card-on-input read as horizontal rows of
+varying gray. Now there is exactly one fill per intent, applied to
+every Tailwind `bg-*` utility via the same CSS override. Use the
+`surface-*` classes and the `--input-200` var instead of hardcoding
+hexes in component classes.
 
-- **Opaque surfaces** (main content): `dark:bg-slate-900`
+| Intent                    | CSS var         | Hex       | Replaces                               |
+| ------------------------- | --------------- | --------- | -------------------------------------- |
+| Page background           | `--surface-100` | `#0a0a0f` | `bg-[#0c1222]` per-layout fill         |
+| Card / resting surface    | `--surface-200` | `#14141c` | `#12121a`, `#0e0e15`, `#0f0f16`        |
+| Raised / hover / popover  | `--surface-300` | `#1c1c26` | `#15151f`, `#1e2030` (fill)            |
+| Input / inset well        | `--input-200`   | `#0e0e14` | `bg-slate-50` mapping                  |
+| Hairline border (default) | `--border-400`  | 8% white  | `border-[#1e2030]`, `border-slate-800` |
+| Hairline border (hover)   | `--border-500`  | 14% white | `border-slate-700`                     |
+| Hairline border (active)  | `--border-600`  | 22% white | `border-slate-600`                     |
+
+### Page background
+
+The page bg lives on `html.dark` (the body). No per-page `dark:bg-*`
+override on the Layout or hero — the body already paints
+`#0a0a0f`. Children render on `surface-200` (cards), `input-200`
+(inputs), or transparent (the page shows through).
+
+### Hero / page anchor
+
+The 224px `blur-3xl` brand-color wash blob was an AI-decorative tell.
+Replaced everywhere with a 1px tone-tinted hairline at the
+top-left corner of the hero card:
+
+```tsx
+<div className="surface-card relative p-4 sm:p-6 lg:p-8">
+  <div aria-hidden className="pointer-events-none absolute top-0 left-0 h-px w-12 bg-brand-500/60" />
+  {/* ... */}
+</div>
+```
+
+### Card primitives
+
+| Class             | Use                          | Dark bg              | Dark border    |
+| ----------------- | ---------------------------- | -------------------- | -------------- |
+| `.surface-card`   | Default resting card         | surface-200          | border-400 8%  |
+| `.surface-raised` | Emphasized / interactive     | surface-200          | border-500 14% |
+| `.surface-glass`  | Hero / overlay (translucent) | surface-200/50       | border-400 8%  |
+| `.chrome-glass`   | Sticky header / sidebar      | surface-100/85       | border-400 8%  |
+| `.card-hover`     | Pairs with the above         | surface-300 on hover | border-500 14% |
+
+### Per-card color (DFIR / threatintel)
+
+**No more rainbow tinted category tiles.** Each card uses a neutral
+`surface-card` surface and gets its tone from a single class fragment
+on the icon and a 1px tone-tinted hover border:
+
+```tsx
+tone: 'text-rose-600 dark:text-rose-400 hover:border-rose-500/40';
+```
+
+This replaces the `bg-rose-50 dark:bg-rose-900/20 border-rose-200
+dark:border-rose-800` / `bg-emerald-50 dark:bg-emerald-900/20` /
+`bg-amber-50 dark:bg-amber-900/20` ... pattern across all 16
+category cards (8 per landing page) without losing category
+distinction. The icon is the only thing that reads as "tinted";
+the surface stays neutral.
+
+### Tailwind utility overrides (dark)
+
+Every `bg-white`, `bg-slate-900`, `bg-slate-950`, `bg-gray-900`,
+`bg-gray-800` in dark mode now resolves to `surface-200`. Every
+`bg-slate-50` resolves to `input-200`. This is the consolidation
+that fixed the "rowy" look: a card on a card on an input no longer
+paints three different grays — they all read as one card on one
+input on the page.
+
+### Background Colors (legacy reference)
+
+The legacy override table is preserved below for any code that still
+uses `bg-slate-50` etc. The intent is to migrate everything to
+`surface-card` / `surface-raised` / `input-200`.
+
+- **Opaque surfaces** (main content): `dark:bg-slate-900` (now `surface-200`)
 - **Translucent overlays** (floating, secondary): `dark:bg-slate-900/40` or `/60`
 - **Embedded panels** (cards within cards): `dark:bg-slate-900/60`
 - **Deep/special contexts** (rare): `dark:bg-slate-950`

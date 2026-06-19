@@ -75,9 +75,10 @@
     /* Geist surface ramp (light) — pure white page, #fafafa for
        subtle separation, gray-alpha borders for translucency.
        Bound to CSS vars so JS themes can override them in one place. */
-    --surface-100: 255 255 255; /* primary page + card */
-    --surface-200: 250 250 250; /* subtle separation (geist background-200) */
-    --surface-300: 245 245 245; /* active/pressed fill */
+    --surface-100: 255 255 255; /* page */
+    --surface-200: 250 250 250; /* card (one step lift) */
+    --surface-300: 245 245 245; /* raised / active / hover */
+    --input-200: 250 250 250; /* input/inset — same as card */
     --border-400: 0 0 0 / 0.15; /* default border (gray-alpha-400) */
     --border-500: 0 0 0 / 0.2; /* hover border */
     --border-600: 0 0 0 / 0.3; /* active border */
@@ -86,13 +87,23 @@
   html.dark {
     --brand: 99 130 255;
     --muted: 160 170 190;
-    --surface-border: 35 40 55;
-    --surface-bg: 15 15 22;
-    --glass-bg: 15 15 22;
-    --glass-border: 35 40 55;
-    --surface-100: 10 10 15; /* primary dark page (geist #000) */
-    --surface-200: 18 18 24; /* card surface (gray-100) */
-    --surface-300: 28 28 36; /* hover/active fill */
+    --surface-border: rgb(var(--border-400));
+    --surface-bg: rgb(var(--surface-100));
+    --glass-bg: rgb(var(--surface-200));
+    --glass-border: rgb(var(--border-400));
+    /* ── Geist-consolidated dark surfaces (2026-06-19) ──────────────────────────
+       Three surfaces, three intents — nothing else. The previous
+       system leaked 7+ hex values (#12121a, #0e0e15, #0a0a0f, #1e2030,
+       #15151f, #0f0f16, #0c1222) across ~1,300 components and made
+       card-on-card-on-input read as horizontal "rows" of varying gray.
+       Vercel admin / Geist uses exactly three: page, card, raised.
+         page  = #0a0a0f  -- bg, never on a card
+         card  = #14141c  -- the standard resting card
+         raised= #1c1c26  -- hover, active, popover, modal */
+    --surface-100: 10 10 15;
+    --surface-200: 20 20 28;
+    --surface-300: 28 28 38;
+    --input-200: 14 14 20; /* input/inset — one step below card */
     --border-400: 255 255 255 / 0.08;
     --border-500: 255 255 255 / 0.14;
     --border-600: 255 255 255 / 0.22;
@@ -169,84 +180,54 @@
      Borders: #1e2030 (barely visible separation)
      Text: #f0f0f5 (near-white, not gray) */
 
-  /* Backgrounds — cards must be lighter than page */
-  .dark .bg-white {
-    background-color: #12121a !important;
-  }
-  .dark .bg-white\/60 {
-    background-color: rgba(18, 18, 26, 0.6) !important;
-  }
-  .dark .bg-white\/65 {
-    background-color: rgba(18, 18, 26, 0.65) !important;
-  }
-  .dark .bg-white\/70 {
-    background-color: rgba(18, 18, 26, 0.7) !important;
-  }
-  .dark .bg-white\/80 {
-    background-color: rgba(18, 18, 26, 0.8) !important;
-  }
-  .dark .bg-white\/95 {
-    background-color: rgba(18, 18, 26, 0.95) !important;
+  /* ── Consolidated card surface — every Tailwind "white" / "slate-50" /
+     "slate-900" / "slate-950" / "gray-900" / "gray-800" override in dark
+     mode resolves to the SAME three Geist surfaces. The old rules mapped
+     each utility to a slightly different hex (#12121a vs #15151f vs
+     #0e0e15), which is what made card-on-card-on-input read as horizontal
+     "rows" of varying gray. Now:
+        .bg-white            → surface-200 (the standard card)
+        .bg-slate-50         → input-200   (inputs / inset wells)
+        .bg-slate-900,950    → surface-200 (alias, kept for old code)
+        .bg-gray-900,800     → surface-200 (alias, kept for old code)
+        every /N variant     → same surface at the requested opacity */
+  .dark .bg-white,
+  .dark .bg-slate-900,
+  .dark .bg-slate-950,
+  .dark .bg-gray-900,
+  .dark .bg-gray-800 {
+    background-color: rgb(var(--surface-200)) !important;
   }
   .dark .bg-slate-50 {
-    background-color: #15151f !important;
+    background-color: rgb(var(--input-200)) !important;
   }
-  .dark .bg-slate-50\/40 {
-    background-color: rgba(21, 21, 31, 0.4) !important;
-  }
-  .dark .bg-slate-50\/60 {
-    background-color: rgba(21, 21, 31, 0.6) !important;
-  }
-  .dark .bg-slate-50\/70 {
-    background-color: rgba(21, 21, 31, 0.7) !important;
-  }
-  .dark .bg-slate-900 {
-    background-color: #12121a !important;
-  }
-  .dark .bg-slate-900\/40 {
-    background-color: rgba(18, 18, 26, 0.4) !important;
-  }
-  .dark .bg-slate-900\/50 {
-    background-color: rgba(18, 18, 26, 0.5) !important;
-  }
-  .dark .bg-slate-900\/60 {
-    background-color: rgba(18, 18, 26, 0.6) !important;
-  }
-  .dark .bg-slate-900\/80 {
-    background-color: rgba(18, 18, 26, 0.8) !important;
-  }
-  .dark .bg-slate-900\/95 {
-    background-color: rgba(18, 18, 26, 0.95) !important;
-  }
-  .dark .bg-slate-950 {
-    background-color: #12121a !important;
-  }
-  .dark .bg-slate-950\/40 {
-    background-color: rgba(18, 18, 26, 0.4) !important;
-  }
-  .dark .bg-slate-950\/80 {
-    background-color: rgba(18, 18, 26, 0.8) !important;
-  }
-  .dark .bg-slate-950\/95 {
-    background-color: rgba(18, 18, 26, 0.95) !important;
-  }
-  .dark .bg-gray-900 {
-    background-color: #12121a !important;
-  }
-  .dark .bg-gray-900\/60 {
-    background-color: rgba(18, 18, 26, 0.6) !important;
-  }
-  .dark .bg-gray-900\/80 {
-    background-color: rgba(18, 18, 26, 0.8) !important;
-  }
-  .dark .bg-gray-900\/95 {
-    background-color: rgba(18, 18, 26, 0.95) !important;
-  }
-  .dark .bg-gray-800 {
-    background-color: #12121a !important;
-  }
+
+  /* Translucent card surfaces — same surface-200 at the requested alpha.
+     The previous rules used a literal rgba(18,18,26,N) which is exactly
+     surface-200 / 255, so behaviour is identical. */
+  .dark .bg-white\/60,
+  .dark .bg-white\/65,
+  .dark .bg-white\/70,
+  .dark .bg-white\/80,
+  .dark .bg-white\/95,
+  .dark .bg-slate-900\/40,
+  .dark .bg-slate-900\/50,
+  .dark .bg-slate-900\/60,
+  .dark .bg-slate-900\/80,
+  .dark .bg-slate-900\/95,
+  .dark .bg-slate-950\/40,
+  .dark .bg-slate-950\/80,
+  .dark .bg-slate-950\/95,
+  .dark .bg-gray-900\/60,
+  .dark .bg-gray-900\/80,
+  .dark .bg-gray-900\/95,
   .dark .bg-gray-800\/60 {
-    background-color: rgba(18, 18, 26, 0.6) !important;
+    background-color: rgb(var(--surface-200) / var(--tw-bg-opacity, 1)) !important;
+  }
+  .dark .bg-slate-50\/40,
+  .dark .bg-slate-50\/60,
+  .dark .bg-slate-50\/70 {
+    background-color: rgb(var(--input-200) / var(--tw-bg-opacity, 1)) !important;
   }
 
   /* Text — high contrast, near-white */
@@ -334,36 +315,40 @@
        surface-glass  → frosted card for hero/overlay contexts
        chrome-glass    → frosted sticky chrome (header / sidebar / bars)
        card-hover     → lift-on-hover affordance (pairs with the above) */
+  /* ── Geist-aligned card primitives (2026-06-19) ──────────────────────
+     Three surfaces, one recipe per intent. Cards earn their lift
+     from a 1px border + shadow-e1, NOT from a tinted fill. Dark mode
+     leans entirely on borders + translucency (Geist dark pattern).
+       surface-card   → resting card           (surface-200 + e1)
+       surface-raised → emphasized card         (surface-200 + e2)
+       surface-glass  → hero / overlay context  (surface-200/50 + blur)
+       chrome-glass    → sticky header/sidebar  (surface-100/85 + blur) */
   .surface-card {
-    @apply rounded-xl border border-slate-200 bg-white shadow-e1 transition duration-200;
-  }
-  .surface-card.dark\:border-slate-800,
-  .surface-card {
-    border-color: rgb(var(--surface-border) / <alpha-value>);
+    @apply rounded-xl border bg-white shadow-e1 transition duration-200;
+    border-color: rgb(var(--surface-border) / 0.9);
   }
   .dark .surface-card {
-    border-color: rgba(30, 32, 48, 0.6);
-    background-color: rgba(18, 18, 26, 0.8);
-    /* Geist dark surfaces rely on borders, not inset highlights.
-       Drop the inset gloss — it read as AI-decorative. */
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+    border-color: rgb(var(--border-400));
+    background-color: rgb(var(--surface-200));
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
   }
   .surface-raised {
-    @apply rounded-xl border border-slate-200 bg-white shadow-e2 transition duration-200;
-    border-color: rgb(var(--surface-border) / <alpha-value>);
+    @apply rounded-xl border bg-white shadow-e2 transition duration-200;
+    border-color: rgb(var(--surface-border));
   }
   .dark .surface-raised {
-    border-color: rgba(30, 32, 48, 0.7);
-    background-color: rgba(18, 18, 26, 0.9);
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+    border-color: rgb(var(--border-500));
+    background-color: rgb(var(--surface-200));
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   }
   .surface-glass {
-    @apply rounded-xl border bg-white/70 shadow-e1 backdrop-blur-md transition duration-200;
+    @apply rounded-xl border shadow-e1 backdrop-blur-md transition duration-200;
+    background-color: rgb(255 255 255 / 0.7);
     border-color: rgb(var(--surface-border) / 0.7);
   }
   .dark .surface-glass {
-    border-color: rgba(30, 32, 48, 0.4);
-    background-color: rgba(18, 18, 26, 0.5);
+    border-color: rgb(var(--border-400));
+    background-color: rgb(var(--surface-200) / 0.5);
   }
   .chrome-glass {
     @apply backdrop-blur-xl;
@@ -371,18 +356,19 @@
     background-color: rgb(255 255 255 / 0.8);
   }
   .dark .chrome-glass {
-    border-color: rgba(30, 32, 48, 0.5);
-    background-color: rgba(10, 10, 15, 0.85);
+    border-color: rgb(var(--border-400));
+    background-color: rgb(var(--surface-100) / 0.85);
   }
   .card-hover {
-    @apply hover:-translate-y-0.5 hover:shadow-e2;
+    @apply transition-[transform,border-color,box-shadow] duration-200;
   }
   .card-hover:hover {
-    border-color: rgb(var(--surface-border) / <alpha-value>);
+    @apply -translate-y-0.5 shadow-e2;
+    border-color: rgb(var(--surface-border));
   }
   .dark .card-hover:hover {
-    border-color: rgba(71, 85, 105, 0.6);
-    background-color: rgba(30, 41, 59, 0.75);
+    border-color: rgb(var(--border-500));
+    background-color: rgb(var(--surface-300));
   }
 
   /* ── Rose-tinted card hover for /threatintel pages ─────────────────
@@ -435,17 +421,12 @@
     background-size: 28px 28px;
   }
 
-  /* ── Hero glow for threat-intel surfaces ──────────────────────────
-     A radial-pink glow that sits behind the hero of a /threatintel
-     page, giving the rose palette more presence on dark backgrounds.
-     Pair with a positioned absolute layer; the utility is opt-in
-     per-page so a /dfir page never picks it up. */
-  .bg-rose-glow {
-    background-image: radial-gradient(at 50% 0%, rgba(244, 63, 94, 0.18) 0px, transparent 60%);
-  }
-  .dark .bg-rose-glow {
-    background-image: radial-gradient(at 50% 0%, rgba(244, 63, 94, 0.25) 0px, transparent 60%);
-  }
+  /* ── Hero glow utilities — REMOVED 2026-06-19 ──────────────────
+     The 60% radial-gradient blob behind the threat-intel hero was a
+     textbook AI design tell (large blurred color wash, no functional
+     purpose). Replaced with a 1px hairline + tone-tinted dot in
+     AppHero.tsx. The .bg-dot-grid utility below provides the same
+     "structured surface" feeling at a much lower contrast. */
 
   /* ── "Page-load" reveal (translate + fade) for catalog/grid tiles.
      Faster than .stagger (which caps at 400ms) so long grids don't
@@ -466,7 +447,9 @@
   }
 
   .dark .bg-dot-grid {
-    background-image: radial-gradient(rgba(71, 85, 105, 0.25) 1px, transparent 1px);
+    /* Geist-consistent: 6% white dots — never visible enough to read
+       as a "decorative AI pattern" but enough to give the page texture. */
+    background-image: radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px);
   }
 
   .shadow-glow {

@@ -28,6 +28,11 @@ import { ThreatIntelStructuredData } from '../../components/ToolStructuredData';
  * Threat-Intel home page — redesigned following SaaS UX patterns from
  * Recorded Future, Huntress, Shodan, and VirusTotal.
  *
+ * Visual language (2026-06-19): one card surface, no rainbow category
+ * tiles. Each category gets a tone-tinted icon and a 1px tone-tinted
+ * hover border on a neutral surface-card. Hero uses a 1px rose-tinted
+ * hairline accent instead of the old 224px blurred brand wash.
+ *
  * Structure:
  *   1. Bold hero — "What is this?" in one sentence + primary search
  *   2. Live intelligence pulse — Real-time proof the platform works
@@ -64,7 +69,7 @@ const CATEGORY_CARDS: CategoryCard[] = [
       'Research APT groups, criminal organizations, and individual threat actors. TTPs, aliases, and infrastructure.',
     icon: Users,
     href: '/threatintel/catalog?cat=actors',
-    tone: 'text-rose-600 dark:text-rose-400 bg-white dark:bg-[rgb(18,18,24)] border-slate-200 dark:border-white/10',
+    tone: 'text-rose-600 dark:text-rose-400 hover:border-rose-500/40',
     pages: 12,
   },
   {
@@ -73,7 +78,7 @@ const CATEGORY_CARDS: CategoryCard[] = [
     description: 'Track active and historical campaigns. Daily briefings, attribution, and cross-campaign correlation.',
     icon: Activity,
     href: '/threatintel/catalog?cat=campaigns',
-    tone: 'text-orange-600 dark:text-orange-400 bg-orange-50 dark:bg-orange-900/20 border-orange-200 dark:border-orange-800',
+    tone: 'text-orange-600 dark:text-orange-400 hover:border-orange-500/40',
     pages: 8,
   },
   {
@@ -82,7 +87,7 @@ const CATEGORY_CARDS: CategoryCard[] = [
     description: 'Monitor ransomware leak sites, dark web forums, breach disclosures, and criminal marketplaces.',
     icon: Flame,
     href: '/threatintel/catalog?cat=darkweb',
-    tone: 'text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800',
+    tone: 'text-red-600 dark:text-red-400 hover:border-red-500/40',
     pages: 12,
     highlight: 'live',
   },
@@ -92,7 +97,7 @@ const CATEGORY_CARDS: CategoryCard[] = [
     description: 'Live indicator feeds, enrichment, cross-correlation, and entity resolution across 12+ sources.',
     icon: Shield,
     href: '/threatintel/catalog?cat=iocs',
-    tone: 'text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/20 border-emerald-200 dark:border-emerald-800',
+    tone: 'text-emerald-600 dark:text-emerald-400 hover:border-emerald-500/40',
     pages: 10,
     highlight: 'live',
   },
@@ -103,7 +108,7 @@ const CATEGORY_CARDS: CategoryCard[] = [
       'Browse CVEs by severity, exploit status, and vendor advisories. Kubernetes and cloud-specific CVE tracking.',
     icon: AlertTriangle,
     href: '/threatintel/catalog?cat=cves',
-    tone: 'text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-900/20 border-amber-200 dark:border-amber-800',
+    tone: 'text-amber-600 dark:text-amber-400 hover:border-amber-500/40',
     pages: 6,
   },
   {
@@ -113,7 +118,7 @@ const CATEGORY_CARDS: CategoryCard[] = [
       'Streaming intelligence from Telegram, X/Twitter, Reddit, and crypto scam feeds. Real-time social monitoring.',
     icon: Radio,
     href: '/threatintel/catalog?cat=social',
-    tone: 'text-violet-600 dark:text-violet-400 bg-violet-50 dark:bg-violet-900/20 border-violet-200 dark:border-violet-800',
+    tone: 'text-violet-600 dark:text-violet-400 hover:border-violet-500/40',
     pages: 11,
     highlight: 'live',
   },
@@ -123,7 +128,7 @@ const CATEGORY_CARDS: CategoryCard[] = [
     description: 'Malware families, IOCs, sample metadata, supply chain packages, and sandbox analysis.',
     icon: Bug,
     href: '/threatintel/catalog?cat=malware',
-    tone: 'text-pink-600 dark:text-pink-400 bg-pink-50 dark:bg-pink-900/20 border-pink-200 dark:border-pink-800',
+    tone: 'text-pink-600 dark:text-pink-400 hover:border-pink-500/40',
     pages: 6,
   },
   {
@@ -133,7 +138,7 @@ const CATEGORY_CARDS: CategoryCard[] = [
       'Manage, quality-check, and schedule intelligence feeds. Source reliability scoring and health monitoring.',
     icon: Globe,
     href: '/threatintel/catalog?cat=feeds',
-    tone: 'text-sky-600 dark:text-sky-400 bg-sky-50 dark:bg-sky-900/20 border-sky-200 dark:border-sky-800',
+    tone: 'text-sky-600 dark:text-sky-400 hover:border-sky-500/40',
     pages: 9,
   },
 ];
@@ -183,12 +188,12 @@ export default function ThreatIntelHome(): JSX.Element {
       <LatestBriefingCard />
 
       {/* ── Hero — bold value prop + primary search ───────────── */}
-      <section className="relative overflow-hidden rounded-2xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] p-6 sm:p-8 lg:p-10">
-        <div
-          aria-hidden
-          className="pointer-events-none absolute -top-24 -right-16 h-56 w-56 rounded-full bg-brand-500/10 dark:bg-brand-400/10 blur-3xl"
-        />
-        <div className="relative">
+      {/* surface-card + tone-tinted 1px hairline replaces the old
+          224px blurred brand wash. Same hierarchy, none of the
+          AI-decorative feel. */}
+      <section className="surface-card relative p-6 sm:p-8 lg:p-10">
+        <div aria-hidden className="pointer-events-none absolute top-0 left-0 h-px w-12 bg-rose-500/60" />
+        <div>
           <div className="text-mini font-mono uppercase tracking-[0.18em] text-rose-600 dark:text-rose-400 mb-3 inline-flex items-center gap-2">
             Free · No login · Live data
           </div>
@@ -215,7 +220,7 @@ export default function ThreatIntelHome(): JSX.Element {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Search actors, CVEs, campaigns, feeds, tools..."
-              className="w-full rounded-xl border border-slate-200 bg-slate-50 py-3 pl-11 pr-24 font-mono text-sm text-slate-900 placeholder:text-slate-400 focus:border-rose-500/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500/20 dark:border-[#1e2030] dark:bg-[#0e0e15] dark:text-slate-100 dark:placeholder:text-slate-500"
+              className="w-full rounded-xl border border-slate-200 bg-slate-50 py-3 pl-11 pr-24 font-mono text-sm text-slate-900 placeholder:text-slate-400 focus:border-rose-500/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500/20 dark:border-[rgb(var(--border-400))] dark:bg-slate-50 dark:text-slate-100 dark:placeholder:text-slate-500"
               aria-label="Search threat intelligence"
             />
             {query ? (
@@ -255,7 +260,7 @@ export default function ThreatIntelHome(): JSX.Element {
               <Link
                 key={link.href}
                 to={link.href}
-                className="inline-flex items-center gap-1 rounded-full border border-slate-200 bg-white px-2.5 py-1 text-xs font-medium text-slate-600 hover:border-rose-300 hover:text-rose-600 dark:border-[#1e2030] dark:bg-[#12121a] dark:text-slate-300 dark:hover:border-rose-600 dark:hover:text-rose-400 transition-colors"
+                className="inline-flex items-center gap-1 surface-card rounded-full px-2.5 py-1 text-xs font-medium text-slate-600 hover:border-rose-300 hover:text-rose-600 dark:text-slate-300 dark:hover:border-rose-600 dark:hover:text-rose-400"
               >
                 {link.label}
               </Link>
@@ -292,10 +297,7 @@ export default function ThreatIntelHome(): JSX.Element {
                 const Icon = t.icon ?? category.icon;
                 return (
                   <li key={t.path}>
-                    <Link
-                      to={t.path}
-                      className="group block h-full rounded-xl border border-slate-200 bg-white p-4 transition-[transform,border-color,box-shadow] duration-200 hover:-translate-y-0.5 hover:border-rose-500/40 hover:shadow-e2 dark:border-[#1e2030] dark:bg-[#12121a]"
-                    >
+                    <Link to={t.path} className="group block h-full surface-card card-hover p-4">
                       <div className="flex items-start justify-between gap-2 mb-2">
                         <Icon size={16} className="mt-0.5 shrink-0 text-rose-600 dark:text-rose-400" />
                         <span className="font-mono text-[10px] uppercase tracking-wider text-slate-400 dark:text-slate-500">
@@ -313,7 +315,7 @@ export default function ThreatIntelHome(): JSX.Element {
             </ul>
           )}
           {searchResults && searchResults.length === 0 && (
-            <div className="rounded-xl border border-dashed border-slate-300 dark:border-[#1e2030] p-10 text-center">
+            <div className="rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-10 text-center">
               <p className="text-sm text-slate-500 dark:text-slate-400">No matches. Try different keywords.</p>
             </div>
           )}
@@ -354,7 +356,7 @@ export default function ThreatIntelHome(): JSX.Element {
                   <Link
                     key={item.href}
                     to={item.href}
-                    className="group flex items-center gap-3 rounded-xl border border-slate-200 bg-white p-4 transition-[transform,border-color,box-shadow] duration-200 hover:-translate-y-0.5 hover:border-rose-500/40 hover:shadow-e2 dark:border-[#1e2030] dark:bg-[#12121a]"
+                    className="group flex items-center gap-3 surface-card card-hover p-4"
                   >
                     <div className="grid h-10 w-10 place-items-center rounded-lg bg-slate-50 dark:bg-white/5 text-rose-600 dark:text-rose-400 shrink-0">
                       <Icon size={18} />
@@ -381,7 +383,7 @@ export default function ThreatIntelHome(): JSX.Element {
           </section>
 
           {/* ── Collapsible: Live Intelligence */}
-          <details className="group rounded-xl border border-slate-200/70 bg-gradient-to-b from-slate-50/80 to-white dark:border-[#1e2030] dark:from-[#12121a] dark:to-[#0e0e15]">
+          <details className="group surface-card">
             <summary className="flex items-center justify-between cursor-pointer p-4 sm:p-5 select-none">
               <div className="flex items-center gap-2">
                 <span className="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
@@ -401,7 +403,7 @@ export default function ThreatIntelHome(): JSX.Element {
           </details>
 
           {/* ── Collapsible: Explore by topic */}
-          <details className="group rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]">
+          <details className="group surface-card">
             <summary className="flex items-center justify-between cursor-pointer p-4 sm:p-5 select-none">
               <div>
                 <h2 className="font-display font-bold text-lg text-slate-900 dark:text-slate-100">Explore by topic</h2>
@@ -419,7 +421,7 @@ export default function ThreatIntelHome(): JSX.Element {
                     <Link
                       key={cat.id}
                       to={cat.href}
-                      className={`group relative rounded-xl border p-4 transition-[transform,box-shadow] duration-200 hover:-translate-y-0.5 hover:shadow-e2 ${cat.tone}`}
+                      className={`group relative surface-card card-hover p-4 ${cat.tone}`}
                     >
                       <div className="flex items-start justify-between mb-2">
                         <Icon size={20} aria-hidden="true" />
@@ -452,7 +454,7 @@ export default function ThreatIntelHome(): JSX.Element {
           </details>
 
           {/* ── Collapsible: Getting started */}
-          <details className="group rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]">
+          <details className="group surface-card">
             <summary className="flex items-center justify-between cursor-pointer p-4 sm:p-5 select-none">
               <h2 className="font-display font-bold text-lg text-slate-900 dark:text-slate-100">New here?</h2>
               <ArrowRight size={16} className="text-slate-400 group-open:rotate-90 transition-transform" />
@@ -496,7 +498,7 @@ export default function ThreatIntelHome(): JSX.Element {
           <div className="flex justify-center">
             <Link
               to="/threatintel/catalog"
-              className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-6 py-3 text-sm font-medium text-slate-700 hover:border-rose-300 hover:text-rose-600 dark:border-[#1e2030] dark:bg-[#12121a] dark:text-slate-300 dark:hover:border-rose-600 dark:hover:text-rose-400 transition-colors"
+              className="surface-card inline-flex items-center gap-2 rounded-xl px-6 py-3 text-sm font-medium text-slate-700 hover:border-rose-300 hover:text-rose-600 dark:text-slate-300 dark:hover:border-rose-600 dark:hover:text-rose-400"
             >
               <Compass size={16} />
               Browse the full catalog
