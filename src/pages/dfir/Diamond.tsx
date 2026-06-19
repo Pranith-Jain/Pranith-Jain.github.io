@@ -552,7 +552,7 @@ function Diamond(): JSX.Element {
 
       {/* Diagram + tabs */}
       <div className="grid gap-6 lg:grid-cols-[400px_1fr] mb-8">
-        <div className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 flex items-center justify-center">
+        <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 flex items-center justify-center">
           <svg viewBox="0 0 400 400" className="w-full h-auto max-w-[360px]" role="img" aria-label="Diamond model">
             {/* Connecting edges */}
             <polygon
@@ -629,7 +629,7 @@ function Diamond(): JSX.Element {
           </svg>
         </div>
 
-        <div className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4">
+        <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
           <div className="flex items-center justify-between mb-3">
             <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
               {active ? `${DIAMOND_VERTICES.find((v) => v.id === active)?.name}` : 'Vertices'}
@@ -703,7 +703,7 @@ function Diamond(): JSX.Element {
             value={autoFillIndicator}
             onChange={(e) => setAutoFillIndicator(e.target.value)}
             placeholder="e.g. 1.2.3.4 · evil.example.com · CVE-2024-1709 · sha256 · lockbit / akira / qilin"
-            className="flex-1 px-3 py-2 bg-white dark:bg-slate-950 border border-slate-300 dark:border-[#1e2030] rounded font-mono text-sm focus:outline-none focus:border-emerald-500"
+            className="flex-1 px-3 py-2 bg-white dark:bg-slate-950 border border-slate-300 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-emerald-500"
             aria-label="Indicator to auto-fill from"
           />
           <button
@@ -718,7 +718,7 @@ function Diamond(): JSX.Element {
         {autoFillNote && <p className="text-mini font-mono text-slate-700 dark:text-slate-300 mt-2">{autoFillNote}</p>}
       </section>
 
-      <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 mb-6">
+      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
         <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
           <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
             Intrusion event
@@ -727,21 +727,21 @@ function Diamond(): JSX.Element {
             <button
               type="button"
               onClick={loadSample}
-              className="text-xs font-mono px-3 py-2 sm:px-2 sm:py-1 min-h-[44px] sm:min-h-0 rounded border border-slate-300 dark:border-[#1e2030] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center"
+              className="text-xs font-mono px-3 py-2 sm:px-2 sm:py-1 min-h-[44px] sm:min-h-0 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center"
             >
               Load sample
             </button>
             <button
               type="button"
               onClick={exportMd}
-              className="text-xs font-mono px-3 py-2 sm:px-2 sm:py-1 min-h-[44px] sm:min-h-0 rounded border border-slate-300 dark:border-[#1e2030] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1.5"
+              className="text-xs font-mono px-3 py-2 sm:px-2 sm:py-1 min-h-[44px] sm:min-h-0 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1.5"
             >
               <Download size={12} /> Export markdown
             </button>
             <button
               type="button"
               onClick={reset}
-              className="text-xs font-mono px-3 py-2 sm:px-2 sm:py-1 min-h-[44px] sm:min-h-0 rounded border border-slate-300 dark:border-[#1e2030] hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400 inline-flex items-center gap-1.5"
+              className="text-xs font-mono px-3 py-2 sm:px-2 sm:py-1 min-h-[44px] sm:min-h-0 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400 inline-flex items-center gap-1.5"
             >
               <RotateCcw size={12} /> Reset
             </button>
@@ -760,7 +760,7 @@ function Diamond(): JSX.Element {
                   value={event[k]}
                   onChange={(e) => update(k, e.target.value)}
                   rows={3}
-                  className="w-full rounded border border-slate-300 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 px-2 py-1.5 font-mono text-xs text-slate-900 dark:text-slate-100 focus:border-brand-500/60 focus:outline-none"
+                  className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 px-2 py-1.5 font-mono text-xs text-slate-900 dark:text-slate-100 focus:border-brand-500/60 focus:outline-none"
                   placeholder={v.examples[0]}
                 />
               </label>
@@ -770,7 +770,7 @@ function Diamond(): JSX.Element {
       </section>
 
       {/* Meta-features */}
-      <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 mb-6">
+      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
         <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
           Meta-features
         </h2>
@@ -784,7 +784,7 @@ function Diamond(): JSX.Element {
                   type="text"
                   value={event[k]}
                   onChange={(e) => update(k, e.target.value)}
-                  className="w-full rounded border border-slate-300 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 px-2 py-1.5 font-mono text-xs text-slate-900 dark:text-slate-100 focus:border-brand-500/60 focus:outline-none"
+                  className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 px-2 py-1.5 font-mono text-xs text-slate-900 dark:text-slate-100 focus:border-brand-500/60 focus:outline-none"
                   placeholder={m.description}
                 />
               </label>
@@ -794,7 +794,7 @@ function Diamond(): JSX.Element {
       </section>
 
       {/* Extended axes */}
-      <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 mb-6">
+      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
         <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
           Extended axes
         </h2>
@@ -809,7 +809,7 @@ function Diamond(): JSX.Element {
                     value={event[k as keyof EventForm]}
                     onChange={(e) => update(k as keyof EventForm, e.target.value)}
                     rows={3}
-                    className="w-full rounded border border-slate-300 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 px-2 py-1.5 font-mono text-xs text-slate-900 dark:text-slate-100 focus:border-brand-500/60 focus:outline-none"
+                    className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 px-2 py-1.5 font-mono text-xs text-slate-900 dark:text-slate-100 focus:border-brand-500/60 focus:outline-none"
                     placeholder={a.description}
                   />
                 </label>
@@ -824,7 +824,7 @@ function Diamond(): JSX.Element {
         </div>
       </section>
 
-      <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4">
+      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
         <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
           References
         </h2>

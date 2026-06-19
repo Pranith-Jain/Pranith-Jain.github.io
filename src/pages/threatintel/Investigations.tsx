@@ -344,7 +344,7 @@ function InvestigationsPage(): JSX.Element {
             <button
               type="button"
               onClick={exportJson}
-              className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[#1e2030] hover:border-brand-500/40 text-slate-500 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1"
+              className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 text-slate-500 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1"
             >
               <FileDown size={11} /> JSON
             </button>
@@ -367,7 +367,7 @@ function InvestigationsPage(): JSX.Element {
               key={s}
               type="button"
               onClick={() => updateSeverity(s)}
-              className={`text-mini font-mono px-2 py-0.5 rounded border ${inv.severity === s ? SEVERITY_TONE[s] : 'border-slate-200 dark:border-[#1e2030] text-slate-500'}`}
+              className={`text-mini font-mono px-2 py-0.5 rounded border ${inv.severity === s ? SEVERITY_TONE[s] : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500'}`}
             >
               {s}
             </button>
@@ -387,7 +387,7 @@ function InvestigationsPage(): JSX.Element {
 
         <div className="grid lg:grid-cols-3 gap-6">
           <div className="lg:col-span-2 space-y-6">
-            <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4">
+            <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
               <h2 className="font-display font-semibold text-sm mb-3 flex items-center gap-2">
                 <ShieldAlert size={14} /> Observables ({inv.observables.length})
               </h2>
@@ -395,7 +395,7 @@ function InvestigationsPage(): JSX.Element {
                 <select
                   value={obsType}
                   onChange={(e) => setObsType(e.target.value)}
-                  className="text-meta font-mono px-2 py-1.5 rounded border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] text-slate-700 dark:text-slate-300"
+                  className="text-meta font-mono px-2 py-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-slate-700 dark:text-slate-300"
                 >
                   <option value="ipv4">IPv4</option>
                   <option value="ipv6">IPv6</option>
@@ -409,7 +409,7 @@ function InvestigationsPage(): JSX.Element {
                   value={obsValue}
                   onChange={(e) => setObsValue(e.target.value)}
                   placeholder="observable value"
-                  className="flex-1 px-3 py-1.5 bg-white dark:bg-[#12121a] border border-slate-200 dark:border-[#1e2030] rounded font-mono text-meta text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500"
+                  className="flex-1 px-3 py-1.5 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-meta text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500"
                   onKeyDown={(e) => {
                     if (e.key === 'Enter') void addObservable();
                   }}
@@ -451,7 +451,7 @@ function InvestigationsPage(): JSX.Element {
               )}
             </section>
 
-            <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4">
+            <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
               <h2 className="font-display font-semibold text-sm mb-3 flex items-center gap-2">
                 <ListTodo size={14} /> Tasks ({inv.tasks.filter((t) => t.status !== 'completed').length} open)
               </h2>
@@ -461,7 +461,7 @@ function InvestigationsPage(): JSX.Element {
                   value={taskTitle}
                   onChange={(e) => setTaskTitle(e.target.value)}
                   placeholder="new task"
-                  className="flex-1 px-3 py-1.5 bg-white dark:bg-[#12121a] border border-slate-200 dark:border-[#1e2030] rounded font-mono text-meta text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500"
+                  className="flex-1 px-3 py-1.5 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-meta text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500"
                   onKeyDown={(e) => {
                     if (e.key === 'Enter') void addTask();
                   }}
@@ -522,26 +522,29 @@ function InvestigationsPage(): JSX.Element {
           </div>
 
           <div className="space-y-4">
-            <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4">
+            <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
               <h2 className="font-display font-semibold text-sm mb-3 flex items-center gap-2">
                 <Clock size={14} /> Timeline
               </h2>
               <div className="space-y-3 max-h-[40vh] overflow-y-auto">
                 {[...inv.timeline].reverse().map((ev) => (
-                  <div key={ev.id} className="relative pl-4 border-l-2 border-slate-200 dark:border-[#1e2030]">
+                  <div
+                    key={ev.id}
+                    className="relative pl-4 border-l-2 border-slate-200 dark:border-[rgb(var(--border-400))]"
+                  >
                     <p className="text-meta font-mono text-slate-700 dark:text-slate-300 leading-snug">{ev.message}</p>
                     <p className="text-micro font-mono text-slate-400 mt-0.5">{relativeTime(ev.created_at)}</p>
                   </div>
                 ))}
               </div>
-              <div className="mt-3 pt-3 border-t border-slate-200 dark:border-[#1e2030]">
+              <div className="mt-3 pt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
                 <div className="flex gap-2">
                   <input
                     type="text"
                     value={noteText}
                     onChange={(e) => setNoteText(e.target.value)}
                     placeholder="add a note…"
-                    className="flex-1 px-3 py-1.5 bg-white dark:bg-[#12121a] border border-slate-200 dark:border-[#1e2030] rounded font-mono text-meta text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500"
+                    className="flex-1 px-3 py-1.5 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-meta text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500"
                     onKeyDown={(e) => {
                       if (e.key === 'Enter') void addNote();
                     }}
@@ -558,7 +561,7 @@ function InvestigationsPage(): JSX.Element {
               </div>
             </section>
 
-            <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4">
+            <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
               <h2 className="font-display font-semibold text-sm mb-2">Meta</h2>
               <div className="text-mini font-mono text-slate-500 space-y-1">
                 <p>Created: {new Date(inv.created_at).toLocaleString()}</p>
@@ -606,13 +609,13 @@ function InvestigationsPage(): JSX.Element {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search investigations…"
-            className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[#12121a] border border-slate-200 dark:border-[#1e2030] rounded-lg font-mono text-tool text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500"
+            className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-tool text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500"
           />
         </div>
         <select
           value={filterSeverity}
           onChange={(e) => setFilterSeverity(e.target.value)}
-          className="text-meta font-mono px-2 py-2 rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 text-slate-700 dark:text-slate-300"
+          className="text-meta font-mono px-2 py-2 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 text-slate-700 dark:text-slate-300"
         >
           <option value="all">All severity</option>
           <option value="critical">Critical</option>
@@ -623,7 +626,7 @@ function InvestigationsPage(): JSX.Element {
         <select
           value={filterStatus}
           onChange={(e) => setFilterStatus(e.target.value)}
-          className="text-meta font-mono px-2 py-2 rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 text-slate-700 dark:text-slate-300"
+          className="text-meta font-mono px-2 py-2 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 text-slate-700 dark:text-slate-300"
         >
           <option value="all">All status</option>
           <option value="open">Open</option>
@@ -635,7 +638,7 @@ function InvestigationsPage(): JSX.Element {
       {showCreate && (
         <form
           onSubmit={(e) => void createInvestigation(e)}
-          className="mb-6 rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4"
+          className="mb-6 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4"
         >
           <h2 className="font-display font-semibold text-sm mb-3">New Investigation</h2>
           <div className="grid sm:grid-cols-2 gap-3 mb-3">
@@ -645,7 +648,7 @@ function InvestigationsPage(): JSX.Element {
                 value={createForm.title}
                 onChange={(e) => setCreateForm((p) => ({ ...p, title: e.target.value }))}
                 placeholder="Investigation title"
-                className="w-full px-3 py-2 bg-white dark:bg-[#12121a] border border-slate-200 dark:border-[#1e2030] rounded font-mono text-tool focus:outline-none focus:border-brand-500"
+                className="w-full px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-tool focus:outline-none focus:border-brand-500"
               />
             </div>
             <div className="sm:col-span-2">
@@ -654,13 +657,13 @@ function InvestigationsPage(): JSX.Element {
                 onChange={(e) => setCreateForm((p) => ({ ...p, description: e.target.value }))}
                 placeholder="Description (optional)"
                 rows={2}
-                className="w-full px-3 py-2 bg-white dark:bg-[#12121a] border border-slate-200 dark:border-[#1e2030] rounded font-mono text-meta focus:outline-none focus:border-brand-500"
+                className="w-full px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-meta focus:outline-none focus:border-brand-500"
               />
             </div>
             <select
               value={createForm.severity}
               onChange={(e) => setCreateForm((p) => ({ ...p, severity: e.target.value as Investigation['severity'] }))}
-              className="text-meta font-mono px-2 py-2 rounded border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]"
+              className="text-meta font-mono px-2 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]"
             >
               <option value="low">Low</option>
               <option value="medium">Medium</option>
@@ -670,7 +673,7 @@ function InvestigationsPage(): JSX.Element {
             <select
               value={createForm.tlp}
               onChange={(e) => setCreateForm((p) => ({ ...p, tlp: e.target.value as Investigation['tlp'] }))}
-              className="text-meta font-mono px-2 py-2 rounded border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]"
+              className="text-meta font-mono px-2 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]"
             >
               <option value="white">TLP:WHITE</option>
               <option value="green">TLP:GREEN</option>
@@ -683,7 +686,7 @@ function InvestigationsPage(): JSX.Element {
                 value={createForm.tags}
                 onChange={(e) => setCreateForm((p) => ({ ...p, tags: e.target.value }))}
                 placeholder="Tags (comma separated)"
-                className="w-full px-3 py-2 bg-white dark:bg-[#12121a] border border-slate-200 dark:border-[#1e2030] rounded font-mono text-meta focus:outline-none focus:border-brand-500"
+                className="w-full px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-meta focus:outline-none focus:border-brand-500"
               />
             </div>
           </div>
@@ -698,7 +701,7 @@ function InvestigationsPage(): JSX.Element {
             <button
               type="button"
               onClick={() => setShowCreate(false)}
-              className="px-4 py-2 border border-slate-200 dark:border-[#1e2030] text-slate-500 font-mono text-meta rounded hover:text-slate-700 dark:hover:text-slate-300"
+              className="px-4 py-2 border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 font-mono text-meta rounded hover:text-slate-700 dark:hover:text-slate-300"
             >
               Cancel
             </button>
@@ -713,14 +716,14 @@ function InvestigationsPage(): JSX.Element {
       )}
 
       {loading && (
-        <div className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-12 text-center">
+        <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-12 text-center">
           <Loader2 size={20} className="animate-spin mx-auto text-slate-400 mb-2" />
           <p className="text-xs font-mono text-slate-500 dark:text-slate-400">Loading investigations…</p>
         </div>
       )}
 
       {!loading && filtered.length === 0 && !error && (
-        <div className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-12 text-center">
+        <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-12 text-center">
           <AlertTriangle size={32} className="mx-auto text-slate-300 dark:text-slate-700 mb-3" />
           <p className="text-sm font-mono text-slate-500">
             {search || filterSeverity !== 'all' || filterStatus !== 'all'
@@ -745,7 +748,7 @@ function InvestigationsPage(): JSX.Element {
               onKeyDown={(e) => {
                 if (e.key === 'Enter' || e.key === ' ') setActiveInv(inv);
               }}
-              className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 hover:border-brand-500/40 transition-colors p-4 cursor-pointer"
+              className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 hover:border-brand-500/40 transition-colors p-4 cursor-pointer"
               onClick={() => setActiveInv(inv)}
             >
               <div className="flex items-start justify-between gap-4">

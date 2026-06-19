@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Globe, ArrowRight } from 'lucide-react';
+import { preloadRoute } from '../../lib/route-preloaders';
 
 interface PulseEvent {
   severity: 'critical' | 'high' | 'medium' | 'low';
@@ -48,6 +49,8 @@ export function GlobalPulseCard(): JSX.Element | null {
   return (
     <Link
       to="/threatintel/predictive/global-pulse"
+      onMouseEnter={() => preloadRoute('/threatintel/predictive/global-pulse')}
+      onFocus={() => preloadRoute('/threatintel/predictive/global-pulse')}
       className="group mb-6 flex items-center gap-4 rounded-lg border border-slate-200 bg-white px-4 py-3 transition-colors hover:border-brand-400 dark:border-slate-700 dark:bg-slate-900 dark:hover:border-brand-500"
     >
       <Globe className="h-5 w-5 shrink-0 text-brand-600 dark:text-brand-400" />

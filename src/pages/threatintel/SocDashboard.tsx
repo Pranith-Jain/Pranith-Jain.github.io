@@ -26,7 +26,7 @@ export default function SocDashboard(): JSX.Element {
       description="Unified tactical SOC view — ransomware activity, vulnerability intelligence, and IOC stream. All panels auto-refresh."
     >
       <nav
-        className="flex flex-wrap gap-1 border-b border-slate-200 dark:border-[#1e2030] mb-6"
+        className="flex flex-wrap gap-1 border-b border-slate-200 dark:border-[rgb(var(--border-400))] mb-6"
         aria-label="SOC panels"
       >
         {TABS.map((t) => (

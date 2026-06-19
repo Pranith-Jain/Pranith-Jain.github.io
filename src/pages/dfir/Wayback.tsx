@@ -35,7 +35,7 @@ function statusClass(status: string): string {
   if (status.startsWith('3')) return 'border-sky-500/40 bg-sky-500/10 text-sky-700 dark:text-sky-300';
   if (status.startsWith('4')) return 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300';
   if (status.startsWith('5')) return 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300';
-  return 'border-slate-300 dark:border-[#1e2030] text-slate-500';
+  return 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500';
 }
 
 export default function Wayback(): JSX.Element {
@@ -218,7 +218,7 @@ export default function Wayback(): JSX.Element {
         </p>
       </div>
 
-      <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 mb-6">
+      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -233,7 +233,7 @@ export default function Wayback(): JSX.Element {
               value={url}
               onChange={(e) => setUrl(e.target.value)}
               placeholder="https://example.com  (or example.com/some/path)"
-              className="w-full pl-9 pr-3 py-2 rounded border border-slate-300 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 font-mono text-sm focus:border-brand-500/60 focus:outline-none"
+              className="w-full pl-9 pr-3 py-2 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 font-mono text-sm focus:border-brand-500/60 focus:outline-none"
               aria-label="URL to look up"
               autoComplete="off"
             />
@@ -273,7 +273,7 @@ export default function Wayback(): JSX.Element {
       )}
 
       {stats && (
-        <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 mb-6">
+        <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
           <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
             <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
               Timeline summary
@@ -309,7 +309,7 @@ export default function Wayback(): JSX.Element {
       )}
 
       {displaySnapshots.length > 0 && (
-        <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 mb-6">
+        <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
           <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
             Snapshots (sorted by {sortKey} {sortDir})
           </h2>
@@ -336,7 +336,10 @@ export default function Wayback(): JSX.Element {
               </thead>
               <tbody>
                 {displaySnapshots.slice(0, 100).map((s) => (
-                  <tr key={`${s.timestamp}-${s.digest}`} className="border-t border-slate-200 dark:border-[#1e2030]">
+                  <tr
+                    key={`${s.timestamp}-${s.digest}`}
+                    className="border-t border-slate-200 dark:border-[rgb(var(--border-400))]"
+                  >
                     <td className="py-1.5 pr-3 text-slate-700 dark:text-slate-300 whitespace-nowrap">
                       {fmtTs(s.timestamp)}
                     </td>
@@ -390,7 +393,7 @@ export default function Wayback(): JSX.Element {
         </section>
       )}
 
-      <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4">
+      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
         <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-2">
           Companion lookups
         </h2>
@@ -421,7 +424,7 @@ export default function Wayback(): JSX.Element {
 
 function Stat({ label, value, url }: { label: string; value: string; url?: string }): JSX.Element {
   return (
-    <div className="rounded border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 p-2.5">
+    <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-2.5">
       <div className="text-micro font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-1">
         {label}
       </div>

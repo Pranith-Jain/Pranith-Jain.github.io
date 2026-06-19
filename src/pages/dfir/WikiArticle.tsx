@@ -112,7 +112,7 @@ export default function WikiArticle(): JSX.Element {
               <li key={t.href}>
                 <Link
                   to={t.href}
-                  className="block rounded border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] px-3 py-2 hover:border-brand-500/40"
+                  className="block rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] px-3 py-2 hover:border-brand-500/40"
                 >
                   <span className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100">
                     {t.term}

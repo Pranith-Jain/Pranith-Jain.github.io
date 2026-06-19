@@ -70,7 +70,8 @@ type DoneEvent = {
 
 type Phase = 'idle' | 'hashing' | 'streaming' | 'done' | 'error';
 
-const CARD = 'rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4';
+const CARD =
+  'rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4';
 const H2 =
   'text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono inline-flex items-center gap-2';
 
@@ -177,7 +178,7 @@ function FamilyTag({ name }: { name: string }): JSX.Element {
 
 function SignatureTag({ tag }: { tag: string }): JSX.Element {
   return (
-    <span className="inline-flex items-center gap-1 rounded border border-slate-300 bg-slate-100 px-2 py-0.5 font-mono text-mini text-slate-700 dark:border-[#1e2030] dark:bg-slate-800 dark:text-slate-300">
+    <span className="inline-flex items-center gap-1 rounded border border-slate-300 bg-slate-100 px-2 py-0.5 font-mono text-mini text-slate-700 dark:border-[rgb(var(--border-400))] dark:bg-slate-800 dark:text-slate-300">
       <Tag size={10} />
       {tag}
     </span>
@@ -352,7 +353,7 @@ export default function SampleScan(): JSX.Element {
           role="button"
           tabIndex={0}
           aria-label="Drop a file here or click to choose"
-          className="mt-3 cursor-pointer rounded border-2 border-dashed border-slate-300 p-6 text-center hover:border-brand-500/40 focus-visible:border-brand-500 focus-visible:outline-none dark:border-[#1e2030]"
+          className="mt-3 cursor-pointer rounded border-2 border-dashed border-slate-300 p-6 text-center hover:border-brand-500/40 focus-visible:border-brand-500 focus-visible:outline-none dark:border-[rgb(var(--border-400))]"
         >
           <FileSearch size={28} className="mx-auto mb-2 text-slate-500" />
           <p className="font-mono text-sm text-slate-700 dark:text-slate-300">Drop a file here, or click to choose</p>
@@ -384,7 +385,7 @@ export default function SampleScan(): JSX.Element {
               placeholder="MD5 / SHA-1 / SHA-256 hex"
               spellCheck={false}
               autoComplete="off"
-              className="mt-1 w-full rounded border border-slate-200 bg-slate-50 px-3 py-2 font-mono text-meta focus:border-brand-500 focus:outline-none dark:border-[#1e2030] dark:bg-slate-950"
+              className="mt-1 w-full rounded border border-slate-200 bg-slate-50 px-3 py-2 font-mono text-meta focus:border-brand-500 focus:outline-none dark:border-[rgb(var(--border-400))] dark:bg-slate-950"
             />
           </div>
           <button
@@ -550,7 +551,7 @@ export default function SampleScan(): JSX.Element {
             {done.public_sandboxes.map((s) => (
               <li
                 key={s.name}
-                className="flex items-start justify-between gap-2 rounded border border-slate-200 bg-slate-50 p-2 dark:border-[#1e2030] dark:bg-slate-950"
+                className="flex items-start justify-between gap-2 rounded border border-slate-200 bg-slate-50 p-2 dark:border-[rgb(var(--border-400))] dark:bg-slate-950"
               >
                 <div className="min-w-0 flex-1">
                   <a

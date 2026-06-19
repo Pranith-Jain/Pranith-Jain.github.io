@@ -106,7 +106,7 @@ function PipelineBar() {
   }
 
   return (
-    <div className="mb-6 rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] p-4">
+    <div className="mb-6 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-4">
       <div className="flex flex-wrap items-center gap-2">
         <span className="text-xs font-mono uppercase tracking-wider text-slate-500 mr-2">Pipeline</span>
         {STAGES.map((s) => (
@@ -115,7 +115,7 @@ function PipelineBar() {
             onClick={() => run(s.stage)}
             disabled={busy !== null}
             title={s.hint}
-            className="px-3 py-1.5 border border-slate-300 dark:border-[#1e2030] rounded text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[#16161f] hover:text-slate-900 dark:hover:text-white disabled:opacity-50 transition-colors"
+            className="px-3 py-1.5 border border-slate-300 dark:border-[rgb(var(--border-400))] rounded text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[#16161f] hover:text-slate-900 dark:hover:text-white disabled:opacity-50 transition-colors"
           >
             {busy === s.stage ? `${s.label}…` : s.label}
           </button>
@@ -185,13 +185,13 @@ export default function AdminApp() {
         <div className="flex items-center gap-3">
           <a
             href="/admin/analytics"
-            className="px-3 py-1.5 border border-slate-300 dark:border-[#1e2030] rounded text-sm text-slate-500 hover:bg-slate-100 dark:hover:bg-[#16161f] hover:text-slate-900 dark:hover:text-white transition-colors"
+            className="px-3 py-1.5 border border-slate-300 dark:border-[rgb(var(--border-400))] rounded text-sm text-slate-500 hover:bg-slate-100 dark:hover:bg-[#16161f] hover:text-slate-900 dark:hover:text-white transition-colors"
           >
             Analytics
           </a>
           <button
             onClick={logout}
-            className="px-3 py-1.5 border border-slate-300 dark:border-[#1e2030] rounded text-sm text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-[#16161f] hover:text-slate-900 dark:hover:text-white transition-colors"
+            className="px-3 py-1.5 border border-slate-300 dark:border-[rgb(var(--border-400))] rounded text-sm text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-[#16161f] hover:text-slate-900 dark:hover:text-white transition-colors"
           >
             Logout
           </button>
@@ -201,7 +201,7 @@ export default function AdminApp() {
       <PipelineBar />
 
       {/* Tabs */}
-      <nav className="flex flex-wrap gap-1 border-b border-slate-200 dark:border-[#1e2030] mb-6">
+      <nav className="flex flex-wrap gap-1 border-b border-slate-200 dark:border-[rgb(var(--border-400))] mb-6">
         {TABS.map((t) => (
           <button
             key={t.key}
@@ -218,7 +218,7 @@ export default function AdminApp() {
       </nav>
 
       {/* Content */}
-      <section className="bg-white dark:bg-[#12121a] border border-slate-200 dark:border-[#1e2030] rounded-lg p-4">
+      <section className="bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg p-4">
         {active === 'pending' && <PendingTab />}
         {active === 'approved' && <ApprovedTab />}
         {active === 'schedule' && <ScheduleTab />}

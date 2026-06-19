@@ -345,7 +345,7 @@ export default function DarknetMarketsTimeline(): JSX.Element {
         ].map(({ label, value, cls }) => (
           <div
             key={label}
-            className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/50 shadow-e1 p-2.5"
+            className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/50 shadow-e1 p-2.5"
           >
             <div className={`text-mini uppercase tracking-wider mb-0.5 ${cls}`}>{label}</div>
             <div className="text-lg font-bold text-slate-900 dark:text-slate-100">{value}</div>
@@ -362,13 +362,13 @@ export default function DarknetMarketsTimeline(): JSX.Element {
             placeholder="Search market name, description, country…"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[#12121a] border border-slate-200 dark:border-[#1e2030] rounded-lg text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-brand-500"
+            className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-brand-500"
           />
         </div>
         <select
           value={catFilter}
           onChange={(e) => setCatFilter(e.target.value)}
-          className="px-3 py-2 bg-white dark:bg-[#12121a] border border-slate-200 dark:border-[#1e2030] rounded-lg text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:border-brand-500"
+          className="px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:border-brand-500"
         >
           <option value="">All categories</option>
           {ALL_CATEGORIES.map((c) => (
@@ -391,7 +391,7 @@ export default function DarknetMarketsTimeline(): JSX.Element {
               className={`px-2 py-1 rounded text-xs font-mono font-medium border flex items-center gap-1 transition ${
                 active
                   ? `${meta.bg} ${meta.color}`
-                  : 'border-slate-300 dark:border-[#1e2030] text-slate-500 hover:border-slate-400'
+                  : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-slate-400'
               }`}
             >
               {meta.label}
@@ -417,12 +417,12 @@ export default function DarknetMarketsTimeline(): JSX.Element {
               key={m.name}
               className={`rounded-xl border p-4 hover:shadow-md transition ${
                 m.status === 'active'
-                  ? 'border-emerald-200 dark:border-emerald-800/40 bg-white dark:bg-[#12121a]/50'
+                  ? 'border-emerald-200 dark:border-emerald-800/40 bg-white dark:bg-[rgb(var(--surface-200))]/50'
                   : m.status === 'seized'
                     ? 'border-rose-200 dark:border-rose-800/40 bg-rose-50/30 dark:bg-rose-900/5'
                     : m.status === 'exit-scam'
                       ? 'border-amber-200 dark:border-amber-800/40 bg-amber-50/30 dark:bg-amber-900/5'
-                      : 'border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/50'
+                      : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/50'
               }`}
             >
               <div className="flex items-start gap-3">
@@ -433,7 +433,7 @@ export default function DarknetMarketsTimeline(): JSX.Element {
                       {meta.label}
                     </span>
                     {m.country && (
-                      <span className="px-1.5 py-0.5 text-micro font-mono rounded border border-slate-300 dark:border-[#1e2030] text-muted">
+                      <span className="px-1.5 py-0.5 text-micro font-mono rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-muted">
                         {m.country}
                       </span>
                     )}
@@ -477,7 +477,7 @@ export default function DarknetMarketsTimeline(): JSX.Element {
         <div className="text-center py-12 text-slate-500 font-mono text-sm">No markets match your filters</div>
       )}
 
-      <div className="mt-6 pt-4 border-t border-slate-200 dark:border-[#1e2030] text-xs text-slate-500 dark:text-slate-600 font-mono">
+      <div className="mt-6 pt-4 border-t border-slate-200 dark:border-[rgb(var(--border-400))] text-xs text-slate-500 dark:text-slate-600 font-mono">
         Sources: Dread, TorTaxi, public law-enforcement reporting · {MARKETS.length} markets tracked
       </div>
     </div>

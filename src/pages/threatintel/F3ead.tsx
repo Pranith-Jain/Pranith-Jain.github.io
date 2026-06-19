@@ -391,7 +391,7 @@ export default function F3ead(): JSX.Element {
                 <button
                   type="button"
                   onClick={() => setOpenPhase(openPhase === p.id ? null : p.id)}
-                  className={`w-full text-left rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] p-4 ring-1 ${p.ringClass} hover:shadow-e1 transition-shadow`}
+                  className={`w-full text-left rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-4 ring-1 ${p.ringClass} hover:shadow-e1 transition-shadow`}
                 >
                   <div
                     className={`absolute inset-0 rounded-lg bg-gradient-to-br ${p.accent} pointer-events-none opacity-60`}
@@ -416,7 +416,7 @@ export default function F3ead(): JSX.Element {
                 </button>
                 {/* Loop arrow back to Find on the last card. */}
                 {isLast && (
-                  <div className="hidden lg:flex absolute -bottom-3 left-1/2 -translate-x-1/2 items-center gap-1 text-[10px] font-mono uppercase tracking-wider text-indigo-600 dark:text-indigo-300 bg-white dark:bg-[#12121a] px-2 py-0.5 rounded border border-slate-200 dark:border-[#1e2030]">
+                  <div className="hidden lg:flex absolute -bottom-3 left-1/2 -translate-x-1/2 items-center gap-1 text-[10px] font-mono uppercase tracking-wider text-indigo-600 dark:text-indigo-300 bg-white dark:bg-[rgb(var(--surface-200))] px-2 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))]">
                     <Sparkles className="h-3 w-3" /> loops back to Find
                   </div>
                 )}
@@ -431,9 +431,9 @@ export default function F3ead(): JSX.Element {
             const p = PHASES.find((x) => x.id === openPhase)!;
             const PIcon = p.icon;
             return (
-              <div className="mt-4 rounded-lg border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 p-5">
+              <div className="mt-4 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-5">
                 <div className="flex flex-wrap items-start gap-3">
-                  <div className={`rounded-md p-2 ring-1 ${p.ringClass} bg-white dark:bg-[#12121a]`}>
+                  <div className={`rounded-md p-2 ring-1 ${p.ringClass} bg-white dark:bg-[rgb(var(--surface-200))]`}>
                     <PIcon className="h-5 w-5 text-slate-700 dark:text-slate-200" />
                   </div>
                   <div className="flex-1 min-w-0">
@@ -522,7 +522,7 @@ export default function F3ead(): JSX.Element {
           </p>
         </header>
 
-        <div className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] p-5">
+        <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-5">
           <div className="flex flex-wrap gap-1.5 mb-4">
             {WALK.map((w, i) => {
               const phase = PHASES.find((p) => p.id === w.phase)!;
@@ -536,7 +536,7 @@ export default function F3ead(): JSX.Element {
                   className={`inline-flex items-center gap-1.5 rounded border px-2 py-1 text-[11px] font-mono transition-colors ${
                     active
                       ? 'border-brand-400 bg-brand-50 dark:bg-brand-950/40 text-brand-700 dark:text-brand-300'
-                      : 'border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 text-muted hover:border-slate-300 dark:hover:border-slate-700'
+                      : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 text-muted hover:border-slate-300 dark:hover:border-slate-700'
                   }`}
                 >
                   <span className="opacity-70">{phase.number}</span>
@@ -560,7 +560,7 @@ export default function F3ead(): JSX.Element {
             </div>
           </div>
 
-          <div className="rounded border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 p-3">
+          <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-3">
             <p className="text-[10px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1.5">
               Artifacts produced at this step
             </p>
@@ -579,7 +579,7 @@ export default function F3ead(): JSX.Element {
               type="button"
               onClick={() => setWalkStep((s) => Math.max(0, s - 1))}
               disabled={walkStep === 0}
-              className="rounded border border-slate-300 dark:border-[#1e2030] px-3 py-1 text-xs font-mono text-slate-600 dark:text-slate-300 hover:border-brand-400 disabled:opacity-40 disabled:hover:border-slate-300 dark:disabled:hover:border-slate-700"
+              className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-3 py-1 text-xs font-mono text-slate-600 dark:text-slate-300 hover:border-brand-400 disabled:opacity-40 disabled:hover:border-slate-300 dark:disabled:hover:border-slate-700"
             >
               &larr; previous
             </button>
@@ -612,10 +612,10 @@ export default function F3ead(): JSX.Element {
           </p>
         </header>
 
-        <div className="overflow-x-auto rounded-lg border border-slate-200 dark:border-[#1e2030]">
+        <div className="overflow-x-auto rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))]">
           <table className="w-full text-sm">
             <thead className="bg-slate-50 dark:bg-slate-950 text-left">
-              <tr className="border-b border-slate-200 dark:border-[#1e2030]">
+              <tr className="border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
                 <th className="px-3 py-2 font-mono text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400">
                   Framework
                 </th>
@@ -640,7 +640,7 @@ export default function F3ead(): JSX.Element {
               {COMPARISON.map((row, i) => (
                 <tr
                   key={row.name}
-                  className={`border-b border-slate-100 dark:border-slate-900 ${i % 2 === 0 ? 'bg-white dark:bg-[#12121a]' : 'bg-slate-50/50 dark:bg-slate-950/50'}`}
+                  className={`border-b border-slate-100 dark:border-slate-900 ${i % 2 === 0 ? 'bg-white dark:bg-[rgb(var(--surface-200))]' : 'bg-slate-50/50 dark:bg-slate-950/50'}`}
                 >
                   <td className="px-3 py-2 font-semibold text-slate-900 dark:text-slate-100 whitespace-nowrap">
                     {row.name}
@@ -650,7 +650,7 @@ export default function F3ead(): JSX.Element {
                       className={`inline-block rounded border px-1.5 py-0.5 text-[10px] font-mono uppercase tracking-wider ${
                         row.kind === 'process'
                           ? 'border-indigo-300 dark:border-indigo-700 bg-indigo-50 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-300'
-                          : 'border-slate-300 dark:border-[#1e2030] bg-slate-50 dark:bg-[#12121a] text-slate-600 dark:text-slate-300'
+                          : 'border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] text-slate-600 dark:text-slate-300'
                       }`}
                     >
                       {row.kind}

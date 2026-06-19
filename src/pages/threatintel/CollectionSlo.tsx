@@ -30,8 +30,9 @@ const STATUS_STYLES: Record<string, string> = {
   ok: 'text-emerald-600 bg-emerald-50 dark:bg-emerald-950/20 border-emerald-300 dark:border-emerald-900',
   degraded: 'text-amber-600 bg-amber-50 dark:bg-amber-950/20 border-amber-300 dark:border-amber-900',
   down: 'text-rose-600 bg-rose-50 dark:bg-rose-950/20 border-rose-300 dark:border-rose-900',
-  cold: 'text-slate-500 bg-slate-50 dark:bg-[#12121a] border-slate-300 dark:border-[#1e2030]',
-  unknown: 'text-slate-500 bg-slate-50 dark:bg-[#12121a] border-slate-300 dark:border-[#1e2030]',
+  cold: 'text-slate-500 bg-slate-50 dark:bg-[rgb(var(--surface-200))] border-slate-300 dark:border-[rgb(var(--border-400))]',
+  unknown:
+    'text-slate-500 bg-slate-50 dark:bg-[rgb(var(--surface-200))] border-slate-300 dark:border-[rgb(var(--border-400))]',
 };
 
 const RELIABILITY_BADGE: Record<string, string> = {
@@ -151,7 +152,7 @@ export default function CollectionSlo(): JSX.Element {
                     key={k.label}
                     type="button"
                     onClick={k.onClick}
-                    className={`rounded-xl border p-4 text-left transition-colors ${k.selected ? 'border-brand-500/50 bg-brand-500/5' : 'border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] hover:border-brand-500/30'}`}
+                    className={`rounded-xl border p-4 text-left transition-colors ${k.selected ? 'border-brand-500/50 bg-brand-500/5' : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] hover:border-brand-500/30'}`}
                   >
                     <div className="flex items-center gap-1.5 text-mini font-mono text-slate-500 mb-1">
                       <Icon size={12} className={k.color} /> {k.label}
@@ -163,11 +164,11 @@ export default function CollectionSlo(): JSX.Element {
             </div>
 
             {/* Source table */}
-            <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 overflow-hidden">
+            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 overflow-hidden">
               <div className="overflow-x-auto">
                 <table className="w-full text-sm">
                   <thead>
-                    <tr className="border-b border-slate-200 dark:border-[#1e2030] text-mini font-mono text-slate-500 uppercase tracking-wider">
+                    <tr className="border-b border-slate-200 dark:border-[rgb(var(--border-400))] text-mini font-mono text-slate-500 uppercase tracking-wider">
                       <th scope="col" className="text-left px-4 py-3 font-medium">
                         Source
                       </th>

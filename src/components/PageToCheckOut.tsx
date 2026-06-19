@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Compass, ArrowRight, Star } from 'lucide-react';
+import { preloadRoute } from '../lib/route-preloaders';
 
 const PAGES = [
   { path: '/dfir', name: 'DFIR Toolkit', desc: '60+ browser-side security tools for incident response and forensics.' },
@@ -39,7 +40,7 @@ function getPageToCheckOut(): (typeof PAGES)[0] {
   return PAGES[seed % PAGES.length];
 }
 
-export function PageToCheckOut(): JSX.Element {
+export function PageToCheckOut(): JSX.Element | null {
   const [page, setPage] = useState<(typeof PAGES)[0] | null>(null);
 
   useEffect(() => {
@@ -49,7 +50,7 @@ export function PageToCheckOut(): JSX.Element {
   if (!page) return null;
 
   return (
-    <section className="group relative overflow-hidden rounded-lg border border-slate-200/70 dark:border-[#1e2030] p-5 transition-all duration-200 hover:border-emerald-300/50 dark:hover:border-emerald-500/30 hover:shadow-md dark:hover:shadow-emerald-500/5">
+    <section className="group relative overflow-hidden rounded-lg border border-slate-200/70 dark:border-[rgb(var(--border-400))] p-5 transition-all duration-200 hover:border-emerald-300/50 dark:hover:border-emerald-500/30 hover:shadow-md dark:hover:shadow-emerald-500/5">
       {/* Geist: tonal surface wash, no multi-stop decorative gradient
           (Geist hierarchy comes from borders + fills, not gradients). */}
       <div aria-hidden className="absolute inset-0 bg-[rgb(var(--hover-100))] dark:bg-[rgb(var(--hover-100))]" />
@@ -62,7 +63,12 @@ export function PageToCheckOut(): JSX.Element {
             Page to Check Out
           </h3>
         </div>
-        <Link to={page.path} className="group block">
+        <Link
+          to={page.path}
+          className="group block"
+          onMouseEnter={() => preloadRoute(page.path)}
+          onFocus={() => preloadRoute(page.path)}
+        >
           <div className="flex items-start gap-3">
             <div className="grid h-9 w-9 place-items-center rounded-lg bg-emerald-500/10 dark:bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 shrink-0">
               <Compass size={16} />

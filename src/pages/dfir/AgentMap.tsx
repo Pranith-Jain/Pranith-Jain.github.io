@@ -182,7 +182,7 @@ export default function AgentMap(): JSX.Element {
         </p>
       </div>
 
-      <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 mb-6">
+      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
         <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
           <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
             Config JSON
@@ -190,20 +190,20 @@ export default function AgentMap(): JSX.Element {
           <div className="flex flex-wrap gap-1.5">
             <button
               onClick={() => setInput(SAMPLE_BASIC)}
-              className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[#1e2030] hover:border-brand-500/40"
+              className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40"
             >
               Sample · basic
             </button>
             <button
               onClick={() => setInput(SAMPLE_RISKY)}
-              className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[#1e2030] hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400"
+              className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400"
             >
               Sample · risky
             </button>
             {input && (
               <button
                 onClick={() => setInput('')}
-                className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[#1e2030] hover:border-rose-500/40"
+                className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40"
               >
                 Clear
               </button>
@@ -216,7 +216,7 @@ export default function AgentMap(): JSX.Element {
           rows={10}
           spellCheck={false}
           placeholder='{ "mcpServers": { "fetch": { "command": "uvx", "args": ["mcp-server-fetch"] } } }'
-          className="w-full rounded border border-slate-300 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 px-3 py-2 font-mono text-xs text-slate-900 dark:text-slate-100 focus:border-brand-500/60 focus:outline-none"
+          className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 px-3 py-2 font-mono text-xs text-slate-900 dark:text-slate-100 focus:border-brand-500/60 focus:outline-none"
         />
         {parseError && (
           <p className="mt-2 text-xs font-mono text-rose-600 dark:text-rose-400">JSON parse error: {parseError}</p>
@@ -227,7 +227,7 @@ export default function AgentMap(): JSX.Element {
         <>
           <section className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-4 mb-6">
             {/* Graph */}
-            <div className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4">
+            <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
               <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-2">
                 Capability graph ({graph.tools.length} tool{graph.tools.length === 1 ? '' : 's'})
               </h2>
@@ -272,7 +272,7 @@ export default function AgentMap(): JSX.Element {
             </div>
 
             {/* Capability legend */}
-            <div className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4">
+            <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
               <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-2">
                 Capabilities
               </h2>
@@ -297,7 +297,7 @@ export default function AgentMap(): JSX.Element {
 
           {/* Risk paths */}
           {graph.risks.length > 0 ? (
-            <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 mb-6">
+            <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
               <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-rose-600 dark:text-rose-400 font-mono mb-3 inline-flex items-center gap-1.5">
                 <AlertTriangle size={12} /> Risk paths ({graph.risks.length})
               </h2>
@@ -305,7 +305,7 @@ export default function AgentMap(): JSX.Element {
                 {graph.risks.map((r) => (
                   <li
                     key={r.id}
-                    className="rounded border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 p-3"
+                    className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-3"
                   >
                     <div className="flex flex-wrap items-center gap-2 mb-1">
                       <span className="font-display font-semibold text-slate-900 dark:text-slate-100">{r.title}</span>
@@ -343,7 +343,7 @@ export default function AgentMap(): JSX.Element {
 
           {/* Tool list */}
           {graph.tools.length > 0 && (
-            <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 mb-6">
+            <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
               <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
                 Tools
               </h2>
@@ -380,7 +380,7 @@ export default function AgentMap(): JSX.Element {
         </>
       )}
 
-      <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4">
+      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
         <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
           References
         </h2>

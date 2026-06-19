@@ -232,7 +232,7 @@ export default function PulseMap({ markers, onMarkerClick }: PulseMapProps): JSX
 
       {/* Selected Marker Detail Panel */}
       {selectedMarker && (
-        <div className="absolute top-4 right-4 bg-white/95 dark:bg-[#12121a]/95 backdrop-blur-md rounded-xl border border-slate-200 dark:border-[#1e2030] p-4 max-w-sm shadow-2xl z-10">
+        <div className="absolute top-4 right-4 bg-white/95 dark:bg-[rgb(var(--surface-200))]/95 backdrop-blur-md rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-4 max-w-sm shadow-2xl z-10">
           <div className="flex items-start justify-between gap-3">
             <div className="flex-1">
               <div className="flex items-center gap-2 mb-2">
@@ -286,7 +286,7 @@ export default function PulseMap({ markers, onMarkerClick }: PulseMapProps): JSX
       )}
 
       {/* Marker count overlay */}
-      <div className="absolute bottom-2 left-2 bg-white/80 dark:bg-[#12121a]/80 backdrop-blur-sm rounded-md px-2 py-1 border border-slate-200 dark:border-[#1e2030]">
+      <div className="absolute bottom-2 left-2 bg-white/80 dark:bg-[rgb(var(--surface-200))]/80 backdrop-blur-sm rounded-md px-2 py-1 border border-slate-200 dark:border-[rgb(var(--border-400))]">
         <span className="text-micro font-mono text-muted">{markers.length} points · Click for details</span>
       </div>
     </div>

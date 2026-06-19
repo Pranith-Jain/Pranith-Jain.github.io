@@ -45,14 +45,14 @@ const SEVERITY_PILL: Record<RecentCve['severity'], string> = {
   HIGH: SEVERITY_TONE.high,
   MEDIUM: SEVERITY_TONE.medium,
   LOW: SEVERITY_TONE.low,
-  NONE: 'border-slate-300 dark:border-[#1e2030] text-slate-500',
-  UNKNOWN: 'border-slate-300 dark:border-[#1e2030] text-slate-500',
+  NONE: 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500',
+  UNKNOWN: 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500',
 };
 
 const ORIGIN_PILL: Record<RecentCve['origin'], { label: string; cls: string; tooltip: string }> = {
   nvd: {
     label: 'NVD',
-    cls: 'border-slate-300 dark:border-[#1e2030] text-muted',
+    cls: 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted',
     tooltip: 'Canonical NIST National Vulnerability Database entry',
   },
   kev: {
@@ -201,7 +201,7 @@ export default function CveList(): JSX.Element {
         className="mb-6"
       />
 
-      <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 mb-6">
+      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
         <div className="flex items-center gap-3">
           <div className="relative flex-1">
             <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
@@ -210,7 +210,7 @@ export default function CveList(): JSX.Element {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Filter by CVE id or description text…"
-              className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[#1e2030] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
               aria-label="Filter CVEs"
             />
           </div>
@@ -220,7 +220,7 @@ export default function CveList(): JSX.Element {
             className={`inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border ${
               kevOnly
                 ? 'border-rose-500/60 bg-rose-500/10 text-rose-700 dark:text-rose-300'
-                : 'border-slate-200 dark:border-[#1e2030] hover:border-brand-500/40'
+                : 'border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40'
             }`}
             title="Toggle CISA KEV-only (actively exploited CVEs)"
           >
@@ -243,7 +243,7 @@ export default function CveList(): JSX.Element {
           <button
             type="button"
             onClick={() => refetch()}
-            className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-[#1e2030] hover:border-brand-500/40"
+            className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40"
           >
             <RefreshCw size={12} /> refresh
           </button>
@@ -258,7 +258,7 @@ export default function CveList(): JSX.Element {
                 type="button"
                 onClick={() => toggleSeverity(s)}
                 className={`text-mini font-mono px-2 py-1 rounded border ${
-                  active ? SEVERITY_PILL[s] : 'border-slate-300 dark:border-[#1e2030] text-slate-500'
+                  active ? SEVERITY_PILL[s] : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500'
                 }`}
               >
                 {s}
@@ -304,7 +304,7 @@ export default function CveList(): JSX.Element {
                     ? 'border-emerald-500/50 bg-emerald-50/40 dark:bg-emerald-900/10 ring-1 ring-emerald-500/20'
                     : c.kev
                       ? 'border-rose-500/40 bg-rose-50/30 dark:bg-rose-900/10'
-                      : 'border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]'
+                      : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]'
                 }`}
               >
                 <div className="flex items-baseline justify-between gap-2 mb-2 flex-wrap">
@@ -409,7 +409,7 @@ export default function CveList(): JSX.Element {
             type="button"
             onClick={() => setPage((p) => Math.max(1, p - 1))}
             disabled={page <= 1}
-            className="text-xs font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[#1e2030] disabled:opacity-30 hover:border-brand-500/40"
+            className="text-xs font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] disabled:opacity-30 hover:border-brand-500/40"
           >
             ← prev
           </button>
@@ -420,7 +420,7 @@ export default function CveList(): JSX.Element {
             type="button"
             onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
             disabled={page >= totalPages}
-            className="text-xs font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[#1e2030] disabled:opacity-30 hover:border-brand-500/40"
+            className="text-xs font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] disabled:opacity-30 hover:border-brand-500/40"
           >
             next →
           </button>

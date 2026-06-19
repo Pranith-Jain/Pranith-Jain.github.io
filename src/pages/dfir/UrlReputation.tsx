@@ -96,7 +96,7 @@ export default function UrlReputation(): JSX.Element {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="https://example.com/path?param=value"
-              className="w-full pl-9 pr-3 py-3 bg-white dark:bg-[#12121a] border border-slate-200 dark:border-[#1e2030] rounded-lg font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="w-full pl-9 pr-3 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
               aria-label="URL to check"
             />
           </div>
@@ -125,7 +125,7 @@ export default function UrlReputation(): JSX.Element {
       )}
 
       {summary && (
-        <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 mb-4">
+        <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-4">
           <div className="flex items-baseline justify-between mb-2">
             <h2 ref={summaryRef} tabIndex={-1} className="font-display font-bold text-lg focus:outline-none">
               Composite verdict
@@ -147,7 +147,7 @@ export default function UrlReputation(): JSX.Element {
       )}
 
       {results.length > 0 && (
-        <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4">
+        <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
           <div className="flex items-baseline justify-between mb-3">
             <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
               Per-source results
@@ -168,25 +168,25 @@ export default function UrlReputation(): JSX.Element {
         <div className="flex gap-2 mt-4 flex-wrap">
           <Link
             to={`/dfir/domain?domain=${encodeURIComponent(domain)}`}
-            className="inline-flex items-center gap-1 text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-[#1e2030] text-muted hover:border-brand-500/40"
+            className="inline-flex items-center gap-1 text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40"
           >
             <ExternalLink size={10} /> Domain lookup
           </Link>
           <Link
             to={`/dfir/url-preview?url=${encodeURIComponent(input.trim())}`}
-            className="inline-flex items-center gap-1 text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-[#1e2030] text-muted hover:border-brand-500/40"
+            className="inline-flex items-center gap-1 text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40"
           >
             <ExternalLink size={10} /> URL Preview
           </Link>
           <Link
             to={`/dfir/ioc-check?indicator=${encodeURIComponent(input.trim())}`}
-            className="inline-flex items-center gap-1 text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-[#1e2030] text-muted hover:border-brand-500/40"
+            className="inline-flex items-center gap-1 text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40"
           >
             <ExternalLink size={10} /> IOC Checker
           </Link>
           <Link
             to={`/dfir/email-rep?domain=${encodeURIComponent(domain)}`}
-            className="inline-flex items-center gap-1 text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-[#1e2030] text-muted hover:border-brand-500/40"
+            className="inline-flex items-center gap-1 text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40"
           >
             <ExternalLink size={10} /> Email Reputation
           </Link>

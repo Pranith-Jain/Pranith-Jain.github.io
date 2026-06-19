@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Activity } from 'lucide-react';
+import { preloadRoute } from '../lib/route-preloaders';
 
 interface FeedStatusResponse {
   overall: 'ok' | 'degraded' | 'down' | 'cold';
@@ -50,6 +51,8 @@ export function FeedHealthBadge(): JSX.Element | null {
   return (
     <Link
       to="/threatintel/catalog?cat=tools"
+      onMouseEnter={() => preloadRoute('/threatintel/catalog?cat=tools')}
+      onFocus={() => preloadRoute('/threatintel/catalog?cat=tools')}
       className={`inline-flex items-center gap-2 rounded-lg border px-3 py-1.5 text-mini font-mono transition-colors hover:opacity-80 ${meta.bg}`}
     >
       <span className={`relative flex h-2 w-2 ${data.overall === 'ok' ? 'animate-pulse' : ''}`}>

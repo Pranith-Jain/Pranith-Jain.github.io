@@ -155,7 +155,7 @@ interface SfiResponse {
 
 function RawJson({ value }: { value: unknown }) {
   return (
-    <pre className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-[#12121a] p-3 overflow-auto font-mono text-mini text-slate-700 dark:text-slate-300 max-h-[55vh]">
+    <pre className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] p-3 overflow-auto font-mono text-mini text-slate-700 dark:text-slate-300 max-h-[55vh]">
       {JSON.stringify(value, null, 2)}
     </pre>
   );
@@ -376,7 +376,7 @@ export default function Infostealer(): JSX.Element {
       }
       maxWidthClass="max-w-6xl"
     >
-      <div className="flex flex-wrap gap-2 mb-4 border-b border-slate-200 dark:border-[#1e2030]">
+      <div className="flex flex-wrap gap-2 mb-4 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
         {TABS.map((t) => {
           const Icon = t.icon;
           return (
@@ -422,7 +422,7 @@ export default function Infostealer(): JSX.Element {
                   return (
                     <li
                       key={`raw-${i}`}
-                      className="rounded-lg border border-slate-200 dark:border-[#1e2030] p-3 font-mono text-meta"
+                      className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] p-3 font-mono text-meta"
                     >
                       {String(row)}
                     </li>
@@ -433,7 +433,7 @@ export default function Infostealer(): JSX.Element {
                 return (
                   <li
                     key={`${title}-${date}-${i}`}
-                    className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-3"
+                    className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
                   >
                     <div className="font-display font-semibold text-sm truncate">{title}</div>
                     {sub && <p className="font-mono text-mini text-muted mt-1 line-clamp-2">{sub}</p>}
@@ -452,7 +452,7 @@ export default function Infostealer(): JSX.Element {
           {(markets ?? []).map((m) => (
             <li
               key={m.title}
-              className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-3"
+              className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
             >
               <div className="flex items-start justify-between gap-2">
                 <a
@@ -466,7 +466,7 @@ export default function Infostealer(): JSX.Element {
                 <button
                   type="button"
                   onClick={() => copy(m.url)}
-                  className="shrink-0 rounded border border-slate-200 dark:border-[#1e2030] p-1 text-slate-500 hover:text-brand-600"
+                  className="shrink-0 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-1 text-slate-500 hover:text-brand-600"
                   aria-label="Copy URL"
                 >
                   <Copy size={11} />
@@ -487,7 +487,7 @@ export default function Infostealer(): JSX.Element {
           {(tg ?? []).map((c) => (
             <li
               key={c.name}
-              className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-3"
+              className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
             >
               <div className="flex items-center justify-between gap-2">
                 <span className="font-display font-semibold text-sm truncate">{c.name}</span>
@@ -506,7 +506,7 @@ export default function Infostealer(): JSX.Element {
                 <button
                   type="button"
                   onClick={() => copy(c.url)}
-                  className="shrink-0 rounded border border-slate-200 dark:border-[#1e2030] p-1 text-slate-500 hover:text-brand-600"
+                  className="shrink-0 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-1 text-slate-500 hover:text-brand-600"
                   aria-label="Copy URL"
                 >
                   <Copy size={11} />
@@ -528,7 +528,7 @@ export default function Infostealer(): JSX.Element {
           {(samples ?? []).map((s) => (
             <li
               key={s.sha256}
-              className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-3"
+              className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
             >
               <div className="flex items-center justify-between gap-2">
                 <span className="rounded border border-rose-500/40 bg-rose-500/10 px-1.5 py-0.5 font-mono text-micro uppercase text-rose-700 dark:text-rose-300">
@@ -548,7 +548,7 @@ export default function Infostealer(): JSX.Element {
                 <button
                   type="button"
                   onClick={() => copy(s.sha256)}
-                  className="shrink-0 rounded border border-slate-200 dark:border-[#1e2030] p-1 text-slate-500 hover:text-brand-600"
+                  className="shrink-0 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-1 text-slate-500 hover:text-brand-600"
                   aria-label="Copy SHA256"
                 >
                   <Copy size={11} />
@@ -572,7 +572,7 @@ export default function Infostealer(): JSX.Element {
           {(c2 ?? []).map((x) => (
             <li
               key={x.value}
-              className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-3"
+              className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
             >
               <div className="flex items-center justify-between gap-2">
                 <span className="rounded border border-rose-500/40 bg-rose-500/10 px-1.5 py-0.5 font-mono text-micro uppercase text-rose-700 dark:text-rose-300">
@@ -587,7 +587,7 @@ export default function Infostealer(): JSX.Element {
                 <button
                   type="button"
                   onClick={() => copy(x.value)}
-                  className="shrink-0 rounded border border-slate-200 dark:border-[#1e2030] p-1 text-slate-500 hover:text-brand-600"
+                  className="shrink-0 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-1 text-slate-500 hover:text-brand-600"
                   aria-label="Copy indicator"
                 >
                   <Copy size={11} />
@@ -609,7 +609,7 @@ export default function Infostealer(): JSX.Element {
           {INFOSTEALER_FAMILIES.map((fam) => (
             <details
               key={fam.slug}
-              className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 group open:border-brand-500/40"
+              className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 group open:border-brand-500/40"
             >
               <summary className="flex items-center justify-between gap-3 px-4 py-3 cursor-pointer select-none hover:bg-slate-50 dark:hover:bg-slate-950 rounded-lg list-none">
                 <div className="min-w-0">
@@ -624,20 +624,20 @@ export default function Infostealer(): JSX.Element {
                   )}
                 </div>
                 <div className="flex items-center gap-2 shrink-0">
-                  <span className="text-micro font-mono text-slate-400 border border-slate-200 dark:border-[#1e2030] rounded px-1.5 py-0.5">
+                  <span className="text-micro font-mono text-slate-400 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded px-1.5 py-0.5">
                     {fam.firstSeen}
                   </span>
                   <span className="text-micro font-mono text-slate-400">{fam.platforms.join('/')}</span>
                 </div>
               </summary>
-              <div className="px-4 pb-4 border-t border-slate-200 dark:border-[#1e2030] pt-3 space-y-3">
+              <div className="px-4 pb-4 border-t border-slate-200 dark:border-[rgb(var(--border-400))] pt-3 space-y-3">
                 <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">{fam.description}</p>
 
                 <div className="flex flex-wrap gap-1.5">
                   {fam.capabilities.map((c) => (
                     <span
                       key={c}
-                      className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 text-muted"
+                      className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 text-muted"
                     >
                       {c}
                     </span>
@@ -712,7 +712,7 @@ export default function Infostealer(): JSX.Element {
                     {g.entries.slice(0, 60).map((e, i) => (
                       <li
                         key={`${e.name}-${i}`}
-                        className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-3"
+                        className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
                       >
                         <div className="flex items-center justify-between gap-2">
                           <span className="font-display font-semibold text-sm truncate" title={e.name}>
@@ -740,7 +740,7 @@ export default function Infostealer(): JSX.Element {
                           <button
                             type="button"
                             onClick={() => copy(e.url)}
-                            className="shrink-0 rounded border border-slate-200 dark:border-[#1e2030] p-1 text-slate-500 hover:text-brand-600"
+                            className="shrink-0 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-1 text-slate-500 hover:text-brand-600"
                             aria-label="Copy URL"
                           >
                             <Copy size={11} />
@@ -765,7 +765,7 @@ export default function Infostealer(): JSX.Element {
                       {block.samples.map((s, i) => (
                         <li
                           key={`${src}-${i}`}
-                          className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-2.5 font-mono text-mini flex items-center gap-2 flex-wrap"
+                          className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-2.5 font-mono text-mini flex items-center gap-2 flex-wrap"
                         >
                           <span className="rounded border border-rose-500/40 bg-rose-500/10 px-1.5 py-0.5 text-micro uppercase text-rose-700 dark:text-rose-300">
                             {s.keyword}
@@ -814,7 +814,7 @@ export default function Infostealer(): JSX.Element {
                     className={`text-mini font-mono px-2 py-1 rounded border ${
                       articleSource === src
                         ? 'bg-brand-500/15 border-brand-500/40 text-brand-700 dark:text-brand-300'
-                        : 'border-slate-200 dark:border-[#1e2030] text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'
+                        : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'
                     }`}
                   >
                     {src === 'all' ? 'All' : src === 'blog' ? 'Blog' : src === 'report' ? 'Reports' : 'Techniques'}
@@ -832,7 +832,7 @@ export default function Infostealer(): JSX.Element {
                     {filtered.map((a) => (
                       <li
                         key={a.link}
-                        className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-3"
+                        className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
                       >
                         <a
                           href={sanitizeUrl(a.link)}

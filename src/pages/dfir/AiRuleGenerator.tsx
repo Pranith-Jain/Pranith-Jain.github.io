@@ -145,7 +145,7 @@ function DownloadButton({ content, filename }: { content: string; filename: stri
   return (
     <button
       onClick={handleDownload}
-      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-[#1e2030] text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
     >
       <Download size={13} /> Download
     </button>
@@ -251,7 +251,7 @@ export default function AiRuleGenerator(): JSX.Element {
         {/* Input Panel */}
         <div className="space-y-5">
           {/* Rule Type Selector */}
-          <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-5">
+          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5">
             <h2 className="font-display font-bold text-sm mb-3">Rule Format</h2>
             {categories.map((cat) => {
               const items = RULE_TYPES.filter((rt) => rt.category === cat);
@@ -272,7 +272,7 @@ export default function AiRuleGenerator(): JSX.Element {
                         className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-mono border transition-colors ${
                           ruleType === rt.type
                             ? 'border-brand-500/60 bg-brand-500/10 text-brand-600 dark:text-brand-400'
-                            : 'border-slate-200 dark:border-[#1e2030] text-muted hover:border-brand-500/30'
+                            : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/30'
                         }`}
                       >
                         {rt.icon} {rt.label}
@@ -285,20 +285,20 @@ export default function AiRuleGenerator(): JSX.Element {
           </div>
 
           {/* Description */}
-          <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-5">
+          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5">
             <h2 className="font-display font-bold text-sm mb-3">Detection Description</h2>
             <textarea
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               placeholder={`Describe what to detect…\n\nExample: ${EXAMPLE_PROMPTS[ruleType]?.[0] ?? ''}`}
-              className="w-full h-28 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[#1e2030] rounded-lg p-3 text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 resize-y font-mono"
+              className="w-full h-28 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg p-3 text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 resize-y font-mono"
             />
             <div className="mt-2 flex flex-wrap gap-1">
               {(EXAMPLE_PROMPTS[ruleType] ?? []).slice(0, 3).map((ex, i) => (
                 <button
                   key={i}
                   onClick={() => setDescription(ex)}
-                  className="text-mini px-2 py-1 rounded border border-slate-200 dark:border-[#1e2030] text-slate-500 dark:text-slate-400 hover:border-brand-500/40 transition-colors"
+                  className="text-mini px-2 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-brand-500/40 transition-colors"
                 >
                   {ex.slice(0, 45)}…
                 </button>
@@ -307,7 +307,7 @@ export default function AiRuleGenerator(): JSX.Element {
           </div>
 
           {/* Known Indicators */}
-          <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-5">
+          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5">
             <h2 className="font-display font-bold text-sm mb-3">
               Known Indicators <span className="font-normal text-slate-500">(optional)</span>
             </h2>
@@ -315,12 +315,12 @@ export default function AiRuleGenerator(): JSX.Element {
               value={strings}
               onChange={(e) => setStrings(e.target.value)}
               placeholder="Enter values, one per line…"
-              className="w-full h-20 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[#1e2030] rounded-lg p-3 text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 resize-y font-mono"
+              className="w-full h-20 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg p-3 text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 resize-y font-mono"
             />
           </div>
 
           {/* Options */}
-          <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-5">
+          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5">
             <h2 className="font-display font-bold text-sm mb-3">Options</h2>
             <div className="space-y-3">
               <div>
@@ -333,7 +333,7 @@ export default function AiRuleGenerator(): JSX.Element {
                   value={family}
                   onChange={(e) => setFamily(e.target.value)}
                   placeholder="e.g., Cobalt Strike, Emotet"
-                  className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[#1e2030] rounded-lg px-3 py-2 text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+                  className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg px-3 py-2 text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
                 />
               </div>
               {ruleType === 'sigma' && (
@@ -347,7 +347,7 @@ export default function AiRuleGenerator(): JSX.Element {
                     value={logsource}
                     onChange={(e) => setLogsource(e.target.value)}
                     placeholder="e.g., windows/sysmon"
-                    className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[#1e2030] rounded-lg px-3 py-2 text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+                    className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg px-3 py-2 text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
                   />
                 </div>
               )}
@@ -362,7 +362,7 @@ export default function AiRuleGenerator(): JSX.Element {
                     value={table}
                     onChange={(e) => setTable(e.target.value)}
                     placeholder={ruleType === 'kql' ? 'e.g., SecurityEvent' : 'e.g., index=windows'}
-                    className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[#1e2030] rounded-lg px-3 py-2 text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+                    className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg px-3 py-2 text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
                   />
                 </div>
               )}
@@ -373,7 +373,7 @@ export default function AiRuleGenerator(): JSX.Element {
                     <button
                       key={opt.value}
                       onClick={() => setComplexity(opt.value as typeof complexity)}
-                      className={`flex-1 px-3 py-1.5 rounded-lg text-xs font-mono border transition-colors ${complexity === opt.value ? 'border-brand-500/60 bg-brand-500/10 text-brand-600 dark:text-brand-400' : 'border-slate-200 dark:border-[#1e2030] text-slate-500 dark:text-slate-400 hover:border-brand-500/30'}`}
+                      className={`flex-1 px-3 py-1.5 rounded-lg text-xs font-mono border transition-colors ${complexity === opt.value ? 'border-brand-500/60 bg-brand-500/10 text-brand-600 dark:text-brand-400' : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-brand-500/30'}`}
                     >
                       {opt.label}
                     </button>
@@ -411,7 +411,7 @@ export default function AiRuleGenerator(): JSX.Element {
 
           {result ? (
             <>
-              <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-5">
+              <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5">
                 <div className="flex items-center justify-between mb-3">
                   <h2 className="font-display font-bold text-sm flex items-center gap-2">
                     <Code size={14} className="text-brand-600 dark:text-brand-400" /> Generated Rule
@@ -424,12 +424,12 @@ export default function AiRuleGenerator(): JSX.Element {
                     />
                   </div>
                 </div>
-                <pre className="bg-slate-50 dark:bg-slate-950 rounded-lg p-4 overflow-x-auto text-xs text-slate-700 dark:text-slate-300 font-mono max-h-[500px] overflow-y-auto border border-slate-200 dark:border-[#1e2030]">
+                <pre className="bg-slate-50 dark:bg-slate-950 rounded-lg p-4 overflow-x-auto text-xs text-slate-700 dark:text-slate-300 font-mono max-h-[500px] overflow-y-auto border border-slate-200 dark:border-[rgb(var(--border-400))]">
                   {result.rule_content}
                 </pre>
               </div>
 
-              <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-5">
+              <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5">
                 <h2 className="font-display font-bold text-sm mb-3">Metadata</h2>
                 <div className="grid grid-cols-2 gap-3 text-sm">
                   <div>
@@ -466,7 +466,7 @@ export default function AiRuleGenerator(): JSX.Element {
               </div>
 
               {result.mitre_techniques.length > 0 && (
-                <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-5">
+                <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5">
                   <h2 className="font-display font-bold text-sm mb-3">MITRE ATT&CK</h2>
                   <div className="flex flex-wrap gap-1.5">
                     {result.mitre_techniques.map((t, i) => (
@@ -485,14 +485,14 @@ export default function AiRuleGenerator(): JSX.Element {
               )}
 
               {result.testing_notes && (
-                <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-5">
+                <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5">
                   <h2 className="font-display font-bold text-sm mb-2">Testing Notes</h2>
                   <p className="text-sm text-muted leading-relaxed">{result.testing_notes}</p>
                 </div>
               )}
             </>
           ) : (
-            <div className="rounded-xl border border-dashed border-slate-300 dark:border-[#1e2030] p-10 text-center">
+            <div className="rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-10 text-center">
               <Wand2 size={32} className="text-slate-300 dark:text-slate-600 mx-auto mb-3" />
               <p className="text-sm text-slate-500 dark:text-slate-400">Select a format and describe what to detect</p>
               <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">The generated rule will appear here</p>

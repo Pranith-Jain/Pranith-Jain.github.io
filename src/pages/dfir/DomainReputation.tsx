@@ -146,7 +146,7 @@ export default function DomainReputation(): JSX.Element {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="example.com or 1.2.3.4"
-              className="w-full pl-9 pr-3 py-3 bg-white dark:bg-[#12121a] border border-slate-200 dark:border-[#1e2030] rounded-lg font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="w-full pl-9 pr-3 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
               aria-label="Domain or IP to check"
             />
           </div>
@@ -180,7 +180,7 @@ export default function DomainReputation(): JSX.Element {
       {results && !results.error && (
         <div className="space-y-6">
           {/* Score Summary */}
-          <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4">
+          <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
             <div className="flex flex-wrap items-baseline justify-between gap-3 mb-3">
               <h2 className="font-display font-bold text-xl">{results.target}</h2>
               {(() => {
@@ -215,7 +215,7 @@ export default function DomainReputation(): JSX.Element {
 
           {/* Domain Blacklists */}
           {results.domain && results.domain.length > 0 && (
-            <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4">
+            <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
               <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
                 Domain blacklists ({results.domain.length})
               </h3>
@@ -237,7 +237,7 @@ export default function DomainReputation(): JSX.Element {
                 return (
                   <section
                     key={ip}
-                    className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4"
+                    className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4"
                   >
                     <div className="flex items-baseline justify-between gap-2 mb-3">
                       <h3 className="font-display font-semibold text-base inline-flex items-center gap-2">
@@ -264,26 +264,26 @@ export default function DomainReputation(): JSX.Element {
           <div className="flex gap-2 flex-wrap">
             <Link
               to={`/dfir/email-rep?domain=${encodeURIComponent(clean)}`}
-              className="inline-flex items-center gap-1 text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-[#1e2030] text-muted hover:border-brand-500/40"
+              className="inline-flex items-center gap-1 text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40"
             >
               <ExternalLink size={10} /> Email Reputation
             </Link>
             <Link
               to={`/dfir/url-rep?url=${encodeURIComponent(isIp ? `http://${clean}` : `https://${clean}`)}`}
-              className="inline-flex items-center gap-1 text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-[#1e2030] text-muted hover:border-brand-500/40"
+              className="inline-flex items-center gap-1 text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40"
             >
               <ExternalLink size={10} /> URL Reputation
             </Link>
             <Link
               to={`/dfir/ioc-check?indicator=${encodeURIComponent(clean)}`}
-              className="inline-flex items-center gap-1 text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-[#1e2030] text-muted hover:border-brand-500/40"
+              className="inline-flex items-center gap-1 text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40"
             >
               <ExternalLink size={10} /> IOC Checker
             </Link>
             {!isIp && (
               <Link
                 to={`/threatintel/domain-monitor?domain=${encodeURIComponent(clean)}`}
-                className="inline-flex items-center gap-1 text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-[#1e2030] text-muted hover:border-brand-500/40"
+                className="inline-flex items-center gap-1 text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40"
               >
                 <ExternalLink size={10} /> Domain Monitor
               </Link>
@@ -291,7 +291,7 @@ export default function DomainReputation(): JSX.Element {
           </div>
 
           {/* External Tools */}
-          <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4">
+          <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
             <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3 inline-flex items-center gap-2">
               <BookOpen size={12} aria-hidden="true" /> External reputation lookups
             </h3>
@@ -306,7 +306,7 @@ export default function DomainReputation(): JSX.Element {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={`${t.name} (opens in new tab)`}
-                  className="rounded border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 p-2.5 hover:border-brand-500/40 transition-colors block"
+                  className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-2.5 hover:border-brand-500/40 transition-colors block"
                 >
                   <div className="font-display font-semibold text-xs text-slate-900 dark:text-slate-100 inline-flex items-center gap-1">
                     {t.name} <ExternalLink size={10} aria-hidden="true" />

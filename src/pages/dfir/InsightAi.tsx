@@ -195,7 +195,7 @@ export default function InsightAi(): JSX.Element {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Input Panel */}
         <div className="space-y-5">
-          <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-5">
+          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5">
             <div className="flex items-baseline justify-between mb-2">
               <h2 className="font-display font-bold text-sm">Alert / Log Content</h2>
               <span className="text-micro font-mono uppercase tracking-wider text-slate-400">required</span>
@@ -205,7 +205,7 @@ export default function InsightAi(): JSX.Element {
               onChange={(e) => setAlertText(e.target.value)}
               rows={10}
               placeholder="Paste alert text, SIEM event, or investigation notes…"
-              className="w-full rounded-lg border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 p-3 font-mono text-xs text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/40"
+              className="w-full rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-3 font-mono text-xs text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/40"
             />
             <div className="mt-3 flex flex-wrap gap-2">
               {EXAMPLE_PROMPTS.slice(0, 3).map((ex) => (
@@ -213,7 +213,7 @@ export default function InsightAi(): JSX.Element {
                   key={ex}
                   type="button"
                   onClick={() => setAlertText(ex)}
-                  className="px-2.5 py-1 rounded-md text-xs font-medium border border-slate-200 dark:border-[#1e2030] text-slate-600 dark:text-slate-300 hover:border-brand-400 hover:text-brand-700 dark:hover:text-brand-300 transition-colors"
+                  className="px-2.5 py-1 rounded-md text-xs font-medium border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-600 dark:text-slate-300 hover:border-brand-400 hover:text-brand-700 dark:hover:text-brand-300 transition-colors"
                 >
                   {ex.slice(0, 40)}…
                 </button>
@@ -221,7 +221,7 @@ export default function InsightAi(): JSX.Element {
             </div>
           </div>
 
-          <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-5">
+          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5">
             <h2 className="font-display font-bold text-sm mb-3">Runbook Modes</h2>
             <div className="flex flex-wrap gap-1.5">
               {MODES.map((m) => (
@@ -231,7 +231,7 @@ export default function InsightAi(): JSX.Element {
                   className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-mono border transition-colors ${
                     selectedModes.has(m.id)
                       ? 'border-brand-500/60 bg-brand-500/10 text-brand-600 dark:text-brand-400'
-                      : 'border-slate-200 dark:border-[#1e2030] text-muted hover:border-brand-500/30'
+                      : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/30'
                   }`}
                 >
                   {m.icon} {m.label}
@@ -240,7 +240,7 @@ export default function InsightAi(): JSX.Element {
             </div>
           </div>
 
-          <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-5">
+          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5">
             <h2 className="font-display font-bold text-sm mb-3">SIEM Formats</h2>
             <div className="flex flex-wrap gap-1.5">
               {SIEM_FORMATS.map((s) => (
@@ -250,7 +250,7 @@ export default function InsightAi(): JSX.Element {
                   className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-mono border transition-colors ${
                     selectedSiems.has(s.id)
                       ? 'border-brand-500/60 bg-brand-500/10 text-brand-600 dark:text-brand-400'
-                      : 'border-slate-200 dark:border-[#1e2030] text-muted hover:border-brand-500/30'
+                      : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/30'
                   }`}
                 >
                   <Terminal size={12} /> {s.label}
@@ -289,7 +289,7 @@ export default function InsightAi(): JSX.Element {
           )}
 
           {loading && (
-            <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-10 text-center">
+            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-10 text-center">
               <Loader2 size={32} className="text-brand-600 dark:text-brand-400 mx-auto mb-3 animate-spin" />
               <p className="text-sm text-slate-600 dark:text-slate-300">Generating runbook…</p>
               <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">This may take 15–30 seconds</p>
@@ -299,7 +299,7 @@ export default function InsightAi(): JSX.Element {
           {result && !loading && (
             <>
               {selectedModes.size > 1 && (
-                <div className="flex flex-wrap gap-1.5 rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-2">
+                <div className="flex flex-wrap gap-1.5 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-2">
                   {[...selectedModes].map((m) => {
                     const mode = MODES.find((mm) => mm.id === m);
                     if (!mode) return null;
@@ -310,7 +310,7 @@ export default function InsightAi(): JSX.Element {
                         className={`px-3 py-1.5 rounded-lg text-xs font-mono border transition-colors ${
                           activeTab === m
                             ? 'border-brand-500/60 bg-brand-500/10 text-brand-600 dark:text-brand-400'
-                            : 'border-slate-200 dark:border-[#1e2030] text-slate-500 dark:text-slate-400 hover:border-brand-500/30'
+                            : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-brand-500/30'
                         }`}
                       >
                         {mode.icon} {mode.label}
@@ -320,7 +320,7 @@ export default function InsightAi(): JSX.Element {
                 </div>
               )}
 
-              <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-5">
+              <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5">
                 <div className="flex items-center justify-between mb-3">
                   <h2 className="font-display font-bold text-sm flex items-center gap-2">
                     <BookOpen size={14} className="text-brand-600 dark:text-brand-400" />
@@ -329,39 +329,39 @@ export default function InsightAi(): JSX.Element {
                   <div className="flex gap-1.5">
                     <button
                       onClick={copyResult}
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-[#1e2030] text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
                     >
                       {copied ? <Check size={13} /> : <Copy size={13} />}
                       {copied ? 'Copied' : 'Copy'}
                     </button>
                     <button
                       onClick={() => downloadAs('md')}
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-[#1e2030] text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
                     >
                       <Download size={13} /> .md
                     </button>
                     <button
                       onClick={() => downloadAs('json')}
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-[#1e2030] text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
                     >
                       <FileJson size={13} /> .json
                     </button>
                     <button
                       onClick={() => downloadAs('yaml')}
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-[#1e2030] text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
                     >
                       <FileText size={13} /> .yaml
                     </button>
                     <button
                       onClick={() => downloadAs('txt')}
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-[#1e2030] text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
                     >
                       <FileText size={13} /> .txt
                     </button>
                   </div>
                 </div>
                 <div className="prose prose-sm dark:prose-invert max-w-none">
-                  <pre className="bg-slate-50 dark:bg-slate-950 rounded-lg p-4 overflow-x-auto text-xs text-slate-700 dark:text-slate-300 font-mono border border-slate-200 dark:border-[#1e2030] whitespace-pre-wrap max-h-[600px] overflow-y-auto">
+                  <pre className="bg-slate-50 dark:bg-slate-950 rounded-lg p-4 overflow-x-auto text-xs text-slate-700 dark:text-slate-300 font-mono border border-slate-200 dark:border-[rgb(var(--border-400))] whitespace-pre-wrap max-h-[600px] overflow-y-auto">
                     {result}
                   </pre>
                 </div>
@@ -370,7 +370,7 @@ export default function InsightAi(): JSX.Element {
           )}
 
           {!result && !loading && !error && (
-            <div className="rounded-xl border border-dashed border-slate-300 dark:border-[#1e2030] p-10 text-center">
+            <div className="rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-10 text-center">
               <Sparkles size={32} className="text-slate-300 dark:text-slate-600 mx-auto mb-3" />
               <p className="text-sm text-slate-500 dark:text-slate-400">
                 Paste an alert and select modes, then click <span className="font-semibold">Generate</span>

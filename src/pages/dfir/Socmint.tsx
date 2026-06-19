@@ -199,7 +199,7 @@ export default function Socmint(): JSX.Element {
         </p>
       </div>
 
-      <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 mb-6">
+      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
         <div className="flex gap-2">
           <div className="relative flex-1">
             <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" aria-hidden="true" />
@@ -208,7 +208,7 @@ export default function Socmint(): JSX.Element {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="email / domain / @handle / username / name"
-              className="w-full pl-9 pr-4 py-2.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[#1e2030] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="w-full pl-9 pr-4 py-2.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
               autoComplete="off"
               spellCheck={false}
             />
@@ -227,7 +227,7 @@ export default function Socmint(): JSX.Element {
               key={s.label}
               type="button"
               onClick={() => setInput(s.value)}
-              className="text-mini font-mono px-2 py-0.5 rounded border border-slate-300 dark:border-[#1e2030] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
+              className="text-mini font-mono px-2 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
             >
               {s.label}
             </button>
@@ -259,7 +259,7 @@ export default function Socmint(): JSX.Element {
                 type="button"
                 onClick={() => toggleCategory(c)}
                 className={`text-mini font-mono px-2 py-1 rounded border inline-flex items-center gap-1 ${
-                  active ? meta.pillCls : 'border-slate-200 dark:border-[#1e2030] text-slate-500'
+                  active ? meta.pillCls : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500'
                 }`}
                 title={meta.blurb}
               >
@@ -276,7 +276,7 @@ export default function Socmint(): JSX.Element {
             <button
               type="button"
               onClick={() => void copyAll()}
-              className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[#1e2030] text-muted hover:border-brand-500/40 inline-flex items-center gap-1"
+              className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40 inline-flex items-center gap-1"
             >
               {copied === 'all' ? <Check size={11} /> : <Clipboard size={11} />}
               {copied === 'all' ? 'copied URLs' : 'copy all URLs'}
@@ -299,7 +299,7 @@ export default function Socmint(): JSX.Element {
           return (
             <section
               key={cat}
-              className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4"
+              className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4"
             >
               <div className="flex items-center gap-2 mb-3">
                 <span
@@ -318,7 +318,7 @@ export default function Socmint(): JSX.Element {
                       {internal ? (
                         <Link
                           to={url}
-                          className="block rounded border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 px-3 py-2 hover:border-brand-500/40"
+                          className="block rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 px-3 py-2 hover:border-brand-500/40"
                         >
                           <PivotInner pivot={p} url={url} internal />
                         </Link>
@@ -327,7 +327,7 @@ export default function Socmint(): JSX.Element {
                           href={url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="block rounded border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 px-3 py-2 hover:border-brand-500/40"
+                          className="block rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 px-3 py-2 hover:border-brand-500/40"
                         >
                           <PivotInner pivot={p} url={url} internal={false} />
                         </a>
@@ -364,7 +364,7 @@ function PivotInner({ pivot, url, internal }: { pivot: PivotLink; url: string; i
             </span>
           )}
           {pivot.signupRequired && !pivot.paid && (
-            <span className="px-1 py-0.5 rounded border border-slate-300 dark:border-[#1e2030] text-slate-500">
+            <span className="px-1 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500">
               signup
             </span>
           )}

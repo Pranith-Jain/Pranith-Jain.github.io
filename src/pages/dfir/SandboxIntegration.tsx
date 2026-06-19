@@ -97,7 +97,7 @@ export default function SandboxIntegration(): JSX.Element {
         {['VirusTotal', 'MalwareBazaar', 'ANY.RUN', 'Triage', 'Hybrid Analysis', 'Joe Sandbox', 'OTX'].map((s) => (
           <span
             key={s}
-            className="px-2.5 py-1 rounded-lg text-xs font-mono border border-slate-200 dark:border-[#1e2030] text-muted"
+            className="px-2.5 py-1 rounded-lg text-xs font-mono border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted"
           >
             {s}
           </span>
@@ -106,7 +106,7 @@ export default function SandboxIntegration(): JSX.Element {
 
       {/* Input */}
       <div
-        className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-5 mb-6"
+        className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5 mb-6"
         onDrop={handleDrop}
         onDragOver={(e) => e.preventDefault()}
       >
@@ -117,7 +117,7 @@ export default function SandboxIntegration(): JSX.Element {
           onChange={(e) => setHash(e.target.value)}
           onKeyDown={(e) => e.key === 'Enter' && void handleLookup()}
           placeholder="MD5, SHA-1, or SHA-256…"
-          className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[#1e2030] rounded-lg px-4 py-2.5 text-sm font-mono text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+          className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg px-4 py-2.5 text-sm font-mono text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
         />
         <button
           onClick={handleLookup}
@@ -167,7 +167,7 @@ export default function SandboxIntegration(): JSX.Element {
             return (
               <div
                 key={i}
-                className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-5"
+                className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5"
               >
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center gap-2">
@@ -209,7 +209,7 @@ export default function SandboxIntegration(): JSX.Element {
                     {r.tags.map((t, j) => (
                       <span
                         key={j}
-                        className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-[#1e2030] text-slate-500"
+                        className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500"
                       >
                         {t}
                       </span>

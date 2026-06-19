@@ -191,7 +191,7 @@ const RISK_PILL: Record<string, string> = {
   HIGH: 'bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300 border-amber-300 dark:border-amber-800',
   MEDIUM:
     'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/40 dark:text-yellow-300 border-yellow-300 dark:border-yellow-800',
-  LOW: 'bg-slate-100 text-slate-800 dark:bg-slate-800 dark:text-slate-300 border-slate-300 dark:border-[#1e2030]',
+  LOW: 'bg-slate-100 text-slate-800 dark:bg-slate-800 dark:text-slate-300 border-slate-300 dark:border-[rgb(var(--border-400))]',
 };
 
 export default function Predators(): JSX.Element {
@@ -229,7 +229,7 @@ export default function Predators(): JSX.Element {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Filter by name, type, region, indicator, or resource…"
-          className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[#12121a] border border-slate-200 dark:border-[#1e2030] rounded-lg font-mono text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+          className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
         />
       </div>
 
@@ -241,7 +241,7 @@ export default function Predators(): JSX.Element {
         {sorted.map((cat) => (
           <div
             key={cat.name}
-            className="surface-card p-5 flex flex-col border border-slate-200 dark:border-[#1e2030] rounded-xl"
+            className="surface-card p-5 flex flex-col border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl"
           >
             <div className="flex items-start justify-between gap-3 mb-2">
               <h3 className="font-display font-semibold text-slate-900 dark:text-slate-100">{cat.name}</h3>
@@ -261,7 +261,7 @@ export default function Predators(): JSX.Element {
               {cat.regions.map((region) => (
                 <span
                   key={region}
-                  className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-muted border border-slate-200 dark:border-[#1e2030]"
+                  className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-muted border border-slate-200 dark:border-[rgb(var(--border-400))]"
                 >
                   {region}
                 </span>

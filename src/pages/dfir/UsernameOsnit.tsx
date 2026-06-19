@@ -80,7 +80,7 @@ export default function UsernameOsnit(): JSX.Element {
         </p>
       </div>
 
-      <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 mb-6">
+      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
         <form onSubmit={onSubmit} className="flex gap-2">
           <div className="relative flex-1 min-w-[220px]">
             <Users size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" aria-hidden="true" />
@@ -89,7 +89,7 @@ export default function UsernameOsnit(): JSX.Element {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="username (letters / digits / . _ -)"
-              className="w-full pl-9 pr-3 py-2 rounded-lg border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 font-mono text-sm text-slate-900 dark:text-slate-100 focus:border-brand-500/60 focus:outline-none"
+              className="w-full pl-9 pr-3 py-2 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 font-mono text-sm text-slate-900 dark:text-slate-100 focus:border-brand-500/60 focus:outline-none"
               autoComplete="off"
               spellCheck={false}
               aria-label="Username"
@@ -138,7 +138,7 @@ export default function UsernameOsnit(): JSX.Element {
                   className={`px-2.5 py-1 text-xs font-mono rounded-lg border ${
                     filter === f
                       ? 'bg-brand-600 text-white border-brand-600'
-                      : 'border-slate-200 dark:border-[#1e2030] text-muted hover:bg-slate-100 dark:hover:bg-slate-800'
+                      : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:bg-slate-100 dark:hover:bg-slate-800'
                   }`}
                 >
                   {f === 'all' ? 'All' : 'Found'}
@@ -149,7 +149,7 @@ export default function UsernameOsnit(): JSX.Element {
 
           {/* Found */}
           {found.length > 0 && (
-            <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] p-6">
+            <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
               <h2 className="font-display font-bold text-xl mb-4 flex items-center gap-2">
                 <CheckCircle2 size={18} className="text-emerald-500" /> Found ({found.length})
               </h2>
@@ -178,13 +178,13 @@ export default function UsernameOsnit(): JSX.Element {
 
           {/* Not Found */}
           {filter === 'all' && notFound.length > 0 && (
-            <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] p-6">
+            <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
               <h2 className="font-display font-bold text-xl mb-4 text-slate-400">Not Found ({notFound.length})</h2>
               <div className="flex flex-wrap gap-1.5">
                 {notFound.map((r) => (
                   <span
                     key={r.platform}
-                    className="text-xs font-mono px-2 py-0.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-500 border border-slate-200 dark:border-[#1e2030]"
+                    className="text-xs font-mono px-2 py-0.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-500 border border-slate-200 dark:border-[rgb(var(--border-400))]"
                   >
                     {r.name}
                   </span>
@@ -195,7 +195,7 @@ export default function UsernameOsnit(): JSX.Element {
 
           {/* Category Breakdown */}
           {Object.keys(result.summary).length > 0 && (
-            <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] p-6">
+            <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
               <h2 className="font-display font-bold text-xl mb-4 text-slate-400">Category Breakdown</h2>
               <div className="flex flex-wrap gap-2">
                 {Object.entries(result.summary)

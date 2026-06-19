@@ -272,7 +272,7 @@ export default function InsiderThreatMatrix(): JSX.Element {
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Search techniques by name or ID..."
-                className="w-full pl-9 pr-4 py-2 bg-white dark:bg-[#12121a] border border-slate-200 dark:border-[#1e2030] rounded font-mono text-sm focus:outline-none focus:border-brand-500"
+                className="w-full pl-9 pr-4 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500"
                 aria-label="Search insider threat techniques"
               />
             </div>
@@ -291,7 +291,7 @@ export default function InsiderThreatMatrix(): JSX.Element {
           return (
             <div
               key={cat.id}
-              className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 overflow-hidden"
+              className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 overflow-hidden"
             >
               <button
                 onClick={() => toggle(cat.id)}
@@ -318,7 +318,7 @@ export default function InsiderThreatMatrix(): JSX.Element {
                         href={`https://insiderthreatmatrix.org${t.url}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 text-xs font-mono px-2.5 py-1.5 rounded-full border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+                        className="inline-flex items-center gap-1.5 text-xs font-mono px-2.5 py-1.5 rounded-full border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
                         title={`View on Insider Threat Matrix — ${t.name}`}
                       >
                         <span className="text-micro text-slate-400">{t.id}</span>

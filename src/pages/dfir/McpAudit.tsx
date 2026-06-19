@@ -125,7 +125,7 @@ export default function McpAudit(): JSX.Element {
         </div>
       </header>
 
-      <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4">
+      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
         <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
           <span className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
             Config JSON
@@ -133,28 +133,28 @@ export default function McpAudit(): JSX.Element {
           <div className="flex flex-wrap gap-1.5">
             <button
               onClick={() => setInput(SAMPLE_CLEAN)}
-              className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-800 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+              className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-800 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
               title="Sample MCP config — no findings expected"
             >
               MCP · clean
             </button>
             <button
               onClick={() => setInput(SAMPLE_DIRTY)}
-              className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-800 hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
+              className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-800 hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
               title="Sample MCP config — multiple findings"
             >
               MCP · dirty
             </button>
             <button
               onClick={() => setInput(SAMPLE_CC_CLEAN)}
-              className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-800 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+              className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-800 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
               title="Sample Claude Code settings — no findings expected"
             >
               Claude Code · clean
             </button>
             <button
               onClick={() => setInput(SAMPLE_CC_DIRTY)}
-              className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-800 hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
+              className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-800 hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
               title="Sample Claude Code settings — multiple findings"
             >
               Claude Code · dirty
@@ -162,7 +162,7 @@ export default function McpAudit(): JSX.Element {
             {input && (
               <button
                 onClick={() => setInput('')}
-                className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[#1e2030] hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
+                className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
               >
                 Clear
               </button>
@@ -175,7 +175,7 @@ export default function McpAudit(): JSX.Element {
           rows={12}
           spellCheck={false}
           placeholder='{ "mcpServers": { "fetch": { "command": "uvx", "args": ["mcp-server-fetch"] } } }'
-          className="w-full rounded border border-slate-300 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 px-3 py-2 font-mono text-xs text-slate-900 dark:text-slate-100 focus:border-brand-500/60 focus:outline-none"
+          className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 px-3 py-2 font-mono text-xs text-slate-900 dark:text-slate-100 focus:border-brand-500/60 focus:outline-none"
           aria-label="MCP config JSON"
         />
         {parseError && (
@@ -185,7 +185,7 @@ export default function McpAudit(): JSX.Element {
 
       {input.trim() && !parseError && (
         <>
-          <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4">
+          <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
             <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
               <span className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono inline-flex items-center gap-2">
                 Verdict
@@ -224,7 +224,7 @@ export default function McpAudit(): JSX.Element {
             </div>
           </section>
 
-          <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4">
+          <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
             <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
               Findings
             </h2>
@@ -238,7 +238,7 @@ export default function McpAudit(): JSX.Element {
                 {findings.map((f, i) => (
                   <li
                     key={`${f.id}-${i}`}
-                    className="rounded border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 p-3"
+                    className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-3"
                   >
                     <div className="flex flex-wrap items-center gap-2 mb-1">
                       <span className="font-display font-semibold text-slate-900 dark:text-slate-100">{f.title}</span>
@@ -260,7 +260,7 @@ export default function McpAudit(): JSX.Element {
       )}
 
       {!input.trim() && (
-        <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4">
+        <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
           <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
             What this checks
           </h2>
@@ -320,7 +320,7 @@ export default function McpAudit(): JSX.Element {
         </section>
       )}
 
-      <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4">
+      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
         <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
           References
         </h2>

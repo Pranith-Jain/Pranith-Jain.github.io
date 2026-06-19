@@ -168,7 +168,7 @@ const KIND_PILL: Record<DetIndicator['kind'], string> = {
 function DetectionCard({ d }: { d: Detection }): JSX.Element {
   const [open, setOpen] = useState(false);
   return (
-    <li className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1">
+    <li className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1">
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
@@ -203,7 +203,7 @@ function DetectionCard({ d }: { d: Detection }): JSX.Element {
         />
       </button>
       {open && (
-        <ul className="border-t border-slate-200 dark:border-[#1e2030] divide-y divide-slate-100 dark:divide-slate-800/60">
+        <ul className="border-t border-slate-200 dark:border-[rgb(var(--border-400))] divide-y divide-slate-100 dark:divide-slate-800/60">
           {d.indicators.map((it, i) => (
             <li key={`${it.source}:${it.value}:${i}`} className="px-4 py-2 flex items-center gap-3">
               <span
@@ -407,7 +407,7 @@ export default function Detections(): JSX.Element {
                     {indicatorPreview.map((it, i) => (
                       <li
                         key={`${it.source}:${it.value}:${i}`}
-                        className="rounded border border-slate-200 dark:border-[#1e2030] bg-white/60 dark:bg-[#12121a]/40 px-2.5 py-1.5"
+                        className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white/60 dark:bg-[rgb(var(--surface-200))]/40 px-2.5 py-1.5"
                       >
                         <div className="flex items-center gap-2 mb-0.5">
                           <span
@@ -427,7 +427,7 @@ export default function Detections(): JSX.Element {
                 </div>
               </div>
               {supporting.length > 0 && (
-                <div className="mt-5 pt-4 border-t border-slate-200/60 dark:border-[#1e2030]/60">
+                <div className="mt-5 pt-4 border-t border-slate-200/60 dark:border-[rgb(var(--border-400))]/60">
                   <div className="text-mini font-mono uppercase tracking-[0.18em] text-slate-500 mb-2">
                     also firing right now
                   </div>
@@ -437,7 +437,7 @@ export default function Detections(): JSX.Element {
                       return (
                         <div
                           key={`${d.rule_id}:${d.group_key ?? ''}`}
-                          className="rounded border border-slate-200 dark:border-[#1e2030] bg-white/60 dark:bg-[#12121a]/40 px-3 py-2"
+                          className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white/60 dark:bg-[rgb(var(--surface-200))]/40 px-3 py-2"
                         >
                           <div className="flex items-baseline gap-2 mb-1 flex-wrap">
                             <span
@@ -461,7 +461,7 @@ export default function Detections(): JSX.Element {
           );
         })()}
 
-      <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 mb-4">
+      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-4">
         <div className="flex items-center gap-3">
           <div className="relative flex-1">
             <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
@@ -470,14 +470,14 @@ export default function Detections(): JSX.Element {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Filter by rule, group key, or indicator…"
-              className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[#1e2030] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
               aria-label="Filter detections"
             />
           </div>
           <button
             type="button"
             onClick={() => setRefreshKey((k) => k + 1)}
-            className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-[#1e2030] hover:border-brand-500/40"
+            className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40"
           >
             <RefreshCw size={12} /> refresh
           </button>
@@ -494,7 +494,7 @@ export default function Detections(): JSX.Element {
               type="button"
               onClick={() => void buildStix()}
               disabled={stixLoading || !data}
-              className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-[#1e2030] hover:border-brand-500/40 disabled:opacity-40"
+              className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 disabled:opacity-40"
             >
               {stixLoading ? <Loader2 size={12} className="animate-spin" /> : <FileDown size={12} />}
               {stixLoading ? 'building…' : 'STIX'}
@@ -517,7 +517,7 @@ export default function Detections(): JSX.Element {
                 type="button"
                 onClick={() => toggleSev(s)}
                 className={`text-mini font-mono px-2 py-1 rounded border ${
-                  active ? SEVERITY_TONE[s] : 'border-slate-300 dark:border-[#1e2030] text-slate-500'
+                  active ? SEVERITY_TONE[s] : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500'
                 }`}
               >
                 {s} <span className="opacity-70">· {n}</span>

@@ -66,7 +66,7 @@ function chip(active: boolean): string {
   return `text-xs font-mono px-2.5 py-1 rounded border transition-colors ${
     active
       ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-      : 'border-slate-300 dark:border-[#1e2030] text-muted hover:border-brand-500/40'
+      : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40'
   }`;
 }
 
@@ -180,7 +180,7 @@ export default function Ransomwhere(): JSX.Element {
         {filtered.slice(0, 600).map((w) => (
           <div
             key={`${w.address}-${w.blockchain}`}
-            className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 p-3"
+            className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-3"
           >
             <div className="flex items-start justify-between gap-2">
               <button
@@ -212,7 +212,7 @@ export default function Ransomwhere(): JSX.Element {
               {w.last_seen && <span>last {fmtDate(w.last_seen)}</span>}
             </div>
 
-            <div className="mt-2 pt-2 border-t border-slate-200 dark:border-[#1e2030]">
+            <div className="mt-2 pt-2 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
               <Link
                 to={`/dfir/tracer?address=${encodeURIComponent(w.address)}`}
                 className="inline-flex items-center gap-1 text-micro font-mono text-brand-600 dark:text-brand-400 hover:underline"

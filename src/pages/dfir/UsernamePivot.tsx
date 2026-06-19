@@ -19,7 +19,7 @@ const RESULT_STYLES: Record<CheckResult | 'pending' | 'manual', { label: string;
   },
   'not-found': {
     label: 'not found',
-    cls: 'border-slate-300 dark:border-[#1e2030] text-slate-500',
+    cls: 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500',
     icon: <span className="opacity-50">×</span>,
   },
   'rate-limited': {
@@ -34,7 +34,7 @@ const RESULT_STYLES: Record<CheckResult | 'pending' | 'manual', { label: string;
   },
   pending: {
     label: 'checking…',
-    cls: 'border-slate-300 dark:border-[#1e2030] text-slate-500',
+    cls: 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500',
     icon: <Loader2 size={11} className="animate-spin" />,
   },
   manual: {
@@ -143,7 +143,7 @@ export default function UsernamePivot(): JSX.Element {
         </p>
       </div>
 
-      <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 mb-6">
+      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -158,7 +158,7 @@ export default function UsernamePivot(): JSX.Element {
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               placeholder="username (letters / digits / . _ -)"
-              className="w-full pl-9 pr-3 py-2 rounded border border-slate-300 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 font-mono text-sm focus:border-brand-500/60 focus:outline-none"
+              className="w-full pl-9 pr-3 py-2 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 font-mono text-sm focus:border-brand-500/60 focus:outline-none"
               aria-label="Username"
               autoComplete="off"
               spellCheck={false}
@@ -184,7 +184,7 @@ export default function UsernamePivot(): JSX.Element {
       {submitted && (
         <>
           {/* Stats + filter */}
-          <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 mb-6">
+          <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
             <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
               <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
                 Results for <span className="text-slate-900 dark:text-slate-100">{submitted}</span>
@@ -200,7 +200,7 @@ export default function UsernamePivot(): JSX.Element {
                 className={`text-mini font-mono px-2 py-1 rounded border transition-colors ${
                   categoryFilter === 'all'
                     ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                    : 'border-slate-300 dark:border-[#1e2030] text-muted hover:border-brand-500/40'
+                    : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40'
                 }`}
               >
                 All
@@ -215,7 +215,7 @@ export default function UsernamePivot(): JSX.Element {
                     className={`text-mini font-mono px-2 py-1 rounded border transition-colors ${
                       categoryFilter === c
                         ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                        : 'border-slate-300 dark:border-[#1e2030] text-muted hover:border-brand-500/40'
+                        : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40'
                     }`}
                   >
                     {CATEGORY_LABELS[c]} <span className="opacity-60">· {count}</span>
@@ -226,7 +226,7 @@ export default function UsernamePivot(): JSX.Element {
           </section>
 
           {/* Result list */}
-          <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 mb-6">
+          <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
             <ul className="grid gap-2 sm:grid-cols-2">
               {filteredRows.map((row) => {
                 const url = buildProfileUrl(row.service, submitted);
@@ -234,7 +234,7 @@ export default function UsernamePivot(): JSX.Element {
                 return (
                   <li
                     key={row.service.id}
-                    className="rounded border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 p-2.5"
+                    className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-2.5"
                   >
                     <div className="flex flex-wrap items-center gap-2 mb-1">
                       <span className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100">
@@ -267,7 +267,7 @@ export default function UsernamePivot(): JSX.Element {
         </>
       )}
 
-      <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4">
+      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
         <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-2">
           Notes
         </h2>

@@ -262,7 +262,7 @@ export default function FeedQuality(): JSX.Element {
                 />
               ))}
               {filtered.length === 0 && (
-                <div className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-6 text-center text-sm text-slate-500 font-mono">
+                <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-6 text-center text-sm text-slate-500 font-mono">
                   No feeds match the current filter.
                 </div>
               )}
@@ -276,7 +276,7 @@ export default function FeedQuality(): JSX.Element {
 
 function SummaryStrip({ data }: { data: TifceResponse }): JSX.Element {
   return (
-    <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 mb-4 grid grid-cols-2 sm:grid-cols-4 gap-3">
+    <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-4 grid grid-cols-2 sm:grid-cols-4 gap-3">
       <Stat
         label="Feeds evaluated"
         value={data.summary.feeds_evaluated}
@@ -325,7 +325,7 @@ function FilterBar({
   meta: TifceResponse['_meta'];
 }): JSX.Element {
   return (
-    <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 mb-4">
+    <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-4">
       <div className="flex items-center gap-3 flex-wrap">
         <div className="relative flex-1 min-w-[200px]">
           <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
@@ -334,7 +334,7 @@ function FilterBar({
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Filter by feed id…"
-            className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[#1e2030] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
             aria-label="Filter feeds"
           />
         </div>
@@ -349,14 +349,14 @@ function FilterBar({
         <button
           type="button"
           onClick={() => setShowMeta(!showMeta)}
-          className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-[#1e2030] hover:border-brand-500/40"
+          className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40"
         >
           <Info size={12} /> build details
         </button>
         <button
           type="button"
           onClick={onRefresh}
-          className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-[#1e2030] hover:border-brand-500/40"
+          className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40"
         >
           <RefreshCw size={12} /> refresh
         </button>
@@ -370,7 +370,7 @@ function FilterBar({
               key={g}
               type="button"
               onClick={() => toggleGrade(g)}
-              className={`text-mini font-mono px-2 py-1 rounded border ${active ? GRADE_COLOR[g] : 'border-slate-200 dark:border-[#1e2030] text-slate-500'}`}
+              className={`text-mini font-mono px-2 py-1 rounded border ${active ? GRADE_COLOR[g] : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500'}`}
               title={`${active ? 'remove' : 'add'} grade ${g}`}
             >
               {g}
@@ -379,7 +379,7 @@ function FilterBar({
         })}
       </div>
       {showMeta && (
-        <dl className="mt-3 pt-3 border-t border-slate-200 dark:border-[#1e2030] grid grid-cols-2 sm:grid-cols-4 gap-2 text-mini font-mono">
+        <dl className="mt-3 pt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))] grid grid-cols-2 sm:grid-cols-4 gap-2 text-mini font-mono">
           <Meta label="TP indicator set" value={meta.tp_indicators_loaded.toLocaleString()} />
           <Meta label="Platform-reported set" value={meta.platform_indicators_loaded.toLocaleString()} />
           <Meta label="Detection firings (24h)" value={meta.detection_indicators_loaded.toLocaleString()} />
@@ -413,7 +413,7 @@ function FeedRow({
   onToggle: () => void;
 }): JSX.Element {
   return (
-    <article className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 overflow-hidden">
+    <article className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 overflow-hidden">
       <button
         type="button"
         onClick={onToggle}
@@ -446,7 +446,7 @@ function FeedRow({
         )}
       </button>
       {expanded && (
-        <div className="px-4 pb-4 pt-1 border-t border-slate-200 dark:border-[#1e2030] space-y-3 bg-slate-50/40 dark:bg-slate-950/40">
+        <div className="px-4 pb-4 pt-1 border-t border-slate-200 dark:border-[rgb(var(--border-400))] space-y-3 bg-slate-50/40 dark:bg-slate-950/40">
           {PILLAR_KEYS.map((k) => {
             const p = feed[k];
             const meta = PILLAR_LABELS[k];

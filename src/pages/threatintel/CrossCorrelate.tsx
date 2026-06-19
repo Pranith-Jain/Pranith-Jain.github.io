@@ -76,7 +76,7 @@ export default function CrossCorrelate(): JSX.Element {
             onChange={(e) => setSector(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && load(sector)}
             placeholder="Filter by sector (e.g. finance, healthcare, energy)…"
-            className="flex-1 text-sm px-4 py-2 rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/60 shadow-e1 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40"
+            className="flex-1 text-sm px-4 py-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/60 shadow-e1 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40"
           />
           <button
             type="button"
@@ -92,7 +92,7 @@ export default function CrossCorrelate(): JSX.Element {
         <>
           {/* KPI row */}
           <div className="grid grid-cols-3 gap-3 mb-6">
-            <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4">
+            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
               <p className="text-mini font-mono text-slate-500 mb-1">Insights</p>
               <p className="text-2xl font-bold font-display">{data.total}</p>
             </div>
@@ -136,11 +136,11 @@ export default function CrossCorrelate(): JSX.Element {
 
                     {/* Implication + recommendation */}
                     <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      <div className="p-2.5 rounded-lg bg-white/60 dark:bg-[#12121a]/40 border border-slate-200 dark:border-[#1e2030]">
+                      <div className="p-2.5 rounded-lg bg-white/60 dark:bg-[rgb(var(--surface-200))]/40 border border-slate-200 dark:border-[rgb(var(--border-400))]">
                         <p className="text-micro font-mono uppercase tracking-wider text-rose-500 mb-1">Implication</p>
                         <p className="text-mini text-muted">{insight.implication}</p>
                       </div>
-                      <div className="p-2.5 rounded-lg bg-white/60 dark:bg-[#12121a]/40 border border-slate-200 dark:border-[#1e2030]">
+                      <div className="p-2.5 rounded-lg bg-white/60 dark:bg-[rgb(var(--surface-200))]/40 border border-slate-200 dark:border-[rgb(var(--border-400))]">
                         <p className="text-micro font-mono uppercase tracking-wider text-emerald-500 mb-1">
                           Recommendation
                         </p>

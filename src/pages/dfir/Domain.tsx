@@ -98,7 +98,7 @@ export default function Domain(): JSX.Element {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="example.com"
-            className="flex-1 px-4 py-3 bg-white dark:bg-[#12121a] border border-slate-200 dark:border-[#1e2030] rounded-lg font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="flex-1 px-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
           />
           <button
             type="submit"
@@ -123,7 +123,7 @@ export default function Domain(): JSX.Element {
 
       {result && (
         <div className="space-y-6">
-          <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] p-6">
+          <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
             <div className="flex flex-wrap items-baseline justify-between gap-2">
               <h2 className="font-display font-bold text-2xl min-w-0 break-all">{result.domain}</h2>
               <span className="font-mono text-sm shrink-0">
@@ -148,7 +148,7 @@ export default function Domain(): JSX.Element {
           <CertList certs={result.certificates} />
 
           {webamonLoading && (
-            <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] p-6">
+            <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
               <div className="flex items-center gap-2 text-sm text-slate-500 font-mono">
                 <div className="animate-spin w-3 h-3 border-2 border-brand-500 border-t-transparent rounded-full" />
                 Checking Webamon scan data…
@@ -157,7 +157,7 @@ export default function Domain(): JSX.Element {
           )}
 
           {webamon && webamon.total_hits > 0 && (
-            <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] p-6">
+            <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
               <button
                 onClick={() => (webamonExpanded.current = !webamonExpanded.current)}
                 className="w-full flex items-center gap-2 text-left"
@@ -253,7 +253,7 @@ export default function Domain(): JSX.Element {
                     )}
                   </div>
                 ))}
-              <div className="mt-3 pt-3 border-t border-slate-100 dark:border-[#1e2030]">
+              <div className="mt-3 pt-3 border-t border-slate-100 dark:border-[rgb(var(--border-400))]">
                 <a
                   href={`/threatintel/webamon?q=${encodeURIComponent(`domain.name:${result.domain}`)}`}
                   className="text-meta text-brand-600 dark:text-brand-400 hover:underline font-mono inline-flex items-center gap-1"

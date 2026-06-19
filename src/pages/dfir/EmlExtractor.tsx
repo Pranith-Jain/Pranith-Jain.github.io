@@ -125,7 +125,7 @@ export default function EmlExtractor(): JSX.Element {
       </div>
 
       {/* Input */}
-      <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 mb-6">
+      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
         <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
           <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
             Input
@@ -151,7 +151,7 @@ export default function EmlExtractor(): JSX.Element {
                 setInput(SAMPLE_EML);
                 void run(SAMPLE_EML);
               }}
-              className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[#1e2030] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
+              className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
             >
               load sample
             </button>
@@ -163,7 +163,7 @@ export default function EmlExtractor(): JSX.Element {
                   setParsed(null);
                   setError(null);
                 }}
-                className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[#1e2030] hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400"
+                className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400"
               >
                 clear
               </button>
@@ -175,7 +175,7 @@ export default function EmlExtractor(): JSX.Element {
           onChange={(e) => setInput(e.target.value)}
           placeholder="Paste the raw .eml content here, or use the upload button. Headers + multipart body are parsed; attachments are decoded + hashed locally."
           rows={12}
-          className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[#1e2030] rounded font-mono text-mini text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+          className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-mini text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
           spellCheck={false}
         />
         <div className="flex items-center justify-end gap-2 mt-3">
@@ -183,7 +183,7 @@ export default function EmlExtractor(): JSX.Element {
             type="button"
             onClick={pipeToExtractor}
             disabled={!input.trim()}
-            className="px-3 py-2 rounded border border-slate-200 dark:border-[#1e2030] hover:border-brand-500/40 font-mono text-sm disabled:opacity-50 inline-flex items-center gap-2 text-slate-700 dark:text-slate-300"
+            className="px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 font-mono text-sm disabled:opacity-50 inline-flex items-center gap-2 text-slate-700 dark:text-slate-300"
           >
             <FileSearch size={14} />
             Extract IOCs →
@@ -209,7 +209,7 @@ export default function EmlExtractor(): JSX.Element {
       {parsed && (
         <>
           {/* Header summary */}
-          <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 mb-6">
+          <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
             <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
               Header summary
             </h2>
@@ -228,7 +228,7 @@ export default function EmlExtractor(): JSX.Element {
           </section>
 
           {/* Attachments */}
-          <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 mb-6">
+          <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
             <div className="flex items-baseline justify-between gap-2 mb-3">
               <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono inline-flex items-center gap-2">
                 <Paperclip size={12} /> Attachments ({parsed.attachments.length})
@@ -262,7 +262,7 @@ export default function EmlExtractor(): JSX.Element {
           )}
 
           {/* Raw headers (collapsible) */}
-          <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 mb-6">
+          <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
             <details>
               <summary className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono cursor-pointer inline-flex items-center gap-2">
                 <FileText size={12} /> All headers ({parsed.headers.length}) — click to expand
@@ -271,7 +271,7 @@ export default function EmlExtractor(): JSX.Element {
                 {parsed.headers.map((h, i) => (
                   <div key={`${h.name}-${i}`} className="contents">
                     <dt className="text-slate-500 dark:text-slate-400 break-words">{h.name}</dt>
-                    <dd className="text-slate-900 dark:text-slate-100 break-all border-b border-slate-100 dark:border-[#1e2030] pb-1">
+                    <dd className="text-slate-900 dark:text-slate-100 break-all border-b border-slate-100 dark:border-[rgb(var(--border-400))] pb-1">
                       {h.value}
                     </dd>
                   </div>
@@ -293,10 +293,10 @@ function Attachment({ att }: { att: EmlAttachment }): JSX.Element {
       ? 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300'
       : att.disposition === 'inline'
         ? 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300'
-        : 'border-slate-300 dark:border-[#1e2030] text-slate-500';
+        : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500';
 
   return (
-    <li className="rounded border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 p-3">
+    <li className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-3">
       <div className="flex flex-wrap items-baseline justify-between gap-2 mb-2">
         <span className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 break-all">
           {att.filename}

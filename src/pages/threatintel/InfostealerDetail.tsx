@@ -151,21 +151,21 @@ export default function InfostealerDetail(): JSX.Element {
       maxWidthClass="max-w-5xl"
     >
       <div className="grid gap-6 md:grid-cols-3 mb-8 animate-fade-in-up">
-        <div className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] p-4">
+        <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-4">
           <div className="flex items-center gap-2 mb-2">
             <Calendar size={14} className="text-slate-500" />
             <span className="text-micro font-mono uppercase tracking-wider text-slate-500">First seen</span>
           </div>
           <p className="font-mono text-sm font-semibold">{family.firstSeen}</p>
         </div>
-        <div className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] p-4">
+        <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-4">
           <div className="flex items-center gap-2 mb-2">
             <Globe size={14} className="text-slate-500" />
             <span className="text-micro font-mono uppercase tracking-wider text-slate-500">Platforms</span>
           </div>
           <p className="font-mono text-sm font-semibold">{family.platforms.join(', ')}</p>
         </div>
-        <div className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] p-4">
+        <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-4">
           <div className="flex items-center gap-2 mb-2">
             <Layers size={14} className="text-slate-500" />
             <span className="text-micro font-mono uppercase tracking-wider text-slate-500">Capabilities</span>
@@ -184,7 +184,7 @@ export default function InfostealerDetail(): JSX.Element {
           {family.capabilities.map((c) => (
             <span
               key={c}
-              className="text-mini font-mono px-2 py-1 rounded border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 text-muted"
+              className="text-mini font-mono px-2 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 text-muted"
             >
               {c}
             </span>
@@ -217,13 +217,13 @@ export default function InfostealerDetail(): JSX.Element {
               href={family.malpediaUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-meta font-mono px-3 py-1.5 rounded-lg border border-slate-200 dark:border-[#1e2030] hover:border-brand-500/40 text-brand-600 dark:text-brand-400"
+              className="inline-flex items-center gap-1.5 text-meta font-mono px-3 py-1.5 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 text-brand-600 dark:text-brand-400"
             >
               <ExternalLink size={12} /> Malpedia
             </a>
           )}
           {family.threatfoxTag && (
-            <span className="inline-flex items-center gap-1.5 text-meta font-mono px-3 py-1.5 rounded-lg border border-slate-200 dark:border-[#1e2030] text-slate-500">
+            <span className="inline-flex items-center gap-1.5 text-meta font-mono px-3 py-1.5 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500">
               <Shield size={12} /> ThreatFox:{' '}
               <code className="text-slate-700 dark:text-slate-300">{family.threatfoxTag}</code>
             </span>
@@ -248,7 +248,7 @@ export default function InfostealerDetail(): JSX.Element {
             {samples.map((s, i) => (
               <li
                 key={i}
-                className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-3"
+                className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
               >
                 <div className="flex items-center justify-between gap-2 mb-1">
                   <span className="rounded border border-rose-500/40 bg-rose-500/10 px-1.5 py-0.5 font-mono text-micro uppercase text-rose-700 dark:text-rose-300">
@@ -268,7 +268,7 @@ export default function InfostealerDetail(): JSX.Element {
                   <button
                     type="button"
                     onClick={() => void navigator.clipboard.writeText(s.sha256)}
-                    className="shrink-0 rounded border border-slate-200 dark:border-[#1e2030] p-1 text-slate-500 hover:text-brand-600"
+                    className="shrink-0 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-1 text-slate-500 hover:text-brand-600"
                     aria-label="Copy SHA256"
                   >
                     <Copy size={11} />
@@ -300,7 +300,7 @@ export default function InfostealerDetail(): JSX.Element {
             {c2.map((x, i) => (
               <li
                 key={i}
-                className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-3"
+                className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
               >
                 <div className="flex items-center justify-between gap-2">
                   <span className="rounded border border-rose-500/40 bg-rose-500/10 px-1.5 py-0.5 font-mono text-micro uppercase text-rose-700 dark:text-rose-300">
@@ -315,7 +315,7 @@ export default function InfostealerDetail(): JSX.Element {
                   <button
                     type="button"
                     onClick={() => void navigator.clipboard.writeText(x.value)}
-                    className="shrink-0 rounded border border-slate-200 dark:border-[#1e2030] p-1 text-slate-500 hover:text-brand-600"
+                    className="shrink-0 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-1 text-slate-500 hover:text-brand-600"
                     aria-label="Copy indicator"
                   >
                     <Copy size={11} />

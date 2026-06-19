@@ -143,13 +143,13 @@ export default function RulePlayground(): JSX.Element {
       <div className="flex flex-wrap gap-1.5 mb-4">
         <button
           onClick={loadYara}
-          className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[#1e2030] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
+          className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
         >
           Load YARA sample
         </button>
         <button
           onClick={loadSigma}
-          className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[#1e2030] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
+          className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
         >
           Load Sigma sample
         </button>
@@ -159,7 +159,7 @@ export default function RulePlayground(): JSX.Element {
               setRule('');
               setSample('');
             }}
-            className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[#1e2030] hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400"
+            className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400"
           >
             Clear
           </button>
@@ -167,7 +167,7 @@ export default function RulePlayground(): JSX.Element {
       </div>
 
       <div className="grid gap-3 lg:grid-cols-2 mb-6">
-        <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4">
+        <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
           <h2
             id="rule-playground-rule-label"
             className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-2"
@@ -181,11 +181,11 @@ export default function RulePlayground(): JSX.Element {
             spellCheck={false}
             placeholder="rule MyRule { strings: $a = ... condition: ... }   — or —   title: …\nlogsource: …\ndetection: …"
             aria-labelledby="rule-playground-rule-label"
-            className="w-full rounded border border-slate-300 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 px-3 py-2 font-mono text-xs text-slate-900 dark:text-slate-100 focus:border-brand-500/60 focus:outline-none"
+            className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 px-3 py-2 font-mono text-xs text-slate-900 dark:text-slate-100 focus:border-brand-500/60 focus:outline-none"
           />
         </section>
 
-        <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4">
+        <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
           <h2
             id="rule-playground-sample-label"
             className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-2"
@@ -199,14 +199,14 @@ export default function RulePlayground(): JSX.Element {
             spellCheck={false}
             placeholder="Paste a log line, EDR cmdline, file fragment, or any text the rule should be tested against."
             aria-labelledby="rule-playground-sample-label"
-            className="w-full rounded border border-slate-300 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 px-3 py-2 font-mono text-xs text-slate-900 dark:text-slate-100 focus:border-brand-500/60 focus:outline-none"
+            className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 px-3 py-2 font-mono text-xs text-slate-900 dark:text-slate-100 focus:border-brand-500/60 focus:outline-none"
           />
         </section>
       </div>
 
       {result && (
         <>
-          <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 mb-6">
+          <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
             <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
               <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
                 Parsed rule
@@ -225,7 +225,7 @@ export default function RulePlayground(): JSX.Element {
               <span className="text-slate-500 dark:text-slate-400">Name:</span> {result.parsed.name}
             </p>
             {result.parsed.condition && (
-              <div className="rounded border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 p-2.5 mb-3">
+              <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-2.5 mb-3">
                 <span className="text-micro font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 block mb-1">
                   Condition (informational)
                 </span>
@@ -273,7 +273,7 @@ export default function RulePlayground(): JSX.Element {
             )}
           </section>
 
-          <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 mb-6">
+          <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
             <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
               <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
                 Highlighted sample
@@ -291,13 +291,13 @@ export default function RulePlayground(): JSX.Element {
                 )}
               </span>
             </div>
-            <div className="rounded border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 p-3 font-mono text-sm text-slate-800 dark:text-slate-200 leading-relaxed overflow-x-auto">
+            <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-3 font-mono text-sm text-slate-800 dark:text-slate-200 leading-relaxed overflow-x-auto">
               {highlight(sample, result.matches)}
             </div>
           </section>
 
           {result.matches.length > 0 && (
-            <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 mb-6">
+            <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
               <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
                 Matches
               </h2>
@@ -305,7 +305,7 @@ export default function RulePlayground(): JSX.Element {
                 {result.matches.map((m, i) => (
                   <li
                     key={`${m.name}-${i}`}
-                    className="text-meta font-mono flex flex-wrap items-baseline gap-2 border-b border-slate-200 dark:border-[#1e2030] pb-1.5 last:border-0"
+                    className="text-meta font-mono flex flex-wrap items-baseline gap-2 border-b border-slate-200 dark:border-[rgb(var(--border-400))] pb-1.5 last:border-0"
                   >
                     <span
                       className={`text-micro uppercase tracking-wider px-1.5 py-0.5 rounded border ${KIND_STYLES[m.kind]}`}
@@ -322,7 +322,7 @@ export default function RulePlayground(): JSX.Element {
         </>
       )}
 
-      <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4">
+      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
         <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
           References
         </h2>

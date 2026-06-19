@@ -96,7 +96,7 @@ export default function ReverseImage(): JSX.Element {
       </div>
 
       {/* Input */}
-      <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 mb-6">
+      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
         <div className="relative">
           <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" aria-hidden="true" />
           <input
@@ -104,7 +104,7 @@ export default function ReverseImage(): JSX.Element {
             value={imageUrl}
             onChange={(e) => setImageUrl(e.target.value)}
             placeholder="https://example.com/path/to/image.jpg"
-            className="w-full pl-9 pr-4 py-2.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[#1e2030] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="w-full pl-9 pr-4 py-2.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
             spellCheck={false}
             autoComplete="off"
           />
@@ -121,7 +121,7 @@ export default function ReverseImage(): JSX.Element {
               key={s.label}
               type="button"
               onClick={() => setImageUrl(s.url)}
-              className="text-mini font-mono px-2 py-0.5 rounded border border-slate-300 dark:border-[#1e2030] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
+              className="text-mini font-mono px-2 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
             >
               {s.label}
             </button>
@@ -132,7 +132,7 @@ export default function ReverseImage(): JSX.Element {
       {valid && (
         <>
           {/* Image preview */}
-          <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 mb-6">
+          <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
             <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
               Preview
             </h2>
@@ -140,13 +140,13 @@ export default function ReverseImage(): JSX.Element {
               <img
                 src={trimmed}
                 alt="reverse-search target"
-                className="rounded border border-slate-200 dark:border-[#1e2030] max-h-48 max-w-xs object-contain bg-slate-50 dark:bg-slate-950"
+                className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] max-h-48 max-w-xs object-contain bg-slate-50 dark:bg-slate-950"
                 onError={(e) => {
                   (e.target as HTMLImageElement).style.display = 'none';
                 }}
               />
               <div className="flex-1 min-w-0">
-                <code className="block text-mini font-mono text-slate-700 dark:text-slate-300 break-all bg-slate-50 dark:bg-slate-950 rounded border border-slate-200 dark:border-[#1e2030] p-2 mb-2">
+                <code className="block text-mini font-mono text-slate-700 dark:text-slate-300 break-all bg-slate-50 dark:bg-slate-950 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-2 mb-2">
                   {trimmed}
                 </code>
                 <p className="text-mini font-mono text-slate-500 dark:text-slate-400">
@@ -158,7 +158,7 @@ export default function ReverseImage(): JSX.Element {
           </section>
 
           {/* Engine links */}
-          <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 mb-6">
+          <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
             <div className="flex items-baseline justify-between gap-2 mb-3">
               <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
                 Engines ({links.length})
@@ -166,7 +166,7 @@ export default function ReverseImage(): JSX.Element {
               <button
                 type="button"
                 onClick={() => void copyAll()}
-                className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[#1e2030] hover:border-brand-500/40 inline-flex items-center gap-1"
+                className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 inline-flex items-center gap-1"
               >
                 {copiedAll ? <Check size={11} /> : <Clipboard size={11} />}
                 {copiedAll ? 'copied' : 'copy all URLs'}
@@ -182,7 +182,7 @@ export default function ReverseImage(): JSX.Element {
                     className={`block rounded border px-3 py-2 hover:border-brand-500/60 transition-colors ${
                       engine.recommended
                         ? 'border-brand-500/30 bg-brand-500/5'
-                        : 'border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950'
+                        : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950'
                     }`}
                   >
                     <div className="flex items-baseline justify-between gap-2 mb-0.5">

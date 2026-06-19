@@ -172,7 +172,7 @@ export default function ActorDNA(): JSX.Element {
 
       {/* DNA Matching Mode */}
       {matchMode && (
-        <div className="bg-white dark:bg-[#12121a]/40 rounded-xl border border-slate-200 dark:border-[#1e2030] p-6 mb-6">
+        <div className="bg-white dark:bg-[rgb(var(--surface-200))]/40 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-6 mb-6">
           <h2 className="font-semibold mb-4">Match TTPs to Actor DNA</h2>
           <div className="flex gap-2">
             <input
@@ -180,7 +180,7 @@ export default function ActorDNA(): JSX.Element {
               value={ttpsInput}
               onChange={(e) => setTtpsInput(e.target.value)}
               placeholder="Enter TTPs (comma-separated): spearphishing, powershell, cobalt_strike"
-              className="flex-1 bg-white dark:bg-[#12121a]/40 border border-slate-300 dark:border-[#1e2030] rounded-lg px-4 py-2.5 text-sm text-slate-900 dark:text-slate-100 placeholder-slate-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus:border-brand-500"
+              className="flex-1 bg-white dark:bg-[rgb(var(--surface-200))]/40 border border-slate-300 dark:border-[rgb(var(--border-400))] rounded-lg px-4 py-2.5 text-sm text-slate-900 dark:text-slate-100 placeholder-slate-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus:border-brand-500"
             />
             <button
               onClick={() => void matchTTPs()}
@@ -220,7 +220,7 @@ export default function ActorDNA(): JSX.Element {
       {/* Actor List + Detail */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Actor List */}
-        <div className="bg-white dark:bg-[#12121a]/40 rounded-xl border border-slate-200 dark:border-[#1e2030] p-4">
+        <div className="bg-white dark:bg-[rgb(var(--surface-200))]/40 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-4">
           <h2 className="font-semibold mb-4">Known Threat Actors ({actors.length})</h2>
           <div className="space-y-2">
             {actors.map((actor) => (
@@ -249,7 +249,7 @@ export default function ActorDNA(): JSX.Element {
           ) : selectedActor ? (
             <div className="space-y-4">
               {/* Header */}
-              <div className="bg-white dark:bg-[#12121a]/40 rounded-xl border border-slate-200 dark:border-[#1e2030] p-6">
+              <div className="bg-white dark:bg-[rgb(var(--surface-200))]/40 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-6">
                 <div className="flex items-center justify-between mb-4">
                   <div>
                     <h2 className="text-xl font-bold">{selectedActor.actor_name}</h2>
@@ -270,7 +270,7 @@ export default function ActorDNA(): JSX.Element {
               </div>
 
               {/* TTP Signature */}
-              <div className="bg-white dark:bg-[#12121a]/40 rounded-xl border border-slate-200 dark:border-[#1e2030]">
+              <div className="bg-white dark:bg-[rgb(var(--surface-200))]/40 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))]">
                 <button onClick={() => toggleSection('ttp')} className="w-full flex items-center justify-between p-4">
                   <span className="font-semibold">TTP Signature</span>
                   {expandedSections.has('ttp') ? (
@@ -300,7 +300,7 @@ export default function ActorDNA(): JSX.Element {
               </div>
 
               {/* Victimology */}
-              <div className="bg-white dark:bg-[#12121a]/40 rounded-xl border border-slate-200 dark:border-[#1e2030]">
+              <div className="bg-white dark:bg-[rgb(var(--surface-200))]/40 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))]">
                 <button
                   onClick={() => toggleSection('victimology')}
                   className="w-full flex items-center justify-between p-4"
@@ -355,7 +355,7 @@ export default function ActorDNA(): JSX.Element {
               </div>
 
               {/* Operational Tempo */}
-              <div className="bg-white dark:bg-[#12121a]/40 rounded-xl border border-slate-200 dark:border-[#1e2030]">
+              <div className="bg-white dark:bg-[rgb(var(--surface-200))]/40 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))]">
                 <button onClick={() => toggleSection('tempo')} className="w-full flex items-center justify-between p-4">
                   <span className="font-semibold">Operational Tempo</span>
                   {expandedSections.has('tempo') ? (
@@ -398,7 +398,7 @@ export default function ActorDNA(): JSX.Element {
               </div>
 
               {/* Infrastructure DNA */}
-              <div className="bg-white dark:bg-[#12121a]/40 rounded-xl border border-slate-200 dark:border-[#1e2030]">
+              <div className="bg-white dark:bg-[rgb(var(--surface-200))]/40 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))]">
                 <button onClick={() => toggleSection('infra')} className="w-full flex items-center justify-between p-4">
                   <span className="font-semibold">Infrastructure DNA</span>
                   {expandedSections.has('infra') ? (
@@ -445,7 +445,8 @@ function DNACard({ title, items, color }: { title: string; items: string[]; colo
   // 10-colour rainbow was arbitrary, off-palette, and a generic-AI tell —
   // collapsed to one neutral on-brand surface. `color` is kept for call-site
   // compatibility but no longer themes.
-  const surface = 'border-slate-200 dark:border-[#1e2030] bg-slate-50/70 dark:bg-[#12121a]/40';
+  const surface =
+    'border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50/70 dark:bg-[rgb(var(--surface-200))]/40';
   const colorMap: Record<string, string> = {
     red: surface,
     orange: surface,

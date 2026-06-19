@@ -254,7 +254,7 @@ export default function StixBuilder(): JSX.Element {
       </header>
 
       {deepLinkBundleId && (
-        <div className="mb-6 rounded-xl border border-slate-200 bg-slate-50 p-3 text-xs text-slate-600 dark:border-[#1e2030] dark:bg-[#12121a] dark:text-slate-400">
+        <div className="mb-6 rounded-xl border border-slate-200 bg-slate-50 p-3 text-xs text-slate-600 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-400">
           Viewing persisted bundle <code className="font-mono text-mini">{deepLinkBundleId}</code>. Build a new one
           below to replace, or close this tab to keep this view linkable.
         </div>
@@ -272,7 +272,7 @@ export default function StixBuilder(): JSX.Element {
               className={`inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-xs font-mono uppercase tracking-wider transition-colors ${
                 active
                   ? 'border-brand-500/40 bg-brand-500/15 text-brand-700 dark:bg-brand-400/15 dark:text-brand-300'
-                  : 'border-slate-200 bg-white text-slate-600 hover:border-brand-500/30 dark:border-[#1e2030] dark:bg-[#12121a] dark:text-slate-400'
+                  : 'border-slate-200 bg-white text-slate-600 hover:border-brand-500/30 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-400'
               }`}
             >
               <Icon size={12} /> {label}
@@ -284,7 +284,7 @@ export default function StixBuilder(): JSX.Element {
       {/* Input area */}
       <div className="space-y-3">
         {mode === 'file' ? (
-          <div className="rounded-lg border border-slate-300 bg-slate-50 px-3 py-4 dark:border-[#1e2030] dark:bg-slate-950">
+          <div className="rounded-lg border border-slate-300 bg-slate-50 px-3 py-4 dark:border-[rgb(var(--border-400))] dark:bg-slate-950">
             <input
               ref={fileRef}
               type="file"
@@ -306,7 +306,7 @@ export default function StixBuilder(): JSX.Element {
             placeholder={activeMode.placeholder}
             rows={mode === 'text' ? 10 : 6}
             aria-label={activeMode.label}
-            className="w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 font-mono text-sm focus:border-brand-500 focus:outline-none dark:border-[#1e2030] dark:bg-slate-950"
+            className="w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 font-mono text-sm focus:border-brand-500 focus:outline-none dark:border-[rgb(var(--border-400))] dark:bg-slate-950"
           />
         ) : (
           <input
@@ -315,7 +315,7 @@ export default function StixBuilder(): JSX.Element {
             onChange={(e) => setInput(e.target.value)}
             placeholder={activeMode.placeholder}
             aria-label="Fetch URL"
-            className="w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 font-mono text-sm focus:border-brand-500 focus:outline-none dark:border-[#1e2030] dark:bg-slate-950"
+            className="w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 font-mono text-sm focus:border-brand-500 focus:outline-none dark:border-[rgb(var(--border-400))] dark:bg-slate-950"
           />
         )}
 
@@ -326,7 +326,7 @@ export default function StixBuilder(): JSX.Element {
             onChange={(e) => setSourceName(e.target.value)}
             placeholder="Source name (optional)"
             aria-label="Source name"
-            className="flex-1 min-w-[180px] rounded-md border border-slate-200 bg-white px-2.5 py-1.5 font-mono text-xs focus:border-brand-500 focus:outline-none dark:border-[#1e2030] dark:bg-[#12121a]"
+            className="flex-1 min-w-[180px] rounded-md border border-slate-200 bg-white px-2.5 py-1.5 font-mono text-xs focus:border-brand-500 focus:outline-none dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]"
           />
           <div className="flex items-center gap-1 text-xs font-mono">
             <span className="text-slate-500">TLP:</span>
@@ -338,7 +338,7 @@ export default function StixBuilder(): JSX.Element {
                 className={`rounded-md border px-2 py-1 transition-colors ${
                   tlp === t
                     ? 'border-brand-500/40 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                    : 'border-slate-200 bg-white text-slate-600 hover:border-brand-500/30 dark:border-[#1e2030] dark:bg-[#12121a] dark:text-slate-400'
+                    : 'border-slate-200 bg-white text-slate-600 hover:border-brand-500/30 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-400'
                 }`}
               >
                 {t}
@@ -415,7 +415,7 @@ function Output({ result, viewTab, setViewTab, onCopy, onDownload, copyStatus }:
       {/* The same card every /threatintel page uses — single source of UI truth. */}
       <BuilderIntelCard view={result.view} bundle={result.bundle} />
 
-      <div className="rounded-xl border border-slate-200 bg-white p-4 dark:border-[#1e2030] dark:bg-[#12121a]">
+      <div className="rounded-xl border border-slate-200 bg-white p-4 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]">
         <header className="flex flex-wrap items-baseline gap-2 mb-3">
           <h2 className="font-display text-base font-semibold">STIX 2.1 bundle</h2>
           <code className="font-mono text-mini text-slate-500">{result.bundle.id}</code>
@@ -423,7 +423,7 @@ function Output({ result, viewTab, setViewTab, onCopy, onDownload, copyStatus }:
             <button
               type="button"
               onClick={onCopy}
-              className="inline-flex items-center gap-1.5 rounded-md border border-slate-300 bg-white px-2.5 py-1 text-xs font-medium text-slate-700 hover:bg-slate-100 dark:border-[#1e2030] dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700"
+              className="inline-flex items-center gap-1.5 rounded-md border border-slate-300 bg-white px-2.5 py-1 text-xs font-medium text-slate-700 hover:bg-slate-100 dark:border-[rgb(var(--border-400))] dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700"
             >
               <Copy size={12} />
               {copyStatus === 'copied' ? 'Copied' : copyStatus === 'failed' ? 'Failed' : 'Copy'}
@@ -431,7 +431,7 @@ function Output({ result, viewTab, setViewTab, onCopy, onDownload, copyStatus }:
             <button
               type="button"
               onClick={onDownload}
-              className="inline-flex items-center gap-1.5 rounded-md border border-slate-300 bg-white px-2.5 py-1 text-xs font-medium text-slate-700 hover:bg-slate-100 dark:border-[#1e2030] dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700"
+              className="inline-flex items-center gap-1.5 rounded-md border border-slate-300 bg-white px-2.5 py-1 text-xs font-medium text-slate-700 hover:bg-slate-100 dark:border-[rgb(var(--border-400))] dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700"
             >
               <Download size={12} /> Download
             </button>
@@ -489,7 +489,7 @@ function BuilderIntelCard({ view, bundle }: { view: IntelView; bundle: IntelBund
   // since we already have them — no roundtrip needed.
   void IntelCard; // referenced for code-search; intentional no-render of the hook variant here
   return (
-    <article className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm dark:border-[#1e2030] dark:bg-[#12121a]">
+    <article className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]">
       <header className="flex flex-wrap items-baseline gap-2">
         <h3 className="font-display text-base font-semibold">{view.title}</h3>
         <Badge tone="mono" size="xs">
@@ -574,7 +574,7 @@ function BuilderIntelCard({ view, bundle }: { view: IntelView; bundle: IntelBund
             {view.flowSteps.map((step, i) => (
               <li
                 key={`${step.techniqueId}-${i}`}
-                className="flex items-center gap-2 rounded border border-slate-200 bg-slate-50 px-2 py-1 text-xs dark:border-[#1e2030] dark:bg-slate-950"
+                className="flex items-center gap-2 rounded border border-slate-200 bg-slate-50 px-2 py-1 text-xs dark:border-[rgb(var(--border-400))] dark:bg-slate-950"
               >
                 <span className="font-mono text-micro text-slate-400">{i + 1}.</span>
                 <span className="font-medium text-slate-700 dark:text-slate-200">{step.name}</span>
@@ -596,7 +596,7 @@ function BuilderIntelCard({ view, bundle }: { view: IntelView; bundle: IntelBund
             {view.iocs.map((ioc) => (
               <div
                 key={`${ioc.type}|${ioc.value}`}
-                className="flex items-center gap-2 rounded border border-slate-200 bg-slate-50 px-2 py-1 text-xs dark:border-[#1e2030] dark:bg-slate-950"
+                className="flex items-center gap-2 rounded border border-slate-200 bg-slate-50 px-2 py-1 text-xs dark:border-[rgb(var(--border-400))] dark:bg-slate-950"
               >
                 <span className="font-mono text-micro uppercase text-slate-500">{ioc.type}</span>
                 <IocChip value={ioc.value} bare size="sm" className="min-w-0" />
@@ -619,7 +619,7 @@ function BuilderIntelCard({ view, bundle }: { view: IntelView; bundle: IntelBund
         </Section>
       )}
 
-      <footer className="mt-4 flex items-center justify-between border-t border-slate-200 pt-3 text-xs dark:border-[#1e2030]">
+      <footer className="mt-4 flex items-center justify-between border-t border-slate-200 pt-3 text-xs dark:border-[rgb(var(--border-400))]">
         <span className="font-mono text-micro text-slate-400">
           {bundle.objects.length} STIX objects · extracted_hash {view.extractedHash.slice(0, 8)}…
         </span>

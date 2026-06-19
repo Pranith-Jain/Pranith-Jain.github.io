@@ -85,7 +85,7 @@ export default function AbuseRep(): JSX.Element {
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder="IP address or email"
-          className="flex-1 px-3 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[#1e2030] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+          className="flex-1 px-3 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
           aria-label="IP or email"
         />
         <button
@@ -99,7 +99,7 @@ export default function AbuseRep(): JSX.Element {
 
       <DataState loading={loading} error={error} empty={false} rows={4}>
         {data && (
-          <div className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-5 space-y-4">
+          <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5 space-y-4">
             <div className="flex items-center justify-between gap-3 flex-wrap">
               <span className="font-mono text-sm break-all">{data.value}</span>
               <span

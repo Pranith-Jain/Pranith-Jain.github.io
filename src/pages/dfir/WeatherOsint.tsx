@@ -221,7 +221,7 @@ export default function WeatherOsint(): JSX.Element {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="City name, coordinates (40.71,-74.01), or IP-based lookup"
-              className="w-full pl-9 pr-4 py-2.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[#1e2030] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="w-full pl-9 pr-4 py-2.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
               aria-label="Location query"
             />
           </div>
@@ -247,7 +247,7 @@ export default function WeatherOsint(): JSX.Element {
                 setQuery(h);
                 lookup(h);
               }}
-              className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[#1e2030] text-slate-500 hover:border-brand-500/40 transition-colors"
+              className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-brand-500/40 transition-colors"
             >
               {h}
             </button>
@@ -266,7 +266,7 @@ export default function WeatherOsint(): JSX.Element {
       {result && (
         <>
           {/* Header card */}
-          <div className="mb-6 rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4">
+          <div className="mb-6 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
             <div className="flex items-start justify-between gap-4 flex-wrap">
               <div>
                 <h2 className="font-display font-bold text-xl text-slate-900 dark:text-slate-100">
@@ -290,7 +290,7 @@ export default function WeatherOsint(): JSX.Element {
             </div>
 
             {/* Current conditions grid */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-4 pt-4 border-t border-slate-200 dark:border-[#1e2030]">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-4 pt-4 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
               <div className="flex items-center gap-2">
                 <Thermometer size={14} className="text-slate-400" />
                 <div>
@@ -351,7 +351,7 @@ export default function WeatherOsint(): JSX.Element {
           </div>
 
           {/* Astronomy */}
-          <div className="mb-6 rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4">
+          <div className="mb-6 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
             <h3 className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 mb-3">Astronomy</h3>
             <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 text-sm font-mono">
               <div>
@@ -395,14 +395,14 @@ export default function WeatherOsint(): JSX.Element {
 
           {/* Forecast */}
           {result.forecast.length > 0 && (
-            <div className="mb-6 rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4">
+            <div className="mb-6 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
               <h3 className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 mb-3">
                 7-Day Forecast
               </h3>
               <div className="overflow-x-auto">
                 <table className="w-full text-sm font-mono">
                   <thead>
-                    <tr className="text-micro text-slate-500 border-b border-slate-200 dark:border-[#1e2030]">
+                    <tr className="text-micro text-slate-500 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
                       <th className="text-left py-2 pr-4">Date</th>
                       <th className="text-left py-2 pr-4">Condition</th>
                       <th className="text-right py-2 pr-4">High</th>
@@ -414,7 +414,7 @@ export default function WeatherOsint(): JSX.Element {
                   </thead>
                   <tbody>
                     {result.forecast.map((d) => (
-                      <tr key={d.date} className="border-b border-slate-100 dark:border-[#1e2030]/50">
+                      <tr key={d.date} className="border-b border-slate-100 dark:border-[rgb(var(--border-400))]/50">
                         <td className="py-2 pr-4 text-slate-900 dark:text-slate-100">{formatDate(d.date)}</td>
                         <td className="py-2 pr-4 text-muted">{d.condition}</td>
                         <td className="py-2 pr-4 text-right text-slate-900 dark:text-slate-100">
@@ -433,7 +433,7 @@ export default function WeatherOsint(): JSX.Element {
           )}
 
           {/* OSINT pivots */}
-          <div className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4">
+          <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
             <h3 className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 mb-3">
               Investigation Pivots
             </h3>
@@ -476,7 +476,7 @@ export default function WeatherOsint(): JSX.Element {
       )}
 
       {/* Tips */}
-      <div className="mt-8 rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4">
+      <div className="mt-8 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
         <h3 className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 mb-2">OSINT Use Cases</h3>
         <ul className="text-meta font-mono text-muted space-y-1.5">
           <li>

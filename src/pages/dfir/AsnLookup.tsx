@@ -100,7 +100,7 @@ export default function AsnLookup(): JSX.Element {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="AS15169 or 15169"
-              className="w-full px-4 py-3 bg-white dark:bg-[#12121a] border border-slate-200 dark:border-[#1e2030] rounded-lg font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="w-full px-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
             />
           </div>
           <button
@@ -129,7 +129,7 @@ export default function AsnLookup(): JSX.Element {
       {result && (
         <div className="space-y-6">
           {/* Header */}
-          <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] p-6">
+          <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
             <div className="flex flex-wrap items-start gap-3 mb-3">
               <h2 className="font-display font-bold text-2xl font-mono">AS{result.asn}</h2>
               {result.name && (
@@ -138,7 +138,7 @@ export default function AsnLookup(): JSX.Element {
                 </span>
               )}
               {result.type && (
-                <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-mono bg-slate-100 dark:bg-slate-800 text-muted border border-slate-300 dark:border-[#1e2030]">
+                <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-mono bg-slate-100 dark:bg-slate-800 text-muted border border-slate-300 dark:border-[rgb(var(--border-400))]">
                   {result.type}
                 </span>
               )}
@@ -158,7 +158,7 @@ export default function AsnLookup(): JSX.Element {
 
           {/* Contacts */}
           {result.abuse_contacts && result.abuse_contacts.length > 0 && (
-            <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] p-6">
+            <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
               <h3 className="font-display font-semibold text-lg mb-3">Abuse Contacts</h3>
               <div className="flex flex-wrap gap-2">
                 {result.abuse_contacts.map((email) => (
@@ -176,7 +176,7 @@ export default function AsnLookup(): JSX.Element {
 
           {/* RIR */}
           {result.rir && (result.rir.name || result.rir.description) && (
-            <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] p-6">
+            <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
               <h3 className="font-display font-semibold text-lg mb-3">RIR / Registry</h3>
               <div className="grid sm:grid-cols-2 gap-4 font-mono text-sm">
                 {result.rir.name && (
@@ -196,7 +196,7 @@ export default function AsnLookup(): JSX.Element {
           )}
 
           {/* Prefixes */}
-          <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] p-6">
+          <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
             <h3 className="font-display font-semibold text-lg mb-4">Announced Prefixes</h3>
             <div className="grid sm:grid-cols-2 gap-6">
               <div>

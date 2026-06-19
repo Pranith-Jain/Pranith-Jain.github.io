@@ -174,7 +174,7 @@ export default function CisaKevCatalog(): JSX.Element {
         ].map(({ label, value, icon: Icon, cls }) => (
           <div
             key={label}
-            className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/50 shadow-e1 p-2.5"
+            className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/50 shadow-e1 p-2.5"
           >
             <div className={`flex items-center gap-1.5 text-mini uppercase tracking-wider mb-0.5 ${cls}`}>
               <Icon className="w-3 h-3" /> {label}
@@ -193,7 +193,7 @@ export default function CisaKevCatalog(): JSX.Element {
             placeholder="Search CVE, vendor, product, name…"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[#12121a] border border-slate-200 dark:border-[#1e2030] rounded-lg text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-brand-500"
+            className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-brand-500"
           />
         </div>
         <input
@@ -201,19 +201,19 @@ export default function CisaKevCatalog(): JSX.Element {
           placeholder="Vendor filter…"
           value={vendorFilter}
           onChange={(e) => setVendorFilter(e.target.value)}
-          className="w-full sm:w-40 px-3 py-2 bg-white dark:bg-[#12121a] border border-slate-200 dark:border-[#1e2030] rounded-lg text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-brand-500"
+          className="w-full sm:w-40 px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-brand-500"
         />
         <input
           type="text"
           placeholder="Product filter…"
           value={productFilter}
           onChange={(e) => setProductFilter(e.target.value)}
-          className="w-full sm:w-40 px-3 py-2 bg-white dark:bg-[#12121a] border border-slate-200 dark:border-[#1e2030] rounded-lg text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-brand-500"
+          className="w-full sm:w-40 px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-brand-500"
         />
         <select
           value={daysFilter}
           onChange={(e) => setDaysFilter(e.target.value === '' ? '' : Number(e.target.value))}
-          className="w-full sm:w-36 px-3 py-2 bg-white dark:bg-[#12121a] border border-slate-200 dark:border-[#1e2030] rounded-lg text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:border-brand-500"
+          className="w-full sm:w-36 px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:border-brand-500"
         >
           <option value="">All time</option>
           <option value={7}>Last 7 days</option>
@@ -224,7 +224,7 @@ export default function CisaKevCatalog(): JSX.Element {
         </select>
         <button
           onClick={() => refetch()}
-          className="px-3 py-2 rounded-lg border border-slate-300 dark:border-[#1e2030] text-muted hover:border-slate-400 dark:hover:border-slate-600 text-sm flex items-center gap-2"
+          className="px-3 py-2 rounded-lg border border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-slate-400 dark:hover:border-slate-600 text-sm flex items-center gap-2"
         >
           <RefreshCw className="w-4 h-4" /> Refresh
         </button>
@@ -237,7 +237,7 @@ export default function CisaKevCatalog(): JSX.Element {
           className={`px-3 py-1.5 rounded-lg border text-xs font-medium flex items-center gap-1.5 transition ${
             ransomwareOnly
               ? 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300'
-              : 'border-slate-300 dark:border-[#1e2030] text-slate-500 hover:border-slate-400 dark:hover:border-slate-600'
+              : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-slate-400 dark:hover:border-slate-600'
           }`}
         >
           <Skull className="w-3.5 h-3.5" /> Ransomware only
@@ -245,13 +245,13 @@ export default function CisaKevCatalog(): JSX.Element {
         <div className="flex-1" />
         <button
           onClick={exportJSON}
-          className="px-3 py-1.5 rounded-lg border border-slate-300 dark:border-[#1e2030] text-muted hover:border-slate-400 dark:hover:border-slate-600 text-xs flex items-center gap-1.5"
+          className="px-3 py-1.5 rounded-lg border border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-slate-400 dark:hover:border-slate-600 text-xs flex items-center gap-1.5"
         >
           <Download className="w-3.5 h-3.5" /> JSON
         </button>
         <button
           onClick={exportCSV}
-          className="px-3 py-1.5 rounded-lg border border-slate-300 dark:border-[#1e2030] text-muted hover:border-slate-400 dark:hover:border-slate-600 text-xs flex items-center gap-1.5"
+          className="px-3 py-1.5 rounded-lg border border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-slate-400 dark:hover:border-slate-600 text-xs flex items-center gap-1.5"
         >
           <Download className="w-3.5 h-3.5" /> CSV
         </button>
@@ -271,10 +271,10 @@ export default function CisaKevCatalog(): JSX.Element {
 
       {/* Table */}
       <DataState loading={loading} error={error} empty={sorted.length === 0} onRetry={refetch} rows={8}>
-        <div className="overflow-x-auto rounded-xl border border-slate-200 dark:border-[#1e2030]">
+        <div className="overflow-x-auto rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))]">
           <table className="w-full text-sm">
             <thead>
-              <tr className="bg-slate-50 dark:bg-[#12121a]/80 border-b border-slate-200 dark:border-[#1e2030]">
+              <tr className="bg-slate-50 dark:bg-[rgb(var(--surface-200))]/80 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
                 <th className="px-3 py-2.5 text-left">
                   <SortHeader label="CVE" field="cve_id" />
                 </th>
@@ -356,7 +356,7 @@ export default function CisaKevCatalog(): JSX.Element {
           <button
             onClick={() => setPage((p) => Math.max(0, p - 1))}
             disabled={page === 0}
-            className="px-3 py-1.5 rounded-lg border border-slate-300 dark:border-[#1e2030] text-sm disabled:opacity-30 hover:border-slate-400 dark:hover:border-slate-600"
+            className="px-3 py-1.5 rounded-lg border border-slate-300 dark:border-[rgb(var(--border-400))] text-sm disabled:opacity-30 hover:border-slate-400 dark:hover:border-slate-600"
           >
             Prev
           </button>
@@ -366,7 +366,7 @@ export default function CisaKevCatalog(): JSX.Element {
           <button
             onClick={() => setPage((p) => Math.min(totalPages - 1, p + 1))}
             disabled={page >= totalPages - 1}
-            className="px-3 py-1.5 rounded-lg border border-slate-300 dark:border-[#1e2030] text-sm disabled:opacity-30 hover:border-slate-400 dark:hover:border-slate-600"
+            className="px-3 py-1.5 rounded-lg border border-slate-300 dark:border-[rgb(var(--border-400))] text-sm disabled:opacity-30 hover:border-slate-400 dark:hover:border-slate-600"
           >
             Next
           </button>
@@ -375,7 +375,7 @@ export default function CisaKevCatalog(): JSX.Element {
 
       {/* Vendor breakdown */}
       {vendors.length > 0 && (
-        <div className="mt-8 rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/50 p-4">
+        <div className="mt-8 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/50 p-4">
           <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100 mb-3">Top Vendors</h3>
           <div className="space-y-1.5">
             {vendors.slice(0, 15).map(([vendor, count]) => (
@@ -397,7 +397,7 @@ export default function CisaKevCatalog(): JSX.Element {
       )}
 
       {data && (
-        <div className="mt-6 pt-4 border-t border-slate-200 dark:border-[#1e2030] text-xs text-slate-500 dark:text-slate-600 font-mono">
+        <div className="mt-6 pt-4 border-t border-slate-200 dark:border-[rgb(var(--border-400))] text-xs text-slate-500 dark:text-slate-600 font-mono">
           Source: CISA KEV ·{' '}
           <a
             href="https://www.cisa.gov/known-exploited-vulnerabilities-catalog"

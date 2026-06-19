@@ -683,7 +683,7 @@ export default function Tracepulse(): JSX.Element {
       </div>
 
       {/* Tabs */}
-      <div className="flex flex-wrap gap-1 mb-5 border-b border-slate-200 dark:border-[#1e2030] pb-0">
+      <div className="flex flex-wrap gap-1 mb-5 border-b border-slate-200 dark:border-[rgb(var(--border-400))] pb-0">
         {TABS.map((t) => (
           <button
             key={t.id}
@@ -706,7 +706,7 @@ export default function Tracepulse(): JSX.Element {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Search by CVE, campaign, actor, technique…"
-          className="w-full pl-9 pr-3 h-10 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[#1e2030] rounded-lg text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+          className="w-full pl-9 pr-3 h-10 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
         />
       </div>
 
@@ -717,7 +717,7 @@ export default function Tracepulse(): JSX.Element {
 
       {/* Packs */}
       {filteredPacks.length === 0 ? (
-        <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-8 text-center">
+        <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-8 text-center">
           <AlertTriangle size={24} className="mx-auto mb-2 text-slate-400" />
           <p className="text-sm text-slate-500">No query packs match your filter.</p>
         </div>
@@ -726,10 +726,10 @@ export default function Tracepulse(): JSX.Element {
           {filteredPacks.map((pack) => (
             <div
               key={pack.id}
-              className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 overflow-hidden"
+              className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 overflow-hidden"
             >
               {/* Header */}
-              <div className="p-5 border-b border-slate-100 dark:border-[#1e2030]">
+              <div className="p-5 border-b border-slate-100 dark:border-[rgb(var(--border-400))]">
                 <div className="flex items-start justify-between gap-3 flex-wrap">
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-1 flex-wrap">
@@ -765,7 +765,7 @@ export default function Tracepulse(): JSX.Element {
                   <div className="flex items-center gap-1.5">
                     <button
                       onClick={() => setExpandedPack(expandedPack === pack.id ? null : pack.id)}
-                      className="text-xs font-mono px-2 py-1 rounded border border-slate-200 dark:border-[#1e2030] text-slate-500 dark:text-slate-400 hover:border-brand-500/30 transition-colors"
+                      className="text-xs font-mono px-2 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-brand-500/30 transition-colors"
                     >
                       {expandedPack === pack.id ? 'Collapse' : 'Expand'}
                     </button>
@@ -817,7 +817,7 @@ export default function Tracepulse(): JSX.Element {
                         <CopyButton value={q.code} />
                       </button>
                       {expandedQuery === `${pack.id}-${i}` && (
-                        <pre className="bg-slate-50 dark:bg-slate-950 px-5 py-4 overflow-x-auto text-xs text-slate-700 dark:text-slate-300 font-mono border-t border-slate-100 dark:border-[#1e2030] whitespace-pre-wrap">
+                        <pre className="bg-slate-50 dark:bg-slate-950 px-5 py-4 overflow-x-auto text-xs text-slate-700 dark:text-slate-300 font-mono border-t border-slate-100 dark:border-[rgb(var(--border-400))] whitespace-pre-wrap">
                           {q.code}
                         </pre>
                       )}

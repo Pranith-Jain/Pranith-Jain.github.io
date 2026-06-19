@@ -132,7 +132,7 @@ export default function IrPlaybooks(): JSX.Element {
       </div>
 
       {/* Incident Type Selector */}
-      <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-5 mb-6">
+      <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5 mb-6">
         <h2 className="font-display font-bold text-sm mb-3">Incident Type</h2>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2">
           {INCIDENT_TYPES.map((t) => {
@@ -141,7 +141,7 @@ export default function IrPlaybooks(): JSX.Element {
               <button
                 key={t.id}
                 onClick={() => setIncidentType(t.id)}
-                className={`p-3 rounded-lg border text-left transition-colors ${incidentType === t.id ? 'border-brand-500/60 bg-brand-500/5' : 'border-slate-200 dark:border-[#1e2030] hover:border-brand-500/30'}`}
+                className={`p-3 rounded-lg border text-left transition-colors ${incidentType === t.id ? 'border-brand-500/60 bg-brand-500/5' : 'border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/30'}`}
               >
                 <Icon size={20} className="text-brand-600 dark:text-brand-400 mb-1" />
                 <div className="text-xs font-medium">{t.label}</div>
@@ -159,7 +159,7 @@ export default function IrPlaybooks(): JSX.Element {
             value={context}
             onChange={(e) => setContext(e.target.value)}
             placeholder="Describe specific details about the incident…"
-            className="w-full h-20 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[#1e2030] rounded-lg p-3 text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 resize-y"
+            className="w-full h-20 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg p-3 text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 resize-y"
           />
         </div>
 
@@ -183,7 +183,7 @@ export default function IrPlaybooks(): JSX.Element {
       {result && (
         <div className="space-y-5 animate-fade-in-up">
           {/* Playbook Header */}
-          <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-5">
+          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5">
             <div className="flex items-center justify-between mb-2">
               <h2 className="font-display font-bold text-lg">{result.playbook.title}</h2>
               <span
@@ -213,7 +213,7 @@ export default function IrPlaybooks(): JSX.Element {
               return (
                 <div
                   key={step.id}
-                  className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 overflow-hidden"
+                  className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 overflow-hidden"
                 >
                   <button
                     onClick={() => toggleStep(step.id)}
@@ -240,7 +240,7 @@ export default function IrPlaybooks(): JSX.Element {
                     )}
                   </button>
                   {isExpanded && (
-                    <div className="px-4 pb-4 pt-0 border-t border-slate-100 dark:border-[#1e2030]">
+                    <div className="px-4 pb-4 pt-0 border-t border-slate-100 dark:border-[rgb(var(--border-400))]">
                       <p className="text-sm text-muted mt-3 mb-3">{step.description}</p>
                       {step.tools.length > 0 && (
                         <div>
@@ -267,13 +267,13 @@ export default function IrPlaybooks(): JSX.Element {
           </div>
 
           {/* Tools Used Summary */}
-          <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-5">
+          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5">
             <h2 className="font-display font-bold text-sm mb-3">Tools Referenced</h2>
             <div className="flex flex-wrap gap-1.5">
               {result.playbook.tools_used.map((tool, i) => (
                 <span
                   key={i}
-                  className="text-xs font-mono px-2 py-1 rounded border border-slate-200 dark:border-[#1e2030] text-muted"
+                  className="text-xs font-mono px-2 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted"
                 >
                   {tool}
                 </span>
@@ -283,7 +283,7 @@ export default function IrPlaybooks(): JSX.Element {
 
           {/* Related Playbooks */}
           {result.related_playbooks.length > 0 && (
-            <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-5">
+            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5">
               <h2 className="font-display font-bold text-sm mb-3">Related Playbooks</h2>
               <div className="space-y-1.5">
                 {result.related_playbooks.map((rp, i) => (
@@ -293,7 +293,7 @@ export default function IrPlaybooks(): JSX.Element {
                       setIncidentType(rp.id);
                       setResult(null);
                     }}
-                    className="w-full flex items-center justify-between p-3 rounded-lg border border-slate-200 dark:border-[#1e2030] hover:border-brand-500/30 transition-colors text-left"
+                    className="w-full flex items-center justify-between p-3 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/30 transition-colors text-left"
                   >
                     <div>
                       <div className="text-sm font-medium">{rp.title}</div>

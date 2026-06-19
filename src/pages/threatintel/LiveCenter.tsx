@@ -314,7 +314,7 @@ export default function LiveCenter(): JSX.Element {
         {CATEGORIES.map((cat) => (
           <div
             key={cat.id}
-            className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 px-3 py-2"
+            className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 px-3 py-2"
           >
             <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
               {cat.label}
@@ -335,7 +335,7 @@ export default function LiveCenter(): JSX.Element {
             <div className="mb-3 flex items-center gap-2">
               <span className="text-brand-600 dark:text-brand-400">{cat.icon}</span>
               <h2 className="font-display font-bold text-lg text-slate-900 dark:text-slate-100">{cat.label}</h2>
-              <span className="rounded-full border border-slate-300 dark:border-[#1e2030] px-2 py-0.5 text-micro font-mono text-slate-500 dark:text-slate-400">
+              <span className="rounded-full border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-0.5 text-micro font-mono text-slate-500 dark:text-slate-400">
                 {cat.tools.length}
               </span>
             </div>
@@ -346,7 +346,7 @@ export default function LiveCenter(): JSX.Element {
                 return (
                   <div
                     key={tool.name}
-                    className="surface-card overflow-hidden rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 transition-all"
+                    className="surface-card overflow-hidden rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 transition-all"
                   >
                     <div className="p-4">
                       <div className="flex items-start justify-between gap-2 mb-2">
@@ -371,13 +371,13 @@ export default function LiveCenter(): JSX.Element {
                     {open && (
                       <div
                         id={`detail-${key}`}
-                        className="border-t border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950/60 p-4 space-y-3 animate-fade-in-up"
+                        className="border-t border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950/60 p-4 space-y-3 animate-fade-in-up"
                       >
                         <div>
                           <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
                             Install
                           </span>
-                          <pre className="mt-1 overflow-x-auto rounded border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-slate-950 px-3 py-2 text-xs font-mono text-slate-800 dark:text-slate-200">
+                          <pre className="mt-1 overflow-x-auto rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-slate-950 px-3 py-2 text-xs font-mono text-slate-800 dark:text-slate-200">
                             {tool.detail.install}
                           </pre>
                         </div>
@@ -385,7 +385,7 @@ export default function LiveCenter(): JSX.Element {
                           <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
                             Example
                           </span>
-                          <pre className="mt-1 overflow-x-auto rounded border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-slate-950 px-3 py-2 text-xs font-mono text-slate-800 dark:text-slate-200">
+                          <pre className="mt-1 overflow-x-auto rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-slate-950 px-3 py-2 text-xs font-mono text-slate-800 dark:text-slate-200">
                             {tool.detail.example}
                           </pre>
                         </div>

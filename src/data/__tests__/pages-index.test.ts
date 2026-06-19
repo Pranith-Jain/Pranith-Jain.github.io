@@ -12,12 +12,19 @@ import { PAGES, searchPages, hasPageMatch, type PageGroup, type PageEntry } from
 function extractAppRoutes(): string[] {
   const appPath = resolve(__dirname, '..', '..', 'App.tsx');
   const src = readFileSync(appPath, 'utf8');
-  // Match `path: '/foo/bar'` declarations in the ROUTES/REDIRECTS arrays.
-  // Skip paths with `:param` segments only if a parametrized variant
-  // is registered — the index can carry the parametrized form.
+  // Match `path: '/foo/bar'` declarations in the ROUTES table only.
+  // REDIRECTS entries share the same `path:` key but also carry a
+  // sibling `to:` — they're alias URLs, not real subpages, and
+  // don't need a pages-index entry (their target already has one).
   const matches = src.matchAll(/path:\s*'([^']+)'/g);
   const out = new Set<string>();
-  for (const m of matches) out.add(m[1]);
+  for (const m of matches) {
+    const idx = m.index ?? 0;
+    // Look ahead for a `to:` on the same object literal.
+    const window = src.slice(idx, idx + 200);
+    if (/,\s*to:\s*'/.test(window)) continue;
+    out.add(m[1]);
+  }
   return Array.from(out).sort();
 }
 

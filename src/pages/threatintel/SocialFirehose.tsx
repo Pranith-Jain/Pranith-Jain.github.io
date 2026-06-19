@@ -30,7 +30,7 @@ export default function SocialFirehose(): JSX.Element {
       description="Real-time cybersecurity social media feeds — Telegram channels, Reddit, X/Twitter, Bluesky, and Mastodon. All feeds auto-refresh."
     >
       <nav
-        className="flex flex-wrap gap-1 border-b border-slate-200 dark:border-[#1e2030] mb-6"
+        className="flex flex-wrap gap-1 border-b border-slate-200 dark:border-[rgb(var(--border-400))] mb-6"
         aria-label="Social platform"
       >
         {TABS.map((t) => (

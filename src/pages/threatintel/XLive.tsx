@@ -142,7 +142,7 @@ export default function XLive(): JSX.Element {
           <select
             value={sinceHours}
             onChange={(e) => setSinceHours(Number(e.target.value))}
-            className="border border-slate-300 dark:border-[#1e2030] bg-white dark:bg-[#12121a] px-1.5 py-0.5 text-mini font-mono rounded focus:outline-none focus:border-brand-500"
+            className="border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] px-1.5 py-0.5 text-mini font-mono rounded focus:outline-none focus:border-brand-500"
           >
             {[6, 12, 24, 48, 72, 168].map((h) => (
               <option key={h} value={h}>
@@ -158,14 +158,14 @@ export default function XLive(): JSX.Element {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="filter text, handle, or tag…"
-            className="w-full pl-7 pr-2 py-1 rounded border border-slate-300 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 text-xs font-mono focus:outline-none focus:border-brand-500"
+            className="w-full pl-7 pr-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 text-xs font-mono focus:outline-none focus:border-brand-500"
           />
         </div>
         <button
           type="button"
           onClick={() => load(sinceHours)}
           disabled={loading}
-          className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[#1e2030] hover:border-brand-500/40 inline-flex items-center gap-1 disabled:opacity-50"
+          className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 inline-flex items-center gap-1 disabled:opacity-50"
         >
           <RefreshCw size={11} className={loading ? 'animate-spin' : ''} /> refresh
         </button>
@@ -179,7 +179,7 @@ export default function XLive(): JSX.Element {
             className={`text-mini font-mono px-2 py-0.5 rounded border transition-colors ${
               activeHandle === null
                 ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                : 'border-slate-300 dark:border-[#1e2030] text-muted hover:border-brand-500/40'
+                : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40'
             }`}
           >
             all · {data?.items.length ?? 0}
@@ -192,7 +192,7 @@ export default function XLive(): JSX.Element {
               className={`text-mini font-mono px-2 py-0.5 rounded border transition-colors ${
                 activeHandle === handle
                   ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                  : 'border-slate-300 dark:border-[#1e2030] text-muted hover:border-brand-500/40'
+                  : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40'
               }`}
             >
               @{handle} · {count}
@@ -254,7 +254,7 @@ export default function XLive(): JSX.Element {
       onRetry={() => load(sinceHours)}
     >
       {!loading && data && filtered.length === 0 && (
-        <p className="text-xs font-mono text-slate-500 rounded border border-dashed border-slate-300 dark:border-[#1e2030] p-4 text-center">
+        <p className="text-xs font-mono text-slate-500 rounded border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-4 text-center">
           {data.stale ? 'Showing cached data (upstream enrichment temporarily unavailable). ' : ''}
           {data.items.length === 0
             ? data.total_status_ids_seen > 0
@@ -269,7 +269,7 @@ export default function XLive(): JSX.Element {
           {filtered.map((t) => (
             <li
               key={t.id}
-              className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-3"
+              className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
             >
               <div className="flex items-start gap-3">
                 {t.author.avatar_url && (
@@ -297,7 +297,8 @@ export default function XLive(): JSX.Element {
                       <span
                         key={iocType}
                         className={`text-micro font-mono px-1 py-0.5 rounded border ${
-                          IOC_TYPE_COLOR[iocType] ?? 'border-slate-300 dark:border-[#1e2030] text-slate-500'
+                          IOC_TYPE_COLOR[iocType] ??
+                          'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500'
                         }`}
                       >
                         {iocType}
@@ -336,7 +337,7 @@ export default function XLive(): JSX.Element {
                           href={sanitizeUrl(t.url) || undefined}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="block rounded overflow-hidden border border-slate-200 dark:border-[#1e2030]"
+                          className="block rounded overflow-hidden border border-slate-200 dark:border-[rgb(var(--border-400))]"
                         >
                           <img src={m.url} alt={m.type} loading="lazy" className="w-full h-32 object-cover" />
                         </a>

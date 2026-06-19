@@ -251,10 +251,10 @@ export default function DFIRPage(): JSX.Element {
         <div className="mb-5 sm:mb-7 flex flex-wrap items-center gap-x-4 gap-y-2 font-mono text-mini uppercase tracking-[0.16em] text-slate-500">
           <span className="inline-flex items-center gap-1.5">
             <span className="relative inline-flex h-1.5 w-1.5">
-              <span className="absolute inset-0 rounded-full bg-emerald-500 live-pulse" aria-hidden />
-              <span className="relative inline-block h-1.5 w-1.5 rounded-full bg-emerald-500" />
+              <span className="absolute inset-0 rounded-full bg-brand-500 live-pulse" aria-hidden />
+              <span className="relative inline-block h-1.5 w-1.5 rounded-full bg-brand-500" />
             </span>
-            <span className="text-emerald-600 dark:text-emerald-400">Operational</span>
+            <span className="text-brand-600 dark:text-brand-400">Operational</span>
           </span>
           <span aria-hidden className="text-slate-300 dark:text-slate-700">
             /

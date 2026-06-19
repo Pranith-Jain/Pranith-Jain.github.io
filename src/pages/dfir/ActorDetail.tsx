@@ -120,7 +120,7 @@ export default function ActorDetail(): JSX.Element {
             className={`text-xs font-mono px-2 py-1 rounded border ${
               actor.status === 'active'
                 ? 'bg-emerald-500/15 dark:bg-emerald-400/15 text-emerald-600 dark:text-emerald-400 border-emerald-500/40'
-                : 'bg-slate-200 dark:bg-slate-800 text-slate-500 border-slate-300 dark:border-[#1e2030]'
+                : 'bg-slate-200 dark:bg-slate-800 text-slate-500 border-slate-300 dark:border-[rgb(var(--border-400))]'
             }`}
           >
             {actor.status}
@@ -129,19 +129,19 @@ export default function ActorDetail(): JSX.Element {
             {actor.sophistication}
           </span>
           {actor.country && (
-            <span className="text-xs font-mono px-2 py-1 rounded border border-slate-200 dark:border-[#1e2030] text-muted">
+            <span className="text-xs font-mono px-2 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted">
               {actor.country}
             </span>
           )}
         </div>
       </div>
 
-      <section className="mb-8 rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] p-6">
+      <section className="mb-8 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
         <p className="text-base text-muted leading-relaxed whitespace-pre-line">{actor.description}</p>
       </section>
 
       <div className="grid sm:grid-cols-2 gap-6 mb-8">
-        <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] p-6">
+        <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
           <h2 className="font-display font-bold text-lg mb-3">Motivation</h2>
           <p className="font-mono text-sm text-slate-900 dark:text-slate-100">{actor.motivation}</p>
           {actor.active_since && (
@@ -150,7 +150,7 @@ export default function ActorDetail(): JSX.Element {
           {actor.last_activity && <p className="font-mono text-xs text-muted">last activity: {actor.last_activity}</p>}
         </section>
 
-        <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] p-6">
+        <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
           <h2 className="font-display font-bold text-lg mb-3">Targets</h2>
           <ul className="space-y-1 text-sm font-mono text-muted">
             {actor.targets.map((t) => (
@@ -160,14 +160,14 @@ export default function ActorDetail(): JSX.Element {
         </section>
       </div>
 
-      <section className="mb-8 rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] p-6">
+      <section className="mb-8 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
         <h2 className="font-display font-bold text-lg mb-3">Malware &amp; Tools</h2>
         {actor.malware.length > 0 ? (
           <div className="flex flex-wrap gap-2">
             {actor.malware.map((m) => (
               <span
                 key={m}
-                className="text-xs font-mono px-2 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-slate-100 border border-slate-200 dark:border-[#1e2030]"
+                className="text-xs font-mono px-2 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-slate-100 border border-slate-200 dark:border-[rgb(var(--border-400))]"
               >
                 {m}
               </span>
@@ -180,7 +180,7 @@ export default function ActorDetail(): JSX.Element {
 
       <DiamondModelSection actor={actor} />
 
-      <section className="mb-8 rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] p-6">
+      <section className="mb-8 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
         <h2 className="font-display font-bold text-lg mb-1 inline-flex items-center gap-2">
           <ShieldAlert size={18} className="text-rose-500" /> Linked CVEs
           {linkedCves && linkedCves.length > 0 && (
@@ -293,7 +293,7 @@ export default function ActorDetail(): JSX.Element {
                           href={`https://attack.mitre.org/techniques/${t.id.replace('.', '/')}`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-xs font-mono px-2 py-1 rounded bg-slate-100 dark:bg-slate-800 text-brand-600 dark:text-brand-400 border border-slate-200 dark:border-[#1e2030] hover:border-brand-500/40"
+                          className="text-xs font-mono px-2 py-1 rounded bg-slate-100 dark:bg-slate-800 text-brand-600 dark:text-brand-400 border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40"
                         >
                           {t.id}
                           {t.count ? ` (${t.count})` : ''}
@@ -314,7 +314,7 @@ export default function ActorDetail(): JSX.Element {
         )}
       </section>
 
-      <section className="mb-8 rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] p-6">
+      <section className="mb-8 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
         <h2 className="font-display font-bold text-lg mb-3">MITRE ATT&amp;CK Techniques</h2>
         <div className="flex flex-wrap gap-2">
           {actor.techniques.map((t) => (
@@ -323,7 +323,7 @@ export default function ActorDetail(): JSX.Element {
               href={`https://attack.mitre.org/techniques/${t.replace('.', '/')}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-xs font-mono px-2 py-1 rounded bg-slate-100 dark:bg-slate-800 text-brand-600 dark:text-brand-400 border border-slate-200 dark:border-[#1e2030] hover:border-brand-500/40"
+              className="text-xs font-mono px-2 py-1 rounded bg-slate-100 dark:bg-slate-800 text-brand-600 dark:text-brand-400 border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40"
             >
               {t}
             </a>
@@ -332,7 +332,7 @@ export default function ActorDetail(): JSX.Element {
       </section>
 
       {actor.references && actor.references.length > 0 && (
-        <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] p-6">
+        <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
           <h2 className="font-display font-bold text-lg mb-3">References</h2>
           <ul className="space-y-2">
             {actor.references.map((r) => (

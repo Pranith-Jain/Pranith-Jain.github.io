@@ -113,7 +113,7 @@ export default function TelegramDiscoveredChannels(): JSX.Element {
             <button
               type="button"
               onClick={() => setRefreshKey((k) => k + 1)}
-              className="text-mini font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[#1e2030] hover:border-brand-500/40 inline-flex items-center gap-1"
+              className="text-mini font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 inline-flex items-center gap-1"
               aria-label="Refresh"
             >
               <RefreshCw size={11} /> refresh
@@ -128,7 +128,7 @@ export default function TelegramDiscoveredChannels(): JSX.Element {
       </div>
 
       {showToken && (
-        <div className="animate-fade-in-up mb-6 rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-3.5">
+        <div className="animate-fade-in-up mb-6 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3.5">
           <label htmlFor="vt-admin-token" className="block text-micro uppercase tracking-wider text-slate-500 mb-1.5">
             Admin token — stored locally, sent only with approve/reject requests
           </label>
@@ -143,7 +143,7 @@ export default function TelegramDiscoveredChannels(): JSX.Element {
                 if (e.key === 'Enter') saveToken();
               }}
               placeholder="paste ADMIN_TOKEN…"
-              className="flex-1 px-3 py-1.5 text-sm rounded border border-slate-300 dark:border-[#1e2030] bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 font-mono"
+              className="flex-1 px-3 py-1.5 text-sm rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 font-mono"
             />
             <button
               type="button"
@@ -165,14 +165,14 @@ export default function TelegramDiscoveredChannels(): JSX.Element {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Filter handles…"
-            className="w-48 px-3 py-1.5 text-sm rounded border border-slate-300 dark:border-[#1e2030] bg-white dark:bg-[#12121a] text-slate-900 dark:text-slate-100 placeholder:text-slate-400 font-mono"
+            className="w-48 px-3 py-1.5 text-sm rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-slate-900 dark:text-slate-100 placeholder:text-slate-400 font-mono"
           />
         </div>
 
         <select
           value={filterReviewed}
           onChange={(e) => setFilterReviewed(e.target.value)}
-          className="px-3 py-1.5 text-sm rounded border border-slate-300 dark:border-[#1e2030] bg-white dark:bg-[#12121a] text-slate-900 dark:text-slate-100 font-mono"
+          className="px-3 py-1.5 text-sm rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-slate-900 dark:text-slate-100 font-mono"
         >
           <option value="false">Unreviewed only</option>
           <option value="true">Reviewed only</option>
@@ -191,7 +191,7 @@ export default function TelegramDiscoveredChannels(): JSX.Element {
             {filtered.map((ch) => (
               <div
                 key={ch.id}
-                className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-3.5 flex items-center justify-between gap-4"
+                className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3.5 flex items-center justify-between gap-4"
               >
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center gap-2 mb-1">

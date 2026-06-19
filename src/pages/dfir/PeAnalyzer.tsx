@@ -183,7 +183,7 @@ export default function PeAnalyzer(): JSX.Element {
       <button
         type="button"
         onClick={() => document.getElementById('peanalyzer-input')?.click()}
-        className="w-full border-2 border-dashed border-slate-300 dark:border-[#1e2030] rounded-lg p-8 text-center cursor-pointer hover:border-brand-500/40 focus-visible:outline-none focus-visible:border-brand-500/60"
+        className="w-full border-2 border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] rounded-lg p-8 text-center cursor-pointer hover:border-brand-500/40 focus-visible:outline-none focus-visible:border-brand-500/60"
         aria-label="Drop a PE file file or click to choose"
       >
         <Upload size={24} className="mx-auto mb-2 text-slate-500" />
@@ -239,7 +239,7 @@ export default function PeAnalyzer(): JSX.Element {
             ].map(([k, v]) => (
               <div
                 key={k}
-                className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-3"
+                className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
               >
                 <div className="text-micro font-mono uppercase tracking-wider text-slate-500">{k}</div>
                 <div className="font-mono text-meta break-all">{v}</div>
@@ -248,15 +248,15 @@ export default function PeAnalyzer(): JSX.Element {
           </div>
           <div className="font-mono text-mini text-muted">mitigations: {pe.flags.join(' · ') || 'none detected'}</div>
 
-          <div className="rounded-lg border border-slate-200 dark:border-[#1e2030] overflow-auto">
+          <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] overflow-auto">
             <table className="w-full text-mini font-mono">
-              <thead className="bg-slate-50 dark:bg-[#12121a]">
+              <thead className="bg-slate-50 dark:bg-[rgb(var(--surface-200))]">
                 <tr>
                   {['Section', 'VirtualSize', 'RawSize', 'Entropy', 'Flags'].map((h) => (
                     <th
                       key={h}
                       scope="col"
-                      className="text-left px-2 py-1 border-b border-slate-200 dark:border-[#1e2030]"
+                      className="text-left px-2 py-1 border-b border-slate-200 dark:border-[rgb(var(--border-400))]"
                     >
                       {h}
                     </th>
@@ -266,16 +266,24 @@ export default function PeAnalyzer(): JSX.Element {
               <tbody>
                 {pe.sections.map((s, i) => (
                   <tr key={i}>
-                    <td className="px-2 py-1 border-b border-slate-100 dark:border-[#1e2030]">{s.name}</td>
-                    <td className="px-2 py-1 border-b border-slate-100 dark:border-[#1e2030]">{s.vsize}</td>
-                    <td className="px-2 py-1 border-b border-slate-100 dark:border-[#1e2030]">{s.rsize}</td>
+                    <td className="px-2 py-1 border-b border-slate-100 dark:border-[rgb(var(--border-400))]">
+                      {s.name}
+                    </td>
+                    <td className="px-2 py-1 border-b border-slate-100 dark:border-[rgb(var(--border-400))]">
+                      {s.vsize}
+                    </td>
+                    <td className="px-2 py-1 border-b border-slate-100 dark:border-[rgb(var(--border-400))]">
+                      {s.rsize}
+                    </td>
                     <td
-                      className={`px-2 py-1 border-b border-slate-100 dark:border-[#1e2030] ${s.entropy >= 7.2 ? 'text-rose-600 dark:text-rose-400 font-bold' : ''}`}
+                      className={`px-2 py-1 border-b border-slate-100 dark:border-[rgb(var(--border-400))] ${s.entropy >= 7.2 ? 'text-rose-600 dark:text-rose-400 font-bold' : ''}`}
                     >
                       {s.entropy}
                       {s.entropy >= 7.2 ? ' ⚠packed?' : ''}
                     </td>
-                    <td className="px-2 py-1 border-b border-slate-100 dark:border-[#1e2030]">{s.flags}</td>
+                    <td className="px-2 py-1 border-b border-slate-100 dark:border-[rgb(var(--border-400))]">
+                      {s.flags}
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -285,7 +293,7 @@ export default function PeAnalyzer(): JSX.Element {
           {pe.imports.map((im) => (
             <div
               key={im.dll}
-              className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-3"
+              className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
             >
               <div className="font-mono text-meta text-slate-900 dark:text-slate-100 mb-1">
                 {im.dll} <span className="text-slate-500">· {im.fns.length} imports</span>
@@ -294,7 +302,7 @@ export default function PeAnalyzer(): JSX.Element {
                 {im.fns.slice(0, 200).map((fn, i) => (
                   <span
                     key={i}
-                    className={`font-mono text-micro px-1 py-0.5 rounded border ${SUSPECT.test(fn) ? 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300' : 'border-slate-200 dark:border-[#1e2030] text-muted'}`}
+                    className={`font-mono text-micro px-1 py-0.5 rounded border ${SUSPECT.test(fn) ? 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300' : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-muted'}`}
                   >
                     {fn}
                   </span>

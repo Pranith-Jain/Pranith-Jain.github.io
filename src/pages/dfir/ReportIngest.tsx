@@ -155,7 +155,7 @@ export default function ReportIngest(): JSX.Element {
         className={`relative rounded-lg border-2 border-dashed p-12 text-center cursor-pointer transition-colors mb-8 ${
           dragOver
             ? 'border-brand-500 bg-brand-500/5'
-            : 'border-slate-300 dark:border-[#1e2030] bg-slate-50 dark:bg-[#12121a]/50 hover:border-brand-400 hover:bg-brand-500/5'
+            : 'border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))]/50 hover:border-brand-400 hover:bg-brand-500/5'
         }`}
       >
         <input
@@ -199,7 +199,7 @@ export default function ReportIngest(): JSX.Element {
 
       {status === 'done' && view && (
         <div className="animate-fade-in-up space-y-6">
-          <div className="rounded-lg border border-slate-200 dark:border-[#1e2030] p-5">
+          <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] p-5">
             <div className="flex items-start justify-between gap-4">
               <div>
                 <h2 className="text-xl font-display font-bold">{view.title}</h2>
@@ -218,13 +218,13 @@ export default function ReportIngest(): JSX.Element {
             <div className="flex gap-3 mt-4">
               <button
                 onClick={download}
-                className="inline-flex items-center gap-1.5 font-mono text-xs px-3 py-1.5 rounded border border-slate-300 dark:border-[#1e2030] hover:border-brand-400"
+                className="inline-flex items-center gap-1.5 font-mono text-xs px-3 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-400"
               >
                 <Download size={13} /> .stix.json
               </button>
               <button
                 onClick={copyJson}
-                className="inline-flex items-center gap-1.5 font-mono text-xs px-3 py-1.5 rounded border border-slate-300 dark:border-[#1e2030] hover:border-brand-400"
+                className="inline-flex items-center gap-1.5 font-mono text-xs px-3 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-400"
               >
                 {copied ? <Check size={13} /> : <Copy size={13} />} {copied ? 'copied' : 'copy JSON'}
               </button>

@@ -110,7 +110,7 @@ export function ToolSearchBar(): JSX.Element {
   }
 
   return (
-    <section className="mb-8 rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 sm:p-5">
+    <section className="mb-8 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 sm:p-5">
       <label
         htmlFor="dfir-tool-search"
         className="inline-flex items-center gap-2 text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-2"
@@ -133,7 +133,7 @@ export function ToolSearchBar(): JSX.Element {
           placeholder="Try 'ioc', 'rule', 'cve', 'detection lab', 'phishing'…"
           spellCheck={false}
           autoComplete="off"
-          className="w-full pl-10 pr-10 py-3 min-h-[48px] bg-slate-50 dark:bg-[#0e0e15] border border-slate-200 dark:border-[#1e2030] rounded font-mono text-sm sm:text-base text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+          className="w-full pl-10 pr-10 py-3 min-h-[48px] bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm sm:text-base text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
           aria-describedby="dfir-tool-search-help"
           aria-autocomplete="list"
           aria-controls="dfir-tool-search-results"
@@ -187,7 +187,7 @@ export function ToolSearchBar(): JSX.Element {
                   className={`flex items-start gap-3 rounded border p-3 transition ${
                     isActive
                       ? 'border-brand-500/60 bg-brand-50/60 dark:bg-brand-900/20'
-                      : 'border-slate-200 dark:border-[#1e2030] bg-slate-50/50 dark:bg-[#0e0e15]/50 hover:border-brand-500/40'
+                      : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50/50 dark:bg-[rgb(var(--input-200))]/50 hover:border-brand-500/40'
                   }`}
                 >
                   <Icon

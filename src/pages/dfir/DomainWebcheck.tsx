@@ -97,14 +97,14 @@ export default function DomainWebcheck(): JSX.Element {
         </p>
       </div>
 
-      <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 mb-6">
+      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
         <form onSubmit={onSubmit} className="flex gap-2">
           <input
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="example.com"
-            className="flex-1 px-4 py-3 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[#1e2030] rounded-lg font-mono text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="flex-1 px-4 py-3 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
             autoComplete="off"
             spellCheck={false}
           />
@@ -153,7 +153,7 @@ export default function DomainWebcheck(): JSX.Element {
           </div>
 
           {/* Security Headers */}
-          <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] p-6">
+          <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
             <h2 className="font-display font-bold text-xl mb-4 flex items-center gap-2">
               <Shield size={18} className="text-brand-600 dark:text-brand-400" /> Security Headers
             </h2>
@@ -179,7 +179,7 @@ export default function DomainWebcheck(): JSX.Element {
 
           {/* Technology Stack */}
           {result.technology.length > 0 && (
-            <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] p-6">
+            <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
               <h2 className="font-display font-bold text-xl mb-4 flex items-center gap-2">
                 <Server size={18} className="text-brand-600 dark:text-brand-400" /> Technology Stack
               </h2>
@@ -187,7 +187,7 @@ export default function DomainWebcheck(): JSX.Element {
                 {result.technology.map((t, i) => (
                   <span
                     key={i}
-                    className="px-2.5 py-1 rounded-lg text-xs font-mono bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-[#1e2030]"
+                    className="px-2.5 py-1 rounded-lg text-xs font-mono bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-[rgb(var(--border-400))]"
                   >
                     <span className="text-slate-400">{t.category}:</span> {t.name}
                   </span>
@@ -198,7 +198,7 @@ export default function DomainWebcheck(): JSX.Element {
 
           {/* Shodan */}
           {result.shodan && (
-            <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] p-6">
+            <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
               <h2 className="font-display font-bold text-xl mb-4 flex items-center gap-2">
                 <Lock size={18} className="text-brand-600 dark:text-brand-400" /> Shodan Intelligence
               </h2>
@@ -223,7 +223,7 @@ export default function DomainWebcheck(): JSX.Element {
 
           {/* Redirect Chain */}
           {result.http.redirect_chain.length > 0 && (
-            <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] p-6">
+            <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
               <h2 className="font-display font-bold text-xl mb-4 flex items-center gap-2">
                 <ExternalLink size={18} className="text-brand-600 dark:text-brand-400" /> Redirect Chain
               </h2>
@@ -255,7 +255,7 @@ function StatCard({
   sub?: string;
 }) {
   return (
-    <div className="p-3 rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]">
+    <div className="p-3 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]">
       <div className="text-xs font-mono text-slate-400">{label}</div>
       <div className={`text-lg font-bold font-mono mt-0.5 ${valueClass ?? 'text-slate-900 dark:text-slate-100'}`}>
         {value}

@@ -190,7 +190,7 @@ export default function ThreatPulse(): JSX.Element {
           <button
             type="button"
             onClick={() => setRefreshKey((k) => k + 1)}
-            className="text-mini font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[#1e2030] hover:border-brand-500/40 inline-flex items-center gap-1 mt-1"
+            className="text-mini font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 inline-flex items-center gap-1 mt-1"
             aria-label="Refresh threat pulse"
           >
             <RefreshCw size={11} /> refresh
@@ -222,7 +222,7 @@ export default function ThreatPulse(): JSX.Element {
                 className={`flex items-center gap-3 rounded-lg border p-3 text-left transition-colors ${
                   kindFilter === k
                     ? 'border-brand-500/60 bg-brand-500/10'
-                    : 'border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] hover:border-brand-500/40'
+                    : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] hover:border-brand-500/40'
                 }`}
               >
                 <Icon size={18} className="shrink-0 text-brand-600 dark:text-brand-400" />
@@ -263,7 +263,7 @@ export default function ThreatPulse(): JSX.Element {
               className={`px-3 py-1 text-xs font-mono uppercase tracking-wider border transition-colors ${
                 kindFilter === f.id
                   ? 'bg-brand-50 dark:bg-brand-950/30 text-brand-700 dark:text-brand-300 border-brand-300 dark:border-brand-700'
-                  : 'bg-white dark:bg-[#12121a] text-muted border-slate-200 dark:border-[#1e2030] hover:border-brand-500/40'
+                  : 'bg-white dark:bg-[rgb(var(--surface-200))] text-muted border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40'
               }`}
             >
               {f.label}
@@ -283,7 +283,7 @@ export default function ThreatPulse(): JSX.Element {
             id="pulse-min-sources"
             value={minSources}
             onChange={(e) => setMinSources(Number(e.target.value))}
-            className="border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] px-2 py-1 text-xs font-mono text-slate-900 dark:text-slate-100 focus:outline-none focus:border-brand-500/60"
+            className="border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] px-2 py-1 text-xs font-mono text-slate-900 dark:text-slate-100 focus:outline-none focus:border-brand-500/60"
           >
             {[1, 2, 3, 4].map((n) => (
               <option key={n} value={n}>
@@ -295,7 +295,7 @@ export default function ThreatPulse(): JSX.Element {
       </div>
 
       {data && filtered.length === 0 && (
-        <div className="border border-dashed border-slate-300 dark:border-[#1e2030] p-10 text-center rounded-lg">
+        <div className="border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-10 text-center rounded-lg">
           <Activity size={32} className="mx-auto mb-3 text-slate-400 dark:text-slate-600" />
           <p className="font-mono text-sm text-muted">
             No entities at ≥{minSources} source{minSources > 1 ? 's' : ''}
@@ -321,7 +321,7 @@ export default function ThreatPulse(): JSX.Element {
                 <button
                   type="button"
                   onClick={() => setKindFilter(null)}
-                  className="inline-flex items-center gap-1.5 border border-slate-200 dark:border-[#1e2030] px-3 py-1.5 font-mono text-mini uppercase tracking-wider text-muted transition-colors hover:border-slate-400 hover:text-slate-900 dark:hover:text-slate-100 rounded"
+                  className="inline-flex items-center gap-1.5 border border-slate-200 dark:border-[rgb(var(--border-400))] px-3 py-1.5 font-mono text-mini uppercase tracking-wider text-muted transition-colors hover:border-slate-400 hover:text-slate-900 dark:hover:text-slate-100 rounded"
                 >
                   Clear {KIND_LABEL[kindFilter as keyof typeof KIND_LABEL]} filter
                 </button>
@@ -341,7 +341,7 @@ export default function ThreatPulse(): JSX.Element {
               return (
                 <div
                   key={`${entity.kind}:${entity.label}`}
-                  className="border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] p-4 hover:border-brand-500/40 dark:hover:border-brand-400/40 transition-colors rounded-lg"
+                  className="border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-4 hover:border-brand-500/40 dark:hover:border-brand-400/40 transition-colors rounded-lg"
                 >
                   <div className="flex items-start justify-between gap-3">
                     <div className="flex items-center gap-3 min-w-0 flex-1">
@@ -394,7 +394,7 @@ export default function ThreatPulse(): JSX.Element {
                             </span>
                           ) : entity.source_count > 1 ? (
                             <span
-                              className="inline-flex items-center gap-1 text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-slate-300 dark:border-[#1e2030] text-slate-500"
+                              className="inline-flex items-center gap-1 text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500"
                               title="All mentions on a single platform — same-platform corroboration, weaker signal than cross-platform"
                             >
                               same-platform
@@ -406,7 +406,7 @@ export default function ThreatPulse(): JSX.Element {
                           {entity.sources.map((s) => (
                             <span
                               key={s}
-                              className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-[#12121a] text-muted"
+                              className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] text-muted"
                             >
                               {surfaceLabel(s)}
                             </span>

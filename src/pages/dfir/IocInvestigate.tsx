@@ -30,7 +30,7 @@ export default function IocInvestigate(): JSX.Element {
       description="Unified IOC investigation — table view, pivot graph, and extended threat hunt. Paste an IP, domain, URL, or hash to start."
     >
       <nav
-        className="flex flex-wrap gap-1 border-b border-slate-200 dark:border-[#1e2030] mb-6"
+        className="flex flex-wrap gap-1 border-b border-slate-200 dark:border-[rgb(var(--border-400))] mb-6"
         aria-label="IOC investigation"
       >
         {TABS.map((t) => (

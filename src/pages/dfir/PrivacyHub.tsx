@@ -18,14 +18,14 @@ const CYCLE: Record<CheckStatus, CheckStatus> = {
 };
 
 const STATUS_STYLES: Record<CheckStatus, { label: string; cls: string }> = {
-  unset: { label: '— unset', cls: 'border-slate-300 dark:border-[#1e2030] text-slate-500' },
+  unset: { label: '— unset', cls: 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500' },
   covered: {
     label: '✓ covered',
     cls: 'border-emerald-400/60 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300',
   },
   partial: { label: '~ partial', cls: 'border-amber-400/60 bg-amber-500/10 text-amber-700 dark:text-amber-300' },
   gap: { label: '✗ gap', cls: 'border-rose-400/60 bg-rose-500/10 text-rose-700 dark:text-rose-300' },
-  na: { label: 'n/a', cls: 'border-slate-300 dark:border-[#1e2030] text-slate-400' },
+  na: { label: 'n/a', cls: 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-400' },
 };
 
 const REGIME_STYLES: Record<RegimeId, string> = {
@@ -183,7 +183,7 @@ export default function PrivacyHub(): JSX.Element {
             className={`text-left rounded-lg border p-3 transition-colors ${
               tab === regime.id
                 ? 'border-brand-500/60 bg-brand-500/5'
-                : 'border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] hover:border-brand-500/40'
+                : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] hover:border-brand-500/40'
             }`}
           >
             <div className="flex items-baseline justify-between gap-2 mb-1">
@@ -213,20 +213,20 @@ export default function PrivacyHub(): JSX.Element {
       <div className="flex flex-wrap gap-2 mb-6">
         <button
           onClick={downloadMd}
-          className="text-sm font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[#1e2030] hover:border-brand-500/40 inline-flex items-center gap-1.5"
+          className="text-sm font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 inline-flex items-center gap-1.5"
         >
           <Download size={13} /> Export markdown
         </button>
         <button
           onClick={reset}
-          className="text-sm font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[#1e2030] hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400 inline-flex items-center gap-1.5"
+          className="text-sm font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400 inline-flex items-center gap-1.5"
         >
           <RotateCcw size={13} /> Reset
         </button>
       </div>
 
       {/* Active regime */}
-      <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 mb-6">
+      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
         <div className="flex flex-wrap items-baseline gap-2 mb-2">
           <span
             className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${REGIME_STYLES[active.id]}`}
@@ -270,7 +270,7 @@ export default function PrivacyHub(): JSX.Element {
 
       {/* Rights */}
       {active.rights.length > 0 && (
-        <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 mb-6">
+        <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
           <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
             Data subject / individual rights ({active.rights.length})
           </h3>
@@ -283,7 +283,7 @@ export default function PrivacyHub(): JSX.Element {
       )}
 
       {/* Obligations */}
-      <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 mb-6">
+      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
         <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
           Controller / fiduciary obligations ({active.obligations.length})
         </h3>
@@ -295,7 +295,7 @@ export default function PrivacyHub(): JSX.Element {
       </section>
 
       {/* Enforcement */}
-      <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 mb-6">
+      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
         <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-2">
           Enforcement &amp; penalties
         </h3>
@@ -304,7 +304,7 @@ export default function PrivacyHub(): JSX.Element {
 
       {/* Cross-references */}
       {active.crossRef.length > 0 && (
-        <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 mb-6">
+        <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
           <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-2">
             Cross-references in /dfir/grc
           </h3>
@@ -321,7 +321,7 @@ export default function PrivacyHub(): JSX.Element {
         </section>
       )}
 
-      <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4">
+      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
         <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-2">
           Authoritative sources
         </h3>
@@ -356,7 +356,7 @@ function ArticleRow({
 }): JSX.Element {
   const s = state.checks[article.id] ?? 'unset';
   return (
-    <li className="rounded border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 p-3">
+    <li className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-3">
       <div className="flex flex-wrap items-center gap-2 mb-1">
         <button
           onClick={() => cycle(article.id)}

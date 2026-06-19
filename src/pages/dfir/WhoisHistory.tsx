@@ -220,7 +220,7 @@ export default function WhoisHistory(): JSX.Element {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="example.com"
-            className="w-full pl-10 pr-4 py-2.5 rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] text-sm font-mono focus-visible:ring-2 focus-visible:ring-brand-500 focus:border-transparent"
+            className="w-full pl-10 pr-4 py-2.5 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-sm font-mono focus-visible:ring-2 focus-visible:ring-brand-500 focus:border-transparent"
           />
         </div>
         <button
@@ -251,7 +251,7 @@ export default function WhoisHistory(): JSX.Element {
             ].map(({ label, value, icon: Icon }) => (
               <div
                 key={label}
-                className="p-3 rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1"
+                className="p-3 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1"
               >
                 <div className="flex items-center gap-2 mb-1">
                   <Icon size={14} className="text-slate-400" />
@@ -263,7 +263,7 @@ export default function WhoisHistory(): JSX.Element {
           </div>
 
           {history.current && (
-            <div className="mb-6 p-4 rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1">
+            <div className="mb-6 p-4 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1">
               <h3 className="text-sm font-semibold mb-3 flex items-center gap-2">
                 <Globe size={14} className="text-brand-600" /> Current Registration
               </h3>
@@ -300,7 +300,7 @@ export default function WhoisHistory(): JSX.Element {
             </div>
           )}
 
-          <div className="flex gap-1 mb-4 border-b border-slate-200 dark:border-[#1e2030]">
+          <div className="flex gap-1 mb-4 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
             {(['timeline', 'changes', 'pivots'] as const).map((tab) => (
               <button
                 key={tab}
@@ -334,7 +334,7 @@ export default function WhoisHistory(): JSX.Element {
                 history.snapshots.map((snap, i) => (
                   <div
                     key={snap.id}
-                    className="border border-slate-200 dark:border-[#1e2030] rounded-lg bg-white dark:bg-[#12121a] overflow-hidden"
+                    className="border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg bg-white dark:bg-[rgb(var(--surface-200))] overflow-hidden"
                   >
                     <button
                       onClick={() => setExpandedSnapshot(expandedSnapshot === snap.id ? null : snap.id)}
@@ -352,7 +352,7 @@ export default function WhoisHistory(): JSX.Element {
                       {expandedSnapshot === snap.id ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
                     </button>
                     {expandedSnapshot === snap.id && (
-                      <div className="px-3 pb-3 pt-1 border-t border-slate-100 dark:border-[#1e2030] text-sm space-y-1">
+                      <div className="px-3 pb-3 pt-1 border-t border-slate-100 dark:border-[rgb(var(--border-400))] text-sm space-y-1">
                         <div>
                           <span className="text-slate-500">Registrar:</span>{' '}
                           <span className="font-mono">{snap.registrar ?? '—'}</span>
@@ -402,7 +402,7 @@ export default function WhoisHistory(): JSX.Element {
                   const Icon = CHANGE_ICONS[change.change_type] ?? AlertTriangle;
                   const colorClass =
                     CHANGE_COLORS[change.change_type] ??
-                    'text-slate-600 bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-[#1e2030]';
+                    'text-slate-600 bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-[rgb(var(--border-400))]';
                   return (
                     <div key={change.id} className={`p-3 rounded-lg border ${colorClass}`}>
                       <div className="flex items-center gap-2 mb-2">
@@ -445,7 +445,7 @@ export default function WhoisHistory(): JSX.Element {
                       return (
                         <div
                           key={`${d.domain}-${d.match_reason}`}
-                          className="p-3 rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1"
+                          className="p-3 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1"
                         >
                           <div className="flex items-center justify-between">
                             <div className="flex items-center gap-2">

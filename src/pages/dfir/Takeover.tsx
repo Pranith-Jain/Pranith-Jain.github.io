@@ -82,7 +82,7 @@ export default function Takeover(): JSX.Element {
             value={domain}
             onChange={(e) => setDomain(e.target.value)}
             placeholder="subdomain.example.com"
-            className="flex-1 px-4 py-3 bg-white dark:bg-[#12121a] border border-slate-200 dark:border-[#1e2030] rounded-lg font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="flex-1 px-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
           />
           <button
             type="submit"
@@ -107,7 +107,7 @@ export default function Takeover(): JSX.Element {
             className={`rounded-lg border p-6 ${
               result.vulnerable
                 ? 'border-rose-300 bg-rose-50 dark:border-rose-900 dark:bg-rose-900/10'
-                : 'border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]'
+                : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]'
             }`}
           >
             <div className="flex items-center gap-3 mb-3">
@@ -135,7 +135,7 @@ export default function Takeover(): JSX.Element {
             )}
           </section>
 
-          <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-5">
+          <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5">
             <h3 className="font-display font-semibold mb-3">CNAME chain</h3>
             {result.cname_chain.length === 0 ? (
               <p className="text-sm font-mono text-slate-500">No CNAME records.</p>
@@ -143,7 +143,7 @@ export default function Takeover(): JSX.Element {
               <ol className="font-mono text-sm space-y-1 text-slate-700 dark:text-slate-300">
                 <li className="text-slate-500">{result.domain}</li>
                 {result.cname_chain.map((c, i) => (
-                  <li key={i} className="pl-4 border-l border-slate-300 dark:border-[#1e2030]">
+                  <li key={i} className="pl-4 border-l border-slate-300 dark:border-[rgb(var(--border-400))]">
                     → {c}
                   </li>
                 ))}
@@ -152,7 +152,7 @@ export default function Takeover(): JSX.Element {
           </section>
 
           {result.notes.length > 0 && (
-            <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-5 space-y-2">
+            <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5 space-y-2">
               {result.notes.map((n) => (
                 <div key={n} className="flex items-start gap-2 text-sm text-muted">
                   <Info size={14} className="mt-0.5 flex-shrink-0" />

@@ -54,7 +54,7 @@ export default function ImageFingerprint(): JSX.Element {
       : null;
 
   const Slot = ({ n, set, r }: { n: number; set: (v: { a: string; d: string }) => void; r: typeof r1 }) => (
-    <div className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-3">
+    <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3">
       <label className="block text-meta font-mono mb-2 cursor-pointer text-brand-600 dark:text-brand-400">
         Image {n} — choose…
         <input
@@ -99,7 +99,7 @@ export default function ImageFingerprint(): JSX.Element {
       </div>
 
       {cmp && (
-        <div className="mt-4 rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4">
+        <div className="mt-4 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
           <div className="font-mono text-sm">
             dHash Hamming distance: <span className="font-bold">{cmp.dist}</span> / 64 ·{' '}
             <span

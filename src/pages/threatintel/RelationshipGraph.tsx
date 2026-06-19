@@ -245,7 +245,7 @@ export default function RelationshipGraphPage(): JSX.Element {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="CVE ID, actor name, IP, domain, hash…"
-              className="w-full px-3 py-2 bg-white dark:bg-[#12121a] border border-slate-200 dark:border-[#1e2030] rounded-lg font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="w-full px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
               spellCheck={false}
             />
           </div>
@@ -260,7 +260,7 @@ export default function RelationshipGraphPage(): JSX.Element {
               id="rel-graph-depth"
               value={depth}
               onChange={(e) => setDepth(Number(e.target.value))}
-              className="px-3 py-2 bg-white dark:bg-[#12121a] border border-slate-200 dark:border-[#1e2030] rounded-lg font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
             >
               <option value={1}>1 hop</option>
               <option value={2}>2 hops</option>
@@ -278,7 +278,7 @@ export default function RelationshipGraphPage(): JSX.Element {
             <button
               type="button"
               onClick={clearGraph}
-              className="px-3 py-2 rounded-lg border border-slate-200 dark:border-[#1e2030] hover:bg-slate-100 dark:hover:bg-slate-800 font-mono text-sm"
+              className="px-3 py-2 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] hover:bg-slate-100 dark:hover:bg-slate-800 font-mono text-sm"
             >
               Clear
             </button>
@@ -295,7 +295,7 @@ export default function RelationshipGraphPage(): JSX.Element {
               className={`px-2.5 py-1.5 rounded-lg font-mono text-xs inline-flex items-center gap-1.5 border transition-colors ${
                 layoutMode === 'force'
                   ? 'bg-brand-50 dark:bg-brand-900/20 border-brand-300 dark:border-brand-700 text-brand-700 dark:text-brand-300'
-                  : 'border-slate-200 dark:border-[#1e2030] text-muted hover:bg-slate-100 dark:hover:bg-slate-800'
+                  : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:bg-slate-100 dark:hover:bg-slate-800'
               }`}
               title="Toggle between hierarchical (dagre) and force-directed layout"
             >
@@ -308,7 +308,7 @@ export default function RelationshipGraphPage(): JSX.Element {
               className={`px-2.5 py-1.5 rounded-lg font-mono text-xs inline-flex items-center gap-1.5 border transition-colors ${
                 pathFinder.phase !== 'idle'
                   ? 'bg-amber-50 dark:bg-amber-900/20 border-amber-300 dark:border-amber-700 text-amber-700 dark:text-amber-300'
-                  : 'border-slate-200 dark:border-[#1e2030] text-muted hover:bg-slate-100 dark:hover:bg-slate-800'
+                  : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:bg-slate-100 dark:hover:bg-slate-800'
               }`}
               title="Find shortest path between two nodes"
             >
@@ -387,7 +387,7 @@ export default function RelationshipGraphPage(): JSX.Element {
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-6">
         {/* Graph canvas */}
         <div
-          className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 overflow-hidden relative"
+          className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 overflow-hidden relative"
           style={{ height: '70vh', minHeight: 520 }}
         >
           {loading || initialLoading ? (
@@ -441,7 +441,7 @@ export default function RelationshipGraphPage(): JSX.Element {
         {/* Detail panel */}
         <aside className="space-y-4">
           {selectedNode ? (
-            <div className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 animate-fade-in-up">
+            <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 animate-fade-in-up">
               <div className="flex items-center justify-between mb-3">
                 <div className="text-xs font-mono uppercase tracking-wider text-slate-500">Selected</div>
               </div>
@@ -458,7 +458,7 @@ export default function RelationshipGraphPage(): JSX.Element {
                 <div className="text-xs font-mono text-slate-500 mb-3">{selectedNode.subtitle}</div>
               )}
               {selectedNode.data && Object.keys(selectedNode.data).length > 0 && (
-                <pre className="font-mono text-mini text-slate-700 dark:text-slate-300 overflow-x-auto whitespace-pre-wrap break-all max-h-80 bg-slate-50 dark:bg-slate-950 rounded p-2 border border-slate-200 dark:border-[#1e2030]">
+                <pre className="font-mono text-mini text-slate-700 dark:text-slate-300 overflow-x-auto whitespace-pre-wrap break-all max-h-80 bg-slate-50 dark:bg-slate-950 rounded p-2 border border-slate-200 dark:border-[rgb(var(--border-400))]">
                   {JSON.stringify(selectedNode.data, null, 2)}
                 </pre>
               )}
@@ -467,14 +467,14 @@ export default function RelationshipGraphPage(): JSX.Element {
                 type="button"
                 onClick={() => expandNode(selectedNode)}
                 disabled={loading}
-                className="mt-3 w-full px-3 py-1.5 rounded-lg border border-slate-200 dark:border-[#1e2030] hover:bg-slate-100 dark:hover:bg-slate-800 font-mono text-xs inline-flex items-center justify-center gap-1.5 disabled:opacity-50"
+                className="mt-3 w-full px-3 py-1.5 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] hover:bg-slate-100 dark:hover:bg-slate-800 font-mono text-xs inline-flex items-center justify-center gap-1.5 disabled:opacity-50"
               >
                 <Expand size={12} />
                 Expand node
               </button>
             </div>
           ) : graphData ? (
-            <div className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 text-center text-xs font-mono text-slate-500 space-y-2">
+            <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 text-center text-xs font-mono text-slate-500 space-y-2">
               <Bug size={16} className="mx-auto text-slate-400" />
               <div>Click any node to inspect.</div>
               <div className="text-micro text-slate-400">
@@ -485,7 +485,7 @@ export default function RelationshipGraphPage(): JSX.Element {
 
           {/* Legend */}
           {graphData && (
-            <div className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4">
+            <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
               <div className="text-xs font-mono uppercase tracking-wider text-slate-500 mb-3">Legend</div>
               <div className="grid grid-cols-2 gap-x-3 gap-y-1.5">
                 {(Object.entries(NODE_COLORS) as [GraphNodeData['type'], string][]).map(([type, color]) => (

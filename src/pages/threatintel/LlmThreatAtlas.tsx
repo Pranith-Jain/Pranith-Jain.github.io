@@ -20,7 +20,7 @@ const TIER_COLORS: Record<string, string> = {
   High: 'text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/40 border-amber-300 dark:border-amber-800',
   Medium:
     'text-yellow-700 dark:text-yellow-400 bg-yellow-50 dark:bg-yellow-950/40 border-yellow-300 dark:border-yellow-700',
-  Low: 'text-muted bg-slate-100 dark:bg-[#12121a] border-slate-300 dark:border-[#1e2030]',
+  Low: 'text-muted bg-slate-100 dark:bg-[rgb(var(--surface-200))] border-slate-300 dark:border-[rgb(var(--border-400))]',
 };
 
 const DOMAIN_DESCRIPTIONS: Record<string, string> = {
@@ -80,7 +80,7 @@ function chip(active: boolean): string {
   return `text-xs font-mono px-2.5 py-1 rounded border transition-colors ${
     active
       ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-      : 'border-slate-300 dark:border-[#1e2030] text-muted hover:border-brand-500/40'
+      : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40'
   }`;
 }
 
@@ -196,7 +196,7 @@ export default function LlmThreatAtlas(): JSX.Element {
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search vectors, IDs, or domains…"
           aria-label="Search LLM threat vectors"
-          className="w-full pl-9 pr-3 py-2 text-sm rounded-lg border border-slate-300 dark:border-[#1e2030] bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-brand-500/60"
+          className="w-full pl-9 pr-3 py-2 text-sm rounded-lg border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-brand-500/60"
         />
       </div>
 
@@ -249,7 +249,7 @@ export default function LlmThreatAtlas(): JSX.Element {
             return (
               <div
                 key={key}
-                className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 p-3"
+                className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-3"
               >
                 <div className="flex items-start justify-between gap-2">
                   <span className="font-mono text-lg font-bold text-brand-600 dark:text-brand-400">{key}</span>
@@ -281,7 +281,7 @@ export default function LlmThreatAtlas(): JSX.Element {
             <div
               key={item.id}
               id={item.id}
-              className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 p-3 scroll-mt-20"
+              className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-3 scroll-mt-20"
             >
               <div className="flex items-start justify-between gap-2">
                 <div className="flex-1 min-w-0">
@@ -307,7 +307,7 @@ export default function LlmThreatAtlas(): JSX.Element {
                   {item.architectures.slice(0, 3).map((arch) => (
                     <span
                       key={arch}
-                      className="hidden sm:inline text-micro font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-[#1e2030] text-slate-500 dark:text-slate-400"
+                      className="hidden sm:inline text-micro font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400"
                     >
                       {arch}
                     </span>
@@ -331,7 +331,7 @@ export default function LlmThreatAtlas(): JSX.Element {
               </div>
 
               {expanded && (
-                <div className="mt-3 pt-3 border-t border-slate-200 dark:border-[#1e2030] space-y-3 text-xs text-slate-700 dark:text-slate-300">
+                <div className="mt-3 pt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))] space-y-3 text-xs text-slate-700 dark:text-slate-300">
                   {/* Framework cross-walk chips */}
                   <div className="flex flex-wrap gap-1.5">
                     {item.owasp_llm_2025.map((f) => (

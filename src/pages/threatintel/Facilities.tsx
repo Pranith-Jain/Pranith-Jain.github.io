@@ -693,7 +693,7 @@ export default function Facilities(): JSX.Element {
       <div className="space-y-4">
         {/* Stats */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-          <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/60 p-3">
+          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/60 p-3">
             <div className="text-micro font-mono uppercase text-slate-500 mb-1">Total</div>
             <div className="text-2xl font-bold text-slate-900 dark:text-slate-100">{stats.total}</div>
           </div>
@@ -720,7 +720,7 @@ export default function Facilities(): JSX.Element {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search facilities..."
-              className="w-full pl-9 pr-3 py-2 text-sm font-mono rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/60 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500/40"
+              className="w-full pl-9 pr-3 py-2 text-sm font-mono rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/60 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500/40"
             />
           </div>
           <div className="flex items-center gap-1">
@@ -730,7 +730,7 @@ export default function Facilities(): JSX.Element {
               className={`px-3 py-1.5 text-xs font-mono rounded-lg border transition-colors ${
                 view === 'table'
                   ? 'bg-brand-500/10 text-brand-600 dark:text-brand-400 border-brand-500/30'
-                  : 'border-slate-200 dark:border-[#1e2030] text-slate-400 hover:text-slate-600'
+                  : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-400 hover:text-slate-600'
               }`}
             >
               Table
@@ -741,7 +741,7 @@ export default function Facilities(): JSX.Element {
               className={`px-3 py-1.5 text-xs font-mono rounded-lg border transition-colors ${
                 view === 'map'
                   ? 'bg-brand-500/10 text-brand-600 dark:text-brand-400 border-brand-500/30'
-                  : 'border-slate-200 dark:border-[#1e2030] text-slate-400 hover:text-slate-600'
+                  : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-400 hover:text-slate-600'
               }`}
             >
               Map
@@ -750,7 +750,7 @@ export default function Facilities(): JSX.Element {
           <select
             value={regionFilter}
             onChange={(e) => setRegionFilter(e.target.value as 'all' | 'mena')}
-            className="px-3 py-1.5 text-xs font-mono rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/60 text-slate-900 dark:text-slate-100"
+            className="px-3 py-1.5 text-xs font-mono rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/60 text-slate-900 dark:text-slate-100"
           >
             <option value="all">All Regions</option>
             <option value="mena">MENA Focus</option>
@@ -758,7 +758,7 @@ export default function Facilities(): JSX.Element {
           <select
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value as 'name' | 'severity' | 'type')}
-            className="px-3 py-1.5 text-xs font-mono rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/60 text-slate-900 dark:text-slate-100"
+            className="px-3 py-1.5 text-xs font-mono rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/60 text-slate-900 dark:text-slate-100"
           >
             <option value="type">Sort by Type</option>
             <option value="severity">Sort by Severity</option>
@@ -780,7 +780,7 @@ export default function Facilities(): JSX.Element {
                 className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-mono rounded-lg border transition-all ${
                   active
                     ? `${config.bgColor} ${config.color} border-current`
-                    : 'border-slate-200 dark:border-[#1e2030] text-slate-400 opacity-50'
+                    : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-400 opacity-50'
                 }`}
               >
                 <config.icon size={12} />
@@ -794,7 +794,7 @@ export default function Facilities(): JSX.Element {
         {/* Map View */}
         {view === 'map' && (
           <div
-            className="rounded-xl overflow-hidden border border-slate-200 dark:border-[#1e2030] bg-[#0a0f1a]"
+            className="rounded-xl overflow-hidden border border-slate-200 dark:border-[rgb(var(--border-400))] bg-[#0a0f1a]"
             style={{ minHeight: '500px' }}
           >
             <Suspense
@@ -822,11 +822,11 @@ export default function Facilities(): JSX.Element {
 
         {/* Table View */}
         {view === 'table' && (
-          <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/60 overflow-hidden">
+          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/60 overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="border-b border-slate-200 dark:border-[#1e2030]">
+                  <tr className="border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
                     <th className="px-4 py-3 text-left text-micro font-mono uppercase text-slate-500">Name</th>
                     <th className="px-4 py-3 text-left text-micro font-mono uppercase text-slate-500">Type</th>
                     <th className="px-4 py-3 text-left text-micro font-mono uppercase text-slate-500">Country</th>
@@ -843,7 +843,7 @@ export default function Facilities(): JSX.Element {
                         <tr
                           key={f.id}
                           onClick={() => setExpandedId(isExpanded ? null : f.id)}
-                          className="border-b border-slate-100 dark:border-[#1e2030]/50 hover:bg-slate-50 dark:hover:bg-slate-800/30 cursor-pointer transition-colors"
+                          className="border-b border-slate-100 dark:border-[rgb(var(--border-400))]/50 hover:bg-slate-50 dark:hover:bg-slate-800/30 cursor-pointer transition-colors"
                         >
                           <td className="px-4 py-3">
                             <div className="flex items-center gap-2">

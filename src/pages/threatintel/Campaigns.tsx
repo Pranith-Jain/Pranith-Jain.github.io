@@ -104,7 +104,7 @@ export default function Campaigns(): JSX.Element {
             type="button"
             onClick={() => void load()}
             disabled={loading}
-            className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[#1e2030] hover:border-brand-500/40 inline-flex items-center gap-1.5 disabled:opacity-50"
+            className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 inline-flex items-center gap-1.5 disabled:opacity-50"
           >
             <RefreshCw size={11} className={loading ? 'animate-spin' : ''} /> refresh
           </button>
@@ -122,7 +122,7 @@ export default function Campaigns(): JSX.Element {
           {items.map((it) => (
             <li
               key={it.id}
-              className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] p-4 hover:border-brand-500/40 transition-colors"
+              className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-4 hover:border-brand-500/40 transition-colors"
             >
               <div className="flex items-start justify-between gap-3 mb-2 flex-wrap">
                 <Link

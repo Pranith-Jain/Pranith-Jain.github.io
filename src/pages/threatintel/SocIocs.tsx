@@ -350,7 +350,7 @@ export default function SocIocs(): JSX.Element {
               className={`text-meta font-mono px-2.5 py-1 rounded border transition-colors ${
                 on
                   ? 'border-brand-500 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                  : 'border-slate-200 dark:border-[#1e2030] text-slate-500 dark:text-slate-400 hover:border-brand-500/40'
+                  : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-brand-500/40'
               }`}
             >
               {KIND_LABEL[k]}

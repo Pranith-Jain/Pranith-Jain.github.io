@@ -56,19 +56,19 @@ export default function CampaignLifecycle(): JSX.Element {
   }, [campaignName, indicators]);
 
   const headerExtra = (
-    <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-5">
+    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5">
       <input
         type="text"
         value={campaignName}
         onChange={(e) => setCampaignName(e.target.value)}
         placeholder="Campaign name…"
-        className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[#1e2030] rounded-lg px-4 py-2.5 text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 mb-3"
+        className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg px-4 py-2.5 text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 mb-3"
       />
       <textarea
         value={indicators}
         onChange={(e) => setIndicators(e.target.value)}
         placeholder="Related IOCs (optional, one per line)…"
-        className="w-full h-20 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[#1e2030] rounded-lg p-3 text-sm font-mono text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 resize-y"
+        className="w-full h-20 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg p-3 text-sm font-mono text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 resize-y"
       />
       <button
         onClick={handleAnalyze}
@@ -92,7 +92,7 @@ export default function CampaignLifecycle(): JSX.Element {
     >
       {lifecycle && (
         <div className="space-y-5">
-          <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-5">
+          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5">
             <div className="flex items-center justify-between mb-2">
               <h2 className="font-display font-bold text-lg">{lifecycle.name}</h2>
               <span className="text-micro font-mono text-slate-400">Confidence: {lifecycle.confidence}%</span>
@@ -112,7 +112,7 @@ export default function CampaignLifecycle(): JSX.Element {
               return (
                 <div
                   key={phase.name}
-                  className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 overflow-hidden"
+                  className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 overflow-hidden"
                 >
                   <button
                     onClick={() => setExpandedPhase(isOpen ? null : phase.name)}
@@ -139,7 +139,7 @@ export default function CampaignLifecycle(): JSX.Element {
                     )}
                   </button>
                   {isOpen && (
-                    <div className="px-4 pb-4 pt-0 border-t border-slate-100 dark:border-[#1e2030]">
+                    <div className="px-4 pb-4 pt-0 border-t border-slate-100 dark:border-[rgb(var(--border-400))]">
                       {phase.indicators.length > 0 && (
                         <div className="mt-3 mb-2">
                           <div className="text-micro font-mono uppercase tracking-wider text-slate-400 mb-1">
@@ -149,7 +149,7 @@ export default function CampaignLifecycle(): JSX.Element {
                             {phase.indicators.map((ind, j) => (
                               <span
                                 key={j}
-                                className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-[#1e2030] text-slate-500"
+                                className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500"
                               >
                                 {ind}
                               </span>

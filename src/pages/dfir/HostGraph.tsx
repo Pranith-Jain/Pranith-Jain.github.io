@@ -175,7 +175,7 @@ export default function HostGraphView(): JSX.Element {
             spellCheck={false}
             autoCapitalize="off"
             autoCorrect="off"
-            className="w-full pl-10 pr-24 py-2.5 rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] text-sm font-mono focus-visible:ring-2 focus-visible:ring-brand-500 focus:border-transparent"
+            className="w-full pl-10 pr-24 py-2.5 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-sm font-mono focus-visible:ring-2 focus-visible:ring-brand-500 focus:border-transparent"
           />
           {query && (
             <span
@@ -207,7 +207,7 @@ export default function HostGraphView(): JSX.Element {
       )}
 
       {!result && !error && submitted && (
-        <div className="p-6 rounded-lg border border-dashed border-slate-300 dark:border-[#1e2030] text-center text-sm text-slate-500">
+        <div className="p-6 rounded-lg border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] text-center text-sm text-slate-500">
           <Clock size={20} className="inline-block mr-2 mb-1 animate-spin" />
           Resolving <span className="font-mono">{submitted}</span> across bgp.tools, RIPE Stat, and RDAP…
         </div>
@@ -237,7 +237,7 @@ function Section({
   children: React.ReactNode;
 }): JSX.Element {
   return (
-    <section className="mb-6 p-4 rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1">
+    <section className="mb-6 p-4 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1">
       <h2 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">
         <Icon size={14} />
         {title}
@@ -394,7 +394,7 @@ function PrefixView({ data, input }: { data: PrefixData; input: string }): JSX.E
           mono={false}
         />
         {data.rdap_links.length > 0 && (
-          <div className="mt-3 pt-3 border-t border-slate-200 dark:border-[#1e2030]">
+          <div className="mt-3 pt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
             <p className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-1.5">
               <Database size={10} className="inline mr-1" />
               RDAP links

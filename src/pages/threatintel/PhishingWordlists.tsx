@@ -111,7 +111,7 @@ export default function PhishingWordlists(): JSX.Element {
               className={`text-xs font-mono px-3 py-1.5 rounded border ${
                 activeId === l.id
                   ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                  : 'border-slate-300 dark:border-[#1e2030] text-slate-500'
+                  : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500'
               } ${!l.ok ? 'opacity-50' : ''}`}
               title={l.ok ? `${l.line_count.toLocaleString()} entries` : 'unreachable'}
             >
@@ -125,7 +125,7 @@ export default function PhishingWordlists(): JSX.Element {
         <>
           <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-4">{active.blurb}</p>
 
-          <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 mb-4">
+          <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-4">
             <div className="flex items-center gap-3">
               <div className="relative flex-1">
                 <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
@@ -134,7 +134,7 @@ export default function PhishingWordlists(): JSX.Element {
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder={`Filter ${active.label}…`}
-                  className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[#1e2030] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+                  className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
                   aria-label="Filter wordlist entries"
                 />
               </div>
@@ -142,7 +142,7 @@ export default function PhishingWordlists(): JSX.Element {
                 type="button"
                 onClick={copyList}
                 disabled={filtered.length === 0}
-                className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-[#1e2030] hover:border-brand-500/40 disabled:opacity-50"
+                className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 disabled:opacity-50"
               >
                 {copied ? <Check size={12} /> : <Copy size={12} />} {copied ? 'copied' : 'copy'}
               </button>
@@ -163,7 +163,7 @@ export default function PhishingWordlists(): JSX.Element {
         emptyLabel={query ? 'No entries match the filter.' : 'List is empty or unreachable.'}
         rows={10}
       >
-        <ul className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 divide-y divide-slate-100 dark:divide-slate-800 font-mono text-tool">
+        <ul className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 divide-y divide-slate-100 dark:divide-slate-800 font-mono text-tool">
           {filtered.slice(0, visible).map((line, i) => (
             <li key={`${line}-${i}`} className="px-3 py-1.5 text-slate-700 dark:text-slate-300 break-all">
               {line}
@@ -174,7 +174,7 @@ export default function PhishingWordlists(): JSX.Element {
           <button
             type="button"
             onClick={() => setVisible((v) => v + 200)}
-            className="mt-3 w-full rounded-lg border border-slate-200 dark:border-[#1e2030] py-2 font-mono text-meta text-muted hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+            className="mt-3 w-full rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] py-2 font-mono text-meta text-muted hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
           >
             Show more ({(filtered.length - visible).toLocaleString()} remaining)
           </button>

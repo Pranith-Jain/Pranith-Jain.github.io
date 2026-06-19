@@ -139,7 +139,7 @@ export default function SecopsCatalog(): JSX.Element {
       </div>
 
       {/* Search + summary */}
-      <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 mb-6">
+      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
         <div className="relative">
           <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" aria-hidden="true" />
           <input
@@ -147,7 +147,7 @@ export default function SecopsCatalog(): JSX.Element {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search name, description, category — e.g. 'sigma', 'github', 'open-source dfir'"
-            className="w-full pl-9 pr-4 py-2.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[#1e2030] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="w-full pl-9 pr-4 py-2.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
             aria-label="Search SecOps tools"
           />
         </div>
@@ -162,7 +162,7 @@ export default function SecopsCatalog(): JSX.Element {
                 key={p}
                 type="button"
                 onClick={() => togglePricing(p)}
-                className={`text-mini font-mono px-2 py-1 rounded border ${active ? PRICING_PILL[p] : 'border-slate-300 dark:border-[#1e2030] text-slate-500'}`}
+                className={`text-mini font-mono px-2 py-1 rounded border ${active ? PRICING_PILL[p] : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500'}`}
               >
                 {p === 'paid' && <Lock size={9} className="inline mr-0.5" />}
                 {PRICING_LABELS[p]}
@@ -182,13 +182,15 @@ export default function SecopsCatalog(): JSX.Element {
       </section>
 
       {/* Category pills */}
-      <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 mb-6">
+      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
         <div className="flex flex-wrap items-center gap-1.5">
           <span className="text-mini font-mono text-slate-500 mr-1">categories:</span>
           {ALL_CATEGORIES.map((c) => {
             const count = catCounts.get(c) ?? 0;
             const active = activeCats.has(c);
-            const cls = active ? CATEGORY_PILL[c] : 'border-slate-300 dark:border-[#1e2030] text-slate-500';
+            const cls = active
+              ? CATEGORY_PILL[c]
+              : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500';
             return (
               <button
                 key={c}
@@ -214,7 +216,7 @@ export default function SecopsCatalog(): JSX.Element {
         {filtered.map((t) => (
           <li
             key={t.id}
-            className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4"
+            className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4"
           >
             <div className="flex items-baseline justify-between gap-2 mb-1.5">
               <a

@@ -114,7 +114,7 @@ export default function MaliciousPackages(): JSX.Element {
               className={`text-xs font-mono px-2.5 py-1 rounded border transition-colors ${
                 ecosystem === e.id
                   ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                  : 'border-slate-300 dark:border-[#1e2030] text-muted hover:border-brand-500/40'
+                  : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40'
               }`}
             >
               {e.label}
@@ -131,7 +131,7 @@ export default function MaliciousPackages(): JSX.Element {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder={`Filter ${ecosystem} package names…`}
-            className="w-full pl-9 pr-3 py-2 rounded border border-slate-300 dark:border-[#1e2030] bg-white dark:bg-[#12121a] font-mono text-sm focus:outline-none focus:border-brand-500"
+            className="w-full pl-9 pr-3 py-2 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] font-mono text-sm focus:outline-none focus:border-brand-500"
           />
         </div>
         {data && (
@@ -178,7 +178,7 @@ export default function MaliciousPackages(): JSX.Element {
           {filtered.slice(0, 600).map((p) => (
             <li
               key={`${p.ecosystem}:${p.name}`}
-              className="rounded border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] p-2 hover:border-brand-500/40 transition-colors"
+              className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-2 hover:border-brand-500/40 transition-colors"
             >
               <code
                 className="block font-mono text-tool text-slate-900 dark:text-slate-100 break-all truncate"

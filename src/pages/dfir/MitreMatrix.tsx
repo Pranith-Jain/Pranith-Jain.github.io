@@ -318,7 +318,7 @@ export default function MitreMatrix(): JSX.Element {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Search ID, name, or description — matches highlight, others dim…"
-              className="w-full pl-9 pr-4 py-2.5 bg-white dark:bg-[#12121a] border border-slate-200 dark:border-[#1e2030] rounded-lg font-mono text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="w-full pl-9 pr-4 py-2.5 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
               aria-label="Search MITRE ATT&CK techniques"
             />
           </div>
@@ -328,7 +328,7 @@ export default function MitreMatrix(): JSX.Element {
             className={`text-xs font-mono px-3 py-2 rounded border transition-colors ${
               coverageMode
                 ? 'border-emerald-500/60 bg-emerald-500/15 text-emerald-700 dark:text-emerald-300'
-                : 'border-slate-300 dark:border-[#1e2030] text-muted hover:border-emerald-500/40'
+                : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-emerald-500/40'
             }`}
             title="In coverage mode, clicking a tile cycles its detection-coverage tag instead of opening the drawer."
           >
@@ -340,7 +340,7 @@ export default function MitreMatrix(): JSX.Element {
             className={`text-xs font-mono px-3 py-2 rounded border transition-colors ${
               showGapsOnly
                 ? 'border-rose-500/60 bg-rose-500/15 text-rose-700 dark:text-rose-300'
-                : 'border-slate-300 dark:border-[#1e2030] text-muted hover:border-rose-500/40'
+                : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-rose-500/40'
             }`}
             title="Show only techniques tagged uncovered/partial or untagged — your detection gap."
           >
@@ -352,7 +352,7 @@ export default function MitreMatrix(): JSX.Element {
               onClick={() => {
                 if (window.confirm('Clear all coverage tags?')) setCoverage({});
               }}
-              className="text-xs font-mono px-3 py-2 rounded border border-slate-300 dark:border-[#1e2030] text-slate-500 hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400"
+              className="text-xs font-mono px-3 py-2 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400"
             >
               clear tags
             </button>
@@ -422,7 +422,7 @@ export default function MitreMatrix(): JSX.Element {
                           isDimmed ? 'opacity-30' : '',
                           isUsed
                             ? 'bg-brand-500/10 border-brand-500/40 hover:bg-brand-500/20 dark:bg-brand-400/10 dark:border-brand-400/40 dark:hover:bg-brand-400/20'
-                            : 'bg-slate-100 dark:bg-slate-800 border-slate-200 dark:border-[#1e2030] hover:bg-slate-200 dark:hover:bg-slate-700',
+                            : 'bg-slate-100 dark:bg-slate-800 border-slate-200 dark:border-[rgb(var(--border-400))] hover:bg-slate-200 dark:hover:bg-slate-700',
                         ].join(' ')}
                         title={
                           coverageMode
@@ -465,7 +465,7 @@ export default function MitreMatrix(): JSX.Element {
         {/* Legend */}
         <div className="mt-8 flex flex-wrap gap-4 text-xs font-mono text-slate-500">
           <div className="flex items-center gap-2">
-            <span className="inline-block w-4 h-4 rounded border bg-slate-100 dark:bg-slate-800 border-slate-200 dark:border-[#1e2030]" />
+            <span className="inline-block w-4 h-4 rounded border bg-slate-100 dark:bg-slate-800 border-slate-200 dark:border-[rgb(var(--border-400))]" />
             Technique (not actor-tracked)
           </div>
           <div className="flex items-center gap-2">
@@ -489,9 +489,9 @@ export default function MitreMatrix(): JSX.Element {
             role="dialog"
             aria-modal="true"
             aria-labelledby="mitre-detail-title"
-            className="fixed right-0 top-0 z-50 h-full w-full max-w-xl overflow-y-auto bg-white dark:bg-[#12121a] border-l border-slate-200 dark:border-[#1e2030] shadow-2xl"
+            className="fixed right-0 top-0 z-50 h-full w-full max-w-xl overflow-y-auto bg-white dark:bg-[rgb(var(--surface-200))] border-l border-slate-200 dark:border-[rgb(var(--border-400))] shadow-2xl"
           >
-            <div className="sticky top-0 z-10 flex items-center justify-between gap-4 px-6 py-4 bg-white/95 dark:bg-[#12121a]/95 border-b border-slate-200 dark:border-[#1e2030] backdrop-blur">
+            <div className="sticky top-0 z-10 flex items-center justify-between gap-4 px-6 py-4 bg-white/95 dark:bg-[rgb(var(--surface-200))]/95 border-b border-slate-200 dark:border-[rgb(var(--border-400))] backdrop-blur">
               <div className="min-w-0">
                 <span className="text-micro font-mono uppercase tracking-wider text-brand-600 dark:text-brand-400">
                   {selectedId}
@@ -540,7 +540,7 @@ export default function MitreMatrix(): JSX.Element {
                         {detail.technique.platforms.map((p) => (
                           <span
                             key={p}
-                            className="text-xs font-mono px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-[#1e2030] text-slate-700 dark:text-slate-300"
+                            className="text-xs font-mono px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-700 dark:text-slate-300"
                           >
                             {p}
                           </span>
@@ -555,7 +555,7 @@ export default function MitreMatrix(): JSX.Element {
                         {detail.technique.dataSources.map((d) => (
                           <span
                             key={d}
-                            className="text-xs font-mono px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-[#1e2030] text-slate-700 dark:text-slate-300"
+                            className="text-xs font-mono px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-700 dark:text-slate-300"
                           >
                             {d}
                           </span>
@@ -583,7 +583,7 @@ export default function MitreMatrix(): JSX.Element {
                       <Link
                         key={a.id}
                         to={`/threatintel/actors/${a.id}`}
-                        className="block px-3 py-2 rounded border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-[#12121a] hover:border-brand-500/40 transition-colors"
+                        className="block px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] hover:border-brand-500/40 transition-colors"
                       >
                         <div className="text-sm font-semibold text-slate-900 dark:text-slate-100">{a.name}</div>
                         {a.aliases.length > 0 && (
@@ -605,7 +605,7 @@ export default function MitreMatrix(): JSX.Element {
                         key={rid}
                         type="button"
                         onClick={() => openTechnique(rid)}
-                        className="text-xs font-mono px-2 py-1 rounded bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-[#1e2030] text-brand-600 dark:text-brand-400 hover:border-brand-500/40 transition-colors"
+                        className="text-xs font-mono px-2 py-1 rounded bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-[rgb(var(--border-400))] text-brand-600 dark:text-brand-400 hover:border-brand-500/40 transition-colors"
                       >
                         {rid}
                       </button>
@@ -618,7 +618,7 @@ export default function MitreMatrix(): JSX.Element {
                   href={detail.technique.mitreUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-[#12121a] text-slate-700 dark:text-slate-300 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+                  className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] text-slate-700 dark:text-slate-300 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
                 >
                   Open on attack.mitre.org <ExternalLink size={12} />
                 </a>

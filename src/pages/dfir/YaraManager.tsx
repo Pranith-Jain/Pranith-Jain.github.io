@@ -138,7 +138,7 @@ export default function YaraManager(): JSX.Element {
             <button
               type="button"
               onClick={exportAll}
-              className="inline-flex items-center gap-1.5 border border-slate-200 dark:border-[#1e2030] px-3 py-1.5 font-mono text-xs text-muted transition-colors duration-enter hover:border-brand-500 hover:text-brand-600 dark:hover:text-brand-400"
+              className="inline-flex items-center gap-1.5 border border-slate-200 dark:border-[rgb(var(--border-400))] px-3 py-1.5 font-mono text-xs text-muted transition-colors duration-enter hover:border-brand-500 hover:text-brand-600 dark:hover:text-brand-400"
             >
               <FileDown className="h-3 w-3" /> export all
             </button>
@@ -154,12 +154,12 @@ export default function YaraManager(): JSX.Element {
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
           placeholder="Filter by name, description, or tag…"
-          className="w-full px-3 py-2 bg-white dark:bg-[#12121a] border border-slate-200 dark:border-[#1e2030] font-mono text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 dark:text-slate-400 focus:outline-none"
+          className="w-full px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] font-mono text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 dark:text-slate-400 focus:outline-none"
         />
       </div>
 
       {filtered.length === 0 && (
-        <div className="border border-slate-200 dark:border-[#1e2030] p-8 text-center">
+        <div className="border border-slate-200 dark:border-[rgb(var(--border-400))] p-8 text-center">
           <p className="font-mono text-sm text-muted">
             {rules.length === 0 ? 'No rules yet. Create one to get started.' : 'No rules match your filter.'}
           </p>
@@ -168,8 +168,11 @@ export default function YaraManager(): JSX.Element {
 
       <div className="space-y-3">
         {filtered.map((rule) => (
-          <div key={rule.id} className="border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-[#12121a]">
-            <div className="flex items-center justify-between gap-3 px-4 py-3 border-b border-slate-200 dark:border-[#1e2030]">
+          <div
+            key={rule.id}
+            className="border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))]"
+          >
+            <div className="flex items-center justify-between gap-3 px-4 py-3 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
               <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-2 flex-wrap">
                   <span className="font-mono text-sm font-medium text-slate-900 dark:text-slate-100">{rule.name}</span>
@@ -200,7 +203,7 @@ export default function YaraManager(): JSX.Element {
             </div>
 
             {editingId === rule.id && (
-              <div className="p-4 space-y-3 border-b border-slate-200 dark:border-[#1e2030]">
+              <div className="p-4 space-y-3 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
                     <label htmlFor={`yara-name-${rule.id}`} className="mono-label block mb-1">
@@ -211,7 +214,7 @@ export default function YaraManager(): JSX.Element {
                       type="text"
                       value={rule.name}
                       onChange={(e) => updateRule(rule.id, { name: e.target.value })}
-                      className="w-full px-2 py-1.5 bg-white dark:bg-[#12121a] border border-slate-200 dark:border-[#1e2030] font-mono text-xs text-slate-900 dark:text-slate-100 focus:outline-none"
+                      className="w-full px-2 py-1.5 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] font-mono text-xs text-slate-900 dark:text-slate-100 focus:outline-none"
                     />
                   </div>
                   <div>
@@ -222,7 +225,7 @@ export default function YaraManager(): JSX.Element {
                       id={`yara-cat-${rule.id}`}
                       value={rule.category}
                       onChange={(e) => updateRule(rule.id, { category: e.target.value })}
-                      className="w-full px-2 py-1.5 bg-white dark:bg-[#12121a] border border-slate-200 dark:border-[#1e2030] font-mono text-xs text-slate-900 dark:text-slate-100 focus:outline-none"
+                      className="w-full px-2 py-1.5 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] font-mono text-xs text-slate-900 dark:text-slate-100 focus:outline-none"
                     >
                       {categories.map((c) => (
                         <option key={c} value={c}>
@@ -241,7 +244,7 @@ export default function YaraManager(): JSX.Element {
                     type="text"
                     value={rule.description}
                     onChange={(e) => updateRule(rule.id, { description: e.target.value })}
-                    className="w-full px-2 py-1.5 bg-white dark:bg-[#12121a] border border-slate-200 dark:border-[#1e2030] font-mono text-xs text-slate-900 dark:text-slate-100 focus:outline-none"
+                    className="w-full px-2 py-1.5 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] font-mono text-xs text-slate-900 dark:text-slate-100 focus:outline-none"
                   />
                 </div>
               </div>
@@ -376,8 +379,8 @@ function RansomwareIntelPanels(): JSX.Element {
   const groups = [...new Set((attacks ?? []).map((a) => a.group))].filter((g) => g && g !== 'unknown').sort();
 
   return (
-    <section className="mb-8 border border-slate-200 dark:border-[#1e2030] rounded-lg overflow-hidden">
-      <div className="bg-slate-50 dark:bg-slate-950 px-4 py-2.5 border-b border-slate-200 dark:border-[#1e2030]">
+    <section className="mb-8 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg overflow-hidden">
+      <div className="bg-slate-50 dark:bg-slate-950 px-4 py-2.5 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
         <h2 className="font-mono text-sm font-semibold text-slate-800 dark:text-slate-200">
           ransomware.live · attack → detection
         </h2>
@@ -443,7 +446,7 @@ function RansomwareIntelPanels(): JSX.Element {
               <select
                 value={group}
                 onChange={(e) => setGroup(e.target.value)}
-                className="font-mono text-mini px-2 py-1 bg-white dark:bg-[#12121a] border border-slate-200 dark:border-[#1e2030]"
+                className="font-mono text-mini px-2 py-1 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))]"
                 aria-label="Select ransomware group"
               >
                 <option value="">select group…</option>
@@ -457,7 +460,7 @@ function RansomwareIntelPanels(): JSX.Element {
                 <button
                   type="button"
                   onClick={() => void navigator.clipboard?.writeText(yara)}
-                  className="shrink-0 border border-slate-200 dark:border-[#1e2030] p-1 text-slate-500 hover:text-brand-600"
+                  className="shrink-0 border border-slate-200 dark:border-[rgb(var(--border-400))] p-1 text-slate-500 hover:text-brand-600"
                   aria-label="Copy YARA"
                 >
                   <Copy size={11} />
@@ -473,7 +476,7 @@ function RansomwareIntelPanels(): JSX.Element {
             </p>
           )}
           {yara && !yaraLoading && (
-            <pre className="bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[#1e2030] p-3 overflow-auto font-mono text-mini text-slate-700 dark:text-slate-300 max-h-[420px]">
+            <pre className="bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[rgb(var(--border-400))] p-3 overflow-auto font-mono text-mini text-slate-700 dark:text-slate-300 max-h-[420px]">
               {yara}
             </pre>
           )}

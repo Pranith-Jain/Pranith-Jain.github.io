@@ -99,7 +99,7 @@ export default function Encoder(): JSX.Element {
       </div>
 
       {/* Input */}
-      <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 mb-6">
+      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
         <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
           <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
             Input
@@ -110,7 +110,7 @@ export default function Encoder(): JSX.Element {
                 key={s.label}
                 type="button"
                 onClick={() => setInput(s.value)}
-                className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[#1e2030] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
+                className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
               >
                 {s.label}
               </button>
@@ -119,7 +119,7 @@ export default function Encoder(): JSX.Element {
               <button
                 type="button"
                 onClick={reset}
-                className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[#1e2030] hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400 inline-flex items-center gap-1"
+                className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400 inline-flex items-center gap-1"
               >
                 <RotateCw size={11} /> reset
               </button>
@@ -131,13 +131,13 @@ export default function Encoder(): JSX.Element {
           onChange={(e) => setInput(e.target.value)}
           placeholder="Plain text, JSON, command-line, URL. Anything you want to encode."
           rows={6}
-          className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[#1e2030] rounded font-mono text-xs text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+          className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-xs text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
           spellCheck={false}
         />
       </section>
 
       {/* Chain builder */}
-      <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 mb-6">
+      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
         <div className="flex items-center justify-between mb-3">
           <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
             Encoding chain ({chain.length})
@@ -145,7 +145,7 @@ export default function Encoder(): JSX.Element {
           <button
             type="button"
             onClick={addStep}
-            className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[#1e2030] hover:border-brand-500/40 inline-flex items-center gap-1"
+            className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 inline-flex items-center gap-1"
           >
             <Plus size={11} /> add pass
           </button>
@@ -156,7 +156,7 @@ export default function Encoder(): JSX.Element {
               <select
                 value={enc}
                 onChange={(e) => setStep(idx, e.target.value as Encoding)}
-                className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 focus:border-brand-500/60 focus:outline-none"
+                className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 focus:border-brand-500/60 focus:outline-none"
                 title={ENCODINGS.find((e) => e.id === enc)?.blurb}
               >
                 {ENCODINGS.map((opt) => (
@@ -183,7 +183,7 @@ export default function Encoder(): JSX.Element {
 
       {/* Final output */}
       {finalOutput && (
-        <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 mb-6">
+        <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
           <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
             <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
               Final output
@@ -200,7 +200,7 @@ export default function Encoder(): JSX.Element {
               <CopyButton value={finalOutput} />
             </div>
           </div>
-          <pre className="text-xs font-mono text-slate-900 dark:text-slate-100 whitespace-pre-wrap break-all bg-slate-50 dark:bg-slate-950 rounded p-3 border border-slate-200 dark:border-[#1e2030] max-h-80 overflow-auto">
+          <pre className="text-xs font-mono text-slate-900 dark:text-slate-100 whitespace-pre-wrap break-all bg-slate-50 dark:bg-slate-950 rounded p-3 border border-slate-200 dark:border-[rgb(var(--border-400))] max-h-80 overflow-auto">
             {finalOutput}
           </pre>
         </section>
@@ -208,7 +208,7 @@ export default function Encoder(): JSX.Element {
 
       {/* Per-pass breakdown */}
       {steps.length > 1 && (
-        <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 mb-6">
+        <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
           <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
             Per-pass breakdown
           </h2>
@@ -216,7 +216,7 @@ export default function Encoder(): JSX.Element {
             {steps.map((step, i) => (
               <li
                 key={i}
-                className="rounded border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 p-3"
+                className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-3"
               >
                 <div className="flex items-baseline justify-between gap-2 mb-2">
                   <span className="text-mini font-mono text-slate-500 dark:text-slate-400">

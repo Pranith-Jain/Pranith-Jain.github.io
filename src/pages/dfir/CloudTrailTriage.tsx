@@ -394,7 +394,7 @@ export default function CloudTrailTriage(): JSX.Element {
           <button
             type="button"
             onClick={() => setInput(SAMPLE)}
-            className="text-meta font-mono px-2.5 py-1 rounded border border-slate-300 dark:border-[#1e2030] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
+            className="text-meta font-mono px-2.5 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
           >
             load example
           </button>
@@ -402,7 +402,7 @@ export default function CloudTrailTriage(): JSX.Element {
             <button
               type="button"
               onClick={() => setInput('')}
-              className="text-meta font-mono px-2.5 py-1 rounded border border-slate-300 dark:border-[#1e2030] hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400"
+              className="text-meta font-mono px-2.5 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400"
             >
               clear
             </button>
@@ -421,14 +421,14 @@ export default function CloudTrailTriage(): JSX.Element {
         rows={12}
         spellCheck={false}
         aria-label="CloudTrail JSON"
-        className="w-full px-4 py-3 bg-white dark:bg-[#12121a] border border-slate-200 dark:border-[#1e2030] rounded-lg font-mono text-tool text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+        className="w-full px-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-tool text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
       />
 
       {analysis?.error && <p className="mt-6 text-sm font-mono text-rose-600 dark:text-rose-400">{analysis.error}</p>}
 
       {analysis && !analysis.error && (
         <div className="mt-8 space-y-6">
-          <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-5">
+          <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5">
             <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm">
               <span>
                 <span className="text-slate-500">Events:</span> <span className="font-mono">{analysis.events}</span>
@@ -468,7 +468,7 @@ export default function CloudTrailTriage(): JSX.Element {
                 return (
                   <div
                     key={`${f.where}-${f.title}-${idx}`}
-                    className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4"
+                    className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4"
                   >
                     <div className="flex items-start gap-2.5">
                       <st.Icon size={16} className={`mt-0.5 flex-shrink-0 ${st.text}`} />

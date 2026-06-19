@@ -155,7 +155,7 @@ export default function JwtInspect(): JSX.Element {
         placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIn0.…"
         rows={5}
         aria-label="JSON Web Token"
-        className="w-full px-4 py-3 bg-white dark:bg-[#12121a] border border-slate-200 dark:border-[#1e2030] rounded-lg font-mono text-sm break-all text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+        className="w-full px-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-sm break-all text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
       />
 
       {decoded?.error && (
@@ -165,7 +165,7 @@ export default function JwtInspect(): JSX.Element {
       {decoded && !decoded.error && (
         <div className="mt-8 space-y-6">
           {(decoded.warnings.length > 0 || decoded.oks.length > 0 || decoded.notes.length > 0) && (
-            <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-5 space-y-2">
+            <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5 space-y-2">
               {decoded.warnings.map((w) => (
                 <div key={w} className="flex items-start gap-2 text-sm text-rose-700 dark:text-rose-400">
                   <AlertTriangle size={14} className="mt-0.5 flex-shrink-0" />
@@ -189,7 +189,7 @@ export default function JwtInspect(): JSX.Element {
 
           <Section title="Header" json={decoded.header} />
           <Section title="Payload" json={decoded.payload} />
-          <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-5">
+          <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5">
             <h3 className="font-display font-semibold mb-3">Signature</h3>
             <pre className="font-mono text-sm break-all text-slate-700 dark:text-slate-300">
               {decoded.signature || '(empty)'}
@@ -203,7 +203,7 @@ export default function JwtInspect(): JSX.Element {
 
 function Section({ title, json }: { title: string; json: Record<string, unknown> }): JSX.Element {
   return (
-    <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-5">
+    <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5">
       <h3 className="font-display font-semibold mb-3">{title}</h3>
       <pre className="font-mono text-sm text-slate-700 dark:text-slate-300 overflow-x-auto whitespace-pre-wrap">
         {JSON.stringify(json, null, 2)}

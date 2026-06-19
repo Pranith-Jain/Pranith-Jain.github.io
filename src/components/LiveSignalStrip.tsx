@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Activity, Flame, Radio, ShieldAlert } from 'lucide-react';
 import { dedupRansomwareVictims } from '../lib/dedup-ransomware';
+import { preloadRoute } from '../lib/route-preloaders';
 
 /**
  * Live-from-the-platform strip on the portfolio root. The goal: a first-
@@ -242,6 +243,8 @@ export function LiveSignalStrip(): JSX.Element {
             <Link
               key={t.label}
               to={t.href}
+              onMouseEnter={() => preloadRoute(t.href)}
+              onFocus={() => preloadRoute(t.href)}
               className={`group block rounded-xl border bg-white dark:bg-slate-900/40 p-4 transition ${ACCENT_BG[t.accent]}`}
             >
               <div className="flex items-center justify-between mb-2">

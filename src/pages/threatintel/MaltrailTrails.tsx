@@ -100,7 +100,7 @@ export default function MaltrailTrails(): JSX.Element {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Sidebar — trail file list */}
         <div className="lg:col-span-1">
-          <div className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4">
+          <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
             <h2 className="font-display font-semibold text-sm mb-3 flex items-center gap-2">
               <FileText size={15} className="text-brand-600 dark:text-brand-400" />
               Trail files ({files?.length ?? '…'})
@@ -132,14 +132,14 @@ export default function MaltrailTrails(): JSX.Element {
         {/* Main — trail content */}
         <div className="lg:col-span-2">
           {!selected && !contentLoading && (
-            <div className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-8 text-center">
+            <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-8 text-center">
               <Search size={32} className="mx-auto text-slate-300 mb-3" />
               <p className="text-sm font-mono text-slate-500">Select a trail file from the list to view its IOCs.</p>
             </div>
           )}
 
           {contentLoading && (
-            <div className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-8 text-center">
+            <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-8 text-center">
               <p role="status" aria-live="polite" className="text-xs font-mono text-slate-500 animate-pulse">
                 fetching trail file…
               </p>
@@ -147,8 +147,8 @@ export default function MaltrailTrails(): JSX.Element {
           )}
 
           {content && (
-            <div className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1">
-              <div className="p-4 border-b border-slate-200 dark:border-[#1e2030]">
+            <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1">
+              <div className="p-4 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
                 <div className="flex items-center justify-between gap-3">
                   <h2 className="font-display font-semibold text-base">{content.filename}</h2>
                   <div className="flex items-center gap-3 text-mini font-mono text-slate-500">
@@ -187,7 +187,7 @@ export default function MaltrailTrails(): JSX.Element {
                     {content.iocs.map((ioc, i) => (
                       <tr
                         key={i}
-                        className="border-t border-slate-100 dark:border-[#1e2030] font-mono text-meta hover:bg-slate-50 dark:hover:bg-slate-950"
+                        className="border-t border-slate-100 dark:border-[rgb(var(--border-400))] font-mono text-meta hover:bg-slate-50 dark:hover:bg-slate-950"
                       >
                         <td className="px-4 py-1.5">
                           <IocChip value={ioc.value} bare size="sm" pivots={false} className="min-w-0" />

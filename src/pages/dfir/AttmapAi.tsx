@@ -29,7 +29,7 @@ const TACTICS = [
 
 const TACTIC_COLORS: Record<string, string> = {
   Reconnaissance:
-    'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300 border-slate-300 dark:border-[#1e2030]',
+    'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300 border-slate-300 dark:border-[rgb(var(--border-400))]',
   'Resource Development': 'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300',
   'Initial Access':
     'bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300 border-blue-300 dark:border-blue-800',
@@ -494,7 +494,7 @@ export default function AttmapAi(): JSX.Element {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div className="space-y-4">
-          <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-5">
+          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5">
             <div className="flex items-center gap-2 mb-3">
               <Sparkles size={14} className="text-slate-400" />
               <span className="text-micro font-mono uppercase tracking-wider text-slate-400">Input</span>
@@ -509,7 +509,7 @@ export default function AttmapAi(): JSX.Element {
                   className={`px-3 py-1.5 rounded-lg text-xs font-mono font-medium transition-colors ${
                     inputType === t
                       ? 'bg-brand-600 text-white'
-                      : 'bg-white dark:bg-[#12121a] border border-slate-200 dark:border-[#1e2030] text-muted hover:bg-slate-50 dark:hover:bg-slate-800/60'
+                      : 'bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:bg-slate-50 dark:hover:bg-slate-800/60'
                   }`}
                 >
                   {t}
@@ -522,7 +522,7 @@ export default function AttmapAi(): JSX.Element {
               onChange={(e) => setInput(e.target.value)}
               placeholder={`Paste ${inputType.toLowerCase()} content here…`}
               rows={6}
-              className="w-full px-3 py-2 bg-white dark:bg-[#12121a] border border-slate-200 dark:border-[#1e2030] rounded-lg font-mono text-xs text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-brand-500/40"
+              className="w-full px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-xs text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-brand-500/40"
             />
 
             <div className="mt-3">
@@ -534,7 +534,7 @@ export default function AttmapAi(): JSX.Element {
                 value={context}
                 onChange={(e) => setContext(e.target.value)}
                 placeholder="Environment, actor name, or additional context…"
-                className="w-full mt-1 px-3 py-2 bg-white dark:bg-[#12121a] border border-slate-200 dark:border-[#1e2030] rounded-lg font-mono text-xs text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-brand-500/40"
+                className="w-full mt-1 px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-xs text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-brand-500/40"
               />
             </div>
 
@@ -559,7 +559,7 @@ export default function AttmapAi(): JSX.Element {
                   setContext('');
                   setMappings([]);
                 }}
-                className="flex items-center gap-2 px-4 py-2.5 bg-white dark:bg-[#12121a]/40 border border-slate-200 dark:border-[#1e2030] text-muted text-sm font-medium rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors"
+                className="flex items-center gap-2 px-4 py-2.5 bg-white dark:bg-[rgb(var(--surface-200))]/40 border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted text-sm font-medium rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors"
               >
                 Clear
               </button>
@@ -569,14 +569,14 @@ export default function AttmapAi(): JSX.Element {
 
         <div>
           {loading && (
-            <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-8 flex flex-col items-center gap-3">
+            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-8 flex flex-col items-center gap-3">
               <Loader2 size={32} className="animate-spin text-brand-600" />
               <p className="text-sm font-mono text-slate-500">Mapping behavior to ATT&CK techniques…</p>
             </div>
           )}
 
           {!loading && mappings.length === 0 && (
-            <div className="rounded-xl border-2 border-dashed border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/20 p-8 flex flex-col items-center justify-center text-center">
+            <div className="rounded-xl border-2 border-dashed border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/20 p-8 flex flex-col items-center justify-center text-center">
               <Target size={48} className="text-slate-300 dark:text-slate-700 mb-4" />
               <p className="text-sm font-mono text-slate-500 dark:text-slate-400">
                 Paste behavior description and click Map to ATT&CK
@@ -595,7 +595,7 @@ export default function AttmapAi(): JSX.Element {
               {groupedByTactic.map(({ tactic, techniques }) => (
                 <div
                   key={tactic}
-                  className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-5"
+                  className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5"
                 >
                   <h3
                     className={`inline-block text-micro font-mono font-semibold uppercase tracking-wider px-2 py-1 rounded-md border mb-3 ${TACTIC_COLORS[tactic] ?? ''}`}

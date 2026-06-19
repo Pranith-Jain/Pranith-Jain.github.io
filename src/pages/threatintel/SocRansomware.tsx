@@ -426,7 +426,7 @@ function RecentClaims({ rows }: { rows: RansomwareVictim[] }): JSX.Element {
     <div className="overflow-x-auto -mx-4 sm:mx-0">
       <table className="w-full text-meta font-mono">
         <thead>
-          <tr className="text-left text-mini uppercase tracking-wider text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-[#1e2030]">
+          <tr className="text-left text-mini uppercase tracking-wider text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
             <th className="px-4 sm:px-2 py-2 font-mono font-medium">Victim</th>
             <th className="px-2 py-2 font-mono font-medium">Group</th>
             <th className="px-2 py-2 font-mono font-medium">Sector</th>
@@ -438,7 +438,7 @@ function RecentClaims({ rows }: { rows: RansomwareVictim[] }): JSX.Element {
           {rows.map((v, i) => (
             <tr
               key={`${v.victim}-${i}`}
-              className="border-b border-slate-100 dark:border-[#1e2030]/60 last:border-b-0 hover:bg-slate-50 dark:hover:bg-slate-900/40"
+              className="border-b border-slate-100 dark:border-[rgb(var(--border-400))]/60 last:border-b-0 hover:bg-slate-50 dark:hover:bg-slate-900/40"
             >
               <td
                 className="px-4 sm:px-2 py-1.5 text-slate-900 dark:text-slate-100 truncate max-w-[200px]"

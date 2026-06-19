@@ -28,7 +28,7 @@ export default function TelegramMonitor(): JSX.Element {
       description="Unified Telegram leak monitoring — credential leak feed, channel discovery, statistics, and settings. All powered by monitored Telegram channels."
     >
       <nav
-        className="flex flex-wrap gap-1 border-b border-slate-200 dark:border-[#1e2030] mb-6"
+        className="flex flex-wrap gap-1 border-b border-slate-200 dark:border-[rgb(var(--border-400))] mb-6"
         aria-label="Telegram monitor"
       >
         {TABS.map((t) => (

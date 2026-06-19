@@ -109,7 +109,7 @@ export default function C2Tracker(): JSX.Element {
         {data && (
           <div className="space-y-6">
             {/* Source Summary */}
-            <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4">
+            <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
               <div className="flex flex-wrap items-baseline justify-between gap-3 mb-4">
                 <h2 className="font-display font-bold text-xl">Active C2 infrastructure</h2>
                 <div className="flex items-center gap-3">
@@ -117,7 +117,7 @@ export default function C2Tracker(): JSX.Element {
                   <button
                     type="button"
                     onClick={() => setRefreshKey((k) => k + 1)}
-                    className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[#1e2030] hover:border-brand-500/40 inline-flex items-center gap-1"
+                    className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 inline-flex items-center gap-1"
                     aria-label="Refresh C2 tracker"
                   >
                     <RefreshCw size={11} /> refresh
@@ -125,7 +125,7 @@ export default function C2Tracker(): JSX.Element {
                 </div>
               </div>
               {/* Source bar */}
-              <div className="flex flex-wrap items-center gap-3 mb-4 pb-4 border-b border-slate-200 dark:border-[#1e2030]">
+              <div className="flex flex-wrap items-center gap-3 mb-4 pb-4 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
                 {data.sources.map((s) => (
                   <span
                     key={s.id}
@@ -140,7 +140,7 @@ export default function C2Tracker(): JSX.Element {
               <div className="flex flex-wrap gap-2">
                 <button
                   onClick={() => setFilter('all')}
-                  className={`text-xs font-mono px-2.5 py-1 rounded border transition-colors ${filter === 'all' ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300' : 'border-slate-300 dark:border-[#1e2030] text-muted hover:border-brand-500/40'}`}
+                  className={`text-xs font-mono px-2.5 py-1 rounded border transition-colors ${filter === 'all' ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300' : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40'}`}
                 >
                   All <span className="opacity-60">· {data.count}</span>
                 </button>
@@ -148,7 +148,7 @@ export default function C2Tracker(): JSX.Element {
                   <button
                     key={fw}
                     onClick={() => setFilter(fw)}
-                    className={`text-xs font-mono px-2.5 py-1 rounded border transition-colors ${filter === fw ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300' : 'border-slate-300 dark:border-[#1e2030] text-muted hover:border-brand-500/40'}`}
+                    className={`text-xs font-mono px-2.5 py-1 rounded border transition-colors ${filter === fw ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300' : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40'}`}
                   >
                     {fw} <span className="opacity-60">· {data.frameworks[fw]}</span>
                   </button>
@@ -160,7 +160,7 @@ export default function C2Tracker(): JSX.Element {
             </section>
 
             {/* IP List */}
-            <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4">
+            <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
               <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
                 {filter === 'all' ? 'All C2 IPs' : `${filter} C2 IPs`}
                 <span className="ml-2 text-slate-500">({filtered.length})</span>
@@ -169,7 +169,7 @@ export default function C2Tracker(): JSX.Element {
                 {filtered.slice(0, 300).map((entry, i) => (
                   <div
                     key={`${entry.ip}-${i}`}
-                    className="rounded border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 p-2.5"
+                    className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-2.5"
                   >
                     <div className="flex items-center justify-between gap-2 mb-1">
                       <code className="font-mono text-sm text-slate-900 dark:text-slate-100 font-semibold truncate">

@@ -46,7 +46,7 @@ const STATUS_CYCLE: Record<CoverageStatus, CoverageStatus> = {
 const STATUS_STYLES: Record<CoverageStatus, { label: string; cls: string }> = {
   unset: {
     label: '— unset',
-    cls: 'border-slate-300 dark:border-[#1e2030] text-slate-500',
+    cls: 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500',
   },
   covered: {
     label: '✓ covered',
@@ -62,7 +62,7 @@ const STATUS_STYLES: Record<CoverageStatus, { label: string; cls: string }> = {
   },
   na: {
     label: 'n/a',
-    cls: 'border-slate-300 dark:border-[#1e2030] text-slate-400',
+    cls: 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-400',
   },
 };
 
@@ -203,7 +203,7 @@ export default function Nhi(): JSX.Element {
           className={`text-sm font-mono px-3 py-1.5 rounded border transition-colors ${
             tab === 'inventory'
               ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-              : 'border-slate-300 dark:border-[#1e2030] text-muted hover:border-brand-500/40'
+              : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40'
           }`}
         >
           Inventory ({items.length})
@@ -213,7 +213,7 @@ export default function Nhi(): JSX.Element {
           className={`text-sm font-mono px-3 py-1.5 rounded border transition-colors ${
             tab === 'top10'
               ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-              : 'border-slate-300 dark:border-[#1e2030] text-muted hover:border-brand-500/40'
+              : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40'
           }`}
         >
           OWASP NHI Top 10
@@ -234,7 +234,7 @@ export default function Nhi(): JSX.Element {
                       return next;
                     });
                   }}
-                  className="w-full flex items-center gap-3 text-left rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 hover:border-brand-500/40 hover:bg-slate-50 dark:hover:bg-slate-800/60 px-4 py-3 transition-colors"
+                  className="w-full flex items-center gap-3 text-left rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 hover:border-brand-500/40 hover:bg-slate-50 dark:hover:bg-slate-800/60 px-4 py-3 transition-colors"
                   aria-expanded={expanded}
                 >
                   <span className="flex-none w-12 font-mono text-mini text-brand-600 dark:text-brand-400 font-bold">
@@ -257,11 +257,11 @@ export default function Nhi(): JSX.Element {
                 </button>
                 {expanded && (
                   <div className="animate-fade-in-up overflow-hidden">
-                    <div className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950/50 mt-2 p-4 space-y-3">
+                    <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950/50 mt-2 p-4 space-y-3">
                       <p className="text-sm font-mono text-slate-700 dark:text-slate-300 leading-relaxed">
                         {item.summary}
                       </p>
-                      <div className="rounded border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] p-3">
+                      <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-3">
                         <h4 className="text-micro font-mono uppercase tracking-[0.2em] text-rose-600 dark:text-rose-400 mb-1">
                           Attack
                         </h4>
@@ -269,7 +269,7 @@ export default function Nhi(): JSX.Element {
                           {item.attack}
                         </p>
                       </div>
-                      <div className="rounded border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] p-3">
+                      <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-3">
                         <h4 className="text-micro font-mono uppercase tracking-[0.2em] text-emerald-600 dark:text-emerald-400 mb-1">
                           Mitigation
                         </h4>
@@ -304,7 +304,7 @@ export default function Nhi(): JSX.Element {
         <>
           {/* Aggregate */}
           {items.length > 0 && (
-            <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 mb-6">
+            <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
               <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
                 <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
                   Inventory risk distribution
@@ -342,14 +342,14 @@ export default function Nhi(): JSX.Element {
             <button
               onClick={exportMd}
               disabled={items.length === 0}
-              className="text-sm font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[#1e2030] hover:border-brand-500/40 disabled:opacity-50 inline-flex items-center gap-1.5"
+              className="text-sm font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 disabled:opacity-50 inline-flex items-center gap-1.5"
             >
               <Download size={13} /> Export markdown
             </button>
             <button
               onClick={reset}
               disabled={items.length === 0}
-              className="text-sm font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[#1e2030] hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400 disabled:opacity-50 inline-flex items-center gap-1.5"
+              className="text-sm font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400 disabled:opacity-50 inline-flex items-center gap-1.5"
             >
               <RotateCcw size={13} /> Reset all
             </button>
@@ -357,7 +357,7 @@ export default function Nhi(): JSX.Element {
 
           {/* List */}
           {items.length === 0 ? (
-            <div className="rounded-lg border border-dashed border-slate-300 dark:border-[#1e2030] p-8 text-center text-sm font-mono text-slate-500 dark:text-slate-400">
+            <div className="rounded-lg border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-8 text-center text-sm font-mono text-slate-500 dark:text-slate-400">
               No NHIs yet. Click <strong>Add NHI</strong> to start an inventory. Everything stays in your browser.
             </div>
           ) : (
@@ -368,7 +368,7 @@ export default function Nhi(): JSX.Element {
                 return (
                   <li
                     key={e.id}
-                    className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1"
+                    className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1"
                   >
                     {/* Row header */}
                     <button
@@ -408,7 +408,7 @@ export default function Nhi(): JSX.Element {
                     </div>
 
                     {isOpen && (
-                      <div className="border-t border-slate-200 dark:border-[#1e2030] px-4 py-3 space-y-4">
+                      <div className="border-t border-slate-200 dark:border-[rgb(var(--border-400))] px-4 py-3 space-y-4">
                         {/* Fields */}
                         <div className="grid gap-3 sm:grid-cols-2">
                           <Field label="Name">
@@ -417,14 +417,14 @@ export default function Nhi(): JSX.Element {
                               value={e.name}
                               onChange={(ev) => update(e.id, { name: ev.target.value })}
                               placeholder="prod-deploy-bot"
-                              className="w-full rounded border border-slate-300 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 px-2 py-1.5 font-mono text-xs"
+                              className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 px-2 py-1.5 font-mono text-xs"
                             />
                           </Field>
                           <Field label="Type">
                             <select
                               value={e.type}
                               onChange={(ev) => update(e.id, { type: ev.target.value as NhiType })}
-                              className="w-full rounded border border-slate-300 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 px-2 py-1.5 font-mono text-xs"
+                              className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 px-2 py-1.5 font-mono text-xs"
                             >
                               {NHI_TYPES.map((t) => (
                                 <option key={t.id} value={t.id}>
@@ -439,7 +439,7 @@ export default function Nhi(): JSX.Element {
                               value={e.owner}
                               onChange={(ev) => update(e.id, { owner: ev.target.value })}
                               placeholder="alice@team — name + escalation path"
-                              className="w-full rounded border border-slate-300 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 px-2 py-1.5 font-mono text-xs"
+                              className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 px-2 py-1.5 font-mono text-xs"
                             />
                           </Field>
                           <Field label="Scope / permissions">
@@ -448,7 +448,7 @@ export default function Nhi(): JSX.Element {
                               value={e.scope}
                               onChange={(ev) => update(e.id, { scope: ev.target.value })}
                               placeholder="repo:write, deploy:prod"
-                              className="w-full rounded border border-slate-300 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 px-2 py-1.5 font-mono text-xs"
+                              className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 px-2 py-1.5 font-mono text-xs"
                             />
                           </Field>
                           <Field label="Last rotated (YYYY-MM-DD)">
@@ -456,7 +456,7 @@ export default function Nhi(): JSX.Element {
                               type="date"
                               value={e.lastRotated}
                               onChange={(ev) => update(e.id, { lastRotated: ev.target.value })}
-                              className="w-full rounded border border-slate-300 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 px-2 py-1.5 font-mono text-xs"
+                              className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 px-2 py-1.5 font-mono text-xs"
                             />
                           </Field>
                           <Field label="Rotation cadence (days, 0 = never)">
@@ -465,7 +465,7 @@ export default function Nhi(): JSX.Element {
                               min={0}
                               value={e.rotationDays}
                               onChange={(ev) => update(e.id, { rotationDays: Number(ev.target.value) || 0 })}
-                              className="w-full rounded border border-slate-300 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 px-2 py-1.5 font-mono text-xs"
+                              className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 px-2 py-1.5 font-mono text-xs"
                             />
                           </Field>
                           <Field label="Storage">
@@ -474,7 +474,7 @@ export default function Nhi(): JSX.Element {
                               value={e.storage}
                               onChange={(ev) => update(e.id, { storage: ev.target.value })}
                               placeholder="AWS Secrets Manager — secret/prod/deploy"
-                              className="w-full rounded border border-slate-300 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 px-2 py-1.5 font-mono text-xs"
+                              className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 px-2 py-1.5 font-mono text-xs"
                             />
                           </Field>
                           <Field label="Monitored?">
@@ -494,7 +494,7 @@ export default function Nhi(): JSX.Element {
                             onChange={(ev) => update(e.id, { notes: ev.target.value })}
                             rows={2}
                             placeholder="Free text — incident history, special handling, related tickets…"
-                            className="w-full rounded border border-slate-300 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 px-2 py-1.5 font-mono text-xs"
+                            className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 px-2 py-1.5 font-mono text-xs"
                           />
                         </Field>
 
@@ -542,7 +542,7 @@ export default function Nhi(): JSX.Element {
         </>
       )}
 
-      <section className="mt-8 rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4">
+      <section className="mt-8 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
         <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
           References
         </h2>

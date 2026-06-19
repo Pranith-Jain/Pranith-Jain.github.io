@@ -265,7 +265,7 @@ export default function PhoneOsint(): JSX.Element {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="+1 555 123 4567 or 5551234567"
-              className="w-full pl-9 pr-4 py-2.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[#1e2030] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="w-full pl-9 pr-4 py-2.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
               aria-label="Phone number"
             />
           </div>
@@ -281,7 +281,7 @@ export default function PhoneOsint(): JSX.Element {
 
       {/* Parsed info */}
       {parsed && (
-        <div className="mb-6 rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4">
+        <div className="mb-6 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
           <div className="flex flex-wrap items-center gap-4 text-sm font-mono">
             <div>
               <span className="text-slate-500 dark:text-slate-400">E.164:</span>{' '}
@@ -313,7 +313,7 @@ export default function PhoneOsint(): JSX.Element {
                 className={`text-mini font-mono px-2 py-1 rounded border transition-colors flex items-center gap-1 ${
                   active
                     ? 'border-brand-500/50 bg-brand-500/10 text-brand-700 dark:text-brand-300'
-                    : 'border-slate-300 dark:border-[#1e2030] text-slate-500 hover:border-brand-500/40'
+                    : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-brand-500/40'
                 }`}
                 aria-pressed={active}
               >
@@ -325,7 +325,7 @@ export default function PhoneOsint(): JSX.Element {
             <button
               type="button"
               onClick={() => setActiveCategory(null)}
-              className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[#1e2030] text-slate-500 hover:border-brand-500/40 transition-colors"
+              className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-brand-500/40 transition-colors"
             >
               clear
             </button>
@@ -345,7 +345,7 @@ export default function PhoneOsint(): JSX.Element {
               return (
                 <li
                   key={l.service + l.url}
-                  className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4"
+                  className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4"
                 >
                   <div className="flex items-start justify-between gap-2 mb-1">
                     <a
@@ -357,7 +357,7 @@ export default function PhoneOsint(): JSX.Element {
                       {l.service} <ExternalLink size={12} className="opacity-60 shrink-0" />
                     </a>
                     <div className="flex items-center gap-1 shrink-0">
-                      <span className="text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-slate-300 dark:border-[#1e2030] text-slate-500 flex items-center gap-1">
+                      <span className="text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 flex items-center gap-1">
                         <Icon size={9} /> {CATEGORY_LABELS[l.category] ?? l.category}
                       </span>
                       {!l.free && (
@@ -382,7 +382,7 @@ export default function PhoneOsint(): JSX.Element {
       )}
 
       {/* Tips */}
-      <div className="mt-8 rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4">
+      <div className="mt-8 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
         <h3 className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 mb-2">
           Investigation Tips
         </h3>

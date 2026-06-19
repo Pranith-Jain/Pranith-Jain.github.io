@@ -72,7 +72,7 @@ function verdictPill(v?: string): string {
     case 'clean':
       return 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300';
     default:
-      return 'border-slate-300 dark:border-[#1e2030] text-muted';
+      return 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted';
   }
 }
 
@@ -166,7 +166,7 @@ export default function IpGeo(): JSX.Element {
         </p>
       </div>
 
-      <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 mb-6">
+      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -185,7 +185,7 @@ export default function IpGeo(): JSX.Element {
                 value={ip}
                 onChange={(e) => setIp(e.target.value)}
                 placeholder="Enter IPv4 or IPv6 — e.g. 8.8.8.8 or 2606:4700:4700::1111"
-                className="w-full pl-9 pr-4 py-2.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[#1e2030] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+                className="w-full pl-9 pr-4 py-2.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
                 autoComplete="off"
                 spellCheck={false}
               />
@@ -208,7 +208,7 @@ export default function IpGeo(): JSX.Element {
               key={s.ip}
               type="button"
               onClick={() => void lookup(s.ip)}
-              className="text-mini font-mono px-2 py-0.5 rounded border border-slate-300 dark:border-[#1e2030] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
+              className="text-mini font-mono px-2 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
             >
               {s.label}
             </button>
@@ -224,7 +224,7 @@ export default function IpGeo(): JSX.Element {
 
       {data && (
         <>
-          <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 mb-6">
+          <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
             <div className="flex flex-wrap items-baseline justify-between gap-2 mb-2">
               <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
                 Address
@@ -233,7 +233,7 @@ export default function IpGeo(): JSX.Element {
                 {data.detected_kind}
               </span>
             </div>
-            <code className="block font-mono text-sm text-slate-900 dark:text-slate-100 break-all bg-slate-50 dark:bg-slate-950 rounded border border-slate-200 dark:border-[#1e2030] p-2">
+            <code className="block font-mono text-sm text-slate-900 dark:text-slate-100 break-all bg-slate-50 dark:bg-slate-950 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-2">
               {data.ip}
             </code>
             {data.geo.ok && data.geo.reverse_dns && (
@@ -252,7 +252,7 @@ export default function IpGeo(): JSX.Element {
                   ? 'border-amber-500/60 bg-amber-500/10'
                   : data.reputation.ok && data.reputation.verdict === 'clean'
                     ? 'border-emerald-500/40 bg-emerald-500/5'
-                    : 'border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]'
+                    : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]'
             }`}
           >
             <div className="flex flex-wrap items-baseline justify-between gap-2 mb-2">
@@ -305,32 +305,32 @@ export default function IpGeo(): JSX.Element {
           </section>
 
           {/* Geolocation */}
-          <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 mb-6">
+          <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
             <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3 inline-flex items-center gap-2">
               <MapPin size={12} /> Geolocation & network
             </h2>
             {data.geo.ok ? (
               <>
                 <div className="grid sm:grid-cols-2 gap-x-6 gap-y-2 text-sm font-mono">
-                  <div className="flex justify-between border-b border-slate-200 dark:border-[#1e2030] py-1">
+                  <div className="flex justify-between border-b border-slate-200 dark:border-[rgb(var(--border-400))] py-1">
                     <span className="text-slate-500 dark:text-slate-400">Country</span>
                     <span className="text-slate-900 dark:text-slate-100">
                       {data.geo.country ?? '—'} {data.geo.country_code && `(${data.geo.country_code})`}
                     </span>
                   </div>
-                  <div className="flex justify-between border-b border-slate-200 dark:border-[#1e2030] py-1">
+                  <div className="flex justify-between border-b border-slate-200 dark:border-[rgb(var(--border-400))] py-1">
                     <span className="text-slate-500 dark:text-slate-400">Region / city</span>
                     <span className="text-slate-900 dark:text-slate-100">
                       {[data.geo.region, data.geo.city].filter(Boolean).join(', ') || '—'}
                     </span>
                   </div>
-                  <div className="flex justify-between border-b border-slate-200 dark:border-[#1e2030] py-1">
+                  <div className="flex justify-between border-b border-slate-200 dark:border-[rgb(var(--border-400))] py-1">
                     <span className="text-slate-500 dark:text-slate-400 inline-flex items-center gap-1">
                       <Clock size={10} /> Timezone
                     </span>
                     <span className="text-slate-900 dark:text-slate-100">{data.geo.timezone ?? '—'}</span>
                   </div>
-                  <div className="flex justify-between border-b border-slate-200 dark:border-[#1e2030] py-1">
+                  <div className="flex justify-between border-b border-slate-200 dark:border-[rgb(var(--border-400))] py-1">
                     <span className="text-slate-500 dark:text-slate-400">Coordinates</span>
                     <span className="text-slate-900 dark:text-slate-100">
                       {data.geo.lat !== undefined && data.geo.lon !== undefined ? (
@@ -347,7 +347,7 @@ export default function IpGeo(): JSX.Element {
                       )}
                     </span>
                   </div>
-                  <div className="flex justify-between border-b border-slate-200 dark:border-[#1e2030] py-1">
+                  <div className="flex justify-between border-b border-slate-200 dark:border-[rgb(var(--border-400))] py-1">
                     <span className="text-slate-500 dark:text-slate-400 inline-flex items-center gap-1">
                       <Building size={10} /> ISP
                     </span>
@@ -355,13 +355,13 @@ export default function IpGeo(): JSX.Element {
                       {data.geo.isp ?? '—'}
                     </span>
                   </div>
-                  <div className="flex justify-between border-b border-slate-200 dark:border-[#1e2030] py-1">
+                  <div className="flex justify-between border-b border-slate-200 dark:border-[rgb(var(--border-400))] py-1">
                     <span className="text-slate-500 dark:text-slate-400">Org</span>
                     <span className="text-slate-900 dark:text-slate-100 text-right break-words">
                       {data.geo.org ?? '—'}
                     </span>
                   </div>
-                  <div className="flex justify-between border-b border-slate-200 dark:border-[#1e2030] py-1 sm:col-span-2">
+                  <div className="flex justify-between border-b border-slate-200 dark:border-[rgb(var(--border-400))] py-1 sm:col-span-2">
                     <span className="text-slate-500 dark:text-slate-400 inline-flex items-center gap-1">
                       <Network size={10} /> ASN
                     </span>

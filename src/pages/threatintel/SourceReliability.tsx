@@ -21,7 +21,7 @@ const RELIABILITY_COLORS: Record<string, string> = {
   C: 'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 border-amber-300 dark:border-amber-900',
   D: 'bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 border-orange-300 dark:border-orange-900',
   E: 'bg-rose-100 dark:bg-rose-900/30 text-rose-700 dark:text-rose-300 border-rose-300 dark:border-rose-900',
-  F: 'bg-slate-100 dark:bg-slate-800 text-slate-500 border-slate-300 dark:border-[#1e2030]',
+  F: 'bg-slate-100 dark:bg-slate-800 text-slate-500 border-slate-300 dark:border-[rgb(var(--border-400))]',
 };
 
 const CATEGORY_ICONS: Record<string, typeof Shield> = {
@@ -76,7 +76,7 @@ export default function SourceReliability(): JSX.Element {
           return (
             <div
               key={s.id}
-              className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-4"
+              className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-4"
             >
               <div className="flex items-start gap-3">
                 <span

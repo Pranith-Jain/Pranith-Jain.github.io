@@ -158,7 +158,7 @@ export default function ExposedHostView(): JSX.Element {
             value={ip}
             onChange={(e) => setIp(e.target.value)}
             placeholder="8.8.8.8"
-            className="w-full pl-10 pr-4 py-2.5 rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] text-sm font-mono focus-visible:ring-2 focus-visible:ring-brand-500 focus:border-transparent"
+            className="w-full pl-10 pr-4 py-2.5 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-sm font-mono focus-visible:ring-2 focus-visible:ring-brand-500 focus:border-transparent"
           />
         </div>
         <button
@@ -181,7 +181,7 @@ export default function ExposedHostView(): JSX.Element {
       {result && (
         <>
           {/* Header Card */}
-          <div className="mb-6 p-4 rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1">
+          <div className="mb-6 p-4 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1">
             <div className="flex items-start justify-between mb-3">
               <div>
                 <div className="flex items-center gap-3 mb-1">
@@ -252,7 +252,7 @@ export default function ExposedHostView(): JSX.Element {
             ].map(({ label, value, icon: Icon }) => (
               <div
                 key={label}
-                className="p-3 rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1"
+                className="p-3 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1"
               >
                 <div className="flex items-center gap-1.5 mb-1">
                   <Icon size={12} className="text-slate-400" />
@@ -264,7 +264,7 @@ export default function ExposedHostView(): JSX.Element {
           </div>
 
           {/* Network Info */}
-          <div className="mb-4 p-3 rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1">
+          <div className="mb-4 p-3 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1">
             <h3 className="text-xs font-mono uppercase tracking-wider text-slate-500 mb-2 flex items-center gap-1.5">
               <Network size={12} /> Network
             </h3>
@@ -287,7 +287,7 @@ export default function ExposedHostView(): JSX.Element {
           {/* Collapsible Sections */}
           <div className="space-y-3">
             {/* Open Ports */}
-            <div className="border border-slate-200 dark:border-[#1e2030] rounded-lg bg-white dark:bg-[#12121a] overflow-hidden">
+            <div className="border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg bg-white dark:bg-[rgb(var(--surface-200))] overflow-hidden">
               <button
                 onClick={() => toggleSection('ports')}
                 className="w-full flex items-center justify-between p-3 text-left hover:bg-slate-50 dark:hover:bg-slate-800/50"
@@ -298,7 +298,7 @@ export default function ExposedHostView(): JSX.Element {
                 {expandedSection === 'ports' ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
               </button>
               {expandedSection === 'ports' && (
-                <div className="px-3 pb-3 border-t border-slate-100 dark:border-[#1e2030]">
+                <div className="px-3 pb-3 border-t border-slate-100 dark:border-[rgb(var(--border-400))]">
                   <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 mt-2">
                     {result.protocols.map((p) => (
                       <div
@@ -316,7 +316,7 @@ export default function ExposedHostView(): JSX.Element {
 
             {/* CVEs */}
             {result.vulns.length > 0 && (
-              <div className="border border-slate-200 dark:border-[#1e2030] rounded-lg bg-white dark:bg-[#12121a] overflow-hidden">
+              <div className="border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg bg-white dark:bg-[rgb(var(--surface-200))] overflow-hidden">
                 <button
                   onClick={() => toggleSection('vulns')}
                   className="w-full flex items-center justify-between p-3 text-left hover:bg-slate-50 dark:hover:bg-slate-800/50"
@@ -327,7 +327,7 @@ export default function ExposedHostView(): JSX.Element {
                   {expandedSection === 'vulns' ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
                 </button>
                 {expandedSection === 'vulns' && (
-                  <div className="px-3 pb-3 border-t border-slate-100 dark:border-[#1e2030]">
+                  <div className="px-3 pb-3 border-t border-slate-100 dark:border-[rgb(var(--border-400))]">
                     <div className="space-y-1 mt-2 max-h-60 overflow-y-auto">
                       {result.vulns.map((v) => (
                         <div
@@ -357,7 +357,7 @@ export default function ExposedHostView(): JSX.Element {
 
             {/* Hostnames */}
             {result.hostnames.length > 0 && (
-              <div className="border border-slate-200 dark:border-[#1e2030] rounded-lg bg-white dark:bg-[#12121a] overflow-hidden">
+              <div className="border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg bg-white dark:bg-[rgb(var(--surface-200))] overflow-hidden">
                 <button
                   onClick={() => toggleSection('hostnames')}
                   className="w-full flex items-center justify-between p-3 text-left hover:bg-slate-50 dark:hover:bg-slate-800/50"
@@ -368,7 +368,7 @@ export default function ExposedHostView(): JSX.Element {
                   {expandedSection === 'hostnames' ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
                 </button>
                 {expandedSection === 'hostnames' && (
-                  <div className="px-3 pb-3 border-t border-slate-100 dark:border-[#1e2030]">
+                  <div className="px-3 pb-3 border-t border-slate-100 dark:border-[rgb(var(--border-400))]">
                     <div className="space-y-1 mt-2">
                       {result.hostnames.map((h) => (
                         <div key={h} className="flex items-center gap-2 p-2 rounded bg-slate-50 dark:bg-slate-800/50">
@@ -386,7 +386,7 @@ export default function ExposedHostView(): JSX.Element {
 
             {/* CPEs / Software */}
             {result.cpes.length > 0 && (
-              <div className="border border-slate-200 dark:border-[#1e2030] rounded-lg bg-white dark:bg-[#12121a] overflow-hidden">
+              <div className="border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg bg-white dark:bg-[rgb(var(--surface-200))] overflow-hidden">
                 <button
                   onClick={() => toggleSection('cpes')}
                   className="w-full flex items-center justify-between p-3 text-left hover:bg-slate-50 dark:hover:bg-slate-800/50"
@@ -397,7 +397,7 @@ export default function ExposedHostView(): JSX.Element {
                   {expandedSection === 'cpes' ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
                 </button>
                 {expandedSection === 'cpes' && (
-                  <div className="px-3 pb-3 border-t border-slate-100 dark:border-[#1e2030]">
+                  <div className="px-3 pb-3 border-t border-slate-100 dark:border-[rgb(var(--border-400))]">
                     <div className="space-y-1 mt-2 max-h-40 overflow-y-auto">
                       {result.cpes.map((cpe) => (
                         <div
@@ -422,11 +422,11 @@ export default function ExposedHostView(): JSX.Element {
               onKeyDown={(e) => e.key === 'Escape' && setPreviewArtifact(null)}
             >
               <div
-                className="max-w-2xl w-full max-h-[80vh] rounded-lg bg-white dark:bg-[#12121a] border border-slate-200 dark:border-[#1e2030] overflow-hidden"
+                className="max-w-2xl w-full max-h-[80vh] rounded-lg bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] overflow-hidden"
                 onClick={(e) => e.stopPropagation()}
                 onKeyDown={(e) => e.stopPropagation()}
               >
-                <div className="flex items-center justify-between p-3 border-b border-slate-200 dark:border-[#1e2030]">
+                <div className="flex items-center justify-between p-3 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
                   <div className="flex items-center gap-2">
                     <File size={14} className="text-brand-600" />
                     <span className="font-mono text-sm font-medium">{previewArtifact.name}</span>

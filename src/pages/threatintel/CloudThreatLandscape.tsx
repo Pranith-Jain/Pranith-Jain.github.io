@@ -58,7 +58,7 @@ function chip(active: boolean): string {
   return `text-xs font-mono px-2.5 py-1 rounded border transition-colors ${
     active
       ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-      : 'border-slate-300 dark:border-[#1e2030] text-muted hover:border-brand-500/40'
+      : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40'
   }`;
 }
 
@@ -159,7 +159,7 @@ export default function CloudThreatLandscape(): JSX.Element {
           return (
             <div
               key={inc.id}
-              className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 p-3"
+              className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-3"
             >
               <div className="flex items-start justify-between gap-2">
                 <h3 className="font-semibold text-sm text-slate-900 dark:text-slate-100 leading-snug">
@@ -214,7 +214,7 @@ export default function CloudThreatLandscape(): JSX.Element {
               )}
 
               {inc.external_refs.length > 0 && (
-                <div className="flex flex-wrap gap-x-3 gap-y-1 mt-2 pt-2 border-t border-slate-200 dark:border-[#1e2030]">
+                <div className="flex flex-wrap gap-x-3 gap-y-1 mt-2 pt-2 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
                   {inc.external_refs.map((ref, i) => {
                     const href = safeHref(ref.url);
                     return href ? (

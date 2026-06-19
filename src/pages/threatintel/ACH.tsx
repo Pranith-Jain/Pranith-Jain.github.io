@@ -52,7 +52,7 @@ function confidenceBg(score: number): string {
 const RELEVANCE_COLORS: Record<string, string> = {
   high: 'text-emerald-600 bg-emerald-50 dark:bg-emerald-950/20 border-emerald-300 dark:border-emerald-900',
   medium: 'text-amber-600 bg-amber-50 dark:bg-amber-950/20 border-amber-300 dark:border-amber-900',
-  low: 'text-slate-500 bg-slate-50 dark:bg-[#12121a] border-slate-300 dark:border-[#1e2030]',
+  low: 'text-slate-500 bg-slate-50 dark:bg-[rgb(var(--surface-200))] border-slate-300 dark:border-[rgb(var(--border-400))]',
 };
 
 export default function ACH(): JSX.Element {
@@ -110,7 +110,7 @@ export default function ACH(): JSX.Element {
             onChange={(e) => setTopic(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && void analyze()}
             placeholder="e.g. Qilin ransomware, Scattered Spider, CVE-2024-1709 campaign attribution…"
-            className="flex-1 text-sm px-4 py-2.5 rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/60 shadow-e1 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40 placeholder:text-slate-400"
+            className="flex-1 text-sm px-4 py-2.5 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/60 shadow-e1 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40 placeholder:text-slate-400"
             disabled={loading}
           />
           <button
@@ -141,7 +141,7 @@ export default function ACH(): JSX.Element {
       {result && (
         <div className="space-y-6 animate-fade-in-up">
           {/* Question + meta */}
-          <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-5">
+          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5">
             <h2 className="text-lg font-bold mb-1">{result.question}</h2>
             <div className="flex flex-wrap gap-3 text-mini font-mono text-slate-400">
               <span>topic: {result.topic}</span>
@@ -180,7 +180,7 @@ export default function ACH(): JSX.Element {
                       <div className="font-semibold text-sm flex items-center gap-2">
                         H{i + 1}: {h.label}
                         <span
-                          className={`text-micro font-mono px-1.5 py-0.5 rounded-full border text-slate-500 border-slate-300 dark:border-[#1e2030]`}
+                          className={`text-micro font-mono px-1.5 py-0.5 rounded-full border text-slate-500 border-slate-300 dark:border-[rgb(var(--border-400))]`}
                         >
                           diagnostic: {h.diagnostic_value}
                         </span>
@@ -203,7 +203,7 @@ export default function ACH(): JSX.Element {
                   </button>
 
                   {isOpen && (
-                    <div className="px-4 pb-5 pt-0 border-t border-slate-200 dark:border-[#1e2030]">
+                    <div className="px-4 pb-5 pt-0 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
                       <p className="text-xs text-muted mt-3 leading-relaxed">{h.description}</p>
 
                       {/* Evidence matrix */}
@@ -228,7 +228,7 @@ export default function ACH(): JSX.Element {
                             h.evidence_for.map((ev) => (
                               <div
                                 key={`${ev.claim}-${ev.source}`}
-                                className="mb-2 p-2 rounded bg-white/50 dark:bg-[#12121a]/30 border border-slate-200 dark:border-[#1e2030]"
+                                className="mb-2 p-2 rounded bg-white/50 dark:bg-[rgb(var(--surface-200))]/30 border border-slate-200 dark:border-[rgb(var(--border-400))]"
                               >
                                 <p className="text-mini text-slate-700 dark:text-slate-300">{ev.claim}</p>
                                 <div className="flex items-center gap-2 mt-1">
@@ -271,7 +271,7 @@ export default function ACH(): JSX.Element {
                             h.evidence_against.map((ev) => (
                               <div
                                 key={`${ev.claim}-${ev.source}`}
-                                className="mb-2 p-2 rounded bg-white/50 dark:bg-[#12121a]/30 border border-slate-200 dark:border-[#1e2030]"
+                                className="mb-2 p-2 rounded bg-white/50 dark:bg-[rgb(var(--surface-200))]/30 border border-slate-200 dark:border-[rgb(var(--border-400))]"
                               >
                                 <p className="text-mini text-slate-700 dark:text-slate-300">{ev.claim}</p>
                                 <div className="flex items-center gap-2 mt-1">
@@ -296,7 +296,7 @@ export default function ACH(): JSX.Element {
                       </div>
 
                       {/* What would change */}
-                      <div className="mt-4 p-3 rounded-lg bg-white/50 dark:bg-[#12121a]/30 border border-slate-200 dark:border-[#1e2030]">
+                      <div className="mt-4 p-3 rounded-lg bg-white/50 dark:bg-[rgb(var(--surface-200))]/30 border border-slate-200 dark:border-[rgb(var(--border-400))]">
                         <div className="flex items-center gap-1.5 text-mini font-semibold text-amber-600 dark:text-amber-400 mb-1">
                           <Lightbulb size={12} /> What would change this assessment
                         </div>
@@ -311,7 +311,7 @@ export default function ACH(): JSX.Element {
 
           {/* Key Assumptions */}
           {result.key_assumptions.length > 0 && (
-            <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-5">
+            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5">
               <h3 className="text-xs font-bold uppercase tracking-[0.15em] text-slate-500 font-mono mb-3 flex items-center gap-2">
                 <AlertTriangle size={12} /> Key Assumptions
               </h3>
@@ -328,7 +328,7 @@ export default function ACH(): JSX.Element {
 
           {/* Recommended Collection */}
           {result.recommended_collection.length > 0 && (
-            <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-5">
+            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5">
               <h3 className="text-xs font-bold uppercase tracking-[0.15em] text-slate-500 font-mono mb-3 flex items-center gap-2">
                 <Search size={12} /> Recommended Collection
               </h3>

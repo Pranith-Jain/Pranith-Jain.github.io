@@ -109,7 +109,7 @@ export default function OpenDirectory(): JSX.Element {
             value={url}
             onChange={(e) => setUrl(e.target.value)}
             placeholder="https://suspicious-server.com/uploads/"
-            className="w-full pl-10 pr-4 py-2.5 rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] text-sm font-mono focus-visible:ring-2 focus-visible:ring-brand-500 focus:border-transparent"
+            className="w-full pl-10 pr-4 py-2.5 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-sm font-mono focus-visible:ring-2 focus-visible:ring-brand-500 focus:border-transparent"
           />
         </div>
         <button
@@ -142,7 +142,7 @@ export default function OpenDirectory(): JSX.Element {
             ].map(({ label, value, icon: Icon }) => (
               <div
                 key={label}
-                className="p-3 rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1"
+                className="p-3 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1"
               >
                 <div className="flex items-center gap-1.5 mb-1">
                   <Icon size={12} className="text-slate-400" />
@@ -160,7 +160,7 @@ export default function OpenDirectory(): JSX.Element {
                 ? 'bg-emerald-50 dark:bg-emerald-950/20 border-emerald-200 dark:border-emerald-800/50 text-emerald-700 dark:text-emerald-300'
                 : result.isOpen
                   ? 'bg-amber-50 dark:bg-amber-950/20 border-amber-200 dark:border-amber-800/50 text-amber-700 dark:text-amber-300'
-                  : 'bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-[#1e2030] text-muted'
+                  : 'bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-[rgb(var(--border-400))] text-muted'
             }`}
           >
             {result.isOpen && result.isDirectoryListing ? (
@@ -217,10 +217,10 @@ export default function OpenDirectory(): JSX.Element {
           </div>
 
           {/* File List */}
-          <div className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 overflow-hidden">
+          <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full text-xs">
-                <thead className="bg-slate-50 dark:bg-[#12121a] sticky top-0">
+                <thead className="bg-slate-50 dark:bg-[rgb(var(--surface-200))] sticky top-0">
                   <tr>
                     <th className="px-3 py-2 text-left font-mono font-semibold text-muted">Name</th>
                     <th className="px-3 py-2 text-left font-mono font-semibold text-muted w-20">Type</th>
@@ -233,7 +233,7 @@ export default function OpenDirectory(): JSX.Element {
                   {filteredEntries.map((entry) => (
                     <tr
                       key={entry.name}
-                      className={`border-t border-slate-100 dark:border-[#1e2030] hover:bg-slate-50 dark:hover:bg-slate-800/50 cursor-pointer ${
+                      className={`border-t border-slate-100 dark:border-[rgb(var(--border-400))] hover:bg-slate-50 dark:hover:bg-slate-800/50 cursor-pointer ${
                         entry.risk === 'critical' ? 'bg-rose-50/50 dark:bg-rose-950/10' : ''
                       }`}
                       onClick={() => setExpandedEntry(expandedEntry === entry.name ? null : entry.name)}

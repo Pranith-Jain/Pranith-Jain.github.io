@@ -1066,7 +1066,7 @@ export default function Metrics(): JSX.Element {
       </div>
 
       {/* Headline totals + window toggle + refresh */}
-      <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 mb-6 flex items-center justify-between gap-3 flex-wrap">
+      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6 flex items-center justify-between gap-3 flex-wrap">
         <div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-3 text-tool sm:text-meta font-mono w-full sm:w-auto">
           <Stat
             label={`ransomware claims · ${windowDays}d`}
@@ -1094,7 +1094,7 @@ export default function Metrics(): JSX.Element {
           <div
             role="group"
             aria-label="Time window"
-            className="inline-flex rounded border border-slate-200 dark:border-[#1e2030] overflow-hidden text-mini font-mono"
+            className="inline-flex rounded border border-slate-200 dark:border-[rgb(var(--border-400))] overflow-hidden text-mini font-mono"
           >
             {WINDOW_OPTIONS.map((d) => {
               const active = d === windowDays;
@@ -1118,7 +1118,7 @@ export default function Metrics(): JSX.Element {
           <button
             type="button"
             onClick={() => setRefreshKey((k) => k + 1)}
-            className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-[#1e2030] hover:border-brand-500/40"
+            className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40"
           >
             <RefreshCw size={12} /> refresh
           </button>
@@ -1126,7 +1126,7 @@ export default function Metrics(): JSX.Element {
       </section>
 
       {state.loading && (
-        <div className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-6 inline-flex items-center gap-2 font-mono text-sm text-slate-500">
+        <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-6 inline-flex items-center gap-2 font-mono text-sm text-slate-500">
           <Loader2 size={14} className="animate-spin" /> computing aggregates from upstream feeds…
         </div>
       )}
@@ -1163,13 +1163,13 @@ export default function Metrics(): JSX.Element {
             <div>
               <Sparkbars buckets={ransomwareCadence} color="#e11d48" />
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 mt-3 text-mini font-mono">
-                <div className="rounded border border-slate-200 dark:border-[#1e2030] px-2 py-1.5">
+                <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] px-2 py-1.5">
                   <div className="text-slate-500">last 7d</div>
                   <div className="text-slate-900 dark:text-slate-100 font-semibold text-sm">
                     {String(headlineRead.last7)}
                   </div>
                 </div>
-                <div className="rounded border border-slate-200 dark:border-[#1e2030] px-2 py-1.5">
+                <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] px-2 py-1.5">
                   <div className="text-slate-500">prior 7d</div>
                   <div className="text-slate-900 dark:text-slate-100 font-semibold text-sm">
                     {String(headlineRead.prior7)}
@@ -1181,7 +1181,7 @@ export default function Metrics(): JSX.Element {
                       ? 'border-rose-500/40 text-rose-600 dark:text-rose-300'
                       : headlineRead.trendLabel === 'cooling'
                         ? 'border-emerald-500/40 text-emerald-600 dark:text-emerald-300'
-                        : 'border-slate-200 dark:border-[#1e2030] text-slate-600 dark:text-slate-300'
+                        : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-600 dark:text-slate-300'
                   }`}
                 >
                   <div className="opacity-70">trend</div>
@@ -1445,30 +1445,30 @@ export default function Metrics(): JSX.Element {
 
       {/* Related-surfaces footer. Plain <a> caused full-page reloads —
           use <Link> so router state survives the navigation. */}
-      <section className="mt-10 rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-5">
+      <section className="mt-10 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5">
         <h3 className="font-display font-semibold text-sm mb-3">Related surfaces</h3>
         <div className="grid sm:grid-cols-2 gap-2 text-meta font-mono">
           <Link
             to="/threatintel/iocs/cross"
-            className="px-3 py-2 rounded border border-slate-200 dark:border-[#1e2030] hover:border-brand-500/40 text-slate-700 dark:text-slate-300"
+            className="px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 text-slate-700 dark:text-slate-300"
           >
             Cross-source IOC correlation →
           </Link>
           <Link
             to="/threatintel/actors/timeline"
-            className="px-3 py-2 rounded border border-slate-200 dark:border-[#1e2030] hover:border-brand-500/40 text-slate-700 dark:text-slate-300"
+            className="px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 text-slate-700 dark:text-slate-300"
           >
             Actor activity timeline + MITRE TTPs →
           </Link>
           <Link
             to="/threatintel/darkweb/leaks"
-            className="px-3 py-2 rounded border border-slate-200 dark:border-[#1e2030] hover:border-brand-500/40 text-slate-700 dark:text-slate-300"
+            className="px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 text-slate-700 dark:text-slate-300"
           >
             Victim re-leak detection →
           </Link>
           <Link
             to="/threatintel/catalog?cat=iocs"
-            className="px-3 py-2 rounded border border-slate-200 dark:border-[#1e2030] hover:border-brand-500/40 text-slate-700 dark:text-slate-300"
+            className="px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 text-slate-700 dark:text-slate-300"
           >
             Live IOC stream →
           </Link>
@@ -1558,7 +1558,7 @@ function ChartCard({
   interpretation?: string;
 }) {
   return (
-    <div className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4">
+    <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
       <div className="flex items-baseline justify-between gap-2 mb-1">
         <h3 className="font-display font-semibold text-sm inline-flex items-center gap-2">
           <Icon size={14} className="text-brand-600 dark:text-brand-400" /> {title}

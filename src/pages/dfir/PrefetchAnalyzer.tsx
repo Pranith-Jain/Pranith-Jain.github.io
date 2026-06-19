@@ -210,7 +210,7 @@ export default function PrefetchAnalyzer(): JSX.Element {
       <button
         type="button"
         onClick={() => document.getElementById('prefetchanalyzer-input')?.click()}
-        className="w-full border-2 border-dashed border-slate-300 dark:border-[#1e2030] rounded-lg p-8 text-center cursor-pointer hover:border-brand-500/40 focus-visible:outline-none focus-visible:border-brand-500/60"
+        className="w-full border-2 border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] rounded-lg p-8 text-center cursor-pointer hover:border-brand-500/40 focus-visible:outline-none focus-visible:border-brand-500/60"
         aria-label="Drop a .pf file file or click to choose"
       >
         <Upload size={24} className="mx-auto mb-2 text-slate-500" />
@@ -266,7 +266,7 @@ export default function PrefetchAnalyzer(): JSX.Element {
             ].map(([k, v]) => (
               <div
                 key={k}
-                className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-3"
+                className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
               >
                 <div className="text-micro font-mono uppercase tracking-wider text-slate-500">{k}</div>
                 <div className="font-mono text-meta break-all">{v}</div>
@@ -274,7 +274,7 @@ export default function PrefetchAnalyzer(): JSX.Element {
             ))}
           </div>
           {pf.lastRuns.length > 0 && (
-            <div className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-3">
+            <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3">
               <div className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-1">
                 Last run times ({pf.lastRuns.length})
               </div>
@@ -286,9 +286,9 @@ export default function PrefetchAnalyzer(): JSX.Element {
               value={q}
               onChange={(e) => setQ(e.target.value)}
               placeholder={`filter ${pf.files.length} referenced files…`}
-              className="w-full rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 px-3 py-2 font-mono text-sm focus:border-brand-500 focus:outline-none mb-2"
+              className="w-full rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 px-3 py-2 font-mono text-sm focus:border-brand-500 focus:outline-none mb-2"
             />
-            <div className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-3 overflow-auto max-h-[55vh]">
+            <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3 overflow-auto max-h-[55vh]">
               {shown.slice(0, 3000).map((f, i) => (
                 <div key={i} className="font-mono text-mini text-muted break-all">
                   {f}

@@ -218,7 +218,7 @@ export default function IocPivot(): JSX.Element {
             onChange={(e) => setInput(e.target.value)}
             placeholder="IP · domain · URL · file hash"
             aria-label="Indicator"
-            className="w-full pl-9 pr-3 py-2.5 bg-white dark:bg-[#12121a] border border-slate-200 dark:border-[#1e2030] rounded-lg text-sm font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="w-full pl-9 pr-3 py-2.5 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg text-sm font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
           />
         </div>
         <button
@@ -233,7 +233,7 @@ export default function IocPivot(): JSX.Element {
 
       {active && (
         <>
-          <div className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-3 mb-4">
+          <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3 mb-4">
             <svg viewBox={`0 0 ${W} ${W}`} className="w-full h-auto" role="img" aria-label="IOC pivot graph">
               {/* edges: centre → sources */}
               {sources.map((s, i) => {
@@ -347,7 +347,7 @@ export default function IocPivot(): JSX.Element {
           </div>
 
           {pivots.length > 0 && (
-            <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4">
+            <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
               <div className="flex items-center justify-between mb-2 gap-2 flex-wrap">
                 <h3 className="text-mini font-mono uppercase tracking-wider text-slate-500">
                   Pivot indicators ({pivots.length})
@@ -366,7 +366,7 @@ export default function IocPivot(): JSX.Element {
                       type="button"
                       onClick={() => void buildPivotStix()}
                       disabled={stixBuilding || streaming}
-                      className="text-mini font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-[#1e2030] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 disabled:opacity-40 inline-flex items-center gap-1"
+                      className="text-mini font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 disabled:opacity-40 inline-flex items-center gap-1"
                     >
                       {stixBuilding ? (
                         <Loader2 size={11} className="animate-spin" />
@@ -381,7 +381,7 @@ export default function IocPivot(): JSX.Element {
                   <button
                     type="button"
                     onClick={pipeToExtractor}
-                    className="text-mini font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-[#1e2030] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1"
+                    className="text-mini font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1"
                   >
                     <FileSearch size={11} /> Extract IOCs →
                   </button>
@@ -399,7 +399,7 @@ export default function IocPivot(): JSX.Element {
                     type="button"
                     onClick={() => pivotTo(pv.value)}
                     title={`Pivot to ${pv.value}`}
-                    className="text-mini font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
+                    className="text-mini font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
                   >
                     <span style={{ color: PIVOT_FILL[pv.kind] }}>●</span> {pv.value}{' '}
                     <span className="text-slate-500">{pv.kind}</span>

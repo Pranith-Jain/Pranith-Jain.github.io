@@ -108,20 +108,20 @@ export default function HuntingQueryGenerator(): JSX.Element {
       </div>
 
       {/* Input */}
-      <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-5 mb-6">
+      <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5 mb-6">
         <h2 className="font-display font-bold text-sm mb-3">Threat Description</h2>
         <textarea
           value={threat}
           onChange={(e) => setThreat(e.target.value)}
           placeholder="Describe the threat or adversary behavior…"
-          className="w-full h-24 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[#1e2030] rounded-lg p-3 text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 resize-y font-mono"
+          className="w-full h-24 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg p-3 text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 resize-y font-mono"
         />
         <div className="mt-2 flex flex-wrap gap-1">
           {EXAMPLE_PROMPTS.slice(0, 4).map((ex) => (
             <button
               key={ex}
               onClick={() => setThreat(ex)}
-              className="text-mini px-2 py-1 rounded border border-slate-200 dark:border-[#1e2030] text-slate-500 dark:text-slate-400 hover:border-brand-500/30 transition-colors"
+              className="text-mini px-2 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-brand-500/30 transition-colors"
             >
               {ex.slice(0, 45)}…
             </button>
@@ -134,7 +134,7 @@ export default function HuntingQueryGenerator(): JSX.Element {
             <button
               key={p}
               onClick={() => togglePlatform(p)}
-              className={`px-2.5 py-1.5 rounded-lg text-xs font-mono border transition-colors ${platforms.has(p) ? 'border-brand-500/60 bg-brand-500/10 text-brand-600 dark:text-brand-400' : 'border-slate-200 dark:border-[#1e2030] text-slate-400 hover:border-brand-500/30'}`}
+              className={`px-2.5 py-1.5 rounded-lg text-xs font-mono border transition-colors ${platforms.has(p) ? 'border-brand-500/60 bg-brand-500/10 text-brand-600 dark:text-brand-400' : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-400 hover:border-brand-500/30'}`}
             >
               {p}
             </button>
@@ -162,7 +162,7 @@ export default function HuntingQueryGenerator(): JSX.Element {
         <div className="space-y-5 animate-fade-in-up">
           {/* MITRE Techniques */}
           {result.mitre_techniques.length > 0 && (
-            <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-5">
+            <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5">
               <h2 className="font-display font-bold text-sm mb-3 flex items-center gap-2">
                 <Shield size={14} className="text-brand-600 dark:text-brand-400" /> MITRE ATT&CK
               </h2>
@@ -186,7 +186,7 @@ export default function HuntingQueryGenerator(): JSX.Element {
           {result.queries.map((q) => (
             <div
               key={`${q.siem}-${q.description}`}
-              className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-5"
+              className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5"
             >
               <div className="flex items-center justify-between mb-2">
                 <div className="flex items-center gap-2">
@@ -199,7 +199,7 @@ export default function HuntingQueryGenerator(): JSX.Element {
                 </div>
                 <CopyButton value={q.query} />
               </div>
-              <pre className="bg-slate-50 dark:bg-slate-950 rounded-lg p-4 overflow-x-auto text-xs text-slate-700 dark:text-slate-300 font-mono border border-slate-200 dark:border-[#1e2030] whitespace-pre-wrap">
+              <pre className="bg-slate-50 dark:bg-slate-950 rounded-lg p-4 overflow-x-auto text-xs text-slate-700 dark:text-slate-300 font-mono border border-slate-200 dark:border-[rgb(var(--border-400))] whitespace-pre-wrap">
                 {q.query}
               </pre>
             </div>

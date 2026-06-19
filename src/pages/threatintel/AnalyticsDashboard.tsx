@@ -233,7 +233,7 @@ export default function AnalyticsDashboard(): JSX.Element {
               setError(null);
               setRefreshKey((k) => k + 1);
             }}
-            className="text-mini font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[#1e2030] hover:border-brand-500/40 inline-flex items-center gap-1"
+            className="text-mini font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 inline-flex items-center gap-1"
           >
             <RefreshCw size={11} /> refresh
           </button>
@@ -300,7 +300,7 @@ export default function AnalyticsDashboard(): JSX.Element {
               label="CVE KEV"
               value={String(snap.cve_kev_count)}
               accent="text-amber-600 dark:text-amber-400"
-              href="/threatintel/cves"
+              href="/threatintel/cves/cves"
             />
           )}
           {intel?.telegram_monitor && (
@@ -309,7 +309,7 @@ export default function AnalyticsDashboard(): JSX.Element {
               label="Telegram 24h"
               value={String(intel.telegram_monitor.leaks_24h)}
               accent="text-sky-600 dark:text-sky-400"
-              href="/threatintel/social"
+              href="/threatintel/social/firehose"
             />
           )}
         </div>
@@ -327,7 +327,7 @@ export default function AnalyticsDashboard(): JSX.Element {
               return (
                 <div
                   key={grade}
-                  className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] p-3 text-center"
+                  className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-3 text-center"
                 >
                   <div className={`text-2xl font-display font-bold ${reliabilityColor(grade)}`}>
                     {grade === 'ungraded' ? '—' : grade}
@@ -348,7 +348,7 @@ export default function AnalyticsDashboard(): JSX.Element {
           <h2 className="font-display font-semibold text-lg text-slate-700 dark:text-slate-300 mb-3">
             Health by Category
           </h2>
-          <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] divide-y divide-slate-100 dark:divide-slate-800">
+          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] divide-y divide-slate-100 dark:divide-slate-800">
             {categoryBreakdown.map((cat) => (
               <div key={cat.name} className="flex items-center gap-4 px-4 py-3">
                 <span className="font-mono text-sm text-slate-700 dark:text-slate-300 w-32 shrink-0 capitalize">
@@ -375,11 +375,11 @@ export default function AnalyticsDashboard(): JSX.Element {
           <h2 className="font-display font-semibold text-lg text-slate-700 dark:text-slate-300 mb-3">
             All Sources ({feed.rows.length})
           </h2>
-          <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] overflow-hidden">
+          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="border-b border-slate-200 dark:border-[#1e2030] text-left">
+                  <tr className="border-b border-slate-200 dark:border-[rgb(var(--border-400))] text-left">
                     <th className="px-4 py-2 font-mono text-mini text-slate-500 uppercase tracking-wider">Status</th>
                     <th className="px-4 py-2 font-mono text-mini text-slate-500 uppercase tracking-wider">Source</th>
                     <th className="px-4 py-2 font-mono text-mini text-slate-500 uppercase tracking-wider hidden sm:table-cell">
@@ -485,7 +485,7 @@ export default function AnalyticsDashboard(): JSX.Element {
       )}
 
       {/* ── Analytics Engine Note ────────────────────────────────── */}
-      <section className="rounded-xl border border-dashed border-slate-300 dark:border-[#1e2030] p-5 text-center">
+      <section className="rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-5 text-center">
         <p className="text-sm text-slate-500 dark:text-slate-400">
           Visitor analytics (page views, geographic distribution, response times) are tracked in Cloudflare Analytics
           Engine. Query them from the{' '}
@@ -526,7 +526,7 @@ function KpiCard({
   );
 
   const cardClass =
-    'rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] p-4 transition hover:-translate-y-0.5 hover:shadow-e2';
+    'rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-4 transition hover:-translate-y-0.5 hover:shadow-e2';
 
   if (href) {
     return (

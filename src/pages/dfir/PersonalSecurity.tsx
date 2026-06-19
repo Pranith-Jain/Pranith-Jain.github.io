@@ -42,7 +42,7 @@ const CYCLE: Record<CheckStatus, CheckStatus> = {
 const STATUS_STYLES: Record<CheckStatus, { label: string; cls: string; tone: 'good' | 'warn' | 'bad' | 'muted' }> = {
   unset: {
     label: '— unset',
-    cls: 'border-slate-300 dark:border-[#1e2030] text-slate-500 dark:text-slate-400',
+    cls: 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400',
     tone: 'muted',
   },
   covered: {
@@ -62,7 +62,7 @@ const STATUS_STYLES: Record<CheckStatus, { label: string; cls: string; tone: 'go
   },
   na: {
     label: 'n/a',
-    cls: 'border-slate-300 dark:border-[#1e2030] text-slate-400 dark:text-slate-500',
+    cls: 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-400 dark:text-slate-500',
     tone: 'muted',
   },
 };
@@ -85,7 +85,7 @@ const SEVERITY_STYLES: Record<Severity, { label: string; cls: string; tone: 'goo
   },
   low: {
     label: 'low',
-    cls: 'border-slate-300 dark:border-[#1e2030] text-muted',
+    cls: 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted',
     tone: 'muted',
   },
 };
@@ -330,7 +330,7 @@ export default function PersonalSecurity(): JSX.Element {
       </div>
 
       {/* Overall dashboard */}
-      <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 mb-6">
+      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
         <div className="flex flex-wrap items-baseline justify-between gap-3 mb-3">
           <div>
             <div className="text-micro font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-1">
@@ -367,7 +367,7 @@ export default function PersonalSecurity(): JSX.Element {
             className={`text-left rounded-lg border p-3 transition-colors ${
               active === category.id
                 ? 'border-brand-500/60 bg-brand-500/5'
-                : 'border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] hover:border-brand-500/40'
+                : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] hover:border-brand-500/40'
             }`}
           >
             <div className="flex items-baseline justify-between gap-2 mb-1">
@@ -403,20 +403,20 @@ export default function PersonalSecurity(): JSX.Element {
       <div className="flex flex-wrap gap-2 mb-6">
         <button
           onClick={downloadMd}
-          className="text-sm font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[#1e2030] hover:border-brand-500/40 inline-flex items-center gap-1.5"
+          className="text-sm font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 inline-flex items-center gap-1.5"
         >
           <Download size={13} /> Export markdown
         </button>
         <button
           onClick={reset}
-          className="text-sm font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[#1e2030] hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400 inline-flex items-center gap-1.5"
+          className="text-sm font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400 inline-flex items-center gap-1.5"
         >
           <RotateCcw size={13} /> Reset
         </button>
       </div>
 
       {/* Active category */}
-      <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 mb-6">
+      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
         <div className="flex flex-wrap items-baseline gap-2 mb-2">
           <span className="text-brand-600 dark:text-brand-400">{ICONS[activeCategory.icon]}</span>
           <h2 className="font-display font-bold text-xl text-slate-900 dark:text-slate-100">
@@ -430,7 +430,7 @@ export default function PersonalSecurity(): JSX.Element {
       </section>
 
       {/* Items */}
-      <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 mb-6">
+      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
         <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
           {activeCategory.items.length} actions
         </h3>
@@ -458,7 +458,7 @@ export default function PersonalSecurity(): JSX.Element {
               return (
                 <li
                   key={item.id}
-                  className="rounded border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-slate-950 p-3"
+                  className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-slate-950 p-3"
                 >
                   <div className="flex flex-wrap items-center gap-2 mb-1">
                     <span
@@ -483,7 +483,7 @@ export default function PersonalSecurity(): JSX.Element {
       </section>
 
       {/* Legend */}
-      <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 mb-6">
+      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
         <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-2">
           Scoring legend
         </h3>
@@ -512,7 +512,7 @@ export default function PersonalSecurity(): JSX.Element {
       </section>
 
       {/* External references */}
-      <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4">
+      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
         <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-2">
           Authoritative sources
         </h3>
@@ -570,7 +570,7 @@ export default function PersonalSecurity(): JSX.Element {
 function ItemRow({ item, state, cycle }: { item: CheckItem; state: State; cycle: (id: string) => void }): JSX.Element {
   const s = state.checks[item.id] ?? 'unset';
   return (
-    <li className="rounded border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 p-3">
+    <li className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-3">
       <div className="flex flex-wrap items-center gap-2 mb-1">
         <button
           onClick={() => cycle(item.id)}

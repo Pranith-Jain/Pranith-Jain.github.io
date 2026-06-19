@@ -140,7 +140,7 @@ export default function AssessmentDetail(): JSX.Element {
           )}
 
           {/* Body */}
-          <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-6 mb-6 text-sm leading-relaxed whitespace-pre-wrap">
+          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-6 mb-6 text-sm leading-relaxed whitespace-pre-wrap">
             {assessment.body}
           </div>
 

@@ -26,7 +26,7 @@ export default function SourceHealth(): JSX.Element {
       description="Unified source health dashboard — operational status, SLO metrics, and trust grades for all data sources."
     >
       <nav
-        className="flex flex-wrap gap-1 border-b border-slate-200 dark:border-[#1e2030] mb-6"
+        className="flex flex-wrap gap-1 border-b border-slate-200 dark:border-[rgb(var(--border-400))] mb-6"
         aria-label="Source health"
       >
         {TABS.map((t) => (

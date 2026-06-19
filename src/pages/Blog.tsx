@@ -196,7 +196,7 @@ export default function Blog() {
             <Link
               key={t}
               to={`/blog/c/${t}`}
-              className="text-meta font-mono px-2.5 py-1.5 rounded border border-slate-200 dark:border-[#1e2030] text-muted hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+              className="text-meta font-mono px-2.5 py-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
             >
               {metaFor(t)
                 .label.toLowerCase()
@@ -212,7 +212,7 @@ export default function Blog() {
           in category mode since the URL already expresses the type, but the
           search input stays so the user can narrow within the category. */}
       {posts.length > 0 && (
-        <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-3 mb-6">
+        <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3 mb-6">
           <div className="relative">
             <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
             <input
@@ -221,7 +221,7 @@ export default function Blog() {
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Filter by title, excerpt, or tag…"
               aria-label="Filter case studies"
-              className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-[#0e0e15] border border-slate-200 dark:border-[#1e2030] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
             />
           </div>
           {!inCategoryMode && presentTypes.length > 1 && (
@@ -237,7 +237,7 @@ export default function Blog() {
                     className={`text-mini font-mono px-2 py-1 rounded border ${
                       active
                         ? 'border-brand-500/60 bg-brand-500/10 text-brand-700 dark:text-brand-300'
-                        : 'border-slate-300 dark:border-[#1e2030] text-slate-500 hover:border-brand-500/40'
+                        : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-brand-500/40'
                     }`}
                   >
                     {t} <span className="opacity-70">· {typeCounts.get(t) ?? 0}</span>
@@ -260,7 +260,7 @@ export default function Blog() {
             </div>
           )}
           {!inCategoryMode && allTags.size > 0 && (
-            <div className="flex flex-wrap items-center gap-1.5 mt-2 pt-2 border-t border-slate-100 dark:border-[#1e2030]">
+            <div className="flex flex-wrap items-center gap-1.5 mt-2 pt-2 border-t border-slate-100 dark:border-[rgb(var(--border-400))]">
               <span className="text-mini font-mono text-slate-500 mr-1">tags:</span>
               {[
                 'all',
@@ -278,7 +278,7 @@ export default function Blog() {
                     className={`text-mini font-mono px-2 py-1 rounded border ${
                       active
                         ? 'border-brand-500/60 bg-brand-500/10 text-brand-700 dark:text-brand-300'
-                        : 'border-slate-300 dark:border-[#1e2030] text-slate-500 hover:border-brand-500/40'
+                        : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-brand-500/40'
                     }`}
                   >
                     {isAll ? 'all' : t}
@@ -307,7 +307,7 @@ export default function Blog() {
           {filtered.map((p, idx) => (
             <article
               key={p.slug}
-              className={`rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] p-5 transition hover:border-brand-500/40 hover:shadow-sm ${
+              className={`rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-5 transition hover:border-brand-500/40 hover:shadow-sm ${
                 idx === 0 && !hasFilter ? 'ring-1 ring-brand-500/20' : ''
               }`}
             >
@@ -350,7 +350,7 @@ export default function Blog() {
                       className={`rounded border px-2 py-0.5 text-mini font-mono transition-colors ${
                         tagFilter === t
                           ? 'border-brand-500/60 bg-brand-500/10 text-brand-700 dark:text-brand-300'
-                          : 'border-slate-200 bg-slate-50 text-slate-600 dark:border-[#1e2030] dark:bg-[#12121a] dark:text-slate-400 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400'
+                          : 'border-slate-200 bg-slate-50 text-slate-600 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-400 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400'
                       }`}
                       title={`Filter by tag: ${t}`}
                     >
@@ -364,7 +364,7 @@ export default function Blog() {
         </div>
       </DataState>
 
-      <section className="mt-16 rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] p-6">
+      <section className="mt-16 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
         <h2 className="font-display font-bold text-lg text-slate-900 dark:text-white mb-1">Stay updated</h2>
         <p className="text-sm text-muted mb-4">
           New case studies land when I finish an investigation worth writing up. Subscribe via{' '}
@@ -382,7 +382,7 @@ export default function Blog() {
           href="/blog/rss.xml"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded-lg border border-slate-300 dark:border-[#1e2030] hover:border-brand-500/40 hover:bg-brand-500/5 transition-colors"
+          className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded-lg border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:bg-brand-500/5 transition-colors"
         >
           <svg
             width="14"

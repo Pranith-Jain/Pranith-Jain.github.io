@@ -244,7 +244,7 @@ export default function UnifiedSearch(): JSX.Element {
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search threat intelligence — e.g. LockBit, 185.234.72.0, CVE-2026-1234, RedLine…"
           aria-label="Search across all intelligence sources and tools"
-          className="w-full pl-11 pr-4 py-3 bg-white dark:bg-[#12121a] border border-slate-200 dark:border-[#1e2030] rounded-xl text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 font-mono"
+          className="w-full pl-11 pr-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 font-mono"
         />
       </form>
 
@@ -265,7 +265,7 @@ export default function UnifiedSearch(): JSX.Element {
                   href={sanitizeUrl(p.path) || undefined}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 rounded-md border border-brand-500/30 bg-white px-2.5 py-1.5 text-mini font-mono text-brand-700 hover:border-brand-500/60 hover:bg-brand-50 dark:bg-[#12121a] dark:text-brand-300 dark:hover:bg-brand-950/30"
+                  className="inline-flex items-center gap-1.5 rounded-md border border-brand-500/30 bg-white px-2.5 py-1.5 text-mini font-mono text-brand-700 hover:border-brand-500/60 hover:bg-brand-50 dark:bg-[rgb(var(--surface-200))] dark:text-brand-300 dark:hover:bg-brand-950/30"
                   title={p.desc}
                 >
                   {p.label}
@@ -275,7 +275,7 @@ export default function UnifiedSearch(): JSX.Element {
                 <Link
                   key={p.path}
                   to={p.path}
-                  className="inline-flex items-center gap-1.5 rounded-md border border-brand-500/30 bg-white px-2.5 py-1.5 text-mini font-mono text-brand-700 hover:border-brand-500/60 hover:bg-brand-50 dark:bg-[#12121a] dark:text-brand-300 dark:hover:bg-brand-950/30"
+                  className="inline-flex items-center gap-1.5 rounded-md border border-brand-500/30 bg-white px-2.5 py-1.5 text-mini font-mono text-brand-700 hover:border-brand-500/60 hover:bg-brand-50 dark:bg-[rgb(var(--surface-200))] dark:text-brand-300 dark:hover:bg-brand-950/30"
                   title={p.desc}
                 >
                   {p.label}
@@ -289,8 +289,8 @@ export default function UnifiedSearch(): JSX.Element {
 
       {/* Tools — instant client-side catalog matches. */}
       {toolMatches.length > 0 && (
-        <section className="mb-4 rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 overflow-hidden">
-          <div className="flex items-center gap-2 px-4 py-2.5 border-b border-slate-200 dark:border-[#1e2030] text-brand-600 dark:text-brand-400">
+        <section className="mb-4 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 overflow-hidden">
+          <div className="flex items-center gap-2 px-4 py-2.5 border-b border-slate-200 dark:border-[rgb(var(--border-400))] text-brand-600 dark:text-brand-400">
             <Wrench size={14} />
             <span className="font-display font-semibold text-sm">Tools</span>
             <span className="text-mini font-mono opacity-70">· {toolMatches.length}</span>
@@ -305,7 +305,7 @@ export default function UnifiedSearch(): JSX.Element {
                     </span>
                     <span className="text-mini font-mono text-slate-500 mt-0.5 block truncate">{tool.desc}</span>
                   </div>
-                  <span className="shrink-0 mt-0.5 inline-flex items-center rounded border border-slate-300 bg-slate-50 px-1.5 py-0.5 font-mono text-micro uppercase tracking-wider text-slate-500 dark:border-[#1e2030] dark:bg-slate-800/50">
+                  <span className="shrink-0 mt-0.5 inline-flex items-center rounded border border-slate-300 bg-slate-50 px-1.5 py-0.5 font-mono text-micro uppercase tracking-wider text-slate-500 dark:border-[rgb(var(--border-400))] dark:bg-slate-800/50">
                     {section.label}
                   </span>
                 </Link>
@@ -319,8 +319,8 @@ export default function UnifiedSearch(): JSX.Element {
           portfolio, blog, admin). Surfaces routes that aren't in the
           tile-level SECTIONS catalog. */}
       {pageMatches.length > 0 && (
-        <section className="mb-4 rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 overflow-hidden">
-          <div className="flex items-center gap-2 px-4 py-2.5 border-b border-slate-200 dark:border-[#1e2030] text-slate-700 dark:text-slate-200">
+        <section className="mb-4 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 overflow-hidden">
+          <div className="flex items-center gap-2 px-4 py-2.5 border-b border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-700 dark:text-slate-200">
             <Compass size={14} />
             <span className="font-display font-semibold text-sm">Pages</span>
             <span className="text-mini font-mono opacity-70">· {pageMatches.length}</span>
@@ -350,7 +350,7 @@ export default function UnifiedSearch(): JSX.Element {
                         </span>
                       </div>
                     </div>
-                    <span className="shrink-0 mt-0.5 inline-flex items-center rounded border border-slate-300 bg-slate-50 px-1.5 py-0.5 font-mono text-micro uppercase tracking-wider text-slate-500 dark:border-[#1e2030] dark:bg-slate-800/50">
+                    <span className="shrink-0 mt-0.5 inline-flex items-center rounded border border-slate-300 bg-slate-50 px-1.5 py-0.5 font-mono text-micro uppercase tracking-wider text-slate-500 dark:border-[rgb(var(--border-400))] dark:bg-slate-800/50">
                       {page.sectionLabel}
                     </span>
                   </Link>
@@ -403,10 +403,10 @@ export default function UnifiedSearch(): JSX.Element {
             return (
               <section
                 key={section.kind}
-                className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 overflow-hidden"
+                className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 overflow-hidden"
               >
                 <div
-                  className={`flex items-center gap-2 px-4 py-2.5 border-b border-slate-200 dark:border-[#1e2030] ${color.split(' ').slice(0, 1).join(' ')}`}
+                  className={`flex items-center gap-2 px-4 py-2.5 border-b border-slate-200 dark:border-[rgb(var(--border-400))] ${color.split(' ').slice(0, 1).join(' ')}`}
                 >
                   <Icon size={14} />
                   <span className="font-display font-semibold text-sm">{section.label}</span>
@@ -454,7 +454,7 @@ export default function UnifiedSearch(): JSX.Element {
                   ))}
                 </ul>
                 {(section.items ?? []).length > 30 && (
-                  <div className="px-4 py-2 text-mini font-mono text-slate-500 border-t border-slate-100 dark:border-[#1e2030]/50">
+                  <div className="px-4 py-2 text-mini font-mono text-slate-500 border-t border-slate-100 dark:border-[rgb(var(--border-400))]/50">
                     + {(section.items ?? []).length - 30} more
                   </div>
                 )}

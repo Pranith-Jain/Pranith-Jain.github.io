@@ -165,10 +165,10 @@ export function WhatsNewBanner(): JSX.Element | null {
   return (
     <section
       aria-label="What's new since your last visit"
-      className="mb-6 rounded-lg border border-amber-300/60 bg-amber-50/60 dark:border-amber-700/40 dark:bg-amber-500/5 p-3 sm:p-4"
+      className="mb-6 rounded-lg border border-rose-500/40 bg-rose-500/10 dark:border-rose-500/30 dark:bg-rose-500/5 p-3 sm:p-4"
     >
       <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
-        <span className="inline-flex items-center gap-1.5 text-xs font-mono uppercase tracking-wider text-amber-700 dark:text-amber-300 shrink-0">
+        <span className="inline-flex items-center gap-1.5 text-xs font-mono uppercase tracking-wider text-rose-300 dark:text-rose-300 shrink-0">
           <Bell size={14} aria-hidden="true" />
           <span className="font-semibold">{total} new</span>
           <span className="hidden sm:inline">since {prettyAgo(previous)}</span>
@@ -178,7 +178,7 @@ export function WhatsNewBanner(): JSX.Element | null {
             <li key={r.key}>
               <Link
                 to={r.to}
-                className="inline-flex items-baseline gap-1 px-2 py-1 rounded border border-amber-400/40 bg-amber-100/60 dark:bg-amber-500/15 text-xs font-mono text-amber-800 dark:text-amber-200 hover:border-amber-500 hover:bg-amber-200/60 dark:hover:bg-amber-500/25"
+                className="inline-flex items-baseline gap-1 px-2 py-1 rounded border border-rose-500/40 bg-rose-500/15 dark:bg-rose-500/15 text-xs font-mono text-rose-200 dark:text-rose-200 hover:border-rose-400 hover:bg-rose-500/25 dark:hover:bg-rose-500/25"
                 onClick={() => {
                   // Don't markVisited on click — user is just looking. The
                   // explicit "mark all read" button is the only consumer.
@@ -197,7 +197,7 @@ export function WhatsNewBanner(): JSX.Element | null {
               markVisited();
               setDismissed(true);
             }}
-            className="inline-flex items-center gap-1 text-mini font-mono text-amber-700 dark:text-amber-300 hover:text-amber-900 dark:hover:text-amber-100 px-2 py-1 rounded hover:bg-amber-200/40 dark:hover:bg-amber-500/15"
+            className="inline-flex items-center gap-1 text-mini font-mono text-rose-300 dark:text-rose-300 hover:text-rose-100 dark:hover:text-rose-100 px-2 py-1 rounded hover:bg-rose-500/15 dark:hover:bg-rose-500/15"
             title="Reset the baseline and hide this banner"
           >
             <Check size={11} /> mark all read
@@ -206,7 +206,7 @@ export function WhatsNewBanner(): JSX.Element | null {
             type="button"
             onClick={() => setDismissed(true)}
             aria-label="Dismiss"
-            className="inline-flex items-center justify-center min-h-[44px] min-w-[44px] sm:min-h-[28px] sm:min-w-[28px] rounded text-amber-700 dark:text-amber-300 hover:text-amber-900 dark:hover:text-amber-100 hover:bg-amber-200/40 dark:hover:bg-amber-500/15"
+            className="inline-flex items-center justify-center min-h-[44px] min-w-[44px] sm:min-h-[28px] sm:min-w-[28px] rounded text-rose-300 dark:text-rose-300 hover:text-rose-100 dark:hover:text-rose-100 hover:bg-rose-500/15 dark:hover:bg-rose-500/15"
           >
             <X size={12} />
           </button>

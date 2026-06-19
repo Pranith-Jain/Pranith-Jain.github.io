@@ -143,8 +143,8 @@ export function LivePulse(): JSX.Element {
   const indicator = (
     <>
       <span className="relative flex h-2 w-2" aria-hidden="true">
-        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
-        <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
+        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-rose-400 opacity-60" />
+        <span className="relative inline-flex h-2 w-2 rounded-full bg-rose-500" />
       </span>
       <span className="font-mono text-mini uppercase tracking-[0.2em] text-slate-600 dark:text-slate-300">
         Live · platform telemetry
@@ -161,10 +161,13 @@ export function LivePulse(): JSX.Element {
     <StatBand ariaLabel="Live platform telemetry" indicator={indicator} note={note} gridCols={3}>
       {data === null ? (
         [0, 1, 2].map((i) => (
-          <div key={i} className="flex min-h-[7rem] flex-col gap-3 bg-white px-4 py-4 dark:bg-[#12121a] sm:px-5">
-            <div className="h-3 w-20 animate-pulse rounded bg-slate-200 dark:bg-[#1e2030]" />
-            <div className="h-9 w-16 animate-pulse rounded bg-slate-200 dark:bg-[#1e2030]" />
-            <div className="mt-auto h-3 w-24 animate-pulse rounded bg-slate-200 dark:bg-[#1e2030]" />
+          <div
+            key={i}
+            className="flex min-h-[7rem] flex-col gap-3 bg-white px-4 py-4 dark:bg-[rgb(var(--surface-200))] sm:px-5"
+          >
+            <div className="h-3 w-20 animate-pulse rounded bg-slate-200 dark:bg-[rgb(var(--border-400))]" />
+            <div className="h-9 w-16 animate-pulse rounded bg-slate-200 dark:bg-[rgb(var(--border-400))]" />
+            <div className="mt-auto h-3 w-24 animate-pulse rounded bg-slate-200 dark:bg-[rgb(var(--border-400))]" />
           </div>
         ))
       ) : (

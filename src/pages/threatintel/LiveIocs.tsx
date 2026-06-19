@@ -268,7 +268,7 @@ export default function LiveIocs(): JSX.Element {
           })()}
       </div>
 
-      <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 mb-4">
+      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-4">
         <div className="flex flex-wrap items-center gap-3">
           <div className="relative flex-1 min-w-[200px]">
             <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
@@ -277,7 +277,7 @@ export default function LiveIocs(): JSX.Element {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Filter by indicator, reporter, or context…"
-              className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[#1e2030] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
               aria-label="Filter IOC stream"
             />
           </div>
@@ -298,7 +298,7 @@ export default function LiveIocs(): JSX.Element {
           <button
             type="button"
             onClick={() => setRefreshKey((k) => k + 1)}
-            className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-[#1e2030] hover:border-brand-500/40"
+            className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40"
           >
             <RefreshCw size={12} /> refresh
           </button>
@@ -313,7 +313,7 @@ export default function LiveIocs(): JSX.Element {
                 type="button"
                 onClick={() => toggleKind(k)}
                 className={`text-mini font-mono px-2 py-1 rounded border ${
-                  active ? KIND_PILL[k] : 'border-slate-300 dark:border-[#1e2030] text-slate-500'
+                  active ? KIND_PILL[k] : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500'
                 }`}
               >
                 {k} <span className="opacity-70">· {kindCounts[k]}</span>
@@ -358,8 +358,8 @@ export default function LiveIocs(): JSX.Element {
                       : s.ok === false
                         ? 'border-rose-300/70 dark:border-rose-700/40 text-rose-700/80 dark:text-rose-400/80'
                         : isEmpty
-                          ? 'border-slate-300/60 dark:border-[#1e2030]/60 text-slate-400 dark:text-slate-500 opacity-60'
-                          : 'border-slate-300 dark:border-[#1e2030] text-slate-500'
+                          ? 'border-slate-300/60 dark:border-[rgb(var(--border-400))]/60 text-slate-400 dark:text-slate-500 opacity-60'
+                          : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500'
                   }`}
                   title={tooltip}
                 >
@@ -438,7 +438,7 @@ export default function LiveIocs(): JSX.Element {
             return (
               <li
                 key={`${it.source}:${it.value}:${i}`}
-                className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 px-3 py-2.5 flex items-center gap-3"
+                className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 px-3 py-2.5 flex items-center gap-3"
               >
                 <span
                   className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${KIND_PILL[it.kind]} shrink-0`}
@@ -502,7 +502,7 @@ export default function LiveIocs(): JSX.Element {
             type="button"
             onClick={() => setPage((p) => Math.max(1, p - 1))}
             disabled={page <= 1}
-            className="text-xs font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[#1e2030] disabled:opacity-30 hover:border-brand-500/40"
+            className="text-xs font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] disabled:opacity-30 hover:border-brand-500/40"
           >
             ← prev
           </button>
@@ -513,7 +513,7 @@ export default function LiveIocs(): JSX.Element {
             type="button"
             onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
             disabled={page >= totalPages}
-            className="text-xs font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[#1e2030] disabled:opacity-30 hover:border-brand-500/40"
+            className="text-xs font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] disabled:opacity-30 hover:border-brand-500/40"
           >
             next →
           </button>

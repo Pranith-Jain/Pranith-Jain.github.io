@@ -251,7 +251,7 @@ export default function AgentInvestigator(): JSX.Element {
       </div>
 
       {/* Query input */}
-      <div className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 mb-6">
+      <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
         <div className="flex gap-3">
           <div className="relative flex-1">
             <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
@@ -263,7 +263,7 @@ export default function AgentInvestigator(): JSX.Element {
                 if (e.key === 'Enter' && !e.shiftKey) startInvestigation();
               }}
               placeholder="Investigate: IP, domain, hash, CVE, threat actor, ransomware group..."
-              className="w-full pl-9 pr-4 py-3 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[#1e2030] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="w-full pl-9 pr-4 py-3 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
               aria-label="Investigation query"
               disabled={agentState?.status === 'running'}
             />
@@ -299,7 +299,7 @@ export default function AgentInvestigator(): JSX.Element {
                 key={ex}
                 type="button"
                 onClick={() => setQuery(ex)}
-                className="text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-[#1e2030] hover:border-brand-500/40 text-muted transition-colors"
+                className="text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 text-muted transition-colors"
               >
                 {ex}
               </button>
@@ -341,12 +341,12 @@ export default function AgentInvestigator(): JSX.Element {
 
       {/* Report + Download */}
       {agentState?.report && (
-        <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-6 mb-6 animate-fade-in-up">
+        <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-6 mb-6 animate-fade-in-up">
           <div className="flex items-center gap-2 mb-4 flex-wrap">
             <Shield size={16} className="text-emerald-600" />
             <h2 className="text-lg font-display font-bold">Intelligence Report</h2>
             {agentState.modelUsed && (
-              <span className="text-micro font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-[#1e2030] text-slate-500">
+              <span className="text-micro font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500">
                 {agentState.modelUsed}
               </span>
             )}
@@ -366,7 +366,7 @@ export default function AgentInvestigator(): JSX.Element {
             <div className="ml-auto flex gap-2">
               <button
                 onClick={() => downloadReport(agentState, 'md')}
-                className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-[#1e2030] hover:border-brand-500/40 text-muted"
+                className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 text-muted"
               >
                 <Download size={12} /> .md
               </button>
@@ -503,7 +503,7 @@ export default function AgentInvestigator(): JSX.Element {
 
       {/* Sessions list */}
       {sessions && sessions.sessions.length > 0 && !agentState && (
-        <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4">
+        <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
           <h2 className="text-sm font-mono font-bold uppercase tracking-wider text-slate-500 mb-3 flex items-center gap-2">
             <Clock size={14} /> Recent Investigations
           </h2>
@@ -563,7 +563,7 @@ function StepCard({ step }: { step: AgentStep }): JSX.Element {
   const phaseColor = phaseColors[phase] ?? phaseColors.collection;
 
   return (
-    <article className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 overflow-hidden">
+    <article className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 overflow-hidden">
       <button
         type="button"
         onClick={() => setExpanded(!expanded)}
@@ -589,7 +589,7 @@ function StepCard({ step }: { step: AgentStep }): JSX.Element {
             {step.toolCalls.map((tc, i) => (
               <span
                 key={`${tc.tool}-${i}`}
-                className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-[#1e2030] text-muted"
+                className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted"
               >
                 <Zap size={8} className="inline mr-0.5" />
                 {tc.tool}
@@ -605,14 +605,17 @@ function StepCard({ step }: { step: AgentStep }): JSX.Element {
       </button>
 
       {expanded && (
-        <div className="px-4 pb-4 border-t border-slate-200 dark:border-[#1e2030] space-y-3 bg-slate-50/40 dark:bg-slate-950/40">
+        <div className="px-4 pb-4 border-t border-slate-200 dark:border-[rgb(var(--border-400))] space-y-3 bg-slate-50/40 dark:bg-slate-950/40">
           <div className="mt-3">
             <div className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-1">Plan</div>
             <p className="text-xs font-mono text-slate-700 dark:text-slate-300">{step.plan}</p>
           </div>
 
           {step.results.map((r, i) => (
-            <div key={`${r.tool}-${i}`} className="rounded border border-slate-200 dark:border-[#1e2030] p-2.5">
+            <div
+              key={`${r.tool}-${i}`}
+              className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-2.5"
+            >
               <div className="flex items-center gap-2 mb-1">
                 <span
                   className={`text-micro font-mono font-bold ${r.status === 'ok' ? 'text-emerald-600' : 'text-rose-600'}`}

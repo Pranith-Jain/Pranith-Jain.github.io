@@ -211,7 +211,7 @@ export default function PlistProtobuf(): JSX.Element {
       </p>
 
       <div className="flex flex-wrap gap-2 mb-3 text-meta font-mono">
-        <label className="px-3 py-1.5 rounded border border-slate-200 dark:border-[#1e2030] hover:border-brand-500/40 cursor-pointer">
+        <label className="px-3 py-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 cursor-pointer">
           Drop a file…
           <input
             type="file"
@@ -232,7 +232,7 @@ export default function PlistProtobuf(): JSX.Element {
               setOut('Paste must be hex or base64.');
             }
           }}
-          className="px-3 py-1.5 rounded border border-slate-200 dark:border-[#1e2030] hover:border-brand-500/40"
+          className="px-3 py-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40"
         >
           Decode pasted hex/base64
         </button>
@@ -244,11 +244,11 @@ export default function PlistProtobuf(): JSX.Element {
         onChange={(e) => setPaste(e.target.value)}
         rows={3}
         placeholder="Paste hex or base64 of a plist / protobuf blob…"
-        className="w-full rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 px-3 py-2 font-mono text-meta focus:border-brand-500 focus:outline-none"
+        className="w-full rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 px-3 py-2 font-mono text-meta focus:border-brand-500 focus:outline-none"
       />
 
       {out && (
-        <pre className="mt-4 rounded-lg border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-[#12121a] p-3 overflow-auto font-mono text-mini text-slate-800 dark:text-slate-200 max-h-[60vh]">
+        <pre className="mt-4 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] p-3 overflow-auto font-mono text-mini text-slate-800 dark:text-slate-200 max-h-[60vh]">
           {out}
         </pre>
       )}

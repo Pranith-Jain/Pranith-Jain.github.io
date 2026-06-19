@@ -206,11 +206,11 @@ export default function CuratedToolbox(): JSX.Element {
           <button
             type="button"
             onClick={() => setRefreshKey((k) => k + 1)}
-            className="inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-[#1e2030] px-2 py-1 text-slate-500 dark:text-slate-400 hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+            className="inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 text-slate-500 dark:text-slate-400 hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
           >
             <RefreshCw className="h-3.5 w-3.5" /> refresh
           </button>
-          <span className="rounded border border-slate-300 dark:border-[#1e2030] px-2 py-1 text-slate-500 dark:text-slate-400 font-mono">
+          <span className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 text-slate-500 dark:text-slate-400 font-mono">
             synced{' '}
             <span className="text-slate-700 dark:text-slate-200">
               {relativeTime(meta?.fetchedAt ?? data?.fetchedAt)}
@@ -241,7 +241,7 @@ export default function CuratedToolbox(): JSX.Element {
       {data && (
         <>
           {/* Toolbar */}
-          <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 mb-4">
+          <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-4">
             <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
               <div className="relative flex-1">
                 <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
@@ -249,21 +249,21 @@ export default function CuratedToolbox(): JSX.Element {
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder={`Search ${data.totalTools} tools across ${data.totalSections} sections…`}
-                  className="w-full rounded-lg border border-slate-300 dark:border-[#1e2030] bg-white dark:bg-slate-950 py-2 pl-9 pr-3 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none"
+                  className="w-full rounded-lg border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-slate-950 py-2 pl-9 pr-3 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none"
                 />
               </div>
               <div className="flex gap-2">
                 <button
                   type="button"
                   onClick={expandAll}
-                  className="text-mini font-mono rounded border border-slate-300 dark:border-[#1e2030] px-2.5 py-1 text-slate-500 dark:text-slate-400 hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+                  className="text-mini font-mono rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2.5 py-1 text-slate-500 dark:text-slate-400 hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
                 >
                   expand all
                 </button>
                 <button
                   type="button"
                   onClick={collapseAll}
-                  className="text-mini font-mono rounded border border-slate-300 dark:border-[#1e2030] px-2.5 py-1 text-slate-500 dark:text-slate-400 hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+                  className="text-mini font-mono rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2.5 py-1 text-slate-500 dark:text-slate-400 hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
                 >
                   collapse all
                 </button>
@@ -300,7 +300,7 @@ export default function CuratedToolbox(): JSX.Element {
 
           {/* Section list */}
           {filtered.length === 0 ? (
-            <div className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 p-8 text-center text-sm text-slate-500 dark:text-slate-400">
+            <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-8 text-center text-sm text-slate-500 dark:text-slate-400">
               <Search className="mx-auto mb-2 h-8 w-8 text-slate-400 dark:text-slate-600" />
               No tools match &quot;{query}&quot;.
             </div>
@@ -319,7 +319,7 @@ export default function CuratedToolbox(): JSX.Element {
 
 function Stat({ label, value }: { label: string; value: React.ReactNode }) {
   return (
-    <div className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 px-3 py-2">
+    <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 px-3 py-2">
       <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">{label}</div>
       <div className="text-lg font-semibold text-slate-900 dark:text-slate-100 truncate">{value}</div>
     </div>
@@ -336,7 +336,7 @@ function SectionCard({
   onToggle: () => void;
 }) {
   return (
-    <div className="overflow-hidden rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-slate-950">
+    <div className="overflow-hidden rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-slate-950">
       <button
         type="button"
         onClick={onToggle}
@@ -348,16 +348,16 @@ function SectionCard({
           />
           <span className="font-medium text-slate-900 dark:text-slate-100">{section.name}</span>
         </div>
-        <span className="text-micro font-mono rounded-full border border-slate-300 dark:border-[#1e2030] px-2 py-0.5 text-slate-500 dark:text-slate-400">
+        <span className="text-micro font-mono rounded-full border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-0.5 text-slate-500 dark:text-slate-400">
           {section.tools.length} tools
         </span>
       </button>
       {open && (
-        <ul className="border-t border-slate-200 dark:border-[#1e2030]">
+        <ul className="border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
           {section.tools.map((t, i) => (
             <li
               key={`${t.url}-${i}`}
-              className="flex items-start gap-3 border-b border-slate-100 dark:border-[#1e2030]/60 px-4 py-2.5 last:border-b-0 hover:bg-slate-50 dark:hover:bg-slate-900/30 transition-colors"
+              className="flex items-start gap-3 border-b border-slate-100 dark:border-[rgb(var(--border-400))]/60 px-4 py-2.5 last:border-b-0 hover:bg-slate-50 dark:hover:bg-slate-900/30 transition-colors"
             >
               <span className="mt-1.5 inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-brand-500 dark:bg-brand-400" />
               <div className="min-w-0 flex-1">

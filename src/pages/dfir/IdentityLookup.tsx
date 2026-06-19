@@ -17,14 +17,14 @@ const USERNAME_RE = /^[A-Za-z0-9_.-]{1,40}$/;
 function ProfileCard({ profile, platform }: { profile: IdentityProfile; platform: PlatformDef }) {
   const CatIcon = CAT_ICONS[platform.category] ?? Globe;
   return (
-    <div className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-3 hover:border-slate-300 dark:hover:border-slate-700 transition-colors">
+    <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-3 hover:border-slate-300 dark:hover:border-slate-700 transition-colors">
       <div className="flex items-start gap-3">
         <div className="shrink-0">
           {profile.avatarUrl ? (
             <img
               src={profile.avatarUrl}
               alt=""
-              className="w-10 h-10 rounded-full border border-slate-200 dark:border-[#1e2030]"
+              className="w-10 h-10 rounded-full border border-slate-200 dark:border-[rgb(var(--border-400))]"
             />
           ) : (
             <div className="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-lg text-slate-400">
@@ -142,7 +142,7 @@ export default function IdentityLookup(): JSX.Element {
         </p>
       </div>
 
-      <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 mb-6">
+      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -158,7 +158,7 @@ export default function IdentityLookup(): JSX.Element {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="username (letters / digits / . _ -)"
-              className="w-full pl-9 pr-3 py-2 rounded border border-slate-300 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 font-mono text-sm focus:border-brand-500/60 focus:outline-none"
+              className="w-full pl-9 pr-3 py-2 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 font-mono text-sm focus:border-brand-500/60 focus:outline-none"
               autoComplete="off"
               spellCheck={false}
             />
@@ -177,7 +177,7 @@ export default function IdentityLookup(): JSX.Element {
       {/* Results */}
       {profiles.size > 0 && (
         <>
-          <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 mb-6">
+          <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
             <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
               <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono flex items-center gap-2">
                 <Globe size={14} /> Profiles for <span className="text-slate-900 dark:text-slate-100">@{query}</span>
@@ -192,7 +192,7 @@ export default function IdentityLookup(): JSX.Element {
                 className={`text-mini font-mono px-2 py-1 rounded border transition-colors ${
                   categoryFilter === 'all'
                     ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                    : 'border-slate-300 dark:border-[#1e2030] text-muted hover:border-brand-500/40'
+                    : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40'
                 }`}
               >
                 All ({PLATFORMS.length})
@@ -207,7 +207,7 @@ export default function IdentityLookup(): JSX.Element {
                     className={`text-mini font-mono px-2 py-1 rounded border transition-colors inline-flex items-center gap-1 ${
                       categoryFilter === cat
                         ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                        : 'border-slate-300 dark:border-[#1e2030] text-muted hover:border-brand-500/40'
+                        : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40'
                     }`}
                   >
                     <CatIcon size={11} /> {CATEGORY_LABELS[cat] ?? cat} <span className="opacity-60">· {count}</span>
@@ -217,7 +217,7 @@ export default function IdentityLookup(): JSX.Element {
             </div>
           </section>
 
-          <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 mb-6">
+          <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
             <div className="grid gap-2">
               {filtered.map(({ platform, profile }) =>
                 profile ? (
@@ -225,7 +225,7 @@ export default function IdentityLookup(): JSX.Element {
                 ) : (
                   <div
                     key={platform.id}
-                    className="flex items-center gap-3 rounded border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 p-3"
+                    className="flex items-center gap-3 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-3"
                   >
                     <div className="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-lg text-slate-400">
                       {platform.icon}
@@ -247,7 +247,7 @@ export default function IdentityLookup(): JSX.Element {
         </>
       )}
 
-      <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4">
+      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
         <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-2">
           Notes
         </h2>

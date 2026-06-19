@@ -176,7 +176,7 @@ export default function UrlPreview(): JSX.Element {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="https://www.cisa.gov/"
-              className="w-full px-4 py-3 bg-white dark:bg-[#12121a] border border-slate-200 dark:border-[#1e2030] rounded-lg font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="w-full px-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
             />
           </div>
           <button
@@ -205,7 +205,7 @@ export default function UrlPreview(): JSX.Element {
       {result && (
         <div className="space-y-5">
           {/* Header */}
-          <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] p-6">
+          <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
             <div className="flex flex-wrap items-center gap-3 mb-3">
               <StatusBadge status={result.status} />
               {result.content_type && (
@@ -281,7 +281,7 @@ export default function UrlPreview(): JSX.Element {
 
           {/* Page title */}
           {result.title && (
-            <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] p-6">
+            <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
               <div className="text-xs uppercase tracking-wider text-slate-500 font-mono mb-1">Page Title</div>
               <p className="text-slate-900 dark:text-slate-100 font-semibold">{result.title}</p>
             </section>
@@ -289,7 +289,7 @@ export default function UrlPreview(): JSX.Element {
 
           {/* Meta description */}
           {result.description && (
-            <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] p-6">
+            <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
               <div className="text-xs uppercase tracking-wider text-slate-500 font-mono mb-1">Meta Description</div>
               <p className="text-slate-700 dark:text-slate-300 text-sm">{result.description}</p>
             </section>
@@ -297,7 +297,7 @@ export default function UrlPreview(): JSX.Element {
 
           {/* Site basics: favicon, lang, charset, feeds */}
           {(result.favicon || result.lang || result.charset || (result.feeds && result.feeds.length > 0)) && (
-            <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] p-6">
+            <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
               <div className="text-xs uppercase tracking-wider text-slate-500 font-mono mb-3">Site</div>
               <div className="flex flex-wrap items-center gap-3 text-sm font-mono">
                 {result.favicon && (
@@ -321,12 +321,12 @@ export default function UrlPreview(): JSX.Element {
                   </span>
                 )}
                 {result.lang && (
-                  <span className="px-2 py-0.5 rounded border border-slate-300 dark:border-[#1e2030] text-slate-600 dark:text-slate-300">
+                  <span className="px-2 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-600 dark:text-slate-300">
                     lang: {result.lang}
                   </span>
                 )}
                 {result.charset && (
-                  <span className="px-2 py-0.5 rounded border border-slate-300 dark:border-[#1e2030] text-slate-600 dark:text-slate-300">
+                  <span className="px-2 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-600 dark:text-slate-300">
                     charset: {result.charset}
                   </span>
                 )}
@@ -355,7 +355,7 @@ export default function UrlPreview(): JSX.Element {
 
           {/* urlscan.io — most recent existing public scan */}
           {result.urlscan && (
-            <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] p-6">
+            <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
               <div className="flex items-center justify-between mb-3">
                 <h3 className="font-display font-semibold text-lg">urlscan.io</h3>
                 <a
@@ -372,7 +372,7 @@ export default function UrlPreview(): JSX.Element {
                   <img
                     src={result.urlscan.screenshot}
                     alt="urlscan screenshot"
-                    className="max-w-full max-h-72 rounded-lg border border-slate-200 dark:border-[#1e2030] object-contain"
+                    className="max-w-full max-h-72 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] object-contain"
                     onError={(e) => {
                       (e.currentTarget as HTMLImageElement).style.display = 'none';
                     }}
@@ -412,7 +412,7 @@ export default function UrlPreview(): JSX.Element {
 
           {/* Other meta */}
           {result.meta && Object.values(result.meta).some(Boolean) && (
-            <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] p-6">
+            <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
               <div className="text-xs uppercase tracking-wider text-slate-500 font-mono mb-3">Other Meta</div>
               <div className="grid sm:grid-cols-2 gap-3 font-mono text-sm">
                 {(
@@ -438,7 +438,7 @@ export default function UrlPreview(): JSX.Element {
 
           {/* Canonical */}
           {result.canonical && (
-            <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] p-6">
+            <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
               <div className="text-xs uppercase tracking-wider text-slate-500 font-mono mb-1">Canonical URL</div>
               <a
                 href={sanitizeUrl(result.canonical)}
@@ -453,7 +453,7 @@ export default function UrlPreview(): JSX.Element {
 
           {/* Open Graph */}
           {hasOgData(result.og) && (
-            <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] p-6">
+            <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
               <h3 className="font-display font-semibold text-lg mb-4">Open Graph</h3>
               {result.og?.image && (
                 <div className="mb-4">
@@ -461,7 +461,7 @@ export default function UrlPreview(): JSX.Element {
                   <img
                     src={result.og.image}
                     alt="og:image"
-                    className="max-w-full max-h-48 rounded-lg border border-slate-200 dark:border-[#1e2030] object-contain"
+                    className="max-w-full max-h-48 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] object-contain"
                     onError={(e) => {
                       (e.currentTarget as HTMLImageElement).style.display = 'none';
                     }}
@@ -502,7 +502,7 @@ export default function UrlPreview(): JSX.Element {
 
           {/* Twitter Card */}
           {hasTwitterData(result.twitter) && (
-            <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] p-6">
+            <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
               <h3 className="font-display font-semibold text-lg mb-4">Twitter Card</h3>
               {result.twitter?.image && (
                 <div className="mb-4">
@@ -510,7 +510,7 @@ export default function UrlPreview(): JSX.Element {
                   <img
                     src={result.twitter.image}
                     alt="Twitter card preview"
-                    className="max-w-full max-h-48 rounded-lg border border-slate-200 dark:border-[#1e2030] object-contain"
+                    className="max-w-full max-h-48 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] object-contain"
                     onError={(e) => {
                       (e.currentTarget as HTMLImageElement).style.display = 'none';
                     }}

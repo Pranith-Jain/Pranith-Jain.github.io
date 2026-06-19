@@ -29,7 +29,7 @@ export default function UsernameInvestigator(): JSX.Element {
     >
       {/* Tab bar */}
       <nav
-        className="flex flex-wrap gap-1 border-b border-slate-200 dark:border-[#1e2030] mb-6"
+        className="flex flex-wrap gap-1 border-b border-slate-200 dark:border-[rgb(var(--border-400))] mb-6"
         aria-label="Investigation mode"
       >
         {TABS.map((t) => (

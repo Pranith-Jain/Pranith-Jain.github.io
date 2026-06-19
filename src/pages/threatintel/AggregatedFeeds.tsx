@@ -112,13 +112,13 @@ export default function AggregatedFeeds() {
           placeholder="Search feeds..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="w-full pl-10 pr-4 py-2 bg-white dark:bg-slate-800 border border-slate-300 dark:border-[#1e2030] rounded-lg text-slate-900 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-brand-500"
+          className="w-full pl-10 pr-4 py-2 bg-white dark:bg-slate-800 border border-slate-300 dark:border-[rgb(var(--border-400))] rounded-lg text-slate-900 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-brand-500"
         />
       </div>
       <select
         value={categoryFilter}
         onChange={(e) => setCategoryFilter(e.target.value)}
-        className="px-4 py-2 bg-white dark:bg-slate-800 border border-slate-300 dark:border-[#1e2030] rounded-lg text-slate-900 dark:text-slate-200 focus:outline-none focus:border-brand-500"
+        className="px-4 py-2 bg-white dark:bg-slate-800 border border-slate-300 dark:border-[rgb(var(--border-400))] rounded-lg text-slate-900 dark:text-slate-200 focus:outline-none focus:border-brand-500"
       >
         <option value="all">All Categories</option>
         {Object.entries(CATEGORY_META).map(([key, meta]) => (
@@ -153,8 +153,8 @@ export default function AggregatedFeeds() {
               key={feed.id}
               className={`rounded-xl border p-5 transition-colors ${
                 feed.fetch_ok
-                  ? 'bg-white dark:bg-[#12121a]/60 border-slate-200 dark:border-[#1e2030] hover:border-slate-300 dark:hover:border-slate-700'
-                  : 'bg-slate-50 dark:bg-[#12121a]/30 border-red-200 dark:border-red-900/30 opacity-60'
+                  ? 'bg-white dark:bg-[rgb(var(--surface-200))]/60 border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-slate-300 dark:hover:border-slate-700'
+                  : 'bg-slate-50 dark:bg-[rgb(var(--surface-200))]/30 border-red-200 dark:border-red-900/30 opacity-60'
               }`}
             >
               <div className="flex items-start gap-4">
@@ -190,7 +190,7 @@ export default function AggregatedFeeds() {
                       <span className="text-slate-400 dark:text-slate-500">Size:</span>{' '}
                       <strong>{formatBytes(feed.size_bytes)}</strong>
                     </span>
-                    <span className="text-muted text-xs capitalize px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-[#1e2030]">
+                    <span className="text-muted text-xs capitalize px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-[rgb(var(--border-400))]">
                       {meta.label}
                     </span>
                   </div>

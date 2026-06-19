@@ -459,13 +459,13 @@ export default function ZeroTrustAiAgents(): JSX.Element {
               {PRINCIPLES.map((p) => (
                 <article
                   key={p.title}
-                  className="relative pl-3 pr-3 py-3 rounded-md bg-white dark:bg-[#12121a] ring-1 ring-slate-200 dark:ring-slate-800 border-l-2 border-brand-500"
+                  className="relative pl-3 pr-3 py-3 rounded-md bg-white dark:bg-[rgb(var(--surface-200))] ring-1 ring-slate-200 dark:ring-slate-800 border-l-2 border-brand-500"
                 >
                   <h3 className="font-display font-semibold text-slate-900 dark:text-slate-100 text-sm leading-snug">
                     {p.title}
                   </h3>
                   <p className="mt-1 text-meta font-mono text-muted leading-relaxed">{p.body}</p>
-                  <p className="mt-2 text-mini font-mono text-slate-500 dark:text-slate-500 leading-relaxed italic border-t border-slate-200 dark:border-[#1e2030] pt-2">
+                  <p className="mt-2 text-mini font-mono text-slate-500 dark:text-slate-500 leading-relaxed italic border-t border-slate-200 dark:border-[rgb(var(--border-400))] pt-2">
                     <Lightbulb size={10} className="inline -mt-0.5 mr-1 text-brand-500" aria-hidden="true" />
                     {p.example}
                   </p>
@@ -474,7 +474,7 @@ export default function ZeroTrustAiAgents(): JSX.Element {
             </div>
 
             {/* Design test card */}
-            <article className="rounded-md bg-white dark:bg-[#12121a] ring-1 ring-amber-500/40 border-l-2 border-amber-500 p-3">
+            <article className="rounded-md bg-white dark:bg-[rgb(var(--surface-200))] ring-1 ring-amber-500/40 border-l-2 border-amber-500 p-3">
               <h3 className="font-display font-bold text-amber-700 dark:text-amber-300 text-sm leading-snug">
                 THE DESIGN TEST: “Impossible, not tedious”
               </h3>
@@ -525,19 +525,19 @@ export default function ZeroTrustAiAgents(): JSX.Element {
                   value={matrixQuery}
                   onChange={(e) => setMatrixQuery(e.target.value)}
                   placeholder="Filter domains, controls…"
-                  className="w-full pl-7 pr-3 py-1.5 bg-white dark:bg-[#12121a] ring-1 ring-slate-200 dark:ring-slate-800 focus-visible:ring-brand-500/40 text-meta font-mono text-slate-800 dark:text-slate-200 placeholder:text-slate-500 focus:outline-none"
+                  className="w-full pl-7 pr-3 py-1.5 bg-white dark:bg-[rgb(var(--surface-200))] ring-1 ring-slate-200 dark:ring-slate-800 focus-visible:ring-brand-500/40 text-meta font-mono text-slate-800 dark:text-slate-200 placeholder:text-slate-500 focus:outline-none"
                   aria-label="Filter capability matrix"
                 />
               </div>
             </div>
 
-            <div className="rounded-lg ring-1 ring-slate-200 dark:ring-slate-800 bg-white dark:bg-[#12121a] overflow-hidden">
+            <div className="rounded-lg ring-1 ring-slate-200 dark:ring-slate-800 bg-white dark:bg-[rgb(var(--surface-200))] overflow-hidden">
               {/* Tier header row */}
               <div
-                className="grid bg-slate-50 dark:bg-[#12121a]"
+                className="grid bg-slate-50 dark:bg-[rgb(var(--surface-200))]"
                 style={{ gridTemplateColumns: 'minmax(0,1.2fr) minmax(0,1fr) minmax(0,1fr) minmax(0,1fr)' }}
               >
-                <div className="px-3 py-2.5 text-eyebrow font-mono uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-[#1e2030] border-r">
+                <div className="px-3 py-2.5 text-eyebrow font-mono uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-[rgb(var(--border-400))] border-r">
                   DOMAIN
                 </div>
                 {TIER_ORDER.map((t) => {
@@ -547,7 +547,7 @@ export default function ZeroTrustAiAgents(): JSX.Element {
                     <div
                       key={t}
                       className={[
-                        'px-3 py-2.5 border-b border-slate-200 dark:border-[#1e2030] border-r last:border-r-0 transition-opacity',
+                        'px-3 py-2.5 border-b border-slate-200 dark:border-[rgb(var(--border-400))] border-r last:border-r-0 transition-opacity',
                         dimmed ? 'opacity-30' : '',
                       ].join(' ')}
                     >
@@ -574,8 +574,10 @@ export default function ZeroTrustAiAgents(): JSX.Element {
                   return (
                     <div
                       key={row.domain}
-                      className={`border-b border-slate-200 dark:border-[#1e2030] last:border-b-0 ${
-                        i % 2 === 0 ? 'bg-white dark:bg-[#12121a]' : 'bg-slate-50/60 dark:bg-slate-800/30'
+                      className={`border-b border-slate-200 dark:border-[rgb(var(--border-400))] last:border-b-0 ${
+                        i % 2 === 0
+                          ? 'bg-white dark:bg-[rgb(var(--surface-200))]'
+                          : 'bg-slate-50/60 dark:bg-slate-800/30'
                       }`}
                     >
                       <div
@@ -590,7 +592,7 @@ export default function ZeroTrustAiAgents(): JSX.Element {
                           gridTemplateColumns: 'minmax(0,1.2fr) minmax(0,1fr) minmax(0,1fr) minmax(0,1fr)',
                         }}
                       >
-                        <div className="px-3 py-2.5 border-r border-slate-200 dark:border-[#1e2030] flex items-start gap-2">
+                        <div className="px-3 py-2.5 border-r border-slate-200 dark:border-[rgb(var(--border-400))] flex items-start gap-2">
                           <ChevronDown
                             size={12}
                             className={[
@@ -610,7 +612,7 @@ export default function ZeroTrustAiAgents(): JSX.Element {
                             <div
                               key={t}
                               className={[
-                                'px-3 py-2.5 border-r border-slate-200 dark:border-[#1e2030] last:border-r-0 relative transition-opacity',
+                                'px-3 py-2.5 border-r border-slate-200 dark:border-[rgb(var(--border-400))] last:border-r-0 relative transition-opacity',
                                 dimmed ? 'opacity-30' : '',
                               ].join(' ')}
                             >
@@ -628,9 +630,9 @@ export default function ZeroTrustAiAgents(): JSX.Element {
                       {isExpanded && (
                         <div
                           id={`matrix-detail-${i}`}
-                          className="grid grid-cols-1 lg:grid-cols-2 gap-3 px-3 py-3 bg-slate-50/70 dark:bg-slate-800/40 border-t border-slate-200 dark:border-[#1e2030]"
+                          className="grid grid-cols-1 lg:grid-cols-2 gap-3 px-3 py-3 bg-slate-50/70 dark:bg-slate-800/40 border-t border-slate-200 dark:border-[rgb(var(--border-400))]"
                         >
-                          <div className="rounded-md bg-white dark:bg-[#12121a] ring-1 ring-slate-200 dark:ring-slate-800 p-2.5">
+                          <div className="rounded-md bg-white dark:bg-[rgb(var(--surface-200))] ring-1 ring-slate-200 dark:ring-slate-800 p-2.5">
                             <div className="flex items-center gap-1.5 text-eyebrow font-mono uppercase tracking-[0.18em] text-brand-700 dark:text-brand-300 mb-1">
                               <Lightbulb size={10} aria-hidden="true" /> what good looks like
                             </div>
@@ -638,7 +640,7 @@ export default function ZeroTrustAiAgents(): JSX.Element {
                               {row.practice}
                             </p>
                           </div>
-                          <div className="rounded-md bg-white dark:bg-[#12121a] ring-1 ring-rose-500/30 p-2.5">
+                          <div className="rounded-md bg-white dark:bg-[rgb(var(--surface-200))] ring-1 ring-rose-500/30 p-2.5">
                             <div className="flex items-center gap-1.5 text-eyebrow font-mono uppercase tracking-[0.18em] text-rose-600 dark:text-rose-400 mb-1">
                               <AlertTriangle size={10} aria-hidden="true" /> if you skip this
                             </div>
@@ -702,7 +704,7 @@ export default function ZeroTrustAiAgents(): JSX.Element {
                   <article
                     key={t.num}
                     className={[
-                      'relative rounded-md bg-white dark:bg-[#12121a] ring-1 border-l-2 border-rose-500 transition-colors',
+                      'relative rounded-md bg-white dark:bg-[rgb(var(--surface-200))] ring-1 border-l-2 border-rose-500 transition-colors',
                       isOpen ? 'ring-rose-500/40' : 'ring-slate-200 dark:ring-slate-800',
                     ].join(' ')}
                   >
@@ -740,7 +742,7 @@ export default function ZeroTrustAiAgents(): JSX.Element {
                     {isOpen && (
                       <div
                         id={`threat-detail-${t.num}`}
-                        className="px-3 pb-3 pt-1 border-t border-slate-200 dark:border-[#1e2030]"
+                        className="px-3 pb-3 pt-1 border-t border-slate-200 dark:border-[rgb(var(--border-400))]"
                       >
                         <div className="text-eyebrow font-mono uppercase tracking-[0.18em] text-rose-600 dark:text-rose-400 mb-1.5">
                           Mitigations
@@ -797,7 +799,7 @@ export default function ZeroTrustAiAgents(): JSX.Element {
                     'relative text-left rounded-md p-2.5 border-t-2 border-brand-500 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40',
                     isSelected
                       ? 'bg-brand-50 dark:bg-brand-500/10 ring-1 ring-brand-500/50'
-                      : 'bg-white dark:bg-[#12121a] ring-1 ring-slate-200 dark:ring-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/60',
+                      : 'bg-white dark:bg-[rgb(var(--surface-200))] ring-1 ring-slate-200 dark:ring-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/60',
                   ].join(' ')}
                 >
                   <div className="flex items-baseline gap-1.5">
@@ -827,7 +829,7 @@ export default function ZeroTrustAiAgents(): JSX.Element {
           {/* Phase detail panel */}
           <article
             key={phase.num}
-            className="mt-3 rounded-lg bg-white dark:bg-[#12121a] ring-1 ring-brand-500/30 p-4 grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] gap-4 animate-fade-in-up"
+            className="mt-3 rounded-lg bg-white dark:bg-[rgb(var(--surface-200))] ring-1 ring-brand-500/30 p-4 grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] gap-4 animate-fade-in-up"
           >
             <div>
               <div className="flex items-baseline gap-2 mb-2">
@@ -861,7 +863,7 @@ export default function ZeroTrustAiAgents(): JSX.Element {
           </article>
         </section>
 
-        <footer className="mt-10 pt-6 border-t border-slate-200 dark:border-[#1e2030] text-meta font-mono text-slate-500 dark:text-slate-500 flex flex-wrap items-center justify-between gap-2">
+        <footer className="mt-10 pt-6 border-t border-slate-200 dark:border-[rgb(var(--border-400))] text-meta font-mono text-slate-500 dark:text-slate-500 flex flex-wrap items-center justify-between gap-2">
           <span>Reference card · derived from public security guidance</span>
           <span className="uppercase tracking-wider">v3 · 2026 · interactive · light theme</span>
         </footer>
@@ -891,7 +893,7 @@ function FilterPill({
         'inline-flex items-center text-micro font-mono uppercase tracking-[0.12em] px-2 py-1 rounded-sm ring-1 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40',
         active
           ? (activeClass ?? 'bg-brand-50 text-brand-700 ring-brand-500/40 dark:bg-brand-500/15 dark:text-brand-300')
-          : 'bg-white text-slate-600 ring-slate-200 hover:text-slate-900 hover:ring-slate-300 dark:bg-[#12121a] dark:text-slate-400 dark:ring-slate-800 dark:hover:text-slate-200 dark:hover:ring-slate-700',
+          : 'bg-white text-slate-600 ring-slate-200 hover:text-slate-900 hover:ring-slate-300 dark:bg-[rgb(var(--surface-200))] dark:text-slate-400 dark:ring-slate-800 dark:hover:text-slate-200 dark:hover:ring-slate-700',
       ].join(' ')}
     >
       {label}

@@ -51,7 +51,7 @@ export default function Tracerules(): JSX.Element {
         </p>
       </div>
 
-      <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-5 mb-6">
+      <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5 mb-6">
         <div className="flex flex-wrap gap-3 items-center">
           <div className="relative flex-1 min-w-[200px]">
             <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
@@ -60,7 +60,7 @@ export default function Tracerules(): JSX.Element {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Search queries by title, technique, or keyword…"
-              className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[#12121a] border border-slate-200 dark:border-[#1e2030] rounded-lg font-mono text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-brand-500/40"
+              className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-brand-500/40"
             />
           </div>
           <div className="flex gap-2">
@@ -70,7 +70,7 @@ export default function Tracerules(): JSX.Element {
               className={`px-3 py-1.5 rounded-lg text-xs font-mono font-medium transition-colors ${
                 formatFilter === 'all'
                   ? 'bg-brand-600 text-white'
-                  : 'bg-white dark:bg-[#12121a] border border-slate-200 dark:border-[#1e2030] text-muted'
+                  : 'bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted'
               }`}
             >
               All
@@ -83,7 +83,7 @@ export default function Tracerules(): JSX.Element {
                 className={`px-3 py-1.5 rounded-lg text-xs font-mono font-medium transition-colors ${
                   formatFilter === f
                     ? 'bg-brand-600 text-white'
-                    : 'bg-white dark:bg-[#12121a] border border-slate-200 dark:border-[#1e2030] text-muted'
+                    : 'bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted'
                 }`}
               >
                 {f}
@@ -93,7 +93,7 @@ export default function Tracerules(): JSX.Element {
           <select
             value={tacticFilter}
             onChange={(e) => setTacticFilter(e.target.value)}
-            className="px-3 py-1.5 text-xs font-mono bg-white dark:bg-[#12121a] border border-slate-200 dark:border-[#1e2030] rounded-lg text-slate-700 dark:text-slate-300"
+            className="px-3 py-1.5 text-xs font-mono bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg text-slate-700 dark:text-slate-300"
           >
             <option value="all">All Tactics</option>
             {tactics.map((t) => (
@@ -116,7 +116,7 @@ export default function Tracerules(): JSX.Element {
           return (
             <div
               key={rule.id}
-              className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 overflow-hidden"
+              className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 overflow-hidden"
             >
               <button
                 type="button"
@@ -138,7 +138,7 @@ export default function Tracerules(): JSX.Element {
                       >
                         {rule.format}
                       </span>
-                      <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-muted border border-slate-200 dark:border-[#1e2030]">
+                      <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-muted border border-slate-200 dark:border-[rgb(var(--border-400))]">
                         {rule.tactic}
                       </span>
                       <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-brand-500/10 text-brand-700 dark:text-brand-300 border border-brand-500/30">
@@ -159,19 +159,19 @@ export default function Tracerules(): JSX.Element {
               </button>
 
               {isOpen && (
-                <div className="border-t border-slate-200 dark:border-[#1e2030] p-5 bg-slate-50 dark:bg-slate-950/60">
+                <div className="border-t border-slate-200 dark:border-[rgb(var(--border-400))] p-5 bg-slate-50 dark:bg-slate-950/60">
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-micro font-mono uppercase tracking-wider text-slate-400">Query</span>
                     <button
                       type="button"
                       onClick={() => copyQuery(rule.id, rule.query)}
-                      className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-mono text-muted bg-white dark:bg-[#12121a] border border-slate-200 dark:border-[#1e2030] hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors"
+                      className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-mono text-muted bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors"
                     >
                       {copiedId === rule.id ? <Check size={12} /> : <Copy size={12} />}
                       {copiedId === rule.id ? 'Copied' : 'Copy'}
                     </button>
                   </div>
-                  <pre className="overflow-x-auto rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-slate-950 px-4 py-3 text-xs font-mono text-slate-800 dark:text-slate-200 leading-relaxed whitespace-pre-wrap">
+                  <pre className="overflow-x-auto rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-slate-950 px-4 py-3 text-xs font-mono text-slate-800 dark:text-slate-200 leading-relaxed whitespace-pre-wrap">
                     {rule.query}
                   </pre>
                   <div className="flex flex-wrap gap-1.5 mt-3">

@@ -223,18 +223,18 @@ export default function Copilot(): JSX.Element {
 
       {/* Mode toggle */}
       <div className="flex flex-wrap items-center gap-2 mb-3">
-        <div className="inline-flex rounded-lg border border-slate-200 dark:border-[#1e2030] overflow-hidden text-xs font-mono">
+        <div className="inline-flex rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] overflow-hidden text-xs font-mono">
           <button
             onClick={() => setMode('quick')}
             aria-pressed={mode === 'quick'}
-            className={`px-3 py-1.5 ${mode === 'quick' ? 'bg-brand-600 text-white' : 'bg-white dark:bg-[#12121a] text-slate-600 dark:text-slate-300'}`}
+            className={`px-3 py-1.5 ${mode === 'quick' ? 'bg-brand-600 text-white' : 'bg-white dark:bg-[rgb(var(--surface-200))] text-slate-600 dark:text-slate-300'}`}
           >
             Quick answer
           </button>
           <button
             onClick={() => setMode('report')}
             aria-pressed={mode === 'report'}
-            className={`px-3 py-1.5 ${mode === 'report' ? 'bg-brand-600 text-white' : 'bg-white dark:bg-[#12121a] text-slate-600 dark:text-slate-300'}`}
+            className={`px-3 py-1.5 ${mode === 'report' ? 'bg-brand-600 text-white' : 'bg-white dark:bg-[rgb(var(--surface-200))] text-slate-600 dark:text-slate-300'}`}
           >
             Full report
           </button>
@@ -245,7 +245,7 @@ export default function Copilot(): JSX.Element {
               value={template}
               onChange={(e) => setTemplate(e.target.value)}
               aria-label="Report template"
-              className="text-xs font-mono px-2 py-1.5 rounded border border-slate-300 dark:border-[#1e2030] bg-white dark:bg-[#12121a]"
+              className="text-xs font-mono px-2 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]"
             >
               <option value="auto">Auto template</option>
               <option value="ransomware-group">Ransomware Group</option>
@@ -257,7 +257,7 @@ export default function Copilot(): JSX.Element {
               value={tlp}
               onChange={(e) => setTlp(e.target.value)}
               aria-label="TLP classification"
-              className="text-xs font-mono px-2 py-1.5 rounded border border-slate-300 dark:border-[#1e2030] bg-white dark:bg-[#12121a]"
+              className="text-xs font-mono px-2 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]"
             >
               <option value="CLEAR">TLP:CLEAR</option>
               <option value="GREEN">TLP:GREEN</option>
@@ -269,7 +269,7 @@ export default function Copilot(): JSX.Element {
       </div>
 
       {/* Search input */}
-      <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 mb-6">
+      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
         <div className="relative">
           <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
           <input
@@ -284,7 +284,7 @@ export default function Copilot(): JSX.Element {
                 ? 'Subject for a full report (group, actor, CVE, or IOC)…'
                 : 'Ask about any CVE, threat actor, ransomware group, IP, or domain...'
             }
-            className="w-full pl-9 pr-14 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[#1e2030] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="w-full pl-9 pr-14 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
             disabled={loading || !!progress}
           />
           <button
@@ -303,7 +303,7 @@ export default function Copilot(): JSX.Element {
         <section
           role="status"
           aria-live="polite"
-          className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-5 mb-6"
+          className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5 mb-6"
         >
           <div className="flex items-center justify-between text-xs font-mono text-slate-500 dark:text-slate-400 mb-2">
             <span className="inline-flex items-center gap-2">
@@ -339,7 +339,7 @@ export default function Copilot(): JSX.Element {
                   setQuery(ex.query);
                   investigate(ex.query);
                 }}
-                className="px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200 dark:border-[#1e2030] transition-colors"
+                className="px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200 dark:border-[rgb(var(--border-400))] transition-colors"
               >
                 <span className="text-slate-400">{ex.type}:</span>{' '}
                 <span className="text-slate-700 dark:text-slate-200 font-mono">{ex.label}</span>
@@ -382,7 +382,7 @@ export default function Copilot(): JSX.Element {
       {result && !loading && (
         <div className="space-y-6">
           {/* Header */}
-          <div className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-5">
+          <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5">
             <div className="flex items-start justify-between gap-4 mb-3">
               <div className="flex items-center gap-3 flex-wrap">
                 <h2 className="text-lg font-bold">{result.query}</h2>
@@ -419,12 +419,12 @@ export default function Copilot(): JSX.Element {
 
             {/* Sources summary */}
             {result.sources.length > 0 && (
-              <div className="mt-3 pt-3 border-t border-slate-100 dark:border-[#1e2030]">
+              <div className="mt-3 pt-3 border-t border-slate-100 dark:border-[rgb(var(--border-400))]">
                 <div className="flex flex-wrap gap-1.5">
                   {result.sources.map((s, i) => (
                     <span
                       key={s.name}
-                      className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-slate-50 dark:bg-slate-800 text-micro font-mono text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-[#1e2030]"
+                      className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-slate-50 dark:bg-slate-800 text-micro font-mono text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-[rgb(var(--border-400))]"
                     >
                       <span className="text-micro text-slate-400 font-bold">{i + 1}.</span>
                       {s.name}
@@ -435,15 +435,15 @@ export default function Copilot(): JSX.Element {
               </div>
             )}
             {result.sources.length === 0 && (
-              <div className="mt-3 pt-3 border-t border-slate-100 dark:border-[#1e2030] text-xs text-amber-600 dark:text-amber-400">
+              <div className="mt-3 pt-3 border-t border-slate-100 dark:border-[rgb(var(--border-400))] text-xs text-amber-600 dark:text-amber-400">
                 No structured sources — report based on general knowledge.
               </div>
             )}
           </div>
 
           {/* Narrative */}
-          <div className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] overflow-hidden">
-            <div className="flex items-center gap-2 px-6 py-3 border-b border-slate-100 dark:border-[#1e2030] bg-slate-50/80 dark:bg-slate-800/40">
+          <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] overflow-hidden">
+            <div className="flex items-center gap-2 px-6 py-3 border-b border-slate-100 dark:border-[rgb(var(--border-400))] bg-slate-50/80 dark:bg-slate-800/40">
               <FileText size={15} className="text-brand-600 dark:text-brand-400" />
               <span className="text-sm font-semibold text-slate-700 dark:text-slate-300">Investigation Report</span>
               {result._meta && (
@@ -453,11 +453,11 @@ export default function Copilot(): JSX.Element {
               )}
             </div>
             <div
-              className="px-6 py-5 text-slate-800 dark:text-slate-200 [&_h2]:text-lg [&_h2]:font-bold [&_h2]:mt-6 [&_h2]:mb-2 [&_h2]:pb-1 [&_h2]:border-b [&_h2]:border-slate-100 [&_h2]:dark:border-[#1e2030] [&_h3]:text-base [&_h3]:font-semibold [&_h3]:mt-4 [&_h3]:mb-1.5 [&_p]:text-sm [&_p]:leading-relaxed [&_p]:mb-2 [&_p]:text-slate-700 [&_p]:dark:text-slate-300 [&_ul]:space-y-0.5 [&_ul]:my-1.5 [&_ol]:space-y-1 [&_ol]:my-1.5 [&_li]:ml-4 [&_li]:pl-1 [&_li]:text-sm [&_li]:text-slate-700 [&_li]:dark:text-slate-300 [&_code]:px-1 [&_code]:py-0.5 [&_code]:rounded [&_code]:bg-slate-100 [&_code]:dark:bg-slate-800 [&_code]:text-xs [&_code]:font-mono [&_code]:text-brand-700 [&_code]:dark:text-brand-300"
+              className="px-6 py-5 text-slate-800 dark:text-slate-200 [&_h2]:text-lg [&_h2]:font-bold [&_h2]:mt-6 [&_h2]:mb-2 [&_h2]:pb-1 [&_h2]:border-b [&_h2]:border-slate-100 [&_h2]:dark:border-[rgb(var(--border-400))] [&_h3]:text-base [&_h3]:font-semibold [&_h3]:mt-4 [&_h3]:mb-1.5 [&_p]:text-sm [&_p]:leading-relaxed [&_p]:mb-2 [&_p]:text-slate-700 [&_p]:dark:text-slate-300 [&_ul]:space-y-0.5 [&_ul]:my-1.5 [&_ol]:space-y-1 [&_ol]:my-1.5 [&_li]:ml-4 [&_li]:pl-1 [&_li]:text-sm [&_li]:text-slate-700 [&_li]:dark:text-slate-300 [&_code]:px-1 [&_code]:py-0.5 [&_code]:rounded [&_code]:bg-slate-100 [&_code]:dark:bg-slate-800 [&_code]:text-xs [&_code]:font-mono [&_code]:text-brand-700 [&_code]:dark:text-brand-300"
               dangerouslySetInnerHTML={{ __html: narrativeHtml }}
             />
             {/* Feedback */}
-            <div className="px-6 pb-4 pt-2 border-t border-slate-100 dark:border-[#1e2030]">
+            <div className="px-6 pb-4 pt-2 border-t border-slate-100 dark:border-[rgb(var(--border-400))]">
               <FeedbackWidget targetType="copilot" targetId={query} compact />
             </div>
           </div>
@@ -472,12 +472,12 @@ export default function Copilot(): JSX.Element {
               {result.sources.map((s) => (
                 <details
                   key={s.name}
-                  className="p-3 rounded-lg bg-slate-50 dark:bg-slate-800/30 border border-slate-200 dark:border-[#1e2030]"
+                  className="p-3 rounded-lg bg-slate-50 dark:bg-slate-800/30 border border-slate-200 dark:border-[rgb(var(--border-400))]"
                 >
                   <summary className="text-xs font-medium cursor-pointer">
                     {s.name} ({s.items} items)
                   </summary>
-                  <pre className="mt-2 p-2 rounded bg-slate-100 dark:bg-[#12121a] text-micro font-mono overflow-x-auto max-h-48 overflow-y-auto">
+                  <pre className="mt-2 p-2 rounded bg-slate-100 dark:bg-[rgb(var(--surface-200))] text-micro font-mono overflow-x-auto max-h-48 overflow-y-auto">
                     {JSON.stringify(s.data, null, 2)}
                   </pre>
                 </details>
@@ -519,7 +519,7 @@ export default function Copilot(): JSX.Element {
                 }
               }}
               disabled={saving || saved}
-              className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-[#1e2030] hover:border-brand-500/40 transition-colors disabled:opacity-50"
+              className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 transition-colors disabled:opacity-50"
             >
               <Save size={12} /> {saved ? 'Saved' : saving ? 'Saving…' : 'Save as Assessment'}
             </button>
@@ -533,13 +533,13 @@ export default function Copilot(): JSX.Element {
                 a.click();
                 URL.revokeObjectURL(url);
               }}
-              className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-[#1e2030] hover:border-brand-500/40 transition-colors"
+              className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 transition-colors"
             >
               <FileText size={12} /> download .md
             </button>
             <button
               onClick={() => void investigate(query)}
-              className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-[#1e2030] hover:border-brand-500/40 transition-colors"
+              className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 transition-colors"
             >
               <RefreshCw size={12} /> re-investigate
             </button>

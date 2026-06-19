@@ -142,7 +142,7 @@ export default function CtMonitor(): JSX.Element {
         </p>
       </div>
 
-      <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-5 mb-6">
+      <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5 mb-6">
         <div className="flex gap-2">
           <input
             type="text"
@@ -150,7 +150,7 @@ export default function CtMonitor(): JSX.Element {
             onChange={(e) => setNewDomain(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && void addDomain()}
             placeholder="example.com"
-            className="flex-1 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[#1e2030] rounded-lg px-4 py-2.5 text-sm font-mono text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="flex-1 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg px-4 py-2.5 text-sm font-mono text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
           />
           <button
             onClick={addDomain}
@@ -170,7 +170,7 @@ export default function CtMonitor(): JSX.Element {
       )}
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
-        <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-5">
+        <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5">
           <h2 className="font-display font-bold text-sm mb-4 flex items-center gap-2">
             <Eye size={14} className="text-brand-600 dark:text-brand-400" /> Watched ({watched.length})
           </h2>
@@ -194,7 +194,7 @@ export default function CtMonitor(): JSX.Element {
                       setSelectedDomain(w.domain);
                     }
                   }}
-                  className={`w-full text-left p-3 rounded-lg border transition-colors cursor-pointer ${selectedDomain === w.domain ? 'border-brand-500/60 bg-brand-500/5' : 'border-slate-200 dark:border-[#1e2030] hover:border-brand-500/30'}`}
+                  className={`w-full text-left p-3 rounded-lg border transition-colors cursor-pointer ${selectedDomain === w.domain ? 'border-brand-500/60 bg-brand-500/5' : 'border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/30'}`}
                 >
                   <div className="flex items-center justify-between">
                     <span className="text-sm font-mono">{w.domain}</span>
@@ -217,7 +217,7 @@ export default function CtMonitor(): JSX.Element {
           )}
         </div>
 
-        <div className="lg:col-span-2 rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-5">
+        <div className="lg:col-span-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5">
           <div className="flex items-center justify-between mb-4">
             <h2 className="font-display font-bold text-sm flex items-center gap-2">
               <Globe size={14} className="text-brand-600 dark:text-brand-400" /> Certs{' '}
@@ -275,7 +275,7 @@ function CertCard({ cert, highlight }: { cert: CertInfo; highlight?: boolean }) 
       role="button"
       tabIndex={0}
       aria-expanded={expanded}
-      className={`rounded-lg p-3 cursor-pointer transition-colors ${highlight ? 'border border-rose-300/70 dark:border-rose-800/60 bg-rose-50/60 dark:bg-rose-950/20' : 'border border-slate-200 dark:border-[#1e2030] hover:border-brand-500/30'}`}
+      className={`rounded-lg p-3 cursor-pointer transition-colors ${highlight ? 'border border-rose-300/70 dark:border-rose-800/60 bg-rose-50/60 dark:bg-rose-950/20' : 'border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/30'}`}
       onClick={() => setExpanded(!expanded)}
       onKeyDown={(e) => {
         if (e.key === 'Enter' || e.key === ' ') {
@@ -297,14 +297,14 @@ function CertCard({ cert, highlight }: { cert: CertInfo; highlight?: boolean }) 
       </div>
       {cert.alert && <div className="text-xs text-rose-600 dark:text-rose-400 mt-1.5">{cert.alert.message}</div>}
       {expanded && (
-        <div className="mt-3 pt-3 border-t border-slate-200 dark:border-[#1e2030] text-xs space-y-2">
+        <div className="mt-3 pt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))] text-xs space-y-2">
           <div>
             <span className="text-micro font-mono uppercase tracking-wider text-slate-400">Names</span>
             <div className="mt-1 flex flex-wrap gap-1">
               {cert.names.map((n, i) => (
                 <span
                   key={i}
-                  className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-[#1e2030] text-slate-500"
+                  className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500"
                 >
                   {n}
                 </span>

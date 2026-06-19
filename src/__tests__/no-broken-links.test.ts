@@ -57,7 +57,13 @@ function collectLinks(dir: string): Map<string, string[]> {
       if (entry.isDirectory()) walk(full);
       else if (entry.isFile() && entry.name.endsWith('.tsx')) {
         const text = readFileSync(full, 'utf8');
-        for (const m of text.matchAll(/to="(\/(?:threatintel|dfir)\/[^"?]+)(?:\?[^"]*)?"/g)) {
+        // Capture both React-Router `to="…"` (used by <Link>) and raw
+        // `href="…"` (used by plain <a>). The previous version missed
+        // three real broken links in plain <a> tags — the user landed
+        // on a 404. We now scan both, with the same allowlist.
+        for (const m of text.matchAll(
+          /(?:to|href)="(\/(?:threatintel|dfir|blog|admin|portfolio)\/[^"?]+)(?:\?[^"]*)?"/g
+        )) {
           const list = out.get(m[1]!) ?? [];
           list.push(full);
           out.set(m[1]!, list);
@@ -76,9 +82,24 @@ describe('link-target drift guard', () => {
     for (const path of links.keys()) {
       if (!isRegisteredAppPath(path)) broken.push(path);
     }
+    // Also list the source file:location for every broken link so the
+    // failure message is actionable instead of just "X is broken".
+    const lines: string[] = [];
+    for (const [path, files] of links) {
+      if (isRegisteredAppPath(path)) continue;
+      for (const f of files) {
+        const text = readFileSync(f, 'utf8');
+        const lines2 = text.split('\n');
+        for (let i = 0; i < lines2.length; i++) {
+          if (lines2[i]?.includes(`"${path}`) || lines2[i]?.includes(`'${path}`)) {
+            lines.push(`  ${f.replace(root + '/', '')}:${i + 1}  →  ${path}`);
+          }
+        }
+      }
+    }
     expect(
       broken,
-      `The following link targets have no <Route> or redirect in src/App.tsx and would 404: ${broken.join(', ')}`
+      `The following link targets have no <Route> or redirect in src/App.tsx and would 404:\n${lines.join('\n')}`
     ).toEqual([]);
   });
 });

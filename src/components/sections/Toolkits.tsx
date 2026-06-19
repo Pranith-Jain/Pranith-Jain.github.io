@@ -58,7 +58,7 @@ export function Toolkits() {
             <Link
               key={tk.id}
               to={tk.href}
-              className="group card-hover flex flex-col rounded-lg border border-black/10 bg-white p-6 transition-all h-full hover:border-black/25 hover:bg-black/[0.02] dark:border-white/10 dark:bg-[rgb(18,18,24)] dark:hover:border-white/20 dark:hover:bg-white/[0.03]"
+              className="group card-hover flex flex-col rounded-lg border border-black/10 bg-white p-6 transition-all h-full hover:border-black/25 hover:bg-black/[0.02] dark:border-white/10 dark:bg-[rgb(var(--surface-200))] dark:hover:border-white/20 dark:hover:bg-white/[0.03]"
             >
               <div className="flex items-start justify-between mb-4">
                 <div className="grid h-10 w-10 place-items-center rounded-md bg-brand-50 text-brand-600 dark:bg-brand-900/30 dark:text-brand-300">

@@ -103,7 +103,7 @@ export default function EvtxParser(): JSX.Element {
       <button
         type="button"
         onClick={() => document.getElementById('evtxparser-input')?.click()}
-        className="w-full border-2 border-dashed border-slate-300 dark:border-[#1e2030] rounded-lg p-8 text-center cursor-pointer hover:border-brand-500/40 focus-visible:outline-none focus-visible:border-brand-500/60"
+        className="w-full border-2 border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] rounded-lg p-8 text-center cursor-pointer hover:border-brand-500/40 focus-visible:outline-none focus-visible:border-brand-500/60"
         aria-label="Drop a .evtx file file or click to choose"
       >
         <Upload size={24} className="mx-auto mb-2 text-slate-500" />
@@ -157,13 +157,13 @@ export default function EvtxParser(): JSX.Element {
             value={q}
             onChange={(e) => setQ(e.target.value)}
             placeholder="filter strings — e.g. 4624, powershell, lateral host…"
-            className="w-full rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 px-3 py-2 font-mono text-sm focus:border-brand-500 focus:outline-none"
+            className="w-full rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 px-3 py-2 font-mono text-sm focus:border-brand-500 focus:outline-none"
           />
           <ul className="space-y-2">
             {shown.map((r) => (
               <li
                 key={r.id}
-                className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-3"
+                className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
               >
                 <div className="font-mono text-mini text-slate-500 mb-1">
                   record #{r.id} · {r.time}

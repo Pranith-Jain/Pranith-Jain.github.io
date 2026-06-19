@@ -165,7 +165,7 @@ export default function AttackFlowLibrary(): JSX.Element {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder={`Filter ${data.total} flows…`}
-          className="w-full max-w-sm text-sm font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[#1e2030] bg-white dark:bg-slate-950 text-slate-800 dark:text-slate-200 focus:outline-none focus:border-brand-500/60"
+          className="w-full max-w-sm text-sm font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-slate-950 text-slate-800 dark:text-slate-200 focus:outline-none focus:border-brand-500/60"
         />
       </div>
     ) : undefined;
@@ -260,7 +260,7 @@ export default function AttackFlowLibrary(): JSX.Element {
               className={`rounded-lg border p-3 transition-colors ${
                 isActive
                   ? 'border-brand-500/60 bg-brand-500/5'
-                  : 'border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950'
+                  : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950'
               }`}
             >
               <div className="flex items-start justify-between gap-2">
@@ -270,7 +270,7 @@ export default function AttackFlowLibrary(): JSX.Element {
                 )}
               </div>
 
-              <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mt-3 pt-2 border-t border-slate-200 dark:border-[#1e2030]">
+              <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mt-3 pt-2 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
                 <button
                   type="button"
                   onClick={() => setActiveFlow(isActive ? null : flow.name)}

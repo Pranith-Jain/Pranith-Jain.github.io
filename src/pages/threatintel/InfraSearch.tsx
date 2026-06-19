@@ -122,7 +122,7 @@ export default function InfraSearch(): JSX.Element {
       </div>
 
       {/* Search bar */}
-      <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 mb-6">
+      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
         <form onSubmit={(e) => onSubmit(e)} className="flex gap-2">
           <div className="relative flex-1 min-w-[220px]">
             <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" aria-hidden="true" />
@@ -131,7 +131,7 @@ export default function InfraSearch(): JSX.Element {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="e.g. telecom towers in india, power plants near tokyo"
-              className="w-full pl-9 pr-3 py-2.5 rounded-lg border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 font-mono text-sm text-slate-900 dark:text-slate-100 focus:border-brand-500/60 focus:outline-none"
+              className="w-full pl-9 pr-3 py-2.5 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 font-mono text-sm text-slate-900 dark:text-slate-100 focus:border-brand-500/60 focus:outline-none"
               autoComplete="off"
               spellCheck={false}
               aria-label="Infrastructure search query"
@@ -156,7 +156,7 @@ export default function InfraSearch(): JSX.Element {
                 key={qs.label}
                 type="button"
                 onClick={(e) => onSubmit(e, qs.label)}
-                className="text-xs font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-[#1e2030] text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-700 dark:hover:text-slate-200 transition"
+                className="text-xs font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-700 dark:hover:text-slate-200 transition"
               >
                 {qs.icon} {qs.label}
               </button>
@@ -204,8 +204,8 @@ export default function InfraSearch(): JSX.Element {
           {/* Map + Results side by side */}
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-4">
             {/* Map */}
-            <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] overflow-hidden">
-              <div className="flex items-center justify-between px-4 py-2 border-b border-slate-200 dark:border-[#1e2030]">
+            <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] overflow-hidden">
+              <div className="flex items-center justify-between px-4 py-2 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
                 <div className="flex items-center gap-2 text-xs font-mono text-slate-500">
                   <Map size={12} />
                   <span>{mapGlobal ? 'Global view' : 'Zoomed to results'}</span>
@@ -215,13 +215,13 @@ export default function InfraSearch(): JSX.Element {
                 <div className="flex items-center gap-1">
                   <button
                     onClick={() => setMapGlobal(!mapGlobal)}
-                    className="text-xs font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-[#1e2030] text-muted hover:bg-slate-100 dark:hover:bg-slate-800 inline-flex items-center gap-1"
+                    className="text-xs font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:bg-slate-100 dark:hover:bg-slate-800 inline-flex items-center gap-1"
                   >
                     <Globe size={10} /> {mapGlobal ? 'Zoom in' : 'Global'}
                   </button>
                   <button
                     onClick={() => setDarkTiles(!darkTiles)}
-                    className="text-xs font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-[#1e2030] text-muted hover:bg-slate-100 dark:hover:bg-slate-800"
+                    className="text-xs font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:bg-slate-100 dark:hover:bg-slate-800"
                     title="Toggle map style"
                   >
                     {darkTiles ? '☀️' : '🌙'}
@@ -257,7 +257,7 @@ export default function InfraSearch(): JSX.Element {
                     className={`text-[11px] font-mono px-2 py-0.5 rounded border transition ${
                       catFilter === 'All'
                         ? 'bg-brand-600 text-white border-brand-600'
-                        : 'border-slate-200 dark:border-[#1e2030] text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'
+                        : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'
                     }`}
                   >
                     All ({result.results.length})
@@ -272,7 +272,7 @@ export default function InfraSearch(): JSX.Element {
                         className={`text-[11px] font-mono px-2 py-0.5 rounded border transition inline-flex items-center gap-1 ${
                           catFilter === cat
                             ? 'bg-brand-600 text-white border-brand-600'
-                            : 'border-slate-200 dark:border-[#1e2030] text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'
+                            : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'
                         }`}
                       >
                         <span
@@ -286,8 +286,8 @@ export default function InfraSearch(): JSX.Element {
               )}
 
               {/* Results list */}
-              <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]">
-                <div className="px-4 py-2 border-b border-slate-200 dark:border-[#1e2030] flex items-center justify-between">
+              <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]">
+                <div className="px-4 py-2 border-b border-slate-200 dark:border-[rgb(var(--border-400))] flex items-center justify-between">
                   <span className="text-xs font-mono text-slate-500 dark:text-slate-400">
                     {filtered.length} result{filtered.length !== 1 ? 's' : ''}
                   </span>
@@ -296,7 +296,7 @@ export default function InfraSearch(): JSX.Element {
                   {filtered.slice(0, 200).map((r) => (
                     <div
                       key={r.id}
-                      className="flex items-center gap-2.5 px-4 py-2 border-b border-slate-100 dark:border-[#1e2030]/50 last:border-0 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition text-sm cursor-default"
+                      className="flex items-center gap-2.5 px-4 py-2 border-b border-slate-100 dark:border-[rgb(var(--border-400))]/50 last:border-0 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition text-sm cursor-default"
                     >
                       <span
                         className="w-2.5 h-2.5 rounded-full shrink-0"
@@ -317,7 +317,7 @@ export default function InfraSearch(): JSX.Element {
                   ))}
                 </div>
                 {filtered.length > 200 && (
-                  <div className="px-4 py-2 border-t border-slate-200 dark:border-[#1e2030]">
+                  <div className="px-4 py-2 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
                     <p className="text-[11px] text-slate-400 font-mono">
                       Showing 200 of {filtered.length} · map shows all
                     </p>
@@ -331,8 +331,8 @@ export default function InfraSearch(): JSX.Element {
 
       {/* Empty state — global map when no search */}
       {!result && !loading && !error && (
-        <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] overflow-hidden">
-          <div className="px-4 py-2 border-b border-slate-200 dark:border-[#1e2030] flex items-center gap-2 text-xs font-mono text-slate-500">
+        <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] overflow-hidden">
+          <div className="px-4 py-2 border-b border-slate-200 dark:border-[rgb(var(--border-400))] flex items-center gap-2 text-xs font-mono text-slate-500">
             <Globe size={12} />
             Global infrastructure map — search above to populate
           </div>

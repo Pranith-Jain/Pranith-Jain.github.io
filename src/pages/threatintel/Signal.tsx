@@ -172,7 +172,7 @@ export default function Signal(): JSX.Element {
         </>
       )}
 
-      <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 mb-4">
+      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-4">
         <div className="flex items-center gap-3">
           <div className="relative flex-1">
             <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
@@ -181,14 +181,14 @@ export default function Signal(): JSX.Element {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Filter by title, source, tag, or summary…"
-              className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[#1e2030] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
               aria-label="Filter research signal"
             />
           </div>
           <button
             type="button"
             onClick={() => setRefreshKey((k) => k + 1)}
-            className="text-mini font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[#1e2030] hover:border-brand-500/40 inline-flex items-center gap-1"
+            className="text-mini font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 inline-flex items-center gap-1"
           >
             <RefreshCw size={11} /> refresh
           </button>
@@ -208,7 +208,7 @@ export default function Signal(): JSX.Element {
                     className={`text-mini font-mono px-2 py-1 rounded border ${
                       active
                         ? 'border-brand-500/60 bg-brand-500/10 text-brand-700 dark:text-brand-300'
-                        : 'border-slate-300 dark:border-[#1e2030] text-slate-500 hover:border-brand-500/40'
+                        : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-brand-500/40'
                     }`}
                   >
                     {src} <span className="opacity-70">· {count}</span>
@@ -254,7 +254,7 @@ export default function Signal(): JSX.Element {
           {filtered.map((it) => (
             <li
               key={it.url}
-              className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4"
+              className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4"
             >
               <a href={sanitizeUrl(it.url)} target="_blank" rel="noopener noreferrer" className="group block">
                 <div className="flex items-baseline justify-between gap-3 mb-1.5">
@@ -278,7 +278,7 @@ export default function Signal(): JSX.Element {
                   {it.tags!.slice(0, 6).map((t) => (
                     <span
                       key={t}
-                      className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-[#1e2030] text-slate-500"
+                      className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500"
                     >
                       {t}
                     </span>

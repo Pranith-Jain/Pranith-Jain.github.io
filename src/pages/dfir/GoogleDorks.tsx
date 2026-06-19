@@ -198,13 +198,13 @@ export default function GoogleDorks(): JSX.Element {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder='site:pastebin.com "password"  ·  intitle:"index of" .env  ·  filetype:sql intext:INSERT'
-              className="w-full pl-10 pr-3 py-2.5 bg-white dark:bg-[#12121a] border border-slate-200 dark:border-[#1e2030] rounded-lg font-mono text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="w-full pl-10 pr-3 py-2.5 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
             />
           </div>
           <select
             value={num}
             onChange={(e) => setNum(Number.parseInt(e.target.value, 10))}
-            className="px-3 py-2.5 bg-white dark:bg-[#12121a] border border-slate-200 dark:border-[#1e2030] rounded-lg font-mono text-sm"
+            className="px-3 py-2.5 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-sm"
             aria-label="Results per page"
           >
             {[10, 20, 30, 50].map((n) => (
@@ -238,7 +238,7 @@ export default function GoogleDorks(): JSX.Element {
                 void runSearch(p.query, num);
               }}
               title={p.hint}
-              className="text-mini font-mono px-2 py-1 rounded border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-[#12121a] text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
+              className="text-mini font-mono px-2 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
             >
               {p.label}
             </button>
@@ -266,7 +266,7 @@ export default function GoogleDorks(): JSX.Element {
             {data.results.map((r) => (
               <li
                 key={`${r.position ?? r.link}|${r.link}`}
-                className="rounded-lg border border-slate-200 bg-white p-4 dark:border-[#1e2030] dark:bg-[#12121a]"
+                className="rounded-lg border border-slate-200 bg-white p-4 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]"
               >
                 <div className="flex items-start gap-2">
                   <div className="flex-1 min-w-0">

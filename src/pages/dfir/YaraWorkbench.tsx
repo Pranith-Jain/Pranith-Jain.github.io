@@ -24,7 +24,7 @@ export default function YaraWorkbench(): JSX.Element {
       description="Unified YARA workflow — build rules in the library, then test them against samples in the test lab."
     >
       <nav
-        className="flex flex-wrap gap-1 border-b border-slate-200 dark:border-[#1e2030] mb-6"
+        className="flex flex-wrap gap-1 border-b border-slate-200 dark:border-[rgb(var(--border-400))] mb-6"
         aria-label="YARA tools"
       >
         {TABS.map((t) => (

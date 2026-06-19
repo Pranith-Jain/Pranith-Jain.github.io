@@ -54,8 +54,8 @@
        Brand-blue (brand-600 #2c3ee5) and rose-500/600 are the only
        chromatic notes on this surface; the chrome itself stays neutral
        so the accents read as accents, not as ambient. */
-    background-color: #0a0a0a;
-    color: #f5f5f5;
+    background-color: #0a1220;
+    color: #f5f5f7;
   }
 
   html:not(.dark) {
@@ -90,7 +90,7 @@
   }
   html.dark {
     --brand: 99 130 255;
-    --muted: 168 168 168; /* true neutral gray, was 160 170 190 (blue-tinted) */
+    --muted: 168 178 198; /* slight blue tint, matches deep-blue page */
     --surface-border: rgb(var(--border-400));
     --surface-bg: rgb(var(--surface-100));
     --glass-bg: rgb(var(--surface-200));
@@ -106,14 +106,14 @@
          input = #0e0e0e  -- one step below card; reads as inset
        Border opacity goes from 8% → 12% default so card edges are
        visible without the old "everything is one shade" feel. */
-    --surface-100: 10 10 10;
-    --surface-200: 22 22 22;
-    --surface-300: 31 31 31;
-    --input-200: 14 14 14;
-    --border-400: 255 255 255 / 0.12;
-    --border-500: 255 255 255 / 0.18;
-    --border-600: 255 255 255 / 0.28;
-    --hover-100: 255 255 255 / 0.05;
+    --surface-100: 10 18 32;
+    --surface-200: 19 28 45;
+    --surface-300: 28 39 64;
+    --input-200: 15 23 38;
+    --border-400: 255 255 255 / 0.1;
+    --border-500: 255 255 255 / 0.16;
+    --border-600: 255 255 255 / 0.26;
+    --hover-100: 255 255 255 / 0.04;
   }
 
   /* Geist two-layer focus ring:
@@ -131,8 +131,10 @@
       0 0 0 4px #2c3ee5;
   }
   html.dark :focus-visible {
+    /* Inner gap uses the deep-blue page surface so the ring sits in a
+       visible halo, not in a contrasting hue. */
     box-shadow:
-      0 0 0 2px #0a0a0f,
+      0 0 0 2px #0a1220,
       0 0 0 4px #6d8bf7;
   }
 
@@ -167,7 +169,8 @@
     @apply bg-slate-100;
   }
   .dark ::-webkit-scrollbar-track {
-    background-color: rgba(10, 10, 15, 0.6);
+    /* Deep-blue page surface for the scrollbar track so it blends in. */
+    background-color: rgba(10, 18, 32, 0.6);
   }
 
   ::-webkit-scrollbar-thumb {
@@ -261,28 +264,28 @@
      with consistent opacity. Card edges now read as a clear, deliberate
      boundary instead of disappearing into the page. */
   .dark .border-slate-200 {
-    border-color: #2e2e2e !important;
+    border-color: #243049 !important;
   }
   .dark .border-slate-200\/60 {
-    border-color: rgba(46, 46, 46, 0.6) !important;
+    border-color: rgba(36, 48, 73, 0.6) !important;
   }
   .dark .border-slate-200\/70 {
-    border-color: rgba(46, 46, 46, 0.7) !important;
+    border-color: rgba(36, 48, 73, 0.7) !important;
   }
   .dark .border-slate-300 {
-    border-color: #3a3a3a !important;
+    border-color: #2d3a55 !important;
   }
   .dark .border-slate-700 {
     border-color: #2e2e2e !important;
   }
   .dark .border-slate-700\/60 {
-    border-color: rgba(46, 46, 46, 0.6) !important;
+    border-color: rgba(36, 48, 73, 0.6) !important;
   }
   .dark .border-slate-800 {
     border-color: #2e2e2e !important;
   }
   .dark .border-slate-800\/40 {
-    border-color: rgba(46, 46, 46, 0.4) !important;
+    border-color: rgba(36, 48, 73, 0.4) !important;
   }
   .dark .border-white\/10 {
     border-color: rgba(255, 255, 255, 0.1) !important;
@@ -307,8 +310,8 @@
 
   .dark .glass {
     @apply backdrop-blur-md lg:backdrop-blur-xl;
-    border-color: rgba(30, 32, 48, 0.6);
-    background-color: rgba(18, 18, 26, 0.85);
+    border-color: rgb(var(--border-400));
+    background-color: rgb(var(--surface-200) / 0.7);
   }
 
   .surface {
@@ -316,8 +319,8 @@
   }
 
   .dark .surface {
-    border-color: rgba(30, 32, 48, 0.5);
-    background-color: rgba(18, 18, 26, 0.6);
+    border-color: rgb(var(--border-400));
+    background-color: rgb(var(--surface-200));
   }
 
   /* ── Depth / morphism surface system ─────────────────────────────────
@@ -507,7 +510,7 @@
   }
 
   .dark .bg-dot-grid {
-    /* 8% white dots on the neutral #0a0a0a page — visible enough to
+    /* 8% white dots on the deep-blue page — visible enough to
        give the page texture, never enough to read as decoration. */
     background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
   }

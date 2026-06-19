@@ -139,7 +139,7 @@ export const SnapshotCard = memo(function SnapshotCard({
   const padding = compact ? 'p-3' : 'p-4';
   return (
     <div
-      className={`rounded-lg border ${ACCENT_BORDER[accent]} bg-white dark:bg-[#12121a] ${padding} flex flex-col min-h-[200px]`}
+      className={`rounded-lg border ${ACCENT_BORDER[accent]} bg-white dark:bg-[rgb(var(--surface-200))] ${padding} flex flex-col min-h-[200px]`}
     >
       <div className="flex items-baseline justify-between gap-2 mb-1 flex-wrap">
         <h3 className="font-display font-semibold text-sm inline-flex items-center gap-1.5 flex-wrap">

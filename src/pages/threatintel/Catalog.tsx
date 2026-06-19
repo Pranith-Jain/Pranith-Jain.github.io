@@ -86,7 +86,9 @@ export default function CatalogPage(): JSX.Element {
           </span>
           <span className="font-mono text-mini text-slate-500 dark:text-slate-400">
             {totalEntries} pages · {CATALOG.length} hubs · deep-linkable via{' '}
-            <code className="font-mono text-tool bg-slate-100 dark:bg-[#12121a] rounded px-1.5 py-0.5">?q=…&cat=…</code>
+            <code className="font-mono text-tool bg-slate-100 dark:bg-[rgb(var(--surface-200))] rounded px-1.5 py-0.5">
+              ?q=…&cat=…
+            </code>
           </span>
         </div>
       }
@@ -104,7 +106,7 @@ export default function CatalogPage(): JSX.Element {
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search by name, route, or keyword (e.g. 'ransomware', 'yara', '/iocs/c2')…"
             aria-label="Search catalog"
-            className="w-full rounded-lg border border-slate-200 bg-white py-2.5 pl-9 pr-20 font-mono text-tool text-slate-900 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/20 dark:border-[#1e2030] dark:bg-[#12121a] dark:text-white dark:placeholder:text-slate-500"
+            className="w-full rounded-lg border border-slate-200 bg-white py-2.5 pl-9 pr-20 font-mono text-tool text-slate-900 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/20 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-white dark:placeholder:text-slate-500"
           />
           {query && (
             <button
@@ -151,7 +153,7 @@ export default function CatalogPage(): JSX.Element {
 
       <div className="space-y-8">
         {visibleCategories.length === 0 && (
-          <div className="rounded-xl border border-dashed border-slate-300 dark:border-[#1e2030] p-10 text-center">
+          <div className="rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-10 text-center">
             <p className="text-sm text-slate-500 dark:text-slate-400">
               No pages match the current filter. Try a different category or clear the search box.
             </p>
@@ -191,13 +193,13 @@ function CategoryPill({
       className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 font-mono text-micro transition-colors ${
         active
           ? `${accent} border-current bg-current/10`
-          : 'border-slate-300/60 bg-white text-slate-500 hover:border-slate-400 hover:text-slate-900 dark:border-[#1e2030] dark:bg-[#12121a] dark:text-slate-400 dark:hover:border-slate-600 dark:hover:text-slate-100'
+          : 'border-slate-300/60 bg-white text-slate-500 hover:border-slate-400 hover:text-slate-900 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-400 dark:hover:border-slate-600 dark:hover:text-slate-100'
       }`}
     >
       {label}
       <span
         className={`rounded-full px-1.5 py-0.5 text-[10px] font-mono ${
-          active ? 'bg-current/15' : 'bg-slate-100 dark:bg-[#12121a]'
+          active ? 'bg-current/15' : 'bg-slate-100 dark:bg-[rgb(var(--surface-200))]'
         }`}
       >
         {count}
@@ -210,7 +212,7 @@ function CategorySection({ category, entries }: { category: HubMeta; entries: re
   if (entries.length === 0) return <></>;
   return (
     <section aria-labelledby={`hub-${category.id}`}>
-      <div className="mb-3 flex items-baseline justify-between gap-2 border-b border-slate-200 pb-2 dark:border-[#1e2030]">
+      <div className="mb-3 flex items-baseline justify-between gap-2 border-b border-slate-200 pb-2 dark:border-[rgb(var(--border-400))]">
         <h2 id={`hub-${category.id}`} className="flex items-center gap-2 font-display text-lg font-semibold">
           <span className={`inline-flex items-center justify-center rounded-md border px-1.5 py-1 ${category.tone}`}>
             <category.icon size={16} aria-hidden="true" />
@@ -241,7 +243,7 @@ function CatalogCard({ entry, hubIcon }: { entry: HubPage; hubIcon: LucideIcon }
     <li>
       <Link
         to={entry.path}
-        className="group tile-reveal block h-full rounded-xl border border-slate-200 bg-white p-3 transition-[transform,border-color,box-shadow] duration-200 hover:-translate-y-0.5 hover:border-rose-500/40 hover:shadow-e2 focus-visible:-translate-y-0.5 focus-visible:border-rose-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500/30 dark:border-[#1e2030] dark:bg-[#12121a] hover-rose"
+        className="group tile-reveal block h-full rounded-xl border border-slate-200 bg-white p-3 transition-[transform,border-color,box-shadow] duration-200 hover:-translate-y-0.5 hover:border-rose-500/40 hover:shadow-e2 focus-visible:-translate-y-0.5 focus-visible:border-rose-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500/30 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] hover-rose"
       >
         <div className="flex items-start justify-between gap-2">
           <Icon

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Wrench, ArrowRight, Sparkles } from 'lucide-react';
+import { preloadRoute } from '../lib/route-preloaders';
 
 const TOOLS = [
   {
@@ -45,7 +46,7 @@ function getToolOfTheDay(): (typeof TOOLS)[0] {
   return TOOLS[seed % TOOLS.length];
 }
 
-export function ToolOfTheDay(): JSX.Element {
+export function ToolOfTheDay(): JSX.Element | null {
   const [tool, setTool] = useState<(typeof TOOLS)[0] | null>(null);
 
   useEffect(() => {
@@ -55,7 +56,7 @@ export function ToolOfTheDay(): JSX.Element {
   if (!tool) return null;
 
   return (
-    <section className="group relative overflow-hidden rounded-lg border border-slate-200/70 dark:border-[#1e2030] p-5 transition-all duration-200 hover:border-amber-300/50 dark:hover:border-amber-500/30 hover:shadow-md dark:hover:shadow-amber-500/5">
+    <section className="group relative overflow-hidden rounded-lg border border-slate-200/70 dark:border-[rgb(var(--border-400))] p-5 transition-all duration-200 hover:border-amber-300/50 dark:hover:border-amber-500/30 hover:shadow-md dark:hover:shadow-amber-500/5">
       {/* Subtle gradient */}
       <div aria-hidden className="absolute inset-0 bg-[rgb(var(--hover-100))]" />
       <div className="relative">
@@ -67,7 +68,12 @@ export function ToolOfTheDay(): JSX.Element {
             Tool of the Day
           </h3>
         </div>
-        <Link to={tool.path} className="group block">
+        <Link
+          to={tool.path}
+          className="group block"
+          onMouseEnter={() => preloadRoute(tool.path)}
+          onFocus={() => preloadRoute(tool.path)}
+        >
           <div className="flex items-start gap-3">
             <div className="grid h-9 w-9 place-items-center rounded-lg bg-brand-500/10 dark:bg-brand-500/15 text-brand-600 dark:text-brand-400 shrink-0">
               <Wrench size={16} />

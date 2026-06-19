@@ -75,7 +75,7 @@ function MarketCard({ m }: { m: PredictionMarket }): JSX.Element {
       href={m.url}
       target="_blank"
       rel="noopener noreferrer"
-      className="group block rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/60 p-5 hover:border-brand-300 dark:hover:border-brand-700 transition-colors"
+      className="group block rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/60 p-5 hover:border-brand-300 dark:hover:border-brand-700 transition-colors"
     >
       <div className="flex items-start justify-between gap-3 mb-3">
         <span
@@ -152,7 +152,7 @@ export default function Predictions(): JSX.Element {
             className={`px-3 py-1.5 rounded-lg text-xs font-mono border transition-colors ${
               active
                 ? 'border-brand-500 bg-brand-50 dark:bg-brand-500/10 text-brand-700 dark:text-brand-300'
-                : 'border-slate-300 dark:border-[#1e2030] text-muted hover:border-slate-400 dark:hover:border-slate-600'
+                : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-slate-400 dark:hover:border-slate-600'
             }`}
           >
             {b === 'all' ? 'All' : BUCKET_META[b].label} ({count})

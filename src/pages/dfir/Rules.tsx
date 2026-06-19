@@ -175,7 +175,7 @@ export default function Rules(): JSX.Element {
               className={`px-2 py-0.5 rounded border transition-colors ${
                 typeFilter === 'all'
                   ? 'border-brand-500/50 text-slate-900 dark:text-slate-100 bg-brand-50 dark:bg-brand-900/20'
-                  : 'border-slate-200 dark:border-[#1e2030] text-slate-500'
+                  : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500'
               }`}
             >
               all
@@ -188,7 +188,7 @@ export default function Rules(): JSX.Element {
                 className={`px-2 py-0.5 rounded border transition-colors ${
                   typeFilter === t
                     ? 'border-brand-500/50 text-slate-900 dark:text-slate-100 bg-brand-50 dark:bg-brand-900/20'
-                    : 'border-slate-200 dark:border-[#1e2030] text-slate-500'
+                    : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500'
                 }`}
               >
                 {t}
@@ -203,7 +203,7 @@ export default function Rules(): JSX.Element {
               {filteredSources.map((s) => (
                 <article
                   key={s.id}
-                  className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 flex flex-col gap-3"
+                  className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 flex flex-col gap-3"
                 >
                   <header className="flex items-start justify-between gap-3">
                     <div>
@@ -243,7 +243,7 @@ export default function Rules(): JSX.Element {
                       href={s.commits_url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 px-2 py-1 rounded border border-slate-200 dark:border-[#1e2030] text-muted hover:border-brand-500/40"
+                      className="inline-flex items-center gap-1 px-2 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40"
                     >
                       <GitCommit size={11} /> commits
                     </a>
@@ -251,7 +251,7 @@ export default function Rules(): JSX.Element {
                       href={s.repo_url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 px-2 py-1 rounded border border-slate-200 dark:border-[#1e2030] text-muted hover:border-brand-500/40"
+                      className="inline-flex items-center gap-1 px-2 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40"
                     >
                       <ExternalLink size={11} /> repo
                     </a>
@@ -260,7 +260,7 @@ export default function Rules(): JSX.Element {
                         href={s.homepage}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 px-2 py-1 rounded border border-slate-200 dark:border-[#1e2030] text-muted hover:border-brand-500/40"
+                        className="inline-flex items-center gap-1 px-2 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40"
                       >
                         <ExternalLink size={11} /> live site
                       </a>
@@ -281,7 +281,7 @@ export default function Rules(): JSX.Element {
                 {filteredCommits.map((c, i) => (
                   <li
                     key={`${c.source_id}-${i}`}
-                    className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-3"
+                    className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
                   >
                     <a
                       href={sanitizeUrl(c.link) || undefined}

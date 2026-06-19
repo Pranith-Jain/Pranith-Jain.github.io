@@ -186,7 +186,7 @@ export default function FpLens(): JSX.Element {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Input panel */}
         <div className="space-y-5">
-          <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-5">
+          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5">
             <div className="flex items-baseline justify-between mb-2">
               <h2 className="font-display font-bold text-sm">Detection rule / alert</h2>
               <span className="text-micro font-mono uppercase tracking-wider text-slate-400">required</span>
@@ -196,7 +196,7 @@ export default function FpLens(): JSX.Element {
               onChange={(e) => setRule(e.target.value)}
               rows={10}
               placeholder="Paste a Sigma / KQL / SPL / XQL rule, or just an alert name like 'Suspicious PowerShell Encoded Command'."
-              className="w-full rounded-lg border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 p-3 font-mono text-xs text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/40"
+              className="w-full rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-3 font-mono text-xs text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/40"
             />
             <div className="mt-3 flex flex-wrap gap-2">
               {EXAMPLE_RULES.map((ex) => (
@@ -204,7 +204,7 @@ export default function FpLens(): JSX.Element {
                   key={ex.label}
                   type="button"
                   onClick={() => loadExample(ex.rule)}
-                  className="px-2.5 py-1 rounded-md text-xs font-medium border border-slate-200 dark:border-[#1e2030] text-slate-600 dark:text-slate-300 hover:border-brand-400 hover:text-brand-700 dark:hover:text-brand-300 transition-colors"
+                  className="px-2.5 py-1 rounded-md text-xs font-medium border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-600 dark:text-slate-300 hover:border-brand-400 hover:text-brand-700 dark:hover:text-brand-300 transition-colors"
                 >
                   Load: {ex.label}
                 </button>
@@ -212,7 +212,7 @@ export default function FpLens(): JSX.Element {
             </div>
           </div>
 
-          <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-5">
+          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5">
             <div className="flex items-baseline justify-between mb-2">
               <h2 className="font-display font-bold text-sm">Sample hits / additional logs</h2>
               <span className="text-micro font-mono uppercase tracking-wider text-slate-400">optional</span>
@@ -222,11 +222,11 @@ export default function FpLens(): JSX.Element {
               onChange={(e) => setSampleHits(e.target.value)}
               rows={5}
               placeholder="Paste 1-10 sample alert payloads, raw log lines, or any extra context that helps the model understand what's actually firing."
-              className="w-full rounded-lg border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 p-3 font-mono text-xs text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/40"
+              className="w-full rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-3 font-mono text-xs text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/40"
             />
           </div>
 
-          <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-5">
+          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5">
             <div className="flex items-baseline justify-between mb-2">
               <h2 className="font-display font-bold text-sm">Environment context</h2>
               <span className="text-micro font-mono uppercase tracking-wider text-slate-400">optional</span>
@@ -236,7 +236,7 @@ export default function FpLens(): JSX.Element {
               value={envContext}
               onChange={(e) => setEnvContext(e.target.value)}
               placeholder="e.g. Mixed Windows fleet with 200 devs using PowerShell daily, 50 servers, 4-yr-old EDR"
-              className="w-full rounded-lg border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 p-3 text-sm text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/40"
+              className="w-full rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-3 text-sm text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/40"
             />
           </div>
 
@@ -263,7 +263,7 @@ export default function FpLens(): JSX.Element {
                   setResult(null);
                   setError(null);
                 }}
-                className="px-3 py-3 rounded-xl border border-slate-200 dark:border-[#1e2030] text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                className="px-3 py-3 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
                 title="Clear"
               >
                 <RotateCcw size={16} />
@@ -286,7 +286,7 @@ export default function FpLens(): JSX.Element {
 
           {result ? (
             <>
-              <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-5">
+              <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5">
                 <div className="flex items-baseline justify-between gap-3 mb-3">
                   <h2 className="font-display font-bold text-sm flex items-center gap-2">
                     <ShieldAlert size={14} className="text-brand-600 dark:text-brand-400" /> FP Risk Verdict
@@ -295,7 +295,7 @@ export default function FpLens(): JSX.Element {
                     <CopyButton value={buildExportText(result)} />
                     <button
                       onClick={downloadReport}
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-[#1e2030] text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
                     >
                       <Download size={13} /> Download .md
                     </button>
@@ -314,7 +314,7 @@ export default function FpLens(): JSX.Element {
                 <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">{result.fp_risk_summary}</p>
               </div>
 
-              <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-5">
+              <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5">
                 <h2 className="font-display font-bold text-sm mb-3 flex items-center gap-2">
                   <AlertTriangle size={14} className="text-amber-600 dark:text-amber-400" /> False Positive Patterns
                   <span className="ml-auto text-micro font-mono text-slate-500">{result.fp_patterns.length}</span>
@@ -323,7 +323,7 @@ export default function FpLens(): JSX.Element {
                   {result.fp_patterns.map((p, i) => (
                     <div
                       key={i}
-                      className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-slate-50/50 dark:bg-slate-950/30 p-3"
+                      className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50/50 dark:bg-slate-950/30 p-3"
                     >
                       <div className="text-xs font-mono uppercase tracking-wider text-amber-700 dark:text-amber-300 mb-1">
                         Scenario {i + 1}
@@ -338,7 +338,7 @@ export default function FpLens(): JSX.Element {
                 </div>
               </div>
 
-              <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-5">
+              <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5">
                 <h2 className="font-display font-bold text-sm mb-3 flex items-center gap-2">
                   <CheckCircle2 size={14} className="text-emerald-600 dark:text-emerald-400" /> True Positive Signals
                   <span className="ml-auto text-micro font-mono text-slate-500">{result.tp_signals.length}</span>
@@ -353,7 +353,7 @@ export default function FpLens(): JSX.Element {
                 </ul>
               </div>
 
-              <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-5">
+              <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5">
                 <h2 className="font-display font-bold text-sm mb-3 flex items-center gap-2">
                   <Wrench size={14} className="text-brand-600 dark:text-brand-400" /> Suggested Exclusions
                   <span className="ml-auto text-micro font-mono text-slate-500">
@@ -370,7 +370,7 @@ export default function FpLens(): JSX.Element {
                 </ul>
               </div>
 
-              <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-5">
+              <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5">
                 <h2 className="font-display font-bold text-sm mb-3 flex items-center gap-2">
                   <ListChecks size={14} className="text-brand-600 dark:text-brand-400" /> Tuning Guidance
                   <span className="ml-auto text-micro font-mono text-slate-500">{result.tuning_guidance.length}</span>
@@ -386,7 +386,7 @@ export default function FpLens(): JSX.Element {
             </>
           ) : (
             !error && (
-              <div className="rounded-xl border border-dashed border-slate-300 dark:border-[#1e2030] p-10 text-center">
+              <div className="rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-10 text-center">
                 <ScanSearch size={32} className="text-slate-300 dark:text-slate-600 mx-auto mb-3" />
                 <p className="text-sm text-slate-500 dark:text-slate-400">
                   Paste a detection rule and click <span className="font-semibold">Analyze</span>

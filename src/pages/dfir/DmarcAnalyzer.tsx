@@ -365,7 +365,7 @@ export default function DmarcAnalyzer(): JSX.Element {
         className={`relative rounded-lg border-2 border-dashed p-12 text-center cursor-pointer transition-colors mb-8 ${
           dragOver
             ? 'border-brand-500 bg-brand-500/5'
-            : 'border-slate-300 dark:border-[#1e2030] bg-slate-50 dark:bg-[#12121a]/50 hover:border-brand-400 hover:bg-brand-500/5'
+            : 'border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))]/50 hover:border-brand-400 hover:bg-brand-500/5'
         }`}
       >
         <input
@@ -401,12 +401,12 @@ export default function DmarcAnalyzer(): JSX.Element {
 
       {report && (
         <div className="animate-fade-in-up space-y-6">
-          <div className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-6">
+          <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-6">
             <div className="flex flex-wrap items-center justify-between gap-4 mb-4">
               <h2 className="text-lg font-display font-bold">{report.domain}</h2>
               <button
                 onClick={exportCsv}
-                className="inline-flex items-center gap-2 text-xs font-mono border border-slate-300 dark:border-[#1e2030] rounded-lg px-3 py-1.5 hover:bg-slate-100 dark:hover:bg-slate-800"
+                className="inline-flex items-center gap-2 text-xs font-mono border border-slate-300 dark:border-[rgb(var(--border-400))] rounded-lg px-3 py-1.5 hover:bg-slate-100 dark:hover:bg-slate-800"
               >
                 <Download size={14} /> Export CSV
               </button>
@@ -471,11 +471,11 @@ export default function DmarcAnalyzer(): JSX.Element {
             </div>
           )}
 
-          <div className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 overflow-hidden">
+          <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full text-sm font-mono">
                 <thead>
-                  <tr className="border-b border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950">
+                  <tr className="border-b border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950">
                     <th
                       scope="col"
                       className="text-left px-4 py-3 text-xs text-slate-500 dark:text-slate-400 font-medium"
@@ -532,8 +532,10 @@ export default function DmarcAnalyzer(): JSX.Element {
                     return (
                       <tr
                         key={r.sourceIp}
-                        className={`border-b border-slate-100 dark:border-[#1e2030] ${
-                          i % 2 === 0 ? 'bg-white dark:bg-[#12121a]' : 'bg-slate-50/50 dark:bg-slate-950/50'
+                        className={`border-b border-slate-100 dark:border-[rgb(var(--border-400))] ${
+                          i % 2 === 0
+                            ? 'bg-white dark:bg-[rgb(var(--surface-200))]'
+                            : 'bg-slate-50/50 dark:bg-slate-950/50'
                         }`}
                       >
                         <td className="px-4 py-3 text-xs font-medium">{r.sourceIp}</td>
@@ -601,7 +603,7 @@ export default function DmarcAnalyzer(): JSX.Element {
             </div>
           </div>
 
-          <div className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-[#12121a] p-4">
+          <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] p-4">
             <h3 className="text-sm font-display font-semibold mb-2">Privacy</h3>
             <p className="text-xs text-slate-500 dark:text-slate-400 font-mono">
               DMARC XML is parsed entirely in your browser. IPs are enriched server-side via the same edge API used by

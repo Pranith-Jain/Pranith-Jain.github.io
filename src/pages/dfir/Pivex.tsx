@@ -69,12 +69,12 @@ const ENTITY_BG: Record<string, string> = {
   ransomware: 'bg-rose-100 dark:bg-rose-900/20',
   malware: 'bg-orange-100 dark:bg-orange-900/20',
   campaign: 'bg-pink-100 dark:bg-pink-900/20',
-  hash: 'bg-slate-100 dark:bg-[#12121a]/20',
+  hash: 'bg-slate-100 dark:bg-[rgb(var(--surface-200))]/20',
   technique: 'bg-cyan-100 dark:bg-cyan-900/20',
-  victim: 'bg-slate-100 dark:bg-[#12121a]/20',
+  victim: 'bg-slate-100 dark:bg-[rgb(var(--surface-200))]/20',
   c2_framework: 'bg-fuchsia-100 dark:bg-fuchsia-900/20',
   product: 'bg-teal-100 dark:bg-teal-900/20',
-  reference: 'bg-slate-100 dark:bg-[#12121a]/20',
+  reference: 'bg-slate-100 dark:bg-[rgb(var(--surface-200))]/20',
 };
 
 const ENTITY_ICON_COLORS: Record<string, string> = {
@@ -265,7 +265,7 @@ export default function Pivex(): JSX.Element {
         </p>
       </div>
 
-      <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-5 mb-6">
+      <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5 mb-6">
         <h2 className="font-display font-bold text-sm mb-3">Start Investigation</h2>
         <div className="flex gap-2">
           <div className="relative flex-1">
@@ -275,7 +275,7 @@ export default function Pivex(): JSX.Element {
               onChange={(e) => setQuery(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && handleBuildGraph()}
               placeholder="IP address, domain, CVE, actor name, or hash…"
-              className="w-full pl-9 pr-3 h-10 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[#1e2030] rounded-lg text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 font-mono"
+              className="w-full pl-9 pr-3 h-10 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 font-mono"
             />
           </div>
           <button
@@ -296,7 +296,7 @@ export default function Pivex(): JSX.Element {
       )}
 
       {!showGraph && !loading && (
-        <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-8 text-center">
+        <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-8 text-center">
           <Network size={48} className="mx-auto mb-3 text-slate-300 dark:text-slate-600" />
           <p className="text-sm text-slate-500 dark:text-slate-400">
             Enter an IP, domain, CVE, or actor name and click{' '}
@@ -331,14 +331,14 @@ export default function Pivex(): JSX.Element {
                   setHighlightMode(!highlightMode);
                   if (!highlightMode) setHighlightNode(null);
                 }}
-                className={`px-3 py-1.5 rounded-lg text-xs font-mono border transition-colors flex items-center gap-1.5 ${highlightMode ? 'border-brand-500/60 bg-brand-500/10 text-brand-600 dark:text-brand-400' : 'border-slate-200 dark:border-[#1e2030] text-slate-500 dark:text-slate-400 hover:border-brand-500/30'}`}
+                className={`px-3 py-1.5 rounded-lg text-xs font-mono border transition-colors flex items-center gap-1.5 ${highlightMode ? 'border-brand-500/60 bg-brand-500/10 text-brand-600 dark:text-brand-400' : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-brand-500/30'}`}
               >
                 {highlightMode ? <Eye size={12} /> : <EyeOff size={12} />}
                 {highlightMode ? 'Highlight On' : 'Highlight Mode'}
               </button>
               <button
                 onClick={handleExportJson}
-                className="px-3 py-1.5 rounded-lg text-xs font-mono border border-slate-200 dark:border-[#1e2030] text-slate-500 dark:text-slate-400 hover:border-brand-500/30 transition-colors flex items-center gap-1.5"
+                className="px-3 py-1.5 rounded-lg text-xs font-mono border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-brand-500/30 transition-colors flex items-center gap-1.5"
               >
                 <Download size={12} /> Export JSON
               </button>
@@ -359,7 +359,7 @@ export default function Pivex(): JSX.Element {
               ))}
           </div>
 
-          <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-slate-950/60 shadow-e1 p-6 overflow-x-auto">
+          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-slate-950/60 shadow-e1 p-6 overflow-x-auto">
             <div className="flex flex-col gap-6 min-w-[700px]">
               <GraphCluster
                 nodes={nodes}
@@ -498,7 +498,7 @@ function RelationCard({
   getNodeColor: (t: string) => string;
 }) {
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-4">
+    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-4">
       <h3 className="text-xs font-mono font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">
         {title}
       </h3>

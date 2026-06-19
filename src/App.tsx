@@ -299,6 +299,7 @@ const BehindTheReports = lazy(() => import('./pages/BehindTheReports'));
 const Sponsor = lazy(() => import('./pages/Sponsor'));
 const Blog = lazy(() => import('./pages/Blog'));
 const BlogPost = lazy(() => import('./pages/BlogPost'));
+const Snapshots = lazy(() => import('./pages/Snapshots'));
 const AdminApp = lazy(() => import('./pages/admin/AdminApp'));
 const AdminAnalyticsDashboard = lazy(() => import('./pages/admin/AnalyticsDashboard'));
 const RansomwareLive = lazy(() => import('./pages/threatintel/RansomwareLive'));
@@ -367,6 +368,8 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/blog', Component: Blog },
   { path: '/blog/c/:type', Component: Blog },
   { path: '/blog/:slug', Component: BlogPost },
+  { path: '/snapshots', Component: Snapshots },
+  { path: '/live', Component: Snapshots },
   { path: '/dfir', Component: DFIR },
   { path: '/dfir/abuse-rep', Component: AbuseRepPage },
   { path: '/dfir/phishing', Component: Phishing },
@@ -732,6 +735,13 @@ const REDIRECTS: ReadonlyArray<{ path: string; to: string }> = [
   // ── CveIntel subsumes K8s + Exploitable tabs ─────
   { path: '/threatintel/cves/k8s', to: '/threatintel/cves/cves' },
   { path: '/threatintel/cves/exploitable', to: '/threatintel/cves/cves' },
+  // ── Canonical 2-segment hub paths → real page (defensive — direct
+  //    `to`/`href` from a component should use the real path; this
+  //    redirect exists so external links, bookmarks, and copy-paste
+  //    URLs to the short path still land on a real page, not a 404).
+  { path: '/threatintel/cves', to: '/threatintel/cves/cves' },
+  { path: '/threatintel/social', to: '/threatintel/social/firehose' },
+  { path: '/threatintel/supply-chain', to: '/threatintel/external/supply' },
 
   // ── Dark Web Hub ────────────────────────────────────────────────
   { path: '/threatintel/deepdarkcti', to: '/threatintel/darkweb/deepdark' },

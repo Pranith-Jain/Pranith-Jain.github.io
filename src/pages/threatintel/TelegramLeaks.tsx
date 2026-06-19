@@ -109,7 +109,7 @@ export default function TelegramLeaks(): JSX.Element {
           <button
             type="button"
             onClick={() => setRefreshKey((k) => k + 1)}
-            className="text-mini font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[#1e2030] hover:border-brand-500/40 inline-flex items-center gap-1 mt-1"
+            className="text-mini font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 inline-flex items-center gap-1 mt-1"
             aria-label="Refresh"
           >
             <RefreshCw size={11} /> refresh
@@ -132,11 +132,11 @@ export default function TelegramLeaks(): JSX.Element {
             value={searchInput}
             onChange={(e) => setSearchInput(e.target.value)}
             placeholder="Search leaks…"
-            className="w-56 px-3 py-1.5 text-sm rounded border border-slate-300 dark:border-[#1e2030] bg-white dark:bg-[#12121a] text-slate-900 dark:text-slate-100 placeholder:text-slate-400 font-mono"
+            className="w-56 px-3 py-1.5 text-sm rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-slate-900 dark:text-slate-100 placeholder:text-slate-400 font-mono"
           />
           <button
             type="submit"
-            className="text-mini font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[#1e2030] hover:border-brand-500/40 inline-flex items-center gap-1"
+            className="text-mini font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 inline-flex items-center gap-1"
           >
             <Search size={11} /> search
           </button>
@@ -145,7 +145,7 @@ export default function TelegramLeaks(): JSX.Element {
         <select
           value={severityFilter}
           onChange={(e) => setSeverityFilter(e.target.value)}
-          className="px-3 py-1.5 text-sm rounded border border-slate-300 dark:border-[#1e2030] bg-white dark:bg-[#12121a] text-slate-900 dark:text-slate-100 font-mono"
+          className="px-3 py-1.5 text-sm rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-slate-900 dark:text-slate-100 font-mono"
         >
           <option value="">All severities</option>
           <option value="critical">Critical</option>
@@ -157,7 +157,7 @@ export default function TelegramLeaks(): JSX.Element {
         <select
           value={channelFilter}
           onChange={(e) => setChannelFilter(e.target.value)}
-          className="px-3 py-1.5 text-sm rounded border border-slate-300 dark:border-[#1e2030] bg-white dark:bg-[#12121a] text-slate-900 dark:text-slate-100 font-mono"
+          className="px-3 py-1.5 text-sm rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-slate-900 dark:text-slate-100 font-mono"
         >
           <option value="">All channels</option>
           {channels.map((ch) => (
@@ -191,7 +191,7 @@ export default function TelegramLeaks(): JSX.Element {
               return (
                 <div
                   key={entry.id}
-                  className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 hover:border-slate-300 dark:hover:border-slate-700 transition-colors"
+                  className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 hover:border-slate-300 dark:hover:border-slate-700 transition-colors"
                 >
                   <div className="flex items-start justify-between gap-4 mb-2">
                     <div className="flex items-center gap-2 min-w-0">
@@ -204,7 +204,7 @@ export default function TelegramLeaks(): JSX.Element {
                       >
                         {entry.severity}
                       </span>
-                      <span className="text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-slate-300 dark:border-[#1e2030] text-slate-500 dark:text-slate-400">
+                      <span className="text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400">
                         {entry.leak_type}
                       </span>
                     </div>
@@ -258,7 +258,7 @@ export default function TelegramLeaks(): JSX.Element {
             type="button"
             disabled={offset === 0}
             onClick={() => setOffset((prev) => Math.max(0, prev - pageSize))}
-            className="text-mini font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[#1e2030] hover:border-brand-500/40 disabled:opacity-30 disabled:cursor-not-allowed"
+            className="text-mini font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 disabled:opacity-30 disabled:cursor-not-allowed"
           >
             ← previous
           </button>
@@ -269,7 +269,7 @@ export default function TelegramLeaks(): JSX.Element {
             type="button"
             disabled={entries.length < pageSize}
             onClick={() => setOffset((prev) => prev + pageSize)}
-            className="text-mini font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[#1e2030] hover:border-brand-500/40 disabled:opacity-30 disabled:cursor-not-allowed"
+            className="text-mini font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 disabled:opacity-30 disabled:cursor-not-allowed"
           >
             next →
           </button>

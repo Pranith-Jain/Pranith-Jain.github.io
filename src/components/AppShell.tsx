@@ -219,7 +219,10 @@ function AppStatusBar({ mode }: { mode: 'dfir' | 'threatintel' }): JSX.Element {
           {mode === 'dfir' ? (
             <>
               <span className="inline-flex items-center gap-1.5">
-                <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                <span className="relative inline-flex h-1.5 w-1.5">
+                  <span className="absolute inset-0 rounded-full bg-brand-500 live-pulse" aria-hidden />
+                  <span className="relative inline-block h-1.5 w-1.5 rounded-full bg-brand-500" />
+                </span>
                 edge
               </span>
               <span className="text-slate-300 dark:text-slate-700">·</span>

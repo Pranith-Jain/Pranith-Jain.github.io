@@ -165,7 +165,7 @@ export default function PromptInjection(): JSX.Element {
         </div>
       </header>
 
-      <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4">
+      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
         <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
           <span className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
             Input
@@ -175,7 +175,7 @@ export default function PromptInjection(): JSX.Element {
               <button
                 key={s.label}
                 onClick={() => setInput(s.text)}
-                className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-800 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+                className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-800 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
               >
                 {s.label}
               </button>
@@ -183,7 +183,7 @@ export default function PromptInjection(): JSX.Element {
             {input && (
               <button
                 onClick={() => setInput('')}
-                className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[#1e2030] hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
+                className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
               >
                 Clear
               </button>
@@ -195,14 +195,14 @@ export default function PromptInjection(): JSX.Element {
           onChange={(e) => setInput(e.target.value)}
           rows={8}
           placeholder="Paste a prompt, an LLM response, or untrusted content (web page, document, email) the model will see…"
-          className="w-full rounded border border-slate-300 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 px-3 py-2 font-mono text-sm text-slate-900 dark:text-slate-100 focus:border-brand-500/60 focus:outline-none"
+          className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 px-3 py-2 font-mono text-sm text-slate-900 dark:text-slate-100 focus:border-brand-500/60 focus:outline-none"
           aria-label="Prompt injection input"
         />
       </section>
 
       {input.trim() && (
         <>
-          <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4">
+          <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
             <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
               <span className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
                 Verdict
@@ -231,17 +231,17 @@ export default function PromptInjection(): JSX.Element {
             </p>
           </section>
 
-          <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4">
+          <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
             <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
               Highlighted input
             </h2>
-            <div className="rounded border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 p-3 font-mono text-sm text-slate-800 dark:text-slate-200 leading-relaxed">
+            <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-3 font-mono text-sm text-slate-800 dark:text-slate-200 leading-relaxed">
               {highlight(input, matches)}
             </div>
           </section>
 
           {matches.length > 0 && (
-            <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4">
+            <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
               <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
                 Findings
               </h2>
@@ -249,7 +249,7 @@ export default function PromptInjection(): JSX.Element {
                 {matches.map((m, i) => (
                   <li
                     key={`${m.pattern.id}-${i}`}
-                    className="rounded border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 p-3"
+                    className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-3"
                   >
                     <div className="flex flex-wrap items-center gap-2 mb-1">
                       <span className="font-display font-semibold text-slate-900 dark:text-slate-100">
@@ -288,14 +288,14 @@ export default function PromptInjection(): JSX.Element {
       )}
 
       {/* ── Red-team prompt library ────────────────────────────────────── */}
-      <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4">
+      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
         <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
           <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono inline-flex items-center gap-2">
             <Swords size={14} /> Red-team prompt library ({filteredRedTeam.length}/{RED_TEAM_PROMPTS.length})
           </h2>
           <button
             onClick={exportRedTeam}
-            className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[#1e2030] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1"
+            className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1"
           >
             <Download size={11} /> Export filtered as JSON
           </button>
@@ -315,7 +315,7 @@ export default function PromptInjection(): JSX.Element {
             className={`text-xs font-mono px-2 py-1 rounded border transition-colors ${
               rtCategory === 'all'
                 ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                : 'border-slate-300 dark:border-[#1e2030] text-muted hover:border-brand-500/40'
+                : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40'
             }`}
           >
             All
@@ -330,7 +330,7 @@ export default function PromptInjection(): JSX.Element {
                 className={`text-xs font-mono px-2 py-1 rounded border transition-colors ${
                   rtCategory === c.id
                     ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                    : 'border-slate-300 dark:border-[#1e2030] text-muted hover:border-brand-500/40'
+                    : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40'
                 }`}
               >
                 {c.label} <span className="opacity-60">· {count}</span>
@@ -348,7 +348,7 @@ export default function PromptInjection(): JSX.Element {
             className={`text-xs font-mono px-2 py-1 rounded border transition-colors ${
               rtOwasp === 'all'
                 ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                : 'border-slate-300 dark:border-[#1e2030] text-muted hover:border-brand-500/40'
+                : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40'
             }`}
           >
             All
@@ -364,7 +364,7 @@ export default function PromptInjection(): JSX.Element {
                 className={`text-xs font-mono px-2 py-1 rounded border transition-colors ${
                   rtOwasp === id
                     ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                    : 'border-slate-300 dark:border-[#1e2030] text-muted hover:border-brand-500/40'
+                    : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40'
                 }`}
               >
                 {id} <span className="opacity-60">· {count}</span>
@@ -377,7 +377,7 @@ export default function PromptInjection(): JSX.Element {
           {filteredRedTeam.map((p) => (
             <li
               key={p.id}
-              className="rounded border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 p-3"
+              className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-3"
             >
               <div className="flex flex-wrap items-center gap-2 mb-2">
                 <span className="font-display font-semibold text-slate-900 dark:text-slate-100">{p.name}</span>
@@ -398,7 +398,7 @@ export default function PromptInjection(): JSX.Element {
                 ))}
               </div>
               {p.systemContext && (
-                <div className="rounded border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] p-2 mb-2">
+                <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-2 mb-2">
                   <div className="text-micro font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-1">
                     Assumed system context
                   </div>
@@ -407,7 +407,7 @@ export default function PromptInjection(): JSX.Element {
                   </p>
                 </div>
               )}
-              <div className="rounded border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] p-2 mb-2">
+              <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-2 mb-2">
                 <div className="flex items-center justify-between gap-2 mb-1">
                   <span className="text-micro font-mono uppercase tracking-[0.2em] text-rose-600 dark:text-rose-400">
                     Prompt
@@ -439,7 +439,7 @@ export default function PromptInjection(): JSX.Element {
         </ul>
       </section>
 
-      <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4">
+      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
         <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
           <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
             Pattern catalog ({filteredCatalog.length}/{PATTERNS.length})
@@ -451,7 +451,7 @@ export default function PromptInjection(): JSX.Element {
             className={`text-xs font-mono px-2 py-1 rounded border transition-colors ${
               owaspFilter === 'all'
                 ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                : 'border-slate-300 dark:border-[#1e2030] text-muted hover:border-brand-500/40'
+                : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40'
             }`}
           >
             All
@@ -467,7 +467,7 @@ export default function PromptInjection(): JSX.Element {
                 className={`text-xs font-mono px-2 py-1 rounded border transition-colors ${
                   owaspFilter === id
                     ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                    : 'border-slate-300 dark:border-[#1e2030] text-muted hover:border-brand-500/40'
+                    : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40'
                 }`}
               >
                 {id} <span className="opacity-60">· {count}</span>
@@ -486,7 +486,7 @@ export default function PromptInjection(): JSX.Element {
           {filteredCatalog.map((p) => (
             <div
               key={p.id}
-              className="rounded border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 p-2.5"
+              className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-2.5"
             >
               <div className="flex flex-wrap items-center gap-1.5 mb-1">
                 <span className="text-xs font-display font-semibold text-slate-900 dark:text-slate-100">{p.name}</span>
@@ -510,7 +510,7 @@ export default function PromptInjection(): JSX.Element {
         </div>
       </section>
 
-      <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4">
+      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
         <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
           Further reading
         </h2>

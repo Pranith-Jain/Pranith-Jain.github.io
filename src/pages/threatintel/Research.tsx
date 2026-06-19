@@ -64,7 +64,7 @@ export default function Research(): JSX.Element {
         {posts.map((p) => (
           <li
             key={p.slug}
-            className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-5 transition hover:border-brand-500/40"
+            className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5 transition hover:border-brand-500/40"
           >
             <Link to={`/threatintel/research/${p.slug}`} className="group block">
               <div className="text-micro font-mono uppercase tracking-[0.18em] text-brand-600 dark:text-brand-400 mb-1.5">
@@ -93,7 +93,7 @@ export default function Research(): JSX.Element {
                   {p.tags.slice(0, 6).map((t) => (
                     <span
                       key={t}
-                      className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-[#1e2030] text-slate-500"
+                      className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500"
                     >
                       {t}
                     </span>

@@ -20,7 +20,7 @@ const PRINCIPLES = [
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-6 mb-6">
+    <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-6 mb-6">
       <h2 className="font-display font-bold text-xl mb-3">{title}</h2>
       <div className="text-sm font-mono text-muted leading-relaxed space-y-3">{children}</div>
     </section>
@@ -49,7 +49,7 @@ export default function ToolsAbout(): JSX.Element {
           return (
             <div
               key={p.t}
-              className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4"
+              className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4"
             >
               <div className="flex items-center gap-2 font-display font-semibold mb-1">
                 <I size={16} className="text-brand-600 dark:text-brand-400" /> {p.t}

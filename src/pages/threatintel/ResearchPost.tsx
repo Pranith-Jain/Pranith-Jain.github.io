@@ -115,7 +115,7 @@ export default function ResearchPost(): JSX.Element {
         <ArrowLeft size={12} /> all research
       </Link>
 
-      <header className="mb-10 pb-6 border-b border-slate-200 dark:border-[#1e2030]">
+      <header className="mb-10 pb-6 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
         <div className="text-eyebrow font-mono uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">
           {post.kicker}
         </div>
@@ -143,7 +143,7 @@ export default function ResearchPost(): JSX.Element {
             {post.tags.map((t) => (
               <span
                 key={t}
-                className="text-mini font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-[#1e2030] text-slate-500"
+                className="text-mini font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500"
               >
                 {t}
               </span>
@@ -193,7 +193,7 @@ export default function ResearchPost(): JSX.Element {
               '[&_code]:font-mono [&_code]:text-[0.9em] [&_code]:bg-slate-100 [&_code]:dark:bg-slate-800 [&_code]:px-1 [&_code]:py-0.5 [&_code]:rounded ' +
               '[&_pre]:bg-slate-900 [&_pre]:dark:bg-slate-950 [&_pre]:text-slate-100 [&_pre]:p-4 [&_pre]:rounded-lg [&_pre]:overflow-x-auto [&_pre]:my-5 [&_pre]:text-meta [&_pre]:font-mono [&_pre]:leading-relaxed [&_pre_code]:bg-transparent [&_pre_code]:text-inherit [&_pre_code]:px-0 [&_pre_code]:whitespace-pre ' +
               '[&_blockquote]:border-l-2 [&_blockquote]:border-brand-500/40 [&_blockquote]:pl-4 [&_blockquote]:my-4 [&_blockquote]:italic [&_blockquote]:text-slate-600 [&_blockquote]:dark:text-slate-400 ' +
-              '[&_hr]:my-8 [&_hr]:border-slate-200 [&_hr]:dark:border-[#1e2030] ' +
+              '[&_hr]:my-8 [&_hr]:border-slate-200 [&_hr]:dark:border-[rgb(var(--border-400))] ' +
               '[&_em]:italic'
             }
             dangerouslySetInnerHTML={{ __html: html }}
@@ -232,7 +232,10 @@ export default function ResearchPost(): JSX.Element {
           left at the bottom of the page with no obvious next action;
           this gives them an index link plus pointers to other research
           pieces so they don't have to scroll back to the top to navigate. */}
-      <nav aria-labelledby="post-end-nav" className="mt-16 pt-8 border-t border-slate-200 dark:border-[#1e2030]">
+      <nav
+        aria-labelledby="post-end-nav"
+        className="mt-16 pt-8 border-t border-slate-200 dark:border-[rgb(var(--border-400))]"
+      >
         <h2 id="post-end-nav" className="text-mini font-mono uppercase tracking-[0.18em] text-slate-500 mb-4">
           Continue
         </h2>
@@ -259,7 +262,7 @@ export default function ResearchPost(): JSX.Element {
                 <li key={r.slug}>
                   <Link
                     to={`/threatintel/research/${r.slug}`}
-                    className="group flex h-full items-start gap-3 rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-3 transition hover:border-brand-500/40"
+                    className="group flex h-full items-start gap-3 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-3 transition hover:border-brand-500/40"
                   >
                     <FileText
                       size={14}

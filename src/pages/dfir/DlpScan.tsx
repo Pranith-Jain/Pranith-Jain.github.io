@@ -153,7 +153,7 @@ export default function DlpScan(): JSX.Element {
         </p>
       </div>
 
-      <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 mb-6">
+      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
         <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
           <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
             Input
@@ -163,7 +163,7 @@ export default function DlpScan(): JSX.Element {
               <button
                 key={s.label}
                 onClick={() => setInput(s.text)}
-                className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[#1e2030] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
+                className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
               >
                 {s.label}
               </button>
@@ -171,7 +171,7 @@ export default function DlpScan(): JSX.Element {
             {input && (
               <button
                 onClick={() => setInput('')}
-                className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[#1e2030] hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400"
+                className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400"
               >
                 Clear
               </button>
@@ -183,14 +183,14 @@ export default function DlpScan(): JSX.Element {
           onChange={(e) => setInput(e.target.value)}
           rows={10}
           placeholder="Paste a log line, support-ticket transcript, file fragment, or email body. Anything that might contain PII, secrets, or regulated identifiers."
-          className="w-full rounded border border-slate-300 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 px-3 py-2 font-mono text-xs text-slate-900 dark:text-slate-100 focus:border-brand-500/60 focus:outline-none"
+          className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 px-3 py-2 font-mono text-xs text-slate-900 dark:text-slate-100 focus:border-brand-500/60 focus:outline-none"
           aria-label="Text to scan for sensitive data"
         />
       </section>
 
       {input.trim() && (
         <>
-          <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 mb-6">
+          <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
             <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
               <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
                 Verdict
@@ -221,7 +221,7 @@ export default function DlpScan(): JSX.Element {
                   .map((c) => (
                     <div
                       key={c}
-                      className="rounded border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 px-2 py-1"
+                      className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 px-2 py-1"
                     >
                       <span className="text-slate-500 dark:text-slate-400">{CATEGORY_LABELS[c]}:</span>{' '}
                       <span className="text-slate-800 dark:text-slate-200 font-bold">{stats.byCategory[c]}</span>
@@ -231,18 +231,18 @@ export default function DlpScan(): JSX.Element {
             )}
           </section>
 
-          <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 mb-6">
+          <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
             <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
               Highlighted input
             </h2>
-            <div className="rounded border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 p-3 font-mono text-sm text-slate-800 dark:text-slate-200 leading-relaxed overflow-x-auto">
+            <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-3 font-mono text-sm text-slate-800 dark:text-slate-200 leading-relaxed overflow-x-auto">
               {highlight(input, findings)}
             </div>
           </section>
 
           {findings.length > 0 && (
             <>
-              <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 mb-6">
+              <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
                 <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
                   Findings
                 </h2>
@@ -250,7 +250,7 @@ export default function DlpScan(): JSX.Element {
                   {findings.map((f, i) => (
                     <li
                       key={`${f.pattern.id}-${i}`}
-                      className="rounded border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 p-2.5"
+                      className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-2.5"
                     >
                       <div className="flex flex-wrap items-center gap-2 mb-1">
                         <span className="font-display font-semibold text-slate-900 dark:text-slate-100">
@@ -277,7 +277,7 @@ export default function DlpScan(): JSX.Element {
                       <p className="text-meta font-mono text-slate-700 dark:text-slate-300 mb-1">
                         {f.pattern.description}
                       </p>
-                      <code className="text-meta font-mono text-slate-800 dark:text-slate-200 break-all bg-white dark:bg-[#12121a] rounded border border-slate-200 dark:border-[#1e2030] p-1 inline-block">
+                      <code className="text-meta font-mono text-slate-800 dark:text-slate-200 break-all bg-white dark:bg-[rgb(var(--surface-200))] rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-1 inline-block">
                         {f.text.length > 80 ? f.text.slice(0, 77) + '…' : f.text}
                       </code>
                     </li>
@@ -285,7 +285,7 @@ export default function DlpScan(): JSX.Element {
                 </ul>
               </section>
 
-              <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 mb-6">
+              <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
                 <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
                   <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
                     Redacted output
@@ -296,7 +296,7 @@ export default function DlpScan(): JSX.Element {
                   Every finding replaced with <code>[REDACTED:&lt;pattern-id&gt;]</code>. Safe to share in a ticket or
                   on Slack.
                 </p>
-                <pre className="rounded border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 p-3 font-mono text-xs text-slate-800 dark:text-slate-200 whitespace-pre-wrap break-words">
+                <pre className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-3 font-mono text-xs text-slate-800 dark:text-slate-200 whitespace-pre-wrap break-words">
                   {redacted}
                 </pre>
               </section>
@@ -312,7 +312,7 @@ export default function DlpScan(): JSX.Element {
         </>
       )}
 
-      <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4 mb-6">
+      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
         <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
           Pattern catalog ({PATTERNS.length})
         </h2>
@@ -320,7 +320,7 @@ export default function DlpScan(): JSX.Element {
           {PATTERNS.map((p) => (
             <div
               key={p.id}
-              className="rounded border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 p-2.5"
+              className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-2.5"
             >
               <div className="flex items-center gap-1.5 mb-1 flex-wrap">
                 <span className="text-xs font-display font-semibold text-slate-900 dark:text-slate-100">{p.name}</span>
@@ -344,7 +344,7 @@ export default function DlpScan(): JSX.Element {
         </div>
       </section>
 
-      <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4">
+      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
         <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
           References
         </h2>

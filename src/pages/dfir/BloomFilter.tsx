@@ -140,7 +140,7 @@ export default function BloomFilter(): JSX.Element {
       </div>
 
       {/* How it works */}
-      <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-5 mb-6">
+      <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5 mb-6">
         <h2 className="font-display font-bold text-sm mb-3">How It Works</h2>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div className="flex items-start gap-2.5">
@@ -170,7 +170,7 @@ export default function BloomFilter(): JSX.Element {
       </div>
 
       {/* Filter Status */}
-      <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-5 mb-6">
+      <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5 mb-6">
         <div className="flex items-center justify-between mb-4">
           <h2 className="font-display font-bold text-sm flex items-center gap-2">
             <Database size={14} className="text-brand-600 dark:text-brand-400" /> Filter Status
@@ -191,7 +191,7 @@ export default function BloomFilter(): JSX.Element {
             {Object.entries(stats.filters).map(([type, filter]) => (
               <div
                 key={type}
-                className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 p-3"
+                className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-3"
               >
                 <div className="text-xs font-mono font-medium capitalize mb-1.5">{type}</div>
                 {filter.status === 'not_built' ? (
@@ -219,7 +219,7 @@ export default function BloomFilter(): JSX.Element {
       </div>
 
       {/* Lookup */}
-      <div className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a]/40 shadow-e1 p-5">
+      <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5">
         <h2 className="font-display font-bold text-sm mb-4 flex items-center gap-2">
           <Search size={14} className="text-brand-600 dark:text-brand-400" /> Quick Lookup
         </h2>
@@ -230,7 +230,7 @@ export default function BloomFilter(): JSX.Element {
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && void checkIndicator()}
             placeholder="Enter IP, domain, URL, or hash…"
-            className="flex-1 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[#1e2030] rounded-lg px-4 py-2.5 text-sm font-mono text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="flex-1 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg px-4 py-2.5 text-sm font-mono text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
           />
           <button
             onClick={() => void checkIndicator()}

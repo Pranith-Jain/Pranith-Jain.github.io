@@ -299,7 +299,7 @@ export default function LinuxTriage(): JSX.Element {
           <button
             type="button"
             onClick={() => setInput(SAMPLE)}
-            className="text-meta font-mono px-2.5 py-1 rounded border border-slate-300 dark:border-[#1e2030] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
+            className="text-meta font-mono px-2.5 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
           >
             load example
           </button>
@@ -307,7 +307,7 @@ export default function LinuxTriage(): JSX.Element {
             <button
               type="button"
               onClick={pipeToExtractor}
-              className="text-meta font-mono px-2.5 py-1 rounded border border-slate-300 dark:border-[#1e2030] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1"
+              className="text-meta font-mono px-2.5 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1"
             >
               <FileSearch size={11} /> Extract IOCs →
             </button>
@@ -316,7 +316,7 @@ export default function LinuxTriage(): JSX.Element {
             <button
               type="button"
               onClick={() => setInput('')}
-              className="text-meta font-mono px-2.5 py-1 rounded border border-slate-300 dark:border-[#1e2030] hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400"
+              className="text-meta font-mono px-2.5 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400"
             >
               clear
             </button>
@@ -335,12 +335,12 @@ export default function LinuxTriage(): JSX.Element {
         rows={12}
         spellCheck={false}
         aria-label="Linux log / history text"
-        className="w-full px-4 py-3 bg-white dark:bg-[#12121a] border border-slate-200 dark:border-[#1e2030] rounded-lg font-mono text-tool text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+        className="w-full px-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-tool text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
       />
 
       {analysis && (
         <div className="mt-8 space-y-6">
-          <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-5">
+          <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5">
             <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm">
               <span>
                 <span className="text-slate-500">Lines:</span> <span className="font-mono">{analysis.lines}</span>
@@ -376,7 +376,7 @@ export default function LinuxTriage(): JSX.Element {
                 return (
                   <div
                     key={`${f.title}-${idx}`}
-                    className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4"
+                    className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4"
                   >
                     <div className="flex items-start gap-2.5">
                       <st.Icon size={16} className={`mt-0.5 flex-shrink-0 ${st.text}`} />
@@ -388,7 +388,7 @@ export default function LinuxTriage(): JSX.Element {
                         </span>
                         <h3 className={`font-display font-semibold mt-1.5 ${st.text}`}>{f.title}</h3>
                         <p className="text-sm text-muted mt-1 leading-relaxed">{f.detail}</p>
-                        <pre className="text-meta font-mono text-slate-500 mt-2 whitespace-pre-wrap break-all bg-slate-50 dark:bg-slate-950 rounded p-2 border border-slate-200 dark:border-[#1e2030]">
+                        <pre className="text-meta font-mono text-slate-500 mt-2 whitespace-pre-wrap break-all bg-slate-50 dark:bg-slate-950 rounded p-2 border border-slate-200 dark:border-[rgb(var(--border-400))]">
                           {f.evidence}
                         </pre>
                         <p className="text-tool text-slate-700 dark:text-slate-300 mt-2">

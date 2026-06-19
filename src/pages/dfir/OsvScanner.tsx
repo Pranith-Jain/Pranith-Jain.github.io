@@ -176,7 +176,7 @@ export default function OsvScanner(): JSX.Element {
                 '{\n  "dependencies": {\n    "lodash": "4.17.19",\n    "log4js": "0.6.0",\n    "minimist": "1.2.0"\n  }\n}'
               )
             }
-            className="text-meta font-mono px-2.5 py-1 rounded border border-slate-300 dark:border-[#1e2030] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
+            className="text-meta font-mono px-2.5 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
           >
             load example
           </button>
@@ -189,7 +189,7 @@ export default function OsvScanner(): JSX.Element {
                 setMeta(null);
                 setErr(null);
               }}
-              className="text-meta font-mono px-2.5 py-1 rounded border border-slate-300 dark:border-[#1e2030] hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400"
+              className="text-meta font-mono px-2.5 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400"
             >
               clear
             </button>
@@ -207,7 +207,7 @@ export default function OsvScanner(): JSX.Element {
         rows={12}
         spellCheck={false}
         aria-label="Lockfile / manifest"
-        className="w-full px-4 py-3 bg-white dark:bg-[#12121a] border border-slate-200 dark:border-[#1e2030] rounded-lg font-mono text-tool text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+        className="w-full px-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-tool text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
       />
       <button
         type="button"
@@ -222,7 +222,7 @@ export default function OsvScanner(): JSX.Element {
 
       {rows && meta && (
         <div className="mt-8 space-y-6">
-          <section className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-5">
+          <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5">
             <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm">
               <span>
                 <span className="text-slate-500">Parsed:</span> <span className="font-mono">{meta.kind}</span>
@@ -251,7 +251,7 @@ export default function OsvScanner(): JSX.Element {
           {vulnerable.map((r) => (
             <section
               key={`${r.ecosystem}:${r.package}@${r.version}`}
-              className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4"
+              className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4"
             >
               <div className="flex items-center gap-2 flex-wrap">
                 <ShieldAlert size={15} className="text-rose-600 dark:text-rose-400 flex-shrink-0" />

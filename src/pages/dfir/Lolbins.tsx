@@ -74,7 +74,7 @@ export default function Lolbins(): JSX.Element {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search binary, technique, ATT&CK ID, or detection idea…"
-            className="w-full pl-9 pr-3 py-2 rounded border border-slate-300 dark:border-[#1e2030] bg-white dark:bg-[#12121a] font-mono text-sm focus:border-brand-500/60 focus:outline-none"
+            className="w-full pl-9 pr-3 py-2 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] font-mono text-sm focus:border-brand-500/60 focus:outline-none"
             aria-label="Filter LOLBins"
           />
         </div>
@@ -88,7 +88,7 @@ export default function Lolbins(): JSX.Element {
             className={`text-xs font-mono px-2 py-1 rounded border transition-colors ${
               platform === 'all'
                 ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                : 'border-slate-300 dark:border-[#1e2030] text-muted hover:border-brand-500/40'
+                : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40'
             }`}
           >
             All
@@ -102,7 +102,7 @@ export default function Lolbins(): JSX.Element {
                 className={`text-xs font-mono px-2 py-1 rounded border transition-colors ${
                   platform === p.id
                     ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                    : 'border-slate-300 dark:border-[#1e2030] text-muted hover:border-brand-500/40'
+                    : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40'
                 }`}
               >
                 {p.label} <span className="opacity-60">· {count}</span>
@@ -120,7 +120,7 @@ export default function Lolbins(): JSX.Element {
             className={`text-xs font-mono px-2 py-1 rounded border transition-colors ${
               category === 'all'
                 ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                : 'border-slate-300 dark:border-[#1e2030] text-muted hover:border-brand-500/40'
+                : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40'
             }`}
           >
             All
@@ -135,7 +135,7 @@ export default function Lolbins(): JSX.Element {
                 className={`text-xs font-mono px-2 py-1 rounded border transition-colors ${
                   category === c.id
                     ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                    : 'border-slate-300 dark:border-[#1e2030] text-muted hover:border-brand-500/40'
+                    : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40'
                 }`}
               >
                 {c.label} <span className="opacity-60">· {count}</span>
@@ -153,7 +153,7 @@ export default function Lolbins(): JSX.Element {
         {filtered.map((b) => (
           <article
             key={b.id}
-            className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4"
+            className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4"
           >
             <header className="flex flex-wrap items-center gap-2 mb-2">
               <code className="font-display font-bold text-slate-900 dark:text-slate-100 text-base">{b.binary}</code>
@@ -165,7 +165,7 @@ export default function Lolbins(): JSX.Element {
               {b.platforms.map((p) => (
                 <span
                   key={p}
-                  className="text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-slate-300 dark:border-[#1e2030] text-muted"
+                  className="text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-muted"
                 >
                   {p}
                 </span>
@@ -195,7 +195,7 @@ export default function Lolbins(): JSX.Element {
 
             <p className="text-sm font-mono text-slate-800 dark:text-slate-200 mb-2">{b.technique}</p>
 
-            <div className="rounded border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 p-2.5 mb-2">
+            <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-2.5 mb-2">
               <div className="flex items-center justify-between gap-2 mb-1">
                 <span className="text-micro font-mono uppercase tracking-[0.2em] text-rose-600 dark:text-rose-400">
                   Abuse
@@ -208,13 +208,13 @@ export default function Lolbins(): JSX.Element {
             </div>
 
             <div className="grid gap-2 md:grid-cols-2">
-              <div className="rounded border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 p-2.5">
+              <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-2.5">
                 <span className="text-micro font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 block mb-1">
                   Legitimate use
                 </span>
                 <p className="text-meta font-mono text-slate-700 dark:text-slate-300 leading-relaxed">{b.legit}</p>
               </div>
-              <div className="rounded border border-slate-200 dark:border-[#1e2030] bg-slate-50 dark:bg-slate-950 p-2.5">
+              <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-2.5">
                 <span className="text-micro font-mono uppercase tracking-[0.2em] text-emerald-600 dark:text-emerald-400 block mb-1">
                   Detection
                 </span>
@@ -231,7 +231,7 @@ export default function Lolbins(): JSX.Element {
         )}
       </div>
 
-      <section className="mt-8 rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-4">
+      <section className="mt-8 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
         <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
           Upstream catalogues
         </h2>

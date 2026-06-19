@@ -115,12 +115,12 @@ export default function WebLogAnalyzer(): JSX.Element {
         onChange={(e) => setText(e.target.value)}
         rows={6}
         placeholder='127.0.0.1 - - [10/May/2026:13:55:36 +0000] "GET /?id=1%27%20OR%201=1 HTTP/1.1" 200 1234 "-" "sqlmap/1.7"'
-        className="w-full rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 px-3 py-2 font-mono text-meta focus:border-brand-500 focus:outline-none"
+        className="w-full rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 px-3 py-2 font-mono text-meta focus:border-brand-500 focus:outline-none"
       />
       <button
         type="button"
         onClick={() => document.getElementById('weblog-input')?.click()}
-        className="w-full border-2 border-dashed border-slate-300 dark:border-[#1e2030] rounded-lg p-8 text-center cursor-pointer hover:border-brand-500/40 focus-visible:outline-none focus-visible:border-brand-500/60"
+        className="w-full border-2 border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] rounded-lg p-8 text-center cursor-pointer hover:border-brand-500/40 focus-visible:outline-none focus-visible:border-brand-500/60"
         aria-label="Drop a log file or click to choose"
       >
         <Upload size={24} className="mx-auto mb-2 text-slate-500" />
@@ -156,29 +156,29 @@ export default function WebLogAnalyzer(): JSX.Element {
                 <button
                   type="button"
                   onClick={pipeToExtractor}
-                  className="px-2 py-1 rounded border border-slate-200 dark:border-[#1e2030] hover:border-brand-500/40 inline-flex items-center gap-1"
+                  className="px-2 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 inline-flex items-center gap-1"
                 >
                   <FileSearch size={11} /> Extract IOCs →
                 </button>
                 <button
                   type="button"
                   onClick={download}
-                  className="px-2 py-1 rounded border border-slate-200 dark:border-[#1e2030] hover:border-brand-500/40"
+                  className="px-2 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40"
                 >
                   export CSV
                 </button>
               </>
             )}
           </div>
-          <div className="rounded-lg border border-slate-200 dark:border-[#1e2030] overflow-auto max-h-[60vh]">
+          <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] overflow-auto max-h-[60vh]">
             <table className="w-full text-mini font-mono">
-              <thead className="bg-slate-50 dark:bg-[#12121a] sticky top-0">
+              <thead className="bg-slate-50 dark:bg-[rgb(var(--surface-200))] sticky top-0">
                 <tr>
                   {['#', 'IP', 'Method', 'Path', 'Status', 'Findings'].map((h) => (
                     <th
                       key={h}
                       scope="col"
-                      className="text-left px-2 py-1 border-b border-slate-200 dark:border-[#1e2030]"
+                      className="text-left px-2 py-1 border-b border-slate-200 dark:border-[rgb(var(--border-400))]"
                     >
                       {h}
                     </th>
@@ -188,12 +188,20 @@ export default function WebLogAnalyzer(): JSX.Element {
               <tbody>
                 {res.rows.slice(0, 2000).map((r) => (
                   <tr key={r.n} className="even:bg-slate-50/50 dark:even:bg-slate-900/50">
-                    <td className="px-2 py-1 border-b border-slate-100 dark:border-[#1e2030] text-slate-500">{r.n}</td>
-                    <td className="px-2 py-1 border-b border-slate-100 dark:border-[#1e2030]">{r.ip}</td>
-                    <td className="px-2 py-1 border-b border-slate-100 dark:border-[#1e2030]">{r.method}</td>
-                    <td className="px-2 py-1 border-b border-slate-100 dark:border-[#1e2030] break-all">{r.path}</td>
-                    <td className="px-2 py-1 border-b border-slate-100 dark:border-[#1e2030]">{r.status}</td>
-                    <td className="px-2 py-1 border-b border-slate-100 dark:border-[#1e2030]">
+                    <td className="px-2 py-1 border-b border-slate-100 dark:border-[rgb(var(--border-400))] text-slate-500">
+                      {r.n}
+                    </td>
+                    <td className="px-2 py-1 border-b border-slate-100 dark:border-[rgb(var(--border-400))]">{r.ip}</td>
+                    <td className="px-2 py-1 border-b border-slate-100 dark:border-[rgb(var(--border-400))]">
+                      {r.method}
+                    </td>
+                    <td className="px-2 py-1 border-b border-slate-100 dark:border-[rgb(var(--border-400))] break-all">
+                      {r.path}
+                    </td>
+                    <td className="px-2 py-1 border-b border-slate-100 dark:border-[rgb(var(--border-400))]">
+                      {r.status}
+                    </td>
+                    <td className="px-2 py-1 border-b border-slate-100 dark:border-[rgb(var(--border-400))]">
                       {r.tags.map((t) => (
                         <span
                           key={t}

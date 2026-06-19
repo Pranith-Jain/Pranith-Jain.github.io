@@ -67,7 +67,7 @@ export default function MalpediaPage(): JSX.Element {
         </a>{' '}
         — search actors and malware families for descriptions, associated malware, and references.
       </p>
-      <div className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-5">
+      <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5">
         <div className="flex gap-3 mb-4">
           {(['search', 'actor', 'family'] as const).map((m) => (
             <button
@@ -98,7 +98,7 @@ export default function MalpediaPage(): JSX.Element {
                   ? 'Family name (e.g. cobalt strike, redline)'
                   : 'Search actors and families…'
             }
-            className="flex-1 px-3 py-2 bg-white dark:bg-[#12121a] border border-slate-200 dark:border-[#1e2030] rounded-lg font-mono text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="flex-1 px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
           />
           <button
             type="button"
@@ -138,7 +138,7 @@ export default function MalpediaPage(): JSX.Element {
                   return (
                     <div
                       key={String(a.actor_name ?? a.name ?? '')}
-                      className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-3"
+                      className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
                     >
                       <div className="font-display font-semibold text-sm">{String(a.actor_name ?? a.name ?? '?')}</div>
                       {desc && (
@@ -161,7 +161,7 @@ export default function MalpediaPage(): JSX.Element {
                   return (
                     <div
                       key={String(f.family_name ?? f.common_name ?? '')}
-                      className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-3"
+                      className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
                     >
                       <div className="font-display font-semibold text-sm">
                         {String(f.family_name ?? f.common_name ?? '?')}
@@ -188,7 +188,7 @@ export default function MalpediaPage(): JSX.Element {
 
       {/* Actor / Family detail */}
       {result && mode !== 'search' && result.data && (
-        <div className="rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-5">
+        <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5">
           <div className="flex items-center gap-3 mb-4">
             {mode === 'actor' ? (
               <Users size={20} className="text-brand-600" />

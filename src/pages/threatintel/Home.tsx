@@ -412,7 +412,6 @@ export default function ThreatIntelHome(): JSX.Element {
               <ArrowRight size={16} className="text-slate-400 group-open:rotate-90 transition-transform" />
             </summary>
             <div className="px-4 sm:px-5 pb-4 sm:pb-5">
-              <LivePulse />
               <LiveSnapshotPanel
                 tone="rose"
                 compact

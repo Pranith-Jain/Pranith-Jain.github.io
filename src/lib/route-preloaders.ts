@@ -54,6 +54,27 @@ export const routePreloaders: Record<string, Preloader> = {
   },
   '/threatintel/certstream': () => import('../pages/threatintel/CertStreamLive'),
   '/threatintel/campaign-generator': () => import('../pages/threatintel/CampaignGenerator'),
+
+  // Live-snap cards on the portfolio home (highest-traffic entry points).
+  // Warming these on hover/focus removes the chunk-load round-trip the user
+  // would otherwise see between click and first paint.
+  '/threatintel/predictive/global-pulse': () => import('../pages/threatintel/GlobalPulse'),
+  '/threatintel/darkweb/ransom-activity': () => import('../pages/threatintel/RansomwareActivity'),
+  '/threatintel/detections': () => import('../pages/threatintel/Detections'),
+  '/threatintel/iocs/cross': () => import('../pages/threatintel/CrossCorrelate'),
+  // /threatintel/briefings reuses the DFIR Briefings component, so its
+  // lazy chunk lives in pages/dfir/. Warm that chunk on hover.
+  '/threatintel/briefings': () => import('../pages/dfir/Briefings'),
+
+  // Cross-cuts the user reaches from the live-snap tiles above.
+  '/threatintel/predictive/dashboard': () => import('../pages/threatintel/IntelDashboard'),
+
+  // Blog.
+  '/blog': () => import('../pages/Blog'),
+
+  // /snapshots hub — aggregates the live-snap cards from the home page.
+  '/snapshots': () => import('../pages/Snapshots'),
+  '/live': () => import('../pages/Snapshots'),
 };
 
 /**
