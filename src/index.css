@@ -461,87 +461,6 @@
     box-shadow: 0 0 0 2px rgb(244 63 94 / 0.25);
   }
 
-  /* ── Corner-bracket card primitive (2026-06-19) ─────────────────
-     Cyberpunk HUDs (CP2077, ctOS, Linear Cyber, v0 dev mode) all
-     signal "this is a tool / system surface" with four L-shaped
-     corner marks. The corners are 12×12px hairlines, 1.5px thick,
-     placed 8px in from the edge so they don't crowd the border.
-
-     The primitive is purely decorative — it doesn't replace the
-     card's border or shadow, it sits ON TOP of them. Pair with
-     .surface-card / .surface-elevated for the standard lift; the
-     corners add the "this is part of a system" affordance.
-
-     Implementation: a single ::after pseudo-element paints all four
-     L-brackets with one background-image stack (8 linear-gradients,
-     one per segment). No extra DOM, no JS. */
-  .surface-corner {
-    position: relative;
-  }
-  .surface-corner::after {
-    content: '';
-    position: absolute;
-    inset: 8px;
-    pointer-events: none;
-    border-radius: inherit;
-    background-image:
-      /* top-left */ linear-gradient(to right, currentColor 12px, transparent 12px),
-      linear-gradient(to bottom, currentColor 12px, transparent 12px),
-      /* top-right */ linear-gradient(to left, currentColor 12px, transparent 12px),
-      linear-gradient(to bottom, currentColor 12px, transparent 12px),
-      /* bottom-left */ linear-gradient(to right, currentColor 12px, transparent 12px),
-      linear-gradient(to top, currentColor 12px, transparent 12px),
-      /* bottom-right */ linear-gradient(to left, currentColor 12px, transparent 12px),
-      linear-gradient(to top, currentColor 12px, transparent 12px);
-    background-size:
-      12px 1.5px,
-      1.5px 12px,
-      12px 1.5px,
-      1.5px 12px,
-      12px 1.5px,
-      1.5px 12px,
-      12px 1.5px,
-      1.5px 12px;
-    background-position:
-      0 0,
-      0 0,
-      100% 0,
-      100% 0,
-      0 100%,
-      0 100%,
-      100% 100%,
-      100% 100%;
-    background-repeat: no-repeat;
-    opacity: 0.6;
-  }
-  /* Light-mode corner tint: hairline dark, low opacity, so the
-     brackets read as structural in daylight without being loud. */
-  .surface-corner::after {
-    color: rgb(15 23 42 / 0.35);
-  }
-  .dark .surface-corner::after {
-    color: rgb(255 255 255 / 0.35);
-  }
-  /* Accent colour variants. Default is `currentColor` so the L
-     inherits text colour; these explicit variants set the L to
-     cyan or magenta for cards that need to be tagged. In dark
-     mode, accent variants punch up to full saturation — the L
-     becomes a real chrome element, not a structural hairline. */
-  .surface-corner-accent-cyan::after {
-    color: rgb(34 211 238);
-  }
-  .dark .surface-corner-accent-cyan::after {
-    color: rgb(34 211 238);
-    opacity: 0.9;
-  }
-  .surface-corner-accent-magenta::after {
-    color: rgb(244 114 182);
-  }
-  .dark .surface-corner-accent-magenta::after {
-    color: rgb(244 114 182);
-    opacity: 0.9;
-  }
-
   /* Hunt.io-inspired prose. Apply to a wrapper of <p>/<ul>/<h2> blocks
      in long-form pages (case studies, blog posts, glossary). Caps the
      reading width at ~70ch, lifts the body line-height, and uses the
@@ -570,67 +489,9 @@
 }
 
 @layer utilities {
-  /* ── Cyberpunk background grid (2026-06-19) ─────────────────────
-     Two utilities, both deliberately *visible* — the old 8% / 28px
-     dot grid read as dust, not as structure. Cyberpunk HUDs (CP2077,
-     Watch Dogs ctOS, Linear Cyber, Raycast Neon) all rely on a
-     legible grid as the page's connective tissue, not as a subtle
-     texture.
-
-       .bg-dot-grid  → 1px dots, 24px cell, 8% alpha (default)
-       .bg-hex-grid  → CSS hex tile pattern, 56px wide, 8% alpha
-                       (deeper cyberpunk feel; use sparingly — it
-                       competes with content)
-       .bg-line-grid → 1px hairlines, 24px cell, 8% alpha (the
-                       closest match to the Linear/ctOS reference)
-
-     Dark mode bumps the alpha to 10% (the black page swallows 8%),
-     keeps the cell size. The alpha is set so the grid reads at
-     arm's length on a desktop, not as decoration. */
   .bg-dot-grid {
     background-image: radial-gradient(rgba(15, 23, 42, 0.08) 1px, transparent 1px);
-    background-size: 24px 24px;
-  }
-  .bg-line-grid {
-    background-image:
-      linear-gradient(to right, rgba(15, 23, 42, 0.08) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(15, 23, 42, 0.08) 1px, transparent 1px);
-    background-size: 24px 24px;
-  }
-  /* Hex grid: each row is a 2-stop linear-gradient producing the
-     vertical bars of the hex tiles; the second row is offset 28px
-     (half the tile height) and a different gradient gives the
-     slanted edges. 56×64 cell matches the canonical 6:7 hex aspect
-     ratio (radius 32). 8% alpha is the cyberpunk reference default. */
-  .bg-hex-grid {
-    background-color: transparent;
-    background-image:
-      linear-gradient(
-        135deg,
-        rgba(15, 23, 42, 0.08) 1px,
-        transparent 1px
-      ),
-      linear-gradient(
-        225deg,
-        rgba(15, 23, 42, 0.08) 1px,
-        transparent 1px
-      ),
-      linear-gradient(
-        45deg,
-        rgba(15, 23, 42, 0.08) 1px,
-        transparent 1px
-      ),
-      linear-gradient(
-        315deg,
-        rgba(15, 23, 42, 0.08) 1px,
-        transparent 1px
-      );
-    background-size: 56px 32px;
-    background-position:
-      0 0,
-      0 0,
-      0 0,
-      28px 16px;
+    background-size: 28px 28px;
   }
 
   /* ── Live status pulse — the "is the platform working?" dot
@@ -702,30 +563,9 @@
   }
 
   .dark .bg-dot-grid {
-    /* 10% white dots on the pure-black page. Bumped from 8% — the
-       black page swallows 8% into invisibility, defeating the point
-       of a structural grid. */
-    background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
-    background-size: 24px 24px;
-  }
-  .dark .bg-line-grid {
-    background-image:
-      linear-gradient(to right, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
-    background-size: 24px 24px;
-  }
-  .dark .bg-hex-grid {
-    background-image:
-      linear-gradient(135deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
-      linear-gradient(225deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
-      linear-gradient(45deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
-      linear-gradient(315deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
-    background-size: 56px 32px;
-    background-position:
-      0 0,
-      0 0,
-      0 0,
-      28px 16px;
+    /* 8% white dots on the deep-blue page — visible enough to
+       give the page texture, never enough to read as decoration. */
+    background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
   }
 
   .shadow-glow {
@@ -758,101 +598,6 @@
     50% {
       opacity: 0.8;
     }
-  }
-
-  /* ── Terminal / cyberpunk chrome utilities (2026-06-19) ────────
-     Four utilities that ship the "monospace + brackets + status
-     dot" vocabulary cyberpunk HUDs use to label their chrome.
-     All four are pure utilities — no extra DOM, no per-component
-     copy.
-
-       .terminal-label    → uppercase mono micro with 0.18em tracking
-       .terminal-bracket-l → prepend "[" via ::before
-       .terminal-bracket-r → append  "]" via ::after
-       .status-pill       → small mono pill with leading status dot
-
-     Pair them: <span class="terminal-label terminal-bracket-l">…</span>
-     or use the composite .status-pill for "● LIVE" / "◉ OPERATIONAL"
-     style chips. The status dot colour comes from a sibling class
-     (.status-pill-live, .status-pill-ops, .status-pill-warn,
-     .status-pill-error) so the pill itself stays composable. */
-  .terminal-label {
-    font-family: theme('fontFamily.mono');
-    font-size: 0.625rem; /* 10px */
-    line-height: 0.9rem;
-    font-weight: 500;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-  }
-  .terminal-bracket-l::before {
-    content: '[';
-    margin-right: 0.15em;
-    opacity: 0.55;
-  }
-  .terminal-bracket-r::after {
-    content: ']';
-    margin-left: 0.15em;
-    opacity: 0.55;
-  }
-  /* The status pill: a small monospace chip with a leading dot.
-     Uses inline-flex so the dot and label sit on a single line
-     regardless of container width. 0.5px border keeps the pill
-     crisp at 1x; the 0.5 opacity in light mode stops it from
-     competing with the card it sits on. */
-  .status-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    padding: 0.15rem 0.5rem;
-    border-radius: 0.25rem;
-    font-family: theme('fontFamily.mono');
-    font-size: 0.625rem;
-    line-height: 1rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    font-weight: 500;
-    border: 0.5px solid rgb(15 23 42 / 0.15);
-    background-color: rgb(15 23 42 / 0.04);
-  }
-  .status-pill::before {
-    content: '';
-    width: 0.375rem;
-    height: 0.375rem;
-    border-radius: 9999px;
-    background-color: currentColor;
-    box-shadow: 0 0 6px currentColor;
-  }
-  .dark .status-pill {
-    border-color: rgb(255 255 255 / 0.15);
-    background-color: rgb(255 255 255 / 0.04);
-  }
-  /* Status dot colour variants. Each sets the ::before colour, so the
-     pill's text colour (currentColor) flows through to the dot.
-       live  → cyan, pulsing (Live data, live feed)
-       ops   → emerald, pulsing (Operational, healthy)
-       warn  → amber (Warning, stale data)
-       error → magenta/rose (Error, critical, alert)
-       idle  → neutral slate (Idle, paused) */
-  .status-pill-live {
-    color: rgb(34 211 238);
-  }
-  .status-pill-ops {
-    color: rgb(16 185 129);
-  }
-  .status-pill-warn {
-    color: rgb(245 158 11);
-  }
-  .status-pill-error {
-    color: rgb(244 114 182);
-  }
-  .status-pill-idle {
-    color: rgb(148 163 184);
-  }
-  .status-pill-live::before,
-  .status-pill-ops::before {
-    /* Match the existing .live-pulse animation timing so all live
-       indicators pulse in sync across the site. */
-    animation: live-pulse 1.8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   }
 }
 

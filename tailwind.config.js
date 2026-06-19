@@ -36,42 +36,8 @@ export default {
         // slate-400 in dark). Backed by the --muted CSS var in index.css. Prefer
         // `text-muted` over bare text-slate-400 so light mode stays >=4.5:1.
         muted: 'rgb(var(--muted) / <alpha-value>)',
-        // ── Cyberpunk accent system (2026-06-19) ──────────────────────
-        // Canonical cyberpunk pair: neon-cyan + neon-magenta. They're the
-        // two interactive accents (links, focus rings, status states, glow
-        // halos) — everything else stays neutral. The ramp is 50→950 so
-        // existing `text-cyan-400` / `border-magenta-500` utilities work,
-        // and a single `text-cyan-glow` / `text-magenta-glow` returns the
-        // exact hex used by the box-shadow / drop-shadow utilities (avoids
-        // a class explosion: `shadow-[0_0_16px_rgba(0,255,255,0.3)]`).
-        cyan: {
-          50: '#ecfeff',
-          100: '#cffafe',
-          200: '#a5f3fc',
-          300: '#67e8f9',
-          400: '#22d3ee',
-          500: '#06b6d4',
-          600: '#0891b2',
-          700: '#0e7490',
-          800: '#155e75',
-          900: '#164e63',
-          950: '#083344',
-          glow: '#22d3ee', // matches cyan-400 — the box-shadow / ring halo
-        },
-        magenta: {
-          50: '#fdf2f8',
-          100: '#fce7f3',
-          200: '#fbcfe8',
-          300: '#f9a8d4',
-          400: '#f472b6',
-          500: '#ec4899',
-          600: '#db2777',
-          700: '#be185d',
-          800: '#9d174d',
-          900: '#831843',
-          950: '#500724',
-          glow: '#f472b6', // matches magenta-400 — the box-shadow / ring halo
-        },
+        // Removed the unused `neon` cyberpunk palette (cyan/pink/purple/green) —
+        // 0 references, a generic-AI tell carried in config dead weight.
       },
       fontFamily: {
         // Distinctive, domain-fit type system (replaced generic Inter/Poppins/
@@ -122,15 +88,7 @@ export default {
         e1: '0 1px 2px rgba(15, 23, 42, 0.04), 0 1px 3px rgba(15, 23, 42, 0.06)',
         e2: '0 1px 1px rgba(0, 0, 0, 0.02), 0 4px 8px -4px rgba(0, 0, 0, 0.04), 0 16px 24px -8px rgba(0, 0, 0, 0.06)',
         e3: '0 1px 1px rgba(0, 0, 0, 0.02), 0 8px 16px -4px rgba(0, 0, 0, 0.04), 0 24px 32px -8px rgba(0, 0, 0, 0.06)',
-        // ── Cyberpunk glow tokens (2026-06-19) ────────────────────────
-        // Cyberpunk glow is visible but precise: 16px halo on interactive
-        // elements, paired with a 1px ring. Two single-purpose tokens per
-        // accent (sm for hover, lg for active/elevated) so the halo can be
-        // swapped via class without re-declaring box-shadow inline.
-        'glow-cyan-sm': '0 0 0 1px rgba(34, 211, 238, 0.4), 0 0 12px rgba(34, 211, 238, 0.25)',
-        'glow-cyan-lg': '0 0 0 1px rgba(34, 211, 238, 0.6), 0 0 20px rgba(34, 211, 238, 0.4), 0 0 40px rgba(34, 211, 238, 0.15)',
-        'glow-magenta-sm': '0 0 0 1px rgba(244, 114, 182, 0.4), 0 0 12px rgba(244, 114, 182, 0.25)',
-        'glow-magenta-lg': '0 0 0 1px rgba(244, 114, 182, 0.6), 0 0 20px rgba(244, 114, 182, 0.4), 0 0 40px rgba(244, 114, 182, 0.15)',
+        // Removed unused glow-cyan/pink/purple (0 references; neon-AI tell).
       },
       animation: {
         'float-enhanced': 'float-enhanced 6s ease-in-out infinite',
