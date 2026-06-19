@@ -239,27 +239,29 @@ export default function DFIRPage(): JSX.Element {
     <div className="w-full py-6 sm:py-10 text-slate-900 dark:text-slate-100 space-y-8 sm:space-y-12">
       <DfirStructuredData />
       {/* ── Hero — bold value prop + primary search ───────────── */}
-      {/* surface-card + tone-tinted 1px hairline at top-left replaces
-          the old 224px blurred brand wash. Same hierarchy, none of the
-          AI-decorative feel. */}
-      <section className="surface-elevated relative p-6 sm:p-10 lg:p-12">
-        <div aria-hidden className="pointer-events-none absolute top-0 left-0 h-px w-12 bg-brand-500/60" />
+      {/* surface-elevated + surface-corner-accent-cyan paints the four
+          L-bracket chrome on top of the card. The brackets are
+          tinted cyan in dark mode (where the glow is visible) and
+          fade to a hairline in light mode, so the page reads as a
+          cyberpunk tool surface in both themes. */}
+      <section className="surface-elevated surface-corner surface-corner-accent-cyan relative p-6 sm:p-10 lg:p-12">
 
         {/* Status ribbon — single source of "is the platform working?".
             The pulse uses the .live-pulse utility (see index.css) so it's
-            one animation, not a per-element keyframe. */}
-        <div className="mb-5 sm:mb-7 flex flex-wrap items-center gap-x-4 gap-y-2 font-mono text-mini uppercase tracking-[0.16em] text-slate-500">
-          <span className="inline-flex items-center gap-1.5">
-            <span className="relative inline-flex h-1.5 w-1.5">
-              <span className="absolute inset-0 rounded-full bg-brand-500 live-pulse" aria-hidden />
-              <span className="relative inline-block h-1.5 w-1.5 rounded-full bg-brand-500" />
-            </span>
-            <span className="text-brand-600 dark:text-brand-400">Operational</span>
+            one animation, not a per-element keyframe. status-pill-live
+            replaces the inline 2-dot pulse with the .status-pill
+            vocabulary so the live indicator matches the rest of the
+            site's chrome. */}
+        <div className="mb-5 sm:mb-7 flex flex-wrap items-center gap-x-3 gap-y-2 font-mono text-mini uppercase tracking-[0.16em] text-slate-500">
+          <span className="status-pill status-pill-live">
+            <span>Operational</span>
           </span>
           <span aria-hidden className="text-slate-300 dark:text-slate-700">
-            /
+            ·
           </span>
-          <span>Free · No signup · Runs in your browser</span>
+          <span className="terminal-label terminal-bracket-l text-slate-500 dark:text-slate-400">
+            Free · No signup · Browser-only
+          </span>
         </div>
 
         {/* H1 — the single most important visual moment. Bigger, tighter
@@ -289,7 +291,7 @@ export default function DFIRPage(): JSX.Element {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search 60+ tools — IOC check, phishing, CVEs, decoders..."
-            className="w-full rounded-xl border border-slate-200 bg-slate-50 py-3 pl-11 pr-24 font-mono text-sm text-slate-900 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/20 dark:border-[rgb(var(--border-400))] dark:bg-slate-50 dark:text-slate-100 dark:placeholder:text-slate-500"
+            className="w-full rounded-xl border border-slate-200 bg-slate-50 py-3 pl-11 pr-24 font-mono text-sm text-slate-900 placeholder:text-slate-400 focus:border-cyan-500/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500/30 dark:border-[rgb(var(--border-400))] dark:bg-slate-50 dark:text-slate-100 dark:placeholder:text-slate-500 transition-all focus:shadow-glow-cyan-sm"
             aria-label="Search DFIR tools"
           />
           {query ? (
@@ -329,7 +331,7 @@ export default function DFIRPage(): JSX.Element {
             <Link
               key={link.href}
               to={link.href}
-              className="inline-flex items-center gap-1 surface-card rounded-full px-2.5 py-1 text-xs font-medium text-slate-600 hover:border-brand-300 hover:text-brand-600 dark:text-slate-300 dark:hover:border-brand-600 dark:hover:text-brand-400"
+              className="inline-flex items-center gap-1 surface-card surface-corner surface-corner-accent-cyan rounded-md px-2.5 py-1 text-xs font-medium text-slate-600 hover:border-cyan-400 hover:text-cyan-600 hover:shadow-glow-cyan-sm dark:text-slate-300 dark:hover:border-cyan-500 dark:hover:text-cyan-400 transition-all"
             >
               {link.label}
             </Link>
@@ -339,9 +341,19 @@ export default function DFIRPage(): JSX.Element {
         {/* Stat band — Hunt.io "data table inside a card" pattern.
               Three rows, hairline divider, big mono numerals. Reads as
               capability, not as bullet list. */}
+        {/* Stat band — terminal chrome. The first stat (Tools) is the
+            primary anchor and picks up a cyan text-glow so the eye
+            lands on the "60+ tools" capability before anything
+            else. terminal-label / terminal-bracket pair replaces the
+            bare mono caption with the bracketed HUD vocabulary. */}
         <dl className="mt-7 sm:mt-9 grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-[rgb(var(--border-400))] border-y border-[rgb(var(--border-400))]">
           {[
-            { value: `${MAIN_TOOL_COUNT}+`, label: 'Tools', sub: 'in-browser, client-side' },
+            {
+              value: `${MAIN_TOOL_COUNT}+`,
+              label: 'Tools',
+              sub: 'in-browser, client-side',
+              accent: 'text-cyan-400 drop-shadow-[0_0_8px_rgba(34,211,238,0.4)] dark:text-cyan-300',
+            },
             { value: '24', label: 'IOC sources', sub: 'checked in parallel' },
             { value: '0', label: 'data leaves', sub: 'your browser. literally.' },
           ].map((stat, i) => (
@@ -349,8 +361,12 @@ export default function DFIRPage(): JSX.Element {
               key={stat.label}
               className={`flex flex-col gap-1.5 py-3 sm:py-4 ${i === 0 ? 'sm:pr-6' : i === 1 ? 'sm:px-6' : 'sm:pl-6'}`}
             >
-              <dt className="font-mono text-micro uppercase tracking-[0.16em] text-slate-500">{stat.label}</dt>
-              <dd className="font-display text-3xl sm:text-4xl font-bold leading-none tabular-nums text-slate-900 dark:text-white">
+              <dt className="terminal-label text-slate-500">
+                <span className="terminal-bracket-l">{stat.label}</span>
+              </dt>
+              <dd
+                className={`font-display text-3xl sm:text-4xl font-bold leading-none tabular-nums text-slate-900 dark:text-white ${stat.accent ?? ''}`}
+              >
                 {stat.value}
               </dd>
               <dd className="font-mono text-mini text-slate-500">{stat.sub}</dd>
@@ -361,16 +377,16 @@ export default function DFIRPage(): JSX.Element {
 
       {/* ── Personalized workspace — "Continue where you left off" */}
       {isHydrated && recentTools.length > 0 && (
-        <section className="surface-card p-4 sm:p-5">
+        <section className="surface-card surface-corner surface-corner-accent-cyan p-4 sm:p-5">
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-2">
-              <Clock size={14} className="text-brand-600 dark:text-brand-400" />
-              <h2 className="font-display text-sm font-semibold text-slate-900 dark:text-slate-100">
-                Continue where you left off
+              <Clock size={14} className="text-cyan-600 dark:text-cyan-400" />
+              <h2 className="terminal-label text-cyan-700 dark:text-cyan-300">
+                <span className="terminal-bracket-l">Continue where you left off</span>
               </h2>
             </div>
             <span className="font-mono text-[10px] text-slate-400 dark:text-slate-500">
-              {recentTools.length} recent
+              <span className="status-pill status-pill-idle">{recentTools.length} recent</span>
             </span>
           </div>
           <div className="flex flex-wrap gap-2">
@@ -381,11 +397,11 @@ export default function DFIRPage(): JSX.Element {
                 <Link
                   key={entry.path}
                   to={entry.path}
-                  className="group inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-xs font-medium text-slate-700 hover:border-brand-500/40 hover:bg-brand-50/50 dark:border-[rgb(var(--border-400))] dark:bg-slate-50 dark:text-slate-300 dark:hover:border-brand-500/40 dark:hover:bg-brand-500/10 transition-colors"
+                  className="group inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-xs font-medium text-slate-700 hover:border-cyan-500/40 hover:bg-cyan-50/50 dark:border-[rgb(var(--border-400))] dark:bg-slate-50 dark:text-slate-300 dark:hover:border-cyan-500/40 dark:hover:bg-cyan-500/10 transition-all hover:shadow-glow-cyan-sm"
                 >
                   <Icon
                     size={12}
-                    className="text-slate-500 group-hover:text-brand-500 dark:text-slate-400 dark:group-hover:text-brand-400"
+                    className="text-slate-500 group-hover:text-cyan-500 dark:text-slate-400 dark:group-hover:text-cyan-400"
                   />
                   <span>{meta?.label ?? entry.label}</span>
                   <ArrowRight size={10} className="opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -397,10 +413,12 @@ export default function DFIRPage(): JSX.Element {
       )}
 
       {/* ── Quick IOC check — paste an indicator inline */}
-      <section className="surface-card p-4 sm:p-5">
+      <section className="surface-card surface-corner surface-corner-accent-cyan p-4 sm:p-5">
         <div className="flex items-center gap-2 mb-3">
-          <Hash size={14} className="text-brand-600 dark:text-brand-400" />
-          <h2 className="font-display text-sm font-semibold text-slate-900 dark:text-slate-100">Quick IOC check</h2>
+          <Hash size={14} className="text-cyan-600 dark:text-cyan-400" />
+          <h2 className="terminal-label text-cyan-700 dark:text-cyan-300">
+            <span className="terminal-bracket-l">Quick IOC check</span>
+          </h2>
         </div>
         <p className="text-xs text-slate-500 dark:text-slate-400 mb-3">
           Paste an IP, domain, URL, or hash and get an instant verdict from 24 sources.
@@ -416,7 +434,7 @@ export default function DFIRPage(): JSX.Element {
               }
             }}
             placeholder="e.g. 8.8.8.8, evil.com, hash..."
-            className="flex-1 rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 font-mono text-xs text-slate-900 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/20 dark:border-[rgb(var(--border-400))] dark:bg-slate-50 dark:text-slate-100 dark:placeholder:text-slate-500"
+            className="flex-1 rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 font-mono text-xs text-slate-900 placeholder:text-slate-400 focus:border-cyan-500/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500/30 dark:border-[rgb(var(--border-400))] dark:bg-slate-50 dark:text-slate-100 dark:placeholder:text-slate-500"
             aria-label="Enter IOC to check"
           />
           <button
@@ -427,10 +445,10 @@ export default function DFIRPage(): JSX.Element {
               }
             }}
             disabled={!iocInput.trim()}
-            className="inline-flex items-center gap-1.5 rounded-lg bg-brand-600 px-4 py-2 text-xs font-medium text-white hover:bg-brand-700 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+            className="inline-flex items-center gap-1.5 rounded-lg bg-cyan-600 px-4 py-2 text-xs font-medium text-white hover:bg-cyan-500 disabled:opacity-40 disabled:cursor-not-allowed transition-all hover:shadow-glow-cyan-sm"
           >
             <Search size={12} />
-            Check
+            <span className="terminal-label">Check</span>
           </button>
         </div>
       </section>
@@ -438,10 +456,11 @@ export default function DFIRPage(): JSX.Element {
       {/* ── Search results (when typing) ─────────────────────── */}
       {isSearching && (
         <section className="animate-fade-in-up">
-          <div className="font-mono text-xs text-slate-500 mb-4">
-            {searchResults?.length ?? 0} {searchResults?.length === 1 ? 'match' : 'matches'} for &ldquo;{query.trim()}
-            &rdquo;
-            {(searchResults?.length ?? 0) === 0 && ' — try fewer or different keywords'}
+          <div className="terminal-label text-slate-500 dark:text-slate-400 mb-4">
+            <span className="terminal-bracket-l">
+              {searchResults?.length ?? 0} {searchResults?.length === 1 ? 'match' : 'matches'} for "{query.trim()}"
+              {(searchResults?.length ?? 0) === 0 && ' — try fewer or different keywords'}
+            </span>
           </div>
           {searchResults && searchResults.length > 0 && (
             <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
@@ -449,11 +468,14 @@ export default function DFIRPage(): JSX.Element {
                 const Icon = t.icon ?? category.icon;
                 return (
                   <li key={t.path}>
-                    <Link to={t.path} className="group block h-full surface-card card-hover p-4">
+                    <Link
+                      to={t.path}
+                      className="group block h-full surface-card surface-corner surface-corner-accent-cyan card-hover p-4 transition-shadow hover:shadow-glow-cyan-sm"
+                    >
                       <div className="flex items-start justify-between gap-2 mb-2">
-                        <Icon size={16} className="mt-0.5 shrink-0 text-brand-600 dark:text-brand-400" />
-                        <span className="font-mono text-[10px] uppercase tracking-wider text-slate-400 dark:text-slate-500">
-                          {category.label}
+                        <Icon size={16} className="mt-0.5 shrink-0 text-cyan-600 dark:text-cyan-400" />
+                        <span className="terminal-label text-cyan-600 dark:text-cyan-400">
+                          <span className="terminal-bracket-l">{category.label}</span>
                         </span>
                       </div>
                       <h3 className="font-display text-sm font-semibold text-slate-900 group-hover:text-brand-600 dark:text-slate-100 dark:group-hover:text-brand-400">
@@ -501,7 +523,7 @@ export default function DFIRPage(): JSX.Element {
                   <Link
                     key={item.href}
                     to={item.href}
-                    className="group flex items-center gap-3 surface-card card-hover p-4"
+                    className="group relative flex items-center gap-3 surface-card surface-corner surface-corner-accent-cyan card-hover p-4 transition-shadow hover:shadow-glow-cyan-sm"
                   >
                     <div className="grid h-10 w-10 place-items-center rounded-lg bg-slate-50 dark:bg-white/5 text-brand-600 dark:text-brand-400 shrink-0">
                       <Icon size={18} />
@@ -526,9 +548,13 @@ export default function DFIRPage(): JSX.Element {
           <details className="group surface-card">
             <summary className="flex items-center justify-between cursor-pointer p-4 sm:p-5 select-none">
               <div>
-                <h2 className="font-display font-bold text-lg text-slate-900 dark:text-slate-100">Explore by topic</h2>
-                <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-                  8 categories · {MAIN_TOOL_COUNT}+ tools
+                <h2 className="terminal-label text-cyan-700 dark:text-cyan-300 mb-1">
+                  <span className="terminal-bracket-l">Explore by topic</span>
+                </h2>
+                <p className="font-mono text-mini text-slate-500 dark:text-slate-400">
+                  <span className="terminal-bracket-l">8 categories</span>
+                  <span className="text-slate-300 dark:text-slate-700 mx-1">·</span>
+                  <span className="text-magenta-500 dark:text-magenta-400">{MAIN_TOOL_COUNT}+ tools</span>
                 </p>
               </div>
               <ArrowRight size={16} className="text-slate-400 group-open:rotate-90 transition-transform" />
@@ -541,7 +567,7 @@ export default function DFIRPage(): JSX.Element {
                     <Link
                       key={cat.id}
                       to={cat.href}
-                      className={`group relative surface-card card-hover p-4 ${cat.tone}`}
+                      className={`group relative surface-card surface-corner surface-corner-accent-magenta card-hover p-4 transition-shadow hover:shadow-glow-magenta-sm ${cat.tone}`}
                     >
                       <Icon size={20} className="mb-2" aria-hidden="true" />
                       <h3 className="font-display text-sm font-bold text-slate-900 dark:text-slate-100 mb-1">
@@ -568,7 +594,9 @@ export default function DFIRPage(): JSX.Element {
           {/* ── Collapsible: Getting started */}
           <details className="group surface-card">
             <summary className="flex items-center justify-between cursor-pointer p-4 sm:p-5 select-none">
-              <h2 className="font-display font-bold text-lg text-slate-900 dark:text-slate-100">New here?</h2>
+              <h2 className="terminal-label text-cyan-700 dark:text-cyan-300">
+                <span className="terminal-bracket-l">New here?</span>
+              </h2>
               <ArrowRight size={16} className="text-slate-400 group-open:rotate-90 transition-transform" />
             </summary>
             <div className="px-4 sm:px-5 pb-4 sm:pb-5">
@@ -591,7 +619,7 @@ export default function DFIRPage(): JSX.Element {
                   },
                 ].map((s) => (
                   <div key={s.step} className="flex gap-3">
-                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-slate-50 dark:bg-white/5 font-mono text-sm font-bold text-brand-600 dark:text-brand-400">
+                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded border border-cyan-500/40 bg-cyan-500/5 font-mono text-sm font-bold text-cyan-600 dark:text-cyan-400">
                       {s.step}
                     </span>
                     <div>
@@ -610,11 +638,13 @@ export default function DFIRPage(): JSX.Element {
           <details className="group surface-card">
             <summary className="flex items-center justify-between cursor-pointer p-4 sm:p-5 select-none">
               <div>
-                <h2 className="font-display font-bold text-lg text-slate-900 dark:text-slate-100">
-                  Used in real cases
+                <h2 className="terminal-label text-cyan-700 dark:text-cyan-300 mb-1">
+                  <span className="terminal-bracket-l">Used in real cases</span>
                 </h2>
-                <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-                  {TOOL_CASES.length} case studies · real incidents
+                <p className="font-mono text-mini text-slate-500 dark:text-slate-400">
+                  <span className="terminal-bracket-l">{TOOL_CASES.length} case studies</span>
+                  <span className="text-slate-300 dark:text-slate-700 mx-1">·</span>
+                  <span className="text-rose-600 dark:text-rose-400">real incidents</span>
                 </p>
               </div>
               <ArrowRight size={16} className="text-slate-400 group-open:rotate-90 transition-transform" />
@@ -622,7 +652,11 @@ export default function DFIRPage(): JSX.Element {
             <div className="px-4 sm:px-5 pb-4 sm:pb-5">
               <div className="grid gap-3 sm:grid-cols-2">
                 {TOOL_CASES.map((tc) => (
-                  <Link key={tc.caseSlug} to={tc.caseSlug} className="group surface-card card-hover p-4">
+                  <Link
+                    key={tc.caseSlug}
+                    to={tc.caseSlug}
+                    className="group surface-card surface-corner surface-corner-accent-magenta card-hover p-4 transition-shadow hover:shadow-glow-magenta-sm"
+                  >
                     <h3 className="font-display text-sm font-semibold text-slate-900 dark:text-slate-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 mb-1.5">
                       {tc.caseTitle}
                     </h3>
@@ -649,7 +683,7 @@ export default function DFIRPage(): JSX.Element {
           <div className="flex justify-center">
             <Link
               to="/dfir/catalog"
-              className="surface-card inline-flex items-center gap-2 rounded-xl px-6 py-3 text-sm font-medium text-slate-700 hover:border-brand-300 hover:text-brand-600 dark:text-slate-300 dark:hover:border-brand-600 dark:hover:text-brand-400"
+              className="surface-card surface-corner surface-corner-accent-cyan inline-flex items-center gap-2 rounded-xl px-6 py-3 text-sm font-medium text-slate-700 hover:border-cyan-400 hover:text-cyan-600 hover:shadow-glow-cyan-sm dark:text-slate-300 dark:hover:border-cyan-500 dark:hover:text-cyan-400 transition-all"
             >
               <Compass size={16} />
               Browse the full catalog

@@ -57,6 +57,17 @@ function BackgroundLayerImpl({ isDark }: BackgroundLayerProps): JSX.Element {
         }}
         aria-hidden="true"
       />
+      {/* Cyberpunk structural grid (2026-06-19). 1px hairlines on a
+          24px cell, faded behind the page gradient. The grid is the
+          "lit from above" effect of cyberpunk HUDs (CP2077, ctOS,
+          Linear Cyber) — it gives the page a coordinate system
+          without competing with the gradient wash. Toggled into
+          existence with the dark/light themes (the .bg-line-grid
+          utility handles both modes). */}
+      <div
+        className={`fixed inset-0 -z-10 transition-opacity duration-700 ease-in-out ${isDark ? 'bg-line-grid opacity-60' : 'bg-line-grid opacity-100'}`}
+        aria-hidden="true"
+      />
       <div
         className="fixed inset-0 -z-10 pointer-events-none transition-opacity duration-700 ease-in-out"
         style={{
