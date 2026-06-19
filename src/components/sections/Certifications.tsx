@@ -129,10 +129,10 @@ export function Certifications({ certifications, education }: CertificationsProp
   return (
     <section id="certifications" className="scroll-mt-24">
       <div className="mb-10 max-w-2xl">
-        <div className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400">
+        <div className="mb-3 text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
           Credentials
         </div>
-        <h2 className="font-display text-3xl sm:text-4xl font-semibold tracking-[-1.28px] text-slate-900 dark:text-white">
+        <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
           Education, certifications &amp; coursework
         </h2>
       </div>

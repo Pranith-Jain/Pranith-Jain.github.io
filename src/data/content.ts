@@ -66,7 +66,7 @@ export const stats: StatItem[] = [
     label: 'Domains Secured',
     value: '1300+',
     target: 1300,
-    description: 'Across 150+ Startup Portfolio',
+    description: 'Across 150+ startup portfolios',
     badge: '98%+ Auth Alignment',
     source: '/dfir/email-defense',
     sourceLabel: 'verified via Email Defense',
@@ -432,7 +432,7 @@ export const projects: Project[] = [
   {
     title: 'UrlScanner Bot',
     description:
-      'Small chat bot. Paste a URL, it runs through urlscan and a couple of reputation feeds, then posts the verdict back in the channel. Built when I got tired of manually pivoting on every link a client forwarded.',
+      'Small chatbot. Paste a URL, it runs through urlscan and a couple of reputation feeds, then posts the verdict back in the channel. Built when I got tired of manually pivoting on every link a client forwarded.',
     tags: ['Bot', 'Security', 'URL Analysis'],
   },
 ];

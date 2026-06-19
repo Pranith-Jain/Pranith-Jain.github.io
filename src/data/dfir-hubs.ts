@@ -354,7 +354,7 @@ export const HUB_META: readonly HubMeta[] = [
         path: '/dfir/dnscope',
         tabId: 'dnscope',
         label: 'DNSCOPE Infrastructure Map',
-        desc: 'Graph view of a domains nameservers, mail servers, and cross-delegations',
+        desc: "Graph view of a domain's nameservers, mail servers, and cross-delegations",
         compVar: 'Dnscope',
         badge: 'new',
         keywords: ['dns', 'infrastructure', 'graph', 'nameserver'],

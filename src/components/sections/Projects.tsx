@@ -115,8 +115,10 @@ export function Projects({ projects }: ProjectsProps) {
   return (
     <section id="projects" className="scroll-mt-24">
       <div className="mb-10 max-w-2xl">
-        <div className="mb-3 text-eyebrow font-mono uppercase text-slate-500">Projects</div>
-        <h2 className="font-display text-3xl sm:text-4xl font-semibold tracking-[-1.28px] text-slate-900 dark:text-white">
+        <div className="mb-3 text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
+          Projects
+        </div>
+        <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
           Selected projects &amp; initiatives
         </h2>
         <p className="mt-3 text-base text-muted leading-relaxed">
@@ -130,7 +132,9 @@ export function Projects({ projects }: ProjectsProps) {
       {publishedCaseStudies.length > 0 && (
         <div className="mb-12">
           <div className="mb-4 flex items-center gap-2">
-            <div className="text-eyebrow font-mono uppercase text-slate-500">Case Studies</div>
+            <div className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
+              Case Studies
+            </div>
             <span className="text-xs font-mono text-slate-400">· {publishedCaseStudies.length} published</span>
           </div>
 
@@ -209,7 +213,9 @@ export function Projects({ projects }: ProjectsProps) {
         </div>
       )}
 
-      <div className="mb-3 text-eyebrow font-mono uppercase text-slate-500">Tools &amp; initiatives</div>
+      <div className="mb-3 text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
+        Tools &amp; initiatives
+      </div>
       <div className="grid gap-3">
         {visible.map((project) => (
           <ProjectCard key={project.title} project={project} />

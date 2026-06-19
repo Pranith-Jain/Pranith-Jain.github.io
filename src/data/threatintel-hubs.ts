@@ -481,7 +481,7 @@ export const HUB_META: readonly HubMeta[] = [
         path: '/threatintel/telegram',
         tabId: 'telegram-hub',
         label: 'Telegram Intelligence Hub',
-        desc: 'Unified Telegram CTI workspace — free cross-source search, KPIs, and entry points to all telegram surfaces (leak monitor, IOC pipeline, channel discovery, settings).',
+        desc: 'Unified Telegram CTI workspace — free cross-source search, KPIs, and entry points to all Telegram surfaces (leak monitor, IOC pipeline, channel discovery, settings).',
         compVar: 'TelegramHub',
         badge: 'new',
       },

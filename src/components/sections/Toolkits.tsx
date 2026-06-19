@@ -42,8 +42,10 @@ export function Toolkits() {
   return (
     <section id="toolkits" className="scroll-mt-24">
       <div className="mb-8 max-w-3xl">
-        <div className="mb-3 text-eyebrow font-mono uppercase text-slate-500 dark:text-slate-400">Tooling</div>
-        <h2 className="font-display text-3xl sm:text-4xl font-semibold tracking-[-1.28px] text-slate-900 dark:text-white">
+        <div className="mb-3 text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
+          Tooling
+        </div>
+        <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
           Security tools I built
         </h2>
         <p className="mt-3 text-base sm:text-lg text-muted leading-relaxed">
@@ -58,7 +60,7 @@ export function Toolkits() {
             <Link
               key={tk.id}
               to={tk.href}
-              className="group card-hover flex flex-col rounded-lg border border-black/10 bg-white p-6 transition-all h-full hover:border-black/25 hover:bg-black/[0.02] dark:border-white/10 dark:bg-[rgb(var(--surface-200))] dark:hover:border-white/20 dark:hover:bg-white/[0.03]"
+              className="group card-hover flex flex-col rounded-lg border border-black/10 bg-white p-6 transition-all h-full hover:border-black/25 hover:bg-black/[0.02] dark:border-white/10 dark:bg-slate-900/90 dark:hover:border-white/20 dark:hover:bg-white/[0.03]"
             >
               <div className="flex items-start justify-between mb-4">
                 <div className="grid h-10 w-10 place-items-center rounded-md bg-brand-50 text-brand-600 dark:bg-brand-900/30 dark:text-brand-300">

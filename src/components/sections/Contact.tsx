@@ -31,10 +31,12 @@ export function Contact({ personalInfo }: ContactProps) {
         </div>
 
         <div className="relative mx-auto max-w-4xl text-center">
-          <div className="mb-3 text-eyebrow font-mono uppercase text-brand-600 dark:text-brand-400">Get in touch</div>
+          <div className="mb-3 text-eyebrow font-mono uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400">
+            Get in touch
+          </div>
           <h2
             id="contact-heading"
-            className="font-display text-3xl font-semibold tracking-[-1.28px] text-slate-900 dark:text-white sm:text-4xl"
+            className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white"
           >
             Investigating an incident, or building detections before one happens?
           </h2>

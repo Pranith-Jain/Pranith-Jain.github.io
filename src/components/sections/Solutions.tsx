@@ -45,8 +45,10 @@ export function Solutions() {
   return (
     <section id="solutions" className="scroll-mt-24">
       <div className="mb-8 max-w-3xl">
-        <div className="mb-3 text-eyebrow font-mono uppercase text-slate-500 dark:text-slate-400">Solutions</div>
-        <h2 className="font-display text-3xl sm:text-4xl font-semibold tracking-[-1.28px] text-slate-900 dark:text-white">
+        <div className="mb-3 text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
+          Solutions
+        </div>
+        <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
           Everything you need for threat intelligence &amp; DFIR
         </h2>
         <p className="mt-3 text-base sm:text-lg text-muted">
