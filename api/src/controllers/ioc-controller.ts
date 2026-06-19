@@ -50,6 +50,28 @@ export function createIocController(): IocController {
         );
       }
 
+      // CVE/email/email have no real-time reputation provider in the fan-out
+      // (the upstream sources are CVE feeds, not reputation DBs). Detect
+      // these here so the page can show a redirect to the dedicated tool
+      // instead of streaming an empty 'all unsupported' result that looks
+      // like the IOC check is broken.
+      if (type === 'cve' || type === 'email') {
+        return c.json(
+          {
+            error: 'use_dedicated_route',
+            type,
+            message:
+              type === 'cve'
+                ? 'Use /api/v1/cve/lookup?id=… for CVE enrichment — the IOC fan-out has no real-time CVE providers.'
+                : 'Use /api/v1/breach/email?email=… for email breach lookups — the IOC fan-out has no real-time email reputation providers.',
+            redirect:
+              type === 'cve'
+                ? { path: '/api/v1/cve/lookup', param: 'id' }
+                : { path: '/api/v1/breach/email', param: 'email' },
+          },
+          400
+        );
+      }
       const eligible = (Object.keys(ADAPTERS) as ProviderId[]).filter((p) => PROVIDER_SUPPORT[p].includes(type));
       const providerEnv = buildProviderEnv(c.env);
       const cache = new ProviderCache(c.env.KV_CACHE);

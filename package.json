@@ -4,14 +4,14 @@
   "description": "Pranith Jain - Portfolio Website (React + Vite + TypeScript)",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "node scripts/build-telegram-actor-catalog.mjs && vite",
     "dev:web": "vite",
     "dev:api": "wrangler dev --port 8787",
     "wiki:meta": "node scripts/extract-wiki-meta.mjs",
     "og:png": "node scripts/generate-og-png.mjs",
     "sitemap": "node scripts/build-sitemap.mjs",
     "check:meta": "node scripts/check-meta-lengths.mjs",
-    "prebuild": "node scripts/extract-wiki-meta.mjs && node scripts/generate-og-png.mjs && node scripts/build-sitemap.mjs && node scripts/check-meta-lengths.mjs",
+    "prebuild": "node scripts/build-telegram-actor-catalog.mjs && node scripts/extract-wiki-meta.mjs && node scripts/generate-og-png.mjs && node scripts/build-sitemap.mjs && node scripts/check-meta-lengths.mjs",
     "build:client": "vite build",
     "build:server": "vite build --ssr src/entry-server.tsx",
     "build:prerender": "node scripts/prerender.mjs",
@@ -19,7 +19,7 @@
     "check:budgets": "node scripts/check-budgets.mjs",
     "check:no-px-text": "node scripts/check-no-px-text.mjs",
     "build:check": "npm run build && npm run check:budgets",
-    "deploy": "npm run build && wrangler deploy",
+    "deploy": "npm run build && node scripts/build-telegram-actor-catalog.mjs && wrangler deploy",
     "preview": "vite preview",
     "test": "vitest",
     "test:run": "vitest run",
@@ -33,7 +33,8 @@
     "analyze": "vite build --mode analyze",
     "codegen": "node scripts/codegen.mjs",
     "codegen:check": "node scripts/codegen.mjs --check",
-    "prepare": "husky install || true"
+    "prepare": "husky install || true",
+    "build:telegram-actor-catalog": "node scripts/build-telegram-actor-catalog.mjs"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.29.0",

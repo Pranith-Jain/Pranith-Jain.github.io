@@ -86,6 +86,7 @@ import {
   telegramCustomChannelsPostHandler,
   telegramCustomChannelsDeleteHandler,
 } from './routes/telegram-feed';
+import { telegramSearchHandler, telegramChannelMetaHandler } from './routes/telegram-search';
 import { cveRecentHandler } from './routes/cve-recent';
 import { cveThreatMapHandler } from './routes/cve-threat-map';
 import { phishingUrlsHandler } from './routes/phishing-urls';
@@ -458,7 +459,20 @@ import { ransomwhereHandler } from './routes/ransomwhere';
 import { disarmFrameworkHandler } from './routes/disarm-framework';
 import { attackFlowLibraryHandler } from './routes/attack-flow-library';
 import { volexityThreatIntelHandler } from './routes/volexity-threat-intel';
-import { passiveDnsLookupHandler } from './routes/passive-dns';
+import {
+  passiveDnsLookupHandler,
+  passiveDnsReverseHandler,
+  passiveDnsOverlapHandler,
+  passiveDnsStatsHandler,
+} from './routes/passive-dns';
+import {
+  iocWatchlistCreateHandler,
+  iocWatchlistListHandler,
+  iocWatchlistGetHandler,
+  iocWatchlistDeleteHandler,
+  iocWatchlistAlertsHandler,
+  iocWatchlistStatsHandler,
+} from './routes/ioc-watchlist';
 import { gitHubSecurityHandler, gitHubSecurityRecentMetaHandler } from './routes/github-security';
 import {
   getOwaspAiLandscapeHandler,
@@ -917,6 +931,8 @@ app.get('/api/v1/builtwith', builtwithHandler);
 app.get('/api/v1/ct-log', ctLogHandler);
 app.get('/api/v1/wayback/advanced', validate('query', waybackAdvancedSchema), waybackAdvancedHandler);
 app.get('/api/v1/telegram-feed', telegramFeedHandler);
+app.get('/api/v1/telegram-search', telegramSearchHandler);
+app.get('/api/v1/telegram-channel-meta', telegramChannelMetaHandler);
 app.get('/api/v1/telegram-custom-channels', telegramCustomChannelsGetHandler);
 app.post(
   '/api/v1/telegram-custom-channels',
@@ -1352,6 +1368,18 @@ app.get('/api/v1/disarm-framework', validate('query', disarmFrameworkSchema), di
 app.get('/api/v1/attack-flow-library', validate('query', attackFlowLibrarySchema), attackFlowLibraryHandler);
 app.get('/api/v1/volexity-threat-intel', validate('query', volexityThreatIntelSchema), volexityThreatIntelHandler);
 app.get('/api/v1/passive-dns', validate('query', passiveDnsSchema), passiveDnsLookupHandler);
+app.get('/api/v1/passive-dns/reverse', passiveDnsReverseHandler);
+app.get('/api/v1/passive-dns/overlap', passiveDnsOverlapHandler);
+app.get('/api/v1/passive-dns/stats', passiveDnsStatsHandler);
+
+// IOC Watchlist — proactive alerting on any indicator type
+app.post('/api/v1/ioc-watchlist', iocWatchlistCreateHandler);
+app.get('/api/v1/ioc-watchlist', iocWatchlistListHandler);
+app.get('/api/v1/ioc-watchlist/stats', iocWatchlistStatsHandler);
+app.get('/api/v1/ioc-watchlist/alerts', iocWatchlistAlertsHandler);
+app.get('/api/v1/ioc-watchlist/:id', iocWatchlistGetHandler);
+app.delete('/api/v1/ioc-watchlist/:id', iocWatchlistDeleteHandler);
+
 app.get('/api/v1/github-security', validate('query', githubSecuritySchema), gitHubSecurityHandler);
 app.get('/api/v1/github-security/recent/meta', gitHubSecurityRecentMetaHandler);
 

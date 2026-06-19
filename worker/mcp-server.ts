@@ -1888,5 +1888,127 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         return untrustedToolResult(data);
       }
     );
+
+    // ── Passive DNS Correlation Engine ──────────────────────────────────
+    this.server.tool(
+      'passive_dns_query',
+      'Query passive DNS for a domain or IP. Returns historical DNS resolutions, infrastructure migrations, and fast-flux detection. Sources: VirusTotal, URLscan, crt.sh, CIRCL.',
+      {
+        query: z.string().describe('Domain or IP address to query'),
+        force: z.boolean().optional().describe('Force fresh query (bypass D1 cache)'),
+      },
+      async ({ query, force }) => {
+        const params = new URLSearchParams({ query });
+        if (force) params.set('force', '1');
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          `/api/v1/passive-dns?${params}`,
+          this.apiKey
+        );
+        return untrustedToolResult(data);
+      }
+    );
+    this.server.tool(
+      'passive_dns_reverse',
+      'Reverse passive DNS lookup: find all domains that historically resolved to a given IP. Reads from accumulated D1 cache.',
+      { ip: z.string().describe('IP address to reverse-lookup') },
+      async ({ ip }) => {
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          `/api/v1/passive-dns/reverse?ip=${encodeURIComponent(ip)}`,
+          this.apiKey
+        );
+        return untrustedToolResult(data);
+      }
+    );
+    this.server.tool(
+      'passive_dns_overlap',
+      'Find IPs shared between multiple domains (infrastructure overlap detection). Useful for mapping shared malicious hosting.',
+      { domains: z.string().describe('Comma-separated list of domains (min 2)') },
+      async ({ domains }) => {
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          `/api/v1/passive-dns/overlap?domains=${encodeURIComponent(domains)}`,
+          this.apiKey
+        );
+        return untrustedToolResult(data);
+      }
+    );
+
+    // ── IOC Watchlist ───────────────────────────────────────────────────
+    this.server.tool(
+      'ioc_watchlist_add',
+      'Add an IOC to the watchlist for proactive alerting. Supported types: ip, domain, url, hash, cve, email. Alerts fire when the IOC appears in feeds.',
+      {
+        indicator: z.string().describe('The IOC value to watch'),
+        indicator_type: z.enum(['ip', 'domain', 'url', 'hash', 'cve', 'email']).describe('IOC type'),
+        label: z.string().optional().describe('Human-readable label'),
+        webhook_url: z.string().optional().describe('Webhook URL (Discord, Slack, Telegram, custom)'),
+        min_confidence: z.number().optional().describe('Minimum confidence to trigger (0-100, default 50)'),
+        tlp: z.enum(['WHITE', 'GREEN', 'AMBER', 'RED']).optional().describe('TLP marking'),
+      },
+      async (args) => {
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          '/api/v1/ioc-watchlist',
+          this.apiKey,
+          { method: 'POST', body: JSON.stringify(args) }
+        );
+        return untrustedToolResult(data);
+      }
+    );
+    this.server.tool(
+      'ioc_watchlist_list',
+      'List all watched IOCs. Optionally filter by type.',
+      {
+        type: z.enum(['ip', 'domain', 'url', 'hash', 'cve', 'email']).optional().describe('Filter by IOC type'),
+        limit: z.number().optional().describe('Max results (default 100)'),
+      },
+      async ({ type, limit }) => {
+        const params = new URLSearchParams();
+        if (type) params.set('type', type);
+        if (limit) params.set('limit', String(limit));
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          `/api/v1/ioc-watchlist?${params}`,
+          this.apiKey
+        );
+        return untrustedToolResult(data);
+      }
+    );
+    this.server.tool(
+      'ioc_watchlist_alerts',
+      'List recent alerts from the IOC watchlist.',
+      {
+        indicator: z.string().optional().describe('Filter by indicator'),
+        since: z.string().optional().describe('ISO 8601 lower bound'),
+        limit: z.number().optional().describe('Max results (default 50)'),
+      },
+      async ({ indicator, since, limit }) => {
+        const params = new URLSearchParams();
+        if (indicator) params.set('indicator', indicator);
+        if (since) params.set('since', since);
+        if (limit) params.set('limit', String(limit));
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          `/api/v1/ioc-watchlist/alerts?${params}`,
+          this.apiKey
+        );
+        return untrustedToolResult(data);
+      }
+    );
+    this.server.tool(
+      'ioc_watchlist_stats',
+      'Get watchlist dashboard stats: total watches, alerts by type, webhook delivery rate.',
+      {},
+      async () => {
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          '/api/v1/ioc-watchlist/stats',
+          this.apiKey
+        );
+        return untrustedToolResult(data);
+      }
+    );
   }
 }

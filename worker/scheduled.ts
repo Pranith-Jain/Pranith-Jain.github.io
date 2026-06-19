@@ -22,6 +22,7 @@ import { refreshVictimReleaksCache } from '../api/src/routes/victim-releaks';
 import { warmIntelBundles } from '../api/src/lib/intel-bundle-warm';
 import { checkWatches } from '../api/src/lib/watch-engine';
 import { checkAddressWatches } from '../api/src/lib/address-watch';
+import { sweepWatchlist } from '../api/src/lib/ioc-watchlist';
 import { buildStatusSnapshot, upsertStatusSnapshot } from '../api/src/lib/breach-forum-status';
 import { getCuratedForums } from '../api/src/routes/breach-forums';
 import { buildDeepDarkCti } from '../api/src/routes/deepdarkcti';
@@ -467,6 +468,24 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
 
         // === Crypto address monitor (Phase E) ===
         if (db) ctx.waitUntil(checkAddressWatches(new Date().toISOString(), db).catch(logCronFail('crypto-monitor')));
+
+        // === IOC Watchlist sweep ===
+        if (db) ctx.waitUntil(
+          sweepWatchlist(db, new Date().toISOString())
+            .then((r) => {
+              if (r.alerts > 0 || r.errors.length > 0) {
+                console.log(
+                  JSON.stringify({
+                    job: 'ioc-watchlist-sweep',
+                    checked: r.checked,
+                    alerts: r.alerts,
+                    errors: r.errors.length,
+                  })
+                );
+              }
+            })
+            .catch(logCronFail('ioc-watchlist-sweep'))
+        );
 
         // === Breach-forum status snapshot ===
         // Hourly: re-snapshot the deepdarkCTI forum directory + the curated

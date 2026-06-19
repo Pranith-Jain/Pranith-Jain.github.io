@@ -19,7 +19,7 @@ export const yaraify: ProviderAdapter = async (indicator, env, signal) => {
   });
 
   if (!supports.has(indicator.type)) return base('unsupported');
-  if (!env.ABUSECH_AUTH_KEY) return base('error', { error: 'no_abusech_key' });
+  if (!env.ABUSECH_AUTH_KEY) return base('unsupported', { error: 'no_api_key', error_code: 'no_api_key', error_tags: ['no-api-key'] });
 
   try {
     const res = await fetch(API_URL, {

@@ -85,7 +85,13 @@ const daysParam = (def: number) =>
 // ── IOC Check ────────────────────────────────────────────────────
 
 export const iocCheckSchema = z.object({
-  indicator: indicatorPattern,
+  // Controller reads c.req.query('indicator') ?? c.req.query('q'); accept
+  // both so callers (and bookmarks) using the older ?q= shape don't 400
+  // at the schema. Either one satisfies the schema.
+  indicator: indicatorPattern.optional(),
+  q: indicatorPattern.optional(),
+}).refine((d) => Boolean(d.indicator || d.q), {
+  message: 'indicator (or q) is required',
 });
 
 // ── Domain Lookup ────────────────────────────────────────────────
@@ -244,7 +250,11 @@ export const iocLifecycleSchema = z.object({
 
 export const iocTrendingSchema = z.object({
   limit: limitParam(50, 200),
-  type: z.enum(['ipv4', 'domain', 'url', 'hash']).optional(),
+  // The handler accepts ipv4/ipv6/domain/url/hash/email (see
+  // ioc-lifecycle.ts iocLifecycleTrendingHandler). Match the union
+  // exactly so ?type=ipv6 and ?type=email don't 400 at the schema
+  // before the handler can fall through to 'all types'.
+  type: z.enum(['ipv4', 'ipv6', 'domain', 'url', 'hash', 'email']).optional(),
 });
 
 // ── Relationship Graph ───────────────────────────────────────────
@@ -610,6 +620,12 @@ export const watchlistUpdateSchema = z.object({
 // ── Intel Bundle Build ──────────────────────────────────────────
 
 export const intelBundleBuildSchema = z.object({
+  // STIX-builder tool payload (mode/input is the live shape from /dfir/stix-builder).
+  mode: z.enum(['text', 'iocs', 'url']).optional(),
+  input: z.string().min(1).max(60000).optional(),
+  sourceName: z.string().max(200).optional(),
+  tlp: z.enum(['WHITE', 'AMBER']).optional(),
+  // Legacy query-shape payload (indicator/actor/cve).
   indicator: indicatorPattern.optional(),
   actor: z.string().max(200).optional(),
   cve: cveIdPattern.optional(),
@@ -1034,7 +1050,7 @@ export const securityUpdatesSchema = z.object({
 });
 
 export const passiveDnsSchema = z.object({
-  q: z.string().min(1, 'query required').max(253),
+  query: z.string().min(1, 'query required').max(253),
 });
 
 export const githubSecuritySchema = z.object({

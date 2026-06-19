@@ -17,6 +17,13 @@ export interface ThreatActor {
   campaigns: string[];
   targets: string[];
   motivation: string;
+  /** Public Telegram channels associated with this actor (handles without leading @).
+   *  Sourced from public vendor reports (Group-IB, Flashpoint, CrowdStrike, MITRE)
+   *  and the deepdarkCTI `telegram_threat_actors.md` index. Many of these are
+   *  OPSEC-sensitive — treat them as leads, not as primary attribution evidence. */
+  telegram_handles?: string[];
+  /** Source notes for `telegram_handles` — same length as `telegram_handles` when set. */
+  telegram_handles_source?: string[];
 }
 
 export const TYPE_LABELS: Record<ActorType, string> = {
@@ -53,6 +60,8 @@ export const THREAT_ACTORS: ThreatActor[] = [
     campaigns: ['Election interference 2016', 'DNC hack'],
     targets: ['Government', 'Military', 'Defense'],
     motivation: 'Espionage',
+    telegram_handles: ['apt28world'],
+    telegram_handles_source: ['deepdarkCTI telegram_threat_actors.md (2026)'],
   },
   {
     id: 'apt29',
@@ -88,6 +97,8 @@ export const THREAT_ACTORS: ThreatActor[] = [
     campaigns: ['Sony Pictures 2014', 'WannaCry 2017', 'Ronin Network $620M heist'],
     targets: ['Cryptocurrency', 'Financial', 'Technology'],
     motivation: 'Financial / Espionage',
+    telegram_handles: ['lazarus_group_official', 'cryptohackalert'],
+    telegram_handles_source: ['deepdarkCTI (2026)', 'UN Sanctions Panel reports (cited publicly)'],
   },
   {
     id: 'lockbit',
@@ -105,6 +116,8 @@ export const THREAT_ACTORS: ThreatActor[] = [
     campaigns: ['Boeing attack', 'ICBC financial attack', 'Royal Mail attack'],
     targets: ['Manufacturing', 'Healthcare', 'Government', 'Critical infrastructure'],
     motivation: 'Financial extortion',
+    telegram_handles: ['lockbitsupport', 'lockbit_sup'],
+    telegram_handles_source: ['Group-IB LockBit takedown report (2024)', 'deepdarkCTI (2026)'],
   },
   {
     id: 'alphv',
@@ -122,6 +135,8 @@ export const THREAT_ACTORS: ThreatActor[] = [
     campaigns: ['MGM Resorts attack', 'Caesars attack', 'Change Healthcare attack'],
     targets: ['Healthcare', 'Entertainment', 'Energy'],
     motivation: 'Financial extortion',
+    telegram_handles: ['alphvteam', 'alphv_locker'],
+    telegram_handles_source: ['FBI seizure notice (2023)', 'deepdarkCTI (2026)'],
   },
   {
     id: 'fin7',
@@ -227,6 +242,8 @@ export const THREAT_ACTORS: ThreatActor[] = [
     campaigns: ['MGM Resorts social engineering', 'Caesars $15M ransom'],
     targets: ['Technology', 'Telecom', 'Cloud services'],
     motivation: 'Financial extortion',
+    telegram_handles: ['scatteredsw1nder', 'octo_temp'],
+    telegram_handles_source: ['Group-IB Spider analysis (2024)', 'vx-underground mirror'],
   },
   {
     id: 'conti',
@@ -244,6 +261,8 @@ export const THREAT_ACTORS: ThreatActor[] = [
     campaigns: ['Costa Rica government attack', 'Conti leaks (Ukraine)'],
     targets: ['Healthcare', 'Government', 'Education'],
     motivation: 'Financial extortion',
+    telegram_handles: ['contileaks'],
+    telegram_handles_source: ['Trellix Conti leaks analysis (2022)', 'vx-underground mirror'],
   },
   {
     id: 'trickbot',
@@ -486,6 +505,8 @@ export const THREAT_ACTORS: ThreatActor[] = [
     campaigns: ['Kaseya VSA attack', 'JBS Foods attack', 'Quanta Computer attack'],
     targets: ['Managed service providers', 'Supply chain', 'Manufacturing'],
     motivation: 'Financial extortion',
+    telegram_handles: ['revil'],
+    telegram_handles_source: ['deepdarkCTI (2026)'],
   },
   {
     id: 'ragnarlocker',

@@ -7,11 +7,13 @@ const TelegramLeaks = lazy(() => import('./TelegramLeaks'));
 const TelegramLeakStats = lazy(() => import('./TelegramLeakStats'));
 const TelegramDiscoveredChannels = lazy(() => import('./TelegramDiscoveredChannels'));
 const TelegramSettings = lazy(() => import('./TelegramSettings'));
+const TelegramChannelSearch = lazy(() => import('./TelegramChannelSearch'));
 
-type TabId = 'leaks' | 'stats' | 'channels' | 'settings';
+type TabId = 'leaks' | 'search' | 'stats' | 'channels' | 'settings';
 
 const TABS: Array<{ id: TabId; label: string; desc: string }> = [
   { id: 'leaks', label: 'Leak Feed', desc: 'Credential leak entries from monitored channels' },
+  { id: 'search', label: 'Channel Search', desc: 'Keyword search via tgstat.com + actor correlation' },
   { id: 'stats', label: 'Statistics', desc: 'KPIs, severity distribution, top channels' },
   { id: 'channels', label: 'Channel Discovery', desc: 'Auto-discovered channels — approve or reject' },
   { id: 'settings', label: 'Settings', desc: 'Custom channel management and configuration' },
@@ -25,7 +27,7 @@ export default function TelegramMonitor(): JSX.Element {
       backTo="/threatintel"
       icon={<MessageSquare size={28} />}
       title="Telegram Leak Monitor"
-      description="Unified Telegram leak monitoring — credential leak feed, channel discovery, statistics, and settings. All powered by monitored Telegram channels."
+      description="Unified Telegram leak monitoring — credential leak feed, channel search, channel discovery, statistics, and settings. All powered by monitored Telegram channels."
     >
       <nav
         className="flex flex-wrap gap-1 border-b border-slate-200 dark:border-[rgb(var(--border-400))] mb-6"
@@ -56,6 +58,7 @@ export default function TelegramMonitor(): JSX.Element {
       <div role="tabpanel">
         <Suspense fallback={<TabLoader />}>
           {activeTab === 'leaks' && <TelegramLeaks />}
+          {activeTab === 'search' && <TelegramChannelSearch />}
           {activeTab === 'stats' && <TelegramLeakStats />}
           {activeTab === 'channels' && <TelegramDiscoveredChannels />}
           {activeTab === 'settings' && <TelegramSettings />}

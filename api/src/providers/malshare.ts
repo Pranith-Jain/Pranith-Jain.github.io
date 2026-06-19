@@ -18,7 +18,7 @@ export const malshare: ProviderAdapter = async (indicator, env, signal) => {
   });
 
   if (!supports.has(indicator.type)) return base('unsupported');
-  if (!env.MALSHARE_API_KEY) return base('error', { error: 'no_api_key' });
+  if (!env.MALSHARE_API_KEY) return base('unsupported', { error: 'no_api_key', error_code: 'no_api_key', error_tags: ['no-api-key'] });
 
   try {
     const url = `https://malshare.com/api.php?api_key=${encodeURIComponent(env.MALSHARE_API_KEY)}&action=details&hash=${encodeURIComponent(indicator.value)}`;

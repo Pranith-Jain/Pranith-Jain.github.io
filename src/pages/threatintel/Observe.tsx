@@ -143,7 +143,7 @@ export default function Observe(): JSX.Element {
     try {
       const controller = new AbortController();
       const timeout = setTimeout(() => controller.abort(), 15000);
-      const res = await fetch(`/api/v1/ioc/stream?indicator=${encodeURIComponent(ioc)}`, { signal: controller.signal });
+      const res = await fetch(`/api/v1/ioc/check?indicator=${encodeURIComponent(ioc)}`, { signal: controller.signal });
       clearTimeout(timeout);
       if (!res.ok) throw new Error(`IOC check failed: ${res.status}`);
       const reader = res.body?.getReader();

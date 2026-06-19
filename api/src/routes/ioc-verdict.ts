@@ -73,7 +73,7 @@ async function runProviders(
   const indicator: Indicator = { type, value: raw.trim() };
   const eligible = (Object.keys(ADAPTERS) as ProviderId[]).filter((p) => (PROVIDER_SUPPORT[p] ?? []).includes(type));
   const providerEnv = buildProviderEnv(env);
-  const cache = new ProviderCache(env.KV_CACHE!);
+  const cache = new ProviderCache(env.KV_CACHE);
   const collected: ProviderResult[] = [];
 
   await cache.primeBatch(indicator);
