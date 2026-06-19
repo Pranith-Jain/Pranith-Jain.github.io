@@ -161,6 +161,119 @@ function validateSocial(text: string, platform: 'twitter' | 'linkedin', sourceBo
     issues.push(`${ungrounded.length} ungrounded CVE(s): ${ungrounded.slice(0, 3).join(', ')}`);
   }
 
+  // Concrete-specifics check (LinkedIn only). The post must name
+  // concrete entities (CVE ids, version numbers, regions, sectors, named
+  // vendors or actors) or it falls into the "generic prose" failure
+  // mode the user has been seeing — long, fluent, but says nothing the
+  // reader can act on or quote. We count distinctive tokens that are
+  // LIKELY to indicate a concrete entity without false-positiving on
+  // ordinary English. Sources are NOT in the body (the link lives in
+  // the first comment) so we count from the body only.
+  if (platform === 'linkedin') {
+    const bodyOnly = text.split(/FIRST COMMENT:/i)[0] ?? text;
+    const cves = bodyOnly.match(/\bCVE-\d{4}-\d{4,7}\b/g) ?? [];
+    const versionish = bodyOnly.match(/\bv?\d+\.\d+(?:\.\d+)?\b/g) ?? [];
+    // Common CTI vendor / sector / region vocabulary. Curated short
+    // list — generic text should not false-positive on these.
+    const concreteWords = [
+      'ransomware',
+      'malware',
+      'phishing',
+      'apt',
+      'threat actor',
+      'actor',
+      'cve-',
+      'cvss',
+      'cwe-',
+      'mitre',
+      'att&ck',
+      'healthcare',
+      'manufacturing',
+      'financial',
+      'energy',
+      'government',
+      'us',
+      'uk',
+      'eu',
+      'india',
+      'japan',
+      'germany',
+      'france',
+      'brazil',
+      'aws',
+      'azure',
+      'gcp',
+      'kubernetes',
+      'linux',
+      'windows',
+      'macos',
+      'firewall',
+      'edr',
+      'siem',
+      'soc',
+      'vpn',
+      'okta',
+      'office 365',
+      'cisco',
+      'fortinet',
+      'palo alto',
+      'vmware',
+      'citrix',
+      'ivanti',
+      'apache',
+      'nginx',
+      'wordpress',
+      'joomla',
+      'drupal',
+      'magento',
+      'log4j',
+      'log4shell',
+      'spring',
+      'tomcat',
+      'jenkins',
+      'gitlab',
+      'python',
+      'node',
+      'php',
+      'ruby',
+      'java',
+      'go ',
+      'rust',
+      'lockbit',
+      'cl0p',
+      'clop',
+      'blackcat',
+      'alphv',
+      'akira',
+      'play',
+      'ragnar',
+      'medusa',
+      'inc ransom',
+      '8base',
+      'bianlian',
+      'qilin',
+    ];
+    const lc = bodyOnly.toLowerCase();
+    let concreteHits = cves.length;
+    for (const w of concreteWords) {
+      if (lc.includes(w)) concreteHits += 1;
+    }
+    // Version numbers count as concrete on their own (e.g. "iOS 17.4",
+    // "Apache 2.4.57") but only when they look anchored to a product
+    // — we just count them, since false-positives on dates are fine.
+    concreteHits += Math.min(versionish.length, 3);
+    // 3 is the absolute minimum for a post that's "about something".
+    if (concreteHits < 3) {
+      issues.push(
+        `body has only ${concreteHits} concrete specifics (named CVE / vendor / version / sector / actor / region). Add at least 3 to be useful.`
+      );
+    } else if (concreteHits < 5) {
+      issues.push(
+        `body has ${concreteHits} concrete specifics — fine but the SPECIFICS list is the scan path; aim for 5-8.`
+      );
+    }
+  }
+
   // URL allowlisting
   const { stripped } = stripUntrustedUrls(text);
   if (stripped.length > 0) {
@@ -173,12 +286,24 @@ function validateSocial(text: string, platform: 'twitter' | 'linkedin', sourceBo
     issues.push(`${slop.length} AI-slop phrases`);
   }
 
+  // Concrete-specifics count (filled by the LinkedIn branch above; 0 for Twitter).
+  const concreteSpecifics =
+    platform === 'linkedin'
+      ? ((text.split(/FIRST COMMENT:/i)[0] ?? text).match(
+          /\bCVE-\d{4}-\d{4,7}\b|\b(?:ransomware|malware|phishing|apt|cve-\d{4}-\d{4,7}|cvss|cwe-\d+|mitre|att&ck|healthcare|manufacturing|financial|energy|government|cisco|fortinet|vmware|citrix|ivanti|log4j|log4shell|lockbit|cl0p|clop|blackcat|alphv|akira|qilin)\b/gi
+        )?.length ?? 0)
+      : 0;
+
   // Score: start at 100, deduct for issues
   let score = 100;
   if (platform === 'twitter' && maxPostLength > TWITTER_HARD_LIMIT) score -= 30;
   if (platform === 'linkedin' && maxPostLength > LINKEDIN_HARD_LIMIT) score -= 20;
   if (platform === 'linkedin' && maxPostLength < LINKEDIN_HARD_FLOOR) score -= 50;
   else if (platform === 'linkedin' && maxPostLength < LINKEDIN_SOFT_FLOOR) score -= 25;
+  // Generic-prose failure mode. The post says nothing concrete the
+  // reader can act on — common when the model pads with hedge words.
+  if (platform === 'linkedin' && concreteSpecifics < 3) score -= 40;
+  else if (platform === 'linkedin' && concreteSpecifics < 5) score -= 15;
   score -= Math.min(30, ungrounded.length * 15);
   score -= Math.min(15, stripped.length * 5);
   score -= Math.min(15, slop.length * 7);
@@ -294,34 +419,76 @@ function buildTwitterPrompt(src: SocialSource): string {
 function buildLinkedinPrompt(src: SocialSource): string {
   const postUrl = src.slug.startsWith('http') ? src.slug : `https://pranithjain.qzz.io/blog/${src.slug}`;
   return (
-    `<format name="LinkedIn post">\n` +
-    `- HARD FLOOR: 1500 characters minimum (body only, before FIRST COMMENT and hashtags). ` +
-    `Target 1700-2000 characters. Anything under 1300 chars is too thin and will be rejected on the next pass — fill the body with substance, do NOT pad with restatement.\n` +
-    `- RANGE: 1300-2000 characters (covers the soft floor + target zone above).\n` +
-    `- STRUCTURE — five blocks, each earns its place. Use a single blank line between blocks:\n` +
-    `  1. HOOK (1-2 lines, 200-300 chars): the specific thing in THIS case that makes a practitioner stop scrolling. Not a teaser. A concrete fact, a number, a contrast. \n` +
-    `  2. CONTEXT (1 short paragraph, 200-350 chars): what the case is and who it hit. Named victim / CVE / sector / region. No "recently, X happened" — lead with the specifics.\n` +
-    `  3. INSIGHT (1-2 paragraphs, 400-600 chars): the analytical take. Why this matters beyond the headline. What other coverage missed. A pattern the reader can reuse.\n` +
-    `  4. SPECIFICS (4-8 bullet items, 400-600 chars): named CVEs / vendors / versions / sectors / IOCs from the input. Do NOT use "many", "several", "some" — name them.\n` +
-    `  5. CLOSE (1-2 lines, 150-300 chars): the takeaway and one substantive question. Then "FIRST COMMENT: ${postUrl}" on its own final line.\n` +
-    `- HOOK in first 2 lines. PAS structure: name the problem, agitate, tease the solution. ` +
-    `No throat-clearing, no "New post!", no "I've been thinking about".\n` +
-    `- BODY: story or insight in the middle. 2-3 short paragraphs, each 1-3 sentences. ` +
-    `Lead with the insight, then context, then what it means. "Here's what caught my eye -> here's why it matters -> here's what I'd do about it".\n` +
-    `- VOICE: use "I" naturally, have a point of view. Write like a practitioner sharing something you noticed, not a brand account announcing a thing. If the case has a sharp analytical angle, lead with the angle, not the case recap.\n` +
-    `- DETAILS: One specific number, CVE, or named entity from the data. Be precise.\n` +
-    `- LINK: NEVER in body. Final line: "FIRST COMMENT: ${postUrl}"\n` +
-    `- CLOSE: Strong CTA — one substantive question that invites practitioner experience. Not "Thoughts?" or "Let me know".\n` +
-    `- HASHTAGS: 3-5 on their own final line. Specific to this post (#Log4Shell #DFIR), not generic (#CyberSecurity).\n` +
-    `- NO emojis. Bold at most ONE phrase with **asterisks**, only if it earns it.\n` +
-    `- NO carousel outlines, no section labels, no "CAROUSEL OUTLINE:" blocks.\n` +
-    `- CRITICAL: Every CVE ID, statistic, and named entity must come from the input data. Do not invent.\n` +
+    `<format name="LinkedIn post — practitioner thought-leadership (2026)">\n` +
+    `RANGE: 1300-2000 characters in the body (the first three lines, ~210 characters, are THE FOLD — everything before that is mobile-first feed preview and decides the click).\n` +
+    `RULES — non-negotiable:\n` +
+    `- THE FOLD (first 3 lines, <= 210 characters) MUST contain a complete, standalone point. Not a teaser. The reader who never clicks should still learn one specific thing. Lead with a named entity, a number, or a contrast.\n` +
+    `- The body must contain NO link. Putting a URL in the post body cuts reach 50-60%. The link goes on its own final line: "FIRST COMMENT: ${postUrl}".\n` +
+    `- Mobile-first formatting: short paragraphs (1-3 sentences), single blank line between paragraphs, generous white space. No walls of text. No paragraphs over 3 lines on a phone.\n` +
+    `- Voice: first-person practitioner. Dry, opinionated, specific. Have a point of view. Avoid "I thought I'd share", "Here's the thing", "Let me be clear", "Look,", and every phrase in the shared banned list. No emojis.\n` +
+    `- Bold at most ONE phrase with **asterisks**, only if it earns the emphasis. No bolded sentences, no bolded lists.\n` +
+    `- 3-5 specific, on-topic hashtags on the final line. Specific to the case (campaign name, vulnerability class, sector) — never a generic stack like #CyberSecurity #InfoSec. Examples of good: #Log4Shell #DFIR #CVE_2026_20182 #ThreatIntel. Examples of bad: #cyber #security #infosec #hackers.\n` +
+    `- Every CVE id, statistic, named victim, and named entity MUST come from the input data. Inventing a number is the fastest way to lose credibility.\n` +
+    `\n` +
+    `STRUCTURE — six blocks, each earns its place. Use a single blank line between blocks:\n` +
+    `  1. HOOK (first 1-2 lines, <= 210 chars — entirely inside THE FOLD): a specific fact, a number, a contrast, or a contrarian read. NOT a teaser. The reader should be able to stop here and still have learned something concrete.\n` +
+    `  2. CONTEXT (1 short paragraph, 1-3 sentences): who is involved, what was exposed, when. Named victim / vendor / sector / region. No "recently, X happened" throat-clearing.\n` +
+    `  3. INSIGHT (1-2 paragraphs, the analytical core): the pattern, the contrarian read, the technical detail other coverage missed. Lead with the take, then support it. This is the block the post is being written for.\n` +
+    `  4. SPECIFICS — one scannable bulleted list of 4-8 items, each a single concrete fact (named CVE / vendor / version / sector / IOC). One bullet = one fact. Never "many" / "several" / "some" / "a number of" — name them.\n` +
+    `  5. CLOSE (1-2 lines): the takeaway and one substantive practitioner question — the kind a SOC lead or IR consultant would actually answer. Not "Thoughts?" or "What do you think?".\n` +
+    `  6. CAROUSEL OUTLINE: — optional but high-reach. When the case is a meaty technical breakdown (CVE chain, IOC dump, APT tradecraft, threat-actor profile), append a separate block on its own line: "CAROUSEL OUTLINE:" followed by 5-8 one-line slide titles (slide 1 = the hook, slides 2-7 = one specific idea each, slide 8 = the takeaway). Skip the block entirely for thin or breaking items — it should not appear at all if you have nothing to carousel.\n` +
+    `End the post (after any carousel block) with the FIRST COMMENT link and the hashtags:\n` +
+    `FIRST COMMENT: ${postUrl}\n` +
+    `#HashtagOne #HashtagTwo #HashtagThree\n` +
+    `\n` +
+    `OUTPUT BLOCK ORDER (strict): HOOK -> CONTEXT -> INSIGHT -> SPECIFICS -> CLOSE -> (optional) CAROUSEL OUTLINE: -> FIRST COMMENT: -> hashtags.\n` +
     `</format>\n\n` +
     `<examples>\n` +
-    `HOOK — GOOD: "Lockbit5 listed 15 victims this week. 4 of those targets already appeared on a different affiliate's site this quarter. That's not new compromise — that's affiliate churn."\n` +
-    `HOOK — BAD: "🚨 The ransomware landscape is evolving. Lockbit5 is back and more dangerous than ever. Let's break it down."\n` +
-    `CLOSE — GOOD: "If your IR retainer treats every extortion note as a fresh compromise, how are you handling the re-victimisation angle?"\n` +
-    `CLOSE — BAD: "What do you think? Let me know in the comments!"\n` +
+    `GOOD — full post (the kind that gets saved and quoted):\n` +
+    `\n` +
+    `LockBit listed 14 new victims last week. 4 of those companies already appeared on a different affiliate's site earlier this quarter.\n` +
+    `Same haul, second auction. That's affiliate churn, not fresh compromise.\n` +
+    `\n` +
+    `Most coverage reads this as "LockBit is back, again." The story underneath is operational: affiliates rotate the same victim pool across leak sites to pressure payment. The encryptor and the negotiator are differentiators the public reporting doesn't separate.\n` +
+    `\n` +
+    `If your IR retainer treats every extortion note as a fresh compromise, you've already lost the timing advantage.\n` +
+    `\n` +
+    `- 14 victims listed, 6 in healthcare, 3 in manufacturing\n` +
+    `- 4 re-victimisations traced to a single haul across two affiliates\n` +
+    `- Median dwell time on the leak site before takedown: 11 days\n` +
+    `- Negotiation tactic: affiliate-A publishes, affiliate-B counters at lower price\n` +
+    `- Detection gap: most EDR rules key on encryptor hash, not on the handoff\n` +
+    `\n` +
+    `If your extortion playbook doesn't cover the re-victimisation case, what does your IR retainer actually hand off between attempts?\n` +
+    `\n` +
+    `CAROUSEL OUTLINE:\n` +
+    `1. The 14-victim week that wasn't 14 new compromises\n` +
+    `2. Re-victimisation rate across LockBit affiliates this quarter\n` +
+    `3. Why affiliates rotate the same pool, not new ones\n` +
+    `4. The encryptor-vs-negotiator split the leak sites don't show\n` +
+    `5. Detection gap: keys on hash, misses the handoff\n` +
+    `6. IR retainer patterns that fail this case\n` +
+    `7. What to change in the extortion playbook this quarter\n` +
+    `\n` +
+    `FIRST COMMENT: ${postUrl}\n` +
+    `#LockBit #Ransomware #DFIR #ThreatIntel\n` +
+    `\n` +
+    `↑ Notes: 14 named victims, 4 re-victimisations, dwell time, named tactic — every number is in the case. Hook lands the whole point above the fold in two lines. Insight block carries the analytical take. Bullets are scannable, each one fact. Close is a question practitioners actually answer. Carousel gives the document/carousel variant the algorithm rewards.\n` +
+    `\n` +
+    `BAD — full post (exactly what to avoid):\n` +
+    `\n` +
+    `🚨 New post: LockBit ransomware is back and the implications are huge. In this analysis I break down what we're seeing and what it means for defenders.\n` +
+    `\n` +
+    `The threat landscape is evolving. Adversaries are getting more sophisticated. In today's rapidly changing cybersecurity environment, organizations must stay vigilant.\n` +
+    `\n` +
+    `- Many victims were affected\n` +
+    `- Several sectors were targeted\n` +
+    `- A number of indicators were observed\n` +
+    `- Some best practices apply\n` +
+    `\n` +
+    `What do you think? Let me know in the comments! #cyber #security #infosec\n` +
+    `\n` +
+    `↑ hype-nouns ("implications are huge"), throat-clearing ("in today's landscape"), decorative emoji, "many/several/a number of/some" bullets, link in body, generic hashtag stack, weak close. This is exactly the post the algorithm buries.\n` +
     `</examples>\n\n` +
     `<input>\n` +
     `Title: ${src.title}\n\n` +

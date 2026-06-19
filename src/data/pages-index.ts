@@ -3679,6 +3679,14 @@ const ADMIN_PAGES: readonly PageEntry[] = [
     group: 'admin',
     keywords: ['admin', 'backstage', 'cms'],
   },
+  {
+    path: '/admin/analytics',
+    label: 'Analytics Dashboard',
+    description: 'Platform health, event types, countries, and recent events across the ingested CTI feed.',
+    sectionLabel: 'Admin',
+    group: 'admin',
+    keywords: ['admin', 'analytics', 'dashboard', 'metrics'],
+  },
 ];
 
 export const PAGES: readonly PageEntry[] = [...PORTFOLIO_PAGES, ...DFIR_PAGES, ...THREATINTEL_PAGES, ...ADMIN_PAGES];
