@@ -24,32 +24,26 @@ const GRADIENT_LIGHT = `
 `;
 
 const GRADIENT_DARK = `
-  /* Ultra-premium dark atmosphere (v3):
-      1. Top "lit from above" wash — cool, same hue family as the
-         page bg. Lifts to ~#161d35 at the top, fades to the page
-         color over 65% of the height. This is what makes a dark
-         page feel lit instead of feeling like a void.
-      2. A single deliberate brand-blue pool bottom-right (~6%
-         alpha) — asymmetric, not centered. Centered symmetry
-         reads as decorative; asymmetric reads as designed.
-      3. A second, much fainter brand-blue pool top-left (~3%
-         alpha) for the slightest compositional balance without
-         making the page feel symmetric.
-      4. Bottom edge lift in the bottom 10% so the page doesn't
-         end abruptly. Without this, the page feels like a
-         poster stuck to a wall. */
-  /* v5 (2026-06-19) — page surface shifted to deeper saturated blue
-     #0A1A2E (was #0B0F19 in v4). The top wash's lift color and
-     endpoint both follow, otherwise the gradient's lower 65% would
-     read as a separate darker band at the bottom of the wash
-     instead of blending into the page. The top wash is now
-     #16213D -> #0A1A2E (still a +1 step lift from the page,
-     still in the same blue hue family). The bottom-edge lift
-     rgba updates to match the new --surface-200 token. */
-  radial-gradient(ellipse 95% 55% at 50% 0%, #16213D 0%, #0A1A2E 65%),
-  radial-gradient(at 88% 92%, rgba(67, 94, 241, 0.06) 0px, transparent 50%),
-  radial-gradient(at 12% 8%, rgba(67, 94, 241, 0.03) 0px, transparent 45%),
-  linear-gradient(to bottom, transparent 90%, rgba(23, 29, 44, 0.4) 100%)
+  /* v6 — deep cool-neutral atmosphere (2026-06-19)
+     The page bg is now #090C16 (near-black cool, not overtly blue).
+     The atmosphere must be much more restrained — the old blue wash
+     would look clownish on a neutral page. This version uses:
+       1. A gentle top-lit wash that lifts the page from #090C16 to
+          ~#0e1322 at the top, creating a subtle "light from above"
+          without introducing a visible hue. The ellipse is wider
+          and shallower (90% × 45%) so it feels like soft ambient
+          light, not a spotlight.
+       2. Asymmetric brand-blue pools at very low opacity (4% and
+          2%) — enough to whisper the brand identity without making
+          the page look blue. They pop more than before because the
+          page is neutral.
+       3. A bottom-edge lift that subtly darkens the last 12% so
+          the page doesn't end abruptly — the footer sits on a
+          slightly deeper base. */
+  radial-gradient(ellipse 90% 45% at 50% 0%, rgba(14, 19, 34, 0.8) 0%, transparent 65%),
+  radial-gradient(at 85% 92%, rgba(67, 94, 241, 0.04) 0px, transparent 50%),
+  radial-gradient(at 15% 8%, rgba(67, 94, 241, 0.02) 0px, transparent 45%),
+  linear-gradient(to bottom, transparent 88%, rgba(10, 13, 24, 0.35) 100%)
 `;
 
 const NOISE_URL = `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E")`;

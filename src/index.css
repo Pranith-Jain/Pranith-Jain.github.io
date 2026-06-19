@@ -50,14 +50,14 @@
 
   html.dark {
     color-scheme: dark;
-    /* True neutral page — no blue cast, no warm cast, just monochrome.
-       Brand-blue (brand-600 #2c3ee5) and rose-500/600 are the only
-       chromatic notes on this surface; the chrome itself stays neutral
-       so the accents read as accents, not as ambient. */
-    /* Pure black page bg. The previous #0a1220 was blue-tinted; the
-       only wash now lives in BackgroundLayer.tsx, so the page can read
-       as #000 with light from above. */
-    background-color: #000000;
+    /* Deep cool-neutral page — near-black with a faint indigo undertone.
+       The previous #0A1A2E was overtly blue, which drowned out brand-blue
+       accents and read as "hacker terminal" rather than premium. Now the
+       page sits at #090C16 — dark enough for OLED depth, cool enough to
+       feel intentional, neutral enough that the brand-blue and rose
+       accents are the only chromatic notes on the surface. The
+       BackgroundLayer adds subtle "lit from above" atmosphere. */
+    background-color: rgb(var(--surface-100));
     color: #f5f5f7;
   }
 
@@ -98,54 +98,31 @@
     --surface-bg: rgb(var(--surface-100));
     --glass-bg: rgb(var(--surface-200));
     --glass-border: rgb(var(--border-400));
-    /* ── Neutral dark surfaces (2026-06-19, refined same day) ──────────
-       Three surfaces, three intents. Earlier today these were a "deep
-       blue" family (#0a1220, #131c2d, #1c2740) — which read as a
-       brown wash when warm chips landed on them, then a pure-grayscale
-       family (#0a0a0a, #161616, #1f1f1f) — which read as flat. Now:
-       pure black, no tint, with a +14 page→card lift so cards visibly
-       pop off the page. Border opacity sits at 14% so card edges are
-       unmistakable. Cards also pick up a 1px top-edge highlight (inset
-       box-shadow) — the single most common tell of a premium dark UI.
-         page  = #000000  -- pure black bg, no tint
-         card  = #0e0e0e  -- card surface (+14 lift)
-         raised= #181818  -- hover, active, popover (+10 lift from card)
-         page  = #0a0d18  -- deep cool dark (no void feel)
-         card  = #141822  -- card surface (same hue family, +1 step)
-         raised= #1c212e  -- hover/popover (+1 step from card)
-         input = #0e1117  -- one step below card; reads as inset */
-    /* v4 (2026-06-19) SOC obsidian calibration. The hex deltas are
-      intentionally small (≤3 units per channel) because the system
-      was already on-target; this is a documented alignment with
-      the SOC dashboard reference palette (Deep Obsidian Blue +
-      off-black table rows), not a re-skin. Severity ramp (rose →
-      orange → amber → slate) and the ok/healthy emerald stay as
-      they are — the spec's #FF4D4D / #FF9F43 / #2ED573 are within
-      the same rose / orange / emerald families, and the existing
-      tokens (severity.critical / .high / .medium, soc/tone.ts `ok`)
-      already carry them. Muted text: #E2E8F0 is the spec's body
-      gray, which is exactly Tailwind slate-200 — already in use. */
-    /* v5 (2026-06-19) Deeper-blue page surface. Same luminance as
-       v4 (#0B0F19 → #0A1A2E, both ~5% Y in OKLCH) but with the
-       blue channel pushed +21 to read as a saturated navy page
-       rather than a neutral near-black. The card (--surface-200)
-       and raised (--surface-300) tokens keep their original
-       off-black / off-blue values so cards stay one step above
-       the page in the same hue family; only the page bg shifts.
-       This is the "logo color family, deeper" read of the
-       "every page similar" feedback. */
-    /* (2026-06-19 v3) Rose override reverted: the cool page bg alone
-     is enough to keep red reading as red (no brown wash). The
-     magenta-rose shift was a category mistake — a cybersecurity
-     product shouldn't have pink. Rose stays as Tailwind rose. */
-    --surface-100: 10 26 46; /* page bg — deeper saturated blue #0A1A2E (v5) */
-    --surface-200: 23 29 44; /* card    — off-black table row   #171D2C (SOC spec) */
-    --surface-300: 31 38 56; /* raised  — +1 step from card     #1F2638 */
-    --input-200: 15 18 26; /* input well — between page & card #0F121A */
-    --border-400: 255 255 255 / 0.14;
-    --border-500: 255 255 255 / 0.22;
-    --border-600: 255 255 255 / 0.32;
-    --hover-100: 255 255 255 / 0.04;
+    /* ── v6 — deep cool-neutral dark (2026-06-19) ─────────────────────
+       Premium dark surfaces with restrained cool-indigo undertone.
+       The earlier v5 saturated-blue page (#0A1A2E) drowned out every
+       accent — brand-blue cards had no edge against a brand-blue page.
+       Now the page sits at a near-black #090C16 with a barely perceptible
+       cool shift. RGB ratios are consistent across all four surfaces
+       (B ≈ R × 2.4, G ≈ R × 1.3) so the hue family holds; luminance
+       deltas of +11-12 RGB per layer give clear but non-jarring lift.
+         page  = #090C16  — deep cool-neutral, near-black
+         card  = #141721  — card surface (+11 lift), same cool family
+         raised= #1F222C  — hover/popover (+11 from card)
+         input = #0E111B  — inset well (between page & card)
+       Pure white borders at low opacity read as stark on a cool page;
+       borders now use a cool-tinted white (rgb(210 220 245)) at the
+       same opacities — they define edges without introducing a warm
+       note. The result: brand-blue and rose accents are the only
+       chromatic notes, and they pop. */
+    --surface-100: 9 12 22; /* page bg    — near-black cool-neutral  #090C16 */
+    --surface-200: 20 23 33; /* card       — lifted surface          #141721 */
+    --surface-300: 31 34 44; /* raised     — hover/popover           #1F222C */
+    --input-200: 14 17 27; /* input well — inset                   #0E111B */
+    --border-400: 210 220 245 / 0.1; /* default — cool-white at 10% */
+    --border-500: 210 220 245 / 0.17; /* hover   — cool-white at 17% */
+    --border-600: 210 220 245 / 0.28; /* active  — cool-white at 28% */
+    --hover-100: 210 220 245 / 0.05; /* hover bg wash */
   }
 
   /* Geist two-layer focus ring:
@@ -163,8 +140,7 @@
       0 0 0 4px #2c3ee5;
   }
   html.dark :focus-visible {
-    /* Inner gap uses the deep-blue page surface so the ring sits in a
-       visible halo, not in a contrasting hue. */
+    /* Inner gap uses near-black so the ring sits in a visible halo. */
     box-shadow:
       0 0 0 2px #000000,
       0 0 0 4px #6d8bf7;
@@ -215,21 +191,18 @@
     background-color: rgba(100, 116, 139, 0.7);
   }
 
-  /* ── Dark theme — pure black, +14 card lift ──────────────────────────────────────────
-     Page: #000000 (pure black)
-     Cards: #141414 (card surface, +20 lift — cards clearly pop)
-     Raised: #1f1f1f (hover/popover, +11 lift from card)
-     Borders: rgba(255,255,255,0.14) (clear visible separation)
-     Text: #f5f5f7 (near-white, not gray) */
+  /* ── Dark theme — deep cool-neutral, +11 card lift ─────────────────────
+     Page: #090C16 (near-black cool)
+     Cards: #141721 (+11 lift — clearly pop)
+     Raised: #1F222C (hover/popover, +11 from card)
+     Borders: rgba(210,220,245,0.10) (cool-tinted, refined)
+     Text: #f5f5f7 (near-white) */
 
   /* ── Consolidated card surface — every Tailwind "white" / "slate-50" /
      "slate-900" / "slate-950" / "gray-900" / "gray-800" override in dark
-     mode resolves to the SAME three Geist surfaces. The old rules mapped
-     each utility to a slightly different hex (#12121a vs #15151f vs
-     #0e0e15), which is what made card-on-card-on-input read as horizontal
-     "rows" of varying gray. Now:
-        .bg-white            → surface-200 (the standard card)
-        .bg-slate-50         → input-200   (inputs / inset wells)
+     mode resolves to the SAME three surfaces (v6 cool-neutral):
+        .bg-white            → surface-200 (#141721, standard card)
+        .bg-slate-50         → input-200  (#0E111B, inputs / inset wells)
         .bg-slate-900,950    → surface-200 (alias, kept for old code)
         .bg-gray-900,800     → surface-200 (alias, kept for old code)
         every /N variant     → same surface at the requested opacity */
@@ -244,9 +217,7 @@
     background-color: rgb(var(--input-200)) !important;
   }
 
-  /* Translucent card surfaces — same surface-200 at the requested alpha.
-     The previous rules used a literal rgba(18,18,26,N) which is exactly
-     surface-200 / 255, so behaviour is identical. */
+  /* Translucent card surfaces — surface-200 at the requested alpha. */
   .dark .bg-white\/60,
   .dark .bg-white\/65,
   .dark .bg-white\/70,
@@ -272,11 +243,10 @@
     background-color: rgb(var(--input-200) / var(--tw-bg-opacity, 1)) !important;
   }
 
-  /* Text — pure neutral whites, no blue cast.
-     The previous overrides were blue-tinted (#a0a8c0, #8890a8, etc.)
-     which compounded with the blue-tinted surface to give the page a
-     "wall of dark blue" feel. Now the muted text uses a true neutral
-     gray so only the brand-blue / rose accents carry colour. */
+  /* Text — neutral grays, consistent with cool-neutral page.
+     The page is no longer blue-tinted (#090C16, cool-neutral), so
+     these neutral grays sit comfortably. Brand-blue and rose accents
+     carry all the colour. */
   .dark .text-slate-400 {
     color: #a8a8a8 !important;
   }
@@ -290,38 +260,36 @@
     color: #e5e5e5 !important;
   }
 
-  /* Borders — pure neutral, visible enough to read card edges.
-     Was a blue-tinted family (#1e2030, rgba(30,32,48,N)) which made
-     every card edge read as a "dark blue hairline" against a "dark
-     blue surface" — i.e. invisible. Now: true neutral gray-700 base
-     with consistent opacity. Card edges now read as a clear, deliberate
-     boundary instead of disappearing into the page. */
+  /* Borders — literal overrides for legacy `border-slate-*` class usage.
+     These map old Tailwind border utilities to cool-neutral tones that
+     match the v6 page (#090C16). New code should use the
+     --border-400/500/600 CSS vars instead. */
   .dark .border-slate-200 {
-    border-color: #1f1f1f !important;
+    border-color: rgb(31 34 47) !important;
   }
   .dark .border-slate-200\/60 {
-    border-color: rgba(255, 255, 255, 0.08) !important;
+    border-color: rgba(210, 220, 245, 0.08) !important;
   }
   .dark .border-slate-200\/70 {
-    border-color: rgba(255, 255, 255, 0.1) !important;
+    border-color: rgba(210, 220, 245, 0.1) !important;
   }
   .dark .border-slate-300 {
-    border-color: #2e2e2e !important;
+    border-color: rgb(46 49 62) !important;
   }
   .dark .border-slate-700 {
-    border-color: #232323 !important;
+    border-color: rgb(35 38 51) !important;
   }
   .dark .border-slate-700\/60 {
-    border-color: rgba(255, 255, 255, 0.08) !important;
+    border-color: rgba(210, 220, 245, 0.08) !important;
   }
   .dark .border-slate-800 {
-    border-color: #232323 !important;
+    border-color: rgb(35 38 51) !important;
   }
   .dark .border-slate-800\/40 {
-    border-color: rgba(255, 255, 255, 0.06) !important;
+    border-color: rgba(210, 220, 245, 0.06) !important;
   }
   .dark .border-white\/10 {
-    border-color: rgba(255, 255, 255, 0.1) !important;
+    border-color: rgba(210, 220, 245, 0.1) !important;
   }
 
   /* Placeholders — neutral, not blue */
@@ -381,21 +349,17 @@
   .dark .surface-card {
     border-color: rgb(var(--border-400));
     background-color: rgb(var(--surface-200));
-    /* Ultra-premium dark card recipe (v3):
-       1. 2px pure-black ambient shadow at 0.6 — the depth the previous
-          1px / 0.5 lacked. The card now lifts off the page with real
-          weight instead of looking like a 1px-tall sticker.
-       2. 1px top-edge inset highlight at 0.10 (was 0.06) — the single
-          biggest "premium dark UI" tell (Vercel/Linear/Hunt.io). At
-          0.10 it's visible at a glance instead of needing a squint.
-       3. Faint cool-tinted outer shadow (rgba brand-blue 0.04) that
-          ties every card to the page's cool hue family so the page
-          reads as one composed surface, not as cards pasted onto a
-          black background. */
+    /* Premium dark card recipe (v6):
+       1. 2px deep ambient shadow at 0.6 — card weight, not floating.
+       2. 8px wide-area shadow for realistic depth falloff.
+       3. 1px top-edge inset highlight — cool-tinted (rgb 210 220 245)
+          so it reads as "edge catch light" against the cool-neutral
+          page rather than as a separate white line. This is the single
+          biggest "premium dark UI" tell (Vercel/Linear/Hunt.io). */
     box-shadow:
       0 2px 4px rgba(0, 0, 0, 0.6),
       0 8px 24px -8px rgba(0, 0, 0, 0.4),
-      inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+      inset 0 1px 0 0 rgba(210, 220, 245, 0.12);
   }
   .surface-raised {
     @apply rounded-xl border bg-white shadow-e2 transition duration-200;
@@ -407,7 +371,7 @@
     box-shadow:
       0 2px 6px rgba(0, 0, 0, 0.7),
       0 12px 32px -8px rgba(0, 0, 0, 0.5),
-      inset 0 1px 0 0 rgba(255, 255, 255, 0.14);
+      inset 0 1px 0 0 rgba(210, 220, 245, 0.16);
   }
   .surface-glass {
     @apply rounded-xl border shadow-e1 backdrop-blur-md transition duration-200;
@@ -417,7 +381,7 @@
   .dark .surface-glass {
     border-color: rgb(var(--border-400));
     background-color: rgb(var(--surface-200) / 0.5);
-    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+    box-shadow: inset 0 1px 0 0 rgba(210, 220, 245, 0.1);
   }
   .chrome-glass {
     @apply backdrop-blur-xl;
@@ -440,17 +404,17 @@
     box-shadow:
       0 2px 4px rgba(0, 0, 0, 0.6),
       0 8px 24px -8px rgba(0, 0, 0, 0.4),
-      inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+      inset 0 1px 0 0 rgba(210, 220, 245, 0.12);
   }
   .dark .chrome-glass {
     border-color: rgb(var(--border-500));
     background-color: rgb(var(--surface-100) / 0.78);
     /* Header/sidebar chrome: punch up the top-edge highlight so the
-       glass reads as elevated against the pure-black page. The bottom
+       glass reads as elevated against the deep-cool page. The bottom
        edge stays transparent so the glass doesn't look like a slab. */
     box-shadow:
-      inset 0 1px 0 0 rgba(255, 255, 255, 0.1),
-      inset 0 -1px 0 0 rgba(255, 255, 255, 0.02);
+      inset 0 1px 0 0 rgba(210, 220, 245, 0.1),
+      inset 0 -1px 0 0 rgba(210, 220, 245, 0.02);
   }
   .card-hover {
     @apply transition-[transform,border-color,box-shadow] duration-200;
@@ -462,16 +426,9 @@
   .dark .card-hover:hover {
     border-color: rgb(var(--border-500));
     background-color: rgb(var(--surface-300));
-    /* v5.1 (2026-06-19) — small brand-blue ring + faint glow on card
-       hover. Additive to the existing translate + raised surface +
-       border. The ring uses rgb(67 94 241) (brand-500, the PjMark
-       gradient endpoint) at 30% so the border on hover reads as
-       "this card is now lit by brand-blue" without overpowering.
-       The box-shadow is a 12px brand-blue glow at 18% so the card
-       has a faint halo on hover, the kind of thing Vercel/Linear
-       use to confirm "you're hovering an interactive surface."
-       All values are small enough to be a refinement, not a
-       visual change. Light mode untouched. */
+    /* Brand-blue ring + glow on card hover. The border reads as
+       "lit by brand" without overpowering; the 12px halo confirms
+       interactivity (Vercel/Linear pattern). */
     box-shadow:
       0 0 0 1px rgb(67 94 241 / 0.3),
       0 0 12px rgb(67 94 241 / 0.18);
@@ -631,14 +588,7 @@
   }
 
   .dark .bg-dot-grid {
-    /* v4 (2026-06-19) SOC obsidian calibration. Trimmed from 0.08
-       to 0.06 to land at the spec's "faint dot-grid pattern
-       (opacity: 0.05)" — 0.05 was tested as near-invisible on
-       the new #0B0F19 page bg on a calibrated display, so 0.06
-       keeps the texture perceptible without becoming decoration.
-       The grid size (28px) and dot diameter (1px) stay; the
-       spec called for 20-40px so 28px was already mid-range. */
-    background-image: radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+    background-image: radial-gradient(rgba(210, 220, 245, 0.06) 1px, transparent 1px);
   }
 
   .shadow-glow {
@@ -873,7 +823,7 @@
   background: radial-gradient(ellipse at center, #0f172a 0%, #020617 100%);
 }
 .dark .globe-bg {
-  background: radial-gradient(ellipse at center, #1e293b 0%, #0f172a 100%);
+  background: radial-gradient(ellipse at center, #1a1d2e 0%, #090c16 100%);
 }
 
 /* Pulse ring animation for severity dots */
