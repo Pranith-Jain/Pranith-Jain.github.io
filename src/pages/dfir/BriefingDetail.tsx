@@ -164,9 +164,7 @@ interface LandscapeReport {
 function StatPill({ label, value, accent }: { label: string; value: number | string; accent?: string }) {
   return (
     <div className="flex flex-col items-center gap-0.5">
-      <span className={`text-2xl font-display font-bold ${accent ?? 'text-slate-900 dark:text-slate-100'}`}>
-        {value}
-      </span>
+      <span className={`text-2xl font-display font-bold ${accent ?? 'text-slate-900 dark:text-white'}`}>{value}</span>
       <span className="text-micro font-mono uppercase tracking-wider text-slate-500">{label}</span>
     </div>
   );
@@ -179,7 +177,7 @@ function MitreChip({ technique }: { technique: string }) {
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="text-xs font-mono px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-brand-600 dark:text-brand-400 border border-slate-200 dark:border-[#1e2030] hover:border-brand-500/40 transition-colors"
+      className="text-xs font-mono px-2 py-0.5 rounded bg-slate-100 dark:bg-[#12121a] text-brand-600 dark:text-brand-400 border border-slate-200 dark:border-[#1e2030] hover:border-brand-500/40 transition-colors"
     >
       {technique}
     </a>
@@ -193,7 +191,7 @@ function FindingCard({ finding }: { finding: BriefingFinding }) {
       className={`rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-5 ring-1 ${SEVERITY_RING[canon]}`}
     >
       <div className="flex items-start justify-between gap-3 mb-2">
-        <h4 className="font-display font-bold text-base text-slate-900 dark:text-slate-100 leading-snug">
+        <h4 className="font-display font-bold text-base text-slate-900 dark:text-white leading-snug">
           {finding.title}
         </h4>
         <span
@@ -243,7 +241,7 @@ function FindingCard({ finding }: { finding: BriefingFinding }) {
           </div>
         )}
       <div className="flex flex-wrap items-center gap-2 text-mini font-mono text-slate-500">
-        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-[#1e2030]">
+        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-slate-100 dark:bg-[#12121a] border border-slate-200 dark:border-[#1e2030]">
           {finding.source}
         </span>
         {finding.added && <span>added {finding.added}</span>}
@@ -369,7 +367,7 @@ function IocDumpPanel({
           blocklist seed · one indicator per line
         </span>
       </div>
-      <pre className="max-h-96 overflow-auto rounded-lg bg-slate-50 p-3 font-mono text-xs leading-5 text-slate-800 dark:bg-slate-950 dark:text-slate-200">
+      <pre className="max-h-96 overflow-auto rounded-lg bg-slate-50 p-3 font-mono text-xs leading-5 text-slate-800 dark:bg-[#0e0e15] dark:text-slate-200">
         {dump.content}
       </pre>
     </section>
@@ -416,7 +414,7 @@ function JumpNav({
         >
           <ShieldAlert className="h-3.5 w-3.5" />
           CVEs
-          <span className="rounded-full bg-slate-100 dark:bg-slate-800 px-1.5 text-mini font-mono text-slate-600 dark:text-slate-300">
+          <span className="rounded-full bg-slate-100 dark:bg-[#12121a] px-1.5 text-mini font-mono text-slate-600 dark:text-slate-300">
             {cveCount.toLocaleString()}
           </span>
         </a>
@@ -452,7 +450,7 @@ function JumpNav({
         >
           <Compass className="h-3.5 w-3.5" />
           MITRE
-          <span className="rounded-full bg-slate-100 dark:bg-slate-800 px-1.5 text-mini font-mono text-slate-600 dark:text-slate-300">
+          <span className="rounded-full bg-slate-100 dark:bg-[#12121a] px-1.5 text-mini font-mono text-slate-600 dark:text-slate-300">
             {mitreCount.toLocaleString()}
           </span>
         </a>
@@ -547,11 +545,11 @@ function LandscapeReportView({ briefing }: { briefing: LandscapeReport }): JSX.E
                   className="rounded-xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] shadow-e1 p-5"
                 >
                   <div className="flex items-start justify-between gap-3 mb-2">
-                    <h4 className="font-display font-bold text-base text-slate-900 dark:text-slate-100 leading-snug">
+                    <h4 className="font-display font-bold text-base text-slate-900 dark:text-white leading-snug">
                       {f.title}
                     </h4>
                     {f.count !== undefined && (
-                      <span className="text-micro font-mono uppercase tracking-wider px-2 py-0.5 rounded border bg-slate-100 dark:bg-slate-800 border-slate-200 dark:border-[#1e2030] text-slate-600 dark:text-slate-300 shrink-0">
+                      <span className="text-micro font-mono uppercase tracking-wider px-2 py-0.5 rounded border bg-slate-100 dark:bg-[#12121a] border-slate-200 dark:border-[#1e2030] text-slate-600 dark:text-slate-300 shrink-0">
                         ×{f.count}
                       </span>
                     )}
@@ -560,7 +558,7 @@ function LandscapeReportView({ briefing }: { briefing: LandscapeReport }): JSX.E
                     <p className="text-sm text-muted leading-relaxed mb-3 line-clamp-4">{f.description}</p>
                   )}
                   <div className="flex flex-wrap items-center gap-2 text-mini font-mono text-slate-500">
-                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-[#1e2030]">
+                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-slate-100 dark:bg-[#12121a] border border-slate-200 dark:border-[#1e2030]">
                       {f.source}
                     </span>
                     {f.source_url && (
@@ -682,7 +680,7 @@ export default function BriefingDetail(): JSX.Element {
         >
           <ArrowLeft size={14} /> back
         </Link>
-        <h1 className="font-display font-bold text-2xl text-slate-900 dark:text-slate-100 mb-2">Briefing not found</h1>
+        <h1 className="font-display font-bold text-2xl text-slate-900 dark:text-white mb-2">Briefing not found</h1>
         <p className="text-sm text-slate-500">
           {error ??
             'This briefing has not been generated yet. Daily briefings publish at 00:05 UTC; weekly at 00:15 UTC Monday.'}
@@ -702,7 +700,7 @@ export default function BriefingDetail(): JSX.Element {
   const shareUrl = typeof window !== 'undefined' ? window.location.href : '';
   const shareTitle = briefing.title;
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
+    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-white">
       <Link
         to="/threatintel/briefings"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono transition-colors"
@@ -886,6 +884,27 @@ export default function BriefingDetail(): JSX.Element {
           ))}
         </section>
       )}
+
+      {/* No sections message — when there are no findings but IOCs exist */}
+      {briefing.type !== 'landscape' &&
+        briefing.sections.length === 0 &&
+        briefing.ioc_dump &&
+        briefing.ioc_dump.count > 0 && (
+          <section className="mb-8 rounded-lg border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] p-5">
+            <div className="flex items-start gap-3">
+              <AlertTriangle size={18} className="text-amber-500 mt-0.5 shrink-0" />
+              <div>
+                <p className="text-sm font-semibold text-slate-900 dark:text-white mb-1">
+                  No new critical/high CVEs in this period
+                </p>
+                <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                  The upstream feeds (CISA KEV, NVD) had no new high/critical vulnerabilities for this date range. The
+                  IOC indicators below were still collected from URLhaus, MalwareBazaar, ThreatFox, and TweetFeed.
+                </p>
+              </div>
+            </div>
+          </section>
+        )}
 
       {/* MITRE techniques observed — daily/weekly only. id="briefing-mitre" is
           the JumpNav target. */}
