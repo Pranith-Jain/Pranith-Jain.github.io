@@ -839,6 +839,7 @@ export default function GlobalPulse(): JSX.Element {
   return (
     <DataPageLayout
       backTo="/threatintel"
+      backToOverride="/"
       icon={<Globe size={28} />}
       title="Global Pulse"
       description="A live map of worldwide cyber-threat activity — aggregating 20+ real-time intelligence feeds (ransomware, breaches, CVEs, dark-web chatter) and refreshing every minute."

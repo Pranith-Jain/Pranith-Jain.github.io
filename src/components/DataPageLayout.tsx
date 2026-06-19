@@ -44,6 +44,13 @@ export interface DataPageLayoutProps {
    *  skips rendering the ArrowLeft back link — useful when an ancestor
    *  `DataPageLayout` already renders one. */
   hideBack?: boolean;
+  /** When set, skip the smart-back (`backCategoryFor`) lookup and use this
+   *  path verbatim for the back link. Use for pages that are surfaced as
+   *  cross-surface "cards" from a different parent (e.g. the Global Pulse
+   *  snap on the portfolio home — the user came in from `/`, not from
+   *  `/threatintel/catalog?cat=predictive`, so "back" should return to
+   *  the portfolio home, not the threat-intel hub). */
+  backToOverride?: string;
   /** Accent color for the H1 icon. Defaults to brand (blue, for DFIR).
    *  Pass e.g. "text-rose-600 dark:text-rose-400" for threat-intel pages so
    *  the header icon matches the page accent. */
@@ -67,14 +74,18 @@ export function DataPageLayout({
   className,
   maxWidthClass = 'max-w-5xl',
   hideBack = false,
+  backToOverride,
   accentClass = 'text-brand-600 dark:text-brand-400',
 }: DataPageLayoutProps): JSX.Element {
   // Smart back target: return to the category-filtered hub the user likely came
   // from (e.g. /threatintel/c/knowledge) when one is mapped for this route, else
   // fall back to the explicit backTo. Mirrors the shared BackLink behavior so
   // migrating a page onto this shell preserves its category-aware back-link.
+  // `backToOverride` (when set) bypasses the smart-back entirely — used for
+  // pages surfaced as cross-surface cards where "back" should return to the
+  // parent surface (e.g. portfolio home), not the threatintel hub.
   const { pathname } = useLocation();
-  const backTarget = backCategoryFor(pathname) ?? backTo;
+  const backTarget = backToOverride ?? backCategoryFor(pathname) ?? backTo;
   return (
     <div
       className={`${maxWidthClass} mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100 ${className ?? ''}`}
