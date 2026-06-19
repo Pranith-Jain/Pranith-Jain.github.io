@@ -241,6 +241,42 @@ export function generateOpenApiSpec(): Record<string, unknown> {
           },
         },
       },
+      '/api/v1/intodns/snapshot': {
+        get: {
+          tags: ['Domain Intelligence'],
+          summary: 'IntoDNS.ai Everything Report snapshot',
+          description:
+            'Full DNS and email security report from IntoDNS.ai — DNS records, DNSSEC chain, DANE/TLSA, SPF lookup graph and flattening guidance, DKIM, DMARC, BIMI logo and VMC/CMC, MTA-STS, SMTP STARTTLS, FCrDNS, blacklists, sender requirements, web security, and preferred citation URLs. Cached 6h. Backed by https://intodns.ai/api/report/everything.',
+          parameters: [
+            {
+              name: 'domain',
+              in: 'query',
+              required: true,
+              schema: { type: 'string', maxLength: 253 },
+              example: 'example.com',
+            },
+            {
+              name: 'format',
+              in: 'query',
+              required: false,
+              schema: { type: 'string', enum: ['json', 'markdown'] },
+              description: 'When `markdown`, returns the LLM-ready Markdown form per https://intodns.ai/llm/api.md.',
+            },
+          ],
+          responses: {
+            '200': {
+              description: 'JSON or Markdown body, depending on `format`.',
+              content: {
+                'application/json': { schema: { type: 'object' } },
+                'text/markdown': { schema: { type: 'string' } },
+              },
+            },
+            '400': { description: 'Invalid or missing domain' },
+            '429': { description: 'Upstream rate-limited; `Retry-After` honored' },
+            '502': { description: 'Upstream fetch failed' },
+          },
+        },
+      },
       '/api/v1/cve/lookup': {
         get: {
           tags: ['CVE'],

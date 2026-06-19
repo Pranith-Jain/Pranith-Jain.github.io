@@ -50,6 +50,9 @@ export interface Env {
   VULNCHECK_API_TOKEN?: string;
   GOOGLE_SAFE_BROWSING_API_KEY?: string;
   ZOOMEYE_API_KEY?: string;
+  /** IntoDNS.ai — optional. Public diagnostic endpoints work without a
+   *  key; setting one raises the upstream abuse-protection ceiling. */
+  INTODNS_API_KEY?: string;
   HUDSONROCK_API_KEY?: string;
   /** Set to literal "true" to route every new post to drafts:<slug> for
    *  human approval; anything else (unset, "false", "0") auto-publishes. */

@@ -98,22 +98,22 @@
     /* ── Neutral dark surfaces (2026-06-19, refined same day) ──────────
        Three surfaces, three intents. Earlier today these were a "deep
        blue" family (#0a1220, #131c2d, #1c2740) — which read as a
-       brown wash when warm chips landed on it. Now: near-black with
-       a 1-step cool tint, R≈G<B by max 1 unit. The page→card lift is
-       widened to +13 so cards have actual presence on the page.
-         page  = #0a0a0a  -- bg, never on a card
-         card  = #161616  -- the standard resting card (+12 lift, was +10)
-         raised= #1f1f1f  -- hover, active, popover, modal (+9 lift from card)
-         input = #0e0e0e  -- one step below card; reads as inset
-       Border opacity goes from 8% → 12% default so card edges are
-       visible without the old "everything is one shade" feel. */
-    --surface-100: 11 11 12; /* page bg (near-black, +1 cool tint) */
-    --surface-200: 24 24 26; /* card (+13 lift, visible separation) */
-    --surface-300: 34 34 37; /* raised (+10 lift) */
-    --input-200: 16 16 18; /* input well (slightly below card) */
-    --border-400: 255 255 255 / 0.12;
-    --border-500: 255 255 255 / 0.2;
-    --border-600: 255 255 255 / 0.3;
+       brown wash when warm chips landed on them, then a pure-grayscale
+       family (#0a0a0a, #161616, #1f1f1f) — which read as flat. Now:
+       pure black, no tint, with a +14 page→card lift so cards visibly
+       pop off the page. Border opacity bumped to 14% default so card
+       edges are unmistakable against the pure-black page.
+         page  = #000000  -- pure black bg, no tint
+         card  = #0e0e0e  -- card surface (+14 lift)
+         raised= #181818  -- hover, active, popover (+10 lift from card)
+         input = #080808  -- one step below card; reads as inset */
+    --surface-100: 0 0 0; /* page bg (pure black, no tint) */
+    --surface-200: 14 14 14; /* card (+14 lift, clear separation) */
+    --surface-300: 24 24 24; /* raised (+10 lift) */
+    --input-200: 8 8 8; /* input well (slightly below card) */
+    --border-400: 255 255 255 / 0.14;
+    --border-500: 255 255 255 / 0.22;
+    --border-600: 255 255 255 / 0.32;
     --hover-100: 255 255 255 / 0.04;
   }
 
@@ -135,7 +135,7 @@
     /* Inner gap uses the deep-blue page surface so the ring sits in a
        visible halo, not in a contrasting hue. */
     box-shadow:
-      0 0 0 2px #0b0b0c,
+      0 0 0 2px #000000,
       0 0 0 4px #6d8bf7;
   }
 
@@ -171,7 +171,7 @@
   }
   .dark ::-webkit-scrollbar-track {
     /* Page surface for the scrollbar track so it blends in. */
-    background-color: rgba(11, 11, 12, 0.6);
+    background-color: rgba(0, 0, 0, 0.6);
   }
 
   ::-webkit-scrollbar-thumb {
@@ -184,11 +184,11 @@
     background-color: rgba(100, 116, 139, 0.7);
   }
 
-  /* ── Dark theme — near-black, +13 card lift ──────────────────────────────────────────
-     Page: #0b0b0c (near-black, slight cool tint)
-     Cards: #181819 (card surface, +13 lift — cards visibly pop)
-     Raised: #222225 (hover/popover, +10 lift from card)
-     Borders: rgba(255,255,255,0.12) (clear visible separation)
+  /* ── Dark theme — pure black, +14 card lift ──────────────────────────────────────────
+     Page: #000000 (pure black, no tint)
+     Cards: #0e0e0e (card surface, +14 lift — cards visibly pop)
+     Raised: #181818 (hover/popover, +10 lift from card)
+     Borders: rgba(255,255,255,0.14) (clear visible separation)
      Text: #f5f5f7 (near-white, not gray) */
 
   /* ── Consolidated card surface — every Tailwind "white" / "slate-50" /
@@ -266,7 +266,7 @@
      with consistent opacity. Card edges now read as a clear, deliberate
      boundary instead of disappearing into the page. */
   .dark .border-slate-200 {
-    border-color: #2c2c2e !important;
+    border-color: #1f1f1f !important;
   }
   .dark .border-slate-200\/60 {
     border-color: rgba(255, 255, 255, 0.08) !important;
@@ -275,16 +275,16 @@
     border-color: rgba(255, 255, 255, 0.1) !important;
   }
   .dark .border-slate-300 {
-    border-color: #3c3c40 !important;
+    border-color: #2e2e2e !important;
   }
   .dark .border-slate-700 {
-    border-color: #303033 !important;
+    border-color: #232323 !important;
   }
   .dark .border-slate-700\/60 {
     border-color: rgba(255, 255, 255, 0.08) !important;
   }
   .dark .border-slate-800 {
-    border-color: #303033 !important;
+    border-color: #232323 !important;
   }
   .dark .border-slate-800\/40 {
     border-color: rgba(255, 255, 255, 0.06) !important;

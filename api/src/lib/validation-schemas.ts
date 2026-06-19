@@ -94,6 +94,15 @@ export const domainLookupSchema = z.object({
   domain: domainPattern,
 });
 
+// ── IntoDNS Snapshot ────────────────────────────────────────────
+// Optional `format=markdown` returns the upstream LLM-ready Markdown
+// report (per https://intodns.ai/llm/api.md) which can be pasted into
+// tickets, audit notes, or LLM context windows.
+export const intodnsSnapshotSchema = z.object({
+  domain: domainPattern,
+  format: z.enum(['json', 'markdown']).optional(),
+});
+
 // ── IP Geolocation ───────────────────────────────────────────────
 
 export const ipGeoSchema = z.object({

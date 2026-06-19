@@ -127,6 +127,10 @@ export interface ProviderEnv {
   GOOGLE_SAFE_BROWSING_API_KEY?: string;
   /** ZoomEye API key. Free tier: 10K req/month. Host/port search + web fingerprinting. */
   ZOOMEYE_API_KEY?: string;
+  /** IntoDNS.ai — optional. Public diagnostic endpoints don't require a key,
+   *  but the upstream may rate-limit the Worker's egress IP; a key raises
+   *  the abuse-protection ceiling. Unset = anonymous tier, still functional. */
+  INTODNS_API_KEY?: string;
 }
 
 export type ProviderAdapter = (indicator: Indicator, env: ProviderEnv, signal: AbortSignal) => Promise<ProviderResult>;
@@ -190,4 +194,5 @@ export const PROVIDER_SUPPORT: Record<ProviderId, IndicatorType[]> = {
   safebrowsing: ['url', 'domain'],
   zoomeye: ['ipv4', 'ipv6', 'domain'],
   'tre-ge': ['ipv4', 'ipv6', 'domain', 'url', 'hash'],
+  intodns: ['domain'],
 };

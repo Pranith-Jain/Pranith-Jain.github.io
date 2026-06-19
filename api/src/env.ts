@@ -88,6 +88,11 @@ export interface Env {
   /** ZoomEye API key (`wrangler secret put ZOOMEYE_API_KEY`).
    *  Free tier: 10K req/month. Host/port search + web fingerprinting. */
   ZOOMEYE_API_KEY?: string;
+  /** IntoDNS.ai API key (`wrangler secret put INTODNS_API_KEY`).
+   *  Optional — public diagnostic endpoints work without a key; setting
+   *  one raises the upstream abuse-protection ceiling for `/scan/quick`,
+   *  `/report/everything`, and snapshot creation. */
+  INTODNS_API_KEY?: string;
   /** X (Twitter) auth cookies for the cookie-authenticated firehose at
    *  /api/v1/x-firehose. Set via `wrangler secret put X_AUTH_TOKEN` and
    *  `wrangler secret put X_CT0` (values are the `auth_token` and `ct0`

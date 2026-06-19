@@ -52,6 +52,7 @@ import { dshield } from './dshield';
 import { safebrowsing } from './safebrowsing';
 import { zoomeye } from './zoomeye';
 import { trege } from './tre-ge';
+import { intodns } from './intodns';
 
 export { PROVIDER_SUPPORT, PROVIDER_TIMEOUT_MS };
 
@@ -108,6 +109,7 @@ export const ADAPTERS: Record<ProviderId, ProviderAdapter> = {
   safebrowsing,
   zoomeye,
   'tre-ge': trege,
+  intodns,
 };
 
 export const BULK_ADAPTERS: Partial<Record<ProviderId, ProviderAdapter>> = {
@@ -191,6 +193,7 @@ export const PROVIDER_LABELS: Record<string, string> = {
   safebrowsing: 'Google Safe Browsing',
   zoomeye: 'ZoomEye',
   'tre-ge': 'tre.ge',
+  intodns: 'IntoDNS.ai',
 };
 
 export function buildProviderEnv(env: {
@@ -213,6 +216,7 @@ export function buildProviderEnv(env: {
   VULNCHECK_API_TOKEN?: string;
   GOOGLE_SAFE_BROWSING_API_KEY?: string;
   ZOOMEYE_API_KEY?: string;
+  INTODNS_API_KEY?: string;
 }): ProviderEnv {
   return {
     VT_API_KEY: env.VT_API_KEY ?? '',
@@ -234,5 +238,6 @@ export function buildProviderEnv(env: {
     VULNCHECK_API_TOKEN: env.VULNCHECK_API_TOKEN,
     GOOGLE_SAFE_BROWSING_API_KEY: env.GOOGLE_SAFE_BROWSING_API_KEY,
     ZOOMEYE_API_KEY: env.ZOOMEYE_API_KEY,
+    INTODNS_API_KEY: env.INTODNS_API_KEY,
   };
 }

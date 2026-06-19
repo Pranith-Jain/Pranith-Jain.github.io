@@ -5,6 +5,7 @@ import { iocCheckHandler } from './routes/ioc';
 import { iocEnrichDeepHandler } from './routes/ioc-enrich-deep';
 
 import { domainLookupHandler } from './routes/domain';
+import { intodnsSnapshotHandler } from './routes/intodns';
 import { phishingAnalyzeHandler } from './routes/phishing';
 import { exposureScanHandler } from './routes/exposure';
 import { fileAnalyzeHandler } from './routes/file';
@@ -567,6 +568,7 @@ app.use('/api/v1/maltrail-sync', requireAdminMiddleware);
 import {
   iocCheckSchema,
   domainLookupSchema,
+  intodnsSnapshotSchema,
   ipGeoSchema,
   cveLookupSchema,
   mitreTechniqueSchema,
@@ -773,6 +775,7 @@ app.get('/api/v1/ioc/enrich-deep', iocEnrichDeepHandler);
 app.post('/api/v1/ioc/enrich-deep', iocEnrichDeepHandler);
 app.get('/api/v1/ioc/check', validate('query', iocCheckSchema), iocCheckHandler);
 app.get('/api/v1/domain/lookup', validate('query', domainLookupSchema), domainLookupHandler);
+app.get('/api/v1/intodns/snapshot', validate('query', intodnsSnapshotSchema), intodnsSnapshotHandler);
 app.post(
   '/api/v1/phishing/analyze',
   validateText(phishingEmailTextSchema, { maxBytes: 64 * 1024 }),
