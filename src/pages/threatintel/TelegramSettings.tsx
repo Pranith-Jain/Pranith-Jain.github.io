@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, Plus, Trash2, ExternalLink, RefreshCw, Loader2 } from 'lucide-react';
+import { Plus, Trash2, ExternalLink, RefreshCw, Loader2 } from 'lucide-react';
 import { adminAuthHeaders } from '../../lib/admin-token';
 
 interface CustomChannel {
@@ -74,13 +73,6 @@ export default function TelegramSettings(): JSX.Element {
 
   return (
     <div className="max-w-3xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
-      >
-        <ArrowLeft size={14} /> back
-      </BackLink>
-
       <div className="animate-fade-in-up mb-6">
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
           <ExternalLink size={28} className="text-brand-600 dark:text-brand-400" /> Telegram channel settings

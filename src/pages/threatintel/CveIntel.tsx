@@ -62,7 +62,7 @@ export default function CveIntel(): JSX.Element {
           {activeTab === 'all' && <CveList />}
           {activeTab === 'exploitable' && <ExploitableCves />}
           {activeTab === 'kev' && <CisaKevCatalog />}
-          {activeTab === 'k8s' && <K8sCve />}
+          {activeTab === 'k8s' && <K8sCve bare />}
         </Suspense>
       </div>
     </DataPageLayout>

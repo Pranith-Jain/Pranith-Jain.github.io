@@ -1,7 +1,6 @@
 import { useEffect, useState, useCallback } from 'react';
-import { BackLink } from '../../components/BackLink';
 import { DataState } from '../../components/DataState';
-import { ArrowLeft, RefreshCw, Radio, ExternalLink, Check, X, Search, Lock } from 'lucide-react';
+import { RefreshCw, Radio, ExternalLink, Check, X, Search, Lock } from 'lucide-react';
 import { adminAuthHeaders, readAdminToken, writeAdminToken } from '../../lib/admin-token';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 
@@ -93,13 +92,6 @@ export default function TelegramDiscoveredChannels(): JSX.Element {
 
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
-      >
-        <ArrowLeft size={14} /> back
-      </BackLink>
-
       <div className="animate-fade-in-up">
         <div className="flex flex-wrap items-start justify-between gap-3 mb-2">
           <h1 className="text-3xl sm:text-4xl font-display font-bold flex items-center gap-3">

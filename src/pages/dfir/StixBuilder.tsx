@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
-import { ArrowLeft, Copy, Download, FileCode, FileText, Link as LinkIcon, Loader2, Upload } from 'lucide-react';
-import { BackLink } from '../../components/BackLink';
+import { Copy, Download, FileCode, FileText, Link as LinkIcon, Loader2, Upload } from 'lucide-react';
 import { Badge } from '../../components/Badge';
 import { IocChip } from '../../components/dfir/IocChip';
 import { IntelCard } from '../../components/intel/IntelCard';
@@ -242,13 +241,6 @@ export default function StixBuilder(): JSX.Element {
 
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono transition-colors"
-      >
-        <ArrowLeft size={14} /> all tools
-      </BackLink>
-
       <header className="animate-fade-in-up mb-10">
         <span className="inline-block text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-3">
           DFIR · CTI / Intel

@@ -1,7 +1,6 @@
 import { useState, type FormEvent } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, Search, Globe, Shield, Lock, Server, ExternalLink, Loader2 } from 'lucide-react';
+import { Search, Globe, Shield, Lock, Server, ExternalLink, Loader2 } from 'lucide-react';
 
 const DOMAIN_RE = /^([a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}$/;
 
@@ -88,13 +87,6 @@ export default function DomainWebcheck(): JSX.Element {
 
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
-      >
-        <ArrowLeft size={14} /> back
-      </BackLink>
-
       <div className="animate-fade-in-up">
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
           <Globe size={28} className="text-brand-600 dark:text-brand-400" /> Domain Web Check

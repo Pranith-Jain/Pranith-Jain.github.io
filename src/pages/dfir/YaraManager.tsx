@@ -1,7 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { sanitizeUrl } from '../../lib/sanitize-url';
-import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, Plus, Trash2, FileDown, Edit2, X, Copy, ExternalLink, ScrollText } from 'lucide-react';
+import { Plus, Trash2, FileDown, Edit2, X, Copy, ExternalLink, ScrollText } from 'lucide-react';
 
 interface YaraRule {
   id: string;
@@ -120,13 +119,6 @@ export default function YaraManager(): JSX.Element {
 
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
-      >
-        <ArrowLeft size={14} /> back
-      </BackLink>
-
       <div className="animate-fade-in-up flex items-center justify-between mb-8 flex-wrap gap-3">
         <div>
           <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">

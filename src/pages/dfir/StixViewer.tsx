@@ -1,6 +1,5 @@
 import { Suspense, lazy, useCallback, useMemo, useState } from 'react';
-import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, FileJson, Trash2, Copy, Check, Filter, Globe2, Loader2, ExternalLink } from 'lucide-react';
+import { FileJson, Trash2, Copy, Check, Filter, Globe2, Loader2, ExternalLink } from 'lucide-react';
 import {
   type StixBundle,
   type StixObject,
@@ -249,13 +248,6 @@ export default function StixViewer(): JSX.Element {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
-      >
-        <ArrowLeft size={14} /> back
-      </BackLink>
-
       <div className="animate-fade-in-up">
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2">STIX Viewer</h1>
         <p className="text-muted mb-8 max-w-3xl">

@@ -2,7 +2,6 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import {
   AlertTriangle,
-  ArrowLeft,
   Bug,
   CheckCircle2,
   ExternalLink,
@@ -18,7 +17,6 @@ import {
   Upload,
   XCircle,
 } from 'lucide-react';
-import { BackLink } from '../../components/BackLink';
 import { VerdictChip } from '../../components/dfir/VerdictChip';
 import { CopyChip } from '../../components/dfir/CopyButton';
 import { analyseFile, type FileAnalysis } from '../../lib/dfir/file-analysis';
@@ -315,13 +313,6 @@ export default function SampleScan(): JSX.Element {
 
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
-      >
-        <ArrowLeft size={14} /> back
-      </BackLink>
-
       <header className="animate-fade-in-up">
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
           <ScanSearch size={28} className="text-brand-600 dark:text-brand-400" /> Sample Scan

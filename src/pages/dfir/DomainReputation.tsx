@@ -1,8 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 import { Link, useSearchParams } from 'react-router-dom';
-import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, Search, Loader2, ExternalLink, Globe, BookOpen } from 'lucide-react';
+import { Search, Loader2, ExternalLink, Globe, BookOpen } from 'lucide-react';
 import { EXTERNAL_REP_TOOLS } from '../../lib/dfir/reputation';
 import { BlacklistBadge } from '../../components/dfir/BlacklistBadge';
 
@@ -121,12 +120,6 @@ export default function DomainReputation(): JSX.Element {
 
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
-      >
-        <ArrowLeft size={14} /> back
-      </BackLink>
       <div className="animate-fade-in-up">
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
           <Globe size={28} className="text-brand-600 dark:text-brand-400" /> Domain & IP Reputation

@@ -60,7 +60,7 @@ function fmtDate(iso: string): string {
   return Number.isNaN(d.getTime()) ? iso.slice(0, 10) : d.toISOString().slice(0, 10);
 }
 
-export default function K8sCve(): JSX.Element {
+export default function K8sCve({ bare = false }: { bare?: boolean } = {}): JSX.Element {
   const [data, setData] = useState<K8sCveResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -137,18 +137,10 @@ export default function K8sCve(): JSX.Element {
       </div>
     ) : undefined;
 
-  return (
-    <DataPageLayout
-      backTo="/threatintel"
-      icon={<Bug size={28} />}
-      title="Kubernetes Official CVE Feed"
-      description={description}
-      headerExtra={headerExtra}
-      loading={loading}
-      error={error}
-      empty={!loading && !error && !!data && filtered.length === 0}
-      emptyMessage="No Kubernetes CVEs match the filter."
-    >
+  const body = (
+    <>
+      <p className="text-base leading-relaxed text-muted max-w-3xl mb-6">{description}</p>
+      {headerExtra}
       <div className="grid gap-3 lg:grid-cols-2">
         {filtered.slice(0, 600).map((cve) => {
           const recordHref = safeHref(cve.url);
@@ -235,6 +227,24 @@ export default function K8sCve(): JSX.Element {
           — {data.license} · {data.total} CVEs
         </p>
       )}
+    </>
+  );
+
+  if (bare) return body;
+
+  return (
+    <DataPageLayout
+      backTo="/threatintel"
+      icon={<Bug size={28} />}
+      title="Kubernetes Official CVE Feed"
+      description={description}
+      headerExtra={headerExtra}
+      loading={loading}
+      error={error}
+      empty={!loading && !error && !!data && filtered.length === 0}
+      emptyMessage="No Kubernetes CVEs match the filter."
+    >
+      {body}
     </DataPageLayout>
   );
 }

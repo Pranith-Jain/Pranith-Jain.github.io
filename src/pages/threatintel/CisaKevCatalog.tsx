@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, Download, ExternalLink, Flame, Hash, RefreshCw, Search, ShieldAlert, Skull } from 'lucide-react';
+import { Download, ExternalLink, Flame, Hash, RefreshCw, Search, ShieldAlert, Skull } from 'lucide-react';
 import { useDataFetch } from '../../hooks/useDataFetch';
 import { DataState } from '../../components/DataState';
 import { relativeAgo } from '../../lib/relativeTime';
@@ -156,13 +155,6 @@ export default function CisaKevCatalog(): JSX.Element {
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
-      <BackLink
-        to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-6 font-mono"
-      >
-        <ArrowLeft size={14} /> back
-      </BackLink>
-
       <div className="flex items-center gap-3 mb-1">
         <ShieldAlert className="w-7 h-7 text-rose-500" />
         <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100">CISA KEV Catalog</h1>
