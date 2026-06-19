@@ -5,7 +5,6 @@ import {
   Bug,
   Compass,
   Crosshair,
-  Clock,
   FileSearch,
   FileText,
   GitBranch,
@@ -22,6 +21,8 @@ import { MAIN_TOOL_COUNT } from '../components/dfir/tool-sections';
 import { catalogSearch } from '../data/dfir-catalog';
 import { useRecentTools } from '../hooks/useRecentTools';
 import { getSidebarForSection } from '../data/sidebar-nav';
+import { DfirStructuredData } from '../components/ToolStructuredData';
+import { useDocumentMeta } from '../hooks/useDocumentMeta';
 
 /**
  * DFIR home page — redesigned following SaaS UX patterns from
@@ -187,6 +188,15 @@ export default function DFIRPage(): JSX.Element {
   const location = typeof window !== 'undefined' ? window.location.pathname : '/dfir';
   const { entries: recentTools, isHydrated } = useRecentTools('dfir', location, 6);
 
+  useDocumentMeta({
+    title: 'DFIR Toolkit',
+    description:
+      '60+ browser-side security tools for incident response, forensics, and detection engineering. IOC checks, CVE triage, rule conversion, and more.',
+    section: 'DFIR',
+    canonicalPath: '/dfir',
+    ogImage: '/og-dfir.svg',
+  });
+
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       const target = e.target as HTMLElement | null;
@@ -221,6 +231,7 @@ export default function DFIRPage(): JSX.Element {
 
   return (
     <div className="w-full py-4 sm:py-8 text-slate-900 dark:text-slate-100 space-y-6">
+      <DfirStructuredData />
       {/* ── Hero — bold value prop + primary search ───────────── */}
       <section className="relative overflow-hidden rounded-2xl border border-slate-200 dark:border-[#1e2030] bg-white dark:bg-[#12121a] p-6 sm:p-8 lg:p-10">
         <div

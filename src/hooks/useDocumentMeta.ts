@@ -29,6 +29,8 @@ export interface DocumentMeta {
   canonicalPath?: string;
   /** Optional override for the full title (skips the site suffix). */
   fullTitle?: string;
+  /** Optional OG image path (relative to site root). */
+  ogImage?: string;
 }
 
 const SITE_NAME = 'Pranith Jain · Security Portfolio';
@@ -89,6 +91,13 @@ export function useDocumentMeta(meta: DocumentMeta): void {
       ogDescription: document
         .querySelector<HTMLMetaElement>('meta[property="og:description"]')
         ?.getAttribute('content'),
+      ogImage: document.querySelector<HTMLMetaElement>('meta[property="og:image"]')?.getAttribute('content'),
+      twitterCard: document.querySelector<HTMLMetaElement>('meta[name="twitter:card"]')?.getAttribute('content'),
+      twitterTitle: document.querySelector<HTMLMetaElement>('meta[name="twitter:title"]')?.getAttribute('content'),
+      twitterDescription: document
+        .querySelector<HTMLMetaElement>('meta[name="twitter:description"]')
+        ?.getAttribute('content'),
+      twitterImage: document.querySelector<HTMLMetaElement>('meta[name="twitter:image"]')?.getAttribute('content'),
       canonical: document.querySelector<HTMLLinkElement>('link[rel="canonical"]')?.getAttribute('href'),
     };
 
@@ -96,12 +105,27 @@ export function useDocumentMeta(meta: DocumentMeta): void {
       meta.fullTitle ??
       (meta.section ? `${meta.title} — ${meta.section} · ${SITE_NAME}` : `${meta.title} · ${SITE_NAME}`);
 
+    const siteUrl = 'https://pranithjain.qzz.io';
+    const ogImage = meta.ogImage
+      ? meta.ogImage.startsWith('http')
+        ? meta.ogImage
+        : `${siteUrl}${meta.ogImage}`
+      : `${siteUrl}/og-image.svg`;
+
     document.title = fullTitle;
     if (meta.description) {
       setMetaName('description', meta.description);
       setMetaProperty('og:description', meta.description);
+      setMetaName('twitter:description', meta.description);
     }
     setMetaProperty('og:title', fullTitle);
+    setMetaProperty('og:image', ogImage);
+    setMetaProperty('og:url', meta.canonicalPath ? `${siteUrl}${meta.canonicalPath}` : siteUrl);
+    setMetaProperty('og:type', meta.section === 'Threat Intel' || meta.section === 'DFIR' ? 'website' : 'profile');
+    setMetaName('twitter:card', 'summary_large_image');
+    setMetaName('twitter:title', fullTitle);
+    setMetaName('twitter:image', ogImage);
+    setMetaName('twitter:site', '@pranithjain');
     if (meta.canonicalPath) {
       const origin = typeof window !== 'undefined' ? window.location.origin : '';
       setCanonical(`${origin}${meta.canonicalPath}`);
@@ -112,7 +136,12 @@ export function useDocumentMeta(meta: DocumentMeta): void {
       setMetaName('description', prev.description);
       setMetaProperty('og:title', prev.ogTitle);
       setMetaProperty('og:description', prev.ogDescription);
+      setMetaProperty('og:image', prev.ogImage);
+      setMetaName('twitter:card', prev.twitterCard);
+      setMetaName('twitter:title', prev.twitterTitle);
+      setMetaName('twitter:description', prev.twitterDescription);
+      setMetaName('twitter:image', prev.twitterImage);
       setCanonical(prev.canonical);
     };
-  }, [meta.title, meta.description, meta.section, meta.canonicalPath, meta.fullTitle]);
+  }, [meta.title, meta.description, meta.section, meta.canonicalPath, meta.fullTitle, meta.ogImage]);
 }

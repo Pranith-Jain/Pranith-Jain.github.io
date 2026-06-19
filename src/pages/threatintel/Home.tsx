@@ -22,6 +22,7 @@ import { LatestBriefingCard } from '../../components/threatintel/LatestBriefingC
 import { LivePulse } from '../../components/threatintel/LivePulse';
 import { useDocumentMeta } from '../../hooks/useDocumentMeta';
 import { CATALOG, catalogSearch } from '../../data/threatintel-catalog';
+import { ThreatIntelStructuredData } from '../../components/ToolStructuredData';
 
 /**
  * Threat-Intel home page — redesigned following SaaS UX patterns from
@@ -153,6 +154,7 @@ export default function ThreatIntelHome(): JSX.Element {
       'Live threat intelligence — ransomware activity, threat actors, IOCs, CVEs, dark web monitoring, and social media feeds.',
     section: 'Threat Intel',
     canonicalPath: '/threatintel',
+    ogImage: '/og-threatintel.svg',
   });
 
   // Keyboard: '/' or 'Cmd/Ctrl+K' focuses the search; 'Esc' clears.
@@ -176,6 +178,7 @@ export default function ThreatIntelHome(): JSX.Element {
 
   return (
     <div className="w-full py-4 sm:py-8 text-slate-900 dark:text-slate-100 space-y-6">
+      <ThreatIntelStructuredData />
       <WhatsNewBanner />
       <LatestBriefingCard />
 
