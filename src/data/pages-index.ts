@@ -255,6 +255,15 @@ const DFIR_PAGES: readonly PageEntry[] = [
     group: 'dfir',
   },
   {
+    path: '/dfir/email-deliverability',
+    label: 'Email Deliverability Tester',
+    description:
+      'Paste or upload a raw email and get a spam score, SPF/DKIM/DMARC alignment, header analysis, and prioritized inbox-placement suggestions.',
+    sectionLabel: 'DFIR · Triage',
+    group: 'dfir',
+    keywords: ['email', 'spam', 'inbox', 'placement', 'spf', 'dkim', 'dmarc', 'mime', 'eml', 'deliverability'],
+  },
+  {
     path: '/dfir/dmarc-analyzer',
     label: 'DMARC Analyzer',
     description: 'DMARC record lookup, alignment checks, and reporting policy breakdown.',
@@ -975,6 +984,15 @@ const DFIR_PAGES: readonly PageEntry[] = [
     description: 'Inspect a URL for security headers — HSTS, CSP, X-Frame-Options, Referrer-Policy.',
     sectionLabel: 'DFIR · Detection',
     group: 'dfir',
+  },
+  {
+    path: '/dfir/sec-headers-live',
+    label: 'Live Security Headers',
+    description:
+      'Third-party live HTTP security-headers scan via IntoDNS.ai — HSTS, CSP, X-Frame-Options, plus ready-to-paste Nginx/Apache/Caddy/Cloudflare configs.',
+    sectionLabel: 'DFIR · Detection',
+    group: 'dfir',
+    keywords: ['security', 'headers', 'hsts', 'csp', 'live', 'scan', 'intodns'],
   },
   {
     path: '/dfir/taxii',

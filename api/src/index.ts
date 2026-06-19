@@ -6,6 +6,16 @@ import { iocEnrichDeepHandler } from './routes/ioc-enrich-deep';
 
 import { domainLookupHandler } from './routes/domain';
 import { intodnsSnapshotHandler, intodnsExplainHandler } from './routes/intodns';
+import {
+  intodnsBlacklistHandler,
+  intodnsSenderRequirementsHandler,
+  intodnsSmtpTlsHandler,
+  intodnsFcrdnsHandler,
+  intodnsDnssecHandler,
+  intodnsSecHeadersHandler,
+  intodnsBadgeHandler,
+  intodnsDebugEmailHandler,
+} from './routes/intodns-specialist';
 import { phishingAnalyzeHandler } from './routes/phishing';
 import { exposureScanHandler } from './routes/exposure';
 import { fileAnalyzeHandler } from './routes/file';
@@ -570,6 +580,7 @@ import {
   domainLookupSchema,
   intodnsSnapshotSchema,
   intodnsExplainSchema,
+  intodnsDomainSchema,
   ipGeoSchema,
   cveLookupSchema,
   mitreTechniqueSchema,
@@ -778,6 +789,18 @@ app.get('/api/v1/ioc/check', validate('query', iocCheckSchema), iocCheckHandler)
 app.get('/api/v1/domain/lookup', validate('query', domainLookupSchema), domainLookupHandler);
 app.get('/api/v1/intodns/snapshot', validate('query', intodnsSnapshotSchema), intodnsSnapshotHandler);
 app.get('/api/v1/intodns/explain', validate('query', intodnsExplainSchema), intodnsExplainHandler);
+app.get('/api/v1/intodns/blacklist', validate('query', intodnsDomainSchema), intodnsBlacklistHandler);
+app.get(
+  '/api/v1/intodns/sender-requirements',
+  validate('query', intodnsDomainSchema),
+  intodnsSenderRequirementsHandler
+);
+app.get('/api/v1/intodns/smtp-tls', validate('query', intodnsDomainSchema), intodnsSmtpTlsHandler);
+app.get('/api/v1/intodns/fcrdns', validate('query', intodnsDomainSchema), intodnsFcrdnsHandler);
+app.get('/api/v1/intodns/dnssec', validate('query', intodnsDomainSchema), intodnsDnssecHandler);
+app.get('/api/v1/intodns/sec-headers', validate('query', intodnsDomainSchema), intodnsSecHeadersHandler);
+app.get('/api/v1/intodns/badge', validate('query', intodnsDomainSchema), intodnsBadgeHandler);
+app.post('/api/v1/intodns/debug-email', intodnsDebugEmailHandler);
 app.post(
   '/api/v1/phishing/analyze',
   validateText(phishingEmailTextSchema, { maxBytes: 64 * 1024 }),

@@ -72,6 +72,7 @@ const GcpIamAnalyzer = lazy(() => import('./pages/dfir/GcpIamAnalyzer'));
 const AzureRbacAnalyzer = lazy(() => import('./pages/dfir/AzureRbacAnalyzer'));
 const OpenApiAuditor = lazy(() => import('./pages/dfir/OpenApiAuditor'));
 const SecHeadersAnalyzer = lazy(() => import('./pages/dfir/SecHeadersAnalyzer'));
+const SecHeadersLive = lazy(() => import('./pages/dfir/SecHeadersLive'));
 const SecretScanner = lazy(() => import('./pages/dfir/SecretScanner'));
 const GraphqlAuditor = lazy(() => import('./pages/dfir/GraphqlAuditor'));
 const OsvScanner = lazy(() => import('./pages/dfir/OsvScanner'));
@@ -151,6 +152,7 @@ const MalbriefAi = lazy(() => import('./pages/dfir/MalbriefAi'));
 const VerdiktAi = lazy(() => import('./pages/dfir/VerdiktAi'));
 const ReverseImage = lazy(() => import('./pages/dfir/ReverseImage'));
 const EmlExtractor = lazy(() => import('./pages/dfir/EmlExtractor'));
+const EmailDeliverability = lazy(() => import('./pages/dfir/EmailDeliverability'));
 const Tracer = lazy(() => import('./pages/dfir/Tracer'));
 const ThreatIntelHome = lazy(() => import('./pages/threatintel/Home'));
 const ThreatIntelAbout = lazy(() => import('./pages/threatintel/About'));
@@ -410,6 +412,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/dfir/azure-rbac', Component: AzureRbacAnalyzer },
   { path: '/dfir/openapi-audit', Component: OpenApiAuditor },
   { path: '/dfir/sec-headers', Component: SecHeadersAnalyzer },
+  { path: '/dfir/sec-headers-live', Component: SecHeadersLive },
   { path: '/dfir/secret-scan', Component: SecretScanner },
   { path: '/dfir/graphql-audit', Component: GraphqlAuditor },
   { path: '/dfir/osv-scan', Component: OsvScanner },
@@ -503,6 +506,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/dfir/catalog', Component: DfirCatalog },
   { path: '/dfir/reverse-image', Component: ReverseImage },
   { path: '/dfir/eml', Component: EmlExtractor },
+  { path: '/dfir/email-deliverability', Component: EmailDeliverability },
   { path: '/dfir/url-rep', Component: UrlReputation },
   { path: '/dfir/email-rep', Component: EmailReputation },
   { path: '/dfir/tracer', Component: Tracer },

@@ -457,6 +457,13 @@ export const HUB_META: readonly HubMeta[] = [
         compVar: 'EmlExtractor',
       },
       {
+        path: '/dfir/email-deliverability',
+        tabId: 'email-deliverability',
+        label: 'Email Deliverability Tester',
+        desc: 'Paste or upload a raw .eml to get spam score, SPF/DKIM/DMARC alignment, and inbox-placement suggestions.',
+        compVar: 'EmailDeliverability',
+      },
+      {
         path: '/dfir/email-rep',
         tabId: 'email-rep',
         label: 'Email Reputation',
@@ -898,6 +905,13 @@ export const HUB_META: readonly HubMeta[] = [
         label: 'Security Headers Analyzer',
         desc: 'CORS - CSP - HSTS - X-Frame-Options - graded report',
         compVar: 'SecHeadersAnalyzer',
+      },
+      {
+        path: '/dfir/sec-headers-live',
+        tabId: 'sec-headers-live',
+        label: 'Live Security Headers',
+        desc: 'Third-party live HSTS/CSP/X-Frame-Options scan via IntoDNS.ai with ready-to-paste Nginx/Apache/Caddy/Cloudflare configs.',
+        compVar: 'SecHeadersLive',
       },
       {
         path: '/dfir/secret-scan',

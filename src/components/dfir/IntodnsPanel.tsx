@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { preloadRoute } from '../../lib/route-preloaders';
 import {
   ExternalLink,
   ShieldCheck,
@@ -319,16 +321,34 @@ export function IntodnsPanel({ domain, title = 'IntoDNS.ai grade' }: IntodnsPane
       )}
 
       <footer className="mt-3 flex flex-wrap items-center justify-between gap-2 border-t border-slate-200 pt-2 dark:border-slate-800">
-        <div className="flex items-center gap-1.5 text-micro font-mono text-slate-500 dark:text-slate-500">
-          <Sparkles size={9} aria-hidden="true" />
-          powered by intodns.ai · methodology
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-micro font-mono text-slate-500 dark:text-slate-500">
+          <span className="flex items-center gap-1.5">
+            <Sparkles size={9} aria-hidden="true" />
+            powered by intodns.ai
+          </span>
+          <Link
+            to={`/dfir/email-deliverability?eml=`}
+            className="underline-offset-2 hover:underline dark:text-slate-400"
+            title="Analyze a raw email for spam score, SPF/DKIM/DMARC alignment, and inbox-placement suggestions"
+          >
+            email test
+          </Link>
+          <Link
+            to={`/dfir/sec-headers-live?domain=${encodeURIComponent(snapshot.domain)}`}
+            onMouseEnter={() => preloadRoute('/dfir/sec-headers-live')}
+            onFocus={() => preloadRoute('/dfir/sec-headers-live')}
+            className="underline-offset-2 hover:underline dark:text-slate-400"
+            title="Live third-party HTTP security-headers scan"
+          >
+            headers
+          </Link>
           <a
             href={CITATIONS.methodology}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-slate-500 underline-offset-2 hover:underline dark:text-slate-400"
+            className="underline-offset-2 hover:underline dark:text-slate-400"
           >
-            citation
+            methodology
           </a>
         </div>
         <button

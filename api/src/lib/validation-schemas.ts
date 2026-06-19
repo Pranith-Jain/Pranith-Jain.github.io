@@ -112,6 +112,15 @@ export const intodnsExplainSchema = z.object({
   domain: domainPattern,
 });
 
+// ── IntoDNS Specialist (blacklist / sender-requirements / smtp-tls /
+//    fcrdns / dnssec / sec-headers / badge) ──────────────────────
+// Each of these routes takes a single `domain` query param. The
+// upstream endpoint is implied by the route path; the schema stays
+// simple so we can share it across the seven new passthroughs.
+export const intodnsDomainSchema = z.object({
+  domain: domainPattern,
+});
+
 // ── IP Geolocation ───────────────────────────────────────────────
 
 export const ipGeoSchema = z.object({

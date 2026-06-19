@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from 'react';
+import { useState, useEffect, type FormEvent } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Radar } from 'lucide-react';
 import type { ExposureScanResponse } from '../../lib/dfir/types';
@@ -16,6 +16,16 @@ export default function Exposure(): JSX.Element {
   const [result, setResult] = useState<ExposureScanResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
   const valid = DOMAIN_RE.test(input.trim());
+
+  // Auto-run when arriving from a search-results page or a deep link with
+  // ?domain= or ?q=. Mirrors the pattern in DomainReputation.tsx so users
+  // who navigate between DomainInvestigator tabs see consistent behaviour.
+  useEffect(() => {
+    if (initialInput && DOMAIN_RE.test(initialInput.trim()) && !result) {
+      void onSubmit({ preventDefault: () => {} } as FormEvent);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [initialInput]);
 
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();

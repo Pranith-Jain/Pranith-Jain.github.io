@@ -303,6 +303,194 @@ export function generateOpenApiSpec(): Record<string, unknown> {
           },
         },
       },
+      '/api/v1/intodns/blacklist': {
+        get: {
+          tags: ['Domain Intelligence'],
+          summary: 'IntoDNS.ai DNSBL rollup for mail-server IPs',
+          description:
+            'Returns the blacklist status of every mail-server IP across Spamhaus, SpamCop, Barracuda, and other DNSBLs. Backed by https://intodns.ai/api/email/blacklist.',
+          parameters: [
+            {
+              name: 'domain',
+              in: 'query',
+              required: true,
+              schema: { type: 'string', maxLength: 253 },
+              example: 'example.com',
+            },
+          ],
+          responses: {
+            '200': { description: 'JSON object' },
+            '400': { description: 'Invalid domain' },
+            '429': { description: 'Upstream rate-limited' },
+            '502': { description: 'Upstream fetch failed' },
+          },
+        },
+      },
+      '/api/v1/intodns/sender-requirements': {
+        get: {
+          tags: ['Domain Intelligence'],
+          summary: 'IntoDNS.ai Google/Yahoo/Microsoft sender-requirements compliance',
+          description:
+            'Returns pass/fail status for every common mailbox-provider requirement (SPF, DKIM, DMARC, FCrDNS, etc.). Backed by https://intodns.ai/api/email/sender-requirements.',
+          parameters: [
+            {
+              name: 'domain',
+              in: 'query',
+              required: true,
+              schema: { type: 'string', maxLength: 253 },
+              example: 'example.com',
+            },
+          ],
+          responses: {
+            '200': { description: 'JSON object' },
+            '400': { description: 'Invalid domain' },
+            '429': { description: 'Upstream rate-limited' },
+            '502': { description: 'Upstream fetch failed' },
+          },
+        },
+      },
+      '/api/v1/intodns/smtp-tls': {
+        get: {
+          tags: ['Domain Intelligence'],
+          summary: 'IntoDNS.ai SMTP STARTTLS certificate checks',
+          description:
+            'Connects to MX servers and reports STARTTLS support, TLS protocol, certificate trust, hostname match, expiry. Backed by https://intodns.ai/api/email/smtp-tls.',
+          parameters: [
+            {
+              name: 'domain',
+              in: 'query',
+              required: true,
+              schema: { type: 'string', maxLength: 253 },
+              example: 'example.com',
+            },
+          ],
+          responses: {
+            '200': { description: 'JSON object' },
+            '400': { description: 'Invalid domain' },
+            '429': { description: 'Upstream rate-limited' },
+            '502': { description: 'Upstream fetch failed' },
+          },
+        },
+      },
+      '/api/v1/intodns/fcrdns': {
+        get: {
+          tags: ['Domain Intelligence'],
+          summary: 'IntoDNS.ai FCrDNS (PTR + forward-confirmation) for mail-server IPs',
+          description:
+            'Isolates PTR and forward-confirmed reverse DNS for mail-server IPs. Backed by https://intodns.ai/api/email/fcrdns.',
+          parameters: [
+            {
+              name: 'domain',
+              in: 'query',
+              required: true,
+              schema: { type: 'string', maxLength: 253 },
+              example: 'example.com',
+            },
+          ],
+          responses: {
+            '200': { description: 'JSON object' },
+            '400': { description: 'Invalid domain' },
+            '429': { description: 'Upstream rate-limited' },
+            '502': { description: 'Upstream fetch failed' },
+          },
+        },
+      },
+      '/api/v1/intodns/dnssec': {
+        get: {
+          tags: ['Domain Intelligence'],
+          summary: 'IntoDNS.ai DNSSEC chain-of-trust validation',
+          description:
+            'Validates the DNSSEC chain and reports each link with algorithm and flags. Backed by https://intodns.ai/api/dns/dnssec.',
+          parameters: [
+            {
+              name: 'domain',
+              in: 'query',
+              required: true,
+              schema: { type: 'string', maxLength: 253 },
+              example: 'example.com',
+            },
+          ],
+          responses: {
+            '200': { description: 'JSON object' },
+            '400': { description: 'Invalid domain' },
+            '429': { description: 'Upstream rate-limited' },
+            '502': { description: 'Upstream fetch failed' },
+          },
+        },
+      },
+      '/api/v1/intodns/sec-headers': {
+        get: {
+          tags: ['Domain Intelligence'],
+          summary: 'IntoDNS.ai live HTTP security-headers analysis',
+          description:
+            'Fetches the domain live and reports per-header pass/missing status with ready-to-paste fixes. Backed by https://intodns.ai/api/security-headers/analyze.',
+          parameters: [
+            {
+              name: 'domain',
+              in: 'query',
+              required: true,
+              schema: { type: 'string', maxLength: 253 },
+              example: 'example.com',
+            },
+          ],
+          responses: {
+            '200': { description: 'JSON object' },
+            '400': { description: 'Invalid domain' },
+            '429': { description: 'Upstream rate-limited' },
+            '502': { description: 'Upstream fetch failed' },
+          },
+        },
+      },
+      '/api/v1/intodns/badge': {
+        get: {
+          tags: ['Domain Intelligence'],
+          summary: 'IntoDNS.ai inline SVG security badge',
+          description:
+            'Returns the security-grade badge as image/svg+xml, embeddable in markdown/HTML. Backed by https://intodns.ai/api/badge/{domain}.',
+          parameters: [
+            {
+              name: 'domain',
+              in: 'query',
+              required: true,
+              schema: { type: 'string', maxLength: 253 },
+              example: 'example.com',
+            },
+          ],
+          responses: {
+            '200': { description: 'image/svg+xml', content: { 'image/svg+xml': { schema: { type: 'string' } } } },
+            '400': { description: 'Invalid domain' },
+            '429': { description: 'Upstream rate-limited' },
+            '502': { description: 'Upstream fetch failed' },
+          },
+        },
+      },
+      '/api/v1/intodns/debug-email': {
+        post: {
+          tags: ['Email Security'],
+          summary: 'IntoDNS.ai raw-MIME email debug (spam score, alignment, suggestions)',
+          description:
+            'POST the raw MIME source of an email (or an .eml body) to get back a spam score, SPF/DKIM/DMARC alignment status, header issues, and prioritized suggestions. Backed by https://intodns.ai/api/debug-email. Accepts JSON { raw_email } or text/plain.',
+          requestBody: {
+            required: true,
+            content: {
+              'application/json': {
+                schema: {
+                  type: 'object',
+                  required: ['raw_email'],
+                  properties: { raw_email: { type: 'string', maxLength: 262144 } },
+                },
+              },
+              'text/plain': { schema: { type: 'string', maxLength: 262144 } },
+            },
+          },
+          responses: {
+            '200': { description: 'JSON object with spamScore, alignment, headerAnalysis, suggestions' },
+            '400': { description: 'Missing or too-large raw email' },
+            '429': { description: 'Upstream rate-limited' },
+            '502': { description: 'Upstream fetch failed' },
+          },
+        },
+      },
       '/api/v1/cve/lookup': {
         get: {
           tags: ['CVE'],

@@ -114,6 +114,10 @@
          card  = #141822  -- card surface (same hue family, +1 step)
          raised= #1c212e  -- hover/popover (+1 step from card)
          input = #0e1117  -- one step below card; reads as inset */
+    /* (2026-06-19 v3) Rose override reverted: the cool page bg alone
+       is enough to keep red reading as red (no brown wash). The
+       magenta-rose shift was a category mistake — a cybersecurity
+       product shouldn't have pink. Rose stays as Tailwind rose. */
     --surface-100: 10 13 24; /* page bg (deep cool dark) */
     --surface-200: 20 24 34; /* card (+1 step lift, same hue family) */
     --surface-300: 28 33 46; /* raised (+1 step from card) */
@@ -266,67 +270,6 @@
     color: #e5e5e5 !important;
   }
 
-  /* ── Rose accent in dark mode → magenta-rose ────────────────
-     The default Tailwind rose palette (400 #fb7185, 500 #f43f5e,
-     600 #e11d48) is a true red. Red light + neutral page = brown
-     to the eye at low luminance — the /threatintel page was
-     reading as "brown wash" because the rose-tinted Live pulse,
-     hover borders, and category tiles were the only chromatic
-     notes on a near-black page. Shifting the dark-mode rose
-     palette toward pink/magenta (blue-shifted) fixes the brown
-     at the root: red + blue = magenta, never brown. The
-     `.text-rose-400 dark:text-rose-400` pattern in components
-     keeps working unchanged.
-
-     NOTE: the severity palette (critical #e11d48) is intentionally
-     NOT overridden — red means "critical" semantically, and the
-     severity pill is small enough that the brown-read doesn't kick
-     in. The .hover-rose border tint (used on category cards) is
-     also kept on the red side for the same reason: it sits at 35-40%
-     alpha, low enough to read as "tinted" rather than as fill. */
-  .dark .text-rose-300 {
-    color: #fbcfe8 !important;
-  }
-  .dark .text-rose-400 {
-    color: #f9a8d4 !important;
-  }
-  .dark .text-rose-500 {
-    color: #f472b6 !important;
-  }
-  .dark .text-rose-600 {
-    color: #ec4899 !important;
-  }
-  .dark .bg-rose-500 {
-    background-color: #f472b6 !important;
-  }
-  .dark .bg-rose-500\/60 {
-    background-color: rgba(244, 114, 182, 0.6) !important;
-  }
-  .dark .bg-rose-500\/40 {
-    background-color: rgba(244, 114, 182, 0.4) !important;
-  }
-  .dark .bg-rose-500\/20 {
-    background-color: rgba(244, 114, 182, 0.2) !important;
-  }
-  .dark .border-rose-500\/60 {
-    border-color: rgba(244, 114, 182, 0.6) !important;
-  }
-  .dark .border-rose-500\/40 {
-    border-color: rgba(244, 114, 182, 0.4) !important;
-  }
-  .dark .border-rose-500\/30 {
-    border-color: rgba(244, 114, 182, 0.3) !important;
-  }
-  .dark .border-rose-400 {
-    border-color: #f9a8d4 !important;
-  }
-  .dark .border-rose-600 {
-    border-color: #ec4899 !important;
-  }
-  .dark .ring-rose-500\/20 {
-    box-shadow: 0 0 0 2px rgba(244, 114, 182, 0.2) !important;
-  }
-
   /* Borders — pure neutral, visible enough to read card edges.
      Was a blue-tinted family (#1e2030, rgba(30,32,48,N)) which made
      every card edge read as a "dark blue hairline" against a "dark
@@ -334,7 +277,7 @@
      with consistent opacity. Card edges now read as a clear, deliberate
      boundary instead of disappearing into the page. */
   .dark .border-slate-200 {
-    border-color: #1c212e !important;
+    border-color: #1f1f1f !important;
   }
   .dark .border-slate-200\/60 {
     border-color: rgba(255, 255, 255, 0.08) !important;
@@ -343,16 +286,16 @@
     border-color: rgba(255, 255, 255, 0.1) !important;
   }
   .dark .border-slate-300 {
-    border-color: #2a3142 !important;
+    border-color: #2e2e2e !important;
   }
   .dark .border-slate-700 {
-    border-color: #1c212e !important;
+    border-color: #232323 !important;
   }
   .dark .border-slate-700\/60 {
     border-color: rgba(255, 255, 255, 0.08) !important;
   }
   .dark .border-slate-800 {
-    border-color: #1c212e !important;
+    border-color: #232323 !important;
   }
   .dark .border-slate-800\/40 {
     border-color: rgba(255, 255, 255, 0.06) !important;
@@ -418,15 +361,21 @@
   .dark .surface-card {
     border-color: rgb(var(--border-400));
     background-color: rgb(var(--surface-200));
-    /* Premium dark card recipe:
-       1. 1px pure-black ambient shadow so the card lifts off the page
-       2. 1px top-edge inset highlight (rgba(255,255,255,0.06)) — the
-          single biggest "premium dark UI" tell (Vercel/Linear/Hunt.io
-          all do this). Simulates light catching the top of the card.
-       The two layers combine into a single box-shadow declaration. */
+    /* Ultra-premium dark card recipe (v3):
+       1. 2px pure-black ambient shadow at 0.6 — the depth the previous
+          1px / 0.5 lacked. The card now lifts off the page with real
+          weight instead of looking like a 1px-tall sticker.
+       2. 1px top-edge inset highlight at 0.10 (was 0.06) — the single
+          biggest "premium dark UI" tell (Vercel/Linear/Hunt.io). At
+          0.10 it's visible at a glance instead of needing a squint.
+       3. Faint cool-tinted outer shadow (rgba brand-blue 0.04) that
+          ties every card to the page's cool hue family so the page
+          reads as one composed surface, not as cards pasted onto a
+          black background. */
     box-shadow:
-      0 1px 2px rgba(0, 0, 0, 0.5),
-      inset 0 1px 0 0 rgba(255, 255, 255, 0.06);
+      0 2px 4px rgba(0, 0, 0, 0.6),
+      0 8px 24px -8px rgba(0, 0, 0, 0.4),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
   }
   .surface-raised {
     @apply rounded-xl border bg-white shadow-e2 transition duration-200;
@@ -435,11 +384,10 @@
   .dark .surface-raised {
     border-color: rgb(var(--border-500));
     background-color: rgb(var(--surface-200));
-    /* Raised cards also get the top-edge highlight (a hair brighter
-       so they read as "more lit" than a default surface-card). */
     box-shadow:
-      0 2px 6px rgba(0, 0, 0, 0.6),
-      inset 0 1px 0 0 rgba(255, 255, 255, 0.08);
+      0 2px 6px rgba(0, 0, 0, 0.7),
+      0 12px 32px -8px rgba(0, 0, 0, 0.5),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.14);
   }
   .surface-glass {
     @apply rounded-xl border shadow-e1 backdrop-blur-md transition duration-200;
@@ -449,7 +397,7 @@
   .dark .surface-glass {
     border-color: rgb(var(--border-400));
     background-color: rgb(var(--surface-200) / 0.5);
-    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.06);
+    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
   }
   .chrome-glass {
     @apply backdrop-blur-xl;
@@ -470,8 +418,9 @@
     border-color: rgb(var(--border-500));
     background-color: rgb(var(--surface-200));
     box-shadow:
-      0 1px 2px rgba(0, 0, 0, 0.5),
-      inset 0 1px 0 0 rgba(255, 255, 255, 0.06);
+      0 2px 4px rgba(0, 0, 0, 0.6),
+      0 8px 24px -8px rgba(0, 0, 0, 0.4),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
   }
   .dark .chrome-glass {
     border-color: rgb(var(--border-500));

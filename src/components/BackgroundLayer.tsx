@@ -24,16 +24,24 @@ const GRADIENT_LIGHT = `
 `;
 
 const GRADIENT_DARK = `
-  /* Top "light from above" wash — cool, same hue family as the
-     page bg (#0a0d18). The previous #000 → #040406 was warm and
-     was contributing to the brown read on /threatintel. Now the
-     wash is the same cool blue-tint as the page itself, just
-     slightly brighter (lifts to ~#11172a at the top) so the page
-     feels lit instead of void. Brand-blue pools stay at the
-     same intensity. */
-  radial-gradient(ellipse 90% 55% at 50% 0%, #141a2e 0%, #0a0d18 70%),
-  radial-gradient(at 18% 22%, rgba(67, 94, 241, 0.18) 0px, transparent 55%),
-  radial-gradient(at 80% 88%, rgba(33, 41, 155, 0.14) 0px, transparent 55%)
+  /* Ultra-premium dark atmosphere (v3):
+       1. Top “lit from above” wash — cool, same hue family as the
+          page bg. Lifts to ~#161d35 at the top, fades to the page
+          color over 65% of the height. This is what makes a dark
+          page feel lit instead of feeling like a void.
+       2. A single deliberate brand-blue pool bottom-right (~6%
+          alpha) — asymmetric, not centered. Centered symmetry
+          reads as decorative; asymmetric reads as designed.
+       3. A second, much fainter brand-blue pool top-left (~3%
+          alpha) for the slightest compositional balance without
+          making the page feel symmetric.
+       4. Bottom edge lift in the bottom 10% so the page doesn't
+          end abruptly. Without this, the page feels like a
+          poster stuck to a wall. */
+  radial-gradient(ellipse 95% 55% at 50% 0%, #161d35 0%, #0a0d18 65%),
+  radial-gradient(at 88% 92%, rgba(67, 94, 241, 0.06) 0px, transparent 50%),
+  radial-gradient(at 12% 8%, rgba(67, 94, 241, 0.03) 0px, transparent 45%),
+  linear-gradient(to bottom, transparent 90%, rgba(20, 24, 34, 0.4) 100%)
 `;
 
 const NOISE_URL = `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E")`;
@@ -53,7 +61,7 @@ function BackgroundLayerImpl({ isDark }: BackgroundLayerProps): JSX.Element {
         className="fixed inset-0 -z-10 pointer-events-none transition-opacity duration-700 ease-in-out"
         style={{
           backgroundImage: NOISE_URL,
-          opacity: isDark ? 0.16 : 0.08,
+          opacity: isDark ? 0.1 : 0.08,
         }}
         aria-hidden="true"
       />
