@@ -30,7 +30,7 @@ interface Meta {
 // Each entry is `text-… bg-… border-…` (light) followed by `dark:…` (dark).
 // Tones follow the framework taxonomy: umbrellas = purple, sub-umbrellas =
 // indigo, guides = emerald, standards = cyan, cheat sheets = amber,
-// tools = rose, CTFs = pink.
+// tools = rose, CTFs = rose.
 const TYPE_PILL: Record<string, string> = {
   umbrella:
     'text-purple-700 dark:text-purple-300 bg-purple-50 dark:bg-purple-950/40 border-purple-300 dark:border-purple-800',
@@ -42,7 +42,7 @@ const TYPE_PILL: Record<string, string> = {
   'cheat sheet':
     'text-amber-700 dark:text-amber-300 bg-amber-50 dark:bg-amber-950/40 border-amber-300 dark:border-amber-800',
   tool: 'text-rose-700 dark:text-rose-300 bg-rose-50 dark:bg-rose-950/40 border-rose-300 dark:border-rose-800',
-  ctf: 'text-pink-700 dark:text-pink-300 bg-pink-50 dark:bg-pink-950/40 border-pink-300 dark:border-pink-800',
+  ctf: 'text-rose-700 dark:text-rose-300 bg-rose-50 dark:bg-rose-950/40 border-rose-300 dark:border-rose-800',
 };
 
 function relativeTime(iso: string | undefined): string {

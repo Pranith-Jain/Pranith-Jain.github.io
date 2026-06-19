@@ -72,7 +72,7 @@ const SECTION_COLORS: Record<string, string> = {
   actors: 'text-emerald-600 dark:text-emerald-400 border-emerald-500/30 bg-emerald-500/10',
   cves: 'text-orange-600 dark:text-orange-400 border-orange-500/30 bg-orange-500/10',
   writeups: 'text-indigo-600 dark:text-indigo-400 border-indigo-500/30 bg-indigo-500/10',
-  cybercrime: 'text-pink-600 dark:text-pink-400 border-pink-500/30 bg-pink-500/10',
+  cybercrime: 'text-rose-600 dark:text-rose-400 border-rose-500/30 bg-rose-500/10',
   correlation: 'text-teal-600 dark:text-teal-400 border-teal-500/30 bg-teal-500/10',
   breaches: 'text-blue-600 dark:text-blue-400 border-blue-500/30 bg-blue-500/10',
   malware: 'text-emerald-600 dark:text-emerald-400 border-emerald-500/30 bg-emerald-500/10',

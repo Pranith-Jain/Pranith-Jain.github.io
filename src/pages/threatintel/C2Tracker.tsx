@@ -35,9 +35,9 @@ const FRAMEWORK_COLORS: Record<string, string> = {
   bruteratel: 'bg-sky-500/15 text-sky-700 dark:text-sky-300 border-sky-500/30',
   deimos: 'bg-cyan-500/15 text-cyan-700 dark:text-cyan-300 border-cyan-500/30',
   nighthawk: 'bg-indigo-500/15 text-indigo-700 dark:text-indigo-300 border-indigo-500/30',
-  poshc2: 'bg-fuchsia-500/15 text-fuchsia-700 dark:text-fuchsia-300 border-fuchsia-500/30',
+  poshc2: 'bg-rose-500/15 text-rose-700 dark:text-rose-300 border-rose-500/30',
   silver: 'bg-teal-500/15 text-teal-700 dark:text-teal-300 border-teal-500/30',
-  empire: 'bg-pink-500/15 text-pink-700 dark:text-pink-300 border-pink-500/30',
+  empire: 'bg-rose-500/15 text-rose-700 dark:text-rose-300 border-rose-500/30',
   mythic: 'bg-purple-500/15 text-purple-700 dark:text-purple-300 border-purple-500/30',
   pwnrig: 'bg-stone-500/15 text-stone-700 dark:text-stone-300 border-stone-500/30',
   covenant: 'bg-lime-500/15 text-lime-700 dark:text-lime-300 border-lime-500/30',
@@ -46,7 +46,7 @@ const FRAMEWORK_COLORS: Record<string, string> = {
 
 const SOURCE_COLORS: Record<string, string> = {
   c2intel: 'bg-blue-500/15 text-blue-700 dark:text-blue-300 border-blue-500/30',
-  threatfox: 'bg-fuchsia-500/15 text-fuchsia-700 dark:text-fuchsia-300 border-fuchsia-500/30',
+  threatfox: 'bg-rose-500/15 text-rose-700 dark:text-rose-300 border-rose-500/30',
 };
 
 export default function C2Tracker(): JSX.Element {

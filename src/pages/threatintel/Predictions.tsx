@@ -39,8 +39,8 @@ const BUCKET_META: Record<Bucket, { label: string; icon: typeof TrendingUp; acce
   ai: {
     label: 'AI',
     icon: Brain,
-    accent: 'text-fuchsia-600 dark:text-fuchsia-400 border-fuchsia-500/30 bg-fuchsia-100 dark:bg-fuchsia-500/10',
-    bar: 'bg-fuchsia-500',
+    accent: 'text-rose-600 dark:text-rose-400 border-rose-500/30 bg-rose-100 dark:bg-rose-500/10',
+    bar: 'bg-rose-500',
   },
   tech: {
     label: 'Tech',

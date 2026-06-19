@@ -185,8 +185,8 @@ const LAYER_DEFS: Record<PulseKind, LayerDef> = {
     label: 'GitHub Leaks',
     shortLabel: 'LEAK',
     icon: <ShieldAlert size={14} />,
-    color: 'text-fuchsia-400',
-    bgColor: 'bg-fuchsia-500/10 border-fuchsia-500/20',
+    color: 'text-rose-400',
+    bgColor: 'bg-rose-500/10 border-rose-500/20',
     group: 'intel',
   },
   malicious_package: {

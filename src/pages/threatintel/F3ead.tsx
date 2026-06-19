@@ -137,8 +137,8 @@ const PHASES: Phase[] = [
     name: 'Exploit',
     short: 'Extract tradecraft & IOCs',
     icon: FlaskConical,
-    accent: 'from-fuchsia-500/20 to-fuchsia-500/0',
-    ringClass: 'ring-fuchsia-400/60 dark:ring-fuchsia-500/40',
+    accent: 'from-rose-500/20 to-rose-500/0',
+    ringClass: 'ring-rose-400/60 dark:ring-rose-500/40',
     who: 'IR + DFIR + intel',
     defenderGoal: 'Pull every artifact out of the incident before the cleanup wipes it.',
     description:

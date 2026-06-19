@@ -128,7 +128,7 @@ const CATEGORY_CARDS: CategoryCard[] = [
     description: 'Malware families, IOCs, sample metadata, supply chain packages, and sandbox analysis.',
     icon: Bug,
     href: '/threatintel/catalog?cat=malware',
-    tone: 'text-pink-600 dark:text-pink-400 hover:border-pink-500/40',
+    tone: 'text-rose-600 dark:text-rose-400 hover:border-rose-500/40',
     pages: 6,
   },
   {
