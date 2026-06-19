@@ -14,36 +14,37 @@ interface BackgroundLayerProps {
   isDark: boolean;
 }
 
-// Geist-style atmosphere. One brand-blue pool + one slate fade in light
-// mode; dark mode amplifies brand presence by ~2× but stays restrained
-// (the old 5-stop wash read as AI-pillow — Geist dark page is essentially
-// #000 with one faint radial wash).
+// Light theme: two asymmetric brand-blue radials (10% / 6% opacity).
+// Dark theme: the SAME approach, amplified — navy page (#060A14) with
+// brand-blue pools at 18% / 12% opacity. Visible, intentional, branded.
 const GRADIENT_LIGHT = `
   radial-gradient(at 18% 22%, rgba(44, 62, 229, 0.10) 0px, transparent 55%),
   radial-gradient(at 88% 88%, rgba(33, 41, 155, 0.06) 0px, transparent 55%)
 `;
 
 const GRADIENT_DARK = `
-  /* v6 — deep cool-neutral atmosphere (2026-06-19)
-     The page bg is now #090C16 (near-black cool, not overtly blue).
-     The atmosphere must be much more restrained — the old blue wash
-     would look clownish on a neutral page. This version uses:
-       1. A gentle top-lit wash that lifts the page from #090C16 to
-          ~#0e1322 at the top, creating a subtle "light from above"
-          without introducing a visible hue. The ellipse is wider
-          and shallower (90% × 45%) so it feels like soft ambient
-          light, not a spotlight.
-       2. Asymmetric brand-blue pools at very low opacity (4% and
-          2%) — enough to whisper the brand identity without making
-          the page look blue. They pop more than before because the
-          page is neutral.
-       3. A bottom-edge lift that subtly darkens the last 12% so
-          the page doesn't end abruptly — the footer sits on a
-          slightly deeper base. */
-  radial-gradient(ellipse 90% 45% at 50% 0%, rgba(14, 19, 34, 0.8) 0%, transparent 65%),
-  radial-gradient(at 85% 92%, rgba(67, 94, 241, 0.04) 0px, transparent 50%),
-  radial-gradient(at 15% 8%, rgba(67, 94, 241, 0.02) 0px, transparent 45%),
-  linear-gradient(to bottom, transparent 88%, rgba(10, 13, 24, 0.35) 100%)
+  /* v7 — Deep navy canvas with brand gradient pools (2026-06-19)
+     The page bg is #060A14 (deep navy, visible brand character).
+     This is the SAME approach as the light theme — asymmetric brand-
+     blue radial washes — but amplified for the dark canvas. The light
+     theme uses pools at 10% / 6% opacity; this uses 18% / 12% so the
+     brand is VISIBLY present rather than whispered.
+       1. Top-lit wash: lifts the top ~35% of the page from #060A14
+          to ~#0c1324, creating "light from above" depth.
+       2. Primary brand-blue pool (top-left, ~18% opacity) — the
+          same position and hue as the light theme's primary pool,
+          just stronger. This is the dark theme's signature glow.
+       3. Secondary brand-indigo pool (bottom-right, ~12% opacity) —
+          complementary asymmetry, balanced but not symmetric.
+       4. A faint center glow (~5%) so the middle of the page
+          doesn't feel hollow between the two edge pools.
+       5. Bottom-edge darkening — the last 12% gently darkens so
+          the page doesn't end abruptly. */
+  radial-gradient(ellipse 85% 40% at 50% 0%, rgba(12, 18, 34, 0.85) 0%, transparent 55%),
+  radial-gradient(at 18% 22%, rgba(67, 94, 241, 0.18) 0px, transparent 50%),
+  radial-gradient(at 82% 85%, rgba(44, 62, 229, 0.12) 0px, transparent 50%),
+  radial-gradient(at 50% 50%, rgba(99, 130, 255, 0.05) 0px, transparent 60%),
+  linear-gradient(to bottom, transparent 88%, rgba(4, 7, 14, 0.4) 100%)
 `;
 
 const NOISE_URL = `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E")`;

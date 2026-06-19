@@ -50,13 +50,17 @@
 
   html.dark {
     color-scheme: dark;
-    /* Deep cool-neutral page — near-black with a faint indigo undertone.
-       The previous #0A1A2E was overtly blue, which drowned out brand-blue
-       accents and read as "hacker terminal" rather than premium. Now the
-       page sits at #090C16 — dark enough for OLED depth, cool enough to
-       feel intentional, neutral enough that the brand-blue and rose
-       accents are the only chromatic notes on the surface. The
-       BackgroundLayer adds subtle "lit from above" atmosphere. */
+    /* Deep navy canvas — the dark theme's OWN character, not a dark
+       afterthought. The page sits at #060A14 — dark enough for OLED
+       depth but with a visible cool-navy cast that carries the brand
+       identity. Unlike the previous v6 approach (near-black #090C16
+       that could be any SaaS), this base has deliberate brand hue so
+       the BackgroundLayer's gradient pools feel like an extension of
+       the page, not a separate layer on top of a void.
+       Light-theme inspiration: the light page uses asymmetric brand-
+       blue radial pools at 10% / 6% opacity. This dark version does
+       the same — amplified to 18% / 12% — so the brand is visibly
+       present rather than whispered. */
     background-color: rgb(var(--surface-100));
     color: #f5f5f7;
   }
@@ -98,31 +102,33 @@
     --surface-bg: rgb(var(--surface-100));
     --glass-bg: rgb(var(--surface-200));
     --glass-border: rgb(var(--border-400));
-    /* ── v6 — deep cool-neutral dark (2026-06-19) ─────────────────────
-       Premium dark surfaces with restrained cool-indigo undertone.
-       The earlier v5 saturated-blue page (#0A1A2E) drowned out every
-       accent — brand-blue cards had no edge against a brand-blue page.
-       Now the page sits at a near-black #090C16 with a barely perceptible
-       cool shift. RGB ratios are consistent across all four surfaces
-       (B ≈ R × 2.4, G ≈ R × 1.3) so the hue family holds; luminance
-       deltas of +11-12 RGB per layer give clear but non-jarring lift.
-         page  = #090C16  — deep cool-neutral, near-black
-         card  = #141721  — card surface (+11 lift), same cool family
-         raised= #1F222C  — hover/popover (+11 from card)
-         input = #0E111B  — inset well (between page & card)
-       Pure white borders at low opacity read as stark on a cool page;
-       borders now use a cool-tinted white (rgb(210 220 245)) at the
-       same opacities — they define edges without introducing a warm
-       note. The result: brand-blue and rose accents are the only
-       chromatic notes, and they pop. */
-    --surface-100: 9 12 22; /* page bg    — near-black cool-neutral  #090C16 */
-    --surface-200: 20 23 33; /* card       — lifted surface          #141721 */
-    --surface-300: 31 34 44; /* raised     — hover/popover           #1F222C */
-    --input-200: 14 17 27; /* input well — inset                   #0E111B */
-    --border-400: 210 220 245 / 0.1; /* default — cool-white at 10% */
-    --border-500: 210 220 245 / 0.17; /* hover   — cool-white at 17% */
-    --border-600: 210 220 245 / 0.28; /* active  — cool-white at 28% */
-    --hover-100: 210 220 245 / 0.05; /* hover bg wash */
+    /* ── v7 — Deep navy canvas with brand gradient pools (2026-06-19) ──
+       The dark theme now has its OWN visual identity — a rich navy
+       base (#060A14) with visible brand-blue gradient pools, the same
+       approach as the light theme (asymmetric radial washes) but
+       amplified for the dark canvas.
+       Previous iterations oscillated between saturated-blue (v5, which
+       drowned out accents) and near-black with barely-there gradients
+       (v6, which looked like every other AI startup's dark mode).
+       This version commits to a deliberate navy cast for the page
+       itself — not so blue that accents disappear, but blue enough
+       that the page reads as "belonging to a brand," not as "dark
+       mode" from a checklist. The gradient pools in BackgroundLayer
+       extend this identity with visible brand-blue washes.
+         page  = #060A14  — deep navy, visible cool-brand character
+         card  = #0F1423  — card surface (+9-15 RGB lift)
+         raised= #1A1F31  — hover/popover (+10-11 from card)
+         input = #0A0E1A  — inset well (between page & card)
+       Borders use cool-tinted white (rgb 180 200 240) at low opacity
+       so they define edges without fighting the navy base. */
+    --surface-100: 6 10 20; /* page bg — deep navy         #060A14 */
+    --surface-200: 15 20 35; /* card    — lifted surface    #0F1423 */
+    --surface-300: 26 31 49; /* raised  — hover/popover     #1A1F31 */
+    --input-200: 10 14 26; /* input   — inset well        #0A0E1A */
+    --border-400: 180 200 240 / 0.1;
+    --border-500: 180 200 240 / 0.17;
+    --border-600: 180 200 240 / 0.28;
+    --hover-100: 180 200 240 / 0.06;
   }
 
   /* Geist two-layer focus ring:
@@ -191,11 +197,11 @@
     background-color: rgba(100, 116, 139, 0.7);
   }
 
-  /* ── Dark theme — deep cool-neutral, +11 card lift ─────────────────────
-     Page: #090C16 (near-black cool)
-     Cards: #141721 (+11 lift — clearly pop)
-     Raised: #1F222C (hover/popover, +11 from card)
-     Borders: rgba(210,220,245,0.10) (cool-tinted, refined)
+  /* ── Dark theme — deep navy canvas, brand gradient pools ──────────
+     Page: #060A14 (deep navy, visible brand character)
+     Cards: #0F1423 (+9-15 RGB lift — clear pop on navy)
+     Raised: #1A1F31 (hover/popover, +10-11 from card)
+     Borders: rgba(180,200,240,0.10) (cool-tinted to match navy)
      Text: #f5f5f7 (near-white) */
 
   /* ── Consolidated card surface — every Tailwind "white" / "slate-50" /
@@ -243,10 +249,10 @@
     background-color: rgb(var(--input-200) / var(--tw-bg-opacity, 1)) !important;
   }
 
-  /* Text — neutral grays, consistent with cool-neutral page.
-     The page is no longer blue-tinted (#090C16, cool-neutral), so
-     these neutral grays sit comfortably. Brand-blue and rose accents
-     carry all the colour. */
+  /* Text — neutral grays, consistent on deep navy page.
+     The page has a deliberate navy cast (#060A14), so these
+     neutral grays provide clean contrast. Brand-blue and rose
+     accents carry all the chromatic weight. */
   .dark .text-slate-400 {
     color: #a8a8a8 !important;
   }
@@ -261,9 +267,9 @@
   }
 
   /* Borders — literal overrides for legacy `border-slate-*` class usage.
-     These map old Tailwind border utilities to cool-neutral tones that
-     match the v6 page (#090C16). New code should use the
-     --border-400/500/600 CSS vars instead. */
+     These map old Tailwind border utilities to tones that match the
+     deep navy page. New code should use the --border-400/500/600 CSS
+     vars instead. */
   .dark .border-slate-200 {
     border-color: rgb(31 34 47) !important;
   }
@@ -349,17 +355,10 @@
   .dark .surface-card {
     border-color: rgb(var(--border-400));
     background-color: rgb(var(--surface-200));
-    /* Premium dark card recipe (v6):
-       1. 2px deep ambient shadow at 0.6 — card weight, not floating.
-       2. 8px wide-area shadow for realistic depth falloff.
-       3. 1px top-edge inset highlight — cool-tinted (rgb 210 220 245)
-          so it reads as "edge catch light" against the cool-neutral
-          page rather than as a separate white line. This is the single
-          biggest "premium dark UI" tell (Vercel/Linear/Hunt.io). */
     box-shadow:
       0 2px 4px rgba(0, 0, 0, 0.6),
       0 8px 24px -8px rgba(0, 0, 0, 0.4),
-      inset 0 1px 0 0 rgba(210, 220, 245, 0.12);
+      inset 0 1px 0 0 rgba(180, 200, 240, 0.12);
   }
   .surface-raised {
     @apply rounded-xl border bg-white shadow-e2 transition duration-200;
@@ -371,7 +370,7 @@
     box-shadow:
       0 2px 6px rgba(0, 0, 0, 0.7),
       0 12px 32px -8px rgba(0, 0, 0, 0.5),
-      inset 0 1px 0 0 rgba(210, 220, 245, 0.16);
+      inset 0 1px 0 0 rgba(180, 200, 240, 0.16);
   }
   .surface-glass {
     @apply rounded-xl border shadow-e1 backdrop-blur-md transition duration-200;
@@ -381,7 +380,7 @@
   .dark .surface-glass {
     border-color: rgb(var(--border-400));
     background-color: rgb(var(--surface-200) / 0.5);
-    box-shadow: inset 0 1px 0 0 rgba(210, 220, 245, 0.1);
+    box-shadow: inset 0 1px 0 0 rgba(180, 200, 240, 0.1);
   }
   .chrome-glass {
     @apply backdrop-blur-xl;
@@ -404,17 +403,14 @@
     box-shadow:
       0 2px 4px rgba(0, 0, 0, 0.6),
       0 8px 24px -8px rgba(0, 0, 0, 0.4),
-      inset 0 1px 0 0 rgba(210, 220, 245, 0.12);
+      inset 0 1px 0 0 rgba(180, 200, 240, 0.12);
   }
   .dark .chrome-glass {
     border-color: rgb(var(--border-500));
     background-color: rgb(var(--surface-100) / 0.78);
-    /* Header/sidebar chrome: punch up the top-edge highlight so the
-       glass reads as elevated against the deep-cool page. The bottom
-       edge stays transparent so the glass doesn't look like a slab. */
     box-shadow:
-      inset 0 1px 0 0 rgba(210, 220, 245, 0.1),
-      inset 0 -1px 0 0 rgba(210, 220, 245, 0.02);
+      inset 0 1px 0 0 rgba(180, 200, 240, 0.1),
+      inset 0 -1px 0 0 rgba(180, 200, 240, 0.02);
   }
   .card-hover {
     @apply transition-[transform,border-color,box-shadow] duration-200;
@@ -588,7 +584,7 @@
   }
 
   .dark .bg-dot-grid {
-    background-image: radial-gradient(rgba(210, 220, 245, 0.06) 1px, transparent 1px);
+    background-image: radial-gradient(rgba(180, 200, 240, 0.06) 1px, transparent 1px);
   }
 
   .shadow-glow {
@@ -823,7 +819,7 @@
   background: radial-gradient(ellipse at center, #0f172a 0%, #020617 100%);
 }
 .dark .globe-bg {
-  background: radial-gradient(ellipse at center, #1a1d2e 0%, #090c16 100%);
+  background: radial-gradient(ellipse at center, #161d35 0%, #060a14 100%);
 }
 
 /* Pulse ring animation for severity dots */
