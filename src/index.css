@@ -57,7 +57,7 @@
     /* Pure black page bg. The previous #0a1220 was blue-tinted; the
        only wash now lives in BackgroundLayer.tsx, so the page can read
        as #000 with light from above. */
-    background-color: #000000;
+    background-color: #0f172a;
     color: #f5f5f7;
   }
 
@@ -125,23 +125,39 @@
       tokens (severity.critical / .high / .medium, soc/tone.ts `ok`)
       already carry them. Muted text: #E2E8F0 is the spec's body
       gray, which is exactly Tailwind slate-200 — already in use. */
-    /* v5 (2026-06-19) Deeper-blue page surface. Same luminance as
-       v4 (#0B0F19 → #0A1A2E, both ~5% Y in OKLCH) but with the
-       blue channel pushed +21 to read as a saturated navy page
-       rather than a neutral near-black. The card (--surface-200)
-       and raised (--surface-300) tokens keep their original
-       off-black / off-blue values so cards stay one step above
-       the page in the same hue family; only the page bg shifts.
-       This is the "logo color family, deeper" read of the
-       "every page similar" feedback. */
+    /* v7 (2026-06-19) — dark theme aligned with the Schedule call
+       button colors. The user pointed at the light-mode
+       Schedule call button (bg-slate-900 = #0F172A) and the
+       dark-mode button (bg-[rgb(28,28,36)] = #1C1C24) as the
+       "right" feel for the dark theme. v7 makes every surface
+       in the dark theme literally match an existing component
+       color in the codebase:
+
+         page   = slate-900    #0F172A  rgb(15, 23, 42)   ~9% L
+                  = light-mode Schedule call button
+         card   = #1C1C24      rgb(28, 28, 36)          ~11% L
+                  = dark-mode Schedule call button
+         raised = #282830      rgb(40, 40, 48)          ~16% L
+                  ≈ dark-mode Schedule call button hover
+         input  = #0A0F1A      rgb(10, 15, 26)          ~6% L
+                  = one step below page
+
+       This is the standard Tailwind slate family — every
+       bg-slate-900 / bg-slate-800 / bg-slate-700 in the
+       codebase now lands on the right v7 surface, and the
+       dark theme reads as a coherent slate-900 page with
+       cards matching the dark-mode button color. The v6
+       PJ Mark-as-page attempt was reverted; the brand-blue
+       accent is now restored to its v5 role (top strip,
+       focus ring, small logo, links) — not the page itself. */
     /* (2026-06-19 v3) Rose override reverted: the cool page bg alone
      is enough to keep red reading as red (no brown wash). The
      magenta-rose shift was a category mistake — a cybersecurity
      product shouldn't have pink. Rose stays as Tailwind rose. */
-    --surface-100: 10 26 46; /* page bg — deeper saturated blue #0A1A2E (v5) */
-    --surface-200: 23 29 44; /* card    — off-black table row   #171D2C (SOC spec) */
-    --surface-300: 31 38 56; /* raised  — +1 step from card     #1F2638 */
-    --input-200: 15 18 26; /* input well — between page & card #0F121A */
+    --surface-100: 15 23 42; /* page   — slate-900 #0F172A, the light-mode button (v7) */
+    --surface-200: 28 28 36; /* card   — #1C1C24, the dark-mode Schedule call button (v7) */
+    --surface-300: 40 40 48; /* raised — #282830, matches the dark-mode button hover (v7) */
+    --input-200: 10 15 26; /* input  — #0A0F1A, one step below page (v7) */
     --border-400: 255 255 255 / 0.14;
     --border-500: 255 255 255 / 0.22;
     --border-600: 255 255 255 / 0.32;
