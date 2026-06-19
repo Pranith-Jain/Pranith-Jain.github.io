@@ -6,6 +6,7 @@ import { ArrowLeft, Mail, Search, Loader2, CheckCircle2, AlertTriangle, External
 import { CopyChip } from '../../components/dfir/CopyButton';
 import { assess, type DomainApiResponse, type BecAssessment } from '../../lib/dfir/bec-score';
 import { SEVERITY_TONE as SEV_STYLES, SEVERITY_BAR, type Severity } from '../../components/severity';
+import { IntodnsPanel } from '../../components/dfir/IntodnsPanel';
 
 // `safe` grade maps to the `info` severity tone (sky); the other grades are
 // already canonical severity keys.
@@ -307,6 +308,12 @@ export default function EmailDefense(): JSX.Element {
             </section>
           )}
         </>
+      )}
+
+      {data && (
+        <div className="mb-4">
+          <IntodnsPanel domain={data.domain} title="IntoDNS.ai email-security grade" />
+        </div>
       )}
 
       <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">

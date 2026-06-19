@@ -277,6 +277,32 @@ export function generateOpenApiSpec(): Record<string, unknown> {
           },
         },
       },
+      '/api/v1/intodns/explain': {
+        get: {
+          tags: ['Domain Intelligence'],
+          summary: 'IntoDNS.ai LLM-explained report',
+          description:
+            'Fetches the IntoDNS Everything Report and returns a Groq (or Workers AI) plain-English interpretation with four sections: headline, critical issues, recommendations, and notes. Caches the explanation for 24h; degrades gracefully to `{ explanation: null, degraded: true }` when the LLM call fails. Per https://intodns.ai/llm/api.md the LLM doc recommends the Everything Report as the canonical evidence source.',
+          parameters: [
+            {
+              name: 'domain',
+              in: 'query',
+              required: true,
+              schema: { type: 'string', maxLength: 253 },
+              example: 'example.com',
+            },
+          ],
+          responses: {
+            '200': {
+              description: 'Explanation object. `degraded: true` means the LLM call failed and `explanation` is null.',
+              content: { 'application/json': { schema: { type: 'object' } } },
+            },
+            '400': { description: 'Invalid or missing domain' },
+            '429': { description: 'Upstream rate-limited; `Retry-After` honored' },
+            '502': { description: 'Upstream fetch failed' },
+          },
+        },
+      },
       '/api/v1/cve/lookup': {
         get: {
           tags: ['CVE'],

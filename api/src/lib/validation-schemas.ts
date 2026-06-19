@@ -103,6 +103,15 @@ export const intodnsSnapshotSchema = z.object({
   format: z.enum(['json', 'markdown']).optional(),
 });
 
+// ── IntoDNS Explain ─────────────────────────────────────────────
+// LLM-interpreted version of the Everything Report. The `domain`
+// param is the only required field — the route picks a quality model
+// (Groq openai/gpt-oss-120b → Workers AI Llama 3.3 70B fallback) and
+// caches the result for 24h.
+export const intodnsExplainSchema = z.object({
+  domain: domainPattern,
+});
+
 // ── IP Geolocation ───────────────────────────────────────────────
 
 export const ipGeoSchema = z.object({

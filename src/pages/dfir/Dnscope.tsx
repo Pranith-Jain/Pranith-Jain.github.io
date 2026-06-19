@@ -1,6 +1,7 @@
 import { useState, useCallback } from 'react';
 import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, Globe, Search, ShieldCheck, Loader2, AlertTriangle } from 'lucide-react';
+import { IntodnsPanel } from '../../components/dfir/IntodnsPanel';
 
 interface DnsSection {
   id: string;
@@ -236,28 +237,33 @@ export default function Dnscope(): JSX.Element {
           )}
 
           {!scanning && sections.length > 0 && (
-            <div className="space-y-2">
-              {sections.map((section) => (
-                <div
-                  key={section.id}
-                  className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-4"
-                >
-                  <div className="flex items-center justify-between mb-2">
-                    <h3 className="font-mono text-xs font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
-                      {section.label}
-                    </h3>
-                    <ShieldCheck size={12} className="text-green-500" />
+            <>
+              <div className="mb-4">
+                <IntodnsPanel domain={domain} title="IntoDNS.ai DNS health grade" />
+              </div>
+              <div className="space-y-2">
+                {sections.map((section) => (
+                  <div
+                    key={section.id}
+                    className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-4"
+                  >
+                    <div className="flex items-center justify-between mb-2">
+                      <h3 className="font-mono text-xs font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
+                        {section.label}
+                      </h3>
+                      <ShieldCheck size={12} className="text-green-500" />
+                    </div>
+                    <ul className="space-y-0.5">
+                      {section.data.map((line, i) => (
+                        <li key={i} className="text-xs font-mono text-muted">
+                          {line}
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-                  <ul className="space-y-0.5">
-                    {section.data.map((line, i) => (
-                      <li key={i} className="text-xs font-mono text-muted">
-                        {line}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            </>
           )}
         </div>
       </div>

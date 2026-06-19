@@ -5,7 +5,7 @@ import { iocCheckHandler } from './routes/ioc';
 import { iocEnrichDeepHandler } from './routes/ioc-enrich-deep';
 
 import { domainLookupHandler } from './routes/domain';
-import { intodnsSnapshotHandler } from './routes/intodns';
+import { intodnsSnapshotHandler, intodnsExplainHandler } from './routes/intodns';
 import { phishingAnalyzeHandler } from './routes/phishing';
 import { exposureScanHandler } from './routes/exposure';
 import { fileAnalyzeHandler } from './routes/file';
@@ -569,6 +569,7 @@ import {
   iocCheckSchema,
   domainLookupSchema,
   intodnsSnapshotSchema,
+  intodnsExplainSchema,
   ipGeoSchema,
   cveLookupSchema,
   mitreTechniqueSchema,
@@ -776,6 +777,7 @@ app.post('/api/v1/ioc/enrich-deep', iocEnrichDeepHandler);
 app.get('/api/v1/ioc/check', validate('query', iocCheckSchema), iocCheckHandler);
 app.get('/api/v1/domain/lookup', validate('query', domainLookupSchema), domainLookupHandler);
 app.get('/api/v1/intodns/snapshot', validate('query', intodnsSnapshotSchema), intodnsSnapshotHandler);
+app.get('/api/v1/intodns/explain', validate('query', intodnsExplainSchema), intodnsExplainHandler);
 app.post(
   '/api/v1/phishing/analyze',
   validateText(phishingEmailTextSchema, { maxBytes: 64 * 1024 }),
