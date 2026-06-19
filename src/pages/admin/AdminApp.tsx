@@ -182,12 +182,20 @@ export default function AdminApp() {
           <h1 className="text-xl font-display font-bold text-slate-900 dark:text-white">Case Study Admin</h1>
           <p className="text-xs font-mono text-slate-500 mt-0.5">Pipeline management and content admin</p>
         </div>
-        <button
-          onClick={logout}
-          className="px-3 py-1.5 border border-slate-300 dark:border-[#1e2030] rounded text-sm text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-[#16161f] hover:text-slate-900 dark:hover:text-white transition-colors"
-        >
-          Logout
-        </button>
+        <div className="flex items-center gap-3">
+          <a
+            href="/admin/analytics"
+            className="px-3 py-1.5 border border-slate-300 dark:border-[#1e2030] rounded text-sm text-slate-500 hover:bg-slate-100 dark:hover:bg-[#16161f] hover:text-slate-900 dark:hover:text-white transition-colors"
+          >
+            Analytics
+          </a>
+          <button
+            onClick={logout}
+            className="px-3 py-1.5 border border-slate-300 dark:border-[#1e2030] rounded text-sm text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-[#16161f] hover:text-slate-900 dark:hover:text-white transition-colors"
+          >
+            Logout
+          </button>
+        </div>
       </div>
 
       <PipelineBar />

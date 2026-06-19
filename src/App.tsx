@@ -300,6 +300,7 @@ const Sponsor = lazy(() => import('./pages/Sponsor'));
 const Blog = lazy(() => import('./pages/Blog'));
 const BlogPost = lazy(() => import('./pages/BlogPost'));
 const AdminApp = lazy(() => import('./pages/admin/AdminApp'));
+const AdminAnalyticsDashboard = lazy(() => import('./pages/admin/AnalyticsDashboard'));
 const RansomwareLive = lazy(() => import('./pages/threatintel/RansomwareLive'));
 const UrlReputation = lazy(() => import('./pages/dfir/UrlReputation'));
 const WhoisHistory = lazy(() => import('./pages/dfir/WhoisHistory'));
@@ -649,6 +650,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/dfir/report-composer', Component: ReportComposer },
   { path: '/dfir/report-analyzer', Component: ReportAnalyzer },
   { path: '/admin', Component: AdminApp },
+  { path: '/admin/analytics', Component: AdminAnalyticsDashboard },
 ];
 
 /** Legacy / renamed paths preserved as redirects so in-flight links don't 404. */
