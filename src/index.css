@@ -462,6 +462,19 @@
   .dark .card-hover:hover {
     border-color: rgb(var(--border-500));
     background-color: rgb(var(--surface-300));
+    /* v5.1 (2026-06-19) — small brand-blue ring + faint glow on card
+       hover. Additive to the existing translate + raised surface +
+       border. The ring uses rgb(67 94 241) (brand-500, the PjMark
+       gradient endpoint) at 30% so the border on hover reads as
+       "this card is now lit by brand-blue" without overpowering.
+       The box-shadow is a 12px brand-blue glow at 18% so the card
+       has a faint halo on hover, the kind of thing Vercel/Linear
+       use to confirm "you're hovering an interactive surface."
+       All values are small enough to be a refinement, not a
+       visual change. Light mode untouched. */
+    box-shadow:
+      0 0 0 1px rgb(67 94 241 / 0.3),
+      0 0 12px rgb(67 94 241 / 0.18);
   }
 
   /* ── Rose-tinted card hover for /threatintel pages ─────────────────
