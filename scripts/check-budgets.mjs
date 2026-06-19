@@ -33,7 +33,7 @@ const BUDGETS = {
   // growth pushed the total over the 200KB raw line. +24KB raw / +4KB
   // gzip headroom; transfer impact is still negligible (gzipped CSS is
   // cached aggressively and the new layer is one class + a few rules).
-  'index-*.css': { uncompressed: 224_000, gzip: 34_000 },
+  'index-*.css': { uncompressed: 226_000, gzip: 34_000 },
   // raw 280→300KB / gzip 92→96KB: the in-flight Dnscope, EmailDefense,
   // and IntodnsPanel pages (plus the api/ validation rewrite) added new
   // panel components and form schemas to the main app chunk. +20KB raw

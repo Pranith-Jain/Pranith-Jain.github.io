@@ -53,7 +53,7 @@ function BackgroundLayerImpl({ isDark }: BackgroundLayerProps): JSX.Element {
   return (
     <>
       <div
-        className="fixed inset-0 -z-10 transition-all duration-700 ease-in-out"
+        className={`fixed inset-0 -z-10 transition-all duration-700 ease-in-out ${isDark ? 'mesh-animate' : ''}`}
         style={{
           background: isDark ? GRADIENT_DARK : GRADIENT_LIGHT,
           backgroundBlendMode: isDark ? 'screen' : 'normal',
@@ -65,7 +65,7 @@ function BackgroundLayerImpl({ isDark }: BackgroundLayerProps): JSX.Element {
         className="fixed inset-0 -z-10 pointer-events-none transition-opacity duration-700 ease-in-out"
         style={{
           backgroundImage: NOISE_URL,
-          opacity: isDark ? 0.12 : 0.08,
+          opacity: isDark ? 0.1 : 0.08,
         }}
         aria-hidden="true"
       />

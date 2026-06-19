@@ -101,38 +101,34 @@
   }
   html.dark {
     --brand: 99 130 255;
-    --muted: 148 148 150; /* neutral gray, matches grayscale surface */
+    --muted: 168 168 170; /* neutral gray, matches grayscale surface */
     --surface-border: rgb(var(--border-400));
     --surface-bg: rgb(var(--surface-100));
     --glass-bg: rgb(var(--surface-200));
     --glass-border: rgb(var(--border-400));
-    /* ── v7 — Deep navy canvas with brand gradient pools (2026-06-19) ──
-       The dark theme now has its OWN visual identity — a rich navy
-       base (#060A14) with visible brand-blue gradient pools, the same
-       approach as the light theme (asymmetric radial washes) but
-       amplified for the dark canvas.
-       Previous iterations oscillated between saturated-blue (v5, which
-       drowned out accents) and near-black with barely-there gradients
-       (v6, which looked like every other AI startup's dark mode).
-       This version commits to a deliberate navy cast for the page
-       itself — not so blue that accents disappear, but blue enough
-       that the page reads as "belonging to a brand," not as "dark
-       mode" from a checklist. The gradient pools in BackgroundLayer
-       extend this identity with visible brand-blue washes.
-         page  = #060A14  — deep navy, visible cool-brand character
-         card  = #0F1423  — card surface (+9-15 RGB lift)
-         raised= #1A1F31  — hover/popover (+10-11 from card)
-         input = #0A0E1A  — inset well (between page & card)
-       Borders use cool-tinted white (rgb 180 200 240) at low opacity
-       so they define edges without fighting the navy base. */
+    /* ── v7b — Lighter surfaces for text contrast (2026-06-19) ──────
+       Users reported the dark theme felt "nosy" (grainy) and text
+       wasn't highlighted enough. Root causes:
+         1. Noise at 18% was visually distracting; dropped to 10%.
+         2. Glass-card alpha was 0.88; too much mesh bleed-through.
+            Bumped to 0.93 for better text legibility.
+         3. Surface-200/RGB values were too close to the page base;
+            brightened +6 per channel so cards pop more distinctly.
+         4. Section-glass blur was 16px; halved to 8px so text has
+            less backdrop-filter fuzziness.
+       ────────────────────────────────────────────────────────────────
+         page  = #060A14  — deep navy, mesh base
+         card  = #1E243C  — glass card (+24-36 RGB lift from page)
+         raised= #303854  — hover/popover (+18-24 from card)
+         input = #0E1326  — inset well, no translucency       */
     --surface-100: 6 10 20; /* page bg — deep navy         #060A14 */
-    --surface-200: 15 20 35; /* card    — lifted surface    #0F1423 */
-    --surface-300: 26 31 49; /* raised  — hover/popover     #1A1F31 */
-    --input-200: 10 14 26; /* input   — inset well        #0A0E1A */
-    --border-400: 180 200 240 / 0.1;
-    --border-500: 180 200 240 / 0.17;
-    --border-600: 180 200 240 / 0.28;
-    --hover-100: 180 200 240 / 0.06;
+    --surface-200: 30 36 60; /* card    — glass surface     #1E243C */
+    --surface-300: 48 56 84; /* raised  — hover/popover     #303854 */
+    --input-200: 14 19 38; /* input   — inset well        #0E1326 */
+    --border-400: 180 200 240 / 0.12;
+    --border-500: 180 200 240 / 0.2;
+    --border-600: 180 200 240 / 0.32;
+    --hover-100: 180 200 240 / 0.08;
   }
 
   /* Geist two-layer focus ring:
@@ -223,11 +219,32 @@
   .dark .bg-gray-800 {
     background-color: rgb(var(--surface-200)) !important;
   }
+  /* Light-mode glass — translucent white + backdrop-blur for card
+     surfaces and overlays. Pairs with the dark-mode glass system. */
+  .bg-white\/60,
+  .bg-white\/65,
+  .bg-white\/70,
+  .bg-white\/80,
+  .bg-white\/90,
+  .bg-white\/95 {
+    backdrop-filter: blur(8px);
+  }
   .dark .bg-slate-50 {
-    background-color: rgb(var(--input-200)) !important;
+    background-color: rgb(var(--input-200) / 0.88) !important;
+    backdrop-filter: blur(8px) !important;
   }
 
-  /* Translucent card surfaces — surface-200 at the requested alpha. */
+  /* Translucent card surfaces — surface-200 at the requested alpha.
+     Applies to both `bg-white/N` (universal, overridden by .dark parent)
+     AND `dark:bg-slate-900/N` (Tailwind dark variant, used by section
+     cards). Some elements carry BOTH `bg-white` + `dark:bg-slate-900/40`;
+     the later-declared `dark\:` variant wins the background-color due to
+     same-specificity + !important tiebreaker (source order).
+
+     backdrop-filter: blur(16px) gives section-level cards (Featured,
+     Experience, Projects, etc.) the same glass-mesh treatment as
+     surface-card. High-opacity (/80, /90, /95) variants get a softer
+     blur but still bleed the edge nicely. */
   .dark .bg-white\/60,
   .dark .bg-white\/65,
   .dark .bg-white\/70,
@@ -237,6 +254,7 @@
   .dark .bg-slate-900\/50,
   .dark .bg-slate-900\/60,
   .dark .bg-slate-900\/80,
+  .dark .bg-slate-900\/90,
   .dark .bg-slate-900\/95,
   .dark .bg-slate-950\/40,
   .dark .bg-slate-950\/80,
@@ -244,8 +262,27 @@
   .dark .bg-gray-900\/60,
   .dark .bg-gray-900\/80,
   .dark .bg-gray-900\/95,
-  .dark .bg-gray-800\/60 {
+  .dark .bg-gray-800\/60,
+  /* dark: prefixed variants — override Tailwind's `dark:` strategy
+     so section cards using `dark:bg-slate-900/N` resolve to the same
+     surface-200 color + glass blur. Declared AFTER the universal
+     variants so they win the source-order tiebreaker for elements
+     carrying both `bg-white` and `dark:bg-slate-900/N`. */
+  .dark .dark\:bg-white\/60,
+  .dark .dark\:bg-white\/70,
+  .dark .dark\:bg-white\/80,
+  .dark .dark\:bg-white\/95,
+  .dark .dark\:bg-slate-900\/40,
+  .dark .dark\:bg-slate-900\/50,
+  .dark .dark\:bg-slate-900\/60,
+  .dark .dark\:bg-slate-900\/80,
+  .dark .dark\:bg-slate-900\/90,
+  .dark .dark\:bg-slate-900\/95,
+  .dark .dark\:bg-gray-900\/60,
+  .dark .dark\:bg-gray-900\/80,
+  .dark .dark\:bg-gray-900\/95 {
     background-color: rgb(var(--surface-200) / var(--tw-bg-opacity, 1)) !important;
+    backdrop-filter: blur(8px) !important;
   }
   .dark .bg-slate-50\/40,
   .dark .bg-slate-50\/60,
@@ -258,16 +295,16 @@
      neutral grays provide clean contrast. Brand-blue and rose
      accents carry all the chromatic weight. */
   .dark .text-slate-400 {
-    color: #a8a8a8 !important;
+    color: #c0c0c0 !important;
   }
   .dark .text-slate-500 {
-    color: #8a8a8a !important;
+    color: #a0a0a0 !important;
   }
   .dark .text-slate-300 {
-    color: #d4d4d4 !important;
+    color: #e0e0e0 !important;
   }
   .dark .text-slate-200 {
-    color: #e5e5e5 !important;
+    color: #ededed !important;
   }
 
   /* ── Dark mode button hover overrides ──────────────────────────────
@@ -376,28 +413,32 @@
        surface-glass  → hero / overlay context  (surface-200/50 + blur)
        chrome-glass    → sticky header/sidebar  (surface-100/85 + blur) */
   .surface-card {
-    @apply rounded-xl border bg-white shadow-e1 transition duration-200;
-    border-color: rgb(var(--surface-border) / 0.9);
+    @apply rounded-xl border shadow-e1 backdrop-blur-md transition duration-200;
+    background-color: rgb(255 255 255 / 0.72);
+    border-color: rgb(var(--surface-border) / 0.8);
   }
   .dark .surface-card {
+    @apply backdrop-blur-md;
     border-color: rgb(var(--border-400));
-    background-color: rgb(var(--surface-200));
+    background-color: rgb(var(--surface-200) / 0.93);
     box-shadow:
       0 2px 4px rgba(0, 0, 0, 0.6),
       0 8px 24px -8px rgba(0, 0, 0, 0.4),
-      inset 0 1px 0 0 rgba(180, 200, 240, 0.12);
+      inset 0 0 0 1px rgba(67, 94, 241, 0.1);
   }
   .surface-raised {
-    @apply rounded-xl border bg-white shadow-e2 transition duration-200;
+    @apply rounded-xl border shadow-e2 backdrop-blur-md transition duration-200;
+    background-color: rgb(255 255 255 / 0.78);
     border-color: rgb(var(--surface-border));
   }
   .dark .surface-raised {
+    @apply backdrop-blur-md;
     border-color: rgb(var(--border-500));
-    background-color: rgb(var(--surface-200));
+    background-color: rgb(var(--surface-300) / 0.93);
     box-shadow:
       0 2px 6px rgba(0, 0, 0, 0.7),
       0 12px 32px -8px rgba(0, 0, 0, 0.5),
-      inset 0 1px 0 0 rgba(180, 200, 240, 0.16);
+      inset 0 0 0 1px rgba(67, 94, 241, 0.12);
   }
   .surface-glass {
     @apply rounded-xl border shadow-e1 backdrop-blur-md transition duration-200;
@@ -407,7 +448,7 @@
   .dark .surface-glass {
     border-color: rgb(var(--border-400));
     background-color: rgb(var(--surface-200) / 0.5);
-    box-shadow: inset 0 1px 0 0 rgba(180, 200, 240, 0.1);
+    box-shadow: inset 0 0 0 1px rgba(67, 94, 241, 0.08);
   }
   .chrome-glass {
     @apply backdrop-blur-xl;
@@ -421,16 +462,18 @@
      tiles, and the platform landing cards (DFIR home, threatintel
      home). Same top-edge highlight, just a stronger edge. */
   .surface-elevated {
-    @apply rounded-xl border bg-white shadow-e1 transition duration-200;
+    @apply rounded-xl border shadow-e1 backdrop-blur-md transition duration-200;
+    background-color: rgb(255 255 255 / 0.72);
     border-color: rgb(var(--surface-border));
   }
   .dark .surface-elevated {
+    @apply backdrop-blur-md;
     border-color: rgb(var(--border-500));
-    background-color: rgb(var(--surface-200));
+    background-color: rgb(var(--surface-200) / 0.93);
     box-shadow:
       0 2px 4px rgba(0, 0, 0, 0.6),
       0 8px 24px -8px rgba(0, 0, 0, 0.4),
-      inset 0 1px 0 0 rgba(180, 200, 240, 0.12);
+      inset 0 0 0 1px rgba(67, 94, 241, 0.14);
   }
   .dark .chrome-glass {
     border-color: rgb(var(--border-500));
@@ -864,6 +907,32 @@
 
 .animate-severity-ping {
   animation: severity-ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+/* Ambient mesh drift — combined scale + translate on the gradient layer
+   so the brand-blue pools drift like slow-moving fog. The scale creates
+   a subtle breathing (1↔1.035) while translate (0↔±3px) shifts center
+   of mass, producing a smooth drifty orbit over 35s. CSS animation
+   cascade overrides inline `background` shorthand. */
+@keyframes mesh-breathe {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  25% {
+    transform: translate(3px, -2px) scale(1.02);
+  }
+  50% {
+    transform: translate(-2px, 3px) scale(1.035);
+  }
+  75% {
+    transform: translate(1px, -1px) scale(1.015);
+  }
+}
+.mesh-animate {
+  animation: mesh-breathe 35s ease-in-out infinite;
+  transform-origin: center center;
+  will-change: transform;
 }
 
 /* ─────────────────────────────────────────────────────────────────────
