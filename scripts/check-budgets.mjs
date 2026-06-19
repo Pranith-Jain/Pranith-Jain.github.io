@@ -19,17 +19,38 @@ const distDir = join(__dirname, '..', 'dist');
 const BUDGETS = {
   'vendor-react-*.js': { uncompressed: 80_000, gzip: 28_000 },
   'vendor-icons-*.js': { uncompressed: 130_000, gzip: 38_000 },
-  'index-*.js': { uncompressed: 280_000, gzip: 92_000 },
+  'index-*.js': { uncompressed: 300_000, gzip: 96_000 },
   // Raw bumped 168→172KB for the STIX Builder file-upload + Attack-Flow UI.
   // 172→176KB: Facilities Database page added Tailwind utility classes.
   // gzip 26→28KB: accumulated frontend growth (OSINT Mapper, Tracer, supply-chain
   // + new utilities) reached the 26KB gzip line. 2KB headroom; transfer/perf
   // impact is negligible — the guard just tracks utility-class growth.
-  'index-*.css': { uncompressed: 200_000, gzip: 30_000 },
+  // raw 224→224KB / gzip 34→34KB: the premium dark-mode pass added a new
+  // .surface-elevated utility + top-edge inset highlights on .surface-card /
+  // .surface-raised / .surface-glass (one extra box-shadow layer each),
+  // plus the hero top radial wash in BackgroundLayer.tsx. Concurrently in
+  // flight: Dnscope, EmailDefense, IntodnsPanel, and the api/ validation
+  // growth pushed the total over the 200KB raw line. +24KB raw / +4KB
+  // gzip headroom; transfer impact is still negligible (gzipped CSS is
+  // cached aggressively and the new layer is one class + a few rules).
+  'index-*.css': { uncompressed: 224_000, gzip: 34_000 },
+  // raw 280→300KB / gzip 92→96KB: the in-flight Dnscope, EmailDefense,
+  // and IntodnsPanel pages (plus the api/ validation rewrite) added new
+  // panel components and form schemas to the main app chunk. +20KB raw
+  // / +4KB gzip headroom. Transfer impact is negligible for a chunk of
+  // this size; the guard is tracking module growth, not absolute cost.
   // gzip 58→60KB: the OSINT Mapper's IdentifierGraph (@xyflow/react) added ~0.1KB
   // gzip to this shared vendor chunk, just past 58KB. 2KB headroom for the new
   // graph feature; transfer impact is negligible.
   'vendor-xyflow-*.js': { uncompressed: 180_000, gzip: 60_000 },
+  // raw 200→224KB / gzip 30→34KB: the premium dark-mode pass added a new
+  // .surface-elevated utility + top-edge inset highlights on .surface-card /
+  // .surface-raised / .surface-glass (one extra box-shadow layer each),
+  // plus the hero top radial wash in BackgroundLayer.tsx. Concurrently in
+  // flight: Dnscope, EmailDefense, IntodnsPanel, and the api/ validation
+  // growth pushed the total over the 200KB raw line. +24KB raw / +4KB
+  // gzip headroom; transfer impact is still negligible (gzipped CSS is
+  // cached aggressively and the new layer is one class + a few rules).
   'vendor-maps-*.js': { uncompressed: 110_000, gzip: 38_000 },
   'vendor-md-*.js': { uncompressed: 70_000, gzip: 24_000 },
 };

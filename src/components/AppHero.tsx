@@ -33,7 +33,7 @@ export function AppHero({
     },
   }[tone];
   return (
-    <section className="surface-card relative p-4 sm:p-6 lg:p-8 mb-4 sm:mb-6">
+    <section className="surface-elevated relative p-4 sm:p-6 lg:p-8 mb-4 sm:mb-6">
       {/* Hairline corner accent — tone-tinted at 1px weight. This is the
           replacement for the large blur-3xl brand wash blob: hierarchy from
           a single mark, not from a 224px decorative color halo. Geist/Vercel

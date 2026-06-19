@@ -245,7 +245,7 @@ export function LiveSignalStrip(): JSX.Element {
               to={t.href}
               onMouseEnter={() => preloadRoute(t.href)}
               onFocus={() => preloadRoute(t.href)}
-              className={`group block rounded-xl border bg-white dark:bg-slate-900/40 p-4 transition ${ACCENT_BG[t.accent]}`}
+              className={`group block surface-elevated rounded-xl p-4 transition ${ACCENT_BG[t.accent]}`}
             >
               <div className="flex items-center justify-between mb-2">
                 <span className="text-eyebrow font-mono uppercase text-slate-400">{t.label}</span>

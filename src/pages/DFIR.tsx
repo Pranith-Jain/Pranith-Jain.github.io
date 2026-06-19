@@ -242,7 +242,7 @@ export default function DFIRPage(): JSX.Element {
       {/* surface-card + tone-tinted 1px hairline at top-left replaces
           the old 224px blurred brand wash. Same hierarchy, none of the
           AI-decorative feel. */}
-      <section className="surface-card relative p-6 sm:p-10 lg:p-12">
+      <section className="surface-elevated relative p-6 sm:p-10 lg:p-12">
         <div aria-hidden className="pointer-events-none absolute top-0 left-0 h-px w-12 bg-brand-500/60" />
 
         {/* Status ribbon — single source of "is the platform working?".

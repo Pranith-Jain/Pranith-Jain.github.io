@@ -192,7 +192,7 @@ export default function ThreatIntelHome(): JSX.Element {
       {/* surface-card + tone-tinted 1px hairline replaces the old
           224px blurred brand wash. Same hierarchy, none of the
           AI-decorative feel. */}
-      <section className="surface-card relative p-6 sm:p-10 lg:p-12">
+      <section className="surface-elevated relative p-6 sm:p-10 lg:p-12">
         <div aria-hidden className="pointer-events-none absolute top-0 left-0 h-px w-12 bg-rose-500/60" />
 
         {/* Status ribbon — pulse + uptime + feed scope. The .live-pulse

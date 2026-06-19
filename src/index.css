@@ -54,7 +54,10 @@
        Brand-blue (brand-600 #2c3ee5) and rose-500/600 are the only
        chromatic notes on this surface; the chrome itself stays neutral
        so the accents read as accents, not as ambient. */
-    background-color: #0a1220;
+    /* Pure black page bg. The previous #0a1220 was blue-tinted; the
+       only wash now lives in BackgroundLayer.tsx, so the page can read
+       as #000 with light from above. */
+    background-color: #000000;
     color: #f5f5f7;
   }
 
@@ -101,16 +104,17 @@
        brown wash when warm chips landed on them, then a pure-grayscale
        family (#0a0a0a, #161616, #1f1f1f) — which read as flat. Now:
        pure black, no tint, with a +14 page→card lift so cards visibly
-       pop off the page. Border opacity bumped to 14% default so card
-       edges are unmistakable against the pure-black page.
+       pop off the page. Border opacity sits at 14% so card edges are
+       unmistakable. Cards also pick up a 1px top-edge highlight (inset
+       box-shadow) — the single most common tell of a premium dark UI.
          page  = #000000  -- pure black bg, no tint
          card  = #0e0e0e  -- card surface (+14 lift)
          raised= #181818  -- hover, active, popover (+10 lift from card)
-         input = #080808  -- one step below card; reads as inset */
-    --surface-100: 0 0 0; /* page bg (pure black, no tint) */
-    --surface-200: 14 14 14; /* card (+14 lift, clear separation) */
-    --surface-300: 24 24 24; /* raised (+10 lift) */
-    --input-200: 8 8 8; /* input well (slightly below card) */
+         input = #0c0c0c  -- one step below card; reads as inset */
+    --surface-100: 0 0 0; /* page bg (pure black) */
+    --surface-200: 20 20 20; /* card (+20 lift — cards clearly pop) */
+    --surface-300: 31 31 31; /* raised (+11 lift) */
+    --input-200: 12 12 12; /* input well (slightly below card) */
     --border-400: 255 255 255 / 0.14;
     --border-500: 255 255 255 / 0.22;
     --border-600: 255 255 255 / 0.32;
@@ -185,9 +189,9 @@
   }
 
   /* ── Dark theme — pure black, +14 card lift ──────────────────────────────────────────
-     Page: #000000 (pure black, no tint)
-     Cards: #0e0e0e (card surface, +14 lift — cards visibly pop)
-     Raised: #181818 (hover/popover, +10 lift from card)
+     Page: #000000 (pure black)
+     Cards: #141414 (card surface, +20 lift — cards clearly pop)
+     Raised: #1f1f1f (hover/popover, +11 lift from card)
      Borders: rgba(255,255,255,0.14) (clear visible separation)
      Text: #f5f5f7 (near-white, not gray) */
 
@@ -350,9 +354,15 @@
   .dark .surface-card {
     border-color: rgb(var(--border-400));
     background-color: rgb(var(--surface-200));
-    /* Shadow uses pure black (no blue) — was rgba(0,0,0,0.4), now
-       stronger at 0.5 so the card lift reads against the page. */
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+    /* Premium dark card recipe:
+       1. 1px pure-black ambient shadow so the card lifts off the page
+       2. 1px top-edge inset highlight (rgba(255,255,255,0.06)) — the
+          single biggest "premium dark UI" tell (Vercel/Linear/Hunt.io
+          all do this). Simulates light catching the top of the card.
+       The two layers combine into a single box-shadow declaration. */
+    box-shadow:
+      0 1px 2px rgba(0, 0, 0, 0.5),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.06);
   }
   .surface-raised {
     @apply rounded-xl border bg-white shadow-e2 transition duration-200;
@@ -361,7 +371,11 @@
   .dark .surface-raised {
     border-color: rgb(var(--border-500));
     background-color: rgb(var(--surface-200));
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+    /* Raised cards also get the top-edge highlight (a hair brighter
+       so they read as "more lit" than a default surface-card). */
+    box-shadow:
+      0 2px 6px rgba(0, 0, 0, 0.6),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.08);
   }
   .surface-glass {
     @apply rounded-xl border shadow-e1 backdrop-blur-md transition duration-200;
@@ -371,15 +385,39 @@
   .dark .surface-glass {
     border-color: rgb(var(--border-400));
     background-color: rgb(var(--surface-200) / 0.5);
+    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.06);
   }
   .chrome-glass {
     @apply backdrop-blur-xl;
     border-color: rgb(var(--surface-border) / 0.7);
     background-color: rgb(255 255 255 / 0.8);
   }
+  /* Elevated surface — same recipe as .surface-card but with
+     border-500 (22%) instead of border-400 (14%). Use on the
+     surfaces that need to read as "this is the anchor / hero of
+     the page" rather than as a row: hero personal card, live band
+     tiles, and the platform landing cards (DFIR home, threatintel
+     home). Same top-edge highlight, just a stronger edge. */
+  .surface-elevated {
+    @apply rounded-xl border bg-white shadow-e1 transition duration-200;
+    border-color: rgb(var(--surface-border));
+  }
+  .dark .surface-elevated {
+    border-color: rgb(var(--border-500));
+    background-color: rgb(var(--surface-200));
+    box-shadow:
+      0 1px 2px rgba(0, 0, 0, 0.5),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.06);
+  }
   .dark .chrome-glass {
-    border-color: rgb(var(--border-400));
-    background-color: rgb(var(--surface-100) / 0.85);
+    border-color: rgb(var(--border-500));
+    background-color: rgb(var(--surface-100) / 0.78);
+    /* Header/sidebar chrome: punch up the top-edge highlight so the
+       glass reads as elevated against the pure-black page. The bottom
+       edge stays transparent so the glass doesn't look like a slab. */
+    box-shadow:
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.1),
+      inset 0 -1px 0 0 rgba(255, 255, 255, 0.02);
   }
   .card-hover {
     @apply transition-[transform,border-color,box-shadow] duration-200;
