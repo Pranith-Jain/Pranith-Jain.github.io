@@ -144,6 +144,7 @@ export function AppShell({ mode, isDark, onToggleTheme, children }: AppShellProp
 
   return (
     <div className="min-h-screen flex flex-col text-slate-900 dark:text-slate-50">
+      <div className="page-top-accent" aria-hidden="true" />
       <SkipToContent />
       <TopBar
         sectionLabel={section.label}

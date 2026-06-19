@@ -794,7 +794,13 @@ export default function Facilities(): JSX.Element {
         {/* Map View */}
         {view === 'map' && (
           <div
-            className="rounded-xl overflow-hidden border border-slate-200 dark:border-[rgb(var(--border-400))] bg-[#0a0f1a]"
+            /* v5 — replace the hard-coded #0a0f1a map-container bg
+               with the token-driven bg-slate-50 dark:bg-slate-950
+               so the map blends with the global surface system.
+               Dark-mode remap: slate-950 → --input-200 #0F121A
+               (within 3 units of the old hex; visually identical
+               behind the map tiles). */
+            className="rounded-xl overflow-hidden border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950"
             style={{ minHeight: '500px' }}
           >
             <Suspense

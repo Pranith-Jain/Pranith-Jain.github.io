@@ -115,21 +115,30 @@
          raised= #1c212e  -- hover/popover (+1 step from card)
          input = #0e1117  -- one step below card; reads as inset */
     /* v4 (2026-06-19) SOC obsidian calibration. The hex deltas are
-       intentionally small (≤3 units per channel) because the system
-       was already on-target; this is a documented alignment with
-       the SOC dashboard reference palette (Deep Obsidian Blue +
-       off-black table rows), not a re-skin. Severity ramp (rose →
-       orange → amber → slate) and the ok/healthy emerald stay as
-       they are — the spec's #FF4D4D / #FF9F43 / #2ED573 are within
-       the same rose / orange / emerald families, and the existing
-       tokens (severity.critical / .high / .medium, soc/tone.ts `ok`)
-       already carry them. Muted text: #E2E8F0 is the spec's body
-       gray, which is exactly Tailwind slate-200 — already in use. */
+      intentionally small (≤3 units per channel) because the system
+      was already on-target; this is a documented alignment with
+      the SOC dashboard reference palette (Deep Obsidian Blue +
+      off-black table rows), not a re-skin. Severity ramp (rose →
+      orange → amber → slate) and the ok/healthy emerald stay as
+      they are — the spec's #FF4D4D / #FF9F43 / #2ED573 are within
+      the same rose / orange / emerald families, and the existing
+      tokens (severity.critical / .high / .medium, soc/tone.ts `ok`)
+      already carry them. Muted text: #E2E8F0 is the spec's body
+      gray, which is exactly Tailwind slate-200 — already in use. */
+    /* v5 (2026-06-19) Deeper-blue page surface. Same luminance as
+       v4 (#0B0F19 → #0A1A2E, both ~5% Y in OKLCH) but with the
+       blue channel pushed +21 to read as a saturated navy page
+       rather than a neutral near-black. The card (--surface-200)
+       and raised (--surface-300) tokens keep their original
+       off-black / off-blue values so cards stay one step above
+       the page in the same hue family; only the page bg shifts.
+       This is the "logo color family, deeper" read of the
+       "every page similar" feedback. */
     /* (2026-06-19 v3) Rose override reverted: the cool page bg alone
-      is enough to keep red reading as red (no brown wash). The
-      magenta-rose shift was a category mistake — a cybersecurity
-      product shouldn't have pink. Rose stays as Tailwind rose. */
-    --surface-100: 11 15 25; /* page bg — Deep Obsidian Blue #0B0F19 (SOC spec) */
+     is enough to keep red reading as red (no brown wash). The
+     magenta-rose shift was a category mistake — a cybersecurity
+     product shouldn't have pink. Rose stays as Tailwind rose. */
+    --surface-100: 10 26 46; /* page bg — deeper saturated blue #0A1A2E (v5) */
     --surface-200: 23 29 44; /* card    — off-black table row   #171D2C (SOC spec) */
     --surface-300: 31 38 56; /* raised  — +1 step from card     #1F2638 */
     --input-200: 15 18 26; /* input well — between page & card #0F121A */
@@ -571,6 +580,41 @@
   }
   .tile-reveal {
     animation: tile-reveal 0.22s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  /* ── Page top accent strip (v5) ──────────────────────────────
+     A 1px brand-blue line at the very top of the page so every
+     page gets a brand-blue identity beat without changing the
+     surface color. Linear / Vercel / Raycast pattern. The brand
+     blue is rgb(67, 94, 241) — same as PjMark's gradient
+     endpoint, the focus ring, and bg-brand-500 references. */
+  .page-top-accent {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    z-index: 50;
+    background: linear-gradient(
+      to right,
+      transparent 0%,
+      rgb(67 94 241 / 0.6) 8%,
+      rgb(67 94 241 / 1) 50%,
+      rgb(67 94 241 / 0.6) 92%,
+      transparent 100%
+    );
+    pointer-events: none;
+  }
+  .dark .page-top-accent {
+    background: linear-gradient(
+      to right,
+      transparent 0%,
+      rgb(67 94 241 / 0.7) 8%,
+      rgb(67 94 241 / 1) 50%,
+      rgb(67 94 241 / 0.7) 92%,
+      transparent 100%
+    );
+    box-shadow: 0 0 8px rgb(67 94 241 / 0.35);
   }
 
   .dark .bg-dot-grid {

@@ -1394,7 +1394,12 @@ export default function GlobalPulse(): JSX.Element {
             {/* Globe/Map Container */}
             <div
               ref={globeContainerRef}
-              className="relative rounded-xl overflow-hidden border border-slate-200 dark:border-[rgb(var(--border-400))] bg-[#0a0f1a]"
+              /* v5 — same as Facilities.tsx: token-driven map
+                 container bg. The globe composite renders on top
+                 so the underlying color only matters at the
+                 container's edge; the new value is within 3
+                 hex units of the old #0a0f1a. */
+              className="relative rounded-xl overflow-hidden border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950"
               style={{ minHeight: '600px', maxHeight: isFullscreen ? '100vh' : '750px' }}
             >
               {/* Globe Status Badge */}
@@ -1405,7 +1410,7 @@ export default function GlobalPulse(): JSX.Element {
                     <span className="text-micro font-mono text-amber-300">MENA</span>
                   </div>
                 )}
-                <div className="bg-[#0f1629]/80 backdrop-blur-sm rounded-lg border border-slate-600/50 px-3 py-1.5 flex items-center gap-2">
+                <div className="dark:bg-slate-950/80 bg-slate-50/80 backdrop-blur-sm rounded-lg border border-slate-600/50 px-3 py-1.5 flex items-center gap-2">
                   <span
                     className={`w-2 h-2 rounded-full ${mapMode === '3d' ? 'bg-brand-500 animate-pulse' : 'bg-emerald-500'}`}
                   />
@@ -1418,7 +1423,7 @@ export default function GlobalPulse(): JSX.Element {
               {/* Empty State */}
               {geoPoints.length === 0 && (
                 <div className="absolute inset-0 z-10 flex items-center justify-center">
-                  <div className="bg-[#0f1629]/90 backdrop-blur-sm rounded-xl px-8 py-6 text-center border border-slate-600/50 max-w-sm">
+                  <div className="dark:bg-slate-950/90 bg-white/90 backdrop-blur-sm rounded-xl px-8 py-6 text-center border border-slate-600/50 max-w-sm">
                     <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-slate-800/50 flex items-center justify-center">
                       <Crosshair size={28} className="text-slate-500" />
                     </div>

@@ -38,13 +38,15 @@ const GRADIENT_DARK = `
       4. Bottom edge lift in the bottom 10% so the page doesn't
          end abruptly. Without this, the page feels like a
          poster stuck to a wall. */
-  /* v4 (2026-06-19) — surface tokens shifted to SOC obsidian palette:
-     page #0a0d18 -> #0B0F19, card #141822 -> #171D2C. The top wash
-     endpoint and the bottom-edge lift had to follow, otherwise the
-     seam between the gradient and the page bg would read as a faint
-     horizontal band. Both endpoint colours stay in the same hue
-     family as the new --surface-100 / --surface-200 tokens. */
-  radial-gradient(ellipse 95% 55% at 50% 0%, #1a2238 0%, #0B0F19 65%),
+  /* v5 (2026-06-19) — page surface shifted to deeper saturated blue
+     #0A1A2E (was #0B0F19 in v4). The top wash's lift color and
+     endpoint both follow, otherwise the gradient's lower 65% would
+     read as a separate darker band at the bottom of the wash
+     instead of blending into the page. The top wash is now
+     #16213D -> #0A1A2E (still a +1 step lift from the page,
+     still in the same blue hue family). The bottom-edge lift
+     rgba updates to match the new --surface-200 token. */
+  radial-gradient(ellipse 95% 55% at 50% 0%, #16213D 0%, #0A1A2E 65%),
   radial-gradient(at 88% 92%, rgba(67, 94, 241, 0.06) 0px, transparent 50%),
   radial-gradient(at 12% 8%, rgba(67, 94, 241, 0.03) 0px, transparent 45%),
   linear-gradient(to bottom, transparent 90%, rgba(23, 29, 44, 0.4) 100%)
