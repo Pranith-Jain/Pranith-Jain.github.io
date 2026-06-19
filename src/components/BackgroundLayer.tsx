@@ -25,23 +25,29 @@ const GRADIENT_LIGHT = `
 
 const GRADIENT_DARK = `
   /* Ultra-premium dark atmosphere (v3):
-       1. Top “lit from above” wash — cool, same hue family as the
-          page bg. Lifts to ~#161d35 at the top, fades to the page
-          color over 65% of the height. This is what makes a dark
-          page feel lit instead of feeling like a void.
-       2. A single deliberate brand-blue pool bottom-right (~6%
-          alpha) — asymmetric, not centered. Centered symmetry
-          reads as decorative; asymmetric reads as designed.
-       3. A second, much fainter brand-blue pool top-left (~3%
-          alpha) for the slightest compositional balance without
-          making the page feel symmetric.
-       4. Bottom edge lift in the bottom 10% so the page doesn't
-          end abruptly. Without this, the page feels like a
-          poster stuck to a wall. */
-  radial-gradient(ellipse 95% 55% at 50% 0%, #161d35 0%, #0a0d18 65%),
+      1. Top "lit from above" wash — cool, same hue family as the
+         page bg. Lifts to ~#161d35 at the top, fades to the page
+         color over 65% of the height. This is what makes a dark
+         page feel lit instead of feeling like a void.
+      2. A single deliberate brand-blue pool bottom-right (~6%
+         alpha) — asymmetric, not centered. Centered symmetry
+         reads as decorative; asymmetric reads as designed.
+      3. A second, much fainter brand-blue pool top-left (~3%
+         alpha) for the slightest compositional balance without
+         making the page feel symmetric.
+      4. Bottom edge lift in the bottom 10% so the page doesn't
+         end abruptly. Without this, the page feels like a
+         poster stuck to a wall. */
+  /* v4 (2026-06-19) — surface tokens shifted to SOC obsidian palette:
+     page #0a0d18 -> #0B0F19, card #141822 -> #171D2C. The top wash
+     endpoint and the bottom-edge lift had to follow, otherwise the
+     seam between the gradient and the page bg would read as a faint
+     horizontal band. Both endpoint colours stay in the same hue
+     family as the new --surface-100 / --surface-200 tokens. */
+  radial-gradient(ellipse 95% 55% at 50% 0%, #1a2238 0%, #0B0F19 65%),
   radial-gradient(at 88% 92%, rgba(67, 94, 241, 0.06) 0px, transparent 50%),
   radial-gradient(at 12% 8%, rgba(67, 94, 241, 0.03) 0px, transparent 45%),
-  linear-gradient(to bottom, transparent 90%, rgba(20, 24, 34, 0.4) 100%)
+  linear-gradient(to bottom, transparent 90%, rgba(23, 29, 44, 0.4) 100%)
 `;
 
 const NOISE_URL = `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E")`;
