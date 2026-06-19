@@ -438,12 +438,55 @@
     background-size: 28px 28px;
   }
 
-  /* ── Hero glow utilities — REMOVED 2026-06-19 ──────────────────
-     The 60% radial-gradient blob behind the threat-intel hero was a
-     textbook AI design tell (large blurred color wash, no functional
-     purpose). Replaced with a 1px hairline + tone-tinted dot in
-     AppHero.tsx. The .bg-dot-grid utility below provides the same
-     "structured surface" feeling at a much lower contrast. */
+  /* ── Live status pulse — the "is the platform working?" dot
+     Used on /dfir (emerald, "Operational") and /threatintel (rose,
+     "Live"). One animation in one place; prefers-reduced-motion is
+     honoured by the global block at the bottom of the file. */
+  @keyframes live-pulse {
+    0%,
+    100% {
+      opacity: 0.6;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0;
+      transform: scale(2.4);
+    }
+  }
+  .live-pulse {
+    animation: live-pulse 1.8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  /* ── Display-grade text — bigger, tighter, real weight
+     for the H1 / hero display. -0.04em matches the Vercel/Linear
+     pattern; the previous -0.02em looked right at 40–56px but felt
+     cramped at the new 48–72px H1. */
+  .text-display {
+    font-family: theme('fontFamily.display');
+    font-weight: 700;
+    line-height: 0.95;
+    letter-spacing: -0.04em;
+  }
+  .text-display-sm {
+    font-family: theme('fontFamily.display');
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+  }
+
+  /* ── Subtle grid line — 1px hairline that divides sections
+     without becoming visual chrome. Used at the top of major surfaces
+     to imply a "this is a new context" boundary. */
+  .divider-grid {
+    background-image: linear-gradient(
+      to right,
+      transparent 0%,
+      rgb(var(--border-400)) 8%,
+      rgb(var(--border-400)) 92%,
+      transparent 100%
+    );
+    height: 1px;
+  }
 
   /* ── "Page-load" reveal (translate + fade) for catalog/grid tiles.
      Faster than .stagger (which caps at 400ms) so long grids don't

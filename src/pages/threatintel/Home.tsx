@@ -182,104 +182,124 @@ export default function ThreatIntelHome(): JSX.Element {
   }, []);
 
   return (
-    <div className="w-full py-4 sm:py-8 text-slate-900 dark:text-slate-100 space-y-6">
+    <div className="w-full py-6 sm:py-10 text-slate-900 dark:text-slate-100 space-y-8 sm:space-y-12">
       <ThreatIntelStructuredData />
       <WhatsNewBanner />
       <LatestBriefingCard />
+      <LivePulse />
 
       {/* ── Hero — bold value prop + primary search ───────────── */}
       {/* surface-card + tone-tinted 1px hairline replaces the old
           224px blurred brand wash. Same hierarchy, none of the
           AI-decorative feel. */}
-      <section className="surface-card relative p-6 sm:p-8 lg:p-10">
+      <section className="surface-card relative p-6 sm:p-10 lg:p-12">
         <div aria-hidden className="pointer-events-none absolute top-0 left-0 h-px w-12 bg-rose-500/60" />
-        <div>
-          <div className="text-mini font-mono uppercase tracking-[0.18em] text-rose-600 dark:text-rose-400 mb-3 inline-flex items-center gap-2">
-            Free · No login · Live data
-          </div>
-          <h1 className="font-display font-bold text-3xl sm:text-4xl lg:text-5xl leading-[1.1] tracking-tight">
-            See the threats.
-            <br />
-            Stop them before they strike.
-          </h1>
-          <p className="text-slate-600 dark:text-slate-300 mt-4 max-w-3xl text-base sm:text-lg leading-relaxed">
-            Monitor ransomware activity, track threat actors, enrich IOCs, and stay ahead of campaigns — live
-            intelligence from 30+ public feeds, all in one place.
-          </p>
 
-          {/* Primary search — the VirusTotal/Shodan pattern */}
-          <div className="mt-6 relative max-w-2xl">
-            <Search
-              size={16}
-              className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
-              aria-hidden="true"
-            />
-            <input
-              ref={inputRef}
-              type="text"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search actors, CVEs, campaigns, feeds, tools..."
-              className="w-full rounded-xl border border-slate-200 bg-slate-50 py-3 pl-11 pr-24 font-mono text-sm text-slate-900 placeholder:text-slate-400 focus:border-rose-500/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500/20 dark:border-[rgb(var(--border-400))] dark:bg-slate-50 dark:text-slate-100 dark:placeholder:text-slate-500"
-              aria-label="Search threat intelligence"
-            />
-            {query ? (
-              <button
-                type="button"
-                onClick={() => {
-                  setQuery('');
-                  inputRef.current?.focus();
-                }}
-                className="absolute right-3 top-1/2 inline-flex -translate-y-1/2 items-center gap-1 rounded px-2 py-1 text-xs font-mono text-slate-500 hover:bg-slate-200 hover:text-slate-900 dark:hover:bg-slate-700 dark:hover:text-slate-100"
-                aria-label="Clear search"
-              >
-                <X size={12} /> clear
-              </button>
-            ) : (
-              <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 hidden items-center gap-1 font-mono text-xs text-slate-400 sm:inline-flex">
-                <kbd className="rounded border border-slate-200 bg-white px-1.5 py-0.5 text-xs dark:border-slate-600 dark:bg-slate-700">
-                  /
-                </kbd>
-                <span>or</span>
-                <kbd className="rounded border border-slate-200 bg-white px-1.5 py-0.5 text-xs dark:border-slate-600 dark:bg-slate-700">
-                  ⌘K
-                </kbd>
-              </span>
-            )}
-          </div>
+        {/* Status ribbon — pulse + uptime + feed scope. The .live-pulse
+            utility handles the breathe animation in one place. */}
+        <div className="mb-5 sm:mb-7 flex flex-wrap items-center gap-x-4 gap-y-2 font-mono text-mini uppercase tracking-[0.16em] text-slate-500">
+          <span className="inline-flex items-center gap-1.5">
+            <span className="relative inline-flex h-1.5 w-1.5">
+              <span className="absolute inset-0 rounded-full bg-rose-500 live-pulse" aria-hidden />
+              <span className="relative inline-block h-1.5 w-1.5 rounded-full bg-rose-500" />
+            </span>
+            <span className="text-rose-600 dark:text-rose-400">Live</span>
+          </span>
+          <span aria-hidden className="text-slate-300 dark:text-slate-700">
+            /
+          </span>
+          <span>18 feeds · 90s refresh · no login</span>
+          <span aria-hidden className="text-slate-300 dark:text-slate-700">
+            /
+          </span>
+          <span>edge-hosted on Cloudflare</span>
+        </div>
 
-          {/* Popular shortcuts — Huntress "Solutions" pattern */}
-          <div className="mt-4 flex flex-wrap items-center gap-3 text-xs text-slate-500 dark:text-slate-400">
-            <span>Popular:</span>
-            {[
-              { label: 'Ransomware Live', href: '/threatintel/ransomware-live' },
-              { label: 'Actor KB', href: '/threatintel/actors/kb' },
-              { label: 'CVE Intel', href: '/threatintel/cves/cves' },
-              { label: 'Live IOCs', href: '/threatintel/iocs/live' },
-            ].map((link) => (
-              <Link
-                key={link.href}
-                to={link.href}
-                className="inline-flex items-center gap-1 surface-card rounded-full px-2.5 py-1 text-xs font-medium text-slate-600 hover:border-rose-300 hover:text-rose-600 dark:text-slate-300 dark:hover:border-rose-600 dark:hover:text-rose-400"
-              >
-                {link.label}
-              </Link>
-            ))}
-          </div>
+        {/* H1 — same treatment as the DFIR home: bigger, tighter, real
+            display weight. The visual rule is the same on both landings
+            so visitors who switch between them read it as one product. */}
+        <h1 className="font-display text-4xl sm:text-6xl lg:text-7xl font-bold leading-[0.95] tracking-[-0.04em] text-slate-900 dark:text-white">
+          See the threats.
+          <br className="hidden sm:inline" />
+          <span className="sm:inline"> Stop them before they strike.</span>
+        </h1>
+        <p className="mt-5 sm:mt-6 max-w-2xl text-base sm:text-lg leading-relaxed text-slate-600 dark:text-slate-300">
+          Monitor ransomware activity, track threat actors, enrich IOCs, stay ahead of campaigns — live intelligence
+          from 30+ public feeds, all in one place.
+        </p>
 
-          {/* Stats — Huntress "5M+ endpoints" pattern */}
-          <div className="mt-6 flex flex-wrap gap-6 text-sm">
-            {[
-              { value: '30+', label: 'live feeds' },
-              { value: '100+', label: 'intel pages' },
-              { value: '12+', label: 'IOC sources' },
-            ].map((stat) => (
-              <div key={stat.label} className="flex items-baseline gap-1.5">
-                <span className="font-display text-xl font-bold text-slate-900 dark:text-white">{stat.value}</span>
-                <span className="text-xs text-slate-500 dark:text-slate-400">{stat.label}</span>
-              </div>
-            ))}
-          </div>
+        {/* Primary search — the VirusTotal/Shodan pattern */}
+        <div className="mt-6 relative max-w-2xl">
+          <Search
+            size={16}
+            className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
+            aria-hidden="true"
+          />
+          <input
+            ref={inputRef}
+            type="text"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Search actors, CVEs, campaigns, feeds, tools..."
+            className="w-full rounded-xl border border-slate-200 bg-slate-50 py-3 pl-11 pr-24 font-mono text-sm text-slate-900 placeholder:text-slate-400 focus:border-rose-500/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500/20 dark:border-[rgb(var(--border-400))] dark:bg-slate-50 dark:text-slate-100 dark:placeholder:text-slate-500"
+            aria-label="Search threat intelligence"
+          />
+          {query ? (
+            <button
+              type="button"
+              onClick={() => {
+                setQuery('');
+                inputRef.current?.focus();
+              }}
+              className="absolute right-3 top-1/2 inline-flex -translate-y-1/2 items-center gap-1 rounded px-2 py-1 text-xs font-mono text-slate-500 hover:bg-slate-200 hover:text-slate-900 dark:hover:bg-slate-700 dark:hover:text-slate-100"
+              aria-label="Clear search"
+            >
+              <X size={12} /> clear
+            </button>
+          ) : (
+            <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 hidden items-center gap-1 font-mono text-xs text-slate-400 sm:inline-flex">
+              <kbd className="rounded border border-slate-200 bg-white px-1.5 py-0.5 text-xs dark:border-slate-600 dark:bg-slate-700">
+                /
+              </kbd>
+              <span>or</span>
+              <kbd className="rounded border border-slate-200 bg-white px-1.5 py-0.5 text-xs dark:border-slate-600 dark:bg-slate-700">
+                ⌘K
+              </kbd>
+            </span>
+          )}
+        </div>
+
+        {/* Popular shortcuts — Huntress "Solutions" pattern */}
+        <div className="mt-4 flex flex-wrap items-center gap-3 text-xs text-slate-500 dark:text-slate-400">
+          <span>Popular:</span>
+          {[
+            { label: 'Ransomware Live', href: '/threatintel/ransomware-live' },
+            { label: 'Actor KB', href: '/threatintel/actors/kb' },
+            { label: 'CVE Intel', href: '/threatintel/cves/cves' },
+            { label: 'Live IOCs', href: '/threatintel/iocs/live' },
+          ].map((link) => (
+            <Link
+              key={link.href}
+              to={link.href}
+              className="inline-flex items-center gap-1 surface-card rounded-full px-2.5 py-1 text-xs font-medium text-slate-600 hover:border-rose-300 hover:text-rose-600 dark:text-slate-300 dark:hover:border-rose-600 dark:hover:text-rose-400"
+            >
+              {link.label}
+            </Link>
+          ))}
+        </div>
+
+        {/* Stats — Huntress "5M+ endpoints" pattern */}
+        <div className="mt-6 flex flex-wrap gap-6 text-sm">
+          {[
+            { value: '30+', label: 'live feeds' },
+            { value: '100+', label: 'intel pages' },
+            { value: '12+', label: 'IOC sources' },
+          ].map((stat) => (
+            <div key={stat.label} className="flex items-baseline gap-1.5">
+              <span className="font-display text-xl font-bold text-slate-900 dark:text-white">{stat.value}</span>
+              <span className="text-xs text-slate-500 dark:text-slate-400">{stat.label}</span>
+            </div>
+          ))}
         </div>
       </section>
 
@@ -421,31 +441,36 @@ export default function ThreatIntelHome(): JSX.Element {
                     <Link
                       key={cat.id}
                       to={cat.href}
-                      className={`group relative surface-card card-hover p-4 ${cat.tone}`}
+                      className={`group relative surface-card card-hover block p-4 sm:p-5 ${cat.tone}`}
                     >
-                      <div className="flex items-start justify-between mb-2">
-                        <Icon size={20} aria-hidden="true" />
+                      <div className="flex items-center gap-2">
+                        <Icon size={16} aria-hidden="true" />
+                        <h3 className="font-display text-sm font-bold text-slate-900 dark:text-slate-100">
+                          {cat.label}
+                        </h3>
                         {cat.highlight === 'live' && (
-                          <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/10 px-2 py-0.5 text-[10px] font-mono uppercase tracking-wider text-emerald-700 dark:text-emerald-300">
-                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                          <span className="ml-auto inline-flex items-center gap-1 font-mono text-[9px] uppercase tracking-wider text-rose-600 dark:text-rose-400">
+                            <span className="relative inline-flex h-1 w-1">
+                              <span className="absolute inset-0 rounded-full bg-rose-500 live-pulse" aria-hidden />
+                              <span className="relative inline-block h-1 w-1 rounded-full bg-rose-500" />
+                            </span>
                             live
                           </span>
                         )}
                       </div>
-                      <h3 className="font-display text-sm font-bold text-slate-900 dark:text-slate-100 mb-1">
-                        {cat.label}
-                      </h3>
-                      <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed line-clamp-3">
+                      <p className="mt-2 text-xs leading-relaxed text-slate-600 dark:text-slate-400 line-clamp-2 min-h-[2.5rem]">
                         {cat.description}
                       </p>
-                      <div className="mt-3 flex items-center justify-between">
-                        <span className="font-mono text-[10px] text-slate-400 dark:text-slate-500">
-                          {cat.pages} pages
+                      <dl className="mt-3 flex items-center justify-between border-t border-[rgb(var(--border-400))] pt-2 font-mono text-[10px]">
+                        <div className="flex items-center gap-1.5 text-slate-500">
+                          <dt className="uppercase tracking-wider opacity-70">pages</dt>
+                          <dd className="font-semibold tabular-nums text-slate-700 dark:text-slate-300">{cat.pages}</dd>
+                        </div>
+                        <span className="inline-flex items-center gap-0.5 text-slate-500 group-hover:text-slate-900 dark:group-hover:text-white transition-colors">
+                          open
+                          <ArrowRight size={10} className="transition-transform group-hover:translate-x-0.5" />
                         </span>
-                        <span className="inline-flex items-center gap-0.5 text-xs font-medium opacity-0 group-hover:opacity-100 transition-opacity">
-                          explore <ArrowRight size={10} />
-                        </span>
-                      </div>
+                      </dl>
                     </Link>
                   );
                 })}

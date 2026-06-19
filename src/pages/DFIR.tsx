@@ -236,102 +236,127 @@ export default function DFIRPage(): JSX.Element {
   }, []);
 
   return (
-    <div className="w-full py-4 sm:py-8 text-slate-900 dark:text-slate-100 space-y-6">
+    <div className="w-full py-6 sm:py-10 text-slate-900 dark:text-slate-100 space-y-8 sm:space-y-12">
       <DfirStructuredData />
       {/* ── Hero — bold value prop + primary search ───────────── */}
       {/* surface-card + tone-tinted 1px hairline at top-left replaces
           the old 224px blurred brand wash. Same hierarchy, none of the
           AI-decorative feel. */}
-      <section className="surface-card relative p-6 sm:p-8 lg:p-10">
+      <section className="surface-card relative p-6 sm:p-10 lg:p-12">
         <div aria-hidden className="pointer-events-none absolute top-0 left-0 h-px w-12 bg-brand-500/60" />
-        <div>
-          <div className="text-mini font-mono uppercase tracking-[0.18em] text-brand-600 dark:text-brand-400 mb-3 inline-flex items-center gap-2">
-            Free · No signup · Runs in your browser
-          </div>
-          <h1 className="font-display font-bold text-3xl sm:text-4xl lg:text-5xl leading-[1.1] tracking-tight">
-            Investigate faster.
-            <br />
-            Respond with confidence.
-          </h1>
-          <p className="text-slate-600 dark:text-slate-300 mt-4 max-w-3xl text-base sm:text-lg leading-relaxed">
-            Check if an indicator is malicious, investigate phishing, triage CVEs, convert detection rules, and more —
-            60+ tools that run entirely in your browser with no data leaving your machine.
-          </p>
 
-          {/* Primary search — the VirusTotal/Shodan pattern */}
-          <div className="mt-6 relative max-w-2xl">
-            <Search
-              size={16}
-              className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
-              aria-hidden="true"
-            />
-            <input
-              ref={inputRef}
-              type="text"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search 60+ tools — IOC check, phishing, CVEs, decoders..."
-              className="w-full rounded-xl border border-slate-200 bg-slate-50 py-3 pl-11 pr-24 font-mono text-sm text-slate-900 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/20 dark:border-[rgb(var(--border-400))] dark:bg-slate-50 dark:text-slate-100 dark:placeholder:text-slate-500"
-              aria-label="Search DFIR tools"
-            />
-            {query ? (
-              <button
-                type="button"
-                onClick={() => {
-                  setQuery('');
-                  inputRef.current?.focus();
-                }}
-                className="absolute right-3 top-1/2 inline-flex -translate-y-1/2 items-center gap-1 rounded px-2 py-1 text-xs font-mono text-slate-500 hover:bg-slate-200 hover:text-slate-900 dark:hover:bg-slate-700 dark:hover:text-slate-100"
-                aria-label="Clear search"
-              >
-                <X size={12} /> clear
-              </button>
-            ) : (
-              <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 hidden items-center gap-1 font-mono text-xs text-slate-400 sm:inline-flex">
-                <kbd className="rounded border border-slate-200 bg-white px-1.5 py-0.5 text-xs dark:border-slate-600 dark:bg-slate-700">
-                  /
-                </kbd>
-                <span>or</span>
-                <kbd className="rounded border border-slate-200 bg-white px-1.5 py-0.5 text-xs dark:border-slate-600 dark:bg-slate-700">
-                  ⌘K
-                </kbd>
-              </span>
-            )}
-          </div>
-
-          {/* Popular shortcuts */}
-          <div className="mt-4 flex flex-wrap items-center gap-3 text-xs text-slate-500 dark:text-slate-400">
-            <span>Popular:</span>
-            {[
-              { label: 'IOC Check', href: '/dfir/ioc-check' },
-              { label: 'Email Defense', href: '/dfir/email-defense' },
-              { label: 'CVE Prioritizer', href: '/dfir/cve-prioritizer' },
-              { label: 'Rule Converter', href: '/dfir/rule-converter' },
-            ].map((link) => (
-              <Link
-                key={link.href}
-                to={link.href}
-                className="inline-flex items-center gap-1 surface-card rounded-full px-2.5 py-1 text-xs font-medium text-slate-600 hover:border-brand-300 hover:text-brand-600 dark:text-slate-300 dark:hover:border-brand-600 dark:hover:text-brand-400"
-              >
-                {link.label}
-              </Link>
-            ))}
-          </div>
-
-          {/* Stats — Huntress "5M+ endpoints" pattern */}
-          <div className="mt-6 flex flex-wrap gap-6 text-sm">
-            {[
-              { value: `${MAIN_TOOL_COUNT}+`, label: 'tools' },
-              { value: '24', label: 'IOC sources' },
-              { value: '0', label: 'data leaves your browser' },
-            ].map((stat) => (
-              <div key={stat.label} className="flex items-baseline gap-1.5">
-                <span className="font-display text-xl font-bold text-slate-900 dark:text-white">{stat.value}</span>
-                <span className="text-xs text-slate-500 dark:text-slate-400">{stat.label}</span>
-              </div>
-            ))}
-          </div>
+        {/* Status ribbon — single source of "is the platform working?".
+            The pulse uses the .live-pulse utility (see index.css) so it's
+            one animation, not a per-element keyframe. */}
+        <div className="mb-5 sm:mb-7 flex flex-wrap items-center gap-x-4 gap-y-2 font-mono text-mini uppercase tracking-[0.16em] text-slate-500">
+          <span className="inline-flex items-center gap-1.5">
+            <span className="relative inline-flex h-1.5 w-1.5">
+              <span className="absolute inset-0 rounded-full bg-emerald-500 live-pulse" aria-hidden />
+              <span className="relative inline-block h-1.5 w-1.5 rounded-full bg-emerald-500" />
+            </span>
+            <span className="text-emerald-600 dark:text-emerald-400">Operational</span>
+          </span>
+          <span aria-hidden className="text-slate-300 dark:text-slate-700">
+            /
+          </span>
+          <span>Free · No signup · Runs in your browser</span>
         </div>
+
+        {/* H1 — the single most important visual moment. Bigger, tighter
+            tracking, real display weight. The stat row now lives below the
+            lead paragraph as a hairline-separated band, not a single
+            inline string. */}
+        <h1 className="font-display text-4xl sm:text-6xl lg:text-7xl font-bold leading-[0.95] tracking-[-0.04em] text-slate-900 dark:text-white">
+          Investigate faster.
+          <br className="hidden sm:inline" />
+          <span className="sm:inline"> Respond with confidence.</span>
+        </h1>
+        <p className="mt-5 sm:mt-6 max-w-2xl text-base sm:text-lg leading-relaxed text-slate-600 dark:text-slate-300">
+          Check if an indicator is malicious, investigate phishing, triage CVEs, convert detection rules — 60+ tools
+          that run entirely in your browser. No data leaves your machine.
+        </p>
+
+        {/* Primary search — the VirusTotal/Shodan pattern */}
+        <div className="mt-6 relative max-w-2xl">
+          <Search
+            size={16}
+            className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
+            aria-hidden="true"
+          />
+          <input
+            ref={inputRef}
+            type="text"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Search 60+ tools — IOC check, phishing, CVEs, decoders..."
+            className="w-full rounded-xl border border-slate-200 bg-slate-50 py-3 pl-11 pr-24 font-mono text-sm text-slate-900 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/20 dark:border-[rgb(var(--border-400))] dark:bg-slate-50 dark:text-slate-100 dark:placeholder:text-slate-500"
+            aria-label="Search DFIR tools"
+          />
+          {query ? (
+            <button
+              type="button"
+              onClick={() => {
+                setQuery('');
+                inputRef.current?.focus();
+              }}
+              className="absolute right-3 top-1/2 inline-flex -translate-y-1/2 items-center gap-1 rounded px-2 py-1 text-xs font-mono text-slate-500 hover:bg-slate-200 hover:text-slate-900 dark:hover:bg-slate-700 dark:hover:text-slate-100"
+              aria-label="Clear search"
+            >
+              <X size={12} /> clear
+            </button>
+          ) : (
+            <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 hidden items-center gap-1 font-mono text-xs text-slate-400 sm:inline-flex">
+              <kbd className="rounded border border-slate-200 bg-white px-1.5 py-0.5 text-xs dark:border-slate-600 dark:bg-slate-700">
+                /
+              </kbd>
+              <span>or</span>
+              <kbd className="rounded border border-slate-200 bg-white px-1.5 py-0.5 text-xs dark:border-slate-600 dark:bg-slate-700">
+                ⌘K
+              </kbd>
+            </span>
+          )}
+        </div>
+
+        {/* Popular shortcuts */}
+        <div className="mt-4 flex flex-wrap items-center gap-3 text-xs text-slate-500 dark:text-slate-400">
+          <span>Popular:</span>
+          {[
+            { label: 'IOC Check', href: '/dfir/ioc-check' },
+            { label: 'Email Defense', href: '/dfir/email-defense' },
+            { label: 'CVE Prioritizer', href: '/dfir/cve-prioritizer' },
+            { label: 'Rule Converter', href: '/dfir/rule-converter' },
+          ].map((link) => (
+            <Link
+              key={link.href}
+              to={link.href}
+              className="inline-flex items-center gap-1 surface-card rounded-full px-2.5 py-1 text-xs font-medium text-slate-600 hover:border-brand-300 hover:text-brand-600 dark:text-slate-300 dark:hover:border-brand-600 dark:hover:text-brand-400"
+            >
+              {link.label}
+            </Link>
+          ))}
+        </div>
+
+        {/* Stat band — Hunt.io "data table inside a card" pattern.
+              Three rows, hairline divider, big mono numerals. Reads as
+              capability, not as bullet list. */}
+        <dl className="mt-7 sm:mt-9 grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-[rgb(var(--border-400))] border-y border-[rgb(var(--border-400))]">
+          {[
+            { value: `${MAIN_TOOL_COUNT}+`, label: 'Tools', sub: 'in-browser, client-side' },
+            { value: '24', label: 'IOC sources', sub: 'checked in parallel' },
+            { value: '0', label: 'data leaves', sub: 'your browser. literally.' },
+          ].map((stat, i) => (
+            <div
+              key={stat.label}
+              className={`flex flex-col gap-1.5 py-3 sm:py-4 ${i === 0 ? 'sm:pr-6' : i === 1 ? 'sm:px-6' : 'sm:pl-6'}`}
+            >
+              <dt className="font-mono text-micro uppercase tracking-[0.16em] text-slate-500">{stat.label}</dt>
+              <dd className="font-display text-3xl sm:text-4xl font-bold leading-none tabular-nums text-slate-900 dark:text-white">
+                {stat.value}
+              </dd>
+              <dd className="font-mono text-mini text-slate-500">{stat.sub}</dd>
+            </div>
+          ))}
+        </dl>
       </section>
 
       {/* ── Personalized workspace — "Continue where you left off" */}
