@@ -50,14 +50,14 @@
 
   html.dark {
     color-scheme: dark;
-    /* v6 (2026-06-19) brand-blue dominant dark theme. The body
-       background now matches --surface-100 (PJ Mark brand-600
-       #2c3ee5) so the 10% transparency in BackgroundLayer.tsx
-       shows the page color through any gradient fade, not a
-       pure-black seam. The page itself is the brand-blue; the
-       gradient in BackgroundLayer adds the lit-from-above
-       wash on top. */
-    background-color: #2c3ee5;
+    /* True neutral page — no blue cast, no warm cast, just monochrome.
+       Brand-blue (brand-600 #2c3ee5) and rose-500/600 are the only
+       chromatic notes on this surface; the chrome itself stays neutral
+       so the accents read as accents, not as ambient. */
+    /* Pure black page bg. The previous #0a1220 was blue-tinted; the
+       only wash now lives in BackgroundLayer.tsx, so the page can read
+       as #000 with light from above. */
+    background-color: #000000;
     color: #f5f5f7;
   }
 
@@ -125,33 +125,23 @@
       tokens (severity.critical / .high / .medium, soc/tone.ts `ok`)
       already carry them. Muted text: #E2E8F0 is the spec's body
       gray, which is exactly Tailwind slate-200 — already in use. */
-    /* v6 (2026-06-19) Brand-blue dominant dark theme. Page surface
-       is now the PJ Mark literal color (brand-600 #2c3ee5), with
-       the card one step deeper (brand-900 #1F267C) so cards
-       "settle into" the page rather than punch out. The full ramp
-       is now exclusively brand-blue, in the same Tailwind steps
-       the focus ring and PjMark gradient already use:
-
-         page   = brand-600  #2c3ee5  rgb(44, 62, 229)  ~38% L
-         card   = brand-900  #1F267C  rgb(31, 38, 124)  ~17% L
-         raised = brand-800  #21299B  rgb(33, 41, 155)  ~19% L
-         input  = brand-950  #121649  rgb(18, 22, 73)   ~9% L
-
-       All surface transitions stay within the brand-blue hue
-       family, so every page now reads as one composed brand-blue
-       surface (page = dominant; cards = one step down). Body-text
-       contrast against the new page (#2c3ee5) is ~5.2:1 for
-       slate-200 (#E2E8F0), which still passes WCAG AA. The
-       page-top-accent strip (v5) is swapped to rose below so it
-       has contrast on the new brand-blue page. */
+    /* v5 (2026-06-19) Deeper-blue page surface. Same luminance as
+       v4 (#0B0F19 → #0A1A2E, both ~5% Y in OKLCH) but with the
+       blue channel pushed +21 to read as a saturated navy page
+       rather than a neutral near-black. The card (--surface-200)
+       and raised (--surface-300) tokens keep their original
+       off-black / off-blue values so cards stay one step above
+       the page in the same hue family; only the page bg shifts.
+       This is the "logo color family, deeper" read of the
+       "every page similar" feedback. */
     /* (2026-06-19 v3) Rose override reverted: the cool page bg alone
      is enough to keep red reading as red (no brown wash). The
      magenta-rose shift was a category mistake — a cybersecurity
      product shouldn't have pink. Rose stays as Tailwind rose. */
-    --surface-100: 44 62 229; /* page bg — PJ Mark color brand-600 #2c3ee5 (v6) */
-    --surface-200: 31 38 124; /* card    — brand-900 #1F267C (one step deeper) */
-    --surface-300: 33 41 155; /* raised  — brand-800 #21299B (one step above card) */
-    --input-200: 18 22 73; /* input well — brand-950 #121649 (between page and card) */
+    --surface-100: 10 26 46; /* page bg — deeper saturated blue #0A1A2E (v5) */
+    --surface-200: 23 29 44; /* card    — off-black table row   #171D2C (SOC spec) */
+    --surface-300: 31 38 56; /* raised  — +1 step from card     #1F2638 */
+    --input-200: 15 18 26; /* input well — between page & card #0F121A */
     --border-400: 255 255 255 / 0.14;
     --border-500: 255 255 255 / 0.22;
     --border-600: 255 255 255 / 0.32;
@@ -592,17 +582,12 @@
     animation: tile-reveal 0.22s cubic-bezier(0.16, 1, 0.3, 1) both;
   }
 
-  /* ── Page top accent strip (v6) ──────────────────────────────
-     A 1px line at the very top of the page so every page gets
-     a brand-identity beat. v5 used brand-blue (rgb 67 94 241),
-     but on the new v6 brand-blue page (surface-100 = #2c3ee5)
-     a brand-blue strip has zero contrast and is invisible. v6
-     swaps the strip to rose-500 (rgb 244 63 94), which is the
-     threatintel area's accent color and the one chromatic
-     contrast against the brand-blue page. The rose strip ties
-     every page to the threatintel rose identity without making
-     the dark theme feel pink — it's a 1px line, not a chrome
-     bar. Light mode keeps the same rose for consistency. */
+  /* ── Page top accent strip (v5) ──────────────────────────────
+     A 1px brand-blue line at the very top of the page so every
+     page gets a brand-blue identity beat without changing the
+     surface color. Linear / Vercel / Raycast pattern. The brand
+     blue is rgb(67, 94, 241) — same as PjMark's gradient
+     endpoint, the focus ring, and bg-brand-500 references. */
   .page-top-accent {
     position: fixed;
     top: 0;
@@ -613,9 +598,9 @@
     background: linear-gradient(
       to right,
       transparent 0%,
-      rgb(244 63 94 / 0.55) 8%,
-      rgb(244 63 94 / 1) 50%,
-      rgb(244 63 94 / 0.55) 92%,
+      rgb(67 94 241 / 0.6) 8%,
+      rgb(67 94 241 / 1) 50%,
+      rgb(67 94 241 / 0.6) 92%,
       transparent 100%
     );
     pointer-events: none;
@@ -624,21 +609,23 @@
     background: linear-gradient(
       to right,
       transparent 0%,
-      rgb(244 63 94 / 0.7) 8%,
-      rgb(244 63 94 / 1) 50%,
-      rgb(244 63 94 / 0.7) 92%,
+      rgb(67 94 241 / 0.7) 8%,
+      rgb(67 94 241 / 1) 50%,
+      rgb(67 94 241 / 0.7) 92%,
       transparent 100%
     );
-    box-shadow: 0 0 8px rgb(244 63 94 / 0.35);
+    box-shadow: 0 0 8px rgb(67 94 241 / 0.35);
   }
 
   .dark .bg-dot-grid {
-    /* v6 (2026-06-19) brand-blue page. White dots at 0.06 read
-       noticeably brighter on the new #2c3ee5 page than they did
-       on the v4/v5 near-black pages, so the opacity drops to 0.05
-       (the spec target) for the same perceptual faintness. The
-       grid size (28px) and dot diameter (1px) stay. */
-    background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    /* v4 (2026-06-19) SOC obsidian calibration. Trimmed from 0.08
+       to 0.06 to land at the spec's "faint dot-grid pattern
+       (opacity: 0.05)" — 0.05 was tested as near-invisible on
+       the new #0B0F19 page bg on a calibrated display, so 0.06
+       keeps the texture perceptible without becoming decoration.
+       The grid size (28px) and dot diameter (1px) stay; the
+       spec called for 20-40px so 28px was already mid-range. */
+    background-image: radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px);
   }
 
   .shadow-glow {

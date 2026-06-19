@@ -38,22 +38,18 @@ const GRADIENT_DARK = `
       4. Bottom edge lift in the bottom 10% so the page doesn't
          end abruptly. Without this, the page feels like a
          poster stuck to a wall. */
-  /* v6 (2026-06-19) — page surface is now PJ Mark brand-600 #2c3ee5
-     (a vivid saturated blue), so the top wash flips from "darker
-     page" to "lighter page" — the wash is now brand-500 #435EF1
-     fading to brand-600 #2c3ee5, the lit-from-above direction
-     (light at top, deeper blue at bottom). The brand-blue radial
-     pools from v3-v5 (rgba 67 94 241 at 3-6%) were designed to add
-     a hint of brand to a near-black page; on a brand-blue page
-     they would be invisible (brand on brand), so they are swapped
-     to low-alpha white pools that add subtle highlight without
-     competing with the page identity. The bottom-edge lift
-     follows the new --surface-200 (brand-900 #1F267C) so the
-     page bottom doesn't end abruptly against a lighter page top. */
-  radial-gradient(ellipse 95% 55% at 50% 0%, #435EF1 0%, #2c3ee5 65%),
-  radial-gradient(at 88% 92%, rgba(255, 255, 255, 0.06) 0px, transparent 50%),
-  radial-gradient(at 12% 8%, rgba(255, 255, 255, 0.03) 0px, transparent 45%),
-  linear-gradient(to bottom, transparent 90%, rgba(31, 38, 124, 0.4) 100%)
+  /* v5 (2026-06-19) — page surface shifted to deeper saturated blue
+     #0A1A2E (was #0B0F19 in v4). The top wash's lift color and
+     endpoint both follow, otherwise the gradient's lower 65% would
+     read as a separate darker band at the bottom of the wash
+     instead of blending into the page. The top wash is now
+     #16213D -> #0A1A2E (still a +1 step lift from the page,
+     still in the same blue hue family). The bottom-edge lift
+     rgba updates to match the new --surface-200 token. */
+  radial-gradient(ellipse 95% 55% at 50% 0%, #16213D 0%, #0A1A2E 65%),
+  radial-gradient(at 88% 92%, rgba(67, 94, 241, 0.06) 0px, transparent 50%),
+  radial-gradient(at 12% 8%, rgba(67, 94, 241, 0.03) 0px, transparent 45%),
+  linear-gradient(to bottom, transparent 90%, rgba(23, 29, 44, 0.4) 100%)
 `;
 
 const NOISE_URL = `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E")`;
