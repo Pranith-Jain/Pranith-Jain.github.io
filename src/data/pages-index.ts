@@ -124,6 +124,22 @@ const PORTFOLIO_PAGES: readonly PageEntry[] = [
     group: 'blog',
   },
   {
+    path: '/snapshots',
+    label: 'Live Snapshots',
+    description: 'Bookmarkable hub: every live signal the platform surfaces on the home page in one place.',
+    sectionLabel: 'Portfolio',
+    group: 'portfolio',
+    keywords: ['live', 'snapshots', 'telemetry', 'hub', 'pulse', 'breach'],
+  },
+  {
+    path: '/live',
+    label: 'Live Snapshots',
+    description: 'Alias for /snapshots — bookmarkable hub of every live signal.',
+    sectionLabel: 'Portfolio',
+    group: 'portfolio',
+    keywords: ['live', 'snapshots', 'telemetry'],
+  },
+  {
     path: '/blog/c/:type',
     label: 'Blog (filtered)',
     description: 'Blog index pre-filtered by category or tag.',
