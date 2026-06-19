@@ -77,7 +77,7 @@ export const KIND_PILL: Record<ResourceKind, string> = {
   tool: 'border-sky-500/40 bg-sky-500/10 text-sky-700 dark:text-sky-300',
   dashboard: 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300',
   directory: 'border-slate-500/40 bg-slate-500/10 text-slate-700 dark:text-slate-300',
-  samples: 'border-fuchsia-500/40 bg-fuchsia-500/10 text-fuchsia-700 dark:text-fuchsia-300',
+  samples: 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300',
   community: 'border-cyan-500/40 bg-cyan-500/10 text-cyan-700 dark:text-cyan-300',
   research: 'border-violet-500/40 bg-violet-500/10 text-violet-700 dark:text-violet-300',
 };
@@ -111,7 +111,7 @@ export const TAG_PILL: Record<ResourceTag, string> = {
   blocklist: 'border-slate-500/40 bg-slate-500/10 text-slate-700 dark:text-slate-300',
   sandbox: 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300',
   telegram: 'border-cyan-500/40 bg-cyan-500/10 text-cyan-700 dark:text-cyan-300',
-  anonymity: 'border-pink-500/40 bg-pink-500/10 text-pink-700 dark:text-pink-300',
+  anonymity: 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300',
 };
 
 export const RESOURCES: ExternalResource[] = [

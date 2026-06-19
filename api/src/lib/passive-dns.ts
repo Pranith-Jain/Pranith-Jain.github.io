@@ -268,12 +268,14 @@ async function fetchVtIpResolutions(
 
 async function fetchUrlscanDomain(
   domain: string,
-  token: string,
+  token: string | undefined,
   signal: AbortSignal
 ): Promise<SourceResult> {
   try {
-    const res = await fetch(`https://urlscan.io/api/v1/search/?q=domain:${encodeURIComponent(domain)}&size=100`, {
-      headers: { 'API-Key': token, Accept: 'application/json' },
+    const headers: Record<string, string> = { Accept: 'application/json' };
+    if (token) headers['API-Key'] = token;
+    const res = await fetch(`https://urlscan.io/api/v1/search/?q=page.domain:${encodeURIComponent(domain)}&size=20`, {
+      headers,
       signal,
     });
     if (!res.ok) return { source: 'urlscan', records: [], error: `HTTP ${res.status}` };
@@ -302,12 +304,14 @@ async function fetchUrlscanDomain(
 
 async function fetchUrlscanIp(
   ip: string,
-  token: string,
+  token: string | undefined,
   signal: AbortSignal
 ): Promise<SourceResult> {
   try {
-    const res = await fetch(`https://urlscan.io/api/v1/search/?q=page.ip:${encodeURIComponent(ip)}&size=100`, {
-      headers: { 'API-Key': token, Accept: 'application/json' },
+    const headers: Record<string, string> = { Accept: 'application/json' };
+    if (token) headers['API-Key'] = token;
+    const res = await fetch(`https://urlscan.io/api/v1/search/?q=page.ip:${encodeURIComponent(ip)}&size=20`, {
+      headers,
       signal,
     });
     if (!res.ok) return { source: 'urlscan', records: [], error: `HTTP ${res.status}` };
@@ -663,12 +667,13 @@ export async function queryPassiveDns(
 
   if (queryType === 'domain') {
     if (env.VT_API_KEY) sourcePromises.push(fetchVtDomainResolutions(query, env.VT_API_KEY, signal));
-    if (env.URLSCAN_API_KEY) sourcePromises.push(fetchUrlscanDomain(query, env.URLSCAN_API_KEY, signal));
+    // URLscan search API works without a key (rate-limited)
+    sourcePromises.push(fetchUrlscanDomain(query, env.URLSCAN_API_KEY, signal));
     // DNS-over-HTTPS: always available, gives current resolution
     sourcePromises.push(fetchDnsResolution(query, signal));
   } else {
     if (env.VT_API_KEY) sourcePromises.push(fetchVtIpResolutions(query, env.VT_API_KEY, signal));
-    if (env.URLSCAN_API_KEY) sourcePromises.push(fetchUrlscanIp(query, env.URLSCAN_API_KEY, signal));
+    sourcePromises.push(fetchUrlscanIp(query, env.URLSCAN_API_KEY, signal));
   }
 
   const results = await Promise.allSettled(sourcePromises);

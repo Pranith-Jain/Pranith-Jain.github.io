@@ -601,7 +601,7 @@ export const HUB_META: readonly HubMeta[] = [
     label: 'Phishing & Email Defense',
     blurb: 'Phish feed, wordlists, scam watch, and email-defense analysis.',
     icon: ShieldAlert,
-    tone: 'text-pink-700 dark:text-pink-300 border-pink-500/30 bg-pink-500/10',
+    tone: 'text-rose-700 dark:text-rose-300 border-rose-500/30 bg-rose-500/10',
     pages: [
       {
         path: '/threatintel/phishing/phish',
@@ -801,7 +801,7 @@ export const HUB_META: readonly HubMeta[] = [
     label: 'Knowledge & Frameworks',
     blurb: 'Wiki, MITRE ATT&CK, F3EAD, insider threat, OWASP AI, and LLM atlas.',
     icon: Brain,
-    tone: 'text-fuchsia-700 dark:text-fuchsia-300 border-fuchsia-500/30 bg-fuchsia-500/10',
+    tone: 'text-rose-700 dark:text-rose-300 border-rose-500/30 bg-rose-500/10',
     pages: [
       {
         path: '/threatintel/wiki/wiki',
