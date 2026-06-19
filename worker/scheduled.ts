@@ -30,6 +30,7 @@ import { indexTelegramLeaks } from '../api/src/routes/rag-index';
 import { indexAllCorpora } from '../api/src/routes/rag-corpus-index';
 import { detectPirAlerts } from '../api/src/routes/pir';
 import { syncOwaspAiLandscape, syncCuratedToolbox, syncCuratedCerts } from '../api/src/lib/landscape-sync';
+import { syncGitHubAdvisories, GHSA_META_KV_KEY, GHSA_FRESH_TTL_S } from '../api/src/lib/github-security-sync';
 import { runGraphIngest } from '../api/src/routes/graph-ingest';
 import { autoRunFeedJobs } from '../api/src/routes/feed-scheduler';
 import { enqueueAllFeeds } from '../api/src/routes/live-iocs';
@@ -268,6 +269,52 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
                   )
                 )
                 .catch(logCronFail('victim-releaks-refresh'))
+            );
+          }
+          // GitHub Security Advisories — pre-warm KV once every 6h so
+          // the listing page reads from cache, never from the request
+          // path. The previous design called GitHub live on every
+          // request and was blocked by the 60 req/hr unauthenticated
+          // limit on Cloudflare's shared egress IP. Hour 4 of the
+          // 6h cycle (UTC: 04, 10, 16, 22) is intentionally offset
+          // from the victim-releaks hour so the two upstream calls
+          // don't share a burst window. Skip if the meta says we
+          // already have a fresh write — protects the per-IP budget
+          // even if the cron fires on a non-divisible-by-6 hour
+          // (e.g. retry, manual trigger, hourly override).
+          if (csNow.getUTCHours() % 6 === 4) {
+            ctx.waitUntil(
+              (async (): Promise<void> => {
+                if (!env.KV_CACHE) return;
+                const raw = await env.KV_CACHE.get(GHSA_META_KV_KEY, 'text');
+                if (raw) {
+                  try {
+                    const meta = JSON.parse(raw) as {
+                      ok?: boolean;
+                      fetchedAt?: string;
+                    };
+                    const ageMs = meta.fetchedAt ? Date.now() - Date.parse(meta.fetchedAt) : Infinity;
+                    if (meta.ok && Number.isFinite(ageMs) && ageMs < GHSA_FRESH_TTL_S * 1000) {
+                      // Fresh: the previous cron tick already wrote
+                      // a good copy. Skip to protect the rate limit.
+                      return;
+                    }
+                  } catch {
+                    /* fall through to sync */
+                  }
+                }
+                const r = await syncGitHubAdvisories(env as unknown as ApiEnv);
+                console.log(
+                  JSON.stringify({
+                    job: 'github-security-sync',
+                    ok: r.ok,
+                    total: r.total,
+                    status: r.status,
+                    rate_limited: r.rateLimited,
+                    error: r.error,
+                  })
+                );
+              })().catch(logCronFail('github-security-sync'))
             );
           }
         } catch (e) {

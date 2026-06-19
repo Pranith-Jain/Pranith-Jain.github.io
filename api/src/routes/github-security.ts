@@ -1,5 +1,29 @@
+/**
+ * `/api/v1/github-security` route.
+ *
+ * The recent-advisories listing (`?recent=true`) is the only high-traffic
+ * consumer and is the one that hit Cloudflare's per-IP unauthenticated
+ * rate limit (60 req/hr) when called live from the request path. It now
+ * reads from a KV cache pre-warmed by the daily cron in
+ * `worker/scheduled.ts` (see `syncGitHubAdvisories`). See
+ * `lib/github-security-sync.ts` for the full rationale.
+ *
+ * The parameterized lookups (`?cve=`, `?ghsa=`, `?ecosystem=`, `?package=`,
+ * `?q=`) are kept as live fetches: they're low-traffic (used by tool pages,
+ * not the listing), and a per-`(cve, ghsa, package, ecosystem, q)` KV cache
+ * is not worth the write quota. If a `GITHUB_TOKEN` is configured in the
+ * worker, the authenticated 5,000 req/hr cap makes these live calls safe
+ * for moderate traffic too.
+ */
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import {
+  gitHubSecurityRecentHandler,
+  gitHubSecurityRecentMetaHandler,
+  fetchRecentReviewedAdvisories,
+  transformAdvisory,
+  type GitHubSecurityResponse,
+} from '../lib/github-security-sync';
 
 interface GitHubSecurityAdvisory {
   ghsa_id: string;
@@ -18,36 +42,66 @@ interface GitHubSecurityAdvisory {
   }>;
 }
 
-interface GitHubSecurityResponse {
-  total: number;
-  advisories: GitHubSecurityAdvisory[];
-  query: string;
-  query_type: 'cve' | 'ghsa' | 'ecosystem' | 'package' | 'recent';
-  timestamp: string;
-}
-
+const GITHUB_API_BASE = 'https://api.github.com';
+const GITHUB_API_VERSION = '2022-11-28';
 const CACHE_TTL = 3600;
 const API_TIMEOUT = 15000;
 
-const GITHUB_API_BASE = 'https://api.github.com';
+interface GitHubFetchResult {
+  data: any;
+  status: number;
+  rateLimited: boolean;
+}
 
-async function githubRequest(endpoint: string, token?: string): Promise<any> {
+async function githubRequest(endpoint: string, token?: string): Promise<GitHubFetchResult> {
   const headers: Record<string, string> = {
     'User-Agent': 'pranithjain-dfir/1.0',
     accept: 'application/vnd.github+json',
+    'X-GitHub-Api-Version': GITHUB_API_VERSION,
   };
   if (token) headers.Authorization = `Bearer ${token}`;
 
-  const res = await fetch(`${GITHUB_API_BASE}${endpoint}`, {
-    headers,
-    cf: { cacheTtl: CACHE_TTL, cacheEverything: true },
-    signal: AbortSignal.timeout(API_TIMEOUT),
-  });
-
-  if (!res.ok) return null;
-  return res.json();
+  const ctrl = new AbortController();
+  const timer = setTimeout(() => ctrl.abort(), API_TIMEOUT);
+  try {
+    const res = await fetch(`${GITHUB_API_BASE}${endpoint}`, {
+      headers,
+      signal: ctrl.signal,
+    });
+    if (res.ok) {
+      try {
+        return { data: await res.json(), status: res.status, rateLimited: false };
+      } catch {
+        return { data: null, status: res.status, rateLimited: false };
+      }
+    }
+    const rateLimited =
+      res.status === 403 &&
+      (res.headers.get('x-ratelimit-remaining') === '0' || (res.headers.get('x-ratelimit-resource') ?? '').length > 0);
+    return { data: null, status: res.status, rateLimited };
+  } finally {
+    clearTimeout(timer);
+  }
 }
 
+function buildResponse(
+  advisories: GitHubSecurityAdvisory[],
+  query: string,
+  queryType: 'cve' | 'ghsa' | 'ecosystem' | 'package' | 'recent'
+): GitHubSecurityResponse {
+  return {
+    total: advisories.length,
+    advisories: advisories.slice(0, 50),
+    query,
+    query_type: queryType,
+    timestamp: new Date().toISOString(),
+  };
+}
+
+/** Live parameterized handler for ?cve= ?ghsa= ?ecosystem= ?package= ?q=.
+ *  These are low-traffic; the daily cron doesn't pre-warm them. If we
+ *  observe a rate-limit (status 403 + x-ratelimit-remaining=0) we surface
+ *  a 429 with a useful error. */
 export async function gitHubSecurityHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const query = (c.req.query('q') ?? '').trim();
   const cve = c.req.query('cve')?.trim()?.toUpperCase();
@@ -56,76 +110,101 @@ export async function gitHubSecurityHandler(c: Context<{ Bindings: Env }>): Prom
   const packageQuery = c.req.query('package')?.trim();
   const recent = c.req.query('recent') === 'true';
 
-  const githubToken = c.env.GITHUB_TOKEN;
+  // `?recent=true` is the high-traffic listing — delegate to the cron-
+  // pre-warmed handler. (The page passes recent=true unconditionally.)
+  if (recent && !cve && !ghsa && !ecosystem && !packageQuery && !query) {
+    return gitHubSecurityRecentHandler(c);
+  }
 
   if (!query && !cve && !ghsa && !ecosystem && !packageQuery && !recent) {
     return c.json({ error: 'missing query parameter (q, cve, ghsa, ecosystem, package, or recent=true)' }, 400);
   }
 
+  const githubToken = c.env.GITHUB_TOKEN;
+
   try {
     let advisories: GitHubSecurityAdvisory[] = [];
     let queryType: 'cve' | 'ghsa' | 'ecosystem' | 'package' | 'recent' = 'package';
     const actualQuery = cve || ghsa || packageQuery || query;
+    let lastStatus = 200;
+    let rateLimited = false;
 
     if (recent) {
+      // Recent listing (e.g. with another filter layered on top — keep
+      // the live path for those; the cron-pre-warmed handler is the
+      // default).
       queryType = 'recent';
-      const data = await githubRequest(
-        `/advisories?type=reviewed&per_page=100&sort=published&direction=desc`,
-        githubToken
-      );
-      const arr = Array.isArray(data) ? data : [];
-      advisories = arr.map(transformAdvisory);
+      const r = await fetchRecentReviewedAdvisories(githubToken);
+      if (!r.ok) {
+        return c.json(
+          {
+            error: r.rateLimited
+              ? 'GitHub Security API rate limit exceeded.'
+              : `GitHub Security API returned ${r.status}.`,
+            status: r.status,
+            rate_limited: r.rateLimited,
+          },
+          r.rateLimited ? 429 : 502
+        );
+      }
+      advisories = r.advisories ?? [];
     } else if (ghsa) {
       queryType = 'ghsa';
-      const data = await githubRequest(`/advisories/${encodeURIComponent(ghsa)}`, githubToken);
-      // Single-advisory endpoint returns one object (not an array).
-      if (data && !Array.isArray(data)) {
-        advisories = [transformAdvisory(data)];
-      }
+      const result = await githubRequest(`/advisories/${encodeURIComponent(ghsa)}`, githubToken);
+      lastStatus = result.status;
+      rateLimited = result.rateLimited;
+      const data = result.data;
+      if (data && !Array.isArray(data)) advisories = [transformAdvisory(data)];
     } else if (cve) {
       queryType = 'cve';
-      // GET /advisories returns a BARE ARRAY of advisory objects.
-      const data = await githubRequest(`/advisories?cve_id=${encodeURIComponent(cve)}`, githubToken);
-      const arr = Array.isArray(data) ? data : [];
+      const result = await githubRequest(`/advisories?cve_id=${encodeURIComponent(cve)}`, githubToken);
+      lastStatus = result.status;
+      rateLimited = result.rateLimited;
+      const arr = Array.isArray(result.data) ? result.data : [];
       advisories = arr.map(transformAdvisory);
     } else if (ecosystem) {
       queryType = 'ecosystem';
-      const data = await githubRequest(
+      const result = await githubRequest(
         `/advisories?type=reviewed&ecosystem=${encodeURIComponent(ecosystem)}&per_page=50`,
         githubToken
       );
-      const arr = Array.isArray(data) ? data : [];
+      lastStatus = result.status;
+      rateLimited = result.rateLimited;
+      const arr = Array.isArray(result.data) ? result.data : [];
       advisories = arr.map(transformAdvisory);
     } else if (packageQuery) {
       queryType = 'package';
-      const data = await githubRequest(
+      const result = await githubRequest(
         `/advisories?type=reviewed&affects=${encodeURIComponent(packageQuery)}&per_page=50`,
         githubToken
       );
-      const arr = Array.isArray(data) ? data : [];
+      lastStatus = result.status;
+      rateLimited = result.rateLimited;
+      const arr = Array.isArray(result.data) ? result.data : [];
       advisories = arr.map(transformAdvisory);
     } else {
-      // Free-text keyword: query the reviewed GHSA list. `affects` filters by
-      // affected package name, which is the most useful keyword match here.
       queryType = 'package';
-      const data = await githubRequest(
+      const result = await githubRequest(
         `/advisories?type=reviewed&affects=${encodeURIComponent(query)}&per_page=50`,
         githubToken
       );
-      const arr = Array.isArray(data) ? data : [];
+      lastStatus = result.status;
+      rateLimited = result.rateLimited;
+      const arr = Array.isArray(result.data) ? result.data : [];
       advisories = arr.map(transformAdvisory);
     }
 
-    const response: GitHubSecurityResponse = {
-      total: advisories.length,
-      advisories: advisories.slice(0, 50),
-      query: actualQuery || '',
-      query_type: queryType,
-      timestamp: new Date().toISOString(),
-    };
+    if (lastStatus !== 200) {
+      const message = rateLimited
+        ? 'GitHub Security API rate limit exceeded. Set GITHUB_TOKEN to raise the limit to 5,000 req/hr.'
+        : `GitHub Security API returned ${lastStatus}.`;
+      return c.json({ error: message, status: lastStatus, rate_limited: rateLimited }, rateLimited ? 429 : 502, {
+        'Cache-Control': 'no-store',
+      });
+    }
 
-    return c.json(response, 200, {
-      'Cache-Control': 'public, max-age=1800',
+    return c.json(buildResponse(advisories, actualQuery || '', queryType), 200, {
+      'Cache-Control': `public, max-age=${CACHE_TTL}`,
     });
   } catch (err) {
     return c.json(
@@ -139,35 +218,4 @@ export async function gitHubSecurityHandler(c: Context<{ Bindings: Env }>): Prom
   }
 }
 
-function transformAdvisory(data: any): GitHubSecurityAdvisory {
-  return {
-    ghsa_id: data.ghsa_id || data.id || '',
-    summary: data.summary || '',
-    description: data.description || data.summary || '',
-    severity: (data.severity || 'medium').toLowerCase(),
-    identifiers: data.identifiers || [],
-    // GitHub returns references as an array of plain URL strings. Older/object
-    // shapes (`{ url }`) are tolerated for safety.
-    references: (data.references || [])
-      .map((r: any) => (typeof r === 'string' ? r : r?.url))
-      .filter((u: any): u is string => typeof u === 'string' && u.length > 0),
-    published_at: data.published_at || '',
-    updated_at: data.updated_at || '',
-    vulnerabilities: (data.vulnerabilities || []).map((v: any) => ({
-      package: { ecosystem: v.package?.ecosystem || '', name: v.package?.name || '' },
-      severity: v.severity || '',
-      vulnerable_version_range: v.vulnerable_version_range || '',
-      // Upstream exposes a single `first_patched_version` string; normalize to
-      // the array shape our response contract advertises.
-      patched_versions: Array.isArray(v.patched_versions)
-        ? v.patched_versions
-        : v.first_patched_version
-          ? [
-              typeof v.first_patched_version === 'string'
-                ? v.first_patched_version
-                : v.first_patched_version?.identifier,
-            ].filter((x: any): x is string => typeof x === 'string')
-          : [],
-    })),
-  };
-}
+export { gitHubSecurityRecentMetaHandler };

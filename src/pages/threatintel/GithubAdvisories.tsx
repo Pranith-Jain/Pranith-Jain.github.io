@@ -28,6 +28,22 @@ interface AdvisoriesResponse {
   query: string;
   query_type: string;
   timestamp: string;
+  stale?: boolean;
+}
+
+interface MetaResponse {
+  ok: boolean;
+  total: number;
+  ageSeconds: number;
+  fetchedAt: string;
+  meta: {
+    source: string;
+    fetchedAt: string;
+    ok: boolean;
+    error?: string;
+    upstreamStatus?: number;
+    rateLimited?: boolean;
+  } | null;
 }
 
 const SEVERITY_COLORS: Record<string, { bg: string; text: string; border: string }> = {
@@ -57,9 +73,23 @@ export default function GithubAdvisories(): JSX.Element {
     staleWhileRevalidate: true,
   });
 
+  // Meta endpoint tells us the cache age and any upstream error so we can
+  // surface "synced Nh ago" + a stale indicator without parsing the body.
+  const { data: meta } = useDataFetch<MetaResponse>({
+    url: '/api/v1/github-security/recent/meta',
+    ttl: 60_000,
+  });
+
+  // useDataFetch already re-fetches when `url` changes (the dependency
+  // is in its useEffect), so the previous explicit refetch on every
+  // filter change was redundant and a rate-limit hazard (it doubled
+  // the upstream calls per keystroke). Only `refreshKey` still needs
+  // an explicit refetch — it bumps the same URL and asks the cache to
+  // be invalidated.
   useEffect(() => {
-    refetch();
-  }, [ecoFilter, query, refreshKey]);
+    if (refreshKey > 0) refetch();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [refreshKey]);
 
   const filtered = useMemo(() => {
     if (!data) return [];
@@ -208,12 +238,37 @@ export default function GithubAdvisories(): JSX.Element {
 
       {data && (
         <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-600 mb-3 font-mono">
-          <span>{filtered.length} advisories</span>
-          <span>synced {relativeAgo(data.timestamp)}</span>
+          <span>
+            {filtered.length} advisories
+            {data.stale && (
+              <span className="ml-2 text-amber-600 dark:text-amber-400">
+                (stale — upstream temporarily unavailable, showing cached list)
+              </span>
+            )}
+          </span>
+          <span>synced {meta?.fetchedAt ? relativeAgo(meta.fetchedAt) : relativeAgo(data.timestamp)}</span>
         </div>
       )}
 
-      <DataState loading={loading} error={error} empty={filtered.length === 0} onRetry={refetch} rows={8}>
+      {meta && !meta.ok && meta.meta?.error && (
+        <p className="text-micro font-mono text-amber-600 dark:text-amber-400 mb-3">
+          ⚠ last sync failed: {meta.meta.error}
+          {meta.meta.upstreamStatus ? ` (upstream HTTP ${meta.meta.upstreamStatus})` : ''}
+        </p>
+      )}
+
+      <DataState
+        loading={loading}
+        error={error}
+        empty={filtered.length === 0}
+        emptyLabel={
+          query.trim() || ecoFilter
+            ? `No reviewed advisories match the current filters (${[query.trim(), ecoFilter].filter(Boolean).join(' · ')}).`
+            : 'No reviewed advisories available right now. The GitHub Advisory Database feed may be temporarily rate-limited or empty — try the filters or refresh in a minute.'
+        }
+        onRetry={refetch}
+        rows={8}
+      >
         <div className="space-y-2">
           {filtered.map((a) => {
             const colors = SEVERITY_COLORS[a.severity] || SEVERITY_COLORS.medium;

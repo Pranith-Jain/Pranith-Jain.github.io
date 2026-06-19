@@ -448,7 +448,7 @@ import { disarmFrameworkHandler } from './routes/disarm-framework';
 import { attackFlowLibraryHandler } from './routes/attack-flow-library';
 import { volexityThreatIntelHandler } from './routes/volexity-threat-intel';
 import { passiveDnsLookupHandler } from './routes/passive-dns';
-import { gitHubSecurityHandler } from './routes/github-security';
+import { gitHubSecurityHandler, gitHubSecurityRecentMetaHandler } from './routes/github-security';
 import {
   getOwaspAiLandscapeHandler,
   getOwaspAiLandscapeMetaHandler,
@@ -1325,6 +1325,7 @@ app.get('/api/v1/attack-flow-library', validate('query', attackFlowLibrarySchema
 app.get('/api/v1/volexity-threat-intel', validate('query', volexityThreatIntelSchema), volexityThreatIntelHandler);
 app.get('/api/v1/passive-dns', validate('query', passiveDnsSchema), passiveDnsLookupHandler);
 app.get('/api/v1/github-security', validate('query', githubSecuritySchema), gitHubSecurityHandler);
+app.get('/api/v1/github-security/recent/meta', gitHubSecurityRecentMetaHandler);
 
 // ── Curated landscapes (OWASP AI + start.me mirror) ────────────────
 // Public reads; both payloads are tiny JSON trees cached in KV by a
