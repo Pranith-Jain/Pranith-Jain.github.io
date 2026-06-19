@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { Sidebar } from './Sidebar';
 import { TopBar } from './TopBar';
 import { MobileSidebarDrawer } from './MobileSidebarDrawer';
+import { BottomNav } from './BottomNav';
 import { getSidebarForSection } from '../data/sidebar-nav';
 import { SectionErrorBoundary } from './ErrorBoundary';
 import { useDataFetch } from '../hooks/useDataFetch';
@@ -163,7 +164,7 @@ export function AppShell({ mode, isDark, onToggleTheme, children }: AppShellProp
         {/* tabIndex={-1} so the SkipToContent anchor (href="#main-content") can
             actually move focus here — without it the skip link only scrolls and
             focus stays in the header, breaking it across the whole TI/DFIR app. */}
-        <main id="main-content" key={pageKey} tabIndex={-1} className="flex-1 min-w-0 outline-none">
+        <main id="main-content" key={pageKey} tabIndex={-1} className="flex-1 min-w-0 outline-none pb-16 md:pb-0">
           <div className="animate-fade-in-up">
             <SectionErrorBoundary sectionName={section.label}>{children}</SectionErrorBoundary>
           </div>
@@ -171,6 +172,19 @@ export function AppShell({ mode, isDark, onToggleTheme, children }: AppShellProp
       </div>
       <AppStatusBar mode={mode} />
       <BackToTop visible={showBackToTop} onClick={scrollToTop} />
+      <BottomNav
+        mode={mode}
+        onOpenSearch={() => {
+          // Dispatch Cmd+K to open the command palette
+          const ev = new KeyboardEvent('keydown', {
+            key: 'k',
+            metaKey: /Mac|iPhone|iPad/.test(navigator.platform),
+            ctrlKey: !/Mac|iPhone|iPad/.test(navigator.platform),
+            bubbles: true,
+          });
+          window.dispatchEvent(ev);
+        }}
+      />
     </div>
   );
 }
