@@ -36,6 +36,7 @@ import { runGraphIngest } from '../api/src/routes/graph-ingest';
 import { autoRunFeedJobs } from '../api/src/routes/feed-scheduler';
 import { enqueueAllFeeds } from '../api/src/routes/live-iocs';
 import { enqueueGpFeeds } from '../api/src/routes/global-pulse';
+import { scanForPhishingDomains, type PassiveDnsEnv } from '../api/src/lib/passive-dns';
 import type { D1Database } from '@cloudflare/workers-types';
 import { acquireCronLease, releaseCronLease, heartbeatCronLease } from './durable-objects/cron-lock';
 import { siCacheStats, loadSiIndex } from './lib/si-manifest';
@@ -424,7 +425,16 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
             );
           }
         }
-        const composerTargets = ['/api/v1/snapshot', '/api/v1/ioc-snapshot'];
+        const composerTargets = [
+          '/api/v1/snapshot',
+          '/api/v1/ioc-snapshot',
+          // IOC correlation route: cross-source consensus that now includes
+          // Telegram leaks as source #25. Caches on read at 1h TTL; warming
+          // once per hour keeps the consensus fresh. The route does ~24
+          // subrequests to upstream feeds, well within the 50 cap when paired
+          // with the existing composer block.
+          '/api/v1/ioc-correlation',
+        ];
         async function warm(path: string) {
           const req = new Request(baseUrl + path, { method: 'GET' });
           const res = await apiApp.fetch(req, env as never, ctx);
@@ -470,22 +480,23 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
         if (db) ctx.waitUntil(checkAddressWatches(new Date().toISOString(), db).catch(logCronFail('crypto-monitor')));
 
         // === IOC Watchlist sweep ===
-        if (db) ctx.waitUntil(
-          sweepWatchlist(db, new Date().toISOString())
-            .then((r) => {
-              if (r.alerts > 0 || r.errors.length > 0) {
-                console.log(
-                  JSON.stringify({
-                    job: 'ioc-watchlist-sweep',
-                    checked: r.checked,
-                    alerts: r.alerts,
-                    errors: r.errors.length,
-                  })
-                );
-              }
-            })
-            .catch(logCronFail('ioc-watchlist-sweep'))
-        );
+        if (db)
+          ctx.waitUntil(
+            sweepWatchlist(db, new Date().toISOString())
+              .then((r) => {
+                if (r.alerts > 0 || r.errors.length > 0) {
+                  console.log(
+                    JSON.stringify({
+                      job: 'ioc-watchlist-sweep',
+                      checked: r.checked,
+                      alerts: r.alerts,
+                      errors: r.errors.length,
+                    })
+                  );
+                }
+              })
+              .catch(logCronFail('ioc-watchlist-sweep'))
+          );
 
         // === Breach-forum status snapshot ===
         // Hourly: re-snapshot the deepdarkCTI forum directory + the curated
@@ -936,6 +947,40 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
         .finally(releaseLease)
     );
     return;
+  }
+
+  // === Phishing scan (every 6 hours, at 0, 6, 12, 18 UTC) ===
+  // Runs inside the hourly cron — only fires at the 6-hour marks.
+  const currentHour = new Date().getUTCHours();
+  if (currentHour % 6 === 0 && cron === '0 * * * *') {
+    const db = env.BRIEFINGS_DB as D1Database | undefined;
+    if (db) {
+      ctx.waitUntil(
+        (async () => {
+          const dnsEnv: PassiveDnsEnv = {
+            VT_API_KEY: env.VT_API_KEY,
+            URLSCAN_API_KEY: env.URLSCAN_API_KEY,
+          };
+          const result = await scanForPhishingDomains(db, dnsEnv, { maxDomains: 50, lookbackHours: 6 });
+          if (result.new_phishing.length > 0 || result.errors.length > 0) {
+            console.log(
+              JSON.stringify({
+                job: 'phishing-scan',
+                scanned: result.scanned,
+                new_phishing: result.new_phishing.length,
+                domains: result.new_phishing.map((p) => ({
+                  domain: p.domain,
+                  ip: p.resolved_ip,
+                  sources: p.sources,
+                })),
+                errors: result.errors.length,
+                duration_ms: result.scan_time_ms,
+              })
+            );
+          }
+        })().catch(logCronFail('phishing-scan'))
+      );
+    }
   }
 
   const isWeekly = cron === '45 0 * * 1';

@@ -18,6 +18,7 @@ import {
 import { trackEvent, visitorCountry } from '../lib/analytics';
 import { safeNullLog } from '../lib/safe-catch';
 import { fetchMtiSource, type MtiIoc } from '../lib/mythreatintel-api';
+import { ingestTelegramLeaksFromD1 } from '../lib/telegram-ioc-extract';
 
 /**
  * IOC Cross-Source Correlation
@@ -201,7 +202,9 @@ export async function fetchIocCorrelation(env?: Env): Promise<IocCorrelationResp
     fetchText('https://www.botvrij.eu/data/ioclist.domain'),
     // MyThreatIntel file-hash IOCs — a hash present here AND in another
     // hash feed (MalwareBazaar / ThreatFox) becomes a correlated indicator.
-    env ? safeNullLog('fetch-mti-iocs-correlation', fetchMtiSource(env, 'iocs', { limit: PER_FEED_CAP })) : Promise.resolve(null),
+    env
+      ? safeNullLog('fetch-mti-iocs-correlation', fetchMtiSource(env, 'iocs', { limit: PER_FEED_CAP }))
+      : Promise.resolve(null),
   ]);
 
   const ipBucket: MutableBucket = { map: new Map() };
@@ -422,6 +425,29 @@ export async function fetchIocCorrelation(env?: Env): Promise<IocCorrelationResp
     for (const x of e) add(domainBucket, norm(x.value), 'botvrij');
     trackSource('botvrij', true, e.length);
   } else trackSource('botvrij', false, 0);
+
+  // ─── Telegram leak monitor (Sprint 2 §16) ────────────────────────────
+  // Pulls IOCs (hashes, IPs, domains, URLs) from `telegram_leak_entries`
+  // over the last 7 days and adds them to the same buckets the upstream
+  // feeds use. Telegram becomes the 25th source in the cross-source
+  // consensus; a hash appearing in both MalwareBazaar AND a Telegram
+  // leak jumps to source_count=2 and ranks higher.
+  const tgResult = await ingestTelegramLeaksFromD1(env?.BRIEFINGS_DB, 7, 50);
+  let tgIocCount = 0;
+  for (const e of tgResult.entries) {
+    if (e.type === 'ipv4') add(ipBucket, e.value, 'telegram-leak', e.context, e.timestamp);
+    else if (e.type === 'url') {
+      add(urlBucket, e.value, 'telegram-leak', e.context, e.timestamp);
+      const host = hostOf(e.value);
+      if (host) {
+        if (IPV4_RE.test(host)) add(ipBucket, host, 'telegram-leak', e.context, e.timestamp);
+        else add(domainBucket, norm(host), 'telegram-leak', e.context, e.timestamp);
+      }
+    } else if (e.type === 'domain') add(domainBucket, norm(e.value), 'telegram-leak', e.context, e.timestamp);
+    else if (e.type === 'hash') add(hashBucket, norm(e.value), 'telegram-leak', e.context, e.timestamp);
+    tgIocCount++;
+  }
+  trackSource('telegram-leak', tgResult.meta.ok, tgResult.meta.rowsScanned);
 
   const ips = ranked(ipBucket, 'ip', TOP_PER_BUCKET);
   const urls = ranked(urlBucket, 'url', TOP_PER_BUCKET);

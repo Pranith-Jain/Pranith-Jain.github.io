@@ -137,11 +137,7 @@ interface SourceResult {
   error?: string;
 }
 
-async function fetchVtDomainResolutions(
-  domain: string,
-  token: string,
-  signal: AbortSignal
-): Promise<SourceResult> {
+async function fetchVtDomainResolutions(domain: string, token: string, signal: AbortSignal): Promise<SourceResult> {
   try {
     // Use the domain report endpoint (available on free tier) instead of
     // /resolutions which requires paid access. The report includes
@@ -205,11 +201,7 @@ async function fetchVtDomainResolutions(
   }
 }
 
-async function fetchVtIpResolutions(
-  ip: string,
-  token: string,
-  signal: AbortSignal
-): Promise<SourceResult> {
+async function fetchVtIpResolutions(ip: string, token: string, signal: AbortSignal): Promise<SourceResult> {
   try {
     // Use the IP report endpoint (available on free tier)
     const res = await fetch(`https://www.virustotal.com/api/v3/ip_addresses/${encodeURIComponent(ip)}`, {
@@ -279,7 +271,9 @@ async function fetchUrlscanDomain(
       signal,
     });
     if (!res.ok) return { source: 'urlscan', records: [], error: `HTTP ${res.status}` };
-    const data = (await res.json()) as { results?: Array<{ page?: { ip?: string; domain?: string }; task?: { time?: string } }> };
+    const data = (await res.json()) as {
+      results?: Array<{ page?: { ip?: string; domain?: string }; task?: { time?: string } }>;
+    };
     const records: PassiveDnsRecord[] = [];
     for (const r of data.results ?? []) {
       const ip = r.page?.ip ?? '';
@@ -302,11 +296,7 @@ async function fetchUrlscanDomain(
   }
 }
 
-async function fetchUrlscanIp(
-  ip: string,
-  token: string | undefined,
-  signal: AbortSignal
-): Promise<SourceResult> {
+async function fetchUrlscanIp(ip: string, token: string | undefined, signal: AbortSignal): Promise<SourceResult> {
   try {
     const headers: Record<string, string> = { Accept: 'application/json' };
     if (token) headers['API-Key'] = token;
@@ -338,10 +328,7 @@ async function fetchUrlscanIp(
   }
 }
 
-async function fetchCrtSh(
-  domain: string,
-  signal: AbortSignal
-): Promise<SourceResult> {
+async function fetchCrtSh(domain: string, signal: AbortSignal): Promise<SourceResult> {
   try {
     const res = await fetch(`https://crt.sh/?q=${encodeURIComponent(domain)}&output=json`, {
       signal,
@@ -380,10 +367,7 @@ async function fetchCrtSh(
   }
 }
 
-async function fetchCirclPdns(
-  query: string,
-  signal: AbortSignal
-): Promise<SourceResult> {
+async function fetchCirclPdns(query: string, signal: AbortSignal): Promise<SourceResult> {
   try {
     const res = await fetch(`https://www.circl.lu/pdns/query/${encodeURIComponent(query)}`, {
       headers: { Accept: 'application/json' },
@@ -433,10 +417,7 @@ async function fetchCirclPdns(
  * DNS-over-HTTPS fallback: resolve current IPs for a domain using Cloudflare/Google DNS.
  * Returns a single point-in-time observation (no historical data, but always works).
  */
-async function fetchDnsResolution(
-  domain: string,
-  signal: AbortSignal
-): Promise<SourceResult> {
+async function fetchDnsResolution(domain: string, signal: AbortSignal): Promise<SourceResult> {
   const records: PassiveDnsRecord[] = [];
   const now = new Date().toISOString();
 
@@ -509,8 +490,8 @@ function detectMigrations(records: PassiveDnsRecord[]): InfrastructureMigration[
 
   // Sort records by first_seen per resolved value
   const sortedEntries = [...byResolved.entries()].sort((a, b) => {
-    const aFirst = a[1].reduce((min, r) => r.first_seen < min ? r.first_seen : min, a[1][0]?.first_seen ?? '');
-    const bFirst = b[1].reduce((min, r) => r.first_seen < min ? r.first_seen : min, b[1][0]?.first_seen ?? '');
+    const aFirst = a[1].reduce((min, r) => (r.first_seen < min ? r.first_seen : min), a[1][0]?.first_seen ?? '');
+    const bFirst = b[1].reduce((min, r) => (r.first_seen < min ? r.first_seen : min), b[1][0]?.first_seen ?? '');
     return aFirst.localeCompare(bFirst);
   });
 
@@ -519,8 +500,14 @@ function detectMigrations(records: PassiveDnsRecord[]): InfrastructureMigration[
   for (let i = 0; i < sortedEntries.length - 1; i++) {
     const [fromVal, fromRecords] = sortedEntries[i]!;
     const [toVal, toRecords] = sortedEntries[i + 1]!;
-    const fromLatest = fromRecords.reduce((max, r) => r.last_seen > max ? r.last_seen : max, fromRecords[0]!.last_seen);
-    const toEarliest = toRecords.reduce((min, r) => r.first_seen < min ? r.first_seen : min, toRecords[0]!.first_seen);
+    const fromLatest = fromRecords.reduce(
+      (max, r) => (r.last_seen > max ? r.last_seen : max),
+      fromRecords[0]!.last_seen
+    );
+    const toEarliest = toRecords.reduce(
+      (min, r) => (r.first_seen < min ? r.first_seen : min),
+      toRecords[0]!.first_seen
+    );
 
     // Migration detected if the new IP started resolving before the old one stopped,
     // or if there's a gap of less than 30 days between them
@@ -851,5 +838,136 @@ export async function getPassiveDnsStats(db: D1Database): Promise<{
     source_breakdown: sourceBreakdown,
     newest_observation: stats?.newest_observation ?? '',
     oldest_observation: stats?.oldest_observation ?? '',
+  };
+}
+
+// ── Scheduled Phishing Scan ─────────────────────────────────────────────
+
+export interface PhishingScanResult {
+  scanned: number;
+  new_phishing: PhishingDomain[];
+  errors: string[];
+  scan_time_ms: number;
+}
+
+export interface PhishingDomain {
+  domain: string;
+  resolved_ip: string;
+  first_seen: string;
+  sources: string[];
+  vt_score?: number;
+  urlscan_score?: number;
+}
+
+/**
+ * Phishing patterns to detect in newly observed domains.
+ * These are common patterns used in phishing campaigns.
+ */
+const PHISHING_PATTERNS = [
+  // Brand impersonation
+  /\b(paypal|amazon|microsoft|apple|google|netflix|facebook|instagram|twitter|linkedin)\b.*\b(secure|verify|login|auth|account|billing|support|help|update|confirm)\b/i,
+  /\b(secure|verify|login|auth|account|billing|support|help|update|confirm)\b.*\b(paypal|amazon|microsoft|apple|google|netflix|facebook|instagram|twitter|linkedin)\b/i,
+  // Suspicious TLDs
+  /\.(xyz|top|club|site|online|icu|buzz|tk|ml|ga|cf|gq)$/i,
+  // Typosquatting indicators
+  /\b(paypa1|amaz0n|micr0soft|app1e|g00gle|netf1ix|faceb00k)\b/i,
+  // Credential harvesting
+  /\b(login|signin|verify|confirm|secure|auth)\b.*\b(bank|card|pay|wallet|crypto)\b/i,
+  // Urgency patterns
+  /\b(suspended|locked|expired|urgent|immediate|alert|warning)\b.*\b(login|verify|confirm|update)\b/i,
+];
+
+/**
+ * Check if a domain matches phishing patterns.
+ */
+function isPhishingPattern(domain: string): { is_phishing: boolean; patterns: string[] } {
+  const matched: string[] = [];
+  for (const pattern of PHISHING_PATTERNS) {
+    if (pattern.test(domain)) {
+      matched.push(pattern.source.slice(0, 50));
+    }
+  }
+  return { is_phishing: matched.length > 0, patterns: matched };
+}
+
+/**
+ * Scheduled scan: query passive DNS for recently observed domains from
+ * the live IOC feed, detect new phishing patterns, and return alerts.
+ *
+ * Called by the 6-hour cron in scheduled.ts.
+ */
+export async function scanForPhishingDomains(
+  db: D1Database,
+  env: PassiveDnsEnv,
+  opts: { maxDomains?: number; lookbackHours?: number } = {}
+): Promise<PhishingScanResult> {
+  const t0 = Date.now();
+  const maxDomains = opts.maxDomains ?? 50;
+  const lookbackHours = opts.lookbackHours ?? 6;
+  const errors: string[] = [];
+  const newPhishing: PhishingDomain[] = [];
+
+  await ensurePassiveDnsTables(db);
+
+  // Get recently queried domains from the passive DNS cache
+  const cutoff = new Date(Date.now() - lookbackHours * 3600_000).toISOString();
+  const recentDomains = await db
+    .prepare(
+      `SELECT DISTINCT query FROM passive_dns_observations
+       WHERE query_type = 'domain' AND last_seen >= ?
+       ORDER BY last_seen DESC LIMIT ?`
+    )
+    .bind(cutoff, maxDomains)
+    .all<{ query: string }>();
+
+  const domains = (recentDomains.results ?? []).map((r) => r.query);
+
+  // Also check the live IOC feed for new domains
+  try {
+    const feedCutoff = new Date(Date.now() - lookbackHours * 3600_000).toISOString();
+    const feedDomains = await db
+      .prepare(
+        `SELECT DISTINCT indicator FROM ioc_lifecycle
+         WHERE indicator_type = 'domain' AND last_seen >= ?
+         ORDER BY last_seen DESC LIMIT ?`
+      )
+      .bind(feedCutoff, maxDomains)
+      .all<{ indicator: string }>();
+
+    for (const r of feedDomains.results ?? []) {
+      if (!domains.includes(r.indicator)) {
+        domains.push(r.indicator);
+      }
+    }
+  } catch (e) {
+    errors.push(`feed-query: ${e instanceof Error ? e.message : String(e)}`);
+  }
+
+  // Scan each domain for phishing patterns
+  for (const domain of domains.slice(0, maxDomains)) {
+    const { is_phishing, patterns } = isPhishingPattern(domain);
+    if (!is_phishing) continue;
+
+    // Query passive DNS to get current resolution
+    try {
+      const result = await queryPassiveDns(db, domain, env, { freshnessHours: 24 });
+      if (result.unique_resolved.length > 0 && result.unique_resolved[0] !== `[observed-by-virustotal]`) {
+        newPhishing.push({
+          domain,
+          resolved_ip: result.unique_resolved[0],
+          first_seen: result.records[0]?.first_seen ?? '',
+          sources: Object.keys(result.source_summary),
+        });
+      }
+    } catch (e) {
+      errors.push(`passive-dns(${domain}): ${e instanceof Error ? e.message : String(e)}`);
+    }
+  }
+
+  return {
+    scanned: domains.length,
+    new_phishing: newPhishing,
+    errors,
+    scan_time_ms: Date.now() - t0,
   };
 }
