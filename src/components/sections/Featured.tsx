@@ -15,10 +15,10 @@ export function Featured({ featuredArticles }: FeaturedProps) {
           distinction explicit. Authored writing lives in the
           "Recent writing" section above. */}
       <div className="mb-10 max-w-3xl">
-        <div className="mb-3 text-eyebrow font-mono uppercase text-slate-500 dark:text-slate-400">
+        <div className="mb-3 text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
           External coverage
         </div>
-        <h2 className="font-display text-3xl sm:text-4xl font-semibold tracking-[-1.28px] text-slate-900 dark:text-white">
+        <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
           Press &amp; interviews
         </h2>
         <p className="mt-3 text-base sm:text-lg text-muted">

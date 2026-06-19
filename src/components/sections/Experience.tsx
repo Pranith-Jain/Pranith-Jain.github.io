@@ -35,8 +35,10 @@ export function Experience({ experiences }: ExperienceProps) {
       {/* Header — consistent with the rest of the redesigned sections:
           small caps-mono kicker, display heading, no chrome. */}
       <div className="mb-10 max-w-2xl">
-        <div className="mb-3 text-eyebrow font-mono uppercase text-slate-500">Experience</div>
-        <h2 className="font-display text-3xl sm:text-4xl font-semibold tracking-[-1.28px] text-slate-900 dark:text-white">
+        <div className="mb-3 text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
+          Experience
+        </div>
+        <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
           Experience highlights
         </h2>
       </div>

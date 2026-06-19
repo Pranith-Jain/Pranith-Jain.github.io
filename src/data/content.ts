@@ -529,6 +529,14 @@ export const memberships = [
     ],
     color: 'violet',
   },
+  {
+    name: 'Webamon',
+    abbreviation: 'WA',
+    period: '2025 - Present',
+    description:
+      'Community Threat Researcher contributing to web infrastructure intelligence. Collaborative threat research and IOC enrichment across the community platform.',
+    color: 'emerald',
+  },
 ];
 
 interface NavLinkChild {
