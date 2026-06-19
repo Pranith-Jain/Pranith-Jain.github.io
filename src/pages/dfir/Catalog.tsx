@@ -84,7 +84,7 @@ export default function DfirCatalogPage(): JSX.Element {
           </span>
           <span className="font-mono text-mini text-slate-500 dark:text-slate-400">
             {totalEntries} pages - {CATALOG.length} hubs - deep-linkable via{' '}
-            <code className="font-mono text-tool bg-slate-100 dark:bg-slate-800 rounded px-1.5 py-0.5">
+            <code className="font-mono text-tool bg-slate-100 dark:bg-[#12121a] rounded px-1.5 py-0.5">
               ?q=...&cat=...
             </code>
           </span>
@@ -104,7 +104,7 @@ export default function DfirCatalogPage(): JSX.Element {
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search by name, route, or keyword (e.g. 'ransomware', 'sigma', '/ioc-check')..."
             aria-label="Search catalog"
-            className="w-full rounded-lg border border-slate-200 bg-white py-2.5 pl-9 pr-20 font-mono text-tool text-slate-900 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/20 dark:border-[#1e2030] dark:bg-[#12121a] dark:text-slate-100 dark:placeholder:text-slate-500"
+            className="w-full rounded-lg border border-slate-200 bg-white py-2.5 pl-9 pr-20 font-mono text-tool text-slate-900 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/20 dark:border-[#1e2030] dark:bg-[#12121a] dark:text-white dark:placeholder:text-slate-500"
           />
           {query && (
             <button
@@ -197,7 +197,7 @@ function CategoryPill({
       {label}
       <span
         className={`rounded-full px-1.5 py-0.5 text-[10px] font-mono ${
-          active ? 'bg-current/15' : 'bg-slate-100 dark:bg-slate-800'
+          active ? 'bg-current/15' : 'bg-slate-100 dark:bg-[#12121a]'
         }`}
       >
         {count}
@@ -253,7 +253,7 @@ function CatalogCard({ entry, hubIcon }: { entry: HubPage; hubIcon: LucideIcon }
             </span>
           )}
         </div>
-        <h3 className="mt-2 font-display text-sm font-semibold text-slate-900 transition-colors group-hover:text-brand-600 dark:text-slate-100 dark:group-hover:text-brand-400">
+        <h3 className="mt-2 font-display text-sm font-semibold text-slate-900 transition-colors group-hover:text-brand-600 dark:text-white dark:group-hover:text-brand-400">
           {entry.label}
         </h3>
         <p className="mt-0.5 line-clamp-2 text-tool text-slate-500 dark:text-slate-400">{entry.desc}</p>
