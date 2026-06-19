@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, Clock } from 'lucide-react';
 import { findCaseStudy } from '../data/case-studies';
 
 /**
@@ -106,9 +106,11 @@ export default function CaseStudy(): JSX.Element {
           {study.kicker}
         </div>
         <h1 className="font-display text-3xl sm:text-4xl font-bold tracking-tight mt-2 leading-tight">{study.title}</h1>
-        <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-slate-500 mt-4">
-          <span>Pranith Jain</span>
-          <span aria-hidden="true">·</span>
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-slate-500 mt-4">
+          <span className="font-medium text-slate-700 dark:text-slate-300">Pranith Jain</span>
+          <span aria-hidden="true" className="text-slate-300 dark:text-slate-600">
+            ·
+          </span>
           <time dateTime={study.publishedAt}>
             {new Date(study.publishedAt).toLocaleDateString('en-US', {
               year: 'numeric',
@@ -116,22 +118,37 @@ export default function CaseStudy(): JSX.Element {
               day: 'numeric',
             })}
           </time>
-          <span aria-hidden="true">·</span>
-          <span>{study.readingTime} read</span>
+          <span aria-hidden="true" className="text-slate-300 dark:text-slate-600">
+            ·
+          </span>
+          <span className="inline-flex items-center gap-1">
+            <Clock size={12} />
+            {study.readingTime} read
+          </span>
         </div>
-        {/* Outcome strip — surfaces the headline metrics above the fold so
-            anyone skimming gets the punch line before reading. Same
-            minimal rhythm as the home hero status block. */}
-        <div className="mt-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/60 dark:bg-slate-900/40 px-4 py-3">
-          <div className="text-micro font-mono uppercase tracking-[0.2em] text-slate-500">Outcome</div>
-          <p className="mt-1 text-sm sm:text-base font-medium text-slate-800 dark:text-slate-200">{study.outcome}</p>
+
+        {/* Outcome strip */}
+        <div className="mt-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/60 dark:bg-slate-900/40 px-5 py-4">
+          <div className="text-micro font-mono uppercase tracking-[0.2em] text-slate-500 mb-2">Key Outcomes</div>
+          <div className="flex flex-wrap gap-3">
+            {study.outcome.split(' · ').map((metric) => (
+              <span
+                key={metric}
+                className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm font-mono font-medium text-slate-700 dark:text-slate-200"
+              >
+                {metric}
+              </span>
+            ))}
+          </div>
         </div>
+
+        {/* Tags */}
         {study.tags.length > 0 && (
           <div className="flex flex-wrap gap-1.5 mt-4">
             {study.tags.map((t) => (
               <span
                 key={t}
-                className="text-mini font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-slate-800 text-slate-500"
+                className="text-mini font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400"
               >
                 {t}
               </span>

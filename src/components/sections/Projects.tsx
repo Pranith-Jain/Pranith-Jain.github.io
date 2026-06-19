@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Github, ExternalLink, ChevronDown, ChevronUp, ArrowRight } from 'lucide-react';
+import { Github, ExternalLink, ChevronDown, ChevronUp, ArrowRight, Clock, Calendar } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import type { Project } from '../../core/entities';
 import { publishedCaseStudies } from '../../data/case-studies';
@@ -10,11 +10,8 @@ interface ProjectsProps {
 }
 
 /**
- * Projects list — minimal cards aligned with the rest of the redesigned
- * portfolio sections: thin border, no glass, no rounded-full pill action
- * buttons. Action links read as inline text-with-icon at the foot of the
- * card; tags remain as small badges (already minimal via the Badge
- * primitive).
+ * Projects list — improved with better visual hierarchy for case studies,
+ * timeline indicators, and tool links.
  */
 
 const TRUNCATE_THRESHOLD = 240;
@@ -66,9 +63,6 @@ function ProjectCard({ project }: ProjectCardProps): JSX.Element {
         </div>
       )}
 
-      {/* Action row — plain text links with icons. No pills, no scale-hover,
-          no backdrop-blur. Separated from the tag row above by mt-4 so the
-          actions feel like actions, not more tags. */}
       {(project.github || project.href || project.externalUrl) && (
         <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm font-medium">
           {project.github && (
@@ -125,35 +119,92 @@ export function Projects({ projects }: ProjectsProps) {
         <h2 className="font-display text-3xl sm:text-4xl font-semibold tracking-[-1.28px] text-slate-900 dark:text-white">
           Selected projects &amp; initiatives
         </h2>
+        <p className="mt-3 text-base text-muted leading-relaxed">
+          Real-world security work: incident response, detection engineering, threat intelligence, and the tools that
+          make it all possible.
+        </p>
       </div>
 
-      {/* Long-form case studies — methodology + outcomes from real engagements.
-          Surfaced first because they're the credibility document; the smaller
-          project cards below complement them with the tools/initiatives. */}
+      {/* Case studies — the credibility document. Featured prominently
+          with timeline indicators and outcome metrics. */}
       {publishedCaseStudies.length > 0 && (
-        <div className="mb-10">
-          <div className="mb-3 text-eyebrow font-mono uppercase text-slate-500">Case studies</div>
-          <div className="grid gap-3 sm:grid-cols-2">
-            {publishedCaseStudies.map((cs) => (
-              <Link
-                key={cs.slug}
-                to={`/projects/${cs.slug}`}
-                className="group rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5 transition hover:border-brand-500/40"
-              >
-                <div className="text-micro font-mono uppercase tracking-[0.18em] text-brand-600 dark:text-brand-400 mb-1.5">
-                  {cs.kicker}
-                </div>
-                <h3 className="font-display font-semibold text-lg text-slate-900 dark:text-white leading-snug group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
-                  {cs.title}
-                </h3>
-                <p className="mt-2 text-sm text-muted leading-relaxed line-clamp-2">{cs.excerpt}</p>
-                <p className="mt-3 text-xs font-mono text-slate-500 dark:text-slate-400">{cs.outcome}</p>
-                <div className="mt-3 inline-flex items-center gap-1 text-xs font-medium text-brand-700 dark:text-brand-400">
-                  Read case study
-                  <ArrowRight size={12} className="transition-transform group-hover:translate-x-0.5" />
-                </div>
-              </Link>
-            ))}
+        <div className="mb-12">
+          <div className="mb-4 flex items-center gap-2">
+            <div className="text-eyebrow font-mono uppercase text-slate-500">Case Studies</div>
+            <span className="text-xs font-mono text-slate-400">· {publishedCaseStudies.length} published</span>
+          </div>
+
+          {/* Timeline layout */}
+          <div className="relative">
+            {/* Timeline line */}
+            <div className="absolute left-4 top-0 bottom-0 w-px bg-slate-200 dark:bg-slate-800 hidden sm:block" />
+
+            <div className="space-y-4">
+              {publishedCaseStudies.map((cs, idx) => (
+                <Link
+                  key={cs.slug}
+                  to={`/projects/${cs.slug}`}
+                  className="group relative sm:pl-10 block rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5 transition hover:border-brand-500/40 hover:shadow-sm"
+                >
+                  {/* Timeline dot */}
+                  <div className="absolute left-2.5 top-6 w-3 h-3 rounded-full bg-brand-500 border-2 border-white dark:border-slate-900 hidden sm:block" />
+
+                  <div className="flex flex-wrap items-center gap-2 mb-2">
+                    <span className="text-micro font-mono uppercase tracking-[0.18em] text-brand-600 dark:text-brand-400">
+                      {cs.kicker}
+                    </span>
+                    <span className="inline-flex items-center gap-1 text-xs text-slate-400">
+                      <Calendar size={10} />
+                      {new Date(cs.publishedAt).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
+                    </span>
+                    <span className="inline-flex items-center gap-1 text-xs text-slate-400">
+                      <Clock size={10} />
+                      {cs.readingTime}
+                    </span>
+                  </div>
+
+                  <h3 className="font-display font-semibold text-lg text-slate-900 dark:text-white leading-snug group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
+                    {cs.title}
+                  </h3>
+
+                  <p className="mt-2 text-sm text-muted leading-relaxed line-clamp-2">{cs.excerpt}</p>
+
+                  {/* Outcome metrics */}
+                  <div className="mt-3 flex flex-wrap items-center gap-2">
+                    {cs.outcome.split(' · ').map((metric) => (
+                      <span
+                        key={metric}
+                        className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-xs font-mono text-slate-600 dark:text-slate-300"
+                      >
+                        {metric}
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* Tags */}
+                  {cs.tags.length > 0 && (
+                    <div className="mt-3 flex flex-wrap gap-1.5">
+                      {cs.tags.slice(0, 4).map((tag) => (
+                        <span
+                          key={tag}
+                          className="text-[10px] font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-700 text-slate-500"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                      {cs.tags.length > 4 && (
+                        <span className="text-[10px] font-mono text-slate-400">+{cs.tags.length - 4}</span>
+                      )}
+                    </div>
+                  )}
+
+                  <div className="mt-3 inline-flex items-center gap-1 text-xs font-medium text-brand-700 dark:text-brand-400">
+                    Read case study
+                    <ArrowRight size={12} className="transition-transform group-hover:translate-x-0.5" />
+                  </div>
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
       )}
