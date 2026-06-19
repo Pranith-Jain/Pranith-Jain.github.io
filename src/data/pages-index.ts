@@ -372,6 +372,14 @@ const DFIR_PAGES: readonly PageEntry[] = [
     keywords: ['mitre', 'attack', 'navigator', 'ttp'],
   },
   {
+    path: '/dfir/mitre-matrix',
+    label: 'MITRE Matrix',
+    description: 'Static reference view of the MITRE ATT&CK matrix with tactic/technique lookup.',
+    sectionLabel: 'DFIR · Triage',
+    group: 'dfir',
+    keywords: ['mitre', 'attack', 'matrix', 'ttp', 'reference'],
+  },
+  {
     path: '/dfir/kill-chain',
     label: 'Kill Chain',
     description: 'Lockheed Martin cyber kill-chain view — annotate, score, and pivot.',
@@ -741,6 +749,15 @@ const DFIR_PAGES: readonly PageEntry[] = [
     sectionLabel: 'DFIR · Investigate',
     group: 'dfir',
     keywords: ['whois', 'rdap'],
+  },
+  {
+    path: '/dfir/passive-dns',
+    label: 'Passive DNS',
+    description:
+      'Historical DNS resolution data for a domain or IP — detect migrations, fast-flux, and infrastructure reuse.',
+    sectionLabel: 'DFIR · Investigate',
+    group: 'dfir',
+    keywords: ['passive dns', 'pdns', 'infrastructure', 'fast-flux', 'migration'],
   },
   {
     path: '/dfir/cert-search',
@@ -2549,9 +2566,20 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
   {
     path: '/threatintel/telegram-monitor',
     label: 'Telegram Monitor',
-    description: 'Telegram channel monitor — track messages and media across curated channels.',
+    description:
+      'Telegram Intelligence Hub — 5 tabs: leak feed, channel search (tgstat-backed), statistics, channel discovery, and settings.',
     sectionLabel: 'Threat Intel · Live',
     group: 'threatintel',
+    keywords: ['telegram', 'leak', 'channel', 'search', 'tgstat', 'actor correlation'],
+  },
+  {
+    path: '/threatintel/telegram-iocs',
+    label: 'Telegram IOC Pipeline',
+    description:
+      'Telegram-leaked IOCs (hashes, IPs, domains, CVEs, URLs) promoted to the cross-source IOC consensus as source #25.',
+    sectionLabel: 'Threat Intel · Live',
+    group: 'threatintel',
+    keywords: ['telegram', 'ioc', 'pipeline', 'cross-source', 'consensus'],
   },
   {
     path: '/threatintel/telegram-watch',
