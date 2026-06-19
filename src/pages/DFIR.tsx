@@ -5,6 +5,7 @@ import {
   Bug,
   Compass,
   Crosshair,
+  Clock,
   FileSearch,
   FileText,
   GitBranch,
