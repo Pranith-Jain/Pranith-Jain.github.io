@@ -2564,10 +2564,19 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
     group: 'threatintel',
   },
   {
+    path: '/threatintel/telegram',
+    label: 'Telegram Intelligence Hub',
+    description:
+      'Unified Telegram CTI workspace — free cross-source search across channels and leak text, KPIs, and a card grid of all Telegram surfaces.',
+    sectionLabel: 'Threat Intel · Live',
+    group: 'threatintel',
+    keywords: ['telegram', 'hub', 'firehose', 'collection', 'search', 'cti'],
+  },
+  {
     path: '/threatintel/telegram-monitor',
     label: 'Telegram Monitor',
     description:
-      'Telegram Intelligence Hub — 5 tabs: leak feed, channel search (tgstat-backed), statistics, channel discovery, and settings.',
+      'Telegram Intelligence Hub — 7 tabs: firehose (merged cross-source stream), leak feed, channel search (tgstat-backed), statistics, channel discovery, linked actors (channel → MITRE pivot), and settings.',
     sectionLabel: 'Threat Intel · Live',
     group: 'threatintel',
     keywords: ['telegram', 'leak', 'channel', 'search', 'tgstat', 'actor correlation'],

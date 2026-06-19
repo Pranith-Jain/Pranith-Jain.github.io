@@ -868,7 +868,7 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
-  <!-- Threat Intel — pages (246) -->
+  <!-- Threat Intel — pages (247) -->
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/catalog</loc>
     <lastmod>2026-06-19</lastmod>
@@ -1705,6 +1705,12 @@
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/live-center</loc>
+    <lastmod>2026-06-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://pranithjain.qzz.io/threatintel/telegram</loc>
     <lastmod>2026-06-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>

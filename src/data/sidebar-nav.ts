@@ -245,6 +245,7 @@ const PAGE_ICON_OVERRIDES: Record<string, LucideIcon> = {
   '/threatintel/extremists': AlertTriangle,
   '/threatintel/predators': Eye,
   '/threatintel/briefings': Newspaper,
+  '/threatintel/telegram': Radio,
   '/threatintel/telegram-monitor': MessageSquare,
   '/threatintel/telegram-iocs': Shield,
   '/threatintel/source-health': Activity,

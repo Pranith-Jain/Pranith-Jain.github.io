@@ -336,6 +336,7 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/threatintel/ai-report', '/__prerendered/threatintel__ai-report'],
   ['/threatintel/mcp-search', '/__prerendered/threatintel__mcp-search'],
   ['/threatintel/live-center', '/__prerendered/threatintel__live-center'],
+  ['/threatintel/telegram', '/__prerendered/threatintel__telegram'],
   ['/threatintel/telegram-monitor', '/__prerendered/threatintel__telegram-monitor'],
   ['/threatintel/source-health', '/__prerendered/threatintel__source-health'],
   ['/threatintel/soc-dashboard', '/__prerendered/threatintel__soc-dashboard'],

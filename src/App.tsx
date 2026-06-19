@@ -161,6 +161,7 @@ const ThreatIntelCatalog = lazy(() => import('./pages/threatintel/Catalog'));
 const LiveCenter = lazy(() => import('./pages/threatintel/LiveCenter'));
 const TelegramMonitor = lazy(() => import('./pages/threatintel/TelegramMonitor'));
 const TelegramIocs = lazy(() => import('./pages/threatintel/TelegramIocs'));
+const TelegramHub = lazy(() => import('./pages/threatintel/TelegramHub'));
 const SourceHealth = lazy(() => import('./pages/threatintel/SourceHealth'));
 const SocDashboard = lazy(() => import('./pages/threatintel/SocDashboard'));
 const AptTracker = lazy(() => import('./pages/threatintel/AptTracker'));
@@ -422,6 +423,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/dfir/takeover', Component: Takeover },
   { path: '/dfir/stix-builder/b/:bundleId', Component: StixBuilder },
   { path: '/threatintel/campaigns/:id', Component: CampaignDetail },
+  { path: '/threatintel/telegram', Component: TelegramHub },
   { path: '/threatintel/telegram-monitor', Component: TelegramMonitor },
   { path: '/threatintel/telegram-iocs', Component: TelegramIocs },
   { path: '/threatintel/source-health', Component: SourceHealth },

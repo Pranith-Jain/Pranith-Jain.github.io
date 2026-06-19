@@ -355,6 +355,7 @@ const ROUTES = [
   '/threatintel/ai-report',
   '/threatintel/mcp-search',
   '/threatintel/live-center',
+  '/threatintel/telegram',
   '/threatintel/telegram-monitor',
   '/threatintel/source-health',
   '/threatintel/soc-dashboard',
