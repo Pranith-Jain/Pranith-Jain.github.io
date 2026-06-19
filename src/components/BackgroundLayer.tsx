@@ -24,12 +24,14 @@ const GRADIENT_LIGHT = `
 `;
 
 const GRADIENT_DARK = `
-  /* Top "light from above" wash: barely-perceptible #000 -> #040406
-     over ~600px from the top, no chromatic cast. This is the
-     "window casting light" cue that makes a pure-black page feel
-     premium instead of feeling like a void. Sits behind everything
-     else in the layer stack. */
-  radial-gradient(ellipse 80% 50% at 50% 0%, #040406 0%, #000000 70%),
+  /* Top "light from above" wash — cool, same hue family as the
+     page bg (#0a0d18). The previous #000 → #040406 was warm and
+     was contributing to the brown read on /threatintel. Now the
+     wash is the same cool blue-tint as the page itself, just
+     slightly brighter (lifts to ~#11172a at the top) so the page
+     feels lit instead of void. Brand-blue pools stay at the
+     same intensity. */
+  radial-gradient(ellipse 90% 55% at 50% 0%, #141a2e 0%, #0a0d18 70%),
   radial-gradient(at 18% 22%, rgba(67, 94, 241, 0.18) 0px, transparent 55%),
   radial-gradient(at 80% 88%, rgba(33, 41, 155, 0.14) 0px, transparent 55%)
 `;
