@@ -278,10 +278,11 @@ export async function gitHubSecurityRecentHandler(c: Context<{ Bindings: Env }>)
     });
   }
 
-  // Stale-or-missing but we have a payload from a prior sync.
-  // Revalidate in the background; the user still gets the cached
-  // list now.
-  if (payload.total > 0) {
+  // We have a body (and a meta) on file from a prior sync. The list may
+  // be empty (e.g. manual seed before the first cron) — that's still
+  // a known state, not a cold start. Revalidate in the background and
+  // serve whatever we have so the user always gets a stable response.
+  if (meta) {
     const exec = c.executionCtx as { waitUntil?: (p: Promise<unknown>) => void } | undefined;
     if (exec?.waitUntil) {
       exec.waitUntil(syncGitHubAdvisories(c.env).catch(() => undefined));
@@ -291,9 +292,9 @@ export async function gitHubSecurityRecentHandler(c: Context<{ Bindings: Env }>)
     });
   }
 
-  // Cold start (no cron has fired yet). Try a foreground sync so the
-  // first visitor pays the upstream-call cost; everyone else reads
-  // from cache after that.
+  // True cold start (no cron has fired yet AND no manual seed).
+  // Foreground-sync so the first visitor pays the upstream-call cost;
+  // everyone else reads from cache after that.
   const sync = await syncGitHubAdvisories(c.env);
   if (sync.ok) {
     const fresh = await readCachedRecentAdvisories(c.env);
@@ -317,12 +318,16 @@ export async function gitHubSecurityRecentHandler(c: Context<{ Bindings: Env }>)
  *  upstream error without parsing the body. */
 export async function gitHubSecurityRecentMetaHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const { payload, ageSeconds, ok, meta } = await readCachedRecentAdvisories(c.env);
+  // Infinity doesn't survive JSON.stringify, so collapse it to null and
+  // surface the SEED timestamp only when we have no real fetch yet.
+  const safeAge = Number.isFinite(ageSeconds) ? Math.floor(ageSeconds) : null;
+  const fetchedAt = payload.timestamp === GHSA_SEED.timestamp && meta?.fetchedAt ? meta.fetchedAt : payload.timestamp;
   return c.json(
     {
       ok,
       total: payload.total,
-      ageSeconds: Math.floor(ageSeconds),
-      fetchedAt: payload.timestamp,
+      ageSeconds: safeAge,
+      fetchedAt,
       meta,
     },
     200,
