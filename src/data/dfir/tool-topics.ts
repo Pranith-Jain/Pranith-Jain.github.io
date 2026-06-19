@@ -84,6 +84,11 @@ export const TOOL_TOPICS: ToolTopic[] = [
   { term: 'phishing', href: '/dfir/phishing', blurb: 'Analyse email headers + URL/IOC extraction from raw .eml' },
   { term: 'EML', href: '/dfir/eml', blurb: 'Extract attachments from raw .eml + hash each (SHA-256/SHA-1/MD5)' },
   {
+    term: 'Passive DNS',
+    href: '/dfir/passive-dns',
+    blurb: 'Query historical DNS resolution data for infrastructure tracking',
+  },
+  {
     term: 'malware analysis',
     href: '/dfir/malware-scan',
     blurb: 'Drop a file → client-side static analysis + multi-engine dispatcher',

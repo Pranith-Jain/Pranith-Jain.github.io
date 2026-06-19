@@ -113,6 +113,7 @@ const PrivacyHub = lazy(() => import('./pages/dfir/PrivacyHub'));
 const PersonalSecurity = lazy(() => import('./pages/dfir/PersonalSecurity'));
 const UsernameInvestigator = lazy(() => import('./pages/dfir/UsernameInvestigator'));
 const DomainInvestigator = lazy(() => import('./pages/dfir/DomainInvestigator'));
+const PassiveDns = lazy(() => import('./pages/dfir/PassiveDns'));
 const MalwareAnalyzer = lazy(() => import('./pages/dfir/MalwareAnalyzer'));
 const VulnToolkitCatalog = lazy(() => import('./pages/dfir/VulnToolkitCatalog'));
 const WeatherOsint = lazy(() => import('./pages/dfir/WeatherOsint'));
@@ -159,6 +160,7 @@ const ThreatIntelAbout = lazy(() => import('./pages/threatintel/About'));
 const ThreatIntelCatalog = lazy(() => import('./pages/threatintel/Catalog'));
 const LiveCenter = lazy(() => import('./pages/threatintel/LiveCenter'));
 const TelegramMonitor = lazy(() => import('./pages/threatintel/TelegramMonitor'));
+const TelegramIocs = lazy(() => import('./pages/threatintel/TelegramIocs'));
 const SourceHealth = lazy(() => import('./pages/threatintel/SourceHealth'));
 const SocDashboard = lazy(() => import('./pages/threatintel/SocDashboard'));
 const AptTracker = lazy(() => import('./pages/threatintel/AptTracker'));
@@ -421,6 +423,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/dfir/stix-builder/b/:bundleId', Component: StixBuilder },
   { path: '/threatintel/campaigns/:id', Component: CampaignDetail },
   { path: '/threatintel/telegram-monitor', Component: TelegramMonitor },
+  { path: '/threatintel/telegram-iocs', Component: TelegramIocs },
   { path: '/threatintel/source-health', Component: SourceHealth },
   { path: '/threatintel/soc-dashboard', Component: SocDashboard },
   { path: '/threatintel/research/:slug', Component: ResearchPostPage },
@@ -442,6 +445,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/dfir/threat-graph', Component: ThreatGraph },
   { path: '/dfir/attack-chain', Component: AttackChain },
   { path: '/dfir/attack-navigator', Component: AttackNavigator },
+  { path: '/dfir/mitre-matrix', Component: MitreMatrix },
   { path: '/dfir/hunting-query-generator', Component: HuntingQueryGenerator },
   { path: '/dfir/ir-playbooks', Component: IrPlaybooks },
   { path: '/dfir/phishops', Component: PhishOps },
@@ -463,6 +467,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/dfir/personal-security', Component: PersonalSecurity },
   { path: '/dfir/username-investigator', Component: UsernameInvestigator },
   { path: '/dfir/domain-investigator', Component: DomainInvestigator },
+  { path: '/dfir/passive-dns', Component: PassiveDns },
   { path: '/dfir/malware-analyzer', Component: MalwareAnalyzer },
   { path: '/dfir/ioc-investigate', Component: IocInvestigate },
   { path: '/dfir/copilot', Component: DfirCopilotPage },

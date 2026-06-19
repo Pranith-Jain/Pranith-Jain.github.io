@@ -201,6 +201,7 @@ const ROUTES = [
   '/dfir/taxii',
   '/dfir/bloom',
   '/dfir/whois-history',
+  '/dfir/passive-dns',
   '/dfir/open-directory',
 
   // ── DFIR: static catalogs & education (8) — 0 API calls ───────

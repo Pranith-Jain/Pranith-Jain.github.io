@@ -264,6 +264,7 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/dfir/domain', '/__prerendered/dfir__domain'],
   ['/dfir/domain-rep', '/__prerendered/dfir__domain-rep'],
   ['/dfir/whois-history', '/__prerendered/dfir__whois-history'],
+  ['/dfir/passive-dns', '/__prerendered/dfir__passive-dns'],
   // /dfir/sql-workspace removed: the page (SqlWorkspace.tsx) has no route in
   // App.tsx, so this mapped to a prerender that was never generated — it was
   // served as the bare SPA shell, cached 24h as "prerendered".
