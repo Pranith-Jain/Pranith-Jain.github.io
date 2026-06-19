@@ -110,6 +110,13 @@ function tidyLinkedin(text: string): string {
 
 const TWITTER_HARD_LIMIT = 280;
 const LINKEDIN_HARD_LIMIT = 3000;
+// LinkedIn soft floor. The 5-block structure the prompt requires needs
+// 1500+ characters to deliver substance (hook + context + insight +
+// specifics + close). A post under 1300 chars almost always means the
+// model skipped the SPECIFICS or the INSIGHT block. Treat it as a
+// quality issue that will trigger a retry rather than a length cap.
+const LINKEDIN_SOFT_FLOOR = 1300;
+const LINKEDIN_HARD_FLOOR = 900;
 
 /**
  * Validate social content against the source case study.
@@ -136,6 +143,15 @@ function validateSocial(text: string, platform: 'twitter' | 'linkedin', sourceBo
     if (bodyPart.length > LINKEDIN_HARD_LIMIT) {
       issues.push(`LinkedIn body exceeds ${LINKEDIN_HARD_LIMIT} chars (${bodyPart.length})`);
     }
+    if (bodyPart.length < LINKEDIN_HARD_FLOOR) {
+      issues.push(
+        `LinkedIn body is below ${LINKEDIN_HARD_FLOOR}-char floor (${bodyPart.length}); the post is too thin to be useful`
+      );
+    } else if (bodyPart.length < LINKEDIN_SOFT_FLOOR) {
+      issues.push(
+        `LinkedIn body is under the ${LINKEDIN_SOFT_FLOOR}-char target (${bodyPart.length}); pad with substance, not restatement`
+      );
+    }
     maxPostLength = bodyPart.length;
   }
 
@@ -161,6 +177,8 @@ function validateSocial(text: string, platform: 'twitter' | 'linkedin', sourceBo
   let score = 100;
   if (platform === 'twitter' && maxPostLength > TWITTER_HARD_LIMIT) score -= 30;
   if (platform === 'linkedin' && maxPostLength > LINKEDIN_HARD_LIMIT) score -= 20;
+  if (platform === 'linkedin' && maxPostLength < LINKEDIN_HARD_FLOOR) score -= 50;
+  else if (platform === 'linkedin' && maxPostLength < LINKEDIN_SOFT_FLOOR) score -= 25;
   score -= Math.min(30, ungrounded.length * 15);
   score -= Math.min(15, stripped.length * 5);
   score -= Math.min(15, slop.length * 7);
@@ -277,12 +295,20 @@ function buildLinkedinPrompt(src: SocialSource): string {
   const postUrl = src.slug.startsWith('http') ? src.slug : `https://pranithjain.qzz.io/blog/${src.slug}`;
   return (
     `<format name="LinkedIn post">\n` +
-    `- 1300-2000 characters (body only, before FIRST COMMENT and hashtags). Best length is around 1600.\n` +
+    `- HARD FLOOR: 1500 characters minimum (body only, before FIRST COMMENT and hashtags). ` +
+    `Target 1700-2000 characters. Anything under 1300 chars is too thin and will be rejected on the next pass — fill the body with substance, do NOT pad with restatement.\n` +
+    `- RANGE: 1300-2000 characters (covers the soft floor + target zone above).\n` +
+    `- STRUCTURE — five blocks, each earns its place. Use a single blank line between blocks:\n` +
+    `  1. HOOK (1-2 lines, 200-300 chars): the specific thing in THIS case that makes a practitioner stop scrolling. Not a teaser. A concrete fact, a number, a contrast. \n` +
+    `  2. CONTEXT (1 short paragraph, 200-350 chars): what the case is and who it hit. Named victim / CVE / sector / region. No "recently, X happened" — lead with the specifics.\n` +
+    `  3. INSIGHT (1-2 paragraphs, 400-600 chars): the analytical take. Why this matters beyond the headline. What other coverage missed. A pattern the reader can reuse.\n` +
+    `  4. SPECIFICS (4-8 bullet items, 400-600 chars): named CVEs / vendors / versions / sectors / IOCs from the input. Do NOT use "many", "several", "some" — name them.\n` +
+    `  5. CLOSE (1-2 lines, 150-300 chars): the takeaway and one substantive question. Then "FIRST COMMENT: ${postUrl}" on its own final line.\n` +
     `- HOOK in first 2 lines. PAS structure: name the problem, agitate, tease the solution. ` +
     `No throat-clearing, no "New post!", no "I've been thinking about".\n` +
     `- BODY: story or insight in the middle. 2-3 short paragraphs, each 1-3 sentences. ` +
     `Lead with the insight, then context, then what it means. "Here's what caught my eye -> here's why it matters -> here's what I'd do about it".\n` +
-    `- VOICE: Use "I" naturally, have a point of view. Professional but human.\n` +
+    `- VOICE: use "I" naturally, have a point of view. Write like a practitioner sharing something you noticed, not a brand account announcing a thing. If the case has a sharp analytical angle, lead with the angle, not the case recap.\n` +
     `- DETAILS: One specific number, CVE, or named entity from the data. Be precise.\n` +
     `- LINK: NEVER in body. Final line: "FIRST COMMENT: ${postUrl}"\n` +
     `- CLOSE: Strong CTA — one substantive question that invites practitioner experience. Not "Thoughts?" or "Let me know".\n` +
@@ -402,7 +428,7 @@ async function generateTwitterFromSource(
     'twitter',
     src.body,
     groqKey,
-    1200
+    1500
   );
   return { twitter: text, generatedAt: now.toISOString(), _validation: { quality } };
 }
@@ -421,7 +447,11 @@ async function generateLinkedinFromSource(
     'linkedin',
     src.body,
     groqKey,
-    1400
+    // Bumped from 1400 → 2000 so the model has headroom for the 1500-char
+    // floor + 5-block structure. The previous budget had the model
+    // truncating the close or skipping the SPECIFICS block to fit the
+    // hard cap, leaving posts at ~900 chars.
+    2000
   );
   return { linkedin: text, generatedAt: now.toISOString(), _validation: { quality } };
 }

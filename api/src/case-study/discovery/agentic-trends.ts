@@ -80,6 +80,11 @@ CRITERIA for each story:
 - If a recent CVE, include its CVE ID
 - If a ransomware group, name the group and victim
 
+GROUNDING REQUIREMENT (HARD FILTER — non-negotiable):
+Each story MUST include in evidence.sources at least one real, working URL of a published source covering the story (vendor advisory, news outlet, official advisory, government alert, or research blog). A story with no real source URL AND no real CVE id will be silently dropped at the gate — do not generate such a story. If you cannot find a real source for a story idea, SKIP that slot rather than inventing a URL or fabricating the story.
+
+evidence.sources is a list of full URLs (https://...). Examples of acceptable source hosts: cisa.gov, nvd.nist.gov, attack.mitre.org, bleepingcomputer.com, krebsonsecurity.com, thehackernews.com, therecord.media, microsoft.com, cloud.google.com, unit42.paloaltonetworks.com, crowdstrike.com, mandiant.com, securelist.com, blog.talosintelligence.com, malpedia.caad.fkie.fraunhofer.de, ransomlook.io, abuse.ch. Do NOT use example.com, example.org, yourdomain.com, or any "placeholder" host — those are the exact hosts the gate will reject on.
+
 For each story, output a JSON object with these fields:
 {
   "title": "Specific, compelling title (like a blog post title)",
@@ -132,6 +137,143 @@ const TYPE_MAP: Record<string, CaseStudyType> = {
   aisec: 'aisec',
   malware: 'malware',
 };
+
+// Hosts that the LLM is most likely to invent when asked for "any
+// cybersecurity source" with no real ground truth. Anything in this list
+// gets stripped from a candidate's `sources` / `evidence.sources` before
+// we check for grounding — a candidate that points ONLY at a fabricated
+// host is rejected at the door (it would otherwise sail through to the
+// blog generator as "authoritative"). Mirrors the post-process
+// REFERENCE_HOST_ALLOWLIST but in the inverse direction: this is what
+// *not* to trust, not what *to* trust.
+const FABRICATED_HOST_BLOCKLIST = new Set<string>([
+  'example.com',
+  'example.org',
+  'example.net',
+  'yourdomain.com',
+  'domain.com',
+  'sample.com',
+  'test.com',
+  'somerandomsite.com',
+  'securitynews.example',
+  'threatintel.example',
+  'cyberblog.example',
+  'securityweekly.example',
+  'thehackernews.example',
+  'bleepingcomputer.example',
+  'krebsonsecurity.example',
+]);
+
+function hostOf(u: string): string | null {
+  try {
+    return new URL(u).host.toLowerCase().replace(/^www\./, '');
+  } catch {
+    return null;
+  }
+}
+
+interface GroundingResult {
+  hasRealSource: boolean;
+  hasRealCve: boolean;
+  realSources: string[];
+  rejectedReason?: string;
+}
+
+/**
+ * Decide whether a LLM-generated trend is "grounded" enough to publish.
+ *
+ * The trends runner is the ONLY discovery runner whose candidates are not
+ * anchored to a real intel source. Every other runner pulls from a feed
+ * or API. The post-process layer cannot recover from a candidate whose
+ * evidence is invented top-to-bottom — it can strip example.com URLs and
+ * warn about ungrounded CVEs, but it cannot fabricate the facts that the
+ * body of the case study needs. So we reject hallucinated candidates at
+ * the source, before they ever become a published post.
+ *
+ * A candidate is grounded when AT LEAST ONE of:
+ *   1. It cites at least one source URL whose host is not in the
+ *      fabrication blocklist (a real, published security outlet / blog
+ *      the writer actually found). The LLM is instructed to provide such
+ *      URLs in `evidence.sources` and `evidence.urls`; if it can't, the
+ *      candidate is speculative.
+ *   2. It names at least one well-formed CVE id (CVE-YYYY-NNNNN, year
+ *      2020..current+1) so the post-process layer has something real
+ *      to ground on.
+ *
+ * If neither holds, the candidate is dropped with a logged reason. This
+ * is the change that closes the "agentic-trends hallucination" gap that
+ * produced the bogus North-Korean-APT-Indian-government post.
+ */
+function evaluateGrounding(t: TrendCandidate): GroundingResult {
+  const evidence = (t.evidence ?? {}) as Record<string, unknown>;
+  const sources: string[] = [];
+  if (Array.isArray(evidence.sources)) {
+    for (const s of evidence.sources) if (typeof s === 'string') sources.push(s);
+  }
+  if (Array.isArray(evidence.urls)) {
+    for (const u of evidence.urls) if (typeof u === 'string') sources.push(u);
+  }
+  if (Array.isArray(evidence.links)) {
+    for (const l of evidence.links) if (typeof l === 'string') sources.push(l);
+  }
+  if (Array.isArray(evidence.entities)) {
+    for (const e of evidence.entities) {
+      if (typeof e === 'string' && /^https?:\/\//i.test(e)) sources.push(e);
+    }
+  }
+  if (typeof evidence.url === 'string' && /^https?:\/\//i.test(evidence.url)) {
+    sources.push(evidence.url);
+  }
+  if (typeof evidence.source_url === 'string' && /^https?:\/\//i.test(evidence.source_url)) {
+    sources.push(evidence.source_url);
+  }
+  for (const blob of [t.rationale, t.hook, t.angle, typeof evidence.impact === 'string' ? evidence.impact : '']) {
+    for (const m of blob.match(/https?:\/\/[^\s)"'<>]+/gi) ?? []) {
+      sources.push(m);
+    }
+  }
+
+  const realSources: string[] = [];
+  for (const s of sources) {
+    const h = hostOf(s);
+    if (!h) continue;
+    if (FABRICATED_HOST_BLOCKLIST.has(h)) continue;
+    realSources.push(s);
+  }
+
+  const entities = Array.isArray(evidence.entities)
+    ? evidence.entities.filter((x): x is string => typeof x === 'string')
+    : [];
+  const currentYear = new Date().getUTCFullYear();
+  const cveRe = /CVE-(\d{4})-(\d{4,7})/g;
+  let hasRealCve = false;
+  const blobText = [
+    t.title,
+    t.rationale,
+    t.hook,
+    t.angle,
+    entities.join(' '),
+    typeof evidence.impact === 'string' ? evidence.impact : '',
+  ].join(' ');
+  for (const m of blobText.matchAll(cveRe)) {
+    const year = Number(m[1]);
+    const seq = Number(m[2]);
+    if (year >= 2020 && year <= currentYear + 1 && seq > 0) {
+      hasRealCve = true;
+      break;
+    }
+  }
+
+  if (realSources.length === 0 && !hasRealCve) {
+    return {
+      hasRealSource: false,
+      hasRealCve: false,
+      realSources: [],
+      rejectedReason: 'no real source URL and no well-formed CVE id (ungrounded trend candidate)',
+    };
+  }
+  return { hasRealSource: realSources.length > 0, hasRealCve, realSources };
+}
 
 async function callGroq(key: string, prompt: string, userMsg: string): Promise<string> {
   const res = await fetch(GROQ_URL, {
@@ -208,6 +350,26 @@ export async function discoverAgenticTrends(deps: AgenticTrendsDeps): Promise<Ca
 
     for (const t of trends) {
       const title = t.title || 'untitled';
+      // Grounding gate. The trends runner is the only discovery runner
+      // whose candidates are not anchored to a real intel source — every
+      // other runner pulls from a feed or API. We must reject candidates
+      // that the LLM invented wholesale, otherwise the blog generator
+      // happily produces a confident case study about fake APT groups and
+      // invented CVEs (the root cause of the bogus
+      // north-korean-apt-indian-government post). The grounding check
+      // requires at least one real source URL or one well-formed CVE.
+      const grounding = evaluateGrounding(t);
+      if (!grounding.hasRealSource && !grounding.hasRealCve) {
+        console.log(
+          JSON.stringify({
+            runner: 'agentic-trends',
+            stage: 'grounding-rejected',
+            title,
+            reason: grounding.rejectedReason,
+          })
+        );
+        continue;
+      }
       // Normalize the title to create a stable key that doesn't change
       // between LLM runs. Strip common filler words, keep only the core
       // topic (e.g., "prompt injection", "blacksuit ransomware", "eu cyber").
@@ -246,9 +408,28 @@ export async function discoverAgenticTrends(deps: AgenticTrendsDeps): Promise<Ca
         score: adjustedScore,
         evidence: {
           ...(t.evidence || {}),
+          // Surface the real sources we extracted at the grounding check
+          // so the post-process layer's `stripDisallowedRefs` can
+          // whitelist them (otherwise the URLs the LLM cited would be
+          // stripped as "disallowed hosts" even though they're real).
+          // `sources` is the canonical field the post-process scrapes
+          // for the factsText hostnames.
+          sources: Array.from(
+            new Set([
+              ...(Array.isArray((t.evidence as Record<string, unknown>)?.sources)
+                ? ((t.evidence as Record<string, unknown>).sources as string[])
+                : []),
+              ...grounding.realSources,
+            ])
+          ),
           hook: t.hook || '',
           angle: t.angle || '',
           trendingSignal: t.trendingSignal ?? trendingBoost,
+          grounding: {
+            hasRealSource: grounding.hasRealSource,
+            hasRealCve: grounding.hasRealCve,
+            realSourceCount: grounding.realSources.length,
+          },
           source: 'agentic-trends',
           generatedAt: now.toISOString(),
         },
@@ -270,3 +451,7 @@ export async function discoverAgenticTrends(deps: AgenticTrendsDeps): Promise<Ca
     return [];
   }
 }
+// Exported only for unit tests — see
+// api/test/case-study/discovery/agentic-trends.test.ts. Production code
+// imports `discoverAgenticTrends` and never touches this directly.
+export const _test_evaluateGrounding = evaluateGrounding;

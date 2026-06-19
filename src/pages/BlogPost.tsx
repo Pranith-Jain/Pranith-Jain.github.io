@@ -98,6 +98,10 @@ export default function BlogPost() {
   const [relatedPosts, setRelatedPosts] = useState<PostIndexEntry[]>([]);
   const [reloadKey, setReloadKey] = useState(0);
   const [tocOpen, setTocOpen] = useState(false);
+  // Reading-progress state — drives a thin progress bar at the top of
+  // the page so readers know how far through the case study they are.
+  // Updated by a passive scroll listener mounted below. 0-100.
+  const [readingProgress, setReadingProgress] = useState(0);
   const articleRef = useRef<HTMLElement>(null);
 
   // Set Open Graph meta tags for social sharing
@@ -203,6 +207,28 @@ export default function BlogPost() {
     return () => observer.disconnect();
   }, [html]);
 
+  // Reading-progress listener. Cheap — one rAF, no resize observer. Bound
+  // to the post slug so we reset to 0 when navigating between case studies.
+  useEffect(() => {
+    let raf = 0;
+    const onScroll = () => {
+      if (raf) return;
+      raf = window.requestAnimationFrame(() => {
+        raf = 0;
+        const doc = document.documentElement;
+        const max = doc.scrollHeight - doc.clientHeight;
+        const pct = max > 0 ? Math.min(100, Math.max(0, (window.scrollY / max) * 100)) : 0;
+        setReadingProgress(pct);
+      });
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      if (raf) window.cancelAnimationFrame(raf);
+    };
+  }, [post?.slug]);
+
   useEffect(() => {
     if (!slug || !post) return;
     let cancelled = false;
@@ -244,6 +270,20 @@ export default function BlogPost() {
 
   return (
     <article ref={articleRef} className="mx-auto max-w-5xl text-slate-900 dark:text-slate-100">
+      {/* Reading-progress bar. Positioned at the very top of the article
+          (sticky to the page, not the article, so it sits below the
+          portfolio nav). One CSS variable drives the fill so we don't
+          re-render the DOM on every scroll tick — only the inline
+          transform. */}
+      <div
+        aria-hidden="true"
+        className="sticky top-0 z-10 -mx-4 sm:-mx-6 lg:-mx-10 h-0.5 bg-transparent pointer-events-none"
+      >
+        <div
+          className="h-full bg-brand-500 dark:bg-brand-400 origin-left transition-transform duration-150 ease-out"
+          style={{ transform: `scaleX(${readingProgress / 100})` }}
+        />
+      </div>
       <Link
         to="/blog"
         className="inline-flex items-center gap-1 text-xs font-mono uppercase tracking-[0.16em] text-slate-500 hover:text-brand-600 dark:hover:text-brand-400 mb-6"
@@ -372,6 +412,24 @@ export default function BlogPost() {
                 <time>{formatDate(post.publishedAt)}</time>
                 <span aria-hidden="true">·</span>
                 <span>{readTime} min read</span>
+                {post.quality && (
+                  <>
+                    <span aria-hidden="true">·</span>
+                    <span
+                      className={
+                        'inline-flex items-center gap-1 rounded-md border px-1.5 py-0.5 font-mono text-micro uppercase tracking-wider ' +
+                        (post.quality.total >= 70
+                          ? 'border-emerald-400/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300'
+                          : post.quality.total >= 50
+                            ? 'border-amber-400/40 bg-amber-500/10 text-amber-700 dark:text-amber-300'
+                            : 'border-rose-400/40 bg-rose-500/10 text-rose-700 dark:text-rose-300')
+                      }
+                      title={`Quality score ${post.quality.total}/100 — based on length, sections, depth, technical density, references, and filler penalty`}
+                    >
+                      Quality {post.quality.total}
+                    </span>
+                  </>
+                )}
               </div>
               {post.candidateId && !post.candidateId.startsWith('manual-') && (
                 <div className="mt-4">
