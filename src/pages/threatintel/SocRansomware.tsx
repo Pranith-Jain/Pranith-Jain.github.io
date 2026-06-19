@@ -167,9 +167,9 @@ export default function SocRansomware(): JSX.Element {
       value: x.value,
       color: CHART_RANK[Math.min(i, CHART_RANK.length - 1)],
     }));
-    if (rest > 0) slices.push({ label: 'Other', value: rest, color: '#94a3b8' });
+    if (rest > 0) slices.push({ label: 'Other', value: rest, color: 'rgb(var(--muted, #94a3b8))' });
     const unknown = victims.length - arr.reduce((s, x) => s + x.value, 0);
-    if (unknown > 0) slices.push({ label: 'Unknown', value: unknown, color: '#64748b' });
+    if (unknown > 0) slices.push({ label: 'Unknown', value: unknown, color: 'rgb(var(--text-secondary, #64748b))' });
     return slices;
   }, [victims]);
 

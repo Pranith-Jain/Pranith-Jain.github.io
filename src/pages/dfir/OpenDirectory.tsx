@@ -115,7 +115,7 @@ export default function OpenDirectory(): JSX.Element {
         <button
           type="submit"
           disabled={loading || !url.trim()}
-          className="px-4 py-2.5 rounded-lg bg-brand-600 hover:bg-brand-700 text-white text-sm font-medium disabled:opacity-50 inline-flex items-center gap-2"
+          className="px-4 py-2.5 rounded-lg bg-brand-600 hover:bg-brand-700 dark:bg-brand-500 dark:hover:bg-brand-400 text-white text-sm font-medium disabled:opacity-50 inline-flex items-center gap-2"
         >
           {loading ? <Clock size={14} className="animate-spin" /> : <Search size={14} />}
           {loading ? 'Scanning…' : 'Scan'}

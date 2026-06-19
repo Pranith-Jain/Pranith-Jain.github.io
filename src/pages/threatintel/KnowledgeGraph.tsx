@@ -68,7 +68,7 @@ function layoutGraph(raw: KGResponse): { nodes: Node[]; edges: Edge[] } {
 
   const nodes: Node[] = raw.nodes.map((n) => {
     const pos = g.node(n.id) ?? { x: 0, y: 0 };
-    const color = TYPE_COLORS[n.type] ?? '#94a3b8';
+    const color = TYPE_COLORS[n.type] ?? 'rgb(var(--muted, #94a3b8))';
     const label = n.value.length > 32 ? `${n.value.slice(0, 30)}…` : n.value;
     const subtitleParts: string[] = [n.type.toUpperCase()];
     if (typeof n.source_count === 'number' && n.source_count > 0) {
@@ -82,13 +82,13 @@ function layoutGraph(raw: KGResponse): { nodes: Node[]; edges: Edge[] } {
       position: { x: pos.x - 80, y: pos.y - 18 },
       data: { label, subtitle: subtitleParts.join(' · '), nodeType: n.type },
       style: {
-        background: 'white',
+        background: 'rgb(var(--surface-200))',
         border: `2px solid ${color}`,
         borderRadius: 8,
         padding: 0,
         fontSize: 11,
         fontFamily: 'monospace',
-        color: '#0f172a',
+        color: 'currentColor',
         minWidth: 120,
         maxWidth: 240,
       },
@@ -100,8 +100,8 @@ function layoutGraph(raw: KGResponse): { nodes: Node[]; edges: Edge[] } {
     target: e.target_id,
     label: e.relationship,
     type: 'smoothstep',
-    style: { stroke: '#94a3b8', strokeWidth: 1.4 },
-    labelStyle: { fontSize: 10, fontFamily: 'monospace', fill: '#475569' },
+    style: { stroke: 'rgb(var(--border-500, #94a3b8))', strokeWidth: 1.4 },
+    labelStyle: { fontSize: 10, fontFamily: 'monospace', fill: 'rgb(var(--muted, #475569))' },
   }));
   return { nodes, edges };
 }

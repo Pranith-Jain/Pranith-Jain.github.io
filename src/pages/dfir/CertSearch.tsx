@@ -172,7 +172,7 @@ export default function CertSearch(): JSX.Element {
             <button
               type="submit"
               disabled={loading || !domain.trim()}
-              className="px-4 py-2 rounded bg-brand-600 hover:bg-brand-700 text-white font-mono text-sm disabled:opacity-50 inline-flex items-center gap-2"
+              className="px-4 py-2 rounded bg-brand-600 hover:bg-brand-700 dark:bg-brand-500 dark:hover:bg-brand-400 text-white font-mono text-sm disabled:opacity-50 inline-flex items-center gap-2"
             >
               {loading ? <Loader2 size={14} className="animate-spin" /> : <Search size={14} />}
               {loading ? 'searching…' : 'search'}

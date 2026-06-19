@@ -64,6 +64,15 @@
     color-scheme: light;
   }
 
+  ::selection {
+    background-color: rgba(44, 62, 229, 0.2);
+    color: inherit;
+  }
+  html.dark ::selection {
+    background-color: rgba(99, 130, 255, 0.3);
+    color: inherit;
+  }
+
   /* ── Brand design tokens ────────────────────────────────────────── */
   :root {
     --brand: 44 62 229;
@@ -143,7 +152,7 @@
   html.dark :focus-visible {
     /* Inner gap uses near-black so the ring sits in a visible halo. */
     box-shadow:
-      0 0 0 2px #000000,
+      0 0 0 2px var(--surface-100, #000000),
       0 0 0 4px #6d8bf7;
   }
 
@@ -261,6 +270,18 @@
     color: #e5e5e5 !important;
   }
 
+  /* ── Dark mode button hover overrides ──────────────────────────────
+     brand-600 buttons: hover:bg-brand-700 → brand-400 (lighter on dark)
+     brand-500 buttons: hover:bg-brand-700 → brand-400
+     brand-600 buttons: hover:bg-brand-500 → brand-400 (already lighter) */
+  .dark .bg-brand-600:hover,
+  .dark .bg-brand-500:hover {
+    background-color: rgb(109 139 247) !important;
+  }
+  .dark .bg-brand-700:hover {
+    background-color: rgb(109 139 247) !important;
+  }
+
   /* Borders — literal overrides for legacy `border-slate-*` class usage.
      These map old Tailwind border utilities to tones that match the
      deep navy page. New code should use the --border-400/500/600 CSS
@@ -314,6 +335,17 @@
     @apply backdrop-blur-md lg:backdrop-blur-xl;
     border-color: rgb(var(--border-400));
     background-color: rgb(var(--surface-200) / 0.7);
+  }
+
+  /* ── Focus ring utility ──────────────────────────────────────────────
+     Standardized focus-visible ring for interactive elements.
+     Use: focus-visible:ring-2 focus-visible:ring-brand-500/40 focus-visible:ring-offset-2
+     Or the .focus-ring class for a consistent look. */
+  .focus-ring {
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40 focus-visible:ring-offset-2 focus-visible:ring-offset-white;
+  }
+  .dark .focus-ring {
+    --tw-ring-offset-color: rgb(var(--surface-100));
   }
 
   .surface {

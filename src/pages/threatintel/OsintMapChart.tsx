@@ -43,7 +43,7 @@ export default function OsintMapChart({
                 key={geo.rsmKey}
                 geography={geo}
                 fill={isSelected ? '#fbbf24' : fill}
-                stroke={isSelected ? '#fbbf24' : '#0f172a'}
+                stroke={isSelected ? '#fbbf24' : 'rgb(var(--surface-100, #0f172a))'}
                 strokeWidth={isSelected ? 1.5 : 0.4}
                 onMouseEnter={() => alpha2 && onHover(alpha2)}
                 onMouseLeave={() => onHover(null)}

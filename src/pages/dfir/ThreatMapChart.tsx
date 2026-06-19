@@ -95,7 +95,14 @@ export default function ThreatMapChart({
         // Sphere outline so the orthographic projection visibly reads as a
         // globe and not a clipped flat map.
         <g>
-          <circle cx={450} cy={230} r={200} fill="#0f172a" stroke="#1e293b" strokeWidth={0.5} />
+          <circle
+            cx={450}
+            cy={230}
+            r={200}
+            fill="rgb(var(--surface-200, #0f172a))"
+            stroke="rgb(var(--border-400, #1e293b))"
+            strokeWidth={0.5}
+          />
         </g>
       )}
       <Geographies geography={topoUrl}>
@@ -112,7 +119,7 @@ export default function ThreatMapChart({
                 key={geo.rsmKey}
                 geography={geo}
                 fill={isSelected ? '#fbbf24' : fill}
-                stroke={isSelected ? '#fbbf24' : '#0f172a'}
+                stroke={isSelected ? '#fbbf24' : 'rgb(var(--surface-100, #0f172a))'}
                 strokeWidth={isSelected ? 1.5 : 0.4}
                 onMouseEnter={() => alpha2 && onHover({ alpha2, name })}
                 onMouseLeave={() => onHover(null)}
