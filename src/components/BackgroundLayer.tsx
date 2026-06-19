@@ -14,37 +14,24 @@ interface BackgroundLayerProps {
   isDark: boolean;
 }
 
-// Light theme: two asymmetric brand-blue radials (10% / 6% opacity).
-// Dark theme: the SAME approach, amplified — navy page (#060A14) with
-// brand-blue pools at 18% / 12% opacity. Visible, intentional, branded.
+// Light theme: two asymmetric brand-blue radials (10% / 6% opacity) on
+// a white canvas. Semi-transparent because the page bg handles the base.
 const GRADIENT_LIGHT = `
   radial-gradient(at 18% 22%, rgba(44, 62, 229, 0.10) 0px, transparent 55%),
   radial-gradient(at 88% 88%, rgba(33, 41, 155, 0.06) 0px, transparent 55%)
 `;
 
+// Dark theme: the BACKGROUND IS THE GRADIENT. No solid body color shows
+// through — the first layer is the deep-navy base (#060A14), with brand-
+// blue radial pools layered on top at full opacity. This makes the page
+// a true gradient composition, not a solid color with a glow overlay.
 const GRADIENT_DARK = `
-  /* v7 — Deep navy canvas with brand gradient pools (2026-06-19)
-     The page bg is #060A14 (deep navy, visible brand character).
-     This is the SAME approach as the light theme — asymmetric brand-
-     blue radial washes — but amplified for the dark canvas. The light
-     theme uses pools at 10% / 6% opacity; this uses 18% / 12% so the
-     brand is VISIBLY present rather than whispered.
-       1. Top-lit wash: lifts the top ~35% of the page from #060A14
-          to ~#0c1324, creating "light from above" depth.
-       2. Primary brand-blue pool (top-left, ~18% opacity) — the
-          same position and hue as the light theme's primary pool,
-          just stronger. This is the dark theme's signature glow.
-       3. Secondary brand-indigo pool (bottom-right, ~12% opacity) —
-          complementary asymmetry, balanced but not symmetric.
-       4. A faint center glow (~5%) so the middle of the page
-          doesn't feel hollow between the two edge pools.
-       5. Bottom-edge darkening — the last 12% gently darkens so
-          the page doesn't end abruptly. */
-  radial-gradient(ellipse 85% 40% at 50% 0%, rgba(12, 18, 34, 0.85) 0%, transparent 55%),
-  radial-gradient(at 18% 22%, rgba(67, 94, 241, 0.18) 0px, transparent 50%),
-  radial-gradient(at 82% 85%, rgba(44, 62, 229, 0.12) 0px, transparent 50%),
-  radial-gradient(at 50% 50%, rgba(99, 130, 255, 0.05) 0px, transparent 60%),
-  linear-gradient(to bottom, transparent 88%, rgba(4, 7, 14, 0.4) 100%)
+  linear-gradient(to bottom, #060A14, #060A14),
+  radial-gradient(ellipse 80% 35% at 50% 0%, rgba(10, 18, 38, 0.8) 0%, transparent 60%),
+  radial-gradient(at 18% 22%, rgba(67, 94, 241, 0.25) 0px, transparent 50%),
+  radial-gradient(at 82% 85%, rgba(44, 62, 229, 0.18) 0px, transparent 50%),
+  radial-gradient(at 50% 55%, rgba(99, 130, 255, 0.07) 0px, transparent 55%),
+  linear-gradient(to bottom, transparent 85%, rgba(2, 4, 10, 0.5) 100%)
 `;
 
 const NOISE_URL = `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E")`;
@@ -56,7 +43,7 @@ function BackgroundLayerImpl({ isDark }: BackgroundLayerProps): JSX.Element {
         className="fixed inset-0 -z-10 transition-all duration-700 ease-in-out"
         style={{
           background: isDark ? GRADIENT_DARK : GRADIENT_LIGHT,
-          opacity: isDark ? 0.9 : 0.6,
+          opacity: isDark ? 1.0 : 0.6,
         }}
         aria-hidden="true"
       />

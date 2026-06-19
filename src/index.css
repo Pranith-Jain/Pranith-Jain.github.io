@@ -50,17 +50,12 @@
 
   html.dark {
     color-scheme: dark;
-    /* Deep navy canvas — the dark theme's OWN character, not a dark
-       afterthought. The page sits at #060A14 — dark enough for OLED
-       depth but with a visible cool-navy cast that carries the brand
-       identity. Unlike the previous v6 approach (near-black #090C16
-       that could be any SaaS), this base has deliberate brand hue so
-       the BackgroundLayer's gradient pools feel like an extension of
-       the page, not a separate layer on top of a void.
-       Light-theme inspiration: the light page uses asymmetric brand-
-       blue radial pools at 10% / 6% opacity. This dark version does
-       the same — amplified to 18% / 12% — so the brand is visibly
-       present rather than whispered. */
+    /* The dark page IS a gradient — the BackgroundLayer renders at full
+       opacity (1.0) with the deep-navy base (#060A14) as the first
+       gradient layer, plus brand-blue radial pools on top. There is no
+       solid body color showing through; the gradient IS the background.
+       The body background-color is a fallback for the instant before
+       React hydrates. */
     background-color: rgb(var(--surface-100));
     color: #f5f5f7;
   }
