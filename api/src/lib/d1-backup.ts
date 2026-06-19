@@ -118,7 +118,10 @@ async function cleanupOldBackups(kv: KVNamespace, currentDate: string): Promise<
     const cutoffStr = cutoff.toISOString().slice(0, 10);
 
     // List all backup manifests
-    const list = await kv.list({ prefix: `${BACKUP_PREFIX}` });
+    // Hard cap on the page size so a runaway namespace (or a future bump
+    // to MAX_BACKUPS) can't pin a Worker invocation. 7 days of manifests is
+    // ~7 keys — 200 is generous slack.
+    const list = await kv.list({ prefix: `${BACKUP_PREFIX}`, limit: 200 });
     for (const key of list.keys) {
       const dateMatch = key.name.match(/d1-backup:(\d{4}-\d{2}-\d{2})/);
       if (dateMatch?.[1] && dateMatch[1] < cutoffStr) {
