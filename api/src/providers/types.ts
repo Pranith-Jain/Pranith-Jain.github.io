@@ -52,7 +52,8 @@ export type ProviderId =
   | 'dshield'
   | 'safebrowsing'
   | 'zoomeye'
-  | 'tre-ge';
+  | 'tre-ge'
+  | 'intodns';
 
 export type Verdict = 'clean' | 'suspicious' | 'malicious' | 'unknown';
 
