@@ -50,8 +50,12 @@
 
   html.dark {
     color-scheme: dark;
-    background-color: #0a0a0f;
-    color: #f0f0f5;
+    /* True neutral page — no blue cast, no warm cast, just monochrome.
+       Brand-blue (brand-600 #2c3ee5) and rose-500/600 are the only
+       chromatic notes on this surface; the chrome itself stays neutral
+       so the accents read as accents, not as ambient. */
+    background-color: #0a0a0a;
+    color: #f5f5f5;
   }
 
   html:not(.dark) {
@@ -86,28 +90,30 @@
   }
   html.dark {
     --brand: 99 130 255;
-    --muted: 160 170 190;
+    --muted: 168 168 168; /* true neutral gray, was 160 170 190 (blue-tinted) */
     --surface-border: rgb(var(--border-400));
     --surface-bg: rgb(var(--surface-100));
     --glass-bg: rgb(var(--surface-200));
     --glass-border: rgb(var(--border-400));
-    /* ── Geist-consolidated dark surfaces (2026-06-19) ──────────────────────────
-       Three surfaces, three intents — nothing else. The previous
-       system leaked 7+ hex values (#12121a, #0e0e15, #0a0a0f, #1e2030,
-       #15151f, #0f0f16, #0c1222) across ~1,300 components and made
-       card-on-card-on-input read as horizontal "rows" of varying gray.
-       Vercel admin / Geist uses exactly three: page, card, raised.
-         page  = #0a0a0f  -- bg, never on a card
-         card  = #14141c  -- the standard resting card
-         raised= #1c1c26  -- hover, active, popover, modal */
-    --surface-100: 10 10 15;
-    --surface-200: 20 20 28;
-    --surface-300: 28 28 38;
-    --input-200: 14 14 20; /* input/inset — one step below card */
-    --border-400: 255 255 255 / 0.08;
-    --border-500: 255 255 255 / 0.14;
-    --border-600: 255 255 255 / 0.22;
-    --hover-100: 255 255 255 / 0.04;
+    /* ── Neutral dark surfaces (2026-06-19, refined same day) ──────────
+       Three surfaces, three intents. Earlier today these were a "slight
+       blue tint" family (#0a0a0f, #14141c, #1c1c26) — which read as a
+       flat wall of dark blue. Now: pure grayscale (R=G=B on every
+       step), and the page→card lift is wider so the hierarchy reads.
+         page  = #0a0a0a  -- bg, never on a card
+         card  = #161616  -- the standard resting card (+12 lift, was +10)
+         raised= #1f1f1f  -- hover, active, popover, modal (+9 lift from card)
+         input = #0e0e0e  -- one step below card; reads as inset
+       Border opacity goes from 8% → 12% default so card edges are
+       visible without the old "everything is one shade" feel. */
+    --surface-100: 10 10 10;
+    --surface-200: 22 22 22;
+    --surface-300: 31 31 31;
+    --input-200: 14 14 14;
+    --border-400: 255 255 255 / 0.12;
+    --border-500: 255 255 255 / 0.18;
+    --border-600: 255 255 255 / 0.28;
+    --hover-100: 255 255 255 / 0.05;
   }
 
   /* Geist two-layer focus ring:
@@ -230,55 +236,64 @@
     background-color: rgb(var(--input-200) / var(--tw-bg-opacity, 1)) !important;
   }
 
-  /* Text — high contrast, near-white */
+  /* Text — pure neutral whites, no blue cast.
+     The previous overrides were blue-tinted (#a0a8c0, #8890a8, etc.)
+     which compounded with the blue-tinted surface to give the page a
+     "wall of dark blue" feel. Now the muted text uses a true neutral
+     gray so only the brand-blue / rose accents carry colour. */
   .dark .text-slate-400 {
-    color: #a0a8c0 !important;
+    color: #a8a8a8 !important;
   }
   .dark .text-slate-500 {
-    color: #8890a8 !important;
+    color: #8a8a8a !important;
   }
   .dark .text-slate-300 {
-    color: #d0d5e0 !important;
+    color: #d4d4d4 !important;
   }
   .dark .text-slate-200 {
-    color: #e8ecf4 !important;
+    color: #e5e5e5 !important;
   }
 
-  /* Borders — subtle, barely visible */
+  /* Borders — pure neutral, visible enough to read card edges.
+     Was a blue-tinted family (#1e2030, rgba(30,32,48,N)) which made
+     every card edge read as a "dark blue hairline" against a "dark
+     blue surface" — i.e. invisible. Now: true neutral gray-700 base
+     with consistent opacity. Card edges now read as a clear, deliberate
+     boundary instead of disappearing into the page. */
   .dark .border-slate-200 {
-    border-color: #1e2030 !important;
+    border-color: #2e2e2e !important;
   }
   .dark .border-slate-200\/60 {
-    border-color: rgba(30, 32, 48, 0.6) !important;
+    border-color: rgba(46, 46, 46, 0.6) !important;
   }
   .dark .border-slate-200\/70 {
-    border-color: rgba(30, 32, 48, 0.7) !important;
+    border-color: rgba(46, 46, 46, 0.7) !important;
   }
   .dark .border-slate-300 {
-    border-color: #252840 !important;
+    border-color: #3a3a3a !important;
   }
   .dark .border-slate-700 {
-    border-color: #1e2030 !important;
+    border-color: #2e2e2e !important;
   }
   .dark .border-slate-700\/60 {
-    border-color: rgba(30, 32, 48, 0.6) !important;
+    border-color: rgba(46, 46, 46, 0.6) !important;
   }
   .dark .border-slate-800 {
-    border-color: #1e2030 !important;
+    border-color: #2e2e2e !important;
   }
   .dark .border-slate-800\/40 {
-    border-color: rgba(30, 32, 48, 0.4) !important;
+    border-color: rgba(46, 46, 46, 0.4) !important;
   }
   .dark .border-white\/10 {
-    border-color: rgba(255, 255, 255, 0.06) !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
   }
 
-  /* Placeholders */
+  /* Placeholders — neutral, not blue */
   .dark .placeholder\:text-slate-400::placeholder {
-    color: #4a5070 !important;
+    color: #5a5a5a !important;
   }
   .dark .placeholder\:text-slate-500::placeholder {
-    color: #4a5070 !important;
+    color: #5a5a5a !important;
   }
   .dark .placeholder\:text-slate-600::placeholder {
     color: #4a5070 !important;
@@ -330,7 +345,9 @@
   .dark .surface-card {
     border-color: rgb(var(--border-400));
     background-color: rgb(var(--surface-200));
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+    /* Shadow uses pure black (no blue) — was rgba(0,0,0,0.4), now
+       stronger at 0.5 so the card lift reads against the page. */
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
   }
   .surface-raised {
     @apply rounded-xl border bg-white shadow-e2 transition duration-200;
@@ -339,7 +356,7 @@
   .dark .surface-raised {
     border-color: rgb(var(--border-500));
     background-color: rgb(var(--surface-200));
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
   }
   .surface-glass {
     @apply rounded-xl border shadow-e1 backdrop-blur-md transition duration-200;
@@ -447,9 +464,9 @@
   }
 
   .dark .bg-dot-grid {
-    /* Geist-consistent: 6% white dots — never visible enough to read
-       as a "decorative AI pattern" but enough to give the page texture. */
-    background-image: radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+    /* 8% white dots on the neutral #0a0a0a page — visible enough to
+       give the page texture, never enough to read as decoration. */
+    background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
   }
 
   .shadow-glow {

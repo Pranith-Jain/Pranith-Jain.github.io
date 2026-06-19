@@ -65,7 +65,7 @@ const CATEGORY_CARDS: CategoryCard[] = [
     description: 'Check IPs, domains, URLs, and hashes across 24+ sources. Get consensus verdicts in seconds.',
     icon: Crosshair,
     href: '/dfir/catalog?cat=ioc-triage',
-    tone: 'text-rose-600 dark:text-rose-400 bg-white dark:bg-[rgb(18,18,24)] border-slate-200 dark:border-white/10',
+    tone: 'text-rose-600 dark:text-rose-400 hover:border-rose-500/40',
     pages: 9,
   },
   {
@@ -74,7 +74,7 @@ const CATEGORY_CARDS: CategoryCard[] = [
     description: 'Triage samples, parse stealer logs, extract capabilities, and submit to sandboxes.',
     icon: Bug,
     href: '/dfir/catalog?cat=malware',
-    tone: 'text-orange-600 dark:text-orange-400 bg-orange-50 dark:bg-orange-900/20 border-orange-200 dark:border-orange-800',
+    tone: 'text-orange-600 dark:text-orange-400 hover:border-orange-500/40',
     pages: 7,
   },
   {
@@ -83,7 +83,7 @@ const CATEGORY_CARDS: CategoryCard[] = [
     description: 'Analyze phishing, audit SPF/DKIM/DMARC, check BEC risk, and inspect email headers.',
     icon: Mail,
     href: '/dfir/catalog?cat=email-security',
-    tone: 'text-violet-600 dark:text-violet-400 bg-violet-50 dark:bg-violet-900/20 border-violet-200 dark:border-violet-800',
+    tone: 'text-violet-600 dark:text-violet-400 hover:border-violet-500/40',
     pages: 5,
   },
   {
@@ -92,7 +92,7 @@ const CATEGORY_CARDS: CategoryCard[] = [
     description: 'Audit AWS, GCP, Azure IAM policies. Analyze CloudTrail, K8s RBAC, and security groups.',
     icon: Shield,
     href: '/dfir/catalog?cat=cloud-iam',
-    tone: 'text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/20 border-emerald-200 dark:border-emerald-800',
+    tone: 'text-emerald-600 dark:text-emerald-400 hover:border-emerald-500/40',
     pages: 7,
   },
   {
@@ -101,7 +101,7 @@ const CATEGORY_CARDS: CategoryCard[] = [
     description: 'Author, convert, and test detection rules. Sigma, KQL, YARA, SPL — all in one place.',
     icon: FileSearch,
     href: '/dfir/catalog?cat=detection',
-    tone: 'text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-900/20 border-amber-200 dark:border-amber-800',
+    tone: 'text-amber-600 dark:text-amber-400 hover:border-amber-500/40',
     pages: 8,
   },
   {
@@ -110,7 +110,7 @@ const CATEGORY_CARDS: CategoryCard[] = [
     description: 'Parse EVTX logs, registry hives, PCAPs, prefetch files, and iOS backups.',
     icon: FileText,
     href: '/dfir/catalog?cat=forensics',
-    tone: 'text-sky-600 dark:text-sky-400 bg-sky-50 dark:bg-sky-900/20 border-sky-200 dark:border-sky-800',
+    tone: 'text-sky-600 dark:text-sky-400 hover:border-sky-500/40',
     pages: 8,
   },
   {
@@ -119,7 +119,7 @@ const CATEGORY_CARDS: CategoryCard[] = [
     description: 'Check domain reputation, WHOIS, DNS, certificates, URL safety, and open directories.',
     icon: Globe,
     href: '/dfir/catalog?cat=web-reputation',
-    tone: 'text-pink-600 dark:text-pink-400 bg-pink-50 dark:bg-pink-900/20 border-pink-200 dark:border-pink-800',
+    tone: 'text-pink-600 dark:text-pink-400 hover:border-pink-500/40',
     pages: 8,
   },
   {
@@ -128,7 +128,7 @@ const CATEGORY_CARDS: CategoryCard[] = [
     description: 'MITRE ATT&CK, Diamond Model, Kill Chain, OWASP, STIX/TAXII — visual frameworks for analysis.',
     icon: GitBranch,
     href: '/dfir/catalog?cat=frameworks',
-    tone: 'text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/20 border-indigo-200 dark:border-indigo-800',
+    tone: 'text-indigo-600 dark:text-indigo-400 hover:border-indigo-500/40',
     pages: 7,
   },
 ];

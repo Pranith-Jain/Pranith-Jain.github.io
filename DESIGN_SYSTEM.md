@@ -196,21 +196,32 @@ every Tailwind `bg-*` utility via the same CSS override. Use the
 `surface-*` classes and the `--input-200` var instead of hardcoding
 hexes in component classes.
 
-| Intent                    | CSS var         | Hex       | Replaces                               |
-| ------------------------- | --------------- | --------- | -------------------------------------- |
-| Page background           | `--surface-100` | `#0a0a0f` | `bg-[#0c1222]` per-layout fill         |
-| Card / resting surface    | `--surface-200` | `#14141c` | `#12121a`, `#0e0e15`, `#0f0f16`        |
-| Raised / hover / popover  | `--surface-300` | `#1c1c26` | `#15151f`, `#1e2030` (fill)            |
-| Input / inset well        | `--input-200`   | `#0e0e14` | `bg-slate-50` mapping                  |
-| Hairline border (default) | `--border-400`  | 8% white  | `border-[#1e2030]`, `border-slate-800` |
-| Hairline border (hover)   | `--border-500`  | 14% white | `border-slate-700`                     |
-| Hairline border (active)  | `--border-600`  | 22% white | `border-slate-600`                     |
+| Intent                    | CSS var         | Hex       | Notes                                   |
+| ------------------------- | --------------- | --------- | --------------------------------------- |
+| Page background           | `--surface-100` | `#0a0a0a` | **True neutral** (R=G=B). No blue cast. |
+| Card / resting surface    | `--surface-200` | `#161616` | +12 lift from page                      |
+| Raised / hover / popover  | `--surface-300` | `#1f1f1f` | +9 lift from card                       |
+| Input / inset well        | `--input-200`   | `#0e0e0e` | one step below card                     |
+| Hairline border (default) | `--border-400`  | 12% white | visible edge, not a hairline ghost      |
+| Hairline border (hover)   | `--border-500`  | 18% white |                                         |
+| Hairline border (active)  | `--border-600`  | 28% white |                                         |
+
+**Why neutral, not blue-tinted?** The previous family (`#0a0a0f`,
+`#12121a`, `#1c1c26`, `#1e2030`) was "slight blue tint" (R<G<B on
+every step), which read as a flat wall of dark blue. The brand-blue
+(`#2c3ee5`) compounded with the chrome tint, so the page never felt
+black. The fix: pull all the blue out of the chrome. Every dark
+surface is now R=G=B (true grayscale). The brand-blue and rose-500/600
+are the only chromatic notes; the chrome stays monochrome so the
+accents read as accents, not as ambient. This matches Vercel admin,
+Linear, and most production admin panels — which all use a
+near-black neutral, not a "themed" black.
 
 ### Page background
 
 The page bg lives on `html.dark` (the body). No per-page `dark:bg-*`
 override on the Layout or hero — the body already paints
-`#0a0a0f`. Children render on `surface-200` (cards), `input-200`
+`#0a0a0a`. Children render on `surface-200` (cards), `input-200`
 (inputs), or transparent (the page shows through).
 
 ### Hero / page anchor
