@@ -55,6 +55,17 @@ const clientBuild = {
         // dynamically by WikiArticle, so isolating it keeps the wiki
         // detail chunk slim.
         'vendor-md': ['marked', 'isomorphic-dompurify'],
+        // Catalog data files — large (3800+ lines) but only needed on
+        // /dfir, /threatintel, and their catalog pages. Splitting them
+        // out of the index chunk saves ~80KB of parse work on the
+        // portfolio landing page.
+        'data-catalogs': [
+          './src/data/threatintel-hubs.ts',
+          './src/data/dfir-hubs.ts',
+          './src/components/dfir/tool-sections.ts',
+          './src/data/threatintel-sections.ts',
+          './src/data/sidebar-nav.ts',
+        ],
       },
       // Asset naming for better caching
       entryFileNames: 'assets/[name]-[hash].js',
