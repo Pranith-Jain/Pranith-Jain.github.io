@@ -110,25 +110,25 @@ export default function AnalyticsDashboard(): JSX.Element {
           label="Total Events"
           value={data?.totalEvents?.toLocaleString() ?? '0'}
           icon={Activity}
-          color="text-brand-600 dark:text-brand-400"
+          color="text-slate-500 dark:text-slate-400"
         />
         <SummaryCard
           label="Event Types"
           value={Object.keys(data?.eventsByType ?? {}).length.toString()}
           icon={BarChart3}
-          color="text-emerald-600 dark:text-emerald-400"
+          color="text-slate-500 dark:text-slate-400"
         />
         <SummaryCard
           label="Countries"
           value={Object.keys(data?.eventsByCountry ?? {}).length.toString()}
           icon={Globe}
-          color="text-amber-600 dark:text-amber-400"
+          color="text-slate-500 dark:text-slate-400"
         />
         <SummaryCard
           label="Recent"
           value={data?.recentEvents?.length?.toString() ?? '0'}
           icon={TrendingUp}
-          color="text-violet-600 dark:text-violet-400"
+          color="text-slate-500 dark:text-slate-400"
         />
       </div>
 

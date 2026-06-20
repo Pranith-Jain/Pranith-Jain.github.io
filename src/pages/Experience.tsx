@@ -5,8 +5,12 @@ export default function ExperiencePage() {
   return (
     <>
       <h1 className="sr-only">Experience — Pranith Jain</h1>
-      <Experience experiences={experiences} />
-      <Companies companies={companies} />
+      <div className="mt-16">
+        <Experience experiences={experiences} />
+      </div>
+      <div className="mt-16">
+        <Companies companies={companies} />
+      </div>
     </>
   );
 }

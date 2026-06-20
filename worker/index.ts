@@ -17,6 +17,35 @@ import type { Env } from './env';
 export { LiveFeedDO, DfirMcpServer, CronLockDO, ReportBuilderDO, InvestigatorAgentDO, RadarCrawlerDO };
 export type { Env };
 
+const ARGUS_ORIGIN = 'https://argus-threat-intel.pages.dev';
+
+const ARGUS_API_PATHS = ['/api/actors', '/api/feed', '/api/stats', '/api/health', '/api/stix/bundle'];
+
+async function proxyToOrigin(request: Request, origin: string, subPath: string, requestId: string): Promise<Response> {
+  const targetUrl = `${origin}${subPath}`;
+  const proxyReq = new Request(targetUrl, {
+    method: request.method,
+    headers: request.headers,
+    body: request.method !== 'GET' && request.method !== 'HEAD' ? request.body : undefined,
+    redirect: 'manual',
+  });
+  proxyReq.headers.delete('host');
+  const res = await fetch(proxyReq);
+  const h = new Headers(res.headers);
+  h.set('x-request-id', requestId);
+  const ct = h.get('content-type') ?? '';
+  if (ct.includes('text/html')) {
+    let html = await res.text();
+    html = html.replace(
+      /(href|src)="\/(assets\/|favicon\.svg|og-image\.svg|robots\.txt|sitemap\.xml|humans\.txt|llms\.txt)/g,
+      '$1="/threatnexus/$2'
+    );
+    html = html.replace(/https:\/\/argus\.pranithjain\.qzz\.io\//g, 'https://pranithjain.qzz.io/threatnexus/');
+    return new Response(html, { status: res.status, headers: h });
+  }
+  return new Response(res.body, { status: res.status, headers: h });
+}
+
 /** Origins permitted to open the live-feed WebSocket (same set the API trusts). */
 const WS_ALLOWED_ORIGINS_STATIC = new Set([
   'https://pranithjain.qzz.io',
@@ -185,6 +214,20 @@ export default {
       const h = new Headers(doRes.headers);
       h.set('x-request-id', requestId);
       return withSecurityHeaders(new Response(doRes.body, { status: doRes.status, headers: h }));
+    }
+
+    // ── ARGUS dashboard proxy ─────────────────────────────────────────
+    // Serves the full ARGUS threat-intel dashboard at /threatnexus from
+    // the standalone deployment at argus-threat-intel.pages.dev.
+    if (url.pathname === '/threatnexus' || url.pathname.startsWith('/threatnexus/')) {
+      const subPath = url.pathname.replace(/^\/threatnexus\/?/, '/') || '/';
+      return proxyToOrigin(request, ARGUS_ORIGIN, subPath + url.search, requestId);
+    }
+
+    // ── ARGUS API proxy ───────────────────────────────────────────────
+    // ARGUS-specific API paths not handled by the portfolio's apiApp.
+    if (ARGUS_API_PATHS.some((p) => url.pathname.startsWith(p))) {
+      return proxyToOrigin(request, ARGUS_ORIGIN, url.pathname + url.search, requestId);
     }
 
     // Forward to the api app for the explicit /api/* prefix AND for the

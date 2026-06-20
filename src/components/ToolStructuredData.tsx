@@ -1,16 +1,17 @@
 /**
- * Structured data (JSON-LD) for the DFIR toolkit, Threat Intel platform,
- * and Domain Recon Scanner. Helps search engines understand the page
- * structure and content.
+ * Structured data (JSON-LD) for CRUCIBLE (DFIR toolkit), PANOPTICON
+ * (Threat Intel platform), and the Domain Recon Scanner. Helps search
+ * engines understand the page structure and content.
  */
 
 export function DfirStructuredData(): JSX.Element {
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'SoftwareApplication',
-    name: 'DFIR & Security Toolkit',
+    name: 'CRUCIBLE',
+    alternateName: 'DFIR & Security Toolkit',
     description:
-      '60+ browser-side security tools for incident response, forensics, and detection engineering. IOC checks, CVE triage, rule conversion, and more.',
+      'CRUCIBLE (DFIR & Security Toolkit) is a free, browser-side collection of 60-plus utilities for incident response, digital forensics, and detection engineering. IOC checks, CVE triage, rule conversion, and more.',
     url: 'https://pranithjain.qzz.io/dfir',
     applicationCategory: 'SecurityApplication',
     operatingSystem: 'Web Browser',
@@ -48,9 +49,10 @@ export function ThreatIntelStructuredData(): JSX.Element {
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'WebApplication',
-    name: 'Threat Intelligence Platform',
+    name: 'PANOPTICON',
+    alternateName: 'Threat Intelligence Platform',
     description:
-      'Live CTI from 30+ feeds — ransomware activity, threat actors, IOCs, CVEs, dark web monitoring, and social media feeds.',
+      'PANOPTICON (Threat Intelligence Platform) is a free, live CTI surface covering ransomware activity, threat actors, IOCs, CVEs, dark-web monitoring, and social-media signals from 30-plus feeds.',
     url: 'https://pranithjain.qzz.io/threatintel',
     applicationCategory: 'SecurityApplication',
     operatingSystem: 'Web Browser',

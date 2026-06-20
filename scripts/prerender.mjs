@@ -56,7 +56,7 @@ const ROUTES = [
   '/dfir',
   '/dfir/catalog',
   '/dfir/vs',
-  '/threatnexus',
+  '/radar',
   '/threatintel',
   '/threatintel/catalog',
   '/threatintel/actors/attribution',

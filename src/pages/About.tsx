@@ -84,8 +84,12 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <Featured featuredArticles={featuredArticles} />
-      <Memberships memberships={memberships} />
+      <div className="mt-16">
+        <Featured featuredArticles={featuredArticles} />
+      </div>
+      <div className="mt-16">
+        <Memberships memberships={memberships} />
+      </div>
     </>
   );
 }

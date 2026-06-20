@@ -72,6 +72,4 @@ if (errors.length > 0) {
   console.error('✗ check-meta-lengths:\n  ' + errors.join('\n  '));
   process.exit(1);
 }
-console.log(
-  `✓ check-meta-lengths: index.html + OG_OVERRIDES within SEO limits (<=${TITLE_MAX}/<=${DESC_MAX}).`
-);
+console.log(`✓ check-meta-lengths: index.html + OG_OVERRIDES within SEO limits (<=${TITLE_MAX}/<=${DESC_MAX}).`);

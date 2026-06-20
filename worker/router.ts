@@ -32,6 +32,7 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   // ── Landings ──────────────────────────────────────────────────
   ['/dfir', '/__prerendered/dfir'],
   ['/threatintel', '/__prerendered/threatintel'],
+  ['/radar', '/__prerendered/radar'],
   ['/threatintel/catalog', '/__prerendered/threatintel__catalog'],
   ['/threatintel/actors/directory', '/__prerendered/threatintel__actors__directory'],
   ['/threatintel/actors/timeline', '/__prerendered/threatintel__actors__timeline'],
