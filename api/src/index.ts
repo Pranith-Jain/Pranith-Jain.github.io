@@ -483,8 +483,27 @@ import {
   getCuratedCertsMetaHandler,
 } from './routes/landscape';
 import { predictionsHandler } from './routes/predictions';
+import { radarScanHandler, radarGetScanHandler, radarRecentHandler } from './routes/radar';
 
 const app = new Hono<{ Bindings: Env }>();
+
+// ── Radar (public, no auth required) ─────────────────────────────
+app.use(
+  '/api/v1/radar/*',
+  cors({
+    origin: (_, c) => getSiteUrl(c.env as { SITE_URL?: string }),
+    allowHeaders: ['Content-Type'],
+    allowMethods: ['GET', 'POST', 'OPTIONS'],
+    maxAge: 86400,
+  })
+);
+app.use('/api/v1/radar/*', requestId);
+app.use('/api/v1/radar/*', csrfGuard);
+app.use('/api/v1/radar/*', looseValidation());
+app.use('/api/v1/radar/*', requestLogger);
+app.post('/api/v1/radar/scan', radarScanHandler);
+app.get('/api/v1/radar/scan/:id', radarGetScanHandler);
+app.get('/api/v1/radar/recent', radarRecentHandler);
 
 app.use(
   '/api/v1/*',

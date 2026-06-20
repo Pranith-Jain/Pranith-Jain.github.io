@@ -13,9 +13,10 @@ import { SkipToContent } from './SkipToContent';
 import { McpKeyBar } from './ti-mindmap-mcp/McpKeyBar';
 import { recordVisit } from '../lib/recentTools';
 
-const SECTION_META: Record<'dfir' | 'threatintel', { label: string; href: string; accent: string }> = {
+const SECTION_META: Record<'dfir' | 'threatintel' | 'radar', { label: string; href: string; accent: string }> = {
   dfir: { label: 'DFIR', href: '/dfir', accent: 'text-brand-600 dark:text-brand-400' },
   threatintel: { label: 'Threat Intel', href: '/threatintel', accent: 'text-rose-600 dark:text-rose-400' },
+  radar: { label: 'Radar', href: '/radar', accent: 'text-brand-600 dark:text-brand-400' },
 };
 
 /**
@@ -112,7 +113,7 @@ const ROUTE_LABELS: Record<string, string> = {
  */
 
 interface AppShellProps {
-  mode: 'dfir' | 'threatintel';
+  mode: 'dfir' | 'threatintel' | 'radar';
   isDark: boolean;
   onToggleTheme: () => void;
   children: React.ReactNode;
@@ -202,7 +203,7 @@ export interface FeedStatusBrief {
  * surfaces the overall health pip. For /dfir, shows the static "all
  * tools client-side or edge-only" note.
  */
-function AppStatusBar({ mode }: { mode: 'dfir' | 'threatintel' }): JSX.Element {
+function AppStatusBar({ mode }: { mode: 'dfir' | 'threatintel' | 'radar' }): JSX.Element {
   const {
     data: status,
     error,
@@ -217,7 +218,19 @@ function AppStatusBar({ mode }: { mode: 'dfir' | 'threatintel' }): JSX.Element {
     <footer className="border-t border-[rgb(var(--border-400))] chrome-glass pb-[env(safe-area-inset-bottom)]">
       <div className="max-w-[1500px] mx-auto px-4 sm:px-6 min-h-[44px] sm:h-9 py-2 sm:py-0 flex items-center justify-between gap-3 text-mini font-mono text-slate-500 dark:text-slate-400">
         <div className="flex items-center gap-3 min-w-0">
-          {mode === 'dfir' ? (
+          {mode === 'radar' ? (
+            <>
+              <span className="inline-flex items-center gap-1.5">
+                <span className="relative inline-flex h-1.5 w-1.5">
+                  <span className="absolute inset-0 rounded-full bg-brand-500 live-pulse" aria-hidden />
+                  <span className="relative inline-block h-1.5 w-1.5 rounded-full bg-brand-500" />
+                </span>
+                radar
+              </span>
+              <span className="text-slate-300 dark:text-slate-700">·</span>
+              <span className="hidden sm:inline">Domain recon — analyze any URL instantly.</span>
+            </>
+          ) : mode === 'dfir' ? (
             <>
               <span className="inline-flex items-center gap-1.5">
                 <span className="relative inline-flex h-1.5 w-1.5">

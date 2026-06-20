@@ -371,6 +371,18 @@ const dfir: SidebarConfig = {
 const SIDEBARS: Record<string, SidebarConfig> = {
   '/threatintel': buildThreatIntelSidebar(),
   '/dfir': dfir,
+  '/radar': {
+    sectionLabel: 'Radar',
+    groups: [
+      {
+        title: 'Tools',
+        items: [
+          { label: 'Scan', href: '/radar', icon: Radar },
+          { label: 'Recent Runs', href: '/radar', icon: List },
+        ],
+      },
+    ],
+  },
 };
 
 export function getSidebarForSection(pathname: string): SidebarConfig | null {

@@ -3,6 +3,7 @@ import { LiveFeedDO } from './durable-objects/live-feed';
 import { CronLockDO } from './durable-objects/cron-lock';
 import { ReportBuilderDO } from './durable-objects/report-builder';
 import { InvestigatorAgentDO } from './durable-objects/investigator-agent';
+import { RadarCrawlerDO } from './durable-objects/radar-crawler';
 import { DfirMcpServer } from './mcp-server';
 import { generateNonce, withSecurityHeaders } from './csp';
 import { fetchPrerenderedOrShell } from './router';
@@ -13,7 +14,7 @@ import { logStartupValidation } from './bindings';
 import { validateRawKey } from '../api/src/lib/auth';
 import type { Env } from './env';
 
-export { LiveFeedDO, DfirMcpServer, CronLockDO, ReportBuilderDO, InvestigatorAgentDO };
+export { LiveFeedDO, DfirMcpServer, CronLockDO, ReportBuilderDO, InvestigatorAgentDO, RadarCrawlerDO };
 export type { Env };
 
 /** Origins permitted to open the live-feed WebSocket (same set the API trusts). */
@@ -155,6 +156,35 @@ export default {
       return withSecurityHeaders(
         new Response(ogRes.body, { status: ogRes.status, statusText: ogRes.statusText, headers: h })
       );
+    }
+
+    // Radar deep-crawl DO routes
+    if (url.pathname.startsWith('/api/v1/radar/crawl/')) {
+      if (!env.RADAR_CRAWLER) {
+        return withSecurityHeaders(
+          new Response(JSON.stringify({ error: 'radar crawler not configured' }), {
+            status: 503,
+            headers: { 'content-type': 'application/json' },
+          })
+        );
+      }
+      const crawlId = url.pathname.split('/api/v1/radar/crawl/')[1]?.split('/')[0];
+      if (!crawlId) {
+        return withSecurityHeaders(
+          new Response(JSON.stringify({ error: 'missing crawl id' }), {
+            status: 400,
+            headers: { 'content-type': 'application/json' },
+          })
+        );
+      }
+      const subPath = url.pathname.replace(`/api/v1/radar/crawl/${crawlId}`, '') || '/';
+      const doUrl = new URL(subPath + url.search, request.url);
+      const doRequest = new Request(doUrl, request);
+      const doId = env.RADAR_CRAWLER.idFromName(crawlId);
+      const doRes = await env.RADAR_CRAWLER.get(doId).fetch(doRequest);
+      const h = new Headers(doRes.headers);
+      h.set('x-request-id', requestId);
+      return withSecurityHeaders(new Response(doRes.body, { status: doRes.status, headers: h }));
     }
 
     // Forward to the api app for the explicit /api/* prefix AND for the

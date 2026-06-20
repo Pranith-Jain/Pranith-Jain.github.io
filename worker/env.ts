@@ -22,6 +22,8 @@ export interface Env {
   REPORT_BUILDER: DurableObjectNamespace;
   /** Autonomous investigator agent DO. */
   INVESTIGATOR_AGENT: DurableObjectNamespace;
+  /** Radar deep-crawl DO. */
+  RADAR_CRAWLER?: DurableObjectNamespace;
   /** Producer binding for the live-IOC per-source feed fan-out (PR2). */
   FEEDS_QUEUE?: Queue<FeedQueueMessage>;
   NVD_API_KEY?: string;

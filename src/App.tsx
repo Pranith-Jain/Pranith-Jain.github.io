@@ -333,6 +333,9 @@ const Tracerules = lazy(() => import('./pages/dfir/Tracerules'));
 const Regscope = lazy(() => import('./pages/dfir/Regscope'));
 const DfirCatalog = lazy(() => import('./pages/dfir/Catalog'));
 
+const RadarHome = lazy(() => import('./pages/radar/Home'));
+const RadarScanResults = lazy(() => import('./pages/radar/ScanResults'));
+
 /**
  * /dfir/file?h=<hash> is the legacy entry point for the standalone hash
  * analyser. The page was merged into the IOC checker; this redirect rewrites
@@ -665,6 +668,8 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/dfir/report-analyzer', Component: ReportAnalyzer },
   { path: '/admin', Component: AdminApp },
   { path: '/admin/analytics', Component: AdminAnalyticsDashboard },
+  { path: '/radar', Component: RadarHome },
+  { path: '/radar/scan/:id', Component: RadarScanResults },
 ];
 
 /** Legacy / renamed paths preserved as redirects so in-flight links don't 404. */
@@ -911,11 +916,13 @@ export function AppContent() {
   // Header / Footer / background-gradient layer entirely. This is the
   // single most-important "feel" toggle on the site — sub-pages of those
   // two routes should not look like sub-pages of someone's portfolio.
-  const appMode: 'dfir' | 'threatintel' | null = location.pathname.startsWith('/dfir')
+  const appMode: 'dfir' | 'threatintel' | 'radar' | null = location.pathname.startsWith('/dfir')
     ? 'dfir'
     : location.pathname.startsWith('/threatintel')
       ? 'threatintel'
-      : null;
+      : location.pathname.startsWith('/radar')
+        ? 'radar'
+        : null;
   const isAppRoute = appMode !== null;
 
   useEffect(() => {

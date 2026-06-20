@@ -1,0 +1,105 @@
+import { useState, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Search, Radar, Globe, Shield, Code, Lock, ArrowRight, Loader2 } from 'lucide-react';
+
+export default function RadarHome() {
+  const [url, setUrl] = useState('');
+  const [scanning, setScanning] = useState(false);
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
+
+  const handleScan = useCallback(async () => {
+    const target = url.trim();
+    if (!target) return;
+    setError('');
+    setScanning(true);
+
+    try {
+      const res = await fetch('/api/v1/radar/scan', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json', accept: 'application/json' },
+        body: JSON.stringify({ url: target }),
+      });
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.error || `HTTP ${res.status}`);
+      }
+      const data = await res.json();
+      navigate(`/radar/scan/${data.id}`);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Scan failed');
+    } finally {
+      setScanning(false);
+    }
+  }, [url, navigate]);
+
+  return (
+    <div className="flex min-h-[calc(100vh-64px)] flex-col items-center justify-center px-4 py-16">
+      <div className="mx-auto flex w-full max-w-3xl flex-col items-center gap-8">
+        <div className="flex flex-col items-center gap-4 text-center">
+          <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-brand-600/10">
+            <Radar className="h-8 w-8 text-brand-600" />
+          </div>
+          <h1 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl">
+            Domain Recon Scanner
+          </h1>
+          <p className="max-w-xl text-base text-gray-500 dark:text-gray-400">
+            Enter any domain or URL to instantly analyze HTTP headers, technologies, JavaScript files, endpoints,
+            security headers, and more.
+          </p>
+        </div>
+
+        <div className="flex w-full flex-col gap-3">
+          <div className="relative">
+            <Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400" />
+            <input
+              type="text"
+              value={url}
+              onChange={(e) => setUrl(e.target.value)}
+              onKeyDown={(e) => e.key === 'Enter' && handleScan()}
+              placeholder="Enter domain or URL (e.g., example.com)"
+              className="h-14 w-full rounded-xl border border-gray-200 bg-white pl-12 pr-4 text-base text-gray-900 shadow-sm transition-colors placeholder:text-gray-400 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20 dark:border-gray-700 dark:bg-gray-800 dark:text-white dark:placeholder:text-gray-500 dark:focus:border-brand-400"
+              disabled={scanning}
+            />
+          </div>
+          <button
+            onClick={handleScan}
+            disabled={!url.trim() || scanning}
+            className="flex h-12 items-center justify-center gap-2 rounded-xl bg-brand-600 px-6 text-sm font-semibold text-white shadow-sm transition-all hover:bg-brand-700 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {scanning ? (
+              <>
+                <Loader2 className="h-4 w-4 animate-spin" />
+                Scanning...
+              </>
+            ) : (
+              <>
+                Start Scan
+                <ArrowRight className="h-4 w-4" />
+              </>
+            )}
+          </button>
+          {error && <p className="text-center text-sm text-red-500">{error}</p>}
+        </div>
+
+        <div className="mt-8 grid w-full grid-cols-2 gap-4 sm:grid-cols-4">
+          {[
+            { icon: Globe, label: 'HTTP Analysis', desc: 'Headers, status, redirects' },
+            { icon: Shield, label: 'Security Headers', desc: 'HSTS, CSP, X-Frame' },
+            { icon: Code, label: 'JS & Tech Stack', desc: 'Frameworks, libraries' },
+            { icon: Lock, label: 'TLS Certificate', desc: 'Issuer, expiry, SANs' },
+          ].map(({ icon: Icon, label, desc }) => (
+            <div
+              key={label}
+              className="flex flex-col items-center gap-2 rounded-lg border border-gray-100 bg-gray-50/50 p-4 text-center dark:border-gray-800 dark:bg-gray-900/50"
+            >
+              <Icon className="h-5 w-5 text-brand-500" />
+              <span className="text-sm font-medium text-gray-900 dark:text-white">{label}</span>
+              <span className="text-xs text-gray-500 dark:text-gray-400">{desc}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}

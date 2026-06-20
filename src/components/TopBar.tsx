@@ -14,7 +14,7 @@ interface TopBarProps {
    * Drives the small mark beside the section name. Kept as a string prop so
    * the TopBar doesn't need to know the section's URL structure.
    */
-  mark?: 'dfir' | 'threatintel';
+  mark?: 'dfir' | 'threatintel' | 'radar';
   /**
    * Mobile-only: when set, renders a hamburger button on the left edge
    * (visible <md) that toggles the sidebar drawer. The AppShell wires
@@ -37,18 +37,21 @@ interface TopBarProps {
 const SEARCH_PLACEHOLDERS: Record<string, string> = {
   dfir: 'Search 60+ DFIR tools, decoders, rule converters…',
   threatintel: 'Search actors, CVEs, campaigns, briefings, IOCs…',
+  radar: 'Scan a domain or URL for reconnaissance…',
 };
 
 // Geist mark chip: surface-200 wash + accent-tinted icon. No ring —
 // Geist leans on borders and tonal surfaces, not decorative rings.
-const MARK_ACCENT: Record<'dfir' | 'threatintel', string> = {
+const MARK_ACCENT: Record<'dfir' | 'threatintel' | 'radar', string> = {
   dfir: 'bg-brand-500/10 text-brand-600 dark:text-brand-300',
   threatintel: 'bg-rose-500/10 text-rose-600 dark:text-rose-300',
+  radar: 'bg-brand-500/10 text-brand-600 dark:text-brand-300',
 };
 
-const TAGLINE: Record<'dfir' | 'threatintel', string> = {
+const TAGLINE: Record<'dfir' | 'threatintel' | 'radar', string> = {
   dfir: 'toolkit',
   threatintel: 'platform',
+  radar: 'scanner',
 };
 
 export function TopBar({
@@ -152,6 +155,17 @@ export function TopBar({
             }
           >
             Threat Intel
+          </Link>
+          <span className="text-slate-300 dark:text-slate-600">/</span>
+          <Link
+            to="/radar"
+            className={
+              mark === 'radar'
+                ? `${accentClass} font-medium`
+                : 'hover:text-slate-600 dark:hover:text-slate-300 transition-colors'
+            }
+          >
+            Radar
           </Link>
         </nav>
 

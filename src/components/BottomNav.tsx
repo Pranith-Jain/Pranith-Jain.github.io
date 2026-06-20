@@ -3,7 +3,7 @@ import { Home, Search, LayoutGrid, Clock } from 'lucide-react';
 import { useRecentTools } from '../hooks/useRecentTools';
 
 interface BottomNavProps {
-  mode: 'dfir' | 'threatintel';
+  mode: 'dfir' | 'threatintel' | 'radar';
   onOpenSearch: () => void;
 }
 
@@ -16,6 +16,7 @@ const NAV_ITEMS = {
     { href: '/threatintel', label: 'Home', icon: Home },
     { href: '/threatintel/catalog', label: 'Catalog', icon: LayoutGrid },
   ],
+  radar: [{ href: '/radar', label: 'Scan', icon: Home }],
 };
 
 /**
