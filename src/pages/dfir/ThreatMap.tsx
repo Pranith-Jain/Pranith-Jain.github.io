@@ -712,9 +712,9 @@ const KIND_LABEL: Record<'ip' | IocTypeBucket['type'], string> = {
 
 const KIND_HREF: Record<'ip' | IocTypeBucket['type'], string> = {
   ip: '/threatintel/threat-map',
-  url: '/threatintel/urls',
-  domain: '/threatintel/domains',
-  hash: '/threatintel/hashs',
+  url: '/threatintel/threat-map',
+  domain: '/threatintel/threat-map',
+  hash: '/threatintel/threat-map',
 };
 
 /**

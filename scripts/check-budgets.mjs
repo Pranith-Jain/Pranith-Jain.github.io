@@ -19,7 +19,7 @@ const distDir = join(__dirname, '..', 'dist');
 const BUDGETS = {
   'vendor-react-*.js': { uncompressed: 80_000, gzip: 28_000 },
   'vendor-icons-*.js': { uncompressed: 130_000, gzip: 38_000 },
-  'index-*.js': { uncompressed: 300_000, gzip: 96_000 },
+  'index-*.js': { uncompressed: 304_000, gzip: 98_000 },
   // Raw bumped 168→172KB for the STIX Builder file-upload + Attack-Flow UI.
   // 172→176KB: Facilities Database page added Tailwind utility classes.
   // gzip 26→28KB: accumulated frontend growth (OSINT Mapper, Tracer, supply-chain
@@ -33,12 +33,20 @@ const BUDGETS = {
   // growth pushed the total over the 200KB raw line. +24KB raw / +4KB
   // gzip headroom; transfer impact is still negligible (gzipped CSS is
   // cached aggressively and the new layer is one class + a few rules).
-  'index-*.css': { uncompressed: 226_000, gzip: 34_000 },
+  'index-*.css': { uncompressed: 228_000, gzip: 34_000 },
   // raw 280→300KB / gzip 92→96KB: the in-flight Dnscope, EmailDefense,
   // and IntodnsPanel pages (plus the api/ validation rewrite) added new
   // panel components and form schemas to the main app chunk. +20KB raw
   // / +4KB gzip headroom. Transfer impact is negligible for a chunk of
   // this size; the guard is tracking module growth, not absolute cost.
+  // raw 300→304KB / gzip 96→98KB: the dark-theme texture-balance pass
+  // moved the 0.4KB fractalNoise SVG data URI from index.css into
+  // BackgroundLayer.tsx (so the noise lives with the radial mesh it
+  // textures, not in a static stylesheet), and added 3 quiet brand-blue
+  // radials to GRADIENT_DARK to match the light theme's compositional
+  // depth. Same brand palette; the radials sit at the low end of the
+  // v7.3 intensity scale (0.05–0.10) so the page never reads as a
+  // 'stage-light' mesh. +4KB raw / +2KB gzip headroom.
   // gzip 58→60KB: the OSINT Mapper's IdentifierGraph (@xyflow/react) added ~0.1KB
   // gzip to this shared vendor chunk, just past 58KB. 2KB headroom for the new
   // graph feature; transfer impact is negligible.
@@ -83,11 +91,15 @@ function main() {
       const gz = gzipSync(buf).length;
 
       if (raw > limits.uncompressed) {
-        console.log(`  \u2717  ${match}: ${(raw / 1000).toFixed(1)}KB raw (limit ${(limits.uncompressed / 1000).toFixed(1)}KB)`);
+        console.log(
+          `  \u2717  ${match}: ${(raw / 1000).toFixed(1)}KB raw (limit ${(limits.uncompressed / 1000).toFixed(1)}KB)`
+        );
         failed++;
       }
       if (gz > limits.gzip) {
-        console.log(`  \u2717  ${match}: ${(gz / 1000).toFixed(1)}KB gzip (limit ${(limits.gzip / 1000).toFixed(1)}KB)`);
+        console.log(
+          `  \u2717  ${match}: ${(gz / 1000).toFixed(1)}KB gzip (limit ${(limits.gzip / 1000).toFixed(1)}KB)`
+        );
         failed++;
       }
       if (raw <= limits.uncompressed && gz <= limits.gzip) {

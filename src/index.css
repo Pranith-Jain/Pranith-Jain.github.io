@@ -465,10 +465,15 @@
     @apply backdrop-blur-md;
     border-color: rgb(var(--border-500));
     background-color: rgb(var(--surface-300) / 0.93);
+    /* v8: outer ring + top-edge highlight matching the new surface-card
+       recipe. surface-raised is one step higher (surface-300) and
+       uses border-500 (the slightly heavier border). */
     box-shadow:
+      0 0 0 1px rgb(var(--border-500)),
       0 2px 6px rgba(0, 0, 0, 0.7),
       0 12px 32px -8px rgba(0, 0, 0, 0.5),
-      inset 0 0 0 1px rgba(67, 94, 241, 0.12);
+      inset 0 0 0 1px rgba(67, 94, 241, 0.12),
+      inset 0 1px 0 0 rgba(180, 200, 240, 0.08);
   }
   .surface-glass {
     @apply rounded-xl border shadow-e1 backdrop-blur-md transition duration-200;
@@ -500,7 +505,9 @@
     @apply backdrop-blur-md;
     border-color: rgb(var(--border-500));
     background-color: rgb(var(--surface-200) / 0.93);
+    /* v8: 0 0 0 1px outer ring (matches the new surface-card recipe). */
     box-shadow:
+      0 0 0 1px rgb(var(--border-500)),
       0 2px 4px rgba(0, 0, 0, 0.6),
       0 8px 24px -8px rgba(0, 0, 0, 0.4),
       inset 0 0 0 1px rgba(67, 94, 241, 0.14),

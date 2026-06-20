@@ -87,7 +87,7 @@ export function Hero({ personalInfo }: HeroProps) {
             pushed it forward of the page; Geist hierarchy is "borders
             first, shadows subtle" so the card sits in the page). */}
         <div className="shrink-0 lg:sticky lg:top-24">
-          <div className="rounded-lg border border-black/10 bg-white p-6 dark:border-white/10 dark:bg-[rgb(var(--surface-200))] sm:p-7 flex flex-col items-center sm:items-start text-center sm:text-left">
+          <div className="rounded-lg border border-black/10 bg-white p-6 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] sm:p-7 flex flex-col items-center sm:items-start text-center sm:text-left">
             <PjMark className="h-14 w-14 sm:h-16 sm:w-16 mb-4" />
             <h2 className="font-display text-lg font-semibold tracking-[-0.4px] text-slate-900 dark:text-white">
               {personalInfo.name}
