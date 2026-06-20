@@ -1,13 +1,14 @@
 import { Link } from 'react-router-dom';
-import { Shield, Radio, ArrowUpRight } from 'lucide-react';
+import { Shield, Eye, Radar, Globe, ArrowUpRight } from 'lucide-react';
 
-const toolkits = [
+const apps = [
   {
-    id: 'dfir',
+    id: 'crucible',
     icon: Shield,
-    title: 'DFIR Toolkit',
+    title: 'CRUCIBLE',
+    subtitle: 'DFIR Toolkit',
     description:
-      'Check if an indicator is malicious, investigate phishing, triage CVEs, convert detection rules, and more — 60+ tools that run in your browser.',
+      'Check if an indicator is malicious, investigate phishing, triage CVEs, convert detection rules, and more — 90+ tools that run in your browser.',
     rows: [
       ['IOC checker', 'Paste an IP, domain, or hash → verdict from 24 sources'],
       ['Common tasks', 'Phishing analysis · CVE triage · rule conversion'],
@@ -15,26 +16,63 @@ const toolkits = [
     ],
     builtWith: ['Free', 'No signup', 'Client-side'],
     href: '/dfir',
-    stat: '60+',
+    stat: '90+',
     statLabel: 'tools',
-    cta: 'Open the toolkit',
+    cta: 'Open CRUCIBLE',
   },
   {
-    id: 'threatintel',
-    icon: Radio,
-    title: 'Threat Intel Platform',
+    id: 'panopticon',
+    icon: Eye,
+    title: 'PANOPTICON',
+    subtitle: 'Threat Intel Platform',
     description:
-      'Monitor ransomware activity, track threat actors, and stay ahead of campaigns — live intelligence from 30+ public feeds.',
+      'Monitor ransomware activity, track threat actors, and stay ahead of campaigns — live intelligence from 100+ public feeds.',
     rows: [
       ['Live feeds', 'Ransomware leaks · CVEs · dark web · social media'],
       ['Common tasks', 'Actor research · IOC enrichment · campaign tracking'],
-      ['How it works', 'Aggregates 30+ feeds so you see the full picture, not noise'],
+      ['How it works', 'Aggregates 100+ feeds so you see the full picture, not noise'],
     ],
     builtWith: ['Free', 'No login', 'Edge-hosted'],
     href: '/threatintel',
-    stat: '30+',
+    stat: '100+',
     statLabel: 'feeds',
-    cta: 'Open the platform',
+    cta: 'Open PANOPTICON',
+  },
+  {
+    id: 'scout',
+    icon: Radar,
+    title: 'SCOUT',
+    subtitle: 'Recon Scanner',
+    description:
+      'Deep crawl, JS analysis, API endpoint discovery, secret detection, and security scoring — full reconnaissance in one scan.',
+    rows: [
+      ['Deep crawl', 'Multi-page crawl with JS bundle analysis'],
+      ['Common tasks', 'API discovery · secret detection · domain enumeration'],
+      ['How it works', 'Crawls up to 50 pages and analyzes every JS file for endpoints'],
+    ],
+    builtWith: ['Free', 'No signup', 'Edge-hosted'],
+    href: '/radar',
+    stat: '30+',
+    statLabel: 'checks',
+    cta: 'Open SCOUT',
+  },
+  {
+    id: 'argus',
+    icon: Globe,
+    title: 'ARGUS',
+    subtitle: 'Threat Nexus',
+    description:
+      'Nation-state threat intelligence dashboard with 3D globe visualization, actor dossiers, relationship graphs, and live threat feeds.',
+    rows: [
+      ['6 views', 'Globe · Cluster · Diamond · Landscape · Feed · Hunt'],
+      ['Common tasks', 'Actor profiling · TTP mapping · campaign analysis'],
+      ['How it works', 'Interactive D3 + three.js visualizations backed by curated APT data'],
+    ],
+    builtWith: ['Free', 'Standalone', 'Visual'],
+    href: '/threatnexus',
+    stat: '6',
+    statLabel: 'views',
+    cta: 'Open ARGUS',
   },
 ];
 
@@ -54,12 +92,12 @@ export function Toolkits() {
       </div>
 
       <div className="stagger grid gap-4 grid-cols-1 md:grid-cols-2">
-        {toolkits.map((tk) => {
-          const Icon = tk.icon;
+        {apps.map((app) => {
+          const Icon = app.icon;
           return (
             <Link
-              key={tk.id}
-              to={tk.href}
+              key={app.id}
+              to={app.href}
               className="group card-hover flex flex-col rounded-lg border border-black/10 bg-white p-6 transition-all h-full hover:border-black/25 hover:bg-black/[0.02] dark:border-white/10 dark:bg-slate-900/90 dark:hover:border-white/20 dark:hover:bg-white/[0.03]"
             >
               <div className="flex items-start justify-between mb-4">
@@ -67,20 +105,18 @@ export function Toolkits() {
                   <Icon className="h-5 w-5" aria-hidden="true" />
                 </div>
                 <div className="flex items-baseline gap-1 tabular-nums">
-                  <span className="font-display text-2xl font-bold text-slate-900 dark:text-white">{tk.stat}</span>
-                  <span className="text-mini font-mono text-slate-400">{tk.statLabel}</span>
+                  <span className="font-display text-2xl font-bold text-slate-900 dark:text-white">{app.stat}</span>
+                  <span className="text-mini font-mono text-slate-400">{app.statLabel}</span>
                 </div>
               </div>
               <h3 className="font-display text-xl font-semibold tracking-[-0.96px] text-slate-900 dark:text-white group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
-                {tk.title}
+                {app.title}
               </h3>
-              <p className="mt-2 text-sm text-muted leading-relaxed flex-1">{tk.description}</p>
+              <p className="mt-0.5 text-xs font-medium text-slate-400 dark:text-slate-500">{app.subtitle}</p>
+              <p className="mt-2 text-sm text-muted leading-relaxed flex-1">{app.description}</p>
 
-              {/* Hunt.io style: a small data-table of capabilities rather
-                  than bullet copy. One column label, one value, hairline
-                  rows, mono values. */}
               <dl className="mt-4 -mx-1 divide-y divide-slate-200/70 dark:divide-slate-800 border-y border-slate-200/70 dark:border-slate-800">
-                {tk.rows.map(([k, v]) => (
+                {app.rows.map(([k, v]) => (
                   <div key={k} className="grid grid-cols-[7.5rem_1fr] items-baseline gap-3 px-1 py-2 text-sm">
                     <dt className="text-eyebrow font-mono uppercase text-slate-500 dark:text-slate-400">{k}</dt>
                     <dd className="text-slate-700 dark:text-slate-300 font-mono text-meta leading-snug">{v}</dd>
@@ -89,7 +125,7 @@ export function Toolkits() {
               </dl>
 
               <div className="mt-4 flex flex-wrap gap-1.5">
-                {tk.builtWith.map((tech) => (
+                {app.builtWith.map((tech) => (
                   <span
                     key={tech}
                     className="rounded border border-black/10 bg-black/[0.02] px-2 py-0.5 text-mini font-mono text-slate-500 dark:border-white/10 dark:bg-white/[0.03] dark:text-slate-400"
@@ -98,8 +134,8 @@ export function Toolkits() {
                   </span>
                 ))}
               </div>
-              <div className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-600 dark:text-brand-400">
-                <span>{tk.cta}</span>
+              <div className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-600 dark:group-hover:text-brand-400">
+                <span>{app.cta}</span>
                 <ArrowUpRight
                   className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
                   aria-hidden="true"
