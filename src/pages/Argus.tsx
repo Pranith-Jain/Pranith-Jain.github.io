@@ -16,7 +16,7 @@ export default function ArgusPage() {
           relationship graphs, and live threat feeds.
         </p>
         <a
-          href="/threatnexus/"
+          href="/threatnexus"
           className="mt-8 inline-flex items-center gap-2 rounded-lg bg-rose-600 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-rose-700"
         >
           Open ARGUS

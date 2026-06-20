@@ -52,9 +52,11 @@ const ROUTES = [
   '/sponsor',
   '/blog',
 
-  // ── Landings (3) ───────────────────────────────────────────────
+  // ── Landings (4) ───────────────────────────────────────────────
   '/dfir',
   '/dfir/catalog',
+  '/dfir/vs',
+  '/threatnexus',
   '/threatintel',
   '/threatintel/catalog',
   '/threatintel/actors/attribution',

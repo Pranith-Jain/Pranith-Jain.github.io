@@ -162,7 +162,7 @@ export const Header = memo(function Header({ isDark, onToggleTheme, navLinks, to
             className="group inline-flex items-center gap-3 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
             aria-label="Pranith Jain Portfolio - Back to home"
           >
-            <PjMark className="h-9 w-9 shadow-glow" />
+            <PjMark className="h-9 w-9" />
             <span className="hidden text-sm font-semibold tracking-tight sm:inline text-slate-900 dark:text-white">
               Pranith Jain
             </span>

@@ -62,7 +62,13 @@ export const OG_OVERRIDES: Record<string, OgOverride> = {
   '/dfir': {
     title: 'DFIR & Security Toolkit · Pranith Jain',
     description:
-      '60+ free, browser-side DFIR and security tools across 11 categories: IOC checker, CVE prioritizer, crypto fund-flow tracer, decoders, and a YARA/Sigma rule converter. No signup.',
+      '60+ free browser-side DFIR tools across 11 categories: IOC checker, CVE prioritizer, crypto tracer, decoders, YARA/Sigma converter. No signup.',
+    image: '/og-dfir.png?v=2',
+  },
+  '/radar': {
+    title: 'Domain Recon Scanner · Pranith Jain',
+    description:
+      'Free, browser-driven recon: HTTP headers, redirect chains, server fingerprint, JavaScript inventory, exposed endpoints, and a 0-100 security score.',
     image: '/og-dfir.png?v=2',
   },
   '/copilot': {
@@ -73,43 +79,43 @@ export const OG_OVERRIDES: Record<string, OgOverride> = {
   '/threatintel': {
     title: 'Threat Intel Platform · pranithjain.qzz.io',
     description:
-      'A working CTI surface on the edge. Live ransomware leak claims, CVE merged with CISA KEV, cross-source IOC correlation across 18 feeds, an actor-activity Gantt joined with MITRE Group profiles, victim re-leak detection, ten-panel metrics, STIX 2.1 export, and a writeups aggregator across 18 analyst blogs.',
+      'A working CTI surface on the edge. Live ransomware leaks, CVE × CISA KEV, cross-source IOC correlation, actor × MITRE, STIX 2.1 export.',
     image: '/og-threatintel.png?v=2',
   },
   '/threatintel/external-resources': {
     title: 'External Resources Catalog · pranithjain.qzz.io',
     description:
-      'Off-site cross-references for threat-intel work — dashboards (My Threat Intel, World Monitor), OSINT directories, training labs (AI Goat, WebVerse, VulnOS), malware samples, and AI-security research. Filterable by kind, searchable by name/description.',
+      'Off-site cross-references for threat-intel work — CTI dashboards, OSINT directories, training labs, malware samples, AI-security research.',
   },
   '/threatintel/facilities': {
     title: 'Facilities Database · pranithjain.qzz.io',
     description:
-      'Strategic facilities worldwide — conflict zones, military bases, nuclear sites, disputed territories, sanctions targets, and critical infrastructure. Filterable by type and region with map view.',
+      'Strategic facilities worldwide — conflict zones, military bases, nuclear sites, disputed territories, sanctions targets, and critical infrastructure. Map view.',
   },
   '/threatintel/correlation': {
     title: 'Cross-source IOC correlation · pranithjain.qzz.io',
     description:
-      'Indicators that appear in 2+ independent IOC feeds, ranked by source consensus. Single-feed flags can be false positives; cross-source overlap is the signal analysts trust. 18 feeds aggregated.',
+      'Indicators that appear in 2+ independent IOC feeds, ranked by source consensus. 18 feeds aggregated — overlap is the signal analysts trust.',
   },
   '/threatintel/live-iocs': {
     title: 'Live IOC stream · pranithjain.qzz.io',
     description:
-      'Chronological firehose of individual indicators. Each entry carries a reporter handle, source feed, and first-observed timestamp. 10 sources including TweetFeed, SANS ISC, C2IntelFeeds, URLhaus, ThreatFox.',
+      'Chronological firehose of individual indicators. Each entry carries a reporter handle, source feed, and first-observed timestamp across 10 sources.',
   },
   '/threatintel/detections': {
     title: 'Detections · pranithjain.qzz.io',
     description:
-      'A curated detection-rule pack evaluated hourly against the unified live-IOC stream. Cross-feed consensus, Cobalt Strike / C2, ransomware and infostealer tagging, and phishing-campaign clustering — each firing rule shown with the indicators that triggered it.',
+      'A detection-rule pack evaluated hourly against the live IOC stream. Cross-feed consensus, C2 + ransomware tagging, and phishing-campaign clustering.',
   },
   '/dfir/detection-lab': {
     title: 'Detection Lab · pranithjain.qzz.io',
     description:
-      'Write a detection rule in a small JSON DSL and evaluate it in your browser against the live multi-feed IOC stream. Cross-feed consensus, value/context/source predicates, save and export — the same engine that powers /threatintel/detections.',
+      'Write a detection rule in a small JSON DSL and evaluate it in your browser against the live multi-feed IOC stream. Save, export, and re-use.',
   },
   '/dfir/rule-converter': {
     title: 'Rule Converter · pranithjain.qzz.io',
     description:
-      'Universal heuristic detection-rule translation — any format to any other. Sigma, Microsoft KQL, Splunk SPL, Elastic Lucene & EQL, YARA, DLP regex, and a supply-chain Semgrep scaffold, each both source and target via one intermediate representation. Every lossy step flagged. 100% client-side.',
+      'Universal detection-rule translation — Sigma, KQL, Splunk SPL, Elastic Lucene & EQL, YARA, DLP regex, and Semgrep. 100% client-side.',
   },
 };
 

@@ -16,7 +16,6 @@ import {
   parsePlainTextIps,
   parseAlienVaultReputation,
   parseSslblC2,
-  parseBotvrijDomains,
   parsePhishingArmy,
   parseViriback,
   parseThreatviewDomains,
@@ -314,12 +313,7 @@ const FEED_SOURCE_DEBUG_URLS: Record<string, { url: string; fallbackUrls?: strin
   'bbcan177-ips': { url: 'https://gist.githubusercontent.com/BBcan177/bf29d47ea04391cb3eb0/raw/' },
   'domains-blacklist': { url: 'https://www.joewein.net/dl/bl/dom-bl.txt' },
   'botvrij-urls': { url: 'https://www.botvrij.eu/data/ioclist.url.raw' },
-  'botvrij-ips': { url: 'https://www.botvrij.eu/data/ioclist.ip-dst.raw' },
-  darklist: { url: 'https://www.darklist.de/raw.php' },
   'bruteforce-blocker': { url: 'https://danger.rulez.sk/projects/bruteforceblocker/blist.php' },
-  'phishing-database': {
-    url: 'https://raw.githubusercontent.com/Phishing-Database/Phishing.Database/refs/heads/master/phishing-links-ACTIVE-NOW.txt',
-  },
   'threatview-ip': { url: 'https://threatview.io/Downloads/IP-High-Confidence-Feed.txt' },
   'threatview-domains': { url: 'https://threatview.io/Downloads/DOMAIN-High-Confidence-Feed.txt' },
   'viriback-c2': { url: 'https://tracker.viriback.com/dump.php' },
@@ -715,14 +709,6 @@ const FEED_SOURCES: FeedSource[] = [
     withTimestamp: true,
   }),
   textFeedSource({
-    id: 'botvrij',
-    url: 'https://www.botvrij.eu/data/ioclist.domain',
-    parse: parseBotvrijDomains,
-    kind: 'domain',
-    reporter: 'Botvrij.eu',
-    context: entryContext,
-  }),
-  textFeedSource({
     id: 'threatfox',
     url: 'https://threatfox.abuse.ch/export/csv/recent/',
     parse: parseThreatfox,
@@ -812,36 +798,12 @@ const FEED_SOURCES: FeedSource[] = [
     okRequiresItems: true,
   }),
   textFeedSource({
-    id: 'botvrij-ips',
-    url: 'https://www.botvrij.eu/data/ioclist.ip-dst.raw',
-    parse: parsePlainTextIps,
-    kind: 'ip',
-    reporter: 'Botvrij.eu',
-    context: 'curated malicious IP',
-  }),
-  textFeedSource({
-    id: 'darklist',
-    url: 'https://www.darklist.de/raw.php',
-    parse: parsePlainTextIps,
-    kind: 'ip',
-    reporter: 'Darklist.de',
-    context: 'reported malicious IP',
-  }),
-  textFeedSource({
     id: 'bruteforce-blocker',
     url: 'https://danger.rulez.sk/projects/bruteforceblocker/blist.php',
     parse: parsePlainTextIps,
     kind: 'ip',
     reporter: 'BruteForce Blocker',
     context: 'brute-force attack source',
-  }),
-  textFeedSource({
-    id: 'phishing-database',
-    url: 'https://raw.githubusercontent.com/Phishing-Database/Phishing.Database/refs/heads/master/phishing-links-ACTIVE-NOW.txt',
-    parse: parseBotvrijUrls,
-    kind: 'url',
-    reporter: 'Phishing.Database',
-    context: 'verified phishing URL',
   }),
   textFeedSource({
     id: 'threatview-ip',
@@ -1099,14 +1061,17 @@ export async function fetchLiveIocs(
   // Subrequest-budget guard (2026-06 audit): the synchronous fan-out is the
   // FALLBACK for cold-colo / missing-slice, and the cache-warm cron runs it
   // ~22x per cron tick. Each feed `run()` does >= 1 subrequest (most do 1-3
-  // + KV reads), so a 36-source fan-out can hit the 50-subrequest cap with
-  // room to spare. We install a shared budget and short-circuit a source to
-  // `ok:false` (with `error: 'budget_exhausted'`) when the cap is reached,
-  // so we degrade gracefully instead of throwing and dropping ALL 36
-  // sources on the floor (the previous behavior under subrequest exhaustion).
+  // + KV reads), so a 35-source fan-out can hit the 50-subrequest cap.
+  // We install a shared budget and short-circuit a source to `ok:false`
+  // (with `error: 'budget_exhausted'`) when the cap is reached, so we
+  // degrade gracefully instead of throwing and dropping ALL sources on the
+  // floor (the previous behavior under subrequest exhaustion). The budget
+  // must cover every registered source — previously hardcoded to 30, which
+  // silently cut the last 5 sources after more feeds were added. It's now
+  // derived from FEED_SOURCES.length so it stays correct as feeds change.
   // The cap leaves headroom for the analytics + KV/queue reads that follow
   // the fan-out in composeOrFallback.
-  const SUBREQUEST_BUDGET = 30;
+  const SUBREQUEST_BUDGET = FEED_SOURCES.length;
   const budget = { used: 0, max: SUBREQUEST_BUDGET };
   const deps: FeedDeps = { executionCtx, kv, env, budget };
   const feedResults = await concurrentMap(

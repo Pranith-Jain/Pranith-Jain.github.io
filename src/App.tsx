@@ -332,6 +332,7 @@ const AttmapAi = lazy(() => import('./pages/dfir/AttmapAi'));
 const Tracerules = lazy(() => import('./pages/dfir/Tracerules'));
 const Regscope = lazy(() => import('./pages/dfir/Regscope'));
 const DfirCatalog = lazy(() => import('./pages/dfir/Catalog'));
+const DfirVs = lazy(() => import('./pages/dfir/Vs'));
 
 const RadarHome = lazy(() => import('./pages/radar/Home'));
 const RadarScanResults = lazy(() => import('./pages/radar/ScanResults'));
@@ -515,6 +516,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/dfir/regscope', Component: Regscope },
 
   { path: '/dfir/catalog', Component: DfirCatalog },
+  { path: '/dfir/vs', Component: DfirVs },
   { path: '/dfir/reverse-image', Component: ReverseImage },
   { path: '/dfir/eml', Component: EmlExtractor },
   { path: '/dfir/email-deliverability', Component: EmailDeliverability },
@@ -682,6 +684,7 @@ const REDIRECTS: ReadonlyArray<{ path: string; to: string }> = [
   { path: '/dfir/industry-news', to: '/threatintel/catalog?cat=social' },
   { path: '/difr', to: '/dfir' },
   { path: '/osint-tools', to: '/threatintel/osint/cli' },
+  { path: '/threatnexus/', to: '/threatnexus' },
 
   // ── Duplicate routes (same component) — collapsed 2026-06 ─────
   // Aliases of tab-hubs (DomainInvestigator, IocInvestigate, etc.) point

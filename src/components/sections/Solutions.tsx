@@ -49,10 +49,10 @@ export function Solutions() {
           Solutions
         </div>
         <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
-          Everything you need for threat intelligence &amp; DFIR
+          Four surfaces for threat intelligence &amp; DFIR
         </h2>
         <p className="mt-3 text-base sm:text-lg text-muted">
-          A complete ecosystem of tools, feeds, and frameworks — built by an analyst, for analysts.
+          Four surfaces, all free, all run on the same Cloudflare Workers deploy.
         </p>
       </div>
 

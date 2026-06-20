@@ -1,8 +1,19 @@
 import { useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Search, Radar, Globe, Shield, Code, Lock, ArrowRight, Loader2 } from 'lucide-react';
+import { RadarStructuredData } from '../../components/ToolStructuredData';
+import { FaqStructuredData } from '../../components/FaqStructuredData';
+import { useDocumentMeta } from '../../hooks/useDocumentMeta';
+import { RADAR_FAQ } from '../../data/radar-faq';
 
 export default function RadarHome() {
+  useDocumentMeta({
+    title: 'Domain Recon Scanner',
+    description:
+      'Free, browser-driven recon for any domain or URL: HTTP headers, redirect chains, server fingerprint, JavaScript inventory, exposed endpoints, security headers, and a 0-100 security score.',
+    canonicalPath: '/radar',
+  });
+
   const [url, setUrl] = useState('');
   const [scanning, setScanning] = useState(false);
   const [error, setError] = useState('');
@@ -35,6 +46,8 @@ export default function RadarHome() {
 
   return (
     <div className="flex min-h-[calc(100vh-64px)] flex-col items-center justify-center px-4 py-16">
+      <RadarStructuredData />
+      <FaqStructuredData entries={RADAR_FAQ} />
       <div className="mx-auto flex w-full max-w-3xl flex-col items-center gap-8">
         <div className="flex flex-col items-center gap-4 text-center">
           <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-brand-600/10">
@@ -79,19 +92,23 @@ export default function RadarHome() {
               </>
             )}
           </button>
-          {error && <p className="text-center text-sm text-red-500">{error}</p>}
+          {error && (
+            <p className="text-sm text-red-600 dark:text-red-400" role="alert">
+              {error}
+            </p>
+          )}
         </div>
 
-        <div className="mt-8 grid w-full grid-cols-2 gap-4 sm:grid-cols-4">
+        <div className="grid w-full grid-cols-1 gap-3 sm:grid-cols-2">
           {[
-            { icon: Globe, label: 'HTTP Analysis', desc: 'Headers, status, redirects' },
-            { icon: Shield, label: 'Security Headers', desc: 'HSTS, CSP, X-Frame' },
-            { icon: Code, label: 'JS & Tech Stack', desc: 'Frameworks, libraries' },
-            { icon: Lock, label: 'TLS Certificate', desc: 'Issuer, expiry, SANs' },
-          ].map(({ icon: Icon, label, desc }) => (
+            { Icon: Globe, label: 'DNS & WHOIS', desc: 'Resolved records and registrar data' },
+            { Icon: Shield, label: 'Security Headers', desc: 'HSTS, CSP, X-Frame-Options' },
+            { Icon: Code, label: 'JavaScript Files', desc: 'Enumerate scripts and endpoints' },
+            { Icon: Lock, label: 'TLS & Certificate', desc: 'Issuer, expiry, and cipher suite' },
+          ].map(({ Icon, label, desc }) => (
             <div
               key={label}
-              className="flex flex-col items-center gap-2 rounded-lg border border-gray-100 bg-gray-50/50 p-4 text-center dark:border-gray-800 dark:bg-gray-900/50"
+              className="flex items-start gap-3 rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800"
             >
               <Icon className="h-5 w-5 text-brand-500" />
               <span className="text-sm font-medium text-gray-900 dark:text-white">{label}</span>

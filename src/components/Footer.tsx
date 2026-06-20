@@ -51,7 +51,7 @@ export const Footer = memo(function Footer({ personalInfo }: FooterProps) {
               className="group inline-flex items-center gap-3 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 rounded-lg"
               aria-label={`${personalInfo.name} - Back to home`}
             >
-              <span className="h-9 w-9 rounded-xl shadow-glow flex items-center justify-center overflow-hidden transition group-hover:scale-110">
+              <span className="h-9 w-9 rounded-xl flex items-center justify-center overflow-hidden transition">
                 <PjMark className="h-full w-full" />
               </span>
               <span className="text-sm font-semibold tracking-tight text-slate-900 dark:text-white">

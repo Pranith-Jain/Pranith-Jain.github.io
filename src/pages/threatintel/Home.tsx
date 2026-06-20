@@ -23,6 +23,8 @@ import { LivePulse } from '../../components/threatintel/LivePulse';
 import { useDocumentMeta } from '../../hooks/useDocumentMeta';
 import { CATALOG, catalogSearch } from '../../data/threatintel-catalog';
 import { ThreatIntelStructuredData } from '../../components/ToolStructuredData';
+import { FaqStructuredData } from '../../components/FaqStructuredData';
+import { THREATINTEL_FAQ } from '../../data/threatintel-faq';
 
 /**
  * Threat-Intel home page — redesigned following SaaS UX patterns from
@@ -184,6 +186,7 @@ export default function ThreatIntelHome(): JSX.Element {
   return (
     <div className="w-full py-6 sm:py-10 text-slate-900 dark:text-slate-100 space-y-8 sm:space-y-12">
       <ThreatIntelStructuredData />
+      <FaqStructuredData entries={THREATINTEL_FAQ} />
       <WhatsNewBanner />
       <LatestBriefingCard />
       <LivePulse />

@@ -1,6 +1,7 @@
 /**
- * Structured data (JSON-LD) for the DFIR toolkit and Threat Intel platform.
- * Helps search engines understand the page structure and content.
+ * Structured data (JSON-LD) for the DFIR toolkit, Threat Intel platform,
+ * and Domain Recon Scanner. Helps search engines understand the page
+ * structure and content.
  */
 
 export function DfirStructuredData(): JSX.Element {
@@ -38,7 +39,7 @@ export function DfirStructuredData(): JSX.Element {
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema).replace(/</g, '\\u003c') }}
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema).replace(/</g, '\u003c') }}
     />
   );
 }
@@ -77,7 +78,44 @@ export function ThreatIntelStructuredData(): JSX.Element {
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema).replace(/</g, '\\u003c') }}
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema).replace(/</g, '\u003c') }}
+    />
+  );
+}
+
+export function RadarStructuredData(): JSX.Element {
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    name: 'Domain Recon Scanner',
+    description:
+      'Free, browser-driven recon: HTTP headers, redirect chains, DNS, JavaScript inventory, exposed endpoints, security headers, and a 0-100 security score.',
+    url: 'https://pranithjain.qzz.io/radar',
+    applicationCategory: 'SecurityApplication',
+    operatingSystem: 'Web Browser',
+    offers: {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'USD',
+    },
+    featureList: [
+      'HTTP header and redirect chain capture',
+      'Server fingerprint and content-type detection',
+      'JavaScript file inventory with endpoint extraction',
+      'Security header scoring (HSTS, CSP, X-Frame-Options)',
+      'Per-colo scan result cache for fast revisits',
+      'Shareable scan report URL',
+    ],
+    author: {
+      '@type': 'Person',
+      name: 'Pranith Jain',
+    },
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema).replace(/</g, '\u003c') }}
     />
   );
 }

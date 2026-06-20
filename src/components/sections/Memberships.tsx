@@ -4,32 +4,12 @@ interface MembershipsProps {
   memberships: Membership[];
 }
 
-const colorMap: Record<string, { bg: string; text: string; darkBg: string; darkText: string }> = {
-  brand: {
-    bg: 'bg-brand-50',
-    text: 'text-brand-700',
-    darkBg: 'dark:bg-brand-900/30',
-    darkText: 'dark:text-brand-300',
-  },
-  emerald: {
-    bg: 'bg-emerald-50',
-    text: 'text-emerald-700',
-    darkBg: 'dark:bg-emerald-900/30',
-    darkText: 'dark:text-emerald-300',
-  },
-  cyan: {
-    bg: 'bg-cyan-50',
-    text: 'text-cyan-700',
-    darkBg: 'dark:bg-cyan-900/30',
-    darkText: 'dark:text-cyan-300',
-  },
-  violet: {
-    bg: 'bg-violet-50',
-    text: 'text-violet-700',
-    darkBg: 'dark:bg-violet-900/30',
-    darkText: 'dark:text-violet-300',
-  },
-};
+// Single brand palette across every membership card — the previous
+// 4-color colorMap read as the "bento with 5+ accent colors" AI tell.
+const ABBREV_TILE =
+  'grid h-9 w-9 place-items-center rounded-md bg-brand-50 text-brand-700 dark:bg-brand-900/30 dark:text-brand-300 font-mono text-meta font-semibold';
+const MEMBER_PILL =
+  'rounded-md bg-slate-100 px-2 py-0.5 text-micro font-mono uppercase tracking-[0.15em] text-slate-500 dark:bg-white/5 dark:text-slate-400';
 
 export function Memberships({ memberships }: MembershipsProps) {
   return (
@@ -41,30 +21,19 @@ export function Memberships({ memberships }: MembershipsProps) {
         <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
           Memberships
         </h2>
-        <p className="mt-3 text-base sm:text-lg text-muted">
-          Active contributor to premier cybersecurity and intelligence communities.
-        </p>
+        <p className="mt-3 text-base sm:text-lg text-muted">Member of the communities I learn the most from.</p>
       </div>
 
       <div className="grid gap-4 sm:gap-5 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
         {memberships.map((membership) => {
-          const colors = colorMap[membership.color] || colorMap.brand;
           return (
             <div
               key={membership.name}
               className="group flex flex-col gap-5 p-6 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 transition hover:border-brand-500/40 h-full"
             >
               <div className="flex items-center justify-between">
-                <div
-                  className={`grid h-12 w-12 place-items-center rounded-xl font-bold text-lg ${colors.bg} ${colors.text} ${colors.darkBg} ${colors.darkText}`}
-                >
-                  {membership.abbreviation}
-                </div>
-                <div
-                  className={`rounded-md px-2 py-0.5 text-micro font-mono uppercase tracking-[0.15em] ${colors.bg} ${colors.text} ${colors.darkBg} ${colors.darkText}`}
-                >
-                  Member
-                </div>
+                <span className={ABBREV_TILE}>{membership.abbreviation}</span>
+                <span className={MEMBER_PILL}>Member</span>
               </div>
               <div>
                 <h3 className="font-display text-xl font-semibold tracking-[-0.96px] text-slate-900 dark:text-white transition-colors group-hover:text-brand-600 dark:group-hover:text-brand-400">

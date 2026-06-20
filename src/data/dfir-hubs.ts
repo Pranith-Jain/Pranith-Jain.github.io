@@ -72,6 +72,13 @@ export const HUB_META: readonly HubMeta[] = [
         desc: 'Every DFIR tool, searchable, grouped by category.',
         compVar: 'DfirCatalog',
       },
+      {
+        path: '/dfir/vs',
+        tabId: 'vs',
+        label: 'Toolkit vs VirusTotal / ANY.RUN / Hybrid Analysis / URLScan',
+        desc: 'Side-by-side comparison of the DFIR toolkit with hosted sandboxes and URL scanners.',
+        compVar: 'DfirVs',
+      },
     ],
   },
   {

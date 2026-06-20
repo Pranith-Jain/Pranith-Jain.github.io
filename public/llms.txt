@@ -1,0 +1,72 @@
+# Pranith Jain · Security Portfolio
+
+> Security analyst working threat intel, email defense, and security automation. Ships a free 60+ tool DFIR toolkit and a live, self-updating threat-intel platform. One Cloudflare Workers deploy, edge-cached, no signup, no API key.
+
+## What is this site?
+
+A three-surface security portfolio hosted at https://pranithjain.qzz.io:
+
+1. **Portfolio** (`/`, `/about`, `/skills`, `/experience`, `/projects`, `/blog`) — background, focus areas, and case studies.
+2. **DFIR Toolkit** (`/dfir/*`) — 60+ browser-side analyst tools across 11 categories: IOC & hash checks, phishing analysis, CVE prioritization, detection rule conversion (Sigma to KQL to SPL to YARA to EQL to Lucene to DLP to supply-chain), email defense, malware analysis, cloud/IAM, STIX/TAXII, and an autonomous case-study blog.
+3. **Threat Intel Platform** (`/threatintel/*`) — live CTI: ransomware activity tracking, actor timelines, dark-web/forum monitoring, CVE/KEV merge, Telegram/Reddit firehoses, daily auto-generated briefings broadcast to a Telegram channel.
+
+Everything is free, edge-cached, and requires no signup. Built on React + Vite + TypeScript + Cloudflare Workers.
+
+## Who is it for?
+
+- SOC analysts and detection engineers triaging IOCs, phishing, or CVEs
+- Threat intel researchers tracking ransomware activity, actor TTPs, or dark-web chatter
+- Email security operators investigating BEC, spoofing, or DMARC/SPF/DKIM failures
+- Security hiring managers and conference organizers evaluating a practitioner's work
+
+## Key Features
+
+- 60+ free DFIR tools — triage, OSINT, email security, detection engineering, AI security, data security, cloud security, API security, STIX/TAXII workbench
+- Live CTI platform — 30+ intel sources merged with consensus scoring, ransomware negotiation tracking, dark-web monitoring
+- Universal rule converter — round-trips Sigma, KQL, SPL, Lucene, EQL, YARA, DLP, and supply-chain rules through one canonical RuleIR
+- Autonomous case-study blog — discover to QA to publish pipeline producing postmortems and DFIR walkthroughs
+- Hourly CTI digests broadcast to a Telegram channel
+- Browser-side execution — most tools run client-side; sensitive enrichments hit thin edge APIs
+
+## Pricing
+
+Free. No signup. No API key required. No tracking beyond standard Cloudflare request logs. Server costs are absorbed; donations accepted via the `/sponsor` page.
+
+## Selected routes (deep links)
+
+- Home: https://pranithjain.qzz.io/
+- DFIR toolkit: https://pranithjain.qzz.io/dfir
+- DFIR catalog: https://pranithjain.qzz.io/dfir/catalog
+- Threat Intel platform: https://pranithjain.qzz.io/threatintel
+- Threat Intel catalog: https://pranithjain.qzz.io/threatintel/catalog
+- Blog: https://pranithjain.qzz.io/blog
+- About: https://pranithjain.qzz.io/about
+- Skills: https://pranithjain.qzz.io/skills
+- Experience: https://pranithjain.qzz.io/experience
+- Projects: https://pranithjain.qzz.io/projects
+- Sponsor: https://pranithjain.qzz.io/sponsor
+- Behind the reports: https://pranithjain.qzz.io/behind-the-reports
+
+## Feeds
+
+- Threat briefings RSS: https://pranithjain.qzz.io/api/v1/briefings/rss
+- Case studies RSS: https://pranithjain.qzz.io/blog/rss.xml
+
+## Contact
+
+- Email: hello@pranithjain.qzz.io
+- LinkedIn: linkedin.com/in/pranithjain
+- GitHub: github.com/pranithjain
+- Calendly: See `/sponsor` for engagement inquiries
+
+## Sitemap
+
+Full sitemap: https://pranithjain.qzz.io/sitemap.xml
+
+## Attribution
+
+- Person: Pranith Jain
+- Employer: Qubit Capital
+- Framework: React 18 + Vite 6 + TypeScript 5, served as a Cloudflare Worker
+- Hosting: Cloudflare (edge cache + KV + D1 + Durable Objects)
+- Standards: HTML5, CSS3, ES2020+, JSON-LD (schema.org)

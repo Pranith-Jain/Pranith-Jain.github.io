@@ -37,7 +37,13 @@ const POST = {
 };
 const INDEX = [
   POST,
-  { slug: 'second-post', title: 'Second Post', excerpt: 'Another one.', publishedAt: '2026-01-02T00:00:00.000Z', tags: [] },
+  {
+    slug: 'second-post',
+    title: 'Second Post',
+    excerpt: 'Another one.',
+    publishedAt: '2026-01-02T00:00:00.000Z',
+    tags: [],
+  },
 ];
 
 const ENTITIES: Record<string, string> = { '&amp;': '&', '&lt;': '<', '&gt;': '>', '&quot;': '"', '&#39;': "'" };
@@ -105,6 +111,12 @@ describe('og-rewriter per-route metadata (contract vs real index.html)', () => {
   it('every OG_OVERRIDES title is <=60 chars (Google truncates beyond ~60)', () => {
     for (const [route, ov] of Object.entries(OG_OVERRIDES)) {
       expect(ov.title.length, `${route} title is ${ov.title.length} chars`).toBeLessThanOrEqual(60);
+    }
+  });
+
+  it('every OG_OVERRIDES description is <=160 chars (snippet truncation limit)', () => {
+    for (const [route, ov] of Object.entries(OG_OVERRIDES)) {
+      expect(ov.description.length, `${route} description is ${ov.description.length} chars`).toBeLessThanOrEqual(160);
     }
   });
 });

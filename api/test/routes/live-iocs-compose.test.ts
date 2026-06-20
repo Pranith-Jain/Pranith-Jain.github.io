@@ -29,9 +29,9 @@ describe('composeLiveIocs (Cache API slices)', () => {
       ],
       sources: [{ id: 'emerging-threats', ok: true, count: 1 }],
     });
-    await writeSlice('botvrij', {
-      items: [{ value: 'evil.example', kind: 'domain', source: 'botvrij', reporter: 'Botvrij.eu', context: 'x' }],
-      sources: [{ id: 'botvrij', ok: true, count: 1 }],
+    await writeSlice('blocklist-de', {
+      items: [{ value: '2.2.2.2', kind: 'ip', source: 'blocklist-de', reporter: 'Blocklist.de', context: 'x' }],
+      sources: [{ id: 'blocklist-de', ok: true, count: 1 }],
     });
 
     const { response, presentSlices } = await composeLiveIocs();
@@ -40,10 +40,10 @@ describe('composeLiveIocs (Cache API slices)', () => {
     expect(response.degraded).toBe(true);
     const ids = response.sources.map((s) => s.id);
     expect(ids).toContain('emerging-threats');
-    expect(ids).toContain('botvrij');
+    expect(ids).toContain('blocklist-de');
     const values = response.items.map((i) => i.value);
     expect(values).toContain('1.1.1.1');
-    expect(values).toContain('evil.example');
+    expect(values).toContain('2.2.2.2');
   });
 
   it('drops a source whose slice contributed no fresh items (recount), keeps degraded', async () => {

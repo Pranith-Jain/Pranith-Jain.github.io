@@ -43,7 +43,7 @@ export function Experience({ experiences }: ExperienceProps) {
         </h2>
       </div>
 
-      {/* Collapsible list — thin-bordered cards, no glass, no shadow-glow.
+      {/* Collapsible list — thin-bordered cards, no glass, no glow.
           The chevron alone marks expanded state. */}
       <div className="grid gap-3">
         {experiences.map((exp, index) => {

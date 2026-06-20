@@ -178,7 +178,6 @@ export function fromBriefings(items: Array<{ slug: string; metadata: Record<stri
 }
 
 const IOC_KIND: Record<string, PulseKind> = {
-  'phishing-database': 'phishing',
   'viriback-c2': 'c2_tracker',
   'threatview-ip': 'blocklist',
   'threatview-domains': 'blocklist',

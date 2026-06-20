@@ -945,15 +945,6 @@ export const RESOURCES: ExternalResource[] = [
       "Open Threat Exchange — community-driven threat intelligence. IOC pulses, reputation data, endpoint telemetry. Free API. Integrated into this platform's IOC checker.",
   },
   {
-    id: 'botvrij',
-    name: 'Botvrij.eu',
-    url: 'https://www.botvrij.eu/',
-    kind: 'dashboard',
-    tags: ['threat-intel', 'c2', 'blocklist'],
-    description:
-      "Botnet C2 intelligence — curated IOCs from sinkhole analysis and honeypot data. Downloadable feeds for IPs, domains, and URLs. Integrated into this platform's live IOCs feed.",
-  },
-  {
     id: 'c2-tracker-feeds',
     name: 'C2IntelFeeds',
     url: 'https://github.com/drb-ra/C2IntelFeeds',

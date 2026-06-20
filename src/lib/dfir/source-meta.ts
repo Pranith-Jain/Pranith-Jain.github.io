@@ -158,15 +158,6 @@ export const SOURCE_META: Record<string, SourceMeta> = {
     color: 'border-lime-500/40 bg-lime-500/10 text-lime-700 dark:text-lime-300',
     weight: 18,
   },
-  'botvrij-ips': {
-    label: 'Botvrij IPs',
-    color: 'border-lime-500/40 bg-lime-500/10 text-lime-700 dark:text-lime-300',
-    weight: 18,
-  },
-  darklist: {
-    label: 'Darklist',
-    color: 'border-slate-500/40 bg-slate-500/10 text-slate-700 dark:text-slate-300',
-  },
   'bruteforce-blocker': {
     label: 'Brute Force Blocker',
     color: 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300',
@@ -190,11 +181,6 @@ export const SOURCE_META: Record<string, SourceMeta> = {
     label: 'Crypto Scam',
     color: 'border-yellow-500/40 bg-yellow-500/10 text-yellow-700 dark:text-yellow-300',
     weight: 15,
-  },
-  'phishing-database': {
-    label: 'Phishing.Database',
-    color: 'border-pink-500/40 bg-pink-500/10 text-pink-700 dark:text-pink-300',
-    weight: 30,
   },
   'threatview-ip': {
     label: 'Threatview IP',

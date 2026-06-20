@@ -23,7 +23,9 @@ import { catalogSearch } from '../data/dfir-catalog';
 import { useRecentTools } from '../hooks/useRecentTools';
 import { getSidebarForSection } from '../data/sidebar-nav';
 import { DfirStructuredData } from '../components/ToolStructuredData';
+import { FaqStructuredData, HowToStructuredData } from '../components/FaqStructuredData';
 import { useDocumentMeta } from '../hooks/useDocumentMeta';
+import { DFIR_FAQ } from '../data/dfir-faq';
 
 /**
  * DFIR home page — redesigned following SaaS UX patterns from
@@ -238,6 +240,25 @@ export default function DFIRPage(): JSX.Element {
   return (
     <div className="w-full py-6 sm:py-10 text-slate-900 dark:text-slate-100 space-y-8 sm:space-y-12">
       <DfirStructuredData />
+      <FaqStructuredData entries={DFIR_FAQ} />
+      <HowToStructuredData
+        name="How to triage an indicator of compromise with the DFIR toolkit"
+        description="Three-step browser-side workflow: pick a tool, paste the indicator, read the aggregated verdict. No signup, no data egress."
+        steps={[
+          {
+            name: 'Pick a tool',
+            text: 'Open the IOC Triage category or use the search bar to find the right utility for IPs, domains, URLs, hashes, or CVEs.',
+          },
+          {
+            name: 'Paste the indicator',
+            text: 'Drop the value into the input field. The page calls public APIs directly from your browser using fetch, in parallel.',
+          },
+          {
+            name: 'Read the verdict',
+            text: 'Sources are aggregated, normalised, and rendered inline. Export the result as STIX 2.1, JSON, CSV, or copy to clipboard.',
+          },
+        ]}
+      />
       {/* ── Hero — bold value prop + primary search ───────────── */}
       {/* surface-card + tone-tinted 1px hairline at top-left replaces
           the old 224px blurred brand wash. Same hierarchy, none of the
@@ -642,6 +663,27 @@ export default function DFIRPage(): JSX.Element {
                   </Link>
                 ))}
               </div>
+            </div>
+          </details>
+
+          {/* ── Common questions (FAQ) ── */}
+          {/* Same Q&A also emitted as FAQPage JSON-LD via FaqStructuredData
+              above. Visible here so human readers see the answers and any
+              AI engine that does not parse JSON-LD can still lift the text. */}
+          <details className="group surface-card">
+            <summary className="flex items-center justify-between cursor-pointer p-4 sm:p-5 select-none">
+              <h2 className="font-display font-bold text-lg text-slate-900 dark:text-slate-100">Common questions</h2>
+              <ArrowRight size={16} className="text-slate-400 group-open:rotate-90 transition-transform" />
+            </summary>
+            <div className="px-4 sm:px-5 pb-4 sm:pb-5 space-y-4">
+              {DFIR_FAQ.map((f) => (
+                <div key={f.question}>
+                  <h3 className="font-display text-sm font-semibold text-slate-900 dark:text-slate-100">
+                    {f.question}
+                  </h3>
+                  <p className="mt-1.5 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{f.answer}</p>
+                </div>
+              ))}
             </div>
           </details>
 

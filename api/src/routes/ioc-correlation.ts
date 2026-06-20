@@ -419,13 +419,6 @@ export async function fetchIocCorrelation(env?: Env): Promise<IocCorrelationResp
     trackSource('c2-intel-domains', true, n);
   } else trackSource('c2-intel-domains', false, 0);
 
-  // ─── Botvrij.eu: curated OSINT malicious domains ─────────────────────────
-  if (botvrijDomainText) {
-    const e = parsePhishingArmy(botvrijDomainText, PER_FEED_CAP);
-    for (const x of e) add(domainBucket, norm(x.value), 'botvrij');
-    trackSource('botvrij', true, e.length);
-  } else trackSource('botvrij', false, 0);
-
   // ─── Telegram leak monitor (Sprint 2 §16) ────────────────────────────
   // Pulls IOCs (hashes, IPs, domains, URLs) from `telegram_leak_entries`
   // over the last 7 days and adds them to the same buckets the upstream

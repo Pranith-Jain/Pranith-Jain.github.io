@@ -199,6 +199,14 @@ const DFIR_PAGES: readonly PageEntry[] = [
     group: 'dfir',
     keywords: ['catalog', 'directory', 'browse', 'all tools', 'overview'],
   },
+  {
+    path: '/dfir/vs',
+    label: 'DFIR toolkit vs VirusTotal, ANY.RUN, Hybrid Analysis, URLScan',
+    description: 'Side-by-side comparison of the DFIR toolkit with hosted sandboxes and URL scanners.',
+    sectionLabel: 'DFIR · Overview',
+    group: 'dfir',
+    keywords: ['comparison', 'versus', 'alternative', 'virustotal', 'any.run', 'hybrid analysis', 'urlscan'],
+  },
   // Triage / dispatcher
   {
     path: '/dfir',

@@ -619,47 +619,17 @@
   }
 
   /* ── Page top accent strip (v5) ──────────────────────────────
-     A 1px brand-blue line at the very top of the page so every
-     page gets a brand-blue identity beat without changing the
-     surface color. Linear / Vercel / Raycast pattern. The brand
-     blue is rgb(67, 94, 241) — same as PjMark's gradient
-     endpoint, the focus ring, and bg-brand-500 references. */
-  .page-top-accent {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 1px;
-    z-index: 50;
-    background: linear-gradient(
-      to right,
-      transparent 0%,
-      rgb(67 94 241 / 0.6) 8%,
-      rgb(67 94 241 / 1) 50%,
-      rgb(67 94 241 / 0.6) 92%,
-      transparent 100%
-    );
-    pointer-events: none;
-  }
-  .dark .page-top-accent {
-    background: linear-gradient(
-      to right,
-      transparent 0%,
-      rgb(67 94 241 / 0.7) 8%,
-      rgb(67 94 241 / 1) 50%,
-      rgb(67 94 241 / 0.7) 92%,
-      transparent 100%
-    );
-    box-shadow: 0 0 8px rgb(67 94 241 / 0.35);
-  }
+     (Removed 2026-06-20: a 1px brand gradient line at the top of
+     every page read as the "glowing gradient rule" AI tell.
+     Section borders already do the dividing work.) */
 
   .dark .bg-dot-grid {
     background-image: radial-gradient(rgba(180, 200, 240, 0.06) 1px, transparent 1px);
   }
 
-  .shadow-glow {
-    box-shadow: 0 0 20px -5px rgb(var(--brand-500) / 0.5);
-  }
+  /* (Removed 2026-06-20: .shadow-glow was a brand-blue box-shadow
+     used on the header + footer logos. Pure decoration that read
+     as the "glow on borders/rules" AI tell.) */
 
   .animate-float {
     animation: float 6s ease-in-out infinite;
@@ -909,31 +879,10 @@
   animation: severity-ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
 }
 
-/* Ambient mesh drift — combined scale + translate on the gradient layer
-   so the brand-blue pools drift like slow-moving fog. The scale creates
-   a subtle breathing (1↔1.035) while translate (0↔±3px) shifts center
-   of mass, producing a smooth drifty orbit over 35s. CSS animation
-   cascade overrides inline `background` shorthand. */
-@keyframes mesh-breathe {
-  0%,
-  100% {
-    transform: translate(0, 0) scale(1);
-  }
-  25% {
-    transform: translate(3px, -2px) scale(1.02);
-  }
-  50% {
-    transform: translate(-2px, 3px) scale(1.035);
-  }
-  75% {
-    transform: translate(1px, -1px) scale(1.015);
-  }
-}
-.mesh-animate {
-  animation: mesh-breathe 35s ease-in-out infinite;
-  transform-origin: center center;
-  will-change: transform;
-}
+/* (Removed 2026-06-20: mesh-breathe + .mesh-animate were the
+   slow-drifting scale/translate orbit on the dark page background.
+   The 5-pool mesh itself is gone too — both were the AI "ambient
+   spotlight + grain" tell.) */
 
 /* ─────────────────────────────────────────────────────────────────────
    Orchestrated page-load: one well-staged reveal beats scattered

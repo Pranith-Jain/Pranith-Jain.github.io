@@ -28,7 +28,6 @@ export interface IocFeedSummary {
     | 'bitwire'
     | 'bitwire-inbound'
     | 'malwareworld'
-    | 'phishing-database'
     | 'threatview-ip'
     | 'threatview-domains'
     | 'viriback-c2'
@@ -466,22 +465,6 @@ export function parseSslblC2(body: string, cap: number = CAP): IocEntry[] {
   return entries;
 }
 
-// ─── Botvrij.eu — curated malicious domain list ─────────────────────────────
-// One domain per line; comment lines start with '#'.
-
-export function parseBotvrijDomains(body: string, cap: number = CAP): IocEntry[] {
-  const entries: IocEntry[] = [];
-  for (const line of body.split('\n')) {
-    const trimmed = line.trim();
-    if (!trimmed || trimmed.startsWith('#')) continue;
-    const candidate = trimmed.toLowerCase();
-    if (!DOMAIN_LINE_RE.test(candidate)) continue;
-    entries.push({ type: 'domain', value: candidate, context: 'botvrij curated' });
-    if (entries.length >= cap) break;
-  }
-  return entries;
-}
-
 // ─── Source metadata ─────────────────────────────────────────────────────────
 
 export type SourceId = IocFeedSummary['source'];
@@ -557,11 +540,6 @@ export const FEED_SOURCES: Record<SourceId, FeedSource> = {
     id: 'malwareworld',
     name: 'MalwareWorld Bad Reputation',
     url: 'https://malwareworld.com/data/type_BadReputation_ips.txt',
-  },
-  'phishing-database': {
-    id: 'phishing-database',
-    name: 'Phishing.Database',
-    url: 'https://raw.githubusercontent.com/Phishing-Database/Phishing.Database/refs/heads/master/phishing-links-ACTIVE-NOW.txt',
   },
   'threatview-ip': {
     id: 'threatview-ip',
@@ -701,9 +679,6 @@ export function buildSummary(sourceId: SourceId, rawBody: string, cap: number = 
       break;
     case 'tweetfeed':
       entries = parseTweetFeed(rawBody, cap);
-      break;
-    case 'phishing-database':
-      entries = parseUrlList(rawBody, cap);
       break;
     case 'threatview-ip':
       entries = parsePlainTextIps(rawBody, cap);

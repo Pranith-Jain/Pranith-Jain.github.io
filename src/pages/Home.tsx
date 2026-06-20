@@ -1,6 +1,8 @@
 import { lazy, Suspense } from 'react';
-import { Hero, Contact, Toolkits } from '../components/sections';
+import { Hero, Contact, Toolkits, Faq } from '../components/sections';
 import { LiveSignalStrip } from '../components/LiveSignalStrip';
+import { FaqStructuredData } from '../components/FaqStructuredData';
+import { HOME_FAQ } from '../data/home-faq';
 import { FeedHealthBadge } from '../components/FeedHealthBadge';
 import { LatestBriefingCard } from '../components/threatintel/LatestBriefingCard';
 import { GlobalPulseCard } from '../components/threatintel/GlobalPulseCard';
@@ -39,6 +41,7 @@ export default function Home() {
 
   return (
     <>
+      <FaqStructuredData entries={HOME_FAQ} />
       <Hero personalInfo={personalInfo} />
 
       <RevealSection className="mt-12">
@@ -70,6 +73,10 @@ export default function Home() {
             <RecentWriting />
           </Suspense>
         </ErrorBoundary>
+      </RevealSection>
+
+      <RevealSection className="mt-20">
+        <Faq />
       </RevealSection>
 
       <RevealSection className="mt-20">

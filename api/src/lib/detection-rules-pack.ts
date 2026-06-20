@@ -115,15 +115,6 @@ export const DETECTION_RULES_PACK: DetectionRule[] = [
     minMatches: 1,
   },
   {
-    id: 'curated-malicious-domain',
-    name: 'Curated malicious domain (Botvrij)',
-    severity: 'medium',
-    description:
-      'Domain on the analyst-curated Botvrij.eu list — lower volume, manually vetted, so a single-source hit still carries weight.',
-    match: { kind: 'domain', source: 'botvrij' },
-    minMatches: 1,
-  },
-  {
     id: 'anonymizer-abuse',
     name: 'Anonymiser / proxy infrastructure',
     severity: 'low',

@@ -237,6 +237,7 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   // ── DFIR: catalog + per-hub category landings (2026-06-17) ───
   // ── DFIR: catalog + per-hub category landings (2026-06-17) ───
   ['/dfir/catalog', '/__prerendered/dfir__catalog'],
+  ['/dfir/vs', '/__prerendered/dfir__vs'],
   ['/dfir/ai-rule-generator', '/__prerendered/dfir__ai-rule-generator'],
   ['/dfir/fp-lens', '/__prerendered/dfir__fp-lens'],
   ['/dfir/threat-graph', '/__prerendered/dfir__threat-graph'],
