@@ -1,5 +1,5 @@
 /**
- * /dfir/vs — side-by-side comparison of the DFIR toolkit with the rival
+ * /dfir/vs — side-by-side comparison of CRUCIBLE with the rival
  * products that AI engines most often field in "X vs Y" queries. Each
  * comparison block follows the same 40-60 word answer format that the
  * FAQPage schema lifts directly, so the schema and the visible text
@@ -20,9 +20,9 @@ import { COMPARE } from '../../data/dfir-compare';
 
 export default function Vs(): JSX.Element {
   useDocumentMeta({
-    title: 'Toolkit vs VirusTotal, ANY.RUN, Hybrid Analysis, URLScan',
+    title: 'CRUCIBLE vs VirusTotal, ANY.RUN, Hybrid Analysis, URLScan',
     description:
-      'Side-by-side comparison of the DFIR & Security Toolkit with VirusTotal, ANY.RUN, Hybrid Analysis, and URLScan.io. When to use which, and how the toolkit complements hosted sandboxes.',
+      'Side-by-side comparison of CRUCIBLE (DFIR & Security Toolkit) with VirusTotal, ANY.RUN, Hybrid Analysis, and URLScan.io. When to use which, and how CRUCIBLE complements hosted sandboxes.',
     section: 'DFIR',
     canonicalPath: '/dfir/vs',
     ogImage: '/og-dfir.svg',
@@ -31,7 +31,7 @@ export default function Vs(): JSX.Element {
   // FAQPage payload — derived from COMPARE so the schema cannot drift
   // from the on-page text. Each entry becomes a Q&A pair in the schema.
   const faq = COMPARE.map((c) => ({
-    question: `DFIR toolkit vs ${c.rival}?`,
+    question: `CRUCIBLE vs ${c.rival}?`,
     answer: c.answer,
   }));
 
@@ -46,13 +46,13 @@ export default function Vs(): JSX.Element {
             Comparison
           </div>
           <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold leading-[0.95] tracking-[-0.04em] text-slate-900 dark:text-white">
-            DFIR toolkit vs{' '}
+            CRUCIBLE vs{' '}
             <span className="text-brand-600 dark:text-brand-400">VirusTotal, ANY.RUN, Hybrid Analysis, URLScan.</span>
           </h1>
           <p className="mt-5 max-w-2xl text-base sm:text-lg leading-relaxed text-muted">
-            The DFIR and Security Toolkit is a free, browser-side workbench for the analyst workflow around a sample,
-            not a replacement for hosted sandboxes. These notes describe when to use which, written by the person who
-            built the toolkit and uses the rivals daily.
+            CRUCIBLE is a free, browser-side workbench for the analyst workflow around a sample, not a replacement for
+            hosted sandboxes. These notes describe when to use which, written by the person who built CRUCIBLE and uses
+            the rivals daily.
           </p>
         </div>
       </section>
@@ -69,7 +69,7 @@ export default function Vs(): JSX.Element {
                 Comparison
               </div>
               <h2 className="mt-1 font-display text-xl font-semibold text-slate-900 dark:text-white">
-                DFIR toolkit vs {c.rival}
+                CRUCIBLE vs {c.rival}
               </h2>
               <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">{c.rivalSummary}</p>
               <a
@@ -93,7 +93,7 @@ export default function Vs(): JSX.Element {
           to="/dfir"
           className="inline-flex items-center gap-2 surface-card rounded-xl px-6 py-3 text-sm font-medium text-slate-700 hover:border-brand-300 hover:text-brand-600 dark:text-slate-300 dark:hover:border-brand-600 dark:hover:text-brand-400"
         >
-          Try the DFIR toolkit
+          Try CRUCIBLE
           <ArrowRight size={14} />
         </Link>
       </section>

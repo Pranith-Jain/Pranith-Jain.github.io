@@ -60,9 +60,9 @@ export const OG_OVERRIDES: Record<string, OgOverride> = {
   // The two highest-value organic-search surfaces previously fell through to
   // index.html's 97-char home <title>; give them their own short cards.
   '/dfir': {
-    title: 'DFIR & Security Toolkit · Pranith Jain',
+    title: 'CRUCIBLE · DFIR & Security Toolkit · Pranith Jain',
     description:
-      '60+ free browser-side DFIR tools across 11 categories: IOC checker, CVE prioritizer, crypto tracer, decoders, YARA/Sigma converter. No signup.',
+      'CRUCIBLE — 60+ free, browser-side DFIR tools across 11 categories: IOC checker, CVE prioritizer, crypto tracer, decoders, YARA/Sigma converter. No signup.',
     image: '/og-dfir.png?v=2',
   },
   '/radar': {
