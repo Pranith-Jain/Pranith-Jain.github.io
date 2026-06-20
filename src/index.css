@@ -101,7 +101,11 @@
   }
   html.dark {
     --brand: 99 130 255;
-    --muted: 168 168 170; /* neutral gray, matches grayscale surface */
+    /* Restored the cool slate hue (was 168 168 170 = pure neutral).
+       Light text keeps the slate-500 cast via the Tailwind text-slate
+       class; dark text was being overridden to pure gray which made
+       the page feel monochromatic. */
+    --muted: 138 150 173; /* slate-500 lifted; cool blue-gray */
     --surface-border: rgb(var(--border-400));
     --surface-bg: rgb(var(--surface-100));
     --glass-bg: rgb(var(--surface-200));
@@ -121,14 +125,25 @@
          card  = #1E243C  — glass card (+24-36 RGB lift from page)
          raised= #303854  — hover/popover (+18-24 from card)
          input = #0E1326  — inset well, no translucency       */
+    /* ── v8 — Depth + texture pass (2026-06-20) ─────────────────────
+       Dark cards were reading flat: card fill was only 9-16 RGB
+       above the navy page, and the 1px border resolved to almost
+       the same color as the card it outlined. Bumped the card
+       surface and the border alpha together so a dark card now
+       lifts as clearly off the page as a light card does.
+       ────────────────────────────────────────────────────────────────
+         page  = #060A14  — deep navy, mesh base
+         card  = #2A324A  — glass card (+36-40 RGB lift from page, was +24-36)
+         raised= #3C4664  — hover/popover (+18-24 from card, unchanged ratio)
+         input = #0E1326  — inset well, no translucency       */
     --surface-100: 6 10 20; /* page bg — deep navy         #060A14 */
-    --surface-200: 30 36 60; /* card    — glass surface     #1E243C */
-    --surface-300: 48 56 84; /* raised  — hover/popover     #303854 */
+    --surface-200: 42 50 74; /* card    — glass surface     #2A324A */
+    --surface-300: 60 70 100; /* raised  — hover/popover     #3C4664 */
     --input-200: 14 19 38; /* input   — inset well        #0E1326 */
-    --border-400: 180 200 240 / 0.12;
-    --border-500: 180 200 240 / 0.2;
-    --border-600: 180 200 240 / 0.32;
-    --hover-100: 180 200 240 / 0.08;
+    --border-400: 180 200 240 / 0.18;
+    --border-500: 180 200 240 / 0.28;
+    --border-600: 180 200 240 / 0.42;
+    --hover-100: 180 200 240 / 0.1;
   }
 
   /* Geist two-layer focus ring:
@@ -295,16 +310,17 @@
      neutral grays provide clean contrast. Brand-blue and rose
      accents carry all the chromatic weight. */
   .dark .text-slate-400 {
-    color: #c0c0c0 !important;
+    /* slate-400 lifted; keeps the cool hue that light text retains. */
+    color: #9ca3b8 !important;
   }
   .dark .text-slate-500 {
-    color: #a0a0a0 !important;
+    color: #8a96ad !important;
   }
   .dark .text-slate-300 {
-    color: #e0e0e0 !important;
+    color: #cbd5e1 !important;
   }
   .dark .text-slate-200 {
-    color: #ededed !important;
+    color: #d6dceb !important;
   }
 
   /* ── Dark mode button hover overrides ──────────────────────────────
@@ -324,7 +340,10 @@
      deep navy page. New code should use the --border-400/500/600 CSS
      vars instead. */
   .dark .border-slate-200 {
-    border-color: rgb(31 34 47) !important;
+    /* Match the v8 surface-200 brightness so the border reads against
+       the card it outlines. The previous #1F2231 was within 1 RGB
+       unit of the card and effectively invisible. */
+    border-color: rgb(60 70 100) !important;
   }
   .dark .border-slate-200\/60 {
     border-color: rgba(210, 220, 245, 0.08) !important;
@@ -333,22 +352,22 @@
     border-color: rgba(210, 220, 245, 0.1) !important;
   }
   .dark .border-slate-300 {
-    border-color: rgb(46 49 62) !important;
+    border-color: rgb(75 85 115) !important;
   }
   .dark .border-slate-700 {
-    border-color: rgb(35 38 51) !important;
+    border-color: rgb(75 85 115) !important;
   }
   .dark .border-slate-700\/60 {
     border-color: rgba(210, 220, 245, 0.08) !important;
   }
   .dark .border-slate-800 {
-    border-color: rgb(35 38 51) !important;
+    border-color: rgb(75 85 115) !important;
   }
   .dark .border-slate-800\/40 {
     border-color: rgba(210, 220, 245, 0.06) !important;
   }
   .dark .border-white\/10 {
-    border-color: rgba(210, 220, 245, 0.1) !important;
+    border-color: rgba(210, 220, 245, 0.14) !important;
   }
 
   /* Placeholders — neutral, not blue */
@@ -421,10 +440,21 @@
     @apply backdrop-blur-md;
     border-color: rgb(var(--border-400));
     background-color: rgb(var(--surface-200) / 0.93);
+    /* v8: 0 0 0 1px outer ring so the card outline reads against the
+       navy page regardless of the surface-200 brightness. The top-edge
+       highlight + outer ring together give dark cards the same 'lifts
+       off the page' affordance that the light theme's shadow-e1
+       provides. */
     box-shadow:
+      0 0 0 1px rgb(var(--border-400)),
       0 2px 4px rgba(0, 0, 0, 0.6),
       0 8px 24px -8px rgba(0, 0, 0, 0.4),
-      inset 0 0 0 1px rgba(67, 94, 241, 0.1);
+      inset 0 0 0 1px rgba(67, 94, 241, 0.1),
+      /* 1px top-edge highlight — gives the card the same 'lifts off the
+         page' affordance the light theme's shadow-e1 provides, just in
+         a tone that survives on the deep-navy background. Mirrors
+         chrome-glass's top highlight at ~half the intensity. */
+        inset 0 1px 0 0 rgba(180, 200, 240, 0.06);
   }
   .surface-raised {
     @apply rounded-xl border shadow-e2 backdrop-blur-md transition duration-200;
@@ -473,7 +503,8 @@
     box-shadow:
       0 2px 4px rgba(0, 0, 0, 0.6),
       0 8px 24px -8px rgba(0, 0, 0, 0.4),
-      inset 0 0 0 1px rgba(67, 94, 241, 0.14);
+      inset 0 0 0 1px rgba(67, 94, 241, 0.14),
+      inset 0 1px 0 0 rgba(180, 200, 240, 0.08);
   }
   .dark .chrome-glass {
     border-color: rgb(var(--border-500));

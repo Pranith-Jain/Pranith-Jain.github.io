@@ -26,8 +26,10 @@ export function Hero({ personalInfo }: HeroProps) {
               -2.4px (heading-40) because the responsive sizes
               (28-52px) sit in that range. */}
           <h1 className="font-display text-[1.75rem] font-semibold leading-[1.1] tracking-[-2.4px] sm:text-5xl lg:text-[3.25rem] text-slate-900 dark:text-white">
-            DFIR + live threat intel,{' '}
-            <span className="text-brand-600 dark:text-brand-400">edge-hosted on Cloudflare.</span>
+            Building at the intersection of{' '}
+            <span className="text-brand-600 dark:text-brand-400">
+              AI, threat intelligence, and edge-native security tooling.
+            </span>
           </h1>
 
           <HeroLiveSparkline />
