@@ -296,7 +296,7 @@ function buildThreatIntelSidebar(): SidebarConfig {
   }));
 
   return {
-    sectionLabel: 'Threat Intel',
+    sectionLabel: 'PANOPTICON',
     groups: [home, ...hubGroups],
     tone: 'rose',
   };
@@ -307,7 +307,7 @@ function buildThreatIntelSidebar(): SidebarConfig {
 /* ------------------------------------------------------------------ */
 
 const dfir: SidebarConfig = {
-  sectionLabel: 'DFIR',
+  sectionLabel: 'CRUCIBLE',
   tone: 'brand',
   groups: [
     {
@@ -372,7 +372,7 @@ const SIDEBARS: Record<string, SidebarConfig> = {
   '/threatintel': buildThreatIntelSidebar(),
   '/dfir': dfir,
   '/radar': {
-    sectionLabel: 'Radar',
+    sectionLabel: 'SCOUT',
     groups: [
       {
         title: 'Tools',

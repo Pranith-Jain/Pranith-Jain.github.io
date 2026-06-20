@@ -9,6 +9,7 @@ import { RecentWritingSkeleton } from '../components/RecentWriting';
 import { QuoteOfTheDay } from '../components/QuoteOfTheDay';
 import { ToolOfTheDay } from '../components/ToolOfTheDay';
 import { PageToCheckOut } from '../components/PageToCheckOut';
+import { AccessApps } from '../components/AccessApps';
 import { personalInfo } from '../data/content';
 import { useInView } from '../hooks/useInView';
 import { useDocumentMeta } from '../hooks/useDocumentMeta';
@@ -62,6 +63,10 @@ export default function Home() {
 
       <RevealSection className="mt-16">
         <Toolkits />
+      </RevealSection>
+
+      <RevealSection className="mt-16">
+        <AccessApps />
       </RevealSection>
 
       <RevealSection className="mt-12">

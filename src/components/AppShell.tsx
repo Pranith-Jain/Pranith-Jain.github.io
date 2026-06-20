@@ -14,9 +14,9 @@ import { McpKeyBar } from './ti-mindmap-mcp/McpKeyBar';
 import { recordVisit } from '../lib/recentTools';
 
 const SECTION_META: Record<'dfir' | 'threatintel' | 'radar', { label: string; href: string; accent: string }> = {
-  dfir: { label: 'DFIR', href: '/dfir', accent: 'text-brand-600 dark:text-brand-400' },
-  threatintel: { label: 'Threat Intel', href: '/threatintel', accent: 'text-rose-600 dark:text-rose-400' },
-  radar: { label: 'Radar', href: '/radar', accent: 'text-brand-600 dark:text-brand-400' },
+  dfir: { label: 'CRUCIBLE', href: '/dfir', accent: 'text-brand-600 dark:text-brand-400' },
+  threatintel: { label: 'PANOPTICON', href: '/threatintel', accent: 'text-rose-600 dark:text-rose-400' },
+  radar: { label: 'SCOUT', href: '/radar', accent: 'text-brand-600 dark:text-brand-400' },
 };
 
 /**
@@ -225,7 +225,7 @@ function AppStatusBar({ mode }: { mode: 'dfir' | 'threatintel' | 'radar' }): JSX
                   <span className="absolute inset-0 rounded-full bg-brand-500 live-pulse" aria-hidden />
                   <span className="relative inline-block h-1.5 w-1.5 rounded-full bg-brand-500" />
                 </span>
-                radar
+                scout
               </span>
               <span className="text-slate-300 dark:text-slate-700">·</span>
               <span className="hidden sm:inline">Domain recon — analyze any URL instantly.</span>
@@ -237,7 +237,7 @@ function AppStatusBar({ mode }: { mode: 'dfir' | 'threatintel' | 'radar' }): JSX
                   <span className="absolute inset-0 rounded-full bg-brand-500 live-pulse" aria-hidden />
                   <span className="relative inline-block h-1.5 w-1.5 rounded-full bg-brand-500" />
                 </span>
-                edge
+                crucible
               </span>
               <span className="text-slate-300 dark:text-slate-700">·</span>
               <span className="hidden sm:inline">No signup, no key, runs in your browser.</span>

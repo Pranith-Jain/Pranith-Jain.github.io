@@ -40,6 +40,28 @@ export default {
   async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
     const url = new URL(request.url);
 
+    // ── Subdomain → path rewriting ──────────────────────────────
+    // Branded subdomains (crucible., panopticon., scout.) map to
+    // internal /dfir, /threatintel, /radar paths transparently.
+    // The rewritten path is used for all downstream routing; the
+    // original hostname is preserved in x-forwarded-host.
+    const host = url.hostname;
+    const SUBDOMAIN_MAP: Record<string, string> = {
+      crucible: '/dfir',
+      panopticon: '/threatintel',
+      scout: '/radar',
+    };
+    for (const [sub, prefix] of Object.entries(SUBDOMAIN_MAP)) {
+      if (host === `${sub}.pranithjain.qzz.io` || host === `${sub}.localhost`) {
+        if (!url.pathname.startsWith(prefix)) {
+          url.pathname = prefix + url.pathname;
+        }
+        request = new Request(url, request);
+        request.headers.set('x-forwarded-host', host);
+        break;
+      }
+    }
+
     // Cold-start binding validation. Logs a structured warning if any
     // critical binding (D1, KV, ASSETS) is missing in the deployed env —
     // the operator sees "deploy failed silently" symptoms as 503s on

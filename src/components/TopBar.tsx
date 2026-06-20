@@ -35,9 +35,9 @@ interface TopBarProps {
 }
 
 const SEARCH_PLACEHOLDERS: Record<string, string> = {
-  dfir: 'Search 60+ DFIR tools, decoders, rule converters…',
-  threatintel: 'Search actors, CVEs, campaigns, briefings, IOCs…',
-  radar: 'Scan a domain or URL for reconnaissance…',
+  dfir: 'Search CRUCIBLE forensics tools…',
+  threatintel: 'Search PANOPTICON threat intelligence…',
+  radar: 'Scan a domain with SCOUT…',
 };
 
 // Geist mark chip: surface-200 wash + accent-tinted icon. No ring —
@@ -49,9 +49,9 @@ const MARK_ACCENT: Record<'dfir' | 'threatintel' | 'radar', string> = {
 };
 
 const TAGLINE: Record<'dfir' | 'threatintel' | 'radar', string> = {
-  dfir: 'toolkit',
-  threatintel: 'platform',
-  radar: 'scanner',
+  dfir: 'forensics',
+  threatintel: 'intelligence',
+  radar: 'recon',
 };
 
 export function TopBar({
@@ -125,49 +125,13 @@ export function TopBar({
           </span>
         </Link>
 
-        {/* Breadcrumb navigation */}
-        <nav
-          className="hidden md:flex items-center gap-1.5 ml-1 text-xs text-slate-400 dark:text-slate-500"
-          aria-label="Navigate between platforms"
+        {/* Back to portfolio */}
+        <Link
+          to="/"
+          className="hidden md:flex items-center gap-1.5 ml-1 text-xs text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300 transition-colors"
         >
-          <span className="text-slate-300 dark:text-slate-600">/</span>
-          <Link to="/" className="hover:text-slate-600 dark:hover:text-slate-300 transition-colors">
-            Portfolio
-          </Link>
-          <span className="text-slate-300 dark:text-slate-600">/</span>
-          <Link
-            to="/dfir"
-            className={
-              mark === 'dfir'
-                ? `${accentClass} font-medium`
-                : 'hover:text-slate-600 dark:hover:text-slate-300 transition-colors'
-            }
-          >
-            DFIR
-          </Link>
-          <span className="text-slate-300 dark:text-slate-600">/</span>
-          <Link
-            to="/threatintel"
-            className={
-              mark === 'threatintel'
-                ? 'text-rose-600 dark:text-rose-400 font-medium'
-                : 'hover:text-slate-600 dark:hover:text-slate-300 transition-colors'
-            }
-          >
-            Threat Intel
-          </Link>
-          <span className="text-slate-300 dark:text-slate-600">/</span>
-          <Link
-            to="/radar"
-            className={
-              mark === 'radar'
-                ? `${accentClass} font-medium`
-                : 'hover:text-slate-600 dark:hover:text-slate-300 transition-colors'
-            }
-          >
-            Radar
-          </Link>
-        </nav>
+          ← Portfolio
+        </Link>
 
         <button
           type="button"
