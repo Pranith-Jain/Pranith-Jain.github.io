@@ -744,6 +744,17 @@ import {
   siRenderHandler,
 } from './routes/security-investigator';
 import { siEdgeToolsRouter } from './routes/si-edge-tools';
+import {
+  listNotebooksHandler,
+  getNotebookHandler,
+  createNotebookHandler,
+  updateNotebookHandler,
+  deleteNotebookHandler,
+  addEntryHandler,
+  updateEntryHandler,
+  deleteEntryHandler,
+  notebookStatsHandler,
+} from './routes/notebooks';
 
 app.get('/api/v1/health', (c) =>
   c.json({ ok: true, timestamp: new Date().toISOString() }, 200, { 'Cache-Control': 'public, max-age=60' })
@@ -1423,6 +1434,17 @@ app.post('/api/v1/watches', validate('json', watchCreateSchema), createWatchHand
 app.put('/api/v1/watches/:id', validate('json', watchUpdateSchema), updateWatchHandler);
 app.delete('/api/v1/watches/:id', deleteWatchHandler);
 app.get('/api/v1/watches/log', alertLogHandler);
+
+/* ─── Investigation Notebooks ─────────────────────────────────────── */
+app.get('/api/v1/notebooks', listNotebooksHandler);
+app.post('/api/v1/notebooks', createNotebookHandler);
+app.get('/api/v1/notebooks/stats', notebookStatsHandler);
+app.get('/api/v1/notebooks/:id', getNotebookHandler);
+app.put('/api/v1/notebooks/:id', updateNotebookHandler);
+app.delete('/api/v1/notebooks/:id', deleteNotebookHandler);
+app.post('/api/v1/notebooks/:id/entries', addEntryHandler);
+app.put('/api/v1/notebooks/:notebookId/entries/:entryId', updateEntryHandler);
+app.delete('/api/v1/notebooks/:notebookId/entries/:entryId', deleteEntryHandler);
 /* ─── Export Hub ──────────────────────────────────────────────────── */
 // Handlers live in routes/export.ts: each parses the body via safeJsonBody
 // (400 on malformed input, not a 500), validates the minimal shape it needs,

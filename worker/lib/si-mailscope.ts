@@ -316,7 +316,7 @@ function parseAuthHeader(value: string): AuthResults {
   for (const part of splitAuthMethods(value)) {
     const methodMatch = part.match(/^([a-z]+)=/i);
     if (!methodMatch) continue;
-    const method = methodMatch[1].toLowerCase();
+    const method = methodMatch[1]!.toLowerCase();
     const body = part.slice(methodMatch[0].length);
     const resultMatch = body.match(/^(\S+)/);
     const result = (resultMatch?.[1]?.toLowerCase() ?? 'unknown') as AuthResult['result'];
@@ -415,11 +415,11 @@ function buildFlags(headers: RawHeader[], auth: AuthResults, hops: HopInfo[]): F
   if (fromHdr) {
     const m = fromHdr.match(/^"?([^"<]*?)"?\s*<([^>]+)>/);
     if (m) {
-      const display = m[1].trim();
-      const address = m[2].trim();
+      const display = m[1]!.trim();
+      const address = m[2]!.trim();
       const addrDomain = address.split('@').pop()?.toLowerCase();
       const displayMatch = display.match(/@([\w.\-]+)/);
-      if (displayMatch && addrDomain && displayMatch[1].toLowerCase() !== addrDomain) {
+      if (displayMatch && addrDomain && displayMatch[1]!.toLowerCase() !== addrDomain) {
         flags.push({
           severity: 'high',
           code: 'spoofed_display_name',

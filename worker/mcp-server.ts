@@ -2006,5 +2006,115 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         return untrustedToolResult(data);
       }
     );
+
+    // ── Investigation Notebooks ────────────────────────────────────────
+    this.server.tool(
+      'notebook_list',
+      'List investigation notebooks. Each notebook is a persistent investigation session with notes, IOCs, findings, and timeline entries stored in D1.',
+      {
+        status: z.enum(['open', 'investigating', 'resolved', 'archived']).optional().describe('Filter by status'),
+        limit: z.number().optional().describe('Max results (default 50)'),
+      },
+      async ({ status, limit }) => {
+        const params = new URLSearchParams();
+        if (status) params.set('status', status);
+        if (limit) params.set('limit', String(limit));
+        const data = await apiFetch<Record<string, unknown>>(this.env.SELF, `/api/v1/notebooks?${params}`, this.apiKey);
+        return untrustedToolResult(data);
+      }
+    );
+    this.server.tool(
+      'notebook_create',
+      'Create a new investigation notebook.',
+      {
+        title: z.string().describe('Notebook title (e.g. "Phishing Campaign — example.com")'),
+        description: z.string().optional().describe('Brief summary'),
+        severity: z.enum(['info', 'low', 'medium', 'high', 'critical']).optional().describe('Severity (default: info)'),
+      },
+      async ({ title, description, severity }) => {
+        const data = await apiFetch<Record<string, unknown>>(this.env.SELF, '/api/v1/notebooks', this.apiKey, {
+          method: 'POST',
+          body: JSON.stringify({ title, description, severity }),
+        });
+        return untrustedToolResult(data);
+      }
+    );
+    this.server.tool(
+      'notebook_get',
+      'Get a notebook with all its entries.',
+      {
+        id: z.string().describe('Notebook ID'),
+      },
+      async ({ id }) => {
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          `/api/v1/notebooks/${encodeURIComponent(id)}`,
+          this.apiKey
+        );
+        return untrustedToolResult(data);
+      }
+    );
+    this.server.tool(
+      'notebook_add_entry',
+      'Add a note, IOC, finding, timeline event, or artifact to a notebook.',
+      {
+        notebook_id: z.string().describe('Notebook ID'),
+        entry_type: z
+          .enum(['note', 'ioc', 'finding', 'timeline', 'artifact'])
+          .optional()
+          .describe('Entry type (default: note)'),
+        content: z.string().describe('Entry content'),
+      },
+      async ({ notebook_id, entry_type, content }) => {
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          `/api/v1/notebooks/${encodeURIComponent(notebook_id)}/entries`,
+          this.apiKey,
+          { method: 'POST', body: JSON.stringify({ entry_type, content }) }
+        );
+        return untrustedToolResult(data);
+      }
+    );
+    this.server.tool(
+      'notebook_update',
+      'Update a notebook title, description, status, or severity.',
+      {
+        id: z.string().describe('Notebook ID'),
+        title: z.string().optional().describe('New title'),
+        description: z.string().optional().describe('New description'),
+        status: z.enum(['open', 'investigating', 'resolved', 'archived']).optional().describe('New status'),
+        severity: z.enum(['info', 'low', 'medium', 'high', 'critical']).optional().describe('New severity'),
+      },
+      async ({ id, title, description, status, severity }) => {
+        const body: Record<string, unknown> = {};
+        if (title !== undefined) body.title = title;
+        if (description !== undefined) body.description = description;
+        if (status !== undefined) body.status = status;
+        if (severity !== undefined) body.severity = severity;
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          `/api/v1/notebooks/${encodeURIComponent(id)}`,
+          this.apiKey,
+          { method: 'PUT', body: JSON.stringify(body) }
+        );
+        return untrustedToolResult(data);
+      }
+    );
+    this.server.tool(
+      'notebook_delete',
+      'Delete a notebook and all its entries.',
+      {
+        id: z.string().describe('Notebook ID'),
+      },
+      async ({ id }) => {
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          `/api/v1/notebooks/${encodeURIComponent(id)}`,
+          this.apiKey,
+          { method: 'DELETE' }
+        );
+        return untrustedToolResult(data);
+      }
+    );
   }
 }

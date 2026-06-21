@@ -115,6 +115,7 @@ const UsernameInvestigator = lazy(() => import('./pages/dfir/UsernameInvestigato
 const DomainInvestigator = lazy(() => import('./pages/dfir/DomainInvestigator'));
 const PassiveDns = lazy(() => import('./pages/dfir/PassiveDns'));
 const MalwareAnalyzer = lazy(() => import('./pages/dfir/MalwareAnalyzer'));
+const Notebooks = lazy(() => import('./pages/dfir/Notebooks'));
 const VulnToolkitCatalog = lazy(() => import('./pages/dfir/VulnToolkitCatalog'));
 const WeatherOsint = lazy(() => import('./pages/dfir/WeatherOsint'));
 const IocInvestigate = lazy(() => import('./pages/dfir/IocInvestigate'));
@@ -476,6 +477,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/dfir/domain-investigator', Component: DomainInvestigator },
   { path: '/dfir/passive-dns', Component: PassiveDns },
   { path: '/dfir/malware-analyzer', Component: MalwareAnalyzer },
+  { path: '/dfir/notebooks', Component: Notebooks },
   { path: '/dfir/ioc-investigate', Component: IocInvestigate },
   { path: '/dfir/copilot', Component: DfirCopilotPage },
   { path: '/dfir/yara-workbench', Component: YaraWorkbench },
