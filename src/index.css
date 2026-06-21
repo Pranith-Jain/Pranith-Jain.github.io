@@ -143,22 +143,6 @@
     --border-500: 180 200 240 / 0.28;
     --border-600: 180 200 240 / 0.42;
     --hover-100: 180 200 240 / 0.1;
-
-    /* Threat-Intel violet/magenta dark palette — opt-in only.
-       Sourced from the /threatintel hero screenshot. Backs the
-       .ti-bg / .ti-panel / .ti-text-gradient / .ti-btn-gradient
-       utilities further down. Never replaces the existing
-       brand-blue / surface ramp. */
-    --ti-bg-base: 11 13 26; /* #0B0D1A — deep navy/black page */
-    --ti-bg-panel: 19 22 42; /* #13162A — translucent card    */
-    --ti-bg-border: 31 34 56; /* #1F2238 — soft border         */
-    --ti-accent-indigo: 99 102 241; /* #6366F1 — gradient start      */
-    --ti-accent-violet: 139 92 246; /* #8B5CF6 — gradient mid        */
-    --ti-accent-pink: 192 132 252; /* #C084FC — gradient end        */
-    --ti-glow-magenta: 192 132 252; /* radial pool top-right         */
-    --ti-glow-blue: 99 102 241; /* radial pool bottom-left       */
-    --ti-text: 245 246 250; /* #F5F6FA — primary text        */
-    --ti-text-muted: 138 143 168; /* #8A8FA8 — secondary text      */
   }
 
   /* Geist two-layer focus ring:

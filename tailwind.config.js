@@ -39,22 +39,6 @@ export default {
         // Removed the unused `neon` cyberpunk palette (cyan/pink/purple/green) —
         // 0 references, a generic-AI tell carried in config dead weight.
       },
-      // Threat-Intel palette (violet/magenta dark) — opt-in only.
-      // Backs the .ti-bg / .ti-panel / .ti-text-gradient / .ti-btn-gradient
-      // utilities in index.css. The CSS-var bridge means future theme
-      // switches (e.g. a light-mode TI variant) are a one-line change in
-      // :root, not a Tailwind rebuild.
-      ti: {
-        DEFAULT: 'rgb(var(--ti-accent-violet) / <alpha-value>)',
-        base: 'rgb(var(--ti-bg-base) / <alpha-value>)',
-        panel: 'rgb(var(--ti-bg-panel) / <alpha-value>)',
-        border: 'rgb(var(--ti-bg-border) / <alpha-value>)',
-        indigo: 'rgb(var(--ti-accent-indigo) / <alpha-value>)',
-        violet: 'rgb(var(--ti-accent-violet) / <alpha-value>)',
-        pink: 'rgb(var(--ti-accent-pink) / <alpha-value>)',
-        text: 'rgb(var(--ti-text) / <alpha-value>)',
-        muted: 'rgb(var(--ti-text-muted) / <alpha-value>)',
-      },
       fontFamily: {
         // Distinctive, domain-fit type system (replaced generic Inter/Poppins/
         // Space Grotesk). Bricolage Grotesque = characterful display, Hanken

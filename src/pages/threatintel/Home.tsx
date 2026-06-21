@@ -17,7 +17,6 @@ import {
   type LucideIcon,
 } from 'lucide-react';
 import { LiveSnapshotPanel } from '../../components/dfir/LiveSnapshotPanel';
-import { BrandHero } from '../../components/threatintel/BrandHero';
 import { WhatsNewBanner } from '../../components/threatintel/WhatsNewBanner';
 import { LatestBriefingCard } from '../../components/threatintel/LatestBriefingCard';
 import { LivePulse } from '../../components/threatintel/LivePulse';
@@ -191,13 +190,6 @@ export default function ThreatIntelHome(): JSX.Element {
       <WhatsNewBanner />
       <LatestBriefingCard />
       <LivePulse />
-
-      {/* ── Brand ribbon — PJ / 'working CTI platform' card ─────
-          Static, dark-mode-only band. Establishes the page's
-          identity without disrupting the functional search hero
-          that follows. Opt-in to the violet/magenta palette via
-          .ti-bg / .ti-panel / .ti-text-gradient / .ti-btn-gradient. */}
-      <BrandHero />
 
       {/* ── Hero — bold value prop + primary search ───────────── */}
       {/* surface-card + tone-tinted 1px hairline replaces the old
