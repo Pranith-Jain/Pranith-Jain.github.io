@@ -45,7 +45,7 @@ interface Phase {
   name: string;
   short: string;
   icon: typeof Crosshair;
-  /** Hex accents per phase — used on the loop diagram cards. The Panda color tokens are defined in panda.config.ts. */
+  /** Hex tailwind accents per phase -- used on the loop diagram cards. */
   accent: string;
   ringClass: string;
   who: string;

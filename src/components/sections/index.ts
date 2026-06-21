@@ -11,5 +11,3 @@ export { Memberships } from './Memberships';
 export { Contact } from './Contact';
 export { Solutions } from './Solutions';
 export { Toolkits } from './Toolkits';
-export { TimelineChapter } from './TimelineChapter';
-export type { TimelineChapterProps } from './TimelineChapter';

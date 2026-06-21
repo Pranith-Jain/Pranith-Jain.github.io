@@ -1,17 +1,10 @@
-/* Phase 5: Tailwind directives removed. Panda's preflight + globalCss
- * in panda.config.ts already provides the reset, base typography, and
- * color-scheme handling. The site-specific overrides below use the
- * existing --surface-* / --border-* / --muted CSS variables (defined
- * in :root) and literal hex values where appropriate.
- *
- * @layer order matches Panda's emitted CSS so site-specific rules
- * win over Panda's defaults.
- */
-@layer reset, base, tokens, recipes, utilities;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 @layer base {
   html {
-    font-family: 'Hanken Grotesk', ui-sans-serif, system-ui, sans-serif;
+    font-family: theme('fontFamily.sans');
     scroll-behavior: smooth;
   }
 
@@ -21,7 +14,7 @@
   h4,
   h5,
   h6 {
-    font-family: 'Bricolage Grotesque', 'Hanken Grotesk', sans-serif;
+    font-family: theme('fontFamily.display');
     /* Bricolage Grotesque has real character at display sizes — tighten the
        tracking and let its optical-size axis kick in so headings read
        authored, not default. */
@@ -89,7 +82,7 @@
   }
 
   :focus-visible {
-    outline: 2px solid #6d8bf7;
+    outline: 2px solid theme('colors.brand.400');
     outline-offset: 3px;
   }
 
@@ -121,27 +114,11 @@
   }
 
   ::-webkit-scrollbar-track {
-    background-color: #f1f5f9;
-  }
-  .dark ::-webkit-scrollbar-track {
-    background-color: #0f172a;
+    @apply bg-slate-100 dark:bg-slate-900;
   }
 
   ::-webkit-scrollbar-thumb {
-    border-radius: 9999px;
-    background-color: #cbd5e1;
-    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-duration: 150ms;
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    background-color: #94a3b8;
-  }
-  .dark ::-webkit-scrollbar-thumb {
-    background-color: #334155;
-  }
-  .dark ::-webkit-scrollbar-thumb:hover {
-    background-color: #475569;
+    @apply rounded-full bg-slate-300 transition-colors hover:bg-slate-400 dark:bg-slate-700 dark:hover:bg-slate-600;
   }
 }
 
@@ -151,30 +128,22 @@
        Translucency + border alone give the 'frosted' read; the
        blur was decorative and a glassmorphism tell per the
        remove-ai-slop audit. */
-    border: 1px solid rgba(226, 232, 240, 0.6);
-    background-color: rgba(255, 255, 255, 0.7);
-    transition-property: all;
-    transition-duration: 300ms;
+    @apply border border-slate-200/60 bg-white/70 transition-all duration-300;
   }
 
   .dark .glass {
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    background-color: rgba(15, 23, 42, 0.6);
+    @apply border-white/10 bg-slate-900/60;
   }
 
   /* Calm sibling to .glass for sections where every-card-translucent reads
    * as visual noise (list-of-tiles surfaces: Skills, Solutions, Companies,
    * Memberships, Certifications). Reuses the rest of the design tokens. */
   .surface {
-    border: 1px solid #e2e8f0;
-    background-color: #fff;
-    transition-property: all;
-    transition-duration: 300ms;
+    @apply border border-slate-200 bg-white transition-all duration-300;
   }
 
   .dark .surface {
-    border-color: #1e293b;
-    background-color: #0f172a;
+    @apply border-slate-800 bg-slate-900;
   }
 
   /* ── Depth / morphism surface system ─────────────────────────────────
@@ -192,81 +161,25 @@
        (full opacity, ~3:1 contrast). Cards now blend into the page
        rather than popping as outlined boxes. Unified with the
        335 components already using rgb(var(--border-400)). */
-    border-radius: 0.75rem;
-    border: 1px solid #e2e8f0;
-    background-color: #fff;
-    box-shadow:
-      0 1px 2px rgba(15, 23, 42, 0.04),
-      0 1px 3px rgba(15, 23, 42, 0.06);
-    transition-property:
-      color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform,
-      filter, backdrop-filter;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-duration: 200ms;
-  }
-  .dark .surface-card {
-    border-color: rgb(var(--border-400));
-    background-color: rgb(var(--surface-200) / 0.6);
+    @apply rounded-xl border border-slate-200 bg-white shadow-e1 transition duration-200 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]/60;
   }
   .surface-raised {
     /* Same low-contrast hairline as surface-card (one step up via
        border-500 on hover). */
-    border-radius: 0.75rem;
-    border: 1px solid #e2e8f0;
-    background-color: #fff;
-    box-shadow:
-      0 2px 4px rgba(15, 23, 42, 0.05),
-      0 8px 24px rgba(15, 23, 42, 0.08);
-    transition-property:
-      color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform,
-      filter, backdrop-filter;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-duration: 200ms;
-  }
-  .dark .surface-raised {
-    border-color: rgb(var(--border-400));
-    background-color: rgb(var(--surface-300) / 0.7);
+    @apply rounded-xl border border-slate-200 bg-white shadow-e2 transition duration-200 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300))]/70;
   }
   .surface-glass {
     /* Same low-contrast hairline as the rest of the surface system. */
-    border-radius: 0.75rem;
-    border: 1px solid rgba(226, 232, 240, 0.7);
-    background-color: rgba(255, 255, 255, 0.7);
-    box-shadow:
-      0 1px 2px rgba(15, 23, 42, 0.04),
-      0 1px 3px rgba(15, 23, 42, 0.06);
-    transition-property:
-      color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform,
-      filter, backdrop-filter;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-duration: 200ms;
-  }
-  .dark .surface-glass {
-    border-color: rgb(var(--border-400));
-    background-color: rgb(var(--surface-200) / 0.5);
+    @apply rounded-xl border border-slate-200/70 bg-white/70 shadow-e1 transition duration-200 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]/50;
   }
   .chrome-glass {
     /* Solid bg + low-contrast hairline. No translucency (no blur
        to blur with), so the 80% opacity was just a hack. Now solid
        surface-200 in dark. */
-    border-color: rgba(226, 232, 240, 0.7);
-    background-color: rgba(255, 255, 255, 0.8);
-  }
-  .dark .surface-elevated {
-    border-color: rgb(var(--border-400));
-    background-color: rgb(var(--surface-100));
+    @apply border-slate-200/70 bg-white/80 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-100))];
   }
   .card-hover {
-  }
-  .card-hover:hover {
-    transform: translateY(-2px);
-    box-shadow:
-      0 2px 4px rgba(15, 23, 42, 0.05),
-      0 8px 24px rgba(15, 23, 42, 0.08);
-    border-color: #cbd5e1;
-  }
-  .dark .card-hover:hover {
-    border-color: rgb(var(--border-500));
+    @apply hover:-translate-y-0.5 hover:shadow-e2 hover:border-slate-300 dark:hover:border-[rgb(var(--border-500))];
   }
 }
 
@@ -458,15 +371,11 @@
 }
 
 .custom-scrollbar::-webkit-scrollbar-track {
-  background-color: transparent;
+  @apply bg-transparent;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  border-radius: 9999px;
-  background-color: #cbd5e1;
-}
-.dark .custom-scrollbar::-webkit-scrollbar-thumb {
-  background-color: #334155;
+  @apply rounded-full bg-slate-300 dark:bg-slate-700;
 }
 
 /* .globe-bg removed (remove-ai-slop audit fix 14). The Globe

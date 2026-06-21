@@ -33,7 +33,7 @@ interface CveRecentResponse {
   cves: RecentCve[];
 }
 
-/* ─── Severity palette (canonical — mirrors panda.config.ts severity tokens) ── */
+/* ─── Severity palette (canonical — mirrors tailwind.config severity tokens) ── */
 
 const SEV_COLOR: Record<Severity, string> = {
   CRITICAL: CHART_SEV.CRITICAL,

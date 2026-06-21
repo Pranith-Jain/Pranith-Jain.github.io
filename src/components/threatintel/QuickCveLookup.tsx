@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { BookText, ExternalLink, Loader2 } from 'lucide-react';
-import { type Severity } from '../severity';
-import { SeverityPill } from '../SeverityPill';
+import { SEVERITY_TONE, type Severity } from '../severity';
 
 const CVE_RE = /^CVE-\d{4}-\d{4,7}$/i;
 
@@ -109,9 +108,11 @@ export default function QuickCveLookup() {
               </span>
             )}
             {result.cvss && (
-              <SeverityPill tone={toSeverity(result.cvss.severity)} className="font-bold">
+              <span
+                className={`text-micro px-1.5 py-0.5 rounded font-bold uppercase tracking-wider border ${SEVERITY_TONE[toSeverity(result.cvss.severity)]}`}
+              >
                 {result.cvss.severity} {result.cvss.base_score}
-              </SeverityPill>
+              </span>
             )}
           </div>
 

@@ -1,7 +1,6 @@
 import { useEffect, useState, useCallback, type FormEvent } from 'react';
 import { BackLink } from '../../components/BackLink';
 import { SEVERITY_TONE } from '../../components/severity';
-import { SeverityPill } from '../../components/SeverityPill';
 import { adminAuthHeaders } from '../../lib/admin-token';
 import {
   ArrowLeft,
@@ -322,9 +321,9 @@ function InvestigationsPage(): JSX.Element {
           <div className="flex-1 min-w-0">
             <h1 className="text-2xl sm:text-3xl font-display font-bold mb-2">{inv.title}</h1>
             <div className="flex flex-wrap items-center gap-2">
-              <SeverityPill tone={inv.severity} className="px-2 text-mini">
+              <span className={`text-mini font-mono px-2 py-0.5 rounded border ${SEVERITY_TONE[inv.severity]}`}>
                 {inv.severity}
-              </SeverityPill>
+              </span>
               <span className={`text-mini font-mono px-2 py-0.5 rounded ${STATUS_COLORS[inv.status]}`}>
                 {inv.status}
               </span>
@@ -368,11 +367,7 @@ function InvestigationsPage(): JSX.Element {
               key={s}
               type="button"
               onClick={() => updateSeverity(s)}
-              className={
-                inv.severity === s
-                  ? `text-mini font-mono px-2 py-0.5 rounded border ${SEVERITY_TONE[s]}`
-                  : 'text-mini font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500'
-              }
+              className={`text-mini font-mono px-2 py-0.5 rounded border ${inv.severity === s ? SEVERITY_TONE[s] : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500'}`}
             >
               {s}
             </button>
@@ -760,7 +755,11 @@ function InvestigationsPage(): JSX.Element {
                 <div className="flex-1 min-w-0">
                   <h3 className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100">{inv.title}</h3>
                   <div className="flex flex-wrap items-center gap-2 mt-1.5">
-                    <SeverityPill tone={inv.severity}>{inv.severity}</SeverityPill>
+                    <span
+                      className={`text-micro font-mono px-1.5 py-0.5 rounded border ${SEVERITY_TONE[inv.severity]}`}
+                    >
+                      {inv.severity}
+                    </span>
                     <span className={`text-micro font-mono px-1.5 py-0.5 rounded ${STATUS_COLORS[inv.status]}`}>
                       {inv.status}
                     </span>

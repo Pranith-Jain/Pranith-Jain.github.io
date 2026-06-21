@@ -24,8 +24,7 @@ import {
 } from 'lucide-react';
 import { FeedbackWidget } from '../../components/FeedbackWidget';
 import { adminAuthHeaders } from '../../lib/admin-token';
-import { type Severity } from '../../components/severity';
-import { SeverityPill } from '../../components/SeverityPill';
+import { SEVERITY_TONE, type Severity } from '../../components/severity';
 
 /** Normalize a priority/severity string to the canonical Severity union. */
 function toSeverity(v: string | undefined | null): Severity {
@@ -627,9 +626,11 @@ export default function PirDashboard(): JSX.Element {
           <div className="space-y-2">
             {unacknowledged.map((a) => (
               <div key={a.id} className="flex items-start gap-2 text-mini text-slate-700 dark:text-slate-300">
-                <SeverityPill tone={toSeverity(a.severity)} className="shrink-0 px-1">
+                <span
+                  className={`font-mono shrink-0 px-1 py-0.5 rounded text-micro border ${SEVERITY_TONE[toSeverity(a.severity)]}`}
+                >
                   {a.severity}
-                </SeverityPill>
+                </span>
                 <span className="flex-1">{a.message}</span>
                 <span className="text-slate-400 shrink-0">{new Date(a.triggered_at).toLocaleString()}</span>
                 <button
@@ -712,7 +713,10 @@ export default function PirDashboard(): JSX.Element {
                       <span className="text-slate-500">PIRs: {r.pir_count}</span>
                       <div className="flex gap-1">
                         {r.driving_priorities.map((p) => (
-                          <span key={p} className={SeverityPill({ tone: toSeverity(p), className: 'px-1' })}>
+                          <span
+                            key={p}
+                            className={`text-micro font-mono px-1 py-0.5 rounded border ${SEVERITY_TONE[toSeverity(p)]}`}
+                          >
                             {p}
                           </span>
                         ))}
@@ -867,7 +871,11 @@ export default function PirDashboard(): JSX.Element {
                       }
                       className="w-full flex items-center gap-3 p-4 text-left hover:bg-slate-50 dark:hover:bg-slate-900/20 transition-colors"
                     >
-                      <SeverityPill tone={toSeverity(pir.priority)}>{pir.priority}</SeverityPill>
+                      <span
+                        className={`text-micro font-mono px-1.5 py-0.5 rounded border ${SEVERITY_TONE[toSeverity(pir.priority)]}`}
+                      >
+                        {pir.priority}
+                      </span>
                       <span className={`text-micro font-mono ${STATUS_COLORS[pir.status ?? 'active']}`}>
                         {pir.status ?? 'active'}
                       </span>

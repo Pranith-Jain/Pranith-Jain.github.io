@@ -13,7 +13,6 @@ import {
   Crosshair,
 } from 'lucide-react';
 import { DataState } from '../../components/DataState';
-import { SeverityPill } from '../../components/SeverityPill';
 import { relativeAgo } from '../../lib/relativeTime';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 import {
@@ -28,10 +27,7 @@ import {
 /*  Types                                                              */
 /* ------------------------------------------------------------------ */
 
-// Migrated to canonical Severity + SeverityPill (Panda CSS) in
-// Phase 4. Removed the local SEVERITY_TONE const + Severity type that
-// had drifted from the canonical source-of-truth in
-// components/severity.ts. Now uses the recipe-backed <SeverityPill>.
+type Severity = 'critical' | 'high' | 'medium' | 'low';
 
 interface LeakEntry {
   id: number;
@@ -493,7 +489,11 @@ function PivotCard({ pivot, onClearFilter }: { pivot: HandlePivot; onClearFilter
                 {pivot.leakCount30d === 1 ? 'y' : 'ies'} (30d)
               </span>
             )}
-            {pivot.topSeverity && <SeverityPill tone={pivot.topSeverity}>top: {pivot.topSeverity}</SeverityPill>}
+            {pivot.topSeverity && (
+              <span className={`px-1.5 py-0.5 rounded border ${SEVERITY_TONE[pivot.topSeverity]}`}>
+                top: {pivot.topSeverity}
+              </span>
+            )}
           </div>
         </div>
         <div className="flex flex-wrap items-center gap-1.5">
@@ -599,7 +599,11 @@ function PivotCard({ pivot, onClearFilter }: { pivot: HandlePivot; onClearFilter
             <ul className="space-y-1.5">
               {pivot.recentLeaks.slice(0, 5).map((l) => (
                 <li key={l.id} className="text-xs flex flex-wrap items-baseline gap-2">
-                  <SeverityPill tone={l.severity}>{l.severity}</SeverityPill>
+                  <span
+                    className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${SEVERITY_TONE[l.severity]}`}
+                  >
+                    {l.severity}
+                  </span>
                   <span className="font-mono text-slate-700 dark:text-slate-300">{l.leak_type}</span>
                   {l.credential_count > 0 && <span className="text-slate-500">{l.credential_count} creds</span>}
                   <span className="text-slate-500 ml-auto">{relativeAgo(l.discovered_at, '—')}</span>

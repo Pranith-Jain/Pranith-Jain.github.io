@@ -2,20 +2,12 @@
 /**
  * Guard: ban ad-hoc sub-token font sizes (text-[Npx]).
  *
- * Phase 5: Tailwind removed. The remaining `text-[10px]` / `text-[11px]`
- * strings in the codebase are now no-op (Tailwind JIT is no longer
- * running), but we keep this guard so the codebase doesn't accumulate
- * dead Tailwind patterns during the migration's tail end. When all
- * remaining ad-hoc strings are migrated (or removed), this script
- * will return 0 hits and can be deleted.
+ * The named type scale (text-micro/mini/meta/tool/eyebrow in tailwind.config.js)
+ * is the single source of truth. Arbitrary `text-[10px]` etc. reintroduces the
+ * drift the type-scale codemod removed (~2,600 sites) and bypasses the mobile
+ * legibility floor + light-mode contrast override that are keyed to the tokens.
  *
- * The named type scale (text-micro/mini/meta/tool/eyebrow) is now
- * defined in panda.config.ts as fontSize tokens. Panda recipes emit
- * typed CSS via `fs_mini` / `fs_micro` etc. — no arbitrary `[Npx]`
- * values.
- *
- * Run: `npm run check:no-px-text`. Exits 1 with a file:line list on
- * any hit. Expected hits today: ~10 (InfraMap, Projects, McpStatusBanner).
+ * Run: `npm run check:no-px-text`. Exits 1 with a file:line list on any hit.
  */
 import { readFileSync, readdirSync, statSync } from 'node:fs';
 import path from 'node:path';

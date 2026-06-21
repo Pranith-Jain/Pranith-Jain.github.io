@@ -1,13 +1,7 @@
 import { About } from '../components/sections/About';
-import { TimelineChapter } from '../components/sections/TimelineChapter';
 import { useDocumentMeta } from '../hooks/useDocumentMeta';
 import { Featured, Memberships } from '../components/sections';
 import { stats, featuredArticles, memberships } from '../data/content';
-// Panda `css` is imported for one-off layout-only styling in this
-// page (e.g. the section header eyebrow + max-width container). The
-// recipes in src/styled/recipes.ts own the design tokens; this is
-// for layout that doesn't repeat enough to warrant a recipe.
-import { css } from '../../styled-system/css';
 
 interface Chapter {
   period: string;
@@ -43,39 +37,6 @@ const storyChapters: Chapter[] = [
   },
 ];
 
-// Panda `css()` calls — one-off layout helpers. The design tokens
-// (font-family, font-size, etc.) come from the `panda.config.ts`
-// theme.extend.tokens block; these calls only describe layout that
-// is unique to this page (max-width, spacing, font-mono, etc.).
-// Promoting either to a recipe would add indirection without
-// removing duplication — the same string doesn't appear elsewhere.
-const styles = {
-  story: css({ scrollMarginTop: '24' }),
-  eyebrow: css({
-    textTransform: 'uppercase',
-    fontFamily: 'mono',
-    color: 'slate.500',
-    _dark: { color: 'slate.400' },
-    letterSpacing: '0.2em',
-    marginBottom: '3',
-  }),
-  h2: css({
-    fontFamily: 'display',
-    fontSize: { base: '3xl', sm: '4xl' },
-    fontWeight: 'bold',
-    letterSpacing: 'tight',
-    color: 'slate.900',
-    _dark: { color: 'white' },
-  }),
-  description: css({
-    marginTop: '3',
-    fontSize: { base: 'base', sm: 'lg' },
-    color: 'muted',
-    lineHeight: 'relaxed',
-  }),
-  headerContainer: css({ marginBottom: '10', maxWidth: '2xl' }),
-};
-
 export default function AboutPage() {
   useDocumentMeta({
     title: 'About',
@@ -90,25 +51,43 @@ export default function AboutPage() {
 
       <About stats={stats} />
 
-      <section id="story" className={`mt-16 ${styles.story}`}>
-        <div className={styles.headerContainer}>
-          <div className={styles.eyebrow}>The Story</div>
-          <h2 className={styles.h2}>How I got here</h2>
-          <p className={styles.description}>From code to incidents: the path that shaped the work I do now.</p>
+      <section id="story" className="mt-16 scroll-mt-24">
+        <div className="mb-10 max-w-2xl">
+          <div className="mb-3 text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
+            The Story
+          </div>
+          <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
+            How I got here
+          </h2>
+          <p className="mt-3 text-base sm:text-lg text-muted leading-relaxed">
+            From code to incidents: the path that shaped the work I do now.
+          </p>
         </div>
 
         <div className="stagger space-y-12">
           {storyChapters.map((chapter) => (
-            // Migrated from inline timeline markup to <TimelineChapter>
-            // (Phase 3) — same visual output, the 3 instances are now
-            // expressed declaratively. Layout-only utility strings
-            // (mt-16, max-w-2xl, etc.) are still in the className for
-            // the dual-pipeline period; they migrate to css() in Phase 4.
-            <TimelineChapter key={chapter.period} period={chapter.period} tags={chapter.badges}>
-              {chapter.paragraphs.map((p, i) => (
-                <p key={i}>{p}</p>
-              ))}
-            </TimelineChapter>
+            <div key={chapter.period} className="relative pl-8 sm:pl-10">
+              <div className="absolute left-0 top-1 bottom-0 w-px bg-slate-200 dark:bg-slate-800" />
+              <div className="absolute -left-[5px] top-1 h-2.5 w-2.5 rounded-full border-2 border-brand-500 bg-white dark:bg-slate-900" />
+              <div className="text-eyebrow font-mono uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400 mb-3">
+                {chapter.period}
+              </div>
+              <div className="space-y-4 text-base text-muted leading-relaxed">
+                {chapter.paragraphs.map((p, i) => (
+                  <p key={i}>{p}</p>
+                ))}
+              </div>
+              <div className="mt-4 flex flex-wrap gap-2">
+                {chapter.badges.map((b) => (
+                  <span
+                    key={b}
+                    className="rounded-md border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/60 px-2.5 py-1 text-mini font-mono text-slate-500 dark:text-slate-400"
+                  >
+                    {b}
+                  </span>
+                ))}
+              </div>
+            </div>
           ))}
         </div>
       </section>

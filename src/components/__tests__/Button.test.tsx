@@ -62,26 +62,18 @@ describe('Button', () => {
 
   it('applies variant classes', () => {
     const { rerender } = render(<Button variant="primary">Primary</Button>);
-    // Panda atomic class for bg-slate-900 (post-migration); the
-    // legacy Tailwind class was 'bg-slate-900'.
-    expect(screen.getByRole('button')).toHaveClass('bg_slate.900');
+    expect(screen.getByRole('button')).toHaveClass('bg-slate-900');
 
     rerender(<Button variant="danger">Danger</Button>);
-    // The Panda atomic class is a re-mapping of the Tailwind token
-    // (red.700 in our color ramp). The exact class string changes;
-    // what matters is that the rendered button picks up the variant.
-    expect(screen.getByRole('button').className).toMatch(/red\.700|bg_red/);
+    expect(screen.getByRole('button')).toHaveClass('bg-red-700');
   });
 
   it('applies size classes', () => {
     const { rerender } = render(<Button size="xs">XS</Button>);
-    // Panda atomic class for px-1.5 (post-migration). The recipe's
-    // size variant sets both height and horizontal padding.
-    expect(screen.getByRole('button').className).toMatch(/px_1\.5/);
-    expect(screen.getByRole('button').className).toMatch(/h_7/);
+    expect(screen.getByRole('button')).toHaveClass('px-1.5');
 
     rerender(<Button size="xl">XL</Button>);
-    expect(screen.getByRole('button').className).toMatch(/px_5/);
+    expect(screen.getByRole('button')).toHaveClass('px-5');
   });
 
   it('renders icon on left by default', () => {

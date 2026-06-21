@@ -22,8 +22,7 @@ import {
   ShieldAlert,
   type LucideIcon,
 } from 'lucide-react';
-import { type Severity } from '../../components/severity';
-import { SeverityPill } from '../../components/SeverityPill';
+import { SEVERITY_TONE, type Severity } from '../../components/severity';
 
 interface PlaybookStep {
   id: string;
@@ -187,7 +186,11 @@ export default function IrPlaybooks(): JSX.Element {
           <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5">
             <div className="flex items-center justify-between mb-2">
               <h2 className="font-display font-bold text-lg">{result.playbook.title}</h2>
-              <SeverityPill tone={result.playbook.severity}>{result.playbook.severity}</SeverityPill>
+              <span
+                className={`text-micro font-mono px-1.5 py-0.5 rounded border ${SEVERITY_TONE[result.playbook.severity]}`}
+              >
+                {result.playbook.severity}
+              </span>
             </div>
             <p className="text-sm text-muted mb-3">{result.playbook.description}</p>
             <div className="flex flex-wrap gap-3 text-xs text-slate-500">
