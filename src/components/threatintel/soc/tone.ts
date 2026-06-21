@@ -2,7 +2,7 @@
  * Color tokens for the SOC dashboards. All chart fills, severity tokens,
  * and per-domain palettes live here — pages never define their own colors.
  *
- * Severity tokens mirror `tailwind.config.js` and src/components/severity.ts
+ * Severity tokens mirror `panda.config.ts` and src/components/severity.ts
  * so a critical finding reads the same on any page (rose → orange → amber →
  * slate). `low` is *intentionally* slate (neutral), NOT green — green is
  * reserved for `ok` (a healthy/passing status), a distinct concept.
@@ -10,7 +10,7 @@
 
 export type SocSeverity = 'critical' | 'high' | 'medium' | 'low' | 'ok' | 'info';
 
-/* ─── Tailwind class tokens ───────────────────────────────────────── */
+/* ─── Panda class tokens (for chart labels) ────────────────────────── */
 
 export const SEVERITY_TEXT: Record<SocSeverity, string> = {
   critical: 'text-rose-700 dark:text-rose-300',
@@ -41,7 +41,7 @@ export const SEVERITY_DOT: Record<SocSeverity, string> = {
 
 /* ─── Hex fill palettes (chart colours) ───────────────────────────── */
 
-/** Severity → fill hex — mirrors tailwind severity tokens exactly. */
+/** Severity → fill hex — mirrors panda severity tokens exactly. */
 export const CHART_SEV: Record<string, string> = {
   CRITICAL: '#e11d48',
   HIGH: '#f97316',
@@ -66,7 +66,7 @@ export const CHART_DAILY = '#2c3ee5';
 
 /* ─── Domain-specific palettes ────────────────────────────────────── */
 
-/** Ransomware sector → fill hex. Mapped from tailwind severity so a
+/** Ransomware sector → fill hex. Mapped from panda severity so a
  *  Healthcare spike reads as critical and Finance as high, etc. */
 export const CHART_SECTOR: Record<string, string> = {
   Healthcare: '#e11d48',
