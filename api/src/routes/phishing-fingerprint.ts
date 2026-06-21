@@ -8,7 +8,7 @@ import { safeNullLog } from '../lib/safe-catch';
 const FP_KV_PREFIX = 'phishing-fp:';
 const MAX_HTML_BYTES = 512 * 1024;
 const MAX_URLS_PER_FP = 20;
-/** 30-day retention ceiling per dfir-improvement-goal.md hard constraint.
+/** 30-day retention ceiling (hard constraint on the fingerprint cache).
  *  Previously expirationTtl=0 (permanent) which violated the policy. */
 const FP_TTL_SECONDS = 30 * 86400;
 
@@ -62,7 +62,10 @@ export async function fingerprintHandler(ctx: Context<{ Bindings: Env }>): Promi
   if (!ctx.env.KV_CACHE) return ctx.json({ error: 'KV not available' }, 503);
 
   const key = `${FP_KV_PREFIX}${hash}`;
-  const existing = (await safeNullLog('kv-get-phishing-fp', ctx.env.KV_CACHE.get(key, 'json'))) as FingerprintRecord | null;
+  const existing = (await safeNullLog(
+    'kv-get-phishing-fp',
+    ctx.env.KV_CACHE.get(key, 'json')
+  )) as FingerprintRecord | null;
 
   if (existing) {
     const updated: FingerprintRecord = {

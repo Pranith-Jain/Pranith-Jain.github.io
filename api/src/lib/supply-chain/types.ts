@@ -1,7 +1,7 @@
 // api/src/lib/supply-chain/types.ts
 // Shared normalized result envelopes for the supply-chain intelligence module.
 // One source = one lib fn; each fn returns one of these envelopes with an
-// HONEST status (never throws). See docs/superpowers/specs/2026-06-11-supply-chain-intel-design.md §2.3.
+// HONEST status (never throws).
 import type { LabelCategory } from '../address-labels';
 
 /** Injectable fetch implementation (defaults to globalThis.fetch in each lib fn). */

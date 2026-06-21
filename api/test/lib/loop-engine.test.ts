@@ -11,8 +11,7 @@ import {
 import { LoopEngine } from '../../src/lib/agent/loop-engine';
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Behavior-parity gate for the loop-engine rewrite (see
-// docs/superpowers/specs/2026-06-10-loop-engineering-design.md).
+// Behavior-parity gate for the loop-engine rewrite.
 //
 // The two `reference*` functions below are faithful copies of the PRE-REFACTOR
 // control flow, so this is a true differential test rather than a self-fulfilling
