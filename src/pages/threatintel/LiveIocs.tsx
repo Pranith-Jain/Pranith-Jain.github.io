@@ -231,7 +231,6 @@ export default function LiveIocs(): JSX.Element {
             const list = data.registered_sources ?? data.sources;
             if (list.length === 0) return null;
             const healthy = list.filter((s) => s.ok && s.count > 0).length;
-            const empty = list.filter((s) => s.ok && s.count === 0).length;
             const unreachable = list.filter((s) => s.ok === false);
             const unreachableIds = unreachable.map((s) => s.id).join(', ');
             const dotCls = (cls: string) => `inline-block w-1.5 h-1.5 rounded-full ${cls}`;
@@ -248,11 +247,6 @@ export default function LiveIocs(): JSX.Element {
                 <span className="inline-flex items-center gap-1">
                   <span className={dotCls('bg-emerald-500')} aria-label="healthy" />
                   {healthy} healthy
-                </span>
-                <span className="mx-1.5 opacity-50">·</span>
-                <span className="inline-flex items-center gap-1">
-                  <span className={dotCls('bg-slate-300 dark:bg-slate-600')} aria-label="empty" />
-                  {empty} empty
                 </span>
                 <span className="mx-1.5 opacity-50">·</span>
                 <span
