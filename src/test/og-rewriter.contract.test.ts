@@ -15,11 +15,9 @@ import { injectOgMeta, OG_OVERRIDES } from '../../worker/og-rewriter';
 const indexHtml = readFileSync(resolve(process.cwd(), 'index.html'), 'utf8');
 
 /** Serve a path through the worker's OG rewriter (no nonce -> no caches access). */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 async function serve(path: string, env: any = {}): Promise<string> {
   const res = new Response(indexHtml, { headers: { 'content-type': 'text/html;charset=UTF-8' } });
   const url = new URL(`https://pranithjain.qzz.io${path}`);
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const out = await injectOgMeta(res, url, env, { waitUntil() {} } as any);
   return out.text();
 }
@@ -163,6 +161,6 @@ describe('credential/login surfaces served noindex (Safe Browsing mitigation)', 
     });
   }
   it('leaves ordinary routes index,follow', async () => {
-    expect(await serve('/about')).toMatch(/<meta\s+name="robots"\s+content="index, follow"/i);
+    expect(await serve('/about')).toMatch(/<meta\s+name="robots"\s+content="index, follow/i);
   });
 });

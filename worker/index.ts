@@ -17,7 +17,7 @@ import type { Env } from './env';
 export { LiveFeedDO, DfirMcpServer, CronLockDO, ReportBuilderDO, InvestigatorAgentDO, RadarCrawlerDO };
 export type { Env };
 
-const ARGUS_ORIGIN = 'https://argus-threat-intel.pages.dev';
+const ARGUS_ORIGIN = 'https://argus-threat-intel.pj-6a7.workers.dev';
 
 const ARGUS_API_PATHS = ['/api/actors', '/api/feed', '/api/stats', '/api/health', '/api/stix/bundle'];
 

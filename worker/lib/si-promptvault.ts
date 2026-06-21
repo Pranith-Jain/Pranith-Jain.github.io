@@ -1,4 +1,4 @@
-/* eslint-disable no-useless-escape, @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any */
 /**
  * PROMPTVAULT — Community-driven AI prompt library.
  *

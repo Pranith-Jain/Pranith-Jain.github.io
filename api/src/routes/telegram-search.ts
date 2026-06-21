@@ -111,9 +111,23 @@ export function parseTgstatSearch(html: string): Array<Omit<TelegramSearchResult
     // Channel name: tgstat puts the handle in an <h5> (`@<handle>`) and
     // the human-friendly title in a sibling `<div class="text-muted">`.
     // We try the second anchor child first, then the whole-anchor text.
-    const h5Text = /<h5[^>]*>([\s\S]*?)<\/h5>/.exec(anchorHtml)?.[1]?.replace(/<[^>]+>/g, '').trim() ?? '';
-    const innerDivText = /<div[^>]*class="[^"]*text-muted[^"]*"[^>]*>([\s\S]*?)<\/div>/.exec(anchorHtml)?.[1]?.replace(/<[^>]+>/g, '').trim() ?? '';
-    const nameRaw = innerDivText || h5Text || anchorHtml.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+    const h5Text =
+      /<h5[^>]*>([\s\S]*?)<\/h5>/
+        .exec(anchorHtml)?.[1]
+        ?.replace(/<[^>]+>/g, '')
+        .trim() ?? '';
+    const innerDivText =
+      /<div[^>]*class="[^"]*text-muted[^"]*"[^>]*>([\s\S]*?)<\/div>/
+        .exec(anchorHtml)?.[1]
+        ?.replace(/<[^>]+>/g, '')
+        .trim() ?? '';
+    const nameRaw =
+      innerDivText ||
+      h5Text ||
+      anchorHtml
+        .replace(/<[^>]+>/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim();
     // If the only text is the `@handle` (no friendly name), fall back to
     // the handle itself — a sensible default.
     const name = nameRaw.startsWith('@') || nameRaw === '' || nameRaw === h5Text ? handle : nameRaw;
@@ -149,7 +163,10 @@ export function extractDescription(tail: string): string {
   let idx = 0;
   while ((m = re.exec(tail)) !== null) {
     if (idx === 1) {
-      const raw = m[1]!.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+      const raw = m[1]!
+        .replace(/<[^>]+>/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim();
       if (raw.length > 0) return raw.slice(0, 280);
     }
     idx++;
@@ -165,7 +182,10 @@ export function extractMeta(tail: string): {
   // tgstat shows meta in a font-12 div like "12.5K subscribers · 4 posts/day".
   // Sometimes the post/day is missing; the subscriber count is always first.
   const meta = tail.match(/<div[^>]*font-12[^"]*"[^>]*>([\s\S]*?)<\/div>/i)?.[1] ?? tail;
-  const text = meta.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+  const text = meta
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
 
   const subsMatch = text.match(/([\d.,]+)\s*([KkMm])?\s*subscribers?/i);
   const subscribers = subsMatch ? parseCount(subsMatch[1]!, subsMatch[2]) : null;
@@ -280,7 +300,7 @@ export async function telegramSearchHandler(c: Context<{ Bindings: Env }>): Prom
   }
 
   let results: TelegramSearchResult[] = [];
-  let fetchedAt = new Date().toISOString();
+  const fetchedAt = new Date().toISOString();
   let stale = false;
 
   if (cachedPayload) {
@@ -441,7 +461,11 @@ export async function telegramChannelMetaHandler(c: Context<{ Bindings: Env }>):
   // channel name is in the page title, the subscriber count in a
   // dedicated stat block, and the description in the meta description.
   const titleMatch = html.match(/<title>([^<]+)<\/title>/i)?.[1] ?? handle;
-  const name = titleMatch.replace(/\s*\|\s*TGStat.*$/i, '').replace(/^@/, '').trim() || handle;
+  const name =
+    titleMatch
+      .replace(/\s*\|\s*TGStat.*$/i, '')
+      .replace(/^@/, '')
+      .trim() || handle;
   const subsMatch = html.match(/([\d.,]+)\s*([KkMm])?\s*subscribers?/i);
   const subscribers = subsMatch ? parseCount(subsMatch[1]!, subsMatch[2]) : null;
   const postsMatch = html.match(/([\d.]+)\s*posts?\s*\/\s*day/i);
@@ -450,7 +474,11 @@ export async function telegramChannelMetaHandler(c: Context<{ Bindings: Env }>):
     html.match(/<meta\s+name="description"\s+content="([^"]+)"/i)?.[1] ??
     html.match(/<div[^>]*class="[^"]*channel-about[^"]*"[^>]*>([\s\S]*?)<\/div>/i)?.[1] ??
     '';
-  const description = descMatch.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 400);
+  const description = descMatch
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .slice(0, 400);
 
   const out: ChannelMetaResponse = {
     handle,

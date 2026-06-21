@@ -583,6 +583,13 @@ const DFIR_PAGES: readonly PageEntry[] = [
     group: 'dfir',
   },
   {
+    path: '/dfir/notebooks',
+    label: 'Investigation Notebooks',
+    description: 'Persistent notes, IOC snapshots, and findings for DFIR investigations.',
+    sectionLabel: 'DFIR · Investigate',
+    group: 'dfir',
+  },
+  {
     path: '/dfir/ioc-pivot',
     label: 'IOC Pivot',
     description: 'Pivot a single indicator through enrichment, related IOCs, and infrastructure neighbors.',

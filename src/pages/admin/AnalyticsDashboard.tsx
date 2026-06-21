@@ -1,6 +1,6 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Activity, BarChart3, Globe, TrendingUp, Users, RefreshCw, Calendar } from 'lucide-react';
+import { ArrowLeft, Activity, BarChart3, Globe, TrendingUp, RefreshCw } from 'lucide-react';
 
 interface AnalyticsEvent {
   blobs: string[];
@@ -25,15 +25,12 @@ interface AnalyticsSummary {
 export default function AnalyticsDashboard(): JSX.Element {
   const [data, setData] = useState<AnalyticsSummary | null>(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
   const [refreshKey, setRefreshKey] = useState(0);
 
   useEffect(() => {
     let alive = true;
     const ctrl = new AbortController();
     setLoading(true);
-    setError(null);
-
     // Fetch analytics data from the API
     fetch('/api/v1/analytics/summary', { signal: ctrl.signal })
       .then(async (r) => {

@@ -58,7 +58,7 @@ function getQuoteOfTheDay(): { text: string; author: string } {
   return QUOTES[seed % QUOTES.length];
 }
 
-export function QuoteOfTheDay(): JSX.Element {
+export function QuoteOfTheDay(): JSX.Element | null {
   const [quote, setQuote] = useState<{ text: string; author: string } | null>(null);
 
   useEffect(() => {

@@ -1,9 +1,14 @@
 /**
  * Build the CSP value. When `nonce` is provided (HTML responses only),
- * `script-src` switches from the legacy `'unsafe-inline'` to nonce-based
- * — the one inline `<script>` in index.html (the theme-flash preventer)
- * gets a matching `nonce` attribute injected, and every other inline
- * script (i.e. anything an attacker manages to inject) is blocked.
+ * `script-src` uses nonce-based enforcement — the one inline `<script>`
+ * in index.html (the theme-flash preventer) gets a matching `nonce`
+ * attribute injected, and every other inline script (i.e. anything an
+ * attacker manages to inject) is blocked.
+ *
+ * `'unsafe-inline'` is NOT included in `script-src` for HTML responses.
+ * Per the CSP spec, when both a nonce and `'unsafe-inline'` are present,
+ * the nonce is ignored — `'unsafe-inline'` takes precedence, allowing
+ * any inline script to execute and completely negating the nonce defense.
  *
  * `style-src 'unsafe-inline'` is retained because React components ship
  * inline `style={...}` attributes throughout the SPA — removing it would
@@ -22,12 +27,12 @@ export function cspHeader(nonce?: string): string {
   if (!nonce) return CSP_API;
   return [
     "default-src 'self'",
-    // 'unsafe-inline' included for Cloudflare Zaraz which uses inline
-    // event handlers (onload/onerror) in its injected snippet. The
-    // nonce still blocks arbitrary inline <script> injection — only
-    // the theme-flash preventer (matching nonce) and external module
-    // scripts (by source) can execute.
-    `script-src 'self' 'unsafe-inline' 'nonce-${nonce}' 'wasm-unsafe-eval' https://static.cloudflareinsights.com`,
+    // Nonce-based script-src: only the theme-flash preventer (matching nonce)
+    // and external module scripts (by source) can execute. Inline event handlers
+    // (onload/onerror) are not needed — the font <link> uses media="all" and
+    // no other inline handlers exist. This is critical: 'unsafe-inline' alongside
+    // a nonce causes the nonce to be IGNORED per the CSP spec.
+    `script-src 'self' 'nonce-${nonce}' 'wasm-unsafe-eval' https://static.cloudflareinsights.com`,
     "style-src 'self' 'unsafe-inline'",
     "img-src 'self' data: https:",
     "connect-src 'self' https://api.cloudflare.com https://cloudflare-dns.com https://cloudflareinsights.com https://*.cloudflareinsights.com https://unpkg.com https://mr-akuma.github.io https://nominatim.openstreetmap.org https://goxdr.fyi",

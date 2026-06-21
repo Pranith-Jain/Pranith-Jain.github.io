@@ -15,6 +15,7 @@ interface Post {
   iocs: { type: string; value: string }[];
   tags: string[];
   candidateId?: string;
+  quality?: { total: number };
 }
 
 interface PostIndexEntry {

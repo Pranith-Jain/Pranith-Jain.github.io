@@ -1,4 +1,4 @@
-/* eslint-disable no-useless-escape, @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any */
+/* eslint-disable no-useless-escape, @typescript-eslint/no-unused-vars */
 /**
  * HYPOS — Hypothesis engine for threat hunting.
  *

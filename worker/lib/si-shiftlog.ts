@@ -1,4 +1,3 @@
-/* eslint-disable no-useless-escape, @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any */
 /**
  * SHIFTLOG — SOC shift handover tracker.
  *

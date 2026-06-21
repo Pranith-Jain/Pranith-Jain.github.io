@@ -156,11 +156,13 @@
          needed; font-display: swap (in fonts.css) covers FOIT. Type system:
          Bricolage Grotesque (display), Hanken Grotesk (body), JetBrains Mono
          (IOC / terminal data).
-         Loaded asynchronously via media="print" → onload swaps to "all" so the
-         font CSS doesn't block the initial render. The swap is safe because
+         Loaded eagerly (media="all") — self-hosted fonts are fast, and
          font-display: swap already shows system fonts until the custom fonts
-         load, so there is no flash-of-unstyled-text regression. -->
-    <link rel="stylesheet" href="/fonts/fonts.css" media="print" onload="this.media = 'all'" />
+         load, so there is no flash-of-unstyled-text regression. The previous
+         media="print" → onload swap required an inline event handler which
+         conflicted with CSP nonce-based script-src (unsafe-inline alongside
+         a nonce nullifies the nonce). -->
+    <link rel="stylesheet" href="/fonts/fonts.css" media="all" />
     <noscript><link rel="stylesheet" href="/fonts/fonts.css" /></noscript>
 
     <!-- Theme detection script - runs before page render to prevent flash -->

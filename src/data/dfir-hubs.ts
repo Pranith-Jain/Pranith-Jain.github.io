@@ -1030,6 +1030,13 @@ export const HUB_META: readonly HubMeta[] = [
         desc: 'Generate network blocklists (pfSense, MikroTik, Cisco) from IOCs.',
         compVar: 'Blocklists',
       },
+      {
+        path: '/dfir/notebooks',
+        tabId: 'notebooks',
+        label: 'Investigation Notebooks',
+        desc: 'Persistent notes, IOC snapshots, and findings for DFIR investigations.',
+        compVar: 'Notebooks',
+      },
     ],
   },
   {

@@ -1,4 +1,4 @@
-import { Suspense, lazy, useMemo, useState } from 'react';
+import { Fragment, Suspense, lazy, useMemo, useState } from 'react';
 import {
   MapPin,
   Search,
@@ -845,9 +845,8 @@ export default function Facilities(): JSX.Element {
                     const config = TYPE_CONFIG[f.type];
                     const isExpanded = expandedId === f.id;
                     return (
-                      <>
+                      <Fragment key={f.id}>
                         <tr
-                          key={f.id}
                           onClick={() => setExpandedId(isExpanded ? null : f.id)}
                           className="border-b border-slate-100 dark:border-[rgb(var(--border-400))]/50 hover:bg-slate-50 dark:hover:bg-slate-800/30 cursor-pointer transition-colors"
                         >
@@ -897,7 +896,7 @@ export default function Facilities(): JSX.Element {
                             </td>
                           </tr>
                         )}
-                      </>
+                      </Fragment>
                     );
                   })}
                 </tbody>

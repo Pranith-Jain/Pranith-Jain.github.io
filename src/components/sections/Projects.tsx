@@ -144,7 +144,7 @@ export function Projects({ projects }: ProjectsProps) {
             <div className="absolute left-4 top-0 bottom-0 w-px bg-slate-200 dark:bg-slate-800 hidden sm:block" />
 
             <div className="space-y-4">
-              {publishedCaseStudies.map((cs, idx) => (
+              {publishedCaseStudies.map((cs) => (
                 <Link
                   key={cs.slug}
                   to={`/projects/${cs.slug}`}
