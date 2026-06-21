@@ -5,7 +5,8 @@ import { BackLink } from '../../components/BackLink';
 import { DataState } from '../../components/DataState';
 import { ClusterTabs, RANSOMWARE_TABS } from '../../components/threatintel/ClusterTabs';
 import { sanitizeUrl } from '../../lib/sanitize-url';
-import { SEVERITY_TONE, type Severity } from '../../components/severity';
+import { type Severity } from '../../components/severity';
+import { SeverityPill } from '../../components/SeverityPill';
 
 /**
  * Ransomware Intel Report — a per-threat-group CTI report assembled from the
@@ -548,11 +549,9 @@ export default function RansomReport(): JSX.Element {
                               </a>
                             </td>
                             <td className="px-3 py-1.5">
-                              <span
-                                className={`text-mini font-mono px-2 py-0.5 rounded border ${SEVERITY_TONE[normSeverity(v.severity)]}`}
-                              >
+                              <SeverityPill tone={normSeverity(v.severity)} className="px-2 text-mini">
                                 {v.severity ?? '—'}
-                              </span>
+                              </SeverityPill>
                             </td>
                             <td className="px-3 py-1.5 font-mono text-meta tabular-nums text-muted">{v.CVSS ?? '—'}</td>
                             <td className="px-3 py-1.5 text-meta text-muted">{v.Vendor ?? '—'}</td>

@@ -172,7 +172,7 @@ export default function CaseStudy(): JSX.Element {
       ) : (
         <article
           ref={bodyRef}
-          // Inline typographic rules instead of @tailwindcss/typography
+          // Inline typographic rules (no @tailwindcss/typography plugin since Tailwind removal)
           // (not installed). Covers what the case-study body actually uses:
           // h2/h3, paragraphs, ul/ol, code, blockquotes, strong, links.
           className={

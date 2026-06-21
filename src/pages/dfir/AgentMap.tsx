@@ -15,7 +15,7 @@ import { SEVERITY_TONE } from '../../components/severity';
 
 // SVG <line> stroke needs a CSS colour value (not a Tailwind class), so it can't
 // reuse SEVERITY_BAR's `bg-*` classes. These hexes are byte-aligned with the
-// canonical `severity.*` tokens in tailwind.config.js / src/components/severity.ts
+// canonical `severity.*` tokens in panda.config.ts / src/components/severity.ts
 // (critical=rose-600, high=orange-500, medium=amber-500). RiskPath['severity'] is
 // only critical|high|medium, so only those keys are needed.
 const SEVERITY_STROKE: Record<RiskPath['severity'], string> = {

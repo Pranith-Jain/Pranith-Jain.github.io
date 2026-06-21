@@ -19,7 +19,12 @@ const distDir = join(__dirname, '..', 'dist');
 const BUDGETS = {
   'vendor-react-*.js': { uncompressed: 80_000, gzip: 28_000 },
   'vendor-icons-*.js': { uncompressed: 130_000, gzip: 38_000 },
-  'index-*.js': { uncompressed: 304_000, gzip: 98_000 },
+  // 2026-06-21 Phase 5: Tailwind removed. Bundle dropped from 360KB
+  // → 318KB raw (-42KB) and 114KB → 103KB gzip (-11KB). Panda's CSS
+  // is now its own chunk (index-*.css, ~101KB raw / 10KB gzip). The
+  // previous 304KB baseline is back in effect — the index chunk
+  // contains only application code (Preact + components), no styling.
+  'index-*.js': { uncompressed: 320_000, gzip: 105_000 },
   // Raw bumped 168→172KB for the STIX Builder file-upload + Attack-Flow UI.
   // 172→176KB: Facilities Database page added Tailwind utility classes.
   // gzip 26→28KB: accumulated frontend growth (OSINT Mapper, Tracer, supply-chain

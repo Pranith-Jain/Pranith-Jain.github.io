@@ -11,7 +11,7 @@
     "og:png": "node scripts/generate-og-png.mjs",
     "sitemap": "node scripts/build-sitemap.mjs",
     "check:meta": "node scripts/check-meta-lengths.mjs",
-    "prebuild": "node scripts/build-telegram-actor-catalog.mjs && node scripts/extract-wiki-meta.mjs && node scripts/generate-og-png.mjs && node scripts/build-sitemap.mjs && node scripts/check-meta-lengths.mjs",
+    "prebuild": "panda codegen --silent && panda cssgen --silent && node scripts/build-telegram-actor-catalog.mjs && node scripts/extract-wiki-meta.mjs && node scripts/generate-og-png.mjs && node scripts/build-sitemap.mjs && node scripts/check-meta-lengths.mjs",
     "build:client": "vite build",
     "build:server": "vite build --ssr src/entry-server.tsx",
     "build:prerender": "node scripts/prerender.mjs",
@@ -33,8 +33,10 @@
     "analyze": "vite build --mode analyze",
     "codegen": "node scripts/codegen.mjs",
     "codegen:check": "node scripts/codegen.mjs --check",
-    "prepare": "husky install || true",
-    "build:telegram-actor-catalog": "node scripts/build-telegram-actor-catalog.mjs"
+    "prepare": "panda codegen --silent && panda cssgen --silent || true",
+    "build:telegram-actor-catalog": "node scripts/build-telegram-actor-catalog.mjs",
+    "panda:gen": "panda codegen --silent",
+    "panda:watch": "panda codegen --watch"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.29.0",
@@ -69,6 +71,7 @@
   "devDependencies": {
     "@cloudflare/vitest-pool-workers": "^0.16.15",
     "@cloudflare/workers-types": "^4.20260507.1",
+    "@pandacss/dev": "^1.11.3",
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.1.0",
@@ -92,9 +95,9 @@
     "lint-staged": "^15.2.2",
     "openapi-typescript": "^7.13.0",
     "postcss": "^8.4.49",
+    "postcss-selector-parser": "^7.1.4",
     "prettier": "^3.2.5",
     "rollup-plugin-visualizer": "^5.12.0",
-    "tailwindcss": "^3.4.17",
     "typescript": "^5.7.2",
     "vite": "^6.0.5",
     "vitest": "^2.1.8",
@@ -107,7 +110,7 @@
     "portfolio",
     "react",
     "vite",
-    "tailwind",
+    "panda-css",
     "cybersecurity",
     "email-security",
     "threat-intelligence"

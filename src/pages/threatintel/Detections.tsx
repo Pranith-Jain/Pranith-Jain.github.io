@@ -16,7 +16,8 @@ import {
   Loader2,
 } from 'lucide-react';
 import { DataState } from '../../components/DataState';
-import { SEVERITY_TONE } from '../../components/severity';
+import { SEVERITY_TONE, type Severity } from '../../components/severity';
+import { SeverityPill } from '../../components/SeverityPill';
 
 /**
  * Hand-authored interpretation per rule. The detections list shows what
@@ -175,11 +176,9 @@ function DetectionCard({ d }: { d: Detection }): JSX.Element {
         className="w-full text-left px-4 py-3 flex items-start gap-3"
         aria-expanded={open}
       >
-        <span
-          className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border shrink-0 mt-0.5 ${SEVERITY_TONE[d.severity]}`}
-        >
+        <SeverityPill tone={d.severity} className="mt-0.5 shrink-0">
           {d.severity}
-        </span>
+        </SeverityPill>
         <div className="min-w-0 flex-1">
           <div className="flex items-baseline gap-2 flex-wrap">
             <span className="font-display font-semibold text-slate-900 dark:text-slate-100">{d.rule_name}</span>
@@ -369,11 +368,7 @@ export default function Detections(): JSX.Element {
                 <h2 className="font-display font-bold text-lg text-slate-900 dark:text-slate-100">
                   Today's lead: {hero.rule_name}
                 </h2>
-                <span
-                  className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${SEVERITY_TONE[hero.severity]}`}
-                >
-                  {hero.severity}
-                </span>
+                <SeverityPill tone={hero.severity}>{hero.severity}</SeverityPill>
                 <span className="text-mini font-mono text-slate-500 dark:text-slate-400">
                   {hero.match_count} matches · last seen {shortRel(hero.last_observed)}
                 </span>
@@ -440,11 +435,9 @@ export default function Detections(): JSX.Element {
                           className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white/60 dark:bg-[rgb(var(--surface-200))]/40 px-3 py-2"
                         >
                           <div className="flex items-baseline gap-2 mb-1 flex-wrap">
-                            <span
-                              className={`text-micro font-mono uppercase tracking-wider px-1 py-0.5 rounded border ${SEVERITY_TONE[d.severity]}`}
-                            >
+                            <SeverityPill tone={d.severity} className="px-1">
                               {d.severity}
-                            </span>
+                            </SeverityPill>
                             <span className="font-display font-semibold text-tool text-slate-900 dark:text-slate-100">
                               {d.rule_name}
                             </span>

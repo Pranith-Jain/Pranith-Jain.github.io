@@ -31,7 +31,10 @@ import type { ReactNode } from 'react';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { CountUp } from '../../components/ui/CountUp';
 import { Sparkline } from '../../components/threatintel/Sparkline';
-import { SeverityPill } from '../../components/Badge';
+// Migrated to the recipe-backed SeverityPill (Panda CSS). The old
+// Badge.tsx re-export still works but the new component lives in
+// src/components/SeverityPill.tsx and uses `tone` instead of `severity`.
+import { SeverityPill } from '../../components/SeverityPill';
 import type { CtiArc, CtiPoint } from '../../components/threatintel/cti/geo';
 import { synthesizeArcs, deriveKpis } from '../../components/threatintel/cti/geo';
 
@@ -1711,7 +1714,7 @@ export default function GlobalPulse(): JSX.Element {
                       {LAYER_DEFS[selectedEvent.kind]?.icon}
                     </span>
                     <h3 className="text-base font-bold text-slate-900 dark:text-white">{selectedEvent.title}</h3>
-                    <SeverityPill severity={selectedEvent.severity} />
+                    <SeverityPill tone={selectedEvent.severity}>{selectedEvent.severity}</SeverityPill>
                   </div>
                   <p className="text-sm text-muted leading-relaxed mb-4">{selectedEvent.description}</p>
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">

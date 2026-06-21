@@ -79,21 +79,35 @@ export function Badge({
  * component file stays Fast-Refresh-friendly).
  */
 
-import { SEVERITY_TONE, type Severity } from './severity';
+// SeverityPill re-export — the canonical SeverityPill lives in
+// ./SeverityPill.tsx (recipe-backed via Panda). This shim keeps the
+// legacy `severity` prop name working for existing consumers like
+// GlobalPulse.tsx; new code should import SeverityPill directly.
+//
+// TODO: migrate the 1 remaining consumer (GlobalPulse.tsx) to use
+// `tone` instead of `severity`, then delete this shim.
+import { SeverityPill as PandaSeverityPill, type SeverityPillProps as PandaSeverityPillProps } from './SeverityPill';
+import type { Severity } from './severity';
 
-interface SeverityPillProps {
+export type { SeverityPillProps } from './SeverityPill';
+
+interface LegacySeverityPillProps {
   severity: Severity;
-  /** Optional label override; defaults to the severity name in uppercase. */
+  /** Optional label override; defaults to the severity name. */
   label?: string;
   className?: string;
 }
 
-export function SeverityPill({ severity, label, className = '' }: SeverityPillProps): JSX.Element {
+export function SeverityPill({ severity, label, className }: LegacySeverityPillProps): JSX.Element {
+  // Map the legacy `severity` prop to the new `tone` prop. The recipe
+  // already produces uppercase mono labels, so the rendered output is
+  // identical to the old inline-styled implementation.
   return (
-    <span
-      className={`inline-flex items-center rounded border font-mono uppercase tracking-wider px-1.5 py-0.5 text-micro ${SEVERITY_TONE[severity]} ${className}`.trim()}
-    >
+    <PandaSeverityPill tone={severity} className={className}>
       {label ?? severity}
-    </span>
+    </PandaSeverityPill>
   );
 }
+
+// Re-export the prop type for consumers that import it from Badge.tsx.
+export type SeverityPillPropsCompat = PandaSeverityPillProps;

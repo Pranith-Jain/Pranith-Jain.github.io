@@ -82,3 +82,7 @@ security-investigator-replication/
 .mimocode/
 .gitignore.append
 dist-tmp
+
+## Panda
+styled-system
+styled-system-studio

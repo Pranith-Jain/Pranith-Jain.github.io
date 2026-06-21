@@ -18,7 +18,8 @@ import {
   ChevronUp,
 } from 'lucide-react';
 import { CopyButton } from '../../components/dfir/CopyButton';
-import { SEVERITY_TONE, type Severity } from '../../components/severity';
+import { type Severity } from '../../components/severity';
+import { SeverityPill } from '../../components/SeverityPill';
 
 const API = '/api/v1';
 
@@ -341,11 +342,9 @@ export default function ExposedHostView(): JSX.Element {
                             {v.id}
                           </Link>
                           {v.cvss !== undefined && (
-                            <span
-                              className={`text-xs font-mono px-1.5 py-0.5 rounded border ${SEVERITY_TONE[cvssSeverity(v.cvss)]}`}
-                            >
+                            <SeverityPill tone={cvssSeverity(v.cvss)} className="text-xs px-1.5 py-0.5">
                               CVSS {v.cvss}
-                            </span>
+                            </SeverityPill>
                           )}
                         </div>
                       ))}
@@ -430,11 +429,9 @@ export default function ExposedHostView(): JSX.Element {
                   <div className="flex items-center gap-2">
                     <File size={14} className="text-brand-600" />
                     <span className="font-mono text-sm font-medium">{previewArtifact.name}</span>
-                    <span
-                      className={`px-1.5 py-0.5 rounded border text-micro font-mono ${SEVERITY_TONE[previewArtifact.risk]}`}
-                    >
+                    <SeverityPill tone={previewArtifact.risk} className="px-1.5 py-0.5 rounded text-micro">
                       {previewArtifact.risk}
-                    </span>
+                    </SeverityPill>
                   </div>
                   <button onClick={() => setPreviewArtifact(null)} className="text-slate-400 hover:text-slate-600">
                     ✕
