@@ -31,6 +31,13 @@
 
   html.dark {
     color-scheme: dark;
+    /* Explicit flat dark base. The page background is no longer
+       painted by an atmospheric gradient mesh (see the
+       remove-ai-slop audit) — this color IS the page. Brand-blue
+       pools and noise were the canonical 'stage-light' AI-slop
+       pattern; removing them meant the page needed an explicit
+       base color or dark mode would fall back to white. */
+    background-color: #020617; /* slate-950 */
   }
 
   html:not(.dark) {
@@ -91,7 +98,11 @@
 
 @layer components {
   .glass {
-    @apply border border-slate-200/60 bg-white/70 backdrop-blur-md lg:backdrop-blur-xl transition-all duration-300;
+    /* No backdrop-blur (was: backdrop-blur-md lg:backdrop-blur-xl).
+       Translucency + border alone give the 'frosted' read; the
+       blur was decorative and a glassmorphism tell per the
+       remove-ai-slop audit. */
+    @apply border border-slate-200/60 bg-white/70 transition-all duration-300;
   }
 
   .dark .glass {
@@ -126,10 +137,15 @@
     @apply rounded-xl border border-slate-200 bg-white shadow-e2 transition duration-200 dark:border-slate-800 dark:bg-slate-900/70;
   }
   .surface-glass {
-    @apply rounded-xl border border-slate-200/70 bg-white/70 shadow-e1 backdrop-blur-md transition duration-200 dark:border-slate-700/50 dark:bg-slate-900/50;
+    /* No backdrop-blur-md (removed: glassmorphism tell). Border
+       + translucency carry the 'frosted' look without the GPU cost. */
+    @apply rounded-xl border border-slate-200/70 bg-white/70 shadow-e1 transition duration-200 dark:border-slate-700/50 dark:bg-slate-900/50;
   }
   .chrome-glass {
-    @apply border-slate-200/70 bg-white/80 backdrop-blur-xl dark:border-slate-800/70 dark:bg-slate-950/70;
+    /* No backdrop-blur-xl (removed: heaviest glassmorphism tell).
+       Used on sticky header + footer; they now use solid bg +
+       border instead of frosted glass. */
+    @apply border-slate-200/70 bg-white/80 dark:border-slate-800/70 dark:bg-slate-950/70;
   }
   .card-hover {
     @apply hover:-translate-y-0.5 hover:shadow-e2 hover:border-slate-300 dark:hover:border-slate-700;
@@ -137,46 +153,6 @@
 }
 
 @layer utilities {
-  .bg-dot-grid {
-    background-image: radial-gradient(rgba(15, 23, 42, 0.08) 1px, transparent 1px);
-    background-size: 28px 28px;
-  }
-
-  .dark .bg-dot-grid {
-    background-image: radial-gradient(rgba(148, 163, 184, 0.18) 1px, transparent 1px);
-  }
-
-  .shadow-glow {
-    box-shadow: 0 0 20px -5px rgba(37, 99, 235, 0.5);
-  }
-
-  .animate-float {
-    animation: float 6s ease-in-out infinite;
-  }
-
-  @keyframes float {
-    0%,
-    100% {
-      transform: translateY(0);
-    }
-    50% {
-      transform: translateY(-10px);
-    }
-  }
-
-  .animate-pulse-slow {
-    animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-  }
-
-  @keyframes pulse {
-    0%,
-    100% {
-      opacity: 1;
-    }
-    50% {
-      opacity: 0.8;
-    }
-  }
 }
 
 /* ─────────────────────────────────────────────────────────────────────
@@ -271,20 +247,18 @@
   }
 }
 
-/* ─────────────────────────────────────────────────────────────────────
-   Mobile backdrop-blur reduction.
+/* Mobile backdrop-blur reduction.
 
-   backdrop-blur is GPU-expensive on low-end phones. On screens below
-   the sm breakpoint, downgrade blur-xl → blur-md and drop blur on
-   decorative (non-interactive) surfaces entirely. The visual difference
-   is negligible on a phone held at arm's length; the frame-rate
-   improvement is not.
-   ───────────────────────────────────────────────────────────────────── */
+   The .glass / .surface-glass / .chrome-glass primitives no longer
+   use backdrop-blur (remove-ai-slop audit fixes 4+5+6). This @media
+   block stays as a defensive guard for any inline backdrop-blur
+   utility a component might add — downgrades blur-xl to 8px on
+   phones so we never pay the 24px GPU cost. The blur-[100/120px]
+   decorative-blob filter resets also stay for the same reason. */
 @media (max-width: 639px) {
   .backdrop-blur-xl {
     backdrop-blur: 8px; /* was 24px */
   }
-  /* Decorative blobs and background layers don't need blur on mobile */
   .blur-\[120px\],
   .blur-\[100px\] {
     filter: none;
@@ -373,10 +347,10 @@
   @apply rounded-full bg-slate-300 dark:bg-slate-700;
 }
 
-/* Globe container dark background for better contrast */
-.globe-bg {
-  background: radial-gradient(ellipse at center, #0f172a 0%, #020617 100%);
-}
+/* .globe-bg removed (remove-ai-slop audit fix 14). The Globe
+   component used a radial-gradient as a stage-light background —
+   the canonical 'ambient spotlight' AI-slop pattern. Globe now
+   uses a flat dark color via the component's own class. */
 
 /* Pulse ring animation for severity dots */
 @keyframes severity-ping {
@@ -395,57 +369,10 @@
   animation: severity-ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
 }
 
-/* ─────────────────────────────────────────────────────────────────────
-   Orchestrated page-load: one well-staged reveal beats scattered
-   micro-interactions. Put `.stagger` on a container; its direct children
-   fade-rise in sequence. Capped at 12 so long grids don't lag the last
-   tile. Neutralised by the prefers-reduced-motion block above.
-   ───────────────────────────────────────────────────────────────────── */
-.stagger > * {
-  animation: dfir-fade-in-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
-}
-.stagger > *:nth-child(1) {
-  animation-delay: 40ms;
-}
-.stagger > *:nth-child(2) {
-  animation-delay: 80ms;
-}
-.stagger > *:nth-child(3) {
-  animation-delay: 120ms;
-}
-.stagger > *:nth-child(4) {
-  animation-delay: 160ms;
-}
-.stagger > *:nth-child(5) {
-  animation-delay: 200ms;
-}
-.stagger > *:nth-child(6) {
-  animation-delay: 240ms;
-}
-.stagger > *:nth-child(7) {
-  animation-delay: 280ms;
-}
-.stagger > *:nth-child(8) {
-  animation-delay: 320ms;
-}
-.stagger > *:nth-child(9) {
-  animation-delay: 360ms;
-}
-.stagger > *:nth-child(n + 10) {
-  animation-delay: 400ms;
-}
-
-/* ─────────────────────────────────────────────────────────────────────
-   Per-tile entrance for QuickActions + RecentToolsRow. Each tile gets
-   a 40ms-per-index stagger via the inline `style={{ animationDelay }}`
-   on the link (so the same primitive can be used in two contexts with
-   different cadence). 0.4s ease-out, 6px rise. The prefers-reduced-motion
-   block above already zeroes these out for users who opt out.
-   ───────────────────────────────────────────────────────────────────── */
-.qa-tile,
-.recent-tile {
-  animation: dfir-fade-in-up 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
-}
+/* Stagger / qa-tile / recent-tile entrance animations removed
+   (remove-ai-slop audit fixes 12+13). Generic staggered fade-ins are
+   the #1 AI-slop animation pattern. The @keyframes dfir-fade-in-up
+   + .animate-fade-in-up class remain for single-element reveals. */
 
 /* ─────────────────────────────────────────────────────────────────────
    Mobile readability floor.

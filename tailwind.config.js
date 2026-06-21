@@ -66,37 +66,22 @@ export default {
         micro: ['0.625rem', { lineHeight: '0.9rem' }],
       },
       boxShadow: {
-        glow: '0 0 0 1px rgba(37, 99, 235, 0.25), 0 18px 60px rgba(37, 99, 235, 0.15)',
-        // Elevation scale — the depth system the flat light theme was missing.
-        // Tuned soft for light surfaces (dark mode leans on borders + glass).
+        // Elevation scale (e1/e2/e3) — the depth system the flat light
+        // theme was missing. Tuned soft for light surfaces; dark mode
+        // leans on borders + translucency. Removed 'glow' (0 refs;
+        // decorative box-shadow was an AI-slop tell per the
+        // remove-ai-slop audit).
         e1: '0 1px 2px rgba(15, 23, 42, 0.04), 0 1px 3px rgba(15, 23, 42, 0.06)',
         e2: '0 2px 4px rgba(15, 23, 42, 0.05), 0 8px 24px rgba(15, 23, 42, 0.08)',
         e3: '0 12px 32px rgba(15, 23, 42, 0.10), 0 24px 64px rgba(15, 23, 42, 0.12)',
-        // Removed unused glow-cyan/pink/purple (0 references; neon-AI tell).
       },
       animation: {
-        'float-enhanced': 'float-enhanced 6s ease-in-out infinite',
-        'pulse-glow': 'pulse-glow 3s ease-in-out infinite',
+        // Removed float-enhanced / pulse-glow / threat-pulse (0 refs;
+        // AI-slop decoration per the remove-ai-slop audit).
         'scroll-horizontal': 'scroll-horizontal 40s linear infinite',
         'count-up': 'count-up 0.8s ease-out forwards',
-        'threat-pulse': 'threat-pulse 4s ease-in-out infinite',
       },
       keyframes: {
-        'float-enhanced': {
-          '0%, 100%': { transform: 'translateY(0) rotate(0deg) scale(1)' },
-          '33%': { transform: 'translateY(-20px) rotate(2deg) scale(1.05)' },
-          '66%': { transform: 'translateY(-10px) rotate(-2deg) scale(0.95)' },
-        },
-        'pulse-glow': {
-          '0%, 100%': {
-            opacity: '1',
-            boxShadow: '0 0 20px rgba(44, 62, 229, 0.4)',
-          },
-          '50%': {
-            opacity: '0.7',
-            boxShadow: '0 0 36px rgba(44, 62, 229, 0.6), 0 0 60px rgba(67, 94, 241, 0.3)',
-          },
-        },
         'scroll-horizontal': {
           '0%': { transform: 'translateX(0)' },
           '100%': { transform: 'translateX(-50%)' },
@@ -104,10 +89,6 @@ export default {
         'count-up': {
           from: { opacity: '0', transform: 'translateY(10px)' },
           to: { opacity: '1', transform: 'translateY(0)' },
-        },
-        'threat-pulse': {
-          '0%, 100%': { opacity: '0.1', transform: 'scale(1)' },
-          '50%': { opacity: '0.3', transform: 'scale(1.05)' },
         },
       },
     },
