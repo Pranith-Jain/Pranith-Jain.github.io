@@ -72,7 +72,7 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
   // rebuild the manifest via scripts/build-si-manifest.mjs.
   if (env.ASSETS) {
     try {
-      const idx = await loadSiIndex(env.ASSETS);
+      const idx = await loadSiIndex(env.ASSETS as unknown as Fetcher);
       const cache = siCacheStats();
       console.log(
         JSON.stringify({
@@ -878,6 +878,38 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
             logCronFail('retention-sweep')(e);
           }
         }
+
+        // === Phishing scan (every 6 hours, at 0, 6, 12, 18 UTC) ===
+        if (csNow.getUTCHours() % 6 === 0) {
+          try {
+            if (db) {
+              const dnsEnv: PassiveDnsEnv = {
+                VT_API_KEY: env.VT_API_KEY,
+                URLSCAN_API_KEY: env.URLSCAN_API_KEY,
+              };
+              const result = await scanForPhishingDomains(db, dnsEnv, { maxDomains: 50, lookbackHours: 6 });
+              if (result.new_phishing.length > 0 || result.errors.length > 0) {
+                console.log(
+                  JSON.stringify({
+                    job: 'phishing-scan',
+                    scanned: result.scanned,
+                    new_phishing: result.new_phishing.length,
+                    domains: result.new_phishing.map((p) => ({
+                      domain: p.domain,
+                      ip: p.resolved_ip,
+                      sources: p.sources,
+                    })),
+                    errors: result.errors.length,
+                    duration_ms: result.scan_time_ms,
+                  })
+                );
+              }
+            }
+          } catch (e) {
+            logCronFail('phishing-scan')(e);
+          }
+        }
+
         stopHeartbeat();
       })()
         .catch(logCronFail('hourly-cron'))
@@ -996,40 +1028,6 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
         .finally(releaseLease)
     );
     return;
-  }
-
-  // === Phishing scan (every 6 hours, at 0, 6, 12, 18 UTC) ===
-  // Runs inside the hourly cron — only fires at the 6-hour marks.
-  const currentHour = new Date().getUTCHours();
-  if (currentHour % 6 === 0 && cron === '0 * * * *') {
-    const db = env.BRIEFINGS_DB as D1Database | undefined;
-    if (db) {
-      ctx.waitUntil(
-        (async () => {
-          const dnsEnv: PassiveDnsEnv = {
-            VT_API_KEY: env.VT_API_KEY,
-            URLSCAN_API_KEY: env.URLSCAN_API_KEY,
-          };
-          const result = await scanForPhishingDomains(db, dnsEnv, { maxDomains: 50, lookbackHours: 6 });
-          if (result.new_phishing.length > 0 || result.errors.length > 0) {
-            console.log(
-              JSON.stringify({
-                job: 'phishing-scan',
-                scanned: result.scanned,
-                new_phishing: result.new_phishing.length,
-                domains: result.new_phishing.map((p) => ({
-                  domain: p.domain,
-                  ip: p.resolved_ip,
-                  sources: p.sources,
-                })),
-                errors: result.errors.length,
-                duration_ms: result.scan_time_ms,
-              })
-            );
-          }
-        })().catch(logCronFail('phishing-scan'))
-      );
-    }
   }
 
   const isWeekly = cron === '45 0 * * 1';

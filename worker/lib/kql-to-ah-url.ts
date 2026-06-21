@@ -28,7 +28,7 @@ const PORTAL_BASE = 'https://security.microsoft.com/v2/advanced-hunting';
  */
 function bytesToBase64Url(bytes: Uint8Array): string {
   let s = '';
-  for (let i = 0; i < bytes.length; i++) s += String.fromCharCode(bytes[i]);
+  for (let i = 0; i < bytes.length; i++) s += String.fromCharCode(bytes[i]!);
   const b64 = btoa(s);
   return b64.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
 }
@@ -40,7 +40,7 @@ async function gzipUtf16Le(input: string): Promise<Uint8Array> {
   // Re-encode as UTF-16LE.
   const out = new Uint8Array(utf16.length * 2);
   for (let i = 0; i < utf16.length; i++) {
-    out[i * 2] = utf16[i];
+    out[i * 2] = utf16[i]!;
     out[i * 2 + 1] = 0;
   }
   // GZip via CompressionStream('gzip').

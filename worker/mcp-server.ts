@@ -1195,7 +1195,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
           if (!skill) {
             return untrustedToolResult({ error: 'skill_not_found', slug });
           }
-          const yaml = (skill as Record<string, unknown>).svgWidgetsYaml as string | undefined;
+          const yaml = (skill as unknown as Record<string, unknown>).svgWidgetsYaml as string | undefined;
           return untrustedToolResult({
             slug,
             hasManifest: !!yaml,
@@ -1503,7 +1503,9 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
           try {
             const svg = renderDashboard(manifest, data);
             const { svgDashboardToPng } = await import('./lib/si-svg-png');
-            const png = await svgDashboardToPng(this.env, svg, { width: width ?? 1400 });
+            const png = await svgDashboardToPng(this.env as unknown as import('./env').Env, svg, {
+              width: width ?? 1400,
+            });
             // MCP text fields are strings — return the PNG base64-encoded.
             // Encode in chunks: `btoa(String.fromCharCode(...png))` spreads the
             // entire byte array as function arguments, which throws RangeError
@@ -1948,12 +1950,10 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         tlp: z.enum(['WHITE', 'GREEN', 'AMBER', 'RED']).optional().describe('TLP marking'),
       },
       async (args) => {
-        const data = await apiFetch<Record<string, unknown>>(
-          this.env.SELF,
-          '/api/v1/ioc-watchlist',
-          this.apiKey,
-          { method: 'POST', body: JSON.stringify(args) }
-        );
+        const data = await apiFetch<Record<string, unknown>>(this.env.SELF, '/api/v1/ioc-watchlist', this.apiKey, {
+          method: 'POST',
+          body: JSON.stringify(args),
+        });
         return untrustedToolResult(data);
       }
     );
@@ -2002,11 +2002,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
       'Get watchlist dashboard stats: total watches, alerts by type, webhook delivery rate.',
       {},
       async () => {
-        const data = await apiFetch<Record<string, unknown>>(
-          this.env.SELF,
-          '/api/v1/ioc-watchlist/stats',
-          this.apiKey
-        );
+        const data = await apiFetch<Record<string, unknown>>(this.env.SELF, '/api/v1/ioc-watchlist/stats', this.apiKey);
         return untrustedToolResult(data);
       }
     );

@@ -280,7 +280,7 @@ function parseReceived(value: string, raw: string, idx: number, prevDate: Date |
     delay: delay && delay >= 0 ? delay : null,
     from: rDNS ?? (ip ? `[${ip}]` : '?'),
     ip,
-    protocol: withMatch ? withMatch[1] : 'unknown',
+    protocol: withMatch?.[1] ?? 'unknown',
     tls,
     auth,
     rDNS,
@@ -319,7 +319,7 @@ function parseAuthHeader(value: string): AuthResults {
     const method = methodMatch[1].toLowerCase();
     const body = part.slice(methodMatch[0].length);
     const resultMatch = body.match(/^(\S+)/);
-    const result = (resultMatch ? resultMatch[1].toLowerCase() : 'unknown') as AuthResult['result'];
+    const result = (resultMatch?.[1]?.toLowerCase() ?? 'unknown') as AuthResult['result'];
     const props = parseAuthProps(body);
     const rec: AuthResult = { result, ...props };
     if (method === 'spf') out.spf = rec;
@@ -357,24 +357,24 @@ function splitAuthMethods(value: string): string[] {
 function parseAuthProps(body: string): Partial<AuthResult> {
   const props: Partial<AuthResult> = {};
   const smtp = body.match(/\bsmtp\.mailfrom=([^\s;]+)/i);
-  if (smtp) props.domain = smtp[1].replace(/[<>]/g, '').split('@').pop();
+  if (smtp?.[1]) props.domain = smtp[1].replace(/[<>]/g, '').split('@').pop();
   const smtpMailfrom = body.match(/\bsmtp\.mailfrom=([^\s;]+)/i);
-  if (smtpMailfrom) {
+  if (smtpMailfrom?.[1]) {
     const v = smtpMailfrom[1].replace(/[<>]/g, '');
     if (v.includes('@')) props.domain = v.split('@').pop();
   }
   const dkimDomain = body.match(/\bheader\.d=([^\s;]+)/i);
-  if (dkimDomain) props.domain = dkimDomain[1].toLowerCase();
+  if (dkimDomain?.[1]) props.domain = dkimDomain[1].toLowerCase();
   const dkimSelector = body.match(/\bheader\.i=@([^\s;.]+)/i);
-  if (dkimSelector) props.selector = dkimSelector[1].toLowerCase();
+  if (dkimSelector?.[1]) props.selector = dkimSelector[1].toLowerCase();
   const policy = body.match(/\bp(?:olicy)?(?:\.(?:sp|disposition))?\s*=\s*([^\s;]+)/i);
-  if (policy) props.policy = policy[1].toLowerCase();
+  if (policy?.[1]) props.policy = policy[1].toLowerCase();
   const pct = body.match(/\bpct=(\d+)/i);
   if (pct) props.pct = Number(pct[1]);
   const ip = body.match(/\bsmtp\.remote-ip=([^\s;]+)/i);
   if (ip) props.ip = ip[1];
   const comment = body.match(/\bcomment=([^\s;]+)/i);
-  if (comment) props.comment = comment[1].replace(/^["']|["']$/g, '');
+  if (comment?.[1]) props.comment = comment[1].replace(/^["']|["']$/g, '');
   return props;
 }
 
@@ -494,7 +494,7 @@ function buildFlags(headers: RawHeader[], auth: AuthResults, hops: HopInfo[]): F
   if (hops.length >= 2) {
     const first = hops[hops.length - 1];
     const last = hops[0];
-    if (first.ip && last.ip && first.ip === last.ip) {
+    if (first?.ip && last?.ip && first.ip === last.ip) {
       flags.push({
         severity: 'low',
         code: 'hop_ip_repeats',
@@ -565,15 +565,15 @@ export function siParseEmailHeaders(input: string, opts: MailScopeOptions = {}):
   for (let i = 0; i < receivedRaw.length; i++) {
     // i=0 → first Received in the header is the most recent (last hop).
     const idx = i + 1;
-    const hop = parseReceived(receivedRaw[i], receivedRaw[i], idx, prevDate);
+    const hop = parseReceived(receivedRaw[i]!, receivedRaw[i]!, idx, prevDate);
     if (hop.idx === 1) {
       // For the most-recent hop, delay is from when the sending MTA
       // emitted the message to the receiving MTA's "Date" header (if any).
       // We can't compute that here, so leave null.
     }
     const dateFromHop = (() => {
-      const m = receivedRaw[i].match(/;\s*(.+)$/);
-      if (!m) return null;
+      const m = receivedRaw[i]!.match(/;\s*(.+)$/);
+      if (!m?.[1]) return null;
       const d = new Date(m[1].trim());
       return Number.isNaN(d.getTime()) ? null : d;
     })();
@@ -584,13 +584,13 @@ export function siParseEmailHeaders(input: string, opts: MailScopeOptions = {}):
   // Authentication-Results — most-recent (last in header) wins.
   const authRawAll = headerAll(headers, 'Authentication-Results');
   const authRaw = authRawAll[authRawAll.length - 1] ?? null;
-  const auth = authRaw
+  const auth: AuthResults = authRaw
     ? parseAuthHeader(authRaw)
     : {
-        spf: { result: 'unknown' },
-        dkim: { result: 'unknown' },
-        dmarc: { result: 'unknown' },
-        comp: { result: 'unknown' },
+        spf: { result: 'unknown' as const },
+        dkim: { result: 'unknown' as const },
+        dmarc: { result: 'unknown' as const },
+        comp: { result: 'unknown' as const },
         raw: null,
       };
 

@@ -954,7 +954,7 @@ export async function scanForPhishingDomains(
       if (result.unique_resolved.length > 0 && result.unique_resolved[0] !== `[observed-by-virustotal]`) {
         newPhishing.push({
           domain,
-          resolved_ip: result.unique_resolved[0],
+          resolved_ip: result.unique_resolved[0]!,
           first_seen: result.records[0]?.first_seen ?? '',
           sources: Object.keys(result.source_summary),
         });

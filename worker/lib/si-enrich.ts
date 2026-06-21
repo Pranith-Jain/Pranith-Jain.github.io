@@ -47,7 +47,12 @@ export interface EnrichResult {
   shodan_vulns?: string[];
   shodan_hostnames?: string[];
   /** Per-provider latency + outcome, useful for debugging. */
-  diagnostics: Array<{ provider: string; status: 'ok' | 'skipped' | 'failed' | 'rate_limited'; ms: number; error?: string }>;
+  diagnostics: Array<{
+    provider: string;
+    status: 'ok' | 'skipped' | 'failed' | 'rate_limited';
+    ms: number;
+    error?: string;
+  }>;
 }
 
 interface EnvWithSelf {
@@ -126,7 +131,12 @@ export async function enrichIp(env: EnvWithSelf, ip: string): Promise<EnrichResu
 
   if ((ipinfo as { _rateLimited?: boolean })._rateLimited) {
     const d = (ipinfo as { decision: { retryAfterSeconds: number; limit: number } }).decision;
-    result.diagnostics.push({ provider: 'ipinfo', status: 'rate_limited' as const, ms: (ipinfo as { ms: number }).ms, error: `ipinfo quota exhausted (limit ${d.limit}/window); retry in ${d.retryAfterSeconds}s` });
+    result.diagnostics.push({
+      provider: 'ipinfo',
+      status: 'rate_limited' as const,
+      ms: (ipinfo as { ms: number }).ms,
+      error: `ipinfo quota exhausted (limit ${d.limit}/window); retry in ${d.retryAfterSeconds}s`,
+    });
   } else if ((ipinfo as { value?: unknown }).value) {
     const v = (ipinfo as { value: Record<string, unknown> }).value;
     result.city = (v.city as string) ?? undefined;
@@ -143,27 +153,48 @@ export async function enrichIp(env: EnvWithSelf, ip: string): Promise<EnrichResu
     }
     result.diagnostics.push({ provider: 'ipinfo', status: 'ok', ms: ipinfo.ms });
   } else {
-    result.diagnostics.push({ provider: 'ipinfo', status: ipinfo.error ? 'failed' : 'skipped', ms: ipinfo.ms, error: ipinfo.error });
+    result.diagnostics.push({
+      provider: 'ipinfo',
+      status: ipinfo.error ? 'failed' : 'skipped',
+      ms: ipinfo.ms,
+      error: ipinfo.error,
+    });
   }
 
   if ((abuse as { _rateLimited?: boolean })._rateLimited) {
     const d = (abuse as { decision: { retryAfterSeconds: number; limit: number } }).decision;
-    result.diagnostics.push({ provider: 'abuseipdb', status: 'rate_limited' as const, ms: (abuse as { ms: number }).ms, error: `abuseipdb quota exhausted (limit ${d.limit}/window); retry in ${d.retryAfterSeconds}s` });
+    result.diagnostics.push({
+      provider: 'abuseipdb',
+      status: 'rate_limited' as const,
+      ms: (abuse as { ms: number }).ms,
+      error: `abuseipdb quota exhausted (limit ${d.limit}/window); retry in ${d.retryAfterSeconds}s`,
+    });
   } else if ((abuse as { value?: unknown }).value) {
     const v = (abuse as { value: Record<string, unknown> }).value;
     const data = (v.data as Record<string, unknown> | undefined) ?? v;
-    result.abuse_confidence_score = (data.abuseConfidenceScore as number | undefined) ?? (data.confidence as number | undefined);
+    result.abuse_confidence_score =
+      (data.abuseConfidenceScore as number | undefined) ?? (data.confidence as number | undefined);
     result.total_reports = (data.totalReports as number | undefined) ?? (data.reports as number | undefined);
-    result.isp = (data.isp as string | undefined);
-    result.usage_type = (data.usageType as string | undefined);
+    result.isp = data.isp as string | undefined;
+    result.usage_type = data.usageType as string | undefined;
     result.diagnostics.push({ provider: 'abuseipdb', status: 'ok', ms: abuse.ms });
   } else {
-    result.diagnostics.push({ provider: 'abuseipdb', status: abuse.error ? 'failed' : 'skipped', ms: abuse.ms, error: abuse.error });
+    result.diagnostics.push({
+      provider: 'abuseipdb',
+      status: abuse.error ? 'failed' : 'skipped',
+      ms: abuse.ms,
+      error: abuse.error,
+    });
   }
 
   if ((shodan as { _rateLimited?: boolean })._rateLimited) {
     const d = (shodan as { decision: { retryAfterSeconds: number; limit: number } }).decision;
-    result.diagnostics.push({ provider: 'shodan', status: 'rate_limited' as const, ms: (shodan as { ms: number }).ms, error: `shodan quota exhausted (limit ${d.limit}/window); retry in ${d.retryAfterSeconds}s` });
+    result.diagnostics.push({
+      provider: 'shodan',
+      status: 'rate_limited' as const,
+      ms: (shodan as { ms: number }).ms,
+      error: `shodan quota exhausted (limit ${d.limit}/window); retry in ${d.retryAfterSeconds}s`,
+    });
   } else if ((shodan as { value?: unknown }).value) {
     const v = (shodan as { value: Record<string, unknown> }).value;
     result.shodan_ports = (v.ports as number[] | undefined) ?? undefined;
@@ -172,12 +203,21 @@ export async function enrichIp(env: EnvWithSelf, ip: string): Promise<EnrichResu
     result.shodan_hostnames = (v.hostnames as string[] | undefined) ?? undefined;
     result.diagnostics.push({ provider: 'shodan', status: 'ok', ms: shodan.ms });
   } else {
-    result.diagnostics.push({ provider: 'shodan', status: shodan.error ? 'failed' : 'skipped', ms: shodan.ms, error: shodan.error });
+    result.diagnostics.push({
+      provider: 'shodan',
+      status: shodan.error ? 'failed' : 'skipped',
+      ms: shodan.ms,
+      error: shodan.error,
+    });
   }
 
-  if (!(internetdb as { _rateLimited?: boolean })._rateLimited && (internetdb as { value?: unknown }).value && !(shodan as { value?: unknown }).value) {
+  if (
+    !(internetdb as { _rateLimited?: boolean })._rateLimited &&
+    (internetdb as { value?: unknown }).value &&
+    !(shodan as { value?: unknown }).value
+  ) {
     // Fall back to shodan-internetdb (free) if paid shodan didn't return.
-    const v = internetdb.value;
+    const v = (internetdb as { value: Record<string, unknown> }).value;
     result.shodan_ports = (v.ports as number[] | undefined) ?? result.shodan_ports;
     result.shodan_tags = (v.tags as string[] | undefined) ?? result.shodan_tags;
     result.shodan_vulns = (v.vulns as string[] | undefined) ?? result.shodan_vulns;
@@ -185,22 +225,43 @@ export async function enrichIp(env: EnvWithSelf, ip: string): Promise<EnrichResu
     result.diagnostics.push({ provider: 'shodan-internetdb', status: 'ok', ms: internetdb.ms });
   } else if ((internetdb as { _rateLimited?: boolean })._rateLimited) {
     const d = (internetdb as { decision: { retryAfterSeconds: number; limit: number } }).decision;
-    result.diagnostics.push({ provider: 'shodan-internetdb', status: 'rate_limited' as const, ms: (internetdb as { ms: number }).ms, error: `shodan-internetdb quota exhausted (limit ${d.limit}/window); retry in ${d.retryAfterSeconds}s` });
+    result.diagnostics.push({
+      provider: 'shodan-internetdb',
+      status: 'rate_limited' as const,
+      ms: (internetdb as { ms: number }).ms,
+      error: `shodan-internetdb quota exhausted (limit ${d.limit}/window); retry in ${d.retryAfterSeconds}s`,
+    });
   } else {
-    result.diagnostics.push({ provider: 'shodan-internetdb', status: (internetdb as { error?: string }).error ? 'failed' : 'skipped', ms: (internetdb as { ms: number }).ms, error: (internetdb as { error?: string }).error });
+    result.diagnostics.push({
+      provider: 'shodan-internetdb',
+      status: (internetdb as { error?: string }).error ? 'failed' : 'skipped',
+      ms: (internetdb as { ms: number }).ms,
+      error: (internetdb as { error?: string }).error,
+    });
   }
 
   if ((vpn as { _rateLimited?: boolean })._rateLimited) {
     const d = (vpn as { decision: { retryAfterSeconds: number; limit: number } }).decision;
-    result.diagnostics.push({ provider: 'vpnapi', status: 'rate_limited' as const, ms: (vpn as { ms: number }).ms, error: `vpnapi quota exhausted (limit ${d.limit}/window); retry in ${d.retryAfterSeconds}s` });
+    result.diagnostics.push({
+      provider: 'vpnapi',
+      status: 'rate_limited' as const,
+      ms: (vpn as { ms: number }).ms,
+      error: `vpnapi quota exhausted (limit ${d.limit}/window); retry in ${d.retryAfterSeconds}s`,
+    });
   } else if ((vpn as { value?: unknown }).value) {
     const v = (vpn as { value: Record<string, unknown> }).value;
     const security = (v.security as Record<string, unknown> | undefined) ?? v;
-    result.is_vpn = Boolean(security.vpn) || Boolean(security.proxy) || Boolean(security.tor) || Boolean(security.relay);
+    result.is_vpn =
+      Boolean(security.vpn) || Boolean(security.proxy) || Boolean(security.tor) || Boolean(security.relay);
     result.vpn_network = (security.network as string | undefined) ?? (security.operator as string | undefined);
     result.diagnostics.push({ provider: 'vpnapi', status: 'ok', ms: vpn.ms });
   } else {
-    result.diagnostics.push({ provider: 'vpnapi', status: vpn.error ? 'failed' : 'skipped', ms: vpn.ms, error: vpn.error });
+    result.diagnostics.push({
+      provider: 'vpnapi',
+      status: vpn.error ? 'failed' : 'skipped',
+      ms: vpn.ms,
+      error: vpn.error,
+    });
   }
 
   return result;
@@ -211,7 +272,11 @@ export async function enrichIp(env: EnvWithSelf, ip: string): Promise<EnrichResu
  * Worker's 50 subrequest/Invocation budget headroom (5 providers × 25
  * IPs = 125 worst case, but Promise.allSettled collapses to one round).
  */
-export async function enrichIpsBatch(env: EnvWithSelf, ips: string[], opts: { limit?: number } = {}): Promise<EnrichResult[]> {
+export async function enrichIpsBatch(
+  env: EnvWithSelf,
+  ips: string[],
+  opts: { limit?: number } = {}
+): Promise<EnrichResult[]> {
   const cap = Math.min(ips.length, opts.limit ?? 25);
   const targets = ips.slice(0, cap);
   return Promise.all(targets.map((ip) => enrichIp(env, ip)));
