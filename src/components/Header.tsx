@@ -151,8 +151,8 @@ export const Header = memo(function Header({ isDark, onToggleTheme, navLinks, to
       <header
         className={`sticky top-0 z-50 transition-all duration-300 ${
           isScrolled
-            ? 'border-b border-slate-200/60 bg-white/80 backdrop-blur-md sm:backdrop-blur-xl dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-100))]/80'
-            : 'border-b border-transparent bg-white/65 backdrop-blur-md sm:backdrop-blur-xl dark:bg-[rgb(var(--surface-100))]/60'
+            ? 'border-b border-[rgb(var(--border-400))] bg-white dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-100))]'
+            : 'border-b border-transparent bg-white dark:bg-[rgb(var(--surface-100))]'
         }`}
       >
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-2.5 sm:py-3 sm:px-6">
@@ -216,7 +216,7 @@ export const Header = memo(function Header({ isDark, onToggleTheme, navLinks, to
                         id={`dropdown-${link.href.replace('/', '')}`}
                         role="menu"
                         tabIndex={-1}
-                        className={`absolute left-0 top-full mt-1 min-w-[200px] rounded-xl border border-slate-200/60 bg-white/95 py-2 shadow-lg backdrop-blur-xl dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]/95 transition-all duration-200 ${
+                        className={`absolute left-0 top-full mt-1 min-w-[200px] rounded-xl border border-[rgb(var(--border-400))] bg-white py-2 shadow-lg dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] transition-all duration-200 ${
                           openDropdown === link.href
                             ? 'visible opacity-100 translate-y-0'
                             : 'invisible opacity-0 -translate-y-2'
@@ -343,7 +343,7 @@ export const Header = memo(function Header({ isDark, onToggleTheme, navLinks, to
 
         {/* Menu */}
         <nav
-          className={`absolute top-[72px] left-0 right-0 border-t border-slate-200/60 bg-white/95 backdrop-blur-xl dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-100))]/95 max-h-[calc(100vh-80px)] overflow-y-auto transition-all duration-300 ${
+          className={`absolute top-[72px] left-0 right-0 border-t border-[rgb(var(--border-400))] bg-white dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-100))] max-h-[calc(100vh-80px)] overflow-y-auto transition-all duration-300 ${
             isMobileMenuOpen ? 'translate-y-0 opacity-100' : '-translate-y-3 opacity-0'
           }`}
           aria-label="Mobile navigation"

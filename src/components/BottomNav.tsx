@@ -32,7 +32,7 @@ export function BottomNav({ mode, onOpenSearch }: BottomNavProps): JSX.Element {
 
   return (
     <nav
-      className="md:hidden fixed bottom-0 left-0 right-0 z-50 border-t border-slate-200 bg-white/95 backdrop-blur-md dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-100))]/95 safe-area-pb"
+      className="md:hidden fixed bottom-0 left-0 right-0 z-50 border-t border-[rgb(var(--border-400))] bg-white dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-100))] safe-area-pb"
       aria-label="Bottom navigation"
     >
       <div className="flex items-center justify-around h-14">

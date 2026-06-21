@@ -22,7 +22,7 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
       />
 
       {/* Menu */}
-      <div className="absolute top-[72px] left-0 right-0 border-t border-slate-200/60 bg-white/95 backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/95">
+      <div className="absolute top-[72px] left-0 right-0 border-t border-[rgb(var(--border-400))] bg-white dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-100))]">
         <nav className="flex flex-col p-4 space-y-2">
           {navLinks.map((link) => (
             <a
