@@ -51,10 +51,10 @@
     color-scheme: light;
   }
 
-  /* Theme-aware secondary-text channel — `muted` token in panda.config.ts.
-     Light = slate-600 (>=4.5:1 on white = WCAG AA); dark = slate-400.
-     Use `text-muted` instead of bare text-slate-400 for captions/labels so
-     light mode never drops to the 2.8:1 failure. */
+  /* Theme-aware secondary-text channel — see the `muted` color in
+     tailwind.config.js. Light = slate-600 (>=4.5:1 on white = WCAG AA);
+     dark = slate-400. Use `text-muted` instead of bare text-slate-400 for
+     captions/labels so light mode never drops to the 2.8:1 failure. */
   :root {
     --muted: 71 85 105;
     /* Surface + border + hover tokens. These resolve the 2719
@@ -435,9 +435,8 @@
 }
 
 /* Fast pop-in for tooltips / popovers / menus — fade + subtle scale, 150ms.
-   Local @keyframes (replaces the removed tailwindcss-animate
-   `animate-in fade-in-0 zoom-in-95` from Phase 5). Neutralised by the
-   prefers-reduced-motion block above. */
+   Replaces the dead `animate-in fade-in-0 zoom-in-95` (tailwindcss-animate,
+   not installed). Neutralised by the prefers-reduced-motion block above. */
 @keyframes pop-in {
   from {
     opacity: 0;
@@ -505,10 +504,12 @@
    but cramped on a phone. Rather than rewrite ~1,800 utility occurrences
    across 230 files, floor those two sizes to 12px on small screens only.
 
-   Placed at the end of the file so it wins the cascade against the
+   Placed after `@tailwind utilities` so it wins the cascade against the
    generated `.text-\[10px\]` / `.text-\[11px\]` rules (equal specificity,
-   later wins). Scoped to `max-width: 639px` (the `sm` breakpoint at
-   640px), so desktop density is untouched. Single block, trivially reversible.
+   later wins). Scoped to `max-width: 639px` (Tailwind's `sm` breakpoint),
+   so desktop density is untouched and any `sm:`-prefixed override — which
+   compiles to `min-width: 640px` — also stays unaffected. Single block,
+   trivially reversible.
    ───────────────────────────────────────────────────────────────────── */
 @media (max-width: 639px) {
   .text-\[10px\],
