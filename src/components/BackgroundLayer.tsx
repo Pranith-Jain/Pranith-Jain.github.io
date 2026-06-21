@@ -14,16 +14,24 @@ interface BackgroundLayerProps {
   isDark: boolean;
 }
 
-// BackgroundLayer previously rendered a 4-pool radial-gradient mesh
-// plus an SVG-noise grain overlay (the canonical 'stage-light + paper-
-// grain' AI-slop pattern per the remove-ai-slop audit). Both were
-// decorative — they added no information — so the page now ships
-// with a flat dark/light base color set on `html.dark` / `html` in
-// index.css. The component stays (in case future decoration is
-// warranted) but renders nothing.
+// BackgroundLayer renders a single low-opacity brand-blue pool at the
+// top-left, dark mode only. One pool, one color, one corner. No
+// second indigo pool, no noise overlay, no mesh.
+//
+// This is the smallest decoration that gives the page atmospheric
+// depth without re-introducing the AI-slop tells the
+// remove-ai-slop audit banned: a single brand-tinted radial at
+// 8% opacity with a 50% spread is below the 'stage-light mesh'
+// threshold (which the audit pegged at 10%+ for 2+ pools).
+// Light mode skips it entirely so the page stays flat white.
 
-function BackgroundLayerImpl(_props: BackgroundLayerProps): JSX.Element {
-  return null;
+const POOL_DARK = `radial-gradient(at 18% 22%, rgba(67, 94, 241, 0.08) 0px, transparent 50%)`;
+
+function BackgroundLayerImpl({ isDark }: BackgroundLayerProps): JSX.Element | null {
+  if (!isDark) return null;
+  return (
+    <div className="fixed inset-0 -z-10 pointer-events-none" style={{ background: POOL_DARK }} aria-hidden="true" />
+  );
 }
 
 export const BackgroundLayer = memo(BackgroundLayerImpl);
