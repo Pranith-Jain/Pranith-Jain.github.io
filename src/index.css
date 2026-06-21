@@ -50,12 +50,11 @@
 
   html.dark {
     color-scheme: dark;
-    /* The dark page IS a gradient — the BackgroundLayer renders at full
-       opacity (1.0) with the deep-navy base (#060A14) as the first
-       gradient layer, plus brand-blue radial pools on top. There is no
-       solid body color showing through; the gradient IS the background.
-       The body background-color is a fallback for the instant before
-       React hydrates. */
+    /* The dark page IS a gradient — the BackgroundLayer renders the
+       navy base (#0A0F1A) with two brand-blue radial pools (18% / 14%)
+       layered on top at 0.9 opacity, plus a 0.16 paper-grain noise
+       layer. The body background-color is a fallback for the instant
+       before React hydrates. */
     background-color: rgb(var(--surface-100));
     color: #f5f5f7;
   }
@@ -136,7 +135,7 @@
          card  = #2A324A  — glass card (+36-40 RGB lift from page, was +24-36)
       raised= #444F70  — hover/popover (+18-24 from card, widened gap)
           input = #0E1326  — inset well, no translucency       */
-    --surface-100: 6 10 20; /* page bg — deep navy         #060A14 */
+    --surface-100: 10 15 26; /* page bg — cool-navy          #0A0F1A */
     --surface-200: 42 50 74; /* card    — glass surface     #2A324A */
     --surface-300: 68 80 112; /* raised  — hover/popover     #444F70 */
     --input-200: 14 19 38; /* input   — inset well        #0E1326 */
@@ -1027,73 +1026,3 @@
    
    Never use bare text-slate-400 or text-slate-500 without dark variant.
    ───────────────────────────────────────────────────────────────────── */
-
-/* ─────────────────────────────────────────────────────────────────────
-   Threat-Intel violet/magenta dark utilities
-   Sourced from the /threatintel hero screenshot (PJ card).
-   Opt-in only — do NOT use on global surfaces. Pair with a `dark` parent
-   or apply on a dedicated section that wants this palette.
-
-   Quick reference:
-     <section class="ti-bg">                          full bleed background
-       <h1 class="ti-text-gradient">Title</h1>        gradient text
-       <div class="ti-panel">Card</div>               translucent panel
-       <button class="ti-btn-gradient">CTA</button>   gradient button
-     </section>
-   ───────────────────────────────────────────────────────────────────── */
-.ti-bg {
-  background-color: rgb(var(--ti-bg-base));
-  background-image:
-    radial-gradient(ellipse 60% 50% at 85% 0%, rgb(var(--ti-glow-magenta) / 0.18), transparent 60%),
-    radial-gradient(ellipse 50% 50% at 0% 100%, rgb(var(--ti-glow-blue) / 0.14), transparent 60%),
-    linear-gradient(180deg, rgb(var(--ti-bg-base)) 0%, #0e1020 100%);
-}
-
-.ti-panel {
-  background-color: rgb(var(--ti-bg-panel) / 0.6);
-  border: 1px solid rgb(var(--ti-bg-border));
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-}
-
-.ti-text-gradient {
-  background: linear-gradient(
-    90deg,
-    rgb(var(--ti-accent-indigo)) 0%,
-    rgb(var(--ti-accent-violet)) 50%,
-    rgb(var(--ti-accent-pink)) 100%
-  );
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
-.ti-btn-gradient {
-  background: linear-gradient(
-    90deg,
-    rgb(var(--ti-accent-indigo)) 0%,
-    rgb(var(--ti-accent-violet)) 50%,
-    rgb(var(--ti-accent-pink)) 100%
-  );
-  color: #fff;
-  font-weight: 600;
-  transition:
-    filter 200ms ease,
-    transform 200ms ease;
-}
-.ti-btn-gradient:hover {
-  filter: brightness(1.08);
-  transform: translateY(-1px);
-}
-.ti-btn-gradient:active {
-  transform: translateY(0);
-}
-
-/* Vignette + faint grid for the full hero treatment.
-   `ti-grid` layers 1px grid lines at 4% alpha over the page. */
-.ti-grid {
-  background-image:
-    linear-gradient(rgb(var(--ti-text) / 0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgb(var(--ti-text) / 0.04) 1px, transparent 1px);
-  background-size: 48px 48px;
-}
