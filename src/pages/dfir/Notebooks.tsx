@@ -48,13 +48,10 @@ interface Stats {
 }
 
 const STATUS_COLORS: Record<string, string> = {
-  open: 'bg-blue-100 dark:bg-blue-500/15 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-500/30',
-  investigating:
-    'bg-amber-100 dark:bg-amber-500/15 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-500/30',
-  resolved:
-    'bg-emerald-100 dark:bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-500/30',
-  archived:
-    'bg-slate-100 dark:bg-slate-500/15 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-500/30',
+  open: 'bg-blue-100 dark:bg-blue-500/15 text-blue-700 dark:text-blue-300',
+  investigating: 'bg-amber-100 dark:bg-amber-500/15 text-amber-700 dark:text-amber-300',
+  resolved: 'bg-emerald-100 dark:bg-emerald-500/15 text-emerald-700 dark:text-emerald-300',
+  archived: 'bg-slate-100 dark:bg-slate-500/15 text-slate-600 dark:text-slate-400',
 };
 
 const SEVERITY_COLORS: Record<string, string> = {
@@ -92,6 +89,7 @@ export default function Notebooks() {
   const [notebooks, setNotebooks] = useState<Notebook[]>([]);
   const [stats, setStats] = useState<Stats | null>(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
   const [search, setSearch] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('');
   const [selectedNotebook, setSelectedNotebook] = useState<string | null>(null);
@@ -109,6 +107,7 @@ export default function Notebooks() {
 
   const loadNotebooks = useCallback(async () => {
     setLoading(true);
+    setError('');
     try {
       const qs = new URLSearchParams();
       if (statusFilter) qs.set('status', statusFilter);
@@ -118,8 +117,8 @@ export default function Notebooks() {
       ]);
       setNotebooks(nbData.notebooks);
       setStats(stData);
-    } catch {
-      /* empty */
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'Failed to load notebooks');
     } finally {
       setLoading(false);
     }
@@ -135,14 +134,18 @@ export default function Notebooks() {
       const data = await api.get<{ notebook: Notebook; entries: NotebookEntry[] }>(`/api/v1/notebooks/${nbId}`);
       setEntries(data.entries);
     } catch {
-      /* empty */
+      setEntries([]);
     } finally {
       setEntriesLoading(false);
     }
   }, []);
 
   useEffect(() => {
-    if (selectedNotebook) loadEntries(selectedNotebook);
+    if (selectedNotebook) {
+      loadEntries(selectedNotebook);
+    } else {
+      setEntries([]);
+    }
   }, [selectedNotebook, loadEntries]);
 
   const createNotebook = async () => {
@@ -159,8 +162,8 @@ export default function Notebooks() {
       setNewDesc('');
       setNewSeverity('info');
       loadNotebooks();
-    } catch {
-      /* empty */
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'Failed to create notebook');
     } finally {
       setCreating(false);
     }
@@ -170,10 +173,13 @@ export default function Notebooks() {
     if (!confirm('Delete this notebook and all its entries?')) return;
     try {
       await api.delete(`/api/v1/notebooks/${id}`);
-      if (selectedNotebook === id) setSelectedNotebook(null);
+      if (selectedNotebook === id) {
+        setSelectedNotebook(null);
+        setEntries([]);
+      }
       loadNotebooks();
-    } catch {
-      /* empty */
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'Failed to delete notebook');
     }
   };
 
@@ -188,8 +194,8 @@ export default function Notebooks() {
       setShowAddEntry(false);
       setEntryContent('');
       loadEntries(selectedNotebook);
-    } catch {
-      /* empty */
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'Failed to add entry');
     } finally {
       setAddingEntry(false);
     }
@@ -200,8 +206,8 @@ export default function Notebooks() {
     try {
       await api.delete(`/api/v1/notebooks/${selectedNotebook}/entries/${entryId}`);
       loadEntries(selectedNotebook);
-    } catch {
-      /* empty */
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'Failed to delete entry');
     }
   };
 
@@ -228,6 +234,21 @@ export default function Notebooks() {
       <p className="text-sm font-mono text-muted mb-6 max-w-2xl">
         Persistent notes, IOC snapshots, and findings for DFIR investigations.
       </p>
+
+      {/* Error banner */}
+      {error && (
+        <div className="mb-4 p-3 rounded-lg bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-300 font-mono text-sm flex items-center justify-between">
+          <span className="flex items-center gap-2">
+            <AlertTriangle size={14} /> {error}
+          </span>
+          <button
+            onClick={() => setError('')}
+            className="text-red-500 hover:text-red-700 dark:hover:text-red-300 text-xs"
+          >
+            dismiss
+          </button>
+        </div>
+      )}
 
       {/* Stats bar */}
       {stats && (
@@ -328,7 +349,7 @@ export default function Notebooks() {
                           <span className="font-medium text-sm truncate">{nb.title}</span>
                         </div>
                         {nb.description && <p className="text-xs text-muted truncate ml-5">{nb.description}</p>}
-                        <div className="flex items-center gap-2 mt-2 ml-5">
+                        <div className="flex items-center gap-2 mt-2 ml-5 flex-wrap">
                           <span
                             className={`px-2 py-0.5 rounded-full text-[10px] font-mono font-medium ${STATUS_COLORS[nb.status]}`}
                           >
@@ -378,10 +399,10 @@ export default function Notebooks() {
               {/* Notebook header */}
               <div className="p-4 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] mb-4">
                 <div className="flex items-start justify-between gap-3">
-                  <div>
+                  <div className="min-w-0">
                     <h2 className="text-lg font-display font-semibold">{selected.title}</h2>
                     {selected.description && <p className="text-sm text-muted mt-1">{selected.description}</p>}
-                    <div className="flex items-center gap-2 mt-2">
+                    <div className="flex items-center gap-2 mt-2 flex-wrap">
                       <span
                         className={`px-2 py-0.5 rounded-full text-xs font-mono font-medium ${STATUS_COLORS[selected.status]}`}
                       >
@@ -405,7 +426,7 @@ export default function Notebooks() {
                   </div>
                   <button
                     onClick={() => setShowAddEntry(true)}
-                    className="px-4 py-2 rounded-lg bg-brand-600 hover:bg-brand-700 text-white font-mono text-xs font-medium transition-colors"
+                    className="px-4 py-2 rounded-lg bg-brand-600 hover:bg-brand-700 text-white font-mono text-xs font-medium transition-colors whitespace-nowrap"
                   >
                     <Plus size={14} className="inline mr-1" />
                     Add Entry
@@ -418,7 +439,7 @@ export default function Notebooks() {
                 <div className="p-4 rounded-lg border border-brand-200 dark:border-brand-500/30 bg-brand-50/50 dark:bg-brand-500/5 mb-4">
                   <div className="flex items-center gap-2 mb-3">
                     <span className="text-sm font-mono font-medium">New Entry</span>
-                    <div className="flex gap-1">
+                    <div className="flex gap-1 flex-wrap">
                       {(['note', 'ioc', 'finding', 'timeline', 'artifact'] as const).map((t) => {
                         const Icon = ENTRY_TYPE_ICONS[t] ?? FileText;
                         return (
@@ -529,7 +550,25 @@ export default function Notebooks() {
 
       {/* Create notebook modal */}
       {showCreate && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/60"
+          role="button"
+          tabIndex={-1}
+          onClick={(e) => {
+            if (e.target === e.currentTarget) {
+              setShowCreate(false);
+              setNewTitle('');
+              setNewDesc('');
+            }
+          }}
+          onKeyDown={(e) => {
+            if (e.key === 'Escape') {
+              setShowCreate(false);
+              setNewTitle('');
+              setNewDesc('');
+            }
+          }}
+        >
           <div className="w-full max-w-md mx-4 p-6 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-xl">
             <h3 className="text-lg font-display font-semibold mb-4">New Investigation Notebook</h3>
             <div className="space-y-4">
@@ -561,7 +600,7 @@ export default function Notebooks() {
               </div>
               <div>
                 <span className="block text-xs font-mono font-medium text-muted mb-1.5">Severity</span>
-                <div role="group" aria-label="Severity" className="flex gap-1.5">
+                <div role="group" aria-label="Severity" className="flex gap-1.5 flex-wrap">
                   {(['info', 'low', 'medium', 'high', 'critical'] as const).map((s) => (
                     <button
                       key={s}
