@@ -211,17 +211,12 @@ export default function LiveIocs(): JSX.Element {
         <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-6">
           Sources:{' '}
           {(() => {
-            const list = data?.registered_sources ?? data?.sources ?? [];
+            const list = (data?.registered_sources ?? data?.sources ?? []).filter((s) => s.count > 0);
             const labels = sourcesSentence(list);
-            // Add a soft note when the backend didn't ship the full roster
-            // (older API version) OR when only active sources were shown.
-            const isFullRoster = !!data?.registered_sources;
             return (
               <>
                 {labels}
-                {!isFullRoster && list.length > 0 && (
-                  <span className="text-slate-400 italic"> (active only — others may be empty)</span>
-                )}
+                <span className="text-slate-400 italic"> (active only)</span>
               </>
             );
           })()}
@@ -317,65 +312,64 @@ export default function LiveIocs(): JSX.Element {
         </div>
         {data && (
           <div className="flex flex-wrap items-center gap-1.5 mt-2">
-            <span className="text-mini font-mono text-slate-500 mr-1">
-              sources ({data.registered_sources?.length ?? data.sources.length}
-              {data.registered_sources ? '' : ' active'}):
-            </span>
-            {(data.registered_sources ?? data.sources).map((s) => {
-              const active = sourceFilter.has(s.id);
-              const pillCls = sourceColor(s.id);
-              const fresh = sourceFreshness(s.newest_observation);
-              const dot = FRESHNESS_DOT[fresh];
-              const newestRel = s.newest_observation ? shortRel(s.newest_observation) : null;
-              // Inactive here means: registered but produced 0 items OR errored
-              // in the current snapshot. Still clickable for filtering (so the
-              // user can pick "all sources" or drill in) — the filter just
-              // won’t match anything until the source has items again.
-              const isEmpty = s.count === 0;
-              const tooltip = isEmpty
-                ? s.ok
-                  ? newestRel
-                    ? `${s.id}: 0 items in this snapshot · ${dot.label} · newest ${newestRel}`
-                    : `${s.id}: 0 items in this snapshot (bulk feed) · ${dot.label}`
-                  : `${s.id} unreachable in this snapshot`
-                : newestRel
-                  ? `${s.count} items from ${s.id} · ${dot.label} · newest ${newestRel}`
-                  : `${s.count} items from ${s.id} · ${dot.label}`;
-              return (
-                <button
-                  key={s.id}
-                  type="button"
-                  onClick={() => toggleSource(s.id)}
-                  className={`text-mini font-mono px-2 py-1 rounded border inline-flex items-center gap-1.5 ${
-                    active
-                      ? pillCls
-                      : s.ok === false
-                        ? 'border-rose-300/70 dark:border-rose-700/40 text-rose-700/80 dark:text-rose-400/80'
-                        : isEmpty
-                          ? 'border-slate-300/60 dark:border-[rgb(var(--border-400))]/60 text-slate-400 dark:text-slate-500 opacity-60'
-                          : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500'
-                  }`}
-                  title={tooltip}
-                >
-                  {!isEmpty && s.ok && (
-                    <span className={`inline-block w-1.5 h-1.5 rounded-full ${dot.cls}`} aria-label={dot.label} />
-                  )}
-                  {isEmpty && s.ok && (
-                    <span
-                      className="inline-block w-1.5 h-1.5 rounded-full bg-slate-300 dark:bg-slate-600"
-                      aria-label="empty this snapshot"
-                    />
-                  )}
-                  {s.ok === false && (
-                    <span
-                      className="inline-block w-1.5 h-1.5 rounded-full bg-rose-400 dark:bg-rose-500"
-                      aria-label="unreachable"
-                    />
-                  )}
-                  {s.id} <span className="opacity-70">· {s.count}</span>
-                </button>
-              );
-            })}
+            <span className="text-mini font-mono text-slate-500 mr-1">sources:</span>
+            {(data.registered_sources ?? data.sources)
+              .filter((s) => s.count > 0)
+              .map((s) => {
+                const active = sourceFilter.has(s.id);
+                const pillCls = sourceColor(s.id);
+                const fresh = sourceFreshness(s.newest_observation);
+                const dot = FRESHNESS_DOT[fresh];
+                const newestRel = s.newest_observation ? shortRel(s.newest_observation) : null;
+                // Inactive here means: registered but produced 0 items OR errored
+                // in the current snapshot. Still clickable for filtering (so the
+                // user can pick "all sources" or drill in) — the filter just
+                // won’t match anything until the source has items again.
+                const isEmpty = s.count === 0;
+                const tooltip = isEmpty
+                  ? s.ok
+                    ? newestRel
+                      ? `${s.id}: 0 items in this snapshot · ${dot.label} · newest ${newestRel}`
+                      : `${s.id}: 0 items in this snapshot (bulk feed) · ${dot.label}`
+                    : `${s.id} unreachable in this snapshot`
+                  : newestRel
+                    ? `${s.count} items from ${s.id} · ${dot.label} · newest ${newestRel}`
+                    : `${s.count} items from ${s.id} · ${dot.label}`;
+                return (
+                  <button
+                    key={s.id}
+                    type="button"
+                    onClick={() => toggleSource(s.id)}
+                    className={`text-mini font-mono px-2 py-1 rounded border inline-flex items-center gap-1.5 ${
+                      active
+                        ? pillCls
+                        : s.ok === false
+                          ? 'border-rose-300/70 dark:border-rose-700/40 text-rose-700/80 dark:text-rose-400/80'
+                          : isEmpty
+                            ? 'border-slate-300/60 dark:border-[rgb(var(--border-400))]/60 text-slate-400 dark:text-slate-500 opacity-60'
+                            : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500'
+                    }`}
+                    title={tooltip}
+                  >
+                    {!isEmpty && s.ok && (
+                      <span className={`inline-block w-1.5 h-1.5 rounded-full ${dot.cls}`} aria-label={dot.label} />
+                    )}
+                    {isEmpty && s.ok && (
+                      <span
+                        className="inline-block w-1.5 h-1.5 rounded-full bg-slate-300 dark:bg-slate-600"
+                        aria-label="empty this snapshot"
+                      />
+                    )}
+                    {s.ok === false && (
+                      <span
+                        className="inline-block w-1.5 h-1.5 rounded-full bg-rose-400 dark:bg-rose-500"
+                        aria-label="unreachable"
+                      />
+                    )}
+                    {s.id} <span className="opacity-70">· {s.count}</span>
+                  </button>
+                );
+              })}
             {(sourceFilter.size > 0 || kindFilter.size > 0) && (
               <button
                 type="button"
