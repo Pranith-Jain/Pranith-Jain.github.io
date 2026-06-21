@@ -140,13 +140,21 @@ export function AiSummaryCard({
 
   return (
     <div
-      className={`rounded-xl border border-brand-200/60 dark:border-brand-800/40 bg-gradient-to-br from-brand-50/80 to-white dark:from-brand-950/20 dark:to-slate-900 overflow-hidden ${className ?? ''}`}
+      // Wrapper sits on the page background in both themes — no panel,
+      // no gradient, no chromatic cast. In light mode a 1px slate hairline
+      // gives the header row an edge; in dark mode the card literally
+      // becomes the page so the AI summary reads as content, not chrome.
+      // The previous gradient + brand-950/20 wash made this the only
+      // dark card on the site with a permanent blue tint on its surface,
+      // which the v8 'chrome stays monochrome' pass explicitly removed
+      // everywhere else.
+      className={`overflow-hidden border-t border-slate-200 dark:border-white/8 ${className ?? ''}`}
     >
       {/* Header */}
       <button
         type="button"
         onClick={() => setExpanded(!expanded)}
-        className="w-full flex items-center justify-between px-4 py-3 text-left hover:bg-brand-100/30 dark:hover:bg-brand-900/10 transition-colors"
+        className="w-full flex items-center justify-between px-4 py-3 text-left hover:bg-slate-100 dark:hover:bg-white/5 transition-colors"
       >
         <div className="flex items-center gap-2">
           <Sparkles size={16} className="text-brand-600 dark:text-brand-400" />
