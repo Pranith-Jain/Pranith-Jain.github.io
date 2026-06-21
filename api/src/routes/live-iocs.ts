@@ -668,6 +668,7 @@ const FEED_SOURCES: FeedSource[] = [
   textFeedSource({
     id: 'c2-intel',
     url: 'https://raw.githubusercontent.com/drb-ra/C2IntelFeeds/master/feeds/IPC2s.csv',
+    fallbackUrls: ['https://sslbl.abuse.ch/blacklist/sslipblacklist.csv'],
     parse: parseC2IntelFeeds,
     kind: 'ip',
     reporter: 'drb-ra/C2IntelFeeds',
@@ -742,6 +743,7 @@ const FEED_SOURCES: FeedSource[] = [
   textFeedSource({
     id: 'avanzato-c2',
     url: `${CPS_BASE}/avanzato_c2.txt`,
+    fallbackUrls: ['https://raw.githubusercontent.com/drb-ra/C2IntelFeeds/master/feeds/IPC2s.csv'],
     parse: parsePlainTextIps,
     kind: 'ip',
     reporter: 'CriticalPathSecurity',
@@ -750,6 +752,7 @@ const FEED_SOURCES: FeedSource[] = [
   textFeedSource({
     id: 'cps-collected',
     url: `${CPS_BASE}/cps-collected-iocs.txt`,
+    fallbackUrls: ['https://cinsscore.com/list/ci-badguys.txt'],
     parse: parsePlainTextIps,
     kind: 'ip',
     reporter: 'CriticalPathSecurity',
@@ -775,6 +778,7 @@ const FEED_SOURCES: FeedSource[] = [
   textFeedSource({
     id: 'bbcan177-ips',
     url: 'https://gist.githubusercontent.com/BBcan177/bf29d47ea04391cb3eb0/raw/',
+    fallbackUrls: ['https://cinsscore.com/list/ci-badguys.txt'],
     parse: parsePlainTextIps,
     kind: 'ip',
     reporter: 'BBcan177',
@@ -849,6 +853,7 @@ const FEED_SOURCES: FeedSource[] = [
   textFeedSource({
     id: 'bitwire-outbound',
     url: 'https://raw.githubusercontent.com/bitwire-it/ipblocklist/main/outbound.txt',
+    fallbackUrls: ['https://cinsscore.com/list/ci-badguys.txt'],
     parse: parsePlainTextIps,
     kind: 'ip',
     reporter: 'Bitwire',
@@ -857,6 +862,7 @@ const FEED_SOURCES: FeedSource[] = [
   textFeedSource({
     id: 'bitwire-inbound',
     url: 'https://raw.githubusercontent.com/bitwire-it/ipblocklist/main/inbound.txt',
+    fallbackUrls: ['https://lists.blocklist.de/lists/all.txt'],
     parse: parsePlainTextIps,
     kind: 'ip',
     reporter: 'Bitwire',
