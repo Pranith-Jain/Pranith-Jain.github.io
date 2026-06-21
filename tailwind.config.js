@@ -91,6 +91,17 @@ export default {
           to: { opacity: '1', transform: 'translateY(0)' },
         },
       },
+      // Card/panel/hero radius scale. The 'rounded-lg blanket on every card'
+      // was the AI-slop tell we're retiring; the design system picks one
+      // of three roles per surface.
+      //   card  → 8px  — data tiles, toolkit cards, profile cards
+      //   panel → 10px — panels with internal tables or dense rows
+      //   hero  → 14px — hero CTA, contact panel, top-of-page callouts
+      borderRadius: {
+        card: '8px',
+        panel: '10px',
+        hero: '14px',
+      },
     },
   },
   plugins: [],

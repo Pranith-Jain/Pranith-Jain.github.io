@@ -93,6 +93,15 @@ export function Button({
   const isDisabled = disabled || loading;
 
   if (href) {
+    // External-link safety: any http(s) URL that isn't same-origin opens
+    // in a new tab with rel=noopener+noreferrer to prevent the linked
+    // page from gaining access to window.opener (a phishing foothold)
+    // and to keep referrer headers from leaking. Internal links keep
+    // same-tab navigation so the back button works.
+    const isExternal =
+      /^https?:\/\//i.test(href) &&
+      (typeof window === 'undefined' || new URL(href, window.location.href).origin !== window.location.origin);
+    const linkProps = isExternal ? { target: '_blank' as const, rel: 'noopener noreferrer' } : {};
     return (
       <a
         href={href}
@@ -100,6 +109,7 @@ export function Button({
         onClick={isDisabled ? undefined : onClick}
         aria-disabled={isDisabled || undefined}
         tabIndex={isDisabled ? -1 : undefined}
+        {...linkProps}
       >
         {loading && <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />}
         {!loading && icon && iconPosition === 'left' && <span aria-hidden="true">{icon}</span>}

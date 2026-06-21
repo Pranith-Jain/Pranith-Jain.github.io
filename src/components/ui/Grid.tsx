@@ -14,6 +14,12 @@ export interface GridProps {
   as?: 'div' | 'ul' | 'section';
 }
 
+// Tailwind's JIT scanner only emits classes that appear as LITERAL strings
+// in source. Building `sm:${COLS[sm]}` at runtime produces strings the
+// scanner never sees, so the responsive rules never land in the CSS and
+// pages stay single-column on tablet/desktop. Use four explicit maps so
+// every variant is a string literal.
+
 const COLS: Record<GridCols, string> = {
   '1': 'grid-cols-1',
   '2': 'grid-cols-2',
@@ -22,6 +28,36 @@ const COLS: Record<GridCols, string> = {
   '5': 'grid-cols-5',
   '6': 'grid-cols-6',
   auto: 'grid-cols-[repeat(auto-fill,minmax(200px,1fr))]',
+};
+
+const SM_COLS: Record<GridCols, string> = {
+  '1': 'sm:grid-cols-1',
+  '2': 'sm:grid-cols-2',
+  '3': 'sm:grid-cols-3',
+  '4': 'sm:grid-cols-4',
+  '5': 'sm:grid-cols-5',
+  '6': 'sm:grid-cols-6',
+  auto: 'sm:grid-cols-[repeat(auto-fill,minmax(200px,1fr))]',
+};
+
+const MD_COLS: Record<GridCols, string> = {
+  '1': 'md:grid-cols-1',
+  '2': 'md:grid-cols-2',
+  '3': 'md:grid-cols-3',
+  '4': 'md:grid-cols-4',
+  '5': 'md:grid-cols-5',
+  '6': 'md:grid-cols-6',
+  auto: 'md:grid-cols-[repeat(auto-fill,minmax(200px,1fr))]',
+};
+
+const LG_COLS: Record<GridCols, string> = {
+  '1': 'lg:grid-cols-1',
+  '2': 'lg:grid-cols-2',
+  '3': 'lg:grid-cols-3',
+  '4': 'lg:grid-cols-4',
+  '5': 'lg:grid-cols-5',
+  '6': 'lg:grid-cols-6',
+  auto: 'lg:grid-cols-[repeat(auto-fill,minmax(200px,1fr))]',
 };
 
 const GAP: Record<GridGap, string> = {
@@ -37,9 +73,9 @@ export function Grid({ children, cols = '1', sm, md, lg, gap = 'md', className =
   const classes = [
     'grid',
     COLS[cols],
-    sm ? `sm:${COLS[sm]}` : '',
-    md ? `md:${COLS[md]}` : '',
-    lg ? `lg:${COLS[lg]}` : '',
+    sm ? SM_COLS[sm] : '',
+    md ? MD_COLS[md] : '',
+    lg ? LG_COLS[lg] : '',
     GAP[gap],
     className,
   ]
