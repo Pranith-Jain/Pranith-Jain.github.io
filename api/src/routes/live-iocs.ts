@@ -1306,6 +1306,21 @@ export async function liveIocsHandler(c: Context<{ Bindings: Env }>): Promise<Re
   }
 
   const cache = (caches as unknown as { default: Cache }).default;
+
+  // Force-refresh: bypass both the response cache and the stale slices, run a
+  // synchronous fan-out, and write fresh slices + response cache. Use when the
+  // cached slices are stale (e.g. after deploying fallback URL changes).
+  const forceRefresh = c.req.query('refresh') === '1';
+  if (forceRefresh) {
+    const body = await fetchLiveIocs(c.executionCtx, c.env.KV_CACHE, c.env);
+    const ttl = body.degraded ? DEGRADED_TTL_SECONDS : CACHE_TTL_SECONDS;
+    const resp = new Response(JSON.stringify(body), {
+      headers: { 'content-type': 'application/json', 'cache-control': `public, max-age=${ttl}` },
+    });
+    c.executionCtx.waitUntil(cache.put(new Request(CACHE_KEY), resp.clone()));
+    return c.json(body);
+  }
+
   const cacheReq = new Request(CACHE_KEY);
   const cached = await cache.match(cacheReq);
   if (cached) {
