@@ -8,6 +8,7 @@ import {
   briefingNeedsHeal,
   weeklyUndercountsDailies,
   dailyNeedsCveReenrich,
+  dailyNeedsRansomwareReenrich,
 } from '../api/src/lib/briefing-builder';
 import { buildLandscapeReport, writeLandscapeReport, expectedLandscapeSlug } from '../api/src/lib/landscape-builder';
 import { runDiscoveryNow, runPlannerNow, runPublisherNow, type CaseStudyEnv } from '../api/src/case-study/run';
@@ -732,7 +733,16 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
                 !needsHeal && row
                   ? await dailyNeedsCveReenrich(row, { now: Date.now(), cooldownMs: 3 * 60 * 60_000 })
                   : false;
-              if (needsHeal || extraHeal) {
+              // Also re-run when the row is otherwise "rich" (CVE findings
+              // or IOCs) but the ransomware section came back empty — a
+              // common transient when one of the 8 ransomware trackers
+              // 5xx'd at build time. Same build path, just a separate
+              // gate. Cooldown matches the CVE variant (3h).
+              const ransomHeal =
+                !needsHeal && !extraHeal && row
+                  ? await dailyNeedsRansomwareReenrich(row, { now: Date.now(), cooldownMs: 3 * 60 * 60_000 })
+                  : false;
+              if (needsHeal || extraHeal || ransomHeal) {
                 try {
                   const briefing = await buildBriefing('daily', undefined, {
                     nvdApiKey: env.NVD_API_KEY,
@@ -754,6 +764,45 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
               }
             } catch (e) {
               logCronFail('hourly-heal-check(daily)')(e);
+            }
+
+            // === Live in-progress daily (slug = today) ===
+            // Independent of the closed-daily heal above. The 00:30 cron
+            // writes daily-<yesterday>; this guarantees daily-<today>
+            // also exists once an analyst opens the page mid-day.
+            // Cheap D1 read; only one build fires per heal tick.
+            try {
+              const liveSlug = `daily-${new Date().toISOString().slice(0, 10)}`;
+              if (liveSlug !== slug) {
+                const liveRow = await db2
+                  .prepare('SELECT stats_json, body FROM briefings WHERE slug = ?')
+                  .bind(liveSlug)
+                  .first<{ stats_json?: string; body?: string }>();
+                const liveNeedsHeal = briefingNeedsHeal(liveRow, { now: Date.now(), cooldownMs: 30 * 60_000 });
+                if (liveNeedsHeal) {
+                  try {
+                    const liveBriefing = await buildBriefing('daily', undefined, {
+                      nvdApiKey: env.NVD_API_KEY,
+                      env: env as unknown as ApiEnv,
+                      live: true,
+                    });
+                    await writeBriefing(db2, liveBriefing);
+                    console.log(
+                      JSON.stringify({
+                        job: 'hourly-heal',
+                        type: 'daily-live',
+                        slug: liveBriefing.slug,
+                        findings: liveBriefing.stats.findings,
+                        iocs: liveBriefing.stats.iocs,
+                      })
+                    );
+                  } catch (e) {
+                    logCronFail('hourly-heal(daily-live)')(e);
+                  }
+                }
+              }
+            } catch (e) {
+              logCronFail('hourly-heal-check(daily-live)')(e);
             }
           }
           // Weekly heal — only on Mondays after 00:45 UTC (the primary

@@ -7,6 +7,7 @@ import {
   normalizeVictimKey,
   briefingNeedsHeal,
   dailyNeedsCveReenrich,
+  dailyNeedsRansomwareReenrich,
   isBriefingRich,
   isBriefingDegraded,
   resolveCirclCveId,
@@ -70,7 +71,18 @@ function briefing(slug: string, findings: number, iocs: number): Briefing {
     range_end: '2026-05-16',
     generated_at: new Date().toISOString(),
     executive_summary: '',
-    stats: { findings, sections: 0, cves: 0, kevs: 0, iocs, critical: 0, high: 0, medium: 0, low: 0, ransomware_victims: 0 },
+    stats: {
+      findings,
+      sections: 0,
+      cves: 0,
+      kevs: 0,
+      iocs,
+      critical: 0,
+      high: 0,
+      medium: 0,
+      low: 0,
+      ransomware_victims: 0,
+    },
     sections: [],
     iocs: { urls: [], domains: [], ipv4s: [], hashes: [] },
     mitre_techniques: [],
@@ -390,6 +402,50 @@ describe('dailyNeedsCveReenrich', () => {
   });
 });
 
+describe('dailyNeedsRansomwareReenrich', () => {
+  // Regression: 2026-06-19 landed with 12 CVE findings + IOCs but the
+  // ransomware section was empty. briefingNeedsHeal wouldn't fire
+  // (row is "rich"), dailyNeedsCveReenrich wouldn't fire (findings > 0
+  // and iocs > 0), so the empty-ransomware state stuck forever. This
+  // gate catches exactly that pattern and re-runs the build, which
+  // re-fetches all 8 ransomware trackers. The 7-day window in the
+  // trackers still includes the briefing's date, so a transient
+  // upstream failure on the original 00:30 build is recoverable.
+  const NOW = Date.parse('2026-06-21T07:00:00Z');
+  const body = (generatedAt: string) => JSON.stringify({ generated_at: generatedAt });
+  const stats = (findings: number, iocs: number, ransomware_victims = 0) =>
+    JSON.stringify({ findings, iocs, ransomware_victims });
+
+  it('fires when a daily has findings+IOCs but zero ransomware victims', () => {
+    const row = { stats_json: stats(12, 1482, 0), body: body('2026-06-21T00:30:00Z') };
+    expect(dailyNeedsRansomwareReenrich(row, { now: NOW, cooldownMs: 0 })).toBe(true);
+  });
+
+  it('does not fire once the ransomware section is populated', () => {
+    const row = { stats_json: stats(12, 1482, 5), body: body('2026-06-21T00:30:00Z') };
+    expect(dailyNeedsRansomwareReenrich(row, { now: NOW, cooldownMs: 0 })).toBe(false);
+  });
+
+  it('does not fire on a truly empty daily (briefingNeedsHeal owns that)', () => {
+    const row = { stats_json: stats(0, 0, 0), body: body('2026-06-21T00:30:00Z') };
+    expect(dailyNeedsRansomwareReenrich(row, { now: NOW, cooldownMs: 0 })).toBe(false);
+  });
+
+  it('does not fire on an IOCs-only daily within the cooldown', () => {
+    const thirtyMinAgo = { stats_json: stats(0, 1200, 0), body: body(new Date(NOW - 30 * 60_000).toISOString()) };
+    expect(dailyNeedsRansomwareReenrich(thirtyMinAgo, { now: NOW, cooldownMs: 3 * 60 * 60_000 })).toBe(false);
+  });
+
+  it('honours the cooldown, then fires once it has elapsed', () => {
+    const fiveHoursAgo = { stats_json: stats(12, 1482, 0), body: body(new Date(NOW - 5 * 60 * 60_000).toISOString()) };
+    expect(dailyNeedsRansomwareReenrich(fiveHoursAgo, { now: NOW, cooldownMs: 3 * 60 * 60_000 })).toBe(true);
+  });
+
+  it('returns false for a missing row', () => {
+    expect(dailyNeedsRansomwareReenrich(null, { now: NOW, cooldownMs: 0 })).toBe(false);
+  });
+});
+
 describe('CIRCL CVE 5.x parsing (regression: findings=0 on 2026-06-04/05)', () => {
   // Shape returned by https://cve.circl.lu/api/last today: a native CVE 5.x
   // record. The OLD parser only read `database_specific.nvd_published_at` /
@@ -442,7 +498,6 @@ describe('CIRCL CVE 5.x parsing (regression: findings=0 on 2026-06-04/05)', () =
   });
 });
 
-
 describe('bucketIocs (no cap)', () => {
   const mk = (type: 'url' | 'domain' | 'ipv4' | 'hash', i: number) => ({
     type,
@@ -470,9 +525,7 @@ describe('bucketIocs (no cap)', () => {
 
 describe('buildIocDump', () => {
   it('returns undefined for an empty bucket', () => {
-    expect(
-      buildIocDump({ urls: [], domains: [], ipv4s: [], hashes: [] }, 0)
-    ).toBeUndefined();
+    expect(buildIocDump({ urls: [], domains: [], ipv4s: [], hashes: [] }, 0)).toBeUndefined();
   });
 
   it('formats one line per IOC with type + value + context/timestamp', () => {

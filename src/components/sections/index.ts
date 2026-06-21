@@ -9,6 +9,5 @@ export { Projects } from './Projects';
 export { Featured } from './Featured';
 export { Memberships } from './Memberships';
 export { Contact } from './Contact';
-export { Faq } from './Faq';
 export { Solutions } from './Solutions';
 export { Toolkits } from './Toolkits';

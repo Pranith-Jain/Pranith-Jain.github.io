@@ -657,3 +657,37 @@ export function dailyNeedsCveReenrich(
   if (!Number.isFinite(last)) return true;
   return opts.now - last >= cooldownMs;
 }
+
+/**
+ * Re-heal a daily that is otherwise "rich" (has CVE findings + IOCs) but the
+ * ransomware section is empty. The original 00:30 build can land a 0-ransom
+ * row for two real-world reasons that the basic `briefingNeedsHeal` won't
+ * catch:
+ *   1. Transient upstream failure on the first build: ransomware.live or
+ *      ransomlook returned 5xx/timeout and the .catch(() => []) left us
+ *      with an empty bundle, but the rest of the build still wrote a
+ *      non-empty row. The heal's primary gate then never fires again
+ *      because the row is "rich" (findings>0 or iocs>0).
+ *   2. A retry of just the ransomware fetch later in the day would land
+ *      fresh data — the trackers' 7-day window still includes the date.
+ * Triggers a full rebuild via the same path the CVE-reenrich uses, which
+ * re-fetches all 8 sources and overwrites the row. Cooldown mirrors the
+ * CVE variant (default 3h) so we don't thrash within an hour.
+ */
+export function dailyNeedsRansomwareReenrich(
+  row: { stats_json?: string | null; body?: string | null } | null | undefined,
+  opts: { now: number; cooldownMs?: number }
+): boolean {
+  if (!row) return false;
+  const s = safeJsonParse<{ findings?: number; iocs?: number; ransomware_victims?: number }>(row.stats_json, {});
+  // Only worth re-running if the rest of the briefing is rich AND the
+  // ransomware section came back empty. A truly empty daily still falls
+  // through to briefingNeedsHeal's primary path.
+  if ((s.findings ?? 0) <= 0 && (s.iocs ?? 0) <= 0) return false;
+  if ((s.ransomware_victims ?? 0) > 0) return false;
+  const cooldownMs = opts.cooldownMs ?? 0;
+  if (cooldownMs <= 0) return true;
+  const last = Date.parse(safeJsonParse<{ generated_at?: string }>(row.body, {}).generated_at ?? '');
+  if (!Number.isFinite(last)) return true;
+  return opts.now - last >= cooldownMs;
+}

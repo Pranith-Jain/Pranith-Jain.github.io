@@ -24,6 +24,7 @@ import { useRecentTools } from '../hooks/useRecentTools';
 import { getSidebarForSection } from '../data/sidebar-nav';
 import { DfirStructuredData } from '../components/ToolStructuredData';
 import { FaqStructuredData, HowToStructuredData } from '../components/FaqStructuredData';
+import { BreadcrumbListSchema } from '../components/BreadcrumbStructuredData';
 import { useDocumentMeta } from '../hooks/useDocumentMeta';
 import { DFIR_FAQ } from '../data/dfir-faq';
 
@@ -240,6 +241,12 @@ export default function DFIRPage(): JSX.Element {
   return (
     <div className="w-full py-6 sm:py-10 text-slate-900 dark:text-slate-100 space-y-8 sm:space-y-12">
       <DfirStructuredData />
+      <BreadcrumbListSchema
+        items={[
+          { name: 'Home', url: 'https://pranithjain.qzz.io' },
+          { name: 'DFIR Toolkit', url: 'https://pranithjain.qzz.io/dfir' },
+        ]}
+      />
       <FaqStructuredData entries={DFIR_FAQ} />
       <HowToStructuredData
         name="How to triage an indicator of compromise with the DFIR toolkit"

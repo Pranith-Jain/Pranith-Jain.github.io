@@ -33,7 +33,10 @@ export function DfirStructuredData(): JSX.Element {
     ],
     author: {
       '@type': 'Person',
+      '@id': 'https://pranithjain.qzz.io/#person',
       name: 'Pranith Jain',
+      url: 'https://pranithjain.qzz.io',
+      sameAs: ['https://github.com/Pranith-Jain', 'https://x.com/Npj8448'],
     },
   };
 
@@ -73,7 +76,10 @@ export function ThreatIntelStructuredData(): JSX.Element {
     ],
     author: {
       '@type': 'Person',
+      '@id': 'https://pranithjain.qzz.io/#person',
       name: 'Pranith Jain',
+      url: 'https://pranithjain.qzz.io',
+      sameAs: ['https://github.com/Pranith-Jain', 'https://x.com/Npj8448'],
     },
   };
 

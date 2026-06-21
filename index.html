@@ -15,7 +15,7 @@
       content="security analyst, detection engineer, DFIR toolkit, threat intelligence, phishing investigation, BEC detection, email security, DMARC, SPF, DKIM, IOC analysis, subdomain takeover, JWT inspector, MITRE ATT&CK, MITRE ATT&CK mapping, Cloudflare Workers, edge security, OSINT, SOC automation, incident response, n8n, Pranith Jain"
     />
     <meta name="author" content="Pranith Jain" />
-    <meta name="robots" content="index, follow" />
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
     <meta name="language" content="English" />
 
     <!-- Theme and Security -->
@@ -87,6 +87,61 @@
       property="twitter:image:alt"
       content="Pranith Jain — threat intelligence, DFIR, and detection engineering. A live CTI platform and 60+ free, browser-side DFIR tools."
     />
+
+    <!-- Site-wide structured data (SEO/AEO audit fixes 1 + 2)
+         A single top-level Person schema so AI engines can attribute
+         the work to a known identity, and a WebSite + SearchAction
+         schema so Google can render a sitelinks search box and
+         ChatGPT/Perplexity understand the site as one product
+         surface (not 350 disconnected pages). Per-page JSON-LD
+         (SoftwareApplication on /dfir and /threatintel, Article on
+         /projects/:slug, FAQPage on /, /dfir, /threatintel, /radar)
+         continues to render alongside this. -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "@id": "https://pranithjain.qzz.io/#person",
+      "name": "Pranith Jain",
+      "url": "https://pranithjain.qzz.io",
+      "jobTitle": "Security Analyst & Detection Engineer",
+      "description": "Security analyst and detection engineer investigating phishing, BEC, and malware. Ships a free 60-plus-tool DFIR toolkit and a live threat-intel platform on Cloudflare Workers.",
+      "knowsAbout": [
+        "Phishing Investigation",
+        "Business Email Compromise",
+        "Detection Engineering",
+        "Digital Forensics and Incident Response",
+        "Threat Intelligence",
+        "MITRE ATT&CK",
+        "Email Security (SPF, DKIM, DMARC)",
+        "Cloudflare Workers",
+        "Edge-native security tooling"
+      ],
+      "sameAs": [
+        "https://github.com/Pranith-Jain",
+        "https://x.com/Npj8448"
+      ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "@id": "https://pranithjain.qzz.io/#website",
+      "name": "Pranith Jain · Security Portfolio",
+      "url": "https://pranithjain.qzz.io",
+      "inLanguage": "en",
+      "publisher": { "@id": "https://pranithjain.qzz.io/#person" },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://pranithjain.qzz.io/threatintel?search={search_term_string}"
+        },
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
 
     <!-- Favicons -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />

@@ -289,8 +289,14 @@ function StatusPip({
     );
   }
   if (!status) {
+    // Loading/no-data state: the resolved label is significantly wider
+    // ('{N}/{M} feeds · {label}') than 'checking feeds…', and the flex
+    // bar would re-layout as soon as the fetch resolves. Reserve the
+    // width of the widest realistic label via min-w + whitespace-nowrap
+    // so the footer's outer dimensions don't move when status lands.
+    // 24ch covers 'all feeds healthy' + a 3-digit count + a long label.
     return (
-      <span className="inline-flex items-center gap-1.5">
+      <span className="inline-flex min-w-[24ch] items-center gap-1.5 whitespace-nowrap">
         <span
           className={`inline-block w-1.5 h-1.5 rounded-full ${loading ? 'bg-slate-400 animate-pulse' : 'bg-slate-500'}`}
         />
@@ -319,7 +325,7 @@ function StatusPip({
   return (
     <Link
       to="/threatintel/catalog?cat=social"
-      className="inline-flex items-center gap-1.5 hover:text-slate-900 dark:hover:text-slate-100"
+      className="inline-flex min-w-[24ch] items-center gap-1.5 whitespace-nowrap hover:text-slate-900 dark:hover:text-slate-100"
     >
       <span className={`inline-block w-1.5 h-1.5 rounded-full ${pipCls}`} />
       {okCount}/{total} feeds · {label}

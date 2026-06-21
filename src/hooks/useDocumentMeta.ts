@@ -92,6 +92,10 @@ export function useDocumentMeta(meta: DocumentMeta): void {
         .querySelector<HTMLMetaElement>('meta[property="og:description"]')
         ?.getAttribute('content'),
       ogImage: document.querySelector<HTMLMetaElement>('meta[property="og:image"]')?.getAttribute('content'),
+      ogImageAlt: document.querySelector<HTMLMetaElement>('meta[property="og:image:alt"]')?.getAttribute('content'),
+      twitterImageAlt: document
+        .querySelector<HTMLMetaElement>('meta[name="twitter:image:alt"]')
+        ?.getAttribute('content'),
       twitterCard: document.querySelector<HTMLMetaElement>('meta[name="twitter:card"]')?.getAttribute('content'),
       twitterTitle: document.querySelector<HTMLMetaElement>('meta[name="twitter:title"]')?.getAttribute('content'),
       twitterDescription: document
@@ -120,11 +124,16 @@ export function useDocumentMeta(meta: DocumentMeta): void {
     }
     setMetaProperty('og:title', fullTitle);
     setMetaProperty('og:image', ogImage);
+    // og:image:alt helps AI engines describe the image in cards
+    // + meets accessibility guidance. Falls back to the page
+    // title since we don't carry a per-page image description.
+    setMetaProperty('og:image:alt', fullTitle);
     setMetaProperty('og:url', meta.canonicalPath ? `${siteUrl}${meta.canonicalPath}` : siteUrl);
     setMetaProperty('og:type', meta.section === 'Threat Intel' || meta.section === 'DFIR' ? 'website' : 'profile');
     setMetaName('twitter:card', 'summary_large_image');
     setMetaName('twitter:title', fullTitle);
     setMetaName('twitter:image', ogImage);
+    setMetaName('twitter:image:alt', fullTitle);
     setMetaName('twitter:site', '@pranithjain');
     if (meta.canonicalPath) {
       const origin = typeof window !== 'undefined' ? window.location.origin : '';
@@ -137,6 +146,8 @@ export function useDocumentMeta(meta: DocumentMeta): void {
       setMetaProperty('og:title', prev.ogTitle);
       setMetaProperty('og:description', prev.ogDescription);
       setMetaProperty('og:image', prev.ogImage);
+      setMetaProperty('og:image:alt', prev.ogImageAlt);
+      setMetaName('twitter:image:alt', prev.twitterImageAlt);
       setMetaName('twitter:card', prev.twitterCard);
       setMetaName('twitter:title', prev.twitterTitle);
       setMetaName('twitter:description', prev.twitterDescription);

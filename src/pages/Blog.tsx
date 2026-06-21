@@ -3,6 +3,7 @@ import { Link, useParams, Navigate } from 'react-router-dom';
 import { ArrowLeft, Search } from 'lucide-react';
 import { DataState } from '../components/DataState';
 import { estimateReadingTime } from '../lib/content-utils';
+import { useDocumentMeta } from '../hooks/useDocumentMeta';
 
 interface PostEntry {
   slug: string;
@@ -85,6 +86,18 @@ export default function Blog() {
   const [reloadKey, setReloadKey] = useState(0);
   const [query, setQuery] = useState('');
   const [typeFilter, setTypeFilter] = useState<string | null>(routeType ?? null);
+
+  // Per-page meta varies with the /blog/c/:type route. Category
+  // landings get their own title + description so Google
+  // doesn't see 9 near-duplicate versions of the same page.
+  const blogMeta = routeType ? metaFor(routeType) : null;
+  useDocumentMeta({
+    title: blogMeta ? blogMeta.label : 'Blog',
+    description: blogMeta
+      ? blogMeta.blurb
+      : 'Case studies, briefings, and CVEs from the security desk. Phishing, BEC, ransomware, and detection engineering.',
+    canonicalPath: routeType ? `/blog/c/${routeType}` : '/blog',
+  });
   const [tagFilter, setTagFilter] = useState<string | null>(null);
 
   useEffect(() => {

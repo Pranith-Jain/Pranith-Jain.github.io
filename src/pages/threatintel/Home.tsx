@@ -24,6 +24,7 @@ import { useDocumentMeta } from '../../hooks/useDocumentMeta';
 import { CATALOG, catalogSearch } from '../../data/threatintel-catalog';
 import { ThreatIntelStructuredData } from '../../components/ToolStructuredData';
 import { FaqStructuredData } from '../../components/FaqStructuredData';
+import { BreadcrumbListSchema } from '../../components/BreadcrumbStructuredData';
 import { THREATINTEL_FAQ } from '../../data/threatintel-faq';
 
 /**
@@ -186,6 +187,12 @@ export default function ThreatIntelHome(): JSX.Element {
   return (
     <div className="w-full py-6 sm:py-10 text-slate-900 dark:text-slate-100 space-y-8 sm:space-y-12">
       <ThreatIntelStructuredData />
+      <BreadcrumbListSchema
+        items={[
+          { name: 'Home', url: 'https://pranithjain.qzz.io' },
+          { name: 'Threat Intel', url: 'https://pranithjain.qzz.io/threatintel' },
+        ]}
+      />
       <FaqStructuredData entries={THREATINTEL_FAQ} />
       <WhatsNewBanner />
       <LatestBriefingCard />

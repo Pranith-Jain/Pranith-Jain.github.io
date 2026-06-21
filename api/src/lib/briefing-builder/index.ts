@@ -25,21 +25,23 @@ export {
   isBriefingDegraded,
   briefingNeedsHeal,
   dailyNeedsCveReenrich,
+  dailyNeedsRansomwareReenrich,
   mergeWeeklyWithDailies,
   aggregateWeeklyFromDailies,
   weeklyUndercountsDailies,
   safeJsonParse,
 } from './aggregate';
 
-export {
-  buildBriefing,
-  writeBriefing,
-  sweepOldBriefings,
-  listBriefings,
-  readBriefing,
-} from './build';
+export { buildBriefing, writeBriefing, sweepOldBriefings, listBriefings, readBriefing } from './build';
 
-export { BRIEFING_MAX_AGE_DAYS, IOC_FEED_SOURCES, CATEGORY_RULES, SEVERITY_CATEGORIES, FALLBACK_CATEGORY, MITRE_RULES } from './config';
+export {
+  BRIEFING_MAX_AGE_DAYS,
+  IOC_FEED_SOURCES,
+  CATEGORY_RULES,
+  SEVERITY_CATEGORIES,
+  FALLBACK_CATEGORY,
+  MITRE_RULES,
+} from './config';
 
 export type {
   BriefingType,
