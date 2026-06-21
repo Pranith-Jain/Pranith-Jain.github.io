@@ -11,7 +11,7 @@ export default {
           200: '#ced9fd',
           300: '#a1b6fb',
           400: '#6d8bf7',
-          500: '#5a78f2',
+          500: '#435ef1',
           600: '#2c3ee5',
           700: '#232ebf',
           800: '#21299b',
@@ -65,29 +65,13 @@ export default {
         mini: ['0.6875rem', { lineHeight: '1rem' }],
         micro: ['0.625rem', { lineHeight: '0.9rem' }],
       },
-
-      // Hunt.io-inspired radius scale: sharp 4-8px on data tiles, larger
-      // radii only on hero/CTA surfaces. Use named tokens instead of
-      // raw rounded-* so intent is in the class name.
-      //   card     -> 8px   (toolkit cards, data tiles)
-      //   panel    -> 10px  (panels with internal table)
-      //   hero     -> 14px  (hero/CTA panels, top-of-page callouts)
-      borderRadius: {
-        card: '0.5rem',
-        panel: '0.625rem',
-        hero: '0.875rem',
-      },
-
       boxShadow: {
         glow: '0 0 0 1px rgba(37, 99, 235, 0.25), 0 18px 60px rgba(37, 99, 235, 0.15)',
-        // Geist-aligned elevation — borders first, shadows subtle.
-        //   e1 → raised card:        0 2px 2px rgba(0,0,0,0.04)
-        //   e2 → popover/menu:        + 0 4px 8px -4px, 0 16px 24px -8px
-        //   e3 → modal/dialog:        + 0 8px 16px -4px, 0 24px 32px -8px
-        // Dark mode leans on borders + translucency, not shadow.
+        // Elevation scale — the depth system the flat light theme was missing.
+        // Tuned soft for light surfaces (dark mode leans on borders + glass).
         e1: '0 1px 2px rgba(15, 23, 42, 0.04), 0 1px 3px rgba(15, 23, 42, 0.06)',
-        e2: '0 1px 1px rgba(0, 0, 0, 0.02), 0 4px 8px -4px rgba(0, 0, 0, 0.04), 0 16px 24px -8px rgba(0, 0, 0, 0.06)',
-        e3: '0 1px 1px rgba(0, 0, 0, 0.02), 0 8px 16px -4px rgba(0, 0, 0, 0.04), 0 24px 32px -8px rgba(0, 0, 0, 0.06)',
+        e2: '0 2px 4px rgba(15, 23, 42, 0.05), 0 8px 24px rgba(15, 23, 42, 0.08)',
+        e3: '0 12px 32px rgba(15, 23, 42, 0.10), 0 24px 64px rgba(15, 23, 42, 0.12)',
         // Removed unused glow-cyan/pink/purple (0 references; neon-AI tell).
       },
       animation: {

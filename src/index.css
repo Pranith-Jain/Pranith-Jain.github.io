@@ -3,23 +3,6 @@
 @tailwind utilities;
 
 @layer base {
-  /* ── Geist-aligned radii ────────────────────────────────────────
-     Geist spec: 6px everyday surfaces, 12px menus, 16px fullscreen.
-     Maps to Tailwind: rounded-md=4 (chips), rounded-lg=6 (controls),
-     rounded-xl=8 (app chrome), rounded-2xl=16 (fullscreen surfaces). */
-  .rounded-2xl {
-    border-radius: 1rem; /* 16px — fullscreen surfaces */
-  }
-  .rounded-xl {
-    border-radius: 0.5rem; /* 8px — menus / app chrome */
-  }
-  .rounded-lg {
-    border-radius: 0.375rem; /* 6px — everyday surfaces / controls */
-  }
-  .rounded-md {
-    border-radius: 0.25rem; /* 4px — chips, dense data tiles */
-  }
-
   html {
     font-family: theme('fontFamily.sans');
     scroll-behavior: smooth;
@@ -32,12 +15,10 @@
   h5,
   h6 {
     font-family: theme('fontFamily.display');
-    /* Geist heading tracking ramp:
-         h1 (-2.4px)  h2 (-1.28px)  h3 (-0.96px)  h4 (-0.4px)
-       The previous single -0.018em felt right at 40-56px but cramped
-       on text-xl / text-2xl. The per-size ramp below mirrors the
-       Vercel spec and keeps smaller headings from looking squeezed. */
-    letter-spacing: -0.02em;
+    /* Bricolage Grotesque has real character at display sizes — tighten the
+       tracking and let its optical-size axis kick in so headings read
+       authored, not default. */
+    letter-spacing: -0.018em;
     font-optical-sizing: auto;
   }
 
@@ -50,73 +31,26 @@
 
   html.dark {
     color-scheme: dark;
-    background-color: #0a0a0f;
-    color: #f0f0f5;
   }
 
   html:not(.dark) {
     color-scheme: light;
   }
 
-  /* ── Brand design tokens ────────────────────────────────────────── */
+  /* Theme-aware secondary-text channel — see the `muted` color in
+     tailwind.config.js. Light = slate-600 (>=4.5:1 on white = WCAG AA);
+     dark = slate-400. Use `text-muted` instead of bare text-slate-400 for
+     captions/labels so light mode never drops to the 2.8:1 failure. */
   :root {
-    --brand: 44 62 229;
-    --brand-400: 109 139 247;
-    --brand-500: 67 94 241;
-    --brand-600: 44 62 229;
-    --brand-700: 35 46 191;
-    --brand-800: 33 41 155;
-    --brand-950: 18 22 73;
     --muted: 71 85 105;
-    --surface-border: 226 232 240;
-    --surface-bg: 255 255 255;
-    --glass-bg: 255 255 255;
-    --glass-border: 226 232 240;
-    /* Geist surface ramp (light) — pure white page, #fafafa for
-       subtle separation, gray-alpha borders for translucency.
-       Bound to CSS vars so JS themes can override them in one place. */
-    --surface-100: 255 255 255; /* primary page + card */
-    --surface-200: 250 250 250; /* subtle separation (geist background-200) */
-    --surface-300: 245 245 245; /* active/pressed fill */
-    --border-400: 0 0 0 / 0.15; /* default border (gray-alpha-400) */
-    --border-500: 0 0 0 / 0.2; /* hover border */
-    --border-600: 0 0 0 / 0.3; /* active border */
-    --hover-100: 0 0 0 / 0.05; /* hover background wash */
   }
   html.dark {
-    --brand: 99 130 255;
-    --muted: 160 170 190;
-    --surface-border: 35 40 55;
-    --surface-bg: 15 15 22;
-    --glass-bg: 15 15 22;
-    --glass-border: 35 40 55;
-    --surface-100: 10 10 15; /* primary dark page (geist #000) */
-    --surface-200: 18 18 24; /* card surface (gray-100) */
-    --surface-300: 28 28 36; /* hover/active fill */
-    --border-400: 255 255 255 / 0.08;
-    --border-500: 255 255 255 / 0.14;
-    --border-600: 255 255 255 / 0.22;
-    --hover-100: 255 255 255 / 0.04;
+    --muted: 148 163 184;
   }
 
-  /* Geist two-layer focus ring:
-       1. 2px gap in the surface color (so the ring never sits on the
-          same hue as the element it surrounds)
-       2. 2px solid brand-500 ring
-     The two-layer box-shadow keeps the ring inside the layout box, so
-     a tall input doesn't push its label down when focused. Dark mode
-     flips the inner gap to the dark surface color and the ring to a
-     brighter brand-400. */
   :focus-visible {
-    outline: none;
-    box-shadow:
-      0 0 0 2px #ffffff,
-      0 0 0 4px #2c3ee5;
-  }
-  html.dark :focus-visible {
-    box-shadow:
-      0 0 0 2px #0a0a0f,
-      0 0 0 4px #6d8bf7;
+    outline: 2px solid theme('colors.brand.400');
+    outline-offset: 3px;
   }
 
   /* iOS Safari auto-zooms when a focused input/textarea has a computed
@@ -147,160 +81,11 @@
   }
 
   ::-webkit-scrollbar-track {
-    @apply bg-slate-100;
-  }
-  .dark ::-webkit-scrollbar-track {
-    background-color: rgba(10, 10, 15, 0.6);
+    @apply bg-slate-100 dark:bg-slate-900;
   }
 
   ::-webkit-scrollbar-thumb {
-    @apply rounded-full bg-slate-300 transition-colors hover:bg-slate-400;
-  }
-  .dark ::-webkit-scrollbar-thumb {
-    background-color: rgba(71, 85, 105, 0.6);
-  }
-  .dark ::-webkit-scrollbar-thumb:hover {
-    background-color: rgba(100, 116, 139, 0.7);
-  }
-
-  /* ── Premium dark theme ──────────────────────────────────────────
-     Page: #0a0a0f (near-black with slight blue tint)
-     Cards: #12121a (subtle lift from page)
-     Borders: #1e2030 (barely visible separation)
-     Text: #f0f0f5 (near-white, not gray) */
-
-  /* Backgrounds — cards must be lighter than page */
-  .dark .bg-white {
-    background-color: #12121a !important;
-  }
-  .dark .bg-white\/60 {
-    background-color: rgba(18, 18, 26, 0.6) !important;
-  }
-  .dark .bg-white\/65 {
-    background-color: rgba(18, 18, 26, 0.65) !important;
-  }
-  .dark .bg-white\/70 {
-    background-color: rgba(18, 18, 26, 0.7) !important;
-  }
-  .dark .bg-white\/80 {
-    background-color: rgba(18, 18, 26, 0.8) !important;
-  }
-  .dark .bg-white\/95 {
-    background-color: rgba(18, 18, 26, 0.95) !important;
-  }
-  .dark .bg-slate-50 {
-    background-color: #15151f !important;
-  }
-  .dark .bg-slate-50\/40 {
-    background-color: rgba(21, 21, 31, 0.4) !important;
-  }
-  .dark .bg-slate-50\/60 {
-    background-color: rgba(21, 21, 31, 0.6) !important;
-  }
-  .dark .bg-slate-50\/70 {
-    background-color: rgba(21, 21, 31, 0.7) !important;
-  }
-  .dark .bg-slate-900 {
-    background-color: #12121a !important;
-  }
-  .dark .bg-slate-900\/40 {
-    background-color: rgba(18, 18, 26, 0.4) !important;
-  }
-  .dark .bg-slate-900\/50 {
-    background-color: rgba(18, 18, 26, 0.5) !important;
-  }
-  .dark .bg-slate-900\/60 {
-    background-color: rgba(18, 18, 26, 0.6) !important;
-  }
-  .dark .bg-slate-900\/80 {
-    background-color: rgba(18, 18, 26, 0.8) !important;
-  }
-  .dark .bg-slate-900\/95 {
-    background-color: rgba(18, 18, 26, 0.95) !important;
-  }
-  .dark .bg-slate-950 {
-    background-color: #12121a !important;
-  }
-  .dark .bg-slate-950\/40 {
-    background-color: rgba(18, 18, 26, 0.4) !important;
-  }
-  .dark .bg-slate-950\/80 {
-    background-color: rgba(18, 18, 26, 0.8) !important;
-  }
-  .dark .bg-slate-950\/95 {
-    background-color: rgba(18, 18, 26, 0.95) !important;
-  }
-  .dark .bg-gray-900 {
-    background-color: #12121a !important;
-  }
-  .dark .bg-gray-900\/60 {
-    background-color: rgba(18, 18, 26, 0.6) !important;
-  }
-  .dark .bg-gray-900\/80 {
-    background-color: rgba(18, 18, 26, 0.8) !important;
-  }
-  .dark .bg-gray-900\/95 {
-    background-color: rgba(18, 18, 26, 0.95) !important;
-  }
-  .dark .bg-gray-800 {
-    background-color: #12121a !important;
-  }
-  .dark .bg-gray-800\/60 {
-    background-color: rgba(18, 18, 26, 0.6) !important;
-  }
-
-  /* Text — high contrast, near-white */
-  .dark .text-slate-400 {
-    color: #a0a8c0 !important;
-  }
-  .dark .text-slate-500 {
-    color: #8890a8 !important;
-  }
-  .dark .text-slate-300 {
-    color: #d0d5e0 !important;
-  }
-  .dark .text-slate-200 {
-    color: #e8ecf4 !important;
-  }
-
-  /* Borders — subtle, barely visible */
-  .dark .border-slate-200 {
-    border-color: #1e2030 !important;
-  }
-  .dark .border-slate-200\/60 {
-    border-color: rgba(30, 32, 48, 0.6) !important;
-  }
-  .dark .border-slate-200\/70 {
-    border-color: rgba(30, 32, 48, 0.7) !important;
-  }
-  .dark .border-slate-300 {
-    border-color: #252840 !important;
-  }
-  .dark .border-slate-700 {
-    border-color: #1e2030 !important;
-  }
-  .dark .border-slate-700\/60 {
-    border-color: rgba(30, 32, 48, 0.6) !important;
-  }
-  .dark .border-slate-800 {
-    border-color: #1e2030 !important;
-  }
-  .dark .border-slate-800\/40 {
-    border-color: rgba(30, 32, 48, 0.4) !important;
-  }
-  .dark .border-white\/10 {
-    border-color: rgba(255, 255, 255, 0.06) !important;
-  }
-
-  /* Placeholders */
-  .dark .placeholder\:text-slate-400::placeholder {
-    color: #4a5070 !important;
-  }
-  .dark .placeholder\:text-slate-500::placeholder {
-    color: #4a5070 !important;
-  }
-  .dark .placeholder\:text-slate-600::placeholder {
-    color: #4a5070 !important;
+    @apply rounded-full bg-slate-300 transition-colors hover:bg-slate-400 dark:bg-slate-700 dark:hover:bg-slate-600;
   }
 }
 
@@ -310,18 +95,18 @@
   }
 
   .dark .glass {
-    @apply backdrop-blur-md lg:backdrop-blur-xl;
-    border-color: rgba(30, 32, 48, 0.6);
-    background-color: rgba(18, 18, 26, 0.85);
+    @apply border-white/10 bg-slate-900/60;
   }
 
+  /* Calm sibling to .glass for sections where every-card-translucent reads
+   * as visual noise (list-of-tiles surfaces: Skills, Solutions, Companies,
+   * Memberships, Certifications). Reuses the rest of the design tokens. */
   .surface {
     @apply border border-slate-200 bg-white transition-all duration-300;
   }
 
   .dark .surface {
-    border-color: rgba(30, 32, 48, 0.5);
-    background-color: rgba(18, 18, 26, 0.6);
+    @apply border-slate-800 bg-slate-900;
   }
 
   /* ── Depth / morphism surface system ─────────────────────────────────
@@ -335,97 +120,19 @@
        chrome-glass    → frosted sticky chrome (header / sidebar / bars)
        card-hover     → lift-on-hover affordance (pairs with the above) */
   .surface-card {
-    @apply rounded-xl border border-slate-200 bg-white shadow-e1 transition duration-200;
-  }
-  .surface-card.dark\:border-slate-800,
-  .surface-card {
-    border-color: rgb(var(--surface-border) / <alpha-value>);
-  }
-  .dark .surface-card {
-    border-color: rgba(30, 32, 48, 0.6);
-    background-color: rgba(18, 18, 26, 0.8);
-    /* Geist dark surfaces rely on borders, not inset highlights.
-       Drop the inset gloss — it read as AI-decorative. */
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+    @apply rounded-xl border border-slate-200 bg-white shadow-e1 transition duration-200 dark:border-slate-800 dark:bg-slate-900/60;
   }
   .surface-raised {
-    @apply rounded-xl border border-slate-200 bg-white shadow-e2 transition duration-200;
-    border-color: rgb(var(--surface-border) / <alpha-value>);
-  }
-  .dark .surface-raised {
-    border-color: rgba(30, 32, 48, 0.7);
-    background-color: rgba(18, 18, 26, 0.9);
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+    @apply rounded-xl border border-slate-200 bg-white shadow-e2 transition duration-200 dark:border-slate-800 dark:bg-slate-900/70;
   }
   .surface-glass {
-    @apply rounded-xl border bg-white/70 shadow-e1 backdrop-blur-md transition duration-200;
-    border-color: rgb(var(--surface-border) / 0.7);
-  }
-  .dark .surface-glass {
-    border-color: rgba(30, 32, 48, 0.4);
-    background-color: rgba(18, 18, 26, 0.5);
+    @apply rounded-xl border border-slate-200/70 bg-white/70 shadow-e1 backdrop-blur-md transition duration-200 dark:border-slate-700/50 dark:bg-slate-900/50;
   }
   .chrome-glass {
-    @apply backdrop-blur-xl;
-    border-color: rgb(var(--surface-border) / 0.7);
-    background-color: rgb(255 255 255 / 0.8);
-  }
-  .dark .chrome-glass {
-    border-color: rgba(30, 32, 48, 0.5);
-    background-color: rgba(10, 10, 15, 0.85);
+    @apply border-slate-200/70 bg-white/80 backdrop-blur-xl dark:border-slate-800/70 dark:bg-slate-950/70;
   }
   .card-hover {
-    @apply hover:-translate-y-0.5 hover:shadow-e2;
-  }
-  .card-hover:hover {
-    border-color: rgb(var(--surface-border) / <alpha-value>);
-  }
-  .dark .card-hover:hover {
-    border-color: rgba(71, 85, 105, 0.6);
-    background-color: rgba(30, 41, 59, 0.75);
-  }
-
-  /* ── Rose-tinted card hover for /threatintel pages ─────────────────
-     Identical lift/translate to .card-hover, but uses the rose accent
-     so the threat-intel area doesn't read as a brand-blue clone of DFIR.
-     Pair with .card-hover (it does the lift); this only swaps the
-     border / shadow tint. */
-  .hover-rose:hover {
-    border-color: rgb(244 63 94 / 0.4);
-  }
-  .dark .hover-rose:hover {
-    border-color: rgb(244 63 94 / 0.35);
-  }
-  .hover-rose:focus-visible {
-    border-color: rgb(244 63 94 / 0.6);
-    outline: none;
-    box-shadow: 0 0 0 2px rgb(244 63 94 / 0.25);
-  }
-
-  /* Hunt.io-inspired prose. Apply to a wrapper of <p>/<ul>/<h2> blocks
-     in long-form pages (case studies, blog posts, glossary). Caps the
-     reading width at ~70ch, lifts the body line-height, and uses the
-     theme-aware --muted token so light/dark both stay >=4.5:1. */
-  .prose-hunt {
-    @apply max-w-[68ch] text-muted leading-[1.65];
-  }
-  .prose-hunt h2 {
-    @apply mt-10 mb-3 font-display text-2xl font-bold tracking-tight text-slate-900 dark:text-white;
-  }
-  .prose-hunt h3 {
-    @apply mt-8 mb-2 font-display text-lg font-bold tracking-tight text-slate-900 dark:text-white;
-  }
-  .prose-hunt p {
-    @apply mt-4;
-  }
-  .prose-hunt ul {
-    @apply mt-4 list-disc pl-5 space-y-1.5;
-  }
-  .prose-hunt code {
-    @apply rounded bg-slate-100 dark:bg-slate-800/60 px-1.5 py-0.5 font-mono text-[0.9em] text-slate-800 dark:text-slate-200;
-  }
-  .prose-hunt a {
-    @apply text-brand-600 dark:text-brand-400 underline-offset-2 hover:underline;
+    @apply hover:-translate-y-0.5 hover:shadow-e2 hover:border-slate-300 dark:hover:border-slate-700;
   }
 }
 
@@ -435,42 +142,12 @@
     background-size: 28px 28px;
   }
 
-  /* ── Hero glow for threat-intel surfaces ──────────────────────────
-     A radial-pink glow that sits behind the hero of a /threatintel
-     page, giving the rose palette more presence on dark backgrounds.
-     Pair with a positioned absolute layer; the utility is opt-in
-     per-page so a /dfir page never picks it up. */
-  .bg-rose-glow {
-    background-image: radial-gradient(at 50% 0%, rgba(244, 63, 94, 0.18) 0px, transparent 60%);
-  }
-  .dark .bg-rose-glow {
-    background-image: radial-gradient(at 50% 0%, rgba(244, 63, 94, 0.25) 0px, transparent 60%);
-  }
-
-  /* ── "Page-load" reveal (translate + fade) for catalog/grid tiles.
-     Faster than .stagger (which caps at 400ms) so long grids don't
-     make the last row feel laggy. Pairs with prefers-reduced-motion
-     (already disabled in the global guard above). */
-  @keyframes tile-reveal {
-    from {
-      opacity: 0;
-      transform: translateY(6px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  .tile-reveal {
-    animation: tile-reveal 0.22s cubic-bezier(0.16, 1, 0.3, 1) both;
-  }
-
   .dark .bg-dot-grid {
-    background-image: radial-gradient(rgba(71, 85, 105, 0.25) 1px, transparent 1px);
+    background-image: radial-gradient(rgba(148, 163, 184, 0.18) 1px, transparent 1px);
   }
 
   .shadow-glow {
-    box-shadow: 0 0 20px -5px rgb(var(--brand-500) / 0.5);
+    box-shadow: 0 0 20px -5px rgba(37, 99, 235, 0.5);
   }
 
   .animate-float {
@@ -519,7 +196,7 @@
 }
 
 .dark .text-\[10px\].text-slate-400 {
-  color: #cbd5e1; /* slate-300 — better contrast on dark surfaces */
+  color: #94a3b8; /* slate-400 stays in dark mode */
 }
 
 .text-\[11px\].text-slate-400 {
@@ -527,7 +204,7 @@
 }
 
 .dark .text-\[11px\].text-slate-400 {
-  color: #cbd5e1;
+  color: #94a3b8;
 }
 
 .text-xs.text-slate-400 {
@@ -535,7 +212,7 @@
 }
 
 .dark .text-xs.text-slate-400 {
-  color: #cbd5e1;
+  color: #94a3b8;
 }
 
 /* Same rescue for the named type tokens (text-micro/mini/meta/eyebrow/tool)
@@ -556,7 +233,7 @@
 .dark .text-eyebrow.text-slate-400,
 .dark .text-tool.text-slate-400,
 .dark .text-sm.text-slate-400 {
-  color: #cbd5e1; /* slate-300 — brighter for dark surfaces */
+  color: #94a3b8; /* slate-400 stays in dark mode */
 }
 
 /* Labels and captions */
@@ -565,7 +242,7 @@
 }
 
 .dark .text-\[10px\].font-mono.uppercase {
-  color: #cbd5e1;
+  color: #94a3b8;
 }
 
 /* Badge text contrast — ensure badge text is readable regardless of bg */
@@ -693,15 +370,12 @@
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  @apply rounded-full bg-slate-300 dark:bg-slate-600;
+  @apply rounded-full bg-slate-300 dark:bg-slate-700;
 }
 
 /* Globe container dark background for better contrast */
 .globe-bg {
   background: radial-gradient(ellipse at center, #0f172a 0%, #020617 100%);
-}
-.dark .globe-bg {
-  background: radial-gradient(ellipse at center, #1e293b 0%, #0f172a 100%);
 }
 
 /* Pulse ring animation for severity dots */
