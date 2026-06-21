@@ -50,26 +50,12 @@
 
   html.dark {
     color-scheme: dark;
-    /* The dark page IS a gradient — the BackgroundLayer renders the
-       navy base (#0A0F1A) with two brand-blue radial pools (18% / 14%)
-       layered on top at 0.9 opacity, plus a 0.16 paper-grain noise
-       layer. The body background-color is a fallback for the instant
-       before React hydrates. */
-    background-color: rgb(var(--surface-100));
-    color: #f5f5f7;
+    background-color: #0a0a0f;
+    color: #f0f0f5;
   }
 
   html:not(.dark) {
     color-scheme: light;
-  }
-
-  ::selection {
-    background-color: rgba(44, 62, 229, 0.2);
-    color: inherit;
-  }
-  html.dark ::selection {
-    background-color: rgba(99, 130, 255, 0.3);
-    color: inherit;
   }
 
   /* ── Brand design tokens ────────────────────────────────────────── */
@@ -89,10 +75,9 @@
     /* Geist surface ramp (light) — pure white page, #fafafa for
        subtle separation, gray-alpha borders for translucency.
        Bound to CSS vars so JS themes can override them in one place. */
-    --surface-100: 255 255 255; /* page */
-    --surface-200: 250 250 250; /* card (one step lift) */
-    --surface-300: 245 245 245; /* raised / active / hover */
-    --input-200: 250 250 250; /* input/inset — same as card */
+    --surface-100: 255 255 255; /* primary page + card */
+    --surface-200: 250 250 250; /* subtle separation (geist background-200) */
+    --surface-300: 245 245 245; /* active/pressed fill */
     --border-400: 0 0 0 / 0.15; /* default border (gray-alpha-400) */
     --border-500: 0 0 0 / 0.2; /* hover border */
     --border-600: 0 0 0 / 0.3; /* active border */
@@ -100,49 +85,18 @@
   }
   html.dark {
     --brand: 99 130 255;
-    /* Restored the cool slate hue (was 168 168 170 = pure neutral).
-       Light text keeps the slate-500 cast via the Tailwind text-slate
-       class; dark text was being overridden to pure gray which made
-       the page feel monochromatic. */
-    --muted: 138 150 173; /* slate-500 lifted; cool blue-gray */
-    --surface-border: rgb(var(--border-400));
-    --surface-bg: rgb(var(--surface-100));
-    --glass-bg: rgb(var(--surface-200));
-    --glass-border: rgb(var(--border-400));
-    /* ── v7b — Lighter surfaces for text contrast (2026-06-19) ──────
-       Users reported the dark theme felt "nosy" (grainy) and text
-       wasn't highlighted enough. Root causes:
-         1. Noise at 18% was visually distracting; dropped to 10%.
-         2. Glass-card alpha was 0.88; too much mesh bleed-through.
-            Bumped to 0.93 for better text legibility.
-         3. Surface-200/RGB values were too close to the page base;
-            brightened +6 per channel so cards pop more distinctly.
-         4. Section-glass blur was 16px; halved to 8px so text has
-            less backdrop-filter fuzziness.
-       ────────────────────────────────────────────────────────────────
-         page  = #060A14  — deep navy, mesh base
-         card  = #1E243C  — glass card (+24-36 RGB lift from page)
-         raised= #303854  — hover/popover (+18-24 from card)
-         input = #0E1326  — inset well, no translucency       */
-    /* ── v8 — Depth + texture pass (2026-06-20) ─────────────────────
-       Dark cards were reading flat: card fill was only 9-16 RGB
-       above the navy page, and the 1px border resolved to almost
-       the same color as the card it outlined. Bumped the card
-       surface and the border alpha together so a dark card now
-       lifts as clearly off the page as a light card does.
-       ────────────────────────────────────────────────────────────────
-         page  = #060A14  — deep navy, mesh base
-         card  = #2A324A  — glass card (+36-40 RGB lift from page, was +24-36)
-      raised= #444F70  — hover/popover (+18-24 from card, widened gap)
-          input = #0E1326  — inset well, no translucency       */
-    --surface-100: 10 15 26; /* page bg — cool-navy          #0A0F1A */
-    --surface-200: 42 50 74; /* card    — glass surface     #2A324A */
-    --surface-300: 68 80 112; /* raised  — hover/popover     #444F70 */
-    --input-200: 14 19 38; /* input   — inset well        #0E1326 */
-    --border-400: 180 200 240 / 0.18;
-    --border-500: 180 200 240 / 0.28;
-    --border-600: 180 200 240 / 0.42;
-    --hover-100: 180 200 240 / 0.1;
+    --muted: 160 170 190;
+    --surface-border: 35 40 55;
+    --surface-bg: 15 15 22;
+    --glass-bg: 15 15 22;
+    --glass-border: 35 40 55;
+    --surface-100: 10 10 15; /* primary dark page (geist #000) */
+    --surface-200: 18 18 24; /* card surface (gray-100) */
+    --surface-300: 28 28 36; /* hover/active fill */
+    --border-400: 255 255 255 / 0.08;
+    --border-500: 255 255 255 / 0.14;
+    --border-600: 255 255 255 / 0.22;
+    --hover-100: 255 255 255 / 0.04;
   }
 
   /* Geist two-layer focus ring:
@@ -160,9 +114,8 @@
       0 0 0 4px #2c3ee5;
   }
   html.dark :focus-visible {
-    /* Inner gap uses near-black so the ring sits in a visible halo. */
     box-shadow:
-      0 0 0 2px var(--surface-100, #000000),
+      0 0 0 2px #0a0a0f,
       0 0 0 4px #6d8bf7;
   }
 
@@ -197,8 +150,7 @@
     @apply bg-slate-100;
   }
   .dark ::-webkit-scrollbar-track {
-    /* Page surface for the scrollbar track so it blends in. */
-    background-color: rgba(0, 0, 0, 0.6);
+    background-color: rgba(10, 10, 15, 0.6);
   }
 
   ::-webkit-scrollbar-thumb {
@@ -211,173 +163,144 @@
     background-color: rgba(100, 116, 139, 0.7);
   }
 
-  /* ── Dark theme — deep navy canvas, brand gradient pools ──────────
-     Page: #060A14 (deep navy, visible brand character)
-     Cards: #0F1423 (+9-15 RGB lift — clear pop on navy)
-     Raised: #1A1F31 (hover/popover, +10-11 from card)
-     Borders: rgba(180,200,240,0.10) (cool-tinted to match navy)
-     Text: #f5f5f7 (near-white) */
+  /* ── Premium dark theme ──────────────────────────────────────────
+     Page: #0a0a0f (near-black with slight blue tint)
+     Cards: #12121a (subtle lift from page)
+     Borders: #1e2030 (barely visible separation)
+     Text: #f0f0f5 (near-white, not gray) */
 
-  /* ── Consolidated card surface — every Tailwind "white" / "slate-50" /
-     "slate-900" / "slate-950" / "gray-900" / "gray-800" override in dark
-     mode resolves to the SAME three surfaces (v6 cool-neutral):
-        .bg-white            → surface-200 (#141721, standard card)
-        .bg-slate-50         → input-200  (#0E111B, inputs / inset wells)
-        .bg-slate-900,950    → surface-200 (alias, kept for old code)
-        .bg-gray-900,800     → surface-200 (alias, kept for old code)
-        every /N variant     → same surface at the requested opacity */
-  .dark .bg-white,
-  .dark .bg-slate-900,
-  .dark .bg-slate-950,
-  .dark .bg-gray-900,
-  .dark .bg-gray-800 {
-    background-color: rgb(var(--surface-200)) !important;
+  /* Backgrounds — cards must be lighter than page */
+  .dark .bg-white {
+    background-color: #12121a !important;
   }
-  /* Light-mode glass — translucent white + backdrop-blur for card
-     surfaces and overlays. Pairs with the dark-mode glass system. */
-  .bg-white\/60,
-  .bg-white\/65,
-  .bg-white\/70,
-  .bg-white\/80,
-  .bg-white\/90,
-  .bg-white\/95 {
-    backdrop-filter: blur(8px);
+  .dark .bg-white\/60 {
+    background-color: rgba(18, 18, 26, 0.6) !important;
+  }
+  .dark .bg-white\/65 {
+    background-color: rgba(18, 18, 26, 0.65) !important;
+  }
+  .dark .bg-white\/70 {
+    background-color: rgba(18, 18, 26, 0.7) !important;
+  }
+  .dark .bg-white\/80 {
+    background-color: rgba(18, 18, 26, 0.8) !important;
+  }
+  .dark .bg-white\/95 {
+    background-color: rgba(18, 18, 26, 0.95) !important;
   }
   .dark .bg-slate-50 {
-    background-color: rgb(var(--input-200) / 0.88) !important;
-    backdrop-filter: blur(8px) !important;
+    background-color: #15151f !important;
   }
-
-  /* Translucent card surfaces — surface-200 at the requested alpha.
-     Applies to both `bg-white/N` (universal, overridden by .dark parent)
-     AND `dark:bg-slate-900/N` (Tailwind dark variant, used by section
-     cards). Some elements carry BOTH `bg-white` + `dark:bg-slate-900/40`;
-     the later-declared `dark\:` variant wins the background-color due to
-     same-specificity + !important tiebreaker (source order).
-
-     backdrop-filter: blur(16px) gives section-level cards (Featured,
-     Experience, Projects, etc.) the same glass-mesh treatment as
-     surface-card. High-opacity (/80, /90, /95) variants get a softer
-     blur but still bleed the edge nicely. */
-  .dark .bg-white\/60,
-  .dark .bg-white\/65,
-  .dark .bg-white\/70,
-  .dark .bg-white\/80,
-  .dark .bg-white\/95,
-  .dark .bg-slate-900\/40,
-  .dark .bg-slate-900\/50,
-  .dark .bg-slate-900\/60,
-  .dark .bg-slate-900\/80,
-  .dark .bg-slate-900\/90,
-  .dark .bg-slate-900\/95,
-  .dark .bg-slate-950\/40,
-  .dark .bg-slate-950\/80,
-  .dark .bg-slate-950\/95,
-  .dark .bg-gray-900\/60,
-  .dark .bg-gray-900\/80,
-  .dark .bg-gray-900\/95,
-  .dark .bg-gray-800\/60,
-  /* dark: prefixed variants — override Tailwind's `dark:` strategy
-     so section cards using `dark:bg-slate-900/N` resolve to the same
-     surface-200 color + glass blur. Declared AFTER the universal
-     variants so they win the source-order tiebreaker for elements
-     carrying both `bg-white` and `dark:bg-slate-900/N`. */
-  .dark .dark\:bg-white\/60,
-  .dark .dark\:bg-white\/70,
-  .dark .dark\:bg-white\/80,
-  .dark .dark\:bg-white\/95,
-  .dark .dark\:bg-slate-900\/40,
-  .dark .dark\:bg-slate-900\/50,
-  .dark .dark\:bg-slate-900\/60,
-  .dark .dark\:bg-slate-900\/80,
-  .dark .dark\:bg-slate-900\/90,
-  .dark .dark\:bg-slate-900\/95,
-  .dark .dark\:bg-gray-900\/60,
-  .dark .dark\:bg-gray-900\/80,
-  .dark .dark\:bg-gray-900\/95 {
-    background-color: rgb(var(--surface-200) / var(--tw-bg-opacity, 1)) !important;
-    backdrop-filter: blur(8px) !important;
+  .dark .bg-slate-50\/40 {
+    background-color: rgba(21, 21, 31, 0.4) !important;
   }
-  .dark .bg-slate-50\/40,
-  .dark .bg-slate-50\/60,
+  .dark .bg-slate-50\/60 {
+    background-color: rgba(21, 21, 31, 0.6) !important;
+  }
   .dark .bg-slate-50\/70 {
-    background-color: rgb(var(--input-200) / var(--tw-bg-opacity, 1)) !important;
+    background-color: rgba(21, 21, 31, 0.7) !important;
+  }
+  .dark .bg-slate-900 {
+    background-color: #12121a !important;
+  }
+  .dark .bg-slate-900\/40 {
+    background-color: rgba(18, 18, 26, 0.4) !important;
+  }
+  .dark .bg-slate-900\/50 {
+    background-color: rgba(18, 18, 26, 0.5) !important;
+  }
+  .dark .bg-slate-900\/60 {
+    background-color: rgba(18, 18, 26, 0.6) !important;
+  }
+  .dark .bg-slate-900\/80 {
+    background-color: rgba(18, 18, 26, 0.8) !important;
+  }
+  .dark .bg-slate-900\/95 {
+    background-color: rgba(18, 18, 26, 0.95) !important;
+  }
+  .dark .bg-slate-950 {
+    background-color: #12121a !important;
+  }
+  .dark .bg-slate-950\/40 {
+    background-color: rgba(18, 18, 26, 0.4) !important;
+  }
+  .dark .bg-slate-950\/80 {
+    background-color: rgba(18, 18, 26, 0.8) !important;
+  }
+  .dark .bg-slate-950\/95 {
+    background-color: rgba(18, 18, 26, 0.95) !important;
+  }
+  .dark .bg-gray-900 {
+    background-color: #12121a !important;
+  }
+  .dark .bg-gray-900\/60 {
+    background-color: rgba(18, 18, 26, 0.6) !important;
+  }
+  .dark .bg-gray-900\/80 {
+    background-color: rgba(18, 18, 26, 0.8) !important;
+  }
+  .dark .bg-gray-900\/95 {
+    background-color: rgba(18, 18, 26, 0.95) !important;
+  }
+  .dark .bg-gray-800 {
+    background-color: #12121a !important;
+  }
+  .dark .bg-gray-800\/60 {
+    background-color: rgba(18, 18, 26, 0.6) !important;
   }
 
-  /* Text — neutral grays, consistent on deep navy page.
-     The page has a deliberate navy cast (#060A14), so these
-     neutral grays provide clean contrast. Brand-blue and rose
-     accents carry all the chromatic weight. */
+  /* Text — high contrast, near-white */
   .dark .text-slate-400 {
-    /* slate-400 lifted; keeps the cool hue that light text retains. */
-    color: #9ca3b8 !important;
+    color: #a0a8c0 !important;
   }
   .dark .text-slate-500 {
-    color: #8a96ad !important;
+    color: #8890a8 !important;
   }
   .dark .text-slate-300 {
-    color: #cbd5e1 !important;
+    color: #d0d5e0 !important;
   }
   .dark .text-slate-200 {
-    color: #d6dceb !important;
+    color: #e8ecf4 !important;
   }
 
-  /* ── Dark mode button hover overrides ──────────────────────────────
-     brand-600 buttons: hover:bg-brand-700 → brand-400 (lighter on dark)
-     brand-500 buttons: hover:bg-brand-700 → brand-400
-     brand-600 buttons: hover:bg-brand-500 → brand-400 (already lighter) */
-  .dark .bg-brand-600:hover,
-  .dark .bg-brand-500:hover {
-    background-color: rgb(109 139 247) !important;
-  }
-  .dark .bg-brand-700:hover {
-    background-color: rgb(109 139 247) !important;
-  }
-
-  /* Borders — literal overrides for legacy `border-slate-*` class usage.
-     These map old Tailwind border utilities to tones that match the
-     deep navy page. New code should use the --border-400/500/600 CSS
-     vars instead. */
+  /* Borders — subtle, barely visible */
   .dark .border-slate-200 {
-    /* Match the v8 surface-200 brightness so the border reads against
-       the card it outlines. The previous #1F2231 was within 1 RGB
-       unit of the card and effectively invisible. */
-    border-color: rgb(60 70 100) !important;
+    border-color: #1e2030 !important;
   }
   .dark .border-slate-200\/60 {
-    border-color: rgba(210, 220, 245, 0.08) !important;
+    border-color: rgba(30, 32, 48, 0.6) !important;
   }
   .dark .border-slate-200\/70 {
-    border-color: rgba(210, 220, 245, 0.1) !important;
+    border-color: rgba(30, 32, 48, 0.7) !important;
   }
   .dark .border-slate-300 {
-    border-color: rgb(75 85 115) !important;
+    border-color: #252840 !important;
   }
   .dark .border-slate-700 {
-    border-color: rgb(75 85 115) !important;
+    border-color: #1e2030 !important;
   }
   .dark .border-slate-700\/60 {
-    border-color: rgba(210, 220, 245, 0.08) !important;
+    border-color: rgba(30, 32, 48, 0.6) !important;
   }
   .dark .border-slate-800 {
-    border-color: rgb(75 85 115) !important;
+    border-color: #1e2030 !important;
   }
   .dark .border-slate-800\/40 {
-    border-color: rgba(210, 220, 245, 0.06) !important;
+    border-color: rgba(30, 32, 48, 0.4) !important;
   }
   .dark .border-white\/10 {
-    border-color: rgba(210, 220, 245, 0.14) !important;
+    border-color: rgba(255, 255, 255, 0.06) !important;
   }
 
-  /* Placeholders — neutral, not blue */
+  /* Placeholders */
   .dark .placeholder\:text-slate-400::placeholder {
-    color: #5a5a5a !important;
+    color: #4a5070 !important;
   }
   .dark .placeholder\:text-slate-500::placeholder {
-    color: #5a5a5a !important;
+    color: #4a5070 !important;
   }
   .dark .placeholder\:text-slate-600::placeholder {
-    color: #6a6a6a !important;
+    color: #4a5070 !important;
   }
 }
 
@@ -388,19 +311,8 @@
 
   .dark .glass {
     @apply backdrop-blur-md lg:backdrop-blur-xl;
-    border-color: rgb(var(--border-400));
-    background-color: rgb(var(--surface-200) / 0.7);
-  }
-
-  /* ── Focus ring utility ──────────────────────────────────────────────
-     Standardized focus-visible ring for interactive elements.
-     Use: focus-visible:ring-2 focus-visible:ring-brand-500/40 focus-visible:ring-offset-2
-     Or the .focus-ring class for a consistent look. */
-  .focus-ring {
-    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40 focus-visible:ring-offset-2 focus-visible:ring-offset-white;
-  }
-  .dark .focus-ring {
-    --tw-ring-offset-color: rgb(var(--surface-100));
+    border-color: rgba(30, 32, 48, 0.6);
+    background-color: rgba(18, 18, 26, 0.85);
   }
 
   .surface {
@@ -408,8 +320,8 @@
   }
 
   .dark .surface {
-    border-color: rgb(var(--border-400));
-    background-color: rgb(var(--surface-200));
+    border-color: rgba(30, 32, 48, 0.5);
+    background-color: rgba(18, 18, 26, 0.6);
   }
 
   /* ── Depth / morphism surface system ─────────────────────────────────
@@ -422,121 +334,55 @@
        surface-glass  → frosted card for hero/overlay contexts
        chrome-glass    → frosted sticky chrome (header / sidebar / bars)
        card-hover     → lift-on-hover affordance (pairs with the above) */
-  /* ── Geist-aligned card primitives (2026-06-19) ──────────────────────
-     Three surfaces, one recipe per intent. Cards earn their lift
-     from a 1px border + shadow-e1, NOT from a tinted fill. Dark mode
-     leans entirely on borders + translucency (Geist dark pattern).
-       surface-card   → resting card           (surface-200 + e1)
-       surface-raised → emphasized card         (surface-200 + e2)
-       surface-glass  → hero / overlay context  (surface-200/50 + blur)
-       chrome-glass    → sticky header/sidebar  (surface-100/85 + blur) */
   .surface-card {
-    @apply rounded-xl border shadow-e1 backdrop-blur-md transition duration-200;
-    background-color: rgb(255 255 255 / 0.72);
-    border-color: rgb(var(--surface-border) / 0.8);
+    @apply rounded-xl border border-slate-200 bg-white shadow-e1 transition duration-200;
+  }
+  .surface-card.dark\:border-slate-800,
+  .surface-card {
+    border-color: rgb(var(--surface-border) / <alpha-value>);
   }
   .dark .surface-card {
-    @apply backdrop-blur-md;
-    border-color: rgb(var(--border-400));
-    background-color: rgb(var(--surface-200) / 0.93);
-    /* v8: 0 0 0 1px outer ring so the card outline reads against the
-       navy page regardless of the surface-200 brightness. The top-edge
-       highlight + outer ring together give dark cards the same 'lifts
-       off the page' affordance that the light theme's shadow-e1
-       provides. */
-    box-shadow:
-      0 0 0 1px rgb(var(--border-400)),
-      0 2px 4px rgba(0, 0, 0, 0.6),
-      0 8px 24px -8px rgba(0, 0, 0, 0.4),
-      /* v9 depth pass: brand-blue inner ring boosted 0.10 → 0.16 so the
-         card edge reads as 'lit by brand' rather than as a 1px outline.
-         Top-edge highlight boosted 0.06 → 0.12 — the dark-mode equivalent
-         of the light theme's shadow-e1. Together with the page's
-         brand-blue ambient (see BackgroundLayer.tsx v9), the card now
-         reads as an object on a lit surface. */
-        inset 0 0 0 1px rgba(67, 94, 241, 0.16),
-      inset 0 1px 0 0 rgba(180, 200, 240, 0.12);
+    border-color: rgba(30, 32, 48, 0.6);
+    background-color: rgba(18, 18, 26, 0.8);
+    /* Geist dark surfaces rely on borders, not inset highlights.
+       Drop the inset gloss — it read as AI-decorative. */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
   }
   .surface-raised {
-    @apply rounded-xl border shadow-e2 backdrop-blur-md transition duration-200;
-    background-color: rgb(255 255 255 / 0.78);
-    border-color: rgb(var(--surface-border));
+    @apply rounded-xl border border-slate-200 bg-white shadow-e2 transition duration-200;
+    border-color: rgb(var(--surface-border) / <alpha-value>);
   }
   .dark .surface-raised {
-    @apply backdrop-blur-md;
-    border-color: rgb(var(--border-500));
-    background-color: rgb(var(--surface-300) / 0.93);
-    /* v8: outer ring + top-edge highlight matching the new surface-card
-       recipe. surface-raised is one step higher (surface-300) and
-       uses border-500 (the slightly heavier border). */
-    box-shadow:
-      0 0 0 1px rgb(var(--border-500)),
-      0 2px 6px rgba(0, 0, 0, 0.7),
-      0 12px 32px -8px rgba(0, 0, 0, 0.5),
-      /* v9 depth pass: same boost as surface-card, one step up the ramp. */ inset 0 0 0 1px rgba(67, 94, 241, 0.18),
-      inset 0 1px 0 0 rgba(180, 200, 240, 0.14);
+    border-color: rgba(30, 32, 48, 0.7);
+    background-color: rgba(18, 18, 26, 0.9);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
   }
   .surface-glass {
-    @apply rounded-xl border shadow-e1 backdrop-blur-md transition duration-200;
-    background-color: rgb(255 255 255 / 0.7);
+    @apply rounded-xl border bg-white/70 shadow-e1 backdrop-blur-md transition duration-200;
     border-color: rgb(var(--surface-border) / 0.7);
   }
   .dark .surface-glass {
-    border-color: rgb(var(--border-400));
-    background-color: rgb(var(--surface-200) / 0.5);
-    box-shadow: inset 0 0 0 1px rgba(67, 94, 241, 0.08);
+    border-color: rgba(30, 32, 48, 0.4);
+    background-color: rgba(18, 18, 26, 0.5);
   }
   .chrome-glass {
     @apply backdrop-blur-xl;
     border-color: rgb(var(--surface-border) / 0.7);
     background-color: rgb(255 255 255 / 0.8);
   }
-  /* Elevated surface — same recipe as .surface-card but with
-     border-500 (22%) instead of border-400 (14%). Use on the
-     surfaces that need to read as "this is the anchor / hero of
-     the page" rather than as a row: hero personal card, live band
-     tiles, and the platform landing cards (DFIR home, threatintel
-     home). Same top-edge highlight, just a stronger edge. */
-  .surface-elevated {
-    @apply rounded-xl border shadow-e1 backdrop-blur-md transition duration-200;
-    background-color: rgb(255 255 255 / 0.72);
-    border-color: rgb(var(--surface-border));
-  }
-  .dark .surface-elevated {
-    @apply backdrop-blur-md;
-    border-color: rgb(var(--border-500));
-    background-color: rgb(var(--surface-200) / 0.93);
-    /* v8: 0 0 0 1px outer ring (matches the new surface-card recipe). */
-    box-shadow:
-      0 0 0 1px rgb(var(--border-500)),
-      0 2px 4px rgba(0, 0, 0, 0.6),
-      0 8px 24px -8px rgba(0, 0, 0, 0.4),
-      /* v9 depth pass: hero/CTA surfaces get the strongest treatment. */ inset 0 0 0 1px rgba(67, 94, 241, 0.2),
-      inset 0 1px 0 0 rgba(180, 200, 240, 0.14);
-  }
   .dark .chrome-glass {
-    border-color: rgb(var(--border-500));
-    background-color: rgb(var(--surface-100) / 0.78);
-    box-shadow:
-      inset 0 1px 0 0 rgba(180, 200, 240, 0.1),
-      inset 0 -1px 0 0 rgba(180, 200, 240, 0.02);
+    border-color: rgba(30, 32, 48, 0.5);
+    background-color: rgba(10, 10, 15, 0.85);
   }
   .card-hover {
-    @apply transition-[transform,border-color,box-shadow] duration-200;
+    @apply hover:-translate-y-0.5 hover:shadow-e2;
   }
   .card-hover:hover {
-    @apply -translate-y-0.5 shadow-e2;
-    border-color: rgb(var(--surface-border));
+    border-color: rgb(var(--surface-border) / <alpha-value>);
   }
   .dark .card-hover:hover {
-    border-color: rgb(var(--border-500));
-    background-color: rgb(var(--surface-300));
-    /* Brand-blue ring + glow on card hover. The border reads as
-       "lit by brand" without overpowering; the 12px halo confirms
-       interactivity (Vercel/Linear pattern). */
-    box-shadow:
-      0 0 0 1px rgb(67 94 241 / 0.3),
-      0 0 12px rgb(67 94 241 / 0.18);
+    border-color: rgba(71, 85, 105, 0.6);
+    background-color: rgba(30, 41, 59, 0.75);
   }
 
   /* ── Rose-tinted card hover for /threatintel pages ─────────────────
@@ -589,54 +435,16 @@
     background-size: 28px 28px;
   }
 
-  /* ── Live status pulse — the "is the platform working?" dot
-     Used on /dfir (emerald, "Operational") and /threatintel (rose,
-     "Live"). One animation in one place; prefers-reduced-motion is
-     honoured by the global block at the bottom of the file. */
-  @keyframes live-pulse {
-    0%,
-    100% {
-      opacity: 0.6;
-      transform: scale(1);
-    }
-    50% {
-      opacity: 0;
-      transform: scale(2.4);
-    }
+  /* ── Hero glow for threat-intel surfaces ──────────────────────────
+     A radial-pink glow that sits behind the hero of a /threatintel
+     page, giving the rose palette more presence on dark backgrounds.
+     Pair with a positioned absolute layer; the utility is opt-in
+     per-page so a /dfir page never picks it up. */
+  .bg-rose-glow {
+    background-image: radial-gradient(at 50% 0%, rgba(244, 63, 94, 0.18) 0px, transparent 60%);
   }
-  .live-pulse {
-    animation: live-pulse 1.8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-  }
-
-  /* ── Display-grade text — bigger, tighter, real weight
-     for the H1 / hero display. -0.04em matches the Vercel/Linear
-     pattern; the previous -0.02em looked right at 40–56px but felt
-     cramped at the new 48–72px H1. */
-  .text-display {
-    font-family: theme('fontFamily.display');
-    font-weight: 700;
-    line-height: 0.95;
-    letter-spacing: -0.04em;
-  }
-  .text-display-sm {
-    font-family: theme('fontFamily.display');
-    font-weight: 700;
-    line-height: 1.05;
-    letter-spacing: -0.03em;
-  }
-
-  /* ── Subtle grid line — 1px hairline that divides sections
-     without becoming visual chrome. Used at the top of major surfaces
-     to imply a "this is a new context" boundary. */
-  .divider-grid {
-    background-image: linear-gradient(
-      to right,
-      transparent 0%,
-      rgb(var(--border-400)) 8%,
-      rgb(var(--border-400)) 92%,
-      transparent 100%
-    );
-    height: 1px;
+  .dark .bg-rose-glow {
+    background-image: radial-gradient(at 50% 0%, rgba(244, 63, 94, 0.25) 0px, transparent 60%);
   }
 
   /* ── "Page-load" reveal (translate + fade) for catalog/grid tiles.
@@ -657,18 +465,13 @@
     animation: tile-reveal 0.22s cubic-bezier(0.16, 1, 0.3, 1) both;
   }
 
-  /* ── Page top accent strip (v5) ──────────────────────────────
-     (Removed 2026-06-20: a 1px brand gradient line at the top of
-     every page read as the "glowing gradient rule" AI tell.
-     Section borders already do the dividing work.) */
-
   .dark .bg-dot-grid {
-    background-image: radial-gradient(rgba(180, 200, 240, 0.06) 1px, transparent 1px);
+    background-image: radial-gradient(rgba(71, 85, 105, 0.25) 1px, transparent 1px);
   }
 
-  /* (Removed 2026-06-20: .shadow-glow was a brand-blue box-shadow
-     used on the header + footer logos. Pure decoration that read
-     as the "glow on borders/rules" AI tell.) */
+  .shadow-glow {
+    box-shadow: 0 0 20px -5px rgb(var(--brand-500) / 0.5);
+  }
 
   .animate-float {
     animation: float 6s ease-in-out infinite;
@@ -898,7 +701,7 @@
   background: radial-gradient(ellipse at center, #0f172a 0%, #020617 100%);
 }
 .dark .globe-bg {
-  background: radial-gradient(ellipse at center, #161d35 0%, #060a14 100%);
+  background: radial-gradient(ellipse at center, #1e293b 0%, #0f172a 100%);
 }
 
 /* Pulse ring animation for severity dots */
@@ -917,11 +720,6 @@
 .animate-severity-ping {
   animation: severity-ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
 }
-
-/* (Removed 2026-06-20: mesh-breathe + .mesh-animate were the
-   slow-drifting scale/translate orbit on the dark page background.
-   The 5-pool mesh itself is gone too — both were the AI "ambient
-   spotlight + grain" tell.) */
 
 /* ─────────────────────────────────────────────────────────────────────
    Orchestrated page-load: one well-staged reveal beats scattered

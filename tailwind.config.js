@@ -98,11 +98,21 @@ export default {
         'threat-pulse': 'threat-pulse 4s ease-in-out infinite',
       },
       keyframes: {
-        // (Removed 2026-06-20: float-enhanced + pulse-glow keyframes
-        //  were the "AI decorative motion" leftover — 0 references
-        //  in src/. pulse-glow wrapped a brand-blue box-shadow
-        //  oscillation, float-enhanced wrapped a translate + rotate
-        //  + scale drift.)
+        'float-enhanced': {
+          '0%, 100%': { transform: 'translateY(0) rotate(0deg) scale(1)' },
+          '33%': { transform: 'translateY(-20px) rotate(2deg) scale(1.05)' },
+          '66%': { transform: 'translateY(-10px) rotate(-2deg) scale(0.95)' },
+        },
+        'pulse-glow': {
+          '0%, 100%': {
+            opacity: '1',
+            boxShadow: '0 0 20px rgba(44, 62, 229, 0.4)',
+          },
+          '50%': {
+            opacity: '0.7',
+            boxShadow: '0 0 36px rgba(44, 62, 229, 0.6), 0 0 60px rgba(67, 94, 241, 0.3)',
+          },
+        },
         'scroll-horizontal': {
           '0%': { transform: 'translateX(0)' },
           '100%': { transform: 'translateX(-50%)' },
