@@ -134,16 +134,32 @@
        ────────────────────────────────────────────────────────────────
          page  = #060A14  — deep navy, mesh base
          card  = #2A324A  — glass card (+36-40 RGB lift from page, was +24-36)
-         raised= #3C4664  — hover/popover (+18-24 from card, unchanged ratio)
-         input = #0E1326  — inset well, no translucency       */
+      raised= #444F70  — hover/popover (+18-24 from card, widened gap)
+          input = #0E1326  — inset well, no translucency       */
     --surface-100: 6 10 20; /* page bg — deep navy         #060A14 */
     --surface-200: 42 50 74; /* card    — glass surface     #2A324A */
-    --surface-300: 60 70 100; /* raised  — hover/popover     #3C4664 */
+    --surface-300: 68 80 112; /* raised  — hover/popover     #444F70 */
     --input-200: 14 19 38; /* input   — inset well        #0E1326 */
     --border-400: 180 200 240 / 0.18;
     --border-500: 180 200 240 / 0.28;
     --border-600: 180 200 240 / 0.42;
     --hover-100: 180 200 240 / 0.1;
+
+    /* Threat-Intel violet/magenta dark palette — opt-in only.
+       Sourced from the /threatintel hero screenshot. Backs the
+       .ti-bg / .ti-panel / .ti-text-gradient / .ti-btn-gradient
+       utilities further down. Never replaces the existing
+       brand-blue / surface ramp. */
+    --ti-bg-base: 11 13 26; /* #0B0D1A — deep navy/black page */
+    --ti-bg-panel: 19 22 42; /* #13162A — translucent card    */
+    --ti-bg-border: 31 34 56; /* #1F2238 — soft border         */
+    --ti-accent-indigo: 99 102 241; /* #6366F1 — gradient start      */
+    --ti-accent-violet: 139 92 246; /* #8B5CF6 — gradient mid        */
+    --ti-accent-pink: 192 132 252; /* #C084FC — gradient end        */
+    --ti-glow-magenta: 192 132 252; /* radial pool top-right         */
+    --ti-glow-blue: 99 102 241; /* radial pool bottom-left       */
+    --ti-text: 245 246 250; /* #F5F6FA — primary text        */
+    --ti-text-muted: 138 143 168; /* #8A8FA8 — secondary text      */
   }
 
   /* Geist two-layer focus ring:
@@ -449,12 +465,14 @@
       0 0 0 1px rgb(var(--border-400)),
       0 2px 4px rgba(0, 0, 0, 0.6),
       0 8px 24px -8px rgba(0, 0, 0, 0.4),
-      inset 0 0 0 1px rgba(67, 94, 241, 0.1),
-      /* 1px top-edge highlight — gives the card the same 'lifts off the
-         page' affordance the light theme's shadow-e1 provides, just in
-         a tone that survives on the deep-navy background. Mirrors
-         chrome-glass's top highlight at ~half the intensity. */
-        inset 0 1px 0 0 rgba(180, 200, 240, 0.06);
+      /* v9 depth pass: brand-blue inner ring boosted 0.10 → 0.16 so the
+         card edge reads as 'lit by brand' rather than as a 1px outline.
+         Top-edge highlight boosted 0.06 → 0.12 — the dark-mode equivalent
+         of the light theme's shadow-e1. Together with the page's
+         brand-blue ambient (see BackgroundLayer.tsx v9), the card now
+         reads as an object on a lit surface. */
+        inset 0 0 0 1px rgba(67, 94, 241, 0.16),
+      inset 0 1px 0 0 rgba(180, 200, 240, 0.12);
   }
   .surface-raised {
     @apply rounded-xl border shadow-e2 backdrop-blur-md transition duration-200;
@@ -472,8 +490,8 @@
       0 0 0 1px rgb(var(--border-500)),
       0 2px 6px rgba(0, 0, 0, 0.7),
       0 12px 32px -8px rgba(0, 0, 0, 0.5),
-      inset 0 0 0 1px rgba(67, 94, 241, 0.12),
-      inset 0 1px 0 0 rgba(180, 200, 240, 0.08);
+      /* v9 depth pass: same boost as surface-card, one step up the ramp. */ inset 0 0 0 1px rgba(67, 94, 241, 0.18),
+      inset 0 1px 0 0 rgba(180, 200, 240, 0.14);
   }
   .surface-glass {
     @apply rounded-xl border shadow-e1 backdrop-blur-md transition duration-200;
@@ -510,8 +528,8 @@
       0 0 0 1px rgb(var(--border-500)),
       0 2px 4px rgba(0, 0, 0, 0.6),
       0 8px 24px -8px rgba(0, 0, 0, 0.4),
-      inset 0 0 0 1px rgba(67, 94, 241, 0.14),
-      inset 0 1px 0 0 rgba(180, 200, 240, 0.08);
+      /* v9 depth pass: hero/CTA surfaces get the strongest treatment. */ inset 0 0 0 1px rgba(67, 94, 241, 0.2),
+      inset 0 1px 0 0 rgba(180, 200, 240, 0.14);
   }
   .dark .chrome-glass {
     border-color: rgb(var(--border-500));
@@ -1009,3 +1027,73 @@
    
    Never use bare text-slate-400 or text-slate-500 without dark variant.
    ───────────────────────────────────────────────────────────────────── */
+
+/* ─────────────────────────────────────────────────────────────────────
+   Threat-Intel violet/magenta dark utilities
+   Sourced from the /threatintel hero screenshot (PJ card).
+   Opt-in only — do NOT use on global surfaces. Pair with a `dark` parent
+   or apply on a dedicated section that wants this palette.
+
+   Quick reference:
+     <section class="ti-bg">                          full bleed background
+       <h1 class="ti-text-gradient">Title</h1>        gradient text
+       <div class="ti-panel">Card</div>               translucent panel
+       <button class="ti-btn-gradient">CTA</button>   gradient button
+     </section>
+   ───────────────────────────────────────────────────────────────────── */
+.ti-bg {
+  background-color: rgb(var(--ti-bg-base));
+  background-image:
+    radial-gradient(ellipse 60% 50% at 85% 0%, rgb(var(--ti-glow-magenta) / 0.18), transparent 60%),
+    radial-gradient(ellipse 50% 50% at 0% 100%, rgb(var(--ti-glow-blue) / 0.14), transparent 60%),
+    linear-gradient(180deg, rgb(var(--ti-bg-base)) 0%, #0e1020 100%);
+}
+
+.ti-panel {
+  background-color: rgb(var(--ti-bg-panel) / 0.6);
+  border: 1px solid rgb(var(--ti-bg-border));
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.ti-text-gradient {
+  background: linear-gradient(
+    90deg,
+    rgb(var(--ti-accent-indigo)) 0%,
+    rgb(var(--ti-accent-violet)) 50%,
+    rgb(var(--ti-accent-pink)) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.ti-btn-gradient {
+  background: linear-gradient(
+    90deg,
+    rgb(var(--ti-accent-indigo)) 0%,
+    rgb(var(--ti-accent-violet)) 50%,
+    rgb(var(--ti-accent-pink)) 100%
+  );
+  color: #fff;
+  font-weight: 600;
+  transition:
+    filter 200ms ease,
+    transform 200ms ease;
+}
+.ti-btn-gradient:hover {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+}
+.ti-btn-gradient:active {
+  transform: translateY(0);
+}
+
+/* Vignette + faint grid for the full hero treatment.
+   `ti-grid` layers 1px grid lines at 4% alpha over the page. */
+.ti-grid {
+  background-image:
+    linear-gradient(rgb(var(--ti-text) / 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(var(--ti-text) / 0.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
