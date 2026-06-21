@@ -565,6 +565,8 @@ const ADMIN_GATED_PREFIXES = [
   '/api/v1/malware-vault',
   '/api/v1/observable-db',
   '/api/v1/investigations',
+  '/api/v1/agent',
+  '/api/v1/notebooks',
   '/api/v1/threat-intel/assessments',
   '/api/v1/threat-intel/pirs',
   '/api/v1/watches',

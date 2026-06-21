@@ -14,6 +14,8 @@ export class ReportBuilderDO {
   private ctx: DurableObjectState;
   private env: Env;
   private sessions = new Map<string, WebSocket>();
+  /** Tracks which reportId each WebSocket session is watching. */
+  private sessionReportIds = new Map<string, string>();
   private ipConnections = new Map<string, number>();
 
   constructor(ctx: DurableObjectState, env: Env) {
@@ -67,11 +69,26 @@ export class ReportBuilderDO {
     this.ipConnections.set(clientIp, ipCount + 1);
     server.accept();
 
+    // Listen for the client's subscription message: {"reportId":"xxx"}
+    // The client sends this after connecting to indicate which report
+    // it wants to monitor. Only messages for that reportId are delivered.
+    server.addEventListener('message', (event) => {
+      try {
+        const msg = JSON.parse(String(event.data));
+        if (typeof msg.reportId === 'string') {
+          this.sessionReportIds.set(sessionId, msg.reportId);
+        }
+      } catch {
+        // Ignore malformed messages
+      }
+    });
+
     let cleaned = false;
     const cleanup = () => {
       if (cleaned) return;
       cleaned = true;
       this.sessions.delete(sessionId);
+      this.sessionReportIds.delete(sessionId);
       const remaining = this.ipConnections.get(clientIp) ?? 1;
       if (remaining <= 1) this.ipConnections.delete(clientIp);
       else this.ipConnections.set(clientIp, remaining - 1);
@@ -87,11 +104,21 @@ export class ReportBuilderDO {
   private broadcast(msg: unknown): void {
     if (this.sessions.size === 0) return;
     const payload = JSON.stringify(msg);
+    // Extract reportId from the message to filter delivery.
+    // Only sessions that have subscribed to this reportId receive the message.
+    // Sessions that haven't subscribed yet (no reportId set) receive nothing —
+    // they must send {"reportId":"..."} after connecting.
+    const msgReportId = (msg as Record<string, unknown>).reportId;
     for (const [id, ws] of this.sessions) {
+      const watching = this.sessionReportIds.get(id);
+      // Deliver only if: session subscribed to this specific reportId,
+      // or the message has no reportId (broadcast to all, e.g. 'connected').
+      if (watching && watching !== msgReportId) continue;
       try {
         ws.send(payload);
       } catch {
         this.sessions.delete(id);
+        this.sessionReportIds.delete(id);
       }
     }
   }

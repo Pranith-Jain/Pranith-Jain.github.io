@@ -3,6 +3,7 @@ import { pinnedFetchFollow } from '../../api/src/lib/ssrf-guard';
 
 const MAX_CRAWL_PAGES = 50;
 const MAX_JS_ANALYSIS = 50;
+const MAX_WS_CONNECTIONS = 5;
 const ALARM_INTERVAL_MS = 100;
 
 interface CrawlState {
@@ -43,6 +44,7 @@ export class RadarCrawlerDO {
   private ctx: DurableObjectState;
   private env: Env;
   private sessions = new Set<WebSocket>();
+  private ipConnections = new Map<string, number>();
 
   constructor(ctx: DurableObjectState, env: Env) {
     this.ctx = ctx;
@@ -127,12 +129,26 @@ export class RadarCrawlerDO {
     return new Response('not found', { status: 404 });
   }
 
-  private handleWebSocketUpgrade(): Response {
+  private handleWebSocketUpgrade(request: Request): Response {
+    if (this.sessions.size >= MAX_WS_CONNECTIONS) {
+      return new Response('Too many connections', { status: 429 });
+    }
+    const clientIp = request.headers.get('cf-connecting-ip') ?? 'unknown';
+    const ipCount = this.ipConnections.get(clientIp) ?? 0;
+    if (ipCount >= 3) {
+      return new Response('Too many connections from this IP', { status: 429 });
+    }
     const pair = new WebSocketPair();
     const [client, server] = [pair[0], pair[1]];
     this.ctx.acceptWebSocket(server);
     this.sessions.add(server);
-    server.addEventListener('close', () => this.sessions.delete(server));
+    this.ipConnections.set(clientIp, ipCount + 1);
+    server.addEventListener('close', () => {
+      this.sessions.delete(server);
+      const remaining = this.ipConnections.get(clientIp) ?? 1;
+      if (remaining <= 1) this.ipConnections.delete(clientIp);
+      else this.ipConnections.set(clientIp, remaining - 1);
+    });
     return new Response(null, { status: 101, webSocket: client });
   }
 

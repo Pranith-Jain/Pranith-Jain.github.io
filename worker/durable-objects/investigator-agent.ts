@@ -39,6 +39,8 @@ export class InvestigatorAgentDO {
   private ctx: DurableObjectState;
   private env: Env;
   private sessions = new Map<string, WebSocket>();
+  /** Tracks which agentId each WebSocket session is watching. */
+  private sessionAgentIds = new Map<string, string>();
   private ipConnections = new Map<string, number>();
 
   constructor(ctx: DurableObjectState, env: Env) {
@@ -115,11 +117,24 @@ export class InvestigatorAgentDO {
     this.ipConnections.set(clientIp, ipCount + 1);
     server.accept();
 
+    // Listen for subscription: {"agentId":"xxx"}
+    server.addEventListener('message', (event) => {
+      try {
+        const msg = JSON.parse(String(event.data));
+        if (typeof msg.agentId === 'string') {
+          this.sessionAgentIds.set(sessionId, msg.agentId);
+        }
+      } catch {
+        // Ignore malformed messages
+      }
+    });
+
     let cleaned = false;
     const cleanup = () => {
       if (cleaned) return;
       cleaned = true;
       this.sessions.delete(sessionId);
+      this.sessionAgentIds.delete(sessionId);
       const remaining = this.ipConnections.get(clientIp) ?? 1;
       if (remaining <= 1) this.ipConnections.delete(clientIp);
       else this.ipConnections.set(clientIp, remaining - 1);
@@ -132,15 +147,19 @@ export class InvestigatorAgentDO {
     return new Response(null, { status: 101, webSocket: client });
   }
 
-  /** Broadcast a message to all connected WebSocket clients. */
+  /** Broadcast a message to WebSocket clients watching this agent. */
   private broadcast(msg: unknown): void {
     if (this.sessions.size === 0) return;
     const payload = JSON.stringify(msg);
+    const msgAgentId = (msg as Record<string, unknown>).agentId;
     for (const [id, ws] of this.sessions) {
+      const watching = this.sessionAgentIds.get(id);
+      if (watching && watching !== msgAgentId) continue;
       try {
         ws.send(payload);
       } catch {
         this.sessions.delete(id);
+        this.sessionAgentIds.delete(id);
       }
     }
   }

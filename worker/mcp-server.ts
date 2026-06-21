@@ -189,7 +189,31 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
     const authz = ctx.request.headers.get('authorization') ?? '';
     const bearer = /^Bearer\s+(.+)$/i.exec(authz)?.[1];
     const apiKey = ctx.request.headers.get('x-api-key') ?? undefined;
-    this.apiKey = bearer ?? apiKey ?? undefined;
+    const rawKey = bearer ?? apiKey;
+
+    // Require a valid API key. Without this gate, any party that can reach
+    // the MCP endpoint has full tool access including D1 write operations
+    // (shiftlog, promptvault, notebooks) that bypass backend auth.
+    if (!rawKey) {
+      throw new Error('API key required — provide via Authorization: Bearer or X-API-Key');
+    }
+    const db = this.env.BRIEFINGS_DB;
+    if (!db) {
+      throw new Error('Auth backend unavailable');
+    }
+    const enc = new TextEncoder().encode(rawKey);
+    const buf = await crypto.subtle.digest('SHA-256', enc);
+    const hash = Array.from(new Uint8Array(buf))
+      .map((b) => b.toString(16).padStart(2, '0'))
+      .join('');
+    const row = await db
+      .prepare('SELECT id FROM api_keys WHERE key_hash = ? AND revoked_at IS NULL')
+      .bind(hash)
+      .first<{ id: string }>();
+    if (!row) {
+      throw new Error('Invalid API key');
+    }
+    this.apiKey = rawKey;
 
     // CRITICAL: delegate to the base McpAgent. Its onConnect wires the
     // streamable-HTTP transport (handlePostRequest / handleGetRequest) — i.e.

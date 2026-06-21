@@ -49,14 +49,15 @@ export function withSecurityHeaders(response: Response, nonce?: string): Respons
   // a mutable Headers object so we can add CSP and other security headers.
   const h = new Headers(response.headers);
   h.set('content-security-policy', cspHeader(nonce));
-  if (!h.has('x-content-type-options')) h.set('x-content-type-options', 'nosniff');
-  if (!h.has('x-frame-options')) h.set('x-frame-options', 'DENY');
-  if (!h.has('referrer-policy')) h.set('referrer-policy', 'strict-origin-when-cross-origin');
-  if (!h.has('permissions-policy'))
-    h.set('permissions-policy', 'camera=(), microphone=(), geolocation=(), payment=(), usb=()');
-  if (!h.has('strict-transport-security'))
-    h.set('strict-transport-security', 'max-age=63072000; includeSubDomains; preload');
-  if (!h.has('cross-origin-opener-policy')) h.set('cross-origin-opener-policy', 'same-origin');
+  // Always override security headers with canonical secure values.
+  // Previous behavior checked has() first, which allowed a misconfigured
+  // upstream (ARGUS proxy, DO response) to pass through weakened headers.
+  h.set('x-content-type-options', 'nosniff');
+  h.set('x-frame-options', 'DENY');
+  h.set('referrer-policy', 'strict-origin-when-cross-origin');
+  h.set('permissions-policy', 'camera=(), microphone=(), geolocation=(), payment=(), usb=()');
+  h.set('strict-transport-security', 'max-age=63072000; includeSubDomains; preload');
+  h.set('cross-origin-opener-policy', 'same-origin');
   // COEP require-corp removed: it blocks cross-origin map tiles (CARTO, OSM)
   // that lack Cross-Origin-Resource-Policy headers. Nothing in this app
   // requires SharedArrayBuffer or needs COEP enforcement.

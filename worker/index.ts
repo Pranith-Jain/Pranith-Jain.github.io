@@ -21,15 +21,32 @@ const ARGUS_ORIGIN = 'https://argus-threat-intel.pj-6a7.workers.dev';
 
 const ARGUS_API_PATHS = ['/api/actors', '/api/feed', '/api/stats', '/api/health', '/api/stix/bundle'];
 
+const PROXY_ALLOW_HEADERS = new Set([
+  'accept',
+  'accept-encoding',
+  'accept-language',
+  'content-type',
+  'user-agent',
+  'authorization',
+  'x-api-key',
+  'if-none-match',
+  'if-modified-since',
+]);
+
 async function proxyToOrigin(request: Request, origin: string, subPath: string, requestId: string): Promise<Response> {
   const targetUrl = `${origin}${subPath}`;
+  const filteredHeaders = new Headers();
+  for (const [key, value] of request.headers) {
+    if (PROXY_ALLOW_HEADERS.has(key.toLowerCase())) {
+      filteredHeaders.set(key, value);
+    }
+  }
   const proxyReq = new Request(targetUrl, {
     method: request.method,
-    headers: request.headers,
+    headers: filteredHeaders,
     body: request.method !== 'GET' && request.method !== 'HEAD' ? request.body : undefined,
     redirect: 'manual',
   });
-  proxyReq.headers.delete('host');
   const res = await fetch(proxyReq);
   const h = new Headers(res.headers);
   h.set('x-request-id', requestId);
@@ -46,12 +63,11 @@ async function proxyToOrigin(request: Request, origin: string, subPath: string, 
   return new Response(res.body, { status: res.status, headers: h });
 }
 
-/** Origins permitted to open the live-feed WebSocket (same set the API trusts). */
-const WS_ALLOWED_ORIGINS_STATIC = new Set([
-  'https://pranithjain.qzz.io',
-  'http://localhost:5173',
-  'http://localhost:8787',
-]);
+/** Origins permitted to open the live-feed WebSocket (same set the API trusts).
+ *  Localhost origins removed — in production, a malicious local service on
+ *  those ports could open WebSocket connections. The dev server uses the same
+ *  origin via `wrangler dev`, so localhost is not needed. */
+const WS_ALLOWED_ORIGINS_STATIC = new Set(['https://pranithjain.qzz.io']);
 
 /**
  * Generate a request ID for distributed tracing.
@@ -187,12 +203,34 @@ export default {
       );
     }
 
-    // Radar deep-crawl DO routes
+    // Radar deep-crawl DO routes — require a valid API key (admin role).
+    // These routes bypass the apiApp middleware chain, so auth must be
+    // enforced here at the Worker level.
     if (url.pathname.startsWith('/api/v1/radar/crawl/')) {
       if (!env.RADAR_CRAWLER) {
         return withSecurityHeaders(
           new Response(JSON.stringify({ error: 'radar crawler not configured' }), {
             status: 503,
+            headers: { 'content-type': 'application/json' },
+          })
+        );
+      }
+      // Authenticate: require a valid admin API key.
+      const authz = request.headers.get('authorization') ?? '';
+      const rawKey = /^Bearer\s+(\S+)/i.exec(authz)?.[1] ?? request.headers.get('x-api-key') ?? '';
+      if (!rawKey || !env.BRIEFINGS_DB) {
+        return withSecurityHeaders(
+          new Response(JSON.stringify({ error: 'api key required' }), {
+            status: 401,
+            headers: { 'content-type': 'application/json' },
+          })
+        );
+      }
+      const user = await validateRawKey(env.BRIEFINGS_DB, rawKey);
+      if (!user || user.role !== 'admin') {
+        return withSecurityHeaders(
+          new Response(JSON.stringify({ error: 'admin api key required' }), {
+            status: 403,
             headers: { 'content-type': 'application/json' },
           })
         );
@@ -226,7 +264,27 @@ export default {
 
     // ── ARGUS API proxy ───────────────────────────────────────────────
     // ARGUS-specific API paths not handled by the portfolio's apiApp.
+    // Require a valid API key — these routes bypass the apiApp middleware.
     if (ARGUS_API_PATHS.some((p) => url.pathname.startsWith(p))) {
+      const authz = request.headers.get('authorization') ?? '';
+      const rawKey = /^Bearer\s+(\S+)/i.exec(authz)?.[1] ?? request.headers.get('x-api-key') ?? '';
+      if (!rawKey || !env.BRIEFINGS_DB) {
+        return withSecurityHeaders(
+          new Response(JSON.stringify({ error: 'api key required' }), {
+            status: 401,
+            headers: { 'content-type': 'application/json' },
+          })
+        );
+      }
+      const user = await validateRawKey(env.BRIEFINGS_DB, rawKey);
+      if (!user) {
+        return withSecurityHeaders(
+          new Response(JSON.stringify({ error: 'invalid api key' }), {
+            status: 403,
+            headers: { 'content-type': 'application/json' },
+          })
+        );
+      }
       return proxyToOrigin(request, ARGUS_ORIGIN, url.pathname + url.search, requestId);
     }
 
