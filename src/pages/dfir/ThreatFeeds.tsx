@@ -19,6 +19,7 @@ import {
   landingThreatNews,
   rssFeeds,
 } from '../../data/rssFeeds';
+import { PostAnalysisButton } from '../../components/threatintel/PostAnalysisButton';
 
 /**
  * Threat Feeds — sectioned aggregator for the threat-intelligence half of
@@ -441,11 +442,20 @@ export default function ThreatFeeds(): JSX.Element {
               >
                 {item.title || '(untitled)'} <ExternalLink size={11} />
               </a>
-              <span
-                className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${SECTION_STYLES[section] ?? 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500'}`}
-              >
-                {section}
-              </span>
+              <div className="flex items-center gap-2">
+                <span
+                  className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${SECTION_STYLES[section] ?? 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500'}`}
+                >
+                  {section}
+                </span>
+                <PostAnalysisButton
+                  title={item.title}
+                  description={item.description}
+                  source={item.source}
+                  link={item.link}
+                  compact
+                />
+              </div>
             </div>
             <div className="text-mini font-mono text-slate-500 dark:text-slate-400 mb-1">
               <span>{item.source || 'feed'}</span>

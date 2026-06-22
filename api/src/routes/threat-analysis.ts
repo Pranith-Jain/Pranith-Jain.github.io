@@ -5,7 +5,7 @@ const GROQ_URL = 'https://api.groq.com/openai/v1/chat/completions';
 const GROQ_MODEL = 'openai/gpt-oss-120b';
 
 interface ThreatAnalysisRequest {
-  type: 'event' | 'country' | 'indicator';
+  type: 'event' | 'country' | 'indicator' | 'research';
   title?: string;
   description?: string;
   country?: string;
@@ -13,6 +13,7 @@ interface ThreatAnalysisRequest {
   severity?: string;
   kind?: string;
   source?: string;
+  url?: string;
   events?: Array<{ title: string; kind: string; severity: string; source: string; country?: string }>;
 }
 
@@ -54,6 +55,24 @@ Return ONLY valid JSON with these fields:
   "confidence": "high|medium|low",
   "possibleAttribution": "Known threat actor or campaign if attributable, else null",
   "recommendedActions": ["action1", "action2"]
+}
+No markdown. No explanation outside the JSON.`;
+
+const RESEARCH_SYSTEM = `You are a senior threat intelligence researcher analyzing a security research post or feed article. Produce a deep analytical assessment.
+Return ONLY valid JSON with these fields:
+{
+  "summary": "2-3 sentence executive summary of the research findings",
+  "key_findings": ["finding1", "finding2", "finding3"],
+  "threat_level": "critical|high|medium|low",
+  "confidence": "high|medium|low",
+  "novelty": "Is this novel research or known TTPs? Explain briefly.",
+  "affected_sectors": ["sector1", "sector2"],
+  "indicators_of_compromise": ["ioc1", "ioc2"],
+  "mitre_ttps": ["T####: description"],
+  "attribution": "Threat actor attribution if identifiable, else null",
+  "recommendations": ["recommendation1", "recommendation2"],
+  "sources_cited": ["source1", "source2"],
+  "quality_assessment": "Assessment of the research quality — methodology, evidence, timeliness"
 }
 No markdown. No explanation outside the JSON.`;
 
@@ -149,6 +168,61 @@ function buildIndicatorPrompt(body: ThreatAnalysisRequest): string {
   return `Indicator: ${body.indicator || 'Unknown'}`;
 }
 
+function buildResearchPrompt(body: ThreatAnalysisRequest): string {
+  return [
+    `Title: ${body.title || 'Unknown'}`,
+    body.description ? `Content: ${body.description.slice(0, 3000)}` : '',
+    body.source ? `Source: ${body.source}` : '',
+    body.url ? `URL: ${body.url}` : '',
+  ]
+    .filter(Boolean)
+    .join('\n');
+}
+
+/** Validate AI output for hallucination signals and structural completeness. */
+function validateAnalysis(analysis: Record<string, unknown>, type: string): string[] {
+  const issues: string[] = [];
+
+  // Check required fields exist
+  const requiredFields: Record<string, string[]> = {
+    event: ['summary', 'threat_level', 'confidence'],
+    country: ['country', 'overall_threat_level', 'executive_summary'],
+    indicator: ['indicator', 'assessment', 'risk_level'],
+    research: ['summary', 'threat_level', 'key_findings'],
+  };
+  for (const field of requiredFields[type] ?? []) {
+    if (!analysis[field]) issues.push(`missing required field: ${field}`);
+  }
+
+  // Check threat_level is valid
+  const level = (analysis.threat_level ?? analysis.overall_threat_level ?? analysis.risk_level) as string;
+  if (level && !['critical', 'high', 'medium', 'low', 'unknown'].includes(level)) {
+    issues.push(`invalid threat level: ${level}`);
+  }
+
+  // Check for hallucination signals: repeated text, very long strings, or empty arrays where content expected
+  const summary = (analysis.summary ?? analysis.executive_summary ?? analysis.assessment ?? '') as string;
+  if (summary && summary.length > 2000) issues.push('summary suspiciously long (>2000 chars)');
+  if (summary) {
+    const words = summary.split(/\s+/);
+    if (words.length > 5) {
+      const unique = new Set(words.map((w) => w.toLowerCase()));
+      if (unique.size < words.length * 0.3) issues.push('summary appears repetitive (low vocabulary diversity)');
+    }
+  }
+
+  // Check arrays are actually arrays and non-empty where expected
+  for (const field of ['recommended_actions', 'key_findings', 'recommendations']) {
+    const val = analysis[field];
+    if (val !== undefined && val !== null) {
+      if (!Array.isArray(val)) issues.push(`${field} should be an array`);
+      else if (val.length === 0) issues.push(`${field} is empty`);
+    }
+  }
+
+  return issues;
+}
+
 export async function threatAnalysisHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   try {
     const body = await c.req.json<ThreatAnalysisRequest>();
@@ -176,6 +250,11 @@ export async function threatAnalysisHandler(c: Context<{ Bindings: Env }>): Prom
         user = buildIndicatorPrompt(body);
         maxTokens = 1000;
         break;
+      case 'research':
+        system = RESEARCH_SYSTEM;
+        user = buildResearchPrompt(body);
+        maxTokens = 2000;
+        break;
       default:
         return c.json({ error: `unknown type: ${body.type}` }, 400);
     }
@@ -198,11 +277,15 @@ export async function threatAnalysisHandler(c: Context<{ Bindings: Env }>): Prom
       }
     }
 
+    // Validate output quality
+    const validationIssues = validateAnalysis(analysis as Record<string, unknown>, body.type);
+
     return c.json({
       analysis,
       model,
       type: body.type,
       generated_at: new Date().toISOString(),
+      ...(validationIssues.length > 0 ? { quality_warnings: validationIssues } : {}),
     });
   } catch (e) {
     const msg = e instanceof Error ? e.message : String(e);

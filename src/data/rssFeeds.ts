@@ -1573,6 +1573,7 @@ export const landingThreatIndia: string[] = [];
 
 export const landingThreatVendor = [
   'talos',
+  'unit42',
   'eset',
   'kaspersky-securelist',
   'crowdstrike',
@@ -1593,6 +1594,7 @@ export const landingThreatVendor = [
   'detectify',
   'knowbe4',
   'cqure-academy',
+  'recorded-future',
 ];
 
 export const landingThreatInvestigation = [

@@ -21,6 +21,7 @@ import { useState, useEffect, useCallback, useMemo } from 'react';
 import { Rss, ExternalLink, Search, RefreshCw, AlertTriangle, Clock, Tag, ChevronRight } from 'lucide-react';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { sanitizeUrl } from '../../lib/sanitize-url';
+import { PostAnalysisButton } from '../../components/threatintel/PostAnalysisButton';
 
 const AGGREGATE_URL = '/api/v1/rss/aggregate';
 
@@ -482,17 +483,24 @@ export default function ThreatSignalRss(): JSX.Element {
 function PostCard({ item }: { item: RssItem }): JSX.Element {
   const cat = categoryStyle(item.category);
   return (
-    <a
-      href={sanitizeUrl(item.link)}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="group rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white/60 dark:bg-[rgb(var(--surface-200))]/40 p-4 flex flex-col gap-2 transition-colors hover:border-brand-500/50 hover:bg-white/80 dark:hover:bg-slate-900/60"
-    >
+    <div className="group rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white/60 dark:bg-[rgb(var(--surface-200))]/40 p-4 flex flex-col gap-2 transition-colors hover:border-brand-500/50 hover:bg-white/80 dark:hover:bg-slate-900/60">
       <div className="flex items-start gap-2">
-        <h3 className="flex-1 font-semibold text-slate-900 dark:text-slate-100 text-sm leading-snug group-hover:text-brand-600 dark:group-hover:text-brand-400">
+        <a
+          href={sanitizeUrl(item.link)}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex-1 font-semibold text-slate-900 dark:text-slate-100 text-sm leading-snug group-hover:text-brand-600 dark:group-hover:text-brand-400 inline-flex items-center gap-1"
+        >
           {item.title}
-        </h3>
-        <ExternalLink size={12} className="text-slate-400 group-hover:text-brand-500 shrink-0 mt-0.5" />
+          <ExternalLink size={12} className="text-slate-400 group-hover:text-brand-500 shrink-0 mt-0.5" />
+        </a>
+        <PostAnalysisButton
+          title={item.title}
+          description={item.description}
+          source={item.sourceName}
+          link={item.link}
+          compact
+        />
       </div>
 
       {item.description && <p className="text-xs text-muted leading-relaxed line-clamp-3">{item.description}</p>}
@@ -525,7 +533,7 @@ function PostCard({ item }: { item: RssItem }): JSX.Element {
           read <ChevronRight size={10} />
         </span>
       </div>
-    </a>
+    </div>
   );
 }
 
