@@ -117,6 +117,7 @@ import { writeupsHandler } from './routes/writeups';
 import { cybercrimeHandler } from './routes/cybercrime';
 import { iocExplainHandler, iocRuleHandler } from './routes/ioc-verdict';
 import { globalPulseHandler } from './routes/global-pulse';
+import { threatAnalysisHandler } from './routes/threat-analysis';
 import {
   webamonSearchHandler,
   webamonScanHandler,
@@ -1008,6 +1009,7 @@ app.get('/api/v1/webamon/domain/:name', webamonDomainHandler);
 app.get('/api/v1/webamon/server/:ip', webamonServerHandler);
 app.get('/api/v1/webamon/resource/:sha256', webamonResourceHandler);
 app.get('/api/v1/global-pulse', globalPulseHandler);
+app.post('/api/v1/threat-analysis', threatAnalysisHandler);
 app.get('/api/v1/cve-recent', cveRecentHandler);
 app.get('/api/v1/cve-threat-map', cveThreatMapHandler);
 app.get('/api/v1/phishing-urls', phishingUrlsHandler);

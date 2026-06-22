@@ -26,6 +26,9 @@ import {
   Clock,
   Crosshair,
   Building2,
+  Play,
+  Pause,
+  Brain,
 } from 'lucide-react';
 import type { ReactNode } from 'react';
 import { DataPageLayout } from '../../components/DataPageLayout';
@@ -34,6 +37,9 @@ import { Sparkline } from '../../components/threatintel/Sparkline';
 import { SeverityPill } from '../../components/Badge';
 import type { CtiArc, CtiPoint } from '../../components/threatintel/cti/geo';
 import { synthesizeArcs, deriveKpis } from '../../components/threatintel/cti/geo';
+import { MILITARY_BASES } from '../../data/military-bases';
+import { NUCLEAR_FACILITIES } from '../../data/nuclear-facilities';
+import { ThreatAnalysisPanel } from '../../components/threatintel/ThreatAnalysisPanel';
 
 const PulseMap = lazy(() => import('./PulseMap'));
 const CtiGlobe = lazy(() => import('../../components/threatintel/cti/CtiGlobe'));
@@ -72,7 +78,10 @@ type PulseKind =
   | 'github_advisory'
   | 'supply_chain_attacks'
   | 'kev'
-  | 'infrastructure';
+  | 'infrastructure'
+  | 'military_base'
+  | 'fire_detection'
+  | 'nuclear_facility';
 
 interface PulseEvent {
   id: string;
@@ -365,6 +374,30 @@ const LAYER_DEFS: Record<PulseKind, LayerDef> = {
     bgColor: 'bg-teal-500/10 border-teal-500/20',
     group: 'geo',
   },
+  military_base: {
+    label: 'Military Bases',
+    shortLabel: 'BASE',
+    icon: <Shield size={14} />,
+    color: 'text-green-400',
+    bgColor: 'bg-green-500/10 border-green-500/20',
+    group: 'geo',
+  },
+  fire_detection: {
+    label: 'Fire Detections',
+    shortLabel: 'FIRE',
+    icon: <Flame size={14} />,
+    color: 'text-orange-400',
+    bgColor: 'bg-orange-500/10 border-orange-500/20',
+    group: 'geo',
+  },
+  nuclear_facility: {
+    label: 'Nuclear Facilities',
+    shortLabel: 'NUC',
+    icon: <AlertTriangle size={14} />,
+    color: 'text-yellow-400',
+    bgColor: 'bg-yellow-500/10 border-yellow-500/20',
+    group: 'geo',
+  },
 };
 
 /* ─── Helpers ───────────────────────────────────────────────────────────── */
@@ -448,10 +481,13 @@ export default function GlobalPulse(): JSX.Element {
       'exploit',
       'github_advisory',
       'kev',
+      'military_base',
+      'nuclear_facility',
     ])
   );
   const [autoRefresh, setAutoRefresh] = useState(true);
   const [selectedEvent, setSelectedEvent] = useState<PulseEvent | null>(null);
+  const [showAiAnalysis, setShowAiAnalysis] = useState(false);
   // Default to the 3D globe — it's the showpiece and the "wow" of this page (the
   // recruiter-facing first impression). It's lazy-loaded (globe.gl/three.js,
   // ~506KB gz, route-split to THIS page only) and renders behind a skeleton while
@@ -471,6 +507,9 @@ export default function GlobalPulse(): JSX.Element {
   const [infraResults, setInfraResults] = useState<PulseEvent[]>([]);
   const [infraError, setInfraError] = useState<string | null>(null);
   const infraAbortRef = useRef<AbortController | null>(null);
+
+  // Auto-pan for 3D globe
+  const [autoPan, setAutoPan] = useState(false);
 
   const searchInfra = useCallback(async (query: string) => {
     const q = query.trim();
@@ -521,6 +560,76 @@ export default function GlobalPulse(): JSX.Element {
     } finally {
       setInfraLoading(false);
     }
+  }, []);
+
+  // Static data: military bases → PulseEvents
+  const militaryBaseEvents: PulseEvent[] = useMemo(
+    () =>
+      MILITARY_BASES.map((b, i) => ({
+        id: `mil-${i}-${b.name.replace(/\s+/g, '-').toLowerCase()}`,
+        kind: 'military_base' as PulseKind,
+        title: b.name,
+        description: `${b.type === 'usa' ? 'US' : 'NATO'} — ${b.country}. ${b.description}`,
+        lat: b.lat,
+        lng: b.lng,
+        timestamp: new Date().toISOString(),
+        severity: 'low' as const,
+        source: b.type === 'usa' ? 'US Military' : 'NATO',
+      })),
+    []
+  );
+
+  // Static data: nuclear facilities → PulseEvents
+  const nuclearFacilityEvents: PulseEvent[] = useMemo(
+    () =>
+      NUCLEAR_FACILITIES.map((f, i) => ({
+        id: `nuc-${i}-${f.name.replace(/\s+/g, '-').toLowerCase()}`,
+        kind: 'nuclear_facility' as PulseKind,
+        title: f.name,
+        description: `${f.country} — ${f.type} (${f.status})${f.capacity_mw ? ` · ${f.capacity_mw} MW` : ''}`,
+        lat: f.lat,
+        lng: f.lng,
+        timestamp: new Date().toISOString(),
+        severity: f.status === 'operational' ? ('medium' as const) : ('low' as const),
+        source: 'World Nuclear Association',
+      })),
+    []
+  );
+
+  // Day/night terminator polygon for 2D map overlay
+  const terminatorPolygon = useMemo(() => {
+    const now = new Date();
+    const dayOfYear = Math.floor((now.getTime() - new Date(now.getFullYear(), 0, 0).getTime()) / 86400000);
+    const hourUTC = now.getUTCHours() + now.getUTCMinutes() / 60;
+    const declination = -23.44 * Math.cos(((360 / 365) * (dayOfYear + 10) * Math.PI) / 180);
+    const decRad = (declination * Math.PI) / 180;
+    const sunLng = -(hourUTC - 12) * 15;
+
+    const coords: [number, number][] = [];
+    for (let lng = -180; lng <= 180; lng += 4) {
+      const lngRad = ((lng - sunLng) * Math.PI) / 180;
+      const lat = (Math.atan(-Math.cos(lngRad) / Math.tan(decRad)) * 180) / Math.PI;
+      coords.push([lng, lat]);
+    }
+
+    const nightOnSouth = declination >= 0;
+    const polygon: [number, number][] = [
+      [-180, coords[0][1]],
+      ...coords,
+      [180, coords[coords.length - 1][1]],
+      ...((nightOnSouth
+        ? [
+            [180, -90],
+            [-180, -90],
+          ]
+        : [
+            [180, 90],
+            [-180, 90],
+          ]) as [number, number][]),
+      [-180, coords[0][1]],
+    ];
+
+    return polygon;
   }, []);
 
   const MENA_COUNTRIES = useMemo(
@@ -679,7 +788,12 @@ export default function GlobalPulse(): JSX.Element {
       return true;
     });
     const all = activeLayers.has('infrastructure') ? [...base, ...infraResults] : base;
-    return all.sort((a, b) => {
+    const withStatic = [
+      ...all,
+      ...(activeLayers.has('military_base') ? militaryBaseEvents : []),
+      ...(activeLayers.has('nuclear_facility') ? nuclearFacilityEvents : []),
+    ];
+    return withStatic.sort((a, b) => {
       const pa = ctiPriority(a.cti);
       const pb = ctiPriority(b.cti);
       if (pa !== pb) return pb - pa;
@@ -696,6 +810,8 @@ export default function GlobalPulse(): JSX.Element {
     MENA_COUNTRIES,
     ctiPriority,
     infraResults,
+    militaryBaseEvents,
+    nuclearFacilityEvents,
   ]);
 
   // Export to CSV
@@ -1122,6 +1238,23 @@ export default function GlobalPulse(): JSX.Element {
               </button>
             </div>
 
+            {/* Auto-Pan Toggle (3D only) */}
+            {mapMode === '3d' && (
+              <button
+                type="button"
+                onClick={() => setAutoPan((p) => !p)}
+                className={`inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded-lg border transition-colors ${
+                  autoPan
+                    ? 'border-indigo-500/50 bg-indigo-500/10 text-indigo-700 dark:text-indigo-300'
+                    : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800'
+                }`}
+                title="Auto-rotate globe"
+              >
+                {autoPan ? <Pause size={12} /> : <Play size={12} />}
+                {autoPan ? 'Rotating' : 'Auto-Pan'}
+              </button>
+            )}
+
             {/* Filters Toggle */}
             <button
               type="button"
@@ -1337,6 +1470,8 @@ export default function GlobalPulse(): JSX.Element {
                         'exploit',
                         'github_advisory',
                         'kev',
+                        'military_base',
+                        'nuclear_facility',
                       ])
                     );
                     setSeverityFilter(new Set(['critical', 'high', 'medium', 'low']));
@@ -1460,7 +1595,13 @@ export default function GlobalPulse(): JSX.Element {
                     </div>
                   }
                 >
-                  <CtiGlobe arcs={globeArcs} points={globePoints} focus={focus} onPointClick={handlePointClick} />
+                  <CtiGlobe
+                    arcs={globeArcs}
+                    points={globePoints}
+                    focus={focus}
+                    onPointClick={handlePointClick}
+                    autoRotate={autoPan}
+                  />
                 </Suspense>
               ) : (
                 <Suspense
@@ -1485,6 +1626,7 @@ export default function GlobalPulse(): JSX.Element {
                       const event = filteredEvents.find((e) => e.id === m.id);
                       if (event) setSelectedEvent(event);
                     }}
+                    terminatorPolygon={terminatorPolygon}
                   />
                 </Suspense>
               )}
@@ -1758,26 +1900,57 @@ export default function GlobalPulse(): JSX.Element {
                       </div>
                     )}
                   </div>
-                  {selectedEvent.url && (
-                    <a
-                      href={sanitizeUrl(selectedEvent.url) || undefined}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 mt-4 text-xs font-mono text-brand-600 dark:text-brand-400 hover:underline"
+                  <div className="flex items-center gap-3 mt-4">
+                    {selectedEvent.url && (
+                      <a
+                        href={sanitizeUrl(selectedEvent.url) || undefined}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 text-xs font-mono text-brand-600 dark:text-brand-400 hover:underline"
+                      >
+                        <ExternalLink size={12} /> View source
+                      </a>
+                    )}
+                    <button
+                      type="button"
+                      onClick={() => setShowAiAnalysis((p) => !p)}
+                      className={`inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded-lg border transition-colors ${
+                        showAiAnalysis
+                          ? 'border-brand-500/50 bg-brand-500/10 text-brand-600 dark:text-brand-400'
+                          : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800'
+                      }`}
                     >
-                      <ExternalLink size={12} /> View source
-                    </a>
-                  )}
+                      <Brain size={12} />
+                      {showAiAnalysis ? 'Hide Analysis' : 'AI Analysis'}
+                    </button>
+                  </div>
                 </div>
                 <button
                   type="button"
-                  onClick={() => setSelectedEvent(null)}
+                  onClick={() => {
+                    setSelectedEvent(null);
+                    setShowAiAnalysis(false);
+                  }}
                   className="shrink-0 p-1.5 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
                 >
                   <X size={16} />
                 </button>
               </div>
             </div>
+          )}
+
+          {/* ─── AI Threat Analysis Panel ─── */}
+          {selectedEvent && showAiAnalysis && (
+            <ThreatAnalysisPanel
+              type="event"
+              title={selectedEvent.title}
+              description={selectedEvent.description}
+              country={selectedEvent.country}
+              severity={selectedEvent.severity}
+              kind={selectedEvent.kind}
+              source={selectedEvent.source}
+              onClose={() => setShowAiAnalysis(false)}
+            />
           )}
         </div>
       )}

@@ -29,6 +29,7 @@ interface MarkerData {
 interface PulseMapProps {
   markers: MarkerData[];
   onMarkerClick?: (marker: MarkerData) => void;
+  terminatorPolygon?: [number, number][];
 }
 
 const SEVERITY_RADIUS: Record<string, number> = {
@@ -67,6 +68,9 @@ const KIND_COLORS: Record<string, string> = {
   actor_sighting: '#8b5cf6',
   ioc_correlation: '#06b6d4',
   webamon_scan: '#14b8a6',
+  military_base: '#22c55e',
+  fire_detection: '#f97316',
+  nuclear_facility: '#eab308',
 };
 
 const KIND_LABELS: Record<string, string> = {
@@ -98,9 +102,12 @@ const KIND_LABELS: Record<string, string> = {
   actor_sighting: 'Actor Sighting',
   ioc_correlation: 'IOC Correlation',
   webamon_scan: 'Web Scan',
+  military_base: 'Military Base',
+  fire_detection: 'Fire Detection',
+  nuclear_facility: 'Nuclear Facility',
 };
 
-export default function PulseMap({ markers, onMarkerClick }: PulseMapProps): JSX.Element {
+export default function PulseMap({ markers, onMarkerClick, terminatorPolygon }: PulseMapProps): JSX.Element {
   const [isDark, setIsDark] = useState(false);
   const [hoveredMarker, setHoveredMarker] = useState<MarkerData | null>(null);
   const [selectedMarker, setSelectedMarker] = useState<MarkerData | null>(null);
@@ -163,6 +170,30 @@ export default function PulseMap({ markers, onMarkerClick }: PulseMapProps): JSX
             ))
           }
         </Geographies>
+        {/* Day/Night Terminator Overlay */}
+        {terminatorPolygon && terminatorPolygon.length > 2 && (
+          <polygon
+            points={terminatorPolygon
+              .map(([lng, lat]) => {
+                // Manual Mercator projection matching ComposableMap config
+                // scale=140, center=[0,20], translate=[450,230]
+                const scale = 140;
+                const centerLat = 20;
+                const centerLng = 0;
+                const latRad = (lat * Math.PI) / 180;
+                const clatRad = (centerLat * Math.PI) / 180;
+                const x = 450 + ((scale * ((lng - centerLng) * Math.PI)) / 180) * Math.cos(clatRad);
+                const y =
+                  230 -
+                  scale *
+                    (Math.log(Math.tan(Math.PI / 4 + latRad / 2)) - Math.log(Math.tan(Math.PI / 4 + clatRad / 2)));
+                return `${x},${y}`;
+              })
+              .join(' ')}
+            fill={isDark ? 'rgba(0,0,0,0.3)' : 'rgba(0,0,50,0.12)'}
+            stroke="none"
+          />
+        )}
         {topMarkers.map((m) => {
           const r = SEVERITY_RADIUS[m.severity] ?? 4;
           const color = KIND_COLORS[m.kind] ?? '#64748b';
