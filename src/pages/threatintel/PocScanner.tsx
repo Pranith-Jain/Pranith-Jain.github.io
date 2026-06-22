@@ -1,8 +1,7 @@
 import { useState } from 'react';
-import { Code2, ExternalLink, RefreshCw, Search, Star, GitFork, Clock } from 'lucide-react';
+import { Code2, ExternalLink, Search, Star, GitFork, Clock } from 'lucide-react';
 import { useDataFetch } from '../../hooks/useDataFetch';
 import { DataState } from '../../components/DataState';
-import { api } from '../../lib/api-client';
 
 interface PocRepo {
   id: number;
@@ -68,7 +67,7 @@ export default function PocScanner(): JSX.Element {
         loading={loading}
         error={error}
         empty={!data}
-        emptyMessage="Search for a CVE to find public exploit/PoC repositories on GitHub."
+        emptyLabel="Search for a CVE to find public exploit/PoC repositories on GitHub."
         onRetry={refetch}
       >
         {data && (

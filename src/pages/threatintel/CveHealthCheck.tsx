@@ -68,7 +68,7 @@ export default function CveHealthCheck(): JSX.Element {
         loading={loading}
         error={error}
         empty={!data}
-        emptyMessage="Click 'Re-check' to run health diagnostics."
+        emptyLabel="Click 'Re-check' to run health diagnostics."
         onRetry={refetch}
       >
         {data && (

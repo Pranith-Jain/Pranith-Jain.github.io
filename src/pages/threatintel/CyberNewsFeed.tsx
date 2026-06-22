@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { ExternalLink, Filter, Newspaper, RefreshCw, Search } from 'lucide-react';
+import { useState } from 'react';
+import { ExternalLink, Filter, RefreshCw, Search } from 'lucide-react';
 import { useDataFetch } from '../../hooks/useDataFetch';
 import { DataState } from '../../components/DataState';
 import { relativeAgo } from '../../lib/relativeTime';
@@ -114,7 +114,7 @@ export default function CyberNewsFeed(): JSX.Element {
         loading={loading}
         error={error}
         empty={filtered?.length === 0}
-        emptyMessage="No articles found."
+        emptyLabel="No articles found."
         onRetry={refetch}
       >
         {data && (

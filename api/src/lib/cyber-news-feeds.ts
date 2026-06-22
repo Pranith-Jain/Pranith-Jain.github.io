@@ -26,10 +26,6 @@ interface RssItem {
   'media:content'?: { url?: string };
 }
 
-interface RssFeed {
-  channel?: { item?: RssItem[] };
-}
-
 export type FeedTier = 1 | 2 | 3 | 4 | 5;
 
 interface FeedSource {
@@ -72,11 +68,8 @@ function extractImage(item: RssItem): string | undefined {
 }
 
 function parseRssDate(dateStr: string): Date {
-  for (const layout of ['RFC1123Z', 'RFC1123', 'RFC822', 'RFC822Z', 'Rfc3339']) {
-    const d = new Date(dateStr);
-    if (!Number.isNaN(d.getTime())) return d;
-  }
-  return new Date(0);
+  const d = new Date(dateStr);
+  return Number.isNaN(d.getTime()) ? new Date(0) : d;
 }
 
 function parseRssXml(xml: string): RssItem[] {
