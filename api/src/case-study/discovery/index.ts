@@ -40,15 +40,25 @@ export interface RunDiscoveryResult {
   kept: number;
   /** Candidates dropped by the hard novelty gate (anti-repetition). */
   suppressed: number;
+  /** Candidates dropped by cross-runner URL dedup. */
+  deduped: number;
   ids: string[];
-  /** Kept count per topic — surfaced so the admin sees the topic mix. */
+  /** Kept count per topic — recomputed AFTER URL dedup + global cap so
+   *  the admin sees the real topic mix, not the pre-dedup selection. */
   byTopic: Record<string, number>;
+  /** Per-topic counts BEFORE URL dedup and global cap. Useful for
+   *  diagnosing a runner that gets cannibalised by another runner that
+   *  surfaces the same article (e.g. intel + news on the same CVE writeup).
+   *  If selected >> kept for a topic, split that topic into sub-topics
+   *  or lower its perTopic budget. */
+  byTopicSelected: Record<string, number>;
 }
 
 export async function runDiscovery(deps: RunDiscoveryDeps): Promise<RunDiscoveryResult> {
   const perTopic = deps.perTopic ?? 3;
   const isSuppressed = deps.isSuppressed ?? (() => false);
-  const byTopic: Record<string, number> = {};
+  // Pre-dedup per-topic counts — see RunDiscoveryResult.byTopicSelected.
+  const byTopicSelected: Record<string, number> = {};
   let total = 0;
   let suppressed = 0;
   let selected: Candidate[] = [];
@@ -73,7 +83,7 @@ export async function runDiscovery(deps: RunDiscoveryDeps): Promise<RunDiscovery
     for (const { name, cands, error, ms } of batchResults) {
       if (error) {
         console.warn(JSON.stringify({ job: 'discovery', runner: name, ms, error: String(error) }));
-        byTopic[name] = 0;
+        byTopicSelected[name] = 0;
         continue;
       }
       total += cands.length;
@@ -91,7 +101,7 @@ export async function runDiscovery(deps: RunDiscoveryDeps): Promise<RunDiscovery
       const select =
         deps.selectPerTopic ?? ((cs: Candidate[], k: number) => [...cs].sort((a, b) => b.score - a.score).slice(0, k));
       const top = select(fresh, topicPerTopic, name);
-      byTopic[name] = top.length;
+      byTopicSelected[name] = top.length;
       selected.push(...top);
     }
   }
@@ -101,10 +111,14 @@ export async function runDiscovery(deps: RunDiscoveryDeps): Promise<RunDiscovery
   // Keep only the highest-scored candidate per URL so we don't waste LLM
   // generation on duplicate content with different labels.
   const seenUrl = new Set<string>();
+  let deduped = 0;
   selected = selected.filter((c) => {
     const u = typeof c.evidence?.url === 'string' ? c.evidence.url : '';
     if (!u) return true;
-    if (seenUrl.has(u)) return false;
+    if (seenUrl.has(u)) {
+      deduped += 1;
+      return false;
+    }
     seenUrl.add(u);
     return true;
   });
@@ -112,6 +126,23 @@ export async function runDiscovery(deps: RunDiscoveryDeps): Promise<RunDiscovery
   // Sort by score for the optional global cap.
   selected.sort((a, b) => b.score - a.score);
   const kept = typeof deps.limit === 'number' ? selected.slice(0, deps.limit) : selected;
+
+  // Recompute byTopic from the *actual* kept candidates so the admin sees
+  // the real topic mix. `byTopicSelected` would over-count topics whose
+  // candidates were dropped by URL dedup or the global cap. The candidate
+  // .type (CaseStudyType) is the canonical topic key — runner names are
+  // 1:1 with types in run.ts (discoverOsint → 'osint', discoverTools →
+  // 'tool', …), so re-aggregating by type gives the same shape the
+  // orchestrator used to populate byTopicSelected.
+  const byTopic: Record<string, number> = {};
+  for (const c of kept) {
+    byTopic[c.type] = (byTopic[c.type] ?? 0) + 1;
+  }
+  // Zero-fill topics that produced no kept candidates so the admin can
+  // still see they ran.
+  for (const name of Object.keys(byTopicSelected)) {
+    if (!(name in byTopic)) byTopic[name] = 0;
+  }
 
   await Promise.all(kept.map((c) => deps.putCandidate(c)));
   // One read+write for the whole dedup map instead of one per kept candidate.
@@ -125,10 +156,20 @@ export async function runDiscovery(deps: RunDiscoveryDeps): Promise<RunDiscovery
       job: 'discovery',
       total,
       suppressed,
+      deduped,
       kept: kept.length,
+      byTopicSelected,
       byTopic,
     })
   );
 
-  return { total, kept: kept.length, suppressed, ids: kept.map((c) => c.key), byTopic };
+  return {
+    total,
+    kept: kept.length,
+    suppressed,
+    deduped,
+    ids: kept.map((c) => c.key),
+    byTopic,
+    byTopicSelected,
+  };
 }

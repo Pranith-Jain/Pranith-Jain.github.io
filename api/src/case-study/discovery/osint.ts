@@ -1,7 +1,6 @@
-import type { Candidate, DedupRecord } from '../types';
-import { topicKey } from '../stable-keys';
-import { recencyScore, severityScore, noveltyScore, finalScore } from '../scoring';
-import { parseRssItems } from './rss-util';
+import { createRssRunner, type RssRunnerDeps } from './rss-util';
+
+export type DiscoverDeps = RssRunnerDeps;
 
 const FEEDS = [
   'https://www.bellingcat.com/feed/',
@@ -20,57 +19,12 @@ const FEEDS = [
   'https://osintbureau.com/feed/',
   'https://webbreacher.com/feed/',
 ];
-const WINDOW_MS = 7 * 24 * 3600 * 1000;
 
-export interface DiscoverDeps {
-  fetch: typeof globalThis.fetch;
-  now: Date;
-  getDedup: (stableKey: string) => Promise<DedupRecord | null>;
-}
-
-export async function discoverOsint(deps: DiscoverDeps): Promise<Candidate[]> {
-  const out: Candidate[] = [];
-  const cutoff = deps.now.getTime() - WINDOW_MS;
-  let feedsOk = 0;
-  for (const feed of FEEDS) {
-    try {
-      const r = await deps.fetch(feed, {
-        headers: {
-          Accept: 'application/rss+xml, application/xml, */*',
-          'User-Agent': 'pranithjain.qzz.io case-study-discovery',
-        },
-      });
-      if (!r.ok) continue;
-      feedsOk += 1;
-      const xml = await r.text();
-      const feedHost = new URL(feed).hostname.replace(/^www\./, '');
-      for (const item of parseRssItems(xml, deps.now)) {
-        if (item.date.getTime() < cutoff) continue;
-        const key = topicKey('osint', item.link || item.title);
-        const dedup = await deps.getDedup(key);
-        const score = finalScore({
-          recency: recencyScore(item.date.toISOString(), deps.now),
-          severity: severityScore({}),
-          novelty: noveltyScore(dedup, deps.now),
-          sourceWeight: 0.6,
-        });
-        out.push({
-          key,
-          type: 'osint',
-          title: item.title,
-          rationale: `OSINT tradecraft · ${feedHost} · ${item.date.toISOString().slice(0, 10)}`,
-          score,
-          evidence: { url: item.link, published: item.date.toISOString(), source: feed },
-          discoveredAt: deps.now.toISOString(),
-          status: 'pending',
-        });
-      }
-    } catch (err) {
-      console.warn(`discoverOsint: feed failed ${feed}`, err);
-    }
-  }
-  console.log(
-    JSON.stringify({ job: 'discovery', runner: 'osint', feedsTotal: FEEDS.length, feedsOk, items: out.length })
-  );
-  return out;
-}
+export const discoverOsint = createRssRunner({
+  type: 'osint',
+  feeds: FEEDS,
+  windowMs: 7 * 24 * 3600 * 1000,
+  sourceWeight: 0.6,
+  rationaleLabel: 'OSINT tradecraft',
+  runnerName: 'discoverOsint',
+});

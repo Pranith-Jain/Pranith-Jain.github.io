@@ -91,7 +91,15 @@ export async function runDiscoveryNow(env: CaseStudyEnv, now: Date) {
   // configuration gap. Explicit skip + structured log makes the cause clear.
   if (!env.CASE_STUDIES) {
     console.warn(JSON.stringify({ job: 'discovery', status: 'skipped_no_kv' }));
-    return { total: 0, kept: 0, suppressed: 0, ids: [] as string[], byTopic: {} as Record<string, number> };
+    return {
+      total: 0,
+      kept: 0,
+      suppressed: 0,
+      deduped: 0,
+      ids: [] as string[],
+      byTopic: {} as Record<string, number>,
+      byTopicSelected: {} as Record<string, number>,
+    };
   }
   // Load the dedup map ONCE. Every runner scores novelty against this
   // in-memory snapshot — 0 KV reads in the runners (was ~1 read per
