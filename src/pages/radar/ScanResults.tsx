@@ -771,7 +771,7 @@ export default function ScanResults() {
       <nav className="flex items-center gap-2 text-sm text-slate-500">
         <Link
           to="/radar"
-          className="flex h-7 w-7 items-center justify-center rounded-md border border-slate-200 bg-white text-slate-600 transition-colors hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-400"
+          className="flex h-7 w-7 items-center justify-center rounded-md border border-slate-200 bg-white text-slate-600 transition-colors hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-400 dark:hover:bg-slate-700"
         >
           <ArrowLeft className="h-3.5 w-3.5" />
         </Link>
