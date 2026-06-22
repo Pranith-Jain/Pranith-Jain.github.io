@@ -476,7 +476,7 @@ export const memberships = [
   {
     name: 'UK OSINT Community',
     abbreviation: 'UK',
-    period: 'Jan 2026 - Present · 2 mos',
+    period: 'Jan 2026 - Present · 5 mos',
     description:
       'Working alongside investigators and researchers in one of the more active OSINT communities. The discussions sharpen tradecraft faster than anything I do alone.',
     details: [
@@ -498,7 +498,7 @@ export const memberships = [
   {
     name: 'Messaging, Malware, Mobile Anti-Abuse Working Group',
     abbreviation: 'M3',
-    period: 'Feb 2026 - Present · 1 mo',
+    period: 'Feb 2026 - Present · 4 mos',
     description:
       'M3AAWG. Global working group focused on the practical defence side of messaging abuse, malware, and mobile threats. Standards conversations that actually ship.',
     color: 'emerald',
@@ -506,7 +506,7 @@ export const memberships = [
   {
     name: 'emailexpert',
     abbreviation: 'E',
-    period: 'Jun 2025 - Present · 9 mos',
+    period: 'May 2026 - Present · 1 mo',
     description:
       'Email-deliverability and authentication community. Where I go to sanity-check a DMARC posture decision before rolling it across a fleet.',
     color: 'cyan',
@@ -514,7 +514,7 @@ export const memberships = [
   {
     name: 'Valinor Intelligence',
     abbreviation: 'VI',
-    period: 'Mar 2026 - Present · 2 mos',
+    period: 'Jun 2026 - Present · <1 mo',
     description:
       'Professional OSINT community and marketplace connecting analysts with intelligence buyers. Collaborative platform for tradecraft development, training, and client work.',
     details: [
@@ -532,7 +532,7 @@ export const memberships = [
   {
     name: 'Webamon',
     abbreviation: 'WA',
-    period: '2025 - Present',
+    period: '2025 - Present · 1+ yr',
     description:
       'Community Threat Researcher contributing to web infrastructure intelligence. Collaborative threat research and IOC enrichment across the community platform.',
     color: 'emerald',
