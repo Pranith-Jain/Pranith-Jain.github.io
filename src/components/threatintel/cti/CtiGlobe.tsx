@@ -335,7 +335,13 @@ export default function CtiGlobe({
       <div className="flex items-center justify-center h-full w-full bg-[#0a0f1a]">
         <div className="text-center p-6 max-w-sm">
           <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-slate-800/50 flex items-center justify-center">
-            <svg className="w-8 h-8 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg
+              className="w-8 h-8 text-slate-500"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              aria-hidden="true"
+            >
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
