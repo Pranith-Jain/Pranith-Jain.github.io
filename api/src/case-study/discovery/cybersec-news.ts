@@ -12,6 +12,13 @@ const FEEDS = [
   'https://thehackernews.com/feed/',
   'https://www.csoonline.com/feed/',
   'https://www.zdnet.com/topic/security/rss.xml',
+  'https://cybernews.com/feed/',
+  'https://portswigger.net/daily-swig/rss',
+  'https://www.scmagazine.com/feed',
+  'https://www.cyberdaily.au/feed',
+  'https://www.helpnetsecurity.com/feed/',
+  'https://www.bleepingcomputer.com/feed/',
+  'https://threatpost.com/feed/',
 ];
 const WINDOW_MS = 7 * 24 * 3600 * 1000;
 

@@ -12,6 +12,13 @@ const FEEDS = [
   'https://www.accenture.com/us-en/blogs/security-index-blog-rss',
   'https://www.cybereason.com/blog/feed',
   'https://www.sentinelone.com/blog/feed/',
+  'https://blogs.cisco.com/security/feed',
+  'https://securityboulevard.com/feed/',
+  'https://www.digitalshadows.com/blog/feed/',
+  'https://www.socradar.io/feed/',
+  'https://www.withsecure.com/en/blog/rss.xml',
+  'https://www.trellix.com/about/newsroom/feed/',
+  'https://blog.virustotal.com/feeds/posts/default',
 ];
 const WINDOW_MS = 7 * 24 * 3600 * 1000;
 

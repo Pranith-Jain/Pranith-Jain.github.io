@@ -5,13 +5,20 @@ import { parseRssItems } from './rss-util';
 
 const FEEDS = [
   'https://www.kitploit.com/feeds/posts/default',
-  'https://github.com/trending/security?since=weekly&feed=1',
   'https://kalilinuxtutorials.com/feed/',
   'https://www.darknet.org.uk/feed/',
   'https://www.hackingarticles.in/feed/',
   'https://pentesttools.net/feed/',
   'https://gbhackers.com/feed/',
   'https://blog.detectify.com/feed/',
+  'https://www.blackhillsinfosec.com/feed/',
+  'https://blog.holdmybeersecurity.com/feed/',
+  'https://www.offsec.com/feed.xml',
+  'https://blog.secureideas.com/feed/',
+  'https://posts.specterops.io/feed',
+  'https://blog.rapid7.com/feed/',
+  'https://blog.thinkst.com/feeds/posts/default',
+  'https://labs.watchtowr.com/feed/',
 ];
 const WINDOW_MS = 7 * 24 * 3600 * 1000;
 

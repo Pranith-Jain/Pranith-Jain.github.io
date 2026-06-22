@@ -12,6 +12,13 @@ const FEEDS = [
   'https://inteltechniques.com/blog/feed/',
   'https://medium.com/feed/@osint-blog',
   'https://sector035.nl/feed/',
+  'https://www.secjuice.com/feed/',
+  'https://blog.haschek.at/feed/',
+  'https://www.alec.fyi/feed/',
+  'https://blacklanternsecurity.com/feed/',
+  'https://osint.team/feed/',
+  'https://osintbureau.com/feed/',
+  'https://webbreacher.com/feed/',
 ];
 const WINDOW_MS = 7 * 24 * 3600 * 1000;
 

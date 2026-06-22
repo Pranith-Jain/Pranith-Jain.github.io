@@ -339,8 +339,8 @@ export async function runDiscoveryNow(env: CaseStudyEnv, now: Date) {
   //   - The remaining ~14 optional topics partition into 6 day-buckets
   //     (rotation.ts), so each day surfaces ~2 of them.
   //   - Total per day: 8 always + 2 rotating = ~10 topics.
-  //   - perTopic=3: weighted-random sampling has room to pick different
-  //     candidates from runners that produce more than 3 items.
+  //   - perTopic=2: each topic contributes up to 2 candidates, ensuring
+  //     at least 10 different categories per run.
   //   - trends=3: fewer LLM candidates, higher quality bar enforced by
   //     dedup-avoidance list fed into the prompt.
   const ALWAYS_ON = new Set([
@@ -366,14 +366,15 @@ export async function runDiscoveryNow(env: CaseStudyEnv, now: Date) {
     commitDedup: (keys, n) => touchDedupMany(env.CASE_STUDIES, keys, n),
     now,
     // Diversity controls (2026-06-11):
-    //   - perTopic=3: each topic contributes up to 3. Weighted-random
-    //     sampling (not strict top-N) selects from candidates to ensure
-    //     the same high-scorers don't dominate every day.
-    //   - limit=12: upper bound — comfortable for ~8 active topics × 3.
+    //   - perTopic=2: each topic contributes up to 2. With 10 topics running
+    //     per day (8 always-on + ~2 rotating), this ensures at least 10
+    //     different categories surface in every discovery run.
+    //   - limit=24: comfortable for ~10 active topics × 2, with headroom for
+    //     trending context items.
     //   - trends=3: fewer LLM candidates; quality enforced via dedup-
     //     avoidance, category rotation, and real trending data injection.
-    perTopic: 3,
-    limit: 12,
+    perTopic: 2,
+    limit: 24,
     perTopicOverride: { trends: 3 },
   });
 }
