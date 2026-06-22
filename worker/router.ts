@@ -154,6 +154,7 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/threatintel/tools/graph', '/__prerendered/threatintel__tools__graph'],
   ['/threatintel/tools/investigations', '/__prerendered/threatintel__tools__investigations'],
   ['/threatintel/tools/watches', '/__prerendered/threatintel__tools__watches'],
+  ['/threatintel/tools/workspaces', '/__prerendered/threatintel__tools__workspaces'],
   ['/threatintel/tools/settings', '/__prerendered/threatintel__tools__settings'],
   ['/threatintel/tools/copilot-chat', '/__prerendered/threatintel__tools__copilot-chat'],
   ['/threatintel/tools/unified-search', '/__prerendered/threatintel__tools__unified-search'],
@@ -393,6 +394,7 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/threatintel/copilot-chat', '/__prerendered/threatintel__copilot-chat'],
   ['/threatintel/observe', '/__prerendered/threatintel__observe'],
   ['/threatintel/watches', '/__prerendered/threatintel__watches'],
+  ['/threatintel/workspaces', '/__prerendered/threatintel__workspaces'],
   ['/threatintel/threat-feeds', '/__prerendered/threatintel__threat-feeds'],
   ['/threatintel/writeups', '/__prerendered/threatintel__writeups'],
   ['/threatintel/cyber-crime', '/__prerendered/threatintel__cyber-crime'],
@@ -476,6 +478,7 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/threatintel/threat-actor-catalog', '/__prerendered/threatintel__threat-actor-catalog'],
   ['/threatintel/threat-landscape', '/__prerendered/threatintel__threat-landscape'],
   ['/threatintel/threat-actor-db', '/__prerendered/threatintel__threat-actor-db'],
+  ['/threatintel/cti-dashboard', '/__prerendered/threatintel__cti-dashboard'],
   ['/dfir/copilot', '/__prerendered/dfir__copilot'],
   // ── ThreatIntel: hub bases (11) — Suspense-wrapped tabs, prerendered chrome ─
 ]);

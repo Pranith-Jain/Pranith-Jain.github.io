@@ -292,6 +292,7 @@ const ThreatSignalRss = lazy(() => import('./pages/threatintel/ThreatSignalRss')
 const UnifiedSearch = lazy(() => import('./pages/threatintel/UnifiedSearch'));
 const VolexityThreatIntel = lazy(() => import('./pages/threatintel/VolexityThreatIntel'));
 const Watches = lazy(() => import('./pages/threatintel/Watches'));
+const Workspaces = lazy(() => import('./pages/threatintel/Workspaces'));
 const Webamon = lazy(() => import('./pages/threatintel/Webamon'));
 const Wiki = lazy(() => import('./pages/dfir/Wiki'));
 const Writeups = lazy(() => import('./pages/threatintel/Writeups'));
@@ -340,6 +341,7 @@ const DfirVs = lazy(() => import('./pages/dfir/Vs'));
 const RadarHome = lazy(() => import('./pages/radar/Home'));
 const RadarScanResults = lazy(() => import('./pages/radar/ScanResults'));
 const ArgusPage = lazy(() => import('./pages/Argus'));
+const CtiDashboard = lazy(() => import('./pages/threatintel/CtiDashboard'));
 
 /**
  * /dfir/file?h=<hash> is the legacy entry point for the standalone hash
@@ -658,6 +660,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel/tools/stix', Component: StixBundleBrowser },
   { path: '/threatintel/tools/investigations', Component: Investigations },
   { path: '/threatintel/tools/watches', Component: Watches },
+  { path: '/threatintel/tools/workspaces', Component: Workspaces },
   { path: '/threatintel/tools/settings', Component: Settings },
   { path: '/threatintel/tools/copilot-chat', Component: CopilotChat },
   { path: '/threatintel/tools/unified-search', Component: UnifiedSearch },
@@ -680,6 +683,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/radar', Component: RadarHome },
   { path: '/radar/scan/:id', Component: RadarScanResults },
   { path: '/threatnexus', Component: ArgusPage },
+  { path: '/threatintel/cti-dashboard', Component: CtiDashboard },
 ];
 
 /** Legacy / renamed paths preserved as redirects so in-flight links don't 404. */
@@ -860,6 +864,7 @@ const REDIRECTS: ReadonlyArray<{ path: string; to: string }> = [
   { path: '/threatintel/misp-browser', to: '/threatintel/tools/misp' },
   { path: '/threatintel/investigations', to: '/threatintel/tools/investigations' },
   { path: '/threatintel/watches', to: '/threatintel/tools/watches' },
+  { path: '/threatintel/workspaces', to: '/threatintel/tools/workspaces' },
   { path: '/threatintel/relationship-graph', to: '/threatintel/actors/graph' },
   { path: '/threatintel/search', to: '/threatintel/catalog?cat=tools' },
   { path: '/threatintel/campaign-generator', to: '/threatintel/catalog?cat=tools' },

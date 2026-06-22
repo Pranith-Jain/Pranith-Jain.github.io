@@ -2240,5 +2240,239 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         return untrustedToolResult(data);
       }
     );
+
+    // ── CTI Workspace Tools (AEAD Lifecycle) ──────────────────────────
+    this.tools(
+      'ws_list',
+      'List investigation workspaces. Each workspace is a full AEAD-lifecycle case with subjects, connections, findings, and timeline.',
+      {
+        status: z.enum(['open', 'active', 'archived']).optional().describe('Filter by status'),
+        limit: z.number().optional().describe('Max results (default 50)'),
+      },
+      async ({ status, limit }) => {
+        const params = new URLSearchParams();
+        if (status) params.set('status', status);
+        if (limit) params.set('limit', String(limit));
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          `/api/v1/workspaces?${params}`,
+          this.apiKey
+        );
+        return untrustedToolResult(data);
+      }
+    );
+    this.tools(
+      'ws_create',
+      'Create a new investigation workspace for AEAD lifecycle tracking.',
+      {
+        title: z.string().describe('Workspace title (e.g. "Phishing — example.com")'),
+        description: z.string().optional().describe('Brief summary'),
+        target: z.string().optional().describe('Primary target (domain, IP, email, etc.)'),
+        target_type: z
+          .enum(['person', 'domain', 'org', 'username', 'email', 'ip', 'other'])
+          .optional()
+          .describe('Target type (default: domain)'),
+        tags: z.array(z.string()).optional().describe('Tags for classification'),
+      },
+      async ({ title, description, target, target_type, tags }) => {
+        const data = await apiFetch<Record<string, unknown>>(this.env.SELF, '/api/v1/workspaces', this.apiKey, {
+          method: 'POST',
+          body: JSON.stringify({ title, description, target, target_type, tags }),
+        });
+        return untrustedToolResult(data);
+      }
+    );
+    this.tools(
+      'ws_get',
+      'Get a workspace with all subjects, connections, findings, and timeline.',
+      {
+        id: z.string().describe('Workspace ID'),
+      },
+      async ({ id }) => {
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          `/api/v1/workspaces/${encodeURIComponent(id)}`,
+          this.apiKey
+        );
+        return untrustedToolResult(data);
+      }
+    );
+    this.tools(
+      'ws_add_subject',
+      'Register a subject (entity) in a workspace investigation.',
+      {
+        workspace_id: z.string().describe('Workspace ID'),
+        subject_type: z
+          .enum([
+            'person',
+            'domain',
+            'org',
+            'username',
+            'email',
+            'ip',
+            'phone',
+            'location',
+            'asset',
+            'device',
+            'crypto',
+            'custom',
+          ])
+          .describe('Entity type'),
+        label: z.string().describe('Human-readable label'),
+        value: z.string().optional().describe('Raw value (IP, email, domain, etc.)'),
+        confidence: z.number().optional().describe('Confidence 0-100'),
+        trust_score: z.number().optional().describe('Trust score 1-5'),
+      },
+      async ({ workspace_id, subject_type, label, value, confidence, trust_score }) => {
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          `/api/v1/workspaces/${encodeURIComponent(workspace_id)}/subjects`,
+          this.apiKey,
+          { method: 'POST', body: JSON.stringify({ subject_type, label, value, confidence, trust_score }) }
+        );
+        return untrustedToolResult(data);
+      }
+    );
+    this.tools(
+      'ws_add_connection',
+      'Define a relationship between two subjects in a workspace.',
+      {
+        workspace_id: z.string().describe('Workspace ID'),
+        from_subject_id: z.string().describe('Source subject ID'),
+        to_subject_id: z.string().describe('Target subject ID'),
+        relationship: z
+          .string()
+          .describe('Relationship type (owns, uses, works_at, linked_to, alias, communicated_with)'),
+        strength: z.enum(['confirmed', 'probable', 'possible']).optional().describe('Connection strength'),
+      },
+      async ({ workspace_id, from_subject_id, to_subject_id, relationship, strength }) => {
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          `/api/v1/workspaces/${encodeURIComponent(workspace_id)}/connections`,
+          this.apiKey,
+          { method: 'POST', body: JSON.stringify({ from_subject_id, to_subject_id, relationship, strength }) }
+        );
+        return untrustedToolResult(data);
+      }
+    );
+    this.tools(
+      'ws_add_finding',
+      'Log a finding with source, trust score, and confidence in a workspace.',
+      {
+        workspace_id: z.string().describe('Workspace ID'),
+        subject_id: z.string().optional().describe('Related subject ID'),
+        finding_type: z
+          .enum(['infrastructure', 'identity', 'exposure', 'credential', 'behavioral', 'legal', 'ioc'])
+          .optional()
+          .describe('Finding type'),
+        weight: z.enum(['CRITICAL', 'HIGH', 'MEDIUM', 'LOW', 'INFO']).optional().describe('Severity weight'),
+        description: z.string().describe('Finding description'),
+        source_url: z.string().optional().describe('Source URL'),
+        confidence: z.number().optional().describe('Confidence 0-100'),
+      },
+      async ({ workspace_id, subject_id, finding_type, weight, description, source_url, confidence }) => {
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          `/api/v1/workspaces/${encodeURIComponent(workspace_id)}/findings`,
+          this.apiKey,
+          {
+            method: 'POST',
+            body: JSON.stringify({ subject_id, finding_type, weight, description, source_url, confidence }),
+          }
+        );
+        return untrustedToolResult(data);
+      }
+    );
+    this.tools(
+      'ws_exposure',
+      'Calculate composite exposure score (0-100) for a target based on IOC reputation, breach exposure, infrastructure, attack surface, and threat intel.',
+      {
+        target: z.string().describe('Target to score (domain, IP, email)'),
+        target_type: z.string().optional().describe('Target type'),
+        ioc_reputation: z
+          .object({})
+          .passthrough()
+          .optional()
+          .describe('IOC reputation signals (abuseScore, vtPositives, etc.)'),
+        breach_exposure: z.object({}).passthrough().optional().describe('Breach exposure signals'),
+        infrastructure: z.object({}).passthrough().optional().describe('Infrastructure exposure signals'),
+        attack_surface: z.object({}).passthrough().optional().describe('Attack surface signals'),
+        threat_intel: z.object({}).passthrough().optional().describe('Threat intelligence signals'),
+      },
+      async (args) => {
+        const data = await apiFetch<Record<string, unknown>>(this.env.SELF, '/api/v1/cti/exposure', this.apiKey, {
+          method: 'POST',
+          body: JSON.stringify(args),
+        });
+        return untrustedToolResult(data);
+      }
+    );
+    this.tools(
+      'ws_export_stix',
+      'Export workspace indicators as STIX 2.1 bundle or flat IOC list.',
+      {
+        workspace_id: z.string().describe('Workspace ID'),
+        format: z.enum(['stix', 'flat']).optional().describe('Output format (default: stix)'),
+        default_tlp: z.enum(['WHITE', 'GREEN', 'AMBER', 'RED']).optional().describe('Default TLP marking'),
+      },
+      async ({ workspace_id, format, default_tlp }) => {
+        const url =
+          format === 'flat'
+            ? `/api/v1/workspaces/${encodeURIComponent(workspace_id)}/export?format=stix`
+            : `/api/v1/workspaces/${encodeURIComponent(workspace_id)}/export?format=stix`;
+        const data = await apiFetch<Record<string, unknown>>(this.env.SELF, url, this.apiKey);
+        return untrustedToolResult(data);
+      }
+    );
+    this.tools(
+      'ws_render_graph',
+      'Render an ASCII box-drawing relationship graph, timeline, or risk heatmap from workspace data.',
+      {
+        type: z.enum(['entities', 'timeline', 'risk']).describe('Graph type'),
+        nodes: z.array(z.object({}).passthrough()).optional().describe('Graph nodes (for entities type)'),
+        edges: z.array(z.object({}).passthrough()).optional().describe('Graph edges (for entities type)'),
+        events: z.array(z.object({}).passthrough()).optional().describe('Timeline events'),
+        dimensions: z.array(z.object({}).passthrough()).optional().describe('Risk dimensions'),
+        title: z.string().optional().describe('Graph title'),
+      },
+      async (args) => {
+        const data = await apiFetch<Record<string, unknown>>(this.env.SELF, '/api/v1/cti/render/graph', this.apiKey, {
+          method: 'POST',
+          body: JSON.stringify(args),
+        });
+        return untrustedToolResult(data);
+      }
+    );
+    this.tools(
+      'ws_workflow_advance',
+      'Advance a workspace to the next AEAD phase (Acquire→Enrich→Assess→Deliver→Complete).',
+      {
+        workspace_id: z.string().describe('Workspace ID'),
+      },
+      async ({ workspace_id }) => {
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          `/api/v1/workspaces/${encodeURIComponent(workspace_id)}/workflow/advance`,
+          this.apiKey,
+          { method: 'POST' }
+        );
+        return untrustedToolResult(data);
+      }
+    );
+    this.tools(
+      'ws_workflow_summary',
+      'Get workspace summary: phase progress, findings breakdown, recommended commands.',
+      {
+        workspace_id: z.string().describe('Workspace ID'),
+      },
+      async ({ workspace_id }) => {
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          `/api/v1/workspaces/${encodeURIComponent(workspace_id)}/workflow/summary`,
+          this.apiKey
+        );
+        return untrustedToolResult(data);
+      }
+    );
   }
 }

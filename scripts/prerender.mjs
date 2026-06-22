@@ -182,6 +182,7 @@ const ROUTES = [
   '/threatintel/tools/stix',
   '/threatintel/tools/unified-search',
   '/threatintel/tools/watches',
+  '/threatintel/tools/workspaces',
   '/threatintel/wiki/f3ead',
   '/threatintel/wiki/insider',
   '/threatintel/wiki/llm',
@@ -432,6 +433,7 @@ const ROUTES = [
   '/threatintel/copilot-chat',
   '/threatintel/observe',
   '/threatintel/watches',
+  '/threatintel/workspaces',
   // Live-feed surfaces that were already prerendered
   '/threatintel/threat-feeds',
   '/threatintel/writeups',
@@ -491,6 +493,7 @@ const ROUTES = [
   '/threatintel/phishing-wordlists',
   '/threatintel/pir-dashboard',
   '/threatintel/threat-actor-db',
+  '/threatintel/cti-dashboard',
   '/threatintel/projectdiscovery',
   '/threatintel/ransom-report',
   '/threatintel/relationship-graph',

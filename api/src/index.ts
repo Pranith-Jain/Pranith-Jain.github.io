@@ -89,6 +89,10 @@ import {
 import { telegramSearchHandler, telegramChannelMetaHandler } from './routes/telegram-search';
 import { cveRecentHandler } from './routes/cve-recent';
 import { cveThreatMapHandler } from './routes/cve-threat-map';
+import { cvePocScanHandler } from './routes/cve-poc-scan';
+import { cvePocMapHandler } from './routes/cve-poc-map';
+import { cyberNewsHandler } from './routes/cyber-news';
+import { cveHealthHandler } from './routes/cve-health';
 import { phishingUrlsHandler } from './routes/phishing-urls';
 import { cryptoScamFeedHandler } from './routes/crypto-scam-feed';
 import { actorUsernamesHandler, actorUsernamesStatsHandler } from './routes/actor-usernames';
@@ -775,6 +779,29 @@ import {
   notebookStatsHandler,
 } from './routes/notebooks';
 
+import {
+  listWorkspacesHandler,
+  createWorkspaceHandler,
+  getWorkspaceHandler,
+  updateWorkspaceHandler,
+  deleteWorkspaceHandler,
+  listSubjectsHandler,
+  createSubjectHandler,
+  listConnectionsHandler,
+  createConnectionHandler,
+  listFindingsHandler,
+  createFindingHandler,
+  listTimelineHandler,
+  addTimelineHandler,
+  exposureScoreHandler,
+  exportStixCtiHandler,
+  renderGraphHandler,
+  workflowStateHandler,
+  workflowAdvanceHandler,
+  workflowSummaryHandler,
+  exportWorkspaceHandler,
+} from './routes/cti-workspaces';
+
 app.get('/api/v1/health', (c) =>
   c.json({ ok: true, timestamp: new Date().toISOString() }, 200, { 'Cache-Control': 'public, max-age=60' })
 );
@@ -1057,6 +1084,10 @@ app.post('/api/v1/knowledge-graph', knowledgeGraphHandler);
 app.get('/api/v1/openapi.json', openapiHandler);
 app.get('/api/v1/cve-recent', cveRecentHandler);
 app.get('/api/v1/cve-threat-map', cveThreatMapHandler);
+app.get('/api/v1/cve-poc-scan', cvePocScanHandler);
+app.get('/api/v1/cve-poc-map', cvePocMapHandler);
+app.get('/api/v1/cyber-news', cyberNewsHandler);
+app.get('/api/v1/cve-health', cveHealthHandler);
 app.get('/api/v1/phishing-urls', phishingUrlsHandler);
 app.get('/api/v1/crypto-scam-feed', cryptoScamFeedHandler);
 app.get('/api/v1/actor-usernames', actorUsernamesHandler);
@@ -1537,6 +1568,51 @@ app.get('/api/v1/si/ref/:name', siRefHandler);
 app.get('/api/v1/si/routing-prompt', siRoutingPromptHandler);
 app.get('/api/v1/si/scripts', siScriptsHandler);
 app.get('/api/v1/si/scripts/:name', siScriptHandler);
+
+// ── CTI Collector (VHunt-inspired IOC fusion + AI prediction + mutation) ──
+import {
+  ctiCollectHandler,
+  ctiStatsHandler,
+  ctiIocsHandler,
+  ctiNewsHandler,
+  ctiPredictionsGetHandler,
+  ctiPredictionsPostHandler,
+  ctiMutateHandler,
+  ctiMutationsHandler,
+  ctiDecayHandler,
+} from './routes/cti-collector';
+app.post('/api/v1/cti/collect', ctiCollectHandler);
+app.get('/api/v1/cti/stats', ctiStatsHandler);
+app.get('/api/v1/cti/iocs', ctiIocsHandler);
+app.get('/api/v1/cti/news', ctiNewsHandler);
+app.get('/api/v1/cti/predictions', ctiPredictionsGetHandler);
+app.post('/api/v1/cti/predictions', ctiPredictionsPostHandler);
+app.post('/api/v1/cti/mutate', ctiMutateHandler);
+app.get('/api/v1/cti/mutations', ctiMutationsHandler);
+app.post('/api/v1/cti/decay', ctiDecayHandler);
+
+/* ─── CTI Workspaces (AEAD Lifecycle) ─────────────────────────────── */
+app.get('/api/v1/workspaces', listWorkspacesHandler);
+app.post('/api/v1/workspaces', createWorkspaceHandler);
+app.get('/api/v1/workspaces/:id', getWorkspaceHandler);
+app.put('/api/v1/workspaces/:id', updateWorkspaceHandler);
+app.delete('/api/v1/workspaces/:id', deleteWorkspaceHandler);
+app.get('/api/v1/workspaces/:id/subjects', listSubjectsHandler);
+app.post('/api/v1/workspaces/:id/subjects', createSubjectHandler);
+app.get('/api/v1/workspaces/:id/connections', listConnectionsHandler);
+app.post('/api/v1/workspaces/:id/connections', createConnectionHandler);
+app.get('/api/v1/workspaces/:id/findings', listFindingsHandler);
+app.post('/api/v1/workspaces/:id/findings', createFindingHandler);
+app.get('/api/v1/workspaces/:id/timeline', listTimelineHandler);
+app.post('/api/v1/workspaces/:id/timeline', addTimelineHandler);
+app.get('/api/v1/workspaces/:id/workflow', workflowStateHandler);
+app.post('/api/v1/workspaces/:id/workflow/advance', workflowAdvanceHandler);
+app.get('/api/v1/workspaces/:id/workflow/summary', workflowSummaryHandler);
+app.get('/api/v1/workspaces/:id/export', exportWorkspaceHandler);
+/* ─── CTI Exposure & Export ──────────────────────────────────────── */
+app.post('/api/v1/cti/exposure', exposureScoreHandler);
+app.post('/api/v1/cti/export/stix', exportStixCtiHandler);
+app.post('/api/v1/cti/render/graph', renderGraphHandler);
 
 // Standardized 404 shape: matches the api-error contract ({ error, message })
 // so clients get a human-readable message, not just a bare error code.

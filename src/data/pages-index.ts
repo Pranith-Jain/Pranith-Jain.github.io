@@ -1616,6 +1616,13 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
     group: 'threatintel',
   },
   {
+    path: '/threatintel/cti-dashboard',
+    label: 'CTI Dashboard',
+    description: 'CTI collector dashboard — IOC stats, predictions, mutations, and decay.',
+    sectionLabel: 'Threat Intel · Predictive',
+    group: 'threatintel',
+  },
+  {
     path: '/threatintel/pir-dashboard',
     label: 'PIR Dashboard',
     description: 'Priority Intelligence Requirements dashboard — coverage and gaps.',
@@ -3730,6 +3737,13 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
     path: '/threatintel/tools/watches',
     label: 'Watches',
     description: 'Watch lists.',
+    sectionLabel: 'Threat Intel · Tools',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/tools/workspaces',
+    label: 'Investigation Workspaces',
+    description: 'AEAD lifecycle workspaces — Acquire, Enrich, Assess, Deliver.',
     sectionLabel: 'Threat Intel · Tools',
     group: 'threatintel',
   },
