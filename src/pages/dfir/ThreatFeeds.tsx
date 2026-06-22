@@ -2,7 +2,17 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 import { Link } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, ExternalLink, RefreshCw, Radio, Loader2, Search, AlertTriangle, CheckCircle2 } from 'lucide-react';
+import {
+  ArrowLeft,
+  ExternalLink,
+  RefreshCw,
+  Radio,
+  Loader2,
+  Search,
+  AlertTriangle,
+  CheckCircle2,
+  Brain,
+} from 'lucide-react';
 import {
   fetchAggregatedFeed,
   formatRelativeTime,
@@ -20,6 +30,7 @@ import {
   rssFeeds,
 } from '../../data/rssFeeds';
 import { PostAnalysisButton } from '../../components/threatintel/PostAnalysisButton';
+import { FeedDigestPanel } from '../../components/threatintel/FeedDigestPanel';
 
 /**
  * Threat Feeds — sectioned aggregator for the threat-intelligence half of
@@ -111,6 +122,7 @@ export default function ThreatFeeds(): JSX.Element {
   const [feedStatuses, setFeedStatuses] = useState<AggregatedFeedSourceStatus[]>([]);
   const [disabled, setDisabled] = useState<Set<string>>(() => loadDisabled());
   const [showSourcePanel, setShowSourcePanel] = useState(false);
+  const [showDigest, setShowDigest] = useState(false);
 
   useEffect(() => {
     try {
@@ -426,6 +438,39 @@ export default function ThreatFeeds(): JSX.Element {
           </>
         )}
       </p>
+
+      {/* AI Digest Button */}
+      {annotated.length > 0 && (
+        <div className="mb-4">
+          <button
+            type="button"
+            onClick={() => setShowDigest((p) => !p)}
+            className={`inline-flex items-center gap-2 text-xs font-mono px-4 py-2 rounded-lg border transition-colors ${
+              showDigest
+                ? 'border-brand-500/50 bg-brand-500/10 text-brand-600 dark:text-brand-400'
+                : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800'
+            }`}
+          >
+            <Brain size={14} />
+            {showDigest ? 'Hide Digest' : 'Generate AI Digest'}
+          </button>
+        </div>
+      )}
+
+      {showDigest && (
+        <div className="mb-6">
+          <FeedDigestPanel
+            items={annotated.slice(0, 50).map(({ item }) => ({
+              title: item.title,
+              description: item.description,
+              source: item.source,
+              pubDate: item.pubDate,
+            }))}
+            period="daily"
+            onClose={() => setShowDigest(false)}
+          />
+        </div>
+      )}
 
       <ul className="space-y-2">
         {annotated.slice(0, 200).map(({ item, section }) => (

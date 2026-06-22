@@ -41,6 +41,7 @@ import { MILITARY_BASES } from '../../data/military-bases';
 import { NUCLEAR_FACILITIES } from '../../data/nuclear-facilities';
 import { fetchFireDetections } from '../../data/fire-detections';
 import { ThreatAnalysisPanel } from '../../components/threatintel/ThreatAnalysisPanel';
+import { CountryIntelPanel } from '../../components/threatintel/CountryIntelPanel';
 
 const PulseMap = lazy(() => import('./PulseMap'));
 const CtiGlobe = lazy(() => import('../../components/threatintel/cti/CtiGlobe'));
@@ -490,6 +491,7 @@ export default function GlobalPulse(): JSX.Element {
   const [autoRefresh, setAutoRefresh] = useState(true);
   const [selectedEvent, setSelectedEvent] = useState<PulseEvent | null>(null);
   const [showAiAnalysis, setShowAiAnalysis] = useState(false);
+  const [showCountryIntel, setShowCountryIntel] = useState(false);
   // Default to the 3D globe — it's the showpiece and the "wow" of this page (the
   // recruiter-facing first impression). It's lazy-loaded (globe.gl/three.js,
   // ~506KB gz, route-split to THIS page only) and renders behind a skeleton while
@@ -1952,6 +1954,20 @@ export default function GlobalPulse(): JSX.Element {
                       <Brain size={12} />
                       {showAiAnalysis ? 'Hide Analysis' : 'AI Analysis'}
                     </button>
+                    {selectedEvent.country && (
+                      <button
+                        type="button"
+                        onClick={() => setShowCountryIntel((p) => !p)}
+                        className={`inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded-lg border transition-colors ${
+                          showCountryIntel
+                            ? 'border-purple-500/50 bg-purple-500/10 text-purple-600 dark:text-purple-400'
+                            : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800'
+                        }`}
+                      >
+                        <Globe size={12} />
+                        {showCountryIntel ? 'Hide Intel' : `${selectedEvent.country} Intel`}
+                      </button>
+                    )}
                   </div>
                 </div>
                 <button
@@ -1979,6 +1995,23 @@ export default function GlobalPulse(): JSX.Element {
               kind={selectedEvent.kind}
               source={selectedEvent.source}
               onClose={() => setShowAiAnalysis(false)}
+            />
+          )}
+
+          {/* ─── Country Intelligence Panel ─── */}
+          {showCountryIntel && (
+            <CountryIntelPanel
+              country={selectedEvent?.country || 'Global'}
+              events={filteredEvents
+                .filter((e) => e.country === selectedEvent?.country)
+                .slice(0, 10)
+                .map((e) => ({
+                  title: e.title,
+                  kind: e.kind,
+                  severity: e.severity,
+                  source: e.source,
+                }))}
+              onClose={() => setShowCountryIntel(false)}
             />
           )}
         </div>

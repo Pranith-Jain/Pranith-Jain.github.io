@@ -118,6 +118,13 @@ import { cybercrimeHandler } from './routes/cybercrime';
 import { iocExplainHandler, iocRuleHandler } from './routes/ioc-verdict';
 import { globalPulseHandler } from './routes/global-pulse';
 import { threatAnalysisHandler } from './routes/threat-analysis';
+import { iocExtractionHandler } from './routes/ioc-extraction';
+import { mitreMappingHandler } from './routes/mitre-mapping';
+import { countryIntelHandler } from './routes/country-intel';
+import { feedDigestHandler } from './routes/feed-digest';
+import { eventCorrelationHandler } from './routes/event-correlation';
+import { campaignTrackerHandler } from './routes/campaign-tracker';
+import { feedQualityHandler as assessFeedQualityHandler } from './routes/feed-quality';
 import {
   webamonSearchHandler,
   webamonScanHandler,
@@ -368,7 +375,7 @@ import { maltrailSyncHandler, listSkeletonActorsHandler, getSkeletonActorHandler
 import { maliciousPackagesHandler } from './routes/malicious-packages';
 import { packageVerdictHandler } from './routes/package-verdict';
 import { secretLeaksHandler } from './routes/secret-leaks';
-import { feedQualityHandler } from './routes/tifce';
+import { feedQualityHandler as tifceFeedQualityHandler } from './routes/tifce';
 import {
   agentInvestigateHandler,
   agentStateHandler,
@@ -717,6 +724,7 @@ import {
 
 // ── Health Checks ──────────────────────────────────────────────────
 import { generateOpenApiSpec } from './lib/openapi';
+import { API_DOCS_HTML } from './lib/api-docs-html';
 import { apiVersion } from './lib/api-version';
 import {
   exportStixHandler,
@@ -776,6 +784,22 @@ app.get('/api/v1/openapi.json', (c) => {
     'Access-Control-Allow-Origin': '*',
   });
 });
+
+// ── OpenAPI Browser (Scalar) ────────────────────────────────────
+// Static HTML page that mounts Scalar pointing at /api/v1/openapi.json.
+// Asset: public/api-docs.html. Mirror the security headers the Worker
+// applies to every other HTML response (CSP nonce is generated at the
+// Worker level - the html file is served as-is here, so we don't try
+// to add a per-response nonce; CSP for the Scalar page is permissive
+// only for the Scalar CDN host and our own origin).
+app.get('/api/docs', (c) => {
+  return c.body(API_DOCS_HTML, 200, {
+    'content-type': 'text/html; charset=utf-8',
+    'Cache-Control': 'public, max-age=300',
+  });
+});
+
+app.get('/api/v1/docs', (c) => c.redirect('/api/docs', 301));
 
 app.get('/api/v1/health/d1', async (c) => {
   const db = c.env.BRIEFINGS_DB;
@@ -1010,6 +1034,13 @@ app.get('/api/v1/webamon/server/:ip', webamonServerHandler);
 app.get('/api/v1/webamon/resource/:sha256', webamonResourceHandler);
 app.get('/api/v1/global-pulse', globalPulseHandler);
 app.post('/api/v1/threat-analysis', threatAnalysisHandler);
+app.post('/api/v1/ioc-extraction', iocExtractionHandler);
+app.post('/api/v1/mitre-mapping', mitreMappingHandler);
+app.post('/api/v1/country-intel', countryIntelHandler);
+app.post('/api/v1/feed-digest', feedDigestHandler);
+app.post('/api/v1/event-correlation', eventCorrelationHandler);
+app.post('/api/v1/campaign-tracker', campaignTrackerHandler);
+app.post('/api/v1/feed-quality', assessFeedQualityHandler);
 app.get('/api/v1/cve-recent', cveRecentHandler);
 app.get('/api/v1/cve-threat-map', cveThreatMapHandler);
 app.get('/api/v1/phishing-urls', phishingUrlsHandler);
@@ -1028,7 +1059,7 @@ app.get('/api/v1/infra-search', infraSearchHandler);
 app.get('/api/v1/reddit-feed', redditFeedHandler);
 app.get('/api/v1/x-feed', xFeedHandler);
 app.get('/api/v1/feed-status', feedStatusHandler);
-app.get('/api/v1/feed-quality', feedQualityHandler);
+app.get('/api/v1/feed-quality', tifceFeedQualityHandler);
 app.post('/api/v1/agent/investigate', validate('json', agentInvestigateSchema), agentInvestigateHandler);
 app.delete('/api/v1/agent/:id', agentDeleteHandler);
 app.get('/api/v1/agent/sessions', agentSessionsHandler);
