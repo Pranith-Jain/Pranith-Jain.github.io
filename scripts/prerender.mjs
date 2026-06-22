@@ -183,6 +183,7 @@ const ROUTES = [
   '/threatintel/tools/unified-search',
   '/threatintel/tools/watches',
   '/threatintel/tools/workspaces',
+  '/threatintel/tools/tg-intel-search',
   '/threatintel/wiki/f3ead',
   '/threatintel/wiki/insider',
   '/threatintel/wiki/llm',

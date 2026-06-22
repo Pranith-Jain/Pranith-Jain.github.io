@@ -2561,5 +2561,87 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         return untrustedToolResult(data);
       }
     );
+
+    // ── Telegram Intelligence Search (TraceOn-inspired) ──────────────
+    this.tools(
+      'tg_boolean_search',
+      'Search Telegram leak messages with boolean AND/OR/NOT operators and field qualifiers. Fields: text, channel.title, channel.username, severity, leak_type. Supports wildcards (prefix*) and exact phrases ("quoted").',
+      {
+        q: z.string().describe('Boolean query (e.g. ransomware AND channel.title:TeamPCP NOT tutorial)'),
+        mode: z.enum(['boolean', 'general']).optional().describe('Search mode (default: boolean)'),
+        channel: z.string().optional().describe('Filter by channel handle'),
+        severity: z.enum(['critical', 'high', 'medium', 'low']).optional().describe('Filter by severity'),
+        from: z.string().optional().describe('Date from (ISO date)'),
+        to: z.string().optional().describe('Date to (ISO date)'),
+        sort: z.enum(['newest', 'oldest']).optional().describe('Sort order (default: newest)'),
+        limit: z.number().optional().describe('Max results (default 50)'),
+      },
+      async (args) => {
+        const params = new URLSearchParams();
+        for (const [k, v] of Object.entries(args)) {
+          if (v !== undefined && v !== null) params.set(k, String(v));
+        }
+        const data = await apiFetch<Record<string, unknown>>(this.env.SELF, `/api/v1/tg-search?${params}`, this.apiKey);
+        return untrustedToolResult(data);
+      }
+    );
+    this.tools(
+      'tg_timeline',
+      'Get Telegram message volume timeline data (messages per day) with severity breakdown. Useful for visualizing activity spikes.',
+      {
+        q: z.string().optional().describe('Boolean query to filter timeline'),
+        channel: z.string().optional().describe('Filter by channel handle'),
+        days: z.number().optional().describe('Number of days to look back (default 30, max 365)'),
+      },
+      async (args) => {
+        const params = new URLSearchParams();
+        for (const [k, v] of Object.entries(args)) {
+          if (v !== undefined && v !== null) params.set(k, String(v));
+        }
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          `/api/v1/tg-timeline?${params}`,
+          this.apiKey
+        );
+        return untrustedToolResult(data);
+      }
+    );
+    this.tools('tg_saved_searches_list', 'List saved Telegram boolean search queries.', {}, async () => {
+      const data = await apiFetch<Record<string, unknown>>(this.env.SELF, '/api/v1/tg-saved-searches', this.apiKey);
+      return untrustedToolResult(data);
+    });
+    this.tools(
+      'tg_saved_search_create',
+      'Save a Telegram boolean search query for one-click reuse.',
+      {
+        name: z.string().describe('Saved search name (e.g. "Daily Stealer Monitor")'),
+        query: z.string().describe('Boolean query to save'),
+        mode: z.enum(['boolean', 'general']).optional().describe('Search mode'),
+        sort_order: z.enum(['newest', 'oldest']).optional().describe('Sort order'),
+      },
+      async ({ name, query, mode, sort_order }) => {
+        const data = await apiFetch<Record<string, unknown>>(this.env.SELF, '/api/v1/tg-saved-searches', this.apiKey, {
+          method: 'POST',
+          body: JSON.stringify({ name, query, mode, sort_order }),
+        });
+        return untrustedToolResult(data);
+      }
+    );
+    this.tools(
+      'tg_saved_search_delete',
+      'Delete a saved Telegram search query.',
+      {
+        id: z.string().describe('Saved search ID'),
+      },
+      async ({ id }) => {
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          `/api/v1/tg-saved-searches/${encodeURIComponent(id)}`,
+          this.apiKey,
+          { method: 'DELETE' }
+        );
+        return untrustedToolResult(data);
+      }
+    );
   }
 }

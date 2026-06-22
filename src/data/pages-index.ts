@@ -3749,6 +3749,13 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
     group: 'threatintel',
   },
   {
+    path: '/threatintel/tools/tg-intel-search',
+    label: 'TG Intel Search',
+    description: 'Boolean search across Telegram messages — AND/OR/NOT, field qualifiers, IOC extraction.',
+    sectionLabel: 'Threat Intel · Tools',
+    group: 'threatintel',
+  },
+  {
     path: '/threatintel/tools/settings',
     label: 'Settings',
     description: 'Platform settings.',

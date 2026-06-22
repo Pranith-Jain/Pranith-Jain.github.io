@@ -89,7 +89,7 @@ async function fetchThreatFox(): Promise<CollectedIoc[]> {
 }
 
 async function fetchUrlhaus(): Promise<CollectedIoc[]> {
-  const res = await safeFetch('https://urlhaus-api.abuse.ch/v1/urls/recent/', { timeout: FETCH_TIMEOUT_MS } as never);
+  const res = await safeFetch('https://urlhaus-api.abuse.ch/v1/urls/recent/');
   if (!res) {
     // Fallback: CSV bulk feed
     const csvRes = await safeFetch('https://urlhaus.abuse.ch/downloads/csv_online/');
@@ -224,7 +224,7 @@ async function fetchCisaKev(): Promise<CollectedIoc[]> {
   if (!res) return [];
   const data = (await res.json()) as { vulnerabilities: Array<Record<string, unknown>> };
   return (data.vulnerabilities || [])
-    .slice(0, 50)
+    .slice(0, 200)
     .map((v) => ({
       value: String(v.cveID || ''),
       type: 'cve',
@@ -340,6 +340,10 @@ export async function storeNews(db: D1Database, articles: CollectedNews[]): Prom
   const stmt = db.prepare(`
     INSERT INTO cti_news (title, url, summary, source, published, tags)
     VALUES (?, ?, ?, ?, ?, ?)
+    ON CONFLICT(title, source) DO UPDATE SET
+      url = excluded.url,
+      summary = CASE WHEN excluded.summary != '' THEN excluded.summary ELSE summary END,
+      fetched_at = strftime('%Y-%m-%dT%H:%M:%SZ', 'now')
   `);
   const batches: D1PreparedStatement[] = [];
   for (const a of articles) {
@@ -397,8 +401,8 @@ export async function applyDecayScoring(db: D1Database): Promise<{ updated: numb
   let updated = 0;
   for (let i = 0; i < batches.length; i += 100) {
     try {
-      await db.batch(batches.slice(i, i + 100));
-      updated += Math.min(100, batches.length - i);
+      const results = await db.batch(batches.slice(i, i + 100));
+      updated += results.filter((r) => (r.meta?.changes ?? 0) > 0).length;
     } catch {
       // Skip
     }
@@ -599,9 +603,13 @@ export interface IocStats {
 }
 
 export async function getIocStats(db: D1Database): Promise<IocStats> {
-  const [totalRes, activeRes, typeRes, sourceRes, familyRes, trendingRes, newsRes, newsSrcRes] = await Promise.all([
+  // Batch queries to avoid D1 concurrency limits (max ~5 concurrent)
+  const [totalRes, activeRes] = await Promise.all([
     db.prepare('SELECT COUNT(*) as n FROM cti_iocs').first(),
     db.prepare('SELECT COUNT(*) as n FROM cti_iocs WHERE decay_score > 0.5').first(),
+  ]);
+
+  const [typeRes, sourceRes, familyRes] = await Promise.all([
     db.prepare('SELECT type, COUNT(*) as n FROM cti_iocs GROUP BY type ORDER BY n DESC').all(),
     db.prepare('SELECT source, COUNT(*) as n FROM cti_iocs GROUP BY source ORDER BY n DESC').all(),
     db
@@ -609,6 +617,9 @@ export async function getIocStats(db: D1Database): Promise<IocStats> {
         "SELECT malware_family as family, COUNT(*) as n FROM cti_iocs WHERE malware_family != '' GROUP BY malware_family ORDER BY n DESC LIMIT 10"
       )
       .all(),
+  ]);
+
+  const [trendingRes, newsRes, newsSrcRes] = await Promise.all([
     db
       .prepare(
         'SELECT value, type, source, observation_count as observations FROM cti_iocs WHERE observation_count > 1 ORDER BY observation_count DESC LIMIT 10'

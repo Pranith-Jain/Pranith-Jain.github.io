@@ -992,6 +992,14 @@ export const HUB_META: readonly HubMeta[] = [
         badge: 'new',
       },
       {
+        path: '/threatintel/tools/tg-intel-search',
+        tabId: 'tg-intel-search',
+        label: 'TG Intel Search',
+        desc: 'Boolean search across Telegram messages — AND/OR/NOT, field qualifiers, IOC extraction.',
+        compVar: 'TgIntelSearch',
+        badge: 'new',
+      },
+      {
         path: '/threatintel/tools/unified-search',
         tabId: 'unified-search',
         label: 'Unified Search',
