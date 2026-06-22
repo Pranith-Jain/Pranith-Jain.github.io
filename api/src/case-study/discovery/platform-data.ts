@@ -44,7 +44,6 @@ async function discoverFromRansomware(deps: PlatformDataDeps): Promise<Candidate
   try {
     const data = (await deps.apiFetch('/api/v1/ransomware-recent')) as {
       victims?: RansomwareVictim[];
-      count?: number;
     };
 
     if (!data?.victims?.length) return [];

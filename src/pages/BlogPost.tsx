@@ -14,6 +14,7 @@ interface Post {
   hero: string;
   iocs: { type: string; value: string }[];
   tags: string[];
+  sources?: { url: string; title: string }[];
   candidateId?: string;
   quality?: { total: number };
 }
@@ -48,7 +49,10 @@ const PROSE =
   '[&_table]:w-full [&_table]:border-collapse [&_table]:mb-4 ' +
   '[&_th]:border [&_th]:border-slate-200 dark:[&_th]:border-slate-800 [&_th]:p-2 [&_th]:text-left [&_th]:text-slate-800 dark:[&_th]:text-slate-200 [&_th]:bg-slate-50 dark:[&_th]:bg-slate-900 ' +
   '[&_td]:border [&_td]:border-slate-200 dark:[&_td]:border-slate-800 [&_td]:p-2 [&_td]:text-slate-700 dark:[&_td]:text-slate-300 ' +
-  '[&_img]:rounded-lg [&_img]:mb-4 [&_img]:max-w-full';
+  '[&_img]:rounded-lg [&_img]:mb-4 [&_img]:max-w-full ' +
+  '[&_details]:mb-4 [&_details]:rounded-lg [&_details]:border [&_details]:border-slate-200 dark:[&_details]:border-slate-700 [&_details]:bg-slate-50/50 dark:[&_details]:bg-slate-900/20 [&_details]:overflow-hidden ' +
+  '[&_summary]:cursor-pointer [&_summary]:px-4 [&_summary]:py-2.5 [&_summary]:font-mono [&_summary]:text-xs [&_summary]:uppercase [&_summary]:tracking-[0.16em] [&_summary]:text-brand-600 dark:[&_summary]:text-brand-400 [&_summary]:select-none [&_summary]:hover:text-brand-500 ' +
+  '[&_details_>_:not(summary)]:px-4 [&_details_>_:not(summary)]:pb-3 [&_details_>_:not(summary)]:text-sm';
 
 function addHeadingIds(html: string): string {
   let index = 0;
@@ -270,7 +274,30 @@ export default function BlogPost() {
   );
 
   return (
-    <article ref={articleRef} className="mx-auto max-w-5xl text-slate-900 dark:text-slate-100">
+    <article ref={articleRef} className="blog-post mx-auto max-w-5xl text-slate-900 dark:text-slate-100">
+      <style>{`
+        .blog-post details[open] summary {
+          border-bottom: 1px solid rgb(226 232 240);
+          margin-bottom: 0.5rem;
+        }
+        .dark .blog-post details[open] summary {
+          border-bottom-color: rgb(51 65 85);
+        }
+        .blog-post details[open] > :not(summary) {
+          padding-bottom: 0.75rem;
+        }
+        .blog-post .tldr-box {
+          background: linear-gradient(to right, rgb(239 246 255), rgb(238 242 255));
+          border-left: 4px solid rgb(99 102 241);
+          border-radius: 0.5rem;
+          padding: 1.25rem 1.5rem;
+          margin-bottom: 1.5rem;
+        }
+        .dark .blog-post .tldr-box {
+          background: linear-gradient(to right, rgb(30 27 75), rgb(15 23 42));
+          border-left-color: rgb(99 102 241);
+        }
+      `}</style>
       {/* Reading-progress bar. Positioned at the very top of the article
           (sticky to the page, not the article, so it sits below the
           portfolio nav). One CSS variable drives the fill so we don't
@@ -604,6 +631,31 @@ export default function BlogPost() {
                 </div>
               </div>
             </section>
+
+            {post.sources && post.sources.length > 0 && (
+              <section className="mt-6 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-6 sm:p-8">
+                <h2 className="text-mini font-mono uppercase tracking-[0.16em] text-slate-500 mb-3">Sources</h2>
+                <ul className="space-y-2">
+                  {post.sources.map((s, i) => (
+                    <li key={i} className="text-sm">
+                      <a
+                        href={s.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-brand-600 dark:text-brand-400 hover:underline font-medium"
+                      >
+                        {s.title || s.url}
+                      </a>
+                      {s.title && (
+                        <span className="text-slate-500 dark:text-slate-400 ml-1">
+                          — {s.url.replace(/^https?:\/\//, '').replace(/\/$/, '')}
+                        </span>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            )}
 
             <section className="mt-6 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-6 sm:p-8">
               <div className="sm:flex sm:items-center sm:justify-between gap-6">

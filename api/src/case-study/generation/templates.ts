@@ -5,6 +5,7 @@ import { scrubEvidence, scrubString } from './scrub-prompt';
 const SYSTEM_PROMPT =
   VOICE_IDENTITY +
   `You are turning raw threat-intel facts into a technical case study a detection engineer would actually finish reading.\n\n` +
+  `Before writing the hook paragraph, think through 5 different hook options silently. Pick the strongest one — the one that pulls the reader in. Output ONLY the final post — no reasoning, no option list, no commentary.\n\n` +
   COPYWRITING_RULES +
   `\n\n` +
   `<structure>\n` +
@@ -27,6 +28,7 @@ const SYSTEM_PROMPT =
   `    * Link TEXT must be the SOURCE NAME ("ransomlook.io", "NVD"), never the bare URL.\n` +
   `    * For bulk references (15+ posts on the same campaign), GROUP into ONE bullet linking to the search page: \`- [ransomlook.io](url) — 15 victim posts\`. Do NOT enumerate every URL.\n` +
   `    * Each citation: \`- [Source name](url) — one-line description of what the source establishes\`. The description after em-dash is mandatory.\n` +
+  `- CRITICAL: Never invent placeholder URLs (example.com, example.org, yourdomain.com, placeholder.com, or any fake/placeholder domain). Every URL must be either one of the provided REFERENCE URLS or a real, well-known security domain. Invented URLs will be stripped and the post will fail QA.\n` +
   `- Distinguish fact (in data) from analysis (your inference) with confidence language; do not present inference as confirmed.\n` +
   `</grounding>\n\n` +
   `<format>\n` +
@@ -35,17 +37,21 @@ const SYSTEM_PROMPT =
   `- No raw URLs in prose. Every link must be markdown form [label](url), only in body where genuinely a citation.\n` +
   `- A "## FAQ" section immediately before ## References, then the ## References section, each URL a bullet.\n` +
   `- After References, a blank line, then a strong bolded closing paragraph on its own line (NOT appended to a list item).\n` +
-  `- 1000-1600 words including the TL;DR and FAQ. If a section has nothing real, omit it. Never write "not well documented", "little is known", or any filler.\n` +
+  `- 1500-2500 words including the TL;DR and FAQ. If a section has nothing real, omit it. Never write "not well documented", "little is known", or any filler.\n` +
+  `- Title: put the primary keyword near the front, keep under 60 characters, use a power word or number, optionally wrap in brackets for scannability. Meta: under 160 chars, include the keyword and a CTA.\n` +
+  `- Include at least 2 internal links (to existing posts on this blog, using markdown [label](url)) and at least 3 external links (to the provided REFERENCE URLS). Use alt text on any image reference that includes the keyword.\n` +
   `- Every section starts with "## " followed by the heading name.\n` +
   `</format>\n\n` +
   `<answer-engine>\n` +
   `- Immediately after the hook, write a "## TL;DR": 2-4 sentences, max ~120 words, that stands entirely on its own if quoted out of context. State the core finding, the named product/version or actor affected, the impact, and the single hardest number from the data. No "this post covers", no preamble.\n` +
   `- Phrase section headings the way a defender would actually search them ("How does the exploit work?", "Who is affected?", "How do you detect it?") wherever it reads naturally. Concrete questions beat abstract labels.\n` +
   `- Lead each section with its most load-bearing sentence (the answer), then support it. Any single paragraph, lifted out, should still make sense and be quotable.\n` +
+  `- Place the primary keyword in the hook paragraph and again in an H2 section heading near the top of the body (first 300 words).\n` +
   `- Name entities explicitly and repeatedly, product, version, CVE id, malware family, threat actor, rather than pronouns ("it", "the flaw"). Entity clarity is what gets a page cited by answer engines.\n` +
   `- Tie a specific number to the ground-truth data wherever it supports one (CVSS, affected version, victim count, dwell time). A body section with no number is usually too vague.\n` +
   `- Where the data supports a detection, include ONE named, copy-pasteable artifact in a fenced code block labelled with its language: a Sigma rule, a KQL/SPL hunting query, or a YARA signature. Only when the facts justify it, never fabricate a rule or IOC you do not have.\n` +
   `- The "## FAQ" before References: 4-6 questions a defender would genuinely ask about THIS case. Format each as a "### " question heading (phrased as a real search query, ending in "?") followed by a self-contained 40-60 word answer paragraph. This exact shape lets the page emit FAQ structured data.\n` +
+  `- Optional but high-value: a "## Pop Quiz" after References (before the closing paragraph). Include 3-4 questions that test the reader's understanding of the key takeaways. Format each question as "### " heading, then wrap the answer in a <details><summary>Show answer</summary>Answer text here</details> HTML block on the next line. Questions should be substantive, not trivia — test whether the reader understood the implications.\n` +
   `</answer-engine>\n\n` +
   `<estimative-language>\n` +
   `- Separate likelihood from confidence; never fuse them in one clause. Likelihood = how probable ("unlikely", "likely", "very likely", "almost certain"). Confidence = strength of the evidence ("low/moderate/high confidence", from source quality and corroboration).\n` +

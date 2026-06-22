@@ -27,6 +27,7 @@ export async function discoverAdvisories(deps: DiscoverAdvisoriesDeps): Promise<
       });
       if (!r.ok) continue;
       const xml = await r.text();
+      const feedHost = new URL(feed).hostname.replace(/^www\./, '');
       for (const item of parseRssItems(xml, deps.now)) {
         if (item.date.getTime() < cutoff) continue;
         const key = topicKey('intel', item.title);
@@ -41,9 +42,7 @@ export async function discoverAdvisories(deps: DiscoverAdvisoriesDeps): Promise<
           key,
           type: 'intel',
           title: item.title,
-          rationale: `Advisory · ${new URL(feed).hostname.replace(/^www\./, '')} · ${item.date
-            .toISOString()
-            .slice(0, 10)}`,
+          rationale: `Advisory · ${feedHost} · ${item.date.toISOString().slice(0, 10)}`,
           score,
           evidence: { url: item.link, published: item.date.toISOString(), source: feed },
           discoveredAt: deps.now.toISOString(),

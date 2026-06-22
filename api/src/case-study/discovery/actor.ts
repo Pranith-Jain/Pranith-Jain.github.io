@@ -60,6 +60,8 @@ const KNOWN_ACTORS = [
   'FIN8',
 ] as const;
 
+const ACTOR_RE = KNOWN_ACTORS.map((name) => ({ name, re: new RegExp(`\\b${name}\\b`, 'i') }));
+
 const ITEM_RE = /<item[\s\S]*?<\/item>/g;
 const TITLE_RE = /<title>([\s\S]*?)<\/title>/;
 const LINK_RE = /<link>([\s\S]*?)<\/link>/;
@@ -85,8 +87,8 @@ export async function discoverActors(deps: DiscoverActorsDeps): Promise<Candidat
         const link = (item.match(LINK_RE)?.[1] ?? '').trim();
         const pub = item.match(PUB_RE)?.[1];
         const pubDate = pub ? new Date(pub) : deps.now;
-        for (const actor of KNOWN_ACTORS) {
-          if (new RegExp(`\\b${actor}\\b`, 'i').test(title)) {
+        for (const { name: actor, re } of ACTOR_RE) {
+          if (re.test(title)) {
             const k = actorKey(actor);
             const e = mentions.get(k) ?? { count: 0, latest: new Date(0), urls: [], titles: [] };
             e.count += 1;

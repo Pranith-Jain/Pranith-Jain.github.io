@@ -165,7 +165,7 @@ function stripEmptySections(body: string): string {
         result.push(line);
         if (content) {
           result.push('');
-          result.push(...sectionBody.filter((l) => l.trim()));
+          result.push(...sectionBody);
         }
       }
     } else {
@@ -184,9 +184,16 @@ function fixListBlocks(body: string): string {
   return body.replace(/^(\s*(?:[-*+]|\d+\.)\s.+)\n(?=\S)/gm, '$1\n\n');
 }
 
-/** Strip placeholder reference links pointing to example.com. */
+/** Strip reference bullets whose URL is a placeholder/example.com domain. */
 function stripPlaceholderRefs(body: string): string {
-  return body.replace(/\[([^\]]*)]\(https?:\/\/example\.com[^)]*\)/g, '');
+  const refLine = /^(\s*[-*+]\s*)\[([^\]]+)\]\(([^)]+)\)([^\n]*)\n?/gm;
+  return body
+    .replace(refLine, (match, _bullet, _label, url) => {
+      const host = hostOf(String(url));
+      if (host && isPlaceholderDomain(host)) return '';
+      return match;
+    })
+    .replace(/^(\s*[-*+]\s*)https?:\/\/example\.\w+[^\n]*\n?/gm, '');
 }
 
 /**
@@ -319,11 +326,13 @@ function stripDisallowedRefs(body: string, factsText: string): string {
 
   let kept = 0;
   let dropped = 0;
+  let anyNonPlaceholderDropped = false;
   const refLine = /^(\s*[-*+]\s*)\[([^\]]+)\]\(([^)]+)\)([^\n]*)\n?/gm;
   const filtered = refsText.replace(refLine, (match, _bullet, _label, url) => {
     const host = hostOf(String(url));
     if (!host) {
       dropped += 1;
+      anyNonPlaceholderDropped = true;
       return '';
     }
     const bare = host.replace(/^www\./, '');
@@ -336,6 +345,7 @@ function stripDisallowedRefs(body: string, factsText: string): string {
       kept += 1;
       return match;
     }
+    if (!isPlaceholderDomain(host)) anyNonPlaceholderDropped = true;
     dropped += 1;
     return '';
   });
@@ -344,7 +354,9 @@ function stripDisallowedRefs(body: string, factsText: string): string {
   // back off — leave the original list. An over-eager filter could
   // remove every reference on a topic whose canonical sources we haven't
   // enumerated yet, and an empty References section trips QA.
-  if (kept === 0 && dropped > 0) return body;
+  // Exception: do NOT back off when ALL dropped references are placeholder
+  // domains — those are invented by the model and should never survive.
+  if (kept === 0 && dropped > 0 && anyNonPlaceholderDropped) return body;
   return bodyText + filtered;
 }
 
@@ -670,7 +682,7 @@ function scoreQuality(body: string, iocs: PostIOC[]): QualityScore {
   const wordCount = countWords(body);
 
   // Length score (0-30)
-  const lengthScore = wordCount >= 800 && wordCount <= 1200 ? 30 : wordCount >= 500 || wordCount <= 1500 ? 20 : 10;
+  const lengthScore = wordCount >= 800 && wordCount <= 1200 ? 30 : wordCount >= 500 && wordCount <= 1500 ? 20 : 10;
 
   // Section score (0-25)
   const sectionMatches = body.match(/^##\s+.+/gm) ?? [];

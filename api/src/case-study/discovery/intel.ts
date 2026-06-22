@@ -47,6 +47,7 @@ export async function discoverIntel(deps: DiscoverDeps): Promise<Candidate[]> {
       });
       if (!r.ok) continue;
       const xml = await r.text();
+      const feedHost = new URL(feed).hostname.replace(/^www\./, '');
       for (const item of parseRssItems(xml, deps.now)) {
         if (item.date.getTime() < cutoff) continue;
         const key = topicKey('intel', item.title);
@@ -61,9 +62,7 @@ export async function discoverIntel(deps: DiscoverDeps): Promise<Candidate[]> {
           key,
           type: 'intel',
           title: item.title,
-          rationale: `CTI research · ${new URL(feed).hostname.replace(/^www\./, '')} · ${item.date
-            .toISOString()
-            .slice(0, 10)}`,
+          rationale: `CTI research · ${feedHost} · ${item.date.toISOString().slice(0, 10)}`,
           score,
           evidence: { url: item.link, published: item.date.toISOString(), source: feed },
           discoveredAt: deps.now.toISOString(),

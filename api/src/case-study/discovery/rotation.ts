@@ -1,5 +1,5 @@
 /** UTC day-of-year (0-based). */
-function dayOfYear(now: Date): number {
+export function dayOfYear(now: Date): number {
   const start = Date.UTC(now.getUTCFullYear(), 0, 0);
   return Math.floor((Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()) - start) / 86400000) - 1;
 }

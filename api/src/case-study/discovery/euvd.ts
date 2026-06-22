@@ -1,4 +1,5 @@
 import type { Candidate, DedupRecord } from '../types';
+import { topicKey } from '../stable-keys';
 import { recencyScore, severityScore, noveltyScore, finalScore } from '../scoring';
 
 const EUVD_URL = 'https://euvdservices.enisa.europa.eu/api/lastvulnerabilities';
@@ -31,7 +32,7 @@ export async function discoverEuvd(deps: DiscoverEuvdDeps): Promise<Candidate[]>
       if (!v.id || !v.datePublished) continue;
       const pub = new Date(v.datePublished).getTime();
       if (!Number.isFinite(pub) || pub < cutoff) continue;
-      const key = v.id.toLowerCase(); // e.g. "euvd-2026-1001"
+      const key = topicKey('euvd', v.id.toLowerCase());
       const dedup = await deps.getDedup(key);
       const score = finalScore({
         recency: recencyScore(v.datePublished, deps.now),

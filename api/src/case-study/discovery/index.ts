@@ -79,26 +79,16 @@ export async function runDiscovery(deps: RunDiscoveryDeps): Promise<RunDiscovery
     }
   }
 
-  // Sort by score, but also consider topic diversity
-  // This prevents one topic from dominating the final selection
+  // Sort by score for the optional global cap.
   selected.sort((a, b) => b.score - a.score);
   const kept = typeof deps.limit === 'number' ? selected.slice(0, deps.limit) : selected;
 
-  for (const c of kept) {
-    await deps.putCandidate(c);
-  }
+  await Promise.all(kept.map((c) => deps.putCandidate(c)));
   // One read+write for the whole dedup map instead of one per kept candidate.
   await deps.commitDedup(
     kept.map((c) => c.key),
     deps.now
   );
-
-  // Track topic diversity for logging
-  const topicCounts: Record<string, number> = {};
-  for (const c of kept) {
-    const topic = c.type;
-    topicCounts[topic] = (topicCounts[topic] ?? 0) + 1;
-  }
 
   console.log(
     JSON.stringify({
@@ -107,10 +97,6 @@ export async function runDiscovery(deps: RunDiscoveryDeps): Promise<RunDiscovery
       suppressed,
       kept: kept.length,
       byTopic,
-      topicDiversity: topicCounts,
-      uniqueTopics: Object.keys(topicCounts).length,
-      ids: kept.map((k) => k.key),
-      ts: deps.now.toISOString(),
     })
   );
 

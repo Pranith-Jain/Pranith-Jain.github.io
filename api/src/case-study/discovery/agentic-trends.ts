@@ -1,6 +1,7 @@
 import type { Candidate, DedupRecord, CaseStudyType } from '../types';
 import { topicKey } from '../stable-keys';
 import { severityScore, noveltyScore, finalScore } from '../scoring';
+import { dayOfYear } from './rotation';
 
 export interface AgenticTrendsDeps {
   now: Date;
@@ -315,9 +316,9 @@ export async function discoverAgenticTrends(deps: AgenticTrendsDeps): Promise<Ca
     // 3. Already-covered list from dedup (LLM actively avoids these)
     // 4. Real trending context from platform feeds
     // 5. High temperature (0.9) for LLM output variance
-    const dayOfYear = Math.floor((now.getTime() - Date.UTC(now.getUTCFullYear(), 0, 0)) / 86400000);
-    const poolIndex = dayOfYear % CATEGORY_POOLS.length;
-    const seedIndex = dayOfYear % DIVERSITY_SEEDS.length;
+    const dayOfYear_ = dayOfYear(now);
+    const poolIndex = dayOfYear_ % CATEGORY_POOLS.length;
+    const seedIndex = dayOfYear_ % DIVERSITY_SEEDS.length;
     const todaysCategories = CATEGORY_POOLS[poolIndex]!.join(', ');
     const todaysSeed = DIVERSITY_SEEDS[seedIndex]!;
     // Format recently-covered topics as a compact list for the LLM prompt.

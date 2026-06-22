@@ -335,7 +335,7 @@ function cleanSocial(text: string, sourceBody: string): string {
   const ungrounded = findUngroundedCves(cleaned, sourceBody);
   for (const cve of ungrounded) {
     // Replace "CVE-2024-1234" with "the vulnerability" or similar
-    cleaned = cleaned.replace(new RegExp(cve.replace('-', '\\-'), 'gi'), 'the vulnerability');
+    cleaned = cleaned.replace(new RegExp('\\b' + cve.replace(/-/g, '\\-') + '\\b', 'gi'), 'the vulnerability');
   }
 
   return cleaned;
@@ -393,15 +393,15 @@ function buildTwitterPrompt(src: SocialSource): string {
   const postUrl = src.slug.startsWith('http') ? src.slug : `https://pranithjain.qzz.io/blog/${src.slug}`;
   return (
     `<format name="X/Twitter thread">\n` +
+    `- Before writing, think through 5 different hook options silently. Pick the strongest one — the one that stops the scroll. Output ONLY the final thread — no reasoning, no option list, no commentary.\n` +
     `- 5-7 posts for a technical breakdown. A single post for breaking news or one sharp take. Use only what the facts justify.\n` +
-    `- Post 1 (<=280 chars): Hook that stops the scroll. Use PAS. NO "1/" prefix. NO link (kills reach). NO teaser framing.\n` +
-    `- Posts 2-5: One clear idea per post. Examples, data points, or analysis. Each standalone-valuable.\n` +
-    `- Post 6 (or last): Insight or revelation — the analytical take that makes this thread worth reading.\n` +
-    `- Final post: CTA that invites reply. Not "thoughts?".\n` +
+    `- Tweet 1 (<=280 chars): Hook that stops the scroll. Use PAS (Problem-Agitation-Solution). NO "1/" prefix. NO link (kills reach). NO teaser framing. Lead with a named entity, a number, or a contrast.\n` +
+    `- Tweets 2-5: One clear idea per tweet. Examples, data points, or analysis. Each standalone-valuable. Include ONE bookmark-worthy post (IOC list, affected versions, CVE list).\n` +
+    `- Tweet 6 (or last): Insight or revelation — the analytical take that makes this thread worth reading. End with a twist or perspective shift, not a summary.\n` +
+    `- Final tweet: CTA that invites reply. Use an open loop or a substantive question. Not "thoughts?" or "retweet if".\n` +
     `- LINK in a separate final line: "FIRST REPLY: ${postUrl}"\n` +
     `- Each post <280 characters. Append " (n/N)" at the END of each post.\n` +
-    `- Lowercase optional for personal tone. Fragments ok.\n` +
-    `- Include ONE bookmark-worthy post: a reusable artifact (IOC list, affected versions, CVE list).\n` +
+    `- Lowercase optional for personal tone. Fragments ok. Run-ons... human texture.\n` +
     `- At most ONE hashtag (if genuinely specific). At most ONE warning-level emoji (🔴 ⚠️), never decorative.\n` +
     `- CRITICAL: Every CVE ID, statistic, and IOC must come from the input data. Do not invent.\n` +
     `</format>\n\n` +
@@ -420,28 +420,27 @@ function buildLinkedinPrompt(src: SocialSource): string {
   const postUrl = src.slug.startsWith('http') ? src.slug : `https://pranithjain.qzz.io/blog/${src.slug}`;
   return (
     `<format name="LinkedIn post — practitioner thought-leadership (2026)">\n` +
+    `- Before writing, think through 5 different hook options silently. Pick the strongest one — the one that stops the scroll. Output ONLY the final post — no reasoning, no option list, no commentary.\n` +
     `RANGE: 1300-2000 characters in the body (the first three lines, ~210 characters, are THE FOLD — everything before that is mobile-first feed preview and decides the click).\n` +
     `RULES — non-negotiable:\n` +
-    `- THE FOLD (first 3 lines, <= 210 characters) MUST contain a complete, standalone point. Not a teaser. The reader who never clicks should still learn one specific thing. Lead with a named entity, a number, or a contrast.\n` +
+    `- THE FOLD (first 3 lines, <= 210 characters) MUST contain a complete, standalone point using PAS (Problem-Agitation-Solution). Not a teaser. The reader who never clicks should still learn one specific thing. Lead with a named entity, a number, or a contrast.\n` +
     `- The body must contain NO link. Putting a URL in the post body cuts reach 50-60%. The link goes on its own final line: "FIRST COMMENT: ${postUrl}".\n` +
     `- Mobile-first formatting: short paragraphs (1-3 sentences), single blank line between paragraphs, generous white space. No walls of text. No paragraphs over 3 lines on a phone.\n` +
-    `- Voice: first-person practitioner. Dry, opinionated, specific. Have a point of view. Avoid "I thought I'd share", "Here's the thing", "Let me be clear", "Look,", and every phrase in the shared banned list. No emojis.\n` +
+    `- Voice: first-person practitioner. Dry, opinionated, specific. Have a point of view. Professional but human. Specific results and numbers when relevant.\n` +
     `- Bold at most ONE phrase with **asterisks**, only if it earns the emphasis. No bolded sentences, no bolded lists.\n` +
-    `- 3-5 specific, on-topic hashtags on the final line. Specific to the case (campaign name, vulnerability class, sector) — never a generic stack like #CyberSecurity #InfoSec. Examples of good: #Log4Shell #DFIR #CVE_2026_20182 #ThreatIntel. Examples of bad: #cyber #security #infosec #hackers.\n` +
+    `- 3-5 specific, on-topic hashtags on the final line. Specific to the case (campaign name, vulnerability class, sector) — never a generic stack like #CyberSecurity #InfoSec.\n` +
     `- Every CVE id, statistic, named victim, and named entity MUST come from the input data. Inventing a number is the fastest way to lose credibility.\n` +
     `\n` +
-    `STRUCTURE — six blocks, each earns its place. Use a single blank line between blocks:\n` +
-    `  1. HOOK (first 1-2 lines, <= 210 chars — entirely inside THE FOLD): a specific fact, a number, a contrast, or a contrarian read. NOT a teaser. The reader should be able to stop here and still have learned something concrete.\n` +
-    `  2. CONTEXT (1 short paragraph, 1-3 sentences): who is involved, what was exposed, when. Named victim / vendor / sector / region. No "recently, X happened" throat-clearing.\n` +
-    `  3. INSIGHT (1-2 paragraphs, the analytical core): the pattern, the contrarian read, the technical detail other coverage missed. Lead with the take, then support it. This is the block the post is being written for.\n` +
-    `  4. SPECIFICS — one scannable bulleted list of 4-8 items, each a single concrete fact (named CVE / vendor / version / sector / IOC). One bullet = one fact. Never "many" / "several" / "some" / "a number of" — name them.\n` +
-    `  5. CLOSE (1-2 lines): the takeaway and one substantive practitioner question — the kind a SOC lead or IR consultant would actually answer. Not "Thoughts?" or "What do you think?".\n` +
-    `  6. CAROUSEL OUTLINE: — optional but high-reach. When the case is a meaty technical breakdown (CVE chain, IOC dump, APT tradecraft, threat-actor profile), append a separate block on its own line: "CAROUSEL OUTLINE:" followed by 5-8 one-line slide titles (slide 1 = the hook, slides 2-7 = one specific idea each, slide 8 = the takeaway). Skip the block entirely for thin or breaking items — it should not appear at all if you have nothing to carousel.\n` +
+    `STRUCTURE — four blocks, each earns its place. Use a single blank line between blocks:\n` +
+    `  1. HOOK (first 1-2 lines, <= 210 chars — entirely inside THE FOLD): Use PAS. A specific fact, a number, a contrast, or a contrarian read. NOT a teaser. The reader should be able to stop here and still have learned something concrete.\n` +
+    `  2. STORY OR INSIGHT (1-2 paragraphs, the analytical core): the pattern, the contrast, the technical detail other coverage missed. Lead with the take, then support it with data. Include a scannable bulleted list of 4-8 concrete facts (named CVE / vendor / version / sector / IOC). One bullet = one fact.\n` +
+    `  3. CLOSE (1-2 lines): the takeaway and one substantive practitioner question — the kind a SOC lead or IR consultant would actually answer. Not "Thoughts?" or "What do you think?".\n` +
+    `  4. CAROUSEL OUTLINE: — optional but high-reach. When the case is a meaty technical breakdown (CVE chain, IOC dump, APT tradecraft, threat-actor profile), append a separate block on its own line: "CAROUSEL OUTLINE:" followed by 5-8 one-line slide titles (slide 1 = the hook, slides 2-7 = one specific idea each, slide 8 = the takeaway). Skip the block entirely for thin or breaking items — it should not appear at all if you have nothing to carousel.\n` +
     `End the post (after any carousel block) with the FIRST COMMENT link and the hashtags:\n` +
     `FIRST COMMENT: ${postUrl}\n` +
     `#HashtagOne #HashtagTwo #HashtagThree\n` +
     `\n` +
-    `OUTPUT BLOCK ORDER (strict): HOOK -> CONTEXT -> INSIGHT -> SPECIFICS -> CLOSE -> (optional) CAROUSEL OUTLINE: -> FIRST COMMENT: -> hashtags.\n` +
+    `OUTPUT BLOCK ORDER (strict): HOOK -> INSIGHT + BULLETS -> CLOSE -> (optional) CAROUSEL OUTLINE: -> FIRST COMMENT: -> hashtags.\n` +
     `</format>\n\n` +
     `<examples>\n` +
     `GOOD — full post (the kind that gets saved and quoted):\n` +
@@ -473,7 +472,7 @@ function buildLinkedinPrompt(src: SocialSource): string {
     `FIRST COMMENT: ${postUrl}\n` +
     `#LockBit #Ransomware #DFIR #ThreatIntel\n` +
     `\n` +
-    `↑ Notes: 14 named victims, 4 re-victimisations, dwell time, named tactic — every number is in the case. Hook lands the whole point above the fold in two lines. Insight block carries the analytical take. Bullets are scannable, each one fact. Close is a question practitioners actually answer. Carousel gives the document/carousel variant the algorithm rewards.\n` +
+    `↑ Notes: 14 named victims, 4 re-victimisations, dwell time, named tactic — every number is in the case. Hook lands the whole point above the fold in two lines. Insight block carries the analytical take. Bullets are scannable, each one fact. Close is a question practitioners actually answer.\n` +
     `\n` +
     `BAD — full post (exactly what to avoid):\n` +
     `\n` +
@@ -632,8 +631,8 @@ async function generateSocialFromSource(
   const factNote = extractVerifiedFacts(src.body);
 
   const [twitterRes, linkedinRes] = await Promise.allSettled([
-    generateWithValidation(ai, SOCIAL_SYSTEM, buildTwitterPrompt(src) + factNote, 'twitter', src.body, groqKey, 1200),
-    generateWithValidation(ai, SOCIAL_SYSTEM, buildLinkedinPrompt(src) + factNote, 'linkedin', src.body, groqKey, 1400),
+    generateWithValidation(ai, SOCIAL_SYSTEM, buildTwitterPrompt(src) + factNote, 'twitter', src.body, groqKey, 1500),
+    generateWithValidation(ai, SOCIAL_SYSTEM, buildLinkedinPrompt(src) + factNote, 'linkedin', src.body, groqKey, 2000),
   ]);
 
   return {

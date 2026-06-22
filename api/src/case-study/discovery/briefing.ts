@@ -60,62 +60,64 @@ interface BriefingData {
 }
 
 export async function discoverBriefing(deps: DiscoverDeps): Promise<Candidate[]> {
-  const { briefingsDb, now, getDedup } = deps;
+  try {
+    const { briefingsDb, now, getDedup } = deps;
 
-  const row = await briefingsDb
-    .prepare('SELECT body FROM briefings WHERE type = ? ORDER BY range_end DESC LIMIT 1')
-    .bind('weekly')
-    .first<{ body: string }>();
+    const row = await briefingsDb
+      .prepare('SELECT body FROM briefings WHERE type = ? ORDER BY range_end DESC LIMIT 1')
+      .bind('weekly')
+      .first<{ body: string }>();
 
-  if (!row) return [];
+    if (!row) return [];
 
-  const briefing = JSON.parse(row.body) as BriefingData;
-  const key = topicKey('briefing', briefing.slug);
+    const briefing = JSON.parse(row.body) as BriefingData;
+    const key = topicKey('briefing', briefing.slug);
 
-  const dedup = await getDedup(key);
+    const dedup = await getDedup(key);
 
-  const score = finalScore({
-    recency: recencyScore(briefing.date, now),
-    severity: severityScore({
-      // Briefings aggregate CISA KEV (actively-exploited) entries — any KEV
-      // present makes the briefing top-severity. Otherwise approximate from
-      // the worst severity tier among findings.
-      kev: briefing.stats.kevs > 0,
-      cvss: briefing.stats.critical > 0 ? 9.5 : briefing.stats.high > 0 ? 7.5 : 5,
-    }),
-    novelty: noveltyScore(dedup, now),
-    sourceWeight: 0.7,
-  });
+    const score = finalScore({
+      recency: recencyScore(briefing.date, now),
+      severity: severityScore({
+        kev: briefing.stats.kevs > 0,
+        cvss: briefing.stats.critical > 0 ? 9.5 : briefing.stats.high > 0 ? 7.5 : 5,
+      }),
+      novelty: noveltyScore(dedup, now),
+      sourceWeight: 0.7,
+    });
 
-  const totalIocs =
-    (briefing.iocs.urls?.length ?? 0) +
-    (briefing.iocs.domains?.length ?? 0) +
-    (briefing.iocs.ipv4s?.length ?? 0) +
-    (briefing.iocs.hashes?.length ?? 0);
+    const totalIocs =
+      (briefing.iocs.urls?.length ?? 0) +
+      (briefing.iocs.domains?.length ?? 0) +
+      (briefing.iocs.ipv4s?.length ?? 0) +
+      (briefing.iocs.hashes?.length ?? 0);
 
-  return [
-    {
-      key,
-      type: 'briefing',
-      title: briefing.title,
-      rationale: `Weekly threat briefing — ${briefing.stats.findings} findings, ${briefing.stats.kevs} KEVs, ${totalIocs} IOCs across ${briefing.date_range}`,
-      score,
-      evidence: {
-        slug: briefing.slug,
-        date: briefing.date,
-        date_range: briefing.date_range,
-        range_start: briefing.range_start,
-        range_end: briefing.range_end,
-        generated_at: briefing.generated_at,
-        executive_summary: briefing.executive_summary,
-        stats: briefing.stats,
-        sections: briefing.sections,
-        iocs: briefing.iocs,
-        mitre_techniques: briefing.mitre_techniques,
-        sources: [`https://pranithjain.qzz.io/threatintel/briefings/${briefing.slug}`, ...briefing.sources],
+    return [
+      {
+        key,
+        type: 'briefing',
+        title: briefing.title,
+        rationale: `Weekly threat briefing — ${briefing.stats.findings} findings, ${briefing.stats.kevs} KEVs, ${totalIocs} IOCs across ${briefing.date_range}`,
+        score,
+        evidence: {
+          slug: briefing.slug,
+          date: briefing.date,
+          date_range: briefing.date_range,
+          range_start: briefing.range_start,
+          range_end: briefing.range_end,
+          generated_at: briefing.generated_at,
+          executive_summary: briefing.executive_summary,
+          stats: briefing.stats,
+          sections: briefing.sections,
+          iocs: briefing.iocs,
+          mitre_techniques: briefing.mitre_techniques,
+          sources: [`https://pranithjain.qzz.io/threatintel/briefings/${briefing.slug}`, ...briefing.sources],
+        },
+        discoveredAt: now.toISOString(),
+        status: 'pending',
       },
-      discoveredAt: now.toISOString(),
-      status: 'pending',
-    },
-  ];
+    ];
+  } catch (err) {
+    console.warn('discoverBriefing failed', err);
+    return [];
+  }
 }

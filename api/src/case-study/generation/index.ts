@@ -116,8 +116,14 @@ function tagsFor(c: Candidate): string[] {
   if (Array.isArray(ev.sections)) {
     const vendors = new Set<string>();
     for (const section of ev.sections) {
-      for (const finding of section.findings ?? []) {
-        if (finding.vendor && vendors.size < 6) vendors.add(slugify(String(finding.vendor)));
+      if (!section || typeof section !== 'object') continue;
+      const findings = (section as Record<string, unknown>).findings;
+      if (!Array.isArray(findings)) continue;
+      for (const finding of findings) {
+        if (finding && typeof finding === 'object' && 'vendor' in (finding as Record<string, unknown>)) {
+          const v = (finding as Record<string, unknown>).vendor;
+          if (typeof v === 'string' && vendors.size < 6) vendors.add(slugify(v));
+        }
       }
     }
     t.push(...vendors);
