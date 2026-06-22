@@ -33,6 +33,8 @@ import Home from './pages/Home';
 const About = lazy(() => import('./pages/About'));
 const Skills = lazy(() => import('./pages/Skills'));
 const Experience = lazy(() => import('./pages/Experience'));
+const McpCatalog = lazy(() => import('./pages/McpCatalog'));
+const Status = lazy(() => import('./pages/Status'));
 const Projects = lazy(() => import('./pages/Projects'));
 const CaseStudy = lazy(() => import('./pages/CaseStudy'));
 const ResearchPostPage = lazy(() => import('./pages/threatintel/ResearchPost'));
@@ -380,6 +382,8 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/blog/c/:type', Component: Blog },
   { path: '/blog/:slug', Component: BlogPost },
   { path: '/snapshots', Component: Snapshots },
+  { path: '/mcp', Component: McpCatalog },
+  { path: '/status', Component: Status },
   { path: '/live', Component: Snapshots },
   { path: '/dfir', Component: DFIR },
   { path: '/dfir/abuse-rep', Component: AbuseRepPage },

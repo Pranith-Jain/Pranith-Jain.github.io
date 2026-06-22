@@ -183,6 +183,24 @@ const PORTFOLIO_PAGES: readonly PageEntry[] = [
     group: 'threatintel',
     keywords: ['osint', 'cli', 'tools'],
   },
+  {
+    path: '/mcp',
+    label: 'MCP Server',
+    description:
+      'Model Context Protocol catalog - 98 DFIR + threat-intel tools for AI agents (Claude Desktop, Cursor, VS Code).',
+    sectionLabel: 'Portfolio',
+    group: 'portfolio',
+    keywords: ['mcp', 'model context protocol', 'claude', 'cursor', 'copilot', 'ai agent', 'tool manifest'],
+  },
+  {
+    path: '/status',
+    label: 'System Status',
+    description:
+      'Live health of every upstream feed the platform aggregates, with admiralty grade and info-credibility per source.',
+    sectionLabel: 'Portfolio',
+    group: 'portfolio',
+    keywords: ['status', 'health', 'uptime', 'observability', 'admiralty'],
+  },
 ];
 
 /* ------------------------------------------------------------------ */
