@@ -989,7 +989,6 @@ export function AppContent() {
     return (
       <>
         <StructuredData personalInfo={personalInfo} stats={stats} />
-        <SkipToContent />
         <BackgroundLayer isDark={isDark} />
         <Suspense fallback={null}>
           <CommandPalette />
