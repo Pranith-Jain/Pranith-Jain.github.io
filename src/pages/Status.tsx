@@ -11,23 +11,18 @@
  * Distinct from /threatintel/feeds/status (which is the in-app workbench
  * with the full per-feed drill-down, metrics, and admiralty-explainer):
  * /status is the public, mobile-first landing page.
+ *
+ * Visual tokens (PILL, CREDIBILITY, RELIABILITY_TONE, ageString) are
+ * imported from `src/components/status/statusTones` so the two pages
+ * stay byte-aligned. Do not redeclare them locally.
  */
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import {
-  Activity,
-  CheckCircle2,
-  AlertTriangle,
-  XCircle,
-  CircleDashed,
-  ArrowRight,
-  ExternalLink,
-  type LucideIcon,
-} from 'lucide-react';
+import { Activity, ExternalLink } from 'lucide-react';
+import { DataPageLayout } from '../components/DataPageLayout';
+import { PILL, CREDIBILITY, RELIABILITY_TONE, ageString, type Status } from '../components/status/statusTones';
 import { useDocumentMeta } from '../hooks/useDocumentMeta';
 import { ToolJsonLd } from '../components/seo/ToolJsonLd';
-
-type Status = 'ok' | 'degraded' | 'down' | 'cold';
 
 interface Row {
   id: string;
@@ -49,53 +44,7 @@ interface FeedStatusResponse {
   overall: Status;
 }
 
-const PILL: Record<Status, { cls: string; label: string; icon: LucideIcon; ring: string; dot: string }> = {
-  ok: {
-    cls: 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border-emerald-500/40',
-    label: 'Operational',
-    icon: CheckCircle2,
-    ring: 'ring-emerald-500/20',
-    dot: 'bg-emerald-500',
-  },
-  degraded: {
-    cls: 'bg-amber-500/10 text-amber-700 dark:text-amber-300 border-amber-500/40',
-    label: 'Degraded',
-    icon: AlertTriangle,
-    ring: 'ring-amber-500/20',
-    dot: 'bg-amber-500',
-  },
-  down: {
-    cls: 'bg-rose-500/10 text-rose-700 dark:text-rose-300 border-rose-500/40',
-    label: 'Down',
-    icon: XCircle,
-    ring: 'ring-rose-500/20',
-    dot: 'bg-rose-500',
-  },
-  cold: {
-    cls: 'bg-slate-500/10 text-slate-700 dark:text-slate-300 border-slate-500/40',
-    label: 'Cold',
-    icon: CircleDashed,
-    ring: 'ring-slate-500/20',
-    dot: 'bg-slate-400',
-  },
-};
-
-const CREDIBILITY_LABEL: Record<number, string> = {
-  1: '1 · Confirmed',
-  2: '2 · Probably true',
-  3: '3 · Possibly true',
-  4: '4 · Doubtful',
-  5: '5 · Improbable',
-  6: '6 · Cannot judge',
-};
-
-function ageString(s?: number): string {
-  if (s === undefined) return '—';
-  if (s < 60) return `${s}s`;
-  if (s < 3600) return `${Math.floor(s / 60)}m`;
-  if (s < 86400) return `${Math.floor(s / 3600)}h`;
-  return `${Math.floor(s / 86400)}d`;
-}
+const ORDER: Record<Status, number> = { down: 0, degraded: 1, cold: 2, ok: 3 };
 
 export default function StatusPage(): JSX.Element {
   useDocumentMeta({
@@ -123,6 +72,20 @@ export default function StatusPage(): JSX.Element {
     };
   }, []);
 
+  const onRetry = () => {
+    setError(null);
+    setData(null);
+    fetch('/api/v1/feed-status')
+      .then((r) => {
+        if (!r.ok) throw new Error(`upstream ${r.status}`);
+        return r.json() as Promise<FeedStatusResponse>;
+      })
+      .then((d) => setData(d))
+      .catch((e: Error) => setError(e.message));
+  };
+
+  const overall = data?.overall ?? 'cold';
+  const PillIcon = PILL[overall].icon;
   const counts = data?.rows.reduce(
     (acc, r) => {
       acc[r.status] = (acc[r.status] ?? 0) + 1;
@@ -131,11 +94,17 @@ export default function StatusPage(): JSX.Element {
     { ok: 0, degraded: 0, down: 0, cold: 0 } as Record<Status, number>
   );
 
-  const overall = data?.overall ?? 'cold';
-  const PillIcon = PILL[overall].icon;
-
   return (
-    <main id="main" className="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8">
+    <DataPageLayout
+      backTo="/"
+      icon={<Activity size={28} />}
+      title="System status"
+      description="Live health of every upstream feed the platform aggregates. Probes run on every request and are cached for 5 minutes. When a /threatintel page looks empty, the answer is usually here first."
+      maxWidthClass="max-w-5xl"
+      error={error}
+      onRetry={onRetry}
+      loading={!data && !error}
+    >
       <ToolJsonLd
         section="status"
         toolName="System Status"
@@ -143,114 +112,113 @@ export default function StatusPage(): JSX.Element {
         path="/status"
         category="Observability"
       />
-      <header className="mb-10">
-        <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-cyan-500/30 bg-cyan-500/10 px-3 py-1 text-xs font-medium text-cyan-300">
-          <Activity className="h-3.5 w-3.5" /> Live system status
-        </div>
-        <h1 className="text-3xl font-bold text-slate-50 sm:text-4xl">Status</h1>
-        <p className="mt-3 max-w-3xl text-base text-slate-300">
-          Live health of every upstream feed the platform aggregates. Probes run on every request and are cached for 5
-          minutes. When a /threatintel page looks empty, the answer is usually here first.
-        </p>
-      </header>
 
-      <section
-        className={`mb-10 rounded-xl border p-6 ${PILL[overall].cls} ${PILL[overall].ring} ring-1`}
-        aria-label={`Overall status: ${PILL[overall].label}`}
-      >
-        <div className="flex items-center gap-3">
-          <PillIcon className="h-7 w-7" aria-hidden="true" />
-          <div>
-            <div className="text-sm uppercase tracking-wider opacity-80">Overall</div>
-            <div className="text-2xl font-bold">{PILL[overall].label}</div>
-          </div>
-        </div>
-        {data && counts && (
-          <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
-            {(['ok', 'degraded', 'down', 'cold'] as Status[]).map((s) => {
-              const Icon = PILL[s].icon;
+      {/* Overall banner + counts */}
+      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6 flex items-center justify-between gap-3 flex-wrap">
+        <div className="flex items-center gap-3 flex-wrap">
+          <span
+            className={`inline-flex items-center gap-1.5 text-xs font-mono uppercase tracking-wider px-2 py-1 rounded border ${PILL[overall].cls}`}
+          >
+            <PillIcon size={12} /> overall {PILL[overall].label.toLowerCase()}
+          </span>
+          {counts &&
+            (['ok', 'degraded', 'down', 'cold'] as const).map((s) => {
+              const n = counts[s];
+              if (n === 0) return null;
               return (
-                <div
+                <span
                   key={s}
-                  className="flex items-center gap-2 rounded-md border border-current/30 bg-black/10 px-3 py-2"
+                  className={`text-mini font-mono px-2 py-0.5 rounded border ${PILL[s].cls}`}
+                  title={`${n} ${s}`}
                 >
-                  <Icon className="h-4 w-4" />
-                  <div className="flex-1">
-                    <div className="text-xs uppercase tracking-wider opacity-80">{PILL[s].label}</div>
-                    <div className="font-mono text-lg font-semibold">{counts[s]}</div>
-                  </div>
-                </div>
+                  {n} {PILL[s].label.toLowerCase()}
+                </span>
               );
             })}
-          </div>
-        )}
-        {error && (
-          <p className="mt-4 text-sm">
-            Could not load feed status: {error}. The page may still be reachable via{' '}
-            <Link to="/threatintel/feeds/status" className="underline">
-              /threatintel/feeds/status
-            </Link>
-            .
-          </p>
-        )}
+        </div>
+        <span className="text-mini font-mono text-slate-500 dark:text-slate-400">
+          {data ? `snapshot ${ageString(Math.round((Date.now() - Date.parse(data.generated_at)) / 1000))}` : '—'}
+        </span>
       </section>
 
-      {data && (
+      {/* Per-feed rows */}
+      {data && data.rows.length > 0 && (
         <section>
-          <h2 className="mb-4 text-xl font-semibold text-slate-100">Per-feed status</h2>
-          <ul className="space-y-2">
+          <h2 className="mb-3 text-lg font-display font-semibold text-slate-900 dark:text-slate-100">
+            Per-feed status
+          </h2>
+          <ul className="grid gap-2">
             {data.rows
               .slice()
               .sort((a, b) => {
-                const order: Record<Status, number> = { down: 0, degraded: 1, cold: 2, ok: 3 };
-                if (order[a.status] !== order[b.status]) return order[a.status] - order[b.status];
+                if (ORDER[a.status] !== ORDER[b.status]) return ORDER[a.status] - ORDER[b.status];
                 return a.label.localeCompare(b.label);
               })
               .map((r) => {
-                const P = PILL[r.status];
+                const Icon = PILL[r.status].icon;
+                const cred = r.info_credibility !== undefined ? CREDIBILITY[r.info_credibility] : undefined;
+                const rel = r.reliability ? RELIABILITY_TONE[r.reliability] : undefined;
                 return (
-                  <li key={r.id} className="rounded-lg border border-slate-800 bg-slate-900/60 p-3 sm:p-4">
-                    <div className="flex flex-wrap items-start gap-3">
-                      <span
-                        className={`mt-1 inline-block h-2.5 w-2.5 shrink-0 rounded-full ${P.dot}`}
-                        aria-hidden="true"
-                      />
-                      <div className="min-w-0 flex-1">
-                        <div className="flex flex-wrap items-baseline gap-2">
-                          <h3 className="font-semibold text-slate-100">{r.label}</h3>
+                  <li
+                    key={r.id}
+                    className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
+                  >
+                    <div className="flex items-baseline justify-between gap-2 mb-1 flex-wrap">
+                      <Link
+                        to={r.page_path}
+                        className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 hover:text-brand-600 dark:hover:text-brand-400"
+                      >
+                        {r.label}
+                      </Link>
+                      <div className="flex items-center gap-1.5 flex-wrap">
+                        {rel && (
                           <span
-                            className={`rounded border px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wider ${P.cls}`}
+                            className={`inline-flex items-center gap-1 text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${rel}`}
+                            title={`NATO Admiralty source reliability: ${r.reliability}`}
                           >
-                            {P.label}
+                            rel {r.reliability}
                           </span>
-                          {r.admiralty_grade && (
-                            <span className="rounded border border-slate-700 px-1.5 py-0.5 font-mono text-[10px] text-slate-400">
-                              Admiralty {r.admiralty_grade}
-                            </span>
-                          )}
-                          {r.info_credibility !== undefined && (
-                            <span
-                              className="rounded border border-slate-700 px-1.5 py-0.5 text-[10px] text-slate-400"
-                              title="NATO Admiralty information credibility (1=confirmed, 6=cannot judge)"
-                            >
-                              {CREDIBILITY_LABEL[r.info_credibility]}
-                            </span>
-                          )}
-                          {r.upstream_age_s !== undefined && (
-                            <span className="rounded border border-slate-700 px-1.5 py-0.5 font-mono text-[10px] text-slate-400">
-                              age {ageString(r.upstream_age_s)}
-                            </span>
-                          )}
-                        </div>
-                        <p className="mt-1 text-xs text-slate-400">{r.reason}</p>
-                      </div>
-                      {r.page_path && (
-                        <Link
-                          to={r.page_path}
-                          className="inline-flex items-center gap-1 self-end rounded border border-slate-700 px-2 py-1 text-xs text-slate-300 hover:border-slate-500 hover:text-slate-100"
+                        )}
+                        {cred && (
+                          <span
+                            className={`inline-flex items-center gap-1 text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${cred.tone}`}
+                            title="NATO Admiralty information credibility for current data point"
+                          >
+                            {cred.label}
+                          </span>
+                        )}
+                        <span
+                          className={`inline-flex items-center gap-1 text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${PILL[r.status].cls}`}
                         >
-                          Open page <ArrowRight className="h-3.5 w-3.5" />
-                        </Link>
+                          <Icon size={10} /> {PILL[r.status].label}
+                        </span>
+                      </div>
+                    </div>
+                    <p className="text-meta font-mono text-muted leading-relaxed mb-1.5">{r.reason}</p>
+                    <div className="flex flex-wrap items-center gap-2 text-micro font-mono text-slate-500">
+                      <Link to={r.page_path} className="hover:text-brand-600 dark:hover:text-brand-400">
+                        {r.page_path}
+                      </Link>
+                      <span>·</span>
+                      <a
+                        href={r.api_path}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 hover:text-brand-600 dark:hover:text-brand-400"
+                      >
+                        {r.api_path} <ExternalLink size={9} />
+                      </a>
+                      {r.upstream_age_s !== undefined && (
+                        <>
+                          <span>·</span>
+                          <span>upstream {ageString(r.upstream_age_s)}</span>
+                        </>
+                      )}
+                      {r.admiralty_grade && (
+                        <>
+                          <span>·</span>
+                          <span className="text-slate-500">admiralty {r.admiralty_grade}</span>
+                        </>
                       )}
                     </div>
                   </li>
@@ -260,37 +228,30 @@ export default function StatusPage(): JSX.Element {
         </section>
       )}
 
-      <footer className="mt-12 border-t border-slate-800 pt-6 text-sm text-slate-500">
+      <footer className="mt-12 pt-6 text-sm text-slate-500 dark:text-slate-400 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
         <p>
-          Source: <code className="text-slate-300">/api/v1/feed-status</code> · cached 5 min · rebuilt on every Worker
-          request.
+          Source: <code>/api/v1/feed-status</code> · cached 5 min · rebuilt on every Worker request.
         </p>
         <p className="mt-2 flex flex-wrap items-center gap-3">
           <Link
             to="/threatintel/feeds/status"
-            className="inline-flex items-center gap-1 text-cyan-400 hover:text-cyan-300"
+            className="inline-flex items-center gap-1 text-brand-600 dark:text-brand-400 hover:underline"
           >
-            Full feed workbench <ArrowRight className="h-3.5 w-3.5" />
+            Full feed workbench →
           </Link>
-          <span className="text-slate-700">|</span>
-          <Link to="/api/docs" className="inline-flex items-center gap-1 text-cyan-400 hover:text-cyan-300">
-            API spec <ArrowRight className="h-3.5 w-3.5" />
-          </Link>
-          <span className="text-slate-700">|</span>
-          <Link to="/mcp" className="inline-flex items-center gap-1 text-cyan-400 hover:text-cyan-300">
-            MCP server <ArrowRight className="h-3.5 w-3.5" />
-          </Link>
-          <span className="text-slate-700">|</span>
-          <a
-            href="https://github.com/Pranith-Jain"
-            target="_blank"
-            rel="noreferrer noopener"
-            className="inline-flex items-center gap-1 text-cyan-400 hover:text-cyan-300"
+          <span className="text-slate-300 dark:text-slate-700">|</span>
+          <Link
+            to="/api/docs"
+            className="inline-flex items-center gap-1 text-brand-600 dark:text-brand-400 hover:underline"
           >
-            GitHub <ExternalLink className="h-3.5 w-3.5" />
-          </a>
+            API spec →
+          </Link>
+          <span className="text-slate-300 dark:text-slate-700">|</span>
+          <Link to="/mcp" className="inline-flex items-center gap-1 text-brand-600 dark:text-brand-400 hover:underline">
+            MCP server →
+          </Link>
         </p>
       </footer>
-    </main>
+    </DataPageLayout>
   );
 }
