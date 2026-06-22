@@ -189,7 +189,7 @@ export default function DomainMonitor(): JSX.Element {
                       <Globe size={14} className="text-rose-500" />
                       <span className="font-mono text-sm">{v.domain}</span>
                       <span
-                        className={`text-micro font-mono px-2 py-0.5 rounded ${TYPE_LABELS[v.type]?.color ?? 'bg-slate-100 text-slate-800'}`}
+                        className={`text-micro font-mono px-2 py-0.5 rounded ${TYPE_LABELS[v.type]?.color ?? 'bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200'}`}
                       >
                         {TYPE_LABELS[v.type]?.label ?? v.type}
                       </span>

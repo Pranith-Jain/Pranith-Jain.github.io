@@ -399,7 +399,9 @@ export default function UnifiedSearch(): JSX.Element {
           </p>
           {data.sections.map((section) => {
             const Icon = SECTION_ICONS[section.kind] ?? Search;
-            const color = SECTION_COLORS[section.kind] ?? 'text-slate-600 border-slate-300 bg-slate-50';
+            const color =
+              SECTION_COLORS[section.kind] ??
+              'text-slate-600 dark:text-slate-300 border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-800/50';
             return (
               <section
                 key={section.kind}
