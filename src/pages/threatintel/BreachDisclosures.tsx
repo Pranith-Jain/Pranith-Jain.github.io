@@ -7,6 +7,7 @@ import { MtiLeaksPanel } from '../../components/threatintel/MtiLeaksPanel';
 import { fetchAggregatedFeed, formatRelativeTime, type AggregatedFeedItem } from '../../services/rssService';
 import { LiveFreshnessPill } from '../../components/LiveFreshnessPill';
 import { DataPageLayout } from '../../components/DataPageLayout';
+import { PostAnalysisButton } from '../../components/threatintel/PostAnalysisButton';
 
 /**
  * Feed IDs — strictly breach-focused. Krebs / BleepingComputer cover
@@ -185,6 +186,15 @@ export default function BreachDisclosures(): JSX.Element {
                         {item.pubDate && <span className="text-slate-400">{formatRelativeTime(item.pubDate)}</span>}
                       </div>
                     </a>
+                    <div className="mt-2">
+                      <PostAnalysisButton
+                        title={item.title ?? item.link}
+                        description={item.description}
+                        source={item.source}
+                        link={item.link}
+                        compact
+                      />
+                    </div>
                   </li>
                 ));
             })()}
