@@ -84,15 +84,17 @@ const daysParam = (def: number) =>
 
 // ── IOC Check ────────────────────────────────────────────────────
 
-export const iocCheckSchema = z.object({
-  // Controller reads c.req.query('indicator') ?? c.req.query('q'); accept
-  // both so callers (and bookmarks) using the older ?q= shape don't 400
-  // at the schema. Either one satisfies the schema.
-  indicator: indicatorPattern.optional(),
-  q: indicatorPattern.optional(),
-}).refine((d) => Boolean(d.indicator || d.q), {
-  message: 'indicator (or q) is required',
-});
+export const iocCheckSchema = z
+  .object({
+    // Controller reads c.req.query('indicator') ?? c.req.query('q'); accept
+    // both so callers (and bookmarks) using the older ?q= shape don't 400
+    // at the schema. Either one satisfies the schema.
+    indicator: indicatorPattern.optional(),
+    q: indicatorPattern.optional(),
+  })
+  .refine((d) => Boolean(d.indicator || d.q), {
+    message: 'indicator (or q) is required',
+  });
 
 // ── Domain Lookup ────────────────────────────────────────────────
 
@@ -976,6 +978,24 @@ export const cisaKevSchema = z.object({
   product: z.string().max(100).optional(),
   days: z.string().regex(/^\d+$/).optional(),
   ransomware_only: z.string().optional(),
+});
+
+// CERT-In (Indian Computer Emergency Response Team) advisories query
+// filters. MUST mirror the exact c.req.query reads in routes/cert-in.ts
+// (validate() schema parity).
+export const certInSchema = z.object({
+  q: z.string().max(200).optional(),
+  cve: cveIdPattern.optional(),
+  year: z
+    .string()
+    .regex(/^\d{4}$/)
+    .optional(),
+  severity: z.enum(['critical', 'high', 'medium', 'low']).optional(),
+  id: z
+    .string()
+    .regex(/^CIAD-\d{4}-\d{4}$/i)
+    .optional(),
+  limit: z.string().regex(/^\d+$/).optional(),
 });
 
 // supplychainattack.org incident catalog query filters. MUST mirror the exact

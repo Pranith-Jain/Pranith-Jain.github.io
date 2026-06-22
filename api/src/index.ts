@@ -464,6 +464,7 @@ import {
 import { exploitDbHandler } from './routes/exploit-db';
 import { securityUpdatesHandler } from './routes/security-updates';
 import { cisaKevHandler } from './routes/cisa-kev';
+import { certInHandler } from './routes/cert-in';
 import { supplyChainAttacksHandler } from './routes/supply-chain-attacks';
 import { k8sCveHandler } from './routes/k8s-cve';
 import { mispGalaxyActorsHandler } from './routes/misp-galaxy-actors';
@@ -714,6 +715,7 @@ import {
   stixBundleTextSchema,
   exploitDbSchema,
   cisaKevSchema,
+  certInSchema,
   supplyChainAttacksSchema,
   k8sCveSchema,
   mispGalaxyActorsSchema,
@@ -1436,6 +1438,7 @@ app.get('/api/v1/exposed-host', exposedHostHandler);
 app.get('/api/v1/exploit-db', validate('query', exploitDbSchema), exploitDbHandler);
 app.get('/api/v1/security-updates', validate('query', securityUpdatesSchema), securityUpdatesHandler);
 app.get('/api/v1/cisa-kev', validate('query', cisaKevSchema), cisaKevHandler);
+app.get('/api/v1/cert-in', validate('query', certInSchema), certInHandler);
 app.get('/api/v1/supply-chain-attacks', validate('query', supplyChainAttacksSchema), supplyChainAttacksHandler);
 app.get('/api/v1/k8s-cve', validate('query', k8sCveSchema), k8sCveHandler);
 app.get('/api/v1/misp-galaxy-actors', validate('query', mispGalaxyActorsSchema), mispGalaxyActorsHandler);

@@ -7,8 +7,9 @@ const CveList = lazy(() => import('./CveList'));
 const ExploitableCves = lazy(() => import('./ExploitableCves'));
 const CisaKevCatalog = lazy(() => import('./CisaKevCatalog'));
 const K8sCve = lazy(() => import('./K8sCve'));
+const CertInAdvisories = lazy(() => import('./CertInAdvisories'));
 
-type TabId = 'all' | 'exploitable' | 'kev' | 'k8s';
+type TabId = 'all' | 'exploitable' | 'kev' | 'k8s' | 'cert-in';
 
 const TABS: Array<{ id: TabId; label: string; desc: string }> = [
   { id: 'all', label: 'All Recent', desc: 'NVD feed + KEV + Microsoft Threat Intelligence + cvefeed.io' },
@@ -19,6 +20,11 @@ const TABS: Array<{ id: TabId; label: string; desc: string }> = [
   },
   { id: 'kev', label: 'CISA KEV', desc: 'CISA Known Exploited Vulnerabilities catalog with filtering and CSV export' },
   { id: 'k8s', label: 'Kubernetes', desc: 'Kubernetes-specific CVE feed from official security advisories' },
+  {
+    id: 'cert-in',
+    label: 'CERT-In',
+    desc: 'Indian CERT advisories (CIAD-YYYY-NNNN) with severity, products, and CVE mapping',
+  },
 ];
 
 export default function CveIntel(): JSX.Element {
@@ -63,6 +69,7 @@ export default function CveIntel(): JSX.Element {
           {activeTab === 'exploitable' && <ExploitableCves />}
           {activeTab === 'kev' && <CisaKevCatalog />}
           {activeTab === 'k8s' && <K8sCve bare />}
+          {activeTab === 'cert-in' && <CertInAdvisories />}
         </Suspense>
       </div>
     </DataPageLayout>

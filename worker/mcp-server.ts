@@ -477,6 +477,36 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
       }
     );
 
+    // ── CERT-In Advisories ───────────────────────────────────────────────
+    this.tools(
+      'get_cert_in_advisories',
+      'CERT-In (Indian Computer Emergency Response Team) advisories — vendor-reported vulnerabilities affecting Indian enterprises, with severity, CVEs, products affected, and the official CIAD-YYYY-NNNN ID. Filter by CVE, year, severity, or keyword.',
+      {
+        q: z.string().optional().describe('Free-text search across title, description, products, CVEs'),
+        cve: z.string().optional().describe('CVE ID, e.g. CVE-2025-0110'),
+        year: z.string().optional().describe('Filter by year, e.g. 2025'),
+        severity: z.enum(['critical', 'high', 'medium', 'low']).optional().describe('Severity filter'),
+        id: z.string().optional().describe('Specific CERT-In advisory ID, e.g. CIAD-2025-0010'),
+        limit: z.number().optional().describe('Max advisories (default: all)'),
+      },
+      async ({ q, cve, year, severity, id, limit }) => {
+        const p = new URLSearchParams();
+        if (q) p.set('q', q);
+        if (cve) p.set('cve', cve);
+        if (year) p.set('year', year);
+        if (severity) p.set('severity', severity);
+        if (id) p.set('id', id);
+        if (limit) p.set('limit', String(limit));
+        const qs = p.toString();
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          `/api/v1/cert-in${qs ? `?${qs}` : ''}`,
+          this.apiKey
+        );
+        return { content: [{ type: 'text', text: JSON.stringify(data, null, 2) }] };
+      }
+    );
+
     // ── Phishing Analyze ─────────────────────────────────────────────────
     this.tools(
       'analyze_phishing_email',
