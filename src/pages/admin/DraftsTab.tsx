@@ -4,9 +4,11 @@ import { getJson, postJson, postJsonWithBody } from './adminApi';
 /**
  * Drafts queue — populated by the publisher when BLOG_APPROVAL_REQUIRED
  * is on. Each draft is a fully-generated post sitting in `drafts:<slug>`
- * awaiting an admin approve or reject. Approve copies the post to the
- * public index + refreshes RSS; reject deletes it. Neither path re-
- * triggers generation — the post body is final at this point.
+ * awaiting an admin approve, reject, or regenerate. Approve copies the
+ * post to the public index + refreshes RSS; reject deletes it; regenerate
+ * re-runs postProcess in 'fix' mode (deterministic, no LLM) by default
+ * or 'rewrite' mode (full LLM with optional admin notes) when the admin
+ * needs a substantive rewrite.
  *
  * If the flag isn't set on the worker, the list will always be empty
  * (the publisher writes directly to `posts:` instead). The tab shows
@@ -114,6 +116,76 @@ export default function DraftsTab() {
       await load();
     } catch (e) {
       setActionMsg(`reject failed: ${e instanceof Error ? e.message : String(e)}`);
+    } finally {
+      setActionBusy(null);
+    }
+  }
+
+  /**
+   * Regenerate a draft in place. Two modes:
+   *  - 'fix' (default, no LLM): runs the existing body back through
+   *    postProcess. Auto-linkifies recognised publisher labels in the
+   *    References section, drops disallowed URLs, refreshes QA. Free.
+   *  - 'rewrite' (LLM): re-issues generatePost with optional admin
+   *    `notes` injected into the prompt. Costs one LLM call.
+   * On success, refreshes the preview panel with the new body so the
+   * admin sees exactly what changed.
+   */
+  async function regenerate(slug: string, mode: 'fix' | 'rewrite', notes?: string) {
+    const verb = mode === 'fix' ? 'Regenerate (fix)' : 'Regenerate (rewrite)';
+    const confirmMsg =
+      mode === 'fix'
+        ? `Run postProcess on "${slug}"? No LLM call — auto-linkifies References and refreshes QA.`
+        : `Regenerate "${slug}" with the LLM? This will cost one inference call${notes ? ' and use your notes' : ''}.`;
+    if (!window.confirm(confirmMsg)) return;
+    setActionBusy(`regen:${slug}`);
+    setActionMsg(null);
+    try {
+      const r = await postJsonWithBody<{
+        ok: boolean;
+        slug: string;
+        title: string;
+        body: string;
+        bodyHtml: string;
+        iocs: DraftPreview['post']['iocs'];
+        qa?: DraftPreview['post']['quality'];
+        changed: boolean;
+        mode: 'fix' | 'rewrite';
+        error?: string;
+        message?: string;
+      }>(`/drafts/${encodeURIComponent(slug)}/regenerate`, { mode, notes });
+      if (!r.ok) {
+        setActionMsg(`${verb} failed: ${r.message ?? r.error ?? 'unknown error'}`);
+        return;
+      }
+      setActionMsg(
+        r.changed
+          ? `${verb} done: ${r.slug} (body updated, ${r.qa ? `QA ${r.qa.total}` : 'no QA'})`
+          : `${verb} done: no changes needed`
+      );
+      // If the regen produced a different slug (LLM rewrite can rename),
+      // close the current preview and reload the list so the new slug
+      // appears in the table. Otherwise refresh the in-place preview
+      // with the new body.
+      if (preview?.post.slug === slug) {
+        if (r.slug !== slug) {
+          setPreview(null);
+        } else {
+          setPreview({
+            post: {
+              ...preview.post,
+              slug: r.slug,
+              title: r.title,
+              body: r.body,
+              iocs: r.iocs,
+            },
+            bodyHtml: r.bodyHtml,
+          });
+        }
+      }
+      await load();
+    } catch (e) {
+      setActionMsg(`${verb} failed: ${e instanceof Error ? e.message : String(e)}`);
     } finally {
       setActionBusy(null);
     }
@@ -230,6 +302,12 @@ export default function DraftsTab() {
                         >
                           {rejectBusy ? '…' : 'Reject'}
                         </button>
+                        <RegenMenu
+                          slug={d.slug}
+                          busy={actionBusy === `regen:${d.slug}`}
+                          disabled={approveBusy || rejectBusy || actionBusy === `regen:${d.slug}`}
+                          onRegen={(mode, notes) => void regenerate(d.slug, mode, notes)}
+                        />
                         <SocialBtn
                           label="LI"
                           busy={socialGen[`${d.slug}:linkedin`]}
@@ -256,6 +334,7 @@ export default function DraftsTab() {
           onClose={() => setPreview(null)}
           onApprove={() => void approve(preview.post.slug)}
           onReject={() => void reject(preview.post.slug)}
+          onRegenerate={(mode, notes) => void regenerate(preview.post.slug, mode, notes)}
           actionBusy={actionBusy}
         />
       )}
@@ -268,17 +347,20 @@ function DraftPreviewPanel({
   onClose,
   onApprove,
   onReject,
+  onRegenerate,
   actionBusy,
 }: {
   preview: DraftPreview;
   onClose: () => void;
   onApprove: () => void;
   onReject: () => void;
+  onRegenerate: (mode: 'fix' | 'rewrite', notes?: string) => void;
   actionBusy: string | null;
 }) {
   const { post, bodyHtml } = preview;
   const approveBusy = actionBusy === `approve:${post.slug}`;
   const rejectBusy = actionBusy === `reject:${post.slug}`;
+  const regenBusy = actionBusy === `regen:${post.slug}`;
 
   // Re-sanitize the server-rendered HTML in the browser before injecting it —
   // defense-in-depth matching the public BlogPost path, rather than trusting
@@ -356,11 +438,16 @@ function DraftPreviewPanel({
         </button>
         <button
           onClick={onReject}
-          disabled={approveBusy || rejectBusy}
+          disabled={approveBusy || rejectBusy || !!regenBusy}
           className="px-3 py-1.5 border border-red-900 rounded text-sm text-red-300 hover:bg-red-900/30 disabled:opacity-50"
         >
           {rejectBusy ? 'Rejecting…' : 'Reject & delete'}
         </button>
+        <RegenInline
+          busy={regenBusy}
+          disabled={approveBusy || rejectBusy || !!regenBusy}
+          onRegen={(mode, notes) => onRegenerate(mode, notes)}
+        />
       </div>
     </div>
   );
@@ -382,5 +469,158 @@ function SocialBtn({ label, busy, onClick }: { label: string; busy?: string; onC
     >
       {label}
     </button>
+  );
+}
+
+/**
+ * Compact "Regen" dropdown for the drafts table. Two visible options:
+ *  - Fix (no LLM, free) — runs postProcess; auto-linkifies References
+ *  - Rewrite (LLM) — opens a notes textarea, then re-issues generatePost
+ * The dropdown lives inline in the Actions cell so the row stays a
+ * single line on desktop and wraps gracefully on narrow viewports.
+ */
+function RegenMenu({
+  slug,
+  busy,
+  disabled,
+  onRegen,
+}: {
+  slug: string;
+  busy: boolean;
+  disabled: boolean;
+  onRegen: (mode: 'fix' | 'rewrite', notes?: string) => void;
+}) {
+  const [open, setOpen] = useState(false);
+  const [notes, setNotes] = useState('');
+  const wrapRef = useRef<HTMLDivElement | null>(null);
+
+  // Click-outside to close the dropdown without cancelling the form.
+  useEffect(() => {
+    if (!open) return;
+    function onDoc(e: MouseEvent) {
+      if (wrapRef.current && !wrapRef.current.contains(e.target as Node)) {
+        setOpen(false);
+      }
+    }
+    document.addEventListener('mousedown', onDoc);
+    return () => document.removeEventListener('mousedown', onDoc);
+  }, [open]);
+
+  return (
+    <div className="relative" ref={wrapRef}>
+      <button
+        onClick={() => setOpen((o) => !o)}
+        disabled={disabled}
+        className="px-2 py-1 border border-blue-800 rounded text-xs text-blue-300 hover:bg-blue-900/30 disabled:opacity-50"
+        title={`Regenerate ${slug}`}
+      >
+        {busy ? '…' : 'Regen'}
+      </button>
+      {open && (
+        <div className="absolute right-0 mt-1 z-10 w-72 rounded border border-slate-700 bg-slate-900 shadow-lg p-3 text-xs">
+          <div className="flex flex-col gap-2">
+            <button
+              onClick={() => {
+                setOpen(false);
+                onRegen('fix');
+              }}
+              disabled={disabled}
+              className="px-2 py-1.5 border border-emerald-800 rounded text-emerald-300 hover:bg-emerald-900/30 text-left disabled:opacity-50"
+            >
+              <div className="font-semibold">Fix (no LLM)</div>
+              <div className="text-slate-400 text-[10px] mt-0.5">
+                postProcess — auto-linkify References, refresh QA. Free.
+              </div>
+            </button>
+            <div className="border-t border-slate-800 pt-2">
+              <label htmlFor={`regen-notes-${slug}`} className="block text-slate-400 mb-1">
+                Rewrite with notes (LLM call):
+              </label>
+              <textarea
+                id={`regen-notes-${slug}`}
+                value={notes}
+                onChange={(e) => setNotes(e.target.value)}
+                placeholder="e.g. add attack-flow chart, rebalance toward the Sigma rule"
+                rows={3}
+                className="w-full bg-slate-950 border border-slate-700 rounded px-2 py-1 text-slate-200 text-[11px] font-mono"
+              />
+              <button
+                onClick={() => {
+                  setOpen(false);
+                  onRegen('rewrite', notes);
+                  setNotes('');
+                }}
+                disabled={disabled}
+                className="mt-1.5 w-full px-2 py-1.5 border border-amber-700 rounded text-amber-300 hover:bg-amber-900/30 disabled:opacity-50"
+              >
+                Rewrite (LLM)
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+/**
+ * Inline regenerate controls for the preview panel. Smaller than the
+ * table-row RegenMenu because the preview footer has less horizontal
+ * space; the textarea is hidden behind a toggle so the row stays tight
+ * until the admin actively opts into a rewrite.
+ */
+function RegenInline({
+  busy,
+  disabled,
+  onRegen,
+}: {
+  busy: boolean;
+  disabled: boolean;
+  onRegen: (mode: 'fix' | 'rewrite', notes?: string) => void;
+}) {
+  const [showNotes, setShowNotes] = useState(false);
+  const [notes, setNotes] = useState('');
+  return (
+    <div className="flex flex-col gap-1.5 flex-1 min-w-[260px]">
+      <div className="flex gap-1.5">
+        <button
+          onClick={() => onRegen('fix')}
+          disabled={disabled}
+          className="px-3 py-1.5 border border-emerald-800 rounded text-sm text-emerald-300 hover:bg-emerald-900/30 disabled:opacity-50"
+          title="Run postProcess (no LLM call) — auto-linkify References, refresh QA"
+        >
+          {busy ? '…' : 'Regen (fix)'}
+        </button>
+        <button
+          onClick={() => setShowNotes((s) => !s)}
+          disabled={disabled}
+          className="px-3 py-1.5 border border-amber-700 rounded text-sm text-amber-300 hover:bg-amber-900/30 disabled:opacity-50"
+        >
+          {showNotes ? 'Cancel rewrite' : 'Regen (rewrite)…'}
+        </button>
+      </div>
+      {showNotes && (
+        <div className="flex flex-col gap-1.5">
+          <textarea
+            value={notes}
+            onChange={(e) => setNotes(e.target.value)}
+            placeholder="Admin notes for the rewrite (e.g. add an attack-flow chart instead of the Sigma rule)"
+            rows={3}
+            className="w-full bg-slate-950 border border-slate-700 rounded px-2 py-1 text-slate-200 text-xs font-mono"
+          />
+          <button
+            onClick={() => {
+              onRegen('rewrite', notes);
+              setNotes('');
+              setShowNotes(false);
+            }}
+            disabled={disabled}
+            className="self-start px-3 py-1 border border-amber-700 rounded text-xs text-amber-300 hover:bg-amber-900/30 disabled:opacity-50"
+          >
+            Send to LLM
+          </button>
+        </div>
+      )}
+    </div>
   );
 }
