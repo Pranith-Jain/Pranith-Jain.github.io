@@ -125,6 +125,12 @@ import { feedDigestHandler } from './routes/feed-digest';
 import { eventCorrelationHandler } from './routes/event-correlation';
 import { campaignTrackerHandler } from './routes/campaign-tracker';
 import { feedQualityHandler as assessFeedQualityHandler } from './routes/feed-quality';
+import { storyClusterHandler } from './routes/story-cluster';
+import { alertCheckHandler } from './routes/alert-check';
+import { researchDigestHandler } from './routes/research-digest';
+import { darkwebIntelHandler } from './routes/darkweb-intel';
+import { knowledgeGraphHandler } from './routes/knowledge-graph';
+import { openapiHandler } from './routes/openapi';
 import {
   webamonSearchHandler,
   webamonScanHandler,
@@ -1041,6 +1047,12 @@ app.post('/api/v1/feed-digest', feedDigestHandler);
 app.post('/api/v1/event-correlation', eventCorrelationHandler);
 app.post('/api/v1/campaign-tracker', campaignTrackerHandler);
 app.post('/api/v1/feed-quality', assessFeedQualityHandler);
+app.post('/api/v1/story-cluster', storyClusterHandler);
+app.post('/api/v1/alert-check', alertCheckHandler);
+app.post('/api/v1/research-digest', researchDigestHandler);
+app.post('/api/v1/darkweb-intel', darkwebIntelHandler);
+app.post('/api/v1/knowledge-graph', knowledgeGraphHandler);
+app.get('/api/v1/openapi.json', openapiHandler);
 app.get('/api/v1/cve-recent', cveRecentHandler);
 app.get('/api/v1/cve-threat-map', cveThreatMapHandler);
 app.get('/api/v1/phishing-urls', phishingUrlsHandler);
