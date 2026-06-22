@@ -1,6 +1,6 @@
 import type { Ai } from '@cloudflare/workers-types';
 import type { Candidate, Post, PostSource } from '../types';
-import { buildPrompt } from './templates';
+import { buildPrompt, requiredSections } from './templates';
 import { runCompletion } from './ai-client';
 import { postProcess } from './post-process';
 import { renderHeroSvg } from './hero-svg';
@@ -235,6 +235,18 @@ export async function generatePost(deps: GeneratePostDeps): Promise<Post> {
 
   const sources = extractSources(candidate.evidence);
 
+  // Required section outline. Same source the postProcess uses,
+  // so the model and the validator agree on the heading list.
+  // Helps the rewrite path produce sections that survive the
+  // missing-section check (the model often substitutes near-
+  // equivalent headings that the strict validator rejects).
+  // Wrapped in <required_outline> so the model sees it as a
+  // structural constraint, not just a hint.
+  const required = requiredSections(candidate.type);
+  const outlineNote =
+    required.length > 0
+      ? `\n\n<required_outline>\nYour post MUST include these ## section headings (exact text, in this order). You may add more, but every one of these MUST appear:\n${required.map((s) => `- ${s}`).join('\n')}\n</required_outline>`
+      : '';
   const { system, user } = buildPrompt({
     type: candidate.type,
     title: candidate.title,
@@ -260,7 +272,7 @@ export async function generatePost(deps: GeneratePostDeps): Promise<Post> {
       : '';
   const completion = await runCompletion(
     ai,
-    { system, user: user + factNote + notesBlock },
+    { system, user: user + factNote + outlineNote + notesBlock },
     { groqKey, quality: true }
   );
 
@@ -283,7 +295,7 @@ export async function generatePost(deps: GeneratePostDeps): Promise<Post> {
       {
         system,
         user:
-          `${user + factNote + notesBlock}\n\nYOUR PREVIOUS DRAFT FAILED REVIEW: ${problems.join('; ')}.\n` +
+          `${user + factNote + outlineNote + notesBlock}\n\nYOUR PREVIOUS DRAFT FAILED REVIEW: ${problems.join('; ')}.\n` +
           `Rewrite the FULL case study fixing every issue. Every section MUST start with "## " on its own line. ` +
           `Be specific and substantive (no thin sections, no repeated sentences, cite real sources). ` +
           `Only reference facts/CVEs present in the GROUND TRUTH DATA above; mark any historical CVE as context, not a finding.`,
