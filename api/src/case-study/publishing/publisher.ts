@@ -61,26 +61,36 @@ export async function runPublisher(deps: RunPublisherDeps): Promise<{ published:
   try {
     const post = await deps.generatePost(candidate, deps.now);
 
-    if (deps.requireApproval && deps.putDraft) {
-      // Approval gate: write to draft + stop. The candidate stays
-      // unapproved-deduped (no re-discovery) but RSS / public index are
-      // untouched until an admin approves. The slot transitions to
-      // 'draft' so the planner doesn't pick it again.
-      await deps.putDraft(post);
-      await deps.unapprove(candidate.key);
-      await deps.touchDedup(candidate.key, deps.now, post.slug);
-      await deps.markSlotStatus(slot.candidateId, 'draft', { publishedSlug: post.slug });
-      console.log(
-        JSON.stringify({
-          job: 'publisher',
-          drafted: 1,
-          slug: post.slug,
-          candidateId: candidate.key,
-          ts: deps.now.toISOString(),
-          note: 'awaiting admin approval',
-        })
-      );
-      return { published: 0, slug: post.slug };
+    if (deps.requireApproval) {
+      if (!deps.putDraft) {
+        console.warn(
+          JSON.stringify({
+            job: 'publisher',
+            slug: post.slug,
+            warning: 'requireApproval=true but putDraft is unset — falling through to auto-publish',
+          })
+        );
+      } else {
+        // Approval gate: write to draft + stop. The candidate stays
+        // unapproved-deduped (no re-discovery) but RSS / public index are
+        // untouched until an admin approves. The slot transitions to
+        // 'draft' so the planner doesn't pick it again.
+        await deps.putDraft(post);
+        await deps.unapprove(candidate.key);
+        await deps.touchDedup(candidate.key, deps.now, post.slug);
+        await deps.markSlotStatus(slot.candidateId, 'draft', { publishedSlug: post.slug });
+        console.log(
+          JSON.stringify({
+            job: 'publisher',
+            drafted: 1,
+            slug: post.slug,
+            candidateId: candidate.key,
+            ts: deps.now.toISOString(),
+            note: 'awaiting admin approval',
+          })
+        );
+        return { published: 0, slug: post.slug };
+      }
     }
 
     const index = await deps.putPost(post);

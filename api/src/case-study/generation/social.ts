@@ -170,6 +170,7 @@ function validateSocial(text: string, platform: 'twitter' | 'linkedin', sourceBo
   // LIKELY to indicate a concrete entity without false-positiving on
   // ordinary English. Sources are NOT in the body (the link lives in
   // the first comment) so we count from the body only.
+  let concreteHits = 0;
   if (platform === 'linkedin') {
     const bodyOnly = text.split(/FIRST COMMENT:/i)[0] ?? text;
     const cves = bodyOnly.match(/\bCVE-\d{4}-\d{4,7}\b/g) ?? [];
@@ -255,7 +256,7 @@ function validateSocial(text: string, platform: 'twitter' | 'linkedin', sourceBo
       'qilin',
     ];
     const lc = bodyOnly.toLowerCase();
-    let concreteHits = cves.length;
+    concreteHits = cves.length;
     for (const w of concreteWords) {
       if (lc.includes(w)) concreteHits += 1;
     }
@@ -287,13 +288,10 @@ function validateSocial(text: string, platform: 'twitter' | 'linkedin', sourceBo
     issues.push(`${slop.length} AI-slop phrases`);
   }
 
-  // Concrete-specifics count (filled by the LinkedIn branch above; 0 for Twitter).
-  const concreteSpecifics =
-    platform === 'linkedin'
-      ? ((text.split(/FIRST COMMENT:/i)[0] ?? text).match(
-          /\bCVE-\d{4}-\d{4,7}\b|\b(?:ransomware|malware|phishing|apt|cve-\d{4}-\d{4,7}|cvss|cwe-\d+|mitre|att&ck|healthcare|manufacturing|financial|energy|government|cisco|fortinet|vmware|citrix|ivanti|log4j|log4shell|lockbit|cl0p|clop|blackcat|alphv|akira|qilin)\b/gi
-        )?.length ?? 0)
-      : 0;
+  // Reuse the concrete-specifics count from the issues check above (which
+  // uses the same concreteWords list + version counting) so scoring always
+  // agrees with the issues detection. 0 for Twitter (not checked).
+  const concreteSpecifics = platform === 'linkedin' ? concreteHits : 0;
 
   // Score: start at 100, deduct for issues
   let score = 100;

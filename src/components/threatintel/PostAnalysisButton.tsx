@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import { Brain, RefreshCw, X, Shield, AlertTriangle } from 'lucide-react';
+import { Brain, RefreshCw, X, Shield } from 'lucide-react';
 
 interface PostAnalysis {
   summary: string;
@@ -28,7 +28,7 @@ const THREAT_COLORS: Record<string, string> = {
   unknown: 'text-slate-400 bg-slate-500/10 border-slate-500/30',
 };
 
-export function PostAnalysisButton({ title, description, source, link, compact }: PostAnalysisButtonProps) {
+export function PostAnalysisButton({ title, description, source, compact }: PostAnalysisButtonProps) {
   const [open, setOpen] = useState(false);
   const [analysis, setAnalysis] = useState<PostAnalysis | null>(null);
   const [loading, setLoading] = useState(false);

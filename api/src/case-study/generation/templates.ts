@@ -287,9 +287,11 @@ function briefingDigest(facts: Record<string, unknown>): string {
     mitre_techniques?: string[];
   };
 
-  const findings = asArr(f.sections).flatMap((s) => asArr((s as { findings?: unknown }).findings)) as Array<
-    Record<string, unknown>
-  >;
+  const findings = asArr(f.sections).flatMap((s) => {
+    if (!s || typeof s !== 'object') return [];
+    const sec = s as Record<string, unknown>;
+    return Array.isArray(sec.findings) ? sec.findings : [];
+  }) as Array<Record<string, unknown>>;
   const fmtFinding = (x: Record<string, unknown>) => {
     const id = String(x.id ?? '').trim();
     const vp = [x.vendor, x.product].filter(Boolean).join(' ').trim();
@@ -307,8 +309,15 @@ function briefingDigest(facts: Record<string, unknown>): string {
   const topCves = ranked.slice(0, 18).map(fmtFinding).join('\n');
 
   const kevFindings = asArr(f.sections)
-    .filter((s) => /kev|exploited/i.test(`${(s as { id?: string }).id ?? ''} ${(s as { title?: string }).title ?? ''}`))
-    .flatMap((s) => asArr((s as { findings?: unknown }).findings) as Array<Record<string, unknown>>)
+    .filter((s) => {
+      if (!s || typeof s !== 'object') return false;
+      const sec = s as Record<string, unknown>;
+      return /kev|exploited/i.test(`${sec.id ?? ''} ${sec.title ?? ''}`);
+    })
+    .flatMap((s) => {
+      const sec = s as Record<string, unknown>;
+      return Array.isArray(sec.findings) ? sec.findings : [];
+    })
     .slice(0, 12)
     .map(fmtFinding)
     .join('\n');

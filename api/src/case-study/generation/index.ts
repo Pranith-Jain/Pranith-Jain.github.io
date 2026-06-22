@@ -63,7 +63,7 @@ async function verifyFacts(evidence: Record<string, unknown>, ai: Ai, groqKey?: 
 
     const parsed = JSON.parse(jsonMatch[0]) as Partial<VerifiedFacts>;
     return {
-      cves: Array.isArray(parsed.cves) ? parsed.cves.filter((c) => /^CVE-\d{4}-\d{4,}$/.test(c)) : [],
+      cves: Array.isArray(parsed.cves) ? parsed.cves.filter((c) => /^CVE-\d{4}-\d{4,7}$/.test(c)) : [],
       iocs: Array.isArray(parsed.iocs) ? parsed.iocs.slice(0, 20) : [],
       actors: Array.isArray(parsed.actors) ? parsed.actors.slice(0, 10) : [],
       families: Array.isArray(parsed.families) ? parsed.families.slice(0, 10) : [],
@@ -185,9 +185,14 @@ function extractSources(evidence: Record<string, unknown>): PostSource[] {
   }
   if (Array.isArray(ev.sections)) {
     for (const section of ev.sections) {
-      for (const finding of section.findings ?? []) {
-        if (finding.source_url && typeof finding.source_url === 'string') {
-          sources.push({ url: finding.source_url, title: finding.source });
+      if (!section || typeof section !== 'object') continue;
+      const findings = (section as Record<string, unknown>).findings;
+      if (!Array.isArray(findings)) continue;
+      for (const finding of findings) {
+        if (!finding || typeof finding !== 'object') continue;
+        const f = finding as Record<string, unknown>;
+        if (typeof f.source_url === 'string') {
+          sources.push({ url: f.source_url, title: typeof f.source === 'string' ? f.source : '' });
         }
       }
     }

@@ -163,10 +163,8 @@ function stripEmptySections(body: string): string {
       const content = sectionBody.join('\n').trim();
       if (content && !isFiller(content)) {
         result.push(line);
-        if (content) {
-          result.push('');
-          result.push(...sectionBody);
-        }
+        result.push('');
+        result.push(...sectionBody);
       }
     } else {
       result.push(line);
@@ -371,7 +369,7 @@ function isPlaceholderIp(ip: string): boolean {
   const m = /^(\d+)\.(\d+)\.(\d+)\.(\d+)$/.exec(ip);
   if (!m) return false;
   const [a, b, c, d] = [Number(m[1]), Number(m[2]), Number(m[3]), Number(m[4])];
-  if ([a, b, c, d].some((n) => n < 0 || n > 255 || Number.isNaN(n))) return true;
+  if ([a, b, c, d].some((n) => n < 0 || n > 255)) return true;
   if (a === 0) return true; // 0.0.0.0/8 "this network"
   if (a === 10) return true; // RFC1918
   if (a === 127) return true; // loopback

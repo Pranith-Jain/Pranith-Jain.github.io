@@ -34,33 +34,38 @@ const PROXY_ALLOW_HEADERS = new Set([
 ]);
 
 async function proxyToOrigin(request: Request, origin: string, subPath: string, requestId: string): Promise<Response> {
-  const targetUrl = `${origin}${subPath}`;
-  const filteredHeaders = new Headers();
-  for (const [key, value] of request.headers) {
-    if (PROXY_ALLOW_HEADERS.has(key.toLowerCase())) {
-      filteredHeaders.set(key, value);
+  try {
+    const targetUrl = `${origin}${subPath}`;
+    const filteredHeaders = new Headers();
+    for (const [key, value] of request.headers) {
+      if (PROXY_ALLOW_HEADERS.has(key.toLowerCase())) {
+        filteredHeaders.set(key, value);
+      }
     }
+    const proxyReq = new Request(targetUrl, {
+      method: request.method,
+      headers: filteredHeaders,
+      body: request.method !== 'GET' && request.method !== 'HEAD' ? request.body : undefined,
+      redirect: 'manual',
+    });
+    const res = await fetch(proxyReq);
+    const h = new Headers(res.headers);
+    h.set('x-request-id', requestId);
+    const ct = h.get('content-type') ?? '';
+    if (ct.includes('text/html')) {
+      let html = await res.text();
+      html = html.replace(
+        /(href|src)="\/(assets\/|favicon\.svg|og-image\.svg|robots\.txt|sitemap\.xml|humans\.txt|llms\.txt)/g,
+        '$1="/threatnexus/$2'
+      );
+      html = html.replace(/https:\/\/argus\.pranithjain\.qzz\.io\//g, 'https://pranithjain.qzz.io/threatnexus/');
+      return new Response(html, { status: res.status, headers: h });
+    }
+    return new Response(res.body, { status: res.status, headers: h });
+  } catch (err) {
+    console.error(`proxyToOrigin failed: ${origin}${subPath}`, err);
+    return new Response('origin unreachable', { status: 502 });
   }
-  const proxyReq = new Request(targetUrl, {
-    method: request.method,
-    headers: filteredHeaders,
-    body: request.method !== 'GET' && request.method !== 'HEAD' ? request.body : undefined,
-    redirect: 'manual',
-  });
-  const res = await fetch(proxyReq);
-  const h = new Headers(res.headers);
-  h.set('x-request-id', requestId);
-  const ct = h.get('content-type') ?? '';
-  if (ct.includes('text/html')) {
-    let html = await res.text();
-    html = html.replace(
-      /(href|src)="\/(assets\/|favicon\.svg|og-image\.svg|robots\.txt|sitemap\.xml|humans\.txt|llms\.txt)/g,
-      '$1="/threatnexus/$2'
-    );
-    html = html.replace(/https:\/\/argus\.pranithjain\.qzz\.io\//g, 'https://pranithjain.qzz.io/threatnexus/');
-    return new Response(html, { status: res.status, headers: h });
-  }
-  return new Response(res.body, { status: res.status, headers: h });
 }
 
 /** Origins permitted to open the live-feed WebSocket (same set the API trusts).
@@ -114,7 +119,12 @@ export default {
       }
       if (!env.LIVE_FEED_DO) return new Response('WebSocket not configured', { status: 503 });
       const doId = env.LIVE_FEED_DO.idFromName('global');
-      return env.LIVE_FEED_DO.get(doId).fetch(request);
+      try {
+        return await env.LIVE_FEED_DO.get(doId).fetch(request);
+      } catch (err) {
+        console.error('LIVE_FEED_DO fetch failed', err);
+        return new Response('WebSocket unavailable', { status: 503 });
+      }
     }
 
     // WebSocket upgrade — route to the InvestigatorAgent Durable Object
@@ -130,7 +140,12 @@ export default {
       const agentId = url.pathname.split('/api/v1/ws/agent/')[1]?.split('/')[0];
       if (!agentId) return new Response('missing agent id', { status: 400 });
       const doId = env.INVESTIGATOR_AGENT.idFromName(agentId);
-      return env.INVESTIGATOR_AGENT.get(doId).fetch(request);
+      try {
+        return await env.INVESTIGATOR_AGENT.get(doId).fetch(request);
+      } catch (err) {
+        console.error('INVESTIGATOR_AGENT fetch failed', err);
+        return new Response('Agent unavailable', { status: 503 });
+      }
     }
 
     // WebSocket upgrade — route to the ReportBuilder Durable Object
@@ -145,7 +160,12 @@ export default {
       const reportId = url.pathname.split('/api/v1/ws/report/')[1]?.split('/')[0];
       if (!reportId) return new Response('missing report id', { status: 400 });
       const doId = env.REPORT_BUILDER.idFromName('global');
-      return env.REPORT_BUILDER.get(doId).fetch(request);
+      try {
+        return await env.REPORT_BUILDER.get(doId).fetch(request);
+      } catch (err) {
+        console.error('REPORT_BUILDER fetch failed', err);
+        return new Response('Report builder unavailable', { status: 503 });
+      }
     }
 
     // WebSocket upgrade — route to chat sessions
@@ -248,7 +268,13 @@ export default {
       const doUrl = new URL(subPath + url.search, request.url);
       const doRequest = new Request(doUrl, request);
       const doId = env.RADAR_CRAWLER.idFromName(crawlId);
-      const doRes = await env.RADAR_CRAWLER.get(doId).fetch(doRequest);
+      let doRes: Response;
+      try {
+        doRes = await env.RADAR_CRAWLER.get(doId).fetch(doRequest);
+      } catch (err) {
+        console.error('RADAR_CRAWLER fetch failed', err);
+        return withSecurityHeaders(new Response('Crawler unavailable', { status: 503 }));
+      }
       const h = new Headers(doRes.headers);
       h.set('x-request-id', requestId);
       return withSecurityHeaders(new Response(doRes.body, { status: doRes.status, headers: h }));
@@ -291,21 +317,32 @@ export default {
     // Forward to the api app for the explicit /api/* prefix AND for the
     // legacy /blog/rss.xml route
     if (url.pathname.startsWith('/api/') || url.pathname === '/blog/rss.xml') {
-      const apiRes = await apiApp.fetch(request, env as never, ctx);
-      const h = new Headers(apiRes.headers);
-      h.set('x-request-id', requestId);
-      return withSecurityHeaders(
-        new Response(apiRes.body, {
-          status: apiRes.status,
-          statusText: apiRes.statusText,
-          headers: h,
-        })
-      );
+      try {
+        const apiRes = await apiApp.fetch(request, env as never, ctx);
+        const h = new Headers(apiRes.headers);
+        h.set('x-request-id', requestId);
+        return withSecurityHeaders(
+          new Response(apiRes.body, {
+            status: apiRes.status,
+            statusText: apiRes.statusText,
+            headers: h,
+          })
+        );
+      } catch (err) {
+        console.error('apiApp.fetch failed', err);
+        return new Response('internal error', { status: 500 });
+      }
     }
 
     // Generate a fresh nonce per HTML response
     const nonce = generateNonce();
-    const html = await fetchPrerenderedOrShell(request, env, ctx, url, nonce);
+    let html: Response;
+    try {
+      html = await fetchPrerenderedOrShell(request, env, ctx, url, nonce);
+    } catch (err) {
+      console.error('fetchPrerenderedOrShell failed', err);
+      return new Response('internal error', { status: 500 });
+    }
     const h = new Headers(html.headers);
     h.set('x-request-id', requestId);
     return withSecurityHeaders(
