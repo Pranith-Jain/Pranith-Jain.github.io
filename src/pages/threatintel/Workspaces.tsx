@@ -1,8 +1,18 @@
+/**
+ * /threatintel/tools/workspaces -- Guided Investigation Workspaces
+ *
+ * AEAD lifecycle workspace management: create, browse, and walk through
+ * Acquire → Enrich → Assess → Deliver phases with step-by-step guidance.
+ */
+
 import { useEffect, useState, useCallback, type FormEvent } from 'react';
 import { Link } from 'react-router-dom';
-import { DataPageLayout } from '../../components/DataPageLayout';
+import { BackLink } from '../../components/BackLink';
 import { adminAuthHeaders } from '../../lib/admin-token';
 import {
+  Plus,
+  Loader2,
+  AlertTriangle,
   Shield,
   Search,
   ArrowRight,
@@ -14,14 +24,13 @@ import {
   FileText,
   Trash2,
   X,
-  Plus,
-  Loader2,
   Globe,
   Mail,
   User,
   AtSign,
   Server,
   Network,
+  ArrowLeft,
 } from 'lucide-react';
 
 interface Workspace {
@@ -47,50 +56,20 @@ interface WorkflowSummary {
 }
 
 const PHASES = [
-  {
-    id: 'acquire',
-    label: 'Acquire',
-    icon: Search,
-    color: 'text-blue-400',
-    description: 'Collect raw data via multi-vector reconnaissance',
-  },
-  {
-    id: 'enrich',
-    label: 'Enrich',
-    icon: Network,
-    color: 'text-purple-400',
-    description: 'Expand leads via lateral pivot and cross-referencing',
-  },
-  {
-    id: 'assess',
-    label: 'Assess',
-    icon: BarChart3,
-    color: 'text-amber-400',
-    description: 'Score, verify, and build threat model from findings',
-  },
-  {
-    id: 'deliver',
-    label: 'Deliver',
-    icon: FileText,
-    color: 'text-green-400',
-    description: 'Package intelligence into structured reports',
-  },
-  {
-    id: 'complete',
-    label: 'Complete',
-    icon: CheckCircle2,
-    color: 'text-emerald-400',
-    description: 'Investigation finished',
-  },
+  { id: 'acquire', label: 'Acquire', icon: Search, color: 'text-blue-600 dark:text-blue-400' },
+  { id: 'enrich', label: 'Enrich', icon: Network, color: 'text-violet-600 dark:text-violet-400' },
+  { id: 'assess', label: 'Assess', icon: BarChart3, color: 'text-amber-600 dark:text-amber-400' },
+  { id: 'deliver', label: 'Deliver', icon: FileText, color: 'text-emerald-600 dark:text-emerald-400' },
+  { id: 'complete', label: 'Complete', icon: CheckCircle2, color: 'text-emerald-600 dark:text-emerald-400' },
 ] as const;
 
 const TARGET_TYPES = [
-  { value: 'domain', label: 'Domain', icon: Globe, placeholder: 'example.com' },
-  { value: 'ip', label: 'IP Address', icon: Server, placeholder: '203.0.113.10' },
-  { value: 'email', label: 'Email', icon: Mail, placeholder: 'user@example.com' },
-  { value: 'person', label: 'Person', icon: User, placeholder: 'John Doe' },
-  { value: 'username', label: 'Username', icon: AtSign, placeholder: 'johndoe' },
-  { value: 'org', label: 'Organization', icon: Target, placeholder: 'Acme Corp' },
+  { value: 'domain', label: 'Domain', icon: Globe },
+  { value: 'ip', label: 'IP', icon: Server },
+  { value: 'email', label: 'Email', icon: Mail },
+  { value: 'person', label: 'Person', icon: User },
+  { value: 'username', label: 'Username', icon: AtSign },
+  { value: 'org', label: 'Org', icon: Target },
 ] as const;
 
 const PHASE_COMMANDS: Record<string, string[]> = {
@@ -109,12 +88,15 @@ const PHASE_COMMANDS: Record<string, string[]> = {
   deliver: ['/report', '/report brief', '/brief', '/render entities'],
 };
 
-const SEVERITY_COLORS: Record<string, string> = {
-  Minimal: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20',
-  Moderate: 'bg-yellow-500/10 text-yellow-400 border-yellow-500/20',
-  Elevated: 'bg-orange-500/10 text-orange-400 border-orange-500/20',
-  Critical: 'bg-red-500/10 text-red-400 border-red-500/20',
-  Unknown: 'bg-slate-500/10 text-slate-400 border-slate-500/20',
+const SEV: Record<string, string> = {
+  Minimal:
+    'bg-emerald-50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800',
+  Moderate:
+    'bg-yellow-50 dark:bg-yellow-900/20 text-yellow-700 dark:text-yellow-300 border-yellow-200 dark:border-yellow-800',
+  Elevated:
+    'bg-orange-50 dark:bg-orange-900/20 text-orange-700 dark:text-orange-300 border-orange-200 dark:border-orange-800',
+  Critical: 'bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-300 border-red-200 dark:border-red-800',
+  Unknown: 'bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border-slate-200 dark:border-slate-700',
 };
 
 export default function Workspaces() {
@@ -125,18 +107,17 @@ export default function Workspaces() {
   const [summary, setSummary] = useState<WorkflowSummary | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [advancing, setAdvancing] = useState(false);
-
   const [formTitle, setFormTitle] = useState('');
   const [formTarget, setFormTarget] = useState('');
   const [formType, setFormType] = useState('domain');
   const [formDesc, setFormDesc] = useState('');
 
-  const apiBase = '/api/v1';
+  const api = '/api/v1';
 
   const fetchWorkspaces = useCallback(async () => {
     setLoading(true);
     try {
-      const res = await fetch(`${apiBase}/workspaces?limit=50`, { headers: adminAuthHeaders() });
+      const res = await fetch(`${api}/workspaces?limit=50`, { headers: adminAuthHeaders() });
       const data = await res.json();
       setWorkspaces(data.workspaces || []);
     } catch {
@@ -147,11 +128,10 @@ export default function Workspaces() {
 
   const fetchSummary = useCallback(async (id: string) => {
     try {
-      const res = await fetch(`${apiBase}/workspaces/${id}/workflow/summary`, { headers: adminAuthHeaders() });
-      const data = await res.json();
-      setSummary(data);
+      const res = await fetch(`${api}/workspaces/${id}/workflow/summary`, { headers: adminAuthHeaders() });
+      setSummary(await res.json());
     } catch {
-      /* ignore */
+      /* */
     }
   }, []);
 
@@ -166,7 +146,7 @@ export default function Workspaces() {
     e.preventDefault();
     if (!formTitle.trim()) return;
     try {
-      const res = await fetch(`${apiBase}/workspaces`, {
+      const res = await fetch(`${api}/workspaces`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', ...adminAuthHeaders() },
         body: JSON.stringify({ title: formTitle, description: formDesc, target: formTarget, target_type: formType }),
@@ -189,157 +169,289 @@ export default function Workspaces() {
     if (!selectedId) return;
     setAdvancing(true);
     try {
-      const res = await fetch(`${apiBase}/workspaces/${selectedId}/workflow/advance`, {
+      const res = await fetch(`${api}/workspaces/${selectedId}/workflow/advance`, {
         method: 'POST',
         headers: adminAuthHeaders(),
       });
       if (res.ok) await fetchSummary(selectedId);
     } catch {
-      /* ignore */
+      /* */
     }
     setAdvancing(false);
   };
 
   const handleDelete = async (id: string) => {
     if (!confirm('Delete this workspace?')) return;
-    try {
-      await fetch(`${apiBase}/workspaces/${id}`, { method: 'DELETE', headers: adminAuthHeaders() });
-      if (selectedId === id) {
-        setSelectedId(null);
-        setSummary(null);
-      }
-      await fetchWorkspaces();
-    } catch {
-      /* ignore */
+    await fetch(`${api}/workspaces/${id}`, { method: 'DELETE', headers: adminAuthHeaders() });
+    if (selectedId === id) {
+      setSelectedId(null);
+      setSummary(null);
     }
+    fetchWorkspaces();
   };
 
   const selected = workspaces.find((w) => w.id === selectedId);
 
-  return (
-    <DataPageLayout
-      backTo="/threatintel"
-      icon={<Shield size={28} />}
-      title="Investigation Workspaces"
-      description="AEAD lifecycle management — Acquire, Enrich, Assess, Deliver. Create workspaces to track structured investigations with subjects, connections, findings, and exposure scores."
-      loading={loading && !showCreate}
-      error={error}
-      onRetry={() => {
-        setError(null);
-        fetchWorkspaces();
-      }}
-      empty={workspaces.length === 0 && !showCreate}
-      emptyMessage="No workspaces yet. Create one to start an investigation."
-      emptyIcon={<Shield size={32} className="text-slate-400 dark:text-slate-500" aria-hidden="true" />}
-      maxWidthClass="max-w-7xl"
-      headerExtra={
+  // ── Detail View ────────────────────────────────────────────────
+  if (selected) {
+    return (
+      <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
         <button
-          onClick={() => setShowCreate(true)}
-          className="inline-flex items-center gap-2 px-4 py-2 bg-brand-500 hover:bg-brand-600 dark:bg-brand-500 dark:hover:bg-brand-400 text-white rounded-lg text-sm font-medium transition-colors"
+          onClick={() => {
+            setSelectedId(null);
+            setSummary(null);
+          }}
+          className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
         >
-          <Plus size={16} /> New Workspace
+          <ArrowLeft size={14} /> back
         </button>
-      }
-    >
-      {showCreate && (
-        <div className="fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-4">
-          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl p-6 w-full max-w-lg shadow-xl">
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-lg font-semibold text-slate-900 dark:text-white">Create Investigation Workspace</h2>
+
+        <div className="flex flex-wrap items-start justify-between gap-4 mb-6">
+          <div>
+            <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2">{selected.title}</h1>
+            {selected.description && <p className="text-sm font-mono text-muted max-w-2xl">{selected.description}</p>}
+            <div className="flex flex-wrap items-center gap-3 mt-2 text-meta font-mono text-muted">
+              <span>
+                Target: <span className="text-slate-900 dark:text-slate-100">{selected.target || 'N/A'}</span>
+              </span>
+              <span>
+                Type: <span className="text-slate-900 dark:text-slate-100 capitalize">{selected.targetType}</span>
+              </span>
+            </div>
+          </div>
+          <span
+            className={`text-micro font-mono font-semibold px-2 py-0.5 rounded-full border ${SEV[selected.exposureLabel] || SEV.Unknown}`}
+          >
+            {selected.exposureLabel} {selected.exposureScore > 0 ? `${selected.exposureScore}/100` : ''}
+          </span>
+        </div>
+
+        {/* Phase Progress */}
+        <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
+          <h2 className="font-display font-semibold text-sm mb-3">AEAD Phase Progress</h2>
+          <div className="flex items-center gap-1">
+            {PHASES.map((phase, i) => {
+              const isComplete = PHASES.findIndex((p) => p.id === selected.phase) > i;
+              const isCurrent = phase.id === selected.phase;
+              return (
+                <div key={phase.id} className="flex items-center flex-1">
+                  <div
+                    className={`flex items-center gap-1.5 px-2 py-1.5 rounded flex-1 text-mini font-mono ${
+                      isCurrent
+                        ? 'bg-brand-50 dark:bg-brand-900/20 border border-brand-200 dark:border-brand-800 font-semibold'
+                        : isComplete
+                          ? 'bg-emerald-50 dark:bg-emerald-900/10'
+                          : 'opacity-40'
+                    }`}
+                  >
+                    {isComplete ? (
+                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
+                    ) : (
+                      <phase.icon className={`w-3.5 h-3.5 ${isCurrent ? phase.color : 'text-slate-400'} shrink-0`} />
+                    )}
+                    <span
+                      className={
+                        isCurrent ? 'text-slate-900 dark:text-slate-100' : 'text-slate-600 dark:text-slate-400'
+                      }
+                    >
+                      {phase.label}
+                    </span>
+                  </div>
+                  {i < PHASES.length - 1 && (
+                    <ChevronRight className="w-3.5 h-3.5 text-slate-300 dark:text-slate-600 mx-0.5 shrink-0" />
+                  )}
+                </div>
+              );
+            })}
+          </div>
+          {summary && (
+            <div className="flex items-center gap-4 mt-3 text-mini font-mono text-muted">
+              <span>{summary.subjectsCount} subject(s)</span>
+              <span>{summary.findingsCount} finding(s)</span>
               <button
-                onClick={() => setShowCreate(false)}
-                className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"
-                aria-label="Close"
+                onClick={handleAdvance}
+                disabled={advancing || selected.phase === 'complete'}
+                className="ml-auto inline-flex items-center gap-1.5 px-3 py-1.5 bg-brand-50 dark:bg-brand-900/20 hover:bg-brand-100 dark:hover:bg-brand-900/30 text-brand-700 dark:text-brand-300 rounded text-mini font-mono font-semibold transition-colors disabled:opacity-50"
               >
-                <X size={18} />
+                {advancing ? <Loader2 className="w-3 h-3 animate-spin" /> : <ArrowRight className="w-3 h-3" />}
+                Advance
               </button>
             </div>
-            <form onSubmit={handleCreate} className="space-y-4">
-              <div>
-                <label htmlFor="ws-title" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
-                  Title *
-                </label>
-                <input
-                  id="ws-title"
-                  value={formTitle}
-                  onChange={(e) => setFormTitle(e.target.value)}
-                  className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-lg text-slate-900 dark:text-white text-sm focus:ring-2 focus:ring-brand-500 focus:border-brand-500"
-                  placeholder="Phishing Campaign — example.com"
-                />
+          )}
+        </div>
+
+        {/* Recommended Commands */}
+        <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
+          <h2 className="font-display font-semibold text-sm mb-2">
+            Recommended — <span className="text-brand-600 dark:text-brand-400 capitalize">{selected.phase}</span>
+          </h2>
+          <div className="grid grid-cols-2 gap-1.5">
+            {(PHASE_COMMANDS[selected.phase] || []).map((cmd) => (
+              <div
+                key={cmd}
+                className="px-2.5 py-1.5 bg-slate-50 dark:bg-[rgb(var(--surface-100))] rounded border border-slate-100 dark:border-[rgb(var(--border-300))]"
+              >
+                <code className="text-mini font-mono text-brand-600 dark:text-brand-400">{cmd}</code>
               </div>
-              <div>
-                <label
-                  htmlFor="ws-target"
-                  className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1"
-                >
-                  Target
-                </label>
-                <input
-                  id="ws-target"
-                  value={formTarget}
-                  onChange={(e) => setFormTarget(e.target.value)}
-                  className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-lg text-slate-900 dark:text-white text-sm focus:ring-2 focus:ring-brand-500 focus:border-brand-500"
-                  placeholder="example.com"
-                />
-              </div>
-              <div>
-                <span className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Target Type</span>
-                <div className="grid grid-cols-3 gap-2" role="radiogroup" aria-label="Target type">
-                  {TARGET_TYPES.map((t) => (
-                    <button
-                      key={t.value}
-                      type="button"
-                      onClick={() => setFormType(t.value)}
-                      className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm border transition-colors ${
-                        formType === t.value
-                          ? 'bg-brand-50 dark:bg-brand-500/10 border-brand-300 dark:border-brand-500/30 text-brand-700 dark:text-brand-400'
-                          : 'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-400 hover:border-slate-300 dark:hover:border-slate-500'
-                      }`}
-                    >
-                      <t.icon size={14} /> {t.label}
-                    </button>
-                  ))}
-                </div>
-              </div>
-              <div>
-                <label htmlFor="ws-desc" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
-                  Description
-                </label>
-                <textarea
-                  id="ws-desc"
-                  value={formDesc}
-                  onChange={(e) => setFormDesc(e.target.value)}
-                  rows={2}
-                  className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-lg text-slate-900 dark:text-white text-sm focus:ring-2 focus:ring-brand-500 focus:border-brand-500"
-                  placeholder="Brief summary of the investigation..."
-                />
-              </div>
-              <div className="flex gap-3 justify-end pt-2">
-                <button
-                  type="button"
-                  onClick={() => setShowCreate(false)}
-                  className="px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  className="px-4 py-2 bg-brand-500 hover:bg-brand-600 dark:bg-brand-500 dark:hover:bg-brand-400 text-white rounded-lg text-sm font-medium transition-colors"
-                >
-                  Create
-                </button>
-              </div>
-            </form>
+            ))}
           </div>
+          <p className="text-micro font-mono text-muted mt-2">Run via MCP tools or the Copilot.</p>
+        </div>
+
+        {/* Quick Links */}
+        <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+          <h2 className="font-display font-semibold text-sm mb-2">Quick Links</h2>
+          <div className="grid grid-cols-2 gap-1.5">
+            {(
+              [
+                ['/threatintel/tools/investigations', 'Investigations', Search],
+                ['/threatintel/tools/unified-search', 'Unified Search', Crosshair],
+                ['/threatintel/tools/mcp', 'MCP Tools', Shield],
+                ['/threatintel/tools/stix', 'STIX Export', FileText],
+              ] as const
+            ).map(([to, label, Icon]) => (
+              <Link
+                key={to}
+                to={to}
+                className="flex items-center gap-1.5 px-2.5 py-1.5 bg-slate-50 dark:bg-[rgb(var(--surface-100))] rounded border border-slate-100 dark:border-[rgb(var(--border-300))] hover:border-brand-300 dark:hover:border-brand-700 transition-colors text-mini font-mono text-muted hover:text-slate-900 dark:hover:text-slate-100"
+              >
+                <Icon className="w-3 h-3" /> {label}
+              </Link>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // ── List View ──────────────────────────────────────────────────
+  return (
+    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
+      <BackLink
+        to="/threatintel"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+      >
+        <ArrowLeft size={14} /> back
+      </BackLink>
+
+      <div className="flex flex-wrap items-start justify-between gap-4 mb-6">
+        <div>
+          <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2">Investigation Workspaces</h1>
+          <p className="text-sm font-mono text-muted max-w-2xl">
+            AEAD lifecycle management — Acquire, Enrich, Assess, Deliver. Create workspaces to track investigations
+            through structured intelligence phases.
+          </p>
+        </div>
+        <button
+          type="button"
+          onClick={() => setShowCreate(true)}
+          className="inline-flex items-center gap-2 px-4 py-2.5 bg-brand-600 dark:bg-brand-500 text-white font-mono text-sm font-semibold rounded-lg hover:bg-brand-700 dark:hover:bg-brand-400"
+        >
+          <Plus size={14} /> New Workspace
+        </button>
+      </div>
+
+      {error && (
+        <div className="mb-4 p-3 rounded-lg border border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-300 flex items-center gap-2 font-mono text-sm">
+          <AlertTriangle className="w-4 h-4 shrink-0" /> {error}
+          <button onClick={() => setError(null)} className="ml-auto">
+            <X className="w-4 h-4" />
+          </button>
         </div>
       )}
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Sidebar — workspace list */}
-        <div className="lg:col-span-1 space-y-2">
-          <h2 className="text-xs font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-3">
-            Workspaces ({workspaces.length})
-          </h2>
+      {showCreate && (
+        <form
+          onSubmit={handleCreate}
+          className="mb-6 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4"
+        >
+          <h2 className="font-display font-semibold text-sm mb-3">New Investigation Workspace</h2>
+          <div className="grid sm:grid-cols-2 gap-3 mb-3">
+            <div className="sm:col-span-2">
+              <input
+                id="ws-title"
+                value={formTitle}
+                onChange={(e) => setFormTitle(e.target.value)}
+                placeholder="Investigation title"
+                className="w-full px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-tool focus:outline-none focus:border-brand-500"
+              />
+            </div>
+            <div>
+              <input
+                id="ws-target"
+                value={formTarget}
+                onChange={(e) => setFormTarget(e.target.value)}
+                placeholder="Target (domain, IP, email...)"
+                className="w-full px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-tool focus:outline-none focus:border-brand-500"
+              />
+            </div>
+            <div className="flex flex-wrap gap-1.5" role="radiogroup" aria-label="Target type">
+              {TARGET_TYPES.map((t) => (
+                <button
+                  key={t.value}
+                  type="button"
+                  onClick={() => setFormType(t.value)}
+                  className={`flex items-center gap-1 px-2 py-1 rounded text-mini font-mono border transition-colors ${
+                    formType === t.value
+                      ? 'bg-brand-50 dark:bg-brand-900/20 border-brand-200 dark:border-brand-800 text-brand-700 dark:text-brand-300'
+                      : 'bg-slate-50 dark:bg-[rgb(var(--surface-100))] border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-600 dark:text-slate-400 hover:border-slate-300'
+                  }`}
+                >
+                  <t.icon className="w-3 h-3" /> {t.label}
+                </button>
+              ))}
+            </div>
+            <div className="sm:col-span-2">
+              <textarea
+                id="ws-desc"
+                value={formDesc}
+                onChange={(e) => setFormDesc(e.target.value)}
+                rows={2}
+                placeholder="Description (optional)"
+                className="w-full px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-meta focus:outline-none focus:border-brand-500"
+              />
+            </div>
+          </div>
+          <div className="flex gap-2 justify-end">
+            <button
+              type="button"
+              onClick={() => setShowCreate(false)}
+              className="px-3 py-1.5 text-meta font-mono text-muted hover:text-slate-900 dark:hover:text-slate-100"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              className="px-4 py-1.5 bg-brand-600 dark:bg-brand-500 text-white font-mono text-sm font-semibold rounded hover:bg-brand-700 dark:hover:bg-brand-400"
+            >
+              Create
+            </button>
+          </div>
+        </form>
+      )}
+
+      {loading && (
+        <div className="flex items-center gap-2 text-muted py-12 justify-center font-mono text-sm">
+          <Loader2 className="w-5 h-5 animate-spin" /> Loading workspaces...
+        </div>
+      )}
+
+      {!loading && workspaces.length === 0 && (
+        <div className="text-center py-16 text-muted">
+          <Shield className="w-12 h-12 mx-auto mb-4 opacity-30" />
+          <p className="font-display font-semibold text-lg mb-1">No workspaces yet</p>
+          <p className="font-mono text-sm mb-3">Create a workspace to start a structured investigation</p>
+          <button
+            onClick={() => setShowCreate(true)}
+            className="text-brand-600 dark:text-brand-400 hover:text-brand-700 dark:hover:text-brand-300 font-mono text-sm font-semibold"
+          >
+            Create your first workspace
+          </button>
+        </div>
+      )}
+
+      {!loading && workspaces.length > 0 && (
+        <div className="space-y-2">
           {workspaces.map((ws) => (
             <div
               key={ws.id}
@@ -352,195 +464,41 @@ export default function Workspaces() {
                   setSelectedId(ws.id);
                 }
               }}
-              className={`p-3 rounded-lg border cursor-pointer transition-all ${
-                selectedId === ws.id
-                  ? 'bg-brand-50 dark:bg-brand-500/10 border-brand-200 dark:border-brand-500/30'
-                  : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600'
-              }`}
+              className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 hover:border-brand-500/40 transition-colors p-4 cursor-pointer group"
             >
-              <div className="flex items-center justify-between">
-                <span className="font-medium text-slate-900 dark:text-white text-sm truncate">{ws.title}</span>
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleDelete(ws.id);
-                  }}
-                  className="text-slate-400 hover:text-red-500 dark:text-slate-500 dark:hover:text-red-400 p-1 rounded"
-                  aria-label={`Delete ${ws.title}`}
-                >
-                  <Trash2 size={14} />
-                </button>
+              <div className="flex items-start justify-between gap-4">
+                <div className="flex-1 min-w-0">
+                  <div className="flex flex-wrap items-center gap-2 mb-1">
+                    <h3 className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 truncate">
+                      {ws.title}
+                    </h3>
+                    <span
+                      className={`text-micro font-mono font-semibold px-1.5 py-0.5 rounded border ${SEV[ws.exposureLabel] || SEV.Unknown}`}
+                    >
+                      {ws.exposureLabel} {ws.exposureScore > 0 ? `${ws.exposureScore}` : ''}
+                    </span>
+                    <span className="text-micro font-mono text-muted capitalize">{ws.phase}</span>
+                  </div>
+                  {ws.target && <p className="text-meta font-mono text-slate-500 truncate">{ws.target}</p>}
+                </div>
+                <div className="flex items-center gap-1 shrink-0">
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleDelete(ws.id);
+                    }}
+                    className="p-1.5 rounded hover:bg-red-50 dark:hover:bg-red-900/20 text-slate-400 hover:text-red-500 transition-colors opacity-0 group-hover:opacity-100"
+                    aria-label="Delete workspace"
+                  >
+                    <Trash2 className="w-3.5 h-3.5" />
+                  </button>
+                  <ChevronRight className="w-4 h-4 text-slate-300 dark:text-slate-600 group-hover:text-brand-500 transition-colors" />
+                </div>
               </div>
-              <div className="flex items-center gap-2 mt-1.5">
-                <span
-                  className={`text-xs px-2 py-0.5 rounded-full border font-medium ${SEVERITY_COLORS[ws.exposureLabel] || SEVERITY_COLORS.Unknown}`}
-                >
-                  {ws.exposureLabel} {ws.exposureScore > 0 ? `${ws.exposureScore}` : ''}
-                </span>
-                <span className="text-xs text-slate-500 dark:text-slate-400 capitalize">{ws.phase}</span>
-              </div>
-              {ws.target && <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 truncate">{ws.target}</p>}
             </div>
           ))}
         </div>
-
-        {/* Detail panel */}
-        <div className="lg:col-span-2">
-          {!selected ? (
-            <div className="flex flex-col items-center justify-center py-24 text-slate-400 dark:text-slate-500">
-              <Crosshair size={40} className="mb-4 opacity-30" aria-hidden="true" />
-              <p className="text-lg text-slate-600 dark:text-slate-300">Select a workspace</p>
-              <p className="text-sm mt-1">Or create a new one to start an investigation</p>
-            </div>
-          ) : (
-            <div className="space-y-6">
-              {/* Workspace header */}
-              <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
-                <div className="flex items-start justify-between">
-                  <div>
-                    <h2 className="text-xl font-semibold text-slate-900 dark:text-white">{selected.title}</h2>
-                    {selected.description && (
-                      <p className="text-slate-600 dark:text-slate-400 mt-1">{selected.description}</p>
-                    )}
-                    <div className="flex items-center gap-4 mt-3 text-sm text-slate-500 dark:text-slate-400">
-                      <span>
-                        Target:{' '}
-                        <span className="text-slate-900 dark:text-white font-medium">{selected.target || 'N/A'}</span>
-                      </span>
-                      <span>
-                        Type:{' '}
-                        <span className="text-slate-900 dark:text-white font-medium capitalize">
-                          {selected.targetType}
-                        </span>
-                      </span>
-                    </div>
-                  </div>
-                  <span
-                    className={`text-sm px-3 py-1 rounded-full border font-medium ${SEVERITY_COLORS[selected.exposureLabel] || SEVERITY_COLORS.Unknown}`}
-                  >
-                    {selected.exposureLabel} {selected.exposureScore > 0 ? `${selected.exposureScore}/100` : ''}
-                  </span>
-                </div>
-              </div>
-
-              {/* Phase Progress */}
-              <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
-                <h3 className="text-xs font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-4">
-                  AEAD Phase Progress
-                </h3>
-                <div className="flex items-center gap-1">
-                  {PHASES.map((phase, i) => {
-                    const currentIdx = PHASES.findIndex((p) => p.id === selected.phase);
-                    const isComplete = currentIdx > i;
-                    const isCurrent = phase.id === selected.phase;
-                    return (
-                      <div key={phase.id} className="flex items-center flex-1">
-                        <div
-                          className={`flex items-center gap-2 px-3 py-2 rounded-lg flex-1 transition-colors ${
-                            isCurrent
-                              ? 'bg-brand-50 dark:bg-brand-500/10 border border-brand-200 dark:border-brand-500/30'
-                              : isComplete
-                                ? 'bg-emerald-50 dark:bg-emerald-500/5'
-                                : 'opacity-40'
-                          }`}
-                        >
-                          {isComplete ? (
-                            <CheckCircle2 size={16} className="text-emerald-500 dark:text-emerald-400 shrink-0" />
-                          ) : isCurrent ? (
-                            <phase.icon size={16} className={`${phase.color} shrink-0`} />
-                          ) : (
-                            <phase.icon size={16} className="text-slate-400 dark:text-slate-500 shrink-0" />
-                          )}
-                          <p
-                            className={`text-xs font-medium ${isCurrent ? 'text-slate-900 dark:text-white' : 'text-slate-500 dark:text-slate-400'}`}
-                          >
-                            {phase.label}
-                          </p>
-                        </div>
-                        {i < PHASES.length - 1 && (
-                          <ChevronRight size={14} className="text-slate-300 dark:text-slate-600 mx-1 shrink-0" />
-                        )}
-                      </div>
-                    );
-                  })}
-                </div>
-                {summary && (
-                  <div className="flex items-center gap-4 mt-4 text-sm text-slate-500 dark:text-slate-400">
-                    <span>
-                      {summary.subjectsCount} subject{summary.subjectsCount !== 1 ? 's' : ''}
-                    </span>
-                    <span>
-                      {summary.findingsCount} finding{summary.findingsCount !== 1 ? 's' : ''}
-                    </span>
-                    <button
-                      onClick={handleAdvance}
-                      disabled={advancing || selected.phase === 'complete'}
-                      className="ml-auto flex items-center gap-1.5 px-3 py-1.5 bg-brand-50 dark:bg-brand-500/10 hover:bg-brand-100 dark:hover:bg-brand-500/20 text-brand-600 dark:text-brand-400 rounded-lg text-sm font-medium transition-colors disabled:opacity-40"
-                    >
-                      {advancing ? <Loader2 size={14} className="animate-spin" /> : <ArrowRight size={14} />}
-                      Advance Phase
-                    </button>
-                  </div>
-                )}
-              </div>
-
-              {/* Recommended Commands */}
-              <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
-                <h3 className="text-xs font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-3">
-                  Recommended Commands —{' '}
-                  <span className="capitalize text-slate-900 dark:text-white">{selected.phase}</span>
-                </h3>
-                <div className="grid grid-cols-2 gap-2">
-                  {(PHASE_COMMANDS[selected.phase] || []).map((cmd) => (
-                    <div
-                      key={cmd}
-                      className="flex items-center gap-2 px-3 py-2 bg-slate-50 dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700"
-                    >
-                      <code className="text-sm text-brand-600 dark:text-brand-400 font-mono">{cmd}</code>
-                    </div>
-                  ))}
-                </div>
-                <p className="text-xs text-slate-500 dark:text-slate-400 mt-3">
-                  Run these commands via MCP tools or the Copilot to collect intelligence for this phase.
-                </p>
-              </div>
-
-              {/* Quick Links */}
-              <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
-                <h3 className="text-xs font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-3">
-                  Quick Links
-                </h3>
-                <div className="grid grid-cols-2 gap-2">
-                  <Link
-                    to="/threatintel/tools/investigations"
-                    className="flex items-center gap-2 px-3 py-2 bg-slate-50 dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 hover:border-brand-300 dark:hover:border-brand-500/30 transition-colors text-sm text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
-                  >
-                    <Search size={14} /> Investigations
-                  </Link>
-                  <Link
-                    to="/threatintel/tools/unified-search"
-                    className="flex items-center gap-2 px-3 py-2 bg-slate-50 dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 hover:border-brand-300 dark:hover:border-brand-500/30 transition-colors text-sm text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
-                  >
-                    <Crosshair size={14} /> Unified Search
-                  </Link>
-                  <Link
-                    to="/threatintel/tools/mcp"
-                    className="flex items-center gap-2 px-3 py-2 bg-slate-50 dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 hover:border-brand-300 dark:hover:border-brand-500/30 transition-colors text-sm text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
-                  >
-                    <Shield size={14} /> MCP Tools
-                  </Link>
-                  <Link
-                    to="/threatintel/tools/stix"
-                    className="flex items-center gap-2 px-3 py-2 bg-slate-50 dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 hover:border-brand-300 dark:hover:border-brand-500/30 transition-colors text-sm text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
-                  >
-                    <FileText size={14} /> STIX Export
-                  </Link>
-                </div>
-              </div>
-            </div>
-          )}
-        </div>
-      </div>
-    </DataPageLayout>
+      )}
+    </div>
   );
 }
