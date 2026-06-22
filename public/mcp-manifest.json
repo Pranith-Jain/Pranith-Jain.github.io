@@ -2,7 +2,7 @@
   "$schema": "https://modelcontextprotocol.io/schemas/manifest/v1.json",
   "name": "DFIR-ThreatIntel-MCP",
   "version": "1.0.0",
-  "description": "DFIR + Threat Intel MCP server. 99 tools across IOC check, CVE/KEV, actor enrichment, domain/ASN/WHOIS pivots, ransomware + breach monitoring, phishing analysis, supply-chain attacks, YARA/Sigma authoring, MITRE ATT&CK extraction, Hudson Rock infostealer search, passive DNS, IOC watchlists, investigation notebooks, shift handover, prompt vault, and the full SCStelz/security-investigator playbook library (KQL queries, skills, automations, knowledge-base docs).",
+  "description": "DFIR + Threat Intel MCP server. 118 tools across IOC check, CVE/KEV, actor enrichment, domain/ASN/WHOIS pivots, ransomware + breach monitoring, phishing analysis, supply-chain attacks, YARA/Sigma authoring, MITRE ATT&CK extraction, Hudson Rock infostealer search, passive DNS, IOC watchlists, investigation notebooks, shift handover, prompt vault, and the full SCStelz/security-investigator playbook library (KQL queries, skills, automations, knowledge-base docs).",
   "transport": "streamable-http",
   "endpoint": "https://pranithjain.qzz.io/api/mcp",
   "auth": {
@@ -16,8 +16,8 @@
       "listChanged": false
     }
   },
-  "toolCount": 99,
-  "generatedAt": "2026-06-22T13:15:56.094Z",
+  "toolCount": 119,
+  "generatedAt": "2026-06-22T19:20:45.666Z",
   "tools": [
     {
       "name": "analyze_phishing_email",
@@ -48,6 +48,21 @@
       "name": "correlate_iocs",
       "description": "Search correlated IOCs. Find relationships between indicators — shared infrastructure, overlapping campaigns, and linked threat actors.",
       "category": "ioc"
+    },
+    {
+      "name": "cve_health",
+      "description": "Check the health of CVE data pipelines. Validates NVD API, EPSS API, CISA KEV, GitHub API rate limit, KV intel cache (EPSS coverage, KEV count, field completeness), and Exploit-DB mirror availability. Returns overall status (healthy/degraded/unhealthy) with per-check details.",
+      "category": "cve"
+    },
+    {
+      "name": "cve_poc_map",
+      "description": "Get the cached CVE-to-GitHub-repo mapping. Pass ?id=CVE-XXXX-XXXXX for a single CVE, or ?year=YYYY for a year-scoped index of all mapped CVEs. Results are KV-cached for 24h.",
+      "category": "cve"
+    },
+    {
+      "name": "cyber_news",
+      "description": "Aggregate cybersecurity news from 11 RSS feeds across 5 tiers (Advisory, Exploit, Research, Vendor, Community). Supports tier filtering and keyword search. Sources: CISA, Rapid7, Packet Storm, BleepingComputer, Hacker News, GitHub Security, ZDI, Reddit netsec/exploitdev/bugbounty.",
+      "category": "other"
     },
     {
       "name": "enrich_actor",
@@ -235,6 +250,16 @@
       "category": "cve"
     },
     {
+      "name": "poc_scan",
+      "description": "Search GitHub for public exploit/PoC repositories for a CVE. Returns repo URLs, star counts, language, age, and code presence. Bypasses GitHub 1000-result limit.",
+      "category": "cve"
+    },
+    {
+      "name": "soc_cve_report",
+      "description": "Generate a SOC CVE intelligence report. Bundles CVE lookup + PoC scan + health check into CSV or Markdown. Includes executive summary, CVSS/EPSS/KEV details, PoC repos, and pipeline health.",
+      "category": "cve"
+    },
+    {
       "name": "lookup_domain",
       "description": "Domain intelligence lookup. Returns DNS records (A, AAAA, MX, NS, TXT, SOA), WHOIS/RDAP registration data, CT log (certificate transparency) entries, SPF/DKIM/DMARC email authentication analysis, and threat intel hits from blocklists and IOC feeds.",
       "category": "domain"
@@ -303,6 +328,11 @@
       "name": "pivot_domain",
       "description": "Pivot across domains by shared registrant attributes. Find other domains owned by the same entity by matching registrant email, organization, nameservers, or registrar. Critical for mapping attacker infrastructure — if a malicious domain shares its registrant email with 50 other domains, those are likely all owned by the same threat actor.",
       "category": "domain"
+    },
+    {
+      "name": "poc_scan",
+      "description": "Search GitHub for public exploit/PoC repositories for a CVE. Returns repo URLs, star counts, language, age, and whether the repo has actual code. Bypasses GitHub 1000-result limit via monthly pagination.",
+      "category": "other"
     },
     {
       "name": "scan_website",
@@ -513,6 +543,61 @@
       "name": "wayback_lookup",
       "description": "Check the Wayback Machine (archive.org) for historical snapshots of a URL. Useful for tracking website changes or recovering deleted content.",
       "category": "domain"
+    },
+    {
+      "name": "ws_add_connection",
+      "description": "Define a relationship between two subjects in a workspace.",
+      "category": "other"
+    },
+    {
+      "name": "ws_add_finding",
+      "description": "Log a finding with source, trust score, and confidence in a workspace.",
+      "category": "other"
+    },
+    {
+      "name": "ws_add_subject",
+      "description": "Register a subject (entity) in a workspace investigation.",
+      "category": "other"
+    },
+    {
+      "name": "ws_create",
+      "description": "Create a new investigation workspace for AEAD lifecycle tracking.",
+      "category": "other"
+    },
+    {
+      "name": "ws_export_stix",
+      "description": "Export workspace indicators as STIX 2.1 bundle or flat IOC list.",
+      "category": "other"
+    },
+    {
+      "name": "ws_exposure",
+      "description": "Calculate composite exposure score (0-100) for a target based on IOC reputation, breach exposure, infrastructure, attack surface, and threat intel.",
+      "category": "other"
+    },
+    {
+      "name": "ws_get",
+      "description": "Get a workspace with all subjects, connections, findings, and timeline.",
+      "category": "other"
+    },
+    {
+      "name": "ws_list",
+      "description": "List investigation workspaces. Each workspace is a full AEAD-lifecycle case with subjects, connections, findings, and timeline.",
+      "category": "other"
+    },
+    {
+      "name": "ws_render_graph",
+      "description": "Render an ASCII box-drawing relationship graph, timeline, or risk heatmap from workspace data.",
+      "category": "other"
+    },
+    {
+      "name": "ws_workflow_advance",
+      "description": "Advance a workspace to the next AEAD phase (Acquire→Enrich→Assess→Deliver→Complete).",
+      "category": "other"
+    },
+    {
+      "name": "ws_workflow_summary",
+      "description": "Get workspace summary: phase progress, findings breakdown, recommended commands.",
+      "category": "other"
     }
   ]
 }

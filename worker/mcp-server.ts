@@ -2474,5 +2474,92 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         return untrustedToolResult(data);
       }
     );
+
+    // ── CVE Intelligence (from CVE-Intel) ──────────────────────────────
+    this.tools(
+      'poc_scan',
+      'Search GitHub for public exploit/PoC repositories for a CVE. Returns repo URLs, star counts, language, age, and whether the repo has actual code. Bypasses GitHub 1000-result limit via monthly pagination.',
+      { cve_id: z.string().describe('CVE identifier, e.g. CVE-2024-3094') },
+      async ({ cve_id }) => {
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          `/api/v1/cve-poc-scan?id=${encodeURIComponent(cve_id)}`,
+          this.apiKey
+        );
+        return untrustedToolResult(data);
+      }
+    );
+    this.tools(
+      'cve_poc_map',
+      'Get the cached CVE-to-GitHub-repo mapping. Pass ?id=CVE-XXXX-XXXXX for a single CVE, or ?year=YYYY for a year-scoped index of all mapped CVEs. Results are KV-cached for 24h.',
+      {
+        cve_id: z.string().optional().describe('CVE ID (optional if year is provided)'),
+        year: z.number().optional().describe('Year for index lookup (optional if cve_id is provided)'),
+      },
+      async ({ cve_id, year }) => {
+        const params = new URLSearchParams();
+        if (cve_id) params.set('id', cve_id);
+        if (year) params.set('year', String(year));
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          `/api/v1/cve-poc-map?${params}`,
+          this.apiKey
+        );
+        return untrustedToolResult(data);
+      }
+    );
+    this.tools(
+      'cyber_news',
+      'Aggregate cybersecurity news from 11 RSS feeds across 5 tiers (Advisory, Exploit, Research, Vendor, Community). Supports tier filtering and keyword search. Sources: CISA, Rapid7, Packet Storm, BleepingComputer, Hacker News, GitHub Security, ZDI, Reddit netsec/exploitdev/bugbounty.',
+      {
+        tier: z
+          .number()
+          .optional()
+          .describe('Filter by tier: 1=Advisory, 2=Exploit, 3=Research, 4=Vendor, 5=Community'),
+        query: z.string().optional().describe('Keyword filter (searches title + description)'),
+        limit: z.number().optional().describe('Max articles to return (default 100)'),
+      },
+      async ({ tier, query, limit }) => {
+        const params = new URLSearchParams({ limit: String(limit ?? 100) });
+        if (tier) params.set('tier', String(tier));
+        if (query) params.set('q', query);
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          `/api/v1/cyber-news?${params}`,
+          this.apiKey
+        );
+        return untrustedToolResult(data);
+      }
+    );
+    this.tools(
+      'cve_health',
+      'Check the health of CVE data pipelines. Validates NVD API, EPSS API, CISA KEV, GitHub API rate limit, KV intel cache (EPSS coverage, KEV count, field completeness), and Exploit-DB mirror availability. Returns overall status (healthy/degraded/unhealthy) with per-check details.',
+      {},
+      async () => {
+        const data = await apiFetch<Record<string, unknown>>(this.env.SELF, '/api/v1/cve-health', this.apiKey);
+        return untrustedToolResult(data);
+      }
+    );
+    this.tools(
+      'soc_cve_report',
+      'Generate a SOC CVE intelligence report. Takes a list of up to 50 CVE IDs and bundles CVE lookup + PoC scan + health check into a downloadable CSV or Markdown report. Returns executive summary, CVSS/EPSS/KEV details, PoC repos, and pipeline health.',
+      {
+        cves: z.array(z.string()).describe('List of CVE IDs to include in the report (max 50)'),
+        format: z.enum(['csv', 'markdown']).optional().describe('Output format: csv or markdown (default markdown)'),
+      },
+      async ({ cves, format }) => {
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          '/api/v1/soc-cve-report/json',
+          this.apiKey,
+          {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({ cves, format: format ?? 'markdown' }),
+          }
+        );
+        return untrustedToolResult(data);
+      }
+    );
   }
 }
