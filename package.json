@@ -11,7 +11,7 @@
     "og:png": "node scripts/generate-og-png.mjs",
     "sitemap": "node scripts/build-sitemap.mjs",
     "check:meta": "node scripts/check-meta-lengths.mjs",
-    "prebuild": "node scripts/build-telegram-actor-catalog.mjs && node scripts/extract-wiki-meta.mjs && node scripts/generate-og-png.mjs && node scripts/build-sitemap.mjs && node scripts/check-meta-lengths.mjs",
+    "prebuild": "node scripts/build-telegram-actor-catalog.mjs && node scripts/extract-wiki-meta.mjs && node scripts/generate-og-png.mjs && node scripts/build-sitemap.mjs && node scripts/check-meta-lengths.mjs && node scripts/build-mcp-manifest.mjs && node scripts/build-llms-full.mjs",
     "build:client": "vite build",
     "build:server": "vite build --ssr src/entry-server.tsx",
     "build:prerender": "node scripts/prerender.mjs",
@@ -34,7 +34,10 @@
     "codegen": "node scripts/codegen.mjs",
     "codegen:check": "node scripts/codegen.mjs --check",
     "prepare": "husky install || true",
-    "build:telegram-actor-catalog": "node scripts/build-telegram-actor-catalog.mjs"
+    "build:telegram-actor-catalog": "node scripts/build-telegram-actor-catalog.mjs",
+    "test:mcp": "node --test scripts/build-mcp-manifest.test.mjs",
+    "check:coverage": "node scripts/check-coverage.mjs",
+    "check:all": "npm run lint && npm run typecheck && npm run test:run && npm run check:coverage"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.29.0",

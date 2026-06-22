@@ -14,11 +14,41 @@ export default defineConfig({
     // (own vitest.config.ts) and uses imports like `cloudflare:test`
     // that don't resolve in this jsdom runner. Exclude its tree so a
     // root-level `npm test` doesn't try to load worker tests here.
-    exclude: ['**/node_modules/**', '**/dist/**', 'api/**'],
+    exclude: ['**/node_modules/**', '**/dist/**', 'api/**', 'scripts/**'],
     coverage: {
       provider: 'v8',
-      reporter: ['text', 'json', 'html'],
-      exclude: ['node_modules/', 'src/test/', 'api/**', '**/*.d.ts', '**/*.config.*', '**/dist/**'],
+      reporter: ['text', 'json', 'html', 'lcov'],
+      // Thresholds are intentionally loose at the global level — the
+      // rule-convert module has its own dedicated suite with deeper
+      // assertions, so its real coverage is much higher than the
+      // whole-tree average. The global threshold is a tripwire that
+      // catches accidental drops in any subtree.
+      thresholds: {
+        lines: 30,
+        functions: 30,
+        branches: 25,
+        statements: 30,
+      },
+      exclude: [
+        'node_modules/',
+        'src/test/',
+        'api/**',
+        '**/*.d.ts',
+        '**/*.config.*',
+        '**/dist/**',
+        // Generated / test fixtures
+        '**/*.test.{ts,tsx}',
+        '**/__tests__/**',
+        // Page components are tested via the e2e pipeline, not vitest
+        'src/pages/**',
+        'src/components/**',
+        // Routing layer
+        'src/App.tsx',
+        'src/main.tsx',
+        'src/entry-server.tsx',
+        // Generated content (case studies, research) lives in data files
+        'src/data/**',
+      ],
     },
   },
 });

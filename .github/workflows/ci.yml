@@ -74,6 +74,33 @@ jobs:
       - run: npm ci
       - run: npm run test:run
 
+  coverage:
+    name: Coverage gate (protected surfaces)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - run: npm ci
+      # Verifies every protected lib (rule-convert, detection-engine, etc.)
+      # has at least one test file and meets its per-module coverage
+      # threshold. Falls back to a "test-exists" check if the coverage
+      # provider is not installed.
+      - name: Check protected-surface coverage
+        run: node scripts/check-coverage.mjs
+      # Upload the full coverage report as a CI artifact so a human can
+      # drill into any regression. The job itself only fails on threshold
+      # breaches; the artifact is informational.
+      - name: Upload coverage report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: coverage/
+          retention-days: 14
+
   test-api:
     name: Vitest (api lib + case-study)
     runs-on: ubuntu-latest
