@@ -42,7 +42,7 @@ export function BottomNav({ mode, onOpenSearch }: BottomNavProps): JSX.Element {
             <Link
               key={item.href}
               to={item.href}
-              className={`flex flex-col items-center gap-0.5 min-w-[60px] py-1 transition-colors ${
+              className={`flex flex-col items-center gap-0.5 min-w-[60px] py-1 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 ${
                 active
                   ? mode === 'dfir'
                     ? 'text-brand-600 dark:text-brand-400'
@@ -60,7 +60,7 @@ export function BottomNav({ mode, onOpenSearch }: BottomNavProps): JSX.Element {
         <button
           type="button"
           onClick={onOpenSearch}
-          className="flex flex-col items-center gap-0.5 min-w-[60px] py-1 text-slate-500 dark:text-slate-400 transition-colors"
+          className="flex flex-col items-center gap-0.5 min-w-[60px] py-1 text-slate-500 dark:text-slate-400 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
         >
           <Search size={20} aria-hidden="true" />
           <span className="text-[10px] font-medium">Search</span>
@@ -70,7 +70,7 @@ export function BottomNav({ mode, onOpenSearch }: BottomNavProps): JSX.Element {
         {hasRecent && (
           <Link
             to={entries[0].path}
-            className={`flex flex-col items-center gap-0.5 min-w-[60px] py-1 transition-colors ${
+            className={`flex flex-col items-center gap-0.5 min-w-[60px] py-1 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 ${
               location.pathname === entries[0].path
                 ? mode === 'dfir'
                   ? 'text-brand-600 dark:text-brand-400'
