@@ -13,7 +13,7 @@
 
 import type { Context } from 'hono';
 import type { Env } from '../env';
-import { runFullCollection, getIocStats, applyDecayScoring } from '../lib/cti-collector';
+import { runFullCollection, getIocStats, applyDecayScoring, sweepStaleData } from '../lib/cti-collector';
 import { generatePredictions, getRecentPredictions } from '../lib/cti-prediction';
 import {
   parseSeedAttack,
@@ -194,4 +194,14 @@ export async function ctiDecayHandler(c: Context<{ Bindings: Env }>) {
   if (!db) return c.json({ error: 'database unavailable' }, 503);
   const result = await applyDecayScoring(db);
   return c.json(result);
+}
+
+// ── Stale data sweep ───────────────────────────────────────────────────
+
+export async function ctiSweepHandler(c: Context<{ Bindings: Env }>) {
+  const db = c.env.BRIEFINGS_DB;
+  if (!db) return c.json({ error: 'database unavailable' }, 503);
+  const days = parseInt(c.req.query('days') || '30');
+  const result = await sweepStaleData(db, days);
+  return c.json({ days, ...result });
 }

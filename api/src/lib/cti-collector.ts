@@ -406,6 +406,78 @@ export async function applyDecayScoring(db: D1Database): Promise<{ updated: numb
   return { updated };
 }
 
+// ── Stale data sweep ───────────────────────────────────────────────────
+
+export interface SweepResult {
+  iocs_deleted: number;
+  news_deleted: number;
+  predictions_deleted: number;
+  mutations_deleted: number;
+  jobs_deleted: number;
+  total_deleted: number;
+}
+
+/**
+ * Delete CTI data older than `days` days. Runs alongside every collection
+ * so stale rows are purged hourly, not just at the daily 6am UTC retention
+ * sweep. This gives the CTI module its own self-contained cleanup.
+ */
+export async function sweepStaleData(db: D1Database, days = 30): Promise<SweepResult> {
+  const cutoff = new Date(Date.now() - days * 86_400_000).toISOString();
+  const result: SweepResult = {
+    iocs_deleted: 0,
+    news_deleted: 0,
+    predictions_deleted: 0,
+    mutations_deleted: 0,
+    jobs_deleted: 0,
+    total_deleted: 0,
+  };
+
+  const sweeps: Array<[string, string, keyof SweepResult]> = [
+    ['cti_iocs', 'last_seen', 'iocs_deleted'],
+    ['cti_news', 'fetched_at', 'news_deleted'],
+    ['cti_predictions', 'generated_at', 'predictions_deleted'],
+    ['cti_mutation_variants', 'created_at', 'mutations_deleted'],
+    ['cti_collection_jobs', 'started_at', 'jobs_deleted'],
+  ];
+
+  for (const [table, column, key] of sweeps) {
+    try {
+      const countRow = await db
+        .prepare(`SELECT COUNT(*) as n FROM ${table} WHERE ${column} < ?`)
+        .bind(cutoff)
+        .first<{ n: number }>();
+      const n = countRow?.n ?? 0;
+      if (n > 0) {
+        await db.prepare(`DELETE FROM ${table} WHERE ${column} < ?`).bind(cutoff).run();
+        result[key] = n;
+        result.total_deleted += n;
+      }
+    } catch {
+      // Table might not exist yet — skip silently
+    }
+  }
+
+  // Also sweep orphaned mutation seeds (seeds with no variants left)
+  try {
+    const orphans = await db
+      .prepare(
+        `
+      DELETE FROM cti_mutation_seeds WHERE seed_id NOT IN (
+        SELECT DISTINCT seed_id FROM cti_mutation_variants
+      ) AND created_at < ?
+    `
+      )
+      .bind(cutoff)
+      .run();
+    if (orphans.meta?.changes) result.total_deleted += orphans.meta.changes;
+  } catch {
+    // Skip
+  }
+
+  return result;
+}
+
 // ── Main collection orchestrator ───────────────────────────────────────
 
 export interface CollectionResult {
@@ -415,6 +487,7 @@ export interface CollectionResult {
   sources_succeeded: number;
   errors: string[];
   duration_ms: number;
+  sweep?: SweepResult;
 }
 
 export async function runFullCollection(db: D1Database): Promise<CollectionResult> {
@@ -473,6 +546,19 @@ export async function runFullCollection(db: D1Database): Promise<CollectionResul
   // Apply decay scoring
   await applyDecayScoring(db);
 
+  // Sweep stale data (>30 days old) every collection cycle
+  let sweepResult: SweepResult | null = null;
+  try {
+    sweepResult = await sweepStaleData(db, 30);
+    if (sweepResult.total_deleted > 0) {
+      console.log(
+        `cti-sweep: deleted ${sweepResult.total_deleted} stale rows (iocs=${sweepResult.iocs_deleted}, news=${sweepResult.news_deleted})`
+      );
+    }
+  } catch {
+    // Non-critical
+  }
+
   // Record job status
   try {
     await db
@@ -495,6 +581,7 @@ export async function runFullCollection(db: D1Database): Promise<CollectionResul
     sources_succeeded: sourcesSucceeded,
     errors,
     duration_ms: Date.now() - start,
+    sweep: sweepResult ?? undefined,
   };
 }
 

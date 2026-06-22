@@ -1583,6 +1583,7 @@ import {
   ctiMutateHandler,
   ctiMutationsHandler,
   ctiDecayHandler,
+  ctiSweepHandler,
 } from './routes/cti-collector';
 app.post('/api/v1/cti/collect', ctiCollectHandler);
 app.get('/api/v1/cti/stats', ctiStatsHandler);
@@ -1593,6 +1594,7 @@ app.post('/api/v1/cti/predictions', ctiPredictionsPostHandler);
 app.post('/api/v1/cti/mutate', ctiMutateHandler);
 app.get('/api/v1/cti/mutations', ctiMutationsHandler);
 app.post('/api/v1/cti/decay', ctiDecayHandler);
+app.post('/api/v1/cti/sweep', ctiSweepHandler);
 
 /* ─── CTI Workspaces (AEAD Lifecycle) ─────────────────────────────── */
 app.get('/api/v1/workspaces', listWorkspacesHandler);
@@ -1616,6 +1618,21 @@ app.get('/api/v1/workspaces/:id/export', exportWorkspaceHandler);
 app.post('/api/v1/cti/exposure', exposureScoreHandler);
 app.post('/api/v1/cti/export/stix', exportStixCtiHandler);
 app.post('/api/v1/cti/render/graph', renderGraphHandler);
+
+/* ─── Telegram Intelligence Search (TraceOn-inspired) ───────────── */
+import {
+  tgBooleanSearchHandler,
+  tgTimelineHandler,
+  tgSavedSearchesListHandler,
+  tgSavedSearchCreateHandler,
+  tgSavedSearchDeleteHandler,
+} from './routes/tg-intelligence-search';
+
+app.get('/api/v1/tg-search', tgBooleanSearchHandler);
+app.get('/api/v1/tg-timeline', tgTimelineHandler);
+app.get('/api/v1/tg-saved-searches', tgSavedSearchesListHandler);
+app.post('/api/v1/tg-saved-searches', tgSavedSearchCreateHandler);
+app.delete('/api/v1/tg-saved-searches/:id', tgSavedSearchDeleteHandler);
 
 // Standardized 404 shape: matches the api-error contract ({ error, message })
 // so clients get a human-readable message, not just a bare error code.
