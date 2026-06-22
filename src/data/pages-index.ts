@@ -2115,9 +2115,10 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
   {
     path: '/threatintel/cves/:tab',
     label: 'CVE Hub (tab)',
-    description: 'CVE hub tab — list, KEV, GitHub, Kubernetes.',
+    description: 'CVE hub tab — list, KEV, exploitable, PoC scanner, cyber news, K8s, CERT-In, health.',
     sectionLabel: 'Threat Intel · Detection',
     group: 'threatintel',
+    keywords: ['poc', 'scanner', 'github', 'news', 'feed', 'health', 'nvd', 'epss', 'kev'],
   },
   {
     path: '/threatintel/cve-list',

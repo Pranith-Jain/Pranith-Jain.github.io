@@ -324,6 +324,32 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
           logCronFail('publisher-bundle')(e);
         }
 
+        // ── CTI Collector: automated IOC + news ingestion (every hour) ────
+        try {
+          if (env.BRIEFINGS_DB) {
+            const { runFullCollection } = await import('../api/src/lib/cti-collector');
+            const ctiResult = await runFullCollection(env.BRIEFINGS_DB);
+            console.log(
+              JSON.stringify({
+                job: 'cti-collector',
+                iocs_stored: ctiResult.iocs_stored,
+                news_stored: ctiResult.news_stored,
+                sources: `${ctiResult.sources_succeeded}/${ctiResult.sources_attempted}`,
+                duration_ms: ctiResult.duration_ms,
+                errors: ctiResult.errors.length,
+              })
+            );
+          }
+        } catch (e) {
+          console.error(
+            JSON.stringify({
+              job: 'cti-collector',
+              status: 'failed',
+              error: e instanceof Error ? e.message : String(e),
+            })
+          );
+        }
+
         // Briefing self-heal runs at the END of this hourly invocation —
         // but only kicks in if the daily (or, on Mondays, the weekly) is
         // empty or degraded.  A cheap D1 read checks `briefingNeedsHeal`;

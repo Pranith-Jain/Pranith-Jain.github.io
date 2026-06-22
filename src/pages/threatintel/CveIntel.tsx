@@ -8,8 +8,11 @@ const ExploitableCves = lazy(() => import('./ExploitableCves'));
 const CisaKevCatalog = lazy(() => import('./CisaKevCatalog'));
 const K8sCve = lazy(() => import('./K8sCve'));
 const CertInAdvisories = lazy(() => import('./CertInAdvisories'));
+const PocScanner = lazy(() => import('./PocScanner'));
+const CyberNewsFeed = lazy(() => import('./CyberNewsFeed'));
+const CveHealthCheck = lazy(() => import('./CveHealthCheck'));
 
-type TabId = 'all' | 'exploitable' | 'kev' | 'k8s' | 'cert-in';
+type TabId = 'all' | 'exploitable' | 'kev' | 'k8s' | 'cert-in' | 'poc' | 'news' | 'health';
 
 const TABS: Array<{ id: TabId; label: string; desc: string }> = [
   { id: 'all', label: 'All Recent', desc: 'NVD feed + KEV + Microsoft Threat Intelligence + cvefeed.io' },
@@ -19,12 +22,19 @@ const TABS: Array<{ id: TabId; label: string; desc: string }> = [
     desc: 'CVEs with known exploits from vendor labs, security research, and KEV',
   },
   { id: 'kev', label: 'CISA KEV', desc: 'CISA Known Exploited Vulnerabilities catalog with filtering and CSV export' },
+  {
+    id: 'poc',
+    label: 'PoC Scanner',
+    desc: 'Search GitHub for public exploit/PoC repositories — stars, code, and metadata',
+  },
+  { id: 'news', label: 'Cyber News', desc: '11-source security news feed across 5 tiers — advisories to community' },
   { id: 'k8s', label: 'Kubernetes', desc: 'Kubernetes-specific CVE feed from official security advisories' },
   {
     id: 'cert-in',
     label: 'CERT-In',
     desc: 'Indian CERT advisories (CIAD-YYYY-NNNN) with severity, products, and CVE mapping',
   },
+  { id: 'health', label: 'Health', desc: 'Data pipeline health — NVD, EPSS, KEV, GitHub, and Exploit-DB status' },
 ];
 
 export default function CveIntel(): JSX.Element {
@@ -68,8 +78,11 @@ export default function CveIntel(): JSX.Element {
           {activeTab === 'all' && <CveList />}
           {activeTab === 'exploitable' && <ExploitableCves />}
           {activeTab === 'kev' && <CisaKevCatalog />}
+          {activeTab === 'poc' && <PocScanner />}
+          {activeTab === 'news' && <CyberNewsFeed />}
           {activeTab === 'k8s' && <K8sCve bare />}
           {activeTab === 'cert-in' && <CertInAdvisories />}
+          {activeTab === 'health' && <CveHealthCheck />}
         </Suspense>
       </div>
     </DataPageLayout>
