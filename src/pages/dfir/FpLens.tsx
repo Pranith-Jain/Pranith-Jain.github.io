@@ -317,7 +317,7 @@ export default function FpLens(): JSX.Element {
               <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5">
                 <h2 className="font-display font-bold text-sm mb-3 flex items-center gap-2">
                   <AlertTriangle size={14} className="text-amber-600 dark:text-amber-400" /> False Positive Patterns
-                  <span className="ml-auto text-micro font-mono text-slate-500">{result.fp_patterns.length}</span>
+                  <span className="ml-auto text-micro font-mono text-slate-400">{result.fp_patterns.length}</span>
                 </h2>
                 <div className="space-y-3">
                   {result.fp_patterns.map((p, i) => (
@@ -341,7 +341,7 @@ export default function FpLens(): JSX.Element {
               <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5">
                 <h2 className="font-display font-bold text-sm mb-3 flex items-center gap-2">
                   <CheckCircle2 size={14} className="text-emerald-600 dark:text-emerald-400" /> True Positive Signals
-                  <span className="ml-auto text-micro font-mono text-slate-500">{result.tp_signals.length}</span>
+                  <span className="ml-auto text-micro font-mono text-slate-400">{result.tp_signals.length}</span>
                 </h2>
                 <ul className="space-y-1.5 text-sm text-slate-700 dark:text-slate-300">
                   {result.tp_signals.map((t, i) => (
@@ -356,7 +356,7 @@ export default function FpLens(): JSX.Element {
               <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5">
                 <h2 className="font-display font-bold text-sm mb-3 flex items-center gap-2">
                   <Wrench size={14} className="text-brand-600 dark:text-brand-400" /> Suggested Exclusions
-                  <span className="ml-auto text-micro font-mono text-slate-500">
+                  <span className="ml-auto text-micro font-mono text-slate-400">
                     {result.suggested_exclusions.length}
                   </span>
                 </h2>
@@ -373,7 +373,7 @@ export default function FpLens(): JSX.Element {
               <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-5">
                 <h2 className="font-display font-bold text-sm mb-3 flex items-center gap-2">
                   <ListChecks size={14} className="text-brand-600 dark:text-brand-400" /> Tuning Guidance
-                  <span className="ml-auto text-micro font-mono text-slate-500">{result.tuning_guidance.length}</span>
+                  <span className="ml-auto text-micro font-mono text-slate-400">{result.tuning_guidance.length}</span>
                 </h2>
                 <ol className="space-y-2 text-sm text-slate-700 dark:text-slate-300 list-decimal pl-5">
                   {result.tuning_guidance.map((g, i) => (

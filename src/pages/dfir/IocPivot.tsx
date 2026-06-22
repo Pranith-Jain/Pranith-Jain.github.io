@@ -329,7 +329,7 @@ export default function IocPivot(): JSX.Element {
                 {centerType}
               </text>
             </svg>
-            <div className="flex flex-wrap gap-x-4 gap-y-1 text-mini font-mono text-slate-500 px-2 pb-1">
+            <div className="flex flex-wrap gap-x-4 gap-y-1 text-mini font-mono text-slate-400 px-2 pb-1">
               <span>
                 <span style={{ color: VERDICT_COLOR.malicious }}>●</span> malicious
               </span>

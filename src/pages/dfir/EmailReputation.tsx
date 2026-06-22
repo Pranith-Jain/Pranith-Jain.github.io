@@ -332,7 +332,7 @@ export default function EmailReputation(): JSX.Element {
                       </span>
                     )}
                     {result.emailRep.references !== undefined && result.emailRep.references > 0 && (
-                      <span className="text-micro font-mono text-slate-500">
+                      <span className="text-micro font-mono text-slate-400">
                         {result.emailRep.references} references
                       </span>
                     )}
@@ -349,7 +349,7 @@ export default function EmailReputation(): JSX.Element {
                       ))}
                     </div>
                   )}
-                  <p className="text-mini font-mono text-slate-500 dark:text-slate-400">
+                  <p className="text-mini font-mono text-slate-400 dark:text-slate-400">
                     {result.emailRep.details?.first_seen && `first seen ${result.emailRep.details.first_seen} · `}
                     {result.emailRep.details?.last_seen && `last seen ${result.emailRep.details.last_seen} · `}
                     {result.emailRep.details?.deliverable !== undefined &&

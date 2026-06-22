@@ -267,7 +267,7 @@ export default function DlpScan(): JSX.Element {
                         >
                           {f.confidence}
                         </span>
-                        <span className="text-micro font-mono text-slate-500 dark:text-slate-400">
+                        <span className="text-micro font-mono text-slate-400 dark:text-slate-400">
                           {CATEGORY_LABELS[f.pattern.category]}
                         </span>
                         <span className="text-micro font-mono text-slate-400 dark:text-slate-600 ml-auto">
@@ -292,7 +292,7 @@ export default function DlpScan(): JSX.Element {
                   </h2>
                   <CopyChip value={redacted} label="copy redacted" />
                 </div>
-                <p className="text-mini font-mono text-slate-500 dark:text-slate-400 mb-2">
+                <p className="text-mini font-mono text-slate-400 dark:text-slate-400 mb-2">
                   Every finding replaced with <code>[REDACTED:&lt;pattern-id&gt;]</code>. Safe to share in a ticket or
                   on Slack.
                 </p>
@@ -329,7 +329,7 @@ export default function DlpScan(): JSX.Element {
                 >
                   {p.severity}
                 </span>
-                <span className="text-micro font-mono text-slate-500 dark:text-slate-400">
+                <span className="text-micro font-mono text-slate-400 dark:text-slate-400">
                   {CATEGORY_LABELS[p.category]}
                 </span>
                 {p.validate && (
@@ -338,7 +338,7 @@ export default function DlpScan(): JSX.Element {
                   </span>
                 )}
               </div>
-              <p className="text-mini font-mono text-slate-500 dark:text-slate-400 leading-relaxed">{p.description}</p>
+              <p className="text-mini font-mono text-slate-400 dark:text-slate-400 leading-relaxed">{p.description}</p>
             </div>
           ))}
         </div>

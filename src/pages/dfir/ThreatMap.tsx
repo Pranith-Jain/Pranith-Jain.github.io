@@ -614,7 +614,7 @@ export default function ThreatMap(): JSX.Element {
                           className="block rounded border border-amber-400/30 hover:border-brand-500/40 bg-white dark:bg-[rgb(var(--surface-200))] px-3 py-2 transition-colors"
                         >
                           <div className="font-mono text-sm text-slate-900 dark:text-slate-100 break-all">{ip}</div>
-                          <div className="text-mini font-mono text-slate-500 mt-0.5">sources: {sources.join(', ')}</div>
+                          <div className="text-mini font-mono text-slate-400 mt-0.5">sources: {sources.join(', ')}</div>
                         </Link>
                       </li>
                     ))}
@@ -805,7 +805,7 @@ function SourcesBreakdown({ sourceCounts, iocTypes, totalIps }: SourcesBreakdown
         <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
           Sources contributing to this snapshot
         </h3>
-        <span className="text-mini font-mono text-slate-500 tabular-nums">
+        <span className="text-mini font-mono text-slate-400 tabular-nums">
           {rows.length} feeds · {totalAcrossSources.toLocaleString()} indicators
         </span>
       </div>
@@ -879,7 +879,7 @@ function IocTypeBreakdown({ ipsCount, buckets }: { ipsCount: number; buckets: Io
         <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
           IOC type breakdown
         </h3>
-        <span className="text-mini font-mono text-slate-500 tabular-nums">
+        <span className="text-mini font-mono text-slate-400 tabular-nums">
           {total.toLocaleString()} total · share of current snapshot
         </span>
       </div>

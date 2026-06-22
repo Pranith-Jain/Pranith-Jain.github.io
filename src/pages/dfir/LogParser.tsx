@@ -146,19 +146,19 @@ export default function LogParser(): JSX.Element {
             <div className="grid sm:grid-cols-3 gap-4 mb-3">
               <div>
                 <div className="text-2xl font-bold text-slate-900 dark:text-slate-100">{summary.total}</div>
-                <div className="text-mini font-mono text-slate-500 dark:text-slate-400">total lines</div>
+                <div className="text-mini font-mono text-slate-400 dark:text-slate-400">total lines</div>
               </div>
               <div>
                 <div className="text-2xl font-bold text-slate-900 dark:text-slate-100">
                   {summary.unique_techniques.length}
                 </div>
-                <div className="text-mini font-mono text-slate-500 dark:text-slate-400">unique MITRE techniques</div>
+                <div className="text-mini font-mono text-slate-400 dark:text-slate-400">unique MITRE techniques</div>
               </div>
               <div>
                 <div className="text-2xl font-bold text-slate-900 dark:text-slate-100">
                   {summary.unique_event_ids.length}
                 </div>
-                <div className="text-mini font-mono text-slate-500 dark:text-slate-400">unique event IDs</div>
+                <div className="text-mini font-mono text-slate-400 dark:text-slate-400">unique event IDs</div>
               </div>
             </div>
             <div className="flex flex-wrap gap-2">
@@ -185,7 +185,7 @@ export default function LogParser(): JSX.Element {
           {/* Severity filter */}
           <section className="flex flex-wrap items-center gap-2 mb-4">
             <Filter size={12} className="text-slate-500" />
-            <span className="text-mini font-mono text-slate-500">filter:</span>
+            <span className="text-mini font-mono text-slate-400">filter:</span>
             {(['high', 'medium', 'low', 'info'] as const).map((s) => {
               const count = summary.by_severity[s];
               const active = severityFilter.size === 0 || severityFilter.has(s);
@@ -234,10 +234,10 @@ export default function LogParser(): JSX.Element {
                     <span className="text-mini font-mono text-slate-700 dark:text-slate-300">EID {r.event_id}</span>
                   )}
                   {r.source && (
-                    <span className="text-mini font-mono text-slate-500 dark:text-slate-400">{r.source}</span>
+                    <span className="text-mini font-mono text-slate-400 dark:text-slate-400">{r.source}</span>
                   )}
                   {r.timestamp && (
-                    <span className="text-mini font-mono text-slate-500 dark:text-slate-400 ml-auto">
+                    <span className="text-mini font-mono text-slate-400 dark:text-slate-400 ml-auto">
                       {r.timestamp}
                     </span>
                   )}
@@ -269,7 +269,7 @@ export default function LogParser(): JSX.Element {
                 )}
 
                 <details>
-                  <summary className="text-mini font-mono text-slate-500 dark:text-slate-400 cursor-pointer">
+                  <summary className="text-mini font-mono text-slate-400 dark:text-slate-400 cursor-pointer">
                     {Object.keys(r.fields).length} parsed field{Object.keys(r.fields).length === 1 ? '' : 's'} — show
                     structured JSON
                   </summary>

@@ -813,7 +813,7 @@ function Diamond(): JSX.Element {
                     placeholder={a.description}
                   />
                 </label>
-                <ul className="mt-1.5 text-mini font-mono text-slate-500 dark:text-slate-400 space-y-0.5 list-disc pl-4">
+                <ul className="mt-1.5 text-mini font-mono text-slate-400 dark:text-slate-400 space-y-0.5 list-disc pl-4">
                   {a.questions.map((q) => (
                     <li key={q}>{q}</li>
                   ))}

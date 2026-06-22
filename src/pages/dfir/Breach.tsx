@@ -307,12 +307,12 @@ function VerificationCard({ verification }: { verification: EmailVerification })
             >
               {v.label}
             </span>
-            <span className="text-micro font-mono text-slate-500">verified by {sourceCount}/2 free sources</span>
+            <span className="text-micro font-mono text-slate-400">verified by {sourceCount}/2 free sources</span>
             <a
               href="https://github.com/sslboard/throwaway"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-micro font-mono text-slate-500 hover:text-slate-700 dark:hover:text-slate-300"
+              className="inline-flex items-center gap-1 text-micro font-mono text-slate-400 hover:text-slate-700 dark:hover:text-slate-300"
             >
               throwaway <ExternalLink size={9} />
             </a>
@@ -320,7 +320,7 @@ function VerificationCard({ verification }: { verification: EmailVerification })
               href="https://github.com/umuterturk/email-verifier"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-micro font-mono text-slate-500 hover:text-slate-700 dark:hover:text-slate-300"
+              className="inline-flex items-center gap-1 text-micro font-mono text-slate-400 hover:text-slate-700 dark:hover:text-slate-300"
             >
               rapid-verifier <ExternalLink size={9} />
             </a>

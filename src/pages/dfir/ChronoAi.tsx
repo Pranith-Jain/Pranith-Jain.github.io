@@ -307,7 +307,7 @@ export default function ChronoAi(): JSX.Element {
                         <div key={p.id} className="flex-1">
                           <div className="flex items-center gap-1 mb-1">
                             <span className="text-micro text-slate-500">{PHASE_ICONS[p.id]}</span>
-                            <span className="text-micro font-mono text-slate-500 truncate">{p.label}</span>
+                            <span className="text-micro font-mono text-slate-400 truncate">{p.label}</span>
                           </div>
                           <div className="h-2 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden">
                             <div

@@ -225,7 +225,7 @@ export default function PcapTriage(): JSX.Element {
         <p className="text-sm font-mono text-slate-700 dark:text-slate-300">
           Drop a capture file file here, or click to choose
         </p>
-        <p className="text-mini font-mono text-slate-500 mt-1">100% client-side. No upload.</p>
+        <p className="text-mini font-mono text-slate-400 mt-1">100% client-side. No upload.</p>
       </button>
       <input
         id="pcaptriage-input"

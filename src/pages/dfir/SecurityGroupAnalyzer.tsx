@@ -471,7 +471,7 @@ export default function SecurityGroupAnalyzer(): JSX.Element {
                           >
                             {f.sev}
                           </span>
-                          <span className="text-mini font-mono text-slate-500">{f.where}</span>
+                          <span className="text-mini font-mono text-slate-400">{f.where}</span>
                         </div>
                         <h3 className={`font-display font-semibold mt-1.5 ${st.text}`}>{f.title}</h3>
                         <p className="text-sm text-muted mt-1 leading-relaxed">{f.detail}</p>

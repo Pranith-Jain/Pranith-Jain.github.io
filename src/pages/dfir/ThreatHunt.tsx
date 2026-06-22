@@ -202,7 +202,7 @@ export default function ThreatHunt(): JSX.Element {
                 {result.breach_data.hits.map((b) => (
                   <div key={b.name} className="px-3 py-2 rounded-lg bg-slate-50 dark:bg-slate-800/50">
                     <p className="text-xs font-mono font-medium">{b.name}</p>
-                    {b.description && <p className="text-mini font-mono text-slate-500 mt-0.5">{b.description}</p>}
+                    {b.description && <p className="text-mini font-mono text-slate-400 mt-0.5">{b.description}</p>}
                   </div>
                 ))}
               </div>

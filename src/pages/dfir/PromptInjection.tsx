@@ -260,7 +260,7 @@ export default function PromptInjection(): JSX.Element {
                       >
                         {m.pattern.severity}
                       </span>
-                      <span className="text-micro font-mono text-slate-500 dark:text-slate-400">
+                      <span className="text-micro font-mono text-slate-400 dark:text-slate-400">
                         {m.pattern.category}
                       </span>
                       {m.pattern.owasp.map((id) => (
@@ -275,7 +275,7 @@ export default function PromptInjection(): JSX.Element {
                     </div>
                     <p className="text-sm font-mono text-muted">{m.pattern.description}</p>
                     {m.pattern.reference && (
-                      <p className="mt-1 text-mini font-mono text-slate-500 dark:text-slate-400">
+                      <p className="mt-1 text-mini font-mono text-slate-400 dark:text-slate-400">
                         Ref: {m.pattern.reference}
                       </p>
                     )}
@@ -386,7 +386,7 @@ export default function PromptInjection(): JSX.Element {
                 >
                   {p.severity}
                 </span>
-                <span className="text-micro font-mono text-slate-500 dark:text-slate-400">{p.category}</span>
+                <span className="text-micro font-mono text-slate-400 dark:text-slate-400">{p.category}</span>
                 {p.owasp.map((id) => (
                   <span
                     key={id}
@@ -427,7 +427,7 @@ export default function PromptInjection(): JSX.Element {
                 </p>
               </div>
               {p.source && (
-                <p className="mt-1.5 text-micro font-mono text-slate-500 dark:text-slate-400">Source: {p.source}</p>
+                <p className="mt-1.5 text-micro font-mono text-slate-400 dark:text-slate-400">Source: {p.source}</p>
               )}
             </li>
           ))}
@@ -504,7 +504,7 @@ export default function PromptInjection(): JSX.Element {
                   </span>
                 ))}
               </div>
-              <p className="text-mini font-mono text-slate-500 dark:text-slate-400 leading-relaxed">{p.description}</p>
+              <p className="text-mini font-mono text-slate-400 dark:text-slate-400 leading-relaxed">{p.description}</p>
             </div>
           ))}
         </div>

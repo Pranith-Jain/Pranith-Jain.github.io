@@ -182,7 +182,7 @@ export default function HashCalculator(): JSX.Element {
               <button
                 type="button"
                 onClick={() => void navigator.clipboard?.writeText(v)}
-                className="text-micro font-mono text-slate-500 hover:text-brand-600"
+                className="text-micro font-mono text-slate-400 hover:text-brand-600"
               >
                 copy
               </button>

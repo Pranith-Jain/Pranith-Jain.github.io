@@ -219,7 +219,7 @@ export default function Encoder(): JSX.Element {
                 className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-3"
               >
                 <div className="flex items-baseline justify-between gap-2 mb-2">
-                  <span className="text-mini font-mono text-slate-500 dark:text-slate-400">
+                  <span className="text-mini font-mono text-slate-400 dark:text-slate-400">
                     pass {i + 1} ·{' '}
                     <span className="text-slate-700 dark:text-slate-300">
                       {ENCODINGS.find((e) => e.id === step.encoding)?.label}

@@ -101,7 +101,7 @@ function CopyBtn({ text }: { text: string }) {
         setDone(true);
         setTimeout(() => setDone(false), 1200);
       }}
-      className="inline-flex items-center gap-1 text-mini font-mono text-slate-500 hover:text-brand-600 dark:hover:text-brand-400"
+      className="inline-flex items-center gap-1 text-mini font-mono text-slate-400 hover:text-brand-600 dark:hover:text-brand-400"
     >
       {done ? <Check size={12} /> : <Copy size={12} />} {done ? 'copied' : 'copy'}
     </button>
@@ -251,7 +251,7 @@ export default function RuleConverter(): JSX.Element {
           ))}
         </select>
         {chosenMap && fieldMapId !== 'passthrough' && (
-          <span className="text-mini font-mono text-slate-500" title={chosenMap.description}>
+          <span className="text-mini font-mono text-slate-400" title={chosenMap.description}>
             ~{Object.keys(chosenMap.mappings).length} field rewrites
           </span>
         )}
@@ -330,7 +330,7 @@ export default function RuleConverter(): JSX.Element {
                         <div className="text-meta font-medium text-slate-900 dark:text-slate-100 leading-tight">
                           {s.label}
                         </div>
-                        <div className="text-micro font-mono text-slate-500 mt-0.5 truncate">{s.description}</div>
+                        <div className="text-micro font-mono text-slate-400 mt-0.5 truncate">{s.description}</div>
                       </button>
                     </li>
                   ))}
@@ -367,7 +367,7 @@ export default function RuleConverter(): JSX.Element {
             <h3 className="font-display font-semibold text-sm">
               {FORMAT_LABELS[to]}
               {batchMode && batchResult && batchResult.length > 0 && (
-                <span className="ml-2 text-micro font-mono text-slate-500 uppercase tracking-wider">
+                <span className="ml-2 text-micro font-mono text-slate-400 uppercase tracking-wider">
                   batch · {batchResult.filter((b) => b.ok).length}/{batchResult.length}
                 </span>
               )}
@@ -511,7 +511,7 @@ export default function RuleConverter(): JSX.Element {
             </Link>
           </li>
         </ul>
-        <p className="mt-3 text-mini font-mono text-slate-500 leading-relaxed">
+        <p className="mt-3 text-mini font-mono text-slate-400 leading-relaxed">
           {CONVERTER_STARTERS.length} starters · {FIELD_MAPS.length - 1} field-map presets · multi-doc Sigma batch · IR
           inspector for debugging lossy parses.
         </p>

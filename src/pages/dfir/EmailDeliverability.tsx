@@ -250,7 +250,7 @@ export default function EmailDeliverability(): JSX.Element {
           <button
             type="button"
             onClick={onClear}
-            className="ml-auto px-3 py-2.5 text-mini font-mono text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200"
+            className="ml-auto px-3 py-2.5 text-mini font-mono text-slate-400 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200"
           >
             clear
           </button>
@@ -361,7 +361,7 @@ export default function EmailDeliverability(): JSX.Element {
                 <button
                   type="button"
                   onClick={() => setExpandedHeaders((v) => !v)}
-                  className="inline-flex items-center gap-1 text-mini font-mono text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200"
+                  className="inline-flex items-center gap-1 text-mini font-mono text-slate-400 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200"
                 >
                   {expandedHeaders ? 'collapse' : 'expand'}
                   {expandedHeaders ? <ChevronUp size={10} /> : <ChevronDown size={10} />}
@@ -438,7 +438,7 @@ export default function EmailDeliverability(): JSX.Element {
             </section>
           )}
 
-          <footer className="flex flex-wrap items-center justify-between gap-2 text-mini font-mono text-slate-500 dark:text-slate-500">
+          <footer className="flex flex-wrap items-center justify-between gap-2 text-mini font-mono text-slate-400 dark:text-slate-500">
             <span>
               powered by{' '}
               <a href={CITATIONS.apiDocs} target="_blank" rel="noopener noreferrer" className="underline">

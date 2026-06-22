@@ -209,7 +209,7 @@ export default function Tabletop(): JSX.Element {
       <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
         <div className="flex flex-wrap items-baseline justify-between gap-3 mb-2">
           <h2 className="font-display font-bold text-xl text-slate-900 dark:text-slate-100">{archetype.name}</h2>
-          <span className="text-mini font-mono text-slate-500 dark:text-slate-400">{archetype.timingCue}</span>
+          <span className="text-mini font-mono text-slate-400 dark:text-slate-400">{archetype.timingCue}</span>
         </div>
         <div className="grid gap-1.5 sm:grid-cols-3 text-mini font-mono mb-3">
           <span>

@@ -218,7 +218,7 @@ export default function HostGraphView(): JSX.Element {
       {result && result.kind === 'cidr' && <PrefixView data={result.data} input={result.input.cidr} />}
 
       {result && (
-        <p className="mt-6 text-mini font-mono text-slate-500 flex items-center gap-2">
+        <p className="mt-6 text-mini font-mono text-slate-400 flex items-center gap-2">
           <Clock size={11} />
           generated {new Date(result.generated_at).toLocaleString()} · sources: {result.data.sources.join(', ') || '—'}
         </p>

@@ -373,7 +373,7 @@ export default function MitreMatrix(): JSX.Element {
         )}
 
         {/* Matrix — horizontally scrollable; explicit hint so touch users know to swipe */}
-        <p className="sm:hidden text-mini font-mono text-slate-500 dark:text-slate-400 mb-2 italic">
+        <p className="sm:hidden text-mini font-mono text-slate-400 dark:text-slate-400 mb-2 italic">
           Swipe horizontally to scan tactics →
         </p>
         <div className="overflow-x-auto pb-4 -mx-4 sm:mx-0 px-4 sm:px-0">
@@ -437,7 +437,7 @@ export default function MitreMatrix(): JSX.Element {
                             aria-label={`coverage: ${COVERAGE_LABEL[cov]}`}
                           />
                         )}
-                        <div className="text-micro font-mono text-slate-500 dark:text-slate-400">{technique.id}</div>
+                        <div className="text-micro font-mono text-slate-400 dark:text-slate-400">{technique.id}</div>
                         <div className="text-tool sm:text-xs font-medium text-slate-800 dark:text-slate-200 leading-snug line-clamp-2 mt-0.5">
                           {technique.name}
                         </div>

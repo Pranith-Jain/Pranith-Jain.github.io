@@ -154,7 +154,7 @@ export default function SecopsCatalog(): JSX.Element {
 
         {/* Pricing toggles */}
         <div className="flex flex-wrap items-center gap-1.5 mt-3">
-          <span className="text-mini font-mono text-slate-500 mr-1">pricing:</span>
+          <span className="text-mini font-mono text-slate-400 mr-1">pricing:</span>
           {ALL_PRICING.map((p) => {
             const active = activePricing.has(p);
             return (
@@ -184,7 +184,7 @@ export default function SecopsCatalog(): JSX.Element {
       {/* Category pills */}
       <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
         <div className="flex flex-wrap items-center gap-1.5">
-          <span className="text-mini font-mono text-slate-500 mr-1">categories:</span>
+          <span className="text-mini font-mono text-slate-400 mr-1">categories:</span>
           {ALL_CATEGORIES.map((c) => {
             const count = catCounts.get(c) ?? 0;
             const active = activeCats.has(c);
@@ -207,7 +207,7 @@ export default function SecopsCatalog(): JSX.Element {
         </div>
       </section>
 
-      <p className="text-mini font-mono text-slate-500 dark:text-slate-400 mb-4">
+      <p className="text-mini font-mono text-slate-400 dark:text-slate-400 mb-4">
         Showing {filtered.length} of {TOOLS.length}
       </p>
 
@@ -259,7 +259,7 @@ export default function SecopsCatalog(): JSX.Element {
                   href={sanitizeUrl(t.source_url) || undefined}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="sm:ml-auto inline-flex items-center gap-1 text-micro font-mono text-slate-500 hover:text-brand-600 dark:hover:text-brand-400"
+                  className="sm:ml-auto inline-flex items-center gap-1 text-micro font-mono text-slate-400 hover:text-brand-600 dark:hover:text-brand-400"
                   title="Source repository"
                 >
                   <Github size={10} /> source

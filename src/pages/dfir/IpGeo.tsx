@@ -202,7 +202,7 @@ export default function IpGeo(): JSX.Element {
         </form>
 
         <div className="flex flex-wrap gap-1.5 mt-3">
-          <span className="text-micro font-mono text-slate-500 dark:text-slate-400 self-center mr-1">samples:</span>
+          <span className="text-micro font-mono text-slate-400 dark:text-slate-400 self-center mr-1">samples:</span>
           {SAMPLES.map((s) => (
             <button
               key={s.ip}
@@ -270,20 +270,20 @@ export default function IpGeo(): JSX.Element {
             {data.reputation.ok ? (
               <div className="grid sm:grid-cols-3 gap-3 mt-2">
                 <div>
-                  <div className="text-mini font-mono text-slate-500 dark:text-slate-400">AbuseIPDB confidence</div>
+                  <div className="text-mini font-mono text-slate-400 dark:text-slate-400">AbuseIPDB confidence</div>
                   <div className="text-2xl font-bold text-slate-900 dark:text-slate-100">
                     {data.reputation.confidence ?? 0}
                     <span className="text-sm font-normal text-slate-500"> / 100</span>
                   </div>
                 </div>
                 <div>
-                  <div className="text-mini font-mono text-slate-500 dark:text-slate-400">Total reports (90d)</div>
+                  <div className="text-mini font-mono text-slate-400 dark:text-slate-400">Total reports (90d)</div>
                   <div className="text-2xl font-bold text-slate-900 dark:text-slate-100">
                     {data.reputation.total_reports ?? 0}
                   </div>
                 </div>
                 <div>
-                  <div className="text-mini font-mono text-slate-500 dark:text-slate-400">Usage type</div>
+                  <div className="text-mini font-mono text-slate-400 dark:text-slate-400">Usage type</div>
                   <div className="text-base font-mono text-slate-900 dark:text-slate-100">
                     {data.reputation.usage_type ?? '—'}
                   </div>
@@ -405,7 +405,7 @@ export default function IpGeo(): JSX.Element {
                 <AlertTriangle size={12} /> {data.geo.error}
               </p>
             )}
-            <p className="text-micro font-mono text-slate-500 dark:text-slate-400 mt-3">
+            <p className="text-micro font-mono text-slate-400 dark:text-slate-400 mt-3">
               Geo data via{' '}
               <a
                 href={sanitizeUrl(data.geo.source_url) || undefined}

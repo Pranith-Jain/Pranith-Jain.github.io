@@ -187,7 +187,7 @@ export default function Lolbins(): JSX.Element {
                 href={sanitizeUrl(b.url) || undefined}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="ml-auto text-micro font-mono text-slate-500 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-0.5"
+                className="ml-auto text-micro font-mono text-slate-400 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-0.5"
               >
                 source <ExternalLink size={10} />
               </a>

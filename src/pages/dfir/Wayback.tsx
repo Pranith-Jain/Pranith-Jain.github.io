@@ -278,7 +278,7 @@ export default function Wayback(): JSX.Element {
             <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
               Timeline summary
             </h2>
-            <span className="text-mini font-mono text-slate-500 dark:text-slate-400 inline-flex items-center gap-1.5">
+            <span className="text-mini font-mono text-slate-400 dark:text-slate-400 inline-flex items-center gap-1.5">
               <CheckCircle2 size={12} className="text-emerald-500" /> {snapshots?.length ?? 0} unique snapshots
             </span>
           </div>
@@ -376,7 +376,7 @@ export default function Wayback(): JSX.Element {
               </tbody>
             </table>
             {displaySnapshots.length > 100 && (
-              <p className="mt-3 text-mini font-mono text-slate-500 dark:text-slate-400">
+              <p className="mt-3 text-mini font-mono text-slate-400 dark:text-slate-400">
                 Showing the 100 most recent of {displaySnapshots.length}. Re-run with a more specific URL or use{' '}
                 <a
                   href={`https://web.archive.org/web/*/${url}`}

@@ -189,7 +189,7 @@ export default function UsernamePivot(): JSX.Element {
               <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
                 Results for <span className="text-slate-900 dark:text-slate-100">{submitted}</span>
               </h2>
-              <span className="text-mini font-mono text-slate-500 dark:text-slate-400">
+              <span className="text-mini font-mono text-slate-400 dark:text-slate-400">
                 {stats.exists} exists · {stats['not-found']} not found · {stats['rate-limited']} rate-limited ·{' '}
                 {stats.error} error · {stats.manual} manual
               </span>
@@ -240,7 +240,7 @@ export default function UsernamePivot(): JSX.Element {
                       <span className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100">
                         {row.service.name}
                       </span>
-                      <span className="text-micro font-mono text-slate-500 dark:text-slate-400">
+                      <span className="text-micro font-mono text-slate-400 dark:text-slate-400">
                         {CATEGORY_LABELS[row.service.category]}
                       </span>
                       <span

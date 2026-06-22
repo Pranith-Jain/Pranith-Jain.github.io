@@ -507,7 +507,7 @@ export default function IocCheck(): JSX.Element {
               </>
             )}
             {bulkIndicators.length > 0 && (
-              <span className="text-mini font-mono text-slate-500">
+              <span className="text-mini font-mono text-slate-400">
                 detected {bulkIndicators.length} unique indicator{bulkIndicators.length === 1 ? '' : 's'}
                 {bulkInput.split(/[\s,;|]+/).filter(Boolean).length > BULK_MAX && ` (capped at ${BULK_MAX})`}
               </span>
@@ -571,9 +571,9 @@ export default function IocCheck(): JSX.Element {
                           {r.type === 'unknown' ? '?' : r.type}
                         </td>
                         <td className="px-3 py-2">
-                          {r.status === 'pending' && <span className="text-mini font-mono text-slate-500">queued</span>}
+                          {r.status === 'pending' && <span className="text-mini font-mono text-slate-400">queued</span>}
                           {r.status === 'running' && (
-                            <span className="inline-flex items-center gap-1 text-mini font-mono text-slate-500">
+                            <span className="inline-flex items-center gap-1 text-mini font-mono text-slate-400">
                               <Loader2 size={11} className="animate-spin" /> running
                             </span>
                           )}

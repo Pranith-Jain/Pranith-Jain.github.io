@@ -121,7 +121,7 @@ export default function ToolsCategory(): JSX.Element {
             <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
               {s.label}
             </h3>
-            <span className="text-mini font-mono text-slate-500">{s.blurb}</span>
+            <span className="text-mini font-mono text-slate-400">{s.blurb}</span>
           </div>
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {s.tools.map((t) => {
@@ -195,7 +195,7 @@ export default function ToolsCategory(): JSX.Element {
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="text-sm font-semibold font-display">{ex.platform}</div>
-                  <div className="text-mini font-mono text-slate-500 truncate">@{ex.username}</div>
+                  <div className="text-mini font-mono text-slate-400 truncate">@{ex.username}</div>
                 </div>
                 <a
                   href={ex.profileUrl}

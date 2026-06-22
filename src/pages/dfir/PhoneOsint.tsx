@@ -301,7 +301,7 @@ export default function PhoneOsint(): JSX.Element {
       {/* Category pills */}
       {categories.size > 0 && (
         <div className="flex flex-wrap items-center gap-1.5 mb-4">
-          <span className="text-mini font-mono text-slate-500 mr-1">category:</span>
+          <span className="text-mini font-mono text-slate-400 mr-1">category:</span>
           {[...categories.entries()].map(([cat, count]) => {
             const Icon = CATEGORY_ICONS[cat] ?? Globe;
             const active = activeCategory === cat;
@@ -336,7 +336,7 @@ export default function PhoneOsint(): JSX.Element {
       {/* Results */}
       {input.trim() && parsed && (
         <>
-          <p className="text-mini font-mono text-slate-500 dark:text-slate-400 mb-4">
+          <p className="text-mini font-mono text-slate-400 dark:text-slate-400 mb-4">
             {filtered.length} lookup{filtered.length !== 1 ? 's' : ''} available
           </p>
           <ul className="grid gap-3 md:grid-cols-2">

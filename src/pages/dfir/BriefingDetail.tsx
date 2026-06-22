@@ -240,7 +240,7 @@ function FindingCard({ finding }: { finding: BriefingFinding }) {
             ))}
           </div>
         )}
-      <div className="flex flex-wrap items-center gap-2 text-mini font-mono text-slate-500">
+      <div className="flex flex-wrap items-center gap-2 text-mini font-mono text-slate-400">
         <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))]">
           {finding.source}
         </span>
@@ -557,7 +557,7 @@ function LandscapeReportView({ briefing }: { briefing: LandscapeReport }): JSX.E
                   {f.description && (
                     <p className="text-sm text-muted leading-relaxed mb-3 line-clamp-4">{f.description}</p>
                   )}
-                  <div className="flex flex-wrap items-center gap-2 text-mini font-mono text-slate-500">
+                  <div className="flex flex-wrap items-center gap-2 text-mini font-mono text-slate-400">
                     <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))]">
                       {f.source}
                     </span>

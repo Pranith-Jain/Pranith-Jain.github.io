@@ -385,7 +385,7 @@ export default function PersonalSecurity(): JSX.Element {
                 style={{ width: `${Math.max(2, stats.score)}%` }}
               />
             </div>
-            <div className="flex items-center justify-between text-micro font-mono text-slate-500 dark:text-slate-400">
+            <div className="flex items-center justify-between text-micro font-mono text-slate-400 dark:text-slate-400">
               <span>
                 {stats.covered}/{stats.total} covered
               </span>
@@ -422,7 +422,7 @@ export default function PersonalSecurity(): JSX.Element {
           <h2 className="font-display font-bold text-xl text-slate-900 dark:text-slate-100">
             {activeCategory.longTitle}
           </h2>
-          <span className="text-micro font-mono text-slate-500 dark:text-slate-400">
+          <span className="text-micro font-mono text-slate-400 dark:text-slate-400">
             {activeStats.covered}/{activeStats.total} covered · {activeStats.score}%
           </span>
         </div>
@@ -472,7 +472,7 @@ export default function PersonalSecurity(): JSX.Element {
                     <span className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100">
                       {item.title}
                     </span>
-                    <span className="text-micro font-mono text-slate-500 dark:text-slate-400">· {category.short}</span>
+                    <span className="text-micro font-mono text-slate-400 dark:text-slate-400">· {category.short}</span>
                   </div>
                   <p className="text-meta font-mono text-muted leading-relaxed">{item.body}</p>
                 </li>

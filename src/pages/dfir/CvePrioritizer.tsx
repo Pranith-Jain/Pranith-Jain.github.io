@@ -388,7 +388,7 @@ export default function CvePrioritizer(): JSX.Element {
                     </button>
                   ) : null
                 )}
-                <span className="text-mini font-mono text-slate-500 ml-2">{sortedRows.length} CVE(s)</span>
+                <span className="text-mini font-mono text-slate-400 ml-2">{sortedRows.length} CVE(s)</span>
                 {filterVerdict && (
                   <button
                     type="button"
@@ -447,7 +447,7 @@ export default function CvePrioritizer(): JSX.Element {
                         )}
                         {r.verdict?.baseVerdict && (
                           <span
-                            className="text-micro font-mono text-slate-500"
+                            className="text-micro font-mono text-slate-400"
                             title={`Verdict adjusted for asset context (${context}). Without it: ${r.verdict.baseVerdict}.`}
                           >
                             (was {r.verdict.baseVerdict})
@@ -460,7 +460,7 @@ export default function CvePrioritizer(): JSX.Element {
                             <span className="text-micro font-mono text-slate-400">/100</span>
                           </span>
                         )}
-                        {r.loading && <span className="text-mini font-mono text-slate-500">enriching…</span>}
+                        {r.loading && <span className="text-mini font-mono text-slate-400">enriching…</span>}
                         {r.error && <span className="text-mini font-mono text-rose-500">{r.error}</span>}
                       </div>
 
@@ -677,7 +677,7 @@ export default function CvePrioritizer(): JSX.Element {
                             </ol>
                             {r.data.description && (
                               <details className="mt-3">
-                                <summary className="text-mini font-mono text-slate-500 cursor-pointer">
+                                <summary className="text-mini font-mono text-slate-400 cursor-pointer">
                                   NVD description
                                 </summary>
                                 <p className="mt-1 text-meta text-muted leading-relaxed">{r.data.description}</p>

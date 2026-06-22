@@ -261,7 +261,7 @@ export default function ScamWatch(): JSX.Element {
         </div>
 
         {activeSection !== 'all' && (
-          <p className="text-mini font-mono text-slate-500 dark:text-slate-400">
+          <p className="text-mini font-mono text-slate-400 dark:text-slate-400">
             <span className="text-slate-700 dark:text-slate-300">
               {SECTIONS.find((s) => s.id === activeSection)?.label}:
             </span>{' '}
@@ -301,7 +301,7 @@ export default function ScamWatch(): JSX.Element {
         </div>
       )}
 
-      <p className="text-mini font-mono text-slate-500 dark:text-slate-400 mb-3">
+      <p className="text-mini font-mono text-slate-400 dark:text-slate-400 mb-3">
         Showing {annotated.length} of {items.length} · {feedsReturned} of {ALL_FEED_IDS.length} feeds returned data
       </p>
 
@@ -326,7 +326,7 @@ export default function ScamWatch(): JSX.Element {
                 {section}
               </span>
             </div>
-            <div className="text-mini font-mono text-slate-500 dark:text-slate-400 mb-1">
+            <div className="text-mini font-mono text-slate-400 dark:text-slate-400 mb-1">
               <span>{item.source || 'feed'}</span>
               {item.pubDate && <> · {formatRelativeTime(item.pubDate)}</>}
             </div>
@@ -340,7 +340,7 @@ export default function ScamWatch(): JSX.Element {
       </ul>
 
       {annotated.length > 200 && (
-        <p className="mt-4 text-mini font-mono text-slate-500 dark:text-slate-400">
+        <p className="mt-4 text-mini font-mono text-slate-400 dark:text-slate-400">
           Showing 200 most-recent items. Tighten the search or filter to narrow.
         </p>
       )}

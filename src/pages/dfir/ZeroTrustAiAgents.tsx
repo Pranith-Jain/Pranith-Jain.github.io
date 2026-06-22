@@ -465,7 +465,7 @@ export default function ZeroTrustAiAgents(): JSX.Element {
                     {p.title}
                   </h3>
                   <p className="mt-1 text-meta font-mono text-muted leading-relaxed">{p.body}</p>
-                  <p className="mt-2 text-mini font-mono text-slate-500 dark:text-slate-500 leading-relaxed italic border-t border-slate-200 dark:border-[rgb(var(--border-400))] pt-2">
+                  <p className="mt-2 text-mini font-mono text-slate-400 dark:text-slate-500 leading-relaxed italic border-t border-slate-200 dark:border-[rgb(var(--border-400))] pt-2">
                     <Lightbulb size={10} className="inline -mt-0.5 mr-1 text-brand-500" aria-hidden="true" />
                     {p.example}
                   </p>
@@ -554,7 +554,7 @@ export default function ZeroTrustAiAgents(): JSX.Element {
                       <div className={`text-eyebrow font-mono uppercase tracking-[0.18em] ${cfg.head}`}>
                         {cfg.label}
                       </div>
-                      <div className="text-mini font-mono text-slate-500 dark:text-slate-500 mt-0.5 leading-snug">
+                      <div className="text-mini font-mono text-slate-400 dark:text-slate-500 mt-0.5 leading-snug">
                         {cfg.tag}
                       </div>
                     </div>

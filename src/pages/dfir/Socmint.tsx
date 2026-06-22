@@ -221,7 +221,7 @@ export default function Socmint(): JSX.Element {
         </div>
 
         <div className="flex flex-wrap gap-1.5 mt-3">
-          <span className="text-micro font-mono text-slate-500 dark:text-slate-400 self-center mr-1">samples:</span>
+          <span className="text-micro font-mono text-slate-400 dark:text-slate-400 self-center mr-1">samples:</span>
           {SAMPLES.map((s) => (
             <button
               key={s.label}
@@ -247,7 +247,7 @@ export default function Socmint(): JSX.Element {
 
       {value && categoriesAvailable.length > 0 && (
         <section className="flex flex-wrap items-center gap-2 mb-4">
-          <span className="text-mini font-mono text-slate-500 mr-1">filter:</span>
+          <span className="text-mini font-mono text-slate-400 mr-1">filter:</span>
           {categoriesAvailable.map((c) => {
             const meta = CATEGORY_META[c];
             const Icon = meta.icon;
@@ -268,7 +268,7 @@ export default function Socmint(): JSX.Element {
               </button>
             );
           })}
-          <label className="text-mini font-mono text-slate-500 dark:text-slate-400 cursor-pointer inline-flex items-center gap-1.5 ml-auto">
+          <label className="text-mini font-mono text-slate-400 dark:text-slate-400 cursor-pointer inline-flex items-center gap-1.5 ml-auto">
             <input type="checkbox" checked={includePaid} onChange={(e) => setIncludePaid(e.target.checked)} />
             include paid services
           </label>
@@ -307,7 +307,7 @@ export default function Socmint(): JSX.Element {
                 >
                   <Icon size={10} /> {meta.label}
                 </span>
-                <span className="text-mini font-mono text-slate-500 dark:text-slate-400">{meta.blurb}</span>
+                <span className="text-mini font-mono text-slate-400 dark:text-slate-400">{meta.blurb}</span>
               </div>
               <ul className="grid sm:grid-cols-2 gap-2">
                 {list.map((p) => {
@@ -342,7 +342,7 @@ export default function Socmint(): JSX.Element {
       </div>
 
       {value && (
-        <p className="text-micro font-mono text-slate-500 dark:text-slate-400 mt-8">
+        <p className="text-micro font-mono text-slate-400 dark:text-slate-400 mt-8">
           {matchingPivots.length} pivot{matchingPivots.length === 1 ? '' : 's'} for {KIND_LABEL[kind!]}. Input shape
           detected as <code>{kind}</code>. Pivots are URL templates; nothing about your input is sent anywhere except
           the destination service when you click a link.
@@ -357,7 +357,7 @@ function PivotInner({ pivot, url, internal }: { pivot: PivotLink; url: string; i
     <>
       <div className="flex items-baseline justify-between gap-2 mb-0.5">
         <span className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100">{pivot.label}</span>
-        <span className="inline-flex items-center gap-1 text-micro font-mono text-slate-500">
+        <span className="inline-flex items-center gap-1 text-micro font-mono text-slate-400">
           {pivot.paid && (
             <span className="px-1 py-0.5 rounded border border-amber-500/40 text-amber-700 dark:text-amber-300">
               <Lock size={9} className="inline" /> paid
@@ -371,7 +371,7 @@ function PivotInner({ pivot, url, internal }: { pivot: PivotLink; url: string; i
           {internal ? <Globe2 size={10} /> : <ExternalLink size={10} />}
         </span>
       </div>
-      <span className="block text-mini font-mono text-slate-500 dark:text-slate-400">{pivot.blurb}</span>
+      <span className="block text-mini font-mono text-slate-400 dark:text-slate-400">{pivot.blurb}</span>
       <span className="block text-micro font-mono text-slate-400 dark:text-slate-600 truncate mt-1">{url}</span>
     </>
   );

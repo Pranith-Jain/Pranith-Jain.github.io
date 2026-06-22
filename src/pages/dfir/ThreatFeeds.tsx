@@ -311,7 +311,7 @@ export default function ThreatFeeds(): JSX.Element {
         {showSourcePanel && (
           <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-3 space-y-3 max-h-[420px] overflow-y-auto">
             <div className="flex items-center justify-between gap-2">
-              <p className="text-mini font-mono text-slate-500">
+              <p className="text-mini font-mono text-slate-400">
                 Toggle individual feeds. Disabling a feed both hides it AND skips the upstream fetch. Persisted in
                 localStorage.
               </p>
@@ -407,7 +407,7 @@ export default function ThreatFeeds(): JSX.Element {
         )}
 
         {activeSection !== 'all' && (
-          <p className="text-mini font-mono text-slate-500 dark:text-slate-400">
+          <p className="text-mini font-mono text-slate-400 dark:text-slate-400">
             <span className="text-slate-700 dark:text-slate-300">
               {SECTIONS.find((s) => s.id === activeSection)?.label}:
             </span>{' '}
@@ -422,7 +422,7 @@ export default function ThreatFeeds(): JSX.Element {
         </p>
       )}
 
-      <p className="text-mini font-mono text-slate-500 dark:text-slate-400 mb-3">
+      <p className="text-mini font-mono text-slate-400 dark:text-slate-400 mb-3">
         Showing {annotated.length} of {items.length} · {feedsReturned} of {enabledFeedIds.length} enabled feeds returned
         data
         {failedCount > 0 && (
@@ -502,7 +502,7 @@ export default function ThreatFeeds(): JSX.Element {
                 />
               </div>
             </div>
-            <div className="text-mini font-mono text-slate-500 dark:text-slate-400 mb-1">
+            <div className="text-mini font-mono text-slate-400 dark:text-slate-400 mb-1">
               <span>{item.source || 'feed'}</span>
               {item.pubDate && <> · {formatRelativeTime(item.pubDate)}</>}
             </div>

@@ -344,7 +344,7 @@ export default function CveLookup(): JSX.Element {
                       )}
                       <div className="bg-slate-300 dark:bg-slate-700" style={{ flex: 1 }} />
                     </div>
-                    <div className="flex flex-wrap gap-3 mt-1.5 text-micro font-mono text-slate-500 dark:text-slate-400">
+                    <div className="flex flex-wrap gap-3 mt-1.5 text-micro font-mono text-slate-400 dark:text-slate-400">
                       <span className="inline-flex items-center gap-1">
                         <span className="inline-block w-2 h-2 bg-amber-500 rounded-sm" /> CVSS · {p.contributions.cvss}
                       </span>
@@ -388,7 +388,7 @@ export default function CveLookup(): JSX.Element {
                   <CopyButton
                     value={`${result.cve_id} — ${TIER_LABELS[p.tier]} (${p.score}/100, ${p.sla}).\n${p.rationale.map((r) => '- ' + r.replace(/\*\*/g, '')).join('\n')}`}
                   />
-                  <span className="ml-2 self-center text-mini font-mono text-slate-500 dark:text-slate-400">
+                  <span className="ml-2 self-center text-mini font-mono text-slate-400 dark:text-slate-400">
                     Copy ticket-ready rationale
                   </span>
                 </div>
@@ -760,7 +760,7 @@ export default function CveLookup(): JSX.Element {
                   </div>
                   {tagList.length > 0 && (
                     <div className="flex flex-wrap gap-1.5 mb-3">
-                      <span className="text-mini font-mono text-slate-500 mr-1 self-center">filter by tag:</span>
+                      <span className="text-mini font-mono text-slate-400 mr-1 self-center">filter by tag:</span>
                       {tagList.map((t) => {
                         const active = refTagFilter.has(t);
                         return (

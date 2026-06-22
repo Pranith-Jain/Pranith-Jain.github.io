@@ -99,7 +99,7 @@ export default function SqliteExplorer(): JSX.Element {
         <p className="text-sm font-mono text-slate-700 dark:text-slate-300">
           {busy ? 'Loading...' : 'Drop a SQLite file here, or click to choose'}
         </p>
-        <p className="text-mini font-mono text-slate-500 mt-1">
+        <p className="text-mini font-mono text-slate-400 mt-1">
           Browser history, app artifacts. 100% client-side via sql.js WASM.
         </p>
       </button>

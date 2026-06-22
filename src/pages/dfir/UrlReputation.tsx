@@ -152,7 +152,7 @@ export default function UrlReputation(): JSX.Element {
             <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
               Per-source results
             </h3>
-            <span className="text-mini font-mono text-slate-500">
+            <span className="text-mini font-mono text-slate-400">
               {streaming ? 'streaming…' : `${results.length} sources`}
             </span>
           </div>

@@ -37,7 +37,7 @@ function ProfileCard({ profile, platform }: { profile: IdentityProfile; platform
             <span className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100">
               {profile.displayName ?? profile.username}
             </span>
-            <span className="text-micro font-mono text-slate-500">@{profile.username}</span>
+            <span className="text-micro font-mono text-slate-400">@{profile.username}</span>
             <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-500 flex items-center gap-1">
               <CatIcon size={10} /> {CATEGORY_LABELS[platform.category] ?? platform.category}
             </span>
@@ -45,7 +45,7 @@ function ProfileCard({ profile, platform }: { profile: IdentityProfile; platform
           <div className="text-mini font-mono text-muted mt-1 leading-relaxed line-clamp-2">
             {profile.bio ?? 'No bio'}
           </div>
-          <div className="flex items-center gap-3 mt-1.5 text-micro font-mono text-slate-500 flex-wrap">
+          <div className="flex items-center gap-3 mt-1.5 text-micro font-mono text-slate-400 flex-wrap">
             {profile.followers !== undefined && <span>↑ {profile.followers} followers</span>}
             {profile.following !== undefined && <span>↓ {profile.following} following</span>}
             {profile.publicRepos !== undefined && <span>⊞ {profile.publicRepos} repos</span>}
@@ -182,7 +182,7 @@ export default function IdentityLookup(): JSX.Element {
               <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono flex items-center gap-2">
                 <Globe size={14} /> Profiles for <span className="text-slate-900 dark:text-slate-100">@{query}</span>
               </h2>
-              <span className="text-mini font-mono text-slate-500">
+              <span className="text-mini font-mono text-slate-400">
                 {foundCount} found · {PLATFORMS.length - foundCount} not found
               </span>
             </div>

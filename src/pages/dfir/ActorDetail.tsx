@@ -187,7 +187,7 @@ export default function ActorDetail(): JSX.Element {
             <span className="text-xs font-mono text-slate-500">· {linkedCves.length}</span>
           )}
         </h2>
-        <p className="text-mini font-mono text-slate-500 mb-3">
+        <p className="text-mini font-mono text-slate-400 mb-3">
           CVEs publicly attributed to {actor.name} via CISA advisories, vendor PSIRT bulletins, and IR write-ups.
           Curated — narrow by design (does not include unattributed KEV entries).
         </p>

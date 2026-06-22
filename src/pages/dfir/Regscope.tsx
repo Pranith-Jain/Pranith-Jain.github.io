@@ -203,7 +203,7 @@ export default function Regscope(): JSX.Element {
                           {entry.techniqueId}
                         </span>
                         <span className="text-micro font-mono text-slate-400">·</span>
-                        <span className="text-micro font-mono text-slate-500">{entry.tactic}</span>
+                        <span className="text-micro font-mono text-slate-400">{entry.tactic}</span>
                       </div>
                     </div>
                   ))}

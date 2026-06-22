@@ -251,7 +251,7 @@ export default function DfirCopilot(): JSX.Element {
                     >
                       {r.status}
                     </span>
-                    {r.score != null && <span className="text-[10px] font-mono text-slate-500 ml-auto">{r.score}</span>}
+                    {r.score != null && <span className="text-[10px] font-mono text-slate-400 ml-auto">{r.score}</span>}
                     {r.link && (
                       <a
                         href={r.link}

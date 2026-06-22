@@ -308,7 +308,7 @@ function Attachment({ att }: { att: EmlAttachment }): JSX.Element {
           <span className="text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-violet-500/30 bg-violet-500/10 text-violet-700 dark:text-violet-300">
             {att.contentType}
           </span>
-          <span className="text-micro font-mono text-slate-500 dark:text-slate-400">{fmtBytes(att.size)}</span>
+          <span className="text-micro font-mono text-slate-400 dark:text-slate-400">{fmtBytes(att.size)}</span>
           {att.truncated && (
             <span className="text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300">
               truncated @ 5MB

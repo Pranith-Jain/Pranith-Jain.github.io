@@ -287,7 +287,7 @@ export default function SecHeadersLive(): JSX.Element {
                           <button
                             type="button"
                             onClick={() => navigator.clipboard?.writeText(value)}
-                            className="absolute top-2 right-2 inline-flex items-center gap-1 rounded border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-1.5 py-0.5 text-micro font-mono text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200"
+                            className="absolute top-2 right-2 inline-flex items-center gap-1 rounded border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-1.5 py-0.5 text-micro font-mono text-slate-400 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200"
                             title="Copy to clipboard"
                           >
                             <Copy size={10} aria-hidden="true" /> copy
@@ -312,7 +312,7 @@ export default function SecHeadersLive(): JSX.Element {
             </section>
           )}
 
-          <footer className="text-mini font-mono text-slate-500 dark:text-slate-500">
+          <footer className="text-mini font-mono text-slate-400 dark:text-slate-500">
             methodology:{' '}
             <a href={CITATIONS.methodology} target="_blank" rel="noopener noreferrer" className="underline">
               intodns.ai/methodology

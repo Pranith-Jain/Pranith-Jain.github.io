@@ -1118,7 +1118,7 @@ export default function VulnToolkitCatalog(): JSX.Element {
       {/* Filters */}
       <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-4">
         <div className="flex flex-wrap items-center gap-1.5 mb-3">
-          <span className="text-mini font-mono text-slate-500 mr-1">severity:</span>
+          <span className="text-mini font-mono text-slate-400 mr-1">severity:</span>
           {ALL_SEVERITIES.map((s) => {
             const cfg = SEVERITY_CONFIG[s];
             const active = severityFilter.has(s);
@@ -1140,7 +1140,7 @@ export default function VulnToolkitCatalog(): JSX.Element {
           })}
         </div>
         <div className="flex flex-wrap items-center gap-1.5 mb-3">
-          <span className="text-mini font-mono text-slate-500 mr-1">vendor:</span>
+          <span className="text-mini font-mono text-slate-400 mr-1">vendor:</span>
           {ALL_VENDORS.map((v) => {
             const active = vendorFilter.has(v);
             return (
@@ -1161,7 +1161,7 @@ export default function VulnToolkitCatalog(): JSX.Element {
           })}
         </div>
         <div className="flex flex-wrap items-center gap-1.5 mb-3">
-          <span className="text-mini font-mono text-slate-500 mr-1">type:</span>
+          <span className="text-mini font-mono text-slate-400 mr-1">type:</span>
           {ALL_TYPES.map((t) => {
             const active = typeFilter.has(t);
             return (
@@ -1205,7 +1205,7 @@ export default function VulnToolkitCatalog(): JSX.Element {
       </section>
 
       {/* Stats */}
-      <p className="text-mini font-mono text-slate-500 dark:text-slate-400 mb-4">
+      <p className="text-mini font-mono text-slate-400 dark:text-slate-400 mb-4">
         Showing {filtered.length} of {ENTRIES.length} entries
         {showExploitsOnly && ' (exploit available)'}
       </p>

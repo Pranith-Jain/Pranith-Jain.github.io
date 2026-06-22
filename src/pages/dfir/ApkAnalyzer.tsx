@@ -98,7 +98,7 @@ export default function ApkAnalyzer(): JSX.Element {
         >
           <Upload size={32} className="mx-auto mb-2 text-slate-500" />
           <p className="text-sm font-mono text-slate-700 dark:text-slate-300">Drop an APK here, or click to choose</p>
-          <p className="text-mini font-mono text-slate-500 mt-1">100% client-side. Max 100 MB.</p>
+          <p className="text-mini font-mono text-slate-400 mt-1">100% client-side. Max 100 MB.</p>
         </button>
         <input
           ref={fileRef}
@@ -307,7 +307,7 @@ export default function ApkAnalyzer(): JSX.Element {
               </h3>
               {result.analysis.urls.length > 0 && (
                 <div className="mb-2">
-                  <div className="text-micro font-mono text-slate-500 mb-1">URLs ({result.analysis.urls.length})</div>
+                  <div className="text-micro font-mono text-slate-400 mb-1">URLs ({result.analysis.urls.length})</div>
                   <div className="flex flex-wrap gap-1">
                     {result.analysis.urls.map((u) => (
                       <span
@@ -322,7 +322,7 @@ export default function ApkAnalyzer(): JSX.Element {
               )}
               {result.analysis.ips.length > 0 && (
                 <div className="mb-2">
-                  <div className="text-micro font-mono text-slate-500 mb-1">IPs ({result.analysis.ips.length})</div>
+                  <div className="text-micro font-mono text-slate-400 mb-1">IPs ({result.analysis.ips.length})</div>
                   <div className="flex flex-wrap gap-1">
                     {result.analysis.ips.map((ip) => (
                       <span
@@ -348,7 +348,7 @@ export default function ApkAnalyzer(): JSX.Element {
               </h3>
               {result.analysis.activities.length > 0 && (
                 <div className="mb-2">
-                  <div className="text-micro font-mono text-slate-500 mb-1">
+                  <div className="text-micro font-mono text-slate-400 mb-1">
                     Activities ({result.analysis.activities.length})
                   </div>
                   <div className="flex flex-wrap gap-1">
@@ -365,7 +365,7 @@ export default function ApkAnalyzer(): JSX.Element {
               )}
               {result.analysis.services.length > 0 && (
                 <div className="mb-2">
-                  <div className="text-micro font-mono text-slate-500 mb-1">
+                  <div className="text-micro font-mono text-slate-400 mb-1">
                     Services ({result.analysis.services.length})
                   </div>
                   <div className="flex flex-wrap gap-1">
@@ -382,7 +382,7 @@ export default function ApkAnalyzer(): JSX.Element {
               )}
               {result.analysis.receivers.length > 0 && (
                 <div className="mb-2">
-                  <div className="text-micro font-mono text-slate-500 mb-1">
+                  <div className="text-micro font-mono text-slate-400 mb-1">
                     Receivers ({result.analysis.receivers.length})
                   </div>
                   <div className="flex flex-wrap gap-1">

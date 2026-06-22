@@ -527,7 +527,7 @@ export default function AgentInvestigator(): JSX.Element {
                     className={`shrink-0 w-2 h-2 rounded-full ${s.status === 'done' ? 'bg-emerald-500' : s.status === 'error' ? 'bg-rose-500' : 'bg-amber-500 animate-pulse'}`}
                   />
                   <span className="font-mono text-sm truncate flex-1">{s.query}</span>
-                  <span className="text-micro font-mono text-slate-500 shrink-0">{s.total_steps} steps</span>
+                  <span className="text-micro font-mono text-slate-400 shrink-0">{s.total_steps} steps</span>
                   <ChevronRight size={14} className="text-slate-400 group-hover:text-brand-500 shrink-0" />
                 </button>
                 <button
@@ -598,7 +598,7 @@ function StepCard({ step }: { step: AgentStep }): JSX.Element {
           </div>
         </div>
         {step.observation && (
-          <span className="text-micro font-mono text-slate-500 max-w-[200px] truncate hidden sm:block">
+          <span className="text-micro font-mono text-slate-400 max-w-[200px] truncate hidden sm:block">
             {step.observation}
           </span>
         )}
@@ -622,7 +622,7 @@ function StepCard({ step }: { step: AgentStep }): JSX.Element {
                 >
                   {r.status === 'ok' ? 'OK' : 'ERR'} {r.tool}
                 </span>
-                <span className="text-micro font-mono text-slate-500">{r.durationMs}ms</span>
+                <span className="text-micro font-mono text-slate-400">{r.durationMs}ms</span>
               </div>
               {r.error && <p className="text-micro font-mono text-rose-600">{r.error}</p>}
               {r.data !== undefined && r.data !== null && (

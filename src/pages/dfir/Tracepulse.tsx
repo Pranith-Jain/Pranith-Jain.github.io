@@ -741,7 +741,7 @@ export default function Tracepulse(): JSX.Element {
                       </span>
                     </div>
                     <p className="text-xs text-muted mb-2">{pack.summary}</p>
-                    <div className="flex flex-wrap gap-x-4 gap-y-1 text-micro font-mono text-slate-500">
+                    <div className="flex flex-wrap gap-x-4 gap-y-1 text-micro font-mono text-slate-400">
                       {pack.cveId && (
                         <span className="flex items-center gap-1">
                           <Shield size={10} /> {pack.cveId}

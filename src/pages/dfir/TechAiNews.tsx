@@ -275,7 +275,7 @@ export default function TechAiNews(): JSX.Element {
         </div>
 
         {activeSection !== 'all' && (
-          <p className="text-mini font-mono text-slate-500 dark:text-slate-400">
+          <p className="text-mini font-mono text-slate-400 dark:text-slate-400">
             <span className="text-slate-700 dark:text-slate-300">
               {SECTIONS.find((s) => s.id === activeSection)?.label}:
             </span>{' '}
@@ -309,7 +309,7 @@ export default function TechAiNews(): JSX.Element {
         </p>
       )}
 
-      <p className="text-mini font-mono text-slate-500 dark:text-slate-400 mb-3">
+      <p className="text-mini font-mono text-slate-400 dark:text-slate-400 mb-3">
         Showing {annotated.length} of {items.length} · {feedsReturned} of {enabledFeedIds.length} enabled feeds returned
         data
         {feedStatuses.filter((s) => !s.ok).length > 0 && (
@@ -347,7 +347,7 @@ export default function TechAiNews(): JSX.Element {
                 {section}
               </span>
             </div>
-            <div className="text-mini font-mono text-slate-500 dark:text-slate-400 mb-1">
+            <div className="text-mini font-mono text-slate-400 dark:text-slate-400 mb-1">
               <span>{item.source || 'feed'}</span>
               {item.pubDate && <> · {formatRelativeTime(item.pubDate)}</>}
             </div>

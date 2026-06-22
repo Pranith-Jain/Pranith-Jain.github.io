@@ -503,7 +503,7 @@ export default function Nhi(): JSX.Element {
                           <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-2">
                             OWASP NHI Top 10 coverage
                           </h3>
-                          <p className="text-mini font-mono text-slate-500 dark:text-slate-400 mb-2">
+                          <p className="text-mini font-mono text-slate-400 dark:text-slate-400 mb-2">
                             Click each row to cycle: unset → covered → partial → gap → n/a → unset.
                           </p>
                           <div className="grid gap-1.5">

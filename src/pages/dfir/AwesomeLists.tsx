@@ -120,7 +120,7 @@ export default function AwesomeLists(): JSX.Element {
       {/* Focus pills */}
       <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
         <div className="flex flex-wrap items-center gap-1.5">
-          <span className="text-mini font-mono text-slate-500 mr-1">focus:</span>
+          <span className="text-mini font-mono text-slate-400 mr-1">focus:</span>
           {ALL_FOCUS.map((f) => {
             const count = focusCounts.get(f) ?? 0;
             const active = activeFocus.has(f);
@@ -141,7 +141,7 @@ export default function AwesomeLists(): JSX.Element {
         </div>
       </section>
 
-      <p className="text-mini font-mono text-slate-500 dark:text-slate-400 mb-4">
+      <p className="text-mini font-mono text-slate-400 dark:text-slate-400 mb-4">
         Showing {filtered.length} of {LISTS.length}
       </p>
 
@@ -160,7 +160,7 @@ export default function AwesomeLists(): JSX.Element {
               >
                 {r.name} <ExternalLink size={12} className="opacity-60" />
               </a>
-              <span className="text-micro font-mono text-slate-500 inline-flex items-center gap-1 shrink-0">
+              <span className="text-micro font-mono text-slate-400 inline-flex items-center gap-1 shrink-0">
                 <Star size={10} /> {r.stars}
               </span>
             </div>
@@ -168,7 +168,7 @@ export default function AwesomeLists(): JSX.Element {
               href={sanitizeUrl(r.url) || undefined}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-mini font-mono text-slate-500 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1 mb-2"
+              className="text-mini font-mono text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1 mb-2"
             >
               <Github size={10} /> {r.repo}
             </a>

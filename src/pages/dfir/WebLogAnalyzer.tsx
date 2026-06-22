@@ -125,7 +125,7 @@ export default function WebLogAnalyzer(): JSX.Element {
       >
         <Upload size={24} className="mx-auto mb-2 text-slate-500" />
         <p className="text-sm font-mono text-slate-700 dark:text-slate-300">Drop a log file here, or click to choose</p>
-        <p className="text-mini font-mono text-slate-500 mt-1">Apache/Nginx access logs. 100% client-side.</p>
+        <p className="text-mini font-mono text-slate-400 mt-1">Apache/Nginx access logs. 100% client-side.</p>
       </button>
       <input
         id="weblog-input"

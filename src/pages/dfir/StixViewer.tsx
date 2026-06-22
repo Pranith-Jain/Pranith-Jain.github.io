@@ -290,7 +290,7 @@ export default function StixViewer(): JSX.Element {
                 {fetching ? <Loader2 size={11} className="animate-spin" /> : 'fetch'}
               </button>
             </form>
-            <p className="text-micro font-mono text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">
+            <p className="text-micro font-mono text-slate-400 dark:text-slate-400 mt-2 leading-relaxed">
               Enter a MITRE ATT&amp;CK id (T1566.001, S0001, G0016, M1049, TA0001, DS0009, C0001) or a raw STIX id
               (&lt;type&gt;--&lt;uuid&gt;). Public MITRE ATT&amp;CK TAXII 2.1 — Enterprise / ICS / Mobile, cached 7d.
               Other STIX feeds need auth — paste a bundle below for those.

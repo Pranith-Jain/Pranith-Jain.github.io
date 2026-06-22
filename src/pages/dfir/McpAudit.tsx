@@ -247,7 +247,7 @@ export default function McpAudit(): JSX.Element {
                       >
                         {f.severity}
                       </span>
-                      <code className="text-mini font-mono text-slate-500 dark:text-slate-400">{f.scope}</code>
+                      <code className="text-mini font-mono text-slate-400 dark:text-slate-400">{f.scope}</code>
                     </div>
                     <p className="text-sm font-mono text-muted mb-1.5">{f.detail}</p>
                     <p className="text-xs font-mono text-emerald-700 dark:text-emerald-400">→ {f.remediation}</p>

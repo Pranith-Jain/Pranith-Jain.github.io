@@ -486,7 +486,7 @@ export default function AttackNavigator(): JSX.Element {
         )}
 
         {/* Mobile hint */}
-        <p className="sm:hidden text-mini font-mono text-slate-500 dark:text-slate-400 mb-2 italic">
+        <p className="sm:hidden text-mini font-mono text-slate-400 dark:text-slate-400 mb-2 italic">
           Swipe horizontally to scan tactics &rarr;
         </p>
 
