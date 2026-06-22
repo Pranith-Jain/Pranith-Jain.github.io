@@ -39,6 +39,7 @@ import type { CtiArc, CtiPoint } from '../../components/threatintel/cti/geo';
 import { synthesizeArcs, deriveKpis } from '../../components/threatintel/cti/geo';
 import { MILITARY_BASES } from '../../data/military-bases';
 import { NUCLEAR_FACILITIES } from '../../data/nuclear-facilities';
+import { fetchFireDetections } from '../../data/fire-detections';
 import { ThreatAnalysisPanel } from '../../components/threatintel/ThreatAnalysisPanel';
 
 const PulseMap = lazy(() => import('./PulseMap'));
@@ -483,6 +484,7 @@ export default function GlobalPulse(): JSX.Element {
       'kev',
       'military_base',
       'nuclear_facility',
+      'fire_detection',
     ])
   );
   const [autoRefresh, setAutoRefresh] = useState(true);
@@ -595,6 +597,31 @@ export default function GlobalPulse(): JSX.Element {
       })),
     []
   );
+
+  // Fire detections (NASA FIRMS) — fetched client-side
+  const [fireEvents, setFireEvents] = useState<PulseEvent[]>([]);
+  useEffect(() => {
+    let alive = true;
+    fetchFireDetections().then((fires) => {
+      if (!alive) return;
+      setFireEvents(
+        fires.map((f) => ({
+          id: f.id,
+          kind: 'fire_detection' as PulseKind,
+          title: `Fire — brightness ${f.brightness.toFixed(0)}`,
+          description: `FRP: ${f.frp.toFixed(0)} MW · Confidence: ${f.confidence} · ${f.acqDate} ${f.acqTime}`,
+          lat: f.lat,
+          lng: f.lng,
+          timestamp: new Date().toISOString(),
+          severity: f.frp > 50 ? ('high' as const) : f.frp > 10 ? ('medium' as const) : ('low' as const),
+          source: 'NASA FIRMS',
+        }))
+      );
+    });
+    return () => {
+      alive = false;
+    };
+  }, []);
 
   // Day/night terminator polygon for 2D map overlay
   const terminatorPolygon = useMemo(() => {
@@ -792,6 +819,7 @@ export default function GlobalPulse(): JSX.Element {
       ...all,
       ...(activeLayers.has('military_base') ? militaryBaseEvents : []),
       ...(activeLayers.has('nuclear_facility') ? nuclearFacilityEvents : []),
+      ...(activeLayers.has('fire_detection') ? fireEvents : []),
     ];
     return withStatic.sort((a, b) => {
       const pa = ctiPriority(a.cti);
@@ -812,6 +840,7 @@ export default function GlobalPulse(): JSX.Element {
     infraResults,
     militaryBaseEvents,
     nuclearFacilityEvents,
+    fireEvents,
   ]);
 
   // Export to CSV

@@ -17,8 +17,9 @@ export async function fetchFireDetections(): Promise<FireDetection[]> {
   if (cached && Date.now() - cacheTime < CACHE_TTL) return cached;
 
   try {
-    const res = await fetch('https://firms.modaps.eosdis.nasa.gov/api/area/csv/OPENNASA_KEY/VIIRS_SNPP_NRT/world/1/1', {
-      signal: AbortSignal.timeout(8000),
+    // NASA FIRMS free DEMO_KEY (rate-limited but works without registration)
+    const res = await fetch('https://firms.modaps.eosdis.nasa.gov/api/area/csv/DEMO_KEY/VIIRS_SNPP_NRT/world/1/1', {
+      signal: AbortSignal.timeout(12000),
     });
     if (!res.ok) return cached ?? [];
 
