@@ -55,7 +55,7 @@ export class RadarCrawlerDO {
     const url = new URL(request.url);
 
     if (request.headers.get('upgrade') === 'websocket') {
-      return this.handleWebSocketUpgrade();
+      return this.handleWebSocketUpgrade(request);
     }
 
     if (url.pathname === '/start' && request.method === 'POST') {
