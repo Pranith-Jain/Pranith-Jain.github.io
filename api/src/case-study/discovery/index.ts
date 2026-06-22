@@ -52,15 +52,35 @@ export async function runDiscovery(deps: RunDiscoveryDeps): Promise<RunDiscovery
   let total = 0;
   let suppressed = 0;
   const selected: Candidate[] = [];
+  const entries = Object.entries(deps.runners);
 
-  for (const [name, runner] of Object.entries(deps.runners)) {
-    try {
-      const results = await runner();
-      total += results.length;
+  // Run up to 4 runners in parallel per batch to stay within subrequest
+  // budget while reducing wall-clock time vs sequential iteration.
+  const BATCH_SIZE = 4;
+  for (let i = 0; i < entries.length; i += BATCH_SIZE) {
+    const batch = entries.slice(i, i + BATCH_SIZE);
+    const batchResults = await Promise.all(
+      batch.map(async ([name, runner]) => {
+        const t0 = performance.now();
+        try {
+          const out = await runner();
+          return { name, cands: out, error: null, ms: Math.round(performance.now() - t0) };
+        } catch (err) {
+          return { name, cands: [] as Candidate[], error: err, ms: Math.round(performance.now() - t0) };
+        }
+      })
+    );
+    for (const { name, cands, error, ms } of batchResults) {
+      if (error) {
+        console.warn(JSON.stringify({ job: 'discovery', runner: name, ms, error: String(error) }));
+        byTopic[name] = 0;
+        continue;
+      }
+      total += cands.length;
       // Drop already-surfaced keys BEFORE selection so a fresher,
       // lower-scored candidate can take the slot instead of the same
       // recurring story.
-      const fresh = results.filter((c) => {
+      const fresh = cands.filter((c) => {
         if (isSuppressed(c.key)) {
           suppressed += 1;
           return false;
@@ -73,9 +93,6 @@ export async function runDiscovery(deps: RunDiscoveryDeps): Promise<RunDiscovery
       const top = select(fresh, topicPerTopic, name);
       byTopic[name] = top.length;
       selected.push(...top);
-    } catch (err) {
-      console.warn(`runDiscovery: ${name} runner failed`, err);
-      byTopic[name] = 0;
     }
   }
 

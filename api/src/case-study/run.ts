@@ -17,7 +17,11 @@ import { discoverScams } from './discovery/scam';
 import { discoverAiSec } from './discovery/aisec';
 import { discoverIntel } from './discovery/intel';
 import { discoverBriefing } from './discovery/briefing';
-import { discoverFromPlatformData } from './discovery/platform-data';
+import {
+  discoverFromTelegramLeaks,
+  discoverFromTrendingIocs,
+  discoverFromThreatPulse,
+} from './discovery/platform-data';
 import { discoverAdvisories } from './discovery/advisories';
 import { discoverVulnCheckKev } from './discovery/vulncheck';
 import { discoverEuvd } from './discovery/euvd';
@@ -210,6 +214,19 @@ export async function runDiscoveryNow(env: CaseStudyEnv, now: Date) {
     }
   })();
 
+  // Shared platform API fetch — uses SELF service binding for in-process
+  // calls so /api/v1/* endpoints don't hit the public API-key gate.
+  const apiFetch: (path: string) => Promise<unknown> = async (path) => {
+    try {
+      const url = `https://pranithjain.qzz.io${path}`;
+      const r = env.SELF ? await env.SELF.fetch(new Request(url)) : await globalThis.fetch(new Request(url));
+      if (!r.ok) return null;
+      return r.json();
+    } catch {
+      return null;
+    }
+  };
+
   const allRunners: Record<string, () => Promise<Candidate[]>> = {
     vulncheck: () =>
       discoverVulnCheckKev({ fetch: globalThis.fetch, now, getDedup: memGet, token: env.VULNCHECK_API_TOKEN ?? '' }),
@@ -251,26 +268,11 @@ export async function runDiscoveryNow(env: CaseStudyEnv, now: Date) {
       env.BRIEFINGS_DB
         ? discoverBriefing({ briefingsDb: env.BRIEFINGS_DB, now, getDedup: memGet })
         : Promise.resolve([]),
-    // Platform data: uses the platform's own aggregated intelligence
-    // (ransomware.live, Telegram leaks, IOC trending, threat pulse)
-    // instead of external RSS feeds. Higher source weight because it's
-    // our own curated data. Uses the SELF service binding for in-process
-    // calls so /api/v1/* endpoints don't hit the public API-key gate.
-    platform: () =>
-      discoverFromPlatformData({
-        apiFetch: async (path) => {
-          try {
-            const url = `https://pranithjain.qzz.io${path}`;
-            const r = env.SELF ? await env.SELF.fetch(new Request(url)) : await globalThis.fetch(new Request(url));
-            if (!r.ok) return null;
-            return r.json();
-          } catch {
-            return null;
-          }
-        },
-        now,
-        getDedup: memGet,
-      }),
+    // Platform data runners (split by source so each gets its own
+    // perTopic budget instead of sharing 3 slots total).
+    platformTelegram: () => discoverFromTelegramLeaks({ apiFetch, now, getDedup: memGet }),
+    platformIocs: () => discoverFromTrendingIocs({ apiFetch, now, getDedup: memGet }),
+    platformPulse: () => discoverFromThreatPulse({ apiFetch, now, getDedup: memGet }),
     // Agentic trends: uses LLM to discover trending cybersecurity content
     // beyond the configured RSS/API sources. Produces high-quality candidates
     // with hooks, angles, and trending signals. Falls back gracefully when
@@ -322,17 +324,27 @@ export async function runDiscoveryNow(env: CaseStudyEnv, now: Date) {
         alreadyCoveredTopics,
       }),
   };
-  // Discovery diversity model (2026-06-11 — upgraded diversity):
-  //   - 6 high-value "always-on" topics: `cve`, `actor`, `ransom`,
-  //     `platform`, `phish`, `trends` (agentic LLM-powered trending).
+  // Discovery diversity model (2026-06-22 — platform split into 3):
+  //   - 8 high-value "always-on" topics: `cve`, `actor`, `ransom`,
+  //     `phish`, `trends`, and 3 platform sub-runners (telegram, iocs,
+  //     pulse). Platform split gives each source its own perTopic budget.
   //   - The remaining ~10 optional topics partition into 6 day-buckets
   //     (rotation.ts), so each day surfaces ~2 of them.
-  //   - Total per day: 6 always + 2 rotating = ~8 topics.
+  //   - Total per day: 8 always + 2 rotating = ~10 topics.
   //   - perTopic=3: weighted-random sampling has room to pick different
   //     candidates from runners that produce more than 3 items.
   //   - trends=3: fewer LLM candidates, higher quality bar enforced by
   //     dedup-avoidance list fed into the prompt.
-  const ALWAYS_ON = new Set(['cve', 'actor', 'ransom', 'platform', 'phish', 'trends']);
+  const ALWAYS_ON = new Set([
+    'cve',
+    'actor',
+    'ransom',
+    'platformTelegram',
+    'platformIocs',
+    'platformPulse',
+    'phish',
+    'trends',
+  ]);
   // 6 rotation groups: with ~10 optional runners, each runs once every 6 days
   // This ensures variety while keeping daily subrequest count manageable
   const active = new Set(activeRunnerNames(Object.keys(allRunners), ALWAYS_ON, now, 6));

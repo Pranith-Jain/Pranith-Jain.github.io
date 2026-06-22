@@ -21,12 +21,13 @@ export function severityScore(input: SeverityInput): number {
   if (input.kev) return 1.0;
   if (typeof input.cvss === 'number') return Math.min(1, Math.max(0, input.cvss / 10));
   if (typeof input.victims === 'number') return Math.min(1, input.victims / 5);
-  return 0.5;
+  return 0.3;
 }
 
 export function noveltyScore(prev: DedupRecord | null, now: Date): number {
   if (!prev) return 1.0;
   const age = now.getTime() - new Date(prev.lastSeenAt).getTime();
+  if (age <= 0) return 0; // Future or same-instant timestamp → fully penalized
   if (age >= NINETY_DAYS) return 1.0;
   // Exponential decay: items seen today get ~0, items seen a week ago get ~0.3
   // This strongly penalizes recently seen content to prevent repetition.

@@ -50,7 +50,7 @@ export async function discoverIntel(deps: DiscoverDeps): Promise<Candidate[]> {
       const feedHost = new URL(feed).hostname.replace(/^www\./, '');
       for (const item of parseRssItems(xml, deps.now)) {
         if (item.date.getTime() < cutoff) continue;
-        const key = topicKey('intel', item.title);
+        const key = topicKey('intel', item.link || item.title);
         const dedup = await deps.getDedup(key);
         const score = finalScore({
           recency: recencyScore(item.date.toISOString(), deps.now),

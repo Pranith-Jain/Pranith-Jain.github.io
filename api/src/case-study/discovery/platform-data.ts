@@ -6,125 +6,27 @@
  * runner mines the platform's cached intelligence for content-worthy
  * events:
  *
- *   1. Ransomware victims from ransomware.live (already cached)
- *   2. Telegram leak channel activity
- *   3. Trending IOCs from the IOC correlation engine
- *   4. High-confidence threat pulse items
- *   5. New detection rules
+ *   1. Telegram leak channel activity
+ *   2. Trending IOCs from the IOC correlation engine
+ *   3. High-confidence threat pulse items
  *
- * This is the key differentiator from generic RSS-based discovery —
- * the platform's aggregated intelligence surfaces stories that no
- * single RSS feed would catch.
+ * NOTE: Ransomware victim discovery is intentionally EXCLUDED here.
+ * The dedicated `ransom` runner (always-on) already covers ransomware
+ * victims from the same upstream sources (ransomlook.io via
+ * ransom-source.ts). Running it here too would process the same data
+ * through different normalization/dedup key patterns, producing
+ * duplicate case studies for the same activity.
  */
 
 import type { Candidate, DedupRecord } from '../types';
 import { topicKey } from '../stable-keys';
 import { recencyScore, severityScore, noveltyScore, finalScore } from '../scoring';
-import { normalizeGroup } from '../../lib/group-normalize';
 
 export interface PlatformDataDeps {
   /** Fetch from the platform's own API endpoints (internal, no auth needed). */
   apiFetch: (path: string) => Promise<unknown>;
   now: Date;
   getDedup: (stableKey: string) => Promise<DedupRecord | null>;
-}
-
-// ── Ransomware Victim Discovery ──────────────────────────────────
-
-interface RansomwareVictim {
-  group: string;
-  victim: string;
-  country?: string;
-  sector?: string;
-  discovered: string;
-  url?: string;
-}
-
-async function discoverFromRansomware(deps: PlatformDataDeps): Promise<Candidate[]> {
-  try {
-    const data = (await deps.apiFetch('/api/v1/ransomware-recent')) as {
-      victims?: RansomwareVictim[];
-    };
-
-    if (!data?.victims?.length) return [];
-
-    const sevenDaysAgo = new Date(deps.now.getTime() - 7 * 24 * 3600 * 1000);
-    const groups = new Map<
-      string,
-      { victims: RansomwareVictim[]; latest: Date; sectors: Set<string>; countries: Set<string> }
-    >();
-
-    for (const v of data.victims) {
-      if (!v.group || !v.victim) continue;
-      const posted = new Date(v.discovered);
-      if (posted < sevenDaysAgo) continue;
-      // Normalize the group slug so "thegentlemen" / "the gentlemen" /
-      // "TheGentlemen" all fold into the same discovery key — otherwise the
-      // 3+ victim threshold was being met by *one* gang split across 2
-      // slugs, producing duplicate discovery candidates.
-      const slug = normalizeGroup(v.group);
-      if (slug === 'unknown') continue;
-      const key = `ransom-${slug}-${posted.toISOString().slice(0, 7)}`;
-      const existing = groups.get(key) ?? {
-        victims: [],
-        latest: new Date(0),
-        sectors: new Set(),
-        countries: new Set(),
-      };
-      existing.victims.push(v);
-      if (posted > existing.latest) existing.latest = posted;
-      if (v.sector) existing.sectors.add(v.sector);
-      if (v.country) existing.countries.add(v.country);
-      groups.set(key, existing);
-    }
-
-    const candidates: Candidate[] = [];
-    for (const [key, info] of groups.entries()) {
-      if (info.victims.length < 3) continue; // Need critical mass
-
-      const dedup = await deps.getDedup(key);
-      const score = finalScore({
-        recency: recencyScore(info.latest.toISOString(), deps.now),
-        severity: severityScore({ victims: info.victims.length }),
-        novelty: noveltyScore(dedup, deps.now),
-        sourceWeight: 0.95, // High weight — this is our own aggregated data
-      });
-
-      const groupName = info.victims[0]!.group;
-      const displayGroup = normalizeGroup(groupName);
-      const sectorList = [...info.sectors].slice(0, 5);
-      const countryList = [...info.countries].slice(0, 5);
-
-      candidates.push({
-        key,
-        type: 'ransom',
-        title: `${displayGroup}: ${info.victims.length} new victims across ${sectorList.length || 'multiple'} sectors`,
-        rationale: `${info.victims.length} victim posts on ransomware leak sites in last 7 days · Sectors: ${sectorList.join(', ') || 'unknown'} · Countries: ${countryList.join(', ') || 'unknown'}`,
-        score,
-        evidence: {
-          group: groupName,
-          victimCount: info.victims.length,
-          latest: info.latest.toISOString(),
-          sectors: sectorList,
-          countries: countryList,
-          victims: info.victims.slice(0, 30).map((v) => ({
-            name: v.victim,
-            country: v.country,
-            sector: v.sector,
-            discovered: v.discovered,
-          })),
-          source: 'platform/ransomware-live',
-        },
-        discoveredAt: deps.now.toISOString(),
-        status: 'pending',
-      });
-    }
-
-    return candidates;
-  } catch (err) {
-    console.warn('discoverFromRansomware failed:', err);
-    return [];
-  }
 }
 
 // ── Telegram Leak Discovery ──────────────────────────────────────
@@ -138,7 +40,7 @@ interface TelegramLeak {
   discovered_at: string;
 }
 
-async function discoverFromTelegramLeaks(deps: PlatformDataDeps): Promise<Candidate[]> {
+export async function discoverFromTelegramLeaks(deps: PlatformDataDeps): Promise<Candidate[]> {
   try {
     const data = (await deps.apiFetch('/api/v1/telegram-leaks/stats')) as {
       total_leaks?: number;
@@ -197,6 +99,7 @@ async function discoverFromTelegramLeaks(deps: PlatformDataDeps): Promise<Candid
       });
     }
 
+    console.log(JSON.stringify({ runner: 'platform-telegram', candidates: candidates.length }));
     return candidates;
   } catch (err) {
     console.warn('discoverFromTelegramLeaks failed:', err);
@@ -214,7 +117,7 @@ interface TrendingIoc {
   last_seen: string;
 }
 
-async function discoverFromTrendingIocs(deps: PlatformDataDeps): Promise<Candidate[]> {
+export async function discoverFromTrendingIocs(deps: PlatformDataDeps): Promise<Candidate[]> {
   try {
     const data = (await deps.apiFetch('/api/v1/ioc-lifecycle/trending?limit=20')) as {
       trending?: TrendingIoc[];
@@ -259,6 +162,7 @@ async function discoverFromTrendingIocs(deps: PlatformDataDeps): Promise<Candida
       });
     }
 
+    console.log(JSON.stringify({ runner: 'platform-iocs', candidates: candidates.length }));
     return candidates;
   } catch (err) {
     console.warn('discoverFromTrendingIocs failed:', err);
@@ -276,7 +180,7 @@ interface ThreatPulseItem {
   latest: string;
 }
 
-async function discoverFromThreatPulse(deps: PlatformDataDeps): Promise<Candidate[]> {
+export async function discoverFromThreatPulse(deps: PlatformDataDeps): Promise<Candidate[]> {
   try {
     const data = (await deps.apiFetch('/api/v1/threat-pulse')) as {
       actors?: ThreatPulseItem[];
@@ -357,44 +261,10 @@ async function discoverFromThreatPulse(deps: PlatformDataDeps): Promise<Candidat
       });
     }
 
+    console.log(JSON.stringify({ runner: 'platform-pulse', candidates: candidates.length }));
     return candidates;
   } catch (err) {
     console.warn('discoverFromThreatPulse failed:', err);
     return [];
   }
-}
-
-// ── Main Runner ──────────────────────────────────────────────────
-
-/**
- * Run all platform-data discovery sources in parallel.
- * Returns candidates from the platform's own aggregated intelligence.
- */
-export async function discoverFromPlatformData(deps: PlatformDataDeps): Promise<Candidate[]> {
-  const [ransomware, telegramLeaks, trendingIocs, threatPulse] = await Promise.allSettled([
-    discoverFromRansomware(deps),
-    discoverFromTelegramLeaks(deps),
-    discoverFromTrendingIocs(deps),
-    discoverFromThreatPulse(deps),
-  ]);
-
-  const candidates: Candidate[] = [];
-
-  if (ransomware.status === 'fulfilled') candidates.push(...ransomware.value);
-  if (telegramLeaks.status === 'fulfilled') candidates.push(...telegramLeaks.value);
-  if (trendingIocs.status === 'fulfilled') candidates.push(...trendingIocs.value);
-  if (threatPulse.status === 'fulfilled') candidates.push(...threatPulse.value);
-
-  console.log(
-    JSON.stringify({
-      runner: 'platform-data',
-      ransomware: ransomware.status === 'fulfilled' ? ransomware.value.length : 'failed',
-      telegramLeaks: telegramLeaks.status === 'fulfilled' ? telegramLeaks.value.length : 'failed',
-      trendingIocs: trendingIocs.status === 'fulfilled' ? trendingIocs.value.length : 'failed',
-      threatPulse: threatPulse.status === 'fulfilled' ? threatPulse.value.length : 'failed',
-      total: candidates.length,
-    })
-  );
-
-  return candidates;
 }

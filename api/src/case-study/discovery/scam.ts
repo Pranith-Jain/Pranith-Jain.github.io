@@ -38,7 +38,7 @@ export async function discoverScams(deps: DiscoverDeps): Promise<Candidate[]> {
       const xml = await r.text();
       for (const item of parseRssItems(xml, deps.now)) {
         if (item.date.getTime() < cutoff) continue;
-        const key = topicKey('scam', item.title);
+        const key = topicKey('scam', item.link || item.title);
         const dedup = await deps.getDedup(key);
         const score = finalScore({
           recency: recencyScore(item.date.toISOString(), deps.now),
