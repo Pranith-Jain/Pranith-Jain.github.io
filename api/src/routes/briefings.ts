@@ -34,7 +34,6 @@ function enrichBriefingWithTags(b: Briefing): Briefing {
   return { ...b, sections } as Briefing;
 }
 
-
 /**
  * Derive `ioc_dump` from the (possibly already-capped) `iocs` buckets on any
  * pre-deploy briefing that lacks the field. The pre-deploy cap was 30 per
@@ -234,11 +233,6 @@ export async function buildBriefingHandler(c: AdminCtx) {
   if (typeRaw !== 'daily' && typeRaw !== 'weekly' && typeRaw !== 'landscape') {
     return badRequest(c, 'type must be daily, weekly, or landscape');
   }
-  // `?live=1` builds the live daily-today window (slug daily-<today>) instead of
-  // the closed daily-yesterday — the only way to rebuild today's in-progress
-  // briefing on demand (build defaults to yesterday; backfill only does closed
-  // days). Ignored for weekly/landscape.
-  const live = c.req.query('live') === '1' && typeRaw === 'daily';
 
   try {
     if (typeRaw === 'landscape') {
@@ -259,7 +253,6 @@ export async function buildBriefingHandler(c: AdminCtx) {
     const briefing = await buildBriefing(typeRaw as BriefingType, undefined, {
       nvdApiKey: c.env.NVD_API_KEY,
       env: c.env,
-      live,
     });
     const result = await writeBriefing(db, briefing);
     await purgeBriefingDetailCache(briefing.slug);
@@ -658,10 +651,7 @@ export async function briefingIocsTxtHandler(c: Context<{ Bindings: Env }>) {
   const hydrated = ensureIocDump(briefing);
   const dump = hydrated.ioc_dump;
   if (!dump || dump.count === 0) {
-    return c.json(
-      { error: 'no_iocs_in_briefing', slug, message: 'this briefing has no in-window IOCs' },
-      404
-    );
+    return c.json({ error: 'no_iocs_in_briefing', slug, message: 'this briefing has no in-window IOCs' }, 404);
   }
   const filename = `${slug}-iocs.txt`;
   const body = `# ${briefing.title}\n# generated_at: ${briefing.generated_at}\n# count: ${dump.count} unique indicators\n\n${dump.content}\n`;
