@@ -164,7 +164,7 @@ export default function ThreatHunt(): JSX.Element {
                   >
                     <div className="flex items-center gap-2">
                       <span
-                        className={`text-micro font-mono px-1.5 py-0.5 rounded ${h.verdict === 'malicious' ? 'bg-rose-500/15 text-rose-600' : 'bg-amber-500/15 text-amber-600'}`}
+                        className={`text-micro font-mono px-1.5 py-0.5 rounded ${h.verdict === 'malicious' ? 'bg-rose-500/15 text-rose-600 dark:text-rose-400' : 'bg-amber-500/15 text-amber-600 dark:text-amber-400'}`}
                       >
                         {h.verdict}
                       </span>
