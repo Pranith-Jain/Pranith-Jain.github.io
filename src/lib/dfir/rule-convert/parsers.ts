@@ -13,6 +13,7 @@
  */
 
 import { uniq, wildcardToPred, type MatchOp, type Predicate, type RuleIR, type SelectionGroup } from './types';
+import { parseKqlStrict } from './kql-expr-parser';
 
 /* ════════════════════════ Sigma (YAML subset) ════════════════════════ */
 
@@ -166,9 +167,19 @@ const KQL_PRED_RE = /([A-Za-z_][\w.]*)\s*(==|=~|contains|startswith|endswith|mat
 const NEG_OP_RE = /!=\s*"[^"]*"|\bnot\s+\(/i;
 
 export function parseKql(src: string): RuleIR | { error: string } {
+  // Try the strict expression parser first. It preserves and/or/not/parens
+  // faithfully; the heuristic below is the fallback for inputs the strict
+  // parser rejects (e.g. summarize clauses, joins, multi-statement KQL).
+  const strict = parseKqlStrict(src);
+  if (strict.groups.length > 0) {
+    return { groups: strict.groups, condition: strict.condition, meta: {}, warnings: strict.warnings };
+  }
+  // Heuristic fallback: flat `Field <op> "value"` predicates. We only get
+  // here when the strict parser produced no groups at all.
   const warnings: string[] = [
-    'KQL parsing is heuristic: only flat `Field <op> "value"` predicates are recovered; ' +
+    'KQL fell back to flat-predicate heuristic: only `Field <op> "value"` patterns recovered; ' +
       'time windows, joins, summarize, and nested parens are dropped.',
+    ...strict.warnings.filter((w) => !w.startsWith('KQL parsed in strict mode')),
   ];
   const whereIdx = src.search(/\bwhere\b/i);
   const scope = whereIdx >= 0 ? src.slice(whereIdx + 5) : src;
