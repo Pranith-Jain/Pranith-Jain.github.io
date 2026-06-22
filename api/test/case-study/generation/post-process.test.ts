@@ -258,3 +258,153 @@ describe('postProcess', () => {
     expect(domains).not.toContain('bad-corp.test');
   });
 });
+
+describe('linkifyPlainTextRefs + unlinked reference QA', () => {
+  it('linkifies numbered "1. BleepingComputer, ..." refs into clickable links', () => {
+    const raw =
+      `## What is this vulnerability?
+
+Text.
+
+` +
+      `## Affected products
+
+Text.
+
+` +
+      `## CVSS score breakdown
+
+Text.
+
+` +
+      `## How the attack works
+
+Text.
+
+` +
+      `## Why this matters
+
+Text.
+
+` +
+      `## Indicators of compromise
+
+Text.
+
+` +
+      `## Detection & mitigation
+
+Text.
+
+` +
+      `## References
+
+` +
+      `1. BleepingComputer, initial breach disclosure with record count estimate.
+` +
+      `2. The Hacker News, follow‑up article confirming credit‑card exposure.
+`;
+    const out = postProcess({ type: 'intel', raw, factsText: '{}' });
+    // Both publishers are in KNOWN_PUBLISHER_URLS so both get linkified.
+    expect(out.body).toMatch(/\[BleepingComputer[^\]]+\]\(https:\/\/www\.bleepingcomputer\.com\/news\/security\/\)/);
+    expect(out.body).toMatch(/\[The Hacker News[^\]]+\]\(https:\/\/thehackernews\.com\/\)/);
+  });
+
+  it('linkifies bulleted "- Krebs on Security, ..." refs into clickable links', () => {
+    const raw =
+      `## Summary
+
+Text.
+
+` +
+      `## Detection & mitigation
+
+Text.
+
+` +
+      `## References
+
+` +
+      `- Krebs on Security, exclusive interview with the lead investigator.
+` +
+      `- CISA KEV, the new entry added today.
+`;
+    const out = postProcess({ type: 'intel', raw, factsText: '{}' });
+    expect(out.body).toMatch(/\[Krebs on Security[^\]]+\]\(https:\/\/krebsonsecurity\.com\/\)/);
+    expect(out.body).toMatch(/\[CISA KEV[^\]]+\]\(https:\/\/www\.cisa\.gov\/known-exploited-vulnerabilities-catalog\)/);
+  });
+
+  it('leaves unrecognised publisher labels plain and flags the draft as QA-failed', () => {
+    const raw =
+      `## Summary
+
+Text.
+
+` +
+      `## Detection & mitigation
+
+Text.
+
+` +
+      `## References
+
+` +
+      `- Some Unknown Trade Rag, brief mention of the incident.
+` +
+      `- Another Mystery Outlet, follow‑up coverage with screenshots.
+`;
+    const out = postProcess({ type: 'intel', raw, factsText: '{}' });
+    // No linkification happened — labels stay plain text.
+    expect(out.body).not.toMatch(/\[Some Unknown Trade Rag[^\]]+\]\(http/);
+    // QA gate catches the unlinked bullets.
+    expect(out.qa?.passed).toBe(false);
+    expect(out.qa?.issues.join('|')).toMatch(/reference bullet.*no URL/i);
+  });
+
+  it('accepts drafts where every References bullet is a proper markdown link', () => {
+    const raw =
+      `## Summary
+
+Text.
+
+` +
+      `## Detection & mitigation
+
+Text.
+
+` +
+      `## References
+
+` +
+      `- [BleepingComputer](https://www.bleepingcomputer.com/news/security/example)
+` +
+      `- [The Hacker News](https://thehackernews.com/2026/06/example.html)
+`;
+    const out = postProcess({ type: 'intel', raw, factsText: '{}' });
+    expect(out.qa?.issues.join('|')).not.toMatch(/reference bullet.*no URL/i);
+  });
+
+  it('mixed bullet (one linked, one unlinked) still fails QA on the unlinked one', () => {
+    const raw =
+      `## Summary
+
+Text.
+
+` +
+      `## Detection & mitigation
+
+Text.
+
+` +
+      `## References
+
+` +
+      `- [BleepingComputer](https://www.bleepingcomputer.com/news/security/example)
+` +
+      `- Some Unknown Trade Rag, brief mention.
+`;
+    const out = postProcess({ type: 'intel', raw, factsText: '{}' });
+    expect(out.qa?.passed).toBe(false);
+    expect(out.qa?.issues.join('|')).toMatch(/1 reference bullet.*no URL/);
+  });
+});

@@ -90,6 +90,14 @@ export interface Post {
   quality?: QualityScore;
   qa?: QaVerdict;
   /**
+   * Optional snapshot of the original candidate's evidence, persisted
+   * at generation time so the admin `/drafts/:slug/regenerate` (rewrite
+   * mode) can re-run `generatePost` with the same facts even after the
+   * candidate itself has been deleted (the publisher clears the
+   * candidate blob on success). Unset for legacy posts.
+   */
+  evidence?: Record<string, unknown>;
+  /**
    * Optional approval gate metadata. Absent for legacy auto-published
    * posts (treated as `published`). New posts go through `draft` first
    * when `BLOG_APPROVAL_REQUIRED=true` is set on the worker.

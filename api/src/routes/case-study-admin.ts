@@ -30,6 +30,7 @@ import { renderRss } from '../case-study/rendering/rss';
 import { getSiteUrl } from '../lib/site-config';
 import { kv as csKvKeys } from '../case-study/kv-keys';
 import { generatePost } from '../case-study/generation';
+import { postProcess } from '../case-study/generation/post-process';
 import {
   generateSocialContent,
   generateTwitterContent,
@@ -427,6 +428,171 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
     }
     await rejectDraft(c.env.CASE_STUDIES, slug);
     return c.json({ ok: true });
+  });
+
+  /**
+   * Regenerate a draft in place. Two modes:
+   *
+   *  1. **Default (no body, or `{"mode":"fix"}`)** — run the existing
+   *     body through `postProcess()`. This is the deterministic path:
+   *     the linkify step (BleepingComputer / The Hacker News / Krebs /
+   *     CISA KEV / …) repairs unlinked reference bullets, the disallowed-
+   *     ref filter drops fabricated URLs, the placeholder filter strips
+   *     example.com leftovers. No LLM call — fast (sub-second) and free.
+   *     Use this when a draft slipped through QA with a small citation
+   *     bug (the "BleepingComputer" / "The Hacker News" with no URL
+   *     failure mode that motivated this endpoint).
+   *
+   *  2. **`{"mode":"rewrite", "notes":"…"}`** — call `generatePost()`
+   *     with the original candidate (looked up by `Post.candidateId` +
+   *     `Post.type`) and the admin-supplied `notes` injected into the
+   *     prompt. This is the LLM path: re-issues the full generation
+   *     with the admin's guidance ("drop the Sigma rule, add an attack
+   *     flow chart", "make every reference a clickable link", etc).
+   *     Costs one LLM call and one self-heal pass.
+   *
+   *  Either mode overwrites the draft atomically (new draft entry +
+   *  updated index entry). The slug is preserved unless the LLM mode
+   *  produces a title-derived slug the model renames — in that case the
+   *  old draft is removed and the new one written under the new slug.
+   *
+   *  Returns `{ ok, slug, title, body, bodyHtml, qa, changed, mode }`
+   *  so the admin UI can show a diff against the previous version.
+   */
+  admin.post('/drafts/:slug/regenerate', async (c) => {
+    const slug = c.req.param('slug');
+    if (!validSlug(slug)) return c.json({ error: 'invalid slug' }, 400);
+    const draft = await getDraft(c.env.CASE_STUDIES, slug);
+    if (!draft) return c.json({ error: 'draft not found' }, 404);
+
+    const parsed = await safeJsonBody<{ mode?: 'fix' | 'rewrite'; notes?: string }>(c, { maxBytes: 4096 });
+    const body = 'value' in parsed ? parsed.value : {};
+    const mode: 'fix' | 'rewrite' = body.mode ?? 'fix';
+    const now = new Date();
+
+    if (mode === 'fix') {
+      // Deterministic repair — no LLM, no candidate lookup.
+      const factsText = JSON.stringify(draft.sources ?? {});
+      const out = postProcess({ type: draft.type, raw: draft.body, factsText });
+      if (!out.ok) {
+        return c.json(
+          {
+            error: 'fix_failed',
+            issues: out.errors,
+            qa: out.qa,
+            body: out.body,
+          },
+          422
+        );
+      }
+      const changed = out.body !== draft.body || JSON.stringify(out.iocs) !== JSON.stringify(draft.iocs);
+      if (changed) {
+        const repaired: Post = {
+          ...draft,
+          body: out.body,
+          iocs: out.iocs,
+          quality: out.quality,
+          qa: out.qa,
+        };
+        await putDraft(c.env.CASE_STUDIES, repaired);
+        return c.json({
+          ok: true,
+          slug,
+          title: repaired.title,
+          body: repaired.body,
+          bodyHtml: renderMarkdown(repaired.body),
+          iocs: repaired.iocs,
+          qa: repaired.qa,
+          changed: true,
+          mode,
+        });
+      }
+      return c.json({
+        ok: true,
+        slug,
+        title: draft.title,
+        body: draft.body,
+        bodyHtml: renderMarkdown(draft.body),
+        iocs: draft.iocs,
+        qa: draft.qa,
+        changed: false,
+        mode,
+      });
+    }
+
+    // mode === 'rewrite' — full LLM regeneration.
+    // Look up the original candidate (draft carries candidateId + type).
+    // If the candidate was already removed (publisher deletes after
+    // generation succeeds), rebuild a minimal Candidate from the draft
+    // so the LLM still has facts to work with.
+    let candidate: Candidate | null = null;
+    if (draft.candidateId) {
+      candidate = await getCandidate(c.env.CASE_STUDIES, draft.type, draft.candidateId);
+    }
+    // Prefer the evidence snapshot persisted on the Post at generation
+    // time (generatePost writes it so rewrite-mode can see the original
+    // facts even after the candidate blob was deleted). Falls back to
+    // the live candidate's evidence when present, then to a draft-
+    // derived skeleton.
+    if (candidate && draft.evidence && Object.keys(draft.evidence).length > 0) {
+      candidate = { ...candidate, evidence: { ...candidate.evidence, ...draft.evidence } };
+    }
+    if (!candidate) {
+      // Candidate was deleted post-generation. Reconstruct a minimal one
+      // from the draft itself so the rewrite still has grounded facts.
+      candidate = {
+        key: draft.candidateId || draft.slug,
+        type: draft.type,
+        title: draft.title,
+        rationale: '',
+        score: 0,
+        evidence: {
+          title: draft.title,
+          slug: draft.slug,
+          existingBody: draft.body,
+          sources: draft.sources,
+          // Tag the reconstruction so the model knows the source is the
+          // previous draft and not a fresh candidate.
+          regenerated: true,
+        },
+        discoveredAt: draft.publishedAt,
+        status: 'pending',
+      };
+    }
+    try {
+      const newPost = await generatePost({
+        candidate,
+        ai: c.env.AI as never,
+        now,
+        groqKey: c.env.GROQ_API_KEY,
+        notes: body.notes,
+      });
+      // If the LLM produced a different slug, remove the old draft first
+      // so we don't end up with two drafts on the index.
+      if (newPost.slug !== slug) {
+        await rejectDraft(c.env.CASE_STUDIES, slug);
+      }
+      await putDraft(c.env.CASE_STUDIES, newPost);
+      return c.json({
+        ok: true,
+        slug: newPost.slug,
+        title: newPost.title,
+        body: newPost.body,
+        bodyHtml: renderMarkdown(newPost.body),
+        iocs: newPost.iocs,
+        qa: newPost.qa,
+        changed: true,
+        mode,
+      });
+    } catch (err) {
+      return c.json(
+        {
+          error: 'rewrite_failed',
+          message: err instanceof Error ? err.message : String(err),
+        },
+        500
+      );
+    }
   });
 
   admin.post('/posts/:slug/unpublish', async (c) => {

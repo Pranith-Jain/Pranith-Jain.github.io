@@ -216,10 +216,18 @@ export interface GeneratePostDeps {
    * filter is the only defence — still correct, just narrower coverage.
    */
   validationEnv?: IocValidationEnv;
+  /**
+   * Optional admin-supplied regeneration hints. Forwarded into the
+   * user prompt so a manual "regenerate draft" can steer the rewrite
+   * without a code change — e.g. "every References bullet MUST be a
+   * markdown link to a real URL" or "drop the Sigma rule and replace
+   * with an attack-flow chart".
+   */
+  notes?: string;
 }
 
 export async function generatePost(deps: GeneratePostDeps): Promise<Post> {
-  const { candidate, ai, now, groqKey } = deps;
+  const { candidate, ai, now, groqKey, notes } = deps;
 
   // ── Step 1: Verify facts before writing ──────────────────────────────
   // Extract structured facts from evidence to ground the content generation.
@@ -246,7 +254,15 @@ export async function generatePost(deps: GeneratePostDeps): Promise<Post> {
       `</verified_facts>`
     : '';
 
-  const completion = await runCompletion(ai, { system, user: user + factNote }, { groqKey, quality: true });
+  const notesBlock =
+    notes && notes.trim()
+      ? `\n\n<admin_notes>\nThe following guidance was supplied by the admin regenerating this draft. Honour it literally — do not soften or interpret loosely:\n${notes.trim()}\n</admin_notes>`
+      : '';
+  const completion = await runCompletion(
+    ai,
+    { system, user: user + factNote + notesBlock },
+    { groqKey, quality: true }
+  );
 
   const factsText = JSON.stringify(candidate.evidence);
   let processed = postProcess({ type: candidate.type, raw: completion.text, factsText });
@@ -267,7 +283,7 @@ export async function generatePost(deps: GeneratePostDeps): Promise<Post> {
       {
         system,
         user:
-          `${user}\n\nYOUR PREVIOUS DRAFT FAILED REVIEW: ${problems.join('; ')}.\n` +
+          `${user + factNote + notesBlock}\n\nYOUR PREVIOUS DRAFT FAILED REVIEW: ${problems.join('; ')}.\n` +
           `Rewrite the FULL case study fixing every issue. Every section MUST start with "## " on its own line. ` +
           `Be specific and substantive (no thin sections, no repeated sentences, cite real sources). ` +
           `Only reference facts/CVEs present in the GROUND TRUTH DATA above; mark any historical CVE as context, not a finding.`,
@@ -326,5 +342,12 @@ export async function generatePost(deps: GeneratePostDeps): Promise<Post> {
     sources,
     quality: processed.quality,
     qa: processed.qa,
+    // Snapshot the candidate evidence so an admin can later hit
+    // POST /api/v1/admin/drafts/:slug/regenerate?mode=rewrite and have
+    // the model see the same facts the original draft was grounded in.
+    // The publisher clears the candidate blob on success; without this
+    // snapshot, rewrite mode would have to fall back to a candidate
+    // reconstructed from the previous draft body.
+    evidence: candidate.evidence,
   };
 }

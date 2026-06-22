@@ -290,6 +290,114 @@ const REFERENCE_HOST_ALLOWLIST = new Set<string>([
   'gist.github.com',
 ]);
 
+/**
+ * Curated map of recognised publisher labels → canonical source URL.
+ * Used by `linkifyPlainTextRefs()` to auto-fix the common "model wrote
+ * the label but no URL" failure mode: a draft that says
+ *   1. BleepingComputer, initial breach disclosure with record count estimate.
+ *   2. The Hacker News, follow‑up article confirming credit‑card exposure.
+ * is rewritten in‑place to
+ *   - [BleepingComputer, initial breach disclosure with record count estimate.](https://www.bleepingcomputer.com/news/security/...)
+ *
+ * The URL is just the canonical homepage (e.g. /news/security/ for BleepingComputer)
+ * — the model is supposed to add the article slug on the next pass via
+ * the repair loop, but at minimum the reader gets a clickable link instead
+ * of a wall of plain text. If the label isn't in the map, the bullet
+ * stays plain text and the QA gate flags it for a manual fix.
+ */
+const KNOWN_PUBLISHER_URLS: ReadonlyArray<{ labelRe: RegExp; host: string; path: string; label: string }> = [
+  {
+    labelRe: /bleeping\s*computer/i,
+    host: 'www.bleepingcomputer.com',
+    path: '/news/security/',
+    label: 'BleepingComputer',
+  },
+  { labelRe: /the\s+hacker\s+news/i, host: 'thehackernews.com', path: '/', label: 'The Hacker News' },
+  { labelRe: /the\s+record(,|\s|$)/i, host: 'therecord.media', path: '/', label: 'The Record' },
+  { labelRe: /dark\s*reading/i, host: 'www.darkreading.com', path: '/', label: 'Dark Reading' },
+  { labelRe: /securityweek/i, host: 'www.securityweek.com', path: '/', label: 'SecurityWeek' },
+  { labelRe: /cyber\s*scoop/i, host: 'cyberscoop.com', path: '/', label: 'CyberScoop' },
+  {
+    labelRe: /krebsonsecurity|krebs\s+on\s+security/i,
+    host: 'krebsonsecurity.com',
+    path: '/',
+    label: 'Krebs on Security',
+  },
+  { labelRe: /help\s*net\s*security/i, host: 'www.helpnetsecurity.com', path: '/', label: 'Help Net Security' },
+  { labelRe: /threatpost/i, host: 'threatpost.com', path: '/', label: 'Threatpost' },
+  { labelRe: /\bzdnet\b/i, host: 'www.zdnet.com', path: '/topic/security/', label: 'ZDNet' },
+  {
+    labelRe: /infosecurity\s*magazine/i,
+    host: 'www.infosecurity-magazine.com',
+    path: '/news/',
+    label: 'Infosecurity Magazine',
+  },
+  { labelRe: /cso\s*online/i, host: 'www.csoonline.com', path: '/', label: 'CSO Online' },
+  { labelRe: /sc\s*magazine|scmagazine/i, host: 'www.scmagazine.com', path: '/', label: 'SC Magazine' },
+  { labelRe: /the\s*register/i, host: 'www.theregister.com', path: '/Security/', label: 'The Register' },
+  { labelRe: /ars\s*technica/i, host: 'arstechnica.com', path: '/security/', label: 'Ars Technica' },
+  { labelRe: /wired/i, host: 'www.wired.com', path: '/security/', label: 'Wired' },
+  { labelRe: /reuters/i, host: 'www.reuters.com', path: '/technology/', label: 'Reuters' },
+  { labelRe: /hackread/i, host: 'www.hackread.com', path: '/', label: 'Hackread' },
+  { labelRe: /nvd|cve\s+details/i, host: 'nvd.nist.gov', path: '/vuln/detail/', label: 'NVD' },
+  {
+    labelRe: /cisa\s+kev|cisa\s+known/i,
+    host: 'www.cisa.gov',
+    path: '/known-exploited-vulnerabilities-catalog',
+    label: 'CISA KEV',
+  },
+  { labelRe: /mitre\s+att&ck|att&ck\s+matrix/i, host: 'attack.mitre.org', path: '/', label: 'MITRE ATT&CK' },
+];
+
+/**
+ * Detect plain-text reference bullets under `## References` (model wrote
+ * "BleepingComputer, initial disclosure" with no URL) and linkify the ones
+ * whose label matches a known publisher. Returns
+ * { body, fixedCount, unlinkedCount } so the caller can decide whether to
+ * fail QA when too many unlinked bullets remain.
+ */
+function linkifyPlainTextRefs(body: string): { body: string; fixedCount: number; unlinkedCount: number } {
+  // Extract the ## References block by slicing: find the heading index,
+  // then take everything up to the next `##` heading or end-of-string.
+  // A pure-regex approach with lookaheads is fragile when the section is
+  // the LAST block in the body (the "\s*$" end-anchor races with the
+  // "\n##\s+" start-anchor on adjacent matches). Slicing by index is
+  // unambiguous and O(n) in the section size.
+  const refsStart = body.search(/^##\s+References\b/im);
+  if (refsStart < 0) return { body, fixedCount: 0, unlinkedCount: 0 };
+  const afterStart = body.slice(refsStart + 1);
+  const nextHeading = afterStart.match(/\n##\s+/);
+  const refsEnd = nextHeading ? refsStart + 1 + nextHeading.index! : body.length;
+  const refsBlock = body.slice(refsStart, refsEnd);
+
+  // Two unlinked patterns the model actually emits:
+  //   1. Numbered:  "1. BleepingComputer, initial disclosure with X."
+  //   2. Bulleted:  "- BleepingComputer, initial disclosure with X."
+  // Both must NOT already contain [..](https?://) on the same line.
+  const lineRe = /^(\s*(?:[-*+]|\d+\.)\s+)(?!\[)([^\n]*?)(?=\s*$)/gm;
+  let fixedCount = 0;
+  let unlinkedCount = 0;
+  const replaced = refsBlock.replace(lineRe, (match, bullet, text) => {
+    if (/\[[^\]]+\]\(https?:\/\/[^)]+\)/.test(match)) return match;
+    const trimmed = text.trim();
+    if (trimmed.length < 8) return match;
+    for (const p of KNOWN_PUBLISHER_URLS) {
+      if (p.labelRe.test(trimmed)) {
+        fixedCount += 1;
+        return `${bullet}[${trimmed}](https://${p.host}${p.path})`;
+      }
+    }
+    unlinkedCount += 1;
+    return match;
+  });
+
+  return {
+    body: body.slice(0, refsStart) + replaced + body.slice(refsEnd),
+    fixedCount,
+    unlinkedCount,
+  };
+}
+
 function hostOf(url: string): string | null {
   try {
     return new URL(url).host.toLowerCase().replace(/^www\./, '');
@@ -481,6 +589,16 @@ export function postProcess(input: PostProcessInput): PostProcessOutput {
   // model fabricating citation domains (the most common hallucination
   // mode on security writing). Backs off if it would empty the section.
   body = stripDisallowedRefs(body, input.factsText);
+  // Step 3a.3: Linkify plain-text reference bullets whose label matches a
+  // known publisher (BleepingComputer, The Hacker News, Krebs, ...). The
+  // model frequently writes "1. BleepingComputer, initial disclosure." with
+  // no URL — that bullet is uncorroborated and would slip past QA because
+  // the linkCount check only triggers when there are ZERO links anywhere.
+  // Auto-fixing the recognised labels gives the reader a clickable link to
+  // the publisher's homepage; the unlinkedCount is forwarded to QA so an
+  // unrecognised label still fails the post.
+  const linkify = linkifyPlainTextRefs(body);
+  body = linkify.body;
   // Step 3b: Fix list blocks missing blank lines after them
   body = fixListBlocks(body);
   // Step 4: Strip sections that are empty or filler
@@ -641,6 +759,31 @@ export function qaReview(body: string, iocs: PostIOC[], _type: CaseStudyType, qu
   const linkCount = (body.match(/\[[^\]]+\]\(https?:\/\/[^)]+\)/g) ?? []).length;
   if (!hasRefs && linkCount === 0 && iocs.length === 0) {
     issues.push('no References section, citations, or IOCs — uncorroborated');
+  }
+  // Unlinked reference bullets are a stronger signal than the check above.
+  // A draft that says "1. BleepingComputer, initial disclosure." with no URL
+  // IS a citation, but the reader cannot click through — so it's a fail
+  // even when the count of linkCount > 0 elsewhere in the body. The
+  // linkifyPlainTextRefs() pass above attempts to auto-fix recognised
+  // publishers; anything left unlinked is a real model failure.
+  const unlinkedRefBullets = (() => {
+    const rStart = body.search(/^##\s+References\b/im);
+    if (rStart < 0) return 0;
+    const afterStart = body.slice(rStart + 1);
+    const next = afterStart.match(/\n##\s+/);
+    const rEnd = next ? rStart + 1 + next.index! : body.length;
+    const refsBody = body.slice(rStart, rEnd);
+    const lines = refsBody.split(/\r?\n/);
+    let count = 0;
+    for (const ln of lines) {
+      if (!/^\s*(?:[-*+]|\d+\.)\s+/.test(ln)) continue;
+      if (/\[[^\]]+\]\(https?:\/\/[^)]+\)/.test(ln)) continue;
+      if (ln.replace(/^\s*(?:[-*+]|\d+\.)\s+/, '').trim().length >= 8) count += 1;
+    }
+    return count;
+  })();
+  if (unlinkedRefBullets > 0) {
+    issues.push(`${unlinkedRefBullets} reference bullet(s) have no URL — reader cannot click through`);
   }
 
   // Repetition: a normalised sentence (>24 chars) repeated 3+ times.
