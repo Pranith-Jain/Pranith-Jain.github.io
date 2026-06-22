@@ -1533,6 +1533,15 @@ export const RESOURCES: ExternalResource[] = [
       'Curated start.me page aggregating threat-intelligence platform resources, tooling, and references. Useful for discovering adjacent CTI sources and community-maintained watchlists.',
   },
   {
+    id: 'startme-dark-web-data-breach',
+    name: 'Dark Web Data Breach (start.me)',
+    url: 'https://start.me/p/xjvDyJ/dark-web-data-breach',
+    kind: 'directory',
+    tags: ['darkweb', 'osint', 'dfir'],
+    description:
+      'Curated start.me page aggregating dark-web data-breach resources — leak-site monitors, paste-site scrapers, ransomware-tracker dashboards, exposed-credential search portals, and underground-market intelligence feeds. Useful for monitoring breach disclosures and pivoting into compromised-asset investigations.',
+  },
+  {
     id: 'bitwire-repo',
     name: 'Bitwire IP Blocklist (GitHub)',
     url: 'https://github.com/bitwire-it/ipblocklist',
