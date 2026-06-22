@@ -116,15 +116,17 @@ export function SidebarContent({ config }: { config: SidebarConfig }): JSX.Eleme
                     : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200'
                 }`}
                 aria-expanded={isExpanded}
+                aria-controls={`sidebar-group-${group.title.replace(/\s+/g, '-').toLowerCase()}`}
               >
                 <span className="truncate">{group.title}</span>
                 <ChevronDown
                   size={12}
                   className={`shrink-0 transition-transform duration-150 ${isExpanded ? 'rotate-0' : '-rotate-90'}`}
+                  aria-hidden="true"
                 />
               </button>
               {isExpanded && (
-                <ul className="space-y-0.5 pb-2">
+                <ul id={`sidebar-group-${group.title.replace(/\s+/g, '-').toLowerCase()}`} className="space-y-0.5 pb-2">
                   {group.items.map((item) => {
                     const active = isActive(location.pathname, item.href);
                     const Icon = item.icon;
@@ -207,7 +209,7 @@ export function Sidebar({ config }: SidebarProps): JSX.Element {
             className="grid h-6 w-6 place-items-center text-slate-400 transition hover:text-slate-600 dark:text-slate-500 dark:hover:text-slate-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
             aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
           >
-            {collapsed ? <ChevronRight size={14} /> : <ChevronLeft size={14} />}
+            {collapsed ? <ChevronRight size={14} aria-hidden="true" /> : <ChevronLeft size={14} aria-hidden="true" />}
           </button>
         </div>
       </div>

@@ -95,10 +95,9 @@ export function TopBar({
           <button
             type="button"
             onClick={onOpenMobileNav}
-            className="md:hidden -ml-1 grid h-11 w-11 sm:h-9 sm:w-9 place-items-center rounded-md border border-[rgb(var(--border-400))] bg-white text-slate-700 transition-colors hover:bg-[rgb(var(--hover-100))] hover:border-[rgb(var(--border-500))] dark:bg-transparent dark:text-slate-200 dark:hover:bg-[rgb(var(--hover-100))] focus:outline-none"
+            className="md:hidden -ml-1 grid h-11 w-11 sm:h-9 sm:w-9 place-items-center rounded-md border border-[rgb(var(--border-400))] bg-white text-slate-700 transition-colors hover:bg-[rgb(var(--hover-100))] hover:border-[rgb(var(--border-500))] dark:bg-transparent dark:text-slate-200 dark:hover:bg-[rgb(var(--hover-100))] focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
             aria-label={mobileNavOpen ? 'Close navigation' : 'Open navigation'}
             aria-expanded={mobileNavOpen ?? false}
-            aria-controls="mobile-sidebar-drawer"
           >
             {mobileNavOpen ? (
               <X className="h-4 w-4" aria-hidden="true" />
@@ -161,7 +160,7 @@ export function TopBar({
           aria-label={`Switch to ${isDark ? 'light' : 'dark'} mode`}
           title={`Switch to ${isDark ? 'light' : 'dark'} mode`}
         >
-          {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+          {isDark ? <Sun className="h-4 w-4" aria-hidden="true" /> : <Moon className="h-4 w-4" aria-hidden="true" />}
         </button>
       </div>
     </header>
