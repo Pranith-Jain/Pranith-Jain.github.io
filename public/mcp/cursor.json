@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "dfir-threatintel": {
+      "url": "https://pranithjain.qzz.io/api/mcp",
+      "transport": "streamable-http",
+      "headers": {
+        "Authorization": "Bearer <your-api-key>"
+      }
+    }
+  }
+}

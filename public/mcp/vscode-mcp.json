@@ -1,0 +1,11 @@
+{
+  "servers": {
+    "dfir-threatintel": {
+      "type": "http",
+      "url": "https://pranithjain.qzz.io/api/mcp",
+      "headers": {
+        "Authorization": "Bearer <your-api-key>"
+      }
+    }
+  }
+}

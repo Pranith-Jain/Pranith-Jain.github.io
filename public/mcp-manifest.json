@@ -1,0 +1,513 @@
+{
+  "$schema": "https://modelcontextprotocol.io/schemas/manifest/v1.json",
+  "name": "DFIR-ThreatIntel-MCP",
+  "version": "1.0.0",
+  "description": "DFIR + Threat Intel MCP server. 98 tools across IOC check, CVE/KEV, actor enrichment, domain/ASN/WHOIS pivots, ransomware + breach monitoring, phishing analysis, supply-chain attacks, YARA/Sigma authoring, MITRE ATT&CK extraction, Hudson Rock infostealer search, passive DNS, IOC watchlists, investigation notebooks, shift handover, prompt vault, and the full SCStelz/security-investigator playbook library (KQL queries, skills, automations, knowledge-base docs).",
+  "transport": "streamable-http",
+  "endpoint": "https://pranithjain.qzz.io/api/mcp",
+  "auth": {
+    "type": "api-key",
+    "header": "Authorization: Bearer <key>",
+    "altHeader": "X-API-Key: <key>",
+    "note": "API keys are issued at /api/v1/admin/keys (admin token required)."
+  },
+  "capabilities": {
+    "tools": {
+      "listChanged": false
+    }
+  },
+  "toolCount": 98,
+  "generatedAt": "2026-06-22T08:39:53.710Z",
+  "tools": [
+    {
+      "name": "analyze_phishing_email",
+      "description": "Analyze raw email source for phishing indicators. Parses headers, checks SPF/DKIM/DMARC, extracts URLs, and computes a risk score with flags.",
+      "category": "phishing"
+    },
+    {
+      "name": "analyze_phishing_url",
+      "description": "Analyze a URL for phishing indicators. Checks against PhishTank, OpenPhish, URLhaus, and performs visual similarity analysis.",
+      "category": "phishing"
+    },
+    {
+      "name": "analyze_report",
+      "description": "Unified per-report analyzer. Runs summary + IOC extraction (with allowlist + confidence) + MITRE ATT&CK TTP mapping + 5W context + CVE extraction + image-OCR + STIX 2.1 bundle in a single round-trip. Accepts text, URL, or both; optionally takes image URLs to OCR.",
+      "category": "analysis"
+    },
+    {
+      "name": "check_breach",
+      "description": "Check if an email address or domain has been exposed in known data breaches. Returns breach names, dates, and exposed data types.",
+      "category": "breach"
+    },
+    {
+      "name": "check_ioc",
+      "description": "Check reputation of an IP address, domain, URL, or file hash (MD5/SHA1/SHA256) across 30+ threat intelligence providers. Returns composite score, admiralty grade, and per-provider verdicts.",
+      "category": "ioc"
+    },
+    {
+      "name": "correlate_iocs",
+      "description": "Search correlated IOCs. Find relationships between indicators — shared infrastructure, overlapping campaigns, and linked threat actors.",
+      "category": "ioc"
+    },
+    {
+      "name": "enrich_actor",
+      "description": "Get a threat actor profile. Returns aliases, country attribution, MITRE ATT&CK techniques, known campaigns, and associated malware families.",
+      "category": "actor"
+    },
+    {
+      "name": "extract_fivew",
+      "description": "Extract the classic 5W grid (who/what/when/where/why) from a free-text report. Single LLM call; returns structured JSON with a per-grid confidence score.",
+      "category": "analysis"
+    },
+    {
+      "name": "extract_iocs_from_image",
+      "description": "Fetch an image and run Workers AI vision over it to extract IOCs that are only visible in screenshots (IPs, domains, URLs, hashes, CVEs, emails). Returns the OCR text + the per-IOC confidence band.",
+      "category": "analysis"
+    },
+    {
+      "name": "extract_ttps",
+      "description": "Extract MITRE ATT&CK techniques from a free-text threat report. Returns technique IDs, tactic labels, confidence (high/medium/low), and the supporting evidence string. Combines a deterministic keyword scanner with an LLM pass and merges the results.",
+      "category": "analysis"
+    },
+    {
+      "name": "generate_yara_rule",
+      "description": "Generate a YARA detection rule using AI. Provide a description of what to detect, and optionally known strings, malware family name, and target file type. Returns a syntactically valid YARA rule with metadata.",
+      "category": "detection"
+    },
+    {
+      "name": "get_blocklists",
+      "description": "Get pre-generated firewall blocklists in pfSense, iptables, and Suricata formats. Derived from aggregated threat intel feeds.",
+      "category": "intel"
+    },
+    {
+      "name": "get_cross_report_graph",
+      "description": "Cross-report knowledge-graph snapshot. Returns the top N most-referenced nodes (IOCs, actors, malware, CVEs, techniques, campaigns) across every ingested source, with the edges that connect them. Filter by node type and time window.",
+      "category": "other"
+    },
+    {
+      "name": "get_detections",
+      "description": "Get the latest detection rules feed — Sigma, YARA, and Snort rules mapped to threat actors, malware families, and MITRE ATT&CK techniques.",
+      "category": "other"
+    },
+    {
+      "name": "get_domain_certs",
+      "description": "Get recent certificates for a domain from Certificate Transparency logs. Shows new subdomains, certificate details, and any alerts.",
+      "category": "domain"
+    },
+    {
+      "name": "get_domain_history",
+      "description": "Get the WHOIS history for a domain. Returns all historical registration snapshots, ownership changes, registrar changes, and nameserver changes over time. Essential for tracking domain ownership transfers and identifying infrastructure reuse by threat actors.",
+      "category": "domain"
+    },
+    {
+      "name": "get_feed_status",
+      "description": "Get the health and freshness status of all 30+ threat intelligence feed sources. Shows last update time, error rates, and data volume.",
+      "category": "other"
+    },
+    {
+      "name": "get_ioc_lifecycle",
+      "description": "Get the lifecycle data for an IOC — when it first appeared, last seen, activity trend, and decay rate. Use this to understand if an indicator is still active or dormant.",
+      "category": "other"
+    },
+    {
+      "name": "get_live_iocs",
+      "description": "Get the latest live IOC feed — real-time indicators of compromise aggregated from 20+ sources including blocklists, tweet feeds, abuse.ch, and community submissions.",
+      "category": "intel"
+    },
+    {
+      "name": "get_ransomware_activity",
+      "description": "Get recent ransomware activity — latest victims, group activity, and leak-site posts from ransomware.live and other trackers.",
+      "category": "intel"
+    },
+    {
+      "name": "get_relationships",
+      "description": "Get the relationship graph for an IOC — shows connections to threat actors, malware families, campaigns, CVEs, and other indicators.",
+      "category": "intel"
+    },
+    {
+      "name": "get_supply_chain_attacks",
+      "description": "Software supply-chain compromise incidents (npm/PyPI/container/AI-agent ecosystems) from supplychainattack.org — title, status, severity, ecosystems, attack vectors, blast radius, remediation, package IOCs, and GHSA sources. Filter by ecosystem/status/severity.",
+      "category": "intel"
+    },
+    {
+      "name": "get_threat_pulse",
+      "description": "Get a global threat overview — top active threat actors, trending malware families, most exploited CVEs, and geopolitical cyber events from the past week.",
+      "category": "other"
+    },
+    {
+      "name": "get_today_briefing",
+      "description": "Get today's threat intelligence briefing. A curated digest of the latest CVEs, ransomware activity, data breaches, and emerging threats from the past 24 hours.",
+      "category": "intel"
+    },
+    {
+      "name": "get_trending_iocs",
+      "description": "Get the most active IOCs in the last 24 hours. Returns indicators with highest observation counts and scores, useful for identifying emerging threats.",
+      "category": "other"
+    },
+    {
+      "name": "google_dorks",
+      "description": "Generate and execute Google dork queries for a domain. Useful for finding exposed files, login pages, and sensitive information.",
+      "category": "osint"
+    },
+    {
+      "name": "hr_account",
+      "description": "Check Hudson Rock Cavalier API account status, permissions, and quota. Use to verify the API key is valid.",
+      "category": "hudson"
+    },
+    {
+      "name": "hr_assets_discovery",
+      "description": "Discover all compromised URLs for a domain (attack surface mapping). Returns URLs where credentials were stolen, occurrence counts, and compromise types.",
+      "category": "hudson"
+    },
+    {
+      "name": "hr_domain_overview",
+      "description": "Get domain compromise overview statistics from Hudson Rock — compromised employee/user counts, last compromise dates, and upload timelines. Useful for risk posture assessment.",
+      "category": "hudson"
+    },
+    {
+      "name": "hr_infection_analysis",
+      "description": "AI-powered infection source analysis for a specific stealer log. Returns the likely infection URL, confidence score, timeline of suspicious activity, and analyst summary. Works best with Lumma stealers.",
+      "category": "hudson"
+    },
+    {
+      "name": "hr_search_domain",
+      "description": "Search for domain-wide infostealer compromises via Hudson Rock Cavalier API. Returns compromised employees, users, and third-party exposures with stealer families and infection dates.",
+      "category": "hudson"
+    },
+    {
+      "name": "hr_search_email",
+      "description": "Search for compromised credentials by email address via Hudson Rock Cavalier API. Returns infostealer infections, stealer families, compromised URLs, and credential types (employee/user/third-party).",
+      "category": "hudson"
+    },
+    {
+      "name": "hr_search_ip",
+      "description": "Search for compromises by IP address or CIDR range via Hudson Rock Cavalier API. Useful for IR when you have a suspicious IP.",
+      "category": "hudson"
+    },
+    {
+      "name": "hr_search_username",
+      "description": "Search for compromised credentials by username via Hudson Rock Cavalier API.",
+      "category": "hudson"
+    },
+    {
+      "name": "hr_third_party_risk",
+      "description": "Assess third-party / supply-chain risk for a domain. Returns employee URLs, third-party service URLs, and user URLs where credentials were compromised — indicating supply chain exposure.",
+      "category": "hudson"
+    },
+    {
+      "name": "ioc_watchlist_add",
+      "description": "Add an IOC to the watchlist for proactive alerting. Supported types: ip, domain, url, hash, cve, email. Alerts fire when the IOC appears in feeds.",
+      "category": "ioc"
+    },
+    {
+      "name": "ioc_watchlist_alerts",
+      "description": "List recent alerts from the IOC watchlist.",
+      "category": "ioc"
+    },
+    {
+      "name": "ioc_watchlist_list",
+      "description": "List all watched IOCs. Optionally filter by type.",
+      "category": "ioc"
+    },
+    {
+      "name": "ioc_watchlist_stats",
+      "description": "Get watchlist dashboard stats: total watches, alerts by type, webhook delivery rate.",
+      "category": "ioc"
+    },
+    {
+      "name": "list_briefings",
+      "description": "List recent threat intelligence briefings (daily and weekly). Returns slug, date, type, and summary for each.",
+      "category": "intel"
+    },
+    {
+      "name": "lookup_asn",
+      "description": "ASN intelligence lookup. Returns AS name, country, network ranges, RIR registration, and BGP peer info.",
+      "category": "domain"
+    },
+    {
+      "name": "lookup_cve",
+      "description": "Look up a CVE by ID. Returns description, CVSS score, EPSS probability, CISA KEV status, affected products, and references.",
+      "category": "cve"
+    },
+    {
+      "name": "lookup_domain",
+      "description": "Domain intelligence lookup. Returns DNS records (A, AAAA, MX, NS, TXT, SOA), WHOIS/RDAP registration data, CT log (certificate transparency) entries, SPF/DKIM/DMARC email authentication analysis, and threat intel hits from blocklists and IOC feeds.",
+      "category": "domain"
+    },
+    {
+      "name": "lookup_ip_geo",
+      "description": "Get IP geolocation, ASN, company, and privacy detection (VPN/proxy/tor/hosting). Uses IPinfo and Spur.us for anonymization detection.",
+      "category": "domain"
+    },
+    {
+      "name": "lookup_mitre",
+      "description": "Look up a MITRE ATT&CK technique by ID. Returns technique name, description, tactics, mitigations, and detection guidance.",
+      "category": "other"
+    },
+    {
+      "name": "notebook_add_entry",
+      "description": "Add a note, IOC, finding, timeline event, or artifact to a notebook.",
+      "category": "notebook"
+    },
+    {
+      "name": "notebook_create",
+      "description": "Create a new investigation notebook.",
+      "category": "notebook"
+    },
+    {
+      "name": "notebook_delete",
+      "description": "Delete a notebook and all its entries.",
+      "category": "notebook"
+    },
+    {
+      "name": "notebook_get",
+      "description": "Get a notebook with all its entries.",
+      "category": "notebook"
+    },
+    {
+      "name": "notebook_list",
+      "description": "List investigation notebooks. Each notebook is a persistent investigation session with notes, IOCs, findings, and timeline entries stored in D1.",
+      "category": "notebook"
+    },
+    {
+      "name": "notebook_update",
+      "description": "Update a notebook title, description, status, or severity.",
+      "category": "notebook"
+    },
+    {
+      "name": "parse_threat_report",
+      "description": "Parse a threat intelligence report or article to extract structured data: IOCs (IPs, domains, URLs, hashes), threat actors, malware families, MITRE ATT&CK techniques, CVEs, targeted sectors, and an executive summary. Use this when analyzing threat reports, blog posts, or incident write-ups.",
+      "category": "analysis"
+    },
+    {
+      "name": "passive_dns_overlap",
+      "description": "Find IPs shared between multiple domains (infrastructure overlap detection). Useful for mapping shared malicious hosting.",
+      "category": "pdns"
+    },
+    {
+      "name": "passive_dns_query",
+      "description": "Query passive DNS for a domain or IP. Returns historical DNS resolutions, infrastructure migrations, and fast-flux detection. Sources: VirusTotal, URLscan, crt.sh, CIRCL.",
+      "category": "pdns"
+    },
+    {
+      "name": "passive_dns_reverse",
+      "description": "Reverse passive DNS lookup: find all domains that historically resolved to a given IP. Reads from accumulated D1 cache.",
+      "category": "pdns"
+    },
+    {
+      "name": "pivot_domain",
+      "description": "Pivot across domains by shared registrant attributes. Find other domains owned by the same entity by matching registrant email, organization, nameservers, or registrar. Critical for mapping attacker infrastructure — if a malicious domain shares its registrant email with 50 other domains, those are likely all owned by the same threat actor.",
+      "category": "domain"
+    },
+    {
+      "name": "scan_website",
+      "description": "Scan a website for security issues — checks security headers, SSL certificate, technologies, and potential vulnerabilities.",
+      "category": "exposure"
+    },
+    {
+      "name": "search_malpedia",
+      "description": "Search Malpedia for malware families or threat actors. Returns matching entries with descriptions and references.",
+      "category": "search"
+    },
+    {
+      "name": "search_malware",
+      "description": "Search for malware families. Returns family info, YARA rules, samples, and references from Malpedia.",
+      "category": "search"
+    },
+    {
+      "name": "search_registrant",
+      "description": "Search for all domains registered by a specific email address or organization name. Returns domains, registration dates, and snapshot counts. Useful for finding all infrastructure operated by a known threat actor.",
+      "category": "domain"
+    },
+    {
+      "name": "search_triage",
+      "description": "Search Recorded Future Triage sandbox for malware samples by family, tag, hash, URL, or domain. Returns analysis results, behavioral reports, and extracted configs.",
+      "category": "search"
+    },
+    {
+      "name": "si_enrich_ip",
+      "description": "Enrich a single IPv4/IPv6 address using the platform's IPinfo / AbuseIPDB / Shodan / Shodan-InternetDB / VPNAPI providers. Returns the same shape as upstream security-investigator/enrich_ips.py. Use si_enrich_ip_batch for up to 25 IPs in one call.",
+      "category": "si"
+    },
+    {
+      "name": "si_enrich_ip_batch",
+      "description": "Enrich up to 25 IP addresses in one call. Returns an array of the same shape as si_enrich_ip. Order is preserved. IPs that fail validation are returned with a single \"validator:failed\" diagnostic and empty enrichment fields.",
+      "category": "si"
+    },
+    {
+      "name": "si_get_automation",
+      "description": "Return a scheduled-workflow definition (Copilot App / GitHub Actions) for running the skills unattended. Three automations ship: daily-threat-pulse, daily-mcp-auth-health-check, weekly-threat-intel-campaign.",
+      "category": "si"
+    },
+    {
+      "name": "si_get_doc",
+      "description": "Return the full markdown body of a single knowledge-base doc. Get slugs from si_list_docs.",
+      "category": "si"
+    },
+    {
+      "name": "si_get_query",
+      "description": "Return the full markdown body of a single KQL query (Defender XDR / Sentinel hunting query, IoC correlation, or campaign playbook). Use si_list_queries first to discover slugs.",
+      "category": "si"
+    },
+    {
+      "name": "si_get_ref",
+      "description": "Return a reference dataset by name. Get names from si_list_ref. Common: mitre-attck-enterprise (MITRE ATT&CK enterprise matrix, ~32 KB), known-kql-tables (M365 Defender table inventory, ~17 KB), m365-platform-coverage (coverage map, ~16 KB), ingestion-qN (Sentinel ingestion-scan query result schemas).",
+      "category": "si"
+    },
+    {
+      "name": "si_get_routing_prompt",
+      "description": "Return the upstream .github/copilot-instructions.md verbatim — the universal skill-detection / routing prompt. Clients should load this once at session start to learn how to map natural language to the right si_* tool. ~91 KB.",
+      "category": "si"
+    },
+    {
+      "name": "si_get_script",
+      "description": "Return the raw body of a PowerShell script or detection-manifest. Use si_list_scripts to discover filenames. The PowerShell scripts target Microsoft Defender XDR / Sentinel / M365 — they are NOT executable in the Worker; copy them to a PowerShell 7+ session locally to run.",
+      "category": "si"
+    },
+    {
+      "name": "si_get_skill",
+      "description": "Return the full SKILL.md body (markdown) for a single security investigation skill. Use si_list_skills first to discover slugs.",
+      "category": "si"
+    },
+    {
+      "name": "si_hypos_generate",
+      "description": "HYPOS: hypothesis engine for threat hunting. Given a free-text anomaly description and optional IOCs / environment, return ranked hypotheses with kill-chain phase, MITRE techniques, what-to-look-for signals, sample KQL, and matched SI skills.",
+      "category": "si"
+    },
+    {
+      "name": "si_kql_to_ah_url",
+      "description": "Encode a KQL query into a Defender XDR Advanced Hunting deep link. Mirrors upstream kql_to_ah_url.py: UTF-16LE → GZip → Base64url. Optionally append &tid=<tenant_id> for cross-tenant linking. Returns the URL.",
+      "category": "si"
+    },
+    {
+      "name": "si_list_docs",
+      "description": "List the 10 deep-dive knowledge-base docs from the upstream repo (Sentinel Exposure Graph guide, signinlog anomalies KQL cookbook, identity protection, honeypot investigation, ingestion cost best practices, etc). Each is a long-form markdown guide.",
+      "category": "si"
+    },
+    {
+      "name": "si_list_queries",
+      "description": "List the KQL queries shipped in this Worker (Defender XDR / Sentinel hunt library replicated from SCStelz/security-investigator, MIT). Filter by domain (cloud / email / endpoint / identity / incidents / network / threat-intelligence) or free-text keyword.",
+      "category": "si"
+    },
+    {
+      "name": "si_list_ref",
+      "description": "List the reference datasets available via si_get_ref: MITRE ATT&CK enterprise catalog, known KQL tables for the M365 platform, M365 platform coverage matrix, and the 11 Sentinel ingestion-scan query schemas.",
+      "category": "si"
+    },
+    {
+      "name": "si_list_scripts",
+      "description": "List the 5 PowerShell / detection-manifest assets that ship in the SI bundle: Deploy-CustomDetections.ps1 (batch-deploy Defender XDR rules), Invoke-MitreScan.ps1 (full MITRE coverage scanner), Invoke-IngestionScan.ps1 (Sentinel ingestion health), example-detection-manifest.json (input template), sentinel-ingestion-drilldown.md (companion guide).",
+      "category": "si"
+    },
+    {
+      "name": "si_list_skills",
+      "description": "List the security investigation skills shipped in this Worker (replicated from SCStelz/security-investigator, MIT). Each skill is a guided KQL+playbook workflow. Filter by category or free-text keyword.",
+      "category": "si"
+    },
+    {
+      "name": "si_parse_email_headers",
+      "description": "MAILSCOPE: parse raw email headers, extract the Received hop chain, compute SPF/DKIM/DMARC verdicts, and flag spoofing/impersonation patterns. Returns a 0-100 risk score.",
+      "category": "si"
+    },
+    {
+      "name": "si_parse_text",
+      "description": "PARSE-X: extract IOCs, file paths, registry keys, processes, DLLs, CVEs, MITRE techniques, hashes, emails, ports, MACs, and ASNs from raw text. Handles defang (hxxp, [.], (dot)) and Cyrillic/Greek homographs.",
+      "category": "si"
+    },
+    {
+      "name": "si_promptvault_categories",
+      "description": "PROMPTVAULT: list the valid prompt categories.",
+      "category": "si"
+    },
+    {
+      "name": "si_promptvault_create",
+      "description": "PROMPTVAULT: add a new prompt to the vault. Returns the created entry.",
+      "category": "si"
+    },
+    {
+      "name": "si_promptvault_get",
+      "description": "PROMPTVAULT: fetch a single prompt by slug. Auto-increments the download counter.",
+      "category": "si"
+    },
+    {
+      "name": "si_promptvault_list",
+      "description": "PROMPTVAULT: list community AI prompts for SOC analysts, detection engineers, and threat hunters. Filter by category, tag, or text search.",
+      "category": "si"
+    },
+    {
+      "name": "si_promptvault_rate",
+      "description": "PROMPTVAULT: rate a prompt 1-5 stars. Returns the updated entry with new rating count and average.",
+      "category": "si"
+    },
+    {
+      "name": "si_render_png",
+      "description": "Render an SVG dashboard and rasterise it to PNG (base64-encoded in the JSON response). Same manifest + data shape as si_render_svg, but the output is a portable bitmap you can embed in markdown, email, or social previews. Uses the bundled @resvg/resvg-wasm + Hanken Grotesk TTF.",
+      "category": "si"
+    },
+    {
+      "name": "si_render_svg",
+      "description": "Render an SVG dashboard from a manifest + data. Returns a self-contained <svg> string with inline styles, no external dependencies. Use si_render_svg_dashboard(slug) to get the canonical manifest for a skill, then pass its body as manifestYaml here. Supports all 14 widget types: title-banner, kpi-card, delta-kpi-card, score-card, donut-chart, stacked-bar-chart, horizontal-bar-chart, line-chart, waterfall-chart, sparkline, progress-bar, table-widget, recommendation-cards, assessment-banner, coverage-matrix. Unknown types render as a dashed warning panel.",
+      "category": "si"
+    },
+    {
+      "name": "si_render_svg_dashboard",
+      "description": "Return the SVG widget manifest (YAML) for a skill that ships one (14 of 25 skills do). The manifest declares canvas, palette, and a list of widget instances to render. Pair with si_get_skill({slug: \"svg-dashboard\"}) for the component-library reference. Returns {hasManifest:false,...} if the skill has no SVG manifest.",
+      "category": "si"
+    },
+    {
+      "name": "si_shiftlog_close",
+      "description": "SHIFTLOG: close a shift entry (sets ended_at to now, or to a provided ISO timestamp).",
+      "category": "si"
+    },
+    {
+      "name": "si_shiftlog_create",
+      "description": "SHIFTLOG: start a new SOC shift handover entry. Returns the created entry including its id (sl_...).",
+      "category": "si"
+    },
+    {
+      "name": "si_shiftlog_get",
+      "description": "SHIFTLOG: fetch a single shift handover entry by id (sl_...).",
+      "category": "si"
+    },
+    {
+      "name": "si_shiftlog_list",
+      "description": "SHIFTLOG: list recent shift handover entries. Filter by author, shift, or openOnly (excludes closed shifts).",
+      "category": "si"
+    },
+    {
+      "name": "si_shiftlog_update",
+      "description": "SHIFTLOG: patch a shift entry (notes, open cases, IOCs, escalations, endedAt).",
+      "category": "si"
+    },
+    {
+      "name": "si_stats",
+      "description": "Return cache + manifest stats for the Security Investigator data: index loaded, body-cache sizes and hit ratios. Useful for diagnosing cold-start latency.",
+      "category": "si"
+    },
+    {
+      "name": "trace_crypto_address",
+      "description": "Trace a cryptocurrency wallet address. Returns balance, transaction history, and associated entities from blockchain explorers.",
+      "category": "other"
+    },
+    {
+      "name": "unified_search",
+      "description": "Cross-source search across all threat intelligence feeds. Search by keyword, IOC, actor name, malware family, or CVE to find matching entries across briefings, live feeds, ransomware data, and more.",
+      "category": "search"
+    },
+    {
+      "name": "validate_yara_rule",
+      "description": "Validate a YARA rule syntax. Checks for balanced braces, required sections, and proper string definitions.",
+      "category": "detection"
+    },
+    {
+      "name": "watch_domain_ct",
+      "description": "Add a domain to Certificate Transparency monitoring. Alerts on new subdomains, suspicious patterns, wildcard certs, and more. Uses crt.sh for unlimited free CT log queries.",
+      "category": "domain"
+    },
+    {
+      "name": "wayback_lookup",
+      "description": "Check the Wayback Machine (archive.org) for historical snapshots of a URL. Useful for tracking website changes or recovering deleted content.",
+      "category": "domain"
+    }
+  ]
+}
