@@ -31,6 +31,7 @@ export interface DiscoverDeps {
 export async function discoverOsint(deps: DiscoverDeps): Promise<Candidate[]> {
   const out: Candidate[] = [];
   const cutoff = deps.now.getTime() - WINDOW_MS;
+  let feedsOk = 0;
   for (const feed of FEEDS) {
     try {
       const r = await deps.fetch(feed, {
@@ -40,6 +41,7 @@ export async function discoverOsint(deps: DiscoverDeps): Promise<Candidate[]> {
         },
       });
       if (!r.ok) continue;
+      feedsOk += 1;
       const xml = await r.text();
       const feedHost = new URL(feed).hostname.replace(/^www\./, '');
       for (const item of parseRssItems(xml, deps.now)) {
@@ -67,5 +69,8 @@ export async function discoverOsint(deps: DiscoverDeps): Promise<Candidate[]> {
       console.warn(`discoverOsint: feed failed ${feed}`, err);
     }
   }
+  console.log(
+    JSON.stringify({ job: 'discovery', runner: 'osint', feedsTotal: FEEDS.length, feedsOk, items: out.length })
+  );
   return out;
 }

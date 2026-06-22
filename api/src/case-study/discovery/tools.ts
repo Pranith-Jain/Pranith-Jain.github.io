@@ -31,6 +31,7 @@ export interface DiscoverDeps {
 export async function discoverTools(deps: DiscoverDeps): Promise<Candidate[]> {
   const out: Candidate[] = [];
   const cutoff = deps.now.getTime() - WINDOW_MS;
+  let feedsOk = 0;
   for (const feed of FEEDS) {
     try {
       const r = await deps.fetch(feed, {
@@ -40,6 +41,7 @@ export async function discoverTools(deps: DiscoverDeps): Promise<Candidate[]> {
         },
       });
       if (!r.ok) continue;
+      feedsOk += 1;
       const xml = await r.text();
       const feedHost = new URL(feed).hostname.replace(/^www\./, '');
       for (const item of parseRssItems(xml, deps.now)) {
@@ -50,7 +52,7 @@ export async function discoverTools(deps: DiscoverDeps): Promise<Candidate[]> {
           recency: recencyScore(item.date.toISOString(), deps.now),
           severity: severityScore({}),
           novelty: noveltyScore(dedup, deps.now),
-          sourceWeight: 0.5,
+          sourceWeight: 0.6,
         });
         out.push({
           key,
@@ -67,5 +69,8 @@ export async function discoverTools(deps: DiscoverDeps): Promise<Candidate[]> {
       console.warn(`discoverTools: feed failed ${feed}`, err);
     }
   }
+  console.log(
+    JSON.stringify({ job: 'discovery', runner: 'tool', feedsTotal: FEEDS.length, feedsOk, items: out.length })
+  );
   return out;
 }

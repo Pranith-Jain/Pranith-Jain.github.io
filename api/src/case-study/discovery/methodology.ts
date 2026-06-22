@@ -3,13 +3,14 @@ import { topicKey } from '../stable-keys';
 import { recencyScore, severityScore, noveltyScore, finalScore } from '../scoring';
 import { parseRssItems } from './rss-util';
 
+/** Methodology/thought-leadership content is more evergreen than
+ *  breaking news — use a 14-day window so slower-publishing sources
+ *  (SANS, Mandiant deep-dives) don't get systematically excluded. */
 const FEEDS = [
   'https://www.mandiant.com/resources/blog/rss.xml',
   'https://www.crowdstrike.com/blog/feed/',
   'https://www.recordedfuture.com/blog/rss.xml',
   'https://www.sans.org/security-awareness-training/feed/',
-  'https://cyberwarfarelive.com/feed/',
-  'https://www.accenture.com/us-en/blogs/security-index-blog-rss',
   'https://www.cybereason.com/blog/feed',
   'https://www.sentinelone.com/blog/feed/',
   'https://blogs.cisco.com/security/feed',
@@ -20,7 +21,7 @@ const FEEDS = [
   'https://www.trellix.com/about/newsroom/feed/',
   'https://blog.virustotal.com/feeds/posts/default',
 ];
-const WINDOW_MS = 7 * 24 * 3600 * 1000;
+const WINDOW_MS = 14 * 24 * 3600 * 1000;
 
 export interface DiscoverDeps {
   fetch: typeof globalThis.fetch;
@@ -31,6 +32,7 @@ export interface DiscoverDeps {
 export async function discoverMethodology(deps: DiscoverDeps): Promise<Candidate[]> {
   const out: Candidate[] = [];
   const cutoff = deps.now.getTime() - WINDOW_MS;
+  let feedsOk = 0;
   for (const feed of FEEDS) {
     try {
       const r = await deps.fetch(feed, {
@@ -40,6 +42,7 @@ export async function discoverMethodology(deps: DiscoverDeps): Promise<Candidate
         },
       });
       if (!r.ok) continue;
+      feedsOk += 1;
       const xml = await r.text();
       const feedHost = new URL(feed).hostname.replace(/^www\./, '');
       for (const item of parseRssItems(xml, deps.now)) {
@@ -67,5 +70,8 @@ export async function discoverMethodology(deps: DiscoverDeps): Promise<Candidate
       console.warn(`discoverMethodology: feed failed ${feed}`, err);
     }
   }
+  console.log(
+    JSON.stringify({ job: 'discovery', runner: 'methodology', feedsTotal: FEEDS.length, feedsOk, items: out.length })
+  );
   return out;
 }

@@ -51,7 +51,7 @@ export async function runDiscovery(deps: RunDiscoveryDeps): Promise<RunDiscovery
   const byTopic: Record<string, number> = {};
   let total = 0;
   let suppressed = 0;
-  const selected: Candidate[] = [];
+  let selected: Candidate[] = [];
   const entries = Object.entries(deps.runners);
 
   // Run up to 4 runners in parallel per batch to stay within subrequest
@@ -95,6 +95,19 @@ export async function runDiscovery(deps: RunDiscoveryDeps): Promise<RunDiscovery
       selected.push(...top);
     }
   }
+
+  // Cross-runner URL dedup: same article discovered by two different runners
+  // (e.g. intel + news) produces different stable-keys but the same evidence.url.
+  // Keep only the highest-scored candidate per URL so we don't waste LLM
+  // generation on duplicate content with different labels.
+  const seenUrl = new Set<string>();
+  selected = selected.filter((c) => {
+    const u = typeof c.evidence?.url === 'string' ? c.evidence.url : '';
+    if (!u) return true;
+    if (seenUrl.has(u)) return false;
+    seenUrl.add(u);
+    return true;
+  });
 
   // Sort by score for the optional global cap.
   selected.sort((a, b) => b.score - a.score);

@@ -9,7 +9,6 @@ const FEEDS = [
   'https://www.darkreading.com/rss.xml',
   'https://www.infosecurity-magazine.com/rss/news/',
   'https://cyberscoop.com/feed/',
-  'https://thehackernews.com/feed/',
   'https://www.csoonline.com/feed/',
   'https://www.zdnet.com/topic/security/rss.xml',
   'https://cybernews.com/feed/',
@@ -17,7 +16,6 @@ const FEEDS = [
   'https://www.scmagazine.com/feed',
   'https://www.cyberdaily.au/feed',
   'https://www.helpnetsecurity.com/feed/',
-  'https://www.bleepingcomputer.com/feed/',
   'https://threatpost.com/feed/',
 ];
 const WINDOW_MS = 7 * 24 * 3600 * 1000;
@@ -31,6 +29,7 @@ export interface DiscoverDeps {
 export async function discoverCybersecNews(deps: DiscoverDeps): Promise<Candidate[]> {
   const out: Candidate[] = [];
   const cutoff = deps.now.getTime() - WINDOW_MS;
+  let feedsOk = 0;
   for (const feed of FEEDS) {
     try {
       const r = await deps.fetch(feed, {
@@ -40,6 +39,7 @@ export async function discoverCybersecNews(deps: DiscoverDeps): Promise<Candidat
         },
       });
       if (!r.ok) continue;
+      feedsOk += 1;
       const xml = await r.text();
       const feedHost = new URL(feed).hostname.replace(/^www\./, '');
       for (const item of parseRssItems(xml, deps.now)) {
@@ -50,7 +50,7 @@ export async function discoverCybersecNews(deps: DiscoverDeps): Promise<Candidat
           recency: recencyScore(item.date.toISOString(), deps.now),
           severity: severityScore({}),
           novelty: noveltyScore(dedup, deps.now),
-          sourceWeight: 0.5,
+          sourceWeight: 0.6,
         });
         out.push({
           key,
@@ -67,5 +67,8 @@ export async function discoverCybersecNews(deps: DiscoverDeps): Promise<Candidat
       console.warn(`discoverCybersecNews: feed failed ${feed}`, err);
     }
   }
+  console.log(
+    JSON.stringify({ job: 'discovery', runner: 'news', feedsTotal: FEEDS.length, feedsOk, items: out.length })
+  );
   return out;
 }
