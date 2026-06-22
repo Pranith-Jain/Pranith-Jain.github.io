@@ -63,7 +63,7 @@ jobs:
         run: npx tsc --noEmit -p api/tsconfig.worker.json
 
   test-root:
-    name: Vitest (root)
+    name: Vitest + script tests (root)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -72,6 +72,12 @@ jobs:
           node-version: '20'
           cache: 'npm'
       - run: npm ci
+      # Node:test suites for the data-pipeline scripts (mcp-manifest parser,
+      # cert-in diff). These are unit tests for scripts that have no test
+      # files in the vitest suite — they live under scripts/*.test.mjs and
+      # are run as plain node --test.
+      - name: Script unit tests
+        run: npm run test:scripts
       - run: npm run test:run
 
   coverage:

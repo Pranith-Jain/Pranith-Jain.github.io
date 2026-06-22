@@ -37,7 +37,9 @@
     "build:telegram-actor-catalog": "node scripts/build-telegram-actor-catalog.mjs",
     "test:mcp": "node --test scripts/build-mcp-manifest.test.mjs",
     "check:coverage": "node scripts/check-coverage.mjs",
-    "check:all": "npm run lint && npm run typecheck && npm run test:run && npm run check:coverage"
+    "check:all": "npm run lint && npm run typecheck && npm run test:run && npm run check:coverage",
+    "test:cert-in": "node --test scripts/cert-in-diff.test.mjs",
+    "test:scripts": "npm run test:mcp && npm run test:cert-in"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.29.0",

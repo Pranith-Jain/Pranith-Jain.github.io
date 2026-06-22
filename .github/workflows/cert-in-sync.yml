@@ -1,0 +1,155 @@
+name: CERT-In sync (weekly)
+
+# Probes CERT-In (Indian CERT) for new advisories and opens a PR with
+# the diff. The PR body shows what changed (new IDs, severity changes,
+# record-level changes) so a human can sanity-check before merging.
+#
+# Re-runs are idempotent: if the index is unchanged the action exits
+# cleanly without opening a PR.
+#
+# Why probe-by-bruteforce: CERT-In's listing page is JS-rendered, so
+# the only fully-automated way to enumerate live advisories is to
+# probe CIAD-YYYY-NNNN. We scan the current + previous year, IDs
+# 1-100, at ~1 req/sec, and skip pages that look like the
+# "not found" shell.
+
+on:
+  schedule:
+    # Tuesdays 04:00 UTC. CERT-In typically publishes on Tuesdays.
+    - cron: "0 4 * * 2"
+  workflow_dispatch:
+    inputs:
+      year:
+        description: "Restrict discovery to this year (default: current + previous)"
+        required: false
+        type: string
+      dry_run:
+        description: "Print what would change, do not open a PR"
+        required: false
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: cert-in-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    name: Discover + sync CERT-In advisories
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      # Snapshot the existing index so we can compute the diff after the
+      # fetch step. Snapshot lives in /tmp (not committed) and is gone
+      # after the job ends.
+      - name: "Snapshot current index"
+        run: |
+          set -euo pipefail
+          if [ -f public/data/cert-in/index.json ]; then
+            cp public/data/cert-in/index.json /tmp/index.before.json
+            echo "Snapshot has $(node -e "console.log(JSON.parse(require('fs').readFileSync('/tmp/index.before.json','utf8')).length)") entries."
+          else
+            echo "[]" > /tmp/index.before.json
+            echo "No prior index — first sync."
+          fi
+
+      - name: "Discover advisory IDs"
+        id: discover
+        env:
+          YEAR: ${{ github.event.inputs.year }}
+        run: |
+          set -euo pipefail
+          ARGS="--discover"
+          if [ -n "$YEAR" ]; then ARGS="$ARGS --year $YEAR"; fi
+          node scripts/build-cert-in-index.mjs $ARGS > discovered.txt
+          COUNT=$(wc -l < discovered.txt | tr -d ' ')
+          echo "count=$COUNT" >> "$GITHUB_OUTPUT"
+          echo "Discovered $COUNT advisory IDs."
+
+      - name: "Plan: pick IDs to fetch"
+        id: plan
+        run: |
+          set -euo pipefail
+          set +e  # tolerate empty greps
+          EXISTING=$(node -e "try { console.log(JSON.parse(require('fs').readFileSync('public/data/cert-in/index.json','utf8')).map(a=>a.id).join('\n')) } catch (e) { console.log('') }")
+          echo "Existing IDs ($(echo "$EXISTING" | grep -c . || echo 0)):"
+          echo "$EXISTING"
+          echo "---"
+          echo "Discovered IDs ($(wc -l < discovered.txt | tr -d ' ')):"
+          cat discovered.txt
+          # New IDs = discovered - existing
+          NEW=$(comm -23 <(sort -u discovered.txt) <(echo "$EXISTING" | sort -u | grep -v '^$'))
+          NEW_COUNT=$(echo "$NEW" | grep -c . || true)
+          echo "New IDs to add ($NEW_COUNT):"
+          echo "$NEW"
+          # Re-fetch a 5-entry sample of existing IDs to detect regressions.
+          # Use Node (always available) instead of `shuf` (GNU-only).
+          SAMPLE=$(echo "$EXISTING" | grep -v '^$' | node -e "const l=require('fs').readFileSync(0,'utf8').trim().split('\n').filter(Boolean); for(let i=l.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[l[i],l[j]]=[l[j],l[i]];} console.log(l.slice(0,5).join('\n'));" 2>/dev/null || true)
+          echo "Sample to re-fetch (5):"
+          echo "$SAMPLE"
+          {
+            echo "$NEW"
+            echo "$SAMPLE"
+          } | grep -v '^$' > to_fetch.txt
+          FETCH_COUNT=$(wc -l < to_fetch.txt | tr -d ' ')
+          echo "fetch_count=$FETCH_COUNT" >> "$GITHUB_OUTPUT"
+          set -e
+          echo "Will fetch $FETCH_COUNT IDs total."
+
+      - name: "Fetch and rebuild index"
+        if: steps.plan.outputs.fetch_count != '0'
+        run: |
+          set -euo pipefail
+          xargs -a to_fetch.txt -n 1 -P 1 node scripts/build-cert-in-index.mjs 2>&1 | tail -40
+
+      - name: "Compute structured diff"
+        id: diff
+        run: |
+          set -euo pipefail
+          node scripts/cert-in-diff.mjs             --before /tmp/index.before.json             --after public/data/cert-in/index.json             > diff_report.md
+          echo "=== Diff report ==="
+          cat diff_report.md
+          if head -1 diff_report.md | grep -q "^NO_CHANGES"; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: "Open PR"
+        if: steps.diff.outputs.changed == 'true' && github.event.inputs.dry_run != 'true'
+        uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: "chore(cert-in): sync advisories from CERT-In"
+          title: "CERT-In sync — ${{ github.event_name == 'schedule' && 'weekly' || format('run {0}', github.run_id) }}"
+          body: |
+            Automated weekly sync from [CERT-In](https://www.cert-in.org.in/) (Indian
+            Computer Emergency Response Team).
+
+            Re-runs `scripts/build-cert-in-index.mjs --discover` to enumerate live
+            advisory IDs, then re-fetches the new ones + a small sample of existing
+            ones to detect parser regressions. The index is sorted newest-first by
+            `published_at`.
+
+            ```
+            $(cat diff_report.md)
+            ```
+
+            Trigger: `${{ github.event_name }}`
+            Run:     `${{ github.run_id }}`
+          branch: chore/cert-in-sync
+          delete-branch: true
+          add-paths: |
+            public/data/cert-in/index.json
