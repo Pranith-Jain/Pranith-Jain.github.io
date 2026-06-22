@@ -175,6 +175,24 @@ const OUTLINES: Record<CaseStudyType, string[]> = {
     // No fixed outline — the hook and angle drive the structure.
     // The prompt guides the model to build a framework, not fill sections.
   ],
+  tool: [
+    '## What is it?',
+    '## Key features',
+    '## Architecture',
+    '## Installation & setup',
+    '## Usage examples',
+    '## Comparison with alternatives',
+    '## Limitations',
+    '## References',
+  ],
+  news: [
+    '## Summary',
+    '## Key details',
+    '## Broader context',
+    '## Industry impact',
+    '## What this means for defenders',
+    '## References',
+  ],
 };
 
 const TLDR_SECTION = '## TL;DR';

@@ -251,7 +251,7 @@ export default function ThreatIntelHome(): JSX.Element {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search actors, CVEs, campaigns, feeds, tools..."
-            className="w-full rounded-xl border border-slate-200 bg-slate-50 py-3 pl-11 pr-24 font-mono text-sm text-slate-900 placeholder:text-slate-400 focus:border-rose-500/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500/20 dark:border-[rgb(var(--border-400))] dark:bg-slate-50 dark:text-slate-100 dark:placeholder:text-slate-500"
+            className="w-full rounded-xl border border-slate-200 bg-slate-50 py-3 pl-11 pr-24 font-mono text-sm text-slate-900 placeholder:text-slate-400 focus:border-rose-500/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500/20 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--input-200))] dark:text-slate-100 dark:placeholder:text-slate-500"
             aria-label="Search threat intelligence"
           />
           {query ? (

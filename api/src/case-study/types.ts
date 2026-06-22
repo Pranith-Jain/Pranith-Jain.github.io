@@ -13,7 +13,9 @@ export type CaseStudyType =
   | 'methodology'
   | 'trend'
   | 'briefing'
-  | 'analysis'; // Thought leadership / framework pieces
+  | 'analysis'
+  | 'tool'
+  | 'news';
 
 export type CandidateStatus = 'pending' | 'approved' | 'skipped' | 'published';
 

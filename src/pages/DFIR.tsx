@@ -317,7 +317,7 @@ export default function DFIRPage(): JSX.Element {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search 60+ tools — IOC check, phishing, CVEs, decoders..."
-            className="w-full rounded-xl border border-slate-200 bg-slate-50 py-3 pl-11 pr-24 font-mono text-sm text-slate-900 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/20 dark:border-[rgb(var(--border-400))] dark:bg-slate-50 dark:text-slate-100 dark:placeholder:text-slate-500"
+            className="w-full rounded-xl border border-slate-200 bg-slate-50 py-3 pl-11 pr-24 font-mono text-sm text-slate-900 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/20 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--input-200))] dark:text-slate-100 dark:placeholder:text-slate-500"
             aria-label="Search DFIR tools"
           />
           {query ? (
@@ -409,7 +409,7 @@ export default function DFIRPage(): JSX.Element {
                 <Link
                   key={entry.path}
                   to={entry.path}
-                  className="group inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-xs font-medium text-slate-700 hover:border-brand-500/40 hover:bg-brand-50/50 dark:border-[rgb(var(--border-400))] dark:bg-slate-50 dark:text-slate-300 dark:hover:border-brand-500/40 dark:hover:bg-brand-500/10 transition-colors"
+                  className="group inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-xs font-medium text-slate-700 hover:border-brand-500/40 hover:bg-brand-50/50 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--input-200))] dark:text-slate-300 dark:hover:border-brand-500/40 dark:hover:bg-brand-500/10 transition-colors"
                 >
                   <Icon
                     size={12}
@@ -444,7 +444,7 @@ export default function DFIRPage(): JSX.Element {
               }
             }}
             placeholder="e.g. 8.8.8.8, evil.com, hash..."
-            className="flex-1 rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 font-mono text-xs text-slate-900 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/20 dark:border-[rgb(var(--border-400))] dark:bg-slate-50 dark:text-slate-100 dark:placeholder:text-slate-500"
+            className="flex-1 rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 font-mono text-xs text-slate-900 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/20 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--input-200))] dark:text-slate-100 dark:placeholder:text-slate-500"
             aria-label="Enter IOC to check"
           />
           <button

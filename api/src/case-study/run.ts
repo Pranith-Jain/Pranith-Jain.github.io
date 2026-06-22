@@ -16,6 +16,10 @@ import { discoverBreaches } from './discovery/breach';
 import { discoverScams } from './discovery/scam';
 import { discoverAiSec } from './discovery/aisec';
 import { discoverIntel } from './discovery/intel';
+import { discoverOsint } from './discovery/osint';
+import { discoverMethodology } from './discovery/methodology';
+import { discoverCybersecNews } from './discovery/cybersec-news';
+import { discoverTools } from './discovery/tools';
 import { discoverBriefing } from './discovery/briefing';
 import {
   discoverFromTelegramLeaks,
@@ -263,6 +267,10 @@ export async function runDiscoveryNow(env: CaseStudyEnv, now: Date) {
     aisec: () => discoverAiSec({ fetch: globalThis.fetch, now, getDedup: memGet }),
     intel: () => discoverIntel({ fetch: globalThis.fetch, now, getDedup: memGet }),
     advisories: () => discoverAdvisories({ fetch: globalThis.fetch, now, getDedup: memGet, feeds: ADVISORY_RSS_FEEDS }),
+    osint: () => discoverOsint({ fetch: globalThis.fetch, now, getDedup: memGet }),
+    methodology: () => discoverMethodology({ fetch: globalThis.fetch, now, getDedup: memGet }),
+    news: () => discoverCybersecNews({ fetch: globalThis.fetch, now, getDedup: memGet }),
+    tool: () => discoverTools({ fetch: globalThis.fetch, now, getDedup: memGet }),
     euvd: () => discoverEuvd({ fetch: globalThis.fetch, now, getDedup: memGet }),
     briefing: () =>
       env.BRIEFINGS_DB
@@ -328,7 +336,7 @@ export async function runDiscoveryNow(env: CaseStudyEnv, now: Date) {
   //   - 8 high-value "always-on" topics: `cve`, `actor`, `ransom`,
   //     `phish`, `trends`, and 3 platform sub-runners (telegram, iocs,
   //     pulse). Platform split gives each source its own perTopic budget.
-  //   - The remaining ~10 optional topics partition into 6 day-buckets
+  //   - The remaining ~14 optional topics partition into 6 day-buckets
   //     (rotation.ts), so each day surfaces ~2 of them.
   //   - Total per day: 8 always + 2 rotating = ~10 topics.
   //   - perTopic=3: weighted-random sampling has room to pick different

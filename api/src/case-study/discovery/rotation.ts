@@ -10,7 +10,7 @@ export function dayOfYear(now: Date): number {
  * cover all optional runners exactly once → variety + bounded subrequests.
  * Optional runners are taken in their order in `all` for a stable partition.
  *
- * With 6 groups and ~8 optional runners, each optional runner runs once
+ * With 6 groups and ~12 optional runners, each optional runner runs once
  * every 6 days. This ensures variety while keeping daily subrequest count
  * manageable.
  */
