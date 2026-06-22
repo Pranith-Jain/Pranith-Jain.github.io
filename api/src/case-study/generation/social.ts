@@ -3,6 +3,7 @@ import type { Candidate, Post } from '../types';
 import { runCompletion } from './ai-client';
 import { VOICE_IDENTITY, COPYWRITING_RULES, PIPELINE_OUTPUT_GUARDRAIL } from './copywriting';
 import { stripUntrustedUrls, findUngroundedCves, detectSlop } from '../../lib/ai-output-validator';
+import { slugify } from '../stable-keys';
 
 export interface SocialContent {
   slug: string;
@@ -389,8 +390,8 @@ async function generateWithValidation(
 
 // ── Prompt builders ─────────────────────────────────────────────────────
 
-function buildTwitterPrompt(src: SocialSource): string {
-  const postUrl = src.slug.startsWith('http') ? src.slug : `https://pranithjain.qzz.io/blog/${src.slug}`;
+function buildTwitterPrompt(src: SocialSource, includeLink = true): string {
+  const postUrl = `https://pranithjain.qzz.io/blog/${src.slug}`;
   return (
     `<format name="X/Twitter thread">\n` +
     `- Before writing, think through 5 different hook options silently. Pick the strongest one — the one that stops the scroll. Output ONLY the final thread — no reasoning, no option list, no commentary.\n` +
@@ -399,7 +400,9 @@ function buildTwitterPrompt(src: SocialSource): string {
     `- Tweets 2-5: One clear idea per tweet. Examples, data points, or analysis. Each standalone-valuable. Include ONE bookmark-worthy post (IOC list, affected versions, CVE list).\n` +
     `- Tweet 6 (or last): Insight or revelation — the analytical take that makes this thread worth reading. End with a twist or perspective shift, not a summary.\n` +
     `- Final tweet: CTA that invites reply. Use an open loop or a substantive question. Not "thoughts?" or "retweet if".\n` +
-    `- LINK in a separate final line: "FIRST REPLY: ${postUrl}"\n` +
+    (includeLink
+      ? `- LINK in a separate final line: "FIRST REPLY: ${postUrl}"\n`
+      : `- Do NOT include a FIRST REPLY or FIRST COMMENT link.\n`) +
     `- Each post <280 characters. Append " (n/N)" at the END of each post.\n` +
     `- Lowercase optional for personal tone. Fragments ok. Run-ons... human texture.\n` +
     `- At most ONE hashtag (if genuinely specific). At most ONE warning-level emoji (🔴 ⚠️), never decorative.\n` +
@@ -416,15 +419,17 @@ function buildTwitterPrompt(src: SocialSource): string {
   );
 }
 
-function buildLinkedinPrompt(src: SocialSource): string {
-  const postUrl = src.slug.startsWith('http') ? src.slug : `https://pranithjain.qzz.io/blog/${src.slug}`;
+function buildLinkedinPrompt(src: SocialSource, includeLink = true): string {
+  const postUrl = `https://pranithjain.qzz.io/blog/${src.slug}`;
   return (
     `<format name="LinkedIn post — practitioner thought-leadership (2026)">\n` +
     `- Before writing, think through 5 different hook options silently. Pick the strongest one — the one that stops the scroll. Output ONLY the final post — no reasoning, no option list, no commentary.\n` +
     `RANGE: 1300-2000 characters in the body (the first three lines, ~210 characters, are THE FOLD — everything before that is mobile-first feed preview and decides the click).\n` +
     `RULES — non-negotiable:\n` +
     `- THE FOLD (first 3 lines, <= 210 characters) MUST contain a complete, standalone point using PAS (Problem-Agitation-Solution). Not a teaser. The reader who never clicks should still learn one specific thing. Lead with a named entity, a number, or a contrast.\n` +
-    `- The body must contain NO link. Putting a URL in the post body cuts reach 50-60%. The link goes on its own final line: "FIRST COMMENT: ${postUrl}".\n` +
+    (includeLink
+      ? `- The body must contain NO link. Putting a URL in the post body cuts reach 50-60%. The link goes on its own final line: "FIRST COMMENT: ${postUrl}".\n`
+      : `- Do NOT include a FIRST COMMENT or link in the post.\n`) +
     `- Mobile-first formatting: short paragraphs (1-3 sentences), single blank line between paragraphs, generous white space. No walls of text. No paragraphs over 3 lines on a phone.\n` +
     `- Voice: first-person practitioner. Dry, opinionated, specific. Have a point of view. Professional but human. Specific results and numbers when relevant.\n` +
     `- Bold at most ONE phrase with **asterisks**, only if it earns the emphasis. No bolded sentences, no bolded lists.\n` +
@@ -436,11 +441,13 @@ function buildLinkedinPrompt(src: SocialSource): string {
     `  2. STORY OR INSIGHT (1-2 paragraphs, the analytical core): the pattern, the contrast, the technical detail other coverage missed. Lead with the take, then support it with data. Include a scannable bulleted list of 4-8 concrete facts (named CVE / vendor / version / sector / IOC). One bullet = one fact.\n` +
     `  3. CLOSE (1-2 lines): the takeaway and one substantive practitioner question — the kind a SOC lead or IR consultant would actually answer. Not "Thoughts?" or "What do you think?".\n` +
     `  4. CAROUSEL OUTLINE: — optional but high-reach. When the case is a meaty technical breakdown (CVE chain, IOC dump, APT tradecraft, threat-actor profile), append a separate block on its own line: "CAROUSEL OUTLINE:" followed by 5-8 one-line slide titles (slide 1 = the hook, slides 2-7 = one specific idea each, slide 8 = the takeaway). Skip the block entirely for thin or breaking items — it should not appear at all if you have nothing to carousel.\n` +
-    `End the post (after any carousel block) with the FIRST COMMENT link and the hashtags:\n` +
-    `FIRST COMMENT: ${postUrl}\n` +
-    `#HashtagOne #HashtagTwo #HashtagThree\n` +
+    (includeLink
+      ? `End the post (after any carousel block) with the FIRST COMMENT link and the hashtags:\nFIRST COMMENT: ${postUrl}\n#HashtagOne #HashtagTwo #HashtagThree\n`
+      : `End the post with the hashtags on their own line.\n`) +
     `\n` +
-    `OUTPUT BLOCK ORDER (strict): HOOK -> INSIGHT + BULLETS -> CLOSE -> (optional) CAROUSEL OUTLINE: -> FIRST COMMENT: -> hashtags.\n` +
+    (includeLink
+      ? `OUTPUT BLOCK ORDER (strict): HOOK -> INSIGHT + BULLETS -> CLOSE -> (optional) CAROUSEL OUTLINE: -> FIRST COMMENT: -> hashtags.\n`
+      : `OUTPUT BLOCK ORDER (strict): HOOK -> INSIGHT + BULLETS -> CLOSE -> (optional) CAROUSEL OUTLINE: -> hashtags.\n`) +
     `</format>\n\n` +
     `<examples>\n` +
     `GOOD — full post (the kind that gets saved and quoted):\n` +
@@ -469,7 +476,7 @@ function buildLinkedinPrompt(src: SocialSource): string {
     `6. IR retainer patterns that fail this case\n` +
     `7. What to change in the extortion playbook this quarter\n` +
     `\n` +
-    `FIRST COMMENT: ${postUrl}\n` +
+    (includeLink ? `FIRST COMMENT: ${postUrl}\n` : ``) +
     `#LockBit #Ransomware #DFIR #ThreatIntel\n` +
     `\n` +
     `↑ Notes: 14 named victims, 4 re-victimisations, dwell time, named tactic — every number is in the case. Hook lands the whole point above the fold in two lines. Insight block carries the analytical take. Bullets are scannable, each one fact. Close is a question practitioners actually answer.\n` +
@@ -680,8 +687,9 @@ export async function generateSocialFromCandidate(
   now: Date,
   groqKey?: string
 ): Promise<SocialContent> {
+  const prospectiveSlug = `${candidate.key}-${slugify(candidate.title).slice(0, 40)}`.replace(/-+/g, '-');
   const src: SocialSource = {
-    slug: candidate.key,
+    slug: prospectiveSlug,
     title: candidate.title,
     body: formatEvidenceText(candidate.evidence),
   };
@@ -695,8 +703,9 @@ export async function generateTwitterFromCandidate(
   now: Date,
   groqKey?: string
 ): Promise<{ twitter: string; generatedAt: string; _validation?: { quality: SocialQuality } }> {
+  const prospectiveSlug = `${candidate.key}-${slugify(candidate.title).slice(0, 40)}`.replace(/-+/g, '-');
   const src: SocialSource = {
-    slug: candidate.key,
+    slug: prospectiveSlug,
     title: candidate.title,
     body: formatEvidenceText(candidate.evidence),
   };
@@ -710,8 +719,9 @@ export async function generateLinkedinFromCandidate(
   now: Date,
   groqKey?: string
 ): Promise<{ linkedin: string; generatedAt: string; _validation?: { quality: SocialQuality } }> {
+  const prospectiveSlug = `${candidate.key}-${slugify(candidate.title).slice(0, 40)}`.replace(/-+/g, '-');
   const src: SocialSource = {
-    slug: candidate.key,
+    slug: prospectiveSlug,
     title: candidate.title,
     body: formatEvidenceText(candidate.evidence),
   };

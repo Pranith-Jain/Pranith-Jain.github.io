@@ -2522,7 +2522,13 @@
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
-  <!-- Blog posts (20) -->
+  <!-- Blog posts (21) -->
+  <url>
+    <loc>https://pranithjain.qzz.io/blog/agentic-cve202620253-splunk-enterprise-cve-2026-20253-splunk-enterprise-vulnera</loc>
+    <lastmod>2026-06-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
   <url>
     <loc>https://pranithjain.qzz.io/blog/agentic-indian-government-warns-phishing-campaig-indian-government-warns-of-phishing-camp</loc>
     <lastmod>2026-06-19</lastmod>

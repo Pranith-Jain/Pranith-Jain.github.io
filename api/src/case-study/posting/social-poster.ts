@@ -4,18 +4,39 @@ interface SocialParts {
   carousel?: string;
 }
 
+const ALLOWED_LINK_DOMAIN = 'pranithjain.qzz.io';
+
 function splitSocialParts(text: string): SocialParts {
   let body = (text ?? '').trim();
   let link: { label: string; value: string } | undefined;
   const linkMatch = body.match(/^[ \t]*FIRST (COMMENT|REPLY):[ \t]*(\S.*)$/im);
   if (linkMatch && linkMatch.index !== undefined) {
-    link = {
-      label: linkMatch[1]!.toUpperCase() === 'COMMENT' ? 'First comment' : 'First reply',
-      value: linkMatch[2]!.trim(),
-    };
-    body = (body.slice(0, linkMatch.index) + body.slice(linkMatch.index + linkMatch[0].length)).trim();
+    const rawValue = linkMatch[2]!.trim();
+    // Validate the extracted URL — only allow links to our own domain
+    const validated = validateLinkUrl(rawValue);
+    if (validated) {
+      link = {
+        label: linkMatch[1]!.toUpperCase() === 'COMMENT' ? 'First comment' : 'First reply',
+        value: validated,
+      };
+      body = (body.slice(0, linkMatch.index) + body.slice(linkMatch.index + linkMatch[0].length)).trim();
+    } else {
+      console.warn('splitSocialParts: discarded link not matching allowed domain:', rawValue.slice(0, 80));
+    }
   }
   return { body, link };
+}
+
+/** Validate a FIRST REPLY / FIRST COMMENT URL is on our allowed domain. */
+function validateLinkUrl(url: string): string | undefined {
+  try {
+    const parsed = new URL(url);
+    if (parsed.protocol !== 'https:') return undefined;
+    if (parsed.hostname !== ALLOWED_LINK_DOMAIN) return undefined;
+    return url;
+  } catch {
+    return undefined;
+  }
 }
 
 export interface TwitterCredentials {
