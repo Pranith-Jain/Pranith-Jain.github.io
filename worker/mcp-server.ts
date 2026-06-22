@@ -159,6 +159,59 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
     version: '1.0.0',
   });
 
+  /** Maximum tool calls per sliding window per connection. */
+  private static readonly RATE_LIMIT_MAX = 100;
+  /** Sliding window duration in milliseconds (1 minute). */
+  private static readonly RATE_LIMIT_WINDOW_MS = 60_000;
+
+  /** Tool calls in the current sliding window. */
+  private toolCallCount = 0;
+  /** Start of the current sliding window. */
+  private windowStart = Date.now();
+
+  /**
+   * Check and increment the per-connection rate limit. Throws if the limit
+   * is exceeded. The window resets automatically when it expires.
+   */
+  private checkRateLimit(): void {
+    const now = Date.now();
+    if (now - this.windowStart > DfirMcpServer.RATE_LIMIT_WINDOW_MS) {
+      this.toolCallCount = 0;
+      this.windowStart = now;
+    }
+    this.toolCallCount++;
+    if (this.toolCallCount > DfirMcpServer.RATE_LIMIT_MAX) {
+      const retryAfter = Math.ceil((this.windowStart + DfirMcpServer.RATE_LIMIT_WINDOW_MS - now) / 1000);
+      throw new Error(
+        `Rate limit exceeded — ${DfirMcpServer.RATE_LIMIT_MAX} calls per minute. Retry in ${retryAfter}s.`
+      );
+    }
+  }
+
+  /**
+   * Wrap a tool handler with rate limiting. Call this at the start of every
+   * tool callback to enforce the per-connection rate limit.
+   */
+  private rateLimit(): void {
+    this.checkRateLimit();
+  }
+
+  /**
+   * Register a tool with automatic rate limiting. Wraps the handler to
+   * call `this.rateLimit()` before executing the actual logic.
+   */
+  private tool(
+    name: string,
+    description: string,
+    schema: Record<string, z.ZodTypeAny>,
+    handler: (args: Record<string, unknown>) => Promise<{ content: Array<{ type: string; text: string }> }>
+  ): void {
+    this.tool(name, description, schema, async (args) => {
+      this.rateLimit();
+      return handler(args);
+    });
+  }
+
   /**
    * API key extracted from the MCP client's Authorization header, used to
    * authorize downstream `/api/v1/*` calls (which are now key-gated).
@@ -226,7 +279,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
 
   async init() {
     // ── IOC Check ────────────────────────────────────────────────────────
-    this.server.tool(
+    this.tool(
       'check_ioc',
       'Check reputation of an IP address, domain, URL, or file hash (MD5/SHA1/SHA256) across 30+ threat intelligence providers. Returns composite score, admiralty grade, and per-provider verdicts.',
       { indicator: z.string().describe('The IOC to check — IP, domain, URL, or hash') },
@@ -243,7 +296,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
     );
 
     // ── CVE Lookup ───────────────────────────────────────────────────────
-    this.server.tool(
+    this.tool(
       'lookup_cve',
       'Look up a CVE by ID. Returns description, CVSS score, EPSS probability, CISA KEV status, affected products, and references.',
       { cve_id: z.string().describe('CVE identifier, e.g. CVE-2024-3094') },
@@ -262,7 +315,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
     //  lookup_cve while advertising keyword search it couldn't deliver.)
 
     // ── Threat Actor Enrichment ──────────────────────────────────────────
-    this.server.tool(
+    this.tool(
       'enrich_actor',
       'Get a threat actor profile. Returns aliases, country attribution, MITRE ATT&CK techniques, known campaigns, and associated malware families.',
       { actor: z.string().describe('Threat actor name or slug, e.g. APT28, lazarus-group') },
@@ -277,7 +330,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
     );
 
     // ── Malpedia Search ──────────────────────────────────────────────────
-    this.server.tool(
+    this.tool(
       'search_malpedia',
       'Search Malpedia for malware families or threat actors. Returns matching entries with descriptions and references.',
       { q: z.string().describe('Search query — malware family name or actor name') },
@@ -292,7 +345,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
     );
 
     // ── Domain Lookup ────────────────────────────────────────────────────
-    this.server.tool(
+    this.tool(
       'lookup_domain',
       'Domain intelligence lookup. Returns DNS records (A, AAAA, MX, NS, TXT, SOA), WHOIS/RDAP registration data, CT log (certificate transparency) entries, SPF/DKIM/DMARC email authentication analysis, and threat intel hits from blocklists and IOC feeds.',
       { domain: z.string().describe('Fully qualified domain name, e.g. example.com') },
@@ -307,7 +360,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
     );
 
     // ── ASN Lookup ───────────────────────────────────────────────────────
-    this.server.tool(
+    this.tool(
       'lookup_asn',
       'ASN intelligence lookup. Returns AS name, country, network ranges, RIR registration, and BGP peer info.',
       { asn: z.string().describe('AS number, e.g. AS13335 or 13335') },
@@ -322,7 +375,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
     );
 
     // ── Triage Search ────────────────────────────────────────────────────
-    this.server.tool(
+    this.tool(
       'search_triage',
       'Search Recorded Future Triage sandbox for malware samples by family, tag, hash, URL, or domain. Returns analysis results, behavioral reports, and extracted configs.',
       { q: z.string().describe('Triage search query — family:name, tag:ransomware, md5:..., url:...') },
@@ -337,7 +390,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
     );
 
     // ── Today's Briefing ─────────────────────────────────────────────────
-    this.server.tool(
+    this.tool(
       'get_today_briefing',
       "Get today's threat intelligence briefing. A curated digest of the latest CVEs, ransomware activity, data breaches, and emerging threats from the past 24 hours.",
       {},
@@ -348,7 +401,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
     );
 
     // ── List Briefings ───────────────────────────────────────────────────
-    this.server.tool(
+    this.tool(
       'list_briefings',
       'List recent threat intelligence briefings (daily and weekly). Returns slug, date, type, and summary for each.',
       { limit: z.number().optional().describe('Max briefings to return (default 10)') },
@@ -360,7 +413,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
     );
 
     // ── Live IOCs ────────────────────────────────────────────────────────
-    this.server.tool(
+    this.tool(
       'get_live_iocs',
       'Get the latest live IOC feed — real-time indicators of compromise aggregated from 20+ sources including blocklists, tweet feeds, abuse.ch, and community submissions.',
       {},
@@ -371,7 +424,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
     );
 
     // ── Ransomware Recent ────────────────────────────────────────────────
-    this.server.tool(
+    this.tool(
       'get_ransomware_activity',
       'Get recent ransomware activity — latest victims, group activity, and leak-site posts from ransomware.live and other trackers.',
       {},
@@ -382,7 +435,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
     );
 
     // ── Supply Chain Attacks ─────────────────────────────────────────────
-    this.server.tool(
+    this.tool(
       'get_supply_chain_attacks',
       'Software supply-chain compromise incidents (npm/PyPI/container/AI-agent ecosystems) from supplychainattack.org — title, status, severity, ecosystems, attack vectors, blast radius, remediation, package IOCs, and GHSA sources. Filter by ecosystem/status/severity.',
       {
@@ -408,7 +461,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
     );
 
     // ── Phishing Analyze ─────────────────────────────────────────────────
-    this.server.tool(
+    this.tool(
       'analyze_phishing_email',
       'Analyze raw email source for phishing indicators. Parses headers, checks SPF/DKIM/DMARC, extracts URLs, and computes a risk score with flags.',
       { raw_email: z.string().describe('Full raw email source (headers + body)') },
@@ -423,7 +476,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
     );
 
     // ── Unified Search ───────────────────────────────────────────────────
-    this.server.tool(
+    this.tool(
       'unified_search',
       'Cross-source search across all threat intelligence feeds. Search by keyword, IOC, actor name, malware family, or CVE to find matching entries across briefings, live feeds, ransomware data, and more.',
       { q: z.string().describe('Search query') },
@@ -438,7 +491,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
     );
 
     // ── Detections ───────────────────────────────────────────────────────
-    this.server.tool(
+    this.tool(
       'get_detections',
       'Get the latest detection rules feed — Sigma, YARA, and Snort rules mapped to threat actors, malware families, and MITRE ATT&CK techniques.',
       {},
@@ -449,7 +502,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
     );
 
     // ── Threat Pulse ─────────────────────────────────────────────────────
-    this.server.tool(
+    this.tool(
       'get_threat_pulse',
       'Get a global threat overview — top active threat actors, trending malware families, most exploited CVEs, and geopolitical cyber events from the past week.',
       {},
@@ -460,7 +513,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
     );
 
     // ── IOC Correlation ──────────────────────────────────────────────────
-    this.server.tool(
+    this.tool(
       'correlate_iocs',
       'Search correlated IOCs. Find relationships between indicators — shared infrastructure, overlapping campaigns, and linked threat actors.',
       { q: z.string().describe('IOC or keyword to correlate') },
@@ -475,7 +528,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
     );
 
     // ── Breach Check ─────────────────────────────────────────────────────
-    this.server.tool(
+    this.tool(
       'check_breach',
       'Check if an email address or domain has been exposed in known data breaches. Returns breach names, dates, and exposed data types.',
       {
@@ -493,7 +546,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
     );
 
     // ── Feed Status ──────────────────────────────────────────────────────
-    this.server.tool(
+    this.tool(
       'get_feed_status',
       'Get the health and freshness status of all 30+ threat intelligence feed sources. Shows last update time, error rates, and data volume.',
       {},
@@ -504,7 +557,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
     );
 
     // ── MITRE Technique ──────────────────────────────────────────────────
-    this.server.tool(
+    this.tool(
       'lookup_mitre',
       'Look up a MITRE ATT&CK technique by ID. Returns technique name, description, tactics, mitigations, and detection guidance.',
       { technique_id: z.string().describe('MITRE ATT&CK technique ID, e.g. T1566.001') },
@@ -521,7 +574,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
     );
 
     // ── Relationship Graph ───────────────────────────────────────────────
-    this.server.tool(
+    this.tool(
       'get_relationships',
       'Get the relationship graph for an IOC — shows connections to threat actors, malware families, campaigns, CVEs, and other indicators.',
       { indicator: z.string().describe('The IOC to get relationships for') },
@@ -538,7 +591,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
     );
 
     // ── IP Geolocation & Privacy ─────────────────────────────────────────
-    this.server.tool(
+    this.tool(
       'lookup_ip_geo',
       'Get IP geolocation, ASN, company, and privacy detection (VPN/proxy/tor/hosting). Uses IPinfo and Spur.us for anonymization detection.',
       { ip: z.string().describe('IPv4 or IPv6 address') },
@@ -553,7 +606,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
     );
 
     // ── Generate Blocklists ──────────────────────────────────────────────
-    this.server.tool(
+    this.tool(
       'get_blocklists',
       'Get pre-generated firewall blocklists in pfSense, iptables, and Suricata formats. Derived from aggregated threat intel feeds.',
       {
@@ -570,7 +623,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
     );
 
     // ── Search Malpedia ─────────────────────────────────────────────────
-    this.server.tool(
+    this.tool(
       'search_malware',
       'Search for malware families. Returns family info, YARA rules, samples, and references from Malpedia.',
       { q: z.string().describe('Malware family name or keyword') },
@@ -585,7 +638,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
     );
 
     // ── Wayback Machine ─────────────────────────────────────────────────
-    this.server.tool(
+    this.tool(
       'wayback_lookup',
       'Check the Wayback Machine (archive.org) for historical snapshots of a URL. Useful for tracking website changes or recovering deleted content.',
       { url: z.string().describe('URL to look up in the Wayback Machine') },
@@ -600,7 +653,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
     );
 
     // ── Phishing Analysis ───────────────────────────────────────────────
-    this.server.tool(
+    this.tool(
       'analyze_phishing_url',
       'Analyze a URL for phishing indicators. Checks against PhishTank, OpenPhish, URLhaus, and performs visual similarity analysis.',
       { url: z.string().describe('URL to analyze') },
@@ -615,7 +668,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
     );
 
     // ── Web Scan ────────────────────────────────────────────────────────
-    this.server.tool(
+    this.tool(
       'scan_website',
       'Scan a website for security issues — checks security headers, SSL certificate, technologies, and potential vulnerabilities.',
       { url: z.string().describe('URL to scan') },
@@ -630,7 +683,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
     );
 
     // ── Google Dorks ────────────────────────────────────────────────────
-    this.server.tool(
+    this.tool(
       'google_dorks',
       'Generate and execute Google dork queries for a domain. Useful for finding exposed files, login pages, and sensitive information.',
       {
@@ -658,7 +711,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
     );
 
     // ── Crypto Trace ────────────────────────────────────────────────────
-    this.server.tool(
+    this.tool(
       'trace_crypto_address',
       'Trace a cryptocurrency wallet address. Returns balance, transaction history, and associated entities from blockchain explorers.',
       {
@@ -674,7 +727,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
     );
 
     // ── Report Parser ───────────────────────────────────────────────────
-    this.server.tool(
+    this.tool(
       'parse_threat_report',
       'Parse a threat intelligence report or article to extract structured data: IOCs (IPs, domains, URLs, hashes), threat actors, malware families, MITRE ATT&CK techniques, CVEs, targeted sectors, and an executive summary. Use this when analyzing threat reports, blog posts, or incident write-ups.',
       {
@@ -695,7 +748,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
     );
 
     // ── IOC Lifecycle ───────────────────────────────────────────────────
-    this.server.tool(
+    this.tool(
       'get_ioc_lifecycle',
       'Get the lifecycle data for an IOC — when it first appeared, last seen, activity trend, and decay rate. Use this to understand if an indicator is still active or dormant.',
       { indicator: z.string().describe('The IOC to get lifecycle data for') },
@@ -710,7 +763,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
     );
 
     // ── Trending IOCs ───────────────────────────────────────────────────
-    this.server.tool(
+    this.tool(
       'get_trending_iocs',
       'Get the most active IOCs in the last 24 hours. Returns indicators with highest observation counts and scores, useful for identifying emerging threats.',
       {
@@ -731,7 +784,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
     );
 
     // ── YARA Rule Generator ─────────────────────────────────────────────
-    this.server.tool(
+    this.tool(
       'generate_yara_rule',
       'Generate a YARA detection rule using AI. Provide a description of what to detect, and optionally known strings, malware family name, and target file type. Returns a syntactically valid YARA rule with metadata.',
       {
@@ -752,7 +805,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
     );
 
     // ── YARA Rule Validator ─────────────────────────────────────────────
-    this.server.tool(
+    this.tool(
       'validate_yara_rule',
       'Validate a YARA rule syntax. Checks for balanced braces, required sections, and proper string definitions.',
       {
@@ -769,7 +822,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
     );
 
     // ── CT Domain Monitor ───────────────────────────────────────────────
-    this.server.tool(
+    this.tool(
       'watch_domain_ct',
       'Add a domain to Certificate Transparency monitoring. Alerts on new subdomains, suspicious patterns, wildcard certs, and more. Uses crt.sh for unlimited free CT log queries.',
       {
@@ -789,7 +842,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
       }
     );
 
-    this.server.tool(
+    this.tool(
       'get_domain_certs',
       'Get recent certificates for a domain from Certificate Transparency logs. Shows new subdomains, certificate details, and any alerts.',
       {
@@ -811,7 +864,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
     );
 
     // ── WHOIS History ────────────────────────────────────────────────
-    this.server.tool(
+    this.tool(
       'get_domain_history',
       'Get the WHOIS history for a domain. Returns all historical registration snapshots, ownership changes, registrar changes, and nameserver changes over time. Essential for tracking domain ownership transfers and identifying infrastructure reuse by threat actors.',
       { domain: z.string().describe('Domain to get history for, e.g. evil-example.com') },
@@ -825,7 +878,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
       }
     );
 
-    this.server.tool(
+    this.tool(
       'pivot_domain',
       'Pivot across domains by shared registrant attributes. Find other domains owned by the same entity by matching registrant email, organization, nameservers, or registrar. Critical for mapping attacker infrastructure — if a malicious domain shares its registrant email with 50 other domains, those are likely all owned by the same threat actor.',
       {
@@ -849,7 +902,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
       }
     );
 
-    this.server.tool(
+    this.tool(
       'search_registrant',
       'Search for all domains registered by a specific email address or organization name. Returns domains, registration dates, and snapshot counts. Useful for finding all infrastructure operated by a known threat actor.',
       {
@@ -875,7 +928,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
     // custom agents). All are thin wrappers over existing /api/v1 routes.
 
     // 1. extract_ttps — MITRE ATT&CK mapping for a free-text report.
-    this.server.tool(
+    this.tool(
       'extract_ttps',
       'Extract MITRE ATT&CK techniques from a free-text threat report. Returns technique IDs, tactic labels, confidence (high/medium/low), and the supporting evidence string. Combines a deterministic keyword scanner with an LLM pass and merges the results.',
       {
@@ -895,7 +948,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
     );
 
     // 2. extract_fivew — Who/What/When/Where/Why summary.
-    this.server.tool(
+    this.tool(
       'extract_fivew',
       'Extract the classic 5W grid (who/what/when/where/why) from a free-text report. Single LLM call; returns structured JSON with a per-grid confidence score.',
       {
@@ -911,7 +964,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
     );
 
     // 3. extract_iocs_from_image — OCR an image URL for embedded indicators.
-    this.server.tool(
+    this.tool(
       'extract_iocs_from_image',
       'Fetch an image and run Workers AI vision over it to extract IOCs that are only visible in screenshots (IPs, domains, URLs, hashes, CVEs, emails). Returns the OCR text + the per-IOC confidence band.',
       {
@@ -927,7 +980,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
     );
 
     // 4. analyze_report — the unified per-report orchestrator.
-    this.server.tool(
+    this.tool(
       'analyze_report',
       'Unified per-report analyzer. Runs summary + IOC extraction (with allowlist + confidence) + MITRE ATT&CK TTP mapping + 5W context + CVE extraction + image-OCR + STIX 2.1 bundle in a single round-trip. Accepts text, URL, or both; optionally takes image URLs to OCR.',
       {
@@ -951,7 +1004,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
     );
 
     // 5. get_cross_report_graph — knowledge graph snapshot.
-    this.server.tool(
+    this.tool(
       'get_cross_report_graph',
       'Cross-report knowledge-graph snapshot. Returns the top N most-referenced nodes (IOCs, actors, malware, CVEs, techniques, campaigns) across every ingested source, with the edges that connect them. Filter by node type and time window.',
       {
@@ -991,7 +1044,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
     );
 
     // 6. get_live_iocs — paginated, allowlist-filtered live IOC feed.
-    this.server.tool(
+    this.tool(
       'get_live_iocs',
       'Get the most recent live IOCs aggregated from 12+ providers (URLhaus, ThreatFox, AlienVault OTX, SANS ISC, etc). Items are normalized, allowlist-filtered (RFC 5737, vendor docs), and confidence-scored. Supports filtering by IOC kind.',
       {
@@ -1011,7 +1064,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
       }
     );
     // ── KQL → Defender XDR Advanced Hunting deep link (no ASSETS needed) ──
-    this.server.tool(
+    this.tool(
       'si_kql_to_ah_url',
       'Encode a KQL query into a Defender XDR Advanced Hunting deep link. Mirrors upstream kql_to_ah_url.py: UTF-16LE → GZip → Base64url. Optionally append &tid=<tenant_id> for cross-tenant linking. Returns the URL.',
       {
@@ -1055,7 +1108,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
     if (this.env.ASSETS) {
       const ASSETS = this.env.ASSETS;
 
-      this.server.tool(
+      this.tool(
         'si_list_skills',
         'List the security investigation skills shipped in this Worker (replicated from SCStelz/security-investigator, MIT). Each skill is a guided KQL+playbook workflow. Filter by category or free-text keyword.',
         {
@@ -1096,7 +1149,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         }
       );
 
-      this.server.tool(
+      this.tool(
         'si_get_skill',
         'Return the full SKILL.md body (markdown) for a single security investigation skill. Use si_list_skills first to discover slugs.',
         {
@@ -1119,7 +1172,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         }
       );
 
-      this.server.tool(
+      this.tool(
         'si_list_queries',
         'List the KQL queries shipped in this Worker (Defender XDR / Sentinel hunt library replicated from SCStelz/security-investigator, MIT). Filter by domain (cloud / email / endpoint / identity / incidents / network / threat-intelligence) or free-text keyword.',
         {
@@ -1147,7 +1200,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         }
       );
 
-      this.server.tool(
+      this.tool(
         'si_get_query',
         'Return the full markdown body of a single KQL query (Defender XDR / Sentinel hunting query, IoC correlation, or campaign playbook). Use si_list_queries first to discover slugs.',
         {
@@ -1170,7 +1223,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         }
       );
 
-      this.server.tool(
+      this.tool(
         'si_get_automation',
         'Return a scheduled-workflow definition (Copilot App / GitHub Actions) for running the skills unattended. Three automations ship: daily-threat-pulse, daily-mcp-auth-health-check, weekly-threat-intel-campaign.',
         {
@@ -1187,7 +1240,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         }
       );
 
-      this.server.tool(
+      this.tool(
         'si_stats',
         'Return cache + manifest stats for the Security Investigator data: index loaded, body-cache sizes and hit ratios. Useful for diagnosing cold-start latency.',
         {},
@@ -1208,7 +1261,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
       // embedded in the skill JSON), plus a reference to the
       // svg-dashboard skill's component library. Clients render the
       // SVG client-side using the widget library + the manifest.
-      this.server.tool(
+      this.tool(
         'si_render_svg_dashboard',
         'Return the SVG widget manifest (YAML) for a skill that ships one (14 of 25 skills do). The manifest declares canvas, palette, and a list of widget instances to render. Pair with si_get_skill({slug: "svg-dashboard"}) for the component-library reference. Returns {hasManifest:false,...} if the skill has no SVG manifest.',
         {
@@ -1233,7 +1286,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
       );
 
       // ── R3 Knowledge base: 10 deep-dive docs ──────────────────────
-      this.server.tool(
+      this.tool(
         'si_list_docs',
         'List the 10 deep-dive knowledge-base docs from the upstream repo (Sentinel Exposure Graph guide, signinlog anomalies KQL cookbook, identity protection, honeypot investigation, ingestion cost best practices, etc). Each is a long-form markdown guide.',
         {},
@@ -1243,7 +1296,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         }
       );
 
-      this.server.tool(
+      this.tool(
         'si_get_doc',
         'Return the full markdown body of a single knowledge-base doc. Get slugs from si_list_docs.',
         {
@@ -1267,7 +1320,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
       );
 
       // ── R4 Routing prompt (copilot-instructions.md) ───────────────
-      this.server.tool(
+      this.tool(
         'si_get_routing_prompt',
         'Return the upstream .github/copilot-instructions.md verbatim — the universal skill-detection / routing prompt. Clients should load this once at session start to learn how to map natural language to the right si_* tool. ~91 KB.',
         {},
@@ -1285,7 +1338,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
       );
 
       // ── R5 Reference data: MITRE catalog + known KQL tables + M365 coverage ─
-      this.server.tool(
+      this.tool(
         'si_list_ref',
         'List the reference datasets available via si_get_ref: MITRE ATT&CK enterprise catalog, known KQL tables for the M365 platform, M365 platform coverage matrix, and the 11 Sentinel ingestion-scan query schemas.',
         {},
@@ -1324,7 +1377,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         }
       );
 
-      this.server.tool(
+      this.tool(
         'si_get_ref',
         'Return a reference dataset by name. Get names from si_list_ref. Common: mitre-attck-enterprise (MITRE ATT&CK enterprise matrix, ~32 KB), known-kql-tables (M365 Defender table inventory, ~17 KB), m365-platform-coverage (coverage map, ~16 KB), ingestion-qN (Sentinel ingestion-scan query result schemas).',
         {
@@ -1356,7 +1409,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
       // no public internet hop). Mirrors the enrich_ips.py output
       // shape so upstream clients (and Python notebooks) get the same
       // record layout.
-      this.server.tool(
+      this.tool(
         'si_enrich_ip',
         "Enrich a single IPv4/IPv6 address using the platform's IPinfo / AbuseIPDB / Shodan / Shodan-InternetDB / VPNAPI providers. Returns the same shape as upstream security-investigator/enrich_ips.py. Use si_enrich_ip_batch for up to 25 IPs in one call.",
         {
@@ -1371,7 +1424,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         }
       );
 
-      this.server.tool(
+      this.tool(
         'si_enrich_ip_batch',
         'Enrich up to 25 IP addresses in one call. Returns an array of the same shape as si_enrich_ip. Order is preserved. IPs that fail validation are returned with a single "validator:failed" diagnostic and empty enrichment fields.',
         {
@@ -1384,7 +1437,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
       );
 
       // ── PowerShell + detection-manifest scripts (round 3) ──────
-      this.server.tool(
+      this.tool(
         'si_list_scripts',
         'List the 5 PowerShell / detection-manifest assets that ship in the SI bundle: Deploy-CustomDetections.ps1 (batch-deploy Defender XDR rules), Invoke-MitreScan.ps1 (full MITRE coverage scanner), Invoke-IngestionScan.ps1 (Sentinel ingestion health), example-detection-manifest.json (input template), sentinel-ingestion-drilldown.md (companion guide).',
         {},
@@ -1394,7 +1447,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         }
       );
 
-      this.server.tool(
+      this.tool(
         'si_get_script',
         'Return the raw body of a PowerShell script or detection-manifest. Use si_list_scripts to discover filenames. The PowerShell scripts target Microsoft Defender XDR / Sentinel / M365 — they are NOT executable in the Worker; copy them to a PowerShell 7+ session locally to run.',
         {
@@ -1423,7 +1476,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
       // stacked-bar-chart, table-widget); unsupported widgets fall back
       // to a dashed "use si_render_svg_dashboard" stub so the layout
       // still renders.
-      this.server.tool(
+      this.tool(
         'si_render_svg',
         'Render an SVG dashboard from a manifest + data. Returns a self-contained <svg> string with inline styles, no external dependencies. Use si_render_svg_dashboard(slug) to get the canonical manifest for a skill, then pass its body as manifestYaml here. Supports all 14 widget types: title-banner, kpi-card, delta-kpi-card, score-card, donut-chart, stacked-bar-chart, horizontal-bar-chart, line-chart, waterfall-chart, sparkline, progress-bar, table-widget, recommendation-cards, assessment-banner, coverage-matrix. Unknown types render as a dashed warning panel.',
         {
@@ -1486,7 +1539,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
       // markdown image, email, or social-preview that can't render SVG.
       // The response is a base64-encoded PNG (MCP text fields can't carry
       // raw binary) with {bytes, width, hash} metadata.
-      this.server.tool(
+      this.tool(
         'si_render_png',
         'Render an SVG dashboard and rasterise it to PNG (base64-encoded in the JSON response). Same manifest + data shape as si_render_svg, but the output is a portable bitmap you can embed in markdown, email, or social previews. Uses the bundled @resvg/resvg-wasm + Hanken Grotesk TTF.',
         {
@@ -1558,7 +1611,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
     }
 
     // ── si_parse_text (PARSE-X) ─────────────────────────────────────────
-    this.server.tool(
+    this.tool(
       'si_parse_text',
       'PARSE-X: extract IOCs, file paths, registry keys, processes, DLLs, CVEs, MITRE techniques, hashes, emails, ports, MACs, and ASNs from raw text. Handles defang (hxxp, [.], (dot)) and Cyrillic/Greek homographs.',
       {
@@ -1589,7 +1642,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
     );
 
     // ── si_parse_email_headers (MAILSCOPE) ──────────────────────────────
-    this.server.tool(
+    this.tool(
       'si_parse_email_headers',
       'MAILSCOPE: parse raw email headers, extract the Received hop chain, compute SPF/DKIM/DMARC verdicts, and flag spoofing/impersonation patterns. Returns a 0-100 risk score.',
       {
@@ -1609,7 +1662,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
     );
 
     // ── si_shiftlog_* (SHIFTLOG) ────────────────────────────────────────
-    this.server.tool(
+    this.tool(
       'si_shiftlog_create',
       'SHIFTLOG: start a new SOC shift handover entry. Returns the created entry including its id (sl_...).',
       {
@@ -1634,7 +1687,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         return untrustedToolResult(entry);
       }
     );
-    this.server.tool(
+    this.tool(
       'si_shiftlog_list',
       'SHIFTLOG: list recent shift handover entries. Filter by author, shift, or openOnly (excludes closed shifts).',
       {
@@ -1653,7 +1706,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         return untrustedToolResult(list);
       }
     );
-    this.server.tool(
+    this.tool(
       'si_shiftlog_get',
       'SHIFTLOG: fetch a single shift handover entry by id (sl_...).',
       { id: z.string().describe('The sl_... id returned by si_shiftlog_create.') },
@@ -1662,7 +1715,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         return untrustedToolResult(e);
       }
     );
-    this.server.tool(
+    this.tool(
       'si_shiftlog_update',
       'SHIFTLOG: patch a shift entry (notes, open cases, IOCs, escalations, endedAt).',
       {
@@ -1678,7 +1731,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         return untrustedToolResult(e);
       }
     );
-    this.server.tool(
+    this.tool(
       'si_shiftlog_close',
       'SHIFTLOG: close a shift entry (sets ended_at to now, or to a provided ISO timestamp).',
       { id: z.string(), ended_at: z.string().optional() },
@@ -1689,7 +1742,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
     );
 
     // ── si_hypos_generate (HYPOS) ───────────────────────────────────────
-    this.server.tool(
+    this.tool(
       'si_hypos_generate',
       'HYPOS: hypothesis engine for threat hunting. Given a free-text anomaly description and optional IOCs / environment, return ranked hypotheses with kill-chain phase, MITRE techniques, what-to-look-for signals, sample KQL, and matched SI skills.',
       {
@@ -1717,7 +1770,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
     );
 
     // ── si_promptvault_* (PROMPTVAULT) ──────────────────────────────────
-    this.server.tool(
+    this.tool(
       'si_promptvault_list',
       'PROMPTVAULT: list community AI prompts for SOC analysts, detection engineers, and threat hunters. Filter by category, tag, or text search.',
       {
@@ -1731,7 +1784,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         return untrustedToolResult(list);
       }
     );
-    this.server.tool(
+    this.tool(
       'si_promptvault_get',
       'PROMPTVAULT: fetch a single prompt by slug. Auto-increments the download counter.',
       { slug: z.string() },
@@ -1740,7 +1793,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         return untrustedToolResult(p);
       }
     );
-    this.server.tool(
+    this.tool(
       'si_promptvault_create',
       'PROMPTVAULT: add a new prompt to the vault. Returns the created entry.',
       {
@@ -1770,7 +1823,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         return untrustedToolResult(p);
       }
     );
-    this.server.tool(
+    this.tool(
       'si_promptvault_rate',
       'PROMPTVAULT: rate a prompt 1-5 stars. Returns the updated entry with new rating count and average.',
       { slug: z.string(), rating: z.number().int().min(1).max(5) },
@@ -1779,12 +1832,12 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         return untrustedToolResult(p);
       }
     );
-    this.server.tool('si_promptvault_categories', 'PROMPTVAULT: list the valid prompt categories.', {}, async () => ({
+    this.tool('si_promptvault_categories', 'PROMPTVAULT: list the valid prompt categories.', {}, async () => ({
       content: [{ type: 'text' as const, text: JSON.stringify({ categories: promptVaultCategories() }) }],
     }));
 
     // ── HudsonRock Cavalier (infostealer intelligence) ───────────────────
-    this.server.tool(
+    this.tool(
       'hr_search_email',
       'Search for compromised credentials by email address via Hudson Rock Cavalier API. Returns infostealer infections, stealer families, compromised URLs, and credential types (employee/user/third-party).',
       { email: z.string().describe('Email address to search') },
@@ -1797,7 +1850,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         return untrustedToolResult(data);
       }
     );
-    this.server.tool(
+    this.tool(
       'hr_search_domain',
       'Search for domain-wide infostealer compromises via Hudson Rock Cavalier API. Returns compromised employees, users, and third-party exposures with stealer families and infection dates.',
       {
@@ -1820,7 +1873,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         return untrustedToolResult(data);
       }
     );
-    this.server.tool(
+    this.tool(
       'hr_domain_overview',
       'Get domain compromise overview statistics from Hudson Rock — compromised employee/user counts, last compromise dates, and upload timelines. Useful for risk posture assessment.',
       { domain: z.string().describe('Domain name, e.g. example.com') },
@@ -1833,7 +1886,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         return untrustedToolResult(data);
       }
     );
-    this.server.tool(
+    this.tool(
       'hr_assets_discovery',
       'Discover all compromised URLs for a domain (attack surface mapping). Returns URLs where credentials were stolen, occurrence counts, and compromise types.',
       {
@@ -1853,7 +1906,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         return untrustedToolResult(data);
       }
     );
-    this.server.tool(
+    this.tool(
       'hr_third_party_risk',
       'Assess third-party / supply-chain risk for a domain. Returns employee URLs, third-party service URLs, and user URLs where credentials were compromised — indicating supply chain exposure.',
       { domain: z.string().describe('Domain name to assess') },
@@ -1866,7 +1919,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         return untrustedToolResult(data);
       }
     );
-    this.server.tool(
+    this.tool(
       'hr_infection_analysis',
       'AI-powered infection source analysis for a specific stealer log. Returns the likely infection URL, confidence score, timeline of suspicious activity, and analyst summary. Works best with Lumma stealers.',
       { stealer: z.string().describe('Stealer ID from a previous search result') },
@@ -1879,7 +1932,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         return untrustedToolResult(data);
       }
     );
-    this.server.tool(
+    this.tool(
       'hr_search_username',
       'Search for compromised credentials by username via Hudson Rock Cavalier API.',
       { username: z.string().describe('Username to search') },
@@ -1892,7 +1945,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         return untrustedToolResult(data);
       }
     );
-    this.server.tool(
+    this.tool(
       'hr_search_ip',
       'Search for compromises by IP address or CIDR range via Hudson Rock Cavalier API. Useful for IR when you have a suspicious IP.',
       { ip: z.string().describe('IP address or CIDR range') },
@@ -1905,7 +1958,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         return untrustedToolResult(data);
       }
     );
-    this.server.tool(
+    this.tool(
       'hr_account',
       'Check Hudson Rock Cavalier API account status, permissions, and quota. Use to verify the API key is valid.',
       {},
@@ -1916,7 +1969,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
     );
 
     // ── Passive DNS Correlation Engine ──────────────────────────────────
-    this.server.tool(
+    this.tool(
       'passive_dns_query',
       'Query passive DNS for a domain or IP. Returns historical DNS resolutions, infrastructure migrations, and fast-flux detection. Sources: VirusTotal, URLscan, crt.sh, CIRCL.',
       {
@@ -1934,7 +1987,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         return untrustedToolResult(data);
       }
     );
-    this.server.tool(
+    this.tool(
       'passive_dns_reverse',
       'Reverse passive DNS lookup: find all domains that historically resolved to a given IP. Reads from accumulated D1 cache.',
       { ip: z.string().describe('IP address to reverse-lookup') },
@@ -1947,7 +2000,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         return untrustedToolResult(data);
       }
     );
-    this.server.tool(
+    this.tool(
       'passive_dns_overlap',
       'Find IPs shared between multiple domains (infrastructure overlap detection). Useful for mapping shared malicious hosting.',
       { domains: z.string().describe('Comma-separated list of domains (min 2)') },
@@ -1962,7 +2015,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
     );
 
     // ── IOC Watchlist ───────────────────────────────────────────────────
-    this.server.tool(
+    this.tool(
       'ioc_watchlist_add',
       'Add an IOC to the watchlist for proactive alerting. Supported types: ip, domain, url, hash, cve, email. Alerts fire when the IOC appears in feeds.',
       {
@@ -1981,7 +2034,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         return untrustedToolResult(data);
       }
     );
-    this.server.tool(
+    this.tool(
       'ioc_watchlist_list',
       'List all watched IOCs. Optionally filter by type.',
       {
@@ -2000,7 +2053,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         return untrustedToolResult(data);
       }
     );
-    this.server.tool(
+    this.tool(
       'ioc_watchlist_alerts',
       'List recent alerts from the IOC watchlist.',
       {
@@ -2021,7 +2074,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         return untrustedToolResult(data);
       }
     );
-    this.server.tool(
+    this.tool(
       'ioc_watchlist_stats',
       'Get watchlist dashboard stats: total watches, alerts by type, webhook delivery rate.',
       {},
@@ -2032,7 +2085,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
     );
 
     // ── Investigation Notebooks ────────────────────────────────────────
-    this.server.tool(
+    this.tool(
       'notebook_list',
       'List investigation notebooks. Each notebook is a persistent investigation session with notes, IOCs, findings, and timeline entries stored in D1.',
       {
@@ -2047,7 +2100,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         return untrustedToolResult(data);
       }
     );
-    this.server.tool(
+    this.tool(
       'notebook_create',
       'Create a new investigation notebook.',
       {
@@ -2063,7 +2116,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         return untrustedToolResult(data);
       }
     );
-    this.server.tool(
+    this.tool(
       'notebook_get',
       'Get a notebook with all its entries.',
       {
@@ -2078,7 +2131,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         return untrustedToolResult(data);
       }
     );
-    this.server.tool(
+    this.tool(
       'notebook_add_entry',
       'Add a note, IOC, finding, timeline event, or artifact to a notebook.',
       {
@@ -2099,7 +2152,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         return untrustedToolResult(data);
       }
     );
-    this.server.tool(
+    this.tool(
       'notebook_update',
       'Update a notebook title, description, status, or severity.',
       {
@@ -2124,7 +2177,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         return untrustedToolResult(data);
       }
     );
-    this.server.tool(
+    this.tool(
       'notebook_delete',
       'Delete a notebook and all its entries.',
       {
