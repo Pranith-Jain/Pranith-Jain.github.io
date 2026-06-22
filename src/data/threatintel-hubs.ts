@@ -984,6 +984,14 @@ export const HUB_META: readonly HubMeta[] = [
         compVar: 'Watches',
       },
       {
+        path: '/threatintel/tools/workspaces',
+        tabId: 'workspaces',
+        label: 'Investigation Workspaces',
+        desc: 'AEAD lifecycle workspaces — Acquire, Enrich, Assess, Deliver.',
+        compVar: 'Workspaces',
+        badge: 'new',
+      },
+      {
         path: '/threatintel/tools/unified-search',
         tabId: 'unified-search',
         label: 'Unified Search',

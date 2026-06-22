@@ -18,9 +18,9 @@ import type { Ai } from '@cloudflare/workers-types';
  */
 
 const GROQ_URL = 'https://api.groq.com/openai/v1/chat/completions';
-const GROQ_MODEL = 'meta-llama/llama-4-scout-17b-16e-instruct';
+const GROQ_MODEL = 'llama-3.3-70b-versatile';
 /** Higher-quality model for synthesis and report generation. Supports reasoning_effort. */
-const GROQ_MODEL_QUALITY = 'openai/gpt-oss-120b';
+const GROQ_MODEL_QUALITY = 'llama-3.3-70b-versatile';
 const GROQ_TIMEOUT_MS = 30_000;
 
 // Workers-AI fallback chain (no key). Kept to two models — under an
