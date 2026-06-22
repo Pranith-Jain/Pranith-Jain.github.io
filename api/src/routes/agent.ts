@@ -15,6 +15,31 @@ import { trackEvent, visitorCountry } from '../lib/analytics';
 
 const AGENT_CACHE_TTL = 60;
 
+/** Maximum investigations per user per hour. Each runs up to 10 LLM steps. */
+const AGENT_RATE_LIMIT = 5;
+const AGENT_RATE_WINDOW_SEC = 3600; // 1 hour
+
+/**
+ * Atomically increment the agent investigation counter via the CRON_LOCK_DO.
+ * Returns the post-increment count, or null on failure (fail-open).
+ */
+async function atomicAgentIncr(c: Context<{ Bindings: Env }>, keyId: string, bucket: number): Promise<number | null> {
+  const ns = (c.env as { CRON_LOCK_DO?: DurableObjectNamespace }).CRON_LOCK_DO;
+  if (!ns) return null;
+  try {
+    const id = ns.idFromName(`rl:agent:${keyId}:${bucket}`);
+    const res = await ns.get(id).fetch('https://cron-lock.internal/incr', {
+      method: 'POST',
+      body: JSON.stringify({ op: 'incr', cron: `agent:${keyId}:${bucket}`, ttlMs: AGENT_RATE_WINDOW_SEC * 2 * 1000 }),
+    });
+    if (!res.ok) return null;
+    const data = (await res.json()) as { count?: number };
+    return typeof data.count === 'number' ? data.count : null;
+  } catch {
+    return null;
+  }
+}
+
 export async function agentInvestigateHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   try {
     let body: { query?: string; maxSteps?: number };
@@ -27,6 +52,31 @@ export async function agentInvestigateHandler(c: Context<{ Bindings: Env }>): Pr
     const query = body.query?.trim();
     if (!query) return badRequest(c, 'query is required');
     if (query.length > 2000) return badRequest(c, 'query too long (max 2000 chars)');
+
+    // Rate limit: 5 investigations per hour per API key.
+    // Uses the admin key ID as the rate-limit key (admin-gated route).
+    const user = (c as Context & { user?: { keyId: string } }).user;
+    if (user?.keyId) {
+      const bucket = Math.floor(Date.now() / 1000 / AGENT_RATE_WINDOW_SEC);
+      const count = await atomicAgentIncr(c, user.keyId, bucket);
+      if (count !== null && count > AGENT_RATE_LIMIT) {
+        return c.json(
+          {
+            error: 'rate_limited',
+            message: `${AGENT_RATE_LIMIT} investigations per hour exceeded`,
+            limit: AGENT_RATE_LIMIT,
+            window_seconds: AGENT_RATE_WINDOW_SEC,
+          },
+          429,
+          {
+            'retry-after': String(AGENT_RATE_WINDOW_SEC),
+            'x-ratelimit-limit': String(AGENT_RATE_LIMIT),
+            'x-ratelimit-remaining': '0',
+            'x-ratelimit-reset': String((bucket + 1) * AGENT_RATE_WINDOW_SEC),
+          }
+        );
+      }
+    }
 
     const maxSteps = Math.min(Math.max(body.maxSteps ?? 6, 1), 10);
     const queryType = detectQueryType(query);
