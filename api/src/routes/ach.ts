@@ -164,7 +164,7 @@ async function callLlm(env: Env, system: string, user: string): Promise<string> 
         // call ceiling used by the other Groq-bound routes.
         signal: AbortSignal.timeout(30_000),
         body: JSON.stringify({
-          model: 'llama-3.3-70b-versatile',
+          model: 'openai/gpt-oss-120b',
           messages: [
             { role: 'system', content: system },
             { role: 'user', content: user },
@@ -233,7 +233,7 @@ export async function achHandler(c: Context<{ Bindings: Env }>): Promise<Respons
       ...parsed,
       topic,
       generated_at: new Date().toISOString(),
-      model_used: 'llama-3.3-70b-versatile',
+      model_used: 'openai/gpt-oss-120b',
       _validation: {
         ungrounded_cves: ungroundedCves.length > 0 ? ungroundedCves : undefined,
         invalid_mitre_ids: invalidMitre.length > 0 ? invalidMitre : undefined,

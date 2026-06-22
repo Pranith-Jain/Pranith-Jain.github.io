@@ -958,7 +958,7 @@ export async function callGroq(env: Env, system: string, user: string): Promise<
       'content-type': 'application/json',
     },
     body: JSON.stringify({
-      model: 'llama-3.3-70b-versatile',
+      model: 'openai/gpt-oss-120b',
       messages: [
         { role: 'system', content: system },
         { role: 'user', content: user },
@@ -1037,7 +1037,7 @@ export async function copilotInvestigateHandler(c: Context<{ Bindings: Env }>): 
 
     try {
       narrative = await callGroq(c.env, system, user);
-      modelUsed = 'groq:llama-3.3-70b-versatile';
+      modelUsed = 'groq:openai/gpt-oss-120b';
     } catch {
       narrative = await callWorkersAi(c.env, system, user);
       modelUsed = '@cf/meta/llama-3.3-70b-instruct-fp8-fast';

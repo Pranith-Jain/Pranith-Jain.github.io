@@ -58,6 +58,14 @@ export const RETENTION_POLICY: RetentionPolicy[] = [
 
   // API usage (last_request_at is ISO-8601 text per migration 0013)
   { table: 'api_key_usage', column: 'last_request_at', format: 'iso' },
+
+  // CTI Collector (VHunt-inspired) — 30-day IOC, news, predictions, mutations
+  { table: 'cti_iocs', column: 'last_seen', format: 'iso' },
+  { table: 'cti_news', column: 'fetched_at', format: 'iso' },
+  { table: 'cti_predictions', column: 'generated_at', format: 'iso' },
+  { table: 'cti_mutation_variants', column: 'created_at', format: 'iso' },
+  { table: 'cti_mutation_seeds', column: 'created_at', format: 'iso' },
+  { table: 'cti_collection_jobs', column: 'started_at', format: 'iso' },
 ];
 
 export interface RetentionResult {
