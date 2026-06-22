@@ -26,12 +26,16 @@ function handleUnauthorized(): void {
   window.location.reload();
 }
 
-/** Pull `{error}` out of the body for nicer messages, fall back to status. */
+/** Pull `{error}` + `{message}` out of the body for nicer messages, fall back to status.
+ *  Many admin endpoints return both — `error` is a short machine-friendly
+ *  code (e.g. "rewrite_failed"), `message` is the human-friendly detail
+ *  (e.g. "validation failed: missing section: ## Lessons learned").
+ *  We surface both so a 4xx/5xx failure shows the actual reason. */
 async function extractError(r: Response): Promise<string> {
   let detail = `${r.status} ${r.statusText}`;
   try {
-    const err = (await r.clone().json()) as { error?: string };
-    if (err.error) detail = err.error;
+    const body = (await r.clone().json()) as { error?: string; message?: string };
+    if (body.error) detail = body.message ? `${body.error}: ${body.message}` : body.error;
   } catch {
     /* ignore parse errors */
   }

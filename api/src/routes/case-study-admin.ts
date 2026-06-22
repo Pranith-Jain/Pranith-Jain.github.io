@@ -585,12 +585,21 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
         mode,
       });
     } catch (err) {
+      // Surface the actual post-process / LLM error so the admin can see
+      // WHY the rewrite failed (e.g. "missing section: ## Lessons learned",
+      // "qa failed: too thin (56 words < 160)"). 422 not 500 — the request
+      // is well-formed; the model just couldn't satisfy the constraints.
+      // The message is included in BOTH the `error` and `message` fields
+      // because the client helper extracts only the `error` field from
+      // 4xx/5xx bodies.
+      const detail = err instanceof Error ? err.message : String(err);
+      console.error(JSON.stringify({ job: 'regenerate-rewrite', slug, error: detail }));
       return c.json(
         {
-          error: 'rewrite_failed',
-          message: err instanceof Error ? err.message : String(err),
+          error: `rewrite_failed: ${detail}`,
+          message: detail,
         },
-        500
+        422
       );
     }
   });

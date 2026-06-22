@@ -356,9 +356,10 @@ Text.
     const out = postProcess({ type: 'intel', raw, factsText: '{}' });
     // No linkification happened — labels stay plain text.
     expect(out.body).not.toMatch(/\[Some Unknown Trade Rag[^\]]+\]\(http/);
-    // QA gate catches the unlinked bullets.
+    // QA gate catches the unlinked bullets: 2/2 unlinked is a clear
+    // majority, so the majority-rule threshold still trips QA.
     expect(out.qa?.passed).toBe(false);
-    expect(out.qa?.issues.join('|')).toMatch(/reference bullet.*no URL/i);
+    expect(out.qa?.issues.join('|')).toMatch(/2\/2 reference bullets? have no URL/i);
   });
 
   it('accepts drafts where every References bullet is a proper markdown link', () => {
@@ -384,7 +385,11 @@ Text.
     expect(out.qa?.issues.join('|')).not.toMatch(/reference bullet.*no URL/i);
   });
 
-  it('mixed bullet (one linked, one unlinked) still fails QA on the unlinked one', () => {
+  it('mixed bullet (one linked, one unlinked) no longer fails QA under the majority rule', () => {
+    // The linkify map is conservative — a real-but-unrecognised publisher
+    // shouldn't block the post. The QA gate now only trips when MAJORITY
+    // of bullets are unlinked, reflecting "the model can't cite" rather
+    // than "the model cited one novel source". 1/2 is not a majority.
     const raw =
       `## Summary
 
@@ -404,7 +409,34 @@ Text.
       `- Some Unknown Trade Rag, brief mention.
 `;
     const out = postProcess({ type: 'intel', raw, factsText: '{}' });
+    expect(out.qa?.issues.join('|')).not.toMatch(/reference bullet/i);
+  });
+
+  it('three unlinked out of four bullets is a majority and fails QA', () => {
+    const raw =
+      `## Summary
+
+Text.
+
+` +
+      `## Detection & mitigation
+
+Text.
+
+` +
+      `## References
+
+` +
+      `- [BleepingComputer](https://www.bleepingcomputer.com/news/security/example)
+` +
+      `- Unknown A, brief mention.
+` +
+      `- Unknown B, another brief mention.
+` +
+      `- Unknown C, yet another brief mention.
+`;
+    const out = postProcess({ type: 'intel', raw, factsText: '{}' });
     expect(out.qa?.passed).toBe(false);
-    expect(out.qa?.issues.join('|')).toMatch(/1 reference bullet.*no URL/);
+    expect(out.qa?.issues.join('|')).toMatch(/3\/4 reference bullets? have no URL/i);
   });
 });
