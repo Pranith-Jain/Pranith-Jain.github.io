@@ -532,7 +532,7 @@ export const memberships = [
   {
     name: 'Webamon',
     abbreviation: 'WA',
-    period: 'Jun 2025 - Present · 1 yr',
+    period: 'Jun 2026 - Present · <1 mo',
     description:
       'Community Threat Researcher contributing to web infrastructure intelligence. Collaborative threat research and IOC enrichment across the community platform.',
     color: 'emerald',
