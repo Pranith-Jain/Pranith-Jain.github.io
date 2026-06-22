@@ -611,7 +611,9 @@ function SchedulePanel({ slug, refreshTrigger = 0 }: { slug: string; refreshTrig
                 className={`px-1.5 py-0.5 rounded text-micro ${
                   status === 'posted'
                     ? 'bg-emerald-900/40 text-emerald-300 border border-emerald-700/50'
-                    : 'bg-amber-900/30 text-amber-300 border border-amber-700/40'
+                    : status === 'scheduled'
+                      ? 'bg-sky-900/40 text-sky-300 border border-sky-700/50'
+                      : 'bg-amber-900/30 text-amber-300 border border-amber-700/40'
                 }`}
               >
                 {status}
