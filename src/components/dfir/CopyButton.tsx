@@ -61,7 +61,7 @@ export function CopyButton({ value, title = 'Copy to clipboard', className = '' 
       onClick={() => void copy(value, setDone, timerRef)}
       title={title}
       aria-label={title}
-      className={`p-1.5 rounded text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors ${className}`}
+      className={`p-1.5 rounded text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 ${className}`}
     >
       {done ? <Check size={14} /> : <Copy size={14} />}
     </button>
@@ -87,7 +87,7 @@ export function CopyChip({
       onClick={() => void copy(value, setDone, timerRef)}
       title={title}
       aria-label={title}
-      className={`text-xs font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 inline-flex items-center gap-1 ${className}`}
+      className={`text-xs font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 inline-flex items-center gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 ${className}`}
     >
       {done ? <Check size={11} /> : <Copy size={11} />}
       {done ? 'copied' : label}

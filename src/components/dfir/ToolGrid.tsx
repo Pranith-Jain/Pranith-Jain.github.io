@@ -130,7 +130,7 @@ export function ToolGrid({ group }: { group?: ToolGroup } = {}): JSX.Element {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search tools (dmarc, kill chain, mcp, owasp, jwt…)"
-            className="w-full pl-9 pr-9 py-3 sm:py-2 min-h-[44px] sm:min-h-0 rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 font-mono text-base sm:text-sm focus:border-brand-500/60 focus:outline-none"
+            className="w-full pl-9 pr-9 py-3 sm:py-2 min-h-[44px] sm:min-h-0 rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 font-mono text-base sm:text-sm focus:border-brand-500/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40"
             aria-label="Search DFIR tools"
           />
           {query && (

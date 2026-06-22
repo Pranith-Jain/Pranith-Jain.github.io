@@ -210,16 +210,16 @@ export default function ThreatIntelHome(): JSX.Element {
         <div className="mb-5 sm:mb-7 flex flex-wrap items-center gap-x-4 gap-y-2 font-mono text-mini uppercase tracking-[0.16em] text-slate-500">
           <span className="inline-flex items-center gap-1.5">
             <span className="relative inline-flex h-1.5 w-1.5">
-              <span className="absolute inset-0 rounded-full bg-rose-500 live-pulse" aria-hidden />
+              <span className="absolute inset-0 rounded-full bg-rose-500 live-pulse" aria-hidden="true" />
               <span className="relative inline-block h-1.5 w-1.5 rounded-full bg-rose-500" />
             </span>
             <span className="text-rose-600 dark:text-rose-400">Live</span>
           </span>
-          <span aria-hidden className="text-slate-300 dark:text-slate-700">
+          <span aria-hidden="true" className="text-slate-300 dark:text-slate-700">
             /
           </span>
           <span>18 feeds · 90s refresh · no login</span>
-          <span aria-hidden className="text-slate-300 dark:text-slate-700">
+          <span aria-hidden="true" className="text-slate-300 dark:text-slate-700">
             /
           </span>
           <span>edge-hosted on Cloudflare</span>
@@ -239,7 +239,7 @@ export default function ThreatIntelHome(): JSX.Element {
         </p>
 
         {/* Primary search — the VirusTotal/Shodan pattern */}
-        <div className="mt-6 relative max-w-2xl">
+        <div role="search" className="mt-6 relative max-w-2xl">
           <Search
             size={16}
             className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
@@ -251,7 +251,7 @@ export default function ThreatIntelHome(): JSX.Element {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search actors, CVEs, campaigns, feeds, tools..."
-            className="w-full rounded-xl border border-slate-200 bg-slate-50 py-3 pl-11 pr-24 font-mono text-sm text-slate-900 placeholder:text-slate-400 focus:border-rose-500/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500/20 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--input-200))] dark:text-slate-100 dark:placeholder:text-slate-500"
+            className="w-full rounded-xl border border-slate-200 bg-slate-50 py-3 pl-11 pr-24 font-mono text-sm text-slate-900 placeholder:text-slate-400 focus:border-rose-500/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500/40 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--input-200))] dark:text-slate-100 dark:placeholder:text-slate-500"
             aria-label="Search threat intelligence"
           />
           {query ? (
@@ -460,7 +460,10 @@ export default function ThreatIntelHome(): JSX.Element {
                         {cat.highlight === 'live' && (
                           <span className="ml-auto inline-flex items-center gap-1 font-mono text-[9px] uppercase tracking-wider text-rose-600 dark:text-rose-400">
                             <span className="relative inline-flex h-1 w-1">
-                              <span className="absolute inset-0 rounded-full bg-rose-500 live-pulse" aria-hidden />
+                              <span
+                                className="absolute inset-0 rounded-full bg-rose-500 live-pulse"
+                                aria-hidden="true"
+                              />
                               <span className="relative inline-block h-1 w-1 rounded-full bg-rose-500" />
                             </span>
                             live

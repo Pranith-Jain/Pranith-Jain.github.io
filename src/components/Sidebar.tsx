@@ -113,7 +113,7 @@ export function SidebarContent({ config }: { config: SidebarConfig }): JSX.Eleme
                 className={`w-full flex items-center justify-between gap-1 px-2 py-1.5 text-micro font-mono font-semibold uppercase tracking-[0.12em] transition-colors rounded ${
                   hasActive
                     ? 'text-brand-600 dark:text-brand-400'
-                    : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200'
+                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200'
                 }`}
                 aria-expanded={isExpanded}
                 aria-controls={`sidebar-group-${group.title.replace(/\s+/g, '-').toLowerCase()}`}
@@ -232,6 +232,7 @@ function SidebarContentCollapsed({ config }: { config: SidebarConfig }): JSX.Ele
                 key={item.href}
                 to={item.href}
                 aria-current={active ? 'page' : undefined}
+                aria-label={item.label}
                 title={item.label}
                 className={`grid h-8 w-8 mx-auto place-items-center transition focus:outline-none focus-visible:ring-2 ${focusRing} ${
                   active

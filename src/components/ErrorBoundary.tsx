@@ -198,7 +198,7 @@ function ErrorFallback({ error, errorInfo, isExpanded, onReset, onToggleDetails 
           {/* Error Details (collapsible) */}
           <button
             onClick={onToggleDetails}
-            className="flex items-center gap-2 text-xs text-rose-500 dark:text-rose-400 hover:text-rose-600 dark:hover:text-rose-300 transition-colors mb-3"
+            className="flex items-center gap-2 text-xs text-rose-500 dark:text-rose-400 hover:text-rose-600 dark:hover:text-rose-300 transition-colors mb-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
           >
             {isExpanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
             {isExpanded ? 'Hide' : 'Show'} error details
@@ -229,14 +229,14 @@ function ErrorFallback({ error, errorInfo, isExpanded, onReset, onToggleDetails 
           <div className="flex flex-wrap gap-2 mt-4">
             <button
               onClick={onReset}
-              className="px-4 py-2 rounded-lg bg-rose-600 hover:bg-rose-500 text-white text-sm font-medium transition-colors flex items-center gap-2"
+              className="px-4 py-2 rounded-lg bg-rose-600 hover:bg-rose-500 text-white text-sm font-medium transition-colors flex items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
             >
               <RefreshCw className="w-4 h-4" />
               Try Again
             </button>
             <a
               href="/"
-              className="px-4 py-2 rounded-lg bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 text-sm font-medium transition-colors flex items-center gap-2"
+              className="px-4 py-2 rounded-lg bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 text-sm font-medium transition-colors flex items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
             >
               <Home className="w-4 h-4" />
               Go Home

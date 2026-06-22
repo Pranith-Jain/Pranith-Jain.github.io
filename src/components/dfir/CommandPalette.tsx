@@ -559,7 +559,7 @@ export function CommandPalette(): JSX.Element | null {
           <button
             type="button"
             onClick={() => setOpen(false)}
-            className="p-1 rounded text-slate-500 hover:text-slate-700 dark:hover:text-slate-300"
+            className="p-1 rounded text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
             aria-label="Close"
           >
             <X size={16} />
@@ -571,7 +571,7 @@ export function CommandPalette(): JSX.Element | null {
           <button
             type="button"
             onClick={() => setKindFilter(null)}
-            className={`text-micro font-mono uppercase tracking-wider px-2 py-0.5 rounded border ${
+            className={`text-micro font-mono uppercase tracking-wider px-2 py-0.5 rounded border focus-visible:ring-2 focus-visible:ring-brand-500 ${
               kindFilter === null
                 ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
                 : 'border-slate-300 dark:border-slate-700 text-slate-500 hover:border-brand-500/40'
@@ -588,7 +588,7 @@ export function CommandPalette(): JSX.Element | null {
                 key={k}
                 type="button"
                 onClick={() => setKindFilter(active ? null : k)}
-                className={`text-micro font-mono uppercase tracking-wider px-2 py-0.5 rounded border ${
+                className={`text-micro font-mono uppercase tracking-wider px-2 py-0.5 rounded border focus-visible:ring-2 focus-visible:ring-brand-500 ${
                   active
                     ? KIND_PILL[k]
                     : 'border-slate-300 dark:border-slate-700 text-slate-500 hover:border-brand-500/40'

@@ -215,13 +215,13 @@ function AppStatusBar({ mode }: { mode: 'dfir' | 'threatintel' | 'radar' }): JSX
 
   return (
     <footer className="border-t border-[rgb(var(--border-400))] chrome-glass pb-[env(safe-area-inset-bottom)]">
-      <div className="max-w-[1500px] mx-auto px-4 sm:px-6 min-h-[44px] sm:h-9 py-2 sm:py-0 flex items-center justify-between gap-3 text-mini font-mono text-slate-500 dark:text-slate-400">
+      <div className="max-w-[1500px] mx-auto px-4 sm:px-6 min-h-[44px] sm:h-9 py-2 sm:py-0 flex items-center justify-between gap-3 text-mini font-mono text-slate-600 dark:text-slate-400">
         <div className="flex items-center gap-3 min-w-0">
           {mode === 'radar' ? (
             <>
               <span className="inline-flex items-center gap-1.5">
                 <span className="relative inline-flex h-1.5 w-1.5">
-                  <span className="absolute inset-0 rounded-full bg-brand-500 live-pulse" aria-hidden />
+                  <span className="absolute inset-0 rounded-full bg-brand-500 live-pulse" aria-hidden="true" />
                   <span className="relative inline-block h-1.5 w-1.5 rounded-full bg-brand-500" />
                 </span>
                 scout
@@ -233,7 +233,7 @@ function AppStatusBar({ mode }: { mode: 'dfir' | 'threatintel' | 'radar' }): JSX
             <>
               <span className="inline-flex items-center gap-1.5">
                 <span className="relative inline-flex h-1.5 w-1.5">
-                  <span className="absolute inset-0 rounded-full bg-brand-500 live-pulse" aria-hidden />
+                  <span className="absolute inset-0 rounded-full bg-brand-500 live-pulse" aria-hidden="true" />
                   <span className="relative inline-block h-1.5 w-1.5 rounded-full bg-brand-500" />
                 </span>
                 crucible
@@ -262,6 +262,7 @@ function AppStatusBar({ mode }: { mode: 'dfir' | 'threatintel' | 'radar' }): JSX
           <Link
             to="/"
             className="inline-flex items-center min-h-[44px] sm:min-h-0 px-2 sm:px-0 hover:text-slate-900 dark:hover:text-slate-100"
+            aria-label="Back to portfolio"
           >
             portfolio
           </Link>

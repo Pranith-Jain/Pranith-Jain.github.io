@@ -47,7 +47,7 @@ export function BottomNav({ mode, onOpenSearch }: BottomNavProps): JSX.Element {
                   ? mode === 'dfir'
                     ? 'text-brand-600 dark:text-brand-400'
                     : 'text-rose-600 dark:text-rose-400'
-                  : 'text-slate-500 dark:text-slate-400'
+                  : 'text-slate-600 dark:text-slate-400'
               }`}
             >
               <item.icon size={20} aria-hidden="true" />
