@@ -1,13 +1,13 @@
 import type { D1Database } from '@cloudflare/workers-types';
 
 /**
- * 30-day data retention sweep. Removes rows older than the configured
+ * 7-day data retention sweep. Removes rows older than the configured
  * retention window from time-series and user-data tables.
  *
  * Scope (per the data-minimization policy):
- *   - User-generated data (feedback, annotations, intel bundles) — 30d
- *   - Time-series telemetry (IOCs, WHOIS, CT, telegram leaks, API usage) — 30d
- *   - Briefings (daily/weekly/landscape reports) — 30d
+ *   - User-generated data (feedback, annotations, intel bundles) — 7d
+ *   - Time-series telemetry (IOCs, WHOIS, CT, telegram leaks, API usage) — 7d
+ *   - Briefings (daily/weekly/landscape reports) — 7d
  *
  * Exempt tables (deleting these would break the system or are non-temporal):
  *   - api_keys (auth tokens — deletion locks users out)
@@ -29,7 +29,7 @@ export interface RetentionPolicy {
   format: 'iso' | 'unix';
 }
 
-export const DEFAULT_RETENTION_DAYS = 30;
+export const DEFAULT_RETENTION_DAYS = 7;
 
 /**
  * Default policy. Excludes auth/control-plane tables. Add to this list

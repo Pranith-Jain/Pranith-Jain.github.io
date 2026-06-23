@@ -367,7 +367,7 @@ import {
   deleteSessionHandler,
 } from './routes/admin-keys';
 import { purgeCacheHandler } from './routes/admin-purge';
-import { runRetentionHandler } from './routes/admin-retention';
+import { runRetentionHandler, telegramCleanupHandler } from './routes/admin-retention';
 import { malpediaActorHandler, malpediaFamilyHandler, malpediaSearchHandler } from './routes/malpedia';
 import { maltrailListHandler, maltrailFetchHandler } from './routes/maltrail';
 import { actorEnrichHandler } from './routes/actor-enrich';
@@ -1248,6 +1248,7 @@ app.post('/api/v1/admin/session', createSessionHandler);
 app.delete('/api/v1/admin/session', deleteSessionHandler);
 app.post('/api/v1/admin/purge', validate('json', adminPurgeSchema), purgeCacheHandler);
 app.post('/api/v1/admin/retention/run', validate('json', adminRetentionSchema), runRetentionHandler);
+app.post('/api/v1/admin/retention/telegram-cleanup', telegramCleanupHandler);
 app.get('/api/v1/blocklists/pfsense', blocklistPfSenseHandler);
 app.get('/api/v1/blocklists/iptables', blocklistIptablesHandler);
 app.get('/api/v1/blocklists/suricata', blocklistSuricataHandler);

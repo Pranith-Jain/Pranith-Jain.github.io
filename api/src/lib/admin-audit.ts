@@ -44,7 +44,8 @@ export type AdminAction =
   | 'intel_bundle_build'
   | 'rag_index'
   | 'automation_run'
-  | 'retention_sweep';
+  | 'retention_sweep'
+  | 'telegram_cleanup';
 
 /**
  * Log an admin action to Analytics Engine.
