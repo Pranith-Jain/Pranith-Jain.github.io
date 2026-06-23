@@ -106,6 +106,9 @@ export default function ObservableDb(): JSX.Element {
   const [addIndicator, setAddIndicator] = useState('');
   const [addType, setAddType] = useState('ip');
   const [addTags, setAddTags] = useState('');
+  // Inline tag-add for the detail panel (replaces a native window.prompt).
+  const [tagDraft, setTagDraft] = useState('');
+  const [tagInputOpen, setTagInputOpen] = useState(false);
 
   const fetchData = useCallback(async () => {
     setLoading(true);
@@ -491,22 +494,45 @@ export default function ObservableDb(): JSX.Element {
                     <span className="text-slate-400 text-micro">Tags</span>
                     <button
                       type="button"
-                      onClick={() => {
-                        const t = prompt('Add tag (comma-separated)', '');
-                        if (t)
-                          void updateTags(selected.id, [
-                            ...selected.tags,
-                            ...t
-                              .split(',')
-                              .map((s) => s.trim())
-                              .filter(Boolean),
-                          ]);
-                      }}
+                      onClick={() => setTagInputOpen((v) => !v)}
+                      aria-expanded={tagInputOpen}
                       className="text-brand-600 dark:text-brand-400 text-micro hover:underline"
                     >
                       + Add
                     </button>
                   </div>
+                  {tagInputOpen && (
+                    <form
+                      onSubmit={(e) => {
+                        e.preventDefault();
+                        const fresh = tagDraft
+                          .split(',')
+                          .map((s) => s.trim())
+                          .filter(Boolean);
+                        if (fresh.length) void updateTags(selected.id, [...selected.tags, ...fresh]);
+                        setTagDraft('');
+                        setTagInputOpen(false);
+                      }}
+                      className="flex gap-2 mb-2"
+                    >
+                      <input
+                        type="text"
+                        autoFocus
+                        value={tagDraft}
+                        onChange={(e) => setTagDraft(e.target.value)}
+                        placeholder="tag, tag…"
+                        aria-label="Add tags (comma-separated)"
+                        className="flex-1 px-2 py-1.5 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-mini font-mono focus:outline-none focus:border-brand-500"
+                      />
+                      <button
+                        type="submit"
+                        disabled={!tagDraft.trim()}
+                        className="px-2 py-1.5 bg-brand-600 dark:bg-brand-500 text-white rounded text-micro font-mono disabled:opacity-30"
+                      >
+                        <Plus size={12} />
+                      </button>
+                    </form>
+                  )}
                   <div className="flex flex-wrap gap-1">
                     {selected.tags.map((t) => (
                       <span
