@@ -59,10 +59,7 @@ export default function Sponsor() {
 
         <div className="grid gap-8 sm:grid-cols-2 mb-16">
           {tiers.map((tier) => (
-            <div
-              key={tier.name}
-              className="rounded-xl border border-slate-200/70 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-6 sm:p-8 flex flex-col"
-            >
+            <div key={tier.name} className="surface-card p-6 sm:p-8 flex flex-col">
               <div className="mb-3 text-eyebrow font-mono uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">
                 {tier.name}
               </div>
@@ -122,10 +119,7 @@ export default function Sponsor() {
           </div>
           <div className="grid gap-6 sm:grid-cols-3">
             {benefits.map((b) => (
-              <div
-                key={b.title}
-                className="rounded-xl border border-slate-200/70 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-6"
-              >
+              <div key={b.title} className="surface-card p-6">
                 <h3 className="font-semibold text-slate-900 dark:text-white mb-2">{b.title}</h3>
                 <p className="text-sm text-muted leading-relaxed">{b.body}</p>
               </div>
