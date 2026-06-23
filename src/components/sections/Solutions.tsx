@@ -63,7 +63,7 @@ export function Solutions() {
             <Link
               key={pillar.href}
               to={pillar.href}
-              className="group block rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-6 transition hover:border-brand-500/50"
+              className="group block surface-card card-hover p-6 hover:border-brand-500/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
             >
               <div className="mb-4 flex items-center gap-3">
                 <span className="grid h-10 w-10 place-items-center rounded-xl bg-brand-500/10 text-brand-600 dark:text-brand-400 transition-colors group-hover:bg-brand-500/20">

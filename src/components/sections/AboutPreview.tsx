@@ -14,7 +14,7 @@ export function AboutPreview({ personalInfo }: AboutPreviewProps) {
   return (
     <section ref={ref} id="about-preview" className="scroll-mt-24" aria-labelledby="about-preview-heading">
       <div
-        className={`rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-6 sm:p-8 transition-all duration-700 ease-out ${
+        className={`surface-card p-6 sm:p-8 transition-all duration-700 ease-out ${
           inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
         }`}
       >

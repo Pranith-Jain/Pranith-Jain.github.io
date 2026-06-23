@@ -41,10 +41,7 @@ export function Skills({ skills }: SkillsProps) {
         {skills.map((skill) => {
           const IconComponent = iconMap[skill.icon];
           return (
-            <div
-              key={skill.title}
-              className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5"
-            >
+            <div key={skill.title} className="surface-card p-5">
               <div className="flex items-center gap-3 mb-4">
                 <span className="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-brand-50 text-brand-600 dark:bg-brand-900/30 dark:text-brand-300">
                   {IconComponent && <IconComponent className="h-4 w-4" aria-hidden="true" />}

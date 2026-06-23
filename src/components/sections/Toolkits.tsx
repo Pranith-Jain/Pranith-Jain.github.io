@@ -95,11 +95,7 @@ export function Toolkits() {
         {apps.map((app) => {
           const Icon = app.icon;
           return (
-            <Link
-              key={app.id}
-              to={app.href}
-              className="group card-hover flex flex-col rounded-lg border border-black/10 bg-white p-6 transition-all h-full hover:border-black/25 hover:bg-black/[0.02] dark:border-white/10 dark:bg-slate-900/90 dark:hover:border-white/20 dark:hover:bg-white/[0.03]"
-            >
+            <Link key={app.id} to={app.href} className="group card-hover surface-card flex flex-col p-6 h-full">
               <div className="flex items-start justify-between mb-4">
                 <div className="grid h-10 w-10 place-items-center rounded-md bg-brand-50 text-brand-600 dark:bg-brand-900/30 dark:text-brand-300">
                   <Icon className="h-5 w-5" aria-hidden="true" />

@@ -51,10 +51,7 @@ export function Experience({ experiences }: ExperienceProps) {
           const headerId = `experience-header-${index}`;
           const bodyId = `experience-body-${index}`;
           return (
-            <div
-              key={exp.title}
-              className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40"
-            >
+            <div key={exp.title} className="surface-card">
               <button
                 type="button"
                 id={headerId}

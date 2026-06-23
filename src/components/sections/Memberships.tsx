@@ -27,16 +27,13 @@ export function Memberships({ memberships }: MembershipsProps) {
       <div className="grid gap-4 sm:gap-5 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
         {memberships.map((membership) => {
           return (
-            <div
-              key={membership.name}
-              className="group flex flex-col gap-5 p-6 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 transition hover:border-brand-500/40 h-full"
-            >
+            <div key={membership.name} className="flex flex-col gap-5 p-6 surface-card h-full">
               <div className="flex items-center justify-between">
                 <span className={ABBREV_TILE}>{membership.abbreviation}</span>
                 <span className={MEMBER_PILL}>Member</span>
               </div>
               <div>
-                <h3 className="font-display text-xl font-semibold tracking-[-0.96px] text-slate-900 dark:text-white transition-colors group-hover:text-brand-600 dark:group-hover:text-brand-400">
+                <h3 className="font-display text-xl font-semibold tracking-[-0.96px] text-slate-900 dark:text-white">
                   {membership.name}
                 </h3>
                 <p className="mt-1 text-xs font-semibold text-slate-500 dark:text-slate-400">{membership.period}</p>

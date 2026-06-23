@@ -25,7 +25,7 @@ function ProjectCard({ project }: ProjectCardProps): JSX.Element {
   const needsToggle = project.description.length > TRUNCATE_THRESHOLD;
 
   return (
-    <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5">
+    <div className="surface-card p-5">
       <div className="flex items-start justify-between gap-3">
         <h3 className="font-display font-semibold text-lg text-slate-900 dark:text-white">{project.title}</h3>
         {project.badge && (
@@ -148,7 +148,7 @@ export function Projects({ projects }: ProjectsProps) {
                 <Link
                   key={cs.slug}
                   to={`/projects/${cs.slug}`}
-                  className="group relative sm:pl-10 block rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5 transition hover:border-brand-500/40 hover:shadow-sm"
+                  className="group relative sm:pl-10 block surface-card card-hover p-5 hover:border-brand-500/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
                 >
                   {/* Timeline dot */}
                   <div className="absolute left-2.5 top-6 w-3 h-3 rounded-full bg-brand-500 border-2 border-white dark:border-slate-900 hidden sm:block" />

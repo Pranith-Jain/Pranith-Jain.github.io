@@ -15,7 +15,7 @@ export function Contact({ personalInfo }: ContactProps) {
           "hero island" — so we use the same `bg-white` + gray-alpha
           border as the cards above, then highlight the eyebrow with
           the brand text accent to give it presence. */}
-      <div className="relative overflow-hidden rounded-lg border border-black/10 bg-white px-5 py-10 dark:border-white/10 dark:bg-[rgb(var(--surface-200))] sm:px-10 sm:py-14 lg:py-16">
+      <div className="relative overflow-hidden rounded-hero border border-black/10 bg-white px-5 py-10 dark:border-white/10 dark:bg-[rgb(var(--surface-200))] sm:px-10 sm:py-14 lg:py-16">
         {/* Single faint radial wash at the top gives the panel a touch of
             presence without crossing into the AI-pillow look. */}
         <div

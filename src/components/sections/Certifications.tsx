@@ -15,7 +15,7 @@ interface CertCardProps {
 function CertCard({ title, issuer, year, featured, type }: CertCardProps) {
   return (
     <div
-      className={`rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5 transition hover:border-brand-500/40 h-full flex flex-col ${
+      className={`surface-card p-5 hover:border-brand-500/40 h-full flex flex-col ${
         featured ? 'border-l-[3px] border-l-brand-500' : ''
       }`}
     >
@@ -144,10 +144,7 @@ export function Certifications({ certifications, education }: CertificationsProp
         </h3>
         <ul className="space-y-3">
           {education.map((e) => (
-            <li
-              key={e.degree}
-              className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 px-5 py-4"
-            >
+            <li key={e.degree} className="surface-card px-5 py-4">
               <div className="font-semibold text-slate-900 dark:text-white">{e.degree}</div>
               <div className="text-sm text-muted">{e.school}</div>
             </li>

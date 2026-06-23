@@ -25,7 +25,7 @@ export function Hero({ personalInfo }: HeroProps) {
           {/* h1: Geist h-40 to h-72 tracking (-1.28 to -2.4px). We use
               -2.4px (heading-40) because the responsive sizes
               (28-52px) sit in that range. */}
-          <h1 className="font-display text-[1.75rem] font-semibold leading-[1.1] tracking-[-2.4px] sm:text-5xl lg:text-[3.25rem] text-slate-900 dark:text-white">
+          <h1 className="font-display text-[1.75rem] font-semibold leading-[1.1] tracking-[-0.04em] sm:text-5xl lg:text-[3.25rem] text-slate-900 dark:text-white">
             Building at the intersection of{' '}
             <span className="text-brand-600 dark:text-brand-400">
               AI, threat intelligence, and edge-native security tooling.
@@ -87,7 +87,7 @@ export function Hero({ personalInfo }: HeroProps) {
             pushed it forward of the page; Geist hierarchy is "borders
             first, shadows subtle" so the card sits in the page). */}
         <div className="shrink-0 lg:sticky lg:top-24">
-          <div className="rounded-lg border border-black/10 bg-white p-6 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] sm:p-7 flex flex-col items-center sm:items-start text-center sm:text-left">
+          <div className="surface-card p-6 sm:p-7 flex flex-col items-center sm:items-start text-center sm:text-left">
             <PjMark className="h-14 w-14 sm:h-16 sm:w-16 mb-4" />
             <h2 className="font-display text-lg font-semibold tracking-[-0.4px] text-slate-900 dark:text-white">
               {personalInfo.name}
