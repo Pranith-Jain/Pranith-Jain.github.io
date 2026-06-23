@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { getJson, postJson, postJsonWithBody } from './adminApi';
+import { Modal } from '../../components/ui/Modal';
 
 interface Slot {
   slotAt: string;
@@ -15,6 +16,8 @@ export default function ScheduleTab() {
   const [error, setError] = useState<string | null>(null);
   const [publishing, setPublishing] = useState<string | null>(null);
   const [msg, setMsg] = useState<string | null>(null);
+  const [rescheduleId, setRescheduleId] = useState<string | null>(null);
+  const [rescheduleAt, setRescheduleAt] = useState('');
 
   // Backend's /admin/schedule handler already revalidates each published
   // slot against /posts/<slug> and downgrades stale rows to 'pending', so
@@ -69,14 +72,20 @@ export default function ScheduleTab() {
     }
   }
 
-  async function reschedule(candidateId: string) {
-    const input = window.prompt('Reschedule to (local date/time, e.g. 2026-06-10 14:30):');
-    if (!input) return;
-    const d = new Date(input);
+  function reschedule(candidateId: string) {
+    setRescheduleAt('');
+    setRescheduleId(candidateId);
+  }
+
+  async function confirmReschedule() {
+    if (!rescheduleId || !rescheduleAt) return;
+    const d = new Date(rescheduleAt);
     if (Number.isNaN(d.getTime())) {
       setMsg('Invalid date/time');
       return;
     }
+    const candidateId = rescheduleId;
+    setRescheduleId(null);
     setPublishing(candidateId);
     setMsg(null);
     try {
@@ -196,6 +205,43 @@ export default function ScheduleTab() {
           </tbody>
         </table>
       </div>
+
+      <Modal open={rescheduleId !== null} onClose={() => setRescheduleId(null)} title="Reschedule slot">
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            void confirmReschedule();
+          }}
+          className="space-y-3"
+        >
+          <label className="block text-tool text-slate-500 dark:text-slate-400">
+            New date &amp; time
+            <input
+              type="datetime-local"
+              autoFocus
+              value={rescheduleAt}
+              onChange={(e) => setRescheduleAt(e.target.value)}
+              className="mt-1 w-full px-3 py-2 rounded-md border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-sm focus:outline-none focus:border-brand-500"
+            />
+          </label>
+          <div className="flex justify-end gap-2">
+            <button
+              type="button"
+              onClick={() => setRescheduleId(null)}
+              className="px-3 py-1.5 text-tool text-slate-500 hover:text-slate-700 dark:hover:text-slate-300"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              disabled={!rescheduleAt}
+              className="px-3 py-1.5 rounded-md bg-brand-600 text-white text-tool font-semibold hover:bg-brand-500 disabled:opacity-40"
+            >
+              Reschedule
+            </button>
+          </div>
+        </form>
+      </Modal>
     </div>
   );
 }
