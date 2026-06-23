@@ -33,7 +33,14 @@ const BUDGETS = {
   // growth pushed the total over the 200KB raw line. +24KB raw / +4KB
   // gzip headroom; transfer impact is still negligible (gzipped CSS is
   // cached aggressively and the new layer is one class + a few rules).
-  'index-*.css': { uncompressed: 228_000, gzip: 34_000 },
+  // raw 228→360KB / gzip 34→44KB: recalibrated for the Tailwind v4 migration.
+  // v4 emits a larger base layer (preflight + theme @property declarations +
+  // per-utility variable plumbing) than the v3 build this budget was set
+  // against, so main already sat ~348KB raw / ~42KB gzip independent of any
+  // feature change. (The font-token fix that restored text-tool/meta/micro/
+  // mini/eyebrow added only ~8 rules.) Set to current size + modest headroom;
+  // gzipped CSS is cached aggressively so transfer impact stays negligible.
+  'index-*.css': { uncompressed: 360_000, gzip: 44_000 },
   // raw 280→300KB / gzip 92→96KB: the in-flight Dnscope, EmailDefense,
   // and IntodnsPanel pages (plus the api/ validation rewrite) added new
   // panel components and form schemas to the main app chunk. +20KB raw
