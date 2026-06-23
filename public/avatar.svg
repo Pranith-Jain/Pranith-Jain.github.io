@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" viewBox="0 0 400 400">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="36%" r="80%">
+      <stop offset="0%" stop-color="#16264e"/><stop offset="100%" stop-color="#070b1c"/>
+    </radialGradient>
+    <radialGradient id="node" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#6d8bf7" stop-opacity="0.5"/><stop offset="100%" stop-color="#6d8bf7" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="nodeRose" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fb7185" stop-opacity="0.6"/><stop offset="100%" stop-color="#fb7185" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="sweep" cx="0%" cy="50%" r="100%">
+      <stop offset="0%" stop-color="#6d8bf7" stop-opacity="0.4"/><stop offset="100%" stop-color="#6d8bf7" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="28" height="28" patternUnits="userSpaceOnUse">
+      <path d="M 28 0 L 0 0 0 28" fill="none" stroke="#6d8bf7" stroke-opacity="0.05" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="400" height="400" fill="url(#bg)"/>
+  <rect width="400" height="400" fill="url(#grid)"/>
+  <circle cx="200" cy="200" r="188" fill="none" stroke="#6d8bf7" stroke-opacity="0.45" stroke-width="3"/>
+  
+  <circle cx="200" cy="200" r="118" fill="url(#node)" opacity="0.7"/>
+  <path d="M 60 200 Q 200 104 340 200" fill="none" stroke="#6d8bf7" stroke-opacity="0.55" stroke-width="3"/>
+  <path d="M 60 200 Q 200 296 340 200" fill="none" stroke="#6d8bf7" stroke-opacity="0.55" stroke-width="3"/>
+  <circle cx="200" cy="200" r="88" fill="none" stroke="#6d8bf7" stroke-opacity="0.3" stroke-width="2"/>
+  <line x1="260.0" y1="200.0" x2="286.0" y2="200.0" stroke="#6d8bf7" stroke-opacity="0.22" stroke-width="2"/>
+  <line x1="258.0" y1="215.5" x2="283.1" y2="222.3" stroke="#6d8bf7" stroke-opacity="0.22" stroke-width="2"/>
+  <line x1="252.0" y1="230.0" x2="274.5" y2="243.0" stroke="#6d8bf7" stroke-opacity="0.22" stroke-width="2"/>
+  <line x1="242.4" y1="242.4" x2="260.8" y2="260.8" stroke="#6d8bf7" stroke-opacity="0.22" stroke-width="2"/>
+  <line x1="230.0" y1="252.0" x2="243.0" y2="274.5" stroke="#6d8bf7" stroke-opacity="0.22" stroke-width="2"/>
+  <line x1="215.5" y1="258.0" x2="222.3" y2="283.1" stroke="#6d8bf7" stroke-opacity="0.22" stroke-width="2"/>
+  <line x1="200.0" y1="260.0" x2="200.0" y2="286.0" stroke="#6d8bf7" stroke-opacity="0.22" stroke-width="2"/>
+  <line x1="184.5" y1="258.0" x2="177.7" y2="283.1" stroke="#6d8bf7" stroke-opacity="0.22" stroke-width="2"/>
+  <line x1="170.0" y1="252.0" x2="157.0" y2="274.5" stroke="#6d8bf7" stroke-opacity="0.22" stroke-width="2"/>
+  <line x1="157.6" y1="242.4" x2="139.2" y2="260.8" stroke="#6d8bf7" stroke-opacity="0.22" stroke-width="2"/>
+  <line x1="148.0" y1="230.0" x2="125.5" y2="243.0" stroke="#6d8bf7" stroke-opacity="0.22" stroke-width="2"/>
+  <line x1="142.0" y1="215.5" x2="116.9" y2="222.3" stroke="#6d8bf7" stroke-opacity="0.22" stroke-width="2"/>
+  <line x1="140.0" y1="200.0" x2="114.0" y2="200.0" stroke="#6d8bf7" stroke-opacity="0.22" stroke-width="2"/>
+  <line x1="142.0" y1="184.5" x2="116.9" y2="177.7" stroke="#6d8bf7" stroke-opacity="0.22" stroke-width="2"/>
+  <line x1="148.0" y1="170.0" x2="125.5" y2="157.0" stroke="#6d8bf7" stroke-opacity="0.22" stroke-width="2"/>
+  <line x1="157.6" y1="157.6" x2="139.2" y2="139.2" stroke="#6d8bf7" stroke-opacity="0.22" stroke-width="2"/>
+  <line x1="170.0" y1="148.0" x2="157.0" y2="125.5" stroke="#6d8bf7" stroke-opacity="0.22" stroke-width="2"/>
+  <line x1="184.5" y1="142.0" x2="177.7" y2="116.9" stroke="#6d8bf7" stroke-opacity="0.22" stroke-width="2"/>
+  <line x1="200.0" y1="140.0" x2="200.0" y2="114.0" stroke="#6d8bf7" stroke-opacity="0.22" stroke-width="2"/>
+  <line x1="215.5" y1="142.0" x2="222.3" y2="116.9" stroke="#6d8bf7" stroke-opacity="0.22" stroke-width="2"/>
+  <line x1="230.0" y1="148.0" x2="243.0" y2="125.5" stroke="#6d8bf7" stroke-opacity="0.22" stroke-width="2"/>
+  <line x1="242.4" y1="157.6" x2="260.8" y2="139.2" stroke="#6d8bf7" stroke-opacity="0.22" stroke-width="2"/>
+  <line x1="252.0" y1="170.0" x2="274.5" y2="157.0" stroke="#6d8bf7" stroke-opacity="0.22" stroke-width="2"/>
+  <line x1="258.0" y1="184.5" x2="283.1" y2="177.7" stroke="#6d8bf7" stroke-opacity="0.22" stroke-width="2"/>
+  <circle cx="200" cy="200" r="58" fill="none" stroke="#9db4fb" stroke-opacity="0.6" stroke-width="2.4"/>
+  <circle cx="200" cy="200" r="34" fill="#0a1430"/>
+  <circle cx="200" cy="200" r="34" fill="none" stroke="#9db4fb" stroke-opacity="0.7" stroke-width="2"/>
+  <circle cx="200" cy="200" r="13" fill="#6d8bf7"/>
+  <circle cx="193" cy="193" r="5" fill="#ffffff" fill-opacity="0.9"/>
+</svg>
