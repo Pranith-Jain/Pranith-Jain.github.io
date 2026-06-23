@@ -55,6 +55,17 @@ export function Tooltip({ content, children, position = 'top', delay = 200, clas
     };
   }, []);
 
+  // WCAG 1.4.13: hover/focus content must be dismissible without moving the
+  // pointer or focus. Allow Escape to clear a visible tooltip.
+  useEffect(() => {
+    if (!isVisible) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') hideTooltip();
+    };
+    document.addEventListener('keydown', onKeyDown);
+    return () => document.removeEventListener('keydown', onKeyDown);
+  }, [isVisible, hideTooltip]);
+
   return (
     <div
       className="relative inline-flex"

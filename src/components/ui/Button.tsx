@@ -79,9 +79,12 @@ export function Button({
     // appropriate for terminal-style controls; the rest of the app
     // uses it because the previous Button passed font-mono unconditionally.
     'inline-flex items-center justify-center gap-2 rounded-md font-sans transition-colors',
-    // Geist two-layer focus ring; the inner gap uses the surface color
-    // (handled globally by :focus-visible in index.css).
-    'focus-visible:outline-none',
+    // Visible keyboard focus ring (brand, with a surface-colored offset gap
+    // so it reads on any background in both themes). Must live here: the
+    // global :focus-visible outline in index.css is overridden by Tailwind's
+    // higher-specificity outline-none utility, so without this ring keyboard
+    // focus on the canonical button would be invisible.
+    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-slate-950',
     VARIANT[variant],
     SIZE[size],
     fullWidth ? 'w-full' : '',

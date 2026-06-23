@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, type FormEvent } from 'react';
+import { useState, useEffect, type FormEvent } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Search, ExternalLink, Globe, ChevronDown, ChevronRight, Fingerprint, Shield } from 'lucide-react';
 import type { DomainLookupResponse } from '../../lib/dfir/types';
@@ -36,7 +36,7 @@ export default function Domain(): JSX.Element {
   const [error, setError] = useState<string | null>(null);
   const [webamon, setWebamon] = useState<WebamonData | null>(null);
   const [webamonLoading, setWebamonLoading] = useState(false);
-  const webamonExpanded = useRef(true);
+  const [webamonExpanded, setWebamonExpanded] = useState(true);
   const valid = DOMAIN_RE.test(input.trim());
 
   const onSubmit = async (e: FormEvent) => {
@@ -85,7 +85,7 @@ export default function Domain(): JSX.Element {
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <div className="animate-fade-in-up">
-        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2">Domain Lookup</h1>
+        <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2">Domain Lookup</h1>
         <p className="text-muted mb-8 max-w-2xl">
           WHOIS, DNS, SPF, DMARC, DKIM, BIMI, MTA-STS, and Certificate Transparency, all from one query.
         </p>
@@ -159,10 +159,12 @@ export default function Domain(): JSX.Element {
           {webamon && webamon.total_hits > 0 && (
             <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
               <button
-                onClick={() => (webamonExpanded.current = !webamonExpanded.current)}
+                type="button"
+                onClick={() => setWebamonExpanded((v) => !v)}
+                aria-expanded={webamonExpanded}
                 className="w-full flex items-center gap-2 text-left"
               >
-                {webamonExpanded.current ? (
+                {webamonExpanded ? (
                   <ChevronDown size={16} className="text-slate-400" />
                 ) : (
                   <ChevronRight size={16} className="text-slate-400" />
@@ -174,7 +176,7 @@ export default function Domain(): JSX.Element {
                   ({webamon.total_hits} scan{webamon.total_hits !== 1 ? 's' : ''})
                 </span>
               </button>
-              {webamonExpanded.current &&
+              {webamonExpanded &&
                 webamon.results.map((hit, i) => (
                   <div key={hit.meta?.report_id ?? i} className="mt-4 grid grid-cols-2 gap-4 text-tool">
                     <div>

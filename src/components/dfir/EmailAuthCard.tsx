@@ -1,3 +1,4 @@
+import { CheckCircle2, XCircle, AlertTriangle } from 'lucide-react';
 import type { DomainLookupResponse } from '../../lib/dfir/types';
 
 interface ChipProps {
@@ -13,10 +14,21 @@ function Chip({ label, ok, detail, warn }: ChipProps): JSX.Element {
     : warn
       ? 'border-amber-500/40 text-amber-600 dark:text-amber-400'
       : 'border-emerald-500/40 text-emerald-600 dark:text-emerald-400';
+  // Icon backs up the border color so state is not color-only (WCAG 1.4.1).
+  const Icon = !ok ? XCircle : warn ? AlertTriangle : CheckCircle2;
+  const state = !ok ? 'fail' : warn ? 'warning' : 'pass';
+  const value = detail ?? (ok ? 'configured' : 'missing');
   return (
-    <div className={`flex flex-col gap-0.5 px-3 py-2 rounded-lg border ${cls}`}>
-      <span className="text-xs font-mono uppercase tracking-wider">{label}</span>
-      <span className="text-sm font-mono">{detail ?? (ok ? 'configured' : 'missing')}</span>
+    <div
+      className={`flex flex-col gap-0.5 px-3 py-2 rounded-lg border ${cls}`}
+      role="group"
+      aria-label={`${label}: ${value} (${state})`}
+    >
+      <span className="flex items-center gap-1 text-xs font-mono uppercase tracking-wider">
+        <Icon className="h-3.5 w-3.5" aria-hidden="true" />
+        {label}
+      </span>
+      <span className="text-sm font-mono">{value}</span>
     </div>
   );
 }

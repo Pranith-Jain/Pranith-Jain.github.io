@@ -1,3 +1,5 @@
+import { CheckCircle2, XCircle, AlertTriangle, HelpCircle, type LucideIcon } from 'lucide-react';
+
 interface AuthChipProps {
   label: string;
   verdict: string;
@@ -12,12 +14,32 @@ const STYLES: Record<string, string> = {
   unknown: 'bg-slate-200 dark:bg-slate-800 text-muted border-slate-300 dark:border-slate-700',
 };
 
+// Pair each verdict with an icon so pass/fail is not conveyed by color alone
+// (WCAG 1.4.1 — colorblind users + screen readers get the meaning too).
+const ICONS: Record<string, LucideIcon> = {
+  pass: CheckCircle2,
+  fail: XCircle,
+  softfail: AlertTriangle,
+  neutral: HelpCircle,
+  none: HelpCircle,
+  unknown: HelpCircle,
+};
+
 function AuthChip({ label, verdict }: AuthChipProps): JSX.Element {
-  const style = STYLES[verdict.toLowerCase()] ?? STYLES.unknown;
+  const key = verdict.toLowerCase();
+  const style = STYLES[key] ?? STYLES.unknown;
+  const Icon = ICONS[key] ?? HelpCircle;
   return (
-    <div className={`flex flex-col items-center gap-1 px-4 py-3 rounded-xl border ${style}`}>
+    <div
+      className={`flex flex-col items-center gap-1 px-4 py-3 rounded-xl border ${style}`}
+      role="group"
+      aria-label={`${label}: ${verdict}`}
+    >
       <span className="text-xs font-mono uppercase tracking-widest opacity-70">{label}</span>
-      <span className="text-sm font-mono font-bold uppercase">{verdict}</span>
+      <span className="flex items-center gap-1.5 text-sm font-mono font-bold uppercase">
+        <Icon className="h-4 w-4" aria-hidden="true" />
+        {verdict}
+      </span>
     </div>
   );
 }

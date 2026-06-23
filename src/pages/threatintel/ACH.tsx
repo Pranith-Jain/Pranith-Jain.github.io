@@ -37,10 +37,13 @@ interface AchResponse {
   model_used: string;
 }
 
-function confidenceColor(score: number): string {
-  if (score >= 70) return 'bg-emerald-500';
-  if (score >= 40) return 'bg-amber-500';
-  return 'bg-rose-500';
+// Real CSS colors for the inline confidence-bar gradient. The sibling
+// confidenceBg() returns Tailwind classes, but an inline gradient needs a
+// valid CSS color value (emerald-500 / amber-500 / rose-500 hex equivalents).
+function confidenceCssColor(score: number): string {
+  if (score >= 70) return '#10b981';
+  if (score >= 40) return '#f59e0b';
+  return '#f43f5e';
 }
 
 function confidenceBg(score: number): string {
@@ -173,7 +176,7 @@ export default function ACH(): JSX.Element {
                     <div
                       className="w-1 h-12 rounded-full shrink-0"
                       style={{
-                        background: `linear-gradient(to top, ${confidenceColor(h.confidence).replace('bg-', '')}, transparent)`,
+                        background: `linear-gradient(to top, ${confidenceCssColor(h.confidence)}, transparent)`,
                       }}
                     />
                     <div className="flex-1 min-w-0">

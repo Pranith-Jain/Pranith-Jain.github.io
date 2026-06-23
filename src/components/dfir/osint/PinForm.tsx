@@ -55,12 +55,14 @@ export function PinForm({
       <input
         className="w-full rounded border border-slate-300 dark:border-slate-700 px-2 py-1 bg-white dark:bg-slate-900"
         placeholder="Label"
+        aria-label="Pin label"
         value={label}
         onChange={(e) => setLabel(e.target.value)}
       />
       <textarea
         className="w-full rounded border border-slate-300 dark:border-slate-700 px-2 py-1 bg-white dark:bg-slate-900"
         placeholder="Note"
+        aria-label="Pin note"
         value={note}
         onChange={(e) => setNote(e.target.value)}
       />

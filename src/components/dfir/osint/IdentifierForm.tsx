@@ -32,6 +32,7 @@ export function IdentifierForm({
     >
       <select
         value={type}
+        aria-label="Identifier type"
         onChange={(e) => {
           setType(e.target.value);
           setFields({});
