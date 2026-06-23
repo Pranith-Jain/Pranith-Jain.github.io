@@ -82,10 +82,6 @@ const SOURCES: RssSource[] = [
     accent: 'rose',
     upstream: 'https://www.threatsignal.in/rss.xml',
     displayLink: 'https://www.threatsignal.in/',
-    // threatsignal.in's RSS hard-codes <link>https://threatsignal.research/...
-    // for both the channel and every item. threatsignal.research doesn't
-    // resolve (no A record), so the raw links 404. Rewrite them to the
-    // real www.threatsignal.in host. Path/query/hash preserved.
     linkOriginRewrite: [
       { from: 'threatsignal.research', to: 'www.threatsignal.in' },
       { from: 'www.threatsignal.research', to: 'www.threatsignal.in' },
@@ -99,6 +95,47 @@ const SOURCES: RssSource[] = [
     upstream: 'https://opensourcemalware.com/rss.xml',
     displayLink: 'https://opensourcemalware.com/',
   },
+  {
+    id: 'ctrlaltintel',
+    name: 'Ctrl-Alt-Intel',
+    author: 'ctrlaltintel.com',
+    accent: 'violet',
+    upstream: 'https://ctrlaltintel.com/feed.xml',
+    displayLink: 'https://ctrlaltintel.com/',
+    linkOriginRewrite: [{ from: 'ctrlaltintel.com', to: 'ctrlaltintel.com' }],
+  },
+  {
+    id: 'checkpoint-research',
+    name: 'Check Point Research',
+    author: 'research.checkpoint.com',
+    accent: 'sky',
+    upstream: 'https://research.checkpoint.com/feed/',
+    displayLink: 'https://research.checkpoint.com/',
+  },
+  {
+    id: 'unit42',
+    name: 'Unit 42',
+    author: 'unit42.paloaltonetworks.com',
+    accent: 'amber',
+    upstream: 'https://unit42.paloaltonetworks.com/feed/',
+    displayLink: 'https://unit42.paloaltonetworks.com/',
+  },
+  {
+    id: 'elastic-security-labs',
+    name: 'Elastic Security Labs',
+    author: 'elastic.co',
+    accent: 'cyan',
+    upstream: 'https://www.elastic.co/security-labs/rss/feed.xml',
+    displayLink: 'https://www.elastic.co/security-labs',
+  },
+  {
+    id: 'volexity',
+    name: 'Volexity',
+    author: 'volexity.com',
+    accent: 'slate',
+    upstream: 'https://www.volexity.com/feed/',
+    displayLink: 'https://www.volexity.com/blog/',
+  },
 ];
 
 const SOURCE_BY_ID: Record<string, RssSource> = Object.fromEntries(SOURCES.map((s) => [s.id, s]));
@@ -111,7 +148,8 @@ const CACHE_TTL_SECONDS = 900;
 /** Hard ceiling on what we'll cache per source. */
 const MAX_ITEMS_PER_SOURCE = 50;
 
-const FETCH_UA = 'Mozilla/5.0 (compatible; pranithjain-threatintel/1.0; +https://pranithjain.qzz.io/threatintel/threatsignal)';
+const FETCH_UA =
+  'Mozilla/5.0 (compatible; pranithjain-threatintel/1.0; +https://pranithjain.qzz.io/threatintel/threatsignal)';
 
 /* ── Public types ───────────────────────────────────────────────── */
 
@@ -120,12 +158,12 @@ export interface RssItem {
   title: string;
   link: string;
   description: string;
-  pubDate: string;        // ISO 8601
-  pubDateRaw: string;     // original RFC 822 string
+  pubDate: string; // ISO 8601
+  pubDateRaw: string; // original RFC 822 string
   category: string | null;
   guid: string;
-  author: string | null;  // extracted from <author>jenn</author> if present
-  sourceId: string;       // 'threatsignal' | 'opensourcemalware' | …
+  author: string | null; // extracted from <author>jenn</author> if present
+  sourceId: string; // 'threatsignal' | 'opensourcemalware' | …
   sourceName: string;
   sourceAuthor: string | null;
   sourceAccent: RssSource['accent'];
@@ -161,50 +199,63 @@ export interface RssAggregate {
     itemCount: number;
   }>;
   feeds: RssFeed[];
-  items: RssItem[];   // pre-sorted by pubDate DESC, deduplicated by id
+  items: RssItem[]; // pre-sorted by pubDate DESC, deduplicated by id
 }
 
 /* ── Tiny XML parser (RSS 2.0 only) ─────────────────────────────── */
 
-// threatsignal + opensourcemalware both ship well-formed enough RSS 2.0
-// that a tag-walk handles them. Adding a dependency (fast-xml-parser /
-// xml2js) for a 6-element schema would be overkill.
+// Supports RSS 2.0 (<channel>/<item>) and Atom (<feed>/<entry>).
+// Adding a dependency (fast-xml-parser / xml2js) for a 6-element
+// schema would be overkill.
 
 function extractChannel(xml: string, source: RssSource): RssChannel {
+  // Try RSS 2.0 first
   const channelMatch = /<channel>([\s\S]*?)<\/channel>/.exec(xml);
-  if (!channelMatch) {
+  if (channelMatch) {
+    const fullBody = channelMatch[1]!;
+    const beforeFirstItem = fullBody.split(/<item>/i, 1)[0] ?? '';
+    const upstreamLinkRaw = readCdata(beforeFirstItem, 'link') ?? '';
+    const link = upstreamLinkRaw
+      ? rewriteLinkOrigin(upstreamLinkRaw, source.linkOriginRewrite) || source.displayLink
+      : source.displayLink;
     return {
-      title: '',
-      link: source.displayLink,
-      description: '',
-      language: null,
-      lastBuildDate: null,
+      title: readCdata(beforeFirstItem, 'title') ?? '',
+      link,
+      description: readCdata(beforeFirstItem, 'description') ?? '',
+      language: readCdata(beforeFirstItem, 'language'),
+      lastBuildDate: readCdata(beforeFirstItem, 'lastBuildDate'),
     };
   }
-  const fullBody = channelMatch[1]!;
-  // Channel-level metadata lives between <channel> and the first <item>.
-  // A non-greedy channel match + readCdata('title') would return the first
-  // item's title because readCdata matches the first occurrence of the tag.
-  const beforeFirstItem = fullBody.split(/<item>/i, 1)[0] ?? '';
-  // Prefer the upstream `<link>` (rewritten through the source's
-  // linkOriginRewrite table so a stale / non-resolving sub-domain
-  // gets swapped for the real host), otherwise fall back to the
-  // source's displayLink.
-  const upstreamLinkRaw = readCdata(beforeFirstItem, 'link') ?? '';
-  const link = upstreamLinkRaw
-    ? (rewriteLinkOrigin(upstreamLinkRaw, source.linkOriginRewrite) || source.displayLink)
-    : source.displayLink;
+  // Atom fallback — metadata lives directly under <feed>
+  const feedMatch = /<feed[^>]*>([\s\S]*?)<\/feed>/i.exec(xml);
+  if (feedMatch) {
+    const body = feedMatch[1]!;
+    const beforeFirstEntry = body.split(/<entry>/i, 1)[0] ?? '';
+    const upstreamLinkRaw = readCdata(beforeFirstEntry, 'link') ?? '';
+    const link = upstreamLinkRaw
+      ? rewriteLinkOrigin(upstreamLinkRaw, source.linkOriginRewrite) || source.displayLink
+      : source.displayLink;
+    return {
+      title: readCdata(beforeFirstEntry, 'title') ?? '',
+      link,
+      description: readCdata(beforeFirstEntry, 'subtitle') ?? '',
+      language: readCdata(beforeFirstEntry, 'language'),
+      lastBuildDate: readCdata(beforeFirstEntry, 'updated'),
+    };
+  }
   return {
-    title: readCdata(beforeFirstItem, 'title') ?? '',
-    link,
-    description: readCdata(beforeFirstItem, 'description') ?? '',
-    language: readCdata(beforeFirstItem, 'language'),
-    lastBuildDate: readCdata(beforeFirstItem, 'lastBuildDate'),
+    title: '',
+    link: source.displayLink,
+    description: '',
+    language: null,
+    lastBuildDate: null,
   };
 }
 
 function extractItems(xml: string, source: RssSource): RssItem[] {
   const items: RssItem[] = [];
+
+  // RSS 2.0 <item> tags
   const itemRe = /<item>([\s\S]*?)<\/item>/g;
   let m: RegExpExecArray | null;
   while ((m = itemRe.exec(xml)) !== null) {
@@ -215,10 +266,8 @@ function extractItems(xml: string, source: RssSource): RssItem[] {
     const pubDateRaw = readCdata(body, 'pubDate') ?? '';
     const guid = readCdata(body, 'guid') ?? link;
     const category = readCdata(body, 'category');
-    const author = readCdata(body, 'author');
+    const author = readCdata(body, 'author') ?? readCdata(body, 'dc:creator');
     const pubDate = normalizePubDate(pubDateRaw);
-    // Source-prefix the id so a guid collision across feeds can't collapse
-    // two distinct items into one React key.
     const id = `${source.id}-${stableId(guid, link, pubDateRaw)}`;
     items.push({
       id,
@@ -237,6 +286,44 @@ function extractItems(xml: string, source: RssSource): RssItem[] {
     });
     if (items.length >= MAX_ITEMS_PER_SOURCE) break;
   }
+
+  // Atom <entry> tags (if no RSS items found)
+  if (items.length === 0) {
+    const entryRe = /<entry>([\s\S]*?)<\/entry>/g;
+    while ((m = entryRe.exec(xml)) !== null) {
+      const body = m[1]!;
+      const title = readCdata(body, 'title') ?? '';
+      // Atom <link> uses href attribute, not inline text
+      const linkTag = /<link[^>]*href=["']([^"']+)["'][^>]*\/?>/i.exec(body);
+      const link = linkTag?.[1] ?? readCdata(body, 'link') ?? '';
+      // Atom uses <summary> or <content> for description
+      const description = readCdata(body, 'summary') ?? readCdata(body, 'content') ?? '';
+      // Atom uses <published> or <updated> for date
+      const pubDateRaw = readCdata(body, 'published') ?? readCdata(body, 'updated') ?? '';
+      const guid = readCdata(body, 'id') ?? link;
+      const category = readCdata(body, 'category');
+      const author = readCdata(body, 'author');
+      const pubDate = normalizePubDate(pubDateRaw);
+      const id = `${source.id}-${stableId(guid, link, pubDateRaw)}`;
+      items.push({
+        id,
+        title: title.trim(),
+        link: rewriteLinkOrigin(stripTracking(link), source.linkOriginRewrite),
+        description: description.trim(),
+        pubDate,
+        pubDateRaw,
+        category: category ? category.trim().toUpperCase() : null,
+        guid: guid.trim(),
+        author: author ? author.trim() : null,
+        sourceId: source.id,
+        sourceName: source.name,
+        sourceAuthor: source.author,
+        sourceAccent: source.accent,
+      });
+      if (items.length >= MAX_ITEMS_PER_SOURCE) break;
+    }
+  }
+
   return items;
 }
 
@@ -325,7 +412,11 @@ async function fetchFresh(source: RssSource): Promise<{ channel: RssChannel; ite
   const res = await fetch(source.upstream, {
     headers: { 'user-agent': FETCH_UA, accept: 'application/rss+xml, application/xml, text/xml, */*' },
     signal: AbortSignal.timeout(15_000),
-    cf: { cacheTtl: CACHE_TTL_SECONDS, cacheEverything: true, cacheTtlByStatus: { '200-299': CACHE_TTL_SECONDS, '400-599': 0 } },
+    cf: {
+      cacheTtl: CACHE_TTL_SECONDS,
+      cacheEverything: true,
+      cacheTtlByStatus: { '200-299': CACHE_TTL_SECONDS, '400-599': 0 },
+    },
   } as RequestInit);
   if (!res.ok) throw new Error(`upstream returned HTTP ${res.status}`);
   const xml = await res.text();
@@ -350,7 +441,13 @@ async function loadOneSource(env: Env, source: RssSource): Promise<{ feed: RssFe
   try {
     const fresh = await fetchFresh(source);
     const feed: RssFeed = {
-      source: { id: source.id, name: source.name, author: source.author, accent: source.accent, displayLink: source.displayLink },
+      source: {
+        id: source.id,
+        name: source.name,
+        author: source.author,
+        accent: source.accent,
+        displayLink: source.displayLink,
+      },
       channel: fresh.channel,
       items: fresh.items,
       cachedAt: new Date().toISOString(),
@@ -395,18 +492,18 @@ export async function openSourceMalwareRssXmlHandler(c: Context<{ Bindings: Env 
  *  source if `?source=…` is passed). */
 export async function rssAggregateHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const requested = c.req.query('source');
-  const sources = requested
-    ? SOURCES.filter((s) => s.id === requested)
-    : SOURCES;
+  const sources = requested ? SOURCES.filter((s) => s.id === requested) : SOURCES;
   if (requested && sources.length === 0) {
     return c.json({ error: 'unknown_source', valid: SOURCES.map((s) => s.id) }, 400);
   }
 
   // Fan out in parallel; one bad source doesn't fail the aggregate.
-  const results = await Promise.all(sources.map(async (source) => {
-    const { feed, error } = await loadOneSource(c.env, source);
-    return { source, feed, error };
-  }));
+  const results = await Promise.all(
+    sources.map(async (source) => {
+      const { feed, error } = await loadOneSource(c.env, source);
+      return { source, feed, error };
+    })
+  );
 
   const feeds: RssFeed[] = [];
   const items: RssItem[] = [];
@@ -417,7 +514,13 @@ export async function rssAggregateHandler(c: Context<{ Bindings: Env }>): Promis
       items.push(...feed.items);
     }
     sourceStatuses.push({
-      source: { id: source.id, name: source.name, author: source.author, accent: source.accent, displayLink: source.displayLink },
+      source: {
+        id: source.id,
+        name: source.name,
+        author: source.author,
+        accent: source.accent,
+        displayLink: source.displayLink,
+      },
       cachedAt: feed?.cachedAt ?? new Date(0).toISOString(),
       stale: feed?.stale ?? false,
       error,
@@ -456,7 +559,15 @@ export async function rssAggregateHandler(c: Context<{ Bindings: Env }>): Promis
  *  their own source-picker without hard-coding ids. */
 export async function rssSourcesHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   return c.json(
-    { sources: SOURCES.map((s) => ({ id: s.id, name: s.name, author: s.author, accent: s.accent, displayLink: s.displayLink })) },
+    {
+      sources: SOURCES.map((s) => ({
+        id: s.id,
+        name: s.name,
+        author: s.author,
+        accent: s.accent,
+        displayLink: s.displayLink,
+      })),
+    },
     200,
     { 'cache-control': 'public, max-age=300, s-maxage=3600' }
   );
@@ -475,7 +586,7 @@ async function singleSourceHandler(c: Context<{ Bindings: Env }>, sourceId: stri
   }
   return c.json(feed, 200, {
     'cache-control': feed.stale ? 'public, max-age=30, s-maxage=60' : 'public, max-age=60, s-maxage=300',
-    'x-cache': feed.stale ? 'STALE' : (feed.cachedAt ? 'HIT' : 'MISS'),
+    'x-cache': feed.stale ? 'STALE' : feed.cachedAt ? 'HIT' : 'MISS',
   });
 }
 
@@ -498,10 +609,12 @@ async function passthroughHandler(c: Context<{ Bindings: Env }>, sourceId: strin
         'content-type': 'application/rss+xml; charset=utf-8',
         'cache-control': 'public, max-age=60, s-maxage=300',
         'x-source': source.upstream,
-        'link': `<${getSiteUrl(c.env)}/api/v1/rss/aggregate?source=${source.id}>; rel="alternate"; type="application/json"`,
+        link: `<${getSiteUrl(c.env)}/api/v1/rss/aggregate?source=${source.id}>; rel="alternate"; type="application/json"`,
       },
     });
   } catch (e) {
-    return c.json({ error: 'upstream_unavailable', message: safeErrorMessage(c.env, e) }, 502, { 'cache-control': 'no-store' });
+    return c.json({ error: 'upstream_unavailable', message: safeErrorMessage(c.env, e) }, 502, {
+      'cache-control': 'no-store',
+    });
   }
 }

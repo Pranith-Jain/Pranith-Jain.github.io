@@ -261,11 +261,9 @@ const RansomwareActivity = lazy(() => import('./pages/threatintel/RansomwareActi
 const RansomwareMap = lazy(() => import('./pages/threatintel/RansomwareMap'));
 const Ransomwhere = lazy(() => import('./pages/threatintel/Ransomwhere'));
 const RedHuntInsights = lazy(() => import('./pages/threatintel/RedHuntInsights'));
-const RedHuntLabsResearch = lazy(() => import('./pages/threatintel/RedHuntLabsResearch'));
 const RedditFirehose = lazy(() => import('./pages/threatintel/RedditFirehose'));
 const RelationshipGraph = lazy(() => import('./pages/threatintel/RelationshipGraph'));
 const Reports = lazy(() => import('./pages/threatintel/ThreatIntelReports'));
-const ResearchIndex = lazy(() => import('./pages/threatintel/Research'));
 const ResearchPost = lazy(() => import('./pages/threatintel/ResearchPost'));
 const ResearchSignal = lazy(() => import('./pages/threatintel/Signal'));
 const ScamWatch = lazy(() => import('./pages/dfir/ScamWatch'));
@@ -633,13 +631,11 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel/osint/toolbox', Component: CuratedToolbox },
   { path: '/threatintel/osint/certs', Component: CuratedCerts },
   { path: '/threatintel/osint/secops', Component: SecopsCatalog },
-  { path: '/threatintel/research-hub/research', Component: ResearchIndex },
   { path: '/threatintel/research-hub/reports', Component: Reports },
   { path: '/threatintel/research-hub/ai', Component: AIReportShowcase },
   { path: '/threatintel/research-hub/writeups', Component: Writeups },
   { path: '/threatintel/research-hub/signal', Component: ResearchSignal },
   { path: '/threatintel/research-hub/redhunt', Component: RedHuntInsights },
-  { path: '/threatintel/research-hub/redhunt-labs', Component: RedHuntLabsResearch },
   { path: '/threatintel/research-hub/volexity', Component: VolexityThreatIntel },
   { path: '/threatintel/research-hub/post', Component: ResearchPost },
   { path: '/threatintel/research-hub/attack-flow', Component: AttackFlowLibrary },
@@ -882,8 +878,7 @@ const REDIRECTS: ReadonlyArray<{ path: string; to: string }> = [
   { path: '/threatintel/projectdiscovery', to: '/threatintel/catalog?cat=external' },
 
   // ── Research Hub ────────────────────────────────────────────────
-  { path: '/threatintel/research', to: '/threatintel/research-hub/research' },
-  { path: '/threatintel/redhunt-labs', to: '/threatintel/research-hub/redhunt-labs' },
+  { path: '/threatintel/redhunt-labs', to: '/threatintel/research-hub/redhunt' },
   { path: '/threatintel/redhunt-insights', to: '/threatintel/research-hub/redhunt' },
   { path: '/threatintel/ai-report', to: '/threatintel/research-hub/ai' },
   { path: '/threatintel/writeups', to: '/threatintel/research-hub/writeups' },

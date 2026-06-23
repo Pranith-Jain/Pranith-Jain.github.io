@@ -187,7 +187,10 @@ function DDoSPanel() {
 
   const searchResults =
     data?.botnets.filter(
-      (b) => !searchQ || b.ip.includes(searchQ) || b.malware.toLowerCase().includes(searchQ.toLowerCase())
+      (b) =>
+        !searchQ ||
+        (b.ip && b.ip.includes(searchQ)) ||
+        (b.malware && b.malware.toLowerCase().includes(searchQ.toLowerCase()))
     ) || [];
 
   return (
@@ -505,8 +508,8 @@ function HealthcarePanel() {
     data?.breaches.filter(
       (b) =>
         !searchQ ||
-        b.name.toLowerCase().includes(searchQ.toLowerCase()) ||
-        b.state.toLowerCase().includes(searchQ.toLowerCase())
+        (b.name && b.name.toLowerCase().includes(searchQ.toLowerCase())) ||
+        (b.state && b.state.toLowerCase().includes(searchQ.toLowerCase()))
     ) || [];
 
   const fmtNum = (n: number) => {

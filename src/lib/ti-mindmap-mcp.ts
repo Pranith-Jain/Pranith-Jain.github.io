@@ -297,40 +297,45 @@ async function callRaw<T>(
 function parseSseFrame<T>(text: string, _id: number | string): JsonRpcResponse<T> {
   // Strip a UTF-8 BOM some proxies tack on.
   const cleaned = text.replace(/^\uFEFF/, '');
-  // Per the SSE spec (https://html.spec.whatwg.org/multipage/server-sent-events.html):
-  //   * "data:" MAY be followed by a single space (commonly seen) or no space at all.
-  //   * A message can span MULTIPLE data: lines -- concatenate them with '\n'.
-  //   * Empty lines terminate a message; we treat each non-empty data:-line as
-  //     a candidate, but if concatenation yields a single valid JSON blob we
-  //     use that (the spec's intended behaviour).
-  const dataLines: string[] = [];
-  for (const raw of cleaned.split(/\r?\n/)) {
-    const line = raw.replace(/\r$/, '');
-    if (!line) continue;
-    if (line.startsWith('data:')) {
-      // Strip the leading "data:" and AT MOST one optional space after it.
-      dataLines.push(line.startsWith('data: ') ? line.substring(6) : line.substring(5));
+
+  // SSE messages are separated by blank lines (\n\n). Each message block
+  // may contain event:, data:, id:, and retry: fields. We split into
+  // blocks first, then extract data: lines per block — this avoids
+  // concatenating data from *different* messages into one JSON blob.
+  const blocks = cleaned.split(/\r?\n\r?\n/);
+  const candidates: JsonRpcResponse<T>[] = [];
+
+  for (const block of blocks) {
+    const dataLines: string[] = [];
+    for (const raw of block.split(/\r?\n/)) {
+      const line = raw.replace(/\r$/, '');
+      if (!line || line.startsWith(':')) continue; // skip empty + comments
+      if (line.startsWith('data:')) {
+        dataLines.push(line.startsWith('data: ') ? line.substring(6) : line.substring(5));
+      }
     }
-    // Other SSE fields (event:, id:, retry:, comments starting with ':') are
-    // intentionally ignored -- MCP uses only data: frames.
-  }
-  const joined = dataLines.join('\n');
-  if (joined) {
+    if (dataLines.length === 0) continue;
+    const joined = dataLines.join('\n');
     try {
-      return JSON.parse(joined) as JsonRpcResponse<T>;
+      candidates.push(JSON.parse(joined) as JsonRpcResponse<T>);
     } catch {
-      /* fall through to per-line and full-blob fallbacks */
-    }
-    for (const part of dataLines) {
-      const trimmed = part.trim();
-      if (!trimmed) continue;
-      try {
-        return JSON.parse(trimmed) as JsonRpcResponse<T>;
-      } catch {
-        /* try the next line */
+      /* not valid JSON — try per-line fallback for this block */
+      for (const part of dataLines) {
+        const trimmed = part.trim();
+        if (!trimmed) continue;
+        try {
+          candidates.push(JSON.parse(trimmed) as JsonRpcResponse<T>);
+          break;
+        } catch {
+          /* try next line */
+        }
       }
     }
   }
+
+  // Return the first valid JSON-RPC response found.
+  if (candidates.length > 0) return candidates[0];
+
   // Last-ditch: maybe the server sent a plain JSON body labelled
   // content-type: text/event-stream by mistake.
   try {

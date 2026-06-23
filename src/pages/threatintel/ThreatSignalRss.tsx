@@ -231,26 +231,71 @@ export default function ThreatSignalRss(): JSX.Element {
       title="Threat Research Feeds"
       description={
         <span>
-          Live RSS feed from{' '}
+          High-signal research feeds — long-form threat analysis, campaign breakdowns, and offensive tradecraft.
+          Sources:{' '}
           <a
             href="https://www.threatsignal.in/"
             target="_blank"
             rel="noopener noreferrer"
             className="text-brand-600 dark:text-brand-400 hover:underline"
           >
-            threatsignal.in
-          </a>{' '}
-          and{' '}
+            ThreatSignal
+          </a>
+          ,{' '}
           <a
             href="https://opensourcemalware.com/"
             target="_blank"
             rel="noopener noreferrer"
             className="text-brand-600 dark:text-brand-400 hover:underline"
           >
-            opensourcemalware.com
-          </a>{' '}
-          - malware analysis, campaign breakdowns, offensive tradecraft, and supply-chain threats. Fetched every 15 min
-          via Cloudflare edge cache.
+            OpenSourceMalware
+          </a>
+          ,{' '}
+          <a
+            href="https://ctrlaltintel.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-brand-600 dark:text-brand-400 hover:underline"
+          >
+            Ctrl-Alt-Intel
+          </a>
+          ,{' '}
+          <a
+            href="https://research.checkpoint.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-brand-600 dark:text-brand-400 hover:underline"
+          >
+            Check Point Research
+          </a>
+          ,{' '}
+          <a
+            href="https://unit42.paloaltonetworks.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-brand-600 dark:text-brand-400 hover:underline"
+          >
+            Unit 42
+          </a>
+          ,{' '}
+          <a
+            href="https://www.elastic.co/security-labs"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-brand-600 dark:text-brand-400 hover:underline"
+          >
+            Elastic Security Labs
+          </a>
+          ,{' '}
+          <a
+            href="https://www.volexity.com/blog/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-brand-600 dark:text-brand-400 hover:underline"
+          >
+            Volexity
+          </a>
+          . Fetched every 15 min via Cloudflare edge cache.
         </span>
       }
       headerExtra={headerExtra}

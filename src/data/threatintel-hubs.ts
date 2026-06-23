@@ -726,13 +726,6 @@ export const HUB_META: readonly HubMeta[] = [
     tone: 'text-amber-700 dark:text-amber-300 border-amber-500/30 bg-amber-500/10',
     pages: [
       {
-        path: '/threatintel/research-hub/research',
-        tabId: 'research',
-        label: 'Research Index',
-        desc: 'Long-form research posts and deep-dive analyses.',
-        compVar: 'ResearchIndex',
-      },
-      {
         path: '/threatintel/research-hub/reports',
         tabId: 'reports',
         label: 'Threat Intel Reports',
@@ -767,13 +760,6 @@ export const HUB_META: readonly HubMeta[] = [
         label: 'RedHunt Insights',
         desc: 'RedHunt Labs threat-intel insights.',
         compVar: 'RedHuntInsights',
-      },
-      {
-        path: '/threatintel/research-hub/redhunt-labs',
-        tabId: 'redhunt-labs',
-        label: 'RedHunt Labs Research',
-        desc: 'RedHunt Labs research feed.',
-        compVar: 'RedHuntLabsResearch',
       },
       {
         path: '/threatintel/research-hub/volexity',
