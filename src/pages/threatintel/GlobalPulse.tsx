@@ -1148,6 +1148,7 @@ export default function GlobalPulse(): JSX.Element {
               <input
                 type="text"
                 placeholder="Search events..."
+                aria-label="Search events"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full pl-8 pr-3 py-2 text-xs font-mono rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 text-slate-700 dark:text-slate-300 placeholder-slate-400 focus:outline-none focus:border-brand-500/50"
@@ -1168,7 +1169,9 @@ export default function GlobalPulse(): JSX.Element {
               </svg>
               {searchQuery && (
                 <button
+                  type="button"
                   onClick={() => setSearchQuery('')}
+                  aria-label="Clear event search"
                   className="absolute right-2 top-2 text-slate-400 hover:text-slate-600"
                 >
                   <X size={14} />
@@ -1181,6 +1184,7 @@ export default function GlobalPulse(): JSX.Element {
               <input
                 type="text"
                 placeholder="Infra: hospitals in berlin…"
+                aria-label="Search infrastructure"
                 value={infraQuery}
                 onChange={(e) => setInfraQuery(e.target.value)}
                 onKeyDown={(e) => {

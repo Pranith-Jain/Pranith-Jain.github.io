@@ -848,7 +848,16 @@ export default function Facilities(): JSX.Element {
                       <Fragment key={f.id}>
                         <tr
                           onClick={() => setExpandedId(isExpanded ? null : f.id)}
-                          className="border-b border-slate-100 dark:border-[rgb(var(--border-400))]/50 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.3)] cursor-pointer transition-colors"
+                          onKeyDown={(e) => {
+                            if (e.key === 'Enter' || e.key === ' ') {
+                              e.preventDefault();
+                              setExpandedId(isExpanded ? null : f.id);
+                            }
+                          }}
+                          role="button"
+                          tabIndex={0}
+                          aria-expanded={isExpanded}
+                          className="border-b border-slate-100 dark:border-[rgb(var(--border-400))]/50 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.3)] cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500 focus-visible:ring-inset"
                         >
                           <td className="px-4 py-3">
                             <div className="flex items-center gap-2">
