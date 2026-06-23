@@ -6,6 +6,7 @@ import { useSearchParams } from 'react-router-dom';
 import { DataPageLayout, useInsideDataPageLayout } from '../../components/DataPageLayout';
 import { AtSign, Cloud, ExternalLink, RefreshCw, Search, Sparkles } from 'lucide-react';
 import { useLastVisit, isNewSince } from '../../hooks';
+import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
 
 type Platform = 'bluesky' | 'mastodon';
 
@@ -245,6 +246,17 @@ export default function XFirehose(): JSX.Element {
       error={error}
       onRetry={() => setRefreshKey((k) => k + 1)}
     >
+      {filtered.length > 0 && (
+        <AiSummaryCard
+          surface="X / Bluesky / Mastodon Cybersec"
+          items={filtered.slice(0, 30).map((it) => ({
+            title: it.text?.slice(0, 120) ?? '',
+            body: it.text ?? '',
+            source: it.handle_name ?? it.handle ?? '',
+          }))}
+          requireAdmin={false}
+        />
+      )}
       <ul className="space-y-2">
         {filtered.slice(0, visible).map((it, i) => (
           <li

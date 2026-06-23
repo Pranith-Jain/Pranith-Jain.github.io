@@ -10,6 +10,7 @@ import { DataState } from '../../components/DataState';
 import { AdmiraltyBadge } from '../../components/dfir/AdmiraltyBadge';
 import { gradeForLiveIoc } from '../../lib/dfir/admiralty-quick';
 import { LiveFreshnessPill } from '../../components/LiveFreshnessPill';
+import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
 import { sourceColor, sourcesSentence } from '../../lib/dfir/source-meta';
 
 type IocKind = 'ip' | 'url' | 'domain' | 'hash';
@@ -407,6 +408,18 @@ export default function LiveIocs(): JSX.Element {
           </>
         )}
       </section>
+
+      {filtered.length > 0 && (
+        <AiSummaryCard
+          surface="Live IOC Stream"
+          items={filtered.slice(0, 30).map((it) => ({
+            title: it.value,
+            body: `${it.kind} · ${it.source} · ${it.context ?? ''}`,
+            source: it.source,
+          }))}
+          requireAdmin={false}
+        />
+      )}
 
       <DataState
         loading={loading}

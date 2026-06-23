@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
 import { DataState } from '../../components/DataState';
 import { relativeAgo as shortRel } from '../../lib/relativeTime';
+import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
 
 interface CryptoScamItem {
   domain: string;
@@ -204,6 +205,18 @@ export default function CryptoScamFeed(): JSX.Element {
         <p className="text-mini font-mono text-slate-500 mb-4">
           Showing {filtered.length} of {data.total} domains
         </p>
+      )}
+
+      {filtered.length > 0 && (
+        <AiSummaryCard
+          surface="Crypto Scam Domains"
+          items={filtered.slice(0, 30).map((it) => ({
+            title: it.domain,
+            body: `TLD: ${it.tld}`,
+            source: 'crypto-scam-feed',
+          }))}
+          requireAdmin={false}
+        />
       )}
 
       <DataState

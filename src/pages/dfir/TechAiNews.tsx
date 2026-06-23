@@ -11,6 +11,7 @@ import {
 } from '../../services/rssService';
 import { SourceTogglePanel } from '../../components/threatintel/SourceTogglePanel';
 import { rssFeeds } from '../../data/rssFeeds';
+import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
 
 /**
  * Tech & AI News — sectioned aggregator for the non-threat half of "what's
@@ -325,6 +326,18 @@ export default function TechAiNews(): JSX.Element {
           </>
         )}
       </p>
+
+      {annotated.length > 0 && (
+        <AiSummaryCard
+          surface="Tech & AI News"
+          items={annotated.slice(0, 30).map(({ item }) => ({
+            title: item.title ?? '',
+            body: item.description ?? '',
+            source: item.source ?? '',
+          }))}
+          requireAdmin={false}
+        />
+      )}
 
       <ul className="space-y-2">
         {annotated.slice(0, 200).map(({ item, section }) => (
