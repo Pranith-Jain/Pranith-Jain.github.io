@@ -58,6 +58,10 @@ export default function Tracer(): JSX.Element {
   const [cluster, setCluster] = useState<CoInputCluster[] | null>(null);
   const [saveOpen, setSaveOpen] = useState(false);
   const [traceTitle, setTraceTitle] = useState('');
+  // Pin-to-investigation picker (replaces a numeric window.prompt).
+  const [pinOpen, setPinOpen] = useState(false);
+  const [pinList, setPinList] = useState<{ id: string; title: string }[]>([]);
+  const [pinTarget, setPinTarget] = useState<{ value: string; type: 'crypto-address' | 'tx-hash' } | null>(null);
   const [highlightPath, setHighlightPath] = useState<string[] | undefined>(undefined);
   const [calldata, setCalldata] = useState<CalldataResult | null>(null);
   const [calldataLoading, setCalldataLoading] = useState(false);
@@ -289,19 +293,26 @@ export default function Tracer(): JSX.Element {
     if (!listRes.ok) return setError('Could not load investigations.');
     const { investigations } = (await listRes.json()) as { investigations: { id: string; title: string }[] };
     if (!investigations?.length) return setError('No investigations exist yet — create one in the workspace first.');
-    const choice = window.prompt(
-      `Pin to which investigation?\n${investigations.map((i, n) => `${n + 1}. ${i.title}`).join('\n')}`,
-      '1'
-    );
-    const inv = investigations[choice ? Number(choice) - 1 : -1];
-    if (!inv) return;
-    const res = await fetch(`/api/v1/investigations/${inv.id}/observables`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ value, type }),
-    });
-    setError(res.ok ? null : `Pin failed (${res.status})`);
+    setError(null);
+    setPinList(investigations);
+    setPinTarget({ value, type });
+    setPinOpen(true);
   }, []);
+
+  const confirmPin = useCallback(
+    async (invId: string) => {
+      if (!pinTarget) return;
+      const res = await fetch(`/api/v1/investigations/${invId}/observables`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ value: pinTarget.value, type: pinTarget.type }),
+      });
+      setError(res.ok ? null : `Pin failed (${res.status})`);
+      setPinOpen(false);
+      setPinTarget(null);
+    },
+    [pinTarget]
+  );
 
   const findCashOut = useCallback(() => {
     if (!graph) return;
@@ -766,6 +777,28 @@ export default function Tracer(): JSX.Element {
             </button>
           </div>
         </form>
+      </Modal>
+
+      <Modal open={pinOpen} onClose={() => setPinOpen(false)} title="Pin to investigation">
+        {pinTarget && (
+          <p className="text-tool text-slate-500 dark:text-slate-400 mb-3">
+            Pin <span className="font-mono text-slate-700 dark:text-slate-300">{pinTarget.value.slice(0, 28)}…</span>{' '}
+            to:
+          </p>
+        )}
+        <ul className="space-y-1 max-h-72 overflow-y-auto">
+          {pinList.map((inv) => (
+            <li key={inv.id}>
+              <button
+                type="button"
+                onClick={() => void confirmPin(inv.id)}
+                className="w-full text-left rounded-md border border-slate-200 dark:border-[rgb(var(--border-400))] px-3 py-2 text-sm hover:border-brand-500/50 hover:bg-brand-500/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
+              >
+                {inv.title}
+              </button>
+            </li>
+          ))}
+        </ul>
       </Modal>
     </div>
   );
