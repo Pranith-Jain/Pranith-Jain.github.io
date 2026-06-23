@@ -20,8 +20,10 @@ function RevealSection({ children, className = '' }: { children: React.ReactNode
   return (
     <div
       ref={ref}
-      className={`transition-all duration-700 ease-out ${
-        inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+      className={`transition-all duration-500 ease-out motion-reduce:transition-none ${
+        inView
+          ? 'opacity-100 translate-y-0'
+          : 'opacity-0 translate-y-6 motion-reduce:opacity-100 motion-reduce:translate-y-0'
       } ${className}`}
     >
       {children}
@@ -39,7 +41,11 @@ export default function Home() {
       />
       <Hero personalInfo={personalInfo} />
 
+      {/* Live platform signals — labeled for hierarchy/scannability */}
       <RevealSection className="mt-16">
+        <div className="mb-4 text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
+          Live from the platform
+        </div>
         <LiveSignalStrip />
         <div className="mt-6 grid gap-3 sm:grid-cols-2">
           <LatestBriefingCard />
@@ -50,24 +56,32 @@ export default function Home() {
         </div>
       </RevealSection>
 
-      <RevealSection className="mt-16">
-        <div className="grid gap-3 sm:grid-cols-3">
-          <QuoteOfTheDay />
-          <ToolOfTheDay />
-          <PageToCheckOut />
-        </div>
-      </RevealSection>
-
+      {/* Products first — the toolkits are the substance of the portfolio, so
+          they lead ahead of the lighter "daily picks" filler below. */}
       <RevealSection className="mt-16">
         <Toolkits />
       </RevealSection>
 
       <RevealSection className="mt-16">
-        <ErrorBoundary fallback={<p className="text-sm text-muted px-4 py-8 text-center">Recent writing unavailable</p>}>
+        <ErrorBoundary
+          fallback={<p className="text-sm text-muted px-4 py-8 text-center">Recent writing unavailable</p>}
+        >
           <Suspense fallback={<RecentWritingSkeleton />}>
             <RecentWriting />
           </Suspense>
         </ErrorBoundary>
+      </RevealSection>
+
+      {/* Daily picks — light, rotating filler; kept near the foot of the page */}
+      <RevealSection className="mt-16">
+        <div className="mb-4 text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
+          Daily picks
+        </div>
+        <div className="grid gap-3 sm:grid-cols-3">
+          <QuoteOfTheDay />
+          <ToolOfTheDay />
+          <PageToCheckOut />
+        </div>
       </RevealSection>
 
       <RevealSection className="mt-20">
