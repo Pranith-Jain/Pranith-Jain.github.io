@@ -307,10 +307,6 @@ async function lookupSocialHints(email: string): Promise<EmailProfile['social']>
   const localPart = email.split('@')[0];
   const result: EmailProfile['social'] = { linkedinHint: false, twitterHint: false, redditHint: false };
 
-  // Check if common username patterns exist on social platforms
-  // This is heuristic — we check if the local part looks like a common username
-  const usernamePatterns = [localPart, localPart.replace(/[._-]/g, ''), localPart.split('.')[0]];
-
   // LinkedIn hint via public search (heuristic)
   if (localPart.includes('.') || localPart.includes('-')) {
     result.linkedinHint = true; // Name-like patterns suggest LinkedIn
@@ -329,6 +325,82 @@ async function lookupSocialHints(email: string): Promise<EmailProfile['social']>
   return result;
 }
 
+// ── Behind the Email (optional, requires API key) ──
+
+interface BTEResult {
+  linkedIn?: {
+    basic?: {
+      displayName?: string;
+      firstName?: string;
+      lastName?: string;
+      headline?: string;
+      location?: string;
+      photoUrl?: string;
+    };
+    employment?: {
+      positions?: Array<{ title?: string; companyName?: string }>;
+      latestPosition?: { title?: string; companyName?: string };
+    };
+    education?: { educations?: Array<{ schoolName?: string; degreeName?: string; fieldOfStudy?: string }> };
+    skills?: { skills?: string[] };
+  };
+  github?: {
+    username?: string;
+    name?: string;
+    bio?: string;
+    company?: string;
+    location?: string;
+    followers?: number;
+    profileUrl?: string;
+  };
+  google?: {
+    person?: { personName?: string; mapsProfileUrl?: string };
+    photos?: { count?: number };
+    reviews?: { count?: number };
+  };
+  tiktok?: {
+    username?: string;
+    name?: string;
+    followers?: number;
+    following?: number;
+    videos?: number;
+    likes?: number;
+  };
+  dataBreach?: {
+    results?: Array<{ source?: { name?: string; date?: string } }>;
+    firstAppeared?: string;
+    lastAppeared?: string;
+  };
+  teams?: { displayName?: string; corporationName?: string; userType?: string };
+  microsoft?: { displayName?: string; liveAccount?: boolean; creationDate?: string; recoveryEmails?: string[] };
+  emailService?: { emailServiceProvider?: string; canReceiveEmail?: boolean };
+  registeredAccounts?: { count?: number; accounts?: Array<{ name?: string; isRegistered?: boolean }> };
+  summary?: {
+    names?: Array<{ value?: string }>;
+    usernames?: Array<{ value?: string; formattedSource?: string }>;
+    locations?: Array<{ value?: string }>;
+  };
+}
+
+async function lookupBehindTheEmail(email: string, apiKey: string): Promise<BTEResult | null> {
+  try {
+    const res = await fetch('https://api.behindtheemail.com/v1/search', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${apiKey}`,
+      },
+      body: JSON.stringify({ email }),
+      signal: AbortSignal.timeout(15000),
+    });
+    if (!res.ok) return null;
+    const data = (await res.json()) as { data?: { profile?: BTEResult } };
+    return data.data?.profile || null;
+  } catch {
+    return null;
+  }
+}
+
 // ── Main Handler ──
 
 export async function emailOsnitProfileHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
@@ -341,7 +413,7 @@ export async function emailOsnitProfileHandler(c: Context<{ Bindings: Env }>): P
   const localPart = cleanEmail.split('@')[0];
   const domain = cleanEmail.split('@')[1];
 
-  // Run all lookups in parallel
+  // Run all free lookups in parallel
   const [gravatar, github, breach, reputation, dns, pgp, social] = await Promise.all([
     lookupGravatar(cleanEmail),
     lookupGitHub(cleanEmail),
@@ -351,6 +423,49 @@ export async function emailOsnitProfileHandler(c: Context<{ Bindings: Env }>): P
     lookupPgp(cleanEmail),
     lookupSocialHints(cleanEmail),
   ]);
+
+  // Optional: Behind the Email enrichment (requires BTE_API_KEY secret)
+  const bteApiKey = (c.env as Record<string, string>)?.BTE_API_KEY;
+  let bte: BTEResult | null = null;
+  if (bteApiKey) {
+    bte = await lookupBehindTheEmail(cleanEmail, bteApiKey);
+  }
+
+  // Enhance with BTE data if available
+  if (bte) {
+    // LinkedIn enhancement
+    if (bte.linkedIn?.basic?.displayName && !gravatar.displayName) {
+      gravatar.displayName = bte.linkedIn.basic.displayName;
+    }
+    if (bte.linkedIn?.metadata?.linkedInUrl) {
+      gravatar.profileUrl = bte.linkedIn.metadata.linkedInUrl;
+    }
+
+    // GitHub enhancement — BTE may find GitHub when our search misses
+    if (bte.github?.username && !github.found) {
+      github.found = true;
+      github.username = bte.github.username;
+      github.profileUrl = bte.github.profileUrl || `https://github.com/${bte.github.username}`;
+      github.company = bte.github.company || null;
+      github.location = bte.github.location || null;
+    }
+
+    // Breach enhancement — BTE has its own breach database
+    if (bte.dataBreach?.results && bte.dataBreach.results.length > 0 && !breach.found) {
+      breach.found = true;
+      breach.breachCount = bte.dataBreach.results.length;
+      breach.breaches = bte.dataBreach.results.slice(0, 5).map((r) => ({
+        name: r.source?.name || 'Unknown',
+        date: r.source?.date || 'Unknown',
+        dataClasses: ['credentials'],
+      }));
+    }
+
+    // Email service detection
+    if (bte.emailService?.emailServiceProvider) {
+      dns.mx = dns.mx.length > 0 ? dns.mx : [bte.emailService.emailServiceProvider];
+    }
+  }
 
   // Calculate risk score
   let riskScore = 0;
@@ -394,8 +509,16 @@ export async function emailOsnitProfileHandler(c: Context<{ Bindings: Env }>): P
 
   const summary =
     [
-      github.found ? `GitHub user: ${github.username}` : null,
       gravatar.displayName ? `Name: ${gravatar.displayName}` : null,
+      bte?.linkedIn?.basic?.headline ? `Role: ${bte.linkedIn.basic.headline}` : null,
+      bte?.linkedIn?.employment?.latestPosition
+        ? `Works at ${bte.linkedIn.employment.latestPosition.companyName}`
+        : null,
+      github.found ? `GitHub: ${github.username}` : null,
+      bte?.tiktok?.username
+        ? `TikTok: @${bte.tiktok.username} (${bte.tiktok.followers?.toLocaleString()} followers)`
+        : null,
+      bte?.teams?.corporationName ? `Org: ${bte.teams.corporationName}` : null,
       breach.found ? `Found in ${breach.breachCount} breach(es)` : null,
       reputation.reputation ? `Reputation: ${reputation.reputation}` : null,
       pgp.found ? 'PGP key registered' : null,
