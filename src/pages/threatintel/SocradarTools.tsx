@@ -76,7 +76,7 @@ interface HealthBreach {
 
 // ── Tabs ──
 
-type Tab = 'ddos' | 'fortibleed' | 'healthcare';
+type Tab = 'ddos' | 'fortibleed' | 'healthcare' | 'reports';
 
 export default function SocradarTools() {
   const [tab, setTab] = useState<Tab>('ddos');
@@ -102,6 +102,7 @@ export default function SocradarTools() {
             ['ddos', 'DDoS Intelligence', Activity],
             ['fortibleed', 'FortiBleed Check', Lock],
             ['healthcare', 'Healthcare Breaches', Hospital],
+            ['reports', 'Threat Reports', Shield],
           ] as const
         ).map(([id, label, Icon]) => (
           <button
@@ -120,6 +121,7 @@ export default function SocradarTools() {
       {tab === 'ddos' && <DDoSPanel />}
       {tab === 'fortibleed' && <FortiBleedPanel />}
       {tab === 'healthcare' && <HealthcarePanel />}
+      {tab === 'reports' && <ThreatReportsPanel />}
     </div>
   );
 }
@@ -602,6 +604,388 @@ function HealthcarePanel() {
             </div>
           </div>
         </>
+      )}
+    </div>
+  );
+}
+
+// ── Threat Reports ──
+
+function ThreatReportsPanel() {
+  const [reportType, setReportType] = useState<'country' | 'industry' | 'external'>('country');
+  const [country, setCountry] = useState('US');
+  const [industry, setIndustry] = useState('healthcare');
+  const [domain, setDomain] = useState('');
+  const [data, setData] = useState<Record<string, unknown> | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const fetchReport = async (type: string, params: Record<string, string>) => {
+    setLoading(true);
+    setError(null);
+    setData(null);
+    try {
+      const p = new URLSearchParams(params);
+      const res = await fetch(`/api/v1/threat-reports/${type}?${p}`);
+      if (!res.ok) throw new Error('Failed');
+      setData(await res.json());
+    } catch {
+      setError('Failed to generate report');
+    }
+    setLoading(false);
+  };
+
+  const handleGenerate = () => {
+    if (reportType === 'country') fetchReport('country', { country });
+    else if (reportType === 'industry') fetchReport('industry', { industry });
+    else fetchReport('external', { domain });
+  };
+
+  const riskColor = (r: string) => {
+    if (r === 'CRITICAL')
+      return 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 border-red-200 dark:border-red-800';
+    if (r === 'HIGH')
+      return 'bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 border-orange-200 dark:border-orange-800';
+    if (r === 'MEDIUM')
+      return 'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 border-amber-200 dark:border-amber-800';
+    return 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800';
+  };
+
+  return (
+    <div className="space-y-6">
+      <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+        <div className="flex items-center gap-2 mb-3">
+          <Shield size={14} className="text-violet-500" />
+          <h3 className="font-display font-semibold text-sm">Threat Intelligence Reports</h3>
+        </div>
+        <div className="flex flex-wrap gap-2 mb-3">
+          {(
+            [
+              ['country', 'Country'],
+              ['industry', 'Industry'],
+              ['external', 'External Assessment'],
+            ] as const
+          ).map(([t, label]) => (
+            <button
+              key={t}
+              onClick={() => setReportType(t)}
+              className={`px-3 py-1.5 rounded text-mini font-mono font-semibold border transition-colors ${
+                reportType === t
+                  ? 'bg-brand-50 dark:bg-brand-900/20 border-brand-200 dark:border-brand-800 text-brand-700 dark:text-brand-300'
+                  : 'bg-slate-50 dark:bg-[rgb(var(--surface-100))] border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-600 dark:text-slate-400'
+              }`}
+            >
+              {label}
+            </button>
+          ))}
+        </div>
+        <div className="flex gap-2 items-end">
+          {reportType === 'country' && (
+            <div className="flex-1">
+              <label htmlFor="tr-country" className="block text-micro font-mono text-slate-500 mb-1">
+                Country Code
+              </label>
+              <select
+                id="tr-country"
+                value={country}
+                onChange={(e) => setCountry(e.target.value)}
+                className="text-meta font-mono px-2 py-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] focus:outline-none"
+              >
+                {['US', 'GB', 'DE', 'IN', 'BR', 'JP', 'FR', 'AU', 'CA', 'IT'].map((c) => (
+                  <option key={c} value={c}>
+                    {c}
+                  </option>
+                ))}
+              </select>
+            </div>
+          )}
+          {reportType === 'industry' && (
+            <div className="flex-1">
+              <label htmlFor="tr-industry" className="block text-micro font-mono text-slate-500 mb-1">
+                Industry
+              </label>
+              <select
+                id="tr-industry"
+                value={industry}
+                onChange={(e) => setIndustry(e.target.value)}
+                className="text-meta font-mono px-2 py-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] focus:outline-none"
+              >
+                {[
+                  'healthcare',
+                  'finance',
+                  'manufacturing',
+                  'government',
+                  'technology',
+                  'education',
+                  'retail',
+                  'energy',
+                  'telecom',
+                  'legal',
+                ].map((i) => (
+                  <option key={i} value={i}>
+                    {i.charAt(0).toUpperCase() + i.slice(1)}
+                  </option>
+                ))}
+              </select>
+            </div>
+          )}
+          {reportType === 'external' && (
+            <div className="flex-1">
+              <label htmlFor="tr-domain" className="block text-micro font-mono text-slate-500 mb-1">
+                Domain
+              </label>
+              <input
+                id="tr-domain"
+                type="text"
+                value={domain}
+                onChange={(e) => setDomain(e.target.value)}
+                placeholder="example.com"
+                className="w-full px-3 py-1.5 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-meta focus:outline-none focus:border-brand-500"
+              />
+            </div>
+          )}
+          <button
+            onClick={handleGenerate}
+            disabled={loading || (reportType === 'external' && !domain)}
+            className="px-4 py-1.5 bg-brand-600 dark:bg-brand-500 text-white text-mini font-mono font-semibold rounded hover:bg-brand-700 dark:hover:bg-brand-400 disabled:opacity-50"
+          >
+            {loading ? <Loader2 size={12} className="animate-spin" /> : 'Generate'}
+          </button>
+        </div>
+      </div>
+
+      {error && (
+        <div className="p-3 rounded-lg border border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-300 flex items-center gap-2 font-mono text-sm">
+          <AlertTriangle className="w-4 h-4" /> {error}
+        </div>
+      )}
+
+      {data && data.country && (
+        <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+          <div className="flex items-center justify-between mb-3">
+            <h3 className="font-display font-semibold text-sm">
+              {(data.country as Record<string, string>).name} Threat Landscape
+            </h3>
+            <span
+              className={`text-micro font-mono font-semibold px-2 py-0.5 rounded border ${riskColor((data.country as Record<string, string>).riskLevel)}`}
+            >
+              {(data.country as Record<string, string>).riskLevel}
+            </span>
+          </div>
+          <div className="grid sm:grid-cols-2 gap-4">
+            <div>
+              <h4 className="text-mini font-display font-semibold mb-1">Top Threat Actors</h4>
+              <div className="flex flex-wrap gap-1">
+                {((data.country as Record<string, string[]>).topActors || []).map((a) => (
+                  <span
+                    key={a}
+                    className="text-micro font-mono px-1.5 py-0.5 rounded bg-violet-100 dark:bg-violet-900/30 text-violet-700 dark:text-violet-300"
+                  >
+                    {a}
+                  </span>
+                ))}
+              </div>
+            </div>
+            <div>
+              <h4 className="text-mini font-display font-semibold mb-1">Top Malware</h4>
+              <div className="flex flex-wrap gap-1">
+                {((data.country as Record<string, string[]>).topMalware || []).map((m) => (
+                  <span
+                    key={m}
+                    className="text-micro font-mono px-1.5 py-0.5 rounded bg-rose-100 dark:bg-rose-900/30 text-rose-700 dark:text-rose-300"
+                  >
+                    {m}
+                  </span>
+                ))}
+              </div>
+            </div>
+            <div>
+              <h4 className="text-mini font-display font-semibold mb-1">Critical Sectors</h4>
+              <div className="flex flex-wrap gap-1">
+                {((data.country as Record<string, string[]>).criticalSectors || []).map((s) => (
+                  <span
+                    key={s}
+                    className="text-micro font-mono px-1.5 py-0.5 rounded bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300"
+                  >
+                    {s}
+                  </span>
+                ))}
+              </div>
+            </div>
+            <div>
+              <h4 className="text-mini font-display font-semibold mb-1">Recent Incidents</h4>
+              <ul className="space-y-0.5">
+                {((data.country as Record<string, string[]>).recentIncidents || []).map((inc, i) => (
+                  <li key={i} className="text-micro font-mono text-slate-700 dark:text-slate-300">
+                    • {inc}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+          <div className="mt-3 pt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))] flex gap-4 text-micro font-mono text-muted">
+            <span>
+              Phishing:{' '}
+              <span className="text-slate-900 dark:text-slate-100">
+                {(data.country as Record<string, string>).phishingExposure}
+              </span>
+            </span>
+            <span>
+              Ransomware victims:{' '}
+              <span className="text-slate-900 dark:text-slate-100">
+                {(data.country as Record<string, number>).ransomwareVictims?.toLocaleString()}
+              </span>
+            </span>
+          </div>
+        </div>
+      )}
+
+      {data && data.industry && (
+        <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+          <div className="flex items-center justify-between mb-3">
+            <h3 className="font-display font-semibold text-sm">
+              {(data.industry as Record<string, string>).name} Threat Landscape
+            </h3>
+            <span
+              className={`text-micro font-mono font-semibold px-2 py-0.5 rounded border ${riskColor((data.industry as Record<string, string>).riskLevel)}`}
+            >
+              {(data.industry as Record<string, string>).riskLevel}
+            </span>
+          </div>
+          <div className="grid sm:grid-cols-2 gap-4">
+            <div>
+              <h4 className="text-mini font-display font-semibold mb-1">Top Threat Actors</h4>
+              <div className="flex flex-wrap gap-1">
+                {((data.industry as Record<string, string[]>).topActors || []).map((a) => (
+                  <span
+                    key={a}
+                    className="text-micro font-mono px-1.5 py-0.5 rounded bg-violet-100 dark:bg-violet-900/30 text-violet-700 dark:text-violet-300"
+                  >
+                    {a}
+                  </span>
+                ))}
+              </div>
+            </div>
+            <div>
+              <h4 className="text-mini font-display font-semibold mb-1">Common Attack Vectors</h4>
+              <ul className="space-y-0.5">
+                {((data.industry as Record<string, string[]>).commonVectors || []).map((v, i) => (
+                  <li key={i} className="text-micro font-mono text-slate-700 dark:text-slate-300">
+                    • {v}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="sm:col-span-2">
+              <h4 className="text-mini font-display font-semibold mb-1">Recent Incidents</h4>
+              <ul className="space-y-0.5">
+                {((data.industry as Record<string, string[]>).recentIncidents || []).map((inc, i) => (
+                  <li key={i} className="text-micro font-mono text-slate-700 dark:text-slate-300">
+                    • {inc}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+          <div className="mt-3 pt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))] text-micro font-mono text-muted">
+            <span>
+              Exposure:{' '}
+              <span className="text-slate-900 dark:text-slate-100">
+                {(data.industry as Record<string, string>).exposureLevel}
+              </span>
+            </span>
+            <span className="ml-4">
+              Compliance:{' '}
+              <span className="text-slate-900 dark:text-slate-100">
+                {(data.industry as Record<string, string>).complianceNotes}
+              </span>
+            </span>
+          </div>
+        </div>
+      )}
+
+      {data && data.assessment && (
+        <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+          <div className="flex items-center justify-between mb-3">
+            <h3 className="font-display font-semibold text-sm">
+              {(data.assessment as Record<string, string>).domain} External Threat Assessment
+            </h3>
+            <span
+              className={`text-micro font-mono font-semibold px-2 py-0.5 rounded border ${riskColor((data.assessment as Record<string, string>).riskLevel)}`}
+            >
+              {(data.assessment as Record<string, string>).riskLevel} (
+              {(data.assessment as Record<string, number>).riskScore}/100)
+            </span>
+          </div>
+          <div className="grid sm:grid-cols-2 gap-4">
+            <div>
+              <h4 className="text-mini font-display font-semibold mb-1">Email Security</h4>
+              <div className="space-y-1 text-micro font-mono">
+                <p>
+                  SPF:{' '}
+                  <span
+                    className={
+                      (data.assessment as Record<string, Record<string, string>>).sections?.emailSecurity?.spf ===
+                      'Implemented'
+                        ? 'text-emerald-600 dark:text-emerald-400'
+                        : 'text-red-600 dark:text-red-400'
+                    }
+                  >
+                    {(data.assessment as Record<string, Record<string, string>>).sections?.emailSecurity?.spf}
+                  </span>
+                </p>
+                <p>
+                  DMARC:{' '}
+                  <span
+                    className={
+                      (data.assessment as Record<string, Record<string, string>>).sections?.emailSecurity?.dmarc ===
+                      'Implemented'
+                        ? 'text-emerald-600 dark:text-emerald-400'
+                        : 'text-red-600 dark:text-red-400'
+                    }
+                  >
+                    {(data.assessment as Record<string, Record<string, string>>).sections?.emailSecurity?.dmarc}
+                  </span>
+                </p>
+              </div>
+            </div>
+            <div>
+              <h4 className="text-mini font-display font-semibold mb-1">SSL/TLS</h4>
+              <div className="space-y-1 text-micro font-mono">
+                <p>
+                  Status:{' '}
+                  <span
+                    className={
+                      (data.assessment as Record<string, Record<string, string>>).sections?.ssl?.issuer === 'Valid'
+                        ? 'text-emerald-600 dark:text-emerald-400'
+                        : 'text-red-600 dark:text-red-400'
+                    }
+                  >
+                    {(data.assessment as Record<string, Record<string, string>>).sections?.ssl?.issuer}
+                  </span>
+                </p>
+                <p>
+                  Grade:{' '}
+                  <span className="text-slate-900 dark:text-slate-100">
+                    {(data.assessment as Record<string, Record<string, string>>).sections?.ssl?.grade}
+                  </span>
+                </p>
+              </div>
+            </div>
+            <div className="sm:col-span-2">
+              <h4 className="text-mini font-display font-semibold mb-1">Recommendations</h4>
+              <ul className="space-y-0.5">
+                {((data.assessment as Record<string, Record<string, string[]>>).sections?.recommendations || []).map(
+                  (r, i) => (
+                    <li key={i} className="text-micro font-mono text-slate-700 dark:text-slate-300">
+                      → {r}
+                    </li>
+                  )
+                )}
+              </ul>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );
