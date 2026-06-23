@@ -6,6 +6,7 @@ import { MobileSidebarDrawer } from './MobileSidebarDrawer';
 import { BottomNav } from './BottomNav';
 import { getSidebarForSection } from '../data/sidebar-nav';
 import { SectionErrorBoundary } from './ErrorBoundary';
+import { PjMark } from './PjMark';
 import { useDataFetch } from '../hooks/useDataFetch';
 import { useScrollProgress } from '../hooks/useScrollProgress';
 import { BackToTop } from './ui/BackToTop';
@@ -261,10 +262,11 @@ function AppStatusBar({ mode }: { mode: 'dfir' | 'threatintel' | 'radar' }): JSX
           <span className="text-slate-300 dark:text-slate-700">·</span>
           <Link
             to="/"
-            className="inline-flex items-center min-h-[44px] sm:min-h-0 px-2 sm:px-0 hover:text-slate-900 dark:hover:text-slate-100"
-            aria-label="Back to portfolio"
+            className="inline-flex items-center gap-1.5 min-h-[44px] sm:min-h-0 px-2 sm:px-0 hover:text-slate-900 dark:hover:text-slate-100"
+            aria-label="Built by Pranith Jain — back to portfolio"
           >
-            portfolio
+            <PjMark className="h-3.5 w-3.5" />
+            Built by PJ
           </Link>
         </div>
       </div>

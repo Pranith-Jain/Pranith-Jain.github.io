@@ -125,14 +125,6 @@ export function TopBar({
           </span>
         </Link>
 
-        {/* Back to portfolio */}
-        <Link
-          to="/"
-          className="hidden md:flex items-center gap-1.5 ml-1 text-xs text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300 transition-colors"
-        >
-          ← Portfolio
-        </Link>
-
         <button
           type="button"
           onClick={openPalette}
