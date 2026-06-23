@@ -220,7 +220,9 @@ export default function AptTracker(): JSX.Element {
               className={`text-left rounded-xl border bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-6 hover:shadow-e2 transition-all ${SEVERITY_COLORS[r.name] ?? 'border-slate-200 dark:border-[rgb(var(--border-400))]'}`}
             >
               <div className="flex items-center gap-3 mb-3">
-                <span className="text-3xl">{r.flag}</span>
+                <span className="text-xl leading-none" aria-hidden>
+                  {r.flag}
+                </span>
                 <div>
                   <h3 className="font-display font-bold text-lg text-slate-900 dark:text-slate-100">{r.name}</h3>
                   <p className="text-micro font-mono text-slate-500">{r.groups.length} groups</p>
