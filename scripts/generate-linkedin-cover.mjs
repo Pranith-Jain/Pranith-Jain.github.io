@@ -106,11 +106,11 @@ const svg = `<?xml version="1.0" encoding="UTF-8"?>
 
   <!-- name + role -->
   <text x="186" y="146" font-size="52" font-weight="800" letter-spacing="-0.5" fill="#ffffff">Pranith Jain</text>
-  <text x="188" y="178" font-size="17" font-weight="700" letter-spacing="3.2" fill="#a1b6fb">CERTIFIED CYBER CRIMINOLOGIST · DFIR · THREAT INTEL</text>
+  <text x="188" y="178" font-size="17" font-weight="700" letter-spacing="2.8" fill="#a1b6fb">CERTIFIED CYBER CRIMINOLOGIST · OSINT · THREAT INTEL · AI SECURITY</text>
 
   <!-- tagline -->
   <text x="100" y="262" font-size="29" font-weight="400" fill="#dbe3f4">Edge-native security tooling &amp; a live threat-intelligence platform,</text>
-  <text x="100" y="300" font-size="29" font-weight="400" fill="#94a3b8">built at the intersection of <tspan fill="#a1b6fb" font-weight="600">AI, detection &amp; DFIR</tspan>.</text>
+  <text x="100" y="300" font-size="29" font-weight="400" fill="#94a3b8">built at the intersection of <tspan fill="#a1b6fb" font-weight="600">AI, OSINT &amp; detection</tspan>.</text>
 
   <!-- work strip (no metrics) — shifted right of x=200 so the circular
        profile-photo overlap (bottom-left ~x12–170) never hides it -->
