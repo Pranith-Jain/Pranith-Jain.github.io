@@ -20,52 +20,59 @@ const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const W = 1584;
 const H = 396;
 
-// Right-side constellation. c: 'hub'|'b' bright brand, 'f' faint, 'r' rose accent.
-const HUB = { x: 1300, y: 168, r: 9 };
-const NODES = [
-  HUB,
-  { x: 1168, y: 92, r: 5, c: 'b' },
-  { x: 1452, y: 104, r: 6, c: 'b' },
-  { x: 1512, y: 214, r: 5, c: 'f' },
-  { x: 1392, y: 292, r: 5, c: 'r' },
-  { x: 1206, y: 258, r: 5, c: 'f' },
-  { x: 1126, y: 182, r: 4, c: 'f' },
-  { x: 1436, y: 196, r: 6, c: 'b' },
-  { x: 1262, y: 86, r: 4, c: 'f' },
-  { x: 1330, y: 326, r: 4, c: 'f' },
-  { x: 1238, y: 158, r: 4, c: 'f' },
-];
-// edges by node index (0 = hub)
-const EDGES = [
-  [0, 1], [0, 2], [0, 3], [0, 4], [0, 5], [0, 7], [0, 10],
-  [1, 8], [1, 10], [2, 7], [2, 8], [5, 6], [5, 9], [4, 9], [3, 7], [6, 10],
-];
-const NODE_FILL = { hub: '#6d8bf7', b: '#6d8bf7', f: '#46588f', r: '#fb7185' };
+// Right-side motif: a wireframe globe with threat arcs springing off it —
+// the GlobalPulse view, distilled. Brand-blue wireframe, one rose accent arc.
+const BRAND = '#6d8bf7';
+const FAINT = '#46588f';
+const ROSE = '#fb7185';
+const G = { cx: 1332, cy: 184, r: 116 };
 
-function constellation() {
-  const edges = EDGES.map(([a, b]) => {
-    const p = NODES[a];
-    const q = NODES[b];
-    return `<line x1="${p.x}" y1="${p.y}" x2="${q.x}" y2="${q.y}" stroke="#46588f" stroke-opacity="0.38" stroke-width="1.3"/>`;
-  }).join('\n  ');
-  // glow halos behind the bright nodes
-  const halos = NODES.filter((n) => n === HUB || n.c === 'b' || n.c === 'r')
-    .map((n) => `<circle cx="${n.x}" cy="${n.y}" r="${(n.r ?? 5) * 3.4}" fill="url(#node)"/>`)
+function globe() {
+  const { cx, cy, r } = G;
+  // latitude parallels — horizontal ellipses flattened for perspective
+  const lats = [-94, -52, 0, 52, 94]
+    .map((dy) => {
+      const rx = Math.sqrt(Math.max(r * r - dy * dy, 1));
+      const ry = Math.max(rx * 0.2, 3);
+      const op = dy === 0 ? 0.22 : 0.13;
+      return `<ellipse cx="${cx}" cy="${cy + dy}" rx="${rx.toFixed(1)}" ry="${ry.toFixed(1)}" fill="none" stroke="${FAINT}" stroke-opacity="${op}" stroke-width="1.2"/>`;
+    })
     .join('\n  ');
-  const dots = NODES.map((n) => {
-    const fill = NODE_FILL[n === HUB ? 'hub' : n.c] ?? '#46588f';
-    return `<circle cx="${n.x}" cy="${n.y}" r="${n.r ?? 5}" fill="${fill}"/>`;
-  }).join('\n  ');
+  // longitude meridians — vertical ellipses + the central pole line
+  const lons =
+    [r, r * 0.56, r * 0.2]
+      .map(
+        (rx) =>
+          `<ellipse cx="${cx}" cy="${cy}" rx="${rx.toFixed(1)}" ry="${r}" fill="none" stroke="${FAINT}" stroke-opacity="0.13" stroke-width="1.2"/>`
+      )
+      .join('\n  ') +
+    `\n  <line x1="${cx}" y1="${cy - r}" x2="${cx}" y2="${cy + r}" stroke="${FAINT}" stroke-opacity="0.13" stroke-width="1.2"/>`;
+  const outline = `<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${BRAND}" stroke-opacity="0.32" stroke-width="1.6"/>`;
+  const haze = `<circle cx="${cx}" cy="${cy}" r="${r * 1.25}" fill="url(#node)" opacity="0.45"/>`;
+  // threat arcs: surface origin → external target, lofted via a quadratic ctrl
+  const arcs = [
+    { sx: cx + 64, sy: cy - 80, ex: 1512, ey: 64, c: BRAND, loft: 70 },
+    { sx: cx + 96, sy: cy + 28, ex: 1524, ey: 244, c: BRAND, loft: 54 },
+    { sx: cx + 18, sy: cy - 104, ex: 1452, ey: 30, c: ROSE, loft: 64 },
+    { sx: cx - 70, sy: cy + 82, ex: 1232, ey: 330, c: FAINT, loft: 46 },
+  ]
+    .map((a) => {
+      const mx = (a.sx + a.ex) / 2;
+      const my = (a.sy + a.ey) / 2 - a.loft;
+      const bright = a.c !== FAINT;
+      const halo = bright ? `<circle cx="${a.ex}" cy="${a.ey}" r="15" fill="url(#node)" opacity="0.6"/>` : '';
+      return `<path d="M ${a.sx} ${a.sy} Q ${mx.toFixed(0)} ${my.toFixed(0)} ${a.ex} ${a.ey}" fill="none" stroke="${a.c}" stroke-opacity="${bright ? 0.72 : 0.4}" stroke-width="1.6"/>
+  ${halo}
+  <circle cx="${a.sx}" cy="${a.sy}" r="2.6" fill="${a.c}"/>
+  <circle cx="${a.ex}" cy="${a.ey}" r="${a.c === ROSE ? 5 : 4.5}" fill="${a.c}"/>`;
+    })
+    .join('\n  ');
   return `
-  <!-- scan rings centered on the hub -->
-  <g fill="none" stroke="#6d8bf7">
-    <circle cx="${HUB.x}" cy="${HUB.y}" r="64" stroke-opacity="0.16" stroke-width="1.4"/>
-    <circle cx="${HUB.x}" cy="${HUB.y}" r="116" stroke-opacity="0.10" stroke-width="1.4"/>
-    <circle cx="${HUB.x}" cy="${HUB.y}" r="176" stroke-opacity="0.05" stroke-width="1.4"/>
-  </g>
-  ${edges}
-  ${halos}
-  ${dots}`;
+  ${haze}
+  ${lats}
+  ${lons}
+  ${outline}
+  ${arcs}`;
 }
 
 const svg = `<?xml version="1.0" encoding="UTF-8"?>
@@ -98,7 +105,7 @@ const svg = `<?xml version="1.0" encoding="UTF-8"?>
   <!-- left brand accent bar -->
   <rect x="0" y="0" width="6" height="${H}" fill="url(#bar)"/>
 
-  ${constellation()}
+  ${globe()}
 
   <!-- PJ mark -->
   <rect x="100" y="110" width="66" height="66" rx="15" fill="url(#pj)"/>
