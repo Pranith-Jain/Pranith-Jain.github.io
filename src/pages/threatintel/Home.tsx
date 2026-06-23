@@ -297,19 +297,27 @@ export default function ThreatIntelHome(): JSX.Element {
             ))}
           </div>
 
-          {/* Stats — Huntress "5M+ endpoints" pattern */}
-          <div className="mt-6 flex flex-wrap gap-6 text-sm">
+          {/* Stat band — same hairline-divided treatment as the DFIR home so
+              the two landings read as one product (big mono numerals + a
+              sub-label per stat), not two differently-styled pages. */}
+          <dl className="mt-7 sm:mt-9 grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-[rgb(var(--border-400))] border-y border-[rgb(var(--border-400))]">
             {[
-              { value: '30+', label: 'live feeds' },
-              { value: '100+', label: 'intel pages' },
-              { value: '12+', label: 'IOC sources' },
-            ].map((stat) => (
-              <div key={stat.label} className="flex items-baseline gap-1.5">
-                <span className="font-display text-xl font-bold text-slate-900 dark:text-white">{stat.value}</span>
-                <span className="text-xs text-slate-500 dark:text-slate-400">{stat.label}</span>
+              { value: '30+', label: 'Live feeds', sub: 'refreshed every 90s' },
+              { value: '100+', label: 'Intel pages', sub: 'across 8 categories' },
+              { value: '12+', label: 'IOC sources', sub: 'cross-correlated' },
+            ].map((stat, i) => (
+              <div
+                key={stat.label}
+                className={`flex flex-col gap-1.5 py-3 sm:py-4 ${i === 0 ? 'sm:pr-6' : i === 1 ? 'sm:px-6' : 'sm:pl-6'}`}
+              >
+                <dt className="font-mono text-micro uppercase tracking-[0.16em] text-slate-500">{stat.label}</dt>
+                <dd className="font-display text-3xl sm:text-4xl font-bold leading-none tabular-nums text-slate-900 dark:text-white">
+                  {stat.value}
+                </dd>
+                <dd className="font-mono text-mini text-slate-500">{stat.sub}</dd>
               </div>
             ))}
-          </div>
+          </dl>
         </section>
 
         {/* ── Search results (when typing) ─────────────────────── */}
@@ -432,8 +440,10 @@ export default function ThreatIntelHome(): JSX.Element {
               </div>
             </details>
 
-            {/* ── Collapsible: Explore by topic */}
-            <details className="group surface-card">
+            {/* ── Explore by topic — open by default: these category cards are
+                the hub's primary navigation, so they shouldn't be hidden behind
+                a collapsed summary on landing. Secondary sections stay collapsed. */}
+            <details open className="group surface-card">
               <summary className="flex items-center justify-between cursor-pointer p-4 sm:p-5 select-none">
                 <div>
                   <h2 className="font-display font-bold text-lg text-slate-900 dark:text-slate-100">

@@ -549,8 +549,10 @@ export default function DFIRPage(): JSX.Element {
               </div>
             </section>
 
-            {/* ── Collapsible: Explore by topic */}
-            <details className="group surface-card">
+            {/* ── Explore by topic — open by default: these category cards are
+                the hub's primary navigation, so they shouldn't be hidden behind
+                a collapsed summary on landing. Secondary sections stay collapsed. */}
+            <details open className="group surface-card">
               <summary className="flex items-center justify-between cursor-pointer p-4 sm:p-5 select-none">
                 <div>
                   <h2 className="font-display font-bold text-lg text-slate-900 dark:text-slate-100">
@@ -570,7 +572,7 @@ export default function DFIRPage(): JSX.Element {
                       <Link
                         key={cat.id}
                         to={cat.href}
-                        className={`group relative surface-card card-hover p-4 ${cat.tone}`}
+                        className={`group relative flex flex-col h-full surface-card card-hover p-4 ${cat.tone}`}
                       >
                         <Icon size={20} className="mb-2" aria-hidden="true" />
                         <h3 className="font-display text-sm font-bold text-slate-900 dark:text-slate-100 mb-1">
@@ -579,7 +581,7 @@ export default function DFIRPage(): JSX.Element {
                         <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed line-clamp-3">
                           {cat.description}
                         </p>
-                        <div className="mt-3 flex items-center justify-between">
+                        <div className="mt-auto pt-3 flex items-center justify-between">
                           <span className="font-mono text-[10px] text-slate-400 dark:text-slate-500">
                             {cat.pages} tools
                           </span>
