@@ -118,6 +118,9 @@ export default function PirDashboard(): JSX.Element {
   const [data, setData] = useState<PirResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  // Action (save/delete) errors — separate from the page-level `error` that
+  // feeds DataState (which would blank the whole dashboard).
+  const [actionError, setActionError] = useState<string | null>(null);
   const [expanded, setExpanded] = useState<Set<string>>(new Set());
   const [alerts, setAlerts] = useState<PirAlert[]>([]);
   const [showCreateForm, setShowCreateForm] = useState(false);
@@ -278,7 +281,7 @@ export default function PirDashboard(): JSX.Element {
         active_count: updated.active_count ?? 0,
       });
     } catch (e) {
-      alert(e instanceof Error ? e.message : 'Operation failed');
+      setActionError(e instanceof Error ? e.message : 'Operation failed');
     } finally {
       setSaving(false);
     }
@@ -291,7 +294,7 @@ export default function PirDashboard(): JSX.Element {
       if (!res.ok) throw new Error('Failed to delete');
       fetchAll();
     } catch (e) {
-      alert(e instanceof Error ? e.message : 'Delete failed');
+      setActionError(e instanceof Error ? e.message : 'Delete failed');
     }
   }
 
@@ -820,6 +823,21 @@ export default function PirDashboard(): JSX.Element {
       </div>
 
       <DataState loading={loading} error={error} rows={8}>
+        {actionError && (
+          <div
+            role="alert"
+            className="mb-4 flex items-center justify-between gap-3 rounded-md border border-rose-300 dark:border-rose-700 bg-rose-50 dark:bg-rose-950/30 px-3 py-2 text-tool text-rose-700 dark:text-rose-300"
+          >
+            <span>{actionError}</span>
+            <button
+              type="button"
+              onClick={() => setActionError(null)}
+              className="shrink-0 rounded border border-rose-400/50 px-2 py-0.5 text-mini font-semibold hover:bg-rose-100/60 dark:hover:bg-rose-900/30"
+            >
+              Dismiss
+            </button>
+          </div>
+        )}
         {data && (
           <>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
