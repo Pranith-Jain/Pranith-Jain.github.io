@@ -233,7 +233,7 @@ export default function SecretLeaks(): JSX.Element {
               }}
               className={`flex items-center gap-2 px-4 py-2.5 text-sm font-mono border-b-2 transition-colors ${
                 tab === t.id
-                  ? 'border-brand-500 text-brand-600 dark:text-brand-400'
+                  ? 'border-rose-500 text-rose-600 dark:text-rose-400'
                   : 'border-transparent text-slate-500 hover:text-slate-700 dark:hover:text-white'
               }`}
             >

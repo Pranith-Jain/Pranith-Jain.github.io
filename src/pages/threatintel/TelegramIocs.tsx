@@ -298,7 +298,7 @@ export default function TelegramIocs(): JSX.Element {
           to="/threatintel/telegram-iocs?tab=pipeline"
           className={`border-b-2 px-3 py-2 font-mono text-sm font-semibold transition-colors ${
             tab === 'pipeline'
-              ? 'border-brand-600 text-brand-600 dark:border-brand-400 dark:text-brand-400'
+              ? 'border-rose-600 text-rose-600 dark:border-rose-400 dark:text-rose-400'
               : 'border-transparent text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'
           }`}
         >
@@ -308,7 +308,7 @@ export default function TelegramIocs(): JSX.Element {
           to="/threatintel/telegram-iocs?tab=consensus"
           className={`border-b-2 px-3 py-2 font-mono text-sm font-semibold transition-colors ${
             tab === 'consensus'
-              ? 'border-brand-600 text-brand-600 dark:border-brand-400 dark:text-brand-400'
+              ? 'border-rose-600 text-rose-600 dark:border-rose-400 dark:text-rose-400'
               : 'border-transparent text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'
           }`}
         >
@@ -318,7 +318,7 @@ export default function TelegramIocs(): JSX.Element {
           to="/threatintel/telegram-iocs?tab=sources"
           className={`border-b-2 px-3 py-2 font-mono text-sm font-semibold transition-colors ${
             tab === 'sources'
-              ? 'border-brand-600 text-brand-600 dark:border-brand-400 dark:text-brand-400'
+              ? 'border-rose-600 text-rose-600 dark:border-rose-400 dark:text-rose-400'
               : 'border-transparent text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'
           }`}
         >

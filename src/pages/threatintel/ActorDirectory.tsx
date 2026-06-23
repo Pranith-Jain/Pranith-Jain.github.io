@@ -36,7 +36,7 @@ export default function ActorDirectory(): JSX.Element {
             onClick={() => setActiveTab(t.id)}
             className={`border-b-2 px-3 py-2 font-mono text-sm font-semibold transition-colors ${
               activeTab === t.id
-                ? 'border-brand-600 text-brand-600 dark:border-brand-400 dark:text-brand-400'
+                ? 'border-rose-600 text-rose-600 dark:border-rose-400 dark:text-rose-400'
                 : 'border-transparent text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'
             }`}
             aria-selected={activeTab === t.id}

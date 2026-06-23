@@ -143,7 +143,7 @@ export default function SocradarTools() {
             onClick={() => setTab(id)}
             className={`flex items-center gap-1.5 px-4 py-2.5 text-sm font-mono font-semibold border-b-2 transition-colors ${
               tab === id
-                ? 'border-brand-500 text-brand-600 dark:text-brand-400'
+                ? 'border-rose-500 text-rose-600 dark:text-rose-400'
                 : 'border-transparent text-muted hover:text-slate-900 dark:hover:text-slate-100'
             }`}
           >
@@ -958,8 +958,7 @@ function ThreatReportsPanel() {
                   SPF:{' '}
                   <span
                     className={
-                      (data.assessment as ThreatReportAssessment).sections?.emailSecurity?.spf ===
-                      'Implemented'
+                      (data.assessment as ThreatReportAssessment).sections?.emailSecurity?.spf === 'Implemented'
                         ? 'text-emerald-600 dark:text-emerald-400'
                         : 'text-red-600 dark:text-red-400'
                     }
@@ -971,8 +970,7 @@ function ThreatReportsPanel() {
                   DMARC:{' '}
                   <span
                     className={
-                      (data.assessment as ThreatReportAssessment).sections?.emailSecurity?.dmarc ===
-                      'Implemented'
+                      (data.assessment as ThreatReportAssessment).sections?.emailSecurity?.dmarc === 'Implemented'
                         ? 'text-emerald-600 dark:text-emerald-400'
                         : 'text-red-600 dark:text-red-400'
                     }
@@ -1008,13 +1006,11 @@ function ThreatReportsPanel() {
             <div className="sm:col-span-2">
               <h4 className="text-mini font-display font-semibold mb-1">Recommendations</h4>
               <ul className="space-y-0.5">
-                {((data.assessment as ThreatReportAssessment).sections?.recommendations || []).map(
-                  (r, i) => (
-                    <li key={i} className="text-micro font-mono text-slate-700 dark:text-slate-300">
-                      → {r}
-                    </li>
-                  )
-                )}
+                {((data.assessment as ThreatReportAssessment).sections?.recommendations || []).map((r, i) => (
+                  <li key={i} className="text-micro font-mono text-slate-700 dark:text-slate-300">
+                    → {r}
+                  </li>
+                ))}
               </ul>
             </div>
           </div>
