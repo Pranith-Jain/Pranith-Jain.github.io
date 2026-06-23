@@ -157,6 +157,7 @@ export default function FeedScheduler(): JSX.Element {
   };
 
   const deleteJob = async (id: string, name: string) => {
+    if (!window.confirm(`Delete feed "${name}"? This cannot be undone.`)) return;
     try {
       const res = await fetch(`/api/v1/feed-scheduler/${id}`, { method: 'DELETE', headers: adminAuthHeaders() });
       if (!res.ok) {
@@ -386,6 +387,8 @@ export default function FeedScheduler(): JSX.Element {
 
       {toast && (
         <div
+          role="status"
+          aria-live="polite"
           className={`mb-6 rounded-lg border px-4 py-3 text-tool font-mono ${
             toast.kind === 'ok'
               ? 'border-emerald-200 dark:border-emerald-900 bg-emerald-50 dark:bg-emerald-950/30 text-emerald-700 dark:text-emerald-300'
