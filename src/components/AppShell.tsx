@@ -15,7 +15,7 @@ import { recordVisit } from '../lib/recentTools';
 
 const SECTION_META: Record<'dfir' | 'threatintel' | 'radar', { label: string; href: string; accent: string }> = {
   dfir: { label: 'CRUCIBLE', href: '/dfir', accent: 'text-brand-600 dark:text-brand-400' },
-  threatintel: { label: 'PANOPTICON', href: '/threatintel', accent: 'text-rose-600 dark:text-rose-400' },
+  threatintel: { label: 'PANOPTICON', href: '/threatintel', accent: 'text-brand-600 dark:text-brand-400' },
   radar: { label: 'SCOUT', href: '/radar', accent: 'text-brand-600 dark:text-brand-400' },
 };
 

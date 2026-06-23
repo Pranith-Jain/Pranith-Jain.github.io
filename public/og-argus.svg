@@ -38,26 +38,26 @@
   <text x="153" y="116" font-size="13" font-weight="700" letter-spacing="3" fill="#a1b6fb">BUILT ON CLOUDFLARE WORKERS</text>
 
   <!-- section eyebrow -->
-  <text x="80" y="208" font-size="18" font-weight="800" letter-spacing="4" fill="#a1b6fb">CRUCIBLE · DFIR TOOLKIT</text>
+  <text x="80" y="208" font-size="18" font-weight="800" letter-spacing="4" fill="#a1b6fb">ARGUS · THREAT NEXUS</text>
 
   <!-- headline -->
-  <text x="80" y="286" font-size="58" font-weight="800" letter-spacing="0.3" fill="#ffffff">90+ DFIR tools that run</text>
-  <text x="80" y="356" font-size="58" font-weight="800" letter-spacing="0.3" fill="#a1b6fb">entirely in your browser</text>
+  <text x="80" y="286" font-size="58" font-weight="800" letter-spacing="0.3" fill="#ffffff">Nation-state threat intel</text>
+  <text x="80" y="356" font-size="58" font-weight="800" letter-spacing="0.3" fill="#a1b6fb">with 3D globe visualization</text>
 
   <!-- features -->
-  <text x="80" y="448" font-size="22" font-weight="400" fill="#cbd5e1">IOC checker · phishing analysis · CVE triage · rule conversion</text>
+  <text x="80" y="448" font-size="22" font-weight="400" fill="#cbd5e1">Actor dossiers · relationship graphs · live feeds</text>
 
   <!-- divider -->
   <rect x="80" y="486" width="120" height="4" rx="2" fill="#5a78f2"/>
 
   <!-- stats -->
-  <text x="80" y="528" font-size="42" font-weight="800" fill="#a1b6fb">90+</text>
-  <text x="80" y="556" font-size="15" font-weight="600" letter-spacing="2" fill="#94a3b8">TOOLS</text>
-  <text x="330" y="528" font-size="42" font-weight="800" fill="#a1b6fb">11</text>
-  <text x="330" y="556" font-size="15" font-weight="600" letter-spacing="2" fill="#94a3b8">CATEGORIES</text>
-  <text x="580" y="528" font-size="42" font-weight="800" fill="#a1b6fb">100%</text>
-  <text x="580" y="556" font-size="15" font-weight="600" letter-spacing="2" fill="#94a3b8">CLIENT-SIDE</text>
+  <text x="80" y="528" font-size="42" font-weight="800" fill="#a1b6fb">6</text>
+  <text x="80" y="556" font-size="15" font-weight="600" letter-spacing="2" fill="#94a3b8">VIEWS</text>
+  <text x="330" y="528" font-size="42" font-weight="800" fill="#a1b6fb">APT</text>
+  <text x="330" y="556" font-size="15" font-weight="600" letter-spacing="2" fill="#94a3b8">DATA</text>
+  <text x="580" y="528" font-size="42" font-weight="800" fill="#a1b6fb">interactive</text>
+  <text x="580" y="556" font-size="15" font-weight="600" letter-spacing="2" fill="#94a3b8">VISUAL</text>
 
   <!-- footer -->
-  <text x="80" y="600" font-size="20" font-weight="700" letter-spacing="0.5" fill="#94a3b8"><tspan fill="#a1b6fb" font-weight="800">pranithjain.qzz.io/dfir  ·  no data leaves your machine</tspan></text>
+  <text x="80" y="600" font-size="20" font-weight="700" letter-spacing="0.5" fill="#94a3b8"><tspan fill="#a1b6fb" font-weight="800">pranithjain.qzz.io/threatnexus  ·  standalone</tspan></text>
 </svg>

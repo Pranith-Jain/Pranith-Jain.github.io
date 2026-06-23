@@ -2,7 +2,7 @@
   "$schema": "https://modelcontextprotocol.io/schemas/manifest/v1.json",
   "name": "DFIR-ThreatIntel-MCP",
   "version": "1.0.0",
-  "description": "DFIR + Threat Intel MCP server. 118 tools across IOC check, CVE/KEV, actor enrichment, domain/ASN/WHOIS pivots, ransomware + breach monitoring, phishing analysis, supply-chain attacks, YARA/Sigma authoring, MITRE ATT&CK extraction, Hudson Rock infostealer search, passive DNS, IOC watchlists, investigation notebooks, shift handover, prompt vault, and the full SCStelz/security-investigator playbook library (KQL queries, skills, automations, knowledge-base docs).",
+  "description": "DFIR + Threat Intel MCP server. 120 tools across IOC check, CVE/KEV, actor enrichment, domain/ASN/WHOIS pivots, ransomware + breach monitoring, phishing analysis, supply-chain attacks, YARA/Sigma authoring, MITRE ATT&CK extraction, Hudson Rock infostealer search, passive DNS, IOC watchlists, investigation notebooks, shift handover, prompt vault, and the full SCStelz/security-investigator playbook library (KQL queries, skills, automations, knowledge-base docs).",
   "transport": "streamable-http",
   "endpoint": "https://pranithjain.qzz.io/api/mcp",
   "auth": {
@@ -16,8 +16,8 @@
       "listChanged": false
     }
   },
-  "toolCount": 119,
-  "generatedAt": "2026-06-22T19:20:45.666Z",
+  "toolCount": 120,
+  "generatedAt": "2026-06-23T08:08:46.236Z",
   "tools": [
     {
       "name": "analyze_phishing_email",
@@ -247,16 +247,6 @@
     {
       "name": "lookup_cve",
       "description": "Look up a CVE by ID. Returns description, CVSS score, EPSS probability, CISA KEV status, affected products, and references.",
-      "category": "cve"
-    },
-    {
-      "name": "poc_scan",
-      "description": "Search GitHub for public exploit/PoC repositories for a CVE. Returns repo URLs, star counts, language, age, and code presence. Bypasses GitHub 1000-result limit.",
-      "category": "cve"
-    },
-    {
-      "name": "soc_cve_report",
-      "description": "Generate a SOC CVE intelligence report. Bundles CVE lookup + PoC scan + health check into CSV or Markdown. Includes executive summary, CVSS/EPSS/KEV details, PoC repos, and pipeline health.",
       "category": "cve"
     },
     {
@@ -518,6 +508,36 @@
       "name": "si_stats",
       "description": "Return cache + manifest stats for the Security Investigator data: index loaded, body-cache sizes and hit ratios. Useful for diagnosing cold-start latency.",
       "category": "si"
+    },
+    {
+      "name": "soc_cve_report",
+      "description": "Generate a SOC CVE intelligence report. Takes a list of up to 50 CVE IDs and bundles CVE lookup + PoC scan + health check into a downloadable CSV or Markdown report. Returns executive summary, CVSS/EPSS/KEV details, PoC repos, and pipeline health.",
+      "category": "other"
+    },
+    {
+      "name": "tg_boolean_search",
+      "description": "Search Telegram leak messages with boolean AND/OR/NOT operators and field qualifiers. Fields: text, channel.title, channel.username, severity, leak_type. Supports wildcards (prefix*) and exact phrases (\"quoted\").",
+      "category": "other"
+    },
+    {
+      "name": "tg_saved_search_create",
+      "description": "Save a Telegram boolean search query for one-click reuse.",
+      "category": "other"
+    },
+    {
+      "name": "tg_saved_search_delete",
+      "description": "Delete a saved Telegram search query.",
+      "category": "other"
+    },
+    {
+      "name": "tg_saved_searches_list",
+      "description": "List saved Telegram boolean search queries.",
+      "category": "other"
+    },
+    {
+      "name": "tg_timeline",
+      "description": "Get Telegram message volume timeline data (messages per day) with severity breakdown. Useful for visualizing activity spikes.",
+      "category": "other"
     },
     {
       "name": "trace_crypto_address",

@@ -499,7 +499,10 @@ export async function listBriefings(
 }
 
 export async function readBriefing(db: D1Database, slug: string): Promise<Briefing | null> {
-  const row = await db.prepare('SELECT body FROM briefings WHERE slug = ?').bind(slug).first<{ body: string }>();
+  const row = await db
+    .prepare('SELECT body FROM briefings WHERE LOWER(slug) = LOWER(?)')
+    .bind(slug)
+    .first<{ body: string }>();
   if (!row) return null;
   return safeJsonParse((row as { body: string }).body, null);
 }

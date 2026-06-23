@@ -43,11 +43,7 @@ export function BottomNav({ mode, onOpenSearch }: BottomNavProps): JSX.Element {
               key={item.href}
               to={item.href}
               className={`flex flex-col items-center gap-0.5 min-w-[60px] py-1 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 ${
-                active
-                  ? mode === 'dfir'
-                    ? 'text-brand-600 dark:text-brand-400'
-                    : 'text-rose-600 dark:text-rose-400'
-                  : 'text-slate-600 dark:text-slate-400'
+                active ? 'text-brand-600 dark:text-brand-400' : 'text-slate-600 dark:text-slate-400'
               }`}
             >
               <item.icon size={20} aria-hidden="true" />
@@ -72,9 +68,7 @@ export function BottomNav({ mode, onOpenSearch }: BottomNavProps): JSX.Element {
             to={entries[0].path}
             className={`flex flex-col items-center gap-0.5 min-w-[60px] py-1 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 ${
               location.pathname === entries[0].path
-                ? mode === 'dfir'
-                  ? 'text-brand-600 dark:text-brand-400'
-                  : 'text-rose-600 dark:text-rose-400'
+                ? 'text-brand-600 dark:text-brand-400'
                 : 'text-slate-500 dark:text-slate-400'
             }`}
           >

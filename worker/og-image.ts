@@ -102,7 +102,7 @@ export function generateOgSvg(data: OgImageData): string {
   // Brand colors by type
   const accentMap: Record<string, { primary: string; secondary: string; badge: string }> = {
     blog: { primary: '#6366f1', secondary: '#818cf8', badge: '#4f46e5' },
-    briefing: { primary: '#f43f5e', secondary: '#fb7185', badge: '#e11d48' },
+    briefing: { primary: '#2c3ee5', secondary: '#435ef1', badge: '#1e3aaf' },
     research: { primary: '#0ea5e9', secondary: '#38bdf8', badge: '#0284c7' },
     default: { primary: '#2c3ee5', secondary: '#435ef1', badge: '#1e3aaf' },
   };
@@ -116,7 +116,7 @@ export function generateOgSvg(data: OgImageData): string {
     blog: 'BLOG POST',
     briefing: 'THREAT BRIEFING',
     research: 'RESEARCH',
-    default: 'PRANITH JAIN',
+    default: 'SECURITY TOOLS',
   };
 
   // Wrap title
@@ -200,7 +200,7 @@ export function generateOgSvg(data: OgImageData): string {
   <!-- Logo mark -->
   <rect x="1060" y="588" rx="6" ry="6" width="36" height="36" fill="${accent.primary}"/>
   <text x="1078" y="614" text-anchor="middle" fill="white" font-family="'Inter', system-ui, sans-serif" font-size="16" font-weight="800">PJ</text>
-  <text x="1108" y="612" fill="#64748b" font-family="'SF Mono', 'Fira Code', monospace" font-size="14" font-weight="500">Threat Intel</text>
+  <text x="1108" y="612" fill="#64748b" font-family="'SF Mono', 'Fira Code', monospace" font-size="14" font-weight="500">CRUCIBLE</text>
 </svg>`;
 }
 

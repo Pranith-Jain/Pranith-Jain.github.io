@@ -495,7 +495,7 @@ export default function RedHuntInsights(): JSX.Element {
                 (trends.bitbucket_monitoring_v1?.last_1_hour_count ?? 0)
               }
               window="1h"
-              tone="rose"
+              tone="brand"
             />
             <BigStat
               icon={Layers}
@@ -611,7 +611,7 @@ export default function RedHuntInsights(): JSX.Element {
                 total={trends.github_monitoring_v1?.total_count}
                 delta={trends.github_monitoring_v1?.last_1_hour_count}
                 window="1h"
-                tone="rose"
+                tone="brand"
               />
               <BigStat
                 icon={KeyRound}
@@ -619,7 +619,7 @@ export default function RedHuntInsights(): JSX.Element {
                 total={trends.gitlab_monitoring_v1?.total_count}
                 delta={trends.gitlab_monitoring_v1?.last_1_hour_count}
                 window="1h"
-                tone="rose"
+                tone="brand"
               />
               <BigStat
                 icon={KeyRound}
@@ -627,7 +627,7 @@ export default function RedHuntInsights(): JSX.Element {
                 total={trends.bitbucket_monitoring_v1?.total_count}
                 delta={trends.bitbucket_monitoring_v1?.last_1_hour_count}
                 window="1h"
-                tone="rose"
+                tone="brand"
               />
             </div>
           </div>

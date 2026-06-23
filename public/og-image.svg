@@ -31,34 +31,33 @@
 
   <rect x="0" y="0" width="8" height="630" fill="url(#bar)"/>
 
-  <!-- header: PJ mark + name + identity -->
+  <!-- header: brand mark + name -->
   <rect x="80" y="64" width="56" height="56" rx="13" fill="#2c3ee5"/>
   <text x="108" y="102" text-anchor="middle" font-size="24" font-weight="800" fill="#ffffff">PJ</text>
-  <text x="152" y="92" font-size="27" font-weight="800" letter-spacing="0.5" fill="#ffffff">PRANITH JAIN</text>
-  <text x="153" y="116" font-size="13" font-weight="700" letter-spacing="3" fill="#a1b6fb">SECURITY ANALYST · DETECTION ENGINEER</text>
+  <text x="152" y="92" font-size="27" font-weight="800" letter-spacing="0.5" fill="#ffffff">pranithjain.qzz.io</text>
+  <text x="153" y="116" font-size="13" font-weight="700" letter-spacing="3" fill="#a1b6fb">BUILT ON CLOUDFLARE WORKERS</text>
 
   <!-- section eyebrow -->
-  <text x="80" y="208" font-size="18" font-weight="800" letter-spacing="4" fill="#a1b6fb">THREAT INTELLIGENCE · DFIR · DETECTION ENGINEERING</text>
+  <text x="80" y="208" font-size="18" font-weight="800" letter-spacing="4" fill="#a1b6fb">SECURITY TOOLS · THREAT INTEL · DFIR</text>
 
   <!-- headline -->
-  <text x="80" y="268" font-size="50" font-weight="800" letter-spacing="0.3" fill="#ffffff">Building at the intersection of</text>
-  <text x="80" y="330" font-size="50" font-weight="800" letter-spacing="0.3" fill="#a1b6fb">AI, threat intel &amp;</text>
-  <text x="80" y="392" font-size="50" font-weight="800" letter-spacing="0.3" fill="#a1b6fb">edge-native security tooling.</text>
+  <text x="80" y="286" font-size="58" font-weight="800" letter-spacing="0.3" fill="#ffffff">Browser-side DFIR tooling &amp;</text>
+  <text x="80" y="356" font-size="58" font-weight="800" letter-spacing="0.3" fill="#a1b6fb">a live threat-intel platform</text>
 
   <!-- features -->
-  <text x="80" y="476" font-size="22" font-weight="400" fill="#cbd5e1">Live CTI platform · 60+ DFIR tools · detection engineering</text>
+  <text x="80" y="448" font-size="22" font-weight="400" fill="#cbd5e1">90+ DFIR tools · 100+ threat intel feeds · no signup</text>
 
   <!-- divider -->
   <rect x="80" y="486" width="120" height="4" rx="2" fill="#5a78f2"/>
 
   <!-- stats -->
   <text x="80" y="528" font-size="42" font-weight="800" fill="#a1b6fb">90+</text>
-  <text x="80" y="556" font-size="15" font-weight="600" letter-spacing="2" fill="#94a3b8">INTEL SOURCES</text>
-  <text x="330" y="528" font-size="42" font-weight="800" fill="#a1b6fb">60+</text>
-  <text x="330" y="556" font-size="15" font-weight="600" letter-spacing="2" fill="#94a3b8">DFIR TOOLS</text>
-  <text x="580" y="528" font-size="42" font-weight="800" fill="#a1b6fb">18</text>
-  <text x="580" y="556" font-size="15" font-weight="600" letter-spacing="2" fill="#94a3b8">FEEDS CORRELATED</text>
+  <text x="80" y="556" font-size="15" font-weight="600" letter-spacing="2" fill="#94a3b8">TOOLS</text>
+  <text x="330" y="528" font-size="42" font-weight="800" fill="#a1b6fb">100+</text>
+  <text x="330" y="556" font-size="15" font-weight="600" letter-spacing="2" fill="#94a3b8">FEEDS</text>
+  <text x="580" y="528" font-size="42" font-weight="800" fill="#a1b6fb">free</text>
+  <text x="580" y="556" font-size="15" font-weight="600" letter-spacing="2" fill="#94a3b8">NO SIGNUP</text>
 
   <!-- footer -->
-  <text x="80" y="600" font-size="20" font-weight="700" letter-spacing="0.5" fill="#94a3b8"><tspan fill="#a1b6fb" font-weight="800">pranithjain.qzz.io  ·  /dfir  ·  /threatintel</tspan></text>
+  <text x="80" y="600" font-size="20" font-weight="700" letter-spacing="0.5" fill="#94a3b8"><tspan fill="#a1b6fb" font-weight="800">pranithjain.qzz.io  ·  CRUCIBLE  ·  PANOPTICON</tspan></text>
 </svg>

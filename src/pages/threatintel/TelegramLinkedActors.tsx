@@ -366,7 +366,7 @@ export default function TelegramLinkedActors(): JSX.Element {
           <CatalogStat
             label="actors with handles"
             value={THREAT_ACTORS.filter((a) => (a.telegram_handles?.length ?? 0) > 0).length}
-            tone="rose"
+            tone="brand"
           />
           <CatalogStat label="unique handles indexed" value={CATALOG_INDEX.size} tone="sky" />
           <CatalogStat label="leak entries (90d)" value={leakEntries.length} tone="amber" />
@@ -425,10 +425,10 @@ function CatalogStat({
 }: {
   label: string;
   value: number;
-  tone: 'rose' | 'sky' | 'amber' | 'violet';
+  tone: 'brand' | 'sky' | 'amber' | 'violet';
 }): JSX.Element {
   const tones: Record<typeof tone, string> = {
-    rose: 'border-rose-500/30 bg-rose-500/5 text-rose-700 dark:text-rose-300',
+    brand: 'border-brand-500/30 bg-brand-500/5 text-brand-700 dark:text-brand-300',
     sky: 'border-sky-500/30 bg-sky-500/5 text-sky-700 dark:text-sky-300',
     amber: 'border-amber-500/30 bg-amber-500/5 text-amber-700 dark:text-amber-300',
     violet: 'border-violet-500/30 bg-violet-500/5 text-violet-700 dark:text-violet-300',

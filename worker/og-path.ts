@@ -13,5 +13,5 @@ const OG_ROUTE_RE = /^\/api\/v1\/og-image\/(briefing|blog)\/([a-z0-9][a-z0-9-]{0
 export function matchOgImagePath(pathname: string): { type: OgImageType; slug: string } | null {
   const m = OG_ROUTE_RE.exec(pathname);
   if (!m) return null;
-  return { type: m[1]!.toLowerCase() as OgImageType, slug: m[2]!.toLowerCase() };
+  return { type: m[1]!.toLowerCase() as OgImageType, slug: m[2]! };
 }

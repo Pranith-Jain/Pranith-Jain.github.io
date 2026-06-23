@@ -16,10 +16,8 @@ export function AppHero({
   title: string;
   sub: string;
   meta?: ReactNode;
-  /** Accent palette. 'brand' (default, blue) for DFIR, 'rose' for
-   *  threat-intel. Drives the kicker text and the 1px hairline accent
-   *  (replaces the old blurred brand wash — the same hierarchy from a
-   *   single mark, none of the AI-decorative feel). */
+  /** Accent palette. 'brand' (default, blue) for DFIR and threat-intel.
+   *  Drives the kicker text and the 1px hairline accent. */
   tone?: 'brand' | 'rose';
 }): JSX.Element {
   const TONE = {

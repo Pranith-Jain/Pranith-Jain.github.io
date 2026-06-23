@@ -423,7 +423,7 @@ export default function ThreatIntelHome(): JSX.Element {
             </summary>
             <div className="px-4 sm:px-5 pb-4 sm:pb-5">
               <LiveSnapshotPanel
-                tone="rose"
+                tone="brand"
                 compact
                 subtitle="real-time feed health across the platform"
                 mbClass="mb-0"

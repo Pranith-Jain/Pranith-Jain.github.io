@@ -1,6 +1,6 @@
 # DFIR-ThreatIntel MCP - tool catalog
 
-**99 tools** | live at `https://pranithjain.qzz.io/api/mcp` (streamable HTTP).
+**120 tools** | live at `https://pranithjain.qzz.io/api/mcp` (streamable HTTP).
 
 ## Quick start
 
@@ -49,8 +49,9 @@
 - `si_shiftlog_update` - SHIFTLOG: patch a shift entry (notes, open cases, IOCs, escalations, endedAt).
 - `si_stats` - Return cache + manifest stats for the Security Investigator data: index loaded, body-cache sizes and hit ratios. Useful for diagnosing cold-start latency.
 
-### other (9)
+### other (28)
 
+- `cyber_news` - Aggregate cybersecurity news from 11 RSS feeds across 5 tiers (Advisory, Exploit, Research, Vendor, Community). Supports tier filtering and keyword search. Sources: CISA, Rapid7, Packet Storm, BleepingComputer, Hacker News, GitHub Security, ZDI, Reddit netsec/exploitdev/bugbounty.
 - `get_cert_in_advisories` - CERT-In (Indian Computer Emergency Response Team) advisories — vendor-reported vulnerabilities affecting Indian enterprises, with severity, CVEs, products affected, and the official CIAD-YYYY-NNNN ID. Filter by CVE, year, severity, or keyword.
 - `get_cross_report_graph` - Cross-report knowledge-graph snapshot. Returns the top N most-referenced nodes (IOCs, actors, malware, CVEs, techniques, campaigns) across every ingested source, with the edges that connect them. Filter by node type and time window.
 - `get_detections` - Get the latest detection rules feed — Sigma, YARA, and Snort rules mapped to threat actors, malware families, and MITRE ATT&CK techniques.
@@ -59,7 +60,25 @@
 - `get_threat_pulse` - Get a global threat overview — top active threat actors, trending malware families, most exploited CVEs, and geopolitical cyber events from the past week.
 - `get_trending_iocs` - Get the most active IOCs in the last 24 hours. Returns indicators with highest observation counts and scores, useful for identifying emerging threats.
 - `lookup_mitre` - Look up a MITRE ATT&CK technique by ID. Returns technique name, description, tactics, mitigations, and detection guidance.
+- `poc_scan` - Search GitHub for public exploit/PoC repositories for a CVE. Returns repo URLs, star counts, language, age, and whether the repo has actual code. Bypasses GitHub 1000-result limit via monthly pagination.
+- `soc_cve_report` - Generate a SOC CVE intelligence report. Takes a list of up to 50 CVE IDs and bundles CVE lookup + PoC scan + health check into a downloadable CSV or Markdown report. Returns executive summary, CVSS/EPSS/KEV details, PoC repos, and pipeline health.
+- `tg_boolean_search` - Search Telegram leak messages with boolean AND/OR/NOT operators and field qualifiers. Fields: text, channel.title, channel.username, severity, leak_type. Supports wildcards (prefix\*) and exact phrases ("quoted").
+- `tg_saved_search_create` - Save a Telegram boolean search query for one-click reuse.
+- `tg_saved_search_delete` - Delete a saved Telegram search query.
+- `tg_saved_searches_list` - List saved Telegram boolean search queries.
+- `tg_timeline` - Get Telegram message volume timeline data (messages per day) with severity breakdown. Useful for visualizing activity spikes.
 - `trace_crypto_address` - Trace a cryptocurrency wallet address. Returns balance, transaction history, and associated entities from blockchain explorers.
+- `ws_add_connection` - Define a relationship between two subjects in a workspace.
+- `ws_add_finding` - Log a finding with source, trust score, and confidence in a workspace.
+- `ws_add_subject` - Register a subject (entity) in a workspace investigation.
+- `ws_create` - Create a new investigation workspace for AEAD lifecycle tracking.
+- `ws_export_stix` - Export workspace indicators as STIX 2.1 bundle or flat IOC list.
+- `ws_exposure` - Calculate composite exposure score (0-100) for a target based on IOC reputation, breach exposure, infrastructure, attack surface, and threat intel.
+- `ws_get` - Get a workspace with all subjects, connections, findings, and timeline.
+- `ws_list` - List investigation workspaces. Each workspace is a full AEAD-lifecycle case with subjects, connections, findings, and timeline.
+- `ws_render_graph` - Render an ASCII box-drawing relationship graph, timeline, or risk heatmap from workspace data.
+- `ws_workflow_advance` - Advance a workspace to the next AEAD phase (Acquire→Enrich→Assess→Deliver→Complete).
+- `ws_workflow_summary` - Get workspace summary: phase progress, findings breakdown, recommended commands.
 
 ### domain (9)
 
@@ -128,6 +147,12 @@
 - `search_triage` - Search Recorded Future Triage sandbox for malware samples by family, tag, hash, URL, or domain. Returns analysis results, behavioral reports, and extracted configs.
 - `unified_search` - Cross-source search across all threat intelligence feeds. Search by keyword, IOC, actor name, malware family, or CVE to find matching entries across briefings, live feeds, ransomware data, and more.
 
+### cve (3)
+
+- `cve_health` - Check the health of CVE data pipelines. Validates NVD API, EPSS API, CISA KEV, GitHub API rate limit, KV intel cache (EPSS coverage, KEV count, field completeness), and Exploit-DB mirror availability. Returns overall status (healthy/degraded/unhealthy) with per-check details.
+- `cve_poc_map` - Get the cached CVE-to-GitHub-repo mapping. Pass ?id=CVE-XXXX-XXXXX for a single CVE, or ?year=YYYY for a year-scoped index of all mapped CVEs. Results are KV-cached for 24h.
+- `lookup_cve` - Look up a CVE by ID. Returns description, CVSS score, EPSS probability, CISA KEV status, affected products, and references.
+
 ### pdns (3)
 
 - `passive_dns_overlap` - Find IPs shared between multiple domains (infrastructure overlap detection). Useful for mapping shared malicious hosting.
@@ -155,10 +180,6 @@
 ### osint (1)
 
 - `google_dorks` - Generate and execute Google dork queries for a domain. Useful for finding exposed files, login pages, and sensitive information.
-
-### cve (1)
-
-- `lookup_cve` - Look up a CVE by ID. Returns description, CVSS score, EPSS probability, CISA KEV status, affected products, and references.
 
 ### exposure (1)
 

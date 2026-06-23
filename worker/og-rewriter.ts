@@ -34,53 +34,53 @@ export const OG_CACHE_TTL_SECONDS = 86400;
 
 export const OG_OVERRIDES: Record<string, OgOverride> = {
   '/about': {
-    title: 'About · Pranith Jain',
+    title: 'About · pranithjain.qzz.io',
     description:
       'Security engineer working across DFIR, threat intelligence, detection engineering, and cloud security. Background, focus areas, and how to get in touch.',
   },
   '/skills': {
-    title: 'Skills · Pranith Jain',
+    title: 'Skills · pranithjain.qzz.io',
     description:
       'Capabilities across digital forensics & incident response, threat intelligence, detection engineering, cloud & application security, and security automation.',
   },
   '/experience': {
-    title: 'Experience · Pranith Jain',
+    title: 'Experience · pranithjain.qzz.io',
     description: 'Professional experience and roles in security engineering, DFIR, and threat intelligence.',
   },
   '/projects': {
-    title: 'Projects · Pranith Jain',
+    title: 'Projects · pranithjain.qzz.io',
     description:
       'Selected security projects and case studies — detection tooling, threat-intel platforms, and DFIR utilities built and shipped on the edge.',
   },
   '/blog': {
-    title: 'Blog · Pranith Jain',
+    title: 'Blog · pranithjain.qzz.io',
     description:
       'Writing on threat intelligence, detection engineering, DFIR, and cloud security — field notes, deep dives, and analysis.',
   },
   // The two highest-value organic-search surfaces previously fell through to
   // index.html's 97-char home <title>; give them their own short cards.
   '/dfir': {
-    title: 'CRUCIBLE · DFIR & Security Toolkit · Pranith Jain',
+    title: 'CRUCIBLE · DFIR Toolkit',
     description:
-      'CRUCIBLE — 60+ free, browser-side DFIR tools across 11 categories: IOC checker, CVE prioritizer, crypto tracer, decoders, YARA/Sigma converter. No signup.',
-    image: '/og-dfir.png?v=2',
+      'CRUCIBLE — 90+ free, browser-side DFIR tools: IOC checker, CVE prioritizer, crypto tracer, decoders, YARA/Sigma converter. No signup.',
+    image: '/og-dfir.png?v=3',
   },
   '/radar': {
-    title: 'Domain Recon Scanner · Pranith Jain',
+    title: 'SCOUT · Recon Scanner',
     description:
-      'Free, browser-driven recon: HTTP headers, redirect chains, server fingerprint, JavaScript inventory, exposed endpoints, and a 0-100 security score.',
-    image: '/og-dfir.png?v=2',
+      'SCOUT — deep crawl, JS analysis, API discovery, secret detection, and 0-100 security scoring. Free, browser-driven recon.',
+    image: '/og-scout.png?v=1',
   },
   '/copilot': {
-    title: 'CTI Copilot · Pranith Jain',
+    title: 'CTI Copilot',
     description:
       'An agentic CTI assistant that investigates indicators, actors, and CVEs across the platform feeds and returns a sourced, structured briefing.',
   },
   '/threatintel': {
-    title: 'Threat Intel Platform · pranithjain.qzz.io',
+    title: 'PANOPTICON · Threat Intel Platform',
     description:
-      'A working CTI surface on the edge. Live ransomware leaks, CVE × CISA KEV, cross-source IOC correlation, actor × MITRE, STIX 2.1 export.',
-    image: '/og-threatintel.png?v=2',
+      'PANOPTICON — live ransomware leaks, CVE × CISA KEV, cross-source IOC correlation, actor × MITRE, STIX 2.1 export. Edge-hosted and free.',
+    image: '/og-threatintel.png?v=3',
   },
   '/threatintel/external-resources': {
     title: 'External Resources Catalog · pranithjain.qzz.io',
@@ -91,6 +91,12 @@ export const OG_OVERRIDES: Record<string, OgOverride> = {
     title: 'Facilities Database · pranithjain.qzz.io',
     description:
       'Strategic facilities worldwide — conflict zones, military bases, nuclear sites, disputed territories, sanctions targets, and critical infrastructure. Map view.',
+  },
+  '/threatnexus': {
+    title: 'ARGUS · Threat Nexus',
+    description:
+      'ARGUS — nation-state threat intel dashboard with 3D globe, actor dossiers, relationship graphs, and live threat feeds. Interactive D3 + three.js.',
+    image: '/og-argus.png?v=1',
   },
   '/threatintel/correlation': {
     title: 'Cross-source IOC correlation · pranithjain.qzz.io',
@@ -226,7 +232,7 @@ export async function resolveOg(url: URL, env: Env): Promise<OgOverride | null> 
       } | null;
       if (post?.title) {
         return {
-          title: `${post.title} · Pranith Jain`,
+          title: `${post.title} · pranithjain.qzz.io`,
           description: post.excerpt?.slice(0, 280) || OG_OVERRIDES['/blog']!.description,
           image,
         };
@@ -240,7 +246,7 @@ export async function resolveOg(url: URL, env: Env): Promise<OgOverride | null> 
   // Briefing detail pages get a per-briefing card: dynamic PNG image always,
   // plus the briefing's own title/summary when it can be read from D1. A D1
   // miss still yields the dynamic image over the generic threat-intel card.
-  const b = /^\/threatintel\/briefings\/([a-z0-9-]{1,200})$/.exec(url.pathname);
+  const b = /^\/threatintel\/briefings\/([a-z0-9-]{1,200})$/i.exec(url.pathname);
   if (b) {
     const image = `/api/v1/og-image/briefing/${b[1]}.png`;
     if (env.BRIEFINGS_DB) {

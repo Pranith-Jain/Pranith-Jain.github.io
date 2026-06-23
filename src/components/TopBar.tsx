@@ -44,7 +44,7 @@ const SEARCH_PLACEHOLDERS: Record<string, string> = {
 // Geist leans on borders and tonal surfaces, not decorative rings.
 const MARK_ACCENT: Record<'dfir' | 'threatintel' | 'radar', string> = {
   dfir: 'bg-brand-500/10 text-brand-600 dark:text-brand-300',
-  threatintel: 'bg-rose-500/10 text-rose-600 dark:text-rose-300',
+  threatintel: 'bg-brand-500/10 text-brand-600 dark:text-brand-300',
   radar: 'bg-brand-500/10 text-brand-600 dark:text-brand-300',
 };
 

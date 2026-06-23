@@ -5,13 +5,13 @@
       <stop offset="0%" stop-color="#0b1120"/><stop offset="50%" stop-color="#1e293b"/><stop offset="100%" stop-color="#0b1120"/>
     </linearGradient>
     <radialGradient id="glow" cx="80%" cy="16%" r="60%">
-      <stop offset="0%" stop-color="#e11d48" stop-opacity="0.32"/><stop offset="55%" stop-color="#e11d48" stop-opacity="0.07"/><stop offset="100%" stop-color="#e11d48" stop-opacity="0"/>
+      <stop offset="0%" stop-color="#2c3ee5" stop-opacity="0.32"/><stop offset="55%" stop-color="#2c3ee5" stop-opacity="0.07"/><stop offset="100%" stop-color="#2c3ee5" stop-opacity="0"/>
     </radialGradient>
     <linearGradient id="bar" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#fb7185"/><stop offset="100%" stop-color="#e11d48"/>
+      <stop offset="0%" stop-color="#5a78f2"/><stop offset="100%" stop-color="#2c3ee5"/>
     </linearGradient>
     <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
-      <path d="M 48 0 L 0 0 0 48" fill="none" stroke="#fb7185" stroke-opacity="0.06" stroke-width="1"/>
+      <path d="M 48 0 L 0 0 0 48" fill="none" stroke="#5a78f2" stroke-opacity="0.06" stroke-width="1"/>
     </pattern>
   </defs>
 
@@ -20,44 +20,44 @@
   <rect width="1200" height="630" fill="url(#glow)"/>
 
   <!-- scan-ring motif (right) -->
-  <g stroke="#fb7185" fill="none">
+  <g stroke="#5a78f2" fill="none">
     <circle cx="1030" cy="300" r="74" stroke-opacity="0.16" stroke-width="1.5"/>
     <circle cx="1030" cy="300" r="130" stroke-opacity="0.10" stroke-width="1.5"/>
     <circle cx="1030" cy="300" r="188" stroke-opacity="0.05" stroke-width="1.5"/>
   </g>
-  <circle cx="1030" cy="300" r="5" fill="#fb7185"/>
+  <circle cx="1030" cy="300" r="5" fill="#5a78f2"/>
   <circle cx="1095" cy="252" r="4" fill="#fbbf24"/>
   <circle cx="962" cy="356" r="4" fill="#38bdf8"/>
 
   <rect x="0" y="0" width="8" height="630" fill="url(#bar)"/>
 
-  <!-- header: PJ mark + name + identity -->
-  <rect x="80" y="64" width="56" height="56" rx="13" fill="#e11d48"/>
+  <!-- header: brand mark + name -->
+  <rect x="80" y="64" width="56" height="56" rx="13" fill="#2c3ee5"/>
   <text x="108" y="102" text-anchor="middle" font-size="24" font-weight="800" fill="#ffffff">PJ</text>
-  <text x="152" y="92" font-size="27" font-weight="800" letter-spacing="0.5" fill="#ffffff">PRANITH JAIN</text>
-  <text x="153" y="116" font-size="13" font-weight="700" letter-spacing="3" fill="#fda4af">SECURITY ANALYST · DETECTION ENGINEER</text>
+  <text x="152" y="92" font-size="27" font-weight="800" letter-spacing="0.5" fill="#ffffff">pranithjain.qzz.io</text>
+  <text x="153" y="116" font-size="13" font-weight="700" letter-spacing="3" fill="#a1b6fb">BUILT ON CLOUDFLARE WORKERS</text>
 
   <!-- section eyebrow -->
-  <text x="80" y="208" font-size="18" font-weight="800" letter-spacing="4" fill="#fda4af">THREAT INTELLIGENCE PLATFORM</text>
+  <text x="80" y="208" font-size="18" font-weight="800" letter-spacing="4" fill="#a1b6fb">PANOPTICON · THREAT INTEL PLATFORM</text>
 
   <!-- headline -->
-  <text x="80" y="286" font-size="58" font-weight="800" letter-spacing="0.3" fill="#ffffff">A working CTI surface</text>
-  <text x="80" y="356" font-size="58" font-weight="800" letter-spacing="0.3" fill="#fda4af">on the edge.</text>
+  <text x="80" y="286" font-size="58" font-weight="800" letter-spacing="0.3" fill="#ffffff">Live intelligence from</text>
+  <text x="80" y="356" font-size="58" font-weight="800" letter-spacing="0.3" fill="#a1b6fb">100+ public feeds</text>
 
   <!-- features -->
-  <text x="80" y="448" font-size="22" font-weight="400" fill="#cbd5e1">Ransomware leaks · CVE × CISA KEV · IOC correlation · actor × MITRE · STIX 2.1</text>
+  <text x="80" y="448" font-size="22" font-weight="400" fill="#cbd5e1">Ransomware leaks · CVEs · dark web · actor tracking</text>
 
   <!-- divider -->
-  <rect x="80" y="486" width="120" height="4" rx="2" fill="#fb7185"/>
+  <rect x="80" y="486" width="120" height="4" rx="2" fill="#5a78f2"/>
 
   <!-- stats -->
-  <text x="80" y="528" font-size="42" font-weight="800" fill="#fda4af">90+</text>
-  <text x="80" y="556" font-size="15" font-weight="600" letter-spacing="2" fill="#94a3b8">INTEL SOURCES</text>
-  <text x="330" y="528" font-size="42" font-weight="800" fill="#fda4af">18</text>
-  <text x="330" y="556" font-size="15" font-weight="600" letter-spacing="2" fill="#94a3b8">FEEDS CORRELATED</text>
-  <text x="580" y="528" font-size="42" font-weight="800" fill="#fda4af">10</text>
-  <text x="580" y="556" font-size="15" font-weight="600" letter-spacing="2" fill="#94a3b8">METRIC PANELS</text>
+  <text x="80" y="528" font-size="42" font-weight="800" fill="#a1b6fb">100+</text>
+  <text x="80" y="556" font-size="15" font-weight="600" letter-spacing="2" fill="#94a3b8">FEEDS</text>
+  <text x="330" y="528" font-size="42" font-weight="800" fill="#a1b6fb">18</text>
+  <text x="330" y="556" font-size="15" font-weight="600" letter-spacing="2" fill="#94a3b8">CORRELATED</text>
+  <text x="580" y="528" font-size="42" font-weight="800" fill="#a1b6fb">free</text>
+  <text x="580" y="556" font-size="15" font-weight="600" letter-spacing="2" fill="#94a3b8">NO LOGIN</text>
 
   <!-- footer -->
-  <text x="80" y="600" font-size="20" font-weight="700" letter-spacing="0.5" fill="#94a3b8"><tspan fill="#fda4af" font-weight="800">pranithjain.qzz.io/threatintel</tspan></text>
+  <text x="80" y="600" font-size="20" font-weight="700" letter-spacing="0.5" fill="#94a3b8"><tspan fill="#a1b6fb" font-weight="800">pranithjain.qzz.io/threatintel  ·  edge-hosted</tspan></text>
 </svg>

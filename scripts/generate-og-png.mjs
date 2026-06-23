@@ -1,14 +1,13 @@
 #!/usr/bin/env node
 /**
- * Generate the social OG cards (1200×630) for the three top surfaces, used by
- * Twitter/X (summary_large_image) and LinkedIn unfurls. The worker swaps the
- * og:image / twitter:image meta per route (worker/og-rewriter.ts) so each page
- * previews with its own card:
+ * Generate the social OG cards (1200×630) for the branded surfaces. The worker
+ * swaps the og:image / twitter:image meta per route (worker/og-rewriter.ts):
  *
- *   /            → public/og-image.png        (portfolio · brand indigo)
- *   /dfir        → public/og-dfir.png         (toolkit   · brand indigo)
- *   /threatintel → public/og-threatintel.png  (CTI       · rose, matching the
- *                                               threatintel section accent)
+ *   /            → public/og-image.png        (home · brand indigo)
+ *   /dfir        → public/og-dfir.png         (CRUCIBLE · brand indigo)
+ *   /threatintel → public/og-threatintel.png  (PANOPTICON · rose)
+ *   /radar       → public/og-scout.png        (SCOUT · sky)
+ *   /threatnexus → public/og-argus.png        (ARGUS · brand indigo)
  *
  * Cards are built from config here (no hand-edited SVG sources) so they stay
  * consistent with the LinkedIn cover (docs/linkedin-cover-*) and the live OG
@@ -25,41 +24,61 @@ import { dirname, join } from 'node:path';
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
-// Per-card config. Copy is factual (mirrors worker/og-rewriter.ts descriptions);
-// no email-security framing — these three surfaces are TI + DFIR.
 const CARDS = [
   {
     slug: 'og-image',
-    label: 'portfolio (default)',
+    label: 'home',
     accent: '#2c3ee5', accent2: '#5a78f2', accentText: '#a1b6fb',
-    eyebrow: 'THREAT INTELLIGENCE · DFIR · DETECTION ENGINEERING',
-    headline: ['Building at the intersection of', 'AI, threat intel &', 'edge-native security tooling.'],
+    eyebrow: 'SECURITY TOOLS · THREAT INTEL · DFIR',
+    headline: ['Browser-side DFIR tooling &', 'a live threat-intel platform'],
     accentFrom: 1,
-    features: 'Live CTI platform · 60+ DFIR tools · detection engineering',
-    stats: [['90+', 'intel sources'], ['60+', 'DFIR tools'], ['18', 'feeds correlated']],
-    footer: 'pranithjain.qzz.io  ·  /dfir  ·  /threatintel',
-  },
-  {
-    slug: 'og-threatintel',
-    label: '/threatintel',
-    accent: '#e11d48', accent2: '#fb7185', accentText: '#fda4af',
-    eyebrow: 'THREAT INTELLIGENCE PLATFORM',
-    headline: ['A working CTI surface', 'on the edge.'],
-    accentFrom: 1,
-    features: 'Ransomware leaks · CVE × CISA KEV · IOC correlation · actor × MITRE · STIX 2.1',
-    stats: [['90+', 'intel sources'], ['18', 'feeds correlated'], ['10', 'metric panels']],
-    footer: 'pranithjain.qzz.io/threatintel',
+    features: '90+ DFIR tools · 100+ threat intel feeds · no signup',
+    stats: [['90+', 'tools'], ['100+', 'feeds'], ['free', 'no signup']],
+    footer: 'pranithjain.qzz.io  ·  CRUCIBLE  ·  PANOPTICON',
   },
   {
     slug: 'og-dfir',
-    label: '/dfir',
+    label: 'CRUCIBLE (/dfir)',
     accent: '#2c3ee5', accent2: '#5a78f2', accentText: '#a1b6fb',
-    eyebrow: 'DFIR & SECURITY TOOLKIT',
-    headline: ['60+ browser-side', 'DFIR & security tools.'],
+    eyebrow: 'CRUCIBLE · DFIR TOOLKIT',
+    headline: ['90+ DFIR tools that run', 'entirely in your browser'],
     accentFrom: 1,
-    features: 'IOC checker · CVE prioritizer · crypto tracer · YARA/Sigma rule converter',
-    stats: [['60+', 'tools'], ['11', 'categories'], ['100%', 'client-side']],
-    footer: 'pranithjain.qzz.io/dfir  ·  no signup',
+    features: 'IOC checker · phishing analysis · CVE triage · rule conversion',
+    stats: [['90+', 'tools'], ['11', 'categories'], ['100%', 'client-side']],
+    footer: 'pranithjain.qzz.io/dfir  ·  no data leaves your machine',
+  },
+  {
+    slug: 'og-threatintel',
+    label: 'PANOPTICON (/threatintel)',
+    accent: '#2c3ee5', accent2: '#5a78f2', accentText: '#a1b6fb',
+    eyebrow: 'PANOPTICON · THREAT INTEL PLATFORM',
+    headline: ['Live intelligence from', '100+ public feeds'],
+    accentFrom: 1,
+    features: 'Ransomware leaks · CVEs · dark web · actor tracking',
+    stats: [['100+', 'feeds'], ['18', 'correlated'], ['free', 'no login']],
+    footer: 'pranithjain.qzz.io/threatintel  ·  edge-hosted',
+  },
+  {
+    slug: 'og-scout',
+    label: 'SCOUT (/radar)',
+    accent: '#0ea5e9', accent2: '#38bdf8', accentText: '#bae6fd',
+    eyebrow: 'SCOUT · RECON SCANNER',
+    headline: ['Deep crawl, JS analysis,', 'secret detection & scoring'],
+    accentFrom: 1,
+    features: 'Multi-page crawl · API discovery · domain enumeration',
+    stats: [['30+', 'checks'], ['50-page', 'crawl'], ['free', 'edge-hosted']],
+    footer: 'pranithjain.qzz.io/radar  ·  no signup',
+  },
+  {
+    slug: 'og-argus',
+    label: 'ARGUS (/threatnexus)',
+    accent: '#2c3ee5', accent2: '#5a78f2', accentText: '#a1b6fb',
+    eyebrow: 'ARGUS · THREAT NEXUS',
+    headline: ['Nation-state threat intel', 'with 3D globe visualization'],
+    accentFrom: 1,
+    features: 'Actor dossiers · relationship graphs · live feeds',
+    stats: [['6', 'views'], ['APT', 'data'], ['interactive', 'visual']],
+    footer: 'pranithjain.qzz.io/threatnexus  ·  standalone',
   },
 ];
 
@@ -114,11 +133,11 @@ function buildSvg(c) {
 
   <rect x="0" y="0" width="8" height="630" fill="url(#bar)"/>
 
-  <!-- header: PJ mark + name + identity -->
+  <!-- header: brand mark + name -->
   <rect x="80" y="64" width="56" height="56" rx="13" fill="${c.accent}"/>
   <text x="108" y="102" text-anchor="middle" font-size="24" font-weight="800" fill="#ffffff">PJ</text>
-  <text x="152" y="92" font-size="27" font-weight="800" letter-spacing="0.5" fill="#ffffff">PRANITH JAIN</text>
-  <text x="153" y="116" font-size="13" font-weight="700" letter-spacing="3" fill="${c.accentText}">SECURITY ANALYST · DETECTION ENGINEER</text>
+  <text x="152" y="92" font-size="27" font-weight="800" letter-spacing="0.5" fill="#ffffff">pranithjain.qzz.io</text>
+  <text x="153" y="116" font-size="13" font-weight="700" letter-spacing="3" fill="${c.accentText}">BUILT ON CLOUDFLARE WORKERS</text>
 
   <!-- section eyebrow -->
   <text x="80" y="208" font-size="18" font-weight="800" letter-spacing="4" fill="${c.accentText}">${esc(c.eyebrow)}</text>
