@@ -892,7 +892,7 @@ export default function PirDashboard(): JSX.Element {
                         <div className="flex items-center gap-2 shrink-0">
                           <div className="w-16 bg-slate-200 dark:bg-[rgb(var(--surface-300))] rounded-full h-2">
                             <div
-                              className="bg-gradient-to-r from-brand-600 to-brand-400 h-2 rounded-full"
+                              className="bg-brand-500 h-2 rounded-full"
                               style={{ width: `${score.composite_coverage}%` }}
                             />
                           </div>

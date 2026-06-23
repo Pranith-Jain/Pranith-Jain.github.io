@@ -56,12 +56,12 @@ export function ToolOfTheDay(): JSX.Element | null {
   if (!tool) return null;
 
   return (
-    <section className="group relative overflow-hidden rounded-lg border border-slate-200/70 dark:border-[rgb(var(--border-400))] p-5 transition-all duration-200 hover:border-amber-300/50 dark:hover:border-amber-500/30 hover:shadow-md dark:hover:shadow-amber-500/5">
+    <section className="group relative overflow-hidden rounded-lg border border-slate-200/70 dark:border-[rgb(var(--border-400))] p-5 transition-all duration-200 hover:border-brand-300/50 dark:hover:border-brand-500/30 hover:shadow-md dark:hover:shadow-brand-500/5">
       {/* Subtle gradient */}
       <div aria-hidden className="absolute inset-0 bg-[rgb(var(--hover-100))]" />
       <div className="relative">
         <div className="flex items-center gap-2 mb-3">
-          <div className="grid h-6 w-6 place-items-center rounded bg-amber-500/10 text-amber-600 dark:text-amber-400">
+          <div className="grid h-6 w-6 place-items-center rounded bg-brand-500/10 text-brand-600 dark:text-brand-400">
             <Sparkles size={12} />
           </div>
           <h3 className="text-xs font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">

@@ -50,13 +50,13 @@ export function PageToCheckOut(): JSX.Element | null {
   if (!page) return null;
 
   return (
-    <section className="group relative overflow-hidden rounded-lg border border-slate-200/70 dark:border-[rgb(var(--border-400))] p-5 transition-all duration-200 hover:border-emerald-300/50 dark:hover:border-emerald-500/30 hover:shadow-md dark:hover:shadow-emerald-500/5">
+    <section className="group relative overflow-hidden rounded-lg border border-slate-200/70 dark:border-[rgb(var(--border-400))] p-5 transition-all duration-200 hover:border-brand-300/50 dark:hover:border-brand-500/30 hover:shadow-md dark:hover:shadow-brand-500/5">
       {/* Geist: tonal surface wash, no multi-stop decorative gradient
           (Geist hierarchy comes from borders + fills, not gradients). */}
       <div aria-hidden className="absolute inset-0 bg-[rgb(var(--hover-100))] dark:bg-[rgb(var(--hover-100))]" />
       <div className="relative">
         <div className="flex items-center gap-2 mb-3">
-          <div className="grid h-6 w-6 place-items-center rounded bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
+          <div className="grid h-6 w-6 place-items-center rounded bg-brand-500/10 text-brand-600 dark:text-brand-400">
             <Star size={12} />
           </div>
           <h3 className="text-xs font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
@@ -70,18 +70,18 @@ export function PageToCheckOut(): JSX.Element | null {
           onFocus={() => preloadRoute(page.path)}
         >
           <div className="flex items-start gap-3">
-            <div className="grid h-9 w-9 place-items-center rounded-lg bg-emerald-500/10 dark:bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 shrink-0">
+            <div className="grid h-9 w-9 place-items-center rounded-lg bg-brand-500/10 dark:bg-brand-500/15 text-brand-600 dark:text-brand-400 shrink-0">
               <Compass size={16} />
             </div>
             <div className="min-w-0 flex-1">
-              <h4 className="text-sm font-semibold text-slate-900 dark:text-white group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
+              <h4 className="text-sm font-semibold text-slate-900 dark:text-white group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
                 {page.name}
               </h4>
               <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5 leading-relaxed">{page.desc}</p>
             </div>
             <ArrowRight
               size={14}
-              className="text-slate-400 dark:text-slate-400 group-hover:text-emerald-500 transition-colors shrink-0 mt-1"
+              className="text-slate-400 dark:text-slate-400 group-hover:text-brand-500 transition-colors shrink-0 mt-1"
             />
           </div>
         </Link>

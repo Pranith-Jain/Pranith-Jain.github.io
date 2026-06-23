@@ -38,6 +38,7 @@ export default function AssessmentDetail(): JSX.Element {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [transitioning, setTransitioning] = useState(false);
+  const [transitionError, setTransitionError] = useState<string | null>(null);
 
   useEffect(() => {
     if (!id) return;
@@ -54,6 +55,7 @@ export default function AssessmentDetail(): JSX.Element {
   async function transitionStatus(nextStatus: string) {
     if (!assessment) return;
     setTransitioning(true);
+    setTransitionError(null);
     try {
       const res = await fetch(`/api/v1/threat-intel/assessments/${assessment.id}`, {
         method: 'PUT',

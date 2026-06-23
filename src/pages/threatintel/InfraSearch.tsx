@@ -1,7 +1,7 @@
 import { lazy, Suspense, useState, type FormEvent } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, Search, Loader2, Building2, Globe, Zap, Map } from 'lucide-react';
+import { ArrowLeft, Search, Loader2, Building2, Globe, Zap, Map, MapPin } from 'lucide-react';
 
 const InfraMap = lazy(() => import('../../components/threatintel/InfraMap'));
 
@@ -190,13 +190,15 @@ export default function InfraSearch(): JSX.Element {
               </span>
             )}
             {result.parsed.country && (
-              <span className="text-slate-500">
-                📍 <span className="text-slate-900 dark:text-slate-100">{result.parsed.country}</span>
+              <span className="inline-flex items-center gap-1 text-slate-500">
+                <MapPin size={12} />
+                <span className="text-slate-900 dark:text-slate-100">{result.parsed.country}</span>
               </span>
             )}
             {result.parsed.region && (
-              <span className="text-slate-500">
-                📍 <span className="text-slate-900 dark:text-slate-100">{result.parsed.region}</span>
+              <span className="inline-flex items-center gap-1 text-slate-500">
+                <MapPin size={12} />
+                <span className="text-slate-900 dark:text-slate-100">{result.parsed.region}</span>
               </span>
             )}
           </div>

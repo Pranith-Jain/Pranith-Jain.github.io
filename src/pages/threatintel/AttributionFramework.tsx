@@ -111,10 +111,7 @@ export default function AttributionFramework(): JSX.Element {
               </div>
             </div>
             <div className="w-full bg-slate-200 dark:bg-[rgb(var(--surface-300))] rounded-full h-2">
-              <div
-                className="bg-gradient-to-r from-brand-600 to-brand-400 h-2 rounded-full"
-                style={{ width: `${assessment.confidence}%` }}
-              />
+              <div className="bg-brand-500 h-2 rounded-full" style={{ width: `${assessment.confidence}%` }} />
             </div>
           </div>
           <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 overflow-hidden">

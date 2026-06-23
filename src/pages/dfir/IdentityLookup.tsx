@@ -1,6 +1,17 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { Search, ExternalLink, Loader2, Users, Globe, Code2, BookOpen, Briefcase, Gamepad2 } from 'lucide-react';
+import {
+  Search,
+  ExternalLink,
+  Loader2,
+  Users,
+  Globe,
+  Code2,
+  BookOpen,
+  Briefcase,
+  Gamepad2,
+  MapPin,
+} from 'lucide-react';
 import { CopyChip } from '../../components/dfir/CopyButton';
 import { PLATFORMS, CATEGORY_LABELS, type IdentityProfile, type PlatformDef } from '../../lib/dfir/identity-lookup';
 
@@ -49,7 +60,12 @@ function ProfileCard({ profile, platform }: { profile: IdentityProfile; platform
             {profile.followers !== undefined && <span>↑ {profile.followers} followers</span>}
             {profile.following !== undefined && <span>↓ {profile.following} following</span>}
             {profile.publicRepos !== undefined && <span>⊞ {profile.publicRepos} repos</span>}
-            {profile.location && <span>📍 {profile.location}</span>}
+            {profile.location && (
+              <span className="inline-flex items-center gap-1">
+                <MapPin size={12} className="text-slate-400" />
+                {profile.location}
+              </span>
+            )}
           </div>
           <div className="flex items-center gap-2 mt-1.5">
             <a

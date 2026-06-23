@@ -15,10 +15,7 @@ export function Hero({ personalInfo }: HeroProps) {
         {/* Left: tagline, live data, CTAs */}
         <div className="min-w-0 max-w-3xl">
           <div className="mb-5 flex items-center gap-2.5 text-eyebrow font-mono uppercase text-slate-500 dark:text-slate-400">
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping motion-reduce:animate-none absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-500"></span>
-            </span>
+            <span className="inline-flex rounded-full h-2 w-2 bg-brand-500"></span>
             Certified Cyber Criminologist
           </div>
 

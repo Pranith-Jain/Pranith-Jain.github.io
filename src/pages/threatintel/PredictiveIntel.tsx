@@ -172,10 +172,7 @@ export default function PredictiveIntel(): JSX.Element {
                   </div>
                 </div>
                 <div className="w-full bg-slate-200 dark:bg-[rgb(var(--surface-300))] rounded-full h-2 mb-3">
-                  <div
-                    className="bg-gradient-to-r from-brand-600 to-brand-400 h-2 rounded-full"
-                    style={{ width: `${f.probability}%` }}
-                  />
+                  <div className="bg-brand-500 h-2 rounded-full" style={{ width: `${f.probability}%` }} />
                 </div>
                 {f.basis && f.basis.length > 0 && (
                   <div className="mb-2">

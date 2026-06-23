@@ -172,7 +172,7 @@ export default function AttackChain(): JSX.Element {
             </div>
             <div className="w-full bg-slate-200 dark:bg-[rgb(var(--surface-300))] rounded-full h-3 mb-3">
               <div
-                className="bg-gradient-to-r from-brand-600 to-brand-400 h-3 rounded-full transition-all"
+                className="bg-brand-500 h-3 rounded-full transition-all"
                 style={{ width: `${result.kill_chain_progress}%` }}
               />
             </div>
