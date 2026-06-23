@@ -67,7 +67,7 @@ export function Drawer({ open, onClose, title, children, side = 'right', size = 
           <button
             type="button"
             onClick={onClose}
-            className="shrink-0 grid h-11 w-11 sm:h-9 sm:w-9 place-items-center rounded-lg text-slate-400 transition-colors hover:bg-slate-100 hover:text-slate-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 dark:hover:bg-slate-800 dark:hover:text-slate-300"
+            className="shrink-0 grid h-11 w-11 sm:h-9 sm:w-9 place-items-center rounded-md text-slate-400 transition-colors hover:bg-slate-100 hover:text-slate-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 dark:hover:bg-slate-800 dark:hover:text-slate-300"
             aria-label="Close panel"
           >
             <X className="h-5 w-5" aria-hidden="true" />

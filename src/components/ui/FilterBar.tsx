@@ -55,7 +55,8 @@ export function FilterBar({
           value={search}
           onChange={(e) => onSearchChange(e.target.value)}
           placeholder={placeholder}
-          className="w-full pl-9 pr-3 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg font-mono text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+          aria-label={placeholder || 'Search'}
+          className="w-full pl-9 pr-3 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-md font-mono text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
         />
       </div>
       {filters && filters.length > 0 && (
@@ -65,7 +66,7 @@ export function FilterBar({
               key={f.id}
               type="button"
               onClick={() => onFilterChange?.(activeFilter === f.id ? null : f.id)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-mono border transition-colors ${
+              className={`px-3 py-1.5 rounded-md text-xs font-mono border transition-colors ${
                 activeFilter === f.id
                   ? 'border-brand-500/60 bg-brand-500/10 text-brand-600 dark:text-brand-400'
                   : 'border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-brand-500/30'

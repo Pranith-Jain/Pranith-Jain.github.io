@@ -27,7 +27,9 @@ export function DropdownMenu({
   align = 'left',
   className = '',
   menuClassName = '',
-  label = 'Menu',
+  // Only set when the trigger is icon-only. Defaulting to "Menu" would
+  // override the visible trigger text for screen readers (WCAG 2.5.3).
+  label,
 }: DropdownMenuProps) {
   const [open, setOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -60,7 +62,7 @@ export function DropdownMenu({
         aria-haspopup="true"
         aria-controls={menuId}
         aria-label={label}
-        className="inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm font-mono text-slate-700 transition-colors hover:border-brand-500/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300"
+        className="inline-flex items-center gap-2 rounded-md border border-slate-200 bg-white px-3 py-2 text-sm font-mono text-slate-700 transition-colors hover:border-brand-500/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300"
       >
         {trigger}
         <ChevronDown
@@ -75,7 +77,7 @@ export function DropdownMenu({
           // claim role="menu"/"menuitem" — that contract requires arrow-key
           // roving focus + Home/End + focus-return, which isn't implemented;
           // an empty menu role is worse than none (SR says "menu", arrows do nothing).
-          className={`absolute top-full z-50 mt-1 min-w-[180px] overflow-hidden rounded-lg border border-slate-200 bg-white py-1 shadow-lg dark:border-slate-700 dark:bg-slate-900 ${
+          className={`absolute top-full z-50 mt-1 min-w-[180px] overflow-hidden rounded-xl border border-slate-200 bg-white py-1 shadow-lg dark:border-slate-700 dark:bg-slate-900 ${
             align === 'right' ? 'right-0' : 'left-0'
           } ${menuClassName}`}
         >

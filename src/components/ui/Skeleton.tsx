@@ -24,7 +24,7 @@ const VARIANT_STYLES: Record<SkeletonVariant, string> = {
   text: 'rounded',
   circular: 'rounded-full',
   rectangular: 'rounded-md',
-  card: 'rounded-lg',
+  card: 'rounded-xl',
 };
 
 /**
@@ -82,7 +82,7 @@ export const Skeleton = memo(function Skeleton({
 export const SkeletonCard = memo(function SkeletonCard({ className = '' }: { className?: string }) {
   return (
     <div
-      className={`rounded-lg border border-slate-200 dark:border-slate-800 p-4 space-y-3 ${className}`}
+      className={`rounded-xl border border-slate-200 dark:border-slate-800 p-4 space-y-3 ${className}`}
       role="status"
       aria-label="Loading card"
     >
@@ -108,7 +108,7 @@ export const SkeletonTable = memo(function SkeletonTable({
 }) {
   return (
     <div
-      className={`rounded-lg border border-slate-200 dark:border-slate-800 overflow-hidden ${className}`}
+      className={`rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden ${className}`}
       role="status"
       aria-label={`Loading table with ${rows} rows and ${columns} columns`}
     >

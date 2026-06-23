@@ -39,7 +39,7 @@ export function TabBar({ tabs, active, onChange, className }: TabBarProps): JSX.
           type="button"
           onClick={() => !tab.disabled && onChange(tab.id)}
           disabled={tab.disabled}
-          className={`px-3 py-1.5 rounded-lg text-xs font-mono border transition-colors ${
+          className={`px-3 py-1.5 rounded-md text-xs font-mono border transition-colors ${
             active === tab.id
               ? 'border-brand-500/60 bg-brand-500/10 text-brand-600 dark:text-brand-400'
               : tab.disabled

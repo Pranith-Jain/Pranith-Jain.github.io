@@ -75,7 +75,7 @@ export function Tabs({
                         ? 'border-slate-900 text-slate-900 dark:border-white dark:text-white'
                         : 'border-transparent text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'
                     } ${tab.disabled ? 'opacity-40 cursor-not-allowed' : 'cursor-pointer'}`
-                  : `px-3 py-1.5 rounded-lg text-xs font-mono border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 ${
+                  : `px-3 py-1.5 rounded-md text-xs font-mono border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 ${
                       isActive
                         ? 'border-brand-500/60 bg-brand-500/10 text-brand-600 dark:text-brand-400'
                         : tab.disabled

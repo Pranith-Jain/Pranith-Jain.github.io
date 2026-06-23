@@ -31,7 +31,7 @@ export function RadioGroup({ name: nameProp, value, onChange, options, className
               key={opt.value}
               htmlFor={id}
               className={[
-                'flex cursor-pointer items-center gap-2 rounded-lg border px-3 py-2 text-sm font-mono transition-colors',
+                'flex cursor-pointer items-center gap-2 rounded-md border px-3 py-2 text-sm font-mono transition-colors',
                 'focus-within:ring-2 focus-within:ring-brand-500 focus-within:ring-offset-1',
                 value === opt.value
                   ? 'border-brand-500/60 bg-brand-500/10 text-brand-700 dark:text-brand-300'

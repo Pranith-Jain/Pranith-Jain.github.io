@@ -77,7 +77,7 @@ export function CodeBlock({
         </div>
       )}
       <pre
-        className={`rounded-lg border p-4 font-mono text-xs leading-relaxed whitespace-pre-wrap break-all ${VARIANT[variant]}`}
+        className={`rounded-xl border p-4 font-mono text-xs leading-relaxed whitespace-pre-wrap break-all ${VARIANT[variant]}`}
         style={
           maxHeight
             ? { maxHeight: typeof maxHeight === 'number' ? `${maxHeight}px` : maxHeight, overflow: 'auto' }

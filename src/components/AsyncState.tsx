@@ -52,7 +52,7 @@ export function AsyncState({
     return (
       <div
         role="alert"
-        className="rounded-lg border border-rose-300/70 bg-rose-50/60 px-4 py-5 text-sm text-rose-700 dark:border-rose-800/60 dark:bg-rose-950/30 dark:text-rose-300"
+        className="rounded-xl border border-rose-300/70 bg-rose-50/60 px-4 py-5 text-sm text-rose-700 dark:border-rose-800/60 dark:bg-rose-950/30 dark:text-rose-300"
       >
         <p className="font-display font-semibold">Couldn&rsquo;t load this.</p>
         <p className="mt-1 text-rose-600/90 dark:text-rose-400/90">{error}</p>
@@ -74,7 +74,7 @@ export function AsyncState({
       <div
         role="status"
         aria-live="polite"
-        className="rounded-lg border border-dashed border-slate-300 px-4 py-10 text-center text-sm text-slate-500 dark:border-slate-700 dark:text-slate-400"
+        className="rounded-xl border border-dashed border-slate-300 px-4 py-10 text-center text-sm text-slate-500 dark:border-slate-700 dark:text-slate-400"
       >
         {emptyLabel}
       </div>
