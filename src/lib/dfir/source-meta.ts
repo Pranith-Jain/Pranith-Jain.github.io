@@ -67,7 +67,7 @@ export const SOURCE_META: Record<string, SourceMeta> = {
   },
   malwarebazaar: {
     label: 'MalwareBazaar',
-    color: 'border-yellow-500/40 bg-yellow-500/10 text-yellow-700 dark:text-yellow-300',
+    color: 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300',
     weight: 40,
   },
   phishtank: {
@@ -82,17 +82,17 @@ export const SOURCE_META: Record<string, SourceMeta> = {
   },
   sslbl: {
     label: 'SSL Blacklist',
-    color: 'border-red-500/40 bg-red-500/10 text-red-700 dark:text-red-300',
+    color: 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300',
     weight: 55,
   },
   'sslbl-c2': {
     label: 'SSL Blacklist C2',
-    color: 'border-red-500/40 bg-red-500/10 text-red-700 dark:text-red-300',
+    color: 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300',
     weight: 55,
   },
   botvrij: {
     label: 'Botvrij',
-    color: 'border-lime-500/40 bg-lime-500/10 text-lime-700 dark:text-lime-300',
+    color: 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300',
     weight: 18,
   },
   'andreafortuna-defacements': {
@@ -155,7 +155,7 @@ export const SOURCE_META: Record<string, SourceMeta> = {
   },
   'botvrij-urls': {
     label: 'Botvrij URLs',
-    color: 'border-lime-500/40 bg-lime-500/10 text-lime-700 dark:text-lime-300',
+    color: 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300',
     weight: 18,
   },
   'bruteforce-blocker': {
@@ -179,7 +179,7 @@ export const SOURCE_META: Record<string, SourceMeta> = {
   },
   'crypto-scam': {
     label: 'Crypto Scam',
-    color: 'border-yellow-500/40 bg-yellow-500/10 text-yellow-700 dark:text-yellow-300',
+    color: 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300',
     weight: 15,
   },
   'threatview-ip': {
@@ -194,7 +194,7 @@ export const SOURCE_META: Record<string, SourceMeta> = {
   },
   'viriback-c2': {
     label: 'ViriBack C2',
-    color: 'border-red-500/40 bg-red-500/10 text-red-700 dark:text-red-300',
+    color: 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300',
     weight: 45,
   },
   'cins-score': {
@@ -204,7 +204,7 @@ export const SOURCE_META: Record<string, SourceMeta> = {
   },
   'certpl-warnings': {
     label: 'CERT.PL',
-    color: 'border-yellow-500/40 bg-yellow-500/10 text-yellow-700 dark:text-yellow-300',
+    color: 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300',
     weight: 20,
   },
   phishunt: {

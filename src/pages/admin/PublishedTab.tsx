@@ -208,7 +208,7 @@ export default function PublishedTab() {
   if (error)
     return (
       <div>
-        <p className="text-red-600 dark:text-red-400 mb-2">Failed to load: {error}</p>
+        <p className="text-rose-600 dark:text-rose-400 mb-2">Failed to load: {error}</p>
         <button
           onClick={() => void load()}
           className="px-3 py-1 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-sm"
@@ -282,7 +282,7 @@ export default function PublishedTab() {
                       <button
                         onClick={() => generateTwitter(p.slug)}
                         disabled={s?.loadingTwitter}
-                        className={`px-2 py-1 border rounded text-xs disabled:opacity-50 ${hasTwitter ? 'border-slate-200 dark:border-[rgb(var(--border-400))] hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]' : 'border-green-200 dark:border-green-800 hover:bg-green-50 dark:hover:bg-green-900/30'}`}
+                        className={`px-2 py-1 border rounded text-xs disabled:opacity-50 ${hasTwitter ? 'border-slate-200 dark:border-[rgb(var(--border-400))] hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]' : 'border-emerald-200 dark:border-emerald-800 hover:bg-emerald-50 dark:hover:bg-emerald-900/30'}`}
                       >
                         {s?.loadingTwitter ? '…' : hasTwitter ? 'Re-Tweet' : 'Tweet'}
                       </button>
@@ -330,7 +330,7 @@ export default function PublishedTab() {
       )}
 
       {expanded && social[expanded]?.error && (
-        <div className="mt-4 p-3 rounded bg-red-50 dark:bg-red-900/30 text-red-600 dark:text-red-300 border border-red-200 dark:border-red-800 text-sm">
+        <div className="mt-4 p-3 rounded bg-rose-50 dark:bg-rose-900/30 text-rose-600 dark:text-rose-300 border border-rose-200 dark:border-rose-800 text-sm">
           {social[expanded]?.error}
         </div>
       )}
@@ -534,7 +534,7 @@ function SocialSection({
 
       {postResult && (
         <div
-          className={`mt-2 text-xs ${postResult.ok ? 'text-emerald-700 dark:text-emerald-400' : 'text-red-600 dark:text-red-400'}`}
+          className={`mt-2 text-xs ${postResult.ok ? 'text-emerald-700 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'}`}
         >
           {postResult.ok
             ? `Posted! ${postResult.postUrl ? `(${postResult.postUrl})` : ''}`
@@ -636,7 +636,7 @@ function SchedulePanel({ slug, refreshTrigger = 0 }: { slug: string; refreshTrig
                 {entry?.postedAt ? ` ${new Date(entry.postedAt).toLocaleDateString()}` : ''}
               </span>
               {overdue && (
-                <span className="px-1.5 py-0.5 rounded text-micro bg-red-50 dark:bg-red-900/40 text-red-600 dark:text-red-300 border border-red-200 dark:border-red-700/50">
+                <span className="px-1.5 py-0.5 rounded text-micro bg-rose-50 dark:bg-rose-900/40 text-rose-600 dark:text-rose-300 border border-rose-200 dark:border-rose-700/50">
                   overdue
                 </span>
               )}

@@ -289,8 +289,8 @@ function CountryAnalysisContent({ analysis }: { analysis: CountryAnalysis }) {
       <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">{analysis.executive_summary}</p>
 
       {analysis.cyber_threats && (
-        <div className="rounded-lg bg-red-500/5 border border-red-500/10 p-3">
-          <span className="text-micro font-mono uppercase text-red-400 block mb-1">Cyber Threats</span>
+        <div className="rounded-lg bg-rose-500/5 border border-rose-500/10 p-3">
+          <span className="text-micro font-mono uppercase text-rose-400 block mb-1">Cyber Threats</span>
           <p className="text-xs text-slate-600 dark:text-slate-400">{analysis.cyber_threats}</p>
         </div>
       )}

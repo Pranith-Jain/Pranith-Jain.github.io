@@ -25,7 +25,7 @@ const TYPE_BADGE: Record<string, string> = {
   indicator: 'bg-sky-100 text-cyan-800 dark:bg-sky-500/10 dark:text-sky-300',
   'threat-actor': 'bg-rose-100 text-rose-800 dark:bg-rose-900/30 dark:text-rose-300',
   malware: 'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300',
-  vulnerability: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300',
+  vulnerability: 'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300',
   report: 'bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-300',
 };
 

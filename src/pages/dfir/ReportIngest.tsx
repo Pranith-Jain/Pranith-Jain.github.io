@@ -289,7 +289,7 @@ export default function ReportIngest(): JSX.Element {
               <h3 className="font-bold uppercase text-slate-500 mb-2">Attribution</h3>
               {view.threatActors.map((a) => (
                 <div key={a.name}>
-                  actor: <span className="text-red-600">{a.name}</span> {a.mitreId ? `(${a.mitreId})` : ''}
+                  actor: <span className="text-rose-600">{a.name}</span> {a.mitreId ? `(${a.mitreId})` : ''}
                 </div>
               ))}
               {view.malware.map((m) => (

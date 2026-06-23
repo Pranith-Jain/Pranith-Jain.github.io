@@ -311,7 +311,7 @@ export const HUB_META: readonly HubMeta[] = [
     label: 'CVEs & Vulnerabilities',
     blurb: 'CVE intel, KEV catalog, GitHub advisories, and exploit tracking.',
     icon: AlertTriangle,
-    tone: 'text-red-700 dark:text-red-300 border-red-500/30 bg-red-500/10',
+    tone: 'text-rose-700 dark:text-rose-300 border-rose-500/30 bg-rose-500/10',
     pages: [
       {
         path: '/threatintel/cves/cves',

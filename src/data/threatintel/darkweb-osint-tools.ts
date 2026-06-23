@@ -47,7 +47,7 @@ export const CATEGORY_PILL: Record<DarkWebCategory, string> = {
   crawlers: 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300',
   'intel-platforms': 'border-cyan-500/40 bg-cyan-500/10 text-sky-700 dark:text-sky-300',
   'forums-markets': 'border-orange-500/40 bg-orange-500/10 text-orange-700 dark:text-orange-300',
-  'leak-databases': 'border-red-500/40 bg-red-500/10 text-red-700 dark:text-red-300',
+  'leak-databases': 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300',
   misc: 'border-slate-500/40 bg-slate-500/10 text-slate-700 dark:text-slate-300',
 };
 

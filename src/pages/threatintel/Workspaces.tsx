@@ -92,10 +92,10 @@ const SEV: Record<string, string> = {
   Minimal:
     'bg-emerald-50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800',
   Moderate:
-    'bg-yellow-50 dark:bg-yellow-900/20 text-yellow-700 dark:text-yellow-300 border-yellow-200 dark:border-yellow-800',
+    'bg-amber-50 dark:bg-amber-900/20 text-amber-700 dark:text-amber-300 border-amber-200 dark:border-amber-800',
   Elevated:
     'bg-orange-50 dark:bg-orange-900/20 text-orange-700 dark:text-orange-300 border-orange-200 dark:border-orange-800',
-  Critical: 'bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-300 border-red-200 dark:border-red-800',
+  Critical: 'bg-rose-50 dark:bg-rose-900/20 text-rose-700 dark:text-rose-300 border-rose-200 dark:border-rose-800',
   Unknown:
     'bg-slate-50 dark:bg-[rgb(var(--surface-300))] text-slate-600 dark:text-slate-400 border-slate-200 dark:border-[rgb(var(--border-400))]',
 };
@@ -353,7 +353,7 @@ export default function Workspaces() {
       </div>
 
       {error && (
-        <div className="mb-4 p-3 rounded-lg border border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-300 flex items-center gap-2 font-mono text-sm">
+        <div className="mb-4 p-3 rounded-lg border border-rose-200 dark:border-rose-800 bg-rose-50 dark:bg-rose-900/20 text-rose-700 dark:text-rose-300 flex items-center gap-2 font-mono text-sm">
           <AlertTriangle className="w-4 h-4 shrink-0" /> {error}
           <button onClick={() => setError(null)} className="ml-auto">
             <X className="w-4 h-4" />
@@ -488,7 +488,7 @@ export default function Workspaces() {
                       e.stopPropagation();
                       handleDelete(ws.id);
                     }}
-                    className="p-1.5 rounded hover:bg-red-50 dark:hover:bg-red-900/20 text-slate-400 hover:text-red-500 transition-colors opacity-0 group-hover:opacity-100"
+                    className="p-1.5 rounded hover:bg-rose-50 dark:hover:bg-rose-900/20 text-slate-400 hover:text-rose-500 transition-colors opacity-0 group-hover:opacity-100"
                     aria-label="Delete workspace"
                   >
                     <Trash2 className="w-3.5 h-3.5" />

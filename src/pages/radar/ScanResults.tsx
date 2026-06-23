@@ -131,7 +131,7 @@ function StatusBadge({ status }: { status: number }) {
       : status >= 300 && status < 400
         ? 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400'
         : status >= 400
-          ? 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'
+          ? 'bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-400'
           : 'bg-slate-100 text-slate-700 dark:bg-[rgb(var(--surface-300))] dark:text-slate-400';
   return (
     <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold ${color}`}>
@@ -141,8 +141,8 @@ function StatusBadge({ status }: { status: number }) {
 }
 
 function SecurityScore({ score }: { score: number }) {
-  const color = score >= 80 ? 'text-emerald-600' : score >= 50 ? 'text-amber-600' : 'text-red-600';
-  const bg = score >= 80 ? 'bg-emerald-500' : score >= 50 ? 'bg-amber-500' : 'bg-red-500';
+  const color = score >= 80 ? 'text-emerald-600' : score >= 50 ? 'text-amber-600' : 'text-rose-600';
+  const bg = score >= 80 ? 'bg-emerald-500' : score >= 50 ? 'bg-amber-500' : 'bg-rose-500';
   return (
     <div className="flex items-center gap-3">
       <div className="relative h-3 w-32 overflow-hidden rounded-full bg-slate-200 dark:bg-slate-700">
@@ -388,7 +388,7 @@ function EndpointsPanel({ data }: { data: ScanData }) {
                 ep.method === 'GET'
                   ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400'
                   : ep.method === 'POST'
-                    ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400'
+                    ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400'
                     : 'bg-slate-100 text-slate-700 dark:bg-[rgb(var(--surface-300))] dark:text-slate-400'
               }`}
             >
@@ -443,7 +443,7 @@ function SecurityPanel({ data }: { data: ScanData }) {
               {value ? (
                 <Check className="h-4 w-4 shrink-0 text-emerald-500" />
               ) : (
-                <X className="h-4 w-4 shrink-0 text-red-500" />
+                <X className="h-4 w-4 shrink-0 text-rose-500" />
               )}
               <span className="font-mono text-slate-700 dark:text-slate-300">{key}</span>
               {value && <span className="ml-auto truncate text-xs text-slate-500">{value}</span>}
@@ -460,7 +460,7 @@ function VulnerabilitiesPanel({ data }: { data: ScanData }) {
   if (vulns.length === 0) return <p className="text-sm text-slate-500">No vulnerabilities detected</p>;
   const sevColor = (s: string) =>
     s === 'critical'
-      ? 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'
+      ? 'bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-400'
       : s === 'high'
         ? 'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400'
         : s === 'medium'
@@ -590,7 +590,7 @@ function AwsAssetsPanel({ data }: { data: ScanData }) {
             <span className="truncate font-mono text-slate-700 dark:text-slate-300">{a.url}</span>
             {a.status && (
               <span
-                className={`ml-auto rounded px-1.5 py-0.5 text-[10px] font-bold ${a.status === 200 ? 'bg-red-100 text-red-700' : 'bg-amber-100 text-amber-700'}`}
+                className={`ml-auto rounded px-1.5 py-0.5 text-[10px] font-bold ${a.status === 200 ? 'bg-rose-100 text-rose-700' : 'bg-amber-100 text-amber-700'}`}
               >
                 {a.status === 200 ? 'OPEN' : '403'}
               </span>
@@ -717,7 +717,7 @@ export default function ScanResults() {
   if (error || !data)
     return (
       <div className="flex min-h-[calc(100vh-64px)] flex-col items-center gap-4">
-        <p className="text-red-500">{error || 'Scan not found'}</p>
+        <p className="text-rose-500">{error || 'Scan not found'}</p>
         <Link to="/radar" className="text-sm text-brand-600 hover:underline">
           Back to Radar
         </Link>

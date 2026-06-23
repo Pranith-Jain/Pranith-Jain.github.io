@@ -102,7 +102,7 @@ export default function PassiveDns(): JSX.Element {
 
       {/* Error */}
       {error && (
-        <div className="mb-6 p-4 rounded-lg bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-300 font-mono text-sm">
+        <div className="mb-6 p-4 rounded-lg bg-rose-50 dark:bg-rose-900/20 border border-rose-200 dark:border-rose-800 text-rose-700 dark:text-rose-300 font-mono text-sm">
           <AlertTriangle size={16} className="inline mr-2" />
           {error}
         </div>
@@ -170,11 +170,11 @@ export default function PassiveDns(): JSX.Element {
 
           {/* Fast Flux */}
           {result.fast_flux && result.fast_flux.is_fast_flux && (
-            <div className="p-4 rounded-lg border border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-900/20">
-              <h3 className="font-display font-semibold mb-3 flex items-center gap-2 text-red-700 dark:text-red-300">
+            <div className="p-4 rounded-lg border border-rose-200 dark:border-rose-800 bg-rose-50 dark:bg-rose-900/20">
+              <h3 className="font-display font-semibold mb-3 flex items-center gap-2 text-rose-700 dark:text-rose-300">
                 <AlertTriangle size={16} /> Fast-Flux Detection
               </h3>
-              <div className="text-sm font-mono text-red-800 dark:text-red-200">
+              <div className="text-sm font-mono text-rose-800 dark:text-rose-200">
                 {result.fast_flux.unique_ips} unique IPs in {result.fast_flux.observation_window_hours}h — rotation
                 rate: {result.fast_flux.rotation_rate} IPs/day — severity: {result.fast_flux.severity}
               </div>
@@ -192,7 +192,7 @@ export default function PassiveDns(): JSX.Element {
                   .filter((ip) => !ip.startsWith('['))
                   .map((ip) => (
                     <div key={ip} className="flex items-center gap-2 text-sm font-mono">
-                      <CheckCircle size={14} className="text-green-500" />
+                      <CheckCircle size={14} className="text-emerald-500" />
                       <span>{ip}</span>
                     </div>
                   ))}

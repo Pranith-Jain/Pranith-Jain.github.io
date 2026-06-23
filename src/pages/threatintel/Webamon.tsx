@@ -96,10 +96,10 @@ const FINGERPRINT_FIELDS: Array<{ key: keyof Fingerprint; label: string }> = [
 
 function riskColor(score: number | undefined): string {
   if (score === undefined || score === null) return 'text-slate-400';
-  if (score >= 10) return 'text-red-500';
+  if (score >= 10) return 'text-rose-500';
   if (score >= 7) return 'text-orange-500';
-  if (score >= 4) return 'text-yellow-500';
-  return 'text-green-500';
+  if (score >= 4) return 'text-amber-500';
+  return 'text-emerald-500';
 }
 
 function FingerprintBadge({ value }: { value: string | undefined }) {
@@ -550,7 +550,7 @@ function SearchTab() {
       )}
 
       {error && (
-        <div className="rounded-lg border border-red-200 dark:border-red-900 bg-red-50 dark:bg-red-900/20 px-4 py-3 text-sm text-red-700 dark:text-red-400 font-mono">
+        <div className="rounded-lg border border-rose-200 dark:border-rose-900 bg-rose-50 dark:bg-rose-900/20 px-4 py-3 text-sm text-rose-700 dark:text-rose-400 font-mono">
           {error}
         </div>
       )}
@@ -716,7 +716,7 @@ function SandboxTab() {
       </form>
 
       {error && (
-        <div className="rounded-lg border border-red-200 dark:border-red-900 bg-red-50 dark:bg-red-900/20 px-4 py-3 mb-6 text-sm text-red-700 dark:text-red-400 font-mono flex items-center gap-2">
+        <div className="rounded-lg border border-rose-200 dark:border-rose-900 bg-rose-50 dark:bg-rose-900/20 px-4 py-3 mb-6 text-sm text-rose-700 dark:text-rose-400 font-mono flex items-center gap-2">
           <AlertTriangle size={14} /> {error}
         </div>
       )}
@@ -778,7 +778,7 @@ function SandboxTab() {
                   )}
 
                   {r.errors && r.errors.length > 0 && (
-                    <div className="rounded-lg border border-red-200 dark:border-red-900 bg-red-50 dark:bg-red-900/20 px-4 py-3 text-sm text-red-700 dark:text-red-400 font-mono">
+                    <div className="rounded-lg border border-rose-200 dark:border-rose-900 bg-rose-50 dark:bg-rose-900/20 px-4 py-3 text-sm text-rose-700 dark:text-rose-400 font-mono">
                       {r.errors.map((e, i) => (
                         <div key={i}>⚠ {e}</div>
                       ))}
@@ -1203,7 +1203,7 @@ function InfraTab() {
       )}
 
       {error && (
-        <div className="rounded-lg border border-red-200 dark:border-red-900 bg-red-50 dark:bg-red-900/20 px-4 py-3 text-sm text-red-700 dark:text-red-400 font-mono">
+        <div className="rounded-lg border border-rose-200 dark:border-rose-900 bg-rose-50 dark:bg-rose-900/20 px-4 py-3 text-sm text-rose-700 dark:text-rose-400 font-mono">
           {error}
         </div>
       )}

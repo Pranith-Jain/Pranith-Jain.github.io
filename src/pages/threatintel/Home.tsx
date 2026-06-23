@@ -90,7 +90,7 @@ const CATEGORY_CARDS: CategoryCard[] = [
     description: 'Monitor ransomware leak sites, dark web forums, breach disclosures, and criminal marketplaces.',
     icon: Flame,
     href: '/threatintel/catalog?cat=darkweb',
-    tone: 'text-red-600 dark:text-red-400 hover:border-red-500/40',
+    tone: 'text-rose-600 dark:text-rose-400 hover:border-rose-500/40',
     pages: 12,
     highlight: 'live',
   },

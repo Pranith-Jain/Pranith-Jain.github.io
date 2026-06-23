@@ -131,9 +131,9 @@ export default function TelegramChannelSearch(): JSX.Element {
           >
             tgstat.com
           </a>{' '}
-          (HTML, no key required, 12h cache). Each result is automatically correlated with the in-repo actor catalog
-          and deepdarkCTI&apos;s <code className="text-xs">telegram_threat_actors.md</code> — a row that shows linked
-          actors is a strong candidate for the watchlist.
+          (HTML, no key required, 12h cache). Each result is automatically correlated with the in-repo actor catalog and
+          deepdarkCTI&apos;s <code className="text-xs">telegram_threat_actors.md</code> — a row that shows linked actors
+          is a strong candidate for the watchlist.
         </p>
       </div>
 
@@ -193,8 +193,7 @@ export default function TelegramChannelSearch(): JSX.Element {
       {data && data.results.length > 0 && (
         <div className="space-y-3">
           <p className="text-xs font-mono text-slate-500 dark:text-slate-400">
-            {data.results.length} result{data.results.length === 1 ? '' : 's'} for{' '}
-            <strong>{data.query}</strong>
+            {data.results.length} result{data.results.length === 1 ? '' : 's'} for <strong>{data.query}</strong>
             {' · '}fetched {new Date(data.fetched_at).toLocaleString()}
             {data.stale && ' · stale'}
           </p>
@@ -240,16 +239,16 @@ export default function TelegramChannelSearch(): JSX.Element {
                     {r.linked_actors.map((a) => (
                       <li key={`${r.handle}:${a.actor_id}`} className="text-xs font-mono">
                         <span className="font-semibold text-slate-800 dark:text-slate-200">{a.name}</span>
-                        {a.country && (
-                          <span className="ml-1 text-slate-500">· {a.country}</span>
-                        )}
+                        {a.country && <span className="ml-1 text-slate-500">· {a.country}</span>}
                         <span
                           className={`ml-2 text-micro font-mono uppercase tracking-wider px-1 py-0.5 rounded border ${confidenceTone(a.confidence)}`}
                           title={`Confidence ${(a.confidence * 100).toFixed(0)}%`}
                         >
                           {(a.confidence * 100).toFixed(0)}%
                         </span>
-                        <span className="ml-2 text-slate-500">via {a.sources.map((s) => SOURCE_LABEL[s]).join(', ')}</span>
+                        <span className="ml-2 text-slate-500">
+                          via {a.sources.map((s) => SOURCE_LABEL[s]).join(', ')}
+                        </span>
                         {a.citations[0] && (
                           <span className="ml-1 text-slate-400" title={a.citations.join(' · ')}>
                             — {a.citations[0]}
@@ -283,7 +282,7 @@ export default function TelegramChannelSearch(): JSX.Element {
                     type="button"
                     onClick={() => addToWatch(r.handle)}
                     disabled={busy === r.handle}
-                    className="text-mini font-mono px-2 py-1 rounded border border-green-600/40 text-green-700 dark:text-green-400 hover:bg-green-500/10 disabled:opacity-50 inline-flex items-center gap-1"
+                    className="text-mini font-mono px-2 py-1 rounded border border-emerald-600/40 text-emerald-700 dark:text-emerald-400 hover:bg-emerald-500/10 disabled:opacity-50 inline-flex items-center gap-1"
                   >
                     {busy === r.handle ? <Loader2 size={11} className="animate-spin" /> : <Shield size={11} />}
                     add to watch

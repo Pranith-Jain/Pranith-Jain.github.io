@@ -23,7 +23,7 @@ interface NewsResult {
 const TIER_LABELS: Record<number, { label: string; color: string }> = {
   1: {
     label: 'Advisory',
-    color: 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400 border-red-200 dark:border-red-800',
+    color: 'bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-400 border-rose-200 dark:border-rose-800',
   },
   2: {
     label: 'Exploit',

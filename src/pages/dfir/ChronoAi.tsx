@@ -60,10 +60,10 @@ const KILL_CHAIN_PHASES = [
   {
     id: 'c2',
     label: 'C2',
-    color: 'bg-red-500',
-    textColor: 'text-red-700 dark:text-red-300',
-    bgColor: 'bg-red-50 dark:bg-red-950/30',
-    borderColor: 'border-red-300/50 dark:border-red-800/50',
+    color: 'bg-rose-500',
+    textColor: 'text-rose-700 dark:text-rose-300',
+    bgColor: 'bg-rose-50 dark:bg-rose-950/30',
+    borderColor: 'border-rose-300/50 dark:border-rose-800/50',
   },
   {
     id: 'actions',

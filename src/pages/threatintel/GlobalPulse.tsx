@@ -132,8 +132,8 @@ const LAYER_DEFS: Record<PulseKind, LayerDef> = {
     label: 'War Room',
     shortLabel: 'WAR',
     icon: <Flame size={14} />,
-    color: 'text-red-400',
-    bgColor: 'bg-red-500/10 border-red-500/20',
+    color: 'text-rose-400',
+    bgColor: 'bg-rose-500/10 border-rose-500/20',
     group: 'geo',
   },
   geopolitical: {
@@ -164,8 +164,8 @@ const LAYER_DEFS: Record<PulseKind, LayerDef> = {
     label: 'Live IOCs',
     shortLabel: 'IOC',
     icon: <Zap size={14} />,
-    color: 'text-red-400',
-    bgColor: 'bg-red-500/10 border-red-500/20',
+    color: 'text-rose-400',
+    bgColor: 'bg-rose-500/10 border-rose-500/20',
     group: 'intel',
   },
   cve: {
@@ -212,8 +212,8 @@ const LAYER_DEFS: Record<PulseKind, LayerDef> = {
     label: 'Public Exploits',
     shortLabel: 'XPLOIT',
     icon: <Zap size={14} />,
-    color: 'text-yellow-400',
-    bgColor: 'bg-yellow-500/10 border-yellow-500/20',
+    color: 'text-amber-400',
+    bgColor: 'bg-amber-500/10 border-amber-500/20',
     group: 'intel',
   },
   github_advisory: {
@@ -228,8 +228,8 @@ const LAYER_DEFS: Record<PulseKind, LayerDef> = {
     label: 'CISA KEV',
     shortLabel: 'KEV',
     icon: <Flame size={14} />,
-    color: 'text-red-500',
-    bgColor: 'bg-red-600/10 border-red-600/20',
+    color: 'text-rose-500',
+    bgColor: 'bg-rose-600/10 border-rose-600/20',
     group: 'intel',
   },
   ransomware: {
@@ -260,16 +260,16 @@ const LAYER_DEFS: Record<PulseKind, LayerDef> = {
     label: 'Malware',
     shortLabel: 'MAL',
     icon: <Bug size={14} />,
-    color: 'text-red-400',
-    bgColor: 'bg-red-500/10 border-red-500/20',
+    color: 'text-rose-400',
+    bgColor: 'bg-rose-500/10 border-rose-500/20',
     group: 'intel',
   },
   cybercrime: {
     label: 'Cybercrime',
     shortLabel: 'CRIME',
     icon: <Zap size={14} />,
-    color: 'text-red-400',
-    bgColor: 'bg-red-500/10 border-red-500/20',
+    color: 'text-rose-400',
+    bgColor: 'bg-rose-500/10 border-rose-500/20',
     group: 'intel',
   },
   c2_tracker: {
@@ -308,8 +308,8 @@ const LAYER_DEFS: Record<PulseKind, LayerDef> = {
     label: 'Breaches',
     shortLabel: 'BREACH',
     icon: <ShieldAlert size={14} />,
-    color: 'text-red-400',
-    bgColor: 'bg-red-500/10 border-red-500/20',
+    color: 'text-rose-400',
+    bgColor: 'bg-rose-500/10 border-rose-500/20',
     group: 'intel',
   },
   scam: {
@@ -380,8 +380,8 @@ const LAYER_DEFS: Record<PulseKind, LayerDef> = {
     label: 'Military Bases',
     shortLabel: 'BASE',
     icon: <Shield size={14} />,
-    color: 'text-green-400',
-    bgColor: 'bg-green-500/10 border-green-500/20',
+    color: 'text-emerald-400',
+    bgColor: 'bg-emerald-500/10 border-emerald-500/20',
     group: 'geo',
   },
   fire_detection: {
@@ -396,8 +396,8 @@ const LAYER_DEFS: Record<PulseKind, LayerDef> = {
     label: 'Nuclear Facilities',
     shortLabel: 'NUC',
     icon: <AlertTriangle size={14} />,
-    color: 'text-yellow-400',
-    bgColor: 'bg-yellow-500/10 border-yellow-500/20',
+    color: 'text-amber-400',
+    bgColor: 'bg-amber-500/10 border-amber-500/20',
     group: 'geo',
   },
 };
@@ -1552,7 +1552,7 @@ export default function GlobalPulse(): JSX.Element {
                     setRegionFilter('all');
                     setMapMode('2d');
                   }}
-                  className="text-micro font-mono px-2.5 py-1.5 rounded-lg bg-red-500/10 text-red-600 dark:text-red-400 hover:bg-red-500/20 border border-red-500/20 transition-colors"
+                  className="text-micro font-mono px-2.5 py-1.5 rounded-lg bg-rose-500/10 text-rose-600 dark:text-rose-400 hover:bg-rose-500/20 border border-rose-500/20 transition-colors"
                 >
                   Conflict Zones
                 </button>

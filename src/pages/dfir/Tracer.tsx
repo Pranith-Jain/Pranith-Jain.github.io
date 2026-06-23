@@ -469,7 +469,7 @@ export default function Tracer(): JSX.Element {
             </div>
           ) : null}
           {error ? (
-            <p className="flex items-center gap-1 text-xs text-red-400">
+            <p className="flex items-center gap-1 text-xs text-rose-400">
               <AlertTriangle className="h-3 w-3" /> {error}
             </p>
           ) : null}
@@ -576,7 +576,7 @@ export default function Tracer(): JSX.Element {
                     <span
                       className={
                         calldata.analysis.verdict === 'data-hiding'
-                          ? 'font-semibold text-red-400'
+                          ? 'font-semibold text-rose-400'
                           : calldata.analysis.verdict === 'suspicious'
                             ? 'font-semibold text-amber-400'
                             : 'text-emerald-400'

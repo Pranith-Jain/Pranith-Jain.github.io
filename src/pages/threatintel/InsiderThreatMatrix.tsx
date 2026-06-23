@@ -87,7 +87,7 @@ const CATEGORIES: Category[] = [
     id: 'preparation',
     name: 'Preparation',
     description: 'The activities conducted by a subject to aid or enable an infringement.',
-    color: 'border-yellow-500/40 bg-yellow-500/5 text-yellow-700 dark:text-yellow-300',
+    color: 'border-amber-500/40 bg-amber-500/5 text-amber-700 dark:text-amber-300',
     techniques: [
       { id: 'PR038', name: 'AI-Assisted Capability Development', url: '/articles/AR3/sections/PR038' },
       { id: 'PR017', name: 'Archive Data', url: '/articles/AR3/sections/PR017' },

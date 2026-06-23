@@ -82,7 +82,7 @@ const ENTITY_ICONS: Record<string, typeof Shield> = {
 };
 
 const ENTITY_COLORS: Record<string, string> = {
-  actor: 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300 border-red-200 dark:border-red-800',
+  actor: 'bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-300 border-rose-200 dark:border-rose-800',
   ransomware:
     'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300 border-orange-200 dark:border-orange-800',
   cve: 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300 border-amber-200 dark:border-amber-800',
@@ -234,7 +234,7 @@ export default function Observe(): JSX.Element {
       </section>
 
       {error && (
-        <div className="flex items-center gap-2 text-sm text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/20 px-4 py-3 rounded-lg mb-6">
+        <div className="flex items-center gap-2 text-sm text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-900/20 px-4 py-3 rounded-lg mb-6">
           <AlertTriangle size={14} />
           {error}
         </div>
@@ -325,10 +325,10 @@ export default function Observe(): JSX.Element {
                           <span
                             className={`shrink-0 px-1.5 py-0.5 rounded ${
                               v.verdict === 'malicious'
-                                ? 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300'
+                                ? 'bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-300'
                                 : v.verdict === 'suspicious'
                                   ? 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300'
-                                  : 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300'
+                                  : 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300'
                             }`}
                           >
                             {v.verdict}

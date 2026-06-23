@@ -57,10 +57,11 @@ function detectIocType(value: string): string {
 }
 
 const VERDICT_STYLES: Record<Verdict, string> = {
-  malicious: 'bg-red-100 text-red-800 dark:bg-red-900/40 dark:text-red-300 border-red-300 dark:border-red-800',
+  malicious: 'bg-rose-100 text-rose-800 dark:bg-rose-900/40 dark:text-rose-300 border-rose-300 dark:border-rose-800',
   suspicious:
     'bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300 border-amber-300 dark:border-amber-800',
-  benign: 'bg-green-100 text-green-800 dark:bg-green-900/40 dark:text-green-300 border-green-300 dark:border-green-800',
+  benign:
+    'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-300 border-emerald-300 dark:border-emerald-800',
   unknown:
     'bg-slate-100 text-slate-600 dark:bg-[rgb(var(--surface-300))] dark:text-slate-400 border-slate-300 dark:border-[rgb(var(--border-400))]',
 };
@@ -355,10 +356,10 @@ export default function XVeridikt(): JSX.Element {
                           <div
                             className={`h-full rounded-full transition-all ${
                               result.consensus >= 70
-                                ? 'bg-red-500'
+                                ? 'bg-rose-500'
                                 : result.consensus >= 40
                                   ? 'bg-amber-500'
-                                  : 'bg-green-500'
+                                  : 'bg-emerald-500'
                             }`}
                             style={{ width: `${result.consensus}%` }}
                           />

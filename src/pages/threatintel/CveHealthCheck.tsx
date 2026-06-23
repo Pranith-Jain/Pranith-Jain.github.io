@@ -22,16 +22,17 @@ const STATUS_ICON: Record<string, typeof CheckCircle> = {
 };
 
 const STATUS_COLOR: Record<string, string> = {
-  pass: 'text-green-600 dark:text-green-400',
-  warn: 'text-yellow-600 dark:text-yellow-400',
-  fail: 'text-red-600 dark:text-red-400',
+  pass: 'text-emerald-600 dark:text-emerald-400',
+  warn: 'text-amber-600 dark:text-amber-400',
+  fail: 'text-rose-600 dark:text-rose-400',
 };
 
 const OVERALL_STYLE: Record<string, string> = {
-  healthy: 'bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800 text-green-700 dark:text-green-300',
+  healthy:
+    'bg-emerald-50 dark:bg-emerald-900/20 border-emerald-200 dark:border-emerald-800 text-emerald-700 dark:text-emerald-300',
   degraded:
-    'bg-yellow-50 dark:bg-yellow-900/20 border-yellow-200 dark:border-yellow-800 text-yellow-700 dark:text-yellow-300',
-  unhealthy: 'bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800 text-red-700 dark:text-red-300',
+    'bg-amber-50 dark:bg-amber-900/20 border-amber-200 dark:border-amber-800 text-amber-700 dark:text-amber-300',
+  unhealthy: 'bg-rose-50 dark:bg-rose-900/20 border-rose-200 dark:border-rose-800 text-rose-700 dark:text-rose-300',
 };
 
 function formatName(name: string): string {

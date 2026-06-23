@@ -59,7 +59,7 @@ const SEVERITY_COLORS: Record<string, string> = {
   low: 'bg-blue-100 dark:bg-blue-500/15 text-blue-700 dark:text-blue-300',
   medium: 'bg-amber-100 dark:bg-amber-500/15 text-amber-700 dark:text-amber-300',
   high: 'bg-orange-100 dark:bg-orange-500/15 text-orange-700 dark:text-orange-300',
-  critical: 'bg-red-100 dark:bg-red-500/15 text-red-700 dark:text-red-300',
+  critical: 'bg-rose-100 dark:bg-rose-500/15 text-rose-700 dark:text-rose-300',
 };
 
 const ENTRY_TYPE_ICONS: Record<string, typeof FileText> = {
@@ -237,13 +237,13 @@ export default function Notebooks() {
 
       {/* Error banner */}
       {error && (
-        <div className="mb-4 p-3 rounded-lg bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-300 font-mono text-sm flex items-center justify-between">
+        <div className="mb-4 p-3 rounded-lg bg-rose-50 dark:bg-rose-900/20 border border-rose-200 dark:border-rose-800 text-rose-700 dark:text-rose-300 font-mono text-sm flex items-center justify-between">
           <span className="flex items-center gap-2">
             <AlertTriangle size={14} /> {error}
           </span>
           <button
             onClick={() => setError('')}
-            className="text-red-500 hover:text-red-700 dark:hover:text-red-300 text-xs"
+            className="text-rose-500 hover:text-rose-700 dark:hover:text-rose-300 text-xs"
           >
             dismiss
           </button>
@@ -371,7 +371,7 @@ export default function Notebooks() {
                           e.stopPropagation();
                           deleteNotebook(nb.id);
                         }}
-                        className="p-1.5 rounded-lg hover:bg-red-50 dark:hover:bg-red-500/10 text-muted hover:text-red-500 transition-colors"
+                        className="p-1.5 rounded-lg hover:bg-rose-50 dark:hover:bg-rose-500/10 text-muted hover:text-rose-500 transition-colors"
                       >
                         <Trash2 size={14} />
                       </button>
@@ -530,7 +530,7 @@ export default function Notebooks() {
                           </div>
                           <button
                             onClick={() => deleteEntry(entry.id)}
-                            className="p-1.5 rounded-lg hover:bg-red-50 dark:hover:bg-red-500/10 text-muted hover:text-red-500 transition-colors"
+                            className="p-1.5 rounded-lg hover:bg-rose-50 dark:hover:bg-rose-500/10 text-muted hover:text-rose-500 transition-colors"
                           >
                             <Trash2 size={12} />
                           </button>

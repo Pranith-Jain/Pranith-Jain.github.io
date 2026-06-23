@@ -828,7 +828,7 @@ const ORIGIN_PILL: Record<RansomwareOrigin, { label: string; cls: string; toolti
   },
   andreafortuna: {
     label: 'AF',
-    cls: 'border-lime-500/40 bg-lime-500/10 text-lime-700 dark:text-lime-300',
+    cls: 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300',
     tooltip: 'Andrea Fortuna CTI feeds — ransomware victim tracker',
   },
   ctifyi: {

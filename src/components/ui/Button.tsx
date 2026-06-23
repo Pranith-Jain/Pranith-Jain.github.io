@@ -43,9 +43,9 @@ const VARIANT: Record<ButtonVariant, string> = {
   ghost:
     'bg-transparent text-slate-700 hover:bg-black/5 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-white/5 dark:hover:text-white disabled:opacity-40 disabled:cursor-not-allowed',
   danger:
-    'bg-red-700 text-white hover:bg-red-800 dark:bg-red-700 dark:hover:bg-red-800 disabled:opacity-50 disabled:cursor-not-allowed',
+    'bg-rose-700 text-white hover:bg-rose-800 dark:bg-rose-700 dark:hover:bg-rose-800 disabled:opacity-50 disabled:cursor-not-allowed',
   'danger-secondary':
-    'bg-white text-red-700 border border-black/15 hover:bg-red-50 hover:border-red-300 dark:bg-transparent dark:text-red-400 dark:border-white/10 dark:hover:bg-red-500/10 dark:hover:border-red-500/30 disabled:opacity-50 disabled:cursor-not-allowed',
+    'bg-white text-rose-700 border border-black/15 hover:bg-rose-50 hover:border-rose-300 dark:bg-transparent dark:text-rose-400 dark:border-white/10 dark:hover:bg-rose-500/10 dark:hover:border-rose-500/30 disabled:opacity-50 disabled:cursor-not-allowed',
 };
 
 // Geist button sizes: sm 32, md 40, lg 48. Added xs (28) for tight

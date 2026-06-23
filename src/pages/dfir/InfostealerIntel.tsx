@@ -303,7 +303,7 @@ export default function InfostealerIntel(): JSX.Element {
 
       {/* Error */}
       {error && (
-        <div className="rounded-xl border border-red-300 dark:border-red-800 bg-red-50 dark:bg-red-950/30 p-4 text-sm text-red-700 dark:text-red-300 mb-6">
+        <div className="rounded-xl border border-rose-300 dark:border-rose-800 bg-rose-50 dark:bg-rose-950/30 p-4 text-sm text-rose-700 dark:text-rose-300 mb-6">
           {error}
         </div>
       )}
@@ -401,7 +401,7 @@ export default function InfostealerIntel(): JSX.Element {
       {!loading && overviewResult && (
         <div className="space-y-4">
           {overviewResult.error ? (
-            <div className="rounded-xl border border-red-300 dark:border-red-800 bg-red-50 dark:bg-red-950/30 p-4 text-sm text-red-700 dark:text-red-300">
+            <div className="rounded-xl border border-rose-300 dark:border-rose-800 bg-rose-50 dark:bg-rose-950/30 p-4 text-sm text-rose-700 dark:text-rose-300">
               {overviewResult.error}
             </div>
           ) : overviewResult.overview ? (
@@ -439,7 +439,7 @@ export default function InfostealerIntel(): JSX.Element {
       {!loading && infectionResult && (
         <div className="space-y-4">
           {infectionResult.error ? (
-            <div className="rounded-xl border border-red-300 dark:border-red-800 bg-red-50 dark:bg-red-950/30 p-4 text-sm text-red-700 dark:text-red-300">
+            <div className="rounded-xl border border-rose-300 dark:border-rose-800 bg-rose-50 dark:bg-rose-950/30 p-4 text-sm text-rose-700 dark:text-rose-300">
               {infectionResult.error}
             </div>
           ) : infectionResult.analysis ? (
@@ -449,7 +449,7 @@ export default function InfostealerIntel(): JSX.Element {
                   <Shield className="w-5 h-5 text-brand-600 dark:text-brand-400" />
                   <span className="font-medium">Infection Confidence</span>
                   <span
-                    className={`text-lg font-bold ${infectionResult.analysis.infection_confidence >= 0.7 ? 'text-emerald-600 dark:text-emerald-400' : infectionResult.analysis.infection_confidence >= 0.4 ? 'text-amber-600 dark:text-amber-400' : 'text-red-600 dark:text-red-400'}`}
+                    className={`text-lg font-bold ${infectionResult.analysis.infection_confidence >= 0.7 ? 'text-emerald-600 dark:text-emerald-400' : infectionResult.analysis.infection_confidence >= 0.4 ? 'text-amber-600 dark:text-amber-400' : 'text-rose-600 dark:text-rose-400'}`}
                   >
                     {(infectionResult.analysis.infection_confidence * 100).toFixed(0)}%
                   </span>

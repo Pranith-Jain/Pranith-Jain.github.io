@@ -251,7 +251,7 @@ export default function Dnscope(): JSX.Element {
                       <h3 className="font-mono text-xs font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
                         {section.label}
                       </h3>
-                      <ShieldCheck size={12} className="text-green-500" />
+                      <ShieldCheck size={12} className="text-emerald-500" />
                     </div>
                     <ul className="space-y-0.5">
                       {section.data.map((line, i) => (

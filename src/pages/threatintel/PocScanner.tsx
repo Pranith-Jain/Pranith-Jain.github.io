@@ -102,7 +102,7 @@ export default function PocScanner(): JSX.Element {
                             <ExternalLink className="h-3 w-3" />
                           </a>
                           {repo.has_code && (
-                            <span className="px-1.5 py-0.5 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 text-[10px] font-medium rounded border border-green-200 dark:border-green-800">
+                            <span className="px-1.5 py-0.5 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 text-[10px] font-medium rounded border border-emerald-200 dark:border-emerald-800">
                               HAS CODE
                             </span>
                           )}

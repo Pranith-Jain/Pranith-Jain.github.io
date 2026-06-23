@@ -40,7 +40,7 @@ const FRAMEWORK_COLORS: Record<string, string> = {
   empire: 'bg-rose-500/15 text-rose-700 dark:text-rose-300 border-rose-500/30',
   mythic: 'bg-purple-500/15 text-purple-700 dark:text-purple-300 border-purple-500/30',
   pwnrig: 'bg-stone-500/15 text-stone-700 dark:text-stone-300 border-stone-500/30',
-  covenant: 'bg-lime-500/15 text-lime-700 dark:text-lime-300 border-lime-500/30',
+  covenant: 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border-emerald-500/30',
   unknown: 'bg-slate-500/15 text-muted border-slate-500/30',
 };
 

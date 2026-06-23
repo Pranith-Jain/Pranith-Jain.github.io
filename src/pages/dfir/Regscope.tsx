@@ -4,10 +4,9 @@ import { ArrowLeft, Search, FolderTree, HelpCircle } from 'lucide-react';
 import { KNOWN_KEYS, type RegistryEntry } from '../../data/registry-keys';
 
 const RISK_COLORS: Record<string, string> = {
-  critical: 'bg-red-100 text-red-800 dark:bg-red-900/40 dark:text-red-300 border-red-300 dark:border-red-800',
+  critical: 'bg-rose-100 text-rose-800 dark:bg-rose-900/40 dark:text-rose-300 border-rose-300 dark:border-rose-800',
   high: 'bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300 border-amber-300 dark:border-amber-800',
-  medium:
-    'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/40 dark:text-yellow-300 border-yellow-300 dark:border-yellow-800',
+  medium: 'bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300 border-amber-300 dark:border-amber-800',
   low: 'bg-slate-100 text-slate-600 dark:bg-[rgb(var(--surface-300))] dark:text-slate-400 border-slate-300 dark:border-[rgb(var(--border-400))]',
 };
 
@@ -278,7 +277,7 @@ export default function Regscope(): JSX.Element {
                       {result.malware.map((m) => (
                         <span
                           key={m}
-                          className="text-micro font-mono px-1.5 py-0.5 rounded bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300"
+                          className="text-micro font-mono px-1.5 py-0.5 rounded bg-rose-100 dark:bg-rose-900/30 text-rose-700 dark:text-rose-300"
                         >
                           {m}
                         </span>

@@ -27,7 +27,7 @@ const TACTIC_COLORS: Record<string, string> = {
   TA0001: 'bg-rose-500',
   TA0002: 'bg-orange-500',
   TA0003: 'bg-amber-500',
-  TA0004: 'bg-yellow-600',
+  TA0004: 'bg-amber-600',
   TA0005: 'bg-emerald-500',
   TA0006: 'bg-teal-500',
   TA0007: 'bg-blue-500',
@@ -35,7 +35,7 @@ const TACTIC_COLORS: Record<string, string> = {
   TA0009: 'bg-purple-500',
   TA0011: 'bg-pink-500',
   TA0010: 'bg-rose-600',
-  TA0040: 'bg-red-700',
+  TA0040: 'bg-rose-700',
 };
 
 export default function AttackChain(): JSX.Element {

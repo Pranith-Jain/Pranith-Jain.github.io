@@ -555,8 +555,8 @@ const TYPE_CONFIG: Record<FacilityType, { label: string; icon: typeof MapPin; co
   conflict_zone: {
     label: 'Conflict Zone',
     icon: AlertTriangle,
-    color: 'text-red-400',
-    bgColor: 'bg-red-500/10 border-red-500/20',
+    color: 'text-rose-400',
+    bgColor: 'bg-rose-500/10 border-rose-500/20',
   },
   sanctioned_country: {
     label: 'Sanctioned',
@@ -573,8 +573,8 @@ const TYPE_CONFIG: Record<FacilityType, { label: string; icon: typeof MapPin; co
   nuclear_site: {
     label: 'Nuclear Site',
     icon: Atom,
-    color: 'text-yellow-400',
-    bgColor: 'bg-yellow-500/10 border-yellow-500/20',
+    color: 'text-amber-400',
+    bgColor: 'bg-amber-500/10 border-amber-500/20',
   },
   disputed_territory: {
     label: 'Disputed Territory',
@@ -610,14 +610,14 @@ const TYPE_CONFIG: Record<FacilityType, { label: string; icon: typeof MapPin; co
   exchange: {
     label: 'Stock Exchange',
     icon: Landmark,
-    color: 'text-green-400',
-    bgColor: 'bg-green-500/10 border-green-500/20',
+    color: 'text-emerald-400',
+    bgColor: 'bg-emerald-500/10 border-emerald-500/20',
   },
   financial: {
     label: 'Financial Center',
     icon: Landmark,
-    color: 'text-lime-400',
-    bgColor: 'bg-lime-500/10 border-lime-500/20',
+    color: 'text-emerald-400',
+    bgColor: 'bg-emerald-500/10 border-emerald-500/20',
   },
 };
 
@@ -697,9 +697,9 @@ export default function Facilities(): JSX.Element {
             <div className="text-micro font-mono uppercase text-slate-500 mb-1">Total</div>
             <div className="text-2xl font-bold text-slate-900 dark:text-slate-100">{stats.total}</div>
           </div>
-          <div className="rounded-xl border border-red-500/20 bg-red-500/5 p-3">
-            <div className="text-micro font-mono uppercase text-red-400 mb-1">Critical</div>
-            <div className="text-2xl font-bold text-red-400">{stats.bySeverity.critical ?? 0}</div>
+          <div className="rounded-xl border border-rose-500/20 bg-rose-500/5 p-3">
+            <div className="text-micro font-mono uppercase text-rose-400 mb-1">Critical</div>
+            <div className="text-2xl font-bold text-rose-400">{stats.bySeverity.critical ?? 0}</div>
           </div>
           <div className="rounded-xl border border-orange-500/20 bg-orange-500/5 p-3">
             <div className="text-micro font-mono uppercase text-orange-400 mb-1">High</div>

@@ -324,7 +324,7 @@ const STAKEHOLDER_META: Record<Stakeholder, { label: string; color: string }> = 
   appsec: { label: 'APPSEC', color: 'bg-sky-100 text-sky-700 dark:bg-sky-500/10 dark:text-sky-300' },
   awareness: { label: 'AWARE', color: 'bg-pink-100 text-pink-700 dark:bg-pink-900/30 dark:text-pink-300' },
   exec: { label: 'EXEC', color: 'bg-slate-100 text-slate-700 dark:bg-[rgb(var(--surface-300))] dark:text-slate-300' },
-  legal: { label: 'LEGAL', color: 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-300' },
+  legal: { label: 'LEGAL', color: 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300' },
   tprm: { label: 'TPRM', color: 'bg-teal-100 text-teal-700 dark:bg-teal-900/30 dark:text-teal-300' },
 };
 
@@ -755,7 +755,7 @@ function IocTable({ iocs }: { iocs: ReportIoc[] }): JSX.Element | null {
     email: 'bg-pink-100 text-pink-700 dark:bg-pink-900/30 dark:text-pink-300',
     cve: 'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300',
     actor: 'bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300',
-    malware: 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300',
+    malware: 'bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-300',
   };
   return (
     <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] mb-4 overflow-hidden">

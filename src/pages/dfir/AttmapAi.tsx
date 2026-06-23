@@ -38,11 +38,11 @@ const TACTIC_COLORS: Record<string, string> = {
   Persistence:
     'bg-purple-100 text-purple-700 dark:bg-purple-900/40 dark:text-purple-300 border-purple-300 dark:border-purple-800',
   'Privilege Escalation':
-    'bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300 border-red-300 dark:border-red-800',
+    'bg-rose-100 text-rose-700 dark:bg-rose-900/40 dark:text-rose-300 border-rose-300 dark:border-rose-800',
   'Defense Evasion':
     'bg-pink-100 text-pink-700 dark:bg-pink-900/40 dark:text-pink-300 border-pink-300 dark:border-pink-800',
   'Credential Access':
-    'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/40 dark:text-yellow-300 border-yellow-300 dark:border-yellow-800',
+    'bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300 border-amber-300 dark:border-amber-800',
   Discovery: 'bg-sky-100 text-sky-700 dark:bg-cyan-900/40 dark:text-sky-300 border-cyan-300 dark:border-cyan-800',
   'Lateral Movement':
     'bg-indigo-100 text-indigo-700 dark:bg-indigo-900/40 dark:text-indigo-300 border-indigo-300 dark:border-indigo-800',
@@ -51,7 +51,7 @@ const TACTIC_COLORS: Record<string, string> = {
     'bg-rose-100 text-rose-700 dark:bg-rose-900/40 dark:text-rose-300 border-rose-300 dark:border-rose-800',
   Exfiltration:
     'bg-violet-100 text-violet-700 dark:bg-violet-900/40 dark:text-violet-300 border-violet-300 dark:border-violet-800',
-  Impact: 'bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300 border-red-300 dark:border-red-800',
+  Impact: 'bg-rose-100 text-rose-700 dark:bg-rose-900/40 dark:text-rose-300 border-rose-300 dark:border-rose-800',
 };
 
 const INPUT_TYPES = ['Article / Report', 'Logs', 'Alert Details', 'Behavior Description'] as const;
@@ -418,7 +418,7 @@ const TECHNIQUE_RULES: TechniqueRule[] = [
 ];
 
 const CONFIDENCE_STYLES: Record<string, string> = {
-  high: 'bg-green-100 text-green-800 dark:bg-green-900/40 dark:text-green-300',
+  high: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-300',
   medium: 'bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300',
   low: 'bg-slate-100 text-slate-600 dark:bg-[rgb(var(--surface-300))] dark:text-slate-400',
 };

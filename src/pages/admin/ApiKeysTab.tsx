@@ -168,7 +168,7 @@ export default function ApiKeysTab() {
       {/* Existing keys */}
       <section>
         <h2 className="text-sm font-semibold text-slate-800 dark:text-slate-200 mb-4">Active Keys</h2>
-        {error && <p className="text-sm text-red-600 dark:text-red-400 mb-4">{error}</p>}
+        {error && <p className="text-sm text-rose-600 dark:text-rose-400 mb-4">{error}</p>}
         {loading ? (
           <p className="text-sm text-slate-600 dark:text-slate-500">Loading…</p>
         ) : keys.length === 0 ? (
@@ -220,7 +220,7 @@ export default function ApiKeysTab() {
                       <button
                         onClick={() => handleRevoke(k.id)}
                         disabled={revoking === k.id}
-                        className="px-2 py-1 text-xs text-red-600 dark:text-red-400 border border-red-200 dark:border-red-800/50 rounded hover:bg-red-50 dark:hover:bg-red-950/30 disabled:opacity-50"
+                        className="px-2 py-1 text-xs text-rose-600 dark:text-rose-400 border border-rose-200 dark:border-rose-800/50 rounded hover:bg-rose-50 dark:hover:bg-rose-950/30 disabled:opacity-50"
                       >
                         {revoking === k.id ? 'Revoking…' : 'Revoke'}
                       </button>

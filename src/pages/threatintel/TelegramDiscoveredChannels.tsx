@@ -103,7 +103,7 @@ export default function TelegramDiscoveredChannels(): JSX.Element {
               onClick={() => setShowToken((s) => !s)}
               className={`text-mini font-mono px-2.5 py-1.5 rounded border inline-flex items-center gap-1 ${
                 authed
-                  ? 'border-green-600/40 text-green-700 dark:text-green-400'
+                  ? 'border-emerald-600/40 text-emerald-700 dark:text-emerald-400'
                   : 'border-amber-500/40 text-amber-600 dark:text-amber-400'
               }`}
               aria-label="Admin token"
@@ -203,7 +203,7 @@ export default function TelegramDiscoveredChannels(): JSX.Element {
                         rejected
                       </span>
                     ) : ch.reviewed === 1 ? (
-                      <span className="text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-green-500/40 bg-green-500/10 text-green-600 dark:text-green-400">
+                      <span className="text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-emerald-500/40 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
                         reviewed
                       </span>
                     ) : null}
@@ -234,7 +234,7 @@ export default function TelegramDiscoveredChannels(): JSX.Element {
                       type="button"
                       onClick={() => mutate(ch.handle, 'approve')}
                       disabled={busy !== null}
-                      className="text-mini font-mono px-3 py-1.5 rounded border border-green-600/40 text-green-700 dark:text-green-400 hover:bg-green-500/10 disabled:opacity-40 inline-flex items-center gap-1.5"
+                      className="text-mini font-mono px-3 py-1.5 rounded border border-emerald-600/40 text-emerald-700 dark:text-emerald-400 hover:bg-emerald-500/10 disabled:opacity-40 inline-flex items-center gap-1.5"
                     >
                       <Check size={12} /> {busy === `approve:${ch.handle}` ? 'approving…' : 'approve'}
                     </button>

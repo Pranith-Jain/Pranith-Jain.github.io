@@ -187,10 +187,9 @@ const CATEGORIES: PredatorCategory[] = [
 
 const RISK_ORDER: Record<string, number> = { CRITICAL: 0, HIGH: 1, MEDIUM: 2, LOW: 3 };
 const RISK_PILL: Record<string, string> = {
-  CRITICAL: 'bg-red-100 text-red-800 dark:bg-red-900/40 dark:text-red-300 border-red-300 dark:border-red-800',
+  CRITICAL: 'bg-rose-100 text-rose-800 dark:bg-rose-900/40 dark:text-rose-300 border-rose-300 dark:border-rose-800',
   HIGH: 'bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300 border-amber-300 dark:border-amber-800',
-  MEDIUM:
-    'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/40 dark:text-yellow-300 border-yellow-300 dark:border-yellow-800',
+  MEDIUM: 'bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300 border-amber-300 dark:border-amber-800',
   LOW: 'bg-slate-100 text-slate-800 dark:bg-[rgb(var(--surface-300))] dark:text-slate-300 border-slate-300 dark:border-[rgb(var(--border-400))]',
 };
 

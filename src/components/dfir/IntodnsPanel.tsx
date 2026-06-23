@@ -118,7 +118,12 @@ const GRADE_TONE: Record<string, { bg: string; ring: string; text: string; icon:
     text: 'text-emerald-700 dark:text-emerald-300',
     icon: ShieldCheck,
   },
-  B: { bg: 'bg-lime-500/10', ring: 'ring-lime-500/40', text: 'text-lime-700 dark:text-lime-300', icon: ShieldCheck },
+  B: {
+    bg: 'bg-emerald-500/10',
+    ring: 'ring-emerald-500/40',
+    text: 'text-emerald-700 dark:text-emerald-300',
+    icon: ShieldCheck,
+  },
   C: {
     bg: 'bg-amber-500/10',
     ring: 'ring-amber-500/40',

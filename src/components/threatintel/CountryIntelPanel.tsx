@@ -134,8 +134,8 @@ export function CountryIntelPanel({ country, events, onClose }: CountryIntelPane
             <p className="text-sm text-slate-300 leading-relaxed">{intel.executive_summary}</p>
 
             {intel.cyber_threats && (
-              <div className="rounded-lg bg-red-500/5 border border-red-500/10 p-3">
-                <span className="text-micro font-mono uppercase text-red-400 block mb-1">Cyber Threats</span>
+              <div className="rounded-lg bg-rose-500/5 border border-rose-500/10 p-3">
+                <span className="text-micro font-mono uppercase text-rose-400 block mb-1">Cyber Threats</span>
                 <p className="text-xs text-slate-400">{intel.cyber_threats}</p>
               </div>
             )}

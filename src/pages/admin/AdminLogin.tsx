@@ -62,7 +62,7 @@ export default function AdminLogin({ onLogin }: Props) {
           />
         </div>
         {error && (
-          <p role="alert" className="text-sm text-red-600 dark:text-red-400">
+          <p role="alert" className="text-sm text-rose-600 dark:text-rose-400">
             {error}
           </p>
         )}

@@ -68,7 +68,7 @@ interface RelatedEvent {
 }
 
 const THREAT_LEVELS: Record<string, { label: string; color: string; icon: LucideIcon }> = {
-  '1': { label: 'High', color: 'text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/20', icon: ShieldAlert },
+  '1': { label: 'High', color: 'text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-900/20', icon: ShieldAlert },
   '2': {
     label: 'Medium',
     color: 'text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-900/20',
@@ -76,7 +76,7 @@ const THREAT_LEVELS: Record<string, { label: string; color: string; icon: Lucide
   },
   '3': {
     label: 'Low',
-    color: 'text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-900/20',
+    color: 'text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/20',
     icon: ShieldAlert,
   },
   '4': { label: 'Undefined', color: 'text-slate-500 bg-slate-50 dark:bg-[rgb(var(--surface-300))]', icon: ShieldAlert },
@@ -253,7 +253,7 @@ export default function MispBrowser() {
             {loading ? 'Connecting...' : 'Connect'}
           </button>
           {error && (
-            <div className="text-xs font-mono p-2 rounded-lg bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-400">
+            <div className="text-xs font-mono p-2 rounded-lg bg-rose-50 dark:bg-rose-900/20 text-rose-700 dark:text-rose-400">
               {error}
             </div>
           )}
@@ -297,7 +297,7 @@ export default function MispBrowser() {
                 {ANALYSIS_LABELS[e.analysis] ?? 'Unknown'}
               </span>
               {e.published && (
-                <span className="text-mini font-mono px-2 py-1 rounded bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-400">
+                <span className="text-mini font-mono px-2 py-1 rounded bg-emerald-50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-400">
                   Published
                 </span>
               )}
@@ -338,7 +338,7 @@ export default function MispBrowser() {
                         <td className="py-1 pr-3 text-slate-900 dark:text-slate-100 break-all max-w-md">{a.value}</td>
                         <td className="py-1 pr-3">
                           {a.to_ids ? (
-                            <span className="text-green-600 dark:text-green-400">✓</span>
+                            <span className="text-emerald-600 dark:text-emerald-400">✓</span>
                           ) : (
                             <span className="text-slate-400">—</span>
                           )}
@@ -486,7 +486,7 @@ export default function MispBrowser() {
           </button>
           <button
             onClick={disconnect}
-            className="px-3 py-1.5 text-mini font-mono rounded-lg border border-red-300 dark:border-red-700 text-red-600 dark:text-red-400 hover:border-red-500"
+            className="px-3 py-1.5 text-mini font-mono rounded-lg border border-rose-300 dark:border-rose-700 text-rose-600 dark:text-rose-400 hover:border-rose-500"
           >
             Disconnect
           </button>
@@ -535,7 +535,7 @@ export default function MispBrowser() {
       </div>
 
       {error && (
-        <div className="text-xs font-mono p-2 rounded-lg bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-400">
+        <div className="text-xs font-mono p-2 rounded-lg bg-rose-50 dark:bg-rose-900/20 text-rose-700 dark:text-rose-400">
           {error}
         </div>
       )}
@@ -566,7 +566,7 @@ export default function MispBrowser() {
                       {e.info || '(no info)'}
                     </span>
                     {e.published && (
-                      <span className="shrink-0 text-micro font-mono px-1 py-0.5 rounded bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-400">
+                      <span className="shrink-0 text-micro font-mono px-1 py-0.5 rounded bg-emerald-50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-400">
                         Published
                       </span>
                     )}

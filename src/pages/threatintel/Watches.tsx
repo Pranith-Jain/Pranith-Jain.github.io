@@ -33,7 +33,7 @@ const TYPE_LABELS: Record<Watch['type'], string> = {
 };
 
 const TYPE_COLORS: Record<Watch['type'], string> = {
-  'ransomware-group': 'text-red-600 dark:text-red-400',
+  'ransomware-group': 'text-rose-600 dark:text-rose-400',
   'cve-keyword': 'text-amber-600 dark:text-amber-400',
   actor: 'text-violet-600 dark:text-violet-400',
   ioc: 'text-cyan-600 dark:text-cyan-400',
@@ -334,7 +334,7 @@ export default function Watches(): JSX.Element {
                         <button
                           onClick={() => handleDelete(watch.id)}
                           aria-label="Delete watch"
-                          className="p-1.5 rounded hover:bg-red-50 dark:hover:bg-red-900/20 text-slate-400 hover:text-red-500 transition-colors"
+                          className="p-1.5 rounded hover:bg-rose-50 dark:hover:bg-rose-900/20 text-slate-400 hover:text-rose-500 transition-colors"
                           title="Delete watch"
                         >
                           <Trash2 size={14} />

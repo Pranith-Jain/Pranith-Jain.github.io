@@ -101,8 +101,8 @@ export const TAG_LABELS: Record<ResourceTag, string> = {
 export const TAG_PILL: Record<ResourceTag, string> = {
   malware: 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300',
   'threat-intel': 'border-orange-500/40 bg-orange-500/10 text-orange-700 dark:text-orange-300',
-  c2: 'border-red-500/40 bg-red-500/10 text-red-700 dark:text-red-300',
-  phishing: 'border-yellow-500/40 bg-yellow-500/10 text-yellow-700 dark:text-yellow-300',
+  c2: 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300',
+  phishing: 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300',
   osint: 'border-teal-500/40 bg-teal-500/10 text-teal-700 dark:text-teal-300',
   dfir: 'border-blue-500/40 bg-blue-500/10 text-blue-700 dark:text-blue-300',
   darkweb: 'border-purple-500/40 bg-purple-500/10 text-purple-700 dark:text-purple-300',

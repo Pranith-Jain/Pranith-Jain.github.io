@@ -27,9 +27,9 @@ const CATEGORY_PILL: Record<Category, string> = {
   'email-security': 'border-indigo-500/40 bg-indigo-500/10 text-indigo-700 dark:text-indigo-300',
   'network-security': 'border-teal-500/40 bg-teal-500/10 text-teal-700 dark:text-teal-300',
   'cloud-security': 'border-blue-500/40 bg-blue-500/10 text-blue-700 dark:text-blue-300',
-  appsec: 'border-lime-500/40 bg-lime-500/10 text-lime-700 dark:text-lime-300',
-  'secrets-iam': 'border-yellow-500/40 bg-yellow-500/10 text-yellow-700 dark:text-yellow-300',
-  'pentest-redteam': 'border-red-500/40 bg-red-500/10 text-red-700 dark:text-red-300',
+  appsec: 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300',
+  'secrets-iam': 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300',
+  'pentest-redteam': 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300',
 };
 
 const PRICING_PILL: Record<Pricing, string> = {

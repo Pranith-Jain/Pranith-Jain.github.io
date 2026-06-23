@@ -62,7 +62,7 @@ const TABS: Array<{ id: Tab; label: string; desc: string }> = [
 ];
 
 const THREAT_PILL: Record<string, string> = {
-  CRITICAL: 'border-red-500/40 bg-red-500/10 text-red-700 dark:text-red-300',
+  CRITICAL: 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300',
   HIGH: 'border-orange-500/40 bg-orange-500/10 text-orange-700 dark:text-orange-300',
   MEDIUM: 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300',
   LOW: 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300',
@@ -73,7 +73,7 @@ const TYPE_PILL: Record<string, string> = {
   domain: 'border-sky-500/40 bg-sky-500/10 text-sky-700 dark:text-sky-300',
   url: 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300',
   hash: 'border-violet-500/40 bg-violet-500/10 text-violet-700 dark:text-violet-300',
-  cve: 'border-red-500/40 bg-red-500/10 text-red-700 dark:text-red-300',
+  cve: 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300',
   email: 'border-teal-500/40 bg-teal-500/10 text-teal-700 dark:text-teal-300',
 };
 

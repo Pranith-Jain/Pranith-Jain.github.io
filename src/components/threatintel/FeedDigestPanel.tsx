@@ -22,7 +22,7 @@ interface FeedDigest {
 const CATEGORY_COLORS: Record<string, string> = {
   vulnerability: 'text-amber-400 bg-amber-500/10',
   campaign: 'text-rose-400 bg-rose-500/10',
-  breach: 'text-red-400 bg-red-500/10',
+  breach: 'text-rose-400 bg-rose-500/10',
   malware: 'text-orange-400 bg-orange-500/10',
   geopolitical: 'text-purple-400 bg-purple-500/10',
   policy: 'text-sky-400 bg-sky-500/10',

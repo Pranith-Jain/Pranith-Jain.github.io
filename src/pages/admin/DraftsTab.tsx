@@ -209,7 +209,7 @@ export default function DraftsTab() {
   if (error)
     return (
       <div>
-        <p className="text-red-400 mb-2">Failed to load: {error}</p>
+        <p className="text-rose-400 mb-2">Failed to load: {error}</p>
         <button
           onClick={() => void load()}
           className="px-3 py-1 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-sm"
@@ -303,7 +303,7 @@ export default function DraftsTab() {
                         <button
                           onClick={() => void reject(d.slug)}
                           disabled={approveBusy || rejectBusy}
-                          className="px-2 py-1 border border-red-200 dark:border-red-900 rounded text-xs text-red-700 dark:text-red-300 hover:bg-red-50 dark:hover:bg-red-900/30 disabled:opacity-50"
+                          className="px-2 py-1 border border-rose-200 dark:border-rose-900 rounded text-xs text-rose-700 dark:text-rose-300 hover:bg-rose-50 dark:hover:bg-rose-900/30 disabled:opacity-50"
                         >
                           {rejectBusy ? '…' : 'Reject'}
                         </button>
@@ -447,7 +447,7 @@ function DraftPreviewPanel({
         <button
           onClick={onReject}
           disabled={approveBusy || rejectBusy || !!regenBusy}
-          className="px-3 py-1.5 border border-red-200 dark:border-red-900 rounded text-sm text-red-700 dark:text-red-300 hover:bg-red-50 dark:hover:bg-red-900/30 disabled:opacity-50"
+          className="px-3 py-1.5 border border-rose-200 dark:border-rose-900 rounded text-sm text-rose-700 dark:text-rose-300 hover:bg-rose-50 dark:hover:bg-rose-900/30 disabled:opacity-50"
         >
           {rejectBusy ? 'Rejecting…' : 'Reject & delete'}
         </button>

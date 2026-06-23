@@ -16,10 +16,9 @@ const ARCH_LABELS: Record<string, string> = {
 };
 
 const TIER_COLORS: Record<string, string> = {
-  Critical: 'text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-950/40 border-red-300 dark:border-red-800',
+  Critical: 'text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-950/40 border-rose-300 dark:border-rose-800',
   High: 'text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/40 border-amber-300 dark:border-amber-800',
-  Medium:
-    'text-yellow-700 dark:text-yellow-400 bg-yellow-50 dark:bg-yellow-950/40 border-yellow-300 dark:border-yellow-700',
+  Medium: 'text-amber-700 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/40 border-amber-300 dark:border-amber-700',
   Low: 'text-muted bg-slate-100 dark:bg-[rgb(var(--surface-200))] border-slate-300 dark:border-[rgb(var(--border-400))]',
 };
 

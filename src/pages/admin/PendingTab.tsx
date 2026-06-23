@@ -143,7 +143,7 @@ export default function PendingTab() {
   if (error)
     return (
       <div>
-        <p className="text-red-700 dark:text-red-400 mb-2">Failed to load: {error}</p>
+        <p className="text-rose-700 dark:text-rose-400 mb-2">Failed to load: {error}</p>
         <button
           onClick={() => void load()}
           className="px-3 py-1 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-sm"
@@ -166,7 +166,7 @@ export default function PendingTab() {
         {actionMsg ? <p className="text-xs font-mono text-slate-500 dark:text-slate-400">{actionMsg}</p> : <span />}
         <button
           onClick={() => void clearAll()}
-          className="px-2 py-1 border border-red-200 dark:border-red-700/60 text-red-700 dark:text-red-300 rounded text-xs hover:bg-red-50 dark:hover:bg-red-900/30"
+          className="px-2 py-1 border border-rose-200 dark:border-rose-700/60 text-rose-700 dark:text-rose-300 rounded text-xs hover:bg-rose-50 dark:hover:bg-rose-900/30"
         >
           Clear all
         </button>

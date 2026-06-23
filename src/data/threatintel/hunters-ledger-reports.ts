@@ -14,10 +14,10 @@ export interface TIntelReport {
 }
 
 export const SEVERITY_COLORS: Record<Severity, string> = {
-  critical: 'text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-950/30 border-red-200 dark:border-red-800/50',
+  critical: 'text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-950/30 border-rose-200 dark:border-rose-800/50',
   high: 'text-orange-600 dark:text-orange-400 bg-orange-50 dark:bg-orange-950/30 border-orange-200 dark:border-orange-800/50',
   medium:
-    'text-yellow-600 dark:text-yellow-400 bg-yellow-50 dark:bg-yellow-950/30 border-yellow-200 dark:border-yellow-800/50',
+    'text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/30 border-amber-200 dark:border-amber-800/50',
   low: 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/30 border-blue-200 dark:border-blue-800/50',
   info: 'text-slate-600 dark:text-slate-400 bg-slate-50 dark:bg-[rgb(var(--input-200)/0.3)] border-slate-200 dark:border-[rgb(var(--border-400))]',
 };

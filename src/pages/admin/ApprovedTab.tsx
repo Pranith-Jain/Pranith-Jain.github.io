@@ -82,7 +82,7 @@ export default function ApprovedTab() {
   if (error)
     return (
       <div>
-        <p className="text-red-600 dark:text-red-400 mb-2">Failed to load: {error}</p>
+        <p className="text-rose-600 dark:text-rose-400 mb-2">Failed to load: {error}</p>
         <button
           onClick={() => void load()}
           className="px-3 py-1 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-sm"
@@ -95,7 +95,7 @@ export default function ApprovedTab() {
     return (
       <div>
         {publishMsg && (
-          <p className="mb-4 p-3 rounded text-sm font-mono bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-300 border border-green-200 dark:border-green-800">
+          <p className="mb-4 p-3 rounded text-sm font-mono bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
             {publishMsg}
           </p>
         )}
@@ -106,7 +106,7 @@ export default function ApprovedTab() {
   return (
     <div>
       {publishMsg && (
-        <p className="mb-4 p-3 rounded text-sm font-mono bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-300 border border-green-200 dark:border-green-800">
+        <p className="mb-4 p-3 rounded text-sm font-mono bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
           {publishMsg}
         </p>
       )}
@@ -138,7 +138,7 @@ export default function ApprovedTab() {
                   <button
                     onClick={() => publishNow(c.key)}
                     disabled={publishing === c.key}
-                    className="px-2 py-1 border border-green-700 rounded text-xs hover:bg-green-50 dark:hover:bg-green-900/30 disabled:opacity-50"
+                    className="px-2 py-1 border border-emerald-700 rounded text-xs hover:bg-emerald-50 dark:hover:bg-emerald-900/30 disabled:opacity-50"
                   >
                     {publishing === c.key ? 'Publishing…' : 'Publish now'}
                   </button>

@@ -33,14 +33,14 @@ const CATEGORY_ICONS: Record<string, typeof Shield> = {
 };
 
 const CATEGORY_COLORS: Record<string, string> = {
-  IP: 'text-red-600 dark:text-red-400 border-red-500/30 bg-red-100 dark:bg-red-500/10',
+  IP: 'text-rose-600 dark:text-rose-400 border-rose-500/30 bg-rose-100 dark:bg-rose-500/10',
   DNS: 'text-cyan-600 dark:text-cyan-400 border-cyan-500/30 bg-sky-100 dark:bg-cyan-500/10',
   URL: 'text-purple-600 dark:text-purple-400 border-purple-500/30 bg-purple-100 dark:bg-purple-500/10',
   MD5: 'text-orange-600 dark:text-orange-400 border-orange-500/30 bg-orange-100 dark:bg-orange-500/10',
   SHA1: 'text-orange-600 dark:text-orange-400 border-orange-500/30 bg-orange-100 dark:bg-orange-500/10',
   SHA256: 'text-orange-600 dark:text-orange-400 border-orange-500/30 bg-orange-100 dark:bg-orange-500/10',
-  CVEID: 'text-yellow-600 dark:text-yellow-400 border-yellow-500/30 bg-yellow-100 dark:bg-yellow-500/10',
-  SSL: 'text-green-600 dark:text-green-400 border-green-500/30 bg-green-100 dark:bg-green-500/10',
+  CVEID: 'text-amber-600 dark:text-amber-400 border-amber-500/30 bg-amber-100 dark:bg-amber-500/10',
+  SSL: 'text-emerald-600 dark:text-emerald-400 border-emerald-500/30 bg-emerald-100 dark:bg-emerald-500/10',
   JA3: 'text-rose-600 dark:text-rose-400 border-rose-500/30 bg-rose-100 dark:bg-rose-500/10',
 };
 
@@ -173,8 +173,8 @@ export default function FeedCatalog() {
                         <span
                           className={`text-xs px-2 py-0.5 rounded-full ${
                             entry.status === 'Active'
-                              ? 'bg-green-100 dark:bg-green-900/50 text-green-700 dark:text-green-400 border border-green-300 dark:border-green-700'
-                              : 'bg-red-100 dark:bg-red-900/50 text-red-700 dark:text-red-400 border border-red-300 dark:border-red-700'
+                              ? 'bg-emerald-100 dark:bg-emerald-900/50 text-emerald-700 dark:text-emerald-400 border border-emerald-300 dark:border-emerald-700'
+                              : 'bg-rose-100 dark:bg-rose-900/50 text-rose-700 dark:text-rose-400 border border-rose-300 dark:border-rose-700'
                           }`}
                         >
                           {entry.status}

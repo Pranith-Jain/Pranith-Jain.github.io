@@ -194,7 +194,7 @@ export default function Domain(): JSX.Element {
                           <div className="flex justify-between">
                             <span className="text-slate-500">Risk Score</span>
                             <span
-                              className={`font-mono font-semibold ${hit.meta.risk_score >= 7 ? 'text-red-500' : hit.meta.risk_score >= 4 ? 'text-yellow-500' : 'text-green-500'}`}
+                              className={`font-mono font-semibold ${hit.meta.risk_score >= 7 ? 'text-rose-500' : hit.meta.risk_score >= 4 ? 'text-amber-500' : 'text-emerald-500'}`}
                             >
                               {hit.meta.risk_score}
                             </span>

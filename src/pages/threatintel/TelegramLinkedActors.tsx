@@ -97,7 +97,7 @@ const SEVERITY_TONE: Record<Severity, string> = {
 const ACTOR_TYPE_TONE: Record<ActorType, string> = {
   apt: 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300',
   cybercrime: 'border-orange-500/40 bg-orange-500/10 text-orange-700 dark:text-orange-300',
-  ransomware: 'border-red-500/40 bg-red-500/10 text-red-700 dark:text-red-300',
+  ransomware: 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300',
   hacktivist: 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300',
   insider: 'border-violet-500/40 bg-violet-500/10 text-violet-700 dark:text-violet-300',
   supplier: 'border-slate-500/40 bg-slate-500/10 text-slate-700 dark:text-slate-300',

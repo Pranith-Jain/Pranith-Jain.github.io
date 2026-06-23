@@ -77,7 +77,7 @@ const IOC_COLORS: Record<string, string> = {
 };
 
 const STATUS_COLORS: Record<string, string> = {
-  malicious: 'text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-950/30 border-red-200 dark:border-red-800/50',
+  malicious: 'text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-950/30 border-rose-200 dark:border-rose-800/50',
   suspicious:
     'text-orange-600 dark:text-orange-400 bg-orange-50 dark:bg-orange-950/30 border-orange-200 dark:border-orange-800/50',
   clean:

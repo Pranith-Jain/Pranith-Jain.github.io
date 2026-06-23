@@ -58,7 +58,7 @@ export default function HealthTab() {
   if (error && !health)
     return (
       <div>
-        <p className="text-red-400 mb-2">Failed to load: {error}</p>
+        <p className="text-rose-400 mb-2">Failed to load: {error}</p>
         <button
           onClick={() => void load()}
           className="px-3 py-1 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-sm"
@@ -134,7 +134,7 @@ export default function HealthTab() {
                   ? 'px-2 py-1 rounded text-xs border border-emerald-700/50 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300'
                   : b.tone === 'warn'
                     ? 'px-2 py-1 rounded text-xs border border-amber-700/50 bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300'
-                    : 'px-2 py-1 rounded text-xs border border-red-700/50 bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-300'
+                    : 'px-2 py-1 rounded text-xs border border-rose-700/50 bg-rose-50 dark:bg-rose-900/30 text-rose-700 dark:text-rose-300'
               }
             >
               {b.text}

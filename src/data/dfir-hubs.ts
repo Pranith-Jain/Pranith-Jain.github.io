@@ -604,7 +604,7 @@ export const HUB_META: readonly HubMeta[] = [
     label: 'Vulnerabilities',
     blurb: 'CVE lookup, prioritisation, exploit intel, and dependency scanning - know what to patch first.',
     icon: AlertTriangle,
-    tone: 'text-yellow-700 dark:text-yellow-300 border-yellow-500/30 bg-yellow-500/10',
+    tone: 'text-amber-700 dark:text-amber-300 border-amber-500/30 bg-amber-500/10',
     pages: [
       {
         path: '/dfir/cve',
@@ -887,7 +887,7 @@ export const HUB_META: readonly HubMeta[] = [
     label: 'API & Application Security',
     blurb: 'OpenAPI, GraphQL, JWT, secrets, and headers - application-layer security analysis.',
     icon: Code2,
-    tone: 'text-lime-700 dark:text-lime-300 border-lime-500/30 bg-lime-500/10',
+    tone: 'text-emerald-700 dark:text-emerald-300 border-emerald-500/30 bg-emerald-500/10',
     pages: [
       {
         path: '/dfir/openapi-audit',

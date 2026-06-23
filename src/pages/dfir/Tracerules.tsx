@@ -179,7 +179,7 @@ export default function Tracerules(): JSX.Element {
                     {rule.coverage.map((c) => (
                       <span
                         key={c}
-                        className="text-micro font-mono px-1.5 py-0.5 rounded bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300"
+                        className="text-micro font-mono px-1.5 py-0.5 rounded bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300"
                       >
                         {c}
                       </span>

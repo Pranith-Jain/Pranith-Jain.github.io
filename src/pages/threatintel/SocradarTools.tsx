@@ -198,7 +198,7 @@ function DDoSPanel() {
         </div>
       )}
       {error && (
-        <div className="p-3 rounded-lg border border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-300 flex items-center gap-2 font-mono text-sm">
+        <div className="p-3 rounded-lg border border-rose-200 dark:border-rose-800 bg-rose-50 dark:bg-rose-900/20 text-rose-700 dark:text-rose-300 flex items-center gap-2 font-mono text-sm">
           <AlertTriangle className="w-4 h-4" /> {error}
         </div>
       )}
@@ -354,7 +354,7 @@ function FortiBleedPanel() {
 
   const sevColor = (s: string | null) => {
     if (s === 'CRITICAL')
-      return 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 border-red-200 dark:border-red-800';
+      return 'bg-rose-100 dark:bg-rose-900/30 text-rose-700 dark:text-rose-300 border-rose-200 dark:border-rose-800';
     if (s === 'HIGH')
       return 'bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 border-orange-200 dark:border-orange-800';
     if (s === 'INFO')
@@ -391,7 +391,7 @@ function FortiBleedPanel() {
       </div>
 
       {error && (
-        <div className="p-3 rounded-lg border border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-300 flex items-center gap-2 font-mono text-sm">
+        <div className="p-3 rounded-lg border border-rose-200 dark:border-rose-800 bg-rose-50 dark:bg-rose-900/20 text-rose-700 dark:text-rose-300 flex items-center gap-2 font-mono text-sm">
           <AlertTriangle className="w-4 h-4" /> {error}
         </div>
       )}
@@ -517,7 +517,7 @@ function HealthcarePanel() {
   };
 
   const sevColor = (s: string) => {
-    if (s === 'critical') return 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300';
+    if (s === 'critical') return 'bg-rose-100 dark:bg-rose-900/30 text-rose-700 dark:text-rose-300';
     if (s === 'high') return 'bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300';
     if (s === 'medium') return 'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300';
     return 'bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-600 dark:text-slate-400';
@@ -531,7 +531,7 @@ function HealthcarePanel() {
         </div>
       )}
       {error && (
-        <div className="p-3 rounded-lg border border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-300 flex items-center gap-2 font-mono text-sm">
+        <div className="p-3 rounded-lg border border-rose-200 dark:border-rose-800 bg-rose-50 dark:bg-rose-900/20 text-rose-700 dark:text-rose-300 flex items-center gap-2 font-mono text-sm">
           <AlertTriangle className="w-4 h-4" /> {error}
         </div>
       )}
@@ -676,7 +676,7 @@ function ThreatReportsPanel() {
 
   const riskColor = (r: string) => {
     if (r === 'CRITICAL')
-      return 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 border-red-200 dark:border-red-800';
+      return 'bg-rose-100 dark:bg-rose-900/30 text-rose-700 dark:text-rose-300 border-rose-200 dark:border-rose-800';
     if (r === 'HIGH')
       return 'bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 border-orange-200 dark:border-orange-800';
     if (r === 'MEDIUM')
@@ -788,7 +788,7 @@ function ThreatReportsPanel() {
       </div>
 
       {error && (
-        <div className="p-3 rounded-lg border border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-300 flex items-center gap-2 font-mono text-sm">
+        <div className="p-3 rounded-lg border border-rose-200 dark:border-rose-800 bg-rose-50 dark:bg-rose-900/20 text-rose-700 dark:text-rose-300 flex items-center gap-2 font-mono text-sm">
           <AlertTriangle className="w-4 h-4" /> {error}
         </div>
       )}
@@ -960,7 +960,7 @@ function ThreatReportsPanel() {
                     className={
                       (data.assessment as ThreatReportAssessment).sections?.emailSecurity?.spf === 'Implemented'
                         ? 'text-emerald-600 dark:text-emerald-400'
-                        : 'text-red-600 dark:text-red-400'
+                        : 'text-rose-600 dark:text-rose-400'
                     }
                   >
                     {(data.assessment as ThreatReportAssessment).sections?.emailSecurity?.spf}
@@ -972,7 +972,7 @@ function ThreatReportsPanel() {
                     className={
                       (data.assessment as ThreatReportAssessment).sections?.emailSecurity?.dmarc === 'Implemented'
                         ? 'text-emerald-600 dark:text-emerald-400'
-                        : 'text-red-600 dark:text-red-400'
+                        : 'text-rose-600 dark:text-rose-400'
                     }
                   >
                     {(data.assessment as ThreatReportAssessment).sections?.emailSecurity?.dmarc}
@@ -989,7 +989,7 @@ function ThreatReportsPanel() {
                     className={
                       (data.assessment as ThreatReportAssessment).sections?.ssl?.issuer === 'Valid'
                         ? 'text-emerald-600 dark:text-emerald-400'
-                        : 'text-red-600 dark:text-red-400'
+                        : 'text-rose-600 dark:text-rose-400'
                     }
                   >
                     {(data.assessment as ThreatReportAssessment).sections?.ssl?.issuer}

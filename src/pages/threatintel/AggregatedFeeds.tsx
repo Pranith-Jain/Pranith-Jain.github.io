@@ -26,7 +26,7 @@ const CATEGORY_META: Record<string, { label: string; icon: typeof Shield; color:
   c2: {
     label: 'C2 Infrastructure',
     icon: Server,
-    color: 'text-red-600 dark:text-red-500 border-red-500/30 bg-red-100 dark:bg-red-500/10',
+    color: 'text-rose-600 dark:text-rose-500 border-rose-500/30 bg-rose-100 dark:bg-rose-500/10',
   },
   blocklist: {
     label: 'IP Blocklists',
@@ -36,7 +36,7 @@ const CATEGORY_META: Record<string, { label: string; icon: typeof Shield; color:
   scanner: {
     label: 'Scanners',
     icon: Search,
-    color: 'text-yellow-600 dark:text-yellow-500 border-yellow-500/30 bg-yellow-100 dark:bg-yellow-500/10',
+    color: 'text-amber-600 dark:text-amber-500 border-amber-500/30 bg-amber-100 dark:bg-amber-500/10',
   },
   malware: {
     label: 'Malware IOCs',
@@ -154,7 +154,7 @@ export default function AggregatedFeeds() {
               className={`rounded-xl border p-5 transition-colors ${
                 feed.fetch_ok
                   ? 'bg-white dark:bg-[rgb(var(--surface-200))]/60 border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-slate-300 dark:hover:border-[rgb(var(--border-400))]'
-                  : 'bg-slate-50 dark:bg-[rgb(var(--surface-200))]/30 border-red-200 dark:border-red-900/30 opacity-60'
+                  : 'bg-slate-50 dark:bg-[rgb(var(--surface-200))]/30 border-rose-200 dark:border-rose-900/30 opacity-60'
               }`}
             >
               <div className="flex items-start gap-4">
@@ -180,7 +180,7 @@ export default function AggregatedFeeds() {
                   <div className="flex flex-wrap gap-4 mt-3 text-sm">
                     <span
                       className={
-                        feed.fetch_ok ? 'text-slate-700 dark:text-slate-300' : 'text-red-600 dark:text-red-400'
+                        feed.fetch_ok ? 'text-slate-700 dark:text-slate-300' : 'text-rose-600 dark:text-rose-400'
                       }
                     >
                       <span className="text-slate-400 dark:text-slate-500">IOCs:</span>{' '}

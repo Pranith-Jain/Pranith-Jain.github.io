@@ -45,10 +45,10 @@ function actorsByTechnique(id: string): typeof threatActors {
 }
 
 const RISK_THRESHOLDS = [
-  { min: 85, label: 'Critical', color: '#F44336', bg: 'bg-red-500', text: 'text-red-700 dark:text-red-300' },
+  { min: 85, label: 'Critical', color: '#F44336', bg: 'bg-rose-500', text: 'text-rose-700 dark:text-rose-300' },
   { min: 70, label: 'High', color: '#FF9800', bg: 'bg-orange-500', text: 'text-orange-700 dark:text-orange-300' },
   { min: 50, label: 'Medium', color: '#FFC107', bg: 'bg-amber-500', text: 'text-amber-700 dark:text-amber-300' },
-  { min: 0, label: 'Low', color: '#66BB6A', bg: 'bg-green-500', text: 'text-green-700 dark:text-green-300' },
+  { min: 0, label: 'Low', color: '#66BB6A', bg: 'bg-emerald-500', text: 'text-emerald-700 dark:text-emerald-300' },
 ];
 
 const PCT_COLORS = [

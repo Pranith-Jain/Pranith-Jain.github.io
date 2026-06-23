@@ -106,7 +106,7 @@ const IOC_CLR: Record<string, string> = {
   md5: 'bg-violet-100 dark:bg-violet-900/30 text-violet-700 dark:text-violet-300',
   cve: 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300',
   url: 'bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300',
-  btc: 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-300',
+  btc: 'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300',
   eth: 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300',
   onion: 'bg-slate-100 dark:bg-[rgb(var(--surface-200))] text-slate-700 dark:text-slate-300',
 };
@@ -125,7 +125,7 @@ const IOC_ICO: Record<string, typeof Server> = {
 };
 
 const SEV: Record<string, string> = {
-  critical: 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 border-red-200 dark:border-red-800',
+  critical: 'bg-rose-100 dark:bg-rose-900/30 text-rose-700 dark:text-rose-300 border-rose-200 dark:border-rose-800',
   high: 'bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 border-orange-200 dark:border-orange-800',
   medium: 'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 border-amber-200 dark:border-amber-800',
   low: 'bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-600 dark:text-slate-400 border-slate-200 dark:border-[rgb(var(--border-400))]',
@@ -137,7 +137,7 @@ const LEAK_CLR: Record<string, string> = {
   file_link: 'bg-violet-100 dark:bg-violet-900/30 text-violet-700 dark:text-violet-300',
   keyword: 'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300',
   ioc: 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300',
-  cve: 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300',
+  cve: 'bg-rose-100 dark:bg-rose-900/30 text-rose-700 dark:text-rose-300',
   unknown: 'bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-600 dark:text-slate-400',
 };
 
@@ -310,7 +310,7 @@ export default function TgIntelSearch() {
                   </button>
                   <button
                     onClick={() => handleDeleteSaved(s.id)}
-                    className="p-1 text-slate-300 dark:text-slate-400 hover:text-red-500 ml-2"
+                    className="p-1 text-slate-300 dark:text-slate-400 hover:text-rose-500 ml-2"
                   >
                     <Trash2 size={12} />
                   </button>
@@ -584,7 +584,7 @@ export default function TgIntelSearch() {
       )}
 
       {error && (
-        <div className="p-3 rounded-lg border border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-300 flex items-center gap-2 font-mono text-sm mb-4">
+        <div className="p-3 rounded-lg border border-rose-200 dark:border-rose-800 bg-rose-50 dark:bg-rose-900/20 text-rose-700 dark:text-rose-300 flex items-center gap-2 font-mono text-sm mb-4">
           <AlertTriangle className="w-4 h-4" /> {error}
         </div>
       )}

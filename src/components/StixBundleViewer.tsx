@@ -30,7 +30,7 @@ const TYPE_COLORS: Record<string, { badge: string; bg: string }> = {
   vulnerability: { badge: 'border-rose-500/40 text-rose-600', bg: 'bg-rose-500/5' },
   indicator: { badge: 'border-amber-500/40 text-amber-600', bg: 'bg-amber-500/5' },
   'attack-pattern': { badge: 'border-violet-500/40 text-violet-600', bg: 'bg-violet-500/5' },
-  'threat-actor': { badge: 'border-red-500/40 text-red-600', bg: 'bg-red-500/5' },
+  'threat-actor': { badge: 'border-rose-500/40 text-rose-600', bg: 'bg-rose-500/5' },
   malware: { badge: 'border-orange-500/40 text-orange-600', bg: 'bg-orange-500/5' },
   relationship: { badge: 'border-slate-500/40 text-slate-500', bg: 'bg-slate-500/5' },
   report: { badge: 'border-brand-500/40 text-brand-600', bg: 'bg-brand-500/5' },

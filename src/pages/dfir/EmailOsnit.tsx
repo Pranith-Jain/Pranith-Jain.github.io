@@ -56,7 +56,7 @@ interface EmailProfile {
 }
 
 const RISK_CLR: Record<string, string> = {
-  CRITICAL: 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 border-red-200 dark:border-red-800',
+  CRITICAL: 'bg-rose-100 dark:bg-rose-900/30 text-rose-700 dark:text-rose-300 border-rose-200 dark:border-rose-800',
   HIGH: 'bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 border-orange-200 dark:border-orange-800',
   MEDIUM: 'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 border-amber-200 dark:border-amber-800',
   LOW: 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800',
@@ -129,7 +129,7 @@ export default function EmailOsnit() {
       </form>
 
       {error && (
-        <div className="p-3 rounded-lg border border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-300 flex items-center gap-2 font-mono text-sm mb-4">
+        <div className="p-3 rounded-lg border border-rose-200 dark:border-rose-800 bg-rose-50 dark:bg-rose-900/20 text-rose-700 dark:text-rose-300 flex items-center gap-2 font-mono text-sm mb-4">
           <AlertTriangle className="w-4 h-4" /> {error}
         </div>
       )}
@@ -208,7 +208,7 @@ export default function EmailOsnit() {
           <Section
             icon={AlertTriangle}
             title={`Breach Exposure (${profile.breach.breachCount})`}
-            color={profile.breach.found ? 'text-red-500' : 'text-emerald-500'}
+            color={profile.breach.found ? 'text-rose-500' : 'text-emerald-500'}
             expanded={expanded === 'breach'}
             onToggle={() => toggle('breach')}
           >
@@ -218,7 +218,7 @@ export default function EmailOsnit() {
                   <div key={i} className="flex items-center gap-2 text-meta font-mono">
                     <span className="text-slate-900 dark:text-slate-100 font-semibold">{b.name}</span>
                     <span className="text-muted">{b.date}</span>
-                    <span className="text-micro px-1.5 py-0.5 rounded bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300">
+                    <span className="text-micro px-1.5 py-0.5 rounded bg-rose-100 dark:bg-rose-900/30 text-rose-700 dark:text-rose-300">
                       {b.dataClasses.join(', ')}
                     </span>
                   </div>
@@ -255,7 +255,7 @@ export default function EmailOsnit() {
                 <span
                   className={
                     profile.reputation.suspicious
-                      ? 'text-red-600 dark:text-red-400 ml-1'
+                      ? 'text-rose-600 dark:text-rose-400 ml-1'
                       : 'text-emerald-600 dark:text-emerald-400 ml-1'
                   }
                 >
@@ -299,7 +299,7 @@ export default function EmailOsnit() {
                 <span className="text-muted w-16">SPF:</span>
                 <span
                   className={
-                    profile.dns.spf ? 'text-emerald-600 dark:text-emerald-400' : 'text-red-600 dark:text-red-400'
+                    profile.dns.spf ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'
                   }
                 >
                   {profile.dns.spf ? 'Implemented' : 'Missing'}
@@ -309,7 +309,7 @@ export default function EmailOsnit() {
                 <span className="text-muted w-16">DMARC:</span>
                 <span
                   className={
-                    profile.dns.dmarc ? 'text-emerald-600 dark:text-emerald-400' : 'text-red-600 dark:text-red-400'
+                    profile.dns.dmarc ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'
                   }
                 >
                   {profile.dns.dmarc ? 'Implemented' : 'Missing'}

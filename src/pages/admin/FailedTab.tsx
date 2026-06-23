@@ -67,7 +67,7 @@ export default function FailedTab() {
   if (error)
     return (
       <div>
-        <p className="text-red-400 mb-2">Failed to load: {error}</p>
+        <p className="text-rose-400 mb-2">Failed to load: {error}</p>
         <button
           onClick={() => void load()}
           className="px-3 py-1 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-sm"
@@ -133,7 +133,7 @@ export default function FailedTab() {
               >
                 <td className="py-2 pr-4 font-mono text-xs text-slate-500 dark:text-slate-400">{f.slotId}</td>
                 <td className="py-2 pr-4 font-mono text-xs text-slate-500 dark:text-slate-400">{f.candidateId}</td>
-                <td className="py-2 pr-4 text-red-700 dark:text-red-300 max-w-md break-words">{f.error}</td>
+                <td className="py-2 pr-4 text-rose-700 dark:text-rose-300 max-w-md break-words">{f.error}</td>
                 <td className="py-2 pr-4 text-slate-600 dark:text-slate-500 text-xs whitespace-nowrap">
                   {new Date(f.failedAt).toLocaleString()}
                 </td>

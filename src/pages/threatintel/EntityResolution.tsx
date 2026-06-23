@@ -62,7 +62,7 @@ interface EntityProfile {
 type ViewMode = 'resolve' | 'extract';
 
 const ENTITY_TYPE_CONFIG: Record<string, { label: string; icon: typeof Shield; color: string }> = {
-  actor: { label: 'Actor', icon: Users, color: 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300' },
+  actor: { label: 'Actor', icon: Users, color: 'bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-300' },
   ransomware: {
     label: 'Ransomware',
     icon: Bug,
@@ -102,7 +102,7 @@ function EntityBadge({ type, size = 'sm' }: { type: EntityType; size?: 'sm' | 'm
 
 function ConfidenceBar({ score }: { score: number }) {
   const pct = Math.round(score * 100);
-  const color = pct >= 80 ? 'bg-emerald-500' : pct >= 50 ? 'bg-amber-500' : 'bg-red-500';
+  const color = pct >= 80 ? 'bg-emerald-500' : pct >= 50 ? 'bg-amber-500' : 'bg-rose-500';
   return (
     <div className="flex items-center gap-2 text-mini font-mono text-slate-500">
       <div className="h-1.5 w-16 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden">
