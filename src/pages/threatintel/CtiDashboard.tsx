@@ -93,13 +93,17 @@ export default function CtiDashboard(): JSX.Element {
   const [mutationInput, setMutationInput] = useState('');
   const [mutating, setMutating] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  // Non-blocking failure flag for the on-mount tab fetchers (the page-level
+  // `error` would blank the whole dashboard, so those use this instead).
+  const [loadError, setLoadError] = useState(false);
+  const [reloadKey, setReloadKey] = useState(0);
 
   const fetchStats = useCallback(async () => {
     try {
       const res = await fetch(`${API}/stats`);
       if (res.ok) setStats(await res.json());
     } catch {
-      /* ignore */
+      setLoadError(true);
     }
   }, []);
 
@@ -111,7 +115,7 @@ export default function CtiDashboard(): JSX.Element {
         setPredictions(data.predictions || []);
       }
     } catch {
-      /* ignore */
+      setLoadError(true);
     }
   }, []);
 
@@ -120,7 +124,7 @@ export default function CtiDashboard(): JSX.Element {
       const res = await fetch(`${API}/mutations`);
       if (res.ok) setMutations(await res.json());
     } catch {
-      /* ignore */
+      setLoadError(true);
     }
   }, []);
 
@@ -132,14 +136,15 @@ export default function CtiDashboard(): JSX.Element {
         setNews(data.news || []);
       }
     } catch {
-      /* ignore */
+      setLoadError(true);
     }
   }, []);
 
   useEffect(() => {
     setLoading(true);
+    setLoadError(false);
     Promise.all([fetchStats(), fetchPredictions(), fetchMutations(), fetchNews()]).finally(() => setLoading(false));
-  }, [fetchStats, fetchPredictions, fetchMutations, fetchNews]);
+  }, [fetchStats, fetchPredictions, fetchMutations, fetchNews, reloadKey]);
 
   const handleCollect = async () => {
     setCollecting(true);
@@ -217,6 +222,22 @@ export default function CtiDashboard(): JSX.Element {
       emptyMessage="No CTI data yet. Run a collection to populate the database."
       emptyIcon={<Shield size={32} className="text-slate-400" />}
     >
+      {loadError && !loading && (
+        <div
+          role="alert"
+          className="mb-4 flex items-center justify-between gap-3 rounded-md border border-rose-300 dark:border-rose-700 bg-rose-50 dark:bg-rose-950/30 px-3 py-2 text-tool text-rose-700 dark:text-rose-300"
+        >
+          <span>Some dashboard data failed to load.</span>
+          <button
+            type="button"
+            onClick={() => setReloadKey((k) => k + 1)}
+            className="shrink-0 rounded border border-rose-400/50 px-2 py-0.5 text-mini font-semibold hover:bg-rose-100/60 dark:hover:bg-rose-900/30"
+          >
+            Retry
+          </button>
+        </div>
+      )}
+
       {/* Tab navigation */}
       <nav
         className="flex flex-wrap gap-1 border-b border-slate-200 dark:border-[rgb(var(--border-400))] mb-6"
