@@ -984,6 +984,25 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
             })
           );
         }
+        // Weekly Telegram leak cleanup — prune entries older than 7 days
+        // so the DB doesn't grow unbounded. The hourly cron runs the leak
+        // scanner (which appends), but only the weekly sweeps old rows.
+        if (isWeekly) {
+          try {
+            const tgDeleted = await cleanupLeakEntries(env.BRIEFINGS_DB, 7);
+            if (tgDeleted > 0) {
+              console.log(JSON.stringify({ job: 'telegram-cleanup', deleted: tgDeleted, max_age_days: 7 }));
+            }
+          } catch (err) {
+            console.error(
+              JSON.stringify({
+                job: 'telegram-cleanup',
+                status: 'failed',
+                error: err instanceof Error ? err.message : String(err),
+              })
+            );
+          }
+        }
         // Wait for the parallel landscape sync to finish so the heartbeat
         // interval is still alive (and the lease is held) for its duration.
         // The sub-syncs are bounded by FETCH_TIMEOUT_MS each, so worst case
