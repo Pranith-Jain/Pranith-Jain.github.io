@@ -207,7 +207,7 @@ export default function MispBrowser() {
           <ArrowLeft size={14} /> back
         </BackLink>
         <div className="flex items-baseline gap-2 mb-2">
-          <h1 className="font-display font-bold text-2xl text-slate-900 dark:text-slate-100">MISP Browser</h1>
+          <h1 className="text-3xl sm:text-4xl font-display font-bold text-slate-900 dark:text-slate-100">MISP Browser</h1>
           <span className="text-mini font-mono uppercase tracking-[0.18em] text-slate-500">
             Connect to a MISP instance
           </span>
@@ -467,7 +467,7 @@ export default function MispBrowser() {
     <div className="max-w-6xl mx-auto px-4 py-6 space-y-6">
       <div className="flex items-baseline justify-between gap-3 flex-wrap">
         <div className="flex items-baseline gap-2">
-          <h1 className="font-display font-bold text-2xl text-slate-900 dark:text-slate-100">MISP Browser</h1>
+          <h1 className="text-3xl sm:text-4xl font-display font-bold text-slate-900 dark:text-slate-100">MISP Browser</h1>
           <span className="text-mini font-mono text-slate-500 dark:text-slate-400">
             {total > 0 ? `${total} events` : ''}
           </span>

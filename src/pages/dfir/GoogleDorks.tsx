@@ -174,7 +174,7 @@ export default function GoogleDorks(): JSX.Element {
         <span className="inline-block text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-3">
           DFIR · OSINT
         </span>
-        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2">Google Dorks</h1>
+        <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2">Google Dorks</h1>
         <p className="text-muted max-w-2xl">
           Programmatic Google search with dork-operator hints — useful for surfacing exposed config files, public
           credential leaks, indexed admin panels, and similar OSINT leads. Backed by SerpAPI; results are edge-cached

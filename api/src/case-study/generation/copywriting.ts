@@ -92,16 +92,17 @@ export const EGREGIOUS_SLOP: RegExp[] = [
 
 export const COPYWRITING_RULES =
   `#COPYWRITING RULES (APPLY TO EVERYTHING)\n\n` +
-  `**CORE METHOD: VERBALIZED SAMPLING + PAS**\n\n` +
+  `**CORE METHOD: SAMPLE HOOKS, THEN LEAD WITH THE STAKE**\n\n` +
   `**Hook generation (do this silently for every piece):**\n` +
   `Think through 5 different hook options that could work: a sharp contrast, ` +
   `a single hard number, a story opener, a contrarian take, a bold statement. ` +
-  `Pick the strongest one for THIS platform and this audience. ` +
-  `Then apply PAS.\n\n` +
-  `**PAS framework: Problem — Agitation — Solution.**\n` +
-  `Every piece's hook must do all three: name a specific pain (Problem), ` +
-  `make the reader feel why it matters to them right now (Agitation), then ` +
-  `tease what's coming (Solution). Do this concisely in the first 2-3 sentences.\n\n` +
+  `Pick the strongest one for THIS platform and this audience.\n\n` +
+  `**Lead with the stake, not a formula.**\n` +
+  `The strongest hook names the specific thing at stake (who is hit, what ` +
+  `breaks, why it matters now) in the first 1-2 sentences, pulled straight from ` +
+  `THIS case's facts. Problem, agitation, solution is one way to get there, not ` +
+  `a template to stamp on every piece. Never make two pieces' hooks share a ` +
+  `shape. Rotate the form (see hook construction below).\n\n` +
   `**Analyze, then construct. Never template.**\n` +
   `- Read the supplied facts first. Find the single most striking, specific angle in THIS data: a contrast, a pattern, an outlier number, an unexpected target mix, a timeline.\n` +
   `- Build the piece around that angle. Two posts about different events must not share a structure or an opener.\n` +

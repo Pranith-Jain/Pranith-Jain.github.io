@@ -157,7 +157,7 @@ export default function CisaKevCatalog(): JSX.Element {
     <div className="max-w-7xl mx-auto px-4 py-8">
       <div className="flex items-center gap-3 mb-1">
         <ShieldAlert className="w-7 h-7 text-rose-500" />
-        <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100">CISA KEV Catalog</h1>
+        <h1 className="text-3xl sm:text-4xl font-display font-bold text-slate-900 dark:text-slate-100">CISA KEV Catalog</h1>
       </div>
       <p className="text-muted mb-6 text-sm max-w-3xl leading-relaxed">
         Known Exploited Vulnerabilities — the official CISA catalog of vulnerabilities with confirmed active

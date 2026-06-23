@@ -72,6 +72,10 @@ export interface Env {
    *  Optional — upgrades the tracer's EVM native-ETH source to Etherscan; when
    *  unset, native ETH transfers come from Blockscout's keyless endpoint. */
   ETHERSCAN_API_KEY?: string;
+  /** Google AI Studio (Gemini) API key (set via `wrangler secret put GOOGLE_AI_STUDIO_API_KEY`).
+   *  Free tier: gemini-2.0-flash (1000 RPM), gemini-1.5-pro (50 RPM). When
+   *  set, Gemini is tried first before Groq/Workers AI. */
+  GOOGLE_AI_STUDIO_API_KEY?: string;
   /** Groq free-tier API key (set via `wrangler secret put GROQ_API_KEY`).
    *  Optional — case-study generation uses Groq as the quality primary when
    *  set, and falls back to Workers AI when unset/unavailable. */

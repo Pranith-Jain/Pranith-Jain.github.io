@@ -39,7 +39,7 @@ export default function Home() {
       />
       <Hero personalInfo={personalInfo} />
 
-      <RevealSection className="mt-12">
+      <RevealSection className="mt-16">
         <LiveSignalStrip />
         <div className="mt-6 grid gap-3 sm:grid-cols-2">
           <LatestBriefingCard />
@@ -62,8 +62,8 @@ export default function Home() {
         <Toolkits />
       </RevealSection>
 
-      <RevealSection className="mt-12">
-        <ErrorBoundary fallback={null}>
+      <RevealSection className="mt-16">
+        <ErrorBoundary fallback={<p className="text-sm text-muted px-4 py-8 text-center">Recent writing unavailable</p>}>
           <Suspense fallback={<RecentWritingSkeleton />}>
             <RecentWriting />
           </Suspense>

@@ -261,10 +261,12 @@ export async function buildBriefingHandler(c: AdminCtx) {
       200
     );
   } catch (err) {
-    console.error('briefing build failed:', err);
+    const msg = err instanceof Error ? err.message : String(err);
+    const stack = err instanceof Error ? err.stack?.split('\n').slice(0, 3).join(' | ') : '';
+    console.error('briefing build failed:', msg, stack);
     return c.json(
       {
-        error: 'briefing build failed',
+        error: `briefing build failed: ${msg}`,
         type: typeRaw,
       },
       500

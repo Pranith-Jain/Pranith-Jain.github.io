@@ -93,28 +93,28 @@ export default function ScheduleTab() {
     }
   }
 
-  if (loading) return <p className="text-slate-400">Loading…</p>;
+  if (loading) return <p className="text-slate-500 dark:text-slate-400">Loading…</p>;
   if (error)
     return (
       <div>
-        <p className="text-red-400 mb-2">Failed to load: {error}</p>
-        <button onClick={() => void load()} className="px-3 py-1 border border-slate-700 rounded text-sm">
+        <p className="text-red-600 dark:text-red-400 mb-2">Failed to load: {error}</p>
+        <button onClick={() => void load()} className="px-3 py-1 border border-slate-200 dark:border-slate-700 rounded text-sm">
           Retry
         </button>
       </div>
     );
-  if (schedule.length === 0) return <p className="text-slate-400">No scheduled slots.</p>;
+  if (schedule.length === 0) return <p className="text-slate-500 dark:text-slate-400">No scheduled slots.</p>;
 
   return (
     <div>
       {msg && (
-        <p className="mb-4 p-3 rounded text-sm font-mono bg-green-900/30 text-green-300 border border-green-800">
+        <p className="mb-4 p-3 rounded text-sm font-mono bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-300 border border-green-200 dark:border-green-800">
           {msg}
         </p>
       )}
       <div className="overflow-x-auto">
         <table className="w-full text-sm">
-          <thead className="text-left text-xs uppercase tracking-wider text-slate-500 border-b border-slate-800">
+          <thead className="text-left text-xs uppercase tracking-wider text-slate-600 dark:text-slate-500 border-b border-slate-200 dark:border-slate-800">
             <tr>
               <th scope="col" className="py-2 pr-4">
                 Slot time
@@ -132,24 +132,24 @@ export default function ScheduleTab() {
           </thead>
           <tbody>
             {schedule.map((s, i) => (
-              <tr key={`${s.candidateId}-${i}`} className="border-b border-zinc-800/60">
-                <td className="py-2 pr-4 text-slate-300 whitespace-nowrap">{new Date(s.slotAt).toLocaleString()}</td>
-                <td className="py-2 pr-4 font-mono text-xs text-slate-400">{s.candidateId}</td>
-                <td className="py-2 pr-4 text-slate-300">{s.status}</td>
+              <tr key={`${s.candidateId}-${i}`} className="border-b border-slate-200 dark:border-zinc-800/60">
+                <td className="py-2 pr-4 text-slate-700 dark:text-slate-300 whitespace-nowrap">{new Date(s.slotAt).toLocaleString()}</td>
+                <td className="py-2 pr-4 font-mono text-xs text-slate-500 dark:text-slate-400">{s.candidateId}</td>
+                <td className="py-2 pr-4 text-slate-700 dark:text-slate-300">{s.status}</td>
                 <td className="py-2 flex gap-2">
                   {s.status === 'pending' && (
                     <>
                       <button
                         onClick={() => publishNow(s.candidateId)}
                         disabled={publishing === s.candidateId}
-                        className="px-2 py-1 border border-green-700 rounded text-xs hover:bg-green-900/30 disabled:opacity-50"
+                        className="px-2 py-1 border border-green-700 rounded text-xs hover:bg-green-50 dark:hover:bg-green-900/30 disabled:opacity-50"
                       >
                         {publishing === s.candidateId ? 'Publishing…' : 'Publish now'}
                       </button>
                       <button
                         onClick={() => reschedule(s.candidateId)}
                         disabled={publishing === s.candidateId}
-                        className="px-2 py-1 border border-sky-700 rounded text-xs hover:bg-sky-900/30 disabled:opacity-50"
+                        className="px-2 py-1 border border-sky-700 rounded text-xs hover:bg-sky-50 dark:hover:bg-sky-900/30 disabled:opacity-50"
                         title="Move this slot to a new date/time"
                       >
                         Reschedule
@@ -157,7 +157,7 @@ export default function ScheduleTab() {
                       <button
                         onClick={() => removeSlot(s.candidateId)}
                         disabled={publishing === s.candidateId}
-                        className="px-2 py-1 border border-slate-700 rounded text-xs hover:bg-slate-800 disabled:opacity-50"
+                        className="px-2 py-1 border border-slate-200 dark:border-slate-700 rounded text-xs hover:bg-slate-100 dark:hover:bg-slate-800 disabled:opacity-50"
                       >
                         Remove
                       </button>
@@ -166,7 +166,7 @@ export default function ScheduleTab() {
                   {s.status === 'published' && s.publishedSlug && (
                     <a
                       href={`/blog/${s.publishedSlug}`}
-                      className="text-xs text-slate-400 underline px-2 py-1"
+                      className="text-xs text-slate-500 dark:text-slate-400 underline px-2 py-1"
                       target="_blank"
                       rel="noopener noreferrer"
                     >
@@ -177,7 +177,7 @@ export default function ScheduleTab() {
                     <button
                       onClick={() => removeSlot(s.candidateId)}
                       disabled={publishing === s.candidateId}
-                      className="px-2 py-1 border border-slate-700 rounded text-xs hover:bg-slate-800 disabled:opacity-50"
+                      className="px-2 py-1 border border-slate-200 dark:border-slate-700 rounded text-xs hover:bg-slate-100 dark:hover:bg-slate-800 disabled:opacity-50"
                     >
                       Remove
                     </button>

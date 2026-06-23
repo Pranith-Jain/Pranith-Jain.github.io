@@ -290,7 +290,7 @@ export default function MultiSearch(): JSX.Element {
         ← back to DFIR
       </BackLink>
 
-      <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
+      <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2 flex items-center gap-3">
         <span className="text-brand-600 dark:text-brand-400">
           <Search size={32} />
         </span>

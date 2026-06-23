@@ -208,7 +208,7 @@ export default function Workspaces() {
 
         <div className="flex flex-wrap items-start justify-between gap-4 mb-6">
           <div>
-            <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2">{selected.title}</h1>
+            <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2">{selected.title}</h1>
             {selected.description && <p className="text-sm font-mono text-muted max-w-2xl">{selected.description}</p>}
             <div className="flex flex-wrap items-center gap-3 mt-2 text-meta font-mono text-muted">
               <span>
@@ -336,7 +336,7 @@ export default function Workspaces() {
 
       <div className="flex flex-wrap items-start justify-between gap-4 mb-6">
         <div>
-          <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2">Investigation Workspaces</h1>
+          <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2">Investigation Workspaces</h1>
           <p className="text-sm font-mono text-muted max-w-2xl">
             AEAD lifecycle management — Acquire, Enrich, Assess, Deliver. Create workspaces to track investigations
             through structured intelligence phases.

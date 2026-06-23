@@ -75,6 +75,38 @@ interface HealthBreach {
   description: string;
 }
 
+interface ThreatReportCountry {
+  name: string;
+  riskLevel: string;
+  topActors: string[];
+  topMalware: string[];
+  criticalSectors: string[];
+  recentIncidents: string[];
+  phishingExposure: string;
+  ransomwareVictims: number;
+}
+
+interface ThreatReportIndustry {
+  name: string;
+  riskLevel: string;
+  topActors: string[];
+  commonVectors: string[];
+  recentIncidents: string[];
+  exposureLevel: string;
+  complianceNotes: string;
+}
+
+interface ThreatReportAssessment {
+  domain: string;
+  riskLevel: string;
+  riskScore: number;
+  sections: {
+    emailSecurity?: { spf: string; dmarc: string };
+    ssl?: { issuer: string; grade: string };
+    recommendations: string[];
+  };
+}
+
 // ── Tabs ──
 
 type Tab = 'ddos' | 'fortibleed' | 'healthcare' | 'reports';
@@ -91,7 +123,7 @@ export default function SocradarTools() {
       </BackLink>
       <div className="flex flex-wrap items-start justify-between gap-4 mb-6">
         <div>
-          <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2">SOC Radar Free Tools</h1>
+          <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2">Tactical Radar Free Tools</h1>
           <p className="text-sm font-mono text-muted max-w-2xl">
             DDoS intelligence, FortiGate breach check, healthcare breach tracking.
           </p>
@@ -761,23 +793,23 @@ function ThreatReportsPanel() {
         </div>
       )}
 
-      {data && data.country && (
+      {data && !!data.country && (
         <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
           <div className="flex items-center justify-between mb-3">
             <h3 className="font-display font-semibold text-sm">
-              {(data.country as Record<string, string>).name} Threat Landscape
+              {(data.country as ThreatReportCountry).name} Threat Landscape
             </h3>
             <span
-              className={`text-micro font-mono font-semibold px-2 py-0.5 rounded border ${riskColor((data.country as Record<string, string>).riskLevel)}`}
+              className={`text-micro font-mono font-semibold px-2 py-0.5 rounded border ${riskColor((data.country as ThreatReportCountry).riskLevel)}`}
             >
-              {(data.country as Record<string, string>).riskLevel}
+              {(data.country as ThreatReportCountry).riskLevel}
             </span>
           </div>
           <div className="grid sm:grid-cols-2 gap-4">
             <div>
               <h4 className="text-mini font-display font-semibold mb-1">Top Threat Actors</h4>
               <div className="flex flex-wrap gap-1">
-                {((data.country as Record<string, string[]>).topActors || []).map((a) => (
+                {((data.country as ThreatReportCountry).topActors || []).map((a) => (
                   <span
                     key={a}
                     className="text-micro font-mono px-1.5 py-0.5 rounded bg-violet-100 dark:bg-violet-900/30 text-violet-700 dark:text-violet-300"
@@ -790,7 +822,7 @@ function ThreatReportsPanel() {
             <div>
               <h4 className="text-mini font-display font-semibold mb-1">Top Malware</h4>
               <div className="flex flex-wrap gap-1">
-                {((data.country as Record<string, string[]>).topMalware || []).map((m) => (
+                {((data.country as ThreatReportCountry).topMalware || []).map((m) => (
                   <span
                     key={m}
                     className="text-micro font-mono px-1.5 py-0.5 rounded bg-rose-100 dark:bg-rose-900/30 text-rose-700 dark:text-rose-300"
@@ -803,7 +835,7 @@ function ThreatReportsPanel() {
             <div>
               <h4 className="text-mini font-display font-semibold mb-1">Critical Sectors</h4>
               <div className="flex flex-wrap gap-1">
-                {((data.country as Record<string, string[]>).criticalSectors || []).map((s) => (
+                {((data.country as ThreatReportCountry).criticalSectors || []).map((s) => (
                   <span
                     key={s}
                     className="text-micro font-mono px-1.5 py-0.5 rounded bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300"
@@ -816,7 +848,7 @@ function ThreatReportsPanel() {
             <div>
               <h4 className="text-mini font-display font-semibold mb-1">Recent Incidents</h4>
               <ul className="space-y-0.5">
-                {((data.country as Record<string, string[]>).recentIncidents || []).map((inc, i) => (
+                {((data.country as ThreatReportCountry).recentIncidents || []).map((inc, i) => (
                   <li key={i} className="text-micro font-mono text-slate-700 dark:text-slate-300">
                     • {inc}
                   </li>
@@ -828,36 +860,36 @@ function ThreatReportsPanel() {
             <span>
               Phishing:{' '}
               <span className="text-slate-900 dark:text-slate-100">
-                {(data.country as Record<string, string>).phishingExposure}
+                {(data.country as ThreatReportCountry).phishingExposure}
               </span>
             </span>
             <span>
               Ransomware victims:{' '}
               <span className="text-slate-900 dark:text-slate-100">
-                {(data.country as Record<string, number>).ransomwareVictims?.toLocaleString()}
+                {(data.country as ThreatReportCountry).ransomwareVictims?.toLocaleString()}
               </span>
             </span>
           </div>
         </div>
       )}
 
-      {data && data.industry && (
+      {data && !!data.industry && (
         <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
           <div className="flex items-center justify-between mb-3">
             <h3 className="font-display font-semibold text-sm">
-              {(data.industry as Record<string, string>).name} Threat Landscape
+              {(data.industry as ThreatReportIndustry).name} Threat Landscape
             </h3>
             <span
-              className={`text-micro font-mono font-semibold px-2 py-0.5 rounded border ${riskColor((data.industry as Record<string, string>).riskLevel)}`}
+              className={`text-micro font-mono font-semibold px-2 py-0.5 rounded border ${riskColor((data.industry as ThreatReportIndustry).riskLevel)}`}
             >
-              {(data.industry as Record<string, string>).riskLevel}
+              {(data.industry as ThreatReportIndustry).riskLevel}
             </span>
           </div>
           <div className="grid sm:grid-cols-2 gap-4">
             <div>
               <h4 className="text-mini font-display font-semibold mb-1">Top Threat Actors</h4>
               <div className="flex flex-wrap gap-1">
-                {((data.industry as Record<string, string[]>).topActors || []).map((a) => (
+                {((data.industry as ThreatReportIndustry).topActors || []).map((a) => (
                   <span
                     key={a}
                     className="text-micro font-mono px-1.5 py-0.5 rounded bg-violet-100 dark:bg-violet-900/30 text-violet-700 dark:text-violet-300"
@@ -870,7 +902,7 @@ function ThreatReportsPanel() {
             <div>
               <h4 className="text-mini font-display font-semibold mb-1">Common Attack Vectors</h4>
               <ul className="space-y-0.5">
-                {((data.industry as Record<string, string[]>).commonVectors || []).map((v, i) => (
+                {((data.industry as ThreatReportIndustry).commonVectors || []).map((v, i) => (
                   <li key={i} className="text-micro font-mono text-slate-700 dark:text-slate-300">
                     • {v}
                   </li>
@@ -880,7 +912,7 @@ function ThreatReportsPanel() {
             <div className="sm:col-span-2">
               <h4 className="text-mini font-display font-semibold mb-1">Recent Incidents</h4>
               <ul className="space-y-0.5">
-                {((data.industry as Record<string, string[]>).recentIncidents || []).map((inc, i) => (
+                {((data.industry as ThreatReportIndustry).recentIncidents || []).map((inc, i) => (
                   <li key={i} className="text-micro font-mono text-slate-700 dark:text-slate-300">
                     • {inc}
                   </li>
@@ -892,30 +924,30 @@ function ThreatReportsPanel() {
             <span>
               Exposure:{' '}
               <span className="text-slate-900 dark:text-slate-100">
-                {(data.industry as Record<string, string>).exposureLevel}
+                {(data.industry as ThreatReportIndustry).exposureLevel}
               </span>
             </span>
             <span className="ml-4">
               Compliance:{' '}
               <span className="text-slate-900 dark:text-slate-100">
-                {(data.industry as Record<string, string>).complianceNotes}
+                {(data.industry as ThreatReportIndustry).complianceNotes}
               </span>
             </span>
           </div>
         </div>
       )}
 
-      {data && data.assessment && (
+      {data && !!data.assessment && (
         <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
           <div className="flex items-center justify-between mb-3">
             <h3 className="font-display font-semibold text-sm">
-              {(data.assessment as Record<string, string>).domain} External Threat Assessment
+              {(data.assessment as ThreatReportAssessment).domain} External Threat Assessment
             </h3>
             <span
-              className={`text-micro font-mono font-semibold px-2 py-0.5 rounded border ${riskColor((data.assessment as Record<string, string>).riskLevel)}`}
+              className={`text-micro font-mono font-semibold px-2 py-0.5 rounded border ${riskColor((data.assessment as ThreatReportAssessment).riskLevel)}`}
             >
-              {(data.assessment as Record<string, string>).riskLevel} (
-              {(data.assessment as Record<string, number>).riskScore}/100)
+              {(data.assessment as ThreatReportAssessment).riskLevel} (
+              {(data.assessment as ThreatReportAssessment).riskScore}/100)
             </span>
           </div>
           <div className="grid sm:grid-cols-2 gap-4">
@@ -926,26 +958,26 @@ function ThreatReportsPanel() {
                   SPF:{' '}
                   <span
                     className={
-                      (data.assessment as Record<string, Record<string, string>>).sections?.emailSecurity?.spf ===
+                      (data.assessment as ThreatReportAssessment).sections?.emailSecurity?.spf ===
                       'Implemented'
                         ? 'text-emerald-600 dark:text-emerald-400'
                         : 'text-red-600 dark:text-red-400'
                     }
                   >
-                    {(data.assessment as Record<string, Record<string, string>>).sections?.emailSecurity?.spf}
+                    {(data.assessment as ThreatReportAssessment).sections?.emailSecurity?.spf}
                   </span>
                 </p>
                 <p>
                   DMARC:{' '}
                   <span
                     className={
-                      (data.assessment as Record<string, Record<string, string>>).sections?.emailSecurity?.dmarc ===
+                      (data.assessment as ThreatReportAssessment).sections?.emailSecurity?.dmarc ===
                       'Implemented'
                         ? 'text-emerald-600 dark:text-emerald-400'
                         : 'text-red-600 dark:text-red-400'
                     }
                   >
-                    {(data.assessment as Record<string, Record<string, string>>).sections?.emailSecurity?.dmarc}
+                    {(data.assessment as ThreatReportAssessment).sections?.emailSecurity?.dmarc}
                   </span>
                 </p>
               </div>
@@ -957,18 +989,18 @@ function ThreatReportsPanel() {
                   Status:{' '}
                   <span
                     className={
-                      (data.assessment as Record<string, Record<string, string>>).sections?.ssl?.issuer === 'Valid'
+                      (data.assessment as ThreatReportAssessment).sections?.ssl?.issuer === 'Valid'
                         ? 'text-emerald-600 dark:text-emerald-400'
                         : 'text-red-600 dark:text-red-400'
                     }
                   >
-                    {(data.assessment as Record<string, Record<string, string>>).sections?.ssl?.issuer}
+                    {(data.assessment as ThreatReportAssessment).sections?.ssl?.issuer}
                   </span>
                 </p>
                 <p>
                   Grade:{' '}
                   <span className="text-slate-900 dark:text-slate-100">
-                    {(data.assessment as Record<string, Record<string, string>>).sections?.ssl?.grade}
+                    {(data.assessment as ThreatReportAssessment).sections?.ssl?.grade}
                   </span>
                 </p>
               </div>
@@ -976,7 +1008,7 @@ function ThreatReportsPanel() {
             <div className="sm:col-span-2">
               <h4 className="text-mini font-display font-semibold mb-1">Recommendations</h4>
               <ul className="space-y-0.5">
-                {((data.assessment as Record<string, Record<string, string[]>>).sections?.recommendations || []).map(
+                {((data.assessment as ThreatReportAssessment).sections?.recommendations || []).map(
                   (r, i) => (
                     <li key={i} className="text-micro font-mono text-slate-700 dark:text-slate-300">
                       → {r}

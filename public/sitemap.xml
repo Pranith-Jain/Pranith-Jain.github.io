@@ -886,7 +886,7 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
-  <!-- Threat Intel — pages (247) -->
+  <!-- Threat Intel — pages (246) -->
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/catalog</loc>
     <lastmod>2026-06-23</lastmod>
@@ -1495,12 +1495,6 @@
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/tools/copilot</loc>
-    <lastmod>2026-06-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://pranithjain.qzz.io/threatintel/tools/copilot-chat</loc>
     <lastmod>2026-06-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -2528,7 +2522,13 @@
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
-  <!-- Blog posts (22) -->
+  <!-- Blog posts (23) -->
+  <url>
+    <loc>https://pranithjain.qzz.io/blog/agentic-urgent-apt41-exploits-cisco-sdwan-manage-urgent-apt41-exploits-new-cisco-sdwan-ma</loc>
+    <lastmod>2026-06-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
   <url>
     <loc>https://pranithjain.qzz.io/blog/agentic-massive-data-breach-at-major-asian-retai-massive-data-breach-at-major-asian-retai</loc>
     <lastmod>2026-06-22</lastmod>

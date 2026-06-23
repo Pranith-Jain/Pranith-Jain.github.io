@@ -4,10 +4,12 @@ import type { Ai } from '@cloudflare/workers-types';
  * Case-study LLM client.
  *
  * Provider order:
- *   1. Groq free tier (own quota, fast, good long-form) — used when a
+ *   1. Google AI Studio (Gemini) — own quota, free tier up to 1000 RPM,
+ *      used when GOOGLE_AI_STUDIO_API_KEY is configured.
+ *   2. Groq free tier (own quota, fast, good long-form) — used when a
  *      GROQ_API_KEY is configured. This is the durable fix for the
  *      Workers-AI free-quota exhaustion that was throwing `publish_failed`.
- *   2. Workers AI (no key) — graceful fallback, two models only.
+ *   3. Workers AI (no key) — graceful fallback, two models only.
  *
  * Rate-limit handling (the root-cause fix): a quota/"exceeded"/429 error is
  * account-wide — retrying with back-off or walking more same-account models
@@ -16,6 +18,13 @@ import type { Ai } from '@cloudflare/workers-types';
  * hourly publisher cron retry once the quota window resets, instead of
  * hammering it. Non-rate errors (e.g. a bad model id) still fall through.
  */
+
+const GOOGLE_BASE = 'https://generativelanguage.googleapis.com/v1beta/models';
+const GOOGLE_MODEL = 'gemini-2.5-flash';
+const GOOGLE_MODEL_FALLBACK = 'gemini-2.0-flash';
+const GOOGLE_MODEL_QUALITY = 'gemini-2.5-pro';
+const GOOGLE_MODEL_QUALITY_FALLBACK = 'gemini-2.0-pro';
+const GOOGLE_TIMEOUT_MS = 30_000;
 
 const GROQ_URL = 'https://api.groq.com/openai/v1/chat/completions';
 const GROQ_MODEL = 'openai/gpt-oss-120b';
@@ -40,9 +49,11 @@ export interface CompletionOutput {
 }
 
 export interface CompletionOpts {
-  /** Groq API key; when present Groq is tried first. */
+  /** Groq API key; when present Groq is tried after Google (if configured). */
   groqKey?: string;
-  /** Use the higher-quality model (openai/oos-120b) for synthesis. */
+  /** Google AI Studio (Gemini) API key; when present Gemini is tried first. */
+  googleKey?: string;
+  /** Use the higher-quality model for synthesis. */
   quality?: boolean;
 }
 
@@ -73,6 +84,48 @@ export function isRateLimited(err: unknown): boolean {
     msg.includes('quota') ||
     msg.includes('capacity')
   );
+}
+
+async function callGoogleModel(key: string, model: string, input: CompletionInput): Promise<string | null> {
+  let res: Response;
+  try {
+    res = await fetch(
+      `${GOOGLE_BASE}/${model}:generateContent?key=${key}`,
+      {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        signal: AbortSignal.timeout(GOOGLE_TIMEOUT_MS),
+        body: JSON.stringify({
+          system_instruction: { parts: [{ text: input.system }] },
+          contents: [{ role: 'user', parts: [{ text: input.user }] }],
+          generationConfig: {
+            maxOutputTokens: input.maxTokens ?? 4000,
+            temperature: input.temperature ?? 0.5,
+          },
+        }),
+      },
+    );
+  } catch (err) {
+    throw new Error(`google request failed: ${err instanceof Error ? err.message : String(err)}`);
+  }
+  if (res.status === 429) throw new RateLimitError('google rate limited (429)');
+  if (!res.ok) return null;
+  const j = (await res.json()) as {
+    candidates?: Array<{ content?: { parts?: Array<{ text?: string }> } }>;
+  };
+  const text = j?.candidates?.[0]?.content?.parts?.[0]?.text;
+  if (typeof text !== 'string' || !text.trim()) return null;
+  return text;
+}
+
+async function runGoogle(key: string, input: CompletionInput, quality?: boolean): Promise<{ text: string; model: string }> {
+  const primary = quality ? GOOGLE_MODEL_QUALITY : GOOGLE_MODEL;
+  const fallback = quality ? GOOGLE_MODEL_QUALITY_FALLBACK : GOOGLE_MODEL_FALLBACK;
+  const result = await callGoogleModel(key, primary, input);
+  if (result) return { text: result, model: primary };
+  const fallbackResult = await callGoogleModel(key, fallback, input);
+  if (fallbackResult) return { text: fallbackResult, model: fallback };
+  throw new Error(`google models unavailable (${primary}, ${fallback})`);
 }
 
 async function runGroq(key: string, input: CompletionInput, model?: string): Promise<string> {
@@ -133,7 +186,24 @@ export async function runCompletion(
   input: CompletionInput,
   opts: CompletionOpts = {}
 ): Promise<CompletionOutput> {
-  // 1. Groq primary (own quota + quality) when configured.
+  // 1. Google AI Studio primary (own quota, free tier) when configured.
+  if (opts.googleKey) {
+    try {
+      const googleResult = await runGoogle(opts.googleKey, input, opts.quality);
+      return { text: googleResult.text, modelUsed: `google:${googleResult.model}` };
+    } catch (err) {
+      if (isRateLimited(err)) {
+        // Don't fall through on Google rate limit — it's own quota separate
+        // from Groq/Workers AI, so the other providers may still work.
+        console.warn('runCompletion: google rate-limited, falling through', err);
+      } else {
+        console.warn('runCompletion: google failed, falling through', err);
+      }
+      // fall through to Groq or Workers AI
+    }
+  }
+
+  // 2. Groq primary (own quota + quality) when configured.
   if (opts.groqKey) {
     const model = opts.quality ? GROQ_MODEL_QUALITY : GROQ_MODEL;
     try {
@@ -158,7 +228,7 @@ export async function runCompletion(
     }
   }
 
-  // 2. Workers-AI fallback. FAIL FAST on a rate-limit — it's account-wide,
+  // 3. Workers-AI fallback. FAIL FAST on a rate-limit — it's account-wide,
   // so trying the next model (same account) is futile and just deepens it.
   let lastErr: unknown;
   for (let i = 0; i < WORKERS_AI_MODELS.length; i += 1) {

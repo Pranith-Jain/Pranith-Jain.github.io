@@ -206,7 +206,7 @@ export default function StatusPage(): JSX.Element {
                           rel="noopener noreferrer"
                           className="inline-flex items-center gap-1 hover:text-brand-600 dark:hover:text-brand-400"
                         >
-                          {r.api_path} <ExternalLink size={9} />
+                          {r.api_path} <ExternalLink size={12} />
                         </a>
                         {r.upstream_age_s !== undefined && (
                           <>
@@ -217,7 +217,7 @@ export default function StatusPage(): JSX.Element {
                         {r.admiralty_grade && (
                           <>
                             <span>·</span>
-                            <span className="text-slate-500">admiralty {r.admiralty_grade}</span>
+                            <span className="text-slate-500 dark:text-slate-400">admiralty {r.admiralty_grade}</span>
                           </>
                         )}
                       </div>

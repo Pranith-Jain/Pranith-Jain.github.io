@@ -113,14 +113,19 @@ describe('postProcess', () => {
     expect(out.body).toContain('9.0–10.0'); // numeric range dash preserved
   });
 
-  it('flags egregious AI-slop as critical so the repair pass rewrites it', () => {
+  it('strips egregious AI-slop sentences and records a non-blocking warning', () => {
     const raw =
       `In today's digital landscape, attackers delve into your network.\n\n` +
-      `## What is this vulnerability?\n\nIt serves as a stark reminder.\n\n` +
+      `## What is this vulnerability?\n\nThe flaw allows unauthenticated RCE on the gateway. It serves as a stark reminder.\n\n` +
       `## References\n\n- https://x\n`;
     const out = postProcess({ type: 'cve', raw, factsText: 'CVE-2026-1234' });
-    expect(out.ok).toBe(false);
-    expect(out.errors.join('|')).toMatch(/ai-slop detected/i);
+    // Egregious slop is scrubbed from the published body...
+    expect(out.body).not.toMatch(/in today's digital landscape/i);
+    expect(out.body).not.toMatch(/serves as a stark reminder/i);
+    // ...and surfaced as a non-blocking warning rather than hard-failing the
+    // whole post (hard-failing over one slop phrase was the dominant
+    // publish_failed cause; the slop is stripped inline instead).
+    expect(out.errors.join('|')).toMatch(/ai-slop/i);
   });
 
   it('qaReview passes substantive, sourced, non-repetitive content', () => {

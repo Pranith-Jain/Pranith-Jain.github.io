@@ -1096,7 +1096,7 @@ export default function BreachPage(): JSX.Element {
       </BackLink>
 
       <div className="animate-fade-in-up">
-        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2">Breach Checker</h1>
+        <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2">Breach Checker</h1>
         <p className="text-muted mb-8 max-w-2xl">
           Check if a password, email address, or domain has appeared in known data breaches.
         </p>

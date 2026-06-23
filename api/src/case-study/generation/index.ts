@@ -44,7 +44,7 @@ function buildFactVerifyPrompt(evidence: Record<string, unknown>): string {
  * before writing. These verified facts are injected into the prompt to
  * ground the content generation in actual data.
  */
-async function verifyFacts(evidence: Record<string, unknown>, ai: Ai, groqKey?: string): Promise<VerifiedFacts | null> {
+async function verifyFacts(evidence: Record<string, unknown>, ai: Ai, groqKey?: string, googleKey?: string): Promise<VerifiedFacts | null> {
   try {
     const result = await runCompletion(
       ai,
@@ -54,7 +54,7 @@ async function verifyFacts(evidence: Record<string, unknown>, ai: Ai, groqKey?: 
         maxTokens: 1500,
         temperature: 0.1,
       },
-      { groqKey, quality: true }
+      { googleKey, groqKey, quality: true }
     );
 
     const text = result.text.trim();
@@ -208,6 +208,8 @@ export interface GeneratePostDeps {
   /** Groq free-tier key. When set, used as the quality primary; Workers AI
    *  is the fallback. Unset → Workers-AI-only (rate-limit-aware). */
   groqKey?: string;
+  /** Google AI Studio API key for Gemini-based completion fallback. */
+  googleKey?: string;
   /**
    * Optional threat-intel provider keys for layer-2 IOC validation
    * (VT/AbuseIPDB/abuse.ch). When any are set, every extracted IOC is
@@ -227,11 +229,11 @@ export interface GeneratePostDeps {
 }
 
 export async function generatePost(deps: GeneratePostDeps): Promise<Post> {
-  const { candidate, ai, now, groqKey, notes } = deps;
+  const { candidate, ai, now, groqKey, googleKey, notes } = deps;
 
   // ── Step 1: Verify facts before writing ──────────────────────────────
   // Extract structured facts from evidence to ground the content generation.
-  const verifiedFacts = await verifyFacts(candidate.evidence, ai, groqKey);
+  const verifiedFacts = await verifyFacts(candidate.evidence, ai, groqKey, googleKey);
 
   const sources = extractSources(candidate.evidence);
 
@@ -273,7 +275,7 @@ export async function generatePost(deps: GeneratePostDeps): Promise<Post> {
   const completion = await runCompletion(
     ai,
     { system, user: user + factNote + outlineNote + notesBlock },
-    { groqKey, quality: true }
+    { googleKey, groqKey, quality: true }
   );
 
   const factsText = JSON.stringify(candidate.evidence);
@@ -300,7 +302,7 @@ export async function generatePost(deps: GeneratePostDeps): Promise<Post> {
           `Be specific and substantive (no thin sections, no repeated sentences, cite real sources). ` +
           `Only reference facts/CVEs present in the GROUND TRUTH DATA above; mark any historical CVE as context, not a finding.`,
       },
-      { groqKey, quality: true }
+      { googleKey, groqKey, quality: true }
     );
     processed = postProcess({ type: candidate.type, raw: repair.text, factsText });
   }

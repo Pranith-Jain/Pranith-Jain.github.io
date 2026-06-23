@@ -27,7 +27,7 @@ export async function synthesizeReport(
   query: string,
   queryType: string,
   steps: AgentStep[],
-  opts: { groqKey?: string; dataQuality?: DataQuality }
+  opts: { groqKey?: string; googleKey?: string; dataQuality?: DataQuality }
 ): Promise<SynthesizerOutput> {
   const dq = opts.dataQuality ?? {
     totalOk: steps.reduce((n, s) => n + s.results.filter((r) => r.status === 'ok').length, 0),
@@ -48,7 +48,7 @@ export async function synthesizeReport(
   const user = buildSynthesizerUserPrompt(query, queryType, steps) + dataWarning;
   const input: CompletionInput = { system, user, maxTokens: 5500, temperature: 0.3 };
 
-  const { text, modelUsed } = await runCompletion(ai, input, { groqKey: opts.groqKey, quality: true });
+  const { text, modelUsed } = await runCompletion(ai, input, { googleKey: opts.googleKey, groqKey: opts.groqKey, quality: true });
 
   const { report, actionCard, handoff, reportHeader } = splitSynthOutput(text);
   const keyFindings = extractKeyFindings(report);

@@ -52,7 +52,7 @@ export default function Exposure(): JSX.Element {
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <div className="animate-fade-in-up">
-        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2">Exposure Scanner</h1>
+        <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2">Exposure Scanner</h1>
         <p className="text-muted mb-8 max-w-2xl">
           Subdomains seen in Certificate Transparency logs, resolved to IPs, with optional Shodan host enrichment when
           available.

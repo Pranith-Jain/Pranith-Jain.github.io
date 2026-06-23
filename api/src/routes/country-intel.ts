@@ -42,7 +42,7 @@ export async function countryIntelHandler(c: Context<{ Bindings: Env }>): Promis
       system: INTEL_SYSTEM,
       user: lines.join('\n'),
       maxTokens: 2500,
-    });
+    }, c.env.GOOGLE_AI_STUDIO_API_KEY);
 
     const intel = parseJson(text);
     return c.json({ intel, model, generated_at: new Date().toISOString() });

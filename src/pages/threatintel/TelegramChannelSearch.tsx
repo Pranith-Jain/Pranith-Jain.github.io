@@ -118,7 +118,7 @@ export default function TelegramChannelSearch(): JSX.Element {
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-8 text-slate-900 dark:text-slate-100">
       <div className="animate-fade-in-up mb-6">
-        <h1 className="text-2xl sm:text-3xl font-display font-bold flex items-center gap-3">
+        <h1 className="text-3xl sm:text-4xl font-display font-bold flex items-center gap-3">
           <Search size={26} className="text-brand-600 dark:text-brand-400" /> Channel search
         </h1>
         <p className="text-sm font-mono text-slate-500 dark:text-slate-400 mt-2 max-w-3xl leading-relaxed">

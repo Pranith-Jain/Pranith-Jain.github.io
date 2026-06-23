@@ -47,7 +47,7 @@ export async function eventCorrelationHandler(c: Context<{ Bindings: Env }>): Pr
       system: CORRELATE_SYSTEM,
       user: `Events:\n${eventList}`,
       maxTokens: 2500,
-    });
+    }, c.env.GOOGLE_AI_STUDIO_API_KEY);
 
     const correlation = parseJson(text);
     return c.json({ correlation, model, generated_at: new Date().toISOString() });

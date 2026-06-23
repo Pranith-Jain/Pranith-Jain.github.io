@@ -125,7 +125,7 @@ export default function SecHeadersLive(): JSX.Element {
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink to="/dfir" />
       <div className="animate-fade-in-up">
-        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2">Live Security Headers</h1>
+        <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2">Live Security Headers</h1>
         <p className="text-muted mb-8 max-w-3xl">
           Third-party HSTS, CSP, X-Frame-Options, and other security-header scan via{' '}
           <a

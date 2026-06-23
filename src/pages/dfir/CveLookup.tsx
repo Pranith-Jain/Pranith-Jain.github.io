@@ -197,7 +197,7 @@ export default function CveLookup(): JSX.Element {
       </BackLink>
 
       <div className="animate-fade-in-up">
-        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2">CVE Lookup</h1>
+        <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2">CVE Lookup</h1>
         <p className="text-muted mb-8 max-w-2xl">
           Query NVD for CVE details. Get CVSS score, EPSS exploit likelihood, CISA KEV status, and references.
         </p>

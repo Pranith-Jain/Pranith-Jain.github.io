@@ -435,7 +435,7 @@ export default function FullSpectrum(): JSX.Element {
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <div>
-        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
+        <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2 flex items-center gap-3">
           <Shield size={28} className="text-brand-600 dark:text-brand-400" /> Full Spectrum Investigation
         </h1>
         <p className="text-muted mb-8 max-w-3xl">

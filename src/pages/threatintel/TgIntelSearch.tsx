@@ -261,7 +261,7 @@ export default function TgIntelSearch() {
 
       <div className="flex flex-wrap items-start justify-between gap-4 mb-6">
         <div>
-          <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2">Telegram Intelligence Search</h1>
+          <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2">Telegram Intelligence Search</h1>
           <p className="text-sm font-mono text-muted max-w-2xl">
             Boolean AND/OR/NOT search across indexed Telegram messages. Field qualifiers, IOC auto-extraction, timeline
             visualization.

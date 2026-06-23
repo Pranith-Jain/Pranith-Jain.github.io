@@ -47,7 +47,7 @@ export function BottomNav({ mode, onOpenSearch }: BottomNavProps): JSX.Element {
               }`}
             >
               <item.icon size={20} aria-hidden="true" />
-              <span className="text-[10px] font-medium">{item.label}</span>
+              <span className="text-mini font-medium">{item.label}</span>
             </Link>
           );
         })}
@@ -59,7 +59,7 @@ export function BottomNav({ mode, onOpenSearch }: BottomNavProps): JSX.Element {
           className="flex flex-col items-center gap-0.5 min-w-[60px] py-1 text-slate-500 dark:text-slate-400 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
         >
           <Search size={20} aria-hidden="true" />
-          <span className="text-[10px] font-medium">Search</span>
+          <span className="text-mini font-medium">Search</span>
         </button>
 
         {/* Recent (if available) */}
@@ -73,7 +73,7 @@ export function BottomNav({ mode, onOpenSearch }: BottomNavProps): JSX.Element {
             }`}
           >
             <Clock size={20} aria-hidden="true" />
-            <span className="text-[10px] font-medium truncate max-w-[60px]">{entries[0].label}</span>
+            <span className="text-mini font-medium truncate max-w-[60px]">{entries[0].label}</span>
           </Link>
         )}
       </div>

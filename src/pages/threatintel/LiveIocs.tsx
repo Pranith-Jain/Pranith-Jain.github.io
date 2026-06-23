@@ -199,7 +199,7 @@ export default function LiveIocs(): JSX.Element {
       </BackLink>
 
       <div className="animate-fade-in-up">
-        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
+        <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2 flex items-center gap-3">
           <Radio size={28} className="text-brand-600 dark:text-brand-400" /> Live IOC stream
           <LiveFreshnessPill tone="live" ago={data ? shortRel(data.generated_at) : undefined} className="ml-1" />
         </h1>

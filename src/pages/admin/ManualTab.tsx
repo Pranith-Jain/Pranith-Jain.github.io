@@ -48,20 +48,20 @@ export default function ManualTab() {
 
   return (
     <div>
-      <p className="text-sm text-slate-400 mb-4">
+      <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">
         Write and publish a case study directly, bypassing the automated pipeline.
       </p>
 
       <div className="space-y-4 max-w-3xl">
         <div>
-          <label htmlFor="manual-type" className="block text-xs uppercase tracking-wider text-slate-500 mb-1">
+          <label htmlFor="manual-type" className="block text-xs uppercase tracking-wider text-slate-600 dark:text-slate-500 mb-1">
             Type
           </label>
           <select
             id="manual-type"
             value={type}
             onChange={(e) => setType(e.target.value)}
-            className="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded text-sm text-slate-100"
+            className="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded text-sm text-slate-900 dark:text-slate-100"
           >
             {CASE_TYPES.map((t) => (
               <option key={t.value} value={t.value}>
@@ -72,7 +72,7 @@ export default function ManualTab() {
         </div>
 
         <div>
-          <label htmlFor="manual-title" className="block text-xs uppercase tracking-wider text-slate-500 mb-1">
+          <label htmlFor="manual-title" className="block text-xs uppercase tracking-wider text-slate-600 dark:text-slate-500 mb-1">
             Title
           </label>
           <input
@@ -80,13 +80,13 @@ export default function ManualTab() {
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             placeholder="Case study title"
-            className="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded text-sm text-slate-100 placeholder-zinc-600"
+            className="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded text-sm text-slate-900 dark:text-slate-100 placeholder-zinc-500 dark:placeholder-zinc-600"
           />
         </div>
 
         <div>
-          <label htmlFor="manual-body" className="block text-xs uppercase tracking-wider text-slate-500 mb-1">
-            Body <span className="text-zinc-600 normal-case">(Markdown)</span>
+          <label htmlFor="manual-body" className="block text-xs uppercase tracking-wider text-slate-600 dark:text-slate-500 mb-1">
+            Body <span className="text-zinc-500 dark:text-zinc-600 normal-case">(Markdown)</span>
           </label>
           <textarea
             id="manual-body"
@@ -94,34 +94,34 @@ export default function ManualTab() {
             onChange={(e) => setBody(e.target.value)}
             placeholder="Write your case study in Markdown..."
             rows={20}
-            className="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded text-sm text-slate-100 placeholder-zinc-600 font-mono"
+            className="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded text-sm text-slate-900 dark:text-slate-100 placeholder-zinc-500 dark:placeholder-zinc-600 font-mono"
           />
         </div>
 
         <div>
-          <label htmlFor="manual-tags" className="block text-xs uppercase tracking-wider text-slate-500 mb-1">
-            Tags <span className="text-zinc-600 normal-case">(comma-separated)</span>
+          <label htmlFor="manual-tags" className="block text-xs uppercase tracking-wider text-slate-600 dark:text-slate-500 mb-1">
+            Tags <span className="text-zinc-500 dark:text-zinc-600 normal-case">(comma-separated)</span>
           </label>
           <input
             id="manual-tags"
             value={tags}
             onChange={(e) => setTags(e.target.value)}
             placeholder="osint, threat-intel, tools"
-            className="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded text-sm text-slate-100 placeholder-zinc-600"
+            className="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded text-sm text-slate-900 dark:text-slate-100 placeholder-zinc-500 dark:placeholder-zinc-600"
           />
         </div>
 
         <button
           onClick={() => void handlePublish()}
           disabled={sending || !title.trim() || !body.trim()}
-          className="px-4 py-2 bg-slate-100 text-zinc-900 rounded text-sm font-medium hover:bg-zinc-300 disabled:opacity-50"
+          className="px-4 py-2 bg-brand-600 text-white rounded text-sm font-medium hover:bg-brand-500 disabled:opacity-50"
         >
           {sending ? 'Publishing…' : 'Publish'}
         </button>
 
         {result && (
           <div
-            className={`mt-4 p-3 rounded text-sm font-mono ${result.ok ? 'bg-green-900/30 text-green-300 border border-green-800' : 'bg-red-900/30 text-red-300 border border-red-800'}`}
+            className={`mt-4 p-3 rounded text-sm font-mono ${result.ok ? 'bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-300 border border-green-200 dark:border-green-800' : 'bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-300 border border-red-200 dark:border-red-800'}`}
           >
             {result.ok ? (
               <>

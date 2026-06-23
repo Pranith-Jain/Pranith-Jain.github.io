@@ -130,7 +130,7 @@ export default function BlocklistsPage(): JSX.Element {
       </BackLink>
 
       <div className="animate-fade-in-up">
-        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2">Blocklist Export</h1>
+        <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2">Blocklist Export</h1>
         <p className="text-muted mb-8 max-w-3xl">
           Daily-generated blocklists from cross-source IOC consensus. IPs appearing in 2+ independent feeds. Download
           for pfSense, iptables, or Suricata. Updated every 24 hours.

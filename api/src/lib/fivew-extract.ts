@@ -53,7 +53,7 @@ export async function extractFiveW(text: string, env: Env): Promise<FiveW | null
       runCompletion(
         env.AI,
         { system: SYSTEM, user: `REPORT:\n\n${input}`, maxTokens: 350, temperature: 0.2 },
-        { groqKey: env.GROQ_API_KEY }
+        { googleKey: env.GOOGLE_AI_STUDIO_API_KEY, groqKey: env.GROQ_API_KEY }
       ),
       timeout,
     ]);

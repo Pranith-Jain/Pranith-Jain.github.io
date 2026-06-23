@@ -131,7 +131,7 @@ export class ReportBuilderDO {
       try {
         const next = await advance(state, {
           env: this.env as unknown as ApiEnv,
-          write: { ai: (this.env as unknown as ApiEnv).AI, groqKey: (this.env as unknown as ApiEnv).GROQ_API_KEY },
+          write: { ai: (this.env as unknown as ApiEnv).AI, groqKey: (this.env as unknown as ApiEnv).GROQ_API_KEY, googleKey: (this.env as unknown as ApiEnv).GOOGLE_AI_STUDIO_API_KEY },
         });
         await this.ctx.storage.put(key, next);
 

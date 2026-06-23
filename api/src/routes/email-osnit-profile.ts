@@ -21,7 +21,7 @@ interface EmailProfile {
   email: string;
   localPart: string;
   domain: string;
-  gravatar: { hash: string; avatarUrl: string; displayName: string | null; profileUrl: string | null };
+  gravatar: { found: boolean; hash: string; avatarUrl: string; displayName: string | null; profileUrl: string | null };
   github: {
     found: boolean;
     username: string | null;
@@ -96,6 +96,7 @@ async function lookupGravatar(email: string): Promise<EmailProfile['gravatar']> 
   }
 
   return {
+    found: hasAvatar,
     hash,
     avatarUrl: hasAvatar ? avatarUrl : '',
     displayName,
@@ -179,7 +180,7 @@ async function lookupBreach(email: string): Promise<EmailProfile['breach']> {
         result.breachCount = data.domains.length;
         result.breaches = data.domains.slice(0, 5).map((d) => ({
           name: d.domain,
-          date: d.timestamp ? new Date(d.timestamp * 1000).toISOString().split('T')[0] : 'Unknown',
+          date: d.timestamp ? (new Date(d.timestamp * 1000).toISOString().split('T')[0] ?? 'Unknown') : 'Unknown',
           dataClasses: ['credentials'],
         }));
       }
@@ -289,9 +290,9 @@ async function lookupPgp(email: string): Promise<EmailProfile['pgp']> {
       if (text.includes('-----BEGIN PGP PUBLIC KEY BLOCK-----')) {
         result.found = true;
         const keyIdMatch = text.match(/Key ID:\s*([A-F0-9]+)/i);
-        if (keyIdMatch) result.keyId = keyIdMatch[1];
+        if (keyIdMatch) result.keyId = keyIdMatch[1] ?? null;
         const uidMatch = text.match(/<([^>]+@[^>]+)>/);
-        if (uidMatch) result.uids = [uidMatch[1]];
+        if (uidMatch?.[1]) result.uids = [uidMatch[1]];
       }
     }
   } catch {
@@ -304,7 +305,7 @@ async function lookupPgp(email: string): Promise<EmailProfile['pgp']> {
 // ── Social Hints ──
 
 async function lookupSocialHints(email: string): Promise<EmailProfile['social']> {
-  const localPart = email.split('@')[0];
+  const localPart = email.split('@')[0] ?? '';
   const result: EmailProfile['social'] = { linkedinHint: false, twitterHint: false, redditHint: false };
 
   // LinkedIn hint via public search (heuristic)
@@ -343,6 +344,7 @@ interface BTEResult {
     };
     education?: { educations?: Array<{ schoolName?: string; degreeName?: string; fieldOfStudy?: string }> };
     skills?: { skills?: string[] };
+    metadata?: { linkedInUrl?: string };
   };
   github?: {
     username?: string;
@@ -410,7 +412,7 @@ export async function emailOsnitProfileHandler(c: Context<{ Bindings: Env }>): P
   }
 
   const cleanEmail = email.toLowerCase().trim();
-  const localPart = cleanEmail.split('@')[0];
+  const localPart = cleanEmail.split('@')[0] ?? '';
   const domain = cleanEmail.split('@')[1];
 
   // Run all free lookups in parallel
@@ -425,7 +427,7 @@ export async function emailOsnitProfileHandler(c: Context<{ Bindings: Env }>): P
   ]);
 
   // Optional: Behind the Email enrichment (requires BTE_API_KEY secret)
-  const bteApiKey = (c.env as Record<string, string>)?.BTE_API_KEY;
+  const bteApiKey = (c.env as unknown as Record<string, string>)?.BTE_API_KEY;
   let bte: BTEResult | null = null;
   if (bteApiKey) {
     bte = await lookupBehindTheEmail(cleanEmail, bteApiKey);

@@ -121,7 +121,7 @@ export default function YaraManager(): JSX.Element {
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <div className="animate-fade-in-up flex items-center justify-between mb-8 flex-wrap gap-3">
         <div>
-          <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
+          <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2 flex items-center gap-3">
             <ScrollText size={28} className="text-brand-600 dark:text-brand-400" /> YARA Rule Manager
           </h1>
           <p className="text-muted">{rules.length} rules stored locally</p>

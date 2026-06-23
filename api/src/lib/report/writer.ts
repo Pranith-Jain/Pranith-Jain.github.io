@@ -15,6 +15,7 @@ export interface WriteInput {
 export interface WriteDeps {
   ai: Ai;
   groqKey?: string;
+  googleKey?: string;
   runCompletion?: typeof realRunCompletion;
 }
 export interface WriteOutput {
@@ -65,7 +66,7 @@ export async function writeReport(input: WriteInput, deps: WriteDeps): Promise<W
     const r = await run(
       deps.ai,
       { system: outlineSys, user: outlineUser, maxTokens: 800, temperature: 0.2 },
-      { groqKey: deps.groqKey }
+      { groqKey: deps.groqKey, googleKey: deps.googleKey }
     );
     modelUsed = r.modelUsed;
     const json = JSON.parse(r.text.slice(r.text.indexOf('{'), r.text.lastIndexOf('}') + 1)) as {
@@ -97,7 +98,7 @@ export async function writeReport(input: WriteInput, deps: WriteDeps): Promise<W
     const user = `Subject: ${input.subject}\nEvidence:\n${evidenceBlock(citations, refs)}`;
     let body = '';
     try {
-      const r = await run(deps.ai, { system: sys, user, maxTokens: 700, temperature: 0.25 }, { groqKey: deps.groqKey });
+      const r = await run(deps.ai, { system: sys, user, maxTokens: 700, temperature: 0.25 }, { groqKey: deps.groqKey, googleKey: deps.googleKey });
       modelUsed = r.modelUsed;
       body = stripHeadings(guard(r.text.trim(), input.allowlist));
     } catch {
@@ -111,7 +112,7 @@ export async function writeReport(input: WriteInput, deps: WriteDeps): Promise<W
   try {
     const sys = `Write a 3-5 sentence executive summary of this report about ${input.subject} for a decision-maker. Plain prose only — NO heading, NO markdown headers (#), NO bullet list, NO section title. Use only facts already in the sections; introduce no new CVEs, products, or claims, and never reference unrelated CVEs/incidents.`;
     const user = sections.map((s) => `${s.heading}: ${s.body_md}`).join('\n\n');
-    const r = await run(deps.ai, { system: sys, user, maxTokens: 400, temperature: 0.25 }, { groqKey: deps.groqKey });
+    const r = await run(deps.ai, { system: sys, user, maxTokens: 400, temperature: 0.25 }, { groqKey: deps.groqKey, googleKey: deps.googleKey });
     modelUsed = r.modelUsed;
     executive_summary = stripHeadings(guard(r.text.trim(), input.allowlist));
   } catch {

@@ -135,10 +135,10 @@ export function SidebarContent({ config }: { config: SidebarConfig }): JSX.Eleme
                         <Link
                           to={item.href}
                           aria-current={active ? 'page' : undefined}
-                          className={`group flex items-center gap-2 px-2 py-1.5 text-[13px] transition focus:outline-none focus-visible:ring-2 ${focusRing} ${
+                          className={`group flex items-center gap-2 px-2 py-1.5 text-tool transition focus:outline-none focus-visible:ring-2 ${focusRing} ${
                             active
                               ? `${activeBg} font-medium`
-                              : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-[#16161f] dark:hover:text-slate-200'
+                              : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-[rgb(var(--hover-100))] dark:hover:text-slate-200'
                           }`}
                         >
                           <Icon
@@ -237,7 +237,7 @@ function SidebarContentCollapsed({ config }: { config: SidebarConfig }): JSX.Ele
                 className={`grid h-8 w-8 mx-auto place-items-center transition focus:outline-none focus-visible:ring-2 ${focusRing} ${
                   active
                     ? `${activeBg} border-l-2 ${activeBorder}`
-                    : 'text-slate-500 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-[#16161f] dark:hover:text-slate-200'
+                    : 'text-slate-500 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-[rgb(var(--hover-100))] dark:hover:text-slate-200'
                 }`}
               >
                 <Icon size={14} className={active ? activeIcon : ''} aria-hidden="true" />

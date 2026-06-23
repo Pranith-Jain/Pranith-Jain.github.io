@@ -133,7 +133,7 @@ export default function Decode(): JSX.Element {
       </BackLink>
 
       <div className="animate-fade-in-up">
-        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2">Decoder</h1>
+        <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2">Decoder</h1>
         <p className="text-muted mb-8 max-w-2xl">
           Base64 and URL decode with auto-detect and multi-pass chaining for nested encodings.
         </p>

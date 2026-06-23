@@ -276,7 +276,7 @@ export default function CvePrioritizer(): JSX.Element {
       </BackLink>
 
       <div className="animate-fade-in-up">
-        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2">CVE Exploit Prioritizer</h1>
+        <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2">CVE Exploit Prioritizer</h1>
         <p className="text-muted mb-3 max-w-2xl">
           Paste CVE IDs (any format — IDs are extracted). Each is enriched with NVD CVSS + FIRST EPSS + CISA KEV (incl.
           known-ransomware) + public PoC count + named-actor attribution and reduced to a single verdict, a 0-100 score,

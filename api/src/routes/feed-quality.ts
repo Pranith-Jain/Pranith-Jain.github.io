@@ -42,7 +42,7 @@ export async function feedQualityHandler(c: Context<{ Bindings: Env }>): Promise
       system: QUALITY_SYSTEM,
       user: `Source reliability assessment:\n\n${sourceList}`,
       maxTokens: 2500,
-    });
+    }, c.env.GOOGLE_AI_STUDIO_API_KEY);
 
     const quality = parseJson(text);
     return c.json({ quality, model, generated_at: new Date().toISOString() });

@@ -50,7 +50,7 @@ export async function campaignTrackerHandler(c: Context<{ Bindings: Env }>): Pro
       system: CAMPAIGN_SYSTEM,
       user: `Campaign: ${body.title}\n\nEvents:\n${eventList}`,
       maxTokens: 3000,
-    });
+    }, c.env.GOOGLE_AI_STUDIO_API_KEY);
 
     const campaign = parseJson(text);
     return c.json({ campaign, model, generated_at: new Date().toISOString() });

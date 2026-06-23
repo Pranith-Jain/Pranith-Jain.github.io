@@ -262,7 +262,7 @@ export default function Settings(): JSX.Element {
       </BackLink>
 
       <div className="mb-8 animate-fade-in-up">
-        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
+        <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2 flex items-center gap-3">
           <Plug size={26} className="text-brand-600 dark:text-brand-400" /> Integrations
         </h1>
         <p className="text-sm text-muted max-w-2xl">

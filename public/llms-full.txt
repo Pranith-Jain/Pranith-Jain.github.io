@@ -255,7 +255,6 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [Free Cert Courses](https://pranithjain.qzz.io/threatintel/osint/certs) (threatintel): Syberseeker’s start.me hub of free certification tracks — security, cloud, blue team, OSINT, GRC.
 - [SecOps Tools](https://pranithjain.qzz.io/threatintel/osint/secops) (threatintel): SecOps tools catalog — SIEM, EDR, SOAR, log shippers.
 - [Threat Intel Copilot](https://pranithjain.qzz.io/threatintel/tools/copilot) (threatintel): AI copilot — ask, pivot, summarize, draft.
-- [Copilot Chat](https://pranithjain.qzz.io/threatintel/tools/copilot-chat) (threatintel): Direct chat interface for the threat-intel copilot.
 - [MCP Search](https://pranithjain.qzz.io/threatintel/tools/mcp) (threatintel): MCP (Model Context Protocol) tool search.
 - [MISP Browser](https://pranithjain.qzz.io/threatintel/tools/misp) (threatintel): MISP galaxy and event browser.
 - [STIX Bundle Browser](https://pranithjain.qzz.io/threatintel/tools/stix) (threatintel): Browse and download STIX 2.1 bundles for OpenCTI, MISP, etc.
@@ -263,7 +262,7 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [Watches](https://pranithjain.qzz.io/threatintel/tools/watches) (threatintel): Watch lists — actor, indicator, keyword, and saved searches.
 - [Investigation Workspaces](https://pranithjain.qzz.io/threatintel/tools/workspaces) (threatintel): AEAD lifecycle workspaces — Acquire, Enrich, Assess, Deliver.
 - [TG Intel Search](https://pranithjain.qzz.io/threatintel/tools/tg-intel-search) (threatintel): Boolean search across Telegram messages — AND/OR/NOT, field qualifiers, IOC extraction.
-- [SOC Radar Tools](https://pranithjain.qzz.io/threatintel/tools/socradar-tools) (threatintel): DDoS intelligence, FortiGate breach check, healthcare breach tracking.
+- [Tactical Radar Tools](https://pranithjain.qzz.io/threatintel/tools/socradar-tools) (threatintel): DDoS intelligence, FortiGate breach check, healthcare breach tracking.
 - [Unified Search](https://pranithjain.qzz.io/threatintel/tools/unified-search) (threatintel): Cross-source search across the entire platform.
 - [Integrations & Settings](https://pranithjain.qzz.io/threatintel/tools/settings) (threatintel): What integrations are wired in and what capability each one unlocks for the platform.
 - [External Resources](https://pranithjain.qzz.io/threatintel/external/external) (threatintel): Off-site cross-references — dashboards, OSINT directories, training labs.

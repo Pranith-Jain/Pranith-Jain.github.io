@@ -96,13 +96,14 @@ describe('postProcess', () => {
         expect(out.body).not.toContain('finding —'); // the prose em-dash is gone
         expect(out.body).toContain('9.0–10.0'); // numeric range dash preserved
     });
-    it('flags egregious AI-slop as critical so the repair pass rewrites it', () => {
+    it('strips egregious AI-slop sentences and records a non-blocking warning', () => {
         const raw = `In today's digital landscape, attackers delve into your network.\n\n` +
-            `## What is this vulnerability?\n\nIt serves as a stark reminder.\n\n` +
+            `## What is this vulnerability?\n\nThe flaw allows unauthenticated RCE on the gateway. It serves as a stark reminder.\n\n` +
             `## References\n\n- https://x\n`;
         const out = postProcess({ type: 'cve', raw, factsText: 'CVE-2026-1234' });
-        expect(out.ok).toBe(false);
-        expect(out.errors.join('|')).toMatch(/ai-slop detected/i);
+        expect(out.body).not.toMatch(/in today's digital landscape/i);
+        expect(out.body).not.toMatch(/serves as a stark reminder/i);
+        expect(out.errors.join('|')).toMatch(/ai-slop/i);
     });
     it('qaReview passes substantive, sourced, non-repetitive content', () => {
         const body = `${'A precise, specific sentence about the finding number ' + Math.random()} ${Array.from({ length: 60 }, (_, i) => `Detection insight ${i} about the access vector and blast radius.`).join(' ')}\n\n## Summary\n\nReal analysis here.\n\n## Detection\n\nHunt for X.\n\n## References\n\n- [NVD](https://nvd.nist.gov/x)`;
@@ -215,5 +216,175 @@ describe('postProcess', () => {
         expect(domains).toContain('bad-actor-domain.xyz');
         expect(domains).not.toContain('evil-real.example');
         expect(domains).not.toContain('bad-corp.test');
+    });
+});
+describe('linkifyPlainTextRefs + unlinked reference QA', () => {
+    it('linkifies numbered "1. BleepingComputer, ..." refs into clickable links', () => {
+        const raw = `## What is this vulnerability?
+
+Text.
+
+` +
+            `## Affected products
+
+Text.
+
+` +
+            `## CVSS score breakdown
+
+Text.
+
+` +
+            `## How the attack works
+
+Text.
+
+` +
+            `## Why this matters
+
+Text.
+
+` +
+            `## Indicators of compromise
+
+Text.
+
+` +
+            `## Detection & mitigation
+
+Text.
+
+` +
+            `## References
+
+` +
+            `1. BleepingComputer, initial breach disclosure with record count estimate.
+` +
+            `2. The Hacker News, follow‑up article confirming credit‑card exposure.
+`;
+        const out = postProcess({ type: 'intel', raw, factsText: '{}' });
+        // Both publishers are in KNOWN_PUBLISHER_URLS so both get linkified.
+        expect(out.body).toMatch(/\[BleepingComputer[^\]]+\]\(https:\/\/www\.bleepingcomputer\.com\/news\/security\/\)/);
+        expect(out.body).toMatch(/\[The Hacker News[^\]]+\]\(https:\/\/thehackernews\.com\/\)/);
+    });
+    it('linkifies bulleted "- Krebs on Security, ..." refs into clickable links', () => {
+        const raw = `## Summary
+
+Text.
+
+` +
+            `## Detection & mitigation
+
+Text.
+
+` +
+            `## References
+
+` +
+            `- Krebs on Security, exclusive interview with the lead investigator.
+` +
+            `- CISA KEV, the new entry added today.
+`;
+        const out = postProcess({ type: 'intel', raw, factsText: '{}' });
+        expect(out.body).toMatch(/\[Krebs on Security[^\]]+\]\(https:\/\/krebsonsecurity\.com\/\)/);
+        expect(out.body).toMatch(/\[CISA KEV[^\]]+\]\(https:\/\/www\.cisa\.gov\/known-exploited-vulnerabilities-catalog\)/);
+    });
+    it('leaves unrecognised publisher labels plain and flags the draft as QA-failed', () => {
+        const raw = `## Summary
+
+Text.
+
+` +
+            `## Detection & mitigation
+
+Text.
+
+` +
+            `## References
+
+` +
+            `- Some Unknown Trade Rag, brief mention of the incident.
+` +
+            `- Another Mystery Outlet, follow‑up coverage with screenshots.
+`;
+        const out = postProcess({ type: 'intel', raw, factsText: '{}' });
+        // No linkification happened — labels stay plain text.
+        expect(out.body).not.toMatch(/\[Some Unknown Trade Rag[^\]]+\]\(http/);
+        // QA gate catches the unlinked bullets: 2/2 unlinked is a clear
+        // majority, so the majority-rule threshold still trips QA.
+        expect(out.qa?.passed).toBe(false);
+        expect(out.qa?.issues.join('|')).toMatch(/2\/2 reference bullets? have no URL/i);
+    });
+    it('accepts drafts where every References bullet is a proper markdown link', () => {
+        const raw = `## Summary
+
+Text.
+
+` +
+            `## Detection & mitigation
+
+Text.
+
+` +
+            `## References
+
+` +
+            `- [BleepingComputer](https://www.bleepingcomputer.com/news/security/example)
+` +
+            `- [The Hacker News](https://thehackernews.com/2026/06/example.html)
+`;
+        const out = postProcess({ type: 'intel', raw, factsText: '{}' });
+        expect(out.qa?.issues.join('|')).not.toMatch(/reference bullet.*no URL/i);
+    });
+    it('mixed bullet (one linked, one unlinked) no longer fails QA under the majority rule', () => {
+        // The linkify map is conservative — a real-but-unrecognised publisher
+        // shouldn't block the post. The QA gate now only trips when MAJORITY
+        // of bullets are unlinked, reflecting "the model can't cite" rather
+        // than "the model cited one novel source". 1/2 is not a majority.
+        const raw = `## Summary
+
+Text.
+
+` +
+            `## Detection & mitigation
+
+Text.
+
+` +
+            `## References
+
+` +
+            `- [BleepingComputer](https://www.bleepingcomputer.com/news/security/example)
+` +
+            `- Some Unknown Trade Rag, brief mention.
+`;
+        const out = postProcess({ type: 'intel', raw, factsText: '{}' });
+        expect(out.qa?.issues.join('|')).not.toMatch(/reference bullet/i);
+    });
+    it('three unlinked out of four bullets is a majority and fails QA', () => {
+        const raw = `## Summary
+
+Text.
+
+` +
+            `## Detection & mitigation
+
+Text.
+
+` +
+            `## References
+
+` +
+            `- [BleepingComputer](https://www.bleepingcomputer.com/news/security/example)
+` +
+            `- Unknown A, brief mention.
+` +
+            `- Unknown B, another brief mention.
+` +
+            `- Unknown C, yet another brief mention.
+`;
+        const out = postProcess({ type: 'intel', raw, factsText: '{}' });
+        expect(out.qa?.passed).toBe(false);
+        expect(out.qa?.issues.join('|')).toMatch(/3\/4 reference bullets? have no URL/i);
     });
 });

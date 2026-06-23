@@ -23,6 +23,7 @@ function fakeBriefing(overrides = {}) {
             high: 0,
             medium: 0,
             low: 0,
+            ransomware_victims: 0,
         },
         sections: [
             {

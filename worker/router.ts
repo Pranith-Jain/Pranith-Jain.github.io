@@ -158,7 +158,6 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/threatintel/tools/tg-intel-search', '/__prerendered/threatintel__tools__tg-intel-search'],
   ['/threatintel/tools/socradar-tools', '/__prerendered/threatintel__tools__socradar-tools'],
   ['/threatintel/tools/settings', '/__prerendered/threatintel__tools__settings'],
-  ['/threatintel/tools/copilot-chat', '/__prerendered/threatintel__tools__copilot-chat'],
   ['/threatintel/tools/unified-search', '/__prerendered/threatintel__tools__unified-search'],
   ['/threatintel/cves/cves', '/__prerendered/threatintel__cves__cves'],
   ['/threatintel/cves/advisories', '/__prerendered/threatintel__cves__advisories'],

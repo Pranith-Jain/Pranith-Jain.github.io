@@ -94,7 +94,7 @@ export default function DeepDarkCTI(): JSX.Element {
         <ArrowLeft size={14} /> back
       </BackLink>
       <div className="mb-6">
-        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
+        <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2 flex items-center gap-3">
           <Globe size={28} className="text-brand-600 dark:text-brand-400" /> deepdarkCTI Index
         </h1>
         <p className="text-sm font-mono text-muted mt-1">

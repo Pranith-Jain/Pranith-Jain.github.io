@@ -315,7 +315,7 @@ export default function GraphqlAuditor(): JSX.Element {
         <ArrowLeft size={14} /> back
       </BackLink>
       <div className="animate-fade-in-up">
-        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2">GraphQL Security Analyzer</h1>
+        <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2">GraphQL Security Analyzer</h1>
         <p className="text-muted mb-6 max-w-2xl">
           Paste a GraphQL introspection result (<span className="font-mono text-tool">{'{ data: { __schema } }'}</span>)
           or SDL. Flags introspection exposure, sensitive/PII fields, auth-less mutations/subscriptions, and recursive

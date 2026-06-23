@@ -32,7 +32,7 @@ export {
   safeJsonParse,
 } from './aggregate';
 
-export { buildBriefing, writeBriefing, sweepOldBriefings, listBriefings, readBriefing } from './build';
+export { buildBriefing, writeBriefing, capBriefingForStorage, sweepOldBriefings, listBriefings, readBriefing } from './build';
 
 export {
   BRIEFING_MAX_AGE_DAYS,

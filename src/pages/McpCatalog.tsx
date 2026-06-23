@@ -116,7 +116,7 @@ function CopyableJson({ value, label }: { value: string; label: string }) {
     }
   };
   return (
-    <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-900/40 overflow-hidden">
+    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-900/40 overflow-hidden">
       <div className="flex items-center justify-between border-b border-slate-200 dark:border-[rgb(var(--border-400))] px-3 py-1.5 text-meta text-slate-500 dark:text-slate-400">
         <span className="font-mono">{label}</span>
         <button
@@ -206,7 +206,7 @@ export default function McpCatalogPage(): JSX.Element {
         />
 
         {/* Endpoint / transport strip */}
-        <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6 flex items-center justify-between gap-3 flex-wrap">
+        <section className="surface-card p-4 mb-6 flex items-center justify-between gap-3 flex-wrap">
           <div className="flex flex-wrap items-center gap-3 text-meta text-slate-600 dark:text-slate-400">
             <span>
               <span className="text-slate-900 dark:text-slate-100 font-medium">Endpoint</span>{' '}
@@ -270,7 +270,7 @@ export default function McpCatalogPage(): JSX.Element {
         </section>
 
         {/* Search + category filter */}
-        <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
+        <section className="surface-card p-4 mb-6">
           <div className="relative">
             <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
             <input
@@ -278,7 +278,7 @@ export default function McpCatalogPage(): JSX.Element {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder={`Search ${manifest?.toolCount ?? ''} tools...`}
-              className="w-full rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] py-2 pl-9 pr-3 text-tool text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500/30"
+              className="w-full rounded-md border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] py-2 pl-9 pr-3 text-tool text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500/30"
             />
             {query && (
               <button
@@ -314,7 +314,7 @@ export default function McpCatalogPage(): JSX.Element {
 
         {/* Tool grid */}
         {grouped.length === 0 && manifest && (
-          <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-6 text-center text-tool text-slate-500 dark:text-slate-400">
+          <div className="surface-card p-6 text-center text-tool text-slate-500 dark:text-slate-400">
             No tools match your filter. Try clearing the search.
           </div>
         )}

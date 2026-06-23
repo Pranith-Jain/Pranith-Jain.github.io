@@ -195,7 +195,6 @@ const Campaigns = lazy(() => import('./pages/threatintel/Campaigns'));
 const CertStreamLive = lazy(() => import('./pages/threatintel/CertStreamLive'));
 const CloudThreatLandscape = lazy(() => import('./pages/threatintel/CloudThreatLandscape'));
 const Copilot = lazy(() => import('./pages/threatintel/Copilot'));
-const CopilotChat = lazy(() => import('./pages/threatintel/CopilotChat'));
 const CrossCampaignCorrelation = lazy(() => import('./pages/threatintel/CrossCampaignCorrelation'));
 const CrossCorrelate = lazy(() => import('./pages/threatintel/CrossCorrelate'));
 const CryptoScamFeed = lazy(() => import('./pages/threatintel/CryptoScamFeed'));
@@ -668,7 +667,6 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel/tools/tg-intel-search', Component: TgIntelSearch },
   { path: '/threatintel/tools/socradar-tools', Component: SocradarTools },
   { path: '/threatintel/tools/settings', Component: Settings },
-  { path: '/threatintel/tools/copilot-chat', Component: CopilotChat },
   { path: '/threatintel/tools/unified-search', Component: UnifiedSearch },
   { path: '/threatintel/cves/cves', Component: CveIntel },
   { path: '/threatintel/cves/advisories', Component: GithubAdvisories },

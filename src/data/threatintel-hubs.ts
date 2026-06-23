@@ -940,13 +940,6 @@ export const HUB_META: readonly HubMeta[] = [
         badge: 'new',
       },
       {
-        path: '/threatintel/tools/copilot-chat',
-        tabId: 'copilot-chat',
-        label: 'Copilot Chat',
-        desc: 'Direct chat interface for the threat-intel copilot.',
-        compVar: 'CopilotChat',
-      },
-      {
         path: '/threatintel/tools/mcp',
         tabId: 'mcp',
         label: 'MCP Search',
@@ -1002,7 +995,7 @@ export const HUB_META: readonly HubMeta[] = [
       {
         path: '/threatintel/tools/socradar-tools',
         tabId: 'socradar-tools',
-        label: 'SOC Radar Tools',
+        label: 'Tactical Radar Tools',
         desc: 'DDoS intelligence, FortiGate breach check, healthcare breach tracking.',
         compVar: 'SocradarTools',
         badge: 'new',

@@ -265,9 +265,9 @@ interface ReportViewProps {
    *  wires this to the existing tool endpoints. */
   onGenerateHuntingQueries?: () => Promise<{ tool: string; data: unknown } | null>;
   onGenerateYaraRule?: () => Promise<{ tool: string; data: unknown } | null>;
-  /** Optional callback to open the Copilot Chat pre-seeded with a
+  /** Optional callback to open the Copilot pre-seeded with a
    *  follow-up question. The DFIR Agent page wires this to navigate to
-   *  /threatintel/tools/copilot-chat?q=... */
+   *  /threatintel/tools/copilot?q=... */
   onDrillDeeper?: (question: string) => void;
 }
 
@@ -1103,9 +1103,9 @@ function NextActionsBar({
   actionCard?: ReportActionCard;
   onGenerateHuntingQueries?: () => Promise<{ tool: string; data: unknown } | null>;
   onGenerateYaraRule?: () => Promise<{ tool: string; data: unknown } | null>;
-  /** Optional callback to open the Copilot Chat pre-seeded with a
+  /** Optional callback to open the Copilot pre-seeded with a
    *  follow-up question. The DFIR Agent page wires this to navigate to
-   *  /threatintel/tools/copilot-chat?q=... */
+   *  /threatintel/tools/copilot?q=... */
   onDrillDeeper?: (question: string) => void;
 }): JSX.Element {
   const [open, setOpen] = useState(false);

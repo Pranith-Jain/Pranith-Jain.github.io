@@ -167,6 +167,15 @@ export default function Copilot(): JSX.Element {
     inputRef.current?.focus();
   }, []);
 
+  // Pre-seed the input from ?q= — used by the "Ask the CTI Copilot" and
+  // agent-investigator drill-down handoffs (these previously targeted the
+  // now-removed Copilot Chat). The query lands in the input; the user hits
+  // enter to run it.
+  useEffect(() => {
+    const q = new URLSearchParams(location.search).get('q');
+    if (q) setQuery(q);
+  }, [location.search]);
+
   // isomorphic-dompurify is heavy (pulls jsdom on SSR), so load it lazily and
   // only when there's a narrative to sanitize — mirrors the dynamic-import
   // pattern in CaseStudy/WikiArticle so dompurify stays in its own async chunk.

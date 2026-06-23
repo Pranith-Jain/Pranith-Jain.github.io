@@ -53,7 +53,7 @@ export async function knowledgeGraphHandler(c: Context<{ Bindings: Env }>): Prom
       system: KNOWLEDGE_SYSTEM,
       user: lines.join('\n'),
       maxTokens: 3000,
-    });
+    }, c.env.GOOGLE_AI_STUDIO_API_KEY);
 
     const graph = parseJson(text);
     return c.json({ graph, model, generated_at: new Date().toISOString() });

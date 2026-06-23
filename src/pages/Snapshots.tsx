@@ -46,7 +46,7 @@ export default function Snapshots(): JSX.Element {
 
         <section
           aria-labelledby="snap-telemetry"
-          className="mt-8 rounded-lg border border-slate-200 bg-white p-4 sm:p-5 dark:border-slate-800 dark:bg-slate-900/40"
+          className="mt-8 surface-card p-4 sm:p-5"
         >
           <div className="mb-3 flex items-center gap-2">
             <Radio size={14} className="text-rose-500" aria-hidden="true" />
@@ -71,7 +71,7 @@ export default function Snapshots(): JSX.Element {
         <div className="mt-6 grid gap-4 lg:grid-cols-2">
           <section
             aria-labelledby="snap-briefings"
-            className="rounded-lg border border-slate-200 bg-white p-4 sm:p-5 dark:border-slate-800 dark:bg-slate-900/40"
+            className="surface-card p-4 sm:p-5"
           >
             <SectionHeader
               id="snap-briefings"
@@ -84,7 +84,7 @@ export default function Snapshots(): JSX.Element {
 
           <section
             aria-labelledby="snap-pulse"
-            className="rounded-lg border border-slate-200 bg-white p-4 sm:p-5 dark:border-slate-800 dark:bg-slate-900/40"
+            className="surface-card p-4 sm:p-5"
           >
             <SectionHeader
               id="snap-pulse"
@@ -99,7 +99,7 @@ export default function Snapshots(): JSX.Element {
         <div className="mt-6 grid gap-4 sm:grid-cols-3">
           <section
             aria-labelledby="snap-quote"
-            className="rounded-lg border border-slate-200 bg-white p-4 sm:p-5 dark:border-slate-800 dark:bg-slate-900/40"
+            className="surface-card p-4 sm:p-5"
           >
             <SectionHeader id="snap-quote" icon={<Sparkles size={14} className="text-amber-500" />} title="Quote" />
             <QuoteOfTheDay />
@@ -107,7 +107,7 @@ export default function Snapshots(): JSX.Element {
 
           <section
             aria-labelledby="snap-tool"
-            className="rounded-lg border border-slate-200 bg-white p-4 sm:p-5 dark:border-slate-800 dark:bg-slate-900/40"
+            className="surface-card p-4 sm:p-5"
           >
             <SectionHeader
               id="snap-tool"
@@ -120,7 +120,7 @@ export default function Snapshots(): JSX.Element {
 
           <section
             aria-labelledby="snap-page"
-            className="rounded-lg border border-slate-200 bg-white p-4 sm:p-5 dark:border-slate-800 dark:bg-slate-900/40"
+            className="surface-card p-4 sm:p-5"
           >
             <SectionHeader
               id="snap-page"

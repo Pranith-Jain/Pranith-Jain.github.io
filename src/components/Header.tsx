@@ -151,8 +151,8 @@ export const Header = memo(function Header({ isDark, onToggleTheme, navLinks, to
       <header
         className={`sticky top-0 z-50 transition-all duration-300 ${
           isScrolled
-            ? 'border-b border-[rgb(var(--border-400))] bg-white dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-100))]'
-            : 'border-b border-transparent bg-white dark:bg-[rgb(var(--surface-100))]'
+            ? 'border-b border-[rgb(var(--border-400))] bg-[rgb(var(--surface-100))] dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-100))]'
+            : 'border-b border-transparent bg-[rgb(var(--surface-100))] dark:bg-[rgb(var(--surface-100))]'
         }`}
       >
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-2.5 sm:py-3 sm:px-6">
@@ -343,7 +343,7 @@ export const Header = memo(function Header({ isDark, onToggleTheme, navLinks, to
 
         {/* Menu */}
         <nav
-          className={`absolute top-[72px] left-0 right-0 border-t border-[rgb(var(--border-400))] bg-white dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-100))] max-h-[calc(100vh-80px)] overflow-y-auto transition-all duration-300 ${
+          className={`absolute top-[72px] left-0 right-0 border-t border-[rgb(var(--border-400))] bg-white dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-100))] max-h-[calc(100dvh-80px)] overflow-y-auto transition-all duration-300 ${
             isMobileMenuOpen ? 'translate-y-0 opacity-100' : '-translate-y-3 opacity-0'
           }`}
           aria-label="Mobile navigation"

@@ -556,7 +556,7 @@ export default function AssetIntel(): JSX.Element {
         <ArrowLeft size={14} /> back to tools
       </Link>
 
-      <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2">Asset Intelligence</h1>
+      <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2">Asset Intelligence</h1>
       <p className="text-muted mb-8 max-w-3xl">
         Unified IP and domain asset intelligence — exposed host view, WHOIS history, domain pivoting, and artifact
         analysis. Inspired by etugen.io's asset reconnaissance capabilities.

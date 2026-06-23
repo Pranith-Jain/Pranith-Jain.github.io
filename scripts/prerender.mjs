@@ -173,7 +173,6 @@ const ROUTES = [
   '/threatintel/social/x-live',
   '/threatintel/social/x-watch',
   '/threatintel/tools/copilot',
-  '/threatintel/tools/copilot-chat',
   '/threatintel/tools/graph',
   '/threatintel/tools/investigations',
   '/threatintel/tools/mcp',

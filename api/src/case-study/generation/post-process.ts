@@ -694,6 +694,18 @@ export function postProcess(input: PostProcessInput): PostProcessOutput {
     if (!lowerFacts.includes(m)) errors.push(`warning: contextual CVE not in facts: ${m}`);
   }
 
+  // CVSS grounding. A fabricated severity ("CVSS 9.8" when the real score is
+  // 5.3) is as misleading as a fabricated CVE but sails past the CVE-ID check.
+  // Warn (non-blocking) when a "CVSS <score>" in the body has no matching score
+  // in the facts. The tight pattern (CVSS + whitespace + a 0-10 score, never a
+  // colon-joined vector like "CVSS:3.1/...") keeps false-positives near zero.
+  for (const m of body.matchAll(/\bCVSS\s+(?:v?\d(?:\.\d)?\s+)?(\d{1,2}(?:\.\d)?)\b/gi)) {
+    const score = m[1];
+    if (score && Number(score) <= 10 && !input.factsText.includes(score)) {
+      errors.push(`warning: CVSS score not in facts: ${score}`);
+    }
+  }
+
   const iocs: PostIOC[] = [];
   const seen = new Set<string>();
   const add = (type: PostIOC['type'], value: string) => {
@@ -750,6 +762,17 @@ export function postProcess(input: PostProcessInput): PostProcessOutput {
     // those are IOCs. Skip domain extraction entirely for this type.
     if (input.type === 'ransom') continue;
     add('domain', host);
+  }
+
+  // IOC grounding. An IP or hash in the body that is absent from the facts is
+  // most likely invented (or pulled from the model's memory). Layer-2 live
+  // validation catches non-existent indicators, but only when provider keys
+  // are set and the lookup doesn't time out — this facts check is an always-on
+  // complement that surfaces fabricated IOCs as a non-blocking warning.
+  for (const ioc of iocs) {
+    if ((ioc.type === 'ipv4' || ioc.type === 'sha256') && !lowerFacts.includes(ioc.value.toLowerCase())) {
+      errors.push(`warning: ${ioc.type} not in facts: ${ioc.value}`);
+    }
   }
 
   const quality = scoreQuality(body, iocs);

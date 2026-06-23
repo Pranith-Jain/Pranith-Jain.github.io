@@ -52,7 +52,7 @@ export async function feedDigestHandler(c: Context<{ Bindings: Env }>): Promise<
       user: `Period: ${body.period ?? 'daily'}\n\nArticles:\n${itemList}`,
       maxTokens: 3000,
       temperature: 0.3,
-    });
+    }, c.env.GOOGLE_AI_STUDIO_API_KEY);
 
     const digest = parseJson(text);
     return c.json({ digest, model, generated_at: new Date().toISOString() });

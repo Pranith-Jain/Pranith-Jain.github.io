@@ -22,7 +22,7 @@
 - `si_get_doc` - Return the full markdown body of a single knowledge-base doc. Get slugs from si_list_docs.
 - `si_get_query` - Return the full markdown body of a single KQL query (Defender XDR / Sentinel hunting query, IoC correlation, or campaign playbook). Use si_list_queries first to discover slugs.
 - `si_get_ref` - Return a reference dataset by name. Get names from si_list_ref. Common: mitre-attck-enterprise (MITRE ATT&CK enterprise matrix, ~32 KB), known-kql-tables (M365 Defender table inventory, ~17 KB), m365-platform-coverage (coverage map, ~16 KB), ingestion-qN (Sentinel ingestion-scan query result schemas).
-- `si_get_routing_prompt` - Return the upstream .github/copilot-instructions.md verbatim — the universal skill-detection / routing prompt. Clients should load this once at session start to learn how to map natural language to the right si\_\* tool. ~91 KB.
+- `si_get_routing_prompt` - Return the upstream .github/copilot-instructions.md verbatim — the universal skill-detection / routing prompt. Clients should load this once at session start to learn how to map natural language to the right si_* tool. ~91 KB.
 - `si_get_script` - Return the raw body of a PowerShell script or detection-manifest. Use si_list_scripts to discover filenames. The PowerShell scripts target Microsoft Defender XDR / Sentinel / M365 — they are NOT executable in the Worker; copy them to a PowerShell 7+ session locally to run.
 - `si_get_skill` - Return the full SKILL.md body (markdown) for a single security investigation skill. Use si_list_skills first to discover slugs.
 - `si_hypos_generate` - HYPOS: hypothesis engine for threat hunting. Given a free-text anomaly description and optional IOCs / environment, return ranked hypotheses with kill-chain phase, MITRE techniques, what-to-look-for signals, sample KQL, and matched SI skills.
@@ -43,8 +43,8 @@
 - `si_render_svg` - Render an SVG dashboard from a manifest + data. Returns a self-contained <svg> string with inline styles, no external dependencies. Use si_render_svg_dashboard(slug) to get the canonical manifest for a skill, then pass its body as manifestYaml here. Supports all 14 widget types: title-banner, kpi-card, delta-kpi-card, score-card, donut-chart, stacked-bar-chart, horizontal-bar-chart, line-chart, waterfall-chart, sparkline, progress-bar, table-widget, recommendation-cards, assessment-banner, coverage-matrix. Unknown types render as a dashed warning panel.
 - `si_render_svg_dashboard` - Return the SVG widget manifest (YAML) for a skill that ships one (14 of 25 skills do). The manifest declares canvas, palette, and a list of widget instances to render. Pair with si_get_skill({slug: "svg-dashboard"}) for the component-library reference. Returns {hasManifest:false,...} if the skill has no SVG manifest.
 - `si_shiftlog_close` - SHIFTLOG: close a shift entry (sets ended_at to now, or to a provided ISO timestamp).
-- `si_shiftlog_create` - SHIFTLOG: start a new SOC shift handover entry. Returns the created entry including its id (sl\_...).
-- `si_shiftlog_get` - SHIFTLOG: fetch a single shift handover entry by id (sl\_...).
+- `si_shiftlog_create` - SHIFTLOG: start a new SOC shift handover entry. Returns the created entry including its id (sl_...).
+- `si_shiftlog_get` - SHIFTLOG: fetch a single shift handover entry by id (sl_...).
 - `si_shiftlog_list` - SHIFTLOG: list recent shift handover entries. Filter by author, shift, or openOnly (excludes closed shifts).
 - `si_shiftlog_update` - SHIFTLOG: patch a shift entry (notes, open cases, IOCs, escalations, endedAt).
 - `si_stats` - Return cache + manifest stats for the Security Investigator data: index loaded, body-cache sizes and hit ratios. Useful for diagnosing cold-start latency.
@@ -62,7 +62,7 @@
 - `lookup_mitre` - Look up a MITRE ATT&CK technique by ID. Returns technique name, description, tactics, mitigations, and detection guidance.
 - `poc_scan` - Search GitHub for public exploit/PoC repositories for a CVE. Returns repo URLs, star counts, language, age, and whether the repo has actual code. Bypasses GitHub 1000-result limit via monthly pagination.
 - `soc_cve_report` - Generate a SOC CVE intelligence report. Takes a list of up to 50 CVE IDs and bundles CVE lookup + PoC scan + health check into a downloadable CSV or Markdown report. Returns executive summary, CVSS/EPSS/KEV details, PoC repos, and pipeline health.
-- `tg_boolean_search` - Search Telegram leak messages with boolean AND/OR/NOT operators and field qualifiers. Fields: text, channel.title, channel.username, severity, leak_type. Supports wildcards (prefix\*) and exact phrases ("quoted").
+- `tg_boolean_search` - Search Telegram leak messages with boolean AND/OR/NOT operators and field qualifiers. Fields: text, channel.title, channel.username, severity, leak_type. Supports wildcards (prefix*) and exact phrases ("quoted").
 - `tg_saved_search_create` - Save a Telegram boolean search query for one-click reuse.
 - `tg_saved_search_delete` - Delete a saved Telegram search query.
 - `tg_saved_searches_list` - List saved Telegram boolean search queries.

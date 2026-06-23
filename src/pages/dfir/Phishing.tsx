@@ -166,7 +166,7 @@ export default function Phishing(): JSX.Element {
         <ArrowLeft size={14} /> back
       </BackLink>
       <div className="animate-fade-in-up">
-        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2">Phishing Email Analyzer</h1>
+        <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2">Phishing Email Analyzer</h1>
         <p className="text-muted mb-8 max-w-2xl">
           Paste raw email source. We parse headers, check SPF/DKIM/DMARC results, extract URLs, and compute a risk
           score. URLs link straight into the IOC checker.
@@ -265,7 +265,7 @@ export default function Phishing(): JSX.Element {
         id="fingerprint"
         className="mt-12 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-5"
       >
-        <h2 className="text-lg font-display font-bold mb-2 flex items-center gap-2">
+        <h2 className="text-lg font-display font-semibold mb-2 flex items-center gap-2">
           <Fingerprint size={16} className="text-brand-600 dark:text-brand-400" />
           Phishing Kit Fingerprint
         </h2>
@@ -345,7 +345,7 @@ export default function Phishing(): JSX.Element {
         id="auto-analyze"
         className="mt-12 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-5"
       >
-        <h2 className="text-lg font-display font-bold mb-2 flex items-center gap-2">
+        <h2 className="text-lg font-display font-semibold mb-2 flex items-center gap-2">
           <Eye size={16} className="text-brand-600 dark:text-brand-400" />
           URL Auto-Analysis
         </h2>

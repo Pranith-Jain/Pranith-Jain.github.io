@@ -10,7 +10,7 @@ export function BackToTop({ visible, onClick }: BackToTopProps) {
     <button
       type="button"
       onClick={onClick}
-      className={`fixed bottom-20 sm:bottom-8 right-4 sm:right-8 z-50 grid h-12 w-12 place-items-center rounded-full bg-brand-600 text-white shadow-lg transition-all duration-300 hover:bg-brand-700 hover:scale-110 active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 ${
+      className={`fixed bottom-24 sm:bottom-8 right-4 sm:right-8 z-50 grid h-12 w-12 place-items-center rounded-full bg-brand-600 text-white shadow-lg transition-all duration-300 hover:bg-brand-700 hover:scale-110 active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 ${
         visible ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0 pointer-events-none'
       }`}
       aria-label="Back to top"

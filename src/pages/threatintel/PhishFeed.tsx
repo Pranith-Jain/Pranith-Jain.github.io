@@ -151,7 +151,7 @@ export default function PhishFeed(): JSX.Element {
 
       <div className="flex items-center gap-3 mb-1">
         <Fish className="w-7 h-7 text-amber-500" />
-        <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100">Phish Feed</h1>
+        <h1 className="text-3xl sm:text-4xl font-display font-bold text-slate-900 dark:text-slate-100">Phish Feed</h1>
       </div>
       <p className="text-muted mb-6 text-sm max-w-3xl leading-relaxed">
         Live phishing URLs from OpenPhish with built-in brand detection. PhishTank enrichment is optional (requires API

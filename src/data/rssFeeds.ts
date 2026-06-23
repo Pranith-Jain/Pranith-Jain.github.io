@@ -142,11 +142,11 @@ export const rssFeeds: RSSFeed[] = [
   },
   {
     id: 'mandiant',
-    name: 'Mandiant (Google Threat Intelligence)',
-    url: 'https://cloud.google.com/blog/topics/threat-intelligence/rss',
-    description: 'APT research, incident response insights, and threat intelligence from Mandiant/Google TIClient',
+    name: 'Google Security Blog',
+    url: 'https://feeds.feedburner.com/GoogleOnlineSecurityBlog',
+    description: 'Google online security research — APT analysis, vulnerability disclosures, and platform threat intelligence from Google + Mandiant.',
     category: 'threat-intel',
-    source: 'cloud.google.com',
+    source: 'Google Security Blog',
     language: 'en',
   },
   {
@@ -161,7 +161,7 @@ export const rssFeeds: RSSFeed[] = [
   {
     id: 'sophos-news',
     name: 'Sophos News',
-    url: 'https://news.sophos.com/en-us/feed/',
+    url: 'https://www.sophos.com/en-gb/blog/feed/',
     description: 'Sophos X-Ops threat research, malware analysis, and defensive guidance',
     category: 'threat-intel',
     source: 'sophos.com',
@@ -170,7 +170,7 @@ export const rssFeeds: RSSFeed[] = [
   {
     id: 'trendmicro-research',
     name: 'Trend Micro Research',
-    url: 'https://feeds.trendmicro.com/TrendMicroResearch',
+    url: 'https://feeds.feedburner.com/TrendMicroResearch',
     description: 'Trend Micro Zero Day Initiative, APT research, and vulnerability analysis',
     category: 'threat-intel',
     source: 'trendmicro.com',
@@ -179,7 +179,7 @@ export const rssFeeds: RSSFeed[] = [
   {
     id: 'withsecure-labs',
     name: 'WithSecure Labs',
-    url: 'https://labs.withsecure.com/publications/rss',
+    url: 'https://www.withsecure.com/rss/',
     description: 'WithSecure (F-Secure) threat research, adversary tradecraft, and detection engineering',
     category: 'threat-intel',
     source: 'withsecure.com',
@@ -1280,11 +1280,11 @@ export const rssFeeds: RSSFeed[] = [
   },
   {
     id: 'countercept',
-    name: 'Countercept Blog',
-    url: 'https://countercept.com/blog/feed/',
+    name: 'Countercept (WithSecure)',
+    url: 'https://www.withsecure.com/rss/',
     description: 'Countercept (WithSecure) — advanced threat hunting, red team research, and detection engineering.',
     category: 'threat-intel',
-    source: 'countercept.com',
+    source: 'withsecure.com',
     language: 'en',
   },
   {
@@ -1325,11 +1325,11 @@ export const rssFeeds: RSSFeed[] = [
   },
   {
     id: 'chronicle-blog',
-    name: 'Chronicle (Google) Blog',
-    url: 'https://chronicle.security/blog/rss/',
-    description: 'Chronicle Security — threat intelligence platform research, IOC analysis, and detection engineering.',
+    name: 'Google Online Security Blog',
+    url: 'https://feeds.feedburner.com/GoogleOnlineSecurityBlog',
+    description: 'Google online security research — product security, threat analysis, and vulnerability disclosures.',
     category: 'threat-intel',
-    source: 'chronicle.security',
+    source: 'Google Security Blog',
     language: 'en',
   },
   {

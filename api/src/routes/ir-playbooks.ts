@@ -120,7 +120,7 @@ export async function irPlaybookHandler(c: Context<{ Bindings: Env }>): Promise<
       runCompletion(
         c.env.AI,
         { system: SYSTEM_PROMPT, user: userPrompt, maxTokens: 3000, temperature: 0.3 },
-        { groqKey: c.env.GROQ_API_KEY }
+        { googleKey: c.env.GOOGLE_AI_STUDIO_API_KEY, groqKey: c.env.GROQ_API_KEY }
       ),
       timeoutPromise,
     ]);

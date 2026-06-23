@@ -3,9 +3,9 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  --font-family-sans: 'Hanken Grotesk', ui-sans-serif, system-ui, sans-serif;
-  --font-family-display: 'Bricolage Grotesque', 'Hanken Grotesk', sans-serif;
-  --font-family-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --font-sans: 'Hanken Grotesk', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Bricolage Grotesque', 'Hanken Grotesk', sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
   --font-size-eyebrow: 0.6875rem;
   --font-size-eyebrow--line-height: 1rem;
@@ -53,7 +53,7 @@
 
 @layer base {
   html {
-    font-family: var(--font-family-sans);
+    font-family: var(--font-sans);
     font-size: 16px;
     scroll-behavior: smooth;
   }
@@ -64,7 +64,7 @@
   h4,
   h5,
   h6 {
-    font-family: var(--font-family-display);
+    font-family: var(--font-display);
     letter-spacing: -0.018em;
     font-optical-sizing: auto;
   }
@@ -195,6 +195,26 @@
     background-color: rgb(var(--surface-200) / 0.6);
   }
 
+  .surface-elevated {
+    border-radius: var(--radius-panel);
+    border: 1px solid #e2e8f0;
+    background-color: white;
+    box-shadow: var(--shadow-e2);
+  }
+
+  .dark .surface-elevated {
+    border-color: rgb(var(--border-400));
+    background-color: rgb(var(--surface-200) / 0.8);
+  }
+
+  .safe-area-pb {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  .border-default {
+    border-color: rgb(var(--border-400));
+  }
+
   .card-hover {
     &:hover {
       translate: 0 -2px;
@@ -282,20 +302,20 @@
   }
 
   .prose-hunt h2 {
-    font-family: var(--font-family-display);
+    font-family: var(--font-display);
     font-size: 1.25rem;
     margin-block: 1.5em 0.5em;
     letter-spacing: -0.018em;
   }
 
   .prose-hunt h3 {
-    font-family: var(--font-family-display);
+    font-family: var(--font-display);
     font-size: 1.0625rem;
     margin-block: 1.25em 0.5em;
   }
 
   .prose-hunt code {
-    font-family: var(--font-family-mono);
+    font-family: var(--font-mono);
     font-size: 0.8125rem;
     padding: 0.125em 0.375em;
     border-radius: 4px;
@@ -312,7 +332,7 @@
     overflow-x: auto;
     background-color: #0f172a;
     color: #e2e8f0;
-    font-family: var(--font-family-mono);
+    font-family: var(--font-mono);
     font-size: 0.8125rem;
     line-height: 1.5;
   }

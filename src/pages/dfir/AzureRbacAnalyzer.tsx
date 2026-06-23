@@ -410,7 +410,7 @@ export default function AzureRbacAnalyzer(): JSX.Element {
       </BackLink>
 
       <div className="animate-fade-in-up">
-        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2">Azure RBAC Analyzer</h1>
+        <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2">Azure RBAC Analyzer</h1>
         <p className="text-muted mb-6 max-w-2xl">
           Paste <span className="font-mono text-tool">az role assignment list -o json</span> or{' '}
           <span className="font-mono text-tool">az role definition list --custom-role-only -o json</span>. Scored for

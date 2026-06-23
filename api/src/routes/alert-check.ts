@@ -39,7 +39,7 @@ export async function alertCheckHandler(c: Context<{ Bindings: Env }>): Promise<
       system: ALERT_SYSTEM,
       user: `Watchlist keywords: ${body.keywords.join(', ')}\n\nEvents:\n${eventList}`,
       maxTokens: 2000,
-    });
+    }, c.env.GOOGLE_AI_STUDIO_API_KEY);
 
     const result = parseJson(text) as Record<string, unknown>;
     return c.json({ ...result, model, generated_at: new Date().toISOString() });

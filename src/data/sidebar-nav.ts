@@ -214,7 +214,6 @@ const PAGE_ICON_OVERRIDES: Record<string, LucideIcon> = {
   '/threatintel/osint/secops': Settings,
   // Tools
   '/threatintel/tools/copilot': Sparkles,
-  '/threatintel/tools/copilot-chat': MessageSquare,
   '/threatintel/tools/mcp': Zap,
   '/threatintel/tools/misp': Database,
   '/threatintel/tools/stix': FileText,

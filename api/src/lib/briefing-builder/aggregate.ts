@@ -439,7 +439,7 @@ export async function buildLlmExecutiveSummary(
           maxTokens: 400,
           temperature: 0.3,
         },
-        { groqKey: env.GROQ_API_KEY, quality: true }
+        { googleKey: env.GOOGLE_AI_STUDIO_API_KEY, groqKey: env.GROQ_API_KEY, quality: true }
       ),
       new Promise<never>((_, reject) => setTimeout(() => reject(new Error('llm-summary-timeout')), 8000)),
     ]);

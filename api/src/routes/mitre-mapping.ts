@@ -39,7 +39,7 @@ export async function mitreMappingHandler(c: Context<{ Bindings: Env }>): Promis
       system: MITRE_SYSTEM,
       user,
       maxTokens: 2000,
-    });
+    }, c.env.GOOGLE_AI_STUDIO_API_KEY);
 
     const mapping = parseJson(text);
     return c.json({ mapping, model, generated_at: new Date().toISOString() });

@@ -111,10 +111,10 @@ function tidyLinkedin(text: string): string {
 
 const TWITTER_HARD_LIMIT = 280;
 const LINKEDIN_HARD_LIMIT = 3000;
-// LinkedIn soft floor. The 5-block structure the prompt requires needs
-// 1500+ characters to deliver substance (hook + context + insight +
-// specifics + close). A post under 1300 chars almost always means the
-// model skipped the SPECIFICS or the INSIGHT block. Treat it as a
+// LinkedIn soft floor. The 4-block structure the prompt requires needs
+// 1500+ characters to deliver substance (hook + insight + specifics list +
+// close). A post under 1300 chars almost always means the
+// model skipped the SPECIFICS list or the INSIGHT block. Treat it as a
 // quality issue that will trigger a retry rather than a length cap.
 const LINKEDIN_SOFT_FLOOR = 1300;
 const LINKEDIN_HARD_FLOOR = 900;
@@ -175,18 +175,22 @@ function validateSocial(text: string, platform: 'twitter' | 'linkedin', sourceBo
     const bodyOnly = text.split(/FIRST COMMENT:/i)[0] ?? text;
     const cves = bodyOnly.match(/\bCVE-\d{4}-\d{4,7}\b/g) ?? [];
     const versionish = bodyOnly.match(/\bv?\d+\.\d+(?:\.\d+)?\b/g) ?? [];
-    // Common CTI vendor / sector / region vocabulary. Curated short
-    // list — generic text should not false-positive on these.
+    // Common CTI vendor / sector / region vocabulary. Curated short list.
+    // NOTE: matched on WORD BOUNDARIES (see matchConcrete below), never as raw
+    // substrings — substring matching let filler words satisfy the gate
+    // ("beca-us-e" hit "us", "dis-play" hit "play", "go to" hit "go "), which
+    // defeated the whole point of the concrete-specifics check. Ambiguous
+    // short tokens ('us'/'uk'/'eu'/'go'/'play'/bare 'actor'/'soc'/'spring'/
+    // 'node'/'rust') were dropped; full names ('india', 'threat actor') stay.
     const concreteWords = [
       'ransomware',
       'malware',
       'phishing',
       'apt',
       'threat actor',
-      'actor',
-      'cve-',
+      'cve',
       'cvss',
-      'cwe-',
+      'cwe',
       'mitre',
       'att&ck',
       'healthcare',
@@ -194,9 +198,6 @@ function validateSocial(text: string, platform: 'twitter' | 'linkedin', sourceBo
       'financial',
       'energy',
       'government',
-      'us',
-      'uk',
-      'eu',
       'india',
       'japan',
       'germany',
@@ -212,7 +213,6 @@ function validateSocial(text: string, platform: 'twitter' | 'linkedin', sourceBo
       'firewall',
       'edr',
       'siem',
-      'soc',
       'vpn',
       'okta',
       'office 365',
@@ -230,24 +230,18 @@ function validateSocial(text: string, platform: 'twitter' | 'linkedin', sourceBo
       'magento',
       'log4j',
       'log4shell',
-      'spring',
       'tomcat',
       'jenkins',
       'gitlab',
       'python',
-      'node',
       'php',
       'ruby',
-      'java',
-      'go ',
-      'rust',
       'lockbit',
       'cl0p',
       'clop',
       'blackcat',
       'alphv',
       'akira',
-      'play',
       'ragnar',
       'medusa',
       'inc ransom',
@@ -256,9 +250,15 @@ function validateSocial(text: string, platform: 'twitter' | 'linkedin', sourceBo
       'qilin',
     ];
     const lc = bodyOnly.toLowerCase();
+    // Boundary-aware match: the token must sit between non-alphanumerics (or
+    // string edges) so 'us' matches "us" / "the US" but not "because".
+    const matchConcrete = (w: string): boolean => {
+      const esc = w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      return new RegExp(`(?:^|[^a-z0-9])${esc}(?:[^a-z0-9]|$)`).test(lc);
+    };
     concreteHits = cves.length;
     for (const w of concreteWords) {
-      if (lc.includes(w)) concreteHits += 1;
+      if (matchConcrete(w)) concreteHits += 1;
     }
     // Version numbers count as concrete on their own (e.g. "iOS 17.4",
     // "Apache 2.4.57") but only when they look anchored to a product
@@ -351,6 +351,7 @@ async function generateWithValidation(
   platform: 'twitter' | 'linkedin',
   sourceBody: string,
   groqKey?: string,
+  googleKey?: string,
   maxTokens = 1200
 ): Promise<{ text: string; quality: SocialQuality }> {
   let lastText = '';
@@ -368,7 +369,7 @@ async function generateWithValidation(
     const result = await runCompletion(
       ai,
       { system, user: prompt, temperature: 0.7, maxTokens },
-      { groqKey, quality: true }
+      { googleKey, groqKey, quality: true }
     );
 
     lastText = platform === 'twitter' ? tidySocial(result.text) : tidyLinkedin(result.text);
@@ -393,15 +394,15 @@ function buildTwitterPrompt(src: SocialSource, includeLink = true): string {
   return (
     `<format name="X/Twitter thread">\n` +
     `- Before writing, think through 5 different hook options silently. Pick the strongest one — the one that stops the scroll. Output ONLY the final thread — no reasoning, no option list, no commentary.\n` +
-    `- 5-7 posts for a technical breakdown. A single post for breaking news or one sharp take. Use only what the facts justify.\n` +
-    `- Tweet 1 (<=280 chars): Hook that stops the scroll. Use PAS (Problem-Agitation-Solution). NO "1/" prefix. NO link (kills reach). NO teaser framing. Lead with a named entity, a number, or a contrast.\n` +
-    `- Tweets 2-5: One clear idea per tweet. Examples, data points, or analysis. Each standalone-valuable. Include ONE bookmark-worthy post (IOC list, affected versions, CVE list).\n` +
+    `- 5-8 posts for a technical breakdown. A single post for breaking news or one sharp take. Use only what the facts justify.\n` +
+    `- Tweet 1 (<= 280 chars): Hook that stops the scroll, built from THIS case's facts. It does NOT start with "1/". NO link (kills reach). NO teaser framing. Lead with a named entity, a hard number, or a sharp contrast. Vary the form from your other threads.\n` +
+    `- Tweets 2-5: One clear idea per tweet. Examples, data points, or analysis. Each tweet stands alone and carries its own value. Include ONE bookmark-worthy post (IOC list, affected versions, CVE list).\n` +
     `- Tweet 6 (or last): Insight or revelation — the analytical take that makes this thread worth reading. End with a twist or perspective shift, not a summary.\n` +
     `- Final tweet: CTA that invites reply. Use an open loop or a substantive question. Not "thoughts?" or "retweet if".\n` +
     (includeLink
       ? `- LINK in a separate final line: "FIRST REPLY: ${postUrl}"\n`
       : `- Do NOT include a FIRST REPLY or FIRST COMMENT link.\n`) +
-    `- Each post <280 characters. Append " (n/N)" at the END of each post.\n` +
+    `- Each post < 280 chars. Append " (n/N)" at the END of each post.\n` +
     `- Lowercase optional for personal tone. Fragments ok. Run-ons... human texture.\n` +
     `- At most ONE hashtag (if genuinely specific). At most ONE warning-level emoji (🔴 ⚠️), never decorative.\n` +
     `- CRITICAL: Every CVE ID, statistic, and IOC must come from the input data. Do not invent.\n` +
@@ -409,6 +410,7 @@ function buildTwitterPrompt(src: SocialSource, includeLink = true): string {
     `<examples>\n` +
     `GOOD post 1: "Lockbit5 posted 15 victims in 7 days. 4 already appeared under other affiliates this quarter. Same haul, second auction. Affiliate movement, not new compromise. (1/6)"\n` +
     `BAD:   "1/ Today I want to talk about the Lockbit5 leak site activity. Let's dive in."\n` +
+    `NOTE: the numbers in the GOOD example ("15 victims", "4 affiliates") show the FORM of a concrete hook, not data to reuse. Use ONLY figures present in the input below. If the data has no number for a point, cut the point rather than invent one.\n` +
     `</examples>\n\n` +
     `<input>\n` +
     `Title: ${src.title}\n\n` +
@@ -424,7 +426,7 @@ function buildLinkedinPrompt(src: SocialSource, includeLink = true): string {
     `- Before writing, think through 5 different hook options silently. Pick the strongest one — the one that stops the scroll. Output ONLY the final post — no reasoning, no option list, no commentary.\n` +
     `RANGE: 1300-2000 characters in the body (the first three lines, ~210 characters, are THE FOLD — everything before that is mobile-first feed preview and decides the click).\n` +
     `RULES — non-negotiable:\n` +
-    `- THE FOLD (first 3 lines, <= 210 characters) MUST contain a complete, standalone point using PAS (Problem-Agitation-Solution). Not a teaser. The reader who never clicks should still learn one specific thing. Lead with a named entity, a number, or a contrast.\n` +
+    `- THE FOLD (first 3 lines, <= 210 characters) MUST contain a complete, standalone point. Not a teaser. The reader who never clicks should still learn one specific thing. Lead with a named entity, a hard number, or a sharp contrast, pulled from THIS case.\n` +
     (includeLink
       ? `- The body must contain NO link. Putting a URL in the post body cuts reach 50-60%. The link goes on its own final line: "FIRST COMMENT: ${postUrl}".\n`
       : `- Do NOT include a FIRST COMMENT or link in the post.\n`) +
@@ -435,8 +437,8 @@ function buildLinkedinPrompt(src: SocialSource, includeLink = true): string {
     `- Every CVE id, statistic, named victim, and named entity MUST come from the input data. Inventing a number is the fastest way to lose credibility.\n` +
     `\n` +
     `STRUCTURE — four blocks, each earns its place. Use a single blank line between blocks:\n` +
-    `  1. HOOK (first 1-2 lines, <= 210 chars — entirely inside THE FOLD): Use PAS. A specific fact, a number, a contrast, or a contrarian read. NOT a teaser. The reader should be able to stop here and still have learned something concrete.\n` +
-    `  2. STORY OR INSIGHT (1-2 paragraphs, the analytical core): the pattern, the contrast, the technical detail other coverage missed. Lead with the take, then support it with data. Include a scannable bulleted list of 4-8 concrete facts (named CVE / vendor / version / sector / IOC). One bullet = one fact.\n` +
+    `  1. HOOK (first 1-2 lines, <= 210 chars, entirely inside THE FOLD): a specific fact, a hard number, a sharp contrast, or a contrarian read, taken from THIS case. NOT a teaser. The reader should be able to stop here and still have learned something concrete. Do not reuse a hook shape you would use on another post.\n` +
+    `  2. STORY OR INSIGHT (1-2 paragraphs, the analytical core): the pattern, the contrast, the technical detail other coverage missed. Lead with the take, then support it with data. Include a scannable 4-8 item bulleted list of concrete facts (named CVE / vendor / version / sector / IOC). One bullet = one fact.\n` +
     `  3. CLOSE (1-2 lines): the takeaway and one substantive practitioner question — the kind a SOC lead or IR consultant would actually answer. Not "Thoughts?" or "What do you think?".\n` +
     `  4. CAROUSEL OUTLINE: — optional but high-reach. When the case is a meaty technical breakdown (CVE chain, IOC dump, APT tradecraft, threat-actor profile), append a separate block on its own line: "CAROUSEL OUTLINE:" followed by 5-8 one-line slide titles (slide 1 = the hook, slides 2-7 = one specific idea each, slide 8 = the takeaway). Skip the block entirely for thin or breaking items — it should not appear at all if you have nothing to carousel.\n` +
     (includeLink
@@ -493,6 +495,8 @@ function buildLinkedinPrompt(src: SocialSource, includeLink = true): string {
     `What do you think? Let me know in the comments! #cyber #security #infosec\n` +
     `\n` +
     `↑ hype-nouns ("implications are huge"), throat-clearing ("in today's landscape"), decorative emoji, "many/several/a number of/some" bullets, link in body, generic hashtag stack, weak close. This is exactly the post the algorithm buries.\n` +
+    `\n` +
+    `CRITICAL: every number, victim, dwell time, and percentage in the GOOD example is there to show the SHAPE of a specific, scannable post — they are NOT facts to carry over. In your post, use only figures, names, and indicators present in the input data below. If the data does not support a bullet, drop the bullet. Inventing a precise-sounding number to match the example is the single fastest way to lose credibility.\n` +
     `</examples>\n\n` +
     `<input>\n` +
     `Title: ${src.title}\n\n` +
@@ -589,7 +593,8 @@ async function generateTwitterFromSource(
   src: SocialSource,
   ai: Ai,
   now: Date,
-  groqKey?: string
+  groqKey?: string,
+  googleKey?: string
 ): Promise<{ twitter: string; generatedAt: string; _validation?: { quality: SocialQuality } }> {
   const factNote = extractVerifiedFacts(src.body);
   const { text, quality } = await generateWithValidation(
@@ -599,6 +604,7 @@ async function generateTwitterFromSource(
     'twitter',
     src.body,
     groqKey,
+    googleKey,
     1500
   );
   return { twitter: text, generatedAt: now.toISOString(), _validation: { quality } };
@@ -608,7 +614,8 @@ async function generateLinkedinFromSource(
   src: SocialSource,
   ai: Ai,
   now: Date,
-  groqKey?: string
+  groqKey?: string,
+  googleKey?: string
 ): Promise<{ linkedin: string; generatedAt: string; _validation?: { quality: SocialQuality } }> {
   const factNote = extractVerifiedFacts(src.body);
   const { text, quality } = await generateWithValidation(
@@ -618,10 +625,7 @@ async function generateLinkedinFromSource(
     'linkedin',
     src.body,
     groqKey,
-    // Bumped from 1400 → 2000 so the model has headroom for the 1500-char
-    // floor + 5-block structure. The previous budget had the model
-    // truncating the close or skipping the SPECIFICS block to fit the
-    // hard cap, leaving posts at ~900 chars.
+    googleKey,
     2000
   );
   return { linkedin: text, generatedAt: now.toISOString(), _validation: { quality } };
@@ -631,13 +635,14 @@ async function generateSocialFromSource(
   src: SocialSource,
   ai: Ai,
   now: Date,
-  groqKey?: string
+  groqKey?: string,
+  googleKey?: string
 ): Promise<SocialContent> {
   const factNote = extractVerifiedFacts(src.body);
 
   const [twitterRes, linkedinRes] = await Promise.allSettled([
-    generateWithValidation(ai, SOCIAL_SYSTEM, buildTwitterPrompt(src) + factNote, 'twitter', src.body, groqKey, 1500),
-    generateWithValidation(ai, SOCIAL_SYSTEM, buildLinkedinPrompt(src) + factNote, 'linkedin', src.body, groqKey, 2000),
+    generateWithValidation(ai, SOCIAL_SYSTEM, buildTwitterPrompt(src) + factNote, 'twitter', src.body, groqKey, googleKey, 1500),
+    generateWithValidation(ai, SOCIAL_SYSTEM, buildLinkedinPrompt(src) + factNote, 'linkedin', src.body, groqKey, googleKey, 2000),
   ]);
 
   return {
@@ -654,26 +659,28 @@ async function generateSocialFromSource(
 
 // ── Public API (backward compat — accept Post) ───────────────────────────
 
-export async function generateSocialContent(post: Post, ai: Ai, now: Date, groqKey?: string): Promise<SocialContent> {
-  return generateSocialFromSource(postToSource(post), ai, now, groqKey);
+export async function generateSocialContent(post: Post, ai: Ai, now: Date, groqKey?: string, googleKey?: string): Promise<SocialContent> {
+  return generateSocialFromSource(postToSource(post), ai, now, groqKey, googleKey);
 }
 
 export async function generateTwitterContent(
   post: Post,
   ai: Ai,
   now: Date,
-  groqKey?: string
+  groqKey?: string,
+  googleKey?: string
 ): Promise<{ twitter: string; generatedAt: string; _validation?: { quality: SocialQuality } }> {
-  return generateTwitterFromSource(postToSource(post), ai, now, groqKey);
+  return generateTwitterFromSource(postToSource(post), ai, now, groqKey, googleKey);
 }
 
 export async function generateLinkedinContent(
   post: Post,
   ai: Ai,
   now: Date,
-  groqKey?: string
+  groqKey?: string,
+  googleKey?: string
 ): Promise<{ linkedin: string; generatedAt: string; _validation?: { quality: SocialQuality } }> {
-  return generateLinkedinFromSource(postToSource(post), ai, now, groqKey);
+  return generateLinkedinFromSource(postToSource(post), ai, now, groqKey, googleKey);
 }
 
 // ── New Public API (accept raw content) ──────────────────────────────────
@@ -683,7 +690,8 @@ export async function generateSocialFromCandidate(
   candidate: Candidate,
   ai: Ai,
   now: Date,
-  groqKey?: string
+  groqKey?: string,
+  googleKey?: string
 ): Promise<SocialContent> {
   const prospectiveSlug = `${candidate.key}-${slugify(candidate.title).slice(0, 40)}`.replace(/-+/g, '-');
   const src: SocialSource = {
@@ -691,7 +699,7 @@ export async function generateSocialFromCandidate(
     title: candidate.title,
     body: formatEvidenceText(candidate.evidence),
   };
-  return generateSocialFromSource(src, ai, now, groqKey);
+  return generateSocialFromSource(src, ai, now, groqKey, googleKey);
 }
 
 /** Generate Twitter from a candidate's evidence. */
@@ -699,7 +707,8 @@ export async function generateTwitterFromCandidate(
   candidate: Candidate,
   ai: Ai,
   now: Date,
-  groqKey?: string
+  groqKey?: string,
+  googleKey?: string
 ): Promise<{ twitter: string; generatedAt: string; _validation?: { quality: SocialQuality } }> {
   const prospectiveSlug = `${candidate.key}-${slugify(candidate.title).slice(0, 40)}`.replace(/-+/g, '-');
   const src: SocialSource = {
@@ -707,7 +716,7 @@ export async function generateTwitterFromCandidate(
     title: candidate.title,
     body: formatEvidenceText(candidate.evidence),
   };
-  return generateTwitterFromSource(src, ai, now, groqKey);
+  return generateTwitterFromSource(src, ai, now, groqKey, googleKey);
 }
 
 /** Generate LinkedIn from a candidate's evidence. */
@@ -715,7 +724,8 @@ export async function generateLinkedinFromCandidate(
   candidate: Candidate,
   ai: Ai,
   now: Date,
-  groqKey?: string
+  groqKey?: string,
+  googleKey?: string
 ): Promise<{ linkedin: string; generatedAt: string; _validation?: { quality: SocialQuality } }> {
   const prospectiveSlug = `${candidate.key}-${slugify(candidate.title).slice(0, 40)}`.replace(/-+/g, '-');
   const src: SocialSource = {
@@ -723,7 +733,7 @@ export async function generateLinkedinFromCandidate(
     title: candidate.title,
     body: formatEvidenceText(candidate.evidence),
   };
-  return generateLinkedinFromSource(src, ai, now, groqKey);
+  return generateLinkedinFromSource(src, ai, now, groqKey, googleKey);
 }
 
 /** Generate social content from user-provided notes/text. */
@@ -731,9 +741,10 @@ export async function generateSocialFromNotes(
   notes: SocialSource,
   ai: Ai,
   now: Date,
-  groqKey?: string
+  groqKey?: string,
+  googleKey?: string
 ): Promise<SocialContent> {
-  return generateSocialFromSource(notes, ai, now, groqKey);
+  return generateSocialFromSource(notes, ai, now, groqKey, googleKey);
 }
 
 /** Generate Twitter from user-provided notes/text. */
@@ -741,9 +752,10 @@ export async function generateTwitterFromNotes(
   notes: SocialSource,
   ai: Ai,
   now: Date,
-  groqKey?: string
+  groqKey?: string,
+  googleKey?: string
 ): Promise<{ twitter: string; generatedAt: string; _validation?: { quality: SocialQuality } }> {
-  return generateTwitterFromSource(notes, ai, now, groqKey);
+  return generateTwitterFromSource(notes, ai, now, groqKey, googleKey);
 }
 
 /** Generate LinkedIn from user-provided notes/text. */
@@ -751,7 +763,8 @@ export async function generateLinkedinFromNotes(
   notes: SocialSource,
   ai: Ai,
   now: Date,
-  groqKey?: string
+  groqKey?: string,
+  googleKey?: string
 ): Promise<{ linkedin: string; generatedAt: string; _validation?: { quality: SocialQuality } }> {
-  return generateLinkedinFromSource(notes, ai, now, groqKey);
+  return generateLinkedinFromSource(notes, ai, now, groqKey, googleKey);
 }

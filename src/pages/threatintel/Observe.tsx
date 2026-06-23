@@ -3,6 +3,7 @@ import { useSearchParams, Link } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
 import { detectIoc } from '../../lib/dfir/ioc-detect';
 import {
+  ArrowLeft,
   Search,
   Loader2,
   ExternalLink,
@@ -194,11 +195,11 @@ export default function Observe(): JSX.Element {
         to="/threatintel"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
-        <Search size={14} /> back
+        <ArrowLeft size={14} /> back
       </BackLink>
 
       <div className="animate-fade-in-up mb-8">
-        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
+        <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2 flex items-center gap-3">
           <Monitor className="text-brand-600 dark:text-brand-400" size={28} />
           Observable 360
         </h1>
@@ -466,7 +467,7 @@ export default function Observe(): JSX.Element {
                   Cross-source search
                 </Link>
                 <Link
-                  to={`/threatintel/copilot-chat?q=${encodeURIComponent(submittedQuery)}`}
+                  to={`/threatintel/tools/copilot?q=${encodeURIComponent(submittedQuery)}`}
                   className="flex items-center gap-2 text-xs font-mono text-muted hover:text-brand-600 dark:hover:text-brand-400 p-2 rounded hover:bg-slate-50 dark:hover:bg-slate-800/50"
                 >
                   <Users size={12} />

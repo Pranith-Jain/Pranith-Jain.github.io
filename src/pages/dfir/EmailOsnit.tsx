@@ -5,26 +5,20 @@
  * email reputation, DNS/SPF/DMARC, PGP keys, social hints.
  */
 
-import { useEffect, useState, useCallback, type FormEvent } from 'react';
+import { useState, type FormEvent } from 'react';
 import { BackLink } from '../../components/BackLink';
 import {
   ArrowLeft,
-  Search,
   Loader2,
   Shield,
   AlertTriangle,
   Mail,
   Globe,
   ExternalLink,
-  Check,
-  X,
   User,
-  Lock,
-  Server,
   Key,
   ChevronDown,
   ChevronUp,
-  Copy,
 } from 'lucide-react';
 
 interface EmailProfile {
@@ -104,7 +98,7 @@ export default function EmailOsnit() {
 
       <div className="flex flex-wrap items-start justify-between gap-4 mb-6">
         <div>
-          <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2">Email OSINT Profile</h1>
+          <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2">Email OSINT Profile</h1>
           <p className="text-sm font-mono text-muted max-w-2xl">
             Build digital identity from email — GitHub, Gravatar, breach exposure, reputation, DNS, PGP keys, social
             hints.

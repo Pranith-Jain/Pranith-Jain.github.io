@@ -1550,13 +1550,6 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
     keywords: ['ai', 'assistant', 'chat'],
   },
   {
-    path: '/threatintel/copilot-chat',
-    label: 'Threat Intel Copilot (chat)',
-    description: 'Direct chat interface for the threat-intel copilot.',
-    sectionLabel: 'Threat Intel · Tools',
-    group: 'threatintel',
-  },
-  {
     path: '/threatintel/search',
     label: 'Unified Search (alias)',
     description: 'Alias for the unified-search omnibox inside the Tools hub.',
@@ -3764,7 +3757,7 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
   },
   {
     path: '/threatintel/tools/socradar-tools',
-    label: 'SOC Radar Tools',
+    label: 'Tactical Radar Tools',
     description: 'DDoS intelligence, FortiGate breach check, healthcare breach tracking.',
     sectionLabel: 'Threat Intel · Tools',
     group: 'threatintel',
@@ -3773,13 +3766,6 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
     path: '/threatintel/tools/settings',
     label: 'Settings',
     description: 'Platform settings.',
-    sectionLabel: 'Threat Intel · Tools',
-    group: 'threatintel',
-  },
-  {
-    path: '/threatintel/tools/copilot-chat',
-    label: 'Copilot Chat',
-    description: 'AI copilot interface.',
     sectionLabel: 'Threat Intel · Tools',
     group: 'threatintel',
   },

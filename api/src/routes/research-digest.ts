@@ -43,7 +43,7 @@ export async function researchDigestHandler(c: Context<{ Bindings: Env }>): Prom
       user: `Research articles:\n${list}`,
       maxTokens: 3000,
       temperature: 0.3,
-    });
+    }, c.env.GOOGLE_AI_STUDIO_API_KEY);
 
     const digest = parseJson(text);
     return c.json({ digest, model, generated_at: new Date().toISOString() });

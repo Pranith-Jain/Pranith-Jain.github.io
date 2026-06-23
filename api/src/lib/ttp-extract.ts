@@ -505,7 +505,7 @@ export async function extractTTPsLLM(text: string, env: Env): Promise<TTPExtract
           maxTokens: 900,
           temperature: 0.2,
         },
-        { groqKey: env.GROQ_API_KEY }
+        { googleKey: env.GOOGLE_AI_STUDIO_API_KEY, groqKey: env.GROQ_API_KEY }
       ),
       timeout,
     ]);

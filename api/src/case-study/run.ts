@@ -58,6 +58,7 @@ export interface CaseStudyEnv {
   ABUSECH_AUTH_KEY?: string;
   BRIEFINGS_DB?: D1Database;
   GROQ_API_KEY?: string;
+  GOOGLE_AI_STUDIO_API_KEY?: string;
   /** Free VulnCheck Community token. Absent = VulnCheck KEV runner is a no-op. */
   VULNCHECK_API_TOKEN?: string;
   SITE_URL?: string;
@@ -336,6 +337,7 @@ export async function runDiscoveryNow(env: CaseStudyEnv, now: Date) {
         now,
         getDedup: memGet,
         groqKey: env.GROQ_API_KEY,
+        googleKey: env.GOOGLE_AI_STUDIO_API_KEY,
         trendingContext,
         alreadyCoveredTopics,
       }),
@@ -412,7 +414,7 @@ export async function generateSocialForPost(slug: string, env: CaseStudyEnv, now
       console.warn(JSON.stringify({ job: 'auto-social', slug, status: 'post_not_found' }));
       return;
     }
-    const social = await generateSocialContent(post, env.AI as never, now, env.GROQ_API_KEY);
+    const social = await generateSocialContent(post, env.AI as never, now, env.GROQ_API_KEY, env.GOOGLE_AI_STUDIO_API_KEY);
     await env.CASE_STUDIES.put(csKvKeys.social(slug), JSON.stringify(social));
     console.log(JSON.stringify({ job: 'auto-social', slug, status: 'generated' }));
   } catch (err) {
@@ -440,7 +442,7 @@ export async function runPublisherNow(env: CaseStudyEnv, now: Date) {
     getApproved: (k) => getApproved(env.CASE_STUDIES, k),
     unapprove: (k) => unapprove(env.CASE_STUDIES, k),
     generatePost: (cand, n) =>
-      generatePost({ candidate: cand, ai: env.AI as never, now: n, groqKey: env.GROQ_API_KEY, validationEnv }),
+      generatePost({ candidate: cand, ai: env.AI as never, now: n, groqKey: env.GROQ_API_KEY, googleKey: env.GOOGLE_AI_STUDIO_API_KEY, validationEnv }),
     putPost: (p) => putPost(env.CASE_STUDIES, p),
     putDraft: (p) => putDraft(env.CASE_STUDIES, p),
     refreshRss: async (index) => {

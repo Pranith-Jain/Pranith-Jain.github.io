@@ -1,6 +1,6 @@
 import { SELF, env } from 'cloudflare:test';
 import { describe, it, expect, beforeAll } from 'vitest';
-import type { Env } from '../src/env';
+import type { Env } from '../../src/env';
 
 const testEnv = env as unknown as Env;
 

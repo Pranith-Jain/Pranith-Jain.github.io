@@ -27,7 +27,7 @@ export async function planNextStep(
   currentStep: number,
   maxSteps: number,
   tools: AgentTool[],
-  opts: { groqKey?: string }
+  opts: { groqKey?: string; googleKey?: string }
 ): Promise<PlannerOutput> {
   // The pre-plan exit decision (enough-results / near-limit / max-iterations)
   // is now owned by the loop engine and evaluated in the DO *before* this
@@ -40,7 +40,7 @@ export async function planNextStep(
 
   let lastErr: unknown;
   for (let attempt = 0; attempt <= MAX_PARSE_RETRIES; attempt++) {
-    const { text } = await runCompletion(ai, input, { groqKey: opts.groqKey });
+    const { text } = await runCompletion(ai, input, { googleKey: opts.googleKey, groqKey: opts.groqKey });
     try {
       return parsePlannerOutput(text);
     } catch (err) {

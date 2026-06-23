@@ -190,7 +190,7 @@ export async function fplensAnalyzeHandler(c: Context<{ Bindings: Env }>) {
           maxTokens: 1800,
           temperature: 0.2,
         },
-        { groqKey: c.env.GROQ_API_KEY, quality: true }
+        { googleKey: c.env.GOOGLE_AI_STUDIO_API_KEY, groqKey: c.env.GROQ_API_KEY, quality: true }
       ),
       new Promise<never>((_, reject) =>
         setTimeout(() => reject(new Error('fplens-timeout')), 20_000)

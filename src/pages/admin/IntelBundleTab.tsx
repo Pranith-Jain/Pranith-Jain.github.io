@@ -51,7 +51,6 @@ export default function IntelBundleTab() {
     setError(null);
     setData(null);
     try {
-      // adminApi prefixes /api/v1/admin so the path here is just the suffix.
       const out = await getJson<InspectShape>(
         `/intel-bundle/${encodeURIComponent(source.trim())}/${encodeURIComponent(ref.trim())}`
       );
@@ -66,8 +65,8 @@ export default function IntelBundleTab() {
 
   return (
     <div className="space-y-6">
-      <div className="rounded border border-slate-800 p-4">
-        <h2 className="text-sm font-semibold uppercase tracking-wider text-slate-400 mb-3">
+      <div className="rounded border border-slate-200 dark:border-slate-800 p-4">
+        <h2 className="text-sm font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">
           Inspect a persisted bundle
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-[200px_1fr_auto] gap-2 mb-2">
@@ -77,7 +76,7 @@ export default function IntelBundleTab() {
             onChange={(e) => setSource(e.target.value)}
             placeholder="source (e.g. briefings)"
             list="intel-source-presets"
-            className="px-3 py-2 rounded bg-slate-900 border border-slate-700 text-sm font-mono"
+            className="px-3 py-2 rounded bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-sm font-mono"
           />
           <datalist id="intel-source-presets">
             {SOURCE_PRESETS.map((p) => (
@@ -94,22 +93,22 @@ export default function IntelBundleTab() {
               if (e.key === 'Enter') void inspect();
             }}
             placeholder="item ref / slug (e.g. daily-2026-05-22)"
-            className="px-3 py-2 rounded bg-slate-900 border border-slate-700 text-sm font-mono"
+            className="px-3 py-2 rounded bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-sm font-mono"
           />
           <button
             onClick={() => void inspect()}
             disabled={loading || !source.trim() || !ref.trim()}
-            className="px-4 py-2 border border-slate-700 rounded text-sm hover:bg-slate-800 disabled:opacity-50"
+            className="px-4 py-2 border border-slate-200 dark:border-slate-700 rounded text-sm hover:bg-slate-100 dark:hover:bg-slate-800 disabled:opacity-50"
           >
             {loading ? 'Inspecting…' : 'Inspect'}
           </button>
         </div>
-        <p className="text-xs text-slate-500 font-mono">GET /api/v1/admin/intel-bundle/&lt;source&gt;/&lt;ref&gt;</p>
+        <p className="text-xs text-slate-600 dark:text-slate-500 font-mono">GET /api/v1/admin/intel-bundle/&lt;source&gt;/&lt;ref&gt;</p>
         {error && (
           <p className="mt-3 text-xs font-mono text-rose-400 break-all">
             error: {error}
             {error.includes('not_found') && (
-              <span className="block mt-1 text-slate-500">
+              <span className="block mt-1 text-slate-600 dark:text-slate-500">
                 No persisted row for that (source, ref). The warmer may not have run yet — wait for the top of the next
                 hour or check `wrangler tail` for the `intel-bundle-warm` log line.
               </span>
@@ -127,19 +126,19 @@ function Result({ data }: { data: InspectShape }) {
   const llm = data.llmEnrichment;
   const llmBadge = llm.ran
     ? llm.partial
-      ? { label: 'LLM partial', tone: 'bg-amber-500/15 text-amber-300 border-amber-700/40' }
+      ? { label: 'LLM partial', tone: 'bg-amber-100 dark:bg-amber-500/15 text-amber-300 border-amber-700/40' }
       : {
           label: `LLM ran${llm.modelUsed ? ` · ${llm.modelUsed}` : ''}`,
-          tone: 'bg-emerald-500/15 text-emerald-300 border-emerald-700/40',
+          tone: 'bg-emerald-100 dark:bg-emerald-500/15 text-emerald-300 border-emerald-700/40',
         }
-    : { label: 'LLM skipped', tone: 'bg-zinc-700/30 text-slate-400 border-slate-700/40' };
+    : { label: 'LLM skipped', tone: 'bg-slate-100 dark:bg-zinc-700/30 text-slate-500 dark:text-slate-400 border-slate-700/40' };
 
   return (
-    <div className="rounded border border-slate-800 p-4 space-y-4">
+    <div className="rounded border border-slate-200 dark:border-slate-800 p-4 space-y-4">
       <header className="flex flex-wrap items-baseline justify-between gap-2">
         <div>
           <h3 className="font-semibold">{data.title}</h3>
-          <p className="text-xs text-slate-500 font-mono mt-1">
+          <p className="text-xs text-slate-600 dark:text-slate-500 font-mono mt-1">
             {data.source.name} · {data.generatedAt && new Date(data.generatedAt).toLocaleString()}
           </p>
         </div>
@@ -153,8 +152,8 @@ function Result({ data }: { data: InspectShape }) {
           { label: 'Malware', value: data.counts.malware },
           { label: 'CVEs', value: data.counts.cves },
         ].map((c) => (
-          <div key={c.label} className="rounded bg-slate-900 border border-slate-800 px-3 py-2">
-            <div className="text-slate-500 text-micro uppercase tracking-wider">{c.label}</div>
+          <div key={c.label} className="rounded bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 px-3 py-2">
+            <div className="text-slate-600 dark:text-slate-500 text-micro uppercase tracking-wider">{c.label}</div>
             <div className="text-lg font-mono">{c.value}</div>
           </div>
         ))}
@@ -162,11 +161,11 @@ function Result({ data }: { data: InspectShape }) {
 
       <Block title={`Sectors (${data.sectors.length})`}>
         {data.sectors.length === 0 ? (
-          <p className="text-xs text-zinc-600">—</p>
+          <p className="text-xs text-zinc-500 dark:text-zinc-600">—</p>
         ) : (
           <div className="flex flex-wrap gap-1.5">
             {data.sectors.map((s) => (
-              <span key={s} className="text-mini font-mono px-1.5 py-0.5 rounded border border-slate-700 bg-slate-900">
+              <span key={s} className="text-mini font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900">
                 {s}
               </span>
             ))}
@@ -176,12 +175,12 @@ function Result({ data }: { data: InspectShape }) {
 
       <Block title={`Affected products (${data.affectedProducts.length})`}>
         {data.affectedProducts.length === 0 ? (
-          <p className="text-xs text-zinc-600">—</p>
+          <p className="text-xs text-zinc-500 dark:text-zinc-600">—</p>
         ) : (
           <ul className="space-y-1 text-xs font-mono">
             {data.affectedProducts.map((p) => (
               <li key={`${p.vendor}|${p.product}`}>
-                <span className="text-slate-500">{p.vendor}</span> · {p.product}
+                <span className="text-slate-600 dark:text-slate-500">{p.vendor}</span> · {p.product}
               </li>
             ))}
           </ul>
@@ -190,7 +189,7 @@ function Result({ data }: { data: InspectShape }) {
 
       <Block title={`Attack patterns (${data.attackPatterns.length})`}>
         {data.attackPatterns.length === 0 ? (
-          <p className="text-xs text-zinc-600">—</p>
+          <p className="text-xs text-zinc-500 dark:text-zinc-600">—</p>
         ) : (
           <div className="flex flex-wrap gap-1.5">
             {data.attackPatterns.map((a) => (
@@ -199,7 +198,7 @@ function Result({ data }: { data: InspectShape }) {
                 href={`https://attack.mitre.org/techniques/${a.mitreId.replace('.', '/')}/`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-mini font-mono px-1.5 py-0.5 rounded border border-slate-700 bg-slate-900 hover:bg-slate-800"
+                className="text-mini font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:bg-slate-100 dark:hover:bg-slate-800"
               >
                 {a.name} · {a.mitreId}
               </a>
@@ -210,13 +209,13 @@ function Result({ data }: { data: InspectShape }) {
 
       <Block title={`Candidate actors (${data.actorCandidates.length})`}>
         {data.actorCandidates.length === 0 ? (
-          <p className="text-xs text-zinc-600">—</p>
+          <p className="text-xs text-zinc-500 dark:text-zinc-600">—</p>
         ) : (
           <ul className="space-y-1 text-xs">
             {data.actorCandidates.map((c) => (
               <li key={c.name}>
                 <span className="font-mono">{c.name}</span>
-                {c.rationale && <span className="text-slate-500"> — {c.rationale}</span>}
+                {c.rationale && <span className="text-slate-600 dark:text-slate-500"> — {c.rationale}</span>}
               </li>
             ))}
           </ul>
@@ -225,27 +224,27 @@ function Result({ data }: { data: InspectShape }) {
 
       <Block title={`Candidate malware (${data.malwareCandidates.length})`}>
         {data.malwareCandidates.length === 0 ? (
-          <p className="text-xs text-zinc-600">—</p>
+          <p className="text-xs text-zinc-500 dark:text-zinc-600">—</p>
         ) : (
           <ul className="space-y-1 text-xs">
             {data.malwareCandidates.map((c) => (
               <li key={c.name}>
                 <span className="font-mono">{c.name}</span>
-                {c.rationale && <span className="text-slate-500"> — {c.rationale}</span>}
+                {c.rationale && <span className="text-slate-600 dark:text-slate-500"> — {c.rationale}</span>}
               </li>
             ))}
           </ul>
         )}
       </Block>
 
-      <footer className="flex flex-wrap items-center gap-3 text-mini font-mono text-slate-500 pt-3 border-t border-slate-800">
+      <footer className="flex flex-wrap items-center gap-3 text-mini font-mono text-slate-600 dark:text-slate-500 pt-3 border-t border-slate-200 dark:border-slate-800">
         <span>bundle: {data.bundleId.slice(0, 24)}…</span>
         <span>hash: {data.extractedHash.slice(0, 12)}…</span>
         <Link
           to={`/dfir/stix-builder/b/${encodeURIComponent(data.bundleId)}`}
           target="_blank"
           rel="noopener"
-          className="ml-auto px-2 py-1 border border-slate-700 rounded hover:bg-slate-800"
+          className="ml-auto px-2 py-1 border border-slate-200 dark:border-slate-700 rounded hover:bg-slate-100 dark:hover:bg-slate-800"
         >
           Open in STIX Builder ↗
         </Link>
@@ -253,7 +252,7 @@ function Result({ data }: { data: InspectShape }) {
           href={`/api/v1/intel-bundle/${encodeURIComponent(data.bundleId)}/export.stix.json`}
           download={`${data.bundleId}.stix.json`}
           rel="noopener"
-          className="px-2 py-1 border border-slate-700 rounded hover:bg-slate-800"
+          className="px-2 py-1 border border-slate-200 dark:border-slate-700 rounded hover:bg-slate-100 dark:hover:bg-slate-800"
         >
           Download STIX
         </a>
@@ -265,7 +264,7 @@ function Result({ data }: { data: InspectShape }) {
 function Block({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <section>
-      <h4 className="text-mini uppercase tracking-wider text-slate-500 mb-2">{title}</h4>
+      <h4 className="text-mini uppercase tracking-wider text-slate-600 dark:text-slate-500 mb-2">{title}</h4>
       {children}
     </section>
   );

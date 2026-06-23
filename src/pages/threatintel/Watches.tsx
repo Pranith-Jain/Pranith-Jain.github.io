@@ -152,7 +152,7 @@ export default function Watches(): JSX.Element {
 
       <div className="animate-fade-in-up flex items-center justify-between mb-8">
         <div>
-          <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
+          <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2 flex items-center gap-3">
             <Bell className="text-brand-600 dark:text-brand-400" size={28} />
             Watchers &amp; Alerts
           </h1>

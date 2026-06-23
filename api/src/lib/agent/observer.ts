@@ -23,7 +23,7 @@ export async function observeStep(
   stepNumber: number,
   plan: string,
   results: AgentToolResult[],
-  opts: { groqKey?: string }
+  opts: { groqKey?: string; googleKey?: string }
 ): Promise<ObserverOutput> {
   // Deterministic fallback: summarize results without an LLM call
   const fallback = deterministicObserve(results);
@@ -46,7 +46,7 @@ ${resultBlock}
 Analyze these results. What was found? What are the key facts? What gaps remain?`;
 
     const input: CompletionInput = { system, user, maxTokens: 800, temperature: 0.2 };
-    const { text } = await runCompletion(ai, input, { groqKey: opts.groqKey });
+    const { text } = await runCompletion(ai, input, { googleKey: opts.googleKey, groqKey: opts.groqKey });
 
     // Parse the JSON output
     let cleaned = text.trim();

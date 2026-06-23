@@ -244,7 +244,7 @@ export default function IocExtractor(): JSX.Element {
       </BackLink>
 
       <div className="animate-fade-in-up">
-        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2">IOC Extractor</h1>
+        <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2">IOC Extractor</h1>
         <p className="text-muted mb-8 max-w-2xl">
           Paste any blob of text, like an email, log line, blog post, or threat report. The extractor pulls out every
           IP, domain, URL, hash, and email it finds. Refanging is automatic.

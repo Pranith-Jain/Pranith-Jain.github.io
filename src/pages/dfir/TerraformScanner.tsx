@@ -485,7 +485,7 @@ export default function TerraformScanner(): JSX.Element {
       </BackLink>
 
       <div className="animate-fade-in-up">
-        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2">Terraform / IaC Plan Scanner</h1>
+        <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2">Terraform / IaC Plan Scanner</h1>
         <p className="text-muted mb-6 max-w-2xl">
           Paste <span className="font-mono text-tool">terraform show -json &lt;planfile&gt;</span> (or plan/state JSON).
           Planned attributes are checked for public S3/RDS, world-open security groups, unencrypted storage, IMDSv1,

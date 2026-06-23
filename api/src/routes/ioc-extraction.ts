@@ -47,7 +47,7 @@ export async function iocExtractionHandler(c: Context<{ Bindings: Env }>): Promi
       system: IOC_SYSTEM,
       user,
       maxTokens: 2000,
-    });
+    }, c.env.GOOGLE_AI_STUDIO_API_KEY);
 
     const analysis = parseJson(text);
     return c.json({ analysis, model, generated_at: new Date().toISOString() });

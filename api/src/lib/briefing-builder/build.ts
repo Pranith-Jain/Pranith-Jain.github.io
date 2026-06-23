@@ -116,10 +116,21 @@ export async function buildBriefing(
   const nvdRecent = nvdR.v;
 
   const kevWindow = kev.filter((k) => withinRange(k.dateAdded, startMs, endMs));
-  const nvdMap = await fetchNvdByIds(
-    kevWindow.map((k) => k.cveID),
-    opts.nvdApiKey
-  ).catch(() => new Map<string, NvdCve>());
+  // Pre-populate from the already-fetched NVD/CIRCL results so we only
+  // make individual API calls for KEV CVEs not already in the bulk result.
+  // This dramatically cuts subrequests (the free-plan cap is 50/invocation).
+  const nvdMap = new Map<string, NvdCve>();
+  for (const c of nvdRecent) nvdMap.set(c.id, c);
+  // Only fetch individual CVEs when the bulk result has data (NVD/CIRCL
+  // was reachable). When nvdRecent is empty the API is down — individual
+  // lookups will also fail and would waste subrequests on the free plan.
+  if (nvdRecent.length > 0) {
+    const missingKevCves = kevWindow.map((k) => k.cveID).filter((id) => !nvdMap.has(id));
+    if (missingKevCves.length > 0) {
+      const enriched = await fetchNvdByIds(missingKevCves, opts.nvdApiKey).catch(() => new Map<string, NvdCve>());
+      for (const [k, v] of enriched) nvdMap.set(k, v);
+    }
+  }
   const kevFindings = kevWindow.map((k) => findingFromKev(k, nvdMap.get(k.cveID)));
   const kevIds = new Set(kevFindings.map((f) => f.id));
   const nvdFindings = nvdRecent
@@ -362,6 +373,86 @@ export async function buildBriefing(
   };
 }
 
+/**
+ * D1 caps a single row/value at 2,000,000 bytes; exceed it and the INSERT
+ * throws `D1_ERROR: string or blob too big: SQLITE_TOOBIG`, so the whole
+ * briefing fails to persist (no briefing at all). The body is one JSON blob in
+ * the `body` column, and the IOC dump + ransomware victim list are
+ * intentionally uncapped, so a busy window can push it past the limit.
+ *
+ * Trim only the two unbounded arrays — IOC indicators first (they dominate and
+ * are stored twice: structured `iocs` buckets + the `ioc_dump` text), then the
+ * ransomware-activity findings — just enough to fit under `budget`. CVE/KEV
+ * findings, the executive summary and stats are preserved, and the trimming is
+ * recorded (`ioc_dump.truncated`, section `count`) so it is visible, not
+ * silent. Returns the input untouched when it already fits.
+ */
+const D1_VALUE_LIMIT_BYTES = 2_000_000;
+// Budget sits 200 KB below the hard limit, leaving headroom for the other bound
+// columns (stats_json, sources_json, …) that share the same row plus a margin
+// for re-encoding.
+const BRIEFING_BODY_BUDGET_BYTES = D1_VALUE_LIMIT_BYTES - 200_000;
+
+function utf8ByteLength(s: string): number {
+  return new TextEncoder().encode(s).length;
+}
+
+export function capBriefingForStorage(input: Briefing, budget = BRIEFING_BODY_BUDGET_BYTES): Briefing {
+  if (utf8ByteLength(JSON.stringify(input)) <= budget) return input;
+
+  // Shallow-clone the parts we mutate so the caller's object is left intact.
+  const b: Briefing = {
+    ...input,
+    iocs: { ...input.iocs },
+    sections: input.sections.map((s) => ({ ...s, findings: s.findings.slice() })),
+    ...(input.ioc_dump ? { ioc_dump: { ...input.ioc_dump } } : {}),
+  };
+
+  const iocKinds = ['urls', 'domains', 'ipv4s', 'hashes'] as const;
+  const totalIocs = () => iocKinds.reduce((n, k) => n + b.iocs[k].length, 0);
+  const rwSection = b.sections.find((s) => s.id === 'ransomware-activity');
+  const observedRawTotal = b.ioc_dump?.rawTotal ?? totalIocs();
+
+  // Reduce the combined IOC count to `target`, dropping from the tails of the
+  // largest buckets first, then rebuild the txt dump so both views stay in sync.
+  const trimIocsTo = (target: number) => {
+    let over = totalIocs() - target;
+    while (over > 0) {
+      const largest = [...iocKinds].sort((a, c) => b.iocs[c].length - b.iocs[a].length)[0];
+      if (!largest || b.iocs[largest].length === 0) break;
+      const take = Math.min(over, Math.max(1, Math.ceil(b.iocs[largest].length * 0.25)));
+      b.iocs[largest] = b.iocs[largest].slice(0, b.iocs[largest].length - take);
+      over -= take;
+    }
+    if (b.ioc_dump) {
+      const rebuilt = buildIocDump(b.iocs, observedRawTotal);
+      b.ioc_dump = rebuilt
+        ? { ...rebuilt, rawTotal: observedRawTotal, truncated: true }
+        : { count: 0, rawTotal: observedRawTotal, content: '', truncated: true };
+    }
+  };
+
+  let guard = 0;
+  while (utf8ByteLength(JSON.stringify(b)) > budget && guard++ < 200) {
+    const size = utf8ByteLength(JSON.stringify(b));
+    const ratio = budget / size; // < 1; how much of the current payload fits
+    const iocN = totalIocs();
+    const rwN = rwSection ? rwSection.findings.length : 0;
+
+    if (iocN >= rwN && iocN > 0) {
+      // Shrink IOCs toward the fitting ratio (×0.9 margin so we converge down).
+      trimIocsTo(Math.max(0, Math.floor(iocN * ratio * 0.9)));
+    } else if (rwN > 0 && rwSection) {
+      rwSection.findings = rwSection.findings.slice(0, Math.max(0, Math.floor(rwN * ratio * 0.9)));
+      rwSection.count = rwSection.findings.length;
+    } else {
+      // Nothing left in the unbounded arrays to trim; stop to avoid spinning.
+      break;
+    }
+  }
+  return b;
+}
+
 export async function writeBriefing(
   db: D1Database,
   briefing: Briefing,
@@ -396,22 +487,27 @@ export async function writeBriefing(
     }
   }
 
+  // D1 rejects any single row/value over 2 MB with SQLITE_TOOBIG. The uncapped
+  // IOC dump + ransomware victim list can push the body past that, which would
+  // fail the whole INSERT (no briefing at all) — trim to fit before persisting.
+  const storable = capBriefingForStorage(briefing);
+
   await db
     .prepare(
       `INSERT OR REPLACE INTO briefings (slug, type, title, date, date_range, range_start, range_end, stats_json, sources_json, body)
        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
     )
     .bind(
-      briefing.slug,
-      briefing.type,
-      briefing.title,
-      briefing.date,
-      briefing.date_range,
-      briefing.range_start,
-      briefing.range_end,
-      JSON.stringify(briefing.stats),
-      JSON.stringify(briefing.sources),
-      JSON.stringify(briefing)
+      storable.slug,
+      storable.type,
+      storable.title,
+      storable.date,
+      storable.date_range,
+      storable.range_start,
+      storable.range_end,
+      JSON.stringify(storable.stats),
+      JSON.stringify(storable.sources),
+      JSON.stringify(storable)
     )
     .run();
 

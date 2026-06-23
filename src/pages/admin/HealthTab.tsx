@@ -54,12 +54,12 @@ export default function HealthTab() {
     return () => window.clearInterval(t);
   }, [load]);
 
-  if (loading && !health) return <p className="text-slate-400">Loading…</p>;
+  if (loading && !health) return <p className="text-slate-500 dark:text-slate-400">Loading…</p>;
   if (error && !health)
     return (
       <div>
         <p className="text-red-400 mb-2">Failed to load: {error}</p>
-        <button onClick={() => void load()} className="px-3 py-1 border border-slate-700 rounded text-sm">
+        <button onClick={() => void load()} className="px-3 py-1 border border-slate-200 dark:border-slate-700 rounded text-sm">
           Retry
         </button>
       </div>
@@ -95,7 +95,7 @@ export default function HealthTab() {
   return (
     <div>
       <div className="flex items-center justify-between mb-3">
-        <p className="text-xs font-mono text-slate-500">
+        <p className="text-xs font-mono text-slate-600 dark:text-slate-500">
           {fetchedAt ? `Updated ${fetchedAt.toLocaleTimeString()} · auto-refresh ${AUTO_REFRESH_MS / 1000}s` : ''}
           {error && ` · last refresh failed: ${error}`}
         </p>
@@ -103,16 +103,16 @@ export default function HealthTab() {
           type="button"
           onClick={() => void load()}
           disabled={loading}
-          className="px-2.5 py-1 border border-slate-700 rounded text-xs hover:bg-slate-800 disabled:opacity-50"
+          className="px-2.5 py-1 border border-slate-200 dark:border-slate-700 rounded text-xs hover:bg-slate-100 dark:hover:bg-slate-800 disabled:opacity-50"
         >
           {loading ? 'Refreshing…' : 'Refresh'}
         </button>
       </div>
       <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
         {CARDS.map((card) => (
-          <div key={card.key} className="border border-slate-800 rounded p-4 bg-zinc-900/40">
-            <div className="text-xs uppercase tracking-wider text-slate-500">{card.label}</div>
-            <div className="text-2xl font-semibold text-slate-100 mt-1 tabular-nums">{health[card.key]}</div>
+          <div key={card.key} className="border border-slate-200 dark:border-slate-800 rounded p-4 bg-slate-50 dark:bg-zinc-900/40">
+            <div className="text-xs uppercase tracking-wider text-slate-600 dark:text-slate-500">{card.label}</div>
+            <div className="text-2xl font-semibold text-slate-900 dark:text-slate-100 mt-1 tabular-nums">{health[card.key]}</div>
           </div>
         ))}
       </div>
@@ -123,10 +123,10 @@ export default function HealthTab() {
               key={i}
               className={
                 b.tone === 'ok'
-                  ? 'px-2 py-1 rounded text-xs border border-emerald-700/50 bg-emerald-900/30 text-emerald-300'
+                  ? 'px-2 py-1 rounded text-xs border border-emerald-700/50 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300'
                   : b.tone === 'warn'
-                    ? 'px-2 py-1 rounded text-xs border border-amber-700/50 bg-amber-900/30 text-amber-300'
-                    : 'px-2 py-1 rounded text-xs border border-red-700/50 bg-red-900/30 text-red-300'
+                    ? 'px-2 py-1 rounded text-xs border border-amber-700/50 bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300'
+                    : 'px-2 py-1 rounded text-xs border border-red-700/50 bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-300'
               }
             >
               {b.text}

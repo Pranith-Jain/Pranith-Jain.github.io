@@ -176,7 +176,7 @@ function resolveCirclCweIds(it: Record<string, unknown>): string[] {
 
 export async function fetchNvdByIds(cveIds: string[], apiKey?: string): Promise<Map<string, NvdCve>> {
   const out = new Map<string, NvdCve>();
-  const ids = cveIds.slice(0, 30);
+  const ids = cveIds.slice(0, 15);
   for (const id of ids) {
     try {
       const url = `${NVD_API}?cveId=${encodeURIComponent(id)}`;
@@ -225,9 +225,13 @@ export async function fetchFeedResilient(env: Env | undefined, source: SourceId)
     }
     return entries;
   } catch {
-    if (env) {
-      const hit = await readLastGood<IocEntry[]>(env, key);
-      if (hit) return hit;
+    try {
+      if (env) {
+        const hit = await readLastGood<IocEntry[]>(env, key);
+        if (hit) return hit;
+      }
+    } catch {
+      /* lastgood fallback failed — return empty */
     }
     return [];
   }

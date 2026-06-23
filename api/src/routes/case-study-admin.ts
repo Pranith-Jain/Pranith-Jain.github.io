@@ -281,7 +281,7 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
 
     const now = new Date();
     try {
-      const post = await generatePost({ candidate, ai: c.env.AI as never, now, groqKey: c.env.GROQ_API_KEY });
+      const post = await generatePost({ candidate, ai: c.env.AI as never, now, groqKey: c.env.GROQ_API_KEY, googleKey: c.env.GOOGLE_AI_STUDIO_API_KEY });
       const postIndex = await putPost(c.env.CASE_STUDIES, post);
 
       // RSS only needs index-level fields; reuse the index putPost just wrote
@@ -564,7 +564,7 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
         candidate,
         ai: c.env.AI as never,
         now,
-        groqKey: c.env.GROQ_API_KEY,
+        groqKey: c.env.GROQ_API_KEY, googleKey: c.env.GOOGLE_AI_STUDIO_API_KEY,
         notes: body.notes,
       });
       // If the LLM produced a different slug, remove the old draft first
@@ -714,7 +714,7 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
     const now = new Date();
 
     try {
-      const post = await generatePost({ candidate, ai: c.env.AI as never, now, groqKey: c.env.GROQ_API_KEY });
+      const post = await generatePost({ candidate, ai: c.env.AI as never, now, groqKey: c.env.GROQ_API_KEY, googleKey: c.env.GOOGLE_AI_STUDIO_API_KEY });
       const postIndex = await putPost(c.env.CASE_STUDIES, post);
 
       // RSS only needs index-level fields; reuse the index putPost just wrote
@@ -744,7 +744,7 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
     if (!post) return c.json({ error: 'post not found' }, 404);
 
     try {
-      const social = await generateSocialContent(post, c.env.AI as never, new Date(), c.env.GROQ_API_KEY);
+      const social = await generateSocialContent(post, c.env.AI as never, new Date(), c.env.GROQ_API_KEY, c.env.GOOGLE_AI_STUDIO_API_KEY);
       await c.env.CASE_STUDIES.put(csKvKeys.social(slug), JSON.stringify(social));
       return c.json({ ok: true, social });
     } catch (err) {
@@ -819,7 +819,8 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
         post,
         c.env.AI as never,
         new Date(),
-        c.env.GROQ_API_KEY
+        c.env.GROQ_API_KEY,
+        c.env.GOOGLE_AI_STUDIO_API_KEY
       );
       await c.env.CASE_STUDIES.put(csKvKeys.socialTwitter(slug), twitter);
       return c.json({ ok: true, platform: 'twitter', content: twitter, generatedAt });
@@ -840,7 +841,8 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
         post,
         c.env.AI as never,
         new Date(),
-        c.env.GROQ_API_KEY
+        c.env.GROQ_API_KEY,
+        c.env.GOOGLE_AI_STUDIO_API_KEY
       );
       await c.env.CASE_STUDIES.put(csKvKeys.socialLinkedin(slug), linkedin);
       return c.json({ ok: true, platform: 'linkedin', content: linkedin, generatedAt });
@@ -934,7 +936,7 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
     for (const fmt of formats) {
       try {
         if (fmt === 'blog') {
-          const post = await generatePost({ candidate, ai: c.env.AI as never, now, groqKey: c.env.GROQ_API_KEY });
+          const post = await generatePost({ candidate, ai: c.env.AI as never, now, groqKey: c.env.GROQ_API_KEY, googleKey: c.env.GOOGLE_AI_STUDIO_API_KEY });
           await putDraft(c.env.CASE_STUDIES, post);
           result.blog = { slug: post.slug, title: post.title, status: 'draft' };
           // Blog generation = "approve" — remove candidate from pending
@@ -949,7 +951,8 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
             candidate,
             c.env.AI as never,
             now,
-            c.env.GROQ_API_KEY
+            c.env.GROQ_API_KEY,
+            c.env.GOOGLE_AI_STUDIO_API_KEY
           );
           await c.env.CASE_STUDIES.put(csKvKeys.socialCandidateLinkedin(key), linkedin);
           result.linkedin = { content: linkedin, generatedAt, validation: _validation };
@@ -958,7 +961,8 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
             candidate,
             c.env.AI as never,
             now,
-            c.env.GROQ_API_KEY
+            c.env.GROQ_API_KEY,
+            c.env.GOOGLE_AI_STUDIO_API_KEY
           );
           await c.env.CASE_STUDIES.put(csKvKeys.socialCandidateTwitter(key), twitter);
           result.twitter = { content: twitter, generatedAt, validation: _validation };
@@ -1029,7 +1033,7 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
             candidate: pseudo,
             ai: c.env.AI as never,
             now,
-            groqKey: c.env.GROQ_API_KEY,
+            groqKey: c.env.GROQ_API_KEY, googleKey: c.env.GOOGLE_AI_STUDIO_API_KEY,
           });
           await putDraft(c.env.CASE_STUDIES, post);
           result.blog = { slug: post.slug, title: post.title, status: 'draft' };
@@ -1039,7 +1043,8 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
             notes,
             c.env.AI as never,
             now,
-            c.env.GROQ_API_KEY
+            c.env.GROQ_API_KEY,
+            c.env.GOOGLE_AI_STUDIO_API_KEY
           );
           result.linkedin = { content: linkedin, generatedAt, validation: _validation };
         } else if (fmt === 'twitter') {
@@ -1048,7 +1053,8 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
             notes,
             c.env.AI as never,
             now,
-            c.env.GROQ_API_KEY
+            c.env.GROQ_API_KEY,
+            c.env.GOOGLE_AI_STUDIO_API_KEY
           );
           result.twitter = { content: twitter, generatedAt, validation: _validation };
         } else {
@@ -1096,6 +1102,7 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
       // returned 429" weeks later.
       secrets: {
         groq: !!c.env.GROQ_API_KEY,
+        google: !!c.env.GOOGLE_AI_STUDIO_API_KEY,
         vulncheck: !!c.env.VULNCHECK_API_TOKEN,
       },
     });

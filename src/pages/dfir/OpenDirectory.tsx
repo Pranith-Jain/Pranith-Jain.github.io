@@ -93,7 +93,7 @@ export default function OpenDirectory(): JSX.Element {
         ← back to DFIR tools
       </Link>
 
-      <h1 className="text-3xl font-display font-bold mb-2">Open Directory Scanner</h1>
+      <h1 className="text-3xl font-display font-semibold mb-2">Open Directory Scanner</h1>
       <p className="text-muted mb-6">
         Scan HTTP servers for exposed open directories and catalog files for threat analysis. Identifies malware
         staging, credential dumps, config files, and other sensitive artifacts. Inspired by etugen.io's open-directory

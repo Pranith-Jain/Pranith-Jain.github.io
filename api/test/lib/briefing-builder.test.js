@@ -1,6 +1,7 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import { env } from 'cloudflare:test';
-import { writeBriefing, withLastGood, canonicalGangKeys, normalizeVictimKey, briefingNeedsHeal, dailyNeedsCveReenrich, isBriefingRich, isBriefingDegraded, resolveCirclCveId, resolveCirclPublished, resolveCirclBaseScore, } from '../../src/lib/briefing-builder';
+import { writeBriefing, capBriefingForStorage, withLastGood, canonicalGangKeys, normalizeVictimKey, briefingNeedsHeal, dailyNeedsCveReenrich, dailyNeedsRansomwareReenrich, isBriefingRich, isBriefingDegraded, resolveCirclCveId, resolveCirclPublished, resolveCirclBaseScore, } from '../../src/lib/briefing-builder';
+import { bucketIocs, buildIocDump } from '../../src/lib/briefing-builder/aggregate';
 import { readLastGood, writeLastGood } from '../../src/lib/lastgood';
 // The test pool's `ProvidedEnv` (from cloudflare:test) only declares the
 // bindings wrangler.toml knows about — the production `Env` type also
@@ -33,9 +34,17 @@ function fakeDb(rows) {
                         deletes.push({ table: 'intel_bundles', ref: this._args[0] });
                         return { success: true };
                     }
+                    // Simulate D1's hard 2 MB-per-value limit: a bound string
+                    // larger than 2,000,000 bytes throws SQLITE_TOOBIG, exactly
+                    // like the real binding does.
+                    for (const a of this._args) {
+                        if (typeof a === 'string' && new TextEncoder().encode(a).length > 2_000_000) {
+                            throw new Error('D1_ERROR: string or blob too big: SQLITE_TOOBIG');
+                        }
+                    }
                     const slug = this._args[0];
                     writes.push(slug);
-                    rows[slug] = { stats_json: String(this._args[7]) };
+                    rows[slug] = { stats_json: String(this._args[7]), body: String(this._args[9]) };
                     return { success: true };
                 },
             };
@@ -54,7 +63,18 @@ function briefing(slug, findings, iocs) {
         range_end: '2026-05-16',
         generated_at: new Date().toISOString(),
         executive_summary: '',
-        stats: { findings, sections: 0, cves: 0, kevs: 0, iocs, critical: 0, high: 0, medium: 0, low: 0 },
+        stats: {
+            findings,
+            sections: 0,
+            cves: 0,
+            kevs: 0,
+            iocs,
+            critical: 0,
+            high: 0,
+            medium: 0,
+            low: 0,
+            ransomware_victims: 0,
+        },
         sections: [],
         iocs: { urls: [], domains: [], ipv4s: [], hashes: [] },
         mitre_techniques: [],
@@ -97,6 +117,80 @@ describe('writeBriefing invalidates the stale per-briefing intel-bundle', () => 
         const r = await writeBriefing(db, briefing('daily-x', 0, 0));
         expect(r.written).toBe(false);
         expect(deletes).toHaveLength(0);
+    });
+});
+/** Build a briefing whose serialized JSON blows past D1's 2 MB limit, driven
+ *  by an uncapped IOC dump (the real-world trigger). Keeps a small CVE section
+ *  and an executive summary that MUST survive any storage trimming. */
+function oversizedBriefing(slug, iocCount, ransomwareCount = 0) {
+    const b = briefing(slug, 20, iocCount);
+    b.executive_summary = 'CRITICAL: KEV exploitation observed this window — do not lose me.';
+    const cveFinding = {
+        id: 'cve-2026-0001',
+        title: 'CVE-2026-0001 — keep me',
+        description: 'High-value CVE finding that must not be trimmed.',
+        severity: 'critical',
+        source: 'CISA KEV',
+        mitre_techniques: [],
+    };
+    b.sections = [{ id: 'cves', title: 'CVEs', count: 1, blurb: 'kev', findings: [cveFinding] }];
+    const urls = [];
+    for (let i = 0; i < iocCount; i++) {
+        urls.push({
+            type: 'url',
+            value: `http://malicious-host-${i}.example.com/path/to/payload-${i}.bin`,
+            context: 'URLhaus malware_download',
+            timestamp: '2026-05-16T00:00:00Z',
+        });
+    }
+    b.iocs = { urls, domains: [], ipv4s: [], hashes: [] };
+    b.ioc_dump = buildIocDump(b.iocs, iocCount);
+    if (ransomwareCount > 0) {
+        const rw = [];
+        for (let i = 0; i < ransomwareCount; i++) {
+            rw.push({
+                id: `rw-group-victim-${i}-2026-05-16`,
+                title: `Victim ${i} — claimed by SomeGroup`,
+                description: 'x'.repeat(280),
+                severity: 'high',
+                source: 'ransomware.live',
+                mitre_techniques: [],
+            });
+        }
+        b.sections.push({ id: 'ransomware-activity', title: 'Ransomware activity', count: ransomwareCount, blurb: 'rw', findings: rw });
+    }
+    return b;
+}
+const utf8 = (s) => new TextEncoder().encode(s).length;
+describe('capBriefingForStorage (D1 2 MB limit)', () => {
+    it('returns the briefing untouched when it already fits', () => {
+        const small = briefing('daily-small', 5, 10);
+        expect(capBriefingForStorage(small)).toBe(small);
+    });
+    it('trims an oversized briefing to fit under D1 limit, keeping CVEs + summary', () => {
+        const big = oversizedBriefing('daily-huge', 40000);
+        expect(utf8(JSON.stringify(big))).toBeGreaterThan(2_000_000);
+        const capped = capBriefingForStorage(big);
+        expect(utf8(JSON.stringify(capped))).toBeLessThanOrEqual(2_000_000);
+        // The CVE section + executive summary survive.
+        expect(capped.executive_summary).toBe(big.executive_summary);
+        const cveSection = capped.sections.find((s) => s.id === 'cves');
+        expect(cveSection.findings).toHaveLength(1);
+        expect(cveSection.findings[0].id).toBe('cve-2026-0001');
+        // IOC dump is trimmed but flagged + preserves the true observed total.
+        expect(capped.ioc_dump.truncated).toBe(true);
+        expect(capped.ioc_dump.rawTotal).toBe(40000);
+        expect(capped.ioc_dump.count).toBeLessThan(40000);
+    });
+});
+describe('writeBriefing survives an oversized body (SQLITE_TOOBIG)', () => {
+    it('writes a trimmed briefing instead of throwing when the body exceeds 2 MB', async () => {
+        const { db, writes, rows } = fakeDb({});
+        const big = oversizedBriefing('daily-2026-05-16', 40000, 500);
+        const r = await writeBriefing(db, big);
+        expect(r.written).toBe(true);
+        expect(writes).toEqual(['daily-2026-05-16']);
+        expect(utf8(rows['daily-2026-05-16'].body)).toBeLessThanOrEqual(2_000_000);
     });
 });
 describe('normalizeVictimKey', () => {
@@ -330,6 +424,42 @@ describe('dailyNeedsCveReenrich', () => {
         expect(dailyNeedsCveReenrich(null, { now: NOW, cooldownMs: 0 })).toBe(false);
     });
 });
+describe('dailyNeedsRansomwareReenrich', () => {
+    // Regression: 2026-06-19 landed with 12 CVE findings + IOCs but the
+    // ransomware section was empty. briefingNeedsHeal wouldn't fire
+    // (row is "rich"), dailyNeedsCveReenrich wouldn't fire (findings > 0
+    // and iocs > 0), so the empty-ransomware state stuck forever. This
+    // gate catches exactly that pattern and re-runs the build, which
+    // re-fetches all 8 ransomware trackers. The 7-day window in the
+    // trackers still includes the briefing's date, so a transient
+    // upstream failure on the original 00:30 build is recoverable.
+    const NOW = Date.parse('2026-06-21T07:00:00Z');
+    const body = (generatedAt) => JSON.stringify({ generated_at: generatedAt });
+    const stats = (findings, iocs, ransomware_victims = 0) => JSON.stringify({ findings, iocs, ransomware_victims });
+    it('fires when a daily has findings+IOCs but zero ransomware victims', () => {
+        const row = { stats_json: stats(12, 1482, 0), body: body('2026-06-21T00:30:00Z') };
+        expect(dailyNeedsRansomwareReenrich(row, { now: NOW, cooldownMs: 0 })).toBe(true);
+    });
+    it('does not fire once the ransomware section is populated', () => {
+        const row = { stats_json: stats(12, 1482, 5), body: body('2026-06-21T00:30:00Z') };
+        expect(dailyNeedsRansomwareReenrich(row, { now: NOW, cooldownMs: 0 })).toBe(false);
+    });
+    it('does not fire on a truly empty daily (briefingNeedsHeal owns that)', () => {
+        const row = { stats_json: stats(0, 0, 0), body: body('2026-06-21T00:30:00Z') };
+        expect(dailyNeedsRansomwareReenrich(row, { now: NOW, cooldownMs: 0 })).toBe(false);
+    });
+    it('does not fire on an IOCs-only daily within the cooldown', () => {
+        const thirtyMinAgo = { stats_json: stats(0, 1200, 0), body: body(new Date(NOW - 30 * 60_000).toISOString()) };
+        expect(dailyNeedsRansomwareReenrich(thirtyMinAgo, { now: NOW, cooldownMs: 3 * 60 * 60_000 })).toBe(false);
+    });
+    it('honours the cooldown, then fires once it has elapsed', () => {
+        const fiveHoursAgo = { stats_json: stats(12, 1482, 0), body: body(new Date(NOW - 5 * 60 * 60_000).toISOString()) };
+        expect(dailyNeedsRansomwareReenrich(fiveHoursAgo, { now: NOW, cooldownMs: 3 * 60 * 60_000 })).toBe(true);
+    });
+    it('returns false for a missing row', () => {
+        expect(dailyNeedsRansomwareReenrich(null, { now: NOW, cooldownMs: 0 })).toBe(false);
+    });
+});
 describe('CIRCL CVE 5.x parsing (regression: findings=0 on 2026-06-04/05)', () => {
     // Shape returned by https://cve.circl.lu/api/last today: a native CVE 5.x
     // record. The OLD parser only read `database_specific.nvd_published_at` /
@@ -374,5 +504,61 @@ describe('CIRCL CVE 5.x parsing (regression: findings=0 on 2026-06-04/05)', () =
         expect(resolveCirclCveId({ foo: 'bar' })).toBeNull();
         expect(resolveCirclPublished({ foo: 'bar' })).toBe('');
         expect(resolveCirclBaseScore({ foo: 'bar' })).toBeUndefined();
+    });
+});
+describe('bucketIocs (no cap)', () => {
+    const mk = (type, i) => ({
+        type,
+        value: `${type}-${i}`,
+    });
+    it('includes every deduped entry (no 30-total cap)', () => {
+        const entries = [
+            ...Array.from({ length: 30 }, (_, i) => mk('url', i)),
+            ...Array.from({ length: 30 }, (_, i) => mk('domain', i)),
+            ...Array.from({ length: 30 }, (_, i) => mk('ipv4', i)),
+            ...Array.from({ length: 30 }, (_, i) => mk('hash', i)),
+        ];
+        const b = bucketIocs(entries);
+        expect(b.urls.length).toBe(30);
+        expect(b.domains.length).toBe(30);
+        expect(b.ipv4s.length).toBe(30);
+        expect(b.hashes.length).toBe(30);
+    });
+    it('returns empty buckets for empty input', () => {
+        const b = bucketIocs([]);
+        expect(b).toEqual({ urls: [], domains: [], ipv4s: [], hashes: [] });
+    });
+});
+describe('buildIocDump', () => {
+    it('returns undefined for an empty bucket', () => {
+        expect(buildIocDump({ urls: [], domains: [], ipv4s: [], hashes: [] }, 0)).toBeUndefined();
+    });
+    it('formats one line per IOC with type + value + context/timestamp', () => {
+        const dump = buildIocDump({
+            urls: [{ type: 'url', value: 'http://evil.example/p', context: 'phish', timestamp: '2026-06-14T01:00:00Z' }],
+            domains: [{ type: 'domain', value: 'mal.example' }],
+            ipv4s: [],
+            hashes: [{ type: 'hash', value: 'aa11bb22cc33' }],
+        }, 3);
+        expect(dump).toBeDefined();
+        expect(dump.count).toBe(3);
+        expect(dump.rawTotal).toBe(3);
+        const lines = dump.content.split('\n');
+        expect(lines[0]).toContain('url  http://evil.example/p');
+        expect(lines[0]).toContain('# phish');
+        expect(lines[0]).toContain('@ 2026-06-14T01:00:00Z');
+        expect(lines[1]).toBe('domain  mal.example');
+        expect(lines[2]).toBe('hash  aa11bb22cc33');
+    });
+    it('includes every entry in the dump (no 30 cap)', () => {
+        const entries = [
+            ...Array.from({ length: 50 }, (_, i) => ({ type: 'url', value: `u${i}` })),
+            ...Array.from({ length: 50 }, (_, i) => ({ type: 'domain', value: `d${i}` })),
+        ];
+        const b = bucketIocs(entries);
+        const dump = buildIocDump(b, 100);
+        expect(dump).toBeDefined();
+        expect(dump.count).toBe(100);
+        expect(dump.content.split('\n')).toHaveLength(100);
     });
 });

@@ -193,7 +193,7 @@ export default function Blog() {
             <ArrowLeft size={12} /> all case studies
           </Link>
         )}
-        <h1 className="font-display text-3xl font-bold tracking-tight mb-2">
+        <h1 className="font-display text-3xl sm:text-4xl font-semibold tracking-tight mb-2">
           {inCategoryMode ? categoryMeta!.label : 'Case Studies'}
         </h1>
         <p className="text-muted mb-6 leading-relaxed">

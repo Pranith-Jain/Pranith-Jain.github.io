@@ -158,7 +158,7 @@ export default function HostGraphView(): JSX.Element {
         ← back to DFIR tools
       </Link>
 
-      <h1 className="text-3xl font-display font-bold mb-2">Host Graph Pivot</h1>
+      <h1 className="text-3xl font-display font-semibold mb-2">Host Graph Pivot</h1>
       <p className="text-muted mb-6">
         Network-intel pivot: paste an IP, ASN, or CIDR and get the announcing prefix, holder, registry, and abuse
         contact — fused from bgp.tools, RIPE Stat, and the RDAP bootstrap registry. Keyless, no signup.

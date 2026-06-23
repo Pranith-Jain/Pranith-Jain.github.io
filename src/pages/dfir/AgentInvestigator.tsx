@@ -232,7 +232,7 @@ export default function AgentInvestigator(): JSX.Element {
       </BackLink>
 
       <div className="animate-fade-in-up mb-8">
-        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
+        <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2 flex items-center gap-3">
           <Bot size={28} className="text-brand-600 dark:text-brand-400" /> Agent — Autonomous Investigator
         </h1>
         <p className="text-muted mb-1 max-w-3xl leading-relaxed">
@@ -491,11 +491,11 @@ export default function AgentInvestigator(): JSX.Element {
               }
             }}
             onDrillDeeper={(question: string) => {
-              // Hand off to the Copilot Chat with the follow-up question
+              // Hand off to the Threat Intel Copilot with the follow-up question
               // pre-seeded into the input. The Copilot reads ?q=... on mount
               // and the user just hits enter to send.
               const params = new URLSearchParams({ q: question });
-              window.location.href = `/threatintel/tools/copilot-chat?${params.toString()}`;
+              window.location.href = `/threatintel/tools/copilot?${params.toString()}`;
             }}
           />
         </section>

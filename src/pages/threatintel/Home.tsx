@@ -156,15 +156,6 @@ export default function ThreatIntelHome(): JSX.Element {
   const searchResults = useMemo(() => (query.trim() ? catalogSearch(query) : null), [query]);
   const isSearching = query.trim().length > 0;
 
-  useDocumentMeta({
-    title: 'Threat Intel',
-    description:
-      'Live threat intelligence — ransomware activity, threat actors, IOCs, CVEs, dark web monitoring, and social media feeds.',
-    section: 'Threat Intel',
-    canonicalPath: '/threatintel',
-    ogImage: '/og-threatintel.svg',
-  });
-
   // Keyboard: '/' or 'Cmd/Ctrl+K' focuses the search; 'Esc' clears.
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
@@ -236,7 +227,7 @@ export default function ThreatIntelHome(): JSX.Element {
           {/* H1 — same treatment as the DFIR home: bigger, tighter, real
             display weight. The visual rule is the same on both landings
             so visitors who switch between them read it as one product. */}
-          <h1 className="font-display text-4xl sm:text-6xl lg:text-7xl font-bold leading-[0.95] tracking-[-0.04em] text-slate-900 dark:text-white">
+          <h1 className="font-display text-3xl sm:text-5xl lg:text-6xl font-bold leading-[0.95] tracking-[-0.04em] text-slate-900 dark:text-white">
             See the threats.
             <br className="hidden sm:inline" />
             <span className="sm:inline"> Stop them before they strike.</span>

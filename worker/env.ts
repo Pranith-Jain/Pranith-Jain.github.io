@@ -48,6 +48,7 @@ export interface Env {
   // report their presence, and gives the type system something to
   // check when run.ts and the admin routes read these via the
   // structured CaseStudyEnv cast.
+  GOOGLE_AI_STUDIO_API_KEY?: string;
   GROQ_API_KEY?: string;
   VULNCHECK_API_TOKEN?: string;
   GOOGLE_SAFE_BROWSING_API_KEY?: string;

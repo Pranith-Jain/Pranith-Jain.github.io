@@ -39,7 +39,7 @@ export async function storyClusterHandler(c: Context<{ Bindings: Env }>): Promis
       system: CLUSTER_SYSTEM,
       user: `Articles:\n${list}`,
       maxTokens: 2500,
-    });
+    }, c.env.GOOGLE_AI_STUDIO_API_KEY);
 
     const clusters = parseJson(text);
     return c.json({ clusters, model, generated_at: new Date().toISOString() });

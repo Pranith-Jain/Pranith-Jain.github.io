@@ -49,18 +49,26 @@ export interface BriefingStats {
   medium: number;
   low: number;
   /** In-window ransomware victim claims (counted from the ransomware-activity
-   *  section, capped at 60 per build). Surfaced as a stat pill and as a
-   *  count badge on the JumpNav 'Ransomware' pill. */
+   *  section — uncapped; the section findings are only trimmed by
+   *  capBriefingForStorage if the body would exceed D1's 2 MB row limit).
+   *  Surfaced as a stat pill and as a count badge on the JumpNav 'Ransomware'
+   *  pill. */
   ransomware_victims: number;
 }
 
 export interface BriefingIocDump {
-  /** Number of IOCs included in the txt dump (capped at 30). */
+  /** Number of IOCs included in the txt dump. Uncapped by default; equals
+   *  rawTotal unless capBriefingForStorage trimmed it to fit D1's 2 MB limit
+   *  (see `truncated`). */
   count: number;
-  /** Total unique IOCs observed in-window before the cap. */
+  /** Total unique IOCs observed in-window before any storage trim. */
   rawTotal: number;
   /** Newline-separated list, one IOC per line. */
   content: string;
+  /** Set when the dump was trimmed to keep the briefing body under D1's 2 MB
+   *  per-row limit. `count` then reflects the stored (trimmed) line count while
+   *  `rawTotal` still carries the true observed total. */
+  truncated?: boolean;
 }
 
 export interface Briefing {
@@ -77,8 +85,9 @@ export interface Briefing {
   sections: BriefingSection[];
   iocs: BriefingIocBuckets;
   /**
-   * Plain-text dump of the top IOC list (max 30, all IOCs after cross-source
-   * dedup). Surface this as a download or paste-friendly <pre> block; the
+   * Plain-text dump of every IOC after cross-source dedup (uncapped; only
+   * trimmed by capBriefingForStorage when the body would exceed D1's 2 MB row
+   * limit). Surface this as a download or paste-friendly <pre> block; the
    * inline IocTable on the brief page is just a quick-look summary now.
    */
   ioc_dump?: BriefingIocDump;

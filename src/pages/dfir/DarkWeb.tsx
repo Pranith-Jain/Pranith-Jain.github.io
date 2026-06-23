@@ -302,7 +302,7 @@ export default function DarkWeb(): JSX.Element {
       </BackLink>
 
       <div className="animate-fade-in-up">
-        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2">Dark Web Watch</h1>
+        <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2">Dark Web Watch</h1>
         <p className="text-muted mb-4 max-w-2xl">
           Aggregated dark web, leak-site, breach, and security-research activity from
           {` ${DARKWEB_FEEDS.length} `}curated free sources. Use the search box for live filtering (regex like{' '}

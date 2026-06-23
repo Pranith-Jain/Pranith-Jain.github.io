@@ -67,7 +67,7 @@ export default function Takeover(): JSX.Element {
       </BackLink>
 
       <div className="animate-fade-in-up">
-        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2">Subdomain Takeover Check</h1>
+        <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2">Subdomain Takeover Check</h1>
         <p className="text-muted mb-8 max-w-2xl">
           Resolves a subdomain's CNAME chain and matches it against ~15 known dangling-service patterns (S3, GitHub
           Pages, Heroku, Azure, Shopify, Webflow, Statuspage, and more). If the CNAME points to an unclaimed service,

@@ -1,6 +1,7 @@
 import { useState, useCallback, useRef, useEffect, type FormEvent } from 'react';
-import { Link } from 'react-router-dom';
+import { BackLink } from '../../components/BackLink';
 import {
+  ArrowLeft,
   Search,
   Globe,
   Clock,
@@ -198,15 +199,15 @@ export default function WhoisHistory(): JSX.Element {
   };
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-6 py-8 text-slate-900 dark:text-slate-100">
-      <Link
+    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
+      <BackLink
         to="/dfir"
-        className="inline-flex items-center gap-1.5 text-xs font-mono text-slate-500 hover:text-brand-600 dark:hover:text-brand-400 mb-6"
+        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
-        ← back to DFIR tools
-      </Link>
+        <ArrowLeft size={14} /> back
+      </BackLink>
 
-      <h1 className="text-3xl font-display font-bold mb-2">WHOIS History Explorer</h1>
+      <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2">WHOIS History Explorer</h1>
       <p className="text-muted mb-8">
         Track domain registration changes over time and discover related domains by shared registrant fingerprints.
         Inspired by etugen.io's WHOIS history capabilities.
@@ -220,6 +221,7 @@ export default function WhoisHistory(): JSX.Element {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="example.com"
+            aria-label="Domain name"
             className="w-full pl-10 pr-4 py-2.5 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-sm font-mono focus-visible:ring-2 focus-visible:ring-brand-500 focus:border-transparent"
           />
         </div>
