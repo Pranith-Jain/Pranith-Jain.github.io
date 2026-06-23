@@ -147,9 +147,9 @@ export function generateOgSvg(data: OgImageData): string {
   <defs>
     <!-- Background gradient -->
     <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#0f172a"/>
-      <stop offset="50%" stop-color="#1e293b"/>
-      <stop offset="100%" stop-color="#0f172a"/>
+      <stop offset="0%" stop-color="#070b1c"/>
+      <stop offset="50%" stop-color="#1c2538"/>
+      <stop offset="100%" stop-color="#070b1c"/>
     </linearGradient>
     <!-- Accent glow -->
     <radialGradient id="glow" cx="85%" cy="20%" r="50%">
@@ -189,7 +189,7 @@ export function generateOgSvg(data: OgImageData): string {
   ${statsRow || tagElements}
 
   <!-- Bottom bar -->
-  <rect x="0" y="580" width="${WIDTH}" height="50" fill="#0f172a" opacity="0.6"/>
+  <rect x="0" y="580" width="${WIDTH}" height="50" fill="#070b1c" opacity="0.6"/>
   <line x1="0" y1="580" x2="${WIDTH}" y2="580" stroke="${accent.primary}" stroke-opacity="0.3" stroke-width="1"/>
 
   <!-- Author / site -->
