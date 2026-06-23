@@ -657,7 +657,7 @@ export default function BlogPost() {
               </section>
             )}
 
-            <section className="mt-6 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-6 sm:p-8">
+            <section className="mt-6 surface-card p-6 sm:p-8">
               <div className="sm:flex sm:items-center sm:justify-between gap-6">
                 <div className="mb-4 sm:mb-0">
                   <h3 className="font-display text-xl font-bold text-slate-900 dark:text-white">
