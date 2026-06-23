@@ -1645,6 +1645,8 @@ import {
   threatReportExternalHandler,
 } from './routes/threat-reports';
 
+import { emailOsnitProfileHandler, emailOsnitBulkHandler } from './routes/email-osnit-profile';
+
 app.get('/api/v1/ddos/dashboard', ddosDashboardHandler);
 app.get('/api/v1/ddos/botnet-lookup', ddosBotnetLookupHandler);
 app.get('/api/v1/ddos/ioc-feed', ddosIocFeedHandler);
@@ -1656,6 +1658,9 @@ app.get('/api/v1/threat-reports', threatReportOverviewHandler);
 app.get('/api/v1/threat-reports/country', threatReportCountryHandler);
 app.get('/api/v1/threat-reports/industry', threatReportIndustryHandler);
 app.get('/api/v1/threat-reports/external', threatReportExternalHandler);
+
+app.get('/api/v1/email-osnit/profile', emailOsnitProfileHandler);
+app.post('/api/v1/email-osnit/bulk', emailOsnitBulkHandler);
 
 // Standardized 404 shape: matches the api-error contract ({ error, message })
 // so clients get a human-readable message, not just a bare error code.

@@ -274,6 +274,13 @@ const DFIR_PAGES: readonly PageEntry[] = [
     group: 'dfir',
   },
   {
+    path: '/dfir/email-osnit',
+    label: 'Email OSINT Profile',
+    description: 'Build digital identity from email — GitHub, Gravatar, breach exposure, reputation, DNS, PGP.',
+    sectionLabel: 'DFIR · OSINT',
+    group: 'dfir',
+  },
+  {
     path: '/dfir/eml',
     label: 'EML Extractor',
     description: 'Parse a .eml file, extract headers, body, attachments, and IOCs.',

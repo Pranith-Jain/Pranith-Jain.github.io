@@ -488,6 +488,14 @@ export const HUB_META: readonly HubMeta[] = [
         compVar: 'EmailReputation',
       },
       {
+        path: '/dfir/email-osnit',
+        tabId: 'email-osnit',
+        label: 'Email OSINT Profile',
+        desc: 'Build digital identity from email — GitHub, Gravatar, breach, reputation, DNS, PGP.',
+        compVar: 'EmailOsnit',
+        badge: 'new',
+      },
+      {
         path: '/dfir/phishbook',
         tabId: 'phishbook',
         label: 'PhishBook',

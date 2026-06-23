@@ -321,6 +321,7 @@ const ApkAnalyzer = lazy(() => import('./pages/dfir/ApkAnalyzer'));
 const PgpTool = lazy(() => import('./pages/dfir/PgpTool'));
 const TorGateway = lazy(() => import('./pages/dfir/TorGateway'));
 const EmailReputation = lazy(() => import('./pages/dfir/EmailReputation'));
+const EmailOsnit = lazy(() => import('./pages/dfir/EmailOsnit'));
 const PhishOps = lazy(() => import('./pages/dfir/PhishOps'));
 const PhishBook = lazy(() => import('./pages/dfir/PhishBook'));
 
@@ -532,6 +533,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/dfir/email-deliverability', Component: EmailDeliverability },
   { path: '/dfir/url-rep', Component: UrlReputation },
   { path: '/dfir/email-rep', Component: EmailReputation },
+  { path: '/dfir/email-osnit', Component: EmailOsnit },
   { path: '/dfir/tracer', Component: Tracer },
   { path: '/threatintel/catalog', Component: ThreatIntelCatalog },
   { path: '/threatintel/about', Component: ThreatIntelAbout },

@@ -327,6 +327,7 @@ const ROUTES = [
   '/dfir/eml',
   '/dfir/url-rep',
   '/dfir/email-rep',
+  '/dfir/email-osnit',
   '/dfir/crypto-trace',
 
   // ── Static threatintel catalogs (11) — 0 API calls ────────────
@@ -513,11 +514,6 @@ const ROUTES = [
   '/threatintel/malware-sandbox',
   '/threatintel/threat-actor-catalog',
   '/threatintel/threat-landscape',
-  '/threatintel/osint-cli-tools',
-  '/threatintel/reports',
-  '/threatintel/stix-bundles',
-  '/threatintel/ioc-feeds',
-  '/threatintel/malware-sandbox',
   '/dfir/copilot',
 
   // ── ThreatIntel: hub pages (11) — Suspense-wrapped tabs, prerendered chrome ─

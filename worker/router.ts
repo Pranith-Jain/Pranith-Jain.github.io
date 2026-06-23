@@ -304,6 +304,7 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/dfir/eml', '/__prerendered/dfir__eml'],
   ['/dfir/url-rep', '/__prerendered/dfir__url-rep'],
   ['/dfir/email-rep', '/__prerendered/dfir__email-rep'],
+  ['/dfir/email-osnit', '/__prerendered/dfir__email-osnit'],
   ['/dfir/crypto-trace', '/__prerendered/dfir__crypto-trace'],
 
   // ── ThreatIntel: static catalogs ──────────────────────────────
@@ -556,6 +557,10 @@ const DYNAMIC_ROUTE_FALLBACKS: ReadonlyArray<[RegExp, string]> = [
 ];
 
 function resolveDynamicRoute(pathname: string): string | null {
+  // Skip static assets (images, fonts, JS, CSS, etc.) — none of the
+  // dynamic route patterns would match a file extension anyway, and
+  // testing ~38 regexes per asset request adds needless CPU.
+  if (pathname.includes('.')) return null;
   for (const [pattern, fallback] of DYNAMIC_ROUTE_FALLBACKS) {
     if (pattern.test(pathname)) {
       return fallback;
