@@ -1,7 +1,24 @@
 import { lazy, Suspense, useState, type FormEvent } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, Search, Loader2, Building2, Globe, Zap, Map, MapPin } from 'lucide-react';
+import {
+  ArrowLeft,
+  Search,
+  Loader2,
+  Building2,
+  Globe,
+  Zap,
+  Map,
+  MapPin,
+  Shield,
+  Plane,
+  Cross,
+  Anchor,
+  Radiation,
+  Fuel,
+  Siren,
+  GraduationCap,
+} from 'lucide-react';
 
 const InfraMap = lazy(() => import('../../components/threatintel/InfraMap'));
 
@@ -51,16 +68,16 @@ const CATEGORY_COLORS: Record<string, string> = {
 };
 
 const QUICK_SEARCHES = [
-  { label: 'Military bases in europe', icon: '🛡️' },
-  { label: 'Data centers in usa', icon: '🏢' },
-  { label: 'Power plants in india', icon: '⚡' },
-  { label: 'Airports in germany', icon: '✈️' },
-  { label: 'Hospitals in japan', icon: '🏥' },
-  { label: 'Ports in china', icon: '⚓' },
-  { label: 'Nuclear sites', icon: '☢️' },
-  { label: 'Oil refineries near dubai', icon: '🛢️' },
-  { label: 'Police stations in london', icon: '🚔' },
-  { label: 'Universities in france', icon: '🎓' },
+  { label: 'Military bases in europe', icon: Shield },
+  { label: 'Data centers in usa', icon: Building2 },
+  { label: 'Power plants in india', icon: Zap },
+  { label: 'Airports in germany', icon: Plane },
+  { label: 'Hospitals in japan', icon: Cross },
+  { label: 'Ports in china', icon: Anchor },
+  { label: 'Nuclear sites', icon: Radiation },
+  { label: 'Oil refineries near dubai', icon: Fuel },
+  { label: 'Police stations in london', icon: Siren },
+  { label: 'Universities in france', icon: GraduationCap },
 ];
 
 export default function InfraSearch(): JSX.Element {
@@ -151,16 +168,19 @@ export default function InfraSearch(): JSX.Element {
         {!result && !loading && (
           <div className="mt-3 flex flex-wrap gap-1.5">
             <Zap size={12} className="text-slate-400 mt-0.5" />
-            {QUICK_SEARCHES.map((qs) => (
-              <button
-                key={qs.label}
-                type="button"
-                onClick={(e) => onSubmit(e, qs.label)}
-                className="text-xs font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] hover:text-slate-700 dark:hover:text-slate-200 transition"
-              >
-                {qs.icon} {qs.label}
-              </button>
-            ))}
+            {QUICK_SEARCHES.map((qs) => {
+              const Icon = qs.icon;
+              return (
+                <button
+                  key={qs.label}
+                  type="button"
+                  onClick={(e) => onSubmit(e, qs.label)}
+                  className="inline-flex items-center gap-1.5 text-xs font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] hover:text-slate-700 dark:hover:text-slate-200 transition"
+                >
+                  <Icon size={12} className="shrink-0" /> {qs.label}
+                </button>
+              );
+            })}
           </div>
         )}
       </section>
