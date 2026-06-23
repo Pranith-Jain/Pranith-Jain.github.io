@@ -46,7 +46,7 @@ const TAG_PILL: Record<string, string> = {
   firebase:
     'border-amber-300 dark:border-amber-800 bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-300',
   aws: 'border-orange-300 dark:border-orange-800 bg-orange-50 dark:bg-orange-950/40 text-orange-700 dark:text-orange-300',
-  gcp: 'border-cyan-300 dark:border-cyan-800 bg-cyan-50 dark:bg-cyan-950/40 text-cyan-700 dark:text-cyan-300',
+  gcp: 'border-cyan-300 dark:border-cyan-800 bg-cyan-50 dark:bg-cyan-950/40 text-sky-700 dark:text-sky-300',
   'digital-ocean':
     'border-indigo-300 dark:border-indigo-800 bg-indigo-50 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-300',
   ML: 'border-rose-300 dark:border-rose-800 bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300',
@@ -94,13 +94,13 @@ function ToolRow({
   return (
     <div className="border-b border-slate-200 dark:border-[rgb(var(--border-400))] last:border-b-0">
       <div
-        className="flex items-start gap-3 px-3 py-3 hover:bg-slate-50 dark:hover:bg-slate-900/50 transition-colors"
+        className="flex items-start gap-3 px-3 py-3 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200)/0.5)] transition-colors"
         style={{ paddingLeft: `${depth * 16 + 12}px` }}
       >
         <button
           type="button"
           onClick={() => setOpen((v) => !v)}
-          className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded text-slate-500 dark:text-slate-400 hover:bg-slate-200/60 dark:hover:bg-slate-800/60"
+          className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded text-slate-500 dark:text-slate-400 hover:bg-slate-200/60 dark:hover:bg-[rgb(var(--surface-300)/0.6)]"
           aria-label={open ? 'Collapse' : 'Expand'}
         >
           {open ? <ChevronDown className="h-4 w-4" /> : <ChevronRight className="h-4 w-4" />}
@@ -168,7 +168,7 @@ function ResearchCard({ item, query }: { item: RedHuntResearchItem; query: strin
       href={item.url}
       target="_blank"
       rel="noopener noreferrer"
-      className="block rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-slate-950 p-4 hover:border-brand-500/60 hover:shadow-e2 transition-all"
+      className="block rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] p-4 hover:border-brand-500/60 hover:shadow-e2 transition-all"
     >
       <div className="flex items-start gap-2">
         <FlaskConical className="mt-0.5 h-4 w-4 shrink-0 text-brand-600 dark:text-brand-400" />
@@ -204,7 +204,7 @@ function DatasetCard({ ds, query }: { ds: RedHuntDataset; query: string }): JSX.
       href={ds.url}
       target="_blank"
       rel="noopener noreferrer"
-      className="block rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-slate-950 p-4 hover:border-brand-500/60 hover:shadow-e2 transition-all"
+      className="block rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] p-4 hover:border-brand-500/60 hover:shadow-e2 transition-all"
     >
       <div className="flex items-start gap-2">
         <Database className="mt-0.5 h-4 w-4 shrink-0 text-brand-600 dark:text-brand-400" />
@@ -331,13 +331,13 @@ export default function RedHuntLabsResearch(): JSX.Element {
               className={`inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm font-medium transition-colors ${
                 active
                   ? 'bg-brand-500/15 text-brand-700 dark:text-brand-300 border border-brand-300/60 dark:border-brand-700/60'
-                  : 'border border-transparent text-muted hover:bg-slate-100 dark:hover:bg-slate-800/50'
+                  : 'border border-transparent text-muted hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300)/0.5)]'
               }`}
             >
               <Icon className="h-4 w-4" />
               {t.label}
               {t.count > 0 && (
-                <span className="rounded-full border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-slate-950 px-1.5 py-0.5 text-micro font-mono">
+                <span className="rounded-full border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] px-1.5 py-0.5 text-micro font-mono">
                   {t.count}
                 </span>
               )}
@@ -368,7 +368,7 @@ export default function RedHuntLabsResearch(): JSX.Element {
                       ? `Search ${RESEARCH_ITEMS.length} research projects…`
                       : `Search ${DATASETS.length} datasets…`
                 }
-                className="w-full rounded-lg border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-slate-950 py-2 pl-9 pr-3 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none"
+                className="w-full rounded-lg border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] py-2 pl-9 pr-3 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none"
               />
             </div>
             {query && (
@@ -406,7 +406,7 @@ export default function RedHuntLabsResearch(): JSX.Element {
 
       {/* Tab content */}
       {tab === 'tools' && (
-        <div className="overflow-hidden rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-slate-950">
+        <div className="overflow-hidden rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))]">
           {filteredTools.length === 0 ? (
             <div className="p-8 text-center text-sm text-slate-500 dark:text-slate-400">
               <FolderTree className="mx-auto mb-2 h-8 w-8 text-slate-400 dark:text-slate-500" />
@@ -425,7 +425,7 @@ export default function RedHuntLabsResearch(): JSX.Element {
             const haystack = `${r.title} ${r.summary} ${r.details ?? ''}`;
             return query && !matchesText(haystack, query);
           }) ? (
-            <div className="col-span-full rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-8 text-center text-sm text-slate-500 dark:text-slate-400">
+            <div className="col-span-full rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-8 text-center text-sm text-slate-500 dark:text-slate-400">
               <Search className="mx-auto mb-2 h-8 w-8 text-slate-400 dark:text-slate-500" />
               No research projects match &quot;{query}&quot;.
             </div>
@@ -442,7 +442,7 @@ export default function RedHuntLabsResearch(): JSX.Element {
             const haystack = `${d.title} ${d.description} ${d.wave}`;
             return query && !matchesText(haystack, query);
           }) ? (
-            <div className="col-span-full rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-8 text-center text-sm text-slate-500 dark:text-slate-400">
+            <div className="col-span-full rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-8 text-center text-sm text-slate-500 dark:text-slate-400">
               <Search className="mx-auto mb-2 h-8 w-8 text-slate-400 dark:text-slate-500" />
               No datasets match &quot;{query}&quot;.
             </div>
@@ -469,7 +469,7 @@ export default function RedHuntLabsResearch(): JSX.Element {
               {ABOUT.principles.map((p) => (
                 <div
                   key={p.title}
-                  className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-slate-950 p-4"
+                  className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] p-4"
                 >
                   <h3 className="text-sm font-medium text-slate-900 dark:text-slate-100">{p.title}</h3>
                   <p className="mt-1 text-xs text-muted leading-relaxed">{p.body}</p>

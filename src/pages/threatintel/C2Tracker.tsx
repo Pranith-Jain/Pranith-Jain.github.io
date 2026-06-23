@@ -33,7 +33,7 @@ const FRAMEWORK_COLORS: Record<string, string> = {
   metasploit: 'bg-orange-500/15 text-orange-700 dark:text-orange-300 border-orange-500/30',
   havoc: 'bg-violet-500/15 text-violet-700 dark:text-violet-300 border-violet-500/30',
   bruteratel: 'bg-sky-500/15 text-sky-700 dark:text-sky-300 border-sky-500/30',
-  deimos: 'bg-cyan-500/15 text-cyan-700 dark:text-cyan-300 border-cyan-500/30',
+  deimos: 'bg-cyan-500/15 text-sky-700 dark:text-sky-300 border-cyan-500/30',
   nighthawk: 'bg-indigo-500/15 text-indigo-700 dark:text-indigo-300 border-indigo-500/30',
   poshc2: 'bg-rose-500/15 text-rose-700 dark:text-rose-300 border-rose-500/30',
   silver: 'bg-teal-500/15 text-teal-700 dark:text-teal-300 border-teal-500/30',
@@ -169,7 +169,7 @@ export default function C2Tracker(): JSX.Element {
                 {filtered.slice(0, 300).map((entry, i) => (
                   <div
                     key={`${entry.ip}-${i}`}
-                    className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-2.5"
+                    className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2.5"
                   >
                     <div className="flex items-center justify-between gap-2 mb-1">
                       <code className="font-mono text-sm text-slate-900 dark:text-slate-100 font-semibold truncate">

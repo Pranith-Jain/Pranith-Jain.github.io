@@ -83,7 +83,10 @@ export default function ApprovedTab() {
     return (
       <div>
         <p className="text-red-600 dark:text-red-400 mb-2">Failed to load: {error}</p>
-        <button onClick={() => void load()} className="px-3 py-1 border border-slate-200 dark:border-slate-700 rounded text-sm">
+        <button
+          onClick={() => void load()}
+          className="px-3 py-1 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-sm"
+        >
           Retry
         </button>
       </div>
@@ -109,7 +112,7 @@ export default function ApprovedTab() {
       )}
       <div className="overflow-x-auto">
         <table className="w-full text-sm">
-          <thead className="text-left text-xs uppercase tracking-wider text-slate-600 dark:text-slate-500 border-b border-slate-200 dark:border-slate-800">
+          <thead className="text-left text-xs uppercase tracking-wider text-slate-600 dark:text-slate-500 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
             <tr>
               <th scope="col" className="py-2 pr-4">
                 Type
@@ -127,7 +130,7 @@ export default function ApprovedTab() {
           </thead>
           <tbody>
             {approved.map((c) => (
-              <tr key={c.key} className="border-b border-slate-200 dark:border-zinc-800/60">
+              <tr key={c.key} className="border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
                 <td className="py-2 pr-4 text-slate-500 dark:text-slate-400 uppercase text-xs">{c.type}</td>
                 <td className="py-2 pr-4 text-slate-900 dark:text-slate-100">{c.title}</td>
                 <td className="py-2 pr-4 text-slate-700 dark:text-slate-300 tabular-nums">{c.score.toFixed(2)}</td>
@@ -149,7 +152,7 @@ export default function ApprovedTab() {
                   </button>
                   <button
                     onClick={() => unapprove(c.key)}
-                    className="px-2 py-1 border border-slate-200 dark:border-slate-700 rounded text-xs hover:bg-slate-100 dark:hover:bg-slate-800"
+                    className="px-2 py-1 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-xs hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]"
                   >
                     Unapprove
                   </button>

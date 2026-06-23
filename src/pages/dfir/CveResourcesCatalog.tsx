@@ -17,7 +17,7 @@ const ALL_CATEGORIES = Object.keys(CATEGORY_LABELS) as Category[];
 const ALL_PRICING: Pricing[] = ['open-source', 'free', 'freemium', 'paid'];
 
 const CATEGORY_PILL: Record<Category, string> = {
-  database: 'border-cyan-500/40 bg-cyan-500/10 text-cyan-700 dark:text-cyan-300',
+  database: 'border-cyan-500/40 bg-cyan-500/10 text-sky-700 dark:text-sky-300',
   'exploit-poc': 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300',
   'vendor-psirt': 'border-violet-500/40 bg-violet-500/10 text-violet-700 dark:text-violet-300',
   'scoring-prioritization': 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300',
@@ -27,7 +27,7 @@ const CATEGORY_PILL: Record<Category, string> = {
 
 const PRICING_PILL: Record<Pricing, string> = {
   'open-source': 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300',
-  free: 'border-cyan-500/40 bg-cyan-500/10 text-cyan-700 dark:text-cyan-300',
+  free: 'border-cyan-500/40 bg-cyan-500/10 text-sky-700 dark:text-sky-300',
   freemium: 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300',
   paid: 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300',
 };
@@ -140,7 +140,7 @@ export default function CveResourcesCatalog(): JSX.Element {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search name, description, category — e.g. 'wordpress', 'cisco', 'rss', 'kev'"
-            className="w-full pl-9 pr-4 py-2.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="w-full pl-9 pr-4 py-2.5 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
             aria-label="Search CVE resources"
           />
         </div>

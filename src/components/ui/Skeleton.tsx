@@ -45,7 +45,7 @@ export const Skeleton = memo(function Skeleton({
   label = 'Loading...',
 }: SkeletonProps) {
   const baseStyle = `
-    animate-pulse bg-slate-200 dark:bg-slate-800
+    animate-pulse bg-slate-200 dark:bg-[rgb(var(--surface-300))]
     ${VARIANT_STYLES[variant]}
     ${className}
   `;
@@ -82,7 +82,7 @@ export const Skeleton = memo(function Skeleton({
 export const SkeletonCard = memo(function SkeletonCard({ className = '' }: { className?: string }) {
   return (
     <div
-      className={`rounded-xl border border-slate-200 dark:border-slate-800 p-4 space-y-3 ${className}`}
+      className={`rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-4 space-y-3 ${className}`}
       role="status"
       aria-label="Loading card"
     >
@@ -108,19 +108,22 @@ export const SkeletonTable = memo(function SkeletonTable({
 }) {
   return (
     <div
-      className={`rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden ${className}`}
+      className={`rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] overflow-hidden ${className}`}
       role="status"
       aria-label={`Loading table with ${rows} rows and ${columns} columns`}
     >
       {/* Header */}
-      <div className="bg-slate-50 dark:bg-slate-800/60 px-4 py-3 flex gap-4">
+      <div className="bg-slate-50 dark:bg-[rgb(var(--surface-300)/0.6)] px-4 py-3 flex gap-4">
         {Array.from({ length: columns }).map((_, i) => (
           <Skeleton key={i} variant="text" width={`${100 / columns}%`} height="0.75rem" />
         ))}
       </div>
       {/* Rows */}
       {Array.from({ length: rows }).map((_, rowIndex) => (
-        <div key={rowIndex} className="px-4 py-3 flex gap-4 border-t border-slate-100 dark:border-slate-800">
+        <div
+          key={rowIndex}
+          className="px-4 py-3 flex gap-4 border-t border-slate-100 dark:border-[rgb(var(--border-400))]"
+        >
           {Array.from({ length: columns }).map((_, colIndex) => (
             <Skeleton key={colIndex} variant="text" width={`${100 / columns}%`} height="0.75rem" />
           ))}

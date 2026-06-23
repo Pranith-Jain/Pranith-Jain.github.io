@@ -31,7 +31,7 @@ const TOPIC_PILL: Record<RedditFeedItem['sub_topic'], string> = {
   news: 'border-sky-500/40 bg-sky-500/10 text-sky-700 dark:text-sky-300',
   research: 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300',
   'red-team': 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300',
-  'blue-team': 'border-cyan-500/40 bg-cyan-500/10 text-cyan-700 dark:text-cyan-300',
+  'blue-team': 'border-cyan-500/40 bg-cyan-500/10 text-sky-700 dark:text-sky-300',
   osint: 'border-violet-500/40 bg-violet-500/10 text-violet-700 dark:text-violet-300',
   malware: 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300',
   help: 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500',
@@ -149,7 +149,7 @@ export default function RedditFirehose(): JSX.Element {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Filter by title, body text, or author…"
-              className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
               aria-label="Filter Reddit posts"
             />
           </div>
@@ -282,7 +282,7 @@ export default function RedditFirehose(): JSX.Element {
           <button
             type="button"
             onClick={() => setVisible((v) => v + 60)}
-            className="mt-3 w-full rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] py-2 font-mono text-meta text-muted hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+            className="mt-3 w-full rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] py-2 font-mono text-meta text-muted hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
           >
             Show more ({filtered.length - visible} remaining)
           </button>

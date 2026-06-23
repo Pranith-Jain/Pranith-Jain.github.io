@@ -40,7 +40,8 @@ const SEVERITY_STYLES: Record<string, string> = {
   high: 'border-orange-500/40 bg-orange-500/10 text-orange-700 dark:text-orange-300',
   medium: 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300',
   low: 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300',
-  unknown: 'border-slate-300 dark:border-slate-700 bg-slate-100 dark:bg-slate-800/40 text-slate-500',
+  unknown:
+    'border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-100 dark:bg-[rgb(var(--surface-300)/0.4)] text-slate-500',
 };
 
 function formatDate(iso: string): string {
@@ -272,7 +273,7 @@ export default function CertInAdvisories({ bare = false }: { bare?: boolean } = 
 
       {/* Count */}
       {data && (
-        <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-600 mb-3 font-mono">
+        <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 mb-3 font-mono">
           <span>
             {sorted.length} of {data.total} advisories
           </span>
@@ -311,7 +312,7 @@ export default function CertInAdvisories({ bare = false }: { bare?: boolean } = 
             </thead>
             <tbody className="divide-y divide-slate-100 dark:divide-slate-800/60">
               {sorted.map((adv) => (
-                <tr key={adv.id} className="hover:bg-slate-50 dark:hover:bg-slate-900/40 transition">
+                <tr key={adv.id} className="hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200)/0.4)] transition">
                   <td className="px-3 py-2 font-mono whitespace-nowrap">
                     <a
                       href={adv.detail_url}
@@ -360,7 +361,7 @@ export default function CertInAdvisories({ bare = false }: { bare?: boolean } = 
                         {adv.products_affected.slice(0, 2).map((p, i) => (
                           <span
                             key={i}
-                            className="text-xs px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800/60 text-slate-600 dark:text-slate-400"
+                            className="text-xs px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300)/0.6)] text-slate-600 dark:text-slate-400"
                           >
                             {p.length > 32 ? `${p.slice(0, 32)}…` : p}
                           </span>

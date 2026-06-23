@@ -143,7 +143,7 @@ export default function TelegramDiscoveredChannels(): JSX.Element {
                 if (e.key === 'Enter') saveToken();
               }}
               placeholder="paste ADMIN_TOKEN…"
-              className="flex-1 px-3 py-1.5 text-sm rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 font-mono"
+              className="flex-1 px-3 py-1.5 text-sm rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] text-slate-900 dark:text-slate-100 placeholder:text-slate-400 font-mono"
             />
             <button
               type="button"

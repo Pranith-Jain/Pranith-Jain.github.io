@@ -207,7 +207,7 @@ function HostIntelPanel({ data }: { data: HostIntel }) {
             {data.open_ports.map((p) => (
               <span
                 key={p}
-                className="font-mono text-xs px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300"
+                className="font-mono text-xs px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-700 dark:text-slate-300"
               >
                 {p}
               </span>
@@ -350,14 +350,14 @@ function WhoisPanel({ data }: { data: HistoryResult }) {
                 >
                   <button
                     onClick={() => setExpandedSnapshot(expandedSnapshot === snap.id ? null : snap.id)}
-                    className="w-full flex items-center justify-between p-3 text-left hover:bg-slate-50 dark:hover:bg-slate-800/50"
+                    className="w-full flex items-center justify-between p-3 text-left hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.5)]"
                   >
                     <div className="flex items-center gap-3">
                       <div
                         className={`w-2 h-2 rounded-full ${i === 0 ? 'bg-emerald-500' : 'bg-slate-300 dark:bg-slate-600'}`}
                       />
                       <span className="text-sm font-mono">{formatDateTime(snap.snapshot_at)}</span>
-                      <span className="text-xs px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-500">
+                      <span className="text-xs px-2 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-500">
                         {snap.source}
                       </span>
                     </div>
@@ -466,7 +466,7 @@ function WhoisPanel({ data }: { data: HistoryResult }) {
             {data.changes.map((change) => {
               const colorClass =
                 CHANGE_COLORS[change.change_type] ??
-                'text-slate-600 bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-[rgb(var(--border-400))]';
+                'text-slate-600 bg-slate-50 dark:bg-[rgb(var(--surface-300))] border-slate-200 dark:border-[rgb(var(--border-400))]';
               return (
                 <div key={change.id} className={`p-3 rounded-lg border ${colorClass}`}>
                   <div className="flex items-center gap-2 mb-1">
@@ -607,7 +607,7 @@ export default function AssetIntel(): JSX.Element {
 
       {!loading && !error && !hostIntel && !whoisData && !initial && (
         <div className="text-center py-16">
-          <ScanLine size={48} className="mx-auto mb-4 text-slate-300 dark:text-slate-600" />
+          <ScanLine size={48} className="mx-auto mb-4 text-slate-300 dark:text-slate-400" />
           <p className="text-slate-500">Enter an IP address or domain to begin asset intelligence</p>
           <p className="text-xs text-slate-400 mt-1">
             IP → exposed host, open ports, CVEs, artifacts · Domain → WHOIS history, registration changes, related

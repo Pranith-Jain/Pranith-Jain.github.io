@@ -347,11 +347,11 @@ export default function Blog() {
                 </Link>
                 <div className="flex flex-wrap items-center gap-3 mt-3 text-xs text-slate-500">
                   <span className="font-medium text-slate-700 dark:text-slate-300">Pranith Jain</span>
-                  <span aria-hidden="true" className="text-slate-300 dark:text-slate-600">
+                  <span aria-hidden="true" className="text-slate-300 dark:text-slate-400">
                     ·
                   </span>
                   <time>{formatDate(p.publishedAt)}</time>
-                  <span aria-hidden="true" className="text-slate-300 dark:text-slate-600">
+                  <span aria-hidden="true" className="text-slate-300 dark:text-slate-400">
                     ·
                   </span>
                   <span>{estimateReadingTime(p.excerpt)} min read</span>

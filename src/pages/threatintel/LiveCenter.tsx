@@ -371,13 +371,13 @@ export default function LiveCenter(): JSX.Element {
                     {open && (
                       <div
                         id={`detail-${key}`}
-                        className="border-t border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950/60 p-4 space-y-3 animate-fade-in-up"
+                        className="border-t border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200)/0.6)] p-4 space-y-3 animate-fade-in-up"
                       >
                         <div>
                           <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
                             Install
                           </span>
-                          <pre className="mt-1 overflow-x-auto rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-slate-950 px-3 py-2 text-xs font-mono text-slate-800 dark:text-slate-200">
+                          <pre className="mt-1 overflow-x-auto rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] px-3 py-2 text-xs font-mono text-slate-800 dark:text-slate-200">
                             {tool.detail.install}
                           </pre>
                         </div>
@@ -385,7 +385,7 @@ export default function LiveCenter(): JSX.Element {
                           <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
                             Example
                           </span>
-                          <pre className="mt-1 overflow-x-auto rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-slate-950 px-3 py-2 text-xs font-mono text-slate-800 dark:text-slate-200">
+                          <pre className="mt-1 overflow-x-auto rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] px-3 py-2 text-xs font-mono text-slate-800 dark:text-slate-200">
                             {tool.detail.example}
                           </pre>
                         </div>

@@ -139,7 +139,7 @@ const CONFIDENCE_PILL: Record<'high' | 'medium' | 'low', string> = {
 };
 
 const IOC_PILL: Record<IocKind, string> = {
-  ip: 'text-cyan-700 dark:text-cyan-300 bg-cyan-50 dark:bg-cyan-950/40 border-cyan-300 dark:border-cyan-800',
+  ip: 'text-sky-700 dark:text-sky-300 bg-cyan-50 dark:bg-cyan-950/40 border-cyan-300 dark:border-cyan-800',
   url: 'text-purple-700 dark:text-purple-300 bg-purple-50 dark:bg-purple-950/40 border-purple-300 dark:border-purple-800',
   domain: 'text-sky-700 dark:text-sky-300 bg-sky-50 dark:bg-sky-950/40 border-sky-300 dark:border-sky-800',
   hash: 'text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/40 border-emerald-300 dark:border-emerald-800',
@@ -282,7 +282,7 @@ function StixTab({ data }: { data: AnalyzerOutput }): JSX.Element {
           <summary className="cursor-pointer text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 font-mono">
             show raw JSON
           </summary>
-          <pre className="mt-2 max-h-96 overflow-auto rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-3 text-[11px] text-slate-700 dark:text-slate-300">
+          <pre className="mt-2 max-h-96 overflow-auto rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 text-[11px] text-slate-700 dark:text-slate-300">
             {JSON.stringify(data.stix.bundle, null, 2)}
           </pre>
         </details>
@@ -291,7 +291,7 @@ function StixTab({ data }: { data: AnalyzerOutput }): JSX.Element {
         {Object.entries(typeCounts).map(([type, n]) => (
           <div
             key={type}
-            className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-3 text-center"
+            className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 text-center"
           >
             <p className="text-2xl font-display font-bold text-slate-900 dark:text-slate-100">{n}</p>
             <p className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mt-1">
@@ -442,7 +442,7 @@ function IocsTab(props: { iocs: ExtractedIoc[]; apiKey: string; mcpStatus: McpSt
           {iocs.slice(0, 50).map((i, idx) => {
             const er = enrichments[i.value];
             return (
-              <tr key={idx} className="hover:bg-slate-50 dark:hover:bg-slate-900/50">
+              <tr key={idx} className="hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200)/0.5)]">
                 <td
                   className="px-4 py-2 font-mono text-xs text-slate-700 dark:text-slate-300 truncate max-w-md"
                   title={i.value}
@@ -466,7 +466,7 @@ function IocsTab(props: { iocs: ExtractedIoc[]; apiKey: string; mcpStatus: McpSt
                 <td className="px-4 py-2 text-xs text-slate-500 dark:text-slate-400 font-mono">{i.source}</td>
                 <td className="px-4 py-2 text-xs">
                   {!er ? (
-                    <span className="text-slate-400 dark:text-slate-600 font-mono">—</span>
+                    <span className="text-slate-400 dark:text-slate-400 font-mono">—</span>
                   ) : er.loading ? (
                     <span className="inline-flex items-center gap-1 font-mono text-slate-500">
                       <Loader2 className="h-3 w-3 animate-spin" /> searching…
@@ -519,7 +519,7 @@ function TtpsTab({ ttp }: { ttp: TtpHit[] }): JSX.Element {
         </thead>
         <tbody className="divide-y divide-slate-100 dark:divide-slate-800/60">
           {ttp.map((t, idx) => (
-            <tr key={idx} className="hover:bg-slate-50 dark:hover:bg-slate-900/50">
+            <tr key={idx} className="hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200)/0.5)]">
               <td className="px-4 py-2 text-slate-900 dark:text-slate-100 font-medium">{t.name}</td>
               <td className="px-4 py-2 font-mono text-xs">
                 <a
@@ -557,7 +557,7 @@ function AttackFlowTabView({ phases }: { phases: AttackFlowPhase[] }): JSX.Eleme
       {phases.map((p) => (
         <div
           key={p.phase}
-          className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-slate-950 shadow-e1 overflow-hidden"
+          className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] shadow-e1 overflow-hidden"
         >
           <div className="flex items-center gap-2 border-b border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] px-4 py-2">
             <TrendingUp className="h-4 w-4 text-brand-600 dark:text-brand-400" />
@@ -603,7 +603,7 @@ function FiveWTab({ fiveW }: { fiveW: FiveW | null }): JSX.Element {
         {questions.map(({ q, a, icon: Icon }) => (
           <div
             key={q}
-            className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-3"
+            className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3"
           >
             <div className="flex items-center gap-2 mb-1">
               <Icon className="h-3.5 w-3.5 text-slate-500" />
@@ -614,7 +614,7 @@ function FiveWTab({ fiveW }: { fiveW: FiveW | null }): JSX.Element {
         ))}
       </div>
       {fiveW.attribution_basis && (
-        <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-3">
+        <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3">
           <p className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">
             Attribution basis
           </p>
@@ -627,7 +627,7 @@ function FiveWTab({ fiveW }: { fiveW: FiveW | null }): JSX.Element {
 
 function EmptyTab({ msg }: { msg: string }): JSX.Element {
   return (
-    <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-8 text-center text-sm text-slate-500 dark:text-slate-400">
+    <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-8 text-center text-sm text-slate-500 dark:text-slate-400">
       {msg}
     </div>
   );
@@ -703,7 +703,7 @@ function McpSearchPanel(props: { apiKey: string; status: McpStatus }): JSX.Eleme
               key={m}
               type="button"
               onClick={() => setMode(m)}
-              className={`px-2.5 py-1.5 ${mode === m ? 'bg-brand-50 dark:bg-brand-950/40 text-brand-700 dark:text-brand-300' : 'bg-white dark:bg-[rgb(var(--surface-200))] text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800'}`}
+              className={`px-2.5 py-1.5 ${mode === m ? 'bg-brand-50 dark:bg-brand-950/40 text-brand-700 dark:text-brand-300' : 'bg-white dark:bg-[rgb(var(--surface-200))] text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))]'}`}
             >
               {m}
             </button>
@@ -720,7 +720,7 @@ function McpSearchPanel(props: { apiKey: string; status: McpStatus }): JSX.Eleme
                 ? 'CVE-2025-55182'
                 : 'ransomware · lazarus · apt29'
           }
-          className="flex-1 min-w-[12rem] rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-slate-950 px-2.5 py-1.5 font-mono text-sm text-slate-800 dark:text-slate-200"
+          className="flex-1 min-w-[12rem] rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] px-2.5 py-1.5 font-mono text-sm text-slate-800 dark:text-slate-200"
           autoComplete="off"
           spellCheck={false}
         />
@@ -761,7 +761,7 @@ function McpSearchPanel(props: { apiKey: string; status: McpStatus }): JSX.Eleme
 function IocHitCard({ hit }: { hit: IocSearchResult }): JSX.Element {
   const reports = hit.reports ?? [];
   return (
-    <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-3">
+    <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3">
       <p className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">
         IOC search · <span className="text-slate-800 dark:text-slate-200">{hit.ioc_value}</span>
         {hit.ioc_type && (
@@ -793,7 +793,7 @@ function IocHitCard({ hit }: { hit: IocSearchResult }): JSX.Element {
 
 function CveHitCard({ hit }: { hit: CveSearchResult }): JSX.Element {
   return (
-    <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-3">
+    <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3">
       <p className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">
         CVE · <span className="text-slate-800 dark:text-slate-200">{hit.cve_id}</span>
         {hit.severity && (
@@ -829,7 +829,7 @@ function CveHitCard({ hit }: { hit: CveSearchResult }): JSX.Element {
 function ReportsHitCard({ hit }: { hit: ListReportsResult }): JSX.Element {
   const reports = hit.reports ?? [];
   return (
-    <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-3">
+    <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3">
       <p className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">
         Reports · {reports.length} match{reports.length === 1 ? '' : 'es'}
         {typeof hit.total === 'number' && hit.total !== reports.length && (
@@ -1016,7 +1016,7 @@ export default function AIReportShowcase(): JSX.Element {
                 className={`text-left rounded-lg border p-3 transition-all ${
                   active
                     ? 'border-brand-500 bg-brand-50 dark:bg-brand-950/30 shadow-e2'
-                    : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 hover:border-brand-400/60'
+                    : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] hover:border-brand-400/60'
                 }`}
               >
                 <div className="flex items-baseline justify-between gap-2 mb-1">
@@ -1120,7 +1120,7 @@ export default function AIReportShowcase(): JSX.Element {
       )}
 
       {!data && !loading && !error && (
-        <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-12 text-center">
+        <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-12 text-center">
           <BookOpen className="mx-auto h-10 w-10 text-slate-400 dark:text-slate-500 mb-3" />
           <p className="text-sm text-muted">Pick a sample above to begin.</p>
         </div>

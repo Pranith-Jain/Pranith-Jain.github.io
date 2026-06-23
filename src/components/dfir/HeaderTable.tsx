@@ -39,7 +39,7 @@ export function HeaderTable({ headers }: HeaderTableProps): JSX.Element {
   const displayEntries = expanded ? [...priorityEntries, ...otherEntries] : priorityEntries;
 
   return (
-    <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+    <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
       <h2 className="font-display font-bold text-xl mb-4">Email Headers</h2>
       {hops !== undefined && (
         <div className="mb-4 text-xs font-mono text-muted">
@@ -55,7 +55,7 @@ export function HeaderTable({ headers }: HeaderTableProps): JSX.Element {
         <table className="w-full text-sm font-mono">
           <tbody>
             {displayEntries.map(([key, value]) => (
-              <tr key={key} className="border-b border-slate-200 dark:border-slate-800 last:border-0">
+              <tr key={key} className="border-b border-slate-200 dark:border-[rgb(var(--border-400))] last:border-0">
                 <th scope="row" className="py-2 pr-4 text-muted align-top whitespace-nowrap w-40 font-normal text-left">
                   {key}
                 </th>

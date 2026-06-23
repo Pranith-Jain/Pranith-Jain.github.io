@@ -168,7 +168,9 @@ export default function SupplyChainIntelligence(): JSX.Element {
 
       <div className="flex items-center gap-3 mb-1">
         <Shield className="w-7 h-7 text-emerald-500" />
-        <h1 className="text-3xl sm:text-4xl font-display font-bold text-slate-900 dark:text-slate-100">Supply Chain Intelligence</h1>
+        <h1 className="text-3xl sm:text-4xl font-display font-bold text-slate-900 dark:text-slate-100">
+          Supply Chain Intelligence
+        </h1>
       </div>
       <p className="text-muted mb-6 text-sm max-w-3xl leading-relaxed">
         Malicious package & supply-chain intelligence — powered by{' '}
@@ -208,7 +210,9 @@ export default function SupplyChainIntelligence(): JSX.Element {
         </h2>
         <p className="text-xs text-slate-500 dark:text-slate-400 mb-4">
           Check if a specific package is known-malicious. Enter a package name or use{' '}
-          <code className="px-1 py-0.5 bg-slate-100 dark:bg-slate-800 rounded text-mono">ecosystem:package</code>{' '}
+          <code className="px-1 py-0.5 bg-slate-100 dark:bg-[rgb(var(--surface-300))] rounded text-mono">
+            ecosystem:package
+          </code>{' '}
           format.
         </p>
         <div className="flex gap-2 mb-4">
@@ -257,7 +261,7 @@ export default function SupplyChainIntelligence(): JSX.Element {
                 ? 'border-rose-300 dark:border-rose-700 bg-rose-50 dark:bg-rose-900/10'
                 : verdict.verdict === 'clean'
                   ? 'border-emerald-300 dark:border-emerald-700 bg-emerald-50 dark:bg-emerald-900/10'
-                  : 'border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-800/30'
+                  : 'border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-300)/0.3)]'
             }`}
           >
             <div className="flex items-center gap-3 mb-2">
@@ -373,7 +377,7 @@ export default function SupplyChainIntelligence(): JSX.Element {
                 href={p.ossf_url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-3 py-2 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-800/30 text-xs font-mono text-slate-700 dark:text-slate-300 hover:border-brand-500/50 hover:bg-brand-50 dark:hover:bg-brand-900/10 transition truncate"
+                className="px-3 py-2 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-300)/0.3)] text-xs font-mono text-slate-700 dark:text-slate-300 hover:border-brand-500/50 hover:bg-brand-50 dark:hover:bg-brand-900/10 transition truncate"
                 title={p.name}
               >
                 {p.name}

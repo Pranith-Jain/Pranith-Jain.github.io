@@ -19,7 +19,7 @@ interface CorrelationResponse {
 const CONFIDENCE_BADGE: Record<string, string> = {
   high: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300',
   medium: 'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300',
-  low: 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400',
+  low: 'bg-slate-100 text-slate-600 dark:bg-[rgb(var(--surface-300))] dark:text-slate-400',
 };
 
 export default function CrossCampaignCorrelation(): JSX.Element {

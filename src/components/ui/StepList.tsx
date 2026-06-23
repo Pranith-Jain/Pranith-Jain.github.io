@@ -31,7 +31,7 @@ const STATUS_COLOR: Record<StepStatus, string> = {
 const STATUS_TEXT: Record<StepStatus, string> = {
   completed: 'text-emerald-700 bg-emerald-100 dark:text-emerald-300 dark:bg-emerald-900/30',
   active: 'text-brand-700 bg-brand-100 dark:text-brand-300 dark:bg-brand-900/30',
-  upcoming: 'text-slate-600 bg-slate-100 dark:text-slate-400 dark:bg-slate-800',
+  upcoming: 'text-slate-600 bg-slate-100 dark:text-slate-400 dark:bg-[rgb(var(--surface-300))]',
   error: 'text-rose-700 bg-rose-100 dark:text-rose-300 dark:bg-rose-900/30',
 };
 
@@ -69,12 +69,12 @@ export function StepList({
         return (
           <div
             key={step.id}
-            className="rounded-xl border border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900/40"
+            className="rounded-xl border border-slate-200 bg-white dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200)/0.4)]"
           >
             <button
               type="button"
               onClick={() => hasContent && toggle(step.id)}
-              className={`flex w-full items-center gap-3 p-4 text-left transition-colors hover:bg-slate-50 dark:hover:bg-slate-900/60 ${!hasContent ? 'cursor-default' : ''}`}
+              className={`flex w-full items-center gap-3 p-4 text-left transition-colors hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200)/0.6)] ${!hasContent ? 'cursor-default' : ''}`}
               aria-expanded={hasContent ? isOpen : undefined}
             >
               {renderIcon ? (
@@ -105,7 +105,9 @@ export function StepList({
               )}
             </button>
             {isOpen && hasContent && (
-              <div className="border-t border-slate-200/70 p-4 dark:border-slate-800/70">{step.content}</div>
+              <div className="border-t border-slate-200/70 p-4 dark:border-[rgb(var(--border-400))]">
+                {step.content}
+              </div>
             )}
           </div>
         );

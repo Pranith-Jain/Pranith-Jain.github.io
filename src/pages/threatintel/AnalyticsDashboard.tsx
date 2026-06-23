@@ -101,7 +101,7 @@ function reliabilityColor(grade?: string): string {
 function MiniBar({ value, max, color }: { value: number; max: number; color: string }): JSX.Element {
   const pct = max > 0 ? (value / max) * 100 : 0;
   return (
-    <div className="h-1.5 w-full rounded-full bg-slate-200 dark:bg-slate-800 overflow-hidden">
+    <div className="h-1.5 w-full rounded-full bg-slate-200 dark:bg-[rgb(var(--surface-300))] overflow-hidden">
       <div className={`h-full rounded-full ${color}`} style={{ width: `${pct}%` }} />
     </div>
   );
@@ -398,7 +398,10 @@ export default function AnalyticsDashboard(): JSX.Element {
                   {feed.rows.map((row) => {
                     const Icon = STATUS_ICON[row.status] ?? Clock;
                     return (
-                      <tr key={row.id} className="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+                      <tr
+                        key={row.id}
+                        className="hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.5)] transition-colors"
+                      >
                         <td className="px-4 py-2.5">
                           <span className={`inline-flex items-center gap-1.5 ${STATUS_COLOR[row.status]}`}>
                             <Icon size={14} />

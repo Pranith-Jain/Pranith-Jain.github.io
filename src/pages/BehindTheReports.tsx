@@ -53,7 +53,7 @@ export default function BehindTheReports() {
           ))}
         </div>
 
-        <div className="mt-16 rounded-xl border border-slate-200/70 dark:border-slate-800 bg-brand-50/50 dark:bg-brand-950/20 p-6 sm:p-8">
+        <div className="mt-16 rounded-xl border border-slate-200/70 dark:border-[rgb(var(--border-400))] bg-brand-50/50 dark:bg-brand-950/20 p-6 sm:p-8">
           <p className="text-base text-slate-700 dark:text-slate-300 leading-relaxed">
             <span className="font-semibold text-slate-900 dark:text-white">
               Most threat intelligence fails defenders
@@ -64,7 +64,7 @@ export default function BehindTheReports() {
           </p>
         </div>
 
-        <div className="mt-12 rounded-xl border border-slate-200/70 dark:border-slate-800 p-6 sm:p-8 text-center">
+        <div className="mt-12 rounded-xl border border-slate-200/70 dark:border-[rgb(var(--border-400))] p-6 sm:p-8 text-center">
           <p className="text-sm text-slate-500 dark:text-slate-400">
             Browse published reports on{' '}
             <Link to="/threatintel" className="text-brand-600 dark:text-brand-400 underline hover:no-underline">

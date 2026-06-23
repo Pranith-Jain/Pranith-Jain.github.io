@@ -131,7 +131,7 @@ export default function InfraSearch(): JSX.Element {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="e.g. telecom towers in india, power plants near tokyo"
-              className="w-full pl-9 pr-3 py-2.5 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 font-mono text-sm text-slate-900 dark:text-slate-100 focus:border-brand-500/60 focus:outline-none"
+              className="w-full pl-9 pr-3 py-2.5 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] font-mono text-sm text-slate-900 dark:text-slate-100 focus:border-brand-500/60 focus:outline-none"
               autoComplete="off"
               spellCheck={false}
               aria-label="Infrastructure search query"
@@ -156,7 +156,7 @@ export default function InfraSearch(): JSX.Element {
                 key={qs.label}
                 type="button"
                 onClick={(e) => onSubmit(e, qs.label)}
-                className="text-xs font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-700 dark:hover:text-slate-200 transition"
+                className="text-xs font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] hover:text-slate-700 dark:hover:text-slate-200 transition"
               >
                 {qs.icon} {qs.label}
               </button>
@@ -209,19 +209,19 @@ export default function InfraSearch(): JSX.Element {
                 <div className="flex items-center gap-2 text-xs font-mono text-slate-500">
                   <Map size={12} />
                   <span>{mapGlobal ? 'Global view' : 'Zoomed to results'}</span>
-                  <span className="text-slate-300 dark:text-slate-600">·</span>
+                  <span className="text-slate-300 dark:text-slate-400">·</span>
                   <span>{filtered.length} shown</span>
                 </div>
                 <div className="flex items-center gap-1">
                   <button
                     onClick={() => setMapGlobal(!mapGlobal)}
-                    className="text-xs font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:bg-slate-100 dark:hover:bg-slate-800 inline-flex items-center gap-1"
+                    className="text-xs font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] inline-flex items-center gap-1"
                   >
                     <Globe size={10} /> {mapGlobal ? 'Zoom in' : 'Global'}
                   </button>
                   <button
                     onClick={() => setDarkTiles(!darkTiles)}
-                    className="text-xs font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:bg-slate-100 dark:hover:bg-slate-800"
+                    className="text-xs font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]"
                     title="Toggle map style"
                   >
                     {darkTiles ? '☀️' : '🌙'}
@@ -257,7 +257,7 @@ export default function InfraSearch(): JSX.Element {
                     className={`text-[11px] font-mono px-2 py-0.5 rounded border transition ${
                       catFilter === 'All'
                         ? 'bg-brand-600 text-white border-brand-600'
-                        : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'
+                        : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]'
                     }`}
                   >
                     All ({result.results.length})
@@ -272,7 +272,7 @@ export default function InfraSearch(): JSX.Element {
                         className={`text-[11px] font-mono px-2 py-0.5 rounded border transition inline-flex items-center gap-1 ${
                           catFilter === cat
                             ? 'bg-brand-600 text-white border-brand-600'
-                            : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'
+                            : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]'
                         }`}
                       >
                         <span
@@ -296,7 +296,7 @@ export default function InfraSearch(): JSX.Element {
                   {filtered.slice(0, 200).map((r) => (
                     <div
                       key={r.id}
-                      className="flex items-center gap-2.5 px-4 py-2 border-b border-slate-100 dark:border-[rgb(var(--border-400))]/50 last:border-0 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition text-sm cursor-default"
+                      className="flex items-center gap-2.5 px-4 py-2 border-b border-slate-100 dark:border-[rgb(var(--border-400))]/50 last:border-0 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.5)] transition text-sm cursor-default"
                     >
                       <span
                         className="w-2.5 h-2.5 rounded-full shrink-0"
@@ -310,7 +310,7 @@ export default function InfraSearch(): JSX.Element {
                           {r.lat.toFixed(4)}, {r.lon.toFixed(4)}
                         </div>
                       </div>
-                      <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-500 shrink-0">
+                      <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-500 shrink-0">
                         {r.category}
                       </span>
                     </div>

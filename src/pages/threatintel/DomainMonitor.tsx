@@ -31,7 +31,7 @@ const TYPE_LABELS: Record<string, { label: string; color: string }> = {
   typo: { label: 'Typo', color: 'bg-rose-100 text-rose-800 dark:bg-rose-900/30 dark:text-rose-300' },
   homoglyph: { label: 'Homoglyph', color: 'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300' },
   affix: { label: 'Affix', color: 'bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-300' },
-  'tld-swap': { label: 'TLD Swap', color: 'bg-cyan-100 text-cyan-800 dark:bg-cyan-900/30 dark:text-cyan-300' },
+  'tld-swap': { label: 'TLD Swap', color: 'bg-sky-100 text-cyan-800 dark:bg-sky-500/10 dark:text-sky-300' },
 };
 
 // ─── Main Component ──────────────────────────────────────────────────────────
@@ -189,7 +189,7 @@ export default function DomainMonitor(): JSX.Element {
                       <Globe size={14} className="text-rose-500" />
                       <span className="font-mono text-sm">{v.domain}</span>
                       <span
-                        className={`text-micro font-mono px-2 py-0.5 rounded ${TYPE_LABELS[v.type]?.color ?? 'bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200'}`}
+                        className={`text-micro font-mono px-2 py-0.5 rounded ${TYPE_LABELS[v.type]?.color ?? 'bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-800 dark:text-slate-200'}`}
                       >
                         {TYPE_LABELS[v.type]?.label ?? v.type}
                       </span>

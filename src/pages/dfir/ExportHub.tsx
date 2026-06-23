@@ -134,7 +134,7 @@ export default function ExportHub(): JSX.Element {
             <input
               value={eventName}
               onChange={(e) => setEventName(e.target.value)}
-              className="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-slate-800 text-sm"
+              className="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-300))] text-sm"
             />
           </div>
           <div className="mb-4">
@@ -145,7 +145,7 @@ export default function ExportHub(): JSX.Element {
               value={iocInput}
               onChange={(e) => setIocInput(e.target.value)}
               rows={8}
-              className="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-slate-800 text-sm font-mono text-xs"
+              className="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-300))] text-sm font-mono text-xs"
               placeholder={'1.2.3.4\nmalware.com\nabc123def456...,hash-sha256,80'}
             />
           </div>
@@ -177,7 +177,7 @@ export default function ExportHub(): JSX.Element {
               </button>
             )}
           </div>
-          <pre className="p-4 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 text-xs font-mono whitespace-pre-wrap break-all min-h-[400px] max-h-[600px] overflow-auto">
+          <pre className="p-4 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] text-xs font-mono whitespace-pre-wrap break-all min-h-[400px] max-h-[600px] overflow-auto">
             {result || 'Export output will appear here...'}
           </pre>
         </div>

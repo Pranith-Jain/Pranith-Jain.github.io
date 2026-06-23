@@ -31,7 +31,7 @@ interface PredictiveReport {
 const CONFIDENCE_BADGE: Record<string, string> = {
   high: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300',
   medium: 'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300',
-  low: 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400',
+  low: 'bg-slate-100 text-slate-600 dark:bg-[rgb(var(--surface-300))] dark:text-slate-400',
 };
 
 const TREND_ICON: Record<string, JSX.Element> = {
@@ -71,7 +71,7 @@ export default function PredictiveIntel(): JSX.Element {
       onRetry={refetch}
       empty={!loading && forecasts.length === 0 && sectorRisks.length === 0}
       emptyMessage="No predictive data available yet."
-      emptyIcon={<TrendingUp size={32} className="text-slate-300 dark:text-slate-600" />}
+      emptyIcon={<TrendingUp size={32} className="text-slate-300 dark:text-slate-400" />}
     >
       {summary && (
         <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-gradient-to-br from-brand-500/5 to-brand-500/10 dark:from-brand-500/10 dark:to-brand-500/5 p-5 mb-6">
@@ -121,7 +121,7 @@ export default function PredictiveIntel(): JSX.Element {
                     {s.current_risk}
                   </span>
                 </div>
-                <div className="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-2 mb-3">
+                <div className="w-full bg-slate-200 dark:bg-[rgb(var(--surface-300))] rounded-full h-2 mb-3">
                   <div
                     className={`h-2 rounded-full bg-gradient-to-r ${RISK_BAR_COLOR[s.trend]}`}
                     style={{ width: `${s.current_risk}%` }}
@@ -131,7 +131,7 @@ export default function PredictiveIntel(): JSX.Element {
                   {s.top_threats.map((t, j) => (
                     <span
                       key={j}
-                      className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-muted"
+                      className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted"
                     >
                       {t.replace(/_/g, ' ')}
                     </span>
@@ -171,7 +171,7 @@ export default function PredictiveIntel(): JSX.Element {
                     <div className="text-micro font-mono text-slate-400">probability</div>
                   </div>
                 </div>
-                <div className="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-2 mb-3">
+                <div className="w-full bg-slate-200 dark:bg-[rgb(var(--surface-300))] rounded-full h-2 mb-3">
                   <div
                     className="bg-gradient-to-r from-brand-600 to-brand-400 h-2 rounded-full"
                     style={{ width: `${f.probability}%` }}

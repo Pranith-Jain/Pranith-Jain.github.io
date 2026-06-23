@@ -301,7 +301,7 @@ const SEVERITY_COLORS: Record<Severity, { bg: string; text: string; ring: string
     pill: 'bg-blue-500 text-white',
   },
   info: {
-    bg: 'bg-slate-50 dark:bg-slate-900',
+    bg: 'bg-slate-50 dark:bg-[rgb(var(--surface-200))]',
     text: 'text-slate-700 dark:text-slate-300',
     ring: 'ring-slate-300 dark:ring-slate-700',
     pill: 'bg-slate-500 text-white',
@@ -321,9 +321,9 @@ const STAKEHOLDER_META: Record<Stakeholder, { label: string; color: string }> = 
   ir: { label: 'IR', color: 'bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-300' },
   vuln: { label: 'VMGT', color: 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300' },
   redteam: { label: 'RED', color: 'bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300' },
-  appsec: { label: 'APPSEC', color: 'bg-cyan-100 text-cyan-700 dark:bg-cyan-900/30 dark:text-cyan-300' },
+  appsec: { label: 'APPSEC', color: 'bg-sky-100 text-sky-700 dark:bg-sky-500/10 dark:text-sky-300' },
   awareness: { label: 'AWARE', color: 'bg-pink-100 text-pink-700 dark:bg-pink-900/30 dark:text-pink-300' },
-  exec: { label: 'EXEC', color: 'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300' },
+  exec: { label: 'EXEC', color: 'bg-slate-100 text-slate-700 dark:bg-[rgb(var(--surface-300))] dark:text-slate-300' },
   legal: { label: 'LEGAL', color: 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-300' },
   tprm: { label: 'TPRM', color: 'bg-teal-100 text-teal-700 dark:bg-teal-900/30 dark:text-teal-300' },
 };
@@ -350,7 +350,7 @@ function renderMarkdown(md: string): string {
   s = s.replace(/```(\w*)\n([\s\S]*?)```/g, (_m, lang, body) => {
     const idx = codeBlocks.length;
     codeBlocks.push(
-      `<pre data-codeblock="${idx}" data-lang="${esc(lang)}" class="rounded bg-slate-900 dark:bg-slate-950 text-slate-100 p-3 my-3 text-xs overflow-x-auto font-mono leading-relaxed"><code>${esc(body.trimEnd())}</code></pre>`
+      `<pre data-codeblock="${idx}" data-lang="${esc(lang)}" class="rounded bg-slate-900 dark:bg-[rgb(var(--input-200))] text-slate-100 p-3 my-3 text-xs overflow-x-auto font-mono leading-relaxed"><code>${esc(body.trimEnd())}</code></pre>`
     );
     return `\n\n§§CODEBLOCK${idx}§§\n\n`;
   });
@@ -358,7 +358,7 @@ function renderMarkdown(md: string): string {
   // Inline code
   s = s.replace(
     /`([^`\n]+)`/g,
-    '<code class="px-1 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-xs font-mono">$1</code>'
+    '<code class="px-1 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-xs font-mono">$1</code>'
   );
 
   // Headings
@@ -410,18 +410,18 @@ function renderMarkdown(md: string): string {
     const ths = header
       .map(
         (h) =>
-          `<th class="text-left px-2 py-1 font-mono text-micro uppercase tracking-wider text-slate-500 border-b border-slate-200 dark:border-slate-700">${h}</th>`
+          `<th class="text-left px-2 py-1 font-mono text-micro uppercase tracking-wider text-slate-500 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">${h}</th>`
       )
       .join('');
     const trs = body
       .map(
         (cols) =>
-          `<tr class="border-b border-slate-100 dark:border-slate-800">${cols
+          `<tr class="border-b border-slate-100 dark:border-[rgb(var(--border-400))]">${cols
             .map((c) => `<td class="px-2 py-1 text-sm font-mono align-top">${c}</td>`)
             .join('')}</tr>`
       )
       .join('');
-    return `<table class="w-full my-3 border border-slate-200 dark:border-slate-800 rounded overflow-hidden"><thead><tr>${ths}</tr></thead><tbody>${trs}</tbody></table>`;
+    return `<table class="w-full my-3 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded overflow-hidden"><thead><tr>${ths}</tr></thead><tbody>${trs}</tbody></table>`;
   });
 
   // Paragraphs
@@ -494,8 +494,8 @@ function BlufPanel({ header }: { header: NonNullable<ReportActionCard['reportHea
     active: 'bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-300',
     'post-exploit': 'bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-300',
     reconnaissance: 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300',
-    informational: 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300',
-    unknown: 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300',
+    informational: 'bg-slate-100 text-slate-600 dark:bg-[rgb(var(--surface-300))] dark:text-slate-300',
+    unknown: 'bg-slate-100 text-slate-600 dark:bg-[rgb(var(--surface-300))] dark:text-slate-300',
   };
   return (
     <div className={`rounded-lg p-4 ring-1 ${sevColor.ring} ${sevColor.bg} mb-4`}>
@@ -536,7 +536,7 @@ function BlufPanel({ header }: { header: NonNullable<ReportActionCard['reportHea
       {header.primary_indicator && (
         <div className="mt-2 flex items-center gap-1.5 text-xs">
           <span className="text-micro font-mono uppercase tracking-wider text-slate-500">Primary IOC:</span>
-          <code className="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-slate-100 font-mono text-xs">
+          <code className="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-900 dark:text-slate-100 font-mono text-xs">
             {header.primary_indicator.type}: {header.primary_indicator.value}
           </code>
         </div>
@@ -570,7 +570,7 @@ function CveMetaCard({ card }: { card: ReportActionCard }): JSX.Element | null {
       case 'LOW':
         return 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300';
       default:
-        return 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400';
+        return 'bg-slate-100 text-slate-600 dark:bg-[rgb(var(--surface-300))] dark:text-slate-400';
     }
   };
 
@@ -583,7 +583,7 @@ function CveMetaCard({ card }: { card: ReportActionCard }): JSX.Element | null {
       case 'poc-public':
         return 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300';
       default:
-        return 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400';
+        return 'bg-slate-100 text-slate-600 dark:bg-[rgb(var(--surface-300))] dark:text-slate-400';
     }
   };
 
@@ -596,7 +596,7 @@ function CveMetaCard({ card }: { card: ReportActionCard }): JSX.Element | null {
       </div>
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
         {card.cvss?.score != null && (
-          <div className="rounded border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-2">
+          <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-2">
             <div className="text-micro font-mono uppercase tracking-wider text-slate-500">CVSS v3.1</div>
             <div className="flex items-baseline gap-1.5 mt-0.5">
               <span className="text-xl font-bold text-slate-900 dark:text-slate-100">{card.cvss.score.toFixed(1)}</span>
@@ -615,7 +615,7 @@ function CveMetaCard({ card }: { card: ReportActionCard }): JSX.Element | null {
           </div>
         )}
         {card.epss?.score != null && (
-          <div className="rounded border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-2">
+          <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-2">
             <div className="text-micro font-mono uppercase tracking-wider text-slate-500">EPSS</div>
             <div className="text-xl font-bold text-slate-900 dark:text-slate-100 mt-0.5">
               {(card.epss.score * 100).toFixed(1)}%
@@ -627,7 +627,7 @@ function CveMetaCard({ card }: { card: ReportActionCard }): JSX.Element | null {
             )}
           </div>
         )}
-        <div className="rounded border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-2">
+        <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-2">
           <div className="text-micro font-mono uppercase tracking-wider text-slate-500">CISA KEV</div>
           {card.kev ? (
             <>
@@ -641,7 +641,7 @@ function CveMetaCard({ card }: { card: ReportActionCard }): JSX.Element | null {
             <div className="text-sm text-slate-500 dark:text-slate-400 mt-0.5">Not listed</div>
           )}
         </div>
-        <div className="rounded border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-2">
+        <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-2">
           <div className="text-micro font-mono uppercase tracking-wider text-slate-500">Exploit</div>
           {card.exploit_status ? (
             <span
@@ -710,10 +710,10 @@ function SeverityBanner({ card }: { card: ReportActionCard }): JSX.Element {
           >
             TLP:{card.verdict.tlp}
           </span>
-          <span className="px-1.5 py-0.5 rounded border border-slate-300 dark:border-slate-700 text-micro font-mono uppercase tracking-wider text-slate-600 dark:text-slate-400">
+          <span className="px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-micro font-mono uppercase tracking-wider text-slate-600 dark:text-slate-400">
             {card.verdict.posture}
           </span>
-          <span className="px-1.5 py-0.5 rounded border border-slate-300 dark:border-slate-700 text-micro font-mono uppercase tracking-wider text-slate-600 dark:text-slate-400">
+          <span className="px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-micro font-mono uppercase tracking-wider text-slate-600 dark:text-slate-400">
             {card.verdict.confidence}
           </span>
           {card.kev && (
@@ -742,14 +742,14 @@ function IocTable({ iocs }: { iocs: ReportIoc[] }): JSX.Element | null {
   const confColor: Record<string, string> = {
     Confirmed: 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300',
     Probable: 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300',
-    Possible: 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400',
+    Possible: 'bg-slate-100 text-slate-600 dark:bg-[rgb(var(--surface-300))] dark:text-slate-400',
   };
   // Type-color map — gives the "Type" column a quick visual signal that
   // matches the indicator's nature (file hash = rose, domain = cyan, etc.).
   const typeColor: Record<string, string> = {
     ipv4: 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300',
     ipv6: 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300',
-    domain: 'bg-cyan-100 text-cyan-700 dark:bg-cyan-900/30 dark:text-cyan-300',
+    domain: 'bg-sky-100 text-sky-700 dark:bg-sky-500/10 dark:text-sky-300',
     url: 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300',
     hash: 'bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-300',
     email: 'bg-pink-100 text-pink-700 dark:bg-pink-900/30 dark:text-pink-300',
@@ -758,27 +758,27 @@ function IocTable({ iocs }: { iocs: ReportIoc[] }): JSX.Element | null {
     malware: 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300',
   };
   return (
-    <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 mb-4 overflow-hidden">
-      <div className="px-3 py-2 border-b border-slate-200 dark:border-slate-800 flex items-center gap-2 text-mini font-mono uppercase tracking-wider text-slate-500">
+    <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] mb-4 overflow-hidden">
+      <div className="px-3 py-2 border-b border-slate-200 dark:border-[rgb(var(--border-400))] flex items-center gap-2 text-mini font-mono uppercase tracking-wider text-slate-500">
         <Database size={12} /> Indicators ({iocs.length})
       </div>
       <div className="overflow-x-auto">
         <table className="w-full text-sm">
           <thead>
             <tr className="text-left">
-              <th className="px-3 py-1.5 font-mono text-micro uppercase tracking-wider text-slate-500 border-b border-slate-200 dark:border-slate-700 w-20">
+              <th className="px-3 py-1.5 font-mono text-micro uppercase tracking-wider text-slate-500 border-b border-slate-200 dark:border-[rgb(var(--border-400))] w-20">
                 Type
               </th>
-              <th className="px-3 py-1.5 font-mono text-micro uppercase tracking-wider text-slate-500 border-b border-slate-200 dark:border-slate-700">
+              <th className="px-3 py-1.5 font-mono text-micro uppercase tracking-wider text-slate-500 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
                 Value
               </th>
-              <th className="px-3 py-1.5 font-mono text-micro uppercase tracking-wider text-slate-500 border-b border-slate-200 dark:border-slate-700 w-24">
+              <th className="px-3 py-1.5 font-mono text-micro uppercase tracking-wider text-slate-500 border-b border-slate-200 dark:border-[rgb(var(--border-400))] w-24">
                 Confidence
               </th>
-              <th className="px-3 py-1.5 font-mono text-micro uppercase tracking-wider text-slate-500 border-b border-slate-200 dark:border-slate-700 w-32">
+              <th className="px-3 py-1.5 font-mono text-micro uppercase tracking-wider text-slate-500 border-b border-slate-200 dark:border-[rgb(var(--border-400))] w-32">
                 Source
               </th>
-              <th className="px-3 py-1.5 w-10 border-b border-slate-200 dark:border-slate-700"></th>
+              <th className="px-3 py-1.5 w-10 border-b border-slate-200 dark:border-[rgb(var(--border-400))]"></th>
             </tr>
           </thead>
           <tbody>
@@ -801,11 +801,11 @@ function IocTable({ iocs }: { iocs: ReportIoc[] }): JSX.Element | null {
               return (
                 <tr
                   key={key}
-                  className="border-b border-slate-100 dark:border-slate-800/50 hover:bg-slate-50 dark:hover:bg-slate-950/40"
+                  className="border-b border-slate-100 dark:border-[rgb(var(--border-400))] hover:bg-slate-50 dark:hover:bg-[rgb(var(--input-200)/0.4)]"
                 >
                   <td className="px-3 py-1.5">
                     <span
-                      className={`inline-block px-1.5 py-0.5 rounded text-micro font-mono font-bold uppercase ${typeColor[i.type] ?? 'bg-slate-100 text-slate-500 dark:bg-slate-800 dark:text-slate-400'}`}
+                      className={`inline-block px-1.5 py-0.5 rounded text-micro font-mono font-bold uppercase ${typeColor[i.type] ?? 'bg-slate-100 text-slate-500 dark:bg-[rgb(var(--surface-300))] dark:text-slate-400'}`}
                     >
                       {i.type}
                     </span>
@@ -864,27 +864,27 @@ function MitreTable({ mitre }: { mitre: ReportMitre[] }): JSX.Element | null {
     sigma: 'bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300',
     kql: 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300',
     splunk: 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300',
-    none: 'bg-slate-100 text-slate-500 dark:bg-slate-800 dark:text-slate-400',
+    none: 'bg-slate-100 text-slate-500 dark:bg-[rgb(var(--surface-300))] dark:text-slate-400',
   };
   return (
-    <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 mb-4 overflow-hidden">
-      <div className="px-3 py-2 border-b border-slate-200 dark:border-slate-800 flex items-center gap-2 text-mini font-mono uppercase tracking-wider text-slate-500">
+    <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] mb-4 overflow-hidden">
+      <div className="px-3 py-2 border-b border-slate-200 dark:border-[rgb(var(--border-400))] flex items-center gap-2 text-mini font-mono uppercase tracking-wider text-slate-500">
         <Target size={12} /> MITRE ATT&CK ({mitre.length} technique{mitre.length === 1 ? '' : 's'})
       </div>
       <div className="overflow-x-auto">
         <table className="w-full text-sm">
           <thead>
             <tr className="text-left">
-              <th className="px-3 py-1.5 font-mono text-micro uppercase tracking-wider text-slate-500 border-b border-slate-200 dark:border-slate-700">
+              <th className="px-3 py-1.5 font-mono text-micro uppercase tracking-wider text-slate-500 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
                 Tactic
               </th>
-              <th className="px-3 py-1.5 font-mono text-micro uppercase tracking-wider text-slate-500 border-b border-slate-200 dark:border-slate-700 w-24">
+              <th className="px-3 py-1.5 font-mono text-micro uppercase tracking-wider text-slate-500 border-b border-slate-200 dark:border-[rgb(var(--border-400))] w-24">
                 ID
               </th>
-              <th className="px-3 py-1.5 font-mono text-micro uppercase tracking-wider text-slate-500 border-b border-slate-200 dark:border-slate-700">
+              <th className="px-3 py-1.5 font-mono text-micro uppercase tracking-wider text-slate-500 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
                 Name
               </th>
-              <th className="px-3 py-1.5 font-mono text-micro uppercase tracking-wider text-slate-500 border-b border-slate-200 dark:border-slate-700 w-20">
+              <th className="px-3 py-1.5 font-mono text-micro uppercase tracking-wider text-slate-500 border-b border-slate-200 dark:border-[rgb(var(--border-400))] w-20">
                 Detection
               </th>
             </tr>
@@ -892,7 +892,7 @@ function MitreTable({ mitre }: { mitre: ReportMitre[] }): JSX.Element | null {
           <tbody>
             {[...byTactic.entries()].map(([tactic, items]) =>
               items.map((m, idx) => (
-                <tr key={`${m.id}-${idx}`} className="border-b border-slate-100 dark:border-slate-800/50">
+                <tr key={`${m.id}-${idx}`} className="border-b border-slate-100 dark:border-[rgb(var(--border-400))]">
                   {idx === 0 && (
                     <td
                       className="px-3 py-1.5 font-mono text-sm text-slate-700 dark:text-slate-300 align-top"
@@ -939,11 +939,11 @@ function DiamondModelCard({ diamond }: { diamond: ReportDiamond | undefined }): 
   ).length;
   if (filled < 2) return null;
   return (
-    <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 mb-4 overflow-hidden">
-      <div className="px-3 py-2 border-b border-slate-200 dark:border-slate-800 flex items-center gap-2 text-mini font-mono uppercase tracking-wider text-slate-500">
+    <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] mb-4 overflow-hidden">
+      <div className="px-3 py-2 border-b border-slate-200 dark:border-[rgb(var(--border-400))] flex items-center gap-2 text-mini font-mono uppercase tracking-wider text-slate-500">
         <Diamond size={12} /> Diamond Model
       </div>
-      <div className="grid grid-cols-2 gap-px bg-slate-200 dark:bg-slate-800">
+      <div className="grid grid-cols-2 gap-px bg-slate-200 dark:bg-[rgb(var(--surface-300))]">
         <DiamondQuadrant title="Adversary" value={diamond.adversary} />
         <DiamondQuadrant title="Capability" items={diamond.capability} />
         <DiamondQuadrant title="Infrastructure" items={diamond.infrastructure} />
@@ -955,7 +955,7 @@ function DiamondModelCard({ diamond }: { diamond: ReportDiamond | undefined }): 
 
 function DiamondQuadrant({ title, value, items }: { title: string; value?: string; items?: string[] }): JSX.Element {
   return (
-    <div className="bg-white dark:bg-slate-900 p-3">
+    <div className="bg-white dark:bg-[rgb(var(--surface-200))] p-3">
       <div className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-1">{title}</div>
       {value && <div className="text-sm text-slate-700 dark:text-slate-300">{value}</div>}
       {items && items.length > 0 && (
@@ -986,8 +986,8 @@ function ActionsList({
     : actions;
   if (filtered.length === 0) return null;
   return (
-    <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 mb-4 overflow-hidden">
-      <div className="px-3 py-2 border-b border-slate-200 dark:border-slate-800 flex items-center gap-2 text-mini font-mono uppercase tracking-wider text-slate-500">
+    <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] mb-4 overflow-hidden">
+      <div className="px-3 py-2 border-b border-slate-200 dark:border-[rgb(var(--border-400))] flex items-center gap-2 text-mini font-mono uppercase tracking-wider text-slate-500">
         <Shield size={12} /> Containment &amp; Response ({filtered.length})
       </div>
       <ol className="divide-y divide-slate-100 dark:divide-slate-800/50">
@@ -1041,8 +1041,8 @@ function ActionsList({
 function PirList({ pirs }: { pirs: ReportPir[] }): JSX.Element | null {
   if (pirs.length === 0) return null;
   return (
-    <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 mb-4 overflow-hidden">
-      <div className="px-3 py-2 border-b border-slate-200 dark:border-slate-800 flex items-center gap-2 text-mini font-mono uppercase tracking-wider text-slate-500">
+    <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] mb-4 overflow-hidden">
+      <div className="px-3 py-2 border-b border-slate-200 dark:border-[rgb(var(--border-400))] flex items-center gap-2 text-mini font-mono uppercase tracking-wider text-slate-500">
         <Flag size={12} /> Priority Intelligence Requirements
       </div>
       <ul className="divide-y divide-slate-100 dark:divide-slate-800/50">
@@ -1070,12 +1070,12 @@ function PirList({ pirs }: { pirs: ReportPir[] }): JSX.Element | null {
 function TimelineList({ timeline }: { timeline: ReportActionCard['timeline'] }): JSX.Element | null {
   if (!timeline || timeline.length === 0) return null;
   return (
-    <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 mb-4 overflow-hidden">
-      <div className="px-3 py-2 border-b border-slate-200 dark:border-slate-800 flex items-center gap-2 text-mini font-mono uppercase tracking-wider text-slate-500">
+    <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] mb-4 overflow-hidden">
+      <div className="px-3 py-2 border-b border-slate-200 dark:border-[rgb(var(--border-400))] flex items-center gap-2 text-mini font-mono uppercase tracking-wider text-slate-500">
         <Activity size={12} /> Timeline
       </div>
       <ol className="relative pl-6 pr-3 py-2">
-        <div className="absolute left-3 top-3 bottom-3 w-px bg-slate-200 dark:bg-slate-800" />
+        <div className="absolute left-3 top-3 bottom-3 w-px bg-slate-200 dark:bg-[rgb(var(--surface-300))]" />
         {timeline.map((t, idx) => (
           <li key={idx} className="relative py-1.5">
             <div className="absolute -left-3 mt-1.5 w-2 h-2 rounded-full bg-brand-500 ring-2 ring-white dark:ring-slate-900" />
@@ -1154,11 +1154,11 @@ function NextActionsBar({
   const hasNavigator = (actionCard?.navigatorLayer?.techniques?.length ?? 0) > 0;
 
   return (
-    <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 mb-4">
+    <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] mb-4">
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}
-        className="w-full px-3 py-2 flex items-center justify-between text-left hover:bg-slate-50 dark:hover:bg-slate-950/40"
+        className="w-full px-3 py-2 flex items-center justify-between text-left hover:bg-slate-50 dark:hover:bg-[rgb(var(--input-200)/0.4)]"
       >
         <span className="flex items-center gap-2 text-mini font-mono uppercase tracking-wider text-slate-500">
           <Sparkles size={12} /> Next Actions
@@ -1166,7 +1166,7 @@ function NextActionsBar({
         {open ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
       </button>
       {open && (
-        <div className="px-3 pb-3 border-t border-slate-100 dark:border-slate-800/50">
+        <div className="px-3 pb-3 border-t border-slate-100 dark:border-[rgb(var(--border-400))]">
           <p className="text-xs text-slate-500 mt-2 mb-2">
             Generate follow-up artifacts from this investigation. Analyst approval required before deploying anything to
             live tooling.
@@ -1214,7 +1214,7 @@ function NextActionsBar({
                 actionCard && navigator.clipboard.writeText(JSON.stringify(actionCard, null, 2)).then(() => void 0)
               }
               disabled={!actionCard}
-              className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 text-mini font-mono hover:bg-slate-50 dark:hover:bg-slate-950/40 disabled:opacity-50"
+              className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-700 dark:text-slate-300 text-mini font-mono hover:bg-slate-50 dark:hover:bg-[rgb(var(--input-200)/0.4)] disabled:opacity-50"
             >
               <Copy size={11} />
               Copy Action Card JSON
@@ -1243,7 +1243,7 @@ function NextActionsBar({
                     URL.revokeObjectURL(url);
                   }
                 }}
-                className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 text-mini font-mono hover:bg-slate-50 dark:hover:bg-slate-950/40"
+                className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-700 dark:text-slate-300 text-mini font-mono hover:bg-slate-50 dark:hover:bg-[rgb(var(--input-200)/0.4)]"
               >
                 <Share2 size={11} />
                 Share as Markdown
@@ -1299,7 +1299,7 @@ function NextActionsBar({
             </div>
           )}
           {result && (
-            <pre className="mt-3 rounded bg-slate-900 dark:bg-slate-950 text-slate-100 p-3 text-xs overflow-x-auto font-mono leading-relaxed max-h-72">
+            <pre className="mt-3 rounded bg-slate-900 dark:bg-[rgb(var(--input-200))] text-slate-100 p-3 text-xs overflow-x-auto font-mono leading-relaxed max-h-72">
               {JSON.stringify(result, null, 2)}
             </pre>
           )}
@@ -1354,7 +1354,7 @@ export function ReportView({
     return (
       <div>
         {headline && (
-          <div className="rounded-lg p-3 bg-slate-100 dark:bg-slate-800 mb-3 flex items-start gap-2">
+          <div className="rounded-lg p-3 bg-slate-100 dark:bg-[rgb(var(--surface-300))] mb-3 flex items-start gap-2">
             <Info size={14} className="mt-0.5 text-slate-500" />
             <p className="text-sm font-semibold text-slate-900 dark:text-slate-100">{headline}</p>
           </div>
@@ -1385,7 +1385,7 @@ export function ReportView({
       <CveMetaCard card={actionCard} />
 
       {actionCard.reportHeader?.bluf && (
-        <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3 mb-4">
+        <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-3 mb-4">
           <div className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-1">Executive Summary</div>
           <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">{actionCard.reportHeader.bluf}</p>
           {actionCard.reportHeader.key_takeaway && (
@@ -1398,7 +1398,7 @@ export function ReportView({
       )}
 
       {!actionCard.reportHeader && headline && (
-        <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3 mb-4">
+        <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-3 mb-4">
           <div className="flex items-start gap-2">
             <AlertOctagon size={14} className="mt-0.5 text-slate-500 shrink-0" />
             <div className="flex-1 min-w-0">
@@ -1407,7 +1407,7 @@ export function ReportView({
             </div>
           </div>
           {executiveSummary && (
-            <div className="mt-3 pt-3 border-t border-slate-100 dark:border-slate-800/50">
+            <div className="mt-3 pt-3 border-t border-slate-100 dark:border-[rgb(var(--border-400))]">
               <div className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-1">Executive Summary</div>
               <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed whitespace-pre-line">
                 {executiveSummary}
@@ -1428,7 +1428,7 @@ export function ReportView({
             className={`px-1.5 py-0.5 rounded text-micro font-mono font-bold ${
               stakeholder === null
                 ? 'bg-brand-600 text-white'
-                : 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700'
+                : 'bg-slate-100 text-slate-600 dark:bg-[rgb(var(--surface-300))] dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700'
             }`}
           >
             ALL
@@ -1457,11 +1457,11 @@ export function ReportView({
 
       {/* Technical details — collapsible. Analyst can fold the body and
           just see BLUF + action card + IOCs at a glance. */}
-      <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 mb-4">
+      <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] mb-4">
         <button
           type="button"
           onClick={() => setShowTechnical((v) => !v)}
-          className="w-full px-3 py-2 flex items-center justify-between text-left hover:bg-slate-50 dark:hover:bg-slate-950/40"
+          className="w-full px-3 py-2 flex items-center justify-between text-left hover:bg-slate-50 dark:hover:bg-[rgb(var(--input-200)/0.4)]"
         >
           <span className="flex items-center gap-2 text-mini font-mono uppercase tracking-wider text-slate-500">
             <FileText size={12} /> Technical Details
@@ -1469,7 +1469,7 @@ export function ReportView({
           {showTechnical ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
         </button>
         {showTechnical && (
-          <div className="px-3 pb-3 border-t border-slate-100 dark:border-slate-800/50">
+          <div className="px-3 pb-3 border-t border-slate-100 dark:border-[rgb(var(--border-400))]">
             <div
               data-stakeholder-filter={stakeholder ?? ''}
               className="prose prose-sm dark:prose-invert max-w-none font-mono text-sm leading-relaxed pt-2"
@@ -1479,7 +1479,7 @@ export function ReportView({
               <style>{`[data-stakeholder-filter="${stakeholder}"] .dfir-stakeholder-block:not([data-stakeholder="${stakeholder}"]) { display: none; }`}</style>
             )}
             {bundle && (
-              <div className="mt-3 rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950/40 p-3">
+              <div className="mt-3 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200)/0.4)] p-3">
                 <div className="flex items-center gap-2 text-mini font-mono uppercase tracking-wider text-slate-500 mb-2">
                   <Link2 size={12} /> STIX 2.1 Bundle
                 </div>

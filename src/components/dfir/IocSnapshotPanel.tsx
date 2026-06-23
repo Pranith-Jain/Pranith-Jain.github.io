@@ -93,13 +93,13 @@ function typeBadge(t: IocEntry['type']): string {
     case 'domain':
       return 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300';
     case 'ipv4':
-      return 'border-cyan-500/40 bg-cyan-500/10 text-cyan-700 dark:text-cyan-300';
+      return 'border-cyan-500/40 bg-cyan-500/10 text-sky-700 dark:text-sky-300';
     case 'hash':
       return 'border-violet-500/40 bg-violet-500/10 text-violet-700 dark:text-violet-300';
     case 'cve':
       return 'border-orange-500/40 bg-orange-500/10 text-orange-700 dark:text-orange-300';
     default:
-      return 'border-slate-300 dark:border-slate-700 text-slate-500';
+      return 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500';
   }
 }
 

@@ -13,7 +13,7 @@ export type { Tool, Section, ToolGroup };
 const Card = memo(function Card({ tool }: { tool: Tool }): JSX.Element {
   const { path, label, desc, icon: Icon, external } = tool;
   const className =
-    'group relative block overflow-hidden rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-5 ' +
+    'group relative block overflow-hidden rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5 ' +
     'transition-[transform,border-color,box-shadow] duration-200 ' +
     'hover:-translate-y-0.5 hover:border-brand-500/50 hover:shadow-[0_10px_30px_-12px_rgba(44,62,229,0.35)] ' +
     'focus-visible:outline-none focus-visible:-translate-y-0.5 focus-visible:border-brand-500 focus-visible:ring-2 focus-visible:ring-brand-500/40';
@@ -118,7 +118,7 @@ export function ToolGrid({ group }: { group?: ToolGroup } = {}): JSX.Element {
 
   return (
     <div className="space-y-6">
-      <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-3">
+      <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3">
         <div className="relative">
           <SearchIcon
             size={14}
@@ -130,7 +130,7 @@ export function ToolGrid({ group }: { group?: ToolGroup } = {}): JSX.Element {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search tools (dmarc, kill chain, mcp, owasp, jwt…)"
-            className="w-full pl-9 pr-9 py-3 sm:py-2 min-h-[44px] sm:min-h-0 rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 font-mono text-base sm:text-sm focus:border-brand-500/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40"
+            className="w-full pl-9 pr-9 py-3 sm:py-2 min-h-[44px] sm:min-h-0 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] font-mono text-base sm:text-sm focus:border-brand-500/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40"
             aria-label="Search DFIR tools"
           />
           {query && (
@@ -162,7 +162,7 @@ export function ToolGrid({ group }: { group?: ToolGroup } = {}): JSX.Element {
       </p>
 
       {filteredSections.length === 0 && filteredExternal.length === 0 ? (
-        <div className="rounded-lg border border-dashed border-slate-300 dark:border-slate-700 p-8 text-center text-sm text-slate-500 dark:text-slate-400">
+        <div className="rounded-lg border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-8 text-center text-sm text-slate-500 dark:text-slate-400">
           No tools match "{q}". Try a different keyword or{' '}
           <button onClick={() => setQuery('')} className="text-brand-600 dark:text-brand-400 hover:underline">
             clear the search

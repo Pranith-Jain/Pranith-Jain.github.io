@@ -8,7 +8,7 @@ const RISK_COLORS: Record<string, string> = {
   high: 'bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300 border-amber-300 dark:border-amber-800',
   medium:
     'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/40 dark:text-yellow-300 border-yellow-300 dark:border-yellow-800',
-  low: 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400 border-slate-300 dark:border-[rgb(var(--border-400))]',
+  low: 'bg-slate-100 text-slate-600 dark:bg-[rgb(var(--surface-300))] dark:text-slate-400 border-slate-300 dark:border-[rgb(var(--border-400))]',
 };
 
 export default function Regscope(): JSX.Element {
@@ -86,7 +86,7 @@ export default function Regscope(): JSX.Element {
               value={keyPath}
               onChange={(e) => setKeyPath(e.target.value)}
               placeholder="HKLM\Software\Microsoft\Windows\CurrentVersion\Run"
-              className="w-full rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-3 text-sm text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/40 font-mono"
+              className="w-full rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 text-sm text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/40 font-mono"
             />
 
             <p className="text-micro font-mono text-slate-400 mt-2">
@@ -98,7 +98,7 @@ export default function Regscope(): JSX.Element {
               {['HKLM', 'HKCU', 'HKCR', 'HKU', 'HKCC'].map((hive) => (
                 <span
                   key={hive}
-                  className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-muted border border-slate-200 dark:border-[rgb(var(--border-400))]"
+                  className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted border border-slate-200 dark:border-[rgb(var(--border-400))]"
                 >
                   {hive}
                 </span>
@@ -120,7 +120,7 @@ export default function Regscope(): JSX.Element {
                   setKeyPath('');
                   setResult(null);
                 }}
-                className="flex items-center gap-2 px-4 py-2.5 bg-white dark:bg-[rgb(var(--surface-200))]/40 border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted text-sm font-medium rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors"
+                className="flex items-center gap-2 px-4 py-2.5 bg-white dark:bg-[rgb(var(--surface-200))]/40 border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted text-sm font-medium rounded-xl hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.6)] transition-colors"
               >
                 Clear
               </button>

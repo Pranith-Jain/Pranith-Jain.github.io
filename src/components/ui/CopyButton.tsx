@@ -32,9 +32,9 @@ const SIZE_STYLES: Record<string, string> = {
 };
 
 const VARIANT_STYLES = {
-  icon: 'p-1 rounded text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800',
+  icon: 'p-1 rounded text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]',
   button:
-    'px-3 py-1.5 rounded-md text-sm font-medium bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700',
+    'px-3 py-1.5 rounded-md text-sm font-medium bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700',
   ghost: 'p-1 rounded text-slate-400 hover:text-brand-600 dark:hover:text-brand-400',
 };
 

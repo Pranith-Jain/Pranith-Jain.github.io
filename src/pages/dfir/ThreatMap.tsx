@@ -479,7 +479,7 @@ export default function ThreatMap(): JSX.Element {
           <div className="grid lg:grid-cols-[1fr_280px] gap-6">
             {/* Map */}
             <div
-              className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 overflow-hidden relative"
+              className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] overflow-hidden relative"
               // Reserve the map's intrinsic aspect ratio (900×460 SVG) so the
               // Suspense fallback occupies the same space the loaded
               // ComposableMap will take. Without this the placeholder is
@@ -593,7 +593,7 @@ export default function ThreatMap(): JSX.Element {
                 <button
                   type="button"
                   onClick={() => setSelected(null)}
-                  className="inline-flex items-center gap-1 text-xs font-mono px-3 py-2 min-h-[44px] sm:min-h-0 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
+                  className="inline-flex items-center gap-1 text-xs font-mono px-3 py-2 min-h-[44px] sm:min-h-0 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]"
                   aria-label="Clear country selection"
                 >
                   <X size={12} /> clear
@@ -813,7 +813,7 @@ function SourcesBreakdown({ sourceCounts, iocTypes, totalIps }: SourcesBreakdown
         {rows.map((r) => (
           <li
             key={`${r.name}-${r.kind}`}
-            className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50/50 dark:bg-slate-950 p-3"
+            className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50/50 dark:bg-[rgb(var(--input-200))] p-3"
           >
             <div className="flex items-baseline justify-between gap-2 mb-1">
               {r.meta.href ? (
@@ -886,7 +886,7 @@ function IocTypeBreakdown({ ipsCount, buckets }: { ipsCount: number; buckets: Io
 
       {/* Stacked bar */}
       <div
-        className="flex w-full h-3 rounded overflow-hidden bg-slate-100 dark:bg-slate-800 mb-3"
+        className="flex w-full h-3 rounded overflow-hidden bg-slate-100 dark:bg-[rgb(var(--surface-300))] mb-3"
         role="img"
         aria-label={`IOC type breakdown: ${rows.map((r) => `${KIND_LABEL[r.kind]} ${r.count}`).join(', ')}`}
       >
@@ -917,7 +917,7 @@ function IocTypeBreakdown({ ipsCount, buckets }: { ipsCount: number; buckets: Io
               <span className={`inline-block w-2.5 h-2.5 rounded shrink-0 ${KIND_COLOUR[r.kind]}`} aria-hidden="true" />
               <span className="text-slate-800 dark:text-slate-200 font-semibold">{KIND_LABEL[r.kind]}</span>
               <span className="text-slate-500 ml-auto tabular-nums">{r.count.toLocaleString()}</span>
-              <span className="text-slate-400 dark:text-slate-600 text-micro tabular-nums">{pct.toFixed(0)}%</span>
+              <span className="text-slate-400 dark:text-slate-400 text-micro tabular-nums">{pct.toFixed(0)}%</span>
             </Link>
           );
         })}

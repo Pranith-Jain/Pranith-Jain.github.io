@@ -1109,7 +1109,7 @@ export default function VulnToolkitCatalog(): JSX.Element {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search CVE, product, vendor, type (e.g. 'cisco rce', 'router command-injection')"
-            className="w-full pl-9 pr-4 py-2.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="w-full pl-9 pr-4 py-2.5 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
             aria-label="Search vulnerability catalog"
           />
         </div>
@@ -1215,7 +1215,7 @@ export default function VulnToolkitCatalog(): JSX.Element {
         <div className="overflow-x-auto">
           <table className="w-full text-sm font-mono">
             <thead>
-              <tr className="text-micro text-slate-500 border-b border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950">
+              <tr className="text-micro text-slate-500 border-b border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))]">
                 <th className="text-left py-3 px-4">CVE</th>
                 <th className="text-left py-3 px-4">Product</th>
                 <th className="text-left py-3 px-4">Vendor</th>
@@ -1233,7 +1233,7 @@ export default function VulnToolkitCatalog(): JSX.Element {
                 return (
                   <tr
                     key={e.id}
-                    className="border-b border-slate-100 dark:border-[rgb(var(--border-400))]/50 hover:bg-slate-50 dark:hover:bg-slate-950/50 transition-colors"
+                    className="border-b border-slate-100 dark:border-[rgb(var(--border-400))]/50 hover:bg-slate-50 dark:hover:bg-[rgb(var(--input-200)/0.5)] transition-colors"
                   >
                     <td className="py-3 px-4">
                       <div className="flex items-center gap-2">
@@ -1260,7 +1260,7 @@ export default function VulnToolkitCatalog(): JSX.Element {
                     </td>
                     <td className="py-3 px-4 text-muted">{e.vendor}</td>
                     <td className="py-3 px-4">
-                      <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-muted">
+                      <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted">
                         {e.type}
                       </span>
                     </td>

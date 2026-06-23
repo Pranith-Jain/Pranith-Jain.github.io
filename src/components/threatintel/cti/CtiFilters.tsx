@@ -54,7 +54,7 @@ export default function CtiFilters({
   return (
     <div className="flex flex-wrap items-center gap-3">
       {/* Mode tabs */}
-      <div className="inline-flex rounded-lg border border-slate-200 dark:border-slate-800 overflow-hidden">
+      <div className="inline-flex rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] overflow-hidden">
         {MODES.map((m) => {
           const on = m.id === mode;
           return (
@@ -65,7 +65,7 @@ export default function CtiFilters({
               className={`inline-flex items-center gap-1.5 text-mini font-mono px-3 py-1.5 transition-colors ${
                 on
                   ? 'bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                  : 'bg-white dark:bg-slate-900 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'
+                  : 'bg-white dark:bg-[rgb(var(--surface-200))] text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]'
               }`}
             >
               {m.icon}
@@ -76,7 +76,7 @@ export default function CtiFilters({
       </div>
 
       {/* Time window pills */}
-      <div className="inline-flex rounded-lg border border-slate-200 dark:border-slate-800 overflow-hidden">
+      <div className="inline-flex rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] overflow-hidden">
         {WINDOWS.map((w) => {
           const on = w.days === windowDays;
           return (
@@ -87,7 +87,7 @@ export default function CtiFilters({
               className={`text-mini font-mono px-2.5 py-1.5 transition-colors ${
                 on
                   ? 'bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                  : 'bg-white dark:bg-slate-900 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'
+                  : 'bg-white dark:bg-[rgb(var(--surface-200))] text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]'
               }`}
             >
               {w.label}
@@ -108,7 +108,7 @@ export default function CtiFilters({
               className={`inline-flex items-center gap-1 text-micro font-mono px-2 py-1 rounded-lg border transition-colors ${
                 on
                   ? 'border-brand-500/50 bg-brand-500/10 text-brand-700 dark:text-brand-300'
-                  : 'border-slate-300 dark:border-slate-700 text-slate-400'
+                  : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-400'
               }`}
             >
               {l.icon}

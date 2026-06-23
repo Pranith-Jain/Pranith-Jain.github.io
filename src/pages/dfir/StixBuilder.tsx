@@ -284,7 +284,7 @@ export default function StixBuilder(): JSX.Element {
       {/* Input area */}
       <div className="space-y-3">
         {mode === 'file' ? (
-          <div className="rounded-lg border border-slate-300 bg-slate-50 px-3 py-4 dark:border-[rgb(var(--border-400))] dark:bg-slate-950">
+          <div className="rounded-lg border border-slate-300 bg-slate-50 px-3 py-4 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--input-200))]">
             <input
               ref={fileRef}
               type="file"
@@ -306,7 +306,7 @@ export default function StixBuilder(): JSX.Element {
             placeholder={activeMode.placeholder}
             rows={mode === 'text' ? 10 : 6}
             aria-label={activeMode.label}
-            className="w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 font-mono text-sm focus:border-brand-500 focus:outline-none dark:border-[rgb(var(--border-400))] dark:bg-slate-950"
+            className="w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 font-mono text-sm focus:border-brand-500 focus:outline-none dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--input-200))]"
           />
         ) : (
           <input
@@ -315,7 +315,7 @@ export default function StixBuilder(): JSX.Element {
             onChange={(e) => setInput(e.target.value)}
             placeholder={activeMode.placeholder}
             aria-label="Fetch URL"
-            className="w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 font-mono text-sm focus:border-brand-500 focus:outline-none dark:border-[rgb(var(--border-400))] dark:bg-slate-950"
+            className="w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 font-mono text-sm focus:border-brand-500 focus:outline-none dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--input-200))]"
           />
         )}
 
@@ -423,7 +423,7 @@ function Output({ result, viewTab, setViewTab, onCopy, onDownload, copyStatus }:
             <button
               type="button"
               onClick={onCopy}
-              className="inline-flex items-center gap-1.5 rounded-md border border-slate-300 bg-white px-2.5 py-1 text-xs font-medium text-slate-700 hover:bg-slate-100 dark:border-[rgb(var(--border-400))] dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700"
+              className="inline-flex items-center gap-1.5 rounded-md border border-slate-300 bg-white px-2.5 py-1 text-xs font-medium text-slate-700 hover:bg-slate-100 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300))] dark:text-slate-200 dark:hover:bg-slate-700"
             >
               <Copy size={12} />
               {copyStatus === 'copied' ? 'Copied' : copyStatus === 'failed' ? 'Failed' : 'Copy'}
@@ -431,7 +431,7 @@ function Output({ result, viewTab, setViewTab, onCopy, onDownload, copyStatus }:
             <button
               type="button"
               onClick={onDownload}
-              className="inline-flex items-center gap-1.5 rounded-md border border-slate-300 bg-white px-2.5 py-1 text-xs font-medium text-slate-700 hover:bg-slate-100 dark:border-[rgb(var(--border-400))] dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700"
+              className="inline-flex items-center gap-1.5 rounded-md border border-slate-300 bg-white px-2.5 py-1 text-xs font-medium text-slate-700 hover:bg-slate-100 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300))] dark:text-slate-200 dark:hover:bg-slate-700"
             >
               <Download size={12} /> Download
             </button>
@@ -466,7 +466,7 @@ function Output({ result, viewTab, setViewTab, onCopy, onDownload, copyStatus }:
             </button>
           ))}
         </div>
-        <pre className="max-h-[480px] overflow-auto rounded-lg bg-slate-50 p-3 font-mono text-mini leading-relaxed text-slate-800 dark:bg-slate-950 dark:text-slate-200">
+        <pre className="max-h-[480px] overflow-auto rounded-lg bg-slate-50 p-3 font-mono text-mini leading-relaxed text-slate-800 dark:bg-[rgb(var(--input-200))] dark:text-slate-200">
           {viewTab === 'pretty' ? pretty : raw}
         </pre>
       </div>
@@ -574,7 +574,7 @@ function BuilderIntelCard({ view, bundle }: { view: IntelView; bundle: IntelBund
             {view.flowSteps.map((step, i) => (
               <li
                 key={`${step.techniqueId}-${i}`}
-                className="flex items-center gap-2 rounded border border-slate-200 bg-slate-50 px-2 py-1 text-xs dark:border-[rgb(var(--border-400))] dark:bg-slate-950"
+                className="flex items-center gap-2 rounded border border-slate-200 bg-slate-50 px-2 py-1 text-xs dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--input-200))]"
               >
                 <span className="font-mono text-micro text-slate-400">{i + 1}.</span>
                 <span className="font-medium text-slate-700 dark:text-slate-200">{step.name}</span>
@@ -596,7 +596,7 @@ function BuilderIntelCard({ view, bundle }: { view: IntelView; bundle: IntelBund
             {view.iocs.map((ioc) => (
               <div
                 key={`${ioc.type}|${ioc.value}`}
-                className="flex items-center gap-2 rounded border border-slate-200 bg-slate-50 px-2 py-1 text-xs dark:border-[rgb(var(--border-400))] dark:bg-slate-950"
+                className="flex items-center gap-2 rounded border border-slate-200 bg-slate-50 px-2 py-1 text-xs dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--input-200))]"
               >
                 <span className="font-mono text-micro uppercase text-slate-500">{ioc.type}</span>
                 <IocChip value={ioc.value} bare size="sm" className="min-w-0" />

@@ -38,7 +38,7 @@ export function HistoryRow({ e }: { e: HistoryEntry }): JSX.Element {
     ? (e.verdict as 'clean' | 'suspicious' | 'malicious')
     : 'unknown';
   return (
-    <li className="flex items-center justify-between rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-3">
+    <li className="flex items-center justify-between rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3">
       <div className="min-w-0 flex-1">
         <div className="flex items-center gap-3">
           <span className="text-xs font-mono uppercase tracking-wider text-brand-600 dark:text-brand-400 w-20 shrink-0">

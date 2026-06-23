@@ -334,7 +334,7 @@ function FilterBar({
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Filter by feed id…"
-            className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
             aria-label="Filter feeds"
           />
         </div>
@@ -417,7 +417,7 @@ function FeedRow({
       <button
         type="button"
         onClick={onToggle}
-        className="w-full px-4 py-3 flex items-center gap-3 hover:bg-slate-50/60 dark:hover:bg-slate-950/40 text-left"
+        className="w-full px-4 py-3 flex items-center gap-3 hover:bg-slate-50/60 dark:hover:bg-[rgb(var(--input-200)/0.4)] text-left"
         aria-expanded={expanded}
       >
         <span
@@ -446,7 +446,7 @@ function FeedRow({
         )}
       </button>
       {expanded && (
-        <div className="px-4 pb-4 pt-1 border-t border-slate-200 dark:border-[rgb(var(--border-400))] space-y-3 bg-slate-50/40 dark:bg-slate-950/40">
+        <div className="px-4 pb-4 pt-1 border-t border-slate-200 dark:border-[rgb(var(--border-400))] space-y-3 bg-slate-50/40 dark:bg-[rgb(var(--input-200)/0.4)]">
           {PILLAR_KEYS.map((k) => {
             const p = feed[k];
             const meta = PILLAR_LABELS[k];
@@ -479,7 +479,7 @@ function PillarBars({ feed }: { feed: FeedTifceScore }): JSX.Element {
         const s = feed[k].score;
         return (
           <div key={k} className="flex items-center gap-1.5" title={`${PILLAR_LABELS[k].label}: ${s.toFixed(1)}`}>
-            <div className="flex-1 h-1.5 rounded-full bg-slate-200 dark:bg-slate-800 overflow-hidden">
+            <div className="flex-1 h-1.5 rounded-full bg-slate-200 dark:bg-[rgb(var(--surface-300))] overflow-hidden">
               <div
                 className={`h-full ${pillarBarColor(s)} transition-[width] duration-300`}
                 style={{ width: `${s}%` }}

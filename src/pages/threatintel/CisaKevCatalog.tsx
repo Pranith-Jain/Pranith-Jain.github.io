@@ -267,7 +267,7 @@ export default function CisaKevCatalog({ bare = false }: { bare?: boolean } = {}
 
       {/* Results count */}
       {data && (
-        <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-600 mb-3 font-mono">
+        <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 mb-3 font-mono">
           <span>
             {sorted.length} of {data.total} vulnerabilities
           </span>
@@ -310,7 +310,7 @@ export default function CisaKevCatalog({ bare = false }: { bare?: boolean } = {}
                 return (
                   <tr
                     key={v.cve_id}
-                    className={`hover:bg-slate-50 dark:hover:bg-slate-900/40 transition ${overdue ? 'bg-rose-50/50 dark:bg-rose-900/10' : ''}`}
+                    className={`hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200)/0.4)] transition ${overdue ? 'bg-rose-50/50 dark:bg-rose-900/10' : ''}`}
                   >
                     <td className="px-3 py-2 font-mono">
                       <a
@@ -393,11 +393,11 @@ export default function CisaKevCatalog({ bare = false }: { bare?: boolean } = {}
                 className={`w-full flex items-center gap-2 text-xs px-2 py-1 rounded transition ${
                   vendorFilter === vendor
                     ? 'bg-brand-500/10 border border-brand-500/30 text-brand-700 dark:text-brand-300'
-                    : 'hover:bg-slate-50 dark:hover:bg-slate-800/50 text-muted'
+                    : 'hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.5)] text-muted'
                 }`}
               >
                 <span className="font-mono truncate flex-1 text-left">{vendor}</span>
-                <span className="font-mono text-slate-400 dark:text-slate-600">{count}</span>
+                <span className="font-mono text-slate-400 dark:text-slate-400">{count}</span>
               </button>
             ))}
           </div>
@@ -405,7 +405,7 @@ export default function CisaKevCatalog({ bare = false }: { bare?: boolean } = {}
       )}
 
       {data && (
-        <div className="mt-6 pt-4 border-t border-slate-200 dark:border-[rgb(var(--border-400))] text-xs text-slate-500 dark:text-slate-600 font-mono">
+        <div className="mt-6 pt-4 border-t border-slate-200 dark:border-[rgb(var(--border-400))] text-xs text-slate-500 dark:text-slate-400 font-mono">
           Source: CISA KEV ·{' '}
           <a
             href="https://www.cisa.gov/known-exploited-vulnerabilities-catalog"

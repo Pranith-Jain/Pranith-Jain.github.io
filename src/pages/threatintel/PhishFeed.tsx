@@ -253,7 +253,7 @@ export default function PhishFeed(): JSX.Element {
 
       {/* Results */}
       {data && (
-        <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-600 mb-3 font-mono">
+        <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 mb-3 font-mono">
           <span>
             {filtered.length} of {data.total} URLs
           </span>
@@ -274,7 +274,7 @@ export default function PhishFeed(): JSX.Element {
                   risky
                     ? 'border-amber-300/50 dark:border-amber-500/30 bg-amber-50 dark:bg-amber-900/5'
                     : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/30'
-                } hover:bg-slate-50 dark:hover:bg-slate-900/40 transition`}
+                } hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200)/0.4)] transition`}
               >
                 <a
                   href={sanitizeUrl(u.url)}
@@ -332,18 +332,18 @@ export default function PhishFeed(): JSX.Element {
                 className={`w-full flex items-center gap-2 text-xs px-2 py-1 rounded transition ${
                   query === brand
                     ? 'bg-brand-500/10 border border-brand-500/30 text-brand-700 dark:text-brand-300'
-                    : 'hover:bg-slate-50 dark:hover:bg-slate-800/50 text-muted'
+                    : 'hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.5)] text-muted'
                 }`}
               >
                 <span className="font-mono truncate flex-1 text-left">{brand}</span>
-                <span className="font-mono text-slate-400 dark:text-slate-600">{count}</span>
+                <span className="font-mono text-slate-400 dark:text-slate-400">{count}</span>
               </button>
             ))}
           </div>
         </div>
       )}
 
-      <div className="mt-6 pt-4 border-t border-slate-200 dark:border-[rgb(var(--border-400))] text-xs text-slate-500 dark:text-slate-600 font-mono">
+      <div className="mt-6 pt-4 border-t border-slate-200 dark:border-[rgb(var(--border-400))] text-xs text-slate-500 dark:text-slate-400 font-mono">
         Sources: OpenPhish + PhishTank (optional) · Built-in brand detection for target attribution · Cached 1h
         server-side
       </div>

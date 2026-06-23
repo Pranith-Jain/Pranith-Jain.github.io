@@ -310,7 +310,9 @@ export default function DarknetMarketsTimeline(): JSX.Element {
 
       <div className="flex items-center gap-3 mb-1">
         <Globe className="w-7 h-7 text-violet-500" />
-        <h1 className="text-3xl sm:text-4xl font-display font-bold text-slate-900 dark:text-slate-100">Darknet Markets Timeline</h1>
+        <h1 className="text-3xl sm:text-4xl font-display font-bold text-slate-900 dark:text-slate-100">
+          Darknet Markets Timeline
+        </h1>
       </div>
       <p className="text-muted mb-6 text-sm max-w-3xl leading-relaxed">
         Historical and current darknet marketplaces — status, founding dates, seizure history, and exit scams. Data
@@ -477,7 +479,7 @@ export default function DarknetMarketsTimeline(): JSX.Element {
         <div className="text-center py-12 text-slate-500 font-mono text-sm">No markets match your filters</div>
       )}
 
-      <div className="mt-6 pt-4 border-t border-slate-200 dark:border-[rgb(var(--border-400))] text-xs text-slate-500 dark:text-slate-600 font-mono">
+      <div className="mt-6 pt-4 border-t border-slate-200 dark:border-[rgb(var(--border-400))] text-xs text-slate-500 dark:text-slate-400 font-mono">
         Sources: Dread, TorTaxi, public law-enforcement reporting · {MARKETS.length} markets tracked
       </div>
     </div>

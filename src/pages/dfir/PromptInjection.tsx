@@ -175,7 +175,7 @@ export default function PromptInjection(): JSX.Element {
               <button
                 key={s.label}
                 onClick={() => setInput(s.text)}
-                className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-800 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+                className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-300))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
               >
                 {s.label}
               </button>
@@ -195,7 +195,7 @@ export default function PromptInjection(): JSX.Element {
           onChange={(e) => setInput(e.target.value)}
           rows={8}
           placeholder="Paste a prompt, an LLM response, or untrusted content (web page, document, email) the model will see…"
-          className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 px-3 py-2 font-mono text-sm text-slate-900 dark:text-slate-100 focus:border-brand-500/60 focus:outline-none"
+          className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-3 py-2 font-mono text-sm text-slate-900 dark:text-slate-100 focus:border-brand-500/60 focus:outline-none"
           aria-label="Prompt injection input"
         />
       </section>
@@ -211,7 +211,7 @@ export default function PromptInjection(): JSX.Element {
                 {grade} · score {score}
               </span>
             </div>
-            <div className="h-2 rounded bg-slate-200 dark:bg-slate-800 overflow-hidden mb-3">
+            <div className="h-2 rounded bg-slate-200 dark:bg-[rgb(var(--surface-300))] overflow-hidden mb-3">
               <div className={`h-full transition-all ${gradeBar(grade)}`} style={{ width: `${Math.max(2, score)}%` }} />
             </div>
             <p className="text-sm font-mono text-muted">
@@ -235,7 +235,7 @@ export default function PromptInjection(): JSX.Element {
             <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
               Highlighted input
             </h2>
-            <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-3 font-mono text-sm text-slate-800 dark:text-slate-200 leading-relaxed">
+            <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 font-mono text-sm text-slate-800 dark:text-slate-200 leading-relaxed">
               {highlight(input, matches)}
             </div>
           </section>
@@ -249,7 +249,7 @@ export default function PromptInjection(): JSX.Element {
                 {matches.map((m, i) => (
                   <li
                     key={`${m.pattern.id}-${i}`}
-                    className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-3"
+                    className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3"
                   >
                     <div className="flex flex-wrap items-center gap-2 mb-1">
                       <span className="font-display font-semibold text-slate-900 dark:text-slate-100">
@@ -377,7 +377,7 @@ export default function PromptInjection(): JSX.Element {
           {filteredRedTeam.map((p) => (
             <li
               key={p.id}
-              className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-3"
+              className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3"
             >
               <div className="flex flex-wrap items-center gap-2 mb-2">
                 <span className="font-display font-semibold text-slate-900 dark:text-slate-100">{p.name}</span>
@@ -486,7 +486,7 @@ export default function PromptInjection(): JSX.Element {
           {filteredCatalog.map((p) => (
             <div
               key={p.id}
-              className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-2.5"
+              className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2.5"
             >
               <div className="flex flex-wrap items-center gap-1.5 mb-1">
                 <span className="text-xs font-display font-semibold text-slate-900 dark:text-slate-100">{p.name}</span>

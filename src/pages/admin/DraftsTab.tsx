@@ -205,12 +205,15 @@ export default function DraftsTab() {
     }
   }
 
-  if (loading) return       <p className="text-slate-500 dark:text-slate-400">Loading…</p>;
+  if (loading) return <p className="text-slate-500 dark:text-slate-400">Loading…</p>;
   if (error)
     return (
       <div>
         <p className="text-red-400 mb-2">Failed to load: {error}</p>
-        <button onClick={() => void load()} className="px-3 py-1 border border-slate-200 dark:border-slate-700 rounded text-sm">
+        <button
+          onClick={() => void load()}
+          className="px-3 py-1 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-sm"
+        >
           Retry
         </button>
       </div>
@@ -236,7 +239,7 @@ export default function DraftsTab() {
       )}
 
       {actionMsg && (
-        <div className="mb-4 rounded border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2 text-xs font-mono text-slate-700 dark:text-slate-300">
+        <div className="mb-4 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] px-3 py-2 text-xs font-mono text-slate-700 dark:text-slate-300">
           {actionMsg}
         </div>
       )}
@@ -246,7 +249,7 @@ export default function DraftsTab() {
       ) : (
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
-            <thead className="text-left text-xs uppercase tracking-wider text-slate-600 dark:text-slate-500 border-b border-slate-200 dark:border-slate-800">
+            <thead className="text-left text-xs uppercase tracking-wider text-slate-600 dark:text-slate-500 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
               <tr>
                 <th scope="col" className="py-2 pr-4">
                   Type
@@ -272,19 +275,21 @@ export default function DraftsTab() {
                 const approveBusy = actionBusy === `approve:${d.slug}`;
                 const rejectBusy = actionBusy === `reject:${d.slug}`;
                 return (
-                  <tr key={d.slug} className="border-b border-slate-200 dark:border-zinc-800/60 align-top">
+                  <tr key={d.slug} className="border-b border-slate-200 dark:border-[rgb(var(--border-400))] align-top">
                     <td className="py-2 pr-4 text-slate-500 dark:text-slate-400 uppercase text-xs">{d.type}</td>
                     <td className="py-2 pr-4 text-slate-900 dark:text-slate-100">{d.title}</td>
                     <td className="py-2 pr-4 text-slate-600 dark:text-slate-500 text-xs whitespace-nowrap">
                       {new Date(d.publishedAt).toLocaleString()}
                     </td>
-                    <td className="py-2 pr-4 font-mono text-xs text-slate-500 dark:text-slate-400 break-all">{d.slug}</td>
+                    <td className="py-2 pr-4 font-mono text-xs text-slate-500 dark:text-slate-400 break-all">
+                      {d.slug}
+                    </td>
                     <td className="py-2">
                       <div className="flex flex-wrap gap-1.5">
                         <button
                           onClick={() => (isPreviewing ? setPreview(null) : void loadPreview(d.slug))}
                           disabled={previewBusy}
-                          className="px-2 py-1 border border-slate-200 dark:border-slate-700 rounded text-xs hover:bg-slate-100 dark:hover:bg-slate-800 disabled:opacity-50"
+                          className="px-2 py-1 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-xs hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] disabled:opacity-50"
                         >
                           {previewBusy ? '…' : isPreviewing ? 'Hide' : 'Preview'}
                         </button>
@@ -383,7 +388,7 @@ function DraftPreviewPanel({
     };
   }, [bodyHtml]);
   return (
-    <div className="mt-6 rounded border border-slate-200 dark:border-slate-700 p-4">
+    <div className="mt-6 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-4">
       <div className="flex items-center justify-between mb-3">
         <div>
           <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300">Preview</h3>
@@ -394,7 +399,10 @@ function DraftPreviewPanel({
             {post.sources.length > 0 && <> · {post.sources.length} sources</>}
           </p>
         </div>
-        <button onClick={onClose} className="text-xs text-slate-600 dark:text-slate-500 hover:text-slate-900 dark:hover:text-slate-300">
+        <button
+          onClick={onClose}
+          className="text-xs text-slate-600 dark:text-slate-500 hover:text-slate-900 dark:hover:text-slate-300"
+        >
           Close
         </button>
       </div>
@@ -409,7 +417,7 @@ function DraftPreviewPanel({
           dark background so visiting links / headings read cleanly. */}
       <div
         className={
-          'mb-4 bg-white dark:bg-zinc-950 border border-slate-200 dark:border-slate-800 rounded p-4 max-h-[60vh] overflow-y-auto text-sm leading-relaxed text-slate-300 ' +
+          'mb-4 bg-white dark:bg-[rgb(var(--surface-100))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded p-4 max-h-[60vh] overflow-y-auto text-sm leading-relaxed text-slate-700 dark:text-slate-300 ' +
           '[&_h1]:text-xl [&_h1]:font-bold [&_h1]:text-slate-900 dark:[&_h1]:text-slate-100 [&_h1]:mt-4 [&_h1]:mb-2 ' +
           '[&_h2]:text-lg [&_h2]:font-bold [&_h2]:text-slate-900 dark:[&_h2]:text-slate-100 [&_h2]:mt-5 [&_h2]:mb-2 ' +
           '[&_h3]:text-base [&_h3]:font-semibold [&_h3]:text-slate-900 dark:[&_h3]:text-slate-100 [&_h3]:mt-4 [&_h3]:mb-2 ' +
@@ -457,7 +465,10 @@ function SocialBtn({ label, busy, onClick }: { label: string; busy?: string; onC
   const base = 'px-2 py-1 rounded text-xs border ';
   if (busy === 'busy') {
     return (
-      <button disabled className={base + 'border-amber-600/40 text-amber-700 dark:text-amber-500 opacity-60 cursor-wait'}>
+      <button
+        disabled
+        className={base + 'border-amber-600/40 text-amber-700 dark:text-amber-500 opacity-60 cursor-wait'}
+      >
         {label}…
       </button>
     );
@@ -465,7 +476,10 @@ function SocialBtn({ label, busy, onClick }: { label: string; busy?: string; onC
   return (
     <button
       onClick={onClick}
-      className={base + 'border-purple-700/60 text-purple-700 dark:text-purple-300 hover:bg-purple-50 dark:hover:bg-purple-900/30 hover:border-purple-600/80'}
+      className={
+        base +
+        'border-purple-700/60 text-purple-700 dark:text-purple-300 hover:bg-purple-50 dark:hover:bg-purple-900/30 hover:border-purple-600/80'
+      }
     >
       {label}
     </button>
@@ -517,7 +531,7 @@ function RegenMenu({
         {busy ? '…' : 'Regen'}
       </button>
       {open && (
-        <div className="absolute right-0 mt-1 z-10 w-72 rounded border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 shadow-lg p-3 text-xs">
+        <div className="absolute right-0 mt-1 z-10 w-72 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-lg p-3 text-xs">
           <div className="flex flex-col gap-2">
             <button
               onClick={() => {
@@ -532,7 +546,7 @@ function RegenMenu({
                 postProcess — auto-linkify References, refresh QA. Free.
               </div>
             </button>
-            <div className="border-t border-slate-200 dark:border-slate-800 pt-2">
+            <div className="border-t border-slate-200 dark:border-[rgb(var(--border-400))] pt-2">
               <label htmlFor={`regen-notes-${slug}`} className="block text-slate-500 dark:text-slate-400 mb-1">
                 Rewrite with notes (LLM call):
               </label>
@@ -542,7 +556,7 @@ function RegenMenu({
                 onChange={(e) => setNotes(e.target.value)}
                 placeholder="e.g. add attack-flow chart, rebalance toward the Sigma rule"
                 rows={3}
-                className="w-full bg-slate-100 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded px-2 py-1 text-slate-800 dark:text-slate-200 text-[11px] font-mono"
+                className="w-full bg-slate-100 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded px-2 py-1 text-slate-800 dark:text-slate-200 text-[11px] font-mono"
               />
               <button
                 onClick={() => {
@@ -606,7 +620,7 @@ function RegenInline({
             onChange={(e) => setNotes(e.target.value)}
             placeholder="Admin notes for the rewrite (e.g. add an attack-flow chart instead of the Sigma rule)"
             rows={3}
-            className="w-full bg-slate-100 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded px-2 py-1 text-slate-800 dark:text-slate-200 text-xs font-mono"
+            className="w-full bg-slate-100 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded px-2 py-1 text-slate-800 dark:text-slate-200 text-xs font-mono"
           />
           <button
             onClick={() => {

@@ -121,7 +121,7 @@ export default function Tracerules(): JSX.Element {
               <button
                 type="button"
                 onClick={() => setExpanded(isOpen ? null : rule.id)}
-                className="w-full text-left p-5 hover:bg-slate-50 dark:hover:bg-slate-900/60 transition-colors"
+                className="w-full text-left p-5 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200)/0.6)] transition-colors"
               >
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex-1 min-w-0">
@@ -138,7 +138,7 @@ export default function Tracerules(): JSX.Element {
                       >
                         {rule.format}
                       </span>
-                      <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-muted border border-slate-200 dark:border-[rgb(var(--border-400))]">
+                      <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted border border-slate-200 dark:border-[rgb(var(--border-400))]">
                         {rule.tactic}
                       </span>
                       <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-brand-500/10 text-brand-700 dark:text-brand-300 border border-brand-500/30">
@@ -147,7 +147,7 @@ export default function Tracerules(): JSX.Element {
                       {rule.platform.map((p) => (
                         <span
                           key={p}
-                          className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400"
+                          className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-500 dark:text-slate-400"
                         >
                           {p}
                         </span>
@@ -159,19 +159,19 @@ export default function Tracerules(): JSX.Element {
               </button>
 
               {isOpen && (
-                <div className="border-t border-slate-200 dark:border-[rgb(var(--border-400))] p-5 bg-slate-50 dark:bg-slate-950/60">
+                <div className="border-t border-slate-200 dark:border-[rgb(var(--border-400))] p-5 bg-slate-50 dark:bg-[rgb(var(--input-200)/0.6)]">
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-micro font-mono uppercase tracking-wider text-slate-400">Query</span>
                     <button
                       type="button"
                       onClick={() => copyQuery(rule.id, rule.query)}
-                      className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-mono text-muted bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors"
+                      className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-mono text-muted bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.6)] transition-colors"
                     >
                       {copiedId === rule.id ? <Check size={12} /> : <Copy size={12} />}
                       {copiedId === rule.id ? 'Copied' : 'Copy'}
                     </button>
                   </div>
-                  <pre className="overflow-x-auto rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-slate-950 px-4 py-3 text-xs font-mono text-slate-800 dark:text-slate-200 leading-relaxed whitespace-pre-wrap">
+                  <pre className="overflow-x-auto rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] px-4 py-3 text-xs font-mono text-slate-800 dark:text-slate-200 leading-relaxed whitespace-pre-wrap">
                     {rule.query}
                   </pre>
                   <div className="flex flex-wrap gap-1.5 mt-3">

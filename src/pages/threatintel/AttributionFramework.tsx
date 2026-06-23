@@ -17,7 +17,7 @@ const LEVEL_BADGE: Record<string, string> = {
   probable: 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300',
   'reasonably-likely': 'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300',
   possible: 'bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-300',
-  doubtful: 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400',
+  doubtful: 'bg-slate-100 text-slate-600 dark:bg-[rgb(var(--surface-300))] dark:text-slate-400',
   improbable: 'bg-rose-100 text-rose-800 dark:bg-rose-900/30 dark:text-rose-300',
 };
 
@@ -63,7 +63,7 @@ export default function AttributionFramework(): JSX.Element {
           value={indicators}
           onChange={(e) => setIndicators(e.target.value)}
           placeholder="Enter IOCs, one per line…"
-          className="w-full h-28 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg p-3 text-sm font-mono text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 resize-y"
+          className="w-full h-28 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg p-3 text-sm font-mono text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 resize-y"
         />
         <div className="mt-3">
           <label htmlFor="attribution-context" className="text-xs text-slate-500 dark:text-slate-400 mb-1 block">
@@ -75,7 +75,7 @@ export default function AttributionFramework(): JSX.Element {
             value={context}
             onChange={(e) => setContext(e.target.value)}
             placeholder="e.g., targeting financial sector"
-            className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg px-3 py-2 text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="w-full bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg px-3 py-2 text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
           />
         </div>
         <button
@@ -110,7 +110,7 @@ export default function AttributionFramework(): JSX.Element {
                 <div className="text-micro font-mono text-slate-400">confidence</div>
               </div>
             </div>
-            <div className="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-2">
+            <div className="w-full bg-slate-200 dark:bg-[rgb(var(--surface-300))] rounded-full h-2">
               <div
                 className="bg-gradient-to-r from-brand-600 to-brand-400 h-2 rounded-full"
                 style={{ width: `${assessment.confidence}%` }}
@@ -120,7 +120,7 @@ export default function AttributionFramework(): JSX.Element {
           <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 overflow-hidden">
             <button
               onClick={() => setExpandedEvidence(!expandedEvidence)}
-              className="w-full flex items-center justify-between p-4 text-left hover:bg-slate-50 dark:hover:bg-slate-900/20 transition-colors"
+              className="w-full flex items-center justify-between p-4 text-left hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200)/0.2)] transition-colors"
             >
               <span className="font-display font-bold text-sm">Evidence ({assessment.evidence.length})</span>
               {expandedEvidence ? (

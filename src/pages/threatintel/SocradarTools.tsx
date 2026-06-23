@@ -234,7 +234,7 @@ function DDoSPanel() {
                 {data.stats.topMalware.map((m) => (
                   <div key={m.name} className="flex items-center gap-2">
                     <span className="text-mini font-mono truncate flex-1">{m.name}</span>
-                    <div className="w-32 h-2 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+                    <div className="w-32 h-2 bg-slate-100 dark:bg-[rgb(var(--surface-300))] rounded-full overflow-hidden">
                       <div
                         className="h-full bg-rose-500 rounded-full"
                         style={{ width: `${(m.count / data.stats.topMalware[0].count) * 100}%` }}
@@ -290,7 +290,7 @@ function DDoSPanel() {
                         {b.malware}
                       </span>
                       <span
-                        className={`text-micro font-mono px-1.5 py-0.5 rounded ${b.status === 'online' ? 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300' : 'bg-slate-100 dark:bg-slate-800 text-slate-500'}`}
+                        className={`text-micro font-mono px-1.5 py-0.5 rounded ${b.status === 'online' ? 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300' : 'bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-500'}`}
                       >
                         {b.status}
                       </span>
@@ -359,7 +359,7 @@ function FortiBleedPanel() {
       return 'bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 border-orange-200 dark:border-orange-800';
     if (s === 'INFO')
       return 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800';
-    return 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border-slate-200 dark:border-slate-700';
+    return 'bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-600 dark:text-slate-400 border-slate-200 dark:border-[rgb(var(--border-400))]';
   };
 
   return (
@@ -520,7 +520,7 @@ function HealthcarePanel() {
     if (s === 'critical') return 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300';
     if (s === 'high') return 'bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300';
     if (s === 'medium') return 'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300';
-    return 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400';
+    return 'bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-600 dark:text-slate-400';
   };
 
   return (
@@ -560,7 +560,7 @@ function HealthcarePanel() {
                 {data.stats.topStates.slice(0, 8).map((s) => (
                   <div key={s.state} className="flex items-center gap-2">
                     <span className="text-mini font-mono w-8">{s.state}</span>
-                    <div className="flex-1 h-2 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+                    <div className="flex-1 h-2 bg-slate-100 dark:bg-[rgb(var(--surface-300))] rounded-full overflow-hidden">
                       <div
                         className="h-full bg-rose-500 rounded-full"
                         style={{ width: `${(s.individuals / data.stats.topStates[0].individuals) * 100}%` }}

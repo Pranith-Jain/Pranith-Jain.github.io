@@ -109,8 +109,8 @@ export function McpReportBrowser(props: {
   const hasPrev = page > 1;
 
   return (
-    <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1">
-      <div className="p-4 border-b border-slate-200 dark:border-slate-800">
+    <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1">
+      <div className="p-4 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
         <div className="flex flex-wrap items-center gap-2 mb-3">
           <Search className="h-4 w-4 text-brand-600 dark:text-brand-400" />
           <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">Browse TI-Mindmap-Hub catalog</h3>
@@ -131,14 +131,14 @@ export function McpReportBrowser(props: {
             value={searchInput}
             onChange={(e) => setSearchInput(e.target.value)}
             placeholder="search reports by keyword (ransomware, lazarus, apt29…)"
-            className="flex-1 min-w-[12rem] rounded border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 px-2.5 py-1.5 font-mono text-sm text-slate-800 dark:text-slate-200"
+            className="flex-1 min-w-[12rem] rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] px-2.5 py-1.5 font-mono text-sm text-slate-800 dark:text-slate-200"
             autoComplete="off"
             spellCheck={false}
           />
           <select
             value={timeRange}
             onChange={(e) => setTimeRange(e.target.value as typeof timeRange)}
-            className="rounded border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 px-2.5 py-1.5 text-xs font-mono text-slate-700 dark:text-slate-300"
+            className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] px-2.5 py-1.5 text-xs font-mono text-slate-700 dark:text-slate-300"
           >
             <option value="all">all time</option>
             <option value="7d">last 7 days</option>
@@ -173,7 +173,7 @@ export function McpReportBrowser(props: {
       </div>
 
       {err && (
-        <div className="p-3 border-b border-slate-200 dark:border-slate-800 bg-rose-50 dark:bg-rose-950/40 text-xs text-rose-700 dark:text-rose-300">
+        <div className="p-3 border-b border-slate-200 dark:border-[rgb(var(--border-400))] bg-rose-50 dark:bg-rose-950/40 text-xs text-rose-700 dark:text-rose-300">
           {err}
         </div>
       )}
@@ -214,7 +214,7 @@ export function McpReportBrowser(props: {
           return (
             <li
               key={r.report_id}
-              className="flex flex-wrap items-start gap-2 px-4 py-2.5 hover:bg-slate-50 dark:hover:bg-slate-900/50"
+              className="flex flex-wrap items-start gap-2 px-4 py-2.5 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200)/0.5)]"
             >
               <div className="min-w-0 flex-1">
                 <p className="text-sm font-medium text-slate-800 dark:text-slate-200 line-clamp-2">
@@ -241,7 +241,7 @@ export function McpReportBrowser(props: {
                     href={r.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="rounded border border-slate-300 dark:border-slate-700 p-1 text-slate-500 hover:text-brand-600 dark:hover:text-brand-400"
+                    className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] p-1 text-slate-500 hover:text-brand-600 dark:hover:text-brand-400"
                     title="Open original report"
                   >
                     <ExternalLink className="h-3.5 w-3.5" />
@@ -263,12 +263,12 @@ export function McpReportBrowser(props: {
       </ul>
 
       {(hasPrev || hasNext) && (
-        <div className="flex items-center gap-2 px-4 py-2.5 border-t border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900">
+        <div className="flex items-center gap-2 px-4 py-2.5 border-t border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))]">
           <button
             type="button"
             disabled={!hasPrev || busy}
             onClick={() => void fetchPage(page - 1, search, timeRange)}
-            className="inline-flex items-center gap-1 rounded border border-slate-300 dark:border-slate-700 px-2 py-1 text-xs disabled:opacity-50"
+            className="inline-flex items-center gap-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 text-xs disabled:opacity-50"
           >
             <ChevronLeft className="h-3 w-3" /> prev
           </button>
@@ -277,7 +277,7 @@ export function McpReportBrowser(props: {
             type="button"
             disabled={!hasNext || busy}
             onClick={() => void fetchPage(page + 1, search, timeRange)}
-            className="inline-flex items-center gap-1 rounded border border-slate-300 dark:border-slate-700 px-2 py-1 text-xs disabled:opacity-50 ml-auto"
+            className="inline-flex items-center gap-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 text-xs disabled:opacity-50 ml-auto"
           >
             next <ChevronRight className="h-3 w-3" />
           </button>

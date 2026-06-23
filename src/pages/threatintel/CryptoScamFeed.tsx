@@ -145,7 +145,7 @@ export default function CryptoScamFeed(): JSX.Element {
                   >
                     .{tld}
                   </span>
-                  <span className="flex-1 h-4 rounded bg-slate-100 dark:bg-slate-800 overflow-hidden">
+                  <span className="flex-1 h-4 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] overflow-hidden">
                     <span
                       className={`block h-full rounded ${active ? 'bg-brand-500' : 'bg-brand-500/50 group-hover:bg-brand-500/70'}`}
                       style={{ width: `${Math.max(4, (count / maxTld) * 100)}%` }}
@@ -168,7 +168,7 @@ export default function CryptoScamFeed(): JSX.Element {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Filter domains…"
-              className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
               aria-label="Filter crypto scam domains"
             />
           </div>
@@ -231,7 +231,7 @@ export default function CryptoScamFeed(): JSX.Element {
           <button
             type="button"
             onClick={() => setVisible((v) => v + 100)}
-            className="mt-3 w-full rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] py-2 font-mono text-meta text-muted hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+            className="mt-3 w-full rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] py-2 font-mono text-meta text-muted hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
           >
             Show more ({filtered.length - visible} remaining)
           </button>

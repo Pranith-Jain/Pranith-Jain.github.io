@@ -109,7 +109,7 @@ export default function DfirCatalogPage(): JSX.Element {
               <button
                 type="button"
                 onClick={() => setQuery('')}
-                className="absolute right-2 top-1/2 inline-flex -translate-y-1/2 items-center gap-1 rounded px-1.5 py-0.5 font-mono text-micro text-slate-500 hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-800 dark:hover:text-slate-100"
+                className="absolute right-2 top-1/2 inline-flex -translate-y-1/2 items-center gap-1 rounded px-1.5 py-0.5 font-mono text-micro text-slate-500 hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-[rgb(var(--surface-300))] dark:hover:text-slate-100"
                 aria-label="Clear search"
               >
                 <X size={11} /> clear

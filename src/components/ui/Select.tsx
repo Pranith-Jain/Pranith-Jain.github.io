@@ -58,7 +58,7 @@ export function Select({
           className={`w-full appearance-none rounded-md border px-3 py-2 pr-9 text-sm font-mono transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/20 disabled:opacity-50 disabled:cursor-not-allowed ${
             error
               ? 'border-rose-400 focus:border-rose-500 focus-visible:ring-rose-500/20 dark:border-rose-600'
-              : 'border-slate-200 bg-white text-slate-900 focus:border-brand-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100'
+              : 'border-slate-200 bg-white text-slate-900 focus:border-brand-500 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-100'
           } ${!value && placeholder ? 'text-slate-400 dark:text-slate-500' : ''}`}
         >
           {placeholder && (

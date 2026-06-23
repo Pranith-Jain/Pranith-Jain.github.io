@@ -77,7 +77,7 @@ const FRESHNESS_PILL: Record<Freshness, { label: string; cls: string }> = {
   },
   stale: {
     label: 'stale · >7d',
-    cls: 'border-slate-400/40 bg-slate-200/40 dark:bg-slate-800/40 text-muted',
+    cls: 'border-slate-400/40 bg-slate-200/40 dark:bg-[rgb(var(--surface-300)/0.4)] text-muted',
   },
   'no-timestamp': {
     label: 'no upstream timestamp',
@@ -115,7 +115,7 @@ function IocRow({ ioc }: { ioc: CorrelatedIoc }) {
             )}
           </span>
           {ioc.sources.map((s) => (
-            <span key={s} className="px-1 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-muted">
+            <span key={s} className="px-1 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted">
               {s}
             </span>
           ))}
@@ -296,7 +296,7 @@ export default function IocCorrelation(): JSX.Element {
                   key={s.id}
                   className={`flex items-center gap-2 text-mini font-mono px-2 py-1 rounded border ${
                     s.ok
-                      ? 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50/60 dark:bg-slate-950'
+                      ? 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50/60 dark:bg-[rgb(var(--input-200))]'
                       : 'border-rose-400/40 bg-rose-500/5 text-rose-700 dark:text-rose-300'
                   }`}
                   title={s.ok ? `${s.id}: ${s.count} indicators` : `${s.id}: offline`}
@@ -324,7 +324,7 @@ export default function IocCorrelation(): JSX.Element {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Filter by indicator value, source, or context…"
-              className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
               aria-label="Filter IOCs"
             />
           </div>
@@ -472,7 +472,7 @@ export default function IocCorrelation(): JSX.Element {
       </DataState>
 
       {data && (
-        <section className="mt-6 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-4">
+        <section className="mt-6 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-4">
           <h3 className="font-display font-semibold text-sm mb-2">How to read this</h3>
           <ul className="text-meta font-mono text-muted space-y-1 list-disc list-inside">
             <li>

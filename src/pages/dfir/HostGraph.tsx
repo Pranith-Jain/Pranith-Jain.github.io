@@ -71,7 +71,7 @@ const KIND_TONE: Record<InputKind, string> = {
   ip: 'bg-sky-100 dark:bg-sky-900/30 text-sky-700 dark:text-sky-300',
   asn: 'bg-violet-100 dark:bg-violet-900/30 text-violet-700 dark:text-violet-300',
   cidr: 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300',
-  unknown: 'bg-slate-100 dark:bg-slate-800 text-slate-500',
+  unknown: 'bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-500',
 };
 
 export default function HostGraphView(): JSX.Element {

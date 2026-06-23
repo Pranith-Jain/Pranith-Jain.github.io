@@ -141,7 +141,7 @@ export default function EmailOsnit() {
             {profile.gravatar.avatarUrl ? (
               <img src={profile.gravatar.avatarUrl} alt="" className="w-12 h-12 rounded-full" />
             ) : (
-              <div className="w-12 h-12 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
+              <div className="w-12 h-12 rounded-full bg-slate-100 dark:bg-[rgb(var(--surface-300))] flex items-center justify-center">
                 <User size={20} className="text-slate-400" />
               </div>
             )}

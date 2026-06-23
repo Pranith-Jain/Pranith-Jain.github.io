@@ -319,7 +319,7 @@ export default function ExternalResources(): JSX.Element {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search name, description (e.g. 'osint', 'ransomware', 'llm')"
-            className="w-full pl-9 pr-4 py-2.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="w-full pl-9 pr-4 py-2.5 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
             aria-label="Search external resources"
           />
         </div>
@@ -478,7 +478,7 @@ export default function ExternalResources(): JSX.Element {
             )}
             {r.why && (
               <p className="text-meta font-mono italic text-slate-500 dark:text-slate-400 leading-relaxed">
-                <span className="text-slate-400 dark:text-slate-600 not-italic">why:</span> {r.why}
+                <span className="text-slate-400 dark:text-slate-400 not-italic">why:</span> {r.why}
               </p>
             )}
           </li>
@@ -510,7 +510,7 @@ export default function ExternalResources(): JSX.Element {
           <button
             type="button"
             onClick={signIn}
-            className="inline-flex items-center gap-1.5 text-mini font-mono text-slate-400 dark:text-slate-600 hover:text-brand-600 dark:hover:text-brand-400"
+            className="inline-flex items-center gap-1.5 text-mini font-mono text-slate-400 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400"
             title="Paste your admin token to enable runtime editing"
           >
             <KeyRound size={11} /> editor sign in
@@ -674,7 +674,7 @@ function AddResourceCard({
               setOpen(false);
               reset();
             }}
-            className="text-xs font-mono px-3 py-2 min-h-[44px] sm:min-h-0 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
+            className="text-xs font-mono px-3 py-2 min-h-[44px] sm:min-h-0 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]"
           >
             Cancel
           </button>

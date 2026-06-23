@@ -79,7 +79,7 @@ const THREAT_LEVELS: Record<string, { label: string; color: string; icon: Lucide
     color: 'text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-900/20',
     icon: ShieldAlert,
   },
-  '4': { label: 'Undefined', color: 'text-slate-500 bg-slate-50 dark:bg-slate-800', icon: ShieldAlert },
+  '4': { label: 'Undefined', color: 'text-slate-500 bg-slate-50 dark:bg-[rgb(var(--surface-300))]', icon: ShieldAlert },
 };
 
 const ANALYSIS_LABELS: Record<string, string> = {
@@ -207,7 +207,9 @@ export default function MispBrowser() {
           <ArrowLeft size={14} /> back
         </BackLink>
         <div className="flex items-baseline gap-2 mb-2">
-          <h1 className="text-3xl sm:text-4xl font-display font-bold text-slate-900 dark:text-slate-100">MISP Browser</h1>
+          <h1 className="text-3xl sm:text-4xl font-display font-bold text-slate-900 dark:text-slate-100">
+            MISP Browser
+          </h1>
           <span className="text-mini font-mono uppercase tracking-[0.18em] text-slate-500">
             Connect to a MISP instance
           </span>
@@ -291,7 +293,7 @@ export default function MispBrowser() {
               <span className={`inline-flex items-center gap-1 px-2 py-1 rounded text-mini font-mono ${tl.color}`}>
                 <TlIcon size={12} /> {tl.label}
               </span>
-              <span className="text-mini font-mono px-2 py-1 rounded bg-slate-100 dark:bg-slate-800 text-muted">
+              <span className="text-mini font-mono px-2 py-1 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted">
                 {ANALYSIS_LABELS[e.analysis] ?? 'Unknown'}
               </span>
               {e.published && (
@@ -425,7 +427,7 @@ export default function MispBrowser() {
                 {e.tags.map((t) => (
                   <span
                     key={t.Tag.name}
-                    className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-muted"
+                    className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted"
                   >
                     {t.Tag.name}
                   </span>
@@ -467,7 +469,9 @@ export default function MispBrowser() {
     <div className="max-w-6xl mx-auto px-4 py-6 space-y-6">
       <div className="flex items-baseline justify-between gap-3 flex-wrap">
         <div className="flex items-baseline gap-2">
-          <h1 className="text-3xl sm:text-4xl font-display font-bold text-slate-900 dark:text-slate-100">MISP Browser</h1>
+          <h1 className="text-3xl sm:text-4xl font-display font-bold text-slate-900 dark:text-slate-100">
+            MISP Browser
+          </h1>
           <span className="text-mini font-mono text-slate-500 dark:text-slate-400">
             {total > 0 ? `${total} events` : ''}
           </span>
@@ -579,7 +583,7 @@ export default function MispBrowser() {
                       {e.tags.slice(0, 5).map((t) => (
                         <span
                           key={t.Tag.name}
-                          className="text-micro font-mono px-1 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-500"
+                          className="text-micro font-mono px-1 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-500"
                         >
                           {t.Tag.name}
                         </span>
@@ -596,7 +600,7 @@ export default function MispBrowser() {
                   </span>
                   <ExternalLink
                     size={14}
-                    className="text-slate-300 dark:text-slate-600 group-hover:text-brand-500 transition-colors"
+                    className="text-slate-300 dark:text-slate-400 group-hover:text-brand-500 transition-colors"
                   />
                 </div>
               </div>

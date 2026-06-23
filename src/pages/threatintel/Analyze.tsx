@@ -395,7 +395,7 @@ export default function Analyze(): JSX.Element {
                     return (
                       <tr
                         key={r.source}
-                        className="border-t border-slate-100 dark:border-[rgb(var(--border-400))]/50 hover:bg-slate-50 dark:hover:bg-slate-900/50 cursor-pointer transition-colors"
+                        className="border-t border-slate-100 dark:border-[rgb(var(--border-400))]/50 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200)/0.5)] cursor-pointer transition-colors"
                         onClick={() =>
                           setExpanded((prev) => {
                             const next = new Set(prev);
@@ -470,7 +470,7 @@ export default function Analyze(): JSX.Element {
                             {r.tags.slice(0, 3).map((t) => (
                               <span
                                 key={t}
-                                className="text-micro font-mono px-1 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-500 border border-slate-200 dark:border-[rgb(var(--border-400))] truncate max-w-[100px]"
+                                className="text-micro font-mono px-1 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-500 border border-slate-200 dark:border-[rgb(var(--border-400))] truncate max-w-[100px]"
                               >
                                 {t}
                               </span>

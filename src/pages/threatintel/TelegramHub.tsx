@@ -257,7 +257,7 @@ export default function TelegramHub(): JSX.Element {
               value={q}
               onChange={(e) => setQ(e.target.value)}
               placeholder="Search channels (e.g. conti leaks) or leak text (e.g. cve-2026-10520)"
-              className="w-full pl-9 pr-3 py-2.5 rounded-md border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 font-mono text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
+              className="w-full pl-9 pr-3 py-2.5 rounded-md border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] font-mono text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
               aria-label="Search Telegram channels and leak text"
               maxLength={120}
             />
@@ -304,7 +304,7 @@ export default function TelegramHub(): JSX.Element {
                     {channels.slice(0, 10).map((c) => (
                       <li
                         key={c.handle}
-                        className="rounded-md border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-3"
+                        className="rounded-md border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200)/0.4)] p-3"
                       >
                         <div className="flex items-center justify-between gap-2 mb-1">
                           <a
@@ -324,7 +324,7 @@ export default function TelegramHub(): JSX.Element {
                           {c.description || c.name}
                         </p>
                         {c.category && (
-                          <span className="inline-block mt-1 text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400">
+                          <span className="inline-block mt-1 text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-600 dark:text-slate-400">
                             {c.category}
                           </span>
                         )}
@@ -348,7 +348,7 @@ export default function TelegramHub(): JSX.Element {
                     {leaks.slice(0, 10).map((l) => (
                       <li
                         key={l.id}
-                        className="rounded-md border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-3"
+                        className="rounded-md border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200)/0.4)] p-3"
                       >
                         <div className="flex items-center justify-between gap-2 mb-1">
                           <Link
@@ -410,7 +410,7 @@ export default function TelegramHub(): JSX.Element {
               {kpis.topDomains.map((d) => (
                 <span
                   key={d}
-                  className="text-[10px] font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400"
+                  className="text-[10px] font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-600 dark:text-slate-400"
                 >
                   {d}
                 </span>
@@ -430,7 +430,7 @@ export default function TelegramHub(): JSX.Element {
             <Link
               key={card.path}
               to={card.path}
-              className={`group block rounded-lg border bg-white dark:bg-slate-900/40 p-4 transition-colors ${card.accent}`}
+              className={`group block rounded-lg border bg-white dark:bg-[rgb(var(--surface-200)/0.4)] p-4 transition-colors ${card.accent}`}
             >
               <div className="flex items-start justify-between gap-2 mb-2">
                 <span className="inline-flex items-center gap-2 font-mono text-sm font-semibold">
@@ -450,7 +450,7 @@ export default function TelegramHub(): JSX.Element {
       </section>
 
       {/* Source provenance footer */}
-      <footer className="mt-8 pt-4 border-t border-slate-200 dark:border-slate-800">
+      <footer className="mt-8 pt-4 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
         <p className="text-[11px] font-mono text-slate-500 dark:text-slate-400">
           Sources: tgstat.com (HTML scrape, 12h cache) · t.me/s/ previews (hourly poll) · D1 leak store · cross-source
           IOC consensus. All free-tier, no API keys.
@@ -478,7 +478,7 @@ function KpiTile({
   const accent =
     tone === 'rose'
       ? 'border-rose-500/40 bg-rose-500/5 text-rose-700 dark:text-rose-300'
-      : 'border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 text-slate-700 dark:text-slate-300';
+      : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200)/0.4)] text-slate-700 dark:text-slate-300';
   return (
     <div className={`rounded-md border p-3 ${accent}`}>
       <div className="flex items-center gap-1.5 text-[10px] font-mono uppercase tracking-wider opacity-80">

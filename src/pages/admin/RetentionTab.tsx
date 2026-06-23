@@ -63,7 +63,7 @@ export default function RetentionTab() {
   const ranAt = result?.ran_at ? new Date(result.ran_at) : null;
 
   return (
-    <div className="rounded border border-slate-200 dark:border-slate-800 p-4 max-w-3xl">
+    <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-4 max-w-3xl">
       <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-1">Data retention sweep</h2>
       <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">
         Deletes rows older than the retention window across 13 data tables (briefings, IOC logs, report-extraction
@@ -72,7 +72,9 @@ export default function RetentionTab() {
 
       <div className="flex flex-wrap items-end gap-3 mb-4">
         <label className="block">
-          <span className="block text-xs uppercase tracking-wider text-slate-600 dark:text-slate-500 mb-1">Retention (days)</span>
+          <span className="block text-xs uppercase tracking-wider text-slate-600 dark:text-slate-500 mb-1">
+            Retention (days)
+          </span>
           <input
             type="number"
             min={1}
@@ -80,13 +82,13 @@ export default function RetentionTab() {
             value={days}
             onChange={(e) => setDays(Math.max(1, Math.min(3650, Number(e.target.value) || DEFAULT_DAYS)))}
             disabled={busy !== null}
-            className="w-32 px-2 py-1 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded text-sm text-slate-900 dark:text-slate-100 disabled:opacity-50"
+            className="w-32 px-2 py-1 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-sm text-slate-900 dark:text-slate-100 disabled:opacity-50"
           />
         </label>
         <button
           onClick={() => run(true)}
           disabled={busy !== null}
-          className="px-4 py-1.5 border border-slate-200 dark:border-slate-700 rounded text-sm text-slate-800 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 disabled:opacity-50"
+          className="px-4 py-1.5 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-sm text-slate-800 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] disabled:opacity-50"
         >
           {busy === 'dry' ? 'Previewing…' : 'Dry-run preview'}
         </button>
@@ -110,12 +112,13 @@ export default function RetentionTab() {
           <div className="text-sm text-slate-700 dark:text-slate-300 mb-3">
             {wasDry ? (
               <>
-                <span className="text-amber-700 dark:text-amber-300 font-semibold">Dry run</span> — {totalDeleted} row(s) would be deleted
-                (no DELETEs issued).
+                <span className="text-amber-700 dark:text-amber-300 font-semibold">Dry run</span> — {totalDeleted}{' '}
+                row(s) would be deleted (no DELETEs issued).
               </>
             ) : (
               <>
-                <span className="text-emerald-700 dark:text-emerald-300 font-semibold">Sweep complete</span> — {totalDeleted} row(s) deleted.
+                <span className="text-emerald-700 dark:text-emerald-300 font-semibold">Sweep complete</span> —{' '}
+                {totalDeleted} row(s) deleted.
               </>
             )}
             {cutoff && (
@@ -133,9 +136,9 @@ export default function RetentionTab() {
           </div>
 
           {result.tables_swept.length > 0 && (
-            <div className="border border-slate-200 dark:border-slate-800 rounded">
+            <div className="border border-slate-200 dark:border-[rgb(var(--border-400))] rounded">
               <table className="w-full text-sm">
-                <thead className="border-b border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-500 uppercase text-xs tracking-wider">
+                <thead className="border-b border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-600 dark:text-slate-500 uppercase text-xs tracking-wider">
                   <tr>
                     <th className="text-left px-3 py-2">Table</th>
                     <th className="text-right px-3 py-2">{wasDry ? 'Would delete' : 'Deleted'}</th>
@@ -143,7 +146,7 @@ export default function RetentionTab() {
                 </thead>
                 <tbody>
                   {result.tables_swept.map((row) => (
-                    <tr key={row.table} className="border-t border-slate-200 dark:border-slate-800/50">
+                    <tr key={row.table} className="border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
                       <td className="px-3 py-1.5 font-mono text-slate-700 dark:text-slate-300">{row.table}</td>
                       <td className="px-3 py-1.5 text-right text-slate-900 dark:text-slate-100">{row.deleted}</td>
                     </tr>
@@ -154,7 +157,9 @@ export default function RetentionTab() {
           )}
 
           {result.tables_swept.length === 0 && (
-            <p className="text-sm text-slate-600 dark:text-slate-500">No tables had rows past the cutoff — nothing to do.</p>
+            <p className="text-sm text-slate-600 dark:text-slate-500">
+              No tables had rows past the cutoff — nothing to do.
+            </p>
           )}
         </div>
       )}

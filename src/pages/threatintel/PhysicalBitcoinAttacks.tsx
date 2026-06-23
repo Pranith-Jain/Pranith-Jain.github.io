@@ -356,7 +356,9 @@ export default function PhysicalBitcoinAttacks(): JSX.Element {
 
       <div className="flex items-center gap-3 mb-1">
         <Skull className="w-7 h-7 text-amber-500" />
-        <h1 className="text-3xl sm:text-4xl font-display font-bold text-slate-900 dark:text-slate-100">Physical Bitcoin Attacks</h1>
+        <h1 className="text-3xl sm:text-4xl font-display font-bold text-slate-900 dark:text-slate-100">
+          Physical Bitcoin Attacks
+        </h1>
       </div>
       <p className="text-muted mb-6 text-sm max-w-3xl leading-relaxed">
         Known physical attacks against Bitcoin and crypto asset holders — armed robberies, kidnappings, home invasions,
@@ -483,7 +485,7 @@ export default function PhysicalBitcoinAttacks(): JSX.Element {
         <div className="text-center py-12 text-slate-500 font-mono text-sm">No attacks match your filters</div>
       )}
 
-      <div className="mt-6 pt-4 border-t border-slate-200 dark:border-[rgb(var(--border-400))] text-xs text-slate-500 dark:text-slate-600 font-mono">
+      <div className="mt-6 pt-4 border-t border-slate-200 dark:border-[rgb(var(--border-400))] text-xs text-slate-500 dark:text-slate-400 font-mono">
         Sources: Public reporting, law enforcement press releases, security research · {ATTACKS.length} incidents
         tracked
       </div>

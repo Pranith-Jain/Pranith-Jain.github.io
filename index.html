@@ -190,11 +190,12 @@
        on their inner wrappers to contain decorative blobs without
        creating a scroll context; the body-level rule was redundant. -->
   <body
-    class="bg-white text-slate-900 dark:bg-[#0a0a0f] dark:text-slate-50 transition-colors duration-300 motion-reduce:transition-none overscroll-y-none"
+    class="bg-white dark:bg-[var(--bg-base)] text-slate-900 dark:text-slate-50 transition-colors duration-300 motion-reduce:transition-none overscroll-y-none"
   >
-    <!-- Geist page surface: pure white in light mode, near-black in
-         dark. The previous slate-50/950 read as AI-decorative padding;
-         the body now matches background-100 in design.md. -->
+    <!-- Page surface: pure white in light mode. In dark mode the surface
+         (deep navy #070b1c + a subtle top glow) is painted by the
+         `html.dark body` rule in index.css via the --bg-base/--bg-glow
+         tokens, so it stays in one place rather than a hardcoded hex here. -->
 
     <!-- Main app root -->
     <div id="root"></div>

@@ -419,7 +419,7 @@ export default function RansomReport(): JSX.Element {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="threat group — e.g. lockbit3, akira, qilin"
-              className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
               aria-label="Threat group"
             />
             <datalist id="rl-groups">
@@ -641,7 +641,7 @@ export default function RansomReport(): JSX.Element {
                     : 'No YARA rules published for this group on ransomware.live.'}
                 </p>
                 {yaraText && (
-                  <pre className="mt-2 max-h-72 overflow-auto rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-3 text-mini font-mono whitespace-pre-wrap">
+                  <pre className="mt-2 max-h-72 overflow-auto rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 text-mini font-mono whitespace-pre-wrap">
                     {yaraText.slice(0, 20000)}
                   </pre>
                 )}

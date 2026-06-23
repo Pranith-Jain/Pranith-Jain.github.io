@@ -380,7 +380,7 @@ function RansomwareIntelPanels(): JSX.Element {
 
   return (
     <section className="mb-8 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg overflow-hidden">
-      <div className="bg-slate-50 dark:bg-slate-950 px-4 py-2.5 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
+      <div className="bg-slate-50 dark:bg-[rgb(var(--input-200))] px-4 py-2.5 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
         <h2 className="font-mono text-sm font-semibold text-slate-800 dark:text-slate-200">
           ransomware.live · attack → detection
         </h2>
@@ -476,7 +476,7 @@ function RansomwareIntelPanels(): JSX.Element {
             </p>
           )}
           {yara && !yaraLoading && (
-            <pre className="bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[rgb(var(--border-400))] p-3 overflow-auto font-mono text-mini text-slate-700 dark:text-slate-300 max-h-[420px]">
+            <pre className="bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] p-3 overflow-auto font-mono text-mini text-slate-700 dark:text-slate-300 max-h-[420px]">
               {yara}
             </pre>
           )}

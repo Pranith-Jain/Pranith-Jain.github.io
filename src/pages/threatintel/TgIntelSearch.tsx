@@ -108,7 +108,7 @@ const IOC_CLR: Record<string, string> = {
   url: 'bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300',
   btc: 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-300',
   eth: 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300',
-  onion: 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300',
+  onion: 'bg-slate-100 dark:bg-[rgb(var(--surface-200))] text-slate-700 dark:text-slate-300',
 };
 
 const IOC_ICO: Record<string, typeof Server> = {
@@ -128,7 +128,7 @@ const SEV: Record<string, string> = {
   critical: 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 border-red-200 dark:border-red-800',
   high: 'bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 border-orange-200 dark:border-orange-800',
   medium: 'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 border-amber-200 dark:border-amber-800',
-  low: 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border-slate-200 dark:border-slate-700',
+  low: 'bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-600 dark:text-slate-400 border-slate-200 dark:border-[rgb(var(--border-400))]',
 };
 
 const LEAK_CLR: Record<string, string> = {
@@ -138,7 +138,7 @@ const LEAK_CLR: Record<string, string> = {
   keyword: 'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300',
   ioc: 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300',
   cve: 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300',
-  unknown: 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400',
+  unknown: 'bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-600 dark:text-slate-400',
 };
 
 export default function TgIntelSearch() {
@@ -310,7 +310,7 @@ export default function TgIntelSearch() {
                   </button>
                   <button
                     onClick={() => handleDeleteSaved(s.id)}
-                    className="p-1 text-slate-300 dark:text-slate-600 hover:text-red-500 ml-2"
+                    className="p-1 text-slate-300 dark:text-slate-400 hover:text-red-500 ml-2"
                   >
                     <Trash2 size={12} />
                   </button>
@@ -602,7 +602,7 @@ export default function TgIntelSearch() {
                     setFilterChannel(tc.channel_handle);
                     doSearch(query, 0);
                   }}
-                  className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+                  className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
                 >
                   @{tc.channel_handle} ({tc.count})
                 </button>
@@ -742,7 +742,7 @@ export default function TgIntelSearch() {
                                     <button
                                       key={i.value}
                                       onClick={() => copyIOC(i.value)}
-                                      className={`inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded text-micro font-mono ${IOC_CLR[i.type] || 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400'} hover:opacity-80`}
+                                      className={`inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded text-micro font-mono ${IOC_CLR[i.type] || 'bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-600 dark:text-slate-400'} hover:opacity-80`}
                                     >
                                       {i.value.length > 36 ? i.value.slice(0, 36) + '...' : i.value}
                                       {copiedIOC === i.value ? (

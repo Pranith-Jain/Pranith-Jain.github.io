@@ -35,7 +35,7 @@ export function RadioGroup({ name: nameProp, value, onChange, options, className
                 'focus-within:ring-2 focus-within:ring-brand-500 focus-within:ring-offset-1',
                 value === opt.value
                   ? 'border-brand-500/60 bg-brand-500/10 text-brand-700 dark:text-brand-300'
-                  : 'border-slate-200 text-slate-600 hover:border-brand-500/40 dark:border-slate-700 dark:text-slate-400',
+                  : 'border-slate-200 text-slate-600 hover:border-brand-500/40 dark:border-[rgb(var(--border-400))] dark:text-slate-400',
                 opt.disabled ? 'opacity-50 cursor-not-allowed' : '',
               ].join(' ')}
             >

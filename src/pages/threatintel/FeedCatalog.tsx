@@ -34,7 +34,7 @@ const CATEGORY_ICONS: Record<string, typeof Shield> = {
 
 const CATEGORY_COLORS: Record<string, string> = {
   IP: 'text-red-600 dark:text-red-400 border-red-500/30 bg-red-100 dark:bg-red-500/10',
-  DNS: 'text-cyan-600 dark:text-cyan-400 border-cyan-500/30 bg-cyan-100 dark:bg-cyan-500/10',
+  DNS: 'text-cyan-600 dark:text-cyan-400 border-cyan-500/30 bg-sky-100 dark:bg-cyan-500/10',
   URL: 'text-purple-600 dark:text-purple-400 border-purple-500/30 bg-purple-100 dark:bg-purple-500/10',
   MD5: 'text-orange-600 dark:text-orange-400 border-orange-500/30 bg-orange-100 dark:bg-orange-500/10',
   SHA1: 'text-orange-600 dark:text-orange-400 border-orange-500/30 bg-orange-100 dark:bg-orange-500/10',
@@ -104,13 +104,13 @@ export default function FeedCatalog() {
               placeholder="Search vendors, descriptions, categories..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 bg-white dark:bg-slate-800 border border-slate-300 dark:border-[rgb(var(--border-400))] rounded-lg text-slate-900 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-brand-500"
+              className="w-full pl-10 pr-4 py-2 bg-white dark:bg-[rgb(var(--surface-300))] border border-slate-300 dark:border-[rgb(var(--border-400))] rounded-lg text-slate-900 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-brand-500"
             />
           </div>
           <select
             value={vendorFilter}
             onChange={(e) => setVendorFilter(e.target.value)}
-            className="px-4 py-2 bg-white dark:bg-slate-800 border border-slate-300 dark:border-[rgb(var(--border-400))] rounded-lg text-slate-900 dark:text-slate-200 focus:outline-none focus:border-brand-500"
+            className="px-4 py-2 bg-white dark:bg-[rgb(var(--surface-300))] border border-slate-300 dark:border-[rgb(var(--border-400))] rounded-lg text-slate-900 dark:text-slate-200 focus:outline-none focus:border-brand-500"
           >
             <option value="all">All Vendors</option>
             {data?.vendors.map((v) => (
@@ -122,7 +122,7 @@ export default function FeedCatalog() {
           <select
             value={categoryFilter}
             onChange={(e) => setCategoryFilter(e.target.value)}
-            className="px-4 py-2 bg-white dark:bg-slate-800 border border-slate-300 dark:border-[rgb(var(--border-400))] rounded-lg text-slate-900 dark:text-slate-200 focus:outline-none focus:border-brand-500"
+            className="px-4 py-2 bg-white dark:bg-[rgb(var(--surface-300))] border border-slate-300 dark:border-[rgb(var(--border-400))] rounded-lg text-slate-900 dark:text-slate-200 focus:outline-none focus:border-brand-500"
           >
             <option value="all">All Types</option>
             {data?.categories.map((c) => (
@@ -134,7 +134,7 @@ export default function FeedCatalog() {
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="px-4 py-2 bg-white dark:bg-slate-800 border border-slate-300 dark:border-[rgb(var(--border-400))] rounded-lg text-slate-900 dark:text-slate-200 focus:outline-none focus:border-brand-500"
+            className="px-4 py-2 bg-white dark:bg-[rgb(var(--surface-300))] border border-slate-300 dark:border-[rgb(var(--border-400))] rounded-lg text-slate-900 dark:text-slate-200 focus:outline-none focus:border-brand-500"
           >
             <option value="all">All Status</option>
             <option value="Active">Active</option>
@@ -159,7 +159,7 @@ export default function FeedCatalog() {
           return (
             <div
               key={`${entry.vendor}-${entry.category}-${i}`}
-              className="bg-white dark:bg-[rgb(var(--surface-200))]/60 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl p-4 hover:border-slate-300 dark:hover:border-slate-700 transition-colors"
+              className="bg-white dark:bg-[rgb(var(--surface-200))]/60 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl p-4 hover:border-slate-300 dark:hover:border-[rgb(var(--border-400))] transition-colors"
             >
               <div className="flex items-start gap-4">
                 <div className={`p-2.5 rounded-lg ${color}`}>
@@ -179,7 +179,7 @@ export default function FeedCatalog() {
                         >
                           {entry.status}
                         </span>
-                        <span className="text-xs px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-muted border border-slate-200 dark:border-[rgb(var(--border-400))] uppercase">
+                        <span className="text-xs px-2 py-0.5 rounded-full bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted border border-slate-200 dark:border-[rgb(var(--border-400))] uppercase">
                           {entry.category}
                         </span>
                       </div>
@@ -196,7 +196,7 @@ export default function FeedCatalog() {
                     </a>
                   </div>
                   <div className="mt-2">
-                    <code className="text-xs text-slate-400 dark:text-slate-600 font-mono break-all">{entry.url}</code>
+                    <code className="text-xs text-slate-400 dark:text-slate-400 font-mono break-all">{entry.url}</code>
                   </div>
                 </div>
               </div>

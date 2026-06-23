@@ -156,7 +156,7 @@ export default function DisarmFramework(): JSX.Element {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search techniques / tactics (name, description, T-id)…"
-          className="w-full max-w-md rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-slate-950 px-3 py-1.5 text-sm font-mono text-slate-700 dark:text-slate-300 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none"
+          className="w-full max-w-md rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] px-3 py-1.5 text-sm font-mono text-slate-700 dark:text-slate-300 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none"
         />
         <div className="flex flex-wrap gap-1.5">
           <button onClick={() => setType('all')} className={chip(type === 'all')}>
@@ -195,7 +195,7 @@ export default function DisarmFramework(): JSX.Element {
           return (
             <div
               key={entry.id}
-              className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-3"
+              className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3"
             >
               <div className="flex items-start justify-between gap-2">
                 <h3 className="font-semibold text-sm text-slate-900 dark:text-slate-100 leading-snug">

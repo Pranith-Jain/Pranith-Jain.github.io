@@ -216,7 +216,7 @@ export default function MostWanted(): JSX.Element {
               {actor.categories.map((cat) => (
                 <span
                   key={cat}
-                  className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-muted border border-slate-200 dark:border-[rgb(var(--border-400))]"
+                  className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted border border-slate-200 dark:border-[rgb(var(--border-400))]"
                 >
                   {cat}
                 </span>

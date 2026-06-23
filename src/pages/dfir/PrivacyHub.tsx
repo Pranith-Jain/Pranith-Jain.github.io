@@ -194,7 +194,7 @@ export default function PrivacyHub(): JSX.Element {
               </span>
               <span className="text-xs font-mono font-bold text-slate-900 dark:text-slate-100">{c.score}%</span>
             </div>
-            <div className="h-1.5 rounded bg-slate-200 dark:bg-slate-800 overflow-hidden mb-1">
+            <div className="h-1.5 rounded bg-slate-200 dark:bg-[rgb(var(--surface-300))] overflow-hidden mb-1">
               <div
                 className={`h-full ${
                   c.score >= 75 ? 'bg-emerald-500' : c.score >= 40 ? 'bg-amber-500' : 'bg-rose-500'
@@ -356,7 +356,7 @@ function ArticleRow({
 }): JSX.Element {
   const s = state.checks[article.id] ?? 'unset';
   return (
-    <li className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-3">
+    <li className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3">
       <div className="flex flex-wrap items-center gap-2 mb-1">
         <button
           onClick={() => cycle(article.id)}

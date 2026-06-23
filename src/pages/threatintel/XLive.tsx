@@ -158,7 +158,7 @@ export default function XLive(): JSX.Element {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="filter text, handle, or tag…"
-            className="w-full pl-7 pr-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 text-xs font-mono focus:outline-none focus:border-brand-500"
+            className="w-full pl-7 pr-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] text-xs font-mono focus:outline-none focus:border-brand-500"
           />
         </div>
         <button

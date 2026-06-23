@@ -175,7 +175,7 @@ const GRADE_STYLES: Record<string, string> = {
   C: 'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300',
   D: 'bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300',
   E: 'bg-rose-100 dark:bg-rose-900/30 text-rose-700 dark:text-rose-300',
-  F: 'bg-slate-100 dark:bg-slate-800 text-slate-500',
+  F: 'bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-500',
 };
 
 export function DataDisclaimer() {
@@ -206,7 +206,7 @@ export function DataDisclaimer() {
           {SOURCES.map((s) => (
             <div
               key={s.id}
-              className="flex items-start gap-2 text-mini font-mono py-1 border-b border-slate-100 dark:border-slate-800 last:border-0"
+              className="flex items-start gap-2 text-mini font-mono py-1 border-b border-slate-100 dark:border-[rgb(var(--border-400))] last:border-0"
             >
               <span className={`px-1 py-0.5 rounded text-micro font-bold shrink-0 ${GRADE_STYLES[s.grade] ?? ''}`}>
                 {s.grade}
@@ -235,7 +235,7 @@ export function DataDisclaimer() {
           {OS_TOOLS.map((t) => (
             <span
               key={t}
-              className="rounded border border-slate-200 dark:border-slate-700 px-2 py-0.5 text-micro font-mono text-slate-600 dark:text-slate-400"
+              className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] px-2 py-0.5 text-micro font-mono text-slate-600 dark:text-slate-400"
             >
               {t}
             </span>

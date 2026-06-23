@@ -62,7 +62,7 @@ export function About({ stats }: AboutProps) {
           Plain numbers, caps-mono labels, no card chrome. Each cell is
           separated by a thin left rule on sm+ so the row reads as a clean
           band of facts, not four boxes. */}
-      <dl className="mt-12 grid grid-cols-2 gap-x-6 gap-y-5 sm:grid-cols-4 sm:[&>div+div]:border-l sm:[&>div+div]:border-slate-200/80 sm:[&>div+div]:pl-5 sm:[&>div+div]:dark:border-slate-800">
+      <dl className="mt-12 grid grid-cols-2 gap-x-6 gap-y-5 sm:grid-cols-4 sm:[&>div+div]:border-l sm:[&>div+div]:border-slate-200/80 sm:[&>div+div]:pl-5 sm:[&>div+div]:dark:border-[rgb(var(--border-400))]">
         {stats.map((stat) => (
           <div key={stat.label}>
             <dt className="text-eyebrow font-mono uppercase text-slate-500 dark:text-slate-400">{stat.label}</dt>

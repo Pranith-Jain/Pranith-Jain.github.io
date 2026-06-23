@@ -98,7 +98,7 @@ function MarketCard({ m }: { m: PredictionMarket }): JSX.Element {
         <span className="font-mono text-slate-500 dark:text-slate-400">{top ? `${top.name} ${pct}%` : `${pct}%`}</span>
         <span className="font-mono text-slate-400 dark:text-slate-500">{formatVolume(m.volume)} vol</span>
       </div>
-      <div className="h-1.5 w-full rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
+      <div className="h-1.5 w-full rounded-full bg-slate-100 dark:bg-[rgb(var(--surface-300))] overflow-hidden">
         <div className={`h-full rounded-full ${meta.bar}`} style={{ width: `${Math.min(100, Math.max(2, pct))}%` }} />
       </div>
       <div className="mt-3 text-[11px] font-mono text-slate-400 dark:text-slate-500">
@@ -185,7 +185,7 @@ export default function Predictions(): JSX.Element {
             <section key={bucket}>
               <h2 className="flex items-center gap-2 text-sm font-mono uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-4">
                 <meta.icon size={14} className={meta.accent.split(' ')[0]} /> {meta.label}
-                <span className="text-slate-400 dark:text-slate-600">· {markets.length}</span>
+                <span className="text-slate-400 dark:text-slate-400">· {markets.length}</span>
               </h2>
               <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 {markets.map((m) => (

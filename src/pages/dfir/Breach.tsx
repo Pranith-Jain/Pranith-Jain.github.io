@@ -38,7 +38,7 @@ const SOURCE_LABELS: Record<string, string> = {
 const SOURCE_COLORS: Record<string, string> = {
   xposedornot: 'bg-violet-500/10 text-violet-700 dark:text-violet-300 border-violet-500/30',
   leakcheck: 'bg-blue-500/10 text-blue-700 dark:text-blue-300 border-blue-500/30',
-  leakix: 'bg-cyan-500/10 text-cyan-700 dark:text-cyan-300 border-cyan-500/30',
+  leakix: 'bg-cyan-500/10 text-sky-700 dark:text-sky-300 border-cyan-500/30',
   proxynova: 'bg-orange-500/10 text-orange-700 dark:text-orange-300 border-orange-500/30',
   hudsonrock: 'bg-rose-500/10 text-rose-700 dark:text-rose-300 border-rose-500/30',
   projectdiscovery: 'bg-fuchsia-500/10 text-fuchsia-700 dark:text-fuchsia-300 border-fuchsia-500/30',
@@ -138,7 +138,7 @@ function getSeverity(count: number): { label: string; classes: string } {
   }
   return {
     label: 'Low',
-    classes: 'bg-cyan-100 text-cyan-800 dark:bg-cyan-900/30 dark:text-cyan-300 border-cyan-300 dark:border-cyan-700',
+    classes: 'bg-sky-100 text-cyan-800 dark:bg-sky-500/10 dark:text-sky-300 border-cyan-300 dark:border-cyan-700',
   };
 }
 
@@ -182,7 +182,7 @@ function getVerificationVerdict(v: EmailVerification): {
   if (v.isRole) {
     return {
       label: 'Role address',
-      classes: 'bg-cyan-100 text-cyan-800 dark:bg-cyan-900/30 dark:text-cyan-300 border-cyan-300 dark:border-cyan-700',
+      classes: 'bg-sky-100 text-cyan-800 dark:bg-sky-500/10 dark:text-sky-300 border-cyan-300 dark:border-cyan-700',
       Icon: Inbox,
       blurb: 'This is a shared role address (info@, abuse@, postmaster@, …) — not tied to one person.',
     };
@@ -190,7 +190,7 @@ function getVerificationVerdict(v: EmailVerification): {
   if (v.isAlias) {
     return {
       label: 'Alias',
-      classes: 'bg-cyan-100 text-cyan-800 dark:bg-cyan-900/30 dark:text-cyan-300 border-cyan-300 dark:border-cyan-700',
+      classes: 'bg-sky-100 text-cyan-800 dark:bg-sky-500/10 dark:text-sky-300 border-cyan-300 dark:border-cyan-700',
       Icon: Inbox,
       blurb: 'Plus-addressed or aliased (e.g. user+tag@). Pivot to the underlying mailbox before action.',
     };
@@ -216,7 +216,7 @@ function getVerificationVerdict(v: EmailVerification): {
   return {
     label: 'Unknown',
     classes:
-      'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300 border-slate-300 dark:border-[rgb(var(--border-400))]',
+      'bg-slate-100 text-slate-700 dark:bg-[rgb(var(--surface-300))] dark:text-slate-300 border-slate-300 dark:border-[rgb(var(--border-400))]',
     Icon: BadgeCheck,
     blurb: 'Neither free verifier (throwaway.sslboard.com, rapid-email-verifier.fly.dev) responded.',
   };
@@ -230,7 +230,7 @@ function BreachCards({ breaches }: { breaches: BreachEntry[] }): JSX.Element {
       {breaches.map((b, i) => (
         <div
           key={i}
-          className="p-4 rounded-xl border border-slate-100 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-800/50"
+          className="p-4 rounded-xl border border-slate-100 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-300)/0.5)]"
         >
           <div className="flex items-start justify-between gap-3 mb-2">
             <div className="flex items-center gap-2 min-w-0">
@@ -328,7 +328,7 @@ function VerificationCard({ verification }: { verification: EmailVerification })
           <p className="text-sm text-muted mt-1.5">{v.blurb}</p>
 
           <div className="mt-3 flex items-center gap-3">
-            <div className="flex-1 h-1.5 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
+            <div className="flex-1 h-1.5 rounded-full bg-slate-100 dark:bg-[rgb(var(--surface-300))] overflow-hidden">
               <div
                 className={`h-full ${
                   verification.score >= 80

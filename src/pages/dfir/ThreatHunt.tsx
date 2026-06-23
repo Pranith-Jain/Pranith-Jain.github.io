@@ -37,7 +37,8 @@ const VERDICT_COLORS: Record<string, string> = {
   malicious: 'bg-rose-500/15 text-rose-600 dark:text-rose-400 border-rose-500/40',
   suspicious: 'bg-amber-500/15 text-amber-600 dark:text-amber-400 border-amber-500/40',
   clean: 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border-emerald-500/40',
-  unknown: 'bg-slate-200 dark:bg-slate-800 text-muted border-slate-300 dark:border-[rgb(var(--border-400))]',
+  unknown:
+    'bg-slate-200 dark:bg-[rgb(var(--surface-300))] text-muted border-slate-300 dark:border-[rgb(var(--border-400))]',
 };
 
 const CONFIDENCE_COLORS: Record<string, string> = {
@@ -160,7 +161,7 @@ export default function ThreatHunt(): JSX.Element {
                 {result.ioc_providers.hits.map((h) => (
                   <div
                     key={h.source}
-                    className="flex items-center justify-between px-3 py-2 rounded-lg bg-slate-50 dark:bg-slate-800/50"
+                    className="flex items-center justify-between px-3 py-2 rounded-lg bg-slate-50 dark:bg-[rgb(var(--surface-300)/0.5)]"
                   >
                     <div className="flex items-center gap-2">
                       <span
@@ -184,7 +185,10 @@ export default function ThreatHunt(): JSX.Element {
             ) : (
               <div className="space-y-2 max-h-48 overflow-y-auto">
                 {result.telegram_leaks.hits.map((h) => (
-                  <div key={`${h.channel}-${h.date}`} className="px-3 py-2 rounded-lg bg-slate-50 dark:bg-slate-800/50">
+                  <div
+                    key={`${h.channel}-${h.date}`}
+                    className="px-3 py-2 rounded-lg bg-slate-50 dark:bg-[rgb(var(--surface-300)/0.5)]"
+                  >
                     <p className="text-mini font-mono text-brand-600 dark:text-brand-400">{h.channel}</p>
                     <p className="text-xs font-mono text-muted mt-0.5 line-clamp-2">{h.message}</p>
                   </div>
@@ -200,7 +204,7 @@ export default function ThreatHunt(): JSX.Element {
             ) : (
               <div className="space-y-1">
                 {result.breach_data.hits.map((b) => (
-                  <div key={b.name} className="px-3 py-2 rounded-lg bg-slate-50 dark:bg-slate-800/50">
+                  <div key={b.name} className="px-3 py-2 rounded-lg bg-slate-50 dark:bg-[rgb(var(--surface-300)/0.5)]">
                     <p className="text-xs font-mono font-medium">{b.name}</p>
                     {b.description && <p className="text-mini font-mono text-slate-400 mt-0.5">{b.description}</p>}
                   </div>
@@ -233,7 +237,7 @@ export default function ThreatHunt(): JSX.Element {
                     {result.cert_logs.recent.map((s) => (
                       <span
                         key={s}
-                        className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800"
+                        className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))]"
                       >
                         {s}
                       </span>

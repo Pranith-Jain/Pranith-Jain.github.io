@@ -141,7 +141,9 @@ export default function GithubAdvisories(): JSX.Element {
 
       <div className="flex items-center gap-3 mb-1">
         <Bug className="w-7 h-7 text-rose-500" />
-        <h1 className="text-3xl sm:text-4xl font-display font-bold text-slate-900 dark:text-slate-100">GitHub Advisories Feed</h1>
+        <h1 className="text-3xl sm:text-4xl font-display font-bold text-slate-900 dark:text-slate-100">
+          GitHub Advisories Feed
+        </h1>
       </div>
       <p className="text-muted mb-6 text-sm max-w-3xl leading-relaxed">
         Live GitHub Security Advisory feed — reviewed vulnerabilities normalized into a CVE-style view.
@@ -237,7 +239,7 @@ export default function GithubAdvisories(): JSX.Element {
       </div>
 
       {data && (
-        <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-600 mb-3 font-mono">
+        <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 mb-3 font-mono">
           <span>
             {filtered.length} advisories
             {data.stale && (
@@ -310,7 +312,7 @@ export default function GithubAdvisories(): JSX.Element {
                       {a.vulnerabilities.map((v, i) => (
                         <span
                           key={i}
-                          className="flex items-center gap-1 px-1.5 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-800/50 font-mono"
+                          className="flex items-center gap-1 px-1.5 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-300)/0.5)] font-mono"
                         >
                           <Package className="w-2.5 h-2.5" /> {v.package.ecosystem}/{v.package.name}
                           {v.vulnerable_version_range && (
@@ -346,7 +348,7 @@ export default function GithubAdvisories(): JSX.Element {
             {ecoBreakdown.map(([eco, count]) => (
               <div key={eco} className="flex items-center gap-2 text-xs">
                 <span className="font-mono text-slate-700 dark:text-slate-300 w-24">{eco}</span>
-                <div className="flex-1 h-2 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+                <div className="flex-1 h-2 bg-slate-100 dark:bg-[rgb(var(--surface-300))] rounded-full overflow-hidden">
                   <div
                     className="h-full bg-brand-500 rounded-full"
                     style={{ width: `${Math.min(100, (count / Math.max(...ecoBreakdown.map(([, c]) => c))) * 100)}%` }}
@@ -359,7 +361,7 @@ export default function GithubAdvisories(): JSX.Element {
         </div>
       )}
 
-      <div className="mt-6 pt-4 border-t border-slate-200 dark:border-[rgb(var(--border-400))] text-xs text-slate-500 dark:text-slate-600 font-mono">
+      <div className="mt-6 pt-4 border-t border-slate-200 dark:border-[rgb(var(--border-400))] text-xs text-slate-500 dark:text-slate-400 font-mono">
         Source: GitHub Advisory Database via Worker API
       </div>
     </div>

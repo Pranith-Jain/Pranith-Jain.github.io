@@ -101,7 +101,7 @@ export function PivotMatrix({ type, value, verdict }: { type: string; value: str
   if (pivots.length === 0) return <></>;
 
   return (
-    <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 mb-6">
+    <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-5 mb-6">
       <h3 className="font-display font-semibold text-base mb-3 inline-flex items-center gap-2">
         <Search size={15} className="text-brand-600 dark:text-brand-400" />
         Pivot Matrix — investigation steps
@@ -113,7 +113,7 @@ export function PivotMatrix({ type, value, verdict }: { type: string; value: str
             href={p.href}
             target={p.external ? '_blank' : undefined}
             rel={p.external ? 'noopener noreferrer' : undefined}
-            className="flex items-start gap-3 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-3 hover:border-brand-500/40 hover:bg-brand-500/5 transition-colors group"
+            className="flex items-start gap-3 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 hover:border-brand-500/40 hover:bg-brand-500/5 transition-colors group"
           >
             <p.icon size={16} className="mt-0.5 shrink-0 text-slate-400 group-hover:text-brand-500" />
             <div className="min-w-0">

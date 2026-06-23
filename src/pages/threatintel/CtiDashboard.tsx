@@ -308,10 +308,10 @@ export default function CtiDashboard(): JSX.Element {
                   .map(([type, count]) => (
                     <div
                       key={type}
-                      className="flex items-center justify-between py-1.5 border-b border-slate-100 dark:border-slate-800 last:border-0"
+                      className="flex items-center justify-between py-1.5 border-b border-slate-100 dark:border-[rgb(var(--border-400))] last:border-0"
                     >
                       <span
-                        className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md text-[11px] font-mono border ${TYPE_PILL[type] || 'border-slate-300 bg-slate-100 text-slate-600 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-400'}`}
+                        className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md text-[11px] font-mono border ${TYPE_PILL[type] || 'border-slate-300 bg-slate-100 text-slate-600 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300))] dark:text-slate-400'}`}
                       >
                         {type}
                       </span>
@@ -337,10 +337,10 @@ export default function CtiDashboard(): JSX.Element {
                   stats.top_malware_families.map((f) => (
                     <div
                       key={f.family}
-                      className="flex items-center justify-between py-1.5 border-b border-slate-100 dark:border-slate-800 last:border-0"
+                      className="flex items-center justify-between py-1.5 border-b border-slate-100 dark:border-[rgb(var(--border-400))] last:border-0"
                     >
                       <span className="text-sm text-slate-700 dark:text-slate-300">{f.family}</span>
-                      <span className="text-xs font-mono px-2 py-0.5 rounded-full border border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400">
+                      <span className="text-xs font-mono px-2 py-0.5 rounded-full border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400">
                         {f.count}
                       </span>
                     </div>
@@ -358,7 +358,7 @@ export default function CtiDashboard(): JSX.Element {
                 <div className="overflow-x-auto">
                   <table className="w-full text-sm">
                     <thead>
-                      <tr className="text-xs font-mono text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-700">
+                      <tr className="text-xs font-mono text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
                         <th className="text-left py-2 font-semibold">Value</th>
                         <th className="text-left py-2 font-semibold">Type</th>
                         <th className="text-left py-2 font-semibold">Source</th>
@@ -367,7 +367,10 @@ export default function CtiDashboard(): JSX.Element {
                     </thead>
                     <tbody>
                       {stats.trending.map((t, i) => (
-                        <tr key={i} className="border-b border-slate-100 dark:border-slate-800 last:border-0">
+                        <tr
+                          key={i}
+                          className="border-b border-slate-100 dark:border-[rgb(var(--border-400))] last:border-0"
+                        >
                           <td className="py-2 font-mono text-xs text-brand-600 dark:text-brand-400 max-w-xs truncate">
                             {t.value}
                           </td>
@@ -407,7 +410,7 @@ export default function CtiDashboard(): JSX.Element {
             </div>
 
             {predictions.length === 0 ? (
-              <div className="rounded-xl border border-dashed border-slate-300 dark:border-slate-700 p-8 text-center">
+              <div className="rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-8 text-center">
                 <Brain size={32} className="mx-auto text-slate-400 dark:text-slate-500 mb-3" />
                 <p className="text-sm font-mono text-slate-500 dark:text-slate-400">
                   No predictions yet. Click "Generate Predictions" to forecast attack patterns.
@@ -451,7 +454,7 @@ export default function CtiDashboard(): JSX.Element {
                           {p.attack_flow.map((phase, i) => (
                             <span
                               key={i}
-                              className="inline-flex items-center gap-1 px-2 py-0.5 rounded border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 text-[11px] font-mono text-slate-600 dark:text-slate-400"
+                              className="inline-flex items-center gap-1 px-2 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-300)/0.5)] text-[11px] font-mono text-slate-600 dark:text-slate-400"
                             >
                               <span className="text-brand-600 dark:text-brand-400">{phase.technique_id}</span>
                               <span className="text-slate-400 dark:text-slate-500">→</span>
@@ -489,7 +492,7 @@ export default function CtiDashboard(): JSX.Element {
                 value={mutationInput}
                 onChange={(e) => setMutationInput(e.target.value)}
                 placeholder="Describe an attack pattern, campaign, or malware (e.g. 'LockBit ransomware exploiting CVE-2024-21413 via phishing email to encrypt ESXi servers')"
-                className="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 p-3 text-sm font-mono text-slate-800 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 resize-none h-24 focus:outline-none focus:ring-2 focus:ring-brand-500/30 focus:border-brand-500 dark:focus:border-brand-400"
+                className="w-full rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-300)/0.5)] p-3 text-sm font-mono text-slate-800 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 resize-none h-24 focus:outline-none focus:ring-2 focus:ring-brand-500/30 focus:border-brand-500 dark:focus:border-brand-400"
               />
               <button
                 onClick={handleMutate}
@@ -557,7 +560,7 @@ export default function CtiDashboard(): JSX.Element {
                       </div>
                     </div>
                     <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">{v.summary}</p>
-                    <span className="inline-block mt-2 px-2 py-0.5 rounded border border-slate-200 dark:border-slate-700 text-[11px] font-mono text-slate-500 dark:text-slate-400">
+                    <span className="inline-block mt-2 px-2 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-[11px] font-mono text-slate-500 dark:text-slate-400">
                       {v.mutation_type.replace(/_/g, ' ')}
                     </span>
                   </div>
@@ -580,7 +583,7 @@ export default function CtiDashboard(): JSX.Element {
             </div>
 
             {news.length === 0 ? (
-              <div className="rounded-xl border border-dashed border-slate-300 dark:border-slate-700 p-8 text-center">
+              <div className="rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-8 text-center">
                 <Newspaper size={32} className="mx-auto text-slate-400 dark:text-slate-500 mb-3" />
                 <p className="text-sm font-mono text-slate-500 dark:text-slate-400">No news articles collected yet.</p>
               </div>

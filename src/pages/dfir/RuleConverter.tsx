@@ -462,7 +462,7 @@ export default function RuleConverter(): JSX.Element {
             Parsed IR (what the parser extracted)
           </button>
           {showIr && (
-            <div className="mt-2 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-3">
+            <div className="mt-2 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3">
               {!ir ? null : 'error' in ir ? (
                 <p className="text-meta font-mono text-rose-600 dark:text-rose-400">{ir.error}</p>
               ) : (

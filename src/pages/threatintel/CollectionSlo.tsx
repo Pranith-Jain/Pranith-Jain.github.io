@@ -41,7 +41,7 @@ const RELIABILITY_BADGE: Record<string, string> = {
   C: 'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300',
   D: 'bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300',
   E: 'bg-rose-100 dark:bg-rose-900/30 text-rose-700 dark:text-rose-300',
-  F: 'bg-slate-100 dark:bg-slate-800 text-slate-500',
+  F: 'bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-500',
 };
 
 export default function CollectionSlo(): JSX.Element {
@@ -191,7 +191,10 @@ export default function CollectionSlo(): JSX.Element {
                   </thead>
                   <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
                     {filtered.map((s) => (
-                      <tr key={s.id} className="hover:bg-slate-50 dark:hover:bg-slate-900/30 transition-colors">
+                      <tr
+                        key={s.id}
+                        className="hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200)/0.3)] transition-colors"
+                      >
                         <td className="px-4 py-3">
                           <div className="text-sm font-medium">{s.label}</div>
                           <div className="text-mini font-mono text-slate-400">{s.id}</div>

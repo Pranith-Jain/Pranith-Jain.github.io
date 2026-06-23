@@ -19,7 +19,7 @@ export interface SourceMeta {
 }
 
 /** Default pill classes for an unknown source (faithful to the old maps). */
-export const DEFAULT_SOURCE_COLOR = 'border-slate-300 dark:border-slate-700 text-slate-500';
+export const DEFAULT_SOURCE_COLOR = 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500';
 
 /** Default SOC criticality source weight for an unknown source. */
 export const DEFAULT_SOURCE_WEIGHT = 20;
@@ -27,7 +27,7 @@ export const DEFAULT_SOURCE_WEIGHT = 20;
 export const SOURCE_META: Record<string, SourceMeta> = {
   tweetfeed: {
     label: 'TweetFeed',
-    color: 'border-cyan-500/40 bg-cyan-500/10 text-cyan-700 dark:text-cyan-300',
+    color: 'border-cyan-500/40 bg-cyan-500/10 text-sky-700 dark:text-sky-300',
     weight: 25,
   },
   'sans-isc': {

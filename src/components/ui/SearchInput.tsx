@@ -103,7 +103,7 @@ export function SearchInput({
           className={[
             'w-full rounded-md border border-slate-200 bg-white py-2 pl-9 pr-9 font-mono text-sm text-slate-900 transition-colors placeholder:text-slate-400',
             'focus:outline-none focus:border-brand-500 focus-visible:ring-2 focus-visible:ring-brand-500/20',
-            'dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:placeholder:text-slate-500',
+            'dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-100 dark:placeholder:text-slate-500',
             'disabled:opacity-50 disabled:cursor-not-allowed',
             inputClassName,
           ].join(' ')}
@@ -135,7 +135,7 @@ export function SearchInput({
           id={listId}
           ref={listRef}
           role="listbox"
-          className="absolute left-0 right-0 top-full z-50 mt-1 max-h-64 overflow-y-auto rounded-xl border border-slate-200 bg-white shadow-lg dark:border-slate-700 dark:bg-slate-900"
+          className="absolute left-0 right-0 top-full z-50 mt-1 max-h-64 overflow-y-auto rounded-xl border border-slate-200 bg-white shadow-lg dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]"
         >
           {visible.map((s, i) => (
             <li
@@ -152,7 +152,7 @@ export function SearchInput({
                 'flex items-center gap-3 px-4 py-2.5 text-sm cursor-pointer transition-colors',
                 i === activeIdx
                   ? 'bg-brand-500/10 text-brand-700 dark:text-brand-300'
-                  : 'text-slate-700 hover:bg-slate-50 dark:text-slate-300 dark:hover:bg-slate-800',
+                  : 'text-slate-700 hover:bg-slate-50 dark:text-slate-300 dark:hover:bg-[rgb(var(--surface-300))]',
               ].join(' ')}
             >
               {s.icon && <span aria-hidden="true">{s.icon}</span>}

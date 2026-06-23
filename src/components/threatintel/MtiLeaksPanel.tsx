@@ -130,7 +130,7 @@ export function MtiLeaksPanel(): JSX.Element {
   }, [data, query, sortBy]);
 
   return (
-    <section className="mb-10 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+    <section className="mb-10 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-5">
       <div className="flex flex-wrap items-baseline justify-between gap-3 mb-3">
         <h2 className="font-display font-bold text-xl inline-flex items-center gap-2">
           <Database size={20} className="text-brand-600 dark:text-brand-400" /> Active leak listings
@@ -159,14 +159,14 @@ export function MtiLeaksPanel(): JSX.Element {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Filter by name, URL, or type…"
-            className="w-full pl-9 pr-3 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="w-full pl-9 pr-3 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
             aria-label="Filter MTI leaks"
           />
         </div>
         <div
           role="group"
           aria-label="Sort mode"
-          className="inline-flex rounded border border-slate-200 dark:border-slate-800 overflow-hidden text-mini font-mono"
+          className="inline-flex rounded border border-slate-200 dark:border-[rgb(var(--border-400))] overflow-hidden text-mini font-mono"
         >
           {(['date', 'size'] as SortMode[]).map((m) => {
             const active = m === sortBy;
@@ -190,14 +190,14 @@ export function MtiLeaksPanel(): JSX.Element {
         <button
           type="button"
           onClick={() => setRefreshKey((k) => k + 1)}
-          className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40"
+          className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40"
         >
           <RefreshCw size={11} /> refresh
         </button>
       </div>
 
       {loading && (
-        <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-3 inline-flex items-center gap-2 font-mono text-sm text-slate-500">
+        <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3 inline-flex items-center gap-2 font-mono text-sm text-slate-500">
           <Loader2 size={14} className="animate-spin" /> loading MyThreatIntel leaks feed…
         </div>
       )}
@@ -227,7 +227,7 @@ export function MtiLeaksPanel(): JSX.Element {
             return (
               <li
                 key={`${it.name ?? 'unknown'}-${i}`}
-                className="rounded border border-slate-200 dark:border-slate-800 bg-slate-50/40 dark:bg-slate-950/40 p-3"
+                className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50/40 dark:bg-[rgb(var(--input-200)/0.4)] p-3"
               >
                 <div className="flex items-baseline justify-between gap-2 mb-1">
                   <span className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 truncate flex-1">
@@ -239,7 +239,7 @@ export function MtiLeaksPanel(): JSX.Element {
                 </div>
                 <div className="text-mini font-mono text-slate-500 flex flex-wrap items-center gap-x-2 gap-y-0.5">
                   {it.type && it.type !== 'leak' && it.type !== 'N/D' && (
-                    <span className="px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-800">
+                    <span className="px-1.5 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))]">
                       {it.type}
                     </span>
                   )}

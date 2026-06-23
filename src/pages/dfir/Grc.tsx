@@ -178,7 +178,7 @@ export default function Grc(): JSX.Element {
                 </span>
                 <span className="text-xs font-mono font-bold text-slate-900 dark:text-slate-100">{c.score}%</span>
               </div>
-              <div className="h-1.5 rounded bg-slate-200 dark:bg-slate-800 overflow-hidden mb-1">
+              <div className="h-1.5 rounded bg-slate-200 dark:bg-[rgb(var(--surface-300))] overflow-hidden mb-1">
                 <div className={`h-full ${scoreColour(c.score)}`} style={{ width: `${Math.max(2, c.score)}%` }} />
               </div>
               <div className="text-micro font-mono text-slate-400 dark:text-slate-400">
@@ -247,7 +247,7 @@ export default function Grc(): JSX.Element {
                 {expanded.has(fn.id) ? <ChevronDown size={16} /> : <ChevronRight size={16} />}
               </button>
               {expanded.has(fn.id) && (
-                <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950/50 mt-2 p-4 space-y-4">
+                <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200)/0.5)] mt-2 p-4 space-y-4">
                   {fn.categories.map((cat) => (
                     <div key={cat.id}>
                       <h4 className="font-display font-semibold text-sm text-slate-800 dark:text-slate-200 mb-1">
@@ -318,7 +318,7 @@ export default function Grc(): JSX.Element {
                   return (
                     <div
                       key={ctl.id}
-                      className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-2.5"
+                      className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2.5"
                     >
                       <div className="flex flex-wrap items-center gap-2 mb-1">
                         <button
@@ -389,7 +389,7 @@ export default function Grc(): JSX.Element {
                   return (
                     <div
                       key={ctl.id}
-                      className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-2.5"
+                      className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2.5"
                     >
                       <div className="flex flex-wrap items-center gap-2 mb-1">
                         <button
@@ -476,7 +476,7 @@ export default function Grc(): JSX.Element {
                       return (
                         <div
                           key={c.id}
-                          className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-2.5"
+                          className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2.5"
                         >
                           <div className="flex flex-wrap items-center gap-2 mb-1">
                             <button

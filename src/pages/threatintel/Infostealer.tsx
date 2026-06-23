@@ -611,7 +611,7 @@ export default function Infostealer(): JSX.Element {
               key={fam.slug}
               className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 group open:border-brand-500/40"
             >
-              <summary className="flex items-center justify-between gap-3 px-4 py-3 cursor-pointer select-none hover:bg-slate-50 dark:hover:bg-slate-950 rounded-lg list-none">
+              <summary className="flex items-center justify-between gap-3 px-4 py-3 cursor-pointer select-none hover:bg-slate-50 dark:hover:bg-[rgb(var(--input-200))] rounded-lg list-none">
                 <div className="min-w-0">
                   <Link
                     to={`/threatintel/infostealer/${fam.slug}`}
@@ -637,7 +637,7 @@ export default function Infostealer(): JSX.Element {
                   {fam.capabilities.map((c) => (
                     <span
                       key={c}
-                      className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 text-muted"
+                      className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] text-muted"
                     >
                       {c}
                     </span>

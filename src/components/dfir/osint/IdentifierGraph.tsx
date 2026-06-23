@@ -77,7 +77,7 @@ export function IdentifierGraph({
   }, [links, pins]);
 
   return (
-    <div className="h-[600px] rounded-xl border border-slate-200 dark:border-slate-800">
+    <div className="h-[600px] rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))]">
       <ReactFlow
         nodes={nodes}
         edges={edges}

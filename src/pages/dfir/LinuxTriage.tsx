@@ -388,7 +388,7 @@ export default function LinuxTriage(): JSX.Element {
                         </span>
                         <h3 className={`font-display font-semibold mt-1.5 ${st.text}`}>{f.title}</h3>
                         <p className="text-sm text-muted mt-1 leading-relaxed">{f.detail}</p>
-                        <pre className="text-meta font-mono text-slate-500 mt-2 whitespace-pre-wrap break-all bg-slate-50 dark:bg-slate-950 rounded p-2 border border-slate-200 dark:border-[rgb(var(--border-400))]">
+                        <pre className="text-meta font-mono text-slate-500 mt-2 whitespace-pre-wrap break-all bg-slate-50 dark:bg-[rgb(var(--input-200))] rounded p-2 border border-slate-200 dark:border-[rgb(var(--border-400))]">
                           {f.evidence}
                         </pre>
                         <p className="text-tool text-slate-700 dark:text-slate-300 mt-2">

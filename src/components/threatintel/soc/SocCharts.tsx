@@ -169,7 +169,7 @@ export function SocBar({
               </span>
             </div>
             <div
-              className="h-1.5 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden"
+              className="h-1.5 rounded-full bg-slate-100 dark:bg-[rgb(var(--surface-300))] overflow-hidden"
               onMouseEnter={() => setHover(i)}
               onMouseLeave={() => setHover(null)}
             >
@@ -319,7 +319,7 @@ export function SocDonut({
               <li
                 key={s.label}
                 className={`flex items-center gap-2 rounded px-1 -mx-1 transition-colors ${
-                  hover === s.label ? 'bg-slate-100 dark:bg-slate-800/60' : ''
+                  hover === s.label ? 'bg-slate-100 dark:bg-[rgb(var(--surface-300)/0.6)]' : ''
                 }`}
                 onMouseEnter={() => setHover(s.label)}
                 onMouseLeave={() => setHover(null)}

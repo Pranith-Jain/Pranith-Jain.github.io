@@ -81,7 +81,7 @@ export function Experience({ experiences }: ExperienceProps) {
                   id={bodyId}
                   role="region"
                   aria-labelledby={headerId}
-                  className="border-t border-slate-200/70 dark:border-slate-800/70 px-5 pb-5 pt-4"
+                  className="border-t border-slate-200/70 dark:border-[rgb(var(--border-400))] px-5 pb-5 pt-4"
                 >
                   {/* Sections (for main experience) */}
                   {exp.sections &&

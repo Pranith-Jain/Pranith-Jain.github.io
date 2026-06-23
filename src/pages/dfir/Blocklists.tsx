@@ -174,7 +174,7 @@ export default function BlocklistsPage(): JSX.Element {
           type="button"
           onClick={() => void handleRefresh()}
           disabled={refreshing}
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] hover:bg-slate-100 dark:hover:bg-slate-800 font-mono text-xs disabled:opacity-50"
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] font-mono text-xs disabled:opacity-50"
         >
           <RefreshCw size={12} className={refreshing ? 'animate-spin' : ''} />
           {refreshing ? 'Refreshing…' : 'Refresh now'}
@@ -204,7 +204,7 @@ export default function BlocklistsPage(): JSX.Element {
               <button
                 type="button"
                 onClick={() => void copyFormat(fmt.key)}
-                className="inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] hover:bg-slate-100 dark:hover:bg-slate-800 font-mono text-xs"
+                className="inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] font-mono text-xs"
               >
                 {copiedKey === fmt.key ? <Check size={12} className="text-emerald-500" /> : <Copy size={12} />}
               </button>
@@ -237,20 +237,30 @@ export default function BlocklistsPage(): JSX.Element {
           </p>
           <p>
             <span className="text-brand-600 dark:text-brand-400">iptables:</span> Run{' '}
-            <code className="px-1 py-0.5 rounded bg-slate-100 dark:bg-slate-800">
+            <code className="px-1 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))]">
               chmod +x blocklist-iptables.sh &amp;&amp; sudo ./blocklist-iptables.sh
             </code>
           </p>
           <p>
             <span className="text-brand-600 dark:text-brand-400">Suricata:</span> Place the rules file in{' '}
-            <code className="px-1 py-0.5 rounded bg-slate-100 dark:bg-slate-800">/etc/suricata/rules/</code> and add it
-            to your suricata.yaml.
+            <code className="px-1 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))]">
+              /etc/suricata/rules/
+            </code>{' '}
+            and add it to your suricata.yaml.
           </p>
           <p className="text-micro text-slate-400 mt-2">
             API endpoints:{' '}
-            <code className="px-1 py-0.5 rounded bg-slate-100 dark:bg-slate-800">/api/v1/blocklists/pfsense</code>,{' '}
-            <code className="px-1 py-0.5 rounded bg-slate-100 dark:bg-slate-800">/api/v1/blocklists/iptables</code>,{' '}
-            <code className="px-1 py-0.5 rounded bg-slate-100 dark:bg-slate-800">/api/v1/blocklists/suricata</code>
+            <code className="px-1 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))]">
+              /api/v1/blocklists/pfsense
+            </code>
+            ,{' '}
+            <code className="px-1 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))]">
+              /api/v1/blocklists/iptables
+            </code>
+            ,{' '}
+            <code className="px-1 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))]">
+              /api/v1/blocklists/suricata
+            </code>
           </p>
         </div>
       </div>
@@ -282,7 +292,7 @@ function FormatPreview({ label, url, maxLines }: { label: string; url: string; m
         {show ? '▼' : '▶'} {label}
       </button>
       {show && preview && (
-        <pre className="text-micro font-mono text-slate-700 dark:text-slate-300 bg-slate-50 dark:bg-slate-950 rounded p-2 overflow-x-auto border border-slate-200 dark:border-[rgb(var(--border-400))]">
+        <pre className="text-micro font-mono text-slate-700 dark:text-slate-300 bg-slate-50 dark:bg-[rgb(var(--input-200))] rounded p-2 overflow-x-auto border border-slate-200 dark:border-[rgb(var(--border-400))]">
           {preview}
         </pre>
       )}

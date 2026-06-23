@@ -402,7 +402,7 @@ export default function RansomwareMap(): JSX.Element {
 
           <div className="grid lg:grid-cols-[1fr_280px] gap-6">
             <div
-              className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 overflow-hidden relative"
+              className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] overflow-hidden relative"
               style={{ aspectRatio: '900 / 460', minHeight: 280 }}
             >
               <Suspense
@@ -425,7 +425,7 @@ export default function RansomwareMap(): JSX.Element {
                 />
               </Suspense>
               {hoveredAgg && (
-                <div className="absolute top-3 left-3 rounded-lg bg-slate-900/90 dark:bg-slate-950/90 backdrop-blur px-3 py-2 text-xs font-mono text-slate-100 border border-rose-400/40 max-w-[240px]">
+                <div className="absolute top-3 left-3 rounded-lg bg-slate-900/90 dark:bg-[rgb(var(--input-200)/0.9)] backdrop-blur px-3 py-2 text-xs font-mono text-slate-100 border border-rose-400/40 max-w-[240px]">
                   <div className="font-bold text-rose-300">{hoveredAgg.country}</div>
                   <div>{hoveredAgg.victim_count} victims</div>
                   <div className="text-slate-400">
@@ -506,7 +506,7 @@ export default function RansomwareMap(): JSX.Element {
                 <button
                   type="button"
                   onClick={() => setSelected(null)}
-                  className="inline-flex items-center gap-1 text-xs font-mono px-3 py-2 min-h-[44px] sm:min-h-0 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
+                  className="inline-flex items-center gap-1 text-xs font-mono px-3 py-2 min-h-[44px] sm:min-h-0 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]"
                   aria-label="Clear country selection"
                 >
                   <X size={12} /> clear

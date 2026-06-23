@@ -233,7 +233,7 @@ export default function Wayback(): JSX.Element {
               value={url}
               onChange={(e) => setUrl(e.target.value)}
               placeholder="https://example.com  (or example.com/some/path)"
-              className="w-full pl-9 pr-3 py-2 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 font-mono text-sm focus:border-brand-500/60 focus:outline-none"
+              className="w-full pl-9 pr-3 py-2 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] font-mono text-sm focus:border-brand-500/60 focus:outline-none"
               aria-label="URL to look up"
               autoComplete="off"
             />
@@ -424,7 +424,7 @@ export default function Wayback(): JSX.Element {
 
 function Stat({ label, value, url }: { label: string; value: string; url?: string }): JSX.Element {
   return (
-    <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-2.5">
+    <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2.5">
       <div className="text-micro font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-1">
         {label}
       </div>

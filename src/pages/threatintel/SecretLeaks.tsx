@@ -521,7 +521,7 @@ export default function SecretLeaks(): JSX.Element {
                                 {leak.severity}
                               </span>
                               <span className="text-micro font-mono text-slate-400">{leak.provider}</span>
-                              <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-500">
+                              <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-500">
                                 {leak.source === 'file' ? 'File' : 'Commit'}
                               </span>
                             </div>
@@ -535,7 +535,7 @@ export default function SecretLeaks(): JSX.Element {
                             <div className="flex items-center gap-3 text-xs font-mono text-slate-500">
                               <span>
                                 Key:{' '}
-                                <code className="bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded">
+                                <code className="bg-slate-100 dark:bg-[rgb(var(--surface-300))] px-1.5 py-0.5 rounded">
                                   {leak.redactedKey}
                                 </code>
                               </span>
@@ -650,7 +650,7 @@ export default function SecretLeaks(): JSX.Element {
                     <h3 className="text-sm font-display font-semibold">Leak Mix</h3>
                     <p className="text-micro font-mono text-slate-400">Severity share in the latest scan</p>
                   </div>
-                  <span className="text-xs font-mono px-2 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-500">
+                  <span className="text-xs font-mono px-2 py-1 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-500">
                     {stats.totalSecrets.toLocaleString()} secrets
                   </span>
                 </div>
@@ -706,7 +706,7 @@ export default function SecretLeaks(): JSX.Element {
                           <div className="text-sm font-medium text-slate-800 dark:text-slate-200 truncate">
                             {p.name}
                           </div>
-                          <div className="h-1.5 bg-slate-100 dark:bg-slate-800 rounded-full mt-1">
+                          <div className="h-1.5 bg-slate-100 dark:bg-[rgb(var(--surface-300))] rounded-full mt-1">
                             <div className="h-full bg-brand-500 rounded-full" style={{ width: `${p.pct}%` }} />
                           </div>
                         </div>

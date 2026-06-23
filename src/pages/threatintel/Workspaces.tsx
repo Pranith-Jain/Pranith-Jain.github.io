@@ -96,7 +96,8 @@ const SEV: Record<string, string> = {
   Elevated:
     'bg-orange-50 dark:bg-orange-900/20 text-orange-700 dark:text-orange-300 border-orange-200 dark:border-orange-800',
   Critical: 'bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-300 border-red-200 dark:border-red-800',
-  Unknown: 'bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border-slate-200 dark:border-slate-700',
+  Unknown:
+    'bg-slate-50 dark:bg-[rgb(var(--surface-300))] text-slate-600 dark:text-slate-400 border-slate-200 dark:border-[rgb(var(--border-400))]',
 };
 
 export default function Workspaces() {
@@ -258,7 +259,7 @@ export default function Workspaces() {
                     </span>
                   </div>
                   {i < PHASES.length - 1 && (
-                    <ChevronRight className="w-3.5 h-3.5 text-slate-300 dark:text-slate-600 mx-0.5 shrink-0" />
+                    <ChevronRight className="w-3.5 h-3.5 text-slate-300 dark:text-slate-400 mx-0.5 shrink-0" />
                   )}
                 </div>
               );
@@ -492,7 +493,7 @@ export default function Workspaces() {
                   >
                     <Trash2 className="w-3.5 h-3.5" />
                   </button>
-                  <ChevronRight className="w-4 h-4 text-slate-300 dark:text-slate-600 group-hover:text-brand-500 transition-colors" />
+                  <ChevronRight className="w-4 h-4 text-slate-300 dark:text-slate-400 group-hover:text-brand-500 transition-colors" />
                 </div>
               </div>
             </div>

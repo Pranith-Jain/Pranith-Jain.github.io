@@ -276,7 +276,7 @@ export default function ApkAnalyzer(): JSX.Element {
                 {result.analysis.dexFiles.map((dex) => (
                   <div
                     key={dex.name}
-                    className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-2.5"
+                    className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2.5"
                   >
                     <div className="font-semibold text-sm text-slate-900 dark:text-slate-100 mb-1">{dex.name}</div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-3 gap-y-0.5 text-micro font-mono text-muted">
@@ -355,7 +355,7 @@ export default function ApkAnalyzer(): JSX.Element {
                     {result.analysis.activities.map((a) => (
                       <span
                         key={a}
-                        className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-muted"
+                        className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted"
                       >
                         {a.split('.').pop()}
                       </span>
@@ -372,7 +372,7 @@ export default function ApkAnalyzer(): JSX.Element {
                     {result.analysis.services.map((s) => (
                       <span
                         key={s}
-                        className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-muted"
+                        className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted"
                       >
                         {s.split('.').pop()}
                       </span>
@@ -389,7 +389,7 @@ export default function ApkAnalyzer(): JSX.Element {
                     {result.analysis.receivers.map((r) => (
                       <span
                         key={r}
-                        className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-muted"
+                        className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted"
                       >
                         {r.split('.').pop()}
                       </span>
@@ -410,7 +410,7 @@ export default function ApkAnalyzer(): JSX.Element {
                 {result.analysis.nativeLibs.map((lib) => (
                   <span
                     key={lib}
-                    className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-muted"
+                    className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted"
                   >
                     {lib.split('/').pop()}
                   </span>

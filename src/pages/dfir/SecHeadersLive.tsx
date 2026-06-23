@@ -199,7 +199,7 @@ export default function SecHeadersLive(): JSX.Element {
               </div>
             </div>
             {data.missing && data.missing.length > 0 && (
-              <div className="mt-3 flex flex-wrap gap-1.5 border-t border-slate-200 dark:border-slate-800 pt-3">
+              <div className="mt-3 flex flex-wrap gap-1.5 border-t border-slate-200 dark:border-[rgb(var(--border-400))] pt-3">
                 <span className="text-mini font-mono uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">
                   missing
                 </span>
@@ -270,24 +270,24 @@ export default function SecHeadersLive(): JSX.Element {
                   if (!value) return null;
                   const isOpen = expandedOutput === key;
                   return (
-                    <div key={key} className="rounded border border-slate-200 dark:border-slate-800">
+                    <div key={key} className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))]">
                       <button
                         type="button"
                         onClick={() => setExpandedOutput(isOpen ? null : key)}
-                        className="w-full px-3 py-2 flex items-center justify-between text-mini font-mono uppercase tracking-wider text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/50"
+                        className="w-full px-3 py-2 flex items-center justify-between text-mini font-mono uppercase tracking-wider text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.5)]"
                       >
                         {key}
                         {isOpen ? <ChevronUp size={10} /> : <ChevronDown size={10} />}
                       </button>
                       {isOpen && (
-                        <div className="border-t border-slate-200 dark:border-slate-800 p-3 relative">
+                        <div className="border-t border-slate-200 dark:border-[rgb(var(--border-400))] p-3 relative">
                           <pre className="text-micro font-mono text-slate-800 dark:text-slate-200 whitespace-pre-wrap break-all">
                             {value}
                           </pre>
                           <button
                             type="button"
                             onClick={() => navigator.clipboard?.writeText(value)}
-                            className="absolute top-2 right-2 inline-flex items-center gap-1 rounded border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-1.5 py-0.5 text-micro font-mono text-slate-400 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200"
+                            className="absolute top-2 right-2 inline-flex items-center gap-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-300))] px-1.5 py-0.5 text-micro font-mono text-slate-400 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200"
                             title="Copy to clipboard"
                           >
                             <Copy size={10} aria-hidden="true" /> copy

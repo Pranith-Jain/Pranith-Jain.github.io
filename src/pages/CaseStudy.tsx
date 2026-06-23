@@ -114,7 +114,7 @@ export default function CaseStudy(): JSX.Element {
         <h1 className="font-display text-3xl sm:text-4xl font-bold tracking-tight mt-2 leading-tight">{study.title}</h1>
         <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-slate-500 mt-4">
           <span className="font-medium text-slate-700 dark:text-slate-300">Pranith Jain</span>
-          <span aria-hidden="true" className="text-slate-300 dark:text-slate-600">
+          <span aria-hidden="true" className="text-slate-300 dark:text-slate-400">
             ·
           </span>
           <time dateTime={study.publishedAt}>
@@ -124,7 +124,7 @@ export default function CaseStudy(): JSX.Element {
               day: 'numeric',
             })}
           </time>
-          <span aria-hidden="true" className="text-slate-300 dark:text-slate-600">
+          <span aria-hidden="true" className="text-slate-300 dark:text-slate-400">
             ·
           </span>
           <span className="inline-flex items-center gap-1">
@@ -134,13 +134,13 @@ export default function CaseStudy(): JSX.Element {
         </div>
 
         {/* Outcome strip */}
-        <div className="mt-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/60 dark:bg-slate-900/40 px-5 py-4">
+        <div className="mt-5 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50/60 dark:bg-[rgb(var(--surface-200)/0.4)] px-5 py-4">
           <div className="text-micro font-mono uppercase tracking-[0.2em] text-slate-500 mb-2">Key Outcomes</div>
           <div className="flex flex-wrap gap-3">
             {study.outcome.split(' · ').map((metric) => (
               <span
                 key={metric}
-                className="inline-flex items-center gap-1 px-3 py-1.5 rounded-md bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm font-mono font-medium text-slate-700 dark:text-slate-200"
+                className="inline-flex items-center gap-1 px-3 py-1.5 rounded-md bg-white dark:bg-[rgb(var(--surface-300))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-sm font-mono font-medium text-slate-700 dark:text-slate-200"
               >
                 {metric}
               </span>
@@ -154,7 +154,7 @@ export default function CaseStudy(): JSX.Element {
             {study.tags.map((t) => (
               <span
                 key={t}
-                className="text-mini font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400"
+                className="text-mini font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400"
               >
                 {t}
               </span>
@@ -165,9 +165,9 @@ export default function CaseStudy(): JSX.Element {
 
       {html === null ? (
         <div className="space-y-3 text-slate-500" aria-busy="true" aria-label="Loading case study">
-          <div className="h-4 w-3/4 rounded bg-slate-200 dark:bg-slate-800 animate-pulse" />
-          <div className="h-4 w-2/3 rounded bg-slate-200 dark:bg-slate-800 animate-pulse" />
-          <div className="h-4 w-5/6 rounded bg-slate-200 dark:bg-slate-800 animate-pulse" />
+          <div className="h-4 w-3/4 rounded bg-slate-200 dark:bg-[rgb(var(--surface-300))] animate-pulse" />
+          <div className="h-4 w-2/3 rounded bg-slate-200 dark:bg-[rgb(var(--surface-300))] animate-pulse" />
+          <div className="h-4 w-5/6 rounded bg-slate-200 dark:bg-[rgb(var(--surface-300))] animate-pulse" />
         </div>
       ) : (
         <article
@@ -185,9 +185,9 @@ export default function CaseStudy(): JSX.Element {
             '[&_ol]:list-decimal [&_ol]:pl-6 [&_ol]:mb-4 [&_ol]:space-y-1.5 ' +
             '[&_li]:leading-relaxed ' +
             '[&_strong]:text-slate-900 [&_strong]:dark:text-white [&_strong]:font-semibold ' +
-            '[&_code]:font-mono [&_code]:text-[0.9em] [&_code]:bg-slate-100 [&_code]:dark:bg-slate-800 [&_code]:px-1 [&_code]:py-0.5 [&_code]:rounded ' +
+            '[&_code]:font-mono [&_code]:text-[0.9em] [&_code]:bg-slate-100 [&_code]:dark:bg-[rgb(var(--surface-300))] [&_code]:px-1 [&_code]:py-0.5 [&_code]:rounded ' +
             '[&_blockquote]:border-l-2 [&_blockquote]:border-brand-500/40 [&_blockquote]:pl-4 [&_blockquote]:my-4 [&_blockquote]:italic [&_blockquote]:text-slate-600 [&_blockquote]:dark:text-slate-400 ' +
-            '[&_hr]:my-8 [&_hr]:border-slate-200 [&_hr]:dark:border-slate-800'
+            '[&_hr]:my-8 [&_hr]:border-slate-200 [&_hr]:dark:border-[rgb(var(--border-400))]'
           }
           dangerouslySetInnerHTML={{ __html: html }}
         />

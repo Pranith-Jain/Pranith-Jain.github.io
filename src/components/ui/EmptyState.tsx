@@ -60,7 +60,7 @@ export const EmptyState = memo(function EmptyState({
 
   return (
     <div className={`text-center ${styles.container} ${className}`} role="status" aria-live="polite">
-      {icon && <div className={`mx-auto ${styles.icon} text-slate-300 dark:text-slate-600`}>{icon}</div>}
+      {icon && <div className={`mx-auto ${styles.icon} text-slate-300 dark:text-slate-400`}>{icon}</div>}
       <h3 className={`font-medium text-slate-600 dark:text-slate-400 ${styles.title}`}>{title}</h3>
       {description && <p className={`mt-1 text-slate-500 dark:text-slate-500 ${styles.description}`}>{description}</p>}
       {action && <div className="mt-4">{action}</div>}

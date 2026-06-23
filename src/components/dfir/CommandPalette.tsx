@@ -574,7 +574,7 @@ export function CommandPalette(): JSX.Element | null {
             className={`text-micro font-mono uppercase tracking-wider px-2 py-0.5 rounded border focus-visible:ring-2 focus-visible:ring-brand-500 ${
               kindFilter === null
                 ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                : 'border-slate-300 dark:border-slate-700 text-slate-500 hover:border-brand-500/40'
+                : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-brand-500/40'
             }`}
           >
             all <span className="opacity-60">· {fullIndex.length}</span>
@@ -591,7 +591,7 @@ export function CommandPalette(): JSX.Element | null {
                 className={`text-micro font-mono uppercase tracking-wider px-2 py-0.5 rounded border focus-visible:ring-2 focus-visible:ring-brand-500 ${
                   active
                     ? KIND_PILL[k]
-                    : 'border-slate-300 dark:border-slate-700 text-slate-500 hover:border-brand-500/40'
+                    : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-brand-500/40'
                 }`}
               >
                 {KIND_LABEL[k]} <span className="opacity-60">· {count}</span>
@@ -618,7 +618,7 @@ export function CommandPalette(): JSX.Element | null {
                   className={`w-full flex items-center gap-3 px-4 py-2 text-left transition-colors ${
                     active
                       ? 'bg-brand-500/10 text-slate-900 dark:text-slate-100'
-                      : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'
+                      : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]'
                   }`}
                 >
                   {Icon ? (
@@ -652,7 +652,7 @@ export function CommandPalette(): JSX.Element | null {
                         {KIND_LABEL[m.kind]}
                       </span>
                       {m.matchedBy === 'recent' && (
-                        <span className="text-micro uppercase tracking-wider px-1 rounded border border-cyan-500/30 bg-cyan-500/5 text-cyan-700 dark:text-cyan-300">
+                        <span className="text-micro uppercase tracking-wider px-1 rounded border border-cyan-500/30 bg-cyan-500/5 text-sky-700 dark:text-sky-300">
                           recent
                         </span>
                       )}

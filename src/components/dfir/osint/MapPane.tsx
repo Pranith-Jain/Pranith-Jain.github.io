@@ -61,7 +61,7 @@ export function MapPane({
   }, [selectedPin, pins]);
 
   return (
-    <div className="h-[600px] rounded-xl overflow-hidden border border-slate-200 dark:border-slate-800">
+    <div className="h-[600px] rounded-xl overflow-hidden border border-slate-200 dark:border-[rgb(var(--border-400))]">
       <MapContainer center={[20, 0]} zoom={2} className="h-full w-full">
         <TileLayer
           crossOrigin="anonymous"

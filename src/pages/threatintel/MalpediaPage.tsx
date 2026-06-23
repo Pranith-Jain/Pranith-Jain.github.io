@@ -77,7 +77,7 @@ export default function MalpediaPage(): JSX.Element {
               className={`px-3 py-1.5 rounded text-xs font-mono font-semibold transition-colors ${
                 mode === m
                   ? 'bg-brand-600 text-white'
-                  : 'bg-slate-100 dark:bg-slate-800 text-muted hover:bg-slate-200 dark:hover:bg-slate-700'
+                  : 'bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted hover:bg-slate-200 dark:hover:bg-slate-700'
               }`}
             >
               {m === 'search' ? 'Search all' : m === 'actor' ? 'Actor lookup' : 'Family lookup'}

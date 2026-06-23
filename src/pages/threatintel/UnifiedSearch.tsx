@@ -297,7 +297,7 @@ export default function UnifiedSearch(): JSX.Element {
           </div>
           <ul className="divide-y divide-slate-100 dark:divide-slate-800/50">
             {toolMatches.map(({ section, ...tool }) => (
-              <li key={tool.to} className="px-4 py-2.5 hover:bg-slate-50 dark:hover:bg-slate-950/50">
+              <li key={tool.to} className="px-4 py-2.5 hover:bg-slate-50 dark:hover:bg-[rgb(var(--input-200)/0.5)]">
                 <Link to={tool.to} className="flex items-start justify-between gap-2 group">
                   <div className="min-w-0">
                     <span className="text-sm font-medium text-slate-900 dark:text-slate-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 block truncate">
@@ -305,7 +305,7 @@ export default function UnifiedSearch(): JSX.Element {
                     </span>
                     <span className="text-mini font-mono text-slate-500 mt-0.5 block truncate">{tool.desc}</span>
                   </div>
-                  <span className="shrink-0 mt-0.5 inline-flex items-center rounded border border-slate-300 bg-slate-50 px-1.5 py-0.5 font-mono text-micro uppercase tracking-wider text-slate-500 dark:border-[rgb(var(--border-400))] dark:bg-slate-800/50">
+                  <span className="shrink-0 mt-0.5 inline-flex items-center rounded border border-slate-300 bg-slate-50 px-1.5 py-0.5 font-mono text-micro uppercase tracking-wider text-slate-500 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300)/0.5)]">
                     {section.label}
                   </span>
                 </Link>
@@ -332,7 +332,7 @@ export default function UnifiedSearch(): JSX.Element {
               return (
                 <li
                   key={`${page.group}:${page.path}`}
-                  className="px-4 py-2.5 hover:bg-slate-50 dark:hover:bg-slate-950/50"
+                  className="px-4 py-2.5 hover:bg-slate-50 dark:hover:bg-[rgb(var(--input-200)/0.5)]"
                 >
                   <Link to={page.path} className="flex items-start justify-between gap-2 group">
                     <div className="min-w-0 flex items-start gap-2">
@@ -350,7 +350,7 @@ export default function UnifiedSearch(): JSX.Element {
                         </span>
                       </div>
                     </div>
-                    <span className="shrink-0 mt-0.5 inline-flex items-center rounded border border-slate-300 bg-slate-50 px-1.5 py-0.5 font-mono text-micro uppercase tracking-wider text-slate-500 dark:border-[rgb(var(--border-400))] dark:bg-slate-800/50">
+                    <span className="shrink-0 mt-0.5 inline-flex items-center rounded border border-slate-300 bg-slate-50 px-1.5 py-0.5 font-mono text-micro uppercase tracking-wider text-slate-500 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300)/0.5)]">
                       {page.sectionLabel}
                     </span>
                   </Link>
@@ -375,7 +375,7 @@ export default function UnifiedSearch(): JSX.Element {
 
       {nothingAnywhere && (
         <div className="py-12 text-center">
-          <Search size={32} className="mx-auto text-slate-300 dark:text-slate-600 mb-3" />
+          <Search size={32} className="mx-auto text-slate-300 dark:text-slate-400 mb-3" />
           <p className="font-mono text-sm text-slate-500">
             No results for &ldquo;{query.trim()}&rdquo; across any tool or intelligence source.
           </p>
@@ -401,7 +401,7 @@ export default function UnifiedSearch(): JSX.Element {
             const Icon = SECTION_ICONS[section.kind] ?? Search;
             const color =
               SECTION_COLORS[section.kind] ??
-              'text-slate-600 dark:text-slate-300 border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-800/50';
+              'text-slate-600 dark:text-slate-300 border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-[rgb(var(--surface-300)/0.5)]';
             return (
               <section
                 key={section.kind}
@@ -416,7 +416,10 @@ export default function UnifiedSearch(): JSX.Element {
                 </div>
                 <ul className="divide-y divide-slate-100 dark:divide-slate-800/50">
                   {(section.items ?? []).slice(0, 30).map((item, i) => (
-                    <li key={`${item.label}:${i}`} className="px-4 py-2.5 hover:bg-slate-50 dark:hover:bg-slate-950/50">
+                    <li
+                      key={`${item.label}:${i}`}
+                      className="px-4 py-2.5 hover:bg-slate-50 dark:hover:bg-[rgb(var(--input-200)/0.5)]"
+                    >
                       {item.url ? (
                         <a
                           href={sanitizeUrl(item.url) || undefined}

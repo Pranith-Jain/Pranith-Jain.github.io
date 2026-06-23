@@ -253,7 +253,7 @@ export default function CuratedCerts(): JSX.Element {
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder={`Search ${data.totalTools} courses across ${data.totalSections} sections…`}
-                  className="w-full rounded-lg border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-slate-950 py-2 pl-9 pr-3 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none"
+                  className="w-full rounded-lg border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] py-2 pl-9 pr-3 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none"
                 />
               </div>
               <div className="flex gap-2">
@@ -304,8 +304,8 @@ export default function CuratedCerts(): JSX.Element {
 
           {/* Section list */}
           {filtered.length === 0 ? (
-            <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-8 text-center text-sm text-slate-500 dark:text-slate-400">
-              <Search className="mx-auto mb-2 h-8 w-8 text-slate-400 dark:text-slate-600" />
+            <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-8 text-center text-sm text-slate-500 dark:text-slate-400">
+              <Search className="mx-auto mb-2 h-8 w-8 text-slate-400 dark:text-slate-400" />
               No courses match &quot;{query}&quot;.
             </div>
           ) : (
@@ -340,11 +340,11 @@ function SectionCard({
   onToggle: () => void;
 }) {
   return (
-    <div className="overflow-hidden rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-slate-950">
+    <div className="overflow-hidden rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))]">
       <button
         type="button"
         onClick={onToggle}
-        className="flex w-full items-center justify-between gap-3 px-4 py-3 text-left hover:bg-slate-50 dark:hover:bg-slate-900/50 transition-colors"
+        className="flex w-full items-center justify-between gap-3 px-4 py-3 text-left hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200)/0.5)] transition-colors"
       >
         <div className="flex items-center gap-2">
           <ChevronRight
@@ -361,7 +361,7 @@ function SectionCard({
           {section.tools.map((t, i) => (
             <li
               key={`${t.url}-${i}`}
-              className="flex items-start gap-3 border-b border-slate-100 dark:border-[rgb(var(--border-400))]/60 px-4 py-2.5 last:border-b-0 hover:bg-slate-50 dark:hover:bg-slate-900/30 transition-colors"
+              className="flex items-start gap-3 border-b border-slate-100 dark:border-[rgb(var(--border-400))]/60 px-4 py-2.5 last:border-b-0 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200)/0.3)] transition-colors"
             >
               <span className="mt-1.5 inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-brand-500 dark:bg-brand-400" />
               <div className="min-w-0 flex-1">

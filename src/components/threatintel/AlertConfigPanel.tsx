@@ -120,7 +120,10 @@ export function AlertConfigPanel({ events }: AlertConfigPanelProps) {
       {rules.length > 0 && (
         <div className="space-y-2">
           {rules.map((rule) => (
-            <div key={rule.id} className="flex items-center gap-2 rounded-lg bg-slate-100 dark:bg-slate-800/50 p-2">
+            <div
+              key={rule.id}
+              className="flex items-center gap-2 rounded-lg bg-slate-100 dark:bg-[rgb(var(--surface-300)/0.5)] p-2"
+            >
               <span className={`w-2 h-2 rounded-full ${rule.enabled ? 'bg-emerald-500' : 'bg-slate-400'}`} />
               <span className="text-xs font-medium text-slate-700 dark:text-slate-300 flex-1">{rule.name}</span>
               <span className="text-micro font-mono text-slate-500">{rule.keywords.join(', ')}</span>
@@ -139,21 +142,21 @@ export function AlertConfigPanel({ events }: AlertConfigPanelProps) {
           value={newName}
           onChange={(e) => setNewName(e.target.value)}
           placeholder="Rule name (e.g., APT28 watch)"
-          className="w-full px-3 py-1.5 text-xs font-mono rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300"
+          className="w-full px-3 py-1.5 text-xs font-mono rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-slate-700 dark:text-slate-300"
         />
         <input
           type="text"
           value={newKeywords}
           onChange={(e) => setNewKeywords(e.target.value)}
           placeholder="Keywords (comma-separated)"
-          className="w-full px-3 py-1.5 text-xs font-mono rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300"
+          className="w-full px-3 py-1.5 text-xs font-mono rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-slate-700 dark:text-slate-300"
         />
         <input
           type="text"
           value={newWebhook}
           onChange={(e) => setNewWebhook(e.target.value)}
           placeholder="Webhook URL (optional)"
-          className="w-full px-3 py-1.5 text-xs font-mono rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300"
+          className="w-full px-3 py-1.5 text-xs font-mono rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-slate-700 dark:text-slate-300"
         />
         <button
           onClick={addRule}

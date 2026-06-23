@@ -79,7 +79,7 @@ interface ArtifactEntry {
 const TAG_COLORS: Record<string, string> = {
   tor: 'bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300',
   vpn: 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300',
-  proxy: 'bg-cyan-100 dark:bg-cyan-900/30 text-cyan-700 dark:text-cyan-300',
+  proxy: 'bg-sky-100 dark:bg-sky-500/10 text-sky-700 dark:text-sky-300',
   hosting: 'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300',
   scanner: 'bg-rose-100 dark:bg-rose-900/30 text-rose-700 dark:text-rose-300',
   c2: 'bg-rose-100 dark:bg-rose-900/30 text-rose-700 dark:text-rose-300',
@@ -215,7 +215,7 @@ export default function ExposedHostView(): JSX.Element {
                 </span>
               )}
               {result.isProxy && (
-                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs font-mono bg-cyan-100 dark:bg-cyan-900/30 text-cyan-700 dark:text-cyan-300">
+                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs font-mono bg-sky-100 dark:bg-sky-500/10 text-sky-700 dark:text-sky-300">
                   <Globe size={10} /> Proxy
                 </span>
               )}
@@ -232,7 +232,7 @@ export default function ExposedHostView(): JSX.Element {
                 {result.tags.map((tag) => (
                   <span
                     key={tag}
-                    className={`px-2 py-0.5 rounded text-micro font-mono ${TAG_COLORS[tag] ?? 'bg-slate-100 dark:bg-slate-800 text-muted'}`}
+                    className={`px-2 py-0.5 rounded text-micro font-mono ${TAG_COLORS[tag] ?? 'bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted'}`}
                   >
                     {tag}
                   </span>
@@ -289,7 +289,7 @@ export default function ExposedHostView(): JSX.Element {
             <div className="border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg bg-white dark:bg-[rgb(var(--surface-200))] overflow-hidden">
               <button
                 onClick={() => toggleSection('ports')}
-                className="w-full flex items-center justify-between p-3 text-left hover:bg-slate-50 dark:hover:bg-slate-800/50"
+                className="w-full flex items-center justify-between p-3 text-left hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.5)]"
               >
                 <span className="text-sm font-semibold flex items-center gap-2">
                   <Network size={14} className="text-brand-600" /> Open Ports ({result.ports.length})
@@ -302,7 +302,7 @@ export default function ExposedHostView(): JSX.Element {
                     {result.protocols.map((p) => (
                       <div
                         key={p.port}
-                        className="flex items-center gap-2 p-2 rounded bg-slate-50 dark:bg-slate-800/50"
+                        className="flex items-center gap-2 p-2 rounded bg-slate-50 dark:bg-[rgb(var(--surface-300)/0.5)]"
                       >
                         <span className="font-mono text-sm font-bold text-brand-600">{p.port}</span>
                         <span className="text-xs text-slate-500">{p.protocol}</span>
@@ -318,7 +318,7 @@ export default function ExposedHostView(): JSX.Element {
               <div className="border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg bg-white dark:bg-[rgb(var(--surface-200))] overflow-hidden">
                 <button
                   onClick={() => toggleSection('vulns')}
-                  className="w-full flex items-center justify-between p-3 text-left hover:bg-slate-50 dark:hover:bg-slate-800/50"
+                  className="w-full flex items-center justify-between p-3 text-left hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.5)]"
                 >
                   <span className="text-sm font-semibold flex items-center gap-2">
                     <AlertTriangle size={14} className="text-rose-500" /> CVEs ({result.vulns.length})
@@ -331,7 +331,7 @@ export default function ExposedHostView(): JSX.Element {
                       {result.vulns.map((v) => (
                         <div
                           key={v.id}
-                          className="flex items-center justify-between p-2 rounded bg-slate-50 dark:bg-slate-800/50"
+                          className="flex items-center justify-between p-2 rounded bg-slate-50 dark:bg-[rgb(var(--surface-300)/0.5)]"
                         >
                           <Link
                             to={`/dfir/cve?cve=${v.id}`}
@@ -359,7 +359,7 @@ export default function ExposedHostView(): JSX.Element {
               <div className="border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg bg-white dark:bg-[rgb(var(--surface-200))] overflow-hidden">
                 <button
                   onClick={() => toggleSection('hostnames')}
-                  className="w-full flex items-center justify-between p-3 text-left hover:bg-slate-50 dark:hover:bg-slate-800/50"
+                  className="w-full flex items-center justify-between p-3 text-left hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.5)]"
                 >
                   <span className="text-sm font-semibold flex items-center gap-2">
                     <Globe size={14} className="text-blue-500" /> Hostnames ({result.hostnames.length})
@@ -370,7 +370,10 @@ export default function ExposedHostView(): JSX.Element {
                   <div className="px-3 pb-3 border-t border-slate-100 dark:border-[rgb(var(--border-400))]">
                     <div className="space-y-1 mt-2">
                       {result.hostnames.map((h) => (
-                        <div key={h} className="flex items-center gap-2 p-2 rounded bg-slate-50 dark:bg-slate-800/50">
+                        <div
+                          key={h}
+                          className="flex items-center gap-2 p-2 rounded bg-slate-50 dark:bg-[rgb(var(--surface-300)/0.5)]"
+                        >
                           <Globe size={10} className="text-slate-400" />
                           <Link to={`/dfir/domain?d=${h}`} className="font-mono text-sm text-brand-600 hover:underline">
                             {h}
@@ -388,7 +391,7 @@ export default function ExposedHostView(): JSX.Element {
               <div className="border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg bg-white dark:bg-[rgb(var(--surface-200))] overflow-hidden">
                 <button
                   onClick={() => toggleSection('cpes')}
-                  className="w-full flex items-center justify-between p-3 text-left hover:bg-slate-50 dark:hover:bg-slate-800/50"
+                  className="w-full flex items-center justify-between p-3 text-left hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.5)]"
                 >
                   <span className="text-sm font-semibold flex items-center gap-2">
                     <HardDrive size={14} className="text-emerald-500" /> Software ({result.cpes.length})
@@ -401,7 +404,7 @@ export default function ExposedHostView(): JSX.Element {
                       {result.cpes.map((cpe) => (
                         <div
                           key={cpe}
-                          className="p-2 rounded bg-slate-50 dark:bg-slate-800/50 font-mono text-xs text-muted break-all"
+                          className="p-2 rounded bg-slate-50 dark:bg-[rgb(var(--surface-300)/0.5)] font-mono text-xs text-muted break-all"
                         >
                           {cpe}
                         </div>
@@ -460,7 +463,7 @@ export default function ExposedHostView(): JSX.Element {
                       {previewArtifact.hashes.md5 && (
                         <div className="flex items-center gap-2">
                           <span className="text-xs text-slate-500 w-12">MD5</span>
-                          <code className="text-xs font-mono bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded">
+                          <code className="text-xs font-mono bg-slate-100 dark:bg-[rgb(var(--surface-300))] px-2 py-0.5 rounded">
                             {previewArtifact.hashes.md5}
                           </code>
                           <CopyButton value={previewArtifact.hashes.md5} />
@@ -469,7 +472,7 @@ export default function ExposedHostView(): JSX.Element {
                       {previewArtifact.hashes.sha256 && (
                         <div className="flex items-center gap-2">
                           <span className="text-xs text-slate-500 w-12">SHA256</span>
-                          <code className="text-xs font-mono bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded break-all">
+                          <code className="text-xs font-mono bg-slate-100 dark:bg-[rgb(var(--surface-300))] px-2 py-0.5 rounded break-all">
                             {previewArtifact.hashes.sha256}
                           </code>
                           <CopyButton value={previewArtifact.hashes.sha256} />
@@ -478,7 +481,7 @@ export default function ExposedHostView(): JSX.Element {
                       {previewArtifact.hashes.sha512 && (
                         <div className="flex items-center gap-2">
                           <span className="text-xs text-slate-500 w-12">SHA512</span>
-                          <code className="text-xs font-mono bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded break-all">
+                          <code className="text-xs font-mono bg-slate-100 dark:bg-[rgb(var(--surface-300))] px-2 py-0.5 rounded break-all">
                             {previewArtifact.hashes.sha512}
                           </code>
                           <CopyButton value={previewArtifact.hashes.sha512} />
@@ -498,7 +501,7 @@ export default function ExposedHostView(): JSX.Element {
 
       {!result && !loading && !error && (
         <div className="text-center py-16">
-          <Server size={48} className="mx-auto mb-4 text-slate-300 dark:text-slate-600" />
+          <Server size={48} className="mx-auto mb-4 text-slate-300 dark:text-slate-400" />
           <p className="text-slate-500">Enter an IP address to see exposed host intelligence</p>
           <p className="text-xs text-slate-400 mt-1">
             Shows open ports, CVEs, hostnames, privacy flags, and artifact inventory

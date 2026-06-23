@@ -82,8 +82,10 @@ const STATUS_COLORS: Record<string, string> = {
     'text-orange-600 dark:text-orange-400 bg-orange-50 dark:bg-orange-950/30 border-orange-200 dark:border-orange-800/50',
   clean:
     'text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/30 border-emerald-200 dark:border-emerald-800/50',
-  unknown: 'text-slate-500 bg-slate-50 dark:bg-slate-950/30 border-slate-200 dark:border-[rgb(var(--border-400))]/50',
-  error: 'text-slate-500 bg-slate-50 dark:bg-slate-950/30 border-slate-200 dark:border-[rgb(var(--border-400))]/50',
+  unknown:
+    'text-slate-500 bg-slate-50 dark:bg-[rgb(var(--input-200)/0.3)] border-slate-200 dark:border-[rgb(var(--border-400))]/50',
+  error:
+    'text-slate-500 bg-slate-50 dark:bg-[rgb(var(--input-200)/0.3)] border-slate-200 dark:border-[rgb(var(--border-400))]/50',
 };
 
 const QUERY_EXAMPLES = [
@@ -161,7 +163,7 @@ export default function DfirCopilot(): JSX.Element {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Paste an IOC — IP, domain, hash, URL, email, or CVE…"
-              className="w-full pl-9 pr-4 py-2.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="w-full pl-9 pr-4 py-2.5 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
             />
           </div>
           <button

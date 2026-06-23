@@ -69,7 +69,7 @@ const RELIABILITY_LABEL: Record<string, string> = {
 function MaturityBar({ score, max }: { score: number; max: number }): JSX.Element {
   const pct = max > 0 ? (score / max) * 100 : 0;
   return (
-    <div className="h-1.5 w-full rounded-full bg-slate-200 dark:bg-slate-800 overflow-hidden">
+    <div className="h-1.5 w-full rounded-full bg-slate-200 dark:bg-[rgb(var(--surface-300))] overflow-hidden">
       <div
         className="h-full bg-gradient-to-r from-rose-500 via-amber-500 to-emerald-500 transition-all"
         style={{ width: `${pct}%` }}
@@ -104,7 +104,7 @@ function MaturityScorecard({ report }: { report: MaturityReport }): JSX.Element 
         {report.domains.map((d) => (
           <div
             key={d.id}
-            className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-3"
+            className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
           >
             <div className="flex items-center justify-between mb-1.5">
               <span className="text-xs font-mono font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-300">
@@ -123,7 +123,7 @@ function MaturityScorecard({ report }: { report: MaturityReport }): JSX.Element 
                   className={`text-micro font-mono px-1.5 py-0.5 rounded border ${
                     s.present
                       ? 'border-emerald-300 dark:border-emerald-700/40 text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-900/20'
-                      : 'border-slate-200 dark:border-slate-700 text-slate-400 bg-slate-50 dark:bg-slate-800/40 line-through'
+                      : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-400 bg-slate-50 dark:bg-[rgb(var(--surface-300)/0.4)] line-through'
                   }`}
                   title={s.detail}
                 >
@@ -158,7 +158,7 @@ function ReliabilityHistogram({ data }: { data: FeedStatusResponse }): JSX.Eleme
         </h3>
         <span className="text-micro font-mono text-slate-500">{total} sources graded</span>
       </div>
-      <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-3 space-y-2">
+      <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3 space-y-2">
         {grades.map((g) => {
           const n = dist[g] ?? 0;
           const pct = total > 0 ? (n / total) * 100 : 0;
@@ -166,7 +166,7 @@ function ReliabilityHistogram({ data }: { data: FeedStatusResponse }): JSX.Eleme
           return (
             <div key={g} className="flex items-center gap-2">
               <span className="w-4 text-xs font-mono font-bold text-slate-600 dark:text-slate-300 shrink-0">{g}</span>
-              <div className="flex-1 h-3 rounded bg-slate-100 dark:bg-slate-800 overflow-hidden">
+              <div className="flex-1 h-3 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] overflow-hidden">
                 <div
                   className={`h-full ${RELIABILITY_TONE[g] ?? 'bg-slate-400'} transition-all`}
                   style={{ width: `${barPct}%` }}
@@ -232,7 +232,7 @@ export function MaturityPanel(): JSX.Element {
   }
   return (
     <DataState rows={1}>
-      <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+      <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-5">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <MaturityScorecard report={maturity} />
           <ReliabilityHistogram data={feed} />

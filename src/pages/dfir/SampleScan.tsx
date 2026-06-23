@@ -177,7 +177,7 @@ function FamilyTag({ name }: { name: string }): JSX.Element {
 
 function SignatureTag({ tag }: { tag: string }): JSX.Element {
   return (
-    <span className="inline-flex items-center gap-1 rounded border border-slate-300 bg-slate-100 px-2 py-0.5 font-mono text-mini text-slate-700 dark:border-[rgb(var(--border-400))] dark:bg-slate-800 dark:text-slate-300">
+    <span className="inline-flex items-center gap-1 rounded border border-slate-300 bg-slate-100 px-2 py-0.5 font-mono text-mini text-slate-700 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300))] dark:text-slate-300">
       <Tag size={10} />
       {tag}
     </span>
@@ -195,7 +195,7 @@ function ProviderRow({ r }: { r: ProviderResultWire }): JSX.Element {
           : 'bg-emerald-500'
       : 'bg-slate-400';
   return (
-    <li className="flex items-center justify-between gap-2 rounded bg-slate-50 px-2 py-1.5 font-mono text-meta dark:bg-slate-950">
+    <li className="flex items-center justify-between gap-2 rounded bg-slate-50 px-2 py-1.5 font-mono text-meta dark:bg-[rgb(var(--input-200))]">
       <span className="flex items-center gap-2 truncate">
         <span className={`inline-block size-1.5 shrink-0 rounded-full ${dot}`} />
         <span className="truncate text-slate-700 dark:text-slate-300">{r.source}</span>
@@ -384,7 +384,7 @@ export default function SampleScan(): JSX.Element {
               placeholder="MD5 / SHA-1 / SHA-256 hex"
               spellCheck={false}
               autoComplete="off"
-              className="mt-1 w-full rounded border border-slate-200 bg-slate-50 px-3 py-2 font-mono text-meta focus:border-brand-500 focus:outline-none dark:border-[rgb(var(--border-400))] dark:bg-slate-950"
+              className="mt-1 w-full rounded border border-slate-200 bg-slate-50 px-3 py-2 font-mono text-meta focus:border-brand-500 focus:outline-none dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--input-200))]"
             />
           </div>
           <button
@@ -474,7 +474,7 @@ export default function SampleScan(): JSX.Element {
               providers
             </span>
           </div>
-          <div className="mt-3 h-2 w-full overflow-hidden rounded-full bg-slate-200 dark:bg-slate-800">
+          <div className="mt-3 h-2 w-full overflow-hidden rounded-full bg-slate-200 dark:bg-[rgb(var(--surface-300))]">
             <div
               className={`h-full ${VERDICT_BAR[done.verdict]} transition-all`}
               style={{ width: `${Math.max(2, done.score)}%` }}
@@ -550,7 +550,7 @@ export default function SampleScan(): JSX.Element {
             {done.public_sandboxes.map((s) => (
               <li
                 key={s.name}
-                className="flex items-start justify-between gap-2 rounded border border-slate-200 bg-slate-50 p-2 dark:border-[rgb(var(--border-400))] dark:bg-slate-950"
+                className="flex items-start justify-between gap-2 rounded border border-slate-200 bg-slate-50 p-2 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--input-200))]"
               >
                 <div className="min-w-0 flex-1">
                   <a

@@ -296,7 +296,7 @@ export default function ThreatPulse(): JSX.Element {
 
       {data && filtered.length === 0 && (
         <div className="border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-10 text-center rounded-lg">
-          <Activity size={32} className="mx-auto mb-3 text-slate-400 dark:text-slate-600" />
+          <Activity size={32} className="mx-auto mb-3 text-slate-400 dark:text-slate-400" />
           <p className="font-mono text-sm text-muted">
             No entities at ≥{minSources} source{minSources > 1 ? 's' : ''}
             {kindFilter ? ` in ${KIND_LABEL[kindFilter as keyof typeof KIND_LABEL]}` : ''}.

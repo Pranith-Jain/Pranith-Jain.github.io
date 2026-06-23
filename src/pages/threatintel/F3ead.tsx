@@ -398,7 +398,7 @@ export default function F3ead(): JSX.Element {
                   />
                   <div className="relative flex items-start justify-between gap-2">
                     <div className="flex items-center gap-2">
-                      <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800 text-xs font-mono text-slate-600 dark:text-slate-300">
+                      <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-xs font-mono text-slate-600 dark:text-slate-300">
                         {p.number}
                       </span>
                       <Icon className="h-4 w-4 text-slate-700 dark:text-slate-200" />
@@ -431,7 +431,7 @@ export default function F3ead(): JSX.Element {
             const p = PHASES.find((x) => x.id === openPhase)!;
             const PIcon = p.icon;
             return (
-              <div className="mt-4 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-5">
+              <div className="mt-4 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-5">
                 <div className="flex flex-wrap items-start gap-3">
                   <div className={`rounded-md p-2 ring-1 ${p.ringClass} bg-white dark:bg-[rgb(var(--surface-200))]`}>
                     <PIcon className="h-5 w-5 text-slate-700 dark:text-slate-200" />
@@ -536,7 +536,7 @@ export default function F3ead(): JSX.Element {
                   className={`inline-flex items-center gap-1.5 rounded border px-2 py-1 text-[11px] font-mono transition-colors ${
                     active
                       ? 'border-brand-400 bg-brand-50 dark:bg-brand-950/40 text-brand-700 dark:text-brand-300'
-                      : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 text-muted hover:border-slate-300 dark:hover:border-slate-700'
+                      : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] text-muted hover:border-slate-300 dark:hover:border-[rgb(var(--border-400))]'
                   }`}
                 >
                   <span className="opacity-70">{phase.number}</span>
@@ -548,7 +548,9 @@ export default function F3ead(): JSX.Element {
           </div>
 
           <div className="flex items-start gap-3 mb-3">
-            <div className={`rounded-md p-2 ring-1 ${currentPhase.ringClass} bg-slate-50 dark:bg-slate-950`}>
+            <div
+              className={`rounded-md p-2 ring-1 ${currentPhase.ringClass} bg-slate-50 dark:bg-[rgb(var(--input-200))]`}
+            >
               <WalkIcon className="h-5 w-5 text-slate-700 dark:text-slate-200" />
             </div>
             <div className="flex-1 min-w-0">
@@ -560,7 +562,7 @@ export default function F3ead(): JSX.Element {
             </div>
           </div>
 
-          <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-3">
+          <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3">
             <p className="text-[10px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1.5">
               Artifacts produced at this step
             </p>
@@ -579,7 +581,7 @@ export default function F3ead(): JSX.Element {
               type="button"
               onClick={() => setWalkStep((s) => Math.max(0, s - 1))}
               disabled={walkStep === 0}
-              className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-3 py-1 text-xs font-mono text-slate-600 dark:text-slate-300 hover:border-brand-400 disabled:opacity-40 disabled:hover:border-slate-300 dark:disabled:hover:border-slate-700"
+              className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-3 py-1 text-xs font-mono text-slate-600 dark:text-slate-300 hover:border-brand-400 disabled:opacity-40 disabled:hover:border-slate-300 dark:disabled:hover:border-[rgb(var(--border-400))]"
             >
               &larr; previous
             </button>
@@ -614,7 +616,7 @@ export default function F3ead(): JSX.Element {
 
         <div className="overflow-x-auto rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))]">
           <table className="w-full text-sm">
-            <thead className="bg-slate-50 dark:bg-slate-950 text-left">
+            <thead className="bg-slate-50 dark:bg-[rgb(var(--input-200))] text-left">
               <tr className="border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
                 <th className="px-3 py-2 font-mono text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400">
                   Framework
@@ -640,7 +642,7 @@ export default function F3ead(): JSX.Element {
               {COMPARISON.map((row, i) => (
                 <tr
                   key={row.name}
-                  className={`border-b border-slate-100 dark:border-slate-900 ${i % 2 === 0 ? 'bg-white dark:bg-[rgb(var(--surface-200))]' : 'bg-slate-50/50 dark:bg-slate-950/50'}`}
+                  className={`border-b border-slate-100 dark:border-slate-900 ${i % 2 === 0 ? 'bg-white dark:bg-[rgb(var(--surface-200))]' : 'bg-slate-50/50 dark:bg-[rgb(var(--input-200)/0.5)]'}`}
                 >
                   <td className="px-3 py-2 font-semibold text-slate-900 dark:text-slate-100 whitespace-nowrap">
                     {row.name}

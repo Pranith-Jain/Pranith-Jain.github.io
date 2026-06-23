@@ -49,7 +49,7 @@ export function IocResultRow({ r }: { r: ProviderResultWire }): JSX.Element {
   const findingCount = typeof r.raw_summary.finding_count === 'number' ? r.raw_summary.finding_count : findings.length;
 
   return (
-    <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
+    <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
       <div className="flex items-center justify-between mb-2">
         <span className="font-display font-semibold text-slate-900 dark:text-slate-100 capitalize">{r.source}</span>
         <VerdictChip verdict={r.verdict} />
@@ -96,7 +96,7 @@ export function IocResultRow({ r }: { r: ProviderResultWire }): JSX.Element {
           {r.tags.slice(0, 6).map((t) => (
             <span
               key={t}
-              className="text-xs font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-muted border border-slate-200 dark:border-slate-800"
+              className="text-xs font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted border border-slate-200 dark:border-[rgb(var(--border-400))]"
             >
               {t}
             </span>

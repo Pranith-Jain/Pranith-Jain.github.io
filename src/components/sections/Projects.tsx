@@ -141,7 +141,7 @@ export function Projects({ projects }: ProjectsProps) {
           {/* Timeline layout */}
           <div className="relative">
             {/* Timeline line */}
-            <div className="absolute left-4 top-0 bottom-0 w-px bg-slate-200 dark:bg-slate-800 hidden sm:block" />
+            <div className="absolute left-4 top-0 bottom-0 w-px bg-slate-200 dark:bg-[rgb(var(--surface-300))] hidden sm:block" />
 
             <div className="space-y-4">
               {publishedCaseStudies.map((cs) => (
@@ -178,7 +178,7 @@ export function Projects({ projects }: ProjectsProps) {
                     {cs.outcome.split(' · ').map((metric) => (
                       <span
                         key={metric}
-                        className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-xs font-mono text-slate-600 dark:text-slate-300"
+                        className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-xs font-mono text-slate-600 dark:text-slate-300"
                       >
                         {metric}
                       </span>
@@ -191,7 +191,7 @@ export function Projects({ projects }: ProjectsProps) {
                       {cs.tags.slice(0, 4).map((tag) => (
                         <span
                           key={tag}
-                          className="text-[10px] font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-700 text-slate-500"
+                          className="text-[10px] font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500"
                         >
                           {tag}
                         </span>

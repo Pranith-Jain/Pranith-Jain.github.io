@@ -320,7 +320,7 @@ export const HUB_META: readonly HubMeta[] = [
     blurb:
       'WHOIS, DNS, reputation, certificates, and infrastructure pivots - passive reconnaissance, no active scanning.',
     icon: Globe,
-    tone: 'text-cyan-700 dark:text-cyan-300 border-cyan-500/30 bg-cyan-500/10',
+    tone: 'text-sky-700 dark:text-sky-300 border-cyan-500/30 bg-cyan-500/10',
     pages: [
       {
         path: '/dfir/domain-investigator',

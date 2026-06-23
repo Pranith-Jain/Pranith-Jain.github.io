@@ -105,7 +105,7 @@ function riskColor(score: number | undefined): string {
 function FingerprintBadge({ value }: { value: string | undefined }) {
   if (!value || value === '4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945') return null;
   return (
-    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-mini font-mono bg-slate-100 dark:bg-slate-800 text-muted">
+    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-mini font-mono bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted">
       <Fingerprint size={10} />
       {value.substring(0, 12)}…
     </span>
@@ -126,7 +126,7 @@ function ResultRow({ result }: { result: WebamonResult }) {
     <div className="border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg bg-white dark:bg-[rgb(var(--surface-200))] overflow-hidden">
       <button
         onClick={() => setExpanded(!expanded)}
-        className="w-full flex items-center gap-3 px-4 py-3 text-left hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors"
+        className="w-full flex items-center gap-3 px-4 py-3 text-left hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.5)] transition-colors"
       >
         <div className="flex-shrink-0 text-slate-400">
           {expanded ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
@@ -427,7 +427,7 @@ function JsonBlock({ data, label }: { data: Record<string, unknown>; label: stri
     <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 overflow-hidden">
       <button
         onClick={() => setOpen(!open)}
-        className="w-full flex items-center gap-2 px-4 py-3 text-left hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors"
+        className="w-full flex items-center gap-2 px-4 py-3 text-left hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.5)] transition-colors"
       >
         {open ? (
           <ChevronDown size={14} className="text-slate-400" />
@@ -438,7 +438,7 @@ function JsonBlock({ data, label }: { data: Record<string, unknown>; label: stri
         <span className="text-mini text-slate-400 font-mono">{Object.keys(data).length} fields</span>
       </button>
       {open && (
-        <pre className="text-mini font-mono text-muted bg-slate-50 dark:bg-slate-800/50 p-4 overflow-x-auto max-h-96">
+        <pre className="text-mini font-mono text-muted bg-slate-50 dark:bg-[rgb(var(--surface-300)/0.5)] p-4 overflow-x-auto max-h-96">
           {JSON.stringify(data, null, 2)}
         </pre>
       )}
@@ -534,7 +534,7 @@ function SearchTab() {
                 setQuery(ex);
                 doSearch(ex, 0);
               }}
-              className="px-2.5 py-1 rounded-md text-mini font-mono bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:bg-brand-100 dark:hover:bg-brand-900/30 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+              className="px-2.5 py-1 rounded-md text-mini font-mono bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-500 dark:text-slate-400 hover:bg-brand-100 dark:hover:bg-brand-900/30 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
             >
               {ex}
             </button>
@@ -897,7 +897,7 @@ function SandboxTab() {
                           {r.technology.map((t, i) => (
                             <span
                               key={i}
-                              className="inline-flex items-center gap-1 px-2 py-1 rounded bg-slate-100 dark:bg-slate-800 text-mini font-mono text-muted border border-slate-200 dark:border-[rgb(var(--border-400))]"
+                              className="inline-flex items-center gap-1 px-2 py-1 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-mini font-mono text-muted border border-slate-200 dark:border-[rgb(var(--border-400))]"
                             >
                               <Tag size={10} />
                               {t.name}
@@ -992,7 +992,9 @@ function SandboxTab() {
                             <div key={i} className="flex items-center gap-2 text-muted">
                               <span className="truncate">{m.url ?? '—'}</span>
                               {m.status && (
-                                <span className="px-1.5 py-0.5 rounded bg-slate-200 dark:bg-slate-800">{m.status}</span>
+                                <span className="px-1.5 py-0.5 rounded bg-slate-200 dark:bg-[rgb(var(--surface-300))]">
+                                  {m.status}
+                                </span>
                               )}
                               {m.last_checked && <span className="text-slate-400">{m.last_checked}</span>}
                             </div>
@@ -1167,7 +1169,7 @@ function InfraTab() {
                   className={`px-3 py-2.5 text-meta font-mono flex items-center gap-1.5 transition-colors ${
                     active
                       ? 'bg-brand-600 dark:bg-brand-500 text-white'
-                      : 'text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'
+                      : 'text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]'
                   }`}
                 >
                   <Icon size={13} /> {m.label}

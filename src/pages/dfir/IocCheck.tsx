@@ -748,7 +748,7 @@ export default function IocCheck(): JSX.Element {
                       className={`px-3 py-2 rounded-lg text-xs font-mono border transition-colors ${
                         ruleFormat === f
                           ? 'border-brand-500/60 bg-brand-500/10 text-brand-700 dark:text-brand-300'
-                          : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-slate-300 dark:hover:border-slate-700'
+                          : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-slate-300 dark:hover:border-[rgb(var(--border-400))]'
                       }`}
                     >
                       {f.toUpperCase()}
@@ -798,7 +798,7 @@ export default function IocCheck(): JSX.Element {
                       <span className="text-sm font-mono font-semibold text-slate-700 dark:text-slate-300">
                         {ruleName}
                       </span>
-                      <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-500">
+                      <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-500">
                         {ruleFormat.toUpperCase()}
                       </span>
                     </div>
@@ -809,7 +809,7 @@ export default function IocCheck(): JSX.Element {
                         setCopied('rule');
                         setTimeout(() => setCopied(null), 2000);
                       }}
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
                     >
                       {copied === 'rule' ? <Check size={12} className="text-emerald-500" /> : <Copy size={12} />}
                       {copied === 'rule' ? 'Copied' : 'Copy'}

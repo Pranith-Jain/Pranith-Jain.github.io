@@ -16,7 +16,7 @@ export function Table({ children, className = '' }: TableProps) {
 export function Thead({ children, className = '' }: TableProps) {
   return (
     <thead
-      className={`border-b border-slate-200 text-left text-xs uppercase tracking-wider text-slate-500 dark:border-slate-800 ${className}`}
+      className={`border-b border-slate-200 text-left text-xs uppercase tracking-wider text-slate-500 dark:border-[rgb(var(--border-400))] ${className}`}
     >
       {children}
     </thead>
@@ -42,7 +42,7 @@ export function Tbody({ children, className = '' }: TableProps) {
 export function Tr({ children, className = '', ...props }: TableProps & { onClick?: () => void }) {
   return (
     <tr
-      className={`border-b border-slate-100 align-top transition-colors last:border-0 dark:border-slate-800/50 ${className}`}
+      className={`border-b border-slate-100 align-top transition-colors last:border-0 dark:border-[rgb(var(--border-400))] ${className}`}
       {...props}
     >
       {children}

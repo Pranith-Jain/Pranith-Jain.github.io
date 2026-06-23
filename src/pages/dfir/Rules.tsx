@@ -40,7 +40,7 @@ interface RulesResponse {
 const TYPE_COLOURS: Record<string, string> = {
   Sigma: 'bg-blue-500/15 text-blue-700 dark:text-blue-300 border-blue-500/30',
   YARA: 'bg-orange-500/15 text-orange-700 dark:text-orange-300 border-orange-500/30',
-  Elastic: 'bg-cyan-500/15 text-cyan-700 dark:text-cyan-300 border-cyan-500/30',
+  Elastic: 'bg-cyan-500/15 text-sky-700 dark:text-sky-300 border-cyan-500/30',
   'Splunk SPL': 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border-emerald-500/30',
   KQL: 'bg-purple-500/15 text-purple-700 dark:text-purple-300 border-purple-500/30',
   Suricata: 'bg-rose-500/15 text-rose-700 dark:text-rose-300 border-rose-500/30',

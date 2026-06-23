@@ -209,7 +209,10 @@ export default function PublishedTab() {
     return (
       <div>
         <p className="text-red-600 dark:text-red-400 mb-2">Failed to load: {error}</p>
-        <button onClick={() => void load()} className="px-3 py-1 border border-slate-200 dark:border-slate-700 rounded text-sm">
+        <button
+          onClick={() => void load()}
+          className="px-3 py-1 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-sm"
+        >
           Retry
         </button>
       </div>
@@ -228,7 +231,7 @@ export default function PublishedTab() {
       <p className="text-xs text-slate-600 dark:text-slate-500 mb-4">Click a row to expand/collapse social content.</p>
       <div className="overflow-x-auto">
         <table className="w-full text-sm">
-          <thead className="text-left text-xs uppercase tracking-wider text-slate-600 dark:text-slate-500 border-b border-slate-200 dark:border-zinc-800/60">
+          <thead className="text-left text-xs uppercase tracking-wider text-slate-600 dark:text-slate-500 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
             <tr>
               <th scope="col" className="py-2 pr-4">
                 Type
@@ -258,7 +261,7 @@ export default function PublishedTab() {
               const hasAny = hasTwitter || hasLinkedin;
               const isExpanded = expanded === p.slug;
               return (
-                <tr key={p.slug} className="border-b border-slate-200 dark:border-zinc-800/60">
+                <tr key={p.slug} className="border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
                   <td className="py-2 pr-4 text-slate-500 dark:text-slate-400 uppercase text-xs">{p.type}</td>
                   <td className="py-2 pr-4 text-slate-900 dark:text-slate-100">{p.title}</td>
                   <td className="py-2 pr-4 text-slate-600 dark:text-slate-500 text-xs whitespace-nowrap">
@@ -279,21 +282,21 @@ export default function PublishedTab() {
                       <button
                         onClick={() => generateTwitter(p.slug)}
                         disabled={s?.loadingTwitter}
-                        className={`px-2 py-1 border rounded text-xs disabled:opacity-50 ${hasTwitter ? 'border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800' : 'border-green-200 dark:border-green-800 hover:bg-green-50 dark:hover:bg-green-900/30'}`}
+                        className={`px-2 py-1 border rounded text-xs disabled:opacity-50 ${hasTwitter ? 'border-slate-200 dark:border-[rgb(var(--border-400))] hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]' : 'border-green-200 dark:border-green-800 hover:bg-green-50 dark:hover:bg-green-900/30'}`}
                       >
                         {s?.loadingTwitter ? '…' : hasTwitter ? 'Re-Tweet' : 'Tweet'}
                       </button>
                       <button
                         onClick={() => generateLinkedin(p.slug)}
                         disabled={s?.loadingLinkedin}
-                        className={`px-2 py-1 border rounded text-xs disabled:opacity-50 ${hasLinkedin ? 'border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800' : 'border-blue-200 dark:border-blue-800 hover:bg-blue-50 dark:hover:bg-blue-900/30'}`}
+                        className={`px-2 py-1 border rounded text-xs disabled:opacity-50 ${hasLinkedin ? 'border-slate-200 dark:border-[rgb(var(--border-400))] hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]' : 'border-blue-200 dark:border-blue-800 hover:bg-blue-50 dark:hover:bg-blue-900/30'}`}
                       >
                         {s?.loadingLinkedin ? '…' : hasLinkedin ? 'Re-LinkedIn' : 'LinkedIn'}
                       </button>
                       {hasAny && (
                         <button
                           onClick={() => void viewSocial(p.slug)}
-                          className="px-2 py-1 border border-slate-200 dark:border-slate-700 rounded text-xs hover:bg-slate-100 dark:hover:bg-slate-800"
+                          className="px-2 py-1 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-xs hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]"
                         >
                           {isExpanded ? 'Hide' : 'View'}
                         </button>
@@ -303,7 +306,7 @@ export default function PublishedTab() {
                   <td className="py-2 flex gap-2">
                     <button
                       onClick={() => unpublish(p.slug)}
-                      className="px-2 py-1 border border-slate-200 dark:border-slate-700 rounded text-xs hover:bg-slate-100 dark:hover:bg-slate-800"
+                      className="px-2 py-1 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-xs hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]"
                     >
                       Unpublish
                     </button>
@@ -384,14 +387,21 @@ function SocialContentPanel({
   }
 
   return (
-    <div className="mt-6 rounded border border-slate-200 dark:border-slate-700 p-4">
+    <div className="mt-6 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-4">
       <div className="flex items-center justify-between mb-4">
-        <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300">Social Content</h3>
-        <button onClick={onClose} className="text-xs text-slate-600 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-300">
+        <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300">
+          Social Content
+        </h3>
+        <button
+          onClick={onClose}
+          className="text-xs text-slate-600 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-300"
+        >
           Close
         </button>
       </div>
-      <p className="text-xs text-slate-600 dark:text-slate-500 mb-4">Generated {new Date(data.generatedAt).toLocaleString()}</p>
+      <p className="text-xs text-slate-600 dark:text-slate-500 mb-4">
+        Generated {new Date(data.generatedAt).toLocaleString()}
+      </p>
 
       <SchedulePanel slug={data.slug} refreshTrigger={schedRefresh} />
 
@@ -478,14 +488,14 @@ function SocialSection({
           </button>
           <button
             onClick={() => copy('body', parts.body)}
-            className="px-2 py-1 border border-slate-200 dark:border-slate-700 rounded text-xs hover:bg-slate-100 dark:hover:bg-slate-800"
+            className="px-2 py-1 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-xs hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]"
           >
             {copied === 'body' ? 'Copied!' : 'Copy post'}
           </button>
         </div>
       </div>
       <pre
-        className={`bg-white dark:bg-slate-900 rounded p-3 text-xs text-slate-700 dark:text-slate-300 whitespace-pre-wrap font-mono ${
+        className={`bg-white dark:bg-[rgb(var(--surface-200))] rounded p-3 text-xs text-slate-700 dark:text-slate-300 whitespace-pre-wrap font-mono ${
           tight ? 'leading-normal' : 'leading-relaxed'
         } max-h-80 overflow-y-auto`}
       >
@@ -506,22 +516,26 @@ function SocialSection({
       {parts.carousel && (
         <div className="mt-2">
           <div className="flex items-center justify-between mb-1">
-            <span className="text-micro uppercase tracking-wider text-slate-600 dark:text-slate-500">Carousel outline</span>
+            <span className="text-micro uppercase tracking-wider text-slate-600 dark:text-slate-500">
+              Carousel outline
+            </span>
             <button
               onClick={() => copy('carousel', parts.carousel!)}
-              className="px-2 py-0.5 border border-slate-200 dark:border-slate-700 rounded text-xs hover:bg-slate-100 dark:hover:bg-slate-800"
+              className="px-2 py-0.5 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-xs hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]"
             >
               {copied === 'carousel' ? 'Copied!' : 'Copy'}
             </button>
           </div>
-          <pre className="bg-white dark:bg-slate-900 rounded p-2 text-xs text-slate-500 dark:text-slate-400 whitespace-pre-wrap font-mono max-h-40 overflow-y-auto">
+          <pre className="bg-white dark:bg-[rgb(var(--surface-200))] rounded p-2 text-xs text-slate-500 dark:text-slate-400 whitespace-pre-wrap font-mono max-h-40 overflow-y-auto">
             {parts.carousel}
           </pre>
         </div>
       )}
 
       {postResult && (
-        <div className={`mt-2 text-xs ${postResult.ok ? 'text-emerald-700 dark:text-emerald-400' : 'text-red-600 dark:text-red-400'}`}>
+        <div
+          className={`mt-2 text-xs ${postResult.ok ? 'text-emerald-700 dark:text-emerald-400' : 'text-red-600 dark:text-red-400'}`}
+        >
           {postResult.ok
             ? `Posted! ${postResult.postUrl ? `(${postResult.postUrl})` : ''}`
             : `Post failed: ${postResult.error ?? 'unknown error'}`}
@@ -593,9 +607,11 @@ function SchedulePanel({ slug, refreshTrigger = 0 }: { slug: string; refreshTrig
   const rows: SocialPlatform[] = ['twitter', 'linkedin'];
 
   return (
-    <div className="mb-6 rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/40 p-3">
+    <div className="mb-6 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200)/0.4)] p-3">
       <div className="flex items-center justify-between mb-2">
-        <h4 className="text-mini font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Posting queue</h4>
+        <h4 className="text-mini font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+          Posting queue
+        </h4>
         {msg && <span className="text-micro text-slate-600 dark:text-slate-500">{msg}</span>}
       </div>
       <div className="space-y-3">
@@ -629,13 +645,13 @@ function SchedulePanel({ slug, refreshTrigger = 0 }: { slug: string; refreshTrig
                 defaultValue={toLocalInput(entry?.scheduledAt)}
                 onBlur={(e) => void saveTime(platform, e.target.value)}
                 disabled={busy === platform}
-                className="bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded px-1.5 py-0.5 text-slate-700 dark:text-slate-300 disabled:opacity-50"
+                className="bg-white dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded px-1.5 py-0.5 text-slate-700 dark:text-slate-300 disabled:opacity-50"
                 title="Planned post time (saved on blur)"
               />
               <button
                 onClick={() => void togglePosted(platform, status)}
                 disabled={busy === platform}
-                className="px-2 py-0.5 border border-slate-200 dark:border-slate-700 rounded hover:bg-slate-100 dark:hover:bg-slate-800 disabled:opacity-50"
+                className="px-2 py-0.5 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] disabled:opacity-50"
               >
                 {status === 'posted' ? 'Mark pending' : 'Mark posted'}
               </button>

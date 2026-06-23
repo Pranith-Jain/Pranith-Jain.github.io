@@ -306,7 +306,9 @@ export default function DarkWeb(): JSX.Element {
         <p className="text-muted mb-4 max-w-2xl">
           Aggregated dark web, leak-site, breach, and security-research activity from
           {` ${DARKWEB_FEEDS.length} `}curated free sources. Use the search box for live filtering (regex like{' '}
-          <code className="font-mono text-xs bg-slate-100 dark:bg-slate-800 px-1 rounded">/lockbit|alphv/i</code>{' '}
+          <code className="font-mono text-xs bg-slate-100 dark:bg-[rgb(var(--surface-300))] px-1 rounded">
+            /lockbit|alphv/i
+          </code>{' '}
           works), filter by source, narrow by date window, and add long-running keywords to your watchlist for
           highlighted matches across visits. Watchlist + source preferences are stored locally; nothing is uploaded.
         </p>
@@ -344,7 +346,7 @@ export default function DarkWeb(): JSX.Element {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Live search. Plain words = AND. /regex/i for regex."
-              className="flex-1 px-3 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="flex-1 px-3 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
             />
             {search && (
               <button
@@ -428,7 +430,7 @@ export default function DarkWeb(): JSX.Element {
               value={newTerm}
               onChange={(e) => setNewTerm(e.target.value)}
               placeholder="company name, domain, sector, threat actor…"
-              className="flex-1 px-3 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="flex-1 px-3 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
             />
             <button
               type="submit"
@@ -693,7 +695,7 @@ export function BreachDisclosuresPanel(): JSX.Element {
           {visible.map((b, i) => (
             <li
               key={`${b.name}-${b.added_date ?? i}`}
-              className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-2.5"
+              className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2.5"
             >
               <div className="flex flex-wrap items-baseline gap-2 mb-1">
                 <a
@@ -836,7 +838,7 @@ const ORIGIN_PILL: Record<RansomwareOrigin, { label: string; cls: string; toolti
   },
   x: {
     label: 'X',
-    cls: 'border-zinc-500/40 bg-zinc-500/10 text-zinc-700 dark:text-zinc-300',
+    cls: 'border-slate-500/40 bg-slate-500/10 text-slate-700 dark:text-slate-300',
     tooltip: 'X / FalconFeeds + @DailyDarkWeb — leak-site claims parsed from posts',
   },
 };
@@ -1023,7 +1025,7 @@ export function RansomwareActivityPanel(): JSX.Element {
           {visible.map((v, i) => (
             <li
               key={`${v.group}-${v.victim}-${i}`}
-              className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-2.5"
+              className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2.5"
             >
               <div className="flex gap-2.5">
                 {v.screen_url && (
@@ -1033,7 +1035,7 @@ export function RansomwareActivityPanel(): JSX.Element {
                       triggerRef.current = document.activeElement as HTMLButtonElement;
                       setLightbox({ url: v.screen_url!, victim: v.victim, group: v.group });
                     }}
-                    className="shrink-0 group relative w-14 h-10 sm:w-20 sm:h-14 rounded overflow-hidden border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-200 dark:bg-slate-800 hover:border-brand-500/60"
+                    className="shrink-0 group relative w-14 h-10 sm:w-20 sm:h-14 rounded overflow-hidden border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-200 dark:bg-[rgb(var(--surface-300))] hover:border-brand-500/60"
                     title="Click to view full leak-site screenshot"
                     aria-label={`View leak-site screenshot for ${v.victim}`}
                   >
@@ -1234,7 +1236,7 @@ const TG_TOPIC_PILL: Record<TelegramFeedItem['channel_topic'], string> = {
   ransomware: 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300',
   hacktivism: 'border-pink-500/40 bg-pink-500/10 text-pink-700 dark:text-pink-300',
   osint: 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300',
-  news: 'border-cyan-500/40 bg-cyan-500/10 text-cyan-700 dark:text-cyan-300',
+  news: 'border-cyan-500/40 bg-cyan-500/10 text-sky-700 dark:text-sky-300',
   leaks: 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300',
 };
 
@@ -1434,7 +1436,7 @@ export function TelegramFeedPanel(): JSX.Element {
                       ? 'border-sky-500/60 bg-sky-500/15 text-sky-700 dark:text-sky-300'
                       : ch.ok
                         ? 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-sky-500/40'
-                        : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-400 dark:text-slate-600 cursor-not-allowed opacity-50'
+                        : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-400 dark:text-slate-400 cursor-not-allowed opacity-50'
                   }`}
                   title={tip}
                 >
@@ -1472,7 +1474,7 @@ export function TelegramFeedPanel(): JSX.Element {
                 className={`rounded border p-2.5 ${
                   hasMatch
                     ? 'border-amber-500/40 bg-amber-500/5'
-                    : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950'
+                    : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))]'
                 }`}
               >
                 <div className="flex flex-wrap items-baseline gap-2 mb-1">

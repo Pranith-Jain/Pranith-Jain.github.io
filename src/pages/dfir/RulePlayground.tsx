@@ -181,7 +181,7 @@ export default function RulePlayground(): JSX.Element {
             spellCheck={false}
             placeholder="rule MyRule { strings: $a = ... condition: ... }   — or —   title: …\nlogsource: …\ndetection: …"
             aria-labelledby="rule-playground-rule-label"
-            className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 px-3 py-2 font-mono text-xs text-slate-900 dark:text-slate-100 focus:border-brand-500/60 focus:outline-none"
+            className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-3 py-2 font-mono text-xs text-slate-900 dark:text-slate-100 focus:border-brand-500/60 focus:outline-none"
           />
         </section>
 
@@ -199,7 +199,7 @@ export default function RulePlayground(): JSX.Element {
             spellCheck={false}
             placeholder="Paste a log line, EDR cmdline, file fragment, or any text the rule should be tested against."
             aria-labelledby="rule-playground-sample-label"
-            className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 px-3 py-2 font-mono text-xs text-slate-900 dark:text-slate-100 focus:border-brand-500/60 focus:outline-none"
+            className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-3 py-2 font-mono text-xs text-slate-900 dark:text-slate-100 focus:border-brand-500/60 focus:outline-none"
           />
         </section>
       </div>
@@ -225,7 +225,7 @@ export default function RulePlayground(): JSX.Element {
               <span className="text-slate-500 dark:text-slate-400">Name:</span> {result.parsed.name}
             </p>
             {result.parsed.condition && (
-              <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-2.5 mb-3">
+              <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2.5 mb-3">
                 <span className="text-micro font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 block mb-1">
                   Condition (informational)
                 </span>
@@ -291,7 +291,7 @@ export default function RulePlayground(): JSX.Element {
                 )}
               </span>
             </div>
-            <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-3 font-mono text-sm text-slate-800 dark:text-slate-200 leading-relaxed overflow-x-auto">
+            <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 font-mono text-sm text-slate-800 dark:text-slate-200 leading-relaxed overflow-x-auto">
               {highlight(sample, result.matches)}
             </div>
           </section>

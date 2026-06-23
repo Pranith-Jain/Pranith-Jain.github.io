@@ -196,7 +196,7 @@ export default function FpLens(): JSX.Element {
               onChange={(e) => setRule(e.target.value)}
               rows={10}
               placeholder="Paste a Sigma / KQL / SPL / XQL rule, or just an alert name like 'Suspicious PowerShell Encoded Command'."
-              className="w-full rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-3 font-mono text-xs text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/40"
+              className="w-full rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 font-mono text-xs text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/40"
             />
             <div className="mt-3 flex flex-wrap gap-2">
               {EXAMPLE_RULES.map((ex) => (
@@ -222,7 +222,7 @@ export default function FpLens(): JSX.Element {
               onChange={(e) => setSampleHits(e.target.value)}
               rows={5}
               placeholder="Paste 1-10 sample alert payloads, raw log lines, or any extra context that helps the model understand what's actually firing."
-              className="w-full rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-3 font-mono text-xs text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/40"
+              className="w-full rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 font-mono text-xs text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/40"
             />
           </div>
 
@@ -236,7 +236,7 @@ export default function FpLens(): JSX.Element {
               value={envContext}
               onChange={(e) => setEnvContext(e.target.value)}
               placeholder="e.g. Mixed Windows fleet with 200 devs using PowerShell daily, 50 servers, 4-yr-old EDR"
-              className="w-full rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-3 text-sm text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/40"
+              className="w-full rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 text-sm text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/40"
             />
           </div>
 
@@ -263,7 +263,7 @@ export default function FpLens(): JSX.Element {
                   setResult(null);
                   setError(null);
                 }}
-                className="px-3 py-3 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                className="px-3 py-3 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
                 title="Clear"
               >
                 <RotateCcw size={16} />
@@ -295,7 +295,7 @@ export default function FpLens(): JSX.Element {
                     <CopyButton value={buildExportText(result)} />
                     <button
                       onClick={downloadReport}
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
                     >
                       <Download size={13} /> Download .md
                     </button>
@@ -323,7 +323,7 @@ export default function FpLens(): JSX.Element {
                   {result.fp_patterns.map((p, i) => (
                     <div
                       key={i}
-                      className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50/50 dark:bg-slate-950/30 p-3"
+                      className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50/50 dark:bg-[rgb(var(--input-200)/0.3)] p-3"
                     >
                       <div className="text-xs font-mono uppercase tracking-wider text-amber-700 dark:text-amber-300 mb-1">
                         Scenario {i + 1}
@@ -387,7 +387,7 @@ export default function FpLens(): JSX.Element {
           ) : (
             !error && (
               <div className="rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-10 text-center">
-                <ScanSearch size={32} className="text-slate-300 dark:text-slate-600 mx-auto mb-3" />
+                <ScanSearch size={32} className="text-slate-300 dark:text-slate-400 mx-auto mb-3" />
                 <p className="text-sm text-slate-500 dark:text-slate-400">
                   Paste a detection rule and click <span className="font-semibold">Analyze</span>
                 </p>

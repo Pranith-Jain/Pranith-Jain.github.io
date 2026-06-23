@@ -466,7 +466,7 @@ export default function CvePrioritizer(): JSX.Element {
 
                       {/* Score bar */}
                       {r.score && (
-                        <div className="mt-2 h-1 w-full bg-slate-100 dark:bg-slate-800 rounded overflow-hidden">
+                        <div className="mt-2 h-1 w-full bg-slate-100 dark:bg-[rgb(var(--surface-300))] rounded overflow-hidden">
                           <div className={`h-full ${st.bar} transition-all`} style={{ width: `${r.score.score}%` }} />
                         </div>
                       )}

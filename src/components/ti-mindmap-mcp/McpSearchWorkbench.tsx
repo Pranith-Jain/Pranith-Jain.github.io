@@ -132,7 +132,7 @@ export function McpSearchWorkbench(props: {
       className={
         props.compact
           ? ''
-          : 'rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1'
+          : 'rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1'
       }
     >
       <div className={props.compact ? '' : 'p-4'}>
@@ -151,13 +151,13 @@ export function McpSearchWorkbench(props: {
           }}
           className="flex flex-wrap items-center gap-2"
         >
-          <div className="flex rounded border border-slate-300 dark:border-slate-700 overflow-hidden text-xs font-mono">
+          <div className="flex rounded border border-slate-300 dark:border-[rgb(var(--border-400))] overflow-hidden text-xs font-mono">
             {(['ioc', 'cve', 'report', 'briefing'] as Mode[]).map((m) => (
               <button
                 key={m}
                 type="button"
                 onClick={() => setMode(m)}
-                className={`px-2.5 py-1.5 ${mode === m ? 'bg-brand-50 dark:bg-brand-950/40 text-brand-700 dark:text-brand-300' : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800'}`}
+                className={`px-2.5 py-1.5 ${mode === m ? 'bg-brand-50 dark:bg-brand-950/40 text-brand-700 dark:text-brand-300' : 'bg-white dark:bg-[rgb(var(--surface-200))] text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))]'}`}
               >
                 {m}
               </button>
@@ -169,7 +169,7 @@ export function McpSearchWorkbench(props: {
             onChange={(e) => setQ(e.target.value)}
             disabled={mode === 'briefing'}
             placeholder={placeholders[mode]}
-            className="flex-1 min-w-[12rem] rounded border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 px-2.5 py-1.5 font-mono text-sm text-slate-800 dark:text-slate-200 disabled:opacity-50"
+            className="flex-1 min-w-[12rem] rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] px-2.5 py-1.5 font-mono text-sm text-slate-800 dark:text-slate-200 disabled:opacity-50"
             autoComplete="off"
             spellCheck={false}
           />
@@ -189,7 +189,7 @@ export function McpSearchWorkbench(props: {
                 setErr(null);
                 setQ('');
               }}
-              className="rounded border border-slate-300 dark:border-slate-700 px-2 py-1.5 text-xs text-slate-600 dark:text-slate-300"
+              className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1.5 text-xs text-slate-600 dark:text-slate-300"
               aria-label="Clear results"
             >
               <X className="h-3.5 w-3.5" />
@@ -235,7 +235,7 @@ export function McpSearchWorkbench(props: {
                   setQ(text);
                   void run(text);
                 }}
-                className="rounded border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 px-2 py-0.5 text-[10px] font-mono text-slate-600 dark:text-slate-300 hover:border-brand-400"
+                className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] px-2 py-0.5 text-[10px] font-mono text-slate-600 dark:text-slate-300 hover:border-brand-400"
                 title={h}
               >
                 {h}
@@ -281,11 +281,11 @@ function IocHitCard({ hit }: { hit: IocSearchResult }): JSX.Element {
   const reports = hit.reports ?? [];
   const total = hit.total_reports ?? reports.length;
   return (
-    <div className="rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-3">
+    <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3">
       <p className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1.5">
         IOC search · <span className="text-slate-800 dark:text-slate-200">{hit.ioc_value}</span>
         {hit.ioc_type && (
-          <span className="ml-2 rounded border border-slate-300 dark:border-slate-700 px-1.5 py-0.5">
+          <span className="ml-2 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-1.5 py-0.5">
             {hit.ioc_type}
           </span>
         )}
@@ -309,7 +309,7 @@ function IocHitCard({ hit }: { hit: IocSearchResult }): JSX.Element {
 
 function CveHitCard({ hit }: { hit: CveSearchResult }): JSX.Element {
   return (
-    <div className="rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-3">
+    <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3">
       <p className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1.5">
         CVE · <span className="text-slate-800 dark:text-slate-200">{hit.cve_id}</span>
         {hit.severity && (
@@ -357,7 +357,7 @@ function CveHitCard({ hit }: { hit: CveSearchResult }): JSX.Element {
 function ReportsHitCard({ hit }: { hit: ListReportsResult }): JSX.Element {
   const reports = hit.reports ?? [];
   return (
-    <div className="rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-3">
+    <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3">
       <p className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1.5">
         Reports · {reports.length} match{reports.length === 1 ? '' : 'es'}
         {typeof hit.total === 'number' && hit.total !== reports.length && (
@@ -379,7 +379,7 @@ function ReportsHitCard({ hit }: { hit: ListReportsResult }): JSX.Element {
 
 function BriefingHitCard({ hit }: { hit: BriefingSummary }): JSX.Element {
   return (
-    <div className="rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-3">
+    <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3">
       <p className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">
         Latest briefing
       </p>
@@ -396,7 +396,7 @@ function ReportRow(props: { r: TiReportSummary }): JSX.Element {
   const r = props.r;
   const id = idForReport(r);
   return (
-    <li className="rounded border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-2.5 py-1.5">
+    <li className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] px-2.5 py-1.5">
       <p className="text-xs font-medium text-slate-800 dark:text-slate-200 line-clamp-2">{r.title ?? id}</p>
       <p className="mt-0.5 text-[10px] font-mono uppercase text-slate-500 dark:text-slate-400">
         {r.source ?? 'unknown'}

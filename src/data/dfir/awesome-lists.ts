@@ -79,7 +79,7 @@ export const FOCUS_PILL: Record<AwesomeFocus, string> = {
   osint: 'border-sky-500/40 bg-sky-500/10 text-sky-700 dark:text-sky-300',
   'incident-response': 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300',
   'cybersecurity-general': 'border-slate-500/40 bg-slate-500/10 text-slate-700 dark:text-slate-300',
-  'soc-cert': 'border-cyan-500/40 bg-cyan-500/10 text-cyan-700 dark:text-cyan-300',
+  'soc-cert': 'border-cyan-500/40 bg-cyan-500/10 text-sky-700 dark:text-sky-300',
   'mcp-security': 'border-fuchsia-500/40 bg-fuchsia-500/10 text-fuchsia-700 dark:text-fuchsia-300',
   'ai-skills': 'border-violet-500/40 bg-violet-500/10 text-violet-700 dark:text-violet-300',
 };

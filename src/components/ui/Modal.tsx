@@ -102,9 +102,9 @@ export function Modal({
         aria-hidden="true"
       />
       <div
-        className={`relative z-10 w-full ${SIZE[size]} max-h-[90vh] sm:max-h-[85vh] overflow-y-auto rounded-t-2xl sm:rounded-2xl border border-slate-200/60 bg-white shadow-xl dark:border-slate-700/60 dark:bg-slate-900 animate-fade-in-up`}
+        className={`relative z-10 w-full ${SIZE[size]} max-h-[90vh] sm:max-h-[85vh] overflow-y-auto rounded-t-2xl sm:rounded-2xl border border-slate-200/60 bg-white shadow-xl dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] animate-fade-in-up`}
       >
-        <div className="flex items-center justify-between border-b border-slate-200 px-6 py-4 dark:border-slate-800">
+        <div className="flex items-center justify-between border-b border-slate-200 px-6 py-4 dark:border-[rgb(var(--border-400))]">
           <h2 id={titleId} className="text-lg font-display font-bold text-slate-900 dark:text-white">
             {title}
           </h2>
@@ -112,7 +112,7 @@ export function Modal({
             <button
               type="button"
               onClick={onClose}
-              className="grid h-11 w-11 sm:h-8 sm:w-8 place-items-center rounded-md text-slate-400 transition-colors hover:bg-slate-100 hover:text-slate-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 dark:hover:bg-slate-800 dark:hover:text-slate-300"
+              className="grid h-11 w-11 sm:h-8 sm:w-8 place-items-center rounded-md text-slate-400 transition-colors hover:bg-slate-100 hover:text-slate-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 dark:hover:bg-[rgb(var(--surface-300))] dark:hover:text-slate-300"
               aria-label="Close dialog"
             >
               <X className="h-4 w-4" aria-hidden="true" />
@@ -128,7 +128,7 @@ export function Modal({
 export function ModalFooter({ children, className = '' }: { children: ReactNode; className?: string }) {
   return (
     <div
-      className={`flex flex-wrap items-center justify-end gap-3 border-t border-slate-200 px-6 py-4 dark:border-slate-800 ${className}`}
+      className={`flex flex-wrap items-center justify-end gap-3 border-t border-slate-200 px-6 py-4 dark:border-[rgb(var(--border-400))] ${className}`}
     >
       {children}
     </div>

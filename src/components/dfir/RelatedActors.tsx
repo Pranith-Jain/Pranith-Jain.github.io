@@ -7,7 +7,7 @@ export function RelatedActors({ hints }: { hints: CtiHints }): JSX.Element | nul
   if (matches.length === 0) return null;
 
   return (
-    <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+    <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
       <header className="flex items-center gap-2 mb-4">
         <Users size={16} className="text-brand-600 dark:text-brand-400" aria-hidden="true" />
         <h3 className="font-display font-bold text-lg text-slate-900 dark:text-slate-100">Related Threat Actors</h3>
@@ -17,7 +17,7 @@ export function RelatedActors({ hints }: { hints: CtiHints }): JSX.Element | nul
           <Link
             key={actor.slug}
             to={`/threatintel/actors/${actor.slug}`}
-            className="block rounded-lg border border-slate-200 dark:border-slate-800 p-3 hover:border-brand-500/40 transition-colors"
+            className="block rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] p-3 hover:border-brand-500/40 transition-colors"
           >
             <div className="flex items-baseline justify-between mb-1">
               <span className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100">
@@ -34,7 +34,7 @@ export function RelatedActors({ hints }: { hints: CtiHints }): JSX.Element | nul
               {matched.slice(0, 3).map((m) => (
                 <span
                   key={m}
-                  className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-muted"
+                  className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted"
                 >
                   {m}
                 </span>

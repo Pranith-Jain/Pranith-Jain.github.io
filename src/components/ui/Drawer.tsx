@@ -45,7 +45,7 @@ export function Drawer({ open, onClose, title, children, side = 'right', size = 
   return (
     <>
       <div
-        className="fixed inset-0 z-40 bg-slate-900/40 backdrop-blur-sm dark:bg-slate-950/60"
+        className="fixed inset-0 z-40 bg-slate-900/40 backdrop-blur-sm dark:bg-[rgb(var(--input-200)/0.6)]"
         onClick={onClose}
         aria-hidden="true"
       />
@@ -54,10 +54,10 @@ export function Drawer({ open, onClose, title, children, side = 'right', size = 
         role="dialog"
         aria-modal="true"
         aria-labelledby={titleId}
-        className={`fixed top-0 z-50 flex h-full max-h-[100dvh] w-full flex-col overflow-hidden bg-white shadow-2xl dark:bg-slate-900 pt-[env(safe-area-inset-top)] ${sideClasses} ${SIZE[size]} ${className}`}
+        className={`fixed top-0 z-50 flex h-full max-h-[100dvh] w-full flex-col overflow-hidden bg-white shadow-2xl dark:bg-[rgb(var(--surface-200))] pt-[env(safe-area-inset-top)] ${sideClasses} ${SIZE[size]} ${className}`}
         style={{ WebkitOverflowScrolling: 'touch' }}
       >
-        <div className="sticky top-0 z-10 flex items-center justify-between gap-3 sm:gap-4 border-b border-slate-200 bg-white/95 px-4 sm:px-6 py-3 sm:py-4 backdrop-blur dark:border-slate-800 dark:bg-slate-900/95">
+        <div className="sticky top-0 z-10 flex items-center justify-between gap-3 sm:gap-4 border-b border-slate-200 bg-white/95 px-4 sm:px-6 py-3 sm:py-4 backdrop-blur dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200)/0.95)]">
           <h2
             id={titleId}
             className="text-base sm:text-lg font-display font-bold text-slate-900 dark:text-white truncate"
@@ -67,7 +67,7 @@ export function Drawer({ open, onClose, title, children, side = 'right', size = 
           <button
             type="button"
             onClick={onClose}
-            className="shrink-0 grid h-11 w-11 sm:h-9 sm:w-9 place-items-center rounded-md text-slate-400 transition-colors hover:bg-slate-100 hover:text-slate-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 dark:hover:bg-slate-800 dark:hover:text-slate-300"
+            className="shrink-0 grid h-11 w-11 sm:h-9 sm:w-9 place-items-center rounded-md text-slate-400 transition-colors hover:bg-slate-100 hover:text-slate-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 dark:hover:bg-[rgb(var(--surface-300))] dark:hover:text-slate-300"
             aria-label="Close panel"
           >
             <X className="h-5 w-5" aria-hidden="true" />

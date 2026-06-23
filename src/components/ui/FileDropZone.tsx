@@ -75,7 +75,7 @@ export function FileDropZone({
         disabled ? 'opacity-50 cursor-not-allowed' : '',
         dragging
           ? 'border-brand-500 bg-brand-50 dark:bg-brand-900/10'
-          : 'border-slate-300 dark:border-slate-700 hover:border-brand-400 dark:hover:border-brand-600',
+          : 'border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-400 dark:hover:border-brand-600',
         className,
       ]
         .filter(Boolean)

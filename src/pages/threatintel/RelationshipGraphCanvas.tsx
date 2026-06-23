@@ -225,7 +225,7 @@ function RelationshipGraphCanvasInner({
         style={{ height: 80 }}
       />
       {simRunning && (
-        <div className="absolute top-2 left-2 text-micro font-mono text-slate-500 bg-white/80 dark:bg-slate-950/80 px-2 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))]">
+        <div className="absolute top-2 left-2 text-micro font-mono text-slate-500 bg-white/80 dark:bg-[rgb(var(--input-200)/0.8)] px-2 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))]">
           force layout · settling…
         </div>
       )}

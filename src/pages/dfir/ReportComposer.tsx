@@ -230,7 +230,7 @@ export default function ReportComposer(): JSX.Element {
           <button
             type="button"
             onClick={() => setShowPreview((s) => !s)}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-300 dark:border-[rgb(var(--border-400))] hover:bg-slate-100 dark:hover:bg-slate-800 text-xs font-mono"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-300 dark:border-[rgb(var(--border-400))] hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] text-xs font-mono"
           >
             {showPreview ? <EyeOff size={14} /> : <Eye size={14} />}
             {showPreview ? 'Hide' : 'Preview'}
@@ -254,7 +254,7 @@ export default function ReportComposer(): JSX.Element {
           <button
             type="button"
             onClick={resetAll}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-300 dark:border-[rgb(var(--border-400))] hover:bg-slate-100 dark:hover:bg-slate-800 text-xs font-mono"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-300 dark:border-[rgb(var(--border-400))] hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] text-xs font-mono"
             title="Discard and start fresh"
           >
             <RotateCcw size={14} />
@@ -344,7 +344,7 @@ export default function ReportComposer(): JSX.Element {
                       className={`px-2 py-1.5 rounded-md text-xs font-mono border transition-colors ${
                         on
                           ? TLP_COLORS[o.value]
-                          : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800'
+                          : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]'
                       }`}
                       title={o.description}
                     >

@@ -202,7 +202,7 @@ export default function Watches(): JSX.Element {
                 onChange={(e) => setSearch(e.target.value)}
                 aria-label="Filter watches"
                 placeholder="Filter..."
-                className="w-full pl-7 pr-2 py-1.5 text-mini font-mono bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded focus:outline-none focus:border-brand-500"
+                className="w-full pl-7 pr-2 py-1.5 text-mini font-mono bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded focus:outline-none focus:border-brand-500"
               />
             </div>
           </div>
@@ -240,7 +240,7 @@ export default function Watches(): JSX.Element {
                           type="text"
                           value={editForm.label}
                           onChange={(e) => setEditForm({ ...editForm, label: e.target.value })}
-                          className="w-full px-3 py-1.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500"
+                          className="w-full px-3 py-1.5 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500"
                         />
                       </div>
                       <div>
@@ -252,7 +252,7 @@ export default function Watches(): JSX.Element {
                           type="text"
                           value={editForm.value}
                           onChange={(e) => setEditForm({ ...editForm, value: e.target.value })}
-                          className="w-full px-3 py-1.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500"
+                          className="w-full px-3 py-1.5 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500"
                         />
                       </div>
                       <div>
@@ -264,7 +264,7 @@ export default function Watches(): JSX.Element {
                           type="url"
                           value={editForm.webhook}
                           onChange={(e) => setEditForm({ ...editForm, webhook: e.target.value })}
-                          className="w-full px-3 py-1.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500"
+                          className="w-full px-3 py-1.5 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500"
                         />
                       </div>
                       <div className="flex items-center gap-2">
@@ -276,7 +276,7 @@ export default function Watches(): JSX.Element {
                         </button>
                         <button
                           onClick={cancelEdit}
-                          className="px-3 py-1.5 border border-slate-300 dark:border-slate-600 rounded text-xs font-mono text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                          className="px-3 py-1.5 border border-slate-300 dark:border-slate-600 rounded text-xs font-mono text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
                         >
                           Cancel
                         </button>
@@ -313,7 +313,7 @@ export default function Watches(): JSX.Element {
                         <button
                           onClick={() => startEdit(watch)}
                           aria-label="Edit watch"
-                          className="p-1.5 rounded hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 hover:text-brand-500 transition-colors"
+                          className="p-1.5 rounded hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] text-slate-400 hover:text-brand-500 transition-colors"
                           title="Edit watch"
                         >
                           <svg
@@ -363,7 +363,7 @@ export default function Watches(): JSX.Element {
                     value={form.label}
                     onChange={(e) => setForm({ ...form, label: e.target.value })}
                     placeholder="e.g. LockBit activity"
-                    className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+                    className="w-full px-3 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
                   />
                 </div>
                 <div>
@@ -374,7 +374,7 @@ export default function Watches(): JSX.Element {
                     id="watch-create-type"
                     value={form.type}
                     onChange={(e) => setForm({ ...form, type: e.target.value as Watch['type'] })}
-                    className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+                    className="w-full px-3 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
                   >
                     <option value="ransomware-group">Ransomware Group</option>
                     <option value="cve-keyword">CVE Keyword</option>
@@ -406,7 +406,7 @@ export default function Watches(): JSX.Element {
                             ? 'e.g. Scattered Spider'
                             : 'e.g. 1.2.3.4 or evil.exe'
                     }
-                    className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+                    className="w-full px-3 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
                   />
                 </div>
                 <div>
@@ -419,7 +419,7 @@ export default function Watches(): JSX.Element {
                     value={form.webhook}
                     onChange={(e) => setForm({ ...form, webhook: e.target.value })}
                     placeholder="https://hooks.example.com/alert"
-                    className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+                    className="w-full px-3 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
                   />
                 </div>
                 <button

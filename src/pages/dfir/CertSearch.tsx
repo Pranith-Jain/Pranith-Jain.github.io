@@ -160,7 +160,7 @@ export default function CertSearch(): JSX.Element {
                 value={domain}
                 onChange={(e) => setDomain(e.target.value)}
                 placeholder="example.com"
-                className="w-full pl-9 pr-4 py-2.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+                className="w-full pl-9 pr-4 py-2.5 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
                 autoComplete="off"
                 spellCheck={false}
               />
@@ -256,7 +256,7 @@ export default function CertSearch(): JSX.Element {
                 value={filter}
                 onChange={(e) => setFilter(e.target.value)}
                 placeholder="filter (e.g. api, dev, staging)"
-                className="w-full pl-7 pr-3 py-1.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-mini focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+                className="w-full pl-7 pr-3 py-1.5 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-mini focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
               />
             </div>
             <ul className="font-mono text-meta text-slate-700 dark:text-slate-300 space-y-1 max-h-80 overflow-auto break-all">
@@ -295,7 +295,7 @@ export default function CertSearch(): JSX.Element {
                   className={`rounded border p-2 ${
                     it.revoked
                       ? 'border-rose-500/40 bg-rose-500/5'
-                      : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950'
+                      : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))]'
                   }`}
                 >
                   <div className="flex flex-wrap items-baseline justify-between gap-2 mb-1">

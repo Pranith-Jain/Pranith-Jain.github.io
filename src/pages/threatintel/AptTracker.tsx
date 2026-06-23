@@ -12,7 +12,7 @@ const SEVERITY_COLORS: Record<string, string> = {
   'Middle East': 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300',
   Israel: 'border-sky-500/40 bg-sky-500/10 text-sky-700 dark:text-sky-300',
   Unknown: 'border-slate-500/40 bg-slate-500/10 text-slate-700 dark:text-slate-300',
-  Others: 'border-cyan-500/40 bg-cyan-500/10 text-cyan-700 dark:text-cyan-300',
+  Others: 'border-cyan-500/40 bg-cyan-500/10 text-sky-700 dark:text-sky-300',
 };
 
 function AptGroupCard({ group, onClick }: { group: AptGroup; onClick: () => void }) {
@@ -31,7 +31,7 @@ function AptGroupCard({ group, onClick }: { group: AptGroup; onClick: () => void
           {group.aliases.slice(0, 3).map((a) => (
             <span
               key={a}
-              className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-500"
+              className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-500"
             >
               {a}
             </span>
@@ -82,7 +82,7 @@ function AptGroupDetail({ group, onClose }: { group: AptGroup; onClose: () => vo
                 {group.aliases.map((a) => (
                   <span
                     key={a}
-                    className="text-xs font-mono px-2 py-1 rounded bg-slate-100 dark:bg-slate-800 text-muted"
+                    className="text-xs font-mono px-2 py-1 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted"
                   >
                     {a}
                   </span>
@@ -189,7 +189,7 @@ export default function AptTracker(): JSX.Element {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search APT groups, aliases, malware, operations..."
-            className="w-full pl-9 pr-4 py-2.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="w-full pl-9 pr-4 py-2.5 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
           />
         </div>
       </div>

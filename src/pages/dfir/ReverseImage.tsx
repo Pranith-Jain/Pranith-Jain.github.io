@@ -104,7 +104,7 @@ export default function ReverseImage(): JSX.Element {
             value={imageUrl}
             onChange={(e) => setImageUrl(e.target.value)}
             placeholder="https://example.com/path/to/image.jpg"
-            className="w-full pl-9 pr-4 py-2.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="w-full pl-9 pr-4 py-2.5 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
             spellCheck={false}
             autoComplete="off"
           />
@@ -140,13 +140,13 @@ export default function ReverseImage(): JSX.Element {
               <img
                 src={trimmed}
                 alt="reverse-search target"
-                className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] max-h-48 max-w-xs object-contain bg-slate-50 dark:bg-slate-950"
+                className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] max-h-48 max-w-xs object-contain bg-slate-50 dark:bg-[rgb(var(--input-200))]"
                 onError={(e) => {
                   (e.target as HTMLImageElement).style.display = 'none';
                 }}
               />
               <div className="flex-1 min-w-0">
-                <code className="block text-mini font-mono text-slate-700 dark:text-slate-300 break-all bg-slate-50 dark:bg-slate-950 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-2 mb-2">
+                <code className="block text-mini font-mono text-slate-700 dark:text-slate-300 break-all bg-slate-50 dark:bg-[rgb(var(--input-200))] rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-2 mb-2">
                   {trimmed}
                 </code>
                 <p className="text-mini font-mono text-slate-400 dark:text-slate-400">
@@ -182,7 +182,7 @@ export default function ReverseImage(): JSX.Element {
                     className={`block rounded border px-3 py-2 hover:border-brand-500/60 transition-colors ${
                       engine.recommended
                         ? 'border-brand-500/30 bg-brand-500/5'
-                        : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950'
+                        : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))]'
                     }`}
                   >
                     <div className="flex items-baseline justify-between gap-2 mb-0.5">

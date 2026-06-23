@@ -214,7 +214,7 @@ export default function ThreatSignalRss(): JSX.Element {
         type="button"
         onClick={() => void load()}
         disabled={loading}
-        className="inline-flex items-center gap-1 px-2 py-1 rounded-md border border-slate-300 dark:border-[rgb(var(--border-400))] hover:bg-slate-100 dark:hover:bg-slate-800 disabled:opacity-40"
+        className="inline-flex items-center gap-1 px-2 py-1 rounded-md border border-slate-300 dark:border-[rgb(var(--border-400))] hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] disabled:opacity-40"
         title="Refetch the aggregate (the Worker still respects its 15-min KV cache per source)"
       >
         <RefreshCw size={11} className={loading ? 'animate-spin' : ''} />
@@ -483,7 +483,7 @@ export default function ThreatSignalRss(): JSX.Element {
 function PostCard({ item }: { item: RssItem }): JSX.Element {
   const cat = categoryStyle(item.category);
   return (
-    <div className="group rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white/60 dark:bg-[rgb(var(--surface-200))]/40 p-4 flex flex-col gap-2 transition-colors hover:border-brand-500/50 hover:bg-white/80 dark:hover:bg-slate-900/60">
+    <div className="group rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white/60 dark:bg-[rgb(var(--surface-200))]/40 p-4 flex flex-col gap-2 transition-colors hover:border-brand-500/50 hover:bg-white/80 dark:hover:bg-[rgb(var(--surface-200)/0.6)]">
       <div className="flex items-start gap-2">
         <a
           href={sanitizeUrl(item.link)}

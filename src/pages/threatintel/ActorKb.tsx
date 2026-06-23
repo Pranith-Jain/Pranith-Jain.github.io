@@ -320,7 +320,7 @@ export default function ActorKb(): JSX.Element {
                               target="_blank"
                               rel="noopener noreferrer"
                               title={tech.name}
-                              className="text-mini font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 text-muted hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
+                              className="text-mini font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] text-muted hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
                             >
                               {tech.id} {tech.name}
                             </a>
@@ -521,7 +521,7 @@ export default function ActorKb(): JSX.Element {
             {skeletonMatches.slice(0, 60).map((sk) => (
               <div
                 key={sk.slug}
-                className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-2.5"
+                className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2.5"
               >
                 <div className="flex items-baseline justify-between gap-2 mb-0.5">
                   <span className="font-display font-semibold text-sm truncate" title={sk.canonical_name}>

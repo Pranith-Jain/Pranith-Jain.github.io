@@ -77,7 +77,7 @@ export default function IocFeedsPage(): JSX.Element {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search feeds, tags…"
-            className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
           />
         </div>
         <span className="text-xs font-mono text-slate-500 dark:text-slate-400">{filtered.length} feeds</span>
@@ -89,7 +89,7 @@ export default function IocFeedsPage(): JSX.Element {
           className={`text-xs font-mono px-3 py-1.5 rounded-lg border transition-colors ${
             !activeSev
               ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-              : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-slate-300 dark:hover:border-slate-700'
+              : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-slate-300 dark:hover:border-[rgb(var(--border-400))]'
           }`}
         >
           All ({IOC_FEEDS.length})
@@ -101,7 +101,7 @@ export default function IocFeedsPage(): JSX.Element {
             className={`text-xs font-mono px-3 py-1.5 rounded-lg border transition-colors ${
               activeSev === sev
                 ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-slate-300 dark:hover:border-slate-700'
+                : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-slate-300 dark:hover:border-[rgb(var(--border-400))]'
             }`}
           >
             {sev.toUpperCase()} ({sevCounts[sev] || 0})
@@ -112,7 +112,7 @@ export default function IocFeedsPage(): JSX.Element {
       <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] overflow-hidden">
         <table className="w-full text-left font-mono text-xs">
           <thead>
-            <tr className="border-b border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950">
+            <tr className="border-b border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))]">
               <th className="px-4 py-3 text-slate-500 font-semibold uppercase tracking-wider">Severity</th>
               <th className="px-4 py-3 text-slate-500 font-semibold uppercase tracking-wider">Feed</th>
               <th className="px-4 py-3 text-slate-500 font-semibold uppercase tracking-wider">Tags</th>
@@ -124,7 +124,7 @@ export default function IocFeedsPage(): JSX.Element {
             {filtered.map((feed) => (
               <tr
                 key={feed.id}
-                className="border-b border-slate-100 dark:border-[rgb(var(--border-400))]/50 hover:bg-slate-50 dark:hover:bg-slate-950/50 transition-colors"
+                className="border-b border-slate-100 dark:border-[rgb(var(--border-400))]/50 hover:bg-slate-50 dark:hover:bg-[rgb(var(--input-200)/0.5)] transition-colors"
               >
                 <td className="px-4 py-3">
                   <span

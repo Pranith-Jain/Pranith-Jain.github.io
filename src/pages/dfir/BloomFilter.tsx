@@ -177,7 +177,7 @@ export default function BloomFilter(): JSX.Element {
           </h2>
           <button
             onClick={fetchStats}
-            className="p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 transition-colors"
+            className="p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] text-slate-400 transition-colors"
           >
             <RefreshCw size={14} />
           </button>
@@ -191,7 +191,7 @@ export default function BloomFilter(): JSX.Element {
             {Object.entries(stats.filters).map(([type, filter]) => (
               <div
                 key={type}
-                className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-3"
+                className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3"
               >
                 <div className="text-xs font-mono font-medium capitalize mb-1.5">{type}</div>
                 {filter.status === 'not_built' ? (
@@ -230,7 +230,7 @@ export default function BloomFilter(): JSX.Element {
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && void checkIndicator()}
             placeholder="Enter IP, domain, URL, or hash…"
-            className="flex-1 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg px-4 py-2.5 text-sm font-mono text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="flex-1 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg px-4 py-2.5 text-sm font-mono text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
           />
           <button
             onClick={() => void checkIndicator()}

@@ -5,15 +5,17 @@ const SOPH_STYLES: Record<string, string> = {
   'nation-state': 'bg-rose-500/15 dark:bg-rose-400/15 text-rose-600 dark:text-rose-400 border-rose-500/40',
   expert: 'bg-amber-500/15 dark:bg-amber-400/15 text-amber-600 dark:text-amber-400 border-amber-500/40',
   advanced: 'bg-amber-500/15 dark:bg-amber-400/15 text-amber-500 border-amber-500/40',
-  intermediate: 'bg-slate-100 dark:bg-slate-800 text-muted border-slate-300 dark:border-slate-700',
-  novice: 'bg-slate-200 dark:bg-slate-800 text-slate-500 border-slate-300 dark:border-slate-700',
+  intermediate:
+    'bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted border-slate-300 dark:border-[rgb(var(--border-400))]',
+  novice:
+    'bg-slate-200 dark:bg-[rgb(var(--surface-300))] text-slate-500 border-slate-300 dark:border-[rgb(var(--border-400))]',
 };
 
 export function ActorCard({ actor }: { actor: ThreatActor }): JSX.Element {
   return (
     <Link
       to={`/threatintel/actors/${actor.slug}`}
-      className="block rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-5 hover:border-brand-500/40 transition-colors"
+      className="block rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5 hover:border-brand-500/40 transition-colors"
     >
       <div className="flex items-start justify-between mb-2">
         <div>
@@ -27,7 +29,7 @@ export function ActorCard({ actor }: { actor: ThreatActor }): JSX.Element {
             className={`text-xs font-mono px-2 py-0.5 rounded border ${
               actor.status === 'active'
                 ? 'bg-emerald-500/15 dark:bg-emerald-400/15 text-emerald-600 dark:text-emerald-400 border-emerald-500/40'
-                : 'bg-slate-200 dark:bg-slate-800 text-slate-500 border-slate-300 dark:border-slate-700'
+                : 'bg-slate-200 dark:bg-[rgb(var(--surface-300))] text-slate-500 border-slate-300 dark:border-[rgb(var(--border-400))]'
             }`}
           >
             {actor.status}

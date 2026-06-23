@@ -125,7 +125,7 @@ export default function FeedSources(): JSX.Element {
                       className={`rounded-lg border p-3 transition-opacity ${
                         enabled
                           ? 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]'
-                          : 'border-slate-200/50 dark:border-[rgb(var(--border-400))]/50 bg-slate-50/50 dark:bg-slate-950/50 opacity-50'
+                          : 'border-slate-200/50 dark:border-[rgb(var(--border-400))]/50 bg-slate-50/50 dark:bg-[rgb(var(--input-200)/0.5)] opacity-50'
                       }`}
                     >
                       <div className="flex items-start justify-between gap-2 mb-1">

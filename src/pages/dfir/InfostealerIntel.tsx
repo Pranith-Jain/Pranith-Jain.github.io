@@ -257,7 +257,7 @@ export default function InfostealerIntel(): JSX.Element {
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
                 tab === t.id
                   ? 'bg-brand-600/10 text-brand-600 dark:text-brand-400 border border-brand-600/30'
-                  : 'border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-slate-100'
+                  : 'border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] hover:text-slate-900 dark:hover:text-slate-100'
               }`}
             >
               <TIcon className="w-3.5 h-3.5" />
@@ -278,7 +278,7 @@ export default function InfostealerIntel(): JSX.Element {
               onChange={(e) => setQuery(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
               placeholder={currentTab.placeholder}
-              className="w-full pl-10 pr-4 py-2.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 font-mono"
+              className="w-full pl-10 pr-4 py-2.5 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 font-mono"
             />
           </div>
           <button
@@ -292,7 +292,7 @@ export default function InfostealerIntel(): JSX.Element {
           {(searchResult || overviewResult || infectionResult) && (
             <button
               onClick={handleCopyJson}
-              className="px-3 py-2.5 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg text-sm text-muted hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+              className="px-3 py-2.5 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg text-sm text-muted hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
             >
               {copied ? <Check className="w-4 h-4 text-emerald-500" /> : <Copy className="w-4 h-4" />}
             </button>
@@ -375,7 +375,7 @@ export default function InfostealerIntel(): JSX.Element {
                 {entry.credentials.map((cred, j) => (
                   <div key={j} className="px-4 py-2 flex flex-wrap items-center gap-2.5 text-xs">
                     <span
-                      className={`inline-block px-2 py-0.5 rounded-full border text-xs ${TYPE_COLORS[cred.type] ?? 'bg-slate-100 text-slate-600 border-slate-200 dark:bg-slate-800 dark:text-slate-400 dark:border-[rgb(var(--border-400))]'}`}
+                      className={`inline-block px-2 py-0.5 rounded-full border text-xs ${TYPE_COLORS[cred.type] ?? 'bg-slate-100 text-slate-600 border-slate-200 dark:bg-[rgb(var(--surface-300))] dark:text-slate-400 dark:border-[rgb(var(--border-400))]'}`}
                     >
                       {cred.type}
                     </span>

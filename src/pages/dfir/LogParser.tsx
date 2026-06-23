@@ -44,7 +44,7 @@ const FORMAT_LABEL: Record<LogFormat, string> = {
 
 const FORMAT_PILL: Record<LogFormat, string> = {
   'win-event-xml': 'border-violet-500/40 bg-violet-500/10 text-violet-700 dark:text-violet-300',
-  jsonl: 'border-cyan-500/40 bg-cyan-500/10 text-cyan-700 dark:text-cyan-300',
+  jsonl: 'border-cyan-500/40 bg-cyan-500/10 text-sky-700 dark:text-sky-300',
   syslog: 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300',
   kv: 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300',
   raw: 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500',
@@ -131,7 +131,7 @@ export default function LogParser(): JSX.Element {
           placeholder="Paste log lines here — one per line, or paste a multi-line WinEvent XML blob (will be auto-collapsed per Event)…"
           rows={14}
           aria-label="Log lines input"
-          className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-mini text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+          className="w-full px-3 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-mini text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
           spellCheck={false}
         />
       </section>
@@ -273,7 +273,7 @@ export default function LogParser(): JSX.Element {
                     {Object.keys(r.fields).length} parsed field{Object.keys(r.fields).length === 1 ? '' : 's'} — show
                     structured JSON
                   </summary>
-                  <pre className="mt-2 text-mini font-mono text-slate-700 dark:text-slate-300 whitespace-pre-wrap break-all bg-slate-50 dark:bg-slate-950 rounded p-2 border border-slate-200 dark:border-[rgb(var(--border-400))] max-h-60 overflow-auto">
+                  <pre className="mt-2 text-mini font-mono text-slate-700 dark:text-slate-300 whitespace-pre-wrap break-all bg-slate-50 dark:bg-[rgb(var(--input-200))] rounded p-2 border border-slate-200 dark:border-[rgb(var(--border-400))] max-h-60 overflow-auto">
                     {JSON.stringify(r.fields, null, 2)}
                   </pre>
                 </details>
@@ -293,7 +293,7 @@ export default function LogParser(): JSX.Element {
                   return (
                     <li
                       key={id}
-                      className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-3"
+                      className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3"
                     >
                       <div className="flex items-baseline justify-between gap-2 mb-2">
                         <h3 className="text-meta font-mono text-slate-700 dark:text-slate-300">{q.label}</h3>

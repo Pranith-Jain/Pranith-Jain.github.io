@@ -24,7 +24,7 @@ const SIEM_COLORS: Record<string, string> = {
   Elastic: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300',
   YARA: 'bg-rose-100 text-rose-800 dark:bg-rose-900/30 dark:text-rose-300',
   Snort: 'bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-300',
-  Suricata: 'bg-cyan-100 text-cyan-800 dark:bg-cyan-900/30 dark:text-cyan-300',
+  Suricata: 'bg-sky-100 text-cyan-800 dark:bg-sky-500/10 dark:text-sky-300',
 };
 
 const EXAMPLE_PROMPTS = [
@@ -114,7 +114,7 @@ export default function HuntingQueryGenerator(): JSX.Element {
           value={threat}
           onChange={(e) => setThreat(e.target.value)}
           placeholder="Describe the threat or adversary behavior…"
-          className="w-full h-24 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg p-3 text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 resize-y font-mono"
+          className="w-full h-24 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg p-3 text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 resize-y font-mono"
         />
         <div className="mt-2 flex flex-wrap gap-1">
           {EXAMPLE_PROMPTS.slice(0, 4).map((ex) => (
@@ -191,7 +191,7 @@ export default function HuntingQueryGenerator(): JSX.Element {
               <div className="flex items-center justify-between mb-2">
                 <div className="flex items-center gap-2">
                   <span
-                    className={`text-micro font-mono px-1.5 py-0.5 rounded ${SIEM_COLORS[q.siem] ?? 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400'}`}
+                    className={`text-micro font-mono px-1.5 py-0.5 rounded ${SIEM_COLORS[q.siem] ?? 'bg-slate-100 text-slate-600 dark:bg-[rgb(var(--surface-300))] dark:text-slate-400'}`}
                   >
                     {q.siem}
                   </span>
@@ -199,7 +199,7 @@ export default function HuntingQueryGenerator(): JSX.Element {
                 </div>
                 <CopyButton value={q.query} />
               </div>
-              <pre className="bg-slate-50 dark:bg-slate-950 rounded-lg p-4 overflow-x-auto text-xs text-slate-700 dark:text-slate-300 font-mono border border-slate-200 dark:border-[rgb(var(--border-400))] whitespace-pre-wrap">
+              <pre className="bg-slate-50 dark:bg-[rgb(var(--input-200))] rounded-lg p-4 overflow-x-auto text-xs text-slate-700 dark:text-slate-300 font-mono border border-slate-200 dark:border-[rgb(var(--border-400))] whitespace-pre-wrap">
                 {q.query}
               </pre>
             </div>

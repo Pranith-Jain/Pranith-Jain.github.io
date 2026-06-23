@@ -238,7 +238,7 @@ export default function GoogleDorks(): JSX.Element {
                 void runSearch(p.query, num);
               }}
               title={p.hint}
-              className="text-mini font-mono px-2 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
+              className="text-mini font-mono px-2 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]"
             >
               {p.label}
             </button>
@@ -294,7 +294,7 @@ export default function GoogleDorks(): JSX.Element {
                   <button
                     type="button"
                     onClick={() => void copyLink(r.link)}
-                    className="shrink-0 p-1.5 rounded text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800"
+                    className="shrink-0 p-1.5 rounded text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]"
                     title="Copy link"
                     aria-label="Copy link"
                   >

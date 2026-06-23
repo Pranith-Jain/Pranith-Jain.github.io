@@ -476,7 +476,7 @@ export default function AttackNavigator(): JSX.Element {
             </span>
           )}
           <span className="inline-flex items-center gap-1.5 ml-2">
-            <span className="inline-block w-4 h-4 rounded border-2 border-slate-900 dark:border-slate-100 bg-white dark:bg-slate-800" />
+            <span className="inline-block w-4 h-4 rounded border-2 border-slate-900 dark:border-slate-100 bg-white dark:bg-[rgb(var(--surface-300))]" />
             Observed (border)
           </span>
         </div>
@@ -499,7 +499,7 @@ export default function AttackNavigator(): JSX.Element {
           onRetry={() => setRefreshKey((k) => k + 1)}
         >
           <div className="overflow-x-auto pb-4 -mx-4 sm:mx-0 px-4 sm:px-0">
-            <div className="flex gap-1 min-w-max bg-slate-100 dark:bg-slate-800/50 p-1 rounded-lg">
+            <div className="flex gap-1 min-w-max bg-slate-100 dark:bg-[rgb(var(--surface-300)/0.5)] p-1 rounded-lg">
               {mitreMatrix.map((tactic) => {
                 const tacticCount = tactic.techniques.length;
                 return (
@@ -585,11 +585,11 @@ export default function AttackNavigator(): JSX.Element {
           {/* Legend footer */}
           <div className="mt-8 flex flex-wrap gap-4 text-xs font-mono text-slate-500">
             <div className="flex items-center gap-2">
-              <span className="inline-block w-4 h-4 rounded border-2 border-slate-900 dark:border-slate-100 bg-white dark:bg-slate-800" />
+              <span className="inline-block w-4 h-4 rounded border-2 border-slate-900 dark:border-slate-100 bg-white dark:bg-[rgb(var(--surface-300))]" />
               Observed technique (clickable)
             </div>
             <div className="flex items-center gap-2">
-              <span className="inline-block w-4 h-4 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-slate-800" />
+              <span className="inline-block w-4 h-4 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-300))]" />
               Not observed
             </div>
           </div>
@@ -600,7 +600,7 @@ export default function AttackNavigator(): JSX.Element {
       {selectedId && (
         <>
           <div
-            className="fixed inset-0 z-40 bg-slate-900/40 dark:bg-slate-950/60 backdrop-blur-sm"
+            className="fixed inset-0 z-40 bg-slate-900/40 dark:bg-[rgb(var(--input-200)/0.6)] backdrop-blur-sm"
             onClick={closeDrawer}
             aria-hidden="true"
           />
@@ -626,7 +626,7 @@ export default function AttackNavigator(): JSX.Element {
                 type="button"
                 onClick={closeDrawer}
                 aria-label="Close details"
-                className="shrink-0 inline-flex items-center justify-center min-h-[44px] min-w-[44px] rounded text-slate-500 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                className="shrink-0 inline-flex items-center justify-center min-h-[44px] min-w-[44px] rounded text-slate-500 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
               >
                 <X size={18} aria-hidden="true" />
               </button>

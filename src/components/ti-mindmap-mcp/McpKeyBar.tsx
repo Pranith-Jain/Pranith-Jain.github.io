@@ -91,8 +91,8 @@ export function McpKeyBar({ className = '' }: { className?: string }): JSX.Eleme
     if (status === 'error')
       return 'border-rose-300 dark:border-rose-700 bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300';
     if (status === 'unconfigured')
-      return 'border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-600 dark:text-slate-300';
-    return 'border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-600 dark:text-slate-300';
+      return 'border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] text-slate-600 dark:text-slate-300';
+    return 'border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] text-slate-600 dark:text-slate-300';
   })();
 
   return (
@@ -109,7 +109,7 @@ export function McpKeyBar({ className = '' }: { className?: string }): JSX.Eleme
         <ChevronDown className={`h-3 w-3 transition-transform ${open ? 'rotate-180' : ''}`} />
       </button>
       {open && (
-        <div className="absolute right-0 mt-1.5 w-80 max-w-[calc(100vw-1rem)] rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e2 p-3 z-50">
+        <div className="absolute right-0 mt-1.5 w-80 max-w-[calc(100vw-1rem)] rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e2 p-3 z-50">
           <p className="flex items-center gap-1.5 text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
             <Settings2 className="h-3 w-3" /> MCP settings
           </p>
@@ -151,7 +151,7 @@ export function McpKeyBar({ className = '' }: { className?: string }): JSX.Eleme
               type="button"
               onClick={() => void reprobe()}
               disabled={status === 'probing' || !apiKey}
-              className="inline-flex items-center gap-1 rounded border border-slate-300 dark:border-slate-700 px-1.5 py-0.5 text-[10px] font-mono text-slate-600 dark:text-slate-300 hover:border-brand-400 disabled:opacity-50 shrink-0"
+              className="inline-flex items-center gap-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-1.5 py-0.5 text-[10px] font-mono text-slate-600 dark:text-slate-300 hover:border-brand-400 disabled:opacity-50 shrink-0"
               title="Re-run the MCP initialize handshake with the stored key"
             >
               <RefreshCw className={`h-3 w-3 ${status === 'probing' ? 'animate-spin' : ''}`} /> re-probe
@@ -182,7 +182,7 @@ function KeyForm(props: {
         value={props.draft}
         onChange={(e) => props.setDraft(e.target.value)}
         placeholder="tim_xxxxxxxxxxxx"
-        className="rounded border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 px-2 py-1 font-mono text-xs text-slate-800 dark:text-slate-200 w-full sm:w-56"
+        className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] px-2 py-1 font-mono text-xs text-slate-800 dark:text-slate-200 w-full sm:w-56"
         autoComplete="off"
         spellCheck={false}
       />

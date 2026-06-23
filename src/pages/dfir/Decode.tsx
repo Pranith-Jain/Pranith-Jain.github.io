@@ -9,7 +9,7 @@ import { CopyButton } from '../../components/dfir/CopyButton';
 const FORMAT_BADGE: Record<string, string> = {
   base64: 'bg-indigo-100 text-indigo-800 dark:bg-indigo-900/30 dark:text-indigo-300',
   url: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300',
-  unknown: 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400',
+  unknown: 'bg-slate-100 text-slate-600 dark:bg-[rgb(var(--surface-300))] dark:text-slate-400',
 };
 
 export default function Decode(): JSX.Element {
@@ -213,7 +213,7 @@ export default function Decode(): JSX.Element {
               readOnly
               value={output}
               rows={12}
-              className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-sm text-slate-900 dark:text-slate-100 resize-none focus:outline-none"
+              className="w-full px-4 py-3 bg-slate-50 dark:bg-[rgb(var(--surface-300)/0.5)] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-sm text-slate-900 dark:text-slate-100 resize-none focus:outline-none"
               placeholder="Decoded output will appear here..."
             />
           </div>

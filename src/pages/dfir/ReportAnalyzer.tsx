@@ -202,7 +202,7 @@ const TAB_META: Record<Tab, { label: string; icon: React.ReactNode }> = {
 };
 
 const IOC_PILL: Record<IocKind, string> = {
-  ip: 'text-cyan-700 dark:text-cyan-300 bg-cyan-50 dark:bg-cyan-950/40 border-cyan-300 dark:border-cyan-800',
+  ip: 'text-sky-700 dark:text-sky-300 bg-cyan-50 dark:bg-cyan-950/40 border-cyan-300 dark:border-cyan-800',
   url: 'text-purple-700 dark:text-purple-300 bg-purple-50 dark:bg-purple-950/40 border-purple-300 dark:border-purple-800',
   domain: 'text-sky-700 dark:text-sky-300 bg-sky-50 dark:bg-sky-950/40 border-sky-300 dark:border-sky-800',
   hash: 'text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/40 border-emerald-300 dark:border-emerald-800',
@@ -295,7 +295,7 @@ export default function ReportAnalyzer(): JSX.Element {
               value={inputText}
               onChange={(e) => setInputText(e.target.value)}
               placeholder="Paste the report here. Plain text or markdown. Up to 80KB."
-              className="w-full h-40 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-2 text-sm font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none"
+              className="w-full h-40 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2 text-sm font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none"
             />
           </div>
           <div>
@@ -310,7 +310,7 @@ export default function ReportAnalyzer(): JSX.Element {
               value={inputUrl}
               onChange={(e) => setInputUrl(e.target.value)}
               placeholder="https://example.com/report"
-              className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-2 text-sm font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none"
+              className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2 text-sm font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none"
             />
             <label
               htmlFor="report-analyzer-images"
@@ -323,7 +323,7 @@ export default function ReportAnalyzer(): JSX.Element {
               value={imageUrls}
               onChange={(e) => setImageUrls(e.target.value)}
               placeholder="https://example.com/screenshot1.png"
-              className="w-full h-20 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-2 text-xs font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none"
+              className="w-full h-20 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2 text-xs font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none"
             />
             <div className="mt-3 flex items-start gap-2 text-xs text-slate-500 dark:text-slate-400">
               <input
@@ -454,7 +454,7 @@ function FilterInput({
         value={value}
         onChange={(e) => setValue(e.target.value)}
         placeholder={placeholder}
-        className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-slate-950 py-1.5 pl-9 pr-3 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none"
+        className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] py-1.5 pl-9 pr-3 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none"
       />
     </div>
   );
@@ -646,7 +646,7 @@ function FiveWTab({ fiveW }: { fiveW: FiveW | null }) {
         {rows.map((r) => (
           <div
             key={r.label}
-            className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-2.5"
+            className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2.5"
           >
             <dt className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
               {r.label}
@@ -670,7 +670,7 @@ function FiveWTab({ fiveW }: { fiveW: FiveW | null }) {
 function DiamondTab({ diamond }: { diamond: DiamondModel | null }): JSX.Element {
   if (!diamond) {
     return (
-      <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-8 text-center text-sm text-slate-500 dark:text-slate-400">
+      <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-8 text-center text-sm text-slate-500 dark:text-slate-400">
         <Diamond className="mx-auto mb-2 h-8 w-8 text-slate-400 dark:text-slate-500" />
         No adversary/capability/infrastructure/victim signal could be derived from this report.
       </div>
@@ -792,7 +792,7 @@ function DiamondTab({ diamond }: { diamond: DiamondModel | null }): JSX.Element 
 function AttackFlowTab({ phases }: { phases: AttackFlowPhase[] }): JSX.Element {
   if (phases.length === 0) {
     return (
-      <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-8 text-center text-sm text-slate-500 dark:text-slate-400">
+      <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-8 text-center text-sm text-slate-500 dark:text-slate-400">
         <GitBranch className="mx-auto mb-2 h-8 w-8 text-slate-400 dark:text-slate-500" />
         No TTP signal to render as a kill chain.
       </div>
@@ -803,7 +803,7 @@ function AttackFlowTab({ phases }: { phases: AttackFlowPhase[] }): JSX.Element {
       {phases.map((p) => (
         <div
           key={p.phase}
-          className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-slate-950 shadow-e1 overflow-hidden"
+          className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] shadow-e1 overflow-hidden"
         >
           <div className="flex items-center gap-2 border-b border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] px-4 py-2">
             <GitBranch className="h-4 w-4 text-brand-600 dark:text-brand-400" />
@@ -891,7 +891,7 @@ function StixTab({ data }: { data: AnalyzerOutput }) {
         {byType.map(([type, n]) => (
           <div
             key={type}
-            className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 px-2 py-1.5"
+            className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-2 py-1.5"
           >
             <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
               {type}
@@ -900,7 +900,7 @@ function StixTab({ data }: { data: AnalyzerOutput }) {
           </div>
         ))}
       </div>
-      <details className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-2">
+      <details className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2">
         <summary className="cursor-pointer text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
           view raw JSON
         </summary>
@@ -914,7 +914,7 @@ function StixTab({ data }: { data: AnalyzerOutput }) {
 
 function EmptyState({ message }: { message: string }) {
   return (
-    <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-8 text-center text-sm text-slate-500 dark:text-slate-400">
+    <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-8 text-center text-sm text-slate-500 dark:text-slate-400">
       {message}
     </section>
   );

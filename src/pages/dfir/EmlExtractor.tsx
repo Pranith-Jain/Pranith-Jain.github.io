@@ -175,7 +175,7 @@ export default function EmlExtractor(): JSX.Element {
           onChange={(e) => setInput(e.target.value)}
           placeholder="Paste the raw .eml content here, or use the upload button. Headers + multipart body are parsed; attachments are decoded + hashed locally."
           rows={12}
-          className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-mini text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+          className="w-full px-3 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-mini text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
           spellCheck={false}
         />
         <div className="flex items-center justify-end gap-2 mt-3">
@@ -296,7 +296,7 @@ function Attachment({ att }: { att: EmlAttachment }): JSX.Element {
         : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500';
 
   return (
-    <li className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-3">
+    <li className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3">
       <div className="flex flex-wrap items-baseline justify-between gap-2 mb-2">
         <span className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 break-all">
           {att.filename}

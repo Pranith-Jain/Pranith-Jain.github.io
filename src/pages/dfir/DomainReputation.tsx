@@ -40,7 +40,7 @@ function getScoreLabel(score: number): { label: string; classes: string } {
   if (score >= 70) {
     return {
       label: 'Low Risk',
-      classes: 'bg-cyan-500/15 text-cyan-700 dark:text-cyan-300 border-cyan-500/30',
+      classes: 'bg-cyan-500/15 text-sky-700 dark:text-sky-300 border-cyan-500/30',
     };
   }
   if (score >= 40) {
@@ -192,7 +192,7 @@ export default function DomainReputation(): JSX.Element {
                 );
               })()}
             </div>
-            <div className="h-2 rounded bg-slate-200 dark:bg-slate-800 overflow-hidden mb-3">
+            <div className="h-2 rounded bg-slate-200 dark:bg-[rgb(var(--surface-300))] overflow-hidden mb-3">
               <div
                 className={`h-full transition-all ${getScoreColor(results.score)}`}
                 style={{ width: `${Math.max(2, results.score)}%` }}
@@ -306,7 +306,7 @@ export default function DomainReputation(): JSX.Element {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={`${t.name} (opens in new tab)`}
-                  className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-2.5 hover:border-brand-500/40 transition-colors block"
+                  className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2.5 hover:border-brand-500/40 transition-colors block"
                 >
                   <div className="font-display font-semibold text-xs text-slate-900 dark:text-slate-100 inline-flex items-center gap-1">
                     {t.name} <ExternalLink size={10} aria-hidden="true" />

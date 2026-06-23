@@ -191,7 +191,7 @@ const RISK_PILL: Record<string, string> = {
   HIGH: 'bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300 border-amber-300 dark:border-amber-800',
   MEDIUM:
     'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/40 dark:text-yellow-300 border-yellow-300 dark:border-yellow-800',
-  LOW: 'bg-slate-100 text-slate-800 dark:bg-slate-800 dark:text-slate-300 border-slate-300 dark:border-[rgb(var(--border-400))]',
+  LOW: 'bg-slate-100 text-slate-800 dark:bg-[rgb(var(--surface-300))] dark:text-slate-300 border-slate-300 dark:border-[rgb(var(--border-400))]',
 };
 
 export default function Extremists(): JSX.Element {
@@ -260,7 +260,7 @@ export default function Extremists(): JSX.Element {
               {group.regions.map((region) => (
                 <span
                   key={region}
-                  className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-muted border border-slate-200 dark:border-[rgb(var(--border-400))]"
+                  className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted border border-slate-200 dark:border-[rgb(var(--border-400))]"
                 >
                   {region}
                 </span>

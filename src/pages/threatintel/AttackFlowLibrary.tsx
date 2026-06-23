@@ -165,7 +165,7 @@ export default function AttackFlowLibrary(): JSX.Element {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder={`Filter ${data.total} flows…`}
-          className="w-full max-w-sm text-sm font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-slate-950 text-slate-800 dark:text-slate-200 focus:outline-none focus:border-brand-500/60"
+          className="w-full max-w-sm text-sm font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] text-slate-800 dark:text-slate-200 focus:outline-none focus:border-brand-500/60"
         />
       </div>
     ) : undefined;
@@ -260,7 +260,7 @@ export default function AttackFlowLibrary(): JSX.Element {
               className={`rounded-lg border p-3 transition-colors ${
                 isActive
                   ? 'border-brand-500/60 bg-brand-500/5'
-                  : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950'
+                  : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))]'
               }`}
             >
               <div className="flex items-start justify-between gap-2">

@@ -164,7 +164,7 @@ export default function Briefings(): JSX.Element {
             }}
             placeholder="Filter by title, slug, or date (e.g. 2026-05)…"
             aria-label="Filter briefings"
-            className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
           />
         </div>
 
@@ -199,9 +199,9 @@ export default function Briefings(): JSX.Element {
                 key={i}
                 className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6 animate-pulse"
               >
-                <div className="h-4 bg-slate-200 dark:bg-slate-800 rounded w-1/2 mb-2" />
-                <div className="h-3 bg-slate-200 dark:bg-slate-800 rounded w-1/4 mb-4" />
-                <div className="h-3 bg-slate-200 dark:bg-slate-800 rounded w-3/4" />
+                <div className="h-4 bg-slate-200 dark:bg-[rgb(var(--surface-300))] rounded w-1/2 mb-2" />
+                <div className="h-3 bg-slate-200 dark:bg-[rgb(var(--surface-300))] rounded w-1/4 mb-4" />
+                <div className="h-3 bg-slate-200 dark:bg-[rgb(var(--surface-300))] rounded w-3/4" />
               </div>
             ))}
           </div>

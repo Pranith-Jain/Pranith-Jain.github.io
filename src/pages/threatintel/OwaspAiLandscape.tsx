@@ -38,7 +38,7 @@ const TYPE_PILL: Record<string, string> = {
     'text-indigo-700 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-950/40 border-indigo-300 dark:border-indigo-800',
   guide:
     'text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/40 border-emerald-300 dark:border-emerald-800',
-  standard: 'text-cyan-700 dark:text-cyan-300 bg-cyan-50 dark:bg-cyan-950/40 border-cyan-300 dark:border-cyan-800',
+  standard: 'text-sky-700 dark:text-sky-300 bg-cyan-50 dark:bg-cyan-950/40 border-cyan-300 dark:border-cyan-800',
   'cheat sheet':
     'text-amber-700 dark:text-amber-300 bg-amber-50 dark:bg-amber-950/40 border-amber-300 dark:border-amber-800',
   tool: 'text-rose-700 dark:text-rose-300 bg-rose-50 dark:bg-rose-950/40 border-rose-300 dark:border-rose-800',
@@ -102,14 +102,14 @@ function NodeRow({ node, depth, defaultOpen }: { node: OwaspNode; depth: number;
   return (
     <div className="border-b border-slate-200 dark:border-[rgb(var(--border-400))] last:border-b-0">
       <div
-        className="flex items-start gap-3 px-3 py-3 hover:bg-slate-50 dark:hover:bg-slate-900/50 transition-colors"
+        className="flex items-start gap-3 px-3 py-3 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200)/0.5)] transition-colors"
         style={{ paddingLeft: `${depth * 20 + 12}px` }}
       >
         <button
           type="button"
           onClick={() => hasKids && setOpen((v) => !v)}
           className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded text-slate-500 dark:text-slate-400 ${
-            hasKids ? 'hover:bg-slate-200/60 dark:hover:bg-slate-800/60' : 'opacity-0'
+            hasKids ? 'hover:bg-slate-200/60 dark:hover:bg-[rgb(var(--surface-300)/0.6)]' : 'opacity-0'
           }`}
           aria-label={open ? 'Collapse' : 'Expand'}
         >
@@ -306,7 +306,7 @@ export default function OwaspAiLandscape(): JSX.Element {
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder="Search resources…"
-                  className="w-full rounded-lg border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-slate-950 py-2 pl-9 pr-3 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none"
+                  className="w-full rounded-lg border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] py-2 pl-9 pr-3 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none"
                 />
               </div>
               <div className="flex flex-wrap gap-1.5">
@@ -369,12 +369,12 @@ export default function OwaspAiLandscape(): JSX.Element {
 
           {/* Tree */}
           {filtered.length === 0 ? (
-            <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-8 text-center text-sm text-slate-500 dark:text-slate-400">
-              <FolderTree className="mx-auto mb-2 h-8 w-8 text-slate-400 dark:text-slate-600" />
+            <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-8 text-center text-sm text-slate-500 dark:text-slate-400">
+              <FolderTree className="mx-auto mb-2 h-8 w-8 text-slate-400 dark:text-slate-400" />
               No resources match the current filters.
             </div>
           ) : (
-            <div className="overflow-hidden rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-slate-950">
+            <div className="overflow-hidden rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))]">
               {filtered.map((n) => (
                 <NodeRow key={n.title} node={n} depth={0} defaultOpen={!query && activeTypes.size === 0} />
               ))}

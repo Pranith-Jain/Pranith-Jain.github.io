@@ -29,8 +29,8 @@ const TACTICS = [
 
 const TACTIC_COLORS: Record<string, string> = {
   Reconnaissance:
-    'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300 border-slate-300 dark:border-[rgb(var(--border-400))]',
-  'Resource Development': 'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300',
+    'bg-slate-100 text-slate-700 dark:bg-[rgb(var(--surface-300))] dark:text-slate-300 border-slate-300 dark:border-[rgb(var(--border-400))]',
+  'Resource Development': 'bg-slate-100 text-slate-700 dark:bg-[rgb(var(--surface-300))] dark:text-slate-300',
   'Initial Access':
     'bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300 border-blue-300 dark:border-blue-800',
   Execution:
@@ -43,7 +43,7 @@ const TACTIC_COLORS: Record<string, string> = {
     'bg-pink-100 text-pink-700 dark:bg-pink-900/40 dark:text-pink-300 border-pink-300 dark:border-pink-800',
   'Credential Access':
     'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/40 dark:text-yellow-300 border-yellow-300 dark:border-yellow-800',
-  Discovery: 'bg-cyan-100 text-cyan-700 dark:bg-cyan-900/40 dark:text-cyan-300 border-cyan-300 dark:border-cyan-800',
+  Discovery: 'bg-sky-100 text-sky-700 dark:bg-cyan-900/40 dark:text-sky-300 border-cyan-300 dark:border-cyan-800',
   'Lateral Movement':
     'bg-indigo-100 text-indigo-700 dark:bg-indigo-900/40 dark:text-indigo-300 border-indigo-300 dark:border-indigo-800',
   Collection: 'bg-teal-100 text-teal-700 dark:bg-teal-900/40 dark:text-teal-300 border-teal-300 dark:border-teal-800',
@@ -420,7 +420,7 @@ const TECHNIQUE_RULES: TechniqueRule[] = [
 const CONFIDENCE_STYLES: Record<string, string> = {
   high: 'bg-green-100 text-green-800 dark:bg-green-900/40 dark:text-green-300',
   medium: 'bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300',
-  low: 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400',
+  low: 'bg-slate-100 text-slate-600 dark:bg-[rgb(var(--surface-300))] dark:text-slate-400',
 };
 
 function mapToTechniques(text: string, context: string): Technique[] {
@@ -509,7 +509,7 @@ export default function AttmapAi(): JSX.Element {
                   className={`px-3 py-1.5 rounded-lg text-xs font-mono font-medium transition-colors ${
                     inputType === t
                       ? 'bg-brand-600 text-white'
-                      : 'bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:bg-slate-50 dark:hover:bg-slate-800/60'
+                      : 'bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.6)]'
                   }`}
                 >
                   {t}
@@ -559,7 +559,7 @@ export default function AttmapAi(): JSX.Element {
                   setContext('');
                   setMappings([]);
                 }}
-                className="flex items-center gap-2 px-4 py-2.5 bg-white dark:bg-[rgb(var(--surface-200))]/40 border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted text-sm font-medium rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors"
+                className="flex items-center gap-2 px-4 py-2.5 bg-white dark:bg-[rgb(var(--surface-200))]/40 border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted text-sm font-medium rounded-xl hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.6)] transition-colors"
               >
                 Clear
               </button>

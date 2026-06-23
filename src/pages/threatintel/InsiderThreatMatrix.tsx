@@ -295,7 +295,7 @@ export default function InsiderThreatMatrix(): JSX.Element {
             >
               <button
                 onClick={() => toggle(cat.id)}
-                className="w-full flex items-center justify-between p-4 hover:bg-slate-50 dark:hover:bg-slate-900/60 transition-colors"
+                className="w-full flex items-center justify-between p-4 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200)/0.6)] transition-colors"
               >
                 <div className="flex items-center gap-3">
                   <span className={`text-xs font-mono font-bold px-2 py-1 rounded ${cat.color}`}>{cat.id}</span>
@@ -318,7 +318,7 @@ export default function InsiderThreatMatrix(): JSX.Element {
                         href={`https://insiderthreatmatrix.org${t.url}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 text-xs font-mono px-2.5 py-1.5 rounded-full border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+                        className="inline-flex items-center gap-1.5 text-xs font-mono px-2.5 py-1.5 rounded-full border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-300))] text-slate-700 dark:text-slate-300 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
                         title={`View on Insider Threat Matrix — ${t.name}`}
                       >
                         <span className="text-micro text-slate-400">{t.id}</span>

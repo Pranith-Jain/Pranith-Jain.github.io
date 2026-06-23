@@ -187,7 +187,7 @@ export default function WebLogAnalyzer(): JSX.Element {
               </thead>
               <tbody>
                 {res.rows.slice(0, 2000).map((r) => (
-                  <tr key={r.n} className="even:bg-slate-50/50 dark:even:bg-slate-900/50">
+                  <tr key={r.n} className="even:bg-slate-50/50 dark:even:bg-[rgb(var(--surface-200)/0.5)]">
                     <td className="px-2 py-1 border-b border-slate-100 dark:border-[rgb(var(--border-400))] text-slate-500">
                       {r.n}
                     </td>

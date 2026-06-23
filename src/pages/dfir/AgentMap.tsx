@@ -216,7 +216,7 @@ export default function AgentMap(): JSX.Element {
           rows={10}
           spellCheck={false}
           placeholder='{ "mcpServers": { "fetch": { "command": "uvx", "args": ["mcp-server-fetch"] } } }'
-          className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 px-3 py-2 font-mono text-xs text-slate-900 dark:text-slate-100 focus:border-brand-500/60 focus:outline-none"
+          className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-3 py-2 font-mono text-xs text-slate-900 dark:text-slate-100 focus:border-brand-500/60 focus:outline-none"
         />
         {parseError && (
           <p className="mt-2 text-xs font-mono text-rose-600 dark:text-rose-400">JSON parse error: {parseError}</p>
@@ -305,7 +305,7 @@ export default function AgentMap(): JSX.Element {
                 {graph.risks.map((r) => (
                   <li
                     key={r.id}
-                    className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-3"
+                    className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3"
                   >
                     <div className="flex flex-wrap items-center gap-2 mb-1">
                       <span className="font-display font-semibold text-slate-900 dark:text-slate-100">{r.title}</span>
@@ -354,7 +354,7 @@ export default function AgentMap(): JSX.Element {
                       <span className="font-semibold text-slate-900 dark:text-slate-100">{t.label}</span>
                       <span className="text-slate-500 dark:text-slate-400">[{t.origin}]</span>
                       {t.capabilities.length === 0 ? (
-                        <span className="text-micro text-slate-400 dark:text-slate-600">no capability classified</span>
+                        <span className="text-micro text-slate-400 dark:text-slate-400">no capability classified</span>
                       ) : (
                         t.capabilities.map((c) => (
                           <span

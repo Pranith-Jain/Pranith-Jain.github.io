@@ -148,7 +148,7 @@ export function ThreatAnalysisPanel({
             type="button"
             onClick={() => fetchAnalysis()}
             disabled={loading}
-            className="p-1.5 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+            className="p-1.5 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
             title="Re-analyze"
           >
             <RefreshCw size={14} className={loading ? 'animate-spin' : ''} />
@@ -156,14 +156,14 @@ export function ThreatAnalysisPanel({
           <button
             type="button"
             onClick={() => setExpanded((p) => !p)}
-            className="p-1.5 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+            className="p-1.5 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
           >
             {expanded ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
           </button>
           <button
             type="button"
             onClick={onClose}
-            className="p-1.5 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+            className="p-1.5 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
           >
             <X size={14} />
           </button>
@@ -225,14 +225,14 @@ function EventAnalysisContent({ analysis }: { analysis: EventAnalysis }) {
       <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">{analysis.summary}</p>
 
       {analysis.impact && (
-        <div className="rounded-lg bg-slate-100 dark:bg-slate-800/50 p-3">
+        <div className="rounded-lg bg-slate-100 dark:bg-[rgb(var(--surface-300)/0.5)] p-3">
           <span className="text-micro font-mono uppercase text-slate-500 block mb-1">Impact</span>
           <p className="text-xs text-slate-600 dark:text-slate-400">{analysis.impact}</p>
         </div>
       )}
 
       {analysis.context && (
-        <div className="rounded-lg bg-slate-100 dark:bg-slate-800/50 p-3">
+        <div className="rounded-lg bg-slate-100 dark:bg-[rgb(var(--surface-300)/0.5)] p-3">
           <span className="text-micro font-mono uppercase text-slate-500 block mb-1">Context</span>
           <p className="text-xs text-slate-600 dark:text-slate-400">{analysis.context}</p>
         </div>
@@ -360,7 +360,7 @@ function IndicatorAnalysisContent({ analysis }: { analysis: IndicatorAnalysis })
         <span className="text-micro font-mono text-slate-500">confidence: {analysis.confidence}</span>
       </div>
 
-      <div className="rounded-lg bg-slate-100 dark:bg-slate-800/50 p-3 font-mono text-xs text-slate-300 break-all">
+      <div className="rounded-lg bg-slate-100 dark:bg-[rgb(var(--surface-300)/0.5)] p-3 font-mono text-xs text-slate-300 break-all">
         {analysis.indicator}
       </div>
 

@@ -87,7 +87,7 @@ export default function Sponsor() {
           ))}
         </div>
 
-        <div className="mb-16 rounded-xl border border-slate-200/70 dark:border-slate-800 p-6 sm:p-8">
+        <div className="mb-16 rounded-xl border border-slate-200/70 dark:border-[rgb(var(--border-400))] p-6 sm:p-8">
           <div className="mb-3 text-eyebrow font-mono uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">
             Editorial Independence
           </div>
@@ -127,7 +127,7 @@ export default function Sponsor() {
           </div>
         </div>
 
-        <div className="rounded-xl border border-slate-200/70 dark:border-slate-800 bg-brand-50/50 dark:bg-brand-950/20 p-6 sm:p-8 text-center">
+        <div className="rounded-xl border border-slate-200/70 dark:border-[rgb(var(--border-400))] bg-brand-50/50 dark:bg-brand-950/20 p-6 sm:p-8 text-center">
           <p className="text-base text-slate-700 dark:text-slate-300 leading-relaxed mb-4">
             Interested in sponsoring? Let's talk about what fits your goals.
           </p>

@@ -649,7 +649,7 @@ export const HUB_META: readonly HubMeta[] = [
     label: 'Infrastructure & Cloud',
     blurb: 'Cloud threat landscape, infrastructure intel, web assets, and domain monitoring.',
     icon: Cloud,
-    tone: 'text-cyan-700 dark:text-cyan-300 border-cyan-500/30 bg-cyan-500/10',
+    tone: 'text-sky-700 dark:text-sky-300 border-cyan-500/30 bg-cyan-500/10',
     pages: [
       {
         path: '/threatintel/infra/cloud',

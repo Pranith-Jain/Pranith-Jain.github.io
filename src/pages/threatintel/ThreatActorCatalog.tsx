@@ -66,7 +66,7 @@ export default function ThreatActorCatalog(): JSX.Element {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search actors, aliases, malware, targets…"
-            className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
           />
         </div>
         <span className="text-xs font-mono text-slate-500 dark:text-slate-400">{filtered.length} actors</span>
@@ -78,7 +78,7 @@ export default function ThreatActorCatalog(): JSX.Element {
           className={`text-xs font-mono px-3 py-1.5 rounded-lg border transition-colors ${
             !activeType
               ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-              : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-slate-300 dark:hover:border-slate-700'
+              : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-slate-300 dark:hover:border-[rgb(var(--border-400))]'
           }`}
         >
           All ({THREAT_ACTORS.length})
@@ -90,7 +90,7 @@ export default function ThreatActorCatalog(): JSX.Element {
             className={`text-xs font-mono px-3 py-1.5 rounded-lg border transition-colors ${
               activeType === t
                 ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-slate-300 dark:hover:border-slate-700'
+                : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-slate-300 dark:hover:border-[rgb(var(--border-400))]'
             }`}
           >
             {TYPE_LABELS[t]} ({typeCounts[t] || 0})
@@ -121,7 +121,7 @@ function ActorCard({
   onToggle: () => void;
 }): JSX.Element {
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] overflow-hidden transition-all hover:border-slate-300 dark:hover:border-slate-700">
+    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] overflow-hidden transition-all hover:border-slate-300 dark:hover:border-[rgb(var(--border-400))]">
       <button type="button" onClick={onToggle} className="w-full text-left p-4 flex items-start gap-4">
         <span className="text-lg mt-0.5">{actor.country.split(' ')[0]}</span>
         <div className="flex-1 min-w-0">
@@ -221,7 +221,7 @@ function ActorCard({
             {actor.targets.map((t) => (
               <span
                 key={t}
-                className="text-[10px] font-mono px-2 py-0.5 rounded border border-cyan-500/30 bg-cyan-500/10 text-cyan-700 dark:text-cyan-300"
+                className="text-[10px] font-mono px-2 py-0.5 rounded border border-cyan-500/30 bg-cyan-500/10 text-sky-700 dark:text-sky-300"
               >
                 {t}
               </span>

@@ -100,7 +100,7 @@ export function Solutions() {
         </Link>
         <Link
           to="/threatintel"
-          className="inline-flex items-center gap-1.5 rounded-md border border-slate-300 dark:border-slate-700 px-5 py-2.5 font-semibold text-slate-700 dark:text-slate-200 transition hover:border-brand-500/60 hover:text-brand-600 dark:hover:text-brand-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
+          className="inline-flex items-center gap-1.5 rounded-md border border-slate-300 dark:border-[rgb(var(--border-400))] px-5 py-2.5 font-semibold text-slate-700 dark:text-slate-200 transition hover:border-brand-500/60 hover:text-brand-600 dark:hover:text-brand-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
         >
           <Globe size={14} aria-hidden="true" /> Browse threat intel
         </Link>

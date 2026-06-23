@@ -80,7 +80,7 @@ export function XClaimsPanel() {
       className={`inline-flex items-center gap-1.5 text-xs font-mono px-2.5 py-1 rounded-md border transition-colors ${
         tab === id
           ? 'border-brand-500/50 bg-brand-500/10 text-brand-700 dark:text-brand-300'
-          : 'border-slate-300/60 dark:border-slate-700 text-muted hover:border-slate-400'
+          : 'border-slate-300/60 dark:border-[rgb(var(--border-400))] text-muted hover:border-slate-400'
       }`}
     >
       <Icon size={12} /> {label} <span className="opacity-70">{count}</span>
@@ -90,7 +90,7 @@ export function XClaimsPanel() {
   const rows = tab === 'ransomware' ? ransomware : breach;
 
   return (
-    <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white/60 dark:bg-slate-900/40 p-5 mb-6 animate-fade-in-up">
+    <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white/60 dark:bg-[rgb(var(--surface-200)/0.4)] p-5 mb-6 animate-fade-in-up">
       <div className="flex items-center justify-between gap-3 mb-3 flex-wrap">
         <div>
           <h2 className="font-display font-bold text-base flex items-center gap-2">

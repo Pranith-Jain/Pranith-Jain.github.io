@@ -406,26 +406,26 @@ export default function DmarcAnalyzer(): JSX.Element {
               <h2 className="text-lg font-display font-bold">{report.domain}</h2>
               <button
                 onClick={exportCsv}
-                className="inline-flex items-center gap-2 text-xs font-mono border border-slate-300 dark:border-[rgb(var(--border-400))] rounded-lg px-3 py-1.5 hover:bg-slate-100 dark:hover:bg-slate-800"
+                className="inline-flex items-center gap-2 text-xs font-mono border border-slate-300 dark:border-[rgb(var(--border-400))] rounded-lg px-3 py-1.5 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]"
               >
                 <Download size={14} /> Export CSV
               </button>
             </div>
 
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
-              <div className="rounded-lg bg-slate-50 dark:bg-slate-950 p-3">
+              <div className="rounded-lg bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3">
                 <p className="text-xs text-slate-500 dark:text-slate-400 font-mono">Total Emails</p>
                 <p className="text-2xl font-bold">{totalEmails.toLocaleString()}</p>
               </div>
-              <div className="rounded-lg bg-slate-50 dark:bg-slate-950 p-3">
+              <div className="rounded-lg bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3">
                 <p className="text-xs text-slate-500 dark:text-slate-400 font-mono">DMARC Pass Rate</p>
                 <p className="text-2xl font-bold">{passRate}%</p>
               </div>
-              <div className="rounded-lg bg-slate-50 dark:bg-slate-950 p-3">
+              <div className="rounded-lg bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3">
                 <p className="text-xs text-slate-500 dark:text-slate-400 font-mono">Unique IPs</p>
                 <p className="text-2xl font-bold">{report.records.length}</p>
               </div>
-              <div className="rounded-lg bg-slate-50 dark:bg-slate-950 p-3">
+              <div className="rounded-lg bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3">
                 <p className="text-xs text-slate-500 dark:text-slate-400 font-mono">Report Period</p>
                 <p className="text-sm font-bold">
                   {report.beginDate} — {report.endDate}
@@ -475,7 +475,7 @@ export default function DmarcAnalyzer(): JSX.Element {
             <div className="overflow-x-auto">
               <table className="w-full text-sm font-mono">
                 <thead>
-                  <tr className="border-b border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950">
+                  <tr className="border-b border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))]">
                     <th
                       scope="col"
                       className="text-left px-4 py-3 text-xs text-slate-500 dark:text-slate-400 font-medium"
@@ -535,7 +535,7 @@ export default function DmarcAnalyzer(): JSX.Element {
                         className={`border-b border-slate-100 dark:border-[rgb(var(--border-400))] ${
                           i % 2 === 0
                             ? 'bg-white dark:bg-[rgb(var(--surface-200))]'
-                            : 'bg-slate-50/50 dark:bg-slate-950/50'
+                            : 'bg-slate-50/50 dark:bg-[rgb(var(--input-200)/0.5)]'
                         }`}
                       >
                         <td className="px-4 py-3 text-xs font-medium">{r.sourceIp}</td>

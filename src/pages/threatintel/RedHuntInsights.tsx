@@ -265,7 +265,7 @@ function SecretTypeRow({ name, count, max }: { name: string; count: number; max:
         </span>
         <span className="font-mono tabular-nums text-muted">{count.toLocaleString()}</span>
       </div>
-      <div className="mt-1 h-1.5 w-full overflow-hidden rounded-full bg-slate-200 dark:bg-slate-800">
+      <div className="mt-1 h-1.5 w-full overflow-hidden rounded-full bg-slate-200 dark:bg-[rgb(var(--surface-300))]">
         <div
           className="h-full rounded-full bg-gradient-to-r from-brand-500 to-violet-500"
           style={{ width: `${pct}%` }}
@@ -364,7 +364,7 @@ export default function RedHuntInsights(): JSX.Element {
           </a>{' '}
           — internet-wide exposure trends, code-platform secrets monitoring, subdomains enumeration, and Postman
           ecosystem exposure. Auto-refreshes every minute. The raw JSON is at{' '}
-          <code className="rounded bg-slate-100 dark:bg-slate-800 px-1 py-0.5 text-xs">
+          <code className="rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] px-1 py-0.5 text-xs">
             research.redhuntlabs.com/api/latest.json
           </code>
           .

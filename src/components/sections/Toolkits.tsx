@@ -111,7 +111,7 @@ export function Toolkits() {
               <p className="mt-0.5 text-xs font-medium text-slate-400 dark:text-slate-500">{app.subtitle}</p>
               <p className="mt-2 text-sm text-muted leading-relaxed flex-1">{app.description}</p>
 
-              <dl className="mt-4 -mx-1 divide-y divide-slate-200/70 dark:divide-slate-800 border-y border-slate-200/70 dark:border-slate-800">
+              <dl className="mt-4 -mx-1 divide-y divide-slate-200/70 dark:divide-slate-800 border-y border-slate-200/70 dark:border-[rgb(var(--border-400))]">
                 {app.rows.map(([k, v]) => (
                   <div key={k} className="grid grid-cols-[7.5rem_1fr] items-baseline gap-3 px-1 py-2 text-sm">
                     <dt className="text-eyebrow font-mono uppercase text-slate-500 dark:text-slate-400">{k}</dt>

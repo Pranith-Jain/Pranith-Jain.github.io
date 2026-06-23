@@ -57,13 +57,13 @@ interface Investigation {
 }
 
 const STATUS_COLORS: Record<string, string> = {
-  open: 'bg-slate-200 dark:bg-slate-800 text-muted',
+  open: 'bg-slate-200 dark:bg-[rgb(var(--surface-300))] text-muted',
   'in-progress': 'bg-blue-500/15 text-blue-600 dark:text-blue-400',
   closed: 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400',
 };
 
 const TLP_COLORS: Record<string, string> = {
-  white: 'bg-slate-200 dark:bg-slate-800 text-muted',
+  white: 'bg-slate-200 dark:bg-[rgb(var(--surface-300))] text-muted',
   green: 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400',
   amber: 'bg-amber-500/15 text-amber-600 dark:text-amber-400',
   red: 'bg-rose-500/15 text-rose-600 dark:text-rose-400',
@@ -333,7 +333,7 @@ function InvestigationsPage(): JSX.Element {
               {inv.tags.map((t) => (
                 <span
                   key={t}
-                  className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-500"
+                  className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-500"
                 >
                   {t}
                 </span>
@@ -430,7 +430,7 @@ function InvestigationsPage(): JSX.Element {
                   {inv.observables.map((o) => (
                     <div
                       key={o.id}
-                      className="flex items-center justify-between px-2 py-1.5 rounded hover:bg-slate-50 dark:hover:bg-slate-800/50 group"
+                      className="flex items-center justify-between px-2 py-1.5 rounded hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.5)] group"
                     >
                       <div className="flex items-center gap-2 min-w-0">
                         <span className="text-micro font-mono uppercase text-slate-400 shrink-0 w-10">{o.type}</span>
@@ -482,7 +482,7 @@ function InvestigationsPage(): JSX.Element {
                   {inv.tasks.map((t) => (
                     <div
                       key={t.id}
-                      className="flex items-center gap-2 px-2 py-1.5 rounded hover:bg-slate-50 dark:hover:bg-slate-800/50"
+                      className="flex items-center gap-2 px-2 py-1.5 rounded hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.5)]"
                     >
                       <button
                         type="button"
@@ -769,7 +769,7 @@ function InvestigationsPage(): JSX.Element {
                     {inv.tags.map((t) => (
                       <span
                         key={t}
-                        className="text-micro font-mono px-1 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-500"
+                        className="text-micro font-mono px-1 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-500"
                       >
                         {t}
                       </span>

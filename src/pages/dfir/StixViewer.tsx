@@ -279,7 +279,7 @@ export default function StixViewer(): JSX.Element {
                 value={stixId}
                 onChange={(e) => setStixId(e.target.value)}
                 placeholder="T1566.001 · S0001 · G0016 — or attack-pattern--<uuid>"
-                className="flex-1 min-w-0 px-2 py-1.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-mini focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+                className="flex-1 min-w-0 px-2 py-1.5 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-mini focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
                 spellCheck={false}
               />
               <button
@@ -414,7 +414,7 @@ export default function StixViewer(): JSX.Element {
 
         {/* Right: graph */}
         <div
-          className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 overflow-hidden"
+          className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] overflow-hidden"
           style={{ height: '70vh', minHeight: 520 }}
         >
           {bundle && nodes.length > 0 ? (

@@ -22,8 +22,8 @@ export interface TextFieldProps {
 
 const VARIANT: Record<TextFieldVariant, string> = {
   default:
-    'bg-white border-slate-200 text-slate-900 placeholder:text-slate-400 focus:border-brand-500 dark:bg-slate-900 dark:border-slate-700 dark:text-slate-100 dark:placeholder:text-slate-500',
-  dark: 'bg-slate-950 border-slate-800 text-slate-100 placeholder:text-zinc-600 focus:border-brand-500',
+    'bg-white border-slate-200 text-slate-900 placeholder:text-slate-400 focus:border-brand-500 dark:bg-[rgb(var(--surface-200))] dark:border-[rgb(var(--border-400))] dark:text-slate-100 dark:placeholder:text-slate-500',
+  dark: 'bg-slate-950 border-slate-800 text-slate-100 placeholder:text-slate-600 focus:border-brand-500',
 };
 
 export function TextField({

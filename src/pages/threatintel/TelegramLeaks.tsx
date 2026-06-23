@@ -191,7 +191,7 @@ export default function TelegramLeaks(): JSX.Element {
               return (
                 <div
                   key={entry.id}
-                  className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 hover:border-slate-300 dark:hover:border-slate-700 transition-colors"
+                  className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 hover:border-slate-300 dark:hover:border-[rgb(var(--border-400))] transition-colors"
                 >
                   <div className="flex items-start justify-between gap-4 mb-2">
                     <div className="flex items-center gap-2 min-w-0">

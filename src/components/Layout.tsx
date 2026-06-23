@@ -34,15 +34,15 @@ export function Layout({ children }: LayoutProps) {
 
       {/* Content layer — no overflow rule, no per-layout page fill.
           The page bg comes from the html.dark body, so every Layout instance
-          inherits the same Geist page surface (#0a0a0f) without re-stamping
-          it. Children that legitimately exceed the viewport (wide tables,
+          inherits the same navy page surface (--bg-base #070b1c + top glow)
+          without re-stamping it. Children that legitimately exceed the viewport (wide tables,
           code blocks, long inline strings) trigger the document's native
           horizontal scroll on mobile so the user can pan to read them. */}
       <div className="relative mx-auto max-w-6xl px-4 pb-20 pt-10 sm:pt-14 sm:px-6">
-  {/* Extra padding on mobile for bottom nav — AppShell has pb-16 but portfolio
+        {/* Extra padding on mobile for bottom nav — AppShell has pb-16 but portfolio
       routes (Home, About, etc.) don't use AppShell so they need their own. */}
-  <div className="pb-14 md:pb-0">{children}</div>
-</div>
+        <div className="pb-14 md:pb-0">{children}</div>
+      </div>
     </div>
   );
 }

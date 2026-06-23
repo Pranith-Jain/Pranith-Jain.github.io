@@ -199,7 +199,7 @@ export default function ScamWatch(): JSX.Element {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search title or description — e.g. pig butchering, voice clone, romance"
-            className="flex-1 px-3 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="flex-1 px-3 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
             aria-label="Search Scam Watch"
           />
           {search && (
@@ -361,7 +361,7 @@ function sectionStyle(section: string): string {
     case 'impersonation':
       return 'border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300';
     case 'crypto-nft':
-      return 'border-cyan-500/30 bg-cyan-500/10 text-cyan-700 dark:text-cyan-300';
+      return 'border-cyan-500/30 bg-cyan-500/10 text-sky-700 dark:text-sky-300';
     case 'victims':
       return 'border-amber-500/30 bg-amber-500/10 text-amber-700 dark:text-amber-300';
     case 'news':

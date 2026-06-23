@@ -514,8 +514,11 @@ function ConsensusView({
     return (
       <p className="font-mono text-sm text-slate-500">
         No IOC currently in the cross-source consensus mentions{' '}
-        <code className="text-xs bg-slate-100 dark:bg-slate-800 px-1 py-0.5 rounded">telegram-leak</code>. Once a hash /
-        IP / domain / URL appears in both a Telegram leak entry and at least one upstream feed, it will show up here.
+        <code className="text-xs bg-slate-100 dark:bg-[rgb(var(--surface-300))] px-1 py-0.5 rounded">
+          telegram-leak
+        </code>
+        . Once a hash / IP / domain / URL appears in both a Telegram leak entry and at least one upstream feed, it will
+        show up here.
       </p>
     );
   }

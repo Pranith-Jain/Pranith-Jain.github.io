@@ -149,7 +149,7 @@ export default function Tabletop(): JSX.Element {
                   industry: act.targets[0] ?? s.industry,
                 }));
               }}
-              className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 px-2 py-1.5 font-mono text-xs"
+              className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-2 py-1.5 font-mono text-xs"
             >
               {threatActors.map((a) => (
                 <option key={a.slug} value={a.slug}>
@@ -166,7 +166,7 @@ export default function Tabletop(): JSX.Element {
             <select
               value={selection.archetypeId}
               onChange={(e) => setSelection((s) => ({ ...s, archetypeId: e.target.value as Archetype }))}
-              className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 px-2 py-1.5 font-mono text-xs"
+              className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-2 py-1.5 font-mono text-xs"
             >
               {ARCHETYPES.map((a) => (
                 <option key={a.id} value={a.id}>
@@ -184,7 +184,7 @@ export default function Tabletop(): JSX.Element {
               type="text"
               value={selection.industry}
               onChange={(e) => setSelection((s) => ({ ...s, industry: e.target.value }))}
-              className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 px-2 py-1.5 font-mono text-xs"
+              className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-2 py-1.5 font-mono text-xs"
               placeholder="Financial services"
             />
           </label>

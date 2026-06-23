@@ -75,7 +75,7 @@ function Diff({ before, after }: { before: string; after: string }): JSX.Element
   }
 
   return (
-    <pre className="text-mini font-mono text-slate-700 dark:text-slate-300 whitespace-pre-wrap break-all bg-slate-50 dark:bg-slate-950 rounded p-2 border border-slate-200 dark:border-[rgb(var(--border-400))]">
+    <pre className="text-mini font-mono text-slate-700 dark:text-slate-300 whitespace-pre-wrap break-all bg-slate-50 dark:bg-[rgb(var(--input-200))] rounded p-2 border border-slate-200 dark:border-[rgb(var(--border-400))]">
       {head}
       <span className="bg-rose-500/15 text-rose-700 dark:text-rose-300 line-through px-0.5 rounded">{beforeMid}</span>
       <span className="bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 px-0.5 rounded">{afterMid}</span>
@@ -175,7 +175,7 @@ export default function PowershellDeobf(): JSX.Element {
           rows={8}
           spellCheck={false}
           placeholder="Paste an obfuscated PowerShell command, EncodedCommand blob, or stager fragment…"
-          className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 px-3 py-2 font-mono text-xs text-slate-900 dark:text-slate-100 focus:border-brand-500/60 focus:outline-none"
+          className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-3 py-2 font-mono text-xs text-slate-900 dark:text-slate-100 focus:border-brand-500/60 focus:outline-none"
         />
       </section>
 
@@ -204,7 +204,7 @@ export default function PowershellDeobf(): JSX.Element {
                 <CopyChip value={result.output} />
               </div>
             </div>
-            <pre className="text-xs font-mono text-slate-800 dark:text-slate-200 whitespace-pre-wrap break-all bg-slate-50 dark:bg-slate-950 rounded p-3 border border-slate-200 dark:border-[rgb(var(--border-400))]">
+            <pre className="text-xs font-mono text-slate-800 dark:text-slate-200 whitespace-pre-wrap break-all bg-slate-50 dark:bg-[rgb(var(--input-200))] rounded p-3 border border-slate-200 dark:border-[rgb(var(--border-400))]">
               {result.output}
             </pre>
           </section>

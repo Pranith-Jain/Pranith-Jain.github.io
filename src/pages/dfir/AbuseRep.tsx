@@ -85,7 +85,7 @@ export default function AbuseRep(): JSX.Element {
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder="IP address or email"
-          className="flex-1 px-3 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+          className="flex-1 px-3 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
           aria-label="IP or email"
         />
         <button

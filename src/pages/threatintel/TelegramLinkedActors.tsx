@@ -309,13 +309,15 @@ export default function TelegramLinkedActors(): JSX.Element {
         </h2>
         <p className="text-xs font-mono text-slate-500 dark:text-slate-400 mt-1.5 max-w-3xl leading-relaxed">
           For a given Telegram handle, surface every known attribution: the in-repo{' '}
-          <code className="text-[11px] bg-slate-100 dark:bg-slate-800 px-1 py-0.5 rounded">threat-actor-catalog</code>{' '}
+          <code className="text-[11px] bg-slate-100 dark:bg-[rgb(var(--surface-300))] px-1 py-0.5 rounded">
+            threat-actor-catalog
+          </code>{' '}
           (operator-curated), deepdarkCTI&apos;s{' '}
-          <code className="text-[11px] bg-slate-100 dark:bg-slate-800 px-1 py-0.5 rounded">
+          <code className="text-[11px] bg-slate-100 dark:bg-[rgb(var(--surface-300))] px-1 py-0.5 rounded">
             telegram_threat_actors.md
           </code>
           , and MISP Galaxy&apos;s{' '}
-          <code className="text-[11px] bg-slate-100 dark:bg-slate-800 px-1 py-0.5 rounded">
+          <code className="text-[11px] bg-slate-100 dark:bg-[rgb(var(--surface-300))] px-1 py-0.5 rounded">
             associated-telegram-handle
           </code>{' '}
           custom field — cross-referenced with leak-monitor activity in the last 30 days.
@@ -326,7 +328,7 @@ export default function TelegramLinkedActors(): JSX.Element {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="handle (e.g. apt28world, lockbitsupport, alphvteam)"
-            className="flex-1 min-w-[220px] px-3 py-1.5 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-slate-900/40 text-sm font-mono focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500/40"
+            className="flex-1 min-w-[220px] px-3 py-1.5 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200)/0.4)] text-sm font-mono focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500/40"
             aria-label="Telegram handle to pivot"
           />
           <button
@@ -389,10 +391,19 @@ export default function TelegramLinkedActors(): JSX.Element {
           <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-4">
             <p className="text-sm font-mono text-slate-600 dark:text-slate-300">
               <strong>@{standaloneHandle}</strong> is not in the catalog or in the recent leak feed. Try a known handle
-              (e.g. <code className="text-[11px] bg-slate-100 dark:bg-slate-800 px-1 py-0.5 rounded">apt28world</code>,{' '}
-              <code className="text-[11px] bg-slate-100 dark:bg-slate-800 px-1 py-0.5 rounded">lockbitsupport</code>,{' '}
-              <code className="text-[11px] bg-slate-100 dark:bg-slate-800 px-1 py-0.5 rounded">alphvteam</code>) or use
-              the Channel Search tab to find new candidates.
+              (e.g.{' '}
+              <code className="text-[11px] bg-slate-100 dark:bg-[rgb(var(--surface-300))] px-1 py-0.5 rounded">
+                apt28world
+              </code>
+              ,{' '}
+              <code className="text-[11px] bg-slate-100 dark:bg-[rgb(var(--surface-300))] px-1 py-0.5 rounded">
+                lockbitsupport
+              </code>
+              ,{' '}
+              <code className="text-[11px] bg-slate-100 dark:bg-[rgb(var(--surface-300))] px-1 py-0.5 rounded">
+                alphvteam
+              </code>
+              ) or use the Channel Search tab to find new candidates.
             </p>
           </div>
         )}

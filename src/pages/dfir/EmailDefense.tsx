@@ -108,7 +108,7 @@ export default function EmailDefense(): JSX.Element {
               value={domain}
               onChange={(e) => setDomain(e.target.value)}
               placeholder="example.com"
-              className="w-full pl-9 pr-3 py-2 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 font-mono text-sm focus:border-brand-500/60 focus:outline-none"
+              className="w-full pl-9 pr-3 py-2 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] font-mono text-sm focus:border-brand-500/60 focus:outline-none"
               aria-label="Domain to check"
             />
           </div>
@@ -153,7 +153,7 @@ export default function EmailDefense(): JSX.Element {
                 {assessment.grade} · {assessment.spoofScore}/100
               </span>
             </div>
-            <div className="h-2 rounded bg-slate-200 dark:bg-slate-800 overflow-hidden mb-3">
+            <div className="h-2 rounded bg-slate-200 dark:bg-[rgb(var(--surface-300))] overflow-hidden mb-3">
               <div
                 className={`h-full transition-all ${SEVERITY_BAR[gradeSeverity(assessment.grade)]}`}
                 style={{ width: `${Math.max(2, assessment.spoofScore)}%` }}
@@ -260,7 +260,7 @@ export default function EmailDefense(): JSX.Element {
                 {assessment.gaps.map((g) => (
                   <li
                     key={g.id}
-                    className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-3"
+                    className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3"
                   >
                     <div className="flex flex-wrap items-center gap-2 mb-1">
                       <span className="font-display font-semibold text-slate-900 dark:text-slate-100">{g.title}</span>
@@ -385,7 +385,7 @@ function Fact({ label, value, good }: { label: string; value: string; good: bool
 
 function RecordRow({ name, value }: { name: string; value: string }): JSX.Element {
   return (
-    <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-2.5">
+    <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2.5">
       <div className="flex items-center justify-between gap-2 mb-1">
         <span className="text-micro font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
           {name}

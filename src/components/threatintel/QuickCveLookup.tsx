@@ -65,7 +65,7 @@ export default function QuickCveLookup() {
   };
 
   return (
-    <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
+    <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
       <h4 className="font-semibold text-sm mb-3 flex items-center gap-2">
         <BookText size={14} className="text-brand-600 dark:text-brand-400" />
         CVE Lookup
@@ -78,7 +78,7 @@ export default function QuickCveLookup() {
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={(e) => e.key === 'Enter' && void runLookup()}
           placeholder="CVE-2024-12345"
-          className="flex-1 px-3 py-3 sm:py-1.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded text-xs font-mono focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+          className="flex-1 px-3 py-3 sm:py-1.5 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-xs font-mono focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
         />
         <button
           onClick={() => void runLookup()}

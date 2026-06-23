@@ -37,12 +37,12 @@ export function PivotBar({ initial = '', placeholder = 'IP or domain…' }: Pivo
             onChange={(e) => setValue(e.target.value)}
             placeholder={placeholder}
             aria-label="Pivot search"
-            className="w-full pl-9 pr-20 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="w-full pl-9 pr-20 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
           />
           {value.trim() && (
             <span
               className={`absolute right-3 top-1/2 -translate-y-1/2 font-mono text-xs uppercase ${
-                kind === 'unknown' ? 'text-slate-400 dark:text-slate-600' : 'text-brand-600 dark:text-brand-400'
+                kind === 'unknown' ? 'text-slate-400 dark:text-slate-400' : 'text-brand-600 dark:text-brand-400'
               }`}
             >
               {kind}

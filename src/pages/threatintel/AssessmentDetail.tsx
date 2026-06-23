@@ -90,7 +90,7 @@ export default function AssessmentDetail(): JSX.Element {
                       ? 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 border-emerald-300'
                       : assessment.status === 'review'
                         ? 'bg-amber-100 dark:bg-amber-900/30 text-amber-700 border-amber-300'
-                        : 'bg-slate-100 dark:bg-slate-800 text-slate-600 border-slate-300'
+                        : 'bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-600 border-slate-300'
                   }`}
                 >
                   {assessment.status}
@@ -130,7 +130,7 @@ export default function AssessmentDetail(): JSX.Element {
                 {assessment.sources.map((s, i) => (
                   <span
                     key={i}
-                    className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-muted"
+                    className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted"
                   >
                     {s}
                   </span>

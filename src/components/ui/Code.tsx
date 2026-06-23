@@ -9,7 +9,7 @@ export interface CodeProps {
 export function Code({ children, className = '' }: CodeProps) {
   return (
     <code
-      className={`rounded bg-slate-100 px-1 py-0.5 font-mono text-sm text-slate-800 dark:bg-slate-800 dark:text-slate-200 ${className}`}
+      className={`rounded bg-slate-100 px-1 py-0.5 font-mono text-sm text-slate-800 dark:bg-[rgb(var(--surface-300))] dark:text-slate-200 ${className}`}
     >
       {children}
     </code>
@@ -28,7 +28,8 @@ export interface CodeBlockProps {
 }
 
 const VARIANT: Record<CodeBlockVariant, string> = {
-  default: 'bg-slate-50 dark:bg-slate-950 border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300',
+  default:
+    'bg-slate-50 dark:bg-[rgb(var(--input-200))] border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-700 dark:text-slate-300',
   success: 'bg-emerald-500/5 border-emerald-500/20 text-slate-700 dark:text-slate-300',
   error: 'bg-rose-500/5 border-rose-500/20 text-slate-700 dark:text-slate-300',
 };

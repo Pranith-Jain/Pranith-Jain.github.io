@@ -438,7 +438,7 @@ function RecentClaims({ rows }: { rows: RansomwareVictim[] }): JSX.Element {
           {rows.map((v, i) => (
             <tr
               key={`${v.victim}-${i}`}
-              className="border-b border-slate-100 dark:border-[rgb(var(--border-400))]/60 last:border-b-0 hover:bg-slate-50 dark:hover:bg-slate-900/40"
+              className="border-b border-slate-100 dark:border-[rgb(var(--border-400))]/60 last:border-b-0 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200)/0.4)]"
             >
               <td
                 className="px-4 sm:px-2 py-1.5 text-slate-900 dark:text-slate-100 truncate max-w-[200px]"

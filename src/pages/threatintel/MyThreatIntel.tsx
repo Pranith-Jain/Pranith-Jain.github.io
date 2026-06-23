@@ -147,7 +147,7 @@ function DistBar({ rows, distKey }: { rows: MtiRow[]; distKey: string | null }):
             <div className="w-32 sm:w-44 truncate font-mono text-xs text-muted" title={label}>
               {label}
             </div>
-            <div className="flex-1 h-2.5 rounded bg-slate-100 dark:bg-slate-800 overflow-hidden">
+            <div className="flex-1 h-2.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] overflow-hidden">
               <div
                 className="h-full rounded bg-brand-500/70 dark:bg-brand-400/70"
                 style={{ width: `${Math.max(3, Math.round((n / max) * 100))}%` }}
@@ -273,7 +273,7 @@ function DnsScanPanel(): JSX.Element {
             value={domain}
             onChange={(e) => setDomain(e.target.value)}
             placeholder="apex domain — e.g. company.com"
-            className="flex-1 px-3 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="flex-1 px-3 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
             aria-label="Target apex domain"
           />
           <button
@@ -291,7 +291,7 @@ function DnsScanPanel(): JSX.Element {
             value={tlds}
             onChange={(e) => setTlds(e.target.value)}
             placeholder="extra TLDs (optional) — ru,cn,xyz,top"
-            className="flex-1 px-3 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-xs focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="flex-1 px-3 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-xs focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
             aria-label="Extra TLDs"
           />
           <input
@@ -299,7 +299,7 @@ function DnsScanPanel(): JSX.Element {
             value={words}
             onChange={(e) => setWords(e.target.value)}
             placeholder="keywords (optional) — login,secure,vpn"
-            className="flex-1 px-3 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-xs focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="flex-1 px-3 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-xs focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
             aria-label="Keyword variants"
           />
         </div>
@@ -359,7 +359,7 @@ function DnsScanPanel(): JSX.Element {
                       return (
                         <tr
                           key={`${r.domain}-${i}`}
-                          className="border-t border-slate-100 dark:border-[rgb(var(--border-400))]/70 align-top hover:bg-slate-50/60 dark:hover:bg-slate-900/40"
+                          className="border-t border-slate-100 dark:border-[rgb(var(--border-400))]/70 align-top hover:bg-slate-50/60 dark:hover:bg-[rgb(var(--surface-200)/0.4)]"
                         >
                           <td className="px-3 py-2 font-mono text-mini text-slate-500 whitespace-nowrap">
                             {r.fuzzer || '—'}
@@ -523,7 +523,7 @@ export default function MyThreatIntel(): JSX.Element {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder={`Filter ${SOURCE_LABEL[source].toLowerCase()}…`}
-                className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+                className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
                 aria-label="Filter records"
               />
             </div>
@@ -590,7 +590,7 @@ export default function MyThreatIntel(): JSX.Element {
                   {filtered.map((row, i) => (
                     <tr
                       key={i}
-                      className="border-t border-slate-100 dark:border-[rgb(var(--border-400))]/70 align-top hover:bg-slate-50/60 dark:hover:bg-slate-900/40"
+                      className="border-t border-slate-100 dark:border-[rgb(var(--border-400))]/70 align-top hover:bg-slate-50/60 dark:hover:bg-[rgb(var(--surface-200)/0.4)]"
                     >
                       {cols.map((col) => {
                         const text = cellText(row[col.key]);

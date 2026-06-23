@@ -38,7 +38,7 @@ export function SourceTogglePanel({
   for (const s of feedStatuses) statusByUrl.set(s.url, s);
 
   return (
-    <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-3 space-y-3 max-h-[420px] overflow-y-auto">
+    <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 space-y-3 max-h-[420px] overflow-y-auto">
       <div className="flex items-center justify-between gap-2">
         <p className="text-mini font-mono text-slate-500">
           Toggle individual feeds. Disabling a feed both hides it AND skips the upstream fetch. Persisted in
@@ -48,14 +48,14 @@ export function SourceTogglePanel({
           <button
             type="button"
             onClick={onEnableAll}
-            className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40"
+            className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40"
           >
             enable all ({allFeedIds.length})
           </button>
           <button
             type="button"
             onClick={onDisableAll}
-            className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-slate-700 hover:border-rose-500/40"
+            className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40"
           >
             disable all
           </button>
@@ -81,8 +81,8 @@ export function SourceTogglePanel({
                   onClick={() => onToggle(fid)}
                   className={`flex items-center gap-2 rounded px-2 py-1 text-left border transition-colors ${
                     isEnabled
-                      ? 'border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:border-brand-500/40'
-                      : 'border-slate-200/40 dark:border-slate-800/40 bg-slate-100/40 dark:bg-slate-950/40 opacity-60'
+                      ? 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] hover:border-brand-500/40'
+                      : 'border-slate-200/40 dark:border-[rgb(var(--border-400))] bg-slate-100/40 dark:bg-[rgb(var(--input-200)/0.4)] opacity-60'
                   }`}
                 >
                   <input

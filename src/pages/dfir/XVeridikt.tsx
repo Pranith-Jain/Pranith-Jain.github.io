@@ -62,7 +62,7 @@ const VERDICT_STYLES: Record<Verdict, string> = {
     'bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300 border-amber-300 dark:border-amber-800',
   benign: 'bg-green-100 text-green-800 dark:bg-green-900/40 dark:text-green-300 border-green-300 dark:border-green-800',
   unknown:
-    'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400 border-slate-300 dark:border-[rgb(var(--border-400))]',
+    'bg-slate-100 text-slate-600 dark:bg-[rgb(var(--surface-300))] dark:text-slate-400 border-slate-300 dark:border-[rgb(var(--border-400))]',
 };
 
 const VERDICT_ICONS: Record<Verdict, typeof Shield> = {
@@ -225,7 +225,7 @@ export default function XVeridikt(): JSX.Element {
                   value={iocInput}
                   onChange={(e) => setIocInput(e.target.value)}
                   placeholder="IP / Domain / URL / Hash…"
-                  className="w-full rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-3 text-sm text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/40 font-mono"
+                  className="w-full rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 text-sm text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/40 font-mono"
                 />
                 <p className="text-micro font-mono text-slate-400">
                   Auto-detects IPv4, Domains, URLs, MD5/SHA1/SHA256/SHA512
@@ -242,7 +242,7 @@ export default function XVeridikt(): JSX.Element {
                   onChange={(e) => setBulkInput(e.target.value)}
                   placeholder={'One IOC per line\n185.234.72.10\nmalware.example.com\nd41d8cd98f00b204e9800998ecf8427e'}
                   rows={6}
-                  className="w-full rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-3 text-xs text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/40 font-mono"
+                  className="w-full rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 text-xs text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/40 font-mono"
                 />
                 <p className="text-micro font-mono text-slate-400">One IOC per line. Auto-detects type.</p>
               </div>
@@ -266,7 +266,7 @@ export default function XVeridikt(): JSX.Element {
                   setBulkInput('');
                   setError(null);
                 }}
-                className="flex items-center gap-2 px-4 py-2.5 bg-white dark:bg-[rgb(var(--surface-200))]/40 border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted rounded-xl text-sm font-medium hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors"
+                className="flex items-center gap-2 px-4 py-2.5 bg-white dark:bg-[rgb(var(--surface-200))]/40 border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted rounded-xl text-sm font-medium hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.6)] transition-colors"
               >
                 <X size={16} /> Clear
               </button>
@@ -351,7 +351,7 @@ export default function XVeridikt(): JSX.Element {
                     <div className="mb-3">
                       <div className="flex items-center gap-2 mb-1">
                         <span className="text-micro font-mono text-slate-400">Consensus</span>
-                        <div className="flex-1 h-2 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
+                        <div className="flex-1 h-2 rounded-full bg-slate-100 dark:bg-[rgb(var(--surface-300))] overflow-hidden">
                           <div
                             className={`h-full rounded-full transition-all ${
                               result.consensus >= 70

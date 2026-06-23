@@ -12,7 +12,7 @@ export function CertList({ certs }: { certs: DomainLookupResponse['certificates'
   const visibleTimeline = expanded ? sortedByDate : sortedByDate.slice(0, 10);
 
   return (
-    <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+    <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
       <div className="flex items-center justify-between mb-3 flex-wrap gap-2">
         <h3 className="font-display font-bold text-lg">
           Certificate Transparency <span className="text-sm font-mono text-muted">({certs.length} entries)</span>
@@ -25,7 +25,7 @@ export function CertList({ certs }: { certs: DomainLookupResponse['certificates'
             className={`px-3 py-1 text-xs font-mono rounded-full border transition-colors ${
               viewMode === 'list'
                 ? 'bg-brand-600 dark:bg-brand-500 text-white border-brand-600 dark:border-brand-500'
-                : 'border-slate-200 dark:border-slate-700 text-muted hover:border-brand-500/40'
+                : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40'
             }`}
           >
             List
@@ -37,7 +37,7 @@ export function CertList({ certs }: { certs: DomainLookupResponse['certificates'
             className={`px-3 py-1 text-xs font-mono rounded-full border transition-colors ${
               viewMode === 'timeline'
                 ? 'bg-brand-600 dark:bg-brand-500 text-white border-brand-600 dark:border-brand-500'
-                : 'border-slate-200 dark:border-slate-700 text-muted hover:border-brand-500/40'
+                : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40'
             }`}
           >
             Timeline
@@ -46,7 +46,7 @@ export function CertList({ certs }: { certs: DomainLookupResponse['certificates'
       </div>
 
       {viewMode === 'timeline' ? (
-        <ol className="relative ml-4 border-l-2 border-slate-200 dark:border-slate-800">
+        <ol className="relative ml-4 border-l-2 border-slate-200 dark:border-[rgb(var(--border-400))]">
           {visibleTimeline.map((c) => (
             <li key={c.id} className="mb-4 ml-4">
               <span className="absolute -left-1.5 mt-1.5 h-3 w-3 rounded-full bg-brand-500" aria-hidden="true" />
@@ -63,7 +63,7 @@ export function CertList({ certs }: { certs: DomainLookupResponse['certificates'
       ) : (
         <div className="space-y-2">
           {visible.map((c) => (
-            <div key={c.id} className="rounded-lg border border-slate-200 dark:border-slate-800 p-3">
+            <div key={c.id} className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] p-3">
               <div className="flex items-baseline justify-between text-sm">
                 <span className="font-display font-semibold text-slate-900 dark:text-slate-100">{c.issuer}</span>
                 <span className="font-mono text-xs text-muted">
@@ -74,7 +74,7 @@ export function CertList({ certs }: { certs: DomainLookupResponse['certificates'
                 {c.subjects.slice(0, 4).map((s) => (
                   <span
                     key={s}
-                    className="text-xs font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-muted border border-slate-200 dark:border-slate-800 break-all"
+                    className="text-xs font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted border border-slate-200 dark:border-[rgb(var(--border-400))] break-all"
                   >
                     {s}
                   </span>

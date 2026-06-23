@@ -100,7 +100,7 @@ export default function AwesomeLists(): JSX.Element {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search name, owner, description (e.g. 'osint', 'mcp', 'incident response')"
-            className="w-full pl-9 pr-4 py-2.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="w-full pl-9 pr-4 py-2.5 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
             aria-label="Search awesome-lists"
           />
         </div>
@@ -183,7 +183,7 @@ export default function AwesomeLists(): JSX.Element {
             )}
             <p className="text-meta font-mono text-muted leading-relaxed mb-2">{r.description}</p>
             <p className="text-meta font-mono italic text-slate-500 dark:text-slate-400 leading-relaxed mb-3">
-              <span className="text-slate-400 dark:text-slate-600 not-italic">why:</span> {r.why}
+              <span className="text-slate-400 dark:text-slate-400 not-italic">why:</span> {r.why}
             </p>
             <div className="flex flex-wrap items-center gap-1.5">
               {r.focus.map((f) => (

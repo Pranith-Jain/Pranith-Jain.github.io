@@ -75,9 +75,15 @@ function StatPills({ stats }: { stats: BriefingStats | undefined }) {
   if (!stats) return <span className="text-slate-600 dark:text-slate-500">—</span>;
   const empty = isEmpty(stats);
   return (
-    <span className={`font-mono text-xs ${empty ? 'text-rose-700 dark:text-rose-300' : 'text-slate-700 dark:text-slate-300'}`}>
+    <span
+      className={`font-mono text-xs ${empty ? 'text-rose-700 dark:text-rose-300' : 'text-slate-700 dark:text-slate-300'}`}
+    >
       {num(stats.findings)} findings · {num(stats.iocs)} IOCs · {num(stats.cves)} CVEs · {num(stats.kevs)} KEVs
-      {empty && <span className="ml-2 px-1.5 py-0.5 rounded bg-rose-50 dark:bg-rose-900/40 border border-rose-200 dark:border-rose-800">EMPTY</span>}
+      {empty && (
+        <span className="ml-2 px-1.5 py-0.5 rounded bg-rose-50 dark:bg-rose-900/40 border border-rose-200 dark:border-rose-800">
+          EMPTY
+        </span>
+      )}
     </span>
   );
 }
@@ -214,7 +220,7 @@ export default function BriefingsTab() {
   return (
     <div className="space-y-6 max-w-4xl">
       {/* Build now */}
-      <div className="rounded border border-slate-200 dark:border-slate-800 p-4">
+      <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-4">
         <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-1">Build now</h2>
         <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">
           Rebuilds the latest closed window for the chosen type and writes it (overwriting an empty row; a richer
@@ -228,7 +234,7 @@ export default function BriefingsTab() {
               key={t}
               onClick={() => build(t)}
               disabled={building !== null}
-              className="px-4 py-1.5 border border-slate-200 dark:border-slate-700 rounded text-sm text-slate-800 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 disabled:opacity-50 capitalize"
+              className="px-4 py-1.5 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-sm text-slate-800 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] disabled:opacity-50 capitalize"
             >
               {building === t ? `Building ${t}…` : `Build ${t}`}
             </button>
@@ -248,8 +254,14 @@ export default function BriefingsTab() {
           </div>
         )}
         {buildResult && (
-          <div className="px-3 py-2 border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 rounded text-sm">
-            <span className={buildResult.ok ? 'text-emerald-700 dark:text-emerald-300 font-semibold' : 'text-amber-700 dark:text-amber-300 font-semibold'}>
+          <div className="px-3 py-2 border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] rounded text-sm">
+            <span
+              className={
+                buildResult.ok
+                  ? 'text-emerald-700 dark:text-emerald-300 font-semibold'
+                  : 'text-amber-700 dark:text-amber-300 font-semibold'
+              }
+            >
               {buildResult.ok ? 'Built' : 'Done'}
             </span>{' '}
             <code className="font-mono text-slate-700 dark:text-slate-300">{buildResult.slug}</code>
@@ -268,7 +280,7 @@ export default function BriefingsTab() {
       </div>
 
       {/* Backfill */}
-      <div className="rounded border border-slate-200 dark:border-slate-800 p-4">
+      <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-4">
         <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-1">Backfill</h2>
         <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">
           Rebuilds the past N daily + M weekly windows. With <strong>force</strong> on, existing rows are overwritten
@@ -277,7 +289,9 @@ export default function BriefingsTab() {
         </p>
         <div className="flex flex-wrap items-end gap-3 mb-3">
           <label className="block">
-            <span className="block text-xs uppercase tracking-wider text-slate-600 dark:text-slate-500 mb-1">Daily (0–21)</span>
+            <span className="block text-xs uppercase tracking-wider text-slate-600 dark:text-slate-500 mb-1">
+              Daily (0–21)
+            </span>
             <input
               type="number"
               min={0}
@@ -285,11 +299,13 @@ export default function BriefingsTab() {
               value={days}
               onChange={(e) => setDays(Math.max(0, Math.min(21, Number(e.target.value) || 0)))}
               disabled={backfilling}
-              className="w-24 px-2 py-1 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded text-sm text-slate-900 dark:text-slate-100 disabled:opacity-50"
+              className="w-24 px-2 py-1 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-sm text-slate-900 dark:text-slate-100 disabled:opacity-50"
             />
           </label>
           <label className="block">
-            <span className="block text-xs uppercase tracking-wider text-slate-600 dark:text-slate-500 mb-1">Weekly (0–4)</span>
+            <span className="block text-xs uppercase tracking-wider text-slate-600 dark:text-slate-500 mb-1">
+              Weekly (0–4)
+            </span>
             <input
               type="number"
               min={0}
@@ -297,7 +313,7 @@ export default function BriefingsTab() {
               value={weeks}
               onChange={(e) => setWeeks(Math.max(0, Math.min(4, Number(e.target.value) || 0)))}
               disabled={backfilling}
-              className="w-24 px-2 py-1 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded text-sm text-slate-900 dark:text-slate-100 disabled:opacity-50"
+              className="w-24 px-2 py-1 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-sm text-slate-900 dark:text-slate-100 disabled:opacity-50"
             />
           </label>
           <label className="flex items-center gap-2 pb-1.5 text-sm text-slate-700 dark:text-slate-300">
@@ -316,7 +332,7 @@ export default function BriefingsTab() {
             className={`px-4 py-1.5 rounded text-sm disabled:opacity-50 ${
               force
                 ? 'border border-rose-200 dark:border-rose-700 text-rose-700 dark:text-rose-200 hover:bg-rose-50 dark:hover:bg-rose-900/30'
-                : 'border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800'
+                : 'border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-800 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]'
             }`}
           >
             {backfilling ? 'Backfilling…' : 'Run backfill'}
@@ -328,24 +344,27 @@ export default function BriefingsTab() {
           </div>
         )}
         {backfillResult && (
-          <div className="px-3 py-2 border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 rounded text-sm text-slate-700 dark:text-slate-300 space-y-1">
+          <div className="px-3 py-2 border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] rounded text-sm text-slate-700 dark:text-slate-300 space-y-1">
             <div>
-              <span className="text-emerald-700 dark:text-emerald-300">written:</span> daily {backfillResult.daily.length}, weekly{' '}
-              {backfillResult.weekly.length} · <span className="text-slate-600 dark:text-slate-500">skipped:</span> daily{' '}
+              <span className="text-emerald-700 dark:text-emerald-300">written:</span> daily{' '}
+              {backfillResult.daily.length}, weekly {backfillResult.weekly.length} ·{' '}
+              <span className="text-slate-600 dark:text-slate-500">skipped:</span> daily{' '}
               {backfillResult.daily_skipped.length}, weekly {backfillResult.weekly_skipped.length}
               {backfillResult.failures.length > 0 && (
                 <span className="text-rose-700 dark:text-rose-300"> · failures: {backfillResult.failures.length}</span>
               )}
             </div>
             {backfillResult.daily.length > 0 && (
-              <div className="font-mono text-xs text-slate-500 dark:text-slate-400 break-all">{backfillResult.daily.join(', ')}</div>
+              <div className="font-mono text-xs text-slate-500 dark:text-slate-400 break-all">
+                {backfillResult.daily.join(', ')}
+              </div>
             )}
           </div>
         )}
       </div>
 
       {/* Sweep */}
-      <div className="rounded border border-slate-200 dark:border-slate-800 p-4">
+      <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-4">
         <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-1">Sweep old briefings</h2>
         <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">
           Deletes briefings older than the retention window (clamped to the policy ceiling). Also runs on the hourly
@@ -353,7 +372,9 @@ export default function BriefingsTab() {
         </p>
         <div className="flex flex-wrap items-end gap-3 mb-3">
           <label className="block">
-            <span className="block text-xs uppercase tracking-wider text-slate-600 dark:text-slate-500 mb-1">Max age (days)</span>
+            <span className="block text-xs uppercase tracking-wider text-slate-600 dark:text-slate-500 mb-1">
+              Max age (days)
+            </span>
             <input
               type="number"
               min={1}
@@ -361,7 +382,7 @@ export default function BriefingsTab() {
               value={maxAge}
               onChange={(e) => setMaxAge(Math.max(1, Math.min(3650, Number(e.target.value) || 30)))}
               disabled={sweeping}
-              className="w-28 px-2 py-1 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded text-sm text-slate-900 dark:text-slate-100 disabled:opacity-50"
+              className="w-28 px-2 py-1 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-sm text-slate-900 dark:text-slate-100 disabled:opacity-50"
             />
           </label>
           <button
@@ -378,15 +399,15 @@ export default function BriefingsTab() {
           </div>
         )}
         {sweepResult && (
-          <div className="px-3 py-2 border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 rounded text-sm text-slate-700 dark:text-slate-300">
-            <span className="text-emerald-700 dark:text-emerald-300 font-semibold">Swept</span> — {sweepResult.deleted.length} deleted,{' '}
-            {sweepResult.kept} kept (max age {sweepResult.max_age_days}d).
+          <div className="px-3 py-2 border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] rounded text-sm text-slate-700 dark:text-slate-300">
+            <span className="text-emerald-700 dark:text-emerald-300 font-semibold">Swept</span> —{' '}
+            {sweepResult.deleted.length} deleted, {sweepResult.kept} kept (max age {sweepResult.max_age_days}d).
           </div>
         )}
       </div>
 
       {/* Recent briefings */}
-      <div className="rounded border border-slate-200 dark:border-slate-800 p-4">
+      <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-4">
         <div className="flex items-center justify-between mb-3">
           <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100">Recent briefings</h2>
           <div className="flex items-center gap-2">
@@ -401,7 +422,7 @@ export default function BriefingsTab() {
             <button
               onClick={() => void loadList()}
               disabled={listLoading}
-              className="px-3 py-1 border border-slate-200 dark:border-slate-700 rounded text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 disabled:opacity-50"
+              className="px-3 py-1 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] disabled:opacity-50"
             >
               {listLoading ? 'Refreshing…' : 'Refresh'}
             </button>
@@ -412,7 +433,7 @@ export default function BriefingsTab() {
           lag — the build/backfill result above shows fresh stats.
         </p>
         {deleteMsg && (
-          <div className="mb-3 px-3 py-2 border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 rounded text-sm text-slate-700 dark:text-slate-300">
+          <div className="mb-3 px-3 py-2 border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] rounded text-sm text-slate-700 dark:text-slate-300">
             {deleteMsg}
           </div>
         )}
@@ -421,9 +442,9 @@ export default function BriefingsTab() {
             {listError}
           </div>
         )}
-        <div className="border border-slate-200 dark:border-slate-800 rounded overflow-hidden">
+        <div className="border border-slate-200 dark:border-[rgb(var(--border-400))] rounded overflow-hidden">
           <table className="w-full text-sm">
-            <thead className="border-b border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-500 uppercase text-xs tracking-wider">
+            <thead className="border-b border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-600 dark:text-slate-500 uppercase text-xs tracking-wider">
               <tr>
                 <th className="text-left px-3 py-2">Slug</th>
                 <th className="text-left px-3 py-2">Type</th>
@@ -435,10 +456,12 @@ export default function BriefingsTab() {
               {items.map((it) => (
                 <tr
                   key={it.slug}
-                  className={`border-t border-slate-200 dark:border-slate-800/50 ${isEmpty(it.metadata.stats) ? 'bg-rose-50 dark:bg-rose-950/20' : ''}`}
+                  className={`border-t border-slate-200 dark:border-[rgb(var(--border-400))] ${isEmpty(it.metadata.stats) ? 'bg-rose-50 dark:bg-rose-950/20' : ''}`}
                 >
                   <td className="px-3 py-1.5 font-mono text-slate-700 dark:text-slate-300">{it.slug}</td>
-                  <td className="px-3 py-1.5 text-slate-500 dark:text-slate-400 capitalize">{it.metadata.type ?? '—'}</td>
+                  <td className="px-3 py-1.5 text-slate-500 dark:text-slate-400 capitalize">
+                    {it.metadata.type ?? '—'}
+                  </td>
                   <td className="px-3 py-1.5">
                     <StatPills stats={it.metadata.stats} />
                   </td>

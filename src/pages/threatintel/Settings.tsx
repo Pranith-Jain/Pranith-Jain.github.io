@@ -287,7 +287,7 @@ export default function Settings(): JSX.Element {
             <button
               type="button"
               onClick={toggleTheme}
-              className="inline-flex items-center gap-2 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-800 px-3 py-2 text-sm font-mono text-slate-700 dark:text-slate-300 hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+              className="inline-flex items-center gap-2 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-300))] px-3 py-2 text-sm font-mono text-slate-700 dark:text-slate-300 hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
               aria-label={`Switch to ${isDark ? 'light' : 'dark'} mode`}
             >
               {isDark ? <Sun size={16} /> : <Moon size={16} />}
@@ -320,7 +320,7 @@ export default function Settings(): JSX.Element {
                           className={
                             i.status === 'live'
                               ? 'inline-flex items-center text-micro font-mono rounded border border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 px-1.5 py-0.5'
-                              : 'inline-flex items-center text-micro font-mono rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-100 dark:bg-slate-800 text-slate-500 px-1.5 py-0.5'
+                              : 'inline-flex items-center text-micro font-mono rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-500 px-1.5 py-0.5'
                           }
                         >
                           {i.status === 'live' ? 'live' : 'optional'}

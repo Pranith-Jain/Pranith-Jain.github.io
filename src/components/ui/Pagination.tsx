@@ -27,7 +27,7 @@ export function Pagination({
         type="button"
         onClick={onPrev}
         disabled={page <= 1}
-        className="inline-flex items-center gap-1 rounded-md border border-slate-200 px-3 py-1.5 text-xs font-mono text-slate-600 transition-colors hover:border-brand-500/40 hover:text-brand-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 disabled:cursor-not-allowed disabled:opacity-30 dark:border-slate-700 dark:text-slate-400 dark:hover:text-brand-400"
+        className="inline-flex items-center gap-1 rounded-md border border-slate-200 px-3 py-1.5 text-xs font-mono text-slate-600 transition-colors hover:border-brand-500/40 hover:text-brand-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 disabled:cursor-not-allowed disabled:opacity-30 dark:border-[rgb(var(--border-400))] dark:text-slate-400 dark:hover:text-brand-400"
         aria-label="Previous page"
       >
         <ChevronLeft className="h-3.5 w-3.5" aria-hidden="true" />
@@ -43,7 +43,7 @@ export function Pagination({
         type="button"
         onClick={onNext}
         disabled={page >= totalPages}
-        className="inline-flex items-center gap-1 rounded-md border border-slate-200 px-3 py-1.5 text-xs font-mono text-slate-600 transition-colors hover:border-brand-500/40 hover:text-brand-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 disabled:cursor-not-allowed disabled:opacity-30 dark:border-slate-700 dark:text-slate-400 dark:hover:text-brand-400"
+        className="inline-flex items-center gap-1 rounded-md border border-slate-200 px-3 py-1.5 text-xs font-mono text-slate-600 transition-colors hover:border-brand-500/40 hover:text-brand-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 disabled:cursor-not-allowed disabled:opacity-30 dark:border-[rgb(var(--border-400))] dark:text-slate-400 dark:hover:text-brand-400"
         aria-label="Next page"
       >
         Next

@@ -95,7 +95,7 @@ const IOC_TYPE_GLYPH: Record<IocType, LucideIcon> = {
 };
 
 const NEUTRAL_ACCENT = {
-  ring: 'border-slate-200 dark:border-slate-800',
+  ring: 'border-slate-200 dark:border-[rgb(var(--border-400))]',
   glyph: 'text-slate-400 dark:text-slate-500',
 };
 
@@ -142,7 +142,7 @@ export function IocChip({
   if (loading) {
     const skeletonFrame = bare
       ? ''
-      : `rounded-md border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 ${sz.box}`;
+      : `rounded-md border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200)/0.5)] ${sz.box}`;
     return (
       <span className={`inline-flex items-center ${sz.gap} ${skeletonFrame} ${className}`} aria-hidden="true">
         <span className={`${sz.icon} shrink-0 rounded-sm bg-slate-200 dark:bg-slate-700 animate-pulse`} />
@@ -190,7 +190,7 @@ export function IocChip({
       </span>
     );
 
-  const frame = bare ? '' : `rounded-md border ${accent.ring} bg-white dark:bg-slate-900/60 ${sz.box}`;
+  const frame = bare ? '' : `rounded-md border ${accent.ring} bg-white dark:bg-[rgb(var(--surface-200)/0.6)] ${sz.box}`;
 
   return (
     <span className={`group inline-flex max-w-full items-center ${sz.gap} ${frame} ${className}`}>
@@ -305,7 +305,7 @@ function PivotMenu({ ioc, size }: { ioc: DetectedIoc; size: 'sm' | 'md' }): JSX.
           id={menuId}
           role="menu"
           aria-label={`Pivots for ${ioc.value}`}
-          className="absolute right-0 top-full z-50 mt-1 w-64 max-w-[min(18rem,80vw)] overflow-hidden rounded-lg border border-slate-200 bg-white py-1 shadow-lg dark:border-slate-700 dark:bg-slate-900"
+          className="absolute right-0 top-full z-50 mt-1 w-64 max-w-[min(18rem,80vw)] overflow-hidden rounded-lg border border-slate-200 bg-white py-1 shadow-lg dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]"
         >
           {pivots.map((p, i) => {
             const content = (
@@ -318,7 +318,7 @@ function PivotMenu({ ioc, size }: { ioc: DetectedIoc; size: 'sm' | 'md' }): JSX.
               </>
             );
             const cls =
-              'block w-full px-3 py-2 text-left transition-colors hover:bg-slate-100 focus:bg-slate-100 focus:outline-none dark:hover:bg-slate-800 dark:focus:bg-slate-800';
+              'block w-full px-3 py-2 text-left transition-colors hover:bg-slate-100 focus:bg-slate-100 focus:outline-none dark:hover:bg-[rgb(var(--surface-300))] dark:focus:bg-[rgb(var(--surface-300))]';
             return p.external ? (
               <a
                 key={p.path}

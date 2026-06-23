@@ -246,7 +246,7 @@ export default function ActorTimeline(): JSX.Element {
                               className={`inline-flex items-center gap-1.5 px-1.5 py-0.5 rounded ${
                                 g.mirrors_total > 0 && g.mirrors_reachable === 0
                                   ? 'border border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300'
-                                  : 'bg-slate-100 dark:bg-slate-800'
+                                  : 'bg-slate-100 dark:bg-[rgb(var(--surface-300))]'
                               }`}
                               title={`${g.mirrors_reachable} of ${g.mirrors_total} leak-site mirrors currently reachable${
                                 g.mirrors_total > 0 && g.mirrors_reachable === 0
@@ -300,7 +300,7 @@ export default function ActorTimeline(): JSX.Element {
               <ActorTtpsPanel />
             </div>
 
-            <section className="mt-6 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-4">
+            <section className="mt-6 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-4">
               <h3 className="font-display font-semibold text-sm mb-2">How to read this</h3>
               <ul className="text-meta font-mono text-muted space-y-1 list-disc list-inside">
                 <li>

@@ -67,14 +67,14 @@ function MapControls({ onToggleDark }: { onToggleDark: () => void }) {
     <div className="absolute top-2 right-2 z-[1000] flex gap-1">
       <button
         onClick={() => map.setView([20, 0], 2)}
-        className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded px-2 py-1 text-xs font-mono shadow hover:bg-slate-50 dark:hover:bg-slate-700"
+        className="bg-white dark:bg-[rgb(var(--surface-300))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded px-2 py-1 text-xs font-mono shadow hover:bg-slate-50 dark:hover:bg-slate-700"
         title="Reset to global view"
       >
         🌍
       </button>
       <button
         onClick={onToggleDark}
-        className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded px-2 py-1 text-xs font-mono shadow hover:bg-slate-50 dark:hover:bg-slate-700"
+        className="bg-white dark:bg-[rgb(var(--surface-300))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded px-2 py-1 text-xs font-mono shadow hover:bg-slate-50 dark:hover:bg-slate-700"
         title="Toggle dark map tiles"
       >
         🗺️
@@ -86,7 +86,7 @@ function MapControls({ onToggleDark }: { onToggleDark: () => void }) {
 function CategoryLegend({ categories }: { categories: string[] }) {
   if (categories.length === 0) return null;
   return (
-    <div className="absolute bottom-2 left-2 z-[1000] bg-white/90 dark:bg-slate-900/90 backdrop-blur rounded-lg border border-slate-200 dark:border-slate-700 p-2 max-w-[200px] max-h-[180px] overflow-y-auto">
+    <div className="absolute bottom-2 left-2 z-[1000] bg-white/90 dark:bg-[rgb(var(--surface-200)/0.9)] backdrop-blur rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] p-2 max-w-[200px] max-h-[180px] overflow-y-auto">
       <div className="text-[10px] font-mono font-semibold text-slate-500 mb-1">Legend</div>
       {categories.map((cat) => (
         <div key={cat} className="flex items-center gap-1.5 text-[10px] font-mono text-muted py-0.5">

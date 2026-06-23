@@ -399,7 +399,7 @@ export default function IocPivot(): JSX.Element {
                     type="button"
                     onClick={() => pivotTo(pv.value)}
                     title={`Pivot to ${pv.value}`}
-                    className="text-mini font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
+                    className="text-mini font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
                   >
                     <span style={{ color: PIVOT_FILL[pv.kind] }}>●</span> {pv.value}{' '}
                     <span className="text-slate-500">{pv.kind}</span>

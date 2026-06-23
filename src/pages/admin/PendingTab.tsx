@@ -144,7 +144,10 @@ export default function PendingTab() {
     return (
       <div>
         <p className="text-red-700 dark:text-red-400 mb-2">Failed to load: {error}</p>
-        <button onClick={() => void load()} className="px-3 py-1 border border-slate-200 dark:border-slate-700 rounded text-sm">
+        <button
+          onClick={() => void load()}
+          className="px-3 py-1 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-sm"
+        >
           Retry
         </button>
       </div>
@@ -169,7 +172,7 @@ export default function PendingTab() {
         </button>
       </div>
       <table className="w-full text-sm">
-        <thead className="text-left text-xs uppercase tracking-wider text-slate-600 dark:text-slate-500 border-b border-slate-200 dark:border-slate-800">
+        <thead className="text-left text-xs uppercase tracking-wider text-slate-600 dark:text-slate-500 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
           <tr>
             <th scope="col" className="py-2 pr-4">
               Type
@@ -197,7 +200,10 @@ export default function PendingTab() {
         <tbody>
           {pending.map((c) => {
             return (
-              <tr key={`${c.type}:${c.key}`} className="border-b border-slate-200 dark:border-zinc-800/60 align-top">
+              <tr
+                key={`${c.type}:${c.key}`}
+                className="border-b border-slate-200 dark:border-[rgb(var(--border-400))] align-top"
+              >
                 <td className="py-2 pr-4 text-slate-500 dark:text-slate-400 uppercase text-xs">{c.type}</td>
                 <td className="py-2 pr-4 text-slate-900 dark:text-slate-100">{c.title}</td>
                 <td className="py-2 pr-4 text-slate-700 dark:text-slate-300 tabular-nums">{c.score.toFixed(2)}</td>
@@ -205,8 +211,7 @@ export default function PendingTab() {
                 <td className="py-2 pr-4 text-xs max-w-[12rem]">
                   {(() => {
                     const links = sourceLinksFrom(c.evidence);
-                    if (links.length === 0)
-                      return <span className="text-slate-400 dark:text-slate-600">—</span>;
+                    if (links.length === 0) return <span className="text-slate-400 dark:text-slate-400">—</span>;
                     return (
                       <div className="flex flex-col gap-0.5">
                         {links.map((u) => (
@@ -238,7 +243,7 @@ export default function PendingTab() {
                     </button>
                     <button
                       onClick={() => skip(c.key, c.type)}
-                      className="px-2 py-1 border border-slate-200 dark:border-slate-700 rounded text-xs hover:bg-slate-100 dark:hover:bg-slate-800"
+                      className="px-2 py-1 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-xs hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]"
                     >
                       Skip
                     </button>
@@ -284,14 +289,26 @@ function GenerateBtn({
   const base = 'px-2 py-1 rounded text-xs border ';
   if (busy === 'generating') {
     return (
-      <button disabled title={title} className={base + 'border-amber-200 dark:border-amber-600/40 text-amber-700 dark:text-amber-500 opacity-60 cursor-wait'}>
+      <button
+        disabled
+        title={title}
+        className={
+          base + 'border-amber-200 dark:border-amber-600/40 text-amber-700 dark:text-amber-500 opacity-60 cursor-wait'
+        }
+      >
         {label}…
       </button>
     );
   }
   if (ok === true) {
     return (
-      <button disabled title={title} className={base + 'border-emerald-200 dark:border-emerald-700/40 text-emerald-700 dark:text-emerald-400 opacity-60'}>
+      <button
+        disabled
+        title={title}
+        className={
+          base + 'border-emerald-200 dark:border-emerald-700/40 text-emerald-700 dark:text-emerald-400 opacity-60'
+        }
+      >
         {label} ✓
       </button>
     );
@@ -300,7 +317,10 @@ function GenerateBtn({
     <button
       onClick={onClick}
       title={title}
-      className={base + 'border-blue-200 dark:border-blue-700/60 text-blue-700 dark:text-blue-300 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:border-blue-300 dark:hover:border-blue-600/80'}
+      className={
+        base +
+        'border-blue-200 dark:border-blue-700/60 text-blue-700 dark:text-blue-300 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:border-blue-300 dark:hover:border-blue-600/80'
+      }
     >
       {label}
     </button>
@@ -321,7 +341,7 @@ function SocialPreviewPanel({ preview, onClose }: { preview: SocialPreview; onCl
   }
 
   return (
-    <div className="mt-4 rounded border border-slate-200 dark:border-slate-700 p-4">
+    <div className="mt-4 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-4">
       <div className="flex items-center justify-between mb-2">
         <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300">
           {preview.platform === 'linkedin' ? 'LinkedIn' : 'X / Twitter'} — {preview.key.slice(0, 50)}
@@ -329,16 +349,19 @@ function SocialPreviewPanel({ preview, onClose }: { preview: SocialPreview; onCl
         <div className="flex gap-2">
           <button
             onClick={() => void copyText(preview.content)}
-            className="px-2 py-1 border border-slate-200 dark:border-slate-700 rounded text-xs hover:bg-slate-100 dark:hover:bg-slate-800"
+            className="px-2 py-1 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-xs hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]"
           >
             {copied ? 'Copied!' : 'Copy'}
           </button>
-          <button onClick={onClose} className="text-xs text-slate-600 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-300">
+          <button
+            onClick={onClose}
+            className="text-xs text-slate-600 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-300"
+          >
             Close
           </button>
         </div>
       </div>
-      <pre className="whitespace-pre-wrap text-sm text-slate-200 font-sans bg-zinc-950 border border-slate-200 dark:border-slate-800 rounded p-3 max-h-[60vh] overflow-y-auto leading-relaxed">
+      <pre className="whitespace-pre-wrap text-sm text-slate-700 dark:text-slate-200 font-sans bg-slate-50 dark:bg-[rgb(var(--surface-100))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded p-3 max-h-[60vh] overflow-y-auto leading-relaxed">
         {preview.content}
       </pre>
     </div>

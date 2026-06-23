@@ -278,7 +278,7 @@ export default function RelationshipGraphPage(): JSX.Element {
             <button
               type="button"
               onClick={clearGraph}
-              className="px-3 py-2 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] hover:bg-slate-100 dark:hover:bg-slate-800 font-mono text-sm"
+              className="px-3 py-2 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] font-mono text-sm"
             >
               Clear
             </button>
@@ -295,7 +295,7 @@ export default function RelationshipGraphPage(): JSX.Element {
               className={`px-2.5 py-1.5 rounded-lg font-mono text-xs inline-flex items-center gap-1.5 border transition-colors ${
                 layoutMode === 'force'
                   ? 'bg-brand-50 dark:bg-brand-900/20 border-brand-300 dark:border-brand-700 text-brand-700 dark:text-brand-300'
-                  : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:bg-slate-100 dark:hover:bg-slate-800'
+                  : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]'
               }`}
               title="Toggle between hierarchical (dagre) and force-directed layout"
             >
@@ -308,7 +308,7 @@ export default function RelationshipGraphPage(): JSX.Element {
               className={`px-2.5 py-1.5 rounded-lg font-mono text-xs inline-flex items-center gap-1.5 border transition-colors ${
                 pathFinder.phase !== 'idle'
                   ? 'bg-amber-50 dark:bg-amber-900/20 border-amber-300 dark:border-amber-700 text-amber-700 dark:text-amber-300'
-                  : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:bg-slate-100 dark:hover:bg-slate-800'
+                  : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]'
               }`}
               title="Find shortest path between two nodes"
             >
@@ -335,7 +335,7 @@ export default function RelationshipGraphPage(): JSX.Element {
               setQuery(eq);
               void fetchGraph(eq);
             }}
-            className="text-mini font-mono px-2 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-brand-100 dark:hover:bg-brand-900/30 hover:text-brand-700 dark:hover:text-brand-300 transition-colors"
+            className="text-mini font-mono px-2 py-1 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-700 dark:text-slate-300 hover:bg-brand-100 dark:hover:bg-brand-900/30 hover:text-brand-700 dark:hover:text-brand-300 transition-colors"
           >
             {eq}
           </button>
@@ -387,7 +387,7 @@ export default function RelationshipGraphPage(): JSX.Element {
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-6">
         {/* Graph canvas */}
         <div
-          className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 overflow-hidden relative"
+          className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] overflow-hidden relative"
           style={{ height: '70vh', minHeight: 520 }}
         >
           {loading || initialLoading ? (
@@ -406,7 +406,7 @@ export default function RelationshipGraphPage(): JSX.Element {
             </Suspense>
           ) : (
             <div className="flex h-full flex-col items-center justify-center text-slate-500 font-mono text-sm gap-4 p-8 text-center">
-              <Network size={40} className="text-slate-300 dark:text-slate-600" />
+              <Network size={40} className="text-slate-300 dark:text-slate-400" />
               <div className="font-semibold text-muted">Search any entity to see its relationships</div>
               <div className="text-xs text-slate-400 max-w-md">
                 Traverses CVE ↔ actor, actor ↔ ransomware, actor ↔ technique, and infrastructure links across all
@@ -426,7 +426,7 @@ export default function RelationshipGraphPage(): JSX.Element {
                           setQuery(cve.id);
                           void fetchGraph(cve.id);
                         }}
-                        className="text-mini font-mono px-2 py-1 rounded bg-slate-100 dark:bg-slate-800 text-muted hover:bg-brand-100 dark:hover:bg-brand-900/30 hover:text-brand-700 dark:hover:text-brand-300 transition-colors"
+                        className="text-mini font-mono px-2 py-1 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted hover:bg-brand-100 dark:hover:bg-brand-900/30 hover:text-brand-700 dark:hover:text-brand-300 transition-colors"
                       >
                         {cve.id}
                       </button>
@@ -458,7 +458,7 @@ export default function RelationshipGraphPage(): JSX.Element {
                 <div className="text-xs font-mono text-slate-500 mb-3">{selectedNode.subtitle}</div>
               )}
               {selectedNode.data && Object.keys(selectedNode.data).length > 0 && (
-                <pre className="font-mono text-mini text-slate-700 dark:text-slate-300 overflow-x-auto whitespace-pre-wrap break-all max-h-80 bg-slate-50 dark:bg-slate-950 rounded p-2 border border-slate-200 dark:border-[rgb(var(--border-400))]">
+                <pre className="font-mono text-mini text-slate-700 dark:text-slate-300 overflow-x-auto whitespace-pre-wrap break-all max-h-80 bg-slate-50 dark:bg-[rgb(var(--input-200))] rounded p-2 border border-slate-200 dark:border-[rgb(var(--border-400))]">
                   {JSON.stringify(selectedNode.data, null, 2)}
                 </pre>
               )}
@@ -467,7 +467,7 @@ export default function RelationshipGraphPage(): JSX.Element {
                 type="button"
                 onClick={() => expandNode(selectedNode)}
                 disabled={loading}
-                className="mt-3 w-full px-3 py-1.5 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] hover:bg-slate-100 dark:hover:bg-slate-800 font-mono text-xs inline-flex items-center justify-center gap-1.5 disabled:opacity-50"
+                className="mt-3 w-full px-3 py-1.5 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] font-mono text-xs inline-flex items-center justify-center gap-1.5 disabled:opacity-50"
               >
                 <Expand size={12} />
                 Expand node

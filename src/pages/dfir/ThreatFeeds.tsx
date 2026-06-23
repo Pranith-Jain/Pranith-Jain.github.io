@@ -97,7 +97,7 @@ const SECTION_STYLES: Record<string, string> = {
   vendor: 'border-violet-500/30 bg-violet-500/10 text-violet-700 dark:text-violet-300',
   investigation: 'border-amber-500/30 bg-amber-500/10 text-amber-700 dark:text-amber-300',
   reddit: 'border-orange-500/30 bg-orange-500/10 text-orange-700 dark:text-orange-300',
-  vulns: 'border-cyan-500/30 bg-cyan-500/10 text-cyan-700 dark:text-cyan-300',
+  vulns: 'border-cyan-500/30 bg-cyan-500/10 text-sky-700 dark:text-sky-300',
   news: 'border-sky-500/30 bg-sky-500/10 text-sky-700 dark:text-sky-300',
 };
 
@@ -246,7 +246,7 @@ export default function ThreatFeeds(): JSX.Element {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search title or description — e.g. CVE-2026, lockbit, exchange RCE"
-            className="flex-1 px-3 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="flex-1 px-3 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
             aria-label="Search Threat Feeds"
           />
           {search && (
@@ -309,7 +309,7 @@ export default function ThreatFeeds(): JSX.Element {
         </div>
 
         {showSourcePanel && (
-          <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-3 space-y-3 max-h-[420px] overflow-y-auto">
+          <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 space-y-3 max-h-[420px] overflow-y-auto">
             <div className="flex items-center justify-between gap-2">
               <p className="text-mini font-mono text-slate-400">
                 Toggle individual feeds. Disabling a feed both hides it AND skips the upstream fetch. Persisted in
@@ -360,7 +360,7 @@ export default function ThreatFeeds(): JSX.Element {
                         className={`flex items-center gap-2 rounded px-2 py-1 text-left border transition-colors ${
                           isEnabled
                             ? 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] hover:border-brand-500/40'
-                            : 'border-slate-200/40 dark:border-[rgb(var(--border-400))]/40 bg-slate-100/40 dark:bg-slate-950/40 opacity-60'
+                            : 'border-slate-200/40 dark:border-[rgb(var(--border-400))]/40 bg-slate-100/40 dark:bg-[rgb(var(--input-200)/0.4)] opacity-60'
                         }`}
                       >
                         <input
@@ -448,7 +448,7 @@ export default function ThreatFeeds(): JSX.Element {
             className={`inline-flex items-center gap-2 text-xs font-mono px-4 py-2 rounded-lg border transition-colors ${
               showDigest
                 ? 'border-brand-500/50 bg-brand-500/10 text-brand-600 dark:text-brand-400'
-                : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800'
+                : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))]'
             }`}
           >
             <Brain size={14} />

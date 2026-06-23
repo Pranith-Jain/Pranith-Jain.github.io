@@ -151,7 +151,7 @@ export default function ActorOtxSweep({ actors, limit = 10 }: Props) {
   }, [actors, limit, running]);
 
   return (
-    <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
+    <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
       <div className="flex items-center justify-between gap-3 flex-wrap">
         <div>
           <h3 className="text-sm font-semibold inline-flex items-center gap-2">
@@ -166,7 +166,7 @@ export default function ActorOtxSweep({ actors, limit = 10 }: Props) {
         {running ? (
           <button
             onClick={cancel}
-            className="text-xs px-3 py-1.5 rounded border border-slate-300 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800"
+            className="text-xs px-3 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]"
           >
             cancel
           </button>

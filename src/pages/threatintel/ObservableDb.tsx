@@ -381,7 +381,7 @@ export default function ObservableDb(): JSX.Element {
                   }`}
                 >
                   <div className="flex items-start gap-3">
-                    <span className="shrink-0 w-7 h-5 flex items-center justify-center rounded bg-slate-100 dark:bg-slate-800 text-micro font-mono font-bold text-slate-500">
+                    <span className="shrink-0 w-7 h-5 flex items-center justify-center rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-micro font-mono font-bold text-slate-500">
                       {typeIcon(entry.type)}
                     </span>
                     <div className="flex-1 min-w-0">
@@ -398,7 +398,7 @@ export default function ObservableDb(): JSX.Element {
                         <span>{entry.provider_count} sources</span>
                         <span>Updated {timeAgo(entry.updated_at)} ago</span>
                       </div>
-                      <div className="mt-1.5 w-full h-1.5 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
+                      <div className="mt-1.5 w-full h-1.5 rounded-full bg-slate-100 dark:bg-[rgb(var(--surface-300))] overflow-hidden">
                         <div
                           className={`h-full rounded-full ${scoreBg(entry.composite_score)} transition-all`}
                           style={{ width: `${entry.composite_score}%` }}
@@ -409,7 +409,7 @@ export default function ObservableDb(): JSX.Element {
                           {entry.tags.map((t) => (
                             <span
                               key={t}
-                              className="px-1 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-micro font-mono text-slate-500"
+                              className="px-1 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-micro font-mono text-slate-500"
                             >
                               {t}
                             </span>
@@ -423,7 +423,7 @@ export default function ObservableDb(): JSX.Element {
                         e.stopPropagation();
                         void deleteObservable(entry.id);
                       }}
-                      className="p-1 rounded text-slate-400 hover:text-rose-500 hover:bg-slate-100 dark:hover:bg-slate-800 shrink-0"
+                      className="p-1 rounded text-slate-400 hover:text-rose-500 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] shrink-0"
                     >
                       <Trash2 size={12} />
                     </button>
@@ -511,7 +511,7 @@ export default function ObservableDb(): JSX.Element {
                     {selected.tags.map((t) => (
                       <span
                         key={t}
-                        className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-micro"
+                        className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-micro"
                       >
                         {t}
                         <button
@@ -580,7 +580,10 @@ export default function ObservableDb(): JSX.Element {
                       .slice()
                       .reverse()
                       .map((n) => (
-                        <div key={n.id} className="flex items-start gap-2 bg-slate-50 dark:bg-slate-800/50 rounded p-2">
+                        <div
+                          key={n.id}
+                          className="flex items-start gap-2 bg-slate-50 dark:bg-[rgb(var(--surface-300)/0.5)] rounded p-2"
+                        >
                           <FileText size={10} className="text-slate-400 mt-0.5 shrink-0" />
                           <div className="flex-1 min-w-0">
                             <p className="text-mini">{n.text}</p>

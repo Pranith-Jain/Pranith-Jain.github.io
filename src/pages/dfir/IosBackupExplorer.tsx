@@ -148,7 +148,7 @@ export default function IosBackupExplorer(): JSX.Element {
               </thead>
               <tbody>
                 {shown.map((f, i) => (
-                  <tr key={i} className="even:bg-slate-50/50 dark:even:bg-slate-900/50">
+                  <tr key={i} className="even:bg-slate-50/50 dark:even:bg-[rgb(var(--surface-200)/0.5)]">
                     <td className="px-2 py-1 border-b border-slate-100 dark:border-[rgb(var(--border-400))]">
                       {f.domain}
                     </td>

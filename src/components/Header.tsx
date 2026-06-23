@@ -290,12 +290,12 @@ export const Header = memo(function Header({ isDark, onToggleTheme, navLinks, to
                   });
                   window.dispatchEvent(ev);
                 }}
-                className="hidden md:inline-flex items-center gap-1 text-mini font-mono px-2 py-1 rounded border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-slate-100 hover:border-brand-500/40 hover:bg-slate-50 dark:hover:bg-slate-900"
+                className="hidden md:inline-flex items-center gap-1 text-mini font-mono px-2 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-slate-100 hover:border-brand-500/40 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200))]"
                 aria-label="Search across tools, wiki, actors, CVEs, and Telegram channels"
                 title="Command palette"
               >
                 <Command size={11} />
-                <kbd className="px-1 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-micro font-mono text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
+                <kbd className="px-1 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-micro font-mono text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-[rgb(var(--border-400))]">
                   {isMac ? '⌘' : 'Ctrl'}K
                 </kbd>
               </button>

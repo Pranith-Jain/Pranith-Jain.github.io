@@ -529,7 +529,7 @@ export default function FeedScheduler(): JSX.Element {
                         {job.last_status === 'ok' && <span>{job.last_item_count.toLocaleString()} items</span>}
                         {isDue && job.enabled && <span className="text-amber-500">Due</span>}
                         {job.tags.map((t) => (
-                          <span key={t} className="px-1 py-0.5 rounded bg-slate-100 dark:bg-slate-800">
+                          <span key={t} className="px-1 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))]">
                             {t}
                           </span>
                         ))}
@@ -543,7 +543,7 @@ export default function FeedScheduler(): JSX.Element {
                         type="button"
                         onClick={() => void runJob(job.id)}
                         disabled={isRunning}
-                        className="p-1.5 rounded text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 hover:bg-slate-100 dark:hover:bg-slate-800 disabled:opacity-30"
+                        className="p-1.5 rounded text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] disabled:opacity-30"
                         title="Run now"
                       >
                         <Play size={13} />
@@ -561,7 +561,7 @@ export default function FeedScheduler(): JSX.Element {
                           });
                         }}
                         disabled={isRunning}
-                        className="p-1.5 rounded text-slate-400 hover:text-slate-600 hover:bg-slate-100 dark:hover:bg-slate-800"
+                        className="p-1.5 rounded text-slate-400 hover:text-slate-600 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]"
                         title="Edit"
                       >
                         <Pencil size={13} />
@@ -569,7 +569,7 @@ export default function FeedScheduler(): JSX.Element {
                       <button
                         type="button"
                         onClick={() => void toggleJob(job.id, !job.enabled)}
-                        className="p-1.5 rounded text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
+                        className="p-1.5 rounded text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]"
                         title={job.enabled ? 'Disable' : 'Enable'}
                       >
                         <CheckCircle2 size={13} />
@@ -577,7 +577,7 @@ export default function FeedScheduler(): JSX.Element {
                       <button
                         type="button"
                         onClick={() => void deleteJob(job.id, job.name)}
-                        className="p-1.5 rounded text-slate-400 hover:text-rose-500 hover:bg-slate-100 dark:hover:bg-slate-800"
+                        className="p-1.5 rounded text-slate-400 hover:text-rose-500 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]"
                         title="Delete"
                       >
                         <Trash2 size={13} />

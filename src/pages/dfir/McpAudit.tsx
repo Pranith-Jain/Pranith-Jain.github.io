@@ -133,28 +133,28 @@ export default function McpAudit(): JSX.Element {
           <div className="flex flex-wrap gap-1.5">
             <button
               onClick={() => setInput(SAMPLE_CLEAN)}
-              className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-800 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+              className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-300))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
               title="Sample MCP config — no findings expected"
             >
               MCP · clean
             </button>
             <button
               onClick={() => setInput(SAMPLE_DIRTY)}
-              className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-800 hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
+              className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-300))] hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
               title="Sample MCP config — multiple findings"
             >
               MCP · dirty
             </button>
             <button
               onClick={() => setInput(SAMPLE_CC_CLEAN)}
-              className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-800 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+              className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-300))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
               title="Sample Claude Code settings — no findings expected"
             >
               Claude Code · clean
             </button>
             <button
               onClick={() => setInput(SAMPLE_CC_DIRTY)}
-              className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-800 hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
+              className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-300))] hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
               title="Sample Claude Code settings — multiple findings"
             >
               Claude Code · dirty
@@ -175,7 +175,7 @@ export default function McpAudit(): JSX.Element {
           rows={12}
           spellCheck={false}
           placeholder='{ "mcpServers": { "fetch": { "command": "uvx", "args": ["mcp-server-fetch"] } } }'
-          className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 px-3 py-2 font-mono text-xs text-slate-900 dark:text-slate-100 focus:border-brand-500/60 focus:outline-none"
+          className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-3 py-2 font-mono text-xs text-slate-900 dark:text-slate-100 focus:border-brand-500/60 focus:outline-none"
           aria-label="MCP config JSON"
         />
         {parseError && (
@@ -238,7 +238,7 @@ export default function McpAudit(): JSX.Element {
                 {findings.map((f, i) => (
                   <li
                     key={`${f.id}-${i}`}
-                    className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-3"
+                    className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3"
                   >
                     <div className="flex flex-wrap items-center gap-2 mb-1">
                       <span className="font-display font-semibold text-slate-900 dark:text-slate-100">{f.title}</span>

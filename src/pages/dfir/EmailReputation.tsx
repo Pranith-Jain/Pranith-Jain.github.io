@@ -276,7 +276,7 @@ export default function EmailReputation(): JSX.Element {
                 {result.verdict} · {result.score}/100
               </span>
             </div>
-            <div className="h-2 rounded bg-slate-200 dark:bg-slate-800 overflow-hidden mb-4">
+            <div className="h-2 rounded bg-slate-200 dark:bg-[rgb(var(--surface-300))] overflow-hidden mb-4">
               <div
                 className={`h-full transition-all ${result.verdict === 'safe' ? 'bg-emerald-500' : result.verdict === 'suspicious' ? 'bg-amber-500' : 'bg-rose-500'}`}
                 style={{ width: `${Math.max(2, result.score)}%` }}
@@ -342,7 +342,7 @@ export default function EmailReputation(): JSX.Element {
                       {result.emailRep.tags.map((t) => (
                         <span
                           key={t}
-                          className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 text-slate-700 dark:text-slate-300"
+                          className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] text-slate-700 dark:text-slate-300"
                         >
                           {t}
                         </span>

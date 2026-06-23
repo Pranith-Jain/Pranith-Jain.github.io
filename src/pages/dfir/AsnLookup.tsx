@@ -138,7 +138,7 @@ export default function AsnLookup(): JSX.Element {
                 </span>
               )}
               {result.type && (
-                <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-mono bg-slate-100 dark:bg-slate-800 text-muted border border-slate-300 dark:border-[rgb(var(--border-400))]">
+                <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-mono bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted border border-slate-300 dark:border-[rgb(var(--border-400))]">
                   {result.type}
                 </span>
               )}
@@ -208,7 +208,7 @@ export default function AsnLookup(): JSX.Element {
                     {result.sample_prefixes_v4.map((p) => (
                       <li
                         key={p}
-                        className="font-mono text-sm text-slate-700 dark:text-slate-300 bg-slate-50 dark:bg-slate-800 px-2 py-1 rounded"
+                        className="font-mono text-sm text-slate-700 dark:text-slate-300 bg-slate-50 dark:bg-[rgb(var(--surface-300))] px-2 py-1 rounded"
                       >
                         {p}
                       </li>
@@ -230,7 +230,7 @@ export default function AsnLookup(): JSX.Element {
                     {result.sample_prefixes_v6.map((p) => (
                       <li
                         key={p}
-                        className="font-mono text-sm text-slate-700 dark:text-slate-300 bg-slate-50 dark:bg-slate-800 px-2 py-1 rounded break-all"
+                        className="font-mono text-sm text-slate-700 dark:text-slate-300 bg-slate-50 dark:bg-[rgb(var(--surface-300))] px-2 py-1 rounded break-all"
                       >
                         {p}
                       </li>

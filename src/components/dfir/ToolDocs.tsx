@@ -27,7 +27,7 @@ export function ToolDocs({ path }: { path: string }): JSX.Element | null {
         return (
           <section
             aria-label={`About ${t.label}`}
-            className="mb-6 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-4"
+            className="mb-6 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200)/0.4)] shadow-e1 p-4"
           >
             <div className="grid gap-3 sm:grid-cols-3 text-tool">
               {t.useCase && (

@@ -14,7 +14,10 @@ export interface ClusterTab {
  */
 export function ClusterTabs({ tabs, ariaLabel = 'Section' }: { tabs: ClusterTab[]; ariaLabel?: string }): JSX.Element {
   return (
-    <nav className="-mb-px flex flex-wrap gap-1 border-b border-slate-200 dark:border-slate-800" aria-label={ariaLabel}>
+    <nav
+      className="-mb-px flex flex-wrap gap-1 border-b border-slate-200 dark:border-[rgb(var(--border-400))]"
+      aria-label={ariaLabel}
+    >
       {tabs.map((t) => (
         <NavLink
           key={t.to}

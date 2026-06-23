@@ -210,7 +210,7 @@ export default function Owasp(): JSX.Element {
         </div>
         {/* Coverage bar */}
         {stats.total > 0 && (
-          <div className="mt-3 flex h-2 overflow-hidden rounded-full bg-slate-200 dark:bg-slate-800">
+          <div className="mt-3 flex h-2 overflow-hidden rounded-full bg-slate-200 dark:bg-[rgb(var(--surface-300))]">
             <div className="bg-emerald-500" style={{ width: `${(stats.covered / stats.total) * 100}%` }} />
             <div className="bg-amber-500" style={{ width: `${(stats.partial / stats.total) * 100}%` }} />
             <div className="bg-rose-500" style={{ width: `${(stats.gap / stats.total) * 100}%` }} />
@@ -264,7 +264,7 @@ export default function Owasp(): JSX.Element {
                         <Link
                           key={t}
                           to={`/threatintel/mitre?id=${encodeURIComponent(t)}`}
-                          className="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1"
+                          className="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1"
                         >
                           {t} <ExternalLink size={10} />
                         </Link>

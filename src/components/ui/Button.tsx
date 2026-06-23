@@ -28,7 +28,7 @@ export interface ButtonProps {
 const VARIANT: Record<ButtonVariant, string> = {
   // Default: Geist-style gray-1000 fill (the "one important action" rule).
   primary:
-    'bg-slate-900 text-white hover:bg-slate-800 dark:bg-white dark:text-slate-900 dark:hover:bg-slate-100 disabled:bg-slate-200 disabled:text-slate-500 dark:disabled:bg-slate-800 dark:disabled:text-slate-500 disabled:cursor-not-allowed',
+    'bg-slate-900 text-white hover:bg-slate-800 dark:bg-white dark:text-slate-900 dark:hover:bg-slate-100 disabled:bg-slate-200 disabled:text-slate-500 dark:disabled:bg-[rgb(var(--surface-300))] dark:disabled:text-slate-500 disabled:cursor-not-allowed',
   // Brand variant: only when the action is the literal "primary" of an
   // in-app surface (DFIR tool open, IOC check). Pass via className if
   // the caller wants brand blue; we keep the default neutral so the

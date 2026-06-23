@@ -281,7 +281,7 @@ export default function Phishing(): JSX.Element {
             onChange={(e) => setFpUrl(e.target.value)}
             placeholder="https://phishing-site.example.com/login"
             aria-label="Phishing URL to fingerprint"
-            className="flex-1 px-3 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="flex-1 px-3 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
           />
           <button
             type="button"
@@ -361,7 +361,7 @@ export default function Phishing(): JSX.Element {
             onKeyDown={(e) => e.key === 'Enter' && void runAutoAnalyze()}
             placeholder="https://example.com/login"
             aria-label="URL to auto-analyze"
-            className="flex-1 px-3 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="flex-1 px-3 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
           />
           <button
             type="button"
@@ -462,7 +462,7 @@ export default function Phishing(): JSX.Element {
                 </p>
                 {aaResult.forms.slice(0, 8).map((f, i) => (
                   <div key={i} className="flex gap-2 text-mini font-mono text-muted">
-                    <span className="text-micro px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 uppercase">
+                    <span className="text-micro px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] uppercase">
                       {f.type}
                     </span>
                     <span className="text-brand-600 dark:text-brand-400">{f.name || '—'}</span>

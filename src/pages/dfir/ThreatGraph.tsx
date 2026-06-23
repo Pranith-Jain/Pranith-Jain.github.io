@@ -55,7 +55,7 @@ const TYPE_BADGE: Record<string, string> = {
   actor: 'bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-300',
   malware: 'bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-300',
   campaign: 'bg-pink-100 text-pink-800 dark:bg-pink-900/30 dark:text-pink-300',
-  cve: 'bg-cyan-100 text-cyan-800 dark:bg-cyan-900/30 dark:text-cyan-300',
+  cve: 'bg-sky-100 text-cyan-800 dark:bg-sky-500/10 dark:text-sky-300',
 };
 
 const TABS = ['stats', 'lookup', 'communities'] as const;
@@ -191,7 +191,7 @@ export default function ThreatGraph(): JSX.Element {
               onChange={(e) => setQuery(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && searchNode()}
               placeholder="Enter IP, domain, hash, or URL…"
-              className="flex-1 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg px-4 py-2.5 text-sm font-mono text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="flex-1 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg px-4 py-2.5 text-sm font-mono text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
             />
             <button
               onClick={searchNode}
@@ -276,7 +276,7 @@ export default function ThreatGraph(): JSX.Element {
                     {searchResult.neighbors.slice(0, 10).map((n) => (
                       <div
                         key={n.id}
-                        className="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 px-3 py-2"
+                        className="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-3 py-2"
                       >
                         <span className={`text-micro font-mono px-1.5 py-0.5 rounded ${TYPE_BADGE[n.type] ?? ''}`}>
                           {n.type}
@@ -290,7 +290,7 @@ export default function ThreatGraph(): JSX.Element {
             </div>
           ) : (
             <div className="rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-10 text-center">
-              <Network size={32} className="text-slate-300 dark:text-slate-600 mx-auto mb-3" />
+              <Network size={32} className="text-slate-300 dark:text-slate-400 mx-auto mb-3" />
               <p className="text-sm text-slate-500 dark:text-slate-400">Node not found</p>
             </div>
           )}
@@ -300,7 +300,7 @@ export default function ThreatGraph(): JSX.Element {
         <div className="space-y-4 animate-fade-in-up">
           {communities.length === 0 ? (
             <div className="rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-10 text-center">
-              <Users size={32} className="text-slate-300 dark:text-slate-600 mx-auto mb-3" />
+              <Users size={32} className="text-slate-300 dark:text-slate-400 mx-auto mb-3" />
               <p className="text-sm text-slate-500 dark:text-slate-400">No communities detected</p>
             </div>
           ) : (
@@ -334,7 +334,7 @@ export default function ThreatGraph(): JSX.Element {
                   {c.nodes.slice(0, 6).map((n) => (
                     <div
                       key={n.id}
-                      className="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 px-3 py-2"
+                      className="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-3 py-2"
                     >
                       <span className={`text-micro font-mono px-1.5 py-0.5 rounded ${TYPE_BADGE[n.type] ?? ''}`}>
                         {n.type}

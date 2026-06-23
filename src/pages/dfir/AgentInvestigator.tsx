@@ -263,7 +263,7 @@ export default function AgentInvestigator(): JSX.Element {
                 if (e.key === 'Enter' && !e.shiftKey) startInvestigation();
               }}
               placeholder="Investigate: IP, domain, hash, CVE, threat actor, ransomware group..."
-              className="w-full pl-9 pr-4 py-3 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="w-full pl-9 pr-4 py-3 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
               aria-label="Investigation query"
               disabled={agentState?.status === 'running'}
             />
@@ -521,7 +521,7 @@ export default function AgentInvestigator(): JSX.Element {
                       })
                       .catch(() => {});
                   }}
-                  className="flex-1 text-left px-3 py-2 rounded hover:bg-slate-50 dark:hover:bg-slate-950/40 flex items-center gap-3"
+                  className="flex-1 text-left px-3 py-2 rounded hover:bg-slate-50 dark:hover:bg-[rgb(var(--input-200)/0.4)] flex items-center gap-3"
                 >
                   <span
                     className={`shrink-0 w-2 h-2 rounded-full ${s.status === 'done' ? 'bg-emerald-500' : s.status === 'error' ? 'bg-rose-500' : 'bg-amber-500 animate-pulse'}`}
@@ -567,7 +567,7 @@ function StepCard({ step }: { step: AgentStep }): JSX.Element {
       <button
         type="button"
         onClick={() => setExpanded(!expanded)}
-        className="w-full px-4 py-3 flex items-center gap-3 hover:bg-slate-50/60 dark:hover:bg-slate-950/40 text-left"
+        className="w-full px-4 py-3 flex items-center gap-3 hover:bg-slate-50/60 dark:hover:bg-[rgb(var(--input-200)/0.4)] text-left"
       >
         <span
           className={`shrink-0 inline-flex items-center justify-center w-7 h-7 rounded border text-xs font-mono font-bold ${
@@ -605,7 +605,7 @@ function StepCard({ step }: { step: AgentStep }): JSX.Element {
       </button>
 
       {expanded && (
-        <div className="px-4 pb-4 border-t border-slate-200 dark:border-[rgb(var(--border-400))] space-y-3 bg-slate-50/40 dark:bg-slate-950/40">
+        <div className="px-4 pb-4 border-t border-slate-200 dark:border-[rgb(var(--border-400))] space-y-3 bg-slate-50/40 dark:bg-[rgb(var(--input-200)/0.4)]">
           <div className="mt-3">
             <div className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-1">Plan</div>
             <p className="text-xs font-mono text-slate-700 dark:text-slate-300">{step.plan}</p>

@@ -577,7 +577,7 @@ export default function ZeroTrustAiAgents(): JSX.Element {
                       className={`border-b border-slate-200 dark:border-[rgb(var(--border-400))] last:border-b-0 ${
                         i % 2 === 0
                           ? 'bg-white dark:bg-[rgb(var(--surface-200))]'
-                          : 'bg-slate-50/60 dark:bg-slate-800/30'
+                          : 'bg-slate-50/60 dark:bg-[rgb(var(--surface-300)/0.3)]'
                       }`}
                     >
                       <div
@@ -630,7 +630,7 @@ export default function ZeroTrustAiAgents(): JSX.Element {
                       {isExpanded && (
                         <div
                           id={`matrix-detail-${i}`}
-                          className="grid grid-cols-1 lg:grid-cols-2 gap-3 px-3 py-3 bg-slate-50/70 dark:bg-slate-800/40 border-t border-slate-200 dark:border-[rgb(var(--border-400))]"
+                          className="grid grid-cols-1 lg:grid-cols-2 gap-3 px-3 py-3 bg-slate-50/70 dark:bg-[rgb(var(--surface-300)/0.4)] border-t border-slate-200 dark:border-[rgb(var(--border-400))]"
                         >
                           <div className="rounded-md bg-white dark:bg-[rgb(var(--surface-200))] ring-1 ring-slate-200 dark:ring-slate-800 p-2.5">
                             <div className="flex items-center gap-1.5 text-eyebrow font-mono uppercase tracking-[0.18em] text-brand-700 dark:text-brand-300 mb-1">
@@ -732,7 +732,7 @@ export default function ZeroTrustAiAgents(): JSX.Element {
                         <span
                           className={[
                             'mt-1.5 inline-block text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded ring-1',
-                            'bg-slate-100 text-slate-600 ring-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:ring-slate-700',
+                            'bg-slate-100 text-slate-600 ring-slate-200 dark:bg-[rgb(var(--surface-300))] dark:text-slate-300 dark:ring-slate-700',
                           ].join(' ')}
                         >
                           {CATEGORY_LABEL[t.category]}
@@ -799,7 +799,7 @@ export default function ZeroTrustAiAgents(): JSX.Element {
                     'relative text-left rounded-md p-2.5 border-t-2 border-brand-500 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40',
                     isSelected
                       ? 'bg-brand-50 dark:bg-brand-500/10 ring-1 ring-brand-500/50'
-                      : 'bg-white dark:bg-[rgb(var(--surface-200))] ring-1 ring-slate-200 dark:ring-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/60',
+                      : 'bg-white dark:bg-[rgb(var(--surface-200))] ring-1 ring-slate-200 dark:ring-slate-800 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.6)]',
                   ].join(' ')}
                 >
                   <div className="flex items-baseline gap-1.5">
@@ -911,7 +911,7 @@ function SectionHeader({ label, tone }: { label: string; tone: 'brand' | 'rose' 
       <span className={`font-display font-bold text-eyebrow tracking-[0.18em] uppercase ${colorMap[tone]}`}>
         {label}
       </span>
-      <span className="flex-1 h-px bg-slate-200 dark:bg-slate-800" />
+      <span className="flex-1 h-px bg-slate-200 dark:bg-[rgb(var(--surface-300))]" />
     </div>
   );
 }

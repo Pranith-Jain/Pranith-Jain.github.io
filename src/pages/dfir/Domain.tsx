@@ -242,7 +242,7 @@ export default function Domain(): JSX.Element {
                               <a
                                 key={key}
                                 href={`/threatintel/webamon?q=${encodeURIComponent(`fingerprint.${key}:${val}`)}`}
-                                className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-mini font-mono bg-slate-100 dark:bg-slate-800 text-muted hover:bg-brand-100 dark:hover:bg-brand-900/30 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+                                className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-mini font-mono bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted hover:bg-brand-100 dark:hover:bg-brand-900/30 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
                                 title={`Search by ${key} fingerprint`}
                               >
                                 <Fingerprint size={10} />

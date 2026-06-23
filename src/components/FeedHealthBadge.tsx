@@ -19,7 +19,7 @@ const OVERALL_META: Record<string, { label: string; dot: string; bg: string }> =
   cold: {
     label: 'Feeds warming up',
     dot: 'bg-slate-400',
-    bg: 'bg-slate-100 dark:bg-slate-800 border-slate-200 dark:border-slate-700',
+    bg: 'bg-slate-100 dark:bg-[rgb(var(--surface-300))] border-slate-200 dark:border-[rgb(var(--border-400))]',
   },
 };
 

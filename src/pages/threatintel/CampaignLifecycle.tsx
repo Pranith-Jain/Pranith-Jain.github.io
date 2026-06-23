@@ -23,7 +23,7 @@ interface CampaignLifecycle {
 const PHASE_STATUS: Record<string, string> = {
   completed: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300',
   active: 'bg-brand-100 text-brand-800 dark:bg-brand-900/30 dark:text-brand-300',
-  upcoming: 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400',
+  upcoming: 'bg-slate-100 text-slate-600 dark:bg-[rgb(var(--surface-300))] dark:text-slate-400',
 };
 
 export default function CampaignLifecycle(): JSX.Element {
@@ -62,13 +62,13 @@ export default function CampaignLifecycle(): JSX.Element {
         value={campaignName}
         onChange={(e) => setCampaignName(e.target.value)}
         placeholder="Campaign name…"
-        className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg px-4 py-2.5 text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 mb-3"
+        className="w-full bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg px-4 py-2.5 text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 mb-3"
       />
       <textarea
         value={indicators}
         onChange={(e) => setIndicators(e.target.value)}
         placeholder="Related IOCs (optional, one per line)…"
-        className="w-full h-20 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg p-3 text-sm font-mono text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 resize-y"
+        className="w-full h-20 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg p-3 text-sm font-mono text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 resize-y"
       />
       <button
         onClick={handleAnalyze}
@@ -116,7 +116,7 @@ export default function CampaignLifecycle(): JSX.Element {
                 >
                   <button
                     onClick={() => setExpandedPhase(isOpen ? null : phase.name)}
-                    className="w-full flex items-center gap-3 p-4 text-left hover:bg-slate-50 dark:hover:bg-slate-900/20 transition-colors"
+                    className="w-full flex items-center gap-3 p-4 text-left hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200)/0.2)] transition-colors"
                   >
                     <div
                       className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold text-white ${phase.status === 'completed' ? 'bg-emerald-500' : phase.status === 'active' ? 'bg-brand-600' : 'bg-slate-300 dark:bg-slate-700'}`}

@@ -89,7 +89,7 @@ const ENTITY_COLORS: Record<string, string> = {
   malware:
     'bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300 border-purple-200 dark:border-purple-800',
   ip: 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300 border-blue-200 dark:border-blue-800',
-  domain: 'bg-cyan-100 text-cyan-700 dark:bg-cyan-900/30 dark:text-cyan-300 border-cyan-200 dark:border-cyan-800',
+  domain: 'bg-sky-100 text-sky-700 dark:bg-sky-500/10 dark:text-sky-300 border-cyan-200 dark:border-cyan-800',
   hash: 'bg-violet-100 text-violet-700 dark:bg-violet-900/30 dark:text-violet-300 border-violet-200 dark:border-violet-800',
 };
 
@@ -187,7 +187,7 @@ export default function Observe(): JSX.Element {
   const EntityIcon = ENTITY_ICONS[entityType] ?? Search;
   const entityColor =
     ENTITY_COLORS[entityType] ??
-    'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300 border-slate-200 dark:border-[rgb(var(--border-400))]';
+    'bg-slate-100 text-slate-700 dark:bg-[rgb(var(--surface-300))] dark:text-slate-300 border-slate-200 dark:border-[rgb(var(--border-400))]';
 
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
@@ -219,7 +219,7 @@ export default function Observe(): JSX.Element {
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && fetchObserve(query)}
             placeholder="IP, domain, hash, CVE, URL, email, or threat actor name..."
-            className="w-full pl-9 pr-14 py-2.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="w-full pl-9 pr-14 py-2.5 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
             disabled={loading}
           />
           <button
@@ -272,17 +272,17 @@ export default function Observe(): JSX.Element {
                 )}
                 {data.cached_indicators && (
                   <div className="flex flex-wrap gap-3 mt-3">
-                    <span className="text-xs font-mono text-slate-500 bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded">
+                    <span className="text-xs font-mono text-slate-500 bg-slate-100 dark:bg-[rgb(var(--surface-300))] px-2 py-1 rounded">
                       {data.cached_indicators.live_ioc_count} IOC sightings
                     </span>
-                    <span className="text-xs font-mono text-slate-500 bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded">
+                    <span className="text-xs font-mono text-slate-500 bg-slate-100 dark:bg-[rgb(var(--surface-300))] px-2 py-1 rounded">
                       {data.cached_indicators.c2_count} C2 hits
                     </span>
-                    <span className="text-xs font-mono text-slate-500 bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded">
+                    <span className="text-xs font-mono text-slate-500 bg-slate-100 dark:bg-[rgb(var(--surface-300))] px-2 py-1 rounded">
                       {data.cached_indicators.breach_hits} breach hits
                     </span>
                     {data.cached_indicators.malware_sample_count > 0 && (
-                      <span className="text-xs font-mono text-slate-500 bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded">
+                      <span className="text-xs font-mono text-slate-500 bg-slate-100 dark:bg-[rgb(var(--surface-300))] px-2 py-1 rounded">
                         {data.cached_indicators.malware_sample_count} malware samples
                       </span>
                     )}
@@ -300,7 +300,7 @@ export default function Observe(): JSX.Element {
                   setShowIocDetail(!showIocDetail);
                   if (!showIocDetail && !iocVerdicts) loadIocDetail();
                 }}
-                className="w-full flex items-center justify-between p-4 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors"
+                className="w-full flex items-center justify-between p-4 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.5)] transition-colors"
               >
                 <div className="flex items-center gap-2">
                   <Shield size={16} className="text-brand-600 dark:text-brand-400" />
@@ -388,7 +388,7 @@ export default function Observe(): JSX.Element {
                         {data.profile.techniques.slice(0, 6).map((t, i) => (
                           <span
                             key={i}
-                            className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-muted"
+                            className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted"
                           >
                             {t.id}
                           </span>
@@ -434,7 +434,7 @@ export default function Observe(): JSX.Element {
                     <Link
                       key={a.slug}
                       to={`/threatintel/wiki/${a.slug}`}
-                      className="block p-2 rounded hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors"
+                      className="block p-2 rounded hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.5)] transition-colors"
                     >
                       <p className="text-sm font-medium">{a.title}</p>
                       <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5 line-clamp-1">{a.description}</p>
@@ -454,21 +454,21 @@ export default function Observe(): JSX.Element {
               <div className="p-4 space-y-2">
                 <Link
                   to={`/dfir/export-hub?q=${encodeURIComponent(submittedQuery)}`}
-                  className="flex items-center gap-2 text-xs font-mono text-muted hover:text-brand-600 dark:hover:text-brand-400 p-2 rounded hover:bg-slate-50 dark:hover:bg-slate-800/50"
+                  className="flex items-center gap-2 text-xs font-mono text-muted hover:text-brand-600 dark:hover:text-brand-400 p-2 rounded hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.5)]"
                 >
                   <Download size={12} />
                   Export as STIX / CSV / YARA / Sigma / Blocklist
                 </Link>
                 <Link
                   to={`/threatintel/search?q=${encodeURIComponent(submittedQuery)}`}
-                  className="flex items-center gap-2 text-xs font-mono text-muted hover:text-brand-600 dark:hover:text-brand-400 p-2 rounded hover:bg-slate-50 dark:hover:bg-slate-800/50"
+                  className="flex items-center gap-2 text-xs font-mono text-muted hover:text-brand-600 dark:hover:text-brand-400 p-2 rounded hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.5)]"
                 >
                   <Search size={12} />
                   Cross-source search
                 </Link>
                 <Link
                   to={`/threatintel/tools/copilot?q=${encodeURIComponent(submittedQuery)}`}
-                  className="flex items-center gap-2 text-xs font-mono text-muted hover:text-brand-600 dark:hover:text-brand-400 p-2 rounded hover:bg-slate-50 dark:hover:bg-slate-800/50"
+                  className="flex items-center gap-2 text-xs font-mono text-muted hover:text-brand-600 dark:hover:text-brand-400 p-2 rounded hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.5)]"
                 >
                   <Users size={12} />
                   Ask the CTI Copilot
@@ -476,7 +476,7 @@ export default function Observe(): JSX.Element {
                 {entityType === 'domain' && (
                   <Link
                     to={`/dfir/domain?q=${encodeURIComponent(submittedQuery)}`}
-                    className="flex items-center gap-2 text-xs font-mono text-muted hover:text-brand-600 dark:hover:text-brand-400 p-2 rounded hover:bg-slate-50 dark:hover:bg-slate-800/50"
+                    className="flex items-center gap-2 text-xs font-mono text-muted hover:text-brand-600 dark:hover:text-brand-400 p-2 rounded hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.5)]"
                   >
                     <Globe size={12} />
                     Full domain analysis (WHOIS / DNS / email-auth)
@@ -485,7 +485,7 @@ export default function Observe(): JSX.Element {
                 {entityType === 'ip' && (
                   <Link
                     to={`/dfir/ip-geo?q=${encodeURIComponent(submittedQuery)}`}
-                    className="flex items-center gap-2 text-xs font-mono text-muted hover:text-brand-600 dark:hover:text-brand-400 p-2 rounded hover:bg-slate-50 dark:hover:bg-slate-800/50"
+                    className="flex items-center gap-2 text-xs font-mono text-muted hover:text-brand-600 dark:hover:text-brand-400 p-2 rounded hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.5)]"
                   >
                     <Monitor size={12} />
                     IP geolocation + reputation
@@ -494,7 +494,7 @@ export default function Observe(): JSX.Element {
                 {entityType === 'cve' && (
                   <Link
                     to={`/dfir/cve?q=${encodeURIComponent(submittedQuery)}`}
-                    className="flex items-center gap-2 text-xs font-mono text-muted hover:text-brand-600 dark:hover:text-brand-400 p-2 rounded hover:bg-slate-50 dark:hover:bg-slate-800/50"
+                    className="flex items-center gap-2 text-xs font-mono text-muted hover:text-brand-600 dark:hover:text-brand-400 p-2 rounded hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.5)]"
                   >
                     <Shield size={12} />
                     CVE details (EPSS, KEV, PoC)

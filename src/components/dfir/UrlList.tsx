@@ -21,7 +21,7 @@ function hostOf(url: string): string | null {
 export function UrlList({ urls }: UrlListProps): JSX.Element | null {
   if (urls.length === 0) {
     return (
-      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
         <h2 className="font-display font-bold text-xl mb-2">URLs Extracted</h2>
         <p className="text-sm font-mono text-slate-500">No URLs found in email body.</p>
       </section>
@@ -29,7 +29,7 @@ export function UrlList({ urls }: UrlListProps): JSX.Element | null {
   }
 
   return (
-    <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+    <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
       <h2 className="font-display font-bold text-xl mb-4">
         URLs Extracted <span className="text-sm font-mono text-muted font-normal">({urls.length})</span>
       </h2>
@@ -40,7 +40,10 @@ export function UrlList({ urls }: UrlListProps): JSX.Element | null {
         {urls.map((url) => {
           const host = hostOf(url);
           return (
-            <li key={url} className="border-b border-slate-200 dark:border-slate-800 pb-2 last:border-0 last:pb-0">
+            <li
+              key={url}
+              className="border-b border-slate-200 dark:border-[rgb(var(--border-400))] pb-2 last:border-0 last:pb-0"
+            >
               <div className="flex items-baseline gap-2 mb-1">
                 <ExternalLink size={12} className="text-muted flex-shrink-0" />
                 <span className="font-mono text-xs text-slate-700 dark:text-slate-300 break-all flex-1">{url}</span>
@@ -64,7 +67,7 @@ export function UrlList({ urls }: UrlListProps): JSX.Element | null {
                   <>
                     <Link
                       to={`/dfir/domain?d=${encodeURIComponent(host)}`}
-                      className="text-micro font-mono inline-flex items-center gap-1 px-1.5 py-0.5 rounded border border-cyan-500/30 bg-cyan-500/5 text-cyan-700 dark:text-cyan-300 hover:bg-cyan-500/10"
+                      className="text-micro font-mono inline-flex items-center gap-1 px-1.5 py-0.5 rounded border border-cyan-500/30 bg-cyan-500/5 text-sky-700 dark:text-sky-300 hover:bg-cyan-500/10"
                       title="WHOIS, DNS, email-auth records for the host"
                     >
                       <Globe size={9} /> {host}

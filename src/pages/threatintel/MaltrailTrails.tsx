@@ -115,7 +115,7 @@ export default function MaltrailTrails(): JSX.Element {
                     className={`w-full text-left px-2.5 py-2 rounded text-xs font-mono transition-colors truncate ${
                       selected === f.name
                         ? 'bg-brand-500/10 border border-brand-500/30 text-brand-700 dark:text-brand-300'
-                        : 'hover:bg-slate-100 dark:hover:bg-slate-950 border border-transparent text-muted'
+                        : 'hover:bg-slate-100 dark:hover:bg-[rgb(var(--input-200))] border border-transparent text-muted'
                     }`}
                   >
                     <div className="font-semibold truncate">{f.name.replace(/\.txt$/i, '')}</div>
@@ -173,7 +173,7 @@ export default function MaltrailTrails(): JSX.Element {
               </div>
               <div className="max-h-[65vh] overflow-auto">
                 <table className="w-full text-sm">
-                  <thead className="bg-slate-50 dark:bg-slate-950 sticky top-0">
+                  <thead className="bg-slate-50 dark:bg-[rgb(var(--input-200))] sticky top-0">
                     <tr className="text-left text-micro font-mono uppercase tracking-wider text-slate-500">
                       <th scope="col" className="px-4 py-2">
                         Value
@@ -187,13 +187,13 @@ export default function MaltrailTrails(): JSX.Element {
                     {content.iocs.map((ioc, i) => (
                       <tr
                         key={i}
-                        className="border-t border-slate-100 dark:border-[rgb(var(--border-400))] font-mono text-meta hover:bg-slate-50 dark:hover:bg-slate-950"
+                        className="border-t border-slate-100 dark:border-[rgb(var(--border-400))] font-mono text-meta hover:bg-slate-50 dark:hover:bg-[rgb(var(--input-200))]"
                       >
                         <td className="px-4 py-1.5">
                           <IocChip value={ioc.value} bare size="sm" pivots={false} className="min-w-0" />
                         </td>
                         <td className="px-4 py-1.5">
-                          <span className="text-micro uppercase bg-slate-100 dark:bg-slate-800 text-muted rounded px-1 py-0.5">
+                          <span className="text-micro uppercase bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted rounded px-1 py-0.5">
                             {ioc.type}
                           </span>
                         </td>

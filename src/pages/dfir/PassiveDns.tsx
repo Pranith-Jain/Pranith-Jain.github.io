@@ -209,7 +209,7 @@ export default function PassiveDns(): JSX.Element {
               <div className="overflow-x-auto">
                 <table className="w-full text-sm font-mono">
                   <thead>
-                    <tr className="border-b border-slate-200 dark:border-slate-700">
+                    <tr className="border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
                       <th className="text-left py-2 px-3 text-muted">Source</th>
                       <th className="text-left py-2 px-3 text-muted">Resolved</th>
                       <th className="text-left py-2 px-3 text-muted">Type</th>
@@ -218,7 +218,7 @@ export default function PassiveDns(): JSX.Element {
                   </thead>
                   <tbody>
                     {result.records.slice(0, 20).map((r, i) => (
-                      <tr key={i} className="border-b border-slate-100 dark:border-slate-800">
+                      <tr key={i} className="border-b border-slate-100 dark:border-[rgb(var(--border-400))]">
                         <td className="py-2 px-3">{r.source}</td>
                         <td className="py-2 px-3">{r.resolved}</td>
                         <td className="py-2 px-3">{r.rrtype}</td>

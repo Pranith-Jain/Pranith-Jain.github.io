@@ -318,7 +318,7 @@ export function SectionErrorBoundary({ sectionName, children }: { sectionName: s
     <ErrorBoundary
       onError={handleError}
       fallback={
-        <div className="w-full p-8 rounded-2xl bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-white/10 text-center">
+        <div className="w-full p-8 rounded-2xl bg-slate-50 dark:bg-[rgb(var(--surface-200)/0.5)] border border-slate-200 dark:border-white/10 text-center">
           <AlertTriangle className="w-10 h-10 text-amber-500 mx-auto mb-3" />
           <h3 className="text-lg font-bold text-slate-800 dark:text-slate-200 mb-2">{sectionName} Section</h3>
           <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">

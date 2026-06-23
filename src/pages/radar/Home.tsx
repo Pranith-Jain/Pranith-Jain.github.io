@@ -52,10 +52,10 @@ export default function RadarHome() {
             <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-brand-600/10">
               <Radar className="h-8 w-8 text-brand-600" />
             </div>
-            <h1 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl">
+            <h1 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-4xl">
               Domain Recon Scanner
             </h1>
-            <p className="max-w-xl text-base text-gray-500 dark:text-gray-400">
+            <p className="max-w-xl text-base text-slate-500 dark:text-slate-400">
               Enter any domain or URL to instantly analyze HTTP headers, technologies, JavaScript files, endpoints,
               security headers, and more.
             </p>
@@ -63,14 +63,14 @@ export default function RadarHome() {
 
           <div className="flex w-full flex-col gap-3">
             <div className="relative">
-              <Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400" />
+              <Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400" />
               <input
                 type="text"
                 value={url}
                 onChange={(e) => setUrl(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && handleScan()}
                 placeholder="Enter domain or URL (e.g., example.com)"
-                className="h-14 w-full rounded-xl border border-gray-200 bg-white pl-12 pr-4 text-base text-gray-900 shadow-sm transition-colors placeholder:text-gray-400 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20 dark:border-gray-700 dark:bg-gray-800 dark:text-white dark:placeholder:text-gray-500 dark:focus:border-brand-400"
+                className="h-14 w-full rounded-xl border border-slate-200 bg-white pl-12 pr-4 text-base text-slate-900 shadow-sm transition-colors placeholder:text-slate-400 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-white dark:placeholder:text-slate-500 dark:focus:border-brand-400"
                 disabled={scanning}
               />
             </div>
@@ -107,11 +107,11 @@ export default function RadarHome() {
             ].map(({ Icon, label, desc }) => (
               <div
                 key={label}
-                className="flex items-start gap-3 rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800"
+                className="flex items-start gap-3 rounded-lg border border-slate-200 bg-white p-4 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]"
               >
                 <Icon className="h-5 w-5 text-brand-500" />
-                <span className="text-sm font-medium text-gray-900 dark:text-white">{label}</span>
-                <span className="text-xs text-gray-500 dark:text-gray-400">{desc}</span>
+                <span className="text-sm font-medium text-slate-900 dark:text-white">{label}</span>
+                <span className="text-xs text-slate-500 dark:text-slate-400">{desc}</span>
               </div>
             ))}
           </div>

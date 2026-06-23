@@ -126,7 +126,7 @@ export default function SqliteExplorer(): JSX.Element {
                   <button
                     type="button"
                     onClick={() => showTable(t.name)}
-                    className={`w-full text-left font-mono text-meta px-1.5 py-1 rounded ${active === t.name ? 'bg-brand-500/10 text-brand-700 dark:text-brand-300' : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'}`}
+                    className={`w-full text-left font-mono text-meta px-1.5 py-1 rounded ${active === t.name ? 'bg-brand-500/10 text-brand-700 dark:text-brand-300' : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]'}`}
                   >
                     {t.name} <span className="text-slate-500">· {t.count}</span>
                   </button>
@@ -168,7 +168,7 @@ export default function SqliteExplorer(): JSX.Element {
                   </thead>
                   <tbody>
                     {result.rows.map((r, i) => (
-                      <tr key={i} className="even:bg-slate-50/50 dark:even:bg-slate-900/50">
+                      <tr key={i} className="even:bg-slate-50/50 dark:even:bg-[rgb(var(--surface-200)/0.5)]">
                         {r.map((cell, j) => (
                           <td
                             key={j}

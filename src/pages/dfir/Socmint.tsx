@@ -42,7 +42,7 @@ const CATEGORY_META: Record<PivotCategory, { label: string; blurb: string; icon:
     label: 'Social media',
     blurb: 'LinkedIn, X, Reddit, Instagram, Facebook, TikTok, Mastodon, Bluesky, Telegram, WhatsMyName',
     icon: Users,
-    pillCls: 'border-cyan-500/40 bg-cyan-500/10 text-cyan-700 dark:text-cyan-300',
+    pillCls: 'border-cyan-500/40 bg-cyan-500/10 text-sky-700 dark:text-sky-300',
   },
   dev: {
     label: 'Code / dev platforms',
@@ -208,7 +208,7 @@ export default function Socmint(): JSX.Element {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="email / domain / @handle / username / name"
-              className="w-full pl-9 pr-4 py-2.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="w-full pl-9 pr-4 py-2.5 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
               autoComplete="off"
               spellCheck={false}
             />
@@ -318,7 +318,7 @@ export default function Socmint(): JSX.Element {
                       {internal ? (
                         <Link
                           to={url}
-                          className="block rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 px-3 py-2 hover:border-brand-500/40"
+                          className="block rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-3 py-2 hover:border-brand-500/40"
                         >
                           <PivotInner pivot={p} url={url} internal />
                         </Link>
@@ -327,7 +327,7 @@ export default function Socmint(): JSX.Element {
                           href={url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="block rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 px-3 py-2 hover:border-brand-500/40"
+                          className="block rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-3 py-2 hover:border-brand-500/40"
                         >
                           <PivotInner pivot={p} url={url} internal={false} />
                         </a>
@@ -372,7 +372,7 @@ function PivotInner({ pivot, url, internal }: { pivot: PivotLink; url: string; i
         </span>
       </div>
       <span className="block text-mini font-mono text-slate-400 dark:text-slate-400">{pivot.blurb}</span>
-      <span className="block text-micro font-mono text-slate-400 dark:text-slate-600 truncate mt-1">{url}</span>
+      <span className="block text-micro font-mono text-slate-400 dark:text-slate-400 truncate mt-1">{url}</span>
     </>
   );
 }

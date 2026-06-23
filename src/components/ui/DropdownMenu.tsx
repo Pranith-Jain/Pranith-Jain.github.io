@@ -62,7 +62,7 @@ export function DropdownMenu({
         aria-haspopup="true"
         aria-controls={menuId}
         aria-label={label}
-        className="inline-flex items-center gap-2 rounded-md border border-slate-200 bg-white px-3 py-2 text-sm font-mono text-slate-700 transition-colors hover:border-brand-500/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300"
+        className="inline-flex items-center gap-2 rounded-md border border-slate-200 bg-white px-3 py-2 text-sm font-mono text-slate-700 transition-colors hover:border-brand-500/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-300"
       >
         {trigger}
         <ChevronDown
@@ -77,7 +77,7 @@ export function DropdownMenu({
           // claim role="menu"/"menuitem" — that contract requires arrow-key
           // roving focus + Home/End + focus-return, which isn't implemented;
           // an empty menu role is worse than none (SR says "menu", arrows do nothing).
-          className={`absolute top-full z-50 mt-1 min-w-[180px] overflow-hidden rounded-xl border border-slate-200 bg-white py-1 shadow-lg dark:border-slate-700 dark:bg-slate-900 ${
+          className={`absolute top-full z-50 mt-1 min-w-[180px] overflow-hidden rounded-xl border border-slate-200 bg-white py-1 shadow-lg dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] ${
             align === 'right' ? 'right-0' : 'left-0'
           } ${menuClassName}`}
         >
@@ -93,7 +93,7 @@ export function DropdownMenu({
               className={`flex w-full items-center gap-2 px-3 py-2 text-left text-sm font-mono transition-colors disabled:cursor-not-allowed disabled:opacity-40 ${
                 value === item.value
                   ? 'bg-brand-500/10 text-brand-700 dark:text-brand-300'
-                  : 'text-slate-700 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800'
+                  : 'text-slate-700 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-[rgb(var(--surface-300))]'
               }`}
             >
               {item.icon && <span aria-hidden="true">{item.icon}</span>}

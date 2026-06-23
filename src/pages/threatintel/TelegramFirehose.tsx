@@ -303,10 +303,14 @@ export default function TelegramFirehose(): JSX.Element {
             </h2>
             <p className="text-xs font-mono text-slate-500 dark:text-slate-400 mt-1.5 max-w-2xl leading-relaxed">
               Unified cross-source stream merging{' '}
-              <code className="text-[11px] bg-slate-100 dark:bg-slate-800 px-1 py-0.5 rounded">t.me/s</code> firehose
-              (curated public channels, 30d window), leak-monitor entries (critical/high credentials + domains) and
-              live-IOCs with{' '}
-              <code className="text-[11px] bg-slate-100 dark:bg-slate-800 px-1 py-0.5 rounded">telegram-leak</code>{' '}
+              <code className="text-[11px] bg-slate-100 dark:bg-[rgb(var(--surface-300))] px-1 py-0.5 rounded">
+                t.me/s
+              </code>{' '}
+              firehose (curated public channels, 30d window), leak-monitor entries (critical/high credentials + domains)
+              and live-IOCs with{' '}
+              <code className="text-[11px] bg-slate-100 dark:bg-[rgb(var(--surface-300))] px-1 py-0.5 rounded">
+                telegram-leak
+              </code>{' '}
               source. Newest first.
             </p>
           </div>
@@ -387,7 +391,7 @@ export default function TelegramFirehose(): JSX.Element {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="filter by keyword, handle, or IOC value…"
-              className="w-full pl-7 pr-3 py-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-slate-900/40 text-sm font-mono focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40"
+              className="w-full pl-7 pr-3 py-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200)/0.4)] text-sm font-mono focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40"
               aria-label="Filter firehose"
             />
           </div>

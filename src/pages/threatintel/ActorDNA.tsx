@@ -151,7 +151,7 @@ export default function ActorDNA(): JSX.Element {
           className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
             !matchMode
               ? 'bg-brand-600 text-white'
-              : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'
+              : 'bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'
           }`}
         >
           <Users className="w-4 h-4 inline mr-2" />
@@ -162,7 +162,7 @@ export default function ActorDNA(): JSX.Element {
           className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
             matchMode
               ? 'bg-brand-600 text-white'
-              : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'
+              : 'bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'
           }`}
         >
           <Dna className="w-4 h-4 inline mr-2" />
@@ -196,7 +196,7 @@ export default function ActorDNA(): JSX.Element {
             <div className="mt-4 space-y-3">
               <h3 className="text-sm font-medium text-slate-400">Matches ({matches.length})</h3>
               {matches.map((match) => (
-                <div key={match.actor_id} className="bg-slate-50 dark:bg-slate-950 rounded-lg p-4">
+                <div key={match.actor_id} className="bg-slate-50 dark:bg-[rgb(var(--input-200))] rounded-lg p-4">
                   <div className="flex items-center justify-between mb-2">
                     <span className="font-medium">{match.actor_name}</span>
                     <span className="text-sm px-2 py-0.5 bg-brand-500/20 text-brand-600 dark:text-brand-400 rounded">
@@ -230,7 +230,7 @@ export default function ActorDNA(): JSX.Element {
                 className={`w-full text-left p-3 rounded-lg transition-colors ${
                   selectedActor?.actor_id === actor.actor_id
                     ? 'bg-brand-500/10 border border-brand-500/40'
-                    : 'bg-slate-50 dark:bg-slate-950 hover:bg-slate-100 dark:hover:bg-slate-800 border border-transparent'
+                    : 'bg-slate-50 dark:bg-[rgb(var(--input-200))] hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] border border-transparent'
                 }`}
               >
                 <div className="font-medium text-sm">{actor.actor_name}</div>
@@ -467,7 +467,7 @@ function DNACard({ title, items, color }: { title: string; items: string[]; colo
         {items.map((item) => (
           <span
             key={item}
-            className="text-xs px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 rounded"
+            className="text-xs px-2 py-0.5 bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-700 dark:text-slate-200 rounded"
           >
             {item.replace(/_/g, ' ')}
           </span>

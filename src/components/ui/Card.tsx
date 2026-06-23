@@ -102,7 +102,7 @@ export function CardBody({ children, className = '' }: { children: ReactNode; cl
 // Footer divider uses the same --border-400 token as the card border
 // (light: white-alpha 8, dark: white-alpha 8) so the divider sits in the
 // same hairline family as the surrounding surfaces. The previous
-// `border-slate-200 dark:border-slate-800` was the full-opacity, sharp
+// `border-slate-200 dark:border-[rgb(var(--border-400))]` was the full-opacity, sharp
 // hairline that read as too loud against the new token-driven borders.
 export function CardFooter({ children, className = '' }: { children: ReactNode; className?: string }) {
   return (

@@ -126,7 +126,7 @@ export default function CrossCorrelate(): JSX.Element {
                         {insight.entities.map((e, j) => (
                           <span
                             key={j}
-                            className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-muted"
+                            className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted"
                           >
                             {e}
                           </span>

@@ -465,7 +465,7 @@ export default function PhishBook(): JSX.Element {
                 className={`flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-mono font-semibold whitespace-nowrap transition-colors ${
                   isExpanded
                     ? 'bg-brand-100 dark:bg-brand-900/30 text-brand-700 dark:text-brand-300 border border-brand-300/50 dark:border-brand-700/50'
-                    : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/50'
+                    : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300)/0.5)]'
                 }`}
               >
                 <Icon size={14} />
@@ -489,7 +489,7 @@ export default function PhishBook(): JSX.Element {
               <button
                 type="button"
                 onClick={() => toggle(phase.id)}
-                className="w-full flex items-center justify-between p-5 text-left hover:bg-slate-50 dark:hover:bg-slate-900/30 transition-colors cursor-pointer"
+                className="w-full flex items-center justify-between p-5 text-left hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200)/0.3)] transition-colors cursor-pointer"
                 aria-expanded={open}
               >
                 <div className="flex items-center gap-3 min-w-0">
@@ -535,7 +535,7 @@ export default function PhishBook(): JSX.Element {
                                 d.includes('malicious') ||
                                 d.includes('compromise')
                                   ? 'bg-rose-100 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400'
-                                  : 'bg-slate-100 dark:bg-slate-800 text-slate-500'
+                                  : 'bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-500'
                               }`}
                             >
                               {i + 1}
@@ -614,7 +614,7 @@ export default function PhishBook(): JSX.Element {
                       {phase.queries.map((q, i) => (
                         <div
                           key={i}
-                          className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-950/5 dark:bg-slate-950/30 overflow-hidden"
+                          className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-950/5 dark:bg-[rgb(var(--input-200)/0.3)] overflow-hidden"
                         >
                           <div className="flex items-center justify-between px-4 py-2 bg-slate-100/50 dark:bg-[rgb(var(--surface-200))]/50 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
                             <span className="text-[10px] font-mono font-bold text-slate-500">{q.language}</span>

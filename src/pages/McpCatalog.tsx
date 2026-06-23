@@ -116,7 +116,7 @@ function CopyableJson({ value, label }: { value: string; label: string }) {
     }
   };
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-900/40 overflow-hidden">
+    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200)/0.4)] overflow-hidden">
       <div className="flex items-center justify-between border-b border-slate-200 dark:border-[rgb(var(--border-400))] px-3 py-1.5 text-meta text-slate-500 dark:text-slate-400">
         <span className="font-mono">{label}</span>
         <button
@@ -210,13 +210,13 @@ export default function McpCatalogPage(): JSX.Element {
           <div className="flex flex-wrap items-center gap-3 text-meta text-slate-600 dark:text-slate-400">
             <span>
               <span className="text-slate-900 dark:text-slate-100 font-medium">Endpoint</span>{' '}
-              <code className="rounded bg-slate-100 dark:bg-slate-800 px-2 py-0.5 text-meta font-mono text-slate-700 dark:text-slate-200">
+              <code className="rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] px-2 py-0.5 text-meta font-mono text-slate-700 dark:text-slate-200">
                 {ENDPOINT}
               </code>
             </span>
             <span>
               <span className="text-slate-900 dark:text-slate-100 font-medium">Transport</span>{' '}
-              <code className="rounded bg-slate-100 dark:bg-slate-800 px-2 py-0.5 text-meta font-mono text-slate-700 dark:text-slate-200">
+              <code className="rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] px-2 py-0.5 text-meta font-mono text-slate-700 dark:text-slate-200">
                 streamable-http
               </code>
             </span>
@@ -245,12 +245,14 @@ export default function McpCatalogPage(): JSX.Element {
             <li>Drop one of the snippets below into the matching config file.</li>
             <li>
               Replace{' '}
-              <code className="rounded bg-slate-100 dark:bg-slate-800 px-1 text-meta">&lt;your-api-key&gt;</code> with
-              the real key.
+              <code className="rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] px-1 text-meta">
+                &lt;your-api-key&gt;
+              </code>{' '}
+              with the real key.
             </li>
             <li>
               Restart the client. Tools appear as{' '}
-              <code className="rounded bg-slate-100 dark:bg-slate-800 px-1 text-meta">
+              <code className="rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] px-1 text-meta">
                 mcp__dfir-threatintel__&lt;tool_name&gt;
               </code>
               .
@@ -406,7 +408,7 @@ function FilterPill({
       {label}
       <span
         className={`rounded-full px-1.5 py-0.5 text-[10px] font-mono ${
-          active ? 'bg-current/15' : 'bg-slate-100 dark:bg-slate-800'
+          active ? 'bg-current/15' : 'bg-slate-100 dark:bg-[rgb(var(--surface-300))]'
         }`}
       >
         {count}

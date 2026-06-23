@@ -180,7 +180,7 @@ export default function Ransomwhere(): JSX.Element {
         {filtered.slice(0, 600).map((w) => (
           <div
             key={`${w.address}-${w.blockchain}`}
-            className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-3"
+            className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3"
           >
             <div className="flex items-start justify-between gap-2">
               <button

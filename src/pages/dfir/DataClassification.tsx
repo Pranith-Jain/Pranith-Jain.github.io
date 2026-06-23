@@ -193,7 +193,7 @@ export default function DataClassification(): JSX.Element {
                       value={p.access}
                       onChange={(e) => updatePolicy(t, { access: e.target.value })}
                       rows={2}
-                      className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 px-2 py-1.5 font-mono text-xs"
+                      className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-2 py-1.5 font-mono text-xs"
                     />
                   </Field>
                   <Field label="Examples (comma-separated)">
@@ -208,7 +208,7 @@ export default function DataClassification(): JSX.Element {
                             .filter(Boolean),
                         })
                       }
-                      className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 px-2 py-1.5 font-mono text-xs"
+                      className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-2 py-1.5 font-mono text-xs"
                     />
                   </Field>
                   <Field label="Encryption at rest">
@@ -217,7 +217,7 @@ export default function DataClassification(): JSX.Element {
                       onChange={(e) =>
                         updatePolicy(t, { encryptionAtRest: e.target.value as TierPolicy['encryptionAtRest'] })
                       }
-                      className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 px-2 py-1.5 font-mono text-xs"
+                      className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-2 py-1.5 font-mono text-xs"
                     >
                       <option value="optional">optional</option>
                       <option value="required">required</option>
@@ -230,7 +230,7 @@ export default function DataClassification(): JSX.Element {
                       onChange={(e) =>
                         updatePolicy(t, { encryptionInTransit: e.target.value as TierPolicy['encryptionInTransit'] })
                       }
-                      className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 px-2 py-1.5 font-mono text-xs"
+                      className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-2 py-1.5 font-mono text-xs"
                     >
                       <option value="optional">optional</option>
                       <option value="required">required</option>
@@ -244,7 +244,7 @@ export default function DataClassification(): JSX.Element {
                         const v = e.target.value.trim();
                         updatePolicy(t, { retentionMonths: v === 'indefinite' ? 'indefinite' : Number(v) || 0 });
                       }}
-                      className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 px-2 py-1.5 font-mono text-xs"
+                      className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-2 py-1.5 font-mono text-xs"
                     />
                   </Field>
                   <Field label="External sharing">
@@ -253,7 +253,7 @@ export default function DataClassification(): JSX.Element {
                       onChange={(e) =>
                         updatePolicy(t, { externalSharing: e.target.value as TierPolicy['externalSharing'] })
                       }
-                      className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 px-2 py-1.5 font-mono text-xs"
+                      className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-2 py-1.5 font-mono text-xs"
                     >
                       <option value="allowed">allowed</option>
                       <option value="allowed-with-approval">allowed-with-approval</option>
@@ -264,7 +264,7 @@ export default function DataClassification(): JSX.Element {
                     <select
                       value={p.auditLogging}
                       onChange={(e) => updatePolicy(t, { auditLogging: e.target.value as TierPolicy['auditLogging'] })}
-                      className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 px-2 py-1.5 font-mono text-xs"
+                      className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-2 py-1.5 font-mono text-xs"
                     >
                       <option value="recommended">recommended</option>
                       <option value="required">required</option>
@@ -276,7 +276,7 @@ export default function DataClassification(): JSX.Element {
                       onChange={(e) =>
                         updatePolicy(t, { geoRestriction: e.target.value as TierPolicy['geoRestriction'] })
                       }
-                      className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 px-2 py-1.5 font-mono text-xs"
+                      className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-2 py-1.5 font-mono text-xs"
                     >
                       <option value="none">none</option>
                       <option value="region-locked">region-locked</option>
@@ -286,7 +286,7 @@ export default function DataClassification(): JSX.Element {
                     <select
                       value={p.dlp}
                       onChange={(e) => updatePolicy(t, { dlp: e.target.value as TierPolicy['dlp'] })}
-                      className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 px-2 py-1.5 font-mono text-xs"
+                      className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-2 py-1.5 font-mono text-xs"
                     >
                       <option value="monitor-only">monitor-only</option>
                       <option value="warn-and-allow">warn-and-allow</option>
@@ -317,7 +317,7 @@ export default function DataClassification(): JSX.Element {
                 >
                   <button
                     onClick={() => setExpanded(isOpen ? null : d.id)}
-                    className="w-full flex items-center gap-3 text-left px-4 py-3 hover:bg-slate-50 dark:hover:bg-slate-800/40"
+                    className="w-full flex items-center gap-3 text-left px-4 py-3 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.4)]"
                   >
                     <span className="flex-1 min-w-0">
                       <span className="block font-display font-semibold text-slate-900 dark:text-slate-100 truncate">
@@ -348,14 +348,14 @@ export default function DataClassification(): JSX.Element {
                             value={d.name}
                             onChange={(e) => updateDataset(d.id, { name: e.target.value })}
                             placeholder="prod-customers-db"
-                            className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 px-2 py-1.5 font-mono text-xs"
+                            className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-2 py-1.5 font-mono text-xs"
                           />
                         </Field>
                         <Field label="Type">
                           <select
                             value={d.type}
                             onChange={(e) => updateDataset(d.id, { type: e.target.value as DatasetType })}
-                            className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 px-2 py-1.5 font-mono text-xs"
+                            className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-2 py-1.5 font-mono text-xs"
                           >
                             {DATASET_TYPES.map((t) => (
                               <option key={t.id} value={t.id}>
@@ -387,7 +387,7 @@ export default function DataClassification(): JSX.Element {
                             value={d.owner}
                             onChange={(e) => updateDataset(d.id, { owner: e.target.value })}
                             placeholder="alice@team — name + escalation"
-                            className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 px-2 py-1.5 font-mono text-xs"
+                            className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-2 py-1.5 font-mono text-xs"
                           />
                         </Field>
                         <Field label="Storage location">
@@ -396,7 +396,7 @@ export default function DataClassification(): JSX.Element {
                             value={d.storage}
                             onChange={(e) => updateDataset(d.id, { storage: e.target.value })}
                             placeholder="aws/eu-west-1/rds/prod-customers"
-                            className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 px-2 py-1.5 font-mono text-xs"
+                            className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-2 py-1.5 font-mono text-xs"
                           />
                         </Field>
                         <Field label="Region / data residency">
@@ -405,7 +405,7 @@ export default function DataClassification(): JSX.Element {
                             value={d.region}
                             onChange={(e) => updateDataset(d.id, { region: e.target.value })}
                             placeholder="EU only"
-                            className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 px-2 py-1.5 font-mono text-xs"
+                            className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-2 py-1.5 font-mono text-xs"
                           />
                         </Field>
                         <Field label="Volume">
@@ -414,7 +414,7 @@ export default function DataClassification(): JSX.Element {
                             value={d.volume}
                             onChange={(e) => updateDataset(d.id, { volume: e.target.value })}
                             placeholder="~120 GB · 4M rows"
-                            className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 px-2 py-1.5 font-mono text-xs"
+                            className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-2 py-1.5 font-mono text-xs"
                           />
                         </Field>
                         <Field label="Contents">
@@ -423,7 +423,7 @@ export default function DataClassification(): JSX.Element {
                             value={d.contents}
                             onChange={(e) => updateDataset(d.id, { contents: e.target.value })}
                             placeholder="customer profiles · billing addresses · phone numbers"
-                            className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 px-2 py-1.5 font-mono text-xs"
+                            className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-2 py-1.5 font-mono text-xs"
                           />
                         </Field>
                       </div>
@@ -432,7 +432,7 @@ export default function DataClassification(): JSX.Element {
                           value={d.notes}
                           onChange={(e) => updateDataset(d.id, { notes: e.target.value })}
                           rows={2}
-                          className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 px-2 py-1.5 font-mono text-xs"
+                          className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-2 py-1.5 font-mono text-xs"
                         />
                       </Field>
                       <div className="flex justify-end">
@@ -456,7 +456,7 @@ export default function DataClassification(): JSX.Element {
       {tab === 'matrix' && (
         <div className="overflow-x-auto rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1">
           <table className="w-full text-xs font-mono">
-            <thead className="bg-slate-50 dark:bg-slate-950 text-left">
+            <thead className="bg-slate-50 dark:bg-[rgb(var(--input-200))] text-left">
               <tr>
                 <th
                   scope="col"

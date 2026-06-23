@@ -52,7 +52,7 @@ const ENTITY_COLORS: Record<string, string> = {
   malware: 'border-orange-500/40 bg-orange-500/10 text-orange-700 dark:text-orange-300',
   campaign: 'border-pink-500/40 bg-pink-500/10 text-pink-700 dark:text-pink-300',
   hash: 'border-slate-500/40 bg-slate-500/10 text-slate-700 dark:text-slate-300',
-  technique: 'border-cyan-500/40 bg-cyan-500/10 text-cyan-700 dark:text-cyan-300',
+  technique: 'border-cyan-500/40 bg-cyan-500/10 text-sky-700 dark:text-sky-300',
   victim: 'border-slate-500/40 bg-slate-500/10 text-slate-700 dark:text-slate-300',
   c2_framework: 'border-fuchsia-500/40 bg-fuchsia-500/10 text-fuchsia-700 dark:text-fuchsia-300',
   product: 'border-teal-500/40 bg-teal-500/10 text-teal-700 dark:text-teal-300',
@@ -70,7 +70,7 @@ const ENTITY_BG: Record<string, string> = {
   malware: 'bg-orange-100 dark:bg-orange-900/20',
   campaign: 'bg-pink-100 dark:bg-pink-900/20',
   hash: 'bg-slate-100 dark:bg-[rgb(var(--surface-200))]/20',
-  technique: 'bg-cyan-100 dark:bg-cyan-900/20',
+  technique: 'bg-sky-100 dark:bg-cyan-900/20',
   victim: 'bg-slate-100 dark:bg-[rgb(var(--surface-200))]/20',
   c2_framework: 'bg-fuchsia-100 dark:bg-fuchsia-900/20',
   product: 'bg-teal-100 dark:bg-teal-900/20',
@@ -275,7 +275,7 @@ export default function Pivex(): JSX.Element {
               onChange={(e) => setQuery(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && handleBuildGraph()}
               placeholder="IP address, domain, CVE, actor name, or hash…"
-              className="w-full pl-9 pr-3 h-10 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 font-mono"
+              className="w-full pl-9 pr-3 h-10 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 font-mono"
             />
           </div>
           <button
@@ -297,7 +297,7 @@ export default function Pivex(): JSX.Element {
 
       {!showGraph && !loading && (
         <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/40 shadow-e1 p-8 text-center">
-          <Network size={48} className="mx-auto mb-3 text-slate-300 dark:text-slate-600" />
+          <Network size={48} className="mx-auto mb-3 text-slate-300 dark:text-slate-400" />
           <p className="text-sm text-slate-500 dark:text-slate-400">
             Enter an IP, domain, CVE, or actor name and click{' '}
             <span className="font-semibold text-slate-700 dark:text-slate-300">Build Graph</span> to visualise the
@@ -359,7 +359,7 @@ export default function Pivex(): JSX.Element {
               ))}
           </div>
 
-          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-slate-950/60 shadow-e1 p-6 overflow-x-auto">
+          <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200)/0.6)] shadow-e1 p-6 overflow-x-auto">
             <div className="flex flex-col gap-6 min-w-[700px]">
               <GraphCluster
                 nodes={nodes}

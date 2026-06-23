@@ -88,7 +88,7 @@ export default function OsintFramework(): JSX.Element {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search by name, description, or category — e.g. crypto, breach, court, image"
-            className="w-full pl-9 pr-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 font-mono text-sm focus:border-brand-500/60 focus:outline-none"
+            className="w-full pl-9 pr-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] font-mono text-sm focus:border-brand-500/60 focus:outline-none"
             aria-label="Search OSINT framework"
           />
         </div>

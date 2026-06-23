@@ -66,7 +66,7 @@ export function ActorTtpsPanel({
   if (loading) {
     return (
       <section
-        className={`${mbClass} rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-5 inline-flex items-center gap-2 font-mono text-sm text-slate-500`}
+        className={`${mbClass} rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5 inline-flex items-center gap-2 font-mono text-sm text-slate-500`}
       >
         <Loader2 size={14} className="animate-spin" /> loading TTP distribution from active actors…
       </section>
@@ -82,7 +82,7 @@ export function ActorTtpsPanel({
 
   return (
     <section
-      className={`${mbClass} rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-5`}
+      className={`${mbClass} rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-5`}
     >
       <div className="flex items-start justify-between gap-3 mb-3 flex-wrap">
         <div>
@@ -122,7 +122,7 @@ export function ActorTtpsPanel({
                   <span className="truncate"> · {t.name}</span>
                   <ExternalLink size={9} className="text-slate-400 shrink-0" />
                 </a>
-                <div className="h-3 bg-slate-100 dark:bg-slate-900 rounded overflow-hidden">
+                <div className="h-3 bg-slate-100 dark:bg-[rgb(var(--surface-200))] rounded overflow-hidden">
                   <div className="h-full bg-rose-500/70 dark:bg-rose-500/60" style={{ width: `${widthPct}%` }} />
                 </div>
                 <span className="text-muted text-right">

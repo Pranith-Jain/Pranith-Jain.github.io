@@ -795,12 +795,12 @@ export default function Facilities(): JSX.Element {
         {view === 'map' && (
           <div
             /* v5 — replace the hard-coded #0a0f1a map-container bg
-               with the token-driven bg-slate-50 dark:bg-slate-950
+               with the token-driven bg-slate-50 dark:bg-[rgb(var(--input-200))]
                so the map blends with the global surface system.
                Dark-mode remap: slate-950 → --input-200 #0F121A
                (within 3 units of the old hex; visually identical
                behind the map tiles). */
-            className="rounded-xl overflow-hidden border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950"
+            className="rounded-xl overflow-hidden border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))]"
             style={{ minHeight: '500px' }}
           >
             <Suspense
@@ -848,7 +848,7 @@ export default function Facilities(): JSX.Element {
                       <Fragment key={f.id}>
                         <tr
                           onClick={() => setExpandedId(isExpanded ? null : f.id)}
-                          className="border-b border-slate-100 dark:border-[rgb(var(--border-400))]/50 hover:bg-slate-50 dark:hover:bg-slate-800/30 cursor-pointer transition-colors"
+                          className="border-b border-slate-100 dark:border-[rgb(var(--border-400))]/50 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.3)] cursor-pointer transition-colors"
                         >
                           <td className="px-4 py-3">
                             <div className="flex items-center gap-2">
@@ -882,7 +882,7 @@ export default function Facilities(): JSX.Element {
                         </tr>
                         {isExpanded && (
                           <tr key={`${f.id}-detail`}>
-                            <td colSpan={5} className="px-4 py-3 bg-slate-50 dark:bg-slate-800/20">
+                            <td colSpan={5} className="px-4 py-3 bg-slate-50 dark:bg-[rgb(var(--surface-300)/0.2)]">
                               <p className="text-sm text-muted">{f.description}</p>
                               <a
                                 href={`https://www.google.com/maps?q=${f.lat},${f.lng}`}

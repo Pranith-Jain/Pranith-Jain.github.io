@@ -86,7 +86,7 @@ export function ToolOfTheDay(): JSX.Element | null {
             </div>
             <ArrowRight
               size={14}
-              className="text-slate-400 dark:text-slate-600 group-hover:text-brand-500 transition-colors shrink-0 mt-1"
+              className="text-slate-400 dark:text-slate-400 group-hover:text-brand-500 transition-colors shrink-0 mt-1"
             />
           </div>
         </Link>

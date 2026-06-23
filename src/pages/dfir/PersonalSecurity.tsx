@@ -348,7 +348,7 @@ export default function PersonalSecurity(): JSX.Element {
             {overall.gaps === 1 ? '' : 's'}
           </div>
         </div>
-        <div className="h-2 rounded bg-slate-200 dark:bg-slate-800 overflow-hidden">
+        <div className="h-2 rounded bg-slate-200 dark:bg-[rgb(var(--surface-300))] overflow-hidden">
           <div
             className={`h-full ${
               overall.score >= 85 ? 'bg-emerald-500' : overall.score >= 60 ? 'bg-amber-500' : 'bg-rose-500'
@@ -377,7 +377,7 @@ export default function PersonalSecurity(): JSX.Element {
               </span>
               <span className="text-xs font-mono font-bold text-slate-900 dark:text-slate-100">{stats.score}%</span>
             </div>
-            <div className="h-1.5 rounded bg-slate-200 dark:bg-slate-800 overflow-hidden mb-1">
+            <div className="h-1.5 rounded bg-slate-200 dark:bg-[rgb(var(--surface-300))] overflow-hidden mb-1">
               <div
                 className={`h-full ${
                   stats.score >= 85 ? 'bg-emerald-500' : stats.score >= 60 ? 'bg-amber-500' : 'bg-rose-500'
@@ -458,7 +458,7 @@ export default function PersonalSecurity(): JSX.Element {
               return (
                 <li
                   key={item.id}
-                  className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-slate-950 p-3"
+                  className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] p-3"
                 >
                   <div className="flex flex-wrap items-center gap-2 mb-1">
                     <span
@@ -570,7 +570,7 @@ export default function PersonalSecurity(): JSX.Element {
 function ItemRow({ item, state, cycle }: { item: CheckItem; state: State; cycle: (id: string) => void }): JSX.Element {
   const s = state.checks[item.id] ?? 'unset';
   return (
-    <li className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-3">
+    <li className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3">
       <div className="flex flex-wrap items-center gap-2 mb-1">
         <button
           onClick={() => cycle(item.id)}

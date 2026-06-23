@@ -40,7 +40,7 @@ export default function QuickIocCheck() {
   };
 
   return (
-    <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
+    <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
       <h4 className="font-semibold text-sm mb-3 flex items-center gap-2">
         <Shield size={14} className="text-brand-600 dark:text-brand-400" aria-hidden="true" />
         IOC Check
@@ -54,7 +54,7 @@ export default function QuickIocCheck() {
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={(e) => e.key === 'Enter' && runCheck()}
           placeholder="IP, domain, URL, or hash…"
-          className="flex-1 px-3 py-3 sm:py-1.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded text-xs font-mono focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+          className="flex-1 px-3 py-3 sm:py-1.5 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-xs font-mono focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
         />
         <button
           onClick={runCheck}
@@ -88,7 +88,7 @@ export default function QuickIocCheck() {
             {results.map((r) => (
               <div
                 key={r.source}
-                className="flex items-center justify-between px-2 py-1 rounded bg-slate-50 dark:bg-slate-950 text-micro"
+                className="flex items-center justify-between px-2 py-1 rounded bg-slate-50 dark:bg-[rgb(var(--input-200))] text-micro"
               >
                 <span className="font-mono text-slate-700 dark:text-slate-300 capitalize">
                   {r.source}

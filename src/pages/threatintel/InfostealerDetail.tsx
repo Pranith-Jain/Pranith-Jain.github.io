@@ -184,7 +184,7 @@ export default function InfostealerDetail(): JSX.Element {
           {family.capabilities.map((c) => (
             <span
               key={c}
-              className="text-mini font-mono px-2 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 text-muted"
+              className="text-mini font-mono px-2 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] text-muted"
             >
               {c}
             </span>

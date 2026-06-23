@@ -233,7 +233,7 @@ export default function ChronoAi(): JSX.Element {
               onChange={(e) => setLogs(e.target.value)}
               rows={14}
               placeholder="Paste log entries from any source…"
-              className="w-full rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-3 font-mono text-xs text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/40"
+              className="w-full rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 font-mono text-xs text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/40"
             />
           </div>
 
@@ -284,13 +284,13 @@ export default function ChronoAi(): JSX.Element {
                   <div className="flex gap-1.5">
                     <button
                       onClick={copyResult}
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
                     >
                       {copied ? <Check size={13} /> : <Copy size={13} />}
                     </button>
                     <button
                       onClick={downloadTimeline}
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
                     >
                       <Download size={13} /> .md
                     </button>
@@ -329,7 +329,7 @@ export default function ChronoAi(): JSX.Element {
                     return (
                       <div
                         key={i}
-                        className={`rounded-lg border ${phase?.borderColor ?? 'border-slate-200 dark:border-[rgb(var(--border-400))]'} ${phase?.bgColor ?? 'bg-slate-50/50 dark:bg-slate-950/30'} p-3 flex items-start gap-3`}
+                        className={`rounded-lg border ${phase?.borderColor ?? 'border-slate-200 dark:border-[rgb(var(--border-400))]'} ${phase?.bgColor ?? 'bg-slate-50/50 dark:bg-[rgb(var(--input-200)/0.3)]'} p-3 flex items-start gap-3`}
                       >
                         <div
                           className={`w-2 h-2 rounded-full mt-1.5 flex-shrink-0 ${phase?.color ?? 'bg-slate-400'}`}
@@ -337,7 +337,7 @@ export default function ChronoAi(): JSX.Element {
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400 font-mono">
                             <span>{event.timestamp}</span>
-                            <span className="text-slate-300 dark:text-slate-600">|</span>
+                            <span className="text-slate-300 dark:text-slate-400">|</span>
                             <span>{event.source}</span>
                             {event.isLateral && (
                               <span className="px-1 py-0.5 rounded text-micro font-mono bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300">
@@ -394,7 +394,7 @@ export default function ChronoAi(): JSX.Element {
 
           {!result && !loading && !error && (
             <div className="rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-10 text-center">
-              <Clock size={32} className="text-slate-300 dark:text-slate-600 mx-auto mb-3" />
+              <Clock size={32} className="text-slate-300 dark:text-slate-400 mx-auto mb-3" />
               <p className="text-sm text-slate-500 dark:text-slate-400">
                 Paste log events and click <span className="font-semibold">Reconstruct</span>
               </p>

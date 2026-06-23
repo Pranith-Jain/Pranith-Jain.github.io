@@ -95,7 +95,7 @@ export function QuickActions({
             className={`qa-tile group relative flex items-start gap-3 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3.5 transition-all duration-150 motion-safe:hover:-translate-y-0.5 hover:bg-slate-50 dark:hover:bg-[#16161f] focus:outline-none focus-visible:ring-2 ${accent.border} ${accent.shadow} ${accent.ring}`}
           >
             <span
-              className={`grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-slate-100/80 dark:bg-slate-800/60 ${accent.iconBg} ${accentClass} transition-colors`}
+              className={`grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-slate-100/80 dark:bg-[rgb(var(--surface-300)/0.6)] ${accent.iconBg} ${accentClass} transition-colors`}
             >
               <Icon className="h-4 w-4" aria-hidden="true" />
             </span>

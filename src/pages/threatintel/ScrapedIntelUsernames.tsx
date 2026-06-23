@@ -112,7 +112,7 @@ export default function ScrapedIntelUsernames(): JSX.Element {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Enter a username / handle (min 2 chars)…"
-              className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
               aria-label="Search ScrapedIntel forum handles"
               maxLength={80}
             />

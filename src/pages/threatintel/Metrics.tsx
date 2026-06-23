@@ -198,7 +198,7 @@ function HBar({
                 {it.hint && <span className="text-slate-400 ml-1">{String(it.hint)}</span>}
               </span>
             </div>
-            <div className="h-1.5 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
+            <div className="h-1.5 rounded-full bg-slate-100 dark:bg-[rgb(var(--surface-300))] overflow-hidden">
               <div
                 className="h-full rounded-full"
                 style={{ width: `${Math.max(2, pct)}%`, backgroundColor: color }}
@@ -1107,7 +1107,7 @@ export default function Metrics(): JSX.Element {
                   className={`px-2.5 py-1.5 transition-colors ${
                     active
                       ? 'bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                      : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800'
+                      : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]'
                   }`}
                 >
                   {d}d

@@ -341,7 +341,7 @@ export default function CampaignGenerator(): JSX.Element {
               value={actor}
               onChange={(e) => setActor(e.target.value)}
               placeholder="e.g. Suspected LockBit affiliate"
-              className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 px-3 py-2 text-sm font-mono focus:border-brand-500 focus:outline-none"
+              className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-3 py-2 text-sm font-mono focus:border-brand-500 focus:outline-none"
             />
           </div>
           <div>
@@ -357,7 +357,7 @@ export default function CampaignGenerator(): JSX.Element {
               value={sector}
               onChange={(e) => setSector(e.target.value)}
               placeholder="e.g. Manufacturing, North America"
-              className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 px-3 py-2 text-sm font-mono focus:border-brand-500 focus:outline-none"
+              className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-3 py-2 text-sm font-mono focus:border-brand-500 focus:outline-none"
             />
           </div>
         </div>
@@ -372,7 +372,7 @@ export default function CampaignGenerator(): JSX.Element {
             onChange={(e) => setTtps(e.target.value)}
             placeholder="Free-form description of what was seen — entry vector, lateral movement, persistence, exfil, etc."
             rows={5}
-            className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 px-3 py-2 text-sm font-mono focus:border-brand-500 focus:outline-none"
+            className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-3 py-2 text-sm font-mono focus:border-brand-500 focus:outline-none"
           />
         </div>
 
@@ -387,7 +387,7 @@ export default function CampaignGenerator(): JSX.Element {
               onChange={(e) => setIocs(e.target.value)}
               placeholder="185.220.101.45&#10;c2.bad-domain.com&#10;9cf5b1…"
               rows={5}
-              className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 px-3 py-2 text-sm font-mono focus:border-brand-500 focus:outline-none"
+              className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-3 py-2 text-sm font-mono focus:border-brand-500 focus:outline-none"
             />
             <div className="text-micro font-mono text-slate-400 mt-1">{iocList.length} parsed · max 30</div>
           </div>
@@ -404,7 +404,7 @@ export default function CampaignGenerator(): JSX.Element {
               onChange={(e) => setNotes(e.target.value)}
               placeholder="Anything else — timeline anomalies, relationships, the gut-feel angle."
               rows={5}
-              className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 px-3 py-2 text-sm font-mono focus:border-brand-500 focus:outline-none"
+              className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-3 py-2 text-sm font-mono focus:border-brand-500 focus:outline-none"
             />
           </div>
         </div>
@@ -516,7 +516,7 @@ export default function CampaignGenerator(): JSX.Element {
                 {orderedKillChain.map((k) => (
                   <li
                     key={k.phase}
-                    className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-3"
+                    className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3"
                   >
                     <div className="text-micro font-mono uppercase tracking-wider text-brand-600 dark:text-brand-400 mb-0.5">
                       {PHASE_LABELS[k.phase] ?? k.phase}
@@ -535,7 +535,7 @@ export default function CampaignGenerator(): JSX.Element {
                 {result.campaign.mitre_techniques.map((m) => (
                   <li
                     key={m.id}
-                    className="text-sm rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-2.5"
+                    className="text-sm rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2.5"
                   >
                     <a
                       href={`https://attack.mitre.org/techniques/${m.id.replace('.', '/')}`}
@@ -573,7 +573,7 @@ export default function CampaignGenerator(): JSX.Element {
                 {result.campaign.detection_opportunities.map((d) => (
                   <li
                     key={d}
-                    className="text-sm font-mono rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-2.5 text-slate-700 dark:text-slate-300"
+                    className="text-sm font-mono rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2.5 text-slate-700 dark:text-slate-300"
                   >
                     {d}
                   </li>
@@ -591,7 +591,7 @@ export default function CampaignGenerator(): JSX.Element {
                   return (
                     <li
                       key={ioc}
-                      className="text-sm flex items-start gap-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-2"
+                      className="text-sm flex items-start gap-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2"
                     >
                       <span className="flex-1 text-slate-700 dark:text-slate-300">{ioc}</span>
                       <Link

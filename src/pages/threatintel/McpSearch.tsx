@@ -92,7 +92,7 @@ interface AnalyzerOutput {
 }
 
 const IOC_PILL: Record<IocKind, string> = {
-  ip: 'text-cyan-700 dark:text-cyan-300 bg-cyan-50 dark:bg-cyan-950/40 border-cyan-300 dark:border-cyan-800',
+  ip: 'text-sky-700 dark:text-sky-300 bg-cyan-50 dark:bg-cyan-950/40 border-cyan-300 dark:border-cyan-800',
   url: 'text-purple-700 dark:text-purple-300 bg-purple-50 dark:bg-purple-950/40 border-purple-300 dark:border-purple-800',
   domain: 'text-sky-700 dark:text-sky-300 bg-sky-50 dark:bg-sky-950/40 border-sky-300 dark:border-sky-800',
   hash: 'text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/40 border-emerald-300 dark:border-emerald-800',
@@ -235,7 +235,7 @@ function AnalyzerSummary({ data }: { data: AnalyzerOutput }): JSX.Element {
       </div>
 
       {data.summary?.text && (
-        <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-3">
+        <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3">
           <p className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">
             AI summary · {data.summary.model}
           </p>
@@ -246,7 +246,7 @@ function AnalyzerSummary({ data }: { data: AnalyzerOutput }): JSX.Element {
       )}
 
       {data.fiveW && (
-        <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-3">
+        <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3">
           <p className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">5W</p>
           <ul className="text-xs text-slate-700 dark:text-slate-300 space-y-0.5">
             <li>
@@ -269,7 +269,7 @@ function AnalyzerSummary({ data }: { data: AnalyzerOutput }): JSX.Element {
       )}
 
       {data.iocs.length > 0 && (
-        <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-3">
+        <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3">
           <p className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1.5">
             Top IOCs (high/medium confidence)
           </p>
@@ -295,7 +295,7 @@ function AnalyzerSummary({ data }: { data: AnalyzerOutput }): JSX.Element {
       )}
 
       {data.ttp.length > 0 && (
-        <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-3">
+        <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3">
           <p className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1.5">
             TTPs
           </p>
@@ -319,7 +319,7 @@ function AnalyzerSummary({ data }: { data: AnalyzerOutput }): JSX.Element {
 
 function Stat({ label, value }: { label: string; value: number | string }): JSX.Element {
   return (
-    <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-2">
+    <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2">
       <p className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">{label}</p>
       <p className="text-base font-display font-bold text-slate-900 dark:text-slate-100">{value}</p>
     </div>

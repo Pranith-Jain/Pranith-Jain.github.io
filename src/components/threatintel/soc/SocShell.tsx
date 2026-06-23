@@ -110,7 +110,7 @@ export function SocShell({
   }, [loading, autoRefreshMs]);
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100">
+    <div className="min-h-screen bg-slate-50 dark:bg-transparent text-slate-900 dark:text-slate-100">
       <div className="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8 py-12 text-slate-900 dark:text-slate-100">
         <div className="animate-fade-in-up mb-8">
           <h1 className="text-3xl sm:text-4xl font-display font-bold flex items-center gap-3">
@@ -124,7 +124,7 @@ export function SocShell({
 
         {/* Controls */}
         <div className="mb-8 flex flex-wrap items-center gap-2">
-          <div className="inline-flex rounded-lg border border-slate-200 dark:border-slate-800 overflow-hidden">
+          <div className="inline-flex rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] overflow-hidden">
             {windows.map((w) => {
               const on = w.days === windowDays;
               return (
@@ -136,7 +136,7 @@ export function SocShell({
                   className={`text-meta font-mono px-3 py-1.5 transition-colors ${
                     on
                       ? 'bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                      : 'bg-white dark:bg-slate-900 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'
+                      : 'bg-white dark:bg-[rgb(var(--surface-200))] text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]'
                   }`}
                 >
                   {w.label}
@@ -150,7 +150,7 @@ export function SocShell({
             onClick={onRefresh}
             disabled={loading}
             aria-label="Refresh dashboard data"
-            className="inline-flex items-center gap-1.5 text-meta font-mono px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 hover:border-brand-500/40 disabled:opacity-50 transition-colors"
+            className="inline-flex items-center gap-1.5 text-meta font-mono px-3 py-1.5 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 hover:border-brand-500/40 disabled:opacity-50 transition-colors"
           >
             {loading ? <Loader2 size={12} className="animate-spin" /> : <RefreshCw size={12} />}
             refresh
@@ -163,7 +163,7 @@ export function SocShell({
             type="button"
             onClick={onExport}
             aria-label="Export data as CSV"
-            className="inline-flex items-center gap-1.5 text-meta font-mono px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 hover:border-brand-500/40 transition-colors"
+            className="inline-flex items-center gap-1.5 text-meta font-mono px-3 py-1.5 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 hover:border-brand-500/40 transition-colors"
           >
             <Download size={12} /> export csv
           </button>
@@ -186,7 +186,7 @@ export function SocShell({
 /* ─── Loading skeleton (shimmer placeholders for the full grid) ──── */
 
 function SocSkeleton(): JSX.Element {
-  const shimmer = 'animate-pulse rounded bg-slate-200 dark:bg-slate-800';
+  const shimmer = 'animate-pulse rounded bg-slate-200 dark:bg-[rgb(var(--surface-300))]';
   return (
     <div className="space-y-6" aria-label="Loading dashboard">
       {/* KPI skeleton row */}
@@ -194,7 +194,7 @@ function SocSkeleton(): JSX.Element {
         {[1, 2, 3].map((i) => (
           <div
             key={i}
-            className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 sm:p-5"
+            className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 sm:p-5"
           >
             <div className={`${shimmer} h-3 w-16 mb-3`} />
             <div className={`${shimmer} h-7 w-24 mb-2`} />
@@ -207,7 +207,7 @@ function SocSkeleton(): JSX.Element {
         {[1, 2, 3].map((i) => (
           <div
             key={i}
-            className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 sm:p-5"
+            className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 sm:p-5"
           >
             <div className={`${shimmer} h-3 w-24 mb-6`} />
             <div className={`${shimmer} h-32 w-full`} />
@@ -219,7 +219,7 @@ function SocSkeleton(): JSX.Element {
         {[1, 2, 3].map((i) => (
           <div
             key={i}
-            className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 sm:p-5"
+            className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 sm:p-5"
           >
             <div className={`${shimmer} h-3 w-20 mb-6`} />
             <div className={`${shimmer} h-24 w-full`} />
@@ -298,7 +298,7 @@ export function SocKpi({
         ? 'text-emerald-600 dark:text-emerald-400'
         : 'text-slate-500 dark:text-slate-400';
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 sm:p-5">
+    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 sm:p-5">
       <div className="flex items-center justify-between mb-2">
         <span className="text-mini font-mono uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">
           {label}
@@ -323,7 +323,7 @@ export function SocKpi({
 export function SocPanel({ className = '', children }: { className?: string; children: ReactNode }): JSX.Element {
   return (
     <div
-      className={`rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4 sm:p-5 ${className}`}
+      className={`rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 sm:p-5 ${className}`}
     >
       {children}
     </div>

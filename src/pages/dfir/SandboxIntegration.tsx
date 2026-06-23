@@ -24,7 +24,7 @@ const STATUS_BADGE: Record<string, string> = {
   malicious: 'bg-rose-100 text-rose-800 dark:bg-rose-900/30 dark:text-rose-300',
   suspicious: 'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300',
   clean: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300',
-  unknown: 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400',
+  unknown: 'bg-slate-100 text-slate-600 dark:bg-[rgb(var(--surface-300))] dark:text-slate-400',
 };
 
 const SOURCE_ICONS: Record<string, typeof Shield> = {
@@ -117,7 +117,7 @@ export default function SandboxIntegration(): JSX.Element {
           onChange={(e) => setHash(e.target.value)}
           onKeyDown={(e) => e.key === 'Enter' && void handleLookup()}
           placeholder="MD5, SHA-1, or SHA-256…"
-          className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg px-4 py-2.5 text-sm font-mono text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+          className="w-full bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg px-4 py-2.5 text-sm font-mono text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
         />
         <button
           onClick={handleLookup}
@@ -221,7 +221,7 @@ export default function SandboxIntegration(): JSX.Element {
                     {r.behaviors.map((b, j) => (
                       <div key={j} className="flex items-center gap-2 text-xs">
                         <span
-                          className={`text-micro font-mono px-1.5 py-0.5 rounded ${b.severity === 'high' ? 'bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-300' : b.severity === 'medium' ? 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300' : 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400'}`}
+                          className={`text-micro font-mono px-1.5 py-0.5 rounded ${b.severity === 'high' ? 'bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-300' : b.severity === 'medium' ? 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300' : 'bg-slate-100 text-slate-600 dark:bg-[rgb(var(--surface-300))] dark:text-slate-400'}`}
                         >
                           {b.severity}
                         </span>

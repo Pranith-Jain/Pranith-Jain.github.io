@@ -65,8 +65,8 @@ export default function AboutPage() {
         <div className="stagger space-y-12">
           {storyChapters.map((chapter) => (
             <div key={chapter.period} className="relative pl-8 sm:pl-10">
-              <div className="absolute left-0 top-1 bottom-0 w-px bg-slate-200 dark:bg-slate-800" />
-              <div className="absolute -left-[5px] top-1 h-2.5 w-2.5 rounded-full border-2 border-brand-500 bg-white dark:bg-slate-900" />
+              <div className="absolute left-0 top-1 bottom-0 w-px bg-slate-200 dark:bg-[rgb(var(--surface-300))]" />
+              <div className="absolute -left-[5px] top-1 h-2.5 w-2.5 rounded-full border-2 border-brand-500 bg-white dark:bg-[rgb(var(--surface-200))]" />
               <div className="text-eyebrow font-mono uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400 mb-3">
                 {chapter.period}
               </div>
@@ -79,7 +79,7 @@ export default function AboutPage() {
                 {chapter.badges.map((b) => (
                   <span
                     key={b}
-                    className="rounded-md border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/60 px-2.5 py-1 text-mini font-mono text-slate-500 dark:text-slate-400"
+                    className="rounded-md border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200)/0.6)] px-2.5 py-1 text-mini font-mono text-slate-500 dark:text-slate-400"
                   >
                     {b}
                   </span>

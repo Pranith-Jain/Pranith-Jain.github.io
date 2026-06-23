@@ -41,7 +41,7 @@ const KIND_PILL: Record<WriteupKind, string> = {
   devto: 'border-violet-500/40 bg-violet-500/10 text-violet-700 dark:text-violet-300',
   hashnode: 'border-sky-500/40 bg-sky-500/10 text-sky-700 dark:text-sky-300',
   rss: 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300',
-  jsonfeed: 'border-cyan-500/40 bg-cyan-500/10 text-cyan-700 dark:text-cyan-300',
+  jsonfeed: 'border-cyan-500/40 bg-cyan-500/10 text-sky-700 dark:text-sky-300',
   manual: 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300',
 };
 
@@ -207,7 +207,7 @@ export default function Writeups(): JSX.Element {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Filter by title, source, author, tag, or summary…"
-              className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
               aria-label="Filter writeups"
             />
           </div>
@@ -351,7 +351,10 @@ export default function Writeups(): JSX.Element {
                   {it.tags && it.tags.length > 0 && (
                     <span className="flex flex-wrap gap-1 ml-1">
                       {it.tags.slice(0, 4).map((t) => (
-                        <span key={t} className="px-1 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-muted">
+                        <span
+                          key={t}
+                          className="px-1 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted"
+                        >
                           {t}
                         </span>
                       ))}

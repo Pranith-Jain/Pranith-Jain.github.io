@@ -422,7 +422,7 @@ export default function MitreMatrix(): JSX.Element {
                           isDimmed ? 'opacity-30' : '',
                           isUsed
                             ? 'bg-brand-500/10 border-brand-500/40 hover:bg-brand-500/20 dark:bg-brand-400/10 dark:border-brand-400/40 dark:hover:bg-brand-400/20'
-                            : 'bg-slate-100 dark:bg-slate-800 border-slate-200 dark:border-[rgb(var(--border-400))] hover:bg-slate-200 dark:hover:bg-slate-700',
+                            : 'bg-slate-100 dark:bg-[rgb(var(--surface-300))] border-slate-200 dark:border-[rgb(var(--border-400))] hover:bg-slate-200 dark:hover:bg-slate-700',
                         ].join(' ')}
                         title={
                           coverageMode
@@ -465,7 +465,7 @@ export default function MitreMatrix(): JSX.Element {
         {/* Legend */}
         <div className="mt-8 flex flex-wrap gap-4 text-xs font-mono text-slate-500">
           <div className="flex items-center gap-2">
-            <span className="inline-block w-4 h-4 rounded border bg-slate-100 dark:bg-slate-800 border-slate-200 dark:border-[rgb(var(--border-400))]" />
+            <span className="inline-block w-4 h-4 rounded border bg-slate-100 dark:bg-[rgb(var(--surface-300))] border-slate-200 dark:border-[rgb(var(--border-400))]" />
             Technique (not actor-tracked)
           </div>
           <div className="flex items-center gap-2">
@@ -480,7 +480,7 @@ export default function MitreMatrix(): JSX.Element {
         <>
           {/* Backdrop */}
           <div
-            className="fixed inset-0 z-40 bg-slate-900/40 dark:bg-slate-950/60 backdrop-blur-sm"
+            className="fixed inset-0 z-40 bg-slate-900/40 dark:bg-[rgb(var(--input-200)/0.6)] backdrop-blur-sm"
             onClick={closeDrawer}
             aria-hidden="true"
           />
@@ -507,7 +507,7 @@ export default function MitreMatrix(): JSX.Element {
                 type="button"
                 onClick={closeDrawer}
                 aria-label="Close technique details"
-                className="shrink-0 inline-flex items-center justify-center min-h-[44px] min-w-[44px] rounded text-slate-500 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                className="shrink-0 inline-flex items-center justify-center min-h-[44px] min-w-[44px] rounded text-slate-500 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
               >
                 <X size={18} aria-hidden="true" />
               </button>
@@ -540,7 +540,7 @@ export default function MitreMatrix(): JSX.Element {
                         {detail.technique.platforms.map((p) => (
                           <span
                             key={p}
-                            className="text-xs font-mono px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-700 dark:text-slate-300"
+                            className="text-xs font-mono px-2 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-700 dark:text-slate-300"
                           >
                             {p}
                           </span>
@@ -555,7 +555,7 @@ export default function MitreMatrix(): JSX.Element {
                         {detail.technique.dataSources.map((d) => (
                           <span
                             key={d}
-                            className="text-xs font-mono px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-700 dark:text-slate-300"
+                            className="text-xs font-mono px-2 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-700 dark:text-slate-300"
                           >
                             {d}
                           </span>
@@ -605,7 +605,7 @@ export default function MitreMatrix(): JSX.Element {
                         key={rid}
                         type="button"
                         onClick={() => openTechnique(rid)}
-                        className="text-xs font-mono px-2 py-1 rounded bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-[rgb(var(--border-400))] text-brand-600 dark:text-brand-400 hover:border-brand-500/40 transition-colors"
+                        className="text-xs font-mono px-2 py-1 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-brand-600 dark:text-brand-400 hover:border-brand-500/40 transition-colors"
                       >
                         {rid}
                       </button>

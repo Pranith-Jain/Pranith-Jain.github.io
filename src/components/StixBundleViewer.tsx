@@ -158,7 +158,7 @@ function StixObjectTableImpl({ bundle }: { bundle: StixBundle }): JSX.Element {
     .map(([type, objs]) => ({ type, count: objs.length }));
 
   return (
-    <div className="mt-4 mb-4 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-e1 p-4">
+    <div className="mt-4 mb-4 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
       <div className="flex items-center gap-2 mb-3 flex-wrap">
         <span className="text-xs font-mono font-bold text-slate-700 dark:text-slate-300">STIX 2.1 Objects</span>
         <span className="text-micro font-mono text-slate-500">{bundle.objects.length} total</span>
@@ -175,7 +175,7 @@ function StixObjectTableImpl({ bundle }: { bundle: StixBundle }): JSX.Element {
         <button
           type="button"
           onClick={copyBundle}
-          className="ml-auto text-micro font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40 text-slate-500"
+          className="ml-auto text-micro font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 text-slate-500"
         >
           {copied ? <Check size={10} className="inline" /> : <Copy size={10} className="inline" />} Copy JSON
         </button>
@@ -190,11 +190,14 @@ function StixObjectTableImpl({ bundle }: { bundle: StixBundle }): JSX.Element {
             </div>
             <div className="space-y-1">
               {objects.map((obj) => (
-                <div key={obj.id} className="rounded border border-slate-200 dark:border-slate-800 overflow-hidden">
+                <div
+                  key={obj.id}
+                  className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] overflow-hidden"
+                >
                   <button
                     type="button"
                     onClick={() => toggle(obj.id)}
-                    className="w-full px-3 py-2 flex items-center gap-2 hover:bg-slate-50/60 dark:hover:bg-slate-950/40 text-left"
+                    className="w-full px-3 py-2 flex items-center gap-2 hover:bg-slate-50/60 dark:hover:bg-[rgb(var(--input-200)/0.4)] text-left"
                   >
                     <span
                       className={`text-micro font-mono px-1.5 py-0.5 rounded border ${TYPE_COLORS[type]?.badge ?? 'border-slate-400 text-slate-500'}`}
@@ -205,7 +208,7 @@ function StixObjectTableImpl({ bundle }: { bundle: StixBundle }): JSX.Element {
                     {expanded.has(obj.id) ? <ChevronDown size={12} /> : <ChevronRight size={12} />}
                   </button>
                   {expanded.has(obj.id) && (
-                    <div className="px-3 pb-3 border-t border-slate-200 dark:border-slate-800 space-y-1.5 bg-slate-50/40 dark:bg-slate-950/40">
+                    <div className="px-3 pb-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))] space-y-1.5 bg-slate-50/40 dark:bg-[rgb(var(--input-200)/0.4)]">
                       <div className="text-micro font-mono text-slate-500 break-all">ID: {obj.id}</div>
                       {obj.description && (
                         <div className="text-micro font-mono text-slate-700 dark:text-slate-300">{obj.description}</div>

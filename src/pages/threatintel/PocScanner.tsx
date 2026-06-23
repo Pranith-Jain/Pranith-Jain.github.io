@@ -79,7 +79,7 @@ export default function PocScanner(): JSX.Element {
             </div>
 
             {data.repos.length === 0 ? (
-              <div className="rounded-xl border border-dashed border-slate-300 dark:border-slate-700 p-8 text-center text-sm text-slate-500 dark:text-slate-400">
+              <div className="rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-8 text-center text-sm text-slate-500 dark:text-slate-400">
                 No PoC repositories found for {data.cve_id}
               </div>
             ) : (

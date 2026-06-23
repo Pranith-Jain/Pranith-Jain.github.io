@@ -101,11 +101,11 @@ function WatchPill({ count, terms }: { count: number; terms?: string[] }): JSX.E
 function Skeleton(): JSX.Element {
   return (
     <div className="mt-1 space-y-2 animate-pulse" aria-hidden="true" role="presentation">
-      <div className="h-3 bg-slate-200 dark:bg-slate-800 rounded w-3/4" />
-      <div className="h-2.5 bg-slate-200 dark:bg-slate-800 rounded w-full mt-3" />
-      <div className="h-2.5 bg-slate-200 dark:bg-slate-800 rounded w-5/6" />
-      <div className="h-2.5 bg-slate-200 dark:bg-slate-800 rounded w-11/12" />
-      <div className="h-2.5 bg-slate-200 dark:bg-slate-800 rounded w-4/5" />
+      <div className="h-3 bg-slate-200 dark:bg-[rgb(var(--surface-300))] rounded w-3/4" />
+      <div className="h-2.5 bg-slate-200 dark:bg-[rgb(var(--surface-300))] rounded w-full mt-3" />
+      <div className="h-2.5 bg-slate-200 dark:bg-[rgb(var(--surface-300))] rounded w-5/6" />
+      <div className="h-2.5 bg-slate-200 dark:bg-[rgb(var(--surface-300))] rounded w-11/12" />
+      <div className="h-2.5 bg-slate-200 dark:bg-[rgb(var(--surface-300))] rounded w-4/5" />
     </div>
   );
 }

@@ -281,7 +281,7 @@ export default function IocExtractor(): JSX.Element {
       </div>
 
       {pipedFrom && (
-        <div className="mb-3 rounded border border-cyan-500/30 bg-cyan-500/5 p-2.5 text-meta font-mono text-cyan-700 dark:text-cyan-300 inline-flex items-center gap-2">
+        <div className="mb-3 rounded border border-cyan-500/30 bg-cyan-500/5 p-2.5 text-meta font-mono text-sky-700 dark:text-sky-300 inline-flex items-center gap-2">
           <Terminal size={12} /> Pre-filled from {pipedFrom} output. Edit freely below or
           <button
             type="button"
@@ -332,7 +332,7 @@ export default function IocExtractor(): JSX.Element {
 
       {refangChanged && (
         <details className="mb-8 rounded border border-cyan-500/30 bg-cyan-500/5 p-3">
-          <summary className="text-xs font-mono text-cyan-700 dark:text-cyan-300 cursor-pointer inline-flex items-center gap-2">
+          <summary className="text-xs font-mono text-sky-700 dark:text-sky-300 cursor-pointer inline-flex items-center gap-2">
             <ShieldAlert size={12} /> input was refanged before extraction — click to see normalised text
           </summary>
           <pre className="mt-2 text-mini font-mono text-slate-700 dark:text-slate-300 whitespace-pre-wrap break-all max-h-40 overflow-auto">

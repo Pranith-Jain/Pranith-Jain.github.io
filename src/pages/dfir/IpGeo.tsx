@@ -185,7 +185,7 @@ export default function IpGeo(): JSX.Element {
                 value={ip}
                 onChange={(e) => setIp(e.target.value)}
                 placeholder="Enter IPv4 or IPv6 — e.g. 8.8.8.8 or 2606:4700:4700::1111"
-                className="w-full pl-9 pr-4 py-2.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+                className="w-full pl-9 pr-4 py-2.5 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
                 autoComplete="off"
                 spellCheck={false}
               />
@@ -233,7 +233,7 @@ export default function IpGeo(): JSX.Element {
                 {data.detected_kind}
               </span>
             </div>
-            <code className="block font-mono text-sm text-slate-900 dark:text-slate-100 break-all bg-slate-50 dark:bg-slate-950 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-2">
+            <code className="block font-mono text-sm text-slate-900 dark:text-slate-100 break-all bg-slate-50 dark:bg-[rgb(var(--input-200))] rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-2">
               {data.ip}
             </code>
             {data.geo.ok && data.geo.reverse_dns && (
@@ -394,7 +394,7 @@ export default function IpGeo(): JSX.Element {
                     </span>
                   )}
                   {data.geo.is_mobile && (
-                    <span className="text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-cyan-500/40 bg-cyan-500/10 text-cyan-700 dark:text-cyan-300">
+                    <span className="text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-cyan-500/40 bg-cyan-500/10 text-sky-700 dark:text-sky-300">
                       mobile network
                     </span>
                   )}

@@ -18,7 +18,7 @@ function Skeleton({ rows }: { rows: number }): JSX.Element {
       {Array.from({ length: rows }).map((_, i) => (
         <div
           key={i}
-          className="h-4 rounded bg-slate-200/70 dark:bg-slate-800/70 animate-pulse"
+          className="h-4 rounded bg-slate-200/70 dark:bg-[rgb(var(--surface-300)/0.7)] animate-pulse"
           style={{ width: `${92 - (i % 4) * 11}%`, animationDelay: `${i * 70}ms` }}
         />
       ))}
@@ -74,7 +74,7 @@ export function AsyncState({
       <div
         role="status"
         aria-live="polite"
-        className="rounded-xl border border-dashed border-slate-300 px-4 py-10 text-center text-sm text-slate-500 dark:border-slate-700 dark:text-slate-400"
+        className="rounded-xl border border-dashed border-slate-300 px-4 py-10 text-center text-sm text-slate-500 dark:border-[rgb(var(--border-400))] dark:text-slate-400"
       >
         {emptyLabel}
       </div>

@@ -51,7 +51,7 @@ const STATUS_BADGE: Record<string, string> = {
   active: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300',
   declining: 'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300',
   dormant: 'bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-300',
-  archived: 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400',
+  archived: 'bg-slate-100 text-slate-600 dark:bg-[rgb(var(--surface-300))] dark:text-slate-400',
 };
 
 const TREND_ICON: Record<string, typeof TrendingUp> = { rising: TrendingUp, stable: Minus, declining: TrendingDown };
@@ -68,7 +68,7 @@ function ScoreBar({ score, max = 100 }: { score: number; max?: number }) {
   const pct = Math.min(100, (score / max) * 100);
   const color = score >= 70 ? 'bg-rose-500' : score >= 40 ? 'bg-amber-500' : 'bg-emerald-500';
   return (
-    <div className="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-1.5">
+    <div className="w-full bg-slate-200 dark:bg-[rgb(var(--surface-300))] rounded-full h-1.5">
       <div className={`${color} h-1.5 rounded-full`} style={{ width: `${pct}%` }} />
     </div>
   );
@@ -168,7 +168,7 @@ export default function IocLifecycle(): JSX.Element {
               onChange={(e) => setQuery(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && void lookupIoc()}
               placeholder="Enter IP, domain, URL, or hash…"
-              className="flex-1 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg px-4 py-2.5 text-sm font-mono text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="flex-1 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg px-4 py-2.5 text-sm font-mono text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
             />
             <button
               onClick={lookupIoc}
@@ -231,7 +231,7 @@ export default function IocLifecycle(): JSX.Element {
                   return (
                     <tr
                       key={ioc.indicator}
-                      className="border-b border-slate-100 dark:border-[rgb(var(--border-400))]/50 hover:bg-slate-50 dark:hover:bg-slate-900/20"
+                      className="border-b border-slate-100 dark:border-[rgb(var(--border-400))]/50 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200)/0.2)]"
                     >
                       <td className="px-4 py-2.5 max-w-[200px]">
                         <IocChip

@@ -309,7 +309,7 @@ export default function EmailDeliverability(): JSX.Element {
 
             {/* Per-rule breakdown */}
             {result.spamScore?.rules && result.spamScore.rules.length > 0 && (
-              <ul className="mt-4 space-y-1.5 border-t border-slate-200 dark:border-slate-800 pt-3">
+              <ul className="mt-4 space-y-1.5 border-t border-slate-200 dark:border-[rgb(var(--border-400))] pt-3">
                 {result.spamScore.rules
                   .slice()
                   .sort((a, b) => (b.score ?? 0) - (a.score ?? 0))

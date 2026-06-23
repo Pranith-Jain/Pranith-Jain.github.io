@@ -128,7 +128,7 @@ export default function MispGalaxyActors(): JSX.Element {
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search actor or alias (e.g. APT28, Fancy Bear, Lazarus)…"
             aria-label="Search threat actor or alias"
-            className="w-full pl-9 pr-3 py-2 text-sm rounded-lg border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-brand-500/60"
+            className="w-full pl-9 pr-3 py-2 text-sm rounded-lg border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-brand-500/60"
           />
         </div>
         <div className="flex flex-wrap gap-1.5">
@@ -163,7 +163,7 @@ export default function MispGalaxyActors(): JSX.Element {
         {filtered.slice(0, 600).map((actor) => (
           <div
             key={actor.uuid || actor.value}
-            className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-3"
+            className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3"
           >
             <div className="flex items-start justify-between gap-2">
               <h3 className="font-semibold text-sm text-slate-900 dark:text-slate-100 leading-snug">{actor.value}</h3>

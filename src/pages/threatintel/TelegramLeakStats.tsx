@@ -94,7 +94,7 @@ export default function TelegramLeakStats(): JSX.Element {
                     return (
                       <div key={item.severity} className="flex items-center gap-3">
                         <span className="text-xs font-mono w-16 capitalize text-muted">{item.severity}</span>
-                        <div className="flex-1 h-4 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
+                        <div className="flex-1 h-4 rounded-full bg-slate-100 dark:bg-[rgb(var(--surface-300))] overflow-hidden">
                           <div
                             className={`h-full rounded-full ${SEVERITY_BAR[toSeverity(item.severity)]}`}
                             style={{ width: `${Math.max(pct, 2)}%` }}

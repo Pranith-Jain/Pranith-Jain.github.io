@@ -69,7 +69,7 @@ function ArtifactRow({ artifact }: { artifact: HostArtifact }): JSX.Element {
     <>
       <tr
         onClick={() => setOpen((o) => !o)}
-        className="border-t border-slate-100 dark:border-slate-800/60 hover:bg-slate-50 dark:hover:bg-slate-800/40 cursor-pointer"
+        className="border-t border-slate-100 dark:border-[rgb(var(--border-400))] hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.4)] cursor-pointer"
       >
         <td className="py-2.5 pl-2 pr-3">
           <div className="flex items-center gap-2">
@@ -95,12 +95,12 @@ function ArtifactRow({ artifact }: { artifact: HostArtifact }): JSX.Element {
               {artifact.http_status}
             </span>
           ) : (
-            <span className="font-mono text-xs text-slate-400 dark:text-slate-600">—</span>
+            <span className="font-mono text-xs text-slate-400 dark:text-slate-400">—</span>
           )}
         </td>
       </tr>
       {open && (
-        <tr className="bg-slate-50/60 dark:bg-slate-800/20">
+        <tr className="bg-slate-50/60 dark:bg-[rgb(var(--surface-300)/0.2)]">
           <td colSpan={4} className="px-9 py-3">
             <dl className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-1 font-mono text-xs">
               <div className="flex gap-2">

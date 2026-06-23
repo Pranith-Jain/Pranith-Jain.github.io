@@ -120,7 +120,7 @@ export default function ActorDetail(): JSX.Element {
             className={`text-xs font-mono px-2 py-1 rounded border ${
               actor.status === 'active'
                 ? 'bg-emerald-500/15 dark:bg-emerald-400/15 text-emerald-600 dark:text-emerald-400 border-emerald-500/40'
-                : 'bg-slate-200 dark:bg-slate-800 text-slate-500 border-slate-300 dark:border-[rgb(var(--border-400))]'
+                : 'bg-slate-200 dark:bg-[rgb(var(--surface-300))] text-slate-500 border-slate-300 dark:border-[rgb(var(--border-400))]'
             }`}
           >
             {actor.status}
@@ -167,7 +167,7 @@ export default function ActorDetail(): JSX.Element {
             {actor.malware.map((m) => (
               <span
                 key={m}
-                className="text-xs font-mono px-2 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-slate-100 border border-slate-200 dark:border-[rgb(var(--border-400))]"
+                className="text-xs font-mono px-2 py-1 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-900 dark:text-slate-100 border border-slate-200 dark:border-[rgb(var(--border-400))]"
               >
                 {m}
               </span>
@@ -293,7 +293,7 @@ export default function ActorDetail(): JSX.Element {
                           href={`https://attack.mitre.org/techniques/${t.id.replace('.', '/')}`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-xs font-mono px-2 py-1 rounded bg-slate-100 dark:bg-slate-800 text-brand-600 dark:text-brand-400 border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40"
+                          className="text-xs font-mono px-2 py-1 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-brand-600 dark:text-brand-400 border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40"
                         >
                           {t.id}
                           {t.count ? ` (${t.count})` : ''}
@@ -323,7 +323,7 @@ export default function ActorDetail(): JSX.Element {
               href={`https://attack.mitre.org/techniques/${t.replace('.', '/')}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-xs font-mono px-2 py-1 rounded bg-slate-100 dark:bg-slate-800 text-brand-600 dark:text-brand-400 border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40"
+              className="text-xs font-mono px-2 py-1 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-brand-600 dark:text-brand-400 border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40"
             >
               {t}
             </a>

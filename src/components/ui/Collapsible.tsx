@@ -40,7 +40,7 @@ export function Collapsible({
 
   return (
     <div
-      className={`rounded-xl border border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900/40 ${className}`}
+      className={`rounded-xl border border-slate-200 bg-white dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200)/0.4)] ${className}`}
     >
       <button
         type="button"
@@ -48,7 +48,7 @@ export function Collapsible({
         aria-expanded={open}
         aria-controls={bodyId}
         onClick={handleToggle}
-        className={`flex w-full items-center justify-between gap-3 p-4 text-left transition-colors hover:bg-slate-50 dark:hover:bg-slate-900/60 ${titleClassName}`}
+        className={`flex w-full items-center justify-between gap-3 p-4 text-left transition-colors hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200)/0.6)] ${titleClassName}`}
       >
         <span className="text-sm font-medium text-slate-900 dark:text-white">{title}</span>
         <ChevronDown
@@ -61,7 +61,7 @@ export function Collapsible({
           id={bodyId}
           role="region"
           aria-labelledby={headerId}
-          className={`border-t border-slate-200/70 p-4 dark:border-slate-800/70 ${contentClassName}`}
+          className={`border-t border-slate-200/70 p-4 dark:border-[rgb(var(--border-400))] ${contentClassName}`}
         >
           {children}
         </div>

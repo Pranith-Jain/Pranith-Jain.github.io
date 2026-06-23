@@ -476,7 +476,7 @@ function KevTable({ rows }: { rows: RecentCve[] }): JSX.Element {
           {rows.map((c) => (
             <tr
               key={c.id}
-              className="border-b border-slate-100 dark:border-[rgb(var(--border-400))]/60 last:border-b-0 hover:bg-slate-50 dark:hover:bg-slate-900/40"
+              className="border-b border-slate-100 dark:border-[rgb(var(--border-400))]/60 last:border-b-0 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200)/0.4)]"
             >
               <td className="px-4 sm:px-2 py-1.5">
                 <Link

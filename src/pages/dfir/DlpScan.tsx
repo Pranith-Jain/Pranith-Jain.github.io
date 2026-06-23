@@ -183,7 +183,7 @@ export default function DlpScan(): JSX.Element {
           onChange={(e) => setInput(e.target.value)}
           rows={10}
           placeholder="Paste a log line, support-ticket transcript, file fragment, or email body. Anything that might contain PII, secrets, or regulated identifiers."
-          className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 px-3 py-2 font-mono text-xs text-slate-900 dark:text-slate-100 focus:border-brand-500/60 focus:outline-none"
+          className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-3 py-2 font-mono text-xs text-slate-900 dark:text-slate-100 focus:border-brand-500/60 focus:outline-none"
           aria-label="Text to scan for sensitive data"
         />
       </section>
@@ -221,7 +221,7 @@ export default function DlpScan(): JSX.Element {
                   .map((c) => (
                     <div
                       key={c}
-                      className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 px-2 py-1"
+                      className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-2 py-1"
                     >
                       <span className="text-slate-500 dark:text-slate-400">{CATEGORY_LABELS[c]}:</span>{' '}
                       <span className="text-slate-800 dark:text-slate-200 font-bold">{stats.byCategory[c]}</span>
@@ -235,7 +235,7 @@ export default function DlpScan(): JSX.Element {
             <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3">
               Highlighted input
             </h2>
-            <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-3 font-mono text-sm text-slate-800 dark:text-slate-200 leading-relaxed overflow-x-auto">
+            <div className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 font-mono text-sm text-slate-800 dark:text-slate-200 leading-relaxed overflow-x-auto">
               {highlight(input, findings)}
             </div>
           </section>
@@ -250,7 +250,7 @@ export default function DlpScan(): JSX.Element {
                   {findings.map((f, i) => (
                     <li
                       key={`${f.pattern.id}-${i}`}
-                      className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-2.5"
+                      className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2.5"
                     >
                       <div className="flex flex-wrap items-center gap-2 mb-1">
                         <span className="font-display font-semibold text-slate-900 dark:text-slate-100">
@@ -270,7 +270,7 @@ export default function DlpScan(): JSX.Element {
                         <span className="text-micro font-mono text-slate-400 dark:text-slate-400">
                           {CATEGORY_LABELS[f.pattern.category]}
                         </span>
-                        <span className="text-micro font-mono text-slate-400 dark:text-slate-600 ml-auto">
+                        <span className="text-micro font-mono text-slate-400 dark:text-slate-400 ml-auto">
                           @ {f.index}
                         </span>
                       </div>
@@ -296,7 +296,7 @@ export default function DlpScan(): JSX.Element {
                   Every finding replaced with <code>[REDACTED:&lt;pattern-id&gt;]</code>. Safe to share in a ticket or
                   on Slack.
                 </p>
-                <pre className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-3 font-mono text-xs text-slate-800 dark:text-slate-200 whitespace-pre-wrap break-words">
+                <pre className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 font-mono text-xs text-slate-800 dark:text-slate-200 whitespace-pre-wrap break-words">
                   {redacted}
                 </pre>
               </section>
@@ -320,7 +320,7 @@ export default function DlpScan(): JSX.Element {
           {PATTERNS.map((p) => (
             <div
               key={p.id}
-              className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-2.5"
+              className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2.5"
             >
               <div className="flex items-center gap-1.5 mb-1 flex-wrap">
                 <span className="text-xs font-display font-semibold text-slate-900 dark:text-slate-100">{p.name}</span>
