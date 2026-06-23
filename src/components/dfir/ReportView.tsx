@@ -55,6 +55,7 @@ import {
   Users,
 } from 'lucide-react';
 import { extractStixBundle, StixRelationshipGraph, StixObjectTable } from '../StixBundleViewer';
+import { Modal } from '../ui/Modal';
 
 // ─────────────────────────────────────────────────────────────────────────
 // Types — mirror api/src/lib/agent/types.ts. Kept inline so this component
@@ -1111,6 +1112,9 @@ function NextActionsBar({
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState<string | null>(null);
   const [result, setResult] = useState<{ tool: string; data: unknown } | null>(null);
+  // Drill-deeper follow-up (replaces a native window.prompt).
+  const [drillOpen, setDrillOpen] = useState(false);
+  const [drillText, setDrillText] = useState('');
 
   const runAction = async (name: string, fn: () => Promise<{ tool: string; data: unknown } | null>) => {
     setLoading(name);
@@ -1269,8 +1273,8 @@ function NextActionsBar({
                   ]
                     .filter(Boolean)
                     .join('');
-                  const answer = window.prompt('Drill deeper into Copilot — what do you want to know?', followUp);
-                  if (answer && answer.trim()) onDrillDeeper(answer.trim());
+                  setDrillText(followUp);
+                  setDrillOpen(true);
                 }}
                 className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded border border-brand-300 dark:border-brand-700 bg-brand-50 dark:bg-brand-950/40 text-brand-700 dark:text-brand-300 text-mini font-mono hover:bg-brand-100 dark:hover:bg-brand-900/40 disabled:opacity-50"
               >
@@ -1305,6 +1309,43 @@ function NextActionsBar({
           )}
         </div>
       )}
+
+      <Modal open={drillOpen} onClose={() => setDrillOpen(false)} title="Drill deeper (Copilot)">
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            const q = drillText.trim();
+            if (q) onDrillDeeper?.(q);
+            setDrillOpen(false);
+          }}
+          className="space-y-3"
+        >
+          <textarea
+            autoFocus
+            value={drillText}
+            onChange={(e) => setDrillText(e.target.value)}
+            rows={8}
+            aria-label="Follow-up question for Copilot"
+            className="w-full px-3 py-2 rounded-md border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-sm font-mono focus:outline-none focus:border-brand-500"
+          />
+          <div className="flex justify-end gap-2">
+            <button
+              type="button"
+              onClick={() => setDrillOpen(false)}
+              className="px-3 py-1.5 text-tool text-slate-500 hover:text-slate-700 dark:hover:text-slate-300"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              disabled={!drillText.trim()}
+              className="px-3 py-1.5 rounded-md bg-brand-600 text-white text-tool font-semibold hover:bg-brand-500 disabled:opacity-40"
+            >
+              Ask Copilot
+            </button>
+          </div>
+        </form>
+      </Modal>
     </div>
   );
 }
