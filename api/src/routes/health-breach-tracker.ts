@@ -57,7 +57,7 @@ async function fetchHHSBreaches(): Promise<HealthBreach[]> {
       const cells: string[] = [];
       let cellMatch;
       while ((cellMatch = cellRegex.exec(row)) !== null) {
-        cells.push(cellMatch[1].replace(/<[^>]+>/g, '').trim());
+        cells.push((cellMatch[1] ?? '').replace(/<[^>]+>/g, '').trim());
       }
       if (cells.length >= 6) {
         breaches.push({
@@ -103,7 +103,7 @@ async function fetchHHSRSS(): Promise<HealthBreach[]> {
     let match;
 
     while ((match = itemRegex.exec(xml)) !== null) {
-      const item = match[1];
+      const item = match[1] ?? '';
       const title = item.match(/<title><!\[CDATA\[(.*?)\]\]>/)?.[1] || item.match(/<title>(.*?)<\/title>/)?.[1] || '';
       const link = item.match(/<link>(.*?)<\/link>/)?.[1] || '';
       const pubDate = item.match(/<pubDate>(.*?)<\/pubDate>/)?.[1] || '';
@@ -114,7 +114,7 @@ async function fetchHHSRSS(): Promise<HealthBreach[]> {
 
       if (title && title.toLowerCase().includes('breach')) {
         const affectedMatch = description.match(/(\d[\d,]*)\s*(?:individuals|people|patients)/i);
-        const individuals = affectedMatch ? parseInt(affectedMatch[1].replace(/,/g, ''), 10) : 0;
+        const individuals = affectedMatch ? parseInt((affectedMatch[1] ?? '0').replace(/,/g, ''), 10) : 0;
 
         breaches.push({
           id: `hhs-rss-${breaches.length}`,
@@ -294,9 +294,9 @@ export async function healthBreachDashboardHandler(c: Context<{ Bindings: Env }>
   for (const b of breaches) {
     totalIndividuals += b.individualsAffected;
     if (b.state) {
-      stateCounts[b.state] = stateCounts[b.state] || { count: 0, individuals: 0 };
-      stateCounts[b.state].count++;
-      stateCounts[b.state].individuals += b.individualsAffected;
+      if (!stateCounts[b.state]) stateCounts[b.state] = { count: 0, individuals: 0 };
+      stateCounts[b.state]!.count++;
+      stateCounts[b.state]!.individuals += b.individualsAffected;
     }
     typeCounts[b.breachType] = (typeCounts[b.breachType] || 0) + 1;
   }

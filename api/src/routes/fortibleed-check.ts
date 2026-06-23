@@ -106,7 +106,7 @@ async function detectFortiGate(target: string): Promise<FortiGateResult> {
         const versionMatch =
           body.match(/Forti(?:Gate|OS)\s+(?:v)?(\d+\.\d+\.?\d*)/i) || body.match(/version["\s:=]+(\d+\.\d+\.?\d*)/i);
         if (versionMatch) {
-          result.version = versionMatch[1];
+          result.version = versionMatch[1] ?? null;
           result.details.push(`Version: ${result.version}`);
         }
 

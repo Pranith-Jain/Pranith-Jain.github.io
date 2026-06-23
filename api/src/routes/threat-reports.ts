@@ -292,7 +292,7 @@ interface ThreatAssessment {
 }
 
 async function generateThreatAssessment(domain: string): Promise<ThreatAssessment> {
-  const baseDomain = domain.replace(/^(https?:\/\/)?(www\.)?/, '').split('/')[0];
+  const baseDomain = domain.replace(/^(https?:\/\/)?(www\.)?/, '').split('/')[0] ?? domain;
 
   // DNS check
   let hasMX = false;
@@ -384,7 +384,7 @@ export async function threatReportCountryHandler(c: Context<{ Bindings: Env }>):
   const country = (c.req.query('country') || 'US').toUpperCase();
   const data = COUNTRY_THREAT_DATA[country];
   if (!data) {
-    const available = Object.keys(COUNTRY_THREAT_DATA).map((k) => ({ code: k, name: COUNTRY_THREAT_DATA[k].name }));
+    const available = Object.keys(COUNTRY_THREAT_DATA).map((k) => ({ code: k, name: COUNTRY_THREAT_DATA[k]!.name }));
     return c.json({ error: `Country code "${country}" not found`, available });
   }
   return c.json({
@@ -399,7 +399,7 @@ export async function threatReportIndustryHandler(c: Context<{ Bindings: Env }>)
   const industry = (c.req.query('industry') || '').toLowerCase();
   const data = INDUSTRY_THREAT_DATA[industry];
   if (!data) {
-    const available = Object.keys(INDUSTRY_THREAT_DATA).map((k) => ({ slug: k, name: INDUSTRY_THREAT_DATA[k].name }));
+    const available = Object.keys(INDUSTRY_THREAT_DATA).map((k) => ({ slug: k, name: INDUSTRY_THREAT_DATA[k]!.name }));
     return c.json({ error: `Industry "${industry}" not found`, available });
   }
   return c.json({
@@ -446,10 +446,10 @@ export async function threatReportOverviewHandler(c: Context<{ Bindings: Env }>)
         endpoint: '/api/v1/threat-reports/external?domain=example.com',
       },
     ],
-    availableCountries: Object.keys(COUNTRY_THREAT_DATA).map((k) => ({ code: k, name: COUNTRY_THREAT_DATA[k].name })),
+    availableCountries: Object.keys(COUNTRY_THREAT_DATA).map((k) => ({ code: k, name: COUNTRY_THREAT_DATA[k]!.name })),
     availableIndustries: Object.keys(INDUSTRY_THREAT_DATA).map((k) => ({
       slug: k,
-      name: INDUSTRY_THREAT_DATA[k].name,
+      name: INDUSTRY_THREAT_DATA[k]!.name,
     })),
   });
 }
