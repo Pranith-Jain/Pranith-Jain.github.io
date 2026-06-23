@@ -14,6 +14,7 @@ type PgpMode = 'encrypt' | 'decrypt' | 'sign' | 'verify' | 'generate';
 
 export default function PgpTool() {
   const [mode, setMode] = useState<PgpMode>('encrypt');
+  const [copied, setCopied] = useState(false);
   const [publicKey, setPublicKey] = useState('');
   const [privateKey, setPrivateKey] = useState('');
   const [passphrase, setPassphrase] = useState('');
@@ -276,10 +277,16 @@ export default function PgpTool() {
             />
           </label>
           <button
-            onClick={() => navigator.clipboard.writeText(output)}
+            type="button"
+            onClick={async () => {
+              await navigator.clipboard.writeText(output);
+              setCopied(true);
+              setTimeout(() => setCopied(false), 1500);
+            }}
+            aria-live="polite"
             className="mt-1 text-mini font-mono text-brand-600 dark:text-brand-400 hover:underline"
           >
-            Copy to clipboard
+            {copied ? 'Copied!' : 'Copy to clipboard'}
           </button>
         </div>
       )}

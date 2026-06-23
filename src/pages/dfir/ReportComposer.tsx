@@ -682,24 +682,26 @@ function PreviewPanel({ doc }: { doc: ReportDoc }): JSX.Element {
       {doc.iocs.length > 0 && (
         <>
           <h2 className="text-lg font-semibold mt-4 mb-2">IOCs</h2>
-          <table className="w-full text-xs">
-            <thead>
-              <tr>
-                <th className="text-left">Type</th>
-                <th className="text-left">Value</th>
-                <th className="text-left">Context</th>
-              </tr>
-            </thead>
-            <tbody>
-              {doc.iocs.map((i, idx) => (
-                <tr key={idx} className="border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
-                  <td className="font-mono py-1">{i.type}</td>
-                  <td className="font-mono py-1 break-all">{i.value}</td>
-                  <td className="py-1">{i.context}</td>
+          <div className="overflow-x-auto">
+            <table className="w-full text-xs">
+              <thead>
+                <tr>
+                  <th className="text-left">Type</th>
+                  <th className="text-left">Value</th>
+                  <th className="text-left">Context</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {doc.iocs.map((i, idx) => (
+                  <tr key={idx} className="border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+                    <td className="font-mono py-1">{i.type}</td>
+                    <td className="font-mono py-1 break-all">{i.value}</td>
+                    <td className="py-1">{i.context}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </>
       )}
     </article>

@@ -184,7 +184,7 @@ export default function StealerParser(): JSX.Element {
                 </h3>
                 <CopyButton value={result.credentials.map((c) => `${c.domain}:${c.username}`).join('\n')} />
               </div>
-              <div className="max-h-64 overflow-y-auto">
+              <div className="max-h-64 overflow-auto">
                 <table className="w-full text-sm">
                   <thead>
                     <tr className="text-left text-micro font-mono uppercase tracking-wider text-slate-400 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
