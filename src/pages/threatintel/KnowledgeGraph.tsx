@@ -120,7 +120,7 @@ export default function KnowledgeGraph(): JSX.Element {
   const [minConn, setMinConn] = useState(0);
   const [data, setData] = useState<KGResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
   const [refreshKey, setRefreshKey] = useState(0);
 
   useEffect(() => {
@@ -212,7 +212,7 @@ export default function KnowledgeGraph(): JSX.Element {
               id="kg-days"
               value={days}
               onChange={(e) => setDays(parseInt(e.target.value, 10))}
-              className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-slate-950 px-1.5 py-0.5 text-xs font-mono"
+              className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] px-1.5 py-0.5 text-xs font-mono"
             >
               <option value={7}>7d</option>
               <option value={30}>30d</option>
@@ -228,7 +228,7 @@ export default function KnowledgeGraph(): JSX.Element {
               max={1000}
               value={limit}
               onChange={(e) => setLimit(Math.min(1000, Math.max(10, parseInt(e.target.value, 10) || 200)))}
-              className="w-20 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-slate-950 px-1.5 py-0.5 text-xs font-mono"
+              className="w-20 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] px-1.5 py-0.5 text-xs font-mono"
             />
             <label htmlFor="kg-minconn">min conn</label>
             <input
@@ -238,7 +238,7 @@ export default function KnowledgeGraph(): JSX.Element {
               max={50}
               value={minConn}
               onChange={(e) => setMinConn(Math.max(0, parseInt(e.target.value, 10) || 0))}
-              className="w-16 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-slate-950 px-1.5 py-0.5 text-xs font-mono"
+              className="w-16 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] px-1.5 py-0.5 text-xs font-mono"
             />
             <button
               type="button"
@@ -272,6 +272,22 @@ export default function KnowledgeGraph(): JSX.Element {
         </div>
       )}
 
+      {/* Loading — without this the page renders only the filter bar over
+          emptiness while /graph/cross-report resolves, which reads as broken. */}
+      {loading && !data && !error && (
+        <section
+          className="surface-card flex items-center justify-center"
+          style={{ height: 620 }}
+          role="status"
+          aria-live="polite"
+        >
+          <div className="flex flex-col items-center gap-3 text-sm text-slate-500 dark:text-slate-400">
+            <RefreshCw className="h-6 w-6 animate-spin text-brand-500" aria-hidden="true" />
+            <span>Building the cross-report graph…</span>
+          </div>
+        </section>
+      )}
+
       {/* Graph */}
       {data &&
         (data.nodes.length > 0 ? (
@@ -299,7 +315,7 @@ export default function KnowledgeGraph(): JSX.Element {
             </ReactFlowProvider>
           </section>
         ) : (
-          <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-slate-950 p-8 text-center text-sm text-slate-500 dark:text-slate-400">
+          <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-8 text-center text-sm text-slate-500 dark:text-slate-400">
             No nodes match the current filters. Try widening the time window or clearing the type filter.
           </section>
         ))}

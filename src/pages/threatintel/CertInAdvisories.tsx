@@ -49,7 +49,7 @@ function formatDate(iso: string): string {
   return iso;
 }
 
-export default function CertInAdvisories(): JSX.Element {
+export default function CertInAdvisories({ bare = false }: { bare?: boolean } = {}): JSX.Element {
   const [query, setQuery] = useState('');
   const [yearFilter, setYearFilter] = useState('');
   const [severityFilter, setSeverityFilter] = useState('');
@@ -169,15 +169,23 @@ export default function CertInAdvisories(): JSX.Element {
 
   return (
     <div>
-      <div className="flex items-center gap-3 mb-1">
-        <Shield className="w-7 h-7 text-sky-500" />
-        <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">CERT-In Advisories</h2>
-      </div>
-      <p className="text-muted mb-6 text-sm max-w-3xl leading-relaxed">
-        Advisories published by the Indian Computer Emergency Response Team (CERT-In) — vulnerability disclosures
-        affecting Indian enterprises and critical infrastructure. Filter by year or severity, or search by CVE /
-        product. Click any advisory ID to open the official detail page.
-      </p>
+      {/* Header is redundant when embedded as a CveIntel tab (the parent
+          DataPageLayout already titles the panel), so drop it when bare. */}
+      {!bare && (
+        <>
+          <div className="flex items-center gap-3 mb-1">
+            <Shield className="w-7 h-7 text-sky-500" />
+            <h1 className="text-3xl sm:text-4xl font-display font-bold text-slate-900 dark:text-slate-100">
+              CERT-In Advisories
+            </h1>
+          </div>
+          <p className="text-muted mb-6 text-sm max-w-3xl leading-relaxed">
+            Advisories published by the Indian Computer Emergency Response Team (CERT-In) — vulnerability disclosures
+            affecting Indian enterprises and critical infrastructure. Filter by year or severity, or search by CVE /
+            product. Click any advisory ID to open the official detail page.
+          </p>
+        </>
+      )}
 
       {/* Stats bar */}
       <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 mb-5">

@@ -36,7 +36,7 @@ function isOverdue(dateStr: string): boolean {
   return daysUntil(dateStr) < 0;
 }
 
-export default function CisaKevCatalog(): JSX.Element {
+export default function CisaKevCatalog({ bare = false }: { bare?: boolean } = {}): JSX.Element {
   const [query, setQuery] = useState('');
   const [vendorFilter, setVendorFilter] = useState('');
   const [productFilter, setProductFilter] = useState('');
@@ -154,15 +154,23 @@ export default function CisaKevCatalog(): JSX.Element {
   );
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-8">
-      <div className="flex items-center gap-3 mb-1">
-        <ShieldAlert className="w-7 h-7 text-rose-500" />
-        <h1 className="text-3xl sm:text-4xl font-display font-bold text-slate-900 dark:text-slate-100">CISA KEV Catalog</h1>
-      </div>
-      <p className="text-muted mb-6 text-sm max-w-3xl leading-relaxed">
-        Known Exploited Vulnerabilities — the official CISA catalog of vulnerabilities with confirmed active
-        exploitation. Filter by vendor, product, ransomware use, and timeframe. Export to JSON or CSV.
-      </p>
+    // When embedded as a CveIntel tab (bare), drop the page container + header —
+    // the parent DataPageLayout already supplies the title, padding, and width.
+    <div className={bare ? '' : 'max-w-7xl mx-auto px-4 py-8'}>
+      {!bare && (
+        <>
+          <div className="flex items-center gap-3 mb-1">
+            <ShieldAlert className="w-7 h-7 text-rose-500" />
+            <h1 className="text-3xl sm:text-4xl font-display font-bold text-slate-900 dark:text-slate-100">
+              CISA KEV Catalog
+            </h1>
+          </div>
+          <p className="text-muted mb-6 text-sm max-w-3xl leading-relaxed">
+            Known Exploited Vulnerabilities — the official CISA catalog of vulnerabilities with confirmed active
+            exploitation. Filter by vendor, product, ransomware use, and timeframe. Export to JSON or CSV.
+          </p>
+        </>
+      )}
 
       {/* Stats bar */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-5">
