@@ -61,26 +61,31 @@ interface EntityProfile {
 
 type ViewMode = 'resolve' | 'extract';
 
+// Entity types are categorical, not severity — so they use a restrained,
+// non-status palette (indigo/violet/teal/sky) grouped by kind, leaving
+// rose/amber/emerald free to mean critical/caution/good. Types that share a
+// hue are told apart by their icon: adversary (indigo), malicious code
+// (violet), vulnerability (teal), and network/file indicators (sky).
 const ENTITY_TYPE_CONFIG: Record<string, { label: string; icon: typeof Shield; color: string }> = {
-  actor: { label: 'Actor', icon: Users, color: 'bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-300' },
+  actor: {
+    label: 'Actor',
+    icon: Users,
+    color: 'bg-indigo-100 text-indigo-700 dark:bg-indigo-500/10 dark:text-indigo-300',
+  },
   ransomware: {
     label: 'Ransomware',
     icon: Bug,
-    color: 'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300',
+    color: 'bg-violet-100 text-violet-700 dark:bg-violet-500/10 dark:text-violet-300',
   },
-  cve: { label: 'CVE', icon: Shield, color: 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300' },
   malware: {
     label: 'Malware',
     icon: Bug,
-    color: 'bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300',
+    color: 'bg-violet-100 text-violet-700 dark:bg-violet-500/10 dark:text-violet-300',
   },
-  ip: { label: 'IP', icon: Monitor, color: 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300' },
+  cve: { label: 'CVE', icon: Shield, color: 'bg-teal-100 text-teal-700 dark:bg-teal-500/10 dark:text-teal-300' },
+  ip: { label: 'IP', icon: Monitor, color: 'bg-sky-100 text-sky-700 dark:bg-sky-500/10 dark:text-sky-300' },
   domain: { label: 'Domain', icon: Globe, color: 'bg-sky-100 text-sky-700 dark:bg-sky-500/10 dark:text-sky-300' },
-  hash: {
-    label: 'Hash',
-    icon: Hash,
-    color: 'bg-violet-100 text-violet-700 dark:bg-violet-900/30 dark:text-violet-300',
-  },
+  hash: { label: 'Hash', icon: Hash, color: 'bg-sky-100 text-sky-700 dark:bg-sky-500/10 dark:text-sky-300' },
   unknown: {
     label: 'Unknown',
     icon: AlertTriangle,

@@ -48,9 +48,11 @@ const KIND_PILL: Record<IocKind, string> = {
 };
 
 function confidenceLabel(n: number): { label: string; cls: string } {
-  if (n >= 5) return { label: 'very high', cls: 'text-rose-700 dark:text-rose-300' };
-  if (n >= 4) return { label: 'high', cls: 'text-amber-700 dark:text-amber-300' };
-  if (n >= 3) return { label: 'medium', cls: 'text-sky-700 dark:text-sky-300' };
+  // Confidence reads as solidity, not alarm: high = emerald (good), stepping
+  // down through amber to a neutral muted low. Matches EntityResolution's ramp.
+  if (n >= 5) return { label: 'very high', cls: 'text-emerald-700 dark:text-emerald-300' };
+  if (n >= 4) return { label: 'high', cls: 'text-emerald-600 dark:text-emerald-400' };
+  if (n >= 3) return { label: 'medium', cls: 'text-amber-700 dark:text-amber-300' };
   return { label: 'low', cls: 'text-muted' };
 }
 
