@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { ArrowLeft, Hash as HashIcon, Loader2 } from 'lucide-react';
+import { CopyButton } from '../../components/ui/CopyButton';
 import { fileTooLarge, yieldToPaint } from '../../lib/dfir/file-guard';
 
 /** Compact MD5 (RFC 1321). Web Crypto has no MD5; DFIR still needs it for
@@ -179,13 +180,7 @@ export default function HashCalculator(): JSX.Element {
           >
             <div className="flex items-center justify-between gap-2">
               <span className="text-micro font-mono uppercase tracking-wider text-slate-500">{k}</span>
-              <button
-                type="button"
-                onClick={() => void navigator.clipboard?.writeText(v)}
-                className="text-micro font-mono text-slate-400 hover:text-brand-600"
-              >
-                copy
-              </button>
+              <CopyButton text={v} variant="ghost" size="sm" label={`Copy ${k}`} />
             </div>
             <code className="font-mono text-meta break-all text-slate-900 dark:text-slate-100">{v}</code>
           </li>

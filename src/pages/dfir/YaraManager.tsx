@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { sanitizeUrl } from '../../lib/sanitize-url';
-import { Plus, Trash2, FileDown, Edit2, X, Copy, ExternalLink, ScrollText } from 'lucide-react';
+import { Plus, Trash2, FileDown, Edit2, X, ExternalLink, ScrollText } from 'lucide-react';
+import { CopyButton } from '../../components/ui/CopyButton';
 
 interface YaraRule {
   id: string;
@@ -457,14 +458,13 @@ function RansomwareIntelPanels(): JSX.Element {
                 ))}
               </select>
               {yara && (
-                <button
-                  type="button"
-                  onClick={() => void navigator.clipboard?.writeText(yara)}
-                  className="shrink-0 border border-slate-200 dark:border-[rgb(var(--border-400))] p-1 text-slate-500 hover:text-brand-600"
-                  aria-label="Copy YARA"
-                >
-                  <Copy size={11} />
-                </button>
+                <CopyButton
+                  text={yara}
+                  variant="ghost"
+                  size="sm"
+                  label="Copy YARA"
+                  className="shrink-0 border border-slate-200 dark:border-[rgb(var(--border-400))]"
+                />
               )}
             </div>
           </div>

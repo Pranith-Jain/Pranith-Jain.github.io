@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, Rss, ChevronRight, ChevronLeft, Search } from 'lucide-react';
+import { CopyButton } from '../../components/ui/CopyButton';
 import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
 import { LiveFreshnessPill } from '../../components/LiveFreshnessPill';
 import { useDebounce } from '../../hooks/useDebounce';
@@ -365,16 +366,13 @@ export default function Briefings(): JSX.Element {
           </a>{' '}
           — last 10 briefings.
         </p>
-        <button
-          type="button"
-          onClick={() => {
-            void navigator.clipboard.writeText(`${window.location.origin}/api/v1/briefings/rss`);
-          }}
-          className="text-mini font-mono text-brand-600 dark:text-brand-400 hover:underline shrink-0"
-          title="Copy feed URL"
-        >
-          copy URL
-        </button>
+        <CopyButton
+          text={`${window.location.origin}/api/v1/briefings/rss`}
+          variant="ghost"
+          size="sm"
+          label="Copy feed URL"
+          className="shrink-0"
+        />
       </div>
     </div>
   );

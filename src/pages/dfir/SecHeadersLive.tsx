@@ -9,10 +9,10 @@ import {
   ShieldX,
   ChevronDown,
   ChevronUp,
-  Copy,
   ExternalLink,
   AlertTriangle,
 } from 'lucide-react';
+import { CopyButton } from '../../components/ui/CopyButton';
 
 /**
  * Live Security Headers Scanner — third-party HSTS/CSP/etc. scan via
@@ -284,14 +284,13 @@ export default function SecHeadersLive(): JSX.Element {
                           <pre className="text-micro font-mono text-slate-800 dark:text-slate-200 whitespace-pre-wrap break-all">
                             {value}
                           </pre>
-                          <button
-                            type="button"
-                            onClick={() => navigator.clipboard?.writeText(value)}
-                            className="absolute top-2 right-2 inline-flex items-center gap-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-300))] px-1.5 py-0.5 text-micro font-mono text-slate-400 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200"
-                            title="Copy to clipboard"
-                          >
-                            <Copy size={10} aria-hidden="true" /> copy
-                          </button>
+                          <CopyButton
+                            text={value}
+                            variant="ghost"
+                            size="sm"
+                            label="Copy header value"
+                            className="absolute top-2 right-2 border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-300))]"
+                          />
                         </div>
                       )}
                     </div>
