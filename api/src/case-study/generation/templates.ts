@@ -29,6 +29,7 @@ const SYSTEM_PROMPT =
   `    * For bulk references (15+ posts on the same campaign), GROUP into ONE bullet linking to the search page: \`- [ransomlook.io](url) — 15 victim posts\`. Do NOT enumerate every URL.\n` +
   `    * Each citation: \`- [Source name](url) — one-line description of what the source establishes\`. The description after em-dash is mandatory.\n` +
   `- CRITICAL: Never invent placeholder URLs (example.com, example.org, yourdomain.com, placeholder.com, or any fake/placeholder domain). Every URL must be either one of the provided REFERENCE URLS or a real, well-known security domain. Invented URLs will be stripped and the post will fail QA.\n` +
+  `- VERIFY EVERY URL: Before including a reference URL, confirm it resolves to a real, published article covering the claimed topic. Do NOT include any URL that leads to a generic homepage, a search-results page, or an unrelated article — the URL must point directly to the specific story you are citing. If you cannot produce a verified, article-specific URL for a reference, drop it entirely rather than linking to a homepage or an unrelated page. A reference with a homepage URL is indistinguishable from a broken link and will be flagged as unverified.\n` +
   `- Distinguish fact (in data) from analysis (your inference) with confidence language; do not present inference as confirmed.\n` +
   `</grounding>\n\n` +
   `<format>\n` +

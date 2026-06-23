@@ -346,6 +346,12 @@ const KNOWN_PUBLISHER_URLS: ReadonlyArray<{ labelRe: RegExp; host: string; path:
     path: '/known-exploited-vulnerabilities-catalog',
     label: 'CISA KEV',
   },
+  {
+    labelRe: /^cisa[,:\s]/i,
+    host: 'www.cisa.gov',
+    path: '/cybersecurity-advisories',
+    label: 'CISA',
+  },
   { labelRe: /mitre\s+att&ck|att&ck\s+matrix/i, host: 'attack.mitre.org', path: '/', label: 'MITRE ATT&CK' },
 ];
 
