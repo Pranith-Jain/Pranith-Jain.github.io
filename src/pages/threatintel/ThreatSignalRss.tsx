@@ -22,6 +22,7 @@ import { Rss, ExternalLink, Search, RefreshCw, AlertTriangle, Clock, Tag, Chevro
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 import { PostAnalysisButton } from '../../components/threatintel/PostAnalysisButton';
+import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
 
 const AGGREGATE_URL = '/api/v1/rss/aggregate';
 
@@ -511,6 +512,19 @@ export default function ThreatSignalRss(): JSX.Element {
             </div>
           )}
         </div>
+      )}
+
+      {/* AI summary of the current research signal cut */}
+      {filtered.length > 0 && (
+        <AiSummaryCard
+          surface="Threat Research Feeds"
+          items={filtered.slice(0, 30).map((it) => ({
+            title: it.title,
+            body: it.description,
+            source: it.sourceName,
+          }))}
+          requireAdmin={false}
+        />
       )}
 
       {/* Posts grid */}
