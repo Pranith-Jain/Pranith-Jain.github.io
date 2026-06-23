@@ -395,7 +395,7 @@ export default function ThreatIntelHome(): JSX.Element {
                       to={item.href}
                       className="group flex items-center gap-3 surface-card card-hover p-4"
                     >
-                      <div className="grid h-10 w-10 place-items-center rounded-lg bg-slate-50 dark:bg-white/5 text-rose-600 dark:text-rose-400 shrink-0">
+                      <div className="grid h-10 w-10 place-items-center rounded-md bg-slate-50 dark:bg-white/5 text-rose-600 dark:text-rose-400 shrink-0">
                         <Icon size={18} />
                       </div>
                       <div className="min-w-0">
@@ -419,8 +419,9 @@ export default function ThreatIntelHome(): JSX.Element {
               </div>
             </section>
 
-            {/* ── Collapsible: Live Intelligence */}
-            <details className="group surface-card">
+            {/* ── Live Intelligence — open by default: live proof the platform
+                is working belongs above the fold on the threat-intel hub. */}
+            <details open className="group surface-card">
               <summary className="flex items-center justify-between cursor-pointer p-4 sm:p-5 select-none">
                 <div className="flex items-center gap-2">
                   <span className="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
