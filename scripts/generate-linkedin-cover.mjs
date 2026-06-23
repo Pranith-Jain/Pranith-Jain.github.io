@@ -106,7 +106,7 @@ const svg = `<?xml version="1.0" encoding="UTF-8"?>
 
   <!-- name + role -->
   <text x="186" y="146" font-size="52" font-weight="800" letter-spacing="-0.5" fill="#ffffff">Pranith Jain</text>
-  <text x="188" y="178" font-size="17" font-weight="700" letter-spacing="3.5" fill="#a1b6fb">SECURITY ENGINEER · THREAT INTEL · DFIR</text>
+  <text x="188" y="178" font-size="17" font-weight="700" letter-spacing="3.2" fill="#a1b6fb">CERTIFIED CYBER CRIMINOLOGIST · DFIR · THREAT INTEL</text>
 
   <!-- tagline -->
   <text x="100" y="262" font-size="29" font-weight="400" fill="#dbe3f4">Edge-native security tooling &amp; a live threat-intelligence platform,</text>
