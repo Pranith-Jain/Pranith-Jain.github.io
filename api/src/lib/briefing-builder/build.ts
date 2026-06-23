@@ -1,6 +1,6 @@
 import type { D1Database } from '@cloudflare/workers-types';
 import type { Env } from '../../env';
-import { type IocEntry, type SourceId } from '../ioc-feed-parsers';
+import { type IocEntry } from '../ioc-feed-parsers';
 import { fetchMtiSource, type MtiCveRecord } from '../mythreatintel-api';
 import { fetchRansomwareRecent, type RansomwareVictim } from '../../routes/ransomware-recent';
 import { normalizeGroup } from '../group-normalize';
@@ -110,6 +110,7 @@ export async function buildBriefing(
         : Promise.resolve([] as MtiCveRecord[]),
       fetchCveFeedHighSeverity().catch(() => [] as CveFeedEntry[]),
     ]);
+  console.log(JSON.stringify({ job: 'briefing-build-debug', step: 'sources-fetched', kev: kevR.ok, nvd: nvdR.ok, degraded: !kevR.ok && !nvdR.ok }));
   let degraded = !kevR.ok && !nvdR.ok;
   const kev = kevR.v;
   const nvdRecent = nvdR.v;
@@ -285,6 +286,7 @@ export async function buildBriefing(
   }
 
   const sections = buildSections(findings);
+  console.log(JSON.stringify({ job: 'briefing-build-debug', step: 'sections-built', findingsCount: findings.length, sectionsCount: sections.length, ransomwareFindings: ransomwareFindings.length }));
   if (ransomwareFindings.length > 0) {
     const topGroups = ransomwareGroups
       .slice(0, 3)
@@ -325,6 +327,7 @@ export async function buildBriefing(
   const executive_summary = degraded
     ? `This ${type} briefing is incomplete: both CISA KEV and NVD were unreachable from the edge at build time (${rangeLabel}). This is an upstream-availability gap, NOT an all-clear — do not read the absence of findings as "no new vulnerabilities". The briefing rebuilds automatically every hour and will be replaced as soon as the feeds respond.`
     : await buildLlmExecutiveSummary(summaryArgs, opts.env);
+  console.log(JSON.stringify({ job: 'briefing-build-debug', step: 'exec-summary-done', degraded }));
 
   const techniqueSet = new Set<string>();
   for (const f of findings) for (const t of f.mitre_techniques) techniqueSet.add(t);

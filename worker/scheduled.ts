@@ -33,6 +33,8 @@ import { indexAllCorpora } from '../api/src/routes/rag-corpus-index';
 import { detectPirAlerts } from '../api/src/routes/pir';
 import { syncOwaspAiLandscape, syncCuratedToolbox, syncCuratedCerts } from '../api/src/lib/landscape-sync';
 import { syncGitHubAdvisories, GHSA_META_KV_KEY, GHSA_FRESH_TTL_S } from '../api/src/lib/github-security-sync';
+import { runFullCollection } from '../api/src/lib/cti-collector';
+import { runRetentionSweep } from '../api/src/lib/retention';
 import { runGraphIngest } from '../api/src/routes/graph-ingest';
 import { autoRunFeedJobs } from '../api/src/routes/feed-scheduler';
 import { enqueueAllFeeds } from '../api/src/routes/live-iocs';
@@ -166,7 +168,7 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
         const heartbeatInt = setInterval(() => {
           if (lease.token) heartbeatCronLease(env, cron, lease.token, CRON_LEASE_TTL_MS).catch(() => {});
         }, 5 * 60_000);
-        const stopHeartbeat = () => clearInterval(heartbeatInt);
+        try {
 
         // === Telegram leak scanning — FIRST, before anything else hits t.me ===
         // Telegram throttles repeated scrape bursts from the same egress IP. The
@@ -232,102 +234,97 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
         // These were previously in a separate `0 * * * *` block with a shared
         // lease but no coordination — merged here so one lease + one heartbeat
         // covers all hourly work.
-        try {
-          if (env.FEEDS_QUEUE) {
-            ctx.waitUntil(enqueueGpFeeds(env.FEEDS_QUEUE, csNow.getUTCHours()).catch(logCronFail('gp-warm-enqueue')));
-          }
-          ctx.waitUntil(runPublisherNow(env as unknown as CaseStudyEnv, csNow).catch(logCronFail('publisher')));
-          ctx.waitUntil(runTelegramArchive(env as unknown as ApiEnv).catch(logCronFail('telegram-archive')));
-          if (env.FEEDS_QUEUE) {
-            ctx.waitUntil(enqueueAllFeeds(env.FEEDS_QUEUE).catch(logCronFail('live-iocs-enqueue')));
-          }
-          ctx.waitUntil(
-            warmIntelBundles(env as unknown as ApiEnv)
-              .then((r) =>
+        const fireAndForget: Promise<unknown>[] = [];
+        if (env.FEEDS_QUEUE) {
+          fireAndForget.push(enqueueGpFeeds(env.FEEDS_QUEUE, csNow.getUTCHours()).catch(logCronFail('gp-warm-enqueue')));
+        }
+        fireAndForget.push(runPublisherNow(env as unknown as CaseStudyEnv, csNow).catch(logCronFail('publisher')));
+        fireAndForget.push(runTelegramArchive(env as unknown as ApiEnv).catch(logCronFail('telegram-archive')));
+        if (env.FEEDS_QUEUE) {
+          fireAndForget.push(enqueueAllFeeds(env.FEEDS_QUEUE).catch(logCronFail('live-iocs-enqueue')));
+        }
+        fireAndForget.push(
+          warmIntelBundles(env as unknown as ApiEnv)
+            .then((r) =>
+              console.log(
+                JSON.stringify({
+                  job: 'intel-bundle-warm',
+                  built: r.built.length,
+                  failed: r.failed.length,
+                  has_more: r.hasMore,
+                  slugs: r.built,
+                  llm_ran: r.llmRan,
+                  llm_partial: r.llmPartial,
+                })
+              )
+            )
+            .catch(logCronFail('intel-bundle-warm'))
+        );
+        if (csNow.getUTCHours() % 6 === 3) {
+          fireAndForget.push(
+            refreshVictimReleaksCache(env as unknown as ApiEnv)
+              .then((b) =>
                 console.log(
                   JSON.stringify({
-                    job: 'intel-bundle-warm',
-                    built: r.built.length,
-                    failed: r.failed.length,
-                    has_more: r.hasMore,
-                    slugs: r.built,
-                    llm_ran: r.llmRan,
-                    llm_partial: r.llmPartial,
+                    job: 'victim-releaks-refresh',
+                    releaks: b.releaks.length,
+                    groups: b.groups_scanned,
+                    warnings: b.warnings.length,
                   })
                 )
               )
-              .catch(logCronFail('intel-bundle-warm'))
+              .catch(logCronFail('victim-releaks-refresh'))
           );
-          if (csNow.getUTCHours() % 6 === 3) {
-            ctx.waitUntil(
-              refreshVictimReleaksCache(env as unknown as ApiEnv)
-                .then((b) =>
-                  console.log(
-                    JSON.stringify({
-                      job: 'victim-releaks-refresh',
-                      releaks: b.releaks.length,
-                      groups: b.groups_scanned,
-                      warnings: b.warnings.length,
-                    })
-                  )
-                )
-                .catch(logCronFail('victim-releaks-refresh'))
-            );
-          }
-          // GitHub Security Advisories — pre-warm KV once every 6h so
-          // the listing page reads from cache, never from the request
-          // path. The previous design called GitHub live on every
-          // request and was blocked by the 60 req/hr unauthenticated
-          // limit on Cloudflare's shared egress IP. Hour 4 of the
-          // 6h cycle (UTC: 04, 10, 16, 22) is intentionally offset
-          // from the victim-releaks hour so the two upstream calls
-          // don't share a burst window. Skip if the meta says we
-          // already have a fresh write — protects the per-IP budget
-          // even if the cron fires on a non-divisible-by-6 hour
-          // (e.g. retry, manual trigger, hourly override).
-          if (csNow.getUTCHours() % 6 === 4) {
-            ctx.waitUntil(
-              (async (): Promise<void> => {
-                if (!env.KV_CACHE) return;
-                const raw = await env.KV_CACHE.get(GHSA_META_KV_KEY, 'text');
-                if (raw) {
-                  try {
-                    const meta = JSON.parse(raw) as {
-                      ok?: boolean;
-                      fetchedAt?: string;
-                    };
-                    const ageMs = meta.fetchedAt ? Date.now() - Date.parse(meta.fetchedAt) : Infinity;
-                    if (meta.ok && Number.isFinite(ageMs) && ageMs < GHSA_FRESH_TTL_S * 1000) {
-                      // Fresh: the previous cron tick already wrote
-                      // a good copy. Skip to protect the rate limit.
-                      return;
-                    }
-                  } catch {
-                    /* fall through to sync */
-                  }
-                }
-                const r = await syncGitHubAdvisories(env as unknown as ApiEnv);
-                console.log(
-                  JSON.stringify({
-                    job: 'github-security-sync',
-                    ok: r.ok,
-                    total: r.total,
-                    status: r.status,
-                    rate_limited: r.rateLimited,
-                    error: r.error,
-                  })
-                );
-              })().catch(logCronFail('github-security-sync'))
-            );
-          }
-        } catch (e) {
-          logCronFail('publisher-bundle')(e);
         }
+        // GitHub Security Advisories — pre-warm KV once every 6h so
+        // the listing page reads from cache, never from the request
+        // path. The previous design called GitHub live on every
+        // request and was blocked by the 60 req/hr unauthenticated
+        // limit on Cloudflare's shared egress IP. Hour 4 of the
+        // 6h cycle (UTC: 04, 10, 16, 22) is intentionally offset
+        // from the victim-releaks hour so the two upstream calls
+        // don't share a burst window. Skip if the meta says we
+        // already have a fresh write — protects the per-IP budget
+        // even if the cron fires on a non-divisible-by-6 hour
+        // (e.g. retry, manual trigger, hourly override).
+        if (csNow.getUTCHours() % 6 === 4) {
+          fireAndForget.push(
+            (async (): Promise<void> => {
+              if (!env.KV_CACHE) return;
+              const raw = await env.KV_CACHE.get(GHSA_META_KV_KEY, 'text');
+              if (raw) {
+                try {
+                  const meta = JSON.parse(raw) as {
+                    ok?: boolean;
+                    fetchedAt?: string;
+                  };
+                  const ageMs = meta.fetchedAt ? Date.now() - Date.parse(meta.fetchedAt) : Infinity;
+                  if (meta.ok && Number.isFinite(ageMs) && ageMs < GHSA_FRESH_TTL_S * 1000) {
+                    return;
+                  }
+                } catch {
+                  /* fall through to sync */
+                }
+              }
+              const r = await syncGitHubAdvisories(env as unknown as ApiEnv);
+              console.log(
+                JSON.stringify({
+                  job: 'github-security-sync',
+                  ok: r.ok,
+                  total: r.total,
+                  status: r.status,
+                  rate_limited: r.rateLimited,
+                  error: r.error,
+                })
+              );
+            })().catch(logCronFail('github-security-sync'))
+          );
+        }
+        await Promise.allSettled(fireAndForget);
 
         // ── CTI Collector: automated IOC + news ingestion (every hour) ────
         try {
           if (env.BRIEFINGS_DB) {
-            const { runFullCollection } = await import('../api/src/lib/cti-collector');
             const ctiResult = await runFullCollection(env.BRIEFINGS_DB);
             console.log(
               JSON.stringify({
@@ -473,9 +470,11 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
           const composers = await Promise.allSettled(composerTargets.map(warm));
           // Warm USGS earthquakes into dedicated cache
           await warmUsgs();
-          const summary = [...perSource, ...composers]
+          const allSettled = [...perSource, ...composers];
+          const allTargets = [...perSourceTargets, ...composerTargets];
+          const summary = allSettled
             .map((r, i) => {
-              const path = [...perSourceTargets, ...composerTargets][i];
+              const path = allTargets[i];
               return r.status === 'fulfilled'
                 ? `${r.value.path}=${r.value.status}`
                 : `${path}=err(${(r.reason as Error).message})`;
@@ -842,7 +841,6 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
         // policy is enforced.
         if (csNow.getUTCHours() === 6) {
           try {
-            const { runRetentionSweep } = await import('../api/src/lib/retention');
             const db = env.BRIEFINGS_DB as D1Database;
             const result = await runRetentionSweep(db);
             if (result.total_deleted > 0) {
@@ -892,7 +890,9 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
           }
         }
 
-        stopHeartbeat();
+      } finally {
+        clearInterval(heartbeatInt);
+      }
       })()
         .catch(logCronFail('hourly-cron'))
         .finally(releaseLease)
@@ -1002,8 +1002,9 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
               error: err instanceof Error ? err.message : String(err),
             })
           );
+        } finally {
+          clearInterval(landscapeHrt);
         }
-        clearInterval(landscapeHrt);
         logCronDone({ path: 'briefing-dedicated', type: 'landscape' });
       })()
         .catch(logCronFail('landscape-dedicated'))
@@ -1020,64 +1021,59 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
   }, 5 * 60_000);
   ctx.waitUntil(
     (async () => {
-      // Kick off the landscape sync in parallel with the briefing build.
-      // Each sub-sync is bounded by FETCH_TIMEOUT_MS (20s) and never throws
-      // (Promise.allSettled + per-callback logCronFail), so a slow upstream
-      // can't extend the lease beyond the briefing build's window.
-      const landscapePromise = runLandscapeSync();
-      const db = env.BRIEFINGS_DB as D1Database;
       try {
-        const briefing = await buildBriefing(type, undefined, {
-          nvdApiKey: env.NVD_API_KEY,
-          env: env as unknown as ApiEnv,
-        });
-        await writeBriefing(db, briefing);
-        console.log(
-          JSON.stringify({
-            job: 'briefing-build',
-            type,
-            slug: briefing.slug,
-            findings: briefing.stats.findings,
-            iocs: briefing.stats.iocs,
-          })
-        );
-      } catch (err) {
-        console.error(
-          JSON.stringify({
+        // Kick off the landscape sync in parallel with the briefing build.
+        // Each sub-sync is bounded by FETCH_TIMEOUT_MS (20s) and never throws
+        // (Promise.allSettled + per-callback logCronFail), so a slow upstream
+        // can't extend the lease beyond the briefing build's window.
+        const landscapePromise = runLandscapeSync();
+        const db = env.BRIEFINGS_DB as D1Database;
+        try {
+          const briefing = await buildBriefing(type, undefined, {
+            nvdApiKey: env.NVD_API_KEY,
+            env: env as unknown as ApiEnv,
+          });
+          console.log(JSON.stringify({ job: 'briefing-build-debug', step: 'buildBriefing returned', slug: briefing.slug, findings: briefing.stats.findings, iocs: briefing.stats.iocs }));
+          await writeBriefing(db, briefing);
+          console.log(JSON.stringify({ job: 'briefing-build', type, slug: briefing.slug, findings: briefing.stats.findings, iocs: briefing.stats.iocs }));
+        } catch (err) {
+          console.error(JSON.stringify({
             job: 'briefing-build',
             type,
             status: 'failed',
             error: err instanceof Error ? err.message : String(err),
-          })
-        );
-      }
-      try {
-        const result = await sweepOldBriefings(db, BRIEFING_MAX_AGE_DAYS);
-        if (result.deleted.length > 0) {
-          console.log(
+            stack: err instanceof Error ? err.stack?.split('\n').slice(0, 5).join(' | ') : undefined,
+          }));
+        }
+        try {
+          const result = await sweepOldBriefings(db, BRIEFING_MAX_AGE_DAYS);
+          if (result.deleted.length > 0) {
+            console.log(
+              JSON.stringify({
+                job: 'briefing-sweep',
+                deleted: result.deleted.length,
+                slugs: result.deleted,
+                kept: result.kept,
+              })
+            );
+          }
+        } catch (err) {
+          console.error(
             JSON.stringify({
               job: 'briefing-sweep',
-              deleted: result.deleted.length,
-              slugs: result.deleted,
-              kept: result.kept,
+              status: 'failed',
+              error: err instanceof Error ? err.message : String(err),
             })
           );
         }
-      } catch (err) {
-        console.error(
-          JSON.stringify({
-            job: 'briefing-sweep',
-            status: 'failed',
-            error: err instanceof Error ? err.message : String(err),
-          })
-        );
+        // Wait for the parallel landscape sync to finish so the heartbeat
+        // interval is still alive (and the lease is held) for its duration.
+        // The sub-syncs are bounded by FETCH_TIMEOUT_MS each, so worst case
+        // is ~25 s; well within the 15-min lease + 5-min heartbeat.
+        await landscapePromise;
+      } finally {
+        clearInterval(briefingHrt);
       }
-      // Wait for the parallel landscape sync to finish so the heartbeat
-      // interval is still alive (and the lease is held) for its duration.
-      // The sub-syncs are bounded by FETCH_TIMEOUT_MS each, so worst case
-      // is ~25 s; well within the 15-min lease + 5-min heartbeat.
-      await landscapePromise;
-      clearInterval(briefingHrt);
       logCronDone({ path: 'briefing-dedicated', type });
     })()
       .catch(logCronFail('briefing-dedicated'))
