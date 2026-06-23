@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { Compass, ExternalLink, KeyRound, Loader2, LogOut, Plus, Search, Trash2 } from 'lucide-react';
+import { Modal } from '../../components/ui/Modal';
 import {
   RESOURCES,
   KIND_LABELS,
@@ -54,6 +55,8 @@ export default function ExternalResources(): JSX.Element {
   const [token, setToken] = useState<string | null>(() =>
     typeof window === 'undefined' ? null : window.localStorage.getItem(TOKEN_KEY)
   );
+  const [signInOpen, setSignInOpen] = useState(false);
+  const [tokenDraft, setTokenDraft] = useState('');
 
   // Fetch dynamic entries on mount + after a successful add/delete. The
   // refreshKey bump triggers the effect; we also optimistically update local
@@ -197,13 +200,13 @@ export default function ExternalResources(): JSX.Element {
 
   const featuredCount = useMemo(() => merged.filter((r) => 'featured' in r).length, [merged]);
 
-  const signIn = () => {
-    const v = window.prompt('Paste admin token:');
-    if (!v) return;
-    const trimmed = v.trim();
+  const submitToken = () => {
+    const trimmed = tokenDraft.trim();
     if (!trimmed) return;
     window.localStorage.setItem(TOKEN_KEY, trimmed);
     setToken(trimmed);
+    setTokenDraft('');
+    setSignInOpen(false);
   };
 
   const signOut = () => {
@@ -509,7 +512,7 @@ export default function ExternalResources(): JSX.Element {
         ) : (
           <button
             type="button"
-            onClick={signIn}
+            onClick={() => setSignInOpen(true)}
             className="inline-flex items-center gap-1.5 text-mini font-mono text-slate-400 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400"
             title="Paste your admin token to enable runtime editing"
           >
@@ -517,6 +520,45 @@ export default function ExternalResources(): JSX.Element {
           </button>
         )}
       </div>
+
+      <Modal open={signInOpen} onClose={() => setSignInOpen(false)} title="Editor sign in">
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            submitToken();
+          }}
+          className="space-y-3"
+        >
+          <p className="text-tool text-slate-500 dark:text-slate-400">
+            Paste your admin token to enable runtime editing. It is stored locally in this browser only.
+          </p>
+          <input
+            type="password"
+            autoFocus
+            value={tokenDraft}
+            onChange={(e) => setTokenDraft(e.target.value)}
+            placeholder="admin token"
+            aria-label="Admin token"
+            className="w-full px-3 py-2 rounded-md border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-sm font-mono focus:outline-none focus:border-brand-500"
+          />
+          <div className="flex justify-end gap-2">
+            <button
+              type="button"
+              onClick={() => setSignInOpen(false)}
+              className="px-3 py-1.5 text-tool text-slate-500 hover:text-slate-700 dark:hover:text-slate-300"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              disabled={!tokenDraft.trim()}
+              className="px-3 py-1.5 rounded-md bg-brand-600 text-white text-tool font-semibold hover:bg-brand-500 disabled:opacity-40"
+            >
+              Sign in
+            </button>
+          </div>
+        </form>
+      </Modal>
     </DataPageLayout>
   );
 }
