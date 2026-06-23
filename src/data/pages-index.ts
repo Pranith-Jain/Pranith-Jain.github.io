@@ -3756,6 +3756,13 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
     group: 'threatintel',
   },
   {
+    path: '/threatintel/tools/socradar-tools',
+    label: 'SOC Radar Tools',
+    description: 'DDoS intelligence, FortiGate breach check, healthcare breach tracking.',
+    sectionLabel: 'Threat Intel · Tools',
+    group: 'threatintel',
+  },
+  {
     path: '/threatintel/tools/settings',
     label: 'Settings',
     description: 'Platform settings.',

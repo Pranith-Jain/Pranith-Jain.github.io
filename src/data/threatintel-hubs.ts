@@ -1000,6 +1000,14 @@ export const HUB_META: readonly HubMeta[] = [
         badge: 'new',
       },
       {
+        path: '/threatintel/tools/socradar-tools',
+        tabId: 'socradar-tools',
+        label: 'SOC Radar Tools',
+        desc: 'DDoS intelligence, FortiGate breach check, healthcare breach tracking.',
+        compVar: 'SocradarTools',
+        badge: 'new',
+      },
+      {
         path: '/threatintel/tools/unified-search',
         tabId: 'unified-search',
         label: 'Unified Search',

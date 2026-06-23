@@ -1,0 +1,608 @@
+/**
+ * /threatintel/tools/socradar-tools -- SOCRadar-Inspired Free Tools
+ *
+ * DDoS Intelligence, FortiBleed Checker, Healthcare Breach Tracker.
+ */
+
+import { useEffect, useState, useCallback, type FormEvent } from 'react';
+import { BackLink } from '../../components/BackLink';
+import {
+  ArrowLeft,
+  Search,
+  Loader2,
+  Shield,
+  AlertTriangle,
+  ChevronDown,
+  ChevronUp,
+  ExternalLink,
+  Activity,
+  Database,
+  Lock,
+  Hospital,
+} from 'lucide-react';
+
+// ── Types ──
+
+interface BotnetEntry {
+  ip: string;
+  port: number;
+  malware: string;
+  status: string;
+  firstSeen: string;
+  lastSeen: string;
+  urlhausLink: string;
+}
+
+interface ThreatFoxIOC {
+  ioc: string;
+  iocType: string;
+  malware: string;
+  confidence: number;
+  firstSeen: string;
+}
+
+interface DDoSDashboard {
+  stats: {
+    totalBotnets: number;
+    activeC2: number;
+    topMalware: Array<{ name: string; count: number }>;
+    lastUpdated: string;
+  };
+  botnets: BotnetEntry[];
+  threatFoxC2: ThreatFoxIOC[];
+}
+
+interface FortiResult {
+  target: string;
+  isFortiGate: boolean;
+  version: string | null;
+  vulnerability: string | null;
+  cvss: number | null;
+  severity: string | null;
+  details: string[];
+  recommendations: string[];
+}
+
+interface HealthBreach {
+  id: string;
+  name: string;
+  breachType: string;
+  individualsAffected: number;
+  state: string;
+  dateReported: string;
+  severity: string;
+  description: string;
+}
+
+// ── Tabs ──
+
+type Tab = 'ddos' | 'fortibleed' | 'healthcare';
+
+export default function SocradarTools() {
+  const [tab, setTab] = useState<Tab>('ddos');
+  return (
+    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
+      <BackLink
+        to="/threatintel"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+      >
+        <ArrowLeft size={14} /> back
+      </BackLink>
+      <div className="flex flex-wrap items-start justify-between gap-4 mb-6">
+        <div>
+          <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2">SOC Radar Free Tools</h1>
+          <p className="text-sm font-mono text-muted max-w-2xl">
+            DDoS intelligence, FortiGate breach check, healthcare breach tracking.
+          </p>
+        </div>
+      </div>
+      <div className="flex gap-1 mb-6 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
+        {(
+          [
+            ['ddos', 'DDoS Intelligence', Activity],
+            ['fortibleed', 'FortiBleed Check', Lock],
+            ['healthcare', 'Healthcare Breaches', Hospital],
+          ] as const
+        ).map(([id, label, Icon]) => (
+          <button
+            key={id}
+            onClick={() => setTab(id)}
+            className={`flex items-center gap-1.5 px-4 py-2.5 text-sm font-mono font-semibold border-b-2 transition-colors ${
+              tab === id
+                ? 'border-brand-500 text-brand-600 dark:text-brand-400'
+                : 'border-transparent text-muted hover:text-slate-900 dark:hover:text-slate-100'
+            }`}
+          >
+            <Icon size={14} /> {label}
+          </button>
+        ))}
+      </div>
+      {tab === 'ddos' && <DDoSPanel />}
+      {tab === 'fortibleed' && <FortiBleedPanel />}
+      {tab === 'healthcare' && <HealthcarePanel />}
+    </div>
+  );
+}
+
+// ── DDoS Intelligence ──
+
+function DDoSPanel() {
+  const [data, setData] = useState<DDoSDashboard | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [searchQ, setSearchQ] = useState('');
+  const [expanded, setExpanded] = useState<number | null>(null);
+
+  const fetchData = useCallback(async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const res = await fetch('/api/v1/ddos/dashboard');
+      if (!res.ok) throw new Error('Failed');
+      setData(await res.json());
+    } catch {
+      setError('Failed to load DDoS intelligence');
+    }
+    setLoading(false);
+  }, []);
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+
+  const searchResults =
+    data?.botnets.filter(
+      (b) => !searchQ || b.ip.includes(searchQ) || b.malware.toLowerCase().includes(searchQ.toLowerCase())
+    ) || [];
+
+  return (
+    <div className="space-y-6">
+      {loading && (
+        <div className="flex items-center gap-2 text-muted py-12 justify-center font-mono text-sm">
+          <Loader2 className="w-5 h-5 animate-spin" /> Loading DDoS intelligence...
+        </div>
+      )}
+      {error && (
+        <div className="p-3 rounded-lg border border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-300 flex items-center gap-2 font-mono text-sm">
+          <AlertTriangle className="w-4 h-4" /> {error}
+        </div>
+      )}
+
+      {data && (
+        <>
+          {/* KPI Strip */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            {[
+              { label: 'Botnet C2 Servers', value: data.stats.totalBotnets, icon: Server, color: 'text-rose-500' },
+              { label: 'Active C2', value: data.stats.activeC2, icon: Activity, color: 'text-amber-500' },
+              { label: 'Threat Fox IOCs', value: data.threatFoxC2.length, icon: Shield, color: 'text-violet-500' },
+              { label: 'Sources', value: 3, icon: Database, color: 'text-sky-500' },
+            ].map((kpi) => (
+              <div
+                key={kpi.label}
+                className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
+              >
+                <div className="flex items-center gap-2 mb-1">
+                  <kpi.icon size={12} className={kpi.color} />
+                  <span className="text-micro font-mono text-muted">{kpi.label}</span>
+                </div>
+                <p className="text-xl font-display font-bold">{kpi.value.toLocaleString()}</p>
+              </div>
+            ))}
+          </div>
+
+          {/* Top Malware */}
+          {data.stats.topMalware.length > 0 && (
+            <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+              <h3 className="font-display font-semibold text-sm mb-2">Top Botnet Malware</h3>
+              <div className="space-y-1.5">
+                {data.stats.topMalware.map((m) => (
+                  <div key={m.name} className="flex items-center gap-2">
+                    <span className="text-mini font-mono truncate flex-1">{m.name}</span>
+                    <div className="w-32 h-2 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+                      <div
+                        className="h-full bg-rose-500 rounded-full"
+                        style={{ width: `${(m.count / data.stats.topMalware[0].count) * 100}%` }}
+                      />
+                    </div>
+                    <span className="text-micro font-mono text-muted w-8 text-right">{m.count}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Search */}
+          <div className="flex gap-2">
+            <div className="flex-1 relative">
+              <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+              <input
+                type="text"
+                value={searchQ}
+                onChange={(e) => setSearchQ(e.target.value)}
+                placeholder="Search by IP or malware family..."
+                className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-sm focus:outline-none focus:border-brand-500"
+              />
+            </div>
+          </div>
+
+          {/* Botnet List */}
+          <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 overflow-hidden">
+            <div className="p-3 border-b border-slate-100 dark:border-[rgb(var(--border-300))]">
+              <h3 className="font-display font-semibold text-sm">Botnet C2 Servers (Feodo Tracker)</h3>
+            </div>
+            <div className="divide-y divide-slate-100 dark:divide-[rgb(var(--border-300))]">
+              {searchResults.slice(0, 30).map((b, i) => (
+                <div
+                  key={b.ip + i}
+                  role="button"
+                  tabIndex={0}
+                  className="px-3 py-2 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-100))] transition-colors cursor-pointer"
+                  onClick={() => setExpanded(expanded === i ? null : i)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      setExpanded(expanded === i ? null : i);
+                    }
+                  }}
+                >
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <span className="text-mini font-mono font-semibold text-slate-900 dark:text-slate-100">
+                        {b.ip}:{b.port}
+                      </span>
+                      <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-rose-100 dark:bg-rose-900/30 text-rose-700 dark:text-rose-300">
+                        {b.malware}
+                      </span>
+                      <span
+                        className={`text-micro font-mono px-1.5 py-0.5 rounded ${b.status === 'online' ? 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300' : 'bg-slate-100 dark:bg-slate-800 text-slate-500'}`}
+                      >
+                        {b.status}
+                      </span>
+                    </div>
+                    {expanded === i ? (
+                      <ChevronUp size={12} className="text-muted" />
+                    ) : (
+                      <ChevronDown size={12} className="text-muted" />
+                    )}
+                  </div>
+                  {expanded === i && (
+                    <div className="mt-2 pt-2 border-t border-slate-100 dark:border-[rgb(var(--border-300))] text-micro font-mono text-muted space-y-1">
+                      <p>
+                        First seen: {b.firstSeen} | Last seen: {b.lastSeen}
+                      </p>
+                      {b.urlhausLink && (
+                        <a
+                          href={b.urlhausLink}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-brand-600 dark:text-brand-400 hover:underline flex items-center gap-1"
+                        >
+                          URLhaus <ExternalLink size={8} />
+                        </a>
+                      )}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        </>
+      )}
+    </div>
+  );
+}
+
+// ── FortiBleed Check ──
+
+function FortiBleedPanel() {
+  const [target, setTarget] = useState('');
+  const [result, setResult] = useState<FortiResult | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const handleCheck = async (e: FormEvent) => {
+    e.preventDefault();
+    if (!target.trim()) return;
+    setLoading(true);
+    setError(null);
+    setResult(null);
+    try {
+      const res = await fetch(`/api/v1/fortibleed/check?target=${encodeURIComponent(target)}`);
+      if (!res.ok) throw new Error('Check failed');
+      setResult(await res.json());
+    } catch {
+      setError('Check failed');
+    }
+    setLoading(false);
+  };
+
+  const sevColor = (s: string | null) => {
+    if (s === 'CRITICAL')
+      return 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 border-red-200 dark:border-red-800';
+    if (s === 'HIGH')
+      return 'bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 border-orange-200 dark:border-orange-800';
+    if (s === 'INFO')
+      return 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800';
+    return 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border-slate-200 dark:border-slate-700';
+  };
+
+  return (
+    <div className="space-y-6">
+      <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+        <div className="flex items-center gap-2 mb-3">
+          <Lock size={14} className="text-amber-500" />
+          <h3 className="font-display font-semibold text-sm">FortiGate / FortiOS Vulnerability Check</h3>
+        </div>
+        <p className="text-meta font-mono text-muted mb-3">
+          Checks for CVE-2024-21762 (CVSS 9.8) — FortiGate SSL VPN out-of-bound write RCE. Enter a domain or IP.
+        </p>
+        <form onSubmit={handleCheck} className="flex gap-2">
+          <input
+            type="text"
+            value={target}
+            onChange={(e) => setTarget(e.target.value)}
+            placeholder="example.com or 203.0.113.10"
+            className="flex-1 px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-tool focus:outline-none focus:border-brand-500"
+          />
+          <button
+            type="submit"
+            disabled={loading}
+            className="px-4 py-2 bg-brand-600 dark:bg-brand-500 text-white font-mono text-sm font-semibold rounded hover:bg-brand-700 dark:hover:bg-brand-400 disabled:opacity-50"
+          >
+            {loading ? <Loader2 size={14} className="animate-spin" /> : 'Check'}
+          </button>
+        </form>
+      </div>
+
+      {error && (
+        <div className="p-3 rounded-lg border border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-300 flex items-center gap-2 font-mono text-sm">
+          <AlertTriangle className="w-4 h-4" /> {error}
+        </div>
+      )}
+
+      {result && (
+        <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+          <div className="flex items-center justify-between mb-3">
+            <div>
+              <h3 className="font-display font-semibold text-sm">{result.target}</h3>
+              {result.version && <p className="text-meta font-mono text-muted">Version: {result.version}</p>}
+            </div>
+            {result.severity && (
+              <span
+                className={`text-micro font-mono font-semibold px-2 py-0.5 rounded border ${sevColor(result.severity)}`}
+              >
+                {result.severity}
+                {result.cvss ? ` ${result.cvss}` : ''}
+              </span>
+            )}
+          </div>
+
+          <div
+            className={`p-3 rounded mb-3 ${result.isFortiGate ? 'bg-amber-50 dark:bg-amber-900/10 border border-amber-200 dark:border-amber-800' : 'bg-emerald-50 dark:bg-emerald-900/10 border border-emerald-200 dark:border-emerald-800'}`}
+          >
+            <p
+              className={`text-sm font-mono font-semibold ${result.isFortiGate ? 'text-amber-700 dark:text-amber-300' : 'text-emerald-700 dark:text-emerald-300'}`}
+            >
+              {result.isFortiGate ? '⚠️ FortiGate Detected' : '✅ No FortiGate detected'}
+            </p>
+          </div>
+
+          {result.details.length > 0 && (
+            <div className="mb-3">
+              <h4 className="text-mini font-display font-semibold mb-1">Details</h4>
+              <ul className="space-y-0.5">
+                {result.details.map((d, i) => (
+                  <li key={i} className="text-meta font-mono text-slate-700 dark:text-slate-300">
+                    • {d}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {result.recommendations.length > 0 && (
+            <div>
+              <h4 className="text-mini font-display font-semibold mb-1">Recommendations</h4>
+              <ul className="space-y-0.5">
+                {result.recommendations.map((r, i) => (
+                  <li key={i} className="text-meta font-mono text-slate-700 dark:text-slate-300">
+                    → {r}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {result.vulnerability && (
+            <div className="mt-3 pt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+              <a
+                href={`https://nvd.nist.gov/vuln/detail/${result.vulnerability}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-mini font-mono text-brand-600 dark:text-brand-400 hover:underline flex items-center gap-1"
+              >
+                View on NVD <ExternalLink size={8} />
+              </a>
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ── Healthcare Breach Tracker ──
+
+function HealthcarePanel() {
+  const [data, setData] = useState<{
+    stats: {
+      totalBreaches: number;
+      totalIndividuals: number;
+      topStates: Array<{ state: string; count: number; individuals: number }>;
+      topTypes: Array<{ type: string; count: number }>;
+    };
+    breaches: HealthBreach[];
+  } | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [searchQ, setSearchQ] = useState('');
+  const [expanded, setExpanded] = useState<number | null>(null);
+
+  const fetchData = useCallback(async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const res = await fetch('/api/v1/health-breach/dashboard');
+      if (!res.ok) throw new Error('Failed');
+      setData(await res.json());
+    } catch {
+      setError('Failed to load healthcare breach data');
+    }
+    setLoading(false);
+  }, []);
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+
+  const filtered =
+    data?.breaches.filter(
+      (b) =>
+        !searchQ ||
+        b.name.toLowerCase().includes(searchQ.toLowerCase()) ||
+        b.state.toLowerCase().includes(searchQ.toLowerCase())
+    ) || [];
+
+  const fmtNum = (n: number) => {
+    if (n >= 1_000_000_000) return `${(n / 1_000_000_000).toFixed(1)}B`;
+    if (n >= 1_000_000) return `${(n / 1_000_000).toFixed(1)}M`;
+    if (n >= 1_000) return `${(n / 1_000).toFixed(1)}K`;
+    return String(n);
+  };
+
+  const sevColor = (s: string) => {
+    if (s === 'critical') return 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300';
+    if (s === 'high') return 'bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300';
+    if (s === 'medium') return 'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300';
+    return 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400';
+  };
+
+  return (
+    <div className="space-y-6">
+      {loading && (
+        <div className="flex items-center gap-2 text-muted py-12 justify-center font-mono text-sm">
+          <Loader2 className="w-5 h-5 animate-spin" /> Loading healthcare breach data...
+        </div>
+      )}
+      {error && (
+        <div className="p-3 rounded-lg border border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-300 flex items-center gap-2 font-mono text-sm">
+          <AlertTriangle className="w-4 h-4" /> {error}
+        </div>
+      )}
+
+      {data && (
+        <>
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+            <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3">
+              <span className="text-micro font-mono text-muted">Total Breaches</span>
+              <p className="text-xl font-display font-bold">{data.stats.totalBreaches}</p>
+            </div>
+            <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3">
+              <span className="text-micro font-mono text-muted">Individuals Affected</span>
+              <p className="text-xl font-display font-bold">{fmtNum(data.stats.totalIndividuals)}</p>
+            </div>
+            <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3">
+              <span className="text-micro font-mono text-muted">Top Targeted State</span>
+              <p className="text-xl font-display font-bold">{data.stats.topStates[0]?.state || 'N/A'}</p>
+            </div>
+          </div>
+
+          {data.stats.topStates.length > 0 && (
+            <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
+              <h3 className="font-display font-semibold text-sm mb-2">Top Targeted States</h3>
+              <div className="space-y-1.5">
+                {data.stats.topStates.slice(0, 8).map((s) => (
+                  <div key={s.state} className="flex items-center gap-2">
+                    <span className="text-mini font-mono w-8">{s.state}</span>
+                    <div className="flex-1 h-2 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+                      <div
+                        className="h-full bg-rose-500 rounded-full"
+                        style={{ width: `${(s.individuals / data.stats.topStates[0].individuals) * 100}%` }}
+                      />
+                    </div>
+                    <span className="text-micro font-mono text-muted w-16 text-right">{fmtNum(s.individuals)}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          <div className="flex gap-2">
+            <div className="flex-1 relative">
+              <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+              <input
+                type="text"
+                value={searchQ}
+                onChange={(e) => setSearchQ(e.target.value)}
+                placeholder="Search by name or state..."
+                className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-sm focus:outline-none focus:border-brand-500"
+              />
+            </div>
+          </div>
+
+          <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 overflow-hidden">
+            <div className="divide-y divide-slate-100 dark:divide-[rgb(var(--border-300))]">
+              {filtered.slice(0, 30).map((b, i) => (
+                <div
+                  key={b.id}
+                  role="button"
+                  tabIndex={0}
+                  className="px-3 py-2 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-100))] transition-colors cursor-pointer"
+                  onClick={() => setExpanded(expanded === i ? null : i)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      setExpanded(expanded === i ? null : i);
+                    }
+                  }}
+                >
+                  <div className="flex items-center justify-between">
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2 mb-0.5">
+                        <span className="text-mini font-mono font-semibold text-slate-900 dark:text-slate-100 truncate">
+                          {b.name}
+                        </span>
+                        <span
+                          className={`text-micro font-mono font-semibold px-1.5 py-0.5 rounded ${sevColor(b.severity)}`}
+                        >
+                          {b.severity}
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-2 text-micro font-mono text-muted">
+                        <span>{fmtNum(b.individualsAffected)} affected</span>
+                        {b.state && <span>• {b.state}</span>}
+                        <span>• {b.dateReported?.split('T')[0]}</span>
+                      </div>
+                    </div>
+                    {expanded === i ? (
+                      <ChevronUp size={12} className="text-muted" />
+                    ) : (
+                      <ChevronDown size={12} className="text-muted" />
+                    )}
+                  </div>
+                  {expanded === i && b.description && (
+                    <div className="mt-2 pt-2 border-t border-slate-100 dark:border-[rgb(var(--border-300))]">
+                      <p className="text-meta font-mono text-slate-700 dark:text-slate-300">{b.description}</p>
+                      <p className="text-micro font-mono text-muted mt-1">Type: {b.breachType}</p>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        </>
+      )}
+    </div>
+  );
+}

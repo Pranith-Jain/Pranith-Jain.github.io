@@ -184,6 +184,7 @@ const ROUTES = [
   '/threatintel/tools/watches',
   '/threatintel/tools/workspaces',
   '/threatintel/tools/tg-intel-search',
+  '/threatintel/tools/socradar-tools',
   '/threatintel/wiki/f3ead',
   '/threatintel/wiki/insider',
   '/threatintel/wiki/llm',

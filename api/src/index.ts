@@ -1634,6 +1634,19 @@ app.get('/api/v1/tg-saved-searches', tgSavedSearchesListHandler);
 app.post('/api/v1/tg-saved-searches', tgSavedSearchCreateHandler);
 app.delete('/api/v1/tg-saved-searches/:id', tgSavedSearchDeleteHandler);
 
+/* ─── SOCRadar-inspired Tools ───────────────────────────────────── */
+import { ddosDashboardHandler, ddosBotnetLookupHandler, ddosIocFeedHandler } from './routes/ddos-intelligence';
+import { fortibleedCheckHandler, fortibleedBatchHandler } from './routes/fortibleed-check';
+import { healthBreachDashboardHandler, healthBreachSearchHandler } from './routes/health-breach-tracker';
+
+app.get('/api/v1/ddos/dashboard', ddosDashboardHandler);
+app.get('/api/v1/ddos/botnet-lookup', ddosBotnetLookupHandler);
+app.get('/api/v1/ddos/ioc-feed', ddosIocFeedHandler);
+app.get('/api/v1/fortibleed/check', fortibleedCheckHandler);
+app.post('/api/v1/fortibleed/batch', fortibleedBatchHandler);
+app.get('/api/v1/health-breach/dashboard', healthBreachDashboardHandler);
+app.get('/api/v1/health-breach/search', healthBreachSearchHandler);
+
 // Standardized 404 shape: matches the api-error contract ({ error, message })
 // so clients get a human-readable message, not just a bare error code.
 app.notFound((c) => c.json({ error: 'not_found', message: 'route not found' }, 404));

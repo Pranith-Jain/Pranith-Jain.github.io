@@ -294,6 +294,7 @@ const VolexityThreatIntel = lazy(() => import('./pages/threatintel/VolexityThrea
 const Watches = lazy(() => import('./pages/threatintel/Watches'));
 const Workspaces = lazy(() => import('./pages/threatintel/Workspaces'));
 const TgIntelSearch = lazy(() => import('./pages/threatintel/TgIntelSearch'));
+const SocradarTools = lazy(() => import('./pages/threatintel/SocradarTools'));
 const Webamon = lazy(() => import('./pages/threatintel/Webamon'));
 const Wiki = lazy(() => import('./pages/dfir/Wiki'));
 const Writeups = lazy(() => import('./pages/threatintel/Writeups'));
@@ -663,6 +664,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel/tools/watches', Component: Watches },
   { path: '/threatintel/tools/workspaces', Component: Workspaces },
   { path: '/threatintel/tools/tg-intel-search', Component: TgIntelSearch },
+  { path: '/threatintel/tools/socradar-tools', Component: SocradarTools },
   { path: '/threatintel/tools/settings', Component: Settings },
   { path: '/threatintel/tools/copilot-chat', Component: CopilotChat },
   { path: '/threatintel/tools/unified-search', Component: UnifiedSearch },
