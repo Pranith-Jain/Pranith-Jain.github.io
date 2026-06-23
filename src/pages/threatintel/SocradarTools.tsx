@@ -19,6 +19,7 @@ import {
   Database,
   Lock,
   Hospital,
+  Server,
 } from 'lucide-react';
 
 // ── Types ──
