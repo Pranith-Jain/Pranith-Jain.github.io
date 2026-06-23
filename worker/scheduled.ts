@@ -746,51 +746,65 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
         // fetches only fire when the row is actually empty/degraded.
         {
           const db2 = env.BRIEFINGS_DB as D1Database | undefined;
-          if (db2 && new Date().getUTCHours() !== 0) {
-            const yesterday = new Date(Date.now() - 86400_000);
-            const slug = `daily-${yesterday.toISOString().slice(0, 10)}`;
-            try {
+          if (db2) {
+            // Check yesterday first, then fall back to up to 3 days ago if missing.
+            const now = new Date();
+            const slugs: string[] = [];
+            for (let d = 1; d <= 3; d++) {
+              const dt = new Date(now.getTime() - d * 86400_000);
+              slugs.push(`daily-${dt.toISOString().slice(0, 10)}`);
+            }
+            // Find the most recent missing slug.
+            let slug = '';
+            for (const s of slugs) {
               const row = await db2
                 .prepare('SELECT stats_json, body FROM briefings WHERE slug = ?')
-                .bind(slug)
+                .bind(s)
                 .first<{ stats_json?: string; body?: string }>();
-              const needsHeal = briefingNeedsHeal(row, { now: Date.now(), cooldownMs: 30 * 60_000 });
-              const extraHeal =
-                !needsHeal && row
-                  ? await dailyNeedsCveReenrich(row, { now: Date.now(), cooldownMs: 3 * 60 * 60_000 })
-                  : false;
-              // Also re-run when the row is otherwise "rich" (CVE findings
-              // or IOCs) but the ransomware section came back empty — a
-              // common transient when one of the 8 ransomware trackers
-              // 5xx'd at build time. Same build path, just a separate
-              // gate. Cooldown matches the CVE variant (3h).
-              const ransomHeal =
-                !needsHeal && !extraHeal && row
-                  ? await dailyNeedsRansomwareReenrich(row, { now: Date.now(), cooldownMs: 3 * 60 * 60_000 })
-                  : false;
-              if (needsHeal || extraHeal || ransomHeal) {
-                try {
-                  const briefing = await buildBriefing('daily', undefined, {
-                    nvdApiKey: env.NVD_API_KEY,
-                    env: env as unknown as ApiEnv,
-                  });
-                  await writeBriefing(db2, briefing);
-                  console.log(
-                    JSON.stringify({
-                      job: 'hourly-heal',
-                      type: 'daily',
-                      slug: briefing.slug,
-                      findings: briefing.stats.findings,
-                      iocs: briefing.stats.iocs,
-                    })
-                  );
-                } catch (e) {
-                  logCronFail('hourly-heal(daily)')(e);
-                }
+              if (!row || briefingNeedsHeal(row, { now: Date.now(), cooldownMs: 30 * 60_000 })) {
+                slug = s;
+                break;
               }
-            } catch (e) {
-              logCronFail('hourly-heal-check(daily)')(e);
             }
+            if (slug) {
+              try {
+                const row = await db2
+                  .prepare('SELECT stats_json, body FROM briefings WHERE slug = ?')
+                  .bind(slug)
+                  .first<{ stats_json?: string; body?: string }>();
+                const needsHeal = briefingNeedsHeal(row, { now: Date.now(), cooldownMs: 30 * 60_000 });
+                const extraHeal =
+                  !needsHeal && row
+                    ? await dailyNeedsCveReenrich(row, { now: Date.now(), cooldownMs: 3 * 60 * 60_000 })
+                    : false;
+                const ransomHeal =
+                  !needsHeal && !extraHeal && row
+                    ? await dailyNeedsRansomwareReenrich(row, { now: Date.now(), cooldownMs: 3 * 60 * 60_000 })
+                    : false;
+                if (needsHeal || extraHeal || ransomHeal) {
+                  try {
+                    const briefing = await buildBriefing('daily', undefined, {
+                      nvdApiKey: env.NVD_API_KEY,
+                      env: env as unknown as ApiEnv,
+                    });
+                    await writeBriefing(db2, briefing);
+                    console.log(
+                      JSON.stringify({
+                        job: 'hourly-heal',
+                        type: 'daily',
+                        slug: briefing.slug,
+                        findings: briefing.stats.findings,
+                        iocs: briefing.stats.iocs,
+                      })
+                    );
+                  } catch (e) {
+                    logCronFail('hourly-heal(daily)')(e);
+                  }
+                }
+              } catch (e) {
+                logCronFail('hourly-heal-check(daily)')(e);
+              }
+            } // end if(slug)
           }
           // Weekly heal — only on Mondays after 00:45 UTC (the primary
           // weekly cron) has had a chance to run.
