@@ -1,6 +1,7 @@
 import { useCallback, useMemo, useState } from 'react';
 import { Coins, Loader2, AlertTriangle, ExternalLink, Check, ArrowLeft, Crosshair } from 'lucide-react';
 import { BackLink } from '../../components/BackLink';
+import { Modal } from '../../components/ui/Modal';
 import RelationshipGraphCanvas from '../../pages/threatintel/RelationshipGraphCanvas';
 import type { GraphNodeData } from '../../pages/threatintel/relationship-graph-shared';
 import {
@@ -55,6 +56,8 @@ export default function Tracer(): JSX.Element {
   const [error, setError] = useState<string | null>(null);
   const [warning, setWarning] = useState<string | null>(null);
   const [cluster, setCluster] = useState<CoInputCluster[] | null>(null);
+  const [saveOpen, setSaveOpen] = useState(false);
+  const [traceTitle, setTraceTitle] = useState('');
   const [highlightPath, setHighlightPath] = useState<string[] | undefined>(undefined);
   const [calldata, setCalldata] = useState<CalldataResult | null>(null);
   const [calldataLoading, setCalldataLoading] = useState(false);
@@ -216,7 +219,7 @@ export default function Tracer(): JSX.Element {
 
   const saveTrace = useCallback(async () => {
     if (!graph) return;
-    const title = window.prompt('Save trace as:', `${chain}:${seed.slice(0, 10)}`);
+    const title = traceTitle.trim();
     if (!title) return;
     const res = await fetch('/api/v1/tracer/graphs', {
       method: 'POST',
@@ -230,8 +233,11 @@ export default function Tracer(): JSX.Element {
     });
     if (res.status === 401 || res.status === 403) setError('Saving requires an admin session.');
     else if (!res.ok) setError(`Save failed (${res.status})`);
-    else setError(null);
-  }, [graph, chain, seed]);
+    else {
+      setError(null);
+      setSaveOpen(false);
+    }
+  }, [graph, chain, seed, traceTitle]);
 
   const loadList = useCallback(async () => {
     const res = await fetch('/api/v1/tracer/graphs');
@@ -416,7 +422,10 @@ export default function Tracer(): JSX.Element {
             <button
               className="rounded border border-slate-600 p-2 text-xs hover:bg-slate-800 disabled:opacity-40"
               disabled={!graph}
-              onClick={saveTrace}
+              onClick={() => {
+                setTraceTitle(`${chain}:${seed.slice(0, 10)}`);
+                setSaveOpen(true);
+              }}
             >
               Save trace
             </button>
@@ -723,6 +732,41 @@ export default function Tracer(): JSX.Element {
           )}
         </div>
       </div>
+
+      <Modal open={saveOpen} onClose={() => setSaveOpen(false)} title="Save trace">
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            void saveTrace();
+          }}
+          className="space-y-3"
+        >
+          <input
+            autoFocus
+            value={traceTitle}
+            onChange={(e) => setTraceTitle(e.target.value)}
+            placeholder="Trace name"
+            aria-label="Trace name"
+            className="w-full px-3 py-2 rounded-md border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-sm font-mono focus:outline-none focus:border-brand-500"
+          />
+          <div className="flex justify-end gap-2">
+            <button
+              type="button"
+              onClick={() => setSaveOpen(false)}
+              className="px-3 py-1.5 text-tool text-slate-500 hover:text-slate-700 dark:hover:text-slate-300"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              disabled={!traceTitle.trim()}
+              className="px-3 py-1.5 rounded-md bg-brand-600 text-white text-tool font-semibold hover:bg-brand-500 disabled:opacity-40"
+            >
+              Save
+            </button>
+          </div>
+        </form>
+      </Modal>
     </div>
   );
 }
