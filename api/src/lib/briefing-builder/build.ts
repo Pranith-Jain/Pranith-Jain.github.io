@@ -254,7 +254,6 @@ export async function buildBriefing(
       source_url: v.source_url || 'https://www.ransomware.live/',
       mitre_techniques: [],
     });
-    if (ransomwareFindings.length >= 60) break;
   }
   ransomwareFindings.sort((a, b) => {
     const dayA = a.id.slice(-10);
