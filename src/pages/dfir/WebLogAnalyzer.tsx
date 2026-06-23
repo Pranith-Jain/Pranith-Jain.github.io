@@ -76,6 +76,7 @@ function csv(rows: Row[]): string {
 export default function WebLogAnalyzer(): JSX.Element {
   const navigate = useNavigate();
   const [text, setText] = useState('');
+  const [fileError, setFileError] = useState<string | null>(null);
   const res = useMemo(() => (text.trim() ? analyze(text) : null), [text]);
 
   function download() {
@@ -136,13 +137,19 @@ export default function WebLogAnalyzer(): JSX.Element {
           const f = e.target.files?.[0];
           if (!f) return;
           if (f.size > MAX_BYTES) {
-            alert(`File too large (${(f.size / 1048576).toFixed(1)}MB). Max 20MB; split or pre-filter the log.`);
+            setFileError(`File too large (${(f.size / 1048576).toFixed(1)}MB). Max 20MB; split or pre-filter the log.`);
             e.target.value = '';
             return;
           }
+          setFileError(null);
           setText(await f.text());
         }}
       />
+      {fileError && (
+        <p role="alert" className="mt-2 text-meta text-rose-600 dark:text-rose-400">
+          {fileError}
+        </p>
+      )}
 
       {res && (
         <div className="mt-6 space-y-3">

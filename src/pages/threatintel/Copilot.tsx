@@ -556,7 +556,7 @@ export default function Copilot(): JSX.Element {
                     if (!res.ok) throw new Error('Failed to save');
                     setSaved(true);
                   } catch (e) {
-                    alert(e instanceof Error ? e.message : 'Failed to save assessment');
+                    setError(e instanceof Error ? e.message : 'Failed to save assessment');
                   } finally {
                     setSaving(false);
                   }
