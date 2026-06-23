@@ -228,7 +228,7 @@ export default function Blog() {
           in category mode since the URL already expresses the type, but the
           search input stays so the user can narrow within the category. */}
         {posts.length > 0 && (
-          <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3 mb-6">
+          <section className="surface-card p-3 mb-6">
             <div className="relative">
               <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
               <input
@@ -323,7 +323,7 @@ export default function Blog() {
             {filtered.map((p, idx) => (
               <article
                 key={p.slug}
-                className={`rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-5 transition hover:border-brand-500/40 hover:shadow-sm ${
+                className={`surface-card card-hover p-5 hover:border-brand-500/40 ${
                   idx === 0 && !hasFilter ? 'ring-1 ring-brand-500/20' : ''
                 }`}
               >
@@ -380,7 +380,7 @@ export default function Blog() {
           </div>
         </DataState>
 
-        <section className="mt-16 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+        <section className="mt-16 surface-card p-6">
           <h2 className="font-display font-bold text-lg text-slate-900 dark:text-white mb-1">Stay updated</h2>
           <p className="text-sm text-muted mb-4">
             New case studies land when I finish an investigation worth writing up. Subscribe via{' '}
@@ -398,7 +398,7 @@ export default function Blog() {
             href="/blog/rss.xml"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded-lg border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:bg-brand-500/5 transition-colors"
+            className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded-md border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:bg-brand-500/5 transition-colors"
           >
             <svg
               width="14"

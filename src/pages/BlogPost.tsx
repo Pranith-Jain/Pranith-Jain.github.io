@@ -41,7 +41,7 @@ const PROSE =
   '[&_a]:text-brand-600 dark:[&_a]:text-brand-400 [&_a]:hover:underline ' +
   '[&_strong]:text-slate-900 dark:[&_strong]:text-slate-100 ' +
   '[&_code]:text-brand-700 dark:[&_code]:text-brand-300 [&_code]:bg-slate-100 dark:[&_code]:bg-slate-800 [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:rounded [&_code]:text-sm [&_code]:font-mono ' +
-  '[&_pre]:bg-slate-50 dark:[&_pre]:bg-slate-900 [&_pre]:border [&_pre]:border-slate-200 dark:[&_pre]:border-slate-800 [&_pre]:p-4 [&_pre]:rounded-lg [&_pre]:mb-4 [&_pre]:overflow-x-auto ' +
+  '[&_pre]:bg-slate-50 dark:[&_pre]:bg-slate-900 [&_pre]:border [&_pre]:border-slate-200 dark:[&_pre]:border-slate-800 [&_pre]:p-4 [&_pre]:rounded-xl [&_pre]:mb-4 [&_pre]:overflow-x-auto ' +
   '[&_ul]:list-disc [&_ul]:pl-6 [&_ul]:mb-4 [&_ul]:text-slate-700 dark:[&_ul]:text-slate-300 ' +
   '[&_ol]:list-decimal [&_ol]:pl-6 [&_ol]:mb-4 [&_ol]:text-slate-700 dark:[&_ol]:text-slate-300 [&_li]:mb-1 ' +
   '[&_blockquote]:border-l-4 [&_blockquote]:border-brand-500 dark:[&_blockquote]:border-brand-400 [&_blockquote]:pl-4 [&_blockquote]:italic [&_blockquote]:text-slate-600 dark:[&_blockquote]:text-slate-400 [&_blockquote]:mb-4 ' +
@@ -49,8 +49,8 @@ const PROSE =
   '[&_table]:w-full [&_table]:border-collapse [&_table]:mb-4 ' +
   '[&_th]:border [&_th]:border-slate-200 dark:[&_th]:border-slate-800 [&_th]:p-2 [&_th]:text-left [&_th]:text-slate-800 dark:[&_th]:text-slate-200 [&_th]:bg-slate-50 dark:[&_th]:bg-slate-900 ' +
   '[&_td]:border [&_td]:border-slate-200 dark:[&_td]:border-slate-800 [&_td]:p-2 [&_td]:text-slate-700 dark:[&_td]:text-slate-300 ' +
-  '[&_img]:rounded-lg [&_img]:mb-4 [&_img]:max-w-full ' +
-  '[&_details]:mb-4 [&_details]:rounded-lg [&_details]:border [&_details]:border-slate-200 dark:[&_details]:border-slate-700 [&_details]:bg-slate-50/50 dark:[&_details]:bg-slate-900/20 [&_details]:overflow-hidden ' +
+  '[&_img]:rounded-xl [&_img]:mb-4 [&_img]:max-w-full ' +
+  '[&_details]:mb-4 [&_details]:rounded-xl [&_details]:border [&_details]:border-slate-200 dark:[&_details]:border-slate-700 [&_details]:bg-slate-50/50 dark:[&_details]:bg-slate-900/20 [&_details]:overflow-hidden ' +
   '[&_summary]:cursor-pointer [&_summary]:px-4 [&_summary]:py-2.5 [&_summary]:font-mono [&_summary]:text-xs [&_summary]:uppercase [&_summary]:tracking-[0.16em] [&_summary]:text-brand-600 dark:[&_summary]:text-brand-400 [&_summary]:select-none [&_summary]:hover:text-brand-500 ' +
   '[&_details_>_:not(summary)]:px-4 [&_details_>_:not(summary)]:pb-3 [&_details_>_:not(summary)]:text-sm';
 
@@ -418,7 +418,7 @@ export default function BlogPost() {
             )}
 
             <img
-              className="mb-6 w-full h-auto rounded-lg border border-slate-200 dark:border-slate-800"
+              className="mb-6 w-full h-auto rounded-xl border border-slate-200 dark:border-slate-800"
               alt={`Hero visual for ${post.title}`}
               width={1200}
               height={630}
@@ -467,7 +467,7 @@ export default function BlogPost() {
             </header>
 
             {tocItems.length > 0 && (
-              <div className="lg:hidden mb-6 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1">
+              <div className="lg:hidden mb-6 surface-card">
                 <button
                   type="button"
                   onClick={() => setTocOpen((v) => !v)}
@@ -594,7 +594,7 @@ export default function BlogPost() {
             )}
 
             {/* Author Bio */}
-            <section className="mt-10 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-6 sm:p-8">
+            <section className="mt-10 surface-card p-6 sm:p-8">
               <div className="flex items-start gap-4">
                 <div className="flex-shrink-0">
                   <div className="h-16 w-16 rounded-full bg-brand-100 dark:bg-brand-900/30 flex items-center justify-center">
@@ -633,7 +633,7 @@ export default function BlogPost() {
             </section>
 
             {post.sources && post.sources.length > 0 && (
-              <section className="mt-6 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-6 sm:p-8">
+              <section className="mt-6 surface-card p-6 sm:p-8">
                 <h2 className="text-mini font-mono uppercase tracking-[0.16em] text-slate-500 mb-3">Sources</h2>
                 <ul className="space-y-2">
                   {post.sources.map((s, i) => (
@@ -713,7 +713,7 @@ export default function BlogPost() {
                       <Link
                         key={p.slug}
                         to={`/blog/${p.slug}`}
-                        className="group rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5 transition hover:border-brand-500/40 h-full flex flex-col"
+                        className="group surface-card card-hover p-5 hover:border-brand-500/40 h-full flex flex-col focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
                       >
                         <div className="flex flex-wrap gap-1 mb-2">
                           {p.tags.slice(0, 2).map((t) => (

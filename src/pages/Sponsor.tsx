@@ -81,7 +81,7 @@ export default function Sponsor() {
               </ul>
               <a
                 href="mailto:hello@pranithjain.com?subject=Sponsorship%20Inquiry"
-                className="inline-flex items-center justify-center gap-2 rounded-lg bg-brand-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-brand-700 transition-colors"
+                className="inline-flex items-center justify-center gap-2 rounded-md bg-brand-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-brand-700 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
               >
                 <Mail className="h-4 w-4" />
                 Get in Touch
@@ -139,7 +139,7 @@ export default function Sponsor() {
           </p>
           <a
             href="mailto:hello@pranithjain.com?subject=Sponsorship%20Inquiry"
-            className="inline-flex items-center justify-center gap-2 rounded-lg bg-brand-600 px-6 py-3 text-sm font-semibold text-white hover:bg-brand-700 transition-colors"
+            className="inline-flex items-center justify-center gap-2 rounded-md bg-brand-600 px-6 py-3 text-sm font-semibold text-white hover:bg-brand-700 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
           >
             <Mail className="h-4 w-4" />
             hello@pranithjain.com

@@ -39,42 +39,11 @@ export const VOICE_IDENTITY =
   `thinks and how each audience consumes.\n\n`;
 
 /**
- * AI-tell phrases. `AI_SLOP_PATTERNS` is the broad set (prompt + soft
- * quality penalty). `EGREGIOUS_SLOP` is the narrow, unambiguous subset the
+ * AI-tell phrases. `EGREGIOUS_SLOP` is the narrow, unambiguous set the
  * post-process guardrail treats as a hard rewrite trigger — kept tight so a
- * normal piece is never falsely blocked.
+ * normal piece is never falsely blocked. (Social content uses its own broader
+ * `detectSlop` from ai-output-validator, so there is no separate soft list here.)
  */
-const AI_SLOP_PATTERNS: RegExp[] = [
-  /in today'?s (digital |threat |cyber )?(world|landscape|age|era)/i,
-  /ever-?(evolving|changing|growing) (threat |digital )?landscape/i,
-  /in an era where/i,
-  /in the (?:world|realm|landscape) of/i,
-  /\bit'?s worth noting\b/i,
-  /\b(notably|moreover|furthermore|additionally|consequently|ultimately),/i,
-  /\bin conclusion\b/i,
-  /needless to say/i,
-  /rest assured/i,
-  /when it comes to/i,
-  /navigat\w* the (complexities|landscape|world)/i,
-  /plays? a (crucial|vital|pivotal|key|critical) role/i,
-  /a testament to/i,
-  /underscore\w* the (importance|need|significance)/i,
-  /serves? as a (stark )?reminder/i,
-  /\b(buckle up|let'?s dive|dive into|delve into|delv\w+)\b/i,
-  /\b(tapestry|treasure trove|symphony|beacon)\b/i,
-  /\bgame[- ]chang\w+\b/i,
-  /\b(unlock|leverage|seamless\w*|robust|cutting[- ]edge|state[- ]of[- ]the[- ]art)\b/i,
-  /isn'?t just [^.]{1,40}, it'?s/i,
-  /more than just\b/i,
-  /the question is,? are you/i,
-  /are you (prepared|ready) to (respond|defend|protect)/i,
-  /stay (one step )?ahead of (the )?(threats|attackers|curve)/i,
-  /this (serves|is) a (sobering|stark) reminder/i,
-  /you['’]re (likely|probably) (already aware|wondering|familiar|wondering how)/i,
-  /chances are you['’]?ve/i,
-  /you might be (wondering|thinking|asking)/i,
-  /\bbottleneck\b/i,
-];
 
 /** Unambiguous slop — any one of these forces a rewrite (defense in depth). */
 export const EGREGIOUS_SLOP: RegExp[] = [
@@ -159,7 +128,7 @@ export const COPYWRITING_RULES =
   `- One substantive closing question that provokes thought, not "what do you think?".\n` +
   `- Open loop only if the payoff is delivered in the same piece. No cliffhangers that cheat the reader.`;
 
-const QUALITY_CHECKS =
+export const QUALITY_CHECKS =
   `#QUALITY CHECKS\n\n` +
   `Before outputting, verify:\n` +
   `- The hook is built from THIS case's specific facts, not a reusable opener.\n` +

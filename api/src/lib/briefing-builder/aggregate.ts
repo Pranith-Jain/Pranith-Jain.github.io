@@ -11,7 +11,6 @@ import {
   MITRE_RULES,
   VICTIM_CORPORATE_SUFFIXES,
   VICTIM_TRAILING_DESCRIPTORS,
-  IOC_FEED_SOURCES,
 } from './config';
 import type {
   BriefingType,
@@ -23,7 +22,6 @@ import type {
   Severity,
   NvdCve,
   KevEntry,
-  CategoryRule,
   WeeklyDailyRollup,
   WeeklyMergeInput,
 } from './types';

@@ -1,5 +1,5 @@
 import type { CaseStudyType } from '../types';
-import { VOICE_IDENTITY, COPYWRITING_RULES, PIPELINE_OUTPUT_GUARDRAIL } from './copywriting';
+import { VOICE_IDENTITY, COPYWRITING_RULES, PIPELINE_OUTPUT_GUARDRAIL, QUALITY_CHECKS } from './copywriting';
 import { scrubEvidence, scrubString } from './scrub-prompt';
 
 const SYSTEM_PROMPT =
@@ -59,7 +59,9 @@ const SYSTEM_PROMPT =
   `- Pattern: "This is likely affiliate movement, not a new compromise. Confidence is moderate, based on two corroborating leak-site timelines." Not "we believe this may possibly be...".\n` +
   `- Avoid bare hedges ("may", "might", "could", "possibly", "it seems", "we believe"). State the estimate and its confidence instead.\n` +
   `</estimative-language>\n\n` +
-  PIPELINE_OUTPUT_GUARDRAIL;
+  PIPELINE_OUTPUT_GUARDRAIL +
+  `\n\n` +
+  QUALITY_CHECKS;
 
 const OUTLINES: Record<CaseStudyType, string[]> = {
   cve: [

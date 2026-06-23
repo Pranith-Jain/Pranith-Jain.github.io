@@ -1,7 +1,7 @@
 import type { Ai } from '@cloudflare/workers-types';
 import type { Candidate, Post } from '../types';
 import { runCompletion } from './ai-client';
-import { VOICE_IDENTITY, COPYWRITING_RULES, PIPELINE_OUTPUT_GUARDRAIL } from './copywriting';
+import { VOICE_IDENTITY, COPYWRITING_RULES, PIPELINE_OUTPUT_GUARDRAIL, QUALITY_CHECKS } from './copywriting';
 import { stripUntrustedUrls, findUngroundedCves, detectSlop } from '../../lib/ai-output-validator';
 import { slugify } from '../stable-keys';
 
@@ -42,7 +42,9 @@ const SOCIAL_SYSTEM =
   `Same practitioner voice, shorter form. Never sound like a brand account.</task>\n\n` +
   COPYWRITING_RULES +
   `\n\n` +
-  PIPELINE_OUTPUT_GUARDRAIL;
+  PIPELINE_OUTPUT_GUARDRAIL +
+  `\n\n` +
+  QUALITY_CHECKS;
 
 /**
  * Social prompts only need the substance, not the whole article. Capping
@@ -641,8 +643,26 @@ async function generateSocialFromSource(
   const factNote = extractVerifiedFacts(src.body);
 
   const [twitterRes, linkedinRes] = await Promise.allSettled([
-    generateWithValidation(ai, SOCIAL_SYSTEM, buildTwitterPrompt(src) + factNote, 'twitter', src.body, groqKey, googleKey, 1500),
-    generateWithValidation(ai, SOCIAL_SYSTEM, buildLinkedinPrompt(src) + factNote, 'linkedin', src.body, groqKey, googleKey, 2000),
+    generateWithValidation(
+      ai,
+      SOCIAL_SYSTEM,
+      buildTwitterPrompt(src) + factNote,
+      'twitter',
+      src.body,
+      groqKey,
+      googleKey,
+      1500
+    ),
+    generateWithValidation(
+      ai,
+      SOCIAL_SYSTEM,
+      buildLinkedinPrompt(src) + factNote,
+      'linkedin',
+      src.body,
+      groqKey,
+      googleKey,
+      2000
+    ),
   ]);
 
   return {
@@ -659,7 +679,13 @@ async function generateSocialFromSource(
 
 // ── Public API (backward compat — accept Post) ───────────────────────────
 
-export async function generateSocialContent(post: Post, ai: Ai, now: Date, groqKey?: string, googleKey?: string): Promise<SocialContent> {
+export async function generateSocialContent(
+  post: Post,
+  ai: Ai,
+  now: Date,
+  groqKey?: string,
+  googleKey?: string
+): Promise<SocialContent> {
   return generateSocialFromSource(postToSource(post), ai, now, groqKey, googleKey);
 }
 

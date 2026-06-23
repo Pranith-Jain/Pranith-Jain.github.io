@@ -37,10 +37,7 @@ export default function BehindTheReports() {
 
         <div className="stagger space-y-12">
           {sections.map((section) => (
-            <section
-              key={section.label}
-              className="rounded-xl border border-slate-200/70 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-6 sm:p-8"
-            >
+            <section key={section.label} className="surface-card p-6 sm:p-8">
               <div className="mb-3 text-eyebrow font-mono uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">
                 {section.label}
               </div>
