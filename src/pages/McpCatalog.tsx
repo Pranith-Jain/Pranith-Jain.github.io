@@ -329,10 +329,7 @@ export default function McpCatalogPage(): JSX.Element {
               </h2>
               <ul className="grid gap-2 sm:grid-cols-2">
                 {tools.map((t) => (
-                  <li
-                    key={t.name}
-                    className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
-                  >
+                  <li key={t.name} className="surface-card p-3">
                     <div className="flex items-baseline justify-between gap-2">
                       <code className="text-tool font-semibold text-brand-600 dark:text-brand-400">{t.name}</code>
                       <span className="rounded-full border border-slate-200 dark:border-[rgb(var(--border-400))] px-2 py-0.5 text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
