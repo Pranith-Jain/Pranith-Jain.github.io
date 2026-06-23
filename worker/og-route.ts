@@ -49,7 +49,9 @@ export async function handleOgImage(request: Request, env: Env, url: URL, ctx: E
   if (!matched) return new Response('not found', { status: 404 });
   const { type, slug } = matched;
 
-  const cacheKey = new Request(`https://og-png.internal/v1/${type}/${slug}.png`);
+  // v2: bumped when the OG card design changed (slate → navy) so previously
+  // cached slate cards are not served after deploy. Bump on any card redesign.
+  const cacheKey = new Request(`https://og-png.internal/v2/${type}/${slug}.png`);
   const cached = await caches.default.match(cacheKey);
   if (cached) return cached;
 
