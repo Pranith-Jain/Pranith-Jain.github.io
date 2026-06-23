@@ -53,7 +53,7 @@ function surfaceBase(): string {
 const CARD_VARIANT: Record<'default' | 'glass' | 'surface' | 'interactive', string> = {
   default: surfaceBase(),
   glass: 'glass',
-  surface: 'surface',
+  surface: 'surface-base',
   // Interactive variant is computed in Card() because it depends on `tone`.
   interactive: '',
 };

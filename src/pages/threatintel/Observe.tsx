@@ -150,7 +150,6 @@ export default function Observe(): JSX.Element {
       if (!reader) throw new Error('No response body');
       const decoder = new TextDecoder();
       const verdicts: Array<{ source: string; score: number; verdict: string }> = [];
-      // eslint-disable-next-line no-constant-condition
       while (true) {
         const { done, value } = await reader.read();
         if (done) break;

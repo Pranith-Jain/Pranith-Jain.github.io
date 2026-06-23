@@ -112,7 +112,7 @@ export default function UnifiedSearch(): JSX.Element {
 
   // Instant, client-side TOOL matches over the catalog — no network, no backend
   // coupling. This is the "omnibox searches tools too" half.
-  const allTools = useMemo(() => flattenTools(SECTIONS), []);
+  const allTools = flattenTools(SECTIONS);
   const toolMatches = useMemo(
     () => (query.trim() ? allTools.filter((t) => matchesQuery(t, query.trim())).slice(0, MAX_TOOL_MATCHES) : []),
     [allTools, query]

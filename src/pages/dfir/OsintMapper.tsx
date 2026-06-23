@@ -44,7 +44,7 @@ export default function OsintMapper(): JSX.Element {
   const [editingPin, setEditingPin] = useState<Pin | null>(null);
   const [selection, setSelection] = useState<Selection>(null);
   const [importError, setImportError] = useState<string | null>(null);
-  const saveTimer = useRef<ReturnType<typeof setTimeout>>();
+  const saveTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
   // Debounced autosave. Date.now() is fine in the browser (not a workflow script).
   useEffect(() => {

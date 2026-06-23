@@ -152,7 +152,7 @@ export default function RuleConverter(): JSX.Element {
 
   const loadSample = () => setInput(SAMPLES[from]);
 
-  const starterGroups = useMemo(() => groupedConverterStarters(), []);
+  const starterGroups = groupedConverterStarters();
 
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">

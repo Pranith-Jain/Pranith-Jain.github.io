@@ -156,8 +156,8 @@ export default function AptTracker(): JSX.Element {
     );
   }, [query, selectedRegion]);
 
-  const totalGroups = useMemo(() => APT_REGIONS.reduce((s, r) => s + r.groups.length, 0), []);
-  const totalOps = useMemo(() => APT_REGIONS.reduce((s, r) => s + r.totalOperations, 0), []);
+  const totalGroups = APT_REGIONS.reduce((s, r) => s + r.groups.length, 0);
+  const totalOps = APT_REGIONS.reduce((s, r) => s + r.totalOperations, 0);
 
   return (
     <DataPageLayout

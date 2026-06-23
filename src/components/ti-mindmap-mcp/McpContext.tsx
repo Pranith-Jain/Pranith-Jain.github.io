@@ -96,7 +96,7 @@ export function McpProvider({ children }: { children: ReactNode }): JSX.Element 
     [apiKey, status, statusMsg, saveKey, reprobe]
   );
 
-  return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
+  return <Ctx value={value}>{children}</Ctx>;
 }
 
 export function useMcp(): McpContextValue {

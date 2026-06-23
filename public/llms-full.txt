@@ -70,6 +70,7 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [EML Extractor](https://pranithjain.qzz.io/dfir/eml) (dfir): Headers — body — attachments — URL / hash extraction from a .eml file.
 - [Email Deliverability Tester](https://pranithjain.qzz.io/dfir/email-deliverability) (dfir): Paste or upload a raw .eml to get spam score, SPF/DKIM/DMARC alignment, and inbox-placement suggestions.
 - [Email Reputation](https://pranithjain.qzz.io/dfir/email-rep) (dfir): Sender domain + IP reputation with deliverability signals.
+- [Email OSINT Profile](https://pranithjain.qzz.io/dfir/email-osnit) (dfir): Build digital identity from email — GitHub, Gravatar, breach, reputation, DNS, PGP.
 - [PhishBook](https://pranithjain.qzz.io/dfir/phishbook) (dfir): Curated playbook of phishing patterns, lures, and IOCs.
 - [PHISHOPS](https://pranithjain.qzz.io/dfir/phishops) (dfir): Phishing-as-a-service operator catalog and tracking.
 - [URL Reputation](https://pranithjain.qzz.io/dfir/url-rep) (dfir): Cross-source URL reputation — PhishTank, OpenPhish, Google Safe Browsing.

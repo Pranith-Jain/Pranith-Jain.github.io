@@ -20,8 +20,8 @@
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Check, Copy, ExternalLink, Plug, Search, X } from 'lucide-react';
+import { PageMeta } from '../components/PageMeta';
 import { DataPageLayout } from '../components/DataPageLayout';
-import { useDocumentMeta } from '../hooks/useDocumentMeta';
 import { useDataFetch } from '../hooks/useDataFetch';
 import { ToolJsonLd } from '../components/seo/ToolJsonLd';
 
@@ -136,14 +136,6 @@ function CopyableJson({ value, label }: { value: string; label: string }) {
 }
 
 export default function McpCatalogPage(): JSX.Element {
-  useDocumentMeta({
-    title: 'DFIR-ThreatIntel MCP - 98 tools for AI agents',
-    description:
-      'Connect Claude Desktop, Cursor, or VS Code to the live DFIR + threat-intel platform. 98 MCP tools covering IOC check, CVE/KEV, actor enrichment, ransomware monitoring, MITRE ATT&CK extraction, YARA authoring, Hudson Rock infostealer search, passive DNS, investigation notebooks, and the full security-investigator playbook library.',
-    section: 'API',
-    canonicalPath: '/mcp',
-  });
-
   const { data: manifest, error } = useDataFetch<McpManifest>({ url: '/mcp-manifest.json', ttl: 300_000 });
   const [query, setQuery] = useState('');
   const [activeCat, setActiveCat] = useState<string>('all');
@@ -180,203 +172,212 @@ export default function McpCatalogPage(): JSX.Element {
   }, [manifest]);
 
   return (
-    <DataPageLayout
-      backTo="/"
-      icon={<Plug size={28} />}
-      title="DFIR-ThreatIntel MCP server"
-      description={
-        manifest
-          ? `${manifest.toolCount} tools across IOC check, CVE/KEV, actor enrichment, domain/ASN/WHOIS pivots, ransomware + breach monitoring, phishing analysis, supply-chain attacks, YARA/Sigma authoring, MITRE ATT&CK extraction, Hudson Rock infostealer search, passive DNS, IOC watchlists, investigation notebooks, shift handover, and the full security-investigator playbook library. Streamable HTTP transport.`
-          : 'Loading manifest...'
-      }
-      maxWidthClass="max-w-6xl"
-      error={error ? `Failed to load the manifest: ${String(error)}` : null}
-      loading={!manifest && !error}
-    >
-      <ToolJsonLd
-        section="mcp"
-        toolName="DFIR-ThreatIntel MCP"
-        description="Model Context Protocol server exposing 98 DFIR + threat-intel tools for AI agents (Claude Desktop, Cursor, VS Code)."
-        path="/mcp"
-        category="AI Agent Interop"
-        features={[
-          'Streamable HTTP transport',
-          '98 tools across IOC/CVE/actor/YARA',
-          'Claude Desktop / Cursor / VS Code config snippets',
-        ]}
+    <>
+      <PageMeta
+        title="DFIR-ThreatIntel MCP - 98 tools for AI agents"
+        description="Connect Claude Desktop, Cursor, or VS Code to the live DFIR + threat-intel platform. 98 MCP tools covering IOC check, CVE/KEV, actor enrichment, ransomware monitoring, MITRE ATT&CK extraction, YARA authoring, Hudson Rock infostealer search, passive DNS, investigation notebooks, and the full security-investigator playbook library."
+        section="API"
+        canonicalPath="/mcp"
       />
+      <DataPageLayout
+        backTo="/"
+        icon={<Plug size={28} />}
+        title="DFIR-ThreatIntel MCP server"
+        description={
+          manifest
+            ? `${manifest.toolCount} tools across IOC check, CVE/KEV, actor enrichment, domain/ASN/WHOIS pivots, ransomware + breach monitoring, phishing analysis, supply-chain attacks, YARA/Sigma authoring, MITRE ATT&CK extraction, Hudson Rock infostealer search, passive DNS, IOC watchlists, investigation notebooks, shift handover, and the full security-investigator playbook library. Streamable HTTP transport.`
+            : 'Loading manifest...'
+        }
+        maxWidthClass="max-w-6xl"
+        error={error ? `Failed to load the manifest: ${String(error)}` : null}
+        loading={!manifest && !error}
+      >
+        <ToolJsonLd
+          section="mcp"
+          toolName="DFIR-ThreatIntel MCP"
+          description="Model Context Protocol server exposing 98 DFIR + threat-intel tools for AI agents (Claude Desktop, Cursor, VS Code)."
+          path="/mcp"
+          category="AI Agent Interop"
+          features={[
+            'Streamable HTTP transport',
+            '98 tools across IOC/CVE/actor/YARA',
+            'Claude Desktop / Cursor / VS Code config snippets',
+          ]}
+        />
 
-      {/* Endpoint / transport strip */}
-      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6 flex items-center justify-between gap-3 flex-wrap">
-        <div className="flex flex-wrap items-center gap-3 text-meta text-slate-600 dark:text-slate-400">
-          <span>
-            <span className="text-slate-900 dark:text-slate-100 font-medium">Endpoint</span>{' '}
-            <code className="rounded bg-slate-100 dark:bg-slate-800 px-2 py-0.5 text-meta font-mono text-slate-700 dark:text-slate-200">
-              {ENDPOINT}
-            </code>
-          </span>
-          <span>
-            <span className="text-slate-900 dark:text-slate-100 font-medium">Transport</span>{' '}
-            <code className="rounded bg-slate-100 dark:bg-slate-800 px-2 py-0.5 text-meta font-mono text-slate-700 dark:text-slate-200">
-              streamable-http
-            </code>
-          </span>
-        </div>
-        <a
-          href="/mcp-manifest.json"
-          className="inline-flex items-center gap-1 text-meta text-brand-600 dark:text-brand-400 hover:underline"
-        >
-          Manifest <ExternalLink className="h-3.5 w-3.5" />
-        </a>
-      </section>
+        {/* Endpoint / transport strip */}
+        <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6 flex items-center justify-between gap-3 flex-wrap">
+          <div className="flex flex-wrap items-center gap-3 text-meta text-slate-600 dark:text-slate-400">
+            <span>
+              <span className="text-slate-900 dark:text-slate-100 font-medium">Endpoint</span>{' '}
+              <code className="rounded bg-slate-100 dark:bg-slate-800 px-2 py-0.5 text-meta font-mono text-slate-700 dark:text-slate-200">
+                {ENDPOINT}
+              </code>
+            </span>
+            <span>
+              <span className="text-slate-900 dark:text-slate-100 font-medium">Transport</span>{' '}
+              <code className="rounded bg-slate-100 dark:bg-slate-800 px-2 py-0.5 text-meta font-mono text-slate-700 dark:text-slate-200">
+                streamable-http
+              </code>
+            </span>
+          </div>
+          <a
+            href="/mcp-manifest.json"
+            className="inline-flex items-center gap-1 text-meta text-brand-600 dark:text-brand-400 hover:underline"
+          >
+            Manifest <ExternalLink className="h-3.5 w-3.5" />
+          </a>
+        </section>
 
-      {/* Config snippets */}
-      <section className="mb-8">
-        <h2 className="mb-3 text-lg font-display font-semibold text-slate-900 dark:text-slate-100">
-          Connect in 30 seconds
-        </h2>
-        <ol className="mb-5 list-decimal space-y-2 pl-5 text-tool text-slate-600 dark:text-slate-400 leading-relaxed">
-          <li>
-            Generate an API key at{' '}
-            <Link to="/api/v1/admin/keys" className="text-brand-600 dark:text-brand-400 hover:underline">
-              <code>/api/v1/admin/keys</code>
-            </Link>{' '}
-            (admin token required).
-          </li>
-          <li>Drop one of the snippets below into the matching config file.</li>
-          <li>
-            Replace <code className="rounded bg-slate-100 dark:bg-slate-800 px-1 text-meta">&lt;your-api-key&gt;</code>{' '}
-            with the real key.
-          </li>
-          <li>
-            Restart the client. Tools appear as{' '}
-            <code className="rounded bg-slate-100 dark:bg-slate-800 px-1 text-meta">
-              mcp__dfir-threatintel__&lt;tool_name&gt;
-            </code>
-            .
-          </li>
-        </ol>
-        <div className="grid gap-4 lg:grid-cols-3">
-          {Object.entries(CONFIG_SNIPPETS).map(([k, s]) => (
-            <div key={k}>
-              <div className="mb-1.5 flex items-baseline justify-between text-tool">
-                <span className="font-display font-semibold text-slate-900 dark:text-slate-100">{s.title}</span>
-                <code className="text-micro text-slate-500 dark:text-slate-400">{s.path}</code>
+        {/* Config snippets */}
+        <section className="mb-8">
+          <h2 className="mb-3 text-lg font-display font-semibold text-slate-900 dark:text-slate-100">
+            Connect in 30 seconds
+          </h2>
+          <ol className="mb-5 list-decimal space-y-2 pl-5 text-tool text-slate-600 dark:text-slate-400 leading-relaxed">
+            <li>
+              Generate an API key at{' '}
+              <Link to="/api/v1/admin/keys" className="text-brand-600 dark:text-brand-400 hover:underline">
+                <code>/api/v1/admin/keys</code>
+              </Link>{' '}
+              (admin token required).
+            </li>
+            <li>Drop one of the snippets below into the matching config file.</li>
+            <li>
+              Replace{' '}
+              <code className="rounded bg-slate-100 dark:bg-slate-800 px-1 text-meta">&lt;your-api-key&gt;</code> with
+              the real key.
+            </li>
+            <li>
+              Restart the client. Tools appear as{' '}
+              <code className="rounded bg-slate-100 dark:bg-slate-800 px-1 text-meta">
+                mcp__dfir-threatintel__&lt;tool_name&gt;
+              </code>
+              .
+            </li>
+          </ol>
+          <div className="grid gap-4 lg:grid-cols-3">
+            {Object.entries(CONFIG_SNIPPETS).map(([k, s]) => (
+              <div key={k}>
+                <div className="mb-1.5 flex items-baseline justify-between text-tool">
+                  <span className="font-display font-semibold text-slate-900 dark:text-slate-100">{s.title}</span>
+                  <code className="text-micro text-slate-500 dark:text-slate-400">{s.path}</code>
+                </div>
+                <CopyableJson value={s.json} label={s.title} />
               </div>
-              <CopyableJson value={s.json} label={s.title} />
-            </div>
-          ))}
-        </div>
-      </section>
+            ))}
+          </div>
+        </section>
 
-      {/* Search + category filter */}
-      <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
-        <div className="relative">
-          <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
-          <input
-            type="search"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder={`Search ${manifest?.toolCount ?? ''} tools...`}
-            className="w-full rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] py-2 pl-9 pr-3 text-tool text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500/30"
-          />
-          {query && (
-            <button
-              type="button"
-              onClick={() => setQuery('')}
-              className="absolute right-2 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-700 dark:hover:text-slate-100"
-              aria-label="Clear search"
-            >
-              <X className="h-4 w-4" />
-            </button>
-          )}
-        </div>
-        <div className="mt-3 flex flex-wrap gap-1.5">
-          <FilterPill
-            label="all"
-            count={manifest?.toolCount ?? 0}
-            active={activeCat === 'all'}
-            onClick={() => setActiveCat('all')}
-            accent="text-brand-600 dark:text-brand-400"
-          />
-          {categoryCounts.map((c) => (
+        {/* Search + category filter */}
+        <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 mb-6">
+          <div className="relative">
+            <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+            <input
+              type="search"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder={`Search ${manifest?.toolCount ?? ''} tools...`}
+              className="w-full rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] py-2 pl-9 pr-3 text-tool text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500/30"
+            />
+            {query && (
+              <button
+                type="button"
+                onClick={() => setQuery('')}
+                className="absolute right-2 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-700 dark:hover:text-slate-100"
+                aria-label="Clear search"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            )}
+          </div>
+          <div className="mt-3 flex flex-wrap gap-1.5">
             <FilterPill
-              key={c.cat}
-              label={c.cat}
-              count={c.count}
-              active={activeCat === c.cat}
-              onClick={() => setActiveCat(c.cat)}
+              label="all"
+              count={manifest?.toolCount ?? 0}
+              active={activeCat === 'all'}
+              onClick={() => setActiveCat('all')}
               accent="text-brand-600 dark:text-brand-400"
             />
+            {categoryCounts.map((c) => (
+              <FilterPill
+                key={c.cat}
+                label={c.cat}
+                count={c.count}
+                active={activeCat === c.cat}
+                onClick={() => setActiveCat(c.cat)}
+                accent="text-brand-600 dark:text-brand-400"
+              />
+            ))}
+          </div>
+        </section>
+
+        {/* Tool grid */}
+        {grouped.length === 0 && manifest && (
+          <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-6 text-center text-tool text-slate-500 dark:text-slate-400">
+            No tools match your filter. Try clearing the search.
+          </div>
+        )}
+        <div className="space-y-8">
+          {grouped.map(([cat, tools]) => (
+            <section key={cat}>
+              <h2 className="mb-3 text-lg font-display font-semibold text-slate-900 dark:text-slate-100 flex items-baseline gap-2">
+                {cat}
+                <span className="text-meta font-mono font-normal text-slate-500 dark:text-slate-400">
+                  ({tools.length})
+                </span>
+              </h2>
+              <ul className="grid gap-2 sm:grid-cols-2">
+                {tools.map((t) => (
+                  <li
+                    key={t.name}
+                    className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
+                  >
+                    <div className="flex items-baseline justify-between gap-2">
+                      <code className="text-tool font-semibold text-brand-600 dark:text-brand-400">{t.name}</code>
+                      <span className="rounded-full border border-slate-200 dark:border-[rgb(var(--border-400))] px-2 py-0.5 text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                        {t.category}
+                      </span>
+                    </div>
+                    <p className="mt-1.5 text-meta text-muted leading-relaxed">{t.description}</p>
+                  </li>
+                ))}
+              </ul>
+            </section>
           ))}
         </div>
-      </section>
 
-      {/* Tool grid */}
-      {grouped.length === 0 && manifest && (
-        <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-6 text-center text-tool text-slate-500 dark:text-slate-400">
-          No tools match your filter. Try clearing the search.
-        </div>
-      )}
-      <div className="space-y-8">
-        {grouped.map(([cat, tools]) => (
-          <section key={cat}>
-            <h2 className="mb-3 text-lg font-display font-semibold text-slate-900 dark:text-slate-100 flex items-baseline gap-2">
-              {cat}
-              <span className="text-meta font-mono font-normal text-slate-500 dark:text-slate-400">
-                ({tools.length})
-              </span>
-            </h2>
-            <ul className="grid gap-2 sm:grid-cols-2">
-              {tools.map((t) => (
-                <li
-                  key={t.name}
-                  className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
-                >
-                  <div className="flex items-baseline justify-between gap-2">
-                    <code className="text-tool font-semibold text-brand-600 dark:text-brand-400">{t.name}</code>
-                    <span className="rounded-full border border-slate-200 dark:border-[rgb(var(--border-400))] px-2 py-0.5 text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                      {t.category}
-                    </span>
-                  </div>
-                  <p className="mt-1.5 text-meta text-muted leading-relaxed">{t.description}</p>
-                </li>
-              ))}
-            </ul>
-          </section>
-        ))}
-      </div>
-
-      <footer className="mt-12 pt-6 text-tool text-slate-500 dark:text-slate-400 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
-        <p>
-          The manifest at <code>/mcp-manifest.json</code> is auto-generated from <code>worker/mcp-server.ts</code> by{' '}
-          <code>scripts/build-mcp-manifest.mjs</code> on every build. To add a tool, register it with{' '}
-          <code>this.tool(...)</code> in the worker; it appears here on the next deploy.
-        </p>
-        <p className="mt-2 flex flex-wrap items-center gap-3">
-          <Link
-            to="/api/v1/openapi.json"
-            className="inline-flex items-center gap-1 text-brand-600 dark:text-brand-400 hover:underline"
-          >
-            REST API spec <ArrowRight className="h-3.5 w-3.5" />
-          </Link>
-          <span className="text-slate-300 dark:text-slate-700">|</span>
-          <Link
-            to="/api/docs"
-            className="inline-flex items-center gap-1 text-brand-600 dark:text-brand-400 hover:underline"
-          >
-            API browser <ArrowRight className="h-3.5 w-3.5" />
-          </Link>
-          <span className="text-slate-300 dark:text-slate-700">|</span>
-          <Link
-            to="/dfir"
-            className="inline-flex items-center gap-1 text-brand-600 dark:text-brand-400 hover:underline"
-          >
-            DFIR toolkit <ArrowRight className="h-3.5 w-3.5" />
-          </Link>
-        </p>
-      </footer>
-    </DataPageLayout>
+        <footer className="mt-12 pt-6 text-tool text-slate-500 dark:text-slate-400 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+          <p>
+            The manifest at <code>/mcp-manifest.json</code> is auto-generated from <code>worker/mcp-server.ts</code> by{' '}
+            <code>scripts/build-mcp-manifest.mjs</code> on every build. To add a tool, register it with{' '}
+            <code>this.tool(...)</code> in the worker; it appears here on the next deploy.
+          </p>
+          <p className="mt-2 flex flex-wrap items-center gap-3">
+            <Link
+              to="/api/v1/openapi.json"
+              className="inline-flex items-center gap-1 text-brand-600 dark:text-brand-400 hover:underline"
+            >
+              REST API spec <ArrowRight className="h-3.5 w-3.5" />
+            </Link>
+            <span className="text-slate-300 dark:text-slate-700">|</span>
+            <Link
+              to="/api/docs"
+              className="inline-flex items-center gap-1 text-brand-600 dark:text-brand-400 hover:underline"
+            >
+              API browser <ArrowRight className="h-3.5 w-3.5" />
+            </Link>
+            <span className="text-slate-300 dark:text-slate-700">|</span>
+            <Link
+              to="/dfir"
+              className="inline-flex items-center gap-1 text-brand-600 dark:text-brand-400 hover:underline"
+            >
+              DFIR toolkit <ArrowRight className="h-3.5 w-3.5" />
+            </Link>
+          </p>
+        </footer>
+      </DataPageLayout>
+    </>
   );
 }
 

@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { ArrowRight, Compass, Filter as FilterIcon, Search, Sparkles, X, type LucideIcon } from 'lucide-react';
 import { DataPageLayout } from '../../components/DataPageLayout';
-import { useDocumentMeta } from '../../hooks/useDocumentMeta';
+import { PageMeta } from '../../components/PageMeta';
 import { CATALOG, catalogSearch, type HubMeta, type HubPage } from '../../data/threatintel-catalog';
 import type { HubPageBadge } from '../../data/threatintel-hubs';
 
@@ -34,15 +34,7 @@ export default function CatalogPage(): JSX.Element {
     setSearchParams(next, { replace: true });
   }, [query, activeCat, setSearchParams]);
 
-  useDocumentMeta({
-    title: 'Threat Intel Catalog',
-    description:
-      'Every routable page in the threat-intel area — search by name, route, or keyword, or filter by category.',
-    section: 'Threat Intel',
-    canonicalPath: '/threatintel/catalog',
-  });
-
-  const totalEntries = useMemo(() => CATALOG.reduce((sum, h) => sum + h.pages.length, 0), []);
+  const totalEntries = CATALOG.reduce((sum, h) => sum + h.pages.length, 0);
 
   const searchResults = useMemo(() => {
     if (!query.trim()) return null;
@@ -59,115 +51,123 @@ export default function CatalogPage(): JSX.Element {
   }, [searchResults, activeCat]);
 
   return (
-    <DataPageLayout
-      backTo="/threatintel"
-      backLabel="Threat Intel home"
-      icon={<Compass size={28} />}
-      title="Threat Intel Catalog"
-      description={
-        <>
-          Every routable page in the threat-intel area — {totalEntries} pages across {CATALOG.length} hubs. Search by
-          name, route, or keyword, or filter by category. New pages are added to{' '}
-          <Link to="/threatintel" className="text-brand-600 underline-offset-2 hover:underline">
-            the home page
-          </Link>{' '}
-          and{' '}
-          <Link to="/threatintel" className="text-brand-600 underline-offset-2 hover:underline">
-            the sidebar
-          </Link>{' '}
-          automatically.
-        </>
-      }
-      maxWidthClass="max-w-7xl"
-      headerExtra={
-        <div className="flex flex-wrap items-center gap-2">
-          <span className="inline-flex items-center gap-1.5 rounded border border-amber-500/30 bg-amber-500/10 px-2 py-0.5 font-mono text-micro uppercase tracking-wider text-amber-700 dark:text-amber-300">
-            <Sparkles size={11} /> new
-          </span>
-          <span className="font-mono text-mini text-slate-500 dark:text-slate-400">
-            {totalEntries} pages · {CATALOG.length} hubs · deep-linkable via{' '}
-            <code className="font-mono text-tool bg-slate-100 dark:bg-[rgb(var(--surface-200))] rounded px-1.5 py-0.5">
-              ?q=…&cat=…
-            </code>
-          </span>
-        </div>
-      }
-    >
-      <div className="mb-6 space-y-3">
-        <div className="relative">
-          <Search
-            size={14}
-            className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
-            aria-hidden="true"
-          />
-          <input
-            type="text"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search by name, route, or keyword (e.g. 'ransomware', 'yara', '/iocs/c2')…"
-            aria-label="Search catalog"
-            className="w-full rounded-lg border border-slate-200 bg-white py-2.5 pl-9 pr-20 font-mono text-tool text-slate-900 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/20 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-white dark:placeholder:text-slate-500"
-          />
-          {query && (
-            <button
-              type="button"
-              onClick={() => setQuery('')}
-              className="absolute right-2 top-1/2 inline-flex -translate-y-1/2 items-center gap-1 rounded px-1.5 py-0.5 font-mono text-micro text-slate-500 hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-800 dark:hover:text-slate-100"
-              aria-label="Clear search"
-            >
-              <X size={11} /> clear
-            </button>
+    <>
+      <PageMeta
+        title="Threat Intel Catalog"
+        description="Every routable page in the threat-intel area — search by name, route, or keyword, or filter by category."
+        section="Threat Intel"
+        canonicalPath="/threatintel/catalog"
+      />
+      <DataPageLayout
+        backTo="/threatintel"
+        backLabel="Threat Intel home"
+        icon={<Compass size={28} />}
+        title="Threat Intel Catalog"
+        description={
+          <>
+            Every routable page in the threat-intel area — {totalEntries} pages across {CATALOG.length} hubs. Search by
+            name, route, or keyword, or filter by category. New pages are added to{' '}
+            <Link to="/threatintel" className="text-brand-600 underline-offset-2 hover:underline">
+              the home page
+            </Link>{' '}
+            and{' '}
+            <Link to="/threatintel" className="text-brand-600 underline-offset-2 hover:underline">
+              the sidebar
+            </Link>{' '}
+            automatically.
+          </>
+        }
+        maxWidthClass="max-w-7xl"
+        headerExtra={
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="inline-flex items-center gap-1.5 rounded border border-amber-500/30 bg-amber-500/10 px-2 py-0.5 font-mono text-micro uppercase tracking-wider text-amber-700 dark:text-amber-300">
+              <Sparkles size={11} /> new
+            </span>
+            <span className="font-mono text-mini text-slate-500 dark:text-slate-400">
+              {totalEntries} pages · {CATALOG.length} hubs · deep-linkable via{' '}
+              <code className="font-mono text-tool bg-slate-100 dark:bg-[rgb(var(--surface-200))] rounded px-1.5 py-0.5">
+                ?q=…&cat=…
+              </code>
+            </span>
+          </div>
+        }
+      >
+        <div className="mb-6 space-y-3">
+          <div className="relative">
+            <Search
+              size={14}
+              className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+              aria-hidden="true"
+            />
+            <input
+              type="text"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Search by name, route, or keyword (e.g. 'ransomware', 'yara', '/iocs/c2')…"
+              aria-label="Search catalog"
+              className="w-full rounded-lg border border-slate-200 bg-white py-2.5 pl-9 pr-20 font-mono text-tool text-slate-900 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/20 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-white dark:placeholder:text-slate-500"
+            />
+            {query && (
+              <button
+                type="button"
+                onClick={() => setQuery('')}
+                className="absolute right-2 top-1/2 inline-flex -translate-y-1/2 items-center gap-1 rounded px-1.5 py-0.5 font-mono text-micro text-slate-500 hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-800 dark:hover:text-slate-100"
+                aria-label="Clear search"
+              >
+                <X size={11} /> clear
+              </button>
+            )}
+          </div>
+
+          <div className="flex flex-wrap items-center gap-2" role="tablist" aria-label="Catalog categories">
+            <span className="inline-flex items-center gap-1 font-mono text-micro uppercase tracking-wider text-slate-500 dark:text-slate-400">
+              <FilterIcon size={11} /> filter
+            </span>
+            <CategoryPill
+              label="All"
+              count={totalEntries}
+              active={activeCat === 'all'}
+              onClick={() => setActiveCat('all')}
+              accent="text-slate-700 dark:text-slate-300"
+            />
+            {CATALOG.map((c) => (
+              <CategoryPill
+                key={c.id}
+                label={c.label}
+                count={c.pages.length}
+                active={activeCat === c.id}
+                onClick={() => setActiveCat(c.id)}
+                accent={c.tone}
+              />
+            ))}
+          </div>
+
+          {searchResults && (
+            <div className="font-mono text-mini text-slate-500">
+              {searchResults.length} {searchResults.length === 1 ? 'match' : 'matches'} for &ldquo;{query.trim()}&rdquo;
+              {searchResults.length === 0 ? ' · try fewer or different keywords' : ''}
+            </div>
           )}
         </div>
 
-        <div className="flex flex-wrap items-center gap-2" role="tablist" aria-label="Catalog categories">
-          <span className="inline-flex items-center gap-1 font-mono text-micro uppercase tracking-wider text-slate-500 dark:text-slate-400">
-            <FilterIcon size={11} /> filter
-          </span>
-          <CategoryPill
-            label="All"
-            count={totalEntries}
-            active={activeCat === 'all'}
-            onClick={() => setActiveCat('all')}
-            accent="text-slate-700 dark:text-slate-300"
-          />
-          {CATALOG.map((c) => (
-            <CategoryPill
-              key={c.id}
-              label={c.label}
-              count={c.pages.length}
-              active={activeCat === c.id}
-              onClick={() => setActiveCat(c.id)}
-              accent={c.tone}
-            />
-          ))}
+        <div className="space-y-8">
+          {visibleCategories.length === 0 && (
+            <div className="rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-10 text-center">
+              <p className="text-sm text-slate-500 dark:text-slate-400">
+                No pages match the current filter. Try a different category or clear the search box.
+              </p>
+            </div>
+          )}
+          {visibleCategories.map((cat) => {
+            const entries =
+              searchResults != null
+                ? searchResults.filter((r) => r.category.id === cat.id).map((r) => r as HubPage)
+                : cat.pages;
+            return <CategorySection key={cat.id} category={cat} entries={entries} />;
+          })}
         </div>
-
-        {searchResults && (
-          <div className="font-mono text-mini text-slate-500">
-            {searchResults.length} {searchResults.length === 1 ? 'match' : 'matches'} for &ldquo;{query.trim()}&rdquo;
-            {searchResults.length === 0 ? ' · try fewer or different keywords' : ''}
-          </div>
-        )}
-      </div>
-
-      <div className="space-y-8">
-        {visibleCategories.length === 0 && (
-          <div className="rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-10 text-center">
-            <p className="text-sm text-slate-500 dark:text-slate-400">
-              No pages match the current filter. Try a different category or clear the search box.
-            </p>
-          </div>
-        )}
-        {visibleCategories.map((cat) => {
-          const entries =
-            searchResults != null
-              ? searchResults.filter((r) => r.category.id === cat.id).map((r) => r as HubPage)
-              : cat.pages;
-          return <CategorySection key={cat.id} category={cat} entries={entries} />;
-        })}
-      </div>
-    </DataPageLayout>
+      </DataPageLayout>
+    </>
   );
 }
 

@@ -1,5 +1,5 @@
 import { About } from '../components/sections/About';
-import { useDocumentMeta } from '../hooks/useDocumentMeta';
+import { PageMeta } from '../components/PageMeta';
 import { Featured, Memberships } from '../components/sections';
 import { stats, featuredArticles, memberships } from '../data/content';
 
@@ -38,15 +38,13 @@ const storyChapters: Chapter[] = [
 ];
 
 export default function AboutPage() {
-  useDocumentMeta({
-    title: 'About',
-    description:
-      'Pranith Jain — security analyst and detection engineer. From email security at UnifyCX (200+ domains, 95% inbox placement) to shipping a free 60+ tool DFIR toolkit on Cloudflare Workers.',
-    canonicalPath: '/about',
-  });
-
   return (
     <>
+      <PageMeta
+        title="About"
+        description="Pranith Jain — security analyst and detection engineer. From email security at UnifyCX (200+ domains, 95% inbox placement) to shipping a free 60+ tool DFIR toolkit on Cloudflare Workers."
+        canonicalPath="/about"
+      />
       <h1 className="sr-only">About Pranith Jain</h1>
 
       <About stats={stats} />

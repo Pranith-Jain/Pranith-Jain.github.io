@@ -30,7 +30,7 @@ export function estimateReadingTime(content: string): number {
   const plainText = content
     .replace(/```[\s\S]*?```/g, '')
     .replace(/<[^>]+>/g, '')
-    .replace(/[#*_~`\[\]()]/g, '') // eslint-disable-line no-useless-escape
+    .replace(/[#*_~`\[\]()]/g, '')
     .replace(/\s+/g, ' ')
     .trim();
 

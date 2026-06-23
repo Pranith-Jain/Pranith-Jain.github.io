@@ -142,9 +142,9 @@ export function DataPageLayout({
           <p className="text-sm text-slate-500 dark:text-slate-400">{emptyMessage}</p>
         </div>
       ) : (
-        <DataPageLayoutContext.Provider value>
+        <DataPageLayoutContext value>
           <div className="animate-fade-in-up">{children}</div>
-        </DataPageLayoutContext.Provider>
+        </DataPageLayoutContext>
       )}
     </div>
   );

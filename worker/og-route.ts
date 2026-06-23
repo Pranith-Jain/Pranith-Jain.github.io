@@ -58,7 +58,7 @@ export async function handleOgImage(request: Request, env: Env, url: URL, ctx: E
     if (!data) return staticFallback(env, type);
     const png = await svgToPng(env, generateOgSvg(data));
     const res = pngResponse(png, true);
-    ctx.waitUntil(caches.default.put(cacheKey, res.clone()).catch(() => {}));
+    ctx.waitUntil(caches.default.put(cacheKey, res.clone()).catch((e) => console.warn('og-cache put failed:', e)));
     return res;
   } catch (err) {
     console.error('og-image render failed:', err instanceof Error ? err.message : String(err));

@@ -1,10 +1,60 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-family-sans: 'Hanken Grotesk', ui-sans-serif, system-ui, sans-serif;
+  --font-family-display: 'Bricolage Grotesque', 'Hanken Grotesk', sans-serif;
+  --font-family-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  --font-size-eyebrow: 0.6875rem;
+  --font-size-eyebrow--line-height: 1rem;
+  --font-size-eyebrow--letter-spacing: 0.16em;
+  --font-size-meta: 0.75rem;
+  --font-size-meta--line-height: 1.1rem;
+  --font-size-tool: 0.8125rem;
+  --font-size-tool--line-height: 1.25rem;
+  --font-size-mini: 0.6875rem;
+  --font-size-mini--line-height: 1rem;
+  --font-size-micro: 0.625rem;
+  --font-size-micro--line-height: 0.9rem;
+
+  --color-brand-50: #f5f7ff;
+  --color-brand-100: #ebf0fe;
+  --color-brand-200: #ced9fd;
+  --color-brand-300: #a1b6fb;
+  --color-brand-400: #6d8bf7;
+  --color-brand-500: #435ef1;
+  --color-brand-600: #2c3ee5;
+  --color-brand-700: #232ebf;
+  --color-brand-800: #21299b;
+  --color-brand-900: #1f267c;
+  --color-brand-950: #121649;
+
+  --color-severity-critical: #e11d48;
+  --color-severity-high: #f97316;
+  --color-severity-medium: #f59e0b;
+  --color-severity-low: #94a3b8;
+  --color-severity-info: #0ea5e9;
+
+  --color-muted: rgb(var(--muted));
+
+  --shadow-e1: 0 1px 2px rgba(15, 23, 42, 0.04), 0 1px 3px rgba(15, 23, 42, 0.06);
+  --shadow-e2: 0 2px 4px rgba(15, 23, 42, 0.05), 0 8px 24px rgba(15, 23, 42, 0.08);
+  --shadow-e3: 0 12px 32px rgba(15, 23, 42, 0.1), 0 24px 64px rgba(15, 23, 42, 0.12);
+
+  --radius-card: 8px;
+  --radius-panel: 10px;
+  --radius-hero: 14px;
+
+  --animate-scroll-horizontal: scroll-horizontal 40s linear infinite;
+  --animate-count-up: count-up 0.8s ease-out forwards;
+}
 
 @layer base {
   html {
-    font-family: theme('fontFamily.sans');
+    font-family: var(--font-family-sans);
+    font-size: 16px;
     scroll-behavior: smooth;
   }
 
@@ -14,16 +64,12 @@
   h4,
   h5,
   h6 {
-    font-family: theme('fontFamily.display');
-    /* Bricolage Grotesque has real character at display sizes — tighten the
-       tracking and let its optical-size axis kick in so headings read
-       authored, not default. */
+    font-family: var(--font-family-display);
     letter-spacing: -0.018em;
     font-optical-sizing: auto;
   }
 
   body {
-    /* Hanken Grotesk reads better with its contextual/ligature features on. */
     font-feature-settings: 'cv11', 'ss01';
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
@@ -31,69 +77,42 @@
 
   html.dark {
     color-scheme: dark;
-    /* Explicit flat dark base. The page background is no longer
-       painted by an atmospheric gradient mesh (see the
-       remove-ai-slop audit) — this color IS the page. Brand-blue
-       pools and noise were the canonical 'stage-light' AI-slop
-       pattern; removing them meant the page needed an explicit
-       base color or dark mode would fall back to white. */
-    background-color: #020617; /* slate-950 */
+    background-color: #020617;
   }
 
   html:not(.dark) {
     color-scheme: light;
   }
 
-  /* Theme-aware secondary-text channel — see the `muted` color in
-     tailwind.config.js. Light = slate-600 (>=4.5:1 on white = WCAG AA);
-     dark = slate-400. Use `text-muted` instead of bare text-slate-400 for
-     captions/labels so light mode never drops to the 2.8:1 failure. */
   :root {
     --muted: 71 85 105;
-    /* Surface + border + hover tokens. These resolve the 2719
-       rgb(var(--border-*)) / rgb(var(--surface-*)) / rgb(var(--hover-*))
-       references in 335 component files that were silently broken
-       (CSS-var undefined → browser falls back to no border). */
-    --surface-100: 255 255 255; /* page */
-    --surface-200: 250 250 250; /* card */
-    --surface-300: 245 245 245; /* raised / active / hover */
-    --input-200: 250 250 250; /* input/inset — same as card */
-    --border-400: 0 0 0 / 0.08; /* default border (low-contrast hairline) */
-    --border-500: 0 0 0 / 0.14; /* hover border */
-    --border-600: 0 0 0 / 0.22; /* active border */
-    --hover-100: 0 0 0 / 0.04; /* hover background wash */
+    --surface-100: 255 255 255;
+    --surface-200: 250 250 250;
+    --surface-300: 245 245 245;
+    --input-200: 250 250 250;
+    --border-400: 0 0 0 / 0.08;
+    --border-500: 0 0 0 / 0.14;
+    --border-600: 0 0 0 / 0.22;
+    --hover-100: 0 0 0 / 0.04;
   }
+
   html.dark {
     --muted: 148 163 184;
-    /* Dark surface + border + hover tokens. The dark border at
-       white/8 alpha is the canonical 'low-contrast hairline' that
-       the design system intended — cards blend into the page
-       instead of popping as outlined boxes. Previously the only
-       visible dark border was dark:border-slate-800 (full opacity,
-       ~3:1 contrast on the page base) which read as too sharp. */
-    --surface-100: 10 10 15; /* page bg — cool-near-black */
-    --surface-200: 18 18 24; /* card surface */
-    --surface-300: 28 28 36; /* raised / hover / popover */
-    --input-200: 14 14 20; /* input / inset well */
-    --border-400: 255 255 255 / 0.08; /* default border */
-    --border-500: 255 255 255 / 0.14; /* hover border */
-    --border-600: 255 255 255 / 0.22; /* active border */
-    --hover-100: 255 255 255 / 0.04; /* hover background wash */
+    --surface-100: 10 10 15;
+    --surface-200: 18 18 24;
+    --surface-300: 28 28 36;
+    --input-200: 14 14 20;
+    --border-400: 255 255 255 / 0.08;
+    --border-500: 255 255 255 / 0.14;
+    --border-600: 255 255 255 / 0.22;
+    --hover-100: 255 255 255 / 0.04;
   }
 
   :focus-visible {
-    outline: 2px solid theme('colors.brand.400');
+    outline: 2px solid var(--color-brand-400);
     outline-offset: 3px;
   }
 
-  /* iOS Safari auto-zooms when a focused input/textarea has a computed
-   * font-size below 16px. Many of the data-heavy pages render search /
-   * filter inputs at `text-sm` (14px) for desktop density, which yanks the
-   * viewport on every focus on phones. Force 16px on phone widths; the
-   * design intent (compact text on desktop) is preserved on sm+. The `!`
-   * (= !important) is necessary because Tailwind utility classes on each
-   * input would otherwise win the cascade.
-   */
   @media (max-width: 639px) {
     input:not([type='checkbox']):not([type='radio']):not([type='range']),
     select,
@@ -108,217 +127,251 @@
     touch-action: manipulation;
   }
 
-  /* Custom Scrollbar */
   ::-webkit-scrollbar {
     width: 8px;
   }
 
   ::-webkit-scrollbar-track {
-    @apply bg-slate-100 dark:bg-slate-900;
+    background-color: #e2e8f0;
+  }
+
+  .dark ::-webkit-scrollbar-track {
+    background-color: #0f172a;
   }
 
   ::-webkit-scrollbar-thumb {
-    @apply rounded-full bg-slate-300 transition-colors hover:bg-slate-400 dark:bg-slate-700 dark:hover:bg-slate-600;
+    border-radius: 9999px;
+    background-color: #cbd5e1;
+    transition: background-color 200ms;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #94a3b8;
+  }
+
+  .dark ::-webkit-scrollbar-thumb {
+    background-color: #334155;
+  }
+
+  .dark ::-webkit-scrollbar-thumb:hover {
+    background-color: #475569;
   }
 }
 
 @layer components {
   .glass {
-    /* No backdrop-blur (was: backdrop-blur-md lg:backdrop-blur-xl).
-       Translucency + border alone give the 'frosted' read; the
-       blur was decorative and a glassmorphism tell per the
-       remove-ai-slop audit. */
-    @apply border border-slate-200/60 bg-white/70 transition-all duration-300;
+    border: 1px solid rgb(226 232 240 / 0.6);
+    background-color: rgb(255 255 255 / 0.7);
+    transition: all 300ms;
   }
 
   .dark .glass {
-    @apply border-white/10 bg-slate-900/60;
+    border-color: rgb(255 255 255 / 0.1);
+    background-color: rgb(var(--surface-100) / 0.6);
   }
 
-  /* Calm sibling to .glass for sections where every-card-translucent reads
-   * as visual noise (list-of-tiles surfaces: Skills, Solutions, Companies,
-   * Memberships, Certifications). Reuses the rest of the design tokens. */
-  .surface {
-    @apply border border-slate-200 bg-white transition-all duration-300;
+  .surface-base {
+    border-radius: var(--radius-card);
+    border: 1px solid #e2e8f0;
+    background-color: white;
+    transition: all 300ms;
   }
 
-  .dark .surface {
-    @apply border-slate-800 bg-slate-900;
+  .dark .surface-base {
+    border-color: rgb(var(--border-400));
+    background-color: rgb(var(--surface-200));
   }
 
-  /* ── Depth / morphism surface system ─────────────────────────────────
-     The canonical card recipe. Light mode gets real elevation (shadow-e*)
-     so surfaces lift off the page instead of reading as flat outlined
-     boxes; dark mode leans on borders + translucency. Brand palette only —
-     no new hues. Converge bespoke per-page card classes onto these.
-       surface-card   → default resting card (subtle e1)
-       surface-raised → emphasised / interactive card (e2)
-       surface-glass  → frosted card for hero/overlay contexts
-       chrome-glass    → frosted sticky chrome (header / sidebar / bars)
-       card-hover     → lift-on-hover affordance (pairs with the above) */
   .surface-card {
-    /* Dark border is white/8 (low-contrast hairline), not slate-800
-       (full opacity, ~3:1 contrast). Cards now blend into the page
-       rather than popping as outlined boxes. Unified with the
-       335 components already using rgb(var(--border-400)). */
-    @apply rounded-xl border border-slate-200 bg-white shadow-e1 transition duration-200 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]/60;
+    border-radius: var(--radius-card);
+    border: 1px solid #e2e8f0;
+    background-color: white;
+    box-shadow: var(--shadow-e1);
+    transition: all 200ms;
   }
-  .surface-raised {
-    /* Same low-contrast hairline as surface-card (one step up via
-       border-500 on hover). */
-    @apply rounded-xl border border-slate-200 bg-white shadow-e2 transition duration-200 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300))]/70;
+
+  .dark .surface-card {
+    border-color: rgb(var(--border-400));
+    background-color: rgb(var(--surface-200) / 0.6);
   }
-  .surface-glass {
-    /* Same low-contrast hairline as the rest of the surface system. */
-    @apply rounded-xl border border-slate-200/70 bg-white/70 shadow-e1 transition duration-200 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]/50;
-  }
-  .chrome-glass {
-    /* Solid bg + low-contrast hairline. No translucency (no blur
-       to blur with), so the 80% opacity was just a hack. Now solid
-       surface-200 in dark. */
-    @apply border-slate-200/70 bg-white/80 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-100))];
-  }
+
   .card-hover {
-    @apply hover:-translate-y-0.5 hover:shadow-e2 hover:border-slate-300 dark:hover:border-[rgb(var(--border-500))];
+    &:hover {
+      translate: 0 -2px;
+      box-shadow: var(--shadow-e2);
+      border-color: #cbd5e1;
+    }
+  }
+
+  .dark .card-hover:hover {
+    border-color: rgb(var(--border-500));
+  }
+
+  .stagger > * {
+    animation: dfir-fade-in-up 0.4s ease-out both;
+  }
+
+  .stagger > :nth-child(1) {
+    animation-delay: 0ms;
+  }
+  .stagger > :nth-child(2) {
+    animation-delay: 30ms;
+  }
+  .stagger > :nth-child(3) {
+    animation-delay: 60ms;
+  }
+  .stagger > :nth-child(4) {
+    animation-delay: 90ms;
+  }
+  .stagger > :nth-child(5) {
+    animation-delay: 120ms;
+  }
+  .stagger > :nth-child(6) {
+    animation-delay: 150ms;
+  }
+  .stagger > :nth-child(7) {
+    animation-delay: 180ms;
+  }
+  .stagger > :nth-child(8) {
+    animation-delay: 210ms;
+  }
+  .stagger > :nth-child(9) {
+    animation-delay: 240ms;
+  }
+  .stagger > :nth-child(10) {
+    animation-delay: 270ms;
+  }
+  .stagger > :nth-child(11) {
+    animation-delay: 300ms;
+  }
+  .stagger > :nth-child(12) {
+    animation-delay: 330ms;
+  }
+  .stagger > :nth-child(13) {
+    animation-delay: 360ms;
+  }
+  .stagger > :nth-child(14) {
+    animation-delay: 390ms;
+  }
+  .stagger > :nth-child(15) {
+    animation-delay: 420ms;
+  }
+  .stagger > :nth-child(16) {
+    animation-delay: 450ms;
+  }
+  .stagger > :nth-child(17) {
+    animation-delay: 480ms;
+  }
+  .stagger > :nth-child(18) {
+    animation-delay: 510ms;
+  }
+  .stagger > :nth-child(19) {
+    animation-delay: 540ms;
+  }
+  .stagger > :nth-child(20) {
+    animation-delay: 570ms;
+  }
+
+  .prose-hunt {
+    max-width: 72ch;
+    line-height: 1.75;
+  }
+
+  .prose-hunt p {
+    margin-block: 1em;
+  }
+
+  .prose-hunt h2 {
+    font-family: var(--font-family-display);
+    font-size: 1.25rem;
+    margin-block: 1.5em 0.5em;
+    letter-spacing: -0.018em;
+  }
+
+  .prose-hunt h3 {
+    font-family: var(--font-family-display);
+    font-size: 1.0625rem;
+    margin-block: 1.25em 0.5em;
+  }
+
+  .prose-hunt code {
+    font-family: var(--font-family-mono);
+    font-size: 0.8125rem;
+    padding: 0.125em 0.375em;
+    border-radius: 4px;
+    background-color: rgb(var(--hover-100));
+  }
+
+  .dark .prose-hunt code {
+    background-color: rgb(255 255 255 / 0.06);
+  }
+
+  .prose-hunt pre {
+    padding: 1rem;
+    border-radius: var(--radius-card);
+    overflow-x: auto;
+    background-color: #0f172a;
+    color: #e2e8f0;
+    font-family: var(--font-family-mono);
+    font-size: 0.8125rem;
+    line-height: 1.5;
+  }
+
+  .prose-hunt pre code {
+    padding: 0;
+    background: none;
+    font-size: inherit;
+  }
+
+  .prose-hunt ul,
+  .prose-hunt ol {
+    padding-left: 1.5em;
+  }
+
+  .prose-hunt li {
+    margin-block: 0.25em;
+  }
+
+  .prose-hunt a {
+    color: var(--color-brand-500);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .prose-hunt blockquote {
+    border-left: 3px solid var(--color-brand-300);
+    padding-left: 1em;
+    margin-block: 1em;
+    opacity: 0.85;
+  }
+
+  .prose-hunt hr {
+    border: none;
+    border-top: 1px solid rgb(var(--border-400));
+    margin-block: 2em;
   }
 }
 
-@layer utilities {
-}
-
-/* ─────────────────────────────────────────────────────────────────────
-   WCAG AA Contrast Fixes
-   
-   Problem: Tailwind's slate-400 (#94a3b8) has only 3.3:1 contrast on
-   white backgrounds. WCAG AA requires 4.5:1 for text under 18px.
-   
-   Fix: Override the light-mode contrast for metadata text, small labels,
-   and badge text to use slate-600 (#475569, 7.1:1) or slate-500
-   (#64748b, 4.6:1) instead.
-   ───────────────────────────────────────────────────────────────────── */
-
-/* Small metadata text (10-12px) needs higher contrast */
-.text-\[10px\].text-slate-400 {
-  color: #475569; /* slate-600, 7.1:1 on white */
-}
-
-.dark .text-\[10px\].text-slate-400 {
-  color: #94a3b8; /* slate-400 stays in dark mode */
-}
-
-.text-\[11px\].text-slate-400 {
-  color: #475569;
-}
-
-.dark .text-\[11px\].text-slate-400 {
-  color: #94a3b8;
-}
-
-.text-xs.text-slate-400 {
-  color: #475569;
-}
-
-.dark .text-xs.text-slate-400 {
-  color: #94a3b8;
-}
-
-/* Same rescue for the named type tokens (text-micro/mini/meta/eyebrow/tool)
-   and text-sm body copy — the old px-keyed selectors missed both, so adopting
-   the design-system tokens used to silently re-break light-mode contrast. */
-.text-micro.text-slate-400,
-.text-mini.text-slate-400,
-.text-meta.text-slate-400,
-.text-eyebrow.text-slate-400,
-.text-tool.text-slate-400,
-.text-sm.text-slate-400 {
-  color: #475569; /* slate-600 */
-}
-
-.dark .text-micro.text-slate-400,
-.dark .text-mini.text-slate-400,
-.dark .text-meta.text-slate-400,
-.dark .text-eyebrow.text-slate-400,
-.dark .text-tool.text-slate-400,
-.dark .text-sm.text-slate-400 {
-  color: #94a3b8; /* slate-400 stays in dark mode */
-}
-
-/* Labels and captions */
-.text-\[10px\].font-mono.uppercase {
-  color: #475569;
-}
-
-.dark .text-\[10px\].font-mono.uppercase {
-  color: #94a3b8;
-}
-
-/* Badge text contrast — ensure badge text is readable regardless of bg */
-.font-mono.text-\[10px\] {
-  /* Already small; ensure weight helps readability */
-  font-weight: 500;
-}
-
-/* ─────────────────────────────────────────────────────────────────────
-   End WCAG AA Contrast Fixes
-   ───────────────────────────────────────────────────────────────────── */
-
-/* Reduced motion preference */
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    /* Zero the delay too: staggered entrances set an inline
-       `animation-delay` (e.g. 120ms) and use fill-mode `both`, so without
-       this a tile would hold its opacity-0 `from` state for the delay
-       before snapping in — a flicker for users who opted out of motion. */
-    animation-delay: 0ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+@keyframes scroll-horizontal {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
   }
 }
 
-/* Mobile backdrop-blur reduction.
-
-   The .glass / .surface-glass / .chrome-glass primitives no longer
-   use backdrop-blur (remove-ai-slop audit fixes 4+5+6). This @media
-   block stays as a defensive guard for any inline backdrop-blur
-   utility a component might add — downgrades blur-xl to 8px on
-   phones so we never pay the 24px GPU cost. The blur-[100/120px]
-   decorative-blob filter resets also stay for the same reason. */
-@media (max-width: 639px) {
-  .backdrop-blur-xl {
-    backdrop-blur: 8px; /* was 24px */
+@keyframes count-up {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
   }
-  .blur-\[120px\],
-  .blur-\[100px\] {
-    filter: none;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-/* ─────────────────────────────────────────────────────────────────────
-   Mobile safe-area padding for bottom-fixed elements.
-
-   The iPhone notch/home-indicator area can clip fixed-bottom UI.
-   This ensures the AppStatusBar and BackToTop button respect the
-   safe area on notched devices.
-   ───────────────────────────────────────────────────────────────────── */
-@supports (padding-bottom: env(safe-area-inset-bottom)) {
-  footer {
-    padding-bottom: calc(0.75rem + env(safe-area-inset-bottom));
-  }
-}
-
-/* ─────────────────────────────────────────────────────────────────────
-   Entrance animations
-   Used as Tailwind-ish utility classes (animate-fade-in, animate-fade-in-up)
-   to replace framer-motion's <motion.X initial=... animate=... /> pattern
-   across the DFIR pages. Single 400ms ease-out, fill-mode `both` so the
-   element starts opaque-zero and ends opaque-one without any flash.
-
-   The `prefers-reduced-motion: reduce` block above already neutralises
-   these for users who opt out, so no per-utility tweak needed.
-   ───────────────────────────────────────────────────────────────────── */
 @keyframes dfir-fade-in {
   from {
     opacity: 0;
@@ -339,17 +392,6 @@
   }
 }
 
-.animate-fade-in {
-  animation: dfir-fade-in 0.4s ease-out both;
-}
-
-.animate-fade-in-up {
-  animation: dfir-fade-in-up 0.4s ease-out both;
-}
-
-/* Fast pop-in for tooltips / popovers / menus — fade + subtle scale, 150ms.
-   Replaces the dead `animate-in fade-in-0 zoom-in-95` (tailwindcss-animate,
-   not installed). Neutralised by the prefers-reduced-motion block above. */
 @keyframes pop-in {
   from {
     opacity: 0;
@@ -361,29 +403,6 @@
   }
 }
 
-.animate-pop-in {
-  animation: pop-in 0.15s ease-out both;
-}
-
-/* Custom scrollbar for event feeds */
-.custom-scrollbar::-webkit-scrollbar {
-  width: 4px;
-}
-
-.custom-scrollbar::-webkit-scrollbar-track {
-  @apply bg-transparent;
-}
-
-.custom-scrollbar::-webkit-scrollbar-thumb {
-  @apply rounded-full bg-slate-300 dark:bg-slate-700;
-}
-
-/* .globe-bg removed (remove-ai-slop audit fix 14). The Globe
-   component used a radial-gradient as a stage-light background —
-   the canonical 'ambient spotlight' AI-slop pattern. Globe now
-   uses a flat dark color via the component's own class. */
-
-/* Pulse ring animation for severity dots */
 @keyframes severity-ping {
   0% {
     transform: scale(1);
@@ -396,30 +415,66 @@
   }
 }
 
+.animate-fade-in {
+  animation: dfir-fade-in 0.4s ease-out both;
+}
+
+.animate-fade-in-up {
+  animation: dfir-fade-in-up 0.4s ease-out both;
+}
+
+.animate-pop-in {
+  animation: pop-in 0.15s ease-out both;
+}
+
 .animate-severity-ping {
   animation: severity-ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
 }
 
-/* Stagger / qa-tile / recent-tile entrance animations removed
-   (remove-ai-slop audit fixes 12+13). Generic staggered fade-ins are
-   the #1 AI-slop animation pattern. The @keyframes dfir-fade-in-up
-   + .animate-fade-in-up class remain for single-element reveals. */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
 
-/* ─────────────────────────────────────────────────────────────────────
-   Mobile readability floor.
+.custom-scrollbar::-webkit-scrollbar-track {
+  background-color: transparent;
+}
 
-   The UI leans on dense 10–11px utility text (`text-[10px]`/`text-[11px]`)
-   for labels, pills, and metadata — deliberate on a wide desktop layout,
-   but cramped on a phone. Rather than rewrite ~1,800 utility occurrences
-   across 230 files, floor those two sizes to 12px on small screens only.
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  border-radius: 9999px;
+  background-color: #cbd5e1;
+}
 
-   Placed after `@tailwind utilities` so it wins the cascade against the
-   generated `.text-\[10px\]` / `.text-\[11px\]` rules (equal specificity,
-   later wins). Scoped to `max-width: 639px` (Tailwind's `sm` breakpoint),
-   so desktop density is untouched and any `sm:`-prefixed override — which
-   compiles to `min-width: 640px` — also stays unaffected. Single block,
-   trivially reversible.
-   ───────────────────────────────────────────────────────────────────── */
+.dark .custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #334155;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media (max-width: 639px) {
+  .backdrop-blur-xl {
+    backdrop-filter: blur(8px);
+  }
+  .blur-\[120px\],
+  .blur-\[100px\] {
+    filter: none;
+  }
+}
+
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  footer {
+    padding-bottom: calc(0.75rem + env(safe-area-inset-bottom));
+  }
+}
+
 @media (max-width: 639px) {
   .text-\[10px\],
   .text-\[11px\],
@@ -429,14 +484,3 @@
     line-height: 1.25;
   }
 }
-
-/* ─────────────────────────────────────────────────────────────────────
-   Dark Mode Text Color Convention
-   
-   All secondary/metadata text MUST include dark:text-slate-400 variant:
-   - text-slate-500 in light mode → text-slate-500 dark:text-slate-400
-   - Ensures readability in dark mode (4.5:1 contrast)
-   - Examples: meta labels, timestamps, category badges, footnotes
-   
-   Never use bare text-slate-400 or text-slate-500 without dark variant.
-   ───────────────────────────────────────────────────────────────────── */

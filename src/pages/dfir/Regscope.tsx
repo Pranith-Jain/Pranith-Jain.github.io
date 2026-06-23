@@ -18,8 +18,8 @@ export default function Regscope(): JSX.Element {
   const [categoryFilter, setCategoryFilter] = useState<string>('all');
   const [tacticFilter, setTacticFilter] = useState<string>('all');
 
-  const categories = useMemo(() => [...new Set(KNOWN_KEYS.map((k) => k.category))], []);
-  const tactics = useMemo(() => [...new Set(KNOWN_KEYS.map((k) => k.tactic))], []);
+  const categories = [...new Set(KNOWN_KEYS.map((k) => k.category))];
+  const tactics = [...new Set(KNOWN_KEYS.map((k) => k.tactic))];
 
   const filtered = useMemo(() => {
     return KNOWN_KEYS.filter(

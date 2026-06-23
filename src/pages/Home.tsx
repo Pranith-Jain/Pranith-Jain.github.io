@@ -1,4 +1,5 @@
 import { lazy, Suspense } from 'react';
+import { PageMeta } from '../components/PageMeta';
 import { Hero, Contact, Toolkits } from '../components/sections';
 import { LiveSignalStrip } from '../components/LiveSignalStrip';
 import { FeedHealthBadge } from '../components/FeedHealthBadge';
@@ -11,7 +12,6 @@ import { ToolOfTheDay } from '../components/ToolOfTheDay';
 import { PageToCheckOut } from '../components/PageToCheckOut';
 import { personalInfo } from '../data/content';
 import { useInView } from '../hooks/useInView';
-import { useDocumentMeta } from '../hooks/useDocumentMeta';
 
 const RecentWriting = lazy(() => import('../components/RecentWriting').then((m) => ({ default: m.RecentWriting })));
 
@@ -30,15 +30,13 @@ function RevealSection({ children, className = '' }: { children: React.ReactNode
 }
 
 export default function Home() {
-  useDocumentMeta({
-    title: 'Home',
-    description:
-      'Pranith Jain — Security Analyst & Detection Engineer. DFIR toolkit, threat-intel catalogs, and live breach signals.',
-    canonicalPath: '/',
-  });
-
   return (
     <>
+      <PageMeta
+        title="Home"
+        description="Pranith Jain — Security Analyst & Detection Engineer. DFIR toolkit, threat-intel catalogs, and live breach signals."
+        canonicalPath="/"
+      />
       <Hero personalInfo={personalInfo} />
 
       <RevealSection className="mt-12">

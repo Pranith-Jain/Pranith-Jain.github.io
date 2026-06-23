@@ -1,13 +1,6 @@
 import { StrictMode } from 'react';
-// react-dom/server (Node CJS) only exports renderToString / renderToPipeableStream.
-// renderToReadableStream lives in react-dom/server.browser (Web Streams API)
-// which works in Node 18+ via the global Response/ReadableStream.
-// @types/react-dom 18.3 doesn't declare the server.browser subpath, so we
-// suppress the TS error explicitly. The runtime export exists in
-// react-dom 18.3.1's package.json (verified via Object.keys at npm install).
-// @ts-expect-error -- subpath exists at runtime, missing from types
 import { renderToReadableStream } from 'react-dom/server.browser';
-import { StaticRouter } from 'react-router-dom/server';
+import { StaticRouter } from 'react-router-dom';
 import { AppContent } from './App';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import './index.css';

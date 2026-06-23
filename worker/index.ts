@@ -74,6 +74,14 @@ async function proxyToOrigin(request: Request, origin: string, subPath: string, 
  *  origin via `wrangler dev`, so localhost is not needed. */
 const WS_ALLOWED_ORIGINS_STATIC = new Set(['https://pranithjain.qzz.io']);
 
+/** Shared WebSocket origin guard. Returns true if the origin is allowed. */
+function isWsOriginAllowed(request: Request, env: Env): boolean {
+  const wsOrigin = request.headers.get('origin') ?? '';
+  const wsAllowed = new Set(WS_ALLOWED_ORIGINS_STATIC);
+  if (env.SITE_URL) wsAllowed.add(env.SITE_URL.replace(/\/$/, ''));
+  return wsAllowed.has(wsOrigin);
+}
+
 /**
  * Generate a request ID for distributed tracing.
  * 128-bit random → hex (32 chars). Included in response headers and
@@ -107,16 +115,7 @@ export default {
 
     // WebSocket upgrade — route to the LiveFeed Durable Object
     if (url.pathname.startsWith('/api/v1/ws/live-feed') && request.headers.get('upgrade') === 'websocket') {
-      // Reject cross-origin / origin-less upgrades. The live-feed DO is a single
-      // global instance with a small connection cap, so an unauthenticated
-      // cross-origin or scripted client could otherwise hold every slot (global
-      // DoS). Browsers always send Origin on a WS handshake; accept only ours.
-      const wsOrigin = request.headers.get('origin') ?? '';
-      const wsAllowed = new Set(WS_ALLOWED_ORIGINS_STATIC);
-      if (env.SITE_URL) wsAllowed.add(env.SITE_URL.replace(/\/$/, ''));
-      if (!wsAllowed.has(wsOrigin)) {
-        return new Response('forbidden origin', { status: 403 });
-      }
+      if (!isWsOriginAllowed(request, env)) return new Response('forbidden origin', { status: 403 });
       if (!env.LIVE_FEED_DO) return new Response('WebSocket not configured', { status: 503 });
       const doId = env.LIVE_FEED_DO.idFromName('global');
       try {
@@ -129,12 +128,7 @@ export default {
 
     // WebSocket upgrade — route to the InvestigatorAgent Durable Object
     if (url.pathname.startsWith('/api/v1/ws/agent/') && request.headers.get('upgrade') === 'websocket') {
-      const wsOrigin = request.headers.get('origin') ?? '';
-      const wsAllowed = new Set(WS_ALLOWED_ORIGINS_STATIC);
-      if (env.SITE_URL) wsAllowed.add(env.SITE_URL.replace(/\/$/, ''));
-      if (!wsAllowed.has(wsOrigin)) {
-        return new Response('forbidden origin', { status: 403 });
-      }
+      if (!isWsOriginAllowed(request, env)) return new Response('forbidden origin', { status: 403 });
       if (!env.INVESTIGATOR_AGENT) return new Response('Agent not configured', { status: 503 });
       // Extract the investigation ID from /api/v1/ws/agent/:id
       const agentId = url.pathname.split('/api/v1/ws/agent/')[1]?.split('/')[0];
@@ -150,12 +144,7 @@ export default {
 
     // WebSocket upgrade — route to the ReportBuilder Durable Object
     if (url.pathname.startsWith('/api/v1/ws/report/') && request.headers.get('upgrade') === 'websocket') {
-      const wsOrigin = request.headers.get('origin') ?? '';
-      const wsAllowed = new Set(WS_ALLOWED_ORIGINS_STATIC);
-      if (env.SITE_URL) wsAllowed.add(env.SITE_URL.replace(/\/$/, ''));
-      if (!wsAllowed.has(wsOrigin)) {
-        return new Response('forbidden origin', { status: 403 });
-      }
+      if (!isWsOriginAllowed(request, env)) return new Response('forbidden origin', { status: 403 });
       if (!env.REPORT_BUILDER) return new Response('Report builder not configured', { status: 503 });
       const reportId = url.pathname.split('/api/v1/ws/report/')[1]?.split('/')[0];
       if (!reportId) return new Response('missing report id', { status: 400 });
@@ -170,12 +159,7 @@ export default {
 
     // WebSocket upgrade — route to chat sessions
     if (url.pathname.startsWith('/api/v1/ws/chat/') && request.headers.get('upgrade') === 'websocket') {
-      const wsOrigin = request.headers.get('origin') ?? '';
-      const wsAllowed = new Set(WS_ALLOWED_ORIGINS_STATIC);
-      if (env.SITE_URL) wsAllowed.add(env.SITE_URL.replace(/\/$/, ''));
-      if (!wsAllowed.has(wsOrigin)) {
-        return new Response('forbidden origin', { status: 403 });
-      }
+      if (!isWsOriginAllowed(request, env)) return new Response('forbidden origin', { status: 403 });
       // Chat WS is handled inline in the api app via a dedicated handler
       // Forward to api app which has the chat WS logic
       const apiRes = await apiApp.fetch(request, env as never, ctx);

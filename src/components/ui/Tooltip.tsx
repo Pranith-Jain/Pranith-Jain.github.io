@@ -31,7 +31,7 @@ const POSITION_STYLES = {
  */
 export function Tooltip({ content, children, position = 'top', delay = 200, className = '' }: TooltipProps) {
   const [isVisible, setIsVisible] = useState(false);
-  const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const tooltipId = useRef(`tooltip-${Math.random().toString(36).slice(2, 9)}`);
 
   const showTooltip = useCallback(() => {

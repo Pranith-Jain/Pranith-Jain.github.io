@@ -3,7 +3,7 @@ import { Link, useParams, Navigate } from 'react-router-dom';
 import { ArrowLeft, Search } from 'lucide-react';
 import { DataState } from '../components/DataState';
 import { estimateReadingTime } from '../lib/content-utils';
-import { useDocumentMeta } from '../hooks/useDocumentMeta';
+import { PageMeta } from '../components/PageMeta';
 
 interface PostEntry {
   slug: string;
@@ -91,13 +91,6 @@ export default function Blog() {
   // landings get their own title + description so Google
   // doesn't see 9 near-duplicate versions of the same page.
   const blogMeta = routeType ? metaFor(routeType) : null;
-  useDocumentMeta({
-    title: blogMeta ? blogMeta.label : 'Blog',
-    description: blogMeta
-      ? blogMeta.blurb
-      : 'Case studies, briefings, and CVEs from the security desk. Phishing, BEC, ransomware, and detection engineering.',
-    canonicalPath: routeType ? `/blog/c/${routeType}` : '/blog',
-  });
   const [tagFilter, setTagFilter] = useState<string | null>(null);
 
   useEffect(() => {
@@ -181,239 +174,250 @@ export default function Blog() {
   if (isUnknownType) return <Navigate to="/blog" replace />;
 
   return (
-    <div className="max-w-3xl mx-auto text-slate-900 dark:text-white">
-      {inCategoryMode && (
-        <Link
-          to="/blog"
-          className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-[0.16em] text-slate-500 hover:text-brand-600 dark:hover:text-brand-400 mb-4"
-        >
-          <ArrowLeft size={12} /> all case studies
-        </Link>
-      )}
-      <h1 className="font-display text-3xl font-bold tracking-tight mb-2">
-        {inCategoryMode ? categoryMeta!.label : 'Case Studies'}
-      </h1>
-      <p className="text-muted mb-6 leading-relaxed">
-        {inCategoryMode ? categoryMeta!.blurb : 'Security research, threat analysis, and deep dives.'}
-      </p>
+    <>
+      <PageMeta
+        title={blogMeta ? blogMeta.label : 'Blog'}
+        description={
+          blogMeta
+            ? blogMeta.blurb
+            : 'Case studies, briefings, and CVEs from the security desk. Phishing, BEC, ransomware, and detection engineering.'
+        }
+        canonicalPath={routeType ? `/blog/c/${routeType}` : '/blog'}
+      />
+      <div className="max-w-3xl mx-auto text-slate-900 dark:text-white">
+        {inCategoryMode && (
+          <Link
+            to="/blog"
+            className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-[0.16em] text-slate-500 hover:text-brand-600 dark:hover:text-brand-400 mb-4"
+          >
+            <ArrowLeft size={12} /> all case studies
+          </Link>
+        )}
+        <h1 className="font-display text-3xl font-bold tracking-tight mb-2">
+          {inCategoryMode ? categoryMeta!.label : 'Case Studies'}
+        </h1>
+        <p className="text-muted mb-6 leading-relaxed">
+          {inCategoryMode ? categoryMeta!.blurb : 'Security research, threat analysis, and deep dives.'}
+        </p>
 
-      {/* Category strip — only on the /blog index (not on /blog/c/:type),
+        {/* Category strip — only on the /blog index (not on /blog/c/:type),
           and only once posts have loaded. Each present category becomes a
           chip that routes to its own landing page. Gives every category a
           shareable URL while keeping the in-page chip filter as a quick
           alternative below. */}
-      {!inCategoryMode && presentTypes.length > 1 && (
-        <nav aria-label="Browse by category" className="mb-6 flex flex-wrap items-center gap-1.5">
-          <span className="text-mini font-mono uppercase tracking-[0.18em] text-slate-400 mr-1">browse:</span>
-          {presentTypes.map((t) => (
-            <Link
-              key={t}
-              to={`/blog/c/${t}`}
-              className="text-meta font-mono px-2.5 py-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
-            >
-              {metaFor(t)
-                .label.toLowerCase()
-                .replace(/ deep-dives$| analysis$/, '')}
-              <span className="ml-1 opacity-60">· {typeCounts.get(t) ?? 0}</span>
-            </Link>
-          ))}
-        </nav>
-      )}
+        {!inCategoryMode && presentTypes.length > 1 && (
+          <nav aria-label="Browse by category" className="mb-6 flex flex-wrap items-center gap-1.5">
+            <span className="text-mini font-mono uppercase tracking-[0.18em] text-slate-400 mr-1">browse:</span>
+            {presentTypes.map((t) => (
+              <Link
+                key={t}
+                to={`/blog/c/${t}`}
+                className="text-meta font-mono px-2.5 py-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+              >
+                {metaFor(t)
+                  .label.toLowerCase()
+                  .replace(/ deep-dives$| analysis$/, '')}
+                <span className="ml-1 opacity-60">· {typeCounts.get(t) ?? 0}</span>
+              </Link>
+            ))}
+          </nav>
+        )}
 
-      {/* Filter bar — only renders once posts are loaded (avoids a flash of
+        {/* Filter bar — only renders once posts are loaded (avoids a flash of
           empty chips while the data is in flight). The chip strip is hidden
           in category mode since the URL already expresses the type, but the
           search input stays so the user can narrow within the category. */}
-      {posts.length > 0 && (
-        <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3 mb-6">
-          <div className="relative">
-            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
-            <input
-              type="search"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="Filter by title, excerpt, or tag…"
-              aria-label="Filter case studies"
-              className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
-            />
-          </div>
-          {!inCategoryMode && presentTypes.length > 1 && (
-            <div className="flex flex-wrap items-center gap-1.5 mt-3">
-              <span className="text-mini font-mono text-slate-500 mr-1">type:</span>
-              {presentTypes.map((t) => {
-                const active = typeFilter === t;
-                return (
-                  <button
-                    key={t}
-                    type="button"
-                    onClick={() => setTypeFilter(active ? null : t)}
-                    className={`text-mini font-mono px-2 py-1 rounded border ${
-                      active
-                        ? 'border-brand-500/60 bg-brand-500/10 text-brand-700 dark:text-brand-300'
-                        : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-brand-500/40'
-                    }`}
-                  >
-                    {t} <span className="opacity-70">· {typeCounts.get(t) ?? 0}</span>
-                  </button>
-                );
-              })}
-              {hasFilter && (
-                <button
-                  type="button"
-                  onClick={() => {
-                    setTypeFilter(null);
-                    setTagFilter(null);
-                    setQuery('');
-                  }}
-                  className="text-mini font-mono text-brand-600 dark:text-brand-400 hover:underline ml-2"
-                >
-                  clear
-                </button>
-              )}
+        {posts.length > 0 && (
+          <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3 mb-6">
+            <div className="relative">
+              <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+              <input
+                type="search"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="Filter by title, excerpt, or tag…"
+                aria-label="Filter case studies"
+                className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              />
             </div>
-          )}
-          {!inCategoryMode && allTags.size > 0 && (
-            <div className="flex flex-wrap items-center gap-1.5 mt-2 pt-2 border-t border-slate-100 dark:border-[rgb(var(--border-400))]">
-              <span className="text-mini font-mono text-slate-500 mr-1">tags:</span>
-              {[
-                'all',
-                ...Array.from(allTags.entries())
-                  .sort((a, b) => b[1] - a[1])
-                  .map(([t]) => t),
-              ].map((t) => {
-                const isAll = t === 'all';
-                const active = isAll ? !tagFilter : tagFilter === t;
-                return (
-                  <button
-                    key={t}
-                    type="button"
-                    onClick={() => setTagFilter(isAll ? null : t)}
-                    className={`text-mini font-mono px-2 py-1 rounded border ${
-                      active
-                        ? 'border-brand-500/60 bg-brand-500/10 text-brand-700 dark:text-brand-300'
-                        : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-brand-500/40'
-                    }`}
-                  >
-                    {isAll ? 'all' : t}
-                    {!isAll && <span className="opacity-70"> · {allTags.get(t) ?? 0}</span>}
-                  </button>
-                );
-              })}
-            </div>
-          )}
-          <p className="text-mini font-mono text-slate-500 mt-3">
-            Showing <span className="text-slate-700 dark:text-slate-300">{filtered.length}</span> of{' '}
-            <span className="text-slate-700 dark:text-slate-300">{posts.length}</span> case studies.
-          </p>
-        </section>
-      )}
-
-      <DataState
-        loading={loading}
-        error={error}
-        empty={filtered.length === 0}
-        emptyLabel={hasFilter ? 'No case studies match the current filter.' : 'No case studies published yet.'}
-        onRetry={() => setReloadKey((k) => k + 1)}
-        rows={6}
-      >
-        <div className="space-y-6">
-          {filtered.map((p, idx) => (
-            <article
-              key={p.slug}
-              className={`rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-5 transition hover:border-brand-500/40 hover:shadow-sm ${
-                idx === 0 && !hasFilter ? 'ring-1 ring-brand-500/20' : ''
-              }`}
-            >
-              <Link to={`/blog/${p.slug}`} className="group block">
-                <div className="flex items-center gap-2 mb-2">
-                  <span className="text-micro font-mono uppercase tracking-[0.16em] text-brand-600 dark:text-brand-400 bg-brand-500/10 px-2 py-0.5 rounded">
-                    {metaFor(p.type)
-                      .label.toLowerCase()
-                      .replace(/ deep-dives$| analysis$/, '')}
-                  </span>
-                  {idx === 0 && !hasFilter && (
-                    <span className="text-micro font-mono uppercase tracking-wider text-amber-600 dark:text-amber-400">
-                      latest
-                    </span>
-                  )}
-                </div>
-                <h2 className="font-display text-xl font-semibold text-slate-900 dark:text-white transition-colors group-hover:text-brand-600 dark:group-hover:text-brand-400">
-                  {p.title}
-                </h2>
-                <p className="text-muted mt-2 leading-relaxed">{p.excerpt}</p>
-              </Link>
-              <div className="flex flex-wrap items-center gap-3 mt-3 text-xs text-slate-500">
-                <span className="font-medium text-slate-700 dark:text-slate-300">Pranith Jain</span>
-                <span aria-hidden="true" className="text-slate-300 dark:text-slate-600">
-                  ·
-                </span>
-                <time>{formatDate(p.publishedAt)}</time>
-                <span aria-hidden="true" className="text-slate-300 dark:text-slate-600">
-                  ·
-                </span>
-                <span>{estimateReadingTime(p.excerpt)} min read</span>
-              </div>
-              {p.tags.length > 0 && (
-                <div className="flex flex-wrap gap-1.5 mt-3">
-                  {p.tags.map((t) => (
+            {!inCategoryMode && presentTypes.length > 1 && (
+              <div className="flex flex-wrap items-center gap-1.5 mt-3">
+                <span className="text-mini font-mono text-slate-500 mr-1">type:</span>
+                {presentTypes.map((t) => {
+                  const active = typeFilter === t;
+                  return (
                     <button
                       key={t}
                       type="button"
-                      onClick={() => setTagFilter(tagFilter === t ? null : t)}
-                      className={`rounded border px-2 py-0.5 text-mini font-mono transition-colors ${
-                        tagFilter === t
+                      onClick={() => setTypeFilter(active ? null : t)}
+                      className={`text-mini font-mono px-2 py-1 rounded border ${
+                        active
                           ? 'border-brand-500/60 bg-brand-500/10 text-brand-700 dark:text-brand-300'
-                          : 'border-slate-200 bg-slate-50 text-slate-600 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-400 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400'
+                          : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-brand-500/40'
                       }`}
-                      title={`Filter by tag: ${t}`}
                     >
-                      {t}
+                      {t} <span className="opacity-70">· {typeCounts.get(t) ?? 0}</span>
                     </button>
-                  ))}
-                </div>
-              )}
-            </article>
-          ))}
-        </div>
-      </DataState>
+                  );
+                })}
+                {hasFilter && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setTypeFilter(null);
+                      setTagFilter(null);
+                      setQuery('');
+                    }}
+                    className="text-mini font-mono text-brand-600 dark:text-brand-400 hover:underline ml-2"
+                  >
+                    clear
+                  </button>
+                )}
+              </div>
+            )}
+            {!inCategoryMode && allTags.size > 0 && (
+              <div className="flex flex-wrap items-center gap-1.5 mt-2 pt-2 border-t border-slate-100 dark:border-[rgb(var(--border-400))]">
+                <span className="text-mini font-mono text-slate-500 mr-1">tags:</span>
+                {[
+                  'all',
+                  ...Array.from(allTags.entries())
+                    .sort((a, b) => b[1] - a[1])
+                    .map(([t]) => t),
+                ].map((t) => {
+                  const isAll = t === 'all';
+                  const active = isAll ? !tagFilter : tagFilter === t;
+                  return (
+                    <button
+                      key={t}
+                      type="button"
+                      onClick={() => setTagFilter(isAll ? null : t)}
+                      className={`text-mini font-mono px-2 py-1 rounded border ${
+                        active
+                          ? 'border-brand-500/60 bg-brand-500/10 text-brand-700 dark:text-brand-300'
+                          : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-brand-500/40'
+                      }`}
+                    >
+                      {isAll ? 'all' : t}
+                      {!isAll && <span className="opacity-70"> · {allTags.get(t) ?? 0}</span>}
+                    </button>
+                  );
+                })}
+              </div>
+            )}
+            <p className="text-mini font-mono text-slate-500 mt-3">
+              Showing <span className="text-slate-700 dark:text-slate-300">{filtered.length}</span> of{' '}
+              <span className="text-slate-700 dark:text-slate-300">{posts.length}</span> case studies.
+            </p>
+          </section>
+        )}
 
-      <section className="mt-16 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
-        <h2 className="font-display font-bold text-lg text-slate-900 dark:text-white mb-1">Stay updated</h2>
-        <p className="text-sm text-muted mb-4">
-          New case studies land when I finish an investigation worth writing up. Subscribe via{' '}
+        <DataState
+          loading={loading}
+          error={error}
+          empty={filtered.length === 0}
+          emptyLabel={hasFilter ? 'No case studies match the current filter.' : 'No case studies published yet.'}
+          onRetry={() => setReloadKey((k) => k + 1)}
+          rows={6}
+        >
+          <div className="space-y-6">
+            {filtered.map((p, idx) => (
+              <article
+                key={p.slug}
+                className={`rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-5 transition hover:border-brand-500/40 hover:shadow-sm ${
+                  idx === 0 && !hasFilter ? 'ring-1 ring-brand-500/20' : ''
+                }`}
+              >
+                <Link to={`/blog/${p.slug}`} className="group block">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-micro font-mono uppercase tracking-[0.16em] text-brand-600 dark:text-brand-400 bg-brand-500/10 px-2 py-0.5 rounded">
+                      {metaFor(p.type)
+                        .label.toLowerCase()
+                        .replace(/ deep-dives$| analysis$/, '')}
+                    </span>
+                    {idx === 0 && !hasFilter && (
+                      <span className="text-micro font-mono uppercase tracking-wider text-amber-600 dark:text-amber-400">
+                        latest
+                      </span>
+                    )}
+                  </div>
+                  <h2 className="font-display text-xl font-semibold text-slate-900 dark:text-white transition-colors group-hover:text-brand-600 dark:group-hover:text-brand-400">
+                    {p.title}
+                  </h2>
+                  <p className="text-muted mt-2 leading-relaxed">{p.excerpt}</p>
+                </Link>
+                <div className="flex flex-wrap items-center gap-3 mt-3 text-xs text-slate-500">
+                  <span className="font-medium text-slate-700 dark:text-slate-300">Pranith Jain</span>
+                  <span aria-hidden="true" className="text-slate-300 dark:text-slate-600">
+                    ·
+                  </span>
+                  <time>{formatDate(p.publishedAt)}</time>
+                  <span aria-hidden="true" className="text-slate-300 dark:text-slate-600">
+                    ·
+                  </span>
+                  <span>{estimateReadingTime(p.excerpt)} min read</span>
+                </div>
+                {p.tags.length > 0 && (
+                  <div className="flex flex-wrap gap-1.5 mt-3">
+                    {p.tags.map((t) => (
+                      <button
+                        key={t}
+                        type="button"
+                        onClick={() => setTagFilter(tagFilter === t ? null : t)}
+                        className={`rounded border px-2 py-0.5 text-mini font-mono transition-colors ${
+                          tagFilter === t
+                            ? 'border-brand-500/60 bg-brand-500/10 text-brand-700 dark:text-brand-300'
+                            : 'border-slate-200 bg-slate-50 text-slate-600 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-400 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400'
+                        }`}
+                        title={`Filter by tag: ${t}`}
+                      >
+                        {t}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </article>
+            ))}
+          </div>
+        </DataState>
+
+        <section className="mt-16 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-6">
+          <h2 className="font-display font-bold text-lg text-slate-900 dark:text-white mb-1">Stay updated</h2>
+          <p className="text-sm text-muted mb-4">
+            New case studies land when I finish an investigation worth writing up. Subscribe via{' '}
+            <a
+              href="/blog/rss.xml"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-brand-600 dark:text-brand-400 hover:underline font-semibold"
+            >
+              RSS
+            </a>{' '}
+            to get notified.
+          </p>
           <a
             href="/blog/rss.xml"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-brand-600 dark:text-brand-400 hover:underline font-semibold"
+            className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded-lg border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:bg-brand-500/5 transition-colors"
           >
-            RSS
-          </a>{' '}
-          to get notified.
-        </p>
-        <a
-          href="/blog/rss.xml"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded-lg border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:bg-brand-500/5 transition-colors"
-        >
-          <svg
-            width="14"
-            height="14"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path d="M4 11a9 9 0 0 1 9 9" />
-            <path d="M4 4a16 16 0 0 1 16 16" />
-            <circle cx="5" cy="19" r="1" />
-          </svg>
-          Subscribe via RSS
-        </a>
-      </section>
-    </div>
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M4 11a9 9 0 0 1 9 9" />
+              <path d="M4 4a16 16 0 0 1 16 16" />
+              <circle cx="5" cy="19" r="1" />
+            </svg>
+            Subscribe via RSS
+          </a>
+        </section>
+      </div>
+    </>
   );
 }

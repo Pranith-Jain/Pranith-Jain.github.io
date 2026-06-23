@@ -10,7 +10,7 @@ export default function Tracerules(): JSX.Element {
   const [expanded, setExpanded] = useState<string | null>(null);
   const [copiedId, setCopiedId] = useState<string | null>(null);
 
-  const tactics = useMemo(() => [...new Set(QUERIES.map((q) => q.tactic))], []);
+  const tactics = [...new Set(QUERIES.map((q) => q.tactic))];
 
   const filtered = useMemo(() => {
     const q = query.toLowerCase().trim();

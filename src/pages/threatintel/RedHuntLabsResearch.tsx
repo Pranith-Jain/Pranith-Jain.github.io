@@ -281,9 +281,9 @@ export default function RedHuntLabsResearch(): JSX.Element {
 
   const section = useMemo(() => SECTIONS.find((s) => s.id === tab) ?? SECTIONS[0]!, [tab]);
 
-  const filteredTools = useMemo(() => TOOLS, []);
-  const filteredResearch = useMemo(() => RESEARCH_ITEMS, []);
-  const filteredDatasets = useMemo(() => DATASETS, []);
+  const filteredTools = TOOLS;
+  const filteredResearch = RESEARCH_ITEMS;
+  const filteredDatasets = DATASETS;
 
   return (
     <DataPageLayout

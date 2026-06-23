@@ -36,5 +36,5 @@ export function FeaturesProvider({ children }: { children: ReactNode }): JSX.Ele
     };
   }, []);
 
-  return <FeaturesContext.Provider value={state}>{children}</FeaturesContext.Provider>;
+  return <FeaturesContext value={state}>{children}</FeaturesContext>;
 }

@@ -462,7 +462,7 @@ export async function injectOgMeta(
     const ck = new Request(
       `https://og-html.internal/v3/${encodeURIComponent(url.host)}${url.pathname}@${encodeURIComponent(etag)}`
     );
-    ctx.waitUntil(caches.default.put(ck, toCache).catch(() => {}));
+    ctx.waitUntil(caches.default.put(ck, toCache).catch((e) => console.warn('og-html cache put failed:', e)));
   }
 
   return result;
