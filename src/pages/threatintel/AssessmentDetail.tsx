@@ -66,7 +66,7 @@ export default function AssessmentDetail(): JSX.Element {
       const data = (await res.json()) as { assessment: Assessment };
       setAssessment(data.assessment);
     } catch (e) {
-      alert(e instanceof Error ? e.message : 'Failed to update status');
+      setTransitionError(e instanceof Error ? e.message : 'Failed to update status');
     } finally {
       setTransitioning(false);
     }
@@ -168,6 +168,15 @@ export default function AssessmentDetail(): JSX.Element {
                 </button>
               ))}
             </div>
+          )}
+
+          {transitionError && (
+            <p
+              role="alert"
+              className="mt-3 rounded-md border border-rose-300 dark:border-rose-700 bg-rose-50 dark:bg-rose-950/30 px-3 py-2 text-xs text-rose-700 dark:text-rose-300"
+            >
+              {transitionError}
+            </p>
           )}
         </>
       )}
