@@ -1,4 +1,5 @@
 // api/src/case-study/types.ts
+import type { CarouselSpec } from './social/slide-spec';
 
 export type CaseStudyType =
   | 'cve'
@@ -138,6 +139,8 @@ export interface SocialContent {
   slug: string;
   twitter: string;
   linkedin: string;
+  instagram?: string;
+  carousel?: CarouselSpec;
   generatedAt: string;
 }
 
@@ -156,5 +159,6 @@ export interface SocialSchedule {
   slug: string;
   twitter?: SocialScheduleEntry;
   linkedin?: SocialScheduleEntry;
+  instagram?: SocialScheduleEntry;
   updatedAt: string;
 }

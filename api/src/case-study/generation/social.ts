@@ -4,15 +4,19 @@ import { runCompletion } from './ai-client';
 import { VOICE_IDENTITY, COPYWRITING_RULES, PIPELINE_OUTPUT_GUARDRAIL, QUALITY_CHECKS } from './copywriting';
 import { stripUntrustedUrls, findUngroundedCves, detectSlop } from '../../lib/ai-output-validator';
 import { slugify } from '../stable-keys';
+import type { CarouselSpec } from '../social/slide-spec';
 
 export interface SocialContent {
   slug: string;
   twitter: string;
   linkedin: string;
+  instagram?: string;
+  carousel?: CarouselSpec;
   generatedAt: string;
   _validation?: {
     twitter_quality?: SocialQuality;
     linkedin_quality?: SocialQuality;
+    instagram_quality?: SocialQuality;
   };
 }
 
