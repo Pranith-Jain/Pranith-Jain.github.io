@@ -65,8 +65,31 @@ export async function torExitDetailsHandler(c: Context<{ Bindings: Env }>) {
 export async function onionLookupHandler(c: Context<{ Bindings: Env }>) {
   const address = c.req.query('address');
   if (!address) return c.json({ error: 'missing_address', message: '?address= parameter is required' }, 400);
-  const r = await onionLookup(address);
-  return c.json(r);
+  try {
+    const r = await onionLookup(address);
+    return c.json(r);
+  } catch (err) {
+    // CIRCL (the upstream onion-intel provider) is intermittently down / rate-
+    // limited and returns non-2xx for some addresses. Degrade gracefully with a
+    // 200 "unavailable" result so the Dark Web Recon page renders an empty card
+    // instead of a hard "upstream error". The shape mirrors onionLookup's
+    // not_found case so the frontend renders it unchanged.
+    const hostname = address.trim().toLowerCase();
+    return c.json({
+      address: hostname,
+      first_seen: null,
+      last_seen: null,
+      last_check: null,
+      status: 'unavailable',
+      tags: [],
+      pgp: [],
+      certificates: [],
+      ports: [],
+      title: null,
+      bitcoin_addresses: [],
+      note: `onion lookup temporarily unavailable: ${err instanceof Error ? err.message : 'upstream error'}`,
+    });
+  }
 }
 
 export async function btcAbuseCheckHandler(c: Context<{ Bindings: Env }>) {

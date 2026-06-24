@@ -2,6 +2,11 @@ name: Reddit Feed Fetcher
 
 on:
   schedule:
+    # Re-armed 2026-06-24: account-level Actions was disabled Jun 15; re-enabling
+    # it did NOT auto-resume this schedule (manual dispatch worked, cron stayed
+    # dormant). Touching this file on the default branch forces GitHub to
+    # re-register the schedule. If the feed freezes again, check Settings →
+    # Actions is enabled, then disable+enable this workflow (or re-touch here).
     - cron: '*/30 * * * *'
   workflow_dispatch:
 
