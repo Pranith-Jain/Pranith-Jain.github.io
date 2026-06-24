@@ -217,6 +217,7 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [Ransomware Activity](https://pranithjain.qzz.io/threatintel/darkweb/ransom-activity) (threatintel): Live ransomware activity feed — new victims, leak posts.
 - [Ransomware Map](https://pranithjain.qzz.io/threatintel/darkweb/ransom-map) (threatintel): Ransomware victim geo map — country, sector, group.
 - [Ransomwhere](https://pranithjain.qzz.io/threatintel/darkweb/ransomwhere) (threatintel): Crypto wallet directory tied to known ransom groups.
+- [Dark Web Recon](https://pranithjain.qzz.io/threatintel/darkweb/recon) (threatintel): Search .onion sites, look up hidden service metadata, check BTC addresses for abuse, and scan Tor exit nodes.
 - [ransomware.live PRO](https://pranithjain.qzz.io/threatintel/ransomware-live) (threatintel): Authenticated PRO surface — victim stats, recent cyberattacks, negotiations, and YARA packs.
 - [Phish Feed](https://pranithjain.qzz.io/threatintel/phishing/phish) (threatintel): Phishing feed aggregation — fresh URLs and lure analysis.
 - [Phishing Wordlists](https://pranithjain.qzz.io/threatintel/phishing/urls) (threatintel): Phishing hunting wordlists — brand, gift-card, sextortion, BEC.
@@ -229,13 +230,11 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [DISARM Framework](https://pranithjain.qzz.io/threatintel/detections/disarm) (threatintel): DISARM red-team framework mapping.
 - [YARA Hub](https://pranithjain.qzz.io/threatintel/detections/yara) (threatintel): YARA rule hub — community and curated rules.
 - [Threat Signal RSS](https://pranithjain.qzz.io/threatintel/detections/signal) (threatintel): Threat-signal RSS feed with auto-classified indicators.
-- [Research Index](https://pranithjain.qzz.io/threatintel/research-hub/research) (threatintel): Long-form research posts and deep-dive analyses.
 - [Threat Intel Reports](https://pranithjain.qzz.io/threatintel/research-hub/reports) (threatintel): Original research reports with IOCs, detections, severity scoring.
 - [AI Reports](https://pranithjain.qzz.io/threatintel/research-hub/ai) (threatintel): AI-generated research reports from LLM analysis.
 - [Write-ups](https://pranithjain.qzz.io/threatintel/research-hub/writeups) (threatintel): Security write-ups and post-mortems.
 - [Research Signal](https://pranithjain.qzz.io/threatintel/research-hub/signal) (threatintel): Research-signal feed — what changed since last visit.
 - [RedHunt Insights](https://pranithjain.qzz.io/threatintel/research-hub/redhunt) (threatintel): RedHunt Labs threat-intel insights.
-- [RedHunt Labs Research](https://pranithjain.qzz.io/threatintel/research-hub/redhunt-labs) (threatintel): RedHunt Labs research feed.
 - [Volexity Threat Intel](https://pranithjain.qzz.io/threatintel/research-hub/volexity) (threatintel): Volexity threat-intelligence posts.
 - [Research Post](https://pranithjain.qzz.io/threatintel/research-hub/post) (threatintel): Individual research post (template page).
 - [Attack Flow Library](https://pranithjain.qzz.io/threatintel/research-hub/attack-flow) (threatintel): ATT&CK attack-flow library with reusable patterns.
@@ -293,6 +292,7 @@ Drop-in configs: https://pranithjain.qzz.io/mcp/{claude-desktop,cursor,vscode-mc
 - [analyze_phishing_email](https://pranithjain.qzz.io/mcp) (mcp:phishing): Analyze raw email source for phishing indicators. Parses headers, checks SPF/DKIM/DMARC, extracts URLs, and computes a risk score with flags.
 - [analyze_phishing_url](https://pranithjain.qzz.io/mcp) (mcp:phishing): Analyze a URL for phishing indicators. Checks against PhishTank, OpenPhish, URLhaus, and performs visual similarity analysis.
 - [analyze_report](https://pranithjain.qzz.io/mcp) (mcp:analysis): Unified per-report analyzer. Runs summary + IOC extraction (with allowlist + confidence) + MITRE ATT&CK TTP mapping + 5W context + CVE extraction + image-OCR + STIX 2.1 bundle in a single round-trip. Accepts text, URL, or both; optionally takes image URLs to OCR.
+- [btc_abuse_check](https://pranithjain.qzz.io/mcp) (mcp:other): Check a Bitcoin address for abuse/scam reports on ChainAbuse. Returns report count, categories (phishing, ransomware, scam, etc.), descriptions, and associated scam types. Useful for tracing illicit crypto transactions.
 - [check_breach](https://pranithjain.qzz.io/mcp) (mcp:breach): Check if an email address or domain has been exposed in known data breaches. Returns breach names, dates, and exposed data types.
 - [check_ioc](https://pranithjain.qzz.io/mcp) (mcp:ioc): Check reputation of an IP address, domain, URL, or file hash (MD5/SHA1/SHA256) across 30+ threat intelligence providers. Returns composite score, admiralty grade, and per-provider verdicts.
 - [correlate_iocs](https://pranithjain.qzz.io/mcp) (mcp:ioc): Search correlated IOCs. Find relationships between indicators — shared infrastructure, overlapping campaigns, and linked threat actors.
@@ -345,6 +345,7 @@ Drop-in configs: https://pranithjain.qzz.io/mcp/{claude-desktop,cursor,vscode-mc
 - [notebook_get](https://pranithjain.qzz.io/mcp) (mcp:notebook): Get a notebook with all its entries.
 - [notebook_list](https://pranithjain.qzz.io/mcp) (mcp:notebook): List investigation notebooks. Each notebook is a persistent investigation session with notes, IOCs, findings, and timeline entries stored in D1.
 - [notebook_update](https://pranithjain.qzz.io/mcp) (mcp:notebook): Update a notebook title, description, status, or severity.
+- [onion_lookup](https://pranithjain.qzz.io/mcp) (mcp:other): Look up metadata for a .onion address via the CIRCL AIL Project. Returns first/last seen dates, status, tags, PGP keys, certificates, open ports, page title, and associated Bitcoin addresses. No API key required.
 - [parse_threat_report](https://pranithjain.qzz.io/mcp) (mcp:analysis): Parse a threat intelligence report or article to extract structured data: IOCs (IPs, domains, URLs, hashes), threat actors, malware families, MITRE ATT&CK techniques, CVEs, targeted sectors, and an executive summary. Use this when analyzing threat reports, blog posts, or incident write-ups.
 - [passive_dns_overlap](https://pranithjain.qzz.io/mcp) (mcp:pdns): Find IPs shared between multiple domains (infrastructure overlap detection). Useful for mapping shared malicious hosting.
 - [passive_dns_query](https://pranithjain.qzz.io/mcp) (mcp:pdns): Query passive DNS for a domain or IP. Returns historical DNS resolutions, infrastructure migrations, and fast-flux detection. Sources: VirusTotal, URLscan, crt.sh, CIRCL.
@@ -394,6 +395,13 @@ Drop-in configs: https://pranithjain.qzz.io/mcp/{claude-desktop,cursor,vscode-mc
 - [tg_saved_search_delete](https://pranithjain.qzz.io/mcp) (mcp:other): Delete a saved Telegram search query.
 - [tg_saved_searches_list](https://pranithjain.qzz.io/mcp) (mcp:other): List saved Telegram boolean search queries.
 - [tg_timeline](https://pranithjain.qzz.io/mcp) (mcp:other): Get Telegram message volume timeline data (messages per day) with severity breakdown. Useful for visualizing activity spikes.
+- [tor_exit_check](https://pranithjain.qzz.io/mcp) (mcp:other): Check if a specific IP address is a known Tor exit node. Returns boolean and the queried IP.
+- [tor_exit_details](https://pranithjain.qzz.io/mcp) (mcp:other): Get detailed Tor exit node information including fingerprints, published timestamps, and exit addresses. More comprehensive than the bulk exit list.
+- [tor_exit_nodes](https://pranithjain.qzz.io/mcp) (mcp:other): Get current Tor exit node IP addresses from the official Tor Project bulk exit list. Useful for identifying if traffic originates from the Tor network.
+- [tor_fetch_onion](https://pranithjain.qzz.io/mcp) (mcp:other): Fetch raw HTML from a .onion URL via tor2web gateway. Returns page HTML and status code. Note: uses public tor2web proxies, not a local Tor SOCKS5 daemon — for true Tor anonymity, use tor locally.
+- [tor_scrape_onion](https://pranithjain.qzz.io/mcp) (mcp:other): Fetch and parse a .onion site via tor2web gateway. Returns structured data: title, links, body text, status code. Useful for extracting content from dark web sites.
+- [tor_search_onion](https://pranithjain.qzz.io/mcp) (mcp:other): Search for .onion sites using the Ahmia.fi search engine. Returns matching pages with title, URL, and description. Note: Ahmia selectively indexes .onion sites; not all dark web content is discoverable.
+- [tor_status](https://pranithjain.qzz.io/mcp) (mcp:other): Check the dark web access gateway status. Uses public tor2web gateways to reach .onion sites (no local Tor daemon required). Returns available gateways and method info.
 - [trace_crypto_address](https://pranithjain.qzz.io/mcp) (mcp:other): Trace a cryptocurrency wallet address. Returns balance, transaction history, and associated entities from blockchain explorers.
 - [unified_search](https://pranithjain.qzz.io/mcp) (mcp:search): Cross-source search across all threat intelligence feeds. Search by keyword, IOC, actor name, malware family, or CVE to find matching entries across briefings, live feeds, ransomware data, and more.
 - [validate_yara_rule](https://pranithjain.qzz.io/mcp) (mcp:detection): Validate a YARA rule syntax. Checks for balanced braces, required sections, and proper string definitions.

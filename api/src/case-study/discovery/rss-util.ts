@@ -16,6 +16,29 @@ export interface RssItem {
   date: Date;
 }
 
+const MAX_URL_LENGTH = 2000;
+
+/** Validate that a URL is a well-formed HTTP(S) absolute URL with a real-looking
+ *  hostname. Rejects relative paths, javascript:/data: schemas, bare IPs, and
+ *  obviously malformed links from feeds. Shared by parseRssItems and
+ *  createRssRunner so both early-skip malformed entries. */
+export function isValidHttpUrl(s: string): boolean {
+  if (typeof s !== 'string' || s.length > MAX_URL_LENGTH) return false;
+  try {
+    const u = new URL(s);
+    if (u.protocol !== 'https:' && u.protocol !== 'http:') return false;
+    const h = u.hostname;
+    // Must have at least one dot AND not be a bare IP address.
+    if (!h.includes('.')) return false;
+    // IPv4: 1.2.3.4 — reject (feeds shouldn't link to IPs)
+    // IPv6: [::1] — reject
+    if (/^[\d.]+$/.test(h) || h.startsWith('[')) return false;
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 export function parseRssItems(xml: string, now: Date): RssItem[] {
   const out: RssItem[] = [];
   for (const block of xml.match(ITEM_RE) ?? []) {
@@ -25,6 +48,7 @@ export function parseRssItems(xml: string, now: Date): RssItem[] {
     const ds = block.match(DATE_RE)?.[1];
     const d = ds ? new Date(ds.trim()) : now;
     if (!title) continue;
+    if (!isValidHttpUrl(link)) continue;
     out.push({ title, link, date: Number.isFinite(d.getTime()) ? d : now });
   }
   return out;

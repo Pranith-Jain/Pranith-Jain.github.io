@@ -89,6 +89,7 @@ const ROUTES = [
   '/threatintel/darkweb/ransom-map',
   '/threatintel/darkweb/ransom-report',
   '/threatintel/darkweb/ransomwhere',
+  '/threatintel/darkweb/recon',
   '/threatintel/darkweb/watch',
   '/threatintel/detections/detections',
   '/threatintel/detections/disarm',

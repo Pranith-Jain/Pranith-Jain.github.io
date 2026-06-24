@@ -2,6 +2,7 @@ import type { Candidate, DedupRecord, CaseStudyType } from '../types';
 import { topicKey } from '../stable-keys';
 import { severityScore, noveltyScore, finalScore } from '../scoring';
 import { dayOfYear } from './rotation';
+import { verifyUrls, type LinkStatus } from '../../lib/verify-url';
 
 export interface AgenticTrendsDeps {
   now: Date;
@@ -372,6 +373,44 @@ export async function discoverAgenticTrends(deps: AgenticTrendsDeps): Promise<Ca
         );
         continue;
       }
+
+      // Verify source URLs actually resolve. HEAD check with 3s timeout per URL.
+      // Distinguish HTTP errors (4xx/5xx → genuinely broken) from network errors
+      // (timeout, DNS failure → transient, leave as unchecked).
+      const sourceLinkStatuses: Record<string, LinkStatus> = {};
+      if (grounding.realSources.length > 0) {
+        const statuses = await verifyUrls(grounding.realSources, 3000);
+        for (const [url, result] of statuses) {
+          if (result.ok) {
+            sourceLinkStatuses[url] = 'ok';
+          } else if (result.status !== null) {
+            sourceLinkStatuses[url] = 'broken';
+          } else {
+            sourceLinkStatuses[url] = 'unchecked';
+          }
+        }
+      }
+
+      // Link-verification gate: reject if any URL returned a definite HTTP error
+      // (4xx/5xx) AND no URL resolved successfully. Network errors (timeout, DNS
+      // failure) alone don't trigger rejection — they might be transient.
+      // These URLs become blog post references via extractSources() in the
+      // generation pipeline, so genuinely broken URLs must be rejected.
+      const hasOk = Object.values(sourceLinkStatuses).some((s) => s === 'ok');
+      const hasBroken = Object.values(sourceLinkStatuses).some((s) => s === 'broken');
+      if (grounding.hasRealSource && !hasOk && hasBroken) {
+        console.log(
+          JSON.stringify({
+            runner: 'agentic-trends',
+            stage: 'link-verification-rejected',
+            title,
+            brokenUrls: grounding.realSources.length,
+            sourceLinkStatuses,
+          })
+        );
+        continue;
+      }
+
       // Normalize the title to create a stable key that doesn't change
       // between LLM runs. Strip common filler words, keep only the core
       // topic (e.g., "prompt injection", "blacksuit ransomware", "eu cyber").
@@ -424,6 +463,7 @@ export async function discoverAgenticTrends(deps: AgenticTrendsDeps): Promise<Ca
               ...grounding.realSources,
             ])
           ),
+          sourceLinkStatuses,
           hook: t.hook || '',
           angle: t.angle || '',
           trendingSignal: t.trendingSignal ?? trendingBoost,

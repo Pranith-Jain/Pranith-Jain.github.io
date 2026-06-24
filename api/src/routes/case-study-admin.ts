@@ -281,7 +281,13 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
 
     const now = new Date();
     try {
-      const post = await generatePost({ candidate, ai: c.env.AI as never, now, groqKey: c.env.GROQ_API_KEY, googleKey: c.env.GOOGLE_AI_STUDIO_API_KEY });
+      const post = await generatePost({
+        candidate,
+        ai: c.env.AI as never,
+        now,
+        groqKey: c.env.GROQ_API_KEY,
+        googleKey: c.env.GOOGLE_AI_STUDIO_API_KEY,
+      });
       const postIndex = await putPost(c.env.CASE_STUDIES, post);
 
       // RSS only needs index-level fields; reuse the index putPost just wrote
@@ -564,7 +570,8 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
         candidate,
         ai: c.env.AI as never,
         now,
-        groqKey: c.env.GROQ_API_KEY, googleKey: c.env.GOOGLE_AI_STUDIO_API_KEY,
+        groqKey: c.env.GROQ_API_KEY,
+        googleKey: c.env.GOOGLE_AI_STUDIO_API_KEY,
         notes: body.notes,
       });
       // If the LLM produced a different slug, remove the old draft first
@@ -653,6 +660,19 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
 
     if (!TYPES.includes(type)) return c.json({ error: 'invalid type' }, 400);
     if (!title || !body) return c.json({ error: 'title and body required' }, 400);
+    if (sources) {
+      for (let i = 0; i < sources.length; i++) {
+        const s = sources[i];
+        if (!s || typeof s.url !== 'string') return c.json({ error: `sources[${i}].url must be a string` }, 400);
+        try {
+          const u = new URL(s.url);
+          if (u.protocol !== 'https:' && u.protocol !== 'http:') throw new Error();
+          if (!u.hostname.includes('.')) throw new Error();
+        } catch {
+          return c.json({ error: `sources[${i}].url is not a valid HTTP URL: ${s.url}` }, 400);
+        }
+      }
+    }
 
     const baseSlug = title
       .toLowerCase()
@@ -714,7 +734,13 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
     const now = new Date();
 
     try {
-      const post = await generatePost({ candidate, ai: c.env.AI as never, now, groqKey: c.env.GROQ_API_KEY, googleKey: c.env.GOOGLE_AI_STUDIO_API_KEY });
+      const post = await generatePost({
+        candidate,
+        ai: c.env.AI as never,
+        now,
+        groqKey: c.env.GROQ_API_KEY,
+        googleKey: c.env.GOOGLE_AI_STUDIO_API_KEY,
+      });
       const postIndex = await putPost(c.env.CASE_STUDIES, post);
 
       // RSS only needs index-level fields; reuse the index putPost just wrote
@@ -744,7 +770,13 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
     if (!post) return c.json({ error: 'post not found' }, 404);
 
     try {
-      const social = await generateSocialContent(post, c.env.AI as never, new Date(), c.env.GROQ_API_KEY, c.env.GOOGLE_AI_STUDIO_API_KEY);
+      const social = await generateSocialContent(
+        post,
+        c.env.AI as never,
+        new Date(),
+        c.env.GROQ_API_KEY,
+        c.env.GOOGLE_AI_STUDIO_API_KEY
+      );
       await c.env.CASE_STUDIES.put(csKvKeys.social(slug), JSON.stringify(social));
       return c.json({ ok: true, social });
     } catch (err) {
@@ -936,7 +968,13 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
     for (const fmt of formats) {
       try {
         if (fmt === 'blog') {
-          const post = await generatePost({ candidate, ai: c.env.AI as never, now, groqKey: c.env.GROQ_API_KEY, googleKey: c.env.GOOGLE_AI_STUDIO_API_KEY });
+          const post = await generatePost({
+            candidate,
+            ai: c.env.AI as never,
+            now,
+            groqKey: c.env.GROQ_API_KEY,
+            googleKey: c.env.GOOGLE_AI_STUDIO_API_KEY,
+          });
           await putDraft(c.env.CASE_STUDIES, post);
           result.blog = { slug: post.slug, title: post.title, status: 'draft' };
           // Blog generation = "approve" — remove candidate from pending
@@ -1033,7 +1071,8 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
             candidate: pseudo,
             ai: c.env.AI as never,
             now,
-            groqKey: c.env.GROQ_API_KEY, googleKey: c.env.GOOGLE_AI_STUDIO_API_KEY,
+            groqKey: c.env.GROQ_API_KEY,
+            googleKey: c.env.GOOGLE_AI_STUDIO_API_KEY,
           });
           await putDraft(c.env.CASE_STUDIES, post);
           result.blog = { slug: post.slug, title: post.title, status: 'draft' };

@@ -66,7 +66,7 @@ export async function discoverVulnCheckKev(deps: DiscoverVulnCheckDeps): Promise
           dateAdded: e.date_added,
           description: e.shortDescription,
           ransomware: e.knownRansomwareCampaignUse,
-          url: `https://www.vulncheck.com/cve/${cveId}`,
+          url: `https://www.vulncheck.com/cve/${encodeURIComponent(cveId)}`,
         },
         discoveredAt: deps.now.toISOString(),
         status: 'pending',

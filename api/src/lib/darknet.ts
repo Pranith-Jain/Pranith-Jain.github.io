@@ -203,8 +203,41 @@ export async function torScrapeOnion(onionUrl: string, gatewayIndex = 0): Promis
   };
 }
 
+async function fetchAhmiaCsrfToken(): Promise<{ name: string; value: string } | null> {
+  try {
+    const res = await fetch(AHMIA_SEARCH_URL, {
+      headers: {
+        'User-Agent': UA,
+        Accept: 'text/html,application/xhtml+xml,*/*',
+        'Accept-Language': 'en-US,en;q=0.5',
+      },
+    });
+    if (!res.ok) return null;
+    const html = await res.text();
+    const m =
+      /<input[^>]*type\s*=\s*["']hidden["'][^>]*name\s*=\s*["']([^"']+)["'][^>]*value\s*=\s*["']([^"']+)["'][^>]*\/?>/i.exec(
+        html
+      );
+    if (m) return { name: m[1]!, value: m[2]! };
+    const m2 =
+      /<input[^>]*type\s*=\s*["']hidden["'][^>]*value\s*=\s*["']([^"']+)["'][^>]*name\s*=\s*["']([^"']+)["'][^>]*\/?>/i.exec(
+        html
+      );
+    if (m2) return { name: m2[2]!, value: m2[1]! };
+    return null;
+  } catch {
+    return null;
+  }
+}
+
 export async function torSearchOnion(query: string, limit = 20): Promise<AhmiaResult[]> {
-  const searchUrl = `${AHMIA_SEARCH_URL}?q=${encodeURIComponent(query)}`;
+  const csrf = await fetchAhmiaCsrfToken();
+
+  let searchUrl = `${AHMIA_SEARCH_URL}?q=${encodeURIComponent(query)}`;
+  if (csrf) {
+    searchUrl += `&${encodeURIComponent(csrf.name)}=${encodeURIComponent(csrf.value)}`;
+  }
+
   const res = await fetch(searchUrl, {
     headers: {
       'User-Agent': UA,

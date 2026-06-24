@@ -137,7 +137,7 @@ export default function DarkWebRecon(): JSX.Element {
   return (
     <DataPageLayout
       backTo="/threatintel"
-      icon={Globe}
+      icon={<Globe className="h-6 w-6" />}
       title="Dark Web Recon"
       description="Search .onion sites, look up hidden service metadata, check BTC addresses for abuse, and scan Tor exit nodes."
       headerExtra={
@@ -165,8 +165,6 @@ export default function DarkWebRecon(): JSX.Element {
       loading={loading}
       error={error}
       onRetry={handleSearch}
-      empty={data === null && !loading && !error}
-      emptyMessage="Enter a query above to search dark web intelligence sources."
     >
       <div className="space-y-4">
         <div className="flex gap-2">
@@ -187,7 +185,18 @@ export default function DarkWebRecon(): JSX.Element {
           </button>
         </div>
 
-        {renderResults()}
+        {data === null && !loading && !error ? (
+          <div
+            className="rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-10 text-center"
+            role="status"
+          >
+            <p className="text-sm text-slate-500 dark:text-slate-400">
+              Enter a query above to search dark web intelligence sources.
+            </p>
+          </div>
+        ) : (
+          renderResults()
+        )}
       </div>
     </DataPageLayout>
   );
