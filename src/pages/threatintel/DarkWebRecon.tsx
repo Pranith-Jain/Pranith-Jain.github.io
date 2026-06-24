@@ -1,0 +1,365 @@
+import { useState } from 'react';
+import { Globe, Search, Scan, Bitcoin, Network, ExternalLink, Loader2 } from 'lucide-react';
+import { DataPageLayout } from '../../components/DataPageLayout';
+import { fetchJson } from '../../lib/fetch-json';
+
+type ToolTab = 'onion-search' | 'onion-lookup' | 'btc-check' | 'exit-check';
+
+interface AhmiaResult {
+  title: string;
+  url: string;
+  description: string;
+}
+
+interface OnionLookupResult {
+  address: string;
+  first_seen: string | null;
+  last_seen: string | null;
+  status: string | null;
+  tags: string[];
+  ports: number[];
+  title: string | null;
+  bitcoin_addresses: string[];
+}
+
+interface TorExitCheckResult {
+  isTorExit: boolean;
+  ip: string;
+}
+
+interface ChainAbuseReport {
+  id: string;
+  address: string;
+  category: string;
+  description: string;
+  createdAt: string;
+  scamType: string;
+}
+
+interface ChainAbuseResult {
+  address: string;
+  reports: ChainAbuseReport[];
+  count: number;
+}
+
+const TABS: Array<{
+  id: ToolTab;
+  label: string;
+  icon: React.ComponentType<{ className?: string }>;
+  placeholder: string;
+}> = [
+  {
+    id: 'onion-search',
+    label: 'Onion Search',
+    icon: Search,
+    placeholder: 'Search .onion sites, e.g. breach, marketplace',
+  },
+  {
+    id: 'onion-lookup',
+    label: 'Onion Lookup',
+    icon: Scan,
+    placeholder: '.onion address, e.g. facebookwkhpilnemxj7.onion',
+  },
+  {
+    id: 'btc-check',
+    label: 'BTC Abuse',
+    icon: Bitcoin,
+    placeholder: 'Bitcoin address, e.g. 1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa',
+  },
+  { id: 'exit-check', label: 'Tor Exit', icon: Network, placeholder: 'IP address to check, e.g. 185.220.101.1' },
+];
+
+export default function DarkWebRecon(): JSX.Element {
+  const [tab, setTab] = useState<ToolTab>('onion-search');
+  const [input, setInput] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [data, setData] = useState<unknown>(null);
+
+  async function handleSearch() {
+    if (!input.trim()) return;
+    setLoading(true);
+    setError(null);
+    setData(null);
+
+    try {
+      const q = input.trim();
+
+      switch (tab) {
+        case 'onion-search': {
+          const r = await fetchJson<{ query: string; count: number; results: AhmiaResult[] }>(
+            `/api/v1/darknet/tor-search-onion?q=${encodeURIComponent(q)}&limit=30`
+          );
+          setData(r);
+          break;
+        }
+        case 'onion-lookup': {
+          const r = await fetchJson<OnionLookupResult>(`/api/v1/darknet/onion-lookup?address=${encodeURIComponent(q)}`);
+          setData(r);
+          break;
+        }
+        case 'btc-check': {
+          const r = await fetchJson<ChainAbuseResult>(
+            `/api/v1/darknet/btc-abuse-check?address=${encodeURIComponent(q)}`
+          );
+          setData(r);
+          break;
+        }
+        case 'exit-check': {
+          const r = await fetchJson<TorExitCheckResult>(`/api/v1/darknet/tor-exit-check?ip=${encodeURIComponent(q)}`);
+          setData(r);
+          break;
+        }
+      }
+    } catch (e) {
+      setError(e instanceof Error ? e.message : String(e));
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  const activeTab = TABS.find((t) => t.id === tab)!;
+
+  function renderResults(): JSX.Element | null {
+    if (!data) return null;
+    switch (tab) {
+      case 'onion-search':
+        return <OnionSearchResults data={data as { query: string; count: number; results: AhmiaResult[] }} />;
+      case 'onion-lookup':
+        return <OnionLookupResults data={data as OnionLookupResult} />;
+      case 'btc-check':
+        return <BtcAbuseResults data={data as ChainAbuseResult} />;
+      case 'exit-check':
+        return <TorExitResults data={data as TorExitCheckResult} />;
+    }
+  }
+
+  return (
+    <DataPageLayout
+      backTo="/threatintel"
+      icon={Globe}
+      title="Dark Web Recon"
+      description="Search .onion sites, look up hidden service metadata, check BTC addresses for abuse, and scan Tor exit nodes."
+      headerExtra={
+        <div className="flex flex-wrap gap-1.5">
+          {TABS.map((t) => (
+            <button
+              key={t.id}
+              onClick={() => {
+                setTab(t.id);
+                setData(null);
+                setError(null);
+              }}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
+                tab === t.id
+                  ? 'bg-cyan-500/20 text-cyan-300 ring-1 ring-cyan-500/40'
+                  : 'text-gray-400 hover:text-gray-200 hover:bg-white/5'
+              }`}
+            >
+              <t.icon className="w-3.5 h-3.5" />
+              {t.label}
+            </button>
+          ))}
+        </div>
+      }
+      loading={loading}
+      error={error}
+      onRetry={handleSearch}
+      empty={data === null && !loading && !error}
+      emptyMessage="Enter a query above to search dark web intelligence sources."
+    >
+      <div className="space-y-4">
+        <div className="flex gap-2">
+          <input
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
+            placeholder={activeTab.placeholder}
+            className="flex-1 bg-gray-900/60 border border-gray-700 rounded-lg px-4 py-2.5 text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-transparent text-sm"
+          />
+          <button
+            onClick={handleSearch}
+            disabled={loading || !input.trim()}
+            className="flex items-center gap-2 px-4 py-2.5 bg-cyan-600 hover:bg-cyan-500 disabled:bg-gray-700 disabled:text-gray-500 rounded-lg text-sm font-medium text-white transition-colors"
+          >
+            {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Search className="w-4 h-4" />}
+            {loading ? 'Searching...' : 'Search'}
+          </button>
+        </div>
+
+        {renderResults()}
+      </div>
+    </DataPageLayout>
+  );
+}
+
+function OnionSearchResults({ data }: { data: { query: string; count: number; results: AhmiaResult[] } }) {
+  return (
+    <div className="space-y-2">
+      <p className="text-sm text-gray-400">
+        {data.count} result{data.count !== 1 ? 's' : ''} for "{data.query}"
+      </p>
+      {data.results.length === 0 ? (
+        <p className="text-sm text-gray-500">No results found.</p>
+      ) : (
+        data.results.map((r, i) => (
+          <div
+            key={i}
+            className="bg-gray-900/40 border border-gray-800 rounded-lg p-3 hover:border-gray-700 transition-colors"
+          >
+            <a
+              href={r.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-cyan-400 hover:text-cyan-300 font-medium text-sm flex items-center gap-1"
+            >
+              {r.title || 'Untitled'}
+              <ExternalLink className="w-3 h-3 flex-shrink-0" />
+            </a>
+            {r.description && <p className="text-gray-400 text-xs mt-1 line-clamp-2">{r.description}</p>}
+            <p className="text-gray-600 text-xs mt-1 truncate">{r.url}</p>
+          </div>
+        ))
+      )}
+    </div>
+  );
+}
+
+function OnionLookupResults({ data }: { data: OnionLookupResult }) {
+  return (
+    <div className="bg-gray-900/40 border border-gray-800 rounded-lg p-4 space-y-3">
+      <div className="flex items-center gap-2">
+        <span
+          className={`px-2 py-0.5 rounded text-xs font-medium ${
+            data.status === 'online'
+              ? 'bg-green-500/20 text-green-300'
+              : data.status === 'offline'
+                ? 'bg-red-500/20 text-red-300'
+                : 'bg-gray-700 text-gray-400'
+          }`}
+        >
+          {data.status ?? 'unknown'}
+        </span>
+        <span className="text-sm text-gray-200 font-mono">{data.address}</span>
+      </div>
+
+      {(data.first_seen || data.last_seen) && (
+        <div className="grid grid-cols-2 gap-3 text-xs">
+          {data.first_seen && (
+            <div>
+              <span className="text-gray-500">First seen</span>
+              <p className="text-gray-300 mt-0.5">{data.first_seen}</p>
+            </div>
+          )}
+          {data.last_seen && (
+            <div>
+              <span className="text-gray-500">Last seen</span>
+              <p className="text-gray-300 mt-0.5">{data.last_seen}</p>
+            </div>
+          )}
+        </div>
+      )}
+
+      {data.title && (
+        <div>
+          <span className="text-xs text-gray-500">Title</span>
+          <p className="text-sm text-gray-200 mt-0.5">{data.title}</p>
+        </div>
+      )}
+
+      {data.tags.length > 0 && (
+        <div>
+          <span className="text-xs text-gray-500">Tags</span>
+          <div className="flex flex-wrap gap-1 mt-1">
+            {data.tags.map((t, i) => (
+              <span key={i} className="px-2 py-0.5 bg-gray-800 rounded text-xs text-gray-300">
+                {t}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {data.ports.length > 0 && (
+        <div>
+          <span className="text-xs text-gray-500">Open ports</span>
+          <div className="flex flex-wrap gap-1 mt-1">
+            {data.ports.map((p) => (
+              <span key={p} className="px-2 py-0.5 bg-gray-800 rounded text-xs text-gray-300">
+                {p}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {data.bitcoin_addresses.length > 0 && (
+        <div>
+          <span className="text-xs text-gray-500">Associated BTC addresses</span>
+          {data.bitcoin_addresses.map((addr) => (
+            <p key={addr} className="text-xs text-amber-400 font-mono mt-0.5">
+              {addr}
+            </p>
+          ))}
+        </div>
+      )}
+
+      {!data.first_seen && !data.last_seen && data.tags.length === 0 && data.ports.length === 0 && !data.title && (
+        <p className="text-sm text-gray-500">No metadata available for this address.</p>
+      )}
+    </div>
+  );
+}
+
+function BtcAbuseResults({ data }: { data: ChainAbuseResult }) {
+  return (
+    <div className="space-y-2">
+      <div className="flex items-center gap-2">
+        <span
+          className={`px-2 py-0.5 rounded text-xs font-medium ${
+            data.count > 0 ? 'bg-red-500/20 text-red-300' : 'bg-green-500/20 text-green-300'
+          }`}
+        >
+          {data.count > 0 ? `${data.count} report${data.count !== 1 ? 's' : ''}` : 'No reports'}
+        </span>
+        <span className="text-xs text-gray-400 font-mono">{data.address}</span>
+      </div>
+
+      {data.reports.length > 0 && (
+        <div className="space-y-2 mt-2">
+          {data.reports.map((r) => (
+            <div key={r.id} className="bg-gray-900/40 border border-gray-800 rounded-lg p-3">
+              <div className="flex items-center gap-2 mb-1">
+                <span className="px-1.5 py-0.5 rounded text-xs font-medium bg-red-500/10 text-red-400 border border-red-500/20">
+                  {r.category}
+                </span>
+                {r.scamType && <span className="text-xs text-gray-500">{r.scamType}</span>}
+              </div>
+              <p className="text-sm text-gray-300">{r.description}</p>
+              <p className="text-xs text-gray-600 mt-1">{new Date(r.createdAt).toLocaleDateString()}</p>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function TorExitResults({ data }: { data: TorExitCheckResult }) {
+  return (
+    <div className="bg-gray-900/40 border border-gray-800 rounded-lg p-4">
+      <div className="flex items-center gap-3">
+        <span
+          className={`px-3 py-1 rounded-lg text-sm font-medium ${
+            data.isTorExit
+              ? 'bg-red-500/20 text-red-300 ring-1 ring-red-500/30'
+              : 'bg-green-500/20 text-green-300 ring-1 ring-green-500/30'
+          }`}
+        >
+          {data.isTorExit ? 'TOR EXIT NODE' : 'NOT A TOR EXIT NODE'}
+        </span>
+        <span className="text-sm text-gray-300 font-mono">{data.ip}</span>
+      </div>
+    </div>
+  );
+}

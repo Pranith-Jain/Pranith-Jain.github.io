@@ -41,6 +41,17 @@ import { ransomwareRecentHandler } from './routes/ransomware-recent';
 import { ransomwareMapHandler } from './routes/ransomware-map';
 import { cryptoTraceHandler } from './routes/crypto-trace';
 import {
+  torStatusHandler,
+  torFetchOnionHandler,
+  torScrapeOnionHandler,
+  torSearchOnionHandler,
+  torExitNodesHandler,
+  torExitCheckHandler,
+  torExitDetailsHandler,
+  onionLookupHandler,
+  btcAbuseCheckHandler,
+} from './routes/darknet';
+import {
   tracerExpandHandler,
   tracerLabelHandler,
   tracerLabelAddHandler,
@@ -997,6 +1008,15 @@ app.get('/api/v1/breach-disclosures', breachDisclosuresHandler);
 app.get('/api/v1/ransomware-recent', ransomwareRecentHandler);
 app.get('/api/v1/ransomware-map', ransomwareMapHandler);
 app.get('/api/v1/crypto-trace', validate('query', cryptoTraceSchema), cryptoTraceHandler);
+app.get('/api/v1/darknet/tor-status', torStatusHandler);
+app.get('/api/v1/darknet/tor-fetch-onion', torFetchOnionHandler);
+app.get('/api/v1/darknet/tor-scrape-onion', torScrapeOnionHandler);
+app.get('/api/v1/darknet/tor-search-onion', torSearchOnionHandler);
+app.get('/api/v1/darknet/tor-exit-nodes', torExitNodesHandler);
+app.get('/api/v1/darknet/tor-exit-check', torExitCheckHandler);
+app.get('/api/v1/darknet/tor-exit-details', torExitDetailsHandler);
+app.get('/api/v1/darknet/onion-lookup', onionLookupHandler);
+app.get('/api/v1/darknet/btc-abuse-check', btcAbuseCheckHandler);
 app.get('/api/v1/supply-chain/package', validate('query', depsDevPackageSchema), depsDevPackageHandler);
 app.post('/api/v1/tracer/expand', validate('json', tracerExpandSchema), tracerExpandHandler);
 app.get('/api/v1/tracer/label', validate('query', tracerLabelSchema), tracerLabelHandler);

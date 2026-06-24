@@ -33,6 +33,17 @@ import {
 } from './lib/si-shiftlog';
 import { siHyposGenerate, type HypoObservation } from './lib/si-hypos';
 import {
+  torStatus,
+  torFetchOnion,
+  torScrapeOnion,
+  torSearchOnion,
+  torExitNodes,
+  torExitCheck,
+  torExitDetails,
+  onionLookup,
+  btcAbuseCheck,
+} from './lib/darknet';
+import {
   promptVaultList,
   promptVaultGet,
   promptVaultCreate,
@@ -2641,6 +2652,142 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
           { method: 'DELETE' }
         );
         return untrustedToolResult(data);
+      }
+    );
+
+    // ── Dark Web: Tor Network ──────────────────────────────────────────────
+    this.tools(
+      'tor_status',
+      'Check the dark web access gateway status. Uses public tor2web gateways to reach .onion sites (no local Tor daemon required). Returns available gateways and method info.',
+      {},
+      async () => {
+        const r = await torStatus();
+        return untrustedToolResult(r);
+      }
+    );
+
+    this.tools(
+      'tor_fetch_onion',
+      'Fetch raw HTML from a .onion URL via tor2web gateway. Returns page HTML and status code. Note: uses public tor2web proxies, not a local Tor SOCKS5 daemon — for true Tor anonymity, use tor locally.',
+      {
+        url: z
+          .string()
+          .describe('Full .onion URL, e.g. http://facebookwkhpilnemxj7asaniu7vnjjbiltxjqhye3mhbshg7kx5tfyd.onion/'),
+        gateway: z
+          .number()
+          .int()
+          .min(0)
+          .max(3)
+          .optional()
+          .describe('Tor2Web gateway index (0=tor2web.io, 1=onion.ws, 2=onion.sh, 3=tor2web.org). Default: 0.'),
+      },
+      async ({ url, gateway }) => {
+        const r = await torFetchOnion(url, gateway ?? 0);
+        return untrustedToolResult({
+          url,
+          html_length: r.html.length,
+          status_code: r.statusCode,
+          fetched_via: r.fetchedVia,
+          html: r.html.slice(0, 100_000),
+        });
+      }
+    );
+
+    this.tools(
+      'tor_scrape_onion',
+      'Fetch and parse a .onion site via tor2web gateway. Returns structured data: title, links, body text, status code. Useful for extracting content from dark web sites.',
+      {
+        url: z
+          .string()
+          .describe('Full .onion URL, e.g. http://facebookwkhpilnemxj7asaniu7vnjjbiltxjqhye3mhbshg7kx5tfyd.onion/'),
+        gateway: z
+          .number()
+          .int()
+          .min(0)
+          .max(3)
+          .optional()
+          .describe('Tor2Web gateway index (0=tor2web.io, 1=onion.ws, 2=onion.sh, 3=tor2web.org). Default: 0.'),
+      },
+      async ({ url, gateway }) => {
+        const r = await torScrapeOnion(url, gateway ?? 0);
+        return untrustedToolResult(r);
+      }
+    );
+
+    this.tools(
+      'tor_search_onion',
+      'Search for .onion sites using the Ahmia.fi search engine. Returns matching pages with title, URL, and description. Note: Ahmia selectively indexes .onion sites; not all dark web content is discoverable.',
+      {
+        q: z.string().describe('Search query, e.g. "marketplace", "breach", "company-name"'),
+        limit: z.number().int().min(1).max(100).optional().describe('Max results (default: 20)'),
+      },
+      async ({ q, limit }) => {
+        const r = await torSearchOnion(q, limit ?? 20);
+        return untrustedToolResult({ query: q, count: r.length, results: r });
+      }
+    );
+
+    this.tools(
+      'tor_exit_nodes',
+      'Get current Tor exit node IP addresses from the official Tor Project bulk exit list. Useful for identifying if traffic originates from the Tor network.',
+      {
+        limit: z.number().int().min(1).max(10000).optional().describe('Max IPs to return (default: all)'),
+      },
+      async ({ limit }) => {
+        const ips = await torExitNodes(limit);
+        return untrustedToolResult({ count: ips.length, ips });
+      }
+    );
+
+    this.tools(
+      'tor_exit_check',
+      'Check if a specific IP address is a known Tor exit node. Returns boolean and the queried IP.',
+      {
+        ip: z.string().describe('IPv4 or IPv6 address to check'),
+      },
+      async ({ ip }) => {
+        const r = await torExitCheck(ip);
+        return untrustedToolResult(r);
+      }
+    );
+
+    this.tools(
+      'tor_exit_details',
+      'Get detailed Tor exit node information including fingerprints, published timestamps, and exit addresses. More comprehensive than the bulk exit list.',
+      {
+        limit: z.number().int().min(1).max(5000).optional().describe('Max entries to return (default: all)'),
+      },
+      async ({ limit }) => {
+        const r = await torExitDetails(limit);
+        return untrustedToolResult({ count: r.length, exits: r });
+      }
+    );
+
+    // ── Dark Web: CIRCL Onion Lookup ──────────────────────────────────────
+    this.tools(
+      'onion_lookup',
+      'Look up metadata for a .onion address via the CIRCL AIL Project. Returns first/last seen dates, status, tags, PGP keys, certificates, open ports, page title, and associated Bitcoin addresses. No API key required.',
+      {
+        address: z
+          .string()
+          .describe('.onion address to look up, e.g. "facebookwkhpilnemxj7asaniu7vnjjbiltxjqhye3mhbshg7kx5tfyd.onion"'),
+      },
+      async ({ address }) => {
+        const r = await onionLookup(address);
+        return untrustedToolResult(r);
+      }
+    );
+
+    // ── Dark Web: BTC Abuse Check ─────────────────────────────────────────
+    this.tools(
+      'btc_abuse_check',
+      'Check a Bitcoin address for abuse/scam reports on ChainAbuse. Returns report count, categories (phishing, ransomware, scam, etc.), descriptions, and associated scam types. Useful for tracing illicit crypto transactions.',
+      {
+        address: z.string().describe('Bitcoin address to check, e.g. "1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa"'),
+      },
+      async ({ address }) => {
+        const r = await btcAbuseCheck(address);
+        return untrustedToolResult(r);
       }
     );
   }

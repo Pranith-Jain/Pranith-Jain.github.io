@@ -205,6 +205,7 @@ const CveList = lazy(() => import('./pages/threatintel/CveList'));
 const CveResourcesCatalog = lazy(() => import('./pages/dfir/CveResourcesCatalog'));
 const CyberCrime = lazy(() => import('./pages/threatintel/CyberCrime'));
 const DarkWeb = lazy(() => import('./pages/threatintel/DarkWebOsintTools'));
+const DarkWebRecon = lazy(() => import('./pages/threatintel/DarkWebRecon'));
 const DarknetMarketsTimeline = lazy(() => import('./pages/threatintel/DarknetMarketsTimeline'));
 const DeepDarkCTI = lazy(() => import('./pages/threatintel/DeepDarkCTI'));
 const Detections = lazy(() => import('./pages/threatintel/Detections'));
@@ -568,6 +569,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel/darkweb/ransom-activity', Component: RansomwareActivity },
   { path: '/threatintel/darkweb/ransom-map', Component: RansomwareMap },
   { path: '/threatintel/darkweb/ransomwhere', Component: Ransomwhere },
+  { path: '/threatintel/darkweb/recon', Component: DarkWebRecon },
   { path: '/threatintel/predictive/dashboard', Component: IntelDashboard },
   { path: '/threatintel/predictive/global-pulse', Component: GlobalPulse },
   { path: '/threatintel/predictive/threat-pulse', Component: ThreatPulse },

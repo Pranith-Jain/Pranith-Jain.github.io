@@ -605,6 +605,22 @@ export const HUB_META: readonly HubMeta[] = [
         compVar: 'Ransomwhere',
       },
       {
+        path: '/threatintel/darkweb/recon',
+        tabId: 'recon',
+        label: 'Dark Web Recon',
+        desc: 'Search .onion sites, look up hidden service metadata, check BTC addresses for abuse, and scan Tor exit nodes.',
+        keywords: [
+          'tor',
+          'onion',
+          'ahmia',
+          'dark web search',
+          'bitcoin',
+          'btc abuse',
+          'exit node',
+        ] as readonly string[],
+        compVar: 'DarkWebRecon',
+      },
+      {
         path: '/threatintel/ransomware-live',
         tabId: 'ransomware-live',
         label: 'ransomware.live PRO',
