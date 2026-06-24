@@ -5,6 +5,7 @@ import { VOICE_IDENTITY, COPYWRITING_RULES, PIPELINE_OUTPUT_GUARDRAIL, QUALITY_C
 import { stripUntrustedUrls, findUngroundedCves, detectSlop } from '../../lib/ai-output-validator';
 import { slugify } from '../stable-keys';
 import type { CarouselSpec } from '../social/slide-spec';
+import { buildCarouselSlides } from '../social/carousel-build';
 
 export interface SocialContent {
   slug: string;
@@ -117,6 +118,7 @@ function tidyLinkedin(text: string): string {
 
 const TWITTER_HARD_LIMIT = 280;
 const LINKEDIN_HARD_LIMIT = 3000;
+const INSTAGRAM_HARD_LIMIT = 2200;
 // LinkedIn soft floor. The 4-block structure the prompt requires needs
 // 1500+ characters to deliver substance (hook + insight + specifics list +
 // close). A post under 1300 chars almost always means the
@@ -129,7 +131,11 @@ const LINKEDIN_HARD_FLOOR = 900;
  * Validate social content against the source case study.
  * Checks: character limits, CVE grounding, URL allowlisting, slop detection.
  */
-function validateSocial(text: string, platform: 'twitter' | 'linkedin', sourceBody: string): SocialQuality {
+function validateSocial(
+  text: string,
+  platform: 'twitter' | 'linkedin' | 'instagram',
+  sourceBody: string
+): SocialQuality {
   const issues: string[] = [];
 
   // For Twitter threads, we check individual posts, not the whole thread
@@ -144,6 +150,12 @@ function validateSocial(text: string, platform: 'twitter' | 'linkedin', sourceBo
     if (maxPostLength > TWITTER_HARD_LIMIT) {
       issues.push(`Post exceeds ${TWITTER_HARD_LIMIT} chars (${maxPostLength})`);
     }
+  } else if (platform === 'instagram') {
+    // Instagram: simple char-count check against the 2200 limit
+    if (text.length > INSTAGRAM_HARD_LIMIT) {
+      issues.push(`Instagram caption exceeds ${INSTAGRAM_HARD_LIMIT} chars (${text.length})`);
+    }
+    maxPostLength = text.length;
   } else {
     // LinkedIn: check body before FIRST COMMENT
     const bodyPart = text.split(/FIRST COMMENT:/i)[0]?.trim() ?? text;
@@ -316,7 +328,12 @@ function validateSocial(text: string, platform: 'twitter' | 'linkedin', sourceBo
 
   return {
     char_count: maxPostLength,
-    over_limit: platform === 'twitter' ? maxPostLength > TWITTER_HARD_LIMIT : maxPostLength > LINKEDIN_HARD_LIMIT,
+    over_limit:
+      platform === 'twitter'
+        ? maxPostLength > TWITTER_HARD_LIMIT
+        : platform === 'instagram'
+          ? maxPostLength > INSTAGRAM_HARD_LIMIT
+          : maxPostLength > LINKEDIN_HARD_LIMIT,
     ungrounded_cves: ungrounded,
     untrusted_urls: stripped.length,
     slop_count: slop.length,
@@ -354,7 +371,7 @@ async function generateWithValidation(
   ai: Ai,
   system: string,
   userPrompt: string,
-  platform: 'twitter' | 'linkedin',
+  platform: 'twitter' | 'linkedin' | 'instagram',
   sourceBody: string,
   groqKey?: string,
   googleKey?: string,
@@ -511,6 +528,42 @@ function buildLinkedinPrompt(src: SocialSource, includeLink = true): string {
   );
 }
 
+// ── Instagram prompt ────────────────────────────────────────────────────
+
+function buildInstagramPrompt(src: SocialSource): string {
+  return (
+    `Write an Instagram caption for this analysis. <= 2200 characters.\n` +
+    `- Open with a 1-2 line hook that stops the scroll (the carousel carries the depth).\n` +
+    `- 3-5 short lines of value, practitioner voice. No markdown, no links in the body (IG captions aren't clickable).\n` +
+    `- End with 5-8 specific hashtags on the final line (campaign/CVE/sector specific — never a generic #cybersecurity stack).\n\n` +
+    `TITLE: ${src.title}\n\nSOURCE:\n${src.body.slice(0, 4000)}\n`
+  );
+}
+
+async function generateInstagramFromSource(
+  src: SocialSource,
+  post: Post,
+  ai: Ai,
+  now: Date,
+  groqKey?: string,
+  googleKey?: string
+): Promise<{ caption: string; quality?: SocialQuality; slides: Awaited<ReturnType<typeof buildCarouselSlides>> }> {
+  const [captionRes, slides] = await Promise.all([
+    generateWithValidation(
+      ai,
+      SOCIAL_SYSTEM,
+      buildInstagramPrompt(src),
+      'instagram',
+      src.body,
+      groqKey,
+      googleKey,
+      1200
+    ).catch(() => ({ text: '', quality: undefined as SocialQuality | undefined })),
+    buildCarouselSlides(post, { ai, groqKey, googleKey }),
+  ]);
+  return { caption: captionRes.text.slice(0, 2200), quality: captionRes.quality, slides };
+}
+
 // ── Public API ──────────────────────────────────────────────────────────
 
 /**
@@ -642,11 +695,12 @@ async function generateSocialFromSource(
   ai: Ai,
   now: Date,
   groqKey?: string,
-  googleKey?: string
+  googleKey?: string,
+  post?: Post
 ): Promise<SocialContent> {
   const factNote = extractVerifiedFacts(src.body);
 
-  const [twitterRes, linkedinRes] = await Promise.allSettled([
+  const [twitterRes, linkedinRes, igRes] = await Promise.allSettled([
     generateWithValidation(
       ai,
       SOCIAL_SYSTEM,
@@ -667,16 +721,27 @@ async function generateSocialFromSource(
       googleKey,
       2000
     ),
+    post
+      ? generateInstagramFromSource(src, post, ai, now, groqKey, googleKey)
+      : Promise.resolve({
+          caption: '',
+          quality: undefined as SocialQuality | undefined,
+          slides: [] as Awaited<ReturnType<typeof buildCarouselSlides>>,
+        }),
   ]);
 
+  const ig = igRes.status === 'fulfilled' ? igRes.value : { caption: '', quality: undefined, slides: [] };
   return {
     slug: src.slug,
     twitter: twitterRes.status === 'fulfilled' ? twitterRes.value.text : '',
     linkedin: linkedinRes.status === 'fulfilled' ? linkedinRes.value.text : '',
+    instagram: ig.caption || undefined,
+    carousel: ig.slides.length ? { format: 'instagram', slides: ig.slides } : undefined,
     generatedAt: now.toISOString(),
     _validation: {
       twitter_quality: twitterRes.status === 'fulfilled' ? twitterRes.value.quality : undefined,
       linkedin_quality: linkedinRes.status === 'fulfilled' ? linkedinRes.value.quality : undefined,
+      instagram_quality: ig.quality,
     },
   };
 }
@@ -690,7 +755,7 @@ export async function generateSocialContent(
   groqKey?: string,
   googleKey?: string
 ): Promise<SocialContent> {
-  return generateSocialFromSource(postToSource(post), ai, now, groqKey, googleKey);
+  return generateSocialFromSource(postToSource(post), ai, now, groqKey, googleKey, post);
 }
 
 export async function generateTwitterContent(
