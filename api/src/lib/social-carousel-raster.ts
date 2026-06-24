@@ -1,0 +1,1 @@
+../../../worker/social-carousel-raster.ts

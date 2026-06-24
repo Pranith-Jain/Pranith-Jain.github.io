@@ -41,6 +41,8 @@ import {
   generateLinkedinFromNotes,
 } from '../case-study/generation/social';
 import { putDraft } from '../case-study/storage/drafts';
+import { renderCarouselSlideSvg } from '../case-study/social/carousel-svg';
+import { carouselSlideToPng } from '../lib/social-carousel-raster';
 
 /**
  * Fetch the dynamic OG card PNG for a post via the SELF service binding, so it
@@ -807,6 +809,31 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
       cursor = res.cursor;
     }
     return c.json({ index });
+  });
+
+  // ─── Carousel slide PNG render (on-demand, admin-gated) ───────────────
+  // GET /api/v1/admin/social/carousel/:slug/:i.png
+  // Must be registered BEFORE /social/:slug to avoid the wildcard catching
+  // "carousel" as the slug value. Hono matches in registration order.
+  // Looks up the stored SocialContent carousel for :slug, renders slide :i
+  // to SVG, rasterises to PNG via the Worker resvg rasteriser.
+  // Returns image/png. 404 on unknown slug, missing carousel, or OOB index.
+  admin.get('/social/carousel/:slug/:file', async (c) => {
+    const slug = c.req.param('slug');
+    // Accept only "<digits>.png" — reject anything else (e.g. path traversal).
+    const fileParam = c.req.param('file');
+    const fileMatch = fileParam.match(/^(\d+)\.png$/);
+    if (!fileMatch) return c.notFound();
+    const i = Number(fileMatch[1]);
+    if (!validSlug(slug)) return c.json({ error: 'bad slug' }, 400);
+    const social = await c.env.CASE_STUDIES.get<SocialContent>(`social:${slug}`, 'json');
+    const slides = social?.carousel?.slides;
+    if (!slides || i < 0 || i >= slides.length || !slides[i]) return c.notFound();
+    const svg = renderCarouselSlideSvg(slides[i]!, { index: i, total: slides.length });
+    const png = await carouselSlideToPng(c.env as Parameters<typeof carouselSlideToPng>[0], svg);
+    return new Response(png, {
+      headers: { 'content-type': 'image/png', 'cache-control': 'private, max-age=300' },
+    });
   });
 
   admin.get('/social/:slug', async (c) => {
