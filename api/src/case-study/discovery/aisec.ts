@@ -60,7 +60,7 @@ export async function discoverAiSec(deps: DiscoverDeps): Promise<Candidate[]> {
             cvss,
             published: cve.published,
             description: desc,
-            url: `https://nvd.nist.gov/vuln/detail/${cve.id}`,
+            url: `https://nvd.nist.gov/vuln/detail/${encodeURIComponent(cve.id)}`,
           },
           discoveredAt: deps.now.toISOString(),
           status: 'pending',

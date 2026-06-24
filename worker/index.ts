@@ -8,6 +8,7 @@ import { DfirMcpServer } from './mcp-server';
 import { generateNonce, withSecurityHeaders } from './csp';
 import { fetchPrerenderedOrShell } from './router';
 import { handleOgImage } from './og-route';
+import { handleBlogImage } from './blog-image-route';
 import { handleScheduled } from './scheduled';
 import { handleQueue } from './queue-consumer';
 import { logStartupValidation } from './bindings';
@@ -205,6 +206,13 @@ export default {
       return withSecurityHeaders(
         new Response(ogRes.body, { status: ogRes.status, statusText: ogRes.statusText, headers: h })
       );
+    }
+
+    // AI-generated blog illustrations. Public + before the /api/v1/* key-gate,
+    // like the OG card route. Served from KV; falls through to 404 on a miss.
+    if (url.pathname.startsWith('/api/v1/blog-image/')) {
+      const imgRes = await handleBlogImage(url, env);
+      return withSecurityHeaders(imgRes);
     }
 
     // Radar deep-crawl DO routes — require a valid API key (admin role).

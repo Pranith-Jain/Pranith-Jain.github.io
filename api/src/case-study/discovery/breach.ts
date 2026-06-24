@@ -62,7 +62,7 @@ export async function discoverBreaches(deps: DiscoverDeps): Promise<Candidate[]>
           dataClasses: b.DataClasses,
           verified: !!b.IsVerified,
           description: b.Description,
-          url: `https://haveibeenpwned.com/PwnedWebsites#${b.Name}`,
+          url: `https://haveibeenpwned.com/PwnedWebsites#${encodeURIComponent(b.Name)}`,
         },
         discoveredAt: deps.now.toISOString(),
         status: 'pending',

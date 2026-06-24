@@ -1,6 +1,7 @@
 import type { Candidate, DedupRecord } from '../types';
 import { cveKey } from '../stable-keys';
 import { recencyScore, severityScore, noveltyScore, finalScore } from '../scoring';
+import { verifyUrl, type LinkStatus } from '../../lib/verify-url';
 
 const KEV_URL = 'https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json';
 const NVD_API = 'https://services.nvd.nist.gov/rest/json/cves/2.0';
@@ -130,6 +131,15 @@ export async function discoverCves(deps: DiscoverDeps): Promise<Candidate[]> {
       const stable = cveKey(k.cveID);
       const dedup = await getDedup(stable);
 
+      const nvdUrl = `https://nvd.nist.gov/vuln/detail/${encodeURIComponent(k.cveID)}`;
+      const nvdUrlResult = await verifyUrl(nvdUrl, 3000);
+      // Nuanced verdict: 'broken' only for a confirmed-dead URL (404/410/
+      // soft-404/NXDOMAIN); WAF blocks + 5xx + timeouts stay 'unchecked'.
+      const nvdStatus: LinkStatus = nvdUrlResult.linkStatus;
+      const sourceLinkStatuses: Record<string, LinkStatus> = {
+        [nvdUrl]: nvdStatus,
+      };
+
       const evidence = {
         cveId: k.cveID,
         vendor: k.vendorProject,
@@ -139,6 +149,8 @@ export async function discoverCves(deps: DiscoverDeps): Promise<Candidate[]> {
         kev: true,
         kevAddedAt: dateAdded.toISOString(),
         ransomwareUse: k.knownRansomwareCampaignUse === 'Known',
+        urls: [nvdUrl],
+        sourceLinkStatuses,
         ...nvdExtra,
       };
 

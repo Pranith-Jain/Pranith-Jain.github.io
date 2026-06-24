@@ -7,6 +7,7 @@ import {
   CheckCircle,
   ExternalLink,
   HelpCircle,
+  Loader2,
   Package,
   Search,
   Shield,
@@ -57,12 +58,12 @@ interface OssfResponse {
 }
 
 const ECOSYSTEMS = [
-  { id: 'npm', label: 'npm', icon: '📦' },
-  { id: 'pypi', label: 'PyPI', icon: '🐍' },
-  { id: 'go', label: 'Go', icon: '🔵' },
-  { id: 'maven', label: 'Maven', icon: '☕' },
-  { id: 'rubygems', label: 'RubyGems', icon: '💎' },
-  { id: 'crates.io', label: 'crates.io', icon: '🦀' },
+  { id: 'npm', label: 'npm', icon: 'N' },
+  { id: 'pypi', label: 'PyPI', icon: 'Py' },
+  { id: 'go', label: 'Go', icon: 'Go' },
+  { id: 'maven', label: 'Maven', icon: 'Mv' },
+  { id: 'rubygems', label: 'RubyGems', icon: 'Gm' },
+  { id: 'crates.io', label: 'crates.io', icon: 'Cr' },
 ];
 
 const VERDICT_META: Record<string, { icon: typeof Shield; color: string; bg: string; label: string }> = {
@@ -223,7 +224,7 @@ export default function SupplyChainIntelligence(): JSX.Element {
           >
             {ECOSYSTEMS.map((e) => (
               <option key={e.id} value={e.id}>
-                {e.icon} {e.label}
+                {e.label}
               </option>
             ))}
           </select>
@@ -240,7 +241,7 @@ export default function SupplyChainIntelligence(): JSX.Element {
             disabled={!query.trim() || verdictLoading}
             className="px-4 py-2 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-lg disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 text-sm flex items-center gap-2"
           >
-            {verdictLoading ? <span className="animate-spin">⏳</span> : <Shield className="w-4 h-4" />}
+            {verdictLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Shield className="w-4 h-4" />}
             Check
           </button>
         </div>
@@ -341,7 +342,8 @@ export default function SupplyChainIntelligence(): JSX.Element {
                   : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-slate-400'
               }`}
             >
-              {e.icon} {e.label}
+              <span className="w-5 inline-block font-mono text-xs font-bold opacity-60">{e.icon}</span>
+              {e.label}
             </button>
           ))}
         </div>
@@ -360,7 +362,7 @@ export default function SupplyChainIntelligence(): JSX.Element {
 
         {ossfLoading ? (
           <div className="flex items-center justify-center py-12 text-slate-500 font-mono text-sm">
-            <span className="animate-spin mr-2">⏳</span> Loading {ossfEco} packages…
+            <Loader2 className="w-4 h-4 animate-spin mr-2" /> Loading {ossfEco} packages…
           </div>
         ) : ossfError ? (
           <div

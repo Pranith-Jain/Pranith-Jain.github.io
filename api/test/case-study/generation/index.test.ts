@@ -1,6 +1,12 @@
 import { describe, it, expect, vi } from 'vitest';
 import { generatePost } from '../../../src/case-study/generation/index';
 import type { Candidate } from '../../../src/case-study/types';
+import type { LinkStatus } from '../../../src/lib/verify-url';
+
+// Hermetic reference verifier: treat every URL as resolving so unit tests
+// never issue real HEAD requests. Tests that exercise pruning pass their
+// own stub.
+const allOk = async (urls: string[]) => new Map<string, LinkStatus>(urls.map((u) => [u, 'ok']));
 
 const candidate: Candidate = {
   key: 'cve-2026-1234',
@@ -41,6 +47,7 @@ describe('generatePost', () => {
       candidate,
       ai: ai as any,
       now: new Date('2026-05-19T15:05:00Z'),
+      verifyRefs: allOk,
     });
     expect(post.slug).toMatch(/^cve-2026-1234/);
     expect(post.type).toBe('cve');
@@ -64,7 +71,7 @@ describe('generatePost', () => {
         .mockResolvedValueOnce({ response: thin }) // draft 1: structurally ok but fails QA
         .mockResolvedValueOnce({ response: goodMd }), // repair: substantive, passes QA
     };
-    const post = await generatePost({ candidate, ai: ai as any, now: new Date() });
+    const post = await generatePost({ candidate, ai: ai as any, now: new Date(), verifyRefs: allOk });
     expect(ai.run).toHaveBeenCalledTimes(2); // proves the QA repair path ran
     expect(post.body).toContain('## Summary');
     expect(post.qa?.passed).toBe(true);
@@ -74,5 +81,66 @@ describe('generatePost', () => {
     const thin = ['## Summary', 'Too short.', '## References', '- https://x.test'].join('\n\n');
     const ai = { run: vi.fn(async () => ({ response: thin })) };
     await expect(generatePost({ candidate, ai: ai as any, now: new Date() })).rejects.toThrow(/qa failed/i);
+  });
+
+  it('attaches an AI hero image + injects a body image when aiImages is enabled', async () => {
+    const ai = {
+      run: vi.fn(async (model: string) => {
+        // Image model → image bytes; text models → the good markdown.
+        if (typeof model === 'string' && model.includes('flux')) return { image: btoa('IMG') };
+        return { response: goodMd };
+      }),
+    };
+    const puts: Array<{ name: string; bytes: Uint8Array }> = [];
+    const post = await generatePost({
+      candidate,
+      ai: ai as any,
+      now: new Date('2026-05-19T15:05:00Z'),
+      verifyRefs: allOk,
+      aiImages: {
+        enabled: true,
+        put: async (_slug, name, bytes) => {
+          puts.push({ name, bytes });
+        },
+      },
+    });
+    expect(post.heroImageUrl).toBe(`/api/v1/blog-image/${post.slug}/hero`);
+    expect(post.body).toContain(`/api/v1/blog-image/${post.slug}/body1`);
+    expect(puts.map((p) => p.name).sort()).toEqual(['body1', 'hero']);
+  });
+
+  it('falls back to the SVG hero (no heroImageUrl) when image generation fails', async () => {
+    const ai = {
+      run: vi.fn(async (model: string) => {
+        if (typeof model === 'string' && model.includes('flux')) throw new Error('AI image down');
+        return { response: goodMd };
+      }),
+    };
+    const post = await generatePost({
+      candidate,
+      ai: ai as any,
+      now: new Date('2026-05-19T15:05:00Z'),
+      verifyRefs: allOk,
+      aiImages: { enabled: true, put: async () => {} },
+    });
+    expect(post.heroImageUrl).toBeUndefined();
+    expect(post.hero).toContain('<svg');
+  });
+
+  it('prunes a confirmed-broken reference URL from the published post body', async () => {
+    const withBrokenRef = [
+      goodMd,
+      '- [Fabricated writeup](https://www.bleepingcomputer.com/news/security/this-slug-does-not-exist/)',
+    ].join('\n');
+    const ai = { run: vi.fn(async () => ({ response: withBrokenRef })) };
+    const post = await generatePost({
+      candidate,
+      ai: ai as any,
+      now: new Date('2026-05-19T15:05:00Z'),
+      verifyRefs: async (urls) =>
+        new Map(urls.map((u) => [u, u.includes('this-slug-does-not-exist') ? 'broken' : 'ok'] as const)),
+    });
+    expect(post.body).not.toContain('this-slug-does-not-exist');
+    expect(post.body).toContain('## Summary'); // good refs + body survive
   });
 });

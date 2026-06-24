@@ -8,7 +8,8 @@
  *   - Critical CVEs or vulnerabilities
  *   - Recommended actions
  *
- * Uses the same LLM client as the case-study generator (Groq → Workers AI).
+ * Uses the shared LLM client with preferGroq: every AI summary runs on Groq's
+ * openai/gpt-oss-120b (GPT) first, with Gemini → Workers AI as fallback.
  * Gracefully degrades: on any failure returns null so the caller can skip
  * the summary card without blocking the page.
  */
@@ -105,7 +106,7 @@ export async function generateAiSummary(input: SummaryInput, env: Env): Promise<
           maxTokens: 800,
           temperature: 0.3,
         },
-        { googleKey: env.GOOGLE_AI_STUDIO_API_KEY, groqKey: env.GROQ_API_KEY }
+        { googleKey: env.GOOGLE_AI_STUDIO_API_KEY, groqKey: env.GROQ_API_KEY, preferGroq: true }
       ),
       timeoutPromise,
     ]);

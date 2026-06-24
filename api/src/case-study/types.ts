@@ -1,4 +1,5 @@
 // api/src/case-study/types.ts
+import type { CarouselSpec } from './social/slide-spec';
 
 export type CaseStudyType =
   | 'cve'
@@ -83,7 +84,10 @@ export interface Post {
   publishedAt: string; // ISO 8601
   candidateId: string;
   body: string; // markdown
-  hero: string; // inline SVG
+  hero: string; // inline SVG (typographic banner; fallback when no AI hero)
+  /** Public URL of the AI-generated hero illustration, when one was produced.
+   *  The blog page prefers this over the SVG `hero`. */
+  heroImageUrl?: string;
   iocs: PostIOC[];
   tags: string[];
   sources: PostSource[];
@@ -138,23 +142,40 @@ export interface SocialContent {
   slug: string;
   twitter: string;
   linkedin: string;
+  instagram?: string;
+  carousel?: CarouselSpec;
   generatedAt: string;
 }
 
-/** Per-platform manual-posting state for the social scheduling queue. */
+/** Per-platform posting state for the social scheduling queue.
+ *
+ *  Lifecycle: 'pending' (generated, awaiting human approval) → 'approved'
+ *  (human OK'd the copy; the drip cron may auto-post once `scheduledAt` is
+ *  due) → 'posted' (live, auto or manual) | 'failed' (an auto-post attempt
+ *  errored). Instagram never auto-posts (personal-account API limit) — it
+ *  only moves to 'posted' via the admin "mark posted". */
 export interface SocialScheduleEntry {
-  /** ISO 8601 — optional planned post time (manual posting; just a reminder). */
+  /** ISO 8601 — planned post time. The drip cron auto-posts an 'approved'
+   *  entry only once this is in the past. */
   scheduledAt?: string;
-  status: 'pending' | 'posted';
-  /** ISO 8601 — set when the admin marks it posted. */
+  status: 'pending' | 'approved' | 'posted' | 'failed';
+  /** ISO 8601 — set when posted (auto or manual). */
   postedAt?: string;
+  /** Permalink returned by the platform on a successful auto-post. */
+  postUrl?: string;
+  /** Last auto-post error (when status is 'failed'). */
+  error?: string;
+  /** Count of auto-post attempts; the cron gives up past a cap. */
+  attempts?: number;
 }
 
-/** Tracks whether each platform's generated copy has been posted, and when
- *  it is planned for. Manual posting only — there is no auto-post. */
+/** Tracks each platform's generated copy through the approval/posting
+ *  lifecycle. Auto-posting (X/LinkedIn only) is gated by approval + a due
+ *  time + the SOCIAL_AUTOPOST_ENABLED master switch. */
 export interface SocialSchedule {
   slug: string;
   twitter?: SocialScheduleEntry;
   linkedin?: SocialScheduleEntry;
+  instagram?: SocialScheduleEntry;
   updatedAt: string;
 }

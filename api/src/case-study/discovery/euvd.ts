@@ -51,7 +51,7 @@ export async function discoverEuvd(deps: DiscoverEuvdDeps): Promise<Candidate[]>
           baseScore: v.baseScore,
           datePublished: v.datePublished,
           description: v.description,
-          url: `https://euvd.enisa.europa.eu/vulnerability/${v.id}`,
+          url: `https://euvd.enisa.europa.eu/vulnerability/${encodeURIComponent(v.id)}`,
         },
         discoveredAt: deps.now.toISOString(),
         status: 'pending',

@@ -3,6 +3,9 @@ import { sanitizeUrl } from '../../lib/sanitize-url';
 import { Link } from 'react-router-dom';
 import { DataPageLayout, useInsideDataPageLayout } from '../../components/DataPageLayout';
 import { RefreshCw, ExternalLink, MessageSquare, Repeat, Heart, BarChart3, Search, Twitter } from 'lucide-react';
+import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
+import { usePostSummaries } from '../../components/intel/usePostSummaries';
+import { PostSummary } from '../../components/intel/PostSummary';
 
 interface LiveTweet {
   id: string;
@@ -130,6 +133,16 @@ export default function XLive(): JSX.Element {
       );
     });
   }, [data, search, activeHandle]);
+
+  const postSummaries = usePostSummaries({
+    surface: 'X Live Cybersec',
+    items: filtered.map((t) => ({
+      id: String(t.id),
+      title: t.text?.slice(0, 120) ?? '',
+      body: t.text ?? '',
+      source: t.author?.name ?? '',
+    })),
+  });
 
   const headerExtra = (
     <>
@@ -265,106 +278,120 @@ export default function XLive(): JSX.Element {
       )}
 
       {filtered.length > 0 && (
-        <ul className="space-y-2">
-          {filtered.map((t) => (
-            <li
-              key={t.id}
-              className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
-            >
-              <div className="flex items-start gap-3">
-                {t.author.avatar_url && (
-                  <img
-                    src={t.author.avatar_url}
-                    alt={t.author.name}
-                    className="w-9 h-9 rounded-full shrink-0"
-                    loading="lazy"
-                  />
-                )}
-                <div className="min-w-0 flex-1">
-                  <div className="flex flex-wrap items-baseline gap-2 mb-1">
-                    <span className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100">
-                      {t.author.name}
-                    </span>
-                    <button
-                      type="button"
-                      onClick={() => setActiveHandle(t.author.screen_name.toLowerCase())}
-                      className="text-mini font-mono text-slate-500 hover:text-brand-600 dark:hover:text-brand-400"
-                      title="filter to this handle"
-                    >
-                      @{t.author.screen_name}
-                    </button>
-                    {t.ioc_types.map((iocType) => (
-                      <span
-                        key={iocType}
-                        className={`text-micro font-mono px-1 py-0.5 rounded border ${
-                          IOC_TYPE_COLOR[iocType] ??
-                          'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500'
-                        }`}
+        <>
+          <AiSummaryCard
+            surface="X Live Cybersec"
+            items={filtered.slice(0, 30).map((t) => ({
+              title: t.text?.slice(0, 120) ?? '',
+              body: t.text ?? '',
+              source: t.author?.name ?? '',
+            }))}
+            requireAdmin={false}
+          />
+          <ul className="space-y-2">
+            {filtered.map((t) => (
+              <li
+                key={t.id}
+                className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3"
+              >
+                <div className="flex items-start gap-3">
+                  {t.author.avatar_url && (
+                    <img
+                      src={t.author.avatar_url}
+                      alt={t.author.name}
+                      className="w-9 h-9 rounded-full shrink-0"
+                      loading="lazy"
+                    />
+                  )}
+                  <div className="min-w-0 flex-1">
+                    <div className="flex flex-wrap items-baseline gap-2 mb-1">
+                      <span className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100">
+                        {t.author.name}
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() => setActiveHandle(t.author.screen_name.toLowerCase())}
+                        className="text-mini font-mono text-slate-500 hover:text-brand-600 dark:hover:text-brand-400"
+                        title="filter to this handle"
                       >
-                        {iocType}
-                      </span>
-                    ))}
-                    <a
-                      href={sanitizeUrl(t.url) || undefined}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="ml-auto text-micro font-mono text-slate-500 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-0.5"
-                      title={t.created_at}
-                    >
-                      {formatTimeAgo(t.created_at_ms || t.created_at)} <ExternalLink size={9} />
-                    </a>
-                  </div>
-                  <p className="text-sm text-slate-800 dark:text-slate-200 whitespace-pre-wrap break-words">{t.text}</p>
-                  {t.tweetfeed_tags.length > 0 && (
-                    <div className="mt-1.5 flex flex-wrap gap-1">
-                      {t.tweetfeed_tags.map((tag) => (
-                        <button
-                          key={tag}
-                          type="button"
-                          onClick={() => setSearch(tag)}
-                          className="text-micro font-mono text-brand-600 dark:text-brand-400 hover:underline"
+                        @{t.author.screen_name}
+                      </button>
+                      {t.ioc_types.map((iocType) => (
+                        <span
+                          key={iocType}
+                          className={`text-micro font-mono px-1 py-0.5 rounded border ${
+                            IOC_TYPE_COLOR[iocType] ??
+                            'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500'
+                          }`}
                         >
-                          {tag}
-                        </button>
+                          {iocType}
+                        </span>
                       ))}
+                      <a
+                        href={sanitizeUrl(t.url) || undefined}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="ml-auto text-micro font-mono text-slate-500 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-0.5"
+                        title={t.created_at}
+                      >
+                        {formatTimeAgo(t.created_at_ms || t.created_at)} <ExternalLink size={9} />
+                      </a>
                     </div>
-                  )}
-                  {t.media.length > 0 && (
-                    <div className="mt-2 grid grid-cols-2 gap-1.5">
-                      {t.media.slice(0, 4).map((m, i) => (
-                        <a
-                          key={`${t.id}-m-${i}`}
-                          href={sanitizeUrl(t.url) || undefined}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="block rounded overflow-hidden border border-slate-200 dark:border-[rgb(var(--border-400))]"
-                        >
-                          <img src={m.url} alt={m.type} loading="lazy" className="w-full h-32 object-cover" />
-                        </a>
-                      ))}
-                    </div>
-                  )}
-                  <div className="mt-2 flex items-center gap-3 text-micro font-mono text-slate-500">
-                    <span className="inline-flex items-center gap-0.5">
-                      <MessageSquare size={10} /> {compactNumber(t.replies) || '0'}
-                    </span>
-                    <span className="inline-flex items-center gap-0.5">
-                      <Repeat size={10} /> {compactNumber(t.retweets) || '0'}
-                    </span>
-                    <span className="inline-flex items-center gap-0.5">
-                      <Heart size={10} /> {compactNumber(t.likes) || '0'}
-                    </span>
-                    {t.views > 0 && (
-                      <span className="inline-flex items-center gap-0.5">
-                        <BarChart3 size={10} /> {compactNumber(t.views)}
-                      </span>
+                    <p className="text-sm text-slate-800 dark:text-slate-200 whitespace-pre-wrap break-words">
+                      {t.text}
+                    </p>
+                    <PostSummary text={postSummaries.get(String(t.id))} />
+                    {t.tweetfeed_tags.length > 0 && (
+                      <div className="mt-1.5 flex flex-wrap gap-1">
+                        {t.tweetfeed_tags.map((tag) => (
+                          <button
+                            key={tag}
+                            type="button"
+                            onClick={() => setSearch(tag)}
+                            className="text-micro font-mono text-brand-600 dark:text-brand-400 hover:underline"
+                          >
+                            {tag}
+                          </button>
+                        ))}
+                      </div>
                     )}
+                    {t.media.length > 0 && (
+                      <div className="mt-2 grid grid-cols-2 gap-1.5">
+                        {t.media.slice(0, 4).map((m, i) => (
+                          <a
+                            key={`${t.id}-m-${i}`}
+                            href={sanitizeUrl(t.url) || undefined}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="block rounded overflow-hidden border border-slate-200 dark:border-[rgb(var(--border-400))]"
+                          >
+                            <img src={m.url} alt={m.type} loading="lazy" className="w-full h-32 object-cover" />
+                          </a>
+                        ))}
+                      </div>
+                    )}
+                    <div className="mt-2 flex items-center gap-3 text-micro font-mono text-slate-500">
+                      <span className="inline-flex items-center gap-0.5">
+                        <MessageSquare size={10} /> {compactNumber(t.replies) || '0'}
+                      </span>
+                      <span className="inline-flex items-center gap-0.5">
+                        <Repeat size={10} /> {compactNumber(t.retweets) || '0'}
+                      </span>
+                      <span className="inline-flex items-center gap-0.5">
+                        <Heart size={10} /> {compactNumber(t.likes) || '0'}
+                      </span>
+                      {t.views > 0 && (
+                        <span className="inline-flex items-center gap-0.5">
+                          <BarChart3 size={10} /> {compactNumber(t.views)}
+                        </span>
+                      )}
+                    </div>
                   </div>
                 </div>
-              </div>
-            </li>
-          ))}
-        </ul>
+              </li>
+            ))}
+          </ul>
+        </>
       )}
 
       {data && (

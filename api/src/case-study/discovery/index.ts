@@ -110,16 +110,40 @@ export async function runDiscovery(deps: RunDiscoveryDeps): Promise<RunDiscovery
   // (e.g. intel + news) produces different stable-keys but the same evidence.url.
   // Keep only the highest-scored candidate per URL so we don't waste LLM
   // generation on duplicate content with different labels.
+  // Expanded to check evidence.urls[] (cve, actor), evidence.sources[]
+  // (agentic-trends, briefing, platform-data), and evidence.cveId (construct NVD
+  // URL) so CVE runners dedup against RSS/article runners that cite the same CVE.
   const seenUrl = new Set<string>();
   let deduped = 0;
-  selected = selected.filter((c) => {
-    const u = typeof c.evidence?.url === 'string' ? c.evidence.url : '';
-    if (!u) return true;
-    if (seenUrl.has(u)) {
-      deduped += 1;
-      return false;
+
+  function pushEvidenceUrls(ev: Record<string, unknown>, into: Set<string>): void {
+    const push = (u: unknown) => {
+      if (typeof u === 'string' && /^https?:\/\//.test(u)) into.add(u);
+    };
+    push(ev.url);
+    if (Array.isArray(ev.urls)) ev.urls.forEach(push);
+    if (Array.isArray(ev.sources)) ev.sources.forEach(push);
+    push(ev.sourceUrl);
+    if (typeof ev.cveId === 'string') {
+      into.add(`https://nvd.nist.gov/vuln/detail/${encodeURIComponent(ev.cveId)}`);
     }
-    seenUrl.add(u);
+  }
+
+  selected = selected.filter((c) => {
+    const urls = new Set<string>();
+    pushEvidenceUrls(c.evidence ?? {}, urls);
+    // If the candidate has no evidence URLs at all it's not dedupable — keep it.
+    if (urls.size === 0) return true;
+    // If ANY URL was already seen, drop this candidate as a duplicate.
+    for (const u of urls) {
+      if (seenUrl.has(u)) {
+        deduped += 1;
+        return false;
+      }
+    }
+    // Mark ALL candidate URLs as seen so future candidates with any overlap
+    // are dropped regardless of which field the URL lives in.
+    for (const u of urls) seenUrl.add(u);
     return true;
   });
 

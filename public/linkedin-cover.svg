@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1584" height="396" viewBox="0 0 1584 396" font-family="'Hanken Grotesk', system-ui, sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#070b1c"/><stop offset="55%" stop-color="#0c1530"/><stop offset="100%" stop-color="#070b1c"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="80%" cy="26%" r="56%">
+      <stop offset="0%" stop-color="#435ef1" stop-opacity="0.24"/><stop offset="55%" stop-color="#435ef1" stop-opacity="0.06"/><stop offset="100%" stop-color="#435ef1" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="bar" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#5a78f2"/><stop offset="100%" stop-color="#2c3ee5"/>
+    </linearGradient>
+    <linearGradient id="pj" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#2c3ee5"/><stop offset="100%" stop-color="#435ef1"/>
+    </linearGradient>
+    <radialGradient id="node" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#6d8bf7" stop-opacity="0.55"/><stop offset="100%" stop-color="#6d8bf7" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="sweep" cx="0%" cy="50%" r="100%">
+      <stop offset="0%" stop-color="#6d8bf7" stop-opacity="0.34"/><stop offset="100%" stop-color="#6d8bf7" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="46" height="46" patternUnits="userSpaceOnUse">
+      <path d="M 46 0 L 0 0 0 46" fill="none" stroke="#6d8bf7" stroke-opacity="0.05" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <rect width="1584" height="396" fill="url(#bg)"/>
+  <rect width="1584" height="396" fill="url(#grid)"/>
+  <rect width="1584" height="396" fill="url(#glow)"/>
+  <rect x="0" y="0" width="6" height="396" fill="url(#bar)"/>
+
+  
+  <path d="M 1150 96 H 1280 L 1320 136 H 1430" fill="none" stroke="#6d8bf7" stroke-opacity="0.34" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+  <path d="M 1150 196 H 1248 L 1288 156" fill="none" stroke="#6d8bf7" stroke-opacity="0.34" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+  <path d="M 1180 286 H 1300 L 1340 246 H 1470 L 1510 206" fill="none" stroke="#6d8bf7" stroke-opacity="0.34" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+  <path d="M 1430 76 V 150 H 1520" fill="none" stroke="#6d8bf7" stroke-opacity="0.34" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+  <path d="M 1320 136 V 246" fill="none" stroke="#6d8bf7" stroke-opacity="0.34" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+  <path d="M 1470 252 H 1540" fill="none" stroke="#6d8bf7" stroke-opacity="0.34" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+  <circle cx="1288" cy="156" r="2.4" fill="#46588f"/>
+  <circle cx="1340" cy="246" r="2.4" fill="#46588f"/>
+  <circle cx="1280" cy="96" r="2.4" fill="#46588f"/>
+  <circle cx="1300" cy="286" r="2.4" fill="#46588f"/>
+  <circle cx="1470" cy="252" r="2.4" fill="#46588f"/>
+  <circle cx="1150" cy="96" r="13" fill="url(#node)" opacity="0.55"/><rect x="1146" y="92" width="8" height="8" rx="2" fill="#6d8bf7"/>
+  <circle cx="1430" cy="136" r="13" fill="url(#node)" opacity="0.55"/><rect x="1426" y="132" width="8" height="8" rx="2" fill="#6d8bf7"/>
+  <rect x="1146" y="192" width="8" height="8" rx="2" fill="#46588f"/>
+  <rect x="1176" y="282" width="8" height="8" rx="2" fill="#46588f"/>
+  <circle cx="1510" cy="206" r="13" fill="url(#node)" opacity="0.55"/><rect x="1506" y="202" width="8" height="8" rx="2" fill="#6d8bf7"/>
+  <circle cx="1430" cy="76" r="13" fill="url(#node)" opacity="0.55"/><rect x="1426" y="72" width="8" height="8" rx="2" fill="#fb7185"/>
+  <rect x="1516" y="146" width="8" height="8" rx="2" fill="#46588f"/>
+  <rect x="1316" y="242" width="8" height="8" rx="2" fill="#46588f"/>
+  <rect x="1536" y="248" width="8" height="8" rx="2" fill="#46588f"/>
+
+  <rect x="100" y="110" width="66" height="66" rx="15" fill="url(#pj)"/>
+  <text x="133" y="154" text-anchor="middle" font-size="30" font-weight="800" fill="#ffffff">PJ</text>
+
+  <text x="186" y="146" font-size="52" font-weight="800" letter-spacing="-0.5" fill="#ffffff">Pranith Jain</text>
+  <text x="188" y="178" font-size="17" font-weight="700" letter-spacing="2.8" fill="#a1b6fb">CERTIFIED CYBER CRIMINOLOGIST · OSINT · THREAT INTEL · AI SECURITY</text>
+
+  <text x="100" y="262" font-size="29" font-weight="400" fill="#dbe3f4">Edge-native security tooling &amp; a live threat-intelligence platform,</text>
+  <text x="100" y="300" font-size="29" font-weight="400" fill="#94a3b8">built at the intersection of <tspan fill="#a1b6fb" font-weight="600">AI, OSINT &amp; detection</tspan>.</text>
+
+  <text x="206" y="356" font-size="15" font-weight="700" letter-spacing="2.5" fill="#5b6b8f"><tspan fill="#a1b6fb">pranithjain.qzz.io</tspan>   ·   CRUCIBLE   ·   PANOPTICON   ·   SCOUT   ·   ARGUS</text>
+</svg>

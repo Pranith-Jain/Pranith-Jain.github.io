@@ -59,6 +59,7 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/threatintel/darkweb/ransom-activity', '/__prerendered/threatintel__darkweb__ransom-activity'],
   ['/threatintel/darkweb/ransom-map', '/__prerendered/threatintel__darkweb__ransom-map'],
   ['/threatintel/darkweb/ransomwhere', '/__prerendered/threatintel__darkweb__ransomwhere'],
+  ['/threatintel/darkweb/recon', '/__prerendered/threatintel__darkweb__recon'],
   ['/threatintel/predictive/dashboard', '/__prerendered/threatintel__predictive__dashboard'],
   ['/threatintel/predictive/global-pulse', '/__prerendered/threatintel__predictive__global-pulse'],
   ['/threatintel/predictive/threat-pulse', '/__prerendered/threatintel__predictive__threat-pulse'],

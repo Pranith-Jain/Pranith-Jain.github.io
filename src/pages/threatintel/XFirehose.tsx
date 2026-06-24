@@ -6,6 +6,9 @@ import { useSearchParams } from 'react-router-dom';
 import { DataPageLayout, useInsideDataPageLayout } from '../../components/DataPageLayout';
 import { AtSign, Cloud, ExternalLink, RefreshCw, Search, Sparkles } from 'lucide-react';
 import { useLastVisit, isNewSince } from '../../hooks';
+import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
+import { usePostSummaries } from '../../components/intel/usePostSummaries';
+import { PostSummary } from '../../components/intel/PostSummary';
 
 type Platform = 'bluesky' | 'mastodon';
 
@@ -105,6 +108,16 @@ export default function XFirehose(): JSX.Element {
       return it.text.toLowerCase().includes(q) || it.handle.toLowerCase().includes(q);
     });
   }, [data, debouncedQuery, handleFilter, newOnly, lastVisit]);
+
+  const postSummaries = usePostSummaries({
+    surface: 'X / Bluesky / Mastodon Cybersec',
+    items: filtered.map((it) => ({
+      id: String(it.link),
+      title: it.text?.slice(0, 120) ?? '',
+      body: it.text ?? '',
+      source: it.handle_name ?? it.handle ?? '',
+    })),
+  });
 
   // Cap rendered rows; reset when the filter result set changes.
   useEffect(() => {
@@ -245,6 +258,17 @@ export default function XFirehose(): JSX.Element {
       error={error}
       onRetry={() => setRefreshKey((k) => k + 1)}
     >
+      {filtered.length > 0 && (
+        <AiSummaryCard
+          surface="X / Bluesky / Mastodon Cybersec"
+          items={filtered.slice(0, 30).map((it) => ({
+            title: it.text?.slice(0, 120) ?? '',
+            body: it.text ?? '',
+            source: it.handle_name ?? it.handle ?? '',
+          }))}
+          requireAdmin={false}
+        />
+      )}
       <ul className="space-y-2">
         {filtered.slice(0, visible).map((it, i) => (
           <li
@@ -272,6 +296,7 @@ export default function XFirehose(): JSX.Element {
               <p className="text-tool text-slate-900 dark:text-slate-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 leading-relaxed mb-1.5 whitespace-pre-line">
                 {it.text}
               </p>
+              <PostSummary text={postSummaries.get(String(it.link))} />
               <div className="text-micro font-mono text-slate-500 flex items-center gap-2 flex-wrap">
                 <AtSign size={9} className="text-slate-400" />
                 <span>{it.handle}</span>

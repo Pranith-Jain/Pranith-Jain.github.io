@@ -55,6 +55,11 @@ export interface CompletionOpts {
   googleKey?: string;
   /** Use the higher-quality model for synthesis. */
   quality?: boolean;
+  /**
+   * Try Groq (openai/gpt-oss-120b) BEFORE Google. Used by the AI-summary
+   * surfaces so "all AI summaries use GPT" — Gemini/Workers AI stay as fallback.
+   */
+  preferGroq?: boolean;
 }
 
 /** Distinct type so callers (publisher/cron) can treat quota as "defer & retry later". */
@@ -89,22 +94,19 @@ export function isRateLimited(err: unknown): boolean {
 async function callGoogleModel(key: string, model: string, input: CompletionInput): Promise<string | null> {
   let res: Response;
   try {
-    res = await fetch(
-      `${GOOGLE_BASE}/${model}:generateContent?key=${key}`,
-      {
-        method: 'POST',
-        headers: { 'content-type': 'application/json' },
-        signal: AbortSignal.timeout(GOOGLE_TIMEOUT_MS),
-        body: JSON.stringify({
-          system_instruction: { parts: [{ text: input.system }] },
-          contents: [{ role: 'user', parts: [{ text: input.user }] }],
-          generationConfig: {
-            maxOutputTokens: input.maxTokens ?? 4000,
-            temperature: input.temperature ?? 0.5,
-          },
-        }),
-      },
-    );
+    res = await fetch(`${GOOGLE_BASE}/${model}:generateContent?key=${key}`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      signal: AbortSignal.timeout(GOOGLE_TIMEOUT_MS),
+      body: JSON.stringify({
+        system_instruction: { parts: [{ text: input.system }] },
+        contents: [{ role: 'user', parts: [{ text: input.user }] }],
+        generationConfig: {
+          maxOutputTokens: input.maxTokens ?? 4000,
+          temperature: input.temperature ?? 0.5,
+        },
+      }),
+    });
   } catch (err) {
     throw new Error(`google request failed: ${err instanceof Error ? err.message : String(err)}`);
   }
@@ -118,7 +120,11 @@ async function callGoogleModel(key: string, model: string, input: CompletionInpu
   return text;
 }
 
-async function runGoogle(key: string, input: CompletionInput, quality?: boolean): Promise<{ text: string; model: string }> {
+async function runGoogle(
+  key: string,
+  input: CompletionInput,
+  quality?: boolean
+): Promise<{ text: string; model: string }> {
   const primary = quality ? GOOGLE_MODEL_QUALITY : GOOGLE_MODEL;
   const fallback = quality ? GOOGLE_MODEL_QUALITY_FALLBACK : GOOGLE_MODEL_FALLBACK;
   const result = await callGoogleModel(key, primary, input);
@@ -186,31 +192,33 @@ export async function runCompletion(
   input: CompletionInput,
   opts: CompletionOpts = {}
 ): Promise<CompletionOutput> {
-  // 1. Google AI Studio primary (own quota, free tier) when configured.
-  if (opts.googleKey) {
+  // Google + Groq attempts as closures so the order can be swapped. Default is
+  // Google → Groq (case-study generation); AI-summary surfaces pass
+  // opts.preferGroq to run Groq's openai/gpt-oss-120b first ("use GPT").
+  const tryGoogle = async (): Promise<CompletionOutput | null> => {
+    if (!opts.googleKey) return null;
     try {
       const googleResult = await runGoogle(opts.googleKey, input, opts.quality);
       return { text: googleResult.text, modelUsed: `google:${googleResult.model}` };
     } catch (err) {
       if (isRateLimited(err)) {
-        // Don't fall through on Google rate limit — it's own quota separate
-        // from Groq/Workers AI, so the other providers may still work.
+        // Own quota separate from Groq/Workers AI, so the others may still work.
         console.warn('runCompletion: google rate-limited, falling through', err);
       } else {
         console.warn('runCompletion: google failed, falling through', err);
       }
-      // fall through to Groq or Workers AI
+      return null;
     }
-  }
+  };
 
-  // 2. Groq primary (own quota + quality) when configured.
-  if (opts.groqKey) {
+  const tryGroq = async (): Promise<CompletionOutput | null> => {
+    if (!opts.groqKey) return null;
     const model = opts.quality ? GROQ_MODEL_QUALITY : GROQ_MODEL;
     try {
       const text = await runGroq(opts.groqKey, input, model);
       return { text, modelUsed: `groq:${model}` };
     } catch (err) {
-      // If quality model failed, try the standard model before falling back to Workers AI
+      // If quality model failed, try the standard model before falling through.
       if (opts.quality && model !== GROQ_MODEL) {
         try {
           const text = await runGroq(opts.groqKey, input, GROQ_MODEL);
@@ -224,8 +232,15 @@ export async function runCompletion(
       } else {
         console.warn('runCompletion: groq failed, falling back to Workers AI', err);
       }
-      // fall through to Workers AI
+      return null;
     }
+  };
+
+  // 1+2. Try the two keyed providers in the configured order.
+  const order = opts.preferGroq ? [tryGroq, tryGoogle] : [tryGoogle, tryGroq];
+  for (const attempt of order) {
+    const result = await attempt();
+    if (result) return result;
   }
 
   // 3. Workers-AI fallback. FAIL FAST on a rate-limit — it's account-wide,

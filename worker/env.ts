@@ -60,6 +60,13 @@ export interface Env {
   /** Set to literal "true" to route every new post to drafts:<slug> for
    *  human approval; anything else (unset, "false", "0") auto-publishes. */
   BLOG_APPROVAL_REQUIRED?: string;
+  /** Master switch for social auto-posting (drip cron). Only "true" enables
+   *  posting; off by default. Mirrors BLOG_APPROVAL_REQUIRED's flag style. */
+  SOCIAL_AUTOPOST_ENABLED?: string;
+  /** Max auto-posts per platform per cron tick (drip rate). Default 1. */
+  SOCIAL_DRIP_PER_TICK?: string;
+  /** Set "true" to disable AI blog illustrations (cost control). Default: on. */
+  BLOG_AI_IMAGES_DISABLED?: string;
   /** Public site origin, used for WS origin allow-listing and absolute URLs in
    *  the cron/scheduled paths. Optional — falls back to the canonical origin. */
   SITE_URL?: string;

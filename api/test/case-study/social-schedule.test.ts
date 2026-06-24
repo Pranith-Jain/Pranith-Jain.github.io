@@ -24,6 +24,7 @@ describe('social-schedule storage', () => {
   it('isSocialPlatform guards the union', () => {
     expect(isSocialPlatform('twitter')).toBe(true);
     expect(isSocialPlatform('linkedin')).toBe(true);
+    expect(isSocialPlatform('instagram')).toBe(true);
     expect(isSocialPlatform('mastodon')).toBe(false);
   });
 
@@ -50,5 +51,15 @@ describe('social-schedule storage', () => {
     // persisted
     const reloaded = await getSocialSchedule(ns, 'p2');
     expect(reloaded!.twitter!.status).toBe('posted');
+  });
+
+  it('upserts and marks an instagram entry without clobbering twitter', async () => {
+    const ns = mockKv();
+    await upsertSocialSchedule(ns, 'slug-x', 'twitter', { status: 'pending' });
+    await upsertSocialSchedule(ns, 'slug-x', 'instagram', { scheduledAt: '2026-06-25T10:00:00Z', status: 'pending' });
+    await markSocialPosted(ns, 'slug-x', 'instagram');
+    const s = await getSocialSchedule(ns, 'slug-x');
+    expect(s?.instagram?.status).toBe('posted');
+    expect(s?.twitter?.status).toBe('pending');
   });
 });

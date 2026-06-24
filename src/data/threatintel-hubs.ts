@@ -373,6 +373,13 @@ export const HUB_META: readonly HubMeta[] = [
         compVar: 'MaliciousPackages',
       },
       {
+        path: '/threatintel/malware/supply-chain',
+        tabId: 'supply-chain',
+        label: 'Supply-Chain Incidents',
+        desc: 'Confirmed supply-chain compromise incidents — npm · PyPI · containers · AI agents. Data: supplychainattack.org.',
+        compVar: 'SupplyChainAttacks',
+      },
+      {
         path: '/threatintel/malware/malpedia',
         tabId: 'malpedia',
         label: 'Malpedia',
@@ -603,6 +610,22 @@ export const HUB_META: readonly HubMeta[] = [
         label: 'Ransomwhere',
         desc: 'Crypto wallet directory tied to known ransom groups.',
         compVar: 'Ransomwhere',
+      },
+      {
+        path: '/threatintel/darkweb/recon',
+        tabId: 'recon',
+        label: 'Dark Web Recon',
+        desc: 'Search .onion sites, look up hidden service metadata, check BTC addresses for abuse, and scan Tor exit nodes.',
+        keywords: [
+          'tor',
+          'onion',
+          'ahmia',
+          'dark web search',
+          'bitcoin',
+          'btc abuse',
+          'exit node',
+        ] as readonly string[],
+        compVar: 'DarkWebRecon',
       },
       {
         path: '/threatintel/ransomware-live',

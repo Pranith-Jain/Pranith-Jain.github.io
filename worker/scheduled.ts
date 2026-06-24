@@ -6,7 +6,13 @@ import {
   sweepOldBriefings,
 } from '../api/src/lib/briefing-builder';
 import { buildLandscapeReport, writeLandscapeReport, expectedLandscapeSlug } from '../api/src/lib/landscape-builder';
-import { runDiscoveryNow, runPlannerNow, runPublisherNow, type CaseStudyEnv } from '../api/src/case-study/run';
+import {
+  runDiscoveryNow,
+  runPlannerNow,
+  runPublisherNow,
+  runSocialAutopostNow,
+  type CaseStudyEnv,
+} from '../api/src/case-study/run';
 import { runTelegramArchive } from '../api/src/routes/telegram-archive';
 import {
   runTelegramLeakScanner,
@@ -235,6 +241,11 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
             );
           }
           fireAndForget.push(runPublisherNow(env as unknown as CaseStudyEnv, csNow).catch(logCronFail('publisher')));
+          // Drip auto-post tick: releases approved + due X/LinkedIn posts at the
+          // configured rate. No-op unless SOCIAL_AUTOPOST_ENABLED === 'true'.
+          fireAndForget.push(
+            runSocialAutopostNow(env as unknown as CaseStudyEnv, csNow).catch(logCronFail('social-autopost'))
+          );
           fireAndForget.push(runTelegramArchive(env as unknown as ApiEnv).catch(logCronFail('telegram-archive')));
           if (env.FEEDS_QUEUE) {
             fireAndForget.push(enqueueAllFeeds(env.FEEDS_QUEUE).catch(logCronFail('live-iocs-enqueue')));
@@ -983,6 +994,25 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
               error: err instanceof Error ? err.message : String(err),
             })
           );
+        }
+        // Weekly Telegram leak cleanup — prune entries older than 7 days
+        // so the DB doesn't grow unbounded. The hourly cron runs the leak
+        // scanner (which appends), but only the weekly sweeps old rows.
+        if (isWeekly) {
+          try {
+            const tgDeleted = await cleanupLeakEntries(env.BRIEFINGS_DB, 7);
+            if (tgDeleted > 0) {
+              console.log(JSON.stringify({ job: 'telegram-cleanup', deleted: tgDeleted, max_age_days: 7 }));
+            }
+          } catch (err) {
+            console.error(
+              JSON.stringify({
+                job: 'telegram-cleanup',
+                status: 'failed',
+                error: err instanceof Error ? err.message : String(err),
+              })
+            );
+          }
         }
         // Wait for the parallel landscape sync to finish so the heartbeat
         // interval is still alive (and the lease is held) for its duration.

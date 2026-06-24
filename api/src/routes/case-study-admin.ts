@@ -10,6 +10,9 @@ import {
   upsertSocialSchedule,
   markSocialPosted,
   isSocialPlatform,
+  approveSocialPlatform,
+  unapproveSocialPlatform,
+  readAutopostQueue,
 } from '../case-study/storage/social-schedule';
 import { postToTwitter, postToLinkedin } from '../case-study/posting/social-poster';
 import { approve, unapprove, listApproved, getApproved, countApproved } from '../case-study/storage/approved';
@@ -41,6 +44,8 @@ import {
   generateLinkedinFromNotes,
 } from '../case-study/generation/social';
 import { putDraft } from '../case-study/storage/drafts';
+import { renderCarouselSlideSvg } from '../case-study/social/carousel-svg';
+import { carouselSlideToPng } from '../lib/social-carousel-raster';
 
 /**
  * Fetch the dynamic OG card PNG for a post via the SELF service binding, so it
@@ -281,7 +286,13 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
 
     const now = new Date();
     try {
-      const post = await generatePost({ candidate, ai: c.env.AI as never, now, groqKey: c.env.GROQ_API_KEY, googleKey: c.env.GOOGLE_AI_STUDIO_API_KEY });
+      const post = await generatePost({
+        candidate,
+        ai: c.env.AI as never,
+        now,
+        groqKey: c.env.GROQ_API_KEY,
+        googleKey: c.env.GOOGLE_AI_STUDIO_API_KEY,
+      });
       const postIndex = await putPost(c.env.CASE_STUDIES, post);
 
       // RSS only needs index-level fields; reuse the index putPost just wrote
@@ -343,16 +354,81 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
     const slug = c.req.param('slug');
     const platform = c.req.param('platform');
     if (!validSlug(slug)) return c.json({ error: 'invalid slug' }, 400);
-    if (!isSocialPlatform(platform)) return c.json({ error: 'platform must be twitter or linkedin' }, 400);
+    if (!isSocialPlatform(platform)) return c.json({ error: 'platform must be twitter, linkedin, or instagram' }, 400);
     const schedule = await markSocialPosted(c.env.CASE_STUDIES, slug, platform);
     return c.json({ ok: true, schedule });
+  });
+
+  // Approve a platform's copy for auto-posting (status→approved + enqueue).
+  // Optional body { scheduledAt } sets when the drip cron may release it;
+  // when omitted it defaults to now (immediately due, drip still spaces them).
+  admin.post('/social-schedule/:slug/:platform/approve', async (c) => {
+    const slug = c.req.param('slug');
+    const platform = c.req.param('platform');
+    if (!validSlug(slug)) return c.json({ error: 'invalid slug' }, 400);
+    if (!isSocialPlatform(platform)) return c.json({ error: 'platform must be twitter, linkedin, or instagram' }, 400);
+    const parsed = await safeJsonBody<{ scheduledAt?: string }>(c, { maxBytes: 1024 });
+    if ('error' in parsed) return parsed.error;
+    let scheduledAt: string | undefined;
+    const at = parsed.value?.scheduledAt ?? '';
+    if (at !== '') {
+      if (Number.isNaN(Date.parse(at))) return c.json({ error: 'invalid scheduledAt' }, 400);
+      scheduledAt = new Date(at).toISOString();
+    } else {
+      scheduledAt = new Date().toISOString(); // approve = due now (drip spaces out)
+    }
+    const schedule = await approveSocialPlatform(c.env.CASE_STUDIES, slug, platform, new Date(), scheduledAt);
+    return c.json({ ok: true, schedule });
+  });
+
+  // Revoke approval (status→pending). Stops the drip cron from posting it.
+  admin.post('/social-schedule/:slug/:platform/unapprove', async (c) => {
+    const slug = c.req.param('slug');
+    const platform = c.req.param('platform');
+    if (!validSlug(slug)) return c.json({ error: 'invalid slug' }, 400);
+    if (!isSocialPlatform(platform)) return c.json({ error: 'platform must be twitter, linkedin, or instagram' }, 400);
+    const schedule = await unapproveSocialPlatform(c.env.CASE_STUDIES, slug, platform);
+    return c.json({ ok: true, schedule });
+  });
+
+  // Agenda for the content calendar: the auto-post queue resolved against each
+  // post's live schedule, sorted by scheduledAt. Includes the master-switch
+  // state so the UI can show whether the cron will actually post.
+  admin.get('/social-queue', async (c) => {
+    const queue = await readAutopostQueue(c.env.CASE_STUDIES);
+    const bySlug = new Map<string, Awaited<ReturnType<typeof getSocialSchedule>>>();
+    const items: Array<{
+      slug: string;
+      platform: string;
+      status: string;
+      scheduledAt?: string;
+      postUrl?: string;
+      error?: string;
+      attempts?: number;
+    }> = [];
+    for (const q of queue) {
+      if (!bySlug.has(q.slug)) bySlug.set(q.slug, await getSocialSchedule(c.env.CASE_STUDIES, q.slug));
+      const entry = bySlug.get(q.slug)?.[q.platform];
+      if (!entry) continue;
+      items.push({
+        slug: q.slug,
+        platform: q.platform,
+        status: entry.status,
+        scheduledAt: entry.scheduledAt,
+        postUrl: entry.postUrl,
+        error: entry.error,
+        attempts: entry.attempts,
+      });
+    }
+    items.sort((a, b) => (a.scheduledAt ?? '').localeCompare(b.scheduledAt ?? ''));
+    return c.json({ autopostEnabled: c.env.SOCIAL_AUTOPOST_ENABLED === 'true', queue: items });
   });
 
   admin.post('/social-schedule/:slug/:platform', async (c) => {
     const slug = c.req.param('slug');
     const platform = c.req.param('platform');
     if (!validSlug(slug)) return c.json({ error: 'invalid slug' }, 400);
-    if (!isSocialPlatform(platform)) return c.json({ error: 'platform must be twitter or linkedin' }, 400);
+    if (!isSocialPlatform(platform)) return c.json({ error: 'platform must be twitter, linkedin, or instagram' }, 400);
     const parsed = await safeJsonBody<{ scheduledAt?: string; status?: 'pending' | 'posted' }>(c, { maxBytes: 1024 });
     if ('error' in parsed) return parsed.error;
     const patch: { scheduledAt?: string; status?: 'pending' | 'posted' } = {};
@@ -564,7 +640,8 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
         candidate,
         ai: c.env.AI as never,
         now,
-        groqKey: c.env.GROQ_API_KEY, googleKey: c.env.GOOGLE_AI_STUDIO_API_KEY,
+        groqKey: c.env.GROQ_API_KEY,
+        googleKey: c.env.GOOGLE_AI_STUDIO_API_KEY,
         notes: body.notes,
       });
       // If the LLM produced a different slug, remove the old draft first
@@ -653,6 +730,19 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
 
     if (!TYPES.includes(type)) return c.json({ error: 'invalid type' }, 400);
     if (!title || !body) return c.json({ error: 'title and body required' }, 400);
+    if (sources) {
+      for (let i = 0; i < sources.length; i++) {
+        const s = sources[i];
+        if (!s || typeof s.url !== 'string') return c.json({ error: `sources[${i}].url must be a string` }, 400);
+        try {
+          const u = new URL(s.url);
+          if (u.protocol !== 'https:' && u.protocol !== 'http:') throw new Error();
+          if (!u.hostname.includes('.')) throw new Error();
+        } catch {
+          return c.json({ error: `sources[${i}].url is not a valid HTTP URL: ${s.url}` }, 400);
+        }
+      }
+    }
 
     const baseSlug = title
       .toLowerCase()
@@ -714,7 +804,13 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
     const now = new Date();
 
     try {
-      const post = await generatePost({ candidate, ai: c.env.AI as never, now, groqKey: c.env.GROQ_API_KEY, googleKey: c.env.GOOGLE_AI_STUDIO_API_KEY });
+      const post = await generatePost({
+        candidate,
+        ai: c.env.AI as never,
+        now,
+        groqKey: c.env.GROQ_API_KEY,
+        googleKey: c.env.GOOGLE_AI_STUDIO_API_KEY,
+      });
       const postIndex = await putPost(c.env.CASE_STUDIES, post);
 
       // RSS only needs index-level fields; reuse the index putPost just wrote
@@ -744,7 +840,13 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
     if (!post) return c.json({ error: 'post not found' }, 404);
 
     try {
-      const social = await generateSocialContent(post, c.env.AI as never, new Date(), c.env.GROQ_API_KEY, c.env.GOOGLE_AI_STUDIO_API_KEY);
+      const social = await generateSocialContent(
+        post,
+        c.env.AI as never,
+        new Date(),
+        c.env.GROQ_API_KEY,
+        c.env.GOOGLE_AI_STUDIO_API_KEY
+      );
       await c.env.CASE_STUDIES.put(csKvKeys.social(slug), JSON.stringify(social));
       return c.json({ ok: true, social });
     } catch (err) {
@@ -775,6 +877,31 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
       cursor = res.cursor;
     }
     return c.json({ index });
+  });
+
+  // ─── Carousel slide PNG render (on-demand, admin-gated) ───────────────
+  // GET /api/v1/admin/social/carousel/:slug/:i.png
+  // Must be registered BEFORE /social/:slug to avoid the wildcard catching
+  // "carousel" as the slug value. Hono matches in registration order.
+  // Looks up the stored SocialContent carousel for :slug, renders slide :i
+  // to SVG, rasterises to PNG via the Worker resvg rasteriser.
+  // Returns image/png. 404 on unknown slug, missing carousel, or OOB index.
+  admin.get('/social/carousel/:slug/:file', async (c) => {
+    const slug = c.req.param('slug');
+    // Accept only "<digits>.png" — reject anything else (e.g. path traversal).
+    const fileParam = c.req.param('file');
+    const fileMatch = fileParam.match(/^(\d+)\.png$/);
+    if (!fileMatch) return c.notFound();
+    const i = Number(fileMatch[1]);
+    if (!validSlug(slug)) return c.json({ error: 'bad slug' }, 400);
+    const social = await c.env.CASE_STUDIES.get<SocialContent>(`social:${slug}`, 'json');
+    const slides = social?.carousel?.slides;
+    if (!slides || i < 0 || i >= slides.length || !slides[i]) return c.notFound();
+    const svg = renderCarouselSlideSvg(slides[i]!, { index: i, total: slides.length });
+    const png = await carouselSlideToPng(c.env as Parameters<typeof carouselSlideToPng>[0], svg);
+    return new Response(png, {
+      headers: { 'content-type': 'image/png', 'cache-control': 'private, max-age=300' },
+    });
   });
 
   admin.get('/social/:slug', async (c) => {
@@ -936,7 +1063,13 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
     for (const fmt of formats) {
       try {
         if (fmt === 'blog') {
-          const post = await generatePost({ candidate, ai: c.env.AI as never, now, groqKey: c.env.GROQ_API_KEY, googleKey: c.env.GOOGLE_AI_STUDIO_API_KEY });
+          const post = await generatePost({
+            candidate,
+            ai: c.env.AI as never,
+            now,
+            groqKey: c.env.GROQ_API_KEY,
+            googleKey: c.env.GOOGLE_AI_STUDIO_API_KEY,
+          });
           await putDraft(c.env.CASE_STUDIES, post);
           result.blog = { slug: post.slug, title: post.title, status: 'draft' };
           // Blog generation = "approve" — remove candidate from pending
@@ -1033,7 +1166,8 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
             candidate: pseudo,
             ai: c.env.AI as never,
             now,
-            groqKey: c.env.GROQ_API_KEY, googleKey: c.env.GOOGLE_AI_STUDIO_API_KEY,
+            groqKey: c.env.GROQ_API_KEY,
+            googleKey: c.env.GOOGLE_AI_STUDIO_API_KEY,
           });
           await putDraft(c.env.CASE_STUDIES, post);
           result.blog = { slug: post.slug, title: post.title, status: 'draft' };

@@ -15,35 +15,19 @@
  * therefore counts toward the Worker bundle. The brand fonts are NOT wasm, so
  * they stay as static assets fetched at runtime and memoised per isolate.
  */
-import { Resvg, initWasm } from '@resvg/resvg-wasm';
-import resvgWasm from '@resvg/resvg-wasm/index_bg.wasm';
+import { Resvg } from '@resvg/resvg-wasm';
 import type { Env } from './env';
+import { ensureResvgWasm } from './resvg-shared';
 
 /** Internal origin for ASSETS lookups — only the pathname is significant. */
 const ASSET_ORIGIN = 'https://og-assets.internal';
 
-let wasmReady: Promise<void> | null = null;
 let fontBuffers: Uint8Array[] | null = null;
 
 async function assetBytes(env: Env, path: string): Promise<Uint8Array> {
   const res = await env.ASSETS.fetch(new Request(`${ASSET_ORIGIN}${path}`));
   if (!res.ok) throw new Error(`og asset ${path} -> HTTP ${res.status}`);
   return new Uint8Array(await res.arrayBuffer());
-}
-
-/**
- * Initialise resvg from the pre-compiled wasm Module exactly once per isolate.
- * `initWasm` throws if called twice, so the in-flight promise is memoised; on
- * failure the slot is cleared so a transient error can be retried.
- */
-function ensureWasm(): Promise<void> {
-  if (!wasmReady) {
-    wasmReady = initWasm(resvgWasm).catch((err) => {
-      wasmReady = null;
-      throw err;
-    });
-  }
-  return wasmReady;
 }
 
 async function ensureFonts(env: Env): Promise<Uint8Array[]> {
@@ -59,7 +43,7 @@ async function ensureFonts(env: Env): Promise<Uint8Array[]> {
  * it via `defaultFontFamily`, so the card never renders blank glyphs.
  */
 export async function svgToPng(env: Env, svg: string): Promise<Uint8Array> {
-  await ensureWasm();
+  await ensureResvgWasm();
   const fonts = await ensureFonts(env);
   const resvg = new Resvg(svg, {
     fitTo: { mode: 'width', value: 1200 },

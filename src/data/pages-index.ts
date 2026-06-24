@@ -2177,6 +2177,14 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
     group: 'threatintel',
   },
   {
+    path: '/threatintel/malware/supply-chain',
+    label: 'Supply-Chain Incidents',
+    description:
+      'Confirmed software supply-chain compromise incidents — status, severity, blast radius, IOCs, remediation, and sources. Data: supplychainattack.org.',
+    sectionLabel: 'Threat Intel · Detection',
+    group: 'threatintel',
+  },
+  {
     path: '/threatintel/malpedia',
     label: 'Malpedia (alias)',
     description: 'Alias for the Malware Hub malpedia view.',
@@ -3003,6 +3011,14 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
     path: '/threatintel/darkweb/markets',
     label: 'Markets',
     description: 'Darknet market timelines.',
+    sectionLabel: 'Threat Intel · Dark Web',
+    group: 'threatintel',
+  },
+  {
+    path: '/threatintel/darkweb/recon',
+    label: 'Dark Web Recon',
+    description:
+      'Search .onion sites, look up hidden service metadata, check BTC addresses for abuse, and scan Tor exit nodes.',
     sectionLabel: 'Threat Intel · Dark Web',
     group: 'threatintel',
   },

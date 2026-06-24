@@ -62,6 +62,20 @@ export async function postJson<T>(path: string, init: RequestInit = {}): Promise
   return r.json() as Promise<T>;
 }
 
+/** Fetch a binary resource from the admin API with the admin token injected,
+ *  then return an object URL suitable for use in <img src> / <a href>.
+ *  The caller MUST revoke the returned URL (URL.revokeObjectURL) when done. */
+export async function getObjectUrl(path: string): Promise<string> {
+  const r = await fetch(BASE + path, { headers: headers() });
+  if (r.status === 401) {
+    handleUnauthorized();
+    throw new Error('unauthorized');
+  }
+  if (!r.ok) throw new Error(await extractError(r));
+  const blob = await r.blob();
+  return URL.createObjectURL(blob);
+}
+
 export async function postJsonWithBody<T>(path: string, body: unknown, init: RequestInit = {}): Promise<T> {
   const r = await fetch(BASE + path, {
     ...init,
@@ -102,6 +116,62 @@ export async function briefingsPost<T>(path: string): Promise<T> {
   if (!r.ok) throw new Error(await extractError(r));
   return r.json() as Promise<T>;
 }
+
+// ─── Social approval helpers ─────────────────────────────────────────────────
+
+export interface SocialQueueItem {
+  slug: string;
+  platform: string;
+  status: string;
+  scheduledAt?: string;
+  postUrl?: string;
+  error?: string;
+  attempts?: number;
+}
+
+export interface SocialQueueResponse {
+  autopostEnabled: boolean;
+  queue: SocialQueueItem[];
+}
+
+export interface SocialScheduleEntryResponse {
+  ok: boolean;
+  schedule: {
+    slug: string;
+    twitter?: { scheduledAt?: string; status: string; postUrl?: string; error?: string; attempts?: number };
+    linkedin?: { scheduledAt?: string; status: string; postUrl?: string; error?: string; attempts?: number };
+    instagram?: { scheduledAt?: string; status: string; postUrl?: string; error?: string; attempts?: number };
+    updatedAt: string;
+  };
+}
+
+/** Approve a platform's social copy for auto-posting.
+ *  Optional `scheduledAt` (ISO) sets the publish time; defaults to now. */
+export function approveSocialPlatform(
+  slug: string,
+  platform: string,
+  scheduledAt?: string
+): Promise<SocialScheduleEntryResponse> {
+  const body = scheduledAt ? { scheduledAt } : {};
+  return postJsonWithBody<SocialScheduleEntryResponse>(
+    `/social-schedule/${encodeURIComponent(slug)}/${encodeURIComponent(platform)}/approve`,
+    body
+  );
+}
+
+/** Revert an approved platform entry back to pending (unapprove). */
+export function unapproveSocialPlatform(slug: string, platform: string): Promise<SocialScheduleEntryResponse> {
+  return postJson<SocialScheduleEntryResponse>(
+    `/social-schedule/${encodeURIComponent(slug)}/${encodeURIComponent(platform)}/unapprove`
+  );
+}
+
+/** Fetch the content-calendar agenda: autopost switch state + sorted queue. */
+export function getSocialQueue(): Promise<SocialQueueResponse> {
+  return getJson<SocialQueueResponse>('/social-queue');
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
 
 /**
  * Probe the admin token without mounting the shell. Used by AdminApp on

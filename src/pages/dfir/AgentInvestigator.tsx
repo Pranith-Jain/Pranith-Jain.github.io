@@ -15,9 +15,9 @@ import {
   Zap,
 } from 'lucide-react';
 import { BackLink } from '../../components/BackLink';
-import { useDataFetch } from '../../hooks/useDataFetch';
 import { useWebSocket } from '../../hooks/useWebSocket';
 import { ReportView, type ReportActionCard } from '../../components/dfir/ReportView';
+import { adminAuthHeaders } from '../../lib/admin-token';
 
 interface AgentToolResult {
   tool: string;
@@ -84,12 +84,27 @@ export default function AgentInvestigator(): JSX.Element {
   const [isStarting, setIsStarting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const stepsEndRef = useRef<HTMLDivElement>(null);
+  const [sessions, setSessions] = useState<SessionEntry[] | null>(null);
 
-  const { data: sessions, refetch: refetchSessions } = useDataFetch<{ sessions: SessionEntry[] }>({
-    url: '/api/v1/agent/sessions',
-    ttl: 30_000,
-    staleWhileRevalidate: true,
-  });
+  const fetchSessions = useCallback(async () => {
+    try {
+      const res = await fetch('/api/v1/agent/sessions', { headers: adminAuthHeaders() });
+      if (res.ok) {
+        const data = (await res.json()) as { sessions: SessionEntry[] };
+        setSessions(data.sessions);
+      } else if (res.status === 401 || res.status === 403) {
+        setError('Agent requires an admin session. Set your admin token in Settings.');
+      }
+    } catch {
+      /* non-fatal */
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchSessions();
+    const interval = setInterval(fetchSessions, 30_000);
+    return () => clearInterval(interval);
+  }, [fetchSessions]);
 
   // WebSocket connection for real-time step updates
   const wsUrl = activeId
@@ -121,7 +136,7 @@ export default function AgentInvestigator(): JSX.Element {
                 }
               : prev
           );
-          refetchSessions();
+          fetchSessions();
         } else if (msg.type === 'error') {
           setError(msg.error);
           setAgentState((prev) =>
@@ -129,7 +144,7 @@ export default function AgentInvestigator(): JSX.Element {
           );
         }
       },
-      [refetchSessions]
+      [fetchSessions]
     ),
     reconnect: true,
     maxReconnectAttempts: 5,
@@ -148,7 +163,7 @@ export default function AgentInvestigator(): JSX.Element {
     try {
       const res = await fetch('/api/v1/agent/investigate', {
         method: 'POST',
-        headers: { 'content-type': 'application/json' },
+        headers: { 'content-type': 'application/json', ...adminAuthHeaders() },
         body: JSON.stringify({ query: query.trim() }),
       });
       if (!res.ok) {
@@ -183,26 +198,26 @@ export default function AgentInvestigator(): JSX.Element {
   useEffect(() => {
     if (!activeId || !agentState || agentState.status !== 'running' || connected) return;
     const interval = setInterval(() => {
-      fetch(`/api/v1/agent/${activeId}`)
+      fetch(`/api/v1/agent/${activeId}`, { headers: adminAuthHeaders() })
         .then((r) => r.json())
         .then((s) => {
           const state = s as AgentState;
           setAgentState(state);
-          if (state.status !== 'running') refetchSessions();
+          if (state.status !== 'running') fetchSessions();
         })
         .catch(() => {});
     }, 2000);
     return () => clearInterval(interval);
-  }, [activeId, agentState?.status, connected, refetchSessions]);
+  }, [activeId, agentState?.status, connected, fetchSessions]);
 
   const deleteSession = async (id: string) => {
     try {
-      await fetch(`/api/v1/agent/${id}`, { method: 'DELETE' });
+      await fetch(`/api/v1/agent/${id}`, { method: 'DELETE', headers: adminAuthHeaders() });
       if (activeId === id) {
         setAgentState(null);
         setActiveId(null);
       }
-      refetchSessions();
+      fetchSessions();
     } catch {
       /* non-fatal */
     }
@@ -502,18 +517,18 @@ export default function AgentInvestigator(): JSX.Element {
       )}
 
       {/* Sessions list */}
-      {sessions && sessions.sessions.length > 0 && !agentState && (
+      {sessions && sessions.length > 0 && !agentState && (
         <section className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4">
           <h2 className="text-sm font-mono font-bold uppercase tracking-wider text-slate-500 mb-3 flex items-center gap-2">
             <Clock size={14} /> Recent Investigations
           </h2>
           <div className="space-y-1.5">
-            {sessions.sessions.map((s) => (
+            {sessions.map((s) => (
               <div key={s.id} className="flex items-center gap-2 group">
                 <button
                   type="button"
                   onClick={() => {
-                    fetch(`/api/v1/agent/${s.id}`)
+                    fetch(`/api/v1/agent/${s.id}`, { headers: adminAuthHeaders() })
                       .then((r) => r.json())
                       .then((state) => {
                         setAgentState(state as AgentState);

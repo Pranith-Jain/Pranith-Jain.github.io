@@ -366,6 +366,24 @@ export const aiSummarySchema = z.object({
     .max(50, 'too many items (max 50)'),
 });
 
+// Per-post AI summaries (routes/ai-item-summary.ts). Each item carries a stable
+// client id so the response map can be applied back to the right post. The
+// handler caps to 10 items; allow a generous batch here and let it slice.
+export const aiItemSummarySchema = z.object({
+  surface: z.string().min(1).max(100).optional(),
+  items: z
+    .array(
+      z.object({
+        id: z.string().min(1).max(200),
+        title: z.string().min(1).max(500),
+        body: z.string().max(10_000).optional(),
+        source: z.string().max(200).optional(),
+      })
+    )
+    .min(1, 'items array required')
+    .max(50, 'too many items (max 50)'),
+});
+
 // Public (same-origin) opt-in AI summary for the unified-search omnibox. Keyed
 // by the query `q` (not surface+date) so each search caches independently. Same
 // item shape as aiSummarySchema; the handler maps q → SummaryInput surface/date.

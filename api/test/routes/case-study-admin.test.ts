@@ -1,7 +1,18 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import { Hono } from 'hono';
 import { registerAdminRoutes } from '../../src/routes/case-study-admin';
 import type { Candidate } from '../../src/case-study/types';
+
+// Mock the wasm-backed rasteriser so the route tests run under --pool=forks
+// (Node.js) without requiring the resvg wasm bundle. The mock returns a
+// minimal valid PNG header so the 200-case can assert content-type and the
+// PNG magic byte.
+vi.mock('../../src/lib/social-carousel-raster', () => ({
+  carouselSlideToPng: vi.fn(async (_env: unknown, _svg: string) => {
+    // Minimal 8-byte PNG signature
+    return new Uint8Array([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]);
+  }),
+}));
 
 function mockEnv(): any {
   const store = new Map<string, string>();
@@ -81,6 +92,53 @@ describe('admin routes', () => {
     );
     expect(r.status).toBe(200);
     expect(env.__store.has(`approved:${cand.key}`)).toBe(true);
+  });
+
+  it('social approve sets status=approved, enqueues for autopost, and surfaces in the queue agenda', async () => {
+    const env = mockEnv();
+    const slug = 'cve-2026-1234-fortigate';
+    // Approve the twitter copy with a due (past) scheduledAt.
+    const approveRes = await app().request(
+      `/api/v1/admin/social-schedule/${slug}/twitter/approve`,
+      {
+        method: 'POST',
+        headers: { 'X-Admin-Token': 'sekret', 'content-type': 'application/json' },
+        body: JSON.stringify({ scheduledAt: '2026-06-25T09:00:00Z' }),
+      },
+      env
+    );
+    expect(approveRes.status).toBe(200);
+    const sched = JSON.parse(env.__store.get(`social-schedule:${slug}`) as string);
+    expect(sched.twitter.status).toBe('approved');
+    // Enqueued in the advisory autopost queue.
+    const queue = JSON.parse(env.__store.get('social-autopost-queue') as string);
+    expect(queue).toEqual([{ slug, platform: 'twitter' }]);
+    // Agenda endpoint resolves the queue against the schedule.
+    const agendaRes = await app().request(
+      '/api/v1/admin/social-queue',
+      { headers: { 'X-Admin-Token': 'sekret' } },
+      env
+    );
+    const agenda = (await agendaRes.json()) as any;
+    expect(agenda.autopostEnabled).toBe(false); // SOCIAL_AUTOPOST_ENABLED unset
+    expect(agenda.queue[0]).toMatchObject({ slug, platform: 'twitter', status: 'approved' });
+  });
+
+  it('social unapprove reverts status to pending', async () => {
+    const env = mockEnv();
+    const slug = 'cve-2026-1234-fortigate';
+    await app().request(
+      `/api/v1/admin/social-schedule/${slug}/linkedin/approve`,
+      { method: 'POST', headers: { 'X-Admin-Token': 'sekret' } },
+      env
+    );
+    await app().request(
+      `/api/v1/admin/social-schedule/${slug}/linkedin/unapprove`,
+      { method: 'POST', headers: { 'X-Admin-Token': 'sekret' } },
+      env
+    );
+    const sched = JSON.parse(env.__store.get(`social-schedule:${slug}`) as string);
+    expect(sched.linkedin.status).toBe('pending');
   });
 
   it('skip removes a candidate', async () => {
@@ -266,5 +324,52 @@ describe('admin routes', () => {
       env
     );
     expect(r.status).toBe(400);
+  });
+
+  // ─── Carousel slide PNG render route ─────────────────────────────────
+
+  it('carousel PNG: returns 200 image/png with PNG magic byte for valid slug+index', async () => {
+    const env = mockEnv();
+    // Seed a SocialContent with a 3-slide carousel under the social:<slug> KV key
+    const socialContent = {
+      slug: 'test-post',
+      twitter: '',
+      linkedin: '',
+      generatedAt: '2026-06-24T00:00:00Z',
+      carousel: {
+        format: 'instagram',
+        slides: [
+          { index: 0, headline: 'Hook slide headline' },
+          { index: 1, headline: 'Content slide', body: 'Body text' },
+          { index: 2, headline: 'Call to action', kind: 'cta' },
+        ],
+      },
+    };
+    env.__store.set('social:test-post', JSON.stringify(socialContent));
+
+    const r = await app().request('/api/v1/admin/social/carousel/test-post/0.png', { headers: hdr }, env);
+    expect(r.status).toBe(200);
+    expect(r.headers.get('content-type')).toBe('image/png');
+    const body = new Uint8Array(await r.arrayBuffer());
+    // PNG magic byte
+    expect(body[0]).toBe(0x89);
+  });
+
+  it('carousel PNG: returns 404 for an out-of-range slide index', async () => {
+    const env = mockEnv();
+    const socialContent = {
+      slug: 'test-post-2',
+      twitter: '',
+      linkedin: '',
+      generatedAt: '2026-06-24T00:00:00Z',
+      carousel: {
+        format: 'instagram',
+        slides: [{ index: 0, headline: 'Only slide' }],
+      },
+    };
+    env.__store.set('social:test-post-2', JSON.stringify(socialContent));
+
+    const r = await app().request('/api/v1/admin/social/carousel/test-post-2/99.png', { headers: hdr }, env);
+    expect(r.status).toBe(404);
   });
 });

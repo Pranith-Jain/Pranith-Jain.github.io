@@ -205,6 +205,7 @@ const CveList = lazy(() => import('./pages/threatintel/CveList'));
 const CveResourcesCatalog = lazy(() => import('./pages/dfir/CveResourcesCatalog'));
 const CyberCrime = lazy(() => import('./pages/threatintel/CyberCrime'));
 const DarkWeb = lazy(() => import('./pages/threatintel/DarkWebOsintTools'));
+const DarkWebRecon = lazy(() => import('./pages/threatintel/DarkWebRecon'));
 const DarknetMarketsTimeline = lazy(() => import('./pages/threatintel/DarknetMarketsTimeline'));
 const DeepDarkCTI = lazy(() => import('./pages/threatintel/DeepDarkCTI'));
 const Detections = lazy(() => import('./pages/threatintel/Detections'));
@@ -275,6 +276,7 @@ const SocIocs = lazy(() => import('./pages/threatintel/SocIocs'));
 const SocialFirehose = lazy(() => import('./pages/threatintel/SocialFirehose'));
 const SourceReliability = lazy(() => import('./pages/threatintel/SourceReliability'));
 const StixBundleBrowser = lazy(() => import('./pages/threatintel/StixBundleBrowser'));
+const SupplyChainAttacks = lazy(() => import('./pages/threatintel/SupplyChainAttacks'));
 const SupplyChainIntelligence = lazy(() => import('./pages/threatintel/SupplyChainIntelligence'));
 const TechAiNews = lazy(() => import('./pages/dfir/TechAiNews'));
 const TelegramDiscoveredChannels = lazy(() => import('./pages/threatintel/TelegramDiscoveredChannels'));
@@ -568,6 +570,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel/darkweb/ransom-activity', Component: RansomwareActivity },
   { path: '/threatintel/darkweb/ransom-map', Component: RansomwareMap },
   { path: '/threatintel/darkweb/ransomwhere', Component: Ransomwhere },
+  { path: '/threatintel/darkweb/recon', Component: DarkWebRecon },
   { path: '/threatintel/predictive/dashboard', Component: IntelDashboard },
   { path: '/threatintel/predictive/global-pulse', Component: GlobalPulse },
   { path: '/threatintel/predictive/threat-pulse', Component: ThreatPulse },
@@ -623,6 +626,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel/malware/vault', Component: MalwareVault },
   { path: '/threatintel/malware/sandbox', Component: MalwareSandbox },
   { path: '/threatintel/malware/packages', Component: MaliciousPackages },
+  { path: '/threatintel/malware/supply-chain', Component: SupplyChainAttacks },
   { path: '/threatintel/malware/malpedia', Component: MalpediaPage },
   { path: '/threatintel/malware/maltrail', Component: MaltrailTrails },
   { path: '/threatintel/osint/framework', Component: OsintFramework },
@@ -772,7 +776,7 @@ const REDIRECTS: ReadonlyArray<{ path: string; to: string }> = [
   //    URLs to the short path still land on a real page, not a 404).
   { path: '/threatintel/cves', to: '/threatintel/cves/cves' },
   { path: '/threatintel/social', to: '/threatintel/social/firehose' },
-  { path: '/threatintel/supply-chain', to: '/threatintel/external/supply' },
+  { path: '/threatintel/supply-chain', to: '/threatintel/malware/supply-chain' },
 
   // ── Dark Web Hub ────────────────────────────────────────────────
   { path: '/threatintel/deepdarkcti', to: '/threatintel/darkweb/deepdark' },

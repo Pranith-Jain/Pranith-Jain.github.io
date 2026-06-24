@@ -4,7 +4,10 @@ import { buildPrompt, requiredSections } from './templates';
 import { runCompletion } from './ai-client';
 import { postProcess } from './post-process';
 import { renderHeroSvg } from './hero-svg';
+import { generateAiImage, buildHeroImagePrompt, buildBodyImagePrompt, injectBodyImage } from './ai-image';
 import { validateIocsLive, type IocValidationEnv } from './ioc-live-validation';
+import { verifyAndPruneReferences } from './verify-references';
+import type { LinkStatus } from '../../lib/verify-url';
 
 // ── Fact verification (pre-generation) ──────────────────────────────────
 
@@ -44,7 +47,12 @@ function buildFactVerifyPrompt(evidence: Record<string, unknown>): string {
  * before writing. These verified facts are injected into the prompt to
  * ground the content generation in actual data.
  */
-async function verifyFacts(evidence: Record<string, unknown>, ai: Ai, groqKey?: string, googleKey?: string): Promise<VerifiedFacts | null> {
+async function verifyFacts(
+  evidence: Record<string, unknown>,
+  ai: Ai,
+  groqKey?: string,
+  googleKey?: string
+): Promise<VerifiedFacts | null> {
   try {
     const result = await runCompletion(
       ai,
@@ -226,6 +234,26 @@ export interface GeneratePostDeps {
    * with an attack-flow chart".
    */
   notes?: string;
+  /**
+   * Injectable reference-URL verifier (HEAD checks). Defaults to the
+   * real `verifyAndPruneReferences` HEAD verifier in production. Tests
+   * pass a deterministic stub so generation stays hermetic. Maps each
+   * URL to 'ok' (resolves), 'broken' (confirmed 4xx/5xx), or 'unchecked'
+   * (transient network/timeout — kept on the benefit of the doubt).
+   */
+  verifyRefs?: (urls: string[]) => Promise<Map<string, LinkStatus>>;
+  /**
+   * Optional AI-illustration generation. When present + enabled, generatePost
+   * produces a hero image and one in-body image via Workers AI, stores the
+   * bytes through `put`, sets `heroImageUrl`, and injects the body image as
+   * markdown. Absent/disabled → no images (the SVG hero is used). Every step
+   * is best-effort: a generation failure silently falls back. `put` is
+   * injected so the storage side stays out of this module.
+   */
+  aiImages?: {
+    enabled: boolean;
+    put: (slug: string, name: string, bytes: Uint8Array) => Promise<void>;
+  };
 }
 
 export async function generatePost(deps: GeneratePostDeps): Promise<Post> {
@@ -339,21 +367,88 @@ export async function generatePost(deps: GeneratePostDeps): Promise<Post> {
     }
   }
 
+  // ── Reference-URL verification (final gate) ──────────────────────────
+  // Every discovery runner's URLs converge here unverified — and the LLM
+  // can invent article paths on otherwise-valid hosts (e.g.
+  // bleepingcomputer.com/news/security/<fake-slug>) that the hostname-only
+  // post-process filter happily keeps. HEAD-check the union of the post's
+  // sources and its `## References` URLs and drop the confirmed-broken
+  // ones from BOTH surfaces before they ship as clickable citations.
+  const refCheck = await verifyAndPruneReferences({
+    body: processed.body,
+    sources,
+    verify: deps.verifyRefs,
+  });
+  const finalBody = refCheck.body;
+  const finalSources = refCheck.sources;
+  if (
+    refCheck.report.droppedSources > 0 ||
+    refCheck.report.droppedRefBullets > 0 ||
+    refCheck.report.broken.length > 0
+  ) {
+    console.log(
+      JSON.stringify({
+        job: 'generate-post',
+        stage: 'reference-verification',
+        candidate: candidate.key,
+        checked: refCheck.report.checked,
+        brokenCount: refCheck.report.broken.length,
+        droppedSources: refCheck.report.droppedSources,
+        droppedRefBullets: refCheck.report.droppedRefBullets,
+        backedOff: refCheck.report.backedOff,
+        broken: refCheck.report.broken.slice(0, 5),
+      })
+    );
+  }
+
   const slug = `${candidate.key}-${slugify(candidate.title).slice(0, 40)}`.replace(/-+/g, '-');
   const hero = renderHeroSvg({ title: candidate.title, type: candidate.type });
+
+  // ── AI illustrations (best-effort) ───────────────────────────────────
+  // A hero image (preferred over the SVG banner on the blog page) + one
+  // in-body image. Any failure falls back silently — never blocks publish.
+  let heroImageUrl: string | undefined;
+  let bodyWithImages = finalBody;
+  if (deps.aiImages?.enabled) {
+    const promptCtx = { title: candidate.title, type: candidate.type };
+    try {
+      const heroBytes = await generateAiImage(ai, buildHeroImagePrompt(promptCtx));
+      if (heroBytes) {
+        await deps.aiImages.put(slug, 'hero', heroBytes);
+        heroImageUrl = `/api/v1/blog-image/${slug}/hero`;
+      }
+      const bodyBytes = await generateAiImage(ai, buildBodyImagePrompt(promptCtx));
+      if (bodyBytes) {
+        await deps.aiImages.put(slug, 'body1', bodyBytes);
+        bodyWithImages = injectBodyImage(finalBody, `/api/v1/blog-image/${slug}/body1`, candidate.title);
+      }
+      console.log(
+        JSON.stringify({
+          job: 'generate-post',
+          stage: 'ai-images',
+          candidate: candidate.key,
+          hero: !!heroImageUrl,
+          body: bodyWithImages !== finalBody,
+        })
+      );
+    } catch (err) {
+      console.warn('ai-image generation failed (using SVG hero):', err instanceof Error ? err.message : String(err));
+    }
+  }
 
   return {
     slug,
     type: candidate.type,
     title: candidate.title,
-    excerpt: excerptFrom(processed.body),
+    excerpt: excerptFrom(finalBody),
     publishedAt: now.toISOString(),
     candidateId: candidate.key,
-    body: processed.body,
+    body: bodyWithImages,
     hero,
+    heroImageUrl,
     iocs,
     tags: tagsFor(candidate),
-    sources,
+    sources: finalSources,
     quality: processed.quality,
     qa: processed.qa,
     // Snapshot the candidate evidence so an admin can later hit

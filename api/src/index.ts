@@ -41,6 +41,17 @@ import { ransomwareRecentHandler } from './routes/ransomware-recent';
 import { ransomwareMapHandler } from './routes/ransomware-map';
 import { cryptoTraceHandler } from './routes/crypto-trace';
 import {
+  torStatusHandler,
+  torFetchOnionHandler,
+  torScrapeOnionHandler,
+  torSearchOnionHandler,
+  torExitNodesHandler,
+  torExitCheckHandler,
+  torExitDetailsHandler,
+  onionLookupHandler,
+  btcAbuseCheckHandler,
+} from './routes/darknet';
+import {
   tracerExpandHandler,
   tracerLabelHandler,
   tracerLabelAddHandler,
@@ -367,7 +378,7 @@ import {
   deleteSessionHandler,
 } from './routes/admin-keys';
 import { purgeCacheHandler } from './routes/admin-purge';
-import { runRetentionHandler } from './routes/admin-retention';
+import { runRetentionHandler, telegramCleanupHandler } from './routes/admin-retention';
 import { malpediaActorHandler, malpediaFamilyHandler, malpediaSearchHandler } from './routes/malpedia';
 import { maltrailListHandler, maltrailFetchHandler } from './routes/maltrail';
 import { actorEnrichHandler } from './routes/actor-enrich';
@@ -422,6 +433,7 @@ import { sandboxLookupHandler } from './routes/sandbox';
 import { sampleScanHandler } from './routes/sample-scan';
 import { irPlaybookHandler } from './routes/ir-playbooks';
 import { aiSummaryHandler } from './routes/ai-summary';
+import { aiItemSummaryHandler } from './routes/ai-item-summary';
 import { ttpExtractHandler } from './routes/ttp-extract';
 import { fivewHandler } from './routes/fivew';
 import { imageIocHandler } from './routes/image-ioc';
@@ -663,6 +675,7 @@ import {
   telegramChannelActionSchema,
   telegramBotRegisterSchema,
   aiSummarySchema,
+  aiItemSummarySchema,
   copilotInvestigateSchema,
   reportBuildSchema,
   huntingQuerySchema,
@@ -997,6 +1010,15 @@ app.get('/api/v1/breach-disclosures', breachDisclosuresHandler);
 app.get('/api/v1/ransomware-recent', ransomwareRecentHandler);
 app.get('/api/v1/ransomware-map', ransomwareMapHandler);
 app.get('/api/v1/crypto-trace', validate('query', cryptoTraceSchema), cryptoTraceHandler);
+app.get('/api/v1/darknet/tor-status', torStatusHandler);
+app.get('/api/v1/darknet/tor-fetch-onion', torFetchOnionHandler);
+app.get('/api/v1/darknet/tor-scrape-onion', torScrapeOnionHandler);
+app.get('/api/v1/darknet/tor-search-onion', torSearchOnionHandler);
+app.get('/api/v1/darknet/tor-exit-nodes', torExitNodesHandler);
+app.get('/api/v1/darknet/tor-exit-check', torExitCheckHandler);
+app.get('/api/v1/darknet/tor-exit-details', torExitDetailsHandler);
+app.get('/api/v1/darknet/onion-lookup', onionLookupHandler);
+app.get('/api/v1/darknet/btc-abuse-check', btcAbuseCheckHandler);
 app.get('/api/v1/supply-chain/package', validate('query', depsDevPackageSchema), depsDevPackageHandler);
 app.post('/api/v1/tracer/expand', validate('json', tracerExpandSchema), tracerExpandHandler);
 app.get('/api/v1/tracer/label', validate('query', tracerLabelSchema), tracerLabelHandler);
@@ -1248,6 +1270,7 @@ app.post('/api/v1/admin/session', createSessionHandler);
 app.delete('/api/v1/admin/session', deleteSessionHandler);
 app.post('/api/v1/admin/purge', validate('json', adminPurgeSchema), purgeCacheHandler);
 app.post('/api/v1/admin/retention/run', validate('json', adminRetentionSchema), runRetentionHandler);
+app.post('/api/v1/admin/retention/telegram-cleanup', telegramCleanupHandler);
 app.get('/api/v1/blocklists/pfsense', blocklistPfSenseHandler);
 app.get('/api/v1/blocklists/iptables', blocklistIptablesHandler);
 app.get('/api/v1/blocklists/suricata', blocklistSuricataHandler);
@@ -1271,6 +1294,7 @@ app.post('/api/v1/rag/index-all', async (c) => {
   return c.json({ ok: true, ...result });
 });
 app.post('/api/v1/ai-summary', validate('json', aiSummarySchema), aiSummaryHandler);
+app.post('/api/v1/ai-item-summary', validate('json', aiItemSummarySchema), aiItemSummaryHandler);
 // Phase 2: per-report AI primitives. Backs the /threatintel/report-analyzer
 // page and is also useful as standalone tools (TTP map, 5W grid, image-OCR).
 app.post('/api/v1/ttp-extract', ttpExtractHandler);

@@ -30,15 +30,19 @@ function sourceLinksFrom(ev: Record<string, unknown>): string[] {
   const push = (u: unknown) => {
     if (typeof u === 'string' && /^https?:\/\//.test(u)) urls.add(u);
   };
-  if (Array.isArray(ev.urls)) ev.urls.forEach(push);
-  if (Array.isArray(ev.sources)) ev.sources.forEach(push);
+  push(ev.url); // breach, aisec, vulncheck, euvd, phishunt
+  if (Array.isArray(ev.urls)) ev.urls.forEach(push); // cve, actor
+  if (Array.isArray(ev.sources)) ev.sources.forEach(push); // agentic-trends, briefing, platform-data
   push(ev.sourceUrl);
   if (Array.isArray(ev.victims)) {
     for (const v of ev.victims) {
       if (v && typeof v === 'object') push((v as Record<string, unknown>).url);
     }
   }
-  if (typeof ev.cveId === 'string') urls.add(`https://nvd.nist.gov/vuln/detail/${ev.cveId}`);
+  if (typeof ev.cveId === 'string') {
+    const autoUrl = `https://nvd.nist.gov/vuln/detail/${ev.cveId}`;
+    if (!urls.has(autoUrl)) urls.add(autoUrl);
+  }
   return Array.from(urls).slice(0, 3);
 }
 
@@ -48,6 +52,50 @@ function hostOf(u: string): string {
   } catch {
     return u;
   }
+}
+
+type LinkStatus = 'ok' | 'broken' | 'unchecked';
+
+function statusBadge(status: LinkStatus): string {
+  switch (status) {
+    case 'ok':
+      return '●';
+    case 'broken':
+      return '○';
+    case 'unchecked':
+      return '?';
+  }
+}
+
+function statusColor(status: LinkStatus): string {
+  switch (status) {
+    case 'ok':
+      return 'text-emerald-500';
+    case 'broken':
+      return 'text-rose-500';
+    case 'unchecked':
+      return 'text-slate-400';
+  }
+}
+
+function statusTitle(status: LinkStatus): string {
+  switch (status) {
+    case 'ok':
+      return 'Link verified';
+    case 'broken':
+      return 'Link returned error';
+    case 'unchecked':
+      return 'Link status not checked';
+  }
+}
+
+function linkStatusFor(ev: Record<string, unknown>, url: string): LinkStatus {
+  const statuses = (ev as Record<string, unknown>).sourceLinkStatuses;
+  if (statuses && typeof statuses === 'object') {
+    const s = (statuses as Record<string, string>)[url];
+    if (s === 'ok' || s === 'broken') return s;
+  }
+  return 'unchecked';
 }
 
 export default function PendingTab() {
@@ -214,18 +262,25 @@ export default function PendingTab() {
                     if (links.length === 0) return <span className="text-slate-400 dark:text-slate-400">—</span>;
                     return (
                       <div className="flex flex-col gap-0.5">
-                        {links.map((u) => (
-                          <a
-                            key={u}
-                            href={u}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            title={u}
-                            className="text-blue-600 dark:text-blue-400 hover:underline truncate"
-                          >
-                            {hostOf(u)}
-                          </a>
-                        ))}
+                        {links.map((u) => {
+                          const st = linkStatusFor(c.evidence, u);
+                          return (
+                            <span key={u} className="flex items-center gap-1 truncate">
+                              <span className={`shrink-0 ${statusColor(st)} cursor-default`} title={statusTitle(st)}>
+                                {statusBadge(st)}
+                              </span>
+                              <a
+                                href={u}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                title={u}
+                                className="text-blue-600 dark:text-blue-400 hover:underline truncate"
+                              >
+                                {hostOf(u)}
+                              </a>
+                            </span>
+                          );
+                        })}
                       </div>
                     );
                   })()}
