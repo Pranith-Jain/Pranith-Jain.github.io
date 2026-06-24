@@ -36,11 +36,19 @@ export function deterministicSlides(post: Post): ContentSlide[] {
   const slides: ContentSlide[] = [];
   slides.push({ index: 0, kind: 'hook', headline: post.title.replace(/\s+—\s+/g, ' — ') });
   secs.forEach((s) => slides.push({ index: slides.length, kind: 'content', headline: s.heading, body: s.text }));
+
+  // Guarantee at least one content slide (fallback to excerpt if no sections).
+  if (secs.length === 0) {
+    const contentBody = post.excerpt?.trim() || post.body.split('\n').slice(0, 2).join(' ').trim().slice(0, 180);
+    slides.push({ index: slides.length, kind: 'content', headline: 'What you need to know', body: contentBody });
+  }
+
   slides.push({ index: slides.length, kind: 'cta', headline: 'Read the full analysis' });
-  return clampSlides(slides, MIN, MAX).length ? slides.slice(0, MAX).map((s, i) => ({ ...s, index: i })) : slides;
+  const clamped = clampSlides(slides, MIN, MAX);
+  return clamped.length ? clamped : slides;
 }
 
-/** Parse a (possibly fenced) JSON array of {headline,body,bullets} into slides. */
+/** Parse a (possibly fenced) JSON array of {headline,body,bullets} into slides (no `kind` set; callers stamp it). */
 export function parseSlidesJson(text: string): ContentSlide[] | null {
   const cleaned = text
     .replace(/```json\s*/gi, '')

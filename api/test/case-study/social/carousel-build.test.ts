@@ -29,6 +29,20 @@ describe('deterministicSlides', () => {
     expect(slides[slides.length - 1]!.kind).toBe('cta');
     expect(slides[0]!.headline.length).toBeGreaterThan(0);
   });
+
+  it('still yields >= 3 slides (hook + content + cta) when the post has no ## sections', () => {
+    const noSections = {
+      slug: 'plain',
+      type: 'analysis',
+      title: 'A plain post with no headings',
+      excerpt: 'A short summary sentence that can seed a content slide.',
+      body: 'Just a couple of paragraphs.\n\nNo markdown headings at all here.',
+    } as unknown as Post;
+    const slides = deterministicSlides(noSections);
+    expect(slides.length).toBeGreaterThanOrEqual(3);
+    expect(slides[0]!.kind).toBe('hook');
+    expect(slides[slides.length - 1]!.kind).toBe('cta');
+  });
 });
 
 describe('parseSlidesJson', () => {
