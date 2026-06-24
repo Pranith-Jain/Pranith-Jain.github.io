@@ -6,6 +6,7 @@ import { stripUntrustedUrls, findUngroundedCves, detectSlop } from '../../lib/ai
 import { slugify } from '../stable-keys';
 import type { CarouselSpec, ContentSlide } from '../social/slide-spec';
 import { buildCarouselSlides } from '../social/carousel-build';
+import { buildHashtags } from './hashtags';
 
 export interface SocialContent {
   slug: string;
@@ -38,6 +39,9 @@ export interface SocialSource {
   title: string;
   /** Post body or candidate evidence formatted as text for the LLM. */
   body: string;
+  /** Entity-derived hashtags (from `buildHashtags`) the prompts instruct the
+   *  model to end with — specific, on-topic tags instead of generic stacks. */
+  hashtags?: string[];
 }
 
 const SOCIAL_SYSTEM =
@@ -427,7 +431,9 @@ function buildTwitterPrompt(src: SocialSource, includeLink = true): string {
       : `- Do NOT include a FIRST REPLY or FIRST COMMENT link.\n`) +
     `- Each post < 280 chars. Append " (n/N)" at the END of each post.\n` +
     `- Lowercase optional for personal tone. Fragments ok. Run-ons... human texture.\n` +
-    `- At most ONE hashtag (if genuinely specific). At most ONE warning-level emoji (🔴 ⚠️), never decorative.\n` +
+    `- At most ONE hashtag (if genuinely specific)${
+      src.hashtags?.length ? `; if you use one, prefer: ${src.hashtags.slice(0, 3).join(' ')}` : ''
+    }. At most ONE warning-level emoji (🔴 ⚠️), never decorative.\n` +
     `- CRITICAL: Every CVE ID, statistic, and IOC must come from the input data. Do not invent.\n` +
     `</format>\n\n` +
     `<examples>\n` +
@@ -456,7 +462,9 @@ function buildLinkedinPrompt(src: SocialSource, includeLink = true): string {
     `- Mobile-first formatting: short paragraphs (1-3 sentences), single blank line between paragraphs, generous white space. No walls of text. No paragraphs over 3 lines on a phone.\n` +
     `- Voice: first-person practitioner. Dry, opinionated, specific. Have a point of view. Professional but human. Specific results and numbers when relevant.\n` +
     `- Bold at most ONE phrase with **asterisks**, only if it earns the emphasis. No bolded sentences, no bolded lists.\n` +
-    `- 3-5 specific, on-topic hashtags on the final line. Specific to the case (campaign name, vulnerability class, sector) — never a generic stack like #CyberSecurity #InfoSec.\n` +
+    `- 3-5 specific, on-topic hashtags on the final line. Specific to the case (campaign name, vulnerability class, sector) — never a generic stack like #CyberSecurity #InfoSec.${
+      src.hashtags?.length ? ` Use these (drop any that don't fit): ${src.hashtags.join(' ')}` : ''
+    }\n` +
     `- Every CVE id, statistic, named victim, and named entity MUST come from the input data. Inventing a number is the fastest way to lose credibility.\n` +
     `\n` +
     `STRUCTURE — four blocks, each earns its place. Use a single blank line between blocks:\n` +
@@ -535,7 +543,9 @@ function buildInstagramPrompt(src: SocialSource): string {
     `Write an Instagram caption for this analysis. <= 2200 characters.\n` +
     `- Open with a 1-2 line hook that stops the scroll (the carousel carries the depth).\n` +
     `- 3-5 short lines of value, practitioner voice. No markdown, no links in the body (IG captions aren't clickable).\n` +
-    `- End with 5-8 specific hashtags on the final line (campaign/CVE/sector specific — never a generic #cybersecurity stack).\n\n` +
+    `- End with 5-8 specific hashtags on the final line (campaign/CVE/sector specific — never a generic #cybersecurity stack).${
+      src.hashtags?.length ? ` Start from these (add a few broader-reach IG tags): ${src.hashtags.join(' ')}` : ''
+    }\n\n` +
     `TITLE: ${src.title}\n\nSOURCE:\n${src.body.slice(0, 4000)}\n`
   );
 }
@@ -617,7 +627,12 @@ function extractVerifiedFacts(body: string): string {
 
 /** Convert a Post to a SocialSource (backward compat). */
 function postToSource(post: Post): SocialSource {
-  return { slug: post.slug, title: post.title, body: post.body };
+  return {
+    slug: post.slug,
+    title: post.title,
+    body: post.body,
+    hashtags: buildHashtags({ type: post.type, title: post.title, evidence: post.evidence ?? {} }),
+  };
 }
 
 /** Format candidate evidence as a text body for the LLM. */
@@ -792,6 +807,7 @@ export async function generateSocialFromCandidate(
     slug: prospectiveSlug,
     title: candidate.title,
     body: formatEvidenceText(candidate.evidence),
+    hashtags: buildHashtags({ type: candidate.type, title: candidate.title, evidence: candidate.evidence }),
   };
   return generateSocialFromSource(src, ai, now, groqKey, googleKey);
 }
@@ -809,6 +825,7 @@ export async function generateTwitterFromCandidate(
     slug: prospectiveSlug,
     title: candidate.title,
     body: formatEvidenceText(candidate.evidence),
+    hashtags: buildHashtags({ type: candidate.type, title: candidate.title, evidence: candidate.evidence }),
   };
   return generateTwitterFromSource(src, ai, now, groqKey, googleKey);
 }
@@ -826,6 +843,7 @@ export async function generateLinkedinFromCandidate(
     slug: prospectiveSlug,
     title: candidate.title,
     body: formatEvidenceText(candidate.evidence),
+    hashtags: buildHashtags({ type: candidate.type, title: candidate.title, evidence: candidate.evidence }),
   };
   return generateLinkedinFromSource(src, ai, now, groqKey, googleKey);
 }
