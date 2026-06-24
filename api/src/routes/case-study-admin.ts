@@ -62,6 +62,18 @@ import { carouselSlideToPng } from '../lib/social-carousel-raster';
  * (`/api/v1/og-image/...`) and is anonymous, so no key is needed. Returns
  * undefined on any miss — the poster then posts text-only (no hard failure).
  */
+/**
+ * Read a post by slug, falling back to the draft namespace. Social-content
+ * generation must work for drafts too: when BLOG_APPROVAL_REQUIRED=true the
+ * post lives only at `drafts:<slug>` until approved, so reading `posts:<slug>`
+ * alone 404s the LI/Tw "generate social" buttons on the Drafts tab.
+ */
+async function getPostOrDraft(env: Env, slug: string): Promise<Post | null> {
+  const post = await env.CASE_STUDIES.get<Post>(csKvKeys.post(slug), 'json');
+  if (post) return post;
+  return getDraft(env.CASE_STUDIES, slug);
+}
+
 async function fetchOgCardPng(env: Env, type: 'blog' | 'briefing', slug: string): Promise<Uint8Array | undefined> {
   try {
     const fetcher = env.SELF ?? { fetch: globalThis.fetch };
@@ -906,7 +918,7 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
   admin.post('/social/:slug', async (c) => {
     const slug = c.req.param('slug');
     if (!validSlug(slug)) return c.json({ error: 'invalid slug' }, 400);
-    const post = await c.env.CASE_STUDIES.get<Post>(csKvKeys.post(slug), 'json');
+    const post = await getPostOrDraft(c.env, slug);
     if (!post) return c.json({ error: 'post not found' }, 404);
 
     try {
@@ -1011,7 +1023,7 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
   admin.post('/social/:slug/twitter', async (c) => {
     const slug = c.req.param('slug');
     if (!validSlug(slug)) return c.json({ error: 'invalid slug' }, 400);
-    const post = await c.env.CASE_STUDIES.get<Post>(csKvKeys.post(slug), 'json');
+    const post = await getPostOrDraft(c.env, slug);
     if (!post) return c.json({ error: 'post not found' }, 404);
 
     try {
@@ -1033,7 +1045,7 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
   admin.post('/social/:slug/linkedin', async (c) => {
     const slug = c.req.param('slug');
     if (!validSlug(slug)) return c.json({ error: 'invalid slug' }, 400);
-    const post = await c.env.CASE_STUDIES.get<Post>(csKvKeys.post(slug), 'json');
+    const post = await getPostOrDraft(c.env, slug);
     if (!post) return c.json({ error: 'post not found' }, 404);
 
     try {

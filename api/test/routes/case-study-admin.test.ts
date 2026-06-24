@@ -144,6 +144,36 @@ describe('admin routes', () => {
     expect(sched.linkedin.status).toBe('pending');
   });
 
+  it('social generation falls back to a draft (no 404) when the post is unpublished', async () => {
+    const env = mockEnv();
+    const slug = 'cve-2026-1234-fortigate';
+    // Only a DRAFT exists (approval gate on) — no published posts:<slug>.
+    env.__store.set(
+      `drafts:${slug}`,
+      JSON.stringify({
+        slug,
+        type: 'cve',
+        title: 'X',
+        excerpt: 'e',
+        publishedAt: '2026-06-25T00:00:00Z',
+        candidateId: 'cve-2026-1234',
+        body: '## Summary\n\nx',
+        hero: '<svg/>',
+        iocs: [],
+        tags: [],
+        sources: [],
+      })
+    );
+    const r = await app().request(
+      `/api/v1/admin/social/${slug}/twitter`,
+      { method: 'POST', headers: { 'X-Admin-Token': 'sekret' } },
+      env
+    );
+    // The draft is found (was 404 before the fallback). AI is unmocked here so
+    // generation itself fails → 500, but the point is it's no longer 'post not found'.
+    expect(r.status).not.toBe(404);
+  });
+
   it('skip-all suppresses the REAL candidate keys (not the blob "all") so they do not re-appear', async () => {
     const env = mockEnv();
     env.__store.set('candidates:cve:all', JSON.stringify([{ ...cand, key: 'cve-2026-9999', type: 'cve' }]));
