@@ -117,6 +117,62 @@ export async function briefingsPost<T>(path: string): Promise<T> {
   return r.json() as Promise<T>;
 }
 
+// ─── Social approval helpers ─────────────────────────────────────────────────
+
+export interface SocialQueueItem {
+  slug: string;
+  platform: string;
+  status: string;
+  scheduledAt?: string;
+  postUrl?: string;
+  error?: string;
+  attempts?: number;
+}
+
+export interface SocialQueueResponse {
+  autopostEnabled: boolean;
+  queue: SocialQueueItem[];
+}
+
+export interface SocialScheduleEntryResponse {
+  ok: boolean;
+  schedule: {
+    slug: string;
+    twitter?: { scheduledAt?: string; status: string; postUrl?: string; error?: string; attempts?: number };
+    linkedin?: { scheduledAt?: string; status: string; postUrl?: string; error?: string; attempts?: number };
+    instagram?: { scheduledAt?: string; status: string; postUrl?: string; error?: string; attempts?: number };
+    updatedAt: string;
+  };
+}
+
+/** Approve a platform's social copy for auto-posting.
+ *  Optional `scheduledAt` (ISO) sets the publish time; defaults to now. */
+export function approveSocialPlatform(
+  slug: string,
+  platform: string,
+  scheduledAt?: string
+): Promise<SocialScheduleEntryResponse> {
+  const body = scheduledAt ? { scheduledAt } : {};
+  return postJsonWithBody<SocialScheduleEntryResponse>(
+    `/social-schedule/${encodeURIComponent(slug)}/${encodeURIComponent(platform)}/approve`,
+    body
+  );
+}
+
+/** Revert an approved platform entry back to pending (unapprove). */
+export function unapproveSocialPlatform(slug: string, platform: string): Promise<SocialScheduleEntryResponse> {
+  return postJson<SocialScheduleEntryResponse>(
+    `/social-schedule/${encodeURIComponent(slug)}/${encodeURIComponent(platform)}/unapprove`
+  );
+}
+
+/** Fetch the content-calendar agenda: autopost switch state + sorted queue. */
+export function getSocialQueue(): Promise<SocialQueueResponse> {
+  return getJson<SocialQueueResponse>('/social-queue');
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+
 /**
  * Probe the admin token without mounting the shell. Used by AdminApp on
  * mount: if the cached token is stale, we surface the login screen

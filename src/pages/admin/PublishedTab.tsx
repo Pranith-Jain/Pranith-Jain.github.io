@@ -1,12 +1,24 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { getJson, getObjectUrl, postJson, postJsonWithBody } from './adminApi';
+import {
+  getJson,
+  getObjectUrl,
+  postJson,
+  postJsonWithBody,
+  approveSocialPlatform,
+  unapproveSocialPlatform,
+  getSocialQueue,
+} from './adminApi';
+import type { SocialQueueItem, SocialQueueResponse } from './adminApi';
 import { bestTimeHint, type SocialPlatform } from './socialHints';
 import { splitSocial } from '../../lib/social-parts';
 
 interface ScheduleEntry {
   scheduledAt?: string;
-  status: 'pending' | 'posted' | 'scheduled';
+  status: 'pending' | 'approved' | 'posted' | 'failed';
   postedAt?: string;
+  postUrl?: string;
+  error?: string;
+  attempts?: number;
 }
 interface SocialScheduleData {
   slug: string;
@@ -232,6 +244,7 @@ export default function PublishedTab() {
     return (
       <div>
         {actionMsg && <p className="text-xs font-mono text-slate-500 dark:text-slate-400 mb-2">{actionMsg}</p>}
+        <SocialQueueAgenda />
         <p className="text-slate-500 dark:text-slate-400">No published posts.</p>
       </div>
     );
@@ -239,6 +252,7 @@ export default function PublishedTab() {
   return (
     <div>
       {actionMsg && <p className="text-xs font-mono text-slate-500 dark:text-slate-400 mb-2">{actionMsg}</p>}
+      <SocialQueueAgenda />
       <p className="text-xs text-slate-600 dark:text-slate-500 mb-4">Click a row to expand/collapse social content.</p>
       <div className="overflow-x-auto">
         <table className="w-full text-sm">
@@ -348,6 +362,131 @@ export default function PublishedTab() {
     </div>
   );
 }
+
+// ─── Content-calendar agenda ─────────────────────────────────────────────────
+
+/** Compact upcoming-queue panel shown at the top of the Published view.
+ *  Fetches /social-queue once on mount; shows the autopost switch state
+ *  and a sorted list of queued items. */
+function SocialQueueAgenda() {
+  const [data, setData] = useState<SocialQueueResponse | null>(null);
+  const [err, setErr] = useState<string | null>(null);
+
+  useEffect(() => {
+    getSocialQueue()
+      .then(setData)
+      .catch((e: unknown) => setErr(e instanceof Error ? e.message : String(e)));
+  }, []);
+
+  if (err)
+    return (
+      <p className="text-xs text-rose-600 dark:text-rose-400 mb-4" role="alert">
+        Queue unavailable: {err}
+      </p>
+    );
+  if (!data) return null;
+
+  const { autopostEnabled, queue } = data;
+
+  return (
+    <section
+      aria-label="Content calendar queue"
+      className="mb-6 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200)/0.4)] p-3"
+    >
+      <div className="flex items-center justify-between mb-2">
+        <h3 className="text-mini font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+          Upcoming queue
+        </h3>
+        <span
+          className={`px-2 py-0.5 rounded text-micro font-semibold border ${
+            autopostEnabled
+              ? 'bg-emerald-50 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 border-emerald-200 dark:border-emerald-700/50'
+              : 'bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-500 dark:text-slate-400 border-slate-200 dark:border-[rgb(var(--border-400))]'
+          }`}
+          aria-label={autopostEnabled ? 'Auto-post is ON' : 'Auto-post is OFF — review only'}
+        >
+          {autopostEnabled ? 'Auto-post: ON' : 'Auto-post: OFF — review only'}
+        </span>
+      </div>
+
+      {queue.length === 0 ? (
+        <p className="text-xs text-slate-500 dark:text-slate-400">No items in queue.</p>
+      ) : (
+        <ul className="space-y-1" aria-label="Queued social posts">
+          {queue.map((item: SocialQueueItem, i: number) => (
+            <li key={i} className="flex flex-wrap items-center gap-2 text-xs text-slate-600 dark:text-slate-400">
+              <span className="font-mono text-slate-500 dark:text-slate-500 whitespace-nowrap">
+                {item.scheduledAt ? new Date(item.scheduledAt).toLocaleString() : '—'}
+              </span>
+              <span className="text-slate-400 dark:text-slate-600" aria-hidden="true">
+                ·
+              </span>
+              <span className="font-mono text-slate-700 dark:text-slate-300">{item.slug}</span>
+              <span className="text-slate-400 dark:text-slate-600" aria-hidden="true">
+                ·
+              </span>
+              <span className="uppercase text-slate-500 dark:text-slate-400">{item.platform}</span>
+              <span className="text-slate-400 dark:text-slate-600" aria-hidden="true">
+                ·
+              </span>
+              <QueueStatusBadge item={item} />
+            </li>
+          ))}
+        </ul>
+      )}
+    </section>
+  );
+}
+
+function QueueStatusBadge({ item }: { item: SocialQueueItem }) {
+  const { status, postUrl, error, attempts } = item;
+  const base = 'px-1.5 py-0.5 rounded text-micro border';
+  if (status === 'posted') {
+    const badge = (
+      <span
+        className={`${base} bg-emerald-50 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 border-emerald-200 dark:border-emerald-700/50`}
+      >
+        posted
+      </span>
+    );
+    return postUrl ? (
+      <a href={postUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2">
+        {badge}
+      </a>
+    ) : (
+      badge
+    );
+  }
+  if (status === 'approved') {
+    return (
+      <span
+        className={`${base} bg-sky-50 dark:bg-sky-900/40 text-sky-700 dark:text-sky-300 border-sky-200 dark:border-sky-700/50`}
+      >
+        approved
+      </span>
+    );
+  }
+  if (status === 'failed') {
+    return (
+      <span
+        className={`${base} bg-rose-50 dark:bg-rose-900/40 text-rose-600 dark:text-rose-300 border-rose-200 dark:border-rose-700/50`}
+        title={error ?? 'unknown error'}
+      >
+        failed{attempts != null ? ` (${attempts})` : ''}
+      </span>
+    );
+  }
+  // pending
+  return (
+    <span
+      className={`${base} bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 border-amber-200 dark:border-amber-700/40`}
+    >
+      pending
+    </span>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
 
 type PostState = {
   posting: boolean;
@@ -750,8 +889,8 @@ function SocialSection({
   );
 }
 
-/** Manual-posting queue for one post: per-platform status, a planned time,
- *  and a best-time hint. Posting itself stays manual (copy → paste). */
+/** Per-platform posting queue: status badge, scheduled time, approve/unapprove
+ *  (twitter + linkedin only), and the manual mark-posted toggle for all three. */
 function SchedulePanel({ slug, refreshTrigger = 0 }: { slug: string; refreshTrigger?: number }) {
   const [sched, setSched] = useState<SocialScheduleData | null>(null);
   const [busy, setBusy] = useState<SocialPlatform | null>(null);
@@ -788,7 +927,7 @@ function SchedulePanel({ slug, refreshTrigger = 0 }: { slug: string; refreshTrig
     }
   }
 
-  async function togglePosted(platform: SocialPlatform, current: 'pending' | 'posted' | 'scheduled') {
+  async function togglePosted(platform: SocialPlatform, current: ScheduleEntry['status']) {
     setBusy(platform);
     setMsg(null);
     try {
@@ -809,6 +948,34 @@ function SchedulePanel({ slug, refreshTrigger = 0 }: { slug: string; refreshTrig
     }
   }
 
+  async function handleApprove(platform: SocialPlatform, scheduledAt?: string) {
+    setBusy(platform);
+    setMsg(null);
+    try {
+      const r = await approveSocialPlatform(slug, platform, scheduledAt);
+      setSched(r.schedule as SocialScheduleData);
+      setMsg(`${platform} approved`);
+    } catch (e) {
+      setMsg(e instanceof Error ? e.message : String(e));
+    } finally {
+      setBusy(null);
+    }
+  }
+
+  async function handleUnapprove(platform: SocialPlatform) {
+    setBusy(platform);
+    setMsg(null);
+    try {
+      const r = await unapproveSocialPlatform(slug, platform);
+      setSched(r.schedule as SocialScheduleData);
+      setMsg(`${platform} unapproved`);
+    } catch (e) {
+      setMsg(e instanceof Error ? e.message : String(e));
+    } finally {
+      setBusy(null);
+    }
+  }
+
   const rows: SocialPlatform[] = ['twitter', 'linkedin', 'instagram'];
 
   return (
@@ -822,44 +989,113 @@ function SchedulePanel({ slug, refreshTrigger = 0 }: { slug: string; refreshTrig
       <div className="space-y-3">
         {rows.map((platform) => {
           const entry = sched?.[platform];
-          const status = entry?.status ?? 'pending';
+          const status: ScheduleEntry['status'] = entry?.status ?? 'pending';
           const overdue =
             status === 'pending' && entry?.scheduledAt ? new Date(entry.scheduledAt).getTime() < Date.now() : false;
+          const canAutoPost = platform === 'twitter' || platform === 'linkedin';
+
           return (
             <div key={platform} className="flex flex-wrap items-center gap-2 text-xs">
               <span className="w-16 uppercase text-slate-500 dark:text-slate-400">{platform}</span>
-              <span
-                className={`px-1.5 py-0.5 rounded text-micro ${
-                  status === 'posted'
-                    ? 'bg-emerald-50 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-700/50'
-                    : status === 'scheduled'
-                      ? 'bg-sky-50 dark:bg-sky-900/40 text-sky-700 dark:text-sky-300 border border-sky-200 dark:border-sky-700/50'
-                      : 'bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-700/40'
-                }`}
-              >
-                {status}
-                {entry?.postedAt ? ` ${new Date(entry.postedAt).toLocaleDateString()}` : ''}
-              </span>
+
+              {/* Status badge */}
+              {status === 'posted' && entry?.postUrl ? (
+                <a
+                  href={entry.postUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`px-1.5 py-0.5 rounded text-micro bg-emerald-50 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-700/50 underline underline-offset-2`}
+                  aria-label={`${platform} posted — view post`}
+                >
+                  posted
+                  {entry?.postedAt ? ` ${new Date(entry.postedAt).toLocaleDateString()}` : ''}
+                </a>
+              ) : (
+                <span
+                  className={`px-1.5 py-0.5 rounded text-micro ${
+                    status === 'posted'
+                      ? 'bg-emerald-50 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-700/50'
+                      : status === 'approved'
+                        ? 'bg-sky-50 dark:bg-sky-900/40 text-sky-700 dark:text-sky-300 border border-sky-200 dark:border-sky-700/50'
+                        : status === 'failed'
+                          ? 'bg-rose-50 dark:bg-rose-900/40 text-rose-600 dark:text-rose-300 border border-rose-200 dark:border-rose-700/50'
+                          : 'bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-700/40'
+                  }`}
+                  aria-label={`${platform} status: ${status}`}
+                >
+                  {status}
+                  {entry?.postedAt ? ` ${new Date(entry.postedAt).toLocaleDateString()}` : ''}
+                </span>
+              )}
+
+              {/* Failed: show error + attempts */}
+              {status === 'failed' && (entry?.error ?? entry?.attempts != null) && (
+                <span
+                  className="text-micro text-rose-600 dark:text-rose-400 truncate max-w-[14rem]"
+                  title={entry?.error ?? ''}
+                >
+                  {entry?.error ? `${entry.error}` : ''}
+                  {entry?.attempts != null ? ` (attempt ${entry.attempts})` : ''}
+                </span>
+              )}
+
               {overdue && (
                 <span className="px-1.5 py-0.5 rounded text-micro bg-rose-50 dark:bg-rose-900/40 text-rose-600 dark:text-rose-300 border border-rose-200 dark:border-rose-700/50">
                   overdue
                 </span>
               )}
+
+              {/* Approved hint */}
+              {status === 'approved' && (
+                <span className="text-micro text-sky-600 dark:text-sky-400">
+                  {entry?.scheduledAt
+                    ? `auto-post at ${new Date(entry.scheduledAt).toLocaleString()}`
+                    : 'auto-post queued'}
+                </span>
+              )}
+
               <input
                 type="datetime-local"
                 defaultValue={toLocalInput(entry?.scheduledAt)}
                 onBlur={(e) => void saveTime(platform, e.target.value)}
                 disabled={busy === platform}
+                aria-label={`${platform} planned post time (saved on blur)`}
                 className="bg-white dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded px-1.5 py-0.5 text-slate-700 dark:text-slate-300 disabled:opacity-50"
                 title="Planned post time (saved on blur)"
               />
+
+              {/* Approve / Unapprove — twitter + linkedin only */}
+              {canAutoPost && (status === 'pending' || status === 'failed') && (
+                <button
+                  onClick={() => void handleApprove(platform, entry?.scheduledAt)}
+                  disabled={busy === platform}
+                  aria-label={`Approve ${platform} for auto-posting`}
+                  className="px-2 py-0.5 border border-sky-200 dark:border-sky-700 rounded hover:bg-sky-50 dark:hover:bg-sky-900/30 disabled:opacity-50"
+                >
+                  Approve
+                </button>
+              )}
+              {canAutoPost && status === 'approved' && (
+                <button
+                  onClick={() => void handleUnapprove(platform)}
+                  disabled={busy === platform}
+                  aria-label={`Unapprove ${platform} — return to pending`}
+                  className="px-2 py-0.5 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] disabled:opacity-50"
+                >
+                  Unapprove
+                </button>
+              )}
+
+              {/* Manual mark-posted toggle — all platforms */}
               <button
                 onClick={() => void togglePosted(platform, status)}
                 disabled={busy === platform}
+                aria-label={status === 'posted' ? `Mark ${platform} as pending` : `Mark ${platform} as posted`}
                 className="px-2 py-0.5 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] disabled:opacity-50"
               >
                 {status === 'posted' ? 'Mark pending' : 'Mark posted'}
               </button>
+
               <span className="text-micro text-slate-600 dark:text-slate-500">{bestTimeHint(platform)}</span>
             </div>
           );

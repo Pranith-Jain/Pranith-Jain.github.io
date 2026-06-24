@@ -4,10 +4,16 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 const getJson = vi.fn();
 const postJson = vi.fn();
 const postJsonWithBody = vi.fn();
+const getSocialQueue = vi.fn();
+const approveSocialPlatform = vi.fn();
+const unapproveSocialPlatform = vi.fn();
 vi.mock('../pages/admin/adminApi', () => ({
   getJson: (...a: unknown[]) => getJson(...a),
   postJson: (...a: unknown[]) => postJson(...a),
   postJsonWithBody: (...a: unknown[]) => postJsonWithBody(...a),
+  getSocialQueue: (...a: unknown[]) => getSocialQueue(...a),
+  approveSocialPlatform: (...a: unknown[]) => approveSocialPlatform(...a),
+  unapproveSocialPlatform: (...a: unknown[]) => unapproveSocialPlatform(...a),
 }));
 
 import PublishedTab from '../pages/admin/PublishedTab';
@@ -15,6 +21,9 @@ import PublishedTab from '../pages/admin/PublishedTab';
 describe('PublishedTab social-index load + lazy expand', () => {
   beforeEach(() => {
     getJson.mockReset();
+    getSocialQueue.mockResolvedValue({ autopostEnabled: false, queue: [] });
+    approveSocialPlatform.mockResolvedValue({ ok: true, schedule: {} });
+    unapproveSocialPlatform.mockResolvedValue({ ok: true, schedule: {} });
   });
 
   it('loads via /social-index (no per-post /social) and lazy-fetches content on View', async () => {
