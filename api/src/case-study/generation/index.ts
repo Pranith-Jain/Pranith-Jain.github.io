@@ -5,6 +5,8 @@ import { runCompletion } from './ai-client';
 import { postProcess } from './post-process';
 import { renderHeroSvg } from './hero-svg';
 import { validateIocsLive, type IocValidationEnv } from './ioc-live-validation';
+import { verifyAndPruneReferences } from './verify-references';
+import type { LinkStatus } from '../../lib/verify-url';
 
 // ── Fact verification (pre-generation) ──────────────────────────────────
 
@@ -44,7 +46,12 @@ function buildFactVerifyPrompt(evidence: Record<string, unknown>): string {
  * before writing. These verified facts are injected into the prompt to
  * ground the content generation in actual data.
  */
-async function verifyFacts(evidence: Record<string, unknown>, ai: Ai, groqKey?: string, googleKey?: string): Promise<VerifiedFacts | null> {
+async function verifyFacts(
+  evidence: Record<string, unknown>,
+  ai: Ai,
+  groqKey?: string,
+  googleKey?: string
+): Promise<VerifiedFacts | null> {
   try {
     const result = await runCompletion(
       ai,
@@ -226,6 +233,14 @@ export interface GeneratePostDeps {
    * with an attack-flow chart".
    */
   notes?: string;
+  /**
+   * Injectable reference-URL verifier (HEAD checks). Defaults to the
+   * real `verifyAndPruneReferences` HEAD verifier in production. Tests
+   * pass a deterministic stub so generation stays hermetic. Maps each
+   * URL to 'ok' (resolves), 'broken' (confirmed 4xx/5xx), or 'unchecked'
+   * (transient network/timeout — kept on the benefit of the doubt).
+   */
+  verifyRefs?: (urls: string[]) => Promise<Map<string, LinkStatus>>;
 }
 
 export async function generatePost(deps: GeneratePostDeps): Promise<Post> {
@@ -339,6 +354,40 @@ export async function generatePost(deps: GeneratePostDeps): Promise<Post> {
     }
   }
 
+  // ── Reference-URL verification (final gate) ──────────────────────────
+  // Every discovery runner's URLs converge here unverified — and the LLM
+  // can invent article paths on otherwise-valid hosts (e.g.
+  // bleepingcomputer.com/news/security/<fake-slug>) that the hostname-only
+  // post-process filter happily keeps. HEAD-check the union of the post's
+  // sources and its `## References` URLs and drop the confirmed-broken
+  // ones from BOTH surfaces before they ship as clickable citations.
+  const refCheck = await verifyAndPruneReferences({
+    body: processed.body,
+    sources,
+    verify: deps.verifyRefs,
+  });
+  const finalBody = refCheck.body;
+  const finalSources = refCheck.sources;
+  if (
+    refCheck.report.droppedSources > 0 ||
+    refCheck.report.droppedRefBullets > 0 ||
+    refCheck.report.broken.length > 0
+  ) {
+    console.log(
+      JSON.stringify({
+        job: 'generate-post',
+        stage: 'reference-verification',
+        candidate: candidate.key,
+        checked: refCheck.report.checked,
+        brokenCount: refCheck.report.broken.length,
+        droppedSources: refCheck.report.droppedSources,
+        droppedRefBullets: refCheck.report.droppedRefBullets,
+        backedOff: refCheck.report.backedOff,
+        broken: refCheck.report.broken.slice(0, 5),
+      })
+    );
+  }
+
   const slug = `${candidate.key}-${slugify(candidate.title).slice(0, 40)}`.replace(/-+/g, '-');
   const hero = renderHeroSvg({ title: candidate.title, type: candidate.type });
 
@@ -346,14 +395,14 @@ export async function generatePost(deps: GeneratePostDeps): Promise<Post> {
     slug,
     type: candidate.type,
     title: candidate.title,
-    excerpt: excerptFrom(processed.body),
+    excerpt: excerptFrom(finalBody),
     publishedAt: now.toISOString(),
     candidateId: candidate.key,
-    body: processed.body,
+    body: finalBody,
     hero,
     iocs,
     tags: tagsFor(candidate),
-    sources,
+    sources: finalSources,
     quality: processed.quality,
     qa: processed.qa,
     // Snapshot the candidate evidence so an admin can later hit

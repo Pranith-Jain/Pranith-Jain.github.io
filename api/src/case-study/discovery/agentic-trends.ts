@@ -278,6 +278,26 @@ function evaluateGrounding(t: TrendCandidate): GroundingResult {
   return { hasRealSource: realSources.length > 0, hasRealCve, realSources };
 }
 
+/**
+ * Build the canonical `sources` list stored on a candidate's evidence,
+ * dropping any URL whose HEAD check came back 'broken' (a confirmed
+ * 4xx/5xx — a fabricated path on a real host). These URLs flow straight
+ * into `extractSources` → `post.sources` → clickable citations, so a
+ * broken one must never survive to a published post. 'ok' and 'unchecked'
+ * (transient network/timeout) URLs are kept, de-duped, order-preserved.
+ */
+function buildStoredSources(realSources: string[], statuses: Record<string, LinkStatus>): string[] {
+  const out: string[] = [];
+  const seen = new Set<string>();
+  for (const u of realSources) {
+    if (statuses[u] === 'broken') continue;
+    if (seen.has(u)) continue;
+    seen.add(u);
+    out.push(u);
+  }
+  return out;
+}
+
 async function callGroq(key: string, prompt: string, userMsg: string): Promise<string> {
   const res = await fetch(GROQ_URL, {
     method: 'POST',
@@ -454,15 +474,12 @@ export async function discoverAgenticTrends(deps: AgenticTrendsDeps): Promise<Ca
           // whitelist them (otherwise the URLs the LLM cited would be
           // stripped as "disallowed hosts" even though they're real).
           // `sources` is the canonical field the post-process scrapes
-          // for the factsText hostnames.
-          sources: Array.from(
-            new Set([
-              ...(Array.isArray((t.evidence as Record<string, unknown>)?.sources)
-                ? ((t.evidence as Record<string, unknown>).sources as string[])
-                : []),
-              ...grounding.realSources,
-            ])
-          ),
+          // for the factsText hostnames. Confirmed-broken URLs are
+          // dropped here — they would otherwise sail into post.sources as
+          // dead citation links. Only blocklist-filtered realSources are
+          // stored (the raw LLM `evidence.sources` may still hold
+          // placeholder hosts that the grounding pass already rejected).
+          sources: buildStoredSources(grounding.realSources, sourceLinkStatuses),
           sourceLinkStatuses,
           hook: t.hook || '',
           angle: t.angle || '',
@@ -497,3 +514,4 @@ export async function discoverAgenticTrends(deps: AgenticTrendsDeps): Promise<Ca
 // api/test/case-study/discovery/agentic-trends.test.ts. Production code
 // imports `discoverAgenticTrends` and never touches this directly.
 export const _test_evaluateGrounding = evaluateGrounding;
+export const _test_buildStoredSources = buildStoredSources;

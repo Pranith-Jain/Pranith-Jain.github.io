@@ -1,5 +1,23 @@
 import { describe, it, expect } from 'vitest';
-import { _test_evaluateGrounding } from '../../../src/case-study/discovery/agentic-trends';
+import { _test_evaluateGrounding, _test_buildStoredSources } from '../../../src/case-study/discovery/agentic-trends';
+
+describe('agentic-trends stored-source filtering', () => {
+  it('drops confirmed-broken URLs so they never reach extractSources / post.sources', () => {
+    const stored = _test_buildStoredSources(['https://good.example/a', 'https://valid-host.example/fabricated-path'], {
+      'https://good.example/a': 'ok',
+      'https://valid-host.example/fabricated-path': 'broken',
+    });
+    expect(stored).toEqual(['https://good.example/a']);
+  });
+
+  it('keeps ok + unchecked URLs and de-dupes', () => {
+    const stored = _test_buildStoredSources(['https://a.example/x', 'https://a.example/x', 'https://b.example/y'], {
+      'https://a.example/x': 'unchecked',
+      'https://b.example/y': 'ok',
+    });
+    expect(stored).toEqual(['https://a.example/x', 'https://b.example/y']);
+  });
+});
 
 describe('agentic-trends grounding gate', () => {
   it('rejects a candidate with no real source URL and no CVE (the bogus-NK-APT pattern)', () => {
