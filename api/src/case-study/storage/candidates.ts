@@ -3,12 +3,36 @@ import type { Candidate, CaseStudyType } from '../types';
 
 const THIRTY_DAYS_SECONDS = 30 * 24 * 3600;
 
-/** All known candidate types — used by `listAllCandidates` to read per-type
- *  blobs without an unbounded `.list()` call. */
-const ALL_TYPES: CaseStudyType[] = [
-  'cve', 'actor', 'malware', 'ransom', 'breach', 'scam', 'aisec',
-  'intel', 'osint', 'methodology', 'trend', 'briefing', 'analysis',
+/**
+ * Canonical list of content types a candidate can have — the SINGLE source of
+ * truth, imported by the admin routes too so the lookup list can never drift
+ * from this storage/list list again. Every runner output type MUST be here, or
+ * candidates of that type become invisible (not listed) and un-actionable
+ * ("candidate not found" on approve/generate). That drift is exactly what hid
+ * `analysis` candidates (from agentic-trends) from the approve/generate route
+ * and `tool`/`news` from the pending list.
+ */
+export const CANDIDATE_TYPES: CaseStudyType[] = [
+  'cve',
+  'actor',
+  'malware',
+  'ransom',
+  'breach',
+  'scam',
+  'aisec',
+  'intel',
+  'osint',
+  'methodology',
+  'trend',
+  'briefing',
+  'analysis',
+  'tool',
+  'news',
 ];
+
+/** Used by `listAllCandidates` to read per-type blobs without an unbounded
+ *  `.list()` call. Aliased to the canonical list to prevent drift. */
+const ALL_TYPES = CANDIDATE_TYPES;
 
 function blobKey(type: CaseStudyType): string {
   return `candidates:${type}:all`;
@@ -27,9 +51,9 @@ async function readTypeBlob(ns: KVNamespace, type: CaseStudyType): Promise<Candi
   const { keys } = await ns.list({ prefix: oldPrefix(type) });
   const oldKeys = keys.filter((k) => k.name !== key);
   if (oldKeys.length === 0) return [];
-  const migrated = (
-    await Promise.all(oldKeys.map((k) => ns.get(k.name, 'json') as Promise<Candidate | null>))
-  ).filter((x): x is Candidate => x !== null);
+  const migrated = (await Promise.all(oldKeys.map((k) => ns.get(k.name, 'json') as Promise<Candidate | null>))).filter(
+    (x): x is Candidate => x !== null
+  );
   if (migrated.length > 0) {
     await ns.put(key, JSON.stringify(migrated), { expirationTtl: THIRTY_DAYS_SECONDS });
     for (const k of oldKeys) ns.delete(k.name).catch(() => {});
@@ -73,7 +97,7 @@ export async function deleteCandidate(ns: KVNamespace, type: CaseStudyType, stab
   await writeTypeBlob(
     ns,
     type,
-    list.filter((x) => x.key !== stableKey),
+    list.filter((x) => x.key !== stableKey)
   );
 }
 

@@ -91,7 +91,10 @@ describe('admin routes', () => {
       env
     );
     expect(r.status).toBe(200);
-    expect(env.__store.has(`approved:${cand.key}`)).toBe(true);
+    // approve() stores the full approved list in one `approved:all` blob
+    // (migrated from the old per-key `approved:<key>` model).
+    const approved = JSON.parse(env.__store.get('approved:all') as string) as Array<{ key: string }>;
+    expect(approved.some((x) => x.key === cand.key)).toBe(true);
   });
 
   it('social approve sets status=approved, enqueues for autopost, and surfaces in the queue agenda', async () => {
@@ -139,6 +142,23 @@ describe('admin routes', () => {
     );
     const sched = JSON.parse(env.__store.get(`social-schedule:${slug}`) as string);
     expect(sched.linkedin.status).toBe('pending');
+  });
+
+  it('generate (the admin "approve" action) finds an analysis-type candidate — regression: type-list drift', async () => {
+    const env = mockEnv();
+    const analysisCand = { ...cand, key: 'agentic-prompt-injection', type: 'analysis' };
+    // Stored in the new per-type blob, as production does.
+    env.__store.set('candidates:analysis:all', JSON.stringify([analysisCand]));
+    const r = await app().request(
+      `/api/v1/admin/candidates/${analysisCand.key}/generate?type=analysis`,
+      {
+        method: 'POST',
+        headers: { 'X-Admin-Token': 'sekret', 'content-type': 'application/json' },
+        body: JSON.stringify({ formats: [] }), // no AI calls — isolates the lookup
+      },
+      env
+    );
+    expect(r.status).toBe(200); // was 404 "candidate not found" (analysis missing from route TYPES)
   });
 
   it('manual metrics entry is stored and surfaced in the analytics aggregate', async () => {

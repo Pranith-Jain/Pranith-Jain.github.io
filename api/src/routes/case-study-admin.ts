@@ -3,7 +3,13 @@ import type { Env } from '../env';
 import type { Candidate, CaseStudyType, Post, PostIOC, PostSource, SocialContent } from '../case-study/types';
 import { requireAdminMiddleware } from '../lib/admin-auth';
 import { safeJsonBody } from '../lib/safe-body';
-import { listAllCandidates, getCandidate, deleteCandidate, countAllCandidates } from '../case-study/storage/candidates';
+import {
+  listAllCandidates,
+  getCandidate,
+  deleteCandidate,
+  countAllCandidates,
+  CANDIDATE_TYPES,
+} from '../case-study/storage/candidates';
 import { getDedup, touchDedup, suppressDedupMany } from '../case-study/storage/dedup';
 import {
   getSocialSchedule,
@@ -80,20 +86,11 @@ function validSlug(slug: string | undefined): slug is string {
   return !!slug && slug.length <= 200 && slug !== 'index' && SLUG_RE.test(slug);
 }
 
-const TYPES: CaseStudyType[] = [
-  'cve',
-  'actor',
-  'malware',
-  'ransom',
-  'breach',
-  'scam',
-  'aisec',
-  'intel',
-  'osint',
-  'methodology',
-  'trend',
-  'briefing',
-];
+// Single source of truth for candidate content types — shared with the
+// storage/list layer so the approve/generate/skip lookup can never drift from
+// what `listAllCandidates` shows (the `analysis`/`tool`/`news` "candidate not
+// found" bug).
+const TYPES = CANDIDATE_TYPES;
 
 export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
   // Sub-app pattern: middleware applies only to /api/v1/admin/*, not globally.
