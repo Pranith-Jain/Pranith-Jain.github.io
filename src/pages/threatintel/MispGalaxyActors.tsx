@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ExternalLink, Flag, Search, Users } from 'lucide-react';
-import { DataPageLayout } from '../../components/DataPageLayout';
+import { DataPageLayout, useInsideDataPageLayout } from '../../components/DataPageLayout';
 
 interface GalaxyActor {
   value: string;
@@ -45,6 +45,9 @@ function chip(active: boolean): string {
 }
 
 export default function MispGalaxyActors(): JSX.Element {
+  // Rendered as a tab inside ActorDirectory's DataPageLayout, so suppress this
+  // page's own back link when nested to avoid a duplicate "back" control.
+  const insideLayout = useInsideDataPageLayout();
   const [data, setData] = useState<GalaxyResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -147,6 +150,7 @@ export default function MispGalaxyActors(): JSX.Element {
   return (
     <DataPageLayout
       backTo="/threatintel"
+      hideBack={insideLayout}
       icon={<Users size={28} />}
       title="Threat-actor alias directory"
       description={description}

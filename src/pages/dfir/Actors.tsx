@@ -1,12 +1,16 @@
 import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
+import { useInsideDataPageLayout } from '../../components/DataPageLayout';
 import { ArrowLeft } from 'lucide-react';
 import { threatActors, type ActorStatus, type Sophistication } from '../../data/dfir/threat-actors';
 import { ActorCard } from '../../components/dfir/ActorCard';
 import { ActorFilterBar } from '../../components/dfir/ActorFilterBar';
 
 export default function Actors(): JSX.Element {
+  // Suppress the back link when rendered as a tab inside ActorDirectory's
+  // DataPageLayout (avoids a duplicate "back" control).
+  const insideLayout = useInsideDataPageLayout();
   const [search, setSearch] = useState('');
   const [status, setStatus] = useState<'all' | ActorStatus>('all');
   const [sophistication, setSophistication] = useState<'all' | Sophistication>('all');
@@ -26,12 +30,14 @@ export default function Actors(): JSX.Element {
 
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
-      >
-        <ArrowLeft size={14} /> back
-      </BackLink>
+      {!insideLayout && (
+        <BackLink
+          to="/threatintel"
+          className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        >
+          <ArrowLeft size={14} /> back
+        </BackLink>
+      )}
       <div className="animate-fade-in-up">
         <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2">Threat Actors</h1>
         <p className="text-muted mb-8 max-w-2xl">

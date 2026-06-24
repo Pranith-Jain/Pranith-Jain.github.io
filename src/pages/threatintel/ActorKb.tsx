@@ -1,6 +1,7 @@
 import { useMemo, useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
+import { useInsideDataPageLayout } from '../../components/DataPageLayout';
 import { ArrowLeft, ExternalLink, Search, Users, Bug, Globe, BookOpen, RefreshCw, Sparkles } from 'lucide-react';
 import { type KbActor } from '../../data/dfir/actor-kb';
 import { DataState } from '../../components/DataState';
@@ -71,6 +72,9 @@ const TACTIC_ORDER = [
 const tacticLabel = (t: string) => t.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
 
 export default function ActorKb(): JSX.Element {
+  // Suppress the back link when rendered as a tab inside ActorDirectory's
+  // DataPageLayout (avoids a duplicate "back" control).
+  const insideLayout = useInsideDataPageLayout();
   const [params, setParams] = useSearchParams();
   const [q, setQ] = useState(params.get('q') ?? '');
   const selectedId = params.get('g');
@@ -231,12 +235,14 @@ export default function ActorKb(): JSX.Element {
 
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
-      >
-        <ArrowLeft size={14} /> back
-      </BackLink>
+      {!insideLayout && (
+        <BackLink
+          to="/threatintel"
+          className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        >
+          <ArrowLeft size={14} /> back
+        </BackLink>
+      )}
       <div className="animate-fade-in-up">
         <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-3 flex items-center gap-3">
           <Users size={28} className="text-brand-600 dark:text-brand-400" /> Threat-Actor Knowledge Base
